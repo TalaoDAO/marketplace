@@ -1,0 +1,189 @@
+<?php
+/**
+ * @file
+ * Allows current group manager to choose a new manager.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function og_manager_change_menu() {
+  $items = array();
+  $items['group/%/%/admin/manager'] = array(
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('og_manager_change_build_form', 1, 2),
+    'access callback' => 'og_manager_change_user_is_manager',
+    'access arguments' => array(1,2),
+    'title' => 'Change Manager',
+  );
+  $items['group/%/%/admin/manager/autocomplete/%'] = array(
+    'title' => 'OG Member Autocomplete',
+    'page callback' => 'og_manager_change_member_autocomplete',
+    'access callback' => 'og_manager_change_user_is_manager',
+    'access arguments' => (array(1, 2)),
+    'page arguments' => array(1, 2, 6),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+
+/**
+ * Form builder; OG manager change page.
+ */
+function og_manager_change_build_form($form, $form_state, $entity_type, $etid) {
+  og_set_breadcrumb($entity_type, $etid, array(l(t('Group'), "$entity_type/$etid/group")));
+
+  // Get the group entity, so we can check the user ID of the entity.
+  $entity = entity_load_single($entity_type, $etid);
+
+  // Set up the autocomplete path.
+  $autocomplete = 'group/' . $entity_type . '/' . $etid . '/admin/manager/autocomplete/'
+    . $entity->uid;
+
+  $form['new_manager'] = array(
+    '#type' => 'textfield',
+    '#autocomplete_path' => $autocomplete,
+    '#title' => t('Select new manager'),
+    '#description' => t('Enter the name of the member you want to be the new manager.'),
+  );
+
+  $form['group'] = array(
+    '#type' => 'value',
+    '#value' => $etid,
+  );
+
+  $form['type'] = array(
+    '#type' => 'value',
+    '#value' => $entity_type,
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Change'),
+  );
+
+  return $form;
+}
+
+/**
+ * Submit handler; Change the manager.
+ */
+function og_manager_change_build_form_submit($form, &$form_state) {
+  $username = $form_state['values']['new_manager'];
+  $gid = $form_state['values']['group'];
+  $group_type =  $form_state['values']['type'];
+  $user = user_load_by_name($username);
+
+  $group = entity_load_single($group_type, $gid);
+  // Update the uid on the entity.
+  $group->uid = $user->uid;
+  // Save the entity.
+  if (entity_save($form_state['values']['type'], $group)) {
+    drupal_set_message(t('Failed to change manager to @user.', array('@user' => $username)), 'error');
+  }
+  else {
+    drupal_set_message(t('Manager changed to @user.', array('@user' => $username)));
+  }
+  $form_state['redirect'] = $form_state['values']['type'] . '/' . $form_state['values']['group'] . '/group';
+}
+
+/**
+ * Validation function.
+ */
+function og_manager_change_build_form_validate($form, &$form_state) {
+  $username = $form_state['values']['new_manager'];
+  $gid = $form_state['values']['group'];
+  $group_type = $form_state['values']['type'];
+  $user = user_load_by_name($username);
+
+  // Make sure someone with the specified username exists.
+  if (!$user) {
+    form_set_error('new_manager', t('Unknown user: %user', array('%user' => $username)));
+  }
+  // Make sure the user is a member of the group.
+  elseif (!og_is_member($group_type, $gid, 'user', $user)) {
+    form_set_error('new_manager', t('User %user is not a member of this group.', array('%user' => $username)));
+  }
+}
+
+/**
+ * Implements hook_og_ui_get_group_admin().
+ */
+function og_manager_change_og_ui_get_group_admin($group_type, $gid) {
+  // Only show the option for the group manager.
+  if (og_manager_change_user_is_manager($group_type, $gid)) {
+    $items = array();
+
+    $items['manager'] = array(
+      'title' => t('Manager'),
+      'description' => t('Change the group manager.'),
+      'href' => "admin/manager",
+    );
+    return $items;
+  }
+}
+
+/**
+ * Auth callback.
+ */
+function og_manager_change_user_is_manager($group_type, $gid) {
+  global $user;
+  
+  $group = entity_load_single($group_type, $gid);
+  if (!$group || !og_is_group($group_type, $group)) {
+    return FALSE;
+  }
+  // Make sure the current user is the group manager.
+  if ($user->uid == $group->uid || $user->uid == 1) {
+    return TRUE;
+  }
+  else {
+    return FALSE;
+  }
+}
+
+/**
+ * Autocomplete function for new manager textfield.
+ */
+function og_manager_change_member_autocomplete($group_type, $gid, $manager_uid, $string='') {
+
+  // Array to store autocomplete results in the form uid=>name.
+  $results = array();
+  watchdog('test', print_r(entity_load_single($group_type, $gid), TRUE));
+  // Build a list of members.
+  $query = new EntityFieldQuery();
+  $query
+    ->entityCondition('entity_type', 'user')
+    ->propertyCondition('name', $string, 'CONTAINS');
+
+  /*
+  * If a numeric value for $manager_uid is passed, filter that uid from the
+  * results.  This is passed in the autocomplete path to avoid having to
+  * lookup the group manager for each request.  Worst case: the current manager
+  * is included in the autocomplete which really doesn't affect anything.
+  */
+  if (is_numeric($manager_uid)) {
+    // Fiter out the current manager.
+    $query->propertyCondition('uid', $manager_uid, '<>');
+  }
+
+  if ($result = $query->execute()) {
+    $uids = array_keys($result['user']);
+    $accounts = user_load_multiple($uids);
+    foreach ($accounts as $account) {
+      // Figure out if the user is a member of this group.
+      $groups = field_get_items('user', $account, 'og_user_' . $group_type);
+      foreach ($groups as $group) {
+        // Only add the user to the autocomplete list if he is a group member.
+        if($group['target_id'] = $gid) {
+          $results[$account->name] = check_plain($account->name);
+          break;
+        }
+      }
+    }
+  }
+  
+  drupal_json_output($results);
+}

@@ -1,0 +1,143 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function og_features_schema() {
+  $schema['og_features'] = array(
+    'fields' => array(
+      'entity_id' => array(
+        'type' => 'int',
+        'size' => 'normal',
+        'not null' => TRUE,
+      ),
+      'entity_type' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
+      'settings' => array(
+        'type' => 'blob', 
+        'size' => 'big', 
+        'not null' => TRUE, 
+        'serialize' => TRUE, 
+        'object default' => array()
+      ),
+    ),
+    'primary key' => array('entity_id', 'entity_type'),
+  );
+  
+  return $schema;
+}
+
+/**
+ * Implements hook_install().
+ */
+function og_features_install() {
+  // Set the module weight above all others
+  db_update('system')
+    ->fields(array(
+      'weight' => 100,
+    ))
+    ->condition('name', 'og_features')
+    ->execute();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function og_features_uninstall() {
+  // Remove all group entity-type settings
+  foreach (entity_get_info() as $entity_type => $entity_value) {
+    foreach ($entity_value['bundles'] as $bundle => $bundle_value) {
+      if (og_is_group_type($entity_type, $bundle)) {
+        variable_del("og_features_settings_{$entity_type}_{$bundle}");
+      }
+    }
+  }
+}
+
+/**
+ * Update the schema to no longer track just disabled features
+ */
+function og_features_update_6000() {
+  $ret = array();
+  
+  switch ($GLOBALS['db_type']) {
+    case 'mysql':
+    case 'mysqli':
+      $ret[] = update_sql("ALTER TABLE {og_features} CHANGE disabled settings LONGBLOB");
+      break;
+    case 'pgsql':
+      $ret[] = update_sql("ALTER TABLE {og_features} RENAME disabled TO settings");
+      break;
+  }
+  
+  // Update the records to include all features, not just disabled, 
+  // with their statuses for the group
+  $registry = og_features_get_registry();
+  $results = db_query("SELECT * FROM {og_features}");
+  while ($result = db_fetch_object($results)) {
+    // Unserialize
+    $result->settings = unserialize($result->settings);
+    // Mark disabled features as disabled
+    foreach ($result->settings as $key => $value) {
+      $result->settings[$key] = OG_FEATURES_FEATURE_DISABLED;
+    }
+    // Mark enabled features as enabled
+    foreach ($registry as $key => $feature) {
+      if (!isset($result->settings[$key])) {
+        $result->settings[$key] = OG_FEATURES_FEATURE_ENABLED;
+      }
+    }
+    // Save the new settings format
+    drupal_write_record('og_features', $result, 'nid');
+  }
+  
+  return $ret;
+}
+
+/**
+ * Update the schema for the 7.x branch
+ */
+function og_features_update_7000() {
+  $groups = array();
+  
+  // Ensure OG7 has been updated before proceeding
+  if (drupal_get_installed_schema_version('og', TRUE) < 7200) {
+    throw new DrupalUpdateException('Organic groups must update before OG features can. Try running update.php again.');
+    return;
+  }
+  
+  // Fetch all data from the table
+  $data = db_select('og_features', 'ogf')
+    ->fields('ogf')
+    ->execute()
+    ->fetchAllAssoc('nid');
+  
+  // Drop the old table
+  db_drop_table('og_features');
+  
+  // Install the new schema
+  drupal_install_schema('og_features');
+    
+  // Insert the settings for each group
+  foreach ($data as $group) {
+    db_insert('og_features')
+      ->fields(array(
+        'entity_id' => $group->nid,
+        'entity_type' => 'node',
+        'settings' => $group->settings,
+      ))
+      ->execute();
+  }
+  
+  // Migrate the node type settings
+  foreach (node_type_get_types() as $name => $type) {
+    $variable = "og_features_node_type_{$name}";
+    if ($settings = variable_get($variable, FALSE)) {
+      variable_set("og_features_settings_node_{$name}", $settings);
+      variable_del($variable);
+    }
+  }
+}

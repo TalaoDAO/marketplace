@@ -1,0 +1,14 @@
+name = Simple Timeline
+description = Creates a simple time-line out of posts selected in a view.
+package = Views
+core = 7.x
+dependencies[] = views
+files[] = simple_timeline_style_plugin.inc
+files[] = simple_timeline_row_plugin.inc
+
+; Information added by Drupal.org packaging script on 2014-01-02
+version = "7.x-1.0"
+core = "7.x"
+project = "simple_timeline"
+datestamp = "1388643810"
+

@@ -1,0 +1,32 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the advancedform module.
+ *
+ */
+
+
+/**
+ * Implements hook_install().
+ */
+function advancedform_install() {
+  // Set a high weight so the module is called after other modules that
+  // modify forms.
+  // TODO Please review the conversion of this statement to the D7 database API syntax.
+  /* db_query('UPDATE {system} SET weight = 20 WHERE name = "advancedform"') */
+  db_update('system')
+  ->fields(array(
+    'weight' => 20,
+  ))
+  ->condition('name', "advancedform")
+  ->execute();
+  drupal_set_message(t("Advanced Form has been enabled. Visit !settings to check the rules.", array('!settings' => l('admin/config/advancedform', t('settings')))));
+}
+
+/**
+ * @todo Please document this function.
+ * @see http://drupal.org/node/1354
+ */
+function advancedform_uninstall() {
+  variable_del('advancedform_rules_global');
+}

@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Advancedform syntax examples</title>
+</head>
+<body>
+
+<h2>Examples</h2>
+<p>
+Internally, the hiding is done via CSS on the client-side, and CSS syntax and
+selectors are used to identify the elements to remove.
+<p>
+You often want to hide the form elements "wrapper" div, so the containing 
+element of items starting with #edit- will also be hidden.
+<br/>
+Eg, if you are trying to hide <code>'#edit-menu-description'</code>, then the whole
+<code>.form-item-menu-description</code> will be hidden.
+
+Inspect the source of any form on your site to see the new classes that have
+been added to the form element to assist this utility.
+</p>
+<pre>node-form:[#revision-information, #edit-date]</pre>
+<p>
+will demote the revision log box and date editor from the interface.
+</p>
+<pre>node-form:[#edit-log, #edit-date, #input-format, #authoring-information, #publishing-options]</pre>
+<p>
+is quite aggressive, but makes your interface really clean by removing most admin UI elements.
+</p><p>
+If you want, you can also enter arbitrary css-selectors. Hiding :
+</p>
+<pre>node-form:[.description,label]</pre>
+... will make your form really hard to use by removing the labels.
+Hiding :
+<pre>node-form:fieldset.collapsed</pre>
+<p>
+will doubly-hide unused (normally collapsed) things.
+<h4>Syntax</h4>
+<p>The [] array syntax is optional if only setting one value.
+<pre>node-form:#revision-information
+node-form:#url</pre>
+and
+<pre>node-form:[#revision-information, #url]</pre>
+are equivalent, both will work.
+</p>
+<h3>Per-content-type rules</h3>
+<p>
+Normally the first token in your configs should match the specific form id.
+  <pre>&lt;form ... id="block-admin-configure" &gt;</pre>
+ 
+Node forms are treated as a special case. You can target specific content types 
+with their explicit form id, eg:
+  <pre>&lt;form ... id="article-node-form" &gt;</pre>
+
+A generic form rule for all node forms can also be defined using the pseudo-key
+<code>node-form</code>,
+This will be applied to edit forms for all types.
+ 
+<pre>
+node-form:#revision-information
+page-node-form:#edit-date
+article-node-form:[#menu, #url]
+article-node-form:{.user-role-editor:[#book-outline]}
+      </pre>
+This will: <ul><li>
+Hide revision info on all nodes,
+</li><li>
+Hide date on all "Page" nodes, (CSS selector <code>#node-form.node-type-page</code>)
+</li><li>
+Hide URL alias and menu settings on all "Article" nodes.
+</li><li>
+Remove the "book outline" widget from "page" types 
+<a href="#per-type">if the user is 'editor'</a>.<sup>*</sup>
+</li></ul>
+<small>True JSON would want all those values quoted, don\'t do that, the quotes will be added automatically for you</small>
+<blockquote>
+[*] The Book module permissions allow admins to add <em>any</em> content type
+to books, which is nice, but you can\'t turn that feature off if it\'s unwanted.
+There are a few user permissions like that throughout Drupal, because admins
+or UID-1 bypass most of the access checks.
+This presents us with too many widgets onscreen a lot of the time.
+Rather than hack the core permissions system, we just remove these options from
+normal use.
+</blockquote>
+<h3>New Nodes</h3>
+<p>An additional class (<code>.node-new</code>) is added to "new" nodes
+being created. This allows us to hide even more fields if they are decided
+to be irrelevant when first making a node, and really clean up the first edit
+page.
+</p>
+<pre>
+node-form:{.node-new:[#revision-information,#flag-for-archiving]}
+</pre>
+<p>This will make the named form elements unavailable on brand-new nodes.
+
+<h3 id="per-role">Per-role rules</h3>
+<pre>
+node-form:{.user-role-authenticated-user[#comment-settings]}
+node-form:{.user-role-content-editor[#file-attachments]}
+</pre>
+This will: <ul><li>
+Hide comment settings on nodes for all authenticated users.
+</li><li>
+Hide attachments on nodes for content editors.
+</li></ul>
+<p>The rules define the things to be <em>excluded</em> and they match cumulatively (an OR rule)
+so take care with per-role settings. Using a rule for .user-role-authenticated-user
+will also apply to admins and UID-1, as they are authenticated.
+Using a rule for .user-role-content-editor will apply to admins <em>if that user is also a content editor</em>
+</p>
+<p>
+Per-role rules are available to all forms, not just node forms.
+The class to use is always the string <code>user-role-</code> followed by a
+css-safe version of the role name.
+</p>
+
+<h3 id="per-taxonomy">Per-taxonomy rules</h3>
+<p><em>Any</em> selectbox on the form will also insert an additional selector
+into the form element you can use. 
+The format is <code>selected-<b>tag</b></code>
+<pre>
+node-form:{.selected-marketing[#file-attachments]}
+</pre>
+This will: <ul><li>
+Hide attachment settings on nodes when the 'marketing' tag is selected.
+</li></ul>
+<small>This method may add some weird values in some cases, as <em>every</em>
+select element is scanned for this feature, not just taxonomies.
+</small>
+
+<h3>Combining selectors</h3>
+<p>The rules are created using CSS syntax, keyed by the classes that are
+added to the node form. You can inspect the DOM on the edit page to see which classes have been added for you.
+Combine the selectors with a "." and no space to create specific restrictions.
+</p>
+<code>
+page-node-form:{.user-role-<b>content-editor</b>.selected-<b>marketing</b>>:[#comment-settings]}
+</code>
+<p>
+This will: <ul><li>
+Hide comment settings on "page" nodes for all content editors when the 
+'marketing' option is selected from tags in the form.
+</li></ul>
+</p>
+<p>
+With this sort of rule in place, you can allow content editors to control things
+on other node types (like story or blog) but remove that option from static
+"page" types.
+This works around the limitation of Drupal permissions that only enable or
+disable this feature on a global level.
+</p>
+<em>This is not a substitute for real permissions</em> as the user can choose to
+expose and use that feature if they really want to. It just removes the clutter
+from the form for everyday use.
+
+<h3>Other forms</h3>
+<p>Are your users scared of complexity,
+but you still need to give them access to some Drupal internals?
+</p>
+<pre>
+block-admin-configure:{.user-role-content-editor:[#edit-user,#edit-role]}
+</pre>
+<p>
+This will remove some advanced elements from the block edit form, but still
+leave it usable for everyday administration. <sup>*</sup>
+</p>
+<h3>Vertical tabs</h3>
+* This is <em>not currently compatible with vertical tabs.</em>
+You can hide elements inside vertical tab groups, but not the whole tab.
+<h2>Developer</h2>
+<p>
+If you want to inspect the CSS rules that are created by this utility,
+you can check out the URL /advancedform_css/node-form , where "node-form"
+is any form id.
+You will see that and "advancedform-filtered" instance of that form will
+have the named form elements hidden, and if the form is switched
+(to no longer have the "advancedform-filtered" class), then the hidden elements
+will show up again.
+<br/>This utility works client-side with javascript,
+and has no effect with javascript off (all fields dispaly as normal)
+</p>
+
+</body>
+</html>

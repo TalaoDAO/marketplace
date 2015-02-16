@@ -1,0 +1,88 @@
+<?php
+
+/**
+ * @file
+ * Install file for the answers module
+ */
+require_once dirname(__FILE__) . '/answers.features.field.inc';
+
+/**
+ * Implements hook_uninstall().
+ */
+function answers_uninstall() {
+  variable_del('answers_new_answer_notice_subject');
+  variable_del('answers_new_answer_notice_body');
+  variable_del('answers_new_answer_notice_allow_p');
+  variable_del('answers_question_create_button_text');
+  variable_del('answers_question_edit_button_text');
+  variable_del('answers_answer_create_button_text');
+  variable_del('answers_answer_edit_button_text');
+}
+
+/**
+ * Add 'field_question_locked_p' to the question content type.
+ */
+function answers_update_7200() {
+
+  $fields = answers_field_default_fields();
+
+  if (!field_info_field('field_question_locked_p')) {
+    $field = $fields['node-question-field_question_locked_p']['field_config'];
+  field_create_field($field);
+  }
+
+  if (!field_info_instance('node', 'field_question_locked_p', 'question')) {
+    $instance = $fields['node-question-field_question_locked_p']['field_instance'];
+  field_create_instance($instance);
+  }
+
+  return array();
+}
+
+/**
+ * Make sure that custom question fields have values set.
+ * If one doesn't, set the default value.
+ */
+function answers_update_7201() {
+  $result = db_query("SELECT * from {node} WHERE type = 'question';");
+  foreach($result as $question) {
+    $question = node_load($question->nid);
+  _answers_set_default_question_field_values($question);
+  }
+  return array();
+}
+
+/**
+ * Test to ensure that each custom field has a value
+ * set. If not, set it to the appropriate default.
+ */
+function _answers_set_default_question_field_values($question) {
+  $changed_p = FALSE;
+
+  if (isset($question->field_answer_count['und'][0]['count'])) {
+    $question->field_question_locked_p['und'][0]['count'] = 0;
+    $changed_p = TRUE;
+  }
+  if (isset($question->field_notify_p['und'][0]['value'])) {
+    $question->field_notify_p['und'][0]['value'] = 0;
+    $changed_p = TRUE;
+  }
+  if (isset($question->field_question_locked_p['und'][0]['value'])) {
+    $question->field_question_locked_p['und'][0]['value'] = 0;
+    $changed_p = TRUE;
+  }
+
+  if ($changed_p) {
+    watchdog('answers', 'Set default question fields for nid ' . $question->nid);
+    node_save($question);
+  }
+}
+
+/**
+ * Reset the theme cache so that answers theming is enabled
+ */
+function answers_update_7300() {
+  watchdog('answers', 'Enable answers theming');
+  drupal_theme_rebuild();
+  return array();
+}

@@ -1,0 +1,237 @@
+<?php
+
+/**
+ * @file
+ *
+ *
+ */
+
+class SudoTestCase extends DrupalWebTestCase {
+
+  /**
+   * Implementation of getInfo().
+   */
+  function getInfo() {
+    return array(
+      'name' => 'Sudo tests',
+      'description' => 'test functionality of sudo form and menu item',
+      'group' => 'Sudo',
+    );
+  }
+
+  var $role_test, $role1, $role2 = NULL;
+  var $user_test, $user1, $user2 = NULL;
+
+  function setUp() {
+
+    parent::setUp('sudo');
+
+    $this->role_test = $this->drupalCreateRole(array('access administration pages', 'administer permissions', 'administer menu', 'administer users', 'administer site configuration', 'access site in maintenance mode'));
+    $this->role1 = $this->drupalCreateRole(array('access content'));
+    $this->role2 = $this->drupalCreateRole(array('access content'));
+    $this->user_test = $this->drupalCreateUser(array('access content'));
+    $this->user1 = $this->drupalCreateUser(array('access content'));
+    $this->user2 = $this->drupalCreateUser(array('access content'));
+    user_multiple_role_edit(array($this->user_test->uid), 'add_role', $this->role_test);
+    $this->drupalLogin($this->user_test);
+
+  }
+
+  function testSudo() {
+
+    // test sudo administration page look
+    $this->drupalGet('admin/people/sudo');
+    $this->assertResponse(200, 'Sudo administration screen is visible');
+
+    // test adding a user
+    $edit = array('new_sudoer' => $this->user_test->name);
+    $this->drupalPost('admin/people/sudo', $edit, t('Save'));
+    $this->assertText($this->user_test->name, 'Add user to sudoers');
+
+    // test adding roles to a user
+    $edit = array("checkboxes[{$this->user_test->uid}][roles][{$this->role_test}]" => TRUE);
+    $this->drupalPost('admin/people/sudo', $edit, t('Save'));
+    $this->assertFieldChecked("edit-checkboxes-{$this->user_test->uid}-roles-{$this->role_test}", 'Add roles for sudoers');
+
+    // test sudo form submission
+    $this->assertTrue(db_query("SELECT uid FROM {users_roles} WHERE uid = :uid AND rid = :rid", array(':uid' => $this->user_test->uid, ':rid' => $this->role_test))->fetchField(), 'Role is assigned to user');
+    $this->drupalPost('admin/people/sudo', array(), t('sudo'));
+    $this->assertFalse(db_query("SELECT uid FROM {users_roles} WHERE uid = :uid AND rid = :rid", array(':uid' => $this->user_test->uid, ':rid' => $this->role_test))->fetchField(), 'Role has been removed from user');
+    $this->assertRaw("<div id='sudo-button' class='normal'>", 'Sudo button disabled');
+
+    // test sudo administration page access denied
+    $this->assertResponse(403, 'Access to administration page is denied for users without "administer permissions"');
+
+    // test sudo form submission
+    $this->drupalPost('admin/people/sudo', array(), t('sudo'));
+    $this->assertTrue(db_query("SELECT uid FROM {users_roles} WHERE uid = :uid AND rid = :rid", array(':uid' => $this->user_test->uid, ':rid' => $this->role_test))->fetchField(), 'Role has been added to user');
+    $this->assertRaw("<div id='sudo-button' class='sudoing'>", 'Sudo button enabled');
+
+    // test hiding the button, changing names on button
+    $edit = array(
+      'sudo_hide_button' => TRUE,
+      'sudo_title_sudoing' => 'sudo_title_sudoing',
+      'sudo_title_normal' => 'sudo_title_normal',
+    );
+    $this->drupalPost('admin/people/sudo', $edit, t('Save'));
+    $this->assertFieldByName('sudo_title_normal', 'sudo_title_normal', 'Button title saved for normal');
+    $this->assertFieldByName('sudo_title_sudoing', 'sudo_title_sudoing', 'Button title saved for sudoing');
+    $this->assertNoRaw("<div id='sudo-button'", 'Button hidden');
+    $this->drupalPost('admin/people/sudo', array('sudo_hide_button' => FALSE), t('Save'));
+    $this->assertRaw("<div id='sudo-button'", 'Button visible');
+
+    // test changed names
+    $this->drupalPost('admin/people/sudo', array(), t('sudo_title_sudoing'));
+    $this->assertResponse(403, 'Button title rendered for sudoing');
+    $this->drupalPost('admin/people/sudo', array(), t('sudo_title_normal'));
+    $this->assertResponse(200, 'Button title rendered for normal');
+
+
+    // DEFAULT ROLES
+
+    // after adding default roles, they should show up on the form and in variable_get
+    $edit = array("sudo_default_roles[{$this->role1}]" => $this->role1);
+    $this->drupalPost('admin/people/sudo', $edit, t('Save'));
+    $this->assertFieldChecked("edit-sudo-default-roles-{$this->role1}", "Default role shows up on form");
+    $this->assertTrue(in_array($this->role1, $var = variable_get('sudo_default_roles', array())), "Default role is in variable table (" . serialize($var) . ')');
+
+    // after saving a user with a default role, that user should show up in sudo table
+    $this->assertFalse(db_query("SELECT uid FROM {sudo} WHERE uid = :uid", array(':uid' => $this->user1->uid))->fetchField(), 'User 1 does not appear in users table');
+    user_multiple_role_edit(array($this->user1->uid), 'add_role', $this->role1);
+    $this->assertTrue(db_query("SELECT uid FROM {sudo} WHERE uid = :uid", array(':uid' => $this->user1->uid))->fetchField(), 'User 1 now appears in users table');
+
+    // add a non-default sudo role to the sudo user, but don't enable it on the user
+    $edit = array("checkboxes[{$this->user1->uid}][roles][{$this->role2}]" => TRUE);
+    $this->drupalPost('admin/people/sudo', $edit, t('Save'));
+    $this->assertFieldChecked("edit-checkboxes-{$this->user1->uid}-roles-{$this->role2}", 'Add non-default sudo role');
+
+    // after removing the default sudo role on user save,
+    user_multiple_role_edit(array($this->user1->uid), 'remove_role', $this->role1);
+    // the role should no longer be on the user's account,
+    $this->assertFalse(db_query("SELECT rid FROM {users_roles} WHERE uid = :uid AND rid = :rid", array(':uid' => $this->user1->uid, ':rid' => $this->role1))->fetchField(), "Default sudo role was successfully removed from user");
+    // the user should still be in the sudo table,
+    $sudo_roles = sudo_roles($this->user1->uid);
+    $this->assertTrue(db_query("SELECT uid FROM {sudo} WHERE uid = :uid", array(':uid' => $this->user1->uid))->fetchField(), "User is still in the sudo table after removing default sudo role ($sudo_roles)");
+    // the default sudo role should no longer be among the user's sudo roles,
+    $this->assertFalse(in_array($this->role1, $sudo_roles), 'Default sudo role, removed on user save, is no longer among sudo roles');
+    // but the non-default sudo role should still be among the user's sudo roles
+    $this->assertTrue(in_array($this->role2, $sudo_roles), 'Non-default sudo role, left blank on user save, is still among sudo roles (sudo roles must only be removed on user save if a role was intentionally removed)');
+
+    // save the user with the remaining sudo role
+    user_multiple_role_edit(array($this->user1->uid), 'add_role', $this->role2);
+
+    // after removing the remaining sudo role on user save, the user should no longer be in the sudo table
+    user_multiple_role_edit(array($this->user1->uid), 'remove_role', $this->role2);
+    $this->assertFalse(db_query("SELECT uid FROM {sudo} WHERE uid = :uid", array(':uid' => $this->user1->uid))->fetchField(), "After removing last sudo role, user is deleted from sudo table");
+
+    // add sudo roles to a sudo user
+    // TODO Please review the conversion of this statement to the D7 database API syntax.
+    /* db_query("INSERT INTO {sudo} (uid, roles) VALUES (%d, '%s')", $this->user2->uid, serialize(array($this->role1, $this->role2))) */
+    $id = db_insert('sudo')
+  ->fields(array(
+      'uid' => $this->user2->uid,
+      'roles' => serialize(array($this->role1, $this->role2)),
+    ))
+  ->execute();
+    // TODO Please review the conversion of this statement to the D7 database API syntax.
+    /* db_query("INSERT INTO {sudo} (uid, roles) VALUES (%d, '%s')", $this->user1->uid, serialize(array($this->role1, $this->role2))) */
+    $id = db_insert('sudo')
+  ->fields(array(
+      'uid' => $this->user1->uid,
+      'roles' => serialize(array($this->role1, $this->role2)),
+    ))
+  ->execute();
+
+
+    // REMOVING ROLES
+    // when removing sudo roles from a sudo user,
+    $edit = array(
+      "checkboxes[{$this->user1->uid}][roles][{$this->role_test}]" => $this->role_test,
+      "checkboxes[{$this->user1->uid}][roles][{$this->role1}]" => FALSE,
+      "checkboxes[{$this->user1->uid}][roles][{$this->role2}]" => FALSE,
+    );
+    $this->drupalPost("admin/people/sudo", $edit, t('Save'));
+    // the confirmation screen should show, asking about the removed sudo roles
+    $this->assertText(t('Which roles should these users have?'), "Confirmation screen shows on removing sudo roles");
+    $sudo_roles = sudo_roles($this->user1->uid);
+    $this->assertTrue(in_array($this->role_test, $sudo_roles), "Intented sudo roles are added ($sudo_roles)");
+    $edit = array("sudo_role_remove[{$this->user1->uid}][$this->role1]" => $this->role1);
+    $this->drupalPost(NULL, $edit, t('Continue'));
+    // checked roles should be added to the account, unchecked roles should be removed
+    $sudo_roles = sudo_roles($this->user1->uid);
+    $this->assertTrue(in_array($this->role_test, $sudo_roles), "Intented sudo roles are added ($sudo_roles)");
+    $this->assertFalse(in_array($this->role1, $sudo_roles), "Intented sudo roles are removed");
+    $this->assertFalse(in_array($this->role2, $sudo_roles), "Intented sudo roles are removed");
+    $this->assertTrue(db_query("SELECT uid FROM {users_roles} WHERE uid = :uid AND rid = :rid", array(':uid' => $this->user1->uid, ':rid' => $this->role1))->fetchField(), "Checked roles are added to the user account");
+    $this->assertFalse(db_query("SELECT uid FROM {users_roles} WHERE uid = :uid AND rid = :rid", array(':uid' => $this->user1->uid, ':rid' => $this->role2))->fetchField(), "Unchecked roles are removed from the user account");
+
+
+    // SAVING A USER THAT ALWAYS HAS A DEFAULT SUDO ROLE
+    $account = user_load($this->user1->uid);
+    user_save($account, array('roles' => array($this->role1 => $this->role1)));
+    $sudo_roles = sudo_roles($account->uid);
+    $this->assertFalse(in_array($this->role1, $sudo_roles), "Intented sudo roles are removed ($sudo_roles)");
+
+
+    // DELETING A USER
+    user_cancel(array(), $this->user1->uid, $method = 'user_cancel_block' /* TODO Set this variable */);
+    $this->assertFalse(db_query("SELECT uid FROM {sudo} WHERE uid = :uid", array(':uid' => $this->user1->uid))->fetchField(), "Deleting a user deletes data from sudo table");
+
+
+    // REMOVING SUDO USER ENTIRELY
+    // when removing a sudo user entirely,
+    $edit = array(
+      "checkboxes[{$this->user2->uid}][remove]" => TRUE,
+      "checkboxes[{$this->user2->uid}][roles][{$this->role2}]" => FALSE,
+    );
+    $this->drupalPost('admin/people/sudo', $edit, t('Save'));
+    // the confirmation screen should show, asking about all of that user's sudo roles (not just checked)
+    $this->assertText(t('Which roles should these users have?'), "Confirmation screen shows on removing sudo roles");
+    $this->assertFieldById("edit-sudo-remove-{$this->user2->uid}-{$this->role1}", FALSE, "Asking what do to about roles");
+    $this->assertFieldById("edit-sudo-remove-{$this->user2->uid}-{$this->role2}", FALSE, "Asking what do to about roles (unchecked roles on removed users from sudo admin screen do not show up on confirmation form)");
+    $edit = array("sudo_remove[{$this->user2->uid}][$this->role2]" => $this->role2);
+    $this->drupalPost(NULL, $edit, t('Continue'));
+
+    // checked roles should be added to the account, unchecked roles should be removed
+    $this->assertTrue(db_query("SELECT uid FROM {users_roles} WHERE uid = :uid AND rid = :rid", array(':uid' => $this->user2->uid, ':rid' => $this->role2))->fetchField(), "Checked roles are added to the user account");
+    $this->assertFalse(db_query("SELECT uid FROM {users_roles} WHERE uid = :uid AND rid = :rid", array(':uid' => $this->user2->uid, ':rid' => $this->role1))->fetchField(), "Unchecked roles are removed from the user account");
+
+    // and the user should no longer be in the sudo table
+    $this->assertFalse(db_query("SELECT uid FROM {sudo} WHERE uid = :uid", array(':uid' => $this->user2->uid))->fetchField(), 'Removed sudoer is no longer in the sudo table');
+
+
+    // ADDING MULTIPLE USERS
+    $this->drupalPost('admin/people/people', array("accounts[{$this->user2->uid}]" => $this->user2->uid, 'operation' => 'sudoadd'), t('Update'));
+    // TODO: show sudo roles in admin/people/people
+    // TODO: add default sudo roles to accounts on multiple account additions
+    // TODO: enable mass delete of sudo roles from admin/people/people?
+    $this->drupalGet('admin/people/sudo');
+    $this->assertText($this->user2->name, 'Users can be added via user operations');
+
+    // DELETING A USER WITH NO SUDO ROLES
+    $this->drupalPost(NULL, array("checkboxes[{$this->user2->uid}][remove]" => TRUE), t('Save'));
+    $this->drupalPost(NULL, array(), t('Continue'));
+    $this->assertTrue(0 == $count = db_query('SELECT COUNT(*) FROM {sudo} WHERE uid = :uid', array(':uid' => $this->user2->uid))->fetchField(), "Sudoer with no sudo roles properly removed ($count)");
+
+    // MAINTENANCE MODE
+    db_insert('sudo')
+      ->fields(array(
+        'uid' => $this->user2->uid,
+        'roles' => serialize(array('4')),
+      ))
+      ->execute();
+    $this->assertTrue(0 == db_query('SELECT COUNT(*) FROM {users_roles} WHERE uid = :uid AND rid = 4', array(':uid' => $this->user2->uid))->fetchField(), "A user is missing some sudo roles before maintenance mode.");
+    $this->drupalPost('admin/config/development/maintenance', array('maintenance_mode' => TRUE), t('Save configuration'));
+    $this->assertTrue(1 == $count = db_query('SELECT COUNT(*) FROM {users_roles} WHERE uid = :uid AND rid = 4', array(':uid' => $this->user2->uid))->fetchField(), "All sudo users' roles automatically elevated when in maintenance mode ($count).");
+
+    // MODULE DISABLE
+    db_delete('users_roles')
+      ->condition(db_and()->condition('uid', $this->user2->uid)->condition('rid', 4))
+      ->execute();
+    $this->assertTrue(0 == db_query('SELECT COUNT(*) FROM {users_roles} WHERE uid = :uid AND rid = 4', array(':uid' => $this->user2->uid))->fetchField(), "A user is missing some sudo roles before module disable.");
+    module_disable(array('sudo'));
+    $this->assertTrue(1 == $count = db_query('SELECT COUNT(*) FROM {users_roles} WHERE uid = :uid AND rid = 4', array(':uid' => $this->user2->uid))->fetchField(), "All sudo users' roles automatically elevated on module disable ($count).");
+
+  }
+
+}

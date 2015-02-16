@@ -1,0 +1,17 @@
+name = Content Type Thumbnail
+description = Add a thumbnail to a content type on the 'Add Content' page
+core = 7.x
+package = Fields
+configure = admin/config/content/content_type_thumbnail
+
+dependencies[] = image
+dependencies[] = node
+
+stylesheets[screen][] = content_type_thumbnail.css
+
+; Information added by drupal.org packaging script on 2013-03-28
+version = "7.x-1.5"
+core = "7.x"
+project = "content_type_thumbnail"
+datestamp = "1364494211"
+

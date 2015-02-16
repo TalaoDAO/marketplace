@@ -1,0 +1,46 @@
+name = Answers Userpoints
+description = Adds a user reputation system to the Answers service
+core = 7.x
+package = Answers
+php = 5.2.4
+version = 7.x-1.x
+project = aup
+dependencies[] = answers
+dependencies[] = best_answer
+dependencies[] = php
+dependencies[] = rate
+dependencies[] = rules
+dependencies[] = submitted_by
+dependencies[] = taxonomy
+dependencies[] = token
+dependencies[] = userpoints
+dependencies[] = userpoints_rules
+dependencies[] = voting_rules
+dependencies[] = votingapi
+features[ctools][] = strongarm:strongarm:1
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:1
+features[filter][] = php_code
+features[rules_config][] = rules_user_retracts_a_vote_down_on_a_question
+features[rules_config][] = rules_user_retracts_a_vote_down_on_an_answer
+features[rules_config][] = rules_user_retracts_a_vote_up_on_a_question
+features[rules_config][] = rules_user_retracts_a_vote_up_on_an_answer
+features[rules_config][] = rules_user_selects_a_best_answer
+features[rules_config][] = rules_user_unselects_a_prior_best_answer
+features[rules_config][] = rules_user_votes_down_a_question
+features[rules_config][] = rules_user_votes_down_an_answer
+features[rules_config][] = rules_user_votes_up_a_question
+features[rules_config][] = rules_user_votes_up_an_answer
+features[taxonomy][] = userpoints
+features[user_permission][] = view own userpoints
+features[user_permission][] = view rate results page
+features[user_permission][] = view userpoints
+features[variable][] = rate_widgets
+features[views_view][] = answers_user_reputation
+
+; Information added by drupal.org packaging script on 2013-08-18
+version = "7.x-1.2"
+core = "7.x"
+project = "aup"
+datestamp = "1376861768"
+

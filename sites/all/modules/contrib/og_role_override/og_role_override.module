@@ -1,0 +1,309 @@
+<?php
+
+/**
+ * @file og_role_override.module
+ * Allows Core roles to act as OG roles in specific group types.
+ *
+ * This module operates by implementing hook_og_user_access_alter() to alter
+ * OG's permission checks based on the core permissions the user has.
+ *
+ * However, a number of further tweaks are needed for certain circumstances
+ * where that doesn't work:
+ *  - hook_node_access() to allow creation of nodes where only the OG permission
+ *    would allow access to the user.
+ *  - hook_node_grants() for private groups and their group content.
+ *  - hook_query_TAG_alter() to change the groups a user sees in the group
+ *    reference field widget.
+ */
+
+/**
+ * Implements hook_permission().
+ *
+ * Defines core permissions based on OG group types and roles, of the form
+ * 'act as ROLE in GROUP-TYPE'.
+ */
+function og_role_override_permission() {
+  $permissions = array();
+
+  $entity_info = entity_get_info();
+
+  // Iterate over all group types; these all have different roles
+  $og_group_bundles = og_get_all_group_bundle();
+  foreach (array_keys($og_group_bundles) as $entity_type) {
+    foreach ($og_group_bundles[$entity_type] as $bundle_name => $bundle_label) {
+      $og_roles = og_roles($entity_type, $bundle_name);
+
+      // Create a core permission for each OG role in this group type.
+      foreach ($og_roles as $role_name) {
+        $permissions["act as $role_name in og $entity_type:$bundle_name"] = array(
+          'title' => t('Act as role "@role" in OG @entity @bundle groups', array(
+            '@role' => $role_name,
+            '@entity' => $entity_info[$entity_type]['label'],
+            '@bundle' => $bundle_label,
+          )),
+        );
+      }
+    }
+  }
+
+  return $permissions;
+}
+
+/**
+ * Implements hook_node_grants().
+ */
+function og_role_override_node_grants($account, $op) {
+  $cache = &drupal_static(__FUNCTION__, array());
+
+  if ($op != 'view') {
+    return;
+  }
+
+  if (isset($cache[$account->uid])) {
+    return $cache[$account->uid];
+  }
+
+  $grants = array();
+
+  // Work over all entity types and bundles that are groups, as that is how
+  // the permissions are made up.
+  $group_bundles = og_get_all_group_bundle();
+  foreach ($group_bundles as $group_entity_type => $group_bundles) {
+    foreach ($group_bundles as $group_bundle => $bundle_label) {
+      // Get all the roles for this group type.
+      $og_roles = og_roles($group_entity_type, $group_bundle);
+
+      foreach ($og_roles as $rid => $role_name) {
+        // Create the same permission string as in our hook_permission().
+        $core_permission_string = "act as $role_name in og $group_entity_type:$group_bundle";
+        // Check whether the given user has permission to act as one of these
+        // group roles.
+        if (user_access($core_permission_string, $account)) {
+          // It only suffices for one role to be granted, since view access to
+          // group content doesn't work on permissions and roles, only
+          // group membership. If the user account has permission to act as any
+          // role in the group type, then the user has effective membership,
+          // and should be granted access here.
+
+          // Get all the groups of this type, and grant the ids for all of them
+          // in the group type realm.
+          $groups = og_role_override_og_get_all_group($group_entity_type, $group_bundle);
+          // The realm only includes the entity type.
+          // We need to remain consistent with og_access_node_grants, though
+          // this may cause problems with multiple group types across the same
+          // entity type.
+          // See http://drupal.org/node/1997378
+          $realm = OG_ACCESS_REALM . ':' . $group_entity_type;
+          foreach ($groups as $gid) {
+            $grants[$realm][] = $gid;
+          }
+
+          // It only suffices for one role to be granted, since view access to
+          // group content doesn't work on permissions and roles, only
+          // group membership.
+          break;
+        }
+      }
+    }
+  }
+
+  $cache[$account->uid] = $grants;
+  return $grants;
+}
+
+/**
+ * Implements hook_node_access().
+ *
+ * og_node_access() takes care of denying access, so we just have to grant it
+ * if the user has the permission to act in the group.
+ */
+function og_role_override_node_access($node, $op, $account) {
+  $type = is_string($node) ? $node : (is_array($node) ? $node['type'] : $node->type);
+  $entity_info = entity_get_info();
+
+  // 'create' permission.
+  if ($op == 'create' && og_is_group_content_type('node', $type)) {
+    // Save some legwork if the user has the core permission.
+    if (user_access("create $type content", $account)) {
+      // We just ignore: core access will take care of it.
+      return NODE_ACCESS_IGNORE;
+    }
+
+    // Get all the OG role IDs that have permission to create a node of this
+    // type. This will be across all group types, but this means we only query
+    // the database once.
+    $og_permission_string = "create $type content";
+    // Fetch these keyed so we can intersect with the roles array further on.
+    $og_role_rids_may_create = db_query("SELECT rid FROM {og_role_permission} WHERE permission = (:permission)", array(
+      ':permission' => "create $type content",
+    ))->fetchAllKeyed(0,0);
+
+    foreach (og_get_group_audience_fields('node', $type) as $field_name => $label) {
+      $field = field_info_field($field_name);
+
+      $group_entity_type = $field['settings']['target_type'];
+      if ($field['settings']['handler_settings']['target_bundles']) {
+        $group_bundles = $field['settings']['handler_settings']['target_bundles'];
+      }
+      else {
+        // If the field does not have target bundles set, it means all apply.
+        $group_bundles = array_keys($entity_info[$group_entity_type]['bundles']);
+      }
+
+      // Act over all the group bundles.
+      foreach ($group_bundles as $group_bundle) {
+        // Get all the roles for this group type.
+        $og_roles_group = og_roles($group_entity_type, $group_bundle);
+
+        // Intersect with the role rids that may create nodes of this type, to
+        // find the roles within this group that may do so.
+        // This now gets us an array keyed by rid, where values are role names.
+        $og_roles_group_may_create = array_intersect_key($og_roles_group, $og_role_rids_may_create);
+
+        // Check all the roles for the core permission.
+        foreach ($og_roles_group_may_create as $og_rid => $og_role_name) {
+          // Create the same permission string as in our hook_permission().
+          $core_permission_string = "act as $og_role_name in og $group_entity_type:$group_bundle";
+          if (user_access($core_permission_string, $account)) {
+            // It suffices to check for one role which has access to create
+            // the node type.
+            return NODE_ACCESS_ALLOW;
+          }
+        }
+      }
+    }
+  }
+
+  // 'update' and 'delete' permissions go via OG permissions, and hence are
+  // covered by og_role_override_og_user_access_alter().
+}
+
+/**
+ * Implements hook_query_TAG_alter(): 'og'.
+ *
+ * Alter a query that populates group entity values in a group entityreference
+ * field.
+ *
+ * Technically this should be in the admin half of the OG widget, but it doesn't
+ * seem possible to alter that.
+ */
+function og_role_override_query_og_alter(QueryAlterableInterface $query) {
+  $handler = $query->getMetadata('entityreference_selection_handler');
+  $field = $query->getMetadata('field');
+  $entity_info = entity_get_info();
+
+  // Get the group type and bundle(s) that the group field being queried for
+  // points to.
+  $group_entity_type = $field['settings']['target_type'];
+  if ($field['settings']['handler_settings']['target_bundles']) {
+    $group_bundles = $field['settings']['handler_settings']['target_bundles'];
+  }
+  else {
+    // If the field does not have target bundles set, it means all apply.
+    $group_bundles = array_keys($entity_info[$group_entity_type]['bundles']);
+  }
+
+  // Act over all the group bundles.
+  foreach ($group_bundles as $group_bundle) {
+    // Get all the roles for this group type.
+    $og_roles_group = og_roles($group_entity_type, $group_bundle);
+
+    // We don't need to check for any OG permission, just that the current user
+    // can act in the group.
+    // Check all the roles for the core permission.
+    foreach ($og_roles_group as $og_rid => $og_role_name) {
+      // Create the same permission string as in our hook_permission().
+      $core_permission_string = "act as $og_role_name in og $group_entity_type:$group_bundle";
+      if (user_access($core_permission_string)) {
+        // It suffices to check for one role which has access to create
+        // the node type.
+        // There are two possible situations:
+        //   a. The user is not in any groups. In this case, the condition on
+        //      the group entity id property has been doctored by
+        //      OgSelectionHandler::buildEntityFieldQuery() to a value of -1.
+        //   b. The user is in at least one group. In this case, the condition
+        //      on the group entity id property is an array of IDs.
+        // In both cases, we want to change this to return all groups of this
+        // type.
+        $conditions =& $query->conditions();
+
+        // We want the condition on the entity id property.
+        $condition_field_entity_id = $group_entity_type . '.' . $entity_info[$group_entity_type]['entity keys']['id'];
+
+        foreach ($conditions as $index => $condition) {
+          if (!is_array($condition)) {
+            // Skip conjunctions.
+            continue;
+          }
+
+          if (is_string($condition['field'])
+              && $condition['field'] == $condition_field_entity_id
+            ) {
+            unset($conditions[$index]);
+          }
+        }
+      }
+    }
+  }
+}
+
+
+/**
+ * Return all existing groups of an entity type and bundle.
+ *
+ * TODO: replace this when http://drupal.org/node/1997282 is fixed.
+ */
+function og_role_override_og_get_all_group($group_type = 'node', $group_bundle) {
+  if (!field_info_field(OG_GROUP_FIELD)) {
+    return array();
+  }
+
+  $query = new EntityFieldQuery();
+  $return = $query
+    ->entityCondition('entity_type', $group_type)
+    ->entityCondition('bundle', $group_bundle)
+    ->fieldCondition(OG_GROUP_FIELD, 'value', 1, '=')
+    // Neutralize the 'entity_field_access' query tag added by
+    // field_sql_storage_field_storage_query(). The result cannot depend on the
+    // access grants of the current user.
+    ->addTag('DANGEROUS_ACCESS_CHECK_OPT_OUT')
+    ->execute();
+
+  return !empty($return[$group_type]) ? array_keys($return[$group_type]) : array();
+}
+
+/**
+ * Implements hook_og_user_access_alter().
+ *
+ * Alters OG permission checks. We grant a user access if they have the core
+ * permission to act in the group type in question.
+ */
+function og_role_override_og_user_access_alter(&$perm, $context) {
+  // TODO: is static caching of some sort needed here?
+
+  $og_permission_string = $context['string'];
+  $account              = $context['account'];
+  $group_entity_type    = $context['group_type'];
+
+  list(, , $group_bundle) = entity_extract_ids($group_entity_type, $context['group']);
+
+  $og_roles = og_roles($group_entity_type, $group_bundle);
+  //dsm($og_roles);
+  $role_permissions = og_role_permissions($og_roles);
+  //dsm($role_permissions);
+
+  foreach ($og_roles as $rid => $role_name) {
+    // Create the same permission string as in our hook_permission().
+    $core_permission_string = "act as $role_name in og $group_entity_type:$group_bundle";
+    if (user_access($core_permission_string, $account)) {
+      // The given user may act as this role in this group.
+      // Therefore, see if this role has the permission in question.
+      if (isset($role_permissions[$rid][$og_permission_string])) {
+        // Allow the OG permission.
+        $perm[$og_permission_string] = TRUE;
+        // Bail: we don't need to check any further.
+        return;
+      }
+    }
+  }
+}

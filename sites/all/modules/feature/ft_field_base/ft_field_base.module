@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the FT Field base feature.
+ */
+
+include_once 'ft_field_base.features.inc';

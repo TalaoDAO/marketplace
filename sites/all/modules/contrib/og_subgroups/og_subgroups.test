@@ -1,0 +1,193 @@
+<?php
+
+/**
+ * @file
+ * Testing functions for OG Subgroups.
+ */
+
+class OgSubgroupHelperFunctionUnitTestCase extends DrupalUnitTestCase {
+  /**
+   * Array to use for testing.
+   *
+   * @var array
+   */
+  protected $array2;
+
+  public static function getInfo() {
+    return array(
+      'name' => 'og_subgroups_intersect_groups and og_subgroups_diff_groups',
+      'description' => 'Tests helper functions.',
+      'group' => 'OG Subgroups',
+    );
+  }
+
+
+  /**
+   * Tests drupal_array_diff_assoc_recursive().
+   */
+  public function testOgSubgroupHelperFunctions() {
+    drupal_load('module', 'og_subgroups');
+    $array_one = array(
+      'entity_type_1' => array(0, 1, 2, 3),
+      'entity_type_2' => array(0, 1, 2),
+    );
+    $array_two = array(
+      'entity_type_1' => array(0, 1, 2),
+      'entity_type_3' => array(0, 1, 2),
+    );
+    $intersect = array(
+      'entity_type_1' => array(0, 1, 2),
+    );
+    $diff = array(
+      'entity_type_1' => array(3 => 3),
+      'entity_type_2' => array(0, 1, 2),
+    );
+    $merge = array(
+      'entity_type_1' => array(0, 1, 2, 3),
+      'entity_type_2' => array(0, 1, 2),
+      'entity_type_3' => array(0, 1, 2),
+    );
+    $this->assertIdentical(og_subgroups_intersect_groups($array_one, $array_two), $intersect);
+    $this->assertIdentical(og_subgroups_diff_groups($array_one, $array_two), $diff);
+    $this->assertIdentical(og_subgroups_merge_groups($array_one, $array_two), $merge);
+  }
+}
+
+/**
+ * Test the Organic groups subgroups API.
+ */
+class OgSubgroupsAccessFromDescendanceTestCase extends DrupalWebTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Organic groups Subgroups permissions inheritance',
+      'description' => 'Test the access of users to subgroups.',
+      'group' => 'Organic groups subgroups'
+    );
+  }
+
+  function setUp() {
+    parent::setUp('og_subgroups', 'entity_feature', 'og_access');
+    // Add OG group field to the entity_test's "main" bundle.
+    og_create_field(OG_GROUP_FIELD, 'entity_test', 'main');
+    og_create_field(OG_USER_INHERITANCE_FIELD, 'entity_test', 'main');
+    og_create_field(OG_USER_INHERITANCE_PERMISSION_FIELD, 'entity_test', 'main');
+    og_create_field(OG_DEFAULT_ACCESS_FIELD, 'entity_test', 'main');
+    // Add audience field to create child groups.
+    $og_field = og_fields_info(OG_AUDIENCE_FIELD);
+    $og_field['field']['settings']['target_type'] = 'entity_test';
+    og_create_field(OG_AUDIENCE_FIELD, 'entity_test', 'main', $og_field);
+    og_create_field(OG_AUDIENCE_FIELD, 'node', 'article', $og_field);
+  }
+
+  /**
+   * Use cases:
+   * - Check that parent user has access to all permission he has on groups he
+   * is not member of but that are descendents of his group.
+   */
+  function testOgSubgroupsPermissions() {
+    // Create user.
+    $user1 = $this->drupalCreateUser();
+    $user2 = $this->drupalCreateUser();
+    $og_roles = og_roles('entity_test', 'main');
+    $test_perm = 'create article content';
+    $test_perm2 = 'update any article content';
+    og_role_change_permissions(array_search(OG_AUTHENTICATED_ROLE, $og_roles), array($test_perm => 1, $test_perm2 => 0));
+
+
+    $group_parent_inherit = entity_create('entity_test', array('name' => 'main', 'uid' => $user1->uid));
+    $wrapper = entity_metadata_wrapper('entity_test', $group_parent_inherit);
+    $wrapper->{OG_GROUP_FIELD}->set(1);
+    $wrapper->{OG_USER_INHERITANCE_FIELD}->set(1);
+    $wrapper->{OG_USER_INHERITANCE_PERMISSION_FIELD}->set(OG_USER_INHERITANCE_PERMISSION_INHERIT);
+    $wrapper->save();
+    og_group('entity_test', $group_parent_inherit->pid, array('entity_type' => 'user', 'entity' => $user2));
+    $this->assertTrue(og_user_access('entity_test', $group_parent_inherit->pid, $test_perm, $user2), t('User added to parent group has test permission.'));
+
+    // Make a child of group
+    $group_child = entity_create('entity_test', array('name' => 'main', 'uid' => $user1->uid));
+    $wrapper = entity_metadata_wrapper('entity_test', $group_child);
+    $wrapper->{OG_GROUP_FIELD}->set(1);
+    $wrapper->{OG_DEFAULT_ACCESS_FIELD}->set(1);
+    $wrapper->{OG_USER_INHERITANCE_FIELD}->set(1);
+    $wrapper->{OG_USER_INHERITANCE_PERMISSION_FIELD}->set(OG_USER_INHERITANCE_PERMISSION_INHERIT);
+    $wrapper->save();
+    $new_og_roles = og_roles('entity_test', 'main', $group_child->pid);
+    og_role_change_permissions(array_search(OG_AUTHENTICATED_ROLE, $new_og_roles), array($test_perm => 0));
+
+    $this->assertFalse(og_user_access('entity_test', $group_child->pid, $test_perm, $user2), t('User part of parent group does not have test permission in non-child.'));
+    og_group('entity_test', $group_parent_inherit->pid, array('entity_type' => 'entity_test', 'entity' => $group_child));
+
+    $parents = og_subgroups_parents_load('entity_test', $group_child->pid, TRUE, FALSE);
+    $this->assertTrue(!empty($parents['entity_test'][$group_parent_inherit->pid]), t('Parent group found via og_subgroups_parents_load'));
+
+    $children = og_subgroups_children_load('entity_test', $group_parent_inherit->pid);
+    $this->assertTrue(!empty($children['entity_test'][$group_child->pid]), t('Child group found via og_subgroups_children_load'));
+
+    drupal_static_reset('og_user_access');
+    drupal_static_reset('og_user_access_alter');
+    $this->assertTrue(og_user_access('entity_test', $group_child->pid, $test_perm, $user2), t('User part of parent group has test permission in child.'));
+
+    // Now make a grandchild.
+
+    // Make a child of group
+    $group_grand_child = entity_create('entity_test', array('name' => 'main', 'uid' => $user1->uid));
+    $wrapper = entity_metadata_wrapper('entity_test', $group_grand_child);
+    $wrapper->{OG_GROUP_FIELD}->set(1);
+    $wrapper->{OG_DEFAULT_ACCESS_FIELD}->set(1);
+    $wrapper->save();
+    $new_og_roles = og_roles('entity_test', 'main', $group_grand_child->pid);
+    og_role_change_permissions(array_search(OG_AUTHENTICATED_ROLE, $new_og_roles), array($test_perm => 0));
+    $this->assertFalse(og_user_access('entity_test', $group_grand_child->pid, $test_perm, $user2), t('User part of parent group does not have test permission in non-child.'));
+    og_group('entity_test', $group_child->pid, array('entity_type' => 'entity_test', 'entity' => $group_grand_child));
+
+    $parents = og_subgroups_parents_load('entity_test', $group_grand_child->pid);
+    $this->assertTrue(!empty($parents['entity_test'][$group_parent_inherit->pid]), t('Parent group found via og_subgroups_parents_load'));
+    $this->assertTrue(!empty($parents['entity_test'][$group_child->pid]), t('Parent group found via og_subgroups_parents_load'));
+
+    $children = og_subgroups_children_load('entity_test', $group_parent_inherit->pid);
+    $this->assertTrue(!empty($children['entity_test'][$group_child->pid]), t('Child group found via og_subgroups_children_load'));
+    $this->assertTrue(!empty($children['entity_test'][$group_grand_child->pid]), t('Child group found via og_subgroups_children_load'));
+
+    drupal_static_reset('og_user_access');
+    drupal_static_reset('og_user_access_alter');
+    $this->assertTrue(og_user_access('entity_test', $group_child->pid, $test_perm, $user2), t('User part of parent group has test permission in child.'));
+
+
+    $group_parent_no_inherit = entity_create('entity_test', array('name' => 'main', 'uid' => $user1->uid));
+    $wrapper = entity_metadata_wrapper('entity_test', $group_parent_no_inherit);
+    $wrapper->{OG_GROUP_FIELD}->set(1);
+    $wrapper->{OG_USER_INHERITANCE_FIELD}->set(1);
+    $wrapper->{OG_USER_INHERITANCE_PERMISSION_FIELD}->set(OG_USER_INHERITANCE_PERMISSION_CHILD);
+    $wrapper->save();
+    og_group('entity_test', $group_parent_no_inherit->pid, array('entity_type' => 'user', 'entity' => $user2));
+    $this->assertTrue(og_user_access('entity_test', $group_parent_no_inherit->pid, $test_perm, $user2), t('User added to parent group has test permission.'));
+    $this->assertFalse(og_user_access('entity_test', $group_parent_no_inherit->pid, $test_perm2, $user2), t('User added to parent group does not have test permission2.'));
+
+    // Make a child of group
+    $group_child_no_inherit = entity_create('entity_test', array('name' => 'main', 'uid' => $user1->uid));
+    $wrapper = entity_metadata_wrapper('entity_test', $group_child_no_inherit);
+    $wrapper->{OG_GROUP_FIELD}->set(1);
+    $wrapper->{OG_DEFAULT_ACCESS_FIELD}->set(1);
+    $wrapper->{OG_USER_INHERITANCE_FIELD}->set(1);
+    $wrapper->{OG_USER_INHERITANCE_PERMISSION_FIELD}->set(OG_USER_INHERITANCE_PERMISSION_CHILD);
+    $wrapper->save();
+    $new_og_roles = og_roles('entity_test', 'main', $group_child_no_inherit->pid);
+    og_role_change_permissions(array_search(OG_AUTHENTICATED_ROLE, $new_og_roles), array($test_perm => 0, $test_perm2 => 1));
+
+    $this->assertFalse(og_user_access('entity_test', $group_child_no_inherit->pid, $test_perm, $user2), t('User part of parent group does not have test permission in non-child.'));
+    $this->assertFalse(og_user_access('entity_test', $group_child_no_inherit->pid, $test_perm2, $user2), t('User part of parent group does not have test permission 2 in non-child.'));
+    og_group('entity_test', $group_parent_no_inherit->pid, array('entity_type' => 'entity_test', 'entity' => $group_child_no_inherit));
+
+    $parents = og_subgroups_parents_load('entity_test', $group_child_no_inherit->pid, TRUE, FALSE);
+    $this->assertTrue(!empty($parents['entity_test'][$group_parent_no_inherit->pid]), t('Parent group found via og_subgroups_parents_load'));
+
+    $children = og_subgroups_children_load('entity_test', $group_parent_no_inherit->pid);
+    $this->assertTrue(!empty($children['entity_test'][$group_child_no_inherit->pid]), t('Child group found via og_subgroups_children_load'));
+
+    drupal_static_reset('og_user_access');
+    drupal_static_reset('og_user_access_alter');
+    $this->assertFalse(og_user_access('entity_test', $group_child_no_inherit->pid, $test_perm, $user2), t('User part of parent group does not have test permission in child.'));
+    $this->assertTrue(og_user_access('entity_test', $group_child_no_inherit->pid, $test_perm2, $user2), t('User part of parent group does have test permission in child.'));
+
+  }
+}

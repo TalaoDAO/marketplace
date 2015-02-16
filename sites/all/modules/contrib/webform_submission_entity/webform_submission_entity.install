@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * @file
+ * Sets up the base table for our entity and a table to store information about
+ * the entity types.
+ */
+
+
+/**
+ * Implements hook_schema().
+ */
+function webform_submission_entity_schema() {
+  $schema = array();
+
+  $schema['webform_submission_entity'] = array(
+    'description' => 'The base table for webform_submission_entity entities.',
+    'fields' => array(
+      'wsid' => array(
+        'description' => 'Primary Key: Identifier for a webform_submission_entity.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'sid' => array(
+        'description' => 'Submission ID.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'nid' => array(
+        'description' => 'Node ID.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'created' => array(
+        'description' => 'The Unix timestamp when the webform_submission_entity was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('wsid'),
+    'indexes' => array(
+      'sid' => array('sid'),
+      'nid' => array('nid'),
+    ),
+  );
+
+  return $schema;
+}

@@ -1,0 +1,212 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function webform_entity_pages_menu() {
+  $items['webform-submission/%webform_entity_pages_submission'] = array(
+    'title' => 'View',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+    'description' => 'Display webform submissions on a new page callback as first class web content rather than a sub-page of the module page.  This is used to allow you to keep the normal webform submission page for normal use but to also have a public view.',
+    'page callback' => 'webform_entity_pages_webform_submission_page',
+    'page arguments' => array(1),
+    'access callback' => TRUE,
+    'access arguments' => array(TRUE),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function webform_entity_pages_permission() {
+  $perms = array();
+  foreach (webform_entity_get_types() as $type) {
+    $perms['view own webform submissions'] =  array(
+      'title' => t('View own webform %type submissions', array('%type' => $type->type)),
+      'description' => t('Allow this role to see their own submissions.'),
+    );
+    $perms['view any ' . $type->type . ' webform submissions'] =  array(
+      'title' => t('View any webform %type submissions', array('%type' => $type->type)),
+      'description' => t('Allow this role to see their own submissions.'),
+    );
+  }
+  return $perms;
+}
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function webform_entity_pages_ctools_plugin_directory($owner, $plugin_type) {
+  if ($owner == 'page_manager' || $owner == 'ctools') {
+    return 'plugins/' . $owner . '/' . $plugin_type;
+  }
+}
+
+/**
+ * Implements hook_pathauto().
+ */
+function webform_entity_pages_pathauto($op) {
+  switch ($op) {
+    case 'settings':
+      $settings = array();
+      $settings['module'] = 'webform_entity_pages';
+      $settings['token_type'] = 'webform_submission_entity';
+      $settings['groupheader'] = t('Webform Submission paths');
+      $settings['patterndescr'] = t('Default path pattern (applies to all webforms with blank patterns below)');
+      $settings['patterndefault'] = '[webform_submission_entity:node:url:path]/submission/[webform_submission_entity:sid]';
+      $settings['batch_update_callback'] = 'webform_entity_pages_pathauto_bulk_update_batch_process';
+      $settings['batch_file'] = drupal_get_path('module', 'webform_entity_pages') . '/webform_entity_pages.pathauto.inc';
+      $webform_types = webform_variable_get('webform_node_types');
+      if (count($webform_types)) {
+        $settings['patternitems'] = array();
+        foreach ($webform_types as $type) {
+          $settings['patternitems'][$type] = t('Pattern for all %type webform submission paths', array('%type' => $type));
+        }
+      }
+      return (object) $settings;
+    default:
+      break;
+  }
+}
+
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function webform_entity_pages_module_implements_alter(&$implementations, $hook) {
+  // Ensure we run after weboform_entity so that our tokens are available for
+  // pathauto replacement.
+  if ($hook == 'webform_submission_insert' || $hook == 'webform_submission_update' && isset($implementations['webform_entity_pages'])) {
+    $group = $implementations['webform_entity_pages'];
+    unset($implementations['webform_entity_pages']);
+    $implementations['webform_entity_pages'] = $group;
+  }
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+function webform_entity_pages_entity_info_alter(&$entity_info) {
+  $entity_info['webform_submission_entity']['uri callback'] = 'webform_entity_pages_uri';
+}
+
+/**
+ * Implements hook_webform_submission_insert().
+ */
+function webform_entity_pages_webform_submission_insert($node, $submission) {
+  if (module_exists('pathauto')) {
+    if (in_array($node->type, array_keys(webform_entity_get_types()))) {
+      module_load_include('inc', 'webform_entity_pages', 'webform_entity_pages.pathauto');
+      webform_entity_pages_update_alias($node, $submission, 'insert');
+    }
+  }
+}
+
+/**
+ * Implements hook_webform_submission_update().
+ */
+function webform_entity_pages_webform_submission_update($node, $submission) {
+  if (module_exists('pathauto')) {
+    if (in_array($node->type, array_keys(webform_entity_get_types()))) {
+      module_load_include('inc', 'webform_entity_pages', 'webform_entity_pages.pathauto');
+      webform_entity_pages_update_alias($node, $submission, 'update');
+    }
+  }
+}
+
+/**
+ * Implements hook_webform_submission_delete().
+ */
+function webform_entity_pages_webform_submission_delete($node, $submission) {
+  if (module_exists('pathauto')) {
+    if (in_array($node->type, array_keys(webform_entity_get_types()))) {
+      module_load_include('inc', 'webform_entity_pages', 'webform_entity_pages.pathauto');
+      webform_entity_pages_delete_alias($submission);
+    }
+  }
+}
+
+/**
+ * Implements hook_og_context_negotiation_info_alter().
+ */
+function webform_entity_pages_og_context_negotiation_info_alter(&$group_context_providers) {
+  if (isset($group_context_providers['webform_entity'])) {
+    $group_context_providers['webform_entity']['menu path'][] = 'webform-submission/%';
+  }
+}
+
+/**
+ * Implementing the uri callback defined in the hook_entity_info implementation.
+ */
+function webform_entity_pages_uri($webform_submission) {
+  return array(
+    'path' => 'webform-submission/' . $webform_submission->sid,
+  );
+}
+
+/**
+ * Page callback.
+ */
+function webform_entity_pages_webform_submission_page($submission) {
+  $node = node_load($submission->nid);
+  // Set the correct page title.
+  drupal_set_title(webform_submission_title($node, $submission));
+  $output = webform_submission_render($node, $submission, NULL, 'html');
+  $page = array(
+    '#theme' => 'webform_submission_page',
+    '#node' => $node,
+    '#mode' => 'display',
+    '#submission' => $submission,
+    '#submission_content' => $output,
+  );
+  $page['#attached']['library'][] = array('webform', 'admin');
+  return $page;
+
+}
+
+/**
+ * Menu loader for webform submissions that doesn't require a node.
+ */
+function webform_entity_pages_submission_load($sid) {
+  // This function can be called more than once so we use static caching to
+  // avoid redundant loading.
+  // TODO: If the caching happens at the entity level we really don't need to do
+  // it here.
+  $static = &drupal_static(__FUNCTION__, NULL);
+  $return = FALSE;
+  if (!is_array($static)) {
+    // Verify this exists.  TODO: Why do we have to do this?
+    module_load_include('inc', 'webform', 'includes/webform.submissions');
+    if (count($result = entity_get_controller('webform_submission_entity')->load(array($sid)))) {
+      $submission_data = array_pop($result);
+      $submission = webform_get_submission($submission_data->nid, $submission_data->sid);
+      $static[$sid] = $return = $submission;
+    }
+    else {
+      $static[$sid] = $return = FALSE;
+    }
+  }
+  return $return;
+}
+
+/**
+ * Preprocess function for webform-results-submissions.tpl.php.
+ * Add 'view public' link to submissions table.
+ */
+function webform_entity_preprocess_webform_results_submissions(&$vars) {
+  if (!in_array($vars['node']->type, array_keys(webform_entity_get_types()))) {
+    return;
+  }
+  $header_columns = count($vars['table']['#header']);
+  $vars['table']['#header'][$header_columns - 1]['colspan']++;
+  if (count($vars['table']['#rows'])) {
+    foreach ($vars['table']['#rows'] as $key => $row) {
+      $vars['table']['#rows'][$key][] = l('View public', 'webform-submission/' . $vars['table']['#rows'][$key][0]);
+    }
+  }
+}
+
+

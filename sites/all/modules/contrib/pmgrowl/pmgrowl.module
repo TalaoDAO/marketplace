@@ -1,0 +1,276 @@
+<?php
+
+/**
+ * @file
+ * pmgrowl provides private message received notifications using the jGrowl jQuery plugin
+ */
+
+/**
+ * Implementation of hook_init().
+ */
+function pmgrowl_init() {
+  if (privatemsg_user_access('read privatemsg')) {
+    // Add required files.
+    drupal_add_css(drupal_get_path('module', 'pmgrowl') . '/pmgrowl.css');
+    drupal_add_css(drupal_get_path('module', 'pmgrowl') . '/jgrowl/jquery.jgrowl.css');
+    drupal_add_js(drupal_get_path('module', 'pmgrowl') . '/jgrowl/jquery.jgrowl_minimized.js');
+    drupal_add_js(drupal_get_path('module', 'pmgrowl') . '/pmgrowl.js');
+
+    // Pass in the interval for checking messages. Multiply by 1000 to move to milliseconds instead of seconds
+    drupal_add_js(array('pmGrowlInterval' => variable_get('pmgrowl_interval', 30) * 1000), 'setting');
+  }
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function pmgrowl_menu() {
+  $items['messages/pmgrowl_json'] = array(
+    'access callback' => 'user_access',
+    'access arguments' => array('read privatemsg'),
+    'page callback' => 'pmgrowl_json',
+    'type' => MENU_CALLBACK,
+  );
+  $items['messages/pmgrowl_close'] = array(
+    'page callback' => 'pmgrowl_close',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Implementation of hook_theme()
+ */
+function pmgrowl_theme($existing, $type, $theme, $path) {
+  return array(
+    'pmgrowl_alert_individual_body' => array(
+      'variables' => array('message' => NULL),
+    ),
+    'pmgrowl_alert_individual_subject' => array(
+      'variables' => array('message' => NULL),
+    ),
+    'pmgrowl_alert_new_msg_body' => array(
+      'variables' => array('unread' => NULL),
+    ),
+    'pmgrowl_alert_new_msg_subject' => array(
+      'variables' => array('unread' => NULL),
+    ),
+  );
+}
+
+/**
+ * Callback function to store a user's request to close a message alert
+ */
+function pmgrowl_close() {
+  global $user;
+
+  pmgrowl_close_message($user->uid, $_POST['mid']);
+}
+
+/**
+ * Mark a message as closed.
+ *
+ * @param $uid
+ *   User id of the user for which the message should be closed.
+ * @param $mid
+ *   Message id that should be closed.
+ */
+function pmgrowl_close_message($uid, $mid = NULL) {
+  // Build a record containing the generic information.
+  $table = 'pmgrowl_close';
+  $record = new stdClass();
+  $record->uid = $uid;
+  $record->closed = 1;
+
+  if (variable_get('pmgrowl_operating_mode', 0) == 0 && $mid) {
+    // Check if the record has not been entered. Avoid duplicate key errors.
+    $sql = "SELECT 1 FROM {pmgrowl_close} WHERE mid = :mid AND uid = :uid";
+    if (!db_query($sql, array(':mid' => $mid, ':uid' => $uid))->fetchField()) {
+      // Add mid to the record and store
+      $record->mid = $mid;
+      return drupal_write_record($table, $record);
+    }
+  }
+  else {
+    // Check if there is already an entry for the active user.
+    $sql = "SELECT 1 FROM {pmgrowl_close} WHERE uid = :uid";
+    if (db_query($sql, array(':uid' => $uid))->fetchField()) {
+      // Update existing entry.
+      drupal_write_record($table, $record, 'uid');
+    }
+    else {
+      // Update existing entry.
+      drupal_write_record($table, $record);
+    }
+  }
+}
+
+/**
+ * Query function to build a query that can be extended/altered.
+ *
+ * @param $fragments
+ *   Query fragment array.
+ * @param $account
+ *   User account for which the messages are loaded.
+ */
+function pmgrowl_sql_unclosed($account) {
+  // Set the primary table.
+  $query = db_select('pm_index', 'pmi')
+    ->fields('pmi', array('mid'))
+    ->condition('pmi.recipient', $account->uid)
+    ->condition('pmi.type', array('user', 'type'))
+    ->condition('pmi.is_new', 1)
+    ->condition('pmi.deleted', 0)
+    ->groupBy('pmi.mid')
+    ->orderBy('pm.timestamp', 'ASC');
+
+  $query->join('pm_message', 'pm', 'pm.mid = pmi.mid');
+
+  // Select only messages that are not already closed.
+  $deleted = db_select('pmgrowl_close', 'pmg')
+    ->fields('pmg', array('mid'))
+    ->condition('pmg.uid', $account->uid)
+    ->condition('pmg.closed', 1);
+  $query->condition('pmi.mid', $deleted, 'NOT IN');
+  return $query;
+}
+
+/**
+ * Callback function for retrieving new messages in json format
+ */
+function pmgrowl_json() {
+  global $user;
+
+  // Check the operating mode, and return a message accordingly.
+  if (variable_get('pmgrowl_operating_mode', 0) == 0) {
+    // Assemble the query to load the messages.
+    $query = _privatemsg_assemble_query(array('unclosed', 'pmgrowl'), $user);
+    $data = array();
+    $mids = $query
+      ->execute()
+      ->fetchCol();
+    foreach (privatemsg_message_load_multiple($mids) as $message) {
+      $data[] = array(
+        'mid' => $message->mid,
+        'subject' => theme('pmgrowl_alert_individual_subject', array('message' => $message)),
+        'body' => theme('pmgrowl_alert_individual_body', array('message' => $message)),
+      );
+
+      // If auto-close is enabled, mark messages as closed.
+      if (variable_get('pmgrowl_persistence', 0) == 0) {
+        pmgrowl_close_message($user->uid, $message->mid);
+      }
+    }
+  }
+  else {
+    if ($unread = privatemsg_unread_count()) {
+      $message['subject'] = theme('pmgrowl_alert_new_msg_subject', array('unread' => $unread));
+      $message['body'] = theme('pmgrowl_alert_new_msg_body', array('unread' => $unread));
+      $data[0] = $message;
+
+      // If auto-close is enabled, mark all messages as closed.
+      // @todo: This does not have any effect.
+      if (variable_get('pmgrowl_persistence', 0) == 0) {
+        pmgrowl_close_message($user->uid);
+      }
+    }
+  }
+
+  drupal_json_output($data);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function pmgrowl_form_privatemsg_admin_settings_alter(&$form, &$form_state) {
+
+  $form['pmgrowl'] = array(
+    '#title' => t('Growl notifications'),
+    '#type'  => 'fieldset',
+    '#group' => 'settings',
+  );
+
+  $form['pmgrowl']['pmgrowl_interval'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Check message interval'),
+    '#default_value' => variable_get('pmgrowl_interval', 30),
+    '#description' => t('Choose the number of seconds between checks for new messages. Set this to 0 if you only want to check for new messages when the page first loads.'),
+  );
+  $form['pmgrowl']['pmgrowl_operating_mode'] = array(
+    '#type' => 'radios',
+    '#default_value' => variable_get('pmgrowl_operating_mode', 0),
+    '#options' => array(t('Individual Messages'), t('New Message alert')),
+    '#title' => t('Operating Mode'),
+    '#description' => t('Choose the way messages should be alerted. Individual Messages mode will give you every new message that comes in. New Message alert will just give a notification that there are new messages.'),
+  );
+  $form['pmgrowl']['pmgrowl_persistence'] = array(
+    '#type' => 'radios',
+    '#default_value' => variable_get('pmgrowl_persistence', 0),
+    '#options' => array(t('One time'), t('Close manually')),
+    '#title' => t('Message persistence'),
+    '#description' => t('<em>This setting only applies to Operating mode "New Message alert".</em> If you choose "One time", then the message will appear only once. "Close manually" means that the message will continue to appear every time a page is loaded until the user closes it themselves.'),
+  );
+
+  $form['pmgrowl']['pmgrowl_show_picture'] = array(
+    '#type' => 'checkbox',
+    '#default_value' => variable_get('pmgrowl_show_picture', 1),
+    '#title' => t('Display author picture'),
+    '#description' => t("If checked, the author profile picture is displayed in growl notifications."),
+  );
+
+  if (function_exists('image_styles') && count(image_styles())) {
+    $form['pmgrowl']['pmgrowl_imagecache_size'] = array(
+      '#type' => 'select',
+      '#default_value' => variable_get('pmgrowl_imagecache_size', variable_get('user_picture_style', '')),
+      '#options' => drupal_map_assoc(array_keys(image_styles())),
+      '#title' => t('Imagecache size'),
+      '#description' => t('This setting allows you to pick which image style should be used for the user picture in the notification. This setting only applies if you have chosen to display the user picture.'),
+    );
+  }
+}
+
+/**
+ * This function themes out the individual message alert body
+ */
+function theme_pmgrowl_alert_individual_body($variables) {
+  $message = $variables['message'];
+
+  $body = '<div class="pmgrowl-body">';
+  if (variable_get('pmgrowl_show_picture', 1) && $message->author->picture) {
+    $body .= theme('user_picture', array('account' => $message->author, 'style_name' => variable_get('pmgrowl_imagecache_size', '')));
+  }
+  $body .= check_markup(truncate_utf8($message->body, 400, FALSE, TRUE), $message->format);
+  $body .= '<p>'. l(t('Open & Reply'), 'messages/view/'. $message->thread_id) . ' | '. l(t('View All'), 'messages') .'</p>';
+  $body .= '</div>';
+  return $body;
+}
+
+/**
+ * This function themes out the individual message alert subject
+ */
+function theme_pmgrowl_alert_individual_subject($variables) {
+  $message = $variables['message'];
+
+  $output = '<div class="pmgrowl-subject">';
+  $output .= t('New message from !user', array('!user' => theme('username', array('account' => $message->author))));
+  $output .= '</div>';
+  return $output;
+}
+
+/**
+ * This function themes out the new message alert subject
+ */
+function theme_pmgrowl_alert_new_msg_subject($variables) {
+  return t('You have mail!');
+}
+
+/**
+ * This function themes out the new message alert body
+ */
+function theme_pmgrowl_alert_new_msg_body($variables) {
+  $unread = $variables['unread'];
+  $output = '<p>' . t('You have received a !received_messages_link!', array('!received_messages_link' => l(t('new message'), 'messages'))) . '</p>';
+  $output .= '<p>' . t('You have @unread_message_count @unread_messages.', array('@unread_message_count' => $unread, '@unread_messages' => format_plural($unread, 'unread message', 'unread messages'))) . '</p>';
+  return $output;
+}

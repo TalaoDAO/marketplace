@@ -1,0 +1,11 @@
+; $Id: listing.info,v 1.4 2009/09/09 04:58:38 cayenne Exp $
+name = Access by Reference
+description = Set Access by Entity Reference. Use shared values or referenced nodes to allow edit access
+core = 7.x
+
+; Information added by Drupal.org packaging script on 2014-05-01
+version = "7.x-1.0"
+core = "7.x"
+project = "access_by_ref"
+datestamp = "1398953628"
+

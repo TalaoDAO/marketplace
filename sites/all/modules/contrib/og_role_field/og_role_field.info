@@ -1,0 +1,14 @@
+name = Organic Groups - Role Reference Field
+core = 7.x
+
+dependencies[] = og
+
+files[] = og_role_field.install
+files[] = og_role_field.module
+files[] = og_role_field.rules.inc
+; Information added by drupal.org packaging script on 2011-10-13
+version = "7.x-1.0"
+core = "7.x"
+project = "og_role_field"
+datestamp = "1318520506"
+

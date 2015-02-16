@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the deny_access module.
+ *
+ */
+
+/**
+ * Implements hook_install().
+ */
+function deny_access_install() {
+}
+
+/**
+ * Implements hook_schema().
+ */
+function deny_access_schema() {
+}
+
+/**
+ * Implements hook_enable().
+ */
+function deny_access_enable() {
+  if ($rid = variable_get('user_admin_role', 0)) {
+    // Don't assign the denies to the administrator role.
+    user_role_revoke_permissions($rid, array_keys(deny_access_permission()));
+  }
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function deny_access_requirements($phase) {
+}
+
+/**
+ * Implements hook_disable().
+ */
+function deny_access_disable() {
+}
+
+/*
+ * Implements hook_uninstall().
+ */
+function deny_access_uninstall() {
+}
+

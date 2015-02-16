@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @file
+ * Install file for the aup module
+ */
+ 
+/*
+ * Implement hook_install
+ */
+ 
+function aup_install() {
+  aup_create_term();
+}
+
+function aup_create_term () { 
+  $vid = userpoints_get_vid();
+  
+  if (!is_numeric($vid)) {
+    drupal_set_message('AUP: Unable to lcoate the Userpoints vocabulary', 'warning');
+  }
+  
+  $term_array = array(
+    'name' => 'Answers Reputation',
+    'vid' => $vid,
+    'description' => 'Points used by the Answers module (and its supporting submodules, particularly Answers UserPoints)',
+  );
+
+  taxonomy_term_save((object) $term_array);
+}
+  

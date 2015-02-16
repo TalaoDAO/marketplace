@@ -1,0 +1,92 @@
+<?php
+/**
+ * @file
+ * Database Schema for pmgrowl.module
+ */
+
+define('PMGROWL_JGROWL_DL_URL', 'http://www.stanlemon.net/projects/jgrowl.html');
+
+/**
+ * Implements hook_schema().
+ */
+function pmgrowl_schema() {
+  $schema['pmgrowl_close'] = array(
+    'description' => 'Holds information specific to the display of private messages with pmgrowl',
+    'fields' => array(
+      'mid' => array(
+        'description' => 'Message ID from privatemsg module',
+        'type' => 'int',
+        'size' => 'small',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'uid' => array(
+        'description' => 'User ID',
+        'type' => 'int',
+        'size' => 'small',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'closed' => array(
+        'description' => 'Whether or not the message has been closed by the user',
+        'type' => 'int',
+        'size' => 'small',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('mid', 'uid'),
+  );
+  return $schema;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function pmgrowl_uninstall() {
+  variable_del('pmgrowl_operating_mode');
+  variable_del('pmgrowl_interval');
+}
+
+/**
+ * Implements hook_requirements().
+ *
+ * Check if the jgrowl library is correctly installed.
+ */
+function pmgrowl_requirements($phase) {
+  $missing_files = array();
+
+  if (!file_exists(drupal_get_path('module', 'pmgrowl') .'/jgrowl/jquery.jgrowl_minimized.js')) {
+    $missing_files[] = drupal_get_path('module', 'pmgrowl') .'/jgrowl/jquery.jgrowl_minimized.js';
+  }
+  if (!file_exists(drupal_get_path('module', 'pmgrowl') .'/jgrowl/jquery.jgrowl.css')) {
+    $missing_files[] = drupal_get_path('module', 'pmgrowl') .'/jgrowl/jquery.jgrowl.css';
+  }
+
+   // Ensure translations don't break at install time
+  $t = get_t();
+
+  $requirements = array();
+  if (!empty($missing_files)) {
+    $requirements['pmgrowl'] = array(
+      'title' => $t('Private Messages Growl'),
+      'description' => $t('One or more required jgrowl files were not found:<br />%missing_files<br />!link', array('%missing_files' => implode('<br />', $missing_files), '!link' => l($t('Jgrowl Download Link'), PMGROWL_JGROWL_DL_URL))),
+      'severity' => REQUIREMENT_ERROR,
+    );
+
+    if ($phase == 'runtime') {
+      $requirements['pmgrowl']['value'] = $t('Not found');
+    }
+  }
+  else {
+    $requirements['pmgrowl'] = array(
+      'title' => $t('Private Messages Growl'),
+      'description' => $t('All required jgrowl files are installed correctly.'),
+      'severity' => REQUIREMENT_OK,
+    );
+    if ($phase == 'runtime') {
+      $requirements['pmgrowl']['value'] = $t('Found');
+    }
+  }
+  return $requirements;
+}

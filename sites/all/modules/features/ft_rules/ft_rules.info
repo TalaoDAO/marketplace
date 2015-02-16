@@ -1,0 +1,13 @@
+name = FT Rules
+description = All rules
+core = 7.x
+package = EMH
+version = 7.x-1.0-dev
+project = ft_rules
+features[features_api][] = api:2
+features[rules_config][] = rules_pre_subscribe_membres
+features[rules_config][] = rules_subscription_to_group_email
+features_exclude[dependencies][entity] = entity
+features_exclude[dependencies][og] = og
+features_exclude[dependencies][rules] = rules
+project path = sites/all/modules/features

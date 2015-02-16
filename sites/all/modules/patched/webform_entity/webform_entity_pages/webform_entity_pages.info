@@ -1,0 +1,12 @@
+name = Webform Submission Entity Pages
+description = Provides a page callback with path auto and page manager support for Webform Submission entities.
+package = Webform
+core = 7.x
+dependencies[] = webform_entity
+
+; Information added by Drupal.org packaging script on 2014-12-02
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "webform_entity"
+datestamp = "1417537389"
+

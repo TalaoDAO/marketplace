@@ -1,0 +1,11 @@
+--- nodereference_url.module
++++ nodereference_url.module
+@@ -157,7 +157,7 @@
+         }
+ 
+         if ($group_entity) {
+-          $link['query']['gids'] = $group_entity->gid;
++          $link['query']['gids'] = $group_entity['gid'];
+         }
+       }
+     }

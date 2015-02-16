@@ -1,0 +1,58 @@
+.region-content dl.node-type-list {
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+}
+
+.node-type-list dt {
+  border-top: 1px solid #ccc;
+  list-style: none;
+  margin: 0 0 20px 0;
+  min-height: 60px;
+  padding: 20px 0 0 0;
+  position: relative;
+}
+
+.node-type-list .node-type-image,
+.node-type-list .node-type-info,
+.node-type-list .node-type-title,
+.node-type-list .node-type-description {
+  float: left;
+}
+
+.node-type-list .node-type-image {
+  margin-right: 20px;
+}
+
+.node-type-list .node-type-description {
+  clear: left;
+}
+
+.display-grid dt {
+  float: left;
+  margin-right: 2%;
+  text-align: center;
+  width: 46%;
+}
+
+.display-grid .node-type-image {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.display-grid .node-type-image img {
+  height: auto;
+  max-width: 100%;
+}
+
+.display-grid .node-type-image,
+.display-grid .node-type-info,
+.display-grid .node-type-title,
+.display-grid .node-type-description {
+  float: none;
+}
+
+.grid-container{
+  height: auto;
+  width: 100%;
+}

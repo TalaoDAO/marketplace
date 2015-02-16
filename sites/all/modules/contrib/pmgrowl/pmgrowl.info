@@ -1,0 +1,12 @@
+name = Private Message Growl
+description = Growl Instant Messenger extends private messaging to add alerts using the jGrowl jQuery plugin
+dependencies[] = privatemsg
+package = Mail
+core = 7.x
+
+; Information added by drupal.org packaging script on 2013-10-01
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "pmgrowl"
+datestamp = "1380623406"
+

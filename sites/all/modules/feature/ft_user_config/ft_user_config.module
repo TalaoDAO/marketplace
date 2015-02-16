@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the FT User Config feature.
+ */
+
+include_once 'ft_user_config.features.inc';

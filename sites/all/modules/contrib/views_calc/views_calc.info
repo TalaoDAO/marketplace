@@ -1,0 +1,21 @@
+name = Views Calc
+description = This module will allow you to add calculated fields to views tables and compute columns of numeric data in a views table.
+core = 7.x
+package = Views
+dependencies[] = views
+
+files[] = views_calc_table.inc
+files[] = theme.inc
+files[] = views-calc-table.tpl.php
+files[] = views_calc.install
+files[] = views_calc.module
+files[] = views_calc.views.inc
+files[] = views_calc_field_handler.inc
+files[] = views_calc_handler_sort.inc
+
+; Information added by Drupal.org packaging script on 2014-03-25
+version = "7.x-1.1"
+core = "7.x"
+project = "views_calc"
+datestamp = "1395748160"
+

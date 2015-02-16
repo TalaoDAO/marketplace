@@ -1,0 +1,12 @@
+name = Block Export
+description = It will allow administrator to export all blocks as a single feature.
+core = "7.x"
+dependencies[] = ctools
+dependencies[] = features
+
+; Information added by drupal.org packaging script on 2012-07-26
+version = "7.x-1.0"
+core = "7.x"
+project = "blockexport"
+datestamp = "1343316154"
+

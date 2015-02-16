@@ -1,0 +1,146 @@
+<?php
+/**
+ * Implements hook_node_access
+ * We add our special node access hook to allow access to the create form for node types. 
+ * We can only allow access if the gid is provided on the url
+ */
+function og_create_perms_node_access($node, $op, $account) {
+  $result = NODE_ACCESS_IGNORE;
+  $gids = array_values(og_get_context_by_url()); 
+  $type = is_string($node) ? $node : $node->type;
+  if ($op == 'create' && in_array($type, og_create_perms_list_bundles())) {
+    foreach (og_get_context_by_url() as $gid) {
+      // loop through any of the provided gids, and only allow access if we can post to all of them
+      $access = true; 
+      if (!og_user_access($gid, 'create ' . $type . ' content', $account)) {
+        $access = false;
+      }
+      if ($access) $result = NODE_ACCESS_ALLOW;
+    }
+  }
+  return $result;
+}
+
+/**
+ * Implements hook_field_attach_validate
+ * Adds a validation hook to prevent users from posting to groups they are not members of.
+ *  
+ * TODO: test
+ * TODO: admin config to turn on or off
+ * TODO: some of this should be in field_attach_form_validate
+ * 
+ * @param $entity_type
+ * @param $entity
+ * @param $errors
+ * 
+ */
+function og_create_perms_field_attach_validate($entity_type, $entity, &$errors) {
+  // we only work on nodes for now
+  $types = og_create_perms_list_bundles();
+  if ($entity_type == 'node' && in_array($entity->type, $types)){
+    $field_name = OG_AUDIENCE_FIELD; 
+    if (!property_exists($entity, $field_name)) {
+      // Sometimes, when a node is being saved, the group_audience property does not seem to exist
+      // This may be as a result of field permissions
+      // since we are not really bothered with any entity content apart from the group, 
+      // we can safely replace it with old content (because, if the group is not here, it will not change)   
+      // reload the entity if we have to
+      $entity = og_load_entity($entity_type, $entity);
+    } 
+    $account = user_load($entity->uid);
+    
+    // Language may always be NONE, but I am being cautious here
+    $language_code = field_language($entity_type, $entity, $field_name); 
+    
+    if (!$items = $entity->{$field_name}[$language_code]) {
+      // if we don't have any items, initialise an array with a null entry 
+      $items = array( 0 => array( 'gid' => null ));
+    }
+      // Make sure we are a member of all attached groups 
+    foreach ($items as $delta => $group) {
+      if (is_null($group['gid'])) {
+        // null gid = global context
+        if (! user_access('create ' . $entity->type . ' content', $account)) {
+          $errors[$field_name][$language_code][$delta][] = array(  
+            'error' => 'og_create_perms:No global create permissions', 
+            'message' => t('You are not permitted to create %type content outside a group', 
+                array('%type' => $entity->type))
+          );
+        }
+      }
+      else if (og_is_member($group['gid'], 'user', $account)) {
+          // have we got permission to create within this group
+          // og_node_access does not support a create permission, so we use og_user_access
+          if (!og_user_access($group['gid'], 'create '. $entity->type .' content', $account)) {
+            $group_entity = og_load_entity_from_group($group['gid']);
+            $errors[$field_name][$language_code][$delta][] = array(
+              'error' => 'og_create_perms:content type restriction', 
+              'message' => t('You are not permitted to create %type content in %group', 
+                array('%type' => $entity->type, '%group' => $group_entity->title)) //TODO: best way to get title ?  
+            );
+          }
+      } 
+      else {
+        // we have a gid, but for a group the user does not belong to
+        $errors[$field_name][$language_code][0][] = array(
+          'error' => 'og_create_perms:user not a member', 
+          'message' => t('Attempt to post to an illegal group')
+        );
+      }
+    }
+  } 
+  // no return value, errors is a reference
+}
+
+
+ 
+/**
+ * Implements hook_og_permission().
+ */
+function og_create_perms_og_permission() {
+  // get a list of content types that can be added to a group
+  $bundles = og_create_perms_list_bundles();
+  $perms = array();
+  // Generate standard node permissions for all applicable node types.
+  foreach ($bundles as $bundle) {
+     $perms += og_create_perms_list_permissions($bundle);
+  }
+  return $perms;
+}
+
+/**
+ * Helper function to return a list of types that can be added to a group
+ * 
+ */
+function og_create_perms_list_bundles() {
+  $bundles = array();
+  $field_info = field_info_field(OG_AUDIENCE_FIELD);
+  if (array_key_exists('node', $field_info['bundles'])) {
+    $bundles = $field_info['bundles']['node'];
+  }
+  return $bundles;
+}
+
+
+/**
+ * Helper function to generate standard node permission list for a given type.
+ *
+ * @param $type
+ *   The machine-readable name of the node type.
+ * @return array
+ *   An array of permission names and descriptions.
+ */
+function og_create_perms_list_permissions($type) {
+  $info = node_type_get_type($type);
+  $type = check_plain($info->type);
+
+  // Build standard list of node permissions for this type.
+  $perms = array(
+    "create $type content" => array(
+      'title' => t('%type_name: Create new content', array('%type_name' => $info->name)),
+    ),
+  );
+
+  return $perms;
+}
+

@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the insert_view module.
+ */
+
+/**
+ * Show warning when updating from version 1.
+ */
+function insert_view_update_6200() {
+  $ret = array();
+  $ret[] = array(
+    'success' => TRUE,
+    'query' => 'WARNING: If you used multiple views arguments with insert_view filter, then you will have to update those nodes manually to use the new syntax.'
+  );
+  return $ret;
+}
+
+/**
+ * Set the version number for D7.
+ */
+function insert_view_update_7000() {
+  $ret = array();
+
+  return $ret;
+}

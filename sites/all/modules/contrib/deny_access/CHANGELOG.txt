@@ -1,0 +1,20 @@
+
+CHANGELOG for Deny Access for Drupal 7
+
+
+deny_access 7.x-1.x-dev:
+
+
+deny_access 7.x-1.1 (2013-12-28):
+  Enhancements:
+    - #1050918: ... and respect 'bypass node access'.
+    - #1050918: Implement content-specific 'DENY access'.
+  Bugs fixed:
+    - Fix a possible fatal error in deny_access_node_access() when previewing a new node.
+    - Replace $_GET['q'] with current_path(), for D8.
+
+
+deny_access 7.x-1.0 (2012-02-22):
+deny_access 7.x-1.0-rc1:
+  - Initial commit of Deny Access, a module to override CRUD grants given by other modules.
+

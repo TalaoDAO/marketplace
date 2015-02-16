@@ -1,0 +1,20 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the progress_tracker module.
+ *
+ */
+
+
+/**
+ * Implements hook_install().
+ */
+function progress_tracker_install() { }
+
+/**
+ * Implements hook_uninstall().
+ */
+function progress_tracker_uninstall() {
+  variable_del('progress_tracker_steps');
+  variable_del('progress_tracker_layout');
+}

@@ -1,0 +1,123 @@
+<?php
+
+/**
+ * @file
+ * Module: 'menuimage'
+ *
+ * When editing a menu link, this module provides a file field
+ * to upload an image to associate with a menu item. In the
+ * array returned by menu_link_load, the fid of the image file
+ * is contained in [options][content][image]. This may may be
+ * passed as a parameter to file_load to obtain its public:// uri,
+ * and further used with either file_build_uri or image_style_url
+ * to populate the src= attribute of an <img>.
+ */
+
+/**
+ * Implements hook_form_menu_edit_item_alter().
+ *
+ * add field to upload an image for menu item
+ */
+function menuimage_form_menu_edit_item_alter(&$form, &$form_state) {
+  $mlid = (isset($form['mlid']['#value']) ? $form['mlid']['#value'] : 0);
+  $fid = 0;
+  $file = FALSE;
+  if ($mlid && ($result = db_query("
+    SELECT options FROM {menu_links}
+    WHERE mlid = :mlid
+    LIMIT 1
+  ", array(':mlid' => $mlid)
+  )->fetchField())) {
+    $options = unserialize($result);
+    $fid = (isset($options['content']['image']) ? $options['content']['image'] : 0);
+    if (!($file = file_load($fid))) {
+      $fid = 0;
+    }
+  }
+  $temp = image_field_info();
+  $types = $temp['image']['instance_settings']['file_extensions'];
+  $size = ini_get("upload_max_filesize");
+  $temp = array();
+  foreach ($form as $name => $element) {
+    $temp[$name] = $element;
+    if ($name == "description") {
+      $blank = ("/" . drupal_get_path("module", "menuimage") . "/blank.gif");
+      drupal_add_js(array('menuimageBlank' => $blank), "setting");
+      $temp['image'] = array(
+        '#type' => "fieldset",
+        '#title' => t("Image"),
+        '#description' => t("Upload an image to represent this menu item."),
+        'imagepreview' => array(
+          '#type' => "markup",
+          '#markup' => '<div style="float: left; min-width: 75px; height: 75px; margin: 10px 20px 0px 0px; border: 1px solid #ccc;">' . theme("image", array(
+            'path' => ($file && $fid != 0 ? $file->uri : $blank),
+            'height' => 75,
+          )) . '</div>',
+        ),
+        'menuimage' => array(
+          '#type' => "managed_file",
+          '#description' => t("Files must be less than <strong>@size</strong>.<br />Allowed file types: <strong>@types</strong>.", array('@size' => $size, '@types' => $types)),
+          '#upload_location' => "public://menuimage",
+          '#upload_validators' => array(
+            'file_validate_extensions' => array($types),
+            'file_validate_size' => array(parse_size($size)),
+          ),
+          '#attached' => array('js' => array(drupal_get_path("module", "menuimage") . "/menuimage.js")),
+          '#default_value' => $fid,
+        ),
+      );
+    }
+  }
+  $form = $temp;
+  $form['#submit'][] = "menuimage_edit_item_submit";
+}
+
+/**
+ * Callback for menuimage_form_menu_edit_item_alter().
+ *
+ * handle "Save" submit; create entry in menu item options array
+ * that refers to uploaded image; uses separate 'content' array
+ * within options, to differentiate from 'attributes'
+ */
+function menuimage_edit_item_submit(&$form, &$form_state) {
+  if (isset($form_state['values']['menuimage']) && isset($form_state['values']['mlid'])) {
+    $mlid = $form_state['values']['mlid'];
+    if ($mlid && ($result = db_query("
+      SELECT options FROM {menu_links}
+      WHERE mlid = :mlid
+      LIMIT 1
+    ", array(':mlid' => $mlid)
+   )->fetchField())) {
+      $options = unserialize($result);
+      $fid = (0 + preg_replace("/[^0-9]/", "", $form_state['values']['menuimage']));
+      if ($fid != 0) {
+        if (!array_key_exists("content", $options)) {
+          $options['content'] = array();
+        }
+        $options['content']['image'] = $fid;
+        if ($file = file_load($fid)) {
+          $file->status = FILE_STATUS_PERMANENT;
+          file_save($file);
+          file_usage_add($file, "menuimage", "menu", $mlid);
+        }
+      }
+      else {
+        if (isset($options['content']['image'])) {
+          if ($file = file_load($options['content']['image'])) {
+            file_usage_delete($file, "menuimage");
+            file_delete($file);
+          }
+          unset($options['content']['image']);
+        }
+      }
+      $options = serialize($options);
+      if ($options != $result) {
+        db_update("menu_links")
+          ->fields(array('options' => $options))
+          ->condition("mlid", $mlid, "=")
+          ->execute();
+      }
+    }
+    $form_state['redirect'] = ("/admin/structure/menu/item/" . $mlid . "/edit");
+  }
+}

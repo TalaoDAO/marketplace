@@ -1,0 +1,109 @@
+<?php
+/**
+ * @file
+ * Hooks and functions for Field Sync
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function field_sync_menu() {
+ 
+  $items['admin/structure/types/manage/sync/fields'] = array(
+    'title' => 'Sync fields',
+    'description' => 'Synchronize Fields Between Content Types.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('field_sync_sync_fields'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_TASK | MENU_NORMAL_ITEM,
+    'weight' => 12,
+  );
+  
+  return $items;
+}
+
+
+/**
+ * Field sync form
+ */
+function field_sync_sync_fields($form, &$form_state) {
+
+  $types = node_type_get_types();
+  
+  $form['field_sync_sync_from'] = array(
+    '#type' => 'select',
+    '#title' => t('Source (copy fields from):'),
+    '#options' => $types,
+  );
+  
+  foreach ($types as $type => $value) {
+    $form['field_sync_sync_from']['#options'][$type] = $type;
+  }
+  
+  $form['field_sync_sync_to'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Targets (copy fields to):'),
+    '#options' => $types,
+  );
+
+  foreach ($types as $type => $value) {
+    $form['field_sync_sync_to']['#options'][$type] = $type;
+  }
+
+  $form['field_sync_submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Sync Fields'),
+  );
+  $form['#submit'] = array('field_sync_sync_fields_submit');
+
+  return $form;
+}
+// field_sync_sync_fields
+
+
+/**
+ * Field sync form submission handler
+ */
+function field_sync_sync_fields_submit($form_id, $form_values) {
+
+  $message = FALSE;
+  $values    = $form_values['values'];
+  $base_type = $values['field_sync_sync_from'];
+   
+  $result = db_query("SELECT field_name, entity_type FROM {field_config_instance} WHERE bundle = :bundle", array(':bundle' => $base_type));
+  
+  $fields = $result->fetchAll();
+  
+  foreach ($values['field_sync_sync_to'] as $type => $value) {
+
+    if ($value) {
+      foreach ($fields as $field) {
+
+        // does field already exist on this type?
+        $field_exists = field_info_instance($field->entity_type, $field->field_name, $type);
+         
+        if ($field_exists['field_name']) {
+                    
+          // Update settings (weight, group, etc)
+          
+        } else {
+        
+          // Add new instance of the field to the type         
+          $instance_data = field_info_instance('node', $field->field_name, $base_type);
+          //update with the new content type as bundle
+          $instance_data['bundle'] = $type;
+          field_create_instance($instance_data);
+          $message .= t('%field_name was added to %type', array('%field_name' => $field->field_name, '%type' => $type));
+          
+        } // if field exists in target type     
+      } // foreach field in base type
+    } // if type select in form
+  } // foreach type
+  
+  if ($message) {
+    drupal_set_message($message);
+    field_info_cache_clear();
+  } else {
+    drupal_set_message(t('No fields were synchronized, because all fields in %type already existed in all selected target types', array('%type' => $base_type)));    
+  }
+}

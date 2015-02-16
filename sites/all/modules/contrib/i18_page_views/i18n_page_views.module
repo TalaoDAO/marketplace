@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * Implementation of hook_views_api().
+ */
+function i18n_page_views_views_api() {
+  return array(
+    'api' => '3.0-alpha1',
+    'path' => drupal_get_path('module', 'i18n_page_views') .'/includes',
+  );
+}
+
+/**
+ * Implementation of hook_url_inbound_alter().
+ */
+function i18n_page_views_url_outbound_alter(&$path, &$options, $original_path) {
+  global $language;
+
+  $views = views_get_all_views();
+
+  foreach ($views as $view) {
+    foreach (array_keys($view->display) as $id) {
+      if ($view->display[$id]->display_plugin == 'i18n_page') {
+        $items = array();
+
+        $languages = locale_language_list();
+        foreach ($languages as $langcode => $langname) {
+          if ($path == $view->display[$id]->display_options['path_'. $langcode]) {
+            if (isset($options['language'])) {
+              $path = $view->display[$id]->display_options['path_'. $options['language']->language];
+            }
+          }
+        }
+      }
+    }
+  } 
+}
+

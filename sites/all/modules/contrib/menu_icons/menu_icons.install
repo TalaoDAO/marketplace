@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * @file
+ * Cleanup menu_icons variables and menu link options.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function menu_icons_uninstall() {
+  // Delete variables.
+  variable_del('menu_icons_file_validate_image_resolution');
+  variable_del('menu_icons_default_icon');
+  variable_del('menu_icons_image_folder');
+  variable_del('menu_icons_position');
+  variable_del('menu_icons_image_style_default');
+  variable_del('menu_icons_use_css');
+  variable_del('menu_icons_absolute_links');
+
+  // Clean up menu link options.
+  // Fetch menu links that we've modified.
+  $result = db_query("SELECT mlid, options FROM {menu_links} WHERE options LIKE '%menu_icon%'");
+  foreach ($result as $record) {
+    $mlid = $record->mlid;
+    $options = unserialize($record->options);
+    if (isset($options['menu_icon'])) {
+      unset($options['menu_icon']);
+    }
+    for ($i = 0; $i <= count($options['attributes']['class']); $i++) {
+      if ($options['attributes']['class'][$i] == 'menu_icon') {
+        unset($options['attributes']['class'][$i]);
+      }
+      elseif ($options['attributes']['class'][$i] == 'menu-' . $mlid) {
+        unset($options['attributes']['class'][$i]);
+      }
+    }
+    // Save the updated options.
+    db_update('menu_links')
+    ->fields(array(
+      'options' => serialize($options),
+    ))
+    ->condition('mlid', $mlid)
+    ->execute();
+  }
+
+  // Remove the generated CSS file.
+  file_unmanaged_delete('public://css/menu_icons.css');
+}
+
+/**
+ * Keep existing sites using absolute URLS in CSS.
+ */
+function menu_icons_update_7200() {
+  variable_set('menu_icons_absolute_links', TRUE);
+}

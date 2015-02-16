@@ -1,0 +1,116 @@
+
+
+#csstab{
+  position: fixed;
+  top: 30%;
+  right: 0px;
+  height: 5.625em;
+  width: 2.625em;
+  overflow: hidden;
+}
+#csstab .box{
+  font: 1em/2em "Verdana", "Tahoma", sans-serif !important;
+  position: relative;
+  left: -1.375em;
+  top: 1.5em;
+  height: 2em;
+  width: 4.75em;
+  text-align: center;
+  background-color: #333333;
+  border: 0.125em solid #AA8866;
+  border-bottom-style: none;
+  color: #885511;
+  padding: 0.25em;
+  cursor: pointer;
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+#csstab .box:hover{
+  color: #AA8866;
+}
+#csidebar{
+  position: absolute;
+  background-color: #4C4A41;
+  z-index: 1000;
+  overflow: hidden;
+  line-height: 1em !important;
+  font-family: Helvetica, Arial, sans-serif;
+}
+#csidebar.right{
+  top: 0px;
+  right: 0px;
+  height: 100%;
+  width: 500px;
+}
+#csidebar.right #cedit{
+  width: 494px;
+}
+#csidebar.bottom #cedit{
+}
+#csidebar.bottom{
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  height: 300px;
+}
+#csidebar.bottom #cedit{
+  height: 235px;
+  width: 100%;
+}
+.ui-resizable-w{
+}
+#csidebar .stylelist{
+  width: 484px;
+  margin-left: 10px;
+  margin-top: 10px;
+  font-size: 14px;
+}
+#csidebar .save,
+#csidebar .close,
+#csidebar .dock{
+  float: left;
+  margin-top: 5px;
+  margin-left: 10px;
+  line-height: 14px;
+  font-size: 12px;
+  color: #885511;
+  background-color: #333333;
+  width: 50px;
+  text-align: center;
+  border: 1px solid #885511;
+  padding: 3px;
+  text-decoration: none;
+  cursor: pointer;
+}
+#csidebar.bottom #cedit{
+  top: 40px;
+}
+#csidebar.bottom .save,
+#csidebar.bottom .close,
+#csidebar.bottom .dock{
+  margin-top: 10px;
+}
+#csidebar .save:hover,
+#csidebar .close:hover,
+#csidebar .dock:hover{
+  color: #AA8866;
+  border-color: #AA8866;
+}
+#cedit{
+  top: 65px;
+  overflow: hidden;
+}
+.ace_gutter{
+  width: 30px !important;
+}
+.ace_gutter-cell{
+  padding-left: 0 !important; /* line numbers show up correctly */
+}
+.ace_gutter-cell.ace_warning{
+  background-image: none !important;
+}
+.ace_editor p,
+.ace_editor div{
+  font-family: 'Monaco', 'Menlo', 'Droid Sans Mono', 'Courier New', monospace !important;
+}

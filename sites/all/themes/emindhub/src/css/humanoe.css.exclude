@@ -1,0 +1,337 @@
+/*
+    COULEURS :
+    f6f7f8: gris trés clair
+    d4d9dd: gris clair
+    4c6172: gris foncé/bleu foncé
+    009fe3:  bleu clair
+    c89234: jaune expert
+*/
+
+body {
+    font-family: Lato;
+    color: #4c6172;
+}
+
+.banniere {
+    line-height: 4.25em;
+    background-color: #009fe3;
+    background-image: url(../img/banniere.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.dark-blue-line {
+    background-color: #4c6172;
+}
+
+.dark-blue-line-large {
+    background-color: #4c6172;
+    line-height: 3.125em;
+}
+
+.text-normal {
+    font-weight: normal !important;
+}
+
+.filters {
+    padding-top: 1em;
+    background-color: #f6f7f8;
+}
+
+    .filters + .filters {
+        padding-bottom: 1em;
+    }
+
+    .filters input[type=checkbox] {
+        margin-left: .5em;
+        margin-right: .5em;
+    }
+
+
+.welcome-wrapper {
+    margin-top: -1.5em;
+    text-transform: uppercase;
+}
+
+
+    .welcome-wrapper .col-md-6 {
+        background-color: #fff;
+        font-size: 1.5em;
+        padding-top: .3em;
+    }
+
+    .welcome-wrapper .col-md-2 {
+        color: #fff;
+        font-size: 0.688em;
+        margin-top: -.7em;
+    }
+
+.text-banniere {
+    padding-top: 2.375em;
+    height: 10.188em;
+    line-height: 1.2em;
+    font-size: 2em;
+    color: #fff;
+}
+
+    .text-banniere p {
+        color: #8cd4f2 !important;
+        margin: 0;
+        padding: 0;
+    }
+
+.title {
+    font-size: 1.25em;
+    text-align: center;
+}
+
+.ondes-background {
+    background-image: url(../img/ondes.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.blue {
+    color: #009fe3;
+}
+
+.shadow {
+    border-bottom: 2px #fff solid;
+    -webkit-box-shadow: 0 8px 6px -6px black;
+    -moz-box-shadow: 0 8px 6px -6px black;
+    box-shadow: 0 8px 6px -6px black;
+}
+
+.noPadding {
+    padding: 0 !important;
+}
+
+.paddingUD {
+    padding-top: 1.18em;
+    padding-bottom: 1.18em;
+}
+
+.paddingU {
+    padding-top: .7em;
+}
+
+.border-light {
+    border: 1px #d4d9dd solid;
+    margin: .5em;
+}
+
+.news {
+    font-size: 1.125em;
+    text-transform: uppercase;
+}
+
+.form-control {
+    display: inline !important;
+}
+
+.required {
+    display: inline !important;
+    width: 1.5em;
+    margin-left: .5em;
+}
+
+input {
+    border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+}
+
+    input:not([type=submit]) {
+        background-color: #dbdfe3 !important;
+    }
+
+.btn-primary {
+    background-color: #009fe3;
+    border: 0 !important;
+    margin-bottom: .5em;
+}
+
+.search-input {
+    background: url(../img/searchIcon2.png) no-repeat;
+    background-position: 97% 50%;
+}
+
+.form-control:not(.search-input) {
+    width: auto !important;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+hr.style-one {
+    margin: .625em;
+    position: float;
+    width: 100%;
+    height: 2px;
+    background: #4c6172;
+    vertical-align: middle;
+}
+
+hr.style-two {
+    margin: .625em;
+    position: float;
+    width: 100%;
+    height: 2px;
+    background: #019fe3;
+    vertical-align: middle;
+}
+
+.rowMobilisation {
+    text-align: center;
+}
+
+.footer {
+    margin-top: .5em;
+    padding-top: .5em;
+    font-weight: bold;
+    background-color: #f6f7f8;
+    height: 7em;
+}
+
+.ombre {
+    border-bottom: .2em;
+    box-shadow: 1px 1px 12px #555;
+}
+
+.title-wrapper {
+    margin-top: 1.063em;
+    margin-bottom: 1.063em;
+}
+
+.subtitle-wrapper {
+    margin-top: 3.25em;
+    margin-bottom: 1.125em;
+}
+
+.little-wrapper {
+    margin-top: 1.438em;
+}
+
+.text-wrapper {
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
+
+.contact-us {
+    color: #009fe3;
+}
+
+    .contact-us img {
+        margin-right: .5em;
+    }
+
+.form-wrapper {
+    padding-bottom: 0.5em;
+}
+
+.form-control-custom {
+    width: 73%;
+    display: inline;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 0 !important;
+    border-radius: 4px;
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+    .form-control-custom:not(select) {
+        display: inline;
+        width: 90%;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 0 !important;
+        border-radius: 4px;
+        -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    }
+
+.selected-menu {
+    font-size: 1.5em;
+    background-color: #009fe3;
+}
+
+.inside-shadow {
+    -webkit-box-shadow: 0px -8px 6px -6px rgba(0, 0, 0, 0.3) inset;
+    -moz-box-shadow: 0px -8px 6px -6px rgba(0, 0, 0, 0.3) inset;
+    box-shadow: 0px -8px 6px -6px rgba(0, 0, 0, 0.3) inset;
+}
+
+.ligh-blue-line {
+    background-color: #009fe3;
+}
+
+.select-form {
+    border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    background-color: #dbdfe3 !important;
+}
+
+.language-select {
+    background: url(../img/selectArrow.png) no-repeat 96% 0;
+    height: 2em;
+    overflow: hidden;
+    width: 3.2em;
+    background-color: #009fe3;
+    color: #fff;
+    -webkit-border-radius: 0.213em;
+    -moz-border-radius: 0.213em;
+    border-radius: 0.213em;
+}
+
+    .language-select select {
+        background: transparent;
+        border: none;
+        font-size: 1em;
+        height: 2em;
+        padding: 0.313em;
+        width: 5.313em;
+    }
+
+        .language-select select option {
+            background-color: #009fe3;
+        }
+
+.expert {
+    background-color: #c89234 !important;
+}
+
+.inscription-image-wrapper {
+    padding-top: 1.2em;
+    text-align: right;
+}
+
+area:hover {
+    cursor: nesw-resize;
+}
+
+.light-blue-text {
+    color: #009fe3;
+}
+
+.header {
+    text-transform: uppercase;
+}
+
+.yellow-text {
+    color: #c89234;
+}

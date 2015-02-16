@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_disable().
+ *
+ * Make sure that when the sudo module is disabled, all potential sudo users
+ * are given their elevated permissions.  Since this is the exact same thing
+ * that happens when the site enters maintenance mode, we can simply reuse
+ * that function.
+ *
+ * @see sudo_site_offline_submit().
+ */
+function sudo_disable() {
+  module_load_include('inc', 'sudo', 'sudo.pages');
+  $form_values['values']['maintenance_mode'] = 1;
+  sudo_site_offline_submit(NULL, $form_values);
+}
+
+/**
+ * Implements hook_schema().
+ */
+function sudo_schema() {
+  $schema['sudo'] = array(
+    'description' => 'Stores uids and rids of users with sudo permission',
+    'fields' => array(
+      'uid' => array(
+        'description' => 'Links to the {users}.uid field',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'roles' => array(
+        'description' => 'Serialized array of rids from roles table',
+        'type' => 'text',
+        'size' => 'big',
+        'not_null' => FALSE,
+      ),
+    ),
+    'primary key' => array('uid'),
+  );
+  return $schema;
+}

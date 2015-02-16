@@ -1,0 +1,13 @@
+name = Field Sync
+package = Fields
+description = Synchronizes fields from one content type to one or more other types.
+core = 7.x
+
+files[] = field_sync.module
+
+; Information added by drupal.org packaging script on 2011-11-21
+version = "7.x-1.0-beta1"
+core = "7.x"
+project = "field_sync"
+datestamp = "1321898740"
+

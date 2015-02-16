@@ -1,0 +1,2569 @@
+WD menu: PDOException: SQLSTATE[HY000]: General error: 1 too many SQL[31;40m[1m[error][0m
+variables: SELECT menu_links.link_path AS link_path, menu_links.mlid
+AS mlid, menu_links.router_path AS router_path, menu_links.updated AS
+updated
+FROM 
+{menu_links} menu_links
+WHERE ( (updated = :db_condition_placeholder_0) OR( (router_path NOT
+IN  (:db_condition_placeholder_1, :db_condition_placeholder_2,
+:db_condition_placeholder_3, :db_condition_placeholder_4,
+:db_condition_placeholder_5, :db_condition_placeholder_6,
+:db_condition_placeholder_7, :db_condition_placeholder_8,
+:db_condition_placeholder_9, :db_condition_placeholder_10,
+:db_condition_placeholder_11, :db_condition_placeholder_12,
+:db_condition_placeholder_13, :db_condition_placeholder_14,
+:db_condition_placeholder_15, :db_condition_placeholder_16,
+:db_condition_placeholder_17, :db_condition_placeholder_18,
+:db_condition_placeholder_19, :db_condition_placeholder_20,
+:db_condition_placeholder_21, :db_condition_placeholder_22,
+:db_condition_placeholder_23, :db_condition_placeholder_24,
+:db_condition_placeholder_25, :db_condition_placeholder_26,
+:db_condition_placeholder_27, :db_condition_placeholder_28,
+:db_condition_placeholder_29, :db_condition_placeholder_30,
+:db_condition_placeholder_31, :db_condition_placeholder_32,
+:db_condition_placeholder_33, :db_condition_placeholder_34,
+:db_condition_placeholder_35, :db_condition_placeholder_36,
+:db_condition_placeholder_37, :db_condition_placeholder_38,
+:db_condition_placeholder_39, :db_condition_placeholder_40,
+:db_condition_placeholder_41, :db_condition_placeholder_42,
+:db_condition_placeholder_43, :db_condition_placeholder_44,
+:db_condition_placeholder_45, :db_condition_placeholder_46,
+:db_condition_placeholder_47, :db_condition_placeholder_48,
+:db_condition_placeholder_49, :db_condition_placeholder_50,
+:db_condition_placeholder_51, :db_condition_placeholder_52,
+:db_condition_placeholder_53, :db_condition_placeholder_54,
+:db_condition_placeholder_55, :db_condition_placeholder_56,
+:db_condition_placeholder_57, :db_condition_placeholder_58,
+:db_condition_placeholder_59, :db_condition_placeholder_60,
+:db_condition_placeholder_61, :db_condition_placeholder_62,
+:db_condition_placeholder_63, :db_condition_placeholder_64,
+:db_condition_placeholder_65, :db_condition_placeholder_66,
+:db_condition_placeholder_67, :db_condition_placeholder_68,
+:db_condition_placeholder_69, :db_condition_placeholder_70,
+:db_condition_placeholder_71, :db_condition_placeholder_72,
+:db_condition_placeholder_73, :db_condition_placeholder_74,
+:db_condition_placeholder_75, :db_condition_placeholder_76,
+:db_condition_placeholder_77, :db_condition_placeholder_78,
+:db_condition_placeholder_79, :db_condition_placeholder_80,
+:db_condition_placeholder_81, :db_condition_placeholder_82,
+:db_condition_placeholder_83, :db_condition_placeholder_84,
+:db_condition_placeholder_85, :db_condition_placeholder_86,
+:db_condition_placeholder_87, :db_condition_placeholder_88,
+:db_condition_placeholder_89, :db_condition_placeholder_90,
+:db_condition_placeholder_91, :db_condition_placeholder_92,
+:db_condition_placeholder_93, :db_condition_placeholder_94,
+:db_condition_placeholder_95, :db_condition_placeholder_96,
+:db_condition_placeholder_97, :db_condition_placeholder_98,
+:db_condition_placeholder_99, :db_condition_placeholder_100,
+:db_condition_placeholder_101, :db_condition_placeholder_102,
+:db_condition_placeholder_103, :db_condition_placeholder_104,
+:db_condition_placeholder_105, :db_condition_placeholder_106,
+:db_condition_placeholder_107, :db_condition_placeholder_108,
+:db_condition_placeholder_109, :db_condition_placeholder_110,
+:db_condition_placeholder_111, :db_condition_placeholder_112,
+:db_condition_placeholder_113, :db_condition_placeholder_114,
+:db_condition_placeholder_115, :db_condition_placeholder_116,
+:db_condition_placeholder_117, :db_condition_placeholder_118,
+:db_condition_placeholder_119, :db_condition_placeholder_120,
+:db_condition_placeholder_121, :db_condition_placeholder_122,
+:db_condition_placeholder_123, :db_condition_placeholder_124,
+:db_condition_placeholder_125, :db_condition_placeholder_126,
+:db_condition_placeholder_127, :db_condition_placeholder_128,
+:db_condition_placeholder_129, :db_condition_placeholder_130,
+:db_condition_placeholder_131, :db_condition_placeholder_132,
+:db_condition_placeholder_133, :db_condition_placeholder_134,
+:db_condition_placeholder_135, :db_condition_placeholder_136,
+:db_condition_placeholder_137, :db_condition_placeholder_138,
+:db_condition_placeholder_139, :db_condition_placeholder_140,
+:db_condition_placeholder_141, :db_condition_placeholder_142,
+:db_condition_placeholder_143, :db_condition_placeholder_144,
+:db_condition_placeholder_145, :db_condition_placeholder_146,
+:db_condition_placeholder_147, :db_condition_placeholder_148,
+:db_condition_placeholder_149, :db_condition_placeholder_150,
+:db_condition_placeholder_151, :db_condition_placeholder_152,
+:db_condition_placeholder_153, :db_condition_placeholder_154,
+:db_condition_placeholder_155, :db_condition_placeholder_156,
+:db_condition_placeholder_157, :db_condition_placeholder_158,
+:db_condition_placeholder_159, :db_condition_placeholder_160,
+:db_condition_placeholder_161, :db_condition_placeholder_162,
+:db_condition_placeholder_163, :db_condition_placeholder_164,
+:db_condition_placeholder_165, :db_condition_placeholder_166,
+:db_condition_placeholder_167, :db_condition_placeholder_168,
+:db_condition_placeholder_169, :db_condition_placeholder_170,
+:db_condition_placeholder_171, :db_condition_placeholder_172,
+:db_condition_placeholder_173, :db_condition_placeholder_174,
+:db_condition_placeholder_175, :db_condition_placeholder_176,
+:db_condition_placeholder_177, :db_condition_placeholder_178,
+:db_condition_placeholder_179, :db_condition_placeholder_180,
+:db_condition_placeholder_181, :db_condition_placeholder_182,
+:db_condition_placeholder_183, :db_condition_placeholder_184,
+:db_condition_placeholder_185, :db_condition_placeholder_186,
+:db_condition_placeholder_187, :db_condition_placeholder_188,
+:db_condition_placeholder_189, :db_condition_placeholder_190,
+:db_condition_placeholder_191, :db_condition_placeholder_192,
+:db_condition_placeholder_193, :db_condition_placeholder_194,
+:db_condition_placeholder_195, :db_condition_placeholder_196,
+:db_condition_placeholder_197, :db_condition_placeholder_198,
+:db_condition_placeholder_199, :db_condition_placeholder_200,
+:db_condition_placeholder_201, :db_condition_placeholder_202,
+:db_condition_placeholder_203, :db_condition_placeholder_204,
+:db_condition_placeholder_205, :db_condition_placeholder_206,
+:db_condition_placeholder_207, :db_condition_placeholder_208,
+:db_condition_placeholder_209, :db_condition_placeholder_210,
+:db_condition_placeholder_211, :db_condition_placeholder_212,
+:db_condition_placeholder_213, :db_condition_placeholder_214,
+:db_condition_placeholder_215, :db_condition_placeholder_216,
+:db_condition_placeholder_217, :db_condition_placeholder_218,
+:db_condition_placeholder_219, :db_condition_placeholder_220,
+:db_condition_placeholder_221, :db_condition_placeholder_222,
+:db_condition_placeholder_223, :db_condition_placeholder_224,
+:db_condition_placeholder_225, :db_condition_placeholder_226,
+:db_condition_placeholder_227, :db_condition_placeholder_228,
+:db_condition_placeholder_229, :db_condition_placeholder_230,
+:db_condition_placeholder_231, :db_condition_placeholder_232,
+:db_condition_placeholder_233, :db_condition_placeholder_234,
+:db_condition_placeholder_235, :db_condition_placeholder_236,
+:db_condition_placeholder_237, :db_condition_placeholder_238,
+:db_condition_placeholder_239, :db_condition_placeholder_240,
+:db_condition_placeholder_241, :db_condition_placeholder_242,
+:db_condition_placeholder_243, :db_condition_placeholder_244,
+:db_condition_placeholder_245, :db_condition_placeholder_246,
+:db_condition_placeholder_247, :db_condition_placeholder_248,
+:db_condition_placeholder_249, :db_condition_placeholder_250,
+:db_condition_placeholder_251, :db_condition_placeholder_252,
+:db_condition_placeholder_253, :db_condition_placeholder_254,
+:db_condition_placeholder_255, :db_condition_placeholder_256,
+:db_condition_placeholder_257, :db_condition_placeholder_258,
+:db_condition_placeholder_259, :db_condition_placeholder_260,
+:db_condition_placeholder_261, :db_condition_placeholder_262,
+:db_condition_placeholder_263, :db_condition_placeholder_264,
+:db_condition_placeholder_265, :db_condition_placeholder_266,
+:db_condition_placeholder_267, :db_condition_placeholder_268,
+:db_condition_placeholder_269, :db_condition_placeholder_270,
+:db_condition_placeholder_271, :db_condition_placeholder_272,
+:db_condition_placeholder_273, :db_condition_placeholder_274,
+:db_condition_placeholder_275, :db_condition_placeholder_276,
+:db_condition_placeholder_277, :db_condition_placeholder_278,
+:db_condition_placeholder_279, :db_condition_placeholder_280,
+:db_condition_placeholder_281, :db_condition_placeholder_282,
+:db_condition_placeholder_283, :db_condition_placeholder_284,
+:db_condition_placeholder_285, :db_condition_placeholder_286,
+:db_condition_placeholder_287, :db_condition_placeholder_288,
+:db_condition_placeholder_289, :db_condition_placeholder_290,
+:db_condition_placeholder_291, :db_condition_placeholder_292,
+:db_condition_placeholder_293, :db_condition_placeholder_294,
+:db_condition_placeholder_295, :db_condition_placeholder_296,
+:db_condition_placeholder_297, :db_condition_placeholder_298,
+:db_condition_placeholder_299, :db_condition_placeholder_300,
+:db_condition_placeholder_301, :db_condition_placeholder_302,
+:db_condition_placeholder_303, :db_condition_placeholder_304,
+:db_condition_placeholder_305, :db_condition_placeholder_306,
+:db_condition_placeholder_307, :db_condition_placeholder_308,
+:db_condition_placeholder_309, :db_condition_placeholder_310,
+:db_condition_placeholder_311, :db_condition_placeholder_312,
+:db_condition_placeholder_313, :db_condition_placeholder_314,
+:db_condition_placeholder_315, :db_condition_placeholder_316,
+:db_condition_placeholder_317, :db_condition_placeholder_318,
+:db_condition_placeholder_319, :db_condition_placeholder_320,
+:db_condition_placeholder_321, :db_condition_placeholder_322,
+:db_condition_placeholder_323, :db_condition_placeholder_324,
+:db_condition_placeholder_325, :db_condition_placeholder_326,
+:db_condition_placeholder_327, :db_condition_placeholder_328,
+:db_condition_placeholder_329, :db_condition_placeholder_330,
+:db_condition_placeholder_331, :db_condition_placeholder_332,
+:db_condition_placeholder_333, :db_condition_placeholder_334,
+:db_condition_placeholder_335, :db_condition_placeholder_336,
+:db_condition_placeholder_337, :db_condition_placeholder_338,
+:db_condition_placeholder_339, :db_condition_placeholder_340,
+:db_condition_placeholder_341, :db_condition_placeholder_342,
+:db_condition_placeholder_343, :db_condition_placeholder_344,
+:db_condition_placeholder_345, :db_condition_placeholder_346,
+:db_condition_placeholder_347, :db_condition_placeholder_348,
+:db_condition_placeholder_349, :db_condition_placeholder_350,
+:db_condition_placeholder_351, :db_condition_placeholder_352,
+:db_condition_placeholder_353, :db_condition_placeholder_354,
+:db_condition_placeholder_355, :db_condition_placeholder_356,
+:db_condition_placeholder_357, :db_condition_placeholder_358,
+:db_condition_placeholder_359, :db_condition_placeholder_360,
+:db_condition_placeholder_361, :db_condition_placeholder_362,
+:db_condition_placeholder_363, :db_condition_placeholder_364,
+:db_condition_placeholder_365, :db_condition_placeholder_366,
+:db_condition_placeholder_367, :db_condition_placeholder_368,
+:db_condition_placeholder_369, :db_condition_placeholder_370,
+:db_condition_placeholder_371, :db_condition_placeholder_372,
+:db_condition_placeholder_373, :db_condition_placeholder_374,
+:db_condition_placeholder_375, :db_condition_placeholder_376,
+:db_condition_placeholder_377, :db_condition_placeholder_378,
+:db_condition_placeholder_379, :db_condition_placeholder_380,
+:db_condition_placeholder_381, :db_condition_placeholder_382,
+:db_condition_placeholder_383, :db_condition_placeholder_384,
+:db_condition_placeholder_385, :db_condition_placeholder_386,
+:db_condition_placeholder_387, :db_condition_placeholder_388,
+:db_condition_placeholder_389, :db_condition_placeholder_390,
+:db_condition_placeholder_391, :db_condition_placeholder_392,
+:db_condition_placeholder_393, :db_condition_placeholder_394,
+:db_condition_placeholder_395, :db_condition_placeholder_396,
+:db_condition_placeholder_397, :db_condition_placeholder_398,
+:db_condition_placeholder_399, :db_condition_placeholder_400,
+:db_condition_placeholder_401, :db_condition_placeholder_402,
+:db_condition_placeholder_403, :db_condition_placeholder_404,
+:db_condition_placeholder_405, :db_condition_placeholder_406,
+:db_condition_placeholder_407, :db_condition_placeholder_408,
+:db_condition_placeholder_409, :db_condition_placeholder_410,
+:db_condition_placeholder_411, :db_condition_placeholder_412,
+:db_condition_placeholder_413, :db_condition_placeholder_414,
+:db_condition_placeholder_415, :db_condition_placeholder_416,
+:db_condition_placeholder_417, :db_condition_placeholder_418,
+:db_condition_placeholder_419, :db_condition_placeholder_420,
+:db_condition_placeholder_421, :db_condition_placeholder_422,
+:db_condition_placeholder_423, :db_condition_placeholder_424,
+:db_condition_placeholder_425, :db_condition_placeholder_426,
+:db_condition_placeholder_427, :db_condition_placeholder_428,
+:db_condition_placeholder_429, :db_condition_placeholder_430,
+:db_condition_placeholder_431, :db_condition_placeholder_432,
+:db_condition_placeholder_433, :db_condition_placeholder_434,
+:db_condition_placeholder_435, :db_condition_placeholder_436,
+:db_condition_placeholder_437, :db_condition_placeholder_438,
+:db_condition_placeholder_439, :db_condition_placeholder_440,
+:db_condition_placeholder_441, :db_condition_placeholder_442,
+:db_condition_placeholder_443, :db_condition_placeholder_444,
+:db_condition_placeholder_445, :db_condition_placeholder_446,
+:db_condition_placeholder_447, :db_condition_placeholder_448,
+:db_condition_placeholder_449, :db_condition_placeholder_450,
+:db_condition_placeholder_451, :db_condition_placeholder_452,
+:db_condition_placeholder_453, :db_condition_placeholder_454,
+:db_condition_placeholder_455, :db_condition_placeholder_456,
+:db_condition_placeholder_457, :db_condition_placeholder_458,
+:db_condition_placeholder_459, :db_condition_placeholder_460,
+:db_condition_placeholder_461, :db_condition_placeholder_462,
+:db_condition_placeholder_463, :db_condition_placeholder_464,
+:db_condition_placeholder_465, :db_condition_placeholder_466,
+:db_condition_placeholder_467, :db_condition_placeholder_468,
+:db_condition_placeholder_469, :db_condition_placeholder_470,
+:db_condition_placeholder_471, :db_condition_placeholder_472,
+:db_condition_placeholder_473, :db_condition_placeholder_474,
+:db_condition_placeholder_475, :db_condition_placeholder_476,
+:db_condition_placeholder_477, :db_condition_placeholder_478,
+:db_condition_placeholder_479, :db_condition_placeholder_480,
+:db_condition_placeholder_481, :db_condition_placeholder_482,
+:db_condition_placeholder_483, :db_condition_placeholder_484,
+:db_condition_placeholder_485, :db_condition_placeholder_486,
+:db_condition_placeholder_487, :db_condition_placeholder_488,
+:db_condition_placeholder_489, :db_condition_placeholder_490,
+:db_condition_placeholder_491, :db_condition_placeholder_492,
+:db_condition_placeholder_493, :db_condition_placeholder_494,
+:db_condition_placeholder_495, :db_condition_placeholder_496,
+:db_condition_placeholder_497, :db_condition_placeholder_498,
+:db_condition_placeholder_499, :db_condition_placeholder_500,
+:db_condition_placeholder_501, :db_condition_placeholder_502,
+:db_condition_placeholder_503, :db_condition_placeholder_504,
+:db_condition_placeholder_505, :db_condition_placeholder_506,
+:db_condition_placeholder_507, :db_condition_placeholder_508,
+:db_condition_placeholder_509, :db_condition_placeholder_510,
+:db_condition_placeholder_511, :db_condition_placeholder_512,
+:db_condition_placeholder_513, :db_condition_placeholder_514,
+:db_condition_placeholder_515, :db_condition_placeholder_516,
+:db_condition_placeholder_517, :db_condition_placeholder_518,
+:db_condition_placeholder_519, :db_condition_placeholder_520,
+:db_condition_placeholder_521, :db_condition_placeholder_522,
+:db_condition_placeholder_523, :db_condition_placeholder_524,
+:db_condition_placeholder_525, :db_condition_placeholder_526,
+:db_condition_placeholder_527, :db_condition_placeholder_528,
+:db_condition_placeholder_529, :db_condition_placeholder_530,
+:db_condition_placeholder_531, :db_condition_placeholder_532,
+:db_condition_placeholder_533, :db_condition_placeholder_534,
+:db_condition_placeholder_535, :db_condition_placeholder_536,
+:db_condition_placeholder_537, :db_condition_placeholder_538,
+:db_condition_placeholder_539, :db_condition_placeholder_540,
+:db_condition_placeholder_541, :db_condition_placeholder_542,
+:db_condition_placeholder_543, :db_condition_placeholder_544,
+:db_condition_placeholder_545, :db_condition_placeholder_546,
+:db_condition_placeholder_547, :db_condition_placeholder_548,
+:db_condition_placeholder_549, :db_condition_placeholder_550,
+:db_condition_placeholder_551, :db_condition_placeholder_552,
+:db_condition_placeholder_553, :db_condition_placeholder_554,
+:db_condition_placeholder_555, :db_condition_placeholder_556,
+:db_condition_placeholder_557, :db_condition_placeholder_558,
+:db_condition_placeholder_559, :db_condition_placeholder_560,
+:db_condition_placeholder_561, :db_condition_placeholder_562,
+:db_condition_placeholder_563, :db_condition_placeholder_564,
+:db_condition_placeholder_565, :db_condition_placeholder_566,
+:db_condition_placeholder_567, :db_condition_placeholder_568,
+:db_condition_placeholder_569, :db_condition_placeholder_570,
+:db_condition_placeholder_571, :db_condition_placeholder_572,
+:db_condition_placeholder_573, :db_condition_placeholder_574,
+:db_condition_placeholder_575, :db_condition_placeholder_576,
+:db_condition_placeholder_577, :db_condition_placeholder_578,
+:db_condition_placeholder_579, :db_condition_placeholder_580,
+:db_condition_placeholder_581, :db_condition_placeholder_582,
+:db_condition_placeholder_583, :db_condition_placeholder_584,
+:db_condition_placeholder_585, :db_condition_placeholder_586,
+:db_condition_placeholder_587, :db_condition_placeholder_588,
+:db_condition_placeholder_589, :db_condition_placeholder_590,
+:db_condition_placeholder_591, :db_condition_placeholder_592,
+:db_condition_placeholder_593, :db_condition_placeholder_594,
+:db_condition_placeholder_595, :db_condition_placeholder_596,
+:db_condition_placeholder_597, :db_condition_placeholder_598,
+:db_condition_placeholder_599, :db_condition_placeholder_600,
+:db_condition_placeholder_601, :db_condition_placeholder_602,
+:db_condition_placeholder_603, :db_condition_placeholder_604,
+:db_condition_placeholder_605, :db_condition_placeholder_606,
+:db_condition_placeholder_607, :db_condition_placeholder_608,
+:db_condition_placeholder_609, :db_condition_placeholder_610,
+:db_condition_placeholder_611, :db_condition_placeholder_612,
+:db_condition_placeholder_613, :db_condition_placeholder_614,
+:db_condition_placeholder_615, :db_condition_placeholder_616,
+:db_condition_placeholder_617, :db_condition_placeholder_618,
+:db_condition_placeholder_619, :db_condition_placeholder_620,
+:db_condition_placeholder_621, :db_condition_placeholder_622,
+:db_condition_placeholder_623, :db_condition_placeholder_624,
+:db_condition_placeholder_625, :db_condition_placeholder_626,
+:db_condition_placeholder_627, :db_condition_placeholder_628,
+:db_condition_placeholder_629, :db_condition_placeholder_630,
+:db_condition_placeholder_631, :db_condition_placeholder_632,
+:db_condition_placeholder_633, :db_condition_placeholder_634,
+:db_condition_placeholder_635, :db_condition_placeholder_636,
+:db_condition_placeholder_637, :db_condition_placeholder_638,
+:db_condition_placeholder_639, :db_condition_placeholder_640,
+:db_condition_placeholder_641, :db_condition_placeholder_642,
+:db_condition_placeholder_643, :db_condition_placeholder_644,
+:db_condition_placeholder_645, :db_condition_placeholder_646,
+:db_condition_placeholder_647, :db_condition_placeholder_648,
+:db_condition_placeholder_649, :db_condition_placeholder_650,
+:db_condition_placeholder_651, :db_condition_placeholder_652,
+:db_condition_placeholder_653, :db_condition_placeholder_654,
+:db_condition_placeholder_655, :db_condition_placeholder_656,
+:db_condition_placeholder_657, :db_condition_placeholder_658,
+:db_condition_placeholder_659, :db_condition_placeholder_660,
+:db_condition_placeholder_661, :db_condition_placeholder_662,
+:db_condition_placeholder_663, :db_condition_placeholder_664,
+:db_condition_placeholder_665, :db_condition_placeholder_666,
+:db_condition_placeholder_667, :db_condition_placeholder_668,
+:db_condition_placeholder_669, :db_condition_placeholder_670,
+:db_condition_placeholder_671, :db_condition_placeholder_672,
+:db_condition_placeholder_673, :db_condition_placeholder_674,
+:db_condition_placeholder_675, :db_condition_placeholder_676,
+:db_condition_placeholder_677, :db_condition_placeholder_678,
+:db_condition_placeholder_679, :db_condition_placeholder_680,
+:db_condition_placeholder_681, :db_condition_placeholder_682,
+:db_condition_placeholder_683, :db_condition_placeholder_684,
+:db_condition_placeholder_685, :db_condition_placeholder_686,
+:db_condition_placeholder_687, :db_condition_placeholder_688,
+:db_condition_placeholder_689, :db_condition_placeholder_690,
+:db_condition_placeholder_691, :db_condition_placeholder_692,
+:db_condition_placeholder_693, :db_condition_placeholder_694,
+:db_condition_placeholder_695, :db_condition_placeholder_696,
+:db_condition_placeholder_697, :db_condition_placeholder_698,
+:db_condition_placeholder_699, :db_condition_placeholder_700,
+:db_condition_placeholder_701, :db_condition_placeholder_702,
+:db_condition_placeholder_703, :db_condition_placeholder_704,
+:db_condition_placeholder_705, :db_condition_placeholder_706,
+:db_condition_placeholder_707, :db_condition_placeholder_708,
+:db_condition_placeholder_709, :db_condition_placeholder_710,
+:db_condition_placeholder_711, :db_condition_placeholder_712,
+:db_condition_placeholder_713, :db_condition_placeholder_714,
+:db_condition_placeholder_715, :db_condition_placeholder_716,
+:db_condition_placeholder_717, :db_condition_placeholder_718,
+:db_condition_placeholder_719, :db_condition_placeholder_720,
+:db_condition_placeholder_721, :db_condition_placeholder_722,
+:db_condition_placeholder_723, :db_condition_placeholder_724,
+:db_condition_placeholder_725, :db_condition_placeholder_726,
+:db_condition_placeholder_727, :db_condition_placeholder_728,
+:db_condition_placeholder_729, :db_condition_placeholder_730,
+:db_condition_placeholder_731, :db_condition_placeholder_732,
+:db_condition_placeholder_733, :db_condition_placeholder_734,
+:db_condition_placeholder_735, :db_condition_placeholder_736,
+:db_condition_placeholder_737, :db_condition_placeholder_738,
+:db_condition_placeholder_739, :db_condition_placeholder_740,
+:db_condition_placeholder_741, :db_condition_placeholder_742,
+:db_condition_placeholder_743, :db_condition_placeholder_744,
+:db_condition_placeholder_745, :db_condition_placeholder_746,
+:db_condition_placeholder_747, :db_condition_placeholder_748,
+:db_condition_placeholder_749, :db_condition_placeholder_750,
+:db_condition_placeholder_751, :db_condition_placeholder_752,
+:db_condition_placeholder_753, :db_condition_placeholder_754,
+:db_condition_placeholder_755, :db_condition_placeholder_756,
+:db_condition_placeholder_757, :db_condition_placeholder_758,
+:db_condition_placeholder_759, :db_condition_placeholder_760,
+:db_condition_placeholder_761, :db_condition_placeholder_762,
+:db_condition_placeholder_763, :db_condition_placeholder_764,
+:db_condition_placeholder_765, :db_condition_placeholder_766,
+:db_condition_placeholder_767, :db_condition_placeholder_768,
+:db_condition_placeholder_769, :db_condition_placeholder_770,
+:db_condition_placeholder_771, :db_condition_placeholder_772,
+:db_condition_placeholder_773, :db_condition_placeholder_774,
+:db_condition_placeholder_775, :db_condition_placeholder_776,
+:db_condition_placeholder_777, :db_condition_placeholder_778,
+:db_condition_placeholder_779, :db_condition_placeholder_780,
+:db_condition_placeholder_781, :db_condition_placeholder_782,
+:db_condition_placeholder_783, :db_condition_placeholder_784,
+:db_condition_placeholder_785, :db_condition_placeholder_786,
+:db_condition_placeholder_787, :db_condition_placeholder_788,
+:db_condition_placeholder_789, :db_condition_placeholder_790,
+:db_condition_placeholder_791, :db_condition_placeholder_792,
+:db_condition_placeholder_793, :db_condition_placeholder_794,
+:db_condition_placeholder_795, :db_condition_placeholder_796,
+:db_condition_placeholder_797, :db_condition_placeholder_798,
+:db_condition_placeholder_799, :db_condition_placeholder_800,
+:db_condition_placeholder_801, :db_condition_placeholder_802,
+:db_condition_placeholder_803, :db_condition_placeholder_804,
+:db_condition_placeholder_805, :db_condition_placeholder_806,
+:db_condition_placeholder_807, :db_condition_placeholder_808,
+:db_condition_placeholder_809, :db_condition_placeholder_810,
+:db_condition_placeholder_811, :db_condition_placeholder_812,
+:db_condition_placeholder_813, :db_condition_placeholder_814,
+:db_condition_placeholder_815, :db_condition_placeholder_816,
+:db_condition_placeholder_817, :db_condition_placeholder_818,
+:db_condition_placeholder_819, :db_condition_placeholder_820,
+:db_condition_placeholder_821, :db_condition_placeholder_822,
+:db_condition_placeholder_823, :db_condition_placeholder_824,
+:db_condition_placeholder_825, :db_condition_placeholder_826,
+:db_condition_placeholder_827, :db_condition_placeholder_828,
+:db_condition_placeholder_829, :db_condition_placeholder_830,
+:db_condition_placeholder_831, :db_condition_placeholder_832,
+:db_condition_placeholder_833, :db_condition_placeholder_834,
+:db_condition_placeholder_835, :db_condition_placeholder_836,
+:db_condition_placeholder_837, :db_condition_placeholder_838,
+:db_condition_placeholder_839, :db_condition_placeholder_840,
+:db_condition_placeholder_841, :db_condition_placeholder_842,
+:db_condition_placeholder_843, :db_condition_placeholder_844,
+:db_condition_placeholder_845, :db_condition_placeholder_846,
+:db_condition_placeholder_847, :db_condition_placeholder_848,
+:db_condition_placeholder_849, :db_condition_placeholder_850,
+:db_condition_placeholder_851, :db_condition_placeholder_852,
+:db_condition_placeholder_853, :db_condition_placeholder_854,
+:db_condition_placeholder_855, :db_condition_placeholder_856,
+:db_condition_placeholder_857, :db_condition_placeholder_858,
+:db_condition_placeholder_859, :db_condition_placeholder_860,
+:db_condition_placeholder_861, :db_condition_placeholder_862,
+:db_condition_placeholder_863, :db_condition_placeholder_864,
+:db_condition_placeholder_865, :db_condition_placeholder_866,
+:db_condition_placeholder_867, :db_condition_placeholder_868,
+:db_condition_placeholder_869, :db_condition_placeholder_870,
+:db_condition_placeholder_871, :db_condition_placeholder_872,
+:db_condition_placeholder_873, :db_condition_placeholder_874,
+:db_condition_placeholder_875, :db_condition_placeholder_876,
+:db_condition_placeholder_877, :db_condition_placeholder_878,
+:db_condition_placeholder_879, :db_condition_placeholder_880,
+:db_condition_placeholder_881, :db_condition_placeholder_882,
+:db_condition_placeholder_883, :db_condition_placeholder_884,
+:db_condition_placeholder_885, :db_condition_placeholder_886,
+:db_condition_placeholder_887, :db_condition_placeholder_888,
+:db_condition_placeholder_889, :db_condition_placeholder_890,
+:db_condition_placeholder_891, :db_condition_placeholder_892,
+:db_condition_placeholder_893, :db_condition_placeholder_894,
+:db_condition_placeholder_895, :db_condition_placeholder_896,
+:db_condition_placeholder_897, :db_condition_placeholder_898,
+:db_condition_placeholder_899, :db_condition_placeholder_900,
+:db_condition_placeholder_901, :db_condition_placeholder_902,
+:db_condition_placeholder_903, :db_condition_placeholder_904,
+:db_condition_placeholder_905, :db_condition_placeholder_906,
+:db_condition_placeholder_907, :db_condition_placeholder_908,
+:db_condition_placeholder_909, :db_condition_placeholder_910,
+:db_condition_placeholder_911, :db_condition_placeholder_912,
+:db_condition_placeholder_913, :db_condition_placeholder_914,
+:db_condition_placeholder_915, :db_condition_placeholder_916,
+:db_condition_placeholder_917, :db_condition_placeholder_918,
+:db_condition_placeholder_919, :db_condition_placeholder_920,
+:db_condition_placeholder_921, :db_condition_placeholder_922,
+:db_condition_placeholder_923, :db_condition_placeholder_924,
+:db_condition_placeholder_925, :db_condition_placeholder_926,
+:db_condition_placeholder_927, :db_condition_placeholder_928,
+:db_condition_placeholder_929, :db_condition_placeholder_930,
+:db_condition_placeholder_931, :db_condition_placeholder_932,
+:db_condition_placeholder_933, :db_condition_placeholder_934,
+:db_condition_placeholder_935, :db_condition_placeholder_936,
+:db_condition_placeholder_937, :db_condition_placeholder_938,
+:db_condition_placeholder_939, :db_condition_placeholder_940,
+:db_condition_placeholder_941, :db_condition_placeholder_942,
+:db_condition_placeholder_943, :db_condition_placeholder_944,
+:db_condition_placeholder_945, :db_condition_placeholder_946,
+:db_condition_placeholder_947, :db_condition_placeholder_948,
+:db_condition_placeholder_949, :db_condition_placeholder_950,
+:db_condition_placeholder_951, :db_condition_placeholder_952,
+:db_condition_placeholder_953, :db_condition_placeholder_954,
+:db_condition_placeholder_955, :db_condition_placeholder_956,
+:db_condition_placeholder_957, :db_condition_placeholder_958,
+:db_condition_placeholder_959, :db_condition_placeholder_960,
+:db_condition_placeholder_961, :db_condition_placeholder_962,
+:db_condition_placeholder_963, :db_condition_placeholder_964,
+:db_condition_placeholder_965, :db_condition_placeholder_966,
+:db_condition_placeholder_967, :db_condition_placeholder_968,
+:db_condition_placeholder_969, :db_condition_placeholder_970,
+:db_condition_placeholder_971, :db_condition_placeholder_972,
+:db_condition_placeholder_973, :db_condition_placeholder_974,
+:db_condition_placeholder_975, :db_condition_placeholder_976,
+:db_condition_placeholder_977, :db_condition_placeholder_978,
+:db_condition_placeholder_979, :db_condition_placeholder_980,
+:db_condition_placeholder_981, :db_condition_placeholder_982,
+:db_condition_placeholder_983, :db_condition_placeholder_984,
+:db_condition_placeholder_985, :db_condition_placeholder_986,
+:db_condition_placeholder_987, :db_condition_placeholder_988,
+:db_condition_placeholder_989, :db_condition_placeholder_990,
+:db_condition_placeholder_991, :db_condition_placeholder_992,
+:db_condition_placeholder_993, :db_condition_placeholder_994,
+:db_condition_placeholder_995, :db_condition_placeholder_996,
+:db_condition_placeholder_997, :db_condition_placeholder_998,
+:db_condition_placeholder_999, :db_condition_placeholder_1000,
+:db_condition_placeholder_1001, :db_condition_placeholder_1002,
+:db_condition_placeholder_1003, :db_condition_placeholder_1004,
+:db_condition_placeholder_1005, :db_condition_placeholder_1006,
+:db_condition_placeholder_1007, :db_condition_placeholder_1008,
+:db_condition_placeholder_1009, :db_condition_placeholder_1010,
+:db_condition_placeholder_1011, :db_condition_placeholder_1012,
+:db_condition_placeholder_1013, :db_condition_placeholder_1014,
+:db_condition_placeholder_1015, :db_condition_placeholder_1016,
+:db_condition_placeholder_1017, :db_condition_placeholder_1018,
+:db_condition_placeholder_1019, :db_condition_placeholder_1020,
+:db_condition_placeholder_1021, :db_condition_placeholder_1022,
+:db_condition_placeholder_1023, :db_condition_placeholder_1024,
+:db_condition_placeholder_1025, :db_condition_placeholder_1026,
+:db_condition_placeholder_1027, :db_condition_placeholder_1028,
+:db_condition_placeholder_1029, :db_condition_placeholder_1030,
+:db_condition_placeholder_1031, :db_condition_placeholder_1032,
+:db_condition_placeholder_1033, :db_condition_placeholder_1034,
+:db_condition_placeholder_1035, :db_condition_placeholder_1036,
+:db_condition_placeholder_1037, :db_condition_placeholder_1038,
+:db_condition_placeholder_1039, :db_condition_placeholder_1040,
+:db_condition_placeholder_1041, :db_condition_placeholder_1042,
+:db_condition_placeholder_1043, :db_condition_placeholder_1044,
+:db_condition_placeholder_1045, :db_condition_placeholder_1046,
+:db_condition_placeholder_1047, :db_condition_placeholder_1048,
+:db_condition_placeholder_1049, :db_condition_placeholder_1050,
+:db_condition_placeholder_1051, :db_condition_placeholder_1052,
+:db_condition_placeholder_1053, :db_condition_placeholder_1054,
+:db_condition_placeholder_1055, :db_condition_placeholder_1056,
+:db_condition_placeholder_1057, :db_condition_placeholder_1058,
+:db_condition_placeholder_1059, :db_condition_placeholder_1060,
+:db_condition_placeholder_1061, :db_condition_placeholder_1062,
+:db_condition_placeholder_1063, :db_condition_placeholder_1064,
+:db_condition_placeholder_1065, :db_condition_placeholder_1066,
+:db_condition_placeholder_1067, :db_condition_placeholder_1068,
+:db_condition_placeholder_1069, :db_condition_placeholder_1070,
+:db_condition_placeholder_1071, :db_condition_placeholder_1072,
+:db_condition_placeholder_1073, :db_condition_placeholder_1074,
+:db_condition_placeholder_1075, :db_condition_placeholder_1076,
+:db_condition_placeholder_1077, :db_condition_placeholder_1078,
+:db_condition_placeholder_1079, :db_condition_placeholder_1080,
+:db_condition_placeholder_1081, :db_condition_placeholder_1082,
+:db_condition_placeholder_1083, :db_condition_placeholder_1084,
+:db_condition_placeholder_1085, :db_condition_placeholder_1086,
+:db_condition_placeholder_1087, :db_condition_placeholder_1088,
+:db_condition_placeholder_1089, :db_condition_placeholder_1090,
+:db_condition_placeholder_1091, :db_condition_placeholder_1092,
+:db_condition_placeholder_1093, :db_condition_placeholder_1094,
+:db_condition_placeholder_1095, :db_condition_placeholder_1096,
+:db_condition_placeholder_1097, :db_condition_placeholder_1098,
+:db_condition_placeholder_1099, :db_condition_placeholder_1100,
+:db_condition_placeholder_1101, :db_condition_placeholder_1102,
+:db_condition_placeholder_1103, :db_condition_placeholder_1104,
+:db_condition_placeholder_1105, :db_condition_placeholder_1106,
+:db_condition_placeholder_1107, :db_condition_placeholder_1108,
+:db_condition_placeholder_1109, :db_condition_placeholder_1110,
+:db_condition_placeholder_1111, :db_condition_placeholder_1112,
+:db_condition_placeholder_1113, :db_condition_placeholder_1114,
+:db_condition_placeholder_1115, :db_condition_placeholder_1116,
+:db_condition_placeholder_1117, :db_condition_placeholder_1118,
+:db_condition_placeholder_1119, :db_condition_placeholder_1120,
+:db_condition_placeholder_1121, :db_condition_placeholder_1122,
+:db_condition_placeholder_1123, :db_condition_placeholder_1124,
+:db_condition_placeholder_1125, :db_condition_placeholder_1126,
+:db_condition_placeholder_1127, :db_condition_placeholder_1128,
+:db_condition_placeholder_1129, :db_condition_placeholder_1130,
+:db_condition_placeholder_1131, :db_condition_placeholder_1132,
+:db_condition_placeholder_1133, :db_condition_placeholder_1134,
+:db_condition_placeholder_1135, :db_condition_placeholder_1136,
+:db_condition_placeholder_1137, :db_condition_placeholder_1138,
+:db_condition_placeholder_1139, :db_condition_placeholder_1140,
+:db_condition_placeholder_1141, :db_condition_placeholder_1142,
+:db_condition_placeholder_1143, :db_condition_placeholder_1144,
+:db_condition_placeholder_1145, :db_condition_placeholder_1146,
+:db_condition_placeholder_1147, :db_condition_placeholder_1148,
+:db_condition_placeholder_1149, :db_condition_placeholder_1150,
+:db_condition_placeholder_1151, :db_condition_placeholder_1152,
+:db_condition_placeholder_1153, :db_condition_placeholder_1154,
+:db_condition_placeholder_1155, :db_condition_placeholder_1156,
+:db_condition_placeholder_1157, :db_condition_placeholder_1158,
+:db_condition_placeholder_1159, :db_condition_placeholder_1160,
+:db_condition_placeholder_1161, :db_condition_placeholder_1162,
+:db_condition_placeholder_1163, :db_condition_placeholder_1164,
+:db_condition_placeholder_1165, :db_condition_placeholder_1166,
+:db_condition_placeholder_1167, :db_condition_placeholder_1168,
+:db_condition_placeholder_1169, :db_condition_placeholder_1170,
+:db_condition_placeholder_1171, :db_condition_placeholder_1172,
+:db_condition_placeholder_1173, :db_condition_placeholder_1174,
+:db_condition_placeholder_1175, :db_condition_placeholder_1176,
+:db_condition_placeholder_1177, :db_condition_placeholder_1178,
+:db_condition_placeholder_1179, :db_condition_placeholder_1180,
+:db_condition_placeholder_1181, :db_condition_placeholder_1182,
+:db_condition_placeholder_1183, :db_condition_placeholder_1184,
+:db_condition_placeholder_1185, :db_condition_placeholder_1186,
+:db_condition_placeholder_1187, :db_condition_placeholder_1188,
+:db_condition_placeholder_1189, :db_condition_placeholder_1190,
+:db_condition_placeholder_1191, :db_condition_placeholder_1192,
+:db_condition_placeholder_1193, :db_condition_placeholder_1194,
+:db_condition_placeholder_1195, :db_condition_placeholder_1196,
+:db_condition_placeholder_1197, :db_condition_placeholder_1198,
+:db_condition_placeholder_1199, :db_condition_placeholder_1200,
+:db_condition_placeholder_1201, :db_condition_placeholder_1202,
+:db_condition_placeholder_1203, :db_condition_placeholder_1204,
+:db_condition_placeholder_1205, :db_condition_placeholder_1206,
+:db_condition_placeholder_1207, :db_condition_placeholder_1208,
+:db_condition_placeholder_1209, :db_condition_placeholder_1210,
+:db_condition_placeholder_1211, :db_condition_placeholder_1212,
+:db_condition_placeholder_1213, :db_condition_placeholder_1214,
+:db_condition_placeholder_1215, :db_condition_placeholder_1216,
+:db_condition_placeholder_1217, :db_condition_placeholder_1218,
+:db_condition_placeholder_1219, :db_condition_placeholder_1220,
+:db_condition_placeholder_1221, :db_condition_placeholder_1222,
+:db_condition_placeholder_1223, :db_condition_placeholder_1224,
+:db_condition_placeholder_1225, :db_condition_placeholder_1226,
+:db_condition_placeholder_1227, :db_condition_placeholder_1228,
+:db_condition_placeholder_1229, :db_condition_placeholder_1230,
+:db_condition_placeholder_1231, :db_condition_placeholder_1232,
+:db_condition_placeholder_1233, :db_condition_placeholder_1234,
+:db_condition_placeholder_1235, :db_condition_placeholder_1236,
+:db_condition_placeholder_1237, :db_condition_placeholder_1238,
+:db_condition_placeholder_1239, :db_condition_placeholder_1240,
+:db_condition_placeholder_1241, :db_condition_placeholder_1242,
+:db_condition_placeholder_1243, :db_condition_placeholder_1244,
+:db_condition_placeholder_1245, :db_condition_placeholder_1246,
+:db_condition_placeholder_1247, :db_condition_placeholder_1248,
+:db_condition_placeholder_1249, :db_condition_placeholder_1250,
+:db_condition_placeholder_1251, :db_condition_placeholder_1252,
+:db_condition_placeholder_1253, :db_condition_placeholder_1254,
+:db_condition_placeholder_1255)) AND (external =
+:db_condition_placeholder_1256) AND (customized =
+:db_condition_placeholder_1257) )); Array
+(
+    [:db_condition_placeholder_0] => 1
+    [:db_condition_placeholder_1] => front_page
+    [:db_condition_placeholder_2] => blog
+    [:db_condition_placeholder_3] => node
+    [:db_condition_placeholder_4] => forum
+    [:db_condition_placeholder_5] => poll
+    [:db_condition_placeholder_6] => rss.xml
+    [:db_condition_placeholder_7] => search
+    [:db_condition_placeholder_8] => legal
+    [:db_condition_placeholder_9] => uuid
+    [:db_condition_placeholder_10] => admin
+    [:db_condition_placeholder_11] => batch
+    [:db_condition_placeholder_12] => contact
+    [:db_condition_placeholder_13] => mybox
+    [:db_condition_placeholder_14] =>
+calls-for-experts-in-your-domains
+    [:db_condition_placeholder_15] => challenge-list
+    [:db_condition_placeholder_16] => expert-challenges
+    [:db_condition_placeholder_17] => quizlist
+    [:db_condition_placeholder_18] => bests-users
+    [:db_condition_placeholder_19] => my-articles
+    [:db_condition_placeholder_20] => my-questions-to-answer
+    [:db_condition_placeholder_21] => user
+    [:db_condition_placeholder_22] => userpoints
+    [:db_condition_placeholder_23] => my-polls
+    [:db_condition_placeholder_24] => question-list-2
+    [:db_condition_placeholder_25] => question-list-by-user
+    [:db_condition_placeholder_26] => questions
+    [:db_condition_placeholder_27] => referents-list
+    [:db_condition_placeholder_28] => findexpert
+    [:db_condition_placeholder_29] => homepage
+    [:db_condition_placeholder_30] => mydash
+    [:db_condition_placeholder_31] => messages
+    [:db_condition_placeholder_32] => myuserpoints
+    [:db_condition_placeholder_33] => promoted-challenges
+    [:db_condition_placeholder_34] => groups
+    [:db_condition_placeholder_35] => propositions-challenges-
+    [:db_condition_placeholder_36] => solutions-challenge-priv-
+    [:db_condition_placeholder_37] => admin/tasks
+    [:db_condition_placeholder_38] => user/login
+    [:db_condition_placeholder_39] => og_menu/autocomplete
+    [:db_condition_placeholder_40] => context-ui/activate
+    [:db_condition_placeholder_41] => context-ui/deactivate
+    [:db_condition_placeholder_42] => user/login-to-rate
+    [:db_condition_placeholder_43] => toolbar/toggle
+    [:db_condition_placeholder_44] => masquerade/autocomplete
+    [:db_condition_placeholder_45] => masquerade/autocomplete-users
+    [:db_condition_placeholder_46] => node/add
+    [:db_condition_placeholder_47] => blog/feed
+    [:db_condition_placeholder_48] => comment/%
+    [:db_condition_placeholder_49] => file/progress
+    [:db_condition_placeholder_50] => admin/compact
+    [:db_condition_placeholder_51] => filter/tips
+    [:db_condition_placeholder_52] => user/register
+    [:db_condition_placeholder_53] => system/files
+    [:db_condition_placeholder_54] => admin/index
+    [:db_condition_placeholder_55] => masquerade/autocomplete-user
+    [:db_condition_placeholder_56] => openid/authenticate
+    [:db_condition_placeholder_57] => i18n_string/save
+    [:db_condition_placeholder_58] => system/temporary
+    [:db_condition_placeholder_59] => system/timezone
+    [:db_condition_placeholder_60] => token/flush-cache
+    [:db_condition_placeholder_61] => file/ajax
+    [:db_condition_placeholder_62] => panels/ajax
+    [:db_condition_placeholder_63] => devel/arguments
+    [:db_condition_placeholder_64] => taxonomy/autocomplete
+    [:db_condition_placeholder_65] => messages/autocomplete
+    [:db_condition_placeholder_66] => admin/config
+    [:db_condition_placeholder_67] => devel/explain
+    [:db_condition_placeholder_68] => forum/%
+    [:db_condition_placeholder_69] => admin/help
+    [:db_condition_placeholder_70] => token/tree
+    [:db_condition_placeholder_71] => user/logout
+    [:db_condition_placeholder_72] =>
+userpoints/operation-autocomplete
+    [:db_condition_placeholder_73] => user/password
+    [:db_condition_placeholder_74] => masquerade/unswitch
+    [:db_condition_placeholder_75] => user/autocomplete
+    [:db_condition_placeholder_76] => questions/search
+    [:db_condition_placeholder_77] => invite/add
+    [:db_condition_placeholder_78] => questions/start_ask
+    [:db_condition_placeholder_79] => media/%
+    [:db_condition_placeholder_80] => admin/modules
+    [:db_condition_placeholder_81] => blog/%
+    [:db_condition_placeholder_82] => admin/reports
+    [:db_condition_placeholder_83] => search/content
+    [:db_condition_placeholder_84] => questions/continue_ask
+    [:db_condition_placeholder_85] => messages/list
+    [:db_condition_placeholder_86] => admin/appearance
+    [:db_condition_placeholder_87] => admin/content
+    [:db_condition_placeholder_88] => search/node
+    [:db_condition_placeholder_89] => devel/reference
+    [:db_condition_placeholder_90] => devel/elements
+    [:db_condition_placeholder_91] => devel/phpinfo
+    [:db_condition_placeholder_92] => devel/run-cron
+    [:db_condition_placeholder_93] => devel/session
+    [:db_condition_placeholder_94] => admin/structure
+    [:db_condition_placeholder_95] => wysiwyg/%
+    [:db_condition_placeholder_96] => devel/switch
+    [:db_condition_placeholder_97] => search/user
+    [:db_condition_placeholder_98] => system/ajax
+    [:db_condition_placeholder_99] => devel/settings
+    [:db_condition_placeholder_100] => devel/php
+    [:db_condition_placeholder_101] => messages/inbox
+    [:db_condition_placeholder_102] => media/browser
+    [:db_condition_placeholder_103] => myuserpoints/%
+    [:db_condition_placeholder_104] => admin/people
+    [:db_condition_placeholder_105] => devel/reinstall
+    [:db_condition_placeholder_106] => questions/all
+    [:db_condition_placeholder_107] => messages/sent
+    [:db_condition_placeholder_108] => questions/unanswered
+    [:db_condition_placeholder_109] => devel/variable
+    [:db_condition_placeholder_110] => views/ajax
+    [:db_condition_placeholder_111] => messages/new
+    [:db_condition_placeholder_112] => node/%
+    [:db_condition_placeholder_113] => admin/quiz
+    [:db_condition_placeholder_114] => invite/%
+    [:db_condition_placeholder_115] => user/%
+    [:db_condition_placeholder_116] => admin/content/node
+    [:db_condition_placeholder_117] => admin/modules/list
+    [:db_condition_placeholder_118] => myuserpoints/transaction/list
+    [:db_condition_placeholder_119] => invite/%/view
+    [:db_condition_placeholder_120] => media/%/view
+    [:db_condition_placeholder_121] => node/%/view
+    [:db_condition_placeholder_122] => user/%/view
+    [:db_condition_placeholder_123] => comment/%/view
+    [:db_condition_placeholder_124] => rate/vote/js
+    [:db_condition_placeholder_125] => admin/people/create
+    [:db_condition_placeholder_126] => admin/appearance/list
+    [:db_condition_placeholder_127] => admin/structure/bulk-export
+    [:db_condition_placeholder_128] => jcarousel/ajax/views
+    [:db_condition_placeholder_129] => admin/appearance/disable
+    [:db_condition_placeholder_130] => admin/appearance/enable
+    [:db_condition_placeholder_131] => admin/people/people
+    [:db_condition_placeholder_132] => admin/reports/memcache
+    [:db_condition_placeholder_133] => admin/appearance/default
+    [:db_condition_placeholder_134] => legal_accept/%/%
+    [:db_condition_placeholder_135] => admin/modules/uninstall
+    [:db_condition_placeholder_136] => ctools/autocomplete/%
+    [:db_condition_placeholder_137] => features/autocomplete/packages
+    [:db_condition_placeholder_138] => subscriptions/add/all_types
+    [:db_condition_placeholder_139] => subscriptions/add/node
+    [:db_condition_placeholder_140] => subscriptions/add/taxa
+    [:db_condition_placeholder_141] => subscriptions/add/type
+    [:db_condition_placeholder_142] => subscriptions/del/all_types
+    [:db_condition_placeholder_143] => subscriptions/rem/%
+    [:db_condition_placeholder_144] => subscriptions/del/node
+    [:db_condition_placeholder_145] => subscriptions/del/taxa
+    [:db_condition_placeholder_146] => subscriptions/del/type
+    [:db_condition_placeholder_147] => invite/accept/%
+    [:db_condition_placeholder_148] => comment/%/approve
+    [:db_condition_placeholder_149] => admin/reports/updates
+    [:db_condition_placeholder_150] => admin/content/comment
+    [:db_condition_placeholder_151] => admin/structure/contact
+    [:db_condition_placeholder_152] => admin/structure/types
+    [:db_condition_placeholder_153] => comment/%/delete
+    [:db_condition_placeholder_154] => comment/%/devel
+    [:db_condition_placeholder_155] => node/%/devel
+    [:db_condition_placeholder_156] => user/%/devel
+    [:db_condition_placeholder_157] => admin/structure/ds
+    [:db_condition_placeholder_158] => comment/%/edit
+    [:db_condition_placeholder_159] => admin/structure/dependencies
+    [:db_condition_placeholder_160] => admin/reports/fields
+    [:db_condition_placeholder_161] => mybox/block/%
+    [:db_condition_placeholder_162] => user/%/mybox
+    [:db_condition_placeholder_163] => node/%/panel_content
+    [:db_condition_placeholder_164] => node/%/panel_layout
+    [:db_condition_placeholder_165] => admin/structure/panels
+    [:db_condition_placeholder_166] => admin/structure/rate
+    [:db_condition_placeholder_167] => admin/reports/dblog
+    [:db_condition_placeholder_168] => admin/structure/rel
+    [:db_condition_placeholder_169] => invite/resend/%
+    [:db_condition_placeholder_170] => homebox/%/restore
+    [:db_condition_placeholder_171] => admin/reports/security-review
+    [:db_condition_placeholder_172] => admin/reports/status
+    [:db_condition_placeholder_173] => node/%/take
+    [:db_condition_placeholder_174] => admin/help/answers
+    [:db_condition_placeholder_175] => admin/help/block
+    [:db_condition_placeholder_176] => admin/help/blockexport
+    [:db_condition_placeholder_177] => admin/help/blog
+    [:db_condition_placeholder_178] => admin/help/calendar
+    [:db_condition_placeholder_179] => admin/help/color
+    [:db_condition_placeholder_180] => admin/help/comment
+    [:db_condition_placeholder_181] => admin/help/contact
+    [:db_condition_placeholder_182] => admin/help/content_access
+    [:db_condition_placeholder_183] => admin/help/context
+    [:db_condition_placeholder_184] => admin/help/context_layouts
+    [:db_condition_placeholder_185] => admin/help/context_ui
+    [:db_condition_placeholder_186] => admin/help/contextual
+    [:db_condition_placeholder_187] => admin/help/css_injector
+    [:db_condition_placeholder_188] =>
+messages/filter/tag-autocomplete
+    [:db_condition_placeholder_189] => admin/help/date
+    [:db_condition_placeholder_190] => admin/help/dblog
+    [:db_condition_placeholder_191] => admin/help/devel
+    [:db_condition_placeholder_192] => admin/help/ds_search
+    [:db_condition_placeholder_193] => admin/help/features
+    [:db_condition_placeholder_194] => admin/help/field
+    [:db_condition_placeholder_195] => admin/help/field_sql_storage
+    [:db_condition_placeholder_196] => admin/help/field_ui
+    [:db_condition_placeholder_197] => admin/help/file
+    [:db_condition_placeholder_198] => admin/help/file_entity
+    [:db_condition_placeholder_199] => admin/help/filter
+    [:db_condition_placeholder_200] => admin/help/fivestar
+    [:db_condition_placeholder_201] => admin/help/flag
+    [:db_condition_placeholder_202] => admin/help/forum
+    [:db_condition_placeholder_203] => admin/help/front_page
+    [:db_condition_placeholder_204] => admin/help/help
+    [:db_condition_placeholder_205] => admin/help/homebox
+    [:db_condition_placeholder_206] => admin/help/i18n
+    [:db_condition_placeholder_207] => admin/help/i18n_block
+    [:db_condition_placeholder_208] => admin/help/i18n_menu
+    [:db_condition_placeholder_209] => admin/help/i18n_string
+    [:db_condition_placeholder_210] => admin/help/i18n_taxonomy
+    [:db_condition_placeholder_211] => admin/help/i18nviews
+    [:db_condition_placeholder_212] => admin/help/image
+    [:db_condition_placeholder_213] => admin/help/jcarousel
+    [:db_condition_placeholder_214] => admin/help/l10n_update
+    [:db_condition_placeholder_215] => admin/help/legal
+    [:db_condition_placeholder_216] => admin/help/list
+    [:db_condition_placeholder_217] => admin/help/locale
+    [:db_condition_placeholder_218] => admin/help/long_answer
+    [:db_condition_placeholder_219] => admin/help/masquerade
+    [:db_condition_placeholder_220] => admin/help/media
+    [:db_condition_placeholder_221] => admin/help/menu
+    [:db_condition_placeholder_222] => admin/help/multichoice
+    [:db_condition_placeholder_223] => admin/help/node
+    [:db_condition_placeholder_224] => admin/help/number
+    [:db_condition_placeholder_225] => admin/help/og
+    [:db_condition_placeholder_226] => admin/help/og_menu
+    [:db_condition_placeholder_227] => admin/content/node_export
+    [:db_condition_placeholder_228] =>
+admin/help/og_menu_default_links
+    [:db_condition_placeholder_229] => admin/help/openid
+    [:db_condition_placeholder_230] => admin/help/options
+    [:db_condition_placeholder_231] => admin/help/poll
+    [:db_condition_placeholder_232] => admin/help/quiz
+    [:db_condition_placeholder_233] => admin/help/syslog
+    [:db_condition_placeholder_234] => token/autocomplete/%
+    [:db_condition_placeholder_235] => admin/help/path
+    [:db_condition_placeholder_236] => admin/help/pathauto
+    [:db_condition_placeholder_237] => admin/help/quiz_question
+    [:db_condition_placeholder_238] => admin/help/rdf
+    [:db_condition_placeholder_239] => admin/help/rules
+    [:db_condition_placeholder_240] => admin/help/rules_forms
+    [:db_condition_placeholder_241] => admin/help/search
+    [:db_condition_placeholder_242] => admin/help/shortcut
+    [:db_condition_placeholder_243] => admin/help/strongarm
+    [:db_condition_placeholder_244] => admin/help/switchtheme
+    [:db_condition_placeholder_245] => admin/help/system
+    [:db_condition_placeholder_246] => admin/help/taxonomy
+    [:db_condition_placeholder_247] => admin/help/text
+    [:db_condition_placeholder_248] => admin/help/token
+    [:db_condition_placeholder_249] => admin/help/toolbar
+    [:db_condition_placeholder_250] => admin/help/update
+    [:db_condition_placeholder_251] => admin/help/user
+    [:db_condition_placeholder_252] => admin/help/userpoints
+    [:db_condition_placeholder_253] => admin/help/wysiwyg
+    [:db_condition_placeholder_254] => comment/reply/%
+    [:db_condition_placeholder_255] => blog/%/feed
+    [:db_condition_placeholder_256] => devel/cache/clear
+    [:db_condition_placeholder_257] => invite/withdraw/%
+    [:db_condition_placeholder_258] => admin/structure/block
+    [:db_condition_placeholder_259] => messages/filter/autocomplete
+    [:db_condition_placeholder_260] => invite/add/invite_by_email
+    [:db_condition_placeholder_261] => user/%/cancel
+    [:db_condition_placeholder_262] => user/%/contact
+    [:db_condition_placeholder_263] => admin/config/content
+    [:db_condition_placeholder_264] => admin/config/development
+    [:db_condition_placeholder_265] => user/%/edit
+    [:db_condition_placeholder_266] => devel/entity/info
+    [:db_condition_placeholder_267] => devel/field/info
+    [:db_condition_placeholder_268] => admin/structure/flags
+    [:db_condition_placeholder_269] => admin/structure/forum
+    [:db_condition_placeholder_270] => admin/structure/homebox
+    [:db_condition_placeholder_271] => admin/modules/install
+    [:db_condition_placeholder_272] => admin/appearance/install
+    [:db_condition_placeholder_273] => node/%/display
+    [:db_condition_placeholder_274] => user/%/display
+    [:db_condition_placeholder_275] => node/%/questions
+    [:db_condition_placeholder_276] => masquerade/switch/%
+    [:db_condition_placeholder_277] => admin/content/media
+    [:db_condition_placeholder_278] => admin/config/media
+    [:db_condition_placeholder_279] => media/browser/testbed
+    [:db_condition_placeholder_280] => media/browser/library
+    [:db_condition_placeholder_281] => media/browser/list
+    [:db_condition_placeholder_282] => devel/menu/item
+    [:db_condition_placeholder_283] => admin/structure/menu
+    [:db_condition_placeholder_284] => user/%/messages
+    [:db_condition_placeholder_285] => admin/config/messaging
+    [:db_condition_placeholder_286] => media/%/multiedit
+    [:db_condition_placeholder_287] => user/%/myresults
+    [:db_condition_placeholder_288] => node/%/myresults
+    [:db_condition_placeholder_289] => node/add/node_export
+    [:db_condition_placeholder_290] => user/%/openid
+    [:db_condition_placeholder_291] => admin/structure/pages
+    [:db_condition_placeholder_292] => admin/people/permissions
+    [:db_condition_placeholder_293] => admin/appearance/update
+    [:db_condition_placeholder_294] => messages/undo/action
+    [:db_condition_placeholder_295] => admin/update/ready
+    [:db_condition_placeholder_296] => node/%/feed
+    [:db_condition_placeholder_297] => admin/config/regional
+    [:db_condition_placeholder_298] => rel-register/%/%
+    [:db_condition_placeholder_299] => node/%/results
+    [:db_condition_placeholder_300] => node/%/revisions
+    [:db_condition_placeholder_301] => admin/config/search
+    [:db_condition_placeholder_302] => admin/appearance/settings
+    [:db_condition_placeholder_303] => user/%/shortcuts
+    [:db_condition_placeholder_304] => user/%/subscriptions
+    [:db_condition_placeholder_305] => admin/structure/taxonomy
+    [:db_condition_placeholder_306] => quiztest/bytaker/%
+    [:db_condition_placeholder_307] => admin/config/system
+    [:db_condition_placeholder_308] => devel/theme/registry
+    [:db_condition_placeholder_309] => admin/reports/access-denied
+    [:db_condition_placeholder_310] => admin/reports/page-not-found
+    [:db_condition_placeholder_311] => admin/reports/search
+    [:db_condition_placeholder_312] => rel-unregister/%/%
+    [:db_condition_placeholder_313] => admin/modules/update
+    [:db_condition_placeholder_314] => admin/config/user-interface
+    [:db_condition_placeholder_315] => admin/people/homebox
+    [:db_condition_placeholder_316] => admin/reports/views-plugins
+    [:db_condition_placeholder_317] => node/%/votes
+    [:db_condition_placeholder_318] => quiztest/byauthor/%
+    [:db_condition_placeholder_319] => node/%/rating
+    [:db_condition_placeholder_320] => admin/config/services
+    [:db_condition_placeholder_321] => admin/config/workflow
+    [:db_condition_placeholder_322] => user/%/points
+    [:db_condition_placeholder_323] => admin/quiz/settings
+    [:db_condition_placeholder_324] => admin/config/date
+    [:db_condition_placeholder_325] => node/%/delete
+    [:db_condition_placeholder_326] => media/%/delete
+    [:db_condition_placeholder_327] => invite/%/edit
+    [:db_condition_placeholder_328] => media/%/edit
+    [:db_condition_placeholder_329] => node/%/edit
+    [:db_condition_placeholder_330] => admin/structure/features
+    [:db_condition_placeholder_331] => admin/config/front
+    [:db_condition_placeholder_332] => admin/structure/invite-types
+    [:db_condition_placeholder_333] => admin/config/group
+    [:db_condition_placeholder_334] => node/%/node_export
+    [:db_condition_placeholder_335] => node/%/group
+    [:db_condition_placeholder_336] => user/%/invites
+    [:db_condition_placeholder_337] => node/%/members
+    [:db_condition_placeholder_338] => admin/structure/og_menu
+    [:db_condition_placeholder_339] => admin/config/people
+    [:db_condition_placeholder_340] => admin/structure/profiles
+    [:db_condition_placeholder_341] => devel/menu/reset
+    [:db_condition_placeholder_342] => user/%/drafts
+    [:db_condition_placeholder_343] => user/%/questions
+    [:db_condition_placeholder_344] => node/%/access
+    [:db_condition_placeholder_345] => node/add/answer
+    [:db_condition_placeholder_346] => node/add/article
+    [:db_condition_placeholder_347] => node/add/page
+    [:db_condition_placeholder_348] => features/ajaxcallback/%
+    [:db_condition_placeholder_349] => node/add/blog
+    [:db_condition_placeholder_350] => node/add/quiz
+    [:db_condition_placeholder_351] => node/add/challenge-question
+    [:db_condition_placeholder_352] => admin/structure/context
+    [:db_condition_placeholder_353] => admin/structure/ctools-content
+    [:db_condition_placeholder_354] => invite/%/delete
+    [:db_condition_placeholder_355] => node/add/forum
+    [:db_condition_placeholder_356] => node/add/long-answer
+    [:db_condition_placeholder_357] => admin/structure/mini-panels
+    [:db_condition_placeholder_358] => node/add/multichoice
+    [:db_condition_placeholder_359] => node/add/panel
+    [:db_condition_placeholder_360] => node/add/poll
+    [:db_condition_placeholder_361] => node/add/challenge-prive
+    [:db_condition_placeholder_362] => node/add/challenge-public
+    [:db_condition_placeholder_363] => node/add/question
+    [:db_condition_placeholder_364] => admin/quiz/reports
+    [:db_condition_placeholder_365] => node/add/ressource
+    [:db_condition_placeholder_366] => taxonomy/term/%
+    [:db_condition_placeholder_367] => messages/view/%
+    [:db_condition_placeholder_368] => media/%/format-form
+    [:db_condition_placeholder_369] => admin/structure/views
+    [:db_condition_placeholder_370] => admin/content/flags
+    [:db_condition_placeholder_371] => node/add/working-group
+    [:db_condition_placeholder_372] => node/add/proposition-publique
+    [:db_condition_placeholder_373] => node/add/proposition-prive
+    [:db_condition_placeholder_374] => search/node/%
+    [:db_condition_placeholder_375] => search/content/%
+    [:db_condition_placeholder_376] => search/user/%
+    [:db_condition_placeholder_377] => admin/structure/ds/list
+    [:db_condition_placeholder_378] =>
+admin/appearance/settings/global
+    [:db_condition_placeholder_379] => user/%/points/list
+    [:db_condition_placeholder_380] =>
+admin/structure/invite-types/list
+    [:db_condition_placeholder_381] => admin/structure/profiles/list
+    [:db_condition_placeholder_382] => admin/structure/flags/list
+    [:db_condition_placeholder_383] => admin/structure/forum/list
+    [:db_condition_placeholder_384] => admin/structure/types/list
+    [:db_condition_placeholder_385] => admin/structure/taxonomy/list
+    [:db_condition_placeholder_386] => admin/reports/fields/list
+    [:db_condition_placeholder_387] => admin/structure/menu/list
+    [:db_condition_placeholder_388] => comment/%/devel/load
+    [:db_condition_placeholder_389] => node/%/devel/load
+    [:db_condition_placeholder_390] => user/%/devel/load
+    [:db_condition_placeholder_391] => user/%/subscriptions/overview
+    [:db_condition_placeholder_392] =>
+admin/structure/dependencies/overview
+    [:db_condition_placeholder_393] => admin/content/comment/new
+    [:db_condition_placeholder_394] => admin/structure/rel/overview
+    [:db_condition_placeholder_395] => taxonomy/term/%/view
+    [:db_condition_placeholder_396] => user/%/edit/account
+    [:db_condition_placeholder_397] => admin/modules/list/confirm
+    [:db_condition_placeholder_398] => admin/reports/updates/list
+    [:db_condition_placeholder_399] => admin/people/permissions/list
+    [:db_condition_placeholder_400] =>
+admin/reports/security-review/run
+    [:db_condition_placeholder_401] => node/add/panel/choose-layout
+    [:db_condition_placeholder_402] =>
+admin/structure/dependencies/comment
+    [:db_condition_placeholder_403] =>
+admin/structure/dependencies/file
+    [:db_condition_placeholder_404] =>
+admin/structure/bulk-export/results
+    [:db_condition_placeholder_405] =>
+admin/structure/dependencies/flagging
+    [:db_condition_placeholder_406] =>
+admin/structure/dependencies/invite
+    [:db_condition_placeholder_407] =>
+admin/structure/dependencies/node
+    [:db_condition_placeholder_408] =>
+admin/structure/dependencies/og_membership
+    [:db_condition_placeholder_409] =>
+admin/structure/dependencies/og_membership_type
+    [:db_condition_placeholder_410] => admin/structure/menu/parents
+    [:db_condition_placeholder_411] =>
+admin/structure/dependencies/privatemsg_message
+    [:db_condition_placeholder_412] =>
+admin/structure/dependencies/profile2
+    [:db_condition_placeholder_413] =>
+admin/structure/dependencies/rules_config
+    [:db_condition_placeholder_414] =>
+admin/structure/mini-panels/settings
+    [:db_condition_placeholder_415] =>
+admin/structure/dependencies/taxonomy_term
+    [:db_condition_placeholder_416] =>
+admin/modules/uninstall/confirm
+    [:db_condition_placeholder_417] =>
+admin/structure/dependencies/user
+    [:db_condition_placeholder_418] => system/files/styles/%
+    [:db_condition_placeholder_419] => node/%/questions/browser_ahah
+    [:db_condition_placeholder_420] => node/%/questions/term_ahah
+    [:db_condition_placeholder_421] =>
+admin/structure/panels/dashboard
+    [:db_condition_placeholder_422] =>
+admin/reports/security-review/help
+    [:db_condition_placeholder_423] => admin/structure/rate/list
+    [:db_condition_placeholder_424] => admin/reports/updates/check
+    [:db_condition_placeholder_425] => admin/reports/status/php
+    [:db_condition_placeholder_426] => admin/reports/status/run-cron
+    [:db_condition_placeholder_427] => admin/content/comment/approval
+    [:db_condition_placeholder_428] => admin/reports/memcache/default
+    [:db_condition_placeholder_429] => ctools/context/ajax/add
+    [:db_condition_placeholder_430] => ctools/context/ajax/delete
+    [:db_condition_placeholder_431] => ctools/context/ajax/configure
+    [:db_condition_placeholder_432] => admin/config/system/actions
+    [:db_condition_placeholder_433] => admin/structure/types/add
+    [:db_condition_placeholder_434] => admin/structure/flags/add
+    [:db_condition_placeholder_435] => group/%/%/subscribe
+    [:db_condition_placeholder_436] =>
+admin/appearance/settings/adaptivetheme_admin
+    [:db_condition_placeholder_437] =>
+admin/appearance/settings/adaptivetheme
+    [:db_condition_placeholder_438] =>
+admin/appearance/settings/adaptivetheme_subtheme
+    [:db_condition_placeholder_439] => admin/structure/block/add
+    [:db_condition_placeholder_440] => admin/structure/contact/add
+    [:db_condition_placeholder_441] => node/%/results/browser_ahah
+    [:db_condition_placeholder_442] => admin/structure/block/groupadd
+    [:db_condition_placeholder_443] => admin/structure/menu/add
+    [:db_condition_placeholder_444] => admin/structure/views/add
+    [:db_condition_placeholder_445] =>
+admin/structure/views/add-template
+    [:db_condition_placeholder_446] => admin/structure/taxonomy/add
+    [:db_condition_placeholder_447] => admin/structure/rate/add
+    [:db_condition_placeholder_448] => admin/config/content/answers
+    [:db_condition_placeholder_449] =>
+admin/appearance/settings/bartik
+    [:db_condition_placeholder_450] =>
+admin/appearance/settings/corporateclean
+    [:db_condition_placeholder_451] =>
+admin/appearance/settings/danblog
+    [:db_condition_placeholder_452] =>
+admin/appearance/settings/danland
+    [:db_condition_placeholder_453] => admin/reports/event/%
+    [:db_condition_placeholder_454] => taxonomy/term/%/devel
+    [:db_condition_placeholder_455] => admin/structure/flags/export
+    [:db_condition_placeholder_456] =>
+admin/appearance/settings/garland
+    [:db_condition_placeholder_457] =>
+admin/config/regional/currency-exchange
+    [:db_condition_placeholder_458] => admin/structure/ds/fields
+    [:db_condition_placeholder_459] => admin/config/media/file-types
+    [:db_condition_placeholder_460] => homebox/js/%/save
+    [:db_condition_placeholder_461] =>
+admin/config/people/ip-blocking
+    [:db_condition_placeholder_462] =>
+admin/config/media/image-styles
+    [:db_condition_placeholder_463] => admin/structure/pages/argument
+    [:db_condition_placeholder_464] => admin/structure/flags/import
+    [:db_condition_placeholder_465] => admin/structure/pages/list
+    [:db_condition_placeholder_466] => comment/%/devel/load-by-uuid
+    [:db_condition_placeholder_467] => node/%/devel/load-by-uuid
+    [:db_condition_placeholder_468] => user/%/devel/load-by-uuid
+    [:db_condition_placeholder_469] =>
+admin/appearance/settings/marinelli
+    [:db_condition_placeholder_470] => admin/config/system/memcache
+    [:db_condition_placeholder_471] => admin/config/regional/i18n
+    [:db_condition_placeholder_472] => admin/appearance/settings/ohm
+    [:db_condition_placeholder_473] =>
+admin/appearance/settings/omega
+    [:db_condition_placeholder_474] =>
+admin/quiz/settings/questions_settings
+    [:db_condition_placeholder_475] => admin/reports/status/rebuild
+    [:db_condition_placeholder_476] => comment/%/devel/render
+    [:db_condition_placeholder_477] => node/%/devel/render
+    [:db_condition_placeholder_478] => user/%/devel/render
+    [:db_condition_placeholder_479] =>
+quiz_question/%/%/revision_actions
+    [:db_condition_placeholder_480] => admin/structure/menu/settings
+    [:db_condition_placeholder_481] =>
+admin/structure/panels/settings
+    [:db_condition_placeholder_482] => admin/structure/rate/settings
+    [:db_condition_placeholder_483] =>
+admin/reports/security-review/settings
+    [:db_condition_placeholder_484] =>
+admin/structure/context/settings
+    [:db_condition_placeholder_485] => admin/reports/updates/settings
+    [:db_condition_placeholder_486] =>
+admin/appearance/settings/seven
+    [:db_condition_placeholder_487] =>
+admin/config/user-interface/shortcut
+    [:db_condition_placeholder_488] =>
+admin/appearance/settings/stark
+    [:db_condition_placeholder_489] => comment/%/devel/token
+    [:db_condition_placeholder_490] => node/%/devel/token
+    [:db_condition_placeholder_491] => user/%/devel/token
+    [:db_condition_placeholder_492] =>
+admin/config/regional/translate
+    [:db_condition_placeholder_493] =>
+admin/config/regional/i18n_translation
+    [:db_condition_placeholder_494] => admin/config/search/path
+    [:db_condition_placeholder_495] => admin/structure/ds/view_modes
+    [:db_condition_placeholder_496] => admin/structure/pages/wizard
+    [:db_condition_placeholder_497] => admin/appearance/settings/zen
+    [:db_condition_placeholder_498] => admin/structure/flags/abuse
+    [:db_condition_placeholder_499] => admin/config/people/accounts
+    [:db_condition_placeholder_500] => admin/structure/pages/add
+    [:db_condition_placeholder_501] => admin/config/front/arrange
+    [:db_condition_placeholder_502] => admin/structure/ds/classes
+    [:db_condition_placeholder_503] =>
+admin/config/development/css-injector
+    [:db_condition_placeholder_504] => admin/config/date/calendar
+    [:db_condition_placeholder_505] => user/%/subscriptions/taxa
+    [:db_condition_placeholder_506] =>
+admin/structure/ds/change-layout
+    [:db_condition_placeholder_507] => admin/config/search/clean-urls
+    [:db_condition_placeholder_508] =>
+admin/config/system/comment_perm
+    [:db_condition_placeholder_509] => user/%/subscriptions/type
+    [:db_condition_placeholder_510] => admin/config/system/cron
+    [:db_condition_placeholder_511] => admin/config/date/date_popup
+    [:db_condition_placeholder_512] =>
+admin/config/regional/date-time
+    [:db_condition_placeholder_513] => user/%/openid/delete
+    [:db_condition_placeholder_514] => admin/config/development/devel
+    [:db_condition_placeholder_515] => admin/structure/ds/disable
+    [:db_condition_placeholder_516] => taxonomy/term/%/edit
+    [:db_condition_placeholder_517] =>
+myuserpoints/transaction/%/edit
+    [:db_condition_placeholder_518] => admin/structure/ds/enable
+    [:db_condition_placeholder_519] => admin/config/media/file-system
+    [:db_condition_placeholder_520] => flag/%/%/%
+    [:db_condition_placeholder_521] => admin/config/front/home-links
+    [:db_condition_placeholder_522] =>
+admin/config/media/image-toolkit
+    [:db_condition_placeholder_523] => group/%/%/unsubscribe
+    [:db_condition_placeholder_524] => admin/structure/views/import
+    [:db_condition_placeholder_525] => admin/content/media/import
+    [:db_condition_placeholder_526] => admin/structure/pages/import
+    [:db_condition_placeholder_527] => admin/config/people/invite
+    [:db_condition_placeholder_528] => admin/reports/updates/install
+    [:db_condition_placeholder_529] => admin/config/regional/language
+    [:db_condition_placeholder_530] => admin/config/people/legal
+    [:db_condition_placeholder_531] => admin/quiz/questions_by_quiz/%
+    [:db_condition_placeholder_532] =>
+admin/config/development/logging
+    [:db_condition_placeholder_533] =>
+admin/config/development/maintenance
+    [:db_condition_placeholder_534] => taxonomy/term/%/display
+    [:db_condition_placeholder_535] => admin/config/people/masquerade
+    [:db_condition_placeholder_536] => admin/config/media/browser
+    [:db_condition_placeholder_537] =>
+admin/config/user-interface/modulefilter
+    [:db_condition_placeholder_538] => admin/config/group/context
+    [:db_condition_placeholder_539] => admin/config/group/og_menu
+    [:db_condition_placeholder_540] => admin/config/group/settings
+    [:db_condition_placeholder_541] => user/%/subscriptions/node
+    [:db_condition_placeholder_542] =>
+admin/config/development/performance
+    [:db_condition_placeholder_543] =>
+admin/config/messaging/privatemsg
+    [:db_condition_placeholder_544] => admin/quiz/%/questions
+    [:db_condition_placeholder_545] =>
+admin/config/services/rss-publishing
+    [:db_condition_placeholder_546] =>
+admin/config/media/rebuild_types
+    [:db_condition_placeholder_547] => admin/config/regional/settings
+    [:db_condition_placeholder_548] => node/%/results/%
+    [:db_condition_placeholder_549] =>
+admin/structure/ds/revert-layout
+    [:db_condition_placeholder_550] => admin/people/permissions/roles
+    [:db_condition_placeholder_551] =>
+admin/quiz/reports/score-long-answer
+    [:db_condition_placeholder_552] => admin/config/search/settings
+    [:db_condition_placeholder_553] => admin/structure/forum/settings
+    [:db_condition_placeholder_554] => admin/config/front/settings
+    [:db_condition_placeholder_555] => admin/structure/rel/config
+    [:db_condition_placeholder_556] => admin/structure/views/settings
+    [:db_condition_placeholder_557] =>
+admin/config/system/site-information
+    [:db_condition_placeholder_558] =>
+admin/config/system/subscriptions
+    [:db_condition_placeholder_559] =>
+admin/config/user-interface/switchtheme
+    [:db_condition_placeholder_560] => admin/config/content/formats
+    [:db_condition_placeholder_561] =>
+admin/config/content/node_export
+    [:db_condition_placeholder_562] => admin/config/group/fields
+    [:db_condition_placeholder_563] => admin/config/system/mail-edit
+    [:db_condition_placeholder_564] => admin/config/group/group-views
+    [:db_condition_placeholder_565] => taxonomy/term/%/translate
+    [:db_condition_placeholder_566] => admin/config/system/uuid
+    [:db_condition_placeholder_567] => admin/reports/updates/update
+    [:db_condition_placeholder_568] => admin/config/group/permissions
+    [:db_condition_placeholder_569] => admin/config/group/roles
+    [:db_condition_placeholder_570] =>
+admin/reports/fields/views-fields
+    [:db_condition_placeholder_571] => user/quiz/%/userresults
+    [:db_condition_placeholder_572] => node/%/myresults/%
+    [:db_condition_placeholder_573] => devel/variable/edit/%
+    [:db_condition_placeholder_574] => admin/config/system/views_send
+    [:db_condition_placeholder_575] =>
+myuserpoints/transaction/%/view
+    [:db_condition_placeholder_576] => admin/config/content/wysiwyg
+    [:db_condition_placeholder_577] => admin/quiz/settings/config
+    [:db_condition_placeholder_578] => admin/quiz/settings/quiz_form
+    [:db_condition_placeholder_579] => admin/quiz/reports/results
+    [:db_condition_placeholder_580] => admin/structure/context/add
+    [:db_condition_placeholder_581] =>
+admin/structure/ctools-content/add
+    [:db_condition_placeholder_582] =>
+admin/structure/mini-panels/add
+    [:db_condition_placeholder_583] =>
+myuserpoints/transaction/%/approve
+    [:db_condition_placeholder_584] =>
+admin/structure/features/cleanup
+    [:db_condition_placeholder_585] =>
+admin/structure/features/create
+    [:db_condition_placeholder_586] => messages/delete/%/%
+    [:db_condition_placeholder_587] => admin/config/content/fivestar
+    [:db_condition_placeholder_588] => admin/structure/context/import
+    [:db_condition_placeholder_589] =>
+admin/structure/ctools-content/import
+    [:db_condition_placeholder_590] =>
+admin/structure/mini-panels/import
+    [:db_condition_placeholder_591] => admin/structure/context/list
+    [:db_condition_placeholder_592] =>
+admin/structure/ctools-content/list
+    [:db_condition_placeholder_593] =>
+admin/structure/mini-panels/list
+    [:db_condition_placeholder_594] => admin/structure/views/list
+    [:db_condition_placeholder_595] =>
+admin/structure/features/manage
+    [:db_condition_placeholder_596] =>
+admin/config/group/group-membership
+    [:db_condition_placeholder_597] => admin/content/flags/abuse_node
+    [:db_condition_placeholder_598] => admin/structure/taxonomy/%
+    [:db_condition_placeholder_599] => user/%/questions/answered
+    [:db_condition_placeholder_600] => user/%/questions/asked
+    [:db_condition_placeholder_601] => admin/config/workflow/rules
+    [:db_condition_placeholder_602] =>
+admin/structure/features/settings
+    [:db_condition_placeholder_603] =>
+admin/config/development/strongarm
+    [:db_condition_placeholder_604] => taxonomy/term/%/feed
+    [:db_condition_placeholder_605] => admin/config/search/votingapi
+    [:db_condition_placeholder_606] =>
+admin/structure/invite-types/import
+    [:db_condition_placeholder_607] => admin/config/people/userpoints
+    [:db_condition_placeholder_608] =>
+admin/structure/profiles/import
+    [:db_condition_placeholder_609] => admin/config/regional/currency
+    [:db_condition_placeholder_610] =>
+admin/config/regional/currency_locale_pattern
+    [:db_condition_placeholder_611] => admin/structure/panels/layouts
+    [:db_condition_placeholder_612] =>
+admin/content/comment/flag-abuse
+    [:db_condition_placeholder_613] =>
+admin/structure/invite-types/add
+    [:db_condition_placeholder_614] => admin/structure/profiles/add
+    [:db_condition_placeholder_615] => user/%/edit/business
+    [:db_condition_placeholder_616] => user/%/edit/expert
+    [:db_condition_placeholder_617] => user/%/edit/main
+    [:db_condition_placeholder_618] => admin/structure/features/%
+    [:db_condition_placeholder_619] =>
+admin/config/people/invite/common
+    [:db_condition_placeholder_620] =>
+admin/structure/taxonomy/%/list
+    [:db_condition_placeholder_621] => admin/structure/ds/list/list
+    [:db_condition_placeholder_622] =>
+admin/config/group/group-membership/list
+    [:db_condition_placeholder_623] =>
+admin/config/content/formats/list
+    [:db_condition_placeholder_624] => admin/config/search/path/list
+    [:db_condition_placeholder_625] =>
+admin/config/regional/language/overview
+    [:db_condition_placeholder_626] =>
+admin/config/content/wysiwyg/profile
+    [:db_condition_placeholder_627] => taxonomy/term/%/devel/load
+    [:db_condition_placeholder_628] =>
+admin/config/regional/translate/overview
+    [:db_condition_placeholder_629] =>
+admin/config/workflow/rules/reaction
+    [:db_condition_placeholder_630] =>
+admin/config/search/settings/index
+    [:db_condition_placeholder_631] =>
+admin/config/group/og_menu/settings
+    [:db_condition_placeholder_632] =>
+admin/config/people/accounts/settings
+    [:db_condition_placeholder_633] =>
+admin/config/system/subscriptions/settings
+    [:db_condition_placeholder_634] =>
+admin/config/regional/i18n/configure
+    [:db_condition_placeholder_635] =>
+admin/config/user-interface/switchtheme/themes
+    [:db_condition_placeholder_636] =>
+admin/config/people/userpoints/list
+    [:db_condition_placeholder_637] =>
+admin/config/regional/i18n_translation/configure
+    [:db_condition_placeholder_638] =>
+admin/config/people/legal/terms
+    [:db_condition_placeholder_639] =>
+admin/structure/panels/settings/panels-mini
+    [:db_condition_placeholder_640] =>
+admin/reports/memcache/default/127.0.0.1:11211
+    [:db_condition_placeholder_641] => admin/config/search/path/add
+    [:db_condition_placeholder_642] =>
+admin/config/regional/language/add
+    [:db_condition_placeholder_643] =>
+admin/config/content/formats/add
+    [:db_condition_placeholder_644] =>
+admin/config/regional/translate/export
+    [:db_condition_placeholder_645] =>
+admin/structure/ds/fields/manage
+    [:db_condition_placeholder_646] => sites/default/files/styles/%
+    [:db_condition_placeholder_647] =>
+admin/config/regional/currency-exchange/fixed
+    [:db_condition_placeholder_648] =>
+admin/config/system/actions/manage
+    [:db_condition_placeholder_649] =>
+admin/structure/panels/settings/panel-node
+    [:db_condition_placeholder_650] =>
+admin/structure/panels/settings/panel-page
+    [:db_condition_placeholder_651] =>
+admin/config/system/actions/orphan
+    [:db_condition_placeholder_652] =>
+admin/config/workflow/rules/schedule
+    [:db_condition_placeholder_653] =>
+admin/config/regional/translate/translate
+    [:db_condition_placeholder_654] =>
+admin/structure/menu/manage/translation
+    [:db_condition_placeholder_655] =>
+admin/structure/features/%/view
+    [:db_condition_placeholder_656] =>
+admin/structure/block/list/adaptivetheme
+    [:db_condition_placeholder_657] =>
+admin/structure/views/settings/advanced
+    [:db_condition_placeholder_658] =>
+admin/structure/block/list/bartik
+    [:db_condition_placeholder_659] => ctools/context/ajax/access/add
+    [:db_condition_placeholder_660] =>
+admin/structure/views/settings/basic
+    [:db_condition_placeholder_661] =>
+ctools/context/ajax/access/delete
+    [:db_condition_placeholder_662] =>
+admin/structure/block/list/adaptivetheme_admin
+    [:db_condition_placeholder_663] =>
+ctools/context/ajax/access/configure
+    [:db_condition_placeholder_664] =>
+admin/structure/block/list/adaptivetheme_subtheme
+    [:db_condition_placeholder_665] =>
+admin/config/development/css-injector/add
+    [:db_condition_placeholder_666] =>
+node_reference/autocomplete/%/%/%
+    [:db_condition_placeholder_667] =>
+admin/config/user-interface/shortcut/add-set
+    [:db_condition_placeholder_668] => admin/structure/taxonomy/%/add
+    [:db_condition_placeholder_669] =>
+i18n/taxonomy/autocomplete/language/%
+    [:db_condition_placeholder_670] =>
+admin/config/search/path/update_bulk
+    [:db_condition_placeholder_671] =>
+admin/config/search/clean-urls/check
+    [:db_condition_placeholder_672] =>
+admin/config/search/settings/reindex
+    [:db_condition_placeholder_673] =>
+admin/config/workflow/rules/components
+    [:db_condition_placeholder_674] =>
+admin/config/system/actions/configure
+    [:db_condition_placeholder_675] =>
+admin/structure/block/list/corporateclean
+    [:db_condition_placeholder_676] =>
+admin/structure/block/list/danblog
+    [:db_condition_placeholder_677] => user/%/mybox/block/%
+    [:db_condition_placeholder_678] =>
+admin/views/ajax/autocomplete/tag
+    [:db_condition_placeholder_679] =>
+admin/structure/block/list/danland
+    [:db_condition_placeholder_680] =>
+admin/config/regional/date-time/date-views
+    [:db_condition_placeholder_681] =>
+admin/config/development/css-injector/delete
+    [:db_condition_placeholder_682] =>
+admin/config/search/path/delete_bulk
+    [:db_condition_placeholder_683] =>
+admin/structure/contact/delete/%
+    [:db_condition_placeholder_684] =>
+admin/structure/dependencies/delete/%
+    [:db_condition_placeholder_685] =>
+admin/structure/homebox/delete/%
+    [:db_condition_placeholder_686] => admin/structure/rate/%/delete
+    [:db_condition_placeholder_687] =>
+admin/config/regional/language/configure
+    [:db_condition_placeholder_688] =>
+admin/structure/taxonomy/%/edit
+    [:db_condition_placeholder_689] =>
+admin/config/development/css-injector/edit
+    [:db_condition_placeholder_690] => admin/structure/contact/edit/%
+    [:db_condition_placeholder_691] =>
+admin/structure/dependencies/edit/%
+    [:db_condition_placeholder_692] => admin/structure/menu/item/%
+    [:db_condition_placeholder_693] => admin/structure/rate/%/edit
+    [:db_condition_placeholder_694] =>
+admin/structure/homebox/export/%
+    [:db_condition_placeholder_695] =>
+admin/config/search/settings/facets
+    [:db_condition_placeholder_696] =>
+admin/config/regional/date-time/formats
+    [:db_condition_placeholder_697] =>
+admin/structure/block/list/garland
+    [:db_condition_placeholder_698] =>
+admin/structure/panels/settings/general
+    [:db_condition_placeholder_699] =>
+admin/config/regional/translate/import
+    [:db_condition_placeholder_700] =>
+admin/config/system/subscriptions/intervals
+    [:db_condition_placeholder_701] =>
+admin/config/media/image-styles/list
+    [:db_condition_placeholder_702] =>
+taxonomy/term/%/devel/load-by-uuid
+    [:db_condition_placeholder_703] =>
+admin/config/regional/date-time/locale
+    [:db_condition_placeholder_704] =>
+admin/config/messaging/privatemsg/dependencies
+    [:db_condition_placeholder_705] =>
+admin/config/people/accounts/dependencies
+    [:db_condition_placeholder_706] =>
+admin/structure/taxonomy/%/dependencies
+    [:db_condition_placeholder_707] =>
+admin/structure/block/list/marinelli
+    [:db_condition_placeholder_708] => admin/structure/block/list/ohm
+    [:db_condition_placeholder_709] =>
+admin/structure/block/list/omega
+    [:db_condition_placeholder_710] =>
+admin/config/search/path/patterns
+    [:db_condition_placeholder_711] => taxonomy/term/%/devel/render
+    [:db_condition_placeholder_712] => user/reset/%/%/%
+    [:db_condition_placeholder_713] =>
+admin/config/workflow/rules/autocomplete_tags
+    [:db_condition_placeholder_714] =>
+admin/reports/security-review/toggle/%
+    [:db_condition_placeholder_715] =>
+admin/config/search/path/settings
+    [:db_condition_placeholder_716] =>
+admin/config/workflow/rules/settings
+    [:db_condition_placeholder_717] =>
+admin/structure/homebox/settings/%
+    [:db_condition_placeholder_718] =>
+admin/structure/block/list/seven
+    [:db_condition_placeholder_719] =>
+admin/structure/block/list/stark
+    [:db_condition_placeholder_720] =>
+admin/config/regional/i18n/strings
+    [:db_condition_placeholder_721] =>
+admin/structure/rate/%/template
+    [:db_condition_placeholder_722] =>
+admin/config/messaging/privatemsg/tags
+    [:db_condition_placeholder_723] => taxonomy/term/%/devel/token
+    [:db_condition_placeholder_724] =>
+admin/config/regional/translate/update
+    [:db_condition_placeholder_725] =>
+admin/config/system/subscriptions/userdefaults
+    [:db_condition_placeholder_726] => admin/structure/pages/wizard/%
+    [:db_condition_placeholder_727] => admin/structure/block/list/zen
+    [:db_condition_placeholder_728] =>
+admin/structure/ds/fields/manage_block
+    [:db_condition_placeholder_729] =>
+admin/structure/ds/fields/manage_custom
+    [:db_condition_placeholder_730] =>
+admin/structure/ds/fields/manage_ctools
+    [:db_condition_placeholder_731] =>
+admin/config/system/subscriptions/purge-queue
+    [:db_condition_placeholder_732] =>
+admin/structure/ds/fields/manage_preprocess
+    [:db_condition_placeholder_733] =>
+admin/structure/ds/view_modes/manage
+    [:db_condition_placeholder_734] =>
+admin/structure/forum/add/container
+    [:db_condition_placeholder_735] =>
+admin/structure/forum/add/forum
+    [:db_condition_placeholder_736] =>
+admin/config/media/image-styles/add
+    [:db_condition_placeholder_737] =>
+admin/config/group/og_menu/default-links
+    [:db_condition_placeholder_738] =>
+admin/views/ajax/autocomplete/taxonomy
+    [:db_condition_placeholder_739] =>
+admin/views/ajax/autocomplete/user
+    [:db_condition_placeholder_740] =>
+admin/structure/ds/fields/delete
+    [:db_condition_placeholder_741] =>
+admin/structure/ds/view_modes/delete
+    [:db_condition_placeholder_742] => user/%/points/%/edit
+    [:db_condition_placeholder_743] => admin/structure/pages/edit/%
+    [:db_condition_placeholder_744] =>
+admin/structure/ds/list/emergency
+    [:db_condition_placeholder_745] => admin/structure/ds/list/extras
+    [:db_condition_placeholder_746] => flag/confirm/%/%/%
+    [:db_condition_placeholder_747] =>
+admin/structure/homebox/flush/%
+    [:db_condition_placeholder_748] =>
+admin/config/workflow/rules/forms
+    [:db_condition_placeholder_749] =>
+admin/config/people/invite/by_mail
+    [:db_condition_placeholder_750] =>
+admin/structure/homebox/layout/%
+    [:db_condition_placeholder_751] => admin/structure/rel/manage/%
+    [:db_condition_placeholder_752] =>
+admin/config/messaging/privatemsg/display
+    [:db_condition_placeholder_753] =>
+admin/structure/taxonomy/%/display
+    [:db_condition_placeholder_754] =>
+admin/config/people/accounts/display
+    [:db_condition_placeholder_755] =>
+admin/config/messaging/privatemsg/fields
+    [:db_condition_placeholder_756] =>
+admin/structure/taxonomy/%/fields
+    [:db_condition_placeholder_757] =>
+admin/config/people/accounts/fields
+    [:db_condition_placeholder_758] => group/%/%/admin/menus
+    [:db_condition_placeholder_759] =>
+admin/config/people/invite/migrate
+    [:db_condition_placeholder_760] =>
+admin/config/messaging/privatemsg/settings
+    [:db_condition_placeholder_761] =>
+admin/structure/ds/fields/revert
+    [:db_condition_placeholder_762] =>
+admin/structure/ds/view_modes/revert
+    [:db_condition_placeholder_763] => admin/structure/ds/list/search
+    [:db_condition_placeholder_764] =>
+admin/config/regional/i18n/select
+    [:db_condition_placeholder_765] =>
+admin/config/regional/translate/i18n_string
+    [:db_condition_placeholder_766] =>
+admin/structure/taxonomy/%/translate
+    [:db_condition_placeholder_767] => taxonomy/term/%/translate/%
+    [:db_condition_placeholder_768] =>
+admin/config/regional/language/update
+    [:db_condition_placeholder_769] =>
+admin/config/regional/date-time/types
+    [:db_condition_placeholder_770] =>
+admin/config/workflow/rules/upgrade
+    [:db_condition_placeholder_771] => user/%/points/%/view
+    [:db_condition_placeholder_772] => user/%/points/%/approve
+    [:db_condition_placeholder_773] => user/%/points/%/decline
+    [:db_condition_placeholder_774] => admin/config/content/formats/%
+    [:db_condition_placeholder_775] =>
+admin/config/regional/currency/add
+    [:db_condition_placeholder_776] =>
+admin/config/regional/currency_locale_pattern/add
+    [:db_condition_placeholder_777] =>
+admin/structure/panels/layouts/add-flexible
+    [:db_condition_placeholder_778] =>
+admin/structure/homebox/clone/%
+    [:db_condition_placeholder_779] => admin/structure/menu/manage/%
+    [:db_condition_placeholder_780] => node/%/revisions/%/delete
+    [:db_condition_placeholder_781] => admin/structure/types/manage/%
+    [:db_condition_placeholder_782] => admin/structure/homebox/edit/%
+    [:db_condition_placeholder_783] =>
+admin/config/regional/currency_locale_pattern/import
+    [:db_condition_placeholder_784] =>
+admin/structure/panels/layouts/import
+    [:db_condition_placeholder_785] =>
+admin/config/people/legal/languages
+    [:db_condition_placeholder_786] =>
+admin/config/regional/currency/list
+    [:db_condition_placeholder_787] =>
+admin/config/regional/currency_locale_pattern/list
+    [:db_condition_placeholder_788] =>
+admin/content/comment/flag-abuse/abuse_comment
+    [:db_condition_placeholder_789] =>
+admin/structure/panels/layouts/list
+    [:db_condition_placeholder_790] => node/%/revisions/%/revert
+    [:db_condition_placeholder_791] =>
+admin/config/people/legal/terms_history
+    [:db_condition_placeholder_792] =>
+admin/config/people/legal/users
+    [:db_condition_placeholder_793] =>
+admin/config/regional/currency/import
+    [:db_condition_placeholder_794] =>
+admin/structure/mini-panels/list/%
+    [:db_condition_placeholder_795] =>
+admin/config/people/userpoints/settings
+    [:db_condition_placeholder_796] =>
+admin/structure/block/demo/adaptivetheme_admin
+    [:db_condition_placeholder_797] =>
+admin/structure/block/demo/adaptivetheme
+    [:db_condition_placeholder_798] =>
+admin/structure/block/demo/adaptivetheme_subtheme
+    [:db_condition_placeholder_799] =>
+admin/config/group/group-membership/import
+    [:db_condition_placeholder_800] =>
+admin/config/people/userpoints/add
+    [:db_condition_placeholder_801] =>
+admin/structure/block/demo/bartik
+    [:db_condition_placeholder_802] =>
+admin/structure/block/demo/corporateclean
+    [:db_condition_placeholder_803] =>
+admin/structure/block/demo/danblog
+    [:db_condition_placeholder_804] =>
+admin/structure/block/demo/danland
+    [:db_condition_placeholder_805] =>
+admin/structure/block/demo/marinelli
+    [:db_condition_placeholder_806] => admin/structure/context/list/%
+    [:db_condition_placeholder_807] =>
+admin/structure/block/demo/garland
+    [:db_condition_placeholder_808] =>
+admin/structure/ctools-content/list/%
+    [:db_condition_placeholder_809] =>
+admin/config/user-interface/shortcut/%
+    [:db_condition_placeholder_810] =>
+admin/structure/features/%/lock
+    [:db_condition_placeholder_811] =>
+admin/config/people/userpoints/moderate
+    [:db_condition_placeholder_812] => admin/structure/block/demo/ohm
+    [:db_condition_placeholder_813] =>
+admin/structure/block/demo/omega
+    [:db_condition_placeholder_814] =>
+admin/structure/features/%/recreate
+    [:db_condition_placeholder_815] => node/%/revisions/%/view
+    [:db_condition_placeholder_816] =>
+admin/structure/block/demo/seven
+    [:db_condition_placeholder_817] =>
+admin/structure/block/demo/stark
+    [:db_condition_placeholder_818] =>
+admin/structure/features/%/status
+    [:db_condition_placeholder_819] =>
+admin/config/people/userpoints/transaction
+    [:db_condition_placeholder_820] => admin/structure/block/demo/zen
+    [:db_condition_placeholder_821] => admin/structure/views/view/%
+    [:db_condition_placeholder_822] =>
+admin/config/group/group-membership/add
+    [:db_condition_placeholder_823] => group/%/%/admin/people
+    [:db_condition_placeholder_824] => group/%/%/admin/permissions
+    [:db_condition_placeholder_825] => admin/structure/flags/manage/%
+    [:db_condition_placeholder_826] => group/%/%/admin/roles
+    [:db_condition_placeholder_827] =>
+admin/structure/invite-types/manage/%
+    [:db_condition_placeholder_828] =>
+admin/structure/profiles/manage/%
+    [:db_condition_placeholder_829] =>
+admin/config/workflow/rules/settings/basic
+    [:db_condition_placeholder_830] =>
+admin/config/search/settings/facets/block
+    [:db_condition_placeholder_831] =>
+admin/structure/contact/edit/%/edit
+    [:db_condition_placeholder_832] =>
+admin/structure/types/manage/%/edit
+    [:db_condition_placeholder_833] =>
+admin/config/people/userpoints/transaction/list
+    [:db_condition_placeholder_834] =>
+admin/config/user-interface/shortcut/%/links
+    [:db_condition_placeholder_835] => group/%/%/admin/menus/list
+    [:db_condition_placeholder_836] =>
+admin/config/system/subscriptions/userdefaults/settings
+    [:db_condition_placeholder_837] =>
+admin/structure/taxonomy/%/list/list
+    [:db_condition_placeholder_838] =>
+admin/structure/invite-types/manage/%/edit
+    [:db_condition_placeholder_839] =>
+admin/structure/profiles/manage/%/edit
+    [:db_condition_placeholder_840] =>
+admin/structure/menu/manage/%/list
+    [:db_condition_placeholder_841] =>
+admin/structure/flags/manage/%/edit
+    [:db_condition_placeholder_842] =>
+admin/config/media/file-types/manage/%
+    [:db_condition_placeholder_843] =>
+admin/config/regional/currency-exchange/fixed/add
+    [:db_condition_placeholder_844] =>
+admin/structure/ds/fields/manage_ctools/content
+    [:db_condition_placeholder_845] =>
+admin/reports/memcache/default/127.0.0.1:11211/default
+    [:db_condition_placeholder_846] =>
+admin/structure/types/manage/%/delete
+    [:db_condition_placeholder_847] =>
+admin/reports/memcache/default/127.0.0.1:11211/slabs
+    [:db_condition_placeholder_848] =>
+admin/config/regional/date-time/formats/lookup
+    [:db_condition_placeholder_849] =>
+admin/people/permissions/roles/edit/%
+    [:db_condition_placeholder_850] =>
+admin/reports/memcache/default/127.0.0.1:11211/sizes
+    [:db_condition_placeholder_851] =>
+admin/structure/views/view/%/translate
+    [:db_condition_placeholder_852] =>
+admin/reports/memcache/default/127.0.0.1:11211/items
+    [:db_condition_placeholder_853] =>
+admin/structure/block/list/adaptivetheme/add
+    [:db_condition_placeholder_854] =>
+admin/structure/block/list/adaptivetheme_admin/add
+    [:db_condition_placeholder_855] =>
+admin/structure/block/list/adaptivetheme_subtheme/add
+    [:db_condition_placeholder_856] =>
+admin/structure/block/list/corporateclean/add
+    [:db_condition_placeholder_857] =>
+admin/structure/block/list/danblog/add
+    [:db_condition_placeholder_858] =>
+admin/structure/block/list/danland/add
+    [:db_condition_placeholder_859] =>
+admin/structure/block/list/garland/add
+    [:db_condition_placeholder_860] =>
+admin/structure/block/list/marinelli/add
+    [:db_condition_placeholder_861] =>
+admin/structure/block/list/ohm/add
+    [:db_condition_placeholder_862] =>
+admin/structure/block/list/omega/add
+    [:db_condition_placeholder_863] =>
+admin/structure/block/list/seven/add
+    [:db_condition_placeholder_864] =>
+admin/structure/block/list/stark/add
+    [:db_condition_placeholder_865] =>
+admin/structure/block/list/zen/add
+    [:db_condition_placeholder_866] =>
+admin/structure/ds/%/add_field/%
+    [:db_condition_placeholder_867] =>
+admin/structure/block/list/adaptivetheme/groupadd
+    [:db_condition_placeholder_868] =>
+admin/structure/block/list/adaptivetheme_admin/groupadd
+    [:db_condition_placeholder_869] =>
+admin/structure/block/list/adaptivetheme_subtheme/groupadd
+    [:db_condition_placeholder_870] =>
+admin/structure/block/list/corporateclean/groupadd
+    [:db_condition_placeholder_871] =>
+admin/structure/block/list/danblog/groupadd
+    [:db_condition_placeholder_872] =>
+admin/structure/block/list/danland/groupadd
+    [:db_condition_placeholder_873] =>
+admin/structure/block/list/garland/groupadd
+    [:db_condition_placeholder_874] =>
+admin/structure/block/list/marinelli/groupadd
+    [:db_condition_placeholder_875] =>
+admin/config/system/mail-edit/purge/%
+    [:db_condition_placeholder_876] =>
+admin/config/system/mail-edit/%/%
+    [:db_condition_placeholder_877] =>
+admin/structure/block/list/ohm/groupadd
+    [:db_condition_placeholder_878] =>
+admin/structure/block/list/omega/groupadd
+    [:db_condition_placeholder_879] =>
+admin/structure/block/list/seven/groupadd
+    [:db_condition_placeholder_880] =>
+admin/structure/block/list/stark/groupadd
+    [:db_condition_placeholder_881] =>
+admin/structure/block/list/zen/groupadd
+    [:db_condition_placeholder_882] =>
+admin/structure/menu/manage/%/add
+    [:db_condition_placeholder_883] =>
+admin/config/workflow/rules/components/add
+    [:db_condition_placeholder_884] =>
+admin/config/workflow/rules/reaction/add
+    [:db_condition_placeholder_885] =>
+admin/structure/menu/manage/translation/add
+    [:db_condition_placeholder_886] =>
+admin/config/workflow/rules/settings/advanced
+    [:db_condition_placeholder_887] =>
+i18n/taxonomy/autocomplete/vocabulary/%/%
+    [:db_condition_placeholder_888] =>
+admin/config/system/subscriptions/userdefaults/bulk
+    [:db_condition_placeholder_889] =>
+admin/config/system/subscriptions/userdefaults/taxa
+    [:db_condition_placeholder_890] =>
+admin/structure/block/manage/%/%
+    [:db_condition_placeholder_891] =>
+admin/config/regional/language/delete/%
+    [:db_condition_placeholder_892] =>
+admin/config/system/subscriptions/userdefaults/type
+    [:db_condition_placeholder_893] =>
+admin/config/messaging/privatemsg/display/default
+    [:db_condition_placeholder_894] =>
+admin/structure/taxonomy/%/display/default
+    [:db_condition_placeholder_895] =>
+admin/config/people/accounts/display/default
+    [:db_condition_placeholder_896] =>
+admin/config/people/ip-blocking/delete/%
+    [:db_condition_placeholder_897] =>
+admin/config/search/path/delete/%
+    [:db_condition_placeholder_898] =>
+admin/structure/menu/manage/%/delete
+    [:db_condition_placeholder_899] =>
+admin/structure/menu/item/%/delete
+    [:db_condition_placeholder_900] =>
+admin/config/regional/translate/delete/%
+    [:db_condition_placeholder_901] =>
+admin/config/search/path/edit/%
+    [:db_condition_placeholder_902] =>
+admin/structure/forum/edit/container/%
+    [:db_condition_placeholder_903] =>
+admin/structure/forum/edit/forum/%
+    [:db_condition_placeholder_904] =>
+admin/config/regional/language/edit/%
+    [:db_condition_placeholder_905] =>
+admin/structure/menu/item/%/edit
+    [:db_condition_placeholder_906] =>
+entityreference/autocomplete/single/%/%/%
+    [:db_condition_placeholder_907] =>
+entityreference/autocomplete/tags/%/%/%
+    [:db_condition_placeholder_908] =>
+admin/structure/flags/manage/%/export
+    [:db_condition_placeholder_909] =>
+admin/config/messaging/privatemsg/tags/list
+    [:db_condition_placeholder_910] =>
+admin/structure/flags/manage/%/dependencies
+    [:db_condition_placeholder_911] =>
+admin/structure/invite-types/manage/%/dependencies
+    [:db_condition_placeholder_912] =>
+admin/structure/types/manage/%/dependencies
+    [:db_condition_placeholder_913] =>
+admin/structure/profiles/manage/%/dependencies
+    [:db_condition_placeholder_914] =>
+admin/config/messaging/privatemsg/tags/rebuild
+    [:db_condition_placeholder_915] =>
+admin/structure/menu/item/%/reset
+    [:db_condition_placeholder_916] => homebox/js/%/add/%/%
+    [:db_condition_placeholder_917] =>
+admin/config/regional/language/configure/session
+    [:db_condition_placeholder_918] =>
+admin/structure/taxonomy/%/display/full
+    [:db_condition_placeholder_919] =>
+admin/structure/taxonomy/%/display/token
+    [:db_condition_placeholder_920] =>
+admin/config/people/accounts/display/token
+    [:db_condition_placeholder_921] =>
+admin/config/regional/language/configure/url
+    [:db_condition_placeholder_922] =>
+admin/config/people/accounts/display/full
+    [:db_condition_placeholder_923] =>
+admin/config/regional/date-time/types/add
+    [:db_condition_placeholder_924] =>
+admin/config/regional/date-time/formats/add
+    [:db_condition_placeholder_925] =>
+group/%/%/admin/people/add-user
+    [:db_condition_placeholder_926] => group/%/%/admin/menus/add
+    [:db_condition_placeholder_927] =>
+admin/config/user-interface/shortcut/%/add-link
+    [:db_condition_placeholder_928] =>
+admin/config/user-interface/shortcut/%/add-link-inline
+    [:db_condition_placeholder_929] =>
+admin/config/messaging/privatemsg/tags/add
+    [:db_condition_placeholder_930] =>
+admin/structure/views/view/%/break-lock
+    [:db_condition_placeholder_931] =>
+admin/config/workflow/rules/upgrade/clear
+    [:db_condition_placeholder_932] => user/%/cancel/confirm/%/%
+    [:db_condition_placeholder_933] => group/%/%/admin/menus/%
+    [:db_condition_placeholder_934] =>
+admin/config/system/actions/delete/%
+    [:db_condition_placeholder_935] =>
+admin/structure/flags/manage/%/delete
+    [:db_condition_placeholder_936] =>
+admin/people/permissions/roles/delete/%
+    [:db_condition_placeholder_937] =>
+admin/config/user-interface/shortcut/%/delete
+    [:db_condition_placeholder_938] =>
+admin/config/content/formats/%/disable
+    [:db_condition_placeholder_939] =>
+admin/structure/menu/manage/%/edit
+    [:db_condition_placeholder_940] =>
+admin/structure/pages/%/operation/%
+    [:db_condition_placeholder_941] =>
+admin/config/user-interface/shortcut/%/edit
+    [:db_condition_placeholder_942] =>
+admin/structure/pages/%/enable/%
+    [:db_condition_placeholder_943] =>
+admin/structure/pages/%/disable/%
+    [:db_condition_placeholder_944] => admin/structure/views/nojs/%/%
+    [:db_condition_placeholder_945] =>
+admin/config/user-interface/shortcut/link/%
+    [:db_condition_placeholder_946] =>
+admin/config/regional/translate/edit/%
+    [:db_condition_placeholder_947] =>
+admin/config/media/image-styles/edit/%
+    [:db_condition_placeholder_948] =>
+admin/structure/views/view/%/edit
+    [:db_condition_placeholder_949] =>
+admin/config/workflow/rules/components/import
+    [:db_condition_placeholder_950] =>
+admin/config/workflow/rules/reaction/import
+    [:db_condition_placeholder_951] =>
+admin/structure/flags/manage/%/display
+    [:db_condition_placeholder_952] =>
+admin/structure/invite-types/manage/%/display
+    [:db_condition_placeholder_953] =>
+admin/structure/types/manage/%/display
+    [:db_condition_placeholder_954] =>
+admin/structure/profiles/manage/%/display
+    [:db_condition_placeholder_955] =>
+admin/structure/flags/manage/%/fields
+    [:db_condition_placeholder_956] =>
+admin/structure/invite-types/manage/%/fields
+    [:db_condition_placeholder_957] =>
+admin/structure/types/manage/%/fields
+    [:db_condition_placeholder_958] =>
+admin/structure/profiles/manage/%/fields
+    [:db_condition_placeholder_959] =>
+admin/structure/contact/edit/%/translate
+    [:db_condition_placeholder_960] =>
+admin/structure/menu/manage/%/translate
+    [:db_condition_placeholder_961] =>
+admin/structure/profiles/manage/%/translate
+    [:db_condition_placeholder_962] =>
+admin/structure/taxonomy/%/translate/%
+    [:db_condition_placeholder_963] =>
+admin/structure/menu/item/%/translate
+    [:db_condition_placeholder_964] =>
+admin/structure/taxonomy/%/list/sets
+    [:db_condition_placeholder_965] =>
+admin/structure/flags/manage/%/update
+    [:db_condition_placeholder_966] =>
+admin/config/media/image-styles/delete/%
+    [:db_condition_placeholder_967] =>
+admin/config/media/image-styles/revert/%
+    [:db_condition_placeholder_968] =>
+admin/structure/invite-types/manage/%/%
+    [:db_condition_placeholder_969] =>
+admin/structure/profiles/manage/%/%
+    [:db_condition_placeholder_970] =>
+admin/quiz/reports/score-long-answer/%/%
+    [:db_condition_placeholder_971] => admin/structure/views/ajax/%/%
+    [:db_condition_placeholder_972] =>
+admin/config/regional/currency_locale_pattern/list/%
+    [:db_condition_placeholder_973] =>
+admin/structure/types/manage/%/access
+    [:db_condition_placeholder_974] =>
+admin/structure/views/template/%/add
+    [:db_condition_placeholder_975] =>
+admin/structure/context/list/%/clone
+    [:db_condition_placeholder_976] =>
+admin/config/regional/currency/list/%
+    [:db_condition_placeholder_977] =>
+admin/structure/panels/layouts/list/%
+    [:db_condition_placeholder_978] =>
+admin/structure/ctools-content/list/%/clone
+    [:db_condition_placeholder_979] =>
+admin/structure/mini-panels/list/%/clone
+    [:db_condition_placeholder_980] =>
+admin/structure/views/view/%/clone
+    [:db_condition_placeholder_981] =>
+admin/structure/invite-types/manage/%/clone
+    [:db_condition_placeholder_982] =>
+admin/structure/profiles/manage/%/clone
+    [:db_condition_placeholder_983] =>
+admin/structure/context/list/%/delete
+    [:db_condition_placeholder_984] =>
+admin/structure/ctools-content/list/%/delete
+    [:db_condition_placeholder_985] =>
+admin/structure/mini-panels/list/%/delete
+    [:db_condition_placeholder_986] =>
+admin/structure/views/view/%/delete
+    [:db_condition_placeholder_987] =>
+admin/structure/context/list/%/disable
+    [:db_condition_placeholder_988] =>
+admin/structure/ctools-content/list/%/disable
+    [:db_condition_placeholder_989] =>
+admin/structure/mini-panels/list/%/disable
+    [:db_condition_placeholder_990] =>
+admin/structure/views/view/%/disable
+    [:db_condition_placeholder_991] =>
+admin/structure/context/list/%/edit
+    [:db_condition_placeholder_992] =>
+admin/structure/ctools-content/list/%/edit
+    [:db_condition_placeholder_993] =>
+admin/structure/mini-panels/list/%/edit
+    [:db_condition_placeholder_994] =>
+admin/structure/context/list/%/enable
+    [:db_condition_placeholder_995] =>
+admin/structure/ctools-content/list/%/enable
+    [:db_condition_placeholder_996] =>
+admin/structure/mini-panels/list/%/enable
+    [:db_condition_placeholder_997] =>
+admin/structure/views/view/%/enable
+    [:db_condition_placeholder_998] =>
+admin/structure/context/list/%/export
+    [:db_condition_placeholder_999] =>
+admin/structure/ctools-content/list/%/export
+    [:db_condition_placeholder_1000] =>
+admin/structure/mini-panels/list/%/export
+    [:db_condition_placeholder_1001] =>
+admin/structure/views/view/%/export
+    [:db_condition_placeholder_1002] =>
+admin/structure/context/list/%/revert
+    [:db_condition_placeholder_1003] =>
+admin/structure/ctools-content/list/%/revert
+    [:db_condition_placeholder_1004] =>
+admin/structure/mini-panels/list/%/revert
+    [:db_condition_placeholder_1005] =>
+admin/structure/views/view/%/revert
+    [:db_condition_placeholder_1006] =>
+admin/structure/taxonomy/%/fields/%
+    [:db_condition_placeholder_1007] =>
+admin/config/group/permissions/node/challenge_prive
+    [:db_condition_placeholder_1008] =>
+admin/config/group/permissions/node/challenge_public
+    [:db_condition_placeholder_1009] =>
+admin/config/group/permissions/node/working_group
+    [:db_condition_placeholder_1010] =>
+admin/config/group/roles/node/challenge_prive
+    [:db_condition_placeholder_1011] =>
+admin/config/group/roles/node/challenge_public
+    [:db_condition_placeholder_1012] =>
+admin/config/group/roles/node/working_group
+    [:db_condition_placeholder_1013] =>
+admin/config/group/permission/%/edit
+    [:db_condition_placeholder_1014] =>
+admin/config/people/accounts/fields/%
+    [:db_condition_placeholder_1015] =>
+admin/config/group/role/%/edit
+    [:db_condition_placeholder_1016] =>
+admin/config/messaging/privatemsg/fields/%
+    [:db_condition_placeholder_1017] =>
+admin/config/group/group-membership/manage/%
+    [:db_condition_placeholder_1018] => group/%/%/admin/menus/%/list
+    [:db_condition_placeholder_1019] =>
+admin/structure/block/manage/%/%/configure
+    [:db_condition_placeholder_1020] =>
+admin/config/group/group-membership/manage/%/edit
+    [:db_condition_placeholder_1021] =>
+admin/structure/menu/manage/translation/delete/%
+    [:db_condition_placeholder_1022] =>
+og/autocomplete/single/%/%/%/%
+    [:db_condition_placeholder_1023] => og/autocomplete/tags/%/%/%/%
+    [:db_condition_placeholder_1024] =>
+admin/structure/types/manage/%/comment/dependencies
+    [:db_condition_placeholder_1025] =>
+admin/config/media/file-types/manage/%/dependencies
+    [:db_condition_placeholder_1026] =>
+admin/config/group/group-membership/manage/%/dependencies
+    [:db_condition_placeholder_1027] =>
+admin/config/system/mail-edit/%/%/remove
+    [:db_condition_placeholder_1028] =>
+admin/config/regional/currency-exchange/fixed/%/%
+    [:db_condition_placeholder_1029] =>
+admin/structure/flags/manage/%/display/default
+    [:db_condition_placeholder_1030] =>
+admin/structure/invite-types/manage/%/display/default
+    [:db_condition_placeholder_1031] =>
+admin/structure/invite-types/manage/%/display/full
+    [:db_condition_placeholder_1032] =>
+admin/structure/types/manage/%/display/default
+    [:db_condition_placeholder_1033] =>
+admin/structure/profiles/manage/%/display/default
+    [:db_condition_placeholder_1034] =>
+admin/config/workflow/rules/schedule/%/delete
+    [:db_condition_placeholder_1035] =>
+admin/structure/menu/manage/translation/edit/%
+    [:db_condition_placeholder_1036] =>
+admin/structure/types/manage/%/display/full
+    [:db_condition_placeholder_1037] =>
+admin/structure/types/manage/%/display/rss
+    [:db_condition_placeholder_1038] =>
+admin/structure/types/manage/%/display/revision
+    [:db_condition_placeholder_1039] =>
+admin/structure/types/manage/%/display/search_index
+    [:db_condition_placeholder_1040] =>
+admin/structure/types/manage/%/display/search_result
+    [:db_condition_placeholder_1041] =>
+admin/structure/types/manage/%/display/teaser
+    [:db_condition_placeholder_1042] =>
+admin/structure/invite-types/manage/%/display/token
+    [:db_condition_placeholder_1043] =>
+admin/structure/types/manage/%/display/token
+    [:db_condition_placeholder_1044] =>
+admin/structure/profiles/manage/%/display/token
+    [:db_condition_placeholder_1045] =>
+admin/structure/views/view/%/translate/%
+    [:db_condition_placeholder_1046] =>
+admin/structure/profiles/manage/%/display/account
+    [:db_condition_placeholder_1047] =>
+admin/structure/views/nojs/preview/%/%
+    [:db_condition_placeholder_1048] => group/%/%/admin/menus/%/add
+    [:db_condition_placeholder_1049] =>
+admin/structure/types/manage/%/comment/display
+    [:db_condition_placeholder_1050] =>
+admin/structure/types/manage/%/comment/fields
+    [:db_condition_placeholder_1051] =>
+admin/structure/taxonomy/%/list/sets/add
+    [:db_condition_placeholder_1052] =>
+group/%/%/admin/people/delete-membership/%
+    [:db_condition_placeholder_1053] =>
+admin/structure/block/manage/%/%/delete
+    [:db_condition_placeholder_1054] =>
+admin/structure/block/manage/blockgroup/%/delete
+    [:db_condition_placeholder_1055] =>
+admin/config/regional/date-time/formats/%/delete
+    [:db_condition_placeholder_1056] =>
+admin/config/regional/date-time/types/%/delete
+    [:db_condition_placeholder_1057] =>
+group/%/%/admin/menus/%/delete
+    [:db_condition_placeholder_1058] =>
+admin/config/user-interface/shortcut/link/%/delete
+    [:db_condition_placeholder_1059] =>
+admin/config/messaging/privatemsg/tags/delete/%
+    [:db_condition_placeholder_1060] =>
+admin/config/people/userpoints/transaction/%/edit
+    [:db_condition_placeholder_1061] =>
+admin/config/regional/date-time/formats/%/edit
+    [:db_condition_placeholder_1062] => group/%/%/admin/menus/%/edit
+    [:db_condition_placeholder_1063] =>
+admin/config/messaging/privatemsg/tags/edit/%
+    [:db_condition_placeholder_1064] =>
+admin/config/regional/date-time/locale/%/edit
+    [:db_condition_placeholder_1065] =>
+admin/config/media/file-types/manage/%/display
+    [:db_condition_placeholder_1066] =>
+admin/config/group/group-membership/manage/%/display
+    [:db_condition_placeholder_1067] =>
+admin/config/media/file-types/manage/%/fields
+    [:db_condition_placeholder_1068] =>
+admin/config/group/group-membership/manage/%/fields
+    [:db_condition_placeholder_1069] =>
+admin/config/media/file-types/manage/%/file-display
+    [:db_condition_placeholder_1070] =>
+admin/config/regional/date-time/locale/%/reset
+    [:db_condition_placeholder_1071] =>
+admin/structure/block/manage/%/%/translate
+    [:db_condition_placeholder_1072] =>
+admin/config/regional/currency/list/%/translate
+    [:db_condition_placeholder_1073] =>
+admin/structure/contact/edit/%/translate/%
+    [:db_condition_placeholder_1074] =>
+admin/structure/menu/manage/%/translate/%
+    [:db_condition_placeholder_1075] =>
+admin/structure/profiles/manage/%/translate/%
+    [:db_condition_placeholder_1076] =>
+admin/structure/menu/item/%/translate/%
+    [:db_condition_placeholder_1077] =>
+admin/config/people/userpoints/transaction/%/view
+    [:db_condition_placeholder_1078] =>
+admin/config/people/userpoints/transaction/%/approve
+    [:db_condition_placeholder_1079] =>
+admin/config/messaging/privatemsg/groups/%/delete
+    [:db_condition_placeholder_1080] =>
+admin/config/messaging/privatemsg/fields/%/delete
+    [:db_condition_placeholder_1081] =>
+admin/config/messaging/privatemsg/fields/%/edit
+    [:db_condition_placeholder_1082] =>
+admin/config/content/wysiwyg/profile/%/edit
+    [:db_condition_placeholder_1083] => group/%/%/admin/role/%/edit
+    [:db_condition_placeholder_1084] =>
+group/%/%/admin/permission/%/edit
+    [:db_condition_placeholder_1085] =>
+admin/config/messaging/privatemsg/fields/%/field-settings
+    [:db_condition_placeholder_1086] =>
+admin/structure/taxonomy/%/groups/%/delete
+    [:db_condition_placeholder_1087] =>
+admin/structure/taxonomy/%/fields/%/delete
+    [:db_condition_placeholder_1088] =>
+admin/structure/taxonomy/%/fields/%/edit
+    [:db_condition_placeholder_1089] =>
+admin/structure/taxonomy/%/groups/%/enable
+    [:db_condition_placeholder_1090] =>
+admin/config/content/wysiwyg/profile/%/delete
+    [:db_condition_placeholder_1091] =>
+admin/config/messaging/privatemsg/groups/%/enable
+    [:db_condition_placeholder_1092] =>
+admin/config/messaging/privatemsg/fields/%/translate
+    [:db_condition_placeholder_1093] =>
+admin/structure/views/view/%/preview/%
+    [:db_condition_placeholder_1094] =>
+admin/config/messaging/privatemsg/fields/%/widget-type
+    [:db_condition_placeholder_1095] =>
+admin/structure/views/ajax/preview/%/%
+    [:db_condition_placeholder_1096] =>
+admin/structure/taxonomy/%/fields/%/field-settings
+    [:db_condition_placeholder_1097] =>
+admin/config/group/group-membership/manage/%/%
+    [:db_condition_placeholder_1098] =>
+admin/structure/taxonomy/%/fields/%/translate
+    [:db_condition_placeholder_1099] =>
+admin/structure/taxonomy/%/fields/%/widget-type
+    [:db_condition_placeholder_1100] =>
+admin/config/people/accounts/groups/%/delete
+    [:db_condition_placeholder_1101] =>
+admin/config/people/accounts/fields/%/delete
+    [:db_condition_placeholder_1102] =>
+admin/config/people/accounts/fields/%/edit
+    [:db_condition_placeholder_1103] =>
+admin/config/people/accounts/groups/%/enable
+    [:db_condition_placeholder_1104] =>
+admin/config/people/accounts/fields/%/field-settings
+    [:db_condition_placeholder_1105] =>
+admin/config/people/accounts/fields/%/translate
+    [:db_condition_placeholder_1106] =>
+admin/config/people/accounts/fields/%/widget-type
+    [:db_condition_placeholder_1107] =>
+admin/config/regional/currency/list/%/clone
+    [:db_condition_placeholder_1108] =>
+group/%/%/admin/people/edit-membership/%
+    [:db_condition_placeholder_1109] =>
+admin/config/regional/currency_locale_pattern/list/%/clone
+    [:db_condition_placeholder_1110] =>
+admin/structure/panels/layouts/list/%/clone
+    [:db_condition_placeholder_1111] =>
+admin/config/group/group-membership/manage/%/clone
+    [:db_condition_placeholder_1112] =>
+admin/config/regional/currency/list/%/delete
+    [:db_condition_placeholder_1113] =>
+admin/config/regional/currency_locale_pattern/list/%/delete
+    [:db_condition_placeholder_1114] =>
+admin/structure/panels/layouts/list/%/delete
+    [:db_condition_placeholder_1115] =>
+admin/config/regional/currency/list/%/disable
+    [:db_condition_placeholder_1116] =>
+admin/config/regional/currency_locale_pattern/list/%/disable
+    [:db_condition_placeholder_1117] =>
+admin/structure/panels/layouts/list/%/disable
+    [:db_condition_placeholder_1118] =>
+admin/config/regional/currency/list/%/edit
+    [:db_condition_placeholder_1119] =>
+admin/config/regional/currency_locale_pattern/list/%/edit
+    [:db_condition_placeholder_1120] =>
+admin/structure/panels/layouts/list/%/edit
+    [:db_condition_placeholder_1121] =>
+admin/config/regional/currency/list/%/enable
+    [:db_condition_placeholder_1122] =>
+admin/config/regional/currency_locale_pattern/list/%/enable
+    [:db_condition_placeholder_1123] =>
+admin/structure/panels/layouts/list/%/enable
+    [:db_condition_placeholder_1124] =>
+admin/config/regional/currency/list/%/export
+    [:db_condition_placeholder_1125] =>
+admin/config/regional/currency_locale_pattern/list/%/export
+    [:db_condition_placeholder_1126] =>
+admin/structure/panels/layouts/list/%/export
+    [:db_condition_placeholder_1127] =>
+admin/config/regional/currency/list/%/revert
+    [:db_condition_placeholder_1128] =>
+admin/config/regional/currency_locale_pattern/list/%/revert
+    [:db_condition_placeholder_1129] =>
+admin/structure/panels/layouts/list/%/revert
+    [:db_condition_placeholder_1130] =>
+admin/structure/flags/manage/%/fields/%
+    [:db_condition_placeholder_1131] =>
+admin/structure/invite-types/manage/%/fields/%
+    [:db_condition_placeholder_1132] =>
+admin/config/workflow/rules/components/manage/%
+    [:db_condition_placeholder_1133] =>
+admin/structure/profiles/manage/%/fields/%
+    [:db_condition_placeholder_1134] =>
+admin/config/workflow/rules/reaction/manage/%
+    [:db_condition_placeholder_1135] =>
+admin/structure/types/manage/%/fields/%
+    [:db_condition_placeholder_1136] =>
+admin/config/workflow/rules/forms/%/activate/%
+    [:db_condition_placeholder_1137] =>
+admin/config/media/file-types/manage/%/file-display/default
+    [:db_condition_placeholder_1138] =>
+admin/structure/types/manage/%/comment/display/default
+    [:db_condition_placeholder_1139] =>
+admin/config/media/file-types/manage/%/display/default
+    [:db_condition_placeholder_1140] =>
+admin/config/group/group-membership/manage/%/display/default
+    [:db_condition_placeholder_1141] =>
+admin/structure/taxonomy/%/list/sets/delete/%
+    [:db_condition_placeholder_1142] =>
+admin/structure/types/manage/%/comment/display/full
+    [:db_condition_placeholder_1143] =>
+admin/config/media/file-types/manage/%/file-display/media_large
+    [:db_condition_placeholder_1144] =>
+admin/config/media/file-types/manage/%/display/media_large
+    [:db_condition_placeholder_1145] =>
+admin/config/media/file-types/manage/%/file-display/media_link
+    [:db_condition_placeholder_1146] =>
+admin/config/media/file-types/manage/%/display/media_link
+    [:db_condition_placeholder_1147] =>
+admin/config/media/file-types/manage/%/file-display/media_original
+    [:db_condition_placeholder_1148] =>
+admin/config/media/file-types/manage/%/display/media_original
+    [:db_condition_placeholder_1149] =>
+admin/config/media/file-types/manage/%/file-display/media_preview
+    [:db_condition_placeholder_1150] =>
+admin/config/media/file-types/manage/%/display/media_preview
+    [:db_condition_placeholder_1151] =>
+admin/config/media/file-types/manage/%/file-display/media_small
+    [:db_condition_placeholder_1152] =>
+admin/config/media/file-types/manage/%/display/media_small
+    [:db_condition_placeholder_1153] =>
+admin/config/media/file-types/manage/%/file-display/token
+    [:db_condition_placeholder_1154] =>
+admin/structure/types/manage/%/comment/display/token
+    [:db_condition_placeholder_1155] =>
+admin/config/media/file-types/manage/%/display/token
+    [:db_condition_placeholder_1156] =>
+admin/structure/block/manage/%/%/translate/%
+    [:db_condition_placeholder_1157] =>
+admin/structure/taxonomy/%/list/sets/edit/%
+    [:db_condition_placeholder_1158] =>
+admin/config/search/facetapi/%/%/%/export
+    [:db_condition_placeholder_1159] =>
+admin/config/search/facetapi/%/%/%/revert
+    [:db_condition_placeholder_1160] =>
+admin/config/regional/currency/list/%/translate/%
+    [:db_condition_placeholder_1161] =>
+admin/config/workflow/rules/components/manage/%/%
+    [:db_condition_placeholder_1162] =>
+admin/config/workflow/rules/reaction/manage/%/%
+    [:db_condition_placeholder_1163] =>
+admin/config/media/image-styles/edit/%/add/%
+    [:db_condition_placeholder_1164] =>
+admin/config/group/fields/%/%/%/delete
+    [:db_condition_placeholder_1165] =>
+admin/config/search/facetapi/%/%/%/dependencies
+    [:db_condition_placeholder_1166] =>
+admin/config/search/facetapi/%/%/%/edit
+    [:db_condition_placeholder_1167] =>
+admin/config/search/facetapi/%/%/%/filters
+    [:db_condition_placeholder_1168] =>
+admin/structure/flags/manage/%/groups/%/delete
+    [:db_condition_placeholder_1169] =>
+admin/structure/flags/manage/%/fields/%/delete
+    [:db_condition_placeholder_1170] =>
+admin/structure/flags/manage/%/fields/%/edit
+    [:db_condition_placeholder_1171] =>
+admin/config/media/image-styles/edit/%/effects/%
+    [:db_condition_placeholder_1172] =>
+admin/structure/flags/manage/%/groups/%/enable
+    [:db_condition_placeholder_1173] =>
+admin/structure/flags/manage/%/fields/%/field-settings
+    [:db_condition_placeholder_1174] =>
+admin/structure/flags/manage/%/fields/%/translate
+    [:db_condition_placeholder_1175] =>
+admin/structure/flags/manage/%/fields/%/widget-type
+    [:db_condition_placeholder_1176] =>
+admin/structure/invite-types/manage/%/groups/%/delete
+    [:db_condition_placeholder_1177] =>
+admin/structure/invite-types/manage/%/fields/%/delete
+    [:db_condition_placeholder_1178] =>
+admin/structure/invite-types/manage/%/fields/%/edit
+    [:db_condition_placeholder_1179] =>
+admin/structure/invite-types/manage/%/groups/%/enable
+    [:db_condition_placeholder_1180] =>
+admin/structure/invite-types/manage/%/fields/%/field-settings
+    [:db_condition_placeholder_1181] =>
+admin/structure/invite-types/manage/%/fields/%/translate
+    [:db_condition_placeholder_1182] =>
+admin/structure/invite-types/manage/%/fields/%/widget-type
+    [:db_condition_placeholder_1183] =>
+admin/structure/types/manage/%/groups/%/delete
+    [:db_condition_placeholder_1184] =>
+admin/structure/types/manage/%/fields/%/delete
+    [:db_condition_placeholder_1185] =>
+admin/structure/types/manage/%/fields/%/edit
+    [:db_condition_placeholder_1186] =>
+admin/structure/types/manage/%/groups/%/enable
+    [:db_condition_placeholder_1187] =>
+admin/structure/types/manage/%/fields/%/field-settings
+    [:db_condition_placeholder_1188] =>
+admin/structure/types/manage/%/fields/%/translate
+    [:db_condition_placeholder_1189] =>
+admin/structure/types/manage/%/fields/%/widget-type
+    [:db_condition_placeholder_1190] =>
+admin/config/messaging/privatemsg/fields/%/translate/%
+    [:db_condition_placeholder_1191] =>
+admin/structure/profiles/manage/%/groups/%/delete
+    [:db_condition_placeholder_1192] =>
+admin/structure/profiles/manage/%/fields/%/delete
+    [:db_condition_placeholder_1193] =>
+admin/config/workflow/rules/components/manage/%/autocomplete
+    [:db_condition_placeholder_1194] =>
+admin/structure/profiles/manage/%/fields/%/edit
+    [:db_condition_placeholder_1195] =>
+admin/structure/profiles/manage/%/groups/%/enable
+    [:db_condition_placeholder_1196] =>
+admin/config/workflow/rules/reaction/manage/%/autocomplete
+    [:db_condition_placeholder_1197] =>
+admin/structure/profiles/manage/%/fields/%/field-settings
+    [:db_condition_placeholder_1198] =>
+admin/structure/profiles/manage/%/fields/%/translate
+    [:db_condition_placeholder_1199] =>
+admin/structure/profiles/manage/%/fields/%/widget-type
+    [:db_condition_placeholder_1200] =>
+admin/structure/taxonomy/%/fields/%/translate/%
+    [:db_condition_placeholder_1201] =>
+admin/config/people/accounts/fields/%/translate/%
+    [:db_condition_placeholder_1202] =>
+admin/structure/views/view/%/edit/%/ajax
+    [:db_condition_placeholder_1203] =>
+admin/structure/views/view/%/preview/%/ajax
+    [:db_condition_placeholder_1204] =>
+admin/structure/types/manage/%/comment/fields/%
+    [:db_condition_placeholder_1205] =>
+admin/config/media/file-types/manage/%/fields/%
+    [:db_condition_placeholder_1206] =>
+admin/config/group/group-membership/manage/%/fields/%
+    [:db_condition_placeholder_1207] =>
+admin/config/workflow/rules/components/manage/%/clone
+    [:db_condition_placeholder_1208] =>
+admin/config/workflow/rules/reaction/manage/%/clone
+    [:db_condition_placeholder_1209] =>
+admin/config/workflow/rules/components/manage/%/execute
+    [:db_condition_placeholder_1210] =>
+admin/config/workflow/rules/reaction/manage/%/execute
+    [:db_condition_placeholder_1211] =>
+admin/config/workflow/rules/components/manage/%/export
+    [:db_condition_placeholder_1212] =>
+admin/config/workflow/rules/reaction/manage/%/export
+    [:db_condition_placeholder_1213] =>
+admin/config/workflow/rules/components/manage/%/schedule
+    [:db_condition_placeholder_1214] =>
+admin/config/workflow/rules/reaction/manage/%/schedule
+    [:db_condition_placeholder_1215] =>
+group/%/%/admin/menus/%/item/%/delete
+    [:db_condition_placeholder_1216] =>
+group/%/%/admin/menus/%/item/%/edit
+    [:db_condition_placeholder_1217] =>
+admin/structure/types/manage/%/comment/groups/%/delete
+    [:db_condition_placeholder_1218] =>
+admin/structure/types/manage/%/comment/fields/%/delete
+    [:db_condition_placeholder_1219] =>
+admin/config/media/image-styles/edit/%/effects/%/delete
+    [:db_condition_placeholder_1220] =>
+admin/structure/types/manage/%/comment/fields/%/edit
+    [:db_condition_placeholder_1221] =>
+admin/structure/types/manage/%/comment/groups/%/enable
+    [:db_condition_placeholder_1222] =>
+admin/structure/types/manage/%/comment/fields/%/field-settings
+    [:db_condition_placeholder_1223] =>
+admin/structure/types/manage/%/comment/fields/%/translate/%i18n_language
+    [:db_condition_placeholder_1224] =>
+admin/structure/types/manage/%/comment/fields/%/translate
+    [:db_condition_placeholder_1225] =>
+admin/structure/types/manage/%/comment/fields/%/widget-type
+    [:db_condition_placeholder_1226] =>
+admin/config/media/file-types/manage/%/groups/%/delete
+    [:db_condition_placeholder_1227] =>
+admin/config/media/file-types/manage/%/fields/%/delete
+    [:db_condition_placeholder_1228] =>
+admin/config/media/file-types/manage/%/fields/%/edit
+    [:db_condition_placeholder_1229] =>
+admin/config/media/file-types/manage/%/groups/%/enable
+    [:db_condition_placeholder_1230] =>
+admin/config/media/file-types/manage/%/fields/%/field-settings
+    [:db_condition_placeholder_1231] =>
+admin/config/media/file-types/manage/%/fields/%/translate/%i18n_language
+    [:db_condition_placeholder_1232] =>
+admin/config/media/file-types/manage/%/fields/%/translate
+    [:db_condition_placeholder_1233] =>
+admin/config/media/file-types/manage/%/fields/%/widget-type
+    [:db_condition_placeholder_1234] =>
+admin/structure/flags/manage/%/fields/%/translate/%
+    [:db_condition_placeholder_1235] =>
+admin/structure/invite-types/manage/%/fields/%/translate/%
+    [:db_condition_placeholder_1236] =>
+admin/structure/types/manage/%/fields/%/translate/%
+    [:db_condition_placeholder_1237] =>
+admin/config/group/group-membership/manage/%/groups/%/delete
+    [:db_condition_placeholder_1238] =>
+admin/config/group/group-membership/manage/%/fields/%/delete
+    [:db_condition_placeholder_1239] =>
+admin/config/group/group-membership/manage/%/fields/%/edit
+    [:db_condition_placeholder_1240] =>
+admin/config/group/group-membership/manage/%/groups/%/enable
+    [:db_condition_placeholder_1241] =>
+admin/config/group/group-membership/manage/%/fields/%/field-settings
+    [:db_condition_placeholder_1242] =>
+admin/config/group/group-membership/manage/%/fields/%/translate/%i18n_language
+    [:db_condition_placeholder_1243] =>
+admin/config/group/group-membership/manage/%/fields/%/translate
+    [:db_condition_placeholder_1244] =>
+admin/config/group/group-membership/manage/%/fields/%/widget-type
+    [:db_condition_placeholder_1245] =>
+admin/structure/profiles/manage/%/fields/%/translate/%
+    [:db_condition_placeholder_1246] =>
+admin/config/workflow/rules/components/manage/%/delete/event
+    [:db_condition_placeholder_1247] =>
+admin/config/workflow/rules/reaction/manage/%/delete/event
+    [:db_condition_placeholder_1248] =>
+admin/config/workflow/rules/components/manage/%/add/event
+    [:db_condition_placeholder_1249] =>
+admin/config/workflow/rules/reaction/manage/%/add/event
+    [:db_condition_placeholder_1250] =>
+admin/config/workflow/rules/components/manage/%/delete/%
+    [:db_condition_placeholder_1251] =>
+admin/config/workflow/rules/reaction/manage/%/delete/%
+    [:db_condition_placeholder_1252] =>
+admin/config/workflow/rules/components/manage/%/edit/%
+    [:db_condition_placeholder_1253] =>
+admin/config/workflow/rules/reaction/manage/%/edit/%
+    [:db_condition_placeholder_1254] =>
+admin/config/workflow/rules/components/manage/%/add/%
+    [:db_condition_placeholder_1255] =>
+admin/config/workflow/rules/reaction/manage/%/add/%
+    [:db_condition_placeholder_1256] => 0
+    [:db_condition_placeholder_1257] => 1
+)
+ in _menu_navigation_links_rebuild() (line 2885 of
+/var/www/humanoe/includes/menu.inc).
+'all' cache was cleared in /var/www/humanoe#default                  [1;32;40m[1m[success][0m

@@ -1,0 +1,112 @@
+<?php
+
+/**
+ * @file
+ * Insert view.
+ */
+
+/**
+ * Implements hook_filter_info().
+ */
+function insert_view_filter_info() {
+  $filters['insert_view'] = array(
+    'title' => t('Insert view filter'),
+    'description' => t('Embed views into nodes using [view:name=display=args] tags.'),
+    'process callback' => '_insert_view_substitute_tags',
+    'tips callback' => 'insert_view_filter_tips',
+    'cache' => FALSE,
+  );
+
+  return $filters;
+}
+
+/**
+ * Tips callback for insert_view filter.
+ */
+function insert_view_filter_tips($filter, $format, $long = FALSE) {
+  if ($long) {
+    return '<br />' . t(
+'<dl>
+<dt>Insert view filter allows to embed views using tags. The tag syntax is relatively simple: [view:name=display=args]</dt>
+<dt>For example [view:tracker=page=1] says, embed a view named "tracker", use the "page" display, and supply the argument "1".</dt>
+<dt>The <em>display</em> and <em>args</em> parameters can be omitted. If the display is left empty, the view\'s default display is used.</dt>
+<dt>Multiple arguments are separated with slash. The <em>args</em> format is the same as used in the URL (or view preview screen).</dt>
+</dl>
+Valid examples:
+<dl>
+<dt>[view:my_view]</dt>
+<dt>[view:my_view=my_display]</dt>
+<dt>[view:my_view=my_display=arg1/arg2/arg3]</dt>
+<dt>[view:my_view==arg1/arg2/arg3]</dt>
+</dl>') . '<br />';
+  }
+  else {
+    return t('You may use <a href="@insert_view_help">[view:<em>name=display=args</em>] tags</a> to display views.', array("@insert_view_help" => url("filter/tips/$format->format", array('fragment' => 'filter-insert_view'))));
+  }
+}
+
+/**
+ * Helper function to replace the tag syntax with the actual view.
+ */
+function _insert_view_substitute_tags($text, $format) {
+  if (preg_match_all("/\[view:([^=\]]+)=?([^=\]]+)?=?([^\]]*)?\]/i", $text, $match)) {
+    foreach ($match[0] as $key => $value) {
+      $view_name = $match[1][$key];
+      $display_id = ($match[2][$key] && !is_numeric($match[2][$key])) ? $match[2][$key] : 'default';
+      $args = $match[3][$key];
+
+      $view_output = insert_view($view_name, $display_id, $args);
+
+      $search[] = $value;
+      $replace[] = !empty($view_output) ? $view_output : '';
+    }
+    return str_replace($search, $replace, $text);
+  }
+  return $text;
+}
+
+/**
+ * Embed a view using a PHP snippet.
+ *
+ * This function is meant to be called from PHP snippets, should one wish to
+ * embed a view in a node or something. Other than embedding the view it checks
+ * the view access and also allows to use view arguments grabbed from the URL.
+ *
+ * @param $view_name
+ *   The name of the view.
+ * @param $display_id
+ *   The display id to embed. If unsure, use 'default', as it will always be
+ *   valid. But things like 'page' or 'block' should work here.
+ * @param $args
+ *   Additional arguments to send to the view as if they were part of the URL in
+ *   the form of arg1/arg2/arg3. You may use %0, %1, ..., %N to grab arguments
+ *   from the URL.
+ */
+function insert_view($view_name, $display_id = 'default', $args = '') {
+  if (empty($view_name)) {
+    return;
+  }
+
+  $view = views_get_view($view_name);
+  if (empty($view)) {
+    return;
+  }
+
+  if (!$view->access($display_id)) {
+    return;
+  }
+
+  $url_args = arg();
+  foreach ($url_args as $id => $arg) {
+    $args = str_replace("%$id", $arg, $args);
+  }
+  $args = preg_replace(',/?(%\d),', '', $args);
+  $args = $args ? explode('/', $args) : array();
+
+  $view->set_display($display_id);
+  $view->set_arguments($args);
+  $output = $view->preview($display_id, $args);
+  $view->destroy();
+
+  return $output;
+}

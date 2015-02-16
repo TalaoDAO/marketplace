@@ -1,0 +1,24 @@
+Sudo 7.x-1.0, 29 August 2011
+----------------------------
+by dnotes: port to Drupal 7; added tests for maintenance & new disable hook
+
+Sudo 6.x-1.1, 17 May 2011
+-------------------------
+by dnotes: Changed sudo_roles to simply return array for passed $uid
+by dnotes: Added pgsql compatibility
+by dnotes: Removed structures like "INSERT IGNORE" and "REPLACE"
+Issue #1076824 by dnotes: added user operations to add existing users to sudo
+by dnotes: Added tests for user operations
+by dnotes: Fixed warnings when removing sudo users with no sudo roles
+by dnotes: Changed sudo settings form for clarity and organization.
+by dnotes: Updating simpletests for new functionality
+by dnotes: Fixed confirmation screen not showing unchecked roles
+Issue #1076824 by dnotes: Added default sudo roles functionality
+Issue #820028 by dnotes: Added options when removing roles from sudoers
+Issue #986906 by dnotes: Fixed lockout of sudoers when site is offline
+by dnotes: Added CHANGELOG.txt
+
+Sudo 6.x-1.0, 26 Feb 2010
+-------------------------
+by dnotes: initial release of sudo module supporting Drupal 6.0
+

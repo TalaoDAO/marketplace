@@ -1,0 +1,11 @@
+name = Live CSS
+description = Edit and save CSS changes live on the site
+core = 7.x
+files[] = live_css.module
+
+; Information added by drupal.org packaging script on 2013-10-19
+version = "7.x-2.12"
+core = "7.x"
+project = "live_css"
+datestamp = "1382167198"
+

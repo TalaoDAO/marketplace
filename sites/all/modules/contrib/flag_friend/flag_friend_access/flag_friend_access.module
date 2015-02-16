@@ -1,0 +1,132 @@
+<?php
+
+/**
+ * @file: provides access control for nodes. Allow only the users friends to
+ * have access to it
+ */
+
+/**
+ * Implements hook_node_grants().
+ */
+function flag_friend_access_node_grants($account, $op) {
+  // module only controls view operations
+  if ($op == 'view') {
+    $friends = flag_friend_get_friends($account->uid);
+    if (!empty($friends)) {
+      $grants['flag_friend'] = array_keys($friends);
+    }
+    $grants['flag_friend'][] = $account->uid;
+    return $grants;
+  }
+}
+
+/**
+ * Implements hook_node_access_records().
+ */
+function flag_friend_access_node_access_records($node) {
+  if (!empty($node->flag_friend_access)) {
+    return array(
+      array(
+        'realm' => 'flag_friend',
+        'gid' => $node->uid,
+        'grant_view' => 1,
+        'grant_update' => 0,
+        'grant_delete' => 0,
+        'priority' => 5,
+      ),
+    );
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function flag_friend_access_form_alter(&$form, &$form_state, $form_id) {
+  // add in a checkbox only if the
+  if (isset($form['#node']) && $form['#node']->type . '_node_form' == $form_id) {
+    // We have a node form alter in our stuff.
+    $form['flag_friend_control'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Friend Access Control'),
+      '#collapsable' => FALSE,
+    );
+    $access_value = isset($form['#node']->nid) ? flag_friend_access_value($form['#node']->nid) : FALSE;
+    $form['flag_friend_control']['flag_friend_access'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Only My Friends'),
+      '#default_value' => !empty($access_value),
+    );
+  }
+}
+
+/**
+ * Determine if we have an access entry already recorded.
+ *
+ * @param $nid
+ *   Node id of the node to check.
+ *
+ * @param $reset = FALSE
+ *  Whether or not to reset the static cache.
+ *
+ * @return
+ *   User id.
+ *
+ */
+function flag_friend_access_value($nid, $reset = FALSE) {
+  static $nodes = array();
+
+  if ($reset) {
+    $nodes = array();
+  }
+
+  if (!isset($nodes[$nid])) {
+    $nodes[$nid] = db_query('SELECT uid FROM {flag_friend_access} WHERE nid = :nid', array(':nid' => $nid))->fetchField();
+  }
+
+  return $nodes[$nid];
+}
+
+/**
+ * Implements hook_node_load().
+ */
+function flag_friend_access_node_load($nodes, $types) {
+  foreach ($nodes as $node) {
+    $node->flag_friend_access = flag_friend_access_value($node->nid);
+  }
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+function flag_friend_access_node_insert($node) {
+  if (isset($node->flag_friend_access) && ($node->flag_friend_access == 1)) {
+    $id = db_insert('flag_friend_access')
+  ->fields(array(
+    'uid' => $node->uid,
+    'nid' => $node->nid,
+  ))
+  ->execute();
+  }
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function flag_friend_access_node_update($node) {
+  $existing_access = flag_friend_access_value($node->nid);
+  if (empty($node->flag_friend_access) && !empty($existing_access)) {
+    db_delete('flag_friend_access')
+  ->condition('nid', $node->nid)
+  ->execute();
+    node_access_acquire_grants($node);
+  }
+  elseif (!empty($node->flag_friend_access) && empty($existing_access)) {
+    $id = db_insert('flag_friend_access')
+  ->fields(array(
+    'uid' => $node->uid,
+    'nid' => $node->nid,
+  ))
+  ->execute();
+    node_access_acquire_grants($node);
+  }
+}

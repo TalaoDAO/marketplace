@@ -1,0 +1,14 @@
+name = "OG features"
+description = "Turn features on and off within groups."
+package = "Organic groups"
+dependencies[] = "og"
+dependencies[] = "og_context"
+dependencies[] = "og_ui"
+core = "7.x"
+
+; Information added by  packaging script on 2013-12-04
+version = "7.x-2.0-beta4"
+core = "7.x"
+project = "og_features"
+datestamp = "1386170013"
+

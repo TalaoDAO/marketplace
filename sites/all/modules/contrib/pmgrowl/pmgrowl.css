@@ -1,0 +1,8 @@
+div.pmgrowl-body .user-picture img {
+ float: left;
+ margin: 5px;
+}
+
+.pmgrowl-body {
+  overflow: hidden;
+}
