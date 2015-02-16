@@ -1,0 +1,15 @@
+name = "Views Conditional"
+description = "Allows conditional views output."
+dependencies[] = views
+package = Views
+core = 7.x
+
+; Include views handlers
+files[] = includes/views/handlers/views_conditional_handler.inc
+
+; Information added by Drupal.org packaging script on 2014-11-23
+version = "7.x-1.3"
+core = "7.x"
+project = "views_conditional"
+datestamp = "1416718383"
+

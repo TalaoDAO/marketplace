@@ -1,0 +1,15 @@
+name = Field tools
+description = Allows fields to be cloned to other entities.
+dependencies[] = field_ui
+dependencies[] = ctools
+package = Fields
+core = 7.x
+files[] = field_tools.module
+files[] = field_tools.admin.inc
+
+; Information added by Drupal.org packaging script on 2014-05-03
+version = "7.x-1.0-alpha7"
+core = "7.x"
+project = "field_tools"
+datestamp = "1399144434"
+

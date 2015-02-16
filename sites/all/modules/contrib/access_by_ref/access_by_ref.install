@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Install and uninstall code for access_by_ref Module.
+ *
+ * Long description here.
+ */
+
+
+/**
+ * Implements hook_install().
+ */
+function access_by_ref_install() {
+
+  // Do some things on install, like setting the module weight.
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function access_by_ref_uninstall() {
+
+ variable_del('access_by_ref_user_field');
+ variable_del('access_by_ref_referenced');
+ variable_del('access_by_ref_user_reference_field');
+  
+}

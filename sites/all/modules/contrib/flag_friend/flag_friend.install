@@ -1,0 +1,211 @@
+<?php
+
+/**
+ * @file
+ * Flag Friend module install/schema/update hooks.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function flag_friend_install() {
+  drupal_set_message(st('The flag_friend module installed its tables successfully. Please <a href="@enable">enable the friend flag</a>.', array('@enable' => url('admin/structure/flags/edit/friend'))));
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * @TODO: We should consider removing all friend flags when uninstalling...
+ */
+function flag_friend_uninstall() {
+  // Remove default flag if it's enabled.
+  if ($flag = flag_get_flag('friend')) {
+    $flag->delete();
+  }
+  drupal_set_message(st('The flag_friend module was successfully uninstalled.'));
+}
+
+/**
+ * Implements hook_schema().
+ */
+function flag_friend_schema() {
+  $schema['flag_friend'] = array(
+    'fields' => array(
+      'flagging_id' => array(
+        'description' => 'The unique ID for this particular flag.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'status' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'disp-width' => '10'
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => "Flagging user ID.",
+      ),
+      'entity_id' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => "Flagged user ID."
+      ),
+      'created' => array(
+        'type' => 'int',
+        'not null' => FALSE,
+        'disp-width' => '11'
+      ),
+    ),
+    'primary key' => array('flagging_id'),
+  );
+
+  $schema['flag_friend_message'] = array(
+    'fields' => array(
+      'flagging_id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'message' => array(
+        'type' => 'text',
+        'not null' => TRUE
+      )
+    ),
+    'primary key' => array('flagging_id'),
+  );
+  return $schema;
+}
+
+/**
+ * Update to change the flag_friend_message:fcid from int to serial.
+ */
+function flag_friend_update_6000() {
+  db_drop_primary_key('flag_friend_message');
+  db_change_field('flag_friend_message', 'fcid', 'fcid', array('type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE), array('primary key' => array('flagging_id')));
+  return st('Field type changed.');
+}
+
+/**
+ * Add additional index by friend_uid to the flag_friend table.
+ */
+function flag_friend_update_6001() {
+  db_add_index('flag_friend', 'friend_uid', array('friend_uid'));
+  return st('Index added.');
+}
+
+/**
+ * Delete flag_friend data for canceled accounts.
+ */
+function flag_friend_update_7000() {
+  db_query("DELETE ff FROM {flag_friend} ff LEFT JOIN {users} u1 ON u1.uid = ff.uid LEFT JOIN {users} u2 ON u2.uid = ff.friend_uid WHERE u1.uid IS NULL OR u2.uid IS NULL");
+}
+
+/**
+ * Delete duplicate flag_friend data.
+ */
+function flag_friend_update_7001() {
+  $flag_friends = db_query("SELECT CONCAT(ff.uid, '__', ff.friend_uid) AS id1, CONCAT(ff1.uid, '__', ff1.friend_uid) AS id2 FROM {flag_friend} ff LEFT JOIN {flag_friend} ff1 ON ff1.uid = ff.friend_uid AND ff1.friend_uid = ff.uid WHERE ff1.uid IS NOT NULL")->fetchAllKeyed();
+
+  foreach ($flag_friends as $id1 => $id2) {
+    if (isset($flag_friends[$id2]) && $flag_friends[$id2] == $id1) {
+      unset($flag_friends[$id1]);
+    }
+  }
+
+  foreach ($flag_friends as $id) {
+    list($uid, $friend_uid) = explode('__', $id);
+    db_query("DELETE ff FROM {flag_friend} ff WHERE ff.uid = :uid AND ff.friend_uid = :friend_uid", array(':uid' => $uid, ':friend_uid' => $friend_uid));
+  }
+}
+
+/**
+ * Update the flag_friend table to assume flags persist.
+ */
+function flag_friend_update_7002() {
+
+  // Rename the the flag_friend table to flag_friend_old.
+  db_rename_table('flag_friend', 'flag_friend_old');
+
+  // Create the new flag_friend table.
+  $schema = flag_friend_schema();
+  db_create_table('flag_friend', $schema['flag_friend']);
+
+  // Change the primary key of flag_friend_message.
+  db_add_index('flag_friend_message', 'temp', array('fcid'));
+  db_drop_primary_key('flag_friend_message');
+  db_change_field('flag_friend_message', 'fcid', 'flagging_id',
+    array('type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE),
+    array('primary key' => array('flagging_id'))
+  );
+  db_drop_index('flag_friend_message', 'temp');
+}
+
+/**
+ * Record friend status based on existing flags.
+ */
+function flag_friend_update_7003() {
+  // Get the friend flag.
+  $flag = flag_get_flag('friend');
+
+  // Query the database directly, as there's no API call in Flag 2.x.
+  $result = db_select('flagging', 'fc')
+    ->fields('fc', array('flagging_id', 'entity_id', 'uid', 'timestamp'))
+    ->condition('fid', $flag->fid)
+    ->execute();
+
+  // Insert all pending relationships into the table.
+  foreach ($result as $row) {
+    db_insert('flag_friend')
+      ->fields(array(
+          'flagging_id' => $row->flagging_id,
+          'status' => FLAG_FRIEND_PENDING,
+          'created' => $row->timestamp,
+          'uid' => $row->uid,
+          'entity_id' => $row->entity_id,
+        ))
+      ->execute();
+  }
+}
+
+/**
+ * Re-flag friended user accounts.
+ */
+function flag_friend_update_7004(&$sandbox) {
+  $max_entries_per_round = 100;
+
+  if (!isset($sandbox['progress'])) {
+    $sandbox['progress'] = 0;
+    $sandbox['max'] = db_query('SELECT COUNT(*) FROM {flag_friend_old}')->fetchField();
+  }
+
+  // Query 100 items from the flag_friend_old table.
+  $result = db_select('flag_friend_old', 'ffo')
+    ->fields('ffo', array('uid', 'friend_uid', 'created'))
+    ->range(0, $max_entries_per_round)
+    ->execute();
+
+  // Reflag friended users.
+  foreach ($result as $row) {
+    flag('flag', 'friend', $row->friend_uid, user_load($row->uid));
+    flag('flag', 'friend', $row->uid, user_load($row->friend_uid));
+    db_delete('flag_friend_old')
+      ->condition('uid', $row->uid)
+      ->condition('friend_uid', $row->friend_uid)
+      ->execute();
+    $sandbox['progress']++;
+  }
+
+  $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
+
+  if ($sandbox['#finished'] >= 1) {
+    // Delete the old friend table.
+    db_drop_table('flag_friend_old');
+
+    // Finally clear the cache.
+    cache_clear_all();
+  }
+}

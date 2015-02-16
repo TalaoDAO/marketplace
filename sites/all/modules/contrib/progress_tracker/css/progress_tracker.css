@@ -1,0 +1,19 @@
+
+.item-list ul.progress-tracker{
+    padding: 0.25em 0 0.25em 1em;
+}
+.item-list ul.progress-tracker.horizontal li{
+    display: inline;
+}
+.item-list ul.progress-tracker.vertical li{
+    float:none;
+}
+.item-list ul.progress-tracker li{
+    list-style: none outside none;
+    margin: 0;
+    padding: 5px 10px;
+    background: none;
+}
+.item-list ul.progress-tracker li.selected{
+    background:#E5E5E5;
+}

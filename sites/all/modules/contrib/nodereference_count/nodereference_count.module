@@ -1,0 +1,450 @@
+<?php
+
+/**
+ * @file
+ * Defines a field type for counting the references to a node.
+ */
+
+/**
+ * Implements hook_field_info().
+ */
+function nodereference_count_field_info() {
+  return array(
+    'nodereference_count' => array(
+      'label' => t('Node reference count'),
+      'description' => t('Store node reference count data in the database.'),
+      'instance_settings' => array(
+        'counted_reference_fields' => array(),
+        'count_only_published' => TRUE,
+      ),
+      'default_widget' => 'nodereference_count_widget',
+      'default_formatter' => 'nodereference_count_formatter_default',
+    ),
+  );
+}
+
+/**
+ * Generate a list of available node reference fields to count.
+ *
+ * @param $bundle
+ *   The field instance bundle.
+ * @return
+ *   An array of nodereference fields that are available to count.
+ */
+function nodereference_count_field_options($bundle) {
+  $field_types = field_info_fields();
+  $field_options = array();
+
+  foreach ($field_types as $field_type) {
+    if ($field_type['type'] == 'node_reference' && isset($field_type['settings']['referenceable_types'][$bundle]) && $field_type['settings']['referenceable_types'][$bundle] === $bundle) {
+      $field_options[$field_type['field_name']] = check_plain($field_type['field_name']);
+    }
+  }
+
+  return $field_options;
+}
+
+/**
+ * Implements hook_field_instance_settings_form().
+ */
+function nodereference_count_field_instance_settings_form($field, $instance) {
+  $settings = $instance['settings'];
+  $options = nodereference_count_field_options($instance['bundle']);
+  $form = array();
+
+  if (empty($options)) {
+    $form['counted_reference_fields_empty'] = array(
+      '#prefix' => '<p>',
+      '#markup' => t('There are no node reference fields to count. If you wish to count the number of references to a node of this type, add a node reference field to another content type, allowing it to reference this content type.'),
+      '#suffix' => '</p>',
+    );
+  }
+  else {
+    $form['counted_reference_fields'] = array(
+      '#type' => 'checkboxes',
+      '#title' => t('Nodereference fields that may be counted'),
+      '#description' => t('Select the node refence fields that you would like to count.'),
+      '#multiple' => TRUE,
+      '#default_value' => $settings['counted_reference_fields'],
+      '#options' => $options,
+    );
+    $form['count_only_published'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Do not count references from unpublished nodes.'),
+      '#default_value' => $settings['count_only_published'],
+    );
+  }
+
+  return $form;
+}
+
+/**
+ * Implements hook_field_schema().
+ */
+function nodereference_count_field_schema($field) {
+  return array(
+    'columns' => array(
+      'count' => array(
+        'type'     => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_is_empty().
+ */
+function nodereference_count_field_is_empty($item, $field) {
+  return is_null($item['count']);
+}
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function nodereference_count_field_widget_info() {
+  return array(
+    'nodereference_count_widget' => array(
+      'label' => t('default'),
+      'description' => t('The count is calculated, so there is no data to enter.'),
+      'field types' => array('nodereference_count'),
+      'behaviors' => array(
+        'default_value' => FIELD_BEHAVIOR_NONE,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function nodereference_count_field_formatter_info() {
+  return array(
+    'nodereference_count_default' => array(
+      'label' => t('Default'),
+      'field types' => array('nodereference_count'),
+    ),
+    'nodereference_count_nonzero' => array(
+      'label' => t('Non-zero'),
+      'field types' => array('nodereference_count'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function nodereference_count_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  switch ($display['type']) {
+    case 'nodereference_count_default':
+      foreach ($items as $delta => $item) {
+        $element[$delta] = array('#markup' => $item['count']);
+      }
+      break;
+
+    case 'nodereference_count_nonzero':
+      foreach ($items as $delta => $item) {
+        if ($item['count'] > 0) {
+          $element[$delta] = array('#markup' => $item['count']);
+        }
+      }
+      break;
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_presave().
+ */
+function nodereference_count_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  if ($field['type'] == 'nodereference_count' && $entity_type == 'node') {
+    $items[0]['count'] = nodereference_count_get_count($instance['settings'], $entity->nid);
+  }
+}
+
+/**
+ * Get the db tables and columns for an array of field names.
+ *
+ * @param $field_names
+ *   An array of field names.
+ * @return
+ *   An indexed array of table and column names.
+ */
+function nodereference_count_get_fields_db($field_names) {
+  $db = array();
+
+  if (!empty($field_names)) {
+    foreach ($field_names as $field_name) {
+      $field = field_info_field($field_name);
+      // Make sure we are dealing with SQL storage.
+      if ($field['storage']['type'] == 'field_sql_storage') {
+        $db_info = $field['storage']['details']['sql']['FIELD_LOAD_CURRENT'];
+        $tables = array_keys($db_info);
+        $table = array_pop($tables);
+        $db[] = array(
+          'table' => $table,
+          'column' => array_pop($db_info[$table]),
+        );
+      }
+    }
+  }
+
+  return $db;
+}
+
+/**
+ * Get the count of node references to a particular node.
+ *
+ * @param $settings
+ *   The settings for this field instance.
+ * @param $nid
+ *   The nid of the node being referenced.
+ * @return
+ *   A count of the number of references to the node.
+ */
+function nodereference_count_get_count($settings, $nid) {
+  // Get the db info for the node reference fields.
+  $db = nodereference_count_get_fields_db($settings['counted_reference_fields']);
+
+  if (!empty($db)) {
+    // Use the first field for the initial query.
+    $query = db_select('node', 'n');
+    $query->fields('n', array('nid'));
+    $alias = $query->innerJoin($db[0]['table'], 'nr', '%alias.entity_id = n.nid');
+    $query->condition("{$alias}.{$db[0]['column']}", $nid);
+    if ($settings['count_only_published']) {
+      $query->condition('n.status', 1);
+    }
+
+    unset($db[0]);
+
+    // Add each additional field to the query via a UNION ALL.
+    foreach ($db as $d) {
+      $select = db_select('node', 'n');
+      $select->fields('n', array('nid'));
+      $alias = $select->innerJoin($d['table'], 'nr', '%alias.entity_id = n.nid');
+      $select->condition("{$alias}.{$d['column']}", $nid);
+      if ($settings['count_only_published']) {
+        $select->condition('n.status', 1);
+      }
+
+      $query->union($select, 'UNION ALL');
+    }
+
+    $query->addTag('nodereference_count');
+
+    return $query->countQuery()->execute()->fetchField();
+  }
+
+  return 0;
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+function nodereference_count_node_insert($node) {
+  nodereference_count_references_update($node);
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function nodereference_count_node_update($node) {
+  nodereference_count_references_update($node);
+}
+
+/**
+ * Implements hook_node_delete().
+ *
+ * hook_node_delete() runs before database queries are executed, so
+ * we cannot just update the counts here or it will reflect the count
+ * before anything has actually been deleted.
+ *
+ * The workaround is an ugly hack. We add a delay flag to
+ * nodereference_count_references_update(). This allows us to add nids
+ * to a statically cached array instead of counting them immediately.
+ * The cached array can then be processed via hook_exit() after the
+ * database updates are done so that we get a correct count.
+ *
+ * @see nodereference_count_references_update().
+ * @see nodereference_count_delayed_nids().
+ * @see nodereference_count_exit().
+ */
+function nodereference_count_node_delete($node) {
+  nodereference_count_references_update($node, TRUE);
+}
+
+/**
+ * Get an array of node reference fields for a particular node bundle.
+ *
+ * @param $bundle
+ *   The content type for which we want a list of node reference fields.
+ * @return
+ *   An array of fields.
+ */
+function nodereference_count_get_nodereference_fields($bundle) {
+  $nodereference_fields = array();
+  $fields = field_info_fields();
+
+  foreach ($fields as $field) {
+    if ($field['type'] == 'node_reference' && isset($field['bundles']['node']) && in_array($bundle, $field['bundles']['node'])) {
+      $nodereference_fields[$field['field_name']] = $field;
+    }
+  }
+
+  return $nodereference_fields;
+}
+
+/**
+ * From a set of node reference fields get those that are counted by a nodereference count field.
+ *
+ * @param $node_references
+ *   An array of node reference fields.
+ * @return
+ *   An array of field names.
+ */
+function nodereference_count_get_counted_nodereference_fields($node_references) {
+  $counted_fields = array();
+  $bundles = field_info_instances('node');
+
+  foreach ($bundles as $bundle) {
+    foreach ($bundle as $instance) {
+      if (isset($instance['settings']['counted_reference_fields'])) {
+        foreach ($node_references as $node_reference) {
+          if (in_array($node_reference['field_name'], $instance['settings']['counted_reference_fields'], TRUE)) {
+            $counted_fields[$node_reference['field_name']] = $node_reference['field_name'];
+          }
+        }
+      }
+    }
+  }
+
+  return $counted_fields;
+}
+
+/**
+ * From a set of node reference fields get all the nids that need to be updated.
+ *
+ * @param $node
+ *   The node object.
+ * @param $counted_fields
+ *   An array of node reference fields.
+ * @return
+ *   An array of nids.
+ */
+function nodereference_count_get_referenced_nids($node, $counted_fields) {
+  $nids = array();
+
+  foreach ($counted_fields as $counted_field) {
+    // Get all the updated nids.
+    $updated_nodereferences = $node->$counted_field;
+
+    foreach ($updated_nodereferences as $language => $deltas) {
+      foreach ($deltas as $delta => $nodereference) {
+        $nids[$nodereference['nid']] = $nodereference['nid'];
+      }
+    }
+
+    // Get all the original nids.
+    if (isset($node->original)) {
+      $original_nodereferences = $node->original->$counted_field;
+
+      foreach ($original_nodereferences as $language => $deltas) {
+        foreach ($deltas as $delta => $nodereference) {
+          $nids[$nodereference['nid']] = $nodereference['nid'];
+        }
+      }
+    }
+  }
+
+  return $nids;
+}
+
+/**
+ * Identify counted node references on a node and trigger an update of the referenced nodes.
+ *
+ * @param $node
+ *   The node object.
+ * @param $delay
+ *   Whether the actual count update should be delayed. See the hook_node_delete
+ *   implementation above for more info.
+ */
+function nodereference_count_references_update($node, $delay = FALSE) {
+  // Get all the node reference fields for this content type.
+  $nodereference_fields = nodereference_count_get_nodereference_fields($node->type);
+
+  // If there are no node references for this content type then there is nothing to count.
+  if (empty($nodereference_fields)) {
+    return;
+  }
+
+  // Get all the node reference fields for this content type that are counted by a nodereference count field.
+  $counted_fields = nodereference_count_get_counted_nodereference_fields($nodereference_fields);
+
+  // If there are no node references being counted for this content type then there is nothing to count.
+  if (empty($counted_fields)) {
+    return;
+  }
+
+  // Get all the nids that need to be updated.
+  $nids = nodereference_count_get_referenced_nids($node, $counted_fields);
+
+  // Update the counts on the referenced nodes.
+  foreach ($nids as $nid) {
+    // Wait to update the count for this nid.
+    if ($delay) {
+      nodereference_count_delayed_nids($nid);
+    }
+    // Update the count immediately.
+    else {
+      nodereference_count_update_count($nid);
+    }
+  }
+}
+
+/**
+ * Trigger an update of the fields on a particular node.
+ *
+ * @param $nid
+ *   The nid of the node being referenced.
+ */
+function nodereference_count_update_count($nid) {
+  $node = node_load($nid);
+  field_attach_presave('node', $node);
+  field_attach_update('node', $node);
+}
+
+/**
+ * Statically cache any nids that should have their count update delayed.
+ *
+ * @param $nid
+ *   A nid that should be added to the cache.
+ * @return
+ *   An array of nids.
+ */
+function nodereference_count_delayed_nids($nid = NULL) {
+  $nids = &drupal_static(__FUNCTION__, array());
+
+  if (!is_null($nid) && !isset($nids[$nid])) {
+    $nids[$nid] = $nid;
+  }
+
+  return $nids;
+}
+
+/**
+ * Implements hook_exit().
+ */
+function nodereference_count_exit() {
+  $nids = nodereference_count_delayed_nids();
+
+  if (!empty($nids)) {
+    foreach ($nids as $nid) {
+      nodereference_count_update_count($nid);
+    }
+  }
+}

@@ -1,0 +1,27 @@
+diff --git a/entityform.install b/entityform.install
+index f0c1692..db516c4 100644
+--- a/entityform.install
++++ b/entityform.install
+@@ -73,7 +73,7 @@ function entityform_schema() {
+     ),
+     'primary key' => array('entityform_id'),
+     'indexes' => array(
+-      'type' => array('type'),
++      'type_index' => array('type'),
+       'uid' => array('uid'),
+     ),
+     'foreign keys' => array(
+@@ -215,3 +215,13 @@ function entityform_update_7004(&$sandbox = NULL) {
+  * Update 7005 is unused.
+  */
+ function entityform_update_7005(&$sandbox = NULL) { }
++
++/**
++ * Add and drop unique index to rename to type_index
++ */
++function entityform_update_7006(&$sandbox = NULL) {
++  // Just in case an index already exists, drop it.
++  db_drop_index('entityform_type', 'type');
++  db_add_index('entityform_type', 'type_index', array('type'));
++  return st('Dropping index %index name to rename.', array('%index' => 'type'));
++}

@@ -1,0 +1,18 @@
+name = Advanced Form
+description = Provides a UI for simplifying forms by temporarily hiding some fields.
+core = 7.x
+package = User Interface
+
+; Information added by drupal.org packaging script on 2011-01-05
+version = "6.x-1.1"
+core = 7.x
+project = "advancedform"
+datestamp = "1294192548"
+
+
+; Information added by drupal.org packaging script on 2012-07-14
+version = "7.x-1.0"
+core = "7.x"
+project = "advancedform"
+datestamp = "1342242676"
+

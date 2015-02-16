@@ -1,0 +1,157 @@
+<?php
+
+/**
+ * Configuration
+ */
+define('OG_VISIBILITY_FIELD', 'group_visibility');
+define('OG_VISIBILITY_PUBLIC', 0);
+define('OG_VISIBILITY_PRIVATE', 1);
+define('OG_VISIBILITY_HIDDEN', 2);
+
+/**
+ * Core hooks.
+ */
+
+/**
+ * Implements hook_entity_presave().
+ *
+ * Set group and group content access depending on our custom field value.
+ */
+function og_visibility_entity_presave($entity, $type) {
+  $wrapper = entity_metadata_wrapper($type, $entity);
+
+  // Check if all fields are present, ie. if we should process this entity.
+  if ( empty($wrapper->{OG_VISIBILITY_FIELD})
+    || empty($wrapper->{OG_ACCESS_FIELD}) ) {
+    return;
+  }
+
+  $visibility = og_visibility_get_visibility($wrapper);
+
+  // Set group access field accordingly.
+  $wrapper->{OG_ACCESS_FIELD}->set((int) ($visibility == OG_VISIBILITY_HIDDEN));
+
+  // Compare against previous version.
+  if (isset($entity->original)) {
+    $old_visibility = og_visibility_get_visibility(entity_metadata_wrapper($type, $entity->original));
+
+    if (!$old_visibility && $visibility || $old_visibility && !$visibility) {
+      // Group already exists and visibility of group content has changed,
+      // group content access records should be rebuilt.
+      node_access_needs_rebuild(TRUE);
+    }
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ *
+ * Hide group and group content access fields from node forms,
+ * since these fields are controlled by our custom field.
+ */
+function og_visibility_form_node_form_alter(&$form, &$form_state, $form_id) {
+  if (isset($form[OG_VISIBILITY_FIELD]) && isset($form[OG_ACCESS_FIELD])) {
+    $lang = $form[OG_ACCESS_FIELD]['#language'];
+
+    // Prevent the field from being edited.
+    $form[OG_ACCESS_FIELD][$lang]['#type'] = 'hidden';
+    $form[OG_ACCESS_FIELD][$lang]['#required'] = FALSE;
+    $form[OG_ACCESS_FIELD][$lang]['#value'] = $form[OG_ACCESS_FIELD][$lang]['#default_value'];
+  }
+}
+
+/**
+ * Implements hook_node_access_records_alter().
+ *
+ * Enable controlling group content visibility from group entity.
+ */
+function og_visibility_node_access_records_alter(&$grants, $node) {
+  if (empty($node->status) || !og_is_group_content_type('node', $node->type)) {
+    // Unpublished node or node is not group content.
+    return;
+  }
+
+  $wrapper = entity_metadata_wrapper('node', $node);
+
+  // If there is no content access field on the group content, we assume
+  // that the group defaults are needed.
+  $content_access = !empty($wrapper->{OG_CONTENT_ACCESS_FIELD}) ? $wrapper->{OG_CONTENT_ACCESS_FIELD}->value() : OG_CONTENT_ACCESS_DEFAULT;
+  if ($content_access != OG_CONTENT_ACCESS_DEFAULT) {
+    // Other cases are already handled in og_access module.
+    return;
+  }
+
+  if (!$entity_groups = og_get_entity_groups('node', $node)) {
+    return;
+  }
+
+  foreach ($entity_groups as $group_type => $values) {
+    $realm = OG_ACCESS_REALM . ':' . $group_type;
+
+    entity_load($group_type, $values);
+
+    foreach ($values as $gid) {
+      $group_wrapper = entity_metadata_wrapper($group_type, $gid);
+
+      if (empty($group_wrapper->{OG_VISIBILITY_FIELD})) {
+        continue;
+      }
+
+      // There is a visibility access field on the group.
+      // Use it for content access control instead of group access field.
+      $content_is_private = $group_wrapper->{OG_VISIBILITY_FIELD}->value() != OG_VISIBILITY_PUBLIC;
+
+      // Get group access info to check for a difference.
+      $group_is_private = !empty($group_wrapper->{OG_ACCESS_FIELD}) ? (bool) $group_wrapper->{OG_ACCESS_FIELD}->value() : FALSE;
+
+      // Add / remove grant if needed, otherwise leave untouched.
+      if ($content_is_private && !$group_is_private) {
+        $grants[] = array(
+          'realm' => $realm,
+          'gid' => $gid,
+          'grant_view' => 1,
+          'grant_update' => 0,
+          'grant_delete' => 0,
+          'priority' => 0,
+        );
+      }
+      elseif (!$content_is_private && $group_is_private) {
+        foreach ($grants as $key => $grant) {
+          if ($grant['realm'] == $realm && $grant['gid'] == $gid) {
+            unset($grants[$key]);
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Custom functions.
+ */
+
+/**
+ * Extract visibility info from an entity wrapper.
+ *
+ * @param object $wrapper
+ *   Entity wrapper object.
+ *
+ * @return
+ *   Visibility value.
+ */
+function og_visibility_get_visibility($wrapper) {
+
+  $visibility = $wrapper->{OG_VISIBILITY_FIELD}->value();
+
+  if (isset($visibility)) {
+    return $visibility;
+  }
+
+  // Map to default OG values if available.
+  if (!empty($wrapper->{OG_ACCESS_FIELD})) {
+    return $wrapper->{OG_ACCESS_FIELD}->value() ? OG_VISIBILITY_HIDDEN : OG_VISIBILITY_PUBLIC;
+  }
+
+  // Nothing is set, default to public visibility.
+  return OG_VISIBILITY_PUBLIC;
+}

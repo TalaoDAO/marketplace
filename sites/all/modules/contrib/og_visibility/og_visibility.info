@@ -1,0 +1,17 @@
+name = OG Visibility
+core = 7.x
+package = Organic Groups
+dependencies[] = entity
+dependencies[] = features
+dependencies[] = list
+dependencies[] = og_access
+features[features_api][] = api:1
+features[field_base][] = group_visibility
+features[field_instance][] = node-group-group_visibility
+
+; Information added by drupal.org packaging script on 2013-10-01
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "og_visibility"
+datestamp = "1380595793"
+

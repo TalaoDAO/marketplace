@@ -1,0 +1,83 @@
+<?php
+
+/**
+ * @file
+ * deny_access.module
+ *
+ * This module overrides create/view/edit/delete content access granted by
+ * other modules -- by 'permission' for now.
+ *
+ */
+
+/**
+ * Implements hook_permission().
+ */
+function deny_access_permission() {
+  $perms = array(
+    'DENY accessing content' => array(
+      'title' => t('DENY accessing any content'),
+      'description' => t('Override content access granted by other modules.'),
+    ),
+    'DENY creating content' => array(
+      'title' => t('DENY creating any content'),
+      'description' => t('Override content create access granted by other modules.'),
+    ),
+    'DENY editing content' => array(
+      'title' => t('DENY editing any content'),
+      'description' => t('Override content edit access granted by other modules.'),
+    ),
+    'DENY deleting content' => array(
+      'title' => t('DENY deleting any content'),
+      'description' => t('Override content delete access granted by other modules.'),
+    ),
+  );
+
+  foreach (node_permissions_get_configured_types() as $type) {
+    $info = node_type_get_type($type);
+    $perms += array(
+      "DENY accessing $type content" => array(
+        'title' => t('%type_name: DENY access', array('%type_name' => $info->name)),
+        'description' => t('Override content access granted by other modules for this content type.'),
+    ));
+  }
+
+  return $perms;
+}
+
+/**
+ * Implements hook_node_access().
+ */
+function deny_access_node_access($node, $op, $account) {
+  $type = (is_string($node) ? $node : $node->type);
+  if (user_access("DENY accessing $type content", $account) && !user_access('bypass node access', $account)) {
+    return NODE_ACCESS_DENY;
+  }
+
+  switch ($op) {
+    case 'create':
+      $perm = 'DENY creating content';
+      break;
+    case 'view':
+      $perm = 'DENY accessing content';
+      break;
+    case 'update':
+      $perm = 'DENY editing content';
+      break;
+    case 'delete':
+      $perm = 'DENY deleting content';
+      break;
+    default:
+      return;
+  }
+  if (user_access($perm, $account)) {
+    return NODE_ACCESS_DENY;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for user_admin_permissions.
+ */
+function deny_access_form_user_admin_permissions_alter(&$form, &$form_state, $form_id) {
+  $form['permission']['bypass node access']['#description'] .= '<br /><em class="permission-warning">' . t("This permission overrides the 'DENY' permissions of the !Deny_Access module.", array('!Deny_Access' => l('Deny Access', current_path(), array('fragment' => 'module-deny_access')))) . '</em>';
+}
+

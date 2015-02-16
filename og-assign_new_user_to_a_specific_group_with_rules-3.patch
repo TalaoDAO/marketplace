@@ -1,0 +1,76 @@
+diff --git a/og.rules.inc b/og.rules.inc
+index ccfa6e3..eaa188e 100644
+--- a/og.rules.inc
++++ b/og.rules.inc
+@@ -121,8 +121,9 @@ function og_rules_action_info() {
+         'wrapped' => TRUE,
+       ),
+       'group' => array(
+-        'type' => array_keys(og_get_all_group_entity()),
++        'type' => 'token',
+         'label' => t('Group'),
++        'options list' => 'og_rules_get_groups_by_entity_type',
+         'wrapped' => TRUE,
+       ),
+     ),
+@@ -165,8 +166,9 @@ function og_rules_action_info() {
+         'wrapped' => TRUE,
+       ),
+       'group' => array(
+-        'type' => array_keys(og_get_all_group_entity()),
++        'type' => 'token',
+         'label' => t('Group'),
++        'options list' => 'og_rules_get_groups_by_entity_type',
+         'wrapped' => TRUE,
+       ),
+       // @todo: Add membership-type setting + add in the membership-entity
+@@ -201,7 +203,6 @@ function og_rules_action_info() {
+ 
+   return $items;
+ }
+-
+ /**
+  * Action: Get group members from a group content.
+  */
+@@ -276,13 +277,15 @@ function og_rules_get_group_content_info_alter(&$element_info, $element) {
+ /**
+  * Action: Add entity to group.
+  */
+-function og_rules_add_entity_to_group(EntityDrupalWrapper $entity, EntityDrupalWrapper $group) {
++function og_rules_add_entity_to_group(EntityDrupalWrapper $entity, /* EntityDrupalWrapper */ $group) {
+   // TODO: Add field-name.
+   $values = array(
+     'entity_type' => $entity->type(),
+     'entity' => $entity->value(),
+   );
+-  og_group($group->type(), $group->getIdentifier(), $values);
++  list($group_type, $gid) = preg_split('/:/', $group);
++  og_group($group_type, $gid, $values);
++  // og_group($group->type(), $group->getIdentifier(), $values);
+ }
+ 
+ /**
+@@ -477,5 +480,23 @@ function og_rules_entity_is_group_content_help() {
+ }
+ 
+ /**
++ * Utility: Get groups organized by entity type.
++ */
++function og_rules_get_groups_by_entity_type() {
++  $groups_by_entity = array();
++  $group_entity_types = og_get_all_group_entity();
++  foreach ($group_entity_types as $entity_key => $entity_label) {
++    $entity_groups = og_get_all_group($entity_key);
++    foreach ($entity_groups as $entity_id) {
++      $group_entity = entity_object_load($entity_id, $entity_key);
++      $groups_by_entity[$entity_label][$entity_key . ':' . $entity_id] = $group_entity->title; 
++    }
++  }
++  return $groups_by_entity;
++}
++
++
++
++/**
+  * @}
+  */

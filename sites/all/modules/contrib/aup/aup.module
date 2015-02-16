@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * @file
+ * This module adds user reputations to the Answers service
+ * 
+ * @author Chip Cleary
+ * 
+ */
+
+ include_once('aup.features.inc');
+
+ /**
+ * Implement hook_help().
+ */
+function aup_help($path, $arg) {
+  switch ($path) {
+    case "admin/help#modulename":
+      return '<p>'. t('Adds user reputations to the Answers service.') .'</p>';
+  }
+}
+
+/*
+ * Implement hook_preprocess
+ * 
+ * Add point total next to "submitted" information on question and answer nodes
+ */
+function aup_preprocess(&$vars, $hook) {
+  // Only do this for question and answer nodes
+  if (isset($vars['type'])) {
+    if ($vars['type'] == 'question' || $vars['type'] == 'answer') {
+      // Only do this for authorized users (not anonymous)
+      if ($vars['uid']) {
+        $answers_reputation = userpoints_get_current_points($vars['uid'], aup_get_tid());
+        // Update the 'submitted' variable for use by standard themes
+        $vars['submitted'] .= ' (' . $answers_reputation . ')';
+        // Add a variable to be helfpul for use in custom templates
+        $vars['answers_reputation'] = $answers_reputation;
+      }
+    }
+  }
+}
+
+function aup_get_tid() {
+  $terms = taxonomy_get_term_by_name('Answers Reputation');
+  if ($terms) {
+    $term = array_shift($terms);
+    return $term->tid;
+  }
+  else {
+    drupal_set_message('AUP: Could not find Answers Reputation userpoints category', 'warning');
+	return NULL;
+  }
+}

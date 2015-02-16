@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @file
+ * Installs flag_friend_access.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function flag_friend_access_install() {
+  drupal_set_message(st('The flag_friend_access module was successfully installed.'));
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function flag_friend_access_uninstall() {
+  drupal_set_message(st('The flag_friend_access module was successfully uninstalled.'));
+}
+
+/**
+ * Implements hook_schema().
+ */
+function flag_friend_access_schema() {
+  $schema['flag_friend_access'] = array(
+    'fields' => array(
+      'uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'nid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('nid'),
+  );
+  return $schema;
+}

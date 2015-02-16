@@ -1,0 +1,13 @@
+name = OG Role Override
+description = Provides core permissions to grant access by role to OG group types.
+package = "Organic groups"
+dependencies[] = og
+dependencies[] = og_access
+core = 7.x
+
+; Information added by Drupal.org packaging script on 2014-03-18
+version = "7.x-2.2"
+core = "7.x"
+project = "og_role_override"
+datestamp = "1395127158"
+

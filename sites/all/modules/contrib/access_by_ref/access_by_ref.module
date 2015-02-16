@@ -1,0 +1,173 @@
+<?php
+
+
+function access_by_ref_node_access($node, $op, $account) {
+ // exit if there is nothing to do here
+  if(!isset($account) || $account->uid==0 || $op!='update' 
+  || !isset ($node) || $account->uid == $node->uid 
+  || !user_permission('access node by reference', $account) ){
+    return NODE_ACCESS_IGNORE;
+  }
+  $type = is_string($node) ? $node : $node->type;
+ 
+  //"SHARED"
+  $uvars = variable_get('access_by_ref_user_field', ''); // look for something that matches in the user's profile
+  if(strpos($uvars, $type) !== FALSE ){
+  
+  
+    $tests = explode("\n", $uvars);
+	foreach($tests as $testpair){
+	  $test = explode("|",$testpair); // this gets us to the content_type|field_id pair
+	  if($type == $test[0]){// this is a test to run on this content type
+		 $items = field_get_items('node', $node, trim($test[1]));
+		 if($items){
+		   $user = user_load($account->uid);
+		   $userfields = field_get_items('user', $user, trim($test[1]));
+		   
+		   if($userfields){
+		     foreach($items as $item){
+		       foreach($userfields as $userfield){
+			     //dpm($item); dpm($userfield);
+		         if((isset($item['value'])&&$item['value'] == $userfield['value']) ||
+				 (isset($item['target_id'])&&$item['target_id'] == $userfield['target_id']) ){
+				   //drupal_set_message("match");
+			       return NODE_ACCESS_ALLOW; // they match.  We're in
+			     }			 
+			   }		    
+		     }
+		   }
+		 }
+	  }
+	}
+  }
+  
+  $fvars = variable_get('access_by_ref_referenced', ''); //if you can edit the referenced node, you can edit this
+  if(strpos($fvars, $type) !== FALSE ){
+    $tests = explode("\n", $fvars);
+	foreach($tests as $testpair){
+	  $test = explode("|",$testpair); // this gets us to the content_type|field_id pair
+	  if($type == $test[0]){// this is a test to run on this content type
+		 $items = field_get_items('node', $node, trim($test[1]));
+		 if($items){
+		   foreach($items as $item){
+		     $refnode=node_load($item['target_id']);
+		     if(access_by_ref_node_access($refnode, $op, $account) == NODE_ACCESS_ALLOW ||
+			   node_node_access($refnode, $op, $account) == NODE_ACCESS_ALLOW){
+		       return NODE_ACCESS_ALLOW;
+		     }
+		   }
+		 }
+	  }
+	}  
+  }
+  $uvars = variable_get('access_by_ref_user_reference_field', ''); // look for something that matches in the user's profile
+  if(strpos($uvars, $type) !== FALSE ){
+  
+    $tests = explode("\n", $uvars);
+	foreach($tests as $testpair){
+	  $test = explode("|",$testpair); // this gets us to the content_type|field_id pair
+	  if($type == $test[0]){// this is a test to run on this content type
+		 $items = field_get_items('node', $node, trim($test[1]));
+		 if($items){
+		   foreach($items as $item){
+		     if($item['target_id'] == $account->uid){
+			   return NODE_ACCESS_ALLOW; // they match.  We're in
+			 }
+		    
+		   }
+		 }
+	  }
+	}
+  }
+
+  
+  return NODE_ACCESS_IGNORE; // no config for this node type.  Quit
+
+}
+
+function access_by_ref_admin() {
+$uvars=explode("\n",variable_get('access_by_ref_user_field', ''));
+  
+  
+  $form = array();
+  $form['access_by_ref_referenced'] = array(
+    '#type' => 'textarea',
+    '#title' => t('<b>"Transitive": </b>Grant Access to Editor of Referenced Node'),
+    '#default_value' => variable_get('access_by_ref_referenced', ''),
+    '#rows' => 3,
+	'#cols' => 30,
+    
+    '#description' => t("Enter one per line in format content_type|field_name. 
+	A user who may edit the node referenced in that field may edit the node being looked at."),
+    '#required' => FALSE,
+  );
+  $form['access_by_ref_user_field'] = array(
+    '#type' => 'textarea',
+    '#title' => t('<b>"Shared": </b>Grant Access to User with Shared Profile Value'),
+    '#default_value' => variable_get('access_by_ref_user_field', ''),
+    '#rows' => 3,
+	'#cols' => 30,
+    
+    '#description' => t("Enter one per line in format content_type|field_name. 
+	A user with the same value in their profile for this field may edit the node being looked at."),
+    '#required' => FALSE,
+  );
+  $form['access_by_ref_user_reference_field'] = array(
+    '#type' => 'textarea',
+    '#title' => t('<b>"User": </b>Grant Access to User referenced in this field'),
+    '#default_value' => variable_get('access_by_ref_user_reference_field', ''),
+    '#rows' => 3,
+	'#cols' => 30,
+    
+    '#description' => t("Enter one per line in format content_type|field_name. 
+	A user referenced in this field may edit the node being looked at."),
+    '#required' => FALSE,
+  );
+  return system_settings_form($form);
+}
+
+
+function access_by_ref_menu() {
+  $items = array();
+  $items['admin/config/content/access_by_ref'] = array(
+    'title' => 'Set Access by Reference',
+    'description' => 'Set access to node editing by entity/field references',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('access_by_ref_admin'),
+    'access arguments' => array('administer access_by_ref settings'),
+    'type' => MENU_NORMAL_ITEM,
+   );
+  return $items;
+}
+
+
+/**
+ * Implements hook_help().
+ */
+function access_by_ref_help($path, $arg) {
+
+  switch ($path) {
+    case 'admin/help#access_by_ref':
+
+      // Return a line-break version of the README.
+      $readme = file_get_contents(drupal_get_path('module', 'access_by_ref') . '/README.txt');
+      return nl2br($readme);
+  }
+}
+
+function access_by_ref_permission() {
+  return array(
+    'access node by reference' => array(
+      'title' => t('Access By Reference'),
+      'description' => t('Allow users to edit a node if authorized by reference'),
+    ),
+    'administer access_by_ref settings' => array(
+      'title' => t('Administer Access by Reference'),
+      'description' => t('Set references which create edit permissions.'),
+    ),
+  );
+}
+
+
+
+?>

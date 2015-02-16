@@ -1,0 +1,26 @@
+name = emindhub
+description = Théme développé pour emindhub. Basé sur Bootstrap pour une interface responsive
+core = 7.x
+engine = phptemplate
+
+# Ajout de fichiers CSS
+stylesheets[all][] = css/bootstrap-theme.css
+stylesheets[all][] = css/emindhub.css
+stylesheets[all][] = css/bootstrap.css
+
+
+; DEFAULT REGIONS
+regions[page_top] = Page Top
+regions[header] = Header
+regions[highlight] = Highlight
+regions[help] = Help
+regions[content] = Content
+regions[sidebar_first] = Sidebar First
+regions[sidebar_second] = Sidebar Second
+regions[footer] = Footer
+regions[page_bottom] = Page Bottom
+regions[featured] = Featured
+regions[highlighted] = Highlighted
+
+regions[languageselect] = Sélection de langue
+regions[contactform] = Formulaire de contact

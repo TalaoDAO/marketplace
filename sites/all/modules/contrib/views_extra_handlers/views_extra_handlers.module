@@ -1,0 +1,146 @@
+<?php
+// $Id$
+define('EXTRA_VIEWS_PATH', drupal_get_path('module', 'views_extra_handlers'). '/views');
+
+/**
+ * @file
+ *  Provides a generic but powerful API for web services.
+*/
+
+/**
+ * Implementation of hook_views_api().
+*/
+function views_extra_handlers_views_api() {
+  return array(
+      'api' => 2.0,
+      'path' => EXTRA_VIEWS_PATH,
+  );
+}
+
+/**
+ * @see hook_action_info()
+ */
+function views_extra_handlers_action_info() {
+  return array(
+      'views_extra_handlers_node_revision_publish_status_action' => array(
+          'type' => 'node',
+          'label' => t('Revision: Publish Revision.'),
+          'configurable' => FALSE,
+          'triggers' => array('any'),
+      ),
+      'views_extra_handlers_node_revision_unpublish_status_action' => array(
+          'type' => 'node',
+          'label' => t('Revision: UnPublish Revision.'),
+          'configurable' => FALSE,
+          'triggers' => array('any'),
+      ),
+  );
+}
+
+function views_extra_handlers_node_revision_publish_status_action($node, $context) {
+  $this_vid = $node->vid;
+  db_update('node_revision') // Table name no longer needs {}
+  ->fields(array(
+  'status' => 1,
+  ))
+  ->condition('vid', $this_vid, '=')
+  ->execute();
+}
+
+function views_extra_handlers_node_revision_unpublish_status_action($node, $context) {
+  $this_vid = $node->vid;
+  db_update('node_revision') // Table name no longer needs {}
+  ->fields(array(
+  'status' => 0,
+  ))
+  ->condition('vid', $this_vid, '=')
+  ->execute();
+}
+
+function views_extra_handlers_query_alter($query){
+  $view = views_get_current_view();
+  if(isset($view->field) && !empty($view->field)){
+    foreach($view->field as $field_name => $field_obj){
+      $handler = $field_obj->definition['handler'];
+      if($handler == "views_extra_handlers_handler_field_query_alter"){
+        $groupby_remove_arr = explode(",", $field_obj->options['veh_groupby']['veh_remove']);
+        $groupby_add_arr = explode(",", $field_obj->options['veh_groupby']['veh_add']);
+        if(isset($query->alterMetaData)){
+          if(isset($query->alterMetaData['view'])){
+            //Get a list of all 'group by' in the query
+            $fields =& $query->getGroupBy();
+            if(!empty($field_obj->options['veh_groupby']['veh_remove'])){
+              foreach ($groupby_remove_arr as $groupby_remove){
+                unset($fields[trim($groupby_remove)]);
+              }
+            }
+            if(!empty($field_obj->options['veh_groupby']['veh_add'])){
+              foreach ($groupby_add_arr as $groupby_add){
+                $query->groupBy($groupby_add);
+              }
+            }
+            
+            if(!empty($field_obj->options['veh_orderby']['veh_orderby_date'])){
+              $date_field_alias = $field_obj->options['veh_orderby']['veh_orderby_date'];
+              $sort_order =& $query->getOrderBy();
+              unset($sort_order[$date_field_alias]);
+              $sort_order["(CASE WHEN $date_field_alias < CURRENT_TIMESTAMP
+                    THEN 1
+                    ELSE 0
+               END)"] = 'ASC';
+              $sort_order["(CASE WHEN $date_field_alias < CURRENT_TIMESTAMP THEN $date_field_alias END)"] = 'DESC';
+              $sort_order["(CASE WHEN $date_field_alias >= CURRENT_TIMESTAMP THEN $date_field_alias END)"] = 'ASC';
+            }
+            
+            if(!empty($field_obj->options['veh_orderby']['veh_orderby_custom'])){
+              $custom_orderby = $field_obj->options['veh_orderby']['veh_orderby_custom'];
+              $custom_orderby_direction = $field_obj->options['veh_orderby']['veh_orderby_direction'];
+              $sort_order_custom =& $query->getOrderBy();
+              $sort_order_custom[$custom_orderby] = $custom_orderby_direction;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_views_pre_execute().
+ */
+function views_extra_handlers_views_pre_execute(view &$view) {
+  if(isset($view->field) && !empty($view->field)){
+    foreach($view->field as $field_name => $field_obj){
+      $handler = $field_obj->definition['handler'];
+      if($handler == "views_extra_handlers_handler_field_query_alter"){
+        if(!empty($field_obj->options['veh_union']['veh_union_view_name'])){
+          $query1 = &$view->build_info['query'];
+
+          $union_view_id = $field_obj->options['veh_union']['veh_union_view_name'];
+          $union_view_display_id = $field_obj->options['veh_union']['veh_union_view_display'];
+          $view2 = views_get_view($union_view_id);
+          $view2->set_display($union_view_display_id);
+          $view2->pre_execute();
+          $view2->execute();
+          $query2 = $view2->build_info['query'];
+
+          // Verify that queries are very similar.
+          //dpq($query1);
+          //dpq($query2);
+
+          // Matrimony.
+          $query1 = $query2->union($query1, 'UNION ALL');
+        }
+      }
+    }
+  }
+}
+
+function veh_startsWith($haystack, $needle)
+{
+  return $needle === "" || strpos($haystack, $needle) === 0;
+}
+function veh_endsWith($haystack, $needle)
+{
+  return $needle === "" || substr($haystack, -strlen($needle)) === $needle;
+}

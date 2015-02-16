@@ -1,0 +1,62 @@
+From 478c0a60b28e15adf6d820885168c982fa131163 Mon Sep 17 00:00:00 2001
+From: Axel Rutz <axel.rutz@clever-systems.net>
+Date: Thu, 27 Jun 2013 16:26:33 +0200
+Subject: [PATCH] Issue #2028713 by axel.rutz: Fixed Menu router does 'too
+ many SQL variables" on SQLite resulting in silent
+ nondisplay of menu items.
+
+---
+ includes/menu.inc |   11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/includes/menu.inc b/includes/menu.inc
+index 2be0903..4f208f7 100644
+--- a/includes/menu.inc
++++ b/includes/menu.inc
+@@ -2857,7 +2857,6 @@ function _menu_navigation_links_rebuild($menu) {
+       }
+     }
+   }
+-  $paths = array_keys($menu);
+   // Updated and customized items whose router paths are gone need new ones.
+   $result = db_select('menu_links', NULL, array('fetch' => PDO::FETCH_ASSOC))
+     ->fields('menu_links', array(
+@@ -2869,13 +2868,16 @@ function _menu_navigation_links_rebuild($menu) {
+     ->condition(db_or()
+       ->condition('updated', 1)
+       ->condition(db_and()
+-        ->condition('router_path', $paths, 'NOT IN')
+         ->condition('external', 0)
+         ->condition('customized', 1)
+       )
+     )
+     ->execute();
+   foreach ($result as $item) {
++    // As $menu may be huge and hit PDO limits we filter out paths in PHPland rather than in DB.
++    if (!$item['updated'] && array_key_exists($item['router_path'], $menu)) {
++      continue;
++    }
+     $router_path = _menu_find_router_path($item['link_path']);
+     if (!empty($router_path) && ($router_path != $item['router_path'] || $item['updated'])) {
+       // If the router path and the link path matches, it's surely a working
+@@ -2893,7 +2895,6 @@ function _menu_navigation_links_rebuild($menu) {
+   // Find any item whose router path does not exist any more.
+   $result = db_select('menu_links')
+     ->fields('menu_links')
+-    ->condition('router_path', $paths, 'NOT IN')
+     ->condition('external', 0)
+     ->condition('updated', 0)
+     ->condition('customized', 0)
+@@ -2902,6 +2903,10 @@ function _menu_navigation_links_rebuild($menu) {
+   // Remove all such items. Starting from those with the greatest depth will
+   // minimize the amount of re-parenting done by menu_link_delete().
+   foreach ($result as $item) {
++    // As $menu may be huge and hit PDO limits we filter out paths in PHPland rather than in DB.
++    if (array_key_exists($item->router_path, $menu)) {
++      continue;
++    }
+     _menu_delete_item($item, TRUE);
+   }
+ }
+-- 
+1.7.9.5

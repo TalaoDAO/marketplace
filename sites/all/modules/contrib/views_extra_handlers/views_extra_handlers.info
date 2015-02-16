@@ -1,0 +1,16 @@
+name = Extra Views Handlers
+description = Extra Views Field & Filter Handlers.
+package = Views
+core = 7.x
+dependencies[] = views
+
+; Handlers
+files[] = views/handlers/views_extra_handlers_handler_field_field_config_instance_data_widget.inc
+files[] = views/handlers/views_extra_handlers_handler_filter_field_config_instance_data_widget.inc
+files[] = views/handlers/views_extra_handlers_handler_field_query_alter.inc
+; Information added by Drupal.org packaging script on 2014-12-15
+version = "7.x-1.0-alpha11"
+core = "7.x"
+project = "views_extra_handlers"
+datestamp = "1418668609"
+

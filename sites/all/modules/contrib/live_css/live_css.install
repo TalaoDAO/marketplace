@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Installation functions for Live CSS module.
+ */
+ 
+/**
+ * Implements hook_uninstall().
+ */
+function live_css_uninstall() {
+  variable_del('live_css_less');
+  variable_del('live_css_theme');
+  variable_del('live_css_hideadmin');
+  variable_del('live_css_hidemodules');
+  variable_del('live_css_fontsize');
+  variable_del('live_css_tabsize');
+  variable_del('live_css_softtabs');
+  variable_del('live_css_storage');
+}

@@ -1,0 +1,316 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function live_css_menu() {
+  $items = array();
+
+  $items['css/save'] = array(
+    'page callback' => 'live_css_save',
+    'access arguments' => array('edit css'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['admin/config/development/live_css'] = array(
+    'title' => 'Live CSS',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('live_css_admin'),
+    'description' => 'Configure the live CSS editor.',
+    'access arguments' => array('edit css'),
+    'type' => MENU_NORMAL_ITEM
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function live_css_permission() {
+  return array(
+    'edit css' => array(
+      'title' => t('Edit and save CSS'),
+      'description' => t('Edit and save CSS with the live editor.'),
+    )
+  );
+}
+
+/**
+* #pre_render callback that alters the LESS files prior to rendering.
+*/
+function live_css_pre_render($styles) {
+  foreach ($styles['#items'] as $key => $info) {
+    $input_file = $info['data'];
+    if (drupal_substr($input_file, -5) == '.less') {
+      $styles['#items'][$key]['type'] = 'external';
+      $styles['#items'][$key]['data'] = base_path() . $styles['#items'][$key]['data'];
+    }
+  }
+  return $styles;
+}
+/**
+ * Implements hook_element_info_alter().
+ */
+function live_css_element_info_alter(&$type) {
+  array_unshift($type['styles']['#pre_render'], 'live_css_pre_render');
+}
+
+/**
+ * Implements hook_settings().
+ */
+function live_css_admin(){
+  $form = array();
+
+  $form['live_css_less'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable LESS Support'),
+    '#default_value' => variable_get('live_css_less', 1),
+    '#description' => t('Allows the live editing and display of LESS files on the site, by simply embedding stylesheets with a "less" extension instead of "css". The Less is parsed on each page load, even for anonymous users. In production you may wish to disable this feature and use the LESS module instead.')
+  );
+  $form['live_css_flush'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('CSS and JS cache flush'),
+    '#default_value' => variable_get('live_css_flush', 1),
+    '#description' => t('Flush CSS and Javascript cache on every save.'),
+  );
+  $form['live_css_hideadmin'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Hide Admin Menu'),
+    '#default_value' => variable_get('live_css_hideadmin', 1),
+    '#description' => t('Automatically hides the administration menu when editing CSS.')
+  );
+  $form['live_css_hidemodules'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Only show theme CSS'),
+    '#default_value' => variable_get('live_css_hidemodules', 0),
+    '#description' => t('Removes module and other styles from the CSS list.')
+  );
+  $form['live_css_storage'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Consistent Editor State'),
+    '#default_value' => variable_get('live_css_storage', 1),
+    '#description' => t('Remembers the current file and file position to maintain this between page loads.')
+  );
+  $form['live_css_theme'] = array(
+    '#type' => 'select',
+    '#title' => t('Editor Theme'),
+    '#default_value' => variable_get('live_css_theme', 'twilight'),
+    '#options' => live_css_list_themes()
+  );
+  $form['live_css_fontsize'] = array(
+    '#type' => 'select',
+    '#title' => t('Font Size'),
+    '#default_value' => variable_get('live_css_fontsize', '12px'),
+    '#options' => array(
+      '8px' => '8px',
+      '10px' => '10px',
+      '11px' => '11px',
+      '12px' => '12px',
+      '14px' => '14px',
+      '16px' => '16px',
+      '18px' => '18px',
+    )
+  );
+  $form['live_css_softtabs'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Soft Tabs'),
+    '#default_value' => variable_get('live_css_softtabs', 1),
+    '#description' => t('Use spaces instead of a tab character.')
+  );
+  $form['live_css_tabsize'] = array(
+    '#type' => 'select',
+    '#title' => t('Tab Size'),
+    '#default_value' => variable_get('live_css_tabsize', 2),
+    '#description' => t('When using soft tabs, specify how many spaces to insert for the tab character.'),
+    '#options' => array(
+      1 => '1',
+      2 => '2',
+      3 => '3',
+      4 => '4',
+    )
+  );
+  return system_settings_form($form);
+}
+
+/**
+ * Lists all the live editor's themes available.
+ */
+function live_css_list_themes() {
+  $result = array();
+  $files = live_css_list_files(dirname(__FILE__) . '/ace/src');
+  foreach ($files as $file) {
+    if (drupal_substr($file, 0, 5) == 'theme' && drupal_substr($file, -15) != 'uncompressed.js' && drupal_substr($file, -13) != 'noconflict.js'){
+      $theme = drupal_substr($file, 6, drupal_strlen($file) - 9);
+      $name = ucwords(str_replace('_', ' ', $theme));
+      $result[$theme] = $name;
+    }
+  }
+  return $result;
+}
+
+/**
+ * Get the directory listing for the theme files of ace.
+ */
+function live_css_list_files($folder){
+  $results = array();
+
+  $handler = opendir($folder);
+  while ($file = readdir($handler)) {
+    if ($file != '.' && $file != '..')
+      $results[] = $file;
+  }
+  closedir($handler);
+  return $results;
+}
+
+
+/**
+ * Implements hook_init().
+ */
+function live_css_init() {
+
+  // Check that a user has the permission to edit the files in order to set the
+  // settings and add required javascript libraries.
+  if (user_access('edit css') && (!variable_get('preprocess_css', FALSE))) {
+
+    // Placed less functions/validation inside of conditional to prevent
+    // unnecessary execution/resource usage.
+    $less = variable_get('live_css_less', 1);
+
+    // Add necessary javascript files to handle LESS files editing.
+    if ($less) {
+      drupal_add_js(drupal_get_path('module', 'live_css') . '/less-display.js');
+      drupal_add_js(drupal_get_path('module', 'live_css') . '/less-1.3.0.min.js');
+    }
+    // Set settings
+    $theme = variable_get('live_css_theme', 'tomorrow');
+    $settings = array();
+    $settings['theme'] = $theme;
+    $settings['autoload'] = FALSE;
+    $settings['hideadmin'] = variable_get('live_css_hideadmin', 1);
+    $settings['hidemodules'] = variable_get('live_css_hidemodules', 0);
+    $settings['fontsize'] = variable_get('live_css_fontsize', '12px');
+    $settings['tabsize'] = (int)variable_get('live_css_tabsize', 2);
+    $settings['softtabs'] = (boolean)variable_get('live_css_softtabs', 1);
+    $settings['storage'] = variable_get('live_css_storage', 1);
+    $settings['less'] = $less;
+    $settings['savepath'] = url('css/save');
+    $settings['menumargin'] = variable_get('admin_menu_top_margin', 0);
+
+    drupal_add_js(array('live_css' => $settings), 'setting');
+
+    drupal_add_js(drupal_get_path('module', 'live_css') . '/ace/src/ace.js');
+    drupal_add_js(drupal_get_path('module', 'live_css') . '/ace/src/mode-css.js');
+    drupal_add_js(drupal_get_path('module', 'live_css') . '/ace/src/theme-' . $theme . '.js');
+
+    drupal_add_js(drupal_get_path('module', 'live_css') . '/plugins.js');
+
+    // Load the list of stylesheets
+    drupal_add_css(drupal_get_path('module', 'live_css') . '/css.css', array(
+	'group' => 'CSS_THEME', 
+	'every_page' => TRUE, 
+	'weight' => 100, 
+	'preprocess' => FALSE,
+	));
+    drupal_add_js(drupal_get_path('module', 'live_css') . '/css.js');
+  }
+}
+
+/**
+ * Callback to save a file edited live.
+ */
+function live_css_save() {
+  /**
+   * Closing security hole exposing /css/save.  Menu Callback fails to restrict
+   * access when it doesn't come from the module directly.
+   */
+  $access = user_access('edit css');
+  if (!isset($_POST['href']) || !$access) {
+    return drupal_access_denied();
+  }
+  $href = $_POST['href'];
+  $css = $_POST['css'];
+  $resetcache = (boolean) variable_get('live_css_flush', 1);
+
+
+  // The URL may contain cache data. In that case, we need to strip them.
+  // i.e. http://.../css/my_file.css?m1unhm
+  $sanitized_url = _live_css_sanitize_css_url($href);
+
+  // File path relative to Drupal installation folder.
+  global $base_url;
+  $stripped_url = drupal_substr($sanitized_url, drupal_strlen($base_url) , drupal_strlen($sanitized_url));
+  $relative_file_path = _live_css_document_root() . $stripped_url;
+
+  if (substr($relative_file_path, -4) != '.css' && substr($relative_file_path, -5) != '.less') {
+    echo drupal_json_encode(array(
+      'result' => 'failure',
+      'filename' => $href,
+      'msg' => 'Can\'t save to files without a \'less\' or \'css\' extension!'
+    ));
+    return;
+  }
+
+  $filename = array_pop(explode('/', 'asdf/asdf.g'));
+  if (file_munge_filename($filename, 'css less') != $filename) {
+    echo drupal_json_encode(array(
+      'result' => 'failure',
+      'filename' => $href,
+      'msg' => 'The url used contains a sub-filextension which poses a security threat. Saving not allowed.'
+    ));
+    return;
+  }
+
+  // Save file back.
+  $msg = '';
+  $fh = fopen($relative_file_path, 'w');
+  if ($fh !== FALSE) {
+    fwrite($fh, $css);
+    fclose($fh);
+    $result = 'success';
+    // Flush caches for user if applicable
+		if($resetcache) {
+			drupal_clear_css_cache();
+			drupal_clear_js_cache();
+			_drupal_flush_css_js();
+		}
+  }
+  else {
+    $result = 'failure';
+    $msg = 'Can\'t open file ' . $relative_file_path . ' from ' . $href . '. Ensure that you have full write access and that the path is correct.';
+  }
+
+  echo drupal_json_encode(array(
+    'result' => $result,
+    'filename' => $href,
+    'msg' => $msg
+  ));
+}
+
+/**
+ * Helper function to sanitize a URL.
+ * Removes cache information from url of CSS files.
+ */
+function _live_css_sanitize_css_url($url){
+  $result = $url;
+  $pos = strpos($url, '.css?');
+  if ($pos !== FALSE) {
+    $result = substr($url, 0, $pos + 4);
+  }
+  $pos = strpos($url, '.less?');
+  if ($pos !== FALSE) {
+    $result = substr($url, 0, $pos + 5);
+  }
+  return $result;
+}
+
+/**
+ * Helper function to get the document root for the current Drupal installation.
+ * $_SERVER['DOCUMENT_ROOT'] is not reliable across all systems, so we need a
+ * way to get the correct value.
+ */
+function _live_css_document_root() {
+  $absolute_dir = dirname(__FILE__);
+  $relative_dir = drupal_get_path('module', 'live_css');
+  return drupal_substr($absolute_dir, 0, -1 * (1 + drupal_strlen($relative_dir)));
+}

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the FT Content Type feature.
+ */
+
+include_once 'ft_content_type.features.inc';

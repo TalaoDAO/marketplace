@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * @file
+ * Module core functions.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function bootstrap_optimizer_menu() {
+
+  $items['admin/config/development/bootstrap_optimizer'] = array(
+    'title' => 'Bootstrap optimizer',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('bootstrap_optimizer_admin_form'),
+    'access arguments' => array('use bootstrap optimizer'),
+    'file' => 'bootstrap_optimizer.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function bootstrap_optimizer_permission() {
+  return array(
+    'use bootstrap optimizer' => array(
+      'title' => t('Use Bootstrap optimizer'),
+      'description' => t('Search and delete broken files using Bootstrap optimizer.'),
+    )
+  );
+}
+
+/**
+ * Sets batch operation.
+ *
+ * @param $items
+ * @param $function
+ */
+function bootstrap_optimizer_set_batch($items, $function) {
+  $batch = array(
+    'title' => t('Looking for missing module files...'),
+    'operations' => array(
+      array('bootstrap_optimizer_batch_process_item', array($items, $function)),
+    ),
+    'finished' => 'bootstrap_optimizer_batch_finished',
+    'file' => drupal_get_path('module', 'bootstrap_optimizer') . '/bootstrap_optimizer.batch.inc',
+  );
+  batch_set($batch);
+  batch_process();
+}
+
+/**
+ * Analyzes every row in {system} table.
+ */
+function bootstrap_optimizer_analyze_broken_files($filepath, &$context) {
+  $file_exists = file_exists($filepath);
+  if (!$file_exists) {
+    // Collect all missing files.
+    $context['results']['missing_files'][] = $filepath;
+  }
+}
+
+/**
+ * Analyzes every row in {system} table and delete broken files.
+ */
+function bootstrap_optimizer_remove_broken_files($filepath, &$context) {
+  $file_exists = file_exists($filepath);
+  if (!$file_exists) {
+    // Delete file from {system} table.
+    db_delete('system')
+      ->condition('filename', $filepath)
+      ->execute();
+
+    // Log deleted file.
+    $context['results']['removed_files'][] = $filepath;
+  }
+}

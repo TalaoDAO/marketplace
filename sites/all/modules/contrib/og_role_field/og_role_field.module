@@ -1,0 +1,544 @@
+<?php
+
+define('OG_GROUP_ROLE_FIELD_LABEL', 'Group Role Reference');
+define('OG_GROUP_ROLE_FIELD_TYPE', 'group_role_reference');
+define('OG_GROUP_ROLE_FIELD_FORMATTER_PLAIN', 'og_role_field_formatter_plain');
+define('OG_GROUP_ROLE_FIELD_AUTOCOMPLETE', 'group_role_field_autocomplete');
+define('OG_GROUP_ROLE_FIELD_AUTOCOMPLETE_URI_BASE', 'group/role/autocomplete');
+define('OG_GROUP_ROLE_FIELD_AUTOCOMPLETE_URI', OG_GROUP_ROLE_FIELD_AUTOCOMPLETE_URI_BASE . '%/%/%');
+
+/**
+ * Implements hook_menu()
+ */
+function og_role_field_menu() {
+  $items = array();
+  $items[OG_GROUP_ROLE_FIELD_AUTOCOMPLETE_URI] = array(
+    'page callback' => 'og_role_field_autocomplete',
+    'page arguments' => array(2,3,4), 
+    'access callback' => 'og_role_field_autocomplete_access',
+    'access arguments' => array(2, 3, 4),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Menu access callback for reference autocomplete paths.
+ *
+ * Check for both 'edit' and 'view' access in the unlikely event
+ * a user has edit but not view access.
+ */
+function og_role_field_autocomplete_access($entity_type, $bundle, $field_name, $entity = NULL, $account = NULL) {
+  return user_access('access content', $account)
+      && ($field = field_info_field($field_name))
+      && field_info_instance($entity_type, $field_name, $bundle)
+      && field_access('view', $field, $entity_type, $entity, $account)
+      && field_access('edit', $field, $entity_type, $entity, $account);
+}
+
+/**
+ * Implements hook_field_is_empty()
+ */
+function og_role_field_field_is_empty($item, $field) {
+  return empty($item['rid']);
+}
+
+/**
+ * Implements hook_field_info()
+ */
+function og_role_field_field_info() {
+  return array(
+    OG_GROUP_ROLE_FIELD_TYPE => array(
+      'label' => t('Group Role Reference'),
+      'field_name' => OG_GROUP_ROLE_FIELD_TYPE,
+      'description' => t('Stores the role(s) this entity references. This can be used for more finite access restrictions or selling access to certain roles.'),
+      'default_widget' => 'options_buttons',
+      'default_formatter' => OG_GROUP_ROLE_FIELD_FORMATTER_PLAIN,
+      'property_type' => 'integer',
+    ),
+  );
+}
+
+/**
+ * Implements hook_options_list().
+ */
+function og_role_field_options_list($field) {
+  $roles =  __og_role_field_get_roles_by_context();
+  return $roles;
+}
+
+/**
+ * Implements hook_field_widget_info()
+ */
+function og_role_field_field_widget_info() {
+  return array(
+    // We only need to define our autocomplete.
+    // Checkboxes and selects can be handled by core.
+    OG_GROUP_ROLE_FIELD_AUTOCOMPLETE => array(
+      'label' => t('Autocomplete text field'),
+      'description' => t('References role(s) from an organic group.'),
+      'field types' => array(OG_GROUP_ROLE_FIELD_TYPE),
+      'settings'    => array(
+        'size' => 60,
+        'autocomplete_path' => OG_GROUP_ROLE_FIELD_AUTOCOMPLETE_URI_BASE,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_info_alter().
+ */
+function og_role_field_field_widget_info_alter(&$info) {
+  // Offer up "checkboxes" and "radio buttons" as the field types.
+  $info['options_select']['field types'][] = OG_GROUP_ROLE_FIELD_TYPE;
+  $info['options_buttons']['field types'][] = OG_GROUP_ROLE_FIELD_TYPE;
+}
+
+/**
+ * Do everything in your power to find the group(s) from which roles can be referenced.
+ * @param $form_state
+ *  An optional array of arguments given by a form to find the group reference from.
+ * @return array
+ *  An array of roles, keyed by role ID, and role name is the value.
+ */
+function __og_role_field_get_roles_by_context(&$form_state = array()) {
+  // Try to find the group from which we are going to load roles.
+  $groups = array();
+
+  if (count($form_state) > 0) {
+    // Look through the form build information.
+    // Initially, we will only see global roles.
+    // Most of the time, there will only be 1 group for "group content".
+    foreach ($form_state['build_info']['args'] as $arg) {
+      // Only check the "field_group" field.
+      if (isset($arg->group_audience)) {
+        // Language should always be "UNDEFINED" in OG audience field.
+        foreach($arg->group_audience[LANGUAGE_NONE] as $group) {
+          $groups[] = $group['gid'];
+        }
+      }
+    }
+  }
+
+  // If no groups were found, default to 0 so the query won't break.
+  if (count($groups) < 1) {
+    // Do everything you can to determine the context
+    // based on the current page.
+    // If it is not known, or the context module isn't enabled,
+    // we can skip over this.
+    if (module_exists('og_context')) {
+      // Use call_user_func to prevent PHP from throwing errors when og_context is not present.
+      // Try to find the current group based on page information.
+      $found = call_user_func('og_context_determine_context', current_path());
+      if ($found && is_array($found)) {
+        $groups = array_merge_recursive($found, $groups);
+      }
+
+      // Did we find anything? No.
+      // Try to get the current group by URL
+      if (count($groups) < 1) {
+        $found = call_user_func('og_get_context_by_url');
+        if ($found && is_array($found)) {
+          $groups = array_merge_recursive($found, $groups);
+        }
+      }
+    }
+    // Last, but not least, fallback on the user's session.
+    // This will only be available if context_admin is in use.
+    if (isset($_SESSION['og_context'])) {
+      if (is_array($_SESSION['og_context'])) {
+        $groups = array_merge_recursive($_SESSION['og_context'], $groups);
+      }
+      else {
+        $groups[$_SESSION['og_context']] = $_SESSION['og_context'];
+      }
+    }
+  }
+  // If no group exists, get the global settings
+  if (count($groups) < 1) {
+    $groups[0] = 0;
+  }
+  $roles = array();
+  $group_roles = og_role_field_role_load_from_groups($groups);
+
+  foreach ($group_roles as $index => $data) {
+    $roles[$data->rid] = $data->name;
+  }
+
+  return $roles;
+}
+
+/**
+ * Implements hook_field_widget_form()
+ */
+function og_role_field_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  switch ($instance['widget']['type']) {
+    case 'options_select':
+    case 'options_buttons':
+      $element += array(
+        '#required' => $element['#required'],
+      );
+      break;
+    case OG_GROUP_ROLE_FIELD_AUTOCOMPLETE:
+      $element += array(
+        '#type' => 'textfield',
+        '#title' => t(OG_GROUP_ROLE_FIELD_LABEL),
+        '#default_value' => isset($items[$delta]['rid']) ? $items[$delta]['rid'] : '',
+        '#autocomplete_path' => $instance['widget']['settings']['autocomplete_path'],
+        '#size' => $instance['widget']['settings']['size'],
+        '#element_validate' => array('og_role_field_autocomplete_validate'),
+        '#value_callback' => 'og_role_field_autocomplete_value',
+      );
+      break;
+  }
+
+  return array('rid' => $element);
+}
+
+/**
+ * Implements hook_field_formatter_info()
+ */
+function og_role_field_field_formatter_info() {
+  // Unless there's a reason for another formatter,
+  // we'll just implement PLAIN
+  return array(
+    OG_GROUP_ROLE_FIELD_FORMATTER_PLAIN => array(
+      'label' => t('Plain text'),
+      'description' => t("Display the name of the referenced role."),
+      'field types' => array(OG_GROUP_ROLE_FIELD_TYPE),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_error().
+ */
+function og_role_field_field_widget_error($element, $error, $form, &$form_state) {
+  form_error($element['rid'], $error['message']);
+}
+
+/**
+ * Implements hook_field_formatter_view()
+ */
+function og_role_field_field_formatter_view($obj_type, $object, $field, $instance, $langcode, $items, $display) {
+  $result = array();
+  switch ($display['type']) {
+    case OG_GROUP_ROLE_FIELD_FORMATTER_PLAIN:
+    default:
+      foreach ($items as $delta => $item) {
+        $role = og_role_load($item['rid']);
+        $result[$delta] = array(
+          '#prefix' => '<span class="og-role-reference-role">',
+          '#markup' => check_plain($role->name),
+          '#suffix' => '</span>',
+        );
+      }
+      break;
+  }
+  return $result;
+}
+
+/**
+ * Implements hook_field_widget_settings_form()
+ */
+function og_role_field_field_widget_settings_form($field, $instance) {
+  $widget   = $instance['widget'];
+  $defaults = field_info_widget_settings($widget['type']);
+  $settings = array_merge($defaults, $widget['settings']);
+  $form = array();
+
+  switch ($widget['type']) {
+    case OG_GROUP_ROLE_FIELD_AUTOCOMPLETE:
+      $form['size'] = array(
+        '#type'             => 'textfield',
+        '#title'            => t('Size of textfield'),
+        '#default_value'    => $settings['size'],
+        '#element_validate' => array('_element_validate_integer_positive'),
+        '#required'         => TRUE,
+      );
+      break;
+  }
+
+  return $form;
+}
+
+/**
+ * Implements hook_field_validate()
+ */
+function og_role_field_field_validate($entity_type, $entity, $field, $instance, $langcode, &$items, &$errors) {
+  // Check that the field is required and contains data
+  // If not, just exit
+  if (0 == $instance['required']) {
+    $return = TRUE;
+    foreach ($items as $item) {
+      if (!og_role_field_field_is_empty($item, $field)) {
+        $return = FALSE;
+        break;
+      }
+    }
+    if ($return) {
+      return;
+    }
+  }
+
+  $group_roles = array();
+
+  // Check that the audience field exists in the entity.
+  if (!empty($entity->group_audience[$langcode])) {
+    $group_roles = og_role_field_role_load_from_groups($entity->group_audience[$langcode]);
+  }
+  else {
+    $roles = og_get_global_roles();
+    foreach ($roles as $rid => $r) {
+      $group_roles[$rid] = (object) array(
+        'rid' => $rid,
+        'name' => $r,
+      );
+    }
+  }
+
+  // Scan each value for the field.
+  foreach ($items as $delta => $item) {
+    // Scan over each group role
+    foreach ($group_roles as $role) {
+      if ($role->rid == $item['rid']) {
+        // If we find the role in our group, skip ahead to the next item to check.
+        continue 2;
+      }
+    }
+    // This will only be triggered if the foreach($group_roles) doesn't hit the continue.
+    $errors[$field['field_name']][$langcode][$delta][] = array(
+      'error' => 'og_role_field_invalid_rid',
+      'message' => t('The role referenced does not exist or is not part of this group.'),
+    );
+  }
+}
+
+/**
+ * Value callback for a role reference autocomplete element.
+ *
+ * Replace the role rid with a role name.
+ */
+function og_role_field_autocomplete_value($element, $input = FALSE, $form_state) {
+  if ($input === FALSE) {
+    // We're building the displayed 'default value': expand the raw rid into
+    // "Role name [rid:n]".
+    if (!empty($element['#default_value']) && $role = og_role_load($element['#default_value'])) {
+      $value = og_role_field_label($role->rid);
+      $value .= ' [rid:' . $role->rid . ']';
+      return $value;
+    }
+  }
+}
+
+/**
+ * Menu callback for the autocomplete results.
+ */
+function og_role_field_autocomplete($field_name, $string = '') {
+  $field = field_info_field($field_name);
+
+  $matches = array();
+  $groups = og_get_context_by_url();
+  $roles = og_role_field_potential_roles($groups, $string);
+
+  foreach ($roles as $role) {
+    // Add a class wrapper for a few required CSS overrides.
+    $matches[$role->name . " [rid:{$role->rid}]"] = '<div class="role-autocomplete">' . $role->name . '</div>';
+  }
+
+  drupal_json_output($matches);
+}
+
+/**
+ * Validation callback for a group audience autocomplete element.
+ */
+function og_role_field_autocomplete_validate($element, &$form_state, $form) {
+  $field = field_widget_field($element, $form_state);
+  $instance = field_widget_instance($element, $form_state);
+
+  $value = $element['#value'];
+  $rid = NULL;
+
+  if (!empty($value)) {
+    // Check whether we have an explicit "[rid:n]" input.
+    preg_match('/^(?:\s*|(.*) )?\[\s*rid\s*:\s*(\d+)\s*\]$/', $value, $matches);
+    if (!empty($matches)) {
+      // Explicit rid. Check that the 'name' part matches the actual name for
+      // the rid.
+      list(, $label, $rid) = $matches;
+      if (!empty($label)) {
+        if ($label != og_role_field_label($rid)) {
+          form_error($element, t('Role "%name" is mismatched with an ID. Please check your selection.', array('%name' => $instance['label'])));
+        }
+      }
+    }
+    else {
+      // No explicit rid (the submitted value was not populated by autocomplete
+      // selection). Get the rid of a referencable node from the entered title.
+      if ($reference = og_role_field_potential_roles($value, NULL, 1)) {
+        $rid = key($reference);
+      }
+      else {
+        form_error($element, t('%name: found no valid group role with that name.', array('%name' => $instance['label'])));
+      }
+    }
+  }
+
+  // Set the element's value as the node id that was extracted from the entered
+  // input.
+  form_set_value($element, $rid, $form_state);
+}
+
+/**
+ * Load multiple roles based on certain conditions.
+ *
+ * @param $rids
+ *   An array of role IDs.
+ *
+ * @return
+ *   An array of roles (as stdClass).
+ */
+function og_role_field_role_load_multiple($rids = array()) {
+  return db_select('og_role', 'r')
+    ->fields('r', array('rid', 'rid', 'gid', 'name'))
+    ->condition('rid', $rids, 'IN')
+    ->execute()
+    ->fetchAll();
+}
+
+/**
+ * Loads all ROLES data from a group.
+ *
+ * @param $gids
+ *   An array of role IDs.
+ *
+ * @return
+ *   An array of roles (as stdClass).
+ */
+function og_role_field_role_load_from_groups($gids = array()) {
+  return db_select('og_role', 'r')
+    ->fields('r', array('rid', 'gid', 'name'))
+    ->condition('gid', $gids, 'IN')
+    ->execute()
+    ->fetchAll();
+}
+
+/**
+ * Get labels out of a list of group IDs.
+ *
+ * @param $rids
+ *   The role IDs.
+ * @param $sanitize
+ *   TRUE if the label should be sanitzied using filter_xss(). Defaults to
+ *   TRUE.
+ *
+ * @return
+ *   Array keyed with the role ID, and the entity label as the value, or else
+ *   the role ID with the entity type and entity ID.
+ */
+function og_role_field_label_multiple($rids = array(), $sanitize = TRUE) {
+  $labels = array();
+  $roles = og_role_field_role_load_multiple($rids);
+
+  foreach ($roles as $role) {
+    if (!empty($role->name)) {
+      $labels[$role->rid] = $sanitize ? filter_xss($role->name) : $role->name;
+    }
+    else {
+      $param = array(
+        '@rid' => $role->rid,
+        '@name' => $role->name,
+      );
+      $labels[$role->rid] = t('Role @rid - "@name"', $param);
+    }
+  }
+
+  return $labels;
+}
+
+/**
+ * Lookup roles by group and partial role info.
+ * This is a helper function for the autocomplete.
+ * @param $gid
+ *  A group ID to pull roles from
+ * @param $str
+ *  A search string
+ * @param $limit
+ *  A maximum number of records to pull
+ */
+function og_role_field_potential_roles($gid = 0, $str = '', $limit = 10) {
+  $query = db_select('og_role', 'r')
+    ->fields('r', array('rid','gid','name'));
+
+ if (is_array($gid)) {
+    $query->condition('gid', $gid, 'IN');
+  }
+  else if (is_numeric($gid)) {
+    $query->condition('gid', $gid);
+  }
+  // Check the search string
+  if (!empty($str)) {
+    $query->where("r.name LIKE '%{$str}%'");
+  }
+
+  // Check if a maximum number of records is requested
+  if ($limit > 0) {
+    $query->range(0, $limit);
+  }
+
+  return $query->execute()->fetchAll();
+}
+
+/**
+ * Implements hook_field_views_data().
+ *
+ * In addition to the default field information we add the relationship for
+ * views to connect back to the role table.
+ */
+function og_role_field_field_views_data($field) {
+  $data = field_views_field_default_views_data($field);
+
+  $storage = $field['storage']['details']['sql'];
+
+  foreach ($storage as $age => $table_data) {
+    $table = key($table_data);
+    $columns = current($table_data);
+    $id_column = $columns['rid'];
+    if (isset($data[$table])) {
+      $data[$table][$id_column]['relationship'] = array(
+        'base' => 'role',
+        'field' => 'rid',
+        'base field' => 'rid',
+        'label' => $field['field_name'],
+      );
+    }
+  }
+
+  return $data;
+}
+
+
+/**
+ * Implements hook_views_api().
+ */
+function og_role_field_views_api() {
+  return array(
+    'api' => '3.0',
+    'path' => drupal_get_path('module', 'og_role_field') . '/includes',
+  );
+}
+
+/**
+ * Implements hook_og_role_grant()
+ */
+function og_role_field_og_role_grant($gid, $uid, $rid) {
+  rules_invoke_event('og_role_field_rules_role_granted_to_user', $uid, $gid, $rid);
+}
+
+/**
+ * Implements hook_og_role_revoke()
+ */
+function og_role_field_og_role_revoke($gid, $uid, $rid) {
+  rules_invoke_event('og_role_field_rules_role_revoked_from_user', $uid, $gid, $rid);
+}

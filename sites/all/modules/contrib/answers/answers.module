@@ -1,0 +1,304 @@
+<?php
+/**
+ * @file
+ * Code for the Answers feature.
+ */
+
+include_once('answers.features.inc');;
+module_load_include('inc', 'answers', 'includes/answers.display');
+module_load_include('inc', 'answers', 'includes/answers.field_utils');
+module_load_include('inc', 'answers', 'includes/answers.notify');
+module_load_include('inc', 'answers', 'includes/answers.search');
+module_load_include('inc', 'answers', 'includes/answers.lock');
+module_load_include('inc', 'answers', 'includes/answers.form');
+
+// Default text for answers notification email.
+define('ANSWERS_DEFAULT_NEW_ANSWER_NOTICE_BODY', 'Dear !question_user_name,
+<br /><br />
+You have a new answer to your question: "!question_title".
+<br /><br />
+To view your answer, <a href="!question_url" target="_blank">click here</a>.
+<br />
+</p>
+<hr>
+<p style="font-family: Georgia, sans-serif; font-size: 12px; font-style: italic;  color: #00CC00;">
+This is an automatic message from the team at !site.</i>
+</p>'); 
+
+define('ANSWERS_DEFAULT_NEW_ANSWER_NOTICE_SUBJECT', 'You have a new answer to your question "!question_title"!');
+
+/**
+ * Implements hook_help().
+ */
+function answers_help($path, $arg) {
+  switch ($path) {
+    case "admin/help#modulename":
+      return '<p>' . t('Enables users to ask questions and for other users to answer them.') . '</p>';
+  }
+}
+
+
+/**
+ * Implements hook_menu().
+ */
+function answers_menu() {
+
+  $items['admin/config/content/answers'] = array(
+    'title'              => 'Answers',
+    'description'        => 'Configure how the question/answer service operates',
+    'page callback'      => 'drupal_get_form',
+    'page arguments'     => array('answers_settings'),
+    'access arguments'   => array('administer content types'),
+    'type'               => MENU_NORMAL_ITEM
+  );
+
+  $items['questions/start_ask'] = array(
+    'title'            => 'Add a Question',
+    'description'      => 'Enter a question to ask ... and start the process of asking it',
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('answers_start_ask_form'),
+    'access arguments' => array('create question content'),
+    'file'             => 'includes/answers.search.inc',
+    'type'             => MENU_VISIBLE_IN_BREADCRUMB ,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function answers_menu_alter(&$items) {
+  if (!empty($items['node/add/answer'])) {
+    $items['node/add/answer']['type'] = MENU_CALLBACK;
+  }
+}
+
+/**
+ * Returns the form definition for answers administer page.
+ */
+function answers_settings() {
+  $form = array();
+
+  $form += _answers_notify_settings();
+  $form += _answers_display_settings();
+  $form += _answers_form_settings();
+
+  return system_settings_form($form);
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function answers_node_view($node, $view_mode, $langcode) {
+
+  if ($node->type == 'question') {
+
+    // Ensure that the 'Post an Answer' link only shows if the question is not locked.
+    // The logic is a little complicated below to avoid updating the field when not necessary.
+    // The field should have the *opposite* value of the node->locked field.
+    $field_instance = field_info_instance('node', 'field_answer_question', 'answer');
+    $locked_p = answers_field_get_value($node, 'field_question_locked_p');
+    if ($locked_p == $field_instance['widget']['settings']['node_link']['full']) {
+      $field_instance['widget']['settings']['node_link']['full'] = $locked_p ? +0 : +1;
+      field_update_instance($field_instance);
+    }
+  }
+  elseif (($node->type == 'answer') &&
+          variable_get('answers_redirect_from_answer_to_question_nodes_p', TRUE) &&
+          ($view_mode == 'full') && 
+          (node_is_page($node)) &&
+          ($node->status)) {
+    // If viewing the node page for a published answer and if configured to use theme templates,
+	// then redirect to question, with answer node id in fragment.
+    $items = field_get_items('node', $node, 'field_answer_question', $node->language);
+    if (!empty($items[0]['nid'])) {
+      drupal_goto('node/' . $items[0]['nid'], array('fragment' => 'node-' . $node->nid));
+    }
+  }
+}
+
+/**
+ * Implements hook_theme().
+ **/
+function answers_theme() {
+  $theme = array();
+
+  // This makes answers default to using the node templates provided by the answers module 
+  if (variable_get('answers_use_answers_theme_templates_p', TRUE)) {
+    $path = drupal_get_path('module', 'answers');
+    $theme['node__answer'] = array(
+      'template' => 'node--answer',
+      'path' => $path,
+      'original hook' => 'node',
+    );
+  }
+  return $theme;
+}
+
+/**
+ * Implements hook_theme_registry_alter()
+ *
+ * Approach due to: http://www.metachunk.com/blog/adding-module-path-drupal-7-theme-registry 
+ *
+**/
+function answers_theme_registry_alter(&$theme_registry) {
+  $path = drupal_get_path('module', 'mymodule');
+  $theme_registry_copy = $theme_registry;       // munge on a copy
+  _theme_process_registry($theme_registry_copy, 'phptemplate', 'theme_engine', 'pow', $path);
+  $theme_registry += array_diff_key($theme_registry_copy, $theme_registry);
+  $hooks = array('node');
+  foreach ($hooks as $h) {
+    _answers_insert_after_first_element($theme_registry[$h]['theme paths'], $path);
+  }
+}
+
+/**
+ * Helper function for re-ordering arrays (needed by theme_registry_alter)
+*/
+function _answers_insert_after_first_element(&$a, $element) {
+  if(is_array($a)) {
+    $first_element = array_shift($a);
+    array_unshift($a, $first_element, $element);
+  }
+}
+
+/*
+ * Implements hook_node_insert().
+ */
+function answers_node_insert($node) {
+  _answers_notify_node_insert($node);
+}
+
+/*
+ * Implements hook_node_delete().
+ *
+ * If a question is deleted, also delete its answers.
+ */
+function answers_node_delete($node) {
+  if ($node->type == 'question') {  
+    $answer_nids = _answers_question_answers($node);
+    foreach ($answer_nids as $answer_nid) {
+      /* To be able to delete the answer nodes, first unset their reference to the question. Otherwise a warning results */
+      $answer = node_load($answer_nid);
+	  $answer->field_answer_question = array();
+	  node_save($answer);
+	  node_delete($answer_nid);
+    }
+  }
+}
+
+/**
+ * Gathers a list of answer NIDS for a given question.
+ *
+ * @param $question
+ *   Either a numeric node NID or a node object.
+ * @return
+ *  Returns an array of answer node NIDs.
+ */
+function _answers_question_answers($question) {
+
+  $results = array();
+  $qid = is_object($question) ? $question->nid : $question;
+
+  // Use views as a query engine
+  $view = views_get_view('answers_to_a_question');
+  $view->set_arguments(array($qid));
+  $view->execute();
+
+  foreach ($view->result as $result) {
+    $nid = $result->nid;
+    $results[$nid] = $nid;
+  }
+
+  return $results;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for question_node_form().
+ */
+function answers_form_question_node_form_alter(&$form, &$form_state) {
+  // Change the name of the submit button.
+  $create_text = variable_get('answers_question_create_button_text', t('Ask Your Question'));
+  $edit_text = variable_get('answers_question_edit_button_text', t('Update Your Question'));
+  $form['actions']['submit']['#value'] = (!isset($form_state['node']->nid) || isset($form_state['node']->is_new)) ? $create_text : $edit_text;
+
+  // Populate title field if passed via URL if access to edit title.
+  if (isset($_GET['title']) && (!isset($form['#access']) || !empty($form['#access']))) {
+    drupal_set_title(t('Add some details to your question'));
+    $form['title']['#default_value'] = $_GET['title'];
+  }
+
+  // Set a default value for 'field_answer_count' (see https://drupal.org/node/2032121)
+  $form['#submit'][] = 'answers_question_form_submit';
+}
+
+function answers_question_form_submit($form, &$form_state) {
+  // Set a default value for 'field_answer_count' (see https://drupal.org/node/2032121)
+  $form_state['values']['field_answer_count']['und']['count']=0;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for answer_node_form().
+ */
+function answers_form_answer_node_form_alter(&$form, &$form_state) {
+  $create_text = variable_get('answers_answer_create_button_text', t('Post Your Answer'));
+  $edit_text = variable_get('answers_answer_edit_button_text', t('Update Your Answer'));
+  $form['actions']['submit']['#value'] = (!isset($form_state['node']->nid) || isset($form_state['node']->is_new)) ? $create_text : $edit_text;
+
+  // If setting enabled, set nodereference to answer node, so that answer can be linked to question.
+  if (variable_get('answers_hide_question_reference_field', TRUE)) {
+    $node = menu_get_object();
+
+    if ($node && $node->type == 'question') {
+      $form_state['storage']['answers_question'] = $node->nid;
+    }
+
+    $form['field_answer_question']['#access'] = FALSE;
+    array_unshift($form['actions']['submit']['#submit'], 'answers_assign_question_reference');
+  }
+
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for views_exposed_form().
+ */
+function answers_form_views_exposed_form_alter(&$form, &$form_state) {
+  _answers_search_form_views_exposed_form_alter($form, $form_state);
+}
+
+/**
+ * Assign question reference to hidden question field.
+ *
+ * @ingroup forms
+ */
+function answers_assign_question_reference(&$form, &$form_state) {
+  if (!empty($form_state['storage']['answers_question'])) {
+    $form_state['values']['field_answer_question'][$form_state['values']['language']][0]['nid'] = $form_state['storage']['answers_question_ref'];
+  }
+}
+
+/**
+ * Implements hook_field_access().
+ */
+function answers_field_access($op, $field, $entity_type, $entity, $account) {
+  
+  // Only offer notification field to registered users and only when answers is configured to allow notifications
+  if ($field['field_name'] == 'field_notify_p' && $op == 'edit') {
+    return !empty($account->uid) && variable_get('answers_new_answer_notice_allow_p', TRUE);
+  }
+  
+  // Lock field used programatically.
+  elseif ($field['field_name'] == 'field_question_locked_p') {
+    return FALSE;
+  }
+  
+  // Hide the field which indicates which question an answer is for ... unless we are in an answer node view (and not in a view attached to a question node)
+  elseif (($field['field_name'] == 'field_answer_question') && ($entity_type == 'node') && ($op == 'view')) {
+    $node = menu_get_object('node');
+    if ($node && $node->type != 'answer') {
+      return FALSE;
+    }
+  }
+  
+}

@@ -1,0 +1,19 @@
+name = Views Contextual Range Filter
+description = Provides option to contextually filter Views by alphabetic, list or numeric ranges, e.g. <em>http://yoursite.com/yourview/50--99.95</em>
+package = Views
+dependencies[] = views
+files[] = views/contextual_range_filter_handler_argument_date_range.inc
+files[] = views/contextual_range_filter_handler_argument_list_range.inc
+files[] = views/contextual_range_filter_handler_argument_numeric_range.inc
+files[] = views/contextual_range_filter_handler_argument_string_range.inc
+files[] = views/contextual_range_filter_plugin_argument_validate_numeric_range.inc
+files[] = views/contextual_range_filter_plugin_argument_validate_string_range.inc
+configure = admin/config/content/contextual-range-filter
+core = 7.x
+
+; Information added by Drupal.org packaging script on 2014-01-25
+version = "7.x-1.6"
+core = "7.x"
+project = "contextual_range_filter"
+datestamp = "1390623229"
+

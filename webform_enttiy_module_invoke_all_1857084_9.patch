@@ -1,0 +1,13 @@
+diff --git a/webform_entity.module b/webform_entity.module
+index 62bc8b0..1a84b1f 100644
+--- a/webform_entity.module
++++ b/webform_entity.module
+@@ -333,7 +333,7 @@ function webform_entity_webform_submission_load($submissions) {
+ function webform_entity_webform_submission_render_alter(&$renderable) {
+   // Remove page breaks from sent e-mails.
+   $submission = $renderable['#submission'];
+-  module_invoke_all('entity_view',$submission, 'webform_submission_entity');
++  module_invoke_all('entity_view', $submission, 'webform_submission_entity', 'full', LANGUAGE_NONE);
+   if (isset($submission->skip_fields) && $submission->skip_fields === TRUE) {
+     return;
+   }

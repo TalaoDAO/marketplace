@@ -1,0 +1,22 @@
+diff --git a/nodereference_url.module b/nodereference_url.module
+index e753491..0eac640 100644
+--- a/nodereference_url.module
++++ b/nodereference_url.module
+@@ -149,7 +149,7 @@ function nodereference_url_build_link($node, $field, $view_mode) {
+       }
+       if (module_exists('og')) {
+         // First try to get context based on the current page URL.
+-        $group_entity = og_get_context_by_url();
++        $group_entity = og_context_handler_url();
+ 
+         // Otherwise try getting the context based on the node being referenced.
+         if (!$group_entity) {
+@@ -157,7 +157,7 @@ function nodereference_url_build_link($node, $field, $view_mode) {
+         }
+ 
+         if ($group_entity) {
+-          $link['query']['gids'] = $group_entity->gid;
++          $link['query']['gids'] = $group_entity['gid'];
+         }
+       }
+     }

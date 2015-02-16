@@ -1,0 +1,634 @@
+<?php
+/**
+ * @file
+ * Module to associate icons with menu items
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function menu_icons_menu() {
+  $items['admin/config/user-interface/menu_icons'] = array(
+    'title' => 'Menu Icon settings',
+    'description' => 'Associates icons with menu items',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('menu_icons_admin_settings'),
+    'access arguments' => array('administer site configuration'),
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_theme_registry_alter()
+ *   Override the nodehierarchy child links function.
+ *
+ * @param $theme_registry
+ */
+function menu_icons_theme_registry_alter(&$theme_registry) {
+  // Override the link theming functions to hide titles if so configured.
+  if (variable_get('menu_icons_hide_titles', FALSE)) {
+    if (!empty($theme_registry['menu_link'])) {
+      $theme_registry['menu_link']['function'] = 'menu_icon_menu_link';
+    }
+    if (!empty($theme_registry['link'])) {
+      $theme_registry['link']['function'] = 'menu_icon_link';
+    }
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function menu_icons_form_alter(&$form, $form_state, $form_id) {
+
+  if ($form_id == 'menu_edit_item') {
+    if (isset($form['mlid']['#value'])) {
+      $options = unserialize(db_query('SELECT options FROM {menu_links} WHERE mlid = :mlid', array(':mlid' => $form['mlid']['#value']))->fetchField());
+    }
+    if (!isset($options) || !isset($options['menu_icon'])) {
+      $options = array('menu_icon' => array('enable' => NULL, 'image_style' => NULL));
+    }
+
+    $form['icon'] = array(
+      '#type' => 'fieldset',
+      '#weight' => 5,
+      '#title' => t('Menu icon settings'),
+      '#description' => t('If checked, the following icon will be used as background image for this menu item.'),
+      '#attributes' => array('classes' => array('theme-settings-bottom')),
+    );
+    $form['icon']['use_icon_logo'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Use an icon'),
+      '#default_value' => $options['menu_icon']['enable'],
+      '#tree' => FALSE,
+      '#description' => t('Check this if you want this icon to be used.'),
+    );
+
+    $form['icon']['image_style'] = array(
+      '#title' => t('Image style'),
+      '#type' => 'select',
+      '#options' => image_style_options(FALSE),
+      '#empty_option' => '<' . t('Menu Icons default') . '>',
+      '#default_value' => $options['menu_icon']['image_style'],
+      '#description' => t('The preview image will be shown while editing the content.'),
+      '#required' => FALSE,
+    );
+
+    $form['icon']['icon_path'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Path to the icon'),
+      '#default_value' => (isset($options['menu_icon']['path']) ? $options['menu_icon']['path'] : variable_get('menu_icons_default_icon', drupal_get_path('module', 'menu_icons') . '/images/default_icon.png')),
+      '#description' => t('The path to the image you would like to use as a background image for this menu item.'),
+    );
+    $form['icon']['icon_path']['#states'] = array(
+        'visible' => array (
+        ':input[name="use_icon_logo"]' => array('checked' => TRUE),
+      ),
+    );
+
+    $form['icon']['icon_upload'] = array(
+      '#type' => 'file',
+      '#title' => t('Upload a new icon image'),
+      '#maxlength' => 40,
+      '#description' => t("If you don't have direct file access to the server, use this field to upload your icon."),
+    );
+    $form['icon']['icon_upload']['#states'] = array(
+        'visible' => array (
+        ':input[name="use_icon_logo"]' => array('checked' => TRUE),
+      ),
+    );
+
+    $form['submit']['#weight'] = 9;
+    $form['delete']['#weight'] = 10;
+
+    $form['#attributes']['enctype'] = 'multipart/form-data';
+    $form['#submit'][] = 'menu_icons_form_submit';
+  }
+
+  // Add a custom submit callback for image style forms.
+  if (in_array($form_id, array('image_style_form', 'image_effect_form', 'image_style_revert_form', 'image_style_delete_form', 'menu_icons_admin_settings'))) {
+    $form['#submit'][] = 'menu_icons_css_generate';
+  }
+}
+
+/**
+ * Implements hook_form_FORMID_alter().
+ */
+function menu_icons_form_node_form_alter(&$form, &$form_state, $form_id) {
+  if (isset($form['menu'])) {
+    if ($form['menu']['link']['mlid']['#value']) {
+      $options = unserialize(db_query('SELECT options FROM {menu_links} WHERE mlid = :mlid', array(':mlid' => $form['menu']['link']['mlid']['#value']))->fetchField());
+    }
+    if (!isset($options) || !isset($options['menu_icon'])) {
+      $options = array('menu_icon' => array('enable' => NULL, 'image_style' => NULL));
+    }
+
+    $form['menu']['icon'] = array(
+      '#type' => 'fieldset',
+      '#weight' => 5,
+      '#title' => t('Menu icon settings'),
+      '#description' => t('If checked, the following icon will be used as background image for this menu item.'),
+      '#collapsible' => TRUE,
+      '#collapsed' => !$options['menu_icon']['enable'],
+      '#states' => array(
+        'invisible' => array(
+          ':input[name="menu[enabled]"]' => array('checked' => FALSE),
+          ),
+        ),
+    );
+    $form['menu']['icon']['use_icon_logo'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Use an icon'),
+      '#default_value' => $options['menu_icon']['enable'],
+      '#tree' => FALSE,
+      '#description' => t('Check this if you want this icon to be used.'),
+    );
+
+    $form['menu']['icon']['image_style'] = array(
+      '#title' => t('Image style'),
+      '#type' => 'select',
+      '#options' => image_style_options(FALSE),
+      '#empty_option' => '<' . t('Menu Icons default') . '>',
+      '#default_value' => $options['menu_icon']['image_style'],
+      '#description' => t('The preview image will be shown while editing the content.'),
+      '#required' => FALSE,
+    );
+
+    $form['menu']['icon']['icon_path'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Path to the icon'),
+      '#default_value' => (isset($options['menu_icon']['path']) ? $options['menu_icon']['path'] : variable_get('menu_icons_default_icon', drupal_get_path('module', 'menu_icons') . '/images/default_icon.png')),
+      '#description' => t('The path to the image you would like to use as a background image for this menu item.'),
+    );
+    $form['menu']['icon']['icon_path']['#states'] = array(
+        'visible' => array (
+        ':input[name="use_icon_logo"]' => array('checked' => TRUE),
+      ),
+    );
+
+    $form['menu']['icon']['icon_upload'] = array(
+      '#type' => 'file',
+      '#title' => t('Upload a new icon image'),
+      '#maxlength' => 40,
+      '#description' => t("If you don't have direct file access to the server, use this field to upload your icon."),
+      '#states' => array(
+        'visible' => array (
+          ':input[name="use_icon_logo"]' => array('checked' => TRUE),
+          ),
+        ),
+    );
+
+    $form['#attributes']['enctype'] = 'multipart/form-data';
+    $form['#submit'][] = 'menu_icons_node_form_submit';
+  }
+}
+
+/**
+ * Process the submitted form
+ */
+function menu_icons_form_submit($form, &$form_state) {
+  // Check the destination folder, attempt to create it if it does't exist
+  $directory_path = menu_icons_directory_path();
+  file_prepare_directory($directory_path, FILE_CREATE_DIRECTORY);
+
+  // Store the current icon path
+  $path = $form_state['values']['icon_path'];
+
+  // Define the validation settings
+  $validate = array(
+    'file_validate_is_image' => array(),
+  );
+
+  // Check for a new uploaded icon, and use that instead.
+  if ($file = file_save_upload('icon_upload', $validate)) {
+    $parts = pathinfo($file->filename);
+    $filename = $directory_path . '/menu_icon_' . $form_state['values']['mlid'] . '.' . $parts['extension'];
+    file_unmanaged_copy($file->uri, $filename, FILE_EXISTS_REPLACE);
+
+    // Flush image style generated images
+    image_path_flush($filename);
+
+    $path = $filename;
+  }
+
+  $options = unserialize(db_query('SELECT options FROM {menu_links} WHERE mlid = :mlid', array(':mlid' => $form_state['values']['mlid']))->fetchField());
+  $options['menu_icon'] = array(
+    'enable' => $form_state['values']['use_icon_logo'],
+    'path' => $path,
+    'image_style' => $form_state['values']['image_style'],
+  );
+
+  // Use default image style if not explicitly set.
+  if (empty($options['menu_icon']['image_style'])) {
+    $options['menu_icon']['image_style'] = variable_get('menu_icons_image_style_default', 'menu_icon');
+  }
+
+  if (!isset($options['attributes'])) {
+    $options['attributes'] = array();
+  }
+  if (!isset($options['attributes']['class'])) {
+    $options['attributes']['class'] = array();
+  }
+
+  $classes = array();
+  $classes[] = "menu_icon";
+  $classes[] = "menu-" . $form_state['values']['mlid'];
+  if ($options['menu_icon']['enable'] && !empty($options['menu_icon']['path']) && file_exists($options['menu_icon']['path'])) {
+    foreach ($classes as $class) {
+      if (!in_array($class, $options['attributes']['class'])) {
+        $options['attributes']['class'][] = $class;
+      }
+    }
+  }
+
+  if (empty($options['attributes']['class'])) {
+    unset($options['attributes']['class']);
+  }
+
+  db_update('menu_links')
+  ->fields(array(
+    'options' => serialize($options),
+  ))
+  ->condition('mlid', $form_state['values']['mlid'])
+  ->execute();
+
+  // Regenerate the css file
+  menu_icons_css_generate();
+}
+
+
+/**
+ * Implements hook_node_insert().
+ */
+function menu_icons_node_insert($node) {
+  menu_icons_node_save($node);
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function menu_icons_node_update($node) {
+  menu_icons_node_save($node);
+}
+
+/**
+ * Helper for hook_node_insert() and hook_node_update().
+ */
+function menu_icons_node_save($node) {
+  if (isset($node->menu['icon']) && $node->menu['icon']['enable']) {
+    // Check the destination folder, attempt to create it if it does't exist
+    $directory_path = menu_icons_directory_path();
+    file_prepare_directory($directory_path, FILE_CREATE_DIRECTORY);
+
+    // Take the current icon path
+    $path = $node->menu['icon']['path'];
+    $file = FALSE;
+    if (!empty($path)) {
+      $file = image_load($path);
+    }
+    if ($file) {
+      // Move temporary file to it's destination.
+      $parts = pathinfo($file->source);
+      $new_path = $directory_path . '/menu_icon_' . $node->menu['mlid'] . '.' . $parts['extension'];
+      $node->menu['icon']['path'] = $new_path;
+
+      if ($new_path != $path) {
+        $new_file = file_unmanaged_copy($path, $new_path, FILE_EXISTS_REPLACE);
+        // Delete temporary file.
+        file_unmanaged_delete($path);
+      }
+
+      // Get link options from db.
+      $options = unserialize(db_query('SELECT options FROM {menu_links} WHERE mlid = :mlid', array(':mlid' => $node->menu['mlid']))->fetchField());
+
+      if (!isset($options['attributes'])) {
+        $options['attributes'] = array();
+      }
+      if (!isset($options['attributes']['class'])) {
+        $options['attributes']['class'] = array();
+      }
+      $classes = array();
+      $classes[] = "menu_icon";
+      $classes[] = "menu-" . $node->menu['mlid'];
+
+      if (!empty($node->menu['icon']['path']) && file_exists($node->menu['icon']['path'])) {
+        // Add our menu icon info to the options array
+        $options['menu_icon'] = array(
+          'enable' => $node->menu['icon']['enable'],
+          'path' => $node->menu['icon']['path'],
+          'image_style' => $node->menu['icon']['image_style'],
+        );
+        // Add new classes
+        foreach ($classes as $class) {
+          if (!in_array($class, $options['attributes']['class'])) {
+            $options['attributes']['class'][] = $class;
+          }
+        }
+
+        if (empty($options['attributes']['class'])) {
+          unset($options['attributes']['class']);
+        }
+        // Update the link options
+        db_update('menu_links')
+        ->fields(array(
+          'options' => serialize($options),
+        ))
+        ->condition('mlid', $node->menu['mlid'])
+        ->execute();
+
+        // Regenerate the css file
+        menu_icons_css_generate();
+
+        // @TODO The icon is not shown on first page load. We need to find a solution for this. Meanwhile:
+        drupal_set_message(t('A new menu icon has been set for this node. Please refresh the page to view it.'));
+      }
+    }
+  }
+}
+
+/**
+ *
+ */
+function menu_icons_node_form_submit($form, &$form_state) {
+  // Check the destination folder, attempt to create it if it does't exist
+  $directory_path = menu_icons_directory_path();
+  file_prepare_directory($directory_path, FILE_CREATE_DIRECTORY);
+
+  // Store the current icon path
+  $path = $form_state['values']['menu']['icon']['icon_path'];
+
+  // Define the validation settings
+  $validate = array(
+    'file_validate_is_image' => array(),
+  );
+
+  // Check for a new uploaded icon, and use that instead.
+  if ($file = file_save_upload('menu', $validate)) {
+    $parts = pathinfo($file->filename);
+    $filename = $directory_path . '/menu_icon_temp_' . time() . '.' . $parts['extension'];
+    file_unmanaged_copy($file->uri, $filename, FILE_EXISTS_REPLACE);
+    // Flush image style generated images
+    image_path_flush($filename);
+    $path = $filename;
+  }
+
+  $options = array();
+  $options['menu_icon'] = array(
+    'enable' => $form_state['values']['use_icon_logo'],
+    'path' => $path,
+    'image_style' => $form_state['values']['menu']['icon']['image_style'],
+  );
+  // Use default image style if not explicitly set.
+  if (empty($options['menu_icon']['image_style'])) {
+    $options['menu_icon']['image_style'] = variable_get('menu_icons_image_style_default', 'menu_icon');
+  }
+
+  $form_state['values']['menu']['icon'] = $options['menu_icon'];
+}
+
+
+/**
+ * Implements hook_init().
+ */
+function menu_icons_init() {
+  $cssfile = 'public://css/menu_icons.css';
+  if (variable_get('menu_icons_use_css', TRUE) && file_exists($cssfile)){
+    drupal_add_css($cssfile);
+  }
+}
+
+/**
+ * Build the menu_icon's settings form
+ *
+ * @return a form array
+ */
+function menu_icons_admin_settings($form, &$form_state) {
+  $form['menu_icons_default_icon'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Icon path'),
+    '#default_value' => variable_get('menu_icons_default_icon', drupal_get_path('module', 'menu_icons') . '/images/default_icon.png'),
+    '#description' => t('A Drupal path to the icon or image to use as a default.'),
+    '#required' => FALSE,
+  );
+
+  $options = array();
+  foreach (image_styles() as $pid => $preset) {
+    $options[$preset['name']] = $preset['name'];
+  }
+
+  if (!empty($options)) {
+    $form['menu_icons_image_style_default'] = array(
+      '#type' => 'select',
+      '#title' => t('Image default style'),
+      '#default_value' => variable_get('menu_icons_image_style_default', 'menu_icon'),
+      '#description' => t('Choose a default !link to be used for menu icons. This setting can be overwritten per menu item.', array('!link' => l(t('Image style'), 'admin/config/media/image-styles'))),
+      '#required' => FALSE,
+      '#options' => $options,
+    );
+  }
+
+  $form['menu_icons_image_folder'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Icon folder'),
+    '#default_value' => variable_get('menu_icons_image_folder', 'menu_icons'),
+    '#description' => t('The name of the files directory in which the new uploaded icons will be stored. This folder will be created in the files directory'),
+    '#required' => FALSE,
+  );
+  $form['menu_icons_position'] = array(
+    '#type' => 'select',
+    '#title' => t('Position'),
+    '#default_value' => variable_get('menu_icons_position', 'left'),
+    '#options' => array(
+      'top' => t('top'),
+      'bottom' => t('bottom'),
+      'right' => t('right'),
+      'left' => t('left'),
+    ),
+    '#required' => FALSE,
+  );
+  $form['menu_icons_hide_titles'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Hide menu titles if icon is present'),
+    '#default_value' => variable_get('menu_icons_hide_titles', FALSE),
+    '#description' => t('Check this to hide menu titles and display only the icon, if an icon is configured. You will need to clear the theme registry cache after changing this option for it to take effect.'),
+  );
+  $form['menu_icons_use_css'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Provide default CSS for placing menu icons into the menu'),
+    '#default_value' => variable_get('menu_icons_use_css', TRUE),
+    '#description' => t("Advanced: uncheck this box if you do not want to enable the Menu Icon style sheet that's provided by default. If you uncheck this box, you must provide your own CSS for Menu Icons to appear!"),
+  );
+  return system_settings_form($form);
+}
+
+/**
+ * Implements hook_image_default_styles().
+ * Define the default menu_icons image style.
+ */
+function menu_icons_image_default_styles() {
+  $styles = array();
+
+  $styles['menu_icon'] = array(
+    'effects' => array(
+      array(
+        'name' => 'image_scale',
+        'data' => array('width' => 45, 'height' => 45, 'upscale' => 1),
+        'weight' => 0,
+      ),
+    )
+  );
+
+  return $styles;
+}
+
+/**
+ * Build CSS based on menu IDs
+ *
+ * @return A string with the CSS
+ */
+function menu_icons_css_generate() {
+
+  $css = "";
+  $result = db_query("SELECT mlid, options FROM {menu_links}");
+  $pos = variable_get('menu_icons_position', 'left');
+  $absolute = variable_get('menu_icons_absolute_links', FALSE);
+
+  foreach ($result as $item) {
+    $options = unserialize($item->options);
+
+    if (isset($options['menu_icon']) && $options['menu_icon']['enable'] && !empty($options['menu_icon']['path']) && file_exists($options['menu_icon']['path'])) {
+
+      $image_path = $options['menu_icon']['path'];
+      $image_style = (isset($options['menu_icon']['image_style']) && !empty($options['menu_icon']['image_style'])) ? $options['menu_icon']['image_style'] : NULL;
+
+      if ($image_style) {
+        $source_uri = $image_path;
+        $image_path = image_style_path($image_style, $source_uri);
+
+        if (!file_exists($image_path)) {
+          image_style_create_derivative(image_style_load($image_style), $source_uri, $image_path);
+        }
+      }
+
+      // Retrieve the image dimensions
+      $info = image_get_info($image_path);
+
+      if ($absolute) {
+        $image_url = file_create_url($image_path);
+      }
+      else {
+        $wrapper = file_stream_wrapper_get_instance_by_scheme(file_uri_scheme($image_path));
+        $image_url = '/' . $wrapper->getDirectoryPath() . '/' . file_uri_target($image_path);
+      }
+
+      $size = $pos == 'right' || $pos == 'left' ? $info['width'] : $info['height'];
+      // Support private filesystem
+      $css .= theme('menu_icons_css_item', array('mlid' => $item->mlid, 'path' => $image_url, 'size' => $size, 'height' => $info['height'], 'pos' => $pos, 'source' => $source_uri));
+    }
+  }
+  $csspath = 'public://css';
+  if (!empty($css)) {
+    file_prepare_directory($csspath, FILE_CREATE_DIRECTORY);
+    file_unmanaged_delete($csspath . '/menu_icons.css');
+    file_unmanaged_save_data($css, $csspath . '/menu_icons.css', FILE_EXISTS_REPLACE);
+  }
+  else {
+    file_unmanaged_delete($csspath . '/menu_icons.css');
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function menu_icons_theme() {
+  return array(
+    'menu_icons_css_item' => array(
+      'variables' => array('mlid' => NULL, 'path' => NULL, 'size' => NULL, 'height' => NULL, 'pos' => NULL, 'source' => NULL),
+      'template' => 'menu_icons_css_item',
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu_breadcrumb_alter()
+ * Prevent menu icons from being displayed next to breadcrumbs.
+ *
+ * @param $active_trail
+ * @param $item
+ */
+function menu_icons_menu_breadcrumb_alter(&$active_trail, $item) {
+  foreach ($active_trail as &$crumb) {
+    // Check if this is an item with a menu icon.
+    if (array_key_exists('mlid', $crumb) && isset($crumb['localized_options']['attributes']['class'])) {
+      $mlid = $crumb['mlid'];
+      $count = count($crumb['localized_options']['attributes']['class']);
+      for ($i = 0; $i < $count; $i++) {
+        $class = $crumb['localized_options']['attributes']['class'][$i];
+        // If this is a menu_icon class, remove it.
+        switch ($class) {
+          case 'menu_icon':
+          case 'menu-' . $mlid:
+            unset($crumb['localized_options']['attributes']['class'][$i]);
+            break;
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_flush_caches().
+ */
+function menu_icons_flush_caches() {
+  menu_icons_css_generate();
+}
+
+/**
+ * Returns the file directory path in which both the CSS file and the icons are stored.
+ */
+function menu_icons_directory_path($full = TRUE) {
+  $path = variable_get('menu_icons_image_folder', 'menu_icons');
+  $path_full = 'public://' . $path;
+  return ($full ? $path_full : $path);
+}
+
+/**
+ * Override theme_menu_link - hide link titles if enabled.
+ *
+ * @param $variables
+ *
+ * @return string
+ */
+function menu_icon_menu_link($variables) {
+  $element = $variables['element'];
+  $sub_menu = '';
+
+  if ($element['#below']) {
+    $sub_menu = drupal_render($element['#below']);
+  }
+  $output = l($element['#title'], $element['#href'], $element['#localized_options']);
+  if (isset($element['#localized_options']['menu_icon'])) {
+    if ($element['#localized_options']['menu_icon']['enable'] == 1) {
+      $element['#attributes']['title'] = $element['#title'];
+      $output = l('', $element['#href'], $element['#localized_options']);
+    }
+  }
+  return '<li' . drupal_attributes($element['#attributes']) . '>' . $output . $sub_menu . "</li>\n";
+}
+
+/**
+ * Override theme_link - hide link titles if enabled.
+ *
+ * @param $variables
+ *
+ * @return string
+ */
+function menu_icon_link($variables) {
+  if (isset($variables['options']['menu_icon'])) {
+    if ($variables['options']['menu_icon']['enable'] == 1) {
+      $variables['options']['attributes']['title'] = $variables['text'];
+      return '<a href="' . check_plain(url($variables['path'], $variables['options'])) . '"' . drupal_attributes($variables['options']['attributes']) . '></a>';
+    }
+  }
+  return '<a href="' . check_plain(url($variables['path'], $variables['options'])) . '"' . drupal_attributes($variables['options']['attributes']) . '>' . ($variables['options']['html'] ? $variables['text'] : check_plain($variables['text'])) . '</a>';
+}

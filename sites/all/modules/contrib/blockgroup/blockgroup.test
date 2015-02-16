@@ -1,0 +1,84 @@
+<?php
+
+/**
+ * @file
+ * Tests for blockgroup.module.
+ */
+
+class BlockgroupTestCase extends DrupalWebTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Block group functionality',
+      'description' => 'Add, edit and delete block groups. Ensure that visibility settings on a block group propagate through to enclosed blocks.',
+      'group' => 'Block Group',
+    );
+  }
+
+  function setUp() {
+    parent::setUp(array('blockgroup'));
+
+    // Create and log in an administrative user having access to the Full HTML
+    // text format.
+    $admin_user = $this->drupalCreateUser(array(
+      'administer blocks',
+      'administer block groups',
+      'access administration pages',
+    ));
+    $this->drupalLogin($admin_user);
+  }
+
+  /**
+   * Test creating block group, moving it to a specific region and then deleting it.
+   */
+  public function testCRUDBlockGroup() {
+    // Confirm that the add block link appears on block overview pages.
+    $this->drupalGet('admin/structure/block');
+    $this->assertRaw(l(t('Add group'), 'admin/structure/block/groupadd'), 'Add block group link is present on block overview page for default theme.');
+    $this->drupalGet('admin/structure/block/list/seven');
+    $this->assertRaw(l(t('Add group'), 'admin/structure/block/list/seven/groupadd'), 'Add block group link is present on block overview page for non-default theme.');
+
+    // Add a new custom block by filling out the input form on the admin/structure/block/add page.
+    $block_group = array();
+    $block_group['title'] = $this->randomName(8);
+    $block_group['machine_name'] = strtolower($this->randomName(8));
+    $this->drupalPost('admin/structure/block/groupadd', $block_group, t('Save block'));
+
+    // Confirm that the custom block has been created, and then query the created bid.
+    $this->assertText(t('The block configuration has been saved.'), 'Custom block successfully created.');
+    $bid = db_query("SELECT bid FROM {block} WHERE module = :module AND delta = :delta", array(':delta' => $block_group['machine_name'], ':module' => 'blockgroup'))->fetchField();
+
+    // Check to see if the custom block was created by checking that it's in the database.
+    $this->assertNotNull($bid, 'Block group found in database');
+
+    // Confirm that a new region for the block group has been added to the
+    // block admin page.
+    theme_enable(array('stark'));
+    $themes = list_themes();
+    $this->drupalGet('admin/structure/block/add');
+    $region = 'blockgroup_' . $block_group['machine_name'];
+    foreach ($themes as $key => $theme) {
+      if ($theme->status) {
+        $elements = $this->xpath('//select[@id=:id]//option[@value=:value]', array(':id' => 'edit-regions-' . $key, ':value' => $region));
+        $this->assertTrue(isset($elements[0]), format_string('A new region @region is available for @theme.', array('@region' => $region, '@theme' => $key)));
+      }
+    }
+
+    // Verify presence of configure and delete links for block group.
+    $this->drupalGet('admin/structure/block');
+    $this->assertLinkByHref('admin/structure/block/manage/blockgroup/' . $block_group['machine_name'] . '/configure', 0, 'Block group configure link found.');
+    $this->assertLinkByHref('admin/structure/block/manage/blockgroup/' . $block_group['machine_name'] . '/delete', 0, 'Block group delete link found.');
+
+    // Set visibility only for authenticated users, to verify delete functionality.
+    $edit = array();
+    $edit['roles[' . DRUPAL_AUTHENTICATED_RID . ']'] = TRUE;
+    $this->drupalPost('admin/structure/block/manage/blockgroup/' . $block_group['machine_name'] . '/configure', $edit, t('Save block'));
+
+    // Delete the created block group & verify that it's been deleted and no longer appearing on the page.
+    $this->clickLink(t('delete'));
+    $this->drupalPost('admin/structure/block/manage/blockgroup/' . $block_group['machine_name'] . '/delete', array(), t('Delete'));
+    $this->assertRaw(t('The block group %title has been removed.', array('%title' => $block_group['title'])), 'Custom block successfully deleted.');
+    $this->assertNoText(t('Block group: @title', array('@title' => $block_group['title'])), 'Block group no longer appears on page.');
+    $count = db_query("SELECT 1 FROM {block_role} WHERE module = :module AND delta = :delta", array(':module' => 'blockgroup', ':delta' => $block_group['machine_name']))->fetchField();
+    $this->assertFalse($count, 'Table block_role being cleaned.');
+  }
+}

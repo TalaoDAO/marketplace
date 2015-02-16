@@ -1,0 +1,27 @@
+name = Flag friend
+description = Flag users as friends. Implements it's own flag and a form for sending a user a message upon flag.
+dependencies[] = flag (>=3.0)
+core = 7.x
+package = Flags
+files[] = flag_friend.install
+files[] = flag_friend.module
+files[] = flag_friend.test
+files[] = includes/flag_friend.views.inc
+files[] = includes/flag_friend.views_default.inc
+files[] = includes/flag_friend_handler_argument_apachesolr_friend.inc
+files[] = includes/flag_friend_views_handler_field_links.inc
+files[] = includes/flag_friend_views_handler_field_status.inc
+files[] = includes/flag_friend_views_handler_filter_status.inc
+files[] = includes/flag_friend_plugin_access_pending_requested.inc
+files[] = access/flag_friend_is_friend.inc
+files[] = content_types/flag_friend_count.inc
+files[] = content_types/flag_friend_links.inc
+
+test_dependencies[] = views
+
+; Information added by Drupal.org packaging script on 2014-02-02
+version = "7.x-2.0-alpha1"
+core = "7.x"
+project = "flag_friend"
+datestamp = "1391361214"
+

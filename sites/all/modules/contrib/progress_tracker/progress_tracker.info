@@ -1,0 +1,13 @@
+name = Progress Tracker
+description = Provides a page wise progress bar as block e.g Can be used as ubercart checkout progress on each step.
+core = 7.x
+version = 7.x-3.0
+
+
+
+; Information added by drupal.org packaging script on 2013-02-07
+version = "7.x-1.0"
+core = "7.x"
+project = "progress_tracker"
+datestamp = "1360243144"
+

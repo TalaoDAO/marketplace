@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Provides uninstallation functions.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function content_type_thumbnail_uninstall() {
+  db_delete('variable')
+    ->condition('name', db_like('content_type_thumbnail_') . '%', 'LIKE')
+    ->execute();
+  file_unmanaged_delete_recursive('public://content_type_thumbnail/');
+}

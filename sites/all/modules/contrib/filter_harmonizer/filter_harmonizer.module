@@ -1,0 +1,612 @@
+<?php
+/**
+ * @file
+ * filter_harmonizer.module
+ * For Views where both exposed and contextual filters are active on a page.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function filter_harmonizer_help($path) {
+  if ($path != 'admin/help#filter_harmonizer') {
+    return NULL;
+  }
+  $text = t('Configuration and usage instructions are in this <a href="@README">README</a> file.<br/>Known issues and solutions may be found on the <a href="@filter_harmonizer">Views Filter Harmonizer</a> project page.', array(
+    '@README' => url(drupal_get_path('module', 'filter_harmonizer') . '/README.txt'),
+    '@filter_harmonizer' => url('http://drupal.org/project/filter_harmonizer'),
+  ));
+  return '<p>' . $text . '</p>';
+}
+
+/**
+ * Implements hook_form_FORMID_alter().
+ */
+function filter_harmonizer_form_views_ui_config_item_form_alter(&$form, &$form_state) {
+
+  if (variable_get('filter_harmonizer_always') || empty($form_state['section'])) {
+    // Nothing to do (in the wrong place).
+    return;
+  }
+  switch ($form_state['section']) {
+    case 'arguments':
+      $filter_handlers = $form_state['view']->display_handler->get_handlers('filter');
+      if (!empty($filter_handlers[$form_state['handler']->field])) {
+        $title = t("Ignore this contextual filter <em>after</em> initial page load, when the user applies this same field's <em>exposed</em> filter.");
+        break;
+      }
+      // This contextual filter does not have a regular filter counterpart.
+      return;
+
+    case 'filters':
+      $contextual_handlers = $form_state['view']->display_handler->get_handlers('argument');
+      if (!empty($contextual_handlers[$form_state['handler']->field])) {
+        $title = t('Override the companion <em>contextual</em> filter');
+        break;
+      }
+      // This regular filter does not have a contextual filter counterpart.
+      return;
+
+    default:
+      // Only want this tickbox on regular and contextual filter forms.
+      return;
+  }
+  $filter_harmonizer_contextual_filters = variable_get('filter_harmonizer_contextual_filters', array());
+
+  $view_name = $form_state['view']->name;
+  $display_id = $form_state['display_id'];
+  $field_name = $form_state['id'];
+
+  $form['options']['filter_harmonizer_enable'] = array(
+    '#type' => 'checkbox',
+    '#title' => $title,
+    '#description' => t("When ticked, the contextual filter will apply only on initial page load when the exposed filter has not been applied yet."),
+    '#default_value' => !empty($filter_harmonizer_contextual_filters[$view_name][$display_id][$field_name]),
+    '#fieldset' => 'argument_present',
+  );
+  $form['buttons']['submit']['#submit'][] = 'filter_harmonizer_views_ui_config_item_form_submit';
+}
+
+/**
+ * Supplementary submit handler for the form 'views_ui_config_item_form'.
+ */
+function filter_harmonizer_views_ui_config_item_form_submit(&$form, &$form_state) {
+
+  $new_value = !empty($form_state['values']['options']['filter_harmonizer_enable']);
+
+  $filter_harmonizer_contextual_filters = variable_get('filter_harmonizer_contextual_filters', array());
+  $view_name = $form_state['view']->name;
+  $field_name = $form_state['id'];
+
+  $is_debug = filter_harmonizer_debug_flag();
+
+  // If "All displays" is selected then we need to do this for all displays
+  // that do not have their values set already (i.e. that are overridden).
+  $display_ids = array_keys($form_state['view']->changed_display);
+  foreach ($display_ids as $display_id) {
+    $filter_harmonizer_contextual_filters[$view_name][$display_id][$field_name] = $new_value;
+    if ($is_debug) {
+      drupal_set_message(t('View %view_name (%display), field %field: ignore contextual filter set to @value', array(
+        '%view' => $view_name,
+        '%display' => $display_id,
+        '%field' => $field_name,
+        '@value' => (int) $new_value,
+      )));
+    }
+  }
+  // Wish we could save this on the View, but don't know how. We're outside
+  // the view context...
+  variable_set('filter_harmonizer_contextual_filters', $filter_harmonizer_contextual_filters);
+}
+
+/**
+ * Implements hook_form_FORMID_alter().
+ */
+function filter_harmonizer_form_views_exposed_form_alter(&$form, &$form_state) {
+  $form['#submit'][] = 'filter_harmonizer_views_exposed_form_submit';
+}
+
+/**
+ * Supplementary submit handler for 'views_exposed_form'.
+ *
+ * @todo: Refactor this mess. Especially all the debug msgs.
+ */
+function filter_harmonizer_views_exposed_form_submit(&$form, &$form_state) {
+
+  if (empty($form_state['view']) || empty($form_state['display']->handler)) {
+    return;
+  }
+  if (isset($form_state['display']->display_options['enabled']) && !$form_state['display']->display_options['enabled']) {
+    return;
+  }
+  $view_display = $form_state['display']->handler;
+  if (!($contextual_handlers = $view_display->get_handlers('argument'))) {
+    return;
+  }
+  if (!($filter_handlers = $view_display->get_handlers('filter'))) {
+    return;
+  }
+  $view = $form_state['view'];
+  $display_id = $form_state['display']->id;
+
+  // For attachments: if the attachment isn't coupled to both the contextual
+  // and regular filters of its page/master, then we have nothing to harmonize.
+  $is_inherit_contextual = $view->display_handler->get_option('inherit_arguments');
+  $is_inherit_regular = $view->display_handler->get_option('inherit_exposed_filters');
+  if ($is_inherit_contextual === 0 || $is_inherit_regular === 0) {
+    return;
+  }
+  $view_args = &drupal_static(__FUNCTION__);
+  if (!isset($view_args)) {
+    $view_args = $view->args;
+  }
+  // As we haven't run the query yet we dont know for sure if the output is
+  // going to be paged...
+  // This static assessment doesn't tell us whether the current results list is
+  // long enough to be paged. Nor does it tell us whether "Apply" rather than
+  // the pager was pressed. In the latter case we want to return FALSE...
+  $is_paged = $view->display[$display_id]->handler->use_pager();
+
+  $is_filter_harmonizer_always = variable_get('filter_harmonizer_always', FALSE);
+  $is_merge_filter_values = variable_get('filter_harmonizer_merge_filter_values', FALSE);
+  $is_fill_exposed_form = variable_get('filter_harmonizer_fill_exposed', TRUE);
+  $filter_harmonizer_contextual_filters = variable_get('filter_harmonizer_contextual_filters', array());
+  $is_debug = filter_harmonizer_debug_flag();
+  $is_initial_page_load = filter_harmonizer_is_new_page();
+  if ($is_debug && $is_initial_page_load) {
+    drupal_set_message(t('Views Filter Harmonizer - Initial page load.'));
+  }
+
+  foreach ($contextual_handlers as $field_name => $contextual_filter) {
+    $is_harmonize = $is_filter_harmonizer_always || !empty($filter_harmonizer_contextual_filters[$view->name][$display_id][$field_name]);
+    if ($is_harmonize && isset($filter_handlers[$field_name])) {
+      // The regular (exposed) filter has a companion contextual filter on the
+      // same display and harmonization is requested.
+
+      $contextual_is_empty = !isset($contextual_filter->position) || !isset($view_args[$contextual_filter->position]);
+
+      // At this stage plus signs have already been converted to spaces.
+      $contextual_value = $contextual_is_empty ? $contextual_filter->get_default_argument() : $view_args[$contextual_filter->position];
+
+      if ($contextual_value == $contextual_filter->options['exception']['value']) {
+        $contextual_is_empty = TRUE;
+      }
+
+      if (strpos($contextual_value, '|') === FALSE) {
+        // If "Allow mutliple values" is ticked, replace Views contextual OR
+        // operator, i.e. the space or +, by a more unique separator '|'.
+        if ($contextual_filter->options['break_phrase']) {
+          $contextual_value = str_replace(array(' ', '+'), '|', $contextual_value);
+          // With "Allow multiple values" ticked, filter arguments that contain
+          // spaces MUST be entered with dashes instead: 'United-Kingdom'.
+          // Now that spaces have been converted to '|', we can transform
+          // dashes to spaces.
+          $contextual_value = str_replace('-', ' ', $contextual_value);
+        }
+      }
+      $regular_is_empty = TRUE;
+      $regular_filter = $filter_handlers[$field_name];
+      if ($regular_filter->is_a_group()) {
+        $form_field_name = $regular_filter->options['group_info']['identifier'];
+        $is_multi = $regular_filter->options['group_info']['multiple'];
+      }
+      else {
+        $form_field_name = $regular_filter->options['expose']['identifier'];
+        $is_multi = $regular_filter->options['expose']['multiple'];
+      }
+      if (isset($form_state['values'][$form_field_name])) {
+        $regular_value = _filter_harmonizer_flatten($form_state['values'][$form_field_name]);
+        $regular_is_empty = filter_harmonizer_filter_is_empty($form_state['values'][$form_field_name], $regular_filter);
+      }
+      $msg = NULL;
+      if ($is_debug) {
+        $msg = t('Views Filter Harmonizer - @display %view, @filter.<br/>Exposed filter value: %regular-val. Contextual filter value: %context-val', array(
+          '%view' => $view->get_human_name(),
+          '@display' => $display_id,
+          '@filter' => $field_name,
+          '%regular-val' => $regular_is_empty ? t('EMPTY') : $regular_value,
+          '%context-val' => $contextual_is_empty ? t('EMPTY/all') : $contextual_value,
+        ));
+      }
+
+      if (!$contextual_is_empty) {
+        // Auto-clear the contextual filter when the exposed filter is clear,
+        // except on initial page load, which is the only time the contextual
+        // filter is obeyed. In this case we visualise the contextual filter
+        // value on the exposed filter.
+        // Caveat: the URL will continue to show the original contextual arg.
+        if (($is_initial_page_load || $is_paged) && ($regular_is_empty || $is_multi)) {
+          $filter_values = filter_harmonizer_convert_contextual_to_regular_value($contextual_filter, $regular_filter, $contextual_value);
+          if (isset($msg)) {
+            $msg .= ', ' . t('converted: %value', array(
+              '%value' => is_array($filter_values) ? implode('|', $filter_values) : $filter_values)
+            );
+          }
+          if ($is_multi && !$regular_is_empty && $is_merge_filter_values && is_array($filter_values)) {
+            // Special case [#2297687].
+            // If the regular filter allows multiple selections and isn't empty,
+            // project the current contextual filter args onto the exposed
+            // filter, while at the same time unsetting the contextual filter to
+            // 'all'.
+            $filter_values = array_merge(array_filter(explode('|', $regular_value)), $filter_values);
+            $filter_values = array_unique($filter_values);
+            if (isset($msg)) {
+              $msg .= '<br/>' . t('Merged: %value. Setting it on exposed, unsetting contextual.', array('%value' => implode('|', $filter_values)));
+            }
+            filter_harmonizer_set_exposed_filter($form_state, $form_field_name, $filter_values);
+            filter_harmonizer_unset_contextual_filter($contextual_filter, $filter_values);
+          }
+          else {
+            if (isset($msg)) {
+              $msg .= '. ' . t('Filter values remain.');
+            }
+          }
+          // Show the contextual filter value on the exposed filter form.
+          if ($is_fill_exposed_form) {
+            filter_harmonizer_visualise_exposed_filter($form[$form_field_name], $filter_values);
+          }
+          // Allow other modules to alter the process by
+          // implementing hook_filter_harmonizer_filter_set_alter().
+          // @todo Reduce number of arguments, should go into one data array?
+          $data = array($form, $form_state, $contextual_filter, $regular_filter, $filter_values);
+          drupal_alter('filter_harmonizer_set', $data);
+        }
+        else {
+          if (isset($msg)) {
+            $msg .= '<br/>' . t('Exposed filter override applies, unsetting contextual filter.');
+          }
+          filter_harmonizer_unset_contextual_filter($contextual_filter, $regular_value);
+        }
+      }
+      drupal_set_message($msg);
+    }
+    elseif ($is_debug) {
+      drupal_set_message(t('Views Filter Harmonizer - @display %view, @filter: contextual filter without companion exposed filter.', array(
+        '%view' => $view->get_human_name(),
+        '@display' => $display_id,
+        '@filter' => $field_name,
+      )));
+    }
+  }
+}
+
+/**
+ * Set the supplied value(s) on the exposed regular filter.
+ *
+ * @param array $form_state
+ *   The form state
+ * @param string $form_field_name
+ *   Machine name of the exposed filter.
+ * @param mixed $filter_values
+ *   Array or string value.
+ */
+function filter_harmonizer_set_exposed_filter(&$form_state, $form_field_name, $values) {
+  $form_state['view']->exposed_data[$form_field_name] = $form_state['values'][$form_field_name] = $values;
+}
+
+/**
+ * Unsets the supplied contextual filter to 'all' and fixes the view title.
+ *
+ * @param object $contextual_filter
+ * @param string $regular_filter_value
+ */
+function filter_harmonizer_unset_contextual_filter($contextual_filter, $regular_filter_value) {
+  if (isset($contextual_filter->position)) {
+    // Exposed filter to be applied, so make contextual filter retreat by
+    // setting it to 'all', whether already set or not.
+    $contextual_filter->view->args[$contextual_filter->position] = $contextual_filter->options['exception']['value'];
+    _filter_harmonizer_fix_title($contextual_filter, $regular_filter_value);
+  }
+}
+
+/**
+ * Implements hook_init().
+ */
+function filter_harmonizer_init() {
+  filter_harmonizer_is_new_page();
+}
+
+/**
+ * Returns TRUE when the current page is different from the previous.
+ *
+ * This also captures as "is new" any changes in the contextual filter arguments
+ * in the URL.
+ * Calling this function more than once during the same request, will NOT result
+ * in a different value.
+ *
+ * @return bool
+ *   TRUE when the current page (i.e. URL) is different from the previous.
+ */
+function filter_harmonizer_is_new_page() {
+  $is_new = &drupal_static(__FUNCTION__, NULL);
+  if (!isset($is_new)) {
+    $path = current_path();
+    if (module_exists('session_cache')) {
+      $session = session_cache_get('filter_harmonizer');
+      $previous_path = isset($session['prev_path']) ? $session['prev_path'] : FALSE;
+      $session['prev_path'] = $path;
+      session_cache_set('filter_harmonizer', $session);
+    }
+    else {
+      $previous_path = isset($_SESSION) && isset($_SESSION['filter_harmonizer']['prev_path']) ? $_SESSION['filter_harmonizer']['prev_path'] : FALSE;
+      $_SESSION['filter_harmonizer']['prev_path'] = $path;
+    }
+    $is_new = $previous_path !== $path;
+  }
+  return $is_new;
+}
+
+/**
+ * Determine whether the supplied argument constitutes an empty filter.
+ *
+ * 0 and one or more spaces are not considered empty, but other modules may
+ * override this.
+ *
+ * @param mixed $form_value
+ *   The value to test for "emptiness".
+ * @param object $filter_handler
+ *   The Views exposed filter handler, if required.
+ *
+ * @return bool
+ *   TRUE when $form_value is considered empty.
+ */
+function filter_harmonizer_filter_is_empty($form_value, $filter_handler = NULL) {
+  $is_empty = FALSE;
+  if (!isset($form_value) || $form_value == '' || $form_value == 'All') {
+    $is_empty = TRUE;
+  }
+  elseif (is_array($form_value)) {
+    $is_empty = _filter_harmonizer_is_empty($form_value);
+  }
+  // Allow other modules to change the definition of 'empty' by them
+  // implementing hook_filter_harmonizer_filter_is_empty_alter().
+  drupal_alter('filter_harmonizer_filter_is_empty', $form_value, $is_empty, $filter_handler);
+  return $is_empty;
+}
+
+/**
+ * Convert a supplied contextual filter value to an equivalent exposed value.
+ *
+ * Note: setting the filter form does not work when "Use AJAX" equals "Yes".
+ *
+ * @param object $contextual_filter
+ *   the contextual_filter object
+ * @param array $regular_filter
+ *   if the exposed filter is grouped, this will contain the group mapping
+ * @param string $value
+ *   the value, can be a string, number or array of tids or grouped filter ids.
+ */
+function filter_harmonizer_convert_contextual_to_regular_value($contextual_filter, $regular_filter, $value) {
+
+  if (!isset($contextual_filter) || !isset($regular_filter)) {
+    return FALSE;
+  }
+  $is_a_group = $regular_filter->is_a_group();
+  $field_name = $is_a_group ? $regular_filter->options['group_info']['identifier'] : $regular_filter->options['expose']['identifier'];
+
+  $last_value = &drupal_static(__FUNCTION__, array());
+
+  if (empty($value) && isset($last_value[$field_name])) {
+    // This happens in the case of exposed filters in blocks. For reasons I
+    // don't understand they get set twice, the second time with an empty value.
+    $value = $last_value[$field_name];
+  }
+  else {
+    $last_value[$field_name] = $value;
+  }
+  // Deal with multi-select boxes for lists and taxonomy terms.
+  if (is_a($contextual_filter, 'views_handler_argument_numeric') ||
+      is_a($contextual_filter, 'views_handler_argument_term_node_tid') ||
+      is_a($contextual_filter, 'views_handler_argument_term_node_tid_depth')) {
+    // If the contextual filter has a "Taxonomy term" validator specified of
+    // type "Term name converted to Term ID", then $value will hold term
+    // names, not tids.
+    $ids = array();
+    foreach (explode('|', $value) as $val) {
+      if (is_numeric($val)) {
+        $ids[] = $val;
+      }
+      else {
+        // Check if it's a contextual arg validator with spaces replaced by
+        // dashes; then do the reverse.
+        if (!empty($contextual_filter->options['validate_options']['transform'])) {
+          $val = str_replace('-', ' ', $val);
+        }
+        // Should return only one, unless the name is ambiguous.
+        foreach (taxonomy_get_term_by_name($val) as $term) {
+          $ids[] = $term->tid;
+        }
+      }
+    }
+    $value = $ids;
+  }
+  else {
+    // Check if it's a contextual arg with spaces replaced by dashes. If so
+    // then reverse. Cannot work in combination with "Alllow multiple values",
+    // as both options rely on spaces.
+    if (!empty($contextual_filter->options['transform_dash'])) {
+      $value = str_replace('-', ' ', $value);
+    }
+  }
+  return $is_a_group ? filter_harmonizer_get_grouped_filter_options($value, $regular_filter) : $value;
+}
+
+/**
+ * Make a new exposed filter selection visible on its form.
+ *
+ * @param array $form_field
+ *   The form's exposed filter field that needs to be set.
+ * @param mixed $values
+ *   String or array of values to set on the exposed filter field.
+ */
+function filter_harmonizer_visualise_exposed_filter(&$form_field, $values) {
+  if (is_array($values)) {
+    if ($form_field['#type'] == 'radios') {
+      $option = reset($values);
+      $form_field[$option]['#value'] = $option;
+    }
+    elseif ($form_field['#type'] == 'checkboxes') {
+      foreach ($values as $option) {
+        $form_field[$option]['#checked'] = TRUE;
+      }
+    }
+  }
+  $form_field['#value'] = $values;
+}
+
+/**
+ * Transforms the passed in filter value into the correct grouped filter option.
+ *
+ * @param mixed $value
+ *   String or array. In the context of this function multiple string values
+ *   must be separated by |, not spaces.
+ * @param object $regular_filter
+ *   The regular (exposed) filter, which may or may not be grouped.
+ */
+function filter_harmonizer_get_grouped_filter_options($value, $regular_filter) {
+  $group_ids = array();
+  // This appears good enough for Grouped filters for now.
+  foreach ($regular_filter->options['group_info']['group_items'] as $group_id => $info) {
+    if (is_array($info['value'])) {
+      if (isset($info['value']['value'])) {
+        if (in_array($info['value']['value'], $value)) {
+          $group_ids[$group_id] = $group_id;
+        }
+      }
+      elseif (array_intersect(array_keys($info['value']), $value)) {
+        $group_ids[$group_id] = $group_id;
+      }
+    }
+    elseif (is_string($value)) {
+      // Contextual argument like "holLAND" or "australia|Holland".
+      // @todo implement Glossary mode?
+      foreach (explode('|', $value) as $text) {
+        if (strcasecmp($info['value'], $text) === 0) {
+          $group_ids[$group_id] = $group_id;
+        }
+      }
+    }
+  }
+  return empty($group_ids) ? $value : $group_ids;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function filter_harmonizer_menu() {
+  $items['admin/config/content/filter_harmonizer'] = array(
+    'title' => 'Views Filter Harmonizer',
+    'description' => 'Global and advanced settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('filter_harmonizer_admin_config'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'filter_harmonizer.admin.inc',
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function filter_harmonizer_permission() {
+  return array(
+    'filter harmonizer view info msgs' => array(
+      'title' => t('View info/debug messages'),
+    ),
+  );
+}
+
+/**
+ * Return whether dubug info messages are requested for the current user's role.
+ *
+ * @return bool
+ *   TRUE if the current role may see information/debug messages.
+ */
+function filter_harmonizer_debug_flag() {
+  global $user;
+  // Cannot use user_access() for uid==1 as it will always return TRUE.
+  foreach (user_role_permissions($user->roles) as $role_permissions) {
+    if (in_array('filter harmonizer view info msgs', array_keys($role_permissions))) {
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * Flatten the supplied array or array of arrays into a single string.
+ *
+ * @param array $array
+ *   The array to flatten.
+ *
+ * @return string
+ *   String with items separated by plus signs.
+ */
+function _filter_harmonizer_flatten($array) {
+  if (!is_array($array)) {
+    return $array;
+  }
+  foreach ($array as $key => $value) {
+    if (is_array($value)) {
+      $array[$key] = implode(',', $value);
+    }
+  }
+  return implode('|', $array);
+}
+
+/**
+ * Determines whether the supplied array is considered "empty".
+ *
+ * This function considers as empty any array with at least one empty entry.
+ *
+ * @param array $array
+ *   May be a mix of simple values and nested arrays.
+ *
+ * @return bool
+ *   TRUE if empty, FALSE otherwise.
+ */
+function _filter_harmonizer_is_empty($array) {
+  foreach ($array as $value) {
+    if (empty($value) && $value !== 0) {
+      return TRUE;
+    }
+    if (is_array($value)) {
+      return _filter_harmonizer_is_empty($value);
+    }
+  }
+  $filtered = array_filter($array);
+  // For multi-selects: consider these empty when all options are deselected.
+  return count($array) > 1 ? empty($filtered) : empty($array);
+}
+
+/**
+ * When setting the contextual filters, this makes sure the title matches.
+ *
+ * Refers to the case where an alternative title was specified using %1.
+ *
+ * @param object $contextual_filter
+ *   The contexutal filter for which to fix the title.
+ * @param mixed $filter_values
+ *   Single value or array of values.
+ */
+function _filter_harmonizer_fix_title(&$contextual_filter, $filter_values) {
+
+  if ($contextual_filter->options['title'] == '%' . ($contextual_filter->position + 1)) {
+
+    if (is_a($contextual_filter, 'views_handler_argument_term_node_tid') ||
+        is_a($contextual_filter, 'views_handler_argument_term_node_tid_depth')) {
+      foreach (taxonomy_term_load_multiple(explode('|', $filter_values)) as $term) {
+        $term_names[] = $term->name;
+      }
+      $contextual_filter->options['title'] = empty($term_names) ? '' : check_plain(implode(' + ', $term_names));
+    }
+    else {
+      // Whatever the case, the current title can't be right...
+      $contextual_filter->options['title'] = '';
+    }
+  }
+}
+
+if (module_exists('geofield')) {
+  require_once 'plugins/filter_harmonizer_geofield.inc';
+}

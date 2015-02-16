@@ -1,0 +1,16 @@
+menuimage 7.x-1.x, 2012-03-16
+-----------------------------
+
+- updated README.txt to include details on how to use
+  the menu link element [options][content][image].
+
+menuimage 7.x-1.x, 2012-12-06
+-----------------------------
+
+- image preview scaled propertionally with height of 75px.
+- disabled click event of anchor to file.
+
+menuimage 7.x-1.x, 2012-12-04
+-----------------------------
+
+- proof-of-concept / initial version.

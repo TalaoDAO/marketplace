@@ -1,0 +1,18 @@
+name = I18n page views
+description = Create display page views with multiple paths.
+dependencies[] = views
+dependencies[] = locale
+package = Views
+core = 7.x
+
+files[] = i18n_page_views.module
+files[] = views_plugin_display_i18n_page.inc
+files[] = includes/i18n_page_views.views.inc
+
+
+; Information added by drupal.org packaging script on 2012-01-19
+version = "7.x-1.1"
+core = "7.x"
+project = "i18_page_views"
+datestamp = "1326982542"
+

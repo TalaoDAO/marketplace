@@ -1,0 +1,542 @@
+<?php
+/**
+ * @file
+ * Add block groups to block configuration page
+ */
+
+define('BLOCKGROUP_MAX_BLOCKGROP_NAME_LENGTH_UI', 27);
+
+/**
+ * Implements hook_boot().
+ *
+ * Blockgroup works by injecting regions into themes at runtime using
+ * hook_system_info_alter. If this hook is invoked when the blockgroup module
+ * is not (yet) loaded, the regions defined by block groups are not injected
+ * into the theme. This may happen when either system_rebuild_theme_data or
+ * list_themes is called before drupal is fully bootstrapped. In order to avoid
+ * this problem we implement hook_boot. As a result blockgroup gets loaded very
+ * early in the bootstrapping phase and the all important
+ * blockgroup_system_info_alter is present in any case.
+ *
+ * Probably hook_system_info_alter should also become a bootstrap-hook in
+ * core.
+ *
+ * @see:
+ * - bootstrap_hooks().
+ * - hook_system_info_alter().
+ * - list_themes().
+ * - system_rebuild_theme_data().
+ * - http://drupal.org/node/534594
+ */
+function blockgroup_boot() {
+  // Intentionally left empty (see above).
+}
+
+/**
+ * Implements hook_menu().
+ */
+function blockgroup_menu() {
+  $default_theme = variable_get('theme_default', 'bartik');
+
+  $items['admin/structure/block/manage/blockgroup/%blockgroup/delete'] = array(
+    'title' => 'Delete block group',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('blockgroup_delete_confirm', 5),
+    'access arguments' => array('administer block groups'),
+    'type' => MENU_CALLBACK,
+    'context' => MENU_CONTEXT_NONE,
+    'file' => 'blockgroup.admin.inc',
+  );
+  $items['admin/structure/block/groupadd'] = array(
+    'title' => 'Add group',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('blockgroup_add_form'),
+    'access arguments' => array('administer block groups'),
+    'type' => MENU_LOCAL_ACTION,
+    'file' => 'blockgroup.admin.inc',
+  );
+
+  foreach (list_themes() as $key => $theme) {
+    if ($key != $default_theme) {
+      $items['admin/structure/block/list/' . $key . '/groupadd'] = array(
+        'title' => 'Add group',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('blockgroup_add_form'),
+        'access arguments' => array('administer block groups'),
+        'type' => MENU_LOCAL_ACTION,
+        'file' => 'blockgroup.admin.inc',
+      );
+    }
+  }
+
+  return $items;
+}
+
+
+/**
+ * Implements hook_permission().
+ */
+function blockgroup_permission() {
+  return array(
+    'administer block groups' => array(
+      'title' => t('Administer block groups'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_features_api().
+ */
+function blockgroup_features_api() {
+  return array(
+    'blockgroup' => array(
+      'name' => 'Block Group',
+      'file' => drupal_get_path('module', 'blockgroup') . '/blockgroup.features.inc',
+      'default_hook' => 'default_blockgroups',
+      'feature_source' => TRUE,
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_element_info().
+ */
+function blockgroup_element_info() {
+  $types['blockgroup_pullup'] = array(
+    '#pre_render' => array('blockgroup_pullup'),
+    '#base' => NULL,
+    '#key' => NULL,
+  );
+
+  return $types;
+}
+
+
+/**
+ * A pre_render callback for pulling in elements from another part of the page.
+ */
+function blockgroup_pullup($build) {
+  $key = $build['#key'];
+  return !empty($build['#base'][$key]) ? $build['#base'][$key] : array();
+}
+
+
+/**
+ * Implements hook_block_info().
+ */
+function blockgroup_block_info() {
+  $blocks = array();
+
+  // Build up a mapping machine-name => title.
+  $blockgroups = blockgroup_list();
+
+  foreach ($blockgroups as $delta => $title) {
+    $blocks[$delta] = array(
+      'info' => t('Block group: @title', array('@title' => $title)),
+      'cache' => DRUPAL_NO_CACHE,
+    );
+  }
+
+  return $blocks;
+}
+
+
+/**
+ * Implements hook_block_configure().
+ */
+function blockgroup_block_configure($delta = '') {
+  $blockgroup = blockgroup_load($delta);
+
+  $form['title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Group title'),
+    '#maxlength' => 64,
+    '#description' => t('A brief description of your block group. Used on the <a href="@overview">Blocks administration page</a>.', array('@overview' => url('admin/structure/block'))),
+    '#weight' => -19,
+  );
+
+  $form['machine_name'] = array(
+    '#type' => 'machine_name',
+    '#title' => t('Machine name'),
+    '#maxlength' => BLOCKGROUP_MAX_BLOCKGROP_NAME_LENGTH_UI,
+    '#description' => t('A unique name. It must only contain lowercase letters, numbers and hyphens.'),
+    '#machine_name' => array(
+      'exists' => 'blockgroup_edit_blockgroup_name_exists',
+      'source' => array('settings', 'title'),
+    ),
+  );
+
+  if (!empty($blockgroup->delta)) {
+    $form['title']['#default_value'] = $blockgroup->title;
+    $form['machine_name']['#default_value'] = $blockgroup->delta;
+    $form['machine_name']['#disabled'] = TRUE;
+  }
+
+  return $form;
+}
+
+
+/**
+ * Returns whether a block group already exists.
+ *
+ * @see blockgroup_block_configure()
+ */
+function blockgroup_edit_blockgroup_name_exists($value) {
+  $blockgroups = blockgroup_list();
+  return array_key_exists($value, $blockgroups);
+}
+
+
+/**
+ * Given a block id and a forest structure, return the root.
+ */
+function _blockgroup_tree_get_top($bid, $tree, $seen = array()) {
+  if (isset($seen[$bid])) {
+    // Return NULL when a cycle was detected.
+    return NULL;
+  }
+
+  if (!isset($tree[$bid])) {
+    // Return bid if we reached the top.
+    return $bid;
+  }
+
+  // Apply function to children.
+  $seen[$bid] = $bid;
+  return _blockgroup_tree_get_top($tree[$bid], $tree, $seen);
+}
+
+
+/**
+ * Return an array of block ids which are descentants to the given bid.
+ */
+function _blockgroup_branch_flatten($bid, $branches) {
+  $result = array();
+
+  $result[] = $bid;
+
+  if (isset($branches[$bid])) {
+    foreach ($branches[$bid] as $branch) {
+      $result = array_merge($result,
+        _blockgroup_branch_flatten($branch, $branches));
+    }
+  }
+
+  return $result;
+}
+
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function blockgroup_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'block_list_alter' || $hook == 'page_alter') {
+    $implementation = $implementations['blockgroup'];
+    unset($implementations['blockgroup']);
+    $implementations['blockgroup'] = $implementation;
+  }
+}
+
+
+/**
+ * Implements hook_block_list_alter().
+ *
+ * Remove all blocks contained in invisible block groups.
+ */
+function blockgroup_block_list_alter(&$blocks) {
+  global $theme_key;
+
+  // Assumption 1: Regions which are not injected by blockgroup are considered
+  // system regions. Each system region is assigned a negative fake block id.
+  $all_regions = system_region_list($theme_key);
+  $system_regions = array_diff_key($all_regions, blockgroup_region_list());
+  $system_regions = array_combine(
+    array_keys($system_regions),
+    range(-1, -count($system_regions)));
+
+  // Assumption 2: recursion only occures through block groups. There are no
+  // other modules doing the same thing than we do.
+  $group_regions = array();
+  foreach ($blocks as $bid => $block) {
+    if ($block->module == 'blockgroup') {
+      $group_regions['blockgroup_' . $blocks[$bid]->delta] = $bid;
+    }
+  }
+
+  // Construct tree (mapping bid -> parent bid).
+  $tree = array();
+  foreach ($blocks as $bid => $block) {
+    if (isset($system_regions[$block->region])) {
+      $tree[$bid] = $system_regions[$block->region];
+    }
+    elseif (isset($group_regions[$block->region])) {
+      $tree[$bid] = $group_regions[$block->region];
+    }
+  }
+
+  // Remove all entries from parent list where top > 0 (i.e. not attached to a
+  // system region).
+  foreach ($tree as $bid => $pbid) {
+    $top = _blockgroup_tree_get_top($bid, $tree);
+    if (_blockgroup_tree_get_top($bid, $tree) > 0) {
+      unset($tree[$bid]);
+    }
+  }
+
+  // Construct branch list (mapping base -> children).
+  $branches = array();
+  foreach ($tree as $bid => $pbid) {
+    $branches[$pbid][] = $bid;
+  }
+
+  // Purge all branches containing only block groups and no content blocks.
+  foreach (array_keys($branches) as $bid) {
+    $bids = _blockgroup_branch_flatten($bid, $branches);
+    $content_blocks = array_diff($bids, $group_regions);
+    $content_blocks = array_filter($content_blocks,
+      create_function('$bid', 'return $bid > 0;'));
+
+    if (empty($content_blocks)) {
+      $tree = array_diff_key($tree, drupal_map_assoc($bids));
+    }
+  }
+
+  // Unset all blocks which are not in the tree.
+  $blocks = array_intersect_key($blocks, $tree);
+}
+
+
+/**
+ * Implements hook_block_view().
+ *
+ * Only supply a placeholder block. Use a pre_render callback which will
+ * populate the block with the content of the proper block-group region.
+ */
+function blockgroup_block_view($delta) {
+  $block['content'] = array(
+    '#type' => 'blockgroup_pullup',
+    '#key' => 'blockgroup_' . $delta,
+  );
+  return $block;
+}
+
+
+/**
+ * Implements hook_page_alter().
+ *
+ * Loop through every region and all blocks on the page. Whenever a block group
+ * is encountered, set the #base parameter of the blockgroup_pullup element to
+ * the page.
+ */
+function blockgroup_page_alter(&$page) {
+  $page['#blockgroups'] = array();
+
+  foreach ($page as $region => &$blocks) {
+    if (is_array($blocks)) {
+      foreach ($blocks as $key => &$build) {
+        // If we encounter a blockgroup-block, set its pullup base to
+        // $page['#blockgroups'].
+        if (isset($build['#type']) && $build['#type'] == 'blockgroup_pullup') {
+          $build['#base'] = &$page['#blockgroups'];
+        }
+      }
+    }
+
+    // If this is a blockgroup region, move it into $page['#blockgroups'] in
+    // order to prevent certain themes from messing with them.
+    if (substr($region, 0, 11) == 'blockgroup_') {
+      $page['#blockgroups'][$region] = $blocks;
+      unset($page[$region]);
+    }
+  }
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function blockgroup_theme() {
+  return array(
+    'block__blockgroup__default' => array(
+      'render element' => 'elements',
+      'template' => 'block-blockgroup-default',
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * Prepend theme_hook_suggestions with block__blockgroup__default such that the
+ * default blockgroup template is picked up only if there is no more specific
+ * template for this particular block group.
+ */
+function blockgroup_preprocess_block(&$variables) {
+  if ($variables['block']->module == 'blockgroup') {
+    array_unshift($variables['theme_hook_suggestions'], 'block__blockgroup__default');
+    $variables['region'] = 'blockgroup_' . $variables['block']->delta;
+  }
+}
+
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * Insert 'blockgroup' into classes array for regions defined by this module.
+ */
+function blockgroup_preprocess_region(&$variables) {
+  if (substr($variables['region'], 0, 11) == 'blockgroup_') {
+    $variables['classes_array'][] = 'blockgroup';
+  }
+}
+
+
+/**
+ * Implements hook_system_info_alter().
+ *
+ * Inject defined block groups as regions into all enabled themes.
+ */
+function blockgroup_system_info_alter(&$info, $file, $type) {
+  if ($type == 'theme') {
+    $info['regions'] += blockgroup_region_list();
+  }
+}
+
+
+/**
+ * Implements hook_FORM_ID_alter().
+ *
+ * Add delete-link to the main block administration form for blockgroups.
+ */
+function blockgroup_form_block_admin_display_form_alter(&$form, &$form_state) {
+  $blockgroups = blockgroup_list();
+
+  foreach ($blockgroups as $delta => $title) {
+    $key = 'blockgroup_' . $delta;
+    $region_anchor = drupal_clean_css_identifier('region-' . $key);
+    $block_anchor = drupal_clean_css_identifier('block-' . $key);
+
+    // Add go-to-block link
+    $rtb_options = array(
+      'fragment' => $block_anchor,
+      'attributes' => array(
+        'name' => $region_anchor,
+      ),
+    );
+    $rtb_link = l(t('Go to block'), $_GET['q'], $rtb_options);
+    $form['block_regions']['#value'][$key] .= ' ' . $rtb_link;
+
+    // Add go-to-region link
+    $btr_options = array(
+      'fragment' => $region_anchor,
+      'attributes' => array(
+        'name' => $block_anchor,
+      ),
+    );
+    $btr_link = l(t('Go to region'), $_GET['q'], $btr_options);
+    $form['blocks'][$key]['info']['#markup'] .= ' ' . $btr_link;
+
+    // Add delete link to block
+    $form['blocks'][$key]['delete'] = array(
+      '#type' => 'link',
+      '#title' => t('delete'),
+      '#href' => 'admin/structure/block/manage/blockgroup/' . $delta . '/delete',
+    );
+  }
+}
+
+
+/**
+ * Return a list of block groups.
+ */
+function blockgroup_list() {
+  $blockgroups = &drupal_static(__FUNCTION__);
+
+  if (!isset($blockgroups)) {
+    $blockgroups = db_select('block', 'b')
+      ->fields('b', array('delta', 'title'))
+      ->condition('module', 'blockgroup')
+      ->execute()
+      ->fetchAllKeyed();
+  }
+
+  return $blockgroups;
+}
+
+
+/**
+ * Return a list of regions created by block groups.
+ */
+function blockgroup_region_list() {
+  $regions = array();
+
+  foreach (blockgroup_list() as $delta => $title) {
+    $regions['blockgroup_' . $delta] = t('Block group: @title', array('@title' => $title));
+  }
+
+  return $regions;
+}
+
+
+/**
+ * Return the block group given its machine_name.
+ */
+function blockgroup_load($delta) {
+  return block_load('blockgroup', $delta);
+}
+
+
+/**
+ * Insert new block group into database.
+ */
+function blockgroup_add($blockgroup) {
+  // Insert block-records for all themes with default values.
+  $query = db_insert('block')->fields(array(
+    'pages', 'title', 'module', 'theme', 'delta'));
+  foreach (list_themes() as $key => $theme) {
+    if ($theme->status) {
+      $query->values(array(
+        'pages' => '',
+        'title' => $blockgroup->title,
+        'module' => 'blockgroup',
+        'theme' => $theme->name,
+        'delta' => $blockgroup->delta,
+      ));
+    }
+  }
+  $query->execute();
+
+  blockgroup_rebuild_data();
+}
+
+
+/**
+ * Remove the given block group form the database.
+ */
+function blockgroup_delete($blockgroup) {
+  db_delete('block')
+    ->condition('module', 'blockgroup')
+    ->condition('delta', $blockgroup->delta)
+    ->execute();
+  db_delete('block_role')
+    ->condition('module', 'blockgroup')
+    ->condition('delta', $blockgroup->delta)
+    ->execute();
+
+  blockgroup_rebuild_data();
+}
+
+
+/**
+ * Clear caches and rebuild blockgroup and theme data.
+ */
+function blockgroup_rebuild_data() {
+  drupal_static_reset('blockgroup_list');
+
+  cache_clear_all();
+
+  system_rebuild_theme_data();
+  drupal_theme_rebuild();
+}

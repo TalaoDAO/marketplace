@@ -1,0 +1,148 @@
+<?php
+/**
+ * @file
+ *   Manages the database for webform_entity.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function webform_entity_schema() {
+  module_load_include('module', 'entity');
+  $schema['webform_entity_submission_type'] = array(
+    'description' => 'Stores information about all defined webform_submission_entity types.',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique webform_entity type ID.',
+      ),
+      'type' => array(
+        'description' => 'The machine-readable name of the node type this webform_submission_entity_type is associated with.',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+      ),
+      'data' => array(
+        'type' => 'text',
+        'not null' => FALSE,
+        'size' => 'big',
+        'serialize' => TRUE,
+        'description' => 'A serialized array of additional data related to this webform_submission_entity type.',
+      ),
+      'status' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        // Set the default to ENTITY_CUSTOM without using the constant as it is
+        // not safe to use it at this point.
+        'default' => 0x01,
+        'size' => 'tiny',
+        'description' => 'The exportable status of the entity.',
+      ),
+      'module' => array(
+        'description' => 'The name of the providing module if the entity has been defined in code.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id'),
+    'unique keys' => array(
+      'type' => array('type'),
+    ),
+  );
+  return $schema;
+}
+
+/**
+ * Implements hook_schema_alter().
+ */
+function webform_entity_schema_alter(&$schema) {
+  // Add field to existing schema.
+  $schema['webform_submissions']['fields']['bundle'] = array(
+    'type' => 'text',
+    'not null' => FALSE,
+    'default' => '',
+    'description' => 'The bundle used by the webform_entity module.',
+  );
+  // Add foreign keys so things like panels will automatically
+  // detect our relationships.
+  $schema['webform_submissions']['foreign keys'] = array(
+    'node' => array(
+      'table' => 'node',
+      'columns' => array('nid' => 'nid'),
+    ),
+    'user' => array(
+      'table' => 'users',
+      'columns' => array('uid' => 'uid'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_install().
+ */
+function webform_entity_install() {
+  $field = array(
+    'type' => 'text',
+    'size' => 'small',
+    'not null' => FALSE,
+    'description' => 'The bundle used by the webform_entity module.',
+  );
+  db_add_field('webform_submissions', 'bundle', $field);
+  // We need to add our bundle info. Find all the node types of submissions that
+  // don't have bundles and then run an update for each node.
+  $result = db_query('SELECT DISTINCT ws.nid, n.type
+    FROM {webform_submissions} ws
+    INNER JOIN {node} n ON ws.nid = n.nid
+    WHERE ws.bundle IS NULL');
+  foreach($result->fetchAllKeyed() as $nid => $type) {
+    // This could probably be optimized by grouping the nids by node type and
+    // running one query for each.
+    db_update('webform_submissions')
+      ->fields(array('bundle' => $type))
+      ->condition('nid', $nid)
+      ->execute();
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function webform_entity_uninstall() {
+  db_drop_field('webform_submissions', 'bundle');
+}
+
+/**
+ * Adds a database table to store webform_submission_entity types.
+ */
+function webform_entity_update_7001() {
+  $table = array(
+    'description' => 'Stores information about all defined webform_submission_entity types.',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique webform_entity type ID.',
+      ),
+      'type' => array(
+        'description' => 'The machine-readable name of the node type this webform_submission_entity_type is associated with.',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+      ),
+      'data' => array(
+        'type' => 'text',
+        'not null' => FALSE,
+        'size' => 'big',
+        'serialize' => TRUE,
+        'description' => 'A serialized array of additional data related to this webform_submission_entity type.',
+      ),
+    ) + entity_exportable_schema_fields(),
+    'primary key' => array('id'),
+    'unique keys' => array(
+      'type' => array('type'),
+    ),
+  );
+  db_create_table('webform_entity_submission_type', $table);
+}

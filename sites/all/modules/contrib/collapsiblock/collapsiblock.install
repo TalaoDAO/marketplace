@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * Install hooks for Collapsiblock.
+ */
+
+/**
+ * Implements hook_uninstall.
+ */
+function collapsiblock_uninstall() {
+  variable_del('collapsiblock_settings');
+  variable_del('collapsiblock_default_state');
+  variable_del('collapsiblock_slide_type');
+  variable_del('collapsiblock_slide_speed');
+  variable_del('collapsiblock_settings');
+}

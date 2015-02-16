@@ -1,0 +1,12 @@
+name = Block Group
+description = Add block groups to block configuration page
+core = 7.x
+dependencies[] = block
+files[] = blockgroup.test
+
+; Information added by Drupal.org packaging script on 2013-12-28
+version = "7.x-2.1"
+core = "7.x"
+project = "blockgroup"
+datestamp = "1388240006"
+

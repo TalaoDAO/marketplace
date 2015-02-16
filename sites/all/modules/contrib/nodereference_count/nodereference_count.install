@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for the nodereference_count module.
+ */
+
+/**
+ * Implements hook_enable().
+ */
+function nodereference_count_enable() {
+  // Weight nodereference_count to come after other field modules.
+  db_update('system')
+  ->fields(array('weight' => 10))
+  ->condition('name', 'nodereference_count')
+  ->condition('type', 'module')
+  ->execute();
+}

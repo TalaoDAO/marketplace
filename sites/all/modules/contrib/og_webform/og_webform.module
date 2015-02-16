@@ -1,0 +1,141 @@
+<?php
+
+/**
+ * @file
+ *  Enables organic group administrators to modify webforms within their groups.
+ */
+
+/**
+ * Implements hook_og_permission().
+ */
+function og_webform_og_permission() {
+  $items = array();
+
+  $items['access all webform results'] = array(
+    'title' => t('Access all webform results in group'),
+    'description' => t('Grants access to the "Results" tab on all webforms in this group. Generally a group admin permission.'),
+    'roles' => array(OG_ANONYMOUS_ROLE, OG_AUTHENTICATED_ROLE, OG_ADMINISTRATOR_ROLE),
+  );
+
+  $items['edit all webform submissions'] = array(
+    'title' => t('Edit all webform submissions in group'),
+    'description' => t('Allows editing of any webform submission by any user in this group. Generally a group admin permission.'),
+    'roles' => array(OG_AUTHENTICATED_ROLE, OG_ADMINISTRATOR_ROLE),
+  );
+
+  $items['delete all webform submissions'] = array(
+    'title' => t('Delete all webform submissions in group'),
+    'description' => t('Allows deleting of any webform submission by any user in this group. Generally a group admin permission.'),
+    'roles' => array(OG_AUTHENTICATED_ROLE, OG_ADMINISTRATOR_ROLE),
+  );
+
+  $items['access own webform submissions'] = array(
+    'title' => t('Access own webform submissions'),
+    'roles' => array(OG_ANONYMOUS_ROLE, OG_AUTHENTICATED_ROLE, OG_ADMINISTRATOR_ROLE),
+  );
+
+  $items['edit own webform submissions'] = array(
+    'title' => t('Edit own webform submissions'),
+    'roles' => array(OG_ANONYMOUS_ROLE, OG_AUTHENTICATED_ROLE, OG_ADMINISTRATOR_ROLE),
+  );
+
+  $items['delete own webform submissions'] = array(
+    'title' => t('Delete own webform submissions'),
+    'roles' => array(OG_ANONYMOUS_ROLE, OG_AUTHENTICATED_ROLE, OG_ADMINISTRATOR_ROLE),
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_webform_submission_access().
+ *
+ * @see webform_submission_access()
+ */
+function og_webform_webform_submission_access($node, $submission, $op = 'view', $account = NULL) {
+  global $user;
+  $account = isset($account) ? $account : $user;
+
+  // If this webform is not in a group, don't affect access.
+  if (empty($node->group_audience['und'])) {
+    return;
+  }
+
+  $access_all = FALSE;
+  $access_own_submission = FALSE;
+  foreach ($node->group_audience['und'] as $group) {
+    // Determine if the user has access to all results and submissions.
+    if (og_user_access($group['gid'], 'access all webform results', $account)) {
+      $access_all = TRUE;
+      break; // If we access to everything, "access own" doesn't matter.
+    }
+
+    // Or check if they have access to just their own submissions.
+    if (isset($submission) && og_user_access($group['gid'], 'access own webform submissions', $account) && (($account->uid && $account->uid == $submission->uid) || isset($_SESSION['webform_submission'][$submission->sid]))) {
+      $access_own_submission = TRUE;
+    }
+  }
+
+  // Access to any operation (view/edit/delete) requires access permission.
+  $general_access = $access_all || $access_own_submission;
+
+  switch ($op) {
+    case 'view':
+      return $general_access;
+    case 'save':
+      // The "save" case tells Webform to save a session for anonymous users if
+      // they have permission to access their own permissions.
+      return og_user_access($group['gid'], 'access own webform submissions', $account);
+    case 'list':
+      return og_user_access($group['gid'], 'access all webform results', $account) || (og_user_access($group['gid'], 'access own webform submissions', $account) && ($account->uid || isset($_SESSION['webform_submission'])));
+    case 'edit':
+      if ($general_access) {
+        foreach ($node->group_audience['und'] as $group) {
+          if (og_user_access($group['gid'], 'edit all webform submissions', $account) || (og_user_access($group['gid'], 'edit own webform submissions', $account) && $submission->uid == $account->uid)) {
+            return TRUE;
+          }
+        }
+      }
+      break;
+    case 'delete':
+      if ($general_access) {
+        foreach ($node->group_audience['und'] as $group) {
+          if (og_user_access($group['gid'], 'delete all webform submissions', $account) || (og_user_access($group['gid'], 'delete own webform submissions', $account) && $submission->uid == $account->uid)) {
+            return TRUE;
+          }
+        }
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_webform_results_access().
+ */
+function og_webform_webform_results_access($node, $account = NULL) {
+  // If this webform is not in a group, don't affect access.
+  if (empty($node->group_audience['und'])) {
+    return;
+  }
+
+  foreach ($node->group_audience['und'] as $group) {
+    if (og_user_access($group['gid'], 'access all webform results', $account)) {
+      return TRUE;
+    }
+  }
+}
+
+/**
+ * Implements hook_webform_results_clear_access().
+ */
+function og_webform_webform_results_clear_access($node, $account = NULL) {
+  if (empty($node->group_audience['und'])) {
+    return;
+  }
+
+  foreach ($node->group_audience['und'] as $group) {
+    if (og_user_access($group['gid'], 'delete all webform submissions', $account)) {
+      return og_webform_webform_results_access($node, $account);
+    }
+  }
+}

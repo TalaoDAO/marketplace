@@ -1,0 +1,216 @@
+<?php
+
+/**
+ * @file
+ * Provides functionality to add preview image to content type
+ */
+
+/**
+ * Implements hook_help().
+ */
+function content_type_thumbnail_help($path, $arg) {
+  switch ($path) {
+    case 'admin/config/content/content_type_thumbnail':
+      $output = '';
+      $output .= '<p>' . t('Below you can change the way the <a href="@add-content">Add content</a> screen is laid out.', array('@add-content' => url('node/add'))) . '</p>';
+      $output .= '<p>' . t('<strong>List</strong> will output the content types in a list. <br /><strong>Grid</strong> will output the content types in 2 columns.') . '</p>';
+      $output .= '<p>' . t('If you select Grid View and your image is wider than 50% of the <a href="@add-content">Add content</a> screen, your image will be scaled down to fit.', array('@add-content' => url('node/add'))) . '</p>';
+      return $output;
+  }
+}
+
+
+/**
+ * Implements hook_menu().
+ */
+function content_type_thumbnail_menu() {
+
+  $items = array();
+
+  $items['admin/config/content/content_type_thumbnail'] = array(
+    'title' => 'Content Type Thumbnail settings',
+    'description' => 'Change the way the Add Content screen is laid out',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('content_type_thumbnail_admin'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function content_type_thumbnail_theme($existing, $type, $theme, $path) {
+  $items['content_type_thumbnail'] = array(
+    'variables' => array('type' => NULL),
+  );
+  $items['image_content_type_thumbnail_multitype'] = array(
+    'render element' => 'element',
+  );
+  return $items;
+}
+
+/**
+ * Default theme function for content_type_thumbnail.
+ */
+function theme_content_type_thumbnail($variables) {
+  $type = $variables['type'];
+  if (variable_get('content_type_thumbnail_image_' . $type)) {
+    $image = file_load(variable_get('content_type_thumbnail_image_' . $type));
+    $vars = array('path' => $image->uri,  'style_name' => 'content_type_thumbnail');
+    return theme('image_style', $vars);
+  }
+  else {
+    $vars = array('path' => drupal_get_path('module', 'content_type_thumbnail') . '/images/no-image.png');
+    return theme('image', $vars);
+  }
+}
+
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function content_type_thumbnail_theme_registry_alter(&$theme_registry) {
+  $theme_registry['node_add_list']['function'] = 'content_type_thumbnail_node_add_list';
+}
+
+/**
+ * Override of theme_node_add_list().
+ */
+function content_type_thumbnail_node_add_list($variables) {
+  $content = $variables['content'];
+  $output = '';
+  $display_layout = (variable_get('content_type_thumbnail_display', 0) == 0 ? 'display-list' : 'display-grid');
+  $counter = 1;
+  if ($content) {
+    $output .= '<dl class="node-type-list ' . $display_layout . '">';
+    foreach ($content as $item) {
+      unset($image, $image_link);
+      if (strpos($item['href'], 'node/add/') === 0) {
+        $type = substr($item['href'], 9);
+        $type_machine = str_replace('-', '_', $type);
+        if (!empty($type)) {
+          $image = theme('content_type_thumbnail', array('type' => $type_machine));
+          $image_link = l($image, 'node/add/' . $type, array('html' => TRUE, 'attributes' => array('class' => 'node-type-image')));
+        }
+      }
+      if ($counter == 1 && $display_layout == 'display-grid') {
+        $output .= '<div class="grid-container clearfix">';
+      }
+      $output .= '<dt class="clearfix">' . $image_link . l($item['title'], $item['href'], $item['localized_options']) . '<br />' . filter_xss_admin($item['description']) . '</dt>';
+      if ($counter == 2 && $display_layout == 'display-grid') {
+        $counter = 1;
+        $output .= '</div>';
+      }
+      else {
+        $counter++;
+      }
+    }
+    $output .= '</dl>';
+  }
+  else {
+    $output = '<p>' . t('You have not created any content types yet. Go to the <a href="@create-content">content type creation page</a> to add a new content type.', array('@create-content' => url('admin/structure/types/add'))) . '</p>';
+  }
+  return $output;
+}
+
+/**
+ * Implements hook_form_node_type_alter().
+ */
+function content_type_thumbnail_form_node_type_form_alter(&$form, &$form_state, $form_id) {
+  $type = $form['#node_type']->type;
+
+  $form['thumbnail']['#collapsible'] = TRUE;
+  $form['thumbnail']['#description'] = 'Set the thumbnail for this content type';
+  $form['thumbnail']['#group'] = 'additional_settings';
+  $form['thumbnail']['#title'] = 'Thumbnail';
+  $form['thumbnail']['#type'] = 'fieldset';
+
+  $form['thumbnail']['content_type_thumbnail_image'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Thumbnail Image'),
+    '#description' => t('Allowed file types: <strong>png jpg jpeg</strong>'),
+    '#upload_location' => 'public://content_type_thumbnail/',
+    '#default_value' => variable_get('content_type_thumbnail_image_' . $form['#node_type']->type),
+    '#upload_validators' => array(
+      'file_validate_extensions' => array('png jpg jpeg'),
+    ),
+    '#theme' => 'image_content_type_thumbnail_multitype',
+  );
+  $form['#submit'][] = '_content_type_thumbnail_submit';
+}
+
+/**
+ * Change the file status to permanent on submit.
+ */
+function _content_type_thumbnail_submit($form, &$form_state) {
+  $file = $form['thumbnail']['content_type_thumbnail_image']['#file'];
+  if ($file) {
+    $file->status = FILE_STATUS_PERMANENT;
+    file_save($file);
+    file_usage_add($form['thumbnail']['content_type_thumbnail_image']['#file'], 'content_type_thumbnail', 'bundle', $file->fid);
+  }
+}
+
+/**
+ * Returns HTML for a managed file element with thumbnail.
+ */
+function theme_image_content_type_thumbnail_multitype($variables) {
+  $output = '';
+  $element = $variables['element'];
+
+  if ($element['fid']['#value'] != 0) {
+    $output .= '<div class="content-type-thumbnail">';
+    $settings = array(
+      'path' => file_load($element['fid']['#value'])->uri,
+      'style_name' => 'content_type_thumbnail',
+      'getsize' => FALSE,
+    );
+    $output .= theme('image_style', $settings);
+    $output .= '<div class="form-elements">';
+    $output .= drupal_render_children($element);
+    $output .= '</div>';
+    $output .= '</div>';
+  }
+
+  return $output;
+}
+
+/**
+ * Allow administrator to select the layout for the node/add screen.
+ */
+function content_type_thumbnail_admin() {
+  $form = array();
+
+  $form['content_type_thumbnail_display'] = array(
+    '#type' => 'select',
+    '#title' => 'Layout',
+    '#options' => array('List View', 'Grid View'),
+    '#default_value' => variable_get('content_type_thumbnail_display', 0),
+    '#required' => TRUE,
+  );
+
+  return system_settings_form($form);
+}
+
+
+/**
+ * Implements hook_image_default_styles().
+ */
+function content_type_thumbnail_image_default_styles() {
+  $styles = array();
+
+  $styles['content_type_thumbnail'] = array(
+    'effects' => array(
+      array(
+        'name' => 'image_scale_and_crop',
+        'data' => array('width' => 160, 'height' => 160, 'upscale' => TRUE),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  return $styles;
+}

@@ -1,0 +1,16 @@
+name =  Collapsiblock
+description = Makes blocks collapsible.
+package = User interface
+core = 7.x
+configure = admin/config/user-interface/collapsiblock
+scripts[] = collapsiblock.js
+stylesheets[all][] = collapsiblock.css
+files[] = collapsiblock.install
+files[] = collapsiblock.module
+
+; Information added by drupal.org packaging script on 2011-05-10
+version = "7.x-1.0"
+core = "7.x"
+project = "collapsiblock"
+datestamp = "1304990815"
+

@@ -1,0 +1,11 @@
+name = Bootstrap Optimizer
+description = Removes broken module files from {system} table to improve bootstrap load speed.
+configure = admin/config/development/bootstrap_optimizer
+core = 7.x
+
+; Information added by drupal.org packaging script on 2012-10-21
+version = "7.x-1.0-beta2"
+core = "7.x"
+project = "bootstrap_optimizer"
+datestamp = "1350844566"
+

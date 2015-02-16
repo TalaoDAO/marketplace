@@ -1,0 +1,184 @@
+<?php
+
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function sudo_menu() {
+  $items = array();
+  $items['admin/people/sudo'] = array(
+    'title' => 'Sudo Users',
+    'description' => 'Settings for Sudo Users',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('sudo_settings'),
+    'access arguments' => array('administer permissions'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'sudo.pages.inc',
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() on system_site_maintenance_mode_form().
+ */
+function sudo_form_system_site_maintenance_mode_alter(&$form, $form_state) {
+  module_load_include('inc', 'sudo', 'sudo.pages');
+  $form['#submit'][] = 'sudo_site_offline_submit';
+}
+
+// TODO: alter user_admin_account() form to display sudo roles on user listing
+
+/**
+ * Implements hook_page_alter().
+ */
+function sudo_page_alter(&$page) {
+  global $user;
+  if ($user->uid && !variable_get('sudo_hide_button', FALSE) && is_array($sudo_roles = sudo_roles())) { // intentional assignment of $sudo_roles
+    // put the form onto the page
+    module_load_include('inc', 'sudo', 'sudo.pages');
+    $page['page_bottom']['sudo'] = drupal_get_form('sudo_switch');
+    // load the proper css file
+    if (variable_get('sudo_button_path', FALSE)) {
+      global $theme_path;
+      $path = "$theme_path/sudo_button";
+    }
+    else {
+      $path = drupal_get_path('module', 'sudo') . '/sudo_button';
+    }
+    drupal_add_css("$path/sudo_button.css");
+  }
+}
+
+/**
+ * Gets all sudo roles for the current user or a specified uid
+ *
+ * @param int $uid
+ *   (optional) The uid of the user for which to return sudo roles.  If not
+ *   specified, the current user's sudo roles will be returned.
+ *
+ * @return array
+ *   An associative (un-keyed) array of rid's for each role that the specified
+ *   user will gain when sudoing.
+ *
+ */
+function sudo_roles($uid = NULL) {
+  if (!$uid || !is_numeric($uid)) {
+    global $user;
+    $uid = $user->uid;
+  }
+  if ($sudo_roles = db_query("SELECT roles FROM {sudo} WHERE uid = :uid", array(':uid' => $uid))->fetchField()) { // intentional assignment of $sudo_roles
+    return unserialize($sudo_roles);
+  }
+  return array();
+}
+
+/**
+ * Implements hook_user_presave().
+ */
+function sudo_user_presave(&$edit, $account, $category) {
+  if (TRUE) {
+
+    $default_sudo_roles = variable_get('sudo_default_roles', array());
+    $save_roles = array_keys($edit['roles']);
+    $current_roles = array_keys($account->roles);
+    $added_roles = array_diff($save_roles, $current_roles);
+    $removed_roles = array_diff($current_roles, $save_roles);
+    $sudo_roles = sudo_roles($account->uid);
+
+    // add to sudo roles if any of the defualt sudo roles are in the save roles
+    if (count($new_sudo_roles = array_intersect($default_sudo_roles, $added_roles))) { // intentional assignment of $new_sudo_roles
+      $sudo_roles = array_merge($sudo_roles, $new_sudo_roles);
+    }
+
+    // remove from sudo roles any roles that have been removed from the user
+    if (count($removed_roles)) { // intentional assignment of $removed_roles
+      $sudo_roles = array_diff($sudo_roles, $removed_roles);
+    }
+
+    // remove current record from sudo table
+    db_delete('sudo')
+      ->condition('uid', $account->uid)
+      ->execute();
+
+    // if there are sudo roles, add those to sudo table
+    if (!empty($sudo_roles)) {
+      $id = db_insert('sudo')
+        ->fields(array(
+          'uid' => $account->uid,
+          'roles' => serialize($sudo_roles),
+        ))
+        ->execute();
+    }
+  }
+}
+
+/**
+ * Implements hook_user_cancel().
+ */
+function sudo_user_cancel($edit, $account, $method) {
+  if (TRUE) {
+    db_delete('sudo')
+      ->condition('uid', $account->uid)
+      ->execute();
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function sudo_theme() {
+  return array(
+    'sudo_checkboxes' => array(
+      'render element' => 'form',
+      'file' => 'sudo.pages.inc',
+    ),
+    'sudo_switch' => array(
+      'render element' => 'form',
+      'file' => 'sudo.pages.inc',
+    ),
+  );
+}
+
+/**
+ * Implements hook_user_operations().
+ *
+ * @todo: add functionality to remove ALL sudo roles from multiple users?
+ */
+function sudo_user_operations() {
+  $operations = array(
+    'sudoadd' => array(
+      'label' => t('Add selected users to sudoers'),
+      'callback' => 'sudo_user_operations_add',
+    ),
+  );
+  return $operations;
+}
+
+/**
+ * Implementation of "sudoadd" defined in hook_user_operations()
+ *
+ * This function adds a number of accounts from the user operations page
+ * at admin/people/people to the sudo user list.
+ *
+ * @todo: give new sudo users the default sudo roles
+ *
+ * @param $accounts
+ */
+function sudo_user_operations_add($accounts) {
+  foreach ($accounts as $uid) {
+    $account = user_load((int) $uid);
+    if ($account !== FALSE) {
+      $default_roles = variable_get('sudo_default_roles', array());
+      $save_roles = array_intersect($default_roles, array_keys($account->roles));
+      $id = db_insert('sudo')
+        ->fields(array(
+          'uid' => $account->uid,
+          'roles' => serialize($save_roles),
+        ))
+        ->execute();
+    }
+  }
+}

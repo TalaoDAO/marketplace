@@ -1,0 +1,21 @@
+<?php
+/**
+ * @file
+ * Main file for the Piwik rules module
+ */
+/**
+ * Implements hook_menu().
+ */
+function piwik_rules_menu() {
+  $items['admin/config/system/piwik/rules'] = array(
+    'title' => 'Rules',
+    'description' => 'Configure the settings for your Piwik reports.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('piwik_rules_admin_settings_form'),
+    'access arguments' => array('administer piwik'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'piwik_rules.admin.inc',
+  );
+  return $items;
+}
+
