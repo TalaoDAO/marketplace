@@ -281,6 +281,7 @@ input:not([type=submit]) {
   height: 2em;
   padding: 0.313em;
   width: 5.313em;
+  text-transform: uppercase;
 }
 .language-select select option {
   text-transform: uppercase;
@@ -289,18 +290,46 @@ input:not([type=submit]) {
 .expert {
   background-color: #c89234 !important;
 }
+table thead {
+  border-bottom : 1px dashed #009fe3;
+  line-height: 3em;
+}
+table tbody {
+  border-top: none;
+}
+table thead th,
 .table-header {
   margin-top: 1.5em;
   text-align: center;
   color: #009fe3;
   font-weight: bold;
+  border: none;
 }
+table thead th a,
+.table-header a {
+  color: #009fe3 !important;
+}
+
+table tbody tr,
 .table-content {
   text-align: center;
   line-height: 3em;
+  border: none;
 }
+table tbody tr:nth-child(odd),
 .table-content:nth-child(odd) {
   background-color: #f9f4ea;
+}
+table tbody tr:nth-child(even){
+  background-color: #fff;
+}
+table tbody:before {
+  /* This doesn't work because of border-collapse */
+  line-height:1em;
+  content:"_";
+  color:white;
+  display:block;
+
 }
 /* Surcharge nice-menu */
 .nice-menu {
@@ -368,5 +397,296 @@ input:not([type=submit]) {
 }
 .menu-3661 a {
   color: #4c6172 !important;
+}
+
+.menu-3638 {
+    background: url(../images/findExpert.png) #d4d9dd no-repeat 7% 50% !important;
+    height: 11.625em;
+    padding: .7em !important;
+}
+
+.menu-3639 {
+    background: url(../images/launchChallenge.png) #d4d9dd no-repeat 7% 50% !important;
+    height: 11.625em;
+    padding: .7em !important;
+}
+
+.menu-3640 {
+    background: url(../images/askQuestion.png) #d4d9dd no-repeat 7% 50% !important;
+    height: 11.625em;
+    padding: .7em !important;
+}
+
+.popup {
+  display: block;
+  float: left;
+  position: static;
+  top: 0;
+  left: 0;
+  width: 40em;
+  height: 15em;
+  background-color: #4c6172;
+  color: #ffffff;
+}
+.popup .social-network {
+  padding-left: 3em;
+  height: 1.813em;
+  width: 15.125em;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  margin-top: .5em;
+}
+.popup .facebook-login {
+  background: #0d6cb4 url(../images/facebook.png) no-repeat 7% 50%;
+  padding-left: 3em;
+  height: 1.813em;
+  width: 15.125em;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  margin-top: .5em;
+}
+.popup .twitter-login {
+  background: #33c0f0 url(../images/twitter.png) no-repeat 3.9% 50%;
+  padding-left: 3em;
+  height: 1.813em;
+  width: 15.125em;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  margin-top: .5em;
+}
+.popup .linkedin-login {
+  background: #008fcd url(../images/linkedin.png) no-repeat 5.4% 50%;
+  padding-left: 3em;
+  height: 1.813em;
+  width: 15.125em;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  margin-top: .5em;
+}
+.popup .form-control-custom {
+  height: auto !important;
+}
+.views-table {
+  width: 100%;
+}
+
+.views-exposed-form {
+  background-color: #f6f7f8;
+  padding: 30px 20px;
+}
+.views-exposed-form .form-item,
+.views-exposed-form .form-submit {
+  float: left;
+  margin: 0 10px;
+}
+/*
+.block-views {
+  padding-top: 1.18em;
+  padding-bottom: 1.18em;
+}
+
+.block-views h2 {
+  font-size: 1.125em;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #009fe3;
+}
+*/
+.row.paddingUD h2 {
+  font-size: 1.125em;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.region-burgermenu {
+    display: none;
+    background-color: #2e3243;
+    position: fixed;
+    top:0;
+    bottom: 0;
+    left: 0;
+    color: #2e3243;
+    width: 18.75em;
+    overflow-y: auto;
+}
+
+#block-menu-menu-burger-menu a {
+    color: #2e3243;
+    font-size: 1.143em;
+}
+#block-menu-menu-burger-menu div.leaf {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+#block-menu-menu-burger-menu div a {
+    color: white;
+}
+
+
+/*=========END CHECKBOXES============*/
+/* Base for label styling */
+.region-burgermenu [type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
+    position: absolute;
+    left: -9999px;
+}
+.region-burgermenu [type="checkbox"]:not(:checked) + label,
+[type="checkbox"]:checked + label {
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+}
+
+/* checkbox aspect */
+.region-burgermenu [type="checkbox"]:not(:checked) + label:before,
+[type="checkbox"]:checked + label:before {
+    content: '';
+    position: absolute;
+    left:0; top: 2px;
+    width: 17px; height: 17px;
+    border: 1px solid #d5d6d9;
+    background: transparent;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,.3)
+}
+/* checked mark aspect */
+.region-burgermenu [type="checkbox"]:not(:checked) + label:after,
+[type="checkbox"]:checked + label:after {
+    content: '✔';
+    position: absolute;
+    top: 0; left: 4px;
+    font-size: 14px;
+    color: #009fe3;
+    line-height: 1.75;
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    -ms-transition: all .2s;
+    transition: all .2s;
+}
+/* checked mark aspect changes */
+.region-burgermenu [type="checkbox"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -ms-transform: scale(0);
+    transform: scale(0);
+}
+.region-burgermenu [type="checkbox"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+}
+/* disabled checkbox */
+.region-burgermenu [type="checkbox"]:disabled:not(:checked) + label:before,
+[type="checkbox"]:disabled:checked + label:before {
+    box-shadow: none;
+    border-color: #bbb;
+    background-color: #ddd;
+}
+.region-burgermenu [type="checkbox"]:disabled:checked + label:after {
+    color: #999;
+}
+.region-burgermenu [type="checkbox"]:disabled + label {
+    color: #aaa;
+}
+
+/*=========END CHECKBOXES============*/
+
+.my-contributions {
+    background: url(../images/bmCrayon.png) 0% 50% no-repeat;
+    padding-left: 2em;
+}
+
+.my-dashboard {
+    background: url(../images/bmComputer.png) 0% 50% no-repeat;
+    padding-left: 2em;
+}
+
+.my-drafts {
+    background: url(../images/bmNotepad.png) 0% 50% no-repeat;
+    padding-left: 2em;
+}
+
+.my-ressources {
+    background: url(../images/bmToolbox.png) 0% 50% no-repeat;
+    padding-left: 2em;
+}
+
+.my-selections {
+    background: url(../images/bmMenu.png) 0% 50% no-repeat;
+    padding-left: 2em;
+}
+
+.my-working-groups {
+    background: url(../images/bmPeoples.png) 0% 50% no-repeat;
+    padding-left: 2em;
+}
+
+.my-circles {
+    padding-left: 2em;
+}
+
+.my-responses {
+    padding-left: 2em;
+}
+
+.my-articles {
+    padding-left: 2em;
+}
+
+.burgermenu-title {
+    color: #009fe3;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.125em;
+    margin-left: 1.875em;
+    display: inline-block;
+}
+
+.region-burgermenu .global-filter {
+    color: white;
+    margin-left: 1.875em;
+    margin-right: 1.875em;
+}
+
+.region-burgermenu .global-filter input[type=submit] {
+    background-color: #009fe3;
+    border: 0 !important;
+    margin-bottom: .5em;
+}
+
+.region-burgermenu .global-filter .form-type-checkbox {
+    display: block;
+}
+
+.burger-menu-btn-container {
+    cursor: pointer;
+    position: relative;
+    margin-left: -5em;
+    margin-top: -3em;
+    width: 3em;
+
+}
+
+.burgermenu-close-icon {
+    margin-top: -.5em;
+    margin-left: 5em;
+}
+
+.views-field-title {
+    text-align: left !important;
+}
+
+.header-emindhub {
+    padding-bottom: 1.5em;
 }
 /*# sourceMappingURL=emindhub.css.map */

@@ -21,6 +21,8 @@ regions[footer] = Footer
 regions[page_bottom] = Page Bottom
 regions[featured] = Featured
 regions[highlighted] = Highlighted
+regions[burgermenu] = Burger Menu
 
 regions[languageselect] = Sélection de langue
 regions[contactform] = Formulaire de contact
+regions[searchmodule] = Recherche
