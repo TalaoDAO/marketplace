@@ -72,50 +72,53 @@
  * @ingroup themeable
  */
 ?>
-  <div id="page-wrapper"><div id="page">
+<div id="page-wrapper">
+    <div id="page">
     <div id="header">
         <div class="section clearfix paddingU">
-            <?php require_once __DIR__.'/includes/_header.tpl.php' ?>
+            <?php require_once __DIR__ . '/includes/_header.tpl.php' ?>
 
-            <div class="banniere">
-                <div class="container container-fluid">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="text-banniere">
-                                <?php print $banniereText; ?>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-md-offset-4">
-                            <div class="row inscription-image-wrapper">
-                                <div class="col-md-12">
-                                    <?php print $demandeImg; ?>
+            <?php if (!user_is_logged_in()): ?>
+                <div class="banniere">
+                    <div class="container container-fluid">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="text-banniere">
+                                    <?php print $banniereText; ?>
                                 </div>
                             </div>
-                            <div class="row inscription-image-wrapper">
-                                <div class="col-md-12">
-                                    <?php print $expertiseImg; ?>
+                            <div class="col-md-4 col-md-offset-4">
+                                <div class="row inscription-image-wrapper">
+                                    <div class="col-md-12">
+                                        <?php print $demandeImg; ?>
+                                    </div>
+                                </div>
+                                <div class="row inscription-image-wrapper">
+                                    <div class="col-md-12">
+                                        <?php print $expertiseImg; ?>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
+            <?php endif; ?>
             <div class="container container-fluid">
                 <?php print render($page['header']); ?>
             </div>
         </div>
     </div> <!-- /.section, /#header -->
-    <?php if (!drupal_is_front_page()): ?>
-        <div class="container container-fluid">
+<?php if (!user_is_logged_in()): ?>
+    <div class="container container-fluid">
+        <?php if (isHomePage()): ?>
             <div class="title-wrapper">
                 <div class="row">
                     <div class="col-md-4">
-                        <hr class="hr-dark" />
+                        <hr class="hr-dark"/>
                     </div>
-                    <div class="col-md-4 title">QUI SONT LES EXPERTS ?</div>
+                    <div class="col-md-4 title"><?php print t("QUI SONT LES EXPERTS ?"); ?></div>
                     <div class="col-md-4">
-                        <hr class="hr-dark" />
+                        <hr class="hr-dark"/>
                     </div>
                 </div>
             </div>
@@ -126,8 +129,9 @@
                             <?php print $atomiumImg; ?>
                         </div>
                         <div class="col-md-10">
-                            <span class="light-blue-text">Professionnels expérimentés, retraités actifs, chercheurs, étudiants...</span>
-                            <p>Ils sont dans votre réseau ou dans le réseau emindhub.</p>
+                            <span class="light-blue-text"><?php print t("Professionnels expérimentés, retraités actifs, chercheurs, étudiants..."); ?></span>
+
+                            <p><?php print t("Ils sont dans votre réseau ou dans le réseau emindhub."); ?></p>
                         </div>
                     </div>
                 </div>
@@ -142,7 +146,7 @@
                                     </map>
                                 </div>
                                 <div class="col-md-9 paddingUD">
-                                    TOUS <br><span class="bold">LES EXPERTS</span>
+                                    <?php print t("TOUS"); ?> <br><span class="bold"><?php print t("LES EXPERTS"); ?></span>
                                 </div>
                             </div>
                         </div>
@@ -152,7 +156,7 @@
                                     <?php print $cercleImg; ?>
                                 </div>
                                 <div class="col-md-9 paddingUD">
-                                    LES EXPERTS <br><span class="bold">PARRAINÉS</span>
+                                    <?php print t("LES EXPERTS"); ?> <br><span class="bold"><?php print t("PARRAINÉS"); ?></span>
                                 </div>
                             </div>
                         </div>
@@ -167,8 +171,9 @@
                                 <?php print $peopleImg; ?>
                             </div>
                             <div class="col-md-10">
-                                <span class="light-blue-text">Avec emindhub,</span>
-                                <p>Vous les organisez et les sollicitez selon vos besoins.</p>
+                                <span class="light-blue-text"><?php print t("Avec emindhub,"); ?></span>
+
+                                <p><?php print t("Vous les organisez et les sollicitez selon vos besoins."); ?></p>
                             </div>
                         </div>
                     </div>
@@ -181,7 +186,7 @@
                                     <?php print $cercleImg; ?>
                                 </div>
                                 <div class="col-md-9 paddingUD">
-                                    VOTRE RÉSEAU <br><span class="bold">ACTIF</span>
+                                    <?php print t("VOTRE RÉSEAU"); ?> <br><span class="bold"><?php print t("ACTIF"); ?></span>
                                 </div>
                             </div>
                         </div>
@@ -191,7 +196,7 @@
                                     <?php print $cercleImg; ?>
                                 </div>
                                 <div class="col-md-9 paddingUD">
-                                    VOS <br><span class="bold">ALUMNIS</span>
+                                    <?php print t("VOS"); ?> <br><span class="bold"><?php print t("ALUMNIS"); ?></span>
                                 </div>
                             </div>
                         </div>
@@ -201,211 +206,224 @@
                                     <?php print $cercleImg; ?>
                                 </div>
                                 <div class="col-md-9 paddingUD">
-                                    VOS CERCLES <br><span class="bold">PRIVÉS</span>
+                                    <?php print t("VOS CERCLES"); ?> <br><span class="bold"><?php print t("PRIVÉS"); ?></span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        <?php endif; ?>
+        <?php if (!isHomePage()): ?>
             <div class="row">
-                <div class="col-md-8">
-                    <div class="title-wrapper">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <hr class="hr-dark" />
-                            </div>
-                            <div class="col-md-4 title">
-                                NOS ENGAGEMENTS
-                            </div>
-                            <div class="col-md-4">
-                                <hr class="hr-dark" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <?php print $rapiditeImg; ?>
-                        </div>
-                        <div class="col-md-4">
-                            <?php print $securiteImg; ?>
-                        </div>
-                        <div class="col-md-4">
-                            <?php print $qualiteImg; ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="subtitle-wrapper">
-                                <div class="row">
-                                    <div class="col-md-6 light-blue-text noPadding">
-                                        ILS UTILISENT EMINDHUB
-                                    </div>
-                                    <div class="col-md-5">
-                                        <hr class="hr-light" />
-                                    </div>
-                                    <div class="col-md-1">
-                                        <?php print $pointImg; ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <?php print $aerofuturImg; ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="subtitle-wrapper">
-                                <div class="row">
-                                    <div class="col-md-11 light-blue-text">
-                                        ILS SONT EXPERTS SUR EMINDHUB
-                                    </div>
-                                    <div class="col-md-1">
-                                        <?php print $pointImg; ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <?php print $jmLbcImg; ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="title-wrapper">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <hr class="hr-dark" />
-                            </div>
-                            <div class="col-md-6 title">
-                                EN SAVOIR + ?
-                            </div>
-                            <div class="col-md-3">
-                                <hr class="hr-dark" />
-                            </div>
-                        </div>
-                    </div>
-                    <!--<div class="row border-light">
-                        <div class="col-md-12">
-                            <div class="row paddingU">
-                                <div class="col-md-1">
-                                    <?php /*print $bulleImg; */?>
-                                </div>
-                                <div class="col-md-10 bold">
-                                    Vous avez une question ?
-                                </div>
-                            </div>
-                            <div class="row paddingU">
-                                <div class="col-md-1">
-                                    <?php /*print $bulleImg; */?>
-                                </div>
-                                <div class="col-md-10 bold">
-                                    Vous voulez en savoir plus ?
-                                </div>
-                            </div>
-                            <div class="text-wrapper">
-                                Laissez nous un message, nous vous rappelons  dans les 24h !
-                            </div>
-                            <form>
-                                <div class="form-wrapper">
-                                    Civilité :
-                                    <select id="selectCivilite" name="civilite" class="form-control-custom select-form">
-                                        <option value="M">M.</option>
-                                        <option value="Mme">Mme</option>
-                                        <option value="Mlle">Mlle</option>
-                                    </select>
-                                    <div class="required">*</div>
-                                </div>
-                                <div class="form-wrapper">
-                                    <input type="text" class="form-control-custom" id="nom" placeholder="Votre nom" />
-                                    <div class="required">*</div>
-                                </div>
-                                <div class="form-wrapper">
-                                    <input type="text" class="form-control-custom" id="prenom" placeholder="Votre prénom" />
-                                    <div class="required">*</div>
-                                </div>
-                                <div class="form-wrapper">
-                                    <input type="text" class="form-control-custom" id="societe" placeholder="Votre société" />
-                                    <div class="required">*</div>
-                                </div>
-                                <div class="form-wrapper">
-                                    <input type="text" class="form-control-custom" id="telephone" placeholder="Votre téléphone" />
-                                    <div class="required">*</div>
-                                </div>
-                                <div class="form-wrapper">
-                                    <input type="email" class="form-control-custom" id="mail" placeholder="Votre email" />
-                                    <div class="required">*</div>
-                                </div>
-                                <div class="form-wrapper">
-                                    <input type="text" class="form-control-custom" id="message" placeholder="Votre message..." />
-                                    <div class="required">*</div>
-                                </div>
-                            </form>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <input type="submit" class="btn btn-primary" value="Envoyer" />
-                                </div>
-                                <div class="col-md-8">
-                                    <span>* Champs requis</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>-->
-                    <?php print render($page['contactform']); ?>
+                <div class="col-md-12">
+                    <?php print render($page['content']); ?>
                 </div>
             </div>
+        <?php endif; ?>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="title-wrapper">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <hr class="hr-dark"/>
+                        </div>
+                        <div class="col-md-4 title">
+                            <?php print t("NOS ENGAGEMENTS"); ?>
+                        </div>
+                        <div class="col-md-4">
+                            <hr class="hr-dark"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <?php print $rapiditeImg; ?>
+                    </div>
+                    <div class="col-md-4">
+                        <?php print $securiteImg; ?>
+                    </div>
+                    <div class="col-md-4">
+                        <?php print $qualiteImg; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="subtitle-wrapper">
+                            <div class="row">
+                                <div class="col-md-6 light-blue-text noPadding">
+                                    <?php print t("ILS UTILISENT EMINDHUB"); ?>
+                                </div>
+                                <div class="col-md-5">
+                                    <hr class="hr-light"/>
+                                </div>
+                                <div class="col-md-1">
+                                    <?php print $pointImg; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <?php print $aerofuturImg; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="subtitle-wrapper">
+                            <div class="row">
+                                <div class="col-md-11 light-blue-text">
+                                    <?php print t("ILS SONT EXPERTS SUR EMINDHUB"); ?>
+                                </div>
+                                <div class="col-md-1">
+                                    <?php print $pointImg; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <?php print $jmLbcImg; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="title-wrapper">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <hr class="hr-dark"/>
+                        </div>
+                        <div class="col-md-6 title">
+                            <?php print t('EN SAVOIR + ?'); ?>
+                        </div>
+                        <div class="col-md-3">
+                            <hr class="hr-dark"/>
+                        </div>
+                    </div>
+                </div>
+                <?php print render($page['contactform']); ?>
+            </div>
         </div>
-    <?php endif; ?>
-    <?php if (drupal_is_front_page()): ?>
-        <div class="container container-fluid">
-        <?php if ($main_menu || $secondary_menu): ?>
-            <div id="navigation"><div class="section">
-                    <?php print theme('links__system_main_menu', array('links' => $main_menu, 'attributes' => array('id' => 'main-menu', 'class' => array('links', 'inline', 'clearfix')), 'heading' => t('Main menu'))); ?>
-                    <?php print theme('links__system_secondary_menu', array('links' => $secondary_menu, 'attributes' => array('id' => 'secondary-menu', 'class' => array('links', 'inline', 'clearfix')), 'heading' => t('Secondary menu'))); ?>
-                </div></div> <!-- /.section, /#navigation -->
-        <?php endif; ?>
+    </div>
+<?php endif; ?>
+<?php if (user_is_logged_in()): ?>
+    <div class="container container-fluid">
 
-        <?php if ($breadcrumb): ?>
-            <div id="breadcrumb"><?php print $breadcrumb; ?></div>
-        <?php endif; ?>
-
-        <?php print $messages; ?>
-
-            <div id="main-wrapper"><div id="main" class="clearfix">
-
-                <div id="content" class="column"><div class="section">
-                    <?php if ($page['highlighted']): ?><div id="highlighted"><?php print render($page['highlighted']); ?></div><?php endif; ?>
-                    <a id="main-content"></a>
-                    <?php print render($title_prefix); ?>
-                    <?php if ($title): ?><h1 class="title" id="page-title"><?php print $title; ?></h1><?php endif; ?>
-                    <?php print render($title_suffix); ?>
-                    <?php if ($tabs): ?><div class="tabs"><?php print render($tabs); ?></div><?php endif; ?>
-                    <?php print render($page['help']); ?>
-                    <?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
-                    <?php print render($page['content']); ?>
-                    <?php print $feed_icons; ?>
-                </div></div> <!-- /.section, /#content -->
-
-            <?php if ($page['sidebar_first']): ?>
-                <div id="sidebar-first" class="column sidebar"><div class="section">
-                        <?php print render($page['sidebar_first']); ?>
-                    </div></div> <!-- /.section, /#sidebar-first -->
+        <!-- START BREADCRUMB AND NAV -->
+        <?php if (1 == 0): ?>
+            <?php if ($main_menu || $secondary_menu): ?>
+                <div id="navigation">
+                    <div class="section">
+                        <?php print theme('links__system_main_menu', array('links' => $main_menu, 'attributes' => array('id' => 'main-menu', 'class' => array('links', 'inline', 'clearfix')), 'heading' => t('Main menu'))); ?>
+                        <?php print theme('links__system_secondary_menu', array('links' => $secondary_menu, 'attributes' => array('id' => 'secondary-menu', 'class' => array('links', 'inline', 'clearfix')), 'heading' => t('Secondary menu'))); ?>
+                    </div>
+                </div> <!-- /.section, /#navigation -->
             <?php endif; ?>
 
-            <?php if ($page['sidebar_second']): ?>
-                <div id="sidebar-second" class="column sidebar"><div class="section">
-                        <?php print render($page['sidebar_second']); ?>
-                    </div></div> <!-- /.section, /#sidebar-second -->
+            <?php if ($breadcrumb): ?>
+                <div id="breadcrumb"><?php print $breadcrumb; ?></div>
             <?php endif; ?>
+        <?php endif; ?>
+        <!-- END BREADCRUMB AND NAV -->
 
-            </div></div> <!-- /#main, /#main-wrapper -->
-        <div id="footer"><div class="section">
+
+        <div id="main-wrapper">
+            <div id="main" class="clearfix">
+
+                <div id="content" class="column">
+                    <div class="section">
+                        <?php if ($page['highlighted']): ?>
+                            <div id="highlighted"><?php print render($page['highlighted']); ?></div><?php endif; ?>
+                        <a id="main-content"></a>
+                        <?php print render($title_prefix); ?>
+                        <?php if ($title): ?><h1 class="title"
+                                                 id="page-title"><?php print $title; ?></h1><?php endif; ?>
+                        <?php print render($title_suffix); ?>
+                        <!-- START TABS -->
+                        <?php if ($tabs && isAdminUser()): ?>
+                            <div class="tabs"><?php print render($tabs); ?></div>
+                        <?php endif; ?>
+                        <!-- END TABS -->
+
+                        <?php print render($page['help']); ?>
+                        <?php if ($action_links): ?>
+                            <ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
+                        <?php print render($page['content']); ?>
+                        <?php print $feed_icons; ?>
+                    </div>
+                </div>
+                <!-- /.section, /#content -->
+
+
+                <?php if (FALSE): ?>
+                    <?php if ($page['sidebar_first']): ?>
+                        <div id="sidebar-first" class="column sidebar">
+                            <div class="section">
+                                <?php print render($page['sidebar_first']); ?>
+                            </div>
+                        </div> <!-- /.section, /#sidebar-first -->
+                    <?php endif; ?>
+
+                    <?php if ($page['sidebar_second']): ?>
+                        <div id="sidebar-second" class="column sidebar">
+                            <div class="section">
+                                <?php print render($page['sidebar_second']); ?>
+                            </div>
+                        </div> <!-- /.section, /#sidebar-second -->
+                    <?php endif; ?>
+                <?php endif; ?>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row subtitle-wrapper">
+                            <div class="col-md-6">
+                                <div class="light-blue-text bold news paddingD">
+                                    <?php print t("ILS UTILISENT EMINDHUB"); ?>
+                                </div>
+                                <?php print $aerofuturImg; ?>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="light-blue-text bold news paddingD">
+                                    <?php print t("ILS SONT EXPERTS SUR EMINDHUB"); ?>
+                                </div>
+                                <?php print $jmLbcImg; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row subtitle-wrapper">
+                            <div class="col-md-3 light-blue-text bold news">
+                                <?php print t("Actualités"); ?>
+                            </div>
+                            <div class="col-md-5">
+                                <hr class="hr-light"/>
+                            </div>
+                            <div class="col-md-4">
+                                <?php print $previousImg; ?>
+                                <?php print $menuIconImg; ?>
+                                <?php print $nextImg; ?>
+                                <?php print $fluxIconImg; ?>
+                            </div>
+                        </div>
+                        <div class="news-wrapper"><?php print $actuImg; ?></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- /#main, /#main-wrapper -->
+        <div id="footer">
+            <div class="section">
                 <?php print render($page['footer']); ?>
-            </div></div> <!-- /.section, /#footer -->
-        </div></div> <!-- /#page, /#page-wrapper -->
-
+            </div>
         </div>
-    <?php endif; ?>
+        <!-- /.section, /#footer -->
+        <?php print render($page['burgermenu']); ?>
+    </div></div> <!-- /#page, /#page-wrapper -->
+
+    </div>
+<?php endif; ?>
+<?php
+    if (isAdminUser()) {
+        print $messages;
+    }
+?>

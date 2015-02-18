@@ -8,6 +8,9 @@
 @expertYellow: #c89234; /*jaune expert*/
 @white: #fff;
 @black: #000;
+@facebookColor: #0d6cb4;
+@twitterColor: #33c0f0;
+@linkedinColor: #008fcd;
 
 body {
     font-family: Lato !important;
@@ -353,6 +356,7 @@ input:not([type=submit]) {
         height: 2em;
         padding: 0.313em;
         width: 5.313em;
+        text-transform: uppercase;
 
         option {
             text-transform: uppercase;
@@ -370,6 +374,10 @@ input:not([type=submit]) {
     text-align: center;
     color: @lightBlue;
     font-weight: bold;
+
+    a {
+        color: @lightBlue !important;
+    }
 }
 
 .table-content {
@@ -459,4 +467,59 @@ input:not([type=submit]) {
             color: @darkBlue !important;
         }
     }
+}
+
+.popup {
+    display: block;
+    float: left;
+    position: static;
+    top: 0;
+    left: 0;
+    width: 40em;
+    height: 15em;
+    background-color: @darkBlue;
+    color: @white;
+
+    .social-network {
+        padding-left: 3em;
+        height: 1.813em;
+        width: 15.125em;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        margin-top: .5em;
+    }
+
+    .facebook-login {
+        background: @facebookColor url(../img/facebook.png) no-repeat 7% 50%;
+        .social-network;
+    }
+
+    .twitter-login {
+        background: @twitterColor url(../img/twitter.png) no-repeat 3.9% 50%;
+        .social-network;
+    }
+
+    .linkedin-login {
+        background: @linkedinColor url(../img/linkedin.png) no-repeat 5.4% 50%;
+        .social-network;
+    }
+
+    .form-control-custom {
+        height: auto !important;
+    }
+}
+
+
+.views-table {
+    width: 100%;
+}
+
+th {
+    border: none !important;
+}
+
+.views-exposed-form .form-item, .views-exposed-form .form-submit {
+    float:left;
+    margin: 0 10px;
 }
