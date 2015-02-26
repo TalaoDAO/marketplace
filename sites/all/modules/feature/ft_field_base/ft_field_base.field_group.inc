@@ -21,13 +21,12 @@ function ft_field_base_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Common',
-    'weight' => '13',
+    'weight' => '7',
     'children' => array(
       0 => 'field_reward',
       1 => 'field_expiration_date',
       2 => 'og_group_ref',
       3 => 'field_picto',
-      4 => 'field_domaine',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -83,7 +82,7 @@ function ft_field_base_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Common',
-    'weight' => '3',
+    'weight' => '7',
     'children' => array(
       0 => 'field_domaine',
       1 => 'og_group_ref',

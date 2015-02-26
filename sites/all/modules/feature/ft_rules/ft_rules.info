@@ -10,4 +10,4 @@ features[rules_config][] = rules_subscription_to_group_email
 features_exclude[dependencies][entity] = entity
 features_exclude[dependencies][og] = og
 features_exclude[dependencies][rules] = rules
-project path = sites/all/modules/features
+project path = sites/all/modules/feature
