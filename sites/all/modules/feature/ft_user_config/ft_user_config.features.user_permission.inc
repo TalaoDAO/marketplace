@@ -239,9 +239,7 @@ function ft_user_config_user_default_permissions() {
   // Exported permission: 'access statistics'.
   $permissions['access statistics'] = array(
     'name' => 'access statistics',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
+    'roles' => array(),
     'module' => 'statistics',
   );
 
@@ -631,6 +629,15 @@ function ft_user_config_user_default_permissions() {
     'module' => 'menu',
   );
 
+  // Exported permission: 'administer menu attributes'.
+  $permissions['administer menu attributes'] = array(
+    'name' => 'administer menu attributes',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'menu_attributes',
+  );
+
   // Exported permission: 'administer menu_token'.
   $permissions['administer menu_token'] = array(
     'name' => 'administer menu_token',
@@ -857,6 +864,15 @@ function ft_user_config_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'stickynote',
+  );
+
+  // Exported permission: 'administer switch'.
+  $permissions['administer switch'] = array(
+    'name' => 'administer switch',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'switchtheme',
   );
 
   // Exported permission: 'administer taxonomy'.
@@ -2712,6 +2728,15 @@ function ft_user_config_user_default_permissions() {
     'module' => 'user',
   );
 
+  // Exported permission: 'select different theme'.
+  $permissions['select different theme'] = array(
+    'name' => 'select different theme',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'switchtheme',
+  );
+
   // Exported permission: 'select text format for privatemsg'.
   $permissions['select text format for privatemsg'] = array(
     'name' => 'select text format for privatemsg',
@@ -2740,6 +2765,19 @@ function ft_user_config_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'shortcut',
+  );
+
+  // Exported permission: 'switch theme'.
+  $permissions['switch theme'] = array(
+    'name' => 'switch theme',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'business' => 'business',
+      'expert' => 'expert',
+      'référent' => 'référent',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'switchtheme',
   );
 
   // Exported permission: 'switch users'.
@@ -3115,9 +3153,7 @@ function ft_user_config_user_default_permissions() {
   // Exported permission: 'view post access counter'.
   $permissions['view post access counter'] = array(
     'name' => 'view post access counter',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
+    'roles' => array(),
     'module' => 'statistics',
   );
 

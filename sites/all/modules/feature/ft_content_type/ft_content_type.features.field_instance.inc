@@ -744,7 +744,7 @@ function ft_content_type_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 3,
+      'weight' => 5,
     ),
   );
 
@@ -785,7 +785,7 @@ function ft_content_type_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 8,
+      'weight' => 6,
     ),
   );
 
@@ -825,7 +825,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 8,
+      'weight' => 1,
     ),
   );
 
@@ -857,7 +857,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_expiration_date',
-    'label' => 'Expiration Date',
+    'label' => 'Deadline',
     'required' => 0,
     'settings' => array(
       'default_value' => 'now',
@@ -955,7 +955,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_reward',
-    'label' => 'Reward',
+    'label' => 'Award',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -969,6 +969,45 @@ function ft_content_type_field_default_field_instances() {
       ),
       'type' => 'text_textfield',
       'weight' => 11,
+    ),
+  );
+
+  // Exported field_instance: 'node-challenge-field_summary'
+  $field_instances['node-challenge-field_summary'] = array(
+    'bundle' => 'challenge',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 13,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_summary',
+    'label' => 'Summary',
+    'required' => FALSE,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 2,
     ),
   );
 
@@ -1005,7 +1044,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 1,
+      'weight' => 3,
     ),
   );
 
@@ -1868,12 +1907,6 @@ function ft_content_type_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 0,
       ),
-      'field_readonly' => array(
-        'label' => 'hidden',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 5,
-      ),
       'teaser' => array(
         'label' => 'hidden',
         'module' => 'text',
@@ -1901,7 +1934,7 @@ function ft_content_type_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 0,
+      'weight' => -4,
     ),
     'widget_type' => 'text_textarea_with_summary',
   );
@@ -1918,12 +1951,6 @@ function ft_content_type_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 2,
-      ),
-      'field_readonly' => array(
-        'label' => 'inline',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 9,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1948,7 +1975,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'nodereference_count',
       'settings' => array(),
       'type' => 'nodereference_count_widget',
-      'weight' => 2,
+      'weight' => -2,
     ),
   );
 
@@ -2078,7 +2105,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_expiration_date',
-    'label' => 'Expiration Date',
+    'label' => 'Deadline',
     'required' => 0,
     'settings' => array(
       'default_value' => 'now',
@@ -2120,12 +2147,6 @@ function ft_content_type_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 1,
       ),
-      'field_readonly' => array(
-        'label' => 'inline',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 8,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -2147,7 +2168,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 1,
+      'weight' => -3,
     ),
   );
 
@@ -2218,12 +2239,6 @@ function ft_content_type_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 3,
       ),
-      'field_readonly' => array(
-        'label' => 'inline',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 10,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -2245,7 +2260,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 3,
+      'weight' => -1,
     ),
   );
 
@@ -2318,7 +2333,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_reward',
-    'label' => 'Reward',
+    'label' => 'Award',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -2441,7 +2456,7 @@ function ft_content_type_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 2,
+      'weight' => 6,
     ),
   );
 
@@ -2483,7 +2498,7 @@ function ft_content_type_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 40,
+      'weight' => 4,
     ),
   );
 
@@ -2563,7 +2578,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 43,
+      'weight' => 9,
     ),
   );
 
@@ -2590,7 +2605,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_expert_profile',
-    'label' => 'Expert profile',
+    'label' => 'Purpose of the mission',
     'required' => 0,
     'settings' => array(
       'display_summary' => 0,
@@ -2605,7 +2620,7 @@ function ft_content_type_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 41,
+      'weight' => 2,
     ),
   );
 
@@ -2637,7 +2652,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_expiration_date',
-    'label' => 'Expiration Date',
+    'label' => 'Deadline',
     'required' => 0,
     'settings' => array(
       'default_value' => 'now',
@@ -2698,7 +2713,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 38,
+      'weight' => 8,
     ),
   );
 
@@ -2738,7 +2753,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 5,
+      'weight' => 3,
     ),
   );
 
@@ -3163,7 +3178,7 @@ function ft_content_type_field_default_field_instances() {
         'decimals_display_mode' => 'field',
       ),
       'type' => 'money_widget',
-      'weight' => 47,
+      'weight' => 10,
     ),
   );
 
@@ -3195,7 +3210,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_start_date',
-    'label' => 'Start date',
+    'label' => 'Desired starting date',
     'required' => 0,
     'settings' => array(
       'default_value' => 'now',
@@ -3216,7 +3231,7 @@ function ft_content_type_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 45,
+      'weight' => 5,
     ),
   );
 
@@ -3628,12 +3643,12 @@ function ft_content_type_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 0,
-      'module' => 'taxonomy',
+      'module' => 'options',
       'settings' => array(
         'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
-      'type' => 'taxonomy_autocomplete',
+      'type' => 'options_buttons',
       'weight' => 1,
     ),
   );
@@ -4065,7 +4080,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'profile2',
     'field_name' => 'field_titre_metier',
-    'label' => 'Personal Headline',
+    'label' => 'Profile Title',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -4175,12 +4190,15 @@ function ft_content_type_field_default_field_instances() {
   t('Answer Count');
   t('Answer to the question');
   t('Area of interest');
+  t('Award');
   t('Best Answer');
   t('Body');
   t('CV');
   t('Comment');
   t('Context of the mission');
+  t('Deadline');
   t('Description');
+  t('Desired starting date');
   t('Determine if this is an OG group.');
   t('Document');
   t('Domain');
@@ -4188,8 +4206,6 @@ function ft_content_type_field_default_field_instances() {
   t('Domaine');
   t('Duration of the mission');
   t('Employment History');
-  t('Expert profile');
-  t('Expiration Date');
   t('Forums');
   t('General information');
   t('Group');
@@ -4202,18 +4218,19 @@ function ft_content_type_field_default_field_instances() {
   t('Notify on Answer');
   t('Organisation name or type');
   t('Path');
-  t('Personal Headline');
   t('Picto');
   t('Pre-members');
   t('Private answer');
   t('Problem to solve');
+  t('Profile Title');
+  t('Purpose of the mission');
   t('Question Locked');
   t('Referent');
   t('Request message');
   t('Reward');
   t('Salary range');
   t('Skills');
-  t('Start date');
+  t('Summary');
   t('Telephone');
   t('Testimony');
   t('This is the text a user may send to the group administrators.');

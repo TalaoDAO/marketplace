@@ -2486,10 +2486,11 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['created']['field'] = 'created';
   $handler->display->display_options['fields']['created']['date_format'] = 'short_date';
   $handler->display->display_options['fields']['created']['second_date_format'] = 'privatemsg_current_day';
-  /* Field: Content: Expiration Date */
+  /* Field: Content: Deadline */
   $handler->display->display_options['fields']['field_expiration_date']['id'] = 'field_expiration_date';
   $handler->display->display_options['fields']['field_expiration_date']['table'] = 'field_data_field_expiration_date';
   $handler->display->display_options['fields']['field_expiration_date']['field'] = 'field_expiration_date';
+  $handler->display->display_options['fields']['field_expiration_date']['label'] = 'Expiration Date';
   $handler->display->display_options['fields']['field_expiration_date']['settings'] = array(
     'format_type' => 'short_date',
     'fromto' => 'both',
@@ -2506,10 +2507,11 @@ function ft_views_views_default_views() {
     'link' => 0,
   );
   $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
-  /* Field: Content: Reward */
+  /* Field: Content: Award */
   $handler->display->display_options['fields']['field_reward']['id'] = 'field_reward';
   $handler->display->display_options['fields']['field_reward']['table'] = 'field_data_field_reward';
   $handler->display->display_options['fields']['field_reward']['field'] = 'field_reward';
+  $handler->display->display_options['fields']['field_reward']['label'] = 'Reward';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
