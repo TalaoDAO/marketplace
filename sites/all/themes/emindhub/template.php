@@ -434,6 +434,48 @@ function emindhub_preprocess_html(&$variables) {
     drupal_add_css('http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' , array('type' => 'external'));
 }
 
+//views-exposed-form--query-list--block.tpl
+
+/**
+ * Generic preprocess that is still working on D7
+ */
+/*function emindhub_preprocess_views_view_fields(&$vars) {
+  if (isset($vars['view']->name)) {
+    $function = 'emindhub_preprocess_views_view_fields__' . $vars['view']->name . '__' . $vars['view']->current_display;
+    var_dump($function);
+//    die;
+    if (function_exists($function)) {
+      $function($vars);
+    }
+  }
+}*/
+
+/**
+ * Then the specific preprocess that worked without the above code for D6
+ */
+/*function emindhub_preprocess_views_view_fields__query_list__block_1(&$vars) {
+  // my specific preprocess code
+  var_dump($vars);
+//  die;
+}*/
+
+/*
+function emindhub_preprocess_views_view_table(&$vars) {
+
+  if (isset($vars['view']->name)) {
+    $function = 'emindhub_preprocess_views_view_table__' . $vars['view']->name . '__' . $vars['view']->current_display;
+    //var_dump($function);
+//    die;
+    if (function_exists($function)) {
+      $function($vars);
+    }
+  }
+}
+
+function emindhub_preprocess_views_view_table__query_list__block(&$vars) {
+  echo 'toto';
+}
+*/
 //============================================================================
 // NICE MENU CUSTOMIZATION SECTION
 

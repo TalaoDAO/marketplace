@@ -141,6 +141,9 @@ input:not([type=submit]) {
   border: 0;
   border-bottom: 1px dashed #009fe3;
 }
+/*.rowMobilisation {
+    text-align: center;
+}*/
 .center-text {
   text-align: center;
 }
@@ -312,19 +315,19 @@ table tbody tr,
   line-height: 3em;
   border: none;
 }
+table tbody tr:nth-child(odd),
+.table-content:nth-child(odd) {
+  background-color: #f9f4ea;
+}
+table tbody tr:nth-child(even) {
+  background-color: #fff;
+}
 table tbody:before {
   /* This doesn't work because of border-collapse */
   line-height: 1em;
   content: "_";
   color: white;
   display: block;
-}
-table tbody tr:nth-child(odd),
-.table-content:nth-child(odd) {
-  background-color: #f9f4ea;
-}
-table tbody tr:nth-child(even) {
-  background-color: #ffffff;
 }
 /* Surcharge nice-menu */
 .nice-menu {
@@ -461,6 +464,31 @@ table tbody tr:nth-child(even) {
 .popup .form-control-custom {
   height: auto !important;
 }
+.views-table {
+  width: 100%;
+}
+.views-exposed-form {
+  background-color: #f6f7f8;
+  padding: 30px 20px;
+}
+.views-exposed-form .form-item,
+.views-exposed-form .form-submit {
+  float: left;
+  margin: 0 10px;
+}
+/*
+.block-views {
+  padding-top: 1.18em;
+  padding-bottom: 1.18em;
+}
+
+.block-views h2 {
+  font-size: 1.125em;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #009fe3;
+}
+*/
 .row.paddingUD h2 {
   font-size: 1.125em;
   font-weight: bold;
@@ -478,53 +506,48 @@ table tbody tr:nth-child(even) {
   color: #2e3243;
   width: 18.75em;
   overflow-y: auto;
-  /*=========CHECKBOXES BURGER MENU============*/
-  /* Base for label styling */
-  /* checkbox aspect */
-  /* checked mark aspect */
-  /* checked mark aspect changes */
-  /* disabled checkbox */
-  /*=========END CHECKBOXES BURGER MENU============*/
 }
-.region-burgermenu .global-filter {
+#block-menu-menu-burger-menu a {
+  color: #2e3243;
+  font-size: 1.143em;
+}
+#block-menu-menu-burger-menu div.leaf {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+#block-menu-menu-burger-menu div a {
   color: white;
-  margin-left: 1.875em;
-  margin-right: 1.875em;
 }
-.region-burgermenu .global-filter input[type=submit] {
-  background-color: #009fe3;
-  border: 0 !important;
-  margin-bottom: .5em;
-}
-.region-burgermenu .global-filter .form-type-checkbox {
-  display: block;
-}
+/*=========END CHECKBOXES============*/
+/* Base for label styling */
 .region-burgermenu [type="checkbox"]:not(:checked),
-.region-burgermenu [type="checkbox"]:checked {
+[type="checkbox"]:checked {
   position: absolute;
   left: -9999px;
 }
 .region-burgermenu [type="checkbox"]:not(:checked) + label,
-.region-burgermenu [type="checkbox"]:checked + label {
+[type="checkbox"]:checked + label {
   position: relative;
   padding-left: 25px;
   cursor: pointer;
 }
+/* checkbox aspect */
 .region-burgermenu [type="checkbox"]:not(:checked) + label:before,
-.region-burgermenu [type="checkbox"]:checked + label:before {
+[type="checkbox"]:checked + label:before {
   content: '';
   position: absolute;
   left: 0;
   top: 2px;
   width: 17px;
   height: 17px;
-  border: 1px solid #d4d9dd;
+  border: 1px solid #d5d6d9;
   background: transparent;
   border-radius: 3px;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
 }
+/* checked mark aspect */
 .region-burgermenu [type="checkbox"]:not(:checked) + label:after,
-.region-burgermenu [type="checkbox"]:checked + label:after {
+[type="checkbox"]:checked + label:after {
   content: '✔';
   position: absolute;
   top: 0;
@@ -537,6 +560,7 @@ table tbody tr:nth-child(even) {
   -ms-transition: all .2s;
   transition: all .2s;
 }
+/* checked mark aspect changes */
 .region-burgermenu [type="checkbox"]:not(:checked) + label:after {
   opacity: 0;
   -webkit-transform: scale(0);
@@ -551,8 +575,9 @@ table tbody tr:nth-child(even) {
   -ms-transform: scale(1);
   transform: scale(1);
 }
+/* disabled checkbox */
 .region-burgermenu [type="checkbox"]:disabled:not(:checked) + label:before,
-.region-burgermenu [type="checkbox"]:disabled:checked + label:before {
+[type="checkbox"]:disabled:checked + label:before {
   box-shadow: none;
   border-color: #bbb;
   background-color: #ddd;
@@ -563,6 +588,7 @@ table tbody tr:nth-child(even) {
 .region-burgermenu [type="checkbox"]:disabled + label {
   color: #aaa;
 }
+/*=========END CHECKBOXES============*/
 .my-contributions {
   background: url(../images/bmCrayon.png) 0% 50% no-repeat;
   padding-left: 2em;
@@ -604,6 +630,19 @@ table tbody tr:nth-child(even) {
   margin-left: 1.875em;
   display: inline-block;
 }
+.region-burgermenu .global-filter {
+  color: white;
+  margin-left: 1.875em;
+  margin-right: 1.875em;
+}
+.region-burgermenu .global-filter input[type=submit] {
+  background-color: #009fe3;
+  border: 0 !important;
+  margin-bottom: .5em;
+}
+.region-burgermenu .global-filter .form-type-checkbox {
+  display: block;
+}
 .burger-menu-btn-container {
   cursor: pointer;
   position: relative;
@@ -620,61 +659,5 @@ table tbody tr:nth-child(even) {
 }
 .header-emindhub {
   padding-bottom: 1.5em;
-}
-.views-table {
-  width: 100%;
-}
-.views-widget-filter-type label {
-  float: left;
-  margin-right: .5em;
-}
-.views-widget-filter-type .bef-toggle {
-  float: left;
-}
-.views-exposed-form {
-  background-color: #f6f7f8;
-  padding: 1em;
-  /*
-    views-widget-filter-uid_current*/
-}
-.views-exposed-form .form-item,
-.views-exposed-form .views-exposed-form .form-submit {
-  /*float: left;*/
-  margin: 0 10px;
-}
-.views-exposed-form #edit-type-wrapper .form-type-bef-checkbox {
-  float: left;
-}
-.views-exposed-form .views-widget-filter-uid_current {
-  /*.form-type-radio {
-            float: left;
-        }*/
-}
-.views-exposed-form .views-widget-filter-uid_current .bef-select-as-radios div {
-  float: left;
-}
-.views-field-field-picto img {
-  width: auto;
-  height: auto;
-}
-.views-slideshow-controls-text .views_slideshow_controls_text_next {
-  height: 1.5em;
-  width: 1.5em;
-  display: block;
-  background: url(../images/next.png) no-repeat 50% 50%;
-  float: right;
-}
-.views-slideshow-controls-text .views_slideshow_controls_text_next a {
-  display: none;
-}
-.views-slideshow-controls-text .views_slideshow_controls_text_previous {
-  height: 1.5em;
-  width: 1.5em;
-  display: block;
-  background: url(../images/previous.png) no-repeat 50% 50%;
-  float: left;
-}
-.views-slideshow-controls-text .views_slideshow_controls_text_previous a {
-  display: none;
 }
 /*# sourceMappingURL=emindhub.css.map */

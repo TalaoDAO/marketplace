@@ -68,6 +68,7 @@
             </div>
         <?php endif;?>
     <?php endif;?>
+
     <?php print render($title_suffix); ?>
 
     <div class="content"<?php print $content_attributes; ?>>

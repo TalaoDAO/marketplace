@@ -249,41 +249,11 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="subtitle-wrapper">
-                            <div class="row">
-                                <div class="col-md-6 light-blue-text noPadding">
-                                    <?php print t("ILS UTILISENT EMINDHUB"); ?>
-                                </div>
-                                <div class="col-md-5">
-                                    <hr class="hr-light"/>
-                                </div>
-                                <div class="col-md-1">
-                                    <?php print $pointImg; ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <?php print $aerofuturImg; ?>
-                            </div>
-                        </div>
+                              <?php print render($page['theyuseus']); ?>
                     </div>
                     <div class="col-md-6">
-                        <div class="subtitle-wrapper">
-                            <div class="row">
-                                <div class="col-md-11 light-blue-text">
-                                    <?php print t("ILS SONT EXPERTS SUR EMINDHUB"); ?>
-                                </div>
-                                <div class="col-md-1">
-                                    <?php print $pointImg; ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <?php print $jmLbcImg; ?>
-                            </div>
-                        </div>
+                          <?php print render($page['theyareexpert']); ?>
+
                     </div>
                 </div>
             </div>
@@ -375,36 +345,18 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="row subtitle-wrapper">
-                            <div class="col-md-6">
-                                <div class="light-blue-text bold news paddingD">
-                                    <?php print t("ILS UTILISENT EMINDHUB"); ?>
-                                </div>
-                                <?php print $aerofuturImg; ?>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="light-blue-text bold news paddingD">
-                                    <?php print t("ILS SONT EXPERTS SUR EMINDHUB"); ?>
-                                </div>
-                                <?php print $jmLbcImg; ?>
-                            </div>
+                          <div class="col-md-6">
+                            <?php print render($page['theyuseus']); ?>
+                          </div>
+                          <div class="col-md-6">
+                            <?php print render($page['theyareexpert']); ?>
+                          </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="row subtitle-wrapper">
-                            <div class="col-md-3 light-blue-text bold news">
-                                <?php print t("Actualités"); ?>
-                            </div>
-                            <div class="col-md-5">
-                                <hr class="hr-light"/>
-                            </div>
-                            <div class="col-md-4">
-                                <?php print $previousImg; ?>
-                                <?php print $menuIconImg; ?>
-                                <?php print $nextImg; ?>
-                                <?php print $fluxIconImg; ?>
-                            </div>
+                            <?php print render($page['news']); ?>
                         </div>
-                        <div class="news-wrapper"><?php print $actuImg; ?></div>
                     </div>
                 </div>
 
