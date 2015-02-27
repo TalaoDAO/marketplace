@@ -47,6 +47,7 @@ features[field_base][] = field_expert_profile
 features[field_base][] = field_expiration_date
 features[field_base][] = field_first_name
 features[field_base][] = field_general_information
+features[field_base][] = field_image
 features[field_base][] = field_last_name
 features[field_base][] = field_messaj
 features[field_base][] = field_nom_de_l_organisation
