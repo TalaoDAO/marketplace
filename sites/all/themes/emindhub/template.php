@@ -51,6 +51,60 @@ function isHomePage() {
     return $isHomePage;
 }
 
+function emindhub_preprocess_user_picture(&$vars) {
+    $variables['user_picture'] = '';
+    if (variable_get('user_pictures', 0)) {
+        if (isset($variables['account'])) {
+            $account = $variables['account'];
+            if (!empty($account->picture)) {
+                // @TODO: Ideally this function would only be passed file objects, but
+                // since there's a lot of legacy code that JOINs the {users} table to
+                // {node} or {comments} and passes the results into this function if we
+                // a numeric value in the picture field we'll assume it's a file id
+                // and load it for them. Once we've got user_load_multiple() and
+                // comment_load_multiple() functions the user module will be able to load
+                // the picture files in mass during the object's load process.
+                if (is_numeric($account->picture)) {
+                    $account->picture = file_load($account->picture);
+                }
+                if (!empty($account->picture->uri)) {
+                    $filepath = $account->picture->uri;
+                }
+            }
+            elseif (variable_get('user_picture_default', '')) {
+                $filepath = variable_get('user_picture_default', '');
+            }
+            if (isset($filepath)) {
+                $alt = t("@user's picture", array('@user' => format_username($account)));
+                // If the image does not have a valid Drupal scheme (for eg. HTTP),
+                // don't load image styles.
+                if (module_exists('image') && file_valid_uri($filepath) && $style = variable_get('user_picture_style', '')) {
+                    $variables['user_picture'] = theme('user_picture', array(
+                            'style_name' => $style,
+                            'path' => $filepath,
+                            'alt' => $alt,
+                            'title' => $alt
+                        ));
+                }
+                else {
+                    $variables['user_picture'] = theme('user_picture', array(
+                            'path' => $filepath,
+                            'alt' => $alt,
+                            'title' => $alt
+                        ));
+                }
+                if (!empty($account->uid) && user_access('access user profiles')) {
+                    $attributes = array(
+                        'attributes' => array('title' => t('View user profile.')),
+                        'html' => TRUE
+                    );
+                    $variables['user_picture'] = l($variables['user_picture'], "user/$account->uid", $attributes);
+                }
+            }
+        }
+    }
+}
+
 //============================================================================
 // CONTACT FORM CUSTOMIZATION SECTION
 
@@ -60,12 +114,12 @@ function emindhub_theme() {
             'render element' => 'form',
             'path' => drupal_get_path('theme', 'emindhub').'/templates',
             'template' => 'contact-site-form',
-        ),/*
-        'user_login' => array(
+        ),
+        'user_picture' => array(
             'path' => drupal_get_path('theme', 'emindhub').'/templates',
-            'template' => 'user_login',
-            'render element' => 'form',
-        ),*/
+            'template' => 'user_picture',
+            'render element' => 'image',
+        ),
     );
 }
 
@@ -229,7 +283,7 @@ function GetMenu (&$vars) {
         ));
         $register = theme("link", array(
             'text' => t('S\'inscrire'),
-            'path' => '',
+            'path' => 'user/register',
             'options' => array(
                 'attributes' => array('class' => array('user-menu')),
                 'html' => FALSE,
@@ -434,8 +488,145 @@ function emindhub_preprocess_html(&$variables) {
     drupal_add_css('http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' , array('type' => 'external'));
 }
 
-//views-exposed-form--query-list--block.tpl
+function emindhub_preprocess_node(&$variables, $hook) {
+    if (isset($variables['node']->type)) {
+        $function = __FUNCTION__ . '__' . $variables['node']->type;
+        if (function_exists($function)) {
+            $function($variables, $hook);
+        }
+    }
+}
 
+function emindhub_preprocess_node__challenge(&$vars) {
+    //Get the node id
+    /*if (arg(0) == 'node' && is_numeric(arg(1))) {
+        $nid = arg(1);
+    }
+
+    $prev_nid = $nid - 1;
+    $next_nid = $nid + 1;
+    $vars['previous_link'] = $prev_nid;
+    $vars['next_link'] = $next_nid;*/
+
+//    $nodes = getNodeFromTypeAndId("challenge", $prev_nid);
+//    $nodeId = getNodeFromTypeAndId_("challenge", $nid, 'prev');
+//    if ($nodeId) {
+//        $vars['previous_link'] = $nodes['node'][$prev_nid]->nid;
+//        $vars['previous_link'] = $nodeId;
+//    }
+
+    //node_load()
+
+//    $nodes = getNodeFromTypeAndId("challenge", $next_nid);
+//    $nodeId = getNodeFromTypeAndId_("challenge", $next_nid, 'next');
+//    if ($nodeId) {
+//        $vars['next_link'] = $nodes['node'][$next_nid]->nid;
+//        $vars['next_link'] = $nodeId;
+//    }
+    $vars['first'] = false;
+    if ($vars['teaser']) {
+        global $teaserFisrtChallenge;
+        if (!isset($teaserFisrtChallenge)) {
+            $teaserFisrtChallenge = $vars['id'];
+            $vars['first'] = true;
+        }
+    }
+}
+
+function emindhub_preprocess_node__question(&$vars) {
+    $user = user_load_by_name($vars['elements']['body']['#object']->name);
+    $account = user_load($user->uid);
+    if ($account) {
+        $firstName = "";
+        if (isset($account->field_first_name[LANGUAGE_NONE]) && $account->field_first_name[LANGUAGE_NONE]) {
+            $firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
+        }
+        $lastName = "";
+        if (isset($account->field_last_name[LANGUAGE_NONE]) && $account->field_last_name[LANGUAGE_NONE]) {
+            $lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
+        }
+        $vars['user_name'] = $lastName . ' ' . $firstName;
+    }
+    $vars['first'] = false;
+    if ($vars['teaser']) {
+        global $teaserFisrtQuestion;
+        if (!isset($teaserFisrtQuestion)) {
+            $teaserFisrtQuestion = $vars['id'];
+            $vars['first'] = true;
+        }
+    }
+}
+
+function emindhub_preprocess_node__webform(&$variables) {
+    $variables['first'] = false;
+    if ($variables['teaser']) {
+        global $teaserFisrtCall;
+        if (!isset($teaserFisrtCall)) {
+            $teaserFisrtCall = $variables['id'];
+            $variables['first'] = true;
+        }
+    }
+}
+
+function emindhub_preprocess_node__answer(&$variables) {
+    $variables['first'] = false;
+    if ($variables['teaser']) {
+        global $teaserFisrtAnswer;
+        if (!isset($teaserFisrtAnswer)) {
+            $teaserFisrtAnswer = $variables['id'];
+            $variables['first'] = true;
+        }
+    }
+}
+
+function emindhub_preprocess_node__blog(&$variables) {
+    $variables['first'] = false;
+    if ($variables['teaser']) {
+        global $teaserFisrtArticle;
+        if (!isset($teaserFisrtArticle)) {
+            $teaserFisrtArticle = $variables['id'];
+            $variables['first'] = true;
+        }
+    }
+}
+
+/*function getNodeFromTypeAndId_($type, $nid, $next_prev) {
+    //select * from node where type = 'challenge' and nid < 315 order by nid desc limit 1
+    if ($next_prev == 'next') {
+        $query = 'SELECT nid, title, created FROM {node} WHERE type = :type AND nid > :nid ORDER BY nid DESC LIMIT 1';
+    }
+    else {
+        $query = 'SELECT nid, title, created FROM {node} WHERE type = :type AND nid < :nid ORDER BY nid DESC LIMIT 1';
+    }
+
+    $result = db_query($query,
+        array(
+            ':nid' => $nid,
+            ':type' => $type
+        ));
+    if ($result) {
+        return $result->currentRow['nid'];
+    }
+    return false;
+}*/
+
+function getNodeFromTypeAndId($type, $nid, $next_prev) {
+    $query = new EntityFieldQuery();
+
+    $entities = $query->entityCondition('entity_type', 'node')
+        ->propertyCondition('type', $type)
+        ->propertyCondition('nid', $nid)
+        ->propertyCondition('status', 1)
+        ->range(0,1)
+        ->execute();
+
+    if (!empty($entities['node'])) {
+        return $entities;
+    }
+    return false;
+}
+
+//views-exposed-form--query-list--block.tpl
 /**
  * Generic preprocess that is still working on D7
  */
@@ -619,6 +810,7 @@ function emindhub_nice_menus_build($variables) {
     return $output;
 }
 
+
 /**
  * Customization => Replacing ul by div elements to use bootstrap grid system
  *
@@ -626,10 +818,20 @@ function emindhub_nice_menus_build($variables) {
  * @return string
  */
 function emindhub_menu_link(array $variables) {
+    $classes = "";
+
+    if ($variables['theme_hook_original'] == "menu_link__menu_top_menu"){
+        $classes = "col-md-4 upper";
+
+        //Classe particulière pour le contactez nous/contact us
+        if (strpos(strtolower($variables['element']['#title']), "contact") !== false) {
+            $classes = $classes .' contact-us bold';
+        }
+    }
+
     $sub_menu = '';
     $element = &$variables['element'];
     $pattern = '/\S+\.(png|gif|jpg)\b/i';
-    $classes = "";
     if (preg_match($pattern, $element['#title'], $matches) > 0) {
         $element['#title'] = preg_replace($pattern,
             '',

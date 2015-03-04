@@ -55,7 +55,7 @@
         <?php endif; ?>
     <?php endif; ?>
 
-    <?php if ($block->region != "burgermenu"): ?>
+    <?php if ($block->region != "burgermenu" && $block->region != "topmenu"): ?>
         <?php if ($block->subject): ?>
             <div class="row paddingUD">
                 <div class="col-md-3 light-blue-text bold">
