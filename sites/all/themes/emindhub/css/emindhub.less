@@ -1,6 +1,9 @@
-﻿@lightGrey: #f6f7f8;
+﻿@borderRadius: 4px;
+
+@lightGrey: #f6f7f8;
 /*gris trés clair*/
 @softGrey: #d4d9dd;
+
 /*gris clair*/
 @darkGrey: #555;
 /*gris foncé*/
@@ -22,6 +25,11 @@
 @burgerMenuBackground: #2e3243;
 
 @copyrightTextColor: #acb4bb;
+@hrLightGrey: #cbd1d6;
+
+@btnBackBackground: #a1acb5;
+@challengeStateSelectedBackground : #00a0e0;
+@btnCancelBackground: #a5b0b8;
 
 body {
     font-family: Lato !important;
@@ -79,12 +87,35 @@ body {
     text-align: center;
 }
 
+.inline {
+    display: inline;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.upper {
+    text-transform: uppercase;
+}
+
+.challenge-title {
+    .upper;
+    .light-blue-text;
+    .bold;
+    font-size: 1.250em;
+}
+
 .blue {
     color: @lightBlue;
 }
 
 .light-blue-text {
     color: @lightBlue !important;
+}
+
+.dark-blue-text {
+    color: @darkBlue;
 }
 
 .yellow-text {
@@ -100,8 +131,20 @@ body {
     font-weight: bold;
 }
 
+.italic {
+    font-style: italic;
+}
+
 .header {
     text-transform: uppercase;
+
+    &-emindhub {
+        padding-bottom: 1.5em;
+    }
+
+    &-separator {
+        background: url(../images/grid.png) no-repeat 57% 99%;
+    }
 }
 
 .ondes-background {
@@ -119,9 +162,19 @@ body {
     padding: 0 !important;
 }
 
+.noPaddingUD {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
 .paddingUD {
     padding-top: 1.18em;
     padding-bottom: 1.18em;
+}
+
+.softPaddingUD {
+    padding-top: .3em;
+    padding-bottom: .3em;
 }
 
 .paddingU {
@@ -130,6 +183,23 @@ body {
 
 .paddingD {
     padding-bottom: 1em;
+}
+
+.paddingL {
+    padding-left: 1em;
+}
+
+.paddingR {
+    padding-right: 1em;
+}
+
+.paddingLR {
+    .paddingL;
+    .paddingR;
+}
+
+.marginR {
+    margin-right: 1em;
 }
 
 .border-light {
@@ -160,12 +230,6 @@ input:not([type=submit]) {
     background-color: @softGrey !important;
 }
 
-.btn-primary {
-    background-color: @lightBlue;
-    border: 0 !important;
-    margin-bottom: .5em;
-}
-
 .search-input {
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAiwAAAIsBRmWzPwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAHrSURBVDiNzZQ9axRRFIafM7OLuxNJUgQDBm0Ef0EKKwvRIiuKQTOT3c1OLEQ7EcHK3iY2pnLLJOusO4gKI2lEkSUgGI3+AgutLYz7oSQ7x8LZMMaZ1WChb/Wee9/73HO4cOF/l6RteJ43voV5yhAmEGn3erycL81siIjuCVgNAstqdxZU5TKQ2bW9rhhX5osX3v4RsBoEVq7VfSZwLLa8CQwBZlR3QkOnLjpOMwloxAur3VnYgQmBGZpH3KI90t2fHwa9DnQBywjFr9VqwwM79DxvfFsyH4EsQuDO2md3h1e8xjkVefTjoN6oFJ3bqR32jOxJIAtg9sxrSbdXSs5j4AWAIlMDR1b0UGQ/l8vn3yeFAUTZiOzhgUBUv0RuqBoEVhoQkQOR+zQQaIi+imwm3+pcSgov+f6EomcAFNYHAsuO8xr648itlbp/Oh6s1+sHpcd9YARAMGqJA8SL5fqDSQibQD5aeirKuxAdE0OmUUZj8bWcyZRt261UIMCy559AaABjSR38dFhp6vbXguu67V9G7sst2c/NcOuooDeBNeCDCG9A7oYhkwhBP6vCcTK5IP6IqZ9DmhZXV/eNbrYeohR2ICJzldmZe4kd/k5XC4VvOYNp4AmAKnf6sL+S7/v5Ja8xp6p7nvLf6jtscZ6Dbr0EvQAAAABJRU5ErkJggg==) no-repeat 97% 50% !important;
 }
@@ -178,6 +242,15 @@ input:not([type=submit]) {
         width: 100%;
         height: 2px;
         background: @darkBlue;
+        vertical-align: middle;
+    }
+
+    &-light-grey {
+        margin: .625em 0;
+        position: float;
+        width: 100%;
+        height: 1px;
+        background: @hrLightGrey;
         vertical-align: middle;
     }
 
@@ -272,10 +345,11 @@ input:not([type=submit]) {
 }
 
 .contact-us {
-    color: @lightBlue;
+    background: url(../images/mailIcon.png) no-repeat;
 
-    img {
-        margin-right: .5em;
+    a {
+        color: @lightBlue;
+        padding-left: 1em;
     }
 }
 
@@ -294,7 +368,7 @@ input:not([type=submit]) {
         color: @darkGrey;
         background: @white none;
         border: 0 !important;
-        border-radius: 4px;
+        border-radius: @borderRadius;
         -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
         -moz-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
         -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
@@ -310,7 +384,7 @@ input:not([type=submit]) {
             color: @darkGrey;
             background: @white none;
             border: 0 !important;
-            border-radius: 4px;
+            border-radius: @borderRadius;
             -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
             -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
             -moz-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
@@ -389,31 +463,31 @@ table {
 
 table thead th,
 .table-header {
-	margin-top: 1.5em;
-	text-align: center;
-	color: @lightBlue;
-	font-weight: bold;
-	border: none;
+    margin-top: 1.5em;
+    text-align: center;
+    color: @lightBlue;
+    font-weight: bold;
+    border: none;
 }
 
 table thead th a,
 .table-header a {
-	color: @lightBlue !important;
+    color: @lightBlue !important;
 }
-	
+
 table tbody tr,
 .table-content {
-  text-align: center;
-  line-height: 3em;
-  border: none;
+    text-align: center;
+    line-height: 3em;
+    border: none;
 }
 
 table tbody:before {
     /* This doesn't work because of border-collapse */
-    line-height:1em;
-    content:"_";
-    color:white;
-    display:block;
+    line-height: 1em;
+    content: "_";
+    color: white;
+    display: block;
 }
 
 table tbody tr:nth-child(odd),
@@ -421,7 +495,7 @@ table tbody tr:nth-child(odd),
     background-color: @lightYellow;
 }
 
-table tbody tr:nth-child(even){
+table tbody tr:nth-child(even) {
     background-color: @white;
 }
 
@@ -454,7 +528,8 @@ table tbody tr:nth-child(even){
         height: 11.625em;
         padding: .7em !important;
         a {
-            color: @darkBlue !important;
+            .dark-blue-text;
+            /*color: @darkBlue !important;*/
         }
     }
 
@@ -463,7 +538,8 @@ table tbody tr:nth-child(even){
         height: 11.625em;
         padding: .7em !important;
         a {
-            color: @darkBlue !important;
+            .dark-blue-text;
+            /*color: @darkBlue !important;*/
         }
     }
 
@@ -472,7 +548,8 @@ table tbody tr:nth-child(even){
         height: 11.625em;
         padding: .7em !important;
         a {
-            color: @darkBlue !important;
+            .dark-blue-text;
+            /*color: @darkBlue !important;*/
         }
     }
 
@@ -481,7 +558,8 @@ table tbody tr:nth-child(even){
         height: 11.625em;
         padding: .7em !important;
         a {
-            color: @darkBlue !important;
+            .dark-blue-text;
+            /*color: @darkBlue !important;*/
         }
     }
 
@@ -490,7 +568,8 @@ table tbody tr:nth-child(even){
         height: 11.625em;
         padding: .7em !important;
         a {
-            color: @darkBlue !important;
+            .dark-blue-text;
+            /*color: @darkBlue !important;*/
         }
     }
 
@@ -499,7 +578,8 @@ table tbody tr:nth-child(even){
         height: 11.625em;
         padding: .7em !important;
         a {
-            color: @darkBlue !important;
+            .dark-blue-text;
+            /*color: @darkBlue !important;*/
         }
     }
 
@@ -537,9 +617,9 @@ table tbody tr:nth-child(even){
         padding-left: 3em;
         height: 1.813em;
         width: 15.125em;
-        -webkit-border-radius: 2px;
-        -moz-border-radius: 2px;
-        border-radius: 2px;
+        -webkit-border-radius: @borderRadius;
+        -moz-border-radius: @borderRadius;
+        border-radius: @borderRadius;
         margin-top: .5em;
     }
 
@@ -599,125 +679,131 @@ table tbody tr:nth-child(even){
     }
 
     /*=========CHECKBOXES BURGER MENU============*/
-    /* Base for label styling */
-    [type="checkbox"]:not(:checked),
-    [type="checkbox"]:checked {
-        position: absolute;
-        left: -9999px;
-    }
+    [type="checkbox"] {
+        &:disabled {
+            &:not(:checked) + label:before,
+            &:checked + label:before {
+                box-shadow: none;
+                border-color: #bbb;
+                background-color: #ddd;
+            }
 
-    [type="checkbox"]:not(:checked) + label,
-    [type="checkbox"]:checked + label {
-        position: relative;
-        padding-left: 25px;
-        cursor: pointer;
-    }
-    /* checkbox aspect */
-    [type="checkbox"]:not(:checked) + label:before,
-    [type="checkbox"]:checked + label:before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 2px;
-        width: 17px;
-        height: 17px;
-        border: 1px solid @softGrey;
-        background: transparent;
-        border-radius: 3px;
-        box-shadow: inset 0 1px 3px rgba(0, 0, 0, .3)
-    }
+            &:checked + label:after {
+                color: #999;
+            }
 
-    /* checked mark aspect */
-    [type="checkbox"]:not(:checked) + label:after,
-    [type="checkbox"]:checked + label:after {
-        content: '✔';
-        position: absolute;
-        top: 0;
-        left: 4px;
-        font-size: 14px;
-        color: @lightBlue;
-        line-height: 1.75;
-        -webkit-transition: all .2s;
-        -moz-transition: all .2s;
-        -ms-transition: all .2s;
-        transition: all .2s;
-    }
+            & + label {
+                color: #aaa;
+            }
+        }
 
-    /* checked mark aspect changes */
-    [type="checkbox"]:not(:checked) + label:after {
-        opacity: 0;
-        -webkit-transform: scale(0);
-        -moz-transform: scale(0);
-        -ms-transform: scale(0);
-        transform: scale(0);
-    }
+        &:not(:checked),
+        &:checked {
+            position: absolute;
+            left: -9999px;
 
-    [type="checkbox"]:checked + label:after {
-        opacity: 1;
-        -webkit-transform: scale(1);
-        -moz-transform: scale(1);
-        -ms-transform: scale(1);
-        transform: scale(1);
-    }
+            & + label {
+                position: relative;
+                padding-left: 25px;
+                cursor: pointer;
 
-    /* disabled checkbox */
-    [type="checkbox"]:disabled:not(:checked) + label:before,
-    [type="checkbox"]:disabled:checked + label:before {
-        box-shadow: none;
-        border-color: #bbb;
-        background-color: #ddd;
-    }
+                &:before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 2px;
+                    width: 17px;
+                    height: 17px;
+                    border: 1px solid @softGrey;
+                    background: transparent;
+                    border-radius: @borderRadius;
+                    box-shadow: inset 0 1px 3px rgba(0, 0, 0, .3);
+                }
 
-    [type="checkbox"]:disabled:checked + label:after {
-        color: #999;
-    }
+                &:after {
+                    content: '✔';
+                    position: absolute;
+                    top: 0;
+                    left: 3px;
+                    font-size: 14px;
+                    color: @lightBlue;
+                    line-height: 1.75;
+                    -webkit-transition: all .2s;
+                    -moz-transition: all .2s;
+                    -ms-transition: all .2s;
+                    transition: all .2s;
+                }
+            }
+        }
 
-    [type="checkbox"]:disabled + label {
-        color: #aaa;
+        &:not(:checked) + label:after {
+            opacity: 0;
+            -webkit-transform: scale(0);
+            -moz-transform: scale(0);
+            -ms-transform: scale(0);
+            transform: scale(0);
+        }
+
+        &:checked + label:after {
+            opacity: 1;
+            -webkit-transform: scale(1);
+            -moz-transform: scale(1);
+            -ms-transform: scale(1);
+            transform: scale(1);
+        }
     }
     /*=========END CHECKBOXES BURGER MENU============*/
 }
 
-.my-contributions {
-    background: url(../images/bmCrayon.png) 0% 50% no-repeat;
-    padding-left: 2em;
+.my {
+    &-contributions {
+        background: url(../images/bmCrayon.png) 0% 50% no-repeat;
+        .burger-menu-links-common;
+    }
+
+    &-dashboard {
+        background: url(../images/bmComputer.png) 0% 50% no-repeat;
+        .burger-menu-links-common;
+    }
+
+    &-drafts {
+        background: url(../images/bmNotepad.png) 0% 50% no-repeat;
+        .burger-menu-links-common;
+    }
+
+    &-articles {
+        background: url(../images/bmToolbox.png) 0% 50% no-repeat;
+        .burger-menu-links-common;
+    }
+
+    &-selections {
+        background: url(../images/bmMenu.png) 0% 50% no-repeat;
+        .burger-menu-links-common;
+    }
+
+    &-working-groups {
+        background: url(../images/bmPeoples.png) 0% 50% no-repeat;
+        .burger-menu-links-common;
+    }
+
+    &-circles {
+        background: url(../images/bmCricles.png) 0% 50% no-repeat;
+        background-size: 20px;
+        .burger-menu-links-common;
+    }
+
+    &-responses {
+        background: url(../images/bmAnswer.png) 0% 50% no-repeat;
+        background-size: 20px;
+        .burger-menu-links-common;
+    }
 }
 
-.my-dashboard {
-    background: url(../images/bmComputer.png) 0% 50% no-repeat;
+.burger-menu-links-common {
     padding-left: 2em;
-}
-
-.my-drafts {
-    background: url(../images/bmNotepad.png) 0% 50% no-repeat;
-    padding-left: 2em;
-}
-
-.my-ressources {
-    background: url(../images/bmToolbox.png) 0% 50% no-repeat;
-    padding-left: 2em;
-}
-
-.my-selections {
-    background: url(../images/bmMenu.png) 0% 50% no-repeat;
-    padding-left: 2em;
-}
-
-.my-working-groups {
-    background: url(../images/bmPeoples.png) 0% 50% no-repeat;
-    padding-left: 2em;
-}
-
-.my-circles {
-    padding-left: 2em;
-}
-
-.my-responses {
-    padding-left: 2em;
-}
-
-.my-articles {
-    padding-left: 2em;
+    line-height: 2.3em;
+    display: inline-block;
+    height: 2.3em;
 }
 
 .burgermenu-title {
@@ -747,10 +833,6 @@ table tbody tr:nth-child(even){
     text-align: left !important;
 }
 
-.header-emindhub {
-    padding-bottom: 1.5em;
-}
-
 .views-table {
     width: 100%;
 }
@@ -770,28 +852,26 @@ table tbody tr:nth-child(even){
     padding: 1em;
 
     .form-item, .views-exposed-form .form-submit {
-        /*float: left;*/
         margin: 0 10px;
     }
 
-    .bef-toggle {
+    .form-item {
+        float: left;
     }
 
-    #edit-type-wrapper {
-        .form-type-bef-checkbox{
-            float: left;
-        }
+    .form-item-type {
+        width: 90%;
     }
-    /*
-    views-widget-filter-uid_current*/
-    .views-widget-filter-uid_current {
-        .bef-select-as-radios div {
-            float: left;
 
-        }
-        /*.form-type-radio {
+    input[type=radio] {
+        margin-left: .7em;
+    }
+
+    .views-exposed-widget {
+        width: 100%;
+        label:first-of-type {
             float: left;
-        }*/
+        }
     }
 }
 
@@ -817,11 +897,346 @@ table tbody tr:nth-child(even){
         height: 1.5em;
         width: 1.5em;
         display: block;
-        background: url(../images/previous.png) no-repeat  50% 50%;
+        background: url(../images/previous.png) no-repeat 50% 50%;
         float: left;
 
         a {
             display: none;
         }
+    }
+}
+
+.light-grey-background {
+    background-color: @lightGrey;
+}
+
+.challenge {
+    &-title {
+        font-size: 1.250em;
+    }
+
+    &-to-list a {
+        width: 18.429em;
+        height: 2.500em;
+        display: inline-block;
+        text-align: center;
+        padding-top: 0.5em;
+        background: @btnBackBackground url(../images/leftArrow.png) no-repeat 5% 50%;
+        color: @white;
+        border-radius: @borderRadius;
+        .upper;
+        .bold
+    }
+
+    &-previous a {
+        .challenge-common-btn;
+        background: url(../images/backbtn.png) 20% 50% no-repeat;
+        text-align: right !important;
+    }
+
+    &-next a {
+        .challenge-common-btn;
+        background: url(../images/nextbtn.png) 80% 50% no-repeat;
+        text-align: left !important;
+    }
+
+    &-state {
+        .challenge-state-common;
+        background-color: @btnBackBackground;
+
+        &-selected {
+            background-color: @challengeStateSelectedBackground;
+            border-top-left-radius: @borderRadius;
+            border-bottom-left-radius: @borderRadius;
+            position: relative;
+            .challenge-state-common;
+
+            &:after {
+                top: 100%;
+                left: 50%;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+                border: 12px solid rgba(0, 160, 224, 0);
+                border-top-color: #00a0e0;
+                margin-left: -12px;
+            }
+        }
+
+        &-row {
+            padding-left: 1em;
+            padding-right: 1em;
+            .paddingUD;
+
+        }
+
+        &:nth-last-child(1) {
+            border-top-right-radius: @borderRadius;
+            border-bottom-right-radius: @borderRadius;
+        }
+    }
+
+    &-container {
+        .light-grey-background;
+
+        h2 {
+            .bold;
+            .dark-blue-text;
+            font-size: 1.286em;
+        }
+    }
+
+    &-domain {
+        .italic;
+        width: 100%;
+        font-size: 1.1em;
+        background-color: @white;
+    }
+
+    &-company-description {
+        .bold;
+    }
+
+    &-tag {
+        .bold;
+        padding: .5em;
+        margin-left: .5em;
+        background-color: @white;
+
+        &-container {
+            padding: 1em;
+        }
+    }
+}
+
+.challenge-common-btn {
+    .upper;
+    .bold;
+    .dark-blue-text;
+    padding: .2em 0 .2em 0;
+    width: 100%;
+    display: inline-block;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+
+.challenge-state-common {
+    .upper;
+    .bold;
+    padding-top: 0.7em;
+    padding-bottom: 0.7em;
+    color: @white;
+    text-align: center;
+    a {
+        color: @white;
+    }
+}
+
+.btn {
+    &-star {
+        .upper;
+        .bold;
+        background-image: url(../images/starBtn.png) !important;
+        background-color: @darkBlue;
+        background-repeat: no-repeat;
+        background-position: 2% 50%;
+        padding-left: 1.9em !important;
+        color: @white;
+    }
+
+    &-workgroup {
+        .upper;
+        .bold;
+        padding-left: 2.2em !important;
+        background-image: url(../images/workGroupBtn.png) !important;
+        background-color: @expertYellow;
+        background-repeat: no-repeat;
+        background-position: 3% 50%;
+        color: @white;
+    }
+    &-expert {
+        .upper;
+        .bold;
+        color: @white;
+        background-color: @expertYellow;
+    }
+
+    &-primary {
+        background-color: @lightBlue;
+        border: 0 !important;
+        margin-bottom: .5em;
+    }
+
+    &-draft {
+        .upper;
+        .bold;
+
+        background-color: @darkBlue;
+        background-image: url(../images/draftBtn.png) !important;
+        background-repeat: no-repeat;
+        background-position: 5% 50%;
+        padding-left: 1.5em !important;
+        color: @white;
+    }
+    &-cancel {
+        .upper;
+        .bold;
+
+        background-color: @btnCancelBackground;
+        background-image: url(../images/cancelBtn.png) !important;
+        background-repeat: no-repeat;
+        background-position: 5% 50%;
+        padding-left: 1.5em !important;
+        color: @white;
+    }
+    &-send {
+        .upper;
+        .bold;
+
+        background-color: @expertYellow;
+        background-image: url(../images/sendBtn.png) !important;
+        background-repeat: no-repeat;
+        background-position: 5% 50%;
+        padding-left: 1.5em !important;
+        color: @white;
+    }
+}
+
+.profile-picture {
+    width: 5.5em;
+    height: 5.5em;
+    border-radius: 100%;
+    background-position: 20% 20%;
+    background-size: 280%;
+}
+
+.question-answer {
+    background-color: @softGrey;
+    border-style: none;
+    border-radius: @borderRadius;
+    width: 100%;
+    height: 7em;
+}
+
+/*=========CHECKBOXES GENERAL============*/
+[type="checkbox"] {
+    &:disabled {
+        :checked + label:after {
+            color: #999;
+        }
+
+        & + label {
+            color: #aaa;
+        }
+
+        &:not(:checked) + label:before,
+        &:checked + label:before {
+            box-shadow: none;
+            border-color: #bbb;
+            background-color: #ddd;
+        }
+    }
+
+    &:checked + label:after {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    &:not(:checked) + label:after {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    &:not(:checked),
+    &:checked {
+        position: absolute;
+        left: -9999px;
+
+        & + label {
+            position: relative;
+            padding-left: 25px;
+            cursor: pointer;
+
+            &:before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 2px;
+                width: 17px;
+                height: 17px;
+                border: 1px solid #aaa;
+                background: #f8f8f8;
+                border-radius: 3px;
+                box-shadow: inset 0 1px 3px rgba(0, 0, 0, .3);
+            }
+
+            &:after {
+                content: '✔';
+                position: absolute;
+                top: 1px;
+                left: 2px;
+                font-size: 14px;
+                color: #4c6172;
+                transition: all .2s;
+            }
+        }
+    }
+}
+
+/*=========END CHECKBOXES GENERAL============*/
+
+.input-text {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px !important;
+    width: 100%;
+}
+
+.social {
+    &-viemo {
+        .marginR;
+        display: inline-block;
+        background: url(../images/vimeoIcon.png) no-repeat;
+        width: 2.357em;
+        height: 2.286em;
+    }
+
+    &-youtube {
+        .marginR;
+        display: inline-block;
+        background: url(../images/youtubeIcon.png) no-repeat;
+        width: 2.357em;
+        height: 2.286em;
+    }
+
+    &-dailymotion {
+        .marginR;
+        display: inline-block;
+        background: url(../images/dailymotionIcon.png) no-repeat;
+        width: 2.357em;
+        height: 2.286em;
+    }
+}
+
+@circleLightBlue: #bfe7f8;
+
+.quicktabs-tabs {
+    li {
+        background-color: @circleLightBlue !important;
+        display: inline-block !important;
+        width: 10em;
+        height: 6em;
+    }
+
+    .active:not(a) {
+        background-color: @lightGrey !important;
+    }
+}
+
+.quicktabs-tabpage {
+    .views-row {
+        display: inline-block;
     }
 }

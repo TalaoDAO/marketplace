@@ -72,6 +72,15 @@
  * @ingroup themeable
  */
 ?>
+
+<div><?php print render($page['breadcrumbs']); ?></div>
+
+<?php
+if (isAdminUser()) {
+    print $messages;
+}
+?>
+
 <div id="page-wrapper">
     <div id="page">
     <div id="header">
@@ -90,18 +99,22 @@
                             <div class="col-md-4 col-md-offset-4">
                                 <div class="row inscription-image-wrapper">
                                     <div class="col-md-12">
-                                        <?php print $demandeImg; ?>
+                                        <a href="<?php print url("business/register"); ?>"><?php print $demandeImg; ?></a>
                                     </div>
                                 </div>
                                 <div class="row inscription-image-wrapper">
                                     <div class="col-md-12">
-                                        <?php print $expertiseImg; ?>
+                                        <a href="<?php print url("expert/register"); ?>"><?php print $expertiseImg; ?></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            <?php endif; ?>
+            <?php if (user_is_logged_in()): ?>
+                <div class="ligh-blue-line header-separator">&nbsp;</div>
+                <div class="dark-blue-line-large">&nbsp;</div>
             <?php endif; ?>
             <div class="container container-fluid">
                 <?php print render($page['header']); ?>
@@ -342,24 +355,25 @@
                         </div> <!-- /.section, /#sidebar-second -->
                     <?php endif; ?>
                 <?php endif; ?>
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="row subtitle-wrapper">
-                          <div class="col-md-6">
-                            <?php print render($page['theyuseus']); ?>
-                          </div>
-                          <div class="col-md-6">
-                            <?php print render($page['theyareexpert']); ?>
-                          </div>
+                <?php if (isHomePage()): ?>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row subtitle-wrapper">
+                              <div class="col-md-6">
+                                <?php print render($page['theyuseus']); ?>
+                              </div>
+                              <div class="col-md-6">
+                                <?php print render($page['theyareexpert']); ?>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row subtitle-wrapper">
+                                <?php print render($page['news']); ?>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="row subtitle-wrapper">
-                            <?php print render($page['news']); ?>
-                        </div>
-                    </div>
-                </div>
-
+                <?php endif; ?>
             </div>
         </div>
         <!-- /#main, /#main-wrapper -->
@@ -374,8 +388,3 @@
 
     </div>
 <?php endif; ?>
-<?php
-    if (isAdminUser()) {
-        print $messages;
-    }
-?>
