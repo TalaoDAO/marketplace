@@ -1,0 +1,15 @@
+name = Views Fieldset Style
+description = Shows views rows as fieldset
+
+core = 7.x
+dependencies[] = views
+package = Views
+
+files[] = views_plugin_style_fieldset.inc
+
+; Information added by drupal.org packaging script on 2013-07-30
+version = "7.x-1.0"
+core = "7.x"
+project = "views_fieldset"
+datestamp = "1375162882"
+
