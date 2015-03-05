@@ -302,11 +302,12 @@ if (isAdminUser()) {
                     </div>
                 </div> <!-- /.section, /#navigation -->
             <?php endif; ?>
-
-            <?php if ($breadcrumb): ?>
-                <div id="breadcrumb"><?php print $breadcrumb; ?></div>
-            <?php endif; ?>
         <?php endif; ?>
+
+        <?php if ($breadcrumb): ?>
+            <div id="breadcrumb"><?php print $breadcrumb; ?></div>
+        <?php endif; ?>
+
         <!-- END BREADCRUMB AND NAV -->
 
 

@@ -198,6 +198,10 @@ body {
     .paddingR;
 }
 
+.marginU {
+    margin-top: 1em;
+}
+
 .marginR {
     margin-right: 1em;
 }
@@ -252,6 +256,11 @@ input:not([type=submit]) {
         height: 1px;
         background: @hrLightGrey;
         vertical-align: middle;
+
+        &-dashed {
+            border: 0;
+            border-bottom: 1px dashed @lightBlue;
+        }
     }
 
     &-light {
@@ -1108,8 +1117,9 @@ table tbody tr:nth-child(even) {
     width: 5.5em;
     height: 5.5em;
     border-radius: 100%;
-    background-position: 20% 20%;
-    background-size: 280%;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
 }
 
 .question-answer {
@@ -1224,19 +1234,71 @@ table tbody tr:nth-child(even) {
 
 .quicktabs-tabs {
     li {
-        background-color: @circleLightBlue !important;
+        background: @circleLightBlue url(../images/cercle.png) no-repeat 50% 30% !important;
         display: inline-block !important;
-        width: 10em;
-        height: 6em;
+        min-width: 17em;
+        height: 8em;
+        line-height: 13.5em;
+        text-align: center;
+
+        a {
+            .upper;
+            .bold;
+            .dark-blue-text !important;
+        }
     }
 
     .active:not(a) {
         background-color: @lightGrey !important;
+
+        a {
+            .light-blue-text !important;
+        }
     }
 }
 
 .quicktabs-tabpage {
-    .views-row {
-        display: inline-block;
+    .view-content {
+        background-color: @lightGrey;
+
+        .views-row {
+            width: 12em;
+            display: inline-block;
+
+            .views-field-picture {
+                float: left;
+            }
+        }
     }
+}
+
+.register-title {
+    .upper;
+    .light-blue-text;
+    font-size: 1.714em;
+}
+
+#user-register-form {
+    .marginU;
+    .paddingUD;
+    .paddingLR;
+
+    background-color: @lightGrey;
+
+    .form-wrapper{
+        input[type=text] {
+            border:none;
+            line-height: 1.8em;
+        }
+
+        input[type=password] {
+            border:none;
+            line-height: 1.8em;
+        }
+    }
+    select {
+        border: none;
+        background-color: @softGrey;
+    }
+    /*hr-light-grey-dashed*/
 }

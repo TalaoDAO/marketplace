@@ -1,54 +1,26 @@
 <?php
-/*
-function emindhub_views_pre_render(&$view) {
-    if ($view->name== 'query-list-block' ) {
-        foreach($view->result as $r => $result) {
-            var_dump($view);
-            die;
-            // do whatever you want with each "row"
-        }
-    }
-}*/
-/*
-function emindhub_preprocess_views_view_fields(&$vars) {
-    $view = $vars['view'];
-    //var_dump($view);
-    //$vars['fields'] = array();
-//    print "=====================";
-//    var_dump(get_object_vars($view));
-//    print "=====================";
-    //die;
-}
 
-function emindhub_preprocess_views_view_table(&$vars) {
-    /*$view = $vars['view'];
-    $options = $view->style_plugin->options;
-    var_dump($options);
-    die;*//*
-}
-*/
-/*
-function emindhub_preprocess_field(&$variables) {
-    print $variables['element']['#field_name'];
-    if($variables['element']['#field_name'] == 'Picto') {
-        if($variables['items']['0']['#markup'] == 'thedefaultvalue') {
-            $variables['items']['0']['#markup'] = '';
-        }
-    }
-}
-*/
-function isHomePage() {
-    $isHomePage = drupal_is_front_page();
-    if (!$isHomePage) {
-        /*$arUrl = explode('/', current_path());
-        if ($arUrl[count($arUrl)-1] == "homepage") {
-            $isHomePage = true;
-        }*/
-        if (drupal_get_path_alias() == "homepage") {
-            $isHomePage = true;
-        }
-    }
-    return $isHomePage;
+//============================================================================
+// CONTACT FORM CUSTOMIZATION SECTION
+
+function emindhub_theme() {
+    return array(
+      'contact_site_form' => array(
+        'render element' => 'form',
+        'path' => drupal_get_path('theme', 'emindhub').'/templates',
+        'template' => 'contact-site-form',
+      ),
+      'user_picture' => array(
+        'path' => drupal_get_path('theme', 'emindhub').'/templates',
+        'template' => 'user_picture',
+        'render element' => 'image',
+      ),
+      /*'user_register_form' => array(
+        'path' => drupal_get_path('theme', 'emindhub').'/templates',
+        'template' => 'user-register-form',
+        'render element' => 'form'
+      ),*/
+    );
 }
 
 function emindhub_preprocess_user_picture(&$vars) {
@@ -105,24 +77,6 @@ function emindhub_preprocess_user_picture(&$vars) {
     }
 }
 
-//============================================================================
-// CONTACT FORM CUSTOMIZATION SECTION
-
-function emindhub_theme() {
-    return array(
-        'contact_site_form' => array(
-            'render element' => 'form',
-            'path' => drupal_get_path('theme', 'emindhub').'/templates',
-            'template' => 'contact-site-form',
-        ),
-        'user_picture' => array(
-            'path' => drupal_get_path('theme', 'emindhub').'/templates',
-            'template' => 'user_picture',
-            'render element' => 'image',
-        ),
-    );
-}
-
 function emindhub_form_alter(&$form, &$form_state, $form_id) {
     if ($form_id == 'search_block_form') {
         $form['search_block_form']['#title'] = t('Search'); // Change the text on the label element
@@ -152,181 +106,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 //        die;
     }
 }
-/*
-function emindhub_search_form($form, &$form_state, $action = '', $keys = '', $module = NULL, $prompt = NULL) {
-    $module_info = FALSE;
-    if (!$module) {
-        $module_info = search_get_default_module_info();
-    }
-    else {
-        $info = search_get_info();
-        $module_info = isset($info[$module]) ? $info[$module] : FALSE;
-    }
 
-    // Sanity check.
-    if (!$module_info) {
-        form_set_error(NULL, t('Search is currently disabled.'), 'error');
-        return $form;
-    }
-
-    if (!$action) {
-        $action = 'search/' . $module_info['path'];
-    }
-    if (!isset($prompt)) {
-        $prompt = t('Enter your keywords');
-    }
-
-    $form['#action'] = url($action);
-    // Record the $action for later use in redirecting.
-    $form_state['action'] = $action;
-    $form['#attributes']['class'][] = 'search-form';
-    $form['module'] = array(
-        '#type' => 'value',
-        '#value' => $module,
-    );
-    $form['basic'] = array(
-        '#type' => 'container',
-        '#attributes' => array('class' => array('container-inline', 'form-group')),
-    );
-    $form['basic']['keys'] = array(
-        '#type' => 'textfield',
-        '#title' => $prompt,
-        '#default_value' => $keys,
-        '#size' => $prompt ? 40 : 20,
-        '#maxlength' => 255,
-        '#attributes' => array(
-            'class' => array('search-input', 'form-control'),
-            'placeholder' => 'Votre recherche, mots clefs...',
-        ),
-    );
-    // processed_keys is used to coordinate keyword passing between other forms
-    // that hook into the basic search form.
-    $form['basic']['processed_keys'] = array(
-        '#type' => 'value',
-        '#value' => '',
-    );
-
-//    $form['basic']['submit'] = array(
-//        '#type' => 'submit',
-//        '#value' => t('Search'),
-//    );
-
-    return $form;
-}
-*/
-/*function emindhub_preprocess_search_block_form(&$variables) {
-    $variables['search'] = array();
-    $hidden = array();
-    // Provide variables named after form keys so themers can print each element independently.
-    foreach (element_children($variables['form']) as $key) {
-        $type = isset($variables['form'][$key]['#type']) ? $variables['form'][$key]['#type'] : '';
-        if ($type == 'hidden' || $type == 'token') {
-            $hidden[] = drupal_render($variables['form'][$key]);
-        }
-        else {
-            $variables['search'][$key] = drupal_render($variables['form'][$key]);
-        }
-    }
-    // Hidden form elements have no value to themers. No need for separation.
-    $variables['search']['hidden'] = implode($hidden);
-    // Collect all form elements to make it easier to print the whole form.
-    $variables['search_form'] = implode($variables['search']);
-}*/
-/*
-function emindhub_form_contact_site_form_alter(&$form, &$form_state)
-{
-*/
-    /*$form['#theme'] = 'contact_site_form';*/
-//    $form['#title'] = '';
- /*   $form['title']  ="";
-    $form['contact_site_form'] = array(
-        '#type' => 'checkbox',
-        '#title' => t(""),
-        '#required' => TRUE,
-    );
-    $form['#bulleImg'] = theme('image', array(
-        'path' => imagePath("bulle.png"),
-        'alt'=> '',
-        'getsize' => FALSE,
-    ));*/
-
-    /*$form['name']['#title'] = t('Nom');
-    $form['mail']['#title'] = t('Email');
-    $form['message']['#title'] = t('Votre question, remarque ou information à partager');
-    foreach (array('name', 'mail', 'firstname', 'zip', 'city', 'phone') as $field) {
-        $form[$field]['#size'] = 20;
-    }
-    $form['captcha']['#description'] = t('Merci de recopier le texte ci-dessous pour valider votre demande *');
-    $form['subject']['#type'] = 'hidden';
-    unset($form['subject']['#required']);*/
-/*
-}
-*/
-
-// TODO : Customizable text settings
-
-/**
- * Generate the user menu
- * @return array
- * @throws Exception
- */
-function GetMenu (&$vars) {
-    //$base_url = $url = base_path();
-    if (!user_is_logged_in()) {
-        $signIn = theme("link", array(
-            'text' => t('Se connecter'),
-            'path' => 'user',
-            'options' => array(
-                'attributes' => array('class' => array('user-menu')),
-                'html' => FALSE,
-            ),
-        ));
-        $register = theme("link", array(
-            'text' => t('S\'inscrire'),
-            'path' => 'user/register',
-            'options' => array(
-                'attributes' => array('class' => array('user-menu')),
-                'html' => FALSE,
-            ),
-        ));
-        return array($signIn, $register);
-    }
-    else {
-        global $user;
-        /**
-         * User Account
-         */
-        $account = user_load($user->uid);
-        if ($account) {
-            $firstName = "";
-            if (isset($account->field_first_name[LANGUAGE_NONE]) && $account->field_first_name[LANGUAGE_NONE]) {
-                $firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
-            }
-            $lastName = "";
-            if (isset($account->field_last_name[LANGUAGE_NONE]) && $account->field_last_name[LANGUAGE_NONE]) {
-                $lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
-            }
-            $name = '<span class="light-blue-text bold">'.$lastName.'</span> '.$firstName;
-        }
-        $accountMenu = theme("link", array(
-            'text' => $name,
-            'path' => '',
-            'options' => array(
-                'attributes' => array('class' => array('user-menu')),
-                'html' => TRUE,
-            ),
-        ));
-        $logout = theme("link", array(
-            'text' => t('Se déconnecter'),
-            'path' => 'user/logout',
-            'options' => array(
-                'attributes' => array('class' => array('user-menu')),
-                'html' => FALSE,
-            ),
-        ));
-        return array($accountMenu, $logout);
-    }
-}
 
 /**
  * Additional page variables
@@ -480,10 +260,6 @@ function emindhub_preprocess_page(&$vars) {
     $vars['secondMenu'] = FALSE;
 }
 
-function imagePath($fileName) {
-    return sprintf("%s/images/%s", path_to_theme(), $fileName);
-}
-
 function emindhub_preprocess_html(&$variables) {
     drupal_add_css('http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' , array('type' => 'external'));
 }
@@ -498,31 +274,6 @@ function emindhub_preprocess_node(&$variables, $hook) {
 }
 
 function emindhub_preprocess_node__challenge(&$vars) {
-    //Get the node id
-    /*if (arg(0) == 'node' && is_numeric(arg(1))) {
-        $nid = arg(1);
-    }
-
-    $prev_nid = $nid - 1;
-    $next_nid = $nid + 1;
-    $vars['previous_link'] = $prev_nid;
-    $vars['next_link'] = $next_nid;*/
-
-//    $nodes = getNodeFromTypeAndId("challenge", $prev_nid);
-//    $nodeId = getNodeFromTypeAndId_("challenge", $nid, 'prev');
-//    if ($nodeId) {
-//        $vars['previous_link'] = $nodes['node'][$prev_nid]->nid;
-//        $vars['previous_link'] = $nodeId;
-//    }
-
-    //node_load()
-
-//    $nodes = getNodeFromTypeAndId("challenge", $next_nid);
-//    $nodeId = getNodeFromTypeAndId_("challenge", $next_nid, 'next');
-//    if ($nodeId) {
-//        $vars['next_link'] = $nodes['node'][$next_nid]->nid;
-//        $vars['next_link'] = $nodeId;
-//    }
     $vars['first'] = false;
     if ($vars['teaser']) {
         global $teaserFisrtChallenge;
@@ -590,83 +341,6 @@ function emindhub_preprocess_node__blog(&$variables) {
     }
 }
 
-/*function getNodeFromTypeAndId_($type, $nid, $next_prev) {
-    //select * from node where type = 'challenge' and nid < 315 order by nid desc limit 1
-    if ($next_prev == 'next') {
-        $query = 'SELECT nid, title, created FROM {node} WHERE type = :type AND nid > :nid ORDER BY nid DESC LIMIT 1';
-    }
-    else {
-        $query = 'SELECT nid, title, created FROM {node} WHERE type = :type AND nid < :nid ORDER BY nid DESC LIMIT 1';
-    }
-
-    $result = db_query($query,
-        array(
-            ':nid' => $nid,
-            ':type' => $type
-        ));
-    if ($result) {
-        return $result->currentRow['nid'];
-    }
-    return false;
-}*/
-
-function getNodeFromTypeAndId($type, $nid, $next_prev) {
-    $query = new EntityFieldQuery();
-
-    $entities = $query->entityCondition('entity_type', 'node')
-        ->propertyCondition('type', $type)
-        ->propertyCondition('nid', $nid)
-        ->propertyCondition('status', 1)
-        ->range(0,1)
-        ->execute();
-
-    if (!empty($entities['node'])) {
-        return $entities;
-    }
-    return false;
-}
-
-//views-exposed-form--query-list--block.tpl
-/**
- * Generic preprocess that is still working on D7
- */
-/*function emindhub_preprocess_views_view_fields(&$vars) {
-  if (isset($vars['view']->name)) {
-    $function = 'emindhub_preprocess_views_view_fields__' . $vars['view']->name . '__' . $vars['view']->current_display;
-    var_dump($function);
-//    die;
-    if (function_exists($function)) {
-      $function($vars);
-    }
-  }
-}*/
-
-/**
- * Then the specific preprocess that worked without the above code for D6
- */
-/*function emindhub_preprocess_views_view_fields__query_list__block_1(&$vars) {
-  // my specific preprocess code
-  var_dump($vars);
-//  die;
-}*/
-
-/*
-function emindhub_preprocess_views_view_table(&$vars) {
-
-  if (isset($vars['view']->name)) {
-    $function = 'emindhub_preprocess_views_view_table__' . $vars['view']->name . '__' . $vars['view']->current_display;
-    //var_dump($function);
-//    die;
-    if (function_exists($function)) {
-      $function($vars);
-    }
-  }
-}
-
-function emindhub_preprocess_views_view_table__query_list__block(&$vars) {
-  echo 'toto';
-}
-*/
 //============================================================================
 // NICE MENU CUSTOMIZATION SECTION
 
@@ -928,10 +602,95 @@ function emindhub_links__locale_block(&$vars) {
     return $content;
 }
 
+function emindhub_form_user_register_form_alter(&$vars) {
+//    echo 'toto';
+}
+
 /*
  * USEFULL FUNCTION
  */
 function isAdminUser () {
     global $user;
     return (in_array('administrator', array_values($user->roles)));
+}
+
+function imagePath($fileName) {
+    return sprintf("%s/images/%s", path_to_theme(), $fileName);
+}
+
+function isHomePage() {
+    $isHomePage = drupal_is_front_page();
+    if (!$isHomePage) {
+        /*$arUrl = explode('/', current_path());
+        if ($arUrl[count($arUrl)-1] == "homepage") {
+            $isHomePage = true;
+        }*/
+        if (drupal_get_path_alias() == "homepage") {
+            $isHomePage = true;
+        }
+    }
+    return $isHomePage;
+}
+
+/**
+ * Generate the user menu
+ * @return array
+ * @throws Exception
+ */
+function GetMenu (&$vars) {
+    //$base_url = $url = base_path();
+    if (!user_is_logged_in()) {
+        $signIn = theme("link", array(
+          'text' => t('Se connecter'),
+          'path' => 'user',
+          'options' => array(
+            'attributes' => array('class' => array('user-menu')),
+            'html' => FALSE,
+          ),
+        ));
+        $register = theme("link", array(
+          'text' => t('S\'inscrire'),
+          'path' => 'user/register',
+          'options' => array(
+            'attributes' => array('class' => array('user-menu')),
+            'html' => FALSE,
+          ),
+        ));
+        return array($signIn, $register);
+    }
+    else {
+        global $user;
+        /**
+         * User Account
+         */
+        $account = user_load($user->uid);
+        if ($account) {
+            $firstName = "";
+            if (isset($account->field_first_name[LANGUAGE_NONE]) && $account->field_first_name[LANGUAGE_NONE]) {
+                $firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
+            }
+            $lastName = "";
+            if (isset($account->field_last_name[LANGUAGE_NONE]) && $account->field_last_name[LANGUAGE_NONE]) {
+                $lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
+            }
+            $name = '<span class="light-blue-text bold">'.$lastName.'</span> '.$firstName;
+        }
+        $accountMenu = theme("link", array(
+          'text' => $name,
+          'path' => '',
+          'options' => array(
+            'attributes' => array('class' => array('user-menu')),
+            'html' => TRUE,
+          ),
+        ));
+        $logout = theme("link", array(
+          'text' => t('Se déconnecter'),
+          'path' => 'user/logout',
+          'options' => array(
+            'attributes' => array('class' => array('user-menu')),
+            'html' => FALSE,
+          ),
+        ));
+        return array($accountMenu, $logout);
+    }
 }

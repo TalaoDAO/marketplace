@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="row paddingU">
             <div class="col-md-1">
-                <img src="./sites/all/themes/emindhub/images/bulle.png" />
+                <img src="<?php print url("sites/all/themes/emindhub/images/bulle.png"); ?>" />
             </div>
             <div class="col-md-10 bold">
                 <?php print t("Vous avez une question ?"); ?>
@@ -10,7 +10,7 @@
         </div>
         <div class="row paddingU">
             <div class="col-md-1">
-                <img src="./sites/all/themes/emindhub/images/bulle.png" />
+                <img src="<?php print url("sites/all/themes/emindhub/images/bulle.png"); ?>" />
             </div>
             <div class="col-md-10 bold">
                 <?php print t("Vous voulez en savoir plus ?"); ?>

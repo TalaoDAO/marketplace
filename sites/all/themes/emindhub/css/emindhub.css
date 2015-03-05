@@ -136,6 +136,9 @@ body {
   padding-left: 1em;
   padding-right: 1em;
 }
+.marginU {
+  margin-top: 1em;
+}
 .marginR {
   margin-right: 1em;
 }
@@ -179,6 +182,10 @@ input:not([type=submit]) {
   height: 1px;
   background: #cbd1d6;
   vertical-align: middle;
+}
+.hr-light-grey-dashed {
+  border: 0;
+  border-bottom: 1px dashed #009fe3;
 }
 .hr-light {
   margin: .625em 0;
@@ -962,8 +969,9 @@ table tbody tr:nth-child(even) {
   width: 5.5em;
   height: 5.5em;
   border-radius: 100%;
-  background-position: 20% 20%;
-  background-size: 280%;
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 }
 .question-answer {
   background-color: #d4d9dd;
@@ -1056,15 +1064,58 @@ table tbody tr:nth-child(even) {
   height: 2.286em;
 }
 .quicktabs-tabs li {
-  background-color: #bfe7f8 !important;
+  background: #bfe7f8 url(../images/cercle.png) no-repeat 50% 30% !important;
   display: inline-block !important;
-  width: 10em;
-  height: 6em;
+  min-width: 17em;
+  height: 8em;
+  line-height: 13.5em;
+  text-align: center;
+}
+.quicktabs-tabs li a {
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #4c6172 !important;
 }
 .quicktabs-tabs .active:not(a) {
   background-color: #f6f7f8 !important;
 }
-.quicktabs-tabpage .views-row {
+.quicktabs-tabs .active:not(a) a {
+  color: #009fe3 !important;
+}
+.quicktabs-tabpage .view-content {
+  background-color: #f6f7f8;
+}
+.quicktabs-tabpage .view-content .views-row {
+  width: 12em;
   display: inline-block;
+}
+.quicktabs-tabpage .view-content .views-row .views-field-picture {
+  float: left;
+}
+.register-title {
+  text-transform: uppercase;
+  color: #009fe3 !important;
+  font-size: 1.714em;
+}
+#user-register-form {
+  margin-top: 1em;
+  padding-top: 1.18em;
+  padding-bottom: 1.18em;
+  padding-left: 1em;
+  padding-right: 1em;
+  background-color: #f6f7f8;
+  /*hr-light-grey-dashed*/
+}
+#user-register-form .form-wrapper input[type=text] {
+  border: none;
+  line-height: 1.8em;
+}
+#user-register-form .form-wrapper input[type=password] {
+  border: none;
+  line-height: 1.8em;
+}
+#user-register-form select {
+  border: none;
+  background-color: #d4d9dd;
 }
 /*# sourceMappingURL=emindhub.css.map */
