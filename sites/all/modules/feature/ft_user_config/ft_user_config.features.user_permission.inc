@@ -151,7 +151,11 @@ function ft_user_config_user_default_permissions() {
     'name' => 'access own webform results',
     'roles' => array(
       'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
       'business' => 'business',
+      'business preview' => 'business preview',
+      'expert preview' => 'expert preview',
+      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
@@ -163,7 +167,9 @@ function ft_user_config_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
+      'business preview' => 'business preview',
       'expert' => 'expert',
+      'expert preview' => 'expert preview',
       'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
@@ -174,6 +180,7 @@ function ft_user_config_user_default_permissions() {
     'name' => 'access private fields',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'field_permissions',
   );
@@ -239,7 +246,10 @@ function ft_user_config_user_default_permissions() {
   // Exported permission: 'access statistics'.
   $permissions['access statistics'] = array(
     'name' => 'access statistics',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
     'module' => 'statistics',
   );
 
@@ -379,6 +389,7 @@ function ft_user_config_user_default_permissions() {
     'name' => 'administer Terms and Conditions',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'legal',
   );
@@ -444,6 +455,7 @@ function ft_user_config_user_default_permissions() {
     'name' => 'administer content translations',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'i18n_node',
   );
@@ -465,6 +477,15 @@ function ft_user_config_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'css_injector',
+  );
+
+  // Exported permission: 'administer custom breadcrumbs'.
+  $permissions['administer custom breadcrumbs'] = array(
+    'name' => 'administer custom breadcrumbs',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'custom_breadcrumbs',
   );
 
   // Exported permission: 'administer dependencies'.
@@ -492,6 +513,15 @@ function ft_user_config_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'features',
+  );
+
+  // Exported permission: 'administer field collections'.
+  $permissions['administer field collections'] = array(
+    'name' => 'administer field collections',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'field_collection',
   );
 
   // Exported permission: 'administer field permissions'.
@@ -952,6 +982,15 @@ function ft_user_config_user_default_permissions() {
     'module' => 'views_send',
   );
 
+  // Exported permission: 'administer voting api'.
+  $permissions['administer voting api'] = array(
+    'name' => 'administer voting api',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'votingapi',
+  );
+
   // Exported permission: 'allow disabling privatemsg'.
   $permissions['allow disabling privatemsg'] = array(
     'name' => 'allow disabling privatemsg',
@@ -1107,7 +1146,10 @@ function ft_user_config_user_default_permissions() {
   // Exported permission: 'create field_picto'.
   $permissions['create field_picto'] = array(
     'name' => 'create field_picto',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
     'module' => 'field_permissions',
   );
 
@@ -1589,6 +1631,30 @@ function ft_user_config_user_default_permissions() {
     'module' => 'taxonomy',
   );
 
+  // Exported permission: 'delete terms in known_how'.
+  $permissions['delete terms in known_how'] = array(
+    'name' => 'delete terms in known_how',
+    'roles' => array(),
+    'module' => 'taxonomy',
+  );
+
+  // Exported permission: 'delete terms in notification_frequencies'.
+  $permissions['delete terms in notification_frequencies'] = array(
+    'name' => 'delete terms in notification_frequencies',
+    'roles' => array(),
+    'module' => 'taxonomy',
+  );
+
+  // Exported permission: 'delete terms in skill'.
+  $permissions['delete terms in skill'] = array(
+    'name' => 'delete terms in skill',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'taxonomy',
+  );
+
   // Exported permission: 'delete terms in tags'.
   $permissions['delete terms in tags'] = array(
     'name' => 'delete terms in tags',
@@ -1789,7 +1855,10 @@ function ft_user_config_user_default_permissions() {
   // Exported permission: 'edit field_picto'.
   $permissions['edit field_picto'] = array(
     'name' => 'edit field_picto',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
     'module' => 'field_permissions',
   );
 
@@ -1835,6 +1904,7 @@ function ft_user_config_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
+      'business preview' => 'business preview',
       'webmaster' => 'webmaster',
     ),
     'module' => 'profile2',
@@ -1890,6 +1960,7 @@ function ft_user_config_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'expert' => 'expert',
+      'expert preview' => 'expert preview',
       'webmaster' => 'webmaster',
     ),
     'module' => 'profile2',
@@ -1898,7 +1969,10 @@ function ft_user_config_user_default_permissions() {
   // Exported permission: 'edit own field_picto'.
   $permissions['edit own field_picto'] = array(
     'name' => 'edit own field_picto',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
     'module' => 'field_permissions',
   );
 
@@ -1987,7 +2061,10 @@ function ft_user_config_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
+      'business preview' => 'business preview',
       'expert' => 'expert',
+      'expert preview' => 'expert preview',
+      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
@@ -2021,6 +2098,30 @@ function ft_user_config_user_default_permissions() {
   // Exported permission: 'edit terms in forums'.
   $permissions['edit terms in forums'] = array(
     'name' => 'edit terms in forums',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'taxonomy',
+  );
+
+  // Exported permission: 'edit terms in known_how'.
+  $permissions['edit terms in known_how'] = array(
+    'name' => 'edit terms in known_how',
+    'roles' => array(),
+    'module' => 'taxonomy',
+  );
+
+  // Exported permission: 'edit terms in notification_frequencies'.
+  $permissions['edit terms in notification_frequencies'] = array(
+    'name' => 'edit terms in notification_frequencies',
+    'roles' => array(),
+    'module' => 'taxonomy',
+  );
+
+  // Exported permission: 'edit terms in skill'.
+  $permissions['edit terms in skill'] = array(
+    'name' => 'edit terms in skill',
     'roles' => array(
       'administrator' => 'administrator',
       'webmaster' => 'webmaster',
@@ -2091,36 +2192,6 @@ function ft_user_config_user_default_permissions() {
   // Exported permission: 'execute comment_unpublish_by_keyword_action'.
   $permissions['execute comment_unpublish_by_keyword_action'] = array(
     'name' => 'execute comment_unpublish_by_keyword_action',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'actions_permissions',
-  );
-
-  // Exported permission: 'execute flag_comment_action'.
-  $permissions['execute flag_comment_action'] = array(
-    'name' => 'execute flag_comment_action',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'actions_permissions',
-  );
-
-  // Exported permission: 'execute flag_node_action'.
-  $permissions['execute flag_node_action'] = array(
-    'name' => 'execute flag_node_action',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'actions_permissions',
-  );
-
-  // Exported permission: 'execute flag_user_action'.
-  $permissions['execute flag_user_action'] = array(
-    'name' => 'execute flag_user_action',
     'roles' => array(
       'administrator' => 'administrator',
       'webmaster' => 'webmaster',
@@ -2452,6 +2523,7 @@ function ft_user_config_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'flag',
   );
@@ -2462,6 +2534,7 @@ function ft_user_config_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'flag',
   );
@@ -2472,6 +2545,7 @@ function ft_user_config_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'flag',
   );
@@ -2627,6 +2701,15 @@ function ft_user_config_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'privatecomments',
+  );
+
+  // Exported permission: 'rate content'.
+  $permissions['rate content'] = array(
+    'name' => 'rate content',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'fivestar',
   );
 
   // Exported permission: 'read all private messages'.
@@ -2845,6 +2928,7 @@ function ft_user_config_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'flag',
   );
@@ -2855,6 +2939,7 @@ function ft_user_config_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'flag',
   );
@@ -2865,8 +2950,18 @@ function ft_user_config_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'flag',
+  );
+
+  // Exported permission: 'use PHP for settings'.
+  $permissions['use PHP for settings'] = array(
+    'name' => 'use PHP for settings',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'php',
   );
 
   // Exported permission: 'use advanced search'.
@@ -2933,6 +3028,15 @@ function ft_user_config_user_default_permissions() {
     'module' => 'page_manager',
   );
 
+  // Exported permission: 'use php in custom breadcrumbs'.
+  $permissions['use php in custom breadcrumbs'] = array(
+    'name' => 'use php in custom breadcrumbs',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'custom_breadcrumbs',
+  );
+
   // Exported permission: 'use text format ds_code'.
   $permissions['use text format ds_code'] = array(
     'name' => 'use text format ds_code',
@@ -2966,6 +3070,13 @@ function ft_user_config_user_default_permissions() {
       'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
+    'module' => 'filter',
+  );
+
+  // Exported permission: 'use text format php_code'.
+  $permissions['use text format php_code'] = array(
+    'name' => 'use text format php_code',
+    'roles' => array(),
     'module' => 'filter',
   );
 
@@ -3084,6 +3195,7 @@ function ft_user_config_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
+      'business preview' => 'business preview',
       'webmaster' => 'webmaster',
     ),
     'module' => 'profile2',
@@ -3095,6 +3207,7 @@ function ft_user_config_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'expert' => 'expert',
+      'expert preview' => 'expert preview',
       'webmaster' => 'webmaster',
     ),
     'module' => 'profile2',
@@ -3103,7 +3216,10 @@ function ft_user_config_user_default_permissions() {
   // Exported permission: 'view own field_picto'.
   $permissions['view own field_picto'] = array(
     'name' => 'view own field_picto',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
     'module' => 'field_permissions',
   );
 
@@ -3153,7 +3269,10 @@ function ft_user_config_user_default_permissions() {
   // Exported permission: 'view post access counter'.
   $permissions['view post access counter'] = array(
     'name' => 'view post access counter',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
     'module' => 'statistics',
   );
 
