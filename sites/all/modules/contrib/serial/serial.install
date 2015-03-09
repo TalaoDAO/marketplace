@@ -1,0 +1,86 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Serial module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function serial_uninstall() {
+  /*
+   * Schema tables are now dropped automatically.  However, if any work needs
+   * to be done before this, do it here.
+   */
+}
+
+/**
+ * Implements hook_field_schema().
+ */
+function serial_field_schema($field) {
+  switch ($field['type']) {
+    case 'serial':
+      $columns['value'] = array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'sortable' => TRUE,
+        'views' => TRUE,
+        'index' => TRUE,
+      );
+      break;
+  }
+  return array(
+    'columns' => $columns
+  );
+}
+
+/**
+ * Implements hook_schema().
+ */
+function serial_schema() {
+  // Get the standard schema:
+  module_load_include('inc', 'serial');
+  $table_schema = _serial_get_table_schema();
+
+  // Build the schema by iteration over all the serial field instances:
+  $schema = array();
+  $result = _serial_get_all_fields();
+  foreach ($result as $field) {
+    $table = _serial_get_table_name($field->bundle, $field->field_name);
+    $schema[$table] = $table_schema;
+  }
+
+  // Return the schema of all the assistant tables (one per serial field instance):
+  return $schema;
+}
+
+/**
+ * Upgrade path.
+ *
+ * Switches from nids to uniqid.
+ */
+function serial_update_7130() {
+  // Get the new field schema.
+  module_load_include('inc', 'serial');
+  $table_schema = _serial_get_table_schema();
+  $uniqid_schema = $table_schema['fields']['uniqid'];
+
+  // Update the schema of old assistant tables.
+  $result = _serial_get_all_fields();
+  foreach ($result as $field) {
+    // Empty the table.
+    $table = _serial_get_table_name($field->bundle, $field->field_name);
+    db_delete($table)->execute();
+
+    // Drop nid field and key
+    db_drop_field($table, 'nid');
+    db_drop_unique_key($table, 'nid');
+
+    // Add uniqid field and key
+    db_add_field($table, 'uniqid', $uniqid_schema);
+    db_add_unique_key($table, 'uniqid', array('uniqid'));
+  }
+}
+
