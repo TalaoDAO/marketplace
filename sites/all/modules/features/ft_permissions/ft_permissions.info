@@ -1,0 +1,8 @@
+name = FT Permissions
+description = All roles and permissions
+core = 7.x
+package = EMH
+version = 7.x-1.0-dev
+project = ft_permissions
+features[features_api][] = api:2
+project path = sites/all/modules/features
