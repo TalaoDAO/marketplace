@@ -970,6 +970,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['style_plugin'] = 'quicktabs';
   $handler->display->display_options['style_options']['grouping'] = array(
@@ -979,6 +980,7 @@ function ft_views_views_default_views() {
       'rendered_strip' => 0,
     ),
   );
+  $handler->display->display_options['style_options']['tab_style'] = 'nostyle';
   $handler->display->display_options['style_options']['tab_title_field'] = 'title';
   $handler->display->display_options['row_plugin'] = 'fields';
   /* No results behavior: Global: Text area */
@@ -1011,18 +1013,15 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['nid']['field'] = 'nid';
   $handler->display->display_options['fields']['nid']['relationship'] = 'og_membership_related_node_group';
   $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
-  /* Field: Broken/missing handler */
+  /* Field: Global: View */
   $handler->display->display_options['fields']['view_1']['id'] = 'view_1';
   $handler->display->display_options['fields']['view_1']['table'] = 'views';
   $handler->display->display_options['fields']['view_1']['field'] = 'view';
   $handler->display->display_options['fields']['view_1']['label'] = '';
   $handler->display->display_options['fields']['view_1']['element_label_colon'] = FALSE;
-  /* Field: Broken/missing handler */
-  $handler->display->display_options['fields']['view']['id'] = 'view';
-  $handler->display->display_options['fields']['view']['table'] = 'views';
-  $handler->display->display_options['fields']['view']['field'] = 'view';
-  $handler->display->display_options['fields']['view']['label'] = '';
-  $handler->display->display_options['fields']['view']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['view_1']['view'] = 'og_members';
+  $handler->display->display_options['fields']['view_1']['display'] = 'block_2';
+  $handler->display->display_options['fields']['view_1']['arguments'] = '[!nid]';
   /* Sort criterion: Content: Title */
   $handler->display->display_options['sorts']['title']['id'] = 'title';
   $handler->display->display_options['sorts']['title']['table'] = 'node';
@@ -3336,6 +3335,8 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_testimony']['table'] = 'field_data_field_testimony';
   $handler->display->display_options['fields']['field_testimony']['field'] = 'field_testimony';
   $handler->display->display_options['fields']['field_testimony']['relationship'] = 'profile';
+  $handler->display->display_options['fields']['field_testimony']['label'] = '';
+  $handler->display->display_options['fields']['field_testimony']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_testimony']['type'] = 'text_trimmed';
   $handler->display->display_options['fields']['field_testimony']['settings'] = array(
     'trim_length' => '150',
@@ -3344,6 +3345,8 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['picture']['id'] = 'picture';
   $handler->display->display_options['fields']['picture']['table'] = 'users';
   $handler->display->display_options['fields']['picture']['field'] = 'picture';
+  $handler->display->display_options['fields']['picture']['label'] = '';
+  $handler->display->display_options['fields']['picture']['element_label_colon'] = FALSE;
   /* Sort criterion: User: Created date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'users';

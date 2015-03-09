@@ -278,6 +278,7 @@ function ft_user_config_user_default_permissions() {
     'name' => 'act as administrator member in og node:circle',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'og_role_override',
   );
@@ -287,6 +288,7 @@ function ft_user_config_user_default_permissions() {
     'name' => 'act as administrator member in og node:working_group',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'og_role_override',
   );
@@ -305,6 +307,7 @@ function ft_user_config_user_default_permissions() {
     'name' => 'act as member in og node:working_group',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'og_role_override',
   );
@@ -323,6 +326,7 @@ function ft_user_config_user_default_permissions() {
     'name' => 'act as non-member in og node:working_group',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'og_role_override',
   );
@@ -342,6 +346,7 @@ function ft_user_config_user_default_permissions() {
     'name' => 'admin_classes',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'ds_ui',
   );
@@ -380,6 +385,7 @@ function ft_user_config_user_default_permissions() {
     'name' => 'administer EU Cookie Compliance popup',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'eu_cookie_compliance',
   );
@@ -1634,30 +1640,24 @@ function ft_user_config_user_default_permissions() {
   // Exported permission: 'delete terms in known_how'.
   $permissions['delete terms in known_how'] = array(
     'name' => 'delete terms in known_how',
-    'roles' => array(),
+    'roles' => array(
+      'webmaster' => 'webmaster',
+    ),
     'module' => 'taxonomy',
   );
 
   // Exported permission: 'delete terms in notification_frequencies'.
   $permissions['delete terms in notification_frequencies'] = array(
     'name' => 'delete terms in notification_frequencies',
-    'roles' => array(),
+    'roles' => array(
+      'webmaster' => 'webmaster',
+    ),
     'module' => 'taxonomy',
   );
 
   // Exported permission: 'delete terms in skill'.
   $permissions['delete terms in skill'] = array(
     'name' => 'delete terms in skill',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'taxonomy',
-  );
-
-  // Exported permission: 'delete terms in tags'.
-  $permissions['delete terms in tags'] = array(
-    'name' => 'delete terms in tags',
     'roles' => array(
       'administrator' => 'administrator',
       'webmaster' => 'webmaster',
@@ -1680,6 +1680,8 @@ function ft_user_config_user_default_permissions() {
     'name' => 'display EU Cookie Compliance popup',
     'roles' => array(
       'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'eu_cookie_compliance',
   );
@@ -2087,7 +2089,6 @@ function ft_user_config_user_default_permissions() {
     'name' => 'edit terms in domaine',
     'roles' => array(
       'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
       'business' => 'business',
       'expert' => 'expert',
       'webmaster' => 'webmaster',
@@ -2108,14 +2109,18 @@ function ft_user_config_user_default_permissions() {
   // Exported permission: 'edit terms in known_how'.
   $permissions['edit terms in known_how'] = array(
     'name' => 'edit terms in known_how',
-    'roles' => array(),
+    'roles' => array(
+      'webmaster' => 'webmaster',
+    ),
     'module' => 'taxonomy',
   );
 
   // Exported permission: 'edit terms in notification_frequencies'.
   $permissions['edit terms in notification_frequencies'] = array(
     'name' => 'edit terms in notification_frequencies',
-    'roles' => array(),
+    'roles' => array(
+      'webmaster' => 'webmaster',
+    ),
     'module' => 'taxonomy',
   );
 
@@ -2124,16 +2129,9 @@ function ft_user_config_user_default_permissions() {
     'name' => 'edit terms in skill',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'taxonomy',
-  );
-
-  // Exported permission: 'edit terms in tags'.
-  $permissions['edit terms in tags'] = array(
-    'name' => 'edit terms in tags',
-    'roles' => array(
-      'administrator' => 'administrator',
+      'business' => 'business',
+      'expert' => 'expert',
+      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'taxonomy',
@@ -2708,6 +2706,7 @@ function ft_user_config_user_default_permissions() {
     'name' => 'rate content',
     'roles' => array(
       'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'fivestar',
   );
@@ -2816,6 +2815,7 @@ function ft_user_config_user_default_permissions() {
     'name' => 'select different theme',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'switchtheme',
   );
@@ -2855,8 +2855,11 @@ function ft_user_config_user_default_permissions() {
     'name' => 'switch theme',
     'roles' => array(
       'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
       'business' => 'business',
+      'business preview' => 'business preview',
       'expert' => 'expert',
+      'expert preview' => 'expert preview',
       'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
