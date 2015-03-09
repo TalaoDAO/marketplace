@@ -216,7 +216,9 @@ function ft_user_config_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'options',
-      'settings' => array(),
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
       'type' => 'options_select',
       'weight' => 12,
     ),
@@ -283,7 +285,9 @@ function ft_user_config_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'options',
-      'settings' => array(),
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
       'type' => 'options_select',
       'weight' => 11,
     ),
@@ -597,13 +601,85 @@ function ft_user_config_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_first_name'
+  $field_instances['user-user-field_first_name'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_first_name',
+    'label' => 'First Name',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 52,
+    ),
+  );
+
+  // Exported field_instance: 'user-user-field_last_name'
+  $field_instances['user-user-field_last_name'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_last_name',
+    'label' => 'Last Name',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 53,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('Address');
   t('Corporation');
   t('Entreprise_visibility');
+  t('First Name');
   t('How have you heard of us');
   t('If other, specify');
+  t('Last Name');
   t('Name visibility');
   t('Notification frequency');
   t('Profile visibility');

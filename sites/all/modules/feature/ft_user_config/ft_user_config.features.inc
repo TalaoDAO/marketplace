@@ -5,33 +5,10 @@
  */
 
 /**
- * Implements hook_default_profile2_type().
+ * Implements hook_ctools_plugin_api().
  */
-function ft_user_config_default_profile2_type() {
-  $items = array();
-  $items['business'] = entity_import('profile2_type', '{
-    "userCategory" : true,
-    "userView" : true,
-    "type" : "business",
-    "label" : "Business",
-    "weight" : "0",
-    "data" : { "registration" : 0, "use_page" : 0 }
-  }');
-  $items['expert'] = entity_import('profile2_type', '{
-    "userCategory" : true,
-    "userView" : true,
-    "type" : "expert",
-    "label" : "Expert",
-    "weight" : "0",
-    "data" : { "registration" : 0, "use_page" : 0 }
-  }');
-  $items['main'] = entity_import('profile2_type', '{
-    "userCategory" : false,
-    "userView" : false,
-    "type" : "main",
-    "label" : "Main profile",
-    "weight" : "0",
-    "data" : { "registration" : true, "use_page" : true }
-  }');
-  return $items;
+function ft_user_config_ctools_plugin_api($module = NULL, $api = NULL) {
+  if ($module == "field_group" && $api == "field_group") {
+    return array("version" => "1");
+  }
 }

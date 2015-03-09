@@ -9,11 +9,36 @@
  */
 function ft_rules_default_rules_configuration() {
   $items = array();
-  $items['rules_pre_subscribe_membres'] = entity_import('rules_config', '{ "rules_pre_subscribe_membres" : {
-      "LABEL" : "Pre subscribe membres",
+  $items['rules_mandatory_group'] = entity_import('rules_config', '{ "rules_mandatory_group" : {
+      "LABEL" : "Mandatory Group",
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
-      "TAGS" : [ "Circle" ],
+      "TAGS" : [ "Circle", "EMH" ],
+      "REQUIRES" : [ "rules", "og" ],
+      "ON" : { "user_insert" : [] },
+      "IF" : [
+        { "user_has_role" : {
+            "account" : [ "account" ],
+            "roles" : { "value" : { "4" : "4", "8" : "8" } },
+            "operation" : "OR"
+          }
+        }
+      ],
+      "DO" : [
+        { "entity_fetch" : {
+            "USING" : { "type" : "node", "id" : "314" },
+            "PROVIDE" : { "entity_fetched" : { "entity_fetched" : "Fetched entity" } }
+          }
+        },
+        { "og_subcribe_user" : { "user" : [ "account" ], "group" : [ "entity-fetched" ] } }
+      ]
+    }
+  }');
+  $items['rules_pre_subscribe_membres'] = entity_import('rules_config', '{ "rules_pre_subscribe_membres" : {
+      "LABEL" : "Pre subscribe members to new Circles",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "TAGS" : [ "Circle", "EMH" ],
       "REQUIRES" : [ "og", "rules" ],
       "ON" : { "node_insert--circle" : { "bundle" : "circle" } },
       "DO" : [
@@ -32,7 +57,7 @@ function ft_rules_default_rules_configuration() {
       "LABEL" : "Subscription to group email",
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
-      "TAGS" : [ "email" ],
+      "TAGS" : [ "Circle", "EMH", "email" ],
       "REQUIRES" : [ "rules", "og" ],
       "ON" : { "og_user_insert" : [] },
       "DO" : [

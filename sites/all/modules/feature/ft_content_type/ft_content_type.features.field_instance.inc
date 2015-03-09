@@ -30,6 +30,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Comment',
     'required' => TRUE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -63,6 +64,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Comment',
     'required' => TRUE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -96,6 +98,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Comment',
     'required' => TRUE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -129,6 +132,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'description_field' => 0,
+      'entity_translation_sync' => FALSE,
       'file_directory' => '',
       'file_extensions' => 'txt',
       'max_filesize' => '',
@@ -165,6 +169,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Comment',
     'required' => TRUE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -198,6 +203,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Comment',
     'required' => TRUE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -231,6 +237,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Comment',
     'required' => TRUE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -264,6 +271,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Comment',
     'required' => TRUE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -297,6 +305,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Comment',
     'required' => TRUE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -330,6 +339,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Comment',
     'required' => TRUE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -363,6 +373,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Comment',
     'required' => TRUE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -373,6 +384,130 @@ function ft_content_type_field_default_field_instances() {
       ),
       'type' => 'text_textarea',
       'weight' => 0,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_skills_set-field_skill'
+  $field_instances['field_collection_item-field_skills_set-field_skill'] = array(
+    'bundle' => 'field_skills_set',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(),
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_skill',
+    'label' => 'Skill',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 0,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_skills_set-field_skill_autoeval'
+  $field_instances['field_collection_item-field_skills_set-field_skill_autoeval'] = array(
+    'bundle' => 'field_skills_set',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'fivestar',
+        'settings' => array(
+          'expose' => TRUE,
+          'style' => 'average',
+          'text' => 'average',
+          'widget' => array(
+            'fivestar_widget' => NULL,
+          ),
+        ),
+        'type' => 'fivestar_formatter_default',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_skill_autoeval',
+    'label' => 'Skill autoeval',
+    'required' => 0,
+    'settings' => array(
+      'allow_clear' => 1,
+      'allow_ownvote' => 1,
+      'allow_revote' => 1,
+      'entity_translation_sync' => FALSE,
+      'stars' => 5,
+      'target' => 'none',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'fivestar',
+      'settings' => array(
+        'widget' => array(
+          'fivestar_widget' => 'default',
+        ),
+      ),
+      'type' => 'stars',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'field_collection_item-field_skills_set-field_year_of_experiences'
+  $field_instances['field_collection_item-field_skills_set-field_year_of_experiences'] = array(
+    'bundle' => 'field_skills_set',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_year_of_experiences',
+    'label' => 'Year of experiences',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'max' => 50,
+      'min' => 1,
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 2,
     ),
   );
 
@@ -406,6 +541,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'display_summary' => 1,
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -448,6 +584,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Answer to the question',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -499,6 +636,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Best Answer',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -539,6 +677,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'display_summary' => 0,
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -584,6 +723,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => FALSE,
     'settings' => array(
       'display_summary' => TRUE,
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -624,16 +764,18 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Domaine',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 0,
-      'module' => 'taxonomy',
+      'module' => 'options',
       'settings' => array(
+        'apply_chosen' => '',
         'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
-      'type' => 'taxonomy_autocomplete',
+      'type' => 'options_select',
       'weight' => 33,
     ),
   );
@@ -680,6 +822,7 @@ function ft_content_type_field_default_field_instances() {
           'status' => 0,
         ),
       ),
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'view modes' => array(
@@ -733,6 +876,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'display_summary' => 1,
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -774,6 +918,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => FALSE,
     'settings' => array(
       'description_field' => 0,
+      'entity_translation_sync' => FALSE,
       'file_directory' => '',
       'file_extensions' => 'txt',
       'max_filesize' => '',
@@ -813,18 +958,20 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_domaine',
     'label' => 'Domain(s)',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 0,
-      'module' => 'taxonomy',
+      'module' => 'options',
       'settings' => array(
+        'apply_chosen' => '',
         'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
-      'type' => 'taxonomy_autocomplete',
+      'type' => 'options_select',
       'weight' => 1,
     ),
   );
@@ -864,6 +1011,7 @@ function ft_content_type_field_default_field_instances() {
       'default_value2' => 'same',
       'default_value_code' => '',
       'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -878,7 +1026,7 @@ function ft_content_type_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 10,
+      'weight' => 3,
     ),
   );
 
@@ -912,6 +1060,7 @@ function ft_content_type_field_default_field_instances() {
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 14,
+      'entity_translation_sync' => FALSE,
       'file_directory' => '',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
@@ -928,7 +1077,7 @@ function ft_content_type_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 12,
+      'weight' => 5,
     ),
   );
 
@@ -958,6 +1107,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Award',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -968,7 +1118,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 11,
+      'weight' => 4,
     ),
   );
 
@@ -998,6 +1148,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Summary',
     'required' => FALSE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -1037,12 +1188,15 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Organisation name or type',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
       'module' => 'options',
-      'settings' => array(),
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
       'type' => 'options_select',
       'weight' => 3,
     ),
@@ -1080,6 +1234,7 @@ function ft_content_type_field_default_field_instances() {
           'status' => 0,
         ),
       ),
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'view modes' => array(
@@ -1113,7 +1268,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 9,
+      'weight' => 2,
     ),
   );
 
@@ -1154,6 +1309,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => FALSE,
     'settings' => array(
       'display_summary' => TRUE,
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -1204,6 +1360,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Anonymous',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1248,18 +1405,20 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_domaine',
     'label' => 'Domain(s)',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 0,
-      'module' => 'taxonomy',
+      'module' => 'options',
       'settings' => array(
+        'apply_chosen' => '',
         'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
-      'type' => 'taxonomy_autocomplete',
+      'type' => 'options_select',
       'weight' => 41,
     ),
   );
@@ -1296,6 +1455,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Pre-members',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1347,6 +1507,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Group visibility',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1390,12 +1551,15 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Group content visibility',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
       'module' => 'options',
-      'settings' => array(),
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
       'type' => 'options_select',
       'weight' => 35,
     ),
@@ -1443,6 +1607,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Group',
     'required' => FALSE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'view modes' => array(
@@ -1500,6 +1665,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Group register',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1541,6 +1707,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => FALSE,
     'settings' => array(
       'display_summary' => TRUE,
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -1585,6 +1752,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => FALSE,
     'settings' => array(
       'display_summary' => TRUE,
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -1641,6 +1809,7 @@ function ft_content_type_field_default_field_instances() {
           'status' => 0,
         ),
       ),
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'view modes' => array(
@@ -1691,11 +1860,14 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Forums',
     'required' => TRUE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'module' => 'options',
-      'settings' => array(),
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
       'type' => 'options_select',
       'weight' => 31,
     ),
@@ -1731,6 +1903,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => FALSE,
     'settings' => array(
       'display_summary' => TRUE,
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -1778,6 +1951,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'display_summary' => 0,
+      'entity_translation_sync' => FALSE,
       'fc' => array(
         'fc_allow_empty' => FALSE,
         'fc_check_zero' => 0,
@@ -1821,19 +1995,21 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_domaine',
-    'label' => 'Domain',
-    'required' => 0,
+    'label' => 'Domain(s)',
+    'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 0,
-      'module' => 'taxonomy',
+      'module' => 'options',
       'settings' => array(
+        'apply_chosen' => '',
         'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
-      'type' => 'taxonomy_autocomplete',
+      'type' => 'options_select',
       'weight' => 1,
     ),
   );
@@ -1882,6 +2058,7 @@ function ft_content_type_field_default_field_instances() {
           'status' => 0,
         ),
       ),
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1923,6 +2100,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'display_summary' => 1,
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -1968,6 +2146,7 @@ function ft_content_type_field_default_field_instances() {
       'counted_reference_fields' => array(
         'field_answer_question' => 'field_answer_question',
       ),
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -2010,6 +2189,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Best Answer',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -2053,19 +2233,21 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_domaine',
-    'label' => 'Domain',
-    'required' => 0,
+    'label' => 'Domain(s)',
+    'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 0,
-      'module' => 'taxonomy',
+      'module' => 'options',
       'settings' => array(
+        'apply_chosen' => '',
         'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
-      'type' => 'taxonomy_autocomplete',
+      'type' => 'options_select',
       'weight' => 8,
     ),
   );
@@ -2112,6 +2294,7 @@ function ft_content_type_field_default_field_instances() {
       'default_value2' => 'same',
       'default_value_code' => '',
       'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -2159,6 +2342,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Notify on Answer',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -2202,6 +2386,7 @@ function ft_content_type_field_default_field_instances() {
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 16,
+      'entity_translation_sync' => FALSE,
       'file_directory' => '',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
@@ -2251,6 +2436,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Question Locked',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -2295,6 +2481,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Path',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -2336,6 +2523,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Award',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -2393,6 +2581,7 @@ function ft_content_type_field_default_field_instances() {
           'status' => 0,
         ),
       ),
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'view modes' => array(
@@ -2442,51 +2631,11 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'body',
-    'label' => 'Body',
-    'required' => FALSE,
-    'settings' => array(
-      'display_summary' => TRUE,
-      'text_processing' => 1,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 20,
-        'summary_rows' => 5,
-      ),
-      'type' => 'text_textarea_with_summary',
-      'weight' => 6,
-    ),
-  );
-
-  // Exported field_instance: 'node-webform-field_context_of_the_mission'
-  $field_instances['node-webform-field_context_of_the_mission'] = array(
-    'bundle' => 'webform',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 8,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_context_of_the_mission',
     'label' => 'Context of the mission',
     'required' => 0,
     'settings' => array(
-      'display_summary' => 0,
+      'display_summary' => 1,
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -2498,7 +2647,51 @@ function ft_content_type_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 4,
+      'weight' => 8,
+    ),
+  );
+
+  // Exported field_instance: 'node-webform-field_anonymous'
+  $field_instances['node-webform-field_anonymous'] = array(
+    'bundle' => 'webform',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 15,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_anonymous',
+    'label' => 'Anonymous',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 0,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 9,
     ),
   );
 
@@ -2526,18 +2719,20 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_domaine',
     'label' => 'Domain(s)',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 0,
-      'module' => 'taxonomy',
+      'module' => 'options',
       'settings' => array(
+        'apply_chosen' => '',
         'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
-      'type' => 'taxonomy_autocomplete',
+      'type' => 'options_select',
       'weight' => 32,
     ),
   );
@@ -2568,6 +2763,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Duration of the mission',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -2578,49 +2774,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 9,
-    ),
-  );
-
-  // Exported field_instance: 'node-webform-field_expert_profile'
-  $field_instances['node-webform-field_expert_profile'] = array(
-    'bundle' => 'webform',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 9,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_expert_profile',
-    'label' => 'Purpose of the mission',
-    'required' => 0,
-    'settings' => array(
-      'display_summary' => 0,
-      'text_processing' => 1,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 20,
-        'summary_rows' => 5,
-      ),
-      'type' => 'text_textarea_with_summary',
-      'weight' => 2,
+      'weight' => 3,
     ),
   );
 
@@ -2659,6 +2813,7 @@ function ft_content_type_field_default_field_instances() {
       'default_value2' => 'same',
       'default_value_code' => '',
       'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -2677,19 +2832,23 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_general_information'
-  $field_instances['node-webform-field_general_information'] = array(
+  // Exported field_instance: 'node-webform-field_has_salary'
+  $field_instances['node-webform-field_has_salary'] = array(
     'bundle' => 'webform',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'value' => 1,
+      ),
+    ),
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'text',
+        'module' => 'list',
         'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 7,
+        'type' => 'list_default',
+        'weight' => 16,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2699,21 +2858,21 @@ function ft_content_type_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_general_information',
-    'label' => 'General information',
+    'field_name' => 'field_has_salary',
+    'label' => 'Has salary',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 0,
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'text',
+      'module' => 'options',
       'settings' => array(
-        'size' => 60,
+        'display_label' => 0,
       ),
-      'type' => 'text_textfield',
-      'weight' => 8,
+      'type' => 'options_onoff',
+      'weight' => 5,
     ),
   );
 
@@ -2743,6 +2902,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Organisation name or type',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -2753,7 +2913,48 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 3,
+      'weight' => 7,
+    ),
+  );
+
+  // Exported field_instance: 'node-webform-field_object_of_the_mission'
+  $field_instances['node-webform-field_object_of_the_mission'] = array(
+    'bundle' => 'webform',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 14,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_object_of_the_mission',
+    'label' => 'Object of the mission',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 2,
     ),
   );
 
@@ -2787,6 +2988,7 @@ function ft_content_type_field_default_field_instances() {
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 29,
+      'entity_translation_sync' => FALSE,
       'file_directory' => '',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
@@ -2804,6 +3006,44 @@ function ft_content_type_field_default_field_instances() {
       ),
       'type' => 'image_image',
       'weight' => 36,
+    ),
+  );
+
+  // Exported field_instance: 'node-webform-field_reference'
+  $field_instances['node-webform-field_reference'] = array(
+    'bundle' => 'webform',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'serial',
+        'settings' => array(),
+        'type' => 'serial_formatter_default',
+        'weight' => 13,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_reference',
+    'label' => 'Reference',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'serial',
+      'settings' => array(),
+      'type' => 'serial',
+      'weight' => 1,
     ),
   );
 
@@ -2833,6 +3073,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Reward',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -2873,6 +3114,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Salary range',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max' => '',
       'min' => '',
       'user_register_form' => FALSE,
@@ -3178,7 +3420,7 @@ function ft_content_type_field_default_field_instances() {
         'decimals_display_mode' => 'field',
       ),
       'type' => 'money_widget',
-      'weight' => 10,
+      'weight' => 6,
     ),
   );
 
@@ -3217,6 +3459,7 @@ function ft_content_type_field_default_field_instances() {
       'default_value2' => 'same',
       'default_value_code' => '',
       'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -3231,7 +3474,7 @@ function ft_content_type_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 5,
+      'weight' => 4,
     ),
   );
 
@@ -3279,6 +3522,7 @@ function ft_content_type_field_default_field_instances() {
           'status' => 0,
         ),
       ),
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -3320,6 +3564,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => FALSE,
     'settings' => array(
       'display_summary' => TRUE,
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -3360,6 +3605,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Group visibility',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -3397,12 +3643,15 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Group content visibility',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
       'module' => 'options',
-      'settings' => array(),
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
       'type' => 'options_select',
       'weight' => 37,
     ),
@@ -3441,6 +3690,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Group',
     'required' => FALSE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'view modes' => array(
@@ -3492,6 +3742,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Group register',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -3523,6 +3774,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Request message',
     'required' => FALSE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -3556,6 +3808,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'description_field' => 0,
+      'entity_translation_sync' => FALSE,
       'file_directory' => '',
       'file_extensions' => 'pdf doc docx odf ods txt',
       'max_filesize' => '',
@@ -3599,6 +3852,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'display_summary' => 0,
+      'entity_translation_sync' => FALSE,
       'fc' => array(
         'fc_allow_empty' => FALSE,
         'fc_check_zero' => 0,
@@ -3637,18 +3891,18 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'profile2',
     'field_name' => 'field_domaine',
     'label' => 'Domain(s)',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
+      'active' => 1,
       'module' => 'options',
       'settings' => array(
-        'autocomplete_path' => 'taxonomy/autocomplete',
-        'size' => 60,
+        'apply_chosen' => '',
       ),
-      'type' => 'options_buttons',
+      'type' => 'options_select',
       'weight' => 1,
     ),
   );
@@ -3673,6 +3927,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Telephone',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -3708,6 +3963,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'display_summary' => 0,
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -3743,6 +3999,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Organisation name or type',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'fc' => array(
         'fc_allow_empty' => FALSE,
         'fc_check_zero' => 0,
@@ -3753,9 +4010,67 @@ function ft_content_type_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'options',
-      'settings' => array(),
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
       'type' => 'options_select',
       'weight' => 0,
+    ),
+  );
+
+  // Exported field_instance: 'profile2-expert-field_address'
+  $field_instances['profile2-expert-field_address'] = array(
+    'bundle' => 'expert',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'addressfield',
+        'settings' => array(
+          'format_handlers' => array(
+            0 => 'address',
+          ),
+          'use_widget_handlers' => 1,
+        ),
+        'type' => 'addressfield_default',
+        'weight' => 15,
+      ),
+    ),
+    'entity_type' => 'profile2',
+    'field_name' => 'field_address',
+    'label' => 'Address',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'addressfield',
+      'settings' => array(
+        'available_countries' => array(
+          'DE' => 'DE',
+          'FR' => 'FR',
+          'GB' => 'GB',
+          'IE' => 'IE',
+          'US' => 'US',
+        ),
+        'default_country' => 'FR',
+        'format_handlers' => array(
+          'address' => 'address',
+          'address-hide-postal-code' => 0,
+          'address-hide-street' => 0,
+          'address-hide-country' => 0,
+          'organisation' => 0,
+          'name-full' => 0,
+          'name-oneline' => 0,
+          'address-optional' => 0,
+        ),
+      ),
+      'type' => 'addressfield_standard',
+      'weight' => 9,
     ),
   );
 
@@ -3779,6 +4094,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Area of interest',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -3789,7 +4105,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 4,
+      'weight' => 2,
     ),
   );
 
@@ -3813,6 +4129,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'description_field' => 0,
+      'entity_translation_sync' => FALSE,
       'file_directory' => '',
       'file_extensions' => 'txt pdf word',
       'max_filesize' => '2 MB',
@@ -3836,49 +4153,7 @@ function ft_content_type_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'media_generic',
-      'weight' => 7,
-    ),
-  );
-
-  // Exported field_instance: 'profile2-expert-field_description'
-  $field_instances['profile2-expert-field_description'] = array(
-    'bundle' => 'expert',
-    'default_value' => array(
-      0 => array(
-        'summary' => '',
-        'value' => 'About yourself (your area of expertise, interests, motivation, etc.)',
-        'format' => 'filtered_html',
-      ),
-    ),
-    'deleted' => 0,
-    'description' => 'Your area of expertise, interests, motivation',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 2,
-      ),
-    ),
-    'entity_type' => 'profile2',
-    'field_name' => 'field_description',
-    'label' => 'Skills',
-    'required' => 0,
-    'settings' => array(
-      'display_summary' => 0,
-      'text_processing' => 1,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 20,
-        'summary_rows' => 5,
-      ),
-      'type' => 'text_textarea_with_summary',
-      'weight' => 3,
+      'weight' => 5,
     ),
   );
 
@@ -3900,19 +4175,19 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'profile2',
     'field_name' => 'field_domaine',
     'label' => 'Domain(s)',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 0,
+      'active' => 1,
       'module' => 'options',
       'settings' => array(
-        'autocomplete_path' => 'taxonomy/autocomplete',
-        'size' => 60,
+        'apply_chosen' => '',
       ),
-      'type' => 'options_buttons',
-      'weight' => 1,
+      'type' => 'options_select',
+      'weight' => 10,
     ),
   );
 
@@ -3936,6 +4211,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Employment History',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -3946,7 +4222,110 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 5,
+      'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance: 'profile2-expert-field_known_how'
+  $field_instances['profile2-expert-field_known_how'] = array(
+    'bundle' => 'expert',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(),
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 17,
+      ),
+    ),
+    'entity_type' => 'profile2',
+    'field_name' => 'field_known_how',
+    'label' => 'How have you heard of us',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 12,
+    ),
+  );
+
+  // Exported field_instance: 'profile2-expert-field_known_specific'
+  $field_instances['profile2-expert-field_known_specific'] = array(
+    'bundle' => 'expert',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 18,
+      ),
+    ),
+    'entity_type' => 'profile2',
+    'field_name' => 'field_known_specific',
+    'label' => 'If other, specify',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 13,
+    ),
+  );
+
+  // Exported field_instance: 'profile2-expert-field_notification_frequency'
+  $field_instances['profile2-expert-field_notification_frequency'] = array(
+    'bundle' => 'expert',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(),
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 16,
+      ),
+    ),
+    'entity_type' => 'profile2',
+    'field_name' => 'field_notification_frequency',
+    'label' => 'Notification frequency',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 11,
     ),
   );
 
@@ -3974,6 +4353,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Referent',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'fc' => array(
         'fc_allow_empty' => FALSE,
         'fc_check_zero' => 0,
@@ -3988,7 +4368,161 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 8,
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'profile2-expert-field_skills_set'
+  $field_instances['profile2-expert-field_skills_set'] = array(
+    'bundle' => 'expert',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 13,
+      ),
+    ),
+    'entity_type' => 'profile2',
+    'field_name' => 'field_skills_set',
+    'label' => 'Skills Set',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 13,
+    ),
+  );
+
+  // Exported field_instance: 'profile2-expert-field_skills_visibility'
+  $field_instances['profile2-expert-field_skills_visibility'] = array(
+    'bundle' => 'expert',
+    'default_value' => array(
+      0 => array(
+        'value' => 1,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 14,
+      ),
+    ),
+    'entity_type' => 'profile2',
+    'field_name' => 'field_skills_visibility',
+    'label' => 'Skills visibility',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 0,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 12,
+    ),
+  );
+
+  // Exported field_instance: 'profile2-expert-field_sponsor'
+  $field_instances['profile2-expert-field_sponsor'] = array(
+    'bundle' => 'expert',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'user_reference',
+        'settings' => array(),
+        'type' => 'user_reference_default',
+        'weight' => 12,
+      ),
+    ),
+    'entity_type' => 'profile2',
+    'field_name' => 'field_sponsor',
+    'label' => 'Sponsor',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'user_reference',
+      'settings' => array(
+        'autocomplete_match' => 'contains',
+        'autocomplete_path' => 'user_reference/autocomplete',
+        'references_dialog_add' => 0,
+        'references_dialog_edit' => 0,
+        'references_dialog_search' => 0,
+        'references_dialog_search_view' => '',
+        'size' => 60,
+      ),
+      'type' => 'user_reference_autocomplete',
+      'weight' => 11,
+    ),
+  );
+
+  // Exported field_instance: 'profile2-expert-field_sponsorship'
+  $field_instances['profile2-expert-field_sponsorship'] = array(
+    'bundle' => 'expert',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 11,
+      ),
+    ),
+    'entity_type' => 'profile2',
+    'field_name' => 'field_sponsorship',
+    'label' => 'Sponsorship',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 0,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 10,
     ),
   );
 
@@ -4012,6 +4546,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Telephone',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -4022,7 +4557,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 6,
+      'weight' => 4,
     ),
   );
 
@@ -4047,6 +4582,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'display_summary' => 0,
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -4058,7 +4594,7 @@ function ft_content_type_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 9,
+      'weight' => 7,
     ),
   );
 
@@ -4083,6 +4619,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Profile Title',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -4117,6 +4654,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Work Status',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -4127,7 +4665,231 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'profile2-main-field_corporation'
+  $field_instances['profile2-main-field_corporation'] = array(
+    'bundle' => 'main',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'node_reference',
+        'settings' => array(),
+        'type' => 'node_reference_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'profile2',
+    'field_name' => 'field_corporation',
+    'label' => 'Corporation',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'node_reference',
+      'settings' => array(
+        'autocomplete_match' => 'contains',
+        'autocomplete_path' => 'node_reference/autocomplete',
+        'references_dialog_add' => 0,
+        'references_dialog_edit' => 0,
+        'references_dialog_search' => 0,
+        'references_dialog_search_view' => '',
+        'size' => 60,
+      ),
+      'type' => 'node_reference_autocomplete',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'profile2-main-field_entreprise_visibility'
+  $field_instances['profile2-main-field_entreprise_visibility'] = array(
+    'bundle' => 'main',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'profile2',
+    'field_name' => 'field_entreprise_visibility',
+    'label' => 'Entreprise_visibility',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 0,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance: 'profile2-main-field_name_visibility'
+  $field_instances['profile2-main-field_name_visibility'] = array(
+    'bundle' => 'main',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'profile2',
+    'field_name' => 'field_name_visibility',
+    'label' => 'Name visibility',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 0,
+      ),
+      'type' => 'options_onoff',
       'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'profile2-main-field_profile_visibility'
+  $field_instances['profile2-main-field_profile_visibility'] = array(
+    'bundle' => 'main',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'profile2',
+    'field_name' => 'field_profile_visibility',
+    'label' => 'Profile visibility',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 0,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance: 'user-user-field_first_name'
+  $field_instances['user-user-field_first_name'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_first_name',
+    'label' => 'First Name',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 52,
+    ),
+  );
+
+  // Exported field_instance: 'user-user-field_last_name'
+  $field_instances['user-user-field_last_name'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_last_name',
+    'label' => 'Last Name',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 53,
     ),
   );
 
@@ -4143,7 +4905,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'og_ui',
         'settings' => array(),
         'type' => 'og_list_default',
-        'weight' => 0,
+        'weight' => 3,
       ),
     ),
     'entity_type' => 'user',
@@ -4162,6 +4924,7 @@ function ft_content_type_field_default_field_instances() {
           'status' => TRUE,
         ),
       ),
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'view modes' => array(
@@ -4186,6 +4949,7 @@ function ft_content_type_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Address');
   t('Anonymous');
   t('Answer Count');
   t('Answer to the question');
@@ -4196,26 +4960,34 @@ function ft_content_type_field_default_field_instances() {
   t('CV');
   t('Comment');
   t('Context of the mission');
+  t('Corporation');
   t('Deadline');
   t('Description');
   t('Desired starting date');
   t('Determine if this is an OG group.');
   t('Document');
-  t('Domain');
   t('Domain(s)');
   t('Domaine');
   t('Duration of the mission');
   t('Employment History');
+  t('Entreprise_visibility');
+  t('First Name');
   t('Forums');
-  t('General information');
   t('Group');
   t('Group content visibility');
   t('Group membership');
   t('Group register');
   t('Group visibility');
   t('Groups audience');
+  t('Has salary');
+  t('How have you heard of us');
+  t('If other, specify');
+  t('Last Name');
+  t('Name visibility');
   t('Non-public but mandatory when you want to submit a proposal for Private Challenges.');
+  t('Notification frequency');
   t('Notify on Answer');
+  t('Object of the mission');
   t('Organisation name or type');
   t('Path');
   t('Picto');
@@ -4223,13 +4995,19 @@ function ft_content_type_field_default_field_instances() {
   t('Private answer');
   t('Problem to solve');
   t('Profile Title');
-  t('Purpose of the mission');
+  t('Profile visibility');
   t('Question Locked');
+  t('Reference');
   t('Referent');
   t('Request message');
   t('Reward');
   t('Salary range');
-  t('Skills');
+  t('Skill');
+  t('Skill autoeval');
+  t('Skills Set');
+  t('Skills visibility');
+  t('Sponsor');
+  t('Sponsorship');
   t('Summary');
   t('Telephone');
   t('Testimony');
@@ -4237,8 +5015,8 @@ function ft_content_type_field_default_field_instances() {
   t('Work Status');
   t('Working Person, Retired, Student, Unemployed, etc.');
   t('Would you like to receive notifications by email when users post answers to your question?');
+  t('Year of experiences');
   t('You can upload your CV. Your CV is not a public document and it will only be communicated upon your approval.');
-  t('Your area of expertise, interests, motivation');
   t('Your main expertise or interests
 ');
 
