@@ -13,7 +13,7 @@
             <?php if (isset($field_picto) && isset($field_picto['und'][0]['uri']) ): ?>
                 <img src="<?php echo file_create_url($field_picto['und'][0]['uri']); ?>" />
             <?php else: ?>
-                <img style="height: 20px; width: 20px;" src="<?php echo url(imagePath("answerIcon.png")); ?>" />
+                <img style="height: 20px; width: 20px;" src="<?php echo getImgSrc("answerIcon.png"); ?>" />
             <?php endif; ?>
         </div>
         <!--<div class="col-md-3"><?php print $variables['title']; ?></div>-->

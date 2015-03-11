@@ -99,20 +99,20 @@
                             <hr class="hr-light">
                         </div>
                         <div class="col-md-3 col-md-offset-8">
-                            <?php print t("Share:"); ?> <img src="<?php print url(imagePath("facebookMini.png")) ?>">
-                            <img src="<?php print url(imagePath("twitterMini.png")) ?>">
-                            <img src="<?php print url(imagePath("linkedinMini.png")) ?>">
-                            <img src="<?php print url(imagePath("googlePlusMini.png")) ?>">
-                            <img src="<?php print url(imagePath("emailMini.png")) ?>">
+                            <?php print t("Share:"); ?> <img src="<?php print getImgSrc("facebookMini.png"); ?>">
+                            <img src="<?php print getImgSrc("twitterMini.png"); ?>">
+                            <img src="<?php print getImgSrc("linkedinMini.png"); ?>">
+                            <img src="<?php print getImgSrc("googlePlusMini.png"); ?>">
+                            <img src="<?php print getImgSrc("emailMini.png"); ?>">
                         </div>
                     </div>
-                    <div class="challenge-title"><?php print t("Create your acconout "); ?><span class="bold"><?php print t("in less than a minute"); ?></span></div>
+                    <div class="challenge-title"><?php print t("Create your account "); ?><span class="bold"><?php print t("in less than a minute"); ?></span></div>
                     <?php print render($page['content']); ?>
                 </div>
                 <div class="col-md-3">
                     <div class="row marginU">
                           <div class="col-md-12">
-                            <img src="<?php print url(imagePath("expertAdvantages.png")) ?>" />
+                            <img src="<?php print getImgSrc("expertAdvantages.png"); ?>" />
                         </div>
                     </div>
                     <div class="row">

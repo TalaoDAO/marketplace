@@ -6,10 +6,10 @@
         </div>
         <div class="col-md-3"><hr class="hr-light"></div>
         <div class="col-md-4">
-            <img src="<?php print url(imagePath('previous.png')); ?>">
-            <img src="<?php print url(imagePath('menuIcon.png')); ?>">
-            <img src="<?php print url(imagePath('next.png')); ?>">
-            <img src="<?php print url(imagePath('fluxIcon.png')); ?>">
+            <img src="<?php print getImgSrc('previous.png'); ?>">
+            <img src="<?php print getImgSrc('menuIcon.png'); ?>">
+            <img src="<?php print getImgSrc('next.png'); ?>">
+            <img src="<?php print getImgSrc('fluxIcon.png'); ?>">
         </div>
     </div>
 <?php endif;?>

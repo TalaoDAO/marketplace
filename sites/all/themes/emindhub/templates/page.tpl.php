@@ -75,18 +75,11 @@
 
 <div><?php print render($page['breadcrumbs']); ?></div>
 
-<?php
-if (isAdminUser()) {
-    print $messages;
-}
-?>
-
 <div id="page-wrapper">
     <div id="page">
     <div id="header">
         <div class="section clearfix paddingU">
             <?php require_once __DIR__ . '/includes/_header.tpl.php' ?>
-
             <?php if (!user_is_logged_in()): ?>
                 <div class="banniere">
                     <div class="container container-fluid">
@@ -116,6 +109,11 @@ if (isAdminUser()) {
                 <div class="ligh-blue-line header-separator">&nbsp;</div>
                 <div class="dark-blue-line-large">&nbsp;</div>
             <?php endif; ?>
+            <?php
+            if (isAdminUser()) {
+                print $messages;
+            }
+            ?>
             <div class="container container-fluid">
                 <?php print render($page['header']); ?>
             </div>
