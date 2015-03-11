@@ -340,7 +340,12 @@ function i18n_string_textgroup($textgroup) {
   $groups = &drupal_static(__FUNCTION__);
   if (!isset($groups[$textgroup])) {
     $class = i18n_string_group_info($textgroup, 'class', 'i18n_string_textgroup_default');
-    $groups[$textgroup] = new $class($textgroup);
+    if (is_string($class)) {
+      $groups[$textgroup] = new $class($textgroup);
+    }
+    else {
+      $groups[$textgroup] = new i18n_string_textgroup_default($textgroup);
+    }
   }
   return $groups[$textgroup];
 }
@@ -836,7 +841,13 @@ function i18n_string_object_translate($type, $object, $options = array()) {
  *   Object or array
  */
 function i18n_string_object_remove($type, $object, $options = array()) {
-  return i18n_object($type, $object)->strings_remove($options);
+  $i18n_object = i18n_object($type, $object);
+  if (method_exists($i18n_object, 'strings_remove')) {
+    return $i18n_object->strings_remove($options);
+  }
+  else {
+    return array();
+  }
 }
 
 /**
@@ -848,7 +859,13 @@ function i18n_string_object_remove($type, $object, $options = array()) {
  *   Object or array
  */
 function i18n_string_object_update($type, $object, $options = array()) {
-  return i18n_object($type, $object)->strings_update($options);
+  $i18n_object = i18n_object($type, $object);
+  if (method_exists($i18n_object, 'strings_update')) {
+    return $i18n_object->strings_update($options);
+  }
+  else {
+    return array();
+  }
 }
 
 /**
