@@ -50,7 +50,7 @@
     <?php if ($block->region == "burgermenu"): ?>
         <?php if ($block->subject): ?>
             <div class="paddingU" >
-                <h2 class="burgermenu-title"><?php print $block->subject ?></h2><img class="burgermenu-close-icon" src="<?php print url(imagePath('bmClose.png')); ?>" onclick="var bm = document.querySelector('.region-burgermenu');if (bm) {bm.style.display = (bm.style.display != 'none'&& bm.style.display != '')? 'none': 'block';}">
+                <h2 class="burgermenu-title"><?php print $block->subject ?></h2><img class="burgermenu-close-icon" src="<?php print getImgSrc('bmClose.png'); ?>" onclick="var bm = document.querySelector('.region-burgermenu');if (bm) {bm.style.display = (bm.style.display != 'none'&& bm.style.display != '')? 'none': 'block';}">
             </div>
         <?php endif; ?>
     <?php endif; ?>
@@ -63,7 +63,7 @@
                 </div>
                 <div class="col-md-8"><hr class="hr-light"></div>
                 <div class="col-md-1">
-                    <img src="<?php print url(imagePath('fluxIcon.png')); ?>">
+                    <img src="<?php print getImgSrc('fluxIcon.png'); ?>">
                 </div>
             </div>
         <?php endif;?>

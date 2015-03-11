@@ -614,6 +614,11 @@ function isAdminUser () {
     return (in_array('administrator', array_values($user->roles)));
 }
 
+
+function getImgSrc($fileName) {
+    return sprintf("%s/images/%s", base_path().path_to_theme(), $fileName);
+}
+
 function imagePath($fileName) {
     return sprintf("%s/images/%s", path_to_theme(), $fileName);
 }
