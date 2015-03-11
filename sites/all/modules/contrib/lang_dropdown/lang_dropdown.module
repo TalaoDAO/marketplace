@@ -540,7 +540,7 @@ function lang_dropdown_form($form, &$form_state, $languages, $type) {
   $selected_option = ($language_session_selected == '') ? $language_selected : $language_session_selected;
 
   // Icon for the selected language
-  if (module_exists('languageicons') && !$settings['widget'] && !empty($selected_option))) {
+  if (module_exists('languageicons') && !$settings['widget'] && !empty($selected_option)) {
     $selected_option_language_icon = theme('languageicons_icon', array(
       'language' => (object) array('language' => $selected_option),
       'title' => $language_names[$selected_option],
