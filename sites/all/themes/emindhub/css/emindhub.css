@@ -152,7 +152,7 @@ body {
 .form-control:not(.search-input) {
   width: auto !important;
 }
-.required {
+.required:not(select .chosen-container) {
   display: inline !important;
   margin-left: .5em;
 }
@@ -1763,5 +1763,11 @@ table tbody tr:nth-child(even) {
   text-transform: uppercase;
   padding-bottom: 0.5em;
   font-size: 1.3em;
+}
+.region-topmenu .block-menu .content .menu div div.expanded ul.menu {
+  display: none;
+}
+.region-topmenu .block-menu .content .menu div div.expanded:hover ul.menu {
+  display: inline-block;
 }
 /*# sourceMappingURL=emindhub.css.map */
