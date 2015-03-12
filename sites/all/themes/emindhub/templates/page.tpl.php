@@ -75,11 +75,14 @@
 
 <div><?php print render($page['breadcrumbs']); ?></div>
 
+
+
 <div id="page-wrapper">
     <div id="page">
     <div id="header">
         <div class="section clearfix paddingU">
             <?php require_once __DIR__ . '/includes/_header.tpl.php' ?>
+
             <?php if (!user_is_logged_in()): ?>
                 <div class="banniere">
                     <div class="container container-fluid">
@@ -122,108 +125,7 @@
 <?php if (!user_is_logged_in()): ?>
     <div class="container container-fluid">
         <?php if (isHomePage()): ?>
-            <div class="title-wrapper">
-                <div class="row">
-                    <div class="col-md-4">
-                        <hr class="hr-dark"/>
-                    </div>
-                    <div class="col-md-4 title"><?php print t("QUI SONT LES EXPERTS ?"); ?></div>
-                    <div class="col-md-4">
-                        <hr class="hr-dark"/>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <?php print $atomiumImg; ?>
-                        </div>
-                        <div class="col-md-10">
-                            <span class="light-blue-text"><?php print t("Professionnels expérimentés, retraités actifs, chercheurs, étudiants..."); ?></span>
-
-                            <p><?php print t("Ils sont dans votre réseau ou dans le réseau emindhub."); ?></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="row">
-                        <div class="col-md-offset-2 col-md-4 noPadding">
-                            <div class="row">
-                                <div class="col-md-3 noPadding">
-                                    <?php print $cercleImg; ?>
-                                    <map name="test">
-                                        <area shape="circle" coords="55,12,11" alt="Mercury" href="#">
-                                    </map>
-                                </div>
-                                <div class="col-md-9 paddingUD">
-                                    <?php print t("TOUS"); ?> <br><span class="bold"><?php print t("LES EXPERTS"); ?></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <?php print $cercleImg; ?>
-                                </div>
-                                <div class="col-md-9 paddingUD">
-                                    <?php print t("LES EXPERTS"); ?> <br><span class="bold"><?php print t("PARRAINÉS"); ?></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="little-wrapper">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <?php print $peopleImg; ?>
-                            </div>
-                            <div class="col-md-10">
-                                <span class="light-blue-text"><?php print t("Avec emindhub,"); ?></span>
-
-                                <p><?php print t("Vous les organisez et les sollicitez selon vos besoins."); ?></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8 ondes-background">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <?php print $cercleImg; ?>
-                                </div>
-                                <div class="col-md-9 paddingUD">
-                                    <?php print t("VOTRE RÉSEAU"); ?> <br><span class="bold"><?php print t("ACTIF"); ?></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <?php print $cercleImg; ?>
-                                </div>
-                                <div class="col-md-9 paddingUD">
-                                    <?php print t("VOS"); ?> <br><span class="bold"><?php print t("ALUMNIS"); ?></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <?php print $cercleImg; ?>
-                                </div>
-                                <div class="col-md-9 paddingUD">
-                                    <?php print t("VOS CERCLES"); ?> <br><span class="bold"><?php print t("PRIVÉS"); ?></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php require_once __DIR__ . '/includes/_who-are-experts.tpl.php' ?>
         <?php endif; ?>
         <?php if (!isHomePage()): ?>
             <div class="row">
@@ -249,13 +151,36 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <?php print $rapiditeImg; ?>
+                        <div class="engagement-block rapidity">
+                            <div class="header"><?php print t("Rapidité"); ?></div>
+                            <div class="content">
+                                <strong><?php print t("emindhub"); ?></strong>
+                                <?php print t(" garanti une forte réactivité grace à une large communauté d'"); ?>
+                                <strong><?php print t("experts connectés"); ?></strong>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        <?php print $securiteImg; ?>
+                        <div class="engagement-block security">
+                            <div class="header"><?php print t("Sécurité"); ?></div>
+                            <div class="content">
+                                <strong><?php print t("emindhub"); ?></strong>
+                                <?php print t(" permet de choisir"); ?>
+                                <strong><?php print t(" le cercle d'experts"); ?></strong>
+                                <?php print t(" à qui adresser sa demande en toute confiance"); ?>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        <?php print $qualiteImg; ?>
+                        <div class="engagement-block quality">
+                            <div class="header"><?php print t("Qualité"); ?></div>
+                            <div class="content">
+                                <strong><?php print t("emindhub"); ?></strong>
+                                <?php print t(" s'appuie sur des"); ?>
+                                <strong><?php print t(" experts référents"); ?></strong>
+                                <?php print t(" pour assurer la qualité des contributions"); ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -376,14 +301,16 @@
             </div>
         </div>
         <!-- /#main, /#main-wrapper -->
-        <div id="footer">
-            <div class="section">
+        <?php print render($page['burgermenu']); ?>
+    </div>
+    <div id="footer" class="footer-container">
+        <div class="section">
+            <div class="container container-fluid">
                 <?php print render($page['footer']); ?>
             </div>
         </div>
-        <!-- /.section, /#footer -->
-        <?php print render($page['burgermenu']); ?>
-    </div></div> <!-- /#page, /#page-wrapper -->
-
     </div>
+    <!-- /.section, /#footer -->
+    </div> <!-- /#page, /#page-wrapper -->
+</div>
 <?php endif; ?>

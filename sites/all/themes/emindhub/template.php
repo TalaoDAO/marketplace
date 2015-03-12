@@ -15,11 +15,21 @@ function emindhub_theme() {
         'template' => 'user_picture',
         'render element' => 'image',
       ),
-      /*'user_register_form' => array(
+      'user_register_form' => array(
         'path' => drupal_get_path('theme', 'emindhub').'/templates',
         'template' => 'user-register-form',
         'render element' => 'form'
+      ),/*
+      'password' => array (
+        'path' => drupal_get_path('theme', 'emindhub').'/templates',
+        'template' => 'password-confirm',
+        'render element' => 'form',
       ),*/
+      'user_login' => array(
+        'path' => drupal_get_path('theme', 'emindhub').'/templates',
+        'template' => 'user-login',
+        'render element' => 'form',
+      ),
     );
 }
 
@@ -494,13 +504,18 @@ function emindhub_nice_menus_build($variables) {
 function emindhub_menu_link(array $variables) {
     $classes = "";
 
-    if ($variables['theme_hook_original'] == "menu_link__menu_top_menu"){
+    if ($variables['theme_hook_original'] == "menu_link__menu_top_anonymous"){
         $classes = "col-md-4 upper";
 
         //Classe particulière pour le contactez nous/contact us
         if (strpos(strtolower($variables['element']['#title']), "contact") !== false) {
             $classes = $classes .' contact-us bold';
         }
+    }
+
+    if ($variables['theme_hook_original'] == "menu_link__menu_top"){
+        $classes = "col-md-4 upper";
+
     }
 
     $sub_menu = '';
@@ -603,7 +618,37 @@ function emindhub_links__locale_block(&$vars) {
 }
 
 function emindhub_form_user_register_form_alter(&$vars) {
-//    echo 'toto';
+    //echo 'toto';
+    //$vars['profile_expert']['field_domaine']
+    $vars['field_first_name']['#access'] = true;
+    $vars['field_last_name']['#access'] = true;
+}
+
+function emindhub_password_confirm_process($element) {
+    $element['pass1']['#attributes']['title'] = 'Title';
+    $element['pass2']['#attributes']['title'] = 'Title2';
+    return $element;
+}
+
+function emindhub_menu_tree__menu_footer_menu(&$variables) {
+    return '<div class="footer-menu">' . $variables['tree'] . '</div>';
+}
+
+function emindhub_menu_link__menu_footer_menu(array $variables) {
+    $element = $variables['element'];
+    $sub_menu = '';
+
+    $separator = "";
+    if (!in_array ("last", $element['#attributes']['class'], TRUE)) {
+        $separator = "&nbsp;|&nbsp";
+    }
+    array_push($element['#attributes']['class'], "inline", "upper", "bold");
+    if ($element['#below']) {
+        $sub_menu = drupal_render($element['#below']);
+    }
+    $output = l($element['#title'], $element['#href'], $element['#localized_options']);
+
+    return '<div' . drupal_attributes($element['#attributes']) . '>' . $output . $sub_menu . "</div>".$separator;
 }
 
 /*
@@ -613,7 +658,6 @@ function isAdminUser () {
     global $user;
     return (in_array('administrator', array_values($user->roles)));
 }
-
 
 function getImgSrc($fileName) {
     return sprintf("%s/images/%s", base_path().path_to_theme(), $fileName);
@@ -649,7 +693,7 @@ function GetMenu (&$vars) {
           'text' => t('Se connecter'),
           'path' => 'user',
           'options' => array(
-            'attributes' => array('class' => array('user-menu')),
+            'attributes' => array('class' => array('user-menu', 'sign-in')),
             'html' => FALSE,
           ),
         ));
@@ -657,7 +701,7 @@ function GetMenu (&$vars) {
           'text' => t('S\'inscrire'),
           'path' => 'user/register',
           'options' => array(
-            'attributes' => array('class' => array('user-menu')),
+            'attributes' => array('class' => array('user-menu', 'sign-up')),
             'html' => FALSE,
           ),
         ));
@@ -682,7 +726,7 @@ function GetMenu (&$vars) {
         }
         $accountMenu = theme("link", array(
           'text' => $name,
-          'path' => '',
+          'path' => 'user',
           'options' => array(
             'attributes' => array('class' => array('user-menu')),
             'html' => TRUE,

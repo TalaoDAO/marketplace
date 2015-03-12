@@ -1581,6 +1581,9 @@ table tbody tr:nth-child(even) {
 }
 
 .popup-hover {
+    width: 5.5em;
+    display: inline-block;
+
     span {
         .upper;
         display: none;
@@ -2073,5 +2076,32 @@ table tbody tr:nth-child(even) {
         padding-left: 1em;
         padding-right: 1em;
         height: 2.2em;
+    }
+}
+
+.engagement-block {
+    color: @white;
+    padding: 4.5em 1em 1.7em;
+    text-align: center;
+
+    &.rapidity {
+        background: @lightBlue url(../images/rapidityHeader.png) no-repeat 50% 5%;
+    }
+    &.security {
+        background: @lightBlue url(../images/securityHeader.png) no-repeat 50% 5%;
+        padding-left: 1.5em;
+        padding-right: 1.5em;
+    }
+    &.quality {
+        background: @lightBlue url(../images/qualityHeader.png) no-repeat 50% 5%;
+        padding-left: 1.8em;
+        padding-right: 1.8em;
+    }
+
+    .header {
+        .bold;
+        .upper;
+        padding-bottom: 0.5em;
+        font-size: 1.3em;
     }
 }

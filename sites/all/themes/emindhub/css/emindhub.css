@@ -1317,6 +1317,10 @@ table tbody tr:nth-child(even) {
   border: none;
   background-color: #d4d9dd;
 }
+.popup-hover {
+  width: 5.5em;
+  display: inline-block;
+}
 .popup-hover span {
   text-transform: uppercase;
   display: none;
@@ -1735,5 +1739,29 @@ table tbody tr:nth-child(even) {
   padding-left: 1em;
   padding-right: 1em;
   height: 2.2em;
+}
+.engagement-block {
+  color: #ffffff;
+  padding: 4.5em 1em 1.7em;
+  text-align: center;
+}
+.engagement-block.rapidity {
+  background: #009fe3 url(../images/rapidityHeader.png) no-repeat 50% 5%;
+}
+.engagement-block.security {
+  background: #009fe3 url(../images/securityHeader.png) no-repeat 50% 5%;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+}
+.engagement-block.quality {
+  background: #009fe3 url(../images/qualityHeader.png) no-repeat 50% 5%;
+  padding-left: 1.8em;
+  padding-right: 1.8em;
+}
+.engagement-block .header {
+  font-weight: bold;
+  text-transform: uppercase;
+  padding-bottom: 0.5em;
+  font-size: 1.3em;
 }
 /*# sourceMappingURL=emindhub.css.map */

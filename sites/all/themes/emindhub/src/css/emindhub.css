@@ -1,4 +1,4 @@
-﻿/*gris trés clair*/
+/*gris trés clair*/
 /*gris clair*/
 /*gris foncé*/
 /*bleu clair*/
@@ -12,7 +12,7 @@ body {
 .banniere {
   line-height: 4.25em;
   background-color: #009fe3;
-  background-image: url(../img/banniere.png);
+  background-image: url(../images/banniere.png);
   background-repeat: no-repeat;
   background-position: center center;
 }
@@ -70,7 +70,7 @@ body {
   text-transform: uppercase;
 }
 .ondes-background {
-  background-image: url(../img/ondes.png);
+  background-image: url(../images/ondes.png);
   background-repeat: no-repeat;
   background-position: center center;
 }
