@@ -17,13 +17,14 @@ regions[help] = Help
 regions[content] = Content
 regions[sidebar_first] = Sidebar First
 regions[sidebar_second] = Sidebar Second
-regions[footer] = Footer
+
 regions[page_bottom] = Page Bottom
 regions[featured] = Featured
 regions[highlighted] = Highlighted
 
 regions[burgermenu] = Burger Menu
 regions[contactform] = Contact form
+regions[footer] = Footer
 regions[languageselect] = Language selection
 regions[breadcrumbs] = Navigation
 regions[news] = News thread

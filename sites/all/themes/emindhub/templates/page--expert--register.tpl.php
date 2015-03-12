@@ -93,7 +93,7 @@
         <div class="container container-fluid">
             <div class="row">
                 <div class="col-md-9">
-                    <div class="register-title"><?php print t("Business registration"); ?></div>
+                    <div class="register-title"><?php print t("Expert registration"); ?></div>
                     <div class="row">
                         <div class="col-md-1">
                             <hr class="hr-light">
@@ -112,7 +112,7 @@
                 <div class="col-md-3">
                     <div class="row marginU">
                           <div class="col-md-12">
-                            <img src="<?php print getImgSrc("businessAdvantages.png"); ?>" />
+                            <img src="<?php print getImgSrc("expertAdvantages.png"); ?>" />
                         </div>
                     </div>
                     <div class="row">
