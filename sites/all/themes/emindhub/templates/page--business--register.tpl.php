@@ -107,7 +107,9 @@
                         </div>
                     </div>
                     <div class="challenge-title"><?php print t("Create your account "); ?><span class="bold"><?php print t("in less than a minute"); ?></span></div>
-                    <?php print render($page['content']); ?>
+                    <div class="business-register">
+                        <?php print render($page['content']); ?>
+                    </div>
                 </div>
                 <div class="col-md-3">
                     <div class="row marginU">
