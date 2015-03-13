@@ -91,6 +91,9 @@
         </div> <!-- /.section, /#header -->
 
         <div class="container container-fluid">
+            <?php
+            print $messages;
+            ?>
             <div class="row">
                 <div class="col-md-9">
                     <div class="register-title"><?php print t("Business registration"); ?></div>
