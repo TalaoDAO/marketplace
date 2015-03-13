@@ -52,11 +52,11 @@
     </div>
 </div>
 
-<div class="row light-grey-background paddingUD title-wrapper challenge-state-row">
+<!--<div class="row light-grey-background paddingUD title-wrapper challenge-state-row">
     <div class="col-md-4 challenge-state-selected"><a><?php print t("Open"); ?></a></div>
     <div class="col-md-4 challenge-state"><a><?php print t("Selection"); ?></a></div>
     <div class="col-md-4 challenge-state"><a><?php print t("Closed"); ?></a></div>
-</div>
+</div>-->
 
 <div class="row paddingLR challenge-container">
     <div class="col-md-12">

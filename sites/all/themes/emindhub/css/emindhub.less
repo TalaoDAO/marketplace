@@ -2368,7 +2368,38 @@ input[type=submit] {
 
 .block-progress-tracker {
     li {
-        display: inline-block;
-        width: 50%;
+        .bold;
+        .upper;
+        width: 49%;
+        color: @white;
+        text-align: center;
+        display: inline-block !important;
+        background-color: @btnBackBackground !important;
+
+        &.selected {
+            background-color: @lightBlue !important;
+            position: relative;
+            &:after {
+                top: 100%;
+                left: 50%;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+                border: 12px solid rgba(0, 160, 224, 0);
+                border-top-color: #00a0e0;
+                margin-left: -12px;
+            }
+        }
+
+        &.first {
+            border-top-left-radius: @borderRadius;
+            border-bottom-left-radius: @borderRadius;
+        }
+        &.last {
+            border-top-right-radius: @borderRadius;
+            border-bottom-right-radius: @borderRadius;
+        }
     }
 }
