@@ -27,7 +27,8 @@
                                 <div class="popup-sign-in">
                                     <?php print $menuEntry; ?>
                                     <div class="popup-sign-in-content">
-                                        <?php print drupal_render(drupal_get_form('user_login')); ?>
+                                        <?php $tmp = drupal_get_form('user_login');
+                                        print drupal_render($tmp); ?>
                                     </div>
                                 </div>
                                 <?php
