@@ -983,6 +983,21 @@ function ft_views_views_default_views() {
   $handler->display->display_options['style_options']['tab_style'] = 'nostyle';
   $handler->display->display_options['style_options']['tab_title_field'] = 'title';
   $handler->display->display_options['row_plugin'] = 'fields';
+  /* Header: Global: PHP */
+  $handler->display->display_options['header']['php']['id'] = 'php';
+  $handler->display->display_options['header']['php']['table'] = 'views';
+  $handler->display->display_options['header']['php']['field'] = 'php';
+  $handler->display->display_options['header']['php']['empty'] = TRUE;
+  $handler->display->display_options['header']['php']['php_output'] = '<?php
+  $form = array();
+  $form[\'name\'] = array();
+  $form[\'name\'][\'#type\'] = \'textfield\';
+  $form[\'name\'][\'#title\'] = t(\'Add a new expert\');
+  $form[\'submit\'] = array();
+  $form[\'submit\'][\'#type\'] = \'submit\';
+  $form[\'submit\'][\'#value\'] = t(\'Add to circle\');
+  print drupal_render($form);
+?>';
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
@@ -3659,9 +3674,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['status']['value'] = '1';
   $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-
-  /* Display: Block */
-  $handler = $view->new_display('block', 'Block', 'block');
 
   /* Display: They use us */
   $handler = $view->new_display('block', 'They use us', 'block_1');

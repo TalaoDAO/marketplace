@@ -17,7 +17,7 @@ function ft_field_base_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
       'language' => 'und',
-      'i18n_mode' => 4,
+      'i18n_mode' => 0,
     ),
     'forums' => array(
       'name' => 'Forums',
@@ -37,7 +37,7 @@ function ft_field_base_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
       'language' => 'und',
-      'i18n_mode' => 4,
+      'i18n_mode' => 0,
     ),
     'notification_frequencies' => array(
       'name' => 'Notification frequencies',
@@ -47,7 +47,7 @@ function ft_field_base_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
       'language' => 'und',
-      'i18n_mode' => 1,
+      'i18n_mode' => 0,
     ),
     'skill' => array(
       'name' => 'Skills',
@@ -57,7 +57,7 @@ function ft_field_base_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
       'language' => 'und',
-      'i18n_mode' => 4,
+      'i18n_mode' => 0,
     ),
   );
 }

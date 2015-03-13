@@ -18,18 +18,15 @@ function ft_content_type_field_group_info() {
   $field_group->entity_type = 'user';
   $field_group->bundle = 'user';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_background';
   $field_group->data = array(
     'label' => 'Account',
     'weight' => '0',
     'children' => array(
       0 => 'og_user_node',
-      1 => 'field_first_name',
-      2 => 'field_last_name',
-      3 => 'field_name_visibility',
-      4 => 'field_profile_visibility',
-      5 => 'account',
-      6 => 'picture',
+      1 => 'account',
+      2 => 'picture',
+      3 => 'group_oneliner',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -42,6 +39,39 @@ function ft_content_type_field_group_info() {
     ),
   );
   $export['group_account|user|user|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_background|user|user|form';
+  $field_group->group_name = 'group_background';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'background',
+    'weight' => '0',
+    'children' => array(
+      0 => 'group_account',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'background',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-background field-group-div',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_background|user|user|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -145,7 +175,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Hidden',
-    'weight' => '8',
+    'weight' => '3',
     'children' => array(
       0 => 'tmgmt_translation_skills',
       1 => 'masquerade',
@@ -207,6 +237,41 @@ function ft_content_type_field_group_info() {
     ),
   );
   $export['group_mission|node|webform|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_oneliner|field_collection_item|field_skills_set|form';
+  $field_group->group_name = 'group_oneliner';
+  $field_group->entity_type = 'field_collection_item';
+  $field_group->bundle = 'field_skills_set';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Oneliner',
+    'weight' => '0',
+    'children' => array(
+      0 => 'field_skill',
+      1 => 'field_year_of_experiences',
+      2 => 'field_skill_autoeval',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Oneliner',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-oneliner field-group-div oneliner',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_oneliner|field_collection_item|field_skills_set|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
