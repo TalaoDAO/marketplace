@@ -33,6 +33,15 @@ function emindhub_theme() {
     );
 }
 
+function emindhub_file($variables) {
+    $element = $variables['element'];
+    $element['#attributes']['type'] = 'file';
+    element_set_attributes($element, array('id', 'name', 'size'));
+    _form_set_class($element, array('form-file'));
+
+    return sprintf('<div class="file-upload"><span>%s</span><input' . drupal_attributes($element['#attributes']) . ' /></div>', t("Choose a file"));
+}
+
 function emindhub_preprocess_user_picture(&$vars) {
     $variables['user_picture'] = '';
     if (variable_get('user_pictures', 0)) {
@@ -501,7 +510,7 @@ function emindhub_nice_menus_build($variables) {
  * @param array $variables
  * @return string
  */
-function emindhub_menu_link(array $variables) {
+function emindhub_menu_link(array &$variables) {
     $classes = "";
 
     if ($variables['theme_hook_original'] == "menu_link__menu_top_anonymous"){
@@ -515,7 +524,18 @@ function emindhub_menu_link(array $variables) {
 
     if ($variables['theme_hook_original'] == "menu_link__menu_top"){
         $classes = "col-md-4 upper";
+        if (isset($variables['element']['#emhInformation'])) {
+            $classes = "";
 
+        }
+
+        if (count($variables['element']['#below']) != 0) {
+            foreach ($variables['element']['#below'] as $key => $subMenu) {
+                if (strpos(strtolower($key), "#") === false) {
+                    $variables['element']['#below'][$key]["#emhInformation"] = "submenu";
+                }
+            }
+        }
     }
 
     $sub_menu = '';
@@ -742,4 +762,19 @@ function GetMenu (&$vars) {
         ));
         return array($accountMenu, $logout);
     }
+}
+
+function pp($arr){
+    $retStr = '<ul>';
+    if (is_array($arr)){
+        foreach ($arr as $key=>$val){
+            if (is_array($val)){
+                $retStr .= '<li>' . $key . ' => ' . pp($val) . '</li>';
+            }else{
+                $retStr .= '<li>' . $key . ' => ' . $val . '</li>';
+            }
+        }
+    }
+    $retStr .= '</ul>';
+    return $retStr;
 }
