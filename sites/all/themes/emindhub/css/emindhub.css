@@ -1973,4 +1973,7 @@ input[type=submit]#edit-cancel {
   opacity: 0;
   filter: alpha(opacity=0);
 }
+.align-left {
+  text-align: left;
+}
 /*# sourceMappingURL=emindhub.css.map */
