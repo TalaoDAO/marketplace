@@ -15,11 +15,12 @@ function emindhub_theme() {
         'template' => 'user_picture',
         'render element' => 'image',
       ),
-      'user_register_form' => array(
+      /*'user_register_form' => array(
         'path' => drupal_get_path('theme', 'emindhub').'/templates',
         'template' => 'user-register-form',
         'render element' => 'form'
-      ),/*
+      ),*/
+      /*
       'password' => array (
         'path' => drupal_get_path('theme', 'emindhub').'/templates',
         'template' => 'password-confirm',
