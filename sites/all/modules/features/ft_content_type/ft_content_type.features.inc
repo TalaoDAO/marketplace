@@ -62,7 +62,7 @@ function ft_content_type_node_info() {
       'help' => '',
     ),
     'webform' => array(
-      'name' => t('Calls'),
+      'name' => t('Survey'),
       'base' => 'node_content',
       'description' => t('Create a new form or questionnaire accessible to users. Submission results and statistics are recorded and accessible to privileged users.'),
       'has_title' => '1',

@@ -21,14 +21,13 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Account',
-    'weight' => '1',
+    'weight' => '0',
     'children' => array(
       0 => 'field_name_visibility',
       1 => 'field_entreprise_visibility',
       2 => 'field_entreprise',
       3 => 'account',
-      4 => 'picture',
-      5 => 'group_oneliner',
+      4 => 'group_oneliner',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -124,17 +123,18 @@ function ft_content_type_field_group_info() {
       1 => 'field_expiration_date',
       2 => 'og_group_ref',
       3 => 'field_picto',
-      4 => 'field_domain',
-      5 => 'field_domaine',
+      4 => 'field_domaine',
+      5 => 'field_tags',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Common',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-common field-group-fieldset',
         'required_fields' => 1,
+        'classes' => 'group-common field-group-fieldset group-background',
+        'description' => '',
       ),
+      'formatter' => 'collapsible',
     ),
   );
   $export['group_common|node|challenge|form'] = $field_group;
@@ -157,15 +157,17 @@ function ft_content_type_field_group_info() {
       2 => 'field_reward',
       3 => 'field_expiration_date',
       4 => 'field_picto',
+      5 => 'field_tags',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Common',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-common field-group-fieldset',
         'required_fields' => 1,
+        'classes' => 'group-common field-group-fieldset group-background',
+        'description' => '',
       ),
+      'formatter' => 'collapsible',
     ),
   );
   $export['group_common|node|question1|form'] = $field_group;
@@ -187,17 +189,17 @@ function ft_content_type_field_group_info() {
       1 => 'field_expiration_date',
       2 => 'field_reward',
       3 => 'field_picto',
-      4 => 'field_domain',
-      5 => 'field_domaine',
+      4 => 'field_domaine',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Common',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-common field-group-fieldset',
         'required_fields' => 1,
+        'classes' => 'group-common field-group-fieldset group-background',
+        'description' => '',
       ),
+      'formatter' => 'collapsible',
     ),
   );
   $export['group_common|node|webform|form'] = $field_group;
@@ -303,13 +305,13 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Hidden',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
       0 => 'og_user_node',
-      1 => 'tmgmt_translation_skills',
-      2 => 'masquerade',
-      3 => 'privatemsg',
-      4 => 'timezone',
+      1 => 'masquerade',
+      2 => 'privatemsg',
+      3 => 'timezone',
+      4 => 'picture',
       5 => 'contact',
       6 => 'locale',
       7 => 'wysiwyg',
