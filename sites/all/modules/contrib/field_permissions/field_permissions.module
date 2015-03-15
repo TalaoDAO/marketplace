@@ -166,11 +166,15 @@ function field_permissions_field_access($op, $field, $entity_type, $entity, $acc
   }
 }
 
-// YBA
+// YBA return the owning user
 function _get_owner($entity, $owner_field) {
-  $wrapper = entity_metadata_wrapper('node', $entity);
-  if (!isset($wrapper) ) return null;
-  $node_ref = $wrapper->$owner_field->value();
+  if ($owner_field == 'Comment') {
+    $node_ref = node_load($entity->nid);    
+  } else {
+    $wrapper = entity_metadata_wrapper('node', $entity);
+    if (!isset($wrapper) ) return null;
+    $node_ref = $wrapper->$owner_field->value();
+  }
   if (!isset($node_ref)) return null;
   $owner_uid = $node_ref->uid;
   return user_load($owner_uid);
