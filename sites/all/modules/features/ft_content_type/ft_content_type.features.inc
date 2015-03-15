@@ -53,6 +53,14 @@ function ft_content_type_node_info() {
       'title_label' => t('Title'),
       'help' => '',
     ),
+    'question1' => array(
+      'name' => t('Question1'),
+      'base' => 'node_content',
+      'description' => '',
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
     'webform' => array(
       'name' => t('Calls'),
       'base' => 'node_content',
@@ -84,7 +92,7 @@ function ft_content_type_default_profile2_type() {
     "userView" : true,
     "type" : "business",
     "label" : "Business",
-    "weight" : "0",
+    "weight" : "10",
     "data" : { "registration" : 0, "use_page" : 0 }
   }');
   $items['expert'] = entity_import('profile2_type', '{

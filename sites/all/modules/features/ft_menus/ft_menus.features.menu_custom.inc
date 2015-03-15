@@ -32,7 +32,7 @@ function ft_menus_menu_default_menu_custom() {
     'title' => 'Burger Menu',
     'description' => '',
     'language' => 'und',
-    'i18n_mode' => 5,
+    'i18n_mode' => 0,
   );
   // Exported menu: menu-findexpert.
   $menus['menu-findexpert'] = array(
@@ -40,7 +40,7 @@ function ft_menus_menu_default_menu_custom() {
     'title' => 'FindExpert',
     'description' => '',
     'language' => 'und',
-    'i18n_mode' => 5,
+    'i18n_mode' => 0,
   );
   // Exported menu: menu-footer-menu.
   $menus['menu-footer-menu'] = array(
@@ -56,15 +56,23 @@ function ft_menus_menu_default_menu_custom() {
     'title' => 'Respond',
     'description' => '',
     'language' => 'und',
-    'i18n_mode' => 5,
+    'i18n_mode' => 0,
   );
-  // Exported menu: menu-top-menu.
-  $menus['menu-top-menu'] = array(
-    'menu_name' => 'menu-top-menu',
-    'title' => 'Top menu',
+  // Exported menu: menu-top.
+  $menus['menu-top'] = array(
+    'menu_name' => 'menu-top',
+    'title' => 'Top',
     'description' => '',
     'language' => 'und',
-    'i18n_mode' => 0,
+    'i18n_mode' => 1,
+  );
+  // Exported menu: menu-top-anonymous.
+  $menus['menu-top-anonymous'] = array(
+    'menu_name' => 'menu-top-anonymous',
+    'title' => 'Top anonymous',
+    'description' => '',
+    'language' => 'und',
+    'i18n_mode' => 5,
   );
   // Exported menu: user-menu.
   $menus['user-menu'] = array(
@@ -84,7 +92,8 @@ function ft_menus_menu_default_menu_custom() {
   t('Respond');
   t('The <em>Main</em> menu is used on many sites to show the major sections of the site, often in a top navigation bar.');
   t('The <em>User</em> menu contains links related to the user\'s account, as well as the \'Log out\' link.');
-  t('Top menu');
+  t('Top');
+  t('Top anonymous');
   t('User menu');
 
 
