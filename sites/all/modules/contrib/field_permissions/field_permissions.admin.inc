@@ -147,6 +147,7 @@ function _field_permissions_field_settings_form_alter(&$form, $form_state, $form
     $info = field_info_field($field['field_name']);
     if ($info['type'] == 'node_reference') $options[ $field['field_name'] ] = $field['label'];
   }
+  $options['Comment'] = 'Comment';
 
   $form['field']['field_permissions']['owner_field'] = array(
     '#type' => 'select',
