@@ -412,7 +412,7 @@ function ft_content_type_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 5,
+      'weight' => 6,
     ),
   );
 
@@ -439,7 +439,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_reward',
-    'label' => 'Award',
+    'label' => 'Reward',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -494,6 +494,51 @@ function ft_content_type_field_default_field_instances() {
       ),
       'type' => 'text_textfield',
       'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'node-challenge-field_tags'
+  $field_instances['node-challenge-field_tags'] = array(
+    'bundle' => 'challenge',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(),
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 14,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_tags',
+    'label' => 'Tags',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'autocomplete_deluxe',
+      'settings' => array(
+        'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
+        'delimiter' => ' ',
+        'limit' => 10,
+        'min_length' => 0,
+        'not_found_message' => 'The term \'@term\' will be added.',
+        'size' => 60,
+      ),
+      'type' => 'autocomplete_deluxe_taxonomy',
+      'weight' => 5,
     ),
   );
 
@@ -1325,7 +1370,7 @@ function ft_content_type_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 8,
+      'weight' => 9,
     ),
   );
 
@@ -1352,7 +1397,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_reward',
-    'label' => 'Award',
+    'label' => 'Reward',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -1367,6 +1412,51 @@ function ft_content_type_field_default_field_instances() {
       ),
       'type' => 'text_textfield',
       'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'node-question1-field_tags'
+  $field_instances['node-question1-field_tags'] = array(
+    'bundle' => 'question1',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(),
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 6,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_tags',
+    'label' => 'Tags',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'autocomplete_deluxe',
+      'settings' => array(
+        'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
+        'delimiter' => ' ',
+        'limit' => 10,
+        'min_length' => 0,
+        'not_found_message' => 'The term \'@term\' will be added.',
+        'size' => 60,
+      ),
+      'type' => 'autocomplete_deluxe_taxonomy',
+      'weight' => 8,
     ),
   );
 
@@ -2314,6 +2404,51 @@ function ft_content_type_field_default_field_instances() {
       ),
       'type' => 'date_popup',
       'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance: 'node-webform-field_tags'
+  $field_instances['node-webform-field_tags'] = array(
+    'bundle' => 'webform',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(),
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 17,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_tags',
+    'label' => 'Tags',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'autocomplete_deluxe',
+      'settings' => array(
+        'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
+        'delimiter' => ' ',
+        'limit' => 10,
+        'min_length' => 0,
+        'not_found_message' => 'The term \'@term\' will be added.',
+        'size' => 60,
+      ),
+      'type' => 'autocomplete_deluxe_taxonomy',
+      'weight' => 38,
     ),
   );
 
@@ -3488,7 +3623,6 @@ function ft_content_type_field_default_field_instances() {
   t('Address');
   t('Anonymous');
   t('Area of interests');
-  t('Award');
   t('Body');
   t('Context of the mission');
   t('Corporation');
@@ -3530,6 +3664,7 @@ function ft_content_type_field_default_field_instances() {
   t('Sponsor');
   t('Sponsorship');
   t('Summary');
+  t('Tags');
   t('Telephone');
   t('Testimony');
   t('Working Status');

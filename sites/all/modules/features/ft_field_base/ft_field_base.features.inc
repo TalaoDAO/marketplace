@@ -46,11 +46,11 @@ function ft_field_base_flag_default_flags() {
     'access_author' => '',
     'show_contextual_link' => 0,
     'i18n' => 0,
-    'api_version' => 3,
     'module' => 'ft_field_base',
     'locked' => array(
       0 => 'name',
     ),
+    'api_version' => 3,
   );
   // Exported flag: "Winner calls3".
   $flags['winner_calls3'] = array(
@@ -181,11 +181,11 @@ function ft_field_base_flag_default_flags() {
     'show_on_form' => 0,
     'access_author' => '',
     'show_contextual_link' => 0,
-    'api_version' => 3,
     'module' => 'ft_field_base',
     'locked' => array(
       0 => 'name',
     ),
+    'api_version' => 3,
   );
   return $flags;
 

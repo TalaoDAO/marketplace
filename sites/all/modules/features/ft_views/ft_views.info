@@ -7,7 +7,6 @@ project = ft_views
 dependencies[] = better_exposed_filters
 dependencies[] = ctools
 dependencies[] = insert_view
-dependencies[] = og
 dependencies[] = quicktabs
 dependencies[] = viewreference
 dependencies[] = views
