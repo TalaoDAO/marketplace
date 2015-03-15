@@ -133,22 +133,18 @@ function field_permissions_field_access($op, $field, $entity_type, $entity, $acc
   // If the field is internal, then only the author (and 'owner' eg the user
   // referenced by a "node_ref" field) can view and edit it.
   elseif ($field['field_permissions']['type'] == FIELD_PERMISSIONS_INTERNAL) {
-    global $user;
-    if (isset($entity)) {
+    if (isset($entity) && $op == 'view') {
       $owner_account = _get_owner($entity, $field['field_permissions']['owner_field']);
+      // Peut voir le commentaire :
+      // * son auteur
+      // * l'auteur du noeud
+      // * ceux qui ont le droit d'accéder aux champs privés
       if ($owner_account != null)
         return _field_permissions_entity_is_owned_by_account($entity, $account) || ($account->uid==$owner_account->uid) || user_access('access private fields', $account);
       else
         return _field_permissions_entity_is_owned_by_account($entity, $account) || user_access('access private fields', $account);
-    }
-    // If the entity does not exist, we must check if there is access to any
-    // entity; see comments in field_permissions_empty_entity_access(). In this
-    // case that will always be true, since private fields are always editable
-    // by their authors and in theory any user account can be the author of
-    // some entity on the site.
-    else {
-      return TRUE;
-    }
+    } 
+    return TRUE;
   }
 
 
