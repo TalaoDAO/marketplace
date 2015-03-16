@@ -142,8 +142,8 @@ function answers_theme() {
  * Approach due to: http://www.metachunk.com/blog/adding-module-path-drupal-7-theme-registry 
  *
 **/
-/*function answers_theme_registry_alter(&$theme_registry) {
-  $path = drupal_get_path('module', 'mymodule');
+function answers_theme_registry_alter(&$theme_registry) {
+  $path = drupal_get_path('module', 'answers');
   $theme_registry_copy = $theme_registry;       // munge on a copy
   _theme_process_registry($theme_registry_copy, 'phptemplate', 'theme_engine', 'pow', $path);
   $theme_registry += array_diff_key($theme_registry_copy, $theme_registry);
@@ -151,7 +151,7 @@ function answers_theme() {
   foreach ($hooks as $h) {
     _answers_insert_after_first_element($theme_registry[$h]['theme paths'], $path);
   }
-}*/
+}
 
 /**
  * Helper function for re-ordering arrays (needed by theme_registry_alter)
