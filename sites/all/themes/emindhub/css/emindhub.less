@@ -677,7 +677,6 @@ table tbody tr:nth-child(even) {
     text-transform: uppercase;
 }
 
-
 .my {
     &-contributions {
         background: url(../images/bmCrayon.png) 0% 50% no-repeat;
@@ -795,7 +794,7 @@ table tbody tr:nth-child(even) {
     }
 
     .views-exposed-widget {
-        width: 100%;
+        //width: 100%;
         label:first-of-type {
             float: left;
         }
@@ -1148,50 +1147,6 @@ table tbody tr:nth-child(even) {
     }
 }
 
-@circleLightBlue: #bfe7f8;
-
-.quicktabs-tabs {
-    li {
-        background: @circleLightBlue url(../images/cercle.png) no-repeat 50% 30% !important;
-        display: inline-block !important;
-        min-width: 17em;
-        height: 8em;
-        line-height: 13.5em;
-        text-align: center;
-
-        a {
-            .upper;
-            .bold;
-            .dark-blue-text !important;
-            display: block;
-            height: 100%;
-        }
-    }
-
-    .active:not(a) {
-        background-color: @lightGrey !important;
-
-        a {
-            .light-blue-text !important;
-        }
-    }
-}
-
-.quicktabs-tabpage {
-    .view-content {
-        background-color: @lightGrey;
-
-        .views-row {
-            width: 12em;
-            display: inline-block;
-
-            .views-field-picture {
-                float: left;
-            }
-        }
-    }
-}
-
 .register {
     &-title {
         .upper;
@@ -1422,11 +1377,24 @@ table tbody tr:nth-child(even) {
 }
 
 #user-register-form {
-    .marginU;
-    .paddingUD;
-    .paddingLR;
+    .group-background {
+        margin-top: 0;
+    }
+    .group-oneliner label {
+        display: inline !important;
+    }
 
-    //background-color: @lightGrey;
+    legend {
+        margin-bottom: 0;
+    }
+
+    label {
+        width: 15%
+    }
+
+    .fieldset-legend {
+        padding-top: 2em;
+    }
 
     input[type=text] {
         border: none;
@@ -1873,6 +1841,7 @@ input[type=text] {
 input[type=password].error {
     background-color: @white !important;
 }
+
 /*
 input[type=file] {
     background-color: @expertYellow !important;
@@ -1992,7 +1961,6 @@ input[type=submit] {
     visibility: hidden;
     display: none;
 }
-
 
 .expert-register {
     #edit-profile-expert {
@@ -2153,7 +2121,7 @@ input[type=submit] {
                     }
 
                     > div {
-                        &:hover{
+                        &:hover {
                             background-color: @lightBlueHover;
                         }
                         position: relative;
@@ -2400,6 +2368,177 @@ input[type=submit] {
         &.last {
             border-top-right-radius: @borderRadius;
             border-bottom-right-radius: @borderRadius;
+        }
+    }
+}
+
+.flag-my-selection {
+    .bold;
+    .upper;
+    border: 0;
+    margin-bottom: .5em;
+    border-radius: @borderRadius;
+    background-color: @darkBlue;
+    background-image: url(../images/starBtn.png) !important;
+    background-repeat: no-repeat;
+    background-position: 5% 50%;
+    padding: 0.5em 0.5em 0.5em 2.5em;
+
+    a {
+        color: @white;
+        &:hover {
+            .bold;
+            color: @white;
+        }
+    }
+}
+
+.node-type-question1 {
+    .title {
+        background-color: #f6f7f8;
+        text-align: left;
+        font-weight: bold;
+        padding: 1.5em;
+    }
+
+    .comment-wrapper {
+        > div:nth-child(even) {
+            background-color: @lightYellow;
+        }
+    }
+    ul.inline {
+        display: inline-block;
+        padding-top: 1.5em;
+        width: 100%;
+    }
+}
+
+.page-my-circles {
+    .view-header {
+        input[type=submit] {
+            position: relative;
+            top: -3.8em;
+            float: right;
+        }
+    }
+
+    .views-exposed-widget select {
+        margin-left: 1em;
+    }
+
+    .views-field-title {
+        display: none;
+    }
+
+    .views-field-created {
+        background-color: @lightGrey;
+    }
+
+    .view-circle-members {
+        margin-bottom: 1.5em;
+
+        .views-widget-sort-order {
+            display: inline-block;
+            float: right;
+            position: absolute;
+            width: auto;
+        }
+        .views-submit-button {
+            display: inline-block;
+            position: relative;
+            float: right;
+            top: -2em;
+        }
+
+        .pager {
+            text-align: right;
+
+            .pager-item a {
+                border: none;
+                border-radius: 0;
+                background-color: transparent;
+            }
+
+            .pager-previous a {
+                background: transparent url(../images/backbtn.png) no-repeat;
+            }
+            .pager-next a {
+                background: transparent url(../images/nextbtn.png) no-repeat;
+            }
+
+
+            .pager-previous a,
+            .pager-next a {
+                display: inline-block;
+                position: relative;
+                height: 1.68em;
+                width: 1.68em;
+                top: 0.5em;
+
+                border: none;
+                border-radius: 0;
+                overflow: hidden;
+                text-indent: 100%;
+                white-space: nowrap;
+            }
+
+            .pager-first, .pager-last {
+                display: none;
+            }
+        }
+    }
+
+    .quicktabs-tabs {
+        li {
+            background: @circleLightBlue url(../images/cercle.png) no-repeat 50% 30% !important;
+            display: inline-block !important;
+            min-width: 17em;
+            height: 8em;
+            line-height: 13.5em;
+            text-align: center;
+
+            a {
+                .upper;
+                .bold;
+                .dark-blue-text !important;
+                display: block;
+                height: 100%;
+            }
+        }
+
+        .active:not(a) {
+            background-color: @lightGrey !important;
+
+            a {
+                .light-blue-text !important;
+            }
+        }
+    }
+
+    .quicktabs-tabpage {
+        .view-content {
+            background-color: @lightGrey;
+
+            .views-row {
+                width: 12em;
+                display: inline-block;
+
+                .views-field-picture {
+                    float: left;
+                }
+            }
+        }
+    }
+}
+
+.user-alert {
+    background-color: transparent;
+
+    .user-alert-message {
+        background-color: @lightBlue;
+
+        .user-label {
+            background-color: @darkBlue;
         }
     }
 }
