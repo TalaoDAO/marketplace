@@ -2415,6 +2415,8 @@ input[type=submit] {
 
 .page-my-circles {
     .view-header {
+        background-color: @lightGrey;
+
         input[type=submit] {
             position: relative;
             top: -3.8em;
@@ -2532,12 +2534,15 @@ input[type=submit] {
 }
 
 .user-alert {
-    background-color: transparent;
+    background-color: transparent !important;
 
     .user-alert-message {
         background-color: @lightBlue;
+//        background-color: @lightGrey;
 
         .user-label {
+            top: 0.1em;
+            position: relative;
             background-color: @darkBlue;
         }
     }

@@ -2041,6 +2041,9 @@ input[type=submit]#edit-cancel {
   padding-top: 1.5em;
   width: 100%;
 }
+.page-my-circles .view-header {
+  background-color: #f6f7f8;
+}
 .page-my-circles .view-header input[type=submit] {
   position: relative;
   top: -3.8em;
@@ -2133,12 +2136,14 @@ input[type=submit]#edit-cancel {
   float: left;
 }
 .user-alert {
-  background-color: transparent;
+  background-color: transparent !important;
 }
 .user-alert .user-alert-message {
   background-color: #009fe3;
 }
 .user-alert .user-alert-message .user-label {
+  top: 0.1em;
+  position: relative;
   background-color: #4c6172;
 }
 /*# sourceMappingURL=emindhub.css.map */
