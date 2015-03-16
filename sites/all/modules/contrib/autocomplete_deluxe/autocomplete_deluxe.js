@@ -394,14 +394,6 @@
     jqObject.blur(function() {
       var last_element = jqObject.parent().children('.autocomplete-deluxe-item').last();
       last_element.removeClass('autocomplete-deluxe-item-focus');
-      var value = jqObject.val();
-      if(value != '') {
-        var ui_item = {
-          label: value,
-          value: value
-        };
-        self.addValue(ui_item);
-      }
     });
 
     var clear = false;
