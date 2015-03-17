@@ -2536,12 +2536,21 @@ input[type=submit] {
 .user-alert {
     background-color: transparent !important;
 
+    .user-alert-level0 {
+        background-color: @lightBlueHover;
+    }
+    .user-alert-level1 {
+        background-color: @expertYellow;
+    }
+
     .user-alert-message {
-        background-color: @lightBlue;
-//        background-color: @lightGrey;
+        color: @white;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
 
         .user-label {
             top: 0.1em;
+            left: -0.5em;
             position: relative;
             background-color: @darkBlue;
         }
