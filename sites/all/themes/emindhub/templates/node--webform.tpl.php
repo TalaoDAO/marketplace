@@ -8,7 +8,7 @@
         </div>
     <?php endif; ?>
     <div class="row table-content table-expert">
-        <div class="col-md-1"><img src="<?php echo file_create_url($field_picto['und'][0]['uri']); ?>" /></div>
+        <div class="col-md-1"><img src="<?php echo file_create_url($field_picto[LANGUAGE_NONE][0]['uri']); ?>" /></div>
         <!--<div class="col-md-3"><?php print $variables['title']; ?></div>-->
         <div class="col-md-3"><?php print l($variables['title'], '.'.$variables['node_url']); ?></div>
         <div class="col-md-2"><?php print $variables['date']; ?></div>

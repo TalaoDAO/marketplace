@@ -10,8 +10,8 @@
     <?php endif; ?>
     <div class="row table-content table-expert">
         <div class="col-md-1">
-            <?php if (isset($field_picto) && isset($field_picto['und'][0]['uri']) ): ?>
-                <img src="<?php echo file_create_url($field_picto['und'][0]['uri']); ?>" />
+            <?php if (isset($field_picto) && isset($field_picto[LANGUAGE_NONE][0]['uri']) ): ?>
+                <img src="<?php echo file_create_url($field_picto[LANGUAGE_NONE][0]['uri']); ?>" />
             <?php else: ?>
                 <img style="height: 20px; width: 20px;" src="<?php echo getImgSrc("blogPostIcon.png"); ?>" />
             <?php endif; ?>
@@ -22,8 +22,8 @@
         <!--<div class="col-md-3"><a href="<?php print url('.'.$variables['node_url']); ?>"><?php print $variables['title']; ?></a></div>-->
         <div class="col-md-2"><?php print $variables['date']; ?></div>
         <div class="col-md-2">
-            <?php if (isset($variables['field_expiration_date']['und'][0])): ?>
-                <?php print $variables['field_expiration_date']['und'][0]['value']; ?>
+            <?php if (isset($variables['field_expiration_date'][LANGUAGE_NONE][0])): ?>
+                <?php print $variables['field_expiration_date'][LANGUAGE_NONE][0]['value']; ?>
             <?php endif; ?>
         </div>
         <div class="col-md-2">Nom du cercle</div>

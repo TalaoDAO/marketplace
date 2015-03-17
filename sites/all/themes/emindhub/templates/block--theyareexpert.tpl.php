@@ -4,7 +4,7 @@
             <h2<?php print $title_attributes; ?>><?php print $block->subject ?></h2>
         </div>
         <div class="col-md-3"><hr class="hr-light"></div>
-        <div class="col-md-1">
+        <div class="col-md-1 noPaddingL">
             <img src="<?php print getImgSrc('fluxIcon.png'); ?>">
         </div>
     </div>

@@ -10,8 +10,8 @@
     <?php endif; ?>
     <div class="row table-content table-expert">
         <div class="col-md-1">
-            <?php if (isset($field_picto) && isset($field_picto['und'][0]['uri']) ): ?>
-                <img src="<?php echo file_create_url($field_picto['und'][0]['uri']); ?>" />
+            <?php if (isset($field_picto) && isset($field_picto[LANGUAGE_NONE][0]['uri']) ): ?>
+                <img src="<?php echo file_create_url($field_picto[LANGUAGE_NONE][0]['uri']); ?>" />
             <?php else: ?>
                 <img style="height: 20px; width: 20px;" src="<?php echo getImgSrc("answerIcon.png"); ?>" />
             <?php endif; ?>

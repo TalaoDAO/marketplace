@@ -83,53 +83,53 @@ $form['group_account']['field_profile_visibility']['und']
 */
 
 //GENERAL
-$fieldFirstName = $form['group_account']['field_first_name']['und'][0];
-$fieldLastName = $form['group_account']['field_last_name']['und'][0];
+$fieldFirstName = $form['group_account']['field_first_name'][LANGUAGE_NONE][0];
+$fieldLastName = $form['group_account']['field_last_name'][LANGUAGE_NONE][0];
 $fieldUsername = $form['group_account']['account']['name'];
 $fieldMail = $form['group_account']['account']['mail'];
 $fieldPass = $form['group_account']['account']['pass'];
 $fieldPass_pass1 = $form['group_account']['account']['pass']['pass1'];
 $fieldPass_pass2 = $form['group_account']['account']['pass']['pass2'];
     //$form['group_account']['account']['pass']['#element_validate']
-$fieldNameVisibility = $form['group_account']['field_name_visibility']['und'];
-$fieldProfileVisibility = $form['group_account']['field_profile_visibility']['und'];
+$fieldNameVisibility = $form['group_account']['field_name_visibility'][LANGUAGE_NONE];
+$fieldProfileVisibility = $form['group_account']['field_profile_visibility'][LANGUAGE_NONE];
 
 
 //EXPERT
 if (isset($form['profile_expert'])) {
     //PERSONNAL
     $fieldAddress = $form['profile_expert']['field_address'];
-    $fieldAddress_street = $form['profile_expert']['field_address']['und'][0]['street_block'];
-    $fieldAddress_street_line1 = $form['profile_expert']['field_address']['und'][0]['street_block']['thoroughfare'];
-    $fieldAddress_street_line2 = $form['profile_expert']['field_address']['und'][0]['street_block']['premise'];
-    $fieldAddress_locality = $form['profile_expert']['field_address']['und'][0]['locality_block'];
-    $fieldAddress_locality_postalCode = $form['profile_expert']['field_address']['und'][0]['locality_block']['postal_code'];
-    $fieldAddress_locality_dependentLocality = $form['profile_expert']['field_address']['und'][0]['locality_block']['dependent_locality'];
-    $fieldAddress_locality_locality = $form['profile_expert']['field_address']['und'][0]['locality_block']['locality'];
-    $fieldAddress_locality_administrativeArea = $form['profile_expert']['field_address']['und'][0]['locality_block']['administrative_area'];
-    $fieldAddress_country = $form['profile_expert']['field_address']['und'][0]['country'];
-    //$fieldAddress =                     $form['profile_expert']['field_address']['und'][0]['country']['#element_validate'];
+    $fieldAddress_street = $form['profile_expert']['field_address'][LANGUAGE_NONE][0]['street_block'];
+    $fieldAddress_street_line1 = $form['profile_expert']['field_address'][LANGUAGE_NONE][0]['street_block']['thoroughfare'];
+    $fieldAddress_street_line2 = $form['profile_expert']['field_address'][LANGUAGE_NONE][0]['street_block']['premise'];
+    $fieldAddress_locality = $form['profile_expert']['field_address'][LANGUAGE_NONE][0]['locality_block'];
+    $fieldAddress_locality_postalCode = $form['profile_expert']['field_address'][LANGUAGE_NONE][0]['locality_block']['postal_code'];
+    $fieldAddress_locality_dependentLocality = $form['profile_expert']['field_address'][LANGUAGE_NONE][0]['locality_block']['dependent_locality'];
+    $fieldAddress_locality_locality = $form['profile_expert']['field_address'][LANGUAGE_NONE][0]['locality_block']['locality'];
+    $fieldAddress_locality_administrativeArea = $form['profile_expert']['field_address'][LANGUAGE_NONE][0]['locality_block']['administrative_area'];
+    $fieldAddress_country = $form['profile_expert']['field_address'][LANGUAGE_NONE][0]['country'];
+    //$fieldAddress =                     $form['profile_expert']['field_address'][LANGUAGE_NONE][0]['country']['#element_validate'];
 
-    $fieldBlogBlockTitle = $form['profile_expert']['field_link_to_my_blog']['und']['#title'];
-    $fieldBlogTitle = $form['profile_expert']['field_link_to_my_blog']['und'][0]['title'];
-    $fieldBlogUrl = $form['profile_expert']['field_link_to_my_blog']['und'][0]['url'];
+    $fieldBlogBlockTitle = $form['profile_expert']['field_link_to_my_blog'][LANGUAGE_NONE]['#title'];
+    $fieldBlogTitle = $form['profile_expert']['field_link_to_my_blog'][LANGUAGE_NONE][0]['title'];
+    $fieldBlogUrl = $form['profile_expert']['field_link_to_my_blog'][LANGUAGE_NONE][0]['url'];
 
     //PROFESSIONNAL
-    $fieldProfileTitle = $form['profile_expert']['field_titre_metier']['und'][0];
-    $fieldWorkingStatus = $form['profile_expert']['field_working_status']['und'];
-    $fieldEntrepriseVisibility = $form['profile_expert']['field_entreprise_visibility']['und'];
-    $fieldEntreprise = $form['profile_expert']['field_entreprise']['und'][0];
+    $fieldProfileTitle = $form['profile_expert']['field_titre_metier'][LANGUAGE_NONE][0];
+    $fieldWorkingStatus = $form['profile_expert']['field_working_status'][LANGUAGE_NONE];
+    $fieldEntrepriseVisibility = $form['profile_expert']['field_entreprise_visibility'][LANGUAGE_NONE];
+    $fieldEntreprise = $form['profile_expert']['field_entreprise'][LANGUAGE_NONE][0];
 
     //SPONSOR
-    $fieldSponsor = $form['profile_expert']['field_sponsor']['und'][0];
-    $fieldSponsorShip = $form['profile_expert']['field_sponsorship']['und'];
+    $fieldSponsor = $form['profile_expert']['field_sponsor'][LANGUAGE_NONE][0];
+    $fieldSponsorShip = $form['profile_expert']['field_sponsorship'][LANGUAGE_NONE];
 
     //SKILLS
-    $fieldDomains = $form['profile_expert']['field_domaine']['und'];
-    $fieldInterests = $form['profile_expert']['field_interests']['und'];
-    $fieldSkillsVisibility = $form['profile_expert']['field_skills_visibility']['und'];
-    $fieldSkillsSet = $form['profile_expert']['field_skills_set']['und'][0];
-    $fieldEmployementHistory = $form['profile_expert']['field_employment_history']['und'][0];
+    $fieldDomains = $form['profile_expert']['field_domaine'][LANGUAGE_NONE];
+    $fieldInterests = $form['profile_expert']['field_interests'][LANGUAGE_NONE];
+    $fieldSkillsVisibility = $form['profile_expert']['field_skills_visibility'][LANGUAGE_NONE];
+    $fieldSkillsSet = $form['profile_expert']['field_skills_set'][LANGUAGE_NONE][0];
+    $fieldEmployementHistory = $form['profile_expert']['field_employment_history'][LANGUAGE_NONE][0];
 
 
 
@@ -309,7 +309,7 @@ if (isset($form['profile_expert'])) {
                 <?php endif; ?>
             </div>
             <?php endif;
-            /*$field = $form['profile_expert']['field_tel']['und'][0];
+            /*$field = $form['profile_expert']['field_tel'][LANGUAGE_NONE][0];
             $field['#title_display'] = "invisible";
             $description = $field['#description'];
             $field['#description'] = "";*/
@@ -497,7 +497,7 @@ if (isset($form['profile_expert'])) {
         </div>
         <hr class="hr-light-grey-dashed">
         <div class="register-complement">
-            <?php $field = $form['profile_expert']['field_notification_frequency']['und'];
+            <?php $field = $form['profile_expert']['field_notification_frequency'][LANGUAGE_NONE];
             $field['#title_display'] = "invisible"; ?>
             <div class="row paddingD">
                 <div class="col-md-3">
@@ -510,7 +510,7 @@ if (isset($form['profile_expert'])) {
                     <?php print render($field); ?>
                 </div>
             </div>
-            <?php $field = $form['profile_expert']['field_known_how']['und'];
+            <?php $field = $form['profile_expert']['field_known_how'][LANGUAGE_NONE];
             $field['#title_display'] = "invisible"; ?>
             <div class="row paddingD">
                 <div class="col-md-3">
@@ -523,7 +523,7 @@ if (isset($form['profile_expert'])) {
                     <?php print render($field); ?>
                 </div>
             </div>
-            <?php $field = $form['profile_expert']['field_known_specific']['und'][0];
+            <?php $field = $form['profile_expert']['field_known_specific'][LANGUAGE_NONE][0];
             $field['#title_display'] = "invisible"; ?>
             <div class="row paddingD">
                 <div class="col-md-3">
@@ -539,7 +539,7 @@ if (isset($form['profile_expert'])) {
         </div>
     <?php endif; ?>
     <?php if (isset($form['profile_business']) && FALSE): ?>
-        <?php $field = $form['profile_business']['field_known_how']['und'];
+        <?php $field = $form['profile_business']['field_known_how'][LANGUAGE_NONE];
         $field['#title_display'] = "invisible"; ?>
         <div class="row paddingD">
             <div class="col-md-3">
@@ -552,7 +552,7 @@ if (isset($form['profile_expert'])) {
                 <?php print render($field); ?>
             </div>
         </div>
-        <?php $field = $form['profile_business']['field_known_specific']['und'][0];
+        <?php $field = $form['profile_business']['field_known_specific'][LANGUAGE_NONE][0];
         $field['#title_display'] = "invisible"; ?>
         <div class="row paddingD">
             <div class="col-md-3">

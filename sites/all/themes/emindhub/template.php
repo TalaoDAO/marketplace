@@ -302,6 +302,15 @@ function emindhub_preprocess_node__challenge(&$vars) {
             $vars['first'] = true;
         }
     }
+    else {
+        $user = user_load_by_name($vars['elements']['body']['#object']->name);
+        $account = user_load($user->uid);
+        if ($account) {
+            $targetId = $account->field_entreprise[LANGUAGE_NONE][0]['target_id'];
+            $entity = node_load($targetId);
+            $vars['company_description'] = $entity->body[LANGUAGE_NONE][0]["value"];
+        }
+    }
 }
 
 function emindhub_preprocess_node__question(&$vars) {

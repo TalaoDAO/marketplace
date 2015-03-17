@@ -154,6 +154,10 @@ body {
     padding-bottom: 1em;
 }
 
+.noPaddingL {
+    padding-left: 0 !important;
+}
+
 .paddingL {
     padding-left: 1em;
 }
@@ -977,7 +981,7 @@ table tbody tr:nth-child(even) {
         .bold;
         padding-left: 2.2em !important;
         background-image: url(../images/workGroupBtn.png) !important;
-        background-color: @expertYellow;
+        background-color: @expertYellow !important;
         background-repeat: no-repeat;
         background-position: 3% 50%;
         color: @white;
@@ -1031,12 +1035,9 @@ table tbody tr:nth-child(even) {
 }
 
 .profile-picture {
-    width: 5.5em;
-    height: 5.5em;
-    border-radius: 100%;
-    background-size: 80%;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
+    img {
+        border-radius: 100%;
+    }
 }
 
 .question-answer {
@@ -1376,6 +1377,71 @@ table tbody tr:nth-child(even) {
     }
 }
 
+label {
+    width: 15%;
+}
+
+.field-type-addressfield {
+    .chosen-container {
+        padding-left: 0.5em;
+    }
+
+    .form-item-profile-expert-field-address-und-0-locality label,
+    .form-item-profile-expert-field-address-und-0-postal-code label {
+        width: auto;
+    }
+}
+
+.field-group-fieldset {
+    legend {
+        padding-top: 0.5em;
+    }
+
+    & > legend {
+        margin-bottom: 0;
+    }
+
+    fieldset {
+        padding-left: 1em;
+    }
+
+    .fieldset-legend {
+        background-position: 5px 75% !important;
+    }
+
+    .fieldset-legend {
+        a {
+            padding-top: 1.3em;
+            display: inline-block;
+        }
+    }
+
+    &.group-background {
+        margin-top: 0;
+        padding-top: 0;
+    }
+}
+
+fieldset.collapsed {
+    padding: 0;
+    background-color: transparent;
+    margin-top: 1em !important;
+
+    .fieldset-title {
+        padding-top: 0 !important;
+    }
+
+    legend {
+        padding-top: 0;
+        background-color: @lightGrey;
+        padding-left: 1em;
+    }
+
+    & + fieldset {
+        margin-top: 2.5em !important;
+    }
+}
+
 #user-register-form {
     .group-background {
         margin-top: 0;
@@ -1384,16 +1450,8 @@ table tbody tr:nth-child(even) {
         display: inline !important;
     }
 
-    legend {
-        margin-bottom: 0;
-    }
-
     label {
         width: 15%
-    }
-
-    .fieldset-legend {
-        padding-top: 2em;
     }
 
     input[type=text] {
@@ -1669,6 +1727,14 @@ table tbody tr:nth-child(even) {
 }
 
 .user-profile {
+    background-color: @lightGrey;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+
+    .challenge-tag-container {
+        .paddingUD;
+    }
+
     legend {
         .bold;
         color: inherit;
@@ -1679,16 +1745,6 @@ table tbody tr:nth-child(even) {
         .italic;
         line-height: 2em;
         background-color: @softGrey;
-    }
-}
-
-.user-profile {
-    background-color: @lightGrey;
-    padding-left: 1.5em;
-    padding-right: 1.5em;
-
-    .challenge-tag-container {
-        .paddingUD;
     }
 
     input[type=text] {
@@ -1739,6 +1795,10 @@ table tbody tr:nth-child(even) {
     }
 
     div.field-name-field-skills-set {
+        label {
+            width: auto;
+        }
+
         & > div.field-items > div.field-item {
             margin-bottom: 0.4em;
             &.even {
@@ -1875,6 +1935,20 @@ input[type=submit] {
     }
 }
 
+#edit-type-wrapper {
+    width: 51%;
+}
+
+#edit-uid-current-wrapper {
+    width: 49%;
+    top: 1.8em;
+    position: relative;
+
+    label {
+        width: auto;
+    }
+}
+
 .group-background {
     background-color: @lightGrey;
     /*padding-left: 1.5em;
@@ -1894,6 +1968,10 @@ input[type=submit] {
         &:first-of-type {
             margin-left: 0;
         }
+    }
+
+    label {
+        width: auto;
     }
 }
 
@@ -1950,6 +2028,10 @@ input[type=submit] {
     cursor: pointer;
     opacity: 0;
     filter: alpha(opacity=0);
+}
+
+div.field-name-field-skills-set label {
+    width: auto;
 }
 
 .align-left {
@@ -2254,28 +2336,38 @@ input[type=submit] {
         }
     }
     &-theyareexpert {
+        .view-users-list {
+            background-color: @lightGrey;
+        }
+
         .they-are-expert {
+            &-container {
+                .views-slideshow-cycle-main-frame-row {
+                    width: 100% !important;
+                }
+            }
+
             &-block {
                 .views_slideshow_controls_text_previous {
                     position: absolute;
                     top: 55.5%;
+                    z-index: 999;
 
                     a {
                         background: url(../images/previous.png) no-repeat 50% 50%;
                         content: "&nbsp;";
-                        z-index: 25;
                     }
                 }
 
                 .views_slideshow_controls_text_next {
                     position: absolute;
                     top: 55.5%;
-                    left: 95%;
+                    left: 91%;
+                    z-index: 999;
 
                     a {
                         background: url(../images/next.png) no-repeat 50% 50%;
                         content: "&nbsp;";
-                        z-index: 25;
                     }
                 }
             }
@@ -2555,4 +2647,10 @@ input[type=submit] {
             background-color: @darkBlue;
         }
     }
+}
+
+.btn-expert {
+    .upper;
+    .bold;
+    background-color: @expertYellow !important;
 }
