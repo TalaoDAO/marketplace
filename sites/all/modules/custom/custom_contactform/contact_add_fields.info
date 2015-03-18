@@ -1,0 +1,4 @@
+name = Contact add fields
+description = allows users to add fields to the contact form
+core = 7.x
+files[] = contact_add_fields.module
