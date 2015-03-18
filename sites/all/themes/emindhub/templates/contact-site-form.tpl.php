@@ -1,67 +1,115 @@
-<div class="row border-light">
-    <div class="col-md-12">
-        <div class="row paddingU">
-            <div class="col-md-1">
-                <img src="<?php print getImgSrc("bulle.png"); ?>" />
+<?php
+$fieldFirstName = $form['firstname'];
+$fieldLastName = $form['lastname'];
+$fieldCompany = $form['entreprise'];
+$fieldPhone = $form['phone'];
+$fieldMail = $form['mail'];
+$fieldSubject = $form['subject'];
+$fieldMessage = $form['message'];
+$fieldCategory = $form['cid'];      //contact us or feedback
+$fieldCopy = $form['copy'];         //Send yourself a copy.
+$fieldActions = $form['actions'];
+$fieldCivility = $form['civility'];
+?>
+    <div class="row border-light">
+        <div class="col-md-12">
+            <div class="row paddingU">
+                <div class="col-md-1">
+                    <img src="<?php print getImgSrc("bulle.png"); ?>" />
+                </div>
+                <div class="col-md-10 bold">
+                    <?php print t("Do you have a question ?"); ?>
+                </div>
             </div>
-            <div class="col-md-10 bold">
-                <?php print t("Vous avez une question ?"); ?>
+            <div class="row paddingU">
+                <div class="col-md-1">
+                    <img src="<?php print getImgSrc("bulle.png"); ?>" />
+                </div>
+                <div class="col-md-10 bold">
+                    <?php print t("Do you want to know more ?"); ?>
+                </div>
             </div>
-        </div>
-        <div class="row paddingU">
-            <div class="col-md-1">
-                <img src="<?php print getImgSrc("bulle.png"); ?>" />
+            <div class="text-wrapper">
+                <?php print t("Leave us a message, we will call you back in less than 24h !"); ?>
             </div>
-            <div class="col-md-10 bold">
-                <?php print t("Vous voulez en savoir plus ?"); ?>
-            </div>
-        </div>
-        <div class="text-wrapper">
-            <?php print t("Laissez nous un message, nous vous rappelons  dans les 24h !"); ?>
-        </div>
-        <form>
-            <div class="form-wrapper">
-                <?php print t("Civilité :"); ?>
-                <select id="selectCivilite" name="civilite" class="form-control-custom select-form">
-                    <option value="M">M.</option>
-                    <option value="Mme">Mme</option>
-                    <option value="Mlle">Mlle</option>
-                </select>
-                <div class="required">*</div>
-            </div>
-            <div class="form-wrapper">
-                <input type="text" class="form-control-custom" id="nom" placeholder="<?php print t("Votre nom"); ?>" />
-                <div class="required">*</div>
-            </div>
-            <div class="form-wrapper">
-                <input type="text" class="form-control-custom" id="prenom" placeholder="<?php print t("Votre prénom"); ?>" />
-                <div class="required">*</div>
-            </div>
-            <div class="form-wrapper">
-                <input type="text" class="form-control-custom" id="societe" placeholder="<?php print t("Votre société"); ?>" />
-                <div class="required">*</div>
-            </div>
-            <div class="form-wrapper">
-                <input type="text" class="form-control-custom" id="telephone" placeholder="<?php print t("Votre téléphone"); ?>" />
-                <div class="required">*</div>
-            </div>
-            <div class="form-wrapper">
-                <input type="email" class="form-control-custom" id="mail" placeholder="<?php print t("Votre email"); ?>" />
-                <div class="required">*</div>
-            </div>
-            <div class="form-wrapper">
-                <input type="text" class="form-control-custom" id="message" placeholder="<?php print t("Votre message..."); ?>" />
-                <div class="required">*</div>
-            </div>
-        </form>
-        <div class="row">
-            <div class="col-md-4">
-                <input type="submit" class="btn btn-primary" value="<?php print t("Envoyer"); ?>" />
-            </div>
-            <div class="col-md-8">
-                <span><?php print t("* Champs requis"); ?></span>
+
+            <form action="<?php print $form['#action']; ?>" method="<?php print $form['#method']; ?>">
+                <div class="form-wrapper">
+                    <?php
+                    print $fieldCivility['#title'];
+                    $fieldCivility['#attributes']['class'][] = "form-control-custom";
+                    $fieldCivility['#attributes']['class'][] = "select-form";
+                    $fieldCivility['#title_display'] = "invisible";
+                    print render($fieldCivility);
+                    if ($fieldCivility['#required']): ?> <span class="required">*</span><?php endif; ?>
+                </div>
+                <div class="form-wrapper">
+                    <?php
+                    $fieldLastName['#title_display'] = "invisible";
+                    $fieldLastName['#attributes']['placeholder'] = $fieldLastName['#title'];
+                    print render($fieldLastName);
+                    if ($fieldLastName['#required']): ?> <span class="required">*</span><?php endif; ?>
+                </div>
+                <div class="form-wrapper">
+                    <?php
+                    $fieldFirstName['#title_display'] = "invisible";
+                    $fieldFirstName['#attributes']['placeholder'] = $fieldFirstName['#title'];
+                    print render($fieldFirstName);
+                    if ($fieldFirstName['#required']): ?> <span class="required">*</span><?php endif; ?>
+                </div>
+                <div class="form-wrapper">
+                    <?php
+                    $fieldCompany['#title_display'] = "invisible";
+                    $fieldCompany['#attributes']['placeholder'] = $fieldCompany['#title'];
+                    print render($fieldCompany);
+                    if ($fieldCompany['#required']): ?> <span class="required">*</span><?php endif; ?>
+                </div>
+                <div class="form-wrapper">
+                    <?php
+                    $fieldPhone['#title_display'] = "invisible";
+                    $fieldPhone['#attributes']['placeholder'] = $fieldPhone['#title'];
+                    print render($fieldPhone);
+                    if ($fieldPhone['#required']): ?> <span class="required">*</span><?php endif; ?>
+                </div>
+                <div class="form-wrapper">
+                    <?php
+                    $fieldMail['#title_display'] = "invisible";
+                    $fieldMail['#attributes']['placeholder'] = $fieldMail['#title'];
+                    print render($fieldMail);
+                    if ($fieldMail['#required']): ?> <span class="required">*</span><?php endif; ?>
+                </div>
+                <div class="form-wrapper">
+                    <?php
+                    $fieldMessage['#title_display'] = "invisible";
+                    $fieldMessage['#attributes']['placeholder'] = $fieldMessage['#title'];
+                    print render($fieldMessage);
+                    if ($fieldMessage['#required']): ?> <span class="required">*</span><?php endif; ?>
+                </div>
+            </form>
+            <div class="row">
+                <div class="col-md-6">
+                    <?php print render($fieldActions);
+                    print render($form['location']);
+                    print render($form['form_build_id']);
+                    print render($form['form_id']); ?>
+                </div>
+                <div class="col-md-6">
+                    <span class="required">*</span><?php print t("Required fields"); ?>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<?php //echo drupal_render_children($form) ?>
+
+<?php
+unset($fieldFirstName);
+unset($fieldLastName);
+unset($fieldCompany);
+unset($fieldPhone);
+unset($fieldMail);
+unset($fieldSubject);
+unset($fieldMessage);
+unset($fieldCategory);
+unset($fieldCopy);
+unset($fieldActions);
+unset($fieldCivility);
+?>

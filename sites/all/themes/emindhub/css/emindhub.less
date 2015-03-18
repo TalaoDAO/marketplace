@@ -2110,12 +2110,76 @@ div.field-name-field-skills-set label {
         div.required {
             display: inline-block;
         }
+
         input[type=text] {
             padding: 6px 12px;
             margin-left: 0;
         }
+
         select {
             margin-left: 0.5em;
+            width: 75.5%;
+            color: @darkBlue;
+            color: rgba(76, 97, 114, 0.6);
+        }
+
+        span.required {
+            color: @lightBlue;
+            position: relative;
+            top: -1em;
+        }
+
+        .form-item {
+            margin-top: 0.5em;
+            margin-bottom: 0;
+        }
+
+        textarea {
+            border: none;
+            background-color: @softGrey;
+            width: 95%;
+            padding-top: 0.7em;
+            padding-left: 0.75em;
+
+            & + .grippie {
+                display: none;
+            }
+        }
+
+        .form-actions {
+            margin-top: 0;
+            margin-bottom: 0;
+
+            input[type=submit] {
+                background-color: @lightBlue;
+                margin-top: 0;
+            }
+        }
+
+        .col-md-6 > span.required {
+            position: inherit;
+            top: 0;
+            padding-right: 1em;
+        }
+
+        .form-wrapper > div {
+            display: inline-block;
+            width: 95%;
+
+            &.form-type-select {
+                display: inline;
+
+                & + span.required {
+                    position: inherit;
+                    padding-left: 1.2em;
+                }
+            }
+
+            &.form-type-textarea {
+                & + span.required {
+                    position: inherit;
+                }
+            }
         }
     }
 
@@ -2681,4 +2745,27 @@ div.field-name-field-skills-set label {
     [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
         left: inherit;
     }
+}
+
+#system-modules-uninstall {
+    [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        left: inherit;
+    }
+}
+
+::-webkit-input-placeholder {
+    color: @darkBlue;
+    color: rgba(76, 97, 114, 0.6);
+}
+:-moz-placeholder { /* Firefox 18- */
+    color: @darkBlue;
+    color: rgba(76, 97, 114, 0.6);
+}
+::-moz-placeholder {  /* Firefox 19+ */
+    color: @darkBlue;
+    color: rgba(76, 97, 114, 0.6);
+}
+:-ms-input-placeholder {
+    color: @darkBlue;
+    color: rgba(76, 97, 114, 0.6);
 }
