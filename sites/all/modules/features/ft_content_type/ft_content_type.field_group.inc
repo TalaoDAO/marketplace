@@ -76,6 +76,45 @@ function ft_content_type_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_background|node|question1|default';
+  $field_group->group_name = 'group_background';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'question1';
+  $field_group->mode = 'default';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'background',
+    'weight' => '0',
+    'children' => array(
+      0 => 'og_group_ref',
+      1 => 'body',
+      2 => 'field_domaine',
+      3 => 'field_reward',
+      4 => 'field_expiration_date',
+      5 => 'field_picto',
+      6 => 'field_tags',
+      7 => 'group_title',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'background',
+      'instance_settings' => array(
+        'id' => '',
+        'classes' => 'group-background field-group-div',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_background|node|question1|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_background|user|user|form';
   $field_group->group_name = 'group_background';
   $field_group->entity_type = 'user';
@@ -117,14 +156,13 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Common',
-    'weight' => '7',
+    'weight' => '10',
     'children' => array(
       0 => 'field_reward',
       1 => 'field_expiration_date',
       2 => 'og_group_ref',
-      3 => 'field_picto',
-      4 => 'field_domaine',
-      5 => 'field_tags',
+      3 => 'field_domaine',
+      4 => 'field_tags',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -150,7 +188,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Common',
-    'weight' => '5',
+    'weight' => '3',
     'children' => array(
       0 => 'og_group_ref',
       1 => 'field_domaine',
@@ -245,7 +283,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Hidden',
-    'weight' => '6',
+    'weight' => '5',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -559,6 +597,37 @@ function ft_content_type_field_group_info() {
     ),
   );
   $export['group_sponsor|profile2|expert|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_title|node|question1|default';
+  $field_group->group_name = 'group_title';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'question1';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_background';
+  $field_group->data = array(
+    'label' => 'title',
+    'weight' => '8',
+    'children' => array(
+      0 => 'field_title',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'show_label' => 1,
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+        'classes' => 'group-title field-group-div',
+        'id' => '',
+      ),
+    ),
+  );
+  $export['group_title|node|question1|default'] = $field_group;
 
   return $export;
 }

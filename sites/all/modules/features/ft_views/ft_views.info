@@ -19,6 +19,7 @@ dependencies[] = views_slideshow
 dependencies[] = views_slideshow_cycle
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
+features[views_view][] = circle_members
 features[views_view][] = my_circles
 features[views_view][] = my_drafts
 features[views_view][] = my_responses_calls3

@@ -56,7 +56,7 @@ function ft_menus_menu_default_menu_custom() {
     'title' => 'Respond',
     'description' => '',
     'language' => 'und',
-    'i18n_mode' => 0,
+    'i18n_mode' => 5,
   );
   // Exported menu: menu-top.
   $menus['menu-top'] = array(

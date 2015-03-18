@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the FT Views feature.
- */
-
-include_once 'ft_views.features.inc';
