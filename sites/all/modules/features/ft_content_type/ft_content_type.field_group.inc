@@ -601,6 +601,130 @@ function ft_content_type_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_target|node|challenge|form';
+  $field_group->group_name = 'group_target';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'challenge';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Target',
+    'weight' => '4',
+    'children' => array(
+      0 => 'field_reward',
+      1 => 'field_expiration_date',
+      2 => 'og_group_ref',
+      3 => 'field_domaine',
+      4 => 'field_tags',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-target field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_target|node|challenge|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_target|node|poll|form';
+  $field_group->group_name = 'group_target';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'poll';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Target',
+    'weight' => '2',
+    'children' => array(
+      0 => 'og_group_ref',
+      1 => 'field_domaine',
+      2 => 'field_tags',
+      3 => 'field_reward',
+      4 => 'field_expiration_date',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-target field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_target|node|poll|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_target|node|question1|form';
+  $field_group->group_name = 'group_target';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'question1';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Target',
+    'weight' => '3',
+    'children' => array(
+      0 => 'og_group_ref',
+      1 => 'field_domaine',
+      2 => 'field_reward',
+      3 => 'field_expiration_date',
+      4 => 'field_tags',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-target field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_target|node|question1|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_target|node|webform|form';
+  $field_group->group_name = 'group_target';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'webform';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Target',
+    'weight' => '4',
+    'children' => array(
+      0 => 'og_group_ref',
+      1 => 'field_expiration_date',
+      2 => 'field_reward',
+      3 => 'field_domaine',
+      4 => 'field_tags',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-target field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_target|node|webform|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_title|node|question1|default';
   $field_group->group_name = 'group_title';
   $field_group->entity_type = 'node';
@@ -628,6 +752,240 @@ function ft_content_type_field_group_info() {
     ),
   );
   $export['group_title|node|question1|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_what|node|challenge|form';
+  $field_group->group_name = 'group_what';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'challenge';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'What',
+    'weight' => '2',
+    'children' => array(
+      0 => 'body',
+      1 => 'field_document',
+      2 => 'field_type_entreprise',
+      3 => 'field_summary',
+      4 => 'field_image',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-what field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_what|node|challenge|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_what|node|poll|form';
+  $field_group->group_name = 'group_what';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'poll';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'What',
+    'weight' => '1',
+    'children' => array(
+      0 => 'field_description',
+      1 => 'title',
+      2 => 'choice_wrapper',
+      3 => 'settings',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-what field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_what|node|poll|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_what|node|question1|form';
+  $field_group->group_name = 'group_what';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'question1';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'What',
+    'weight' => '2',
+    'children' => array(
+      0 => 'body',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-what field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_what|node|question1|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_what|node|webform|form';
+  $field_group->group_name = 'group_what';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'webform';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'What',
+    'weight' => '2',
+    'children' => array(
+      0 => 'body',
+      1 => 'field_nom_de_l_organisation',
+      2 => 'field_duration_of_the_mission',
+      3 => 'field_start_date',
+      4 => 'field_salary_range',
+      5 => 'field_object_of_the_mission',
+      6 => 'field_has_salary',
+      7 => 'field_image',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-what field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_what|node|webform|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_who|node|challenge|form';
+  $field_group->group_name = 'group_who';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'challenge';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Who',
+    'weight' => '1',
+    'children' => array(
+      0 => 'field_use_my_entreprise',
+      1 => 'field_entreprise_description',
+      2 => 'field_anonymous',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-who field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_who|node|challenge|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_who|node|poll|form';
+  $field_group->group_name = 'group_who';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'poll';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Who',
+    'weight' => '0',
+    'children' => array(),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-who field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_who|node|poll|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_who|node|question1|form';
+  $field_group->group_name = 'group_who';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'question1';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Who',
+    'weight' => '1',
+    'children' => array(
+      0 => 'field_anonymous',
+      1 => 'field_use_my_entreprise',
+      2 => 'field_entreprise_description',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-who field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_who|node|question1|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_who|node|webform|form';
+  $field_group->group_name = 'group_who';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'webform';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Who',
+    'weight' => '1',
+    'children' => array(
+      0 => 'field_anonymous',
+      1 => 'field_use_my_entreprise',
+      2 => 'field_entreprise_description',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-who field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_who|node|webform|form'] = $field_group;
 
   return $export;
 }

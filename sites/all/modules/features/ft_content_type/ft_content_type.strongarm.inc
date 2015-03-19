@@ -443,7 +443,7 @@ function ft_content_type_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '5',
+          'weight' => '7',
         ),
       ),
     ),
@@ -615,7 +615,7 @@ function ft_content_type_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '1',
+          'weight' => '5',
         ),
       ),
       'display' => array(),
@@ -635,7 +635,7 @@ function ft_content_type_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '2',
+          'weight' => '9',
         ),
       ),
       'display' => array(),
@@ -669,6 +669,13 @@ function ft_content_type_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'i18n_node_extended_challenge';
+  $strongarm->value = 1;
+  $export['i18n_node_extended_challenge'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'i18n_node_extended_question1';
   $strongarm->value = 1;
   $export['i18n_node_extended_question1'] = $strongarm;
@@ -679,6 +686,13 @@ function ft_content_type_strongarm() {
   $strongarm->name = 'i18n_node_extended_webform';
   $strongarm->value = 1;
   $export['i18n_node_extended_webform'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'i18n_node_options_challenge';
+  $strongarm->value = array();
+  $export['i18n_node_options_challenge'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

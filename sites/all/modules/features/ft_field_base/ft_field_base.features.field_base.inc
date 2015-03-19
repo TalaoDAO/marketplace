@@ -127,7 +127,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_anonymous',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
@@ -206,11 +206,16 @@ function ft_field_base_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_autoref',
+    'field_permissions' => array(
+      'owner_field' => 'Comment',
+      'type' => 0,
+    ),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'serial',
     'settings' => array(
       'entity_translation_sync' => FALSE,
+      'profile2_private' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'serial',
@@ -1310,28 +1315,6 @@ function ft_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_reference'
-  $field_bases['field_reference'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_reference',
-    'field_permissions' => array(
-      'owner_field' => '',
-      'type' => 0,
-    ),
-    'indexes' => array(),
-    'locked' => 0,
-    'module' => 'serial',
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'profile2_private' => FALSE,
-    ),
-    'translatable' => 0,
-    'type' => 'serial',
-  );
-
   // Exported field_base: 'field_referent'
   $field_bases['field_referent'] = array(
     'active' => 1,
@@ -1788,28 +1771,6 @@ function ft_field_base_field_default_field_bases() {
     'type' => 'text_with_summary',
   );
 
-  // Exported field_base: 'field_title'
-  $field_bases['field_title'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_title',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'max_length' => 255,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
   // Exported field_base: 'field_titre_metier'
   $field_bases['field_titre_metier'] = array(
     'active' => 1,
@@ -1890,8 +1851,8 @@ function ft_field_base_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        0 => 'Use specific description',
-        1 => 'Use my own entreprise description',
+        0 => 'Use default description',
+        1 => 'Use custom entreprise description',
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,

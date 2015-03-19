@@ -412,7 +412,7 @@ function ft_views_views_default_views() {
   $view = new view();
   $view->name = 'my_responses_calls3';
   $view->description = '';
-  $view->tag = 'emh';
+  $view->tag = 'emh, reponses';
   $view->base_table = 'webform_submissions';
   $view->human_name = 'My Responses - Calls3';
   $view->core = 7;
@@ -478,7 +478,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
   $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = 'Calls';
+  $handler->display->display_options['fields']['title']['label'] = 'Surveys';
   /* Field: Webform submissions: Submitted */
   $handler->display->display_options['fields']['submitted']['id'] = 'submitted';
   $handler->display->display_options['fields']['submitted']['table'] = 'webform_submissions';
@@ -534,7 +534,7 @@ function ft_views_views_default_views() {
   $view = new view();
   $view->name = 'my_responses_challenges';
   $view->description = '';
-  $view->tag = 'emh';
+  $view->tag = 'emh, reponses';
   $view->base_table = 'comment';
   $view->human_name = 'My Responses - Challenges';
   $view->core = 7;
@@ -594,7 +594,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title']['table'] = 'node';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['relationship'] = 'nid';
-  $handler->display->display_options['fields']['title']['label'] = 'Challenge';
+  $handler->display->display_options['fields']['title']['label'] = 'Challenges';
   /* Field: Comment: Updated date */
   $handler->display->display_options['fields']['changed']['id'] = 'changed';
   $handler->display->display_options['fields']['changed']['table'] = 'comment';
@@ -708,7 +708,7 @@ function ft_views_views_default_views() {
   $view = new view();
   $view->name = 'my_responses_questions';
   $view->description = '';
-  $view->tag = 'emh';
+  $view->tag = 'emh, reponses';
   $view->base_table = 'node';
   $view->human_name = 'My Responses - Questions';
   $view->core = 7;
@@ -919,7 +919,7 @@ function ft_views_views_default_views() {
   $view = new view();
   $view->name = 'my_responses_questions1';
   $view->description = '';
-  $view->tag = 'emh';
+  $view->tag = 'emh, reponses';
   $view->base_table = 'comment';
   $view->human_name = 'My Responses - Questions1';
   $view->core = 7;
