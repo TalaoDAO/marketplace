@@ -89,22 +89,7 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
                 }  ?>
             </div>
         </div>
-        <?php //require_once __DIR__ . '/includes/companyDescription.tpl.php'; ?>
-        <?php
-        if (isset($field_anonymous[0]['value']) && $field_anonymous[0]['value'] == 1) { ?>
-            <div>
-                <?php print $content['field_entreprise_description']['#title']; ?>
-            </div>
-            <div class="challenge-company-description">
-                <?php
-                if (isset($field_use_my_entreprise) && $field_use_my_entreprise[0]['value'] != 0) {
-                    print $field_entreprise_description[0]['value'];
-                } else{
-                    print $company_description; //emindhub_preprocess_node__challenge
-                }
-                ?>
-            </div>
-        <?php } ?>
+        <?php require_once __DIR__ . '/includes/companyDescription.tpl.php'; ?>
         <?php require_once __DIR__ . '/includes/tagsField.tpl.php'; ?>
         <hr class="hr-light-grey">
         <div class="challenge-detail">
