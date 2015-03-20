@@ -1,0 +1,20 @@
+name = Views navigation
+description = "Add next/previous buttons at the bottom of node pages when coming from a view"
+core = "7.x"
+files[] = views/views_navigation_handler_field_node.inc
+files[] = views/views_navigation_handler_field_node_path.inc
+files[] = views/views_navigation_handler_field_node_link.inc
+files[] = views/views_navigation_handler_field_field.inc
+files[] = views/views_navigation_handler_entity_field_text.inc
+files[] = views/views_navigation_handler_entity_field_field.inc
+files[] = views/views_navigation_handler_entity_field_uri.inc
+files[] = views/views_navigation_plugin_display_extender_views_navigation.inc
+files[] = views/views_navigation_plugin_entity_row_entity_view.inc
+dependencies[] = views
+
+; Information added by Drupal.org packaging script on 2014-06-23
+version = "7.x-1.2-beta2"
+core = "7.x"
+project = "views_navigation"
+datestamp = "1403525328"
+

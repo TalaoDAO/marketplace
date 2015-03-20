@@ -1,0 +1,151 @@
+<?php
+
+/**
+ * Implements hook_views_api().
+ */
+function views_navigation_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'views_navigation') . '/views',
+  );
+}
+
+/**
+ * Implements hook_views_plugins().
+ * Declare a display extender to add a setting to the view display.
+ */
+function views_navigation_views_plugins() {
+  $plugins = array();
+  $plugins['display_extender']['views_navigation'] = array(
+    'title' => t('Views navigation'),
+    'help' => t('Enable views navigation.'),
+    'path' => drupal_get_path('module', 'views_navigation') . '/views',
+    'handler' => 'views_navigation_plugin_display_extender_views_navigation',
+  );
+  return $plugins;
+}
+
+/**
+ * Implements hook_views_pre_render().
+ * If views navigation is enabled for this display, store the query.
+ */
+function views_navigation_views_pre_render(&$view) {
+  module_load_include('inc', 'views_navigation');
+  if ($view->display_handler->get_option('views_navigation') || $view->display_handler->get_option('views_navigation_back')) {
+    // Store the query in cache.
+    if ($cid = views_navigation_store_query($view)) {
+      $view->views_navigation_cid = $cid;
+    }
+  }
+}
+
+/**
+ * Implements hook_views_data_alter().
+ * Replace views field handler class with our own subclass.
+ */
+function views_navigation_views_data_alter(&$data) {
+  foreach ($data as &$table) {
+    foreach ($table as &$item) {
+      if (isset($item['field']) && isset($item['field']['handler'])) {
+        switch($item['field']['handler']) {
+          case 'views_handler_field_node' :
+            $item['field']['handler'] = 'views_navigation_handler_field_node';
+            break;
+          case 'views_handler_field_node_path' :
+            $item['field']['handler'] = 'views_navigation_handler_field_node_path';
+            break;
+          case 'views_handler_field_node_link' :
+            $item['field']['handler'] = 'views_navigation_handler_field_node_link';
+            break;
+          case 'views_handler_field_field' :
+            $item['field']['handler'] = 'views_navigation_handler_field_field';
+            break;
+          case 'entity_views_handler_field_text' :
+            $item['field']['handler'] = 'views_navigation_handler_entity_field_text';
+            break;
+          case 'entity_views_handler_field_field' :
+            $item['field']['handler'] = 'views_navigation_handler_entity_field_field';
+            break;
+          case 'entity_views_handler_field_uri' :
+            $item['field']['handler'] = 'views_navigation_handler_entity_field_uri';
+            break;
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_views_plugins_alter().
+ * Replace views row plugin class with our own subclass.
+ */
+function views_navigation_views_plugins_alter(&$plugins) {
+  if (isset($plugins['row']['entity'])) {
+    module_load_include('inc', 'views_navigation', 'views/views_navigation_plugin_entity_row_entity_view');
+    $plugins['row']['entity']['override handler'] = 'views_navigation_plugin_entity_row_entity_view';
+  }
+}
+
+/**
+ * Implements hook_node_view().
+ * Add next/previous links if needed.
+ */
+function views_navigation_node_view($node, $view_mode, $langcode) {
+  // Ensure we are viewing the node associated to the current page.
+  $page_node = menu_get_object('node');
+  if (!isset($page_node) || $page_node->nid != $node->nid) {
+    return;
+  }
+  module_load_include('inc', 'views_navigation');
+  $links = views_navigation_get_links($view_mode);
+  if ($links) {
+    $node->content['links']['views_navigation'] = $links;
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function views_navigation_menu() {
+  $items['views_navigation/%/%'] = array(
+    'title' => 'Views navigation router',
+    'page callback' => 'views_navigation_router',
+    'page arguments' => array(
+      1,
+      2,
+    ),
+    'access callback' => TRUE,
+    'file' => 'views_navigation.inc',
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function views_navigation_block_info() {
+  return array(
+    // This block renders only the prev/next links added to the node links by
+    // the views navigation module.
+    'views_navigation_links' => array(
+      'info' => t('Views navigation prev/next links'),
+      'cache' => DRUPAL_CACHE_PER_PAGE,
+    ), );
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function views_navigation_block_view() {
+  // Ensure we are viewing the node associated to the current page.
+  $page_node = menu_get_object('node');
+  module_load_include('inc', 'views_navigation');
+  $links = views_navigation_get_links();
+  if (isset($page_node) && $links) {
+    return array(
+      'subject' => '',
+      'content' => $links,
+    );
+  }
+}
