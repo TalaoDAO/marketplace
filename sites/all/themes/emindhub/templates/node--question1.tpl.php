@@ -42,28 +42,7 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
     </div>
     <div class="row">
         <div class="col-md-4">
-            <?php if (isset($field_anonymous[0]['value']) && $field_anonymous[0]['value'] == 1) { ?>
-                <div class="row">
-                    <div class="col-md-4 profile-picture"><?php print $variables['user_picture']; ?></div>
-                    <div class="col-md-8">
-                        <div class="bold"><?php //print $variables['user_name']; ?></div>
-                        <div class="bold"><?php print $variables['name']; ?></div>
-                        <div class="bold light-blue-text">
-                            <?php
-                            /*if (isset($field_use_my_entreprise) && $field_use_my_entreprise[0]['value'] == 0) {
-                                print $variables['company_name'];
-                            }*/
-                                /*print $field_nom_de_l_organisation[0]['value'];
-                            } else {*/
-                            //ddl(get_defined_vars());
-                            //ddl($content);
-                                //print $variables['company_name']; //emindhub_preprocess_node__webform
-                            //}
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            <?php } ?>
+            <?php require_once __DIR__ . '/includes/userInformations.tpl.php'; ?>
         </div>
         <div class="col-md-4">
             <div><?php print $elements['field_domaine']['#title']; ?></div>
@@ -102,7 +81,7 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
             </div>
         </div>
     </div>
-    <?php //require_once __DIR__ . '/includes/companyDescription.tpl.php'; ?>
+    <?php require_once __DIR__ . '/includes/companyDescription.tpl.php'; ?>
     <div class="bold paddingU"><?php print t("Description:"); ?></div>
     <div>
         <?php if (isset($body[0]['safe_value'])): ?>

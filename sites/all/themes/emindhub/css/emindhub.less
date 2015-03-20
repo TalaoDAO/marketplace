@@ -2816,3 +2816,37 @@ span.required {
     display: inline;
     padding-right: 1.5em;
 }
+
+.page-my-contributions {
+    thead th {
+        text-align: left !important;
+    }
+    table {
+        .flag-wrapper br {
+            display: none;
+        }
+
+        thead th {
+            text-align: left;
+        }
+
+        td {
+            width: 5%;
+            & + td {
+                width: auto;
+                & + td {
+                    width: 10%;
+                    & + td {
+                        width: 10%;
+                        & + td {
+                            width: 15%;
+                            & + td {
+                                width: 7%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

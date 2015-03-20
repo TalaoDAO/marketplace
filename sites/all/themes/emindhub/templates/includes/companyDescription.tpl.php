@@ -13,10 +13,10 @@
         ?>
     </div>
 <?php } */
-/*
+
 if (isset($field_anonymous[0]['value']) && $field_anonymous[0]['value'] == 1) { ?>
     <div class="row">
-        <div class="col-md-3 bold paddingU"><?php print $elements['field_entreprise_description']['#title']; ?></div>
+        <div class="col-md-3 bold paddingU"><?php ddl($elements); print $elements['field_entreprise_description']['#title']; ?></div>
     </div>
     <div class="row">
         <div class="col-md-12 bold">
@@ -29,4 +29,4 @@ if (isset($field_anonymous[0]['value']) && $field_anonymous[0]['value'] == 1) { 
             ?>
         </div>
     </div>
-<?php } ?>*/
+<?php } ?>

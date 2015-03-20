@@ -295,116 +295,47 @@ function emindhub_preprocess_node(&$variables, $hook) {
     }
 }
 
-function emindhub_preprocess_node__challenge(&$vars) {
-    $vars['first'] = false;
-    if ($vars['teaser']) {
-        global $teaserFirstChallenge;
-        if (!isset($teaserFirstChallenge)) {
-            $teaserFirstChallenge = $vars['id'];
-            $vars['first'] = true;
-        }
-    }
-    else {
-        $user = user_load_by_name($vars['elements']['body']['#object']->name);
-        $account = user_load($user->uid);
-        if ($account) {
-            $targetId = $account->field_entreprise[LANGUAGE_NONE][0]['target_id'];
-            $entity = node_load($targetId);
-            $vars['company_description'] = $entity->body[LANGUAGE_NONE][0]["value"];
-        }
-    }
+function emindhub_preprocess_node__challenge(&$variables) {
+    node_informations_add($variables);
 }
 
-function emindhub_preprocess_node__question(&$vars) {
-    $user = user_load_by_name($vars['elements']['body']['#object']->name);
-    $account = user_load($user->uid);
-    if ($account) {
-        $firstName = "";
-        if (isset($account->field_first_name[LANGUAGE_NONE]) && $account->field_first_name[LANGUAGE_NONE]) {
-            $firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
-        }
-        $lastName = "";
-        if (isset($account->field_last_name[LANGUAGE_NONE]) && $account->field_last_name[LANGUAGE_NONE]) {
-            $lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
-        }
-        $vars['user_name'] = $lastName . ' ' . $firstName;
-    }
-    $vars['first'] = false;
-    if ($vars['teaser']) {
-        global $teaserFirstQuestion;
-        if (!isset($teaserFirstQuestion)) {
-            $teaserFirstQuestion = $vars['id'];
-            $vars['first'] = true;
-        }
-    }
+function emindhub_preprocess_node__question(&$variables) {
+    node_informations_add($variables);
 }
 
 function emindhub_preprocess_node__question1(&$variables) {
-    $variables['first'] = false;
-    if (!$variables['teaser']) {
-        $variables['company_name'] = "";
-        $variables['company_description'] = "";
-        if (isset($variables['elements']['body'])) {
-            $user = user_load_by_name($variables['elements']['body']['#object']->name);
-            $account = user_load($user->uid);
-            if ($account) {
-                $targetId = $account->field_entreprise[LANGUAGE_NONE][0]['target_id'];
-                $entity = node_load($targetId);
-                if ($entity) {
-                    $variables['company_name'] = $entity->title;
-                    $variables['company_description'] = $entity->body[LANGUAGE_NONE][0]["value"];
-                }
-            }
-        }
-    }
+    node_informations_add($variables);
 }
 
 
 function emindhub_preprocess_node__webform(&$variables) {
-    $variables['first'] = false;
-    if ($variables['teaser']) {
-        global $teaserFirstCall;
-        if (!isset($teaserFirstCall)) {
-            $teaserFirstCall = $variables['id'];
-            $variables['first'] = true;
-        }
-    }
-    else {
-        $variables['company_name'] = "";
-        $variables['company_description'] = "";
-        if (isset($variables['elements']['body'])) {
-            $user = user_load_by_name($variables['elements']['body']['#object']->name);
-            $account = user_load($user->uid);
-            if ($account) {
-                $targetId = $account->field_entreprise[LANGUAGE_NONE][0]['target_id'];
-                $entity = node_load($targetId);
-                if ($entity) {
-                    $variables['company_name'] = $entity->title;
-                    $variables['company_description'] = $entity->body[LANGUAGE_NONE][0]["value"];
-                }
+    node_informations_add($variables);
+}
+
+function node_informations_add(&$variables) {
+    $variables['company_name'] = "";
+    $variables['company_description'] = "";
+    $variables['user_name'] = "";
+    if (isset($variables['elements']['body'])) {
+        $user = user_load_by_name($variables['elements']['body']['#object']->name);
+        $account = user_load($user->uid);
+        if ($account) {
+            $firstName = "";
+            if (isset($account->field_first_name[LANGUAGE_NONE]) && $account->field_first_name[LANGUAGE_NONE]) {
+                $firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
             }
-        }
-    }
-}
+            $lastName = "";
+            if (isset($account->field_last_name[LANGUAGE_NONE]) && $account->field_last_name[LANGUAGE_NONE]) {
+                $lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
+            }
+            $variables['user_name'] = $lastName . ' ' . $firstName;
 
-function emindhub_preprocess_node__answer(&$variables) {
-    $variables['first'] = false;
-    if ($variables['teaser']) {
-        global $teaserFirstAnswer;
-        if (!isset($teaserFirstAnswer)) {
-            $teaserFirstAnswer = $variables['id'];
-            $variables['first'] = true;
-        }
-    }
-}
-
-function emindhub_preprocess_node__blog(&$variables) {
-    $variables['first'] = false;
-    if ($variables['teaser']) {
-        global $teaserFirstArticle;
-        if (!isset($teaserFirstArticle)) {
-            $teaserFirstArticle = $variables['id'];
-            $variables['first'] = true;
+            $targetId = $account->field_entreprise[LANGUAGE_NONE][0]['target_id'];
+            $entity = node_load($targetId);
+            if ($entity) {
+                $variables['company_name'] = $entity->title;
+                $variables['company_description'] = $entity->body[LANGUAGE_NONE][0]["value"];
+            }
         }
     }
 }
