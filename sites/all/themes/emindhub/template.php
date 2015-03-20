@@ -1,5 +1,7 @@
 <?php
 
+//require_once("templates/PHPDebug.php");
+
 //============================================================================
 // CONTACT FORM CUSTOMIZATION SECTION
 
@@ -296,9 +298,9 @@ function emindhub_preprocess_node(&$variables, $hook) {
 function emindhub_preprocess_node__challenge(&$vars) {
     $vars['first'] = false;
     if ($vars['teaser']) {
-        global $teaserFisrtChallenge;
-        if (!isset($teaserFisrtChallenge)) {
-            $teaserFisrtChallenge = $vars['id'];
+        global $teaserFirstChallenge;
+        if (!isset($teaserFirstChallenge)) {
+            $teaserFirstChallenge = $vars['id'];
             $vars['first'] = true;
         }
     }
@@ -329,21 +331,58 @@ function emindhub_preprocess_node__question(&$vars) {
     }
     $vars['first'] = false;
     if ($vars['teaser']) {
-        global $teaserFisrtQuestion;
-        if (!isset($teaserFisrtQuestion)) {
-            $teaserFisrtQuestion = $vars['id'];
+        global $teaserFirstQuestion;
+        if (!isset($teaserFirstQuestion)) {
+            $teaserFirstQuestion = $vars['id'];
             $vars['first'] = true;
         }
     }
 }
 
+function emindhub_preprocess_node__question1(&$variables) {
+    $variables['first'] = false;
+    if (!$variables['teaser']) {
+        $variables['company_name'] = "";
+        $variables['company_description'] = "";
+        if (isset($variables['elements']['body'])) {
+            $user = user_load_by_name($variables['elements']['body']['#object']->name);
+            $account = user_load($user->uid);
+            if ($account) {
+                $targetId = $account->field_entreprise[LANGUAGE_NONE][0]['target_id'];
+                $entity = node_load($targetId);
+                if ($entity) {
+                    $variables['company_name'] = $entity->title;
+                    $variables['company_description'] = $entity->body[LANGUAGE_NONE][0]["value"];
+                }
+            }
+        }
+    }
+}
+
+
 function emindhub_preprocess_node__webform(&$variables) {
     $variables['first'] = false;
     if ($variables['teaser']) {
-        global $teaserFisrtCall;
-        if (!isset($teaserFisrtCall)) {
-            $teaserFisrtCall = $variables['id'];
+        global $teaserFirstCall;
+        if (!isset($teaserFirstCall)) {
+            $teaserFirstCall = $variables['id'];
             $variables['first'] = true;
+        }
+    }
+    else {
+        $variables['company_name'] = "";
+        $variables['company_description'] = "";
+        if (isset($variables['elements']['body'])) {
+            $user = user_load_by_name($variables['elements']['body']['#object']->name);
+            $account = user_load($user->uid);
+            if ($account) {
+                $targetId = $account->field_entreprise[LANGUAGE_NONE][0]['target_id'];
+                $entity = node_load($targetId);
+                if ($entity) {
+                    $variables['company_name'] = $entity->title;
+                    $variables['company_description'] = $entity->body[LANGUAGE_NONE][0]["value"];
+                }
+            }
         }
     }
 }
@@ -351,9 +390,9 @@ function emindhub_preprocess_node__webform(&$variables) {
 function emindhub_preprocess_node__answer(&$variables) {
     $variables['first'] = false;
     if ($variables['teaser']) {
-        global $teaserFisrtAnswer;
-        if (!isset($teaserFisrtAnswer)) {
-            $teaserFisrtAnswer = $variables['id'];
+        global $teaserFirstAnswer;
+        if (!isset($teaserFirstAnswer)) {
+            $teaserFirstAnswer = $variables['id'];
             $variables['first'] = true;
         }
     }
@@ -362,9 +401,9 @@ function emindhub_preprocess_node__answer(&$variables) {
 function emindhub_preprocess_node__blog(&$variables) {
     $variables['first'] = false;
     if ($variables['teaser']) {
-        global $teaserFisrtArticle;
-        if (!isset($teaserFisrtArticle)) {
-            $teaserFisrtArticle = $variables['id'];
+        global $teaserFirstArticle;
+        if (!isset($teaserFirstArticle)) {
+            $teaserFirstArticle = $variables['id'];
             $variables['first'] = true;
         }
     }
@@ -787,4 +826,9 @@ function pp($arr){
     }
     $retStr .= '</ul>';
     return $retStr;
+}
+
+function customDSM($input, $name = NULL, $type = 'status') {
+    $export = kprint_r($input, TRUE, $name);
+    drupal_set_message($export, $type);
 }

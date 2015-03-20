@@ -8,7 +8,7 @@
             <img src="<?php print getImgSrc('fluxIcon.png'); ?>">
         </div>
     </div>
-<?php endif;?>
-<?php if ($content): ?>
-    <?php print $content; ?>
-<?php endif;?>
+<?php endif;
+if ($content):
+    print $content;
+endif; ?>

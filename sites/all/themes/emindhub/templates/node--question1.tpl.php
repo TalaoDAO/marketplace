@@ -2,6 +2,39 @@
     <div class="col-md-4 challenge-title"><?php echo t("Answer to a question"); ?></div>
     <div class="col-md-8"><hr class="hr-light"></div>
 </div>
+<?php
+if (isset($variables['elements']['links']['views_navigation'])) {
+    $linkBack = $variables['elements']['links']['views_navigation']['#links']['back'];
+    $linkPrev = $variables['elements']['links']['views_navigation']['#links']['previous'];
+    $linkNext = $variables['elements']['links']['views_navigation']['#links']['next'];
+}
+if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
+    <div class="paddingLR">
+        <div class="row light-grey-background paddingUD paddingLR title-wrapper">
+            <div class="col-md-3">
+                <div class="challenge-to-list">
+                    <?php
+                    print "<a href='" . base_path().$linkBack['href'] . "' " . drupal_attributes($linkBack['attributes']) . ">" . $linkBack['title']."</a>";
+                    ?>
+                </div>
+            </div>
+            <div class="col-md-3 col-md-offset-3">
+                <div class="challenge-previous">
+                    <?php
+                    print "<a href='" . base_path().$linkPrev['href'] . "' " . drupal_attributes($linkPrev['attributes']) . ">" . $linkPrev['title']."</a>";
+                    ?>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="challenge-next">
+                    <?php
+                    print "<a href='" . base_path().$linkNext['href'] . "' " . drupal_attributes($linkNext['attributes']) . ">" . $linkNext['title']."</a>";
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
 <div class="row paddingLR challenge-container">
     <div class="col-md-12">
         <h2><?php print $title; ?></h2>
@@ -9,32 +42,47 @@
     </div>
     <div class="row">
         <div class="col-md-4">
-            <?php print t("Submitted by:"); ?>
-            <div class="row">
-                <div class="col-md-3 profile-picture"><?php print $variables['user_picture']; ?></div>
-                <div class="col-md-9">
-                    <div class="bold"><?php print $variables['user_name']; ?></div>
-                    <div class="bold"><?php print $variables['name']; ?></div>
-                    <div class="bold light-blue-text">Nom Entreprise</div>
+            <?php if (isset($field_anonymous[0]['value']) && $field_anonymous[0]['value'] == 1) { ?>
+                <div class="row">
+                    <div class="col-md-4 profile-picture"><?php print $variables['user_picture']; ?></div>
+                    <div class="col-md-8">
+                        <div class="bold"><?php //print $variables['user_name']; ?></div>
+                        <div class="bold"><?php print $variables['name']; ?></div>
+                        <div class="bold light-blue-text">
+                            <?php
+                            /*if (isset($field_use_my_entreprise) && $field_use_my_entreprise[0]['value'] == 0) {
+                                print $variables['company_name'];
+                            }*/
+                                /*print $field_nom_de_l_organisation[0]['value'];
+                            } else {*/
+                            //ddl(get_defined_vars());
+                            //ddl($content);
+                                //print $variables['company_name']; //emindhub_preprocess_node__webform
+                            //}
+                            ?>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
         </div>
         <div class="col-md-4">
-            <?php print t("Domain(s):"); ?>
+            <div><?php print $elements['field_domaine']['#title']; ?></div>
             <div class="challenge-domain softPaddingUD paddingL">
-                <?php if (isset($field_domaine[0]['taxonomy_term']->name)): ?>
-                <?php print  $field_domaine[0]['taxonomy_term']->name; ?>
-                <?php endif; ?>
+                <?php if (isset($field_domaine)):
+                    foreach ($field_domaine as $domain) {
+                        print $domain['taxonomy_term']->name . "<br>";
+                    }
+                endif; ?>
             </div>
         </div>
         <div class="col-md-4">
             <div class="row">
                 <div class="col-md-6"><?php print t("Publication date:"); ?></div>
-                <div class="bold"><?php print $elements['#node']->created; ?></div>
+                <div class="col-md-6 bold"><?php print $elements['#node']->created; ?></div>
             </div>
             <div class="row">
-                <div class="col-md-6"><?php print t("Deadline:"); ?></div>
-                <div class="bold">
+                <div class="col-md-6"><?php print $elements['field_expiration_date']['#title']; ?></div>
+                <div class="col-md-6 bold">
                     <?php if (isset($field_expiration_date[0]['value'])): ?>
                         <?php print $field_expiration_date[0]['value']; ?>
                     <?php endif; ?>
@@ -45,8 +93,8 @@
                 <div class="bold"></div>
             </div>
             <div class="row">
-                <div class="col-md-6"><?php print t("Award:"); ?></div>
-                <div class="bold">
+                <div class="col-md-6"><?php print $elements['field_reward']['#title']; ?></div>
+                <div class="col-md-6 bold">
                     <?php if (isset($field_reward[0]['safe_value'])): ?>
                         <?php print $field_reward[0]['safe_value']; ?>
                     <?php endif; ?>
@@ -54,45 +102,59 @@
             </div>
         </div>
     </div>
+    <?php //require_once __DIR__ . '/includes/companyDescription.tpl.php'; ?>
     <div class="bold paddingU"><?php print t("Description:"); ?></div>
     <div>
         <?php if (isset($body[0]['safe_value'])): ?>
             <?php print $body[0]['safe_value']; ?>
         <?php endif; ?>
     </div>
-    <div class="paddingUD"><button class="btn btn-star"><?php print t("Save in my selection"); ?></button></div>
-    <div class="bold"><?php print t("Answer:"); ?></div>
+    <div class="paddingUD">
+        <?php print $elements['links']['flag']['#links']['flag-my_selection']['title']; ?>
+    </div>
     <div class="row">
         <div class="col-md-12">
-            <textarea class="question-answer"></textarea>
+            <?php
+            $formId = $elements['comments']['comment_form']['#form_id'];
+            $formAction = $elements['comments']['comment_form']['#action'];
+            $formMethod = $elements['comments']['comment_form']['#method'];
+            ?>
+            <form id="<?php print $formId; ?>" action="<?php print $formAction; ?>" method="<?php print $formMethod; ?>">
+                <?php
+                print render($elements['comments']['comment_form']['field_private_comment']);
+                print render($element['comments']['comment_form']['subject']);
+                print render($elements['comments']['comment_form']['comment_body']);
+                print render($elements['comments']['comment_form']['field_private_comment_body']);
+                $commentActions = $elements['comments']['comment_form']['actions'];
+                $commentActions['submit']['#attributes']['class'][] = 'btn';
+                $commentActions['submit']['#attributes']['class'][] = 'btn-send';
+                print render($commentActions);
+                print render($elements['comments']['comment_form']['form_build_id']);
+                print render($elements['comments']['comment_form']['form_token']);
+                print render($elements['comments']['comment_form']['form_id']);
+                unset($commentActions);
+                unset($formId);
+                unset($formAction);
+                unset($formMethod);
+                ?>
+            </form>
         </div>
     </div>
-    <div class="row paddingU">
-        <div class="col-md-2"><?php print t("Add a picture"); ?></div>
-        <div class="col-md-3"><button class="btn btn-expert"><?php print t("Choose your file"); ?></button></div>
-        <div class="col-md-6 italic">(Taille fichier < 2.5 Mo)</div>
-    </div>
-    <div class="row paddingU">
-        <div class="col-md-2"><?php print t("Add a video"); ?></div>
-        <div class="col-md-3"><button class="btn btn-expert"><?php print t("Choose your file"); ?></button></div>
-        <div class="col-md-4"><input class="input-text" type="text" /></div>
-        <div class="col-md-3">
-            <div class="social-viemo"></div>
-            <div class="social-youtube"></div>
-            <div class="social-dailymotion"></div>
-        </div>
-    </div>
-    <div class="row paddingU">
-        <div class="col-md-6">
-            <input type="checkbox" id="displayOnlyCaller" >
-            <label for="displayOnlyCaller"><?php print t("I want my answer to be visible only by caller"); ?></label>
+    <div class="row">
+        <div class="col-md-12">
+            <?php
+            print render($elements['comments']['comments']);
+            ?>
         </div>
     </div>
 </div>
 <div class="paddingUD">
-    <div class="inline paddingR"><button class="btn btn-cancel"><?php print t("Cancel"); ?></button></div>
-    <div class="inline paddingR"><button class="btn btn-draft"><?php print t("Save draft"); ?></button></div>
-    <div class="inline"><button class="btn btn-send"><?php print t("Send"); ?></button></div>
+    <!--<div class="inline paddingR"><button class="btn btn-cancel"><?php print t("Cancel"); ?></button></div>
+    <div class="inline paddingR"><button class="btn btn-draft"><?php print t("Save draft"); ?></button></div>-->
+    <div class="inline">
+        <?php /*$linkAddComment = $elements['links']['comment']['#links']['comment-add'];
+        print l($linkAddComment['title'], $linkAddComment['href'], array('attributes' => array('class' => array('btn', 'btn-send'))));*/
+        //print $elements['links']['comment']['#links']['comment-add']['title']; ?>
+        <!--<button class="btn btn-send"><?php //print t("Send"); ?></button>-->
+    </div>
 </div>
-<!--================================================================================================================================<br />
-<?php print render($content); ?>-->

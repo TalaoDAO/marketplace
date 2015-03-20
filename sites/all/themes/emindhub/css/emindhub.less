@@ -1029,7 +1029,7 @@ table tbody tr:nth-child(even) {
         background-image: url(../images/sendBtn.png) !important;
         background-repeat: no-repeat;
         background-position: 5% 50%;
-        padding-left: 1.5em !important;
+        padding-left: 2em !important;
         color: @white;
     }
 }
@@ -1924,11 +1924,9 @@ input[type=submit] {
     border-radius: @borderRadius !important;
     color: @white;
     margin: 0.5em;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    padding-left: 0.8em;
-    padding-right: 0.8em;
+    padding: 0.5em 0.8em;
     line-height: 1.4em;
+    vertical-align: middle;
 
     &#edit-cancel {
         background-color: @darkBlue;
@@ -1949,6 +1947,7 @@ input[type=submit] {
     }
 }
 
+.field-group-fieldset,
 .group-background {
     background-color: @lightGrey;
     /*padding-left: 1.5em;
@@ -2768,4 +2767,52 @@ div.field-name-field-skills-set label {
 :-ms-input-placeholder {
     color: @darkBlue;
     color: rgba(76, 97, 114, 0.6);
+}
+
+.page-node-300 table {
+    .flag-wrapper br {
+        display: none;
+    }
+
+    thead th {
+        text-align: left;
+    }
+
+    td + td {
+        width: 10%;
+        & + td {
+            width: 10%;
+            & + td {
+                width: 10%;
+                & + td {
+                    width: 15%;
+                    & + td {
+                        width: 7%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+td.views-field-field-picto {
+    text-align: center;
+}
+
+span.required {
+    color: @lightBlue;
+}
+
+.form-textarea-wrapper textarea {
+    border: none;
+    background-color: @softGrey;
+
+    & + .grippie {
+        display: none;
+    }
+}
+
+.form-item-field-private-comment-und > .form-radios > div.form-type-radio {
+    display: inline;
+    padding-right: 1.5em;
 }

@@ -29,34 +29,46 @@
         <div class="col-md-1">12</div>
     </div>
 <?php endif; ?>
-<?php if (!$variables['teaser']): ?>
+<?php if (!$variables['teaser']):
+    //ddl($variables['elements']['links']['views_navigation']['#links']);
+    ?>
     <div class="row">
         <div class="col-md-4 challenge-title"><?php echo t("Answer to a challenge"); ?></div>
         <div class="col-md-8"><hr class="hr-light"></div>
     </div>
-    <div class="row light-grey-background paddingUD title-wrapper">
-        <div class="col-md-3">
-            <div class="challenge-to-list">
-                <a><?php print t("Back to challenges"); ?></a>
+    <?php
+    if (isset($variables['elements']['links']['views_navigation'])) {
+        $linkBack = $variables['elements']['links']['views_navigation']['#links']['back'];
+        $linkPrev = $variables['elements']['links']['views_navigation']['#links']['previous'];
+        $linkNext = $variables['elements']['links']['views_navigation']['#links']['next'];
+    }
+    if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
+        <div class="paddingLR">
+            <div class="row light-grey-background paddingUD paddingLR title-wrapper">
+                <div class="col-md-3">
+                    <div class="challenge-to-list">
+                        <?php
+                        print "<a href='" . base_path().$linkBack['href'] . "' " . drupal_attributes($linkBack['attributes']) . ">" . $linkBack['title']."</a>";
+                        ?>
+                    </div>
+                </div>
+                <div class="col-md-3 col-md-offset-3">
+                    <div class="challenge-previous">
+                        <?php
+                        print "<a href='" . base_path().$linkPrev['href'] . "' " . drupal_attributes($linkPrev['attributes']) . ">" . $linkPrev['title']."</a>";
+                        ?>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="challenge-next">
+                        <?php
+                        print "<a href='" . base_path().$linkNext['href'] . "' " . drupal_attributes($linkNext['attributes']) . ">" . $linkNext['title']."</a>";
+                        ?>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-md-3 col-md-offset-3">
-            <div class="challenge-previous">
-                <a>Previous challenge</a>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="challenge-next">
-                <a>Next challenge</a>
-            </div>
-        </div>
-    </div>
-
-    <!--<div class="row light-grey-background paddingUD title-wrapper challenge-state-row">
-    <div class="col-md-4 challenge-state-selected"><a><?php print t("Open"); ?></a></div>
-    <div class="col-md-4 challenge-state"><a><?php print t("Selection"); ?></a></div>
-    <div class="col-md-4 challenge-state"><a><?php print t("Closed"); ?></a></div>
-</div>-->
+    <?php } ?>
 
     <div class="row paddingLR challenge-container">
         <div class="col-md-12">
@@ -64,10 +76,18 @@
             <br />
             <div class="row">
                 <div class="col-md-5">
-                    <div><?php print t("Domain(s):"); ?></div>
-                    <div class="challenge-domain softPaddingUD paddingL"><?php print $field_domaine[0]['taxonomy_term']->name; ?></div>
-                    <div><?php print t("Submitted by:"); ?></div>
-                    <div class="dark-blue-text bold"><?php print $variables['name']; ?></div>
+                    <div><?php print $elements['field_domaine']['#title']; ?></div>
+                    <div class="challenge-domain softPaddingUD paddingL">
+                        <?php if (isset($field_domaine)):
+                            foreach ($field_domaine as $domain) {
+                                print $domain['taxonomy_term']->name . "<br>";
+                            }
+                        endif; ?>
+                    </div>
+                    <?php if (isset($field_anonymous[0]['value']) && $field_anonymous[0]['value'] == 1) { ?>
+                        <div><?php print t("Submitted by:"); ?></div>
+                        <div class="dark-blue-text bold"><?php print $variables['name']; ?></div>
+                    <?php } ?>
                 </div>
                 <div class="col-md-4">
                     <div class="row">
@@ -80,15 +100,16 @@
                         <div class="col-md-6  bold"><?php print format_date($elements['#node']->created, 'short'); ?></div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6"><?php print t("Deadline:"); ?></div>
-                        <div class="col-md-6  bold"><?php print $content['field_expiration_date']['#items'][0]['value']; ?></div>
+                        <div class="col-md-6"><?php print $content['field_expiration_date']['#title']; ?></div>
+                        <div class="col-md-6  bold"><?php
+                            print $content['field_expiration_date']['#items'][0]['value']; ?></div>
                     </div>
                     <div class="row">
                         <div class="col-md-6"><?php print t("Number of responses:"); ?></div>
                         <div class="col-md-6  bold"><?php print $comment_count; ?></div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6"><?php print t("Award:"); ?></div>
+                        <div class="col-md-6"><?php print $content['field_reward']['#title']; ?></div>
                         <div class="col-md-6 bold"><?php print $content['field_reward']['#items'][0]['value']; ?></div>
 
                     </div>
@@ -105,34 +126,29 @@
                     }  ?>
                 </div>
             </div>
-            <div>
-                <?php print t("Company description:"); ?>
-            </div>
-            <div class="challenge-company-description">
-                <?php
-                if (false && isset($field_use_my_entreprise) && $field_use_my_entreprise[0]['value']) {
-                    print $field_entreprise_description[0]['value'];
-                } else {
-                    print $company_description; //emindhub_preprocess_node__challenge
-                }
-                ?>
-            </div>
-            <div class="challenge-tag-container">
-                <?php
-                foreach ($variables['elements']['field_tags']['#items'] as $tag) {
-                    print sprintf('<span class="challenge-tag">%s</span>', $tag['taxonomy_term']->name);
-                } ?>
-            </div>
+            <?php //require_once __DIR__ . '/includes/companyDescription.tpl.php'; ?>
+            <?php
+            if (isset($field_anonymous[0]['value']) && $field_anonymous[0]['value'] == 1) { ?>
+                <div>
+                    <?php print $content['field_entreprise_description']['#title']; ?>
+                </div>
+                <div class="challenge-company-description">
+                    <?php
+                    if (isset($field_use_my_entreprise) && $field_use_my_entreprise[0]['value'] != 0) {
+                        print $field_entreprise_description[0]['value'];
+                    } else{
+                        print $company_description; //emindhub_preprocess_node__challenge
+                    }
+                    ?>
+                </div>
+            <?php } ?>
+            <?php require_once __DIR__ . '/includes/tagsField.tpl.php'; ?>
             <hr class="hr-light-grey">
             <div class="challenge-detail">
                 <?php if ($body && $body[0]): ?>
                     <?php print $body[0]['safe_value']; ?>
                 <?php endif; ?>
             </div>
-            <!--<div ><?php print render($content['field_reward']); ?> </div>
-        <h2><?php echo $content['field_reward']['#object']->title ;?></h2>
-        <?php print "=====================================================================================================================<br>"; ?>
-        <?php print render($content); ?>-->
         </div>
     </div>
 
