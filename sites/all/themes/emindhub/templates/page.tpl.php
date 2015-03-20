@@ -134,6 +134,7 @@
                 </div>
             </div>
         <?php endif; ?>
+        <?php if (isHomePage()) { ?>
         <div class="row">
             <div class="col-md-8">
                 <div class="title-wrapper">
@@ -185,11 +186,10 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                              <?php print render($page['theyuseus']); ?>
+                          <?php print render($page['theyuseus']); ?>
                     </div>
                     <div class="col-md-6">
-                          <?php print render($page['theyareexpert']); ?>
-
+                        <?php print render($page['theyareexpert']); ?>
                     </div>
                 </div>
             </div>
@@ -210,6 +210,7 @@
                 <?php print render($page['contactform']); ?>
             </div>
         </div>
+        <?php } ?>
     </div>
 <?php endif; ?>
 <?php if (user_is_logged_in()): ?>
