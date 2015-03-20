@@ -1003,33 +1003,6 @@ function ft_field_base_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
-  // Exported field_base: 'field_nom_de_l_organisation'
-  $field_bases['field_nom_de_l_organisation'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_nom_de_l_organisation',
-    'field_permissions' => array(
-      'owner_field' => '',
-      'type' => 0,
-    ),
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'max_length' => 255,
-      'profile2_private' => FALSE,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
   // Exported field_base: 'field_notification_frequency'
   $field_bases['field_notification_frequency'] = array(
     'active' => 1,
@@ -1248,6 +1221,37 @@ function ft_field_base_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_private_comment',
+    'field_permissions' => array(
+      'owner_field' => 'Comment',
+      'type' => 0,
+    ),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => 'My reponse will be public',
+        1 => 'My response will be private',
+      ),
+      'allowed_values_function' => '',
+      'entity_translation_sync' => FALSE,
+      'profile2_private' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'list_boolean',
+  );
+
+  // Exported field_base: 'field_private_comment_body'
+  $field_bases['field_private_comment_body'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_private_comment_body',
     'field_permissions' => array(
       'owner_field' => 'Comment',
       'type' => 3,
@@ -1718,31 +1722,27 @@ function ft_field_base_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_tel'
-  $field_bases['field_tel'] = array(
+  // Exported field_base: 'field_telephone'
+  $field_bases['field_telephone'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_tel',
+    'field_name' => 'field_telephone',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
+    'indexes' => array(),
     'locked' => 0,
-    'module' => 'text',
+    'module' => 'phone',
     'settings' => array(
+      'country' => 'fr',
       'entity_translation_sync' => FALSE,
-      'max_length' => 255,
-      'profile2_private' => 1,
+      'profile2_private' => FALSE,
     ),
     'translatable' => 0,
-    'type' => 'text',
+    'type' => 'phone',
   );
 
   // Exported field_base: 'field_testimony'
@@ -1806,7 +1806,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_type_entreprise',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(

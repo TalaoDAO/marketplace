@@ -18,7 +18,14 @@ function ft_content_type_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+      'full' => array(
+        'label' => 'above',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
@@ -28,7 +35,7 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'comment',
     'field_name' => 'comment_body',
     'label' => 'Public Comment',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'text_processing' => 1,
@@ -41,12 +48,53 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 0,
+      'weight' => 3,
     ),
   );
 
   // Exported field_instance: 'comment-comment_node_question1-field_private_comment'
   $field_instances['comment-comment_node_question1-field_private_comment'] = array(
+    'bundle' => 'comment_node_question1',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 2,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'comment',
+    'field_name' => 'field_private_comment',
+    'label' => 'Is Private Comment',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'comment-comment_node_question1-field_private_comment_body'
+  $field_instances['comment-comment_node_question1-field_private_comment_body'] = array(
     'bundle' => 'comment_node_question1',
     'default_value' => NULL,
     'deleted' => 0,
@@ -59,14 +107,21 @@ function ft_content_type_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 1,
       ),
+      'full' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
     ),
     'entity_type' => 'comment',
-    'field_name' => 'field_private_comment',
+    'field_name' => 'field_private_comment_body',
     'label' => 'Private Comment',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -76,7 +131,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 1,
+      'weight' => 4,
     ),
   );
 
@@ -178,7 +233,7 @@ function ft_content_type_field_default_field_instances() {
         ),
       ),
       'type' => 'stars',
-      'weight' => 2,
+      'weight' => 5,
     ),
   );
 
@@ -219,7 +274,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 3,
+      'weight' => 6,
     ),
   );
 
@@ -886,46 +941,6 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-challenge-field_type_entreprise'
-  $field_instances['node-challenge-field_type_entreprise'] = array(
-    'bundle' => 'challenge',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 11,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_type_entreprise',
-    'label' => 'Organisation name or type',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'apply_chosen' => '',
-      ),
-      'type' => 'options_select',
-      'weight' => 3,
-    ),
-  );
-
   // Exported field_instance: 'node-challenge-field_use_my_entreprise'
   $field_instances['node-challenge-field_use_my_entreprise'] = array(
     'bundle' => 'challenge',
@@ -1501,6 +1516,46 @@ function ft_content_type_field_default_field_instances() {
       ),
       'type' => 'image_image',
       'weight' => 32,
+    ),
+  );
+
+  // Exported field_instance: 'node-corporate-field_type_entreprise'
+  $field_instances['node-corporate-field_type_entreprise'] = array(
+    'bundle' => 'corporate',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 2,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_type_entreprise',
+    'label' => 'Entreprise type',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 34,
     ),
   );
 
@@ -2476,7 +2531,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 15,
+        'weight' => 11,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2516,7 +2571,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'serial',
         'settings' => array(),
         'type' => 'serial_formatter_default',
-        'weight' => 19,
+        'weight' => 15,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2596,7 +2651,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 10,
+        'weight' => 7,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2637,7 +2692,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 21,
+        'weight' => 17,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2736,7 +2791,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 16,
+        'weight' => 12,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2778,7 +2833,7 @@ function ft_content_type_field_default_field_instances() {
           'image_style' => '',
         ),
         'type' => 'image',
-        'weight' => 18,
+        'weight' => 14,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2835,47 +2890,6 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_nom_de_l_organisation'
-  $field_instances['node-webform-field_nom_de_l_organisation'] = array(
-    'bundle' => 'webform',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 6,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_nom_de_l_organisation',
-    'label' => 'Organisation name or type',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 8,
-    ),
-  );
-
   // Exported field_instance: 'node-webform-field_object_of_the_mission'
   $field_instances['node-webform-field_object_of_the_mission'] = array(
     'bundle' => 'webform',
@@ -2888,7 +2902,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 14,
+        'weight' => 10,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -3035,7 +3049,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'money',
         'settings' => array(),
         'type' => 'money_default',
-        'weight' => 12,
+        'weight' => 9,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -3376,7 +3390,7 @@ function ft_content_type_field_default_field_instances() {
           'multiple_to' => '',
         ),
         'type' => 'date_default',
-        'weight' => 11,
+        'weight' => 8,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -3425,7 +3439,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'i18n_taxonomy',
         'settings' => array(),
         'type' => 'i18n_taxonomy_term_reference_link',
-        'weight' => 17,
+        'weight' => 13,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -3474,7 +3488,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 20,
+        'weight' => 16,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -3987,41 +4001,6 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'profile2-business-field_tel'
-  $field_instances['profile2-business-field_tel'] = array(
-    'bundle' => 'business',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 5,
-      ),
-    ),
-    'entity_type' => 'profile2',
-    'field_name' => 'field_tel',
-    'label' => 'Telephone',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 7,
-    ),
-  );
-
   // Exported field_instance: 'profile2-business-field_testimony'
   $field_instances['profile2-business-field_testimony'] = array(
     'bundle' => 'business',
@@ -4056,45 +4035,6 @@ function ft_content_type_field_default_field_instances() {
       ),
       'type' => 'text_textarea_with_summary',
       'weight' => 5,
-    ),
-  );
-
-  // Exported field_instance: 'profile2-business-field_type_entreprise'
-  $field_instances['profile2-business-field_type_entreprise'] = array(
-    'bundle' => 'business',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 1,
-      ),
-    ),
-    'entity_type' => 'profile2',
-    'field_name' => 'field_type_entreprise',
-    'label' => 'Organisation name or type',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'fc' => array(
-        'fc_allow_empty' => FALSE,
-        'fc_check_zero' => 0,
-        'fc_include' => 0,
-      ),
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'apply_chosen' => '',
-      ),
-      'type' => 'options_select',
-      'weight' => 0,
     ),
   );
 
@@ -4920,6 +4860,43 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_telephone'
+  $field_instances['user-user-field_telephone'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'phone',
+        'settings' => array(),
+        'type' => 'phone',
+        'weight' => 10,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_telephone',
+    'label' => 'Telephone',
+    'required' => 0,
+    'settings' => array(
+      'ca_phone_parentheses' => 1,
+      'ca_phone_separator' => '-',
+      'entity_translation_sync' => FALSE,
+      'phone_country_code' => 0,
+      'phone_default_country_code' => 1,
+      'phone_int_max_length' => 15,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'phone',
+      'settings' => array(),
+      'type' => 'phone_textfield',
+      'weight' => 1,
+    ),
+  );
+
   // Exported field_instance: 'user-user-og_user_node'
   $field_instances['user-user-og_user_node'] = array(
     'bundle' => 'user',
@@ -4994,6 +4971,7 @@ function ft_content_type_field_default_field_instances() {
   t('Employment History');
   t('Entreprise');
   t('Entreprise description');
+  t('Entreprise type');
   t('Entreprise visibility');
   t('Entreprise_visibility');
   t('First Name');
@@ -5007,6 +4985,7 @@ function ft_content_type_field_default_field_instances() {
   t('How have you heard of us');
   t('If other, specify');
   t('Image');
+  t('Is Private Comment');
   t('Last Name');
   t('Let us know your various experiences in a more detailled maner');
   t('Link to my blog');
@@ -5014,7 +4993,6 @@ function ft_content_type_field_default_field_instances() {
   t('Name visibility');
   t('Notification frequency');
   t('Object of the mission');
-  t('Organisation name or type');
   t('Picto');
   t('Pre-members');
   t('Private Comment');

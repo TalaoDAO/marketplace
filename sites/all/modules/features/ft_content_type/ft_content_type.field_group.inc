@@ -343,16 +343,15 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Hidden',
-    'weight' => '4',
+    'weight' => '3',
     'children' => array(
       0 => 'og_user_node',
       1 => 'masquerade',
       2 => 'privatemsg',
       3 => 'timezone',
-      4 => 'picture',
-      5 => 'contact',
-      6 => 'locale',
-      7 => 'wysiwyg',
+      4 => 'contact',
+      5 => 'locale',
+      6 => 'wysiwyg',
     ),
     'format_type' => 'div',
     'format_settings' => array(

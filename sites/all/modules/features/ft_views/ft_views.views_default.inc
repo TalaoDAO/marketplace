@@ -1387,6 +1387,7 @@ Il est probable que vous Domaines (dans le burger menu) soient trop restrictifs.
   $handler->display->display_options['fields']['type']['id'] = 'type';
   $handler->display->display_options['fields']['type']['table'] = 'node';
   $handler->display->display_options['fields']['type']['field'] = 'type';
+  $handler->display->display_options['fields']['type']['label'] = '';
   $handler->display->display_options['fields']['type']['exclude'] = TRUE;
   $handler->display->display_options['fields']['type']['element_label_colon'] = FALSE;
   /* Field: Content: Title */
@@ -1500,7 +1501,6 @@ Il est probable que vous Domaines (dans le burger menu) soient trop restrictifs.
   $handler->display->display_options['filters']['uid_current']['field'] = 'uid_current';
   $handler->display->display_options['filters']['uid_current']['relationship'] = 'uid';
   $handler->display->display_options['filters']['uid_current']['value'] = 'All';
-  $handler->display->display_options['filters']['uid_current']['exposed'] = TRUE;
   $handler->display->display_options['filters']['uid_current']['expose']['operator_id'] = '';
   $handler->display->display_options['filters']['uid_current']['expose']['label'] = 'Is the logged in user';
   $handler->display->display_options['filters']['uid_current']['expose']['operator'] = 'uid_current_op';
@@ -1516,9 +1516,12 @@ Il est probable que vous Domaines (dans le burger menu) soient trop restrictifs.
     7 => 0,
   );
 
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
+  /* Display: Homepage */
+  $handler = $view->new_display('page', 'Homepage', 'page');
   $handler->display->display_options['field_language'] = 'und';
+  $handler->display->display_options['views_navigation'] = TRUE;
+  $handler->display->display_options['views_navigation_back'] = TRUE;
+  $handler->display->display_options['views_navigation_title'] = TRUE;
   $handler->display->display_options['path'] = 'query-list';
 
   /* Display: Block */
@@ -1528,9 +1531,12 @@ Il est probable que vous Domaines (dans le burger menu) soient trop restrictifs.
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '5';
+  $handler->display->display_options['views_navigation'] = TRUE;
+  $handler->display->display_options['views_navigation_back'] = TRUE;
+  $handler->display->display_options['views_navigation_title'] = TRUE;
 
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page_1');
+  /* Display: My selections */
+  $handler = $view->new_display('page', 'My selections', 'page_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'My selections';
   $handler->display->display_options['defaults']['fields'] = FALSE;
@@ -1620,6 +1626,195 @@ Il est probable que vous Domaines (dans le burger menu) soient trop restrictifs.
   $handler->display->display_options['filters']['flagged']['relationship'] = 'flag_content_rel';
   $handler->display->display_options['filters']['flagged']['value'] = '1';
   $handler->display->display_options['path'] = 'my-selections';
+
+  /* Display: My contributions */
+  $handler = $view->new_display('page', 'My contributions', 'page_2');
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['grouping'] = array(
+    0 => array(
+      'field' => 'type',
+      'rendered' => 1,
+      'rendered_strip' => 0,
+    ),
+  );
+  $handler->display->display_options['style_options']['columns'] = array(
+    'field_picto' => 'field_picto',
+    'type' => 'type',
+    'title' => 'title',
+    'created' => 'created',
+    'field_expiration_date' => 'field_expiration_date',
+    'og_group_ref' => 'og_group_ref',
+    'field_reward' => 'field_reward',
+    'flagged' => 'flagged',
+  );
+  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['info'] = array(
+    'field_picto' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'type' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'title' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'created' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_expiration_date' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'og_group_ref' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_reward' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'flagged' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Picto */
+  $handler->display->display_options['fields']['field_picto']['id'] = 'field_picto';
+  $handler->display->display_options['fields']['field_picto']['table'] = 'field_data_field_picto';
+  $handler->display->display_options['fields']['field_picto']['field'] = 'field_picto';
+  $handler->display->display_options['fields']['field_picto']['label'] = 'Type';
+  $handler->display->display_options['fields']['field_picto']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_picto']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_picto']['settings'] = array(
+    'image_style' => '',
+    'image_link' => '',
+  );
+  /* Field: Content: Type */
+  $handler->display->display_options['fields']['type']['id'] = 'type';
+  $handler->display->display_options['fields']['type']['table'] = 'node';
+  $handler->display->display_options['fields']['type']['field'] = 'type';
+  $handler->display->display_options['fields']['type']['label'] = '';
+  $handler->display->display_options['fields']['type']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['type']['element_label_colon'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  /* Field: Content: Post date */
+  $handler->display->display_options['fields']['created']['id'] = 'created';
+  $handler->display->display_options['fields']['created']['table'] = 'node';
+  $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['date_format'] = 'short_date';
+  $handler->display->display_options['fields']['created']['second_date_format'] = 'privatemsg_current_day';
+  /* Field: Content: Deadline */
+  $handler->display->display_options['fields']['field_expiration_date']['id'] = 'field_expiration_date';
+  $handler->display->display_options['fields']['field_expiration_date']['table'] = 'field_data_field_expiration_date';
+  $handler->display->display_options['fields']['field_expiration_date']['field'] = 'field_expiration_date';
+  $handler->display->display_options['fields']['field_expiration_date']['label'] = 'Expiration Date';
+  $handler->display->display_options['fields']['field_expiration_date']['settings'] = array(
+    'format_type' => 'short_date',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Groups audience */
+  $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
+  $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
+  $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
+  $handler->display->display_options['fields']['og_group_ref']['label'] = 'Circle';
+  $handler->display->display_options['fields']['og_group_ref']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
+  /* Field: Content: Reward */
+  $handler->display->display_options['fields']['field_reward']['id'] = 'field_reward';
+  $handler->display->display_options['fields']['field_reward']['table'] = 'field_data_field_reward';
+  $handler->display->display_options['fields']['field_reward']['field'] = 'field_reward';
+  /* Field: Flags: Flagged */
+  $handler->display->display_options['fields']['flagged']['id'] = 'flagged';
+  $handler->display->display_options['fields']['flagged']['table'] = 'flagging';
+  $handler->display->display_options['fields']['flagged']['field'] = 'flagged';
+  $handler->display->display_options['fields']['flagged']['relationship'] = 'flag_content_rel';
+  $handler->display->display_options['fields']['flagged']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['flagged']['not'] = 0;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
+  $handler->display->display_options['filters']['type_1']['table'] = 'node';
+  $handler->display->display_options['filters']['type_1']['field'] = 'type';
+  $handler->display->display_options['filters']['type_1']['value'] = array(
+    'webform' => 'webform',
+    'challenge' => 'challenge',
+    'question' => 'question',
+    'question1' => 'question1',
+  );
+  /* Filter criterion: User: Current */
+  $handler->display->display_options['filters']['uid_current']['id'] = 'uid_current';
+  $handler->display->display_options['filters']['uid_current']['table'] = 'users';
+  $handler->display->display_options['filters']['uid_current']['field'] = 'uid_current';
+  $handler->display->display_options['filters']['uid_current']['relationship'] = 'uid';
+  $handler->display->display_options['filters']['uid_current']['value'] = '1';
+  $handler->display->display_options['filters']['uid_current']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['uid_current']['expose']['label'] = 'Is the logged in user';
+  $handler->display->display_options['filters']['uid_current']['expose']['operator'] = 'uid_current_op';
+  $handler->display->display_options['filters']['uid_current']['expose']['identifier'] = 'uid_current';
+  $handler->display->display_options['filters']['uid_current']['expose']['remember'] = TRUE;
+  $handler->display->display_options['filters']['uid_current']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+  );
+  $handler->display->display_options['path'] = 'my-contributions';
+  $handler->display->display_options['menu']['type'] = 'normal';
+  $handler->display->display_options['menu']['title'] = 'My contributions';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['name'] = 'menu-burger-menu';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
   $export['query_list'] = $view;
 
   $view = new view();
