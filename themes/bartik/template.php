@@ -1,26 +1,5 @@
 <?php
 
-//YBA
-/**
- * Allows for images as menu items.
- * Just supply the an image path in the title. The image path will be replaced
- * with an img tag. The description is used as alt text and title.
- * Implements theme_menu_link().
- * Reference: http://chrisshattuck.com/blog/how-use-images-menu-items-drupal-simple-preprocessing-function
- */
-function bartik_menu_link($variables) {
-  $element = &$variables['element'];
-  $pattern = '/\S+\.(png|gif|jpg)\b/i';
-  if (preg_match($pattern, $element['#title'], $matches) > 0) {
-    $element['#title'] = preg_replace($pattern,
-      '<img src = "' . url($matches[0]) . '" />',
-      $element['#title']);
-    $element['#localized_options']['html'] = TRUE;
-  }
-
-  return theme_menu_link($variables);
-}
-
 /**
  * Add body classes if certain regions have content.
  */
