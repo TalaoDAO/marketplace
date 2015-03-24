@@ -1,0 +1,64 @@
+autoassignole x.x-x.x, xxxx-xx-xx
+---------------------------------------
+
+
+autoassignole 7.x-1.0-beta4, 2015-02-13
+---------------------------------------
+Issue #2416387 by Stefan Vaduva: User selectable roles not working again.
+
+
+autoassignole 7.x-1.0-beta3, 2014-10-28
+---------------------------------------
+#2313707 by mike.davis: Register by path, shows user choice of roles option.
+#2326029 by mike.davis: Upgrade from version 6 to 7 doesn't update the db schema.
+
+
+autoassignole 7.x-1.0-beta2, 2014-07-31
+---------------------------------------
+#1795536 by dmadruga: Only auto-assign roles to accounts created by an
+  admin.
+by mike.davis: Minor coding standards fixes.
+#1795536 by mike.davis: Updated automated tests to fix a bug.
+#1314668 by thomasgm: Added Sort/order user's role options by predefined.
+#971320 by tigerfinch, mike.davis: Added Administrator configures registration
+  paths, each with customised role assignments.
+#1249458 by mike.davis: Fixed "Single role" with select box?
+
+
+autoassignole 7.x-1.0-beta1, 2013-03-21
+---------------------------------------
+#971622 by cyberswat: Auto Assign Role only assigns roles automatically when
+  auto assignment is enabled.
+#944864 by cyberswat: User object saved programmatically and assigned roles.
+#971472 by cyberswat: Split up Simpletests to match main functional areas.
+#945016 by cyberswat: Administrator sets the user role field title.
+#945024 by cyberswat: Administrator set roles description exposed when end user
+  selects roles by cyberswat:.
+#945010 by cyberswat: Administrator sets a fieldset title for roles exposed to
+ end user.
+#944988 by cyberswat: Administrator toggles sort order of roles exposed to an
+  end user.
+#944978 by cyberswat: Administrator toggles if user selection of roles is
+  required.
+#944974 by cyberswat: Administrator sets the selection method of roles for an
+  end user.
+#944944 by cyberswat: Administrator toggles letting user select multiple roles.
+#944922 by cyberswat: Administrator sets roles that will be visible to the end
+  user.
+#944880 by cyberswat: Administrator toggles allowing user to select role.
+#937678 by cyberswat: Use Case: Administrator sets roles for automatic
+  assignment.
+#937666 by cyberswat: Use Case: Administrator enables/disables automatic
+  assignment of admin by cyberswat: created accounts.
+#937468 by cyberswat: Use Case: Administrator enables/disables automatic
+  assignment.
+#1186328 by cyberswat: Move menu to admin/config/people.
+#983612 by hefox, ben kuper: Add back in allow user to choose functionality.
+#1672704 by DamienMcKenna: Added hook_uninstall to remove variables.
+#1440858 by geertvd: Fixed arguments for array_unshift.
+#1795536 by ZeiP: Only auto-assign roles to accounts created by an admin.
+#1672630 by DamienMcKenna: Upgrade script for D6 sites.
+#1529314 by anzi31: Don't show the 'user choice' option when the user has the
+  'administer users' role.
+#1799106 by anzi31: Improve the description of the 'user choice' option.
+#1312030 by DamienMcKenna: Fixed field description to make translation easier.

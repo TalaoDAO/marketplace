@@ -1,0 +1,324 @@
+<?php
+
+/**
+ * @file
+ * The main autoassignrole.module file
+ *
+ * Designate a role to assign all new users to in addition to providing a
+ * mechanism for new users to select a role or role for their account.
+ */
+
+// Says to use element of type radio for role selection.
+define('AUTOASSIGNROLE_ELEMENT_RADIO_CHECKBOX', 0);
+
+// Says to use element of type select for role selection.
+define('AUTOASSIGNROLE_ELEMENT_SELECT', 1);
+
+// Sets the page display for standard.
+define('AUTOASSIGNROLE_PAGE_DISPLAY_STANDARD', 0);
+
+// Sets the page display for individual.
+define('AUTOASSIGNROLE_PAGE_DISPLAY_INDIVIDUAL', 1);
+
+/**
+ * Implements hook_permission().
+ */
+function autoassignrole_permission() {
+  return array(
+    'administer autoassignrole' => array(
+      'title' => t('Administer auto assign role'),
+      'description' => t('Perform administration tasks for auto assign role.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function autoassignrole_menu() {
+  $items = array();
+  $items['admin/config/people/autoassignrole'] = array(
+    'title' => 'Auto assign role',
+    'description' => 'Configure auto role assignment.',
+    'access arguments' => array('administer autoassignrole'),
+    'page callback' => 'autoassignrole_admin_block_page',
+    'file' => 'autoassignrole.admin.inc',
+  );
+  $items['admin/config/people/autoassignrole/auto'] = array(
+    'title' => 'Automatic',
+    'description' => 'Configure which role(s) are automatically assigned on user creation.',
+    'access arguments' => array('administer autoassignrole'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('autoassignrole_auto_settings'),
+    'file' => 'autoassignrole.admin.inc',
+  );
+  $items['admin/config/people/autoassignrole/user'] = array(
+    'title' => 'User choice',
+    'description' => 'Configure the ability for an end user to choose their own roles during registration.',
+    'access arguments' => array('administer autoassignrole'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('autoassignrole_user_settings'),
+    'file' => 'autoassignrole.admin.inc',
+  );
+  $items['admin/config/people/autoassignrole/pages'] = array(
+    'title' => 'Per Role Pages',
+    'description' => 'Configure individual pages to allow user to sign up for a particular role',
+    'access arguments' => array('administer autoassignrole'),
+    'page callback' => 'autoassignrole_list_pages',
+    'file' => 'autoassignrole.admin.inc',
+  );
+  $items['admin/config/people/autoassignrole/pages/add'] = array(
+    'title' => 'Add Auto Assign Role Page',
+    'access arguments' => array('administer autoassignrole'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('autoassignrole_page_form', 'add'),
+    'type' => MENU_LOCAL_ACTION,
+    'file' => 'autoassignrole.admin.inc',
+  );
+  $items['admin/config/people/autoassignrole/pages/edit/%'] = array(
+    'title' => 'Edit Auto Assign Role Page',
+    'access arguments' => array('administer autoassignrole'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('autoassignrole_page_form', 'edit', 6),
+    'file' => 'autoassignrole.admin.inc',
+  );
+  $items['admin/config/people/autoassignrole/pages/delete/%'] = array(
+    'title' => 'Delete Auto Assign Role Page',
+    'access arguments' => array('administer autoassignrole'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('autoassignrole_page_delete_confirm', 6),
+    'file' => 'autoassignrole.admin.inc',
+  );
+
+  $pages = autoassignrole_get_pages();
+  foreach ($pages as $page) {
+    $rids = unserialize($page->rids);
+    switch ($page->display) {
+      case AUTOASSIGNROLE_PAGE_DISPLAY_STANDARD:
+        $items[$page->path] = array(
+          'title' => check_plain($page->title),
+          'page arguments' => array($rids),
+          'page callback' => 'autoassignrole_register',
+          'access callback' => 'user_register_access',
+          'file' => 'autoassignrole.paths.inc',
+          'type' => MENU_NORMAL_ITEM,
+          'menu_name' => $page->menu,
+        );
+        $items[$page->path . '/register'] = array(
+          'title' => 'Register',
+          'page arguments' => array($rids),
+          'page callback' => 'autoassignrole_register',
+          'access callback' => 'user_register_access',
+          'file' => 'autoassignrole.paths.inc',
+          'type' => MENU_DEFAULT_LOCAL_TASK,
+        );
+        $items[$page->path . '/login'] = array(
+          'title' => 'Log In',
+          'page callback' => 'autoassignrole_login',
+          'access callback' => 'user_is_anonymous',
+          'file' => 'autoassignrole.paths.inc',
+          'type' => MENU_LOCAL_TASK,
+        );
+        $items[$page->path . '/password'] = array(
+          'title' => 'Request New Password',
+          'page callback' => 'autoassignrole_password',
+          'access callback' => 'user_is_anonymous',
+          'file' => 'autoassignrole.paths.inc',
+          'type' => MENU_LOCAL_TASK,
+        );
+        break;
+
+      case AUTOASSIGNROLE_PAGE_DISPLAY_INDIVIDUAL:
+        $items[$page->path] = array(
+          'title' => check_plain($page->title),
+          'page arguments' => array($rids),
+          'page callback' => 'autoassignrole_register',
+          'access callback' => 'user_register_access',
+          'file' => 'autoassignrole.paths.inc',
+          'type' => MENU_CALLBACK,
+        );
+        $items[$page->path . '/register'] = array(
+          'title' => 'Register',
+          'page arguments' => array($rids),
+          'page callback' => 'autoassignrole_register',
+          'access callback' => 'user_register_access',
+          'file' => 'autoassignrole.paths.inc',
+          'type' => MENU_CALLBACK,
+        );
+        $items[$page->path . '/login'] = array(
+          'title' => 'Log In',
+          'page callback' => 'autoassignrole_login',
+          'access callback' => 'user_is_anonymous',
+          'file' => 'autoassignrole.paths.inc',
+          'type' => MENU_CALLBACK,
+        );
+        $items[$page->path . '/password'] = array(
+          'title' => 'Request New Password',
+          'page callback' => 'autoassignrole_password',
+          'access callback' => 'user_is_anonymous',
+          'file' => 'autoassignrole.paths.inc',
+          'type' => MENU_CALLBACK,
+        );
+        break;
+    }
+  }
+
+  return $items;
+}
+
+/**
+ * Finds any role ids attached to current page, if any.
+ */
+function autoassignrole_get_active_path_rid() {
+  $item = menu_get_item();
+  if ($item['page_callback'] == 'autoassignrole_register') {
+    return $item['page_arguments'][0];
+  }
+  return FALSE;
+}
+
+/**
+ * Implements hook_user_presave().
+ */
+function autoassignrole_user_presave(&$edit, $account, $category) {
+  // Use case http://drupal.org/node/971622
+  // Make sure we only assign roles automatically when enabled to do so.
+  if (variable_get('autoassignrole_auto_active', 0) || variable_get("autoassignrole_user_active", 0)
+    || (variable_get('autoassignrole_admin_active', 0) && user_access('administer users'))
+    || autoassignrole_get_active_path_rid()) {
+    // Use case http://drupal.org/node/944864
+    // Only assign roles if this is a new account.
+    if (isset($account->is_new) && !empty($account->is_new)) {
+      // Get the existing user roles with the exception of the anonymous role.
+      $user_roles = user_roles(TRUE);
+      $roles_to_add = array();
+
+      // Add in automatic roles.
+      if ((variable_get('autoassignrole_auto_active', 0) && !user_access('administer users'))
+        || (variable_get('autoassignrole_admin_active', 0) && user_access('administer users'))) {
+        $roles_to_add += array_intersect_key($user_roles, array_filter(variable_get('autoassignrole_auto_roles', array())));
+      }
+
+      // Add in user selected roles if any.
+      if (variable_get("autoassignrole_user_active", 0) && !empty($edit['user_roles'])) {
+        // Value is a single, convert to array.
+        if (!is_array($edit['user_roles'])) {
+          $edit['user_roles'] = array($edit['user_roles'] => $edit['user_roles']);
+        }
+        $roles_to_add += array_intersect_key($user_roles, array_filter($edit['user_roles']));
+      }
+
+      // Add page-specific roles.
+      $page_rids = autoassignrole_get_active_path_rid();
+      if ($page_rids) {
+        $roles_to_add = array_intersect_key($user_roles, array_filter($page_rids));
+      }
+
+      // Make sure the roles key exists.
+      if (!isset($edit['roles'])) {
+        $edit['roles'] = array();
+      }
+
+      // Add in the new roles to override the current roles.
+      $edit['roles'] = $roles_to_add + $edit['roles'];
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for user_register_form().
+ */
+function autoassignrole_form_user_register_form_alter(&$form, &$form_state) {
+  if (variable_get("autoassignrole_user_active", 0) && !user_access('administer users')
+    && !autoassignrole_get_active_path_rid()) {
+
+    // Get a list of valid roles that can be selected.
+    $roles = array_intersect_key(user_roles(TRUE), array_filter(variable_get('autoassignrole_user_roles', array())));
+
+    if ($roles) {
+      $form['autoassignrole_user'] = array(
+        '#type' => 'fieldset',
+        '#title' => filter_xss(variable_get('autoassignrole_user_fieldset_title', t('User Roles'))),
+        '#collapsible' => FALSE,
+        '#collapsed' => FALSE,
+      );
+
+      // Sort the roles.
+      if (variable_get('autoassignrole_user_sort', 'SORT_ASC') == 'SORT_ASC') {
+        asort($roles);
+      }
+      elseif (variable_get('autoassignrole_user_sort', 'SORT_DESC') == 'SORT_DESC') {
+        arsort($roles);
+      }
+      else {
+        drupal_sort_weight($roles, $roles);
+      }
+
+      $multiple = variable_get('autoassignrole_user_multiple', 0);
+      $user_selection = variable_get('autoassignrole_user_selection', AUTOASSIGNROLE_ELEMENT_RADIO_CHECKBOX);
+
+      $type = 'select';
+      if ($user_selection == AUTOASSIGNROLE_ELEMENT_RADIO_CHECKBOX) {
+        $type = $user_selection == AUTOASSIGNROLE_ELEMENT_RADIO_CHECKBOX && !$multiple ? 'radios' : 'checkboxes';
+      }
+
+      // If not multiple + not required + select box, need a none selection.
+      if (!$multiple && !variable_get('autoassignrole_user_required', 0) && $type == 'select') {
+        $roles = array(0 => t('None')) + $roles;
+      }
+
+      // Add in the element.
+      $form['autoassignrole_user']['user_roles'] = array(
+        '#type' => $type,
+        '#title' => filter_xss(variable_get('autoassignrole_user_title', t('Role'))),
+        '#options' => $roles,
+        '#description' => filter_xss(variable_get('autoassignrole_user_description', t('Select a role'))),
+        '#required' => variable_get('autoassignrole_user_required', 0),
+        '#multiple' => $multiple,
+      );
+    }
+  }
+}
+
+/**
+ * Function to retrieve all role-specific pages.
+ *
+ * @return SelectQuery
+ *   An array of page objects.
+ */
+function autoassignrole_get_pages() {
+  $query = _autoasignrole_get_page_query();
+  return $query->execute();
+}
+
+/**
+ * Function to get role-specific page details.
+ *
+ * @param int $id
+ *   The id of the page to be updated.
+ *
+ * @return SelectQuery
+ *   A query object with all page details.
+ */
+function autoassignrole_get_page($id) {
+  $query = _autoasignrole_get_page_query();
+  $query->condition('rid_page_id', $id, '=');
+  return $query->execute()->fetchObject();
+}
+
+/**
+ * Helper method for getting the page query object.
+ *
+ * @return SelectQuery
+ *   The query object.
+ */
+function _autoasignrole_get_page_query() {
+  return db_select('autoassignrole_page', 'p')
+    ->fields('p', array(
+      'rids',
+      'path',
+      'title',
+      'menu',
+      'display',
+    ));
+}

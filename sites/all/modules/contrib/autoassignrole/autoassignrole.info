@@ -1,0 +1,15 @@
+name = Auto Assign Role
+description = Automatically assign a role to new users.
+core = 7.x
+configure=admin/config/people/autoassignrole
+version = VERSION
+files[] = autoassignrole.module
+files[] = autoassignrole.admin.inc
+files[] = autoassignrole.test
+
+; Information added by Drupal.org packaging script on 2015-02-13
+version = "7.x-1.0-beta4"
+core = "7.x"
+project = "autoassignrole"
+datestamp = "1423862422"
+
