@@ -1,5 +1,6 @@
 sites/all/modules/.notused
 sites/all/modules/.unused
+sites/all/modules/debug
 sites/all/themes/emindhub/css/*.map
 sites/all/themes/emindhub/css/*.css
 sites/all/themes/emindhub/templates/unused
