@@ -40,8 +40,8 @@
                                       <?php print t("Sign-in"); ?>
                                       <span class="light-blue-text"><?php print t("in 1 minute"); ?></span>
                                       <?php print t("and start!"); ?>
-                                      <a href="<?php print url("business/register"); ?>" class="btn btn-primary"><?php print t("I'm a business"); ?></a>
-                                      <a href="<?php print url("expert/register"); ?>" class="btn btn-primary"><?php print t("I'm an expert"); ?></a>
+                                      <a href="<?php print url("business/register"); ?>" class="btn btn-primary"><?php print t("As a seeker"); ?></a>
+                                      <a href="<?php print url("expert/register"); ?>" class="btn btn-primary"><?php print t("As an expert"); ?></a>
                                   </div>
                               </div>
                             <?php

@@ -129,27 +129,3 @@ function ft_content_type_node_info() {
   drupal_alter('node_info', $items);
   return $items;
 }
-
-/**
- * Implements hook_default_profile2_type().
- */
-function ft_content_type_default_profile2_type() {
-  $items = array();
-  $items['business'] = entity_import('profile2_type', '{
-    "userCategory" : true,
-    "userView" : true,
-    "type" : "business",
-    "label" : "Business",
-    "weight" : "10",
-    "data" : { "registration" : 0, "use_page" : 0 }
-  }');
-  $items['expert'] = entity_import('profile2_type', '{
-    "userCategory" : true,
-    "userView" : true,
-    "type" : "expert",
-    "label" : "Expert",
-    "weight" : "10",
-    "data" : { "registration" : 0, "use_page" : 0 }
-  }');
-  return $items;
-}

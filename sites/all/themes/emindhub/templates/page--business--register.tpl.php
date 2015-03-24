@@ -109,7 +109,7 @@
                             <img src="<?php print getImgSrc("emailMini.png"); ?>">
                         </div>
                     </div>
-                    <div class="challenge-title"><?php print t("Create your account "); ?><span class="bold"><?php print t("in less than a minute"); ?></span></div>
+                    <div class="challenge-title"><?php print t("Create your account "); ?><span class="bold"><?php print t("in no time"); ?></span></div>
                     <div class="business-register">
                         <?php print render($page['content']); ?>
                     </div>

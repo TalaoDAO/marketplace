@@ -1739,7 +1739,7 @@ function ft_field_base_field_default_field_bases() {
     'settings' => array(
       'country' => 'fr',
       'entity_translation_sync' => FALSE,
-      'profile2_private' => FALSE,
+      'profile2_private' => 0,
     ),
     'translatable' => 0,
     'type' => 'phone',

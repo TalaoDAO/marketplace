@@ -690,7 +690,7 @@ function GetMenu (&$vars) {
     //$base_url = $url = base_path();
     if (!user_is_logged_in()) {
         $signIn = theme("link", array(
-          'text' => t('Se connecter'),
+          'text' => t('Login'),
           'path' => 'user',
           'options' => array(
             'attributes' => array('class' => array('user-menu', 'sign-in')),
@@ -698,7 +698,7 @@ function GetMenu (&$vars) {
           ),
         ));
         $register = theme("link", array(
-          'text' => t('S\'inscrire'),
+          'text' => t('Register'),
           'path' => 'user/register',
           'options' => array(
             'attributes' => array('class' => array('user-menu', 'sign-up')),
@@ -733,7 +733,7 @@ function GetMenu (&$vars) {
           ),
         ));
         $logout = theme("link", array(
-          'text' => t('Se déconnecter'),
+          'text' => t('Logout'),
           'path' => 'user/logout',
           'options' => array(
             'attributes' => array('class' => array('user-menu')),

@@ -27,7 +27,8 @@ function ft_content_type_field_group_info() {
       1 => 'field_entreprise_visibility',
       2 => 'field_entreprise',
       3 => 'account',
-      4 => 'group_oneliner',
+      4 => 'picture',
+      5 => 'group_oneliner',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -452,7 +453,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_account';
   $field_group->data = array(
     'label' => 'Oneliner',
-    'weight' => '22',
+    'weight' => '3',
     'children' => array(
       0 => 'field_first_name',
       1 => 'field_last_name',
@@ -491,6 +492,7 @@ function ft_content_type_field_group_info() {
       0 => 'field_referent',
       1 => 'field_address',
       2 => 'field_link_to_my_blog',
+      3 => 'field_telephone',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -519,9 +521,8 @@ function ft_content_type_field_group_info() {
     'weight' => '1',
     'children' => array(
       0 => 'field_titre_metier',
-      1 => 'field_entreprise',
-      2 => 'field_entreprise_visibility',
-      3 => 'field_working_status',
+      1 => 'field_entreprise_visibility',
+      2 => 'field_working_status',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

@@ -323,6 +323,108 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-article-field_image'
+  $field_instances['node-article-field_image'] = array(
+    'bundle' => 'article',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'colorbox',
+        'settings' => array(
+          'colorbox_caption' => 'auto',
+          'colorbox_caption_custom' => '',
+          'colorbox_gallery' => 'post',
+          'colorbox_gallery_custom' => '',
+          'colorbox_image_style' => '',
+          'colorbox_multivalue_index' => NULL,
+          'colorbox_node_style' => '',
+          'colorbox_node_style_first' => '',
+        ),
+        'type' => 'colorbox',
+        'weight' => 1,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_image',
+    'label' => 'Image',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'entity_translation_sync' => FALSE,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'filefield_sources' => array(
+          'filefield_sources' => array(
+            'attach' => 0,
+            'clipboard' => 0,
+            'reference' => 0,
+            'remote' => 0,
+            'upload' => 'upload',
+          ),
+          'source_attach' => array(
+            'absolute' => 0,
+            'attach_mode' => 'move',
+            'path' => 'file_attach',
+          ),
+          'source_imce' => array(
+            'imce_mode' => 0,
+          ),
+          'source_reference' => array(
+            'autocomplete' => 0,
+          ),
+        ),
+        'insert' => 0,
+        'insert_absolute' => 0,
+        'insert_class' => '',
+        'insert_default' => 'auto',
+        'insert_styles' => array(
+          'auto' => 'auto',
+          'colorbox__content_type_thumbnail' => 0,
+          'colorbox__large' => 0,
+          'colorbox__medium' => 0,
+          'colorbox__news_block' => 0,
+          'colorbox__profile_picture' => 0,
+          'colorbox__square_thumbnail' => 0,
+          'colorbox__thumbnail' => 0,
+          'icon_link' => 0,
+          'image' => 0,
+          'image_content_type_thumbnail' => 0,
+          'image_large' => 0,
+          'image_medium' => 0,
+          'image_news_block' => 0,
+          'image_profile_picture' => 0,
+          'image_square_thumbnail' => 0,
+          'image_thumbnail' => 0,
+          'link' => 0,
+        ),
+        'insert_width' => '',
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 33,
+    ),
+  );
+
   // Exported field_instance: 'node-challenge-body'
   $field_instances['node-challenge-body'] = array(
     'bundle' => 'challenge',
@@ -4091,7 +4193,7 @@ function ft_content_type_field_default_field_instances() {
         ),
       ),
       'type' => 'addressfield_standard',
-      'weight' => 3,
+      'weight' => 17,
     ),
   );
 
@@ -4354,7 +4456,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 4,
+      'weight' => 18,
     ),
   );
 
@@ -4431,7 +4533,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 6,
+      'weight' => 19,
     ),
   );
 
@@ -4710,7 +4812,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 24,
+      'weight' => 4,
     ),
   );
 
@@ -4748,7 +4850,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 25,
+      'weight' => 6,
     ),
   );
 
@@ -4856,44 +4958,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 23,
-    ),
-  );
-
-  // Exported field_instance: 'user-user-field_telephone'
-  $field_instances['user-user-field_telephone'] = array(
-    'bundle' => 'user',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'phone',
-        'settings' => array(),
-        'type' => 'phone',
-        'weight' => 10,
-      ),
-    ),
-    'entity_type' => 'user',
-    'field_name' => 'field_telephone',
-    'label' => 'Telephone',
-    'required' => 0,
-    'settings' => array(
-      'ca_phone_parentheses' => 1,
-      'ca_phone_separator' => '-',
-      'entity_translation_sync' => FALSE,
-      'phone_country_code' => 0,
-      'phone_default_country_code' => 1,
-      'phone_int_max_length' => 15,
-      'user_register_form' => 0,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'phone',
-      'settings' => array(),
-      'type' => 'phone_textfield',
-      'weight' => 1,
+      'weight' => 5,
     ),
   );
 
@@ -5011,7 +5076,6 @@ function ft_content_type_field_default_field_instances() {
   t('Sponsorship');
   t('Summary');
   t('Tags');
-  t('Telephone');
   t('Testimony');
   t('Use my entreprise');
   t('Working Status');

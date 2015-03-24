@@ -18,19 +18,11 @@ $fieldCivility = $form['civility'];
                     <img src="<?php print getImgSrc("bulle.png"); ?>" />
                 </div>
                 <div class="col-md-10 bold">
-                    <?php print t("Do you have a question ?"); ?>
-                </div>
-            </div>
-            <div class="row paddingU">
-                <div class="col-md-1">
-                    <img src="<?php print getImgSrc("bulle.png"); ?>" />
-                </div>
-                <div class="col-md-10 bold">
-                    <?php print t("Do you want to know more ?"); ?>
+                    <?php print t("Do you want to learn more ?"); ?>
                 </div>
             </div>
             <div class="text-wrapper">
-                <?php print t("Leave us a message, we will call you back in less than 24h !"); ?>
+                <?php print t("Leave us a message, we will get back at you within 24h !"); ?>
             </div>
 
             <form action="<?php print $form['#action']; ?>" method="<?php print $form['#method']; ?>">
