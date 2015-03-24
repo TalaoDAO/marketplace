@@ -1,0 +1,325 @@
+<?php
+// $Id: mb.module,v 1.1.2.3 2011/01/27 22:30:08 quiptime Exp $
+
+/**
+ * @file
+ * The More Buttons (MB) module allows to use additional buttons with Drupal.
+ *
+ * This module provides functions are used from the MB sub modules.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function mb_menu() {
+  $items = array();
+
+  $items['admin/config/mb'] = array(
+    'title' => 'More Buttons',
+    'position' => 'right',
+    'weight' => -4,
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+  
+  $items['admin/config/mb/buttons'] = array(
+    'title' => 'Button settings',
+    'description' => 'Administer the suite of More Buttons (MB) modules.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mb_admin'),
+    'access arguments' => array('access administration pages'),
+    'file' => 'mb.admin.inc',
+    'weight' => -10,
+  );
+  $items['admin/config/mb/buttons/values'] = array(
+    'title' => 'Values',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+
+  $items['admin/config/mb/buttons/reset'] = array(
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mb_reset'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_CALLBACK,
+    'file' => 'mb.admin.inc'
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function mb_theme() {
+  return array(
+    'mb_admin' => array(
+      'variables' => array('form' => NULL),
+    )
+  );
+}
+
+/**
+ * Get all More Buttons mappings.
+ *
+ * @param string $module
+ *   The name of the MB sub module. Values: mb_content, mb_comment, mb_user
+ *
+ * @return array
+ *   The array is keyed with the node types and contains the node type name
+ *   and the MB mappings.
+ *   Return is sanitized.
+ */
+function mb_get_mappings($module) {
+  $mappings = array();
+  $types = array();
+  
+  switch ($module) {
+    case 'mb':
+    case 'mb_content':
+      $types = node_type_get_types();
+
+      foreach ($types as $type) {
+        $mappings[check_plain($type->type)] = array(
+          'name' => check_plain($type->name),
+          'extends' => array(
+            'cancel' => variable_get($module . '_cancel_' . $type->type, 0),
+            'sac' => variable_get($module . 'sac_' . $type->type, 0),
+            'tabcn' => variable_get($module . 'tabcn_' . $type->type, 0)
+          )
+        );
+      }
+      break;
+
+    case 'mb_comment':
+      $types = node_type_get_types();
+
+      foreach ($types as $type) {
+        $mappings[check_plain($type->type)] = array(
+          'name' => check_plain($type->name),
+          'extends' => array(
+            'cancel' => variable_get($module . '_cancel_' . $type->type, 0)
+          )
+        );
+      }
+      break;
+
+    case 'mb_user':
+      $page_types = mb_user_type_get_types();
+
+      foreach ($page_types as $type) {
+        $mappings[$type['type']] = array(
+          'name' => $type['name'],
+          'extends' => array(
+            'cancel' => variable_get($module . '_cancel_' . $type['name'], 0),
+            'sac' => variable_get($module . 'sac_' . $type['name'], 0),
+            'sacn' => variable_get($module . 'sacn_' . $type['name'], 0),
+          )
+        );
+      }
+      break;
+  }
+
+  return $mappings;
+}
+
+/**
+ * Get all button and tab values or an single value.
+ *
+ * Module developer:
+ * You can use this function to get the values of the buttons or the tab.
+ *
+ * Example to get the "Save and continue" button value:
+ *   @code
+ *     $value = module_invoke('mb', 'get_values', 'mb', 'sac');
+ *   @endcode
+ *
+ *   Use the t() function to display the value.
+ *
+ * @param string $module
+ *   The short cut name of the MB module. Optional if not used the parameter $value.
+ *   Possible values: mb
+ *   Note:
+ *   The button and tab values, saved with the MB module administration,
+ *   are use the parameter mb.
+ * @param string $value
+ *   Optional an string to get an single button or tab value.
+ *   Possible parameters:
+ *    - cancel
+ *    - sac
+ *    - sacn
+ *    - tabcn
+ * @return array or string
+ *   - Associative array if the parameter $value not given: key => value
+ *     cancel => The configured "Cancel" button value
+ *     sac    => The configured "Save and continue" button value
+ *     sacn   => The configured "Save and create new" button value
+ *     tabcn  => The configured "Create new" tab value
+ *
+ *   - String if the parameter $value given.
+ *     The configured value.
+ */
+function mb_get_values($module = NULL, $value = NULL) {
+  if (!isset($module)) {
+    $module = 'mb';
+  }
+
+  $mb_values = variable_get($module . '_values', array());
+
+  if (!isset($value)) {
+    return $mb_values;
+  }
+  else {
+    $val = isset($mb_values[$value]) ? $mb_values[$value] : t('n/a');
+    return $val;
+  }
+}
+
+/**
+ * Provide the button and tab values.
+ *
+ * @param string $module
+ *   Optional the MB module. Possible values:
+ *   mb, mb_content, mb_comment, mb_user
+ * @param string $value
+ *   Optional the needed single value for an button or the tab.
+ *   Possible values:
+ *   cancel, sac, sacn, tabcn
+ * @return array or string
+ *   - Associative array if the parameter $value not given: key => value
+ *     cancel => Cancel
+ *     sac    => Save and continue
+ *     sacn   => Save and create new'
+ *     tabcn  => Create new
+ *
+ *   - String if the parameter $value given.
+ */
+function mb_default_values($module = 'mb', $value = NULL) {
+  // Don't translate the value strings here.
+  switch ($module) {
+    case 'mb':
+      $values = array(
+        'cancel' => 'Cancel',
+        'sac' => 'Save and continue',
+        'sacn' => 'Save and create new',
+        'tabcn' => 'Create new'
+      );
+      break;
+
+    case 'mb_content':
+      $values = array(
+        'cancel' => 'Cancel',
+        'sac' => 'Save and continue',
+        'tabcn' => 'Create new'
+      );
+      break;
+
+    case 'mb_comment':
+      $values = array(
+        'cancel' => 'Cancel'
+      );
+      break;
+
+    case 'mb_user':
+      $values = array(
+        'cancel' => 'Cancel',
+        'sac' => 'Save and continue',
+        'sacn' => 'Save and create new'
+      );
+      break;
+  }
+
+  if (isset($value)) {
+    $val = isset($values[$value]) ? $values[$value] : t('n/a');
+    return $val;
+  }
+
+  return $values;
+}
+
+/**
+ * Provide the button position options.
+ *
+ *   Options are usable for the buttons:
+ *   - Save and continue
+ *   - Save and create new.
+ *
+ * @param string $module
+ *   The shortcut name of the MB sub module. Values: mb_content, mb_comment, mb_user
+ *
+ * @return array
+ */
+function mb_save_button_positions($module) {
+  switch ($module) {
+    case 'mb_content':
+    case 'mb_comment':
+      $options = array(
+        0 => t('None'),
+        1 => t('Left of Save'),
+        2 => t('Right of Save')
+      );
+      break;
+
+    case 'mb_user':
+      // The MB user module use two buttons to save.
+      // The + allow the different positions
+      // - further to the right
+      // - further to the left.
+      $options = array(
+        0 => t('None'),
+        1 => t('Left of Save'),
+        2 => t('Left + of Save'),
+        3 => t('Right of Save'),
+        4 => t('Right + of Save')
+      );
+      break;
+  }
+
+  return $options;
+}
+
+/**
+ * Provide the Cancel button position options.
+ *
+ * @return array
+ */
+function mb_cancel_button_positions() {
+  return array(
+    0 => t('None'),
+    1 => t('Left'),
+    2 => t('Right')
+  );
+}
+
+/**
+ * Provide the Create new options.
+ *
+ * @return array
+ */
+function mb_create_new_options() {
+  return array(
+    0 => t('None'),
+    1 => t('Create new as tab'),
+    2 => t('Create new as action link')
+  );
+}
+
+/**
+ * Load CSS files.
+ *
+ * @param string $op
+ *   Possible values: admin, frontend
+ */
+function _mb_load_css($op) {
+  switch ($op) {
+    case 'admin':
+      drupal_add_css(drupal_get_path('module', 'mb') . '/mb_admin.css');
+      break;
+
+    case 'frontend':
+      drupal_add_css(drupal_get_path('module', 'mb') . '/mb_frontend.css');
+      break;
+  }
+}

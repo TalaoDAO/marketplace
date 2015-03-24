@@ -1,0 +1,118 @@
+# $Id: mb_user.pot,v 1.1.2.1 2010/11/27 13:30:52 quiptime Exp $
+#
+# LANGUAGE translation of More Buttons User
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  mb_user.admin.inc: n/a
+#  mb_user.info: n/a
+#  mb_user.module: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2010-11-27 13:54+0100\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: mb_user.admin.inc:44
+msgid "Save"
+msgstr ""
+
+#: mb_user.admin.inc:49
+msgid "Reset to defaults"
+msgstr ""
+
+#: mb_user.admin.inc:73
+msgid "User settings"
+msgstr ""
+
+#: mb_user.admin.inc:74
+msgid "Which %module functions are used by different user pages."
+msgstr ""
+
+#: mb_user.admin.inc:74;147;172;173;173 mb_user.info:0
+msgid "More Buttons User"
+msgstr ""
+
+#: mb_user.admin.inc:76;155
+msgid "Cancel"
+msgstr ""
+
+#: mb_user.admin.inc:76
+msgid "Save and continue"
+msgstr ""
+
+#: mb_user.admin.inc:76
+msgid "Save and create new"
+msgstr ""
+
+#: mb_user.admin.inc:113
+msgid "Module development by <a href=\"@development-url\">Quiptime Group</a>."
+msgstr ""
+
+#: mb_user.admin.inc:133
+msgid "Your changes have been saved."
+msgstr ""
+
+#: mb_user.admin.inc:147
+msgid "Are you sure you want to reset all %module settings?"
+msgstr ""
+
+#: mb_user.admin.inc:149
+msgid "This action disables the settings for all buttons. This action cannot be undone."
+msgstr ""
+
+#: mb_user.admin.inc:154
+msgid "Reset"
+msgstr ""
+
+#: mb_user.admin.inc:172;173
+msgid "The %module settings have been set back."
+msgstr ""
+
+#: mb_user.admin.inc:173
+msgid "view"
+msgstr ""
+
+#: mb_user.module:25
+msgid "Use More User Buttons"
+msgstr ""
+
+#: mb_user.module:26
+msgid "Use the buttons defined by More Buttons User."
+msgstr ""
+
+#: mb_user.module:104
+msgid "@cancel-value"
+msgstr ""
+
+#: mb_user.module:134
+msgid "@sac-value"
+msgstr ""
+
+#: mb_user.module:165
+msgid "@sacn-value"
+msgstr ""
+
+#: mb_user.module:40
+msgid "Users"
+msgstr ""
+
+#: mb_user.module:42
+msgid "An overview of what page types uses buttons of the MB User module."
+msgstr ""
+
+#: mb_user.info:0
+msgid "Provides additional buttons for content in user context such as <em>Cancel</em> and <em>Save and continue</em>."
+msgstr ""
+
+#: mb_user.info:0
+msgid "More Buttons"
+msgstr ""
+

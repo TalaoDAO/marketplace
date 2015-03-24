@@ -1,0 +1,201 @@
+<?php
+// $Id: mb_comment.module,v 1.1.2.2 2010/11/28 20:01:49 quiptime Exp $
+
+/**
+ * @file
+ * Provides a Cancel button for comments.
+ *
+ * Currently available buttons:
+ * - Cancel
+ */
+
+/**
+ * Implements hook_permission().
+ */
+function mb_comment_permission() {
+  return array(
+    'access mb comment' =>  array(
+      'title' => t('Use More Comment Buttons'),
+      'description' => t('Use the buttons defined by More Buttons Comment.')
+    )
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function mb_comment_menu() {
+  $items = array();
+
+  $items['admin/config/mb/buttons/more-buttons-comment'] = array(
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mb_comment_admin'),
+    'title' => 'Comments',
+    'access arguments' => array('administer site configuration'),
+    'description' => 'An overview of what content type uses buttons/functions of the MB Comment module.',
+    'file' => 'mb_comment.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 10
+  );
+  $items['admin/config/mb/buttons/more-buttons-comment/reset'] = array(
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mb_comment_reset'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_CALLBACK,
+    'file' => 'mb_comment.admin.inc'
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function mb_comment_theme() {
+  return array(
+    'mb_comment_admin' => array(
+      'variables' => array('form' => NULL),
+    )
+  );
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function mb_comment_form_alter(&$form, &$form_state, $form_id) {
+  $module = 'mb_comment';
+
+  if ($form['#id']) {
+    if ($form['#id'] == 'comment-form') {
+      $node = $form['#node'];
+
+      if (arg(0) == 'comment') {
+        $default_values = mb_default_values();
+        $mb_content_values = mb_get_values('mb');
+        $destination = drupal_get_destination();
+
+        $settings = array();
+        $settings['cancel'] = variable_get($module . '_cancel_' . $node->type, 0);
+
+        if (!preg_match('/comment\/reply/', url($_SERVER["HTTP_REFERER"]))) {
+          $form['comment_referer'] = array(
+            '#type' => 'value',
+            '#value' => url($_SERVER["HTTP_REFERER"])
+          );
+        }
+
+        $form_state['cache'] = TRUE;
+
+        // Define the "Cancel" form element.
+        if ($settings['cancel'] > 0) {
+          if ($settings['cancel'] == 1) {
+            $weight_cancel = $form['actions']['submit']['#weight'] - 1;
+          }
+          elseif ($settings['cancel'] == 2) {
+            $weight_cancel = 16;
+          }
+
+          $form['actions']['cancel'] = array(
+            '#type' => 'submit',
+            '#value' => isset($mb_comment_values['cancel']) ? t('@cancel-value', array('@cancel-value' => t($mb_comment_values['cancel']))) : t($default_values['cancel']),
+            '#weight' => 30,
+            '#validate' => array('mb_comment_cancel_validate')
+          );
+        }
+      }
+    }
+  }
+
+  switch ($form_id) {
+    case 'node_type_delete_confirm':
+      // Delete MB Comment content type system variables
+      // if content types will be deleted.
+      $form['#submit'][] = 'mb_comment_delete_confirm_submit';
+
+      break;
+
+    case 'node_type_form':
+      // Provide the prepared additional MB Comment button settings.
+
+      // Check the specific case add content type form.
+      if (empty($form['#node_type']->type)) {
+        // Add content type.
+        $type = 'mb_comment_type_dummy';
+      }
+      else {
+        // Edit an content type.
+        $type = $form['#node_type']->type;
+      }
+
+      // It makes no sense to use the MB Comment module with the content type panel.
+      if ($type == 'panel') {
+        return;
+      }
+
+      // The additional button settings.
+      $form['comment_buttons'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Button settings - comments'),
+        '#group' => 'additional_settings',
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+        '#weight' => 5,
+        '#attached' => array(
+          'js' => array(drupal_get_path('module', $module) . '/' . $module . '_node_form.js')
+        )
+      );
+
+      // Provide "Cancel" button settings.
+      $form['comment_buttons'][$module . '_cancel'] = array(
+        '#type' => 'select',
+        '#title' => t('Cancel button'),
+        '#description' => t('Please select using the button or its position.'),
+        '#options' => mb_cancel_button_positions(),
+        '#default_value' => variable_get($module . '_cancel_' . $type, 0)
+      );
+
+      break;
+  }
+}
+
+/**
+ * Implements hook_validate().
+ *
+ * Handle the "Cancel" button validation.
+ */
+function mb_comment_cancel_validate(&$form, &$form_state) {
+  // This is the cancel action. No validation required.
+  mb_comment_cancel_action($form, $form_state);
+}
+
+/**
+ * The "Cancel" action.
+ *
+ *   Handle different submit actions and make different redirects.
+ *
+ * @see mb_comment_cancel_validate()
+ */
+function mb_comment_cancel_action(&$form, &$form_state) {
+  // Hide the error messages.
+  drupal_get_messages('error');
+
+  $redirect = 'node/' . $form['nid']['#value'];
+
+  if (isset($form['comment_referer']['#value'])) {
+    $redirect = $form['comment_referer']['#value'];
+  }
+
+  drupal_goto($redirect);
+}
+
+/**
+ * Submit callback to delete MB Comment content type system variables
+ * if content types will be deleted.
+ */
+function mb_comment_delete_confirm_submit($form, &$form_state) {
+  $module = 'mb_comment';
+
+  foreach ($form_state['build_info']['args'] as $type) {
+    variable_del($module . '_cancel_' . $type->type);
+  }
+}

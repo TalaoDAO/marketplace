@@ -1,0 +1,18 @@
+<?php
+// $Id: mb_comment.install,v 1.1.2.1 2010/11/27 13:30:52 quiptime Exp $
+
+/**
+ * @file
+ * Installs, updates, and uninstalls More Buttons Comment.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function mb_comment_uninstall() {
+  // Remove variables.
+  $node_types = array_keys(node_type_get_types());
+  foreach ($node_types as $type) {
+    variable_del('mb_comment_cancel_' . $type);
+  }
+}

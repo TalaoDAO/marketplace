@@ -1,0 +1,15 @@
+; $Id: mb_content.info,v 1.1.2.1 2010/11/27 13:30:52 quiptime Exp $
+name = More Buttons Content
+description = "Provides additional buttons for nodes such as <em>Cancel</em> and <em>Save and continue</em>."
+package = "More Buttons"
+dependencies[] = mb
+core = 7.x
+files[] = mb_content.module
+files[] = mb_content.admin.inc
+
+; Information added by drupal.org packaging script on January 1, 1970 - 00:00
+version = "7.x-1.0-beta1"
+core = "7.x"
+project = "mb"
+datestamp = "1296168121"
+

@@ -1,0 +1,163 @@
+# $Id: mb_content.pot,v 1.1.2.3 2010/11/28 12:01:27 quiptime Exp $
+#
+# LANGUAGE translation of More Buttons Content
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  mb_content.admin.inc: n/a
+#  mb_content.info: n/a
+#  mb_content.module: n/a
+#  mb_content_node_form.js: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2010-11-28 12:55+0100\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: mb_content.admin.inc:47
+msgid "Save"
+msgstr ""
+
+#: mb_content.admin.inc:52
+msgid "Reset to defaults"
+msgstr ""
+
+#: mb_content.admin.inc:76
+msgid "Content settings"
+msgstr ""
+
+#: mb_content.admin.inc:77
+msgid "Which %module functions are used by different content type pages."
+msgstr ""
+
+#: mb_content.admin.inc:77;153;167;191;192;192 mb_content.info:0
+msgid "More Buttons Content"
+msgstr ""
+
+#: mb_content.admin.inc:79;175
+msgid "Cancel"
+msgstr ""
+
+#: mb_content.admin.inc:79
+msgid "Save and continue"
+msgstr ""
+
+#: mb_content.admin.inc:79
+msgid "Create new"
+msgstr ""
+
+#: mb_content.admin.inc:86
+msgid "For the content type %type no settings can be made."
+msgstr ""
+
+#: mb_content.admin.inc:98
+msgid "Edit this content type"
+msgstr ""
+
+#: mb_content.admin.inc:130
+msgid "Module development by <a href=\"@development-url\">Quiptime Group</a>."
+msgstr ""
+
+#: mb_content.admin.inc:153
+msgid "The %module settings have been saved."
+msgstr ""
+
+#: mb_content.admin.inc:167
+msgid "Are you sure you want to reset all %module settings?"
+msgstr ""
+
+#: mb_content.admin.inc:169
+msgid "This action disables the settings for all buttons and the tab. This action cannot be undone."
+msgstr ""
+
+#: mb_content.admin.inc:174
+msgid "Reset"
+msgstr ""
+
+#: mb_content.admin.inc:191;192
+msgid "The %module settings have been set back."
+msgstr ""
+
+#: mb_content.admin.inc:192
+msgid "view"
+msgstr ""
+
+#: mb_content.module:26
+msgid "Use More Content Buttons"
+msgstr ""
+
+#: mb_content.module:27
+msgid "Use the buttons defined by More Buttons Content."
+msgstr ""
+
+#: mb_content.module:129
+msgid "Button settings - content"
+msgstr ""
+
+#: mb_content.module:141 mb_content_node_form.js:0
+msgid "Cancel button"
+msgstr ""
+
+#: mb_content.module:142;150
+msgid "Please select using the button or its position."
+msgstr ""
+
+#: mb_content.module:149 mb_content_node_form.js:0
+msgid "Save and continue button"
+msgstr ""
+
+#: mb_content.module:157 mb_content_node_form.js:0;0
+msgid "Create new tab"
+msgstr ""
+
+#: mb_content.module:158
+msgid "Enable an \"Create new\" tab in addition to the %view or %edit tab."
+msgstr ""
+
+#: mb_content.module:158
+msgid "View"
+msgstr ""
+
+#: mb_content.module:158
+msgid "Edit"
+msgstr ""
+
+#: mb_content.module:238
+msgid "@sac-value"
+msgstr ""
+
+#: mb_content.module:259
+msgid "@cancel-value"
+msgstr ""
+
+#: mb_content.module:341;356
+msgid "Create new @content"
+msgstr ""
+
+#: mb_content.module:41
+msgid "Contents"
+msgstr ""
+
+#: mb_content.module:43
+msgid "An overview of what content type uses buttons/functions of the MB Content module."
+msgstr ""
+
+#: mb_content.info:0
+msgid "Provides additional buttons for nodes such as <em>Cancel</em> and <em>Save and continue</em>."
+msgstr ""
+
+#: mb_content.info:0
+msgid "More Buttons"
+msgstr ""
+
+#: mb_content_node_form.js:0
+msgid "No tab"
+msgstr ""
+

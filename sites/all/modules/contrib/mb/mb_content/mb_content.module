@@ -1,0 +1,513 @@
+<?php
+// $Id: mb_content.module,v 1.1.2.5 2011/01/27 22:30:09 quiptime Exp $
+
+/**
+ * @file
+ * Provides additional buttons for nodes.
+ *
+ * Currently available buttons:
+ *   - Cancel
+ *   - Save and Continue
+ * 
+ * Furthermore available is the Create new action.
+ *   - The action can used as tab in addition to the node View or node Edit tab.
+ *   - The action can used as action link.
+ *
+ * @todo
+ * OG compatibility
+ */
+
+/**
+ * Implements hook_permission().
+ */
+function mb_content_permission() {
+  return array(
+    'access mb content' =>  array(
+      'title' => t('Use More Content Buttons'),
+      'description' => t('Use the buttons defined by More Buttons Content.')
+    )
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function mb_content_menu() {
+  $items = array();
+
+  $items['admin/config/mb/buttons/more-buttons-content'] = array(
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mb_content_admin'),
+    'title' => 'Contents',
+    'access arguments' => array('administer site configuration'),
+    'description' => 'An overview of what content type uses buttons/functions of the MB Content module.',
+    'file' => 'mb_content.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 9
+  );
+  $items['admin/config/mb/buttons/more-buttons-content/reset'] = array(
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mb_content_reset'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_CALLBACK,
+    'file' => 'mb_content.admin.inc'
+  );
+
+  return $items;
+}
+
+/**
+ * Title callback to provide the title for the create new tab.
+ *
+ * @return string
+ */
+function mb_content_createnew_title() {
+  $mb_default_values = mb_default_values('mb_content');
+  $mb_values = variable_get('mb_values', array());
+
+  return isset($mb_values['tabcn']) ? $mb_values['tabcn'] : $mb_default_values['tabcn'];
+}
+
+/**
+ * Implements hook_theme().
+ */
+function mb_content_theme() {
+  return array(
+    'mb_content_admin' => array(
+      'variables' => array('form' => NULL),
+    )
+  );
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function mb_content_form_alter(&$form, &$form_state, $form_id) {
+  // Make sure the form alter changes take place only in certain forms.
+  // Get the right node types.
+  $node_type = '';
+  $module = 'mb_content';
+
+  // Node add/edit forms.
+  if (isset($form['#node']->type) && isset($form['#node_edit_form'])) {
+    $node_type = $form['#node']->type;
+  }
+  // Preparing the administration of MB Content; Content type edit form.
+  elseif (isset($form['type']) && !empty($form['#type']['#value']) && isset($form['#node_edit_form'])) {
+    $node_type = $form['#type']['#value'];
+  }
+  // Prepare the administration of MB Content; Content type add form.
+  elseif (isset($form['#node']->type) && empty($form['#type']['#value']) && isset($form['#node_edit_form'])) {
+    // Use temporary an content type as dummy to handle button management on the "Add content type" page.
+    $node_type = 'mb_content_type_dummy';
+  }
+
+  switch ($form_id) {
+    case 'node_type_form':
+      // Provide the prepared MB Content button settings.
+
+      // Check the specific case add content type form.
+      if (empty($form['#node_type']->type)) {
+        // Add content type.
+        $type = 'mb_content_type_dummy';
+      }
+      else {
+        // Edit an content type.
+        $type = $form['#node_type']->type;
+      }
+
+      // It makes no sense to use the MB Content module with the content type panel.
+      if ($type == 'panel') {
+        return;
+      }
+
+      /**
+       * The additional buttons and tab settings.
+       */
+      $form['node_buttons'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Button settings - content'),
+        '#group' => 'additional_settings',
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+        '#weight' => 4,
+        '#attached' => array(
+          'js' => array(drupal_get_path('module', $module) . '/' . $module . '_node_form.js')
+        )
+      );
+      // Provide "Cancel" button settings.
+      $form['node_buttons'][$module . '_cancel'] = array(
+        '#type' => 'select',
+        '#title' => t('Cancel button'),
+        '#description' => t('Please select using the button or its position.'),
+        '#options' => mb_cancel_button_positions(),
+        '#default_value' => variable_get($module . '_cancel_' . $type, 0)
+      );
+      // Provide "Save and continue" button settings.
+      $form['node_buttons'][$module . '_sac'] = array(
+        '#type' => 'select',
+        '#title' => t('Save and continue button'),
+        '#description' => t('Please select using the button or its position.'),
+        '#options' => mb_save_button_positions($module),
+        '#default_value' => variable_get($module . '_sac_' . $type, 0)
+      );
+      // Provide the "Create new" tab option.
+      $form['node_buttons'][$module . '_tabcn'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Create new tab'),
+        '#description' => t('Enable an "Create new" tab in addition to the %view or %edit tab.', array('%view' => t('View'), '%edit' => t('Edit'))),
+        '#default_value' => variable_get($module . '_tabcn_' . $type, 0)
+      );
+
+      // Use an own submit callback to save the settings
+      // on the add/edit content type forms.
+      $form['#submit'][] = 'mb_content_admin_form_submit';
+
+      break;
+
+    case 'node_type_delete_confirm':
+      // Use an own submit callback to delete MB Content
+      // content type system variables if content types will be deleted.
+      $form['#submit'][] = 'mb_content_delete_confirm_submit';
+
+      break;
+
+    case $node_type . '_node_form':
+      // It makes no sense to use the MB Content module with the content type panel.
+      if ($node_type == 'panel') {
+        return;
+      }
+
+      $mb_default_values = mb_default_values();
+      $mb_content_values = mb_get_values('mb');
+      $destination = drupal_get_destination();
+
+      $settings = array();
+      $settings['cancel'] = variable_get($module . '_cancel_' . $node_type, 0);
+      $settings['sac'] = variable_get($module . '_sac_' . $node_type, 0);
+      $settings['tabcn'] = variable_get($module . '_tabcn_' . $node_type, 0);
+
+      // Insert the referer.
+      $referer = preg_replace('/.*\/node\//', 'node/', url($_SERVER["HTTP_REFERER"]));
+      $form['#referer'] = $referer;
+
+      $form_state['cache'] = TRUE;
+
+      /**
+       * Destination parameter handling.
+       *
+       * Deactivate the destination parameter
+       * and keep these parameter in order to be able to use it anyway.
+       */
+      if (preg_match('/\?destination/', $form['#action'])) {
+        $form_state['storage']['#mb_redirect'] = preg_replace('/^.*\?destination\=/', '', $form['#action']);
+      }
+      elseif (preg_match('/\?destination/', $form['#referer'])) {
+        $form_state['storage']['#mb_redirect'] = preg_replace('/^.*\?destination\=/', '', $form['#referer']);
+      }
+      $form['#action'] = preg_replace('/\?destination.*/', '', $form['#action']);
+
+      if (isset($form_state['storage']['#mb_redirect'])) {
+        $form['storage']['#mb_redirect'] = $form_state['storage']['#mb_redirect'];
+      }
+      elseif (isset($form['storage']['#mb_redirect'])) {
+        $form_state['#mb_redirect'] = $form['storage']['#mb_redirect'];
+      }
+
+      // Identify the "Create new" tab action.
+      if (preg_match('/node\/\d+/', $referer) && !isset($form_state['clicked_button']['#id'])) {
+        $form['#tabcn_referer'] = $referer;
+      }
+
+      /**
+       *  The "Save and continue" form element.
+       */
+      if ($settings['sac'] > 0) {
+        // Left of Save.
+        if ($settings['sac'] == 1) {
+          $weight_sac = $form['actions']['submit']['#weight'] - 0.025;
+        }
+        // Right of Save
+        if ($settings['sac'] == 2) {
+          $weight_sac = $form['actions']['submit']['#weight'] + 0.025;
+        }
+
+        // Define the "Save and continue" form element.
+        $form['actions']['sac'] = array(
+          '#type' => 'submit',
+          '#value' => isset($mb_content_values['sac']) ? t('@sac-value', array('@sac-value' => t($mb_content_values['sac']))) : t($mb_default_values['sac']),
+          '#weight' => $weight_sac,
+          '#validate' => array('mb_content_changed_validate'),
+          '#submit' => array('node_form_submit', 'mb_content_sac_submit')
+        );
+      }
+
+      /**
+       *  The "Cancel" form element.
+       */
+      if ($settings['cancel'] > 0) {
+        if ($settings['cancel'] == 1) {
+          $weight_cancel = $form['actions']['submit']['#weight'] - 1;
+        }
+        elseif ($settings['cancel'] == 2) {
+          $weight_cancel = 16;
+        }
+
+        // Define the "Cancel" form element.
+        $form['actions']['cancel'] = array(
+          '#type' => 'submit',
+          '#value' => isset($mb_content_values['cancel']) ? t('@cancel-value', array('@cancel-value' => t($mb_content_values['cancel']))) : t($mb_default_values['cancel']),
+          '#weight' => $weight_cancel,
+          '#validate' => array('mb_content_cancel_validate'),
+          '#limit_validation_errors' => array(),
+        );
+      }
+
+      /**
+       *  Extra validation for the standard buttons.
+       *  Without this break the normal form handling.
+       *  @see mb_content_cancel_validate(), mb_content_changed_submit()
+       *  Call edit form from admin/content is no needed this callbacks.
+       */
+      if ($settings['sac'] > 0 || $destination['destination'] != 'admin/content') {
+        $form['actions']['preview']['#validate'][] = 'mb_content_changed_validate';
+        $form['actions']['submit']['#validate'][] = 'mb_content_changed_validate';
+        $form['actions']['delete']['#validate'][] = 'mb_content_changed_validate';
+        // Corresponding submit callbacks.
+        $form['actions']['preview']['#submit'][] = 'mb_content_changed_submit';
+        $form['actions']['submit']['#submit'][] = 'mb_content_changed_submit';
+      }
+
+      // OG compatibility.
+      // Provide the group ID.
+      // Add an new group article.
+//      if (isset($_GET['gids_node'])) {
+//        $gids_node = $_GET['gids_node'];
+//        $form['#mnb']['og']['group_id'] = (int)$gids_node[0];
+//      }
+      // Edit an group article.
+//      $og_context = module_invoke('og', 'get_context_by_url');
+//      if (isset($og_context->nid)) {
+//        $form['#mnb']['og']['group_id'] = $og_context->nid;
+//      }
+
+      break;
+  }
+}
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ *
+ * Alter the node local tasks to
+ *   - use an destination parameter
+ *   - provide the "Create new" tab.
+ */
+function mb_content_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  global $base_url;
+
+  $destination = drupal_get_destination();
+  $module = 'mb_content';
+
+  if ($router_item['tab_root'] == 'node/%') {
+    $node = $router_item['map'][1];
+    $node_type_name = node_type_get_name($node);
+
+    // Add Create new as local task tab.
+    // Note: access_callback no works.
+    if (variable_get('mb_content_tabcn_' . $node->type, 0) == 1) {
+      // Note: The weight setting are not accepted.
+      // Organize the proper tab weight for the new "Create new" tab to display the new tab on the right position.
+      $holder = array();
+
+      // User with node edit permission. The tabs are displayed and the Edit tab exists.
+      if (isset($data['tabs'][0]['output'][1]) && $data['tabs'][0]['output'][1]['#link']['page_callback'] == 'node_page_edit') {
+        $holder = array_splice($data['tabs'][0]['output'], 2);
+      }
+      // User without node edit permission. The tabs are displayed and the Edit tab is not exist.
+      elseif (isset($data['tabs'][0]['output'][1]) && $data['tabs'][0]['output'][1]['#link']['page_callback'] != 'node_page_edit') {
+        $holder = array_splice($data['tabs'][0]['output'], 1);
+      }
+
+      // Insert the new tab.
+      $data['tabs'][0]['output'][] = array(
+        '#theme' => 'menu_local_task',
+        '#link' => array(
+          'title' => mb_content_createnew_title(),
+          'href' => 'node/add/' . $node->type,
+          'tab_root_href' => 'node/' . $node->nid,
+          'weight' => 2,
+          'localized_options' => array(
+            'attributes' => array(
+              'title' => t('Create new @content', array('@content' => t($node_type_name))),
+            )
+          )
+        )
+      );
+
+      // Rebuild the tabs to display all tabs.
+      $data['tabs'][0]['output'] = array_merge($data['tabs'][0]['output'], $holder);
+    }
+
+    // Add Create new as action link.
+    if ($root_path == 'node/%/edit' && variable_get('mb_content_tabcn_' . $node->type, 0) == 2) {
+      $css_node_type = str_replace('_', '-', $node->type);
+      
+      $item = menu_get_item('node/add/' . $node->type);
+      $item['title'] = t('Create new @content', array('@content' => t($node_type_name)));
+      $item['localized_options']['attributes']['class'] = array('node-action-link', 'node-action-link-' . $css_node_type);
+
+      $data['actions']['output'][] = array(
+        '#theme' => 'menu_local_action',
+        '#link' => $item,
+      );
+    }
+  }
+}
+
+/**
+ * Implements hook_form_validate().
+ *
+ * Handle the "Cancel" validation.
+ */
+function mb_content_cancel_validate($form, &$form_state) {
+  // This is the cancel action. No validation required.
+  mb_content_cancel_action($form, $form_state);
+}
+
+/**
+ * Implements hook_form_validate().
+ *
+ * Skip the function node_last_changed().
+ */
+function mb_content_changed_validate($form, &$form_state) {
+  $form['changed']['#default_value'] = 0;
+}
+
+/**
+ * Implements hook_form_submit().
+ *
+ * Handle different submit actions and make different redirects.
+ *   - "Preview"
+ *   - "Save"
+ *   - "Delete"
+ */
+function mb_content_changed_submit($form, &$form_state) {
+  $redirect = '<front>';
+
+  if ($form_state['clicked_button']['#id'] == 'edit-preview') {
+    $form_state['redirect'] = FALSE;
+  }
+  if ($form_state['clicked_button']['#id'] == 'edit-submit') {
+    $redirect = 'node/' . $form_state['nid'];
+    drupal_goto($redirect);
+  }
+  if ($form_state['clicked_button']['#id'] == 'edit-delete') {
+    $form_state['redirect'] = $redirect;
+  }
+}
+
+/**
+ * The "Cancel" action.
+ *
+ * Handle different submit actions and make different redirects.
+ *
+ * @see mb_content_cancel_validate()
+ */
+function mb_content_cancel_action($form, &$form_state) {
+  // Hide the error messages.
+  drupal_get_messages('error');
+
+  $redirect = '<front>';
+  // $options query example:
+  // array('query' => array('destination' => 'node/' . $node->nid))
+  $options = array();
+
+  if (arg(0) === 'node' && arg(1) === 'add') {
+    // Limitation:
+    // Exist only one content type this redirect does not work.
+    $redirect = 'node/add';
+
+    if (isset($form['#tabcn_referer'])) {
+      $redirect = $form['#tabcn_referer'];
+    }
+  }
+
+  if (arg(0) === 'node' && is_numeric(arg(1)) && arg(2) === 'edit') {
+    $redirect = 'node/' . arg(1);
+  }
+
+  if (isset($form_state['storage']['#mb_redirect'])) {
+    $redirect = $form_state['storage']['#mb_redirect'];
+  }
+  elseif (isset($form['storage']['#mb_redirect'])) {
+    $redirect = $form['storage']['#mb_redirect'];
+  }
+
+  drupal_goto($redirect, $options);
+}
+
+/**
+ * Implements hook_form_submit().
+ *
+ * Handle the "Save and continue" action.
+ */
+function mb_content_sac_submit($form, &$form_state) {
+  $destination = drupal_get_destination();
+
+  $nid = $form_state['build_info']['args'][0]->nid;
+  $redirect = 'node/' . $nid . '/edit';
+
+  $form_state['rebuild'] = TRUE;
+
+  if (isset($form_state['storage']['#mb_redirect'])) {
+    $form['storage']['#mb_redirect'] = $form_state['storage']['#mb_redirect'];
+  }
+  elseif (isset($form['storage']['#mb_redirect'])) {
+    $form_state['#mb_redirect'] = $form['storage']['#mb_redirect'];
+  }
+
+  // Is meant edit nodes from content management page.
+  if ($destination['destination'] != 'admin/content') {
+    drupal_get_messages('error');
+    $form_state['redirect'] = $redirect;
+  }
+
+  $form_state['redirect'] = $redirect;
+}
+
+/**
+ * Implements hook_form_submit().
+ *
+ * Save options from "Add content type" form and administer nodetype form.
+ */
+function mb_content_admin_form_submit($form, &$form_state) {
+  // Handle button management on the "Add content type" page.
+  // Delete the dummy content type system variable
+  // and set the right content type system variable.
+  foreach ($form_state['values'] as $key => $value) {
+    if ($key == 'type') {
+      $type = $value;
+    }
+    if (preg_match("/^mb_content_type_dummy/", $key)) {
+      // Insert the right content type.
+      $new_type = preg_replace("/mb_content_type_dummy/", $type, $key);
+      $form_state['values'][$new_type] = $value;
+      // Delete the dummy content type.
+      unset($form_state['values'][$key]);
+    }
+  }
+}
+
+/**
+ * Submit callback to delete MB Content content type system variables
+ * if content types will be deleted.
+ */
+function mb_content_delete_confirm_submit($form, &$form_state) {
+  $module = 'mb_content';
+
+  foreach ($form_state['build_info']['args'] as $type) {
+    variable_del($module . '_cancel_' . $type->type);
+    variable_del($module . '_sac_' . $type->type);
+    variable_del($module . '_tabcn_' . $type->type);
+  }
+}

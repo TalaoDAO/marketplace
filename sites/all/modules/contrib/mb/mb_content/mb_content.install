@@ -1,0 +1,20 @@
+<?php
+// $Id: mb_content.install,v 1.1.2.1 2010/11/27 13:30:52 quiptime Exp $
+
+/**
+ * @file
+ * Installs, updates, and uninstalls More Buttons Content.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function mb_content_uninstall() {
+  // Remove variables.
+  $node_types = array_keys(node_type_get_types());
+  foreach ($node_types as $type) {
+    variable_del('mb_content_cancel_' . $type);
+    variable_del('mb_content_sac_' . $type);
+    variable_del('mb_content_tabcn_' . $type);
+  }
+}

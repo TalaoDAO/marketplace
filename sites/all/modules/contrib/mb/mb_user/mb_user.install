@@ -1,0 +1,20 @@
+<?php
+// $Id: mb_user.install,v 1.1.2.1 2010/11/27 13:30:52 quiptime Exp $
+
+/**
+ * @file
+ * Installs, updates, and uninstalls More Buttons User.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function mb_user_uninstall() {
+  // Remove variables.
+  $page_types = array_keys(mb_user_type_get_types());
+  foreach ($page_types as $type) {
+    variable_del('mb_content_cancel_' . $type);
+    variable_del('mb_content_sac_' . $type);
+    variable_del('mb_content_sacn_' . $type);
+  }
+}

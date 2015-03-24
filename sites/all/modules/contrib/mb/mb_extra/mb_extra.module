@@ -1,0 +1,109 @@
+<?php
+// $Id: mb_extra.module,v 1.1.2.2 2010/11/27 13:30:52 quiptime Exp $
+
+/**
+ * @file
+ * Provides various functions for the expansion of core modules.
+ *
+ * Implemented:
+ * - Alter menu local task links from node to insert destination parameter.
+ *   Children tabs supported to level 1.
+ * - Alter the confirm form cancel link to display the link as button.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function mb_extra_menu() {
+  $items = array();
+
+  $items['admin/config/mb/buttons/more-buttons-extra'] = array(
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mb_extra_admin'),
+    'title' => 'Extras',
+    'access arguments' => array('administer site configuration'),
+    'file' => 'mb_extra.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 15
+  );
+  $items['admin/config/mb/buttons/more-buttons-extra/reset'] = array(
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mb_extra_reset'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_CALLBACK,
+    'file' => 'mb_extra.admin.inc'
+  );
+
+  return $items;
+}
+
+/**
+ * Alter the local tasks to use an destination parameter.
+ */
+function mb_extra_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  if (module_exists('overlay')) {
+    return;
+  }
+
+  global $base_url;
+
+  $module = 'mb_extra';
+
+  if ($router_item['tab_root'] == 'node/%') {
+    if (variable_get($module . '_destination_tabs', 0) == TRUE && count($data['tabs']) > 0) {
+      $destination = drupal_get_destination();
+
+      foreach (element_children($data['tabs'][0]['output']) as $key) {
+        if ($data['tabs'][0]['output'][$key]['#link']['tab_root_href'] != $destination['destination'] && !stristr($destination['destination'], $data['tabs'][0]['output'][$key]['#link']['tab_root_href'])) {
+          $params = $data['tabs'][0]['output'][$key]['#link'];
+          $data['tabs'][0]['output'][$key]['#link']['href'] = $base_url . '/' . $params['href'] . '?destination=' . $destination['destination'];
+          //$data['tabs'][0]['output'][$key]['#link']['tab_root_href'] = $base_url . '/' . $params['tab_root_href'] . '?destination=' . $destination['destination'];
+          //$data['tabs'][0]['output'][$key]['#link']['tab_parent_href'] = $base_url . '/' . $params['tab_parent_href'] . '?destination=' . $destination['destination'];
+        }
+      }
+
+      // Children tabs level 1.
+      if (isset($data['tabs'][1])) {
+        foreach (element_children($data['tabs'][1]['output']) as $key) {
+          if ($data['tabs'][1]['output'][$key]['#link']['tab_root_href'] != $destination['destination']) {
+            $params = $data['tabs'][1]['output'][$key]['#link'];
+            $data['tabs'][1]['output'][$key]['#link']['href'] = $base_url . '/' . $params['href'] . '?destination=' . $destination['destination'];
+            //$data['tabs'][0]['output'][$key]['#link']['tab_root_href'] = $base_url . '/' . $params['tab_root_href'] . '?destination=' . $destination['destination'];
+            //$data['tabs'][0]['output'][$key]['#link']['tab_parent_href'] = $base_url . '/' . $params['tab_parent_href'] . '?destination=' . $destination['destination'];
+
+            if (isset($data['tabs'][1]['output'][$key]['#active'])) {
+              $data['tabs'][1]['output'][$key]['#link']['localized_options'] = array(
+                'attributes' => array(
+                  'class' => 'active'
+                )
+              );
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function mb_extra_theme() {
+  return array(
+    'mb_extra_admin' => array(
+      'variables' => array('form' => NULL),
+    )
+  );
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function mb_extra_form_alter(&$form, &$form_state, $form_id) {
+  $module = 'mb_extra';
+
+  // Alter the confirm form cancel link to display the link as button.
+  if (isset($form['confirm']) && variable_get($module . '_confirm_cancel', 0) == TRUE) {
+    $form['actions']['cancel']['#attributes']['class'][] = 'button';
+  }
+}

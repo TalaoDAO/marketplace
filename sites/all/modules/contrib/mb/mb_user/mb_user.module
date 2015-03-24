@@ -1,0 +1,237 @@
+<?php
+// $Id: mb_user.module,v 1.1.2.2 2011/01/27 22:30:09 quiptime Exp $
+
+/**
+ * @file
+ * Provides additional buttons for content in user context.
+ * 
+ * Currently available context:
+ * - User account
+ *
+ * Currently available buttons:
+ * - Cancel
+ * - Save and Continue
+ * - Save and create new
+ *
+ * The "Save and create new" button is only usable for users wth the permission "Administer users".
+ */
+
+/**
+ * Implements hook_permission().
+ */
+function mb_user_permission() {
+  return array(
+    'access mb user' =>  array(
+      'title' => t('Use More User Buttons'),
+      'description' => t('Use the buttons defined by More Buttons User.')
+    )
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function mb_user_menu() {
+  $items = array();
+
+  $items['admin/config/mb/buttons/more-buttons-user'] = array(
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mb_user_admin'),
+    'title' => 'Users',
+    'access arguments' => array('administer site configuration'),
+    'description' => 'An overview of what page types uses buttons of the MB User module.',
+    'file' => 'mb_user.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 11
+  );
+  $items['admin/config/mb/buttons/more-buttons-user/reset'] = array(
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mb_user_reset'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_CALLBACK,
+    'file' => 'mb_user.admin.inc'
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function mb_user_theme() {
+  return array(
+    'mb_user_admin' => array(
+      'variables' => array('form' => NULL),
+    )
+  );
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function mb_user_form_alter(&$form, &$form_state, $form_id) {
+  $module = 'mb_user';
+
+  switch ($form_id) {
+    case 'user_profile_form':
+      $default_values = mb_default_values();
+      $mb_user_values = mb_get_values('mb');
+
+      if (!isset($form['actions']['submit']['#weight'])) {
+        $form['actions']['submit']['#weight'] = 10;
+      }
+      if (isset($form['actions']['cancel'])) {
+        $form['actions']['cancel']['#weight'] = 25;
+      }
+
+      $settings = array();
+      $settings['cancel'] = variable_get($module . '_cancel_user_account', 0);
+      $settings['sac'] = variable_get($module . '_sac_user_account', 0);
+      $settings['sacn'] = variable_get($module . '_sacn_user_account', 0);
+
+      // The "Cancel" form element on user account page.
+      if ($settings['cancel'] > 0) {
+        if ($settings['cancel'] == 1) {
+          $weight_cancel = $form['actions']['submit']['#weight'] - 1;
+        }
+        elseif ($settings['cancel'] == 2) {
+          $weight_cancel = 16;
+        }
+
+        // Define the "Cancel" form element.
+        $form['actions']['cancel_mb'] = array(
+          '#type' => 'submit',
+          '#value' => isset($mb_user_values['cancel']) ? t('@cancel-value', array('@cancel-value' => t($mb_user_values['cancel']))) : t($default_values['cancel']),
+          '#weight' => $weight_cancel,
+          '#validate' => array('mb_user_cancel_validate')
+        );
+      }
+
+      // The "Save and continue" form element on user account page.
+      if ($settings['sac'] > 0) {
+        // Left
+        if ($settings['sac'] == 1) {
+          $weight_sac = $form['actions']['submit']['#weight'] - 0.025;
+        }
+        // Right
+        if ($settings['sac'] == 2) {
+          $weight_sac = $form['actions']['submit']['#weight'] - 0.050;
+        }
+        //
+        if ($settings['sac'] == 3) {
+          $weight_sac = $form['actions']['submit']['#weight'] + 1.025;
+        }
+        //
+        if ($settings['sac'] == 4) {
+          $weight_sac = $form['actions']['submit']['#weight'] + 1.050;
+        }
+        // Define the "Save and continue" form element.
+        $submit = $form['#submit'];
+        $submit[] = 'mb_user_sac_submit';
+
+        $form['actions']['sac'] = array(
+          '#type' => 'submit',
+          '#value' => isset($mb_user_values['sac']) ? t('@sac-value', array('@sac-value' => t($mb_user_values['sac']))) : t($default_values['sac']),
+          '#weight' => $weight_sac,
+          '#submit' => $submit
+        );
+      }
+
+      // The "Save and create new" form element on user account page.
+      if ($settings['sacn'] > 0 && user_access('administer users')) {
+        //
+        if ($settings['sacn'] == 1) {
+          $weight_sacn = $form['actions']['submit']['#weight'] - 0.025;
+        }
+        //
+        if ($settings['sacn'] == 2) {
+          $weight_sacn = $form['actions']['submit']['#weight'] - 0.050;
+        }
+        //
+        if ($settings['sacn'] == 3) {
+          $weight_sacn = $form['actions']['submit']['#weight'] + 1.025;
+        }
+        //
+        if ($settings['sacn'] == 4) {
+          $weight_sacn = $form['actions']['submit']['#weight'] + 1.050;
+        }
+
+        // Define the "Save and create new" form element.
+        $submit = $form['#submit'];
+        $submit[] = 'mb_user_sacn_submit';
+
+        $form['actions']['sacn'] = array(
+          '#type' => 'submit',
+          '#value' => isset($mb_user_values['sacn']) ? t('@sacn-value', array('@sacn-value' => t($mb_user_values['sacn']))) : t($default_values['sacn']),
+          '#weight' => $weight_sacn,
+          '#submit' => $submit
+        );
+      }
+
+      break;
+  }
+}
+
+/**
+ * Implements hook_form_validate().
+ *
+ * Handle the "Cancel" button validation.
+ */
+function mb_user_cancel_validate($form, &$form_state) {
+  // This is the cancel action. No validation required.
+  mb_user_cancel_action($form, $form_state);
+}
+
+/**
+ * The "Cancel" button action.
+ *
+ * @see mb_user_cancel_validate()
+ */
+function mb_user_cancel_action($form, &$form_state) {
+  // Hide the error messages.
+  drupal_get_messages('error');
+
+  $redirect = 'user/' . $form['#user']->uid;
+
+  drupal_goto($redirect);
+}
+
+/**
+ * Implements hook_form_submit().
+ *
+ * Handle the "Save and continue" button action.
+ */
+function mb_user_sac_submit($form, &$form_state) {
+  $redirect = 'user/' . $form['#user']->uid . '/edit';
+
+  drupal_goto($redirect);
+}
+
+/**
+ * Implements hook_form_submit().
+ *
+ * Handle the "Save and create new" button action.
+ */
+function mb_user_sacn_submit($form, &$form_state) {
+  $redirect = 'admin/people/create';
+
+  drupal_goto($redirect);
+}
+
+/**
+ * Get the types of pages allowed to use more buttons.
+ *
+ * At the moment are only supported the user accounts.
+ *
+ * @return array 
+ */
+function mb_user_type_get_types() {
+  $account = array();
+
+  $account['type'] = 'user_account';
+  $account['name'] = t('User account');
+
+  $page_types = array('user_account' => $account);
+
+  return $page_types;
+}

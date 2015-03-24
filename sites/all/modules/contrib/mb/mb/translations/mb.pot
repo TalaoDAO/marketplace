@@ -1,0 +1,158 @@
+# $Id: mb.pot,v 1.1.2.2 2010/11/28 12:01:27 quiptime Exp $
+#
+# LANGUAGE translation of More Buttons
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  mb.admin.inc: n/a
+#  mb.module: n/a
+#  mb.info: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2010-11-28 12:50+0100\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: mb.admin.inc:21
+msgid "Button and tab values"
+msgstr ""
+
+#: mb.admin.inc:22
+msgid "Use your own names for the buttons and the tab. These names are translatable with the translation interface. Do not enter translated texts here."
+msgstr ""
+
+#: mb.admin.inc:28
+msgid "Cancel button"
+msgstr ""
+
+#: mb.admin.inc:37
+msgid "Save and continue button"
+msgstr ""
+
+#: mb.admin.inc:46
+msgid "Save and create new button"
+msgstr ""
+
+#: mb.admin.inc:55
+msgid "Create new tab"
+msgstr ""
+
+#: mb.admin.inc:56
+msgid "This tab are displayed in addition to the content %edit tab."
+msgstr ""
+
+#: mb.admin.inc:56
+msgid "Edit"
+msgstr ""
+
+#: mb.admin.inc:67
+msgid "Save"
+msgstr ""
+
+#: mb.admin.inc:72
+msgid "Reset to defaults"
+msgstr ""
+
+#: mb.admin.inc:90
+msgid "Module development by <a href=\"@development-url\">Quiptime Group</a>."
+msgstr ""
+
+#: mb.admin.inc:115
+msgid "The %module settings have been saved."
+msgstr ""
+
+#: mb.admin.inc:115;129;155;156;156 mb.module:18 mb.info:0;0
+msgid "More Buttons"
+msgstr ""
+
+#: mb.admin.inc:129
+msgid "Are you sure you want to reset all %module settings to their default values?"
+msgstr ""
+
+#: mb.admin.inc:137
+msgid "This action cannot be undone."
+msgstr ""
+
+#: mb.admin.inc:142
+msgid "Reset"
+msgstr ""
+
+#: mb.admin.inc:143
+msgid "Cancel"
+msgstr ""
+
+#: mb.admin.inc:155;156
+msgid "The %module settings have been set back."
+msgstr ""
+
+#: mb.admin.inc:156
+msgid "view"
+msgstr ""
+
+#: mb.module:139
+msgid "User account"
+msgstr ""
+
+#: mb.module:193;253
+msgid "n/a"
+msgstr ""
+
+#: mb.module:277;289;308;321
+msgid "None"
+msgstr ""
+
+#: mb.module:278;290
+msgid "Left of Save"
+msgstr ""
+
+#: mb.module:279;292
+msgid "Right of Save"
+msgstr ""
+
+#: mb.module:291
+msgid "Left + of Save"
+msgstr ""
+
+#: mb.module:293
+msgid "Right + of Save"
+msgstr ""
+
+#: mb.module:309
+msgid "Left"
+msgstr ""
+
+#: mb.module:310
+msgid "Right"
+msgstr ""
+
+#: mb.module:322
+msgid "Create new as tab"
+msgstr ""
+
+#: mb.module:323
+msgid "Create new as action link"
+msgstr ""
+
+#: mb.module:28
+msgid "Button settings"
+msgstr ""
+
+#: mb.module:29
+msgid "Administer the suite of More Buttons (MB) modules."
+msgstr ""
+
+#: mb.module:37
+msgid "Values"
+msgstr ""
+
+#: mb.info:0
+msgid "The More Buttons (MB) module allows to use additional buttons with Drupal."
+msgstr ""
+

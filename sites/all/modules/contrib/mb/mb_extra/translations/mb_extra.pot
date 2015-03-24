@@ -1,0 +1,106 @@
+# $Id: mb_extra.pot,v 1.1.2.2 2010/11/27 13:30:52 quiptime Exp $
+#
+# LANGUAGE translation of More Buttons Extra
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  mb_extra.admin.inc: n/a
+#  mb_extra.info: n/a
+#  mb_extra.module: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2010-11-27 13:55+0100\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: mb_extra.admin.inc:16
+msgid "Use the node local task links with destination parameter."
+msgstr ""
+
+#: mb_extra.admin.inc:17
+msgid "If activated the %overlay module is not available this feature."
+msgstr ""
+
+#: mb_extra.admin.inc:17
+msgid "Overlay"
+msgstr ""
+
+#: mb_extra.admin.inc:21
+msgid "Content local tasks"
+msgstr ""
+
+#: mb_extra.admin.inc:29
+msgid "Enable node tab links with destination parameter."
+msgstr ""
+
+#: mb_extra.admin.inc:35
+msgid "Confirm cancel"
+msgstr ""
+
+#: mb_extra.admin.inc:36
+msgid "Alter the confirm form cancel link to display it as button."
+msgstr ""
+
+#: mb_extra.admin.inc:43
+msgid "Display link as button"
+msgstr ""
+
+#: mb_extra.admin.inc:50
+msgid "Save"
+msgstr ""
+
+#: mb_extra.admin.inc:55
+msgid "Reset to defaults"
+msgstr ""
+
+#: mb_extra.admin.inc:90
+msgid "The %module settings have been saved."
+msgstr ""
+
+#: mb_extra.admin.inc:90;104;124;125;125 mb_extra.info:0
+msgid "More Buttons Extra"
+msgstr ""
+
+#: mb_extra.admin.inc:104
+msgid "Are you sure you want to reset all %module settings?"
+msgstr ""
+
+#: mb_extra.admin.inc:106
+msgid "This action disables the extra settings. This action cannot be undone."
+msgstr ""
+
+#: mb_extra.admin.inc:111
+msgid "Reset"
+msgstr ""
+
+#: mb_extra.admin.inc:112
+msgid "Cancel"
+msgstr ""
+
+#: mb_extra.admin.inc:124;125
+msgid "The %module settings have been set back."
+msgstr ""
+
+#: mb_extra.admin.inc:125
+msgid "view"
+msgstr ""
+
+#: mb_extra.module:23
+msgid "Extras"
+msgstr ""
+
+#: mb_extra.info:0
+msgid "Provides various functions for the expansion of core modules."
+msgstr ""
+
+#: mb_extra.info:0
+msgid "More Buttons"
+msgstr ""
+

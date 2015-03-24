@@ -1,0 +1,43 @@
+/* $Id: mb_admin.css,v 1.1.2.1 2010/11/27 13:30:52 quiptime Exp $ */
+
+#more-node-buttons-admin h3 {
+  margin: 0.75em 0 0.5em 0
+}
+.mb-admin-table thead th, .mb-admin-table th, .mb-admin-table tbody {
+  border: none
+}
+.mb-admin-table thead th {
+  padding-bottom: 1em
+}
+.mb-admin-table .odd, .mb-admin-table .even {
+  background-color: inherit;
+  border: none
+}
+.mb-admin-table .odd-mb {
+  background-color: transparent
+}
+.mb-admin-table .even-mb {
+  background-color: rgba(200, 200, 200, 0.2)
+}
+.mb-admin-table .odd-mb-type td, .mb-admin-table .even-mb-type td {
+  padding-top: 0.5em
+}
+.mb-admin-table .odd-mb-elements td, .mb-admin-table .even-mb-elements td {
+  padding-bottom: 1em
+}
+#more-node-buttons-admin p {
+  margin: 0 0 0.5em
+}
+#more-node-buttons-admin .form-submit {
+  margin: 0.75em 0.5em 1em 0
+}
+.mb-values-first, .mb-values-last {
+  display: inline;
+  float: left
+}
+.mb-values-last {
+  margin: 0 0 0 3em
+}
+.form-wrapper p {
+  margin-top: 0;
+}

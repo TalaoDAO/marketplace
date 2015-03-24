@@ -1,0 +1,15 @@
+; $Id: mb_extra.info,v 1.1.2.2 2010/11/27 13:30:52 quiptime Exp $
+name = More Buttons Extra
+description = "Provides various functions for the expansion of core modules."
+package = "More Buttons"
+dependencies[] = mb
+core = 7.x
+files[] = mb_extra.module
+files[] = mb_extra.admin.inc
+
+; Information added by drupal.org packaging script on January 1, 1970 - 00:00
+version = "7.x-1.0-beta1"
+core = "7.x"
+project = "mb"
+datestamp = "1296168121"
+

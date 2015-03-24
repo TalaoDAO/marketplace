@@ -1,0 +1,16 @@
+<?php
+// $Id: mb_extra.install,v 1.1.2.2 2010/11/27 13:30:52 quiptime Exp $
+
+/**
+ * @file
+ * Installs, updates, and uninstalls More Buttons Extra.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function mb_extra_uninstall() {
+  // Remove variables.
+  variable_del('mb_extra_destination_tabs');
+  variable_del('mb_extra_confirm_cancel');
+}

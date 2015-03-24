@@ -1,0 +1,127 @@
+# $Id: mb_comment.pot,v 1.1.2.1 2010/11/27 13:30:52 quiptime Exp $
+#
+# LANGUAGE translation of More Buttons Comment
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  mb_comment.admin.inc: n/a
+#  mb_comment.info: n/a
+#  mb_comment.module: n/a
+#  mb_comment_node_form.js: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2010-11-27 13:57+0100\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: mb_comment.admin.inc:36
+msgid "Save"
+msgstr ""
+
+#: mb_comment.admin.inc:41
+msgid "Reset to defaults"
+msgstr ""
+
+#: mb_comment.admin.inc:65
+msgid "Comment settings"
+msgstr ""
+
+#: mb_comment.admin.inc:66
+msgid "Which %module functions are used by different content type pages."
+msgstr ""
+
+#: mb_comment.admin.inc:66;138;152;175;175 mb_comment.info:0
+msgid "More Buttons Comment"
+msgstr ""
+
+#: mb_comment.admin.inc:68;160
+msgid "Cancel"
+msgstr ""
+
+#: mb_comment.admin.inc:75
+msgid "For the content type %type no settings can be made."
+msgstr ""
+
+#: mb_comment.admin.inc:87
+msgid "Edit this content type"
+msgstr ""
+
+#: mb_comment.admin.inc:117
+msgid "Module development by <a href=\"@development-url\">Quiptime Group</a>."
+msgstr ""
+
+#: mb_comment.admin.inc:138
+msgid "The %module settings have been saved."
+msgstr ""
+
+#: mb_comment.admin.inc:152
+msgid "Are you sure you want to reset all %module settings?"
+msgstr ""
+
+#: mb_comment.admin.inc:154
+msgid "This action disables the settings for all buttons. This action cannot be undone."
+msgstr ""
+
+#: mb_comment.admin.inc:159
+msgid "Reset"
+msgstr ""
+
+#: mb_comment.admin.inc:174;175
+msgid "The %module settings have been set back."
+msgstr ""
+
+#: mb_comment.admin.inc:174
+msgid "More Buttons Content"
+msgstr ""
+
+#: mb_comment.admin.inc:175
+msgid "view"
+msgstr ""
+
+#: mb_comment.module:18
+msgid "Use More Comment Buttons"
+msgstr ""
+
+#: mb_comment.module:19
+msgid "Use the buttons defined by More Buttons Comment."
+msgstr ""
+
+#: mb_comment.module:100
+msgid "@cancel-value"
+msgstr ""
+
+#: mb_comment.module:131
+msgid "Button settings - comments"
+msgstr ""
+
+#: mb_comment.module:144 mb_comment_node_form.js:0
+msgid "Cancel button"
+msgstr ""
+
+#: mb_comment.module:145
+msgid "Please select using the button or its position."
+msgstr ""
+
+#: mb_comment.module:33
+msgid "Comments"
+msgstr ""
+
+#: mb_comment.module:35
+msgid "An overview of what content type uses buttons/functions of the MB Comment module."
+msgstr ""
+
+#: mb_comment.info:0
+msgid "Provides an <em>Cancel</em> button for comments."
+msgstr ""
+
+#: mb_comment.info:0
+msgid "More Buttons"
+msgstr ""
+

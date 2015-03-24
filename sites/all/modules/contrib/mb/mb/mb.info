@@ -1,0 +1,13 @@
+; $Id: mb.info,v 1.1.2.1 2010/11/27 13:30:52 quiptime Exp $
+name = More Buttons
+description = "The More Buttons (MB) module allows to use additional buttons with Drupal."
+package = "More Buttons"
+core = 7.x
+files[] = mb.module
+
+; Information added by drupal.org packaging script on January 1, 1970 - 00:00
+version = "7.x-1.0-beta1"
+core = "7.x"
+project = "mb"
+datestamp = "1296168121"
+
