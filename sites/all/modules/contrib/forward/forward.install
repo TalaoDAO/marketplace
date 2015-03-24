@@ -1,0 +1,92 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the forward module.
+ *
+ */
+
+/**
+ * Implements hook_install().
+ */
+function forward_install() {
+  variable_set('forward_theme_template', 1);
+
+  // Setup mail system for HTML emails
+  $mail_systems = variable_get('mail_system', array('default-system' => 'DefaultMailSystem'));
+  $mail_systems['forward'] = 'ForwardMailSystem';
+  variable_set('mail_system', $mail_systems);
+
+  // Warn administrator
+  if (module_exists('mailsystem')) {
+    $link = l(t('Review or change your mail setup.'), 'admin/config/system/mailsystem', array());
+    drupal_set_message(t('The mail system for Forward has been set to enable HTML emails. ') . $link, 'warning');
+  }
+
+  // Initialize statistics table
+  $query = db_select('node', 'n');
+  $query->addField('n','nid');
+  db_insert('forward_statistics')
+    ->from($query)
+    ->execute();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function forward_uninstall() {
+
+  // Remove variables
+  global $conf;
+  foreach (array_keys($conf) as $key) {
+    // Find variables that have the module prefix
+    if (strpos($key, 'forward_') === 0) {
+      variable_del($key);
+    }
+  }
+
+  // Remove mail system
+  $mail_systems = variable_get('mail_system', array('default-system' => 'DefaultMailSystem'));
+  unset($mail_systems['forward']);
+  variable_set('mail_system', $mail_systems);
+
+  // Warn administrator
+  if (module_exists('mailsystem')) {
+    $link = l(t('Review or change your mail setup.'), 'admin/config/system/mailsystem', array());
+    drupal_set_message(t('The mail system for Forward has been removed. ').$link, 'warning');
+  }
+}
+
+
+/**
+ * Implements hook_schema().
+ */
+function forward_schema() {
+  $schema['forward_log'] = array(
+    'fields' => array(
+      'path'      => array('type' => 'varchar', 'not null' => TRUE, 'default' => '<front>', 'length' => 255),
+      'type'      => array('type' => 'varchar', 'not null' => TRUE, 'length' => 8),
+      'timestamp' => array('type' => 'int', 'not null' => TRUE, 'default' => 0),
+      'uid'       => array('type' => 'int', 'not null' => TRUE, 'default' => 0),
+      'hostname'  => array('type' => 'varchar', 'length' => 128, 'not null' => TRUE, 'default' => '', 'description' => 'Hostname of the user who triggered the event.',),
+    ),
+    'indexes' => array(
+      'forward_path'     => array('path'),
+      'forward_uid'      => array('uid'),
+      'forward_hostname' => array('hostname')
+    ),
+  );
+  $schema['forward_statistics'] = array(
+    'fields' => array(
+      'nid'                    => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+      'last_forward_timestamp' => array('type' => 'int', 'not null' => TRUE, 'default' => 0),
+      'forward_count'          => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+      'clickthrough_count'     => array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0),
+    ),
+    'indexes' => array(
+      'forward_timestamp' => array('last_forward_timestamp')
+    ),
+    'primary key' => array('nid'),
+  );
+  return $schema;
+}
