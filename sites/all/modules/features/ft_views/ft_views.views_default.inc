@@ -29,11 +29,8 @@ function ft_views_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '5';
+  $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['pager']['options']['id'] = '0';
-  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
   /* Header: Global: PHP */
@@ -135,13 +132,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'users';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
-  /* Relationship: User: Profile */
-  $handler->display->display_options['relationships']['profile']['id'] = 'profile';
-  $handler->display->display_options['relationships']['profile']['table'] = 'users';
-  $handler->display->display_options['relationships']['profile']['field'] = 'profile';
-  $handler->display->display_options['relationships']['profile']['bundle_types'] = array(
-    'expert' => 'expert',
-  );
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: OG membership: Created */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
@@ -152,13 +142,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['sorts']['created']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['created']['expose']['label'] = 'Created';
   $handler->display->display_options['sorts']['created']['granularity'] = 'day';
-  /* Sort criterion: Profile: Profile Title (field_titre_metier) */
-  $handler->display->display_options['sorts']['field_titre_metier_value']['id'] = 'field_titre_metier_value';
-  $handler->display->display_options['sorts']['field_titre_metier_value']['table'] = 'field_data_field_titre_metier';
-  $handler->display->display_options['sorts']['field_titre_metier_value']['field'] = 'field_titre_metier_value';
-  $handler->display->display_options['sorts']['field_titre_metier_value']['relationship'] = 'profile';
-  $handler->display->display_options['sorts']['field_titre_metier_value']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['field_titre_metier_value']['expose']['label'] = 'Profile Title';
   /* Sort criterion: User: Name */
   $handler->display->display_options['sorts']['name']['id'] = 'name';
   $handler->display->display_options['sorts']['name']['table'] = 'users';
@@ -177,6 +160,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['sorts']['name_1']['id'] = 'name_1';
   $handler->display->display_options['sorts']['name_1']['table'] = 'users';
   $handler->display->display_options['sorts']['name_1']['field'] = 'name';
+  /* Sort criterion: Field: Profile Title (field_titre_metier) */
+  $handler->display->display_options['sorts']['field_titre_metier_value']['id'] = 'field_titre_metier_value';
+  $handler->display->display_options['sorts']['field_titre_metier_value']['table'] = 'field_data_field_titre_metier';
+  $handler->display->display_options['sorts']['field_titre_metier_value']['field'] = 'field_titre_metier_value';
+  $handler->display->display_options['sorts']['field_titre_metier_value']['exposed'] = TRUE;
+  $handler->display->display_options['sorts']['field_titre_metier_value']['expose']['label'] = 'Profile Title';
   $export['circle_members'] = $view;
 
   $view = new view();
@@ -1883,15 +1872,6 @@ Il est probable que vous Domaines (dans le burger menu) soient trop restrictifs.
   $handler->display->display_options['style_options']['views_slideshow_cycle']['cleartype'] = 0;
   $handler->display->display_options['style_options']['views_slideshow_cycle']['cleartypenobg'] = 0;
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Relationship: User: Profile */
-  $handler->display->display_options['relationships']['profile']['id'] = 'profile';
-  $handler->display->display_options['relationships']['profile']['table'] = 'users';
-  $handler->display->display_options['relationships']['profile']['field'] = 'profile';
-  $handler->display->display_options['relationships']['profile']['required'] = TRUE;
-  $handler->display->display_options['relationships']['profile']['bundle_types'] = array(
-    'expert' => 'expert',
-    'business' => 'business',
-  );
   /* Field: User: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'users';
@@ -1919,11 +1899,10 @@ Il est probable que vous Domaines (dans le burger menu) soient trop restrictifs.
   $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
   $handler->display->display_options['fields']['field_last_name']['label'] = '';
   $handler->display->display_options['fields']['field_last_name']['element_label_colon'] = FALSE;
-  /* Field: Profile: Profile Title */
+  /* Field: Field: Profile Title */
   $handler->display->display_options['fields']['field_titre_metier']['id'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['table'] = 'field_data_field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
-  $handler->display->display_options['fields']['field_titre_metier']['relationship'] = 'profile';
   $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
   /* Sort criterion: User: Created date */
@@ -2025,15 +2004,6 @@ Il est probable que vous Domaines (dans le burger menu) soient trop restrictifs.
   $handler->display->display_options['style_options']['views_slideshow_cycle']['cleartype'] = 0;
   $handler->display->display_options['style_options']['views_slideshow_cycle']['cleartypenobg'] = 0;
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Relationship: User: Profile */
-  $handler->display->display_options['relationships']['profile']['id'] = 'profile';
-  $handler->display->display_options['relationships']['profile']['table'] = 'users';
-  $handler->display->display_options['relationships']['profile']['field'] = 'profile';
-  $handler->display->display_options['relationships']['profile']['required'] = TRUE;
-  $handler->display->display_options['relationships']['profile']['bundle_types'] = array(
-    'expert' => 'expert',
-    'business' => 'business',
-  );
   /* Field: User: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'users';
@@ -2041,11 +2011,10 @@ Il est probable que vous Domaines (dans le burger menu) soient trop restrictifs.
   $handler->display->display_options['fields']['name']['label'] = '';
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
-  /* Field: Profile: Testimony */
+  /* Field: Field: Testimony */
   $handler->display->display_options['fields']['field_testimony']['id'] = 'field_testimony';
   $handler->display->display_options['fields']['field_testimony']['table'] = 'field_data_field_testimony';
   $handler->display->display_options['fields']['field_testimony']['field'] = 'field_testimony';
-  $handler->display->display_options['fields']['field_testimony']['relationship'] = 'profile';
   $handler->display->display_options['fields']['field_testimony']['label'] = '';
   $handler->display->display_options['fields']['field_testimony']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_testimony']['type'] = 'text_trimmed';

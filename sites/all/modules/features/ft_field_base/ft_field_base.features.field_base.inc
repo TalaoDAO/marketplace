@@ -20,7 +20,7 @@ function ft_field_base_field_default_field_bases() {
     ),
     'field_name' => 'body',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
@@ -82,7 +82,18 @@ function ft_field_base_field_default_field_bases() {
     'module' => 'addressfield',
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'profile2_private' => 0,
+      'profile2_private' => FALSE,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 4,
+        5 => 0,
+        6 => 0,
+        7 => 0,
+        8 => 8,
+        9 => 0,
+      ),
     ),
     'translatable' => 0,
     'type' => 'addressfield',
@@ -139,8 +150,8 @@ function ft_field_base_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        0 => 'Author invisible',
-        1 => 'Author visible',
+        0 => 'No',
+        1 => 'Yes',
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
@@ -148,55 +159,6 @@ function ft_field_base_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'list_boolean',
-  );
-
-  // Exported field_base: 'field_answer_count'
-  $field_bases['field_answer_count'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_answer_count',
-    'indexes' => array(),
-    'locked' => 0,
-    'module' => 'nodereference_count',
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-    ),
-    'translatable' => 1,
-    'type' => 'nodereference_count',
-  );
-
-  // Exported field_base: 'field_answer_question'
-  $field_bases['field_answer_question'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_answer_question',
-    'indexes' => array(
-      'nid' => array(
-        0 => 'nid',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'node_reference',
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'referenceable_types' => array(
-        'answer' => 0,
-        'article' => 0,
-        'page' => 0,
-        'question' => 'question',
-      ),
-      'view' => array(
-        'args' => array(),
-        'display_name' => '',
-        'view_name' => '',
-      ),
-    ),
-    'translatable' => 1,
-    'type' => 'node_reference',
   );
 
   // Exported field_base: 'field_autoref'
@@ -219,64 +181,6 @@ function ft_field_base_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'serial',
-  );
-
-  // Exported field_base: 'field_best_answer'
-  $field_bases['field_best_answer'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_best_answer',
-    'indexes' => array(
-      'nid' => array(
-        0 => 'nid',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'node_reference',
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'referenceable_types' => array(
-        'answer' => 'answer',
-        'article' => 0,
-        'page' => 0,
-        'question' => 0,
-      ),
-      'view' => array(
-        'args' => array(),
-        'display_name' => '',
-        'view_name' => '',
-      ),
-    ),
-    'translatable' => 1,
-    'type' => 'node_reference',
-  );
-
-  // Exported field_base: 'field_best_answer_p'
-  $field_bases['field_best_answer_p'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_best_answer_p',
-    'indexes' => array(
-      'value' => array(
-        0 => 'value',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'list',
-    'settings' => array(
-      'allowed_values' => array(
-        0 => '',
-        1 => '',
-      ),
-      'allowed_values_function' => '',
-      'entity_translation_sync' => FALSE,
-    ),
-    'translatable' => 1,
-    'type' => 'list_boolean',
   );
 
   // Exported field_base: 'field_call_question'
@@ -459,7 +363,18 @@ function ft_field_base_field_default_field_bases() {
       ),
       'entity_translation_sync' => FALSE,
       'options_list_callback' => 'i18n_taxonomy_allowed_values',
-      'profile2_private' => 0,
+      'profile2_private' => FALSE,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 2,
+        3 => 0,
+        4 => 4,
+        5 => 5,
+        6 => 0,
+        7 => 7,
+        8 => 8,
+        9 => 9,
+      ),
     ),
     'translatable' => 0,
     'type' => 'taxonomy_term_reference',
@@ -500,7 +415,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_employment_history',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
@@ -512,7 +427,18 @@ function ft_field_base_field_default_field_bases() {
     'module' => 'text',
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'profile2_private' => 0,
+      'profile2_private' => FALSE,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 4,
+        5 => 0,
+        6 => 0,
+        7 => 0,
+        8 => 8,
+        9 => 0,
+      ),
     ),
     'translatable' => 0,
     'type' => 'text_long',
@@ -580,6 +506,17 @@ function ft_field_base_field_default_field_bases() {
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'profile2_private' => FALSE,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 5,
+        6 => 0,
+        7 => 0,
+        8 => 0,
+        9 => 9,
+      ),
     ),
     'translatable' => 0,
     'type' => 'text_long',
@@ -705,37 +642,6 @@ function ft_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_has_salary'
-  $field_bases['field_has_salary'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_has_salary',
-    'field_permissions' => array(
-      'owner_field' => '',
-      'type' => 0,
-    ),
-    'indexes' => array(
-      'value' => array(
-        0 => 'value',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'list',
-    'settings' => array(
-      'allowed_values' => array(
-        0 => 'No salary',
-        1 => 'Salary proposed',
-      ),
-      'allowed_values_function' => '',
-      'entity_translation_sync' => FALSE,
-      'profile2_private' => FALSE,
-    ),
-    'translatable' => 0,
-    'type' => 'list_boolean',
-  );
-
   // Exported field_base: 'field_image'
   $field_bases['field_image'] = array(
     'active' => 1,
@@ -774,7 +680,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_interests',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
@@ -793,10 +699,63 @@ function ft_field_base_field_default_field_bases() {
       ),
       'entity_translation_sync' => FALSE,
       'options_list_callback' => 'i18n_taxonomy_allowed_values',
-      'profile2_private' => 0,
+      'profile2_private' => FALSE,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 4,
+        5 => 0,
+        6 => 0,
+        7 => 0,
+        8 => 8,
+        9 => 0,
+      ),
     ),
     'translatable' => 0,
     'type' => 'taxonomy_term_reference',
+  );
+
+  // Exported field_base: 'field_is_referent'
+  $field_bases['field_is_referent'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_is_referent',
+    'field_permissions' => array(
+      'owner_field' => 'Comment',
+      'type' => 0,
+    ),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => 'Is not referer',
+        1 => 'Is referer',
+      ),
+      'allowed_values_function' => '',
+      'entity_translation_sync' => FALSE,
+      'profile2_private' => FALSE,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 4,
+        5 => 0,
+        6 => 0,
+        7 => 7,
+        8 => 8,
+        9 => 0,
+      ),
+    ),
+    'translatable' => 0,
+    'type' => 'list_boolean',
   );
 
   // Exported field_base: 'field_known_how'
@@ -807,7 +766,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_known_how',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
@@ -826,7 +785,18 @@ function ft_field_base_field_default_field_bases() {
       ),
       'entity_translation_sync' => FALSE,
       'options_list_callback' => 'i18n_taxonomy_allowed_values',
-      'profile2_private' => 0,
+      'profile2_private' => FALSE,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 4,
+        5 => 5,
+        6 => 0,
+        7 => 7,
+        8 => 8,
+        9 => 9,
+      ),
     ),
     'translatable' => 0,
     'type' => 'taxonomy_term_reference',
@@ -840,7 +810,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_known_specific',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
@@ -853,7 +823,18 @@ function ft_field_base_field_default_field_bases() {
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'max_length' => 75,
-      'profile2_private' => 0,
+      'profile2_private' => FALSE,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 4,
+        5 => 5,
+        6 => 0,
+        7 => 7,
+        8 => 8,
+        9 => 9,
+      ),
     ),
     'translatable' => 0,
     'type' => 'text',
@@ -894,7 +875,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_link_to_my_blog',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(),
@@ -911,11 +892,22 @@ function ft_field_base_field_default_field_bases() {
       ),
       'enable_tokens' => 1,
       'entity_translation_sync' => FALSE,
-      'profile2_private' => 0,
+      'profile2_private' => FALSE,
       'title' => 'optional',
       'title_maxlength' => 128,
       'title_value' => '',
       'url' => 0,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 4,
+        5 => 0,
+        6 => 0,
+        7 => 0,
+        8 => 8,
+        9 => 0,
+      ),
     ),
     'translatable' => 0,
     'type' => 'link_field',
@@ -949,27 +941,6 @@ function ft_field_base_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'image',
-  );
-
-  // Exported field_base: 'field_messaj'
-  $field_bases['field_messaj'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_messaj',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-    ),
-    'translatable' => 0,
-    'type' => 'text_long',
   );
 
   // Exported field_base: 'field_name_visibility'
@@ -1011,7 +982,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_notification_frequency',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
@@ -1030,7 +1001,18 @@ function ft_field_base_field_default_field_bases() {
       ),
       'entity_translation_sync' => FALSE,
       'options_list_callback' => 'i18n_taxonomy_allowed_values',
-      'profile2_private' => 0,
+      'profile2_private' => FALSE,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 4,
+        5 => 5,
+        6 => 0,
+        7 => 7,
+        8 => 8,
+        9 => 9,
+      ),
     ),
     'translatable' => 0,
     'type' => 'taxonomy_term_reference',
@@ -1060,33 +1042,6 @@ function ft_field_base_field_default_field_bases() {
     ),
     'translatable' => 1,
     'type' => 'list_boolean',
-  );
-
-  // Exported field_base: 'field_object_of_the_mission'
-  $field_bases['field_object_of_the_mission'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_object_of_the_mission',
-    'field_permissions' => array(
-      'owner_field' => '',
-      'type' => 0,
-    ),
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'max_length' => 100,
-      'profile2_private' => FALSE,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
   );
 
   // Exported field_base: 'field_picto'
@@ -1127,7 +1082,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_pre_members',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
@@ -1147,6 +1102,8 @@ function ft_field_base_field_default_field_bases() {
         5 => 0,
         6 => 0,
         7 => 0,
+        8 => 0,
+        9 => 0,
       ),
       'referenceable_status' => array(
         0 => 0,
@@ -1186,32 +1143,6 @@ function ft_field_base_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'text_long',
-  );
-
-  // Exported field_base: 'field_private_answer'
-  $field_bases['field_private_answer'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_private_answer',
-    'field_permissions' => array(
-      'owner_field' => 'field_answer_question',
-      'type' => 3,
-    ),
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'profile2_private' => FALSE,
-    ),
-    'translatable' => 0,
-    'type' => 'text_with_summary',
   );
 
   // Exported field_base: 'field_private_comment'
@@ -1271,6 +1202,37 @@ function ft_field_base_field_default_field_bases() {
     'type' => 'text_long',
   );
 
+  // Exported field_base: 'field_property_rules'
+  $field_bases['field_property_rules'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_property_rules',
+    'field_permissions' => array(
+      'owner_field' => 'Comment',
+      'type' => 0,
+    ),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => 'You must accept the property rights',
+        1 => 'By publishing this challenge, I acknowledge the experts intellectual property rights',
+      ),
+      'allowed_values_function' => '',
+      'entity_translation_sync' => FALSE,
+      'profile2_private' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'list_boolean',
+  );
+
   // Exported field_base: 'field_question_locked_p'
   $field_bases['field_question_locked_p'] = array(
     'active' => 1,
@@ -1295,28 +1257,6 @@ function ft_field_base_field_default_field_bases() {
     ),
     'translatable' => 1,
     'type' => 'list_boolean',
-  );
-
-  // Exported field_base: 'field_question_path'
-  $field_bases['field_question_path'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_question_path',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'max_length' => 255,
-    ),
-    'translatable' => 1,
-    'type' => 'text',
   );
 
   // Exported field_base: 'field_referent'
@@ -1350,34 +1290,35 @@ function ft_field_base_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
-  // Exported field_base: 'field_response_count'
-  $field_bases['field_response_count'] = array(
+  // Exported field_base: 'field_request_circle'
+  $field_bases['field_request_circle'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_response_count',
-    'indexes' => array(),
-    'locked' => 0,
-    'module' => 'computed_field',
-    'settings' => array(
-      'code' => '$entity_field[0][\'value\'] = 10;',
-      'database' => array(
-        'data_default' => '',
-        'data_index' => 0,
-        'data_length' => 32,
-        'data_not_NULL' => 0,
-        'data_precision' => 10,
-        'data_scale' => 2,
-        'data_size' => 'normal',
-        'data_type' => 'int',
+    'field_name' => 'field_request_circle',
+    'field_permissions' => array(
+      'owner_field' => 'Comment',
+      'type' => 0,
+    ),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
       ),
-      'display_format' => '$display_output = $entity_field_item[\'value\'];',
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => 'Choose yourself one or several circles of experts',
+        1 => 'Request the domain\'s Lead Expert to accredit a list of experts',
+      ),
+      'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
-      'store' => 1,
+      'profile2_private' => FALSE,
     ),
     'translatable' => 0,
-    'type' => 'computed',
+    'type' => 'list_boolean',
   );
 
   // Exported field_base: 'field_reward'
@@ -1405,32 +1346,6 @@ function ft_field_base_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'text',
-  );
-
-  // Exported field_base: 'field_salary_range'
-  $field_bases['field_salary_range'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_salary_range',
-    'field_permissions' => array(
-      'owner_field' => '',
-      'type' => 0,
-    ),
-    'indexes' => array(),
-    'locked' => 0,
-    'module' => 'money',
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'max' => 99999999.99,
-      'min' => -99999999.99,
-      'precision' => 10,
-      'profile2_private' => FALSE,
-      'scale' => 2,
-    ),
-    'translatable' => 0,
-    'type' => 'money',
   );
 
   // Exported field_base: 'field_skill2'
@@ -1505,7 +1420,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_skills_set',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
@@ -1519,7 +1434,18 @@ function ft_field_base_field_default_field_bases() {
       'entity_translation_sync' => FALSE,
       'hide_blank_items' => 1,
       'path' => '',
-      'profile2_private' => 0,
+      'profile2_private' => FALSE,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 4,
+        5 => 0,
+        6 => 0,
+        7 => 0,
+        8 => 8,
+        9 => 0,
+      ),
     ),
     'translatable' => 0,
     'type' => 'field_collection',
@@ -1533,7 +1459,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_skills_visibility',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
@@ -1550,7 +1476,18 @@ function ft_field_base_field_default_field_bases() {
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
-      'profile2_private' => 0,
+      'profile2_private' => FALSE,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 4,
+        5 => 0,
+        6 => 0,
+        7 => 0,
+        8 => 8,
+        9 => 0,
+      ),
     ),
     'translatable' => 0,
     'type' => 'list_boolean',
@@ -1564,7 +1501,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_sponsor',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
@@ -1576,20 +1513,31 @@ function ft_field_base_field_default_field_bases() {
     'module' => 'user_reference',
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'profile2_private' => 0,
+      'profile2_private' => FALSE,
       'referenceable_roles' => array(
-        2 => 2,
+        2 => 0,
         3 => 0,
-        4 => 0,
+        4 => 4,
         5 => 0,
         6 => 0,
-        7 => 0,
-        8 => 0,
+        7 => 7,
+        8 => 8,
         9 => 0,
       ),
       'referenceable_status' => array(
         0 => 0,
         1 => 1,
+      ),
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 4,
+        5 => 0,
+        6 => 0,
+        7 => 0,
+        8 => 8,
+        9 => 0,
       ),
       'view' => array(
         'args' => array(),
@@ -1609,7 +1557,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_sponsorship',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
@@ -1626,7 +1574,18 @@ function ft_field_base_field_default_field_bases() {
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
-      'profile2_private' => 0,
+      'profile2_private' => FALSE,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 4,
+        5 => 0,
+        6 => 0,
+        7 => 0,
+        8 => 8,
+        9 => 0,
+      ),
     ),
     'translatable' => 0,
     'type' => 'list_boolean',
@@ -1640,7 +1599,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_start_date',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(),
@@ -1665,28 +1624,6 @@ function ft_field_base_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'datetime',
-  );
-
-  // Exported field_base: 'field_summary'
-  $field_bases['field_summary'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_summary',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'max_length' => 255,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
   );
 
   // Exported field_base: 'field_tags'
@@ -1739,7 +1676,18 @@ function ft_field_base_field_default_field_bases() {
     'settings' => array(
       'country' => 'fr',
       'entity_translation_sync' => FALSE,
-      'profile2_private' => 0,
+      'profile2_private' => FALSE,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 0,
+        6 => 0,
+        7 => 0,
+        8 => 0,
+        9 => 0,
+      ),
     ),
     'translatable' => 0,
     'type' => 'phone',
@@ -1753,7 +1701,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_testimony',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
@@ -1765,7 +1713,18 @@ function ft_field_base_field_default_field_bases() {
     'module' => 'text',
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'profile2_private' => 0,
+      'profile2_private' => FALSE,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 5,
+        6 => 0,
+        7 => 0,
+        8 => 0,
+        9 => 9,
+      ),
     ),
     'translatable' => 0,
     'type' => 'text_with_summary',
@@ -1779,7 +1738,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_titre_metier',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
@@ -1792,7 +1751,18 @@ function ft_field_base_field_default_field_bases() {
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'max_length' => 255,
-      'profile2_private' => 0,
+      'profile2_private' => FALSE,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 4,
+        5 => 0,
+        6 => 0,
+        7 => 0,
+        8 => 8,
+        9 => 0,
+      ),
     ),
     'translatable' => 0,
     'type' => 'text',
@@ -1870,7 +1840,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_working_status',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
@@ -1889,7 +1859,18 @@ function ft_field_base_field_default_field_bases() {
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
-      'profile2_private' => 0,
+      'profile2_private' => FALSE,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 4,
+        5 => 0,
+        6 => 0,
+        7 => 7,
+        8 => 8,
+        9 => 0,
+      ),
     ),
     'translatable' => 0,
     'type' => 'list_text',
@@ -2042,7 +2023,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'og_group_ref',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(

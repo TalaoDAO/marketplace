@@ -5,6 +5,12 @@
 //============================================================================
 // CONTACT FORM CUSTOMIZATION SECTION
 
+
+function emindhub_date_combo($variables) {
+  return theme('form_element', $variables);
+}
+
+
 function emindhub_theme() {
     return array(
       'contact_site_form' => array(

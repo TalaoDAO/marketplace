@@ -46,37 +46,6 @@ function ft_content_type_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_background2|user|user|form';
-  $field_group->group_name = 'group_background2';
-  $field_group->entity_type = 'user';
-  $field_group->bundle = 'user';
-  $field_group->mode = 'form';
-  $field_group->parent_name = '';
-  $field_group->data = array(
-    'label' => 'background',
-    'weight' => '2',
-    'children' => array(),
-    'format_type' => 'div',
-    'format_settings' => array(
-      'label' => 'background',
-      'instance_settings' => array(
-        'required_fields' => 1,
-        'id' => '',
-        'classes' => 'group-background field-group-div',
-        'description' => '',
-        'show_label' => '0',
-        'label_element' => 'h3',
-        'effect' => 'none',
-        'speed' => 'fast',
-      ),
-      'formatter' => 'open',
-    ),
-  );
-  $export['group_background2|user|user|form'] = $field_group;
-
-  $field_group = new stdClass();
-  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
-  $field_group->api_version = 1;
   $field_group->identifier = 'group_background|node|question1|default';
   $field_group->group_name = 'group_background';
   $field_group->entity_type = 'node';
@@ -116,25 +85,26 @@ function ft_content_type_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_background|user|user|form';
-  $field_group->group_name = 'group_background';
+  $field_group->identifier = 'group_business|user|user|form';
+  $field_group->group_name = 'group_business';
   $field_group->entity_type = 'user';
   $field_group->bundle = 'user';
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'background',
-    'weight' => '0',
+    'label' => 'Business',
+    'weight' => '3',
     'children' => array(
-      0 => 'group_account',
+      0 => 'field_entreprise_description',
+      1 => 'field_testimony',
     ),
     'format_type' => 'div',
     'format_settings' => array(
-      'label' => 'background',
+      'label' => 'Business',
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'group-background field-group-div',
+        'classes' => 'field-group-fieldset',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -144,7 +114,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $export['group_background|user|user|form'] = $field_group;
+  $export['group_business|user|user|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -246,6 +216,40 @@ function ft_content_type_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_common|user|user|form';
+  $field_group->group_name = 'group_common';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Common',
+    'weight' => '1',
+    'children' => array(
+      0 => 'field_telephone',
+      1 => 'field_domaine',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Common',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'field-group-fieldset',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_common|user|user|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_complement|profile2|expert|form';
   $field_group->group_name = 'group_complement';
   $field_group->entity_type = 'profile2';
@@ -272,6 +276,84 @@ function ft_content_type_field_group_info() {
     ),
   );
   $export['group_complement|profile2|expert|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_complement|user|user|form';
+  $field_group->group_name = 'group_complement';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Complement',
+    'weight' => '4',
+    'children' => array(
+      0 => 'field_notification_frequency',
+      1 => 'field_known_how',
+      2 => 'field_known_specific',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Complement',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'field-group-fieldset',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_complement|user|user|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_expert|user|user|form';
+  $field_group->group_name = 'group_expert';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Expert',
+    'weight' => '2',
+    'children' => array(
+      0 => 'field_address',
+      1 => 'field_link_to_my_blog',
+      2 => 'field_is_referent',
+      3 => 'field_titre_metier',
+      4 => 'field_working_status',
+      5 => 'field_sponsorship',
+      6 => 'field_sponsor',
+      7 => 'field_interests',
+      8 => 'field_skills_visibility',
+      9 => 'field_skills_set',
+      10 => 'field_employment_history',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Expert',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'field-group-fieldset',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_expert|user|user|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -344,7 +426,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Hidden',
-    'weight' => '3',
+    'weight' => '5',
     'children' => array(
       0 => 'og_user_node',
       1 => 'masquerade',
@@ -362,7 +444,7 @@ function ft_content_type_field_group_info() {
         'id' => '',
         'classes' => 'group-hidden field-group-div',
         'description' => '',
-        'show_label' => '1',
+        'show_label' => '0',
         'label_element' => 'h3',
         'effect' => 'none',
         'speed' => 'fast',
@@ -445,6 +527,40 @@ function ft_content_type_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_oneliner|node|challenge|form';
+  $field_group->group_name = 'group_oneliner';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'challenge';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_what';
+  $field_group->data = array(
+    'label' => 'Oneliner',
+    'weight' => '5',
+    'children' => array(
+      0 => 'field_document',
+      1 => 'field_image',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Oneliner',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-oneliner field-group-div',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_oneliner|node|challenge|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_oneliner|user|user|form';
   $field_group->group_name = 'group_oneliner';
   $field_group->entity_type = 'user';
@@ -479,124 +595,105 @@ function ft_content_type_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_personnal|profile2|expert|form';
-  $field_group->group_name = 'group_personnal';
-  $field_group->entity_type = 'profile2';
-  $field_group->bundle = 'expert';
+  $field_group->identifier = 'group_scope|node|challenge|form';
+  $field_group->group_name = 'group_scope';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'challenge';
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Personnal',
-    'weight' => '0',
-    'children' => array(
-      0 => 'field_referent',
-      1 => 'field_address',
-      2 => 'field_link_to_my_blog',
-      3 => 'field_telephone',
-    ),
-    'format_type' => 'fieldset',
-    'format_settings' => array(
-      'label' => 'Personnal',
-      'instance_settings' => array(
-        'required_fields' => 1,
-        'classes' => 'group-personnal field-group-fieldset group-background',
-        'description' => '',
-      ),
-      'formatter' => 'collapsible',
-    ),
-  );
-  $export['group_personnal|profile2|expert|form'] = $field_group;
-
-  $field_group = new stdClass();
-  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
-  $field_group->api_version = 1;
-  $field_group->identifier = 'group_professional|profile2|expert|form';
-  $field_group->group_name = 'group_professional';
-  $field_group->entity_type = 'profile2';
-  $field_group->bundle = 'expert';
-  $field_group->mode = 'form';
-  $field_group->parent_name = '';
-  $field_group->data = array(
-    'label' => 'Professionnal',
-    'weight' => '1',
-    'children' => array(
-      0 => 'field_titre_metier',
-      1 => 'field_entreprise_visibility',
-      2 => 'field_working_status',
-    ),
-    'format_type' => 'fieldset',
-    'format_settings' => array(
-      'label' => 'Professionnal',
-      'instance_settings' => array(
-        'required_fields' => 1,
-        'classes' => 'group-professional field-group-fieldset  group-background',
-        'description' => '',
-      ),
-      'formatter' => 'collapsible',
-    ),
-  );
-  $export['group_professional|profile2|expert|form'] = $field_group;
-
-  $field_group = new stdClass();
-  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
-  $field_group->api_version = 1;
-  $field_group->identifier = 'group_skills|profile2|expert|form';
-  $field_group->group_name = 'group_skills';
-  $field_group->entity_type = 'profile2';
-  $field_group->bundle = 'expert';
-  $field_group->mode = 'form';
-  $field_group->parent_name = '';
-  $field_group->data = array(
-    'label' => 'Skills',
-    'weight' => '8',
-    'children' => array(
-      0 => 'field_domaine',
-      1 => 'field_employment_history',
-      2 => 'field_skills_set',
-      3 => 'field_skills_visibility',
-      4 => 'field_interests',
-    ),
-    'format_type' => 'fieldset',
-    'format_settings' => array(
-      'label' => 'Skills',
-      'instance_settings' => array(
-        'required_fields' => 1,
-        'classes' => 'group-skills field-group-fieldset  group-background',
-        'description' => 'Searched skills',
-      ),
-      'formatter' => 'collapsible',
-    ),
-  );
-  $export['group_skills|profile2|expert|form'] = $field_group;
-
-  $field_group = new stdClass();
-  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
-  $field_group->api_version = 1;
-  $field_group->identifier = 'group_sponsor|profile2|expert|form';
-  $field_group->group_name = 'group_sponsor';
-  $field_group->entity_type = 'profile2';
-  $field_group->bundle = 'expert';
-  $field_group->mode = 'form';
-  $field_group->parent_name = '';
-  $field_group->data = array(
-    'label' => 'Sponsor',
+    'label' => 'Scope',
     'weight' => '2',
     'children' => array(
-      0 => 'field_sponsorship',
-      1 => 'field_sponsor',
+      0 => 'field_domaine',
+      1 => 'field_tags',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'div',
     'format_settings' => array(
-      'label' => 'Sponsor',
+      'label' => 'Scope',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => 'group-sponsor field-group-fieldset  group-background',
+        'id' => '',
+        'classes' => 'group-scope field-group-div group-oneliner field-group-fieldset',
         'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
       ),
-      'formatter' => 'collapsible',
+      'formatter' => 'open',
     ),
   );
-  $export['group_sponsor|profile2|expert|form'] = $field_group;
+  $export['group_scope|node|challenge|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_scope|node|question1|form';
+  $field_group->group_name = 'group_scope';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'question1';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Scope',
+    'weight' => '2',
+    'children' => array(
+      0 => 'field_domaine',
+      1 => 'field_tags',
+      2 => 'group_oneliner',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Scope',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-scope field-group-div field-group-fieldset group-oneliner',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_scope|node|question1|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_scope|node|webform|form';
+  $field_group->group_name = 'group_scope';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'webform';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Scope',
+    'weight' => '2',
+    'children' => array(
+      0 => 'field_domaine',
+      1 => 'field_tags',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Scope',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-scope field-group-div group-oneliner field-group-fieldset',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_scope|node|webform|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -614,17 +711,23 @@ function ft_content_type_field_group_info() {
       0 => 'field_reward',
       1 => 'field_expiration_date',
       2 => 'og_group_ref',
-      3 => 'field_domaine',
-      4 => 'field_tags',
+      3 => 'field_request_circle',
+      4 => 'field_pre_members',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'div',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Target',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-target field-group-fieldset',
         'required_fields' => 1,
+        'id' => '',
+        'classes' => 'field-group-fieldset',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_target|node|challenge|form'] = $field_group;
@@ -671,22 +774,28 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Target',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
-      0 => 'og_group_ref',
-      1 => 'field_domaine',
-      2 => 'field_reward',
-      3 => 'field_expiration_date',
-      4 => 'field_tags',
+      0 => 'field_reward',
+      1 => 'field_expiration_date',
+      2 => 'field_pre_members',
+      3 => 'og_group_ref',
+      4 => 'field_request_circle',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'div',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Target',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-target field-group-fieldset',
         'required_fields' => 1,
+        'id' => '',
+        'classes' => 'field-group-fieldset',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_target|node|question1|form'] = $field_group;
@@ -707,17 +816,23 @@ function ft_content_type_field_group_info() {
       0 => 'og_group_ref',
       1 => 'field_expiration_date',
       2 => 'field_reward',
-      3 => 'field_domaine',
-      4 => 'field_tags',
+      3 => 'field_request_circle',
+      4 => 'field_pre_members',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'div',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Target',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-target field-group-fieldset',
         'required_fields' => 1,
+        'id' => '',
+        'classes' => 'field-group-fieldset',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_target|node|webform|form'] = $field_group;
@@ -764,22 +879,25 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'What',
-    'weight' => '2',
+    'weight' => '1',
     'children' => array(
       0 => 'body',
-      1 => 'field_document',
-      2 => 'field_type_entreprise',
-      3 => 'field_summary',
-      4 => 'field_image',
+      1 => 'group_oneliner',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'div',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'What',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-what field-group-fieldset',
         'required_fields' => 1,
+        'id' => '',
+        'classes' => 'field-group-fieldset',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_what|node|challenge|form'] = $field_group;
@@ -825,18 +943,24 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'What',
-    'weight' => '2',
+    'weight' => '1',
     'children' => array(
       0 => 'body',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'div',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'What',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-what field-group-fieldset',
         'required_fields' => 1,
+        'id' => '',
+        'classes' => 'field-group-fieldset',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_what|node|question1|form'] = $field_group;
@@ -852,25 +976,27 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'What',
-    'weight' => '2',
+    'weight' => '1',
     'children' => array(
       0 => 'body',
-      1 => 'field_nom_de_l_organisation',
-      2 => 'field_duration_of_the_mission',
-      3 => 'field_start_date',
-      4 => 'field_salary_range',
-      5 => 'field_object_of_the_mission',
-      6 => 'field_has_salary',
-      7 => 'field_image',
+      1 => 'field_duration_of_the_mission',
+      2 => 'field_start_date',
+      3 => 'field_image',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'div',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'What',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-what field-group-fieldset',
         'required_fields' => 1,
+        'id' => '',
+        'classes' => 'field-group-fieldset',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_what|node|webform|form'] = $field_group;
@@ -886,20 +1012,26 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Who',
-    'weight' => '1',
+    'weight' => '3',
     'children' => array(
       0 => 'field_use_my_entreprise',
       1 => 'field_entreprise_description',
       2 => 'field_anonymous',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'div',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Who',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-who field-group-fieldset',
         'required_fields' => 1,
+        'id' => '',
+        'classes' => 'field-group-fieldset',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_who|node|challenge|form'] = $field_group;
@@ -940,20 +1072,26 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Who',
-    'weight' => '1',
+    'weight' => '3',
     'children' => array(
       0 => 'field_anonymous',
       1 => 'field_use_my_entreprise',
       2 => 'field_entreprise_description',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'div',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Who',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-who field-group-fieldset',
         'required_fields' => 1,
+        'id' => '',
+        'classes' => 'field-group-fieldset',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_who|node|question1|form'] = $field_group;
@@ -969,20 +1107,26 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Who',
-    'weight' => '1',
+    'weight' => '3',
     'children' => array(
       0 => 'field_anonymous',
       1 => 'field_use_my_entreprise',
       2 => 'field_entreprise_description',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'div',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Who',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-who field-group-fieldset',
         'required_fields' => 1,
+        'id' => '',
+        'classes' => 'field-group-fieldset',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_who|node|webform|form'] = $field_group;

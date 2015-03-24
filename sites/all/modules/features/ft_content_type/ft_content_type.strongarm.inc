@@ -705,7 +705,7 @@ function ft_content_type_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '9',
+          'weight' => '7',
         ),
       ),
       'display' => array(
