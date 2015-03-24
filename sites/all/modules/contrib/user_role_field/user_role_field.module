@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * Hook into field edit form, user registration form and profile2 forms.
+ */
+function user_role_field_form_alter(&$form, $form_state, $form_id) {
+  if (isset($form['instance']) && ($form['instance']['entity_type']['#value'] == 'user' || $form['instance']['entity_type']['#value'] == 'profile2') && $form_id == 'field_ui_field_edit_form' && isset($form['field'])) {
+    module_load_include('inc', 'user_role_field', 'user_role_field.admin');
+    return _user_role_field_field_settings_form_alter($form, $form_state, $form_id);
+  }
+}
+
+/**
+ * Custom permissions.
+ */
+function user_role_field_permission() {
+  return array(
+    'administer user field roles' => array(
+      'title' => t('Administer user field roles'),
+      'description' => t('Manage user field roles.'),
+    ),
+  );
+}
+
+function _user_role_field_roles($field) {
+  return (isset($field['settings']['user_role_field']) && is_array($field['settings']['user_role_field']) ? array_filter($field['settings']['user_role_field']) : array());
+}
+
+/*
+ * Make sure only appropriate roles have access
+ */
+function user_role_field_field_access($op, $field, $obj_type, $object, $account) {
+  // We only handle user fields and profile2 fields
+  if (($obj_type != 'user') && ($obj_type != 'profile2'))
+    return true;
+
+  // Admin user can see all fields when creating a new user.
+  if (arg(2) == 'create' && arg(0) == 'admin' && user_access ('administer permissions'))
+    return true;
+
+  // If the object type is profile2, we need to load the user owning profile2 object
+  if ($obj_type == 'profile2' && !empty($object->uid))
+    $object = user_load ($object->uid);
+
+  // Ignore the request if roles have not been enabled for this field.
+  $roles = _user_role_field_roles ($field);
+  if (empty($roles)) {
+    return true;
+  }
+
+  // If the user object doesn't have the roles property, we get here through
+  // the views module for example. In that case we want the data to display.
+  // To revisit in case there are other cases.
+  if (!isset ($object->roles))
+      return true;
+
+  $matching_roles = array_intersect_key ($object->roles, $roles);
+  return !empty ($matching_roles);
+}
