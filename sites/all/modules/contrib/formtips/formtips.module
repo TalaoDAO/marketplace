@@ -1,0 +1,72 @@
+<?php
+/**
+ * @file
+ * Form tips module uses JS to move form descriptions to tooltips.
+ */
+
+define('FORMTIPS_SELECTORS', '');
+define('FORMTIPS_INTERVAL', 500);
+define('FORMTIPS_SENSITIVITY', 3);
+define('FORMTIPS_TIMEOUT', 1000);
+define('FORMTIPS_MAX_WIDTH', '500px');
+
+/**
+ * Implements hook_init().
+ */
+function formtips_init() {
+  $module_path = drupal_get_path('module', 'formtips');
+
+  if (variable_get('formtips_hoverintent', 1)) {
+    drupal_add_js($module_path . '/hoverintent.minified.js');
+  }
+
+  drupal_add_js($module_path . '/formtips.js');
+  drupal_add_css($module_path . '/formtips.css');
+  drupal_add_js(formtips_js_settings(), 'setting');
+}
+
+/**
+ * Generates the JS settings array.
+ */
+function formtips_js_settings() {
+  $selectors = explode("\r\n", variable_get('formtips_selectors', FORMTIPS_SELECTORS));
+
+  return array('formtips' => array(
+    'selectors' => $selectors,
+    'interval' => variable_get('formtips_interval', FORMTIPS_INTERVAL),
+    'sensitivity' => variable_get('formtips_sensitivity', FORMTIPS_SENSITIVITY),
+    'timeout' => variable_get('formtips_timeout', FORMTIPS_TIMEOUT),
+    'max_width' => variable_get('formtips_max_width', FORMTIPS_MAX_WIDTH),
+    'trigger_action' => variable_get('formtips_trigger_action', 'hover'),
+  ));
+}
+
+/**
+ * Implements hook_menu().
+ */
+function formtips_menu() {
+  $items = array();
+
+  $items['admin/config/user-interface/formtips'] = array(
+    'title' => 'Form tips',
+    'description' => 'Settings for the Formtips module.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('formtips_setting_form'),
+    'access arguments' => array('administer formtips'),
+    'file' => 'formtips.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function formtips_permission() {
+  return array(
+    'administer formtips' =>  array(
+      'title' => t('Administer Form tips'),
+      'description' => t('Perform administration tasks for Form tips.'),
+    ),
+  );
+}

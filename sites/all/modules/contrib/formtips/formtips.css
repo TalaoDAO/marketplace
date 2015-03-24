@@ -1,0 +1,43 @@
+.form-type-checkbox .formtips-wrapper {
+  display: inline-block;
+}
+
+.description.formtips-processed p {
+  margin-bottom: 0;
+}
+
+form fieldset .formtips-processed,
+.formtips-processed,
+form .form-item div.formtips-processed {
+  position: absolute;
+  background-color: #111;
+  color: #ddd;
+  padding: 5px;
+  border: 5px solid #777;
+  opacity: 0.9;
+  z-index: 100;
+}
+
+a.formtip {
+  background: url(help.png) no-repeat 0 0;
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  margin-left: 4px;
+}
+
+a.formtip:hover {
+  background-position: 0 -12px;
+  text-decoration: none;
+}
+
+/* @todo move these theme-specific rules to the theme */
+
+a.formtip:hover {
+  border: none !important;
+}
+
+.description.formtips-processed {
+  line-height: 1.35;
+  letter-spacing: 0.05em;
+}
