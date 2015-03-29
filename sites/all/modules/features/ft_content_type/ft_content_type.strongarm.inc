@@ -371,7 +371,7 @@ function ft_content_type_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'comment_subject_field_question1';
-  $strongarm->value = 0;
+  $strongarm->value = 1;
   $export['comment_subject_field_question1'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -526,13 +526,13 @@ function ft_content_type_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'title' => array(
-          'weight' => '-5',
+          'weight' => '0',
         ),
         'og_menu' => array(
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '30',
+          'weight' => '2',
         ),
       ),
       'display' => array(
@@ -660,7 +660,7 @@ function ft_content_type_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '5',
+          'weight' => '8',
         ),
       ),
       'display' => array(),
@@ -753,6 +753,13 @@ function ft_content_type_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'i18n_node_extended_corporate';
+  $strongarm->value = 1;
+  $export['i18n_node_extended_corporate'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'i18n_node_extended_question1';
   $strongarm->value = 1;
   $export['i18n_node_extended_question1'] = $strongarm;
@@ -770,6 +777,13 @@ function ft_content_type_strongarm() {
   $strongarm->name = 'i18n_node_options_challenge';
   $strongarm->value = array();
   $export['i18n_node_options_challenge'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'i18n_node_options_corporate';
+  $strongarm->value = array();
+  $export['i18n_node_options_corporate'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

@@ -86,7 +86,7 @@ function ft_content_type_node_info() {
       'help' => '',
     ),
     'corporate' => array(
-      'name' => t('Corporate'),
+      'name' => t('Organisation'),
       'base' => 'node_content',
       'description' => '',
       'has_title' => '1',

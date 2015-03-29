@@ -88,11 +88,11 @@ function ft_field_base_field_default_field_bases() {
         2 => 0,
         3 => 0,
         4 => 4,
-        5 => 0,
+        5 => 5,
         6 => 0,
-        7 => 0,
+        7 => 7,
         8 => 8,
-        9 => 0,
+        9 => 9,
       ),
     ),
     'translatable' => 0,
@@ -480,6 +480,17 @@ function ft_field_base_field_default_field_bases() {
       ),
       'profile2_private' => FALSE,
       'target_type' => 'node',
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 0,
+        6 => 0,
+        7 => 0,
+        8 => 0,
+        9 => 0,
+      ),
     ),
     'translatable' => 0,
     'type' => 'entityreference',
@@ -542,12 +553,23 @@ function ft_field_base_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        0 => 'My entreprise will not be visible on my profile',
-        1 => 'My entreprise will be visible on my profile',
+        0 => 'My organisation name will not be visible on my profile',
+        1 => 'I choose to make public the name of my organisation',
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
       'profile2_private' => FALSE,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 0,
+        6 => 0,
+        7 => 0,
+        8 => 0,
+        9 => 0,
+      ),
     ),
     'translatable' => 0,
     'type' => 'list_boolean',
@@ -714,48 +736,6 @@ function ft_field_base_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'taxonomy_term_reference',
-  );
-
-  // Exported field_base: 'field_is_referent'
-  $field_bases['field_is_referent'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_is_referent',
-    'field_permissions' => array(
-      'owner_field' => 'Comment',
-      'type' => 0,
-    ),
-    'indexes' => array(
-      'value' => array(
-        0 => 'value',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'list',
-    'settings' => array(
-      'allowed_values' => array(
-        0 => 'Is not referer',
-        1 => 'Is referer',
-      ),
-      'allowed_values_function' => '',
-      'entity_translation_sync' => FALSE,
-      'profile2_private' => FALSE,
-      'user_role_field' => array(
-        1 => 0,
-        2 => 0,
-        3 => 0,
-        4 => 4,
-        5 => 0,
-        6 => 0,
-        7 => 7,
-        8 => 8,
-        9 => 0,
-      ),
-    ),
-    'translatable' => 0,
-    'type' => 'list_boolean',
   );
 
   // Exported field_base: 'field_known_how'
@@ -964,7 +944,7 @@ function ft_field_base_field_default_field_bases() {
     'settings' => array(
       'allowed_values' => array(
         0 => 'My name will not be visible on my profile',
-        1 => 'My name will be visible on my profile',
+        1 => 'I choose to make public my full name',
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
@@ -1044,6 +1024,80 @@ function ft_field_base_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
+  // Exported field_base: 'field_other_areas'
+  $field_bases['field_other_areas'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_other_areas',
+    'field_permissions' => array(
+      'owner_field' => 'Comment',
+      'type' => 0,
+    ),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 4,
+        5 => 0,
+        6 => 0,
+        7 => 0,
+        8 => 8,
+        9 => 0,
+      ),
+    ),
+    'translatable' => 0,
+    'type' => 'text_long',
+  );
+
+  // Exported field_base: 'field_other_members'
+  $field_bases['field_other_members'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_other_members',
+    'field_permissions' => array(
+      'owner_field' => 'Comment',
+      'type' => 0,
+    ),
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(),
+      ),
+      'target_type' => 'user',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
+  );
+
   // Exported field_base: 'field_picto'
   $field_bases['field_picto'] = array(
     'active' => 1,
@@ -1072,51 +1126,6 @@ function ft_field_base_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'image',
-  );
-
-  // Exported field_base: 'field_pre_members'
-  $field_bases['field_pre_members'] = array(
-    'active' => 1,
-    'cardinality' => -1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_pre_members',
-    'field_permissions' => array(
-      'owner_field' => 'Comment',
-      'type' => 0,
-    ),
-    'indexes' => array(
-      'uid' => array(
-        0 => 'uid',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'user_reference',
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'profile2_private' => FALSE,
-      'referenceable_roles' => array(
-        2 => 0,
-        3 => 0,
-        4 => 4,
-        5 => 0,
-        6 => 0,
-        7 => 0,
-        8 => 0,
-        9 => 0,
-      ),
-      'referenceable_status' => array(
-        0 => 0,
-        1 => 1,
-      ),
-      'view' => array(
-        'args' => array(),
-        'display_name' => '',
-        'view_name' => '',
-      ),
-    ),
-    'translatable' => 0,
-    'type' => 'user_reference',
   );
 
   // Exported field_base: 'field_private'
@@ -1351,12 +1360,12 @@ function ft_field_base_field_default_field_bases() {
   // Exported field_base: 'field_skill2'
   $field_bases['field_skill2'] = array(
     'active' => 1,
-    'cardinality' => 1,
+    'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_skill2',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
@@ -1384,6 +1393,17 @@ function ft_field_base_field_default_field_bases() {
       ),
       'profile2_private' => FALSE,
       'target_type' => 'taxonomy_term',
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 5,
+        6 => 0,
+        7 => 0,
+        8 => 0,
+        9 => 9,
+      ),
     ),
     'translatable' => 0,
     'type' => 'entityreference',
@@ -1397,7 +1417,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_skill_autoeval',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(),
@@ -1472,7 +1492,7 @@ function ft_field_base_field_default_field_bases() {
     'settings' => array(
       'allowed_values' => array(
         0 => 'My skills will not be visible on my profile',
-        1 => 'My skills will be visible on my profile',
+        1 => 'I choose to make public all this information in my profile',
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
@@ -1493,28 +1513,84 @@ function ft_field_base_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
-  // Exported field_base: 'field_sponsor'
-  $field_bases['field_sponsor'] = array(
+  // Exported field_base: 'field_specific_skills3'
+  $field_bases['field_specific_skills3'] = array(
     'active' => 1,
-    'cardinality' => 1,
+    'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_sponsor',
+    'field_name' => 'field_specific_skills3',
     'field_permissions' => array(
       'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
-      'uid' => array(
-        0 => 'uid',
+      'tid' => array(
+        0 => 'tid',
       ),
     ),
     'locked' => 0,
-    'module' => 'user_reference',
+    'module' => 'taxonomy',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => 'skill',
+          'parent' => 0,
+        ),
+      ),
+      'entity_translation_sync' => FALSE,
+      'options_list_callback' => 'i18n_taxonomy_allowed_values',
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 5,
+        6 => 0,
+        7 => 0,
+        8 => 0,
+        9 => 9,
+      ),
+    ),
+    'translatable' => 0,
+    'type' => 'taxonomy_term_reference',
+  );
+
+  // Exported field_base: 'field_sponsor1'
+  $field_bases['field_sponsor1'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_sponsor1',
+    'field_permissions' => array(
+      'owner_field' => 'Comment',
+      'type' => 0,
+    ),
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'profile2_private' => FALSE,
-      'referenceable_roles' => array(
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(),
+      ),
+      'target_type' => 'user',
+      'user_role_field' => array(
+        1 => 0,
         2 => 0,
         3 => 0,
         4 => 4,
@@ -1524,29 +1600,9 @@ function ft_field_base_field_default_field_bases() {
         8 => 8,
         9 => 0,
       ),
-      'referenceable_status' => array(
-        0 => 0,
-        1 => 1,
-      ),
-      'user_role_field' => array(
-        1 => 0,
-        2 => 0,
-        3 => 0,
-        4 => 4,
-        5 => 0,
-        6 => 0,
-        7 => 0,
-        8 => 8,
-        9 => 0,
-      ),
-      'view' => array(
-        'args' => array(),
-        'display_name' => '',
-        'view_name' => '',
-      ),
     ),
     'translatable' => 0,
-    'type' => 'user_reference',
+    'type' => 'entityreference',
   );
 
   // Exported field_base: 'field_sponsorship'
@@ -1884,7 +1940,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_year_of_experiences',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(),
