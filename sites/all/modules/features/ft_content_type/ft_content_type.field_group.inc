@@ -288,36 +288,6 @@ function ft_content_type_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_complement|profile2|expert|form';
-  $field_group->group_name = 'group_complement';
-  $field_group->entity_type = 'profile2';
-  $field_group->bundle = 'expert';
-  $field_group->mode = 'form';
-  $field_group->parent_name = '';
-  $field_group->data = array(
-    'label' => 'Complement',
-    'weight' => '9',
-    'children' => array(
-      0 => 'field_notification_frequency',
-      1 => 'field_known_how',
-      2 => 'field_known_specific',
-    ),
-    'format_type' => 'fieldset',
-    'format_settings' => array(
-      'label' => 'Complement',
-      'instance_settings' => array(
-        'required_fields' => 1,
-        'classes' => 'group-complement field-group-fieldset  group-background',
-        'description' => '',
-      ),
-      'formatter' => 'collapsible',
-    ),
-  );
-  $export['group_complement|profile2|expert|form'] = $field_group;
-
-  $field_group = new stdClass();
-  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
-  $field_group->api_version = 1;
   $field_group->identifier = 'group_complement|user|user|form';
   $field_group->group_name = 'group_complement';
   $field_group->entity_type = 'user';

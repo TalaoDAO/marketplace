@@ -892,7 +892,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_entreprise_description',
-    'label' => 'Entreprise description',
+    'label' => 'Description of my organisation',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -1347,7 +1347,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_use_my_entreprise',
-    'label' => 'Use my entreprise',
+    'label' => 'Use my organisation description',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -2429,7 +2429,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_entreprise_description',
-    'label' => 'Entreprise description',
+    'label' => 'Description of my organisation',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -2776,7 +2776,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_use_my_entreprise',
-    'label' => 'Company description',
+    'label' => 'Use my organisation description',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -3162,7 +3162,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_entreprise_description',
-    'label' => 'Entreprise description',
+    'label' => 'Description of my organisation',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -3627,7 +3627,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_use_my_entreprise',
-    'label' => 'Use my entreprise',
+    'label' => 'Use my organisation description',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -4201,7 +4201,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'user',
     'field_name' => 'field_entreprise_visibility',
-    'label' => 'Entreprise visibility',
+    'label' => 'Organisation visibility',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -4954,7 +4954,6 @@ function ft_content_type_field_default_field_instances() {
   t('AutoRef');
   t('Body');
   t('Choose circle of experts');
-  t('Company description');
   t('Context and objectives of the mission');
   t('Deadline');
   t('Describe your work experience: degrees, companies, etc.');
@@ -4965,9 +4964,7 @@ function ft_content_type_field_default_field_instances() {
   t('Document');
   t('Domain(s)');
   t('Duration of the mission');
-  t('Entreprise description');
   t('Entreprise type');
-  t('Entreprise visibility');
   t('First Name');
   t('Group');
   t('Group content visibility');
@@ -4987,6 +4984,7 @@ function ft_content_type_field_default_field_instances() {
   t('Name of my sponsor');
   t('Name visibility');
   t('Organisation');
+  t('Organisation visibility');
   t('Other members');
   t('Other, please specify');
   t('Picto');
@@ -5003,7 +5001,7 @@ function ft_content_type_field_default_field_instances() {
   t('Telephone');
   t('Testimony');
   t('Text to display a reward');
-  t('Use my entreprise');
+  t('Use my organisation description');
   t('Working Status');
   t('Years of experience');
 

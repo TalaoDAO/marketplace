@@ -235,50 +235,6 @@ function ft_field_base_field_default_field_bases() {
     'type' => 'text_with_summary',
   );
 
-  // Exported field_base: 'field_corporation'
-  $field_bases['field_corporation'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_corporation',
-    'field_permissions' => array(
-      'owner_field' => '',
-      'type' => 0,
-    ),
-    'indexes' => array(
-      'nid' => array(
-        0 => 'nid',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'node_reference',
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'profile2_private' => 0,
-      'referenceable_types' => array(
-        'answer' => 0,
-        'blog' => 0,
-        'challenge' => 0,
-        'circle' => 0,
-        'corporate' => 'corporate',
-        'forum' => 0,
-        'page' => 0,
-        'poll' => 0,
-        'question' => 0,
-        'webform' => 0,
-        'working_group' => 0,
-      ),
-      'view' => array(
-        'args' => array(),
-        'display_name' => '',
-        'view_name' => '',
-      ),
-    ),
-    'translatable' => 0,
-    'type' => 'node_reference',
-  );
-
   // Exported field_base: 'field_description'
   $field_bases['field_description'] = array(
     'active' => 1,
