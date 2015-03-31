@@ -321,7 +321,7 @@ function privatemsg_user_access($permission = 'read privatemsg', $account = NULL
     global $user;
     $account = $user;
   }
-  if (!$account->uid) { // Disallow anonymous access, regardless of permissions
+  if (!$account->uid && !($permission == 'write privatemsg') ) { // YBA : Disallow anonymous access, regardless of permissions
     return FALSE;
   }
   if (privatemsg_is_disabled($account) && ($permission == 'write privatemsg') ) {

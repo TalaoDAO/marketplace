@@ -61,14 +61,13 @@ function contact_add_fields_form_contact_site_form_alter(&$form, &$form_state, $
 	}
 }
 
-//this is where the mail being sent if edited. I just add it the the end of the 
-//message
-
 function contact_add_fields_mail_alter(&$message) {
-
 	if ($message['id'] == 'contact_page_mail'){
-	 	$message['subject'] = t('From - ').$message['params']['firstname'].' '.$message['params']['lastname'];	
-		$message['body'][] .= t('Entreprise - ').$message['params']['entreprise'];
+		$message['id'] = 'custom_contact_mail';// Important, otherwise suject will be ovveriden
+	 	$message['subject'] = $message['subject'].' '. t('From').' '.$message['from'];	
+	 	$message['body'][] = t('From - ').' '.$message['params']['firstname'].' '.$message['params']['lastname'];	
+		$message['body'][] = t('Telephone').': '.$message['params']['phone'];
+		$message['body'][] = t('Organisation').': '.$message['params']['entreprise'];
  
 	}
 }

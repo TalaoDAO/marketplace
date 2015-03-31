@@ -97,11 +97,15 @@ function reroute_email_mail_alter(&$message) {
 // YBA
 
    //drupal_set_message(serialize($message));
-   //kpr($message);
    $userto = user_load_by_mail($message['to']);
    $userfrom = user_load_by_mail($message['from']);
-   $result = privatemsg_new_thread(array($userto), $message['subject'], $message['body'][0], array('author' => $userfrom));
+   if (!$userfrom) // contact form have an email, but not a user
+     $result = privatemsg_new_thread(array($userto), $message['subject'], implode("\n",$message['body']));
+   else
+     $result = privatemsg_new_thread(array($userto), $message['subject'], implode("\n",$message['body']), array('author' => $userfrom));
    //drupal_set_message('Send private email ' . serialize($result) );
+
+
 /*
     $mailkey = isset($message['id']) ? $message['id'] : t('[mail id] is missing');
     $to = isset($message['to']) ? $message['to'] : t('[to] is missing');
