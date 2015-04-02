@@ -19,7 +19,7 @@
  */
 ?>
 <?php if (!empty($gid)): ?>
-  <h3><?php print count($manager_uids) > 1 ? 'Manager' : 'Managers'; ?></h3>
+  <h3><?php print format_plural(count($manager_uids), 'Manager', 'Managers'); ?></h3>
   <?php foreach ($managers as $manager_link): ?>
     <div><?php print $manager_link; ?></div>
   <?php endforeach; ?>
@@ -27,7 +27,7 @@
     <?php print $subscriber_link ?>
   </div>
   <div>
-    Created: <?php print $created; ?>
+    <?php print t('Created: @date', array('@date' => $created)); ?>
   </div>
   <div>
     <?php print $subscribe_link; ?>
