@@ -1,0 +1,244 @@
+<?php
+// $Id: comment_publish.module,v 1.1.2.3.2.6 2011/01/31 04:42:46 elliottf Exp $
+
+/**
+ * @file
+ * 
+ * This module allows comments to be published/unpublished by privileged users.
+ *
+ * @author: Elliott Foster
+ * @copyright: NewMBC 2010
+ */
+
+// Module constants
+define('COMMENT_PUBLISH_PUBLISH_UNPUBLISH', 0);
+define('COMMENT_PUBLISH_PUBLISHED_UNPUBLISHED', 1);
+define('COMMENT_PUBLISH_YES_NO', 2);
+
+/**
+ * Implements hook_permission().
+ */
+function comment_publish_permission() {
+  $perms = array();
+  $types = node_type_get_types();
+  foreach ($types as $type) {
+    $perms['publish comments on own ' . $type->type . ' nodes'] = array(
+      'title' => t('Publish comments on own @type nodes', array('@type' => $type->type)),
+      'description' => t('Allow users to publish comments on their own @type nodes.', array('@type' => $type->type)),
+    );
+    $perms['unpublish comments on own ' . $type->type . ' nodes'] = array(
+      'title' => t('Unpublish comments on own @type nodes', array('@type' => $type->type)),
+      'description' => t('Allow users to unpublish comments on their own @type nodes.', array('@type' => $type->type)),
+    );
+  }
+
+  return $perms;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function comment_publish_menu() {
+  $items = array();
+
+  $items['comment_publish/js/%node/%comment/%/%'] = array(
+    'page callback' => 'comment_publish_js',
+    'page arguments' => array(2, 3, 4, 5),
+    'access callback' => 'comment_publish_access',
+    'access arguments' => array(2, 3),
+    'file' => 'comment_publish.pages.inc',
+    'type' => MENU_CALLBACK,
+  );
+  $items['node/%node/comment_publish/%comment'] = array(
+    'title callback' => 'comment_publish_title',
+    'title arguments' => array(1, 3),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('comment_publish_publish_form', 1, 3),
+    'access callback' => 'comment_publish_access',
+    'access arguments' => array(1, 3),
+    'file' => 'comment_publish.pages.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function comment_publish_menu_alter(&$items) {
+  $items['node/%/comment_publish']['access callback'] = 'comment_publish_access';
+  $items['node/%/comment_publish']['access arguments'] = array(1);
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function comment_publish_views_api() {
+  return array('api' => 3.0);
+}
+
+/**
+ * Implements of hook_views_handlers().
+ */
+function comment_publish_views_handlers() {
+  $handlers = array();
+
+  $handlers['handlers'] = array(
+    'views_handler_field_comment_publish_link' => array(
+      'parent' => 'views_handler_field',
+      'file' => 'views_handler_field_comment_publish_link.inc'
+    ),
+  );
+
+  return $handlers;
+}
+
+/**
+ * Implements hook_comment_view().
+ */
+function comment_publish_comment_view($comment, $view_mode, $langcode) {
+  global $user;
+  $links = array();
+  $node = node_load($comment->nid);
+
+  switch ($comment->status) {
+    case 0: // unpublished
+      // D7 provides an 'approve' link so we don't need anything here if the user can unpublish comments already
+      if (!comment_publish_access($node, $comment) || user_access('administer_comments')) {
+        return;
+      }
+      $links['comment_publish'] = array(
+        'title' => t('publish'),
+        'href' => 'node/' . $node->nid . '/comment_publish/' . $comment->cid,
+        'query' => drupal_get_destination(),
+      );
+      break;
+    case 1: // published
+      if (!comment_publish_access($node, $comment)) {
+        return;
+      }
+      $links['comment_publish'] = array(
+        'title' => t('unpublish'),
+        'href' => 'node/' . $node->nid . '/comment_publish/' . $comment->cid,
+        'query' => drupal_get_destination(),
+      );
+      break;
+  }
+
+  if (sizeof($links)) {
+    $comment->content['links']['comment_publish'] = array(
+      '#theme' => 'links',
+      '#links' => $links,
+      '#attributes' => array('class' => array('links', 'inline')),
+    );
+  }
+}
+
+/**
+ * Returns a title string for a comment_publish form.
+ */
+function comment_publish_title($node, $comment) {
+  if ($comment->status) { // published
+    $title = 'Unpublish this comment';
+  }
+  else { // unpublished
+    $title = 'Publish this comment';
+  }
+
+  return t($title);
+}
+
+/**
+ * Access callback for comment_publish forms.
+ */
+function comment_publish_access($node, $comment = NULL) {
+  if (is_numeric($node)) {
+    $node = node_load($node);
+  }
+  if (!$node) {
+    return FALSE;
+  }
+
+  global $user;
+  $admin = user_access('administer comments');
+
+  if ($user->uid != 1 && $user->uid != $node->uid && !$admin) {
+    return FALSE;
+  }
+
+  // if we don't have a comment, check against the node
+  if (!$comment) {
+    return user_access('publish comments on own ' . $node->type . ' nodes') || user_access('unpublish comments on own ' . $node->type . ' nodes') || $admin;
+  }
+
+  // make sure the node and comment match
+  if ($node->nid != $comment->nid) {
+    return FALSE;
+  }
+
+  if ($comment->status) { // published
+    return user_access('unpublish comments on own ' . $node->type . ' nodes') || $admin;
+  }
+  else { // unpublished
+    return user_access('publish comments on own ' . $node->type . ' nodes') || $admin;
+  }
+}
+
+/**
+ * Returns a comment_publish link.
+ *
+ * @param $nid - the node ID to get the unpublish link for
+ * @param $cid - the comment ID to get the unpublish link for
+ * @param $ajax - flag on whether or not the link should use AJAX
+ * @param $format - flag on how to display the link
+ * @param $reverse - flag on whether or not to reverse the output of the text
+ * @return a link for unpublishing the given comment
+ */
+function comment_publish_get_link($nid = 0, $cid = 0, $ajax = FALSE, $format = COMMENT_PUBLISH_PUBLISH_UNPUBLISH, $reverse = FALSE) {
+  $link = FALSE;
+
+  if (!$nid || !$cid) {
+    return $link;
+  }
+
+  $comment = comment_load($cid);
+
+  // add javascript for the link to use ajax
+  if ($ajax) {
+    drupal_add_js(drupal_get_path('module', 'comment_publish') . '/js/comment_publish.js');
+  }
+
+  // allow alternate text for publish and unpublish links
+  $publish = t('publish');
+  $unpublish = t('unpublish');
+  switch ($format) {
+    case COMMENT_PUBLISH_PUBLISHED_UNPUBLISHED:
+      $publish = t('published');
+      $unpublish = t('unpublished');
+      break;
+    case COMMENT_PUBLISH_YES_NO:
+      $publish = t('yes');
+      $unpublish = t('no');
+      break;
+  }
+
+  // reverse the values of publish and unpublish
+  if ($reverse) {
+    $t = $publish;
+    $publish = $unpublish;
+    $unpublish = $t;
+  }
+
+  $link = l(
+    t('@action', array('@action' => ($comment->status ? $unpublish : $publish))),
+    'node/' . $nid . '/comment_publish/' . $comment->cid,
+    array(
+      'query' => drupal_get_destination(),
+      'attributes' => array('id' => 'comment-publish-link_' . $nid . '_' . $comment->cid . '_' . $format . '_' . (int)$reverse,
+      'class' => 'comment-publish-link')
+    )
+  );
+
+  return $link;
+}
+

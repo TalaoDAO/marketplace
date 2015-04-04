@@ -1,0 +1,34 @@
+<?php
+// $Id: comment_publish.install,v 1.1.4.2 2010/10/20 15:18:26 elliottf Exp $
+
+/**
+ * @file
+ *
+ * Installation and update callbacks for the comment_publish module
+ *
+ * @author: Elliott Foster
+ * @copyright: NewMBC 2010
+ */
+
+/**
+ * Implements hook_install()
+ */
+function comment_publish_install() {
+  db_update('system')
+    ->fields(array('weight' => 11))
+    ->condition('name', 'comment_publish', '=')
+    ->execute();
+}
+
+/**
+ * Increase the weight of the module so it runs after views.
+ */
+function comment_publish_update_7000(&$sandbox) {
+  db_update('system')
+    ->fields(array('weight' => 11))
+    ->condition('name', 'comment_publish', '=')
+    ->execute();
+
+  return t('Updated the weight of the comment_publish module.');
+}
+

@@ -309,7 +309,12 @@ function mb_content_menu_local_tasks_alter(&$data, $router_item, $root_path) {
   $module = 'mb_content';
 
   if ($router_item['tab_root'] == 'node/%') {
-    $node = $router_item['map'][1];
+    if (!is_object($router_item['map'][1])) {
+      $node = node_load($router_item['map'][1]);
+    }
+    else {
+      $node = $router_item['map'][1];
+    }  
     $node_type_name = node_type_get_name($node);
 
     // Add Create new as local task tab.
