@@ -57,7 +57,11 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
         <div class="col-md-4">
             <div class="row">
                 <div class="col-md-6"><?php print t("Publication date:"); ?></div>
-                <div class="col-md-6 bold"><?php print $elements['#node']->created; ?></div>
+                <div class="col-md-6 bold">
+                    <?php if (isset($elements['#node']->created)) {
+                        print format_date($elements['#node']->created, 'short');
+                    } ?>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-6"><?php print $elements['field_expiration_date']['#title']; ?></div>
