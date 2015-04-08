@@ -1,10 +1,14 @@
-<?php if (isset($account->picture)) {
-    if ($account->picture) {
-        $img_url = $account->picture->uri;  // the orig image uri
-        $style = 'profile_picture';  // or any other custom image style you've created via /admin/config/media/image-styles
-        ?>
-        <div class="profile-picture">
-            <img src="<?php print image_style_url($style, $img_url); ?>"/>
-        </div>
-    <?php }
-}?>
+<?php
+$account = user_load($variables['account']->uid);
+
+if ($account) {
+    if ($account->field_photo && $account->field_photo[LANGUAGE_NONE][0]) {
+        $path = $account->field_photo[LANGUAGE_NONE][0]['uri'];
+    }
+}
+
+if(isset($path) && $path) {   ?>
+    <div class="profile-picture">
+        <img src="<?php print image_style_url('profile_picture', $path); ?>"/>
+    </div>
+<?php } ?>

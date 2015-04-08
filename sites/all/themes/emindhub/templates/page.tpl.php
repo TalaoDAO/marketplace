@@ -87,19 +87,19 @@
                 <div class="banniere">
                     <div class="container container-fluid">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-4 col-xs-5">
                                 <div class="text-banniere">
                                     <?php print $banniereText; ?>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-md-offset-4">
+                            <div class="col-md-4 col-md-offset-4 col-xs-4 col-xs-offset-3">
                                 <div class="row inscription-image-wrapper">
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 col-xs-12">
                                         <a href="<?php print url("business/register"); ?>"><?php print $demandeImg; ?></a>
                                     </div>
                                 </div>
                                 <div class="row inscription-image-wrapper">
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 col-xs-12">
                                         <a href="<?php print url("expert/register"); ?>"><?php print $expertiseImg; ?></a>
                                     </div>
                                 </div>
@@ -110,7 +110,13 @@
             <?php endif; ?>
             <?php if (user_is_logged_in()): ?>
                 <div class="ligh-blue-line header-separator">&nbsp;</div>
-                <div class="dark-blue-line-large">&nbsp;</div>
+                <!-- START BREADCRUMB -->
+                <?php if ($breadcrumb) { ?>
+                    <?php print $breadcrumb; ?>
+                <?php } else { ?>
+                    <div class="dark-blue-line-large">&nbsp;</div>
+                <?php } ?>
+            <!-- END BREADCRUMB -->
             <?php endif; ?>
             <?php
             if (isAdminUser()) {
@@ -129,6 +135,24 @@
         <?php endif; ?>
         <?php if (!isHomePage()): ?>
             <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <?php print render($title_prefix); ?>
+                    <?php if ($title): ?><h1 class="title"
+                                             id="page-title"><?php print $title; ?></h1><?php endif; ?>
+                    <?php print render($title_suffix); ?>
+                </div>
+            </div>
+            <?php if ($node->title == "About us" || $node->title == "Our services") { ?>
+                <div class="row">
+                    <div class="col-md-8 col-xs-8">
+                        <?php print render($page['content']); ?>
+                    </div>
+                    <div class="col-md-4 col-xs-4">
+                        <?php print render($page['sidebar_second']); ?>
+                    </div>
+                </div>
+            <?php } ?>
+            <div class="row">
                 <div class="col-md-12">
                     <?php print render($page['content']); ?>
                 </div>
@@ -136,22 +160,22 @@
         <?php endif; ?>
         <?php if (isHomePage()) { ?>
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-8 col-xs-8">
                 <div class="title-wrapper">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-xs-3">
                             <hr class="hr-dark"/>
                         </div>
-                        <div class="col-md-4 title">
+                        <div class="col-md-4 title col-xs-6">
                             <?php print t("NOS ENGAGEMENTS"); ?>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-xs-3">
                             <hr class="hr-dark"/>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-xs-4">
                         <div class="engagement-block rapidity">
                             <div class="header"><?php print t("Rapidité"); ?></div>
                             <div class="content">
@@ -161,7 +185,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-xs-4">
                         <div class="engagement-block security">
                             <div class="header"><?php print t("Sécurité"); ?></div>
                             <div class="content">
@@ -172,7 +196,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-xs-4">
                         <div class="engagement-block quality">
                             <div class="header"><?php print t("Qualité"); ?></div>
                             <div class="content">
@@ -185,24 +209,24 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-xs-6">
                           <?php print render($page['theyuseus']); ?>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-xs-6">
                         <?php print render($page['theyareexpert']); ?>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-xs-4">
                 <div class="title-wrapper">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-3 col-xs-2">
                             <hr class="hr-dark"/>
                         </div>
-                        <div class="col-md-6 title">
+                        <div class="col-md-6 title col-xs-8">
                             <?php print t('EN SAVOIR + ?'); ?>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 col-xs-2">
                             <hr class="hr-dark"/>
                         </div>
                     </div>
@@ -216,7 +240,7 @@
 <?php if (user_is_logged_in()): ?>
     <div class="container container-fluid">
 
-        <!-- START BREADCRUMB AND NAV -->
+        <!-- START NAV -->
         <?php if (1 == 0): ?>
             <?php if ($main_menu || $secondary_menu): ?>
                 <div id="navigation">
@@ -227,12 +251,7 @@
                 </div> <!-- /.section, /#navigation -->
             <?php endif; ?>
         <?php endif; ?>
-
-        <?php if ($breadcrumb): ?>
-            <div id="breadcrumb"><?php print $breadcrumb; ?></div>
-        <?php endif; ?>
-
-        <!-- END BREADCRUMB AND NAV -->
+        <!-- END NAV -->
 
 
         <div id="main-wrapper">
@@ -256,7 +275,7 @@
                         <?php print render($page['help']); ?>
                         <?php if ($action_links): ?>
                             <ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
-                        <?php print render($page['content']); ?>
+                        <? print render($page['content']); ?>
                         <?php print $feed_icons; ?>
                     </div>
                 </div>
@@ -304,14 +323,14 @@
         <!-- /#main, /#main-wrapper -->
         <?php print render($page['burgermenu']); ?>
     </div>
-    <div id="footer" class="footer-container">
-        <div class="section">
-            <div class="container container-fluid">
-                <?php print render($page['footer']); ?>
-            </div>
-        </div>
-    </div>
     <!-- /.section, /#footer -->
     </div> <!-- /#page, /#page-wrapper -->
 </div>
 <?php endif; ?>
+<div id="footer" class="footer-container">
+    <div class="section">
+        <div class="container container-fluid">
+            <?php print render($page['footer']); ?>
+        </div>
+    </div>
+</div>

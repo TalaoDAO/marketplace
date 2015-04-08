@@ -1,7 +1,7 @@
 
 <div class="container container-fluid">
     <div class="row">
-        <div class="col-md-4 header-emindhub">
+        <div class="col-md-4 col-xs-4 header-emindhub">
             <?php if ($logo): ?>
                 <a href="<?php print url("homepage"); ?>"><?php print $imagelogo; ?></a>
             <?php endif; ?>
@@ -11,15 +11,15 @@
                 </div>
             <?php endif; ?>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 col-xs-8">
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-5 col-xs-5">
                     <div class="form-group">
                         <?php print render($page['searchmodule']); ?>
                     </div>
                 </div>
 
-                <div class="col-md-6 text-right">
+                <div class="col-md-6 col-xs-6 text-right">
                     <?php if ($firstMenu):
                         $length = count($firstMenu);
                         foreach ($firstMenu as $index => $menuEntry):
@@ -53,7 +53,7 @@
                         <?php endforeach;
                     endif; ?>
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-1 col-xs-1">
                     <div class="language-select">
                         <?php print render($page['languageselect']); ?>
                     </div>

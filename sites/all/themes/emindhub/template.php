@@ -51,9 +51,10 @@ function emindhub_file($variables) {
     return sprintf('<div class="file-upload"><span>%s</span><input' . drupal_attributes($element['#attributes']) . ' /></div>', t("Choose a file"));
 }
 
-function emindhub_preprocess_user_picture(&$vars) {
+function emindhub_preprocess_user_picture(&$variables) {
     $variables['user_picture'] = '';
-    if (variable_get('user_pictures', 0)) {
+    //dpm('toto');
+    //if (variable_get('user_pictures', true)) {
         if (isset($variables['account'])) {
             $account = $variables['account'];
             if (!empty($account->picture)) {
@@ -66,13 +67,18 @@ function emindhub_preprocess_user_picture(&$vars) {
                 // the picture files in mass during the object's load process.
                 if (is_numeric($account->picture)) {
                     $account->picture = file_load($account->picture);
+                    //dsm($account->picture);
+                    //dsm('on as trouvé une image !!');
                 }
                 if (!empty($account->picture->uri)) {
                     $filepath = $account->picture->uri;
+                    //dsm('on as trouvé une image !! bis');
+                    //dsm($account->picture);
                 }
             }
             elseif (variable_get('user_picture_default', '')) {
                 $filepath = variable_get('user_picture_default', '');
+                //dsm('on as trouvé une image default !!');
             }
             if (isset($filepath)) {
                 $alt = t("@user's picture", array('@user' => format_username($account)));
@@ -102,7 +108,12 @@ function emindhub_preprocess_user_picture(&$vars) {
                 }
             }
         }
-    }
+        else {
+            dsm('! isset($variables[account])');
+        }
+    /*} else {
+        dsm('variable_get("user_pictures", 0)');
+    }*/
 }
 
 function emindhub_form_alter(&$form, &$form_state, $form_id) {
@@ -500,7 +511,7 @@ function emindhub_menu_link(array &$variables) {
     $classes = "";
 
     if ($variables['theme_hook_original'] == "menu_link__menu_top_anonymous"){
-        $classes = "col-md-4 upper";
+        $classes = "col-md-4 col-xs-4 upper";
 
         //Classe particulière pour le contactez nous/contact us
         if (strpos(strtolower($variables['element']['#title']), "contact") !== false) {

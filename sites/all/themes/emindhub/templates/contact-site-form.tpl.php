@@ -14,10 +14,10 @@ $fieldCivility = $form['civility'];
     <div class="row border-light">
         <div class="col-md-12">
             <div class="row paddingU">
-                <div class="col-md-1">
+                <div class="col-md-1 col-xs-1">
                     <img src="<?php print getImgSrc("bulle.png"); ?>" />
                 </div>
-                <div class="col-md-10 bold">
+                <div class="col-md-10 col-xs-10 bold">
                     <?php print t("Do you want to learn more ?"); ?>
                 </div>
             </div>

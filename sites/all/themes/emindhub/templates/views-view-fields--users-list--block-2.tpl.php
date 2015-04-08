@@ -1,6 +1,8 @@
 <div class="row paddingU">
     <div class="col-md-4">
-        <?php print $fields['picture']->content; ?>
+        <?php if (isset($fields['picture'])) {
+            print $fields['picture']->content;
+        } ?>
     </div>
     <div class="col-md-8">
         <div class="light-blue-text">

@@ -1,32 +1,32 @@
 <div class="title-wrapper">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 col-xs-4">
             <hr class="hr-dark"/>
         </div>
-        <div class="col-md-4 title"><?php print t("QUI SONT LES EXPERTS ?"); ?></div>
-        <div class="col-md-4">
+        <div class="col-md-4 col-xs-4 title"><?php print t("QUI SONT LES EXPERTS ?"); ?></div>
+        <div class="col-md-4 col-xs-4">
             <hr class="hr-dark"/>
         </div>
     </div>
 </div>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 col-xs-4">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-2 col-xs-3">
                 <?php print $atomiumImg; ?>
             </div>
-            <div class="col-md-10">
+            <div class="col-md-10 col-xs-9">
                 <span class="light-blue-text"><?php print t("Professionnels expérimentés, retraités actifs, chercheurs, étudiants..."); ?></span>
 
                 <p><?php print t("Ils sont dans votre réseau ou dans le réseau emindhub."); ?></p>
             </div>
         </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-8 col-xs-8">
         <div class="row">
-            <div class="col-md-offset-2 col-md-4 noPadding">
+            <div class="col-md-offset-2 col-xs-offset-2 col-xs-4 col-md-4 noPadding">
                 <div class="row">
-                    <div class="col-md-3 noPadding">
+                    <div class="col-md-3 col-xs-3 noPadding">
                         <span class="popup-hover">
                             <?php print $cercleImg; ?>
                             <span class="experts">
@@ -35,12 +35,12 @@
                             </span>
                         </span>
                     </div>
-                    <div class="col-md-9 paddingUD"><?php print t("TOUS"); ?> <br><span class="bold"><?php print t("LES EXPERTS"); ?></span></div>
+                    <div class="col-md-9 col-xs-9 paddingUD"><?php print t("TOUS"); ?> <br><span class="bold"><?php print t("LES EXPERTS"); ?></span></div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 col-xs-6">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-xs-3">
                         <span class="popup-hover">
                         <?php print $cercleImg; ?>
                             <span class="sponsored">
@@ -49,7 +49,7 @@
                             </span>
                         </span>
                     </div>
-                    <div class="col-md-9 paddingUD">
+                    <div class="col-md-9 col-xs-9 paddingUD">
                         <?php print t("LES EXPERTS"); ?> <br><span class="bold"><?php print t("PARRAINÉS"); ?></span>
                     </div>
                 </div>
@@ -58,13 +58,13 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 col-xs-4">
         <div class="little-wrapper">
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-2 col-xs-3">
                     <?php print $peopleImg; ?>
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-10 col-xs-9">
                     <span class="light-blue-text"><?php print t("Avec emindhub,"); ?></span>
 
                     <p><?php print t("Vous les organisez et les sollicitez selon vos besoins."); ?></p>
@@ -72,11 +72,11 @@
             </div>
         </div>
     </div>
-    <div class="col-md-8 ondes-background">
+    <div class="col-md-8 ondes-background col-xs-8">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 col-xs-4">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-xs-5">
                         <span class="popup-hover">
                         <?php print $cercleImg; ?>
                             <span class="partners">
@@ -85,14 +85,14 @@
                             </span>
                         </span>
                     </div>
-                    <div class="col-md-9 paddingUD">
+                    <div class="col-md-9 paddingUD col-xs-7">
                         <?php print t("VOTRE RÉSEAU"); ?> <br><span class="bold"><?php print t("ACTIF"); ?></span>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-xs-4">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-xs-5">
                         <span class="popup-hover">
                         <?php print $cercleImg; ?>
                             <span class="formers">
@@ -101,14 +101,14 @@
                             </span>
                         </span>
                     </div>
-                    <div class="col-md-9 paddingUD">
+                    <div class="col-md-9 col-xs-7 paddingUD">
                         <?php print t("VOS"); ?> <br><span class="bold"><?php print t("ALUMNIS"); ?></span>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-xs-4">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-xs-5">
                         <span class="popup-hover">
                         <?php print $cercleImg; ?>
                             <span class="circles">
@@ -117,7 +117,7 @@
                             </span>
                         </span>
                     </div>
-                    <div class="col-md-9 paddingUD">
+                    <div class="col-md-9 col-xs-7 paddingUD">
                         <?php print t("VOS CERCLES"); ?> <br><span class="bold"><?php print t("PRIVÉS"); ?></span>
                     </div>
                 </div>
