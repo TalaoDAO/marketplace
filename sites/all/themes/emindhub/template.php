@@ -301,6 +301,10 @@ function emindhub_preprocess_page(&$vars) {
 
 function emindhub_preprocess_html(&$variables) {
     drupal_add_css('http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' , array('type' => 'external'));
+
+    if (isBusinessUser()) {
+        $variables['classes_array'][] = 'business-user';
+    }
 }
 
 function emindhub_preprocess_node(&$variables, $hook) {
@@ -671,6 +675,14 @@ function emindhub_menu_link__menu_footer_menu(array $variables) {
 /*
  * USEFULL FUNCTION
  */
+function isBusinessUser($account = null) {
+    global $user;
+    if (is_null($account)) {
+        $account = $user;
+    }
+    return $account->uid && in_array('business', $account->roles);
+}
+
 function isAdminUser () {
     global $user;
     return (in_array('administrator', array_values($user->roles)));

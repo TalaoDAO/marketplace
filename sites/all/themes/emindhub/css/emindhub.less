@@ -2737,7 +2737,7 @@ div.field-name-field-skills-set label {
     }
 
     .quicktabs-tabs {
-        display: flex;
+        display: table;
 
         li {
             background: @circleLightBlue url(../images/cercle.png) no-repeat 50% 30% !important;
@@ -2970,4 +2970,11 @@ span.required {
     display: inline-block;
 
     margin-bottom: 1.5em;
+}
+
+body.business-user {
+    table tbody tr:nth-child(odd),
+    .table-content:nth-child(odd) {
+        background-color: @oddBlue;
+    }
 }
