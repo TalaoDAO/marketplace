@@ -524,7 +524,7 @@ function emindhub_menu_link(array &$variables) {
     }
 
     if ($variables['theme_hook_original'] == "menu_link__menu_top"){
-        $classes = "col-md-4 upper";
+        $classes = "col-md-4 col-xs-4 upper";
         if (isset($variables['element']['#emhInformation'])) {
             $classes = "";
 

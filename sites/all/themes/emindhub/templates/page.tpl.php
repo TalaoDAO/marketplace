@@ -73,9 +73,9 @@
  */
 ?>
 
-<div><?php print render($page['breadcrumbs']); ?></div>
-
-
+<!--
+seems to be unused
+<div><?php //print render($page['breadcrumbs']); ?></div>-->
 
 <div id="page-wrapper">
     <div id="page">
@@ -301,17 +301,17 @@
                 <?php endif; ?>
                 <?php if (isHomePage()): ?>
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-8 col-xs-8">
                             <div class="row subtitle-wrapper">
-                              <div class="col-md-6">
+                              <div class="col-md-6 col-xs-6">
                                 <?php print render($page['theyuseus']); ?>
                               </div>
-                              <div class="col-md-6">
+                              <div class="col-md-6 col-xs-6">
                                 <?php print render($page['theyareexpert']); ?>
                               </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-xs-4">
                             <div class="row subtitle-wrapper">
                                 <?php print render($page['news']); ?>
                             </div>

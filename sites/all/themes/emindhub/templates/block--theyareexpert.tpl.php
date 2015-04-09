@@ -1,6 +1,6 @@
 <?php if ($block->subject): ?>
     <div class="row paddingUD">
-        <div class="col-md-8 col-xs-12 light-blue-text bold">
+        <div class="col-md-9 col-xs-12 light-blue-text bold">
             <h2<?php print $title_attributes; ?>><?php print $block->subject ?></h2>
         </div>
         <div class="col-md-3 col-xs-6"><hr class="hr-light"></div>
