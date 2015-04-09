@@ -111,6 +111,8 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
                 $commentActions = $elements['comments']['comment_form']['actions'];
                 $commentActions['submit']['#attributes']['class'][] = 'btn';
                 $commentActions['submit']['#attributes']['class'][] = 'btn-send';
+                $commentActions['draft']['#attributes']['class'][] = 'btn';
+                $commentActions['draft']['#attributes']['class'][] = 'btn-draft';
                 print render($commentActions);
                 print render($elements['comments']['comment_form']['form_build_id']);
                 print render($elements['comments']['comment_form']['form_token']);
