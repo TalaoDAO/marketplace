@@ -94,7 +94,7 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
         <hr class="hr-light-grey">
         <div class="challenge-detail">
             <?php if ($body && $body[0]): ?>
-                <?php print $body[0]['safe_value']; ?>
+                <?php print $body[0]['value']; ?>
             <?php endif; ?>
         </div>
     </div>
