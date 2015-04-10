@@ -73,7 +73,7 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
             </div>
             <div class="row">
                 <div class="col-md-6"><?php print t("Number of responses:"); ?></div>
-                <div class="bold"></div>
+                <div class="col-md-6 bold"><?php print $comment_count; ?></div>
             </div>
             <div class="row">
                 <div class="col-md-6"><?php print $elements['field_reward']['#title']; ?></div>

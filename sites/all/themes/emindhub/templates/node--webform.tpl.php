@@ -108,7 +108,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            <?php if (isset($field_image)) {
+            <?php if ($field_image && isset($field_image)) {
                 $img_url = $field_image[0]['uri'];  // the orig image uri
                 $style = 'medium';  // or any other custom image style you've created via /admin/config/media/image-styles
                 ?>
@@ -125,7 +125,11 @@
         <div class="col-md-12"><?php print $elements['body'][0]['#markup']; ?></div>
     </div>
     <div class="row">
-        <div class="col-md-3 bold paddingU"><?php print $elements['field_object_of_the_mission']['#title']; ?></div>
+        <div class="col-md-3 bold paddingU"><?php
+            if ($elements['field_object_of_the_mission']) {
+                print $elements['field_object_of_the_mission']['#title'];
+            }
+            ?></div>
     </div>
     <div class="row">
         <div class="col-md-12"><?php print $elements['field_object_of_the_mission'][0]['#markup']; ?></div>

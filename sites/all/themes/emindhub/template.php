@@ -351,11 +351,13 @@ function node_informations_add(&$variables) {
             }
             $variables['user_name'] = $lastName . ' ' . $firstName;
 
-            $targetId = $account->field_entreprise[LANGUAGE_NONE][0]['target_id'];
-            $entity = node_load($targetId);
-            if ($entity) {
-                $variables['company_name'] = $entity->title;
-                $variables['company_description'] = $entity->body[LANGUAGE_NONE][0]["value"];
+            if ($account->field_entreprise) {
+                $targetId = $account->field_entreprise[LANGUAGE_NONE][0]['target_id'];
+                $entity = node_load($targetId);
+                if ($entity) {
+                    $variables['company_name'] = $entity->title;
+                    $variables['company_description'] = $entity->body[LANGUAGE_NONE][0]["value"];
+                }
             }
         }
     }
