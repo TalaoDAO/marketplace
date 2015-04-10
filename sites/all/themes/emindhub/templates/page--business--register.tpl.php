@@ -101,13 +101,13 @@
                         <div class="col-md-1">
                             <hr class="hr-light">
                         </div>
-                        <div class="col-md-3 col-md-offset-8">
-                            <?php print t("Share:"); ?> <img src="<?php print getImgSrc("facebookMini.png"); ?>">
-                            <img src="<?php print getImgSrc("twitterMini.png"); ?>">
-                            <img src="<?php print getImgSrc("linkedinMini.png"); ?>">
-                            <img src="<?php print getImgSrc("googlePlusMini.png"); ?>">
-                            <img src="<?php print getImgSrc("emailMini.png"); ?>">
-                        </div>
+                        <!--<div class="col-md-3 col-md-offset-8">
+                            <?php /*print t("Share:"); */?> <img src="<?php /*print getImgSrc("facebookMini.png"); */?>">
+                            <img src="<?php /*print getImgSrc("twitterMini.png"); */?>">
+                            <img src="<?php /*print getImgSrc("linkedinMini.png"); */?>">
+                            <img src="<?php /*print getImgSrc("googlePlusMini.png"); */?>">
+                            <img src="<?php /*print getImgSrc("emailMini.png"); */?>">
+                        </div>-->
                     </div>
                     <div class="challenge-title"><?php print t("Create your account "); ?><span class="bold"><?php print t("in no time"); ?></span></div>
                     <div class="business-register">
