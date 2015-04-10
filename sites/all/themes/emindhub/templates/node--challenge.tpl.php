@@ -65,7 +65,7 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
                 <div class="row">
                     <div class="col-md-6"><?php print $content['field_expiration_date']['#title']; ?></div>
                     <div class="col-md-6  bold"><?php
-                        print $content['field_expiration_date']['#items'][0]['value']; ?></div>
+                        print date('d/m/Y - H:i', strtotime($content['field_expiration_date']['#items'][0]['value'])); ?></div>
                 </div>
                 <div class="row">
                     <div class="col-md-6"><?php print t("Number of responses:"); ?></div>

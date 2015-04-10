@@ -79,7 +79,9 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6"><?php print $elements['field_start_date']['#title']; ?></div>
-                        <div class="col-md-6 bold"><?php print $elements['field_start_date'][0]['#markup']; ?></div>
+                        <div class="col-md-6 bold"><?php
+                            print date('d/m/Y - H:i', strtotime($node->field_start_date['und'][0]['value']));
+                            ?></div>
                     </div>
                     <div class="row">
                         <div class="col-md-6"><?php print t("Number of responses:"); ?></div>

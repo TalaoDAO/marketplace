@@ -66,9 +66,9 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
             <div class="row">
                 <div class="col-md-6"><?php print $elements['field_expiration_date']['#title']; ?></div>
                 <div class="col-md-6 bold">
-                    <?php if (isset($field_expiration_date[0]['value'])): ?>
-                        <?php print $field_expiration_date[0]['value']; ?>
-                    <?php endif; ?>
+                    <?php if (isset($field_expiration_date[0]['value'])) {
+                        print date('d/m/Y - H:i', strtotime($field_expiration_date[0]['value']));
+                    } ?>
                 </div>
             </div>
             <div class="row">
