@@ -50,7 +50,7 @@
     <?php if ($block->region == "burgermenu"): ?>
         <?php if ($block->subject): ?>
             <div class="paddingU" >
-                <h2 class="burgermenu-title"><?php print $block->subject ?></h2><img class="burgermenu-close-icon" src="<?php print getImgSrc('bmClose.png'); ?>" onclick="var bm = document.querySelector('.region-burgermenu');if (bm) {bm.style.display = (bm.style.display != 'none'&& bm.style.display != '')? 'none': 'block';}">
+                <h2 class="burgermenu-title"><?php print $block->subject ?></h2><img class="burgermenu-close-icon" src="<?php print getImgSrc('bmClose.png'); ?>" onclick="onClickBurgerMenuBtn()">
             </div>
         <?php endif; ?>
     <?php endif; ?>

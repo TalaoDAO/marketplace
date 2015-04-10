@@ -1,11 +1,26 @@
 function onClickBurgerMenuBtn() {
-    var bm = document.getElementById("block-menu-menu-burger-menu");
+    var bm = document.querySelector('.region-burgermenu');
     if (bm) {
-        var bVisible = bm.style.display != "none" && bm.style.display != "";
-        //bVisible = !bVisible;
-        var strVisible = (bVisible)? "none": "block";
-        bm.style.display = strVisible;
+        bm.style.display = (bm.style.display != 'none'&& bm.style.display != '') ? 'none': 'block';
+        if (bm.style.display != 'none'&& bm.style.display != '') {
+            document.body.onclick = onClickBody;
+        }
+        else {
+            document.body.onclick = null;
+        }
     }
 }
 
-document.querySelector(".region-burgermenu")
+function onClickBody(evt) {
+    var elt = evt.target;
+    while (elt != null) {
+        if (elt.className.indexOf("region-burgermenu") != -1 || elt.className.indexOf("burger-menu-btn-container") != -1) {
+            return;
+        }
+        elt = elt.parentElement;
+    }
+    //On est arrivé jusque ici donc on as pas cliqué dans le burger menu
+    var bm = document.querySelector('.region-burgermenu');
+    bm.style.display = 'none';
+    document.body.onclick = null;
+}

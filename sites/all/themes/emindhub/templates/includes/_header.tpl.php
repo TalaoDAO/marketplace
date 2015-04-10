@@ -6,7 +6,7 @@
                 <a href="<?php print url("homepage"); ?>"><?php print $imagelogo; ?></a>
             <?php endif; ?>
             <?php if (user_is_logged_in()): ?>
-                <div class="burger-menu-btn-container" onclick="var bm = document.querySelector('.region-burgermenu');if (bm) {bm.style.display = (bm.style.display != 'none'&& bm.style.display != '')? 'none': 'block';}">
+                <div class="burger-menu-btn-container" onclick="onClickBurgerMenuBtn()">
                     <?php print $openBurgerImg; ?>
                 </div>
             <?php endif; ?>

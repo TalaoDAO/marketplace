@@ -3,11 +3,13 @@ description = Théme développé pour emindhub. Basé sur Bootstrap pour une int
 core = 7.x
 engine = phptemplate
 
-# Ajout de fichiers CSS
+; Ajout de fichiers CSS
 stylesheets[all][] = css/bootstrap-theme.css
 stylesheets[all][] = css/emindhub.css
 stylesheets[all][] = css/bootstrap.css
 
+; Javascript
+scripts[] = js/main.js
 
 ; DEFAULT REGIONS
 regions[page_top] = Page Top
