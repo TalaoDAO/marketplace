@@ -2119,7 +2119,7 @@ div.field-name-field-skills-set label {
                 .views_slideshow_controls_text_previous {
                     position: absolute;
                     //top: 74.7%;
-                    top: 12.1em;
+                    top: 12.05em;
                     z-index: 25;
 
                     a {
@@ -2131,7 +2131,7 @@ div.field-name-field-skills-set label {
                 .views_slideshow_controls_text_next {
                     position: absolute;
                     //top: 74.7%;
-                    top: 12.1em;
+                    top: 12.05em;
                     left: 95%;
 
                     z-index: 25;
@@ -2489,8 +2489,8 @@ div.field-name-field-skills-set label {
     }
 
     &-theyuseus {
-        .they-use-us {
-            &-block {
+//        .they-use-us {
+            .view-content {
                 .views_slideshow_controls_text_previous {
                     position: absolute;
                     top: 8.8em;
@@ -2513,9 +2513,12 @@ div.field-name-field-skills-set label {
                         z-index: 25;
                     }
                 }
-            }
 
-            &-container {
+                .views-slideshow-controls-text-pause {
+                    display: none;
+                }
+                
+                //////////////////////////////
                 .views_slideshow_cycle_main {
                     margin-left: 2em;
                 }
@@ -2525,7 +2528,18 @@ div.field-name-field-skills-set label {
                     width: 100% !important;
                 }
             }
-        }
+/*
+            &-container {
+                .views_slideshow_cycle_main {
+                    margin-left: 2em;
+                }
+
+                .views-slideshow-cycle-main-frame-row {
+                    padding-right: 1.5em;
+                    width: 100% !important;
+                }
+            }*/
+//        }
 
         .view-users-list {
             height: 12em;
@@ -2998,4 +3012,8 @@ body.business-user {
     input[type=submit] {
         background-color: @lightBlue;
     }
+}
+
+.page-admin-structure-views span.label {
+    color: @darkBlue;
 }
