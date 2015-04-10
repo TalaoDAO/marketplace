@@ -35,6 +35,23 @@ body {
     }
 }
 
+
+.line {
+    height: 2px;
+    top: 0.8em;
+    background-color: @lightBlue;
+    position: relative;
+    margin-bottom: 1em;
+
+    h2 {
+        background-color: white;
+        padding-right: 0.7em !important;
+        top: -0.6em;
+        display: inline;
+        position: relative;
+    }
+}
+
 .text-normal {
     font-weight: normal !important;
 }
@@ -3017,4 +3034,29 @@ body.business-user {
 
 .page-admin-structure-views span.label {
     color: @darkBlue;
+}
+
+.page-business-register,
+.page-expert-register {
+    .region-sidebar-second {
+        @media (min-width: 992px) {
+            .col-md-3 {
+                width: 66.66666667%;
+            }
+            .col-md-8 {
+                width: 25%;
+            }
+        }
+
+        .views-slideshow-slide-counter,
+        .views_slideshow_controls_text_pause {
+            display: none;
+            /*position: relative;
+            left: 39%;*/
+        }
+
+        .views-field-field-photo {
+            .profile-picture;
+        }
+    }
 }

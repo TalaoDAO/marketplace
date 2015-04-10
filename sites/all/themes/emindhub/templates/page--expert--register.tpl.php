@@ -95,7 +95,7 @@
             print $messages;
             ?>
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-8">
                     <div class="register-title"><?php print t("Expert registration"); ?></div>
                     <div class="row">
                         <div class="col-md-1">
@@ -114,17 +114,18 @@
                         <?php print render($page['content']); ?>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="row marginU">
-                          <div class="col-md-12">
-                            <img src="<?php print getImgSrc("expertAdvantages.png"); ?>" />
-                        </div>
-                    </div>
-                    <div class="row">
+                <div class="col-md-4">
+                    <!--<div class="row marginU">
+                          <div class="col-md-12">-->
+<!--                            <img src="--><?php //print getImgSrc("expertAdvantages.png"); ?><!--" />-->
+                              <?php print render($page['sidebar_second']); ?>
+                        <!--</div>
+                    </div>-->
+                    <!--<div class="row">
                         <div class="col-md-12">
-                            <?php print render($page['theyuseus']); ?>
+                            <?php /*print render($page['theyuseus']); */?>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>
