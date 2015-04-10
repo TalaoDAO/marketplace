@@ -1,0 +1,13 @@
+name = Show unpublished comments
+description = Show unpublished comments to the authors.
+core = 7.x
+dependencies[] = comment
+package = Comment
+
+
+; Information added by drupal.org packaging script on 2013-10-18
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "su_comments"
+datestamp = "1382134404"
+
