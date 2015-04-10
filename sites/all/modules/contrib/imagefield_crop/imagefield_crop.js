@@ -52,11 +52,11 @@ Drupal.behaviors.imagefield_crop = {
             });
             // Crop image even if user has left image untouched.
             $(widget).siblings('.preview-existing').css({display: 'none'});
-            $(widget).siblings(".edit-image-crop-x").val(c.x);
-            $(widget).siblings(".edit-image-crop-y").val(c.y);
-            if (c.w) $(widget).siblings(".edit-image-crop-width").val(c.w);
-            if (c.h) $(widget).siblings(".edit-image-crop-height").val(c.h);
-            $(widget).siblings(".edit-image-crop-changed").val(1);
+            $(widget).children(".edit-image-crop-x").val(c.x);
+            $(widget).children(".edit-image-crop-y").val(c.y);
+            if (c.w) $(widget).children(".edit-image-crop-width").val(c.w);
+            if (c.h) $(widget).children(".edit-image-crop-height").val(c.h);
+            $(widget).children(".edit-image-crop-changed").val(1);
           },
           onSelect: function(c) {
             $(widget).siblings('.preview-existing').css({display: 'none'});
@@ -69,15 +69,15 @@ Drupal.behaviors.imagefield_crop = {
           aspectRatio: settings.imagefield_crop[id].box.ratio,
           boxWidth: settings.imagefield_crop[id].box.box_width,
           boxHeight: settings.imagefield_crop[id].box.box_height,
-          minSize: [Drupal.settings.imagefield_crop[id].minimum.width, Drupal.settings.imagefield_crop[id].minimum.height], 
+          minSize: [Drupal.settings.imagefield_crop[id].minimum.width, Drupal.settings.imagefield_crop[id].minimum.height],
           /*
            * Setting the select here calls onChange event, and we lose the original image visibility
           */
           setSelect: [
-            parseInt($(widget).siblings(".edit-image-crop-x").val()),
-            parseInt($(widget).siblings(".edit-image-crop-y").val()),
-            parseInt($(widget).siblings(".edit-image-crop-width").val()) + parseInt($(widget).siblings(".edit-image-crop-x").val()),
-            parseInt($(widget).siblings(".edit-image-crop-height").val()) + parseInt($(widget).siblings(".edit-image-crop-y").val())
+            parseInt($(widget).children(".edit-image-crop-x").val()),
+            parseInt($(widget).children(".edit-image-crop-y").val()),
+            parseInt($(widget).children(".edit-image-crop-width").val()) + parseInt($(widget).children(".edit-image-crop-x").val()),
+            parseInt($(widget).children(".edit-image-crop-height").val()) + parseInt($(widget).children(".edit-image-crop-y").val())
           ]
         });
       });

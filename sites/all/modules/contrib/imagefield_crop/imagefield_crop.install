@@ -1,0 +1,68 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function imagefield_crop_schema() {
+  $schema['imagefield_crop'] = array(
+    'fields' => array(
+      'fid' => array(
+        'type' => 'int',
+        'unsigned' => FALSE,
+        'not null' => FALSE,
+      ),
+      'x' => array(
+        'type' => 'int',
+        'unsigned' => FALSE,
+        'not null' => FALSE,
+      ),
+      'y' => array(
+        'type' => 'int',
+        'unsigned' => FALSE,
+        'not null' => FALSE,
+      ),
+      'width' => array(
+        'type' => 'int',
+        'unsigned' => FALSE,
+        'not null' => FALSE,
+      ),
+      'height' => array(
+        'type' => 'int',
+        'unsigned' => FALSE,
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('fid'),
+  );
+  return $schema;
+}
+
+/**
+ * Install imagefield_crop table and migrate settings away from variables table.
+ */
+function imagefield_crop_update_7001() {
+  if (!db_table_exists('imagefield_crop')) {
+    drupal_install_schema('imagefield_crop');
+  }
+
+  // Migrate the data out of the variables table.
+  $crop_info = variable_get('imagefield_crop_info', array());
+  if (!empty($crop_info)) {
+    $txn = db_transaction();
+    // Chunk the field inserts into rows of 100 to stay within any database
+    // multi-insert limit.
+    $chunks = array_chunk($crop_info, 100, TRUE);
+    foreach ($chunks as $insert_data) {
+      $insert = db_insert('imagefield_crop')
+        ->fields(array('fid', 'x', 'y', 'width', 'height'));
+      foreach ($insert_data as $fid => $values) {
+        $values['fid'] = $fid;
+        $insert->values($values);
+      }
+      $insert->execute();
+    }
+  }
+
+  // Remove the imagefield_crop variable as its no longer needed.
+  variable_del('imagefield_crop_info');
+}

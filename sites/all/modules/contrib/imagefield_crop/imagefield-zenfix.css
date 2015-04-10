@@ -1,0 +1,7 @@
+/* Zen - max-width: 100% for img tags in normalize.css messes up ImageField Crop's
+ * preview and cropbox - we have to set max-width to none to fix it
+ * per https://drupal.org/node/1779494
+ */
+div.imagefield-crop-widget img {
+  max-width:none !important;
+}
