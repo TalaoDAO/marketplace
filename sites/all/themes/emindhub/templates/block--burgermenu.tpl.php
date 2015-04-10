@@ -47,20 +47,11 @@
 <div id="<?php print $block_html_id; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
 
     <?php print render($title_prefix); ?>
-
-    <?php if ($block->region != "topmenu"): ?>
-        <?php if ($block->subject): ?>
-            <div class="row paddingUD">
-                <div class="col-md-3 col-xs-3 light-blue-text bold">
-                    <h2<?php print $title_attributes; ?>><?php print $block->subject ?></h2>
-                </div>
-                <div class="col-md-8 col-xs-8"><hr class="hr-light"></div>
-                <div class="col-md-1 col-xs-1">
-                    <img src="<?php print getImgSrc('fluxIcon.png'); ?>">
-                </div>
-            </div>
-        <?php endif;?>
-    <?php endif;?>
+    <?php if ($block->subject): ?>
+        <div class="paddingU" >
+            <h2 class="burgermenu-title"><?php print $block->subject ?></h2><img class="burgermenu-close-icon" src="<?php print getImgSrc('bmClose.png'); ?>" onclick="onClickBurgerMenuBtn()">
+        </div>
+    <?php endif; ?>
 
     <?php print render($title_suffix); ?>
 
