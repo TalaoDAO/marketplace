@@ -6,8 +6,78 @@ body {
 }
 
 .banniere {
-    line-height: 4.25em;
+    //line-height: 4.25em;
+  padding: 25px 0;
     background: @lightBlue url(../images/banniere.png) no-repeat center center;
+}
+a.signup-button {
+  background: white;
+  box-shadow: 0 0 2px black;
+  color: @darkBlue;
+  display: block;
+  margin-bottom: 15px;
+  &:hover {
+    text-decoration: none;
+  }
+  .signup-button-header,
+  .signup-button-footer {
+    display: block;
+    padding: 6px;
+  }
+  .signup-button-header {
+    font-size: 1.714em;
+    line-height: 1em;
+    padding: 14px 6px;
+    text-align: center;
+    strong {
+      display: block;
+      text-transform: uppercase;
+    }
+  }
+  .signup-button-footer {
+    background: #f6f7f8;
+    padding-left: 28px;
+    position: relative;
+    &::before {
+      border-radius: 50%;
+      content: "";
+      display: block;
+      height: 12px;
+      left: 8px;
+      position: absolute;
+      top: 10px;
+      width: 12px;
+    }
+    &::after {
+      content: "";
+      display: block;
+      border: 3px solid transparent;
+      border-left-color: white;
+      position: absolute;
+      left: 8px + 5px;
+      top: 10px + 3px;
+      height: 0;
+      width: 0;
+    }
+  }
+  &.signup-bussiness {
+    .signup-button-header,
+    .signup-button-footer span {
+      color: @lightBlue;
+    }
+    .signup-button-footer::before {
+      background: @lightBlue;
+    }
+  }
+  &.signup-expert {
+    .signup-button-header,
+    .signup-button-footer span {
+      color: @expertYellow;
+    }
+    .signup-button-footer::before {
+      background: @expertYellow;
+    }
+  }
 }
 
 .dark-blue-line {
@@ -350,11 +420,6 @@ input:not([type=submit]) {
 
     .little& {
         margin-top: 1.438em;
-    }
-
-    .inscription-image& {
-        padding-top: 1.2em;
-        text-align: right;
     }
 
     .welcome& {
@@ -3035,6 +3100,10 @@ body.business-user {
     input[type=submit] {
         background-color: @lightBlue;
     }
+
+    .page-messages ul.action-links a {
+        background-color: @lightBlue;
+    }
 }
 
 .page-admin-structure-views span.label {
@@ -3076,4 +3145,55 @@ body.business-user {
     background-position: 5% 50%;
     padding-left: 1.5em !important;
     color: @white;
+}
+
+.page-comment {
+    .form-actions {
+        background-color: @lightGrey;
+        text-align: right;
+    }
+
+    .comment-form {
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    .field-type-text-long {
+        background-color: @lightGrey;
+    }
+
+    .challenge-state-row {
+        display: none;
+    }
+}
+
+.page-messages {
+    ul.action-links {
+        list-style-type: none;
+        margin-top: 10px;
+
+        a {
+            display: inline-block;
+            background: @expertYellow url(../images/newMessage.png) no-repeat 4% 50%;
+            color: @white;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding: 0.5em 0.8em 0.5em 2em;
+            border-radius: 3px;
+        }
+    }
+
+    .privatemsg-list {
+        /*position: static;
+        left: 0;*/
+        input[type=checkbox] {
+            position: static;
+            left: 0;
+        }
+
+        .form-type-checkbox {
+            margin-right: 0.5em;
+            margin-left: 0.5em;
+        }
+    }
 }

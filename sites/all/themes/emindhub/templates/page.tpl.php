@@ -92,15 +92,31 @@ seems to be unused
                                     <?php print $banniereText; ?>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-md-offset-4 col-xs-4 col-xs-offset-3">
+                            <div class="col-md-3 col-md-offset-5 col-xs-12">
                                 <div class="row inscription-image-wrapper">
-                                    <div class="col-md-12 col-xs-12">
-                                        <a href="<?php print url("business/register"); ?>"><?php print $demandeImg; ?></a>
+                                    <div class="col-sm-12 col-xs-6">
+                                        <a href="<?php print url("business/register"); ?>" class="signup-button signup-bussiness">
+                                            <span class="signup-button-header">
+                                                <?php echo t('Vous avez') ?>
+                                                <strong><?php echo t('une demande') ?></strong>
+                                            </span>
+                                            <span class="signup-button-footer">
+                                                <span><?php echo t('Inscrivez-vous') ?></span>
+                                                <?php echo t('et utilisez les services emindhub') ?>
+                                            </span>
+                                        </a>
                                     </div>
-                                </div>
-                                <div class="row inscription-image-wrapper">
-                                    <div class="col-md-12 col-xs-12">
-                                        <a href="<?php print url("expert/register"); ?>"><?php print $expertiseImg; ?></a>
+                                    <div class="col-sm-12 col-xs-6">
+                                        <a href="<?php print url("expert/register"); ?>" class="signup-button signup-expert">
+                                            <span class="signup-button-header">
+                                                <?php echo t('Vous avez') ?>
+                                                <strong><?php echo t('une expertise') ?></strong>
+                                            </span>
+                                            <span class="signup-button-footer">
+                                                <span><?php echo t('Inscrivez-vous') ?></span>
+                                                <?php echo t('et répondez aux demandes') ?>
+                                            </span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -267,7 +283,7 @@ seems to be unused
                                                  id="page-title"><?php print $title; ?></h1><?php endif; ?>
                         <?php print render($title_suffix); ?>
                         <!-- START TABS -->
-                        <?php if ($tabs && isAdminUser()): ?>
+                        <?php if ($tabs): ?>
                             <div class="tabs"><?php print render($tabs); ?></div>
                         <?php endif; ?>
                         <!-- END TABS -->
