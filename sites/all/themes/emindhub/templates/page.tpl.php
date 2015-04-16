@@ -119,9 +119,9 @@ seems to be unused
             <!-- END BREADCRUMB -->
             <?php endif; ?>
             <?php
-            if (isAdminUser()) {
+//            if (isAdminUser()) {
                 print $messages;
-            }
+//            }
             ?>
             <div class="container container-fluid">
                 <?php print render($page['header']); ?>
