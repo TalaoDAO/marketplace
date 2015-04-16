@@ -36,6 +36,7 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
     </div>
 <?php } ?>
 <div class="row paddingLR challenge-container">
+    <div class="col-md-12"><?php print $messages; ?></div>
     <div class="col-md-12">
         <h2><?php print $title; ?></h2>
         <br />
@@ -88,8 +89,8 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
     <?php require_once __DIR__ . '/includes/companyDescription.tpl.php'; ?>
     <div class="bold paddingU"><?php print t("Description:"); ?></div>
     <div>
-        <?php if (isset($body[0]['safe_value'])): ?>
-            <?php print $body[0]['safe_value']; ?>
+        <?php if (isset($body[0]['value'])): ?>
+            <?php print $body[0]['value']; ?>
         <?php endif; ?>
     </div>
     <div class="paddingUD">
