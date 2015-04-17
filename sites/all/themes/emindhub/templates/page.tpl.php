@@ -87,14 +87,14 @@ seems to be unused
                 <div class="banniere">
                     <div class="container container-fluid">
                         <div class="row">
-                            <div class="col-md-4 col-xs-5">
+                            <div class="col-md-4 col-sm-6 col-xs-12">
                                 <div class="text-banniere">
                                     <?php print $banniereText; ?>
                                 </div>
                             </div>
                             <div class="col-md-3 col-md-offset-5 col-xs-12">
                                 <div class="row inscription-image-wrapper">
-                                    <div class="col-sm-12 col-xs-6">
+                                    <div class="col-md-12 col-sm-6 col-xs-12">
                                         <a href="<?php print url("business/register"); ?>" class="signup-button signup-bussiness">
                                             <span class="signup-button-header">
                                                 <?php echo t('Vous avez') ?>
@@ -106,7 +106,7 @@ seems to be unused
                                             </span>
                                         </a>
                                     </div>
-                                    <div class="col-sm-12 col-xs-6">
+                                    <div class="col-md-12 col-sm-6 col-xs-12">
                                         <a href="<?php print url("expert/register"); ?>" class="signup-button signup-expert">
                                             <span class="signup-button-header">
                                                 <?php echo t('Vous avez') ?>
@@ -176,22 +176,22 @@ seems to be unused
         <?php endif; ?>
         <?php if (isHomePage()) { ?>
         <div class="row">
-            <div class="col-md-8 col-xs-8">
+            <div class="col-sm-8 col-xs-12">
                 <div class="title-wrapper">
                     <div class="row">
-                        <div class="col-md-4 col-xs-3">
+                        <div class="col-md-4 col-sm-3 col-xs-2">
                             <hr class="hr-dark"/>
                         </div>
-                        <div class="col-md-4 title col-xs-6">
+                        <div class="col-md-4 col-sm-6 col-xs-8 title">
                             <?php print t("NOS ENGAGEMENTS"); ?>
                         </div>
-                        <div class="col-md-4 col-xs-3">
+                        <div class="col-md-4 col-sm-3 col-xs-2">
                             <hr class="hr-dark"/>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4 col-xs-4">
+                    <div class="col-sm-4 col-xs-12">
                         <div class="engagement-block rapidity">
                             <div class="header"><?php print t("Rapidité"); ?></div>
                             <div class="content">
@@ -201,7 +201,7 @@ seems to be unused
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-xs-4">
+                    <div class="col-sm-4 col-xs-12">
                         <div class="engagement-block security">
                             <div class="header"><?php print t("Sécurité"); ?></div>
                             <div class="content">
@@ -212,7 +212,7 @@ seems to be unused
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-xs-4">
+                    <div class="col-sm-4 col-xs-12">
                         <div class="engagement-block quality">
                             <div class="header"><?php print t("Qualité"); ?></div>
                             <div class="content">
@@ -225,15 +225,15 @@ seems to be unused
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 col-xs-6">
+                    <div class="col-md-6 col-xs-12">
                           <?php print render($page['theyuseus']); ?>
                     </div>
-                    <div class="col-md-6 col-xs-6">
+                    <div class="col-md-6 col-xs-12">
                         <?php print render($page['theyareexpert']); ?>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 col-xs-4">
+            <div class="col-sm-4 col-xs-12">
                 <div class="title-wrapper">
                     <div class="row">
                         <div class="col-md-3 col-xs-2">

@@ -7,77 +7,121 @@ body {
 
 .banniere {
     //line-height: 4.25em;
-  padding: 25px 0;
-    background: @lightBlue url(../images/banniere.png) no-repeat center center;
+    padding: 25px 0;
+    background-color: @lightBlue;
+    @media (min-width: 768px) {
+        background: @lightBlue url(../images/banniere.png) no-repeat 10% 10%;
+
+        .text-banniere {
+            padding-top: 2.375em;
+            height: 10.188em;
+        }
+    }
+
+    @media (min-width: 992px) {
+        background: @lightBlue url(../images/banniere.png) no-repeat center center;
+    }
+
+    .text-banniere {
+        /*padding-top: 2.375em;
+        height: 10.188em;*/
+        line-height: 1.2em;
+        font-size: 2em;
+        color: @white;
+
+        p {
+            color: @softBlue !important;
+            margin: 0;
+            padding: 0;
+        }
+    }
 }
+
+.header-emindhub {
+    img {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
 a.signup-button {
-  background: white;
-  box-shadow: 0 0 2px black;
-  color: @darkBlue;
-  display: block;
-  margin-bottom: 15px;
-  &:hover {
-    text-decoration: none;
-  }
-  .signup-button-header,
-  .signup-button-footer {
+    background: white;
+    box-shadow: 0 0 2px black;
+    color: @darkBlue;
     display: block;
-    padding: 6px;
-  }
-  .signup-button-header {
-    font-size: 1.714em;
-    line-height: 1em;
-    padding: 14px 6px;
-    text-align: center;
-    strong {
-      display: block;
-      text-transform: uppercase;
+    margin-bottom: 15px;
+
+    &:hover {
+        text-decoration: none;
     }
-  }
-  .signup-button-footer {
-    background: #f6f7f8;
-    padding-left: 28px;
-    position: relative;
-    &::before {
-      border-radius: 50%;
-      content: "";
-      display: block;
-      height: 12px;
-      left: 8px;
-      position: absolute;
-      top: 10px;
-      width: 12px;
-    }
-    &::after {
-      content: "";
-      display: block;
-      border: 3px solid transparent;
-      border-left-color: white;
-      position: absolute;
-      left: 8px + 5px;
-      top: 10px + 3px;
-      height: 0;
-      width: 0;
-    }
-  }
-  &.signup-bussiness {
+
     .signup-button-header,
-    .signup-button-footer span {
-      color: @lightBlue;
+    .signup-button-footer {
+        display: block;
+        padding: 6px;
     }
-    .signup-button-footer::before {
-      background: @lightBlue;
+
+    .signup-button-header {
+        font-size: 1.714em;
+        line-height: 1em;
+        padding: 14px 6px;
+        text-align: center;
+
+        strong {
+            display: block;
+            text-transform: uppercase;
+        }
     }
-  }
-  &.signup-expert {
-    .signup-button-header,
-    .signup-button-footer span {
-      color: @expertYellow;
+
+    .signup-button-footer {
+        background: #f6f7f8;
+        padding-left: 28px;
+        position: relative;
+
+        &::before {
+            border-radius: 50%;
+            content: "";
+            display: block;
+            height: 12px;
+            left: 8px;
+            position: absolute;
+            top: 10px;
+            width: 12px;
+        }
+
+        &::after {
+            content: "";
+            display: block;
+            border: 3px solid transparent;
+            border-left-color: white;
+            position: absolute;
+            left: 8px + 5px;
+            top: 10px + 3px;
+            height: 0;
+            width: 0;
+        }
     }
-    .signup-button-footer::before {
-      background: @expertYellow;
+
+    &.signup-bussiness {
+        .signup-button-header,
+        .signup-button-footer span {
+            color: @lightBlue;
+        }
+
+        .signup-button-footer::before {
+            background: @lightBlue;
+        }
     }
-  }
+
+    &.signup-expert {
+        .signup-button-header,
+        .signup-button-footer span {
+            color: @expertYellow;
+        }
+        .signup-button-footer::before {
+            background: @expertYellow;
+        }
+    }
 }
 
 .dark-blue-line {
@@ -140,24 +184,15 @@ a.signup-button {
     }
 }
 
-.text-banniere {
-    padding-top: 2.375em;
-    height: 10.188em;
-    line-height: 1.2em;
-    font-size: 2em;
-    color: @white;
-
-    p {
-        color: @softBlue !important;
-        margin: 0;
-        padding: 0;
-    }
-}
-
 .title {
     font-size: 1.25em;
     text-align: center;
     text-transform: uppercase;
+
+    @media (max-width: 768px) {
+        font-size: 1.1em;
+        font-weight: bold;
+    }
 }
 
 .inline {
@@ -222,6 +257,11 @@ a.signup-button {
 
 .ondes-background {
     background: url(../images/ondes.png) no-repeat center center;
+    @media (min-width: 768px) {
+        .center-text {
+            text-align: left;
+        }
+    }
 }
 
 .shadow {
@@ -375,23 +415,6 @@ input:not([type=submit]) {
     text-align: center;
 }
 
-.footer {
-    margin-top: .5em;
-    padding-top: .5em;
-    font-weight: bold;
-    background-color: @lightGrey;
-    height: 7em;
-
-    a {
-        color: @lightBlue;
-        text-decoration: underline;
-    }
-
-    .copyright {
-        color: @copyrightTextColor;
-    }
-}
-
 .ombre {
     border-bottom: .2em;
     box-shadow: 1px 1px 12px @darkGrey;
@@ -420,6 +443,10 @@ input:not([type=submit]) {
 
     .little& {
         margin-top: 1.438em;
+    }
+
+    .inscription-image& {
+        padding-top: 1.2em;
     }
 
     .welcome& {
@@ -1830,12 +1857,31 @@ fieldset.collapsed {
         }
     }
 }
+/*
+.footer {
+    padding-top: 1em;
+    font-weight: bold;
+    background-color: @lightGrey;
+    height: 7em;
+
+    a {
+        color: @lightBlue;
+        text-decoration: underline;
+    }
+
+    .copyright {
+        color: @copyrightTextColor;
+    }
+}*/
 
 .footer-container {
+    margin-top: 1.5em;
     background-color: @lightGrey;
     padding-bottom: 4em;
 
     .region-footer {
+        margin-top: 1em;
+
         .row {
             display: none;
         }
@@ -1844,7 +1890,13 @@ fieldset.collapsed {
             text-align: right;
 
             a {
+                font-weight: bold;
                 color: @darkBlue !important;
+            }
+        }
+        @media (max-width: 768px) {
+            .footer-menu {
+                text-align: left;
             }
         }
     }
@@ -1990,6 +2042,10 @@ fieldset.collapsed {
     color: @white;
     padding: 4.5em 1em 1.7em;
     text-align: center;
+
+    @media (max-width: 768px) {
+        margin-bottom: 10px;
+    }
 
     &.rapidity {
         background: @lightBlue url(../images/rapidityHeader.png) no-repeat 50% 5%;
@@ -2195,6 +2251,14 @@ div.field-name-field-skills-set label {
 }
 
 .region {
+    &-searchmodule {
+        @media (max-width: 768px) {
+            .search-input {
+                margin-left: 0;
+            }
+        }
+    }
+
     &-news {
         .news {
             &-block {
@@ -2457,6 +2521,16 @@ div.field-name-field-skills-set label {
     }
 
     &-topmenu {
+        @media (max-width: 768px) {
+            ul.menu {
+                padding-left: 0;
+            }
+        }
+        
+        div.col-xs-4 {
+            .center-text;
+        }
+
         div.expanded {
             & > .top-menu-my-workspace {
                 + ul.menu {
@@ -2592,8 +2666,9 @@ div.field-name-field-skills-set label {
                 .views_slideshow_controls_text_next {
                     position: absolute;
                     top: 8.8em;
-                    left: 95%;
-
+                    left: 91%;
+                    z-index: 10;
+                    
                     a {
                         background: url(../images/next.png) no-repeat 50% 50%;
                         content: "&nbsp;";
@@ -3101,7 +3176,7 @@ body.business-user {
         background-color: @lightBlue;
     }
 
-    .page-messages ul.action-links a {
+    &.page-messages ul.action-links a {
         background-color: @lightBlue;
     }
 }

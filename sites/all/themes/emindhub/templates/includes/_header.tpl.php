@@ -1,7 +1,7 @@
 
 <div class="container container-fluid">
     <div class="row">
-        <div class="col-md-4 col-xs-4 header-emindhub">
+        <div class="col-sm-4 col-xs-12 header-emindhub">
             <?php if ($logo): ?>
                 <a href="<?php print url("homepage"); ?>"><?php print $imagelogo; ?></a>
             <?php endif; ?>
@@ -11,18 +11,18 @@
                 </div>
             <?php endif; ?>
         </div>
-        <div class="col-md-8 col-xs-8">
+        <div class="col-sm-8 col-xs-12">
             <div class="row">
-                <div class="col-md-5 col-xs-5">
+                <div class="col-sm-5 col-xs-12">
                     <div class="form-group">
                         <?php print render($page['searchmodule']); ?>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-xs-6 text-right">
-                    <?php if ($firstMenu):
+                <div class="col-sm-5 col-xs-9 text-right">
+                    <?php if ($firstMenu) {
                         $length = count($firstMenu);
-                        foreach ($firstMenu as $index => $menuEntry):
+                        foreach ($firstMenu as $index => $menuEntry) {
                             if (strpos(strtolower($menuEntry), "sign-in") !== false) {  //looking for a class name added by template.php fn GetMenu() ?>
                                 <div class="popup-sign-in">
                                     <?php print $menuEntry; ?>
@@ -49,11 +49,13 @@
                             else {
                                 print $menuEntry;
                             }
-                            if ($index < $length-1): ?>&nbsp;|&nbsp;<?php endif; ?>
-                        <?php endforeach;
-                    endif; ?>
+                            if ($index < $length-1) { ?>
+                                &nbsp;|&nbsp;
+                            <?php }
+                         };
+                    } ?>
                 </div>
-                <div class="col-md-1 col-xs-1">
+                <div class="col-sm-1 col-xs-3">
                     <div class="language-select">
                         <?php print render($page['languageselect']); ?>
                     </div>

@@ -163,7 +163,12 @@ function emindhub_preprocess_page(&$vars) {
         'path' => imagePath("logo.png"),
         'alt'  => $vars['site_name'],
         'getsize' => FALSE,
-        'attributes' => array('id' => 'logo'),
+        'attributes' => array(
+            'id' => 'logo',
+            'class' => array(
+                'img-responsive'
+            ),
+        ),
     ));
 
     $vars['imagelogo'] = l(
@@ -517,7 +522,7 @@ function emindhub_menu_link(array &$variables) {
     $classes = "";
 
     if ($variables['theme_hook_original'] == "menu_link__menu_top_anonymous"){
-        $classes = "col-md-4 col-xs-4 upper";
+        $classes = "col-xs-4 upper";
 
         //Classe particulière pour le contactez nous/contact us
         if (strpos(strtolower($variables['element']['#title']), "contact") !== false) {
