@@ -41,10 +41,10 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
         <br />
     </div>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-6">
             <?php require_once __DIR__ . '/includes/userInformations.tpl.php'; ?>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-6">
             <div><?php print $elements['field_domaine']['#title']; ?></div>
             <div class="challenge-domain softPaddingUD paddingL">
                 <?php if (isset($field_domaine)):
@@ -54,30 +54,30 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
                 endif; ?>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-6">
             <div class="row">
-                <div class="col-md-6"><?php print t("Publication date:"); ?></div>
-                <div class="col-md-6 bold">
+                <div class="col-xs-6"><?php print t("Publication date:"); ?></div>
+                <div class="col-xs-6 bold">
                     <?php if (isset($elements['#node']->created)) {
                         print format_date($elements['#node']->created, 'short');
                     } ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6"><?php print $elements['field_expiration_date']['#title']; ?></div>
-                <div class="col-md-6 bold">
+                <div class="col-xs-6"><?php print $elements['field_expiration_date']['#title']; ?></div>
+                <div class="col-xs-6 bold">
                     <?php if (isset($field_expiration_date[0]['value'])) {
                         print date('d/m/Y - H:i', strtotime($field_expiration_date[0]['value']));
                     } ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6"><?php print t("Number of responses:"); ?></div>
-                <div class="col-md-6 bold"><?php print $comment_count; ?></div>
+                <div class="col-xs-6"><?php print t("Number of responses:"); ?></div>
+                <div class="col-xs-6 bold"><?php print $comment_count; ?></div>
             </div>
             <div class="row">
-                <div class="col-md-6"><?php if ($elements['field_reward']) { print $elements['field_reward']['#title']; } ?></div>
-                <div class="col-md-6 bold">
+                <div class="col-xs-6"><?php if ($elements['field_reward']) { print $elements['field_reward']['#title']; } ?></div>
+                <div class="col-xs-6 bold">
                     <?php if (isset($field_reward[0]['safe_value'])): ?>
                         <?php print $field_reward[0]['safe_value']; ?>
                     <?php endif; ?>

@@ -1,7 +1,7 @@
 <?php if (isset($field_anonymous[0]['value']) && $field_anonymous[0]['value'] == 0) {
     print t("Submitted by:"); ?>
     <div class="row">
-        <div class="col-md-4 profile-picture">
+        <div class="col-md-4 col-xs-5 profile-picture">
             <?php
             $account = user_load($uid);
             if ($account) {
@@ -19,7 +19,7 @@
             print theme('user_picture', array('account' =>$user));*/
             ?>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 col-xs-7">
             <div class="paddingU bold"><?php print $variables['user_name']; ?></div>
             <div class="bold"><?php print $variables['name']; ?></div>
             <div class="bold light-blue-text">

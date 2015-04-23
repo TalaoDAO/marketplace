@@ -2912,10 +2912,42 @@ div.field-name-field-skills-set label {
             background-color: @lightYellow;
         }
     }
+
+    @media (max-width: @screen-sm) {
+        label {
+            width: 100%;
+        }
+    }
+
     ul.inline {
         display: inline-block;
         padding-top: 1.5em;
         width: 100%;
+    }
+
+    @media (max-width: @screen-xs) {
+        .form-item-field-private-comment-und .form-radios .form-item {
+            display: block;
+        }
+    }
+
+    .filter-wrapper {
+        .form-item,
+        .filter-help,
+        .filter-help a,
+        .filter-guidelines, {
+            padding-left: 0;
+        }
+        .filter-guidelines ul.tips, {
+            padding-left: 1em;
+        }
+        .filter-guidelines {
+            padding-right: 0;
+        }
+    }
+
+    #page-title {
+        display: none;
     }
 }
 
