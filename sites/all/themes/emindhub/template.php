@@ -48,7 +48,7 @@ function emindhub_file($variables) {
     element_set_attributes($element, array('id', 'name', 'size'));
     _form_set_class($element, array('form-file'));
 
-    return sprintf('<div class="file-upload"><span>%s</span><input' . drupal_attributes($element['#attributes']) . ' /></div>', t("Choose a file"));
+    return sprintf('<input type="text" disabled data-fileinputtext="%s" class="file-return"><div class="file-upload"><span>%s</span><input' . drupal_attributes($element['#attributes']) . ' /></div>', $element["#id"], t("Choose a file"));
 }
 
 function emindhub_preprocess_user_picture(&$variables) {
@@ -554,7 +554,7 @@ function emindhub_menu_link(array &$variables) {
             '',
             $element['#title']);
         $element['#localized_options']['html'] = TRUE;
-        $classes = "col-md-4";
+        $classes = "col-sm-4";
     }
     if ($element['#below']) {
         $sub_menu = drupal_render($element['#below']);

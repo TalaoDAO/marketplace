@@ -103,6 +103,8 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
 <div class="row light-grey-background paddingUD title-wrapper challenge-state-row">
     <div class="col-md-4"><?php print $elements['links']['flag']['#links']['flag-my_selection']['title']; ?></div>
     <div class="col-md-4"><?php print l(t("Create a working group"), "node/add/working-group", array('attributes' => array('class' => array('btn', 'btn-primary', 'btn-workgroup')))); ?></div>
-    <?php $linkAddComment = $elements['links']['comment']['#links']['comment-add']; ?>
-    <div class="col-md-4"><?php print l($linkAddComment['title'], $linkAddComment['href'], array('attributes' => array('class' => array('btn', 'btn-primary', 'btn-expert')))); ?></div>
+    <?php $linkAddComment = $elements['links']['comment']['#links']['comment-add'];
+    if ($linkAddComment) { ?>
+        <div class="col-md-4"><?php print l($linkAddComment['title'], $linkAddComment['href'], array('attributes' => array('class' => array('btn', 'btn-primary', 'btn-expert')))); ?></div>
+    <?php } ?>
 </div>

@@ -127,20 +127,28 @@ seems to be unused
             <?php if (user_is_logged_in()): ?>
                 <div class="ligh-blue-line header-separator">&nbsp;</div>
                 <!-- START BREADCRUMB -->
-                <?php if ($breadcrumb) { ?>
-                    <?php print $breadcrumb; ?>
-                <?php } else { ?>
+                <?php if ($breadcrumb) {
+                    print $breadcrumb;
+                } else { ?>
                     <div class="dark-blue-line-large">&nbsp;</div>
                 <?php } ?>
-            <!-- END BREADCRUMB -->
+                <!-- END BREADCRUMB -->
+
             <?php endif; ?>
-            <?php
-//            if (isAdminUser()) {
-                print $messages;
-//            }
-            ?>
+
+
             <div class="container container-fluid">
-                <?php print render($page['header']); ?>
+                <?php print $messages; ?>
+                <?php if (isHomePage() && user_is_logged_in()) {
+                    global $user;
+                    $account = user_load($user->uid);
+                    ?>
+                    <h2 class="welcome">Welcome <span><?php print "Mr " . $account->field_last_name[LANGUAGE_NONE][0]['value']; ?></span></h2>
+                    <div class="row">
+                        <div class="col-xs-1"></div>
+                    </div>
+                <?php }
+                print render($page['header']); ?>
             </div>
         </div>
     </div> <!-- /.section, /#header -->
@@ -269,7 +277,6 @@ seems to be unused
         <?php endif; ?>
         <!-- END NAV -->
 
-
         <div id="main-wrapper">
             <div id="main" class="clearfix">
 
@@ -317,17 +324,17 @@ seems to be unused
                 <?php endif; ?>
                 <?php if (isHomePage()): ?>
                     <div class="row">
-                        <div class="col-md-8 col-xs-8">
+                        <div class="col-md-8 col-sm-6 col-xs-12">
                             <div class="row subtitle-wrapper">
-                              <div class="col-md-6 col-xs-6">
+                              <div class="col-md-6 col-xs-12">
                                 <?php print render($page['theyuseus']); ?>
                               </div>
-                              <div class="col-md-6 col-xs-6">
+                              <div class="col-md-6 col-xs-12">
                                 <?php print render($page['theyareexpert']); ?>
                               </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-xs-4">
+                        <div class="col-md-4 col-sm-6 col-xs-12">
                             <div class="row subtitle-wrapper">
                                 <?php print render($page['news']); ?>
                             </div>

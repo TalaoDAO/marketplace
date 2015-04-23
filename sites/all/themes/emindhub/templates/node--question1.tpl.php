@@ -36,7 +36,6 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
     </div>
 <?php } ?>
 <div class="row paddingLR challenge-container">
-    <div class="col-md-12"><?php print $messages; ?></div>
     <div class="col-md-12">
         <h2><?php print $title; ?></h2>
         <br />
@@ -77,7 +76,7 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
                 <div class="col-md-6 bold"><?php print $comment_count; ?></div>
             </div>
             <div class="row">
-                <div class="col-md-6"><?php print $elements['field_reward']['#title']; ?></div>
+                <div class="col-md-6"><?php if ($elements['field_reward']) { print $elements['field_reward']['#title']; } ?></div>
                 <div class="col-md-6 bold">
                     <?php if (isset($field_reward[0]['safe_value'])): ?>
                         <?php print $field_reward[0]['safe_value']; ?>

@@ -3,6 +3,7 @@
 @lightGrey: #f6f7f8;
 @softGrey: #d4d9dd;
 @hrLightGrey: #cbd1d6;
+@smoothGrey: #bfd0d9;
 @btnBackBackground: #a1acb5;
 @btnCancelBackground: #a5b0b8;
 @copyrightTextColor: #acb4bb;
@@ -30,37 +31,14 @@
 
 //== Bootstrap Media queries breakpoints
 //
-//## Define the breakpoints at which your layout will change, adapting to different screen sizes.
-
-// Extra small screen / phone
-//** Deprecated `@screen-xs` as of v3.0.1
+@screen-xxs:                 320px;
 @screen-xs:                  480px;
-//** Deprecated `@screen-xs-min` as of v3.2.0
-@screen-xs-min:              @screen-xs;
-//** Deprecated `@screen-phone` as of v3.0.1
-@screen-phone:               @screen-xs-min;
-
-// Small screen / tablet
-//** Deprecated `@screen-sm` as of v3.0.1
 @screen-sm:                  768px;
-@screen-sm-min:              @screen-sm;
-//** Deprecated `@screen-tablet` as of v3.0.1
-@screen-tablet:              @screen-sm-min;
-
-// Medium screen / desktop
-//** Deprecated `@screen-md` as of v3.0.1
+@screen-sm-min:              (@screen-sm - 1);
 @screen-md:                  992px;
-@screen-md-min:              @screen-md;
-//** Deprecated `@screen-desktop` as of v3.0.1
-@screen-desktop:             @screen-md-min;
-
-// Large screen / wide desktop
-//** Deprecated `@screen-lg` as of v3.0.1
+@screen-md-min:              (@screen-md - 1);
 @screen-lg:                  1200px;
-@screen-lg-min:              @screen-lg;
-//** Deprecated `@screen-lg-desktop` as of v3.0.1
-@screen-lg-desktop:          @screen-lg-min;
-
+@screen-lg-min:              (@screen-lg - 1);
 // So media queries don't overlap when required, provide a maximum
 @screen-xs-max:              (@screen-sm-min - 1);
 @screen-sm-max:              (@screen-md-min - 1);

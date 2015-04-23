@@ -14,10 +14,10 @@
 <div class="row">
     <div class="col-md-4">
         <div class="row">
-            <div class="col-sm-2 col-xs-3">
+            <div class="col-lg-2 col-md-3 col-sm-2 col-xs-3">
                 <?php print $atomiumImg; ?>
             </div>
-            <div class="col-sm-10 col-xs-9">
+            <div class="col-lg-10 col-md-9 col-sm-10 col-xs-9">
                 <span class="light-blue-text"><?php print t("Professionnels expérimentés, retraités actifs, chercheurs, étudiants..."); ?></span>
 
                 <p><?php print t("Ils sont dans votre réseau ou dans le réseau emindhub."); ?></p>
@@ -25,10 +25,10 @@
         </div>
         <div class="little-wrapper">
             <div class="row">
-                <div class="col-sm-2 col-xs-3">
+                <div class="col-lg-2 col-md-3 col-sm-2 col-xs-3">
                     <?php print $peopleImg; ?>
                 </div>
-                <div class="col-sm-10 col-xs-9">
+                <div class="col-lg-10 col-md-9 col-sm-10 col-xs-9">
                     <span class="light-blue-text"><?php print t("Avec emindhub,"); ?></span>
 
                     <p><?php print t("Vous les organisez et les sollicitez selon vos besoins."); ?></p>

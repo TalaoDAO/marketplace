@@ -2,13 +2,13 @@
 if (!isset($variables['form']['#block']->region)) { ?>
     <div><?php print t("Login to EmindHub :"); ?></div>
     <div class="row">
-        <div class="col-md-5">
-            <div class="facebook-login"><?php print t("Login with Facebook"); ?></div>
-            <div class="twitter-login"><?php print t("Login with Twitter"); ?></div>
-            <div class="linkedin-login"><?php print t("Login with Linkedin"); ?></div>
+        <!--<div class="col-md-5">
+            <div class="facebook-login"><?php //print t("Login with Facebook"); ?></div>
+            <div class="twitter-login"><?php //print t("Login with Twitter"); ?></div>
+            <div class="linkedin-login"><?php //print t("Login with Linkedin"); ?></div>
         </div>
-        <div class="col-md-1 separator"><div class="vertical-line"></div><div class="center-text"><?php print t("OR"); ?></div><div class="vertical-line"></div></div>
-        <div class="col-md-6">
+        <div class="col-md-1 separator"><div class="vertical-line"></div><div class="center-text"><?php print t("OR"); ?></div><div class="vertical-line"></div></div>-->
+        <div class="col-md-12">
             <?php
             $form['name']['#description'] = "";
             $form['name']['#attributes']['placeholder'] = $form['name']['#title'];

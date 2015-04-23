@@ -24,3 +24,53 @@ function onClickBody(evt) {
     bm.style.display = 'none';
     document.body.onclick = null;
 }
+
+
+document.addEventListener('DOMContentLoaded', FileUpload, false);
+//Init works on file upload change to update the text input associated with file name
+function FileUpload() {
+    var fileInputs  = document.querySelectorAll(".form-file");
+
+    for (var idx in fileInputs) {
+        if (fileInputs.hasOwnProperty(idx)) {
+            var fi = fileInputs[idx];
+            if ((typeof fi).toLowerCase() == "object") {
+                fi.addEventListener( "change", function() {
+                    var the_return =document.querySelector("[data-fileinputtext='" + this.id + "']");
+                    the_return.value = this.files[0].name;
+                });
+            }
+        }
+    }
+}
+
+/*
+function signUpHover(evt) {
+
+    console.log(event);
+    var elt = event.toElement;
+    var left = elt.offsetLeft /2;
+    elt = elt.offsetParent;
+    while (elt != null) {
+        left += elt.offsetLeft;
+        elt = elt.offsetParent;
+    }
+    console.log(left);
+}*/
+/*
+$(function () {
+    var options = {
+        html: true,
+        content: $('.popup-sign-up-content').html(),
+        placement: 'bottom',
+        //trigger: 'hover',
+        trigger: 'manual',
+        delay: {
+            "show": 100,
+            "hide": 800
+        }
+    };
+    $('[data-toggle="popover"]').popover(options).mouseenter(function (e) {
+        $(this).popover('show');
+    });
+})*/
