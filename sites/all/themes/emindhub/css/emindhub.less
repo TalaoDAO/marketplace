@@ -923,8 +923,8 @@ table tbody tr:nth-child(even) {
 }
 
 .views-exposed-form {
-    background-color: @lightGrey;
-    padding: 1em;
+    /*background-color: @lightGrey;
+    padding: 1em;*/
 
     .form-item, .views-exposed-form .form-submit {
         margin: 0 10px;
@@ -3395,6 +3395,13 @@ span.required {
     }
 
     &-my-circles {
+
+        @media (max-width: @screen-xs) {
+            input[type=text] {
+                width: 100%;
+            }
+        }
+
         label {
             width: auto;
         }
@@ -3423,17 +3430,41 @@ span.required {
         .view-circle-members {
             margin-bottom: 1.5em;
 
+            .views-widget-sort-by {
+                @media (max-width: @screen-xs) {
+                    width: 100%;
+                }
+            }
+
             .views-widget-sort-order {
-                display: inline-block;
-                float: right;
-                position: absolute;
-                width: auto;
+                width: 100%;
+
+                @media (min-width: @screen-xs-max) {
+                    display: inline-block;
+                    float: right;
+                    position: absolute;
+                    width: auto;
+                }
             }
             .views-submit-button {
-                display: inline-block;
-                position: relative;
-                float: right;
-                top: -2em;
+                width: 100%;
+
+                .form-submit {
+                    margin-top: 2em;
+                }
+
+                @media (max-width: @screen-xs) {
+                    .form-submit {
+                        margin-top: 0;
+                    }
+                }
+
+                @media (min-width: @screen-xs-max) {
+                    display: inline-block;
+                    position: relative;
+                    float: right;
+                    top: -2em;
+                }
             }
 
             .pager {
