@@ -2888,7 +2888,7 @@ div.field-name-field-skills-set label {
     background-image: url(../images/starBtn.png) !important;
     background-repeat: no-repeat;
     background-position: 5% 50%;
-    padding: 0.5em 0.5em 0.5em 2.5em;
+    padding: 0.6em 0.5em 0.5em 2.5em;
 
     a {
         color: @white;
@@ -2899,55 +2899,80 @@ div.field-name-field-skills-set label {
     }
 }
 
-.node-type-question1 {
-    .title {
-        background-color: #f6f7f8;
-        text-align: left;
-        font-weight: bold;
-        padding: 1.5em;
-    }
+.node-type{
+    &-challenge {
+        .flag-my-selection {
+            top: 0.5em;
+        }
+        @media (max-width: @screen-sm) {
+            .user-informations {
+                padding-bottom: 1em;
+            }
+        }
 
-    .comment-wrapper {
-        > div:nth-child(even) {
-            background-color: @lightYellow;
+        @media (max-width: @screen-xs) {
+            .my-selection {
+                margin-bottom: 1.9em;
+            }
+
+            .create-workgroup {
+                margin-bottom: 1em;
+            }
         }
     }
 
-    @media (max-width: @screen-sm) {
-        label {
+    &-question1 {
+        .title {
+            background-color: #f6f7f8;
+            text-align: left;
+            font-weight: bold;
+            padding: 1.5em;
+        }
+
+        .comment-wrapper {
+            > div:nth-child(even) {
+                background-color: @lightYellow;
+            }
+        }
+
+        @media (max-width: @screen-sm) {
+            label {
+                width: 100%;
+            }
+        }
+
+        ul.inline {
+            display: inline-block;
+            padding-top: 1.5em;
             width: 100%;
         }
-    }
 
-    ul.inline {
-        display: inline-block;
-        padding-top: 1.5em;
-        width: 100%;
-    }
+        @media (max-width: @screen-xs) {
+            .form-item-field-private-comment-und .form-radios .form-item {
+                display: block;
+            }
+        }
 
-    @media (max-width: @screen-xs) {
-        .form-item-field-private-comment-und .form-radios .form-item {
-            display: block;
-        }
-    }
+        .filter-wrapper {
+            .form-item,
+            .filter-help,
+            .filter-help a,
+            .filter-guidelines, {
+                padding-left: 0;
+            }
 
-    .filter-wrapper {
-        .form-item,
-        .filter-help,
-        .filter-help a,
-        .filter-guidelines, {
-            padding-left: 0;
-        }
-        .filter-guidelines ul.tips, {
-            padding-left: 1em;
-        }
-        .filter-guidelines {
-            padding-right: 0;
-        }
-    }
+            .filter-guidelines ul.tips, {
+                padding-left: 1em;
+            }
 
-    #page-title {
-        display: none;
+            .filter-guidelines {
+                padding-right: 0;
+            }
+        }
+
+        #page-title {
+            display: none;
+        }
     }
 }
 
@@ -3084,10 +3109,6 @@ span.required {
 
 .page {
     &-node-add {
-        /*.required-fields .group-oneliner {
-            display: inline-flex;
-        }*/
-
         .form-item-title,
         #edit-field-property-rules {
             background-color: @lightGrey;
@@ -3578,7 +3599,39 @@ span.required {
         color: @darkBlue;
     }
 
+    //&-comment-reply {
     &-comment {
+        .form-type-managed-file {
+            width: 30%;
+
+            .formtips-wrapper label {
+                display: inline;
+            }
+        }
+
+        .form-type-textarea,
+        .field-type-file,
+        .field-name-field-video {
+            padding: 1em;
+            background-color: @lightGrey;
+        }
+
+        @media (max-width: @screen-sm) {
+            .user-informations {
+                padding-bottom: 1em;
+            }
+
+            .form-type-managed-file {
+                width: 40%;
+            }
+        }
+
+        @media (max-width: @screen-xs) {
+            .form-type-managed-file {
+                width: 100%;
+            }
+        }
+
         .form-actions {
             background-color: @lightGrey;
             text-align: right;
