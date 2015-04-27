@@ -11,21 +11,21 @@ if (isset($variables['elements']['links']['views_navigation'])) {
 if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
     <div class="paddingLR">
         <div class="row light-grey-background paddingUD paddingLR title-wrapper">
-            <div class="col-md-3">
+            <div class="col-sm-3">
                 <div class="challenge-to-list">
                     <?php
                     print "<a href='" . base_path().$linkBack['href'] . "' " . drupal_attributes($linkBack['attributes']) . ">" . $linkBack['title']."</a>";
                     ?>
                 </div>
             </div>
-            <div class="col-md-3 col-md-offset-3">
+            <div class="col-sm-3 col-sm-offset-3 col-xs-6">
                 <div class="challenge-previous">
                     <?php
                     print "<a href='" . base_path().$linkPrev['href'] . "' " . drupal_attributes($linkPrev['attributes']) . ">" . $linkPrev['title']."</a>";
                     ?>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-sm-3 col-xs-6">
                 <div class="challenge-next">
                     <?php
                     print "<a href='" . base_path().$linkNext['href'] . "' " . drupal_attributes($linkNext['attributes']) . ">" . $linkNext['title']."</a>";

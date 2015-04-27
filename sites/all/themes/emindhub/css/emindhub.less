@@ -998,12 +998,24 @@ table tbody tr:nth-child(even) {
         .challenge-common-btn;
         background: url(../images/backbtn.png) 20% 50% no-repeat;
         text-align: right !important;
+
+        @media (max-width: @screen-xs) {
+            background-position: 0%;
+            text-align: left !important;
+            padding-left: 2em;
+        }
     }
 
     &-next a {
         .challenge-common-btn;
         background: url(../images/nextbtn.png) 80% 50% no-repeat;
         text-align: left !important;
+
+        @media (max-width: @screen-xs) {
+            background-position: 100%;
+            text-align: right !important;
+            padding-right: 2em;
+        }
     }
 
     &-state {
@@ -3015,7 +3027,30 @@ div.field-name-field-skills-set label {
         }
     }
 
+    &-webform {
+        @media (max-width: @screen-xs) {
+            .row.light-grey-background.paddingUD.paddingLR.title-wrapper {
+                div.col-sm-3:first-of-type {
+                    padding-left: 0;
+                    padding-right: 0;
+                    text-align: center;
+                    padding-bottom: 1em;
+                }
+            }
+        }
+    }
+
     &-question1 {
+        @media (max-width: @screen-xs) {
+            .row.light-grey-background.paddingUD.paddingLR.title-wrapper {
+                div.col-sm-3:first-of-type {
+                    padding-left: 0;
+                    padding-right: 0;
+                    text-align: center;
+                    padding-bottom: 1em;
+                }
+            }
+        }
         .title {
             background-color: #f6f7f8;
             text-align: left;
