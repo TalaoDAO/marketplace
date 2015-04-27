@@ -73,10 +73,10 @@ a.signup-button {
         line-height: 1em;
         padding: 14px 6px;
         text-align: center;
+        text-transform: uppercase;
 
         strong {
-            display: block;
-            text-transform: uppercase;
+            display: block
         }
     }
 
@@ -471,15 +471,6 @@ input:not([type=submit]) {
             font-size: 0.688em;
             margin-top: -.7em;
         }
-    }
-}
-
-.contact-us {
-    background: url(../images/mailIcon.png) no-repeat;
-
-    a {
-        color: @lightBlue;
-        padding-left: 1em;
     }
 }
 
@@ -1620,8 +1611,13 @@ fieldset.collapsed {
 }
 
 .popup-hover {
-    width: 5.5em;
+    width: 100%;
+//    width: 5.5em;
     display: inline-block;
+
+    @media (min-width: @screen-xs-max) {
+        text-align: right;
+    }
 
     span {
         .upper;
@@ -1648,7 +1644,16 @@ fieldset.collapsed {
         }
 
         &.experts {
-            left: -0.1em;
+            left: 1.1em;
+
+            @media (min-width: @screen-lg) {
+                left: 2.1em;
+            }
+
+            @media (max-width: @screen-md) {
+                left: 2em;
+            }
+
             @media (max-width: @screen-xs) {
                 left: 4.3em;
             }
@@ -1660,9 +1665,18 @@ fieldset.collapsed {
 
         &.sponsored {
             width: 16em;
-            left: 0.3em;
+            left: -0.2em;
+
+            @media (min-width: @screen-lg) {
+                left: 0.9em;
+            }
+
+            @media (max-width: @screen-md) {
+                left: 3.6em;
+            }
 
             @media (max-width: @screen-xs) {
+                left: 0.3em;
                 &:after {
                     left: 63%;
                 }
@@ -2611,6 +2625,24 @@ div.field-name-field-skills-set label {
         
         div.col-xs-4 {
             .center-text;
+
+            a {
+                color: @darkBlue;
+                font-size: 1.143em;
+            }
+
+            &.contact-us {
+                background: url(../images/mailIcon.png) no-repeat 18%;
+
+                @media (max-width: @screen-sm) {
+                    background-position: 8%;
+                }
+
+                a {
+                    color: @lightBlue !important;
+                    padding-left: 1em;
+                }
+            }
         }
 
         div.expanded {
@@ -2713,7 +2745,7 @@ div.field-name-field-skills-set label {
             }
         }
 
-        .col-md-4 {
+        div.col-xs-4 {
             span.active-trail:after,
             a.active:after {
                 background: @lightBlue url(../images/topMenuHover.png) 0;
@@ -2732,6 +2764,37 @@ div.field-name-field-skills-set label {
     }
 
     &-theyuseus {
+        height: 16em;
+
+        .view-entreprise-list {
+            height: 80%;
+            .view-content {
+                height: 100%;
+                .skin-default {
+                    height: 100%;
+                    .views_slideshow_main {
+                        height: 100%;
+                        .views-slideshow-cycle-main-frame {
+                            height: 100%;
+                            .views-slideshow-cycle-main-frame-row {
+                                height: 100%;
+                                .views-row {
+                                    height: 100%;
+                                    .views-field {
+                                        height: 100%;
+                                        .field-content {
+                                            height: 100%;
+                                            text-align: center;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
 //        .they-use-us {
             .view-content {
                 .views_slideshow_controls_text_previous {
@@ -2791,6 +2854,37 @@ div.field-name-field-skills-set label {
         }
     }
     &-theyareexpert {
+        height: 16em;
+
+        .view-users-list {
+            height: 80%;
+            .view-content {
+                height: 100%;
+                .they-are-expert-block {
+                    height: 100%;
+                    .they-are-expert-container {
+                        height: 100%;
+                        .views_slideshow_main {
+                            height: 100%;
+                            .views-slideshow-cycle-main-frame {
+                                height: 100%;
+                                .views-slideshow-cycle-main-frame-row {
+                                    height: 100%;
+                                    .views-row {
+                                        height: 100%;
+                                        text-align: center;
+                                        .row {
+                                            height: 100%;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         .view-users-list {
             background-color: @lightGrey;
         }

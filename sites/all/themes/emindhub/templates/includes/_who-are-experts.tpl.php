@@ -52,9 +52,9 @@
                     <div class="col-sm-8 col-xs-12 paddingUD"><?php print t("TOUS"); ?> <br><span class="bold"><?php print t("LES EXPERTS"); ?></span></div>
                 </div>
             </div>
-            <div class="col-md-6 col-xs-6 center-text">
+            <div class="col-md-4 col-xs-6 center-text">
                 <div class="row">
-                    <div class="col-sm-4 col-xs-12">
+                    <div class="col-sm-4 col-xs-12 noPadding">
                         <span class="popup-hover">
                         <?php print $cercleImg; ?>
                             <span class="sponsored">
@@ -72,7 +72,7 @@
         <div class="row">
             <div class="col-xs-4 center-text">
                 <div class="row">
-                    <div class="col-sm-4 col-xs-12">
+                    <div class="col-sm-4 col-xs-12 noPadding">
                         <span class="popup-hover">
                         <?php print $cercleImg; ?>
                             <span class="partners">
@@ -88,7 +88,7 @@
             </div>
             <div class="col-xs-4 center-text">
                 <div class="row">
-                    <div class="col-sm-4 col-xs-12">
+                    <div class="col-sm-4 col-xs-12 noPadding">
                         <span class="popup-hover">
                         <?php print $cercleImg; ?>
                             <span class="formers">
@@ -104,7 +104,7 @@
             </div>
             <div class="col-xs-4 center-text">
                 <div class="row">
-                    <div class="col-sm-4 col-xs-12">
+                    <div class="col-sm-4 col-xs-12 noPadding">
                         <span class="popup-hover">
                         <?php print $cercleImg; ?>
                             <span class="circles">

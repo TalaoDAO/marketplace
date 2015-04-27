@@ -1,0 +1,24 @@
+@import "variables.less";
+
+body.business-user {
+    table tbody tr:nth-child(odd),
+    .table-content:nth-child(odd) {
+        background-color: @oddBlue;
+    }
+
+    input[type=submit] {
+        background-color: @lightBlue;
+    }
+
+    &.page-messages ul.action-links a {
+        background-color: @lightBlue;
+    }
+
+    /*&.page-blog .views-row-even {
+        background-color: @oddBlue;
+    }*/
+
+    .button-new-message {
+        background-color: @lightBlue;
+    }
+}
