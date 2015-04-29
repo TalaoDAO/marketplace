@@ -668,6 +668,38 @@ table tbody tr:nth-child(even) {
     background-color: @white;
 }
 
+.anonymous {
+    &:hover {
+        a {
+            color: @darkBlue;
+            cursor: default;
+            z-index: -1;
+        }
+
+        div.hover {
+            padding: 1.5em 1em;
+            display: inline-block;
+            background-color: @darkBlue;
+            color: @white;
+            text-transform: none;
+            font-weight: normal;
+            height: 114%;
+            margin: -0.7em;
+
+            span {
+                .upper;
+                display: block;
+                position: absolute;
+                bottom: 1.5em;
+            }
+        }
+    }
+    div.hover {
+        display: none;
+        cursor: default;
+    }
+}
+
 /* Surcharge nice-menu */
 .nice-menu {
     .col-sm-4 {
@@ -1598,8 +1630,54 @@ fieldset.collapsed {
     .group-background {
         margin-top: 0;
     }
-    .group-oneliner label {
-        display: inline !important;
+    .group-oneliner {
+        > div {
+            width: 50%;
+
+            input[type=text] {
+                width: 75%;
+            }
+        }
+
+        div:last-of-type {
+            margin: 0;
+        }
+
+        label {
+            display: inline !important;
+        }
+    }
+
+    .formtips-wrapper {
+        display: inline;
+
+        label {
+            display: inline;
+        }
+    }
+
+    #edit-account {
+        .form-item-name,
+        .form-item-mail {
+            display: inline-block;
+            width: 49%;
+
+//            .formtips-wrapper {
+//                display: inline;
+//
+//                label {
+//                    display: inline;
+//                }
+//            }
+
+            input[type=text] {
+                width: 64%;
+            }
+        }
+
+        label[for="edit-pass-pass2"] {
+            width: 25%;
+        }
     }
 
     label {
@@ -3497,25 +3575,45 @@ span.required {
         }
     }
 
-    &-node-300 table {
-        .flag-wrapper br {
-            display: none;
+    &-node-300 {
+        .view-my-responses-calls3 .views-exposed-widget,
+        .view-my-responses-questions1 .views-exposed-widget,
+        .view-my-responses-challenges .views-exposed-widget {
+            .views-widget {
+                float: right;
+                top: 1.5em;
+                position: relative;
+            }
+
+            .form-submit {
+                margin-top: 1em;
+            }
+
+            label {
+                width: auto;
+            }
         }
 
-        thead th {
-            text-align: left;
-        }
+        table {
+            .flag-wrapper br {
+                display: none;
+            }
 
-        td + td {
-            width: 10%;
-            & + td {
+            thead th {
+                text-align: left;
+            }
+
+            td + td {
                 width: 10%;
                 & + td {
                     width: 10%;
                     & + td {
-                        width: 15%;
+                        width: 10%;
                         & + td {
-                            width: 7%;
+                            width: 15%;
+                            & + td {
+                                width: 7%;
+                            }
                         }
                     }
                 }

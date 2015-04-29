@@ -155,6 +155,47 @@ seems to be unused
 <?php if (!user_is_logged_in()): ?>
     <div class="container container-fluid">
         <?php if (isHomePage()): ?>
+            <div class="row paddingUD">
+                <div class="col-sm-4 col-xs-2">
+                    <hr class="hr-dark"/>
+                </div>
+                <div class="col-sm-4 col-xs-8 title upper"><?php print t("Comment mobiliser les experts ?"); ?></div>
+                <div class="col-sm-4 col-xs-2">
+                    <hr class="hr-dark"/>
+                </div>
+            </div>
+            <div class="row nice-menu">
+                <div class="col-sm-4">
+                    <div class="menu-3640 anonymous">
+                        <!--<a>Add a <span>question</span><div>Learn more</div></a>-->
+                        <a><?php echo sprintf(t("Add a %squestion%sLearn more%s"), "<span>", "</span><div>", "</div>"); ?></a>
+                        <div class="hover">
+                            <?php echo t("Interrogez en temps réel la communauté des experts à travers une question simple ou un sondage"); ?>
+                            <span><?php echo t("Inscrivez-vous pour en savoir +"); ?></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="menu-3639 anonymous">
+                        <a><?php echo sprintf(t("Create a %schallenge%sLearn more%s"), "<span>", "</span><div>", "</div>"); ?></a>
+                        <!--<a>Create a <span>challenge</span><div>Learn more</div></a>-->
+                        <div class="hover">
+                            <?php echo t("Mettez en concurrence les experts pour trouver une ou plusieurs solutions innovantes à un problème"); ?>
+                            <span><?php print t("Inscrivez-vous pour en savoir +"); ?></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="menu-3638 anonymous">
+                        <a><?php print sprintf(t("Find an %sexpert%sLearn more%s"), "<span>", "</span><div>", "</div>"); ?></a>
+                        <!--<a> Find an <span>expert</span><div>Learn more</div></a>-->
+                        <div class="hover">
+                            <?php echo ("Construisez et publiez votre questionnaire pour qualifier un ou plusieurs experts"); ?>
+                            <span><?php t("Inscrivez-vous pour en savoir +"); ?></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <?php require_once __DIR__ . '/includes/_who-are-experts.tpl.php' ?>
         <?php endif; ?>
         <?php if (!isHomePage()): ?>
