@@ -1,6 +1,6 @@
 <div class="paddingLR">
     <div class="row">
-        <div class="col-md-4 challenge-title"><?php echo t("Answer to an expert call"); ?></div>
+        <div class="col-md-4 challenge-title"><?php echo c_szAnswerExpertCall; ?></div>
         <div class="col-md-8">
             <hr class="hr-light">
         </div>
@@ -74,7 +74,7 @@
                         <div class="col-xs-6  bold"><?php print $elements['field_autoref'][0]['#markup']; ?></div>
                     </div>
                     <div class="row">
-                        <div class="col-xs-6"><?php print t("Publication date:"); ?></div>
+                        <div class="col-xs-6"><?php print c_szPublicationDt; ?></div>
                         <div class="col-xs-6 bold">
                             <?php if (isset($elements['#node']->created)) {
                                 print format_date($elements['#node']->created, 'short');
@@ -88,7 +88,7 @@
                             ?></div>
                     </div>
                     <div class="row">
-                        <div class="col-xs-6"><?php print t("Number of responses:"); ?></div>
+                        <div class="col-xs-6"><?php print c_szNumResponses; ?></div>
                         <div class="col-xs-6 bold">
                             <?php
                                 if (!function_exists("webform_get_submission_count")) {

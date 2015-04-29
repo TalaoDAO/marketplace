@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-4 challenge-title"><?php echo t("Answer to a question"); ?></div>
+    <div class="col-md-4 challenge-title"><?php echo c_szAnswerQuestion; ?></div>
     <div class="col-md-8"><hr class="hr-light"></div>
 </div>
 <?php
@@ -56,7 +56,7 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
         </div>
         <div class="col-md-4 col-sm-6">
             <div class="row">
-                <div class="col-xs-6"><?php print t("Publication date:"); ?></div>
+                <div class="col-xs-6"><?php print c_szPublicationDt; ?></div>
                 <div class="col-xs-6 bold">
                     <?php if (isset($elements['#node']->created)) {
                         print format_date($elements['#node']->created, 'short');
@@ -72,7 +72,7 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6"><?php print t("Number of responses:"); ?></div>
+                <div class="col-xs-6"><?php print c_szNumResponses; ?></div>
                 <div class="col-xs-6 bold"><?php print $comment_count; ?></div>
             </div>
             <div class="row">
@@ -86,7 +86,7 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
         </div>
     </div>
     <?php require_once __DIR__ . '/includes/companyDescription.tpl.php'; ?>
-    <div class="bold paddingU"><?php print t("Description:"); ?></div>
+    <div class="bold paddingU"><?php print c_szDescription; ?></div>
     <div>
         <?php if (isset($body[0]['value'])): ?>
             <?php print $body[0]['value']; ?>
@@ -134,8 +134,8 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
     </div>
 </div>
 <div class="paddingUD">
-    <!--<div class="inline paddingR"><button class="btn btn-cancel"><?php print t("Cancel"); ?></button></div>
-    <div class="inline paddingR"><button class="btn btn-draft"><?php print t("Save draft"); ?></button></div>-->
+    <!--<div class="inline paddingR"><button class="btn btn-cancel"><?php //print t("Cancel"); ?></button></div>
+    <div class="inline paddingR"><button class="btn btn-draft"><?php //print t("Save draft"); ?></button></div>-->
     <div class="inline">
         <?php /*$linkAddComment = $elements['links']['comment']['#links']['comment-add'];
         print l($linkAddComment['title'], $linkAddComment['href'], array('attributes' => array('class' => array('btn', 'btn-send'))));*/

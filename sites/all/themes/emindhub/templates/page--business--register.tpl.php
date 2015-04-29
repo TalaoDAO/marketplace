@@ -96,7 +96,7 @@
             ?>
             <div class="row">
                 <div class="col-md-8">
-                    <div class="register-title"><?php print t("Business registration"); ?></div>
+                    <div class="register-title"><?php print c_szBusinessRegister; ?></div>
                     <div class="row">
                         <div class="col-md-1">
                             <hr class="hr-light">
@@ -109,7 +109,7 @@
                             <img src="<?php /*print getImgSrc("emailMini.png"); */?>">
                         </div>-->
                     </div>
-                    <div class="challenge-title"><?php print t("Create your account "); ?><span class="bold"><?php print t("in no time"); ?></span></div>
+                    <div class="challenge-title"><?php print c_szCreateAccount; ?><span class="bold"><?php print c_szNoTime; ?></span></div>
                     <div class="business-register">
                         <?php print render($page['content']); ?>
                     </div>

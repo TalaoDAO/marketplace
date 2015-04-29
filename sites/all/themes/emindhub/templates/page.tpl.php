@@ -159,7 +159,7 @@ seems to be unused
                 <div class="col-sm-4 col-xs-2">
                     <hr class="hr-dark"/>
                 </div>
-                <div class="col-sm-4 col-xs-8 title upper"><?php print t("Comment mobiliser les experts ?"); ?></div>
+                <div class="col-sm-4 col-xs-8 title upper"><?php print c_szMobilizeExperts; ?></div>
                 <div class="col-sm-4 col-xs-2">
                     <hr class="hr-dark"/>
                 </div>
@@ -168,30 +168,30 @@ seems to be unused
                 <div class="col-sm-4">
                     <div class="menu-3640 anonymous">
                         <!--<a>Add a <span>question</span><div>Learn more</div></a>-->
-                        <a><?php echo sprintf(t("Add a %squestion%sLearn more%s"), "<span>", "</span><div>", "</div>"); ?></a>
+                        <a><?php echo sprintf(c_szAddQuestion, "<span>", "</span><div>", "</div>"); ?></a>
                         <div class="hover">
-                            <?php echo t("Interrogez en temps réel la communauté des experts à travers une question simple ou un sondage"); ?>
-                            <span><?php echo t("Inscrivez-vous pour en savoir +"); ?></span>
+                            <?php echo c_szAskRealTime; ?>
+                            <span><?php echo c_szRegisterKnowMore; ?></span>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="menu-3639 anonymous">
-                        <a><?php echo sprintf(t("Create a %schallenge%sLearn more%s"), "<span>", "</span><div>", "</div>"); ?></a>
+                        <a><?php echo sprintf(c_szCreateChallenge, "<span>", "</span><div>", "</div>"); ?></a>
                         <!--<a>Create a <span>challenge</span><div>Learn more</div></a>-->
                         <div class="hover">
-                            <?php echo t("Mettez en concurrence les experts pour trouver une ou plusieurs solutions innovantes à un problème"); ?>
-                            <span><?php print t("Inscrivez-vous pour en savoir +"); ?></span>
+                            <?php echo c_szCompeteExperts; ?>
+                            <span><?php print c_szRegisterKnowMore; ?></span>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="menu-3638 anonymous">
-                        <a><?php print sprintf(t("Find an %sexpert%sLearn more%s"), "<span>", "</span><div>", "</div>"); ?></a>
+                        <a><?php print sprintf(c_szFindExpert, "<span>", "</span><div>", "</div>"); ?></a>
                         <!--<a> Find an <span>expert</span><div>Learn more</div></a>-->
                         <div class="hover">
-                            <?php echo ("Construisez et publiez votre questionnaire pour qualifier un ou plusieurs experts"); ?>
-                            <span><?php t("Inscrivez-vous pour en savoir +"); ?></span>
+                            <?php echo c_szBuildSurvey; ?>
+                            <span><?php c_szRegisterKnowMore; ?></span>
                         </div>
                     </div>
                 </div>
@@ -232,7 +232,7 @@ seems to be unused
                             <hr class="hr-dark"/>
                         </div>
                         <div class="col-md-4 col-sm-6 col-xs-8 title">
-                            <?php print t("NOS ENGAGEMENTS"); ?>
+                            <?php print c_szOurEngagements; ?>
                         </div>
                         <div class="col-md-4 col-sm-3 col-xs-2">
                             <hr class="hr-dark"/>
@@ -242,33 +242,33 @@ seems to be unused
                 <div class="row">
                     <div class="col-sm-4 col-xs-12">
                         <div class="engagement-block rapidity">
-                            <div class="header"><?php print t("Rapidité"); ?></div>
+                            <div class="header"><?php print c_szRapidity; ?></div>
                             <div class="content">
-                                <strong><?php print t("emindhub"); ?></strong>
-                                <?php print t(" garanti une forte réactivité grace à une large communauté d'"); ?>
-                                <strong><?php print t("experts connectés"); ?></strong>
+                                <strong><?php print c_szEmindhub; ?></strong>
+                                <?php print c_szReactivityCommunity; ?>
+                                <strong><?php print c_szConnectedExperts; ?></strong>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-4 col-xs-12">
                         <div class="engagement-block security">
-                            <div class="header"><?php print t("Sécurité"); ?></div>
+                            <div class="header"><?php print c_szSecurity; ?></div>
                             <div class="content">
-                                <strong><?php print t("emindhub"); ?></strong>
-                                <?php print t(" permet de choisir"); ?>
-                                <strong><?php print t(" le cercle d'experts"); ?></strong>
-                                <?php print t(" à qui adresser sa demande en toute confiance"); ?>
+                                <strong><?php print c_szEmindhub; ?></strong>
+                                <?php print c_szAllowChoose; ?>
+                                <strong><?php print c_szExpertCircle; ?></strong>
+                                <?php print c_szAskInConfidence; ?>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-4 col-xs-12">
                         <div class="engagement-block quality">
-                            <div class="header"><?php print t("Qualité"); ?></div>
+                            <div class="header"><?php print c_szQuality; ?></div>
                             <div class="content">
-                                <strong><?php print t("emindhub"); ?></strong>
-                                <?php print t(" s'appuie sur des"); ?>
-                                <strong><?php print t(" experts référents"); ?></strong>
-                                <?php print t(" pour assurer la qualité des contributions"); ?>
+                                <strong><?php print c_szEmindhub; ?></strong>
+                                <?php print c_szReliesOn; ?>
+                                <strong><?php print c_szReferentExperts; ?></strong>
+                                <?php print c_szContributionsQuality; ?>
                             </div>
                         </div>
                     </div>

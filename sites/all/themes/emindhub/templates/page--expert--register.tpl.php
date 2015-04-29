@@ -96,7 +96,7 @@
             ?>
             <div class="row">
                 <div class="col-md-8">
-                    <div class="register-title"><?php print t("Expert registration"); ?></div>
+                    <div class="register-title"><?php print c_szExpertRegister; ?></div>
                     <div class="row">
                         <div class="col-md-1">
                             <hr class="hr-light">
@@ -109,7 +109,7 @@
                             <img src="<?php /*print getImgSrc("emailMini.png"); */?>">
                         </div>-->
                     </div>
-                    <div class="challenge-title"><?php print t("Create your account "); ?><span class="bold"><?php print t("in no time"); ?></span></div>
+                    <div class="challenge-title"><?php print c_szCreateAccount; ?><span class="bold"><?php print c_szNoTime; ?></span></div>
                     <div class="expert-register">
                         <?php print render($page['content']); ?>
                     </div>

@@ -37,11 +37,11 @@
                               <div class="popup-sign-up">
                                   <?php print $menuEntry; ?>
                                   <div class="popup-sign-up-content">
-                                      <?php print t("Sign-in"); ?>
-                                      <span class="light-blue-text"><?php print t("in 1 minute"); ?></span>
-                                      <?php print t("and start!"); ?>
-                                      <a href="<?php print url("business/register"); ?>" class="btn btn-primary"><?php print t("As a seeker"); ?></a>
-                                      <a href="<?php print url("expert/register"); ?>" class="btn btn-primary"><?php print t("As an expert"); ?></a>
+                                      <?php print c_szSignIn; ?>
+                                      <span class="light-blue-text"><?php print c_szInAMinute; ?></span>
+                                      <?php print c_szStart; ?>
+                                      <a href="<?php print url("business/register"); ?>" class="btn btn-primary"><?php print c_szSeeker; ?></a>
+                                      <a href="<?php print url("expert/register"); ?>" class="btn btn-primary"><?php print c_szExpert; ?></a>
                                   </div>
                               </div>
                             <?php

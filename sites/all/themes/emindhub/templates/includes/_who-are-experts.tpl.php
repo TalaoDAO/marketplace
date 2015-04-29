@@ -3,7 +3,7 @@
         <div class="col-sm-4 col-xs-2">
             <hr class="hr-dark"/>
         </div>
-        <div class="col-sm-4 col-xs-8 title"><?php print t("QUI SONT LES EXPERTS ?"); ?></div>
+        <div class="col-sm-4 col-xs-8 title"><?php print c_szWhoAreExperts; ?></div>
         <div class="col-sm-4 col-xs-2">
             <hr class="hr-dark"/>
         </div>
@@ -18,9 +18,9 @@
                 <?php print $atomiumImg; ?>
             </div>
             <div class="col-lg-10 col-md-9 col-sm-10 col-xs-9">
-                <span class="light-blue-text"><?php print t("Professionnels expérimentés, retraités actifs, chercheurs, étudiants..."); ?></span>
+                <span class="light-blue-text"><?php print c_szExperimentedPro; ?></span>
 
-                <p><?php print t("Ils sont dans votre réseau ou dans le réseau emindhub."); ?></p>
+                <p><?php print c_szInYourNetwork; ?></p>
             </div>
         </div>
         <div class="little-wrapper">
@@ -29,9 +29,9 @@
                     <?php print $peopleImg; ?>
                 </div>
                 <div class="col-lg-10 col-md-9 col-sm-10 col-xs-9">
-                    <span class="light-blue-text"><?php print t("Avec emindhub,"); ?></span>
+                    <span class="light-blue-text"><?php print c_szWithEmindhub; ?></span>
 
-                    <p><?php print t("Vous les organisez et les sollicitez selon vos besoins."); ?></p>
+                    <p><?php print c_szYouOrganize; ?></p>
                 </div>
             </div>
         </div>
@@ -44,12 +44,12 @@
                         <span class="popup-hover">
                             <?php print $cercleImg; ?>
                             <span class="experts">
-                                <strong><?php print t("Notre base mondiale"); ?></strong><br />
-                                <?php print t("D'experts"); ?>
+                                <strong><?php print c_szWorldDb; ?></strong><br />
+                                <?php print c_szExperts; ?>
                             </span>
                         </span>
                     </div>
-                    <div class="col-sm-8 col-xs-12 paddingUD"><?php print t("TOUS"); ?> <br><span class="bold"><?php print t("LES EXPERTS"); ?></span></div>
+                    <div class="col-sm-8 col-xs-12 paddingUD"><?php print c_szAll; ?> <br><span class="bold"><?php print c_szAllExperts; ?></span></div>
                 </div>
             </div>
             <div class="col-md-4 col-xs-6 center-text">
@@ -58,13 +58,13 @@
                         <span class="popup-hover">
                         <?php print $cercleImg; ?>
                             <span class="sponsored">
-                                <strong><?php print t("Les experts emindhub"); ?></strong><br />
-                                <?php print t("parrainés par leur pairs"); ?>
+                                <strong><?php print c_szEmindhubExperts; ?></strong><br />
+                                <?php print c_szSponsoredByPeers; ?>
                             </span>
                         </span>
                     </div>
                     <div class="col-sm-8 col-xs-12 paddingUD">
-                        <?php print t("LES EXPERTS"); ?> <br><span class="bold"><?php print t("PARRAINÉS"); ?></span>
+                        <?php print c_szAllExperts; ?> <br><span class="bold"><?php print c_szSponsored; ?></span>
                     </div>
                 </div>
             </div>
@@ -76,13 +76,13 @@
                         <span class="popup-hover">
                         <?php print $cercleImg; ?>
                             <span class="partners">
-                                <strong><?php print t("Vos collaborateurs"); ?></strong><br />
-                                <?php print t("et vos partenaires"); ?>
+                                <strong><?php print c_szYourContributors; ?></strong><br />
+                                <?php print c_szYourPartners; ?>
                             </span>
                         </span>
                     </div>
                     <div class="col-sm-8 paddingUD col-xs-12">
-                        <?php print t("VOTRE RÉSEAU"); ?> <br><span class="bold"><?php print t("ACTIF"); ?></span>
+                        <?php print c_szYourNetwork; ?> <br><span class="bold"><?php print c_szActive; ?></span>
                     </div>
                 </div>
             </div>
@@ -92,13 +92,13 @@
                         <span class="popup-hover">
                         <?php print $cercleImg; ?>
                             <span class="formers">
-                                <strong><?php print t("vos anciens"); ?></strong><br />
-                                <?php print t("collaborateurs"); ?>
+                                <strong><?php print c_szYourOlds; ?></strong><br />
+                                <?php print c_szContributors; ?>
                             </span>
                         </span>
                     </div>
                     <div class="col-sm-8 col-xs-12 paddingUD">
-                        <?php print t("VOS"); ?> <br><span class="bold"><?php print t("ALUMNIS"); ?></span>
+                        <?php print c_szYours; ?> <br><span class="bold"><?php print c_szAlumnis; ?></span>
                     </div>
                 </div>
             </div>
@@ -108,13 +108,13 @@
                         <span class="popup-hover">
                         <?php print $cercleImg; ?>
                             <span class="circles">
-                                <strong><?php print t("cercles composés"); ?></strong><br />
-                                <?php print t("à la demande"); ?>
+                                <strong><?php print c_szComposedCircles; ?></strong><br />
+                                <?php print c_szOnDemand; ?>
                             </span>
                         </span>
                     </div>
                     <div class="col-sm-8 col-xs-12 paddingUD">
-                        <?php print t("VOS CERCLES"); ?> <br><span class="bold"><?php print t("PRIVÉS"); ?></span>
+                        <?php print c_szYouCircles; ?> <br><span class="bold"><?php print c_szPrivates; ?></span>
                     </div>
                 </div>
             </div>

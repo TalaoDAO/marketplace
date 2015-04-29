@@ -136,7 +136,7 @@ if (isset($form['profile_expert'])) {
 }
 ?>
 <div class="registration-form">
-    <div class="sub-title paddingD"><?php print t("Register form to Emindhub :"); ?></div>
+    <div class="sub-title paddingD"><?php print c_szRegisterToEmh; ?></div>
 
     <div class="row paddingD">
         <div class="col-md-6 name-field"><?php print render($fieldFirstName); ?></div>

@@ -1,6 +1,7 @@
 <?php
 
 //require_once("templates/PHPDebug.php");
+require_once("templates/includes/string_list.php");
 
 //============================================================================
 // CONTACT FORM CUSTOMIZATION SECTION
@@ -48,7 +49,7 @@ function emindhub_file($variables) {
     element_set_attributes($element, array('id', 'name', 'size'));
     _form_set_class($element, array('form-file'));
 
-    return sprintf('<input type="text" disabled data-fileinputtext="%s" class="file-return"><div class="file-upload"><span>%s</span><input' . drupal_attributes($element['#attributes']) . ' /></div>', $element["#id"], t("Choose a file"));
+    return sprintf('<input type="text" disabled data-fileinputtext="%s" class="file-return"><div class="file-upload"><span>%s</span><input' . drupal_attributes($element['#attributes']) . ' /></div>', $element["#id"], c_szChooseFile);
 }
 
 function emindhub_preprocess_user_picture(&$variables) {
@@ -153,7 +154,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 function emindhub_preprocess_page(&$vars) {
     // CUSTOMIZABLE TEXT  ==============================================================
     // banniere
-    $vars['banniereText'] = t("ACCÉDEZ EN LIGNE <p>AU 1ER RÉSEAU MONDIAL D’EXPERTS</p> EN AÉRONAUTIQUE & SPATIAL");
+    $vars['banniereText'] = sprintf(c_szTextBanniere, "<p>", "</p>");
 
     $vars['firstMenu'] = GetMenu($vars);
 

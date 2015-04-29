@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-4 challenge-title"><?php echo t("Answer to a challenge"); ?></div>
+    <div class="col-md-4 challenge-title"><?php echo c_szAnswerChallenge; ?></div>
     <div class="col-md-8"><hr class="hr-light"></div>
 </div>
 <?php
@@ -64,7 +64,7 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
                     <div class="col-xs-6  bold"><?php print $content['field_autoref']['#items'][0]['value']; ?></div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-6"><?php print t("Publication date:"); ?></div>
+                    <div class="col-xs-6"><?php print c_szPublicationDt; ?></div>
                     <!--<div class="col-md-6  bold"><?php //print format_date($elements['#node']->created, 'custom', 'm/d/Y'); ?></div>-->
                     <div class="col-xs-6  bold"><?php print format_date($elements['#node']->created, 'short'); ?></div>
                 </div>
@@ -74,7 +74,7 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
                         print date('d/m/Y - H:i', strtotime($content['field_expiration_date']['#items'][0]['value'])); ?></div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-6"><?php print t("Number of responses:"); ?></div>
+                    <div class="col-xs-6"><?php print c_szPublicationDt; ?></div>
                     <div class="col-xs-6  bold"><?php print $comment_count; ?></div>
                 </div>
                 <div class="row">
@@ -108,7 +108,7 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
 
 <div class="row light-grey-background paddingUD title-wrapper challenge-state-row">
     <div class="col-md-3 col-sm-4 my-selection"><?php print $elements['links']['flag']['#links']['flag-my_selection']['title']; ?></div>
-    <div class="col-md-3 col-sm-3 create-workgroup"><?php print l(t("Create a working group"), "node/add/working-group", array('attributes' => array('class' => array('btn', 'btn-primary', 'btn-workgroup')))); ?></div>
+    <div class="col-md-3 col-sm-3 create-workgroup"><?php print l(c_szCreateWorkgroup, "node/add/working-group", array('attributes' => array('class' => array('btn', 'btn-primary', 'btn-workgroup')))); ?></div>
     <?php $linkAddComment = $elements['links']['comment']['#links']['comment-add'];
     if ($linkAddComment) { ?>
         <div class="col-md-3 col-md-offset-3 col-sm-3 col-sm-offset-2"><?php print l($linkAddComment['title'], $linkAddComment['href'], array('attributes' => array('class' => array('btn', 'btn-primary', 'btn-expert')))); ?></div>

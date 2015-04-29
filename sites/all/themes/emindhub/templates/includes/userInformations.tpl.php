@@ -1,5 +1,5 @@
 <?php if (isset($field_anonymous[0]['value']) && $field_anonymous[0]['value'] == 0) {
-    print t("Submitted by:"); ?>
+    print c_szSubmitted; ?>
     <div class="row">
         <div class="col-md-4 col-xs-5 profile-picture">
             <?php
