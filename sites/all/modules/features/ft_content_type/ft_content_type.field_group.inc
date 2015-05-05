@@ -26,8 +26,8 @@ function ft_content_type_field_group_info() {
       0 => 'field_name_visibility',
       1 => 'field_entreprise_visibility',
       2 => 'field_entreprise',
-      3 => 'account',
-      4 => 'picture',
+      3 => 'field_photo',
+      4 => 'account',
       5 => 'group_oneliner',
     ),
     'format_type' => 'div',
@@ -97,11 +97,11 @@ function ft_content_type_field_group_info() {
     'children' => array(
       0 => 'body',
       1 => 'field_domaine',
-      2 => 'field_reward',
-      3 => 'field_expiration_date',
-      4 => 'field_picto',
-      5 => 'field_tags',
-      6 => 'og_group_ref',
+      2 => 'field_expiration_date',
+      3 => 'field_picto',
+      4 => 'field_tags',
+      5 => 'og_group_ref',
+      6 => 'field_reward',
       7 => 'group_title',
     ),
     'format_type' => 'div',
@@ -470,8 +470,7 @@ function ft_content_type_field_group_info() {
       0 => 'field_link_to_my_blog',
       1 => 'field_working_status',
       2 => 'field_sponsorship',
-      3 => 'field_sponsor',
-      4 => 'field_sponsor1',
+      3 => 'field_sponsor1',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -525,6 +524,74 @@ function ft_content_type_field_group_info() {
     ),
   );
   $export['group_mission|node|webform|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_oneliner1|node|question1|form';
+  $field_group->group_name = 'group_oneliner1';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'question1';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_target';
+  $field_group->data = array(
+    'label' => 'Oneliner',
+    'weight' => '28',
+    'children' => array(
+      0 => 'field_expiration_date',
+      1 => 'field_reward',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Oneliner',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-oneliner field-group-div',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_oneliner1|node|question1|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_oneliner2|node|question1|form';
+  $field_group->group_name = 'group_oneliner2';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'question1';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_target';
+  $field_group->data = array(
+    'label' => 'Oneliner',
+    'weight' => '30',
+    'children' => array(
+      0 => 'og_group_ref',
+      1 => 'field_other_members',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Oneliner',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-oneliner field-group-div',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_oneliner2|node|question1|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -594,6 +661,41 @@ function ft_content_type_field_group_info() {
     ),
   );
   $export['group_oneliner|node|challenge|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_oneliner|node|question1|form';
+  $field_group->group_name = 'group_oneliner';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'question1';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_who';
+  $field_group->data = array(
+    'label' => 'Oneliner',
+    'weight' => '6',
+    'children' => array(
+      0 => 'field_anonymous',
+      1 => 'field_use_my_entreprise',
+      2 => 'field_show_entreprise',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Oneliner',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-oneliner field-group-div',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_oneliner|node|question1|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -685,7 +787,7 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'field-group-fieldset',
+        'classes' => 'field-group-fieldset group-oneliner',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -789,8 +891,7 @@ function ft_content_type_field_group_info() {
       1 => 'field_expiration_date',
       2 => 'og_group_ref',
       3 => 'field_request_circle',
-      4 => 'field_pre_members',
-      5 => 'field_other_members',
+      4 => 'field_other_members',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -854,12 +955,9 @@ function ft_content_type_field_group_info() {
     'label' => 'Target',
     'weight' => '7',
     'children' => array(
-      0 => 'field_reward',
-      1 => 'field_expiration_date',
-      2 => 'field_pre_members',
-      3 => 'og_group_ref',
-      4 => 'field_request_circle',
-      5 => 'field_other_members',
+      0 => 'field_request_circle',
+      1 => 'group_oneliner1',
+      2 => 'group_oneliner2',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1180,9 +1278,8 @@ function ft_content_type_field_group_info() {
     'label' => 'Who',
     'weight' => '6',
     'children' => array(
-      0 => 'field_anonymous',
-      1 => 'field_use_my_entreprise',
-      2 => 'field_entreprise_description',
+      0 => 'field_entreprise_description',
+      1 => 'group_oneliner',
     ),
     'format_type' => 'div',
     'format_settings' => array(

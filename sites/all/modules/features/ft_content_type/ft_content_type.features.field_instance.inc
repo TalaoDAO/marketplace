@@ -52,7 +52,8 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'comment-comment_node_question1-field_private_comment'
+  // Exported field_instance:
+  // 'comment-comment_node_question1-field_private_comment'
   $field_instances['comment-comment_node_question1-field_private_comment'] = array(
     'bundle' => 'comment_node_question1',
     'default_value' => array(
@@ -79,7 +80,7 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'comment',
     'field_name' => 'field_private_comment',
     'label' => 'Is Private Comment',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
@@ -93,7 +94,8 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'comment-comment_node_question1-field_private_comment_body'
+  // Exported field_instance:
+  // 'comment-comment_node_question1-field_private_comment_body'
   $field_instances['comment-comment_node_question1-field_private_comment_body'] = array(
     'bundle' => 'comment_node_question1',
     'default_value' => NULL,
@@ -135,7 +137,8 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_skills_set-field_skill2'
+  // Exported field_instance:
+  // 'field_collection_item-field_skills_set-field_skill2'
   $field_instances['field_collection_item-field_skills_set-field_skill2'] = array(
     'bundle' => 'field_skills_set',
     'default_value' => NULL,
@@ -189,7 +192,8 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_skills_set-field_skill_autoeval'
+  // Exported field_instance:
+  // 'field_collection_item-field_skills_set-field_skill_autoeval'
   $field_instances['field_collection_item-field_skills_set-field_skill_autoeval'] = array(
     'bundle' => 'field_skills_set',
     'default_value' => NULL,
@@ -237,7 +241,8 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_skills_set-field_year_of_experiences'
+  // Exported field_instance:
+  // 'field_collection_item-field_skills_set-field_year_of_experiences'
   $field_instances['field_collection_item-field_skills_set-field_year_of_experiences'] = array(
     'bundle' => 'field_skills_set',
     'default_value' => NULL,
@@ -521,18 +526,15 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'image',
         'settings' => array(
           'image_link' => '',
-          'image_style' => '',
+          'image_style' => 'large',
         ),
         'type' => 'image',
         'weight' => 3,
       ),
       'teaser' => array(
         'label' => 'above',
-        'module' => 'file_entity',
-        'settings' => array(
-          'file_view_mode' => 'default',
-        ),
-        'type' => 'file_rendered',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 0,
       ),
     ),
@@ -686,50 +688,6 @@ function ft_content_type_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 4,
-    ),
-  );
-
-  // Exported field_instance: 'node-challenge-field_anonymous'
-  $field_instances['node-challenge-field_anonymous'] = array(
-    'bundle' => 'challenge',
-    'default_value' => array(
-      0 => array(
-        'value' => 1,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 20,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_anonymous',
-    'label' => 'Anonymous',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 0,
-      ),
-      'type' => 'options_buttons',
       'weight' => 4,
     ),
   );
@@ -1234,47 +1192,6 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-challenge-field_reward'
-  $field_instances['node-challenge-field_reward'] = array(
-    'bundle' => 'challenge',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 5,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_reward',
-    'label' => 'Reward',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 13,
-    ),
-  );
-
   // Exported field_instance: 'node-challenge-field_tags'
   $field_instances['node-challenge-field_tags'] = array(
     'bundle' => 'challenge',
@@ -1317,48 +1234,6 @@ function ft_content_type_field_default_field_instances() {
       ),
       'type' => 'autocomplete_deluxe_taxonomy',
       'weight' => 2,
-    ),
-  );
-
-  // Exported field_instance: 'node-challenge-field_use_my_entreprise'
-  $field_instances['node-challenge-field_use_my_entreprise'] = array(
-    'bundle' => 'challenge',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 17,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_use_my_entreprise',
-    'label' => 'Use my organisation description',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_buttons',
-      'weight' => 5,
     ),
   );
 
@@ -1488,11 +1363,7 @@ function ft_content_type_field_default_field_instances() {
   // Exported field_instance: 'node-circle-field_anonymous'
   $field_instances['node-circle-field_anonymous'] = array(
     'bundle' => 'circle',
-    'default_value' => array(
-      0 => array(
-        'value' => 1,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -1501,7 +1372,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 8,
+        'weight' => 10,
       ),
       'full' => array(
         'label' => 'above',
@@ -1518,19 +1389,18 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_anonymous',
-    'label' => 'Anonymous',
-    'required' => 0,
+    'label' => 'Author visibility',
+    'required' => FALSE,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 1,
       'module' => 'options',
       'settings' => array(
-        'display_label' => 0,
+        'apply_chosen' => '',
       ),
-      'type' => 'options_onoff',
+      'type' => 'options_select',
       'weight' => 9,
     ),
   );
@@ -2136,47 +2006,6 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-poll-field_reward'
-  $field_instances['node-poll-field_reward'] = array(
-    'bundle' => 'poll',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 5,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_reward',
-    'label' => 'Reward',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 4,
-    ),
-  );
-
   // Exported field_instance: 'node-poll-field_tags'
   $field_instances['node-poll-field_tags'] = array(
     'bundle' => 'poll',
@@ -2340,7 +2169,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 10,
+        'weight' => 17,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2351,8 +2180,8 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_anonymous',
-    'label' => 'Anonymous author',
-    'required' => 0,
+    'label' => 'Author visibility',
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
@@ -2360,9 +2189,11 @@ function ft_content_type_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_buttons',
-      'weight' => 19,
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 22,
     ),
   );
 
@@ -2443,7 +2274,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 21,
+      'weight' => 7,
     ),
   );
 
@@ -2457,7 +2288,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'module' => 'date',
         'settings' => array(
-          'format_type' => 'long',
+          'format_type' => 'short_date',
           'fromto' => 'both',
           'multiple_from' => '',
           'multiple_number' => '',
@@ -2497,7 +2328,7 @@ function ft_content_type_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 7,
+      'weight' => 29,
     ),
   );
 
@@ -2527,7 +2358,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_other_members',
-    'label' => 'Other members',
+    'label' => 'Other experts',
     'required' => 0,
     'settings' => array(
       'behaviors' => array(
@@ -2545,7 +2376,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 12,
+      'weight' => 32,
     ),
   );
 
@@ -2649,7 +2480,7 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_request_circle',
     'label' => 'Select audience',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
@@ -2659,7 +2490,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 9,
+      'weight' => 29,
     ),
   );
 
@@ -2668,14 +2499,19 @@ function ft_content_type_field_default_field_instances() {
     'bundle' => 'question1',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Text to display a reward',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 4,
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 20,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2690,17 +2526,62 @@ function ft_content_type_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'text_processing' => 0,
+      'max' => '',
+      'min' => 0,
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 30,
+    ),
+  );
+
+  // Exported field_instance: 'node-question1-field_show_entreprise'
+  $field_instances['node-question1-field_show_entreprise'] = array(
+    'bundle' => 'question1',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 19,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_show_entreprise',
+    'label' => 'Organisation visibility',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'text',
+      'module' => 'options',
       'settings' => array(
-        'size' => 60,
+        'apply_chosen' => '',
       ),
-      'type' => 'text_textfield',
-      'weight' => 8,
+      'type' => 'options_select',
+      'weight' => 23,
     ),
   );
 
@@ -2754,7 +2635,7 @@ function ft_content_type_field_default_field_instances() {
     'bundle' => 'question1',
     'default_value' => array(
       0 => array(
-        'value' => 0,
+        'value' => 1,
       ),
     ),
     'deleted' => 0,
@@ -2765,7 +2646,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 11,
+        'weight' => 18,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2776,8 +2657,8 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_use_my_entreprise',
-    'label' => 'Use my organisation description',
-    'required' => 0,
+    'label' => 'Organisation description',
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
@@ -2785,9 +2666,11 @@ function ft_content_type_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_buttons',
-      'weight' => 20,
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 24,
     ),
   );
 
@@ -2835,7 +2718,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 10,
+      'weight' => 31,
     ),
   );
 
@@ -2971,50 +2854,6 @@ function ft_content_type_field_default_field_instances() {
       ),
       'type' => 'text_textarea_with_summary',
       'weight' => 9,
-    ),
-  );
-
-  // Exported field_instance: 'node-webform-field_anonymous'
-  $field_instances['node-webform-field_anonymous'] = array(
-    'bundle' => 'webform',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 11,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_anonymous',
-    'label' => 'Anonymous',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 0,
-      ),
-      'type' => 'options_buttons',
-      'weight' => 5,
     ),
   );
 
@@ -3460,47 +3299,6 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_reward'
-  $field_instances['node-webform-field_reward'] = array(
-    'bundle' => 'webform',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 3,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_reward',
-    'label' => 'Reward',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 35,
-    ),
-  );
-
   // Exported field_instance: 'node-webform-field_start_date'
   $field_instances['node-webform-field_start_date'] = array(
     'bundle' => 'webform',
@@ -3597,48 +3395,6 @@ function ft_content_type_field_default_field_instances() {
       ),
       'type' => 'autocomplete_deluxe_taxonomy',
       'weight' => 33,
-    ),
-  );
-
-  // Exported field_instance: 'node-webform-field_use_my_entreprise'
-  $field_instances['node-webform-field_use_my_entreprise'] = array(
-    'bundle' => 'webform',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 16,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_use_my_entreprise',
-    'label' => 'Use my organisation description',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_buttons',
-      'weight' => 6,
     ),
   );
 
@@ -3920,7 +3676,8 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'privatemsg_message-privatemsg_message-field_document'
+  // Exported field_instance:
+  // 'privatemsg_message-privatemsg_message-field_document'
   $field_instances['privatemsg_message-privatemsg_message-field_document'] = array(
     'bundle' => 'privatemsg_message',
     'deleted' => 0,
@@ -4007,9 +3764,9 @@ function ft_content_type_field_default_field_instances() {
         'default_country' => 'FR',
         'format_handlers' => array(
           'address' => 'address',
-          'address-hide-country' => 'address-hide-country',
           'address-hide-postal-code' => 0,
           'address-hide-street' => 0,
+          'address-hide-country' => 0,
           'organisation' => 0,
           'name-full' => 0,
           'name-oneline' => 0,
@@ -4214,7 +3971,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 6,
+      'weight' => 8,
     ),
   );
 
@@ -4387,7 +4144,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 30,
       ),
       'type' => 'text_textfield',
-      'weight' => 17,
+      'weight' => 16,
     ),
   );
 
@@ -4477,7 +4234,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 5,
+      'weight' => 7,
     ),
   );
 
@@ -4547,6 +4304,75 @@ function ft_content_type_field_default_field_instances() {
       ),
       'type' => 'text_textarea',
       'weight' => 30,
+    ),
+  );
+
+  // Exported field_instance: 'user-user-field_photo'
+  $field_instances['user-user-field_photo'] = array(
+    'bundle' => 'user',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 36,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_photo',
+    'label' => 'Photo',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'entity_translation_sync' => FALSE,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'filefield_paths' => array(
+        'active_updating' => 0,
+        'file_name' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+        ),
+        'file_path' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => 'picture',
+        ),
+        'retroactive_update' => 1,
+      ),
+      'filefield_paths_enabled' => 1,
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'imagefield_crop',
+      'settings' => array(
+        'collapsible' => 2,
+        'croparea' => '110x110',
+        'enforce_minimum' => 1,
+        'enforce_ratio' => 1,
+        'preview_image_style' => 'profile_picture',
+        'progress_indicator' => 'throbber',
+        'resolution' => '110x110',
+      ),
+      'type' => 'imagefield_crop_widget',
+      'weight' => 10,
     ),
   );
 
@@ -4947,10 +4773,9 @@ function ft_content_type_field_default_field_instances() {
   t('Add your specific skills using key words');
   t('Address');
   t('Alert Level');
-  t('Anonymous');
-  t('Anonymous author');
   t('Any other areas of interest that might help to know you better');
   t('Areas of interest');
+  t('Author visibility');
   t('AutoRef');
   t('Body');
   t('Choose circle of experts');
@@ -4984,9 +4809,12 @@ function ft_content_type_field_default_field_instances() {
   t('Name of my sponsor');
   t('Name visibility');
   t('Organisation');
+  t('Organisation description');
   t('Organisation visibility');
+  t('Other experts');
   t('Other members');
   t('Other, please specify');
+  t('Photo');
   t('Picto');
   t('Private Comment');
   t('Profile Title');
@@ -5000,8 +4828,6 @@ function ft_content_type_field_default_field_instances() {
   t('Tags');
   t('Telephone');
   t('Testimony');
-  t('Text to display a reward');
-  t('Use my organisation description');
   t('Working Status');
   t('Years of experience');
 

@@ -34,7 +34,7 @@ function ft_rules_default_rules_configuration() {
       "IF" : [
         { "user_has_role" : {
             "account" : [ "account" ],
-            "roles" : { "value" : { "4" : "4", "8" : "8" } },
+            "roles" : { "value" : { "4" : "4", "5" : "5", "7" : "7", "8" : "8", "9" : "9" } },
             "operation" : "OR"
           }
         }

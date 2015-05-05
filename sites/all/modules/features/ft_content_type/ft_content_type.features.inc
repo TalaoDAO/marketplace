@@ -41,16 +41,7 @@ function ft_content_type_image_default_styles() {
   // Exported image style: profile_picture.
   $styles['profile_picture'] = array(
     'label' => 'profile picture',
-    'effects' => array(
-      2 => array(
-        'name' => 'image_scale_and_crop',
-        'data' => array(
-          'width' => 100,
-          'height' => 100,
-        ),
-        'weight' => 1,
-      ),
-    ),
+    'effects' => array(),
   );
 
   return $styles;
@@ -102,7 +93,7 @@ function ft_content_type_node_info() {
       'help' => '',
     ),
     'question1' => array(
-      'name' => t('Question1'),
+      'name' => t('Question'),
       'base' => 'node_content',
       'description' => '',
       'has_title' => '1',
@@ -110,7 +101,7 @@ function ft_content_type_node_info() {
       'help' => '',
     ),
     'webform' => array(
-      'name' => t('Survey'),
+      'name' => t('Questionnaire'),
       'base' => 'node_content',
       'description' => t('Create a new form or questionnaire accessible to users. Submission results and statistics are recorded and accessible to privileged users.'),
       'has_title' => '1',
