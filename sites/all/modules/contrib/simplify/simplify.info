@@ -5,9 +5,9 @@ package = User interface
 configure = admin/config/user-interface/simplify
 
 
-; Information added by Drupal.org packaging script on 2014-09-09
-version = "7.x-3.2"
+; Information added by Drupal.org packaging script on 2015-04-20
+version = "7.x-3.3"
 core = "7.x"
 project = "simplify"
-datestamp = "1410261327"
+datestamp = "1429513382"
 

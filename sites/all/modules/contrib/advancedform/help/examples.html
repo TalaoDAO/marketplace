@@ -20,13 +20,14 @@ Eg, if you are trying to hide <code>'#edit-menu-description'</code>, then the wh
 Inspect the source of any form on your site to see the new classes that have
 been added to the form element to assist this utility.
 </p>
-<pre>node-form:[#revision-information, #edit-date]</pre>
+<pre>node-form:[.form-edit-date, .form-edit-sticky]</pre>
 <p>
-will demote the revision log box and date editor from the interface.
+will demote the date editor and the sticky checkbox from the interface for all node types.
 </p>
-<pre>node-form:[#edit-log, #edit-date, #input-format, #authoring-information, #publishing-options]</pre>
+<pre>node-form:[#edit-author, #edit-revision-information, #edit-options, .filter-wrapper]</pre>
 <p>
 is quite aggressive, but makes your interface really clean by removing most admin UI elements.
+In D7, when using vertical-tabs, the tabs remain, but may be blank if you hide their content.
 </p><p>
 If you want, you can also enter arbitrary css-selectors. Hiding :
 </p>

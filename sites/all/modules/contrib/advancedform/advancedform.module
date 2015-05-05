@@ -1,8 +1,9 @@
 <?php
 /**
- * @file Advanced Form
- * A UI tweak to hide certain features or the form interface from normal use,
- * but still have them available on the page for validation and quick access.
+ * @file
+ * A UI tweak to hide certain features or the form interface from normal use.
+ *
+ * But still have them available on the page for validation and quick access.
  *
  * Written with reference to formfilter.module which does a similar job through
  * access restrictions, whereas I want to trust my users, but avoid confusing
@@ -30,8 +31,8 @@
 function advancedform_menu() {
   $items = array();
   $items['admin/config/user-interface/advancedform'] = array(
-    'title' => t('Advanced Form'),
-    'description' => t('Conditionally hide some form fields to tidy up the UI.'),
+    'title' => 'Advanced Form',
+    'description' => 'Conditionally hide some form fields to tidy up the UI.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('advancedform_admin_settings'),
     'access arguments' => array('administer site configuration'),
@@ -51,7 +52,6 @@ function advancedform_menu() {
  * Implements hook_help().
  */
 function advancedform_help($path, $arg) {
-  $output = '';
   switch ($path) {
     case 'admin/config/user-interface/advancedform':
       return t('
@@ -62,9 +62,11 @@ They can be revealed again by selecting a button discretely added to the form.
 <br/>
 Note that <strong>the fields are just "hidden" for convenience, and not removed,
 so this module should not be used as a security layer</strong>');
+
     case 'admin/modules#description':
       return t('Adds an "Advanced" selector to selected forms to unclutter the UI');
   }
+  return NULL;
 }
 
 
@@ -102,7 +104,7 @@ or css selectors that may be found within it.
     '#type' => 'textarea',
     '#rows' => 10,
     '#title' => t('Rules for everybody'),
-    '#default_value' => variable_get('advancedform_rules_global', 'page-node-form:[#revision-information, .form-item-date]'),
+    '#default_value' => variable_get('advancedform_rules_global', 'page-node-form:[.form-item-date, .form-item-sticky]'),
     '#description' => t('Define the rules that will apply to all users.'),
   );
 
@@ -112,11 +114,11 @@ or css selectors that may be found within it.
   foreach ((array) $rules as $form_id => $fields) {
     $summary .= "<dt>When viewing <strong>$form_id</strong>, hide:</dt>";
     foreach ((array) $fields as $ix => $field_id) {
-      if (! is_array($field_id)) {
+      if (!is_array($field_id)) {
         $summary .= "<dd>$field_id</dd>";
       }
       else {
-        foreach ($field_id as $nested_field_ix => $nested_field_id) {
+        foreach ($field_id as $nested_field_id) {
           $summary .= "<dd>$ix $nested_field_id</dd>";
         }
       }
@@ -144,23 +146,24 @@ or css selectors that may be found within it.
 
 
 /**
- * Ensure the rulset can be parsed legibly.
+ * Ensure the ruleset can be parsed legibly.
  */
 function advancedform_admin_settings_validate($form, &$form_state) {
   $form_values = $form_state['values'];
   $rules = advancedform_parse_rules($form_values['advancedform_rules_global']);
   // Not sure what errors to expect, I'll just assert a few things now...
   $error_msg = t("Problem parsing ruleset, please try again.");
-  if (! is_array($rules)) {
+  if (!is_array($rules)) {
     form_set_error('advancedform_rules_global', $error_msg . " Ruleset is not an array.");
     return FALSE;
   }
   foreach ($rules as $form_id => $fields) {
-    if (! is_array($fields) && ! is_object($fields)) {
+    if (!is_array($fields) && !is_object($fields)) {
       form_set_error('advancedform_rules_global', $error_msg . " Rules for '$form_id' are not an array or object");
       return FALSE;
     }
   }
+  return NULL;
 }
 
 
@@ -170,31 +173,43 @@ function advancedform_admin_settings_validate($form, &$form_state) {
  * Converts the text into an array we can use.
  *
  * Returns all if no form_id is passed, returns NULL if the requested form ID
- * has no ruleset
+ * has no ruleset.
  *
  * TODO User and role configs?
  *
- * @param $form_id If given, return only that one. For the current user.
- * @param $user if given return profile appropriate to that user or their role.
- * @param $flush if set, flush the static cache (needed during admin updates)
+ * @param string $form_id
+ *   If given, return only that one. For the current user.
+ * @param int|object $user
+ *   If given return profile appropriate to that user or their role.
+ * @param bool $flush
+ *   If set, flush the static cache (needed during admin updates).
+ *
+ * @return array
+ *   The ruleset struct.
  */
 function advancedform_rules($form_id = '', $user = NULL, $flush = FALSE) {
   static $ruleset;
-  if (is_array($ruleset) && ! $flush) {
+  if (is_array($ruleset) && !$flush) {
     return $form_id ? (isset($ruleset[$form_id]) ? $ruleset[$form_id] : NULL) : $ruleset;
   }
-  $ruleset = variable_get('advancedform_ruleset', array());
-  if ($form_id && ! isset($ruleset[$form_id])) {
+  $rules = variable_get('advancedform_rules_global', 'page-node-form:[.form-item-date, .form-item-sticky]');
+  $ruleset = advancedform_parse_rules($rules);
+  if ($form_id && !isset($ruleset[$form_id])) {
     return NULL;
   }
-  #$rules = variable_get('advancedform_rules_global', 'node-form:edit-log,edit-date');
-  #$ruleset = advancedform_parse_rules($rules);
   return ($form_id) ? $ruleset[$form_id] : $ruleset;
 }
 
 /**
- * Dissolve the text array into an array of configurations, given in json-like
- * format.
+ * Dissolve the text array into an array of configurations.
+ *
+ * When given in json-like format.
+ *
+ * @param string $text
+ *   Our custom css/json style syntax.
+ *
+ * @return array
+ *   Structured ruleset.
  */
 function advancedform_parse_rules($text) {
   $ruleset = array();
@@ -211,7 +226,6 @@ function advancedform_parse_rules($text) {
     }
     $ruleset = array_merge_recursive($ruleset, (array) $rule_object);
   }
-  variable_set('advancedform_ruleset', $ruleset);
   return $ruleset;
 }
 
@@ -219,28 +233,32 @@ function advancedform_parse_rules($text) {
  * Implements hook_form_alter().
  *
  * Ensure every form has our enhancements added to it.
- *
  */
 function advancedform_form_alter(&$form, $form_state, $form_id) {
   advancedform_add_css_and_js($form);
-  return;
 }
 
 
 /**
  * Add a number of informational classes to the form to indicate context.
  *
- * Display the advanced switcher if the form has any edits on it
+ * Display the advanced switcher if the form has any edits on it.
+ *
+ * @param array $form
+ *   FAPI form.
+ *
+ * @return NULL|array
+ *   The modified $form. Even though it's actually modified by ref.
  */
 function advancedform_add_css_and_js(&$form) {
   // Check if there are any rules that apply to this form id.
-  $rules = (array)advancedform_rules($form['#id']);
+  $rules = (array) advancedform_rules($form['#id']);
   if (preg_match('@node-form$@', $form['#id'])) {
-    $rules += (array)advancedform_rules('node-form');
+    $rules += (array) advancedform_rules('node-form');
   }
   if (empty($rules)) {
     // Nope.
-    return;
+    return NULL;
   }
 
   $form['#attributes']['class'][] = 'advancedform-unfiltered';
@@ -265,7 +283,7 @@ function advancedform_add_css_and_js(&$form) {
   }
 
   global $user;
-  // Add a class indicating the user role, so we can set per-role rules
+  // Add a class indicating the user role, so we can set per-role rules.
   foreach ($user->roles as $role) {
     $form['#attributes']['class'][] = 'user-role-' . drupal_clean_css_identifier($role);
   }
@@ -280,7 +298,7 @@ function advancedform_add_css_and_js(&$form) {
  * Return the css that shows or hides form elements depending on the form class.
  *
  * Used as a menu callback
- * Displays dynamically  created css and exits
+ * Displays dynamically  created css and exits.
  *
  * Expected value retrieved from advancedform_rules is a keyed array of form ids
  * and css selectors.
@@ -294,44 +312,41 @@ function advancedform_add_css_and_js(&$form) {
 function advancedform_css($form_id) {
   $css = "\n/* Auto-generated css from advancedform settings. Temporarily hide some elements. */";
   $css .= "\n.advancedform-toggle { position:absolute; top:0; right:0; opacity:0.5; border:1px outset; background-color:#DDDDDD; color:#333333; font-size:80%; padding:0.2em 1em;} ";
-  //$css .= "\nform { position:relative; overflow:hidden;} ";
+  // $css .= "\nform { position:relative; overflow:hidden;} ";
   // hidden fixes a flicker problem in FF during the fade transition
   // HOWEVER this introduces slight ugliness with embedded ckeditor fields.
   // that get their maths wrong.
   $selectors = array();
 
-  $rules = (array)advancedform_rules($form_id);
+  $rules = (array) advancedform_rules($form_id);
   // Special-case node-forms. They are named as {type}-node-form but the UI
   // Allows us to just enter 'node-form'
   // So, if it's an {anything}-node-form, grab all the node-form rules too.
   if (preg_match('@node-form$@', $form_id)) {
-    $rules += (array)advancedform_rules('node-form');
+    $rules = array_merge($rules, (array) advancedform_rules('node-form'));
   }
   foreach ($rules as $ix => $field_id) {
     // Construct the css rules, by concatenating our css with
-    // the user-entered selectors
-
-    // However, as the trigger we may want to use may be a class on the form itself,
+    // the user-entered selectors.
+    // However, as the trigger we may want to use may be a class on
+    // the form itself,
     // only insert a space between ours and theirs
     // if the nested rule doesn't start with a space.
     // eg we need to be able to target
     // "#{$form_id}.advancedform-filtered.user-uid-1 #workflow"
     // by entering node-form:[.user-uid-1 #workflow]
     //
-
     // D7 doesn't use 'wrapper so much. Instead it's more like
     // #edit-myfieldname
     // is wrapped in
     // .form-item-myfieldname
-
     if (is_array($field_id)) {
       // Value is nested, which means we add an extra selector.
-
       $modifier = $ix;
-      foreach ($field_id as $nested_field_ix => $nested_field_id) {
+      foreach ($field_id as $nested_field_id) {
         $separator = (substr($nested_field_id, 0, 1) == '.') ? '' : ' ';
         $selectors[] = "#{$form_id}.advancedform-filtered{$modifier}{$separator}{$nested_field_id}";
-        // Deduce the wrapper ID
+        // Deduce the wrapper ID.
         if (substr(trim($nested_field_id), 0, 5) == '#edit') {
           $wrapper_id  = '.form-item-' . substr(trim($nested_field_id), 6);
           $selectors[] = "#{$form_id}.advancedform-filtered{$modifier}{$separator}{$wrapper_id}";
@@ -339,19 +354,21 @@ function advancedform_css($form_id) {
       }
     }
     else {
-      // Select the user-defined arbitrary css selectors
+      // Select the user-defined arbitrary css selectors.
       $separator = (substr($field_id, 0, 1) == '.') ? '' : ' ';
       $selectors[] = "#{$form_id}.advancedform-filtered{$separator}{$field_id}";
 
-      // Deduce the wrapper ID. #edit-myfieldname is wrapped by .form-item-myfieldname
+      // Deduce the wrapper ID.
+      // #edit-myfieldname is wrapped by .form-item-myfieldname
       if (substr(trim($field_id), 0, 5) == '#edit') {
         $wrapper_id  = '.form-item-' . substr(trim($field_id), 6);
         $selectors[] = "#{$form_id}.advancedform-filtered{$separator}{$wrapper_id}";
       }
     }
   }
+
   if (!empty($selectors)) {
-    $css .= "\n" . join($selectors, ", \n") . "\n { display:none; }";
+    $css .= "\n" . implode($selectors, ", \n") . "\n { display:none; }";
   }
 
   header('Content-Type: text/css');
@@ -360,51 +377,63 @@ function advancedform_css($form_id) {
 }
 
 /**
- * Add oour own rendering functions to the theme registry so we can override
- * normal display.
+ * Add our own rendering functions to the theme registry.
+ *
+ * So we can override normal display.
  *
  * This will add some extra semantic classes that we can use to target elements
  * of forms and and the ctools UI and affect panels UI.
  *
- * @impliments hook_theme_registry_alter()
- *
- * @param array $theme_registry
+ * Implements hook_theme_registry_alter().
  */
 function advancedform_theme_registry_alter(&$theme_registry) {
   $theme_registry['ctools_dropdown']['function'] = 'advancedform_override_theme_ctools_dropdown';
-  // It would be better if we could use a preprocess, but can't seem to insert a function there.
+  // It would be better if we could use a preprocess,
+  // but can't seem to insert a function there.
 }
 
 
 /**
  * Ensure form elements have IDs to render. Not all did this right.
  *
- * @param unknown_type $variables
+ * @param array $variables
  */
-function advancedform_preprocess_form_element(&$variables){
+function advancedform_preprocess_form_element(&$variables) {
   $element = &$variables;
-  if (! isset($element['#id'])) {
+  if (!isset($element['#id'])) {
     // Some container elements (radios box) have no ID of their own.
-    // Make one for consistency
-    $element['#id'] = drupal_clean_css_identifier(join('-', (array) @$element['#array_parents']));
+    // Make one for consistency.
+    $element['#id'] = drupal_clean_css_identifier(implode('-', (array) @$element['#array_parents']));
   }
 }
 
 /**
- * Hijack theme_ctools_dropdown()
+ * Hijack theme_ctools_dropdown().
+ *
  * Re-index the links, so they get useful css classes.
  * then call theme_ctools_dropdown directly to do the normal hard work.
  *
  * @param string $title
+ *   Title.
  * @param array $links
+ *   Links.
  * @param bool $image
+ *   Image.
  * @param string $class
+ *   Class.
+ *
+ * @return string
+ *   Rendered & themed HTML.
+ *
+ * @see theme_ctools_dropdown()
  */
-function advancedform_override_theme_ctools_dropdown($title, $links, $image = FALSE, $class = '') {
-  // Add useful classes to each item so we can selectively disable them in the UI
-  // if we do this by re-keying the list, the class will be placed on the LI by theme_links
+function advancedform_override_theme_ctools_dropdown($title, $links = array(), $image = FALSE, $class = '') {
+  // Add useful classes to each item so we can selectively
+  // disable them in the UI.
+  // If we do this by re-keying the list, the
+  // class will be placed on the LI by theme_links().
   $new_links = array();
-  foreach ($links as $link_id => $link) {
+  foreach ((array) $links as $link) {
     $link_class = preg_replace('|[^a-z0-9]|', '-', strtolower(strip_tags($link['title'])));
     $new_links[$link_class] = $link;
   }

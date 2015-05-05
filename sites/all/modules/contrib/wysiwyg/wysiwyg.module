@@ -190,6 +190,9 @@ function wysiwyg_pre_render_text_format($element) {
     $resizable = 1;
     drupal_add_js('misc/textarea.js');
   }
+//ddl($format_field);
+//ddl(debug_backtrace());
+//if (!isset($format_field['format'])) return $elements;
   // Determine the available text formats.
   foreach ($format_field['format']['#options'] as $format_id => $format_name) {
     $format = 'format' . $format_id;
