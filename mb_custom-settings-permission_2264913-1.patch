@@ -1,0 +1,41 @@
+diff --git a/mb/mb/mb.module b/mb/mb/mb.module
+index 5f4cd09..8007768 100644
+--- a/mb/mb/mb.module
++++ b/mb/mb/mb.module
+@@ -29,7 +29,7 @@ function mb_menu() {
+     'description' => 'Administer the suite of More Buttons (MB) modules.',
+     'page callback' => 'drupal_get_form',
+     'page arguments' => array('mb_admin'),
+-    'access arguments' => array('access administration pages'),
++    'access arguments' => array('administer more buttons'),
+     'file' => 'mb.admin.inc',
+     'weight' => -10,
+   );
+@@ -42,7 +42,7 @@ function mb_menu() {
+   $items['admin/config/mb/buttons/reset'] = array(
+     'page callback' => 'drupal_get_form',
+     'page arguments' => array('mb_reset'),
+-    'access arguments' => array('administer site configuration'),
++    'access arguments' => array('administer more buttons'),
+     'type' => MENU_CALLBACK,
+     'file' => 'mb.admin.inc'
+   );
+@@ -51,6 +51,18 @@ function mb_menu() {
+ }
+ 
+ /**
++ * Implements hook_permission().
++ */
++function mb_permission() {
++  $permissions = array(
++    'administer more buttons' => array(
++      'title' => t('Administer More Buttons settings'),
++    ),
++  );
++  return $permissions;
++}
++
++/**
+  * Implements hook_theme().
+  */
+ function mb_theme() {
