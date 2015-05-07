@@ -1,0 +1,119 @@
+# HG changeset patch
+# Parent bb747fba33aaacdf6d1d2de16c3438214206c65c
+
+diff -r bb747fba33aa schema.module
+--- a/schema.module	Fri Dec 06 16:25:28 2013 +0000
++++ b/schema.module	Fri Dec 06 16:27:42 2013 +0000
+@@ -127,22 +127,92 @@
+  * @param string $connection
+  *   A database connection key, defaults to 'default'.
+  *
++ * @param string $target
++ *   The database target; defaults to 'default' when not using Auto Slave;
++ *   or the preferred slave specified in the auto-slave configuration when
++ *   using Auto Slave.
++ *
+  * @return
+  *   The schema engine class name if available, otherwise FALSE.
+  */
+-function schema_get_connection_engine_class($connection = 'default') {
++function schema_get_connection_engine_class($connection = 'default', $target = NULL) {
+   if ($info = Database::getConnectionInfo($connection)) {
+-    $driver = $info['default']['driver'];
++    if (empty($target)) {
++      $target = 'default';
++
++      // Special case for Auto Slave
++      if (module_exists('autoslave')) {
++        $target = _schema_determine_autoslave_target($connection, $target);
++      }    
++    }
++
++    if (!isset($info[$target]['driver'])) {
++      throw new RuntimeException(
++        "No driver specified for database target {$target} on connection " .
++        "{$connection}.");
++    }
++
++    $driver     = $info[$target]['driver'];
+     $class_name = 'SchemaDatabaseSchema_' . $driver;
++
+     if (class_exists($class_name)) {
+       return $class_name;
+     }
++    else {
++      // Edge case; preferable to just getting a null-pointer "non object call"
++      // error
++      throw new RuntimeException('Database driver class not found: ' . $class_name);
++    }
+   }
+ 
+   return FALSE;
+ }
+ 
+ /**
++ * <p>Determines the appropriate database "target" when the site is using
++ * MySQL master/slave replication with Auto Slave.</p>
++ *
++ * <p>When specifying the database settings in settings.php, the target
++ * is the second array key (i.e. the format is
++ * <code>$databases[DATABASE NAME][TARGET]</code>).</p>
++ *
++ * @param  string $connection
++ *   The database connection to use.
++ *
++ * @param  string $default_target
++ *   An optional default target to fall-back to if Auto Slave is either not
++ *   configured properly, or configured in a non-standard way.
++ *
++ * @return
++ *   Either the appropriate target to use for the preferred slave or the
++ *   fall-back target that was passed into this function.
++ */
++function _schema_determine_autoslave_target($connection, $default_target = NULL) {
++  $target = $default_target;
++
++  $info = Database::getConnectionInfo($connection);
++
++  if (!empty($info) && isset($info['default']) &&
++      isset($info['default']['driver']) &&
++      ($info['default']['driver'] == 'autoslave')) {
++    if (!empty($info['default']['slave'])) {
++      // Choose preferred slave
++      $target = $info['default']['slave'][0];
++    }
++    elseif (isset($info['autoslave'])) {
++      // Recommended name for slave from documentation
++      $target = 'autoslave';
++    }
++    elseif (isset($info['master'])) {
++      // Recommended name for master from documentation
++      $target = 'master';
++    }
++  }
++
++  return $target;
++}
++
++/**
+  * Fetch a schema engine class instance for a given database connection.
+  *
+  * @param string $connection
+@@ -157,8 +227,15 @@
+     $connection = variable_get('schema_database_connection', 'default');
+   }
+ 
+-  if ($class = schema_get_connection_engine_class($connection)) {
+-    return new $class(Database::getConnection('default', $connection));
++  $target = 'default';
++
++  // Special case for Auto Slave
++  if (module_exists('autoslave')) {
++    $target = _schema_determine_autoslave_target($connection, $target);
++  }
++
++  if ($class = schema_get_connection_engine_class($connection, $target)) {
++    return new $class(Database::getConnection($target, $connection));
+   }
+ }
+ 
