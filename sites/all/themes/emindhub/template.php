@@ -11,6 +11,35 @@ function emindhub_date_combo($variables) {
   return theme('form_element', $variables);
 }
 
+function emindhub_status_messages($variables) {
+  $display = $variables ['display'];
+  $output = '';
+
+  $status_heading = array(
+    'status' => t('Status message'),
+    'error' => t('Error message'),
+    'warning' => t('Warning message'),
+  );
+  foreach (drupal_get_messages($display) as $type => $messages) {
+    $output .= "<div class=\"messages $type\">\n";
+    if (!empty($status_heading [$type])) {
+      $output .= '<h2 class="element-invisible">' . $status_heading [$type] . "</h2>\n";
+    }
+    $output .= "<span class=\"drupal-message\">".$status_heading[$type].":</span>";
+    if (count($messages) > 1) {
+      $output .= " <ul>\n";
+      foreach ($messages as $message) {
+        $output .= '  <li>' . $message . "</li>\n";
+      }
+      $output .= " </ul>\n";
+    }
+    else {
+      $output .= reset($messages);
+    }
+    $output .= "</div>\n";
+  }
+  return $output;
+}
 
 function emindhub_theme() {
     return array(
@@ -102,7 +131,7 @@ function emindhub_preprocess_user_picture(&$variables) {
                 }
                 if (!empty($account->uid) && user_access('access user profiles')) {
                     $attributes = array(
-                        'attributes' => array('title' => t('View user profile.')),
+                        'attributes' => array('title' => c_szViewUsrProfile),
                         'html' => TRUE
                     );
                     $variables['user_picture'] = l($variables['user_picture'], "user/$account->uid", $attributes);
@@ -119,11 +148,11 @@ function emindhub_preprocess_user_picture(&$variables) {
 
 function emindhub_form_alter(&$form, &$form_state, $form_id) {
     if ($form_id == 'search_block_form') {
-        $form['search_block_form']['#title'] = t('Search'); // Change the text on the label element
+        $form['search_block_form']['#title'] = c_szSearch; // Change the text on the label element
         $form['search_block_form']['#title_display'] = 'invisible'; // Toggle label visibilty
         $form['search_block_form']['#size'] = 40;  // define size of the textfield
         //$form['search_block_form']['#default_value'] = t('Search'); // Set a default value for the textfield
-        $form['actions']['submit']['#value'] = t('GO!'); // Change the text on the submit button
+        $form['actions']['submit']['#value'] = c_szGo; // Change the text on the submit button
         $form['actions']['submit']['#attributes']['class'] = array('element-invisible');
 
 //        $form['actions']['submit'] = array('#type' => 'imput');
@@ -136,7 +165,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
         //$form['#attributes']['onsubmit'] = "if(this.search_block_form.value=='Search'){ alert('Please enter a search'); return false; }";
 
         // Alternative (HTML5) placeholder attribute instead of using the javascript
-        $form['search_block_form']['#attributes']['placeholder'] = t('Votre recherche, mots clefs...');
+        $form['search_block_form']['#attributes']['placeholder'] = c_szYourSearch;
 
 
         $form['#theme_wrappers'] = array();
@@ -152,6 +181,9 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
  * Additional page variables
  */
 function emindhub_preprocess_page(&$vars) {
+
+    //dsm("test message à mettre en forme");
+
     // CUSTOMIZABLE TEXT  ==============================================================
     // banniere
     $vars['banniereText'] = sprintf(c_szTextBanniere, "<p>", "</p>");
@@ -178,7 +210,7 @@ function emindhub_preprocess_page(&$vars) {
         array(
             'html' => TRUE,
             'attributes' => array(
-                'title' => t('Retour à l\'accueil'),
+                'title' => c_szBackHome,
             )
         )
     );
@@ -194,14 +226,14 @@ function emindhub_preprocess_page(&$vars) {
     // Vous avez une demande
     $vars['demandeImg'] = theme('image', array(
         'path' => imagePath("demande.png"),
-        'alt' => t('Vous avez une demande'),
+//        'alt' => t('Vous avez une demande'),
         'getsize' => FALSE,
     ));
 
     // Vous avez une expertise
     $vars['expertiseImg'] = theme('image', array(
         'path' => imagePath("expertise.png"),
-        'alt'=> t('Vous avez une expertise'),
+//        'alt'=> t('Vous avez une expertise'),
         'getsize' => FALSE,
     ));
 
@@ -306,8 +338,8 @@ function emindhub_preprocess_page(&$vars) {
 }
 
 function emindhub_preprocess_html(&$variables) {
-    drupal_add_css('http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' , array('type' => 'external'));
-
+//    drupal_add_css('http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' , array('type' => 'external'));
+    drupal_add_css('http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' , array('type' => 'external'));
     if (isBusinessUser()) {
         $variables['classes_array'][] = 'business-user';
     }
@@ -360,9 +392,10 @@ function node_informations_add(&$variables) {
             if ($account->field_entreprise) {
                 $targetId = $account->field_entreprise[LANGUAGE_NONE][0]['target_id'];
                 $entity = node_load($targetId);
-                if ($entity) {
+                if ($entity) { 
                     $variables['company_name'] = $entity->title;
-                    $variables['company_description'] = $entity->body[LANGUAGE_NONE][0]["value"];
+                    if ($entity->body)
+                        $variables['company_description'] = $entity->body[LANGUAGE_NONE][0]["value"];
                 }
             }
         }
@@ -527,7 +560,7 @@ function emindhub_menu_link(array &$variables) {
 
         //Classe particulière pour le contactez nous/contact us
         if (strpos(strtolower($variables['element']['#title']), "contact") !== false) {
-            $classes = $classes .' contact-us bold';
+            $classes = $classes .' contact-us';
         }
     }
 
@@ -727,7 +760,7 @@ function GetMenu (&$vars) {
     //$base_url = $url = base_path();
     if (!user_is_logged_in()) {
         $signIn = theme("link", array(
-          'text' => t('Login'),
+          'text' => c_szLogin,
           'path' => 'user',
           'options' => array(
             'attributes' => array('class' => array('user-menu', 'sign-in')),
@@ -735,7 +768,7 @@ function GetMenu (&$vars) {
           ),
         ));
         $register = theme("link", array(
-          'text' => t('Register'),
+          'text' => c_szRegister,
           'path' => 'user/register',
           'options' => array(
             'attributes' => array('class' => array('user-menu', 'sign-up')),
@@ -770,7 +803,7 @@ function GetMenu (&$vars) {
           ),
         ));
         $logout = theme("link", array(
-          'text' => t('Logout'),
+          'text' => c_szLogout,
           'path' => 'user/logout',
           'options' => array(
             'attributes' => array('class' => array('user-menu')),

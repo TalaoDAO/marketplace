@@ -1,5 +1,5 @@
-<div class="row expert-display">
-    <div class="col-md-4 challenge-title"><?php echo c_szAnswerQuestion; ?></div>
+<div class="row">
+    <div class="col-md-4 challenge-title"><?php echo t("Answer to a question"); ?></div>
     <div class="col-md-8"><hr class="hr-light"></div>
 </div>
 <?php
@@ -9,23 +9,23 @@ if (isset($variables['elements']['links']['views_navigation'])) {
     $linkNext = $variables['elements']['links']['views_navigation']['#links']['next'];
 }
 if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
-    <div>
+    <div class="paddingLR">
         <div class="row light-grey-background paddingUD paddingLR title-wrapper">
-            <div class="col-sm-3">
+            <div class="col-md-3">
                 <div class="challenge-to-list">
                     <?php
                     print "<a href='" . base_path().$linkBack['href'] . "' " . drupal_attributes($linkBack['attributes']) . ">" . $linkBack['title']."</a>";
                     ?>
                 </div>
             </div>
-            <div class="col-sm-3 col-sm-offset-3 col-xs-6">
+            <div class="col-md-3 col-md-offset-3">
                 <div class="challenge-previous">
                     <?php
                     print "<a href='" . base_path().$linkPrev['href'] . "' " . drupal_attributes($linkPrev['attributes']) . ">" . $linkPrev['title']."</a>";
                     ?>
                 </div>
             </div>
-            <div class="col-sm-3 col-xs-6">
+            <div class="col-md-3">
                 <div class="challenge-next">
                     <?php
                     print "<a href='" . base_path().$linkNext['href'] . "' " . drupal_attributes($linkNext['attributes']) . ">" . $linkNext['title']."</a>";
@@ -40,14 +40,6 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
         <h2><?php print $title; ?></h2>
         <br />
     </div>
-    <div>
-        <?php if (isset($body[0]['value'])): ?>
-            <?php print $body[0]['value']; ?>
-        <?php endif; ?>
-    </div>
-</div>
-&nbsp;
-<div class="row paddingLR paddingUD challenge-container">
     <div class="row">
         <div class="col-md-4 col-sm-6">
             <?php require_once __DIR__ . '/includes/userInformations.tpl.php'; ?>
@@ -61,47 +53,48 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
                     }
                 endif; ?>
             </div>
-            <?php require_once __DIR__ . '/includes/tagsField.tpl.php'; ?>
         </div>
         <div class="col-md-4 col-sm-6">
             <div class="row">
-                <div class="col-xs-7"><?php print c_szPublicationDt; ?></div>
-                <div class="col-xs-5 bold">
+                <div class="col-sm-6"><?php print t("Publication date:"); ?></div>
+                <div class="col-sm-6 bold">
                     <?php if (isset($elements['#node']->created)) {
-                        print format_date($elements['#node']->created, 'short_date');
+                        print format_date($elements['#node']->created, 'short');
                     } ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-7"><?php print $elements['field_expiration_date']['#title']; ?></div>
-                <div class="col-xs-5 bold">
+                <div class="col-sm-6"><?php print $elements['field_expiration_date']['#title']; ?></div>
+                <div class="col-sm-6 bold">
                     <?php if (isset($field_expiration_date[0]['value'])) {
-                        print date('m/d/Y', strtotime($field_expiration_date[0]['value']));
+                        print date('d/m/Y - H:i', strtotime($field_expiration_date[0]['value']));
                     } ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-7"><?php print c_szNumResponses; ?></div>
-                <div class="col-xs-5 bold"><?php print $comment_count; ?></div>
+                <div class="col-sm-6"><?php print t("Number of responses:"); ?></div>
+                <div class="col-sm-6 bold"><?php print $comment_count; ?></div>
             </div>
             <div class="row">
-                <div class="col-xs-7"><?php if ($elements['field_reward']) { print $elements['field_reward']['#title']; } ?></div>
-                <div class="col-xs-5 bold">
-                    <?php
-                    if (isset($field_reward[0]['value'])): ?>
-                        <?php print $field_reward[0]['value']; ?>
+                <div class="col-sm-6"><?php if ($elements['field_reward']) { print $elements['field_reward']['#title']; } ?></div>
+                <div class="col-sm-6 bold">
+                    <?php if (isset($field_reward[0]['safe_value'])): ?>
+                        <?php print $field_reward[0]['safe_value']; ?>
                     <?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
     <?php require_once __DIR__ . '/includes/companyDescription.tpl.php'; ?>
+    <div class="bold paddingU"><?php print t("Description:"); ?></div>
+    <div>
+        <?php if (isset($body[0]['value'])): ?>
+            <?php print $body[0]['value']; ?>
+        <?php endif; ?>
+    </div>
     <div class="paddingUD">
         <?php print $elements['links']['flag']['#links']['flag-my_selection']['title']; ?>
     </div>
-</div>
-&nbsp;
-<div class="row paddingLR challenge-container">
     <div class="row">
         <div class="col-md-12">
             <?php
@@ -141,8 +134,8 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
     </div>
 </div>
 <div class="paddingUD">
-    <!--<div class="inline paddingR"><button class="btn btn-cancel"><?php //print t("Cancel"); ?></button></div>
-    <div class="inline paddingR"><button class="btn btn-draft"><?php //print t("Save draft"); ?></button></div>-->
+    <!--<div class="inline paddingR"><button class="btn btn-cancel"><?php print t("Cancel"); ?></button></div>
+    <div class="inline paddingR"><button class="btn btn-draft"><?php print t("Save draft"); ?></button></div>-->
     <div class="inline">
         <?php /*$linkAddComment = $elements['links']['comment']['#links']['comment-add'];
         print l($linkAddComment['title'], $linkAddComment['href'], array('attributes' => array('class' => array('btn', 'btn-send'))));*/

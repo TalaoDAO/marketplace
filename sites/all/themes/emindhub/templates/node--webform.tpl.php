@@ -77,14 +77,14 @@
                         <div class="col-xs-6"><?php print c_szPublicationDt; ?></div>
                         <div class="col-xs-6 bold">
                             <?php if (isset($elements['#node']->created)) {
-                                print format_date($elements['#node']->created, 'short');
+                                print format_date($elements['#node']->created, 'custom', 'm/d/Y');
                             } ?>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-6"><?php print $elements['field_start_date']['#title']; ?></div>
                         <div class="col-xs-6 bold"><?php
-                            print date('d/m/Y - H:i', strtotime($node->field_start_date['und'][0]['value']));
+                            print date('m/d/Y', strtotime($node->field_start_date['und'][0]['value']));
                             ?></div>
                     </div>
                     <div class="row">
@@ -144,14 +144,13 @@
         </div>
     </div>
     <div>
-        <form action="$elements['webform']['#form']['#action']" method="$elements['webform']['#form']['#method']">
+        <form action="<?=$elements['webform']['#form']['#action']?>" method="<?=$elements['webform']['#form']['#method']?>">
             <?php
             $form = $elements['webform']['#form'];
             $formFields = $form['submitted'];
             foreach ($node->webform['components'] as $componnent) {
                 $formItem = $formFields[$componnent['form_key']];
                 $formItem['#title_display'] = "invisible";
-                $formItem['#required'];
                 $requireSpan = "";
                 if ($formItem['#required']){
                     $requireSpan = '&nbsp;<span class="required">*</span>';

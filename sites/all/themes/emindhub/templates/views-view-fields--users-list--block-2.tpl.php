@@ -1,16 +1,25 @@
 <div class="row paddingU">
-    <div class="col-md-4">
-        <?php if (isset($fields['picture'])) {
-            print $fields['picture']->content;
-        } ?>
-    </div>
-    <div class="col-md-8">
-        <div class="light-blue-text">
-            <?php print $fields['field_first_name']->content; ?>
+
+        <?php
+        if ($fields['field_photo']) { ?>
+        <div class="col-xs-6">
+            <?php
+            if ($fields['field_photo']) {
+                print $fields['field_photo']->content;
+            }
+            ?>
         </div>
-        <div class="light-blue-text bold">
-            <?php print $fields['field_last_name']->content; ?>
+        <div class="col-xs-6">
+            <?php }
+            else { ?>
+            <div class="col-md-12">
+                <?php } ?>
+                <div class="light-blue-text">
+                    <?php print $fields['field_first_name']->content; ?>
+                </div>
+                <div class="light-blue-text bold">
+                    <?php print $fields['field_last_name']->content; ?>
+                </div>
+                <?php print $fields['field_titre_metier']->content; ?>
+            </div>
         </div>
-        <?php print $fields['field_titre_metier']->content; ?>
-    </div>
-</div>

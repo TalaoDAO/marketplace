@@ -109,7 +109,7 @@
                             <img src="<?php /*print getImgSrc("emailMini.png"); */?>">
                         </div>-->
                     </div>
-                    <div class="challenge-title"><?php print c_szCreateAccount; ?><span class="bold"><?php print c_szNoTime; ?></span></div>
+                    <div class="register-subtitle"><?php print c_szCreateAccount; ?><span class="bold"><?php print c_szNoTime; ?></span></div>
                     <div class="expert-register">
                         <?php print render($page['content']); ?>
                     </div>
@@ -119,6 +119,7 @@
                           <div class="col-md-12">-->
 <!--                            <img src="--><?php //print getImgSrc("expertAdvantages.png"); ?><!--" />-->
                               <?php print render($page['sidebar_second']); ?>
+<!--                    --><?php //print render($page['theyareexpert']); ?>
                         <!--</div>
                     </div>-->
                     <!--<div class="row">

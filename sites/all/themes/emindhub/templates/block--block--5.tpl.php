@@ -43,30 +43,21 @@
  *
  * @ingroup themeable
  */
+
 ?>
-<div id="<?php print $block_html_id; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
+<div id="<?php print $block_html_id; ?>" class="<?php print $classes . " expert-advantages"; ?>"<?php print $attributes; ?>>
 
     <?php print render($title_prefix); ?>
-
-    <?php if ($block->region != "topmenu"): ?>
-        <?php if ($block->subject): ?>
-            <div class="row paddingUD">
-                <div class="col-xs-12 light-blue-text bold">
-<!--                <div class="col-md-11 col-xs-11 light-blue-text bold">-->
-                    <div class="line">
-                        <h2<?php print $title_attributes; ?>><?php print $block->subject ?></h2>
-                    </div>
-                </div>
-<!--                <div class="col-md-1 col-xs-1">-->
-<!--                    <img src="--><?php //print getImgSrc('fluxIcon.png'); ?><!--">-->
-<!--                </div>-->
-            </div>
-        <?php endif;?>
+    <?php if ($block->subject): ?>
+        <h2<?php print $title_attributes; ?>><?php print $block->subject ?></h2>
     <?php endif;?>
-
     <?php print render($title_suffix); ?>
 
     <div class="content"<?php print $content_attributes; ?>>
         <?php print $content ?>
+    </div>
+
+    <div class="block-footer">
+        <?php print c_szClickToZoom; ?>
     </div>
 </div>

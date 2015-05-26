@@ -73,7 +73,7 @@
  */
 ?>
 
-<div id="page-wrapper">
+<div id="page-wrapper business-user">
     <div id="page">
         <div id="header">
             <div class="section clearfix paddingU">
@@ -109,13 +109,14 @@
                             <img src="<?php /*print getImgSrc("emailMini.png"); */?>">
                         </div>-->
                     </div>
-                    <div class="challenge-title"><?php print c_szCreateAccount; ?><span class="bold"><?php print c_szNoTime; ?></span></div>
+                    <div class="register-subtitle"><?php print c_szCreateAccount; ?><span class="bold"><?php print c_szNoTime; ?></span></div>
                     <div class="business-register">
                         <?php print render($page['content']); ?>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <?php print render($page['sidebar_second']); ?>
+<!--                    --><?php //print render($page['theyareexpert']); ?>
                     <!--<div class="row marginU">
                           <div class="col-md-12">
                             <img src="<?php /*print getImgSrc("businessAdvantages.png"); */?>" />

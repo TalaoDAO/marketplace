@@ -73,48 +73,49 @@
  */
 ?>
 
-<!--
-seems to be unused
-<div><?php //print render($page['breadcrumbs']); ?></div>-->
-
 <div id="page-wrapper">
     <div id="page">
     <div id="header">
-        <div class="section clearfix paddingU">
-            <?php require_once __DIR__ . '/includes/_header.tpl.php' ?>
+        <div class="section clearfix">
+            <div class="fixed">
+                <?php require_once __DIR__ . '/includes/_header.tpl.php' ?>
+                <?php if (!isHomePage() || user_is_logged_in()) { ?>
+                    <div class="ligh-blue-line header-separator">&nbsp;</div>
+                <?php } ?>
+            </div>
 
-            <?php if (!user_is_logged_in()): ?>
+            <?php if (!user_is_logged_in() && isHomePage()): ?>
                 <div class="banniere">
                     <div class="container container-fluid">
                         <div class="row">
-                            <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="col-md-5 col-sm-6 col-xs-12">
                                 <div class="text-banniere">
                                     <?php print $banniereText; ?>
                                 </div>
                             </div>
-                            <div class="col-md-3 col-md-offset-5 col-xs-12">
+                            <div class="col-md-3 col-md-offset-4 col-xs-12">
                                 <div class="row inscription-image-wrapper">
                                     <div class="col-md-12 col-sm-6 col-xs-12">
                                         <a href="<?php print url("business/register"); ?>" class="signup-button signup-bussiness">
                                             <span class="signup-button-header">
-                                                <?php echo t('Vous avez') ?>
-                                                <strong><?php echo t('une demande') ?></strong>
+                                                <?php echo c_szYouHave; ?>
+                                                <strong><?php echo c_szAnAsk; ?></strong>
                                             </span>
                                             <span class="signup-button-footer">
-                                                <span><?php echo t('Inscrivez-vous') ?></span>
-                                                <?php echo t('et utilisez les services emindhub') ?>
+                                                <span><?php echo c_szSignUp; ?></span>
+                                                <?php echo c_szUseEmhServices; ?>
                                             </span>
                                         </a>
                                     </div>
                                     <div class="col-md-12 col-sm-6 col-xs-12">
                                         <a href="<?php print url("expert/register"); ?>" class="signup-button signup-expert">
                                             <span class="signup-button-header">
-                                                <?php echo t('Vous avez') ?>
-                                                <strong><?php echo t('une expertise') ?></strong>
+                                                <?php echo c_szYouHave; ?>
+                                                <strong><?php echo c_szAnExpertise; ?></strong>
                                             </span>
                                             <span class="signup-button-footer">
-                                                <span><?php echo t('Inscrivez-vous') ?></span>
-                                                <?php echo t('et répondez aux demandes') ?>
+                                                <span><?php echo c_szSignUp; ?></span>
+                                                <?php echo c_szAnswerAsks; ?>
                                             </span>
                                         </a>
                                     </div>
@@ -123,31 +124,23 @@ seems to be unused
                         </div>
                     </div>
                 </div>
-            <?php endif; ?>
-            <?php if (user_is_logged_in()): ?>
-                <div class="ligh-blue-line header-separator">&nbsp;</div>
+                <div class="dark-blue-line">&nbsp;</div>
+            <?php endif;
+            if (!isHomePage() || user_is_logged_in()) { ?>
+<!--                <div class="ligh-blue-line header-separator">&nbsp;</div>-->
                 <!-- START BREADCRUMB -->
                 <?php if ($breadcrumb) {
                     print $breadcrumb;
-                } else { ?>
+                }
+                else { ?>
                     <div class="dark-blue-line-large">&nbsp;</div>
-                <?php } ?>
-                <!-- END BREADCRUMB -->
-
-            <?php endif; ?>
+                <?php }
+                // END BREADCRUMB
+            } ?>
 
 
             <div class="container container-fluid">
-                <?php print $messages; ?>
-                <?php if (isHomePage() && user_is_logged_in()) {
-                    global $user;
-                    $account = user_load($user->uid);
-                    ?>
-                    <h2 class="welcome">Welcome <span><?php print "Mr " . $account->field_last_name[LANGUAGE_NONE][0]['value']; ?></span></h2>
-                    <div class="row">
-                        <div class="col-xs-1"></div>
-                    </div>
-                <?php }
+                <?php print $messages;
                 print render($page['header']); ?>
             </div>
         </div>
@@ -156,12 +149,10 @@ seems to be unused
     <div class="container container-fluid">
         <?php if (isHomePage()): ?>
             <div class="row paddingUD">
-                <div class="col-sm-4 col-xs-2">
-                    <hr class="hr-dark"/>
-                </div>
-                <div class="col-sm-4 col-xs-8 title upper"><?php print c_szMobilizeExperts; ?></div>
-                <div class="col-sm-4 col-xs-2">
-                    <hr class="hr-dark"/>
+                <div class="col-xs-12 bold paddingD">
+                    <div class="dark-line">
+                        <div class="title upper width-36 width-xs-57 width-xxs-88"><?php print c_szMobilizeExperts; ?></div>
+                    </div>
                 </div>
             </div>
             <div class="row nice-menu">
@@ -191,7 +182,7 @@ seems to be unused
                         <!--<a> Find an <span>expert</span><div>Learn more</div></a>-->
                         <div class="hover">
                             <?php echo c_szBuildSurvey; ?>
-                            <span><?php c_szRegisterKnowMore; ?></span>
+                            <span><?php echo c_szRegisterKnowMore; ?></span>
                         </div>
                     </div>
                 </div>
@@ -200,46 +191,42 @@ seems to be unused
         <?php endif; ?>
         <?php if (!isHomePage()): ?>
             <div class="row">
-                <div class="col-md-12 col-xs-12">
+                <div class="col-xs-12">
                     <?php print render($title_prefix); ?>
-                    <?php if ($title): ?><h1 class="title"
-                                             id="page-title"><?php print $title; ?></h1><?php endif; ?>
+                    <?php if ($title): ?><h1 class="title" id="page-title"><?php print $title; ?></h1><?php endif; ?>
                     <?php print render($title_suffix); ?>
                 </div>
             </div>
-            <?php if ($node->title == "About us" || $node->title == "Our services") { ?>
+            <?php if ($node->title == t("About us") || $node->title == t("Our services")) { ?>
                 <div class="row">
-                    <div class="col-md-8 col-xs-8">
+                    <div class="col-xs-8">
                         <?php print render($page['content']); ?>
                     </div>
-                    <div class="col-md-4 col-xs-4">
+                    <div class="col-xs-4">
                         <?php print render($page['sidebar_second']); ?>
                     </div>
                 </div>
-            <?php } ?>
+            <?php } else { ?>
             <div class="row">
                 <div class="col-md-12">
                     <?php print render($page['content']); ?>
                 </div>
             </div>
+            <?php } ?>
         <?php endif; ?>
         <?php if (isHomePage()) { ?>
         <div class="row">
             <div class="col-sm-8 col-xs-12">
                 <div class="title-wrapper">
                     <div class="row">
-                        <div class="col-md-4 col-sm-3 col-xs-2">
-                            <hr class="hr-dark"/>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-8 title">
-                            <?php print c_szOurEngagements; ?>
-                        </div>
-                        <div class="col-md-4 col-sm-3 col-xs-2">
-                            <hr class="hr-dark"/>
+                        <div class="col-xs-12 bold paddingUD">
+                            <div class="dark-line">
+                                <div class="title upper width-36 width-xs-38 width-xxs-59"><?php print c_szOurEngagements; ?></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row why-use-emindhub">
                     <div class="col-sm-4 col-xs-12">
                         <div class="engagement-block rapidity">
                             <div class="header"><?php print c_szRapidity; ?></div>
@@ -285,14 +272,10 @@ seems to be unused
             <div class="col-sm-4 col-xs-12">
                 <div class="title-wrapper">
                     <div class="row">
-                        <div class="col-md-3 col-xs-2">
-                            <hr class="hr-dark"/>
-                        </div>
-                        <div class="col-md-6 title col-xs-8">
-                            <?php print t('EN SAVOIR + ?'); ?>
-                        </div>
-                        <div class="col-md-3 col-xs-2">
-                            <hr class="hr-dark"/>
+                        <div class="col-xs-12 bold paddingUD">
+                            <div class="dark-line">
+                                <div class="title upper width-60 width-sm-62 width-xs-31 width-xxs-48"><?php print c_szKnowMore; ?></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -326,43 +309,30 @@ seems to be unused
                         <?php if ($page['highlighted']): ?>
                             <div id="highlighted"><?php print render($page['highlighted']); ?></div><?php endif; ?>
                         <a id="main-content"></a>
-                        <?php print render($title_prefix); ?>
-                        <?php if ($title): ?><h1 class="title"
-                                                 id="page-title"><?php print $title; ?></h1><?php endif; ?>
-                        <?php print render($title_suffix); ?>
-                        <!-- START TABS -->
-                        <?php if ($tabs): ?>
-                            <div class="tabs"><?php print render($tabs); ?></div>
-                        <?php endif; ?>
-                        <!-- END TABS -->
-
-                        <?php print render($page['help']); ?>
-                        <?php if ($action_links): ?>
-                            <ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
-                        <? print render($page['content']); ?>
-                        <?php print $feed_icons; ?>
+                        <?php if (!isHomePage()) {
+                            print render($title_prefix);
+                                if ($title) { ?>
+                                    <div class="line marginD">
+                                        <h1 class="title" id="page-title"><?php print $title; ?></h1>
+                                    </div>
+                                <?php }
+                            print render($title_suffix);
+                            //START TABS
+                            if ($tabs) { ?>
+                                <div class="tabs"><?php print render($tabs); ?></div>
+                            <?php }
+                            //END TABS
+                        }
+                        print render($page['help']);
+                        if ($action_links) { ?>
+                            <ul class="action-links"><?php print render($action_links); ?></ul>
+                        <?php }
+                        print render($page['content']);
+                        print $feed_icons; ?>
                     </div>
                 </div>
                 <!-- /.section, /#content -->
 
-
-                <?php if (FALSE): ?>
-                    <?php if ($page['sidebar_first']): ?>
-                        <div id="sidebar-first" class="column sidebar">
-                            <div class="section">
-                                <?php print render($page['sidebar_first']); ?>
-                            </div>
-                        </div> <!-- /.section, /#sidebar-first -->
-                    <?php endif; ?>
-
-                    <?php if ($page['sidebar_second']): ?>
-                        <div id="sidebar-second" class="column sidebar">
-                            <div class="section">
-                                <?php print render($page['sidebar_second']); ?>
-                            </div>
-                        </div> <!-- /.section, /#sidebar-second -->
-                    <?php endif; ?>
-                <?php endif; ?>
                 <?php if (isHomePage()): ?>
                     <div class="row">
                         <div class="col-md-8 col-sm-6 col-xs-12">

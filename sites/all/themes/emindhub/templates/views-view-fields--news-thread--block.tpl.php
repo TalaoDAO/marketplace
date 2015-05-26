@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-md-11 col-md-offset-1">
-        <?php print format_date($row->node_created, 'long'); ?>
+        <?php print format_date($row->node_created, 'custom', 'l, F j, Y'); ?>
     </div>
 </div>
 <div class="row">

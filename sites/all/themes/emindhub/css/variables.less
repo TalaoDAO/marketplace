@@ -4,6 +4,7 @@
 @softGrey: #d4d9dd;
 @hrLightGrey: #cbd1d6;
 @smoothGrey: #bfd0d9;
+@middleGrey: #778794;
 @btnBackBackground: #a1acb5;
 @btnCancelBackground: #a5b0b8;
 @copyrightTextColor: #acb4bb;
@@ -22,12 +23,82 @@
 @popupSignUp: #445766;
 @burgerMenuBackground: #2e3243;
 
+@burgerMenuGrey: #afb4cd;
+
 @lightYellow: #f9f4ea;
 @expertYellow: #c89234;
 
 @black: #000;
 
+
+@topMenuHoverLeft: 1.45em;
 @borderRadius: 4px;
+
+////////////////
+//Font size
+@px3:       0.214em;
+@px5:       0.357em;
+@px6:       0.429em;
+@px7:       0.500em;
+@px8:       0.571em;
+@px9:       0.643em;
+@px10:      0.714em;
+@px11:      0.786em;
+@px12:      0.857em;
+@px13:      0.929em;
+@px14:      1.000em;
+@px15:      1.071em;
+@px16:      1.143em;
+@px17:      1.214em;
+@px18:      1.286em;
+@px19:      1.357em;
+@px20:      1.429em;
+@px21:      1.500em;
+@px22:      1.571em;
+@px23:      1.643em;
+@px24:      1.714em;
+@px25:      1.786em;
+@px28:      2.000em;
+@px29:      2.071em;
+@px32:      2.286em;
+@px33:      2.357em;
+@px37:      2.643em;
+@px40:      2.857em;
+@px54:      3.857em;
+@px67:      4.786em;
+@px338:     24.143em;
+
+@rpx3:      0.214rem;
+@rpx5:      0.357rem;
+@rpx6:      0.429rem;
+@rpx7:      0.500rem;
+@rpx8:      0.571rem;
+@rpx9:      0.643rem;
+@rpx10:     0.714rem;
+@rpx11:     0.786rem;
+@rpx12:     0.857rem;
+@rpx13:     0.929rem;
+@rpx14:     1.000rem;
+@rpx15:     1.071rem;
+@rpx16:     1.143rem;
+@rpx17:     1.214rem;
+@rpx18:     1.286rem;
+@rpx19:     1.357rem;
+@rpx20:     1.429rem;
+@rpx21:     1.500rem;
+@rpx22:     1.571rem;
+@rpx23:     1.643rem;
+@rpx24:     1.714rem;
+@rpx25:     1.786rem;
+@rpx28:     2.000rem;
+@rpx29:     2.071rem;
+@rpx32:     2.286rem;
+@rpx33:     2.357rem;
+@rpx37:     2.643rem;
+@rpx40:     2.857rem;
+@rpx54:     3.857rem;
+@rpx67:     4.786rem;
+@rpx338:    24.143rem;
 
 //== Bootstrap Media queries breakpoints
 //
@@ -43,3 +114,37 @@
 @screen-xs-max:              (@screen-sm-min - 1);
 @screen-sm-max:              (@screen-md-min - 1);
 @screen-md-max:              (@screen-lg-min - 1);
+
+
+// Clearfix
+//
+// For modern browsers
+// 1. The space content is one way to avoid an Opera bug when the
+//    contenteditable attribute is included anywhere else in the document.
+//    Otherwise it causes space to appear at the top and bottom of elements
+//    that are clearfixed.
+// 2. The use of `table` rather than `block` is only necessary if using
+//    `:before` to contain the top-margins of child elements.
+//
+// Source: http://nicolasgallagher.com/micro-clearfix-hack/
+
+.clearfix() {
+    &:before,
+    &:after {
+        content: " "; // 1
+        display: table; // 2
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+.paddingH(@size: 1em) {
+    padding-left: @size;
+    padding-right: @size;
+}
+
+.paddingV(@size: 1em) {
+    padding-top: @size;
+    padding-bottom: @size;
+}

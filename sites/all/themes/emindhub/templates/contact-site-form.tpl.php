@@ -17,16 +17,24 @@ $fieldCivility = $form['civility'];
                 <div class="col-md-1 col-xs-1">
                     <img src="<?php print getImgSrc("bulle.png"); ?>" />
                 </div>
-                <div class="col-md-10 col-xs-10 bold">
+                <div class="col-md-10 col-xs-10 bold text-16">
+                    <?php print c_szHaveQuestion; ?>
+                </div>
+            </div>
+            <div class="row paddingU">
+                <div class="col-md-1 col-xs-1">
+                    <img src="<?php print getImgSrc("bulle.png"); ?>" />
+                </div>
+                <div class="col-md-10 col-xs-10 bold text-16">
                     <?php print c_szLearnMore; ?>
                 </div>
             </div>
-            <div class="text-wrapper">
+            <div class="text-wrapper text-16">
                 <?php print c_szLeaveMsg; ?>
             </div>
 
             <form action="<?php print $form['#action']; ?>" method="<?php print $form['#method']; ?>">
-                <div class="form-wrapper">
+                <div class="form-wrapper text-16">
                     <?php
                     print $fieldCivility['#title'];
                     $fieldCivility['#attributes']['class'][] = "form-control-custom";
@@ -35,42 +43,42 @@ $fieldCivility = $form['civility'];
                     print render($fieldCivility);
                     if ($fieldCivility['#required']): ?> <span class="required">*</span><?php endif; ?>
                 </div>
-                <div class="form-wrapper">
+                <div class="form-wrapper text-16">
                     <?php
                     $fieldLastName['#title_display'] = "invisible";
                     $fieldLastName['#attributes']['placeholder'] = $fieldLastName['#title'];
                     print render($fieldLastName);
                     if ($fieldLastName['#required']): ?> <span class="required">*</span><?php endif; ?>
                 </div>
-                <div class="form-wrapper">
+                <div class="form-wrapper text-16">
                     <?php
                     $fieldFirstName['#title_display'] = "invisible";
                     $fieldFirstName['#attributes']['placeholder'] = $fieldFirstName['#title'];
                     print render($fieldFirstName);
                     if ($fieldFirstName['#required']): ?> <span class="required">*</span><?php endif; ?>
                 </div>
-                <div class="form-wrapper">
+                <div class="form-wrapper text-16">
                     <?php
                     $fieldCompany['#title_display'] = "invisible";
                     $fieldCompany['#attributes']['placeholder'] = $fieldCompany['#title'];
                     print render($fieldCompany);
                     if ($fieldCompany['#required']): ?> <span class="required">*</span><?php endif; ?>
                 </div>
-                <div class="form-wrapper">
+                <div class="form-wrapper text-16">
                     <?php
                     $fieldPhone['#title_display'] = "invisible";
                     $fieldPhone['#attributes']['placeholder'] = $fieldPhone['#title'];
                     print render($fieldPhone);
                     if ($fieldPhone['#required']): ?> <span class="required">*</span><?php endif; ?>
                 </div>
-                <div class="form-wrapper">
+                <div class="form-wrapper text-16">
                     <?php
                     $fieldMail['#title_display'] = "invisible";
                     $fieldMail['#attributes']['placeholder'] = $fieldMail['#title'];
                     print render($fieldMail);
                     if ($fieldMail['#required']): ?> <span class="required">*</span><?php endif; ?>
                 </div>
-                <div class="form-wrapper">
+                <div class="form-wrapper text-16">
                     <?php
                     $fieldMessage['#title_display'] = "invisible";
                     $fieldMessage['#attributes']['placeholder'] = $fieldMessage['#title'];
