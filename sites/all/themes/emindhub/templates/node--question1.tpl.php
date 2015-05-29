@@ -1,7 +1,9 @@
+   <?php if (!user_has_role(5)): ?>
 <div class="row expert-display">
     <div class="col-md-4 challenge-title"><?php echo c_szAnswerQuestion; ?></div>
     <div class="col-md-8"><hr class="hr-light"></div>
 </div>
+   <?php endif; ?>
 <?php
 if (isset($variables['elements']['links']['views_navigation'])) {
     $linkBack = $variables['elements']['links']['views_navigation']['#links']['back'];
@@ -36,10 +38,12 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
     </div>
 <?php } ?>
 <div class="row paddingLR challenge-container">
+  <div class="row"> 
     <div class="col-md-12">
         <h2><?php print $title; ?></h2>
         <br />
     </div>
+  </div>
     <div>
         <?php if (isset($body[0]['value'])): ?>
             <?php print $body[0]['value']; ?>
@@ -53,14 +57,14 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
             <?php require_once __DIR__ . '/includes/userInformations.tpl.php'; ?>
         </div>
         <div class="col-md-4 col-sm-6">
-            <div><?php print $elements['field_domaine']['#title']; ?></div>
+            <div class="bold"><?php print $elements['field_domaine']['#title']; ?></div>
             <div class="challenge-domain softPaddingUD paddingL">
                 <?php if (isset($field_domaine)):
                     foreach ($field_domaine as $domain) {
                         print $domain['taxonomy_term']->name . "<br>";
                     }
                 endif; ?>
-            </div>
+            </div>&nbsp;
             <?php require_once __DIR__ . '/includes/tagsField.tpl.php'; ?>
         </div>
         <div class="col-md-4 col-sm-6">
@@ -98,6 +102,8 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
     <?php require_once __DIR__ . '/includes/companyDescription.tpl.php'; ?>
     <div class="paddingUD">
         <?php print $elements['links']['flag']['#links']['flag-my_selection']['title']; ?>
+       &nbsp;&nbsp; <?php if (node_access('update',$node)) print l(t('Edit'),'node/'.$node->nid.'/edit', array('attributes' => array('class' => array('btn','btn-primary','btn-expert'))) ); ?>
+
     </div>
 </div>
 &nbsp;

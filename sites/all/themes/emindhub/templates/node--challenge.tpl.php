@@ -1,7 +1,9 @@
+   <?php if (!user_has_role(5)): ?>
 <div class="row">
     <div class="col-md-4 challenge-title"><?php echo c_szAnswerChallenge; ?></div>
     <div class="col-md-8"><hr class="hr-light"></div>
 </div>
+   <?php endif; ?>
 <?php
 
 if (isset($variables['elements']['links']['views_navigation'])) {
@@ -38,9 +40,21 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
 <?php } ?>
 
 <div class="row paddingLR challenge-container">
+   <div class="row">
     <div class="col-md-12">
         <h2><?php print $title; ?></h2>
         <br />
+    </div>
+    </div>
+    <div>
+        <?php if (isset($body[0]['value'])): ?>
+            <?php print $body[0]['value']; ?>
+        <?php endif; ?>
+    </div>
+</div>
+&nbsp;
+<div class="row paddingLR challenge-container">
+    <div class="col-md-12">
         <div class="row">
             <div class="col-md-5">
                 <div class="row">
@@ -99,20 +113,13 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
         </div>
         <?php require_once __DIR__ . '/includes/companyDescription.tpl.php'; ?>
         <?php require_once __DIR__ . '/includes/tagsField.tpl.php'; ?>
-        <hr class="hr-light-grey">
-        <div class="challenge-detail">
-            <?php if ($body && $body[0]): ?>
-                <?php print $body[0]['value']; ?>
-            <?php endif; ?>
-        </div>
-    </div>
+    <div class="col-sm-4 my-selection"><?php print $elements['links']['flag']['#links']['flag-my_selection']['title']; ?>
+<div class="col-sm-3 create-workgroup"><?php if (node_access('update',$node)) print l(t('Edit'),'node/'.$node->nid.'/edit', array('attributes' => array('class' => array('btn','btn-primary','btn-expert'))) ); ?></div>
 </div>
-
-<div class="row light-grey-background paddingUD title-wrapper challenge-state-row">
-    <div class="col-sm-4 my-selection"><?php print $elements['links']['flag']['#links']['flag-my_selection']['title']; ?></div>
-    <div class="col-sm-3 create-workgroup"><?php print l(c_szCreateWorkgroup, "node/add/working-group", array('attributes' => array('class' => array('btn', 'btn-primary', 'btn-workgroup')))); ?></div>
+    <!--div class="col-sm-3 create-workgroup"><?php print l(c_szCreateWorkgroup, "node/add/working-group", array('attributes' => array('class' => array('btn', 'btn-primary', 'btn-workgroup')))); ?></div-->
     <?php $linkAddComment = $elements['links']['comment']['#links']['comment-add'];
     if ($linkAddComment) { ?>
         <div class="col-sm-3 col-sm-offset-2"><?php print l($linkAddComment['title'], $linkAddComment['href'], array('attributes' => array('class' => array('btn', 'btn-primary', 'btn-expert')))); ?></div>
     <?php } ?>
+</div>
 </div>

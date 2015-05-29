@@ -315,6 +315,10 @@ a.signup-button {
     .bold;
 }
 
+.challenge-tag-container {
+    padding-left: 0px;
+}
+
 .blue {
     color: @lightBlue;
 }
@@ -1809,6 +1813,14 @@ label {
     }
 }
 
+.webform-add-form .chosen-container {
+  max-width: 500px !important;
+}
+
+.webform-add-form .form-type-select {
+  padding-left: 20px;
+}
+
 .field-group-fieldset {
     legend {
         padding-top: 0.5em;
@@ -2345,6 +2357,12 @@ fieldset.collapsed {
                 text-align: left;
             }
         }
+    }
+}
+
+.profile {
+    .field-collection-view-links, .action-links-field-collection-add {
+        display:none;
     }
 }
 
@@ -3648,6 +3666,10 @@ div.field-name-field-skills-set label {
                 margin-bottom: 1em;
             }
         }
+        #main-content + .line.marginD {
+            display: none;
+        }
+
     }
 
     &-webform {
@@ -3661,6 +3683,10 @@ div.field-name-field-skills-set label {
                 }
             }
         }
+        #main-content + .line.marginD {
+            display: none;
+        }
+
     }
 
     &-question1 {
@@ -4333,7 +4359,7 @@ span.required {
                 margin-top: 0.5em;
 
                 ul.chosen-choices {
-                    height: 3.3em !important;
+                    min-height: 3.3em !important;
 
                     input[type=text] {
                         line-height: 2.3em;

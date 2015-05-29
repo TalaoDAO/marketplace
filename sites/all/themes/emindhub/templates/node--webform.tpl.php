@@ -1,9 +1,11 @@
 <div class="paddingLR">
     <div class="row">
+   <?php if (!user_has_role(5)): ?>
         <div class="col-md-4 challenge-title"><?php echo c_szAnswerExpertCall; ?></div>
         <div class="col-md-8">
             <hr class="hr-light">
         </div>
+   <?php endif; ?>
     </div>
     <?php
     if (isset($variables['elements']['links']['views_navigation'])) {
@@ -38,14 +40,24 @@
         </div>
     <!---</div>-->
 <?php } ?>
-<div class="challenge-container row paddingLR">
-    <div class="row">
-        <div class="col-md-12">
-            <h2><?php print $title; ?></h2>
-            <br/>
-        </div>
-    </div>
 
+<div class="row paddingLR challenge-container">
+    <div class="row">
+    <div class="col-md-12">
+        <h2><?php print $title; ?></h2>
+        <br />
+    </div>
+    </div>
+    <div>
+        <?php if (isset($body[0]['value'])): ?>
+            <?php print $body[0]['value']; ?>
+        <?php endif; ?>
+    </div>
+</div>
+&nbsp;
+
+
+<div class="challenge-container row paddingLR">
     <div class="row">
         <?php if ($field_image && isset($field_image)) { ?>
             <div class="col-md-9">
@@ -122,27 +134,21 @@
     </div>
     <?php require_once __DIR__ . '/includes/companyDescription.tpl.php'; ?>
     <div class="row">
-        <div class="col-md-3 bold paddingU"><?php print $elements['body']['#title']; ?></div>
-    </div>
-    <div class="row">
-        <div class="col-md-12"><?php print $elements['body'][0]['#markup']; ?></div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 bold paddingU"><?php
-            if ($elements['field_object_of_the_mission']) {
-                print $elements['field_object_of_the_mission']['#title'];
-            }
-            ?></div>
-    </div>
-    <div class="row">
-        <div class="col-md-12"><?php print $elements['field_object_of_the_mission'][0]['#markup']; ?></div>
+        <div class="col-md-12"><?php if (isset($elements['field_object_of_the_mission'])) print $elements['field_object_of_the_mission'][0]['#markup']; ?></div>
     </div>
     <?php require_once __DIR__ . '/includes/tagsField.tpl.php'; ?>
     <div class="row paddingUD">
         <div class="col-md-4">
             <?php print $elements['links']['flag']['#links']['flag-my_selection']['title']; ?>
         </div>
+<?php if (node_access('update',$node)) print l(t('Edit'),'node/'.$node->nid.'/edit', array('attributes' => array('class' => array('btn','btn-primary','btn-expert'))) ); ?>
+
+&nbsp;  <?php if (node_access('update',$node)) print l(t('Edit questions'),'node/'.$node->nid.'/webform', array('attributes' => array('class' => array('btn','btn-primary','btn-expert'))) ); ?>
+&nbsp;  <?php if (node_access('update',$node)) print l(t('View responses'),'node/'.$node->nid.'/webform-results', array('attributes' => array('class' => array('btn','btn-primary','btn-expert'))) ); ?>
     </div>
+</div>
+&nbsp;
+<div class="row paddingLR challenge-container">
     <div>
         <form action="<?=$elements['webform']['#form']['#action']?>" method="<?=$elements['webform']['#form']['#method']?>">
             <?php

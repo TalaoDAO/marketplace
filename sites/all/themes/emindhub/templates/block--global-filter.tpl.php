@@ -11,6 +11,9 @@ all_checkbox.change(function () {
   if($(this).is(':checked')) {
     checkboxes = global_filter.find('#edit-field-domaine .form-item input:not(:checked)'); // all checkboxes
     checkboxes.attr('checked', true);
+  } else {
+    checkboxes = global_filter.find('#edit-field-domaine .form-item input:checked'); // all checkboxes
+    checkboxes.attr('checked', false);
   }
 });
 

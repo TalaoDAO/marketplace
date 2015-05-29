@@ -1,0 +1,13 @@
+#privatemsg-list table {
+  width: 100%;
+}
+#privatemsg-list #edit-filter {
+  margin-top: 1em;
+  height: auto;
+}
+#privatemsg-list #edit-filter legend {
+  padding-top: 0;
+  background-color: transparent;
+  padding-left: 0;
+}
+/*# sourceMappingURL=privatemsg.css.map */
