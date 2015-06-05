@@ -1,0 +1,17 @@
+@import "variables.less";
+
+@media (max-width: @screen-xs) {
+    table tbody  tr {
+        td:first-of-type + td + td {    //Post date
+            &:before {
+                content: 'Publié le';
+            }
+
+            + td {                      //Expiration date
+                &:before {
+                    content: 'Échéance le';
+                }
+            }
+        }
+    }
+}

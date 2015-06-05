@@ -36,10 +36,10 @@ $fieldCivility = $form['civility'];
             <form action="<?php print $form['#action']; ?>" method="<?php print $form['#method']; ?>">
                 <div class="form-wrapper text-16">
                     <?php
-                    print $fieldCivility['#title'];
                     $fieldCivility['#attributes']['class'][] = "form-control-custom";
                     $fieldCivility['#attributes']['class'][] = "select-form";
                     $fieldCivility['#title_display'] = "invisible";
+                    $fieldCivility['#attributes']['placeholder'] = $fieldCivility['#title'];
                     print render($fieldCivility);
                     if ($fieldCivility['#required']): ?> <span class="required">*</span><?php endif; ?>
                 </div>

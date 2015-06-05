@@ -784,11 +784,13 @@ table tbody tr:nth-child(even) {
 }
 
 .anonymous {
+    position: relative;
+
     &:hover {
         a {
             color: @lightBlue;
             cursor: default;
-            z-index: -1;
+//            z-index: -1;
 
             div {
                 color: @darkBlue;
@@ -796,6 +798,9 @@ table tbody tr:nth-child(even) {
         }
 
         div.hover {
+            position: absolute;
+            height: 100%;
+
             padding: 1.5em 2.12em 1.5em 1em;
 
             display: inline-block;
@@ -849,11 +854,13 @@ table tbody tr:nth-child(even) {
     text-transform: uppercase;
 
     a {
+        display: block;
         position: absolute;
-        margin-left: 7.5em;
-//        margin-left: 6.7em;
-//        margin-top: 3.625em;
-        margin-top: 3.1em;
+        padding: 75px 32px 19px 152px;
+//        margin-left: 7.5em;
+//        margin-top: 3.1em;
+        //        margin-left: 6.7em;
+        //        margin-top: 3.625em;
         font-size: @px18;
 
         @media (max-width: @screen-md) and (min-width: @screen-sm) {
@@ -1201,6 +1208,13 @@ table tbody tr:nth-child(even) {
             }
         }
     }
+
+    @media (min-width: @screen-xs) and (max-width: @screen-sm-min) {
+        .views-widget-filter-status_1 {
+            width: 100% !important;
+        }
+    }
+
     @media (min-width: @screen-sm) and (max-width: @screen-md) {
         .views-widget-filter-status_1 {
             label {
@@ -2141,7 +2155,8 @@ fieldset.collapsed {
     &-up {
         .inline;
 
-        &:hover div {
+        &-click > &-content {
+//        &:hover div {
             opacity: 1;
             visibility: visible;
             -webkit-transition-delay: 0s;
@@ -2209,7 +2224,8 @@ fieldset.collapsed {
     &-in {
         display: inline;
 
-        &:hover &-content {
+
+        &-click > &-content {
             opacity: 1;
             visibility: visible;
             -webkit-transition-delay: 0s;
@@ -2359,7 +2375,7 @@ fieldset.collapsed {
         }
     }
 }
-
+/*
 .profile {
     .field-collection-view-links, .action-links-field-collection-add {
         display:none;
@@ -2453,8 +2469,7 @@ fieldset.collapsed {
             margin-bottom: 1em;
         }
     }
-
-}
+}*/
 
 .btn-secondary {
     background-color: @darkBlue;
@@ -2809,7 +2824,7 @@ div.field-name-field-skills-set label {
         }
 
         select {
-            margin-left: 0.5em;
+//            margin-left: 0.5em;
             width: 75.5%;
             color: @darkBlue;
             color: rgba(76, 97, 114, 0.6);
@@ -2858,40 +2873,29 @@ div.field-name-field-skills-set label {
 
             &.form-type-select {
                 display: inline;
-                @media (min-width: @screen-sm) {
-                    select {
-                        width: 62%;
-                    }
+                select {
+                    width: 90%;
+                }
 
+                @media (min-width: @screen-sm) {
                     & + span.required {
                         padding-left: 0.7em;
                     }
                 }
 
                 @media (min-width: @screen-md) {
-                    select {
-                        width: 69%;
-                    }
                     & + span.required {
                         padding-left: 1em;
                     }
                 }
 
                 @media (max-width: @screen-xs) {
-                    select {
-                        width: 76.5%;
-                    }
-
                     & + span.required {
                         margin-left: 1.4em;
                     }
                 }
 
                 @media (max-width: @screen-xxs) {
-                    select {
-                        width: 69.5%;
-                    }
-
                     & + span.required {
                         margin-left: 0.8em;
                     }
@@ -3641,9 +3645,9 @@ div.field-name-field-skills-set label {
             padding-top: 1.5em;
             margin-right: 1em;
 
-            img {
-                height: @px33;
-            }
+//            img {
+//                height: @px33;
+//            }
         }
     }
 
@@ -3687,6 +3691,9 @@ div.field-name-field-skills-set label {
             display: none;
         }
 
+        div.challenge-tag-container + div.row.paddingUD > div.col-md-4 {
+            padding-top: 0.5em;
+        }
     }
 
     &-question1 {
@@ -3893,6 +3900,378 @@ span.required {
 }
 
 .page {
+    &-contact {
+        div.form-item {
+            display: inline;
+        }
+
+        div.form-textarea-wrapper {
+            display: inline-block;
+        }
+
+        div.form-type-select {
+            padding-left: 0.5em;
+        }
+
+        .form-control-custom {
+            width: 53.2%;
+        }
+    }
+
+    &-node {
+        &-commentlist,
+        &-comment-publish {
+            .views-field-field-photo img {
+                height: @px33;
+                width: @px33;
+                border-radius: 100%;
+            }
+        }
+
+        &-add {
+            .form-item-title label {
+                width: 5%;
+            }
+
+            .form-item-title,
+            #edit-field-property-rules {
+                background-color: @lightGrey;
+                padding: 1.5em;
+            }
+
+            @media (min-width: @screen-md) {
+                .autocomplete-deluxe-container.autocomplete-deluxe-multiple {
+                    width: 90%;
+                }
+            }
+
+            .chosen-choices {
+                width: 90%;
+            }
+
+            .field-name-field-use-my-entreprise,
+            .form-item-field-show-entreprise-und,
+            .form-item-field-anonymous-und {
+                .styled-default-select;
+            }
+
+            &-webform {
+                .form-item-field-expiration-date-und-0 {
+                    label {
+                        width: 20% !important;
+                    }
+                    .formtips-wrapper {
+                        display: none;
+                    }
+                }
+
+                .field-name-field-duration-of-the-mission label {
+                    margin-bottom: 0;
+
+                    + input {
+                        vertical-align: bottom;
+                    }
+                }
+
+                .field-name-field-start-date {
+                    > div > div {
+                        display: inherit;
+                    }
+
+                    label {
+                        margin: 0;
+
+                        + div.date-no-float {
+                            display: inline-block;
+                            width: 50%;
+                            vertical-align: bottom;
+
+                            > div {
+                                margin: 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &-question1 {
+                .field-name-field-working-field {
+                    display: none;
+                }
+
+                .form-item-title label {
+                    width: 5%;
+                }
+
+                //                .cke_contents {
+                //                    height: 215px !important;
+                //                }
+
+                .field-group-div h3 {
+                    margin-top: 0;
+                    font-size: 1em;
+                    font-weight: bold;
+                }
+
+                .group-visibility label {
+                    font-weight: normal;
+                }
+
+                .field-name-field-domaine .form-item-field-domaine-und {
+                    margin-top: 0.5em;
+
+                    ul.chosen-choices {
+                        min-height: 3.3em !important;
+
+                        input[type=text] {
+                            line-height: 2.3em;
+                        }
+                    }
+                }
+            }
+
+            &-question1,
+            &-webform,
+            &-challenge {
+                .cke_contents {
+                    height: 215px !important;
+                }
+
+                .field-name-field-working-field {
+                    display: none;
+                }
+
+                .group-oneliner {
+                    width: 100%;
+
+                    //                &.group-visibility {
+                    //                    > div {
+                    //                        &:first-of-type {
+                    //                            width: 30%;
+                    //                        }
+                    //
+                    //                        width: 35%;
+                    //                        margin-left: 0;
+                    //                    }
+                    //                }
+                }
+
+                .group-visibility {
+                    > div {
+                        &:first-of-type {
+                            label {
+                                width: 32%;
+                            }
+
+                            + div {
+                                label {
+                                    width: 41%;
+                                }
+
+                                + div {
+                                    label {
+                                        width: 31%;
+                                    }
+                                }
+                            }
+                        }
+
+                        width: 35%;
+                        margin-left: 0;
+                    }
+                }
+
+                .group-label {
+                    width: 33%;
+                    overflow: hidden;
+
+                    label {
+                        float: left;
+                        width: 26%;
+                        padding: 5px 0;
+                        margin: 0 30px 0 0;
+
+                        + div {
+                            display: inline-block;
+                            float: left;
+                        }
+                    }
+
+                    .field-name-field-use-my-entreprise {
+                        position: relative;
+                        //                    top: 0.5em;
+                        top: 1em;
+
+                        .form-item-field-use-my-entreprise-und {
+                            margin-top: 0;
+                        }
+                    }
+
+                    .form-item-field-use-my-entreprise-und label,
+                    .form-item-field-anonymous-und label,
+                    .form-item-field-show-entreprise-und label {
+                        display: none;
+                    }
+                }
+
+                .form-item-og-group-ref-und label {
+                    width: 39%;
+                }
+
+                .form-item-field-other-members-und label {
+                    width: 25%;
+                }
+
+                .form-item-field-reward-und-0-value label {
+                    width: 23.3%;
+                }
+
+                .form-item-field-expiration-date-und-0 label {
+                    width: 37.7%
+                }
+
+                .form-item-field-tags-und {
+                    margin: 0;
+                    margin-top: 0.5em;
+                }
+
+                .form-item-field-duration-of-the-mission-und-0-value label,
+                .form-item-field-start-date-und-0 label {
+                    width: 20%;
+                }
+
+                .form-item-field-reward-und-0-value {
+                    margin: 0;
+                }
+
+                /*.form-item-body-und-0-value label,*/
+                .form-item-field-entreprise-description-und-0-value label,
+                .form-item-body-und-0-value label {
+                    width: 100%;
+                }
+
+                #edit-field-tags label {
+                    position: relative;
+                    top: -1.3em;
+                }
+
+                .field-type-file,
+                .field-type-image {
+                    input.file-return {
+                        width: 100%;
+                    }
+                }
+
+                @media (max-width: @screen-md) {
+                    .field-name-field-tags {
+                        width: 100%;
+
+                        .autocomplete-deluxe-container {
+                            width: 100%;
+                        }
+                    }
+                }
+
+                @media (max-width: @screen-xs) {
+                    label {
+                        width: 100%;
+                    }
+
+                    input[type=text]:not(.autocomplete-deluxe-form) {
+                        width: 100%;
+                    }
+
+                    .chosen-container {
+                        width: 100% !important;
+                    }
+                }
+
+                @media (min-width: @screen-md) {
+                    .field-type-file,
+                    .field-type-image {
+                        input.file-return {
+                            width: 45%;
+                        }
+                    }
+                }
+
+                @media (min-width: @screen-sm-min) {
+                    .group-oneliner {
+                        display: inline-flex;
+
+                        > div {
+                            width: 47%;
+
+                            &:first-of-type {
+                                margin-right: 1em;
+                            }
+                        }
+                    }
+                }
+
+                .image-widget-data {
+                    width: 100%;
+                }
+
+                .form-type-date-combo,
+                .form-item-field-expiration-date-und-0 {
+                    display: inline;
+
+                    .container-inline-date {
+                        display: inline;
+                    }
+
+                    .date-padding {
+                        padding: 0;
+                        & > div {
+                            display: inline-flex;
+                        }
+                    }
+
+                    .formtips-wrapper {
+                        label {
+                            display: inline;
+                        }
+                    }
+                }
+
+                .formtips-wrapper {
+                    width: 15%;
+                    display: inline;
+                }
+
+                .filter-wrapper {
+                    .form-item,
+                    .filter-help,
+                    .filter-help a,
+                    .filter-guidelines,
+                    .filter-guidelines ul.tips, {
+                        padding-left: 0;
+                    }
+
+                    .filter-guidelines {
+                        padding-right: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    &-search-node ol.search-results h3.title {
+        text-align: left;
+    }
+
+
+    &-user {
+        div.section > #main-content + div.line.marginD {
+            display: none;
+        }
+
+        .profile .profile-section h2 {
+            font-size: @px18;
+        }
+    }
+
     &-my-demands {
         .view-filters {
             background-color: @lightGrey;
@@ -3964,6 +4343,7 @@ span.required {
 
     &-user-edit {
         .field-name-field-known-how,
+        .form-item-field-sponsor1-und,
         .field-name-field-notification-frequency {
             .styled-default-select;
             label {
@@ -4046,6 +4426,7 @@ span.required {
             }
         }
 
+        .field-multiple-table,
         #field-skills-set-values {
             width: 100%;
         }
@@ -4081,7 +4462,7 @@ span.required {
                 }
             }
 
-            .field-type-entityreference{
+            .field-type-entityreference {
                 width: 55%;
                 padding-bottom: 0;
 
@@ -4116,6 +4497,42 @@ span.required {
                 input[type=text] {
                     margin-left: 2em;
                     width: 2rem;
+                }
+            }
+
+            @media (max-width: @screen-sm) {
+                .field-type-entityreference {
+                    width: 50%;
+                }
+
+                .field-type-fivestar {
+                    width: 21%;
+                    margin-left: 1.5em;
+                }
+
+                .field-type-number-integer {
+                    width: 16%;
+                }
+            }
+
+            @media (max-width: @screen-xs) {
+                .field-type-entityreference {
+                    label {
+                        width: 21% !important;
+                    }
+
+                    input[type=text] {
+                        width: 74%;
+                    }
+                }
+
+                .field-type-fivestar {
+                    width: 36% !important;
+                    margin-left: 0;
+                }
+
+                .field-type-number-integer {
+                    width: 36% !important;
                 }
             }
         }
@@ -4156,8 +4573,6 @@ span.required {
                 width: 80%;
             }
         }
-
-
 
         .field-name-field-entreprise-description {
             label {
@@ -4230,6 +4645,12 @@ span.required {
             }
         }
 
+        @media (max-width: @screen-sm) {
+            .form-item-field-interests-und label {
+                width: 17%;
+            }
+        }
+
         .form-item-field-interests-und,
         .form-item-field-domaine-und{
             .chosen-container {
@@ -4249,11 +4670,86 @@ span.required {
 
         .form-item-current-pass {
             label {
-                width: 31.5% !important;
+                width: 31.5%;
             }
 
             input[type=password] {
                 width: 66.2%;
+            }
+        }
+
+        @media (max-width: @screen-md) {
+            .form-item-name,
+            .form-item-current-pass {
+                display: block !important;
+                width: 62% !important;
+            }
+        }
+
+        @media (max-width: @screen-sm) and (min-width: @screen-xs-max) {
+            .form-item-name {
+                width: 72% !important;
+                label {
+                    width: 27.2% !important;
+                }
+                input[type=text] {
+                    width: 56.8% !important;
+                }
+            }
+
+            .form-item-mail {
+                width: 64% !important;
+
+                .formtips-wrapper {
+                    width: 30.5% !important;
+                }
+
+                input[type=text] {
+                    width: 64%;
+                }
+            }
+
+            .form-item-pass-pass1 {
+                display: inline;
+
+                div.password-strength {
+                    right: 0 !important;
+                }
+
+                > .formtips-wrapper {
+                    display: inline-block !important;
+                    width: 19.5% !important;
+                }
+
+                input[type=password] {
+                    width: 41% !important;
+                }
+            }
+
+            .form-item-pass-pass2 {
+                div.password-confirm {
+                    right: 0 !important;
+                }
+
+                label {
+                    width: 19.5% !important;
+                }
+
+                input[type=password] {
+                    width: 41% !important;
+                }
+            }
+
+            .form-item-field-address-und-0-postal-code {
+                width: 34% !important;
+
+                label {
+                    width: 44% !important;
+                }
+            }
+
+            .form-item-field-address-und-0-locality {
+                width: 42% !important;
             }
         }
 
@@ -4296,295 +4792,58 @@ span.required {
                 display: inline-block !important;
             }
         }
-    }
 
-    &-node-add {
-        .form-item-title,
-        #edit-field-property-rules {
-            background-color: @lightGrey;
-            padding: 1.5em;
-        }
-
-        @media (min-width: @screen-md) {
-            .autocomplete-deluxe-container.autocomplete-deluxe-multiple {
-                width: 90%;
+        @media (max-width: @screen-xs) {
+            .group-oneliner > div {
+                width: 100% !important;
             }
-        }
 
-        .chosen-choices {
-            width: 90%;
-        }
+            label {
+                display: block !important;
+                width: 100% !important;
+            }
 
-        .field-name-field-use-my-entreprise,
-        .form-item-field-show-entreprise-und,
-        .form-item-field-anonymous-und {
-            .styled-default-select;
-        }
-
-        &-webform {
-            .form-item-field-expiration-date-und-0 {
-                label {
-                    width: 10% !important;
+            .form-item-mail {
+                > .formtips-wrapper {
+                    width: auto;
                 }
-                .formtips-wrapper {
-                    display: none;
+
+                input {
+                    width: 83% !important;
                 }
             }
-        }
 
-        &-question1 {
-            .field-name-field-working-field {
+            .field-name-field-entreprise input[type=text] {
+                width: 65.5% !important;
+            }
+
+            .password-strength {
                 display: none;
             }
 
-            .form-item-title label {
-                width: 5%;
-            }
-
-            .cke_contents {
-                height: 215px !important;
-            }
-
-            .field-group-div h3 {
-                margin-top: 0;
-                font-size: 1em;
-                font-weight: bold;
-            }
-
-            .group-visibility label {
-                font-weight: normal;
-            }
-
-            .field-name-field-domaine .form-item-field-domaine-und {
-                margin-top: 0.5em;
-
-                ul.chosen-choices {
-                    min-height: 3.3em !important;
-
-                    input[type=text] {
-                        line-height: 2.3em;
-                    }
+            .field-name-field-photo {
+                .imagefield-crop-cropbox {
+                    left: 5em;
                 }
-            }
-        }
 
-        &-question1,
-        &-webform,
-        &-challenge {
-            .field-name-field-working-field {
-                display: none;
-            }
+                span.file {
+                    left: 6em;
+                }
 
-            .group-oneliner {
-                width: 100%;
-
-//                &.group-visibility {
-//                    > div {
-//                        &:first-of-type {
-//                            width: 30%;
-//                        }
-//
-//                        width: 35%;
-//                        margin-left: 0;
-//                    }
-//                }
-            }
-
-            .group-visibility {
-                > div {
-                    &:first-of-type {
-                        label {
-                            width: 32%;
-                        }
-
-                        + div {
-                            label {
-                                width: 41%;
-                            }
-
-                            + div {
-                                label {
-                                    width: 31%;
-                                }
-                            }
-                        }
-                    }
-
-                    width: 35%;
-                    margin-left: 0;
+                input[type=submit] {
+                    top: 0;
                 }
             }
 
             .group-label {
-                width: 33%;
-                overflow: hidden;
-
-                label {
-                    float: left;
-                    width: 26%;
-                    padding: 5px 0;
-                    margin: 0 30px 0 0;
-
-                    + div {
-                        display: inline-block;
-                        float: left;
-                    }
-                }
-
-                .field-name-field-use-my-entreprise {
-                    position: relative;
-//                    top: 0.5em;
-                    top: 1em;
-
-                    .form-item-field-use-my-entreprise-und {
-                        margin-top: 0;
-                    }
-                }
-
-                .form-item-field-use-my-entreprise-und label,
-                .form-item-field-anonymous-und label,
-                .form-item-field-show-entreprise-und label {
-                    display: none;
-                }
-            }
-
-            .form-item-og-group-ref-und label {
-                width: 39%;
-            }
-
-            .form-item-field-other-members-und label {
-                width: 25%;
-            }
-
-            .form-item-field-reward-und-0-value label {
-                width: 23.3%;
-            }
-
-            .form-item-field-expiration-date-und-0 label {
-                width: 37.7%
-            }
-
-            .form-item-field-tags-und {
-                margin: 0;
-                margin-top: 0.5em;
-            }
-
-            .form-item-field-duration-of-the-mission-und-0-value label,
-            .form-item-field-start-date-und-0 label {
-                width: 20%;
-            }
-
-            .form-item-field-reward-und-0-value {
-                margin: 0;
-            }
-
-            /*.form-item-body-und-0-value label,*/
-            .form-item-field-entreprise-description-und-0-value label,
-            .form-item-body-und-0-value label {
                 width: 100%;
-            }
 
-            #edit-field-tags label {
-                position: relative;
-                top: -1.3em;
-            }
-
-            .field-type-file,
-            .field-type-image {
-                input.file-return {
-                    width: 100%;
-                }
-            }
-
-            @media (max-width: @screen-md) {
-                .field-name-field-tags {
+                .field-type-taxonomy-term-reference {
                     width: 100%;
 
-                    .autocomplete-deluxe-container {
-                        width: 100%;
+                    select {
+                        width: 120%;
                     }
-                }
-            }
-
-            @media (max-width: @screen-xs) {
-                label {
-                    width: 100%;
-                }
-
-                input[type=text]:not(.autocomplete-deluxe-form) {
-                    width: 100%;
-                }
-
-                .chosen-container {
-                    width: 100% !important;
-                }
-            }
-
-            @media (min-width: @screen-md) {
-                .field-type-file,
-                .field-type-image {
-                    input.file-return {
-                        width: 45%;
-                    }
-                }
-            }
-
-            @media (min-width: @screen-sm-min) {
-                .group-oneliner {
-                    display: inline-flex;
-
-                    > div {
-                        width: 47%;
-
-                        &:first-of-type {
-                            margin-right: 1em;
-                        }
-                    }
-                }
-            }
-
-            .image-widget-data {
-                width: 100%;
-            }
-
-            .form-type-date-combo,
-            .form-item-field-expiration-date-und-0 {
-                display: inline;
-
-                .container-inline-date {
-                    display: inline;
-                }
-
-                .date-padding {
-                    padding: 0;
-                    & > div {
-                        display: inline-flex;
-                    }
-                }
-
-                .formtips-wrapper {
-                    label {
-                        display: inline;
-                    }
-                }
-            }
-
-            .formtips-wrapper {
-                width: 15%;
-                display: inline;
-            }
-
-            .filter-wrapper {
-                .form-item,
-                .filter-help,
-                .filter-help a,
-                .filter-guidelines,
-                .filter-guidelines ul.tips, {
-                    padding-left: 0;
-                }
-
-                .filter-guidelines {
-                    padding-right: 0;
                 }
             }
         }
@@ -4697,12 +4956,18 @@ span.required {
 
     &-messages {
         ul.action-links {
-            list-style-type: none;
+            padding-left: 2px;
             margin-top: 10px;
+            padding-top: 8px;
+            list-style-type: none;
 
             a {
                 .button-new-message;
             }
+        }
+
+        .privatemsg-list-subject {
+            line-height: @rpx25;
         }
 
         .privatemsg-list {
@@ -4714,6 +4979,10 @@ span.required {
             .form-type-checkbox {
                 margin-right: 0.5em;
                 margin-left: 0.5em;
+            }
+
+            tr {
+                height: 4em;
             }
         }
     }
@@ -4783,6 +5052,111 @@ span.required {
             background-color: @lightGrey;
             padding-bottom: 3em;
             padding-left: 1em;
+        }
+
+        @media (max-width: @screen-xs) {
+            table {
+                display: block;
+
+                thead {
+                    display: none;
+                }
+
+                tbody  tr {
+                    width: 455px;
+                    display: block;
+                    border-top: 2px lightgray solid;
+                    &:last-of-type {
+                        border-bottom: 2px lightgray solid;
+                    }
+
+                    td:first-of-type {                  //Picto
+                        width: 15%;
+                        float: left;
+                        display: block;
+                        margin-top: 1em;
+
+                        + td {                          //Title
+                            width: 75%;
+                            display: block;
+                            padding-left: 0;
+                            line-height: 1.5em;
+                            padding-top: 0.5em;
+                            overflow-x: hidden;
+                            white-space: nowrap;
+                            margin-bottom: 0.5em;
+                            text-overflow: ellipsis;
+
+                            + td {                      //Post date
+                                width: 46%;
+                                display: block;
+                                line-height: 1.5em;
+                                &:before {
+                                    margin-right: 0.2em;
+                                    content: 'Post date';
+                                }
+
+                                + td {                  //Expiration date
+                                    width: 54%;
+                                    display: block;
+                                    line-height: 1.5em;
+                                    &:before {
+                                        margin-right: 0.2em;
+                                        content: 'Expiration date';
+                                    }
+
+
+                                    + td {              //Circle
+                                        display: none;
+
+                                        + td {          //Reward
+                                            display: none;
+
+                                            + td {      //Number of response
+                                                top: -4.5em;
+                                                float: right;
+                                                display: block;
+                                                position: relative;
+                                                padding-right: 0.5em;
+
+                                                &:before {
+                                                    top: 1.15em;
+                                                    width: 30px;
+                                                    left: -2.2em;
+                                                    height: 24px;
+                                                    content: "\ ";
+                                                    position: absolute;
+                                                    display: inline-block;
+                                                    background: url(../images/mobile-bulle.png) no-repeat 50% 50%;
+                                                    background-size: 60%;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        @media (max-width: @screen-xxs) {
+            table tbody  tr {
+                width: 288px;
+
+                td:first-of-type + td {                          //Title
+                    width: 74%;
+
+                    + td {                      //Post date
+                        width: 64%;
+
+                        + td {                  //Expiration date
+                            width: 77%;
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -4925,6 +5299,7 @@ span.required {
                     background: transparent url(../images/backbtn.png) no-repeat;
                 }
                 .pager-next a {
+                    color: transparent;
                     background: transparent url(../images/nextbtn.png) no-repeat;
                 }
 
@@ -4966,11 +5341,13 @@ span.required {
         }
 
         .quicktabs-tabs {
+            width: 100%;
             display: table;
 
             li {
 //                background: @circleLightBlue url(../images/cercle.png) no-repeat 50% 20% !important;
                 background: url(../images/cercle.png) no-repeat 50% 20% !important;
+                display: inline-block;
                 display: inline-flex !important;
                 width: 25%;
                 height: 10em;
@@ -5036,6 +5413,13 @@ span.required {
                     .views-field-views-bulk-operations,
                     .views-field-field-titre-metier {
                         height: 1.5em;
+                    }
+
+                    .views-field-field-titre-metier div.field-content {
+                        white-space: nowrap;
+                        overflow-x: hidden;
+                        margin-right: 1em;
+                        text-overflow: ellipsis;
                     }
 
                     .views-field-views-bulk-operations {
@@ -5366,6 +5750,14 @@ div.tabs {
 .page-messages {
     div.tabs {
         display: inherit;
+    }
+
+    tbody {
+        td.privatemsg-list-date,
+        td.privatemsg-list-date-started,
+        td.privatemsg-list-participants {
+            text-align: center;
+        }
     }
 }
 

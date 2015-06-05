@@ -141,10 +141,19 @@
         <div class="col-md-4">
             <?php print $elements['links']['flag']['#links']['flag-my_selection']['title']; ?>
         </div>
-<?php if (node_access('update',$node)) print l(t('Edit'),'node/'.$node->nid.'/edit', array('attributes' => array('class' => array('btn','btn-primary','btn-expert'))) ); ?>
-
-&nbsp;  <?php if (node_access('update',$node)) print l(t('Edit questions'),'node/'.$node->nid.'/webform', array('attributes' => array('class' => array('btn','btn-primary','btn-expert'))) ); ?>
-&nbsp;  <?php if (node_access('update',$node)) print l(t('View responses'),'node/'.$node->nid.'/webform-results', array('attributes' => array('class' => array('btn','btn-primary','btn-expert'))) ); ?>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-2 col-md-offset-3">
+                    <?php if (node_access('update',$node)) print l(t('Edit'),'node/'.$node->nid.'/edit', array('attributes' => array('class' => array('btn','btn-primary','btn-expert'))) ); ?>
+                </div>
+                <div class="col-md-3">
+                    <?php if (node_access('update',$node)) print l(t('Edit questions'),'node/'.$node->nid.'/webform', array('attributes' => array('class' => array('btn','btn-primary','btn-expert'))) ); ?>
+                </div>
+                <div class="col-md-4">
+                    <?php if (node_access('update',$node)) print l(t('View responses'),'node/'.$node->nid.'/webform-results', array('attributes' => array('class' => array('btn','btn-primary','btn-expert'))) ); ?>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 &nbsp;

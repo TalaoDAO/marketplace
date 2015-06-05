@@ -44,6 +44,53 @@ function FileUpload() {
     }
 }
 
+
+function signInClick(evt) {
+    var eltSignUp = document.querySelector("div.popup-sign-up");
+    eltSignUp.classList.remove("popup-sign-up-click");
+    var elt = document.querySelector("div.popup-sign-in");
+    elt.classList.add("popup-sign-in-click");
+    document.body.onclick = onClickBodySignIn;
+}
+
+function onClickBodySignIn(evt) {
+    var elt = evt.target;
+    while (elt != null) {
+        if (elt.className.indexOf("popup-sign-in") != -1 || elt.className.indexOf("popup-sign-in-content") != -1) {
+            return;
+        }
+        elt = elt.parentElement;
+    }
+    //On est arrivé jusque ici donc on as pas cliqué dans le burger menu
+    var elt = document.querySelector('div.popup-sign-in');
+    elt.classList.remove("popup-sign-in-click");
+    //bm.style.display = 'none';
+    document.body.onclick = null;
+}
+
+function signUpClick(evt) {
+    var eltSignIn = document.querySelector('div.popup-sign-in');
+    eltSignIn.classList.remove("popup-sign-in-click");
+    var elt = document.querySelector("div.popup-sign-up");
+    elt.classList.add("popup-sign-up-click");
+    document.body.onclick = onClickBodySignUp;
+}
+
+function onClickBodySignUp(evt) {
+    var elt = evt.target;
+    while (elt != null) {
+        if (elt.className.indexOf("popup-sign-up") != -1 || elt.className.indexOf("popup-sign-up-content") != -1) {
+            return;
+        }
+        elt = elt.parentElement;
+    }
+    //On est arrivé jusque ici donc on as pas cliqué dans le burger menu
+    var elt = document.querySelector('div.popup-sign-up');
+    elt.classList.remove("popup-sign-up-click");
+    //bm.style.display = 'none';
+    document.body.onclick = null;
+}
+
 /*
 function signUpHover(evt) {
 

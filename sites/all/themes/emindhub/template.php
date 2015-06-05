@@ -759,20 +759,24 @@ function isHomePage() {
 function GetMenu (&$vars) {
     //$base_url = $url = base_path();
     if (!user_is_logged_in()) {
-        $signIn = theme("link", array(
-          'text' => c_szLogin,
-          'path' => 'user',
-          'options' => array(
-            'attributes' => array('class' => array('user-menu', 'sign-in')),
-            'html' => FALSE,
+        $signIn = theme('html_tag', array(
+          'element' => array(
+            '#tag' => 'span',
+            '#attributes' => array(
+              'class' => array('user-menu', 'sign-in'),
+              'onclick' => 'signInClick()'
+            ),
+            '#value' => c_szLogin,
           ),
         ));
-        $register = theme("link", array(
-          'text' => c_szRegister,
-          'path' => 'user/register',
-          'options' => array(
-            'attributes' => array('class' => array('user-menu', 'sign-up')),
-            'html' => FALSE,
+        $register = theme('html_tag', array(
+          'element' => array(
+            '#tag' => 'span',
+            '#attributes' => array(
+              'class' => array('user-menu', 'sign-up'),
+              'onclick' => 'signUpClick()'
+            ),
+            '#value' => c_szRegister,
           ),
         ));
         return array($signIn, $register);
