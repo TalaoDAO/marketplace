@@ -298,9 +298,9 @@ function ft_content_type_field_group_info() {
     'label' => 'Complement',
     'weight' => '2',
     'children' => array(
-      0 => 'field_notification_frequency',
-      1 => 'field_known_how',
-      2 => 'field_known_specific',
+      0 => 'field_known_specific',
+      1 => 'group_label',
+      2 => 'group_label2',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -319,6 +319,154 @@ function ft_content_type_field_group_info() {
     ),
   );
   $export['group_complement|user|user|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_container_interests|user|user|default';
+  $field_group->group_name = 'group_container_interests';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_interests';
+  $field_group->data = array(
+    'label' => 'Interests container',
+    'weight' => '45',
+    'children' => array(
+      0 => 'field_interests',
+      1 => 'field_other_areas',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Interests container',
+      'instance_settings' => array(
+        'classes' => 'section-container group-container-interests field-group-html-element',
+        'element' => 'div',
+        'show_label' => '0',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_container_interests|user|user|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_container_public_darken|user|user|default';
+  $field_group->group_name = 'group_container_public_darken';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_public_profile';
+  $field_group->data = array(
+    'label' => 'public container darken',
+    'weight' => '9',
+    'children' => array(
+      0 => 'field_link_to_my_blog',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'public container darken',
+      'instance_settings' => array(
+        'classes' => 'section-container section-container-darken group-container-public-darken field-group-html-element',
+        'element' => 'div',
+        'show_label' => '0',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_container_public_darken|user|user|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_container_public|user|user|default';
+  $field_group->group_name = 'group_container_public';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_public_profile';
+  $field_group->data = array(
+    'label' => 'public container',
+    'weight' => '8',
+    'children' => array(
+      0 => 'group_row',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'public container',
+      'instance_settings' => array(
+        'classes' => 'section-container group-container-public field-group-html-element ',
+        'element' => 'div',
+        'show_label' => '0',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_container_public|user|user|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_container_skills|user|user|default';
+  $field_group->group_name = 'group_container_skills';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_skills';
+  $field_group->data = array(
+    'label' => 'Skills container',
+    'weight' => '39',
+    'children' => array(
+      0 => 'field_domaine',
+      1 => 'field_skills_set',
+      2 => 'field_employment_history',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Skills container',
+      'instance_settings' => array(
+        'classes' => 'section-container group-container-skills field-group-html-element',
+        'element' => 'div',
+        'show_label' => '0',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_container_skills|user|user|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_container_testimony|user|user|default';
+  $field_group->group_name = 'group_container_testimony';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_testimony';
+  $field_group->data = array(
+    'label' => 'Testimony container',
+    'weight' => '8',
+    'children' => array(
+      0 => 'field_testimony',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Testimony container',
+      'instance_settings' => array(
+        'classes' => 'section-container group-container-testimony field-group-html-element',
+        'element' => 'div',
+        'show_label' => '0',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_container_testimony|user|user|default'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -396,9 +544,9 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'hidden',
-    'weight' => '10',
+    'weight' => '22',
     'children' => array(),
-    'format_type' => 'hidden',
+    'format_type' => 'html-element',
     'format_settings' => array(
       'label' => 'hidden',
       'instance_settings' => array(
@@ -409,6 +557,9 @@ function ft_content_type_field_group_info() {
         'label_element' => 'h3',
         'effect' => 'none',
         'speed' => 'fast',
+        'element' => 'div',
+        'attributes' => '',
+        'required_fields' => 1,
       ),
       'formatter' => 'collapsible',
     ),
@@ -457,6 +608,398 @@ function ft_content_type_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_interests|user|user|default';
+  $field_group->group_name = 'group_interests';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'default';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'My interests',
+    'weight' => '3',
+    'children' => array(
+      0 => 'group_container_interests',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'My interests',
+      'instance_settings' => array(
+        'id' => '',
+        'classes' => 'profile-section profile-section-interests field-group-div',
+        'description' => '',
+        'show_label' => '1',
+        'label_element' => 'h2',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_interests|user|user|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_label2|node|challenge|form';
+  $field_group->group_name = 'group_label2';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'challenge';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_oneliner3';
+  $field_group->data = array(
+    'label' => 'Your organisation *',
+    'weight' => '24',
+    'children' => array(
+      0 => 'field_show_entreprise',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Your organisation *',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-label field-group-html-element',
+        'element' => 'div',
+        'show_label' => '1',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_label2|node|challenge|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_label2|node|question1|form';
+  $field_group->group_name = 'group_label2';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'question1';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_oneliner3';
+  $field_group->data = array(
+    'label' => 'Your organisation *',
+    'weight' => '5',
+    'children' => array(
+      0 => 'field_show_entreprise',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Your organisation *',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-label field-group-html-element',
+        'element' => 'div',
+        'show_label' => '1',
+        'label_element' => 'label',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_label2|node|question1|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_label2|node|webform|form';
+  $field_group->group_name = 'group_label2';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'webform';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_oneliner3';
+  $field_group->data = array(
+    'label' => 'Your activity *',
+    'weight' => '50',
+    'children' => array(
+      0 => 'field_use_my_entreprise',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Your activity *',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-label field-group-html-element',
+        'element' => 'div',
+        'show_label' => '1',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_label2|node|webform|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_label2|user|user|form';
+  $field_group->group_name = 'group_label2';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_complement';
+  $field_group->data = array(
+    'label' => 'How did you hear about us?',
+    'weight' => '6',
+    'children' => array(
+      0 => 'field_known_how',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'How did you hear about us?',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-label field-group-html-element',
+        'element' => 'div',
+        'show_label' => '1',
+        'label_element' => 'label',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_label2|user|user|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_label3|node|challenge|form';
+  $field_group->group_name = 'group_label3';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'challenge';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_oneliner3';
+  $field_group->data = array(
+    'label' => 'Your activity *',
+    'weight' => '25',
+    'children' => array(
+      0 => 'field_use_my_entreprise',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Your activity *',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-label field-group-html-element',
+        'element' => 'div',
+        'show_label' => '1',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_label3|node|challenge|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_label3|node|question1|form';
+  $field_group->group_name = 'group_label3';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'question1';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_oneliner3';
+  $field_group->data = array(
+    'label' => 'Your activity *',
+    'weight' => '6',
+    'children' => array(
+      0 => 'field_use_my_entreprise',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Your activity *',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-label field-group-html-element',
+        'element' => 'div',
+        'show_label' => '1',
+        'label_element' => 'label',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_label3|node|question1|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_label3|node|webform|form';
+  $field_group->group_name = 'group_label3';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'webform';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_oneliner3';
+  $field_group->data = array(
+    'label' => 'Your organisation *',
+    'weight' => '49',
+    'children' => array(
+      0 => 'field_show_entreprise',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Your organisation *',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-label field-group-html-element',
+        'element' => 'div',
+        'show_label' => '1',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_label3|node|webform|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_label3|user|user|form';
+  $field_group->group_name = 'group_label3';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_misc';
+  $field_group->data = array(
+    'label' => 'Name of my sponsor',
+    'weight' => '11',
+    'children' => array(
+      0 => 'field_sponsor1',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Name of my sponsor',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-label field-group-html-element',
+        'element' => 'div',
+        'show_label' => '1',
+        'label_element' => 'label',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_label3|user|user|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_label|node|challenge|form';
+  $field_group->group_name = 'group_label';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'challenge';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_oneliner3';
+  $field_group->data = array(
+    'label' => 'Your name *',
+    'weight' => '23',
+    'children' => array(
+      0 => 'field_anonymous',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Your name *',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-label field-group-html-element',
+        'element' => 'div',
+        'show_label' => '1',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_label|node|challenge|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_label|node|question1|form';
+  $field_group->group_name = 'group_label';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'question1';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_oneliner3';
+  $field_group->data = array(
+    'label' => 'Your name *',
+    'weight' => '4',
+    'children' => array(
+      0 => 'field_anonymous',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Your name *',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-label field-group-html-element',
+        'element' => 'div',
+        'show_label' => '1',
+        'label_element' => 'label',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_label|node|question1|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_label|node|webform|form';
+  $field_group->group_name = 'group_label';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'webform';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_oneliner3';
+  $field_group->data = array(
+    'label' => 'Your name *',
+    'weight' => '48',
+    'children' => array(
+      0 => 'field_anonymous',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Your name *',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-label field-group-html-element',
+        'element' => 'div',
+        'show_label' => '1',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_label|node|webform|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_label|user|user|form';
+  $field_group->group_name = 'group_label';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_complement';
+  $field_group->data = array(
+    'label' => 'How often do you want to receive emindhub\'s notifications?',
+    'weight' => '5',
+    'children' => array(
+      0 => 'field_notification_frequency',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'How often do you want to receive emindhub\'s notifications?',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-label field-group-html-element',
+        'element' => 'div',
+        'show_label' => '1',
+        'label_element' => 'label',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_label|user|user|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_misc|user|user|form';
   $field_group->group_name = 'group_misc';
   $field_group->entity_type = 'user';
@@ -470,7 +1013,7 @@ function ft_content_type_field_group_info() {
       0 => 'field_link_to_my_blog',
       1 => 'field_working_status',
       2 => 'field_sponsorship',
-      3 => 'field_sponsor1',
+      3 => 'group_label3',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -528,6 +1071,40 @@ function ft_content_type_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_oneliner1|node|challenge|form';
+  $field_group->group_name = 'group_oneliner1';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'challenge';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_target';
+  $field_group->data = array(
+    'label' => 'Oneliner',
+    'weight' => '13',
+    'children' => array(
+      0 => 'field_expiration_date',
+      1 => 'field_reward',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Oneliner',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-oneliner field-group-div',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_oneliner1|node|challenge|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_oneliner1|node|question1|form';
   $field_group->group_name = 'group_oneliner1';
   $field_group->entity_type = 'node';
@@ -536,7 +1113,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_target';
   $field_group->data = array(
     'label' => 'Oneliner',
-    'weight' => '28',
+    'weight' => '34',
     'children' => array(
       0 => 'field_expiration_date',
       1 => 'field_reward',
@@ -562,6 +1139,74 @@ function ft_content_type_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_oneliner1|node|webform|form';
+  $field_group->group_name = 'group_oneliner1';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'webform';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_who';
+  $field_group->data = array(
+    'label' => 'Choose to make visible',
+    'weight' => '45',
+    'children' => array(
+      0 => 'field_entreprise_description',
+      1 => 'group_oneliner3',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Choose to make visible',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'field-group-div',
+        'description' => '',
+        'show_label' => '1',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_oneliner1|node|webform|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_oneliner2|node|challenge|form';
+  $field_group->group_name = 'group_oneliner2';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'challenge';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_target';
+  $field_group->data = array(
+    'label' => 'Oneliner',
+    'weight' => '16',
+    'children' => array(
+      0 => 'og_group_ref',
+      1 => 'field_other_members',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Oneliner',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-oneliner field-group-div',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_oneliner2|node|challenge|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_oneliner2|node|question1|form';
   $field_group->group_name = 'group_oneliner2';
   $field_group->entity_type = 'node';
@@ -570,7 +1215,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_target';
   $field_group->data = array(
     'label' => 'Oneliner',
-    'weight' => '30',
+    'weight' => '37',
     'children' => array(
       0 => 'og_group_ref',
       1 => 'field_other_members',
@@ -596,6 +1241,249 @@ function ft_content_type_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_oneliner2|node|webform|form';
+  $field_group->group_name = 'group_oneliner2';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'webform';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_target';
+  $field_group->data = array(
+    'label' => 'Oneliner',
+    'weight' => '35',
+    'children' => array(
+      0 => 'field_expiration_date',
+      1 => 'field_reward',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Oneliner',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-oneliner field-group-div',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_oneliner2|node|webform|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_oneliner3|node|challenge|form';
+  $field_group->group_name = 'group_oneliner3';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'challenge';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_oneliner4';
+  $field_group->data = array(
+    'label' => 'Oneliner',
+    'weight' => '22',
+    'children' => array(
+      0 => 'field_working_field',
+      1 => 'group_label',
+      2 => 'group_label2',
+      3 => 'group_label3',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Oneliner',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-oneliner field-group-div',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_oneliner3|node|challenge|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_oneliner3|node|question1|form';
+  $field_group->group_name = 'group_oneliner3';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'question1';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_oneliner';
+  $field_group->data = array(
+    'label' => 'Oneliner',
+    'weight' => '8',
+    'children' => array(
+      0 => 'field_working_field',
+      1 => 'group_label',
+      2 => 'group_label2',
+      3 => 'group_label3',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Oneliner',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-oneliner field-group-div group-visibility',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_oneliner3|node|question1|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_oneliner3|node|webform|form';
+  $field_group->group_name = 'group_oneliner3';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'webform';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_oneliner1';
+  $field_group->data = array(
+    'label' => 'Oneliner',
+    'weight' => '47',
+    'children' => array(
+      0 => 'field_working_field',
+      1 => 'group_label',
+      2 => 'group_label2',
+      3 => 'group_label3',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Oneliner',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-oneliner field-group-div',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_oneliner3|node|webform|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_oneliner4|node|challenge|form';
+  $field_group->group_name = 'group_oneliner4';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'challenge';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_who';
+  $field_group->data = array(
+    'label' => 'Choose to make visible',
+    'weight' => '21',
+    'children' => array(
+      0 => 'field_entreprise_description',
+      1 => 'group_oneliner3',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'formatter' => 'open',
+      'instance_settings' => array(
+        'description' => '',
+        'show_label' => 1,
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+        'classes' => 'group-oneliner4 field-group-div',
+        'required_fields' => 1,
+        'id' => '',
+      ),
+    ),
+  );
+  $export['group_oneliner4|node|challenge|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_oneliner4|node|webform|form';
+  $field_group->group_name = 'group_oneliner4';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'webform';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_what';
+  $field_group->data = array(
+    'label' => 'Oneliner',
+    'weight' => '61',
+    'children' => array(
+      0 => 'field_image',
+      1 => 'field_document',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Oneliner',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-oneliner field-group-div',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_oneliner4|node|webform|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_oneliner5|node|webform|form';
+  $field_group->group_name = 'group_oneliner5';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'webform';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_what';
+  $field_group->data = array(
+    'label' => 'Oneliner',
+    'weight' => '58',
+    'children' => array(
+      0 => 'field_duration_of_the_mission',
+      1 => 'field_start_date',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Oneliner',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-oneliner field-group-div',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_oneliner5|node|webform|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_oneliner|field_collection_item|field_skills_set|form';
   $field_group->group_name = 'group_oneliner';
   $field_group->entity_type = 'field_collection_item';
@@ -616,7 +1504,7 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'group-oneliner field-group-div oneliner',
+        'classes' => 'group-oneliner field-group-div oneliner group-skills',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -672,12 +1560,45 @@ function ft_content_type_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_who';
   $field_group->data = array(
-    'label' => 'Oneliner',
-    'weight' => '6',
+    'label' => 'Choose to make visible',
+    'weight' => '9',
     'children' => array(
-      0 => 'field_anonymous',
-      1 => 'field_use_my_entreprise',
-      2 => 'field_show_entreprise',
+      0 => 'field_entreprise_description',
+      1 => 'group_oneliner3',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Choose to make visible',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'field-group-div',
+        'description' => '',
+        'show_label' => '1',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_oneliner|node|question1|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_oneliner|node|webform|form';
+  $field_group->group_name = 'group_oneliner';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'webform';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_target';
+  $field_group->data = array(
+    'label' => 'Oneliner',
+    'weight' => '37',
+    'children' => array(
+      0 => 'og_group_ref',
+      1 => 'field_other_members',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -695,7 +1616,37 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $export['group_oneliner|node|question1|form'] = $field_group;
+  $export['group_oneliner|node|webform|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_oneliner|user|user|default';
+  $field_group->group_name = 'group_oneliner';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_row_names_left';
+  $field_group->data = array(
+    'label' => 'oneliner',
+    'weight' => '30',
+    'children' => array(
+      0 => 'field_first_name',
+      1 => 'field_last_name',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'oneliner',
+      'instance_settings' => array(
+        'classes' => 'group-oneliner field-group-html-element ',
+        'element' => 'div',
+        'show_label' => '0',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_oneliner|user|user|default'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -719,7 +1670,7 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'group-oneliner field-group-div',
+        'classes' => 'group-oneliner field-group-div group-name',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -730,6 +1681,258 @@ function ft_content_type_field_group_info() {
     ),
   );
   $export['group_oneliner|user|user|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_public_profile|user|user|default';
+  $field_group->group_name = 'group_public_profile';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'default';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'My public profile',
+    'weight' => '0',
+    'children' => array(
+      0 => 'group_container_public',
+      1 => 'group_container_public_darken',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'My public profile',
+      'instance_settings' => array(
+        'id' => '',
+        'classes' => 'profile-section profile-section-public field-group-div',
+        'description' => '',
+        'show_label' => '1',
+        'label_element' => 'h2',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_public_profile|user|user|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_public_wrapper_image|user|user|default';
+  $field_group->group_name = 'group_public_wrapper_image';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_row';
+  $field_group->data = array(
+    'label' => 'Image wrapper',
+    'weight' => '8',
+    'children' => array(
+      0 => 'field_photo',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Image wrapper',
+      'instance_settings' => array(
+        'classes' => 'group-public-wrapper-image field-group-html-element col-xs-4 col-sm-2',
+        'element' => 'div',
+        'show_label' => '0',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_public_wrapper_image|user|user|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_public_wrapper_info|user|user|default';
+  $field_group->group_name = 'group_public_wrapper_info';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_row';
+  $field_group->data = array(
+    'label' => 'Info wrapper',
+    'weight' => '9',
+    'children' => array(
+      0 => 'field_entreprise',
+      1 => 'field_address',
+      2 => 'group_row_names',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Info wrapper',
+      'instance_settings' => array(
+        'classes' => 'group-public-wrapper-info field-group-html-element col-xs-8 col-sm-10',
+        'element' => 'div',
+        'show_label' => '0',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_public_wrapper_info|user|user|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_row_names_left|user|user|default';
+  $field_group->group_name = 'group_row_names_left';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_row_names';
+  $field_group->data = array(
+    'label' => 'left',
+    'weight' => '32',
+    'children' => array(
+      0 => 'name',
+      1 => 'group_oneliner',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'left',
+      'instance_settings' => array(
+        'id' => '',
+        'classes' => 'group-row-names-left field-group-div col-xs-12 col-sm-4',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_row_names_left|user|user|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_row_names_right|user|user|default';
+  $field_group->group_name = 'group_row_names_right';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_row_names';
+  $field_group->data = array(
+    'label' => 'Right',
+    'weight' => '33',
+    'children' => array(
+      0 => 'field_titre_metier',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Right',
+      'instance_settings' => array(
+        'id' => '',
+        'classes' => 'group-row-names-left field-group-div col-xs-12 col-sm-8',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_row_names_right|user|user|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_row_names|user|user|default';
+  $field_group->group_name = 'group_row_names';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_public_wrapper_info';
+  $field_group->data = array(
+    'label' => 'row',
+    'weight' => '29',
+    'children' => array(
+      0 => 'group_row_names_left',
+      1 => 'group_row_names_right',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'row',
+      'instance_settings' => array(
+        'id' => '',
+        'classes' => 'group-row-names field-group-div row margin-after',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_row_names|user|user|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_row|field_collection_item|field_skills_set|default';
+  $field_group->group_name = 'group_row';
+  $field_group->entity_type = 'field_collection_item';
+  $field_group->bundle = 'field_skills_set';
+  $field_group->mode = 'default';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Row',
+    'weight' => '2',
+    'children' => array(
+      0 => 'group_wrapper_skill',
+      1 => 'group_wrapper_self_appraisal',
+      2 => 'group_wrapper_years',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Row',
+      'instance_settings' => array(
+        'classes' => 'group-row field-group-html-element row',
+        'element' => 'div',
+        'show_label' => '0',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_row|field_collection_item|field_skills_set|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_row|user|user|default';
+  $field_group->group_name = 'group_row';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_container_public';
+  $field_group->data = array(
+    'label' => 'Row',
+    'weight' => '7',
+    'children' => array(
+      0 => 'group_public_wrapper_image',
+      1 => 'group_public_wrapper_info',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Row',
+      'instance_settings' => array(
+        'classes' => 'group-row field-group-html-element row',
+        'element' => 'div',
+        'show_label' => '0',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_row|user|user|default'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -776,7 +1979,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Scope',
-    'weight' => '3',
+    'weight' => '2',
     'children' => array(
       0 => 'field_domaine',
       1 => 'field_tags',
@@ -836,6 +2039,38 @@ function ft_content_type_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_skills|user|user|default';
+  $field_group->group_name = 'group_skills';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'default';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'My skills',
+    'weight' => '2',
+    'children' => array(
+      0 => 'group_container_skills',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'My skills',
+      'instance_settings' => array(
+        'id' => '',
+        'classes' => 'profile-section profile-section-skills field-group-div',
+        'description' => '',
+        'show_label' => '1',
+        'label_element' => 'h2',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_skills|user|user|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_skills|user|user|form';
   $field_group->group_name = 'group_skills';
   $field_group->entity_type = 'user';
@@ -887,11 +2122,9 @@ function ft_content_type_field_group_info() {
     'label' => 'Target',
     'weight' => '4',
     'children' => array(
-      0 => 'field_reward',
-      1 => 'field_expiration_date',
-      2 => 'og_group_ref',
-      3 => 'field_request_circle',
-      4 => 'field_other_members',
+      0 => 'field_request_circle',
+      1 => 'group_oneliner2',
+      2 => 'group_oneliner1',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -953,7 +2186,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Target',
-    'weight' => '7',
+    'weight' => '5',
     'children' => array(
       0 => 'field_request_circle',
       1 => 'group_oneliner1',
@@ -990,12 +2223,9 @@ function ft_content_type_field_group_info() {
     'label' => 'Target',
     'weight' => '4',
     'children' => array(
-      0 => 'og_group_ref',
-      1 => 'field_expiration_date',
-      2 => 'field_reward',
-      3 => 'field_request_circle',
-      4 => 'field_pre_members',
-      5 => 'field_other_members',
+      0 => 'field_request_circle',
+      1 => 'group_oneliner',
+      2 => 'group_oneliner2',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1018,6 +2248,38 @@ function ft_content_type_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_testimony|user|user|default';
+  $field_group->group_name = 'group_testimony';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'default';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'My testimony',
+    'weight' => '4',
+    'children' => array(
+      0 => 'group_container_testimony',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'My testimony',
+      'instance_settings' => array(
+        'id' => '',
+        'classes' => 'profile-section profile-section-testimony field-group-div',
+        'description' => '',
+        'show_label' => '1',
+        'label_element' => 'h2',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_testimony|user|user|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_testimony|user|user|form';
   $field_group->group_name = 'group_testimony';
   $field_group->entity_type = 'user';
@@ -1032,13 +2294,12 @@ function ft_content_type_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'I wish to share my experience with emindhub',
+      'formatter' => 'collapsible',
       'instance_settings' => array(
-        'required_fields' => 1,
-        'classes' => 'group-testimony field-group-fieldset',
         'description' => '',
+        'classes' => '',
+        'required_fields' => 1,
       ),
-      'formatter' => 'collapsed',
     ),
   );
   $export['group_testimony|user|user|form'] = $field_group;
@@ -1183,9 +2444,8 @@ function ft_content_type_field_group_info() {
     'weight' => '1',
     'children' => array(
       0 => 'body',
-      1 => 'field_duration_of_the_mission',
-      2 => 'field_start_date',
-      3 => 'field_image',
+      1 => 'group_oneliner4',
+      2 => 'group_oneliner5',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1218,9 +2478,7 @@ function ft_content_type_field_group_info() {
     'label' => 'Who',
     'weight' => '3',
     'children' => array(
-      0 => 'field_use_my_entreprise',
-      1 => 'field_entreprise_description',
-      2 => 'field_anonymous',
+      0 => 'group_oneliner4',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1276,10 +2534,9 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Who',
-    'weight' => '6',
+    'weight' => '4',
     'children' => array(
-      0 => 'field_entreprise_description',
-      1 => 'group_oneliner',
+      0 => 'group_oneliner',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1312,9 +2569,7 @@ function ft_content_type_field_group_info() {
     'label' => 'Who',
     'weight' => '3',
     'children' => array(
-      0 => 'field_anonymous',
-      1 => 'field_use_my_entreprise',
-      2 => 'field_entreprise_description',
+      0 => 'group_oneliner1',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1333,6 +2588,93 @@ function ft_content_type_field_group_info() {
     ),
   );
   $export['group_who|node|webform|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_wrapper_self_appraisal|field_collection_item|field_skills_set|default';
+  $field_group->group_name = 'group_wrapper_self_appraisal';
+  $field_group->entity_type = 'field_collection_item';
+  $field_group->bundle = 'field_skills_set';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_row';
+  $field_group->data = array(
+    'label' => 'self appraisal wrapper',
+    'weight' => '9',
+    'children' => array(
+      0 => 'field_skill_autoeval',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'self appraisal wrapper',
+      'instance_settings' => array(
+        'classes' => 'group-wrapper-self-appraisal field-group-html-element  col-xs-12 col-md-2',
+        'element' => 'div',
+        'show_label' => '0',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_wrapper_self_appraisal|field_collection_item|field_skills_set|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_wrapper_skill|field_collection_item|field_skills_set|default';
+  $field_group->group_name = 'group_wrapper_skill';
+  $field_group->entity_type = 'field_collection_item';
+  $field_group->bundle = 'field_skills_set';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_row';
+  $field_group->data = array(
+    'label' => 'skill wrapper',
+    'weight' => '8',
+    'children' => array(
+      0 => 'field_skill2',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'skill wrapper',
+      'instance_settings' => array(
+        'classes' => 'group-wrapper-skill field-group-html-element col-xs-12 col-md-6',
+        'element' => 'div',
+        'show_label' => '0',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_wrapper_skill|field_collection_item|field_skills_set|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_wrapper_years|field_collection_item|field_skills_set|default';
+  $field_group->group_name = 'group_wrapper_years';
+  $field_group->entity_type = 'field_collection_item';
+  $field_group->bundle = 'field_skills_set';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_row';
+  $field_group->data = array(
+    'label' => 'Years of experiences wrapper',
+    'weight' => '10',
+    'children' => array(
+      0 => 'field_year_of_experiences',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Years of experiences wrapper',
+      'instance_settings' => array(
+        'classes' => 'group-wrapper-years field-group-html-element  col-xs-12 col-md-4',
+        'element' => 'div',
+        'show_label' => '0',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_wrapper_years|field_collection_item|field_skills_set|default'] = $field_group;
 
   return $export;
 }

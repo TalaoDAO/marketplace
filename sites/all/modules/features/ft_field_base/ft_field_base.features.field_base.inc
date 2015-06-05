@@ -150,7 +150,7 @@ function ft_field_base_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        0 => 'Use default settings',
+        0 => 'Use profile settings',
         1 => 'Display my full name',
         2 => 'Hide my full name',
       ),
@@ -269,7 +269,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_document',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
@@ -344,7 +344,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_duration_of_the_mission',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
@@ -1144,8 +1144,8 @@ function ft_field_base_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        0 => 'My reponse will be public',
-        1 => 'My response will be private',
+        0 => 'My response will be public',
+        1 => 'My response will be visible only by the seeker',
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
@@ -1315,7 +1315,7 @@ function ft_field_base_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        0 => 'Use default settings',
+        0 => 'Use profile settings',
         1 => 'Display the name',
         2 => 'Hide the name',
       ),
@@ -1903,7 +1903,7 @@ function ft_field_base_field_default_field_bases() {
     'settings' => array(
       'allowed_values' => array(
         0 => 'No description',
-        1 => 'Use the default description',
+        1 => 'Use the profile description',
         2 => 'Customize the description',
       ),
       'allowed_values_function' => '',
@@ -1974,6 +1974,36 @@ function ft_field_base_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'media',
+  );
+
+  // Exported field_base: 'field_working_field'
+  $field_bases['field_working_field'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_working_field',
+    'field_permissions' => array(
+      'owner_field' => 'Comment',
+      'type' => 0,
+    ),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => '',
+        1 => '',
+      ),
+      'allowed_values_function' => '',
+      'entity_translation_sync' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'list_boolean',
   );
 
   // Exported field_base: 'field_working_status'
