@@ -1,0 +1,82 @@
+<?php
+
+/**
+ * @file
+ * Install file for the pcp module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function pcp_uninstall() {
+  db_query("DELETE FROM {variable} WHERE name LIKE 'pcp_%%'");
+}
+
+/**
+ * Implements hook_update().
+ * Change schema and profile_pcp values for compatibility with Profile2.
+ */
+function pcp_update_7000($node) {
+  // Change Field ID (fid) column to Field Instance ID (fiid).
+  db_query("ALTER TABLE {profile_pcp} CHANGE fid fiid int(11) COMMENT 'Field Instance ID'");
+
+  // Get a result of the old values in {profile_pcp}.
+  $old_values = db_query("SELECT fiid FROM {profile_pcp}")->fetchAll();
+
+  // We must remove and then insert the new values. If we used db_update,
+  // we might run into overlapping values (by chance).
+  db_delete('profile_pcp')->execute();
+
+  // Loop through old fids and replace with corresponding fiids.
+  // We assume that all current rows contain fids where $entity_type
+  // and $bundle are 'user.' This means that each fid will have only
+  // one corresponding fiid.
+  foreach ($old_values as $key => $value) {
+    $field = field_info_field_by_id($value->fiid);
+    $instance = field_info_instance('user', $field['field_name'], 'user');
+
+    $query = db_insert('profile_pcp')
+      ->fields(array(
+        'fiid' => $instance['id'],
+      ))
+      ->execute();
+  }
+}
+
+/**
+ * We don't need a table to store our configuration.
+ * So move all settings to a variable.
+ */
+function pcp_update_7001() {
+  $fields = array();
+  $result = db_select('profile_pcp', 'pcp')->fields('pcp')->execute()->fetchAll();
+  foreach ($result as $row) {
+    $fields[] = $row->fiid;
+  }
+
+  variable_set('pcp_enabled_fields', $fields);
+  db_drop_table('profile_pcp');
+}
+
+/**
+ * Update the fields to use machine names.
+ */
+function pcp_update_7002() {
+  $enabled_fields = variable_get('pcp_enabled_fields', array());
+  $query = db_select('field_config_instance', 'fci');
+  $query->addField('fci', 'field_name', 'field_name');
+  $query->addField('fci', 'bundle', 'bundle');
+  $query->addField('fci', 'entity_type', 'entity_type');
+  $query->condition('fci.deleted', 0);
+  $query->condition('fci.entity_type', array('user', 'profile2'), 'IN');
+  $query->condition('fci.id', array_values($enabled_fields), 'IN');
+  $result = $query->execute();
+
+  $fields = array();
+  foreach ($result as $row) {
+    $field_identifier = $row->entity_type . ':' . $row->bundle . ':' . $row->field_name;
+    $fields[$field_identifier] = $field_identifier;
+  }
+
+  variable_set('pcp_enabled_fields', $fields);
+}

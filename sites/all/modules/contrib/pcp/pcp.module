@@ -1,0 +1,662 @@
+<?php
+
+/**
+ * @file
+ * Allows users with valid permissions to tag profile fields (core fields or
+ * Profile2 fields) for a users profile to be considered complete.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function pcp_theme($existing, $type, $theme, $path) {
+  return array(
+    'pcp_template' => array(
+      'template' => 'pcp-template',
+      'variables' => array('complete_data' => NULL),
+    ),
+  );
+}
+
+/**
+ * Implements hook_permission().
+ */
+function pcp_permission() {
+  return array(
+    'administer pcp' => array(
+      'title' => t('Administer Profile Complete Percentages'),
+      'description' => t('Allows a user to configure which fields to be considered complete.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function pcp_menu() {
+  $items['admin/config/people/pcp'] = array(
+    'title' => 'Profile Complete Percentages',
+    'description' => 'Tag profile fields as required for percent complete handling.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('pcp_admin_settings'),
+    'access arguments' => array('administer pcp'),
+    'file' => 'pcp.admin.inc',
+    'file path' => drupal_get_path('module', 'pcp') . '/includes',
+    'weight' => 10,
+  );
+
+  return $items;
+}
+
+/**
+* Implements hook_views_api().
+*/
+function pcp_views_api() {
+ return array(
+   'api' => 3,
+   'path' => drupal_get_path('module', 'pcp') . '/includes',
+ );
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function pcp_block_info() {
+
+  // Create block for core user profiles.
+  $blocks['pcp_profile_percent_complete'] = array(
+    'info' => t('Profile Complete Percentage - Core Profile'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  // Create a block for each profile2 profile type.
+  if ($profile2_entity = entity_get_info('profile2')) {
+    foreach ($profile2_entity['bundles'] as $bundle => $values) {
+      $block_name = _pcp_block_identifier($bundle);
+      $blocks[$block_name] = array(
+        'info' => t('Profile Complete Percentage - ' . $values['label']),
+        'cache' => DRUPAL_NO_CACHE,
+      );
+    }
+  }
+
+  return $blocks;
+}
+
+/**
+ * Helper function to retrieve the block identifier.
+ * Because block names cannot be longer than 32 characters, we
+ * make a md5 string if it's longer.
+ */
+function _pcp_block_identifier($bundle) {
+  $block_name = 'pcp_profile2_' . $bundle;
+  if (strlen($block_name) > 32) {
+    $block_name = md5($block_name);
+  }
+  return $block_name;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function pcp_block_view($delta = '') {
+  global $user;
+  $block = array();
+
+  // No need to render a block for anonymous users.
+  if (user_is_anonymous()) {
+    return;
+  }
+
+  //The $delta parameter tells us which block is being requested.
+  switch ($delta) {
+    case 'pcp_profile_percent_complete':
+
+      $out = pcp_get_complete_percentage_data('user', 'user', $user);
+      $hide = variable_get('pcp_hide_block_on_complete', 0);
+
+      $out['field_link_option'] = array('attributes' => array('target' => variable_get('pcp_fields_open_option', '_self')));
+
+      if (($hide && ($out['incomplete'] == 0)) || empty($out)) {
+        $subject = '';
+        $content = '';
+      }
+      else {
+        drupal_add_css(drupal_get_path('module', 'pcp') . '/css/pcp.theme.css');
+        $subject = t('Profile Complete');
+        $content = theme('pcp_template', $out);
+      }
+
+      $block['subject'] = $subject;
+      $block['content'] = $content;
+
+      break;
+
+    // Generate content for each profile2 profile type's pcp block.
+    default:
+
+      if ($profile2_entity = entity_get_info('profile2')) {
+        foreach ($profile2_entity['bundles'] as $bundle => $values) {
+          if ($delta == _pcp_block_identifier($bundle)) {
+
+            $out = pcp_get_complete_percentage_data('profile2', $bundle, $user);
+            $hide = variable_get('pcp_profile2_' . $bundle . '_hide_block_on_complete', 0);
+
+            $out['field_link_option'] = array('attributes' => array('target' => variable_get('pcp_fields_open_option', '_self')));
+
+            // If the block should be hidden, hide it.
+            if (($hide && ($out['incomplete'] == 0)) || empty($out)) {
+              $content = '';
+            }
+            else {
+              drupal_add_css(drupal_get_path('module', 'pcp') . '/css/pcp.theme.css');
+              $content = theme('pcp_template', $out);
+            }
+
+            $block['subject'] = t('Profile Complete Percentage - @label', array('@label' => $values['label']));
+            $block['content'] = $content;
+          }
+        }
+      }
+      break;
+  }
+
+  return $block;
+}
+
+/**
+ * Get the profile complete percentage data for a given user.
+ *
+ * @param $user
+ *   User object
+ *
+ * @return
+ *   PCP data array.
+ */
+function pcp_get_complete_percentage_data($entity_type, $bundle, $user) {
+  $entity_fields = field_info_instances($entity_type, $bundle);
+
+  // Determine which fields have been tagged for evaluation.
+  $profile_fields = pcp_get_tagged_profile_fields($entity_type, $bundle, NULL);
+  $additional_fields = pcp_get_additional_tagged_fields(NULL, $entity_type, $bundle);
+  $fields = $profile_fields + $additional_fields;
+
+  // Restrict profile completeness for fields the user don't have access to.
+  // Access rules are provided by user role field module.
+  if (module_exists('user_role_field')) {
+    $user_roles = array_keys($user->roles);
+    $fields = _pcp_check_user_field_access($fields, $user_roles);
+  }
+
+  // We need to define these values here in case $data is returned early.
+  $data = array();
+  $data['entity_type'] = $entity_type;
+  $data['bundle'] = $bundle;
+  $data['uid'] = $user->uid;
+
+  // If no fields have been tagged, indicate that the profile is complete.
+  if (!$fields) {
+    $data['current_percent'] = 100;
+    $data['incomplete'] = 0;
+    return $data;
+  }
+
+  // Gather all profile values for this user.
+  $user_profile_values = pcp_get_user_profile_values($user->uid, $entity_type, $bundle);
+  $user_additional_values = pcp_get_user_additional_values($user->uid, $entity_type, $bundle);
+  $user_values = $user_profile_values + $user_additional_values;
+
+  // Enumerate empty fields by comparing tagged fields to user profile values.
+  $empty_fields = array();
+  foreach ($fields as $field_name) {
+    if (empty($user_values[$field_name])) {
+      $empty_fields[$field_name] = $field_name;
+    }
+  }
+
+  // If there is one empty field or more.
+  if ($empty_fields) {
+    $profile_fields_order_value = variable_get('pcp_fields_order', '0');
+
+    // Pick up a random field, we won't use shuffle because it
+    // re-indexes the array keys
+    if ($profile_fields_order_value == 0) {
+      $field_name = array_rand($empty_fields);
+    }
+    else {
+      // Assign any higher value.
+      $old_field_instance_weight = '999';
+      foreach ($empty_fields as $key => $user_field_name) {
+        $field_instance = field_info_instance('user', $user_field_name, 'user');
+        $field_instance_weight = $field_instance['widget']['weight'];
+        if ($field_instance_weight < $old_field_instance_weight) {
+          $field_name = $user_field_name;
+          $old_field_instance_weight = $field_instance_weight;
+        }
+      }
+    }
+
+    if ($field_name == 'user_picture') {
+      $field = array(
+        'fiid' => 'user_picture',
+        'title' => 'User Picture',
+        'name' => 'picture_upload',
+      );
+      $field_title = t($field['title']);
+    }
+    else {
+      $field_title = $entity_fields[$field_name]['label'];
+      if (module_exists('i18n_field') && !empty($field_title)) {
+        $field_title = i18n_field_translate_property($entity_fields[$field_name], 'label');
+      }
+    }
+
+    $data['nextfield_title'] = $field_title;
+    $data['nextfield_name'] = $field_name;
+  }
+
+  $fields_count = count($fields);
+  $empty_fields_count = count($empty_fields);
+
+  $completed_fields = $fields_count - $empty_fields_count;
+  $current_percent = number_format(($completed_fields / $fields_count), 2) * 100;
+  $next_percent = number_format((($completed_fields + 1) / $fields_count), 2) * 100;
+
+  $data['completed']  = $completed_fields;
+  $data['incomplete'] = $empty_fields_count;
+  $data['total'] = $fields_count;
+
+  $data['current_percent'] = $current_percent;
+  $data['next_percent'] = $next_percent;
+
+  return $data;
+}
+
+/**
+ * Get all the profile fields stored in the system, tagged or not tagged.
+ */
+function pcp_get_profile_fields($params) {
+  $instances = field_read_instances($params);
+  $fields = array();
+  foreach ($instances as $instance) {
+    $fields[$instance['entity_type'] . ':' . $instance['bundle'] . ':' . $instance['field_name']] = $instance['field_name'];
+  }
+  return $fields;
+}
+
+/**
+ * Get all the profile fields that have been tagged.
+ * If an $fiid is passed in, only the data for that field will be returned.
+ *
+ * @param $fiid
+ *   (optional) NULL The field instance id of the field data should be returned for. If null, all fields
+ *   are returned.
+ * @param $entity_type
+ *   (optional) NULL The type of entity to return fields for.
+ * @param $bundle
+ *   (optional) NULL The bundle to return fields for.
+ *
+ * @return
+ *   field identifier (entity_type:bundle:field_name) and name(s).
+ */
+function pcp_get_tagged_profile_fields($entity_type = NULL, $bundle = NULL, $field_name = NULL) {
+  $enabled_fields = variable_get('pcp_enabled_fields', array());
+  if (empty($enabled_fields)) {
+    return array();
+  }
+
+  $query = db_select('field_config_instance', 'fci');
+  $query->addField('fci', 'field_name', 'field_name');
+  $query->condition('fci.deleted', 0);
+
+  $or = db_or();
+  foreach ($enabled_fields as $enabled_field_identifier) {
+    $enabled_field_name_elements = explode(':', $enabled_field_identifier);
+    if (count($enabled_field_name_elements) > 2) {
+      $or->condition('fci.field_name', $enabled_field_name_elements[2]);
+    }
+  }
+  $query->condition($or);
+
+  if (isset($entity_type)) {
+    $query->condition('entity_type', $entity_type);
+  }
+
+  if (isset($bundle)) {
+    $query->condition('bundle', $bundle);
+  }
+
+  if (isset($field_name)) {
+    $query->condition('field_name', $field_name);
+  }
+
+  $result = $query->execute();
+
+  $fields = array();
+  foreach ($result as $row) {
+    $fields[$entity_type . ':' . $bundle . ':' . $row->field_name] = $row->field_name;
+  }
+
+  return $fields;
+}
+
+/**
+ * Get all additional tagged fields that where not created
+ * using the profile module. This allows additional PCP
+ * support for other drupal features.
+ */
+function pcp_get_additional_tagged_fields($uid, $entity_type, $bundle = NULL) {
+  $fields = array();
+
+  // Enable user picture support.
+  if ($entity_type == 'user' && variable_get('pcp_enable_user_picture', 0)) {
+    $fields['user_picture'] = 'user_picture';
+  }
+
+  return $fields;
+}
+
+/**
+ * Return a users profile field values that have been saved
+ * for a given user.
+ *
+ * @param int $uid
+ *   The uid of the user we are returning data for.
+ * @param $entity_type
+ *   The type of entity to return fields for.
+ * @param $bundle
+ *   (optional) NULL The bundle to return fields for
+ *
+ * @return assoc array of all profile fields for the user.
+ */
+function pcp_get_user_profile_values($uid, $entity_type, $bundle = NULL) {
+  $fields = field_info_instances($entity_type, $bundle);
+  // Make sure the user info is fresh and not cached.
+  $user = user_load($uid, TRUE);
+  $user_fields = array();
+
+  // Grab profile values from core profile fields.
+  if ($entity_type == 'user') {
+    foreach ($fields as $field) {
+      $user_fields[$field['field_name']] = $user->$field['field_name'];
+    }
+  }
+
+  // If user has profile2 profile, grab values from it.
+  elseif ($entity_type == 'profile2' && $profile = profile2_load_by_user($user, $bundle)) {
+    foreach ($fields as $field_name => $field_values) {
+      if (isset($profile->$field_name) && $field = $profile->$field_name) {
+        foreach ($field['und'][0] as $value) {
+          if (!is_null($value)) {
+            $user_fields[$field_name] = $field['und'][0];
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  // Note, entity type user will return empty fields, whereas entity type
+  // profile2 will only return non-empty fields.
+  return $user_fields;
+}
+
+/**
+ * Return a users additional field values that have been saved
+ * for a given user.
+ *
+ * @param int $uid
+ *   The uid of the user we are returning data for.
+ * @param $entity_type
+ *   The type of entity to return fields for.
+ * @param $bundle
+ *   (optional) NULL The bundle to return fields for
+ *
+ * @return assoc array of all profile fields for the user.
+ */
+function pcp_get_user_additional_values($uid, $entity_type, $bundle = NULL) {
+  $values = array();
+
+  if ($uid && $entity_type == 'user') {
+    $account = user_load($uid);
+    $values['user_picture'] = $account->picture;
+  }
+
+  return $values;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ * Form builder; Configure PCP fields for profile2 profile types.
+ */
+function pcp_form_profile2_type_form_alter(&$form, &$form_state, $form_id) {
+  form_load_include($form_state, 'inc', 'pcp', 'includes/pcp.admin');
+
+  $bundle = $form['type']['#default_value'];
+
+  $form['profile_complete'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Profile Complete Settings',
+  );
+
+  $form['profile_complete']['hide_block_on_complete'] = array(
+    '#type' => 'checkbox',
+    '#title' => 'Hide Block When Complete',
+    '#default_value' => variable_get('pcp_profile2_' . $bundle . '_hide_block_on_complete', 0),
+    '#description' => t('When a user reaches 100% complete of their profile, do you want the profile complete percent block to go away? If so, check this box on.'),
+  );
+
+  $options = array();
+  $settings = pcp_admin_settings_form_data('profile2', $bundle);
+
+  foreach ($settings['profile_fields_options'] as $fiid => $field_name) {
+    $field_info = field_info_instance('profile2', $field_name, $bundle);
+    $options[$fiid] = $field_info['label'];
+  }
+
+  $form['profile_complete']['profile_fields'] = array(
+    '#title' => t('Profile Fields'),
+    '#description' => empty($options) ? t('There are no fields enabled for this profile type. Please <a href="@link">add some profile fields</a> first.', array('@link' => url('admin/structure/profiles/manage/' . $bundle . '/fields'))) : t('Checking a profile field below will add that field to the logic of the complete percentage.'),
+    '#type' => 'checkboxes',
+    '#options' => $options,
+    '#default_value' => array_flip($settings['default_values']),
+  );
+
+  $form['#submit'][] = 'pcp_admin_settings_submit';
+
+  return $form;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function pcp_form_user_admin_settings_alter(&$form, &$form_state) {
+  form_load_include($form_state, 'inc', 'pcp', 'includes/pcp.admin');
+  if (user_access('administer pcp')) {
+    $form['personalization']['pictures']['pcp_enable_user_picture'] = array(
+      '#title' => 'Make required for PCP module',
+      '#type' => 'checkbox',
+      '#default_value' => variable_get('pcp_enable_user_picture', 0),
+      '#description' => t('Checking this box will tag this field as a required field for completion of the users profile.'),
+      '#weight' => -5,
+    );
+    $form['#submit'][] = 'pcp_admin_settings_submit';
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function pcp_form_field_ui_field_edit_form_alter(&$form, &$form_state) {
+  form_load_include($form_state, 'inc', 'pcp', 'includes/pcp.admin');
+
+  // @todo do we need user access check here?
+
+  if ($form['#instance']['entity_type'] == 'profile2') {
+    $tag = FALSE;
+    $result = pcp_get_tagged_profile_fields($form['#instance']['entity_type'], $form['#instance']['bundle'], $form['#instance']['field_name']);
+    if (!empty($result)) {
+      $tag = TRUE;
+    }
+
+    $form['instance']['pcp_tag'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Make required for PCP module'),
+      '#description' => t('Checking this box will tag this field as a required field for completion of the users profile.'),
+      '#default_value' => $tag,
+      '#weight' => -5,
+    );
+    $form['#submit'][] = 'pcp_admin_settings_submit';
+
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ * We need an extra submit handler to delete the PCP field settings when a field is deleted
+ */
+function pcp_form_field_ui_field_delete_form_alter(&$form, &$form_state) {
+  if (in_array($form['entity_type']['#value'], array('profile2', 'user'))) {
+    $form['#submit'] = array_merge(array('pcp_delete_field_requireness'), $form['#submit']);
+  }
+}
+
+/**
+ * Called when a user deletes a profile field
+ * We then need to delete the pcp value too
+ */
+function pcp_delete_field_requireness($form, &$form_state) {
+  _pcp_disable_field($form_state['values']['entity_type'], $form_state['values']['field_name'], $form_state['values']['bundle']);
+}
+
+/**
+ * Implements hook_form_alter()
+ */
+function pcp_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'user_profile_form' || strpos($form_id, 'profile2_edit') === 0) {
+    // Add JS that will hightlight target field.
+    drupal_add_js(drupal_get_path('module', 'pcp') . '/pcp.js');
+  }
+}
+
+/**
+ * Process variables for pcp-template.tpl.php.
+ *
+ * @see pcp-template.tpl.php
+ */
+function template_preprocess_pcp_template(&$variables) {
+  if (isset($variables['nextfield_name'])) {
+    // Generate URL to edit next field for core user profile.
+    if ($variables['entity_type'] == 'user') {
+      $input_name = 'edit-' . str_replace('_', '-', $variables['nextfield_name']);
+      $user_edit_path = 'user/' . $variables['uid'] . '/edit';
+      $variables['next_path'] = url($user_edit_path, array('absolute' => TRUE, 'fragment' => $input_name));
+    }
+
+    // Generate URL to edit next field for profile2 profile.
+    elseif ($variables['entity_type'] == 'profile2') {
+      $bundle = $variables['bundle'];
+      $input_name = 'edit-profile-' . str_replace('_', '-', $bundle) . '-' . str_replace('_', '-', $variables['nextfield_name']);
+
+      // Determine correct 'edit path' for profile2 profile type.
+      $old_profile_edit_path = 'profile-' . $bundle . '/' . $variables['uid'] . '/edit';
+      $new_profile_edit_path = 'user/' . $variables['uid'] . '/edit/' . $bundle;
+      $profile_edit_path = drupal_valid_path($old_profile_edit_path) ? $old_profile_edit_path : $new_profile_edit_path;
+
+      $variables['next_path'] = url($profile_edit_path, array('absolute' => TRUE, 'fragment' => $input_name));
+    }
+  }
+}
+
+function _pcp_disable_field($entity_type, $bundle, $field_name) {
+  $enabled_fields = variable_get('pcp_enabled_fields', array());
+  $field_identifier = implode(':', array($entity_type, $bundle, $field_name));
+  if (in_array($field_identifier, $enabled_fields)) {
+    $key = array_search($field_identifier, $enabled_fields);
+    unset($enabled_fields[$field_identifier]);
+    variable_set('pcp_enabled_fields', $enabled_fields);
+    return TRUE;
+  }
+  return FALSE;
+}
+
+function _pcp_enable_field($entity_type, $bundle, $field_name) {
+  $enabled_fields = variable_get('pcp_enabled_fields', array());
+  $field_identifier = implode(':', array($entity_type, $bundle, $field_name));
+  if (!in_array($field_identifier, $enabled_fields)) {
+    $enabled_fields[$field_identifier] = $field_identifier;
+    variable_set('pcp_enabled_fields', $enabled_fields);
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * Get array of available pcp bundles.
+ */
+function pcp_get_bundles($filter = 'all') {
+  static $bundles = array();
+
+  if (empty($bundles)) {
+    // Add core user profile.
+    if ($filter != 'profile2') {
+      $bundles['user'] = 'user';
+    }
+    // Add profile2 types.
+    if ($profile2_entity = entity_get_info('profile2')) {
+      foreach ($profile2_entity['bundles'] as $bundle => $values) {
+        $bundles['profile2'] = $bundle;
+      }
+    }
+  }
+  return $bundles;
+}
+
+/**
+ * Implements hook_user_login().
+ */
+function pcp_user_login(&$edit, $account) {
+  // Default message, if user is not set any message.
+  $pcp_login_message = variable_get('pcp_login_message', '');
+  if (!empty($pcp_login_message)) {
+    $current_user_roles = array_keys($account->roles);
+    $user_roles = array_values(variable_get('pcp_login_message_role', array()));
+    $check_user_role = array_intersect($current_user_roles, $user_roles);
+
+    if (!empty($check_user_role)) {
+      $pcp_data = pcp_get_complete_percentage_data('user', 'user', $account);
+      if ($pcp_data['current_percent'] < 100) {
+        $current_user_object['user'] = $account;
+        $pcp_login_message = token_replace($pcp_login_message, $current_user_object);
+        drupal_set_message($pcp_login_message, 'warning');
+      }
+
+    }
+  }
+}
+
+/**
+ * Check is the user has access to the field.
+ *
+ * @param  Array $fields
+ *   Field names which are used in complete profile.
+ *
+ * @return Array
+ *   Field names after removing user restricted fields.
+ */
+function _pcp_check_user_field_access($fields, $user_roles) {
+  foreach ($fields as $field_key => $field_name) {
+    $user_field_info = field_info_field($field_name);
+
+    // Get list of user field access by user_role_field module.
+    if (isset($user_field_info['settings']['user_role_field'])) {
+      $user_field_access = $user_field_info['settings']['user_role_field'];
+      $user_access_roles = array_intersect($user_field_access, $user_roles);
+      if (empty($user_access_roles)) {
+        unset($fields[$field_key]);
+      }
+    }
+  }
+
+  return $fields;
+}

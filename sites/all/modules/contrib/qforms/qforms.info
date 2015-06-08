@@ -1,0 +1,24 @@
+name = Qforms
+description = Quick creation of custom forms like surveys, questionnaires, etc.
+core = 7.x
+
+files[] = qforms.module
+files[] = qforms.inc
+files[] = qforms.install
+files[] = qforms.pages.inc
+files[] = qforms.pages_export.inc
+files[] = qforms.theme.inc
+files[] = tests/qforms.test
+files[] = inc/qforms.checkboxes.inc
+files[] = inc/qforms.options.inc
+files[] = inc/qforms.radios.inc
+files[] = inc/qforms.select.inc
+files[] = inc/qforms.textarea.inc
+files[] = inc/qforms.textfield.inc
+
+; Information added by drupal.org packaging script on 2011-03-26
+version = "7.x-1.0-beta1"
+core = "7.x"
+project = "qforms"
+datestamp = "1301149869"
+

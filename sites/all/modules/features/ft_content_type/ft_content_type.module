@@ -1,7 +1,271 @@
-<?php
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<meta content='GitLab Community Edition' name='description'>
+<title>
+emindhub/sites/all/modules/features/ft_content_type/ft_content_type.module at master - Yoann Babel / emindhub | 
+GitLab
+</title>
+<link href="/assets/favicon-baaa14bade1248aa6165e9d34e7d83c0.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+<link href="/assets/application-2ac58be704fef592dcfa8a14124e2688.css" media="all" rel="stylesheet" />
+<link href="/assets/print-1df3ea9b8ff148a6745321899e0cb213.css" media="print" rel="stylesheet" />
+<script src="/assets/application-5f3c67da81199dd3da676a30746cf17f.js"></script>
+<meta content="authenticity_token" name="csrf-param" />
+<meta content="mJv0IOS5D3OYzeFqOUj3Ui0ETsYSFZYQ5TBLG27H/yg=" name="csrf-token" />
+<script type="text/javascript">
+//<![CDATA[
+window.gon={};gon.default_issues_tracker="gitlab";gon.api_version="v3";gon.relative_url_root="";gon.default_avatar_url="http://gitemindhub/assets/no_avatar-adffbfe10d45b20495cd2a9b88974150.png";gon.current_user_id=8;gon.api_token="tjV2QssUejpneZEouTVp";
+//]]>
+</script>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+
+
+</head>
+
+<body class='ui_mars dark_theme project' data-page='projects:blob:show' data-project-id='3'>
+
+<header class='navbar navbar-fixed-top navbar-gitlab'>
+<div class='navbar-inner'>
+<div class='container'>
+<div class='app_logo'>
+<a class="home has_bottom_tooltip" href="/" title="Dashboard"><h1>GITLAB</h1>
+</a></div>
+<h1 class='title'><span><a href="/u/yoann.babel">Yoann Babel</a> / <a href="/yoann.babel/emindhub">emindhub</a></span></h1>
+<button class='navbar-toggle' data-target='.navbar-collapse' data-toggle='collapse' type='button'>
+<span class='sr-only'>Toggle navigation</span>
+<i class='fa fa-bars'></i>
+</button>
+<div class='navbar-collapse collapse'>
+<ul class='nav navbar-nav'>
+<li class='hidden-sm hidden-xs'>
+<div class='search'>
+<form accept-charset="UTF-8" action="/search" class="navbar-form pull-left" method="get"><div style="display:none"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+<input class="search-input" id="search" name="search" placeholder="Search in this project" type="search" />
+<input id="group_id" name="group_id" type="hidden" />
+<input id="project_id" name="project_id" type="hidden" value="3" />
+<input id="search_code" name="search_code" type="hidden" value="true" />
+<input id="repository_ref" name="repository_ref" type="hidden" value="master" />
+
+<div class='search-autocomplete-opts hide' data-autocomplete-path='/search/autocomplete' data-autocomplete-project-id='3' data-autocomplete-project-ref='master'></div>
+</form>
+
+</div>
+<script>
+  $('.search-input').on('keyup', function(e) {
+    if (e.keyCode == 27) {
+      $('.search-input').blur()
+    }
+  })
+</script>
+
+</li>
+<li class='visible-sm visible-xs'>
+<a class="has_bottom_tooltip" data-original-title="Search area" href="/search" title="Search"><i class='fa fa-search'></i>
+</a></li>
+<li>
+<a class="has_bottom_tooltip" data-original-title="Help" href="/help" title="Help"><i class='fa fa-question-circle'></i>
+</a></li>
+<li>
+<a class="has_bottom_tooltip" data-original-title="Public area" href="/explore" title="Explore"><i class='fa fa-globe'></i>
+</a></li>
+<li>
+<a class="has_bottom_tooltip" data-original-title="My snippets" href="/s/laetitia.debruyne" title="My snippets"><i class='fa fa-clipboard'></i>
+</a></li>
+<li>
+<a class="has_bottom_tooltip" data-original-title="New project" href="/projects/new" title="New project"><i class='fa fa-plus'></i>
+</a></li>
+<li>
+<a class="has_bottom_tooltip" data-original-title="Profile settings&quot;" href="/profile" title="Profile settings"><i class='fa fa-user'></i>
+</a></li>
+<li>
+<a class="has_bottom_tooltip" data-method="delete" data-original-title="Logout" href="/users/sign_out" rel="nofollow" title="Logout"><i class='fa fa-sign-out'></i>
+</a></li>
+<li class='hidden-xs'>
+<a class="profile-pic" href="/u/laetitia.debruyne" id="profile-pic"><img alt="User activity" src="/assets/no_avatar-adffbfe10d45b20495cd2a9b88974150.png" />
+</a></li>
+</ul>
+</div>
+</div>
+</div>
+</header>
+
+
+<script>
+  GitLab.GfmAutoComplete.dataSource = "/yoann.babel/emindhub/autocomplete_sources?type=NilClass&type_id=master%2Fsites%2Fall%2Fmodules%2Ffeatures%2Fft_content_type%2Fft_content_type.module"
+  GitLab.GfmAutoComplete.setup();
+</script>
+
+<div class='page-with-sidebar'>
+<div class='sidebar-wrapper'>
+<ul class='project-navigation nav nav-sidebar'>
+<li class="home"><a class="shortcuts-project" href="/yoann.babel/emindhub" title="Project"><i class='fa fa-dashboard'></i>
+<span>
+Project
+</span>
+</a></li><li class="active"><a class="shortcuts-tree" href="/yoann.babel/emindhub/tree/master"><i class='fa fa-files-o'></i>
+<span>
+Files
+</span>
+</a></li><li class=""><a class="shortcuts-commits" href="/yoann.babel/emindhub/commits/master"><i class='fa fa-history'></i>
+<span>
+Commits
+</span>
+</a></li><li class=""><a class="shortcuts-network" href="/yoann.babel/emindhub/network/master"><i class='fa fa-code-fork'></i>
+<span>
+Network
+</span>
+</a></li><li class=""><a class="shortcuts-graphs" href="/yoann.babel/emindhub/graphs/master"><i class='fa fa-area-chart'></i>
+<span>
+Graphs
+</span>
+</a></li><li class=""><a class="shortcuts-issues" href="/yoann.babel/emindhub/issues"><i class='fa fa-exclamation-circle'></i>
+<span>
+Issues
+<span class='count issue_counter'>56</span>
+</span>
+</a></li><li class=""><a class="shortcuts-merge_requests" href="/yoann.babel/emindhub/merge_requests"><i class='fa fa-tasks'></i>
+<span>
+Merge Requests
+<span class='count merge_counter'>0</span>
+</span>
+</a></li><li class=""><a class="shortcuts-wiki" href="/yoann.babel/emindhub/wikis/home"><i class='fa fa-book'></i>
+<span>
+Wiki
+</span>
+</a></li></ul>
+
+</div>
+<div class='content-wrapper'>
+<div class='container-fluid'>
+<div class='content'>
+<div class='flash-container'>
+</div>
+
+<div class='clearfix'>
+<div class='tree-ref-holder'>
+<form accept-charset="UTF-8" action="/yoann.babel/emindhub/refs/switch" class="project-refs-form" method="get"><div style="display:none"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+<select class="project-refs-select select2 select2-sm" id="ref" name="ref"><optgroup label="Branches"><option selected="selected" value="master">master</option></optgroup><optgroup label="Tags"></optgroup></select>
+<input id="destination" name="destination" type="hidden" value="blob" />
+<input id="path" name="path" type="hidden" value="sites/all/modules/features/ft_content_type/ft_content_type.module" />
+</form>
+
+
+</div>
+<div class='tree-holder' id='tree-holder'>
+<ul class='breadcrumb repo-breadcrumb'>
+<li>
+<i class='fa fa-angle-right'></i>
+<a href="/yoann.babel/emindhub/tree/master">emindhub
+</a></li>
+<li>
+<a href="/yoann.babel/emindhub/tree/master/sites">sites</a>
+</li>
+<li>
+<a href="/yoann.babel/emindhub/tree/master/sites/all">all</a>
+</li>
+<li>
+<a href="/yoann.babel/emindhub/tree/master/sites/all/modules">modules</a>
+</li>
+<li>
+<a href="/yoann.babel/emindhub/tree/master/sites/all/modules/features">features</a>
+</li>
+<li>
+<a href="/yoann.babel/emindhub/tree/master/sites/all/modules/features/ft_content_type">ft_content_type</a>
+</li>
+<li>
+<a href="/yoann.babel/emindhub/blob/master/sites/all/modules/features/ft_content_type/ft_content_type.module"><strong>
+ft_content_type.module
+</strong>
+</a></li>
+</ul>
+<ul class='blob-commit-info bs-callout bs-callout-info hidden-xs'>
+<li class='commit js-toggle-container'>
+<div class='commit-row-title'>
+<a class="commit_short_id" href="/yoann.babel/emindhub/commit/f57ffe755638f7fc311cfba89a2078bae94ed363">f57ffe75</a>
+&nbsp;
+<span class='str-truncated'>
+<a class="commit-row-message" href="/yoann.babel/emindhub/commit/f57ffe755638f7fc311cfba89a2078bae94ed363">BIGGER feature update :</a>
+<a class='text-expander js-toggle-button'>...</a>
+</span>
+<a class="pull-right" href="/yoann.babel/emindhub/tree/f57ffe755638f7fc311cfba89a2078bae94ed363">Browse Code »</a>
+<div class='notes_count'>
+</div>
+</div>
+<div class='commit-row-description js-toggle-content'>
+<pre>cleanup&#x000A;directory change&#x000A;split in more atomic features&#x000A;add some module for the new fields in profile (link &amp; user registration</pre>
+</div>
+<div class='commit-row-info'>
+<a class="commit-author-link has_tooltip" data-original-title="ybabel@free.fr" href="mailto:ybabel@free.fr"><img alt="" class="avatar s16" src="/assets/no_avatar-adffbfe10d45b20495cd2a9b88974150.png" width="16" /> <span class="commit-author-name">Administrator</span></a>
+<div class='committed_ago'>
+<time class='time_ago' data-placement='top' data-toggle='tooltip' datetime='2015-03-09T22:18:45Z' title='Mar 09, 2015 11:18pm'>2015-03-09 23:18:45 +0100</time>
+<script>$('.time_ago').timeago().tooltip()</script>
+ &nbsp;
+</div>
+</div>
+</li>
+
+</ul>
+<div class='tree-content-holder' id='tree-content-holder'>
+<article class='file-holder'>
+<div class='file-title clearfix'>
+<i class='fa fa-file'></i>
+<span class='file_name'>
+ft_content_type.module
+<small>110 Bytes</small>
+</span>
+<span class='options hidden-xs'><div class='btn-group tree-btn-group'>
+<span class="btn btn-small disabled">Edit</span>
+<a class="btn btn-small" href="/yoann.babel/emindhub/raw/master/sites/all/modules/features/ft_content_type/ft_content_type.module" target="_blank">Raw</a>
+<a class="btn btn-small" href="/yoann.babel/emindhub/blame/master/sites/all/modules/features/ft_content_type/ft_content_type.module">Blame</a>
+<a class="btn btn-small" href="/yoann.babel/emindhub/commits/master/sites/all/modules/features/ft_content_type/ft_content_type.module">History</a>
+<a class="btn btn-small" href="/yoann.babel/emindhub/blob/53b708ba7a40b598c372ea3984de6d8f95546b83/sites/all/modules/features/ft_content_type/ft_content_type.module">Permalink</a>
+</div>
+</span>
+</div>
+<div class='file-content code'>
+<div class='highlighted-data white'>
+<div class='line-numbers'>
+<a href="#L1" id="L1" rel="#L1"><i class='fa fa-link'></i>
+1
+</a><a href="#L2" id="L2" rel="#L2"><i class='fa fa-link'></i>
+2
+</a><a href="#L3" id="L3" rel="#L3"><i class='fa fa-link'></i>
+3
+</a><a href="#L4" id="L4" rel="#L4"><i class='fa fa-link'></i>
+4
+</a><a href="#L5" id="L5" rel="#L5"><i class='fa fa-link'></i>
+5
+</a><a href="#L6" id="L6" rel="#L6"><i class='fa fa-link'></i>
+6
+</a><a href="#L7" id="L7" rel="#L7"><i class='fa fa-link'></i>
+7
+</a></div>
+<div class='highlight'>
+<pre><code class='ft_content_type.module'>&lt;?php
 /**
  * @file
  * Code for the FT Content Type feature.
  */
 
 include_once 'ft_content_type.features.inc';
+</code></pre>
+</div>
+</div>
+
+</div>
+
+</article>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+</body>
+</html>

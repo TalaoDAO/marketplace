@@ -1,0 +1,278 @@
+<?php
+
+define('ONECOMMENT_HIDE_FORM', 1);
+define('ONECOMMENT_USE_FORM', 2);
+
+/**
+ * Implements hook_permission().
+ */
+function onecomment_permission() {
+  return array(
+    'post multiple comments on nodes' => array(
+      'title' => t('Post multiple comments on nodes'),
+      'description' => t('Allows users to post more than one comment on each node.'),
+    )
+  );
+}
+
+/**
+ * Implements hook_forms().
+ *
+ * Add our own form that calls the comment form, so that the original comment
+ * form isn't submitted.
+ */
+function onecomment_forms() {
+  $forms = array();
+  foreach (node_type_get_types() as $type) {
+    $forms["onecomment_comment_node_{$type->type}_form"]['callback'] = 'comment_form';
+  }
+  return $forms;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function onecomment_form_comment_form_alter(&$form, &$form_state) {
+  // Skip going further if user can post multiple comments.
+  if (user_access('post multiple comments on nodes')) {
+    return;
+  }
+
+  $node =  $form['#node'];
+  if ($mode = variable_get('onecomment_' . $node->type)) {
+    $comment = $form_state['build_info']['args'][0];
+    // comment ID is present, so we know we've already posted a comment
+    // (assuming our form was built with our comment passed to it).
+    if (!empty($comment->cid)) {
+      $msg = variable_get('onecomment_denied_msg_' . $node->type);
+      switch ($mode) {
+        // Show the user's comment within the form if we're set to.
+        case ONECOMMENT_USE_FORM :
+          // Lock the form if we can't edit it though.
+          if (!comment_access('edit', $comment)) {
+            $form['actions']['#access'] = FALSE;
+            foreach (element_children($form) as $key) {
+              $form[$key]['#disabled'] = TRUE;
+            }
+          }
+          break;
+        // Don't show the form at all, if set to that mode.
+        case ONECOMMENT_HIDE_FORM :
+          if (empty($msg)) {
+            $form['#access'] = FALSE;
+          }
+          else {
+            // We can't set #access to FALSE on the form itself, since we want
+            // to show the message.
+            foreach (element_children($form) as $key) {
+              $form[$key]['#access'] = FALSE;
+            }
+          }
+          break;
+      }
+      if (!empty($msg)) {
+        $form['onecomment'] = array(
+          '#markup' => filter_xss_admin($msg),
+          '#weight' => 20,
+        );
+      }
+    }
+
+    // Add a validation function just to make sure for any cases we don't handle
+    // directly (e.g. custom comment forms).
+    if (empty($form['#validate'])) {
+      $form['#validate'] = array('comment_form_validate');
+    }
+    $form['#validate'][] = 'onecomment_comment_form_validate';
+  }
+}
+
+/**
+ * Comment form validator to ensure additional comments aren't added by users.
+ */
+function onecomment_comment_form_validate($form, &$form_state) {
+  $values = $form_state['values'];
+  $node = $form['#node'];
+  if (variable_get('onecomment_' . $node->type) && !empty($values['nid'])) {
+    // uid isn't actually the user ID.
+    $uid = $values['uid'];
+    if (!$values['is_anonymous'] && !empty($values['name']) && ($account = user_load_by_name($values['name']))) {
+      $uid = $account->uid;
+    }
+    if ($comment = onecomment_get_comment($values['nid'], $uid)) {
+      if (empty($values['cid']) || $values['cid'] != $comment->cid) {
+        form_error($form['cid'], variable_get('onecomment_denied_msg_' . $node->type, t('You have already added a comment.')));
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_node_view().
+ *
+ * Replaces the add comment form if enabled and user has already made a comment,
+ * so they instead edit their existing comment.
+ */
+function onecomment_node_view($node, $view_mode, $langcode) {
+  if (variable_get('onecomment_show_comments_' . $node->type, 1) == FALSE) {
+    $node->content['comments']['comments']['#access'] = FALSE;
+  }
+
+  // Skip going further if user can post multiple comments.
+  if (user_access('post multiple comments on nodes')) {
+    return;
+  }
+
+  if (!empty($node->content['comments']['comment_form']) && ($mode = variable_get('onecomment_' . $node->type))) {
+    // Load this user's comment.
+    if ($comment = onecomment_get_comment($node->nid)) {
+      switch ($mode) {
+        case ONECOMMENT_USE_FORM :
+          $node->content['comments']['comment_form'] = drupal_get_form("onecomment_comment_node_{$node->type}_form", $comment);
+          break;
+        case ONECOMMENT_HIDE_FORM :
+          unset($node->content['comments']['comment_form']);
+          if ($msg = variable_get('onecomment_denied_msg_' . $node->type)) {
+            $node->content['comments']['onecomment'] = array(
+              '#markup' => filter_xss_admin($msg),
+              '#weight' => 20,
+            );
+          }
+          break;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_ctools_plugin_pre_alter().
+ *
+ * Swaps out the render function for CTools' standard comment form for our own
+ * that builds the comment form for the user's comment.
+ */
+function onecomment_ctools_plugin_post_alter(&$definition, &$info) {
+  if ($definition['name'] == 'node_comment_form' && $definition['module'] == 'ctools') {
+    // Keep a copy of what the render callback was so we can use it.
+    onecomment_ctools_plugin_callback($definition['render callback']);
+    $definition['render callback'] = 'onecomment_node_comment_form_content_type_render';
+  }
+}
+
+/**
+ * Helper function to get/set the render callback for the node_comment_form
+ * plugin.
+ */
+function onecomment_ctools_plugin_callback($callback = NULL) {
+  $stored = &drupal_static(__FUNCTION__, 'ctools_node_comment_form_content_type_render');
+  if (isset($callback)) {
+    $stored = $callback;
+  }
+  return $stored;
+}
+
+function onecomment_node_comment_form_content_type_render($subtype, $conf, $panel_args, $context) {
+  // Call the original render function, use that if possible.
+  $callback = onecomment_ctools_plugin_callback();
+  $args = func_get_args();
+  $block = call_user_func_array($callback, $args);
+  // Skip going further if user can post multiple comments.
+  if (user_access('post multiple comments on nodes')) {
+    return $block;
+  }
+
+  $node = isset($context->data) ? clone($context->data) : NULL;
+  if (user_access('post comments') && $node->comment == COMMENT_NODE_OPEN) {
+    if (variable_get('onecomment_' . $node->type)) {
+      if ($comment = onecomment_get_comment($node->nid)) {
+        // We already have a comment, so we need to replace the form.
+        $form_state = array(
+          'ctools comment alter' => TRUE,
+          'node' => $node,
+          'build_info' => array(
+            'args' => array(
+              $comment,
+            ),
+          ),
+        );
+        $block->content = drupal_build_form('onecomment_comment_node_' . $node->type . '_form', $form_state);
+      }
+    }
+  }
+  return $block;
+}
+
+/**
+ * Gets comment for the user for this node.
+ *
+ * Caches results by user & node to allow calling the function multiple times.
+ */
+function onecomment_get_comment($nid, $uid = NULL) {
+  // Don't apply restrictions to those with this permission. Note that this can
+  // be nicely used by those with this permission and 'administer comments' to
+  // make multiple comments on behalf of others.
+  if (user_access('post multiple comments on nodes')) {
+    return;
+  }
+
+  if (!isset($uid)) {
+    global $user;
+    $uid = $user->uid;
+  }
+
+  $comments = &drupal_static(__FUNCTION__, array());
+  if (isset($comments[$uid][$nid])) {
+    return $comments[$uid][$nid];
+  }
+
+  $comment = FALSE;
+  $query = new EntityFieldQuery();
+  $result = $query->entityCondition('entity_type', 'comment')
+    ->propertyCondition('uid', $uid)
+    ->propertyCondition('nid', $nid)
+    ->execute();
+
+  if (!empty($result['comment'])) {
+    $cid = reset(array_keys($result['comment']));
+    $comment = comment_load($cid);
+  }
+  $comments[$uid][$nid] = $comment;
+  return $comments[$uid][$nid];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function onecomment_form_node_type_form_alter(&$form, $form_state) {
+  if (isset($form['type']) && isset($form['comment'])) {
+    $form['comment']['comment']['#options'][COMMENT_NODE_HIDDEN] = t('Disabled');
+    $form['comment']['onecomment_show_comments'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Show comments below content'),
+      '#description' => t('Untick this if you wish to allow posting comments without showing them.'),
+      '#default_value' => variable_get('onecomment_show_comments_' . $form['#node_type']->type, 1),
+    );
+    $form['comment']['onecomment'] = array(
+      '#type' => 'radios',
+      '#title' => t('Restrict comments to one per user on each piece of content?'),
+      '#description' => t('NOTE: This does not apply to users with permission to post multiple comments on nodes, so you may wish to !permissions_link. If you choose to show the user\'s comment within the form, they may edit their comment if they have permission to do so. Note that it may not be obvious to user\'s if they are editing a reply or not if doing this.', array('!permissions_link' => l(t('configure permissions'), 'admin/people/permissions/', array('fragment' => 'module-onecomment')))),
+      '#default_value' => variable_get('onecomment_' . $form['#node_type']->type),
+      '#options' => array(
+        0 => t('No'),
+        ONECOMMENT_HIDE_FORM => t('Yes - (Hide comments form entirely if user has already posted a comment)'),
+        ONECOMMENT_USE_FORM => t('Yes - (Show user\'s comment within comment form if one is present)'),
+      ),
+    );
+    $form['comment']['onecomment_denied_msg'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Message if denied access'),
+      '#description' => t('This message is shown beneath the comment form if they may not add another. Leave blank for no message.'),
+      '#default_value' => variable_get('onecomment_denied_msg_' . $form['#node_type']->type),
+      '#states' => array(
+        'invisible' => array(   // action to take.
+          ':input[name="onecomment"]' // element to evaluate condition on
+            => array('value' => '0'),  // condition
+        ),
+      ),
+    );
+  }
+}

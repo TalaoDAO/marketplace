@@ -784,9 +784,9 @@ table tbody tr:nth-child(even) {
 }
 
 .anonymous {
-    position: relative;
+//    position: relative;
 
-    &:hover {
+    & a:hover {
         a {
             color: @lightBlue;
             cursor: default;
@@ -798,8 +798,10 @@ table tbody tr:nth-child(even) {
         }
 
         div.hover {
-            position: absolute;
-            height: 100%;
+//            position: absolute;
+//            height: 100%;
+
+            position: relative;
 
             padding: 1.5em 2.12em 1.5em 1em;
 
@@ -854,13 +856,13 @@ table tbody tr:nth-child(even) {
     text-transform: uppercase;
 
     a {
-        display: block;
+//        display: block;
         position: absolute;
-        padding: 75px 32px 19px 152px;
+        padding: 3.1em 2.2em 1.5em 7.5em;
+
+        //        padding: 75px 32px 19px 152px;
 //        margin-left: 7.5em;
 //        margin-top: 3.1em;
-        //        margin-left: 6.7em;
-        //        margin-top: 3.625em;
         font-size: @px18;
 
         @media (max-width: @screen-md) and (min-width: @screen-sm) {

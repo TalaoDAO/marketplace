@@ -1,0 +1,188 @@
+<?php
+/**
+ * Define our admin URL here, then use it everywhere.
+ */
+define('VARIABLECHECK_REPORT_PATH', 'admin/reports/variablecheck');
+
+/**
+ * Implementation of hook_permission()
+ */
+function variablecheck_permission() {
+  return array(
+    'check variables' => array(
+      'title' => t('Check System Variables'),
+      'description' => t('Check the validity of settings in the variable table.'),
+      'restrict access' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function variablecheck_menu() {
+  $items['admin/reports/variablecheck'] = array(
+    'title' => 'Check System Variables',
+    'description' => 'Check the validity of settings in the variable table.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('variablecheck_check_variables_form'),
+    'access arguments' => array('check variables'),
+  );
+  return $items;
+}
+
+/**
+ * Implementation of hook_requirements()
+ */
+function variablecheck_requirements($phase) {
+  $problem = count(variablecheck_check_variables());
+
+  $requirements = array();
+  $requirements['variablecheck'] = array(
+    'title' => 'Variables',
+    'value' => !empty($problem) ? format_plural($problem, 'One invalid variable', '@count invalid variables') : t('No problem'),
+    'description' => !empty($problem) ? t('The variable table contains an invalid entry. Please check the <a href="!url">variable report</a> for more information.', array('!url' => url(VARIABLECHECK_REPORT_PATH))) : '',
+    'severity' => !empty($problem) ? REQUIREMENT_WARNING : REQUIREMENT_OK,
+  );
+
+  // If the user has no access to the variables admin UI, override the status
+  // description and do not include a link!
+  if (!empty($problem) && !user_access('check variables')) {
+    $requirements['variablecheck']['description'] = t('The variable table contains an invalid entry, but you need %permission permission to access the report.', array('%permission' => 'Check System Variables'));
+  }
+
+  return $requirements;
+}
+
+/**
+ * Helper that returs a list of invalid variables and their values.
+ */
+function variablecheck_check_variables() {
+  $rows = null;
+
+  $select = db_select('variable', 'v')
+              ->fields('v', array('name', 'value'))
+              ->orderBy('name', 'ASC')
+              ->comment('Load all variables')
+              ->execute();
+  $entries = $select->fetchAll();
+
+  $rows = array();
+  // Test each entry for validity.
+  foreach ($entries as $entry) {
+    // Suppress the notice.
+    $value = @unserialize($entry->value);
+
+    // If the unserialize call returned FALSE and the stored value is NOT a
+    // boolean false, list it in the report.
+    if ($value === FALSE && $entry->value != serialize(FALSE)) {
+      $row = array('name' => $entry->name, 'value' => $entry->value);
+      $rows[$entry->name] = $row;
+    }
+  }
+  return $rows;
+}
+
+/**
+ * Helper that displays a form which allows users to delete
+ * variables that fail to unserialize, causing ugly Notices
+ * on production sites.
+ */
+function variablecheck_check_variables_form($form, $form_state) {
+
+  if (isset($form_state['values']['submit']) && $form_state['values']['submit'] == 'Delete') {
+    return variablecheck_delete_confirm($form, $form_state, array_filter($form_state['values']['variables']));
+  }
+
+  $options = variablecheck_check_variables();
+
+  $header = array(
+    'name' => t('Name'),
+    'value' => t('Value'),
+  );
+
+  drupal_set_title(t('Invalid Variables'));
+
+  if ($count = count($options)) {
+    drupal_set_message(format_plural($count, 'Found one invalid variable', 'Found @count invalid variables'), 'error');
+    $info = format_plural($count,
+        'You will want to either delete this variable or let the module developer know there is a problem with their module.',
+        'You will want to either delete these variables or let the module developer know there is a problem with their module.');
+  }
+  else {
+    $info = t('');
+  }
+
+  $form = array();
+  $form['info'] = array(
+    '#markup' => $info,
+  );
+  $form['variables'] = array(
+    '#type' => 'tableselect',
+    '#header' => $header,
+    '#options' => $options,
+    '#empty' => t('No invalid variables found'),
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Delete'),
+    '#access' => !empty($options) ? TRUE : FALSE,
+  );
+  return $form;
+}
+
+/**
+ * Ensure the form handler doesn't receive weird data that it shouldn't.
+ */
+function variablecheck_check_variables_form_validate($form, &$form_state) {
+  $variables = variablecheck_check_variables();
+  $submitted = array_filter($form_state['values']['variables']);
+
+  $missing = array_keys(array_diff_key($submitted, $variables));
+
+  foreach ($missing as $name) {
+    form_set_error('', t('The variable %name does not exist in the Drupal database.', array('%name' => $name)));
+  }
+}
+
+function variablecheck_check_variables_form_submit($form, &$form_state) {
+  $form_state['rebuild'] = TRUE;
+}
+
+/**
+ * Confirm to delete specified variables.
+ */
+function variablecheck_delete_confirm($form, &$form_state, $variables) {
+  $form['variables'] = array('#prefix' => '<ul>', '#suffix' => '</ul>', '#tree' => TRUE);
+  foreach($variables as $variable) {
+    $form['variables'][$variable] = array(
+      '#type' => 'hidden',
+      '#value' => $variable,
+      '#prefix' => '<li>',
+      '#suffix' => check_plain($variable) . "</li>\n",
+    );
+  }
+  $form['#submit'][] = 'variablecheck_delete_confirm_submit';
+  $confirm_question = format_plural(count($variables),
+                                  'Are you sure you want to delete this variable?',
+                                  'Are you sure you want to delete these variables?');
+  return confirm_form($form,
+                    $confirm_question,
+                    VARIABLECHECK_REPORT_PATH, t('This action cannot be undone.'),
+                    t('Delete'), t('Cancel'));
+}
+
+/**
+ * Delete specified variables.
+ */
+function variablecheck_delete_confirm_submit($form, &$form_state) {
+  if ($form_state['values']['confirm']) {
+    db_delete('variable')
+      ->condition('name', $form_state['values']['variables'], 'IN')
+      ->execute();
+    $count = count($form_state['values']['variables']);
+    watchdog('content', 'Deleted @count variables.', array('@count' => $count));
+    drupal_set_message(format_plural($count, 'Deleted 1 variable.', 'Deleted @count variables.'));
+  }
+  $form_state['redirect'] = VARIABLECHECK_REPORT_PATH;
+}

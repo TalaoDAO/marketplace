@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for the Onecomment module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function onecomment_install() {
+  // Only allow anonymous users to post multiple comments.
+  user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, array('post multiple comments on nodes'));
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function onecomment_uninstall() {
+  global $conf;
+
+  db_delete('variable')
+    ->condition('name', 'onecomment_*', 'LIKE')
+    ->execute();
+  cache_clear_all('variables', 'cache_bootstrap');
+
+  foreach (node_type_get_types() as $type) {
+    unset($conf["onecomment_{$type->type}"]);
+    unset($conf["onecomment_denied_msg_{$type->type}"]);
+    unset($conf["onecomment_show_comments_{$type->type}"]);
+  }
+}

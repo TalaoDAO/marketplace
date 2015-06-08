@@ -1,0 +1,10 @@
+name = Variable Check
+description = This module allows site administrators to check whether settings stored in the variable table have been saved in the correct format.
+core = 7.x
+
+; Information added by drupal.org packaging script on 2012-08-10
+version = "7.x-1.4"
+core = "7.x"
+project = "variablecheck"
+datestamp = "1344578242"
+

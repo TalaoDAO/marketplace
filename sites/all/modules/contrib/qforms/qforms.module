@@ -1,0 +1,1085 @@
+<?php
+
+/**
+ * @file
+ * Qforms module.
+ *
+ * Main qforms logic. Defines textfield, textarea, radio group, checkbox group
+ * and select box qforms elements.
+ */
+
+/*************/
+/*** Hooks ***/
+/*************/
+
+/**
+* Implementation of hook_menu().
+*/
+function qforms_menu() {
+  $items['node/%node/qforms-results'] = array(
+    'title' => 'Submission results',
+    'page callback' => 'qforms_results_submissions',
+    'page arguments' => array(1),
+    'access callback' => 'qforms_check_node_access',
+    'access arguments' => array('update', 1),
+    'file' => 'qforms.pages.inc',
+    'weight' => 2,
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  $items['node/%node/qforms-results/export'] = array(
+    'title' => 'Submission results export',
+    'page callback' => 'qforms_results_submissions_export',
+    'page arguments' => array(1),
+    'access callback' => 'qforms_check_node_access',
+    'access arguments' => array('update', 1),
+    'file' => 'qforms.pages_export.inc',
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['node/%node/qforms-result/%'] = array(
+    'title' => 'View submission result',
+    'page callback' => 'qforms_submission_page',
+    'page arguments' => array(1, 3),
+    'access callback' => 'qforms_check_node_access',
+    'access arguments' => array('update', 1),
+    'file' => 'qforms.pages.inc',
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['node/%node/qforms-result/%/delete'] = array(
+    'title' => 'Delete submission result',
+    'page callback' => 'qforms_submission_confirm_delete_page',
+    'page arguments' => array(1, 3),
+    'access callback' => 'qforms_check_node_access',
+    'access arguments' => array('delete', 1),
+    'file' => 'qforms.pages.inc',
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implementation of hook_qforms().
+ *
+ * This hook should return qform configuration array. Array consist of two
+ * elements:
+ *   - js - defines js files that needs to be loaded for qform.
+ *   - elements - defines all qforms elements and apropriate function calls.
+ */
+function qforms_qforms() {
+  $module_path = drupal_get_path('module', 'qforms');
+
+  return array(
+    'js' => array($module_path . '/js/qforms.js'),
+    'css' => array($module_path . '/qforms.css'),
+    'elements' => array(
+      'textfield' => array(
+        'file' => $module_path . '/inc/qforms.textfield.inc',
+        'name' => t('Single line text field'),
+        'fapi' => 'qforms_fapi_textfield',
+        'element' => 'qforms_element_textfield',
+        'group' => 'core',
+      ),
+      'textarea' => array(
+        'file' => $module_path . '/inc/qforms.textarea.inc',
+        'name' => t('Multi line text area'),
+        'fapi' => 'qforms_fapi_textarea',
+        'element' => 'qforms_element_textarea',
+        'group' => 'core',
+      ),
+      'checkboxes' => array(
+        'file' => $module_path . '/inc/qforms.checkboxes.inc',
+        'name' => t('Checkbox group'),
+        'fapi' => 'qforms_fapi_checkboxes',
+        'element' => 'qforms_element_checkboxes',
+        'prepare_for_saving' => 'qforms_element_options_prepare_for_saving',
+        'prepare_for_csv_export' => 'qforms_element_checkboxes_prepare_for_csv_export',
+        'group' => 'core',
+      ),
+      'select' => array(
+        'file' => $module_path . '/inc/qforms.select.inc',
+        'name' => t('Single/Multi select list'),
+        'fapi' => 'qforms_fapi_select',
+        'element' => 'qforms_element_select',
+        'element_validate' => 'qforms_element_select_validate',
+        'prepare_for_saving' => 'qforms_element_options_prepare_for_saving',
+        'prepare_for_csv_export' => 'qforms_element_select_prepare_for_csv_export',
+        'group' => 'core',
+      ),
+      'radios' => array(
+        'file' => $module_path . '/inc/qforms.radios.inc',
+        'name' => t('Radio group'),
+        'fapi' => 'qforms_fapi_radios',
+        'element' => 'qforms_element_radios',
+        'element_validate' => 'qforms_element_radios_validate',
+        'prepare_for_saving' => 'qforms_element_options_prepare_for_saving',
+        'prepare_for_csv_export' => 'qforms_element_radios_prepare_for_csv_export',
+        'group' => 'core',
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_node_info().
+ */
+function qforms_node_info() {
+  return array(
+    'qform' => array(
+      'name' => t('Qform'),
+      'base' => 'qforms',
+      'description' => t('A <em>qforms</em> is a survey content type. It allows site users to create custom forms (like surveys) for which other site users can submit data.'),
+      'title_label' => t('Title'),
+      'locked' => TRUE,
+    )
+  );
+}
+
+/**
+ * Implements hook_form().
+ */
+function qforms_form($node, &$form_state) {
+  _qforms_init_css_js();
+
+  $form = node_content_form($node, $form_state);
+
+  $form['qforms'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Form builder'),
+    '#weight' => 1,
+    '#collapsible' => FALSE,
+    '#collapsed' => FALSE,
+  );
+
+  $form['qforms']['qforms_form_actions'] = array(
+    '#markup' => theme('qforms_form_actions'),
+  );
+
+  $elements_def = qforms_get_elements_definition();
+  $elements_options = array('' => t('Add new form element...'));
+  foreach ($elements_def['elements'] as $key => $element) {
+    $elements_options[$element['group']][$key] = $element['name'];
+  }
+
+  // Control for adding new form elements with ajax.
+  $form['qforms']['qforms_add_element'] = array(
+    '#type' => 'select',
+    '#options' => $elements_options,
+    '#ajax' => array(
+      'callback' => 'qforms_add_form_element',
+      'wrapper' => 'qforms-elements',
+      'effect' => 'fade',
+      'method' => 'append',
+    ),
+  );
+
+  $form['qforms']['elements'] = array(
+    '#prefix' => '<div id="qforms-elements">',
+    '#suffix' => '</div>',
+  );
+
+  // If we are on first form load.
+  if (!isset($form_state['qforms_elements'])) {
+    $form_state['qforms_elements'] = array(); // This persistent array is storing all added form elements (new (from ajax) and old (from db) one).
+    $form_state['qforms_last_element_id'] = 0;
+
+    // Do we have stored form elements from database?
+    if (!empty($node->qforms_form_definition)) {
+
+      if (isset($node->qforms_form_definition['qforms_last_element_id'])) {
+        $form_state['qforms_last_element_id'] = $node->qforms_form_definition['qforms_last_element_id'];
+      }
+      foreach ($node->qforms_form_definition as $weight => $element) {
+        if (is_array($element)) {
+          $form_state['qforms_elements'] += qforms_create_element($element, $form_state);
+        }
+      }
+    }
+  }
+
+  $telement = NULL;
+  if (isset($form_state['triggering_element'])) {
+    $telement = & $form_state['triggering_element'];
+  }
+
+  // If we are in ajax event for deleting a form element we need to delete this
+  //  element from $form_state['qforms_elements'].
+  if (isset($telement) && isset($telement['#ajax']) && $telement['#ajax']['callback'] == 'qforms_delete_form_element_callback') {
+    $element_key = $telement['#ajax']['wrapper'];
+    unset($form_state['qforms_elements'][$element_key]);
+
+    // We also need to remove element data from node - it will be there if user
+    // previewed node before.
+    foreach ($node as $key => $value) {
+      if (strpos($key, $element_key) === 0) {
+        unset($node->$key);
+      }
+    }
+  }
+
+  // Restore elements from $form_state['qforms_elements'].
+  if (!empty($form_state['qforms_elements'])) {
+
+    // If we are in ajax submission check do we need to update some form element.
+    if (isset($telement) && isset($telement['#ajax'])) {
+      $key = isset($telement['#ajax']['qforms_parent']) ? $telement['#ajax']['qforms_parent'] : NULL;
+      if (isset($key) && array_key_exists($key, $form_state['qforms_elements'])) {
+        // Update element.
+        $element = & $form_state['qforms_elements'][$key];
+
+        // Load ajax qforms_include file if needed.
+        if (isset($telement['#ajax']['qforms_include'])) {
+          include_once $telement['#ajax']['qforms_include'];
+        }
+
+        call_user_func_array($telement['#ajax']['qforms_callback'], array($key, & $element, & $form_state));
+      }
+    }
+
+    $form['qforms']['elements'] += $form_state['qforms_elements'];
+  }
+
+  // If we are in ajax event for adding a new element.
+  if (!empty($form_state['values']['qforms_add_element']) && $form_state['values']['qforms_add_element']) {
+    ++$form_state['qforms_last_element_id'];
+
+    $new_element = qforms_create_element_form_state($form, $form_state);
+    $form['qforms']['elements'] += $new_element;
+    $form_state['qforms_elements'] += $new_element;
+  }
+
+  $form['qforms_last_element_id'] = array(
+    '#type' => 'value',
+    '#value' => $form_state['qforms_last_element_id'],
+    );
+
+  // Settings section for qforms form.
+  $form['qforms_settings'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Form settings'),
+    '#group' => 'additional_settings',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  $form['qforms_settings']['qforms_submit_action'] = array(
+    '#type' => 'select',
+    '#title' => t('Action to take on form submission'),
+    '#options' => array(
+      'no_action' => t('No action'),
+      'custom_message' => t('Show custom message'),
+      'redirect' => t('Redirect'),
+    ),
+    '#default_value' => isset($node->qforms_submit_action)? $node->qforms_submit_action : '',
+  );
+  $form['qforms_settings']['qforms_submit_action_custom_message'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Custom message text'),
+    '#states' => array(
+      'visible' => array(':input[name="qforms_submit_action"]' => array('value' => 'custom_message')),
+    ),
+    '#default_value' => isset($node->qforms_submit_action_custom_message)? $node->qforms_submit_action_custom_message : '',
+  );
+
+  $default_value_redirect = '';
+  if (isset($node->qforms_submit_action_redirect)) {
+    $default_value_redirect = ($node->qforms_submit_action_redirect != '<front>')? check_url($node->qforms_submit_action_redirect) : '<front>';
+  }
+  $form['qforms_settings']['qforms_submit_action_redirect'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Redirect URL'),
+    '#description' => t('Input absolute URL or page path, for example http://example.com or node/123.'),
+    '#states' => array(
+      'visible' => array(':input[name="qforms_submit_action"]' => array('value' => 'redirect')),
+    ),
+    '#default_value' => $default_value_redirect,
+  );
+
+  $form['qforms_settings']['qforms_submit_email'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Send an email on form submission'),
+    '#default_value' => isset($node->qforms_submit_email) ? $node->qforms_submit_email : FALSE,
+  );
+  $form['qforms_settings']['qforms_submit_email_values'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Email addresses'),
+    '#description' => t('You can enter multiple emails, add one email address per line.'),
+    '#states' => array(
+      'visible' => array(':input[name="qforms_submit_email"]' => array('checked' => TRUE)),
+    ),
+    '#default_value' => isset($node->qforms_submit_email_values)? $node->qforms_submit_email_values : '',
+  );
+  $form['qforms_settings']['qforms_submit_disable'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Disable form'),
+    '#description' => t('Do not show form when viewing this node.'),
+    '#default_value' => isset($node->qforms_submit_disable) ? $node->qforms_submit_disable : FALSE,
+  );
+
+  return $form;
+}
+
+/**
+* Implements hook_validate().
+*/
+function qforms_validate($node, $form, &$form_state) {
+  // When form submition is invalid form will not be rebuilded so we need to
+  // include css and js files just to be sure they will be present.
+  _qforms_init_css_js();
+
+  // Validate qform elements.
+  foreach ($form['qforms']['elements']  as $id => $element) {
+
+    // Validate common element data.
+    if (is_array($element) && isset($element['#qforms_type'])) {
+      $data = & $element[$id . '_data'];
+
+      // If size exist it can be empty or number.
+      $value_key = $id . '_size';
+      if (isset($data[$value_key]) && (!empty($data[$value_key]['#value']) && !is_numeric($data[$value_key]['#value']))) {
+        form_set_error($value_key, t('Please enter a valid round number for element size.'));
+      }
+
+      // Weight always exists and can be number.
+      $value_key = $id . '_weight';
+      if (!is_numeric($data[$value_key]['#value'])) {
+        form_set_error($value_key, t('Please enter a valid number for element weight.'));
+      }
+
+    }
+
+    // Custom element validation.
+    if (isset($element['#qforms_type']) && $qcall = qforms_get_callback('element_validate', $element['#qforms_type'])) {
+      call_user_func_array($qcall, array($id, &$form_state));
+    }
+  }
+
+  if ($node->qforms_submit_action == 'custom_message' && empty($node->qforms_submit_action_custom_message)) {
+    form_set_error('qforms_submit_action_custom_message', t('Please enter custom message text.'));
+  }
+
+  if ($node->qforms_submit_action == 'redirect') {
+    if (empty($node->qforms_submit_action_redirect)) {
+      form_set_error('qforms_submit_action_redirect', t('Please enter redirect URL.'));
+    }
+    elseif (!drupal_valid_path($node->qforms_submit_action_redirect)) {
+      form_set_error('qforms_submit_action_redirect', t('Please enter a valid URL.'));
+    }
+  }
+
+  if ($node->qforms_submit_email) {
+    if (empty($node->qforms_submit_email_values)) {
+      form_set_error('qforms_submit_email_values', t('Please enter email addresses.'));
+    }
+    else {
+
+      $emails = preg_split("/\n/", $node->qforms_submit_email_values);
+      foreach ($emails as $email) {
+        $email = trim($email);
+        if (!valid_email_address($email)) {
+          form_set_error('qforms_submit_email_values', t('Entered email @email is not valid.', array('@email' => $email)));
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_node_submit().
+ */
+function qforms_node_submit($node, $form, $form_state) {
+  if ($node->type != 'qform') {
+    return;
+  }
+
+  // Transform all submited elemements data into nice structured array.
+  // Format of a $key is qforms_element_(weight)_(type)_(data)
+  $elements = array();
+  foreach ($node as $key => $value) {
+    if (strpos($key, 'qforms_element_') === 0) {
+      // Remove "qforms_element_" part.
+      $part = substr($key, 15, strlen($key));
+
+      // Get 'id' right position and id.
+      $id_pos = strpos($part, '_');
+      $id = (int) substr($part, 0, $id_pos);
+
+      // Get 'type' right position.
+      $tpos = strpos($part, '_', $id_pos + 1);
+      $type = substr($part, $id_pos + 1, $tpos - $id_pos - 1);
+
+      // Get fapi element key.
+      $element_id = _qforms_get_element_id($id, $type);
+
+      // Get 'data'.
+      $data = substr($part, $tpos + 1);
+
+      // Remove certan data that we do not need.
+      if ($data == 'delete') { // For now this is only delete - from delete form element button.
+        continue;
+      }
+
+      if (!isset($elements[$element_id])) {
+        $elements[$element_id] = array();
+        $elements[$element_id]['type'] = $type;
+      }
+
+      $elements[$element_id][$data] = $value;
+    }
+  }
+
+  // Check if form elements needs to change data before saving.
+  foreach ($elements as $id => & $element) {
+    if ($qcall = qforms_get_callback('prepare_for_saving', $element['type'])) {
+      call_user_func_array($qcall, array(&$element));
+    }
+  }
+
+  $elements['qforms_last_element_id'] = $node->qforms_last_element_id;
+  $node->qforms_form_definition = $elements;
+}
+
+/**
+ * Implements hook_insert().
+ */
+function qforms_insert($node) {
+  qforms_node_save($node);
+}
+
+/**
+ * Implements hook_update().
+ */
+function qforms_update($node) {
+  qforms_node_save($node);
+}
+
+/**
+ * Implements hook_delete().
+ */
+function qforms_delete($node) {
+  qforms_db_delete_form($node->nid);
+  qforms_db_delete_all_submissions($node->nid);
+}
+
+/**
+ * Implements hook_load().
+ */
+function qforms_load($nodes) {
+  foreach ($nodes as $node) {
+    // Load qforms.
+    if ($form = _qforms_db_load_form($node->nid)) {
+      // Form definition.
+      $node->qforms_form_definition = unserialize($form['form_definition']);
+
+      $form_options = unserialize($form['form_options']);
+
+      // Form options.
+      $node->qforms_submit_action = $form_options['qforms_submit_action'];
+      $node->qforms_submit_action_custom_message = $form_options['qforms_submit_action_custom_message'];
+      $node->qforms_submit_action_redirect = $form_options['qforms_submit_action_redirect'];
+      $node->qforms_submit_email = $form_options['qforms_submit_email'];
+      $node->qforms_submit_email_values = $form_options['qforms_submit_email_values'];
+      $node->qforms_submit_disable = $form_options['qforms_submit_disable'];
+    }
+  }
+
+  return $node;
+}
+
+/**
+ * Implement hook_view().
+ */
+function qforms_view($node, $view_mode) {
+  // Show qform form.
+  if (($view_mode == 'full') && user_access('view and submit qform') && (!$node->qforms_submit_disable)) {
+    $preview = isset($node->in_preview)? $node->in_preview : FALSE;
+    $node->content['qform'] = array(
+      'form' => drupal_get_form('qforms_submit_form', $node->nid, $node->qforms_form_definition, $preview),
+      '#weight' => 10,
+    );
+  }
+
+  return $node;
+}
+
+/**
+ * Implements hook_mail().
+ */
+function qforms_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'submission':
+      $langcode = $message['language']->language;
+      $site = variable_get('site_name', '');
+
+      $message['subject'] = t('Notification from !site - qform submission', array('!site' => $site), array('langcode' => $langcode));
+      $message['body'][] = t('Qform submission for !node_url.\nYou can see submited data on !data_url',
+        array(
+          '!node_url' => url('node/' . $params['nid'], array('absolute' => TRUE)),
+          '!data_url' => url('node/' . $params['nid'] . '/qforms-result/' . $params['sid'], array('absolute' => TRUE)),
+        ),
+        array('langcode' => $langcode)
+      );
+      break;
+  }
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function qforms_theme() {
+  return array(
+    'qforms_submission_author' => array(
+      'variables' => array('submission', 'account'),
+      'file' => 'qforms.theme.inc',
+    ),
+    'qforms_select' => array(
+      'render element' => 'element',
+      'file' => 'qforms.theme.inc',
+    ),
+    'qforms_form_actions' => array(
+      'file' => 'qforms.theme.inc',
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_permission()
+ */
+function qforms_permission() {
+  return array(
+    'view and submit qform' => array(
+      'title' => t('View and submit qform'),
+      'description' => t('Give users a permission to view and submit qform.'),
+    ),
+  );
+}
+
+/**********************/
+/*** Menu callbacks ***/
+/**********************/
+
+/**
+ * Ajax callback for adding a new form element.
+ */
+function qforms_add_form_element(&$form, &$form_state) {
+  $id = _qforms_get_element_id($form_state['qforms_last_element_id'], $form_state['values']['qforms_add_element']);
+  return $form['qforms']['elements'][$id];
+}
+
+/**
+ * Ajax callback for removing a form element.
+ */
+function qforms_delete_form_element_callback(&$form, &$form_state) {
+  return '';
+}
+
+/************************/
+/*** Helper functions ***/
+/************************/
+
+/**
+ * Returns TRUE if a node is of a type qform and user has access to op on that
+ * node.
+ *
+ * @param $op
+ *  Node operation, like update, delete...
+ * @param $node
+ *  Drupal node object.
+ */
+function qforms_check_node_access($op, $node) {
+  if ($node->type == 'qform' && node_access($op, $node)) {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * Returns qforms element call function if it exist or FALSE.
+ *
+ * @param $element_function
+ *  Base of a element call function.
+ * @param $element_type
+ *  Qform element type.
+ * @return
+ *  String of a call function if it exist or FALSE.
+ */
+function qforms_get_callback($element_function, $element_type) {
+  $elements_def = qforms_get_elements_definition();
+
+  // Check if we have definition of element type and element function that we need.
+  if (!isset($elements_def['elements'][$element_type]) || !isset($elements_def['elements'][$element_type][$element_function])) {
+    return FALSE;
+  }
+
+  // Load qforms.inc with commons functions that is needed by all elements.
+  module_load_include('inc', 'qforms');
+
+  // Include inc file if it is defined.
+  if (isset($elements_def['elements'][$element_type]['file'])) {
+    include_once $elements_def['elements'][$element_type]['file'];
+  }
+
+  return $elements_def['elements'][$element_type][$element_function];
+}
+
+/**
+ * Create form element array from form_state array.
+ */
+function qforms_create_element_form_state(&$form, &$form_state) {
+  $type = $form_state['values']['qforms_add_element'];
+  if ($qcall = qforms_get_callback('element', $type)) {
+    $element_data = array(
+      'id' => _qforms_get_element_id($form_state['qforms_last_element_id'], $type),
+      'type' => $type,
+      'weight' => $form_state['qforms_last_element_id']
+    );
+
+    return array(
+      $element_data['id'] => call_user_func_array($qcall, array($element_data))
+    );
+  }
+}
+
+/**
+ * Create form element array from element data, element data are unserialized
+ * from database.
+ */
+function qforms_create_element($element, &$form_state) {
+  $type = $element['type'];
+  if ($qcall = qforms_get_callback('element', $type)) {
+    return array(
+      $element['id'] => call_user_func_array($qcall, array($element))
+    );
+  }
+}
+
+/**
+ * Helper function for saving qform definition on node insert or update.
+ *
+ * @param $node
+ */
+function qforms_node_save($node) {
+  // Delete previous form if it is available.
+  qforms_db_delete_form($node->nid);
+
+  $ser_form = serialize($node->qforms_form_definition);
+
+  // Prepare form settings options.
+  $form_options['qforms_submit_action'] = $node->qforms_submit_action;
+  $form_options['qforms_submit_action_custom_message'] = $node->qforms_submit_action_custom_message;
+  $form_options['qforms_submit_action_redirect'] = $node->qforms_submit_action_redirect;
+  $form_options['qforms_submit_email'] = $node->qforms_submit_email;
+  $form_options['qforms_submit_email_values'] = $node->qforms_submit_email_values;
+  $form_options['qforms_submit_disable'] = $node->qforms_submit_disable;
+  $form_options = serialize($form_options);
+
+  qforms_db_save_form($node->nid, $ser_form, $form_options);
+}
+
+/**
+ * Builds submit form using Drupal FAPI.
+ *
+ * @param $entity_id
+ *   Entity id of entity we are building form. For example node id.
+ * @param $form_def
+ *   Qform form definition.
+ * @param $preview
+ *   TRUE if we are previewing this qform.
+ * @return
+ *   Builded Drupal form array.
+ */
+function qforms_submit_form($form, &$form_state, $entity_id, $form_def, $preview = FALSE) {
+  return _qforms_build_drupal_form($entity_id, $form_def, NULL, $preview);
+}
+
+function qforms_submit_form_submit($form, &$form_state) {
+  $nid = $form_state['values']['entity_id'];
+
+  // Prepare submitted data for saving.
+  foreach ($form_state['values'] as $key => $value) {
+    if (strpos($key, 'qforms_') === 0) {
+      $data[$key] = $value;
+    }
+  }
+  $data = serialize($data);
+  if (empty($data)) {
+    return;
+  }
+
+  // Save submitted data.
+  $sid = qforms_db_save_submission($nid, $data);
+  watchdog('qforms', 'Submitted qform for node !nid. Submission sid is !sid', array('!nid' => $nid, '!sid' => $sid));
+
+  // Now let's execute any custom submit action.
+
+  // Load qform data.
+  $qform = qforms_db_load_form($form_state['values']['entity_id']);
+  $options = & $qform['form_options'];
+
+  // Mail sending.
+  if ($options['qforms_submit_email']) {
+    // Get email address for sending.
+    $to = array();
+    $emails = preg_split("/\n/", $options['qforms_submit_email_values']);
+    foreach ($emails as $email) {
+      $to[] = trim($email);
+    }
+    $to = join(', ', $to);
+
+    $params = array('nid' => $nid, 'sid' => $sid);
+
+    drupal_mail('qforms', 'submission', $to, language_default(), $params);
+  }
+
+  // Other custom actions.
+  switch ($options['qforms_submit_action']) {
+    case 'no_action':
+      drupal_set_message(t('Thank you for your submission.'));
+      break;
+    case 'custom_message':
+      drupal_set_message(check_plain($options['qforms_submit_action_custom_message']));
+      break;
+    case 'redirect':
+      drupal_goto($options['qforms_submit_action_redirect']);
+      break;
+  }
+}
+
+/**
+ * Builds page for submited results view.
+ *
+ * @param <type> $form
+ * @param <type> $form_state
+ * @param <type> $entity_id
+ * @param <type> $sid
+ * @return string
+ */
+function qforms_submit_view_form($form, &$form_state, $entity_id, $sid) {
+  $form = _qforms_build_drupal_form($entity_id, NULL, $sid);
+
+  $form['sid'] = array(
+    '#type' => 'value',
+    '#value' => $sid,
+  );
+
+  $form['entity_id'] = array(
+    '#type' => 'value',
+    '#value' => $entity_id,
+  );
+
+  // Load submission results.
+  $submission = qforms_db_load_submission($sid);
+
+  // We will also check if entity_id that we are getting from url is different from stored submission result nid.
+  if (!$submission || $submission->nid != $entity_id) {
+    return drupal_not_found();
+  }
+
+  // Load author info.
+  $author = user_load($submission->uid);
+  $form['author'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Submission Information'),
+    '#weight' => -1,
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  $form['author']['info'] = array(
+    '#markup' => theme('qforms_submission_author', array('submission' => $submission, 'account' => $author)),
+  );
+
+  unset($form['actions']['submit']);
+  $form['actions']['ok'] = array(
+    '#type' => 'submit',
+    '#value' => t('OK'),
+    '#submit' => array('qforms_submit_view_form_submit_ok'),
+    '#limit_validation_errors' => array(),
+  );
+  $form['actions']['delete'] = array(
+    '#type' => 'submit',
+    '#value' => t('Delete'),
+    '#submit' => array('qforms_submit_view_form_submit_delete'),
+    '#limit_validation_errors' => array(),
+  );
+
+  return $form;
+}
+
+function qforms_submit_view_form_submit_ok($form, &$form_state) {
+  $form_state['redirect'] = 'node/' . $form['entity_id']['#value'] . '/qforms-results';
+}
+
+function qforms_submit_view_form_submit_delete($form, &$form_state) {
+  $form_state['redirect'] = 'node/' . $form['entity_id']['#value'] . '/qforms-result/' . $form['sid']['#value'] . '/delete';
+}
+
+/**
+ * Helper function for form building.
+ */
+function _qforms_build_drupal_form($entity_id, $form_def = NULL, $sid = NULL, $preview = FALSE) {
+  // Load form definition.
+  if (isset($entity_id) && !isset($form_def)) {
+    $qform = qforms_db_load_form($entity_id);
+    $form_def = $qform['form_definition'];
+    if (empty($form_def)) {
+      return;
+    }
+  }
+
+  $submission_results = NULL;
+  if ($sid) {
+    // Load submission results.
+    $submission_results = qforms_db_load_submission($sid);
+
+    // If entity_id is different from stored submission result nid stop execution.
+    if (!$submission_results || $entity_id != $submission_results->nid) {
+      return;
+    }
+  }
+
+  $form = array();
+
+  // Lets collect all qforms elements definitions.
+  $elements_def = qforms_get_elements_definition();
+
+  // Add form elements.
+  foreach ($form_def as $key => $element) {
+    if (is_array($element)) {
+      $element['key'] = $key;
+      $params = array($element);
+
+      // If we have submission results then we need to get submited values for defaults.
+      if ($submission_results) {
+
+        if (isset($elements_def['elements'][$element['type']]['submission_results'])) {
+          // @TODO (grid) - this code will be tested in future when we add grid element.
+          call_user_func_array($elements_def['elements'][$element['type']]['submission_results'], array(&$params, $submission_results));
+        }
+        else {
+          // Usually data[$key] do not exist when form definition is changed after submited data.
+          if (isset($submission_results->data[$key])) {
+            $params[1]['default_value'] = $submission_results->data[$key]; // default value
+            $params[1]['readonly'] = TRUE; // read-only
+            if (isset($submission_results->data[$key . '_other'])) {
+              $params[1]['default_value_other'] = $submission_results->data[$key . '_other'];
+            }
+          }
+        }
+      }
+
+      // Call apropriate fapi function for form element generation.
+      if ($qcall = qforms_get_callback('fapi', $element['type'])) {
+        $form[$key] = call_user_func_array($qcall, $params);
+      }
+
+      $form[$key]['#weight'] = $params[0]['weight'];
+
+      // Is element visible?
+      if ((isset($element['visible'])) && ($element['visible'] != 1)) {
+        $form[$key]['#access'] = FALSE;
+      }
+      if (isset($element['required'])) {
+        $form[$key]['#required'] = ($element['required']) ? TRUE : FALSE;
+      }
+    }
+  }
+
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+    '#disabled' => $preview,
+  );
+
+  $form['entity_id'] = array(
+    '#type' => 'value',
+    '#value' => $entity_id
+  );
+
+  return $form;
+}
+
+/**
+ * Returns qform elements definition in all modules.
+ */
+function qforms_get_elements_definition() {
+  static $defs = NULL;
+
+  if (isset($defs)) {
+    return $defs;
+  }
+
+  $defs = module_invoke_all('qforms');
+
+  return $defs;
+}
+
+/**
+ * Returns unique qform element id for form array key.
+ */
+function _qforms_get_element_id($element_id, $type) {
+  return 'qforms_element_' . $element_id . '_' . $type;
+}
+
+/**
+ * Load all CSS and JS files we need.
+ */
+function _qforms_init_css_js() {
+  static $done = FALSE;
+
+  if ($done === TRUE) {
+    return;
+  }
+
+  $done = TRUE;
+  $path = drupal_get_path('module', 'qforms');
+
+  drupal_add_library('system', 'ui.sortable');
+
+  // If we have scrollTo jquery plugin lets add it.
+  if (file_exists($path . '/js/jquery.scrollTo-min.js')) {
+    drupal_add_js($path . '/js/jquery.scrollTo-min.js');
+  }
+
+  // Load js files.
+  $elements_def = qforms_get_elements_definition();
+  foreach ($elements_def['js'] as $js_path) {
+    drupal_add_js($js_path);
+  }
+
+  // Load css files.
+  foreach ($elements_def['css'] as $css_path) {
+    drupal_add_css($css_path);
+  }
+}
+
+/**************/
+/*** DB API ***/
+/**************/
+
+/**
+ * Saves qform definition to database.
+ *
+ * @param $entity_id
+ * @param $form_data
+ * @param $form_options
+ */
+function qforms_db_save_form($entity_id, $form_data, $form_options) {
+  db_insert('qforms_definition')
+    ->fields(array(
+      'nid' => $entity_id,
+      'form_definition' => $form_data,
+      'form_options' => $form_options, ))
+    ->execute();
+}
+
+/**
+ * Loads qform definition from database.
+ *
+ * @return
+ *   Array with form definition and form options.
+ */
+function qforms_db_load_form($entity_id) {
+  $form = _qforms_db_load_form($entity_id);
+  $form['form_definition'] = unserialize($form['form_definition']);
+  $form['form_options'] = unserialize($form['form_options']);
+  return $form;
+}
+
+/**
+ * Helper function for loading form definition from database.
+ */
+function _qforms_db_load_form($entity_id) {
+  static $forms = array();
+
+  if (!isset($forms[$entity_id])) {
+    $forms[$entity_id] = db_query(
+      'SELECT form_definition, form_options FROM {qforms_definition} WHERE nid = :nid',
+      array(':nid' => $entity_id))
+      ->fetchAssoc();
+  }
+
+  return $forms[$entity_id];
+}
+
+/**
+ * Delete qform definition from database.
+ *
+ * @param $entity_id
+ *   Node id.
+ */
+function qforms_db_delete_form($entity_id) {
+  db_delete('qforms_definition')
+    ->condition('nid', $entity_id)
+    ->execute();
+}
+
+/**
+ * Saves submission data for given entity_id.
+ *
+ * @param $entity_id
+ * @param $data
+ * @return
+ *   Submission id 'sid' of saved submission data.
+ */
+function qforms_db_save_submission($entity_id, $data) {
+  global $user;
+
+  return db_insert('qforms_submission')
+    ->fields(array(
+      'nid' => $entity_id,
+      'uid' => $user->uid,
+      'time' => REQUEST_TIME,
+      'ip' => ip_address(),
+      'data' => $data,
+    ))
+    ->execute();
+}
+
+/**
+ * Loads submission result for the given sid.
+ *
+ * @param $sid
+ *   Submission id.
+ * @return
+ *   Submission result object on success, or FALSE.
+ */
+function qforms_db_load_submission($sid) {
+  static $submissions = array();
+
+  if (!isset($submissions[$sid])) {
+    $select = db_select('qforms_submission', 's');
+    $select->join('users', 'u', 's.uid = u.uid');
+    $select->fields('s');
+    $select->addField('u', 'name', 'username');
+    $select->condition('s.sid', $sid);
+    $submissions[$sid] = $select->execute()->fetchObject();
+    if ($submissions[$sid]) {
+      $submissions[$sid]->data = unserialize($submissions[$sid]->data);
+    }
+  }
+
+  return $submissions[$sid];
+}
+
+/**
+ * Delete submission result for the given sid.
+ *
+ * @param $sid
+ *   Submission id.
+ */
+function qforms_db_delete_submission($sid) {
+  db_delete('qforms_submission')->condition('sid', $sid)->execute();
+}
+
+/**
+ * Delete all submission result for the given entity id.
+ *
+ * @param $entity_id
+ *   Entity id.
+ */
+function qforms_db_delete_all_submissions($entity_id) {
+  db_delete('qforms_submission')->condition('nid', $entity_id)->execute();
+}
