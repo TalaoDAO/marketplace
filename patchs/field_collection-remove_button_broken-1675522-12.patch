@@ -1,0 +1,122 @@
+diff --git a/field_collection.module b/field_collection.module
+index 5d94a29..9882e8b 100644
+--- a/field_collection.module
++++ b/field_collection.module
+@@ -722,17 +722,6 @@ function field_collection_menu() {
+     }
+   }
+ 
+-  $items['field_collection/ajax'] = array(
+-    'title' => 'Remove item callback',
+-    'page callback' => 'field_collection_remove_js',
+-    'delivery callback' => 'ajax_deliver',
+-    'access callback' => TRUE,
+-    'theme callback' => 'ajax_base_page_theme',
+-    'type' => MENU_CALLBACK,
+-    'file path' => 'includes',
+-    'file' => 'form.inc',
+-  );
+-
+   return $items;
+ }
+ 
+@@ -1485,7 +1474,7 @@ function field_collection_field_widget_form(&$form, &$form_state, $field, $insta
+         $element['#after_build'][] = 'field_collection_field_widget_embed_delay_required_validation';
+       }
+ 
+-      if ($field['cardinality'] == FIELD_CARDINALITY_UNLIMITED) {
++      if ($field['cardinality'] == FIELD_CARDINALITY_UNLIMITED && empty($form_state['programmed'])) {
+         $element['remove_button'] = array(
+           '#delta' => $delta,
+           '#name' => implode('_', $parents) . '_remove_button',
+@@ -1495,7 +1484,8 @@ function field_collection_field_widget_form(&$form, &$form_state, $field, $insta
+           '#submit' => array('field_collection_remove_submit'),
+           '#limit_validation_errors' => array(),
+           '#ajax' => array(
+-            'path' => 'field_collection/ajax',
++            // 'wrapper' is filled in field_collection_field_attach_form().
++            'callback' => 'field_collection_remove_js',
+             'effect' => 'fade',
+           ),
+           '#weight' => 1000,
+@@ -1528,48 +1518,49 @@ function field_collection_field_attach_form($entity_type, $entity, &$form, &$for
+         $form[$field_name][$element_langcode]['#max_delta']--;
+       }
+     }
++
++    if ($field['type'] == 'field_collection'
++        && $field['cardinality'] == FIELD_CARDINALITY_UNLIMITED
++        && empty($form_state['programmed'])
++        && field_access('edit', $field, $entity_type)
++        && $instance['widget']['type'] == 'field_collection_embed') {
++
++      $element_langcode = $form[$field_name]['#language'];
++      $element_wrapper = $form[$field_name][$element_langcode]['add_more']['#ajax']['wrapper'];
++      for ($i = 0; $i <= $form[$field_name][$element_langcode]['#max_delta']; $i++) {
++        if (isset($form[$field_name][$element_langcode][$i]['remove_button'])) {
++          $form[$field_name][$element_langcode][$i]['remove_button']['#ajax']['wrapper'] = $element_wrapper;
++        }
++      }
++    }
+   }
+ }
+ 
+ /**
+- * Page callback to handle AJAX for removing a field collection item.
++ * AJAX callback for removing a field collection item.
+  *
+- * This is a direct page callback. The actual job of deleting the item is
+- * done in the submit handler for the button, so all we really need to
+- * do is process the form and then generate output. We generate this
+- * output by doing a replace command on the id of the entire form element.
++ * This returns the new page content to replace the page content made obsolete
++ * by the form submission.
++ *
++ * @see field_collection_remove_submit()
+  */
+-function field_collection_remove_js() {
+-  // drupal_html_id() very helpfully ensures that all html IDS are unique
+-  // on a page. Unfortunately what it doesn't realize is that the IDs
+-  // we are generating are going to replace IDs that already exist, so
+-  // this actually works against us.
+-  if (isset($_POST['ajax_html_ids'])) {
+-    unset($_POST['ajax_html_ids']);
+-  }
++function field_collection_remove_js($form, $form_state) {
++  $button = $form_state['triggering_element'];
+ 
+-  list($form, $form_state, $form_id, $form_build_id, $commands) = ajax_get_form();
+-  drupal_process_form($form['#form_id'], $form, $form_state);
++  // Go one level up in the form, to the widgets container.
++  $element = drupal_array_get_nested_value($form, array_slice($button['#array_parents'], 0, -2));
++  $field_name = $element['#field_name'];
++  $langcode = $element['#language'];
++  $parents = $element['#field_parents'];
+ 
+-  // Get the information on what we're removing.
+-  $button = $form_state['triggering_element'];
+-  // Go two levels up in the form, to the whole widget.
+-  $element = drupal_array_get_nested_value($form, array_slice($button['#array_parents'], 0, -3));
+-  // Now send back the proper AJAX command to replace it.
+-  $commands[] = ajax_command_replace('#' . $element['#id'], drupal_render($element));
+-  $return = array(
+-    '#type' => 'ajax',
+-    '#commands' => $commands,
+-  );
++  $field_state = field_form_get_state($parents, $field_name, $langcode, $form_state);
+ 
+-  // Because we're doing this ourselves, messages aren't automatic. We have
+-  // to add them.
+-  $messages = theme('status_messages');
+-  if ($messages) {
+-    $return['#commands'][] = ajax_command_prepend('#' . $element['#id'], $messages);
++  $field = $field_state['field'];
++  if ($field['cardinality'] != FIELD_CARDINALITY_UNLIMITED) {
++    return;
+   }
+ 
+-  return $return;
++  return $element;
+ }
+ 
+ /**

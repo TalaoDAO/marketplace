@@ -157,7 +157,7 @@
             </div>
             <div class="row nice-menu">
                 <div class="col-sm-4">
-                    <div class="menu-3640 anonymous">
+                    <div class="menu-3640 anonymous" onclick="">
                         <!--<a>Add a <span>question</span><div>Learn more</div></a>-->
                         <a><?php echo sprintf(c_szAddQuestion, "<span>", "</span><div>", "</div>"); ?></a>
                         <div class="hover">
@@ -167,7 +167,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <div class="menu-3639 anonymous">
+                    <div class="menu-3639 anonymous" onclick="">
                         <a><?php echo sprintf(c_szCreateChallenge, "<span>", "</span><div>", "</div>"); ?></a>
                         <!--<a>Create a <span>challenge</span><div>Learn more</div></a>-->
                         <div class="hover">
@@ -177,7 +177,7 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <div class="menu-3638 anonymous">
+                    <div class="menu-3638 anonymous" onclick="">
                         <a><?php print sprintf(c_szFindExpert, "<span>", "</span><div>", "</div>"); ?></a>
                         <!--<a> Find an <span>expert</span><div>Learn more</div></a>-->
                         <div class="hover">
