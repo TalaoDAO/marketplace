@@ -879,6 +879,7 @@ table tbody tr:nth-child(even) {
         @media (max-width: @screen-md) and (min-width: @screen-sm) {
             margin-left: 5.5em;
             margin-top: 2em;
+            padding: 0;
         }
 
         span {
@@ -3539,6 +3540,28 @@ div.field-name-field-skills-set label {
                 font-style: normal !important;
                 font-size: @px18;
             }
+
+            .field-type-text-with-summary > .field-items > .field-item.even > ul.summary {
+                display: inline;
+                padding-left: 0;
+
+                > li {
+                    display: inline;
+                    padding: 0.5em 1em;
+                    background-color: @inlineUl;
+
+                    a {
+                        .bold;
+                        color: @lightBlue;
+                        text-decoration: none;
+
+                        &:before {
+                            content: ">";
+                            padding-right: 0.3em;
+                        }
+                    }
+                }
+            }
         }
 
         #block-block-2 {
@@ -3725,6 +3748,15 @@ div.field-name-field-skills-set label {
             text-align: left;
             font-weight: bold;
             padding: 1.5em;
+        }
+
+        .challenge-tag-container {
+            padding-left: 0;
+            padding-right: 0;
+
+            > span:first-of-type {
+                margin-left: 0;
+            }
         }
 
         .comment-wrapper {
@@ -4061,16 +4093,9 @@ span.required {
                 .group-oneliner {
                     width: 100%;
 
-                    //                &.group-visibility {
-                    //                    > div {
-                    //                        &:first-of-type {
-                    //                            width: 30%;
-                    //                        }
-                    //
-                    //                        width: 35%;
-                    //                        margin-left: 0;
-                    //                    }
-                    //                }
+                    @media (min-width: @screen-md) {
+                        display: -webkit-flex;
+                    }
                 }
 
                 .group-visibility {
@@ -4078,6 +4103,9 @@ span.required {
                         &:first-of-type {
                             label {
                                 width: 32%;
+                                @media (max-width: @screen-xs) {
+                                    width: 100%;
+                                }
                             }
 
                             + div {
@@ -4089,12 +4117,25 @@ span.required {
                                     label {
                                         width: 31%;
                                     }
+
+                                    @media (max-width: @screen-xs) {
+                                        height: 4em;
+                                    }
+                                    @media (max-width: @screen-xxs) {
+                                        height: 7em;
+                                    }
                                 }
                             }
                         }
 
+
+
                         width: 35%;
                         margin-left: 0;
+
+                        @media (max-width: @screen-xs) {
+                            width: 100%;
+                        }
                     }
                 }
 
@@ -5040,16 +5081,13 @@ span.required {
             }
         }
 
+
+        td.views-field-nothing,
         td.views-field-created,
         td.views-field-field-expiration-date {
             text-align: center;
         }
 
-        td.views-field-nothing {
-            padding-right: 1.5em;
-        }
-
-        td.views-field-nothing,
         td.views-field-field-reward {
             text-align: right;
         }
