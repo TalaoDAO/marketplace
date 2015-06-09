@@ -11,13 +11,14 @@
 function collapsiblock_init() {
     //load the settings
     global $theme;
-    $current_theme = $theme ? $theme : variable_get('theme_default', 'garland');
+    $current_theme = $theme ? $theme : variable_get('theme_default', 'bartik');
     $collapsiblock_path = drupal_get_path('module', 'collapsiblock');
     $theme_settings = variable_get(str_replace('/', '_', 'theme_' . $current_theme . '_settings'), array());
     $theme_settings = array_merge(collapsiblock_default_settings(), $theme_settings, array());
+    drupal_add_library('system', 'jquery.cookie');
     drupal_add_js(array(
         'collapsiblock' => array(
-            'blocks' => variable_get('collapsiblock_settings', array()),
+            'blocks' => array_change_key_case(variable_get('collapsiblock_settings', array()), CASE_LOWER),
             'default_state' => variable_get('collapsiblock_default_state', 1),
             'slide_type' => variable_get('collapsiblock_slide_type', 1),
             'slide_speed' => variable_get('collapsiblock_slide_speed', 200),
@@ -157,6 +158,6 @@ function collapsiblock_form_alter(&$form, $form_state, $form_id) {
  */
 function collapsiblock_submit($form, &$form_state) {
   $settings = variable_get('collapsiblock_settings', array());
-  $settings['block-' . str_replace('_', '-', $form_state['values']['module']) . '-' . str_replace('_', '-', $form_state['values']['delta'])] = $form_state['values']['collapse_type'];
+  $settings['block-' . str_replace('_', '-', $form_state['values']['module']) . '-' . drupal_strtolower(str_replace('_', '-', $form_state['values']['delta']))] = $form_state['values']['collapse_type'];
   variable_set('collapsiblock_settings', $settings);
 }

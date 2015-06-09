@@ -1,13 +1,8 @@
 <?php
-
 /**
  * @file
  * The Serial module main file.
  */
-
-//==================//
-// Field Definition //
-//==================//
 
 /**
  * Implements hook_field_info().
@@ -17,6 +12,9 @@ function serial_field_info() {
     'serial' => array(
       'label' => t('Serial'),
       'description' => t('Auto increment serial field type.'),
+      // The "property_type" should be defined for accessing the
+      // field by entity metadata wrapper.
+      'property_type' => 'serial',
       'default_widget' => 'serial',
       'default_formatter' => 'serial_formatter_default',
     ),
@@ -28,18 +26,19 @@ function serial_field_info() {
  */
 function serial_field_create_instance($instance) {
   $field = field_read_field($instance['field_name']);
-  if ($field['type'] == 'serial') {
+
+  if ('serial' == $field['type']) {
     // Create the assistant table:
     module_load_include('inc', 'serial');
     _serial_create_table($field, $instance);
 
-    // Set serial values for old objects
+    // Set serial values for old objects.
     $old_count = _serial_init_old_nodes($instance['bundle'], $field['field_name']);
-    if ($old_count) {
-      drupal_set_message(
-        t('Serial values have been automatically set for %count existing nodes.',
-          array('%count' => $old_count))
-      );
+
+    if ($old_count > 0) {
+      drupal_set_message(t('Serial values have been automatically set for %count existing nodes.', array(
+        '%count' => $old_count,
+      )));
     }
   }
 }
@@ -49,8 +48,9 @@ function serial_field_create_instance($instance) {
  */
 function serial_field_delete_instance($instance) {
   $field = field_read_field($instance['field_name']);
-  if ($field['type'] == 'serial') {
-    // Drop the assistant table:
+
+  if ('serial' == $field['type']) {
+    // Drop the assistant table.
     module_load_include('inc', 'serial');
     _serial_drop_table($field, $instance);
   }
@@ -60,18 +60,12 @@ function serial_field_delete_instance($instance) {
  * Implements hook_form_alter().
  */
 function serial_form_alter(&$form, $form_state, $form_id) {
+  if ('field_ui_field_settings_form' == $form_id && 'serial' == $form['field']['type']['#value']) {
+    drupal_set_message(t('Serial field %field has been created.', array(
+      '%field' => $form['field']['field_name']['#value'],
+    )));
 
-  if ($form_id == 'field_ui_field_settings_form' && $form['field']['type']['#value'] == 'serial') {
-    // Show messages:
-    $field_name = $form['field']['field_name']['#value'];
-    drupal_set_message(
-      t('Serial field %field has been created.',
-        array('%field' => $field_name))
-    );
-
-    // Go back to Managed Fields:
-    $type = $form['#bundle'];
-    drupal_goto("admin/structure/types/manage/$type/fields");
+    drupal_goto("admin/structure/types/manage/{$form['#bundle']}/fields");
   }
 }
 
@@ -79,19 +73,19 @@ function serial_form_alter(&$form, $form_state, $form_id) {
  * Implements hook_field_presave().
  */
 function serial_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
-  module_load_include('inc', 'serial');
   if (empty($items)) {
-    $sid = _serial_generate_value($instance['bundle'], $field['field_name']);
-    $items = array(array('value' => $sid));
+    module_load_include('inc', 'serial');
+
+    $items = array(array('value' => _serial_generate_value($instance['bundle'], $field['field_name'])));
   }
 }
-
 
 /**
  * Implements hook_field_is_empty().
  */
 function serial_field_is_empty($item, $field) {
-  return FALSE; // never should be treated as empty
+  // Never should be treated as empty.
+  return FALSE;
 }
 
 /**
@@ -116,39 +110,6 @@ function serial_node_type_update($info) {
   }
 }
 
-// Tokens for fields are currently not supported - http://drupal.org/node/691078.
-
-///**
-// * Implements hook_token_info().
-// */
-//function serial_token_info() {
-//  $type = array(
-//    'name' => t('Nodes'),
-//    'description' => t('Tokens related to individual nodes.'),
-//    'needs-data' => 'node',
-//  );
-//  $node['serial'] = array(
-//    'name' => t("Serial Field"),
-//    'description' =>  t('Serial field value (unique per node type)'),
-//    'needs-data' => 'node',
-//  );
-//  return array(
-//    'types' => array('node' => $type),
-//    'tokens' => array('node' => $node),
-//  );
-//}
-//
-///**
-// * Implements hook_tokens().
-// */
-//function serial_tokens($type, $tokens, $data, $options) {
-//  // TODO
-//}
-
-//=================//
-// Field Formatter //
-//=================//
-
 /**
  * Implements hook_field_formatter_info().
  */
@@ -157,7 +118,7 @@ function serial_field_formatter_info() {
     'serial_formatter_default' => array(
       'label' => t('Default'),
       'field types' => array('serial'),
-    )
+    ),
   );
 }
 
@@ -172,21 +133,17 @@ function serial_field_formatter_view($entity_type, $entity, $field, $instance, $
     $element[$delta] = array(
       '#markup' => theme('serial_formatter_default', array(
         'serial_id' => $item['value'],
-      ))
+      )),
     );
   }
+
   return $element;
 }
-
-/**
- * Theme Functions
- */
 
 /**
  * Implements hook_theme().
  */
 function serial_theme() {
-
   // Register the theme for the default formatter.
   return array(
     'serial_formatter_default' => array(
@@ -203,10 +160,6 @@ function serial_theme() {
 function theme_serial_formatter_default($variables) {
   return $variables['serial_id'];
 }
-
-//==============//
-// Field Widget //
-//==============//
 
 /**
  * Implements hook_field_widget_info().
@@ -228,7 +181,6 @@ function serial_field_widget(&$form, &$form_state, $field, $instance, $items, $d
     'value' => array(
       '#type' => 'hidden',
       '#default_value' => $items[$delta]['value'],
-    )
+    ),
   );
 }
-
