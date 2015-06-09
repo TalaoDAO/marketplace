@@ -4368,6 +4368,11 @@ span.required {
             }
         }
 
+        .field-name-field-working-status,
+        .form-item-field-address-und-0-country {
+            .choosen-custom-select;
+        }
+
         .field-name-field-domaine {
             ul.chosen-choices {
                 width: 70%;
@@ -5791,6 +5796,25 @@ div.tabs {
         .col-sm-4 {
             padding-left: 2px;
             padding-right: 2px;
+        }
+    }
+}
+
+.choosen-custom-select {
+    a.chosen-single {
+        background: #d4d9dd !important;
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 3px !important;
+        height: 29px !important;
+
+        > div {
+            width: 27px;
+            background: #dbdfe3 url(../images/selectDarkArrow.png) no-repeat 100% 0;
+
+            > b {
+                background: none !important;
+            }
         }
     }
 }
