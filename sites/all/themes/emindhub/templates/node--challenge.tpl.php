@@ -59,7 +59,7 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
             <div class="col-md-5">
                 <div class="row">
                     <div class="col-md-12 col-sm-6">
-                        <div><?php print $elements['field_domaine']['#title']; ?></div>
+                        <div><?php if (isset($elements['field_domaine'])) print $elements['field_domaine']['#title']; ?></div>
                         <div class="challenge-domain softPaddingUD paddingL">
                             <?php if (isset($field_domaine)):
                                 foreach ($field_domaine as $domain) {
