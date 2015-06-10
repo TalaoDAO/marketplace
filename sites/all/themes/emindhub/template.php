@@ -177,16 +177,6 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
 }
 
-// Webform hook form alter
-function emindhub_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
-
-  $form['actions']['cancel']['#weight'] = '0';
-  $form['actions']['draft']['#weight'] = '4';
-  $form['actions']['preview']['#access'] = FALSE;
-  $form["actions"]['submit']['#value'] = t('Save and add your questions');
-}
-
 
 /**
  * Additional page variables
@@ -847,4 +837,31 @@ function pp($arr){
 function customDSM($input, $name = NULL, $type = 'status') {
     $export = kprint_r($input, TRUE, $name);
     drupal_set_message($export, $type);
+}
+
+
+
+// Webform hook form alter
+function emindhub_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
+
+  // echo '<pre>' . print_r($form['field_reward'], TRUE) . '</pre>'; die;
+
+  // TODO : Precise required field on group title (because of the custom chosen select theme)
+  // For now, hack with CSS !
+  // $form['#fieldgroups']['group_label']->label .= ' <span class="form-required" title="' . t('This field is required.') . '">*</span>';
+
+  // Add-ons (placeholder, suffix, etc.)
+  // $form['field_reward']['und']['0']['value']['#field_suffix'] = '€';
+  // $form['field_taxes']['und'][0]['value']['#attributes']['placeholder'] = "Taille, secteur d'activité, etc...";
+
+  // Action buttons
+  $form['actions']['cancel']['#weight'] = '0';
+  $form['actions']['draft']['#weight'] = '1';
+  $form['actions']['preview']['#weight'] = '2';
+  $form['actions']['submit']['#weight'] = '3';
+  $form['actions']['submit']['#value'] = t('Save and add your questions');
+
+  // Add required fields legend
+  $form['actions']['required_options']['#markup'] = '<span class="mandatory-options"><span class="form-required">*</span>' . t('Required fields') . '</span>';
+  $form['actions']['required_options']['#weight'] = '4';
 }

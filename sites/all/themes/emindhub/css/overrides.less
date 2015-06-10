@@ -1,0 +1,56 @@
+// I want jQuery UI looks like Chosen widget !
+ul.ui-autocomplete {
+  padding: 0;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+}
+.ui-widget {
+  font-family: inherit;
+  font-size: 13px;
+}
+.ui-menu .ui-menu-item a {
+  display: list-item;
+  padding: 5px 6px;
+  margin: 0;
+  line-height: 15px;
+  border: 0;
+}
+.ui-menu .ui-menu-item a.ui-state-hover {
+  color: #FFF;
+  cursor: pointer;
+}
+.ui-widget-content a {
+  color: #4c6172;
+}
+.ui-corner-all {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+
+.autocomplete-deluxe-item {
+  position: relative;
+  margin: 3px 0 3px 5px;
+  padding: 3px 20px 3px 5px;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  background-color: #e4e4e4;
+  background-image: linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+  background-clip: padding-box;
+  box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05);
+  float: left;
+  color: #333;
+  line-height: 13px;
+  cursor: default;
+
+  .autocomplete-deluxe-item-delete {
+    position: absolute;
+    top: 4px;
+    right: 3px;
+    display: block;
+    width: 12px;
+    height: 12px;
+    background: url('../../../libraries/chosen/chosen-sprite.png') -42px 1px no-repeat;
+    font-size: 1px;
+    cursor: pointer;
+  }
+}

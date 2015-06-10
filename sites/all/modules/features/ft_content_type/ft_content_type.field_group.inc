@@ -707,17 +707,17 @@ function ft_content_type_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_oneliner3';
   $field_group->data = array(
-    'label' => 'Your activity *',
+    'label' => 'Your activity',
     'weight' => '50',
     'children' => array(
       0 => 'field_use_my_entreprise',
     ),
     'format_type' => 'html-element',
     'format_settings' => array(
-      'label' => 'Your activity *',
+      'label' => 'Your activity',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => 'group-label field-group-html-element',
+        'classes' => 'group-label field-group-html-element field_use_my_entreprise',
         'element' => 'div',
         'show_label' => '1',
         'label_element' => 'div',
@@ -827,17 +827,17 @@ function ft_content_type_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_oneliner3';
   $field_group->data = array(
-    'label' => 'Your organisation *',
+    'label' => 'Your organisation',
     'weight' => '49',
     'children' => array(
       0 => 'field_show_entreprise',
     ),
     'format_type' => 'html-element',
     'format_settings' => array(
-      'label' => 'Your organisation *',
+      'label' => 'Your organisation',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => 'group-label field-group-html-element',
+        'classes' => 'group-label field-group-html-element field_show_entreprise',
         'element' => 'div',
         'show_label' => '1',
         'label_element' => 'div',
@@ -947,17 +947,17 @@ function ft_content_type_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_oneliner3';
   $field_group->data = array(
-    'label' => 'Your name *',
+    'label' => 'Your name',
     'weight' => '48',
     'children' => array(
       0 => 'field_anonymous',
     ),
     'format_type' => 'html-element',
     'format_settings' => array(
-      'label' => 'Your name *',
+      'label' => 'Your name',
       'instance_settings' => array(
         'required_fields' => 1,
-        'classes' => 'group-label field-group-html-element',
+        'classes' => 'group-label field-group-html-element field_anonymous',
         'element' => 'div',
         'show_label' => '1',
         'label_element' => 'div',
