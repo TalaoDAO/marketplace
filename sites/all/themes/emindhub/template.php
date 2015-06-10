@@ -174,6 +174,17 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 //        var_dump($form);
 //        die;
     }
+
+}
+
+// Webform hook form alter
+function emindhub_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+
+  $form['actions']['cancel']['#weight'] = '0';
+  $form['actions']['draft']['#weight'] = '4';
+  $form['actions']['preview']['#access'] = FALSE;
+  $form["actions"]['submit']['#value'] = t('Save and add your questions');
 }
 
 
@@ -392,7 +403,7 @@ function node_informations_add(&$variables) {
             if ($account->field_entreprise) {
                 $targetId = $account->field_entreprise[LANGUAGE_NONE][0]['target_id'];
                 $entity = node_load($targetId);
-                if ($entity) { 
+                if ($entity) {
                     $variables['company_name'] = $entity->title;
                     if ($entity->body)
                         $variables['company_description'] = $entity->body[LANGUAGE_NONE][0]["value"];
