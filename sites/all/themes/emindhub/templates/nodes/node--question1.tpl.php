@@ -38,7 +38,7 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
     </div>
 <?php } ?>
 <div class="row paddingLR challenge-container">
-  <div class="row"> 
+  <div class="row">
     <div class="col-md-12">
         <h2><?php print $title; ?></h2>
         <br />
@@ -54,7 +54,7 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
 <div class="row paddingLR paddingUD challenge-container">
     <div class="row">
         <div class="col-md-4 col-sm-6">
-            <?php require_once __DIR__ . '/includes/userInformations.tpl.php'; ?>
+            <?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/userInformations.tpl.php'; ?>
         </div>
         <div class="col-md-4 col-sm-6">
             <div class="bold"><?php print $elements['field_domaine']['#title']; ?></div>
@@ -65,7 +65,7 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
                     }
                 endif; ?>
             </div>&nbsp;
-            <?php require_once __DIR__ . '/includes/tagsField.tpl.php'; ?>
+            <?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/tagsField.tpl.php'; ?>
         </div>
         <div class="col-md-4 col-sm-6">
             <div class="row">
@@ -99,7 +99,7 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
             </div>
         </div>
     </div>
-    <?php require_once __DIR__ . '/includes/companyDescription.tpl.php'; ?>
+    <?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/companyDescription.tpl.php'; ?>
     <div class="paddingUD">
         <?php print $elements['links']['flag']['#links']['flag-my_selection']['title']; ?>
        &nbsp;&nbsp; <?php if (node_access('update',$node)) print l(t('Edit'),'node/'.$node->nid.'/edit', array('attributes' => array('class' => array('btn','btn-primary','btn-expert'))) ); ?>

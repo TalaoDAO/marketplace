@@ -77,7 +77,7 @@
     <div id="page">
         <div id="header">
             <div class="section clearfix paddingU">
-                <?php require_once __DIR__ . '/includes/_header.tpl.php' ?>
+                <?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/_header.tpl.php'; ?>
 
                 <div class="ligh-blue-line header-separator">&nbsp;</div>
                 <div class="dark-blue-line-large">&nbsp;</div>
@@ -132,4 +132,3 @@
         </div>
     </div> <!-- /#page, /#page-wrapper -->
 </div>
-
