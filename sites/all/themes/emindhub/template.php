@@ -839,7 +839,30 @@ function customDSM($input, $name = NULL, $type = 'status') {
     drupal_set_message($export, $type);
 }
 
+// Webform components edit hook form alter
+function emindhub_form_webform_component_edit_form_alter(&$form, &$form_state, $form_id) {
 
+  $form['name']['#title'] = t('Your question');
+  $form['name']['#description'] = '';
+
+  $form['form_key']['#access'] = 0;
+
+  $form['value']['#access'] = 0;
+
+  $form['extra']['description']['#type'] = 'textfield';
+  $form['extra']['description']['#description'] = '';
+
+  $form['display']['#access'] = 0;
+
+  $form['validation']['#access'] = 0;
+  // $form['validation']['#title'] = '';
+  // $form['validation']['#collapsible'] = 0;
+  $form['validation']['mandatory']['#default_value'] = 1;
+
+  $form['actions']['submit']['#value'] = t('Save my question and go back to my form');
+
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+}
 
 // Webform components hook form alter
 function emindhub_form_webform_components_form_alter(&$form, &$form_state, $form_id) {
@@ -914,11 +937,38 @@ function emindhub_form_webform_components_form_alter(&$form, &$form_state, $form
   //   ),
   // );
 
-  $form['add']['type']['#access'] = FALSE;
+  // Force value with select options
   // $form['add']['name']['#type'] = 'select';
-  // $form['add']['name']['#options'] = array( t('Question 1'), t('Question 2'), t('Question 3'), t('Question 4'), );
+  // $form['add']['name']['#default_value'] = 'q1';
+  // $form['add']['name']['#options'] = array(
+  //   'q1' => t('Question 1'),
+  //   'q2' => t('Question 2'),
+  //   'q3' => t('Question 3'),
+  //   'q4' => t('Question 4'),
+  // );
+
+  $form['actions']['submit']['#value'] = t('Save your questions and continue');
+
+  $webform_id = $form['#node']->nid;
+  $form['actions']['goback']['#markup'] = t('<button href="@url" class="btn btn-submit form-submit" id="edit-back">Go back edit your form</button>', array('@url' => url('node/' . $webform_id . '/edit')));
+  $form['actions']['goback']['#weight'] = 44;
+  $form['actions']['goback']['#access'] = 1;
+
+  $form['actions']['see']['#markup'] = t('<button href="@url" class="btn btn-submit form-submit" id="edit-view">View your form</button>', array('@url' => url('node/' . $webform_id)));
+  $form['actions']['see']['#weight'] = 46;
+  $form['actions']['see']['#access'] = 1;
+
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+  // echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
+  // die;
 
   // TODO : make these hooks working !
+
+  // Hide field type choice
+  // $form['add']['type']['#access'] = FALSE;
+
+  // Force mandatory option
+  // $form['add']['mandatory']['#default_value'] = TRUE;
 
   // $form['add']['name']['#attributes']['rel'] = t('Write your question...');
 
@@ -953,9 +1003,6 @@ function emindhub_form_webform_components_form_alter(&$form, &$form_state, $form
   // if (empty($node->webform['components'])) {
   //   $rows[] = array(array('data' => t('No questions, add a question below.'), 'colspan' => 9));
   // }
-
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
-  // die;
 
 }
 

@@ -59,9 +59,30 @@ body.page-node-webform-components {
       display: none;
     }
 
+    // Value (unnecessary for textfield !)
+    thead tr th:nth-child(3),
+    tbody tr td:nth-child(3) {
+      display: none;
+    }
+
+    // Mandatory (unnecessary 'cause of the forced value)
+    thead tr th:nth-child(4),
+    tbody tr td:nth-child(4) {
+      display: none;
+    }
+
     // Actions
-    tbody tr td:last-child {
+    tbody tr.webform-add-form td:last-child {
       text-align: center;
+      width: 30%;
+    }
+
+    // Actions
+    tbody tr.tabledrag-leaf td:nth-child(6),
+    tbody tr.tabledrag-leaf td:nth-child(7),
+    tbody tr.tabledrag-leaf td:nth-child(8) {
+      text-align: center;
+      width: 10%;
     }
   }
 
