@@ -68,11 +68,11 @@
                 <div class="col-sm-6">
                     <div class="row paddingD">
                         <div class="col-md-12">
-                            <?php print $elements['field_domaine']['#title']; ?>
+                            <?php if (isset($elements['field_domaine'])) print $elements['field_domaine']['#title']; ?>
                             <div class="challenge-domain softPaddingUD paddingL">
                                 <?php if (isset($field_domaine)):
                                     foreach ($field_domaine as $domain) {
-                                        print $domain['taxonomy_term']->name . "<br>";
+                                        if (isset($domain['taxonomy_term'])) print $domain['taxonomy_term']->name . "<br>"; // YBA don't exist in teaser
                                     }
                                 endif; ?>
                             </div>

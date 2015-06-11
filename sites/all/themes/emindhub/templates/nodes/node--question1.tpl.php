@@ -57,11 +57,11 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
             <?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/userInformations.tpl.php'; ?>
         </div>
         <div class="col-md-4 col-sm-6">
-            <div class="bold"><?php print $elements['field_domaine']['#title']; ?></div>
+            <div class="bold"><?php if (isset($elements['field_domaine'])) print $elements['field_domaine']['#title']; ?></div>
             <div class="challenge-domain softPaddingUD paddingL">
                 <?php if (isset($field_domaine)):
                     foreach ($field_domaine as $domain) {
-                        print $domain['taxonomy_term']->name . "<br>";
+                        if (isset($domain['taxonomy_term'])) print $domain['taxonomy_term']->name . "<br>";
                     }
                 endif; ?>
             </div>&nbsp;
