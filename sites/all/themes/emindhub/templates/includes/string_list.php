@@ -57,7 +57,7 @@ define("c_szYouCircles",                t("YOUR PRIVATE"));
 define("c_szPrivates",                  t("CIRCLES"));
 define("c_szAllExperts",                t("THE EXPERTS"));
 define("c_szSearchTerms",               t("Enter your search terms"));
-define("c_szSearchKeywords",            t("Key words for your search…"));
+define("c_szSearchKeywords",            t("Keywords for your search…"));
 define("c_szLearnMore",                 t("Do you want to learn more ?"));
 define("c_szLeaveMsg",                  t("Leave us a message, we will get back at you within 24h !"));
 define("c_szRequiredField",             t("Required fields"));

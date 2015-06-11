@@ -1,138 +1,154 @@
 <?php
 /**
- * @file
- * Code for the eMindHub survey feature.
- */
+* @file
+* Code for the eMindHub survey feature.
+*/
 
 
- /* Webform hook form alter
-  * node/$ID/webform/components/$ID
-  * */
- function emindhub_survey_form_webform_component_edit_form_alter(&$form, &$form_state, $form_id) {
+/* Webform hook form alter
+ * node/$ID/webform/components/$ID
+ * */
+function emindhub_survey_form_webform_component_edit_form_alter(&$form, &$form_state, $form_id) {
 
-   // Question label
-   $form['name']['#title'] = t('Your question');
+	// Question label
+	$form['name']['#title'] = t('Your question');
 
-   // Hide unnecessary fields
-   $form['form_key']['#access'] = 0;
-   $form['value']['#access'] = 0;
-   $form['display']['#access'] = 0;
-   $form['validation']['#access'] = 0;
+	// Hide unnecessary fields
+	foreach (
+		array(
+			'form_key',
+			'value',
+			'display',
+			'validation',
+		) as $field) {
+		$form[$field]['#access'] = FALSE;
+	}
 
-   // Hide unnecessary field description
-   $form['name']['#description'] = '';
-   $form['extra']['description']['#description'] = '';
+	// Hide unnecessary field description
+	$form['name']['#description'] = '';
+	$form['extra']['description']['#description'] = '';
 
-   // Change description format (textarea is too big)
-   $form['extra']['description']['#type'] = 'textfield';
+	// Change description format (textarea is too big)
+	$form['extra']['description']['#type'] = 'textfield';
 
-   // We hide mandatory field BUT we don't forget to force it
-   $form['validation']['mandatory']['#default_value'] = 1;
+	// We hide mandatory field BUT we don't forget to force it
+	$form['validation']['mandatory']['#default_value'] = 1;
 
-   // Action submit label
-   $form['actions']['submit']['#value'] = t('Save my question and go back to my form');
+	// Action submit label
+	$form['actions']['submit']['#value'] = t('Save my question and go back to my form');
 
-   // echo '<pre>' . print_r($form, TRUE) . '</pre>';
- }
+	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
+}
 
- /* Webform hook form alter
-  * node/$ID/webform/components
-  * */
- function emindhub_survey_form_webform_components_form_alter(&$form, &$form_state, $form_id) {
+/* Webform hook form alter
+ * node/$ID/webform/components
+ * */
+function emindhub_survey_form_webform_components_form_alter(&$form, &$form_state, $form_id) {
 
-   $form['actions']['submit']['#value'] = t('Save your questions and continue');
+	$form['actions']['submit']['#value'] = t('Save your questions and continue');
 
-   $webform_id = $form['#node']->nid;
-   $form['actions']['goback']['#markup'] = t('<button href="@url" class="btn btn-submit form-submit" id="edit-back">Go back edit your form</button>', array('@url' => url('node/' . $webform_id . '/edit')));
-   $form['actions']['goback']['#weight'] = 44;
-   $form['actions']['goback']['#access'] = 1;
+	$webform_id = $form['#node']->nid;
+	$form['actions']['goback']['#markup'] = t('<button href="@url" class="btn btn-submit form-submit" id="edit-back">Go back edit your form</button>', array('@url' => url('node/' . $webform_id . '/edit')));
+	$form['actions']['goback']['#weight'] = 44;
+	$form['actions']['goback']['#access'] = TRUE;
 
-   $form['actions']['see']['#markup'] = t('<button href="@url" class="btn btn-submit form-submit" id="edit-view">View your form</button>', array('@url' => url('node/' . $webform_id)));
-   $form['actions']['see']['#weight'] = 46;
-   $form['actions']['see']['#access'] = 1;
+	$form['actions']['see']['#markup'] = t('<button href="@url" class="btn btn-submit form-submit" id="edit-view">View your form</button>', array('@url' => url('node/' . $webform_id)));
+	$form['actions']['see']['#weight'] = 46;
+	$form['actions']['see']['#access'] = TRUE;
 
-   // echo '<pre>' . print_r($form, TRUE) . '</pre>';
-   // echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
-   // die;
+	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
+	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
+	// die;
 
-   // TODO : make these hooks working !
+	// TODO : make these hooks working !
 
-   // TODO : Hide field type choice
-   // $form['add']['type']['#access'] = FALSE;
+	// TODO : Hide field type choice
+	// $form['add']['type']['#access'] = FALSE;
 
-   // TODO : Force mandatory option
-   // $form['add']['mandatory']['#default_value'] = TRUE;
+	// TODO : Force mandatory option
+	// $form['add']['mandatory']['#default_value'] = TRUE;
 
-   // TODO : Force field placeholder
-   // $form['add']['name']['#attributes']['rel'] = t('Write your question...');
+	// TODO : Force field placeholder
+	// $form['add']['name']['#attributes']['rel'] = t('Write your question...');
 
-   // TODO : add class to <th> and <td> elements
-   // $header = array(
-   //   array(
-   //     'data' => t('Label'),
-   //     'class' => array('wc-label')
-   //   ),
-   //   array(
-   //     'data' => t('Type'),
-   //     'class' => array('wc-type')
-   //   ),
-   //   array(
-   //     'data' => t('Value'),
-   //     'class' => array('wc-value')
-   //   ),
-   //   array(
-   //     'data' => t('Mandatory'),
-   //     'class' => array('wc-mandatory')
-   //   ),
-   //   array(
-   //     'data' => t('Weight'),
-   //     'class' => array('wc-weight')
-   //   ),
-   //   array(
-   //     'data' => t('Operations'),
-   //     'colspan' => 3,
-   //     'class' => array('wc-operations')
-   //   ),
-   // );
+	// TODO : add class to <th> and <td> elements
+	// $header = array(
+	//	 array(
+	//		 'data' => t('Label'),
+	//		 'class' => array('wc-label')
+	//	 ),
+	//	 array(
+	//		 'data' => t('Type'),
+	//		 'class' => array('wc-type')
+	//	 ),
+	//	 array(
+	//		 'data' => t('Value'),
+	//		 'class' => array('wc-value')
+	//	 ),
+	//	 array(
+	//		 'data' => t('Mandatory'),
+	//		 'class' => array('wc-mandatory')
+	//	 ),
+	//	 array(
+	//		 'data' => t('Weight'),
+	//		 'class' => array('wc-weight')
+	//	 ),
+	//	 array(
+	//		 'data' => t('Operations'),
+	//		 'colspan' => 3,
+	//		 'class' => array('wc-operations')
+	//	 ),
+	// );
 
-   // TODO : Change default message when no question already added
-   // if (empty($node->webform['components'])) {
-   //   $rows[] = array(array('data' => t('No questions, add a question below.'), 'colspan' => 9));
-   // }
+	// TODO : Change default message when no question already added
+	// if (empty($node->webform['components'])) {
+	//	 $rows[] = array(array('data' => t('No questions, add a question below.'), 'colspan' => 9));
+	// }
 
-   // TODO : Force value with select options
-   // $form['add']['name']['#type'] = 'select';
-   // $form['add']['name']['#default_value'] = 'q1';
-   // $form['add']['name']['#options'] = array(
-   //   'q1' => t('Question 1'),
-   //   'q2' => t('Question 2'),
-   //   'q3' => t('Question 3'),
-   //   'q4' => t('Question 4'),
-   // );
+	// TODO : Force value with select options
+	// $form['add']['name']['#type'] = 'select';
+	// $form['add']['name']['#default_value'] = 'q1';
+	// $form['add']['name']['#options'] = array(
+	//	 'q1' => t('Question 1'),
+	//	 'q2' => t('Question 2'),
+	//	 'q3' => t('Question 3'),
+	//	 'q4' => t('Question 4'),
+	// );
 
- }
+}
 
 
- /* Webform hook form alter
-  * node/add/webform
-  * node/$ID/edit
-  * */
- function emindhub_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
+/* Webform hook form alter
+ * node/add/webform
+ * node/$ID/edit
+ * */
+        //  emindhub_survey_form_webform_components_form_alter
+function emindhub_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
 
-   // echo '<pre>' . print_r($form, TRUE) . '</pre>'; die;
+  print $form_id;
+	echo '<pre>' . print_r($form, TRUE) . '</pre>';
+	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
+  die;
 
-   // TODO : Precise required field on group title (because of the custom chosen select theme)
-   // For now, hack with CSS !
-   // $form['#fieldgroups']['group_label']->label .= ' <span class="form-required" title="' . t('This field is required.') . '">*</span>';
+	// TODO : Precise required field on group title (because of the custom chosen select theme)
+	// For now, hack with CSS !
+	// $form['#fieldgroups']['group_label']->label .= ' <span class="form-required" title="' . t('This field is required.') . '">*</span>';
 
-   // Action buttons
-   $form['actions']['cancel']['#weight'] = '0';
-   $form['actions']['draft']['#weight'] = '1';
-   $form['actions']['preview']['#weight'] = '2';
-   $form['actions']['submit']['#weight'] = '3';
-   $form['actions']['submit']['#value'] = t('Save and add your questions');
+	// Action buttons
+	$form['actions']['cancel']['#weight'] = '0';
 
-   // Add required fields legend
-   $form['actions']['required_options']['#markup'] = '<span class="mandatory-options"><span class="form-required">*</span>' . t('Required fields') . '</span>';
-   $form['actions']['required_options']['#weight'] = '4';
- }
+	$form['actions']['draft']['#weight'] = '1';
+
+  $form['actions']['preview']['#weight'] = '2';
+
+	$form['actions']['submit']['#weight'] = '3';
+	$form['actions']['submit']['#value'] = t('Save and add your questions');
+
+  $form['actions']['preview_changes']['#weight'] = '4';
+
+	$form['actions']['delete']['#weight'] = '5';
+
+ //	// Add required fields legend
+ //	$form['actions']['required_options']['#markup'] = '<span class="mandatory-options"><span class="form-required">*</span>' . t('Required fields') . '</span>';
+ //	$form['actions']['required_options']['#weight'] = '4';
+}
