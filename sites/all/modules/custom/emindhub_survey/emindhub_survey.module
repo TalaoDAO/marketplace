@@ -132,30 +132,25 @@ function emindhub_survey_form_webform_node_form_alter(&$form, &$form_state, $for
 
 	// TODO : Precise required field on group title (because of the custom chosen select theme)
 	// For now, hack with CSS !
-	// $form['#fieldgroups']['group_label']->label .= ' <span class="form-required" title="' . t('This field is required.') . '">*</span>';
-
-	// Action buttons
-	$form['actions']['cancel']['#weight'] = '0';
-
-	$form['actions']['draft']['#weight'] = '1';
-
-  $form['actions']['preview']['#weight'] = '2';
-
-	$form['actions']['submit']['#weight'] = '3';
-	$form['actions']['submit']['#value'] = t('Save and add your questions');
-
-  $form['actions']['preview_changes']['#weight'] = '4';
-
-	$form['actions']['delete']['#weight'] = '5';
+	$form['#fieldgroups']['group_label']->label .= ' <span class="form-required" title="' . t('This field is required.') . '">*</span>';
 
 	// Add required fields legend
 	$form['actions']['required_options']['#markup'] = '<span class="mandatory-options"><span class="form-required">*</span>' . t('Required fields') . '</span>';
-	$form['actions']['required_options']['#weight'] = '4';
+
+	// Action buttons
+	$i = 0;
+	foreach (
+		array(
+			'cancel',
+			'delete',
+			'preview_changes',
+			'draft',
+			'preview',
+			'submit',
+			'required_options',
+		) as $action ) {
+			$form['actions'][$action]['#weight'] = $i++;
+		}
+
+	$form['actions']['submit']['#value'] = t('Save and manage your questions');
 }
-
-
-
-// function emindhub_survey_update_0001(&$sandbox) {
-//   $res[] = update_sql("UPDATE {system} SET weight = 1 WHERE name = 'emindhub_survey'");
-//   return $res;
-// }
