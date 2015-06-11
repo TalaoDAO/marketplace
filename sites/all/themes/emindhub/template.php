@@ -49,7 +49,7 @@ function emindhub_theme() {
         'render element' => 'form',
       ),
       'user_picture' => array(
-        'path' => drupal_get_path('theme', 'emindhub').'/templates',
+        'path' => drupal_get_path('theme', 'emindhub').'/templates/user',
         'template' => 'user_picture',
         'render element' => 'image',
       ),
@@ -65,7 +65,7 @@ function emindhub_theme() {
         'render element' => 'form',
       ),*/
       'user_login' => array(
-        'path' => drupal_get_path('theme', 'emindhub').'/templates',
+        'path' => drupal_get_path('theme', 'emindhub').'/templates/user',
         'template' => 'user-login',
         'render element' => 'form',
       ),
@@ -147,33 +147,32 @@ function emindhub_preprocess_user_picture(&$variables) {
 }
 
 function emindhub_form_alter(&$form, &$form_state, $form_id) {
-    if ($form_id == 'search_block_form') {
-        $form['search_block_form']['#title'] = c_szSearch; // Change the text on the label element
-        $form['search_block_form']['#title_display'] = 'invisible'; // Toggle label visibilty
-        $form['search_block_form']['#size'] = 40;  // define size of the textfield
-        //$form['search_block_form']['#default_value'] = t('Search'); // Set a default value for the textfield
-        $form['actions']['submit']['#value'] = c_szGo; // Change the text on the submit button
-        $form['actions']['submit']['#attributes']['class'] = array('element-invisible');
+  if ($form_id == 'search_block_form') {
+    $form['search_block_form']['#title'] = c_szSearch; // Change the text on the label element
+    $form['search_block_form']['#title_display'] = 'invisible'; // Toggle label visibilty
+    $form['search_block_form']['#size'] = 40;  // define size of the textfield
+    //$form['search_block_form']['#default_value'] = t('Search'); // Set a default value for the textfield
+    $form['actions']['submit']['#value'] = c_szGo; // Change the text on the submit button
+    $form['actions']['submit']['#attributes']['class'] = array('element-invisible');
 
-//        $form['actions']['submit'] = array('#type' => 'imput');
+    // $form['actions']['submit'] = array('#type' => 'imput');
 
-        // Add extra attributes to the text box
-        $form['search_block_form']['#attributes']['class'] = array('search-input', 'form-control');
-        $form['search_block_form']['#attributes']['onblur'] = "if (this.value == '') {this.value = 'Search';}";
-        $form['search_block_form']['#attributes']['onfocus'] = "if (this.value == 'Search') {this.value = '';}";
-        // Prevent user from searching the default text
-        //$form['#attributes']['onsubmit'] = "if(this.search_block_form.value=='Search'){ alert('Please enter a search'); return false; }";
+    // Add extra attributes to the text box
+    $form['search_block_form']['#attributes']['class'] = array('search-input', 'form-control');
+    $form['search_block_form']['#attributes']['onblur'] = "if (this.value == '') {this.value = 'Search';}";
+    $form['search_block_form']['#attributes']['onfocus'] = "if (this.value == 'Search') {this.value = '';}";
+    // Prevent user from searching the default text
+    //$form['#attributes']['onsubmit'] = "if(this.search_block_form.value=='Search'){ alert('Please enter a search'); return false; }";
 
-        // Alternative (HTML5) placeholder attribute instead of using the javascript
-        $form['search_block_form']['#attributes']['placeholder'] = c_szYourSearch;
+    // Alternative (HTML5) placeholder attribute instead of using the javascript
+    $form['search_block_form']['#attributes']['placeholder'] = c_szYourSearch;
 
-
-        $form['#theme_wrappers'] = array();
-//            array (size=1)
-//      0 => string 'form' (length=4)
-//        var_dump($form);
-//        die;
-    }
+    $form['#theme_wrappers'] = array();
+    // array (size=1)
+    // 0 => string 'form' (length=4)
+    // var_dump($form);
+    // die;
+  }
 
 }
 
@@ -335,13 +334,6 @@ function emindhub_preprocess_page(&$vars) {
     ));
 
     $vars['secondMenu'] = FALSE;
-
-    // echo '<pre>' . print_r($vars, TRUE) . '</pre>'; die;
-    // // Use .tpl for edit node page
-    // // format : page--node--[contentType]--edit.tpl.php
-    // if (!empty($vars['node']) && arg(2) == 'edit') {
-    //   $vars['theme_hook_suggestions'][] = 'page__node__' . $vars['node']->type .'__edit';
-    // }
 }
 
 function emindhub_preprocess_html(&$variables) {
@@ -844,3 +836,34 @@ function customDSM($input, $name = NULL, $type = 'status') {
     $export = kprint_r($input, TRUE, $name);
     drupal_set_message($export, $type);
 }
+
+
+
+// function emindhub_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
+//
+// 	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
+// 	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
+// 	// die;
+//
+// 	// TODO : Precise required field on group title (because of the custom chosen select theme)
+// 	// For now, hack with CSS !
+// 	// $form['#fieldgroups']['group_label']->label .= ' <span class="form-required" title="' . t('This field is required.') . '">*</span>';
+//
+// 	// Action buttons
+// 	$form['actions']['cancel']['#weight'] = '0';
+//
+// 	$form['actions']['draft']['#weight'] = '1';
+//
+//   $form['actions']['preview']['#weight'] = '2';
+//
+// 	$form['actions']['submit']['#weight'] = '3';
+// 	$form['actions']['submit']['#value'] = t('Save and add your questions');
+//
+//   $form['actions']['preview_changes']['#weight'] = '4';
+//
+// 	$form['actions']['delete']['#weight'] = '5';
+//
+//  //	// Add required fields legend
+//  //	$form['actions']['required_options']['#markup'] = '<span class="mandatory-options"><span class="form-required">*</span>' . t('Required fields') . '</span>';
+//  //	$form['actions']['required_options']['#weight'] = '4';
+// }

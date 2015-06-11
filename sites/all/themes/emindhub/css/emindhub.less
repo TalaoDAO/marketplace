@@ -1,5 +1,6 @@
 @import "variables.less";
 @import "emindhub-business.less";
+@import "components/fields.less";
 @import "nodes/webform.less";
 @import "overrides.less";
 
@@ -483,12 +484,17 @@ input:not([type=submit]) {
 	background-color: @softGrey;
 }
 
-.search-input {
-	//Loupe bleue
-	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAxhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDM0MiwgMjAxMC8wMS8xMC0xODowNjo0MyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2MzlGNzk5OUZFMkIxMUU0OUU4RUY5OEY5QTYzQURBNCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo2MzlGNzk5QUZFMkIxMUU0OUU4RUY5OEY5QTYzQURBNCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjYzOUY3OTk3RkUyQjExRTQ5RThFRjk4RjlBNjNBREE0IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjYzOUY3OTk4RkUyQjExRTQ5RThFRjk4RjlBNjNBREE0Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+5aRTuwAAAVZJREFUeNqck0FERFEUhs97ZWg7REREiWkTJUqrIhHDZFZFyxYprdumRftmE2UWrVJaZCii1WhVDG0jSrRqFRFD/+G/43dNb6qfzzvPve9/555zbmLVFxN1gTVQAmOgFzyDBjgCF9ZGiZj4R4dg3H6Wm2zSuKVuPmfBJcjx/Q3UwTvoB1MgD4qMp8GjmvjiqRjsgR3wKT/zPftgmUf0/ROg6Ysp2OImVwVsRwbGjFbAlRy9HBZTpuj6oEGW1iUuqkmBcYNGWXqSoo6oSZNxzn6nHhmHlsk9Y29tXweDSRbW9aAmZ+JczTDwTA/k/VhNKpwJ1wKogcHIwLtxy2cwuI4n1j+6k1Ybh8mHboAEfYFhndpUqj4KTmTzEJiJDMKxalq/JLqA4QqUWURj9274g0WwK5nOeUbtTDppg1fA9QrmU/u7vBGrzNAv5/l/TEJ3lphJ/VuAAQDsi0Wgzb1GoQAAAABJRU5ErkJggg==) no-repeat 97% 50% !important;
-	//Loupe grise
-	//background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAiwAAAIsBRmWzPwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAHrSURBVDiNzZQ9axRRFIafM7OLuxNJUgQDBm0Ef0EKKwvRIiuKQTOT3c1OLEQ7EcHK3iY2pnLLJOusO4gKI2lEkSUgGI3+AgutLYz7oSQ7x8LZMMaZ1WChb/Wee9/73HO4cOF/l6RteJ43voV5yhAmEGn3erycL81siIjuCVgNAstqdxZU5TKQ2bW9rhhX5osX3v4RsBoEVq7VfSZwLLa8CQwBZlR3QkOnLjpOMwloxAur3VnYgQmBGZpH3KI90t2fHwa9DnQBywjFr9VqwwM79DxvfFsyH4EsQuDO2md3h1e8xjkVefTjoN6oFJ3bqR32jOxJIAtg9sxrSbdXSs5j4AWAIlMDR1b0UGQ/l8vn3yeFAUTZiOzhgUBUv0RuqBoEVhoQkQOR+zQQaIi+imwm3+pcSgov+f6EomcAFNYHAsuO8xr648itlbp/Oh6s1+sHpcd9YARAMGqJA8SL5fqDSQibQD5aeirKuxAdE0OmUUZj8bWcyZRt261UIMCy559AaABjSR38dFhp6vbXguu67V9G7sst2c/NcOuooDeBNeCDCG9A7oYhkwhBP6vCcTK5IP6IqZ9DmhZXV/eNbrYeohR2ICJzldmZe4kd/k5XC4VvOYNp4AmAKnf6sL+S7/v5Ja8xp6p7nvLf6jtscZ6Dbr0EvQAAAABJRU5ErkJggg==) no-repeat 97% 50% !important;
+.search-input.form-control {
+	background-color: @softGrey;
 	font-size: @px16;
+	background-repeat: no-repeat;
+	background-position: 97% 50%;
+
+	// Loupe bleue
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAxhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDM0MiwgMjAxMC8wMS8xMC0xODowNjo0MyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2MzlGNzk5OUZFMkIxMUU0OUU4RUY5OEY5QTYzQURBNCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo2MzlGNzk5QUZFMkIxMUU0OUU4RUY5OEY5QTYzQURBNCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjYzOUY3OTk3RkUyQjExRTQ5RThFRjk4RjlBNjNBREE0IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjYzOUY3OTk4RkUyQjExRTQ5RThFRjk4RjlBNjNBREE0Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+5aRTuwAAAVZJREFUeNqck0FERFEUhs97ZWg7REREiWkTJUqrIhHDZFZFyxYprdumRftmE2UWrVJaZCii1WhVDG0jSrRqFRFD/+G/43dNb6qfzzvPve9/555zbmLVFxN1gTVQAmOgFzyDBjgCF9ZGiZj4R4dg3H6Wm2zSuKVuPmfBJcjx/Q3UwTvoB1MgD4qMp8GjmvjiqRjsgR3wKT/zPftgmUf0/ROg6Ysp2OImVwVsRwbGjFbAlRy9HBZTpuj6oEGW1iUuqkmBcYNGWXqSoo6oSZNxzn6nHhmHlsk9Y29tXweDSRbW9aAmZ+JczTDwTA/k/VhNKpwJ1wKogcHIwLtxy2cwuI4n1j+6k1Ybh8mHboAEfYFhndpUqj4KTmTzEJiJDMKxalq/JLqA4QqUWURj9274g0WwK5nOeUbtTDppg1fA9QrmU/u7vBGrzNAv5/l/TEJ3lphJ/VuAAQDsi0Wgzb1GoQAAAABJRU5ErkJggg==);
+
+	// Loupe grise
+	// background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAiwAAAIsBRmWzPwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAHrSURBVDiNzZQ9axRRFIafM7OLuxNJUgQDBm0Ef0EKKwvRIiuKQTOT3c1OLEQ7EcHK3iY2pnLLJOusO4gKI2lEkSUgGI3+AgutLYz7oSQ7x8LZMMaZ1WChb/Wee9/73HO4cOF/l6RteJ43voV5yhAmEGn3erycL81siIjuCVgNAstqdxZU5TKQ2bW9rhhX5osX3v4RsBoEVq7VfSZwLLa8CQwBZlR3QkOnLjpOMwloxAur3VnYgQmBGZpH3KI90t2fHwa9DnQBywjFr9VqwwM79DxvfFsyH4EsQuDO2md3h1e8xjkVefTjoN6oFJ3bqR32jOxJIAtg9sxrSbdXSs5j4AWAIlMDR1b0UGQ/l8vn3yeFAUTZiOzhgUBUv0RuqBoEVhoQkQOR+zQQaIi+imwm3+pcSgov+f6EomcAFNYHAsuO8xr648itlbp/Oh6s1+sHpcd9YARAMGqJA8SL5fqDSQibQD5aeirKuxAdE0OmUUZj8bWcyZRt261UIMCy559AaABjSR38dFhp6vbXguu67V9G7sst2c/NcOuooDeBNeCDCG9A7oYhkwhBP6vCcTK5IP6IqZ9DmhZXV/eNbrYeohR2ICJzldmZe4kd/k5XC4VvOYNp4AmAKnf6sL+S7/v5Ja8xp6p7nvLf6jtscZ6Dbr0EvQAAAABJRU5ErkJggg==) no-repeat 97% 50% !important;
 }
 
 .hr {
@@ -1815,6 +1821,7 @@ table tbody tr:nth-child(even) {
 
 label {
 	width: 15%;
+	margin-right: 5px;
 }
 
 .field-type-addressfield {
@@ -3978,7 +3985,7 @@ span.required {
 		&-edit,
 		&-add {
 			.form-item-title label {
-				width: 5%;
+				// width: 5%;
 			}
 
 			.form-item-title,
@@ -4197,14 +4204,9 @@ span.required {
 					width: 37.7%
 				}
 
-				// .form-item-field-tags-und {
-				// 	margin: 0;
-				// 	margin-top: 0.5em;
-				// }
-
 				.form-item-field-duration-of-the-mission-und-0-value label,
 				.form-item-field-start-date-und-0 label {
-					width: 20%;
+					// width: 20%;
 				}
 
 				.form-item-field-reward-und-0-value {
@@ -4226,16 +4228,6 @@ span.required {
 				.field-type-image {
 					input.file-return {
 						width: 100%;
-					}
-				}
-
-				@media (max-width: @screen-md) {
-					.field-name-field-tags {
-						width: 100%;
-
-						.autocomplete-deluxe-container {
-							width: 100%;
-						}
 					}
 				}
 
