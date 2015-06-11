@@ -842,9 +842,71 @@ function customDSM($input, $name = NULL, $type = 'status') {
 
 
 // Webform hook form alter
+function emindhub_form_webform_components_form_alter(&$form, &$form_state, $form_id) {
+
+  // Action buttons
+
+  // $form['actions'] = array(
+  //
+  //   ['submit'] => array(
+  //     ['#type'] => 'submit',
+  //     ['#access'] => 1,
+  //     ['#value'] => 'Publish',
+  //     ['#weight'] => 5,
+  //     ['#submit'] => array(
+  //       [0] => i18n_node_form_submit,
+  //       [1] => webform_form_submit,
+  //       [2] => mb_content_changed_submit,
+  //     ),
+  //     ['#validate'] => array(
+  //       [0] => mb_content_changed_validate,
+  //     ),
+  //   ),
+
+    // ['preview'] => array(
+    //   ['#access'] => 1,
+    //   ['#type'] => 'submit',
+    //   ['#value'] => 'Preview',
+    //   ['#weight'] => 10,
+    //   ['#submit'] => array(
+    //     [0] => node_form_build_preview,
+    //     [1] => mb_content_changed_submit,
+    //   ),
+    //   ['#validate'] => array(
+    //     [0] => mb_content_changed_validate,
+    //   ),
+    // ),
+    //
+    // ['cancel'] => array(
+    //   ['#type'] => 'submit',
+    //   ['#value'] => 'Cancel',
+    //   ['#weight'] => 16,
+    //   ['#validate'] => array(
+    //     [0] => mb_content_cancel_validate,
+    //   ),
+    // ),
+    //
+    // ['draft'] => array(
+    //   ['#type'] => 'submit',
+    //   ['#class'] => 'form-submit',
+    //   ['#value'] => 'Save as draft',
+    //   ['#weight'] => 9,
+    //   ['#submit'] => array(
+    //     [0] => save_draft_submit,
+    //   ),
+    // ),
+  // );
+
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+  // die;
+
+}
+
+
+// Webform hook form alter
 function emindhub_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
 
-  // echo '<pre>' . print_r($form['field_reward'], TRUE) . '</pre>'; die;
+  echo '<pre>' . print_r($form, TRUE) . '</pre>'; die;
 
   // TODO : Precise required field on group title (because of the custom chosen select theme)
   // For now, hack with CSS !
