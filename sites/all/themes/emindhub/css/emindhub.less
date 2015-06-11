@@ -5054,6 +5054,39 @@ span.required {
             tr {
                 height: 4em;
             }
+
+            thead > tr > th {
+                line-height: initial;
+            }
+        }
+
+        #page-title {
+            width: 29% !important;
+        }
+
+        &-new {
+            .form-item-recipient > .formtips-wrapper {
+                display: inline;
+            }
+
+            #edit-token {
+                display: none;
+            }
+        }
+    }
+
+    &-admin,
+    &-messages {
+        div.tabs {
+            display: inherit;
+        }
+
+        tbody {
+            td.privatemsg-list-date,
+            td.privatemsg-list-date-started,
+            td.privatemsg-list-participants {
+                text-align: center;
+            }
         }
     }
 
@@ -5811,21 +5844,6 @@ span.required {
 
 div.tabs {
     display: none;
-}
-
-.page-admin,
-.page-messages {
-    div.tabs {
-        display: inherit;
-    }
-
-    tbody {
-        td.privatemsg-list-date,
-        td.privatemsg-list-date-started,
-        td.privatemsg-list-participants {
-            text-align: center;
-        }
-    }
 }
 
 .why-use-emindhub {
