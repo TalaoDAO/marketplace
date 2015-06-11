@@ -40,11 +40,18 @@ body.page-node-add-webform {
 
 
 // Webform components Add page
+// TODO : hide elemnts properly with template.php
 body.page-node-webform-components {
+
+  form#webform-components-form {
+    // Weight toogle
+    .tabledrag-toggle-weight-wrapper {
+      display: none;
+    }
+  }
+
   table#webform-components {
     width: 100%;
-
-    // TODO : hide elemnts properly with template.php
 
     // Type
     thead tr th:nth-child(2),

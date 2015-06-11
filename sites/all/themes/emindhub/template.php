@@ -915,6 +915,8 @@ function emindhub_form_webform_components_form_alter(&$form, &$form_state, $form
   // );
 
   $form['add']['type']['#access'] = FALSE;
+  // $form['add']['name']['#type'] = 'select';
+  // $form['add']['name']['#options'] = array( t('Question 1'), t('Question 2'), t('Question 3'), t('Question 4'), );
 
   // TODO : make these hooks working !
 
@@ -961,7 +963,7 @@ function emindhub_form_webform_components_form_alter(&$form, &$form_state, $form
 // Webform hook form alter
 function emindhub_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
 
-  echo '<pre>' . print_r($form, TRUE) . '</pre>'; die;
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>'; die;
 
   // TODO : Precise required field on group title (because of the custom chosen select theme)
   // For now, hack with CSS !
