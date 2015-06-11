@@ -132,7 +132,7 @@ function emindhub_survey_form_webform_node_form_alter(&$form, &$form_state, $for
 
 	// TODO : Precise required field on group title (because of the custom chosen select theme)
 	// For now, hack with CSS !
-	$form['#fieldgroups']['group_label']->label .= ' <span class="form-required" title="' . t('This field is required.') . '">*</span>';
+	// $form['#fieldgroups']['group_label']->label .= ' <span class="form-required" title="' . t('This field is required.') . '">*</span>';
 
 	// Add required fields legend
 	$form['actions']['required_options']['#markup'] = '<span class="mandatory-options"><span class="form-required">*</span>' . t('Required fields') . '</span>';
