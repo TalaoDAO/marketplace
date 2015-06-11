@@ -49,6 +49,16 @@ function ft_field_base_taxonomy_default_vocabularies() {
       'language' => 'und',
       'i18n_mode' => 0,
     ),
+    'position' => array(
+      'name' => 'Position',
+      'machine_name' => 'position',
+      'description' => '',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+      'language' => 'und',
+      'i18n_mode' => 0,
+    ),
     'skill' => array(
       'name' => 'Skills',
       'machine_name' => 'skill',
