@@ -49,7 +49,7 @@ function emindhub_theme() {
         'render element' => 'form',
       ),
       'user_picture' => array(
-        'path' => drupal_get_path('theme', 'emindhub').'/templates',
+        'path' => drupal_get_path('theme', 'emindhub').'/templates/user',
         'template' => 'user_picture',
         'render element' => 'image',
       ),
@@ -65,7 +65,7 @@ function emindhub_theme() {
         'render element' => 'form',
       ),*/
       'user_login' => array(
-        'path' => drupal_get_path('theme', 'emindhub').'/templates',
+        'path' => drupal_get_path('theme', 'emindhub').'/templates/user',
         'template' => 'user-login',
         'render element' => 'form',
       ),

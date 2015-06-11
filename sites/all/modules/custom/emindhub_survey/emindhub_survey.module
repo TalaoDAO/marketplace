@@ -122,13 +122,13 @@ function emindhub_survey_form_webform_components_form_alter(&$form, &$form_state
  * node/add/webform
  * node/$ID/edit
  * */
-        //  emindhub_survey_form_webform_components_form_alter
+
 function emindhub_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
 
-  print $form_id;
-	echo '<pre>' . print_r($form, TRUE) . '</pre>';
+  // print $form_id;
+	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
 	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
-  die;
+  // die;
 
 	// TODO : Precise required field on group title (because of the custom chosen select theme)
 	// For now, hack with CSS !
@@ -148,7 +148,14 @@ function emindhub_survey_form_webform_node_form_alter(&$form, &$form_state, $for
 
 	$form['actions']['delete']['#weight'] = '5';
 
- //	// Add required fields legend
- //	$form['actions']['required_options']['#markup'] = '<span class="mandatory-options"><span class="form-required">*</span>' . t('Required fields') . '</span>';
- //	$form['actions']['required_options']['#weight'] = '4';
+	// Add required fields legend
+	$form['actions']['required_options']['#markup'] = '<span class="mandatory-options"><span class="form-required">*</span>' . t('Required fields') . '</span>';
+	$form['actions']['required_options']['#weight'] = '4';
 }
+
+
+
+// function emindhub_survey_update_0001(&$sandbox) {
+//   $res[] = update_sql("UPDATE {system} SET weight = 1 WHERE name = 'emindhub_survey'");
+//   return $res;
+// }
