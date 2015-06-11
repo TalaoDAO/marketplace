@@ -52,6 +52,7 @@ function ft_rules_default_rules_configuration() {
   $items['rules_pre_subscribe_membres'] = entity_import('rules_config', '{ "rules_pre_subscribe_membres" : {
       "LABEL" : "Pre subscribe members to new Circles",
       "PLUGIN" : "reaction rule",
+      "ACTIVE" : false,
       "OWNER" : "rules",
       "TAGS" : [ "Circle", "EMH" ],
       "REQUIRES" : [ "og", "rules" ],
@@ -82,6 +83,22 @@ function ft_rules_default_rules_configuration() {
             "message" : "Welcome to the group [og-membership:group:title]",
             "from" : "[site:mail]",
             "language" : [ "account:language" ]
+          }
+        }
+      ]
+    }
+  }');
+  $items['rules_welcome_message'] = entity_import('rules_config', '{ "rules_welcome_message" : {
+      "LABEL" : "Welcome message",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "TAGS" : [ "emh" ],
+      "REQUIRES" : [ "rules" ],
+      "ON" : { "user_insert" : [] },
+      "DO" : [
+        { "drupal_message" : {
+            "message" : "Welcome to eMindHub !\\r\\nPlease fill your \\u003Ca href=\\u0022[account:edit-url]\\u0022\\u003Eprofile information\\u003C\\/a\\u003E",
+            "type" : "warning"
           }
         }
       ]
