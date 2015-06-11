@@ -479,6 +479,7 @@ input {
 }
 
 input:not([type=submit]) {
+	// background-color: @softGrey !important;
 	background-color: @softGrey;
 }
 
@@ -2524,46 +2525,46 @@ fieldset.collapsed {
 }
 
 .engagement-block {
-	color: @white;
-	padding: 4.5em 1em 1.7em;
-	text-align: center;
-	height: 14.3em;
+    color: @white;
+    padding: 4.5em 1em 1.7em;
+    text-align: center;
+    height: 14.3em;
 
-	@media (max-width: @screen-sm) {
-		margin-bottom: 10px;
-	}
+    @media (max-width: @screen-sm) {
+        margin-bottom: 10px;
+    }
 
-	@media (max-width: @screen-md) {
-		height: 13.8em;
-	}
+    @media (max-width: @screen-md) {
+        height: 13.8em;
+    }
 
-	@media (max-width: @screen-xs) {
-		height: 11.3em;
-	}
+    @media (max-width: @screen-xs) {
+        height: 11.3em;
+    }
 
-	&.rapidity {
-		background: @lightBlue url(../images/rapidityHeader.png) no-repeat 50% 5%;
-	}
-	&.security {
-		background: @lightBlue url(../images/securityHeader.png) no-repeat 50% 5%;
-		padding-left: 1.5em;
-		padding-right: 1.5em;
+    &.rapidity {
+        background: @lightBlue url(../images/rapidityHeader.png) no-repeat 50% 5%;
+    }
+    &.security {
+        background: @lightBlue url(../images/securityHeader.png) no-repeat 50% 5%;
+        padding-left: 1.5em;
+        padding-right: 1.5em;
 
-		@media (max-width: @screen-md) {
-			padding-left: 0.5em;
-			padding-right: 0.5em;
-		}
-	}
-	&.quality {
-		background: @lightBlue url(../images/qualityHeader.png) no-repeat 50% 5%;
-		padding-left: 1.8em;
-		padding-right: 1.8em;
+        @media (max-width: @screen-md) {
+            padding-left: 0.5em;
+            padding-right: 0.5em;
+        }
+    }
+    &.quality {
+        background: @lightBlue url(../images/qualityHeader.png) no-repeat 50% 5%;
+        padding-left: 1.8em;
+        padding-right: 1.8em;
 
-		@media (max-width: @screen-md) {
-			padding-left: 0.5em;
-			padding-right: 0.5em;
-		}
-	}
+        @media (max-width: @screen-md) {
+            padding-left: 0.5em;
+            padding-right: 0.5em;
+        }
+    }
 
 	.header {
 		.bold;
@@ -3682,19 +3683,28 @@ div.field-name-field-skills-set label {
 		}
 	}
 
-	&-question1,
-	&-webform,
-	&-challenge {
-		.comment .profile-picture {
-			float: left;
-			padding-top: 1.5em;
-			margin-right: 1em;
+    &-question1,
+    &-webform,
+    &-challenge {
+        .comment .profile-picture {
+            float: left;
+            padding-top: 1.5em;
+            margin-right: 1em;
 
-//			img {
-//				height: @px33;
-//			}
-		}
-	}
+//            img {
+//                height: @px33;
+//            }
+        }
+
+        .challenge-tag-container {
+            padding-left: 0;
+            padding-right: 0;
+
+            > span:first-of-type {
+                margin-left: 0;
+            }
+        }
+    }
 
 	&-challenge {
 		.flag-my-selection {
@@ -3757,15 +3767,6 @@ div.field-name-field-skills-set label {
 			text-align: left;
 			font-weight: bold;
 			padding: 1.5em;
-		}
-
-		.challenge-tag-container {
-			padding-left: 0;
-			padding-right: 0;
-
-			> span:first-of-type {
-				margin-left: 0;
-			}
 		}
 
 		.comment-wrapper {
