@@ -78,7 +78,7 @@
     <div id="header">
         <div class="section clearfix">
             <div class="fixed">
-                <?php require_once __DIR__ . '/includes/_header.tpl.php' ?>
+                <?php require_once drupal_get_path('theme', 'emindhub') . '/templates/includes/_header.tpl.php' ?>
                 <?php if (!isHomePage() || user_is_logged_in()) { ?>
                     <div class="ligh-blue-line header-separator">&nbsp;</div>
                 <?php } ?>
@@ -187,7 +187,7 @@
                     </div>
                 </div>
             </div>
-            <?php require_once __DIR__ . '/includes/_who-are-experts.tpl.php' ?>
+            <?php require_once drupal_get_path('theme', 'emindhub') . '/templates/includes/_who-are-experts.tpl.php' ?>
         <?php endif; ?>
         <?php if (!isHomePage()): ?>
             <div class="row">
