@@ -914,8 +914,6 @@ function emindhub_form_webform_components_form_alter(&$form, &$form_state, $form
   //   ),
   // );
 
-
-
   $form['add']['type']['#access'] = FALSE;
 
   // TODO : make these hooks working !
@@ -954,7 +952,7 @@ function emindhub_form_webform_components_form_alter(&$form, &$form_state, $form
   //   $rows[] = array(array('data' => t('No questions, add a question below.'), 'colspan' => 9));
   // }
 
-  echo '<pre>' . print_r($form, TRUE) . '</pre>';
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
   // die;
 
 }
