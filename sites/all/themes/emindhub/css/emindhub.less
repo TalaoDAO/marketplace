@@ -738,9 +738,9 @@ table {
 	tbody {
 		border: none;
 	}
-  th,
-  td {
-    padding: 5px 10px;
+	th,
+	td {
+		padding: 5px 10px;
   }
 }
 
@@ -4001,9 +4001,9 @@ span.required {
 			.form-item-field-show-entreprise-und,
 			.form-item-field-anonymous-und {
 				.styled-default-select;
-        label {
-          display: none;
-        }
+				label {
+				  display: none;
+				}
 
 			}
 
@@ -4328,11 +4328,10 @@ span.required {
 		text-align: left;
 	}
 
-
-	&-user {
-		div.section > #main-content + div.line.marginD {
-			display: none;
-		}
+    &-user {
+        div.section > #main-content + div.line.marginD {
+            display: none;
+        }
 
 		.profile .profile-section h2 {
 			font-size: @px18;
@@ -5057,8 +5056,41 @@ span.required {
 			tr {
 				height: 4em;
 			}
+
+			thead > tr > th {
+                line-height: initial;
+            }
 		}
+
+		#page-title {
+            width: 29% !important;
+        }
+
+        &-new {
+            .form-item-recipient > .formtips-wrapper {
+                display: inline;
+            }
+
+            #edit-token {
+                display: none;
+            }
+        }
 	}
+
+	&-admin,
+    &-messages {
+        div.tabs {
+            display: inherit;
+        }
+
+        tbody {
+            td.privatemsg-list-date,
+            td.privatemsg-list-date-started,
+            td.privatemsg-list-participants {
+                text-align: center;
+            }
+        }
+    }
 
 	&-query-list,
 	&-node-323 {
@@ -5814,21 +5846,6 @@ span.required {
 
 div.tabs {
 	display: none;
-}
-
-.page-admin,
-.page-messages {
-	div.tabs {
-		display: inherit;
-	}
-
-	tbody {
-		td.privatemsg-list-date,
-		td.privatemsg-list-date-started,
-		td.privatemsg-list-participants {
-			text-align: center;
-		}
-	}
 }
 
 .why-use-emindhub {
