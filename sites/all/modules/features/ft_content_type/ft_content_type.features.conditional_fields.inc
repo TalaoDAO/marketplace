@@ -1685,13 +1685,13 @@ function ft_content_type_conditional_fields_default_fields() {
     'dependee' => 'field_sponsorship',
     'options' => array(
       'state' => 'visible',
-      'condition' => 'value',
+      'condition' => 'checked',
       'grouping' => 'AND',
       'effect' => 'show',
       'effect_options' => array(),
       'element_view' => array(
-        1 => 1,
-        2 => 2,
+        1 => 0,
+        2 => 0,
         5 => 0,
         3 => 0,
         4 => 0,
@@ -1763,7 +1763,7 @@ function ft_content_type_conditional_fields_default_fields() {
         ),
       ),
       'element_edit' => array(
-        1 => 1,
+        1 => 0,
         3 => 0,
       ),
       'element_edit_per_role' => 0,
@@ -1807,13 +1807,9 @@ function ft_content_type_conditional_fields_default_fields() {
       ),
       'selector' => '',
       'values_set' => 1,
-      'value_form' => 1,
-      'value' => array(
-        0 => array(
-          'value' => 1,
-        ),
-      ),
+      'value' => array(),
       'values' => array(),
+      'value_form' => array(),
     ),
   );
 

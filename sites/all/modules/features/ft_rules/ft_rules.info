@@ -12,4 +12,5 @@ features[rules_config][] = rules_auto_subscribe_to_general_group
 features[rules_config][] = rules_mandatory_group
 features[rules_config][] = rules_pre_subscribe_membres
 features[rules_config][] = rules_subscription_to_group_email
+features[rules_config][] = rules_welcome_message
 project path = sites/all/modules/features
