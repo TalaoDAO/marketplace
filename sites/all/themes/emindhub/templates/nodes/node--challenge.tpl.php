@@ -69,7 +69,7 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-6 user-informations">
-                        <?php require_once __DIR__ . '/includes/userInformations.tpl.php'; ?>
+                        <?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/userInformations.tpl.php'; ?>
                     </div>
                 </div>
             </div>
@@ -111,8 +111,8 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
                 }  ?>
             </div>
         </div>
-        <?php require_once __DIR__ . '/includes/companyDescription.tpl.php'; ?>
-        <?php require_once __DIR__ . '/includes/tagsField.tpl.php'; ?>
+        <?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/companyDescription.tpl.php'; ?>
+        <?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/tagsField.tpl.php'; ?>
     <div class="col-sm-4 my-selection"><?php print $elements['links']['flag']['#links']['flag-my_selection']['title']; ?>
 <div class="col-sm-3 create-workgroup"><?php if (node_access('update',$node)) print l(t('Edit'),'node/'.$node->nid.'/edit', array('attributes' => array('class' => array('btn','btn-primary','btn-expert'))) ); ?></div>
 </div>

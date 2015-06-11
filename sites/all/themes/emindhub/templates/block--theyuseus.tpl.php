@@ -1,1 +1,0 @@
-<?php include __DIR__ . '/includes/blockUsers.tpl.php'; ?>

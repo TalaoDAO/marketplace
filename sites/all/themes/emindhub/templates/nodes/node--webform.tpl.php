@@ -78,7 +78,7 @@
                             </div>
                         </div>
                     </div>
-                    <?php require_once __DIR__ . '/includes/userInformations.tpl.php'; ?>
+                    <?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/userInformations.tpl.php'; ?>
                 </div>
                 <div class="col-sm-6">
                     <div class="row">
@@ -132,11 +132,11 @@
             </div>
         <?php } ?>
     </div>
-    <?php require_once __DIR__ . '/includes/companyDescription.tpl.php'; ?>
+    <?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/companyDescription.tpl.php'; ?>
     <div class="row">
         <div class="col-md-12"><?php if (isset($elements['field_object_of_the_mission'])) print $elements['field_object_of_the_mission'][0]['#markup']; ?></div>
     </div>
-    <?php require_once __DIR__ . '/includes/tagsField.tpl.php'; ?>
+    <?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/tagsField.tpl.php'; ?>
     <div class="row paddingUD">
         <div class="col-md-4">
             <?php print $elements['links']['flag']['#links']['flag-my_selection']['title']; ?>

@@ -44,9 +44,9 @@ function emindhub_status_messages($variables) {
 function emindhub_theme() {
     return array(
       'contact_site_form' => array(
-        'render element' => 'form',
         'path' => drupal_get_path('theme', 'emindhub').'/templates',
         'template' => 'contact-site-form',
+        'render element' => 'form',
       ),
       'user_picture' => array(
         'path' => drupal_get_path('theme', 'emindhub').'/templates',
@@ -334,8 +334,14 @@ function emindhub_preprocess_page(&$vars) {
         'getsize' => FALSE,
     ));
 
-
     $vars['secondMenu'] = FALSE;
+
+    // echo '<pre>' . print_r($vars, TRUE) . '</pre>'; die;
+    // // Use .tpl for edit node page
+    // // format : page--node--[contentType]--edit.tpl.php
+    // if (!empty($vars['node']) && arg(2) == 'edit') {
+    //   $vars['theme_hook_suggestions'][] = 'page__node__' . $vars['node']->type .'__edit';
+    // }
 }
 
 function emindhub_preprocess_html(&$variables) {
@@ -837,150 +843,4 @@ function pp($arr){
 function customDSM($input, $name = NULL, $type = 'status') {
     $export = kprint_r($input, TRUE, $name);
     drupal_set_message($export, $type);
-}
-
-
-
-// Webform components hook form alter
-function emindhub_form_webform_components_form_alter(&$form, &$form_state, $form_id) {
-
-  // Action buttons
-
-  // $form['actions'] = array(
-  //
-  //   ['submit'] => array(
-  //     ['#type'] => 'submit',
-  //     ['#access'] => 1,
-  //     ['#value'] => 'Publish',
-  //     ['#weight'] => 5,
-  //     ['#submit'] => array(
-  //       [0] => i18n_node_form_submit,
-  //       [1] => webform_form_submit,
-  //       [2] => mb_content_changed_submit,
-  //     ),
-  //     ['#validate'] => array(
-  //       [0] => mb_content_changed_validate,
-  //     ),
-  //   ),
-
-    // ['preview'] => array(
-    //   ['#access'] => 1,
-    //   ['#type'] => 'submit',
-    //   ['#value'] => 'Preview',
-    //   ['#weight'] => 10,
-    //   ['#submit'] => array(
-    //     [0] => node_form_build_preview,
-    //     [1] => mb_content_changed_submit,
-    //   ),
-    //   ['#validate'] => array(
-    //     [0] => mb_content_changed_validate,
-    //   ),
-    // ),
-    //
-    // ['cancel'] => array(
-    //   ['#type'] => 'submit',
-    //   ['#value'] => 'Cancel',
-    //   ['#weight'] => 16,
-    //   ['#validate'] => array(
-    //     [0] => mb_content_cancel_validate,
-    //   ),
-    // ),
-    //
-    // ['draft'] => array(
-    //   ['#type'] => 'submit',
-    //   ['#class'] => 'form-submit',
-    //   ['#value'] => 'Save as draft',
-    //   ['#weight'] => 9,
-    //   ['#submit'] => array(
-    //     [0] => save_draft_submit,
-    //   ),
-    // ),
-  // );
-  // $form['add'] = array(
-  //
-  //   ['type'] => array(
-  //     // ['#type'] => 'submit',
-  //     ['#access'] => 0,
-  //     // ['#value'] => 'Publish',
-  //     // ['#weight'] => 5,
-  //     // ['#submit'] => array(
-  //     //   [0] => i18n_node_form_submit,
-  //     //   [1] => webform_form_submit,
-  //     //   [2] => mb_content_changed_submit,
-  //     // ),
-  //     // ['#validate'] => array(
-  //     //   [0] => mb_content_changed_validate,
-  //     // ),
-  //   ),
-  // );
-
-  $form['add']['type']['#access'] = FALSE;
-  // $form['add']['name']['#type'] = 'select';
-  // $form['add']['name']['#options'] = array( t('Question 1'), t('Question 2'), t('Question 3'), t('Question 4'), );
-
-  // TODO : make these hooks working !
-
-  // $form['add']['name']['#attributes']['rel'] = t('Write your question...');
-
-  // $header = array(
-  //   array(
-  //     'data' => t('Label'),
-  //     'class' => array('wc-label')
-  //   ),
-  //   array(
-  //     'data' => t('Type'),
-  //     'class' => array('wc-type')
-  //   ),
-  //   array(
-  //     'data' => t('Value'),
-  //     'class' => array('wc-value')
-  //   ),
-  //   array(
-  //     'data' => t('Mandatory'),
-  //     'class' => array('wc-mandatory')
-  //   ),
-  //   array(
-  //     'data' => t('Weight'),
-  //     'class' => array('wc-weight')
-  //   ),
-  //   array(
-  //     'data' => t('Operations'),
-  //     'colspan' => 3,
-  //     'class' => array('wc-operations')
-  //   ),
-  // );
-
-  // if (empty($node->webform['components'])) {
-  //   $rows[] = array(array('data' => t('No questions, add a question below.'), 'colspan' => 9));
-  // }
-
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
-  // die;
-
-}
-
-
-// Webform hook form alter
-function emindhub_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
-
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>'; die;
-
-  // TODO : Precise required field on group title (because of the custom chosen select theme)
-  // For now, hack with CSS !
-  // $form['#fieldgroups']['group_label']->label .= ' <span class="form-required" title="' . t('This field is required.') . '">*</span>';
-
-  // Add-ons (placeholder, suffix, etc.)
-  // $form['field_reward']['und']['0']['value']['#field_suffix'] = '€';
-  // $form['field_taxes']['und'][0]['value']['#attributes']['placeholder'] = "Taille, secteur d'activité, etc...";
-
-  // Action buttons
-  $form['actions']['cancel']['#weight'] = '0';
-  $form['actions']['draft']['#weight'] = '1';
-  $form['actions']['preview']['#weight'] = '2';
-  $form['actions']['submit']['#weight'] = '3';
-  $form['actions']['submit']['#value'] = t('Save and add your questions');
-
-  // Add required fields legend
-  $form['actions']['required_options']['#markup'] = '<span class="mandatory-options"><span class="form-required">*</span>' . t('Required fields') . '</span>';
-  $form['actions']['required_options']['#weight'] = '4';
 }

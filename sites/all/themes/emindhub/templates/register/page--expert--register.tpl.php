@@ -73,11 +73,11 @@
  */
 ?>
 
-<div id="page-wrapper business-user">
+<div id="page-wrapper">
     <div id="page">
         <div id="header">
             <div class="section clearfix paddingU">
-                <?php require_once __DIR__ . '/includes/_header.tpl.php' ?>
+                <?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/_header.tpl.php'; ?>
 
                 <div class="ligh-blue-line header-separator">&nbsp;</div>
                 <div class="dark-blue-line-large">&nbsp;</div>
@@ -96,7 +96,7 @@
             ?>
             <div class="row">
                 <div class="col-md-8">
-                    <div class="register-title"><?php print c_szBusinessRegister; ?></div>
+                    <div class="register-title"><?php print c_szExpertRegister; ?></div>
                     <div class="row">
                         <div class="col-md-1">
                             <hr class="hr-light">
@@ -110,19 +110,19 @@
                         </div>-->
                     </div>
                     <div class="register-subtitle"><?php print c_szCreateAccount; ?><span class="bold"><?php print c_szNoTime; ?></span></div>
-                    <div class="business-register">
+                    <div class="expert-register">
                         <?php print render($page['content']); ?>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <?php print render($page['sidebar_second']); ?>
-<!--                    --><?php //print render($page['theyareexpert']); ?>
                     <!--<div class="row marginU">
-                          <div class="col-md-12">
-                            <img src="<?php /*print getImgSrc("businessAdvantages.png"); */?>" />
-                        </div>
-                    </div>
-                    <div class="row">
+                          <div class="col-md-12">-->
+<!--                            <img src="--><?php //print getImgSrc("expertAdvantages.png"); ?><!--" />-->
+                              <?php print render($page['sidebar_second']); ?>
+<!--                    --><?php //print render($page['theyareexpert']); ?>
+                        <!--</div>
+                    </div>-->
+                    <!--<div class="row">
                         <div class="col-md-12">
                             <?php /*print render($page['theyuseus']); */?>
                         </div>
@@ -132,4 +132,3 @@
         </div>
     </div> <!-- /#page, /#page-wrapper -->
 </div>
-
