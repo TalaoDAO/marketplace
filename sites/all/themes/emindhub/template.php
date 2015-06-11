@@ -841,7 +841,7 @@ function customDSM($input, $name = NULL, $type = 'status') {
 
 
 
-// Webform hook form alter
+// Webform components hook form alter
 function emindhub_form_webform_components_form_alter(&$form, &$form_state, $form_id) {
 
   // Action buttons
@@ -896,8 +896,65 @@ function emindhub_form_webform_components_form_alter(&$form, &$form_state, $form
     //   ),
     // ),
   // );
+  // $form['add'] = array(
+  //
+  //   ['type'] => array(
+  //     // ['#type'] => 'submit',
+  //     ['#access'] => 0,
+  //     // ['#value'] => 'Publish',
+  //     // ['#weight'] => 5,
+  //     // ['#submit'] => array(
+  //     //   [0] => i18n_node_form_submit,
+  //     //   [1] => webform_form_submit,
+  //     //   [2] => mb_content_changed_submit,
+  //     // ),
+  //     // ['#validate'] => array(
+  //     //   [0] => mb_content_changed_validate,
+  //     // ),
+  //   ),
+  // );
 
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+
+
+  $form['add']['type']['#access'] = FALSE;
+
+  // TODO : make these hooks working !
+
+  // $form['add']['name']['#attributes']['rel'] = t('Write your question...');
+
+  // $header = array(
+  //   array(
+  //     'data' => t('Label'),
+  //     'class' => array('wc-label')
+  //   ),
+  //   array(
+  //     'data' => t('Type'),
+  //     'class' => array('wc-type')
+  //   ),
+  //   array(
+  //     'data' => t('Value'),
+  //     'class' => array('wc-value')
+  //   ),
+  //   array(
+  //     'data' => t('Mandatory'),
+  //     'class' => array('wc-mandatory')
+  //   ),
+  //   array(
+  //     'data' => t('Weight'),
+  //     'class' => array('wc-weight')
+  //   ),
+  //   array(
+  //     'data' => t('Operations'),
+  //     'colspan' => 3,
+  //     'class' => array('wc-operations')
+  //   ),
+  // );
+
+  // if (empty($node->webform['components'])) {
+  //   $rows[] = array(array('data' => t('No questions, add a question below.'), 'colspan' => 9));
+  // }
+
+  echo '<pre>' . print_r($form, TRUE) . '</pre>';
   // die;
 
 }

@@ -43,5 +43,19 @@ body.page-node-add-webform {
 body.page-node-webform-components {
   table#webform-components {
     width: 100%;
+
+    // TODO : hide elemnts properly with template.php
+
+    // Type
+    thead tr th:nth-child(2),
+    tbody tr td:nth-child(2) {
+      display: none;
+    }
+
+    // Actions
+    tbody tr td:last-child {
+      text-align: center;
+    }
   }
+
 }
