@@ -53,6 +53,7 @@ function contact_add_fields_form_contact_site_form_alter(&$form, &$form_state, $
 	$form['subject']['#type'] = 'hidden';
 	$form['copy']['#type'] = 'hidden';
 	$form['actions']['submit']['#value'] = t('Send');
+        $form['#token'] = NULL;
 
 	$order = array('name', 'mail', 'subject','location', 'cid', 'message', 'copy', 'actions');
 
