@@ -91,13 +91,14 @@ input[type="submit"] {
   }
 
 	&#edit-delete {
-		background-color: transparent;
-		color: @darkRed;
-
-		&:focus,
-		&:hover {
-			color: @middleRed;
-		}
+		.form-delete;
+		// background-color: transparent;
+		// color: @darkRed;
+		//
+		// &:focus,
+		// &:hover {
+		// 	color: @middleRed;
+		// }
 	}
 
 }
@@ -178,4 +179,42 @@ input[type="submit"] {
 	border: none;
 	// border-radius: 4px !important;
 	width: 100%;
+}
+
+
+/*
+ * CUSTOM STYLES
+ * Chosen fields
+ */
+.choosen-custom-select {
+	a.chosen-single {
+		background: #d4d9dd !important;
+		border: none !important;
+		box-shadow: none !important;
+		border-radius: 3px !important;
+		height: 29px !important;
+
+		> div {
+			width: 27px;
+			background: #dbdfe3 url(../images/selectDarkArrow.png) no-repeat 100% 0;
+
+			> b {
+				background: none !important;
+			}
+		}
+	}
+}
+
+/*
+ * CUSTOM STYLES
+ * Delete / remove input
+ */
+.form-delete {
+	background-color: transparent;
+	color: @darkRed;
+
+	&:focus,
+	&:hover {
+		color: @middleRed;
+	}
 }

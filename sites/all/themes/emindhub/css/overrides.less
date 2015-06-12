@@ -60,20 +60,39 @@ ul.ui-autocomplete {
 }
 
 
+/* FORMS
+ * 5 stars rating
+ */
+div.fivestar-widget .cancel, div.fivestar-widget .star {
+  float: none;
+  display: inline-block;
+}
+
+
 /* TABLE
  * Drag & drop
  * */
-a.tabledrag-handle {
-  margin-left: 0;
+.draggable {
+  td.field-multiple-drag {
+    text-align: center;
+    vertical-align: middle;
 
-  .handle {
-    margin: 0 0.5em;
-    height: 20px;
-    background-position: center center;
-  }
-}
-a.tabledrag-handle-hover {
-  .handle {
-    background-position: center center;
+    a.tabledrag-handle {
+      margin-left: 0;
+      padding: 0;
+      text-align: center;
+
+      .handle {
+        margin: 0 0.5em;
+        width: 20px;
+        height: 20px;
+        background-position: center center;
+      }
+    }
+    a.tabledrag-handle-hover {
+      .handle {
+        background-position: center center;
+      }
+    }
   }
 }
