@@ -135,7 +135,12 @@ function emindhub_survey_form_webform_node_form_alter(&$form, &$form_state, $for
 	// $form['#fieldgroups']['group_label']->label .= ' <span class="form-required" title="' . t('This field is required.') . '">*</span>';
 
 	// Add required fields legend
-	$form['actions']['required_options']['#markup'] = '<span class="mandatory-options"><span class="form-required">*</span>' . t('Required fields') . '</span>';
+	$form['actions']['#prefix'] = '
+		<div class="mandatory-options row">
+			<div class="col-md-12">
+				<span class="form-required">*</span>' . t('Required fields') . '
+			</div>
+		</div>';
 
 	// Action buttons order
 	$i = 0;
@@ -147,10 +152,9 @@ function emindhub_survey_form_webform_node_form_alter(&$form, &$form_state, $for
 			'draft',
 			'preview',
 			'submit',
-			'required_options',
 		) as $action ) {
 			$form['actions'][$action]['#weight'] = $i++;
 		}
 
-	$form['actions']['submit']['#value'] = t('Continue');
+	$form['actions']['submit']['#value'] = t('Save and go manage your questions');
 }
