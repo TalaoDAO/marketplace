@@ -146,7 +146,9 @@ function emindhub_preprocess_user_picture(&$variables) {
     }*/
 }
 
+
 function emindhub_form_alter(&$form, &$form_state, $form_id) {
+
   if ($form_id == 'search_block_form') {
     $form['search_block_form']['#title'] = c_szSearch; // Change the text on the label element
     $form['search_block_form']['#title_display'] = 'invisible'; // Toggle label visibilty
@@ -836,34 +838,3 @@ function customDSM($input, $name = NULL, $type = 'status') {
     $export = kprint_r($input, TRUE, $name);
     drupal_set_message($export, $type);
 }
-
-
-
-// function emindhub_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
-//
-// 	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
-// 	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
-// 	// die;
-//
-// 	// TODO : Precise required field on group title (because of the custom chosen select theme)
-// 	// For now, hack with CSS !
-// 	// $form['#fieldgroups']['group_label']->label .= ' <span class="form-required" title="' . t('This field is required.') . '">*</span>';
-//
-// 	// Action buttons
-// 	$form['actions']['cancel']['#weight'] = '0';
-//
-// 	$form['actions']['draft']['#weight'] = '1';
-//
-//   $form['actions']['preview']['#weight'] = '2';
-//
-// 	$form['actions']['submit']['#weight'] = '3';
-// 	$form['actions']['submit']['#value'] = t('Save and add your questions');
-//
-//   $form['actions']['preview_changes']['#weight'] = '4';
-//
-// 	$form['actions']['delete']['#weight'] = '5';
-//
-//  //	// Add required fields legend
-//  //	$form['actions']['required_options']['#markup'] = '<span class="mandatory-options"><span class="form-required">*</span>' . t('Required fields') . '</span>';
-//  //	$form['actions']['required_options']['#weight'] = '4';
-// }

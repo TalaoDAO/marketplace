@@ -125,7 +125,6 @@ function emindhub_survey_form_webform_components_form_alter(&$form, &$form_state
 
 function emindhub_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
 
-  // print $form_id;
 	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
 	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
   // die;
