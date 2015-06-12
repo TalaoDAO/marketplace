@@ -45,14 +45,14 @@ function emindhub_survey_form_webform_component_edit_form_alter(&$form, &$form_s
  * */
 function emindhub_survey_form_webform_components_form_alter(&$form, &$form_state, $form_id) {
 
-	$form['actions']['submit']['#value'] = t('Save your questions and continue');
+	$form['actions']['submit']['#value'] = t('Save your questions');
 
 	$webform_id = $form['#node']->nid;
-	$form['actions']['goback']['#markup'] = t('<button href="@url" class="btn btn-submit form-submit" id="edit-back">Go back edit your form</button>', array('@url' => url('node/' . $webform_id . '/edit')));
+	$form['actions']['goback']['#markup'] = t('<a href="@url" class="btn btn-submit" id="edit-back">Go back edit your form</a>', array('@url' => url('node/' . $webform_id . '/edit')));
 	$form['actions']['goback']['#weight'] = 44;
 	$form['actions']['goback']['#access'] = TRUE;
 
-	$form['actions']['see']['#markup'] = t('<button href="@url" class="btn btn-submit form-submit" id="edit-view">View your form</button>', array('@url' => url('node/' . $webform_id)));
+	$form['actions']['see']['#markup'] = t('<a href="@url" class="btn btn-submit" id="edit-view">View your form</a>', array('@url' => url('node/' . $webform_id)));
 	$form['actions']['see']['#weight'] = 46;
 	$form['actions']['see']['#access'] = TRUE;
 
@@ -137,7 +137,7 @@ function emindhub_survey_form_webform_node_form_alter(&$form, &$form_state, $for
 	// Add required fields legend
 	$form['actions']['required_options']['#markup'] = '<span class="mandatory-options"><span class="form-required">*</span>' . t('Required fields') . '</span>';
 
-	// Action buttons
+	// Action buttons order
 	$i = 0;
 	foreach (
 		array(
@@ -152,5 +152,5 @@ function emindhub_survey_form_webform_node_form_alter(&$form, &$form_state, $for
 			$form['actions'][$action]['#weight'] = $i++;
 		}
 
-	$form['actions']['submit']['#value'] = t('Save and manage your questions');
+	$form['actions']['submit']['#value'] = t('Continue');
 }
