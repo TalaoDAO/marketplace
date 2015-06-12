@@ -15,16 +15,20 @@ body.page-user {
         margin-left: 0;
       }
     }
-    td:nth-child(2) > * {
+    td:nth-child(2) > *,
+    td:nth-child(2) .ajax-new-content > * {
       display: inline-block;
     }
-    td:nth-child(2) > .field-group-div {
+
+    td:nth-child(2) > .field-group-div,
+    td:nth-child(2) .ajax-new-content > .field-group-div {
       width: 85%;
     }
-    td:nth-child(2) > input {
+    td:nth-child(2) > input,
+    td:nth-child(2) .ajax-new-content > input {
       .form-delete;
+      margin-left: 20px;
     }
-
 
   }
 

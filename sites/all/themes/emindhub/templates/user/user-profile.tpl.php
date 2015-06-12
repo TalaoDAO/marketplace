@@ -35,15 +35,7 @@
  */
 ?>
 <div class="profile"<?php print $attributes; ?>>
-    <!--div class="profile-username">
-<?php
-    $account = $elements['#account'];
-    if (isset($account->name)) {
-        print $account->name;
-    }
-    ?>
-  </div-->
-    <?php print render($user_profile); ?>
+
+  <?php print render($user_profile); ?>
 
 </div>
-
