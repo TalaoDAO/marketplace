@@ -1,0 +1,314 @@
+diff --git a/legal.admin.inc b/legal.admin.inc
+index d011607..1ca3d55 100644
+--- a/legal.admin.inc
++++ b/legal.admin.inc
+@@ -28,11 +28,13 @@ function legal_administration($form_state) {
+   $form = array_merge($form, legal_display_fields($conditions));
+ 
+   $form['conditions'] = array(
+-    '#type'          => 'textarea',
++    '#type'          => 'text_format',
+     '#title'         => t('Terms & Conditions'),
+     '#default_value' => $conditions['conditions'],
+     '#description'   => t('Your Terms & Conditions'),
++    '#format'        => empty($conditions['format']) ? NULL : $conditions['format'],
+     '#required'      => TRUE,
++    '#rows'          => 20,
+   );
+ 
+   // Set this here or array will flatten out and override real values.
+@@ -149,12 +151,11 @@ function legal_administration($form_state) {
+  *  After build function for legal_administration form.
+  */
+ function legal_preview($form, $form_values) {
+-
+   switch ($form['display']['#value']) {
+     case 1: // Scroll box (CSS).
+     case 2: // HTML.
+       $form['legal']['conditions']             = array(
+-        '#markup' => filter_xss_admin($form['conditions']['#value']),
++        '#markup' => check_markup($form_values['values']['conditions']['value'], $form_values['values']['conditions']['format']),
+       );
+       $form['legal']['legal_accept']['#title'] = t('<strong>Accept</strong> Terms & Conditions of Use');
+       break;
+@@ -170,7 +171,7 @@ function legal_preview($form, $form_values) {
+         '#name'       => 'preview',
+         '#type'       => 'textarea',
+         '#title'      => t('Terms & Conditions'),
+-        '#value'      => $form['conditions']['#value'],
++        '#value'      => check_markup($form_values['values']['conditions']['value'], $form_values['values']['conditions']['format']),
+         '#parents'    => array('legal'),
+         '#rows'       => 10,
+         '#attributes' => array('readonly' => 'readonly'),
+@@ -256,10 +257,11 @@ function legal_administration_submit($form, &$form_state) {
+       'version'    => $version['version'],
+       'revision'   => $version['revision'],
+       'language'   => $values['language'],
+-      'conditions' => $values['conditions'],
++      'conditions' => $values['conditions']['value'],
+       'date'       => time(),
+       'extras'     => serialize($values['extras']),
+       'changes'    => $values['changes'],
++      'format'     => $values['conditions']['format'],
+     ))
+       ->execute();
+ 
+diff --git a/legal.install b/legal.install
+index e7220a6..141f4ee 100644
+--- a/legal.install
++++ b/legal.install
+@@ -25,6 +25,7 @@ function legal_schema() {
+       'date'       => array('type' => 'int', 'unsigned' => FALSE, 'not null' => TRUE, 'default' => 0, 'disp-width' => 11),
+       'extras'     => array('type' => 'text'),
+       'changes'    => array('type' => 'text'),
++      'format'     => array('type' => 'varchar', 'not null' => FALSE, 'length' => 255),
+     ),
+     'primary key' => array('tc_id'),
+   );
+@@ -64,3 +65,12 @@ function legal_uninstall() {
+ function legal_update_last_removed() {
+   return 6003;
+ }
++
++/**
++ * Adds the {legal_conditions}.format column.
++ */
++function legal_update_7001() {
++  if (!db_field_exists('legal_conditions', 'format')) {
++    db_add_field('legal_conditions', 'format', array('type' => 'varchar', 'not null' => FALSE, 'length' => 255));
++  }
++}
+diff --git a/legal.module b/legal.module
+index e569d1c..c541df7 100644
+--- a/legal.module
++++ b/legal.module
+@@ -143,7 +143,7 @@ function legal_display_fields($conditions) {
+     case 1: // Scroll box (CSS).
+     case 2: // HTML.
+       $form['legal']['conditions'] = array(
+-        '#markup' => filter_xss_admin($conditions['conditions']),
++        '#markup' => check_markup($conditions['conditions'], $conditions['format']),
+       );
+       break;
+ 
+@@ -712,7 +712,7 @@ function legal_save_accept($version, $revision, $language, $uid) {
+ }
+ 
+ function legal_get_conditions($language = NULL) {
+-  $keys = array('tc_id', 'version', 'revision', 'language', 'conditions', 'date', 'extras', 'changes');
++  $keys = array('tc_id', 'version', 'revision', 'language', 'conditions', 'date', 'extras', 'changes', 'format');
+ 
+   if (!empty($language)) {
+     $result = db_select('legal_conditions', 'lc')
+@@ -739,6 +739,7 @@ function legal_get_conditions($language = NULL) {
+   }
+ 
+   $conditions['extras'] = empty($conditions['extras']) ? array() : unserialize($conditions['extras']);
++  $conditions['format'] = empty($conditions['format']) ? filter_default_format() : $conditions['format'];
+ 
+   return $conditions;
+ }
+diff --git a/legal.pages.inc b/legal.pages.inc
+index 1de1d8b..9cb41f7 100644
+--- a/legal.pages.inc
++++ b/legal.pages.inc
+@@ -17,7 +17,7 @@ function legal_page() {
+     case 1: // CSS Scroll Box with HTML.
+     case 2: // HTML.
+     case 3: // Page Link.
+-      $output = filter_xss_admin($conditions['conditions']);
++      $output = check_markup($conditions['conditions'], $conditions['format']);
+       break;
+   }
+ 
+diff --git a/legal.test b/legal.test
+index 6ee4992..171c1c9 100644
+--- a/legal.test
++++ b/legal.test
+@@ -9,9 +9,17 @@
+  * Legal module base test class.
+  */
+ class LegalTestCase extends DrupalWebTestCase {
++  protected $edit;
++
+   function setUp() {
+     // Enable any modules required for the test.
+     parent::setUp('legal');
++
++    // Set basic module settings.
++    $this->edit = array(
++      'conditions[value]'  => $this->randomName(),
++      'conditions[format]' => 'plain_text',
++    );
+   }
+ 
+   /**
+@@ -40,7 +48,7 @@ class LegalTestCase extends DrupalWebTestCase {
+  */
+ class LegalRegisterTestCase extends LegalTestCase {
+ 
+-  function getInfo() {
++  public static function getInfo() {
+     return array(
+       'name' => 'Create Account',
+       'description' => 'Register as new user and create account.',
+@@ -51,12 +59,7 @@ class LegalRegisterTestCase extends LegalTestCase {
+   function setUp() {
+     parent::setUp();
+ 
+-    // Set basic module settings.
+-    $conditions = $this->randomName();
+-    $edit = array(
+-      'conditions' => $conditions,
+-    );
+-    $this->setSettings($edit);
++    $this->setSettings($this->edit);
+   }
+ 
+   /**
+@@ -167,9 +170,8 @@ class LegalPasswordResetTestCase extends LegalTestCase {
+  * Test Scroll Box Display.
+  */
+ class LegalScrollBoxDisplayTestCase extends LegalTestCase {
+-  var $conditions;
+ 
+-  function getInfo() {
++  public static function getInfo() {
+     return array(
+       'name' => 'Scroll Box Display',
+       'description' => 'Change display option to Scroll Box and check if display is behaves correctly.',
+@@ -181,12 +183,8 @@ class LegalScrollBoxDisplayTestCase extends LegalTestCase {
+     parent::setUp();
+ 
+     // Set basic module settings.
+-    $this->conditions = $this->randomName();
+-    $edit = array(
+-      'conditions' => $this->conditions,
+-      'display' => 0,
+-    );
+-    $this->setSettings($edit);
++    $this->edit['display'] = 0;
++    $this->setSettings($this->edit);
+   }
+ 
+   /**
+@@ -196,7 +194,7 @@ class LegalScrollBoxDisplayTestCase extends LegalTestCase {
+     $this->drupalGet('user/register');
+ 
+      // Check presence of T&C text.
+-    $this->assertText($this->conditions, 'T&C text displayed');
++    $this->assertText($this->edit['conditions[value]'], 'T&C text displayed');
+   }
+ }
+ 
+@@ -204,9 +202,8 @@ class LegalScrollBoxDisplayTestCase extends LegalTestCase {
+  * Test Scroll Box CSS Display.
+  */
+ class LegalScrollBoxCSSDisplayTestCase extends LegalTestCase {
+-  var $conditions;
+ 
+-  function getInfo() {
++  public static function getInfo() {
+     return array(
+       'name' => 'Scroll Box CSS Display',
+       'description' => 'Change display option to Scroll Box CSS and check if display is behaves correctly.',
+@@ -218,12 +215,8 @@ class LegalScrollBoxCSSDisplayTestCase extends LegalTestCase {
+     parent::setUp();
+ 
+     // Set basic module settings.
+-    $this->conditions = $this->randomName();
+-    $edit = array(
+-      'conditions' => $this->conditions,
+-      'display' => 1,
+-    );
+-    $this->setSettings($edit);
++    $this->edit['display'] = 1;
++    $this->setSettings($this->edit);
+   }
+ 
+   /**
+@@ -233,7 +226,7 @@ class LegalScrollBoxCSSDisplayTestCase extends LegalTestCase {
+     $this->drupalGet('user/register');
+ 
+      // Check presence of T&C text.
+-    $this->assertText($this->conditions, 'T&C text displayed');
++    $this->assertText($this->edit['conditions[value]'], 'T&C text displayed');
+   }
+ }
+ 
+@@ -241,9 +234,8 @@ class LegalScrollBoxCSSDisplayTestCase extends LegalTestCase {
+  * Test HTML Text display.
+  */
+ class LegalHTMLTextDisplayTestCase extends LegalTestCase {
+-  var $conditions;
+ 
+-  function getInfo() {
++  public static function getInfo() {
+     return array(
+       'name' => 'HTML Text display',
+       'description' => 'Change display option to HTML Text and check if display is behaves correctly.',
+@@ -255,12 +247,8 @@ class LegalHTMLTextDisplayTestCase extends LegalTestCase {
+     parent::setUp();
+ 
+     // Set basic module settings.
+-    $this->conditions = $this->randomName();
+-    $edit = array(
+-      'conditions' => $this->conditions,
+-      'display' => 2,
+-    );
+-    $this->setSettings($edit);
++    $this->edit['display'] = 2;
++    $this->setSettings($this->edit);
+   }
+ 
+   /**
+@@ -270,7 +258,7 @@ class LegalHTMLTextDisplayTestCase extends LegalTestCase {
+     $this->drupalGet('user/register');
+ 
+      // Check presence of T&C text.
+-    $this->assertText($this->conditions, 'T&C text displayed');
++    $this->assertText($this->edit['conditions[value]'], 'T&C text displayed');
+   }
+ }
+ 
+@@ -278,9 +266,8 @@ class LegalHTMLTextDisplayTestCase extends LegalTestCase {
+  * Test "Page Link" display.
+  */
+ class LegalLinkDisplayTestCase extends LegalTestCase {
+-  var $conditions;
+ 
+-  function getInfo() {
++  public static function getInfo() {
+     return array(
+       'name' => 'Page Link display',
+       'description' => 'Change display option to Page Link and check if display is behaves correctly.',
+@@ -292,12 +279,8 @@ class LegalLinkDisplayTestCase extends LegalTestCase {
+     parent::setUp();
+ 
+     // Set basic module settings.
+-    $this->conditions = $this->randomName();
+-    $edit = array(
+-      'conditions' => $this->conditions,
+-      'display' => 3,
+-    );
+-    $this->setSettings($edit);
++    $this->edit['display'] = 3;
++    $this->setSettings($this->edit);
+   }
+ 
+   /**
+diff --git a/views/legal.views.inc b/views/legal.views.inc
+index 094e6c0..e310400 100644
+--- a/views/legal.views.inc
++++ b/views/legal.views.inc
+@@ -149,8 +149,9 @@ function legal_views_data() {
+       'title'    => t('Version'),
+       'help'     => t('Version of T&Cs.'),
+       'field'    => array(
+-        'handler'        => 'views_handler_field',
++        'handler'        => 'views_handler_field_markup',
+         'click sortable' => TRUE,
++        'format'         => array('field' => 'format'),
+       ),
+       'filter'   => array(
+         'handler'     => 'views_handler_filter_numeric',

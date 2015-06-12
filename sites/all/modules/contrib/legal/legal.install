@@ -25,6 +25,7 @@ function legal_schema() {
       'date'       => array('type' => 'int', 'unsigned' => FALSE, 'not null' => TRUE, 'default' => 0, 'disp-width' => 11),
       'extras'     => array('type' => 'text'),
       'changes'    => array('type' => 'text'),
+      'format'     => array('type' => 'varchar', 'not null' => FALSE, 'length' => 255),
     ),
     'primary key' => array('tc_id'),
   );
@@ -63,4 +64,13 @@ function legal_uninstall() {
  */
 function legal_update_last_removed() {
   return 6003;
+}
+
+/**
+ * Adds the {legal_conditions}.format column.
+ */
+function legal_update_7001() {
+  if (!db_field_exists('legal_conditions', 'format')) {
+    db_add_field('legal_conditions', 'format', array('type' => 'varchar', 'not null' => FALSE, 'length' => 255));
+  }
 }
