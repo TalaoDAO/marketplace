@@ -1,36 +1,40 @@
 @import "variables.less";
 
 body.business-user {
-    table tbody tr:nth-child(odd),
-    .table-content:nth-child(odd) {
-        background-color: @oddBlue;
-    }
+  table tbody tr:nth-child(odd),
+  .table-content:nth-child(odd) {
+    background-color: @oddBlue;
+  }
 
-    input[type=submit] {
-        background-color: @lightBlue;
+  input[type=submit] {
+    background-color: @lightBlue;
+    &:focus,
+    &:hover {
+      background-color: @lightBlueHover;
     }
+  }
 
-    &.page-messages ul.action-links a {
-        background-color: @lightBlue;
-    }
+  &.page-messages ul.action-links a {
+    background-color: @lightBlue;
+  }
 
-    /*&.page-blog .views-row-even {
-        background-color: @oddBlue;
-    }*/
+  /*&.page-blog .views-row-even {
+      background-color: @oddBlue;
+  }*/
 
-    .button-new-message {
-        background-color: @lightBlue;
-    }
+  .button-new-message {
+    background-color: @lightBlue;
+  }
 
-    .expert-display {
-        display: none;
-    }
+  .expert-display {
+    display: none;
+  }
 }
 
 .page {
-    &-business-register {
-        .form-submit {
-            background-color: @lightBlue !important;
-        }
+  &-business-register {
+    .form-submit {
+      background-color: @lightBlue;
     }
+  }
 }
