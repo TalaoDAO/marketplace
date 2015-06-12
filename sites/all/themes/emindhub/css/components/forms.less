@@ -29,7 +29,7 @@ input[type="password"],
 input[type="text"] {
 	border: none;
 	line-height: 1.8em;
-	border-radius: @borderRadius;
+	// border-radius: @borderRadius;
 	padding-left: 0.5em;
 	margin-left: 0.5em;
 }
@@ -62,7 +62,8 @@ input[type="submit"] {
   }
 
   &#edit-draft,
-  &#edit-preview {
+  &#edit-preview,
+  &#edit-preview-changes {
 		background-color: @darkBlue;
 		color: @white;
 
@@ -88,6 +89,16 @@ input[type="submit"] {
 			color: @middleGrey;
 		}
   }
+
+	&#edit-delete {
+		background-color: transparent;
+		color: @darkRed;
+
+		&:focus,
+		&:hover {
+			color: @middleRed;
+		}
+	}
 
 }
 
@@ -165,6 +176,6 @@ input[type="submit"] {
 .input-text {
 	padding: 6px 12px;
 	border: none;
-	border-radius: 4px !important;
+	// border-radius: 4px !important;
 	width: 100%;
 }
