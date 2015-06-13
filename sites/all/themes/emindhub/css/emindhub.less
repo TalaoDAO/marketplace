@@ -1829,7 +1829,7 @@ label {
 
 	.form-item-profile-expert-field-address-und-0-locality label,
 	.form-item-profile-expert-field-address-und-0-postal-code label {
-		width: auto;
+		// width: auto;
 	}
 }
 
@@ -1917,6 +1917,7 @@ fieldset.collapsed {
 	.group-background {
 		margin-top: 0;
 	}
+
 	.group-oneliner {
 		> div {
 			width: 50%;
@@ -2705,6 +2706,10 @@ fieldset.collapsed {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+
+	&:hover {
+		background-color: @middleYellow;
+	}
 
 	span {
 		.upper;
@@ -4451,7 +4456,7 @@ span.required {
 			display: inline;
 
 			label {
-				display: inline;
+				// display: inline;
 			}
 		}
 
@@ -4462,25 +4467,36 @@ span.required {
 				margin-bottom: 0;
 
 				label {
-					width: 56%;
+					// width: 56%;
+				}
+
+				input {
+					width: 90px;
 				}
 			}
 
 			.form-item-field-address-und-0-locality {
-				width: 40%;
+				// width: 40%;
 				margin-top: 0;
 				margin-bottom: 0;
+
+				label {
+					min-width: 50px;
+				}
 			}
 		}
 
 		.field-name-field-address {
 			padding-bottom: 0;
+			fieldset {
+				padding-left: 0;
+			}
 		}
 
 		.field-name-field-telephone {
 			label {
-				width: 16.4%;
-				padding-left: 1em;
+				// width: 16.4%;
+				// margin-left: 1em;
 			}
 		}
 
@@ -4628,7 +4644,12 @@ span.required {
 			width: 48%;
 
 			.form-text {
-				width: 80%;
+				// width: 80%;
+			}
+			&.link-field-url {
+				label {
+					min-width: 50px;
+				}
 			}
 		}
 
@@ -4653,7 +4674,7 @@ span.required {
 				width: 49%;
 
 				input[type="text"] {
-					width: 64%;
+					// width: 64%;
 				}
 			}
 
@@ -4668,11 +4689,11 @@ span.required {
 
 				> .formtips-wrapper {
 					display: inline-block;
-					width: 14.7%;
+					// width: 14.7%;
 				}
 
 				input[type=password] {
-					width: 31.4%;
+					// width: 31.4%;
 				}
 			}
 
@@ -4683,12 +4704,12 @@ span.required {
 
 //				label[for="edit-pass-pass2"] {
 				label {
-					width: 14.7%;
+					// width: 14.7%;
 				}
 
 				input[type=password] {
 					display: inline-block;
-					width: 31.4%;
+					// width: 31.4%;
 				}
 
 				div.password-confirm {
@@ -4728,11 +4749,11 @@ span.required {
 
 		.form-item-current-pass {
 			label {
-				width: 31.5%;
+				// width: 31.5%;
 			}
 
 			input[type=password] {
-				width: 66.2%;
+				// width: 66.2%;
 			}
 		}
 
@@ -4817,14 +4838,27 @@ span.required {
 			width: 49%;
 
 			label {
-				display: inline-block !important;
-				width: 30%;
+				// display: inline-block !important;
+				// width: 30%;
 			}
 		}
 
 		.form-item-mail .formtips-wrapper {
-			width: 30%;
+			// width: 30%;
 			display: inline-block;
+		}
+
+		label {
+			// min-width: 29.3%;
+			min-width: 130px;
+			display: inline-block;
+		}
+
+		/*.group-oneliner > div*/ input[type="text"],
+		input[type="password"],
+		input.form-autocomplete,
+		.link-field-column .form-text {
+			width: 250px;
 		}
 
 		.group-oneliner {
@@ -4832,7 +4866,7 @@ span.required {
 				width: 50%;
 
 				input[type="text"] {
-					width: 65%;
+					// width: 65%;
 				}
 			}
 
@@ -4842,7 +4876,7 @@ span.required {
 
 			&.group-name {
 				label {
-					width: 29.3%;
+					// width: 29.3%;
 				}
 			}
 
