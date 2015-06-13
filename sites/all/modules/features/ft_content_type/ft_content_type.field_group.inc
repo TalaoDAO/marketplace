@@ -124,6 +124,38 @@ function ft_content_type_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_background|user|user|default';
+  $field_group->group_name = 'group_background';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'default';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'My background',
+    'weight' => '2',
+    'children' => array(
+      0 => 'group_container_background',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'My background',
+      'instance_settings' => array(
+        'id' => '',
+        'classes' => 'profile-section profile-section-background field-group-div',
+        'description' => '',
+        'show_label' => '1',
+        'label_element' => 'h2',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_background|user|user|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_business|user|user|form';
   $field_group->group_name = 'group_business';
   $field_group->entity_type = 'user';
@@ -323,6 +355,35 @@ function ft_content_type_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_container_background|user|user|default';
+  $field_group->group_name = 'group_container_background';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_background';
+  $field_group->data = array(
+    'label' => 'Container background',
+    'weight' => '4',
+    'children' => array(
+      0 => 'field_position_list',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Container background',
+      'instance_settings' => array(
+        'classes' => 'section-container group-container-background field-group-html-element',
+        'element' => 'div',
+        'show_label' => '0',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_container_background|user|user|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_container_interests|user|user|default';
   $field_group->group_name = 'group_container_interests';
   $field_group->entity_type = 'user';
@@ -333,8 +394,7 @@ function ft_content_type_field_group_info() {
     'label' => 'Interests container',
     'weight' => '45',
     'children' => array(
-      0 => 'field_interests',
-      1 => 'field_other_areas',
+      0 => 'field_other_areas',
     ),
     'format_type' => 'html-element',
     'format_settings' => array(
@@ -544,7 +604,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'hidden',
-    'weight' => '22',
+    'weight' => '23',
     'children' => array(),
     'format_type' => 'html-element',
     'format_settings' => array(
@@ -618,7 +678,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'My interests',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
       0 => 'group_container_interests',
     ),
@@ -1688,6 +1748,64 @@ function ft_content_type_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_organisation_wrapper|field_collection_item|field_position_list|default';
+  $field_group->group_name = 'group_organisation_wrapper';
+  $field_group->entity_type = 'field_collection_item';
+  $field_group->bundle = 'field_position_list';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_row';
+  $field_group->data = array(
+    'label' => 'Organisation wrapper',
+    'weight' => '7',
+    'children' => array(
+      0 => 'field_entreprise',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Organisation wrapper',
+      'instance_settings' => array(
+        'classes' => 'group-wrapper-organisation field-group-html-element  col-xs-12 col-md-2',
+        'element' => 'div',
+        'show_label' => '0',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_organisation_wrapper|field_collection_item|field_position_list|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_position_wrapper|field_collection_item|field_position_list|default';
+  $field_group->group_name = 'group_position_wrapper';
+  $field_group->entity_type = 'field_collection_item';
+  $field_group->bundle = 'field_position_list';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_row';
+  $field_group->data = array(
+    'label' => 'Position wrapper',
+    'weight' => '6',
+    'children' => array(
+      0 => 'field_position',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Position wrapper',
+      'instance_settings' => array(
+        'classes' => 'group-wrapper-position field-group-html-element col-xs-12 col-md-6',
+        'element' => 'div',
+        'show_label' => '0',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_position_wrapper|field_collection_item|field_position_list|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_public_profile|user|user|default';
   $field_group->group_name = 'group_public_profile';
   $field_group->entity_type = 'user';
@@ -1698,8 +1816,8 @@ function ft_content_type_field_group_info() {
     'label' => 'My public profile',
     'weight' => '0',
     'children' => array(
-      0 => 'group_container_public',
-      1 => 'group_container_public_darken',
+      0 => 'group_container_public_darken',
+      1 => 'group_container_public',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1879,6 +1997,37 @@ function ft_content_type_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_row|field_collection_item|field_position_list|default';
+  $field_group->group_name = 'group_row';
+  $field_group->entity_type = 'field_collection_item';
+  $field_group->bundle = 'field_position_list';
+  $field_group->mode = 'default';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Row',
+    'weight' => '0',
+    'children' => array(
+      0 => 'group_wrapper_years',
+      1 => 'group_organisation_wrapper',
+      2 => 'group_position_wrapper',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Row',
+      'instance_settings' => array(
+        'classes' => 'group-row field-group-html-element row',
+        'element' => 'div',
+        'show_label' => '0',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_row|field_collection_item|field_position_list|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_row|field_collection_item|field_skills_set|default';
   $field_group->group_name = 'group_row';
   $field_group->entity_type = 'field_collection_item';
@@ -2050,7 +2199,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'My skills',
-    'weight' => '2',
+    'weight' => '1',
     'children' => array(
       0 => 'group_container_skills',
     ),
@@ -2260,7 +2409,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'My testimony',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
       0 => 'group_container_testimony',
     ),
@@ -2650,6 +2799,35 @@ function ft_content_type_field_group_info() {
     ),
   );
   $export['group_wrapper_skill|field_collection_item|field_skills_set|default'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_wrapper_years|field_collection_item|field_position_list|default';
+  $field_group->group_name = 'group_wrapper_years';
+  $field_group->entity_type = 'field_collection_item';
+  $field_group->bundle = 'field_position_list';
+  $field_group->mode = 'default';
+  $field_group->parent_name = 'group_row';
+  $field_group->data = array(
+    'label' => 'Years of experiences wrapper',
+    'weight' => '8',
+    'children' => array(
+      0 => 'field_year_of_experiences',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Years of experiences wrapper',
+      'instance_settings' => array(
+        'classes' => 'group-wrapper-years field-group-html-element  col-xs-12 col-md-4',
+        'element' => 'div',
+        'show_label' => '0',
+        'label_element' => 'div',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_wrapper_years|field_collection_item|field_position_list|default'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
