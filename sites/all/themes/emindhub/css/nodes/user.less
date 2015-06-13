@@ -26,7 +26,6 @@ body.page-user {
     }
     td:nth-child(2) > input,
     td:nth-child(2) .ajax-new-content > input {
-      .form-delete;
       margin-left: 20px;
     }
 
@@ -41,17 +40,21 @@ body.page-user {
 
     label {
       margin-bottom: 0;
-      width: 82px;
+      min-width: 82px;
     }
 
     input[type="text"] {
-      max-width: 80%;
+      max-width: 190px;
     }
   }
 
   #edit-field-skills-set .field-type-fivestar,
   #edit-field-position-list .field-name-field-entreprise {
-    width: 250px;
+    width: 240px;
+
+    label {
+      min-width: 90px;
+    }
   }
 
   #edit-field-position-list {
@@ -189,6 +192,19 @@ body.page-user {
 
     .field-name-field-skill-autoeval .form-item-field-skills-set-und-0-field-skill-autoeval-und-0-rating label {
       display: none !important;
+    }
+  }
+
+  .field-name-field-titre-metier {
+    input[type="text"] {
+      width: auto;
+    }
+  }
+
+  .field-name-field-cv {
+    input[type="text"] {
+      margin-left: 0;
+      margin-right: 0.5em;
     }
   }
 
