@@ -1,4 +1,4 @@
-@import "variables.less";
+// @import "variables.less";
 @import "components/five-stars.less";
 @import "components/messages.less";
 @import "components/privatemsg.less";
@@ -13,6 +13,7 @@
     }
     .profile-section {
         margin-bottom: 30px;
+
         // title
         h2 {
             color: @challengeStateSelectedBackground;
@@ -33,6 +34,7 @@
                 position: relative;
             }
         }
+
         // container
         .section-container {
             background: @lightGrey;
@@ -145,25 +147,16 @@
             }
         }
 
-        .field-name-field-skill2 {
-            background: @softGrey;
-            border-radius: 2px;
-            color: @darkBlue;
-            display: block;
-            font-style: italic;
-            padding: 6px 20px;
+        .field-name-field-skill2,
+        .field-name-field-position {
+          .emh-tag;
         }
         .field-name-field-skill-autoeval,
         .field-name-field-year-of-experiences .field-label {
             padding: 6px 0;
         }
         .field-name-field-year-of-experiences .field-items {
-            background: @softGrey;
-            border-radius: 2px;
-            color: @darkBlue;
-            float: right;
-            font-style: italic;
-            padding: 6px 20px;
+          .emh-years;
         }
         .field-collection-view-links, .action-links-field-collection-add {
             display:none;
