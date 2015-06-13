@@ -63,7 +63,7 @@ if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
                         <div class="challenge-domain softPaddingUD paddingL">
                             <?php if (isset($field_domaine)):
                                 foreach ($field_domaine as $domain) {
-                                    print $domain['taxonomy_term']->name . "<br>";
+                                    if (isset($domain['taxonomy_term'])) print $domain['taxonomy_term']->name . "<br>";
                                 }
                             endif; ?>
                         </div>
