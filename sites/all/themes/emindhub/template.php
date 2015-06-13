@@ -147,8 +147,21 @@ function emindhub_preprocess_user_picture(&$variables) {
 }
 
 
-function emindhub_form_alter(&$form, &$form_state, $form_id) {
+function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
+  $element_info = element_info('password_confirm');
+  $process = $element_info['#process'];
+  $process[] = 'emindhub_form_process_password_confirm';
+  $form['account']['pass']['#process'] =  $process;
+}
 
+function emindhub_form_process_password_confirm($element) {
+  $element['pass1']['#title'] = t('New password');
+  $element['pass2']['#title'] = t('Confirm password');
+  return $element;
+}
+
+
+function emindhub_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'search_block_form') {
     $form['search_block_form']['#title'] = c_szSearch; // Change the text on the label element
     $form['search_block_form']['#title_display'] = 'invisible'; // Toggle label visibilty
@@ -186,12 +199,10 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
 }
 
-
 /**
  * Additional page variables
  */
 function emindhub_preprocess_page(&$vars) {
-
     //dsm("test message à mettre en forme");
 
     // CUSTOMIZABLE TEXT  ==============================================================
@@ -689,11 +700,11 @@ function emindhub_links__locale_block(&$vars) {
 }
 
 function emindhub_form_user_register_form_alter(&$vars) {
-    //echo 'toto';
     //$vars['profile_expert']['field_domaine']
     $vars['field_first_name']['#access'] = TRUE;
     $vars['field_last_name']['#access'] = TRUE;
 }
+
 
 function emindhub_password_confirm_process($element) {
     $element['pass1']['#attributes']['title'] = 'Title';
@@ -860,3 +871,4 @@ function customDSM($input, $name = NULL, $type = 'status') {
     $export = kprint_r($input, TRUE, $name);
     drupal_set_message($export, $type);
 }
+
