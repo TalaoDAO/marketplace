@@ -157,33 +157,39 @@
             </div>
             <div class="row nice-menu">
                 <div class="col-sm-4">
-                    <div class="menu-3640 anonymous" onclick="">
-                        <!--<a>Add a <span>question</span><div>Learn more</div></a>-->
-                        <a><?php echo sprintf(c_szAddQuestion, "<span>", "</span><div>", "</div>"); ?></a>
-                        <div class="hover">
-                            <?php echo c_szAskRealTime; ?>
-                            <span><?php echo c_szRegisterKnowMore; ?></span>
-                        </div>
+                    <div class="menu-3640 anonymous">
+                      <!-- <a>Add a <span>question</span><div>Learn more</div></a> -->
+                      <a href="<?php print url("business/register"); ?>">
+                        <span class="default-text"><?php echo sprintf(c_szAddQuestion, "<span>", "</span><div>", "</div>"); ?></span>
+                        <span class="hover">
+                          <?php echo c_szAskRealTime; ?><br />
+                          <span><?php echo c_szRegisterKnowMore; ?></span>
+                        </span>
+                      </a>
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <div class="menu-3639 anonymous" onclick="">
-                        <a><?php echo sprintf(c_szCreateChallenge, "<span>", "</span><div>", "</div>"); ?></a>
-                        <!--<a>Create a <span>challenge</span><div>Learn more</div></a>-->
-                        <div class="hover">
-                            <?php echo c_szCompeteExperts; ?>
-                            <span><?php print c_szRegisterKnowMore; ?></span>
-                        </div>
+                    <div class="menu-3639 anonymous">
+                      <!-- <a>Create a <span>challenge</span><div>Learn more</div></a> -->
+                      <a href="<?php print url("business/register"); ?>">
+                        <span class="default-text"><?php echo sprintf(c_szCreateChallenge, "<span>", "</span><div>", "</div>"); ?></span>
+                        <span class="hover">
+                          <?php echo c_szCompeteExperts; ?><br />
+                          <span><?php print c_szRegisterKnowMore; ?></span>
+                        </span>
+                      </a>
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <div class="menu-3638 anonymous" onclick="">
-                        <a><?php print sprintf(c_szFindExpert, "<span>", "</span><div>", "</div>"); ?></a>
-                        <!--<a> Find an <span>expert</span><div>Learn more</div></a>-->
-                        <div class="hover">
-                            <?php echo c_szBuildSurvey; ?>
-                            <span><?php echo c_szRegisterKnowMore; ?></span>
-                        </div>
+                    <div class="menu-3638 anonymous">
+                      <!-- <a> Find an <span>expert</span><div>Learn more</div></a> -->
+                      <a href="<?php print url("business/register"); ?>">
+                        <span class="default-text"><?php print sprintf(c_szFindExpert, "<span>", "</span><div>", "</div>"); ?></span>
+                        <span class="hover">
+                          <?php echo c_szBuildSurvey; ?><br />
+                          <span><?php echo c_szRegisterKnowMore; ?></span>
+                        </span>
+                      </a>
                     </div>
                 </div>
             </div>
