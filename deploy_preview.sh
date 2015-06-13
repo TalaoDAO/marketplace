@@ -1,33 +1,17 @@
 set -x
 #Copy sites
 cd /var/www
-rm -r demo-emindhub
 rm -r preview-emindhub
 
-cp -r dev-emindhub/ demo-emindhub
-rm -r demo-emindhub/.git
-cp -r demo-emindhub/ preview-emindhub
+cp -r dev-emindhub/ preview-emindhub
+rm -r preview-emindhub/.git
 
 cp ~/settings-dev.php /var/www/dev-emindhub/sites/default/local.settings.php
-cp ~/settings-demo.php /var/www/demo-emindhub/sites/default/local.settings.php
 cp ~/settings-preview.php /var/www/preview-emindhub/sites/default/local.settings.php
 
-chown -R www-data:www-data /var/www/demo-emindhub/
 chown -R www-data:www-data /var/www/preview-emindhub/
 
-############################### DEMO #################################
-cd /var/www/demo-emindhub
-drush dis -y devel, get_form_id, diff, devel_debug_log, pathinfo, views_maintenance, admin_devel, dbtng_migrator, hacked, masquerade, memcache_admin, module_filter, security_review, seo_checklist, stickynote, switchtheme, unused_modules
-drush dis -y entity_legal
-#drush dis -y admin_menu
-drush dis -y user_alert, userpoint
-
-drush vset -y error_level 0
-drush vset user_email_verification FALSE ; drush vset user_registrationpassword_registration none
-drush sqlq "delete from autoassignrole_page where rid_page_id=3;"
-#drush role-remove-perm 'authenticated user' '???'
-
-drush cc all
+echo 'flush_all' | nc -q 2 localhost 11211
 
 ############################### PREVIEW #################################
 cd /var/www/preview-emindhub
@@ -41,4 +25,7 @@ drush vset drush vset user_registrationpassword_registration with-pass ; drush v
 #drush entity-delete node ???
 drush sqlq "delete from autoassignrole_page where rid_page_id=2;"
 drush sqlq "delete from autoassignrole_page where rid_page_id=1;"
+
+drush delete-all all
+
 drush cc all
