@@ -129,6 +129,33 @@
                     </div>-->
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <div class="row subtitle-wrapper">
+                      <div class="col-md-6 col-xs-12">
+                        <?php print render($page['theyuseus']); ?>
+                      </div>
+                      <div class="col-md-6 col-xs-12">
+                        <?php print render($page['theyareexpert']); ?>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="row subtitle-wrapper">
+                        <?php print render($page['news']); ?>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div> <!-- /#page, /#page-wrapper -->
+</div>
+
+<div id="footer" class="footer-container">
+    <div class="section">
+        <div class="container container-fluid">
+            <?php print render($page['footer']); ?>
+        </div>
+    </div>
 </div>
