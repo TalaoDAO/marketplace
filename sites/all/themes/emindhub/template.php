@@ -84,7 +84,7 @@ function emindhub_file($variables) {
 function emindhub_preprocess_user_picture(&$variables) {
     $variables['user_picture'] = '';
     //dpm('toto');
-    //if (variable_get('user_pictures', true)) {
+    //if (variable_get('user_pictures', TRUE)) {
         if (isset($variables['account'])) {
             $account = $variables['account'];
             if (!empty($account->picture)) {
@@ -691,8 +691,8 @@ function emindhub_links__locale_block(&$vars) {
 function emindhub_form_user_register_form_alter(&$vars) {
     //echo 'toto';
     //$vars['profile_expert']['field_domaine']
-    $vars['field_first_name']['#access'] = true;
-    $vars['field_last_name']['#access'] = true;
+    $vars['field_first_name']['#access'] = TRUE;
+    $vars['field_last_name']['#access'] = TRUE;
 }
 
 function emindhub_password_confirm_process($element) {
@@ -751,14 +751,28 @@ function isHomePage() {
     if (!$isHomePage) {
         /*$arUrl = explode('/', current_path());
         if ($arUrl[count($arUrl)-1] == "homepage") {
-            $isHomePage = true;
+            $isHomePage = TRUE;
         }*/
         if (drupal_get_path_alias() == "homepage") {
-            $isHomePage = true;
+            $isHomePage = TRUE;
         }
     }
     return $isHomePage;
 }
+
+// function isExpertRegister() {
+//   if (drupal_get_path_alias() == "expert/register") {
+//     $isExpertRegister = TRUE;
+//   }
+//   return $isExpertRegister;
+// }
+//
+// function isBusinessRegister() {
+//   if (drupal_get_path_alias() == "business/register") {
+//     $isBusinessRegister = TRUE;
+//   }
+//   return $isBusinessRegister;
+// }
 
 /**
  * Generate the user menu
