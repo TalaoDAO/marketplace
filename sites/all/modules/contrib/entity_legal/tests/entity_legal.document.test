@@ -1,0 +1,136 @@
+<?php
+/**
+ * @file
+ * Test file include for legal document.
+ */
+
+/**
+ * Simpletest class for legal document entities.
+ */
+class EntityLegalDocumentTestCase extends EntityLegalTestCase {
+  /**
+   * {@inheritdoc}
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Legal document entity',
+      'description' => 'Tests admin functionality for the legal document entity.',
+      'group' => 'Entity Legal',
+    );
+  }
+
+  /**
+   * Test the overview page contains a list of entities.
+   */
+  public function testAdminOverviewUi() {
+    // Create 3 legal documents.
+    $documents = array();
+    for ($i = 0; $i < 3; $i++) {
+      $documents[] = $this->createDocument();
+    }
+    $this->drupalLogin($this->adminUser);
+    $this->drupalGet('admin/structure/legal');
+
+    foreach ($documents as $document) {
+      $this->assertRaw($document->label(), 'Legal document found on overview page');
+      $this->assertLinkByHref('/admin/structure/legal/manage/' . $document->identifier(), 0, 'Edit link for legal document appears on overview');
+    }
+
+    $this->assertLinkByHref('/admin/structure/legal/add', 0, 'Add document link found');
+  }
+
+  /**
+   * Test the functionality of the create form.
+   */
+  public function testCreateForm() {
+    $test_label = $this->randomName();
+    $test_name = $this->randomName();
+
+    $this->drupalLogin($this->adminUser);
+    $this->drupalPost('admin/structure/legal/add', array(
+      'label' => $test_label,
+      'name' => $test_name,
+      'settings[new_users][require]' => 1,
+      'settings[new_users][require_method]' => 'form_inline',
+      'settings[existing_users][require]' => 1,
+      'settings[existing_users][require_method]' => 'redirect',
+    ), 'Next');
+
+    // Load a reset version of the entity.
+    $created_document = $this->getUncachedEntity(ENTITY_LEGAL_DOCUMENT_ENTITY_NAME, $test_name);
+
+    $this->assertTrue(!empty($created_document), 'Document was successfully created');
+
+    if ($created_document) {
+      $this->assertEqual($test_label, $created_document->label(), 'Label was saved correctly');
+      $this->assertEqual($test_name, $created_document->identifier(), 'Name was saved correctly');
+      $this->assertEqual(1, $created_document->require_signup, 'Signup requirement was saved correctly');
+      $this->assertEqual(1, $created_document->require_existing, 'Existing user requirement was saved correctly');
+      $this->assertEqual('form_inline', $created_document->getSetting('new_users', 'require_method'), 'Existing user requirement was saved correctly');
+      $this->assertEqual('redirect', $created_document->getSetting('existing_users', 'require_method'), 'Existing user requirement was saved correctly');
+    }
+  }
+
+  /**
+   * Test the functionality of the edit form.
+   */
+  public function testEditForm() {
+    $document = $this->createDocument(TRUE, TRUE, array(
+      'new_users' => array(
+        'require_method' => 'form_inline',
+      ),
+      'existing_users' => array(
+        'require_method' => 'redirect',
+      ),
+    ));
+
+    $this->drupalLogin($this->adminUser);
+    $this->drupalGet('admin/structure/legal/manage/' . $document->identifier());
+
+    // Test field default values.
+    $this->assertFieldByName('label', $document->label(), 'Label is set correctly for document');
+    $this->assertFieldByName('settings[new_users][require]', 1, 'Require new users set correctly');
+    $this->assertFieldByName('settings[new_users][require_method]', 'form_inline', 'Require existing users set correctly');
+    $this->assertFieldByName('settings[existing_users][require]', 1, 'Require existing users set correctly');
+    $this->assertFieldByName('settings[existing_users][require_method]', 'redirect', 'Require existing users set correctly');
+
+    // Test that changing values saves correctly.
+    $new_label = $this->randomName();
+    $this->drupalPost('admin/structure/legal/manage/' . $document->identifier(), array(
+      'label' => $new_label,
+      'settings[new_users][require]' => FALSE,
+      'settings[new_users][require_method]' => 'form_link',
+      'settings[existing_users][require]' => FALSE,
+      'settings[existing_users][require_method]' => 'popup',
+    ), 'Save');
+
+    $document = $this->getUncachedEntity(ENTITY_LEGAL_DOCUMENT_ENTITY_NAME, $document->identifier());
+
+    $this->assertEqual($new_label, $document->label(), 'Label was saved correctly');
+    $this->assertEqual(0, $document->require_signup, 'Signup requirement was saved correctly');
+    $this->assertEqual(0, $document->require_existing, 'Existing user requirement was saved correctly');
+    $this->assertEqual('form_link', $document->getSetting('new_users', 'require_method'), 'Form link method was saved correctly');
+    $this->assertEqual('popup', $document->getSetting('existing_users', 'require_method'), 'Popup require method was saved correctly');
+  }
+
+  /**
+   * Test the functionality of the delete form.
+   */
+  public function testDeleteForm() {
+    $document = $this->createDocument();
+
+    $document_name = $document->identifier();
+
+    // Log in and check for existence of the created document.
+    $this->drupalLogin($this->adminUser);
+    $this->drupalGet('admin/structure/legal');
+    $this->assertText($document_name, 'Document found in overview list');
+
+    // Delete the document.
+    $this->drupalPost('admin/structure/legal/manage/' . $document_name . '/delete', array(), 'Confirm');
+
+    // Ensure document no longer exists on the overview page.
+    $this->assertUrl('admin/structure/legal', array(), 'Returned to overview page after deletion');
+    $this->assertNoText($document_name, 'Document not found in overview list');
+  }
+}

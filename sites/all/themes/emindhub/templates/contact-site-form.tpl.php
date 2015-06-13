@@ -91,7 +91,9 @@ $fieldCivility = $form['civility'];
                     <?php print render($fieldActions);
                     print render($form['location']);
                     print render($form['form_build_id']);
-                    print render($form['form_id']); ?>
+                    print render($form['form_id']);
+                    print render($form['copy']);
+                    ?>
                 </div>
                 <div class="col-md-6">
                     <span class="required">*</span><?php print c_szRequiredField; ?>

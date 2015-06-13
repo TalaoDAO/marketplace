@@ -1,0 +1,482 @@
+<?php
+/**
+ * @file
+ * Entity Legal module.
+ *
+ * @longdesc
+ * Provides versioned legal forms to serve to users. By default only a message
+ * method is supplied for user prompting.
+ */
+
+define('ENTITY_LEGAL_USER_ANONYMOUS', 'signup');
+define('ENTITY_LEGAL_USER_EXISTING', 'existing');
+
+define('ENTITY_LEGAL_DOCUMENT_ENTITY_NAME', 'entity_legal_document');
+define('ENTITY_LEGAL_DOCUMENT_VERSION_ENTITY_NAME', 'entity_legal_document_version');
+define('ENTITY_LEGAL_DOCUMENT_ACCEPTANCE_ENTITY_NAME', 'entity_legal_document_acceptance');
+
+/**
+ * Implements hook_entity_info().
+ */
+function entity_legal_entity_info() {
+  $return = array(
+    ENTITY_LEGAL_DOCUMENT_ENTITY_NAME => array(
+      'label' => t('Legal document'),
+      'entity class' => 'EntityLegalDocument',
+      'controller class' => 'EntityLegalDocumentController',
+      'base table' => 'entity_legal_document',
+      'uri callback' => 'entity_class_uri',
+      'menu wildcard' => 'entity_legal_document',
+      'access callback' => 'entity_legal_document_access',
+      'fieldable' => FALSE,
+      'entity keys' => array(
+        'id' => 'name',
+        'name' => 'name',
+        'label' => 'label',
+      ),
+      'bundle keys' => array(
+        'bundle' => 'name',
+      ),
+      'label callback' => 'entity_class_label',
+      'exportable' => TRUE,
+      'module' => 'entity_legal',
+      'admin ui' => array(
+        'path' => 'admin/structure/legal',
+        'file' => 'entity_legal.admin.inc',
+        'controller class' => 'EntityLegalDocumentUIController',
+      ),
+    ),
+    ENTITY_LEGAL_DOCUMENT_VERSION_ENTITY_NAME => array(
+      'label' => t('Legal document version'),
+      'entity class' => 'EntityLegalDocumentVersion',
+      'controller class' => 'EntityLegalDocumentVersionController',
+      'base table' => 'entity_legal_document_version',
+      'access callback' => 'entity_legal_document_access',
+      'fieldable' => TRUE,
+      'exportable' => TRUE,
+      'entity keys' => array(
+        'id' => 'vid',
+        'name' => 'name',
+        'label' => 'label',
+        'bundle' => 'document_name',
+      ),
+      'bundle keys' => array(
+        'bundle' => 'document_name',
+      ),
+      'bundles' => array(),
+      'bundle of' => ENTITY_LEGAL_DOCUMENT_ENTITY_NAME,
+      'module' => 'entity_legal',
+      'admin ui' => array(
+        'path' => 'admin/structure/legal/manage/%',
+        'file' => 'entity_legal.admin.inc',
+        'controller class' => 'EntityLegalDocumentVersionUIController',
+      ),
+    ),
+    ENTITY_LEGAL_DOCUMENT_ACCEPTANCE_ENTITY_NAME => array(
+      'label' => t('Legal document acceptance'),
+      'entity class' => 'EntityLegalDocumentAcceptance',
+      'controller class' => 'EntityLegalDocumentAcceptanceController',
+      'base table' => 'entity_legal_document_acceptance',
+      'access callback' => 'entity_legal_document_acceptance_access',
+      'fieldable' => TRUE,
+      'entity keys' => array(
+        'id' => 'aid',
+      ),
+      'label callback' => 'entity_class_label',
+      'exportable' => FALSE,
+      'module' => 'entity_legal',
+    ),
+  );
+
+  return $return;
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+function entity_legal_entity_info_alter(&$entity_info) {
+  foreach (entity_legal_get_types() as $type => $info) {
+    $entity_info[ENTITY_LEGAL_DOCUMENT_VERSION_ENTITY_NAME]['bundles'][$type] = array(
+      'label' => $info->label,
+    );
+  }
+
+  $entity_legal_document = &$entity_info[ENTITY_LEGAL_DOCUMENT_VERSION_ENTITY_NAME]['properties'];
+
+  $entity_legal_document['author'] = array(
+    'label' => t('Author'),
+    'type' => 'user',
+    'description' => t("The author of the document."),
+    'getter callback' => 'entity_legal_get_properties',
+    'required' => TRUE,
+    'schema field' => 'uid',
+  );
+
+  $entity_legal_document['created'] = array(
+    'label' => t('Created'),
+    'type' => 'date',
+    'description' => t("The date the document was created."),
+    'required' => TRUE,
+    'schema field' => 'created',
+  );
+
+  $entity_legal_document['updated'] = array(
+    'label' => t('Updated'),
+    'type' => 'date',
+    'description' => t("The date the document was updated."),
+    'required' => TRUE,
+    'schema field' => 'updated',
+  );
+
+  $entity_legal_document_acceptance = &$entity_info[ENTITY_LEGAL_DOCUMENT_ACCEPTANCE_ENTITY_NAME]['properties'];
+
+  $entity_legal_document_acceptance['author'] = array(
+    'label' => t('Author'),
+    'type' => 'user',
+    'description' => t('The author of the acceptance.'),
+    'getter callback' => 'entity_legal_get_properties',
+    'required' => TRUE,
+    'schema field' => 'uid',
+  );
+
+  $entity_legal_document_acceptance['acceptance_date'] = array(
+    'label' => t('Date accepted'),
+    'type' => 'date',
+    'schema field' => 'acceptance_date',
+    'description' => t("The date the document was accepted."),
+  );
+}
+
+/**
+ * Gets an array of all legal document types, keyed by the type name.
+ */
+function entity_legal_get_types($type_name = NULL) {
+  $types = entity_load_multiple_by_name(ENTITY_LEGAL_DOCUMENT_ENTITY_NAME, isset($type_name) ? array($type_name) : FALSE);
+  return isset($type_name) ? reset($types) : $types;
+}
+
+/**
+ * Callback for getting legal entity properties.
+ */
+function entity_legal_get_properties($entity, array $options, $name, $entity_type) {
+  switch ($name) {
+    case 'author':
+      return !empty($entity->uid) ? $entity->uid : drupal_anonymous_user();
+  }
+}
+
+/**
+ * Access callback for legal documents.
+ */
+function entity_legal_document_access($op, $document = NULL) {
+  // Allow all users who can administer the module to do anything.
+  if (user_access('administer entity legal')) {
+    return TRUE;
+  }
+
+  if (is_string($document)) {
+    $document = entity_load_single(ENTITY_LEGAL_DOCUMENT_ENTITY_NAME, $document);
+  }
+
+  // Prevent access if the document is undefined.
+  if (!$document) {
+    return FALSE;
+  }
+
+  switch ($op) {
+    case 'view':
+      return user_access($document->getPermissionView());
+  }
+
+  return FALSE;
+}
+
+/**
+ * Access callback for acceptance entities.
+ */
+function entity_legal_document_acceptance_access($op, $acceptance = NULL) {
+  return user_access('administer entity legal');
+}
+
+/**
+ * Implements hook_menu().
+ */
+function entity_legal_menu() {
+  $items = array();
+
+  $items['legal/document/%entity_legal_document'] = array(
+    'title callback' => 'entity_legal_document_title',
+    'title arguments' => array(2),
+    'page callback' => 'entity_legal_document_page',
+    'page arguments' => array(2),
+    'access arguments' => array('view', 2),
+    'access callback' => 'entity_legal_document_access',
+    'file' => 'entity_legal.pages.inc',
+  );
+
+  $items['legal/document/%entity_legal_document/%entity_legal_document_version'] = array(
+    'title callback' => 'entity_legal_document_title',
+    'title arguments' => array(2),
+    'page callback' => 'entity_legal_document_page',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('administer entity legal'),
+    'file' => 'entity_legal.pages.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function entity_legal_permission() {
+  $permissions['administer entity legal'] = array(
+    'title' => t('Administer legal documents'),
+    'description' => t('Change global legal document settings.'),
+  );
+
+  foreach (entity_legal_get_all_documents(FALSE) as $document) {
+    $permissions[$document->getPermissionView()] = array(
+      'title' => t('View "@name"', array(
+        '@name' => $document->name,
+      )),
+      'description' => 'Allow users to view the legal document.',
+    );
+    $permissions[$document->getPermissionExistingUser()] = array(
+      'title' => t('Re-accept "@name"', array(
+        '@name' => $document->name,
+      )),
+      'description' => 'Existing user roles that must re-accept the legal document.',
+    );
+  }
+
+  return $permissions;
+}
+
+/**
+ * Implements hook_WILDCARD_load().
+ */
+function entity_legal_document_load($entity) {
+  if (is_string($entity)) {
+    $entity_name = str_replace('-', '_', $entity);
+
+    return entity_load_single(ENTITY_LEGAL_DOCUMENT_ENTITY_NAME, $entity_name);
+  }
+
+  return $entity;
+}
+
+/**
+ * Implements hook_WILDCARD_load().
+ */
+function entity_legal_document_version_load($entity) {
+  if (is_string($entity)) {
+    $entity_name = str_replace('-', '_', $entity);
+
+    return entity_load_single(ENTITY_LEGAL_DOCUMENT_VERSION_ENTITY_NAME, $entity_name);
+  }
+
+  return $entity;
+}
+
+/**
+ * Get the title of a given document from its corresponding document version.
+ *
+ * @param EntityLegalDocument $document
+ *   The legal document to get the version title from.
+ *
+ * @return string
+ *   The title of the legal document from the published version.
+ */
+function entity_legal_document_title(EntityLegalDocument $document) {
+  $current_version = $document->getPublishedVersion();
+  return entity_label(ENTITY_LEGAL_DOCUMENT_VERSION_ENTITY_NAME, $current_version);
+}
+
+/**
+ * Implements hook_page_build().
+ */
+function entity_legal_page_build(&$page) {
+  $redirect_method = new EntityLegalMethodRedirect();
+  $redirect_method->execute();
+
+  $popup_method = new EntityLegalMethodPopup();
+  $popup_method->execute();
+}
+
+/**
+ * Implements template_preprocess_page().
+ */
+function entity_legal_preprocess_page(&$variable) {
+  $acceptance_method = new EntityLegalMethodMessage();
+  $acceptance_method->execute();
+}
+
+/**
+ * Get all active legal documents on the site.
+ *
+ * @param bool $published
+ *   Whether or not the document has a published version.
+ * @param string $user_type
+ *   The type of user process the document is required on, signup or existing.
+ *
+ * @return array
+ *   An array of legal documents index by entity id.
+ */
+function entity_legal_get_all_documents($published = TRUE, $user_type = NULL) {
+  $legal_document_query = new EntityFieldQuery();
+  $legal_document_query->entityCondition('entity_type', ENTITY_LEGAL_DOCUMENT_ENTITY_NAME);
+
+  if ($published) {
+    $legal_document_query->propertyCondition('published_version', 'NULL', '!=');
+  }
+
+  switch ($user_type) {
+    case ENTITY_LEGAL_USER_ANONYMOUS:
+      $legal_document_query->propertyCondition('require_signup', 1);
+      break;
+
+    case ENTITY_LEGAL_USER_EXISTING:
+      $legal_document_query->propertyCondition('require_existing', 1);
+      break;
+  }
+
+  $results = $legal_document_query->execute();
+
+  return empty($results[ENTITY_LEGAL_DOCUMENT_ENTITY_NAME]) ? array() : entity_load(ENTITY_LEGAL_DOCUMENT_ENTITY_NAME, array_keys($results[ENTITY_LEGAL_DOCUMENT_ENTITY_NAME]));
+}
+
+/**
+ * Form callback for legal document acceptance form.
+ */
+function entity_legal_document_acceptance_form($form, &$form_state, EntityLegalDocument $entity_legal_document) {
+  $form_state[ENTITY_LEGAL_DOCUMENT_ENTITY_NAME] = $entity_legal_document;
+
+  $has_agreed = $entity_legal_document->userHasAgreed();
+
+  $form['agree'] = array(
+    '#title' => $entity_legal_document->getAcceptanceLabel(),
+    '#type' => 'checkbox',
+    '#required' => TRUE,
+    '#default_value' => $has_agreed,
+    '#disabled' => $has_agreed,
+  );
+
+  if ($has_agreed) {
+    global $user;
+    $acceptances = $entity_legal_document->getAcceptances($user);
+    if (!empty($acceptances)) {
+      $form['agree']['#description'] = render(entity_view(ENTITY_LEGAL_DOCUMENT_ACCEPTANCE_ENTITY_NAME, $acceptances));
+    }
+  }
+
+  $form['submit'] = array(
+    '#value' => t('Submit'),
+    '#type' => 'submit',
+    '#access' => !$has_agreed,
+  );
+
+  return $form;
+}
+
+/**
+ * Legal document acceptance submit handler.
+ */
+function entity_legal_document_acceptance_form_submit(&$form, &$form_state) {
+  $entity_legal_document = $form_state[ENTITY_LEGAL_DOCUMENT_ENTITY_NAME];
+  $published_version = $entity_legal_document->getPublishedVersion();
+  $acceptance = entity_create(ENTITY_LEGAL_DOCUMENT_ACCEPTANCE_ENTITY_NAME, array(
+    'document_version_name' => $published_version->identifier(),
+  ));
+  $acceptance->save();
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function entity_legal_views_api() {
+  return array(
+    'api' => '3',
+    'path' => drupal_get_path('module', 'entity_legal') . '/views',
+  );
+}
+
+/**
+ * Implements hook_field_extra_fields().
+ */
+function entity_legal_field_extra_fields() {
+  // Add profile form methods to extra fields for user.
+  $method = new EntityLegalMethodProfileForm();
+  $documents = $method->getProfileFormMethodDocuments();
+
+  $extra = array();
+
+  foreach ($documents as $document) {
+    $extra['user']['user']['form']['legal_' . $document->identifier()] = array(
+      'label' => $document->getVersionLabel(),
+      'description' => t('Checkbox for accepting !link', array(
+        '!link' => l($document->label(TRUE), 'admin/structure/legal/manage/' . $document->identifier()),
+      )),
+      'weight' => -4,
+    );
+  }
+
+  return $extra;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function entity_legal_form_user_register_form_alter(&$form, &$form_state) {
+  $acceptance_method = new EntityLegalMethodProfileForm();
+  $acceptance_method->execute($form);
+
+  $form['#submit'][] = 'entity_legal_form_user_register_form_submit';
+}
+
+/**
+ * Submit handler for user register form.
+ */
+function entity_legal_form_user_register_form_submit(&$form, &$form_state) {
+  $method = new EntityLegalMethodProfileForm();
+  $documents = $method->getProfileFormMethodDocuments();
+
+  foreach ($documents as $document) {
+    if (!empty($form_state['values']['legal_' . $document->identifier()])) {
+      $published_version = $document->getPublishedVersion();
+      $acceptance = entity_create(ENTITY_LEGAL_DOCUMENT_ACCEPTANCE_ENTITY_NAME, array(
+        'uid' => $form_state['values']['uid'],
+        'document_version_name' => $published_version->identifier(),
+      ));
+      $acceptance->save();
+    }
+  }
+}
+
+/**
+ * Methods for presenting the legal document to end users.
+ *
+ * @param string $type
+ *   The type of user, 'new_users' or 'existing_users'.
+ *
+ * @return array
+ *   Methods available keyed by method name and title.
+ */
+function _entity_legal_document_methods($type) {
+  $default_methods = array(
+    'new_users' => array(
+      'form_link' => t('Checkbox on signup form'),
+      'form_inline' => t('Checkbox on signup form with embedded document'),
+    ),
+    'existing_users' => array(
+      'popup' => t('Popup on all pages until accepted'),
+      'message' => t('Drupal warning message, prompting the user, until accepted'),
+      'redirect' => t('Redirect every page lo ad to legal document until accepted'),
+    ),
+  );
+
+  // Provide API functionality for injecting new delivery methods.
+  drupal_alter('entity_legal_document_method', $default_methods);
+
+  return $default_methods[$type];
+}

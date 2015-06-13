@@ -1,0 +1,184 @@
+<?php
+/**
+ * @file
+ * Test for defined methods in Entity Legal module.
+ */
+
+/**
+ * Simpletest class for acceptance methods.
+ */
+class EntityLegalMethodsTestCase extends EntityLegalTestCase {
+  /**
+   * {@inheritdoc}
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Methods',
+      'description' => 'Tests methods of encouraging users to accept legal documents.',
+      'group' => 'Entity Legal',
+    );
+  }
+
+  /**
+   * Drupal message method test.
+   */
+  public function testMessageMethod() {
+    $document = $this->createDocument(TRUE, TRUE, array(
+      'existing_users' => array(
+        'require_method' => 'message',
+      ),
+    ));
+    $this->createDocumentVersion($document, TRUE);
+
+    $acceptance_message = format_string('Please accept the @title', array(
+      '@title' => entity_legal_document_title($document),
+    ));
+    $document_uri = entity_uri(ENTITY_LEGAL_DOCUMENT_ENTITY_NAME, $document);
+    $document_path = $document_uri['path'];
+
+    $account = $this->createUserWithAcceptancePermissions($document);
+    $this->drupalLogin($account);
+
+    $this->assertText($acceptance_message, 'Document message found');
+    $this->assertLinkByHref(url($document_path), 0, 'Link to document found');
+
+    $this->clickLink(entity_legal_document_title($document));
+    $this->assertFieldByName('agree', NULL, 'I agree checkbox found');
+
+    $this->drupalPost($document_path, array(
+        'agree' => TRUE,
+      ),
+      'Submit');
+
+    $this->assertNoLinkByHref(url($document_path), 0, 'Link to document not found');
+    $this->assertNoText($acceptance_message, 'Document message not found');
+
+    $this->createDocumentVersion($document, TRUE);
+
+    $this->drupalGet('');
+
+    $acceptance_message_2 = format_string('Please accept the @title', array(
+      '@title' => entity_legal_document_title($document),
+    ));
+    $this->assertText($acceptance_message_2, 'Document message found');
+    $this->assertLinkByHref(url($document_path), 0, 'Link to document found');
+  }
+
+  /**
+   * JQuery UI dialog method test.
+   */
+  public function testPopupMethod() {
+    $document = $this->createDocument(TRUE, TRUE, array(
+      'existing_users' => array(
+        'require_method' => 'popup',
+      ),
+    ));
+    $this->createDocumentVersion($document, TRUE);
+
+    $account = $this->createUserWithAcceptancePermissions($document);
+    $this->drupalLogin($account);
+
+    // Check for the presence of the legal document in the js settings array.
+    $js_settings = $this->drupalGetSettings();
+    $this->assertTrue(isset($js_settings['entityLegalPopup']), 'Popup javascript settings found');
+    $this->assertEqual(entity_legal_document_title($document), $js_settings['entityLegalPopup'][0]['popupTitle'], 'Popup title is correct');
+
+    // Visit the document to agree as SimpleTest cannot properly submit using
+    // the unprocessed markup from within the JS array.
+    $document_uri = entity_uri(ENTITY_LEGAL_DOCUMENT_ENTITY_NAME, $document);
+    $document_path = $document_uri['path'];
+    $this->drupalPost($document_path, array(
+      'agree' => TRUE,
+    ), 'Submit');
+
+    // Ensure the popup is no longer present.
+    $js_settings = $this->drupalGetSettings();
+    $this->assertFalse(isset($js_settings['entityLegalPopup']), 'Popup javascript settings not found');
+
+    // Create a new version.
+    $this->createDocumentVersion($document, TRUE);
+
+    // Visit the home page and ensure that the user must re-accept.
+    $this->drupalGet('');
+    $js_settings = $this->drupalGetSettings();
+    $this->assertTrue(isset($js_settings['entityLegalPopup']), 'Popup javascript settings found');
+    $this->assertEqual(entity_legal_document_title($document), $js_settings['entityLegalPopup'][0]['popupTitle'], 'Popup title is correct');
+  }
+
+  /**
+   * User signup form with link method test.
+   */
+  public function testSignupFormLinkMethod() {
+    $document = $this->createDocument(TRUE, TRUE, array(
+      'new_users' => array(
+        'require_method' => 'form_link',
+      ),
+    ));
+    $this->createDocumentVersion($document, TRUE);
+
+    $this->drupalGet('user/register');
+    $this->assertFieldByName('legal_' . $document->identifier(), NULL, 'Agree checkbox found');
+
+    $document_uri = entity_uri(ENTITY_LEGAL_DOCUMENT_ENTITY_NAME, $document);
+    $document_path = $document_uri['path'];
+
+    $this->assertLinkByHref(url($document_path), 0, 'Link to document found');
+  }
+
+  /**
+   * User signup form with inline method test.
+   */
+  public function testProfileFormInlineMethod() {
+    $document = $this->createDocument(TRUE, TRUE, array(
+      'new_users' => array(
+        'require_method' => 'form_inline',
+      ),
+    ));
+    $this->createDocumentVersion($document, TRUE);
+
+    $this->drupalGet('user/register');
+    $this->assertFieldByName('legal_' . $document->identifier(), NULL, 'Agree checkbox found');
+
+    $this->assertRaw('<div class="entity entity-entity-legal-document-version entity-legal-document-version-' . $document->identifier(), 'Document markup found on register page');
+  }
+
+  /**
+   * Redirection method test.
+   */
+  public function testRedirectMethod() {
+    $document = $this->createDocument(TRUE, TRUE, array(
+      'existing_users' => array(
+        'require_method' => 'redirect',
+      ),
+    ));
+    $this->createDocumentVersion($document, TRUE);
+
+    $account = $this->createUserWithAcceptancePermissions($document);
+    $this->drupalLogin($account);
+
+    $document_uri = entity_uri(ENTITY_LEGAL_DOCUMENT_ENTITY_NAME, $document);
+    $document_path = $document_uri['path'];
+
+    $this->assertUrl($document_path, array(
+      'query' => array(
+        'destination' => 'user/' . $account->uid,
+      ),
+    ), 'User was redirected to legal document after login');
+
+    $this->drupalGet('');
+
+    $this->assertUrl($document_path, array(
+      'query' => array(
+        'destination' => 'node',
+      ),
+    ), 'User was forecefully redirected to legal document after navigation');
+
+    $this->drupalPost(NULL, array(
+      'agree' => TRUE,
+    ), 'Submit');
+
+    $this->drupalGet('');
+
+    $this->assertUrl('', array(), 'User is free to navigate the site after acceptance');
+  }
+}

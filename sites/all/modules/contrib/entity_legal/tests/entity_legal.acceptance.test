@@ -1,0 +1,77 @@
+<?php
+/**
+ * @file
+ * Test file for legal document acceptance ui.
+ */
+
+/**
+ * Simpletest class for legal document acceptance entities.
+ */
+class EntityLegalDocumentAcceptanceTestCase extends EntityLegalTestCase {
+  /**
+   * {@inheritdoc}
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Legal document acceptance entity',
+      'description' => 'Tests acceptance functionality for the legal document entity.',
+      'group' => 'Entity Legal',
+    );
+  }
+
+  /**
+   * Test that user has the ability to agree to legal documents.
+   */
+  public function testSubmissionForm() {
+    $document = $this->createDocument(TRUE, TRUE);
+    $version = $this->createDocumentVersion($document, TRUE);
+
+    $acceptance_user = $this->drupalCreateUser(array(
+      $document->getPermissionView(),
+      $document->getPermissionExistingUser(),
+    ));
+
+    $this->drupalLogin($acceptance_user);
+
+    $document_uri = $document->uri();
+
+    $this->drupalGet($document_uri['path']);
+    $this->assertFieldByName('agree', NULL, 'Agree checkbox found');
+    $this->assertFieldByName('op', 'Submit', 'Submit button found');
+    $this->assertText($version->label(), 'Version title found');
+    $this->assertText($version->entity_legal_document_text[LANGUAGE_NONE][0]['value'], 'Version document text found');
+
+    $this->drupalPost($document_uri['path'], array(
+      'agree' => 1,
+    ), 'Submit');
+
+    $this->drupalGet($document_uri['path']);
+    $this->assertNoFieldByName('agree', NULL, 'Agree checkbox not found');
+    $this->assertNoFieldByName('op', 'Submit', 'Submit button not found');
+
+    $document = $this->getUncachedEntity(ENTITY_LEGAL_DOCUMENT_ENTITY_NAME, $document->identifier());
+    $this->assertTrue($document->userHasAgreed($acceptance_user), 'User has accepted');
+
+    $new_version = $this->createDocumentVersion($document, TRUE);
+
+    $document = $this->getUncachedEntity(ENTITY_LEGAL_DOCUMENT_ENTITY_NAME, $document->identifier());
+    $this->assertFalse($document->userHasAgreed($acceptance_user), 'User has not accepted new version');
+
+    $this->drupalGet($document_uri['path']);
+    $this->assertFieldByName('agree', NULL, 'Agree checkbox found');
+    $this->assertFieldByName('op', 'Submit', 'Submit button found');
+    $this->assertText($new_version->label(), 'New version title found');
+    $this->assertText($new_version->entity_legal_document_text[LANGUAGE_NONE][0]['value'], 'New version document text found');
+
+    $this->drupalPost($document_uri['path'], array(
+      'agree' => 1,
+    ), 'Submit');
+
+    $this->drupalGet($document_uri['path']);
+    $this->assertNoFieldByName('agree', NULL, 'Agree checkbox not found');
+    $this->assertNoFieldByName('op', 'Submit', 'Submit button not found');
+
+    $document = $this->getUncachedEntity(ENTITY_LEGAL_DOCUMENT_ENTITY_NAME, $document->identifier());
+    $this->assertTrue($document->userHasAgreed($acceptance_user), 'User has accepted new version');
+  }
+}
