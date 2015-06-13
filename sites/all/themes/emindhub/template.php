@@ -176,6 +176,14 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
     // die;
   }
 
+  // Hide "Show row weights" for regular users
+  global $user;
+  if (!(in_array('webmaster', $user->roles) || in_array('administrator', $user->roles) )) {
+    $form['#attached']['js'] = array(
+      drupal_get_path('theme', 'emindhub') . '/js/disable_show_row_weights.js',
+    );
+  }
+
 }
 
 
