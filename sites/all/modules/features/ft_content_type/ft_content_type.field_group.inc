@@ -129,10 +129,10 @@ function ft_content_type_field_group_info() {
   $field_group->entity_type = 'user';
   $field_group->bundle = 'user';
   $field_group->mode = 'default';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_skills';
   $field_group->data = array(
     'label' => 'My background',
-    'weight' => '2',
+    'weight' => '40',
     'children' => array(
       0 => 'group_container_background',
     ),
@@ -2201,7 +2201,8 @@ function ft_content_type_field_group_info() {
     'label' => 'My skills',
     'weight' => '1',
     'children' => array(
-      0 => 'group_container_skills',
+      0 => 'group_background',
+      1 => 'group_container_skills',
     ),
     'format_type' => 'div',
     'format_settings' => array(

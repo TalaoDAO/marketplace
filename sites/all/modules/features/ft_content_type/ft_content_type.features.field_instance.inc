@@ -541,20 +541,16 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'entityreference',
       'settings' => array(
         'entityreference_autocreate' => array(
-          'active' => 0,
+          'active' => 1,
           'author' => '',
           'author_current_user' => 1,
           'status' => -1,
         ),
         'match_operator' => 'CONTAINS',
         'path' => '',
-        'references_dialog_add' => 0,
-        'references_dialog_edit' => 0,
-        'references_dialog_search' => 0,
-        'references_dialog_search_view' => '',
         'size' => 60,
       ),
-      'type' => 'entityreference_autocomplete',
+      'type' => 'entityreference_autocomplete_tags',
       'weight' => 1,
     ),
   );

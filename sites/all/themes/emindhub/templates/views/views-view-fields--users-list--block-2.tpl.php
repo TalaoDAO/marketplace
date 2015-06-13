@@ -18,7 +18,7 @@
                     <?php print $fields['field_first_name']->content; ?>
                 </div>
                 <div class="light-blue-text bold">
-                    <?php print $fields['field_last_name']->content; ?>
+                    <?php //print $fields['field_last_name']->content; ?>
                 </div>
                 <?php print $fields['field_titre_metier']->content; ?>
             </div>
