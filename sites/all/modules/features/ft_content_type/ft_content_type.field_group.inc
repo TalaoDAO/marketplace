@@ -21,7 +21,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Account',
-    'weight' => '0',
+    'weight' => '-50',
     'children' => array(
       0 => 'field_name_visibility',
       1 => 'field_entreprise_visibility',
@@ -331,8 +331,8 @@ function ft_content_type_field_group_info() {
     'weight' => '2',
     'children' => array(
       0 => 'field_known_specific',
-      1 => 'group_label',
-      2 => 'group_label2',
+      1 => 'group_label2',
+      2 => 'group_label',
     ),
     'format_type' => 'div',
     'format_settings' => array(

@@ -13,7 +13,7 @@ function ft_field_base_taxonomy_default_vocabularies() {
       'name' => 'Domains',
       'machine_name' => 'domaine',
       'description' => 'Domaine de compétences',
-      'hierarchy' => 1,
+      'hierarchy' => 0,
       'module' => 'taxonomy',
       'weight' => 0,
       'language' => 'und',

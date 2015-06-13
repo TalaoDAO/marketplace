@@ -2772,8 +2772,11 @@ Il est probable que vous Domaines (dans le burger menu) soient trop restrictifs.
   $handler->display->display_options['title'] = 'Users list';
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'access user profiles';
+  $handler->display->display_options['access']['type'] = 'role';
+  $handler->display->display_options['access']['role'] = array(
+    1 => '1',
+    2 => '2',
+  );
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['distinct'] = TRUE;
@@ -3021,6 +3024,12 @@ Il est probable que vous Domaines (dans le burger menu) soient trop restrictifs.
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler->display->display_options['defaults']['access'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'role';
+  $handler->display->display_options['access']['role'] = array(
+    3 => '3',
+    6 => '6',
+  );
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
@@ -3071,6 +3080,7 @@ Il est probable que vous Domaines (dans le burger menu) soient trop restrictifs.
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: User: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
@@ -3109,6 +3119,14 @@ Il est probable que vous Domaines (dans le burger menu) soient trop restrictifs.
   $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
+  /* Field: User: Is sponsor */
+  $handler->display->display_options['fields']['field_is_sponsor']['id'] = 'field_is_sponsor';
+  $handler->display->display_options['fields']['field_is_sponsor']['table'] = 'field_data_field_is_sponsor';
+  $handler->display->display_options['fields']['field_is_sponsor']['field'] = 'field_is_sponsor';
+  /* Field: User: Is promoted */
+  $handler->display->display_options['fields']['field_is_promoted']['id'] = 'field_is_promoted';
+  $handler->display->display_options['fields']['field_is_promoted']['table'] = 'field_data_field_is_promoted';
+  $handler->display->display_options['fields']['field_is_promoted']['field'] = 'field_is_promoted';
   /* Field: Bulk operations: User */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'users';
@@ -3219,14 +3237,6 @@ Il est probable que vous Domaines (dans le burger menu) soient trop restrictifs.
       'label' => '',
     ),
   );
-  /* Field: User: Is sponsor */
-  $handler->display->display_options['fields']['field_is_sponsor']['id'] = 'field_is_sponsor';
-  $handler->display->display_options['fields']['field_is_sponsor']['table'] = 'field_data_field_is_sponsor';
-  $handler->display->display_options['fields']['field_is_sponsor']['field'] = 'field_is_sponsor';
-  /* Field: User: Is promoted */
-  $handler->display->display_options['fields']['field_is_promoted']['id'] = 'field_is_promoted';
-  $handler->display->display_options['fields']['field_is_promoted']['table'] = 'field_data_field_is_promoted';
-  $handler->display->display_options['fields']['field_is_promoted']['field'] = 'field_is_promoted';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: User: Active */
@@ -3246,6 +3256,73 @@ Il est probable que vous Domaines (dans le burger menu) soient trop restrictifs.
     8 => '8',
   );
   $handler->display->display_options['path'] = 'expert_vbo';
+
+  /* Display: They are expert clone */
+  $handler = $view->new_display('block', 'They are expert clone', 'block_1');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'They are experts in emindhub';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: User: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'users';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['label'] = '';
+  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
+  /* Field: User: Photo */
+  $handler->display->display_options['fields']['field_photo']['id'] = 'field_photo';
+  $handler->display->display_options['fields']['field_photo']['table'] = 'field_data_field_photo';
+  $handler->display->display_options['fields']['field_photo']['field'] = 'field_photo';
+  $handler->display->display_options['fields']['field_photo']['label'] = '';
+  $handler->display->display_options['fields']['field_photo']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_photo']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_photo']['settings'] = array(
+    'image_style' => 'profile_picture',
+    'image_link' => '',
+  );
+  /* Field: User: First Name */
+  $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['label'] = '';
+  $handler->display->display_options['fields']['field_first_name']['element_label_colon'] = FALSE;
+  /* Field: User: Last Name */
+  $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['label'] = '';
+  $handler->display->display_options['fields']['field_last_name']['element_label_colon'] = FALSE;
+  /* Field: Field: Profile Title */
+  $handler->display->display_options['fields']['field_titre_metier']['id'] = 'field_titre_metier';
+  $handler->display->display_options['fields']['field_titre_metier']['table'] = 'field_data_field_titre_metier';
+  $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
+  $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
+  $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: User: Active */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'users';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '1';
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: User: Roles */
+  $handler->display->display_options['filters']['rid']['id'] = 'rid';
+  $handler->display->display_options['filters']['rid']['table'] = 'users_roles';
+  $handler->display->display_options['filters']['rid']['field'] = 'rid';
+  $handler->display->display_options['filters']['rid']['value'] = array(
+    4 => '4',
+    8 => '8',
+  );
+  /* Filter criterion: User: Is promoted (field_is_promoted) */
+  $handler->display->display_options['filters']['field_is_promoted_value']['id'] = 'field_is_promoted_value';
+  $handler->display->display_options['filters']['field_is_promoted_value']['table'] = 'field_data_field_is_promoted';
+  $handler->display->display_options['filters']['field_is_promoted_value']['field'] = 'field_is_promoted_value';
+  $handler->display->display_options['filters']['field_is_promoted_value']['value'] = array(
+    1 => '1',
+  );
   $export['users_list'] = $view;
 
   $view = new view();
