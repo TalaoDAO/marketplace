@@ -26,6 +26,8 @@ drush vset drush vset user_registrationpassword_registration with-pass ; drush v
 drush sqlq "delete from autoassignrole_page where rid_page_id=2;"
 drush sqlq "delete from autoassignrole_page where rid_page_id=1;"
 
-drush delete-all all
+drush delete-all challenge
+drush delete-all webform
+drush delete-all question1
 
 drush cc all
