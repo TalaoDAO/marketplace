@@ -1,0 +1,153 @@
+<?php
+/**
+ * @file
+ * Common test class file.
+ */
+
+/**
+ * Common Simpletest class for all legal tests.
+ */
+abstract class EntityLegalTestCase extends DrupalWebTestCase {
+  /**
+   * The administrative user to use for tests.
+   */
+  protected $adminUser;
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp() {
+    parent::setUp('entity', 'entity_legal', 'token', 'entity_token');
+    $this->adminUser = $this->drupalCreateUser(array('administer entity legal', 'administer permissions'));
+  }
+
+  /**
+   * {@inheritdoc}
+   *
+   * Ensures generated names are lower case.
+   */
+  public static function randomName($length = 8) {
+    return strtolower(parent::randomName($length));
+  }
+
+  /**
+   * Get an entity bypassing static and db cache.
+   *
+   * @param string $entity_type
+   *   The type of entity to get.
+   * @param string $entity_id
+   *   The ID or name to load the entity using.
+   *
+   * @return object
+   *   The retrieved entity.
+   */
+  public function getUncachedEntity($entity_type, $entity_id) {
+    $entities = entity_load($entity_type, array($entity_id), array(), TRUE);
+    return array_pop($entities);
+  }
+
+  /**
+   * Create a random legal document entity.
+   *
+   * @param bool $require_signup
+   *   Whether or not to require new users to agree.
+   * @param bool $require_existing
+   *   Whether or not to require existing users to agree.
+   * @param array $settings
+   *   Additional settings to pass through to the document.
+   *
+   * @return EntityLegalDocument
+   *   The created legal document.
+   */
+  protected function createDocument($require_signup = FALSE, $require_existing = FALSE, $settings = array()) {
+    $entity = entity_create(ENTITY_LEGAL_DOCUMENT_ENTITY_NAME, array(
+      'name' => $this->randomName(32),
+      'label' => $this->randomName(),
+      'require_signup' => (int) $require_signup,
+      'require_existing' => (int) $require_existing,
+      'settings' => $settings,
+    ));
+    $entity->save();
+
+    // Reset permissions cache to make new document permissions available.
+    $this->checkPermissions(array(
+      $entity->getPermissionView(),
+      $entity->getPermissionExistingUser(),
+    ), TRUE);
+
+    return $entity;
+  }
+
+  /**
+   * Create a document version.
+   *
+   * @param EntityLegalDocument $document
+   *   The document to add the version to.
+   * @param bool $save_as_default
+   *   Whether to save the version as the default for the document.
+   *
+   * @return EntityLegalDocumentVersion
+   *   The created legal document version.
+   */
+  protected function createDocumentVersion(EntityLegalDocument $document, $save_as_default = FALSE) {
+    $entity = entity_create(ENTITY_LEGAL_DOCUMENT_VERSION_ENTITY_NAME, array(
+      'name' => $this->randomName(64),
+      'document_name' => $document->identifier(),
+      'label' => $this->randomName(),
+      'acceptance_label' => 'I agree to the <a href="[entity_legal_document:url]">document</a>',
+      'entity_legal_document_text' => array(
+        LANGUAGE_NONE => array(
+          array(
+            'value' => $this->randomName(),
+          ),
+        ),
+      ),
+    ));
+    $entity->save();
+
+    if ($save_as_default) {
+      $document->setPublishedVersion($entity);
+      $document->save();
+    }
+
+    return $entity;
+  }
+
+  /**
+   * Create an acceptance entity for a given document version.
+   *
+   * @param EntityLegalDocumentVersion $version
+   *   The version to create the acceptance for.
+   * @param object $user
+   *   The user object to associate the acceptance with.
+   *
+   * @return EntityLegalDocumentAcceptance
+   *   The created acceptance entity.
+   */
+  protected function createDocumentVersionAcceptance(EntityLegalDocumentVersion $version, $user) {
+    $entity = entity_create(ENTITY_LEGAL_DOCUMENT_ACCEPTANCE_ENTITY_NAME, array(
+      'document_version_name' => $version->identifier(),
+      'user' => $user->uid,
+    ));
+    $entity->save();
+    return $entity;
+  }
+
+  /**
+   * Create an account that is able to view and re-accept a given document.
+   *
+   * @param EntityLegalDocument $document
+   *   The legal document the user is able to view and accept.
+   *
+   * @return object
+   *   The user
+   */
+  protected function createUserWithAcceptancePermissions(EntityLegalDocument $document) {
+    $account = $this->drupalCreateUser(array(
+      $document->getPermissionView(),
+      $document->getPermissionExistingUser(),
+    ));
+
+    return $account;
+  }
+}

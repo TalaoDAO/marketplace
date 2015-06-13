@@ -1,0 +1,31 @@
+name = Entity Legal
+description = Create versionable, trackable legal forms for site users.
+core = 7.x
+
+dependencies[] = entity
+dependencies[] = entity_token
+dependencies[] = token
+
+files[] = entity_legal.entity.inc
+files[] = entity_legal.entity_controller.inc
+files[] = entity_legal.entity_admin.inc
+
+files[] = methods/entity_legal.method.inc
+files[] = methods/entity_legal.message.inc
+files[] = methods/entity_legal.popup.inc
+files[] = methods/entity_legal.profile_form.inc
+files[] = methods/entity_legal.redirect.inc
+
+
+files[] = tests/entity_legal.common.test
+files[] = tests/entity_legal.document.test
+files[] = tests/entity_legal.version.test
+files[] = tests/entity_legal.acceptance.test
+files[] = tests/entity_legal.methods.test
+
+; Information added by Drupal.org packaging script on 2015-05-19
+version = "7.x-2.0"
+core = "7.x"
+project = "entity_legal"
+datestamp = "1432013588"
+

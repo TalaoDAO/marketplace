@@ -1,0 +1,292 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the entity_legal module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function entity_legal_uninstall() {
+  $instances = field_read_instances(array(
+    'entity_type' => 'entity_legal_document_version',
+  ), array(
+    'include_inactive' => TRUE,
+    'include_deleted' => TRUE,
+  ));
+
+  foreach ($instances as $instance) {
+    field_delete_instance($instance);
+  }
+
+  // Delete document text field.
+  $field = field_info_field('entity_legal_document_text');
+  if ($field) {
+    field_purge_field($field);
+  }
+}
+
+/**
+ * Implements hook_install().
+ */
+function entity_legal_install() {
+  // Adapted from node module.
+  $body_field = array(
+    'field_name' => 'entity_legal_document_text',
+    'type' => 'text_with_summary',
+    'module' => 'text',
+    'cardinality' => 1,
+    'entity_types' => array('entity_legal_document_version'),
+    'translatable' => TRUE,
+  );
+  _update_7000_field_create_field($body_field);
+}
+
+/**
+ * Implements hook_schema().
+ */
+function entity_legal_schema() {
+  $schema['entity_legal_document'] = array(
+    'description' => 'Stores information about all defined legal document types.',
+    'fields' => array(
+      'name' => array(
+        'description' => 'The machine-readable name of this legal document.',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+      ),
+      'label' => array(
+        'description' => 'The human-readable administrative name of this legal document.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'status' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        // Set the default to ENTITY_CUSTOM without using the constant as it is
+        // not safe to use it at this point.
+        'default' => 0x01,
+        'size' => 'tiny',
+        'description' => 'The exportable status of the entity.',
+      ),
+      'module' => array(
+        'description' => 'The name of the providing module if the entity has been defined in code.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ),
+      'published_version' => array(
+        'description' => 'The current published version of this legal document.',
+        'type' => 'varchar',
+        'length' => 64,
+      ),
+      'require_signup' => array(
+        'description' => 'Require new users to accept this document on signup.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'tiny',
+      ),
+      'require_existing' => array(
+        'description' => 'Require existing users to accept this document.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'tiny',
+      ),
+      'settings' => array(
+        'description' => 'A serialized array of additional data related to this entity_legal_form.',
+        'type' => 'text',
+        'not null' => FALSE,
+        'size' => 'big',
+        'serialize' => TRUE,
+        'merge' => FALSE,
+      ),
+    ),
+    'primary key' => array('name'),
+  );
+
+  $schema['entity_legal_document_version'] = array(
+    'description' => 'Stores information about all defined entity legals.',
+    'fields' => array(
+      'vid' => array(
+        'description' => 'The entity id of this document',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'name' => array(
+        'description' => 'The machine-readable name of this entity_legal_form.',
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+      ),
+      'document_name' => array(
+        'description' => 'The name of the document this version is bound to.',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+      ),
+      'label' => array(
+        'description' => 'The title of the document.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'status' => array(
+        'description' => 'The exportable status of the entity.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0x01,
+        'size' => 'tiny',
+      ),
+      'module' => array(
+        'description' => 'The name of the providing module if the entity has been defined in code.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => NULL,
+        'description' => "The user who created this version.",
+      ),
+      'acceptance_label' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => 'I agree',
+      ),
+      'created' => array(
+        'description' => 'A Unix timestamp indicating when this version was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'updated' => array(
+        'description' => 'A Unix timestamp indicating when this version was updated.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('vid'),
+    'indexes' => array(
+      'uid' => array('uid'),
+    ),
+    'foreign keys' => array(
+      'uid' => array('users' => 'uid'),
+      'document_name' => array('entity_legal_document' => 'name'),
+    ),
+  );
+
+  $schema['entity_legal_document_acceptance'] = array(
+    'description' => 'User acceptance of a legal document.',
+    'fields' => array(
+      'aid' => array(
+        'description' => 'The entity id of this agreement',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'document_version_name' => array(
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'description' => 'The name of the corresponding legal document version.',
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => NULL,
+        'description' => "The {users}.uid of the associated user.",
+      ),
+      'acceptance_date' => array(
+        'description' => 'A Unix timestamp indicating when this acceptance entity was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'data' => array(
+        'description' => 'A dump of user data to help verify acceptances.',
+        'type' => 'text',
+        'not null' => FALSE,
+        'size' => 'big',
+        'serialize' => TRUE,
+        'merge' => FALSE,
+      ),
+    ),
+    'primary key' => array('aid'),
+    'indexes' => array(
+      'uid' => array('uid'),
+    ),
+    'foreign keys' => array(
+      'uid' => array(
+        'table' => 'users',
+        'columns' => array('uid' => 'uid'),
+      ),
+      'document_version_name' => array(
+        'table' => 'entity_legal_document_version',
+        'columns' => array('document_version_name' => 'name'),
+      ),
+    ),
+  );
+
+  return $schema;
+}
+
+/**
+ * Re-name legal entities in Field API, for users of 1.0.
+ */
+function entity_legal_update_7001() {
+  // Update field config.
+  $configs = db_select('field_config', 'f')
+    ->fields('f')
+    ->condition('field_name', 'entity_legal_document_text')
+    ->execute()
+    ->fetchAllAssoc('id');
+
+  foreach ($configs as $config) {
+    $config->data = unserialize($config->data);
+    $config->data['entity_types'][0] = ENTITY_LEGAL_DOCUMENT_VERSION_ENTITY_NAME;
+    $config->data = serialize($config->data);
+
+    db_update('field_config')
+      ->condition('id', $config->id)
+      ->fields((array) $config)
+      ->execute();
+  }
+
+  // Update config instances.
+  db_update('field_config_instance')
+    ->condition('entity_type', 'legal_document_version')
+    ->fields(array(
+      'entity_type' => ENTITY_LEGAL_DOCUMENT_VERSION_ENTITY_NAME,
+    ))
+    ->execute();
+
+  // Update field data.
+  db_update('field_data_entity_legal_document_text')
+    ->condition('entity_type', 'legal_document_version')
+    ->fields(array(
+      'entity_type' => ENTITY_LEGAL_DOCUMENT_VERSION_ENTITY_NAME,
+    ))
+    ->execute();
+
+  // Update field revision data.
+  db_update('field_revision_entity_legal_document_text')
+    ->condition('entity_type', 'legal_document_version')
+    ->fields(array(
+      'entity_type' => ENTITY_LEGAL_DOCUMENT_VERSION_ENTITY_NAME,
+    ))
+    ->execute();
+
+  cache_clear_all();
+}
