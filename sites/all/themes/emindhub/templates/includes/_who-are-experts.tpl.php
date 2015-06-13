@@ -60,7 +60,7 @@
                         </span>
                     </div>
                     <div class="col-sm-8 col-xs-12 paddingUD">
-                        <?php print c_szAllExperts; ?> <br><!--<span class="bold">--><?php print c_szSponsored; ?><!--</span>-->
+                        <?php print c_szSponsored; ?> <br><!--<span class="bold">--><?php print c_szExperts; ?><!--</span>-->
                     </div>
                 </div>
             </div>
