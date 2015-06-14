@@ -18,13 +18,13 @@
 
 			<div id="head-top-1" class="row">
 
-				<div class="col-sm-5 col-xs-12">
+				<div class="col-sm-7 col-xs-12 text-right">
 					<div class="form-group">
 						<?php print render($page['searchmodule']); ?>
 					</div>
 				</div>
 
-				<div class="col-sm-6 col-xs-9 text-right">
+				<div class="col-sm-4 col-xs-9 text-right">
 					<?php if ($firstMenu) {
 						$length = count($firstMenu);
 						foreach ($firstMenu as $index => $menuEntry) {
