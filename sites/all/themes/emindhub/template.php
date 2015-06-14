@@ -21,21 +21,20 @@ function emindhub_status_messages($variables) {
     'warning' => t('Warning message'),
   );
   foreach (drupal_get_messages($display) as $type => $messages) {
-    $output .= "<div class=\"messages $type\">\n";
+    $output .= "<div class=\"messages row $type\">\n";
     if (!empty($status_heading [$type])) {
       $output .= '<h2 class="element-invisible">' . $status_heading [$type] . "</h2>\n";
     }
-    $output .= "<span class=\"drupal-message\">".$status_heading[$type].":</span>";
-    if (count($messages) > 1) {
-      $output .= " <ul>\n";
-      foreach ($messages as $message) {
-        $output .= '  <li>' . $message . "</li>\n";
-      }
-      $output .= " </ul>\n";
+    $output .= "<div class=\"drupal-message col-md-2\">".$status_heading [$type].":</div>";
+
+    if (count($messages) > 1) $nb_class = "multiple-msg";
+    else $nb_class = "one-msg";
+
+    $output .= "<div class=\"col-md-10\"><ul class=\"$nb_class\">\n";
+    foreach ($messages as $message) {
+      $output .= '<li>' . $message . "</li>\n";
     }
-    else {
-      $output .= reset($messages);
-    }
+    $output .= "</ul></div>\n";
     $output .= "</div>\n";
   }
   return $output;
@@ -873,6 +872,6 @@ function pp($arr){
 }
 
 function customDSM($input, $name = NULL, $type = 'status') {
-    $export = kprint_r($input, TRUE, $name);
-    drupal_set_message($export, $type);
+  $export = kprint_r($input, TRUE, $name);
+  drupal_set_message($export, $type);
 }

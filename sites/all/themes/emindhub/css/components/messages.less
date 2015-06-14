@@ -23,16 +23,13 @@ div.messages {
   border-radius: 3px;
   border: 0;
   margin: 6px 0;
-  padding: 10px; /* LTR */
-  padding-left: 130px;
-  position: relative;
-  .drupal-message {
-    background: #4c6172;
-    left: 0;
+  padding: 0;
+  > div {
     padding: 10px;
-    position: absolute;
-    top: 0;
-    width: 120px;
+  }
+  .drupal-message {
+    background: @darkBlue;
+    color: @white;
   }
 }
 .form-item .messages {
@@ -84,6 +81,9 @@ div.error p.error {
 div.messages ul {
   margin: 0 0 0 1em; /* LTR */
   padding: 0;
+  &.one-msg{
+    list-style: none;
+  }
 }
 div.messages ul li {
   list-style-image: none;
