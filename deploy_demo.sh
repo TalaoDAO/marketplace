@@ -9,7 +9,7 @@ rm -r demo-emindhub/.git
 cp ~/settings-dev.php /var/www/dev-emindhub/sites/default/local.settings.php
 cp ~/settings-demo.php /var/www/demo-emindhub/sites/default/local.settings.php
 
-chown -R www-data:www-data /var/www/preview-emindhub/
+chown -R www-data:www-data /var/www/demo-emindhub/
 
 echo 'flush_all' | nc -q 2 localhost 11211
 
