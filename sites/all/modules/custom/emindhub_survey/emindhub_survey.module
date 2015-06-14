@@ -141,19 +141,5 @@ function emindhub_survey_form_webform_node_form_alter(&$form, &$form_state, $for
 			</div>
 		</div>';
 
-	// Action buttons order
-	$i = 0;
-	foreach (
-		array(
-			'cancel',
-			'delete',
-			'preview_changes',
-			'draft',
-			'preview',
-			'submit',
-		) as $action ) {
-			$form['actions'][$action]['#weight'] = $i++;
-		}
-
 	$form['actions']['submit']['#value'] = t('Save and go manage your questions');
 }

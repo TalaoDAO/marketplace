@@ -16,8 +16,8 @@
  *   following:
  *   - block: The current template type, i.e., "theming hook".
  *   - block-[module]: The module generating the block. For example, the user
- *     module is responsible for handling the default user navigation block. In
- *     that case the class would be 'block-user'.
+ *	 module is responsible for handling the default user navigation block. In
+ *	 that case the class would be 'block-user'.
  * - $title_prefix (array): An array containing additional output populated by
  *   modules, intended to be displayed in front of the main title tag that
  *   appears in the template.
@@ -46,16 +46,17 @@
 ?>
 <div id="<?php print $block_html_id; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
 
-    <?php print render($title_prefix); ?>
-    <?php if ($block->subject): ?>
-        <div class="paddingU" >
-            <h2 class="burgermenu-title"><?php print $block->subject ?></h2><img class="burgermenu-close-icon" src="<?php print getImgSrc('bmClose.png'); ?>" onclick="onClickBurgerMenuBtn()">
-        </div>
-    <?php endif; ?>
+	<?php print render($title_prefix); ?>
+	<?php if ($block->subject): ?>
+		<div class="paddingU" >
+			<h2 class="burgermenu-title"><?php print $block->subject ?></h2>
+      <img class="burgermenu-close-icon" src="<?php print getImgSrc('bmClose.png'); ?>" onclick="onClickBurgerMenuBtn()" />
+		</div>
+	<?php endif; ?>
 
-    <?php print render($title_suffix); ?>
+	<?php print render($title_suffix); ?>
 
-    <div class="content"<?php print $content_attributes; ?>>
-        <?php print $content ?>
-    </div>
+	<div class="content"<?php print $content_attributes; ?>>
+		<?php print $content ?>
+	</div>
 </div>
