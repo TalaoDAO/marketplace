@@ -149,6 +149,22 @@ function emindhub_preprocess_user_picture(&$variables) {
 
 function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+
+  // Action buttons order
+  $i = 0;
+  foreach (
+    array(
+      'cancel',
+      'delete',
+      'preview_changes',
+      'draft',
+      'preview',
+      'submit',
+    ) as $action ) {
+      $form['actions'][$action]['#weight'] = $i++;
+    }
+
   if ($form_id == 'search_block_form') {
     $form['search_block_form']['#title'] = c_szSearch; // Change the text on the label element
     $form['search_block_form']['#title_display'] = 'invisible'; // Toggle label visibilty
