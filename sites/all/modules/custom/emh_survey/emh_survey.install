@@ -7,17 +7,17 @@
 /**
  * Implements hook_enable
  */
-function emindhub_survey_enable() {
-  emindhub_survey_update_7001();
+function emh_survey_enable() {
+  emh_survey_update_7001();
 }
 
 /**
  * Force module weight for hook_form_alter execution
  */
-function emindhub_survey_update_7001() {
+function emh_survey_update_7001() {
   db_update('system')
   ->fields(array('weight' => 1))
   ->condition('type', 'module')
-  ->condition('name', 'emindhub_survey')
+  ->condition('name', 'emh_survey')
   ->execute();
 }

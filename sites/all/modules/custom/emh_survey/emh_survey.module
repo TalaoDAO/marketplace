@@ -8,7 +8,7 @@
 /* Webform hook form alter
  * node/$ID/webform/components/$ID
  * */
-function emindhub_survey_form_webform_component_edit_form_alter(&$form, &$form_state, $form_id) {
+function emh_survey_form_webform_component_edit_form_alter(&$form, &$form_state, $form_id) {
 
 	// Question label
 	$form['name']['#title'] = t('Your question');
@@ -43,7 +43,7 @@ function emindhub_survey_form_webform_component_edit_form_alter(&$form, &$form_s
 /* Webform hook form alter
  * node/$ID/webform/components
  * */
-function emindhub_survey_form_webform_components_form_alter(&$form, &$form_state, $form_id) {
+function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $form_id) {
 
 	$form['actions']['submit']['#value'] = t('Save your questions');
 
@@ -123,7 +123,7 @@ function emindhub_survey_form_webform_components_form_alter(&$form, &$form_state
  * node/$ID/edit
  * */
 
-function emindhub_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
+function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
 
 	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
 	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
