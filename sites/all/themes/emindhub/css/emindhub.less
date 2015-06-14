@@ -57,8 +57,12 @@ body {
 	}
 }
 
+#head-top-1 {
+	min-height: 50px;
+}
+
 a.signup-button {
-	background: white;
+	background: @white;
 	box-shadow: 0 0 2px black;
 	color: @darkBlue;
 	display: block;
@@ -106,7 +110,7 @@ a.signup-button {
 			content: "";
 			display: block;
 			border: 3px solid transparent;
-			border-left-color: white;
+			border-left-color: @white;
 			position: absolute;
 			left: 8px + 5px;
 			top: 10px + 3px;
@@ -172,7 +176,7 @@ a.signup-button {
 	margin-bottom: 1em;
 
 	 * {
-		background-color: white;
+		background-color: @white;
 		top: -0.6em;
 		position: relative;
 		margin-left: auto;
@@ -246,7 +250,7 @@ a.signup-button {
 
 	h1,
 	h2 {
-		background-color: white;
+		background-color: @white;
 		padding-right: 0.7em !important;
 		top: -0.6em;
 		display: inline;
@@ -781,7 +785,7 @@ table tbody:before {
 	/* This doesn't work because of border-collapse */
 	line-height: 1em;
 	content: "_";
-	color: white;
+	color: @white;
 	display: block;
 }
 
@@ -3133,7 +3137,7 @@ div.field-name-field-skills-set label {
 				+ ul.menu {
 					position: absolute;
 					top: 4.4em;
-					color: white;
+					color: @white;
 					background-color: @lightBlue;
 					left: @topMenuHoverLeft;
 					padding: 1em 1.85em 0.5em;
@@ -3185,7 +3189,7 @@ div.field-name-field-skills-set label {
 					width: 12em;
 
 					position: absolute;
-					color: white;
+					color: @white;
 					background-color: @lightBlue;
 					padding: 0.5em 1em 0.5em;
 
@@ -3673,7 +3677,7 @@ div.field-name-field-skills-set label {
 						content: "";
 						display: block;
 						border: 3px solid transparent;
-						border-left-color: white;
+						border-left-color: @white;
 						position: absolute;
 						left: 8px + 5px;
 						top: 14px + 3px;
@@ -5457,7 +5461,7 @@ span.required {
 			background-color: @lightGrey;
 
 			.item-list {
-				background-color: white;
+				background-color: @white;
 			}
 
 			.quicktabs_main {
@@ -5816,7 +5820,7 @@ span.required {
 
 .fixed {
 	width: 100%;
-	background-color: white;
+	background-color: @white;
 	z-index: 999;
 	padding-top: 0.5em;
 
