@@ -62,8 +62,11 @@ input[type="submit"] {
   }
 
   &#edit-draft,
+	&[value="Unpublish"],
   &#edit-preview,
-  &#edit-preview-changes {
+	&[value="Preview"],
+  &#edit-preview-changes,
+	&[value="View changes"] {
 		background-color: @darkBlue;
 		color: @white;
 
@@ -91,6 +94,7 @@ input[type="submit"] {
   }
 
 	&#edit-delete,
+	&[value="Delete"],
 	&[value="Remove"],
 	&[value="Cancel account"] {
 		.form-delete !important;
