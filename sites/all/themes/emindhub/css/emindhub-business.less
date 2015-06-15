@@ -7,10 +7,13 @@ body.business-user {
   }
 
   input[type=submit] {
-    background-color: @lightBlue;
-    &:focus,
-    &:hover {
-      background-color: @lightBlueHover;
+    &[id*="upload"],
+    &[id*="submit"] {
+      background-color: @lightBlue;
+      &:focus,
+      &:hover {
+        background-color: @lightBlueHover;
+      }
     }
   }
 
