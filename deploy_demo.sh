@@ -1,5 +1,6 @@
 set -x
 #Copy sites
+date +"%T"
 cd /var/www
 rm -r demo-emindhub
 

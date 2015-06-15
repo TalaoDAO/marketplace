@@ -1,4 +1,5 @@
-exit 0
+#exit 0
+date +"%T"
 set -x
 #Copy sites
 cd /var/www
