@@ -125,19 +125,21 @@
                     </div>
                 </div>
                 <div class="dark-blue-line">&nbsp;</div>
-            <?php endif;
-            if (!isHomePage() || user_is_logged_in()) { ?>
-<!--                <div class="ligh-blue-line header-separator">&nbsp;</div>-->
-                <!-- START BREADCRUMB -->
-                <?php if ($breadcrumb) {
-                    print $breadcrumb;
-                }
-                else { ?>
-                    <div class="dark-blue-line-large">&nbsp;</div>
-                <?php }
-                // END BREADCRUMB
-            } ?>
+            <?php endif; ?>
 
+            <?php if (!isHomePage() || user_is_logged_in()) { ?>
+              <div id="breadcrumb" class="container-fluid">
+                <div class="container">
+                  <div class="col-md-12">
+                    <?php if ($breadcrumb) {
+                      print $breadcrumb;
+                    } else { ?>
+                      <div class="dark-blue-line-large">&nbsp;</div>
+                    <?php } ?>
+                  </div>
+                </div>
+              </div>
+              <?php } ?>
 
             <div class="container container-fluid">
                 <?php print $messages;
@@ -204,14 +206,14 @@
                 </div>
             </div>
             <?php if ($node->title == t("About us") || $node->title == t("Our services")) { ?>
-                <div class="row">
-                    <div class="col-xs-8">
-                        <?php print render($page['content']); ?>
-                    </div>
-                    <div class="col-xs-4">
-                        <?php print render($page['sidebar_second']); ?>
-                    </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <?php print render($page['content']); ?>
                 </div>
+                <div class="col-xs-4">
+                    <?php print render($page['sidebar_second']); ?>
+                </div>
+            </div>
             <?php } else { ?>
             <div class="row">
                 <div class="col-md-12">
