@@ -1,3 +1,11 @@
+// Bootstrap
+@import "components/variables.less";
+@import "components/mixins/opacity.less";
+@import "components/mixins/vendor-prefixes.less";
+@import "components/tooltip.less";
+@import "components/popovers.less";
+// @import "components/forms.less";
+
 @import "variables.less";
 @import "emindhub-styles.less";
 
@@ -2185,202 +2193,202 @@ fieldset.collapsed {
 	}
 }
 
-.popup-sign {
-	&-up {
-		.inline;
-
-		&-click > &-content {
-//		&:hover div {
-			opacity: 1;
-			visibility: visible;
-			-webkit-transition-delay: 0s;
-			-moz-transition-delay: 0s;
-			-ms-transition-delay: 0s;
-			-o-transition-delay: 0s;
-			transition-delay: 0s;
-		}
-
-		&-content {
-			.upper;
-			.bold;
-
-			-webkit-transition: opacity 500ms ease-out, visibility 500ms ease-out;
-			-moz-transition: opacity 500ms ease-out, visibility 500ms ease-out;
-			-o-transition: opacity 500ms ease-out, visibility 500ms ease-out;
-			transition: opacity 500ms ease-out, visibility 500ms ease-out; /* ease-out */
-			opacity: 0;
-			visibility: hidden;
-
-			top: 1.6em;
-			right: -2.1em;
-			padding: 1.5em;
-			font-size: 1.125em;
-			color: @white;
-			background-color: @popupSignUp;
-			position: absolute;
-			z-index: 25;
-			text-align: left;
-
-			@media (max-width: @screen-md) {
-				left: 2.1em;
-				right: auto;
-			}
-
-			span {
-				.light-blue-text;
-				display: block;
-			}
-
-			a {
-				.upper;
-				.bold;
-				padding: 0.3em 0.5em 0.5em 0.5em;
-				display: block;
-				height: 2em;
-				margin-top: 1em;
-			}
-
-			&:after {
-				bottom: 100%;
-				left: 50%;
-				content: " ";
-				height: 0;
-				width: 0;
-				position: absolute;
-				pointer-events: none;
-				border: 8px solid rgba(136, 183, 213, 0);
-				border-bottom-color: @popupSignUp;
-				margin-left: -14px;
-			}
-		}
-	}
-
-	&-in {
-		display: inline;
-
-
-		&-click > &-content {
-			opacity: 1;
-			visibility: visible;
-			-webkit-transition-delay: 0s;
-			-moz-transition-delay: 0s;
-			-ms-transition-delay: 0s;
-			-o-transition-delay: 0s;
-			transition-delay: 0s;
-		}
-
-		&-content {
-			-webkit-transition: opacity 500ms ease-out, visibility 500ms ease-out;
-			-moz-transition: opacity 500ms ease-out, visibility 500ms ease-out;
-			-o-transition: opacity 500ms ease-out, visibility 500ms ease-out;
-			transition: opacity 500ms ease-out, visibility 500ms ease-out; /* ease-out */
-			opacity: 0;
-			visibility: hidden;
-			right: -3.2em;
-			padding: 1.5em;
-			font-size: 1.125em;
-			color: @white;
-			background-color: @popupSignUp;
-			position: absolute;
-			z-index: 25;
-			text-align: left;
-			width: 20em;
-			top: 1.6em;
-
-			@media (max-width: @screen-md) {
-				left: -7.1em;
-				right: auto;
-			}
-
-			@media (max-width: @screen-xs) {
-				left: 0.1em;
-				right: auto;
-			}
-
-			&:after {
-				bottom: 100%;
-				left: 50%;
-				content: " ";
-				height: 0;
-				width: 0;
-				position: absolute;
-				pointer-events: none;
-				border: 8px solid rgba(136, 183, 213, 0);
-				border-bottom-color: @popupSignUp;
-				margin-left: -14px;
-
-				@media (max-width: @screen-xs) {
-					left: 14%;
-				}
-			}
-
-			.btn-primary {
-				.bold;
-			}
-
-			.social-network {
-				padding-left: 3em;
-				padding-bottom: .4em;
-				padding-top: .4em;
-				width: 15.125em;
-				-webkit-border-radius: 2px;
-				-moz-border-radius: 2px;
-				border-radius: 2px;
-				margin-top: .5em;
-			}
-
-			.facebook-login {
-				background: @facebookColor url(../images/facebook.png) no-repeat 7% 50%;
-				.social-network;
-			}
-
-			.twitter-login {
-				background: @twitterColor url(../images/twitter.png) no-repeat 3.9% 50%;
-				.social-network;
-			}
-
-			.linkedin-login {
-				background: @linkedinColor url(../images/linkedin.png) no-repeat 5.4% 50%;
-				.social-network;
-			}
-
-			.form-control-custom {
-				height: auto !important;
-			}
-
-			form {
-				display: inline-block;
-			}
-
-			.form-wrapper {
-				padding: 0;
-				margin-top: .3em;
-				margin-bottom: .3em;
-			}
-
-			.form-item {
-				input {
-					padding-left: 0.5em;
-					width: 100% !important;
-					border: none;
-					height: 1.8em;
-				}
-			}
-
-			.separator {
-				height: 5em;
-			}
-
-			.vertical-line {
-				width: 1px;
-				margin-left: 50%;
-				background-color: @white;
-				height: 100%;
-				float: left;
-			}
-		}
-	}
-}
+// .popup-sign {
+// 	&-up {
+// 		.inline;
+//
+// 		&-click > &-content {
+// //		&:hover div {
+// 			opacity: 1;
+// 			visibility: visible;
+// 			-webkit-transition-delay: 0s;
+// 			-moz-transition-delay: 0s;
+// 			-ms-transition-delay: 0s;
+// 			-o-transition-delay: 0s;
+// 			transition-delay: 0s;
+// 		}
+//
+// 		&-content {
+// 			.upper;
+// 			.bold;
+//
+// 			-webkit-transition: opacity 500ms ease-out, visibility 500ms ease-out;
+// 			-moz-transition: opacity 500ms ease-out, visibility 500ms ease-out;
+// 			-o-transition: opacity 500ms ease-out, visibility 500ms ease-out;
+// 			transition: opacity 500ms ease-out, visibility 500ms ease-out; /* ease-out */
+// 			opacity: 0;
+// 			visibility: hidden;
+//
+// 			top: 1.6em;
+// 			right: -2.1em;
+// 			padding: 1.5em;
+// 			font-size: 1.125em;
+// 			color: @white;
+// 			background-color: @popupSignUp;
+// 			position: absolute;
+// 			z-index: 25;
+// 			text-align: left;
+//
+// 			@media (max-width: @screen-md) {
+// 				left: 2.1em;
+// 				right: auto;
+// 			}
+//
+// 			span {
+// 				.light-blue-text;
+// 				display: block;
+// 			}
+//
+// 			a {
+// 				.upper;
+// 				.bold;
+// 				padding: 0.3em 0.5em 0.5em 0.5em;
+// 				display: block;
+// 				height: 2em;
+// 				margin-top: 1em;
+// 			}
+//
+// 			&:after {
+// 				bottom: 100%;
+// 				left: 50%;
+// 				content: " ";
+// 				height: 0;
+// 				width: 0;
+// 				position: absolute;
+// 				pointer-events: none;
+// 				border: 8px solid rgba(136, 183, 213, 0);
+// 				border-bottom-color: @popupSignUp;
+// 				margin-left: -14px;
+// 			}
+// 		}
+// 	}
+//
+// 	&-in {
+// 		display: inline;
+//
+//
+// 		&-click > &-content {
+// 			opacity: 1;
+// 			visibility: visible;
+// 			-webkit-transition-delay: 0s;
+// 			-moz-transition-delay: 0s;
+// 			-ms-transition-delay: 0s;
+// 			-o-transition-delay: 0s;
+// 			transition-delay: 0s;
+// 		}
+//
+// 		&-content {
+// 			-webkit-transition: opacity 500ms ease-out, visibility 500ms ease-out;
+// 			-moz-transition: opacity 500ms ease-out, visibility 500ms ease-out;
+// 			-o-transition: opacity 500ms ease-out, visibility 500ms ease-out;
+// 			transition: opacity 500ms ease-out, visibility 500ms ease-out; /* ease-out */
+// 			opacity: 0;
+// 			visibility: hidden;
+// 			right: -3.2em;
+// 			padding: 1.5em;
+// 			font-size: 1.125em;
+// 			color: @white;
+// 			background-color: @popupSignUp;
+// 			position: absolute;
+// 			z-index: 25;
+// 			text-align: left;
+// 			width: 20em;
+// 			top: 1.6em;
+//
+// 			@media (max-width: @screen-md) {
+// 				left: -7.1em;
+// 				right: auto;
+// 			}
+//
+// 			@media (max-width: @screen-xs) {
+// 				left: 0.1em;
+// 				right: auto;
+// 			}
+//
+// 			&:after {
+// 				bottom: 100%;
+// 				left: 50%;
+// 				content: " ";
+// 				height: 0;
+// 				width: 0;
+// 				position: absolute;
+// 				pointer-events: none;
+// 				border: 8px solid rgba(136, 183, 213, 0);
+// 				border-bottom-color: @popupSignUp;
+// 				margin-left: -14px;
+//
+// 				@media (max-width: @screen-xs) {
+// 					left: 14%;
+// 				}
+// 			}
+//
+// 			.btn-primary {
+// 				.bold;
+// 			}
+//
+// 			.social-network {
+// 				padding-left: 3em;
+// 				padding-bottom: .4em;
+// 				padding-top: .4em;
+// 				width: 15.125em;
+// 				-webkit-border-radius: 2px;
+// 				-moz-border-radius: 2px;
+// 				border-radius: 2px;
+// 				margin-top: .5em;
+// 			}
+//
+// 			.facebook-login {
+// 				background: @facebookColor url(../images/facebook.png) no-repeat 7% 50%;
+// 				.social-network;
+// 			}
+//
+// 			.twitter-login {
+// 				background: @twitterColor url(../images/twitter.png) no-repeat 3.9% 50%;
+// 				.social-network;
+// 			}
+//
+// 			.linkedin-login {
+// 				background: @linkedinColor url(../images/linkedin.png) no-repeat 5.4% 50%;
+// 				.social-network;
+// 			}
+//
+// 			.form-control-custom {
+// 				height: auto !important;
+// 			}
+//
+// 			form {
+// 				display: inline-block;
+// 			}
+//
+// 			.form-wrapper {
+// 				padding: 0;
+// 				margin-top: .3em;
+// 				margin-bottom: .3em;
+// 			}
+//
+// 			.form-item {
+// 				input {
+// 					padding-left: 0.5em;
+// 					width: 100% !important;
+// 					border: none;
+// 					height: 1.8em;
+// 				}
+// 			}
+//
+// 			.separator {
+// 				height: 5em;
+// 			}
+//
+// 			.vertical-line {
+// 				width: 1px;
+// 				margin-left: 50%;
+// 				background-color: @white;
+// 				height: 100%;
+// 				float: left;
+// 			}
+// 		}
+// 	}
+// }
 
 .footer-container {
 	margin-top: 1.5em;
@@ -3970,27 +3978,6 @@ span.required {
 }
 
 .page {
-	&-contact {
-		div.form-item {
-			display: inline;
-		}
-
-		div.form-textarea-wrapper {
-			display: inline-block;
-		}
-
-		div.form-type-textarea {
-			padding-left: 0.4em;
-		}
-
-		div.form-type-select {
-			padding-left: 0.5em;
-		}
-
-		.form-control-custom {
-			width: 53.2%;
-		}
-	}
 
 	&-node {
 		&-commentlist,
@@ -5911,8 +5898,8 @@ div.tabs {
 
 @import "emindhub-profile.less";
 @import "emindhub-business.less";
-@import "components/forms.less";
 @import "components/fields.less";
 @import "nodes/user.less";
 @import "nodes/webform.less";
+@import "nodes/contact.less";
 @import "overrides.less";

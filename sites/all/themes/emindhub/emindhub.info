@@ -4,13 +4,15 @@ core = 7.x
 engine = phptemplate
 
 ; Ajout de fichiers CSS
+stylesheets[all][] = css/bootstrap.css
 stylesheets[all][] = css/bootstrap-theme.css
 stylesheets[all][] = css/emindhub.css
-stylesheets[all][] = css/bootstrap.css
 
 ; Javascript
 ; scripts[] = js/jquery-1.11.2.min.js
-; scripts[] = js/bootstrap.min.js
+scripts[] = js/bootstrap.min.js
+scripts[] = js/bootstrap/tooltip.js
+scripts[] = js/bootstrap/popover.js
 scripts[] = js/main.js
 
 ; DEFAULT REGIONS
