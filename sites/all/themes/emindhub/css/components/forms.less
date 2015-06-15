@@ -56,14 +56,17 @@ input[type="submit"] {
 		background-color: @middleYellow;
 	}
 
-  &#edit-view {
+  &#edit-view,
+	&[id*=view] {
 		background-color: transparent;
 		color: @darkBlue;
   }
 
   &#edit-draft,
+	&[id*="draft"],
 	&[value="Unpublish"],
   &#edit-preview,
+	&[id*="preview"],
 	&[value="Preview"],
   &#edit-preview-changes,
 	&[value="View changes"] {
@@ -75,7 +78,9 @@ input[type="submit"] {
 			background-color: @middleBlue;
 		}
   }
-  &#edit-draft {
+
+  &#edit-draft,
+	&[id*="draft"] {
 		background-image: url(../images/draftBtn.png);
 		background-repeat: no-repeat;
 		background-position: .5em 50%;
@@ -83,7 +88,9 @@ input[type="submit"] {
   }
 
 	&#edit-back,
-  &#edit-cancel {
+	&[id*="back"],
+  &#edit-cancel,
+	&[id*="cancel"] {
 		background-color: transparent;
 		color: @darkGrey;
 
@@ -94,17 +101,11 @@ input[type="submit"] {
   }
 
 	&#edit-delete,
+	&[id*="delete"],
 	&[value="Delete"],
 	&[value="Remove"],
 	&[value="Cancel account"] {
 		.form-delete !important;
-		// background-color: transparent;
-		// color: @darkRed;
-		//
-		// &:focus,
-		// &:hover {
-		// 	color: @middleRed;
-		// }
 	}
 
 }
