@@ -810,8 +810,8 @@ function GetMenu (&$vars) {
           'element' => array(
             '#tag' => 'span',
             '#attributes' => array(
-              'class' => array('user-menu', 'sign-in'),
-              'onclick' => 'signInClick()'
+              'class' => array('sign-in'),
+              // 'onclick' => 'signInClick()'
             ),
             '#value' => c_szLogin,
           ),
@@ -820,8 +820,8 @@ function GetMenu (&$vars) {
           'element' => array(
             '#tag' => 'span',
             '#attributes' => array(
-              'class' => array('user-menu', 'sign-up'),
-              'onclick' => 'signUpClick()'
+              'class' => array('sign-up'),
+              // 'onclick' => 'signUpClick()'
             ),
             '#value' => c_szRegister,
           ),
@@ -884,4 +884,3 @@ function customDSM($input, $name = NULL, $type = 'status') {
   $export = kprint_r($input, TRUE, $name);
   drupal_set_message($export, $type);
 }
-
