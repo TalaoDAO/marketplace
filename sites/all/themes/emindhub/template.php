@@ -20,12 +20,19 @@ function emindhub_status_messages($variables) {
     'error' => t('Error message'),
     'warning' => t('Warning message'),
   );
+
+  // Bootstrap compliance class
+  $status_class = array(
+    'status' => 'info',
+    'error' => 'danger',
+    'warning' => 'warning',
+  );
   foreach (drupal_get_messages($display) as $type => $messages) {
-    $output .= "<div class=\"messages row $type\">\n";
+    $output .= '<div class="row alert alert-' . $status_class [$type] . '">';
     if (!empty($status_heading [$type])) {
       $output .= '<h2 class="element-invisible">' . $status_heading [$type] . "</h2>\n";
     }
-    $output .= "<div class=\"drupal-message col-md-2\">".$status_heading [$type].":</div>";
+    $output .= "<label class=\"drupal-message col-md-2\">".$status_heading [$type].":</label>";
 
     if (count($messages) > 1) $nb_class = "multiple-msg";
     else $nb_class = "one-msg";
