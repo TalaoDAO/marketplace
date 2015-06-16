@@ -365,7 +365,8 @@ function ft_content_type_field_group_info() {
     'label' => 'Container background',
     'weight' => '4',
     'children' => array(
-      0 => 'field_position_list',
+      0 => 'field_employment_history',
+      1 => 'field_position_list',
     ),
     'format_type' => 'html-element',
     'format_settings' => array(
@@ -483,7 +484,6 @@ function ft_content_type_field_group_info() {
     'children' => array(
       0 => 'field_domaine',
       1 => 'field_skills_set',
-      2 => 'field_employment_history',
     ),
     'format_type' => 'html-element',
     'format_settings' => array(
@@ -2007,9 +2007,9 @@ function ft_content_type_field_group_info() {
     'label' => 'Row',
     'weight' => '0',
     'children' => array(
-      0 => 'group_wrapper_years',
-      1 => 'group_organisation_wrapper',
-      2 => 'group_position_wrapper',
+      0 => 'group_organisation_wrapper',
+      1 => 'group_position_wrapper',
+      2 => 'group_wrapper_years',
     ),
     'format_type' => 'html-element',
     'format_settings' => array(

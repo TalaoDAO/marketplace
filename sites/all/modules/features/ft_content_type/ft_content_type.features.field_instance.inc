@@ -5012,7 +5012,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 15,
+        'weight' => 4,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -5214,9 +5214,8 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'user',
     'field_name' => 'field_first_name',
     'label' => 'First Name',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
-      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => 1,
     ),
@@ -5407,9 +5406,8 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'user',
     'field_name' => 'field_last_name',
     'label' => 'Last Name',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
-      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => 1,
     ),
