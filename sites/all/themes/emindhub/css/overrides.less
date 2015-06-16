@@ -1,10 +1,14 @@
 /* FORM
  * Chosen
  * */
-.chosen-container .chosen-results li.active-result {
-  color: @darkBlue;
-  &.highlighted {
-    color: @white;
+.chosen-container {
+  max-width: 100%;
+
+  .chosen-results li.active-result {
+    color: @darkBlue;
+    &.highlighted {
+      color: @white;
+    }
   }
 }
 
@@ -146,6 +150,77 @@ input[type="text"] {
 
 input[type="password"].error {
 	background-color: @white !important;
+}
+
+
+.btn {
+	&-star {
+		.upper;
+		.bold;
+		background-image: url(../images/starBtn.png) !important;
+		background-color: @darkBlue;
+		background-repeat: no-repeat;
+		background-position: 2% 50%;
+		padding-left: 1.9em !important;
+		color: @white;
+	}
+
+	&-workgroup {
+		.upper;
+		.bold;
+		padding-left: 2.2em !important;
+		background-image: url(../images/workGroupBtn.png) !important;
+		background-color: @expertYellow !important;
+		background-repeat: no-repeat;
+		background-position: 3% 50%;
+		color: @white;
+	}
+	&-expert {
+		.upper;
+		.bold;
+		color: @white;
+		background-color: @expertYellow;
+	}
+
+	&-primary {
+		background-color: @lightBlue;
+		border: 0 !important;
+		margin-bottom: .5em;
+	}
+
+	&-draft {
+		.upper;
+		.bold;
+
+		background-color: @darkBlue !important;
+		background-image: url(../images/draftBtn.png) !important;
+		background-repeat: no-repeat;
+		background-position: 5% 50%;
+		padding-left: 1.5em !important;
+		color: @white;
+	}
+	&-cancel {
+		.upper;
+		.bold;
+
+		background-color: @btnCancelBackground;
+		background-image: url(../images/cancelBtn.png) !important;
+		background-repeat: no-repeat;
+		background-position: 5% 50%;
+		padding-left: 1.5em !important;
+		color: @white;
+	}
+	&-send {
+		.upper;
+		.bold;
+
+		background-color: @expertYellow;
+		background-image: url(../images/sendBtn.png) !important;
+		background-repeat: no-repeat;
+		background-position: 5% 50%;
+		padding-left: 2em !important;
+		color: @white;
+	}
 }
 
 .btn.btn-submit,
@@ -380,7 +455,7 @@ input[type="submit"] {
 
   a.signin {
     text-transform: uppercase;
-    font-weight: bold;
+    .bold;
     padding: 0.3em 0.5em 0.5em 0.5em;
     display: block;
     height: 2em;

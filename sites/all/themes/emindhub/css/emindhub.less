@@ -1,13 +1,29 @@
 // Bootstrap
-@import "components/variables.less";
-@import "components/mixins/opacity.less";
-@import "components/mixins/vendor-prefixes.less";
-@import "components/tooltip.less";
-@import "components/popovers.less";
-// @import "components/forms.less";
+@import "bootstrap.less";
+// @import "bootstrap-theme.css";
+// @import "variables.less";
+// @import "objects/mixins/opacity.less";
+// @import "objects/mixins/vendor-prefixes.less";
+// @import "objects/tooltip.less";
+// @import "objects/popovers.less";
+// @import "objects/forms.less";
 
 @import "variables.less";
 @import "emindhub-styles.less";
+
+
+@media (min-width: 1200px) {
+  .container {
+    // width: 1170px;
+		width: 970px;
+  }
+}
+
+@media (max-width: @screen-xs-max) {
+	label {
+		display: block;
+	}
+}
 
 html {
 	font-size: 14px !important;
@@ -313,7 +329,7 @@ a.signup-button {
 
 	@media (max-width: @screen-sm) {
 		font-size: 1.1em;
-		font-weight: bold;
+		.bold;
 	}
 }
 
@@ -775,7 +791,7 @@ table thead th,
 	margin-top: 1.5em;
 	text-align: center;
 	color: @lightBlue;
-	font-weight: bold;
+	.bold;
 	border: none;
 }
 
@@ -1071,7 +1087,7 @@ table tbody tr:nth-child(even) {
 
 .row.paddingUD h2 {
 	font-size: @px16;
-	font-weight: bold;
+	.bold;
 	margin: 0;
 	padding: 0;
 	text-transform: uppercase;
@@ -1130,7 +1146,7 @@ table tbody tr:nth-child(even) {
 
 .burgermenu-title {
 	color: @lightBlue;
-	font-weight: bold;
+	.bold;
 	text-transform: uppercase;
 	font-size: @px18;
 	margin-left: 1.875em;
@@ -1430,75 +1446,7 @@ table tbody tr:nth-child(even) {
 	}
 }
 
-.btn {
-	&-star {
-		.upper;
-		.bold;
-		background-image: url(../images/starBtn.png) !important;
-		background-color: @darkBlue;
-		background-repeat: no-repeat;
-		background-position: 2% 50%;
-		padding-left: 1.9em !important;
-		color: @white;
-	}
 
-	&-workgroup {
-		.upper;
-		.bold;
-		padding-left: 2.2em !important;
-		background-image: url(../images/workGroupBtn.png) !important;
-		background-color: @expertYellow !important;
-		background-repeat: no-repeat;
-		background-position: 3% 50%;
-		color: @white;
-	}
-	&-expert {
-		.upper;
-		.bold;
-		color: @white;
-		background-color: @expertYellow;
-	}
-
-	&-primary {
-		background-color: @lightBlue;
-		border: 0 !important;
-		margin-bottom: .5em;
-	}
-
-	&-draft {
-		.upper;
-		.bold;
-
-		background-color: @darkBlue !important;
-		background-image: url(../images/draftBtn.png) !important;
-		background-repeat: no-repeat;
-		background-position: 5% 50%;
-		padding-left: 1.5em !important;
-		color: @white;
-	}
-	&-cancel {
-		.upper;
-		.bold;
-
-		background-color: @btnCancelBackground;
-		background-image: url(../images/cancelBtn.png) !important;
-		background-repeat: no-repeat;
-		background-position: 5% 50%;
-		padding-left: 1.5em !important;
-		color: @white;
-	}
-	&-send {
-		.upper;
-		.bold;
-
-		background-color: @expertYellow;
-		background-image: url(../images/sendBtn.png) !important;
-		background-repeat: no-repeat;
-		background-position: 5% 50%;
-		padding-left: 2em !important;
-		color: @white;
-	}
-}
 
 .profile-picture {
 	img {
@@ -1905,7 +1853,7 @@ label {
 	  h3 {
 		margin-top: 0;
 		font-size: 1.5em;
-		font-weight: bold;
+		.bold;
 	  }
 	}
 
@@ -1962,7 +1910,7 @@ fieldset.collapsed {
 		}
 
 		label {
-			display: inline-block !important;
+			display: inline-block;
 		}
 	}
 
@@ -2407,7 +2355,7 @@ fieldset.collapsed {
 			text-align: right;
 
 			a {
-				font-weight: bold;
+				.bold;
 				color: @darkBlue !important;
 			}
 		}
@@ -2759,9 +2707,9 @@ fieldset.collapsed {
 	filter: alpha(opacity=0);
 }
 
-div.field-name-field-skills-set label {
-	width: auto;
-}
+// div.field-name-field-skills-set label {
+// 	width: auto;
+// }
 
 .align-left {
 	text-align: left;
@@ -3801,7 +3749,7 @@ div.field-name-field-skills-set label {
 		.title {
 			background-color: #f6f7f8;
 			text-align: left;
-			font-weight: bold;
+			.bold;
 			padding: 1.5em;
 		}
 
@@ -3972,7 +3920,7 @@ span.required {
 	background: @expertYellow url(../images/newMessage.png) no-repeat 4% 50%;
 	color: @white;
 	text-transform: uppercase;
-	font-weight: bold;
+	.bold;
 	border-radius: @borderRadius;
 	display: inline-block;
 	padding: 0.5em 0.8em 0.5em 2em;
@@ -4026,7 +3974,7 @@ span.required {
       .field_show_entreprise,
       .field_use_my_entreprise {
         div > span {
-          font-weight: bold;
+          .bold;
           &:after {
             content: " *";
             color: #f00;
@@ -4407,549 +4355,6 @@ span.required {
 		}
 	}
 
-	&-user-edit {
-//		.form-item-field-sponsor1-und,
-		.field-name-field-known-how,
-		.field-name-field-notification-frequency {
-			.styled-default-select;
-			label {
-				display: none;
-			}
-		}
-
-		.field-name-field-sponsor1,
-		.field-name-field-working-status,
-		.form-item-field-address-und-0-country {
-			.choosen-custom-select;
-		}
-
-		.field-name-field-domaine {
-			ul.chosen-choices {
-				width: 70%;
-			}
-		}
-
-		.field-name-field-specific-skills3 {
-			label {
-				position: relative;
-				top: -2em;
-			}
-		}
-
-		.collapsible {
-			a.fieldset-title {
-				.bold;
-				padding-top: 0;
-				font-size: @rpx14;
-				color: @darkBlue;
-			}
-		}
-
-		.group-label {
-			width: 50%;
-			display: inline-block;
-
-			label {
-				width: 100%;
-			}
-
-			.field-name-field-known-how,
-			.field-name-field-notification-frequency {
-				div {
-					margin-top: 0;
-				}
-			}
-		}
-
-		.formtips-wrapper {
-			display: inline;
-
-			label {
-				// display: inline;
-			}
-		}
-
-		div.addressfield-container-inline.locality-block {
-			.form-item-field-address-und-0-postal-code {
-				width: 26.9%;
-				margin-top: 0;
-				margin-bottom: 0;
-
-				label {
-					// width: 56%;
-				}
-
-				input {
-					width: 90px;
-				}
-			}
-
-			.form-item-field-address-und-0-locality {
-				// width: 40%;
-				margin-top: 0;
-				margin-bottom: 0;
-
-				label {
-					min-width: 50px;
-				}
-			}
-		}
-
-		.field-name-field-address {
-			padding-bottom: 0;
-			fieldset {
-				padding-left: 0;
-			}
-		}
-
-		.field-name-field-telephone {
-			label {
-				// width: 16.4%;
-				// margin-left: 1em;
-			}
-		}
-
-		.field-multiple-table,
-		#field-skills-set-values {
-			width: 100%;
-		}
-
-		// .field-name-field-photo {
-		// 	.imagefield-crop-cropbox {
-		// 		display: inline-block;
-		// 		width: 20%;
-		// 		top: 1em;
-		// 	}
-		//
-		// 	.imagefield-crop-preview {
-		// 		display: inline-block;
-		// 		width: 20%;
-		// 	}
-		//
-		// 	span.file {
-		// 		position: relative;
-		// 		top: -0.2em;
-		// 	}
-		//
-		// 	input[type=submit] {
-		// 		margin-left: 5em;
-		// 		position: relative;
-		// 		top: -0.9em;
-		// 	}
-		// }
-
-		// .group-skills {
-		// 	div.field-name-field-skill-autoeval {
-		// 		label {
-		// 			display: none !important;
-		// 		}
-		// 	}
-		//
-		// 	.field-type-entityreference {
-		// 		width: 55%;
-		// 		padding-bottom: 0;
-		//
-		// 		label {
-		// 			margin-bottom: 0;
-		// 		}
-		//
-		// 		input[type="text"] {
-		// 			width: 80%;
-		// 		}
-		// 	}
-		//
-		// 	.field-type-fivestar {
-		// 		position: relative;
-		// 		top: 0.5em;
-		// 		width: 18%;
-		//
-		// 		.fivestar-widget {
-		// 			margin-left: 1em;
-		// 			margin-right: 1em;
-		// 		}
-		// 	}
-		//
-		// 	.field-type-number-integer {
-		// 		width: 23%;
-		// 		padding-bottom: 0;
-		//
-		// 		label {
-		// 			margin-bottom: 0;
-		// 		}
-		//
-		// 		input[type="text"] {
-		// 			margin-left: 2em;
-		// 			width: 2rem;
-		// 		}
-		// 	}
-		//
-		// 	@media (max-width: @screen-sm) {
-		// 		.field-type-entityreference {
-		// 			width: 50%;
-		// 		}
-		//
-		// 		.field-type-fivestar {
-		// 			width: 21%;
-		// 			margin-left: 1.5em;
-		// 		}
-		//
-		// 		.field-type-number-integer {
-		// 			width: 16%;
-		// 		}
-		// 	}
-		//
-		// 	@media (max-width: @screen-xs) {
-		// 		.field-type-entityreference {
-		// 			label {
-		// 				width: 21% !important;
-		// 			}
-		//
-		// 			input[type="text"] {
-		// 				width: 74%;
-		// 			}
-		// 		}
-		//
-		// 		.field-type-fivestar {
-		// 			width: 36% !important;
-		// 			margin-left: 0;
-		// 		}
-		//
-		// 		.field-type-number-integer {
-		// 			width: 36% !important;
-		// 		}
-		// 	}
-		// }
-
-		// .field-name-field-skill2 {
-		// 	.field-name-field-skill2 label {
-		// 		display: none !important;
-		// 	}
-		//
-		// 	.field-name-field-skill-autoeval .form-item-field-skills-set-und-0-field-skill-autoeval-und-0-rating label {
-		// 		display: none !important;
-		// 	}
-		// }
-
-		.field-name-field-link-to-my-blog,
-		.field-name-field-working-status {
-			padding-bottom: 0;
-		}
-
-		.field-name-field-other-areas,
-		.form-item-field-employment-history-und-0-value {
-			label {
-				width: 100%;
-			}
-		}
-
-		.form-type-link-field {
-			label[for=edit-field-link-to-my-blog-und-0] {
-				width: 100%;
-			}
-		}
-
-		.link-field-column {
-			display: inline-block;
-			width: 48%;
-
-			.form-text {
-				// width: 80%;
-			}
-			&.link-field-url {
-				label {
-					min-width: 50px;
-				}
-			}
-		}
-
-		.field-name-field-entreprise-description {
-			label {
-				width: 100%;
-			}
-
-			#cke_edit-field-entreprise-description-und-0-value {
-				height: 20.3em;
-			}
-
-			#cke_1_contents {
-				height: 215px !important;
-			}
-		}
-
-		#edit-account {
-			.form-item-name,
-			.form-item-mail {
-				display: inline-block;
-				width: 49%;
-
-				input[type="text"] {
-					// width: 64%;
-				}
-			}
-
-			.password-strength {
-				margin-top: 0;
-				right: 15.5em;
-				position: relative;
-			}
-
-			.form-item-pass-pass1 {
-				display: inline;
-
-				> .formtips-wrapper {
-					display: inline-block;
-					// width: 14.7%;
-				}
-
-				input[type=password] {
-					// width: 31.4%;
-				}
-			}
-
-			.form-item-pass-pass2 {
-				display: inline-block;
-				width: 100%;
-				padding-top: 0.8em;
-
-//				label[for="edit-pass-pass2"] {
-				label {
-					// width: 14.7%;
-				}
-
-				input[type=password] {
-					display: inline-block;
-					// width: 31.4%;
-				}
-
-				div.password-confirm {
-					margin-top: 0;
-					right: 15.5em;
-					position: relative;
-
-					span {
-						color: #550000;
-					}
-				}
-			}
-		}
-
-		@media (max-width: @screen-sm) {
-			.form-item-field-interests-und label {
-				width: 17%;
-			}
-		}
-
-		.form-item-field-interests-und,
-		.form-item-field-domaine-und{
-			.chosen-container {
-				width: 80% !important;
-			}
-		}
-
-		// .field-name-field-entreprise {
-		// 	label {
-		// 		width: 14.7% !important;
-		// 	}
-		//
-		// 	input[type="text"] {
-		// 		width: 32.5%;
-		// 	}
-		// }
-
-		.form-item-current-pass {
-			label {
-				// width: 31.5%;
-			}
-
-			input[type=password] {
-				// width: 66.2%;
-			}
-		}
-
-		@media (max-width: @screen-md) {
-			.form-item-name,
-			.form-item-current-pass {
-				display: block !important;
-				width: 62% !important;
-			}
-		}
-
-		@media (max-width: @screen-sm) and (min-width: @screen-xs-max) {
-			.form-item-name {
-				width: 72% !important;
-				label {
-					width: 27.2% !important;
-				}
-				input[type="text"] {
-					width: 56.8% !important;
-				}
-			}
-
-			.form-item-mail {
-				width: 64% !important;
-
-				.formtips-wrapper {
-					width: 30.5% !important;
-				}
-
-				input[type="text"] {
-					width: 64%;
-				}
-			}
-
-			.form-item-pass-pass1 {
-				display: inline;
-
-				div.password-strength {
-					right: 0 !important;
-				}
-
-				> .formtips-wrapper {
-					display: inline-block !important;
-					width: 19.5% !important;
-				}
-
-				input[type=password] {
-					width: 41% !important;
-				}
-			}
-
-			.form-item-pass-pass2 {
-				div.password-confirm {
-					right: 0 !important;
-				}
-
-				label {
-					width: 19.5% !important;
-				}
-
-				input[type=password] {
-					width: 41% !important;
-				}
-			}
-
-			.form-item-field-address-und-0-postal-code {
-				width: 34% !important;
-
-				label {
-					width: 44% !important;
-				}
-			}
-
-			.form-item-field-address-und-0-locality {
-				width: 42% !important;
-			}
-		}
-
-		.form-item-current-pass,
-		.form-item-name {
-			display: inline-block;
-			width: 49%;
-
-			label {
-				// display: inline-block !important;
-				// width: 30%;
-			}
-		}
-
-		.form-item-mail .formtips-wrapper {
-			// width: 30%;
-			display: inline-block;
-		}
-
-		label {
-			// min-width: 29.3%;
-			min-width: 130px;
-			display: inline-block;
-		}
-
-		/*.group-oneliner > div*/ input[type="text"],
-		input[type="password"],
-		input.form-autocomplete,
-		.link-field-column .form-text {
-			width: 250px;
-		}
-
-		.group-oneliner {
-			> div {
-				width: 50%;
-
-				input[type="text"] {
-					// width: 65%;
-				}
-			}
-
-			div:last-of-type {
-				margin: 0;
-			}
-
-			&.group-name {
-				label {
-					// width: 29.3%;
-				}
-			}
-
-			label {
-				display: inline-block !important;
-			}
-		}
-
-		@media (max-width: @screen-xs) {
-			.group-oneliner > div {
-				width: 100% !important;
-			}
-
-			label {
-				display: block !important;
-				width: 100% !important;
-			}
-
-			.form-item-mail {
-				> .formtips-wrapper {
-					width: auto;
-				}
-
-				input {
-					width: 83% !important;
-				}
-			}
-
-			.field-name-field-entreprise input[type="text"] {
-				width: 65.5% !important;
-			}
-
-			.password-strength {
-				display: none;
-			}
-
-			.field-name-field-photo {
-				.imagefield-crop-cropbox {
-					left: 5em;
-				}
-
-				span.file {
-					left: 6em;
-				}
-
-				input[type=submit] {
-					top: 0;
-				}
-			}
-
-			.group-label {
-				width: 100%;
-
-				.field-type-taxonomy-term-reference {
-					width: 100%;
-
-					select {
-						width: 120%;
-					}
-				}
-			}
-		}
-	}
-
 	&-blog {
 		label {
 			width: auto;
@@ -4998,7 +4403,7 @@ span.required {
 				margin-top: 0;
 
 				a {
-					font-weight: bold;
+					.bold;
 					text-transform: uppercase;
 					font-size: 0.467em;
 					color: #4c6172;
@@ -5900,11 +5305,15 @@ div.tabs {
 	}
 }
 
+@import "objects/five-stars.less";
+@import "objects/messages.less";
+@import "objects/privatemsg.less";
+@import "objects/tabs.less";
 
-@import "emindhub-profile.less";
+@import "user/user-profile.less";
 @import "emindhub-business.less";
-@import "components/fields.less";
-@import "nodes/user.less";
+@import "objects/fields.less";
+@import "user/user-edit.less";
 @import "nodes/webform.less";
 @import "nodes/contact.less";
 @import "overrides.less";

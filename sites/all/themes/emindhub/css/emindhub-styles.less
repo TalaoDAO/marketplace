@@ -20,3 +20,30 @@
   width: 50px;
   text-align: center;
 }
+
+//  BS styles
+.emh-row {
+  margin-right: -15px;
+  margin-left: -15px;
+
+  &:before,
+  &:after {
+    display: table;
+    content: " ";
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.emh-col-md-6 {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  width: 50%;
+
+  @media (min-width: 992px) {
+    float: left;
+  }
+}
