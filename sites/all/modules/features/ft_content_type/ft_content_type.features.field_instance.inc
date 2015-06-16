@@ -5740,7 +5740,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'user',
     'field_name' => 'field_position_list',
-    'label' => 'My background',
+    'label' => 'My position(s)',
     'required' => 0,
     'settings' => array(
       'user_register_form' => 0,
@@ -6244,7 +6244,7 @@ function ft_content_type_field_default_field_instances() {
   t('Link to my blog or my website');
   t('Logo');
   t('More about <a href=\'/content/sponsorship\'>sponsorship</a>');
-  t('My background');
+  t('My position(s)');
   t('Name of my sponsor');
   t('Name visibility');
   t('Organisation');
