@@ -24,7 +24,7 @@
 					</div>
 				</div>
 
-				<div class="col-sm-5 col-xs-12 text-right">
+				<div class="col-sm-5 col-xs-9 text-right">
 					<?php if ($firstMenu) { ?>
 						<?php $length = count($firstMenu);
 						foreach ($firstMenu as $index => $menuEntry) {
