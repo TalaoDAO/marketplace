@@ -37,11 +37,11 @@ function emindhub_status_messages($variables) {
     if (count($messages) > 1) $nb_class = "multiple-msg";
     else $nb_class = "one-msg";
 
-    $output .= "<div class=\"col-md-10\"><ul class=\"$nb_class\">\n";
+    $output .= "<ul class=\"col-md-10 $nb_class\">\n";
     foreach ($messages as $message) {
       $output .= '<li>' . $message . "</li>\n";
     }
-    $output .= "</ul></div>\n";
+    $output .= "</ul>\n";
     $output .= "</div>\n";
   }
   return $output;
