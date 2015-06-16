@@ -703,10 +703,11 @@ a.signup-button {
 }
 
 .language-select {
+	margin: 6px 12px;
 	height: @px19;
 	overflow: hidden;
 	width: @px37;
-//	background: @lightBlue url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAeCAYAAAAo5+5WAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAB4SURBVHja7NMxCoBADAXRudaCIAueyCulCaRKLyh4sLVREEFEVwshgak+vC6UUvgiAg444ID/BPfl+vrbMJBEZDgTRWQA0hMYoFHV8Yiq6gg0AE9hgNbMpg01swlot7EGBsjuPrv7DOT9UAsDdGtUwfEgAQf8UssA6WVwSHIEQ/cAAAAASUVORK5CYII=) no-repeat 85% 50%;
+	// background: @lightBlue url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAeCAYAAAAo5+5WAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAB4SURBVHja7NMxCoBADAXRudaCIAueyCulCaRKLyh4sLVREEFEVwshgak+vC6UUvgiAg444ID/BPfl+vrbMJBEZDgTRWQA0hMYoFHV8Yiq6gg0AE9hgNbMpg01swlot7EGBsjuPrv7DOT9UAsDdGtUwfEgAQf8UssA6WVwSHIEQ/cAAAAASUVORK5CYII=) no-repeat 85% 50%;
 	background: @lightBlue url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAADCAYAAABbNsX4AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAxhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDM0MiwgMjAxMC8wMS8xMC0xODowNjo0MyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo4NDM5QkRFQkYyRkIxMUU0QkI1MkQ2RUI1MTVFM0E4QiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo4NDM5QkRFQ0YyRkIxMUU0QkI1MkQ2RUI1MTVFM0E4QiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjg0MzlCREU5RjJGQjExRTRCQjUyRDZFQjUxNUUzQThCIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjg0MzlCREVBRjJGQjExRTRCQjUyRDZFQjUxNUUzQThCIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Csd5PQAAABtJREFUeNpi/A8EDGiACYgZ0cQYmWAMZBogwADyWAQGCz7nSQAAAABJRU5ErkJggg==') no-repeat 85% 50%;
 	background-size: 20%;
 	color: @white;
@@ -723,7 +724,7 @@ a.signup-button {
 		border: none;
 		height: 2em;
 		font-size: @px12;
-//		padding-left: 0.3em;
+		// padding-left: 0.3em;
 		width: 5.313em;
 		text-transform: uppercase;
 		-moz-appearance: none;
@@ -5192,8 +5193,12 @@ span.required {
 					display: none;
 				}
 
-				tbody  tr {
-					width: 455px;
+				tbody {
+					display: block;
+				}
+
+				tbody tr {
+					// width: 455px;
 					display: block;
 					border-top: 2px lightgray solid;
 					&:last-of-type {

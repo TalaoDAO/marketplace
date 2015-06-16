@@ -16,26 +16,39 @@
  * @file
  * Styles for system messages.
  */
-
-div.messages {
-  background-position: 8px 8px; /* LTR */
-  background-repeat: no-repeat;
-  border-radius: 3px;
-  border: 0;
-  margin: 6px 0;
-  padding: 0;
-  > div {
-    padding: 10px;
-  }
-  .drupal-message {
-    background: @darkBlue;
-    color: @white;
-  }
-}
+// div.messages {
+//   background-position: 8px 8px; /* LTR */
+//   background-repeat: no-repeat;
+//   border-radius: 3px;
+//   border: 0;
+//   margin: 6px 0;
+//   padding: 0;
+//   div {
+//     padding: 10px;
+//   }
+//   .drupal-message {
+//     background: @darkBlue;
+//     color: @white;
+//     border-radius: 3px 0 0 3px;
+//   }
+// }
 .form-item .messages {
   padding-left: 10px;
 }
 
+.alert {
+  &.row {
+    margin: 1em 0;
+  }
+
+  label {
+    margin: 0;
+  }
+
+  a {
+    font-weight: bold;
+  }
+}
 div.status {
   background-image: none;
   border-color: @state-success-border;
@@ -78,13 +91,11 @@ div.error p.error {
   color: #333;
 }
 
-div.messages ul {
-  margin: 0 0 0 1em; /* LTR */
-  padding: 0;
-  &.one-msg{
+div.alert ul {
+  &.one-msg {
     list-style: none;
   }
 }
-div.messages ul li {
+div.alert ul li {
   list-style-image: none;
 }
