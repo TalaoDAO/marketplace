@@ -2,6 +2,9 @@ sites/all/modules/.notused
 sites/all/modules/.unused
 sites/all/modules/debug
 sites/all/themes/emindhub/css/*.css
+sites/all/themes/emindhub/css/*.css.map
+sites/all/themes/emindhub/templates/unused/
+!sites/all/themes/emindhub/css/bootstrap.css
 
 # Ignore configuration files that may contain sensitive information.
 sites/*/settings*.php
