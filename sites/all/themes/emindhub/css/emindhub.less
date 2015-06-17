@@ -1892,54 +1892,86 @@ fieldset.collapsed {
 }
 
 #user-register-form {
+
+  input,
+  .confirm-parent, .password-parent {
+    max-width: 100%;
+  }
+
 	.group-background {
 		margin-top: 0;
 	}
 
-	.group-oneliner {
-		> div {
-			width: 50%;
+  @media (min-width: @screen-sm-min) {
+  	.group-oneliner {
+  		> div {
+  			width: 50%;
 
-			input[type="text"] {
-				width: 65%;
-			}
-		}
+  			input[type="text"] {
+  				width: 65%;
+  			}
+  		}
 
-		div:last-of-type {
-			margin: 0;
-		}
+  		div:last-of-type {
+  			margin: 0;
+  		}
 
-		label {
-			display: inline-block;
-		}
-	}
+  		label {
+  			display: inline-block;
+  		}
+  	}
 
-	.formtips-wrapper {
-		display: inline-block;
+    label {
+  		width: 29%
+  	}
 
-		label {
-			display: inline;
-		}
-	}
+    .form-item-field-entreprise-und-0-target-id {
+  		input[type="text"] {
+  			width: 32.5%;
+  		}
 
-	.form-item-field-entreprise-und-0-target-id {
-		input[type="text"] {
-			width: 32.5%;
-		}
+  		label {
+  			width: 14.5% !important;
+  		}
+  	}
 
-		label {
-			width: 14.5% !important;
-		}
-	}
+    .formtips-wrapper {
+  		display: inline-block;
+
+  		label {
+  			display: inline;
+  		}
+  	}
+
+    input.password-field,
+  	input.password-confirm {
+  		width: 50.7%;
+  		margin: 0;
+  	}
+
+    #edit-account {
+  		.form-item-name,
+  		.form-item-mail {
+  			.formtips-wrapper {
+  				width: 22%;
+  			}
+
+  			input[type="text"] {
+  				width: 45%;
+  			}
+  		}
+
+  		label[for="edit-pass-pass2"] {
+  			width: 26.3%;
+  		}
+  	}
+
+  }
+
+
 
 	div#edit-actions {
 		text-align: center;
-	}
-
-	input.password-field,
-	input.password-confirm {
-		width: 50.7%;
-		margin: 0;
 	}
 
 	.form-type-password {
@@ -1963,27 +1995,6 @@ fieldset.collapsed {
 		.formtips-wrapper {
 			width: 26.3%;
 		}
-	}
-
-	#edit-account {
-		.form-item-name,
-		.form-item-mail {
-			.formtips-wrapper {
-				width: 22%;
-			}
-
-			input[type="text"] {
-				width: 45%;
-			}
-		}
-
-		label[for="edit-pass-pass2"] {
-			width: 26.3%;
-		}
-	}
-
-	label {
-		width: 29%
 	}
 
 	input[type="text"] {
@@ -3208,13 +3219,12 @@ fieldset.collapsed {
 				position: absolute;
 				content: " ";
 				top: 2.83rem;
-//				left: 1.45rem;
 				left: 0;
 
 				@media (max-width: @screen-md) {
 					width: 12em;
 				}
-				@media (max-width: @screen-xxs) {
+				@media (max-width: @screen-xs) {
 					width: 8em;
 				}
 			}
