@@ -31,7 +31,7 @@
 							if (strpos(strtolower($menuEntry), "sign-in") !== false) {  //looking for a class name added by template.php fn GetMenu() ?>
 									<button id="signIn" type="button" class="btn btn-link user-menu sign-in" data-placement="bottom" data-template='<div class="popover signIn" role="tooltip"><div class="arrow"></div><div class="popover-content signInContent"></div></div>'><?php print $menuEntry; ?></button>
 									<div id="signInContent" style="display: none">
-										<?php $tmp = drupal_get_form('user_login');
+										<?php $tmp = drupal_get_form('user_login_block');
 										print drupal_render($tmp); ?>
 									</div>
 								<?php
