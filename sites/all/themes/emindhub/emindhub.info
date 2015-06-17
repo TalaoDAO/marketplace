@@ -4,7 +4,7 @@ core = 7.x
 engine = phptemplate
 
 ; Ajout de fichiers CSS
-stylesheets[all][] = css/emindhub.css
+stylesheets[all][] = css/style.css
 
 ; Javascript
 scripts[] = js/bootstrap.min.js

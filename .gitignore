@@ -2,6 +2,7 @@ sites/all/modules/.notused
 sites/all/modules/.unused
 sites/all/modules/debug
 sites/all/themes/emindhub/css/*.css
+sites/all/themes/emindhub/css/*.map
 
 # Ignore configuration files that may contain sensitive information.
 sites/*/settings*.php
@@ -10,6 +11,9 @@ sites/*/local.settings*.php
 # Ignore paths that contain user-generated content.
 sites/*/files
 sites/*/private
+
+# Ignore gulp files
+sites/*/node_modules
 
 # Ignore IDE and OS-related files
 .buildpath

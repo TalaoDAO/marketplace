@@ -1,0 +1,182 @@
+.page-user .user-profile {
+    > .profile-picture {
+        display: none;
+    }
+    .field-type-image img {
+        border-radius: 50%;
+    }
+    .profile-section {
+        margin-bottom: 30px;
+
+        // title
+        h2 {
+            color: @challengeStateSelectedBackground;
+            position: relative;
+            text-transform: uppercase;
+            &::before {
+                background: @lightBlue;
+                content: "";
+                display: block;
+                height: 1px;
+                position: relative;
+                top: .55em;
+                width: 100%;
+            }
+            span {
+                background: #ffffff;
+                padding-right: 1em;
+                position: relative;
+            }
+        }
+
+        // container
+        .section-container {
+            background: @lightGrey;
+            padding: 20px;
+            &-darken {
+                background: #eff1f3;
+            }
+        }
+
+        .group-oneliner > div + div {
+          margin-left: .5em;
+        }
+
+        .margin-after {
+            margin-bottom: 1em;
+        }
+
+        .group-container-public-darken a {
+            color: @expertYellow;
+        }
+
+        .group-container-skills,
+        .group-container-interests {
+            > div + div {
+                margin-top: 1em;
+            }
+        }
+
+        // name
+        .field-name-field-first-name,
+        .field-name-field-last-name {
+            font-size: @px18;
+            .bold;
+        }
+
+        .field-name-name {
+            h2 {
+                font-size: @rpx14;
+                .bold;
+                color: #97a3ad;
+
+                &:before {
+                    background: none;
+                }
+            }
+        }
+
+        .field-name-field-titre-metier {
+            font-size: @px16;
+            .bold;
+        }
+
+        // address
+        .field-name-field-entreprise,
+        .field-name-field-address {
+            color: @challengeStateSelectedBackground;
+            .bold;
+            .street-block {
+                display: none;
+            }
+            .country {
+                margin-left: .4em;
+            }
+        }
+        div.addressfield-container-inline {
+            display: inline-block;
+            &:after {
+                display: none;
+            }
+        }
+
+        // skills
+        .field-name-field-domaine {
+            .field-items {
+                margin-left: -15px;
+                margin-right: -15px;
+            }
+            .field-item {
+                display: inline-block;
+                width: 50%;
+                padding-left: 15px;
+                padding-right: 15px;
+                a {
+                    background: @softGrey;
+                    border-radius: 2px;
+                    color: @darkBlue;
+                    display: block;
+                    font-style: italic;
+                    padding: 6px 20px;
+                }
+            }
+        }
+
+        .field-collection-container {
+            border-bottom: 0;
+            margin-bottom: 0;
+            .field-type-field-collection > .field-items > .field-item {
+                margin-bottom: 30px;
+            }
+        }
+        .field-collection-view {
+            padding: 0;
+            margin: 0;
+            border-bottom: 0;
+            .field-label {
+              width: auto;
+            }
+            .form-item {
+              margin: 0;
+            }
+        }
+
+        .field-name-field-skill2,
+        .field-name-field-position {
+          .emh-tag;
+        }
+        .field-name-field-skill-autoeval,
+        .field-name-field-year-of-experiences .field-label {
+            padding: 6px 0;
+        }
+        .field-name-field-year-of-experiences .field-items {
+          .emh-years;
+        }
+        .field-collection-view-links, .action-links-field-collection-add {
+            display:none;
+        }
+
+        // interests
+        .field-name-field-interests {
+            .field-item {
+                display: inline-block;
+                & + .field-item {
+                    margin-left: 10px;
+                }
+                a {
+                    background: @softGrey;
+                    border-radius: 2px;
+                    color: @darkBlue;
+                    display: block;
+                    font-style: italic;
+                    padding: 6px 20px;
+                }
+            }
+        }
+
+    }
+}
+
+.group-spacer {
+    height: 1em;
+}

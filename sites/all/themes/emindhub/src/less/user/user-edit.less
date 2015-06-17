@@ -1,0 +1,538 @@
+/* USER pages
+ */
+
+body.page-user {
+
+  tr.draggable {
+    td {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    // .group-oneliner {
+  	// 	> div {
+  	// 		width: auto;
+    //     margin-left: 0;
+    //   }
+    // }
+    td:nth-child(2) .ajax-new-content {
+      width: 100%;
+    }
+    @media (min-width: @screen-sm-min) {
+      td:nth-child(2) > *,
+      td:nth-child(2) .ajax-new-content > * {
+        display: inline-block;
+      }
+    }
+
+    td:nth-child(2) > .field-group-div,
+    td:nth-child(2) .ajax-new-content > .field-group-div {
+      width: 85%;
+    }
+
+    // Remove button
+    @media (min-width: @screen-sm-min) {
+      td:nth-child(2) > input,
+      td:nth-child(2) .ajax-new-content > input {
+        margin-left: 20px;
+      }
+    }
+
+  }
+
+  #edit-field-skills-set .field-type-entityreference,
+  #edit-field-position-list .field-type-taxonomy-term-reference {
+    width: 292px;
+    padding-bottom: 0;
+    margin-right: 1em;
+
+    label {
+      margin-bottom: 0;
+      @media (min-width: @screen-xs-min) {
+        min-width: 82px;
+      }
+    }
+
+    input[type="text"] {
+      max-width: 190px;
+    }
+  }
+
+  #edit-field-skills-set .field-type-fivestar,
+  #edit-field-position-list .field-name-field-entreprise {
+    width: 240px;
+
+    label {
+      min-width: 90px;
+    }
+  }
+
+  #edit-field-position-list {
+    tr.draggable {
+      td:nth-child(2) > * {
+        // display: inline-block;
+
+        input[type="text"] {
+          max-width: 65%;
+        }
+      }
+    }
+  }
+
+  .field-type-field-collection {
+
+    // Add another item
+    div > div > .clearfix {
+      text-align: center;
+    }
+
+    .field-name-field-year-of-experiences {
+      padding-bottom: 0;
+
+      label {
+        margin-bottom: 0;
+        @media (max-width: @screen-xs-max) {
+          display: inline-block;
+        }
+      }
+
+      input[type="text"] {
+        margin-left: 0.5em;
+        width: 2rem;
+        text-align: center;
+        padding: 0;
+      }
+    }
+
+    .field-name-field-entreprise {
+      input[type="text"] {
+        width: 50%;
+      }
+    }
+
+  }
+
+  .field-name-field-photo {
+    .imagefield-crop-cropbox {
+      display: inline-block;
+      width: 20%;
+      top: 1em;
+    }
+
+    .imagefield-crop-preview {
+      display: inline-block;
+      width: 20%;
+    }
+
+    .file-upload {
+      margin-left: 1em;
+    }
+
+    span.file {
+      position: relative;
+    }
+
+    input[type=submit] {
+      position: relative;
+    }
+  }
+
+  .group-skills.group-oneliner {
+
+    div.field-name-field-skill-autoeval {
+      label {
+        display: none !important;
+      }
+    }
+
+    .field-type-fivestar {
+      position: relative;
+      top: 0.5em;
+
+      .fivestar-widget {
+        margin-right: 1em;
+        text-align: center;
+      }
+    }
+
+  }
+
+  .field-name-field-skill2 {
+    .field-name-field-skill2 label {
+      display: none !important;
+    }
+
+    .field-name-field-skill-autoeval .form-item-field-skills-set-und-0-field-skill-autoeval-und-0-rating label {
+      display: none !important;
+    }
+  }
+
+  .field-name-field-titre-metier {
+    @media (min-width: @screen-md-min) {
+      input[type="text"] {
+        width: auto;
+      }
+    }
+  }
+
+  .field-name-field-cv {
+    input[type="text"] {
+      margin-left: 0;
+      margin-right: 0.5em;
+    }
+  }
+
+}
+
+
+body.page-user-edit {
+  .field-name-field-known-how,
+  .field-name-field-notification-frequency {
+    .styled-default-select;
+    label {
+      display: none;
+    }
+  }
+
+  .field-name-field-sponsor1,
+  .field-name-field-working-status,
+  .form-item-field-address-und-0-country {
+    .chosen-custom-select;
+  }
+
+  .field-name-field-domaine {
+    ul.chosen-choices {
+      width: 70%;
+    }
+  }
+
+  .field-name-field-specific-skills3 {
+    label {
+      position: relative;
+      top: -2em;
+    }
+  }
+
+  .collapsible {
+    a.fieldset-title {
+      .bold;
+      padding-top: 0;
+      font-size: @rpx14;
+      color: @darkBlue;
+    }
+  }
+
+  .group-label {
+    width: 50%;
+    display: inline-block;
+
+    label {
+      width: 100%;
+    }
+
+    .field-name-field-known-how,
+    .field-name-field-notification-frequency {
+      div {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .formtips-wrapper {
+    display: inline;
+  }
+
+  div.addressfield-container-inline.locality-block {
+    .form-item-field-address-und-0-postal-code {
+      width: 26.9%;
+      margin-top: 0;
+      margin-bottom: 0;
+
+      input {
+        width: 90px;
+      }
+    }
+
+    .form-item-field-address-und-0-locality {
+      margin-top: 0;
+      margin-bottom: 0;
+
+      label {
+        min-width: 50px;
+      }
+    }
+  }
+
+  .field-name-field-address {
+    padding-bottom: 0;
+    fieldset {
+      padding-left: 0;
+    }
+  }
+
+  .field-multiple-table,
+  #field-skills-set-values {
+    width: 100%;
+  }
+
+  .field-name-field-link-to-my-blog,
+  .field-name-field-working-status {
+    padding-bottom: 0;
+  }
+
+  .field-name-field-other-areas,
+  .form-item-field-employment-history-und-0-value {
+    label {
+      width: 100%;
+    }
+  }
+
+  .form-type-link-field {
+    label[for=edit-field-link-to-my-blog-und-0] {
+      width: 100%;
+    }
+  }
+
+  .link-field-subrow {
+    // .emh-row;
+  }
+
+  .link-field-column {
+    // .emh-col-md-6;
+    @media (max-width: @screen-md-min) {
+      float: none;
+    }
+    &.link-field-url {
+      label {
+        // min-width: 50px;
+      }
+    }
+  }
+
+  .field-name-field-entreprise-description {
+    label {
+      // width: 100%;
+    }
+
+    #cke_edit-field-entreprise-description-und-0-value {
+      height: 20.3em;
+    }
+
+    #cke_1_contents {
+      height: 215px !important;
+    }
+  }
+
+  // #edit-account {
+  //   .form-item-name,
+  //   .form-item-mail {
+  //     display: inline-block;
+  //     width: 49%;
+  //   }
+  //
+  //   .password-strength {
+  //     margin-top: 0;
+  //     right: 15.5em;
+  //     position: relative;
+  //   }
+  //
+  //   .form-item-pass-pass1 {
+  //     display: inline;
+  //
+  //     > .formtips-wrapper {
+  //       display: inline-block;
+  //     }
+  //   }
+  //
+  //   .form-item-pass-pass2 {
+  //     display: inline-block;
+  //     width: 100%;
+  //     padding-top: 0.8em;
+  //
+  //     input[type=password] {
+  //       display: inline-block;
+  //     }
+  //
+  //     div.password-confirm {
+  //       margin-top: 0;
+  //       right: 15.5em;
+  //       position: relative;
+  //
+  //       span {
+  //         color: #550000;
+  //       }
+  //     }
+  //   }
+  // }
+
+  @media (max-width: @screen-sm) {
+    .form-item-field-interests-und label {
+      width: 17%;
+    }
+  }
+
+  .form-item-field-interests-und,
+  .form-item-field-domaine-und{
+    .chosen-container {
+      width: 80% !important;
+    }
+  }
+
+  // @media (max-width: @screen-md) {
+  //   .form-item-name,
+  //   .form-item-current-pass {
+  //     display: block !important;
+  //     width: 62% !important;
+  //   }
+  // }
+
+  // @media (max-width: @screen-sm) and (min-width: @screen-xs-max) {
+  //   .form-item-name {
+  //     width: 72% !important;
+  //     label {
+  //       width: 27.2% !important;
+  //     }
+  //     input[type="text"] {
+  //       width: 56.8% !important;
+  //     }
+  //   }
+  //
+  //   .form-item-mail {
+  //     width: 64% !important;
+  //
+  //     .formtips-wrapper {
+  //       width: 30.5% !important;
+  //     }
+  //
+  //     input[type="text"] {
+  //       width: 64%;
+  //     }
+  //   }
+  //
+  //   .form-item-pass-pass1 {
+  //     display: inline;
+  //
+  //     div.password-strength {
+  //       right: 0 !important;
+  //     }
+  //
+  //     > .formtips-wrapper {
+  //       display: inline-block !important;
+  //       width: 19.5% !important;
+  //     }
+  //
+  //     input[type=password] {
+  //       width: 41% !important;
+  //     }
+  //   }
+  //
+  //   .form-item-pass-pass2 {
+  //     div.password-confirm {
+  //       right: 0 !important;
+  //     }
+  //
+  //     label {
+  //       width: 19.5% !important;
+  //     }
+  //
+  //     input[type=password] {
+  //       width: 41% !important;
+  //     }
+  //   }
+
+    .form-item-field-address-und-0-postal-code {
+      // width: 34% !important;
+
+      label {
+        // width: 44% !important;
+      }
+    }
+
+    .form-item-field-address-und-0-locality {
+      // width: 42% !important;
+    }
+  }
+
+  // .form-item-current-pass,
+  // .form-item-name {
+  //   display: inline-block;
+  //   width: 49%;
+  // }
+  //
+  // .form-item-mail .formtips-wrapper {
+  //   display: inline-block;
+  // }
+
+  // @media (min-width: @screen-xs-min) {
+  //   label {
+  //     min-width: 130px;
+  //   }
+  // }
+
+  input[type="text"],
+  input[type="password"],
+  input.form-autocomplete,
+  .link-field-column .form-text {
+    // width: 250px;
+  }
+
+  // .group-oneliner {
+  //   // .emh-row;
+  //   div {
+  //     // width: 50%;
+  //     // .emh-col-md-6;
+  //   }
+  //
+  //   div:last-of-type {
+  //     margin: 0;
+  //   }
+  //
+  //   @media (min-width: @screen-sm-min) {
+  //     label {
+  //       display: inline-block;
+  //     }
+  //   }
+  // }
+
+  @media (max-width: @screen-xs) {
+    // .group-oneliner > div {
+    //   width: 100% !important;
+    // }
+
+    .form-item-mail {
+      .formtips-wrapper {
+        // width: auto;
+      }
+    }
+
+    .password-strength {
+      // display: none;
+    }
+
+    .field-name-field-photo {
+      .imagefield-crop-cropbox {
+        left: 5em;
+      }
+
+      span.file {
+        left: 6em;
+      }
+
+      input[type=submit] {
+        top: 0;
+      }
+    }
+
+    // .group-label {
+    //   width: 100%;
+    //
+    //   .field-type-taxonomy-term-reference {
+    //     width: 100%;
+    //
+    //     select {
+    //       width: 120%;
+    //     }
+    //   }
+    // }
+  }
+}

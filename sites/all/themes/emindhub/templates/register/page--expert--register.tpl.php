@@ -74,88 +74,70 @@
 ?>
 
 <div id="page-wrapper">
-    <div id="page">
-        <div id="header">
-            <div class="section clearfix paddingU">
-                <?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/_header.tpl.php'; ?>
+	<div id="page">
+		<div id="header">
+			<div class="section clearfix paddingU">
+				<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/_header.tpl.php'; ?>
 
-                <div class="ligh-blue-line header-separator">&nbsp;</div>
-                <div class="dark-blue-line-large">&nbsp;</div>
+				<div class="ligh-blue-line header-separator">&nbsp;</div>
+				<div class="dark-blue-line-large">&nbsp;</div>
 
-                <div><?php print render($page['breadcrumbs']); ?></div>
+				<div><?php print render($page['breadcrumbs']); ?></div>
 
-                <div class="container container-fluid">
-                    <?php print render($page['header']); ?>
-                </div>
-            </div>
-        </div> <!-- /.section, /#header -->
+				<div class="container container-fluid">
+					<?php print render($page['header']); ?>
+				</div>
+			</div>
+		</div> <!-- /.section, /#header -->
 
-        <div class="container container-fluid">
-            <?php
-            print $messages;
-            ?>
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="register-title"><?php print c_szExpertRegister; ?></div>
-                    <div class="row">
-                        <div class="col-md-1">
-                            <hr class="hr-light">
-                        </div>
-                        <!--<div class="col-md-3 col-md-offset-8">
-                            <?php /*print t("Share:"); */?> <img src="<?php /*print getImgSrc("facebookMini.png"); */?>">
-                            <img src="<?php /*print getImgSrc("twitterMini.png"); */?>">
-                            <img src="<?php /*print getImgSrc("linkedinMini.png"); */?>">
-                            <img src="<?php /*print getImgSrc("googlePlusMini.png"); */?>">
-                            <img src="<?php /*print getImgSrc("emailMini.png"); */?>">
-                        </div>-->
-                    </div>
-                    <div class="register-subtitle"><?php print c_szCreateAccount; ?><span class="bold"><?php print c_szNoTime; ?></span></div>
-                    <div class="expert-register">
-                        <?php print render($page['content']); ?>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <!--<div class="row marginU">
-                          <div class="col-md-12">-->
-<!--                            <img src="--><?php //print getImgSrc("expertAdvantages.png"); ?><!--" />-->
-                              <?php print render($page['sidebar_second']); ?>
-<!--                    --><?php //print render($page['theyareexpert']); ?>
-                        <!--</div>
-                    </div>-->
-                    <!--<div class="row">
-                        <div class="col-md-12">
-                            <?php /*print render($page['theyuseus']); */?>
-                        </div>
-                    </div>-->
-                </div>
-            </div>
+		<div class="container container-fluid">
+			<?php
+			print $messages;
+			?>
+			<div class="row">
+				<div class="col-md-8">
+					<div class="register-title"><?php print c_szExpertRegister; ?></div>
+					<div class="row">
+						<div class="col-md-1">
+							<hr class="hr-light">
+						</div>
+					</div>
+					<div class="register-subtitle"><?php print c_szCreateAccount; ?><span class="bold"><?php print c_szNoTime; ?></span></div>
+					<div class="expert-register">
+						<?php print render($page['content']); ?>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<?php print render($page['sidebar_second']); ?>
+				</div>
+			</div>
 
-            <div class="row">
-                <div class="col-md-8 col-sm-6 col-xs-12">
-                    <div class="row subtitle-wrapper">
-                      <div class="col-md-6 col-xs-12">
-                        <?php print render($page['theyuseus']); ?>
-                      </div>
-                      <div class="col-md-6 col-xs-12">
-                        <?php print render($page['theyareexpert']); ?>
-                      </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="row subtitle-wrapper">
-                        <?php print render($page['news']); ?>
-                    </div>
-                </div>
-            </div>
-        </div>
+			<div class="row">
+				<div class="col-md-8 col-sm-6 col-xs-12">
+					<div class="row subtitle-wrapper">
+					  <div class="col-md-6 col-xs-12">
+						<?php print render($page['theyuseus']); ?>
+					  </div>
+					  <div class="col-md-6 col-xs-12">
+						<?php print render($page['theyareexpert']); ?>
+					  </div>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-6 col-xs-12">
+					<div class="row subtitle-wrapper">
+						<?php print render($page['news']); ?>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    </div> <!-- /#page, /#page-wrapper -->
+	</div> <!-- /#page, /#page-wrapper -->
 </div>
 
 <div id="footer" class="footer-container">
-    <div class="section">
-        <div class="container container-fluid">
-            <?php print render($page['footer']); ?>
-        </div>
-    </div>
+	<div class="section">
+		<div class="container container-fluid">
+			<?php print render($page['footer']); ?>
+		</div>
+	</div>
 </div>
