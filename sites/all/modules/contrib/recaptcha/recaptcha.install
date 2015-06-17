@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Provides install, updated, and uninstall functions for recaptcha.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function recaptcha_uninstall() {
+  // Delete all the recaptcha variables and then clear the variable cache
+  db_delete('variable')
+    ->condition('name', 'recaptcha_%', 'LIKE')
+    ->execute();
+  cache_clear_all('variables', 'cache');
+}
+
+/**
+ * @todo The next time there is an update hook, that hook should run:
+ * variable_del('recaptcha_secure_connection');
+ * This removes a variable no longer in use due to https://drupal.org/node/1827922
+ */
