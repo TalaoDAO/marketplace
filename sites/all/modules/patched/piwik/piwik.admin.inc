@@ -441,7 +441,7 @@ function piwik_admin_settings_form_validate($form, &$form_state) {
     $piwik_url = $piwik_url . '/';
     $form_state['values']['piwik_url_http'] = $piwik_url;
   }
-  $url = $piwik_url . 'piwik.php';
+  $url = $piwik_url . 'index.php'; // YA not "piwik.php" but index.php due to change in piwik
   $result = drupal_http_request($url);
   if ($result->code != 200 && $form_state['values']['piwik_url_skiperror'] == FALSE) {
     form_set_error('piwik_url_http', t('The validation of "@url" failed with error "@error" (HTTP code @code).', array('@url' => check_url($url), '@error' => $result->error, '@code' => $result->code)));
