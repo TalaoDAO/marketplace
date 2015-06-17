@@ -21,6 +21,8 @@ drush dis -y devel, get_form_id, diff, devel_debug_log, pathinfo, views_maintena
 drush en -y entity_legal, user_alert, piwik
 drush dis -y admin_menu, reroute_email, userpoints
 drush vset -y error_level 0
+drush vset preprocess_js 1 --yes
+drush vset preprocess_css 1 --yes
 drush vset drush vset user_registrationpassword_registration with-pass ; drush vset user_mail_register_pending_approval_notify FALSE ; drush vset user_mail_register_no_approval_required_notify FALSE 
 drush sqlq "delete from autoassignrole_page where rid_page_id=2;"
 drush sqlq "delete from autoassignrole_page where rid_page_id=1;"
