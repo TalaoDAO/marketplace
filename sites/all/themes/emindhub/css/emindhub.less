@@ -1044,46 +1044,46 @@ table tbody tr:nth-child(even) {
 	}
 }
 
-.popup {
-	display: block;
-	float: left;
-	position: static;
-	top: 0;
-	left: 0;
-	width: 40em;
-	height: 15em;
-	background-color: @darkBlue;
-	color: @white;
-
-	.social-network {
-		padding-left: 3em;
-		height: 1.813em;
-		width: 15.125em;
-		-webkit-border-radius: @borderRadius;
-		-moz-border-radius: @borderRadius;
-		border-radius: @borderRadius;
-		margin-top: .5em;
-	}
-
-	.facebook-login {
-		background: @facebookColor url(../images/facebook.png) no-repeat 7% 50%;
-		.social-network;
-	}
-
-	.twitter-login {
-		background: @twitterColor url(../images/twitter.png) no-repeat 3.9% 50%;
-		.social-network;
-	}
-
-	.linkedin-login {
-		background: @linkedinColor url(../images/linkedin.png) no-repeat 5.4% 50%;
-		.social-network;
-	}
-
-	.form-control-custom {
-		height: auto !important;
-	}
-}
+// .popup {
+// 	display: block;
+// 	float: left;
+// 	position: static;
+// 	top: 0;
+// 	left: 0;
+// 	width: 40em;
+// 	height: 15em;
+// 	background-color: @darkBlue;
+// 	color: @white;
+//
+// 	.social-network {
+// 		padding-left: 3em;
+// 		height: 1.813em;
+// 		width: 15.125em;
+// 		-webkit-border-radius: @borderRadius;
+// 		-moz-border-radius: @borderRadius;
+// 		border-radius: @borderRadius;
+// 		margin-top: .5em;
+// 	}
+//
+// 	.facebook-login {
+// 		background: @facebookColor url(../images/facebook.png) no-repeat 7% 50%;
+// 		.social-network;
+// 	}
+//
+// 	.twitter-login {
+// 		background: @twitterColor url(../images/twitter.png) no-repeat 3.9% 50%;
+// 		.social-network;
+// 	}
+//
+// 	.linkedin-login {
+// 		background: @linkedinColor url(../images/linkedin.png) no-repeat 5.4% 50%;
+// 		.social-network;
+// 	}
+//
+// 	.form-control-custom {
+// 		height: auto !important;
+// 	}
+// }
 
 .row.paddingUD h2 {
 	font-size: @px16;
@@ -1968,8 +1968,6 @@ fieldset.collapsed {
 
   }
 
-
-
 	div#edit-actions {
 		text-align: center;
 	}
@@ -2013,145 +2011,145 @@ fieldset.collapsed {
 	}
 }
 
-.popup-hover {
-	width: 100%;
-	display: inline-block;
-	font-size: @rpx13;
-
-	@media (min-width: @screen-xs-max) {
-		text-align: right;
-	}
-
-	span {
-		.upper;
-		display: none;
-		background-color: @softGrey;
-		z-index: 25;
-		position: absolute;
-		top: 2.4em;
-		left: 0;
-		width: 14em;
-		padding: .5em;
-		text-align: left;
-
-		&:after {
-			bottom: 100%;
-			left: 30%;
-			content: " ";
-			height: 0;
-			width: 0;
-			position: absolute;
-			pointer-events: none;
-			border: .7em solid rgba(212, 217, 221, 0);
-			border-bottom-color: #d4d9dd;
-			margin-left: -12px;
-		}
-
-		&.experts {
-			width: 16em;
-			left: 0.9em;
-
-			@media (max-width: @screen-md) {
-				left: 1.8em;
-			}
-
-			@media (max-width: @screen-xs) {
-				left: 4.4em;
-			}
-
-			@media (max-width: @screen-xxs) {
-				left: 2.4em;
-			}
-		}
-
-		&.sponsored {
-			width: 16em;
-			left: 0.2em;
-
-			@media (max-width: @screen-md) {
-				left: 4.25em;
-			}
-
-			@media (max-width: @screen-xs) {
-				left: 1.1em;
-				&:after {
-					left: 63%;
-				}
-			}
-
-			@media (max-width: @screen-xxs) {
-				left: -4.4em;
-
-				&:after {
-					left: 78%;
-				}
-			}
-		}
-
-		&.partners {
-			width: 14em;
-			left: 0.85em;
-
-			@media (max-width: @screen-sm) {
-				left: 1.6em;
-			}
-
-			@media (max-width: @screen-xs) {
-				left: 3.9em;
-			}
-
-			@media (max-width: @screen-xxs) {
-				left: 1.7em;
-			}
-		}
-
-		&.formers {
-			width: 12em;
-			left: 1.4em;
-
-			@media (max-width: @screen-sm) {
-				left: 2.3em;
-			}
-
-			@media (max-width: @screen-xs) {
-				left: 4.5em;
-			}
-
-			@media (max-width: @screen-xxs) {
-				left: 2.4em;
-			}
-		}
-
-		&.circles {
-			width: 11em;
-			left: 1.7em;
-
-			@media (max-width: @screen-sm) {
-				left: 2.55em;
-			}
-
-			@media (max-width: @screen-xs) {
-				left: 0.6em;
-
-				&:after {
-					left: 68%;
-				}
-			}
-
-			@media (max-width: @screen-xxs) {
-				left: -3.5em;
-
-				&:after {
-					left: 87%;
-				}
-			}
-		}
-	}
-
-	&:hover span {
-		display: block;
-	}
-}
+// .popup-hover {
+// 	width: 100%;
+// 	display: inline-block;
+// 	font-size: @rpx13;
+//
+// 	@media (min-width: @screen-xs-max) {
+// 		text-align: right;
+// 	}
+//
+// 	span {
+// 		.upper;
+// 		display: none;
+// 		background-color: @softGrey;
+// 		z-index: 25;
+// 		position: absolute;
+// 		top: 2.4em;
+// 		left: 0;
+// 		width: 14em;
+// 		padding: .5em;
+// 		text-align: left;
+//
+// 		&:after {
+// 			bottom: 100%;
+// 			left: 30%;
+// 			content: " ";
+// 			height: 0;
+// 			width: 0;
+// 			position: absolute;
+// 			pointer-events: none;
+// 			border: .7em solid rgba(212, 217, 221, 0);
+// 			border-bottom-color: #d4d9dd;
+// 			margin-left: -12px;
+// 		}
+//
+// 		&.experts {
+// 			width: 16em;
+// 			left: 0.9em;
+//
+// 			@media (max-width: @screen-md) {
+// 				left: 1.8em;
+// 			}
+//
+// 			@media (max-width: @screen-xs) {
+// 				left: 4.4em;
+// 			}
+//
+// 			@media (max-width: @screen-xxs) {
+// 				left: 2.4em;
+// 			}
+// 		}
+//
+// 		&.sponsored {
+// 			width: 16em;
+// 			left: 0.2em;
+//
+// 			@media (max-width: @screen-md) {
+// 				left: 4.25em;
+// 			}
+//
+// 			@media (max-width: @screen-xs) {
+// 				left: 1.1em;
+// 				&:after {
+// 					left: 63%;
+// 				}
+// 			}
+//
+// 			@media (max-width: @screen-xxs) {
+// 				left: -4.4em;
+//
+// 				&:after {
+// 					left: 78%;
+// 				}
+// 			}
+// 		}
+//
+// 		&.partners {
+// 			width: 14em;
+// 			left: 0.85em;
+//
+// 			@media (max-width: @screen-sm) {
+// 				left: 1.6em;
+// 			}
+//
+// 			@media (max-width: @screen-xs) {
+// 				left: 3.9em;
+// 			}
+//
+// 			@media (max-width: @screen-xxs) {
+// 				left: 1.7em;
+// 			}
+// 		}
+//
+// 		&.formers {
+// 			width: 12em;
+// 			left: 1.4em;
+//
+// 			@media (max-width: @screen-sm) {
+// 				left: 2.3em;
+// 			}
+//
+// 			@media (max-width: @screen-xs) {
+// 				left: 4.5em;
+// 			}
+//
+// 			@media (max-width: @screen-xxs) {
+// 				left: 2.4em;
+// 			}
+// 		}
+//
+// 		&.circles {
+// 			width: 11em;
+// 			left: 1.7em;
+//
+// 			@media (max-width: @screen-sm) {
+// 				left: 2.55em;
+// 			}
+//
+// 			@media (max-width: @screen-xs) {
+// 				left: 0.6em;
+//
+// 				&:after {
+// 					left: 68%;
+// 				}
+// 			}
+//
+// 			@media (max-width: @screen-xxs) {
+// 				left: -3.5em;
+//
+// 				&:after {
+// 					left: 87%;
+// 				}
+// 			}
+// 		}
+// 	}
+//
+// 	&:hover span {
+// 		display: block;
+// 	}
+// }
 
 // .popup-sign {
 // 	&-up {
@@ -5326,4 +5324,7 @@ div.tabs {
 @import "user/user-edit.less";
 @import "nodes/webform.less";
 @import "nodes/contact.less";
+
+@import "blocks.less";
+
 @import "overrides.less";
