@@ -11,7 +11,7 @@ function emindhub_date_combo($variables) {
   return theme('form_element', $variables);
 }
 
-function emindhub_status_messages($variables) {
+function emindhub_status_messages(&$variables) {
   $display = $variables ['display'];
   $output = '';
 
