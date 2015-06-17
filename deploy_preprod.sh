@@ -15,6 +15,6 @@ echo 'flush_all' | nc -q 2 localhost 11211
 
 ############################### PREVIEW #################################
 cd /var/www/preprod-emindhub
-drush fra
+drush fra -y
 drush updatedb
 drush cc all
