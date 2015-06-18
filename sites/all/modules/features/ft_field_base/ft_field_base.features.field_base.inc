@@ -612,7 +612,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_first_name',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
@@ -626,6 +626,17 @@ function ft_field_base_field_default_field_bases() {
       'entity_translation_sync' => FALSE,
       'max_length' => 255,
       'profile2_private' => FALSE,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 0,
+        6 => 0,
+        7 => 0,
+        8 => 0,
+        9 => 0,
+      ),
     ),
     'translatable' => 0,
     'type' => 'text',
@@ -902,7 +913,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_last_name',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
@@ -916,6 +927,17 @@ function ft_field_base_field_default_field_bases() {
       'entity_translation_sync' => FALSE,
       'max_length' => 255,
       'profile2_private' => FALSE,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 0,
+        6 => 0,
+        7 => 0,
+        8 => 0,
+        9 => 0,
+      ),
     ),
     'translatable' => 0,
     'type' => 'text',
