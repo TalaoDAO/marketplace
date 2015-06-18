@@ -170,7 +170,7 @@ function emindhub_form_process_password_confirm($element) {
 function emindhub_form_user_login_block_alter(&$form, &$form_state, $form_id) {
 
   $form['name']['#size'] = 30;
-  $form['name']['#attributes']['placeholder'] = t('Email');
+  $form['name']['#attributes']['placeholder'] = t('Username');
 
   $form['pass']['#size'] = 30;
   $form['pass']['#attributes']['placeholder'] = t('Password');
