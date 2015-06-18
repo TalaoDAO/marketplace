@@ -5,13 +5,21 @@
  * Set a cookie to track this user.
  */
 function user_alert_init() {
-	if (!isset($_COOKIE['UUID']) || !_user_alert_uuid_is_valid($_COOKIE['UUID'])) {
-		$uuid = _user_alert_uuid_generate_php();
-		global $cookie_domain;
-		setcookie('UUID', $uuid, time() + 31536000, '/', $cookie_domain, FALSE, TRUE);
-	}
-	
-	drupal_add_js(array('user_alert' => array('url_prefix' => variable_get('clean_url', 0) != 0 ? '' : '?q=')), 'setting');
+  if (!isset($_COOKIE['UUID']) || !_user_alert_uuid_is_valid($_COOKIE['UUID'])) {
+    $uuid = _user_alert_uuid_generate_php();
+    global $cookie_domain;
+    $actual_cookie_domain = FALSE;
+
+    // Per RFC 2109, cookie domains must contain at least one dot other than the
+    // first. For hosts such as 'localhost' or IP Addresses we don't set a cookie domain.
+    if (count(explode('.', $cookie_domain)) > 2 && !is_numeric(str_replace('.', '', $cookie_domain))) {
+      $actual_cookie_domain = $cookie_domain;
+    }
+
+    setcookie('UUID', $uuid, time() + 31536000, '/', $actual_cookie_domain, FALSE, TRUE);
+  }
+
+  drupal_add_js(array('user_alert' => array('url_prefix' => variable_get('clean_url', 0) != 0 ? '' : '?q=')), 'setting');
 }
 
 /**
@@ -154,7 +162,8 @@ function user_alert_display_alert() {
    $lang_name = LANGUAGE_NONE; // YBA -> when default is set to "und"
 
 	$output = '';
-	$result = db_query("SELECT n.nid FROM {node} n WHERE type = :type AND status = :status AND language = :language AND n.nid NOT IN (SELECT ua.nid FROM {user_alert} ua WHERE ua.nid = n.nid AND ua.uuid = :cookie) ORDER BY nid DESC", array(':type' => 'user_alert', ':status' => NODE_PUBLISHED,  ':language' => $lang_name, ':cookie' => $_COOKIE['UUID']));
+	$cookie = isset($_COOKIE['UUID']) ? $_COOKIE['UUID'] : 0; // cookie not set on iPhone ... don't know why
+	$result = db_query("SELECT n.nid FROM {node} n WHERE type = :type AND status = :status AND language = :language AND n.nid NOT IN (SELECT ua.nid FROM {user_alert} ua WHERE ua.nid = n.nid AND ua.uuid = :cookie) ORDER BY nid DESC", array(':type' => 'user_alert', ':status' => NODE_PUBLISHED,  ':language' => $lang_name, ':cookie' => $cookie));
 
 	foreach ($result as $record) {
 		$alert = node_load($record->nid);
@@ -251,15 +260,13 @@ function _user_alert_uuid_generate_php() {
 }
 
 /**
- * Check to see that a cookie exists and has a format of at least .example.com
+ * Check to see that a UUID cookie exists.
  * @return bool
  */
 function user_alert_cookie_is_valid() {
-  global $cookie_domain;
-
-  if (!drupal_strlen($cookie_domain) || substr_count($cookie_domain, '.') < 2) {
-    return FALSE;
+  if (isset($_COOKIE['UUID']) && !empty($_COOKIE['UUID'])) {
+    return TRUE;
   }
 
-  return TRUE;
+  return FALSE;
 }
