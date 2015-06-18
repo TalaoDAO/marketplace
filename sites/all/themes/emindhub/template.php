@@ -916,3 +916,8 @@ function customDSM($input, $name = NULL, $type = 'status') {
   $export = kprint_r($input, TRUE, $name);
   drupal_set_message($export, $type);
 }
+
+// YBA : hide env indicator switcher
+function emindhub_environment_indicator_switches($variables) {
+  return "";
+}
