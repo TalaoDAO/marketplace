@@ -77,8 +77,8 @@ function blockgroup_features_rebuild($module) {
 
   foreach ($default_blockgroups as $delta => $title) {
     $blockgroup = blockgroup_load($delta);
-
-    if (!$blockgroup) {
+    // Prepare the block if it doesn't exist
+    if (!isset($blockgroup->bid)) {
       $blockgroup = (object) array(
         'title' => $title,
         'delta' => $delta,
