@@ -266,7 +266,7 @@ function environment_indicator_ui_form_submit(&$form, &$form_state) {
  * Helper function to check if the machine name is available.
  */
 function environment_indicator_machine_available($machine) {
-  return db_query("SELECT COUNT(*) FROM {environment_indicator_environment} WHERE machine = ':machine'", array(':machine' => $machine))->fetchField() > 0 && $machine != 'overwritten_environment';
+  return db_query("SELECT COUNT(*) FROM {environment_indicator_environment} WHERE machine = :machine", array(':machine' => $machine))->fetchField() > 0 && $machine != 'overwritten_environment';
 }
 
 /**
