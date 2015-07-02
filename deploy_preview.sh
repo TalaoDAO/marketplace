@@ -8,8 +8,8 @@ rm -r preview-emindhub
 cp -r dev-emindhub/ preview-emindhub
 rm -r preview-emindhub/.git
 
-cp ~/settings-dev.php /var/www/dev-emindhub/sites/default/local.settings.php
 cp ~/settings-preview.php /var/www/preview-emindhub/sites/default/local.settings.php
+cp ~/htaccess_noauth /var/www/preview-emindhub/.htaccess
 
 chown -R www-data:www-data /var/www/preview-emindhub/
 
