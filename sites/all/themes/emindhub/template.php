@@ -6,6 +6,9 @@ require_once("templates/includes/string_list.php");
 //============================================================================
 // CONTACT FORM CUSTOMIZATION SECTION
 
+function emindhub_menu_alter(&$items) {
+  unset($items['user/register']);
+}
 
 function emindhub_date_combo($variables) {
   return theme('form_element', $variables);
