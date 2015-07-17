@@ -9388,6 +9388,91 @@ fieldset.collapsed + fieldset {
   font-weight: bold;
   font-size: 1.357rem;
 }
+#user-register-form input,
+#user-register-form .confirm-parent,
+#user-register-form .password-parent {
+  max-width: 100%;
+}
+#user-register-form .group-background {
+  margin-top: 0;
+}
+@media (min-width: 767px) {
+  #user-register-form .group-oneliner > div {
+    width: 50%;
+  }
+  #user-register-form .group-oneliner > div input[type="text"] {
+    width: 65%;
+  }
+  #user-register-form .group-oneliner div:last-of-type {
+    margin: 0;
+  }
+  #user-register-form .group-oneliner label {
+    display: inline-block;
+  }
+  #user-register-form label {
+    width: 29%;
+  }
+  #user-register-form .form-item-field-entreprise-und-0-target-id input[type="text"] {
+    width: 32.5%;
+  }
+  #user-register-form .form-item-field-entreprise-und-0-target-id label {
+    width: 14.5% !important;
+  }
+  #user-register-form .formtips-wrapper {
+    display: inline-block;
+  }
+  #user-register-form .formtips-wrapper label {
+    display: inline;
+  }
+  #user-register-form input.password-field,
+  #user-register-form input.password-confirm {
+    width: 50.7%;
+    margin: 0;
+  }
+  #user-register-form #edit-account .form-item-name .formtips-wrapper,
+  #user-register-form #edit-account .form-item-mail .formtips-wrapper {
+    width: 22%;
+  }
+  #user-register-form #edit-account .form-item-name input[type="text"],
+  #user-register-form #edit-account .form-item-mail input[type="text"] {
+    width: 45%;
+  }
+  #user-register-form #edit-account label[for="edit-pass-pass2"] {
+    width: 26.3%;
+  }
+}
+#user-register-form div#edit-actions {
+  text-align: center;
+}
+#user-register-form .form-type-password {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+#user-register-form div.password-confirm {
+  position: absolute;
+  right: 3em;
+  top: -1.25em;
+  width: auto;
+}
+#user-register-form div.password-strength {
+  display: none;
+  width: auto;
+}
+#user-register-form .form-type-password .formtips-wrapper {
+  width: 26.3%;
+}
+#user-register-form input[type="text"] {
+  border: none;
+  line-height: 1.8em;
+}
+#user-register-form input[type=password] {
+  border: none;
+  line-height: 1.8em;
+}
+#user-register-form select {
+  border: none;
+  background-color: #d4d9dd;
+}
 .popup-hover {
   width: 100%;
   display: inline-block;
@@ -9794,6 +9879,24 @@ fieldset.collapsed + fieldset {
   margin-top: 1em;
   padding: 1.5em;
 }
+/*.group-oneliner {
+	& > div {
+		display: inline-block;
+
+		@media (min-width: @screen-md) {
+			margin-left: 2em;
+		}
+
+		&:first-of-type {
+			margin-left: 0;
+		}
+	}
+
+	label {
+		width: auto;
+	}
+
+}*/
 .file-upload {
   position: relative;
   overflow: hidden;
@@ -9961,7 +10064,7 @@ fieldset.collapsed + fieldset {
   display: inline;
 }
 .region-contactform .form-wrapper > div.form-type-select select {
-  width: 90%;
+  width: 89%;
 }
 @media (min-width: 768px) {
   .region-contactform .form-wrapper > div.form-type-select + span.required {
@@ -10243,7 +10346,7 @@ fieldset.collapsed + fieldset {
     width: 12em;
   }
 }
-@media (max-width: 320px) {
+@media (max-width: 480px) {
   .region-topmenu div.col-xs-4 > .active-trail:after,
   .region-topmenu div.col-xs-4 a.active:after {
     width: 8em;
@@ -12533,6 +12636,10 @@ div.rating div a:hover {
 .form-item .messages {
   padding-left: 10px;
 }
+.front .alert-info {
+  border-color: #ed541d;
+  border-width: 3px;
+}
 .alert.row {
   margin: 1em 0;
 }
@@ -12960,6 +13067,15 @@ body.page-node-webform-components table#webform-components tbody tr.tabledrag-le
 }
 .page-contact .content .form-control-custom {
   width: 53.2%;
+}
+form#user-login-form label {
+  display: none;
+}
+form#user-login-form .login-links {
+  font-size: 0.857em;
+}
+form#user-login-form .login-links a {
+  font-style: italic;
 }
 /* FORM
  * Chosen
@@ -13433,6 +13549,9 @@ input[type="submit"][value="Cancel account"]:hover {
 .popover a.btn,
 .popover input {
   background-image: none;
+}
+.popover a {
+  color: #ffffff;
 }
 .popover input {
   max-width: 100%;
