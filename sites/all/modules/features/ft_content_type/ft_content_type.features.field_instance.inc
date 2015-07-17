@@ -5327,14 +5327,13 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'How did you hear about us?',
     'required' => 0,
     'settings' => array(
-      'entity_translation_sync' => FALSE,
       'user_register_form' => 0,
     ),
     'widget' => array(
       'active' => 1,
       'module' => 'options',
       'settings' => array(
-        'apply_chosen' => '',
+        'apply_chosen' => 0,
       ),
       'type' => 'options_select',
       'weight' => 7,
@@ -5549,14 +5548,13 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'How often do you want to receive emindhub\'s notifications?',
     'required' => 0,
     'settings' => array(
-      'entity_translation_sync' => FALSE,
       'user_register_form' => 0,
     ),
     'widget' => array(
       'active' => 1,
       'module' => 'options',
       'settings' => array(
-        'apply_chosen' => '',
+        'apply_chosen' => 0,
       ),
       'type' => 'options_select',
       'weight' => 6,

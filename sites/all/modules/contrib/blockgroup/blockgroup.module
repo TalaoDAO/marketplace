@@ -259,8 +259,8 @@ function blockgroup_block_list_alter(&$blocks) {
   // other modules doing the same thing than we do.
   $group_regions = array();
   foreach ($blocks as $bid => $block) {
-    if ($block->module == 'blockgroup') {
-      $group_regions['blockgroup_' . $blocks[$bid]->delta] = $bid;
+    if ($block->module === 'blockgroup') {
+      $group_regions[blockgroup_get_region($blocks[$bid]->delta)] = $bid;
     }
   }
 
@@ -316,7 +316,7 @@ function blockgroup_block_list_alter(&$blocks) {
 function blockgroup_block_view($delta) {
   $block['content'] = array(
     '#type' => 'blockgroup_pullup',
-    '#key' => 'blockgroup_' . $delta,
+    '#key' => blockgroup_get_region($delta),
   );
   return $block;
 }
@@ -342,13 +342,14 @@ function blockgroup_page_alter(&$page) {
         }
       }
     }
+  }
 
-    // If this is a blockgroup region, move it into $page['#blockgroups'] in
-    // order to prevent certain themes from messing with them.
-    if (substr($region, 0, 11) == 'blockgroup_') {
-      $page['#blockgroups'][$region] = $blocks;
-      unset($page[$region]);
-    }
+  // Move all blockgroup regions into $page['#blockgroups'] in order to prevent
+  // certain themes from messing with them.
+  $blockgroup_regions = array_intersect_key($page, blockgroup_region_list());
+  foreach (array_keys($blockgroup_regions) as $region) {
+    $page['#blockgroups'][$region] = &$page[$region];
+    unset($page[$region]);
   }
 }
 
@@ -374,9 +375,13 @@ function blockgroup_theme() {
  * template for this particular block group.
  */
 function blockgroup_preprocess_block(&$variables) {
-  if ($variables['block']->module == 'blockgroup') {
+  if ($variables['block']->module === 'blockgroup') {
     array_unshift($variables['theme_hook_suggestions'], 'block__blockgroup__default');
-    $variables['region'] = 'blockgroup_' . $variables['block']->delta;
+    $variables['region'] = blockgroup_get_region($variables['block']->delta);
+
+    // Allow the use of a region--blockgroup.tpl.php template that will affect
+    // all block group regions.
+    $variables['theme_hook_suggestions'][] = 'region__blockgroup';
   }
 }
 
@@ -387,7 +392,8 @@ function blockgroup_preprocess_block(&$variables) {
  * Insert 'blockgroup' into classes array for regions defined by this module.
  */
 function blockgroup_preprocess_region(&$variables) {
-  if (substr($variables['region'], 0, 11) == 'blockgroup_') {
+  $blockgroup_regions = blockgroup_region_list();
+  if (isset($blockgroup_regions[$variables['region']])) {
     $variables['classes_array'][] = 'blockgroup';
   }
 }
@@ -414,7 +420,7 @@ function blockgroup_form_block_admin_display_form_alter(&$form, &$form_state) {
   $blockgroups = blockgroup_list();
 
   foreach ($blockgroups as $delta => $title) {
-    $key = 'blockgroup_' . $delta;
+    $key = blockgroup_get_region($delta);
     $region_anchor = drupal_clean_css_identifier('region-' . $key);
     $block_anchor = drupal_clean_css_identifier('block-' . $key);
 
@@ -470,10 +476,13 @@ function blockgroup_list() {
  * Return a list of regions created by block groups.
  */
 function blockgroup_region_list() {
-  $regions = array();
+  $regions = &drupal_static(__FUNCTION__);
 
-  foreach (blockgroup_list() as $delta => $title) {
-    $regions['blockgroup_' . $delta] = t('Block group: @title', array('@title' => $title));
+  if (!isset($regions)) {
+    $regions = array();
+    foreach (blockgroup_list() as $delta => $title) {
+      $regions[blockgroup_get_region($delta)] = t('Block group: @title', array('@title' => $title));
+    }
   }
 
   return $regions;
@@ -534,9 +543,24 @@ function blockgroup_delete($blockgroup) {
  */
 function blockgroup_rebuild_data() {
   drupal_static_reset('blockgroup_list');
+  drupal_static_reset('blockgroup_region_list');
 
   cache_clear_all();
 
   system_rebuild_theme_data();
   drupal_theme_rebuild();
+}
+
+
+/**
+ * Returns the region name defined by the given blockgroup.
+ *
+ * @param string $delta
+ *   The machine name of the blockgroup.
+ *
+ * @returns string
+ *   The machine name of the region.
+ */
+function blockgroup_get_region($delta) {
+  return 'blockgroup_' . $delta;
 }

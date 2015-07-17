@@ -419,7 +419,13 @@ function ft_views_views_default_views() {
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['access']['type'] = 'role';
+  $handler->display->display_options['access']['role'] = array(
+    3 => '3',
+    5 => '5',
+    9 => '9',
+    6 => '6',
+  );
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
@@ -2001,11 +2007,10 @@ function ft_views_views_default_views() {
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
   $handler->display->display_options['empty']['area']['field'] = 'area';
-  $handler->display->display_options['empty']['area']['label'] = 'Vide';
+  $handler->display->display_options['empty']['area']['label'] = 'Empty';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = 'Rien à afficher. 
-Il est probable que vous Domaines (dans le burger menu) soient trop restrictifs.';
-  $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
+  $handler->display->display_options['empty']['area']['content'] = '<div class="alert alert-warning alert-dismissible" role="alert"><center><strong><big><img alt="" widht="49" height="30" src="/sites/all/themes/emindhub/images/PICTO PRODUCTION.png" />Respond to client\'s requests from September 2015.<big></strong></center></div>';
+  $handler->display->display_options['empty']['area']['format'] = 'full_html';
   /* Relationship: Content: Author */
   $handler->display->display_options['relationships']['uid']['id'] = 'uid';
   $handler->display->display_options['relationships']['uid']['table'] = 'node';
@@ -2859,6 +2864,7 @@ Il est probable que vous Domaines (dans le burger menu) soient trop restrictifs.
   $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
   $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
   $handler->display->display_options['fields']['field_last_name']['label'] = '';
+  $handler->display->display_options['fields']['field_last_name']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_last_name']['element_label_colon'] = FALSE;
   /* Field: Field: Profile Title */
   $handler->display->display_options['fields']['field_titre_metier']['id'] = 'field_titre_metier';
@@ -2989,6 +2995,7 @@ Il est probable que vous Domaines (dans le burger menu) soient trop restrictifs.
   $handler->display->display_options['fields']['name']['table'] = 'users';
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['label'] = '';
+  $handler->display->display_options['fields']['name']['exclude'] = TRUE;
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
@@ -2997,6 +3004,7 @@ Il est probable que vous Domaines (dans le burger menu) soient trop restrictifs.
   $handler->display->display_options['fields']['field_photo']['table'] = 'field_data_field_photo';
   $handler->display->display_options['fields']['field_photo']['field'] = 'field_photo';
   $handler->display->display_options['fields']['field_photo']['label'] = '';
+  $handler->display->display_options['fields']['field_photo']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_photo']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_photo']['click_sort_column'] = 'fid';
   $handler->display->display_options['fields']['field_photo']['settings'] = array(
@@ -3020,6 +3028,7 @@ Il est probable que vous Domaines (dans le burger menu) soient trop restrictifs.
   $handler->display->display_options['fields']['field_titre_metier']['table'] = 'field_data_field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
+  $handler->display->display_options['fields']['field_titre_metier']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
 
   /* Display: Page */
@@ -3292,6 +3301,7 @@ Il est probable que vous Domaines (dans le burger menu) soient trop restrictifs.
   $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
   $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
   $handler->display->display_options['fields']['field_last_name']['label'] = '';
+  $handler->display->display_options['fields']['field_last_name']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_last_name']['element_label_colon'] = FALSE;
   /* Field: Field: Profile Title */
   $handler->display->display_options['fields']['field_titre_metier']['id'] = 'field_titre_metier';

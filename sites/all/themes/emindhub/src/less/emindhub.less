@@ -1888,6 +1888,126 @@ fieldset.collapsed {
 	}
 }
 
+#user-register-form {
+
+  input,
+  .confirm-parent, .password-parent {
+    max-width: 100%;
+  }
+
+	.group-background {
+		margin-top: 0;
+	}
+
+  @media (min-width: @screen-sm-min) {
+  	.group-oneliner {
+  		> div {
+  			width: 50%;
+
+  			input[type="text"] {
+  				width: 65%;
+  			}
+  		}
+
+  		div:last-of-type {
+  			margin: 0;
+  		}
+
+  		label {
+  			display: inline-block;
+  		}
+  	}
+
+    label {
+  		width: 29%
+  	}
+
+    .form-item-field-entreprise-und-0-target-id {
+  		input[type="text"] {
+  			width: 32.5%;
+  		}
+
+  		label {
+  			width: 14.5% !important;
+  		}
+  	}
+
+    .formtips-wrapper {
+  		display: inline-block;
+
+  		label {
+  			display: inline;
+  		}
+  	}
+
+    input.password-field,
+  	input.password-confirm {
+  		width: 50.7%;
+  		margin: 0;
+  	}
+
+    #edit-account {
+  		.form-item-name,
+  		.form-item-mail {
+  			.formtips-wrapper {
+  				width: 22%;
+  			}
+
+  			input[type="text"] {
+  				width: 45%;
+  			}
+  		}
+
+  		label[for="edit-pass-pass2"] {
+  			width: 26.3%;
+  		}
+  	}
+
+  }
+
+	div#edit-actions {
+		text-align: center;
+	}
+
+	.form-type-password {
+		margin-top: 1em;
+		margin-bottom: 1em;
+	}
+
+	div.password-confirm {
+		position: absolute;
+		right: 3em;
+		top: -1.25em;
+		width: auto;
+	}
+
+	div.password-strength {
+		display: none;
+		width: auto;
+	}
+
+	.form-type-password {
+		.formtips-wrapper {
+			width: 26.3%;
+		}
+	}
+
+	input[type="text"] {
+		border: none;
+		line-height: 1.8em;
+	}
+
+	input[type=password] {
+		border: none;
+		line-height: 1.8em;
+	}
+
+	select {
+		border: none;
+		background-color: @softGrey;
+	}
+}
+
 .popup-hover {
 	width: 100%;
 	display: inline-block;
@@ -2526,6 +2646,29 @@ fieldset.collapsed {
 	padding: 1.5em;
 }
 
+/*.group-oneliner {
+	& > div {
+		display: inline-block;
+
+		@media (min-width: @screen-md) {
+			margin-left: 2em;
+		}
+
+		&:first-of-type {
+			margin-left: 0;
+		}
+	}
+
+	label {
+		width: auto;
+	}
+
+}*/
+
+.file-return {
+	// margin-bottom: 1em;
+}
+
 .file-upload {
 	position: relative;
 	overflow: hidden;
@@ -2745,7 +2888,7 @@ fieldset.collapsed {
 			&.form-type-select {
 				display: inline;
 				select {
-					width: 90%;
+					width: 89%;
 				}
 
 				@media (min-width: @screen-sm) {
@@ -3071,13 +3214,12 @@ fieldset.collapsed {
 				position: absolute;
 				content: " ";
 				top: 2.83rem;
-//				left: 1.45rem;
 				left: 0;
 
 				@media (max-width: @screen-md) {
 					width: 12em;
 				}
-				@media (max-width: @screen-xxs) {
+				@media (max-width: @screen-xs) {
 					width: 8em;
 				}
 			}
@@ -5159,4 +5301,7 @@ div.tabs {
 @import "objects/fields.less";
 @import "nodes/webform.less";
 @import "nodes/contact.less";
+
+@import "blocks.less";
+
 @import "overrides.less";

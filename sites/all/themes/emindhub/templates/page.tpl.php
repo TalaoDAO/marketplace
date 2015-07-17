@@ -205,7 +205,7 @@
                     <?php print render($title_suffix); ?>
                 </div>
             </div>
-            <?php if ($node->title == t("About us") || $node->title == t("Our services")) { ?>
+            <?php if ( (isset($node) && ($node->title == t("About us") || $node->title == t("Our services"))) || !isset($node) ) { ?>
             <div class="row">
                 <div class="col-xs-8">
                     <?php print render($page['content']); ?>

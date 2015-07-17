@@ -6,12 +6,15 @@ require_once("templates/includes/string_list.php");
 //============================================================================
 // CONTACT FORM CUSTOMIZATION SECTION
 
+function emindhub_menu_alter(&$items) {
+  unset($items['user/register']);
+}
 
 function emindhub_date_combo($variables) {
   return theme('form_element', $variables);
 }
 
-function emindhub_status_messages($variables) {
+function emindhub_status_messages(&$variables) {
   $display = $variables ['display'];
   $output = '';
 
@@ -70,11 +73,11 @@ function emindhub_theme() {
         'template' => 'password-confirm',
         'render element' => 'form',
       ),*/
-      'user_login' => array(
-        'path' => drupal_get_path('theme', 'emindhub').'/templates/user',
-        'template' => 'user-login',
-        'render element' => 'form',
-      ),
+      // 'user_login' => array(
+      //   'path' => drupal_get_path('theme', 'emindhub').'/templates/user',
+      //   'template' => 'user-login',
+      //   'render element' => 'form',
+      // ),
     );
 }
 
@@ -167,8 +170,32 @@ function emindhub_form_process_password_confirm($element) {
 }
 
 
-function emindhub_form_alter(&$form, &$form_state, $form_id) {
+function emindhub_form_user_login_block_alter(&$form, &$form_state, $form_id) {
+
+  $form['name']['#size'] = 30;
+  $form['name']['#attributes']['placeholder'] = t('Username');
+
+  $form['pass']['#size'] = 30;
+  $form['pass']['#attributes']['placeholder'] = t('Password');
+
+  $form['actions']['#weight'] = 9;
+
+  $markup = l(t('Forgot your password?'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
+  // if (variable_get('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL)) {
+  //   $markup .= ' ' . l(t('Sign up'), 'user/register', array('attributes' => array('title' => t('Create a new user account.'), 'class' => 'register-link')));
+  // }
+  $markup = '<div class="clearfix login-links">' . $markup . '</div>';
+  $form['links']['#markup'] = $markup;
+  $form['links']['#weight'] = 10;
+
   // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+}
+
+
+function emindhub_form_alter(&$form, &$form_state, $form_id) {
+
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+
   // Action buttons order
   $i = 0;
   foreach (
@@ -182,6 +209,15 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
     ) as $action ) {
       $form['actions'][$action]['#weight'] = $i++;
     }
+
+  // Hide "Show row weights" for regular users
+  global $user;
+  if (!(in_array('webmaster', $user->roles) || in_array('administrator', $user->roles) )) {
+    $form['#attached']['js'] = array(
+      drupal_get_path('theme', 'emindhub') . '/js/disable_show_row_weights.js',
+    );
+  }
+
   if ($form_id == 'search_block_form') {
     $form['search_block_form']['#title'] = c_szSearch; // Change the text on the label element
     $form['search_block_form']['#title_display'] = 'invisible'; // Toggle label visibilty
@@ -207,14 +243,6 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
     // 0 => string 'form' (length=4)
     // var_dump($form);
     // die;
-  }
-
-  // Hide "Show row weights" for regular users
-  global $user;
-  if (!(in_array('webmaster', $user->roles) || in_array('administrator', $user->roles) )) {
-    $form['#attached']['js'] = array(
-      drupal_get_path('theme', 'emindhub') . '/js/disable_show_row_weights.js',
-    );
   }
 
 }
@@ -890,4 +918,9 @@ function pp($arr){
 function customDSM($input, $name = NULL, $type = 'status') {
   $export = kprint_r($input, TRUE, $name);
   drupal_set_message($export, $type);
+}
+
+// YBA : hide env indicator switcher
+function emindhub_environment_indicator_switches($variables) {
+  return "";
 }

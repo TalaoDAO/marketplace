@@ -7,6 +7,7 @@ project = ft_rules
 dependencies[] = entity
 dependencies[] = og
 dependencies[] = rules
+dependencies[] = user_registrationpassword
 features[features_api][] = api:2
 features[rules_config][] = rules_auto_subscribe_to_general_group
 features[rules_config][] = rules_mandatory_group

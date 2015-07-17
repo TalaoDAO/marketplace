@@ -72,6 +72,7 @@ function ft_rules_default_rules_configuration() {
   $items['rules_subscription_to_group_email'] = entity_import('rules_config', '{ "rules_subscription_to_group_email" : {
       "LABEL" : "Subscription to group email",
       "PLUGIN" : "reaction rule",
+      "ACTIVE" : false,
       "OWNER" : "rules",
       "TAGS" : [ "Circle", "EMH", "email" ],
       "REQUIRES" : [ "rules", "og" ],
@@ -93,11 +94,11 @@ function ft_rules_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "emh" ],
-      "REQUIRES" : [ "rules" ],
-      "ON" : { "user_insert" : [] },
+      "REQUIRES" : [ "rules", "user_registrationpassword" ],
+      "ON" : { "user_registrationpassword_activated" : [] },
       "DO" : [
         { "drupal_message" : {
-            "message" : "Welcome to eMindHub !\\r\\nPlease fill your \\u003Ca href=\\u0022[account:edit-url]\\u0022\\u003Eprofile information\\u003C\\/a\\u003E",
+            "message" : "Welcome to [site:name] !\\r\\nPlease fill your profile information in \\u003Ca href=\\u0022[account:edit-url]\\u0022\\u003Emy account\\u003C\\/a\\u003E.",
             "type" : "warning"
           }
         }

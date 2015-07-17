@@ -55,7 +55,7 @@ class BlockgroupTestCase extends DrupalWebTestCase {
     theme_enable(array('stark'));
     $themes = list_themes();
     $this->drupalGet('admin/structure/block/add');
-    $region = 'blockgroup_' . $block_group['machine_name'];
+    $region = blockgroup_get_region($block_group['machine_name']);
     foreach ($themes as $key => $theme) {
       if ($theme->status) {
         $elements = $this->xpath('//select[@id=:id]//option[@value=:value]', array(':id' => 'edit-regions-' . $key, ':value' => $region));
