@@ -9397,26 +9397,11 @@ fieldset.collapsed + fieldset {
   margin-top: 0;
 }
 @media (min-width: 767px) {
-  #user-register-form .group-oneliner > div {
-    width: 50%;
-  }
-  #user-register-form .group-oneliner > div input[type="text"] {
-    width: 65%;
-  }
   #user-register-form .group-oneliner div:last-of-type {
     margin: 0;
   }
   #user-register-form .group-oneliner label {
     display: inline-block;
-  }
-  #user-register-form label {
-    width: 29%;
-  }
-  #user-register-form .form-item-field-entreprise-und-0-target-id input[type="text"] {
-    width: 32.5%;
-  }
-  #user-register-form .form-item-field-entreprise-und-0-target-id label {
-    width: 14.5% !important;
   }
   #user-register-form .formtips-wrapper {
     display: inline-block;
@@ -9428,17 +9413,6 @@ fieldset.collapsed + fieldset {
   #user-register-form input.password-confirm {
     width: 50.7%;
     margin: 0;
-  }
-  #user-register-form #edit-account .form-item-name .formtips-wrapper,
-  #user-register-form #edit-account .form-item-mail .formtips-wrapper {
-    width: 22%;
-  }
-  #user-register-form #edit-account .form-item-name input[type="text"],
-  #user-register-form #edit-account .form-item-mail input[type="text"] {
-    width: 45%;
-  }
-  #user-register-form #edit-account label[for="edit-pass-pass2"] {
-    width: 26.3%;
   }
 }
 #user-register-form div#edit-actions {

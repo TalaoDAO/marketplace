@@ -1,7 +1,7 @@
-AuthType Basic
-AuthName "Password Protected Area"
-AuthUserFile /var/www/.htpasswd
-Require valid-user
+#AuthType Basic
+#AuthName "Password Protected Area"
+#AuthUserFile /var/www/.htpasswd
+#Require valid-user
 #
 # Apache/PHP/Drupal settings:
 #
