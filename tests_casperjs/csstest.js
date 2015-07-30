@@ -158,7 +158,7 @@ casper.test.begin('Testing roles environnement', function suite(test) {
         this.test.assertExists('body.logged-in', 'Drupal class for logged-in users was found.');
         phantomcss.screenshot('body', 'Expert Homepage Body');
       // });
-    });
+    }
 
     this.then().each(urls, function(self, link) {
       self.thenOpen(link, function() {
