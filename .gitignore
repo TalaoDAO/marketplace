@@ -27,3 +27,10 @@ nbproject
 .hg
 atlassian-ide-plugin.xml
 *~
+
+
+# Ignore CasperJS tests node_modules
+tests_casperjs/node_modules/
+tests_casperjs/screenshots/
+tests_casperjs/failures/
+tests_casperjs/results/
