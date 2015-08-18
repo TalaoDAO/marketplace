@@ -14,6 +14,9 @@ sites/*/private
 sites/all/themes/emindhub/src/node_modules
 sites/all/themes/emindhub/css/*.map
 
+# Ignore old theme files
+sites/all/themes/emindhub/css/emindhub.css
+
 # Ignore IDE and OS-related files
 .buildpath
 .metadata
