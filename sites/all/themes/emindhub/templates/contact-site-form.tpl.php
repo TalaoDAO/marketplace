@@ -96,7 +96,7 @@ $fieldCivility = $form['civility'];
                     ?>
                 </div>
                 <div class="col-md-6">
-                    <span class="required">*</span><?php print c_szRequiredField; ?>
+                    <?php print c_szRequiredField; ?> <span class="required">*</span>
                 </div>
             </div>
         </div>
