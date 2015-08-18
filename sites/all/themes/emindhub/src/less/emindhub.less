@@ -1,5 +1,6 @@
 // Bootstrap
 @import "bootstrap.less";
+// @import "fonts.less";
 @import "variables.less";
 @import "emindhub-structure.less";
 @import "emindhub-styles.less";
@@ -19,12 +20,12 @@
 }
 
 html {
-	font-size: 14px !important;
+	font-size: 14px !important; // TODO
 }
 
 body {
-	font-family: Lato !important;
-	color: @darkBlue !important;
+	font-family: @font-family-sans-serif;
+	color: @darkBlue;
 }
 
 table {
@@ -1578,219 +1579,6 @@ table tbody tr:nth-child(even) {
 	}
 }
 
-.registration-form {
-	label {
-		font-weight: normal;
-
-		span:not(.emindhub) {
-			.light-blue-text;
-			.bold;
-		}
-		.emindhub {
-			.bold;
-		}
-	}
-	.form-type-textarea {
-		label {
-			.bold;
-		}
-	}
-	.form-type-checkboxes {
-		label:not(.option) {
-			.bold;
-		}
-	}
-	.sub-title {
-		.bold;
-	}
-
-	.name-field {
-		.form-item {
-			margin: 0;
-		}
-
-		input {
-			float: right;
-			width: 75%;
-		}
-
-		.description {
-			display: none;
-		}
-	}
-	.password input {
-		width: 70%;
-	}
-	.mail .form-item {
-		margin: 0;
-		input {
-			width: 70%;
-		}
-	}
-
-	select {
-		height: 1.8em;
-	}
-
-	.address-block {
-		.row {
-			.paddingD;
-		}
-
-		.form-item {
-			margin: 0;
-
-			.required {
-				margin: 0;
-			}
-
-		}
-
-		.street-line input[type="text"] {
-			width: 60%;
-		}
-
-		.description {
-			display: none;
-		}
-
-		.phone-field {
-			label {
-				display: none;
-			}
-
-			.form-item input[type="text"] {
-				width: 100%;
-			}
-		}
-	}
-
-	.blog-block {
-		&-titles {
-			padding: 0;
-			margin: 0;
-
-			.col-md-12 {
-				padding-left: 0;
-			}
-		}
-
-		input {
-			width: 100%;
-		}
-	}
-
-	.description-custom {
-		font-size: .8em;
-		font-style: italic;
-	}
-
-	.hide-field-label {
-		.form-item {
-			margin: 0;
-			input[type="text"] {
-				width: 100%;
-			}
-		}
-		label {
-			display: none;
-		}
-		.description {
-			display: none;
-		}
-	}
-
-	.skills-set-container {
-		.sticky-header {
-			background-color: @lightGrey;
-		}
-
-		table {
-			width: 100%;
-			tbody tr {
-				text-align: left;
-
-				&:nth-child(even) {
-					background-color: transparent;
-				}
-
-				.field-name-field-skill-autoeval {
-					display: inline-block;
-				}
-
-				.field-name-field-year-of-experiences {
-					display: inline-block;
-					padding-left: 3em;
-				}
-			}
-		}
-	}
-
-	.visibility-checkboxes {
-		.form-wrapper {
-			padding: 0;
-		}
-	}
-
-	.register-complement {
-		.form-item {
-			margin: 0;
-		}
-
-		.known-specific label {
-			display: none;
-		}
-	}
-
-	.validate-btn-container {
-		text-align: center;
-
-		input[type=submit] {
-			// .upper;
-			// .bold;
-			height: 2.5em;
-			background-color: @lightBlue;
-			// color: @white !important;
-			// border: none;
-			// border-radius: @borderRadius !important;
-		}
-	}
-
-	.chosen-choices {
-		input[type="text"] {
-			width: inherit !important;
-		}
-	}
-
-	.chosen-drop {
-		min-width: 30.4em;
-		width: 50%;
-	}
-
-	.interest {
-		.chosen-drop {
-			top: 1em;
-		}
-	}
-	.domain-select {
-		.chosen-drop {
-			top: -0.3em;
-		}
-	}
-
-	.form-type-select {
-		select {
-			visibility: hidden;
-			position: fixed;
-		}
-
-		.form-type-select {
-			height: 3.8em;
-			top: -1em;
-			position: inherit;
-		}
-	}
-}
 
 label {
 	// width: 15%;
@@ -2789,16 +2577,16 @@ fieldset.collapsed {
 				}
 
 				.views-slideshow-cycle-main-frame-row {
-//					padding-right: 1.5em;
+					// padding-right: 1.5em;
 					width: 100% !important;
 					border: 1px @softGrey solid;
 					padding: 1em;
 					height: auto !important;
-//					height: auto;
+					// height: auto;
 
 					.views-row {
-//						position: relative;
-//						top: -1em;
+						// position: relative;
+						// top: -1em;
 
 						.bubble {
 							display: inline-block;
@@ -2806,7 +2594,7 @@ fieldset.collapsed {
 					}
 
 					div.bold.upper.inline.bubble span.field-content a {
-						//padding-left: 0.4em;
+						// padding-left: 0.4em;
 						display: inline-block;
 					}
 				}
@@ -2818,113 +2606,6 @@ fieldset.collapsed {
 			.bubble;
 			text-align: left;
 			background-position: 1% 70%;
-		}
-	}
-
-	&-contactform {
-		div.required {
-			display: inline-block;
-		}
-
-		input[type="text"] {
-			padding: 6px 12px;
-			margin-left: 0;
-			height: @px28;
-		}
-
-		select.form-control-custom {
-			height: @rpx29;
-			padding-top: @px3;
-		}
-
-		select {
-//			margin-left: 0.5em;
-			width: 75.5%;
-			color: @darkBlue;
-			color: rgba(76, 97, 114, 0.6);
-		}
-
-		span.required {
-			color: @lightBlue;
-		}
-
-		.form-item {
-			margin-top: 0;
-			margin-bottom: 0;
-		}
-
-		textarea {
-			border: none;
-			background-color: @softGrey;
-			width: 95%;
-			padding-top: 0.7em;
-			padding-left: 0.75em;
-
-			& + .grippie {
-				display: none;
-			}
-		}
-
-		.form-actions {
-			margin-top: 0;
-			margin-bottom: 0;
-
-			input[type=submit] {
-				background-color: @lightBlue;
-				margin-top: 0;
-			}
-		}
-
-		.col-md-6 > span.required {
-			position: inherit;
-			top: 0;
-			padding-right: 1em;
-		}
-
-		.form-wrapper > div {
-			display: inline-block;
-			width: 95%;
-
-			&.form-type-select {
-				display: inline;
-				select {
-					width: 89%;
-				}
-
-				@media (min-width: @screen-sm) {
-					& + span.required {
-						padding-left: 0.7em;
-					}
-				}
-
-				@media (min-width: @screen-md) {
-					& + span.required {
-						padding-left: 1em;
-					}
-				}
-
-				@media (max-width: @screen-xs) {
-					& + span.required {
-						margin-left: 1.4em;
-					}
-				}
-
-				@media (max-width: @screen-xxs) {
-					& + span.required {
-						margin-left: 0.8em;
-					}
-				}
-
-				& + span.required {
-					position: inherit;
-				}
-			}
-
-			&.form-type-textarea {
-				& + span.required {
-					position: inherit;
-				}
-			}
 		}
 	}
 
@@ -2954,7 +2635,7 @@ fieldset.collapsed {
 			color: @burgerMenuGrey;
 			margin-left: @px32;
 			margin-right: 1.875em;
-//			padding-right: 67px;
+			// padding-right: 67px;
 
 			.option {
 				padding-left: @px33;

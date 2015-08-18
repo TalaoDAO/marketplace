@@ -5,3 +5,217 @@
 	}
 
 }
+
+.registration-form {
+	label {
+		font-weight: normal;
+
+		span:not(.emindhub) {
+			.light-blue-text;
+			.bold;
+		}
+		.emindhub {
+			.bold;
+		}
+	}
+	.form-type-textarea {
+		label {
+			.bold;
+		}
+	}
+	.form-type-checkboxes {
+		label:not(.option) {
+			.bold;
+		}
+	}
+	.sub-title {
+		.bold;
+	}
+
+	.name-field {
+		.form-item {
+			margin: 0;
+		}
+
+		input {
+			float: right;
+			width: 75%;
+		}
+
+		.description {
+			display: none;
+		}
+	}
+	.password input {
+		width: 70%;
+	}
+	.mail .form-item {
+		margin: 0;
+		input {
+			width: 70%;
+		}
+	}
+
+	select {
+		height: 1.8em;
+	}
+
+	.address-block {
+		.row {
+			.paddingD;
+		}
+
+		.form-item {
+			margin: 0;
+
+			.required {
+				margin: 0;
+			}
+
+		}
+
+		.street-line input[type="text"] {
+			width: 60%;
+		}
+
+		.description {
+			display: none;
+		}
+
+		.phone-field {
+			label {
+				display: none;
+			}
+
+			.form-item input[type="text"] {
+				width: 100%;
+			}
+		}
+	}
+
+	.blog-block {
+		&-titles {
+			padding: 0;
+			margin: 0;
+
+			.col-md-12 {
+				padding-left: 0;
+			}
+		}
+
+		input {
+			width: 100%;
+		}
+	}
+
+	.description-custom {
+		font-size: .8em;
+		font-style: italic;
+	}
+
+	.hide-field-label {
+		.form-item {
+			margin: 0;
+			input[type="text"] {
+				width: 100%;
+			}
+		}
+		label {
+			display: none;
+		}
+		.description {
+			display: none;
+		}
+	}
+
+	.skills-set-container {
+		.sticky-header {
+			background-color: @lightGrey;
+		}
+
+		table {
+			width: 100%;
+			tbody tr {
+				text-align: left;
+
+				&:nth-child(even) {
+					background-color: transparent;
+				}
+
+				.field-name-field-skill-autoeval {
+					display: inline-block;
+				}
+
+				.field-name-field-year-of-experiences {
+					display: inline-block;
+					padding-left: 3em;
+				}
+			}
+		}
+	}
+
+	.visibility-checkboxes {
+		.form-wrapper {
+			padding: 0;
+		}
+	}
+
+	.register-complement {
+		.form-item {
+			margin: 0;
+		}
+
+		.known-specific label {
+			display: none;
+		}
+	}
+
+	.validate-btn-container {
+		text-align: center;
+
+		input[type=submit] {
+			// .upper;
+			// .bold;
+			height: 2.5em;
+			background-color: @lightBlue;
+			// color: @white !important;
+			// border: none;
+			// border-radius: @borderRadius !important;
+		}
+	}
+
+	.chosen-choices {
+		input[type="text"] {
+			width: inherit !important;
+		}
+	}
+
+	.chosen-drop {
+		min-width: 30.4em;
+		width: 50%;
+	}
+
+	.interest {
+		.chosen-drop {
+			top: 1em;
+		}
+	}
+	.domain-select {
+		.chosen-drop {
+			top: -0.3em;
+		}
+	}
+
+	.form-type-select {
+		select {
+			visibility: hidden;
+			position: fixed;
+		}
+
+		.form-type-select {
+			height: 3.8em;
+			top: -1em;
+			position: inherit;
+		}
+	}
+}
