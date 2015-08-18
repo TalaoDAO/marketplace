@@ -1,0 +1,17 @@
+{
+  "name": "tests_casperjs",
+  "version": "1.0.0",
+  "description": "CasperJS tests for eMindHub project",
+  "devDependencies": {
+    "phantomcss": "^0.10.2"
+  },
+  "keywords": [
+    "node.js",
+    "CasperJS",
+    "PhantomJS",
+    "PhantomCSS",
+    "Drupal"
+  ],
+  "author": "Laetitia Debruyne",
+  "license": "ISC"
+}

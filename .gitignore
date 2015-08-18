@@ -2,6 +2,7 @@ sites/all/modules/.notused
 sites/all/modules/.unused
 sites/all/modules/debug
 
+
 # Ignore configuration files that may contain sensitive information.
 sites/*/settings*.php
 sites/*/local.settings*.php
@@ -10,12 +11,19 @@ sites/*/local.settings*.php
 sites/*/files
 sites/*/private
 
+
 # Ignore gulp files
 sites/all/themes/emindhub/src/node_modules
 sites/all/themes/emindhub/css/*.map
 
+
 # Ignore old theme files
 sites/all/themes/emindhub/css/emindhub.css
+sites/all/themes/emindhub/css/*.css.map
+sites/all/themes/emindhub/templates/unused/
+!sites/all/themes/emindhub/css/bootstrap.css
+sites/all/themes/emindhub/src/node_modules/
+
 
 # Ignore IDE and OS-related files
 .buildpath
@@ -29,3 +37,10 @@ nbproject
 .hg
 atlassian-ide-plugin.xml
 *~
+
+
+# Ignore CasperJS tests node_modules
+tests_casperjs/node_modules/
+tests_casperjs/screenshots/
+tests_casperjs/failures/
+tests_casperjs/results/
