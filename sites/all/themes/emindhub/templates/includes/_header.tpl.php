@@ -5,7 +5,7 @@
 
 		<div class="col-sm-4 col-xs-12 header-emindhub">
 			<?php if ($logo): ?>
-				<a href="<?php print url("homepage"); ?>"><?php print $imagelogo; ?></a>
+				<?php print $imagelogo; ?>
 			<?php endif; ?>
 			<?php if (user_is_logged_in()): ?>
 				<div class="burger-menu-btn-container" onclick="onClickBurgerMenuBtn()">
