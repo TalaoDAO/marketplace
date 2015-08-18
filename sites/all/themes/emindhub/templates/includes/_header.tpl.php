@@ -30,19 +30,16 @@
 						foreach ($firstMenu as $index => $menuEntry) {
 							if (strpos(strtolower($menuEntry), "sign-in") !== false) {  //looking for a class name added by template.php fn GetMenu() ?>
 									<button id="signIn" type="button" class="btn btn-link user-menu sign-in" data-placement="bottom" data-template='<div class="popover signIn" role="tooltip"><div class="arrow"></div><div class="popover-content signInContent"></div></div>'><?php print $menuEntry; ?></button>
-									<div id="signInContent" style="display: none">
-										<?php print c_szLoginToEmh; ?>
-										<?php $tmp = drupal_get_form('user_login_block');
-										print drupal_render($tmp); ?>
+									<div id="signInContent" style="display: none;">
+										<h4><?php print c_szLoginToEmh; ?></h4>
+										<?php print drupal_render(drupal_get_form('user_login_block')); ?>
 									</div>
 								<?php
 							}
 							else if (strpos(strtolower($menuEntry), "sign-up") !== false) {  //looking for a class name added by template.php fn GetMenu() ?>
 									<button id="signUp" type="button" class="btn btn-link user-menu sign-up" data-placement="bottom" data-template='<div class="popover signUp" role="tooltip"><div class="arrow"></div><div class="popover-content signUpContent"></div></div>'><?php print $menuEntry; ?></button>
-									<div id="signUpContent" style="display: none">
-									  <?php print c_szSignIn; ?>
-									  <span class="light-blue-text"><?php print c_szInAMinute; ?></span>
-									  <?php print c_szStart; ?>
+									<div id="signUpContent" style="display: none;">
+									  <h4><?php print c_szSignIn; ?><span class="light-blue-text"><?php print c_szInAMinute; ?></span><?php print c_szStart; ?></h4>
 									  <a href="<?php print url("business/register"); ?>" class="btn btn-primary signin"><?php print c_szSeeker; ?></a>
 									  <a href="<?php print url("expert/register"); ?>" class="btn btn-primary signin"><?php print c_szExpert; ?></a>
 								  </div>
