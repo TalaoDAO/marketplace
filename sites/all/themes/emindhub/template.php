@@ -8,10 +8,35 @@ require_once("inc/menus.php");
 require_once("inc/regions.php");
 require_once("inc/blocks.php");
 
-//============================================================================
-// CONTACT FORM CUSTOMIZATION SECTION
 
-
+// function emindhub_css_alter(&$css) {
+//
+//   unset($css['sites/all/modules/contrib/jquery_update/replace/ui/themes/base/minified/jquery.ui.resizable.min.css']);
+//   unset($css['sites/all/modules/contrib/jquery_update/replace/ui/themes/base/minified/jquery.ui.button.min.css']);
+//   unset($css['sites/all/modules/contrib/jquery_update/replace/ui/themes/base/minified/jquery.ui.dialog.min.css']);
+//   // unset($css['sites/all/libraries/chosen/chosen.css']);
+//   // unset($css['sites/all/modules/contrib/chosen/css/chosen-drupal.css']);
+//   unset($css['sites/all/modules/contrib/jquery_update/replace/ui/themes/base/minified/jquery.ui.menu.min.css']);
+//   unset($css['sites/all/modules/contrib/jquery_update/replace/ui/themes/base/minified/jquery.ui.autocomplete.min.css']);
+//   unset($css['misc/ui/jquery.ui.core.css']);
+//   unset($css['misc/ui/jquery.ui.theme.css']);
+//   // unset($css['modules/system/system.base.css']);
+//   // unset($css['modules/system/system.base.css']);
+//   // unset($css['modules/system/system.menus.css']);
+//   // unset($css['modules/system/system.messages.css']);
+//   // unset($css['modules/system/system.theme.css']);
+//   // unset($css['modules/overlay/overlay-parent.css']);
+//   // unset($css['modules/comment/comment.css']);
+//   // unset($css['modules/field/theme/field.css']);
+//   // unset($css['modules/node/node.css']);
+//   // unset($css['modules/search/search.css']);
+//   // unset($css['modules/user/user.css']);
+//   // unset($css['sites/all/modules/ctools/css/ctools.css']);
+//   // unset($css['sites/all/modules/panels/css/panels.css']);
+//   // unset($css['sites/all/modules/toolbar_hide/toolbar_hide.css']);
+//   // unset($css['modules/shortcut/shortcut.css']);
+//   // unset($css['modules/toolbar/toolbar.css']);
+// }
 
 function emindhub_date_combo($variables) {
   return theme('form_element', $variables);
