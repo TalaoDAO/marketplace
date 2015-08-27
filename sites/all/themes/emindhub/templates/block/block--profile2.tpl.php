@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Default theme implementation to display a block.
@@ -37,32 +36,29 @@
  * - $is_admin: Flags true when the current user is an administrator.
  * - $block_html_id: A valid HTML ID and guaranteed unique.
  *
+ * @see bootstrap_preprocess_block()
  * @see template_preprocess()
  * @see template_preprocess_block()
+ * @see bootstrap_process_block()
  * @see template_process()
  *
  * @ingroup themeable
  */
 ?>
-<div id="<?php print $block_html_id; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
+<section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-    <?php print render($title_prefix); ?>
+  <?php if (!$page): ?>
+  <?php print render($title_prefix); ?>
+  <?php if ($title): ?>
+    <h2<?php print $title_attributes; ?>><span><?php print $title; ?></span></h2>
+  <?php endif;?>
+  <?php print render($title_suffix); ?>
+  <?php endif;?>
 
-    <?php if ($block->region != "topmenu"): ?>
-        <?php if ($block->subject): ?>
-            <div class="row paddingUD">
-                <div class="col-xs-12 light-blue-text bold">
-                    <div class="line">
-                        <h2<?php print $title_attributes; ?>><?php print $block->subject ?></h2>
-                    </div>
-                </div>
-            </div>
-        <?php endif;?>
-    <?php endif;?>
-
-    <?php print render($title_suffix); ?>
-
-    <div class="content"<?php print $content_attributes; ?>>
-        <?php print $content ?>
+  <?php if ($content): ?>
+    <div class="content">
+      <?php print $content ?>
     </div>
-</div>
+  <?php endif;?>
+
+</section> <!-- /.block -->

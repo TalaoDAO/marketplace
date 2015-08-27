@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Default theme implementation to display a block.
@@ -37,27 +36,45 @@
  * - $is_admin: Flags true when the current user is an administrator.
  * - $block_html_id: A valid HTML ID and guaranteed unique.
  *
+ * @see bootstrap_preprocess_block()
  * @see template_preprocess()
  * @see template_preprocess_block()
+ * @see bootstrap_process_block()
  * @see template_process()
  *
  * @ingroup themeable
  */
-
 ?>
-<div id="<?php print $block_html_id; ?>" class="<?php print $classes . " expert-advantages"; ?>"<?php print $attributes; ?>>
+<section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-    <?php print render($title_prefix); ?>
-    <?php if ($block->subject): ?>
-        <h2<?php print $title_attributes; ?>><?php print $block->subject ?></h2>
-    <?php endif;?>
-    <?php print render($title_suffix); ?>
+  <?php print render($title_prefix); ?>
+  <?php if ($title): ?>
+    <h2<?php print $title_attributes; ?>><span><?php print $title; ?></span></h2>
+  <?php endif;?>
+  <?php print render($title_suffix); ?>
 
-    <div class="content"<?php print $content_attributes; ?>>
-        <?php print $content ?>
+  <?php if ($content): ?>
+    <div class="content">
+      <?php print $content ?>
     </div>
+  <?php endif;?>
 
-    <div class="block-footer">
-        <?php print c_szClickToZoom; ?>
-    </div>
-</div>
+  <script type='text/javascript'>
+  (function ($) {
+  var global_filter   = $('#global-filter-1');
+  var all_checkbox    = global_filter.find('#edit-field-domaine-'); // all checkbox input
+  var checkboxes;
+  all_checkbox.change(function () {
+    if($(this).is(':checked')) {
+      checkboxes = global_filter.find('#edit-field-domaine .form-item input:not(:checked)'); // all checkboxes
+      checkboxes.attr('checked', true);
+    } else {
+      checkboxes = global_filter.find('#edit-field-domaine .form-item input:checked'); // all checkboxes
+      checkboxes.attr('checked', false);
+    }
+  });
+
+  }(jQuery));
+  </script>
+
+</section> <!-- /.block -->

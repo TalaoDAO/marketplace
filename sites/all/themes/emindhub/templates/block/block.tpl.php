@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Default theme implementation to display a block.
@@ -16,8 +15,8 @@
  *   following:
  *   - block: The current template type, i.e., "theming hook".
  *   - block-[module]: The module generating the block. For example, the user
- *	 module is responsible for handling the default user navigation block. In
- *	 that case the class would be 'block-user'.
+ *     module is responsible for handling the default user navigation block. In
+ *     that case the class would be 'block-user'.
  * - $title_prefix (array): An array containing additional output populated by
  *   modules, intended to be displayed in front of the main title tag that
  *   appears in the template.
@@ -37,26 +36,27 @@
  * - $is_admin: Flags true when the current user is an administrator.
  * - $block_html_id: A valid HTML ID and guaranteed unique.
  *
+ * @see bootstrap_preprocess_block()
  * @see template_preprocess()
  * @see template_preprocess_block()
+ * @see bootstrap_process_block()
  * @see template_process()
  *
  * @ingroup themeable
  */
 ?>
-<div id="<?php print $block_html_id; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
+<section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-	<?php print render($title_prefix); ?>
-	<?php if ($block->subject): ?>
-		<div class="paddingU" >
-			<h2 class="burgermenu-title"><?php print $block->subject ?></h2>
-      <img class="burgermenu-close-icon" src="<?php print getImgSrc('bmClose.png'); ?>" onclick="onClickBurgerMenuBtn()" />
-		</div>
-	<?php endif; ?>
+  <?php print render($title_prefix); ?>
+  <?php if ($title): ?>
+    <h2<?php print $title_attributes; ?>><span><?php print $title; ?></span></h2>
+  <?php endif;?>
+  <?php print render($title_suffix); ?>
 
-	<?php print render($title_suffix); ?>
+  <?php if ($content): ?>
+    <div class="content">
+      <?php print $content ?>
+    </div>
+  <?php endif;?>
 
-	<div class="content"<?php print $content_attributes; ?>>
-		<?php print $content ?>
-	</div>
-</div>
+</section> <!-- /.block -->
