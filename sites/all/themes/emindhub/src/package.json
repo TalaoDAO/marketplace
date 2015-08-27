@@ -38,7 +38,8 @@
     "csslint": "~0.10.0"
   },
   "devDependencies": {
-    "gulp-sourcemaps": "^1.5.0",
-    "gulp": "~3.8.11"
+    "gulp": "~3.8.11",
+    "gulp-debug": "^0.3.1",
+    "gulp-sourcemaps": "^1.5.0"
   }
 }
