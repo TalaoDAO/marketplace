@@ -14,7 +14,7 @@ var sourcemaps   = require('gulp-sourcemaps');
 
 var theme_path  = "../";
 var watch_files = [theme_path + 'src/less/**/*.less'];
-var src_less    = [theme_path + 'src/less/emindhub.less'];
+var src_less    = [theme_path + 'src/less/style.less'];
 
 w = process.cwd();
 
