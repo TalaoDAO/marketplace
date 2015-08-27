@@ -1,24 +1,110 @@
-.page-contact {
+form#contact-site-form {
+
+  .form-item {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  textarea {
+    border: none;
+    background-color: @softGrey;
+    // width: 95%;
+    padding: 6px 12px;
+
+    & + .grippie {
+      display: none;
+    }
+  }
+
+  .form-actions {
+    margin-top: 0;
+    margin-bottom: 0;
+
+    input[type=submit] {
+      background-color: @brand-primary;
+      margin: 0;
+    }
+  }
+
+  // .col-md-6 > span.required {
+  //   position: inherit;
+  //   top: 0;
+  //   padding-right: 1em;
+  // }
+
+  .form-wrapper > div {
+    display: inline-block;
+    width: 95%;
+
+    &.form-type-select {
+      display: inline;
+      select {
+        width: 89%;
+      }
+
+      // @media (min-width: @screen-sm) {
+      //   & + span.required {
+      //     padding-left: 0.7em;
+      //   }
+      // }
+      //
+      // @media (min-width: @screen-md) {
+      //   & + span.required {
+      //     padding-left: 1em;
+      //   }
+      // }
+      //
+      // @media (max-width: @screen-xs) {
+      //   & + span.required {
+      //     margin-left: 1.4em;
+      //   }
+      // }
+      //
+      // @media (max-width: @screen-xxs) {
+      //   & + span.required {
+      //     margin-left: 0.8em;
+      //   }
+      // }
+      //
+      // & + span.required {
+      //   position: inherit;
+      // }
+    }
+
+    // &.form-type-textarea {
+    //   & + span.required {
+    //     position: inherit;
+    //   }
+    // }
+  }
+
+	input.required:after {
+		color: red;
+		content: "*";
+		// position: absolute;
+		// margin-left: -15px;
+	}
 
 	.content {
-		div.form-item {
-			display: inline;
-		}
 
-		div.form-textarea-wrapper {
-			display: inline-block;
-		}
+		// div.form-item {
+		// 	display: inline;
+		// }
+		//
+		// div.form-textarea-wrapper {
+		// 	display: inline-block;
+		// }
 
-		div.form-type-textarea {
-			padding-left: 0.4em;
-		}
-
-		div.form-type-select {
-			padding-left: 0.5em;
-		}
-
-		.form-control-custom {
-			width: 53.2%;
-		}
+		// div.form-type-textarea {
+		// 	padding-left: 0.4em;
+		// }
+		//
+		// div.form-type-select {
+		// 	padding-left: 0.5em;
+		// }
+		//
+		// .form-control-custom {
+		// 	width: 53.2%;
+		// }
 	}
 }

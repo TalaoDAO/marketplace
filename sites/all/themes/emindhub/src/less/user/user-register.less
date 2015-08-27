@@ -219,3 +219,124 @@
 		}
 	}
 }
+
+
+#user-register-form {
+
+  input,
+  .confirm-parent, .password-parent {
+    max-width: 100%;
+  }
+
+	.group-background {
+		margin-top: 0;
+	}
+
+  @media (min-width: @screen-sm-min) {
+  	.group-oneliner {
+  		> div {
+  			// width: 50%;
+
+  			input[type="text"] {
+  				// width: 65%;
+  			}
+  		}
+
+  		div:last-of-type {
+  			margin: 0;
+  		}
+
+  		label {
+  			display: inline-block;
+  		}
+  	}
+
+    label {
+  		// width: 29%
+  	}
+
+    .form-item-field-entreprise-und-0-target-id {
+  		input[type="text"] {
+  			// width: 32.5%;
+  		}
+
+  		label {
+  			// width: 14.5% !important;
+  		}
+  	}
+
+    .formtips-wrapper {
+  		display: inline-block;
+
+  		label {
+  			display: inline;
+  		}
+  	}
+
+    input.password-field,
+  	input.password-confirm {
+  		width: 50.7%;
+  		margin: 0;
+  	}
+
+    #edit-account {
+  		.form-item-name,
+  		.form-item-mail {
+  			.formtips-wrapper {
+  				// width: 22%;
+  			}
+
+  			input[type="text"] {
+  				// width: 45%;
+  			}
+  		}
+
+  		label[for="edit-pass-pass2"] {
+  			// width: 26.3%;
+  		}
+  	}
+
+  }
+
+	div#edit-actions {
+		text-align: center;
+	}
+
+	.form-type-password {
+		margin-top: 1em;
+		margin-bottom: 1em;
+	}
+
+	div.password-confirm {
+		position: absolute;
+		right: 3em;
+		top: -1.25em;
+		width: auto;
+	}
+
+	div.password-strength {
+		display: none;
+		width: auto;
+	}
+
+	.form-type-password {
+		.formtips-wrapper {
+			width: 26.3%;
+		}
+	}
+
+	input[type="text"] {
+		border: none;
+		line-height: 1.8em;
+	}
+
+	input[type=password] {
+		border: none;
+		line-height: 1.8em;
+	}
+
+	select {
+		border: none;
+		background-color: @softGrey;
+	}
+}

@@ -1,120 +1,392 @@
-form#user-login-form {
-  label {
-    display: none;
+aside {
+  margin-top: 15px;
+  .block {
+    .emh-block-normal;
   }
-  .login-links {
-    font-size: @px12;
-    a {
-      font-style: italic;
+}
+
+
+@media (max-width: @screen-sm-min) {
+  .block {
+    margin-bottom: 15px;
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 }
 
 
-#block-formblock-contact-site {
-  // div.required {
-  //   display: inline-block;
-  // }
+// Registration
+#block-block-2 {
+  a.btn {
+    .text-uppercase;
+    padding: 6px 24px;
+    font-weight: 700;
+  }
+}
 
-  // input[type="text"] {
-  //   padding: 6px 12px;
-  //   margin-left: 0;
-  //   height: @px28;
-  // }
-  //
-  // select.form-control-custom {
-  //   height: @rpx29;
-  //   padding-top: @px3;
-  // }
-  //
-  // select {
-  //   // margin-left: 0.5em;
-  //   width: 75.5%;
-  //   color: @darkBlue;
-  //   color: rgba(76, 97, 114, 0.6);
-  // }
+// Homepage : baseline
+#block-block-7 {
+  p {
+    &:first-of-type,
+    &:last-of-type {
+      color: #8CD4F2;
+    }
+  }
+}
 
-  span.required {
-    color: @lightBlue;
+// Homepage : request
+#block-block-8 {
+  p {
+    &:first-of-type,
+    &:last-of-type strong {
+      color: #009FE3;
+    }
+  }
+}
+
+// Homepage : expertise
+#block-block-9 {
+  p {
+    &:first-of-type,
+    &:last-of-type strong {
+      color: #C89234;
+    }
+  }
+}
+
+// Homepage : Experts
+#block-block-10,
+#block-block-11,
+#block-block-12 {
+  .content {
+    background-repeat: no-repeat;
+  }
+  a {
     display: block;
-    float: right;
-  }
+    text-decoration: none;
 
-  .form-item {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
+    span.default-text {
+      .text-uppercase;
+      color: #009FE3;
+      font-size: 18px;
 
-  textarea {
-    border: none;
-    background-color: @softGrey;
-    width: 95%;
-    padding: 6px 12px;
-
-    & + .grippie {
-      display: none;
-    }
-  }
-
-  .form-actions {
-    margin-top: 0;
-    margin-bottom: 0;
-
-    input[type=submit] {
-      background-color: @lightBlue;
-      margin: 0;
-    }
-  }
-
-  // .col-md-6 > span.required {
-  //   position: inherit;
-  //   top: 0;
-  //   padding-right: 1em;
-  // }
-
-  .form-wrapper > div {
-    display: inline-block;
-    width: 95%;
-
-    &.form-type-select {
-      display: inline;
-      select {
-        width: 89%;
+      span {
+        font-weight: bold;
       }
 
-      // @media (min-width: @screen-sm) {
-      //   & + span.required {
-      //     padding-left: 0.7em;
-      //   }
-      // }
-      //
-      // @media (min-width: @screen-md) {
-      //   & + span.required {
-      //     padding-left: 1em;
-      //   }
-      // }
-      //
-      // @media (max-width: @screen-xs) {
-      //   & + span.required {
-      //     margin-left: 1.4em;
-      //   }
-      // }
-      //
-      // @media (max-width: @screen-xxs) {
-      //   & + span.required {
-      //     margin-left: 0.8em;
-      //   }
-      // }
-      //
-      // & + span.required {
-      //   position: inherit;
-      // }
+      div {
+        color: #4C6172;
+        font-size: 14px;
+      }
     }
 
-    // &.form-type-textarea {
-    //   & + span.required {
-    //     position: inherit;
-    //   }
-    // }
+    span.hover {
+      z-index: 100;
+      cursor: pointer;
+      transition: all 0.5s ease 0s;
+      background-color: #4C6172;
+      color: #FFF;
+
+      span {
+        text-transform: uppercase;
+        display: block;
+      }
+    }
+  }
+
+  @media (max-width: @screen-sm-min) {
+    span.default-text {
+      display: block;
+      padding: 15px;
+      div {
+        .hidden();
+      }
+    }
+    span.hover {
+      display: block;
+      padding: 15px;
+    }
+  }
+
+  @media (min-width: @screen-sm-min) {
+    .content {
+      background-position: 5% 50%;
+      position: relative;
+    }
+    a {
+      padding: 4em 0.3em 2em 13em;
+      height: 12em;
+
+      span.default-text {
+        span {
+          display: block;
+        }
+      }
+
+      span.hover {
+        display: none;
+        z-index: 100;
+        cursor: pointer;
+        transition: all 0.5s ease 0s;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        padding: 1.5em 2.12em;
+        height: 12em;
+
+        span {
+          position: absolute;
+          bottom: 1.5em;
+        }
+      }
+
+      &:hover {
+        span.hover {
+          display: block;
+        }
+      }
+    }
+  }
+}
+@media (min-width: @screen-sm-min) {
+  body.not-logged-in {
+    #block-block-10 .content { background-image: url("../images/askQuestion.png"); }
+    #block-block-11 .content { background-image: url("../images/launchChallenge.png"); }
+    #block-block-12 .content { background-image: url("../images/findExpert.png"); }
+  }
+  body.logged-in {
+    #block-block-10 .content { background-image: url("../images/answerQuestion.png"); }
+    #block-block-11 .content { background-image: url("../images/answerChallenge.png"); }
+    #block-block-12 .content { background-image: url("../images/answerExpertCall.png"); }
+    #block-block-10 .content a span.default-text,
+    #block-block-11 .content a span.default-text,
+    #block-block-12 .content a span.default-text { color: @darkerBlue; }
+  }
+}
+
+
+// Homepage : Experts
+#block-block-15 {
+  .content {
+    font-size: 16px;
+    ul {
+      list-style: none;
+      padding: 0;
+      li {
+        padding-left: 75px;
+        background-repeat: no-repeat;
+        background-position: top left;
+        margin-bottom: 30px;
+        min-height: 55px;
+        &:first-child {
+          background-image: url("../images/atomium.png");
+        }
+        &:last-child {
+          background-image: url("../images/people.png");
+        }
+      }
+    }
+    strong {
+      .emh-blue;
+      font-weight: inherit;
+      display: block;
+    }
+  }
+}
+#block-block-16 {
+  .content {
+    background: transparent url("../images/ondes.png") no-repeat center center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    ul {
+      list-style: none;
+      padding: 0;
+      .make-row();
+      li {
+        .make-sm-column(4);
+        .text-uppercase;
+
+        &.tip-experts {
+          @media (min-width: @screen-sm-min) {
+            margin-left: 16.6667%;
+          }
+        }
+
+        a {
+          display: block;
+          padding-top: 1.18em;
+          padding-bottom: 1.18em;
+          text-decoration: none;
+          color: inherit;
+          font-size: 16px;
+          padding-left: 75px;
+          background-repeat: no-repeat;
+          background-position: top left;
+          background-image: url("../images/cercle.png");
+          height: 70px;
+        }
+      }
+    }
+  }
+}
+
+
+
+#block-block-18,
+#block-block-19,
+#block-block-20 {
+  .block-title {
+    padding-top: 4.5em;
+    padding-bottom: 0.5em;
+    background-repeat: no-repeat;
+    background-position: 50% 20%;
+  }
+  .content {
+    padding-bottom: 1.7em;
+  }
+}
+#block-block-18 .block-title { background-image: url("../images/rapidityHeader.png"); }
+#block-block-19 .block-title { background-image: url("../images/securityHeader.png"); }
+#block-block-20 .block-title { background-image: url("../images/qualityHeader.png"); }
+#block-block-10 {
+  clear: both;
+}
+
+
+// More about us ?
+#block-formblock-contact-site {
+  border: 0;
+
+  .content {
+    border: 1px solid #D4D9DD;
+    padding: 15px;
+  }
+
+  @media (min-width: @screen-sm-min) {
+    .form-item-civility {
+      .make-sm-column(6);
+      padding-left: 0;
+    }
+    .form-item-firstname {
+      clear: both;
+      .make-sm-column(6);
+      padding-left: 0;
+      padding-right: 7.5px;
+    }
+    .form-item-lastname {
+      .make-sm-column(6);
+      padding-right: 0;
+      padding-left: 7.5px;
+    }
+    .form-item-entreprise {
+      clear: both;
+    }
+    .form-item-phone {
+      .make-sm-column(6);
+      padding-right: 7.5px;
+      padding-left: 0;
+    }
+    .form-item-mail {
+      .make-sm-column(6);
+      padding-right: 0;
+      padding-left: 7.5px;
+    }
+    .form-item-message {
+      clear: both;
+    }
+  }
+}
+
+
+// They use emindhub services
+#block-views-entreprise-list-block {
+
+}
+
+// They are experts in emindhub
+#block-views-users-list-block-2 {
+  .content {
+    background-color: @lightGrey;
+  }
+  .views-field-field-photo {
+    img {
+      border-radius: 100%;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+  .views-field-nothing {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  @media (min-width: @screen-sm-min) {
+    .views-row {
+      .make-row();
+      > * {
+        .make-sm-column(7);
+      }
+    }
+    .views-field-field-photo {
+      .make-sm-column(5);
+    }
+  }
+}
+
+
+// News thread
+#block-views-news-thread-block {
+  h3 {
+    margin: 0;
+    .text-uppercase;
+    font-size: 16px;
+    font-weight: 700;
+    a {
+      color: @darkGrey;
+    }
+  }
+  .views-field-body {
+    font-style: italic;
+  }
+  .view-footer {
+    a {
+      text-decoration: normal;
+    }
+  }
+}
+
+
+
+// Last requests
+.view-query-list {
+  // Filtres
+  form {
+    .form-group {
+      margin-bottom: 0;
+    }
+    #edit-uid-current-wrapper {
+      // clear: both;
+      .make-sm-column(3);
+    }
+    #edit-status-1-wrapper {
+      .make-sm-column(3);
+    }
+  }
+  // Contenu
+  .views-field-field-picto {
+    .text-center;
+  }
+  .views-field-created {
+    .text-center;
+  }
+  .views-field-field-expiration-date {
+    .text-center;
+  }
+  .views-field-field-reward {
+    .text-right;
+  }
+  .views-field-nothing { // TODO : add real class
+    .text-right;
   }
 }

@@ -1,0 +1,651 @@
+/* FORM
+ * Chosen
+ * */
+.chosen-container {
+  max-width: 100%;
+
+  .chosen-results li.active-result {
+    color: @darkBlue;
+    &.highlighted {
+      color: #fff;
+    }
+  }
+}
+
+
+/* FORM
+ * Chosen vs. jQuery UI
+ * I want jQuery UI looks like Chosen widget !
+ * */
+
+ul.ui-autocomplete {
+  padding: 0;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+}
+.ui-widget {
+  font-family: inherit;
+  font-size: 13px;
+}
+.ui-menu .ui-menu-item a {
+  display: list-item;
+  padding: 5px 6px;
+  margin: 0;
+  line-height: 15px;
+  border: 0;
+}
+.ui-menu .ui-menu-item a.ui-state-hover {
+  color: #fff;
+  cursor: pointer;
+}
+.ui-widget-content a {
+  color: #4c6172;
+}
+.ui-corner-all {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+
+.autocomplete-deluxe-item {
+  position: relative;
+  margin: 3px 0 3px 5px;
+  padding: 3px 20px 3px 5px;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  background-color: #e4e4e4;
+  background-image: linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+  background-clip: padding-box;
+  box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05);
+  float: left;
+  color: #333;
+  line-height: 13px;
+  cursor: default;
+
+  .autocomplete-deluxe-item-delete {
+    position: absolute;
+    top: 4px;
+    right: 3px;
+    display: block;
+    width: 12px;
+    height: 12px;
+    background: url('../../../libraries/chosen/chosen-sprite.png') -42px 1px no-repeat;
+    font-size: 1px;
+    cursor: pointer;
+  }
+}
+
+
+/* FORMS
+ * 5 stars rating
+ */
+div.fivestar-widget .cancel, div.fivestar-widget .star {
+  float: none;
+  display: inline-block;
+}
+
+
+/* TABLE
+ * Drag & drop
+ * */
+.draggable {
+  td.field-multiple-drag {
+    text-align: center;
+    vertical-align: middle;
+
+    a.tabledrag-handle {
+      margin-left: 0;
+      padding: 0;
+      text-align: center;
+
+      .handle {
+        margin: 0 0.5em;
+        width: 20px;
+        height: 20px;
+        background-position: center center;
+      }
+    }
+    a.tabledrag-handle-hover {
+      .handle {
+        background-position: center center;
+      }
+    }
+  }
+}
+
+/* FORM elements
+ * */
+
+// .form-control {
+// 	display: inline !important;
+//
+// 	&:not(.search-input) {
+// 		width: auto !important;
+// 	}
+// }
+
+.required:not(select .chosen-container) {
+	display: inline !important;
+	margin-left: .5em;
+}
+
+input {
+	// -webkit-border-radius: 0 !important;
+	// -moz-border-radius: 0 !important;
+	// border-radius: 0 !important;
+}
+
+input:not([type="submit"]) {
+	// background-color: @softGrey !important;
+	background-color: @softGrey;
+}
+
+input[type="password"],
+input[type="text"],
+textarea {
+	// border: none;
+	// line-height: 1.8em;
+	// border-radius: @borderRadius;
+	// padding-left: 0.5em;
+	// margin-left: 0.5em;
+}
+
+input[type="password"].error {
+	background-color: #fff !important;
+}
+
+
+.btn {
+	&-star {
+		.upper;
+		.bold;
+		background-image: url(../images/starBtn.png) !important;
+		background-color: @darkBlue;
+		background-repeat: no-repeat;
+		background-position: 2% 50%;
+		padding-left: 1.9em !important;
+		color: #fff;
+	}
+
+	&-workgroup {
+		.upper;
+		.bold;
+		padding-left: 2.2em !important;
+		background-image: url(../images/workGroupBtn.png) !important;
+		background-color: @expertYellow !important;
+		background-repeat: no-repeat;
+		background-position: 3% 50%;
+		color: #fff;
+	}
+	&-expert {
+		.upper;
+		.bold;
+		color: #fff;
+		background-color: @expertYellow;
+	}
+
+	&-primary {
+		background-color: @brand-primary;
+		border: 0 !important;
+		margin-bottom: .5em;
+	}
+
+	&-draft {
+		.upper;
+		.bold;
+
+		background-color: @darkBlue !important;
+		background-image: url(../images/draftBtn.png) !important;
+		background-repeat: no-repeat;
+		background-position: 5% 50%;
+		padding-left: 1.5em !important;
+		color: #fff;
+	}
+	&-cancel {
+		.upper;
+		.bold;
+
+		background-color: @btnCancelBackground;
+		background-image: url(../images/cancelBtn.png) !important;
+		background-repeat: no-repeat;
+		background-position: 5% 50%;
+		padding-left: 1.5em !important;
+		color: #fff;
+	}
+	&-send {
+		.upper;
+		.bold;
+
+		background-color: @expertYellow;
+		background-image: url(../images/sendBtn.png) !important;
+		background-repeat: no-repeat;
+		background-position: 5% 50%;
+		padding-left: 2em !important;
+		color: #fff;
+	}
+}
+
+.btn.btn-submit,
+input[type="submit"] {
+  .upper;
+  .bold;
+  background-color: @expertYellow;
+  border: 0 none;
+  border-radius: @borderRadius;
+  color: #fff;
+  margin: 0.5em;
+  padding: 0.5em 0.8em;
+  line-height: 1.4em;
+  vertical-align: middle;
+	transition: all 0.5s ease 0s;
+	&:focus,
+	&:hover {
+		background-color: @middleYellow;
+	}
+
+  &#edit-view,
+	&[id*=view] {
+		background-color: transparent;
+		color: @darkBlue;
+  }
+
+  &#edit-draft,
+	&[id*="draft"],
+	&[value="Unpublish"],
+  &#edit-preview,
+	&[id*="preview"],
+	&[value="Preview"],
+  &#edit-preview-changes,
+	&[value="View changes"] {
+		background-color: @darkBlue;
+		color: #fff;
+
+		&:focus,
+		&:hover {
+			background-color: @middleBlue;
+		}
+  }
+
+  &#edit-draft,
+	&[id*="draft"] {
+		background-image: url(../images/draftBtn.png);
+		background-repeat: no-repeat;
+		background-position: .5em 50%;
+		padding-left: 1.75em;
+  }
+
+	&#edit-back,
+	&[id*="back"],
+  &#edit-cancel,
+	&[id*="cancel"] {
+		background-color: transparent;
+		color: @darkGrey;
+
+		&:focus,
+		&:hover {
+			color: @middleGrey;
+		}
+  }
+
+	&#edit-delete,
+	&[id*="delete"],
+	&[value="Delete"],
+	&[value="Remove"],
+	&[value="Cancel account"] {
+		.form-delete !important;
+	}
+
+}
+
+[type="checkbox"] {
+	&:disabled {
+		:checked + div > label:after,
+		:checked + label:after {
+			color: #999;
+		}
+
+		& + div > label,
+		& + label {
+			color: #aaa;
+		}
+
+		&:not(:checked) + div > label:before,
+		&:checked + div > label:before,
+		&:not(:checked) + label:before,
+		&:checked + label:before {
+			box-shadow: none;
+			border-color: #bbb;
+			background-color: #ddd;
+		}
+	}
+
+	&:checked + div > label:after,
+	&:checked + label:after {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	&:not(:checked) + div > label:after,
+	&:not(:checked) + label:after {
+		opacity: 0;
+		transform: scale(0);
+	}
+
+	&:not(:checked),
+	&:checked {
+		position: absolute;
+		left: -9999px;
+
+		& + div > label,
+		& + label {
+			position: relative;
+			padding-left: 25px;
+			cursor: pointer;
+
+			&:before {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 2px;
+				width: 17px;
+				height: 17px;
+				border: 1px solid #aaa;
+				background: #f8f8f8;
+				border-radius: 3px;
+				box-shadow: inset 0 1px 3px rgba(0, 0, 0, .3);
+			}
+
+			&:after {
+				content: '✔';
+				position: absolute;
+				top: 1px;
+				left: 2px;
+				font-size: @px14;
+				color: #4c6172;
+				transition: all .2s;
+			}
+		}
+	}
+}
+
+.input-text {
+	padding: 6px 12px;
+	border: none;
+	// border-radius: 4px !important;
+	width: 100%;
+}
+
+
+/*
+ * CUSTOM STYLES
+ * Chosen fields
+ */
+.chosen-custom-select {
+	a.chosen-single {
+		background: @softGrey !important;
+		border: none !important;
+		box-shadow: none !important;
+		border-radius: 3px !important;
+		height: 29px !important;
+
+		> div {
+			width: 27px;
+			background: #dbdfe3 url(../images/selectDarkArrow.png) no-repeat 100% 0;
+
+			> b {
+				background: none !important;
+			}
+		}
+	}
+}
+.chosen-container {
+  .chosen-custom-select;
+}
+
+/*
+ * CUSTOM STYLES
+ * Delete / remove input
+ */
+.form-delete {
+	background-color: transparent;
+	color: @darkRed;
+	border: 1px solid @softGrey;
+
+	&:focus,
+	&:hover {
+		color: @middleRed;
+		border-color: @lightRed;
+	}
+}
+
+
+
+/* POPIN
+ * Popover
+ */
+
+@popover-bg: @popupSignUp;
+.popover {
+  color: #fff;
+  box-shadow: 0;
+  border-radius: 0;
+  border: 0;
+
+  .form-wrapper.form-actions {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  a.btn,
+  input {
+    background-image: none;
+  }
+
+  a {
+    color: #fff;
+  }
+
+  input {
+    max-width: 100%;
+    margin-left: 0;
+  }
+}
+.popover-content {
+  padding: 1.5em;
+}
+.signUpContent {
+  .upper;
+  .bold;
+
+  span {
+    display: block;
+  }
+
+  a.signin {
+    text-transform: uppercase;
+    .bold;
+    padding: 0.3em 0.5em 0.5em 0.5em;
+    display: block;
+    height: 2em;
+    margin-top: 1em;
+  }
+}
+
+
+.form-type-select {
+  // .styled-default-select;
+}
+.form-select {
+  .styled-default-select;
+}
+
+
+/* FORM
+ * Formblock module vs. Bootstrap
+ */
+div.block-formblock .form-text.form-control,
+div#block-formblock-user_password_request .form-text.form-control,
+div#block-formblock-contact_site .form-text.form-control,
+div#block-formblock-user_register .form-text.form-control {
+  width: 100%;
+}
+
+
+
+/* BOOTSTRAP
+ * Replace Drupal's classes with Boostrap's !
+ */
+label.element-invisible {
+  .sr-only;
+}
+form .form-item {
+  .form-group;
+  max-width: 100%;
+}
+form input:not(.form-submit),
+form textarea {
+  .form-control;
+  background-color: @softGrey;
+  color: inherit;
+  max-width: 100%;
+}
+form .description {
+  // .help-block;
+}
+
+.field-group-fieldset,
+.group-background {
+	background-color: @lightGrey;
+  .make-md-column(12);
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+form#user-register-form {
+
+  .form-type-password.password-parent,
+  .form-type-password.confirm-parent {
+    clear: none; // ov. user.css
+    width: auto;
+  }
+
+  @media (min-width: @screen-sm-min) {
+
+    #edit-field-first-name,
+    #edit-field-last-name {
+      .make-md-column(6);
+    }
+    #edit-field-first-name {
+      padding-left: 0;
+      padding-right: 15px / 2;
+    }
+    #edit-field-last-name {
+      padding-right: 0;
+      padding-left: 15px / 2;
+    }
+    #edit-field-entreprise {
+      .make-md-column(6);
+      padding-left: 0;
+      padding-right: 15px / 2;
+    }
+
+    #edit-field-name-visibility {
+      clear: both;
+    }
+
+    .form-item-name,
+    .form-item-mail {
+      .make-md-column(6);
+    }
+    .form-item-name {
+      padding-left: 0;
+      padding-right: 15px / 2;
+    }
+    .form-item-mail {
+      padding-right: 0;
+      padding-left: 15px / 2;
+    }
+
+    .form-type-password-confirm {
+      clear: both;
+      .make-md-column(12);
+      padding-left: 0;
+      padding-right: 0;
+      .make-row();
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom: 0;
+    }
+    .form-type-password.password-parent,
+    .form-type-password.confirm-parent,
+    div.password-suggestions {
+      .make-md-column(12);
+      clear: both;
+      .make-row();
+       input,
+       div.password-strength,
+       div.password-confirm {
+        .make-md-column(6);
+       }
+       div.password-strength,
+       div.password-confirm {
+        float: right !important;
+       }
+    }
+    .form-type-password.password-parent,
+    .form-type-password.confirm-parent {
+      margin-left: 0;
+      margin-right: 0;
+      padding-left: 0;
+    }
+    .form-type-password.confirm-parent {
+      margin-bottom: 0;
+    }
+
+    .form-item-legal-terms-of-use {
+      .make-md-column(12);
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
+
+  }
+}
+
+// Help tooltip
+span.badge.help-tip {
+  color: @darkGrey;
+  background-color: @softGrey;
+  padding: 2px 5px;
+  font-size: 8px;
+
+  @media (min-width: @screen-sm-min) {
+    float: right;
+  }
+}
+.tooltip {
+  width: 100%;
+  .tooltip-inner {
+    text-align: left;
+  }
+}
+
+// Fields focus
+form input:focus:not(.form-submit),
+form textarea:focus {
+  border-color: @brand-primary;
+  outline: 0px none;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(0, 159, 227, 0.6);
+}
+
+// form .group-oneliner label {
+//   .make-sm-column(4);
+//   padding-left: 0;
+//   padding-right: 10px;
+// }
+// form .group-oneliner input {
+//   .make-sm-column(7);
+//   padding: 6px 12px;
+// }
+// form .group-oneliner span.help-tip {
+//   .make-sm-column(1);
+//   padding: 0;
+// }
