@@ -51,14 +51,14 @@
     <?php //print $content ?>
     <ul class="nav navbar-nav navbar-emh-separator">
       <li>
-        <a id="signIn" type="a" class="user-menu sign-in" data-placement="bottom" data-template='<div class="popover signIn" role="tooltip"><div class="arrow"></div><div class="popover-content signInContent"></div></div>'><?php print c_szLogin; ?></a>
+        <a id="signIn" type="a" class="user-menu sign-in" data-placement="bottom" data-html="true" data-template='<div class="popover signIn" role="tooltip"><div class="arrow"></div><div class="popover-content signInContent"></div></div>'><?php print c_szLogin; ?></a>
         <div id="signInContent" style="display: none;">
           <h4><?php print c_szLoginToEmh; ?></h4>
           <?php print drupal_render(drupal_get_form('user_login_block')); ?>
         </div>
       </li>
       <li>
-        <a id="signUp" type="a" class="user-menu sign-up" data-placement="bottom" data-template='<div class="popover signUp" role="tooltip"><div class="arrow"></div><div class="popover-content signUpContent"></div></div>'><?php print c_szRegister; ?></a>
+        <a id="signUp" type="a" class="user-menu sign-up" data-placement="bottom" data-html="true" data-template='<div class="popover signUp" role="tooltip"><div class="arrow"></div><div class="popover-content signUpContent"></div></div>'><?php print c_szRegister; ?></a>
         <div id="signUpContent" style="display: none;">
           <h4><?php print c_szSignIn; ?><span class="light-blue-text"><?php print c_szInAMinute; ?></span><?php print c_szStart; ?></h4>
           <a href="<?php print url("business/register"); ?>" class="btn btn-primary signin"><?php print c_szSeeker; ?></a>
