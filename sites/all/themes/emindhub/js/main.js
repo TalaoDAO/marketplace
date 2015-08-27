@@ -1,14 +1,14 @@
 function onClickBurgerMenuBtn() {
-    var bm = document.querySelector('.region-burgermenu');
-    if (bm) {
-        bm.style.display = (bm.style.display != 'none'&& bm.style.display != '') ? 'none': 'block';
-        if (bm.style.display != 'none'&& bm.style.display != '') {
-            document.body.onclick = onClickBody;
-        }
-        else {
-            document.body.onclick = null;
-        }
+  var bm = document.querySelector('.region-burgermenu');
+  if (bm) {
+    bm.style.display = (bm.style.display != 'none'&& bm.style.display != '') ? 'none': 'block';
+    if (bm.style.display != 'none'&& bm.style.display != '') {
+      document.body.onclick = onClickBody;
     }
+    else {
+      document.body.onclick = null;
+    }
+  }
 }
 
 function onClickBody(evt) {
@@ -92,21 +92,30 @@ function FileUpload() {
 // }
 
 (function ($) {
+
   // http://stackoverflow.com/a/13203876
   $(document).ready(function() {
-    $('[data-toggle="popover"]').popover();
-    $("#signIn").popover({
-        html : true,
-        content: function() {
-          return $('#signInContent').html();
-        },
+    $('[data-toggle="popover"]').popover({
+      html: true,
     });
-    $("#signUp").popover({
-        html : true,
-        content: function() {
-          return $('#signUpContent').html();
-        },
+    $('#signIn').popover({
+      content: function() {
+        return $('#signInContent').html();
+      },
+      container: 'body',
     });
+    $('#signUp').popover({
+      content: function() {
+        return $('#signUpContent').html();
+      },
+      container: 'body',
+    });
+
+    // Bootstrap tooltip
+    // $('.help-tip').tooltip({
+    //   html: true,
+    // });
+
   })
 })(jQuery);
 
