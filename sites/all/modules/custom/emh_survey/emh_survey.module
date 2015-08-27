@@ -138,13 +138,5 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
 	// 	'2' => '6', // webmaster
 	// );
 
-	// Add required fields legend
-	$form['actions']['#prefix'] = '
-		<div class="mandatory-options row">
-			<div class="col-md-12">
-				<span class="form-required">*</span>' . t('Required fields') . '
-			</div>
-		</div>';
-
 	$form['actions']['submit']['#value'] = t('Save and go manage your questions');
 }
