@@ -7,7 +7,7 @@ function emindhub_form_element($variables) {
   // This function is invoked as theme wrapper, but the rendered form element
   // may not necessarily have been processed by form_builder().
   $element += array(
-	'#title_display' => 'before',
+	   '#title_display' => 'before',
   );
 
   // Add element #id for #type 'item'.
@@ -69,15 +69,49 @@ function emindhub_form_element($variables) {
   return $output;
 }
 
+// Cacher les icônes de mise en page + types de format, peut-être trop ??
+function emindhub_element_info_alter(&$type) {
+	if (isset($type['text_format']['#process'])) {
+		foreach ($type['text_format']['#process'] as &$callback) {
+			if ($callback === 'filter_process_format') {
+				$callback = 'emindhub_process_format';
+			}
+		}
+	}
+}
+
+function emindhub_process_format($element) {
+
+	// array of field names to restrict (add more here as needed)
+	$fields = array(
+		'body',
+		'field_textarea',
+		'comment_body',
+	);
+
+	$element = filter_process_format($element);
+
+	// Hide the 'text format' pane below certain text area fields.
+	if (isset($element['#field_name']) && in_array($element['#field_name'], $fields)){
+		$element['format']['#access'] = FALSE;
+	}
+	return $element;
+}
+
 
 function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+  // echo '<pre>' . print_r($form['body']['und'][0]['#format']['format'], TRUE) . '</pre>';
   // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
+
+  // $form['body']['und'][0]['#format'] = '<div class="form-row">';
+  // $form['body']['und'][0]['#format']['format']['#access'] = FALSE;
+  // $form[LANGUAGE_NONE][0]['format']['format']['#access'] = FALSE;
 
   $form['actions']['#prefix'] = '<div class="form-row">';
   $form['actions']['#prefix'] .= '<div class="form-actions">';
-  // Action buttons order
+
+  // Actions order
   $i = 0;
   foreach (
 	array(
@@ -90,7 +124,19 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 	) as $action ) {
 	  $form['actions'][$action]['#weight'] = $i++;
 	}
+
+  // Actions classes
+  if ($form_id != 'search_block_form') {
+    $form['actions']['cancel']['#attributes']['class'][] = 'btn-default';
+    $form['actions']['delete']['#attributes']['class'][] = 'btn-danger';
+    $form['actions']['preview_changes']['#attributes']['class'][] = 'btn-primary';
+    $form['actions']['draft']['#attributes']['class'][] = 'btn-primary';
+    $form['actions']['preview']['#attributes']['class'][] = 'btn-primary';
+    $form['actions']['submit']['#attributes']['class'] = array('btn-submit');
+  }
+
   $form['actions']['#suffix'] .= '</div> <!-- END .form-actions -->';
+
   // Add required legend if minimum one field is required
   if ( emindhub_form_has_required($form) == TRUE ) {
   	$form['actions']['#suffix'] .= '
@@ -99,6 +145,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
   		</div> <!-- END .form-mandatory -->';
   }
   $form['actions']['#suffix'] .= '</div> <!-- END .row -->';
+
 
   // Hide "Show row weights" for regular users
   global $user;
@@ -180,9 +227,23 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $form['field_notification_frequency']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_known_specific']['#suffix'] = '</div>';
 
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+  $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
+
+  $form['field_photo']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
+  $form['field_cv']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
+
+  // echo '<pre>' . print_r($form['field_cv'], TRUE) . '</pre>';
   // echo '<pre>' . print_r($form['field_notification_frequency'], TRUE) . '</pre>';
 
+}
+
+function emindhub_my_file_element_process(&$element, &$form_state, $form) {
+  $element = file_managed_file_process($element, $form_state, $form);
+
+  $element['upload_button']['#attributes']['class'][] = 'btn-info';
+  // $element['upload_button']['#access'] = FALSE;
+  // echo '<pre>' . print_r($element, TRUE) . '</pre>';
+  return $element;
 }
 
 function emindhub_form_process_password_confirm($element) {
@@ -282,14 +343,24 @@ function emindhub_preprocess_search_block_form(&$vars) {
 
 // function emindhub_form_user_register_form_alter(&$vars) {
 function emindhub_form_user_register_form_alter(&$form, &$form_state, $form_id) {
-  // $vars['field_first_name']['#access'] = TRUE;
-  // $vars['field_last_name']['#access'] = TRUE;
+  // $vars['field_first_name']['#access'] = TRUE; // OLD
+  // $vars['field_last_name']['#access'] = TRUE; // OLD
+
   $form['emh_baseline'] = array(
     '#markup' => '<p class="emh-title-baseline">' . t('Create your account <strong>for free in no time</strong>') . '</p>',
     '#weight' => '-1000', // First !
   );
+
+  // Add class before & after fields
+  $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_last_name']['#suffix'] = '</div>';
+
+  $form['account']['name']['#prefix'] = '<div class="form-group-2col row">';
+  $form['account']['current_pass']['#suffix'] = '</div>';
+
   $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>'; die;
+
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
 }
 
 
