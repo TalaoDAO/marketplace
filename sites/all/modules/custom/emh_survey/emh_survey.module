@@ -138,5 +138,27 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
 	// 	'2' => '6', // webmaster
 	// );
 
+	// Add class before & after fields
+  $form['field_duration_of_the_mission']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_start_date']['#suffix'] = '</div>';
+
+  $form['field_document']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_image']['#suffix'] = '</div>';
+
+  $form['field_domaine']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_tags']['#suffix'] = '</div>';
+
+  $form['field_anonymous']['#prefix'] = '<div class="form-group-3col row">';
+  $form['field_use_my_entreprise']['#suffix'] = '</div>';
+
+  $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_reward']['#suffix'] = '</div>';
+
+  $form['og_group_ref']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_other_members']['#suffix'] = '</div>';
+
+	$form['field_document']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
+  $form['field_image']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
+
 	$form['actions']['submit']['#value'] = t('Save and go manage your questions');
 }
