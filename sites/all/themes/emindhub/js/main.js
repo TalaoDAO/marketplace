@@ -95,9 +95,6 @@ function FileUpload() {
 
   // http://stackoverflow.com/a/13203876
   $(document).ready(function() {
-    $('[data-toggle="popover"]').popover({
-      html: true,
-    });
     $('#signIn').popover({
       content: function() {
         return $('#signInContent').html();

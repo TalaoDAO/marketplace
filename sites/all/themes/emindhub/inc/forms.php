@@ -39,7 +39,7 @@ function emindhub_form_element($variables) {
   $description = '';
   if (!empty($element ['#description'])) {
   	// LTH : use Bootstrap badge + tooltip for field description
-  	$description .= '<span class="badge help-tip" data-toggle="tooltip" data-placement="bottom" title="' . $element ['#description'] . '">?</span>';
+  	$description .= '<span class="badge help-tip" data-toggle="tooltip" data-placement="bottom" data-html="true" title="' . $element ['#description'] . '">?</span>';
   }
 
   switch ($element ['#title_display']) {
