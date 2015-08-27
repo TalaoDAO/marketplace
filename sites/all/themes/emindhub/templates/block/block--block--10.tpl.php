@@ -56,7 +56,7 @@
   <div class="content">
     <?php //print $content ?>
 
-    <?php if ( isset($logged_in) ) : ?>
+    <?php if (!(user_is_logged_in())) : ?>
     <a href="<?php print url("business/register"); ?>">
       <span class="default-text"><?php echo sprintf(c_szAddQuestion, "<span>", "</span><div>", "</div>"); ?></span>
       <span class="hover">
