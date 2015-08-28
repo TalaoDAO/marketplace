@@ -521,7 +521,7 @@ function ft_content_type_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 2,
+        'weight' => 1,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -568,7 +568,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 3,
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -608,7 +608,7 @@ function ft_content_type_field_default_field_instances() {
           'thousand_separator' => ' ',
         ),
         'type' => 'number_integer',
-        'weight' => 1,
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -652,7 +652,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_skill2',
-    'label' => 'Specific skills',
+    'label' => 'Specific skill',
     'required' => 0,
     'settings' => array(
       'behaviors' => array(
@@ -660,7 +660,6 @@ function ft_content_type_field_default_field_instances() {
           'status' => 0,
         ),
       ),
-      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -675,14 +674,10 @@ function ft_content_type_field_default_field_instances() {
         ),
         'match_operator' => 'CONTAINS',
         'path' => '',
-        'references_dialog_add' => 0,
-        'references_dialog_edit' => 0,
-        'references_dialog_search' => 0,
-        'references_dialog_search_view' => '',
         'size' => 40,
       ),
       'type' => 'entityreference_autocomplete_tags',
-      'weight' => 4,
+      'weight' => 0,
     ),
   );
 
@@ -731,7 +726,7 @@ function ft_content_type_field_default_field_instances() {
         ),
       ),
       'type' => 'stars',
-      'weight' => 5,
+      'weight' => 1,
     ),
   );
 
@@ -753,7 +748,7 @@ function ft_content_type_field_default_field_instances() {
           'thousand_separator' => ' ',
         ),
         'type' => 'number_integer',
-        'weight' => 3,
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -773,7 +768,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 6,
+      'weight' => 2,
     ),
   );
 
@@ -3737,7 +3732,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'serial',
       'settings' => array(),
       'type' => 'serial',
-      'weight' => 6,
+      'weight' => 7,
     ),
   );
 
@@ -3799,7 +3794,7 @@ function ft_content_type_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 53,
+      'weight' => 61,
     ),
   );
 
@@ -3882,7 +3877,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 30,
       ),
       'type' => 'text_textfield',
-      'weight' => 59,
+      'weight' => 58,
     ),
   );
 
@@ -3923,7 +3918,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 48,
+      'weight' => 42,
     ),
   );
 
@@ -4048,7 +4043,7 @@ function ft_content_type_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 54,
+      'weight' => 62,
     ),
   );
 
@@ -4096,7 +4091,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 9,
+      'weight' => 39,
     ),
   );
 
@@ -4161,6 +4156,46 @@ function ft_content_type_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'node-webform-field_questions'
+  $field_instances['node-webform-field_questions'] = array(
+    'bundle' => 'webform',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 27,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_questions',
+    'label' => 'Questions',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 2,
+      ),
+      'type' => 'text_textarea',
       'weight' => 5,
     ),
   );
@@ -4203,7 +4238,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 36,
+      'weight' => 37,
     ),
   );
 
@@ -4294,7 +4329,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 40,
+      'weight' => 39,
     ),
   );
 
@@ -4348,7 +4383,7 @@ function ft_content_type_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 60,
+      'weight' => 59,
     ),
   );
 
@@ -4385,7 +4420,9 @@ function ft_content_type_field_default_field_instances() {
       'active' => 1,
       'module' => 'autocomplete_deluxe',
       'settings' => array(
+        'apply_chosen' => '',
         'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
+        'autocomplete_path' => 'taxonomy/autocomplete',
         'delimiter' => ' ',
         'limit' => 10,
         'min_length' => 0,
@@ -4437,7 +4474,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 42,
+      'weight' => 40,
     ),
   );
 
@@ -4475,7 +4512,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 51,
+      'weight' => 42,
     ),
   );
 
@@ -4533,7 +4570,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 8,
+      'weight' => 38,
     ),
   );
 
@@ -4857,11 +4894,13 @@ function ft_content_type_field_default_field_instances() {
         'settings' => array(
           'format_handlers' => array(
             'address' => 'address',
+            'address-hide-postal-code' => 'address-hide-postal-code',
+            'address-hide-street' => 'address-hide-street',
           ),
           'use_widget_handlers' => 0,
         ),
         'type' => 'addressfield_default',
-        'weight' => 31,
+        'weight' => 16,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4915,7 +4954,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 26,
+        'weight' => 25,
       ),
     ),
     'entity_type' => 'user',
@@ -4952,10 +4991,17 @@ function ft_content_type_field_default_field_instances() {
       'active' => 1,
       'module' => 'file',
       'settings' => array(
+        'allowed_schemes' => array(
+          0 => 'public',
+          1 => 'private',
+        ),
+        'allowed_types' => array(
+          0 => 'image',
+        ),
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 30,
+      'weight' => 31,
     ),
   );
 
@@ -4986,7 +5032,6 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Domain(s)',
     'required' => 0,
     'settings' => array(
-      'entity_translation_sync' => FALSE,
       'user_register_form' => 0,
     ),
     'widget' => array(
@@ -5057,7 +5102,7 @@ function ft_content_type_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 30,
+        'weight' => 15,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -5102,7 +5147,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 4,
+      'weight' => 18,
     ),
   );
 
@@ -5117,7 +5162,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 12,
+        'weight' => 11,
       ),
       'full' => array(
         'label' => 'above',
@@ -5161,7 +5206,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 16,
+        'weight' => 15,
       ),
       'full' => array(
         'label' => 'above',
@@ -5185,7 +5230,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 8,
+      'weight' => 20,
     ),
   );
 
@@ -5201,7 +5246,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 12,
+        'weight' => 13,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -5245,7 +5290,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 27,
+        'weight' => 26,
       ),
     ),
     'entity_type' => 'user',
@@ -5281,7 +5326,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 24,
+        'weight' => 23,
       ),
     ),
     'entity_type' => 'user',
@@ -5313,7 +5358,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 10,
+        'weight' => 9,
       ),
       'full' => array(
         'label' => 'above',
@@ -5333,7 +5378,7 @@ function ft_content_type_field_default_field_instances() {
       'active' => 1,
       'module' => 'options',
       'settings' => array(
-        'apply_chosen' => 0,
+        'apply_chosen' => '',
       ),
       'type' => 'options_select',
       'weight' => 7,
@@ -5351,7 +5396,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 11,
+        'weight' => 10,
       ),
       'full' => array(
         'label' => 'above',
@@ -5376,7 +5421,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 8,
+      'weight' => 10,
     ),
   );
 
@@ -5389,10 +5434,9 @@ function ft_content_type_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'text',
         'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 13,
+        'type' => 'hidden',
+        'weight' => 14,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -5433,7 +5477,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_default',
-        'weight' => 6,
+        'weight' => 18,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -5495,7 +5539,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 15,
+        'weight' => 14,
       ),
       'full' => array(
         'label' => 'above',
@@ -5519,7 +5563,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 7,
+      'weight' => 19,
     ),
   );
 
@@ -5534,7 +5578,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 9,
+        'weight' => 8,
       ),
       'full' => array(
         'label' => 'above',
@@ -5554,7 +5598,7 @@ function ft_content_type_field_default_field_instances() {
       'active' => 1,
       'module' => 'options',
       'settings' => array(
-        'apply_chosen' => 0,
+        'apply_chosen' => '',
       ),
       'type' => 'options_select',
       'weight' => 6,
@@ -5599,7 +5643,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 31,
+      'weight' => 30,
     ),
   );
 
@@ -5678,7 +5722,7 @@ function ft_content_type_field_default_field_instances() {
         'resolution' => '110x110',
       ),
       'type' => 'imagefield_crop_widget',
-      'weight' => 10,
+      'weight' => 22,
     ),
   );
 
@@ -5693,7 +5737,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 25,
+        'weight' => 24,
       ),
     ),
     'entity_type' => 'user',
@@ -5726,10 +5770,10 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'module' => 'field_collection',
         'settings' => array(
-          'add' => 'Add',
-          'delete' => 'Delete',
-          'description' => TRUE,
-          'edit' => 'Edit',
+          'add' => '',
+          'delete' => '',
+          'description' => 1,
+          'edit' => '',
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_view',
@@ -5763,10 +5807,10 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'module' => 'field_collection',
         'settings' => array(
-          'add' => 'Add',
-          'delete' => 'Delete',
-          'description' => TRUE,
-          'edit' => 'Edit',
+          'add' => '',
+          'delete' => '',
+          'description' => 1,
+          'edit' => '',
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_view',
@@ -5788,10 +5832,9 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'user',
     'field_name' => 'field_skills_set',
-    'label' => 'Specific skills',
+    'label' => 'Specific skill(s)',
     'required' => 0,
     'settings' => array(
-      'entity_translation_sync' => FALSE,
       'user_register_form' => 0,
     ),
     'widget' => array(
@@ -5818,7 +5861,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 17,
+        'weight' => 16,
       ),
       'full' => array(
         'label' => 'above',
@@ -5857,7 +5900,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 13,
+        'weight' => 12,
       ),
       'full' => array(
         'label' => 'above',
@@ -5902,7 +5945,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 14,
+        'weight' => 13,
       ),
       'full' => array(
         'label' => 'above',
@@ -5927,7 +5970,7 @@ function ft_content_type_field_default_field_instances() {
       'active' => 1,
       'module' => 'options',
       'settings' => array(
-        'apply_chosen' => 1,
+        'apply_chosen' => '',
       ),
       'type' => 'options_select',
       'weight' => 12,
@@ -5943,13 +5986,13 @@ function ft_content_type_field_default_field_instances() {
       ),
     ),
     'deleted' => 0,
-    'description' => 'More about <a href=\'/content/sponsorship\'>sponsorship</a>',
+    'description' => 'More about <a href="/content/sponsorship">sponsorship</a>',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 8,
+        'weight' => 7,
       ),
       'full' => array(
         'label' => 'above',
@@ -5963,7 +6006,6 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Sponsorhip',
     'required' => 0,
     'settings' => array(
-      'entity_translation_sync' => FALSE,
       'user_register_form' => 0,
     ),
     'widget' => array(
@@ -5988,7 +6030,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 6,
+        'weight' => 5,
       ),
       'full' => array(
         'label' => 'above',
@@ -6075,7 +6117,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 16,
+        'weight' => 14,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -6116,7 +6158,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 7,
+        'weight' => 6,
       ),
       'full' => array(
         'label' => 'above',
@@ -6130,7 +6172,6 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Working Status',
     'required' => 0,
     'settings' => array(
-      'entity_translation_sync' => FALSE,
       'user_register_form' => 0,
     ),
     'widget' => array(
@@ -6155,7 +6196,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 18,
+        'weight' => 17,
       ),
       'full' => array(
         'label' => 'above',
@@ -6241,7 +6282,7 @@ function ft_content_type_field_default_field_instances() {
   t('Last Name');
   t('Link to my blog or my website');
   t('Logo');
-  t('More about <a href=\'/content/sponsorship\'>sponsorship</a>');
+  t('More about <a href="/content/sponsorship">sponsorship</a>');
   t('My position(s)');
   t('Name of my sponsor');
   t('Name visibility');
@@ -6257,12 +6298,15 @@ function ft_content_type_field_default_field_instances() {
   t('Profile Title');
   t('Property rules');
   t('Public response');
+  t('Questions');
   t('Request message');
   t('Response');
   t('Response visbility');
   t('Reward');
   t('Select audience');
   t('Self-appraisal');
+  t('Specific skill');
+  t('Specific skill(s)');
   t('Specific skills');
   t('Sponsorhip');
   t('Tags');
