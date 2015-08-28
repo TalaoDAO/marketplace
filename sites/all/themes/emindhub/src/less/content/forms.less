@@ -1,387 +1,389 @@
-/* FORMS
- * General
- */
-form > * > .form-item-title,
-.field-group-fieldset {
-  padding: 15px;
-  margin-bottom: 15px;
-  background-color: @lightGrey;
-  > .form-group:last-child,
-  > .form-group:last-child .form-group:last-child {
-    margin-bottom: 0;
-  }
-}
-legend {
-  font-size: inherit;
-  .h3;
-  padding-bottom: 5px;
-  margin-bottom: 15px !important; // .overrides.css
-}
-label {
-  line-height: 18px;
-}
-.group-hidden {
-  opacity: 0;
-	visibility: hidden;
-	display: none;
-}
+form {
 
-
-/* FORMS
- * Fields
- */
-// Autocomplete deluxe
-.autocomplete-deluxe-container {
-  .form-control;
-  max-width: 352px;
-}
-/* FORM
- * Chosen vs. jQuery UI
- * I want jQuery UI looks like Chosen widget !
- * */
-// Liste des éléments proposés
-// ul.ui-autocomplete {
-//   padding: 0;
-//   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
-// }
-.ui-widget {
-  font-family: inherit;
-  font-size: 14px;
-}
-// .ui-menu .ui-menu-item a {
-//   display: list-item;
-//   padding: 5px 6px;
-//   margin: 0;
-//   line-height: 15px;
-//   border: 0;
-// }
-// .ui-menu .ui-menu-item a.ui-state-hover {
-//   color: #FFF;
-//   cursor: pointer;
-// }
-.ui-widget-content {
-  border: 1px solid #AAA;
-  background: transparent none;
-  color: inherit;
-}
-// .ui-widget-content a {
-//   color: #4c6172;
-// }
-.ui-menu .ui-menu-item a {
-  padding: 3px 20px;
-  font-weight: normal;
-  line-height: 1.42857;
-}
-.ui-corner-all {
-  -moz-border-radius: @border-radius-base;
-  -webkit-border-radius: @border-radius-base;
-  border-radius: @border-radius-base;
-}
-
-.autocomplete-deluxe-item {
-  position: relative;
-  margin: 0 5px 3px 0;
-  padding: 3px 20px 3px 5px;
-  border: 1px solid #aaa;
-  border-radius: 3px;
-  background-color: #e4e4e4;
-  background-image: linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
-  background-clip: padding-box;
-  box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05);
-  float: left;
-  color: #333;
-  line-height: 13px;
-  cursor: default;
-
-  .autocomplete-deluxe-item-delete {
-    position: absolute;
-    top: 4px;
-    right: 3px;
-    display: block;
-    width: 12px;
-    height: 12px;
-    background: url('../../../libraries/chosen/chosen-sprite.png') -42px 1px no-repeat;
-    font-size: 1px;
-    cursor: pointer;
-  }
-}
-input#autocomplete-deluxe-input {
-  width: 50px;
-  background-color: transparent;
-  height: auto;
-  padding: 0;
-  border: 0;
-  box-shadow: none;
-}
-
-// Adress
-.field-type-addressfield {
-  margin-bottom: 0;
-}
-// Years of experience
-.field-type-number-integer {
-  .form-control {
-    .text-center;
-    max-width: 50px;
-  }
-}
-// Website
-.form-type-link-field {
-  > label {
-    .text-hide;
-  }
-}
-// Upload file + image
-.file-widget,
-.field-type-image {
-  .file-return,
-  .file-upload span {
-    display: none;
-  }
-  input.form-file {
-    height: auto;
-  }
-  span.file {
-    word-wrap: break-word;
-  }
-
-  @media (max-width: @screen-sm-min) {
-    span.input-group-btn,
-    .form-submit {
-      display: inline-block;
-      margin-top: 5px;
-    }
-  }
-
-  @media (min-width: @screen-sm-min) {
-    .make-row();
-    width: 100%;
-    margin: 0;
-    .file-upload {
-      .make-sm-column(10);
-      padding: 0;
-    }
-    span.input-group-btn,
-    .form-submit {
-      float: right;
-      width: auto;
-    }
-    span.file {
-      .make-sm-column(10);
-      // line-height: 34px;
-      padding: 0;
-    }
-  }
-}
-
-
-/* FORMS
- * Chosen
- * */
-.chosen-container,
-.form-control.chosen-container {
-  background-color: transparent;
-  padding: 0;
-  border: 0;
-  width: 100% !important; // inline info
-  .input-group;
-  display: table !important; // chosen.css
-}
-.chosen-container-single .chosen-single {
-  .form-control;
-}
-.chosen-container-single .chosen-single div,
-.chosen-container-active.chosen-with-drop .chosen-single div {
-  width: auto;
-  b {
-    .glyphicon;
-    .glyphicon-triangle-bottom;
-    padding: 6px 12px;
-    background: #B2BBC2;
-    border: 1px solid #B2BBC2;
-    top: 0;
-  }
-}
-.chosen-container-multi .chosen-choices {
-  .form-control;
-  padding-bottom: 0;
-}
-.chosen-container-multi .chosen-choices li.search-choice {
-  margin: 0 5px 6px 0;
-}
-.chosen-container-multi .chosen-choices li.search-field {
-  margin: 0 5px 6px 0;
-
-}
-.chosen-container-multi .chosen-choices li.search-field input[type="text"] {
-  margin: 0;
-  padding: 0;
-  height: 21px;
-  font-size: @font-size-base;
-  line-height: @line-height-base;
-  font-style: italic;
-  font-family: @font-family-sans-serif;
-}
-
-
-/* FORMS
- * Register
- */
-form#user-register-form {
-  .form-item-legal-terms-of-use {
+  /* FORMS
+   * General
+   */
+  > * > .form-item-title,
+  .field-group-fieldset {
     padding: 15px;
+    margin-bottom: 15px;
+    background-color: @lightGrey;
+    > .form-group:last-child,
+    > .form-group:last-child .form-group:last-child {
+      margin-bottom: 0;
+    }
   }
-}
+  legend {
+    font-size: inherit;
+    .h3;
+    padding-bottom: 5px;
+    margin-bottom: 15px !important; // .overrides.css
+  }
+  label {
+    line-height: 18px;
+  }
+  .group-hidden {
+    opacity: 0;
+  	visibility: hidden;
+  	display: none;
+  }
 
-.form-type-password-confirm {
-  .help-tip {
-    .text-hide;
-  }
-}
 
-@media (max-width: @screen-sm-min) {
-  .password-strength {
-    float: none;
-  }
-  input.password-confirm,
-  input.password-field {
-    width: 100%;
-  }
-}
-@media (min-width: @screen-sm-min) {
-  .confirm-parent,
-  .password-parent {
-    width: auto;
-  }
-  input.password-confirm,
-  input.password-field {
-    width: 350px;
-    max-width: 100%;
-  }
-  .password-strength {
-    width: 50%;
+  /* FORMS
+   * Fields
+   */
+  // Autocomplete deluxe
+  .autocomplete-deluxe-container {
+    .form-control;
     max-width: 352px;
   }
-}
+  // .ui-widget {
+  //   font-family: inherit;
+  //   font-size: 14px;
+  // }
+  // .ui-widget-content {
+  //   border: 1px solid #AAA;
+  //   background: transparent none;
+  //   color: inherit;
+  // }
+  // .ui-menu .ui-menu-item a {
+  //   padding: 3px 20px;
+  //   font-weight: normal;
+  //   line-height: 1.42857;
+  // }
+  // .ui-corner-all {
+  //   -moz-border-radius: @border-radius-base;
+  //   -webkit-border-radius: @border-radius-base;
+  //   border-radius: @border-radius-base;
+  // }
+  .autocomplete-deluxe-item {
+    position: relative;
+    margin: 0 5px 3px 0;
+    padding: 3px 20px 3px 5px;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    background-color: #e4e4e4;
+    background-image: linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+    background-clip: padding-box;
+    box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05);
+    float: left;
+    color: #333;
+    line-height: 13px;
+    cursor: default;
 
-
-/* FORMS
- * Profile
- */
-form#user-profile-form {
-
-  .link-field-subrow {
-    .form-group-2col;
-  }
-
-  .imagefield-crop-widget {
-    .make-row();
-    margin: 0;
-    .imagefield-crop-preview {
-      .make-sm-column(4);
-      .make-row();
-      margin: 0;
-      .jcrop-preview-wrapper {
-        .make-sm-column(4);
-        padding: 0;
-        border-radius: 100%;
-        img.jcrop-preview {
-          width: 110px !important;
-          height: auto !important;
-        }
-      }
-      .description {
-        .make-sm-column(8);
-      }
-    }
-    .imagefield-crop-cropbox {
-      .make-sm-column(4);
-      .make-row();
-      margin: 0;
-      .jcrop-holder {
-        .make-sm-column(4);
-        padding: 0;
-      }
-      .description {
-        .make-sm-column(8);
-      }
-    }
-    .file {
-      .make-sm-column(2);
-    }
-    @media (min-width: @screen-sm-min) {
-      button.form-submit {
-        float: right;
-        margin-right: 15px;
-      }
+    .autocomplete-deluxe-item-delete {
+      position: absolute;
+      top: 4px;
+      right: 3px;
+      display: block;
+      width: 12px;
+      height: 12px;
+      background: url('../../../libraries/chosen/chosen-sprite.png') -42px 1px no-repeat;
+      font-size: 1px;
+      cursor: pointer;
     }
   }
-
-  #edit-field-skills-set {
-    @media (min-width: @screen-sm-min) {
-      tbody td:nth-child(2) {
-        .make-row();
-        .field-name-field-skill2 {
-          .make-sm-column(4);
-          .form-item-inline-4-8;
-        }
-        .field-name-field-skill-autoeval {
-          .make-sm-column(4);
-          .form-item-inline-4-8;
-        }
-        .field-name-field-year-of-experiences {
-          .make-sm-column(2);
-          .form-item-inline-8-4;
-        }
-      }
-      button.form-submit,
-      input.field-add-more-submit {
-        float: right;
-      }
-    }
+  input#autocomplete-deluxe-input {
+    width: 50px;
+    background-color: transparent;
+    height: auto;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+  }
+  .chosen-container .chosen-results li.highlighted {
+    background-color: @brand-primary;
+    background-image: none;
+  }
+  .ui-state-hover,
+  .ui-widget-content .ui-state-hover,
+  .ui-widget-header .ui-state-hover,
+  .ui-state-focus,
+  .ui-widget-content .ui-state-focus,
+  .ui-widget-header .ui-state-focus {
+  	background-color: @dropdown-link-hover-bg;
+  	color: @dropdown-link-hover-color;
+  }
+  .ui-state-hover a,
+  .ui-state-hover a:hover,
+  .ui-state-hover a:link,
+  .ui-state-hover a:visited {
+  	color: @dropdown-link-hover-color;
   }
 
-  #edit-field-position-list {
-    @media (min-width: @screen-sm-min) {
-      tbody td:nth-child(2) {
-        .make-row();
-        .field-name-field-position {
-          .make-sm-column(4);
-          .form-item-inline-4-8;
-        }
-        .field-name-field-entreprise {
-          .make-sm-column(4);
-          .form-item-inline-4-8;
-        }
-        .field-name-field-year-of-experiences {
-          .make-sm-column(2);
-          .form-item-inline-8-4;
-        }
-      }
-      button.form-submit,
-      input.field-add-more-submit {
-        float: right;
-      }
+
+  // Adress
+  .field-type-addressfield {
+    margin-bottom: 0;
+  }
+  // Years of experience
+  .field-type-number-integer {
+    .form-control {
+      .text-center;
+      max-width: 50px;
     }
   }
-
-  #edit-field-known-specific {
-    @media (min-width: @screen-sm-min) {
-      clear: both;
-      margin-left: 50%;
-      padding-left: 15px/2;
-    }
-  }
-
-}
-
-
-
-// Burger menu filter
-form#global-filter-1 {
-  .form-item-field-domaine {
+  // Website
+  .form-type-link-field {
     > label {
       .text-hide;
     }
   }
+  // Upload file + image
+  .file-widget,
+  .field-type-image {
+    .file-return,
+    .file-upload span {
+      display: none;
+    }
+    input.form-file {
+      height: auto;
+    }
+    span.file {
+      word-wrap: break-word;
+    }
+
+    @media (max-width: @screen-sm-min) {
+      span.input-group-btn,
+      .form-submit {
+        display: inline-block;
+        margin-top: 5px;
+      }
+    }
+
+    @media (min-width: @screen-sm-min) {
+      .make-row();
+      width: 100%;
+      margin: 0;
+      .file-upload {
+        .make-sm-column(10);
+        padding: 0;
+      }
+      span.input-group-btn,
+      .form-submit {
+        float: right;
+        width: auto;
+      }
+      span.file {
+        .make-sm-column(10);
+        // line-height: 34px;
+        padding: 0;
+      }
+    }
+  }
+
+
+  /* FORMS
+   * Chosen
+   * */
+  .chosen-container,
+  .form-control.chosen-container {
+    background-color: transparent;
+    padding: 0;
+    border: 0;
+    width: 100% !important; // inline info
+    .input-group;
+    display: table !important; // chosen.css
+  }
+  .chosen-container-single .chosen-single {
+    .form-control;
+  }
+  .chosen-container-single .chosen-single div,
+  .chosen-container-active.chosen-with-drop .chosen-single div {
+    width: auto;
+    b {
+      .glyphicon;
+      .glyphicon-triangle-bottom;
+      padding: 6px 12px;
+      background: #B2BBC2;
+      border: 1px solid #B2BBC2;
+      top: 0;
+    }
+  }
+  .chosen-container-multi .chosen-choices {
+    .form-control;
+    padding-bottom: 0;
+  }
+  .chosen-container-multi .chosen-choices li.search-choice {
+    margin: 0 5px 6px 0;
+  }
+  .chosen-container-multi .chosen-choices li.search-field {
+    margin: 0 5px 6px 0;
+  }
+  .chosen-container-multi .chosen-choices li.search-field input[type="text"] {
+    margin: 0;
+    padding: 0;
+    height: 21px;
+    font-size: @font-size-base;
+    line-height: @line-height-base;
+    font-style: italic;
+    font-family: @font-family-sans-serif;
+  }
+  .chosen-container .chosen-results li.highlighted {
+    background-color: @brand-primary;
+    background-image: none;
+  }
+
+
+  /* FORMS
+   * Register
+   */
+  #user-register-form {
+    .form-item-legal-terms-of-use {
+      padding: 15px;
+    }
+  }
+
+  .form-type-password-confirm {
+    .help-tip {
+      .text-hide;
+    }
+  }
+
+  @media (max-width: @screen-sm-min) {
+    .password-strength {
+      float: none;
+    }
+    input.password-confirm,
+    input.password-field {
+      width: 100%;
+    }
+  }
+  @media (min-width: @screen-sm-min) {
+    .confirm-parent,
+    .password-parent {
+      width: auto;
+    }
+    input.password-confirm,
+    input.password-field {
+      width: 350px;
+      max-width: 100%;
+    }
+    .password-strength {
+      width: 50%;
+      max-width: 352px;
+    }
+  }
+
+
+  /* FORMS
+   * Profile
+   */
+  #user-profile-form {
+
+    .link-field-subrow {
+      .form-group-2col;
+    }
+
+    .imagefield-crop-widget {
+      .make-row();
+      margin: 0;
+      .imagefield-crop-preview {
+        .make-sm-column(4);
+        .make-row();
+        margin: 0;
+        .jcrop-preview-wrapper {
+          .make-sm-column(4);
+          padding: 0;
+          border-radius: 100%;
+          img.jcrop-preview {
+            width: 110px !important;
+            height: auto !important;
+          }
+        }
+        .description {
+          .make-sm-column(8);
+        }
+      }
+      .imagefield-crop-cropbox {
+        .make-sm-column(4);
+        .make-row();
+        margin: 0;
+        .jcrop-holder {
+          .make-sm-column(4);
+          padding: 0;
+        }
+        .description {
+          .make-sm-column(8);
+        }
+      }
+      .file {
+        .make-sm-column(2);
+      }
+      @media (min-width: @screen-sm-min) {
+        button.form-submit {
+          float: right;
+          margin-right: 15px;
+        }
+      }
+    }
+
+    #edit-field-skills-set {
+      @media (min-width: @screen-sm-min) {
+        tbody td:nth-child(2) {
+          .make-row();
+          .field-name-field-skill2 {
+            .make-sm-column(4);
+            .form-item-inline-4-8;
+          }
+          .field-name-field-skill-autoeval {
+            .make-sm-column(4);
+            .form-item-inline-4-8;
+          }
+          .field-name-field-year-of-experiences {
+            .make-sm-column(2);
+            .form-item-inline-8-4;
+          }
+        }
+        button.form-submit,
+        input.field-add-more-submit {
+          float: right;
+        }
+      }
+    }
+
+    #edit-field-position-list {
+      @media (min-width: @screen-sm-min) {
+        tbody td:nth-child(2) {
+          .make-row();
+          .field-name-field-position {
+            .make-sm-column(4);
+            .form-item-inline-4-8;
+          }
+          .field-name-field-entreprise {
+            .make-sm-column(4);
+            .form-item-inline-4-8;
+          }
+          .field-name-field-year-of-experiences {
+            .make-sm-column(2);
+            .form-item-inline-8-4;
+          }
+        }
+        button.form-submit,
+        input.field-add-more-submit {
+          float: right;
+        }
+      }
+    }
+
+    #edit-field-known-specific {
+      @media (min-width: @screen-sm-min) {
+        clear: both;
+        margin-left: 50%;
+        padding-left: 15px/2;
+      }
+    }
+
+  }
+
+
+  // Burger menu filter
+  #global-filter-1 {
+    .form-item-field-domaine {
+      > label {
+        .text-hide;
+      }
+    }
+  }
+
 }

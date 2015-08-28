@@ -97,16 +97,8 @@
 	color: @brand-primary;
 }
 
-// .btn-primary {
-//	 color: #fff;
-//	 background-color: @brand-primary;
-//	 border: 0;
-//
-//	 &:hover {
-//		 background-color: @brand-info;
-//	 }
-// }
-// Danger and error appear as red
+
+// New button style : .btn-submit
 .btn-submit {
 	.button-variant(@btn-submit-color; @btn-submit-bg; @btn-submit-border);
 }
@@ -142,6 +134,10 @@
 
 .emh-block-dark-title {
 	margin: 1.18em 0 0 !important;
+	h1, .h1, h2, .h2, h3, .h3 {
+		.block-title; // for possible use outside of block format
+	}
+
 	.block-title {
 		.text-uppercase;
 		.text-center;
@@ -179,15 +175,49 @@
 		margin-top: 30px;
 		margin-bottom: 15px;
 		line-height: inherit;
+		.block-title; // for possible use outside of block format
 	}
 	.block-title {
 		color: @brand-primary;
 		.text-uppercase;
 		font-weight: 700;
 		font-size: 16px;
+		// padding: 0;
+		background-image: none;
 	}
 	@media (min-width: @screen-sm-min) {
 		.block-title {
+			span {
+				background-color: #FFF;
+				display: inline-block;
+				padding-right: 15px;
+				z-index: 1;
+			}
+			&:after {
+				height: 1px;
+				content: "";
+				background: @brand-primary;
+				display: block;
+				margin-top: -0.55em;
+				width: 100%;
+				z-index: 0;
+			}
+		}
+	}
+}
+.emh-fieldgroup-blue-title {
+	h2 {
+		.make-sm-column(12);
+    padding: 15px 0 25px;
+    margin: 0 0 15px;
+
+		color: @brand-primary;
+		.text-uppercase;
+		background-color: #fff;
+		background-image: none;
+	}
+	@media (min-width: @screen-sm-min) {
+		h2 {
 			span {
 				background-color: #FFF;
 				display: inline-block;
@@ -212,6 +242,7 @@
 		margin-top: 30px;
 		margin-bottom: 15px;
 		line-height: inherit;
+		.block-title; // for possible use outside of block format
 	}
 	.block-title {
 		.h4;
@@ -222,11 +253,10 @@
 }
 
 .emh-block-blue-main-title {
-	// .emh-block-blue-title;
 
-	// background-color: #fff;
-	// margin-top: -25px;
-	// padding-top: 15px;
+	h1, .h1, h2, .h2, h3, .h3 {
+		.block-title; // for possible use outside of block format
+	}
 
 	.block-title {
 		.emh-title-main;
@@ -415,10 +445,14 @@
 	@media (min-width: @screen-sm-min) {
 		margin-bottom: 0;
 
-		label:first-of-type {
+		label:first-of-type,
+		.field-label {
 			margin-bottom: 0;
+			line-height: 34px;
 		}
-		.form-group:first-of-type {
+		.form-control:first-of-type,
+		.input-group:first-of-type,
+		.field-items {
 			vertical-align: middle;
 			.make-row();
 			margin-bottom: 0;
@@ -428,11 +462,13 @@
 .form-item-inline-4-8 {
 	@media (min-width: @screen-sm-min) {
 		.form-item-inline;
-		label:first-of-type {
+		label:first-of-type,
+		.field-label {
 			.make-sm-column(4);
 		}
 		> .form-control:first-of-type,
-		.input-group:first-of-type {
+		.input-group:first-of-type,
+		.field-items {
 			.make-sm-column(8);
 		}
 	}
@@ -440,11 +476,13 @@
 .form-item-inline-6-6 {
 	@media (min-width: @screen-sm-min) {
 		.form-item-inline;
-		label:first-of-type {
+		label:first-of-type,
+		.field-label {
 			.make-sm-column(6);
 		}
 		> .form-control:first-of-type,
-		.input-group:first-of-type {
+		.input-group:first-of-type,
+		.field-items {
 			.make-sm-column(6);
 		}
 	}
@@ -452,11 +490,13 @@
 .form-item-inline-8-4 {
 	@media (min-width: @screen-sm-min) {
 		.form-item-inline;
-		label:first-of-type {
+		label:first-of-type,
+		.field-label {
 			.make-sm-column(8);
 		}
-		.form-control:first-of-type,
-		.input-group:first-of-type {
+		> .form-control:first-of-type,
+		.input-group:first-of-type,
+		.field-items {
 			.make-sm-column(4);
 		}
 	}
@@ -464,11 +504,13 @@
 .form-item-inline-9-3 {
 	@media (min-width: @screen-sm-min) {
 		.form-item-inline;
-		label:first-of-type {
+		label:first-of-type,
+		.field-label {
 			.make-sm-column(9);
 		}
 		.form-control:first-of-type,
-		.input-group:first-of-type {
+		.input-group:first-of-type,
+		.field-items {
 			.make-sm-column(3);
 		}
 	}
