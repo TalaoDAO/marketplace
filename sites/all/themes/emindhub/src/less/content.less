@@ -57,6 +57,7 @@ body {
   }
 
   &.profile-section-public {
+    padding-top: 15px;
     .h3, .h4 {
       margin: 0;
     }
@@ -148,11 +149,15 @@ body {
     padding: 0;
     .make-row();
 
+    .field-name-name {
+      clear: both;
+    }
+
     .field-name-field-domaine {
       .field-items {
         .make-row();
         > .field-item {
-          .make-sm-column(6);
+          .make-sm-column(4);
         }
       }
     }
