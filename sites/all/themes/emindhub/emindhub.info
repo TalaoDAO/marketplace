@@ -44,8 +44,10 @@ regions[burgermenu]     = Burger Menu
 
 stylesheets[all][] = css/style.css
 exclude[css][] = 'sites/all/modules/contrib/views/css/views.css'
+exclude[css][] = 'modules/field/theme/field.css'
 exclude[css][] = 'sites/all/modules/contrib/autocomplete_deluxe/autocomplete_deluxe.css'
 exclude[css][] = 'sites/all/modules/contrib/link/link.css'
+exclude[css][] = 'sites/all/modules/patched/field_collection/field_collection.theme.css'
 
 
 ; For information on choosing the desired method, please read the Drupal
@@ -61,18 +63,18 @@ exclude[css][] = 'sites/all/modules/contrib/link/link.css'
 ; ;;;;;;;;;;;;;;;;;;;;;
 ;
 scripts[] = js/main.js
-scripts[] = 'bootstrap/js/affix.js'
-scripts[] = 'bootstrap/js/alert.js'
-scripts[] = 'bootstrap/js/button.js'
-scripts[] = 'bootstrap/js/carousel.js'
-scripts[] = 'bootstrap/js/collapse.js'
-scripts[] = 'bootstrap/js/dropdown.js'
-scripts[] = 'bootstrap/js/modal.js'
-scripts[] = 'bootstrap/js/tooltip.js'
-scripts[] = 'bootstrap/js/popover.js'
-scripts[] = 'bootstrap/js/scrollspy.js'
-scripts[] = 'bootstrap/js/tab.js'
-scripts[] = 'bootstrap/js/transition.js'
+scripts[] = 'library/bootstrap/js/affix.js'
+scripts[] = 'library/bootstrap/js/alert.js'
+scripts[] = 'library/bootstrap/js/button.js'
+scripts[] = 'library/bootstrap/js/carousel.js'
+scripts[] = 'library/bootstrap/js/collapse.js'
+scripts[] = 'library/bootstrap/js/dropdown.js'
+scripts[] = 'library/bootstrap/js/modal.js'
+scripts[] = 'library/bootstrap/js/tooltip.js'
+scripts[] = 'library/bootstrap/js/popover.js'
+scripts[] = 'library/bootstrap/js/scrollspy.js'
+scripts[] = 'library/bootstrap/js/tab.js'
+scripts[] = 'library/bootstrap/js/transition.js'
 
 ; ; Disable BootstrapCDN if using Bootstrap source files in your sub-theme.
 ; settings[bootstrap_cdn] = ''
