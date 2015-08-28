@@ -7,7 +7,7 @@ function emindhub_form_element($variables) {
   // This function is invoked as theme wrapper, but the rendered form element
   // may not necessarily have been processed by form_builder().
   $element += array(
-	   '#title_display' => 'before',
+	  '#title_display' => 'before',
   );
 
   // Add element #id for #type 'item'.
@@ -39,7 +39,8 @@ function emindhub_form_element($variables) {
   $description = '';
   if (!empty($element ['#description'])) {
   	// LTH : use Bootstrap badge + tooltip for field description
-  	$description .= '<span class="badge help-tip" data-toggle="tooltip" data-placement="bottom" data-html="true" title="' . $element ['#description'] . '">?</span>';
+  	$description .= $element ["#description"];
+  	// $description .= '<span class="badge help-tip" data-toggle="tooltip" data-placement="bottom" data-html="true" title="' . $element ["#description"] . '">?</span>';
   }
 
   switch ($element ['#title_display']) {
@@ -81,7 +82,6 @@ function emindhub_element_info_alter(&$type) {
 }
 
 function emindhub_process_format($element) {
-
 	// array of field names to restrict (add more here as needed)
 	$fields = array(
 		'body',
@@ -100,6 +100,9 @@ function emindhub_process_format($element) {
 
 
 function emindhub_form_alter(&$form, &$form_state, $form_id) {
+
+  // echo '<pre>' . print_r($form['#fieldgroups'], TRUE) . '</pre>'; die;
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
 
   // echo '<pre>' . print_r($form['body']['und'][0]['#format']['format'], TRUE) . '</pre>';
   // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
@@ -217,6 +220,9 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
   $form['field_working_status']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_position']['#suffix'] = '</div>';
+
+  $form['field_employment_history']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_other_areas']['#suffix'] = '</div>';
 
   $form['field_sponsorship']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_sponsor1']['#suffix'] = '</div>';
@@ -366,8 +372,13 @@ function emindhub_form_user_register_form_alter(&$form, &$form_state, $form_id) 
 
 function emindhub_preprocess_select_as_checkboxes(&$variables) {
   $element = &$variables['element'];
-  //Remove form-control class added to original "select" element
+  // Remove form-control class added to original "select" element
   if (($key = array_search('form-control', $element['#attributes']['class'])) !== false) {
     unset($element['#attributes']['class'][$key]);
   }
+}
+
+
+function emindhub_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
 }
