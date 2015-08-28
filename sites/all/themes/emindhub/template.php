@@ -498,3 +498,134 @@ function emindhub_welcome_message() {
     return '';
   }
 }
+
+
+function emindhub_beautiful_user_name() {
+  if ($account = menu_get_object('user')) {
+    $account = user_load($account->uid);
+    $firstName = "";
+    if (isset($account->field_first_name[LANGUAGE_NONE]) && $account->field_first_name[LANGUAGE_NONE]) {
+      $firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
+    }
+    $lastName = "";
+    if (isset($account->field_last_name[LANGUAGE_NONE]) && $account->field_last_name[LANGUAGE_NONE]) {
+      $lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
+    }
+    $userName = $account->name;
+    return $firstName . '&nbsp;' . $lastName . '&nbsp;<span class="username badge">@' . $userName . '</span>';
+  } else {
+    return '';
+  }
+}
+
+
+function emindhub_beautiful_user_profile_link() {
+  if ($account = menu_get_object('user')) {
+    $account = user_load($account->uid);
+    $userName = $account->name;
+    global $base_url;
+    $profileLink = drupal_get_path_alias('user/' . $account->uid);
+    return '<a href="' . $base_url . '/' . $profileLink . '">' . $base_url . '/' . $profileLink . '</a>';
+  } else {
+    return '';
+  }
+}
+
+
+// TODO for profile view
+function emindhub_user_profile_my_edit() {
+  $user_viewed = menu_get_object('user');
+  $user_viewed = $user_viewed->uid;
+  global $user;
+  $user_myself = $user->uid;
+  if ($user_viewed == $user_myself) {
+    return '<a href="#">BAM</a>';
+  }
+}
+
+
+/**
+ * Implements hook_preprocess_field()
+ * http://atendesigngroup.com/blog/adding-css-classes-fields-drupal
+ */
+
+function emindhub_preprocess_field(&$vars) {
+
+  // echo '<pre>' . print_r($vars, TRUE) . '</pre>';
+
+  /* Set shortcut variables. Hooray for less typing! */
+  $name = $vars['element']['#field_name'];
+  $bundle = $vars['element']['#bundle'];
+  $mode = $vars['element']['#view_mode'];
+  $classes = &$vars['classes_array'];
+  $title_classes = &$vars['title_attributes_array']['class'];
+  $content_classes = &$vars['content_attributes_array']['class'];
+  $item_classes = array();
+
+  /* Global field classes */
+  // $classes[] = 'field-wrapper';
+  // $title_classes[] = 'field-label';
+  // $content_classes[] = 'field-items';
+  // $item_classes[] = 'field-item';
+
+  /* Uncomment the lines below to see variables you can use to target a field */
+  // print '<strong>Name:</strong> ' . $name . '<br/>';
+  // print '<strong>Bundle:</strong> ' . $bundle  . '<br/>';
+  // print '<strong>Mode:</strong> ' . $mode .'<br/>';
+
+  /* Add specific classes to targeted fields */
+  switch ($mode) {
+    /* All teasers */
+    // case 'teaser':
+    //   switch ($name) {
+    //     /* Teaser read more links */
+    //     case 'node_link':
+    //       $item_classes[] = 'more-link';
+    //       break;
+    //     /* Teaser descriptions */
+    //     case 'body':
+    //     case 'field_description':
+    //       $item_classes[] = 'description';
+    //       break;
+    //   }
+    //   break;
+    case 'full':
+      switch ($name) {
+        case 'field_photo':
+          $classes[] = 'col-sm-2';
+          break;
+        case 'field_first_name':
+        // case 'field_last_name':
+        case 'field_titre_metier':
+        case 'name':
+        case 'field_entreprise':
+        case 'field_address':
+          $classes[] = 'col-sm-10';
+          break;
+
+        case 'field_link_to_my_blog':
+        case 'field_domaine':
+        case 'field_skills_set':
+        case 'field_position_list':
+        case 'field_employment_history':
+        case 'field_other_areas':
+          $classes[] = 'col-sm-12';
+          break;
+      }
+      break;
+  }
+
+  // switch ($name) {
+  //   case 'field_authors':
+  //     $title_classes[] = 'inline';
+  //     $content_classes[] = 'authors';
+  //     $item_classes[] = 'author';
+  //     break;
+  // }
+
+  // Apply odd or even classes along with our custom classes to each item */
+  foreach ($vars['items'] as $delta => $item) {
+    $vars['item_attributes_array'][$delta]['class'] = $item_classes;
+    $vars['item_attributes_array'][$delta]['class'][] = $delta % 2 ? 'even' : 'odd';
+  }
+}
