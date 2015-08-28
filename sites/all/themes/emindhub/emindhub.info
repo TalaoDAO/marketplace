@@ -63,18 +63,18 @@ exclude[css][] = 'sites/all/modules/patched/field_collection/field_collection.th
 ; ;;;;;;;;;;;;;;;;;;;;;
 ;
 scripts[] = js/main.js
-scripts[] = 'library/bootstrap/js/affix.js'
-scripts[] = 'library/bootstrap/js/alert.js'
-scripts[] = 'library/bootstrap/js/button.js'
-scripts[] = 'library/bootstrap/js/carousel.js'
-scripts[] = 'library/bootstrap/js/collapse.js'
-scripts[] = 'library/bootstrap/js/dropdown.js'
-scripts[] = 'library/bootstrap/js/modal.js'
-scripts[] = 'library/bootstrap/js/tooltip.js'
-scripts[] = 'library/bootstrap/js/popover.js'
-scripts[] = 'library/bootstrap/js/scrollspy.js'
-scripts[] = 'library/bootstrap/js/tab.js'
-scripts[] = 'library/bootstrap/js/transition.js'
+scripts[] = 'libraries/bootstrap/js/affix.js'
+scripts[] = 'libraries/bootstrap/js/alert.js'
+scripts[] = 'libraries/bootstrap/js/button.js'
+scripts[] = 'libraries/bootstrap/js/carousel.js'
+scripts[] = 'libraries/bootstrap/js/collapse.js'
+scripts[] = 'libraries/bootstrap/js/dropdown.js'
+scripts[] = 'libraries/bootstrap/js/modal.js'
+scripts[] = 'libraries/bootstrap/js/tooltip.js'
+scripts[] = 'libraries/bootstrap/js/popover.js'
+scripts[] = 'libraries/bootstrap/js/scrollspy.js'
+scripts[] = 'libraries/bootstrap/js/tab.js'
+scripts[] = 'libraries/bootstrap/js/transition.js'
 
 ; ; Disable BootstrapCDN if using Bootstrap source files in your sub-theme.
 ; settings[bootstrap_cdn] = ''
