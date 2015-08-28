@@ -532,18 +532,6 @@ function emindhub_beautiful_user_profile_link() {
 }
 
 
-// TODO for profile view
-function emindhub_user_profile_my_edit() {
-  $user_viewed = menu_get_object('user');
-  $user_viewed = $user_viewed->uid;
-  global $user;
-  $user_myself = $user->uid;
-  if ($user_viewed == $user_myself) {
-    return '<a href="#">BAM</a>';
-  }
-}
-
-
 /**
  * Implements hook_preprocess_field()
  * http://atendesigngroup.com/blog/adding-css-classes-fields-drupal
@@ -594,10 +582,9 @@ function emindhub_preprocess_field(&$vars) {
         case 'field_photo':
           $classes[] = 'col-sm-2';
           break;
+
         case 'field_first_name':
-        // case 'field_last_name':
         case 'field_titre_metier':
-        case 'name':
         case 'field_entreprise':
         case 'field_address':
           $classes[] = 'col-sm-10';
