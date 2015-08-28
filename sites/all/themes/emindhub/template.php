@@ -9,34 +9,40 @@ require_once("inc/regions.php");
 require_once("inc/blocks.php");
 
 
-// function emindhub_css_alter(&$css) {
-//
-//   unset($css['sites/all/modules/contrib/jquery_update/replace/ui/themes/base/minified/jquery.ui.resizable.min.css']);
-//   unset($css['sites/all/modules/contrib/jquery_update/replace/ui/themes/base/minified/jquery.ui.button.min.css']);
-//   unset($css['sites/all/modules/contrib/jquery_update/replace/ui/themes/base/minified/jquery.ui.dialog.min.css']);
-//   // unset($css['sites/all/libraries/chosen/chosen.css']);
-//   // unset($css['sites/all/modules/contrib/chosen/css/chosen-drupal.css']);
-//   unset($css['sites/all/modules/contrib/jquery_update/replace/ui/themes/base/minified/jquery.ui.menu.min.css']);
-//   unset($css['sites/all/modules/contrib/jquery_update/replace/ui/themes/base/minified/jquery.ui.autocomplete.min.css']);
-//   unset($css['misc/ui/jquery.ui.core.css']);
-//   unset($css['misc/ui/jquery.ui.theme.css']);
-//   // unset($css['modules/system/system.base.css']);
-//   // unset($css['modules/system/system.base.css']);
-//   // unset($css['modules/system/system.menus.css']);
-//   // unset($css['modules/system/system.messages.css']);
-//   // unset($css['modules/system/system.theme.css']);
-//   // unset($css['modules/overlay/overlay-parent.css']);
-//   // unset($css['modules/comment/comment.css']);
-//   // unset($css['modules/field/theme/field.css']);
-//   // unset($css['modules/node/node.css']);
-//   // unset($css['modules/search/search.css']);
-//   // unset($css['modules/user/user.css']);
-//   // unset($css['sites/all/modules/ctools/css/ctools.css']);
-//   // unset($css['sites/all/modules/panels/css/panels.css']);
-//   // unset($css['sites/all/modules/toolbar_hide/toolbar_hide.css']);
-//   // unset($css['modules/shortcut/shortcut.css']);
-//   // unset($css['modules/toolbar/toolbar.css']);
-// }
+/**
+ * Implements hook_css_alter().
+ *
+ * @param $css
+ *   The array of CSS files.
+ */
+function emindhub_css_alter(&$css) {
+
+  // Remove jQuery UI css files
+  // http://drupal.stackexchange.com/a/38592
+  // List of disabled drupal default css files.
+  $disabled_drupal_css = array(
+    // Remove jquery.ui css files.
+    'misc/ui/jquery.ui.core.css',
+    'misc/ui/jquery.ui.theme.css',
+    'misc/ui/jquery.ui.datepicker.css',
+    'misc/ui/jquery.ui.resizable.css',
+    'misc/ui/jquery.ui.button.css',
+    'misc/ui/jquery.ui.dialog.css',
+    'misc/ui/jquery.ui.menu.css',
+    'misc/ui/jquery.ui.autocomplete.css',
+  );
+
+  // Remove drupal default css files.
+  foreach ($css as $key => $item) {
+    if (in_array($key, $disabled_drupal_css)) {
+      // Remove css and its altered version that can be added by jquery_update.
+      unset($css[$css[$key]['data']]);
+      unset($css[$key]);
+    }
+  }
+
+  // echo '<pre>' . print_r($css, TRUE) . '</pre>'; die;
+}
 
 function emindhub_date_combo($variables) {
   return theme('form_element', $variables);
