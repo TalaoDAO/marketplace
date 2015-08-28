@@ -9454,7 +9454,9 @@ form #user-profile-form .imagefield-crop-widget:after,
 form #user-profile-form .imagefield-crop-widget .imagefield-crop-preview:before,
 form #user-profile-form .imagefield-crop-widget .imagefield-crop-preview:after,
 form #user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox:before,
-form #user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox:after {
+form #user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox:after,
+.page-messages #maincol:before,
+.page-messages #maincol:after {
   content: " ";
   display: table;
 }
@@ -9484,7 +9486,8 @@ form #user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox:after {
 form #user-profile-form .link-field-subrow:after,
 form #user-profile-form .imagefield-crop-widget:after,
 form #user-profile-form .imagefield-crop-widget .imagefield-crop-preview:after,
-form #user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox:after {
+form #user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox:after,
+.page-messages #maincol:after {
   clear: both;
 }
 .center-block {
@@ -10348,6 +10351,21 @@ table .checkbox input[type="checkbox"] {
   .navbar-emh-separator > li > a {
     display: inline-block;
   }
+}
+.navbar-emh-left {
+  border: 0;
+  text-transform: normal;
+}
+.navbar-emh-left > li > a:hover,
+.navbar-emh-left > li.active > a,
+.navbar-emh-left > li.active > a:hover,
+.navbar-emh-left > li.active > a:focus {
+  border: 0;
+}
+.navbar-emh-left > li.active > a,
+.navbar-emh-left > li.active > a:hover,
+.navbar-emh-left > li.active > a:focus {
+  font-weight: 700;
 }
 .bold {
   font-weight: bold;
@@ -11823,6 +11841,9 @@ body {
 .profile-section .field-collection-container > .field > .field-items > .field-item {
   margin-bottom: 5px;
 }
+.profile-section.profile-section-public {
+  padding-top: 15px;
+}
 .profile-section.profile-section-public .h3,
 .profile-section.profile-section-public .h4 {
   margin: 0;
@@ -11891,6 +11912,9 @@ body {
     padding: 0;
     margin-left: -15px;
     margin-right: -15px;
+  }
+  .profile-section .field-name-name {
+    clear: both;
   }
   .profile-section .field-name-field-domaine .field-items {
     margin-left: -15px;
@@ -11962,7 +11986,7 @@ body {
 @media (min-width: 767px) and (min-width: 767px) {
   .profile-section .field-name-field-domaine .field-items > .field-item {
     float: left;
-    width: 50%;
+    width: 33.33333333%;
   }
 }
 @media (min-width: 767px) and (min-width: 767px) {
@@ -13862,6 +13886,62 @@ form #global-filter-1 .form-item-field-domaine > label {
   text-shadow: none;
   background-color: transparent;
   border: 0;
+}
+.page-messages #maincol {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.page-messages #maincol h1.page-header {
+  float: left;
+  margin-left: 0;
+  margin-top: -22px;
+}
+.page-messages #maincol .nav-tabs {
+  border: 0;
+  text-transform: normal;
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  clear: both;
+}
+.page-messages #maincol .nav-tabs > li {
+  float: none;
+}
+.page-messages #maincol .nav-tabs > li + li {
+  margin-top: 2px;
+  margin-left: 0;
+}
+.page-messages #maincol .nav-tabs > li > a:hover,
+.page-messages #maincol .nav-tabs > li.active > a,
+.page-messages #maincol .nav-tabs > li.active > a:hover,
+.page-messages #maincol .nav-tabs > li.active > a:focus {
+  border: 0;
+}
+.page-messages #maincol .nav-tabs > li.active > a,
+.page-messages #maincol .nav-tabs > li.active > a:hover,
+.page-messages #maincol .nav-tabs > li.active > a:focus {
+  font-weight: 700;
+}
+@media (min-width: 767px) {
+  .page-messages #maincol .nav-tabs {
+    float: left;
+    width: 25%;
+  }
+}
+.page-messages #maincol .action-links,
+.page-messages #maincol .region-content {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 767px) {
+  .page-messages #maincol .action-links,
+  .page-messages #maincol .region-content {
+    float: left;
+    width: 75%;
+  }
 }
 div.fivestar-widget-static .star {
   width: 21px;
