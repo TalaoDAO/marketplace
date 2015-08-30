@@ -102,9 +102,6 @@ function emindhub_process_format($element) {
 function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
   // echo '<pre>' . print_r($form['#fieldgroups'], TRUE) . '</pre>'; die;
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
-
-  // echo '<pre>' . print_r($form['body']['und'][0]['#format']['format'], TRUE) . '</pre>';
   // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
 
   // $form['body']['und'][0]['#format'] = '<div class="form-row">';
@@ -138,7 +135,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
     $form['actions']['submit']['#attributes']['class'] = array('btn-submit');
   }
 
-  $form['actions']['#suffix'] .= '</div> <!-- END .form-actions -->';
+  $form['actions']['#suffix'] = '</div> <!-- END .form-actions -->';
 
   // Add required legend if minimum one field is required
   if ( emindhub_form_has_required($form) == TRUE ) {
@@ -157,6 +154,9 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
   	  drupal_get_path('theme', 'emindhub') . '/js/disable_show_row_weights.js',
   	);
   }
+
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+
 }
 
 
