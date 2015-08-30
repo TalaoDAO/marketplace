@@ -1,0 +1,39 @@
+/* FORMS
+ * Register
+ */
+#user-register-form {
+  .form-item-legal-terms-of-use {
+    padding: 15px;
+  }
+}
+
+.form-type-password-confirm {
+  .help-tip {
+    .text-hide;
+  }
+}
+
+@media (max-width: @screen-sm-min) {
+  .password-strength {
+    float: none;
+  }
+  input.password-confirm,
+  input.password-field {
+    width: 100%;
+  }
+}
+@media (min-width: @screen-sm-min) {
+  .confirm-parent,
+  .password-parent {
+    width: auto;
+  }
+  input.password-confirm,
+  input.password-field {
+    width: 350px;
+    max-width: 100%;
+  }
+  .password-strength {
+    width: 50%;
+    max-width: 352px;
+  }
+}

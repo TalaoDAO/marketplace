@@ -12,192 +12,37 @@ body {
   background-color: #fff;
   padding-bottom: 45px;
 
-  h1.page-header {
-    .emh-title-main;
+  > div > .row {
+    margin: 0;
   }
 
-  @media (min-width: @screen-sm-min) {
-    section#maincol {
-      margin-top: -15px;
-      padding-top: 15px;
+  #maincol {
+    .make-row();
+    @media (min-width: @screen-sm-min) {
+        margin-top: -15px;
+        padding-top: 15px;
+    }
+
+    > * {
+      .make-sm-column(12);
+    }
+
+    > h1.page-header {
+      .emh-title-main;
+      .make-sm-column(8);
+      width: auto !important;
+      max-width: 66.6667% !important;
     }
   }
+
 }
 
 .content {
-  h2 {
-    color: #4C6172;
-    padding-left: 0.8em;
-    background: transparent url("../images/darkpuce.png") no-repeat scroll 0px 50%;
-  }
-}
-
-.profile-section {
-
-  margin-bottom: 15px;
-  background-color: #F6F7F8;
-  .emh-fieldgroup-blue-title;
-
-  .form-group {
-    margin-bottom: 0;
-  }
-
-  > .field,
-  > .field-collection-container {
-    padding-bottom: 15px;
-    .field-label {
-      margin-bottom: 5px;
-    }
-  }
-
-  .field-collection-container {
-    > .field > .field-items > .field-item {
-      margin-bottom: 5px;
-    }
-  }
-
-  &.profile-section-public {
-    padding-top: 15px;
-    .h3, .h4 {
-      margin: 0;
-    }
-  }
-
-  .field-name-field-photo {
-    .text-center;
-    img {
-      border-radius: 100%;
-    }
-  }
-
-  .field-name-field-address {
-    * {
-      display: inline-block;
-    }
-    .locality-block:after {
-      clear: none;
-      display: none;
-    }
-    span.country:before {
-      content: ", ";
-    }
-  }
-
-  .field-name-field-link-to-my-blog {
-    background-color: #EFF1F3;
-    padding: 15px;
-  }
-
-  .field-name-field-domaine {
-    .field-items {
-      > .field-item {
-        a {
-          background: #D4D9DD none repeat scroll 0% 0%;
-          display: block;
-          font-style: italic;
-          padding: 7px 15px;
-        }
-      }
-    }
-  }
-
-  .field-name-field-skills-set {
-    .field-name-field-skill-autoeval {
-      .fivestar-summary {
-        .hide-text;
-      }
-    }
-    .field-name-field-year-of-experiences {
-      .field-item {
-        background: #D4D9DD none repeat scroll 0% 0%;
-        font-style: italic;
-        padding: 7px 0px;
-        width: 50px;
-        text-align: center;
-      }
-    }
-  }
-
-  .field-name-field-position-list {
-    .field-item .content {
-      .field-name-field-year-of-experiences {
-        .field-item {
-          background: #D4D9DD none repeat scroll 0% 0%;
-          font-style: italic;
-          padding: 7px 0px;
-          width: 50px;
-          text-align: center;
-        }
-      }
-    }
-  }
-
-  .field-name-field-skill2,
-  .field-name-field-position {
-    background: #D4D9DD none repeat scroll 0% 0%;
-    display: block;
-    font-style: italic;
-    padding: 7px 20px;
-    text-align: left;
-  }
-
-}
-
-@media (min-width: @screen-sm-min) {
-  .profile-section {
-    .make-sm-column(12);
-    padding: 0;
-    .make-row();
-
-    .field-name-name {
-      clear: both;
-    }
-
-    .field-name-field-domaine {
-      .field-items {
-        .make-row();
-        > .field-item {
-          .make-sm-column(4);
-        }
-      }
-    }
-    .field-name-field-skills-set {
-      .field-item .content {
-        .make-row();
-        margin: 0;
-
-        .field-name-field-skill2 {
-          .make-sm-column(4);
-        }
-        .field-name-field-skill-autoeval {
-          .make-sm-column(3);
-          .fivestar-default .fivestar-widget-static {
-            .text-center;
-          }
-        }
-        .field-name-field-year-of-experiences {
-          .make-sm-column(4);
-          .form-item-inline-6-6;
-        }
-      }
-    }
-    .field-name-field-position-list {
-      .field-item .content {
-        .make-row();
-        margin: 0;
-
-        .field-name-field-position {
-          .make-sm-column(4);
-        }
-        .field-name-field-entreprise {
-          .make-sm-column(3);
-          .text-center;
-        }
-        .field-name-field-year-of-experiences {
-          .make-sm-column(4);
-          .form-item-inline-6-6;
-        }
-      }
-    }
-  }
+  // h2 {
+  //   color: #4C6172;
+  //   padding-left: 0.8em;
+  //   background-image: url("../images/darkpuce.png");
+  //   background-repeat: no-repeat;
+  //   background-position: 0px 50%;
+  // }
 }

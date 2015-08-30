@@ -9445,18 +9445,22 @@ button.close {
 .bef-select-as-checkboxes:after,
 .bef-select-as-checkboxes .bef-checkboxes:before,
 .bef-select-as-checkboxes .bef-checkboxes:after,
+.main-container #maincol:before,
+.main-container #maincol:after,
 #block-block-16 .content ul:before,
 #block-block-16 .content ul:after,
-form #user-profile-form .link-field-subrow:before,
-form #user-profile-form .link-field-subrow:after,
-form #user-profile-form .imagefield-crop-widget:before,
-form #user-profile-form .imagefield-crop-widget:after,
-form #user-profile-form .imagefield-crop-widget .imagefield-crop-preview:before,
-form #user-profile-form .imagefield-crop-widget .imagefield-crop-preview:after,
-form #user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox:before,
-form #user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox:after,
+#block-progress-tracker-progress-tracker ul.progress-tracker:before,
+#block-progress-tracker-progress-tracker ul.progress-tracker:after,
 .page-messages #maincol:before,
-.page-messages #maincol:after {
+.page-messages #maincol:after,
+form#user-profile-form .link-field-subrow:before,
+form#user-profile-form .link-field-subrow:after,
+form#user-profile-form .imagefield-crop-widget:before,
+form#user-profile-form .imagefield-crop-widget:after,
+form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview:before,
+form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview:after,
+form#user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox:before,
+form#user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox:after {
   content: " ";
   display: table;
 }
@@ -9482,12 +9486,14 @@ form #user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox:after,
 .views-exposed-form .views-exposed-widgets:after,
 .bef-select-as-checkboxes:after,
 .bef-select-as-checkboxes .bef-checkboxes:after,
+.main-container #maincol:after,
 #block-block-16 .content ul:after,
-form #user-profile-form .link-field-subrow:after,
-form #user-profile-form .imagefield-crop-widget:after,
-form #user-profile-form .imagefield-crop-widget .imagefield-crop-preview:after,
-form #user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox:after,
-.page-messages #maincol:after {
+#block-progress-tracker-progress-tracker ul.progress-tracker:after,
+.page-messages #maincol:after,
+form#user-profile-form .link-field-subrow:after,
+form#user-profile-form .imagefield-crop-widget:after,
+form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview:after,
+form#user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox:after {
   clear: both;
 }
 .center-block {
@@ -10434,6 +10440,63 @@ fieldset[disabled] .btn-submit.focus {
   color: #009fe3;
   background-color: #ffffff;
 }
+.btn-nav {
+  color: #4c6172;
+  background-color: transparent;
+  border-color: transparent;
+}
+.btn-nav:focus,
+.btn-nav.focus {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0);
+}
+.btn-nav:hover {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0);
+}
+.btn-nav:active,
+.btn-nav.active,
+.open > .dropdown-toggle.btn-nav {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0);
+}
+.btn-nav:active:hover,
+.btn-nav.active:hover,
+.open > .dropdown-toggle.btn-nav:hover,
+.btn-nav:active:focus,
+.btn-nav.active:focus,
+.open > .dropdown-toggle.btn-nav:focus,
+.btn-nav:active.focus,
+.btn-nav.active.focus,
+.open > .dropdown-toggle.btn-nav.focus {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0);
+}
+.btn-nav:active,
+.btn-nav.active,
+.open > .dropdown-toggle.btn-nav {
+  background-image: none;
+}
+.btn-nav.disabled:hover,
+.btn-nav[disabled]:hover,
+fieldset[disabled] .btn-nav:hover,
+.btn-nav.disabled:focus,
+.btn-nav[disabled]:focus,
+fieldset[disabled] .btn-nav:focus,
+.btn-nav.disabled.focus,
+.btn-nav[disabled].focus,
+fieldset[disabled] .btn-nav.focus {
+  background-color: transparent;
+  border-color: transparent;
+}
+.btn-nav .badge {
+  color: transparent;
+  background-color: #4c6172;
+}
 .emh-block-normal {
   margin-bottom: 15px;
 }
@@ -10675,9 +10738,6 @@ fieldset[disabled] .btn-submit.focus {
     margin-left: -15px;
     margin-bottom: 25px;
     background-color: #fff;
-    display: inline-block;
-    width: 75%;
-    max-width: 562px;
   }
 }
 .emh-block-blue-main-title h1 span,
@@ -10713,9 +10773,6 @@ fieldset[disabled] .btn-submit.focus {
     margin-left: -15px;
     margin-bottom: 25px;
     background-color: #fff;
-    display: inline-block;
-    width: 75%;
-    max-width: 562px;
   }
 }
 .emh-block-blue-main-title .block-title span {
@@ -10797,9 +10854,6 @@ fieldset[disabled] .btn-submit.focus {
     margin-left: -15px;
     margin-bottom: 25px;
     background-color: #fff;
-    display: inline-block;
-    width: 75%;
-    max-width: 562px;
   }
 }
 .emh-title-main span {
@@ -10951,15 +11005,20 @@ fieldset[disabled] .btn-submit.focus {
   .form-item-inline label:first-of-type,
   .form-item-inline .field-label {
     margin-bottom: 0;
+    padding-left: 0;
     line-height: 34px;
   }
-  .form-item-inline .form-control:first-of-type,
+  .form-item-inline .form-group {
+    margin-bottom: 0;
+  }
+  .form-item-inline > .form-control:first-of-type,
   .form-item-inline .input-group:first-of-type,
   .form-item-inline .field-items {
     vertical-align: middle;
     margin-left: -15px;
     margin-right: -15px;
     margin-bottom: 0;
+    padding-left: 0;
   }
 }
 @media (min-width: 767px) {
@@ -10986,15 +11045,20 @@ fieldset[disabled] .btn-submit.focus {
   .form-item-inline-4-8 label:first-of-type,
   .form-item-inline-4-8 .field-label {
     margin-bottom: 0;
+    padding-left: 0;
     line-height: 34px;
   }
-  .form-item-inline-4-8 .form-control:first-of-type,
+  .form-item-inline-4-8 .form-group {
+    margin-bottom: 0;
+  }
+  .form-item-inline-4-8 > .form-control:first-of-type,
   .form-item-inline-4-8 .input-group:first-of-type,
   .form-item-inline-4-8 .field-items {
     vertical-align: middle;
     margin-left: -15px;
     margin-right: -15px;
     margin-bottom: 0;
+    padding-left: 0;
   }
 }
 @media (min-width: 767px) and (min-width: 767px) {
@@ -11036,15 +11100,20 @@ fieldset[disabled] .btn-submit.focus {
   .form-item-inline-6-6 label:first-of-type,
   .form-item-inline-6-6 .field-label {
     margin-bottom: 0;
+    padding-left: 0;
     line-height: 34px;
   }
-  .form-item-inline-6-6 .form-control:first-of-type,
+  .form-item-inline-6-6 .form-group {
+    margin-bottom: 0;
+  }
+  .form-item-inline-6-6 > .form-control:first-of-type,
   .form-item-inline-6-6 .input-group:first-of-type,
   .form-item-inline-6-6 .field-items {
     vertical-align: middle;
     margin-left: -15px;
     margin-right: -15px;
     margin-bottom: 0;
+    padding-left: 0;
   }
 }
 @media (min-width: 767px) and (min-width: 767px) {
@@ -11086,15 +11155,20 @@ fieldset[disabled] .btn-submit.focus {
   .form-item-inline-8-4 label:first-of-type,
   .form-item-inline-8-4 .field-label {
     margin-bottom: 0;
+    padding-left: 0;
     line-height: 34px;
   }
-  .form-item-inline-8-4 .form-control:first-of-type,
+  .form-item-inline-8-4 .form-group {
+    margin-bottom: 0;
+  }
+  .form-item-inline-8-4 > .form-control:first-of-type,
   .form-item-inline-8-4 .input-group:first-of-type,
   .form-item-inline-8-4 .field-items {
     vertical-align: middle;
     margin-left: -15px;
     margin-right: -15px;
     margin-bottom: 0;
+    padding-left: 0;
   }
 }
 @media (min-width: 767px) and (min-width: 767px) {
@@ -11136,15 +11210,20 @@ fieldset[disabled] .btn-submit.focus {
   .form-item-inline-9-3 label:first-of-type,
   .form-item-inline-9-3 .field-label {
     margin-bottom: 0;
+    padding-left: 0;
     line-height: 34px;
   }
-  .form-item-inline-9-3 .form-control:first-of-type,
+  .form-item-inline-9-3 .form-group {
+    margin-bottom: 0;
+  }
+  .form-item-inline-9-3 > .form-control:first-of-type,
   .form-item-inline-9-3 .input-group:first-of-type,
   .form-item-inline-9-3 .field-items {
     vertical-align: middle;
     margin-left: -15px;
     margin-right: -15px;
     margin-bottom: 0;
+    padding-left: 0;
   }
 }
 @media (min-width: 767px) and (min-width: 767px) {
@@ -11208,6 +11287,94 @@ ul.ui-autocomplete > li > a {
 }
 ul.ui-autocomplete a {
   cursor: pointer;
+}
+.autocomplete-deluxe-container {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555555;
+  background-color: #fafafa;
+  background-image: none;
+  border: 1px solid #b2bbc2;
+  border-radius: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  max-width: 352px;
+}
+.autocomplete-deluxe-container:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.autocomplete-deluxe-container::-moz-placeholder {
+  color: #999999;
+  opacity: 1;
+}
+.autocomplete-deluxe-container:-ms-input-placeholder {
+  color: #999999;
+}
+.autocomplete-deluxe-container::-webkit-input-placeholder {
+  color: #999999;
+}
+.autocomplete-deluxe-container::-ms-expand {
+  border: 0;
+  background-color: transparent;
+}
+.autocomplete-deluxe-container[disabled],
+.autocomplete-deluxe-container[readonly],
+fieldset[disabled] .autocomplete-deluxe-container {
+  background-color: #f2f2f2;
+  opacity: 1;
+}
+.autocomplete-deluxe-container[disabled],
+fieldset[disabled] .autocomplete-deluxe-container {
+  cursor: not-allowed;
+}
+textarea.autocomplete-deluxe-container {
+  height: auto;
+}
+.autocomplete-deluxe-item {
+  position: relative;
+  margin: 0 5px 3px 0;
+  padding: 3px 20px 3px 5px;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  background-color: #e4e4e4;
+  background-image: linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
+  background-clip: padding-box;
+  box-shadow: 0 0 2px #ffffff inset, 0 1px 0 rgba(0, 0, 0, 0.05);
+  float: left;
+  color: #333;
+  line-height: 13px;
+  cursor: default;
+}
+.autocomplete-deluxe-item .autocomplete-deluxe-item-delete {
+  position: absolute;
+  top: 4px;
+  right: 3px;
+  display: block;
+  width: 12px;
+  height: 12px;
+  background: url('../../../libraries/chosen/chosen-sprite.png') -42px 1px no-repeat;
+  font-size: 1px;
+  cursor: pointer;
+}
+input#autocomplete-deluxe-input {
+  width: 50px;
+  background-color: transparent;
+  height: auto;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
 }
 .tooltip {
   font-size: 14px;
@@ -11397,30 +11564,6 @@ span.form-required {
 .views-exposed-form .views-exposed-widget {
   padding-top: 0;
 }
-.form-row {
-  display: table;
-  width: 100%;
-}
-.form-row > * {
-  display: table-cell;
-}
-.form-mandatory {
-  text-align: right;
-  line-height: 32px;
-}
-.form-group.form-type-checkbox input,
-.form-group.form-type-bef-checkbox input,
-.form-group.views-exposed-form input {
-  position: absolute;
-}
-.form-group.form-type-checkbox label,
-.form-group.form-type-bef-checkbox label,
-.form-group.views-exposed-form label {
-  font-weight: normal;
-  cursor: pointer;
-  word-wrap: break-word;
-  margin-left: 20px;
-}
 table.views-table > tbody > tr:nth-of-type(odd) {
   background-color: #f9f9f9;
 }
@@ -11439,6 +11582,8 @@ table.views-table > tbody > tr:hover {
 .table-striped > tbody > tr:nth-of-type(even) {
   background-color: #fff;
 }
+/* Better exposed filters
+ * */
 .bef-select-as-checkboxes {
   margin-left: -15px;
   margin-right: -15px;
@@ -11488,6 +11633,200 @@ table.views-table > tbody > tr:hover {
 .bef-select-as-checkboxes .bef-checkboxes .form-group label {
   padding-left: 5px;
 }
+/* jQuery UI
+ * */
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+  background-color: #01bdeb;
+  color: #ffffff;
+}
+.ui-state-hover a,
+.ui-state-hover a:hover,
+.ui-state-hover a:link,
+.ui-state-hover a:visited {
+  color: #ffffff;
+}
+/* Chosen
+ * */
+.chosen-container,
+.form-control.chosen-container {
+  background-color: transparent;
+  padding: 0;
+  border: 0;
+  width: 100% !important;
+  position: relative;
+  display: table;
+  border-collapse: separate;
+  display: table !important;
+}
+.chosen-container[class*="col-"],
+.form-control.chosen-container[class*="col-"] {
+  float: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+.chosen-container .form-control,
+.form-control.chosen-container .form-control {
+  position: relative;
+  z-index: 2;
+  float: left;
+  width: 100%;
+  margin-bottom: 0;
+}
+.chosen-container-single .chosen-single {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555555;
+  background-color: #fafafa;
+  background-image: none;
+  border: 1px solid #b2bbc2;
+  border-radius: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.chosen-container-single .chosen-single:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.chosen-container-single .chosen-single::-moz-placeholder {
+  color: #999999;
+  opacity: 1;
+}
+.chosen-container-single .chosen-single:-ms-input-placeholder {
+  color: #999999;
+}
+.chosen-container-single .chosen-single::-webkit-input-placeholder {
+  color: #999999;
+}
+.chosen-container-single .chosen-single::-ms-expand {
+  border: 0;
+  background-color: transparent;
+}
+.chosen-container-single .chosen-single[disabled],
+.chosen-container-single .chosen-single[readonly],
+fieldset[disabled] .chosen-container-single .chosen-single {
+  background-color: #f2f2f2;
+  opacity: 1;
+}
+.chosen-container-single .chosen-single[disabled],
+fieldset[disabled] .chosen-container-single .chosen-single {
+  cursor: not-allowed;
+}
+textarea.chosen-container-single .chosen-single {
+  height: auto;
+}
+.chosen-container-single .chosen-single div,
+.chosen-container-active.chosen-with-drop .chosen-single div {
+  width: auto;
+}
+.chosen-container-single .chosen-single div b,
+.chosen-container-active.chosen-with-drop .chosen-single div b {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 6px 12px;
+  background: #B2BBC2;
+  border: 1px solid #B2BBC2;
+  top: 0;
+}
+.chosen-container-single .chosen-single div b:before,
+.chosen-container-active.chosen-with-drop .chosen-single div b:before {
+  content: "\e252";
+}
+.chosen-container-multi .chosen-choices {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555555;
+  background-color: #fafafa;
+  background-image: none;
+  border: 1px solid #b2bbc2;
+  border-radius: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  padding-bottom: 0;
+}
+.chosen-container-multi .chosen-choices:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.chosen-container-multi .chosen-choices::-moz-placeholder {
+  color: #999999;
+  opacity: 1;
+}
+.chosen-container-multi .chosen-choices:-ms-input-placeholder {
+  color: #999999;
+}
+.chosen-container-multi .chosen-choices::-webkit-input-placeholder {
+  color: #999999;
+}
+.chosen-container-multi .chosen-choices::-ms-expand {
+  border: 0;
+  background-color: transparent;
+}
+.chosen-container-multi .chosen-choices[disabled],
+.chosen-container-multi .chosen-choices[readonly],
+fieldset[disabled] .chosen-container-multi .chosen-choices {
+  background-color: #f2f2f2;
+  opacity: 1;
+}
+.chosen-container-multi .chosen-choices[disabled],
+fieldset[disabled] .chosen-container-multi .chosen-choices {
+  cursor: not-allowed;
+}
+textarea.chosen-container-multi .chosen-choices {
+  height: auto;
+}
+.chosen-container-multi .chosen-choices li.search-choice {
+  margin: 0 5px 6px 0;
+}
+.chosen-container-multi .chosen-choices li.search-field {
+  margin: 0 5px 6px 0;
+}
+.chosen-container-multi .chosen-choices li.search-field input[type="text"] {
+  margin: 0;
+  padding: 0;
+  height: 21px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  font-style: italic;
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.chosen-container .chosen-results li.highlighted {
+  background-color: #009fe3;
+  background-image: none;
+}
 @media (max-width: 767px) {
   header#navbar .row > * {
     padding: 0;
@@ -11521,6 +11860,9 @@ table.views-table > tbody > tr:hover {
   header#navbar .navbar-collapse {
     max-height: 340px;
   }
+  header#navbar .col-sm-4 {
+    padding-left: 0;
+  }
 }
 @media (min-width: 767px) and (max-device-width: 480px) and (orientation: landscape) {
   body.admin-menu header#navbar .navbar-collapse {
@@ -11550,8 +11892,8 @@ table.views-table > tbody > tr:hover {
   padding: 0.39em;
   width: 3em;
   position: absolute;
-  top: 56px;
-  left: -3em;
+  top: 57px;
+  left: -50px;
   background-color: #FFF;
 }
 .header-emindhub img {
@@ -11570,72 +11912,6 @@ table.views-table > tbody > tr:hover {
 .navbar #block-search-form {
   float: left;
   margin: 0;
-}
-@media (min-width: 767px) {
-  #block-search-form {
-    padding-top: 8px;
-    padding-bottom: 8px;
-  }
-}
-#block-search-form .input-group {
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  border: 1px solid #B2BBC2;
-  background-color: #F2F2F2;
-}
-#block-search-form input {
-  box-shadow: none;
-  background-color: transparent;
-  border: 0;
-  font-style: italic;
-}
-#block-search-form button {
-  font: 0/0 a;
-  color: transparent;
-  text-shadow: none;
-  background-color: transparent;
-  border: 0;
-  height: 34px;
-  width: 34px;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAxhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDM0MiwgMjAxMC8wMS8xMC0xODowNjo0MyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2MzlGNzk5OUZFMkIxMUU0OUU4RUY5OEY5QTYzQURBNCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo2MzlGNzk5QUZFMkIxMUU0OUU4RUY5OEY5QTYzQURBNCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjYzOUY3OTk3RkUyQjExRTQ5RThFRjk4RjlBNjNBREE0IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjYzOUY3OTk4RkUyQjExRTQ5RThFRjk4RjlBNjNBREE0Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+5aRTuwAAAVZJREFUeNqck0FERFEUhs97ZWg7REREiWkTJUqrIhHDZFZFyxYprdumRftmE2UWrVJaZCii1WhVDG0jSrRqFRFD/+G/43dNb6qfzzvPve9/555zbmLVFxN1gTVQAmOgFzyDBjgCF9ZGiZj4R4dg3H6Wm2zSuKVuPmfBJcjx/Q3UwTvoB1MgD4qMp8GjmvjiqRjsgR3wKT/zPftgmUf0/ROg6Ysp2OImVwVsRwbGjFbAlRy9HBZTpuj6oEGW1iUuqkmBcYNGWXqSoo6oSZNxzn6nHhmHlsk9Y29tXweDSRbW9aAmZ+JczTDwTA/k/VhNKpwJ1wKogcHIwLtxy2cwuI4n1j+6k1Ybh8mHboAEfYFhndpUqj4KTmTzEJiJDMKxalq/JLqA4QqUWURj9274g0WwK5nOeUbtTDppg1fA9QrmU/u7vBGrzNAv5/l/TEJ3lphJ/VuAAQDsi0Wgzb1GoQAAAABJRU5ErkJggg==);
-}
-/* HEADER
- * User login + User menu
- */
-#block-user-login .nav,
-#block-system-user-menu .nav {
-  float: right;
-}
-#block-user-login .nav li > a,
-#block-system-user-menu .nav li > a {
-  color: #337AB7;
-  font-size: 12px;
-  cursor: pointer;
-}
-/* HEADER
- * Languages
- */
-#block-bootstrap-languages-language {
-  position: relative;
-  float: left;
-  width: 33.33333333%;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-  text-align: right;
-}
-@media (min-width: 767px) {
-  #block-bootstrap-languages-language {
-    float: left;
-    width: 16.66666667%;
-  }
-}
-#block-bootstrap-languages-language .nav {
-  margin: 10px 0;
-  float: right;
 }
 /* HEADER
  * Navigation
@@ -11752,7 +12028,32 @@ body {
   background-color: #fff;
   padding-bottom: 45px;
 }
-.main-container h1.page-header {
+.main-container > div > .row {
+  margin: 0;
+}
+.main-container #maincol {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+@media (min-width: 767px) {
+  .main-container #maincol {
+    margin-top: -15px;
+    padding-top: 15px;
+  }
+}
+.main-container #maincol > * {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 767px) {
+  .main-container #maincol > * {
+    float: left;
+    width: 100%;
+  }
+}
+.main-container #maincol > h1.page-header {
   text-transform: uppercase;
   color: #009fe3;
   font-size: 24px;
@@ -11761,368 +12062,29 @@ body {
   background-image: url("../images/page-title_border.png");
   background-repeat: no-repeat;
   background-position: 15px 100%;
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: auto !important;
+  max-width: 66.6667% !important;
 }
 @media (min-width: 767px) {
-  .main-container h1.page-header {
+  .main-container #maincol > h1.page-header {
     padding: 15px 15px 10px;
     margin-top: -25px;
     margin-left: -15px;
     margin-bottom: 25px;
     background-color: #fff;
-    display: inline-block;
-    width: 75%;
-    max-width: 562px;
   }
 }
-.main-container h1.page-header span {
+.main-container #maincol > h1.page-header span {
   color: #445766;
 }
 @media (min-width: 767px) {
-  .main-container section#maincol {
-    margin-top: -15px;
-    padding-top: 15px;
-  }
-}
-.content h2 {
-  color: #4C6172;
-  padding-left: 0.8em;
-  background: transparent url("../images/darkpuce.png") no-repeat scroll 0px 50%;
-}
-.profile-section {
-  margin-bottom: 15px;
-  background-color: #F6F7F8;
-}
-.profile-section h2 {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding: 15px 0 25px;
-  margin: 0 0 15px;
-  color: #009fe3;
-  text-transform: uppercase;
-  background-color: #fff;
-  background-image: none;
-}
-@media (min-width: 767px) {
-  .profile-section h2 {
+  .main-container #maincol > h1.page-header {
     float: left;
-    width: 100%;
-  }
-}
-@media (min-width: 767px) {
-  .profile-section h2 span {
-    background-color: #FFF;
-    display: inline-block;
-    padding-right: 15px;
-    z-index: 1;
-  }
-  .profile-section h2:after {
-    height: 1px;
-    content: "";
-    background: #009fe3;
-    display: block;
-    margin-top: -0.55em;
-    width: 100%;
-    z-index: 0;
-  }
-}
-.profile-section .form-group {
-  margin-bottom: 0;
-}
-.profile-section > .field,
-.profile-section > .field-collection-container {
-  padding-bottom: 15px;
-}
-.profile-section > .field .field-label,
-.profile-section > .field-collection-container .field-label {
-  margin-bottom: 5px;
-}
-.profile-section .field-collection-container > .field > .field-items > .field-item {
-  margin-bottom: 5px;
-}
-.profile-section.profile-section-public {
-  padding-top: 15px;
-}
-.profile-section.profile-section-public .h3,
-.profile-section.profile-section-public .h4 {
-  margin: 0;
-}
-.profile-section .field-name-field-photo {
-  text-align: center;
-}
-.profile-section .field-name-field-photo img {
-  border-radius: 100%;
-}
-.profile-section .field-name-field-address * {
-  display: inline-block;
-}
-.profile-section .field-name-field-address .locality-block:after {
-  clear: none;
-  display: none;
-}
-.profile-section .field-name-field-address span.country:before {
-  content: ", ";
-}
-.profile-section .field-name-field-link-to-my-blog {
-  background-color: #EFF1F3;
-  padding: 15px;
-}
-.profile-section .field-name-field-domaine .field-items > .field-item a {
-  background: #D4D9DD none repeat scroll 0% 0%;
-  display: block;
-  font-style: italic;
-  padding: 7px 15px;
-}
-.profile-section .field-name-field-skills-set .field-name-field-skill-autoeval .fivestar-summary {
-  font: 0/0 a;
-  color: transparent;
-  text-shadow: none;
-  background-color: transparent;
-  border: 0;
-}
-.profile-section .field-name-field-skills-set .field-name-field-year-of-experiences .field-item {
-  background: #D4D9DD none repeat scroll 0% 0%;
-  font-style: italic;
-  padding: 7px 0px;
-  width: 50px;
-  text-align: center;
-}
-.profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .field-item {
-  background: #D4D9DD none repeat scroll 0% 0%;
-  font-style: italic;
-  padding: 7px 0px;
-  width: 50px;
-  text-align: center;
-}
-.profile-section .field-name-field-skill2,
-.profile-section .field-name-field-position {
-  background: #D4D9DD none repeat scroll 0% 0%;
-  display: block;
-  font-style: italic;
-  padding: 7px 20px;
-  text-align: left;
-}
-@media (min-width: 767px) {
-  .profile-section {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding: 0;
-    margin-left: -15px;
-    margin-right: -15px;
-  }
-  .profile-section .field-name-name {
-    clear: both;
-  }
-  .profile-section .field-name-field-domaine .field-items {
-    margin-left: -15px;
-    margin-right: -15px;
-  }
-  .profile-section .field-name-field-domaine .field-items > .field-item {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .profile-section .field-name-field-skills-set .field-item .content {
-    margin-left: -15px;
-    margin-right: -15px;
-    margin: 0;
-  }
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-skill2 {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-skill-autoeval {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-skill-autoeval .fivestar-default .fivestar-widget-static {
-    text-align: center;
-  }
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .profile-section .field-name-field-position-list .field-item .content {
-    margin-left: -15px;
-    margin-right: -15px;
-    margin: 0;
-  }
-  .profile-section .field-name-field-position-list .field-item .content .field-name-field-position {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .profile-section .field-name-field-position-list .field-item .content .field-name-field-entreprise {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-    text-align: center;
-  }
-  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  .profile-section {
-    float: left;
-    width: 100%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  .profile-section .field-name-field-domaine .field-items > .field-item {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-skill2 {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-skill-autoeval {
-    float: left;
-    width: 25%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences label:first-of-type,
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .field-label {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences > .form-control:first-of-type,
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .input-group:first-of-type,
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .field-items {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences {
-    margin-bottom: 0;
-  }
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences label:first-of-type,
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .field-label {
-    margin-bottom: 0;
-    line-height: 34px;
-  }
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .form-control:first-of-type,
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .input-group:first-of-type,
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .field-items {
-    vertical-align: middle;
-    margin-left: -15px;
-    margin-right: -15px;
-    margin-bottom: 0;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences label:first-of-type,
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .field-label {
-    float: left;
-    width: 50%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences > .form-control:first-of-type,
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .input-group:first-of-type,
-  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .field-items {
-    float: left;
-    width: 50%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  .profile-section .field-name-field-position-list .field-item .content .field-name-field-position {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  .profile-section .field-name-field-position-list .field-item .content .field-name-field-entreprise {
-    float: left;
-    width: 25%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences label:first-of-type,
-  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .field-label {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences > .form-control:first-of-type,
-  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .input-group:first-of-type,
-  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .field-items {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences {
-    margin-bottom: 0;
-  }
-  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences label:first-of-type,
-  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .field-label {
-    margin-bottom: 0;
-    line-height: 34px;
-  }
-  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .form-control:first-of-type,
-  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .input-group:first-of-type,
-  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .field-items {
-    vertical-align: middle;
-    margin-left: -15px;
-    margin-right: -15px;
-    margin-bottom: 0;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences label:first-of-type,
-  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .field-label {
-    float: left;
-    width: 50%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences > .form-control:first-of-type,
-  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .input-group:first-of-type,
-  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .field-items {
-    float: left;
-    width: 50%;
+    width: 66.66666667%;
   }
 }
 .region-burgermenu {
@@ -12439,6 +12401,72 @@ aside .block .content {
   .block:last-child {
     margin-bottom: 0;
   }
+}
+@media (min-width: 767px) {
+  #block-search-form {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}
+#block-search-form .input-group {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  border: 1px solid #B2BBC2;
+  background-color: #F2F2F2;
+}
+#block-search-form input {
+  box-shadow: none;
+  background-color: transparent;
+  border: 0;
+  font-style: italic;
+}
+#block-search-form button {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+  height: 34px;
+  width: 34px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAxhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDM0MiwgMjAxMC8wMS8xMC0xODowNjo0MyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2MzlGNzk5OUZFMkIxMUU0OUU4RUY5OEY5QTYzQURBNCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo2MzlGNzk5QUZFMkIxMUU0OUU4RUY5OEY5QTYzQURBNCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjYzOUY3OTk3RkUyQjExRTQ5RThFRjk4RjlBNjNBREE0IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjYzOUY3OTk4RkUyQjExRTQ5RThFRjk4RjlBNjNBREE0Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+5aRTuwAAAVZJREFUeNqck0FERFEUhs97ZWg7REREiWkTJUqrIhHDZFZFyxYprdumRftmE2UWrVJaZCii1WhVDG0jSrRqFRFD/+G/43dNb6qfzzvPve9/555zbmLVFxN1gTVQAmOgFzyDBjgCF9ZGiZj4R4dg3H6Wm2zSuKVuPmfBJcjx/Q3UwTvoB1MgD4qMp8GjmvjiqRjsgR3wKT/zPftgmUf0/ROg6Ysp2OImVwVsRwbGjFbAlRy9HBZTpuj6oEGW1iUuqkmBcYNGWXqSoo6oSZNxzn6nHhmHlsk9Y29tXweDSRbW9aAmZ+JczTDwTA/k/VhNKpwJ1wKogcHIwLtxy2cwuI4n1j+6k1Ybh8mHboAEfYFhndpUqj4KTmTzEJiJDMKxalq/JLqA4QqUWURj9274g0WwK5nOeUbtTDppg1fA9QrmU/u7vBGrzNAv5/l/TEJ3lphJ/VuAAQDsi0Wgzb1GoQAAAABJRU5ErkJggg==);
+}
+/* HEADER
+ * User login + User menu
+ */
+#block-user-login .nav,
+#block-system-user-menu .nav {
+  float: right;
+}
+#block-user-login .nav li > a,
+#block-system-user-menu .nav li > a {
+  color: #337AB7;
+  font-size: 12px;
+  cursor: pointer;
+}
+/* HEADER
+ * Languages
+ */
+#block-bootstrap-languages-language {
+  position: relative;
+  float: left;
+  width: 33.33333333%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: right;
+}
+@media (min-width: 767px) {
+  #block-bootstrap-languages-language {
+    float: left;
+    width: 16.66666667%;
+  }
+}
+#block-bootstrap-languages-language .nav {
+  margin: 10px 0;
+  float: right;
 }
 #block-block-2 a.btn {
   text-transform: uppercase;
@@ -12770,9 +12798,10 @@ aside .block .content {
   background-color: #f2f2f2;
 }
 #block-views-users-list-block-2 .views-field-field-photo img {
-  border-radius: 100%;
+  border-radius: 50%;
   display: block;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 #block-views-users-list-block-2 .views-field-nothing {
   font-weight: bold;
@@ -12865,22 +12894,51 @@ aside .block .content {
 .view-query-list .views-field-nothing {
   text-align: right;
 }
+#block-progress-tracker-progress-tracker .block-title {
+  margin-top: 0;
+}
+#block-progress-tracker-progress-tracker ul.progress-tracker {
+  padding: 0;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+#block-progress-tracker-progress-tracker ul.progress-tracker li {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center;
+  text-transform: uppercase;
+  list-style: outside none none;
+  margin: 0px;
+  padding: 5px 10px;
+  font-weight: 700;
+  color: #FFF;
+  background-color: #A1ACB5;
+}
+@media (min-width: 767px) {
+  #block-progress-tracker-progress-tracker ul.progress-tracker li {
+    float: left;
+    width: 50%;
+  }
+}
+#block-progress-tracker-progress-tracker ul.progress-tracker li.first {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-right: 2px solid #fff;
+}
+#block-progress-tracker-progress-tracker ul.progress-tracker li.last {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-left: 2px solid #fff;
+}
 form {
   /* FORMS
-   * General
-   */
+	 * General
+	 */
   /* FORMS
-   * Fields
-   */
-  /* FORMS
-   * Chosen
-   * */
-  /* FORMS
-   * Register
-   */
-  /* FORMS
-   * Profile
-   */
+	 * Fields
+	 */
 }
 form > * > .form-item-title,
 form .field-group-fieldset {
@@ -12923,113 +12981,6 @@ form .group-hidden {
   opacity: 0;
   visibility: hidden;
   display: none;
-}
-form .autocomplete-deluxe-container {
-  display: block;
-  width: 100%;
-  height: 34px;
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.42857143;
-  color: #555555;
-  background-color: #fafafa;
-  background-image: none;
-  border: 1px solid #b2bbc2;
-  border-radius: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  max-width: 352px;
-}
-form .autocomplete-deluxe-container:focus {
-  border-color: #66afe9;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
-  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
-}
-form .autocomplete-deluxe-container::-moz-placeholder {
-  color: #999999;
-  opacity: 1;
-}
-form .autocomplete-deluxe-container:-ms-input-placeholder {
-  color: #999999;
-}
-form .autocomplete-deluxe-container::-webkit-input-placeholder {
-  color: #999999;
-}
-form .autocomplete-deluxe-container::-ms-expand {
-  border: 0;
-  background-color: transparent;
-}
-form .autocomplete-deluxe-container[disabled],
-form .autocomplete-deluxe-container[readonly],
-fieldset[disabled] form .autocomplete-deluxe-container {
-  background-color: #f2f2f2;
-  opacity: 1;
-}
-form .autocomplete-deluxe-container[disabled],
-fieldset[disabled] form .autocomplete-deluxe-container {
-  cursor: not-allowed;
-}
-textareaform .autocomplete-deluxe-container {
-  height: auto;
-}
-form .autocomplete-deluxe-item {
-  position: relative;
-  margin: 0 5px 3px 0;
-  padding: 3px 20px 3px 5px;
-  border: 1px solid #aaa;
-  border-radius: 3px;
-  background-color: #e4e4e4;
-  background-image: linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);
-  background-clip: padding-box;
-  box-shadow: 0 0 2px #ffffff inset, 0 1px 0 rgba(0, 0, 0, 0.05);
-  float: left;
-  color: #333;
-  line-height: 13px;
-  cursor: default;
-}
-form .autocomplete-deluxe-item .autocomplete-deluxe-item-delete {
-  position: absolute;
-  top: 4px;
-  right: 3px;
-  display: block;
-  width: 12px;
-  height: 12px;
-  background: url('../../../libraries/chosen/chosen-sprite.png') -42px 1px no-repeat;
-  font-size: 1px;
-  cursor: pointer;
-}
-form input#autocomplete-deluxe-input {
-  width: 50px;
-  background-color: transparent;
-  height: auto;
-  padding: 0;
-  border: 0;
-  box-shadow: none;
-}
-form .chosen-container .chosen-results li.highlighted {
-  background-color: #009fe3;
-  background-image: none;
-}
-form .ui-state-hover,
-form .ui-widget-content .ui-state-hover,
-form .ui-widget-header .ui-state-hover,
-form .ui-state-focus,
-form .ui-widget-content .ui-state-focus,
-form .ui-widget-header .ui-state-focus {
-  background-color: #01bdeb;
-  color: #ffffff;
-}
-form .ui-state-hover a,
-form .ui-state-hover a:hover,
-form .ui-state-hover a:link,
-form .ui-state-hover a:visited {
-  color: #ffffff;
 }
 form .field-type-addressfield {
   margin-bottom: 0;
@@ -13114,778 +13065,29 @@ form .field-type-image span.file {
     width: 83.33333333%;
   }
 }
-form .chosen-container,
-form .form-control.chosen-container {
-  background-color: transparent;
-  padding: 0;
-  border: 0;
-  width: 100% !important;
-  position: relative;
+form .form-row {
   display: table;
-  border-collapse: separate;
-  display: table !important;
-}
-form .chosen-container[class*="col-"],
-form .form-control.chosen-container[class*="col-"] {
-  float: none;
-  padding-left: 0;
-  padding-right: 0;
-}
-form .chosen-container .form-control,
-form .form-control.chosen-container .form-control {
-  position: relative;
-  z-index: 2;
-  float: left;
   width: 100%;
-  margin-bottom: 0;
 }
-form .chosen-container-single .chosen-single {
-  display: block;
-  width: 100%;
-  height: 34px;
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.42857143;
-  color: #555555;
-  background-color: #fafafa;
-  background-image: none;
-  border: 1px solid #b2bbc2;
-  border-radius: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+form .form-row > * {
+  display: table-cell;
 }
-form .chosen-container-single .chosen-single:focus {
-  border-color: #66afe9;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
-  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+form .form-mandatory {
+  text-align: right;
+  line-height: 32px;
 }
-form .chosen-container-single .chosen-single::-moz-placeholder {
-  color: #999999;
-  opacity: 1;
+form .form-group.form-type-checkbox input,
+form .form-group.form-type-bef-checkbox input,
+form .form-group.views-exposed-form input {
+  position: absolute;
 }
-form .chosen-container-single .chosen-single:-ms-input-placeholder {
-  color: #999999;
-}
-form .chosen-container-single .chosen-single::-webkit-input-placeholder {
-  color: #999999;
-}
-form .chosen-container-single .chosen-single::-ms-expand {
-  border: 0;
-  background-color: transparent;
-}
-form .chosen-container-single .chosen-single[disabled],
-form .chosen-container-single .chosen-single[readonly],
-fieldset[disabled] form .chosen-container-single .chosen-single {
-  background-color: #f2f2f2;
-  opacity: 1;
-}
-form .chosen-container-single .chosen-single[disabled],
-fieldset[disabled] form .chosen-container-single .chosen-single {
-  cursor: not-allowed;
-}
-textareaform .chosen-container-single .chosen-single {
-  height: auto;
-}
-form .chosen-container-single .chosen-single div,
-form .chosen-container-active.chosen-with-drop .chosen-single div {
-  width: auto;
-}
-form .chosen-container-single .chosen-single div b,
-form .chosen-container-active.chosen-with-drop .chosen-single div b {
-  position: relative;
-  top: 1px;
-  display: inline-block;
-  font-family: 'Glyphicons Halflings';
-  font-style: normal;
+form .form-group.form-type-checkbox label,
+form .form-group.form-type-bef-checkbox label,
+form .form-group.views-exposed-form label {
   font-weight: normal;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  padding: 6px 12px;
-  background: #B2BBC2;
-  border: 1px solid #B2BBC2;
-  top: 0;
-}
-form .chosen-container-single .chosen-single div b:before,
-form .chosen-container-active.chosen-with-drop .chosen-single div b:before {
-  content: "\e252";
-}
-form .chosen-container-multi .chosen-choices {
-  display: block;
-  width: 100%;
-  height: 34px;
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.42857143;
-  color: #555555;
-  background-color: #fafafa;
-  background-image: none;
-  border: 1px solid #b2bbc2;
-  border-radius: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  padding-bottom: 0;
-}
-form .chosen-container-multi .chosen-choices:focus {
-  border-color: #66afe9;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
-  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
-}
-form .chosen-container-multi .chosen-choices::-moz-placeholder {
-  color: #999999;
-  opacity: 1;
-}
-form .chosen-container-multi .chosen-choices:-ms-input-placeholder {
-  color: #999999;
-}
-form .chosen-container-multi .chosen-choices::-webkit-input-placeholder {
-  color: #999999;
-}
-form .chosen-container-multi .chosen-choices::-ms-expand {
-  border: 0;
-  background-color: transparent;
-}
-form .chosen-container-multi .chosen-choices[disabled],
-form .chosen-container-multi .chosen-choices[readonly],
-fieldset[disabled] form .chosen-container-multi .chosen-choices {
-  background-color: #f2f2f2;
-  opacity: 1;
-}
-form .chosen-container-multi .chosen-choices[disabled],
-fieldset[disabled] form .chosen-container-multi .chosen-choices {
-  cursor: not-allowed;
-}
-textareaform .chosen-container-multi .chosen-choices {
-  height: auto;
-}
-form .chosen-container-multi .chosen-choices li.search-choice {
-  margin: 0 5px 6px 0;
-}
-form .chosen-container-multi .chosen-choices li.search-field {
-  margin: 0 5px 6px 0;
-}
-form .chosen-container-multi .chosen-choices li.search-field input[type="text"] {
-  margin: 0;
-  padding: 0;
-  height: 21px;
-  font-size: 14px;
-  line-height: 1.42857143;
-  font-style: italic;
-  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-form .chosen-container .chosen-results li.highlighted {
-  background-color: #009fe3;
-  background-image: none;
-}
-form #user-register-form .form-item-legal-terms-of-use {
-  padding: 15px;
-}
-form .form-type-password-confirm .help-tip {
-  font: 0/0 a;
-  color: transparent;
-  text-shadow: none;
-  background-color: transparent;
-  border: 0;
-}
-@media (max-width: 767px) {
-  form .password-strength {
-    float: none;
-  }
-  form input.password-confirm,
-  form input.password-field {
-    width: 100%;
-  }
-}
-@media (min-width: 767px) {
-  form .confirm-parent,
-  form .password-parent {
-    width: auto;
-  }
-  form input.password-confirm,
-  form input.password-field {
-    width: 350px;
-    max-width: 100%;
-  }
-  form .password-strength {
-    width: 50%;
-    max-width: 352px;
-  }
-}
-form #user-profile-form .link-field-subrow {
-  margin-left: -15px;
-  margin-right: -15px;
-}
-form #user-profile-form .link-field-subrow > * .form-group {
-  margin-bottom: 0;
-}
-@media (min-width: 767px) {
-  form #user-profile-form .link-field-subrow {
-    margin-left: 0;
-    margin-right: 0;
-  }
-  form #user-profile-form .link-field-subrow > * .form-group {
-    margin-bottom: 0;
-  }
-}
-form #user-profile-form .link-field-subrow > *:nth-child(1) {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 767px) {
-  form #user-profile-form .link-field-subrow > *:nth-child(1) {
-    float: left;
-    width: 50%;
-  }
-}
-form #user-profile-form .link-field-subrow > *:nth-child(2) {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 767px) {
-  form #user-profile-form .link-field-subrow > *:nth-child(2) {
-    float: left;
-    width: 50%;
-  }
-}
-@media (min-width: 767px) {
-  form #user-profile-form .link-field-subrow > *:nth-child(1) {
-    padding-left: 0;
-    padding-right: 7.5px;
-  }
-  form #user-profile-form .link-field-subrow > *:nth-child(2) {
-    padding-right: 0;
-    padding-left: 7.5px;
-  }
-}
-form #user-profile-form .imagefield-crop-widget {
-  margin-left: -15px;
-  margin-right: -15px;
-  margin: 0;
-}
-form #user-profile-form .imagefield-crop-widget .imagefield-crop-preview {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-left: -15px;
-  margin-right: -15px;
-  margin: 0;
-}
-@media (min-width: 767px) {
-  form #user-profile-form .imagefield-crop-widget .imagefield-crop-preview {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-form #user-profile-form .imagefield-crop-widget .imagefield-crop-preview .jcrop-preview-wrapper {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding: 0;
-  border-radius: 100%;
-}
-@media (min-width: 767px) {
-  form #user-profile-form .imagefield-crop-widget .imagefield-crop-preview .jcrop-preview-wrapper {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-form #user-profile-form .imagefield-crop-widget .imagefield-crop-preview .jcrop-preview-wrapper img.jcrop-preview {
-  width: 110px !important;
-  height: auto !important;
-}
-form #user-profile-form .imagefield-crop-widget .imagefield-crop-preview .description {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 767px) {
-  form #user-profile-form .imagefield-crop-widget .imagefield-crop-preview .description {
-    float: left;
-    width: 66.66666667%;
-  }
-}
-form #user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-left: -15px;
-  margin-right: -15px;
-  margin: 0;
-}
-@media (min-width: 767px) {
-  form #user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-form #user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox .jcrop-holder {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding: 0;
-}
-@media (min-width: 767px) {
-  form #user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox .jcrop-holder {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-form #user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox .description {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 767px) {
-  form #user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox .description {
-    float: left;
-    width: 66.66666667%;
-  }
-}
-form #user-profile-form .imagefield-crop-widget .file {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 767px) {
-  form #user-profile-form .imagefield-crop-widget .file {
-    float: left;
-    width: 16.66666667%;
-  }
-}
-@media (min-width: 767px) {
-  form #user-profile-form .imagefield-crop-widget button.form-submit {
-    float: right;
-    margin-right: 15px;
-  }
-}
-@media (min-width: 767px) {
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) {
-    margin-left: -15px;
-    margin-right: -15px;
-  }
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  form #user-profile-form #edit-field-skills-set button.form-submit,
-  form #user-profile-form #edit-field-skills-set input.field-add-more-submit {
-    float: right;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 label:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .field-label {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 > .form-control:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .input-group:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .field-items {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 {
-    margin-bottom: 0;
-  }
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 label:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .field-label {
-    margin-bottom: 0;
-    line-height: 34px;
-  }
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .form-control:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .input-group:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .field-items {
-    vertical-align: middle;
-    margin-left: -15px;
-    margin-right: -15px;
-    margin-bottom: 0;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 label:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .field-label {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 > .form-control:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .input-group:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .field-items {
-    float: left;
-    width: 66.66666667%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval label:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .field-label {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval > .form-control:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .input-group:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .field-items {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval {
-    margin-bottom: 0;
-  }
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval label:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .field-label {
-    margin-bottom: 0;
-    line-height: 34px;
-  }
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .form-control:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .input-group:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .field-items {
-    vertical-align: middle;
-    margin-left: -15px;
-    margin-right: -15px;
-    margin-bottom: 0;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval label:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .field-label {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval > .form-control:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .input-group:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .field-items {
-    float: left;
-    width: 66.66666667%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences {
-    float: left;
-    width: 16.66666667%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences label:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .field-label {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences > .form-control:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .input-group:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .field-items {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences {
-    margin-bottom: 0;
-  }
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences label:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .field-label {
-    margin-bottom: 0;
-    line-height: 34px;
-  }
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .form-control:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .input-group:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .field-items {
-    vertical-align: middle;
-    margin-left: -15px;
-    margin-right: -15px;
-    margin-bottom: 0;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences label:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .field-label {
-    float: left;
-    width: 66.66666667%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences > .form-control:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .input-group:first-of-type,
-  form #user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .field-items {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-@media (min-width: 767px) {
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) {
-    margin-left: -15px;
-    margin-right: -15px;
-  }
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  form #user-profile-form #edit-field-position-list button.form-submit,
-  form #user-profile-form #edit-field-position-list input.field-add-more-submit {
-    float: right;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position label:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .field-label {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position > .form-control:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .input-group:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .field-items {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position {
-    margin-bottom: 0;
-  }
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position label:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .field-label {
-    margin-bottom: 0;
-    line-height: 34px;
-  }
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .form-control:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .input-group:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .field-items {
-    vertical-align: middle;
-    margin-left: -15px;
-    margin-right: -15px;
-    margin-bottom: 0;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position label:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .field-label {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position > .form-control:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .input-group:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .field-items {
-    float: left;
-    width: 66.66666667%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise label:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .field-label {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise > .form-control:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .input-group:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .field-items {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise {
-    margin-bottom: 0;
-  }
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise label:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .field-label {
-    margin-bottom: 0;
-    line-height: 34px;
-  }
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .form-control:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .input-group:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .field-items {
-    vertical-align: middle;
-    margin-left: -15px;
-    margin-right: -15px;
-    margin-bottom: 0;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise label:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .field-label {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise > .form-control:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .input-group:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .field-items {
-    float: left;
-    width: 66.66666667%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences {
-    float: left;
-    width: 16.66666667%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences label:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .field-label {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences > .form-control:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .input-group:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .field-items {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences {
-    margin-bottom: 0;
-  }
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences label:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .field-label {
-    margin-bottom: 0;
-    line-height: 34px;
-  }
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .form-control:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .input-group:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .field-items {
-    vertical-align: middle;
-    margin-left: -15px;
-    margin-right: -15px;
-    margin-bottom: 0;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences label:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .field-label {
-    float: left;
-    width: 66.66666667%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences > .form-control:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .input-group:first-of-type,
-  form #user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .field-items {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-@media (min-width: 767px) {
-  form #user-profile-form #edit-field-known-specific {
-    clear: both;
-    margin-left: 50%;
-    padding-left: 7.5px;
-  }
-}
-form #global-filter-1 .form-item-field-domaine > label {
-  font: 0/0 a;
-  color: transparent;
-  text-shadow: none;
-  background-color: transparent;
-  border: 0;
+  cursor: pointer;
+  word-wrap: break-word;
+  margin-left: 20px;
 }
 .page-messages #maincol {
   margin-left: -15px;
@@ -14013,6 +13215,1469 @@ body.front aside {
     background-position: center center;
     background-repeat: no-repeat;
   }
+}
+/* FORMS
+ * Burger menu filter
+ */
+form#global-filter-1 .form-item-field-domaine > label {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+form#global-filter-1 button#edit-submit {
+  color: #ffffff;
+  background-color: #009fe3;
+  border-color: #008dca;
+}
+form#global-filter-1 button#edit-submit:focus,
+form#global-filter-1 button#edit-submit.focus {
+  color: #ffffff;
+  background-color: #007bb0;
+  border-color: #00344a;
+}
+form#global-filter-1 button#edit-submit:hover {
+  color: #ffffff;
+  background-color: #007bb0;
+  border-color: #00628c;
+}
+form#global-filter-1 button#edit-submit:active,
+form#global-filter-1 button#edit-submit.active,
+.open > .dropdown-toggleform#global-filter-1 button#edit-submit {
+  color: #ffffff;
+  background-color: #007bb0;
+  border-color: #00628c;
+}
+form#global-filter-1 button#edit-submit:active:hover,
+form#global-filter-1 button#edit-submit.active:hover,
+.open > .dropdown-toggleform#global-filter-1 button#edit-submit:hover,
+form#global-filter-1 button#edit-submit:active:focus,
+form#global-filter-1 button#edit-submit.active:focus,
+.open > .dropdown-toggleform#global-filter-1 button#edit-submit:focus,
+form#global-filter-1 button#edit-submit:active.focus,
+form#global-filter-1 button#edit-submit.active.focus,
+.open > .dropdown-toggleform#global-filter-1 button#edit-submit.focus {
+  color: #ffffff;
+  background-color: #00628c;
+  border-color: #00344a;
+}
+form#global-filter-1 button#edit-submit:active,
+form#global-filter-1 button#edit-submit.active,
+.open > .dropdown-toggleform#global-filter-1 button#edit-submit {
+  background-image: none;
+}
+form#global-filter-1 button#edit-submit.disabled:hover,
+form#global-filter-1 button#edit-submit[disabled]:hover,
+fieldset[disabled] form#global-filter-1 button#edit-submit:hover,
+form#global-filter-1 button#edit-submit.disabled:focus,
+form#global-filter-1 button#edit-submit[disabled]:focus,
+fieldset[disabled] form#global-filter-1 button#edit-submit:focus,
+form#global-filter-1 button#edit-submit.disabled.focus,
+form#global-filter-1 button#edit-submit[disabled].focus,
+fieldset[disabled] form#global-filter-1 button#edit-submit.focus {
+  background-color: #009fe3;
+  border-color: #008dca;
+}
+form#global-filter-1 button#edit-submit .badge {
+  color: #009fe3;
+  background-color: #ffffff;
+}
+/* FORMS
+ * Profile
+ */
+form#user-profile-form .link-field-subrow {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+form#user-profile-form .link-field-subrow > * .form-group {
+  margin-bottom: 0;
+}
+@media (min-width: 767px) {
+  form#user-profile-form .link-field-subrow {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  form#user-profile-form .link-field-subrow > * .form-group {
+    margin-bottom: 0;
+  }
+}
+form#user-profile-form .link-field-subrow > *:nth-child(1) {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 767px) {
+  form#user-profile-form .link-field-subrow > *:nth-child(1) {
+    float: left;
+    width: 50%;
+  }
+}
+form#user-profile-form .link-field-subrow > *:nth-child(2) {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 767px) {
+  form#user-profile-form .link-field-subrow > *:nth-child(2) {
+    float: left;
+    width: 50%;
+  }
+}
+@media (min-width: 767px) {
+  form#user-profile-form .link-field-subrow > *:nth-child(1) {
+    padding-left: 0;
+    padding-right: 7.5px;
+  }
+  form#user-profile-form .link-field-subrow > *:nth-child(2) {
+    padding-right: 0;
+    padding-left: 7.5px;
+  }
+}
+form#user-profile-form .imagefield-crop-widget {
+  margin-left: -15px;
+  margin-right: -15px;
+  margin: 0;
+}
+form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: -15px;
+  margin-right: -15px;
+  margin: 0;
+}
+@media (min-width: 767px) {
+  form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview .jcrop-preview-wrapper {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding: 0;
+  border-radius: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (min-width: 767px) {
+  form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview .jcrop-preview-wrapper {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview .jcrop-preview-wrapper img.jcrop-preview {
+  width: 110px !important;
+  height: auto !important;
+}
+form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview .description {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 767px) {
+  form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview .description {
+    float: left;
+    width: 66.66666667%;
+  }
+}
+form#user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: -15px;
+  margin-right: -15px;
+  margin: 0;
+}
+@media (min-width: 767px) {
+  form#user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+form#user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox .jcrop-holder {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding: 0;
+}
+@media (min-width: 767px) {
+  form#user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox .jcrop-holder {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+form#user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox .description {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 767px) {
+  form#user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox .description {
+    float: left;
+    width: 66.66666667%;
+  }
+}
+form#user-profile-form .imagefield-crop-widget .file {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 767px) {
+  form#user-profile-form .imagefield-crop-widget .file {
+    float: left;
+    width: 16.66666667%;
+  }
+}
+@media (min-width: 767px) {
+  form#user-profile-form .imagefield-crop-widget button.form-submit {
+    float: right;
+    margin-right: 15px;
+  }
+}
+@media (min-width: 767px) {
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-right: 0;
+  }
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-right: 0;
+  }
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding: 0;
+  }
+  form#user-profile-form #edit-field-skills-set button.form-submit,
+  form#user-profile-form #edit-field-skills-set input.field-add-more-submit {
+    float: right;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 label:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .field-label {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 > .form-control:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .input-group:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .field-items {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 {
+    margin-bottom: 0;
+  }
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 label:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .field-label {
+    margin-bottom: 0;
+    padding-left: 0;
+    line-height: 34px;
+  }
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .form-group {
+    margin-bottom: 0;
+  }
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 > .form-control:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .input-group:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .field-items {
+    vertical-align: middle;
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-bottom: 0;
+    padding-left: 0;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 label:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .field-label {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 > .form-control:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .input-group:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .field-items {
+    float: left;
+    width: 66.66666667%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval label:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .field-label {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval > .form-control:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .input-group:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .field-items {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval {
+    margin-bottom: 0;
+  }
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval label:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .field-label {
+    margin-bottom: 0;
+    padding-left: 0;
+    line-height: 34px;
+  }
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .form-group {
+    margin-bottom: 0;
+  }
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval > .form-control:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .input-group:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .field-items {
+    vertical-align: middle;
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-bottom: 0;
+    padding-left: 0;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval label:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .field-label {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval > .form-control:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .input-group:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .field-items {
+    float: left;
+    width: 66.66666667%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences {
+    float: left;
+    width: 25%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences label:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .field-label {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .form-control:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .input-group:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .field-items {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences {
+    margin-bottom: 0;
+  }
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences label:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .field-label {
+    margin-bottom: 0;
+    padding-left: 0;
+    line-height: 34px;
+  }
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .form-group {
+    margin-bottom: 0;
+  }
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences > .form-control:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .input-group:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .field-items {
+    vertical-align: middle;
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-bottom: 0;
+    padding-left: 0;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences label:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .field-label {
+    float: left;
+    width: 75%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .form-control:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .input-group:first-of-type,
+  form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .field-items {
+    float: left;
+    width: 25%;
+  }
+}
+@media (min-width: 767px) {
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-right: 0;
+  }
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-right: 0;
+  }
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding: 0;
+  }
+  form#user-profile-form #edit-field-position-list button.form-submit,
+  form#user-profile-form #edit-field-position-list input.field-add-more-submit {
+    float: right;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position label:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .field-label {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position > .form-control:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .input-group:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .field-items {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position {
+    margin-bottom: 0;
+  }
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position label:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .field-label {
+    margin-bottom: 0;
+    padding-left: 0;
+    line-height: 34px;
+  }
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .form-group {
+    margin-bottom: 0;
+  }
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position > .form-control:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .input-group:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .field-items {
+    vertical-align: middle;
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-bottom: 0;
+    padding-left: 0;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position label:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .field-label {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position > .form-control:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .input-group:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .field-items {
+    float: left;
+    width: 66.66666667%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise label:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .field-label {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise > .form-control:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .input-group:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .field-items {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise {
+    margin-bottom: 0;
+  }
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise label:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .field-label {
+    margin-bottom: 0;
+    padding-left: 0;
+    line-height: 34px;
+  }
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .form-group {
+    margin-bottom: 0;
+  }
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise > .form-control:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .input-group:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .field-items {
+    vertical-align: middle;
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-bottom: 0;
+    padding-left: 0;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise label:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .field-label {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise > .form-control:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .input-group:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .field-items {
+    float: left;
+    width: 66.66666667%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences {
+    float: left;
+    width: 25%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences label:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .field-label {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .form-control:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .input-group:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .field-items {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences {
+    margin-bottom: 0;
+  }
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences label:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .field-label {
+    margin-bottom: 0;
+    padding-left: 0;
+    line-height: 34px;
+  }
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .form-group {
+    margin-bottom: 0;
+  }
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences > .form-control:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .input-group:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .field-items {
+    vertical-align: middle;
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-bottom: 0;
+    padding-left: 0;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences label:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .field-label {
+    float: left;
+    width: 75%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .form-control:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .input-group:first-of-type,
+  form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .field-items {
+    float: left;
+    width: 25%;
+  }
+}
+@media (min-width: 767px) {
+  form#user-profile-form #edit-field-known-specific {
+    clear: both;
+    margin-left: 50%;
+    padding-left: 7.5px;
+  }
+}
+/* FORMS
+ * Register
+ */
+#user-register-form .form-item-legal-terms-of-use {
+  padding: 15px;
+}
+.form-type-password-confirm .help-tip {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+@media (max-width: 767px) {
+  .password-strength {
+    float: none;
+  }
+  input.password-confirm,
+  input.password-field {
+    width: 100%;
+  }
+}
+@media (min-width: 767px) {
+  .confirm-parent,
+  .password-parent {
+    width: auto;
+  }
+  input.password-confirm,
+  input.password-field {
+    width: 350px;
+    max-width: 100%;
+  }
+  .password-strength {
+    width: 50%;
+    max-width: 352px;
+  }
+}
+.profile-section {
+  margin-bottom: 15px;
+  background-color: #F6F7F8;
+}
+.profile-section h2 {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding: 15px 0 25px;
+  margin: 0 0 15px;
+  color: #009fe3;
+  text-transform: uppercase;
+  background-color: #fff;
+  background-image: none;
+}
+@media (min-width: 767px) {
+  .profile-section h2 {
+    float: left;
+    width: 100%;
+  }
+}
+@media (min-width: 767px) {
+  .profile-section h2 span {
+    background-color: #FFF;
+    display: inline-block;
+    padding-right: 15px;
+    z-index: 1;
+  }
+  .profile-section h2:after {
+    height: 1px;
+    content: "";
+    background: #009fe3;
+    display: block;
+    margin-top: -0.55em;
+    width: 100%;
+    z-index: 0;
+  }
+}
+.profile-section .form-group {
+  margin-bottom: 0;
+}
+.profile-section > .field,
+.profile-section > .field-collection-container {
+  padding-bottom: 15px;
+}
+.profile-section > .field .field-label,
+.profile-section > .field-collection-container .field-label {
+  margin-bottom: 5px;
+}
+.profile-section .field-collection-container > .field > .field-items > .field-item {
+  margin-bottom: 5px;
+}
+.profile-section.profile-section-public {
+  padding-top: 15px;
+}
+.profile-section.profile-section-public .h3,
+.profile-section.profile-section-public .h4 {
+  margin: 0;
+}
+.profile-section .field-name-field-photo img {
+  border-radius: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.profile-section .field-name-field-address * {
+  display: inline-block;
+}
+.profile-section .field-name-field-address .locality-block:after {
+  clear: none;
+  display: none;
+}
+.profile-section .field-name-field-address span.country:before {
+  content: ", ";
+}
+.profile-section .field-name-field-link-to-my-blog {
+  background-color: #EFF1F3;
+  padding: 15px;
+}
+.profile-section .field-name-field-domaine .field-items > .field-item a {
+  background: #D4D9DD none repeat scroll 0% 0%;
+  display: block;
+  font-style: italic;
+  padding: 7px 15px;
+}
+.profile-section .field-name-field-skills-set .field-name-field-skill-autoeval .fivestar-summary {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.profile-section .field-name-field-skills-set .field-name-field-year-of-experiences .field-item {
+  background: #D4D9DD none repeat scroll 0% 0%;
+  font-style: italic;
+  padding: 7px 0px;
+  width: 50px;
+  text-align: center;
+}
+.profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .field-item {
+  background: #D4D9DD none repeat scroll 0% 0%;
+  font-style: italic;
+  padding: 7px 0px;
+  width: 50px;
+  text-align: center;
+}
+.profile-section .field-name-field-skill2,
+.profile-section .field-name-field-position {
+  background: #D4D9DD none repeat scroll 0% 0%;
+  display: block;
+  font-style: italic;
+  padding: 7px 20px;
+  text-align: left;
+}
+@media (min-width: 767px) {
+  .profile-section {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding: 0;
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+  .profile-section .field-name-name {
+    clear: both;
+  }
+  .profile-section .field-name-field-domaine .field-items {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+  .profile-section .field-name-field-domaine .field-items > .field-item {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .profile-section .field-name-field-skills-set .field-item .content {
+    margin-left: -15px;
+    margin-right: -15px;
+    margin: 0;
+  }
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-skill2 {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-skill-autoeval {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-skill-autoeval .fivestar-default .fivestar-widget-static {
+    text-align: center;
+  }
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .profile-section .field-name-field-position-list .field-item .content {
+    margin-left: -15px;
+    margin-right: -15px;
+    margin: 0;
+  }
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-position {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-entreprise {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+  }
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  .profile-section {
+    float: left;
+    width: 100%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  .profile-section .field-name-field-domaine .field-items > .field-item {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-skill2 {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-skill-autoeval {
+    float: left;
+    width: 25%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences label:first-of-type,
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .field-label {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences > .form-control:first-of-type,
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .input-group:first-of-type,
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .field-items {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences {
+    margin-bottom: 0;
+  }
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences label:first-of-type,
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .field-label {
+    margin-bottom: 0;
+    padding-left: 0;
+    line-height: 34px;
+  }
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .form-group {
+    margin-bottom: 0;
+  }
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences > .form-control:first-of-type,
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .input-group:first-of-type,
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .field-items {
+    vertical-align: middle;
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-bottom: 0;
+    padding-left: 0;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences label:first-of-type,
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .field-label {
+    float: left;
+    width: 50%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences > .form-control:first-of-type,
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .input-group:first-of-type,
+  .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .field-items {
+    float: left;
+    width: 50%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-position {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-entreprise {
+    float: left;
+    width: 25%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences label:first-of-type,
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .field-label {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences > .form-control:first-of-type,
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .input-group:first-of-type,
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .field-items {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences {
+    margin-bottom: 0;
+  }
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences label:first-of-type,
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .field-label {
+    margin-bottom: 0;
+    padding-left: 0;
+    line-height: 34px;
+  }
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .form-group {
+    margin-bottom: 0;
+  }
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences > .form-control:first-of-type,
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .input-group:first-of-type,
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .field-items {
+    vertical-align: middle;
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-bottom: 0;
+    padding-left: 0;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences label:first-of-type,
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .field-label {
+    float: left;
+    width: 50%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) and (min-width: 767px) {
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences > .form-control:first-of-type,
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .input-group:first-of-type,
+  .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .field-items {
+    float: left;
+    width: 50%;
+  }
+}
+a.views-navigation-back {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #4c6172;
+  background-color: transparent;
+  border-color: #f2f2f2;
+}
+a.views-navigation-back:focus,
+a.views-navigation-back:active:focus,
+a.views-navigation-back.active:focus,
+a.views-navigation-back.focus,
+a.views-navigation-back:active.focus,
+a.views-navigation-back.active.focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+a.views-navigation-back:hover,
+a.views-navigation-back:focus,
+a.views-navigation-back.focus {
+  color: #4c6172;
+  text-decoration: none;
+}
+a.views-navigation-back:active,
+a.views-navigation-back.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+a.views-navigation-back.disabled,
+a.views-navigation-back[disabled],
+fieldset[disabled] a.views-navigation-back {
+  cursor: not-allowed;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+aa.views-navigation-back.disabled,
+fieldset[disabled] aa.views-navigation-back {
+  pointer-events: none;
+}
+a.views-navigation-back:focus,
+a.views-navigation-back.focus {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: #b3b3b3;
+}
+a.views-navigation-back:hover {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: #d4d4d4;
+}
+a.views-navigation-back:active,
+a.views-navigation-back.active,
+.open > .dropdown-togglea.views-navigation-back {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: #d4d4d4;
+}
+a.views-navigation-back:active:hover,
+a.views-navigation-back.active:hover,
+.open > .dropdown-togglea.views-navigation-back:hover,
+a.views-navigation-back:active:focus,
+a.views-navigation-back.active:focus,
+.open > .dropdown-togglea.views-navigation-back:focus,
+a.views-navigation-back:active.focus,
+a.views-navigation-back.active.focus,
+.open > .dropdown-togglea.views-navigation-back.focus {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: #b3b3b3;
+}
+a.views-navigation-back:active,
+a.views-navigation-back.active,
+.open > .dropdown-togglea.views-navigation-back {
+  background-image: none;
+}
+a.views-navigation-back.disabled:hover,
+a.views-navigation-back[disabled]:hover,
+fieldset[disabled] a.views-navigation-back:hover,
+a.views-navigation-back.disabled:focus,
+a.views-navigation-back[disabled]:focus,
+fieldset[disabled] a.views-navigation-back:focus,
+a.views-navigation-back.disabled.focus,
+a.views-navigation-back[disabled].focus,
+fieldset[disabled] a.views-navigation-back.focus {
+  background-color: transparent;
+  border-color: #f2f2f2;
+}
+a.views-navigation-back .badge {
+  color: transparent;
+  background-color: #4c6172;
+}
+a.flag {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #4c6172;
+  border-color: #425463;
+}
+a.flag:focus,
+a.flag:active:focus,
+a.flag.active:focus,
+a.flag.focus,
+a.flag:active.focus,
+a.flag.active.focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+a.flag:hover,
+a.flag:focus,
+a.flag.focus {
+  color: #4c6172;
+  text-decoration: none;
+}
+a.flag:active,
+a.flag.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+a.flag.disabled,
+a.flag[disabled],
+fieldset[disabled] a.flag {
+  cursor: not-allowed;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+aa.flag.disabled,
+fieldset[disabled] aa.flag {
+  pointer-events: none;
+}
+a.flag:focus,
+a.flag.focus {
+  color: #ffffff;
+  background-color: #384753;
+  border-color: #0f1316;
+}
+a.flag:hover {
+  color: #ffffff;
+  background-color: #384753;
+  border-color: #29353e;
+}
+a.flag:active,
+a.flag.active,
+.open > .dropdown-togglea.flag {
+  color: #ffffff;
+  background-color: #384753;
+  border-color: #29353e;
+}
+a.flag:active:hover,
+a.flag.active:hover,
+.open > .dropdown-togglea.flag:hover,
+a.flag:active:focus,
+a.flag.active:focus,
+.open > .dropdown-togglea.flag:focus,
+a.flag:active.focus,
+a.flag.active.focus,
+.open > .dropdown-togglea.flag.focus {
+  color: #ffffff;
+  background-color: #29353e;
+  border-color: #0f1316;
+}
+a.flag:active,
+a.flag.active,
+.open > .dropdown-togglea.flag {
+  background-image: none;
+}
+a.flag.disabled:hover,
+a.flag[disabled]:hover,
+fieldset[disabled] a.flag:hover,
+a.flag.disabled:focus,
+a.flag[disabled]:focus,
+fieldset[disabled] a.flag:focus,
+a.flag.disabled.focus,
+a.flag[disabled].focus,
+fieldset[disabled] a.flag.focus {
+  background-color: #4c6172;
+  border-color: #425463;
+}
+a.flag .badge {
+  color: #4c6172;
+  background-color: #ffffff;
+}
+.views-navigation-previous,
+.views-navigation-next {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #4c6172;
+  background-color: transparent;
+  border-color: transparent;
+}
+.views-navigation-previous:focus,
+.views-navigation-next:focus,
+.views-navigation-previous:active:focus,
+.views-navigation-next:active:focus,
+.views-navigation-previous.active:focus,
+.views-navigation-next.active:focus,
+.views-navigation-previous.focus,
+.views-navigation-next.focus,
+.views-navigation-previous:active.focus,
+.views-navigation-next:active.focus,
+.views-navigation-previous.active.focus,
+.views-navigation-next.active.focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.views-navigation-previous:hover,
+.views-navigation-next:hover,
+.views-navigation-previous:focus,
+.views-navigation-next:focus,
+.views-navigation-previous.focus,
+.views-navigation-next.focus {
+  color: #4c6172;
+  text-decoration: none;
+}
+.views-navigation-previous:active,
+.views-navigation-next:active,
+.views-navigation-previous.active,
+.views-navigation-next.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.views-navigation-previous.disabled,
+.views-navigation-next.disabled,
+.views-navigation-previous[disabled],
+.views-navigation-next[disabled],
+fieldset[disabled] .views-navigation-previous,
+fieldset[disabled] .views-navigation-next {
+  cursor: not-allowed;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+a.views-navigation-previous.disabled,
+a.views-navigation-next.disabled,
+fieldset[disabled] a.views-navigation-previous,
+fieldset[disabled] a.views-navigation-next {
+  pointer-events: none;
+}
+.views-navigation-previous:focus,
+.views-navigation-next:focus,
+.views-navigation-previous.focus,
+.views-navigation-next.focus {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0);
+}
+.views-navigation-previous:hover,
+.views-navigation-next:hover {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0);
+}
+.views-navigation-previous:active,
+.views-navigation-next:active,
+.views-navigation-previous.active,
+.views-navigation-next.active,
+.open > .dropdown-toggle.views-navigation-previous,
+.open > .dropdown-toggle.views-navigation-next {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0);
+}
+.views-navigation-previous:active:hover,
+.views-navigation-next:active:hover,
+.views-navigation-previous.active:hover,
+.views-navigation-next.active:hover,
+.open > .dropdown-toggle.views-navigation-previous:hover,
+.open > .dropdown-toggle.views-navigation-next:hover,
+.views-navigation-previous:active:focus,
+.views-navigation-next:active:focus,
+.views-navigation-previous.active:focus,
+.views-navigation-next.active:focus,
+.open > .dropdown-toggle.views-navigation-previous:focus,
+.open > .dropdown-toggle.views-navigation-next:focus,
+.views-navigation-previous:active.focus,
+.views-navigation-next:active.focus,
+.views-navigation-previous.active.focus,
+.views-navigation-next.active.focus,
+.open > .dropdown-toggle.views-navigation-previous.focus,
+.open > .dropdown-toggle.views-navigation-next.focus {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0);
+}
+.views-navigation-previous:active,
+.views-navigation-next:active,
+.views-navigation-previous.active,
+.views-navigation-next.active,
+.open > .dropdown-toggle.views-navigation-previous,
+.open > .dropdown-toggle.views-navigation-next {
+  background-image: none;
+}
+.views-navigation-previous.disabled:hover,
+.views-navigation-next.disabled:hover,
+.views-navigation-previous[disabled]:hover,
+.views-navigation-next[disabled]:hover,
+fieldset[disabled] .views-navigation-previous:hover,
+fieldset[disabled] .views-navigation-next:hover,
+.views-navigation-previous.disabled:focus,
+.views-navigation-next.disabled:focus,
+.views-navigation-previous[disabled]:focus,
+.views-navigation-next[disabled]:focus,
+fieldset[disabled] .views-navigation-previous:focus,
+fieldset[disabled] .views-navigation-next:focus,
+.views-navigation-previous.disabled.focus,
+.views-navigation-next.disabled.focus,
+.views-navigation-previous[disabled].focus,
+.views-navigation-next[disabled].focus,
+fieldset[disabled] .views-navigation-previous.focus,
+fieldset[disabled] .views-navigation-next.focus {
+  background-color: transparent;
+  border-color: transparent;
+}
+.views-navigation-previous .badge,
+.views-navigation-next .badge {
+  color: transparent;
+  background-color: #4c6172;
+}
+.survey-section {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  background-color: #F6F7F8;
+}
+.survey-section.emh-fieldgroup-blue-title {
+  padding-top: 0;
+}
+.survey-section .form-group {
+  margin-bottom: 0;
+}
+.survey-section > .field,
+.survey-section > .field-collection-container {
+  padding-bottom: 15px;
+}
+.survey-section > .field .field-label,
+.survey-section > .field-collection-container .field-label {
+  margin-bottom: 5px;
+}
+.survey-section .field-name-body {
+  font-size: 16px;
 }
 
 /*# sourceMappingURL=style.css.map */

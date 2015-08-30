@@ -91,7 +91,7 @@
 	> li.active > a,
 	> li.active > a:hover,
 	> li.active > a:focus {
-    border: 0;
+		border: 0;
 	}
 	> li.active > a,
 	> li.active > a:hover,
@@ -117,6 +117,11 @@
 // New button style : .btn-submit
 .btn-submit {
 	.button-variant(@btn-submit-color; @btn-submit-bg; @btn-submit-border);
+}
+
+// New button style : .btn-nav
+.btn-nav {
+	.button-variant(@btn-nav-color; @btn-nav-bg; @btn-nav-border);
 }
 
 
@@ -224,8 +229,8 @@
 .emh-fieldgroup-blue-title {
 	h2 {
 		.make-sm-column(12);
-    padding: 15px 0 25px;
-    margin: 0 0 15px;
+		padding: 15px 0 25px;
+		margin: 0 0 15px;
 
 		color: @brand-primary;
 		.text-uppercase;
@@ -375,9 +380,6 @@
 		margin-left: -15px;
 		margin-bottom: 25px;
 		background-color: #fff;
-		display: inline-block;
-		width: 75%;
-		max-width: 562px;
 	}
 
 	span {
@@ -464,14 +466,19 @@
 		label:first-of-type,
 		.field-label {
 			margin-bottom: 0;
+			padding-left: 0;
 			line-height: 34px;
 		}
-		.form-control:first-of-type,
+		.form-group {
+			margin-bottom: 0;
+		}
+		> .form-control:first-of-type,
 		.input-group:first-of-type,
 		.field-items {
 			vertical-align: middle;
 			.make-row();
 			margin-bottom: 0;
+			padding-left: 0;
 		}
 	}
 }
