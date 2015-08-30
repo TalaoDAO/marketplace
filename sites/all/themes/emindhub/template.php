@@ -19,9 +19,7 @@ function emindhub_css_alter(&$css) {
 
   // Remove jQuery UI css files
   // http://drupal.stackexchange.com/a/38592
-  // List of disabled drupal default css files.
   $disabled_drupal_css = array(
-    // Remove jquery.ui css files.
     'misc/ui/jquery.ui.core.css',
     'misc/ui/jquery.ui.theme.css',
     'misc/ui/jquery.ui.datepicker.css',
@@ -367,6 +365,7 @@ function node_informations_add(&$variables) {
 	if (isset($variables['elements']['body'])) {
 		$user = user_load_by_name($variables['elements']['body']['#object']->name);
 		$account = user_load($user->uid);
+
 		if ($account) {
 			$firstName = "";
 			if (isset($account->field_first_name[LANGUAGE_NONE]) && $account->field_first_name[LANGUAGE_NONE]) {
@@ -381,6 +380,7 @@ function node_informations_add(&$variables) {
 			if ($account->field_entreprise) {
 				$targetId = $account->field_entreprise[LANGUAGE_NONE][0]['target_id'];
 				$entity = node_load($targetId);
+        // echo '<pre>' . print_r($entity, TRUE) . '</pre>'; die;
 				if ($entity) {
 					$variables['company_name'] = $entity->title;
 					if ($entity->body)
@@ -500,22 +500,39 @@ function emindhub_welcome_message() {
 }
 
 
-function emindhub_beautiful_user_name() {
-  if ($account = menu_get_object('user')) {
-    $account = user_load($account->uid);
-    $firstName = "";
-    if (isset($account->field_first_name[LANGUAGE_NONE]) && $account->field_first_name[LANGUAGE_NONE]) {
-      $firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
-    }
-    $lastName = "";
-    if (isset($account->field_last_name[LANGUAGE_NONE]) && $account->field_last_name[LANGUAGE_NONE]) {
-      $lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
-    }
-    $userName = $account->name;
-    return $firstName . '&nbsp;' . $lastName . '&nbsp;<span class="username badge">@' . $userName . '</span>';
-  } else {
-    return '';
+function emindhub_beautiful_user_name( $link = FALSE ) {
+
+  $context = arg(0);
+  // print_r($context);
+  switch ($context) {
+    case 'user':
+      $account = user_load(arg(1));
+      break;
+    case 'node':
+      $node = node_load(arg(1));
+      $account = user_load($node->uid);
+      break;
   }
+
+  $firstName = "";
+  if (isset($account->field_first_name[LANGUAGE_NONE]) && $account->field_first_name[LANGUAGE_NONE]) {
+    $firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
+  }
+  $lastName = "";
+  if (isset($account->field_last_name[LANGUAGE_NONE]) && $account->field_last_name[LANGUAGE_NONE]) {
+    $lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
+  }
+  $userName = $account->name;
+
+  global $base_url;
+  $profileLink = drupal_get_path_alias('user/' . $account->uid);
+
+  if ($link == TRUE) $output = '<a href="' . $base_url . '/' . $profileLink . '">';
+  $output .= $firstName . '&nbsp;' . $lastName . '&nbsp;<span class="username badge">@' . $userName . '</span>';
+  if ($link == TRUE) $output .= '</a>';
+
+  return $output;
+
 }
 
 
