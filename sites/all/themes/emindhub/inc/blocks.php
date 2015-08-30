@@ -194,6 +194,11 @@ function emindhub_preprocess_block(&$vars) {
     case 'global_filter-global_filter_1':
       $classes[] = 'emh-block-blue-title-big';
       break;
+
+    // Timeline
+    case 'progress_tracker-progress_tracker':
+      $classes[] = 'emh-block-blue-title';
+      break;
   }
 
   // echo '<pre>' . print_r($vars, TRUE) . '</pre>';
