@@ -26,6 +26,9 @@ function emindhub_preprocess_region(&$variables, $hook) {
         $classes[] = 'col-sm-3';
       endif;
       break;
+    case 'top':
+      $classes[] = 'row';
+      break;
     case 'highlighted':
       $classes[] = 'row';
       break;

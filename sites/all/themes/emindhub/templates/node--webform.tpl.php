@@ -142,76 +142,69 @@
 				<div class="row">
 			    <div class="col-sm-12">
 						<?php print render($content['field_domaine']); ?>
-						<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/tagsField.tpl.php'; ?>
+						<?php print render($content['field_tags']); ?>
+						<?php //require_once drupal_get_path('theme', 'emindhub').'/templates/includes/tagsField.tpl.php'; ?>
 					</div>
 				</div>
 
       </div>
 
-      <div class="col-sm-6">
+      <div class="col-sm-3 survey-meta">
 
-				<div class="row">
+				<ul>
 
-					<div class="col-sm-6">
-
-						<ul>
-
-							<?php if (isset($content['field_autoref'])) : ?>
-							<li><?php print render($content['field_autoref']); ?></li>
-							<?php endif; ?>
-
-							<?php if (isset($elements['#node']->created)) : ?>
-							<li>
-								<div class="field field-name-field-created-date field-type-datetime field-label-inline clearfix">
-									<div class="field-label"><?php print c_szPublicationDt; ?></div>
-									<div class="field-items">
-										<div class="field-item even">
-											<?php print format_date($elements['#node']->created, 'custom', 'm/d/Y'); ?>
-										</div>
-									</div>
-								</div>
-							</li>
-							<?php endif; ?>
-
-							<?php if (isset($content['field_start_date'])) : ?>
-							<li><?php print render($content['field_start_date']); ?></li>
-							<?php endif; ?>
-
-	            <?php if (!function_exists("webform_get_submission_count")) : ?>
-							<?php include_once(drupal_get_path('module', 'webform')."/includes/webform.submissions.inc"); ?>
-							<li>
-								<div class="field field-name-field-submission field-type-serial field-label-inline clearfix">
-									<div class="field-label"><?php print c_szNumResponses; ?></div>
-									<div class="field-items">
-										<div class="field-item even">
-											<?php print webform_get_submission_count($node->nid); ?>
-										</div>
-									</div>
-								</div>
-							</li>
-							<?php endif; ?>
-
-							<?php if (isset($content['field_duration_of_the_mission'])) : ?>
-							<li><?php print render($content['field_duration_of_the_mission']); ?></li>
-							<?php endif; ?>
-
-		          <?php if (isset($field_has_salary[0]['value']) && $field_has_salary[0]['value'] == 1) : ?>
-		            <li><?php print render($content['field_has_salary']); ?></li>
-		          <?php endif; ?>
-
-						</ul>
-
-					</div>
-
-					<?php if (isset($content['field_image'])) : ?>
-					<div class="col-sm-6 text-right">
-						<?php print render($content['field_image']); ?>
-					</div>
+					<?php if (isset($content['field_autoref'])) : ?>
+					<li><?php print render($content['field_autoref']); ?></li>
 					<?php endif; ?>
 
-				</div>
+					<?php if (isset($elements['#node']->created)) : ?>
+					<li>
+						<div class="field field-name-field-created-date field-type-datetime field-label-inline clearfix">
+							<div class="field-label"><?php print c_szPublicationDt; ?></div>
+							<div class="field-items">
+								<div class="field-item even">
+									<?php print format_date($elements['#node']->created, 'custom', 'm/d/Y'); ?>
+								</div>
+							</div>
+						</div>
+					</li>
+					<?php endif; ?>
+
+					<?php if (isset($content['field_start_date'])) : ?>
+					<li><?php print render($content['field_start_date']); ?></li>
+					<?php endif; ?>
+
+          <?php if (!function_exists("webform_get_submission_count")) : ?>
+					<?php include_once(drupal_get_path('module', 'webform')."/includes/webform.submissions.inc"); ?>
+					<li>
+						<div class="field field-name-field-submission field-type-serial field-label-inline clearfix">
+							<div class="field-label"><?php print c_szNumResponses; ?></div>
+							<div class="field-items">
+								<div class="field-item even">
+									<?php print webform_get_submission_count($node->nid); ?>
+								</div>
+							</div>
+						</div>
+					</li>
+					<?php endif; ?>
+
+					<?php if (isset($content['field_duration_of_the_mission'])) : ?>
+					<li><?php print render($content['field_duration_of_the_mission']); ?></li>
+					<?php endif; ?>
+
+          <?php if (isset($field_has_salary[0]['value']) && $field_has_salary[0]['value'] == 1) : ?>
+            <li><?php print render($content['field_has_salary']); ?></li>
+          <?php endif; ?>
+
+				</ul>
 
       </div>
+
+			<?php if (isset($content['field_image'])) : ?>
+			<div class="col-sm-3 text-right">
+				<?php print render($content['field_image']); ?>
+			</div>
+			<?php endif; ?>
 
 	  </div>
 

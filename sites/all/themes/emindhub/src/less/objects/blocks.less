@@ -314,6 +314,11 @@ aside {
 	clear: both;
 }
 
+// HP Welcome
+#block-block-21 {
+	// padding: 0;
+}
+
 
 // More about us ?
 #block-formblock-contact-site {
@@ -457,33 +462,36 @@ aside {
 		margin-top: 0;
 	}
 	ul.progress-tracker {
-	  // padding: 0.25em 0px 0.25em 1em;
-		padding: 0;
 		.make-row();
-	}
-	ul.progress-tracker li {
-		.make-sm-column(6);
-		.text-center;
-		.text-uppercase;
+		padding: 0;
+		margin: 0 0 15px;
 
-    list-style: outside none none;
-    margin: 0px;
-    padding: 5px 10px;
+		li {
+			.make-sm-column(6);
+			.text-center;
+			.text-uppercase;
 
-    font-weight: 700;
-    color: #FFF;
-    background-color: #A1ACB5;
+	    list-style: outside none none;
+	    margin: 0px;
+	    padding: 5px 10px;
+
+	    font-weight: 700;
+	    color: #FFF;
+	    background-color: #A1ACB5;
+
+			&.first {
+		    border-top-left-radius: @border-radius-base;
+		    border-bottom-left-radius: @border-radius-base;
+				border-right: 2px solid #fff;
+			}
+			&.last {
+		    border-top-right-radius: @border-radius-base;
+		    border-bottom-right-radius: @border-radius-base;
+				border-left: 2px solid #fff;
+			}
+		}
 	}
-	ul.progress-tracker li.first {
-    border-top-left-radius: @border-radius-base;
-    border-bottom-left-radius: @border-radius-base;
-		border-right: 2px solid #fff;
-	}
-	ul.progress-tracker li.last {
-    border-top-right-radius: @border-radius-base;
-    border-bottom-right-radius: @border-radius-base;
-		border-left: 2px solid #fff;
-	}
+
 }
 
 

@@ -12,19 +12,26 @@ body {
   background-color: #fff;
   padding-bottom: 45px;
 
-  > div > .row {
-    margin: 0;
+  > .container {
+    padding: 0;
   }
 
   #maincol {
     .make-row();
+    margin: 0;
+    // padding-left: 0;
+    // padding-right: 0;
     @media (min-width: @screen-sm-min) {
-        margin-top: -15px;
-        padding-top: 15px;
+      margin-top: -15px;
+      padding-top: 15px;
     }
 
     > * {
       .make-sm-column(12);
+      padding: 0;
+    }
+    > .alert {
+      padding: @alert-padding !important;
     }
 
     > h1.page-header {
@@ -37,17 +44,17 @@ body {
 
 }
 
-.region-content {
-  h2 {
-    // color: #4C6172;
-    padding-left: 0.8em;
-    background-image: url("../images/darkpuce.png");
-    background-repeat: no-repeat;
-    background-position: 0px 50%;
-    font-style: italic;
-  }
-  h3 {
-    // font-style: italic;
-    color: @gray-light;
+#block-system-main {
+  .node {
+    h2 {
+      padding-left: 0.8em;
+      background-image: url("../images/darkpuce.png");
+      background-repeat: no-repeat;
+      background-position: 0px 50%;
+      font-style: italic;
+    }
+    h3 {
+      color: @gray-light;
+    }
   }
 }

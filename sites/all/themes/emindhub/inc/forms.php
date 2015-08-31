@@ -39,8 +39,8 @@ function emindhub_form_element($variables) {
   $description = '';
   if (!empty($element ['#description'])) {
   	// LTH : use Bootstrap badge + tooltip for field description
-  	$description .= $element ["#description"];
-  	// $description .= '<span class="badge help-tip" data-toggle="tooltip" data-placement="bottom" data-html="true" title="' . $element ["#description"] . '">?</span>';
+  	// $description .= $element ["#description"];
+  	$description .= '<span class="badge help-tip" data-toggle="tooltip" data-placement="bottom" data-html="true" title="' . $element ["#description"] . '">?</span>';
   }
 
   switch ($element ['#title_display']) {
@@ -83,6 +83,14 @@ function emindhub_element_info_alter(&$type) {
   }
 }
 
+
+
+function emindhub_date_combo($variables) {
+  // Retourne le champ date de manière simplifiée
+  return theme('form_element', $variables);
+}
+
+
 function emindhub_process_format($element) {
 	// array of field names to restrict (add more here as needed)
 	$fields = array(
@@ -103,7 +111,7 @@ function emindhub_process_format($element) {
 
 function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
-  // echo '<pre>' . print_r($form['#fieldgroups'], TRUE) . '</pre>'; die;
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>'; die;
   // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
 
   // $form['body']['und'][0]['#format'] = '<div class="form-row">';

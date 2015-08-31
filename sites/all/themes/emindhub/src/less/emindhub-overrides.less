@@ -13,6 +13,7 @@ ul.ui-autocomplete {
 .autocomplete-deluxe-container {
 	.form-control;
 	max-width: 352px;
+	height: auto;
 }
 .autocomplete-deluxe-item {
 	position: relative;
@@ -182,6 +183,8 @@ span.form-required {
 .form-textarea-wrapper.resizable-textarea {
 	max-width: 500px;
 }
+
+
 .view-filters {
 	margin-bottom: 15px;
 }
@@ -398,4 +401,17 @@ table.views-table {
 	#sliding-popup .popup-content #popup-buttons button {
 		margin-bottom: 1em;
 	}
+}
+
+
+/*
+ * FORMS
+ * Errors
+ */
+input.error,
+.chosen-container.error .chosen-choices,
+.chosen-container.error .chosen-single {
+  color: @state-danger-text;
+	border-color: @state-danger-text;
+	background-color: @state-danger-bg;
 }

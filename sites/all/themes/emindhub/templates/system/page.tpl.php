@@ -100,7 +100,6 @@
         <nav class="navbar">
 
           <div class="navbar-header">
-            <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -167,9 +166,7 @@
   <div class="container">
 
     <?php if (!empty($page['top'])): ?>
-      <div class="top row">
-        <?php print render($page['top']); ?>
-      </div>
+      <?php print render($page['top']); ?>
     <?php endif; ?>
 
     <div class="row">

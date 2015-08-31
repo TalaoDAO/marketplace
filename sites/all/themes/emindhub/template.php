@@ -42,53 +42,9 @@ function emindhub_css_alter(&$css) {
   // echo '<pre>' . print_r($css, TRUE) . '</pre>'; die;
 }
 
-function emindhub_date_combo($variables) {
-  return theme('form_element', $variables);
-}
-
-// function emindhub_status_messages(&$variables) {
-//   $display = $variables ['display'];
-//   $output = '';
-//
-//   $status_heading = array(
-// 	'status' => t('Status message'),
-// 	'error' => t('Error message'),
-// 	'warning' => t('Warning message'),
-//   );
-//
-//   // Bootstrap compliance class
-//   $status_class = array(
-// 	'status' => 'info',
-// 	'error' => 'danger',
-// 	'warning' => 'warning',
-//   );
-//   foreach (drupal_get_messages($display) as $type => $messages) {
-//   	$output .= '<div class="row alert alert-' . $status_class [$type] . '">';
-//   	if (!empty($status_heading [$type])) {
-//   	  $output .= '<h2 class="element-invisible">' . $status_heading [$type] . "</h2>\n";
-//   	}
-//   	$output .= "<label class=\"drupal-message col-md-2\">".$status_heading [$type].":</label>";
-//
-//   	if (count($messages) > 1) $nb_class = "multiple-msg";
-//   	else $nb_class = "one-msg";
-//
-//   	$output .= "<ul class=\"col-md-10 $nb_class\">\n";
-//   	foreach ($messages as $message) {
-//   	  $output .= '<li>' . $message . "</li>\n";
-//   	}
-//   	$output .= "</ul>\n";
-//   	$output .= "</div>\n";
-//   }
-//   return $output;
-// }
 
 function emindhub_theme() {
 	return array(
-	  // 'contact_site_form' => array(
-  	// 	'path' => drupal_get_path('theme', 'emindhub').'/templates',
-  	// 	'template' => 'contact-site-form',
-  	// 	'render element' => 'form',
-	  // ),
 	  'user_picture' => array(
   		'path' => drupal_get_path('theme', 'emindhub').'/templates/user',
   		'template' => 'user_picture',
@@ -96,6 +52,7 @@ function emindhub_theme() {
 	  ),
 	);
 }
+
 
 function emindhub_file($variables) {
 	$element = $variables['element'];
@@ -325,7 +282,6 @@ function emindhub_preprocess_page(&$vars, &$variables) {
 }
 
 function emindhub_preprocess_html(&$variables) {
-	// drupal_add_css('http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' , array('type' => 'external'));
 	drupal_add_css('http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' , array('type' => 'external'));
 	if (isBusinessUser()) {
 		$variables['classes_array'][] = 'business-user';
@@ -608,7 +564,8 @@ function emindhub_preprocess_field(&$vars) {
           break;
 
         case 'field_link_to_my_blog':
-        case 'field_domaine':
+        // case 'field_domaine':
+        // case 'field_tags':
         case 'field_skills_set':
         case 'field_position_list':
         case 'field_employment_history':

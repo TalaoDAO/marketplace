@@ -4,7 +4,8 @@ form {
 	 * General
 	 */
 	> * > .form-item-title,
-	.field-group-fieldset {
+	.field-group-fieldset,
+	.field-group-div {
 		padding: 15px;
 		margin-bottom: 15px;
 		background-color: @lightGrey;
@@ -13,11 +14,17 @@ form {
 			margin-bottom: 0;
 		}
 	}
-	legend {
-		font-size: inherit;
-		.h3;
-		padding-bottom: 5px;
+	legend,
+	h2 {
+		.h4;
+		padding: 0 0 5px;
 		margin-bottom: 15px !important; // .overrides.css
+		float: left;
+		display: block;
+		width: 100%;
+		line-height: 1em;
+		margin: 0;
+		border-bottom: 1px solid @legend-border-color;
 	}
 	label {
 		line-height: 18px;
@@ -32,6 +39,16 @@ form {
 	/* FORMS
 	 * Fields
 	 */
+	// Date
+	.field-widget-date-popup {
+		.badge.help-tip {
+			margin-left: 5px;
+		}
+		input {
+			float: left;
+		}
+	}
+
 	// Adress
 	.field-type-addressfield {
 		margin-bottom: 0;
@@ -54,7 +71,8 @@ form {
 
 	// Upload file + image
 	.file-widget,
-	.field-type-image {
+	.field-type-image,
+	.image-widget-data {
 		.file-return,
 		.file-upload span {
 			display: none;
@@ -79,17 +97,16 @@ form {
 			width: 100%;
 			margin: 0;
 			.file-upload {
-				.make-sm-column(10);
+				.make-sm-column(8);
 				padding: 0;
 			}
 			span.input-group-btn,
 			.form-submit {
-				float: right;
+				float: left;
 				width: auto;
 			}
 			span.file {
 				.make-sm-column(10);
-				// line-height: 34px;
 				padding: 0;
 			}
 		}
@@ -112,16 +129,23 @@ form {
   // Enlever le gras et le curseur sur certains labels
   .form-group.form-type-checkbox,
   .form-group.form-type-bef-checkbox,
-  .form-group.views-exposed-form {
+  .form-group.views-exposed-form,
+	.form-radios {
     input {
       position: absolute;
     }
     label {
-      font-weight: normal; // views.css
+      font-weight: normal; // forms.css
       cursor: pointer;
       word-wrap: break-word;
       margin-left: 20px;
     }
   }
+
+	.form-radios {
+		.form-group {
+			margin-bottom: 0;
+		}
+	}
 
 }

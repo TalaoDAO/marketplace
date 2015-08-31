@@ -13,11 +13,18 @@ a.flag {
 }
 
 
+.node-webform {
+  .form-textarea-wrapper.resizable-textarea {
+    max-width: 100%;
+  }
+}
+
+
 .survey-section {
 
   padding-top: 15px;
   padding-bottom: 15px;
-	margin-bottom: 15px;
+	margin: 0 0 15px;
 	background-color: #F6F7F8;
 
   &.emh-fieldgroup-blue-title {
@@ -37,24 +44,22 @@ a.flag {
 		}
 	}
 
-	// .field-collection-container {
-	// 	> .field > .field-items > .field-item {
-	// 		margin-bottom: 5px;
-	// 	}
-	// }
-
   .field-name-body {
     font-size: 16px;
   }
+  .field-type-taxonomy-term-reference {
+    .field-items .field-item {
+      display: inline-block;
+    }
+    a {
+      .emh-badge-term;
+    }
+  }
 
-}
+  .survey-meta {
+    li * {
+      display: inline-block;
+    }
+  }
 
-
-@media (min-width: @screen-sm-min) {
-	.survey-section {
-		// .make-sm-column(12);
-		// padding: 0;
-		// .make-row();
-    // padding: 15px;
-	}
 }
