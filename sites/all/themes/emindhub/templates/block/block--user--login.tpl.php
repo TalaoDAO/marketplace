@@ -61,8 +61,8 @@
         <a id="signUp" type="a" class="user-menu sign-up" data-placement="bottom" data-html="true" data-template='<div class="popover signUp" role="tooltip"><div class="arrow"></div><div class="popover-content signUpContent"></div></div>'><?php print c_szRegister; ?></a>
         <div id="signUpContent" style="display: none;">
           <h4><?php print c_szSignIn; ?><span class="light-blue-text"><?php print c_szInAMinute; ?></span><?php print c_szStart; ?></h4>
-          <a href="<?php print url("business/register"); ?>" class="btn btn-primary signin"><?php print c_szSeeker; ?></a>
-          <a href="<?php print url("expert/register"); ?>" class="btn btn-primary signin"><?php print c_szExpert; ?></a>
+          <a href="<?php print url("business/register"); ?>" class="btn btn-submit signin"><?php print c_szSeeker; ?></a>
+          <a href="<?php print url("expert/register"); ?>" class="btn btn-submit signin"><?php print c_szExpert; ?></a>
         </div>
       </li>
     </ul>
