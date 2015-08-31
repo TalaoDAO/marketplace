@@ -72,13 +72,15 @@ function emindhub_form_element($variables) {
 
 // Cacher les icônes de mise en page + types de format, peut-être trop ??
 function emindhub_element_info_alter(&$type) {
-	if (isset($type['text_format']['#process'])) {
-		foreach ($type['text_format']['#process'] as &$callback) {
-			if ($callback === 'filter_process_format') {
-				$callback = 'emindhub_process_format';
-			}
-		}
-	}
+  if (!isAdminUser()) {
+  	if (isset($type['text_format']['#process'])) {
+  		foreach ($type['text_format']['#process'] as &$callback) {
+  			if ($callback === 'filter_process_format') {
+  				$callback = 'emindhub_process_format';
+  			}
+  		}
+  	}
+  }
 }
 
 function emindhub_process_format($element) {
