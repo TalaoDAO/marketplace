@@ -43,11 +43,13 @@ regions[burgermenu]     = Burger Menu
 ;;;;;;;;;;;;;;;;;;;;;
 
 stylesheets[all][] = css/style.css
+; exclude module styles
 exclude[css][] = 'sites/all/modules/contrib/views/css/views.css'
 exclude[css][] = 'modules/field/theme/field.css'
 exclude[css][] = 'sites/all/modules/contrib/autocomplete_deluxe/autocomplete_deluxe.css'
 exclude[css][] = 'sites/all/modules/contrib/link/link.css'
 exclude[css][] = 'sites/all/modules/patched/field_collection/field_collection.theme.css'
+exclude[css][] = 'sites/all/modules/contrib/eu_cookie_compliance/css/eu_cookie_compliance.css'
 
 
 ; For information on choosing the desired method, please read the Drupal

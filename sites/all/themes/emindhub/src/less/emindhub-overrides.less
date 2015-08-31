@@ -308,3 +308,94 @@ table.views-table {
 	background-color: @brand-primary;
 	background-image: none;
 }
+
+
+/*
+ * Module EU cookie compliance
+ */
+#sliding-popup {
+	display: block;
+	margin: 0;
+	padding: 0px;
+	right: 0;
+	text-align: center;
+	width: 100%;
+	z-index: 99999;
+}
+.sliding-popup-bottom {
+	background: @darkBlue;
+	position: fixed;
+}
+
+.sliding-popup-top {
+	background-color: @darkBlue;
+	position: relative;
+}
+
+#sliding-popup .popup-content {
+	background-color: transparent;
+	border: 0 none;
+	display: block;
+	margin: 0 auto;
+	padding: 0;
+	max-width: 80%;
+}
+
+#sliding-popup .popup-content #popup-buttons {
+	float: right;
+	margin: 0;
+	max-width: 40%;
+}
+
+#sliding-popup .popup-content #popup-buttons button {
+	margin-right: 5px;
+  margin-top: 1em;
+	.btn;
+	&.agree-button {
+		.btn-submit;
+	}
+	&.find-more-button {
+		.btn-primary;
+	}
+}
+
+#sliding-popup .popup-content #popup-text {
+	color: #fff;
+	float: left;
+	font-weight: bold;
+	margin: 5px 0;
+	text-align: left;
+	max-width: 60%;
+}
+
+#sliding-popup .popup-content #popup-text h2,
+#sliding-popup .popup-content #popup-text p {
+	color: #fff;
+	display: block;
+	font-size: 16px;
+	line-height: 1.4;
+	margin: 0 0 5px 0;
+}
+
+#sliding-popup .popup-content #popup-text p {
+	font-size: 14px;
+}
+
+@media screen and (max-width: 600px) {
+	#sliding-popup .popup-content {
+		max-width: 95%;
+	}
+
+	#sliding-popup .popup-content #popup-text {
+		max-width: 100%;
+	}
+
+	#sliding-popup .popup-content #popup-buttons {
+		float: none;
+		margin: 5px 0;
+		max-width: 100%;
+	}
+	#sliding-popup .popup-content #popup-buttons button {
+		margin-bottom: 1em;
+	}
+}
