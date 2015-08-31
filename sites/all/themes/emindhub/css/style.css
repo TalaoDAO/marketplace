@@ -11384,6 +11384,7 @@ input#autocomplete-deluxe-input {
 }
 .popover {
   color: #fff;
+  border-radius: 0;
 }
 .popover.signUp h4 {
   text-transform: uppercase;
