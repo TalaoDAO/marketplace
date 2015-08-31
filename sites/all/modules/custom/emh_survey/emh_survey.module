@@ -125,11 +125,6 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
 
 	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
 	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
-  // die;
-
-	// TODO : Precise required field on group title (because of the custom chosen select theme)
-	// For now, hack with CSS !
-	// $form['#fieldgroups']['group_label']->label .= ' <span class="form-required" title="' . t('This field is required.') . '">*</span>';
 
 	// Force user roles access
 	// $form['webform']['#value']['roles'] = array(
