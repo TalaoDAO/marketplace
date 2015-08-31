@@ -485,3 +485,59 @@ aside {
 		border-left: 2px solid #fff;
 	}
 }
+
+
+// Sponsors list
+.view-display-id-sponsors_block {
+	.view-header {
+		background-color: @darkerBlue;
+		color: #fff;
+		padding: 15px;
+		margin-bottom: 15px;
+	}
+	.sponsor-user {
+		margin-bottom: 15px;
+		min-height: 226px;
+		.btn {
+			display: block;
+			text-transform: none;
+			.text-left;
+			padding: 0;
+			white-space: normal;
+			h3 {
+				color: @brand-primary;
+			}
+			h4 {
+				color: @darkerBlue;
+			}
+		}
+		img {
+			.center-block;
+			.img-circle;
+			background-color: @gray-lighter;
+			position: relative;
+			margin-top: 20px;
+			&:after {
+				content: "";
+				display: block;
+				width: 52px;
+				height: 52px;
+				position: absolute;
+				top: -20px;
+				right: -20px;
+				background: transparent url("../images/picto/round_grey.png") no-repeat top right;
+			}
+		}
+
+		.collapse {
+			background-color: @gray-lighter;
+			padding: 15px;
+			position: relative;
+			span.caret {
+				border-width: 15px;
+				position: absolute;
+				top: 0;
+			}
+		}
+	}
+}

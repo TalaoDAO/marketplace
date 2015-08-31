@@ -12077,7 +12077,7 @@ fieldset[disabled] #sliding-popup .popup-content #popup-buttons button.find-more
   }
 }
 @media (min-width: 767px) {
-  body,
+  body:not(.cke_editable),
   body.admin-menu {
     padding-top: 137px;
   }
@@ -12330,6 +12330,16 @@ body {
     float: left;
     width: 66.66666667%;
   }
+}
+.region-content h2 {
+  padding-left: 0.8em;
+  background-image: url("../images/darkpuce.png");
+  background-repeat: no-repeat;
+  background-position: 0px 50%;
+  font-style: italic;
+}
+.region-content h3 {
+  color: #777777;
 }
 .region-burgermenu {
   display: none;
@@ -13175,6 +13185,58 @@ aside .block .content {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   border-left: 2px solid #fff;
+}
+.view-display-id-sponsors_block .view-header {
+  background-color: #4c6172;
+  color: #fff;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+.view-display-id-sponsors_block .sponsor-user {
+  margin-bottom: 15px;
+  min-height: 226px;
+}
+.view-display-id-sponsors_block .sponsor-user .btn {
+  display: block;
+  text-transform: none;
+  text-align: left;
+  padding: 0;
+  white-space: normal;
+}
+.view-display-id-sponsors_block .sponsor-user .btn h3 {
+  color: #009fe3;
+}
+.view-display-id-sponsors_block .sponsor-user .btn h4 {
+  color: #4c6172;
+}
+.view-display-id-sponsors_block .sponsor-user img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50%;
+  background-color: #f2f2f2;
+  position: relative;
+  margin-top: 20px;
+}
+.view-display-id-sponsors_block .sponsor-user img:after {
+  content: "";
+  display: block;
+  width: 52px;
+  height: 52px;
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  background: transparent url("../images/picto/round_grey.png") no-repeat top right;
+}
+.view-display-id-sponsors_block .sponsor-user .collapse {
+  background-color: #f2f2f2;
+  padding: 15px;
+  position: relative;
+}
+.view-display-id-sponsors_block .sponsor-user .collapse span.caret {
+  border-width: 15px;
+  position: absolute;
+  top: 0;
 }
 form {
   /* FORMS
