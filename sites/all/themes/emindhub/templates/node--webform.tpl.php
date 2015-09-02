@@ -110,7 +110,7 @@
 	    $linkNext = $variables['elements']['links']['views_navigation']['#links']['next'];
 	  } ?>
   	<?php if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
-    <div class="row survey-section">
+    <div class="row section">
       <div class="col-sm-3 challenge-to-list">
         <a href="<?php print base_path() . $linkBack['href']; ?>" <?php print drupal_attributes($linkBack['attributes']); ?>>
 					<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> <?php print $linkBack['title']; ?>
@@ -129,13 +129,13 @@
     </div>
 		<?php } ?>
 
-		<div class="row survey-section">
+		<div class="row section">
 			<div class="col-sm-12">
 				<?php print render($content['body']); ?>
 			</div>
 		</div>
 
-		<div class="row survey-section">
+		<div class="row section">
 
       <div class="col-sm-6">
 
@@ -143,13 +143,12 @@
 			    <div class="col-sm-12">
 						<?php print render($content['field_domaine']); ?>
 						<?php print render($content['field_tags']); ?>
-						<?php //require_once drupal_get_path('theme', 'emindhub').'/templates/includes/tagsField.tpl.php'; ?>
 					</div>
 				</div>
 
       </div>
 
-      <div class="col-sm-3 survey-meta">
+      <div class="col-sm-3 meta">
 
 				<ul>
 
@@ -174,6 +173,14 @@
 					<li><?php print render($content['field_start_date']); ?></li>
 					<?php endif; ?>
 
+					<?php if (isset($content['field_duration_of_the_mission'])) : ?>
+					<li><?php print render($content['field_duration_of_the_mission']); ?></li>
+					<?php endif; ?>
+
+					<?php if (isset($content['field_reward'])) : ?>
+					<li><?php print render($content['field_reward']); ?></li>
+					<?php endif; ?>
+
           <?php if (!function_exists("webform_get_submission_count")) : ?>
 					<?php include_once(drupal_get_path('module', 'webform')."/includes/webform.submissions.inc"); ?>
 					<li>
@@ -186,10 +193,6 @@
 							</div>
 						</div>
 					</li>
-					<?php endif; ?>
-
-					<?php if (isset($content['field_duration_of_the_mission'])) : ?>
-					<li><?php print render($content['field_duration_of_the_mission']); ?></li>
 					<?php endif; ?>
 
           <?php if (isset($field_has_salary[0]['value']) && $field_has_salary[0]['value'] == 1) : ?>
@@ -209,7 +212,7 @@
 	  </div>
 
 		<?php if (isset($content['field_object_of_the_mission'])) : ?>
-		<div class="row survey-section">
+		<div class="row section">
 			<div class="col-sm-12">
 				<?php print $elements['field_object_of_the_mission'][0]['#markup']; ?>
 			</div>
@@ -223,16 +226,15 @@
 		  (isset($field_use_my_entreprise[0]['value']) && $field_use_my_entreprise[0]['value'] == 1)
 		) : ?>
 
-		<div class="row survey-section ">
-			<h2 class="h3"><span><?php print c_szSubmitted; ?></span></h2>
+		<div class="row section ">
+			<h3><span><?php print c_szSubmitted; ?></span></h3>
 			<div class="col-sm-12">
 				<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/userInformations.tpl.php'; ?>
-			  <?php //require_once drupal_get_path('theme', 'emindhub').'/templates/includes/companyDescription.tpl.php'; ?>
 			</div>
 		</div>
 		<?php endif; ?>
 
-	  <div class="row survey-section">
+	  <div class="row section">
 
 			<div class="col-sm-12">
 
@@ -248,7 +250,7 @@
 
 		</div>
 
-		<div class="row survey-section emh-fieldgroup-blue-title">
+		<div class="row section emh-fieldgroup-blue-title">
 
 			<?php if (!user_has_role(5)): ?>
 		  <h2 class="h3"><span><?php echo c_szAnswerExpertCall; ?></span></h2>
