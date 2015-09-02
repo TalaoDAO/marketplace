@@ -1,6 +1,9 @@
 <div class="row">
-
-  <?php if (isset($field_anonymous[0]['value']) && $field_anonymous[0]['value'] == 1) : ?>
+  <?php // TODO : better check ! on ne charge pas le cartouche si les paramètres du profil sont ok !!! ?>
+  <?php //echo '<pre>' . print_r($content['field_anonymous'], TRUE) . '</pre>'; ?>
+  <?php //echo '<pre>' . print_r($content['field_show_entreprise'], TRUE) . '</pre>'; ?>
+  <?php if ( $content['field_anonymous']['und'][0]['value'] == 1 ) : ?>
+  <?php //if (isset($field_anonymous[0]['value']) && $field_anonymous[0]['value'] == 1) : ?>
   <div class="col-md-2 col-xs-5 profile-picture">
     <?php
     $account = user_load($uid);
@@ -23,20 +26,20 @@
 
   <div class="col-md-10 col-xs-7">
 
-    <?php if (isset($field_anonymous[0]['value']) && $field_anonymous[0]['value'] == 1) : ?>
-    <p><?php print emindhub_beautiful_user_name(TRUE); ?></p>
+    <?php if ( $content['field_anonymous']['und'][0]['value'] == 1 ) : ?>
+    <p><?php print emindhub_beautiful_user_name( TRUE ); ?></p>
     <?php endif ?>
 
-    <?php if (isset($field_show_entreprise[0]['value']) && $field_show_entreprise[0]['value'] == 1) : ?>
+    <?php if ( $content['field_show_entreprise']['und'][0]['value'] == 1 ) : ?>
+    <?php //if (isset($field_show_entreprise[0]['value']) && $field_show_entreprise[0]['value'] == 1) : ?>
     <p>
       <b><?php print $variables['company_name']; //emindhub_preprocess_node__webform ?></b><br />
-      <?php if (isset($field_use_my_entreprise[0]['value']) && $field_use_my_entreprise[0]['value'] != 0) { ?>
-      <?php if (isset($field_use_my_entreprise) && $field_use_my_entreprise[0]['value'] == 2) { ?>
-      <?php print $field_entreprise_description[0]['value']; ?>
-      <?php } else { ?>
-      <?php print $company_description; //emindhub_preprocess_node__webform ?>
-      <?php } ?>
-      <?php } ?>
+      <?php if ( $content['field_use_my_entreprise']['und'][0]['value'] == 1 ) : ?>
+        <?php print $company_description; //emindhub_preprocess_node__webform ?>
+      <?php endif ?>
+      <?php if ( $content['field_use_my_entreprise']['und'][0]['value'] == 2 ) : ?>
+        <?php print $field_entreprise_description[0]['value']; ?>
+      <?php endif ?>
     </p>
     <?php endif ?>
 
