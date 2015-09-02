@@ -45,11 +45,11 @@ function emindhub_css_alter(&$css) {
 
 function emindhub_theme() {
 	return array(
-	  'user_picture' => array(
-  		'path' => drupal_get_path('theme', 'emindhub').'/templates/user',
-  		'template' => 'user_picture',
-  		'render element' => 'image',
-	  ),
+	  // 'user_picture' => array(
+  	// 	'path' => drupal_get_path('theme', 'emindhub').'/templates/user',
+  	// 	'template' => 'user_picture',
+  	// 	'render element' => 'image',
+	  // ),
 	);
 }
 
@@ -63,64 +63,65 @@ function emindhub_file($variables) {
 	return sprintf('<input type="text" disabled data-fileinputtext="%s" class="file-return"><div class="file-upload"><span>%s</span><input' . drupal_attributes($element['#attributes']) . ' /></div>', $element["#id"], c_szChooseFile);
 }
 
-function emindhub_preprocess_user_picture(&$variables) {
-	$variables['user_picture'] = '';
-	//if (variable_get('user_pictures', TRUE)) {
-		if (isset($variables['account'])) {
-			$account = $variables['account'];
-			if (!empty($account->picture)) {
-				// @TODO: Ideally this function would only be passed file objects, but
-				// since there's a lot of legacy code that JOINs the {users} table to
-				// {node} or {comments} and passes the results into this function if we
-				// a numeric value in the picture field we'll assume it's a file id
-				// and load it for them. Once we've got user_load_multiple() and
-				// comment_load_multiple() functions the user module will be able to load
-				// the picture files in mass during the object's load process.
-				if (is_numeric($account->picture)) {
-					$account->picture = file_load($account->picture);
-				}
-				if (!empty($account->picture->uri)) {
-					$filepath = $account->picture->uri;
-				}
-			}
-			elseif (variable_get('user_picture_default', '')) {
-				$filepath = variable_get('user_picture_default', '');
-			}
-			if (isset($filepath)) {
-				$alt = t("@user's picture", array('@user' => format_username($account)));
-				// If the image does not have a valid Drupal scheme (for eg. HTTP),
-				// don't load image styles.
-				if (module_exists('image') && file_valid_uri($filepath) && $style = variable_get('user_picture_style', '')) {
-					$variables['user_picture'] = theme('user_picture', array(
-							'style_name' => $style,
-							'path' => $filepath,
-							'alt' => $alt,
-							'title' => $alt
-						));
-				}
-				else {
-					$variables['user_picture'] = theme('user_picture', array(
-							'path' => $filepath,
-							'alt' => $alt,
-							'title' => $alt
-						));
-				}
-				if (!empty($account->uid) && user_access('access user profiles')) {
-					$attributes = array(
-						'attributes' => array('title' => c_szViewUsrProfile),
-						'html' => TRUE
-					);
-					$variables['user_picture'] = l($variables['user_picture'], "user/$account->uid", $attributes);
-				}
-			}
-		}
-		else {
-			dsm('! isset($variables[account])');
-		}
-	/*} else {
-		dsm('variable_get("user_pictures", 0)');
-	}*/
-}
+
+// function emindhub_preprocess_user_picture(&$variables) {
+// 	$variables['user_picture'] = '';
+// 	//if (variable_get('user_pictures', TRUE)) {
+// 		if (isset($variables['account'])) {
+// 			$account = $variables['account'];
+// 			if (!empty($account->picture)) {
+// 				// @TODO: Ideally this function would only be passed file objects, but
+// 				// since there's a lot of legacy code that JOINs the {users} table to
+// 				// {node} or {comments} and passes the results into this function if we
+// 				// a numeric value in the picture field we'll assume it's a file id
+// 				// and load it for them. Once we've got user_load_multiple() and
+// 				// comment_load_multiple() functions the user module will be able to load
+// 				// the picture files in mass during the object's load process.
+// 				if (is_numeric($account->picture)) {
+// 					$account->picture = file_load($account->picture);
+// 				}
+// 				if (!empty($account->picture->uri)) {
+// 					$filepath = $account->picture->uri;
+// 				}
+// 			}
+// 			elseif (variable_get('user_picture_default', '')) {
+// 				$filepath = variable_get('user_picture_default', '');
+// 			}
+// 			if (isset($filepath)) {
+// 				$alt = t("@user's picture", array('@user' => format_username($account)));
+// 				// If the image does not have a valid Drupal scheme (for eg. HTTP),
+// 				// don't load image styles.
+// 				if (module_exists('image') && file_valid_uri($filepath) && $style = variable_get('user_picture_style', '')) {
+// 					$variables['user_picture'] = theme('user_picture', array(
+// 							'style_name' => $style,
+// 							'path' => $filepath,
+// 							'alt' => $alt,
+// 							'title' => $alt
+// 						));
+// 				}
+// 				else {
+// 					$variables['user_picture'] = theme('user_picture', array(
+// 							'path' => $filepath,
+// 							'alt' => $alt,
+// 							'title' => $alt
+// 						));
+// 				}
+// 				if (!empty($account->uid) && user_access('access user profiles')) {
+// 					$attributes = array(
+// 						'attributes' => array('title' => c_szViewUsrProfile),
+// 						'html' => TRUE
+// 					);
+// 					$variables['user_picture'] = l($variables['user_picture'], "user/$account->uid", $attributes);
+// 				}
+// 			}
+// 		}
+// 		else {
+// 			dsm('! isset($variables[account])');
+// 		}
+// 	/*} else {
+// 		dsm('variable_get("user_pictures", 0)');
+// 	}*/
+// }
 
 
 /**
@@ -564,8 +565,8 @@ function emindhub_preprocess_field(&$vars) {
           break;
 
         case 'field_link_to_my_blog':
-        // case 'field_domaine':
-        // case 'field_tags':
+        case 'field_domaine':
+        case 'field_tags':
         case 'field_skills_set':
         case 'field_position_list':
         case 'field_employment_history':
