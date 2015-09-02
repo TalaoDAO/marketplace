@@ -32,7 +32,7 @@
 <div class="sponsor-user col-sm-4">
 
   <?php if (isset($fields['field_employment_history'])) : ?>
-  <a class="btn btn-tab" role="button" data-toggle="collapse" href="#sponsor-<?php print $fields['field_first_name']->raw; ?>" aria-expanded="false" aria-controls="sponsor-<?php print $fields['field_first_name']->raw; ?>">
+  <button type="button" class="btn btn-popin" data-toggle="modal" data-target="#sponsor-<?php print $fields['field_first_name']->raw; ?>">
   <?php endif; ?>
 
     <?php if (isset($fields['field_photo'])) : ?>
@@ -55,14 +55,57 @@
     <?php endif; ?>
 
   <?php if (isset($fields['field_employment_history'])) : ?>
-  </a>
+  </button>
   <?php endif; ?>
 
   <?php if (isset($fields['field_employment_history'])) : ?>
-  <div class="collapse" id="sponsor-<?php print $fields['field_first_name']->raw; ?>">
-    <span class="caret"></span>
-    <h4><?php print t('Experience'); ?></h4>
-    <p><?php print $fields['field_employment_history']->content; ?></p>
+  <div class="modal fade" id="sponsor-<?php print $fields['field_first_name']->raw; ?>" tabindex="-1" role="dialog" aria-labelledby="sponsor-<?php print $fields['field_first_name']->raw; ?>">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <?php if (isset($fields['field_first_name']) || isset($fields['field_last_name'])) : ?>
+          <h3 class="modal-title" id="sponsor-<?php print $fields['field_first_name']->raw; ?>">
+            <?php if (isset($fields['field_first_name'])) : ?>
+            <?php print $fields['field_first_name']->content; ?>
+            <?php endif; ?>
+            <?php if (isset($fields['field_last_name'])) : ?>
+            <?php print $fields['field_last_name']->content; ?>
+            <?php endif; ?>
+          </h3>
+          <?php endif; ?>
+        </div>
+
+        <div class="modal-body">
+
+          <div class="container-fluid">
+
+            <div class="row">
+
+              <?php if (isset($fields['field_photo'])) : ?>
+              <div class="col-sm-2">
+                <?php print $fields['field_photo']->content; ?>
+              </div>
+              <?php endif; ?>
+
+              <div class="col-sm-10">
+                <?php if (isset($fields['field_titre_metier'])) : ?>
+                <h4><?php print $fields['field_titre_metier']->content; ?></h4>
+                <?php endif; ?>
+
+                <h5><?php print t('Experience'); ?></h5>
+                <p><?php print $fields['field_employment_history']->content; ?></p>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
   </div>
   <?php endif; ?>
 
