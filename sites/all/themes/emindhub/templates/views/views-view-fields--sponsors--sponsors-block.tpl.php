@@ -91,10 +91,10 @@
 
               <div class="col-sm-10">
                 <?php if (isset($fields['field_titre_metier'])) : ?>
-                <h4><?php print $fields['field_titre_metier']->content; ?></h4>
+                <h3><?php print $fields['field_titre_metier']->content; ?></h3>
                 <?php endif; ?>
 
-                <h5><?php print t('Experience'); ?></h5>
+                <h4><?php print t('Experience'); ?></h4>
                 <p><?php print $fields['field_employment_history']->content; ?></p>
               </div>
 
