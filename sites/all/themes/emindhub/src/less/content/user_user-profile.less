@@ -107,19 +107,20 @@
 		text-align: left;
 	}
 
-}
+	@media (min-width: @screen-sm-min) {
 
-@media (min-width: @screen-sm-min) {
-	.profile-section {
 		.make-sm-column(12);
-		padding: 0;
 		.make-row();
+		padding: 0;
+		margin-left: 0;
+		margin-right: 0;
 
 		.field-name-name {
 			clear: both;
 		}
 
 		.field-name-field-domaine {
+			padding: 0;
 			.field-items {
 				.make-row();
 				> .field-item {
@@ -127,6 +128,11 @@
 				}
 			}
 		}
+
+		.field-name-field-tags {
+			padding: 0;
+		}
+
 		.field-name-field-skills-set {
 			.field-item .content {
 				.make-row();
@@ -147,6 +153,7 @@
 				}
 			}
 		}
+
 		.field-name-field-position-list {
 			.field-item .content {
 				.make-row();
@@ -166,4 +173,5 @@
 			}
 		}
 	}
+
 }

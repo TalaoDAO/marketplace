@@ -87,10 +87,16 @@ aside {
 
 // Homepage : baseline
 #block-block-7 {
-	p {
-		&:first-of-type,
-		&:last-of-type {
-			color: #8CD4F2;
+	.content {
+		@media (min-width: @screen-sm-min) {
+			margin-top: 50px;
+		}
+
+		p {
+			&:first-of-type,
+			&:last-of-type {
+				color: #8CD4F2;
+			}
 		}
 	}
 }
@@ -305,6 +311,9 @@ aside {
 	}
 	.content {
 		padding-bottom: 1.7em;
+		@media (min-width: @screen-sm-min) {
+			min-height: 83px;
+		}
 	}
 }
 #block-block-18 .block-title { background-image: url("../images/rapidityHeader.png"); }
@@ -367,7 +376,15 @@ aside {
 
 // They use emindhub services
 #block-views-entreprise-list-block {
-
+	.content {
+		@media (min-width: @screen-sm-min) {
+			.views-field views-field-field-logo {
+				img {
+					.center-block;
+				}
+			}
+		}
+	}
 }
 
 
