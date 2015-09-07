@@ -70,6 +70,88 @@ function emindhub_form_element($variables) {
   return $output;
 }
 
+
+/**
+ * Display the text associated with a static star display.
+ *
+ * Note that passing in explicit data types is extremely important when using
+ * this function. A NULL value will exclude the value entirely from display,
+ * while a 0 value indicates that the text should be shown but it has no value
+ * yet.
+ *
+ * All ratings are from 0 to 100.
+ *
+ * @param $user_rating
+ *   The current user's rating.
+ * @param $average
+ *   The average rating.
+ * @param $votes
+ *   The total number of votes.
+ * @param $stars
+ *   The number of stars being displayed.
+ * @return
+ *   A themed HTML string representing the star widget.
+ */
+function emindhub_fivestar_summary($variables) {
+  $microdata = $variables['microdata'];
+  extract($variables, EXTR_SKIP);
+  $output = '';
+  $div_class = '';
+  $average_rating_microdata = '';
+  $rating_count_microdata = '';
+  if (isset($user_rating)) {
+    $div_class = isset($votes) ? 'user-count' : 'user';
+    $user_stars = round(($user_rating * $stars) / 100, 1);
+    $output .= '<span class=\'user-rating\'>' . t('Your rating: <span>!stars</span>', array('!stars' => $user_rating ? $user_stars : t('None'))) . '</span>';
+  }
+  if (isset($user_rating) && isset($average_rating)) {
+    $output .= ' ';
+  }
+  if (isset($average_rating)) {
+    if (isset($user_rating)) {
+      $div_class = 'combo';
+    }
+    else {
+      $div_class = isset($votes) ? 'average-count' : 'average';
+    }
+
+    $average_stars = round(($average_rating * $stars) / 100, 1);
+    if (!empty($microdata['average_rating']['#attributes'])) {
+      $average_rating_microdata = drupal_attributes($microdata['average_rating']['#attributes']);
+    }
+    $output .= '<span class=\'average-rating\'>' . t('Average: !stars',
+      array('!stars' => "<span $average_rating_microdata>$average_stars</span>")) . '</span>';
+  }
+
+  if (isset($votes)) {
+    if (!isset($user_rating) && !isset($average_rating)) {
+      $div_class = 'count';
+    }
+    if ($votes === 0) {
+      $output = '<span class=\'empty\'>'. t('No votes yet') .'</span>';
+    }
+    else {
+      if (!empty($microdata['rating_count']['#attributes'])) {
+        $rating_count_microdata = drupal_attributes($microdata['rating_count']['#attributes']);
+      }
+      // We don't directly substitute $votes (i.e. use '@count') in format_plural,
+      // because it has a span around it which is not translatable.
+      $votes_str = format_plural($votes, '!cnt vote', '!cnt votes', array(
+        '!cnt' => '<span ' . $rating_count_microdata . '>' . intval($votes) . '</span>'));
+      if (isset($user_rating) || isset($average_rating)) {
+        $output .= ' <span class=\'total-votes\'>(' . $votes_str . ')</span>';
+      }
+      else {
+        $output .= ' <span class=\'total-votes\'>' . $votes_str . '</span>';
+      }
+    }
+  }
+
+  $output = '<div class=\'fivestar-summary fivestar-summary-' . $div_class . '\'>' . $output . '</div>';
+  return $output;
+}
+
+
 // Cacher les icônes de mise en page + types de format, peut-être trop ??
 function emindhub_element_info_alter(&$type) {
   if (!isAdminUser()) {
@@ -111,7 +193,7 @@ function emindhub_process_format($element) {
 
 function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>'; die;
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
   // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
 
   // $form['body']['und'][0]['#format'] = '<div class="form-row">';
@@ -204,10 +286,10 @@ function emindhub_form_contact_site_form_alter(&$form, &$form_state, $form_id) {
 
 function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
-  $element_info = element_info('password_confirm');
-  $process = $element_info['#process'];
-  $process[] = 'emindhub_form_process_password_confirm';
-  $form['account']['pass']['#process'] = $process;
+  // $element_info = element_info('password_confirm');
+  // $process = $element_info['#process'];
+  // $process[] = 'emindhub_form_process_password_confirm';
+  // $form['account']['pass']['#process'] = $process;
 
   // Add class to fieldset
   // $form['#groups']['group_complement']->format_settings['instance_settings']['classes'] .= ' form-group-2col';
@@ -225,9 +307,6 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $form['field_address']['und'][0]['locality_block']['postal_code']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_address']['und'][0]['locality_block']['locality']['#suffix'] = '</div>';
 
-  // $form['field_address']['thoroughfare']['#prefix'] = '<div class="form-group-2col row">';
-  // $form['field_address']['premise']['#suffix'] = '</div>';
-
   $form['field_working_status']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_position']['#suffix'] = '</div>';
 
@@ -242,6 +321,16 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
   $form['field_notification_frequency']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_known_specific']['#suffix'] = '</div>';
+
+  // FIX Boostrap help tooltip
+  $account = $form['#user'];
+  $pass_reset = isset($_SESSION['pass_reset_' . $account->uid]) && isset($_GET['pass-reset-token']) && ($_GET['pass-reset-token'] == $_SESSION['pass_reset_' . $account->uid]);
+  $current_pass_description = '';
+  if (!$pass_reset) {
+    $current_pass_description = t('Enter your current password to change the email or password.');
+    // $current_pass_description = t('Enter your current password to change the', array('%mail' => $protected_values['mail'], '%pass' => $protected_values['pass'], '!request_new' => $request_new));
+  }
+  $form['account']['current_pass']['#description'] = $current_pass_description;
 
   $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
 
