@@ -203,9 +203,9 @@
         <?php print $messages; ?>
         <?php endif; ?>
 
-        <?php if (!empty($tabs)): ?>
-          <?php print render($tabs); ?>
-        <?php endif; ?>
+        <?php //if (!empty($tabs)): ?>
+          <?php //print render($tabs); ?>
+        <?php //endif; ?>
 
         <?php if (!empty($page['help'])): ?>
           <?php print render($page['help']); ?>
