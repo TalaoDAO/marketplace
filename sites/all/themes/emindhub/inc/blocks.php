@@ -69,7 +69,7 @@ function emindhub_preprocess_block(&$vars) {
 
     // HP - eMindHub is looking for experts
     case 'block-6':
-      $classes[] = 'emh-block-expert';
+      $classes[] = 'emh-block-gold';
       break;
 
     // HP - Ask a question
