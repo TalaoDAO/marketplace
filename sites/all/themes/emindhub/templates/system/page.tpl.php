@@ -203,9 +203,13 @@
         <?php print $messages; ?>
         <?php endif; ?>
 
-        <?php //if (!empty($tabs)): ?>
-          <?php //print render($tabs); ?>
-        <?php //endif; ?>
+        <?php
+        $context =  arg(0);
+        if ($context == 'messages'): ?>
+        <?php if (!empty($tabs)): ?>
+          <?php print render($tabs); ?>
+        <?php endif; ?>
+        <?php endif; ?>
 
         <?php if (!empty($page['help'])): ?>
           <?php print render($page['help']); ?>
