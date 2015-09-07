@@ -11260,9 +11260,11 @@ fieldset[disabled] .btn-popin.focus {
 }
 .emh-badge-term {
   display: inline-block;
-  padding: 5px;
-  background-color: #FFF;
   margin-right: 10px;
+  background-color: #fff;
+  font-style: italic;
+  padding: 7px 15px;
+  text-align: left;
 }
 h1,
 h2,
@@ -12830,12 +12832,19 @@ fieldset[disabled] .views-navigation-next.focus {
 }
 .section .field-type-taxonomy-term-reference .field-items .field-item {
   display: inline-block;
+  margin-right: 10px;
+  background-color: #fff;
+  font-style: italic;
+  padding: 7px 15px;
+  text-align: left;
 }
 .section .field-type-taxonomy-term-reference a {
   display: inline-block;
-  padding: 5px;
-  background-color: #FFF;
   margin-right: 10px;
+  background-color: #fff;
+  font-style: italic;
+  padding: 7px 15px;
+  text-align: left;
 }
 .section .meta li * {
   display: inline-block;
@@ -14866,11 +14875,13 @@ form#user-profile-form .imagefield-crop-widget .file {
   background-color: #EFF1F3;
   padding: 15px;
 }
-.profile-section .field-name-field-domaine .field-items > .field-item a {
-  background: #D4D9DD none repeat scroll 0% 0%;
-  display: block;
+.profile-section .field-name-field-domaine .field-items > .field-item {
+  display: inline-block;
+  margin-right: 10px;
+  background-color: #fff;
   font-style: italic;
   padding: 7px 15px;
+  text-align: left;
 }
 .profile-section .field-name-field-skills-set .field-name-field-skill-autoeval .fivestar-summary {
   font: 0/0 a;
@@ -14880,25 +14891,32 @@ form#user-profile-form .imagefield-crop-widget .file {
   border: 0;
 }
 .profile-section .field-name-field-skills-set .field-name-field-year-of-experiences .field-item {
-  background: #D4D9DD none repeat scroll 0% 0%;
+  display: inline-block;
+  margin-right: 10px;
+  background-color: #fff;
   font-style: italic;
-  padding: 7px 0px;
+  padding: 7px 15px;
+  text-align: left;
   width: 50px;
   text-align: center;
 }
 .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .field-item {
-  background: #D4D9DD none repeat scroll 0% 0%;
+  display: inline-block;
+  margin-right: 10px;
+  background-color: #fff;
   font-style: italic;
-  padding: 7px 0px;
+  padding: 7px 15px;
+  text-align: left;
   width: 50px;
   text-align: center;
 }
 .profile-section .field-name-field-skill2,
 .profile-section .field-name-field-position {
-  background: #D4D9DD none repeat scroll 0% 0%;
-  display: block;
+  display: inline-block;
+  margin-right: 10px;
+  background-color: #fff;
   font-style: italic;
-  padding: 7px 20px;
+  padding: 7px 15px;
   text-align: left;
 }
 @media (min-width: 767px) {
@@ -14916,12 +14934,10 @@ form#user-profile-form .imagefield-crop-widget .file {
   .profile-section .field-name-name {
     clear: both;
   }
-  .profile-section .field-name-field-domaine {
-    padding: 0;
-  }
   .profile-section .field-name-field-domaine .field-items {
     margin-left: -15px;
     margin-right: -15px;
+    margin: 0;
   }
   .profile-section .field-name-field-domaine .field-items > .field-item {
     position: relative;

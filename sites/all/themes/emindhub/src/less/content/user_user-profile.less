@@ -57,12 +57,9 @@
 	.field-name-field-domaine {
 		.field-items {
 			> .field-item {
-				a {
-					background: #D4D9DD none repeat scroll 0% 0%;
-					display: block;
-					font-style: italic;
-					padding: 7px 15px;
-				}
+				// a {
+					.emh-badge-term;
+				// }
 			}
 		}
 	}
@@ -75,11 +72,9 @@
 		}
 		.field-name-field-year-of-experiences {
 			.field-item {
-				background: #D4D9DD none repeat scroll 0% 0%;
-				font-style: italic;
-				padding: 7px 0px;
+				.emh-badge-term;
 				width: 50px;
-				text-align: center;
+				.text-center;
 			}
 		}
 	}
@@ -88,11 +83,9 @@
 		.field-item .content {
 			.field-name-field-year-of-experiences {
 				.field-item {
-					background: #D4D9DD none repeat scroll 0% 0%;
-					font-style: italic;
-					padding: 7px 0px;
+					.emh-badge-term;
 					width: 50px;
-					text-align: center;
+					.text-center;
 				}
 			}
 		}
@@ -100,11 +93,7 @@
 
 	.field-name-field-skill2,
 	.field-name-field-position {
-		background: #D4D9DD none repeat scroll 0% 0%;
-		display: block;
-		font-style: italic;
-		padding: 7px 20px;
-		text-align: left;
+		.emh-badge-term;
 	}
 
 	@media (min-width: @screen-sm-min) {
@@ -120,9 +109,10 @@
 		}
 
 		.field-name-field-domaine {
-			padding: 0;
+			// padding: 0;
 			.field-items {
 				.make-row();
+				margin: 0;
 				> .field-item {
 					.make-sm-column(4);
 				}
