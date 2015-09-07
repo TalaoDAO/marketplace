@@ -160,7 +160,7 @@ function emindhub_preprocess_block(&$vars) {
       $classes[] = 'emh-block-slider';
       break;
 
-    // News thread
+    // Query list
     case 'views-query_list-block':
       $classes[] = 'emh-block-blue-title';
       break;
@@ -168,7 +168,8 @@ function emindhub_preprocess_block(&$vars) {
     // Last requests
     case 'views-news_thread-block':
       $classes[] = 'emh-block-blue-title';
-      $classes[] = 'emh-block-normal';
+      $classes[] = 'emh-block-dark';
+      // $classes[] = 'emh-block-slider';
       break;
 
     // More about us ?

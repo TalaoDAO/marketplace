@@ -23,6 +23,46 @@ h4, .h4 {
 }
 
 
+// Bootstrap carrousel
+.carousel-inner {
+	> .item {
+		padding-left: 10%;
+		padding-right: 10%;
+	}
+}
+.icon-prev,
+.icon-next {
+	&:before {
+		border-radius: 100%;
+		background-color: @darkBlue;
+		width: 20px;
+		height: 20px;
+		display: block;
+	}
+}
+@media screen and (min-width: @screen-sm-min) {
+  .carousel-control {
+    .glyphicon-chevron-left,
+    .glyphicon-chevron-right,
+    .icon-prev,
+    .icon-next {
+			width: 20px;
+			height: 20px;
+      font-size: @carousel-control-font-size;
+			margin-top: -10px;
+    }
+		.glyphicon-chevron-left,
+    .icon-prev {
+      margin-left: -10px;
+    }
+    .glyphicon-chevron-right,
+    .icon-next {
+      margin-right: -10px;
+    }
+	}
+}
+
+
 // Lightbox
 #cboxOverlay {
 	opacity: 0.6 !important;
@@ -127,62 +167,6 @@ input#autocomplete-deluxe-input {
 		padding: 15px;
 	}
 
-}
-
-
-// Slideshow views
-.views-slideshow-controls-text {
-	.text-center;
-	.make-row();
-	margin-top: 10px;
-	> * {
-		.make-xs-column(6);
-	}
-
-	.views-slideshow-controls-text-pause {
-		display: none;
-	}
-
-	@media (min-width: @screen-sm-min) {
-		.views-slideshow-controls-text-previous,
-		.views-slideshow-controls-text-next {
-			a {
-				.text-hide;
-				display: block;
-				&:after {
-					display: inline-block;
-					width: 15px;
-					height: 15px;
-					.badge;
-					padding: 0;
-				}
-				&:hover {
-					&:after {
-						color: @badge-active-color;
-						background-color: @badge-active-bg;
-					}
-				}
-			}
-		}
-		.views-slideshow-controls-text-previous {
-			.text-right;
-			a {
-				&:after {
-					content: "←";
-				}
-
-			}
-		}
-
-		.views-slideshow-controls-text-next {
-			.text-left;
-			a {
-				&:after {
-					content: "→";
-				}
-			}
-		}
-	}
 }
 
 

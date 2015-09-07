@@ -56,13 +56,6 @@
 	}
 }
 
-// .navbar-emh-burger {
-//	 > li > a {
-//		 padding-left: 40px;
-//		 color: #AFB4CD;
-//	 }
-// }
-
 .navbar-emh-separator {
 	@media (min-width: @screen-sm-min) {
 		> li {
@@ -149,12 +142,16 @@
 }
 
 .emh-block-dark {
-	color: #fff;
-	background-color: @darkBlue;
-	.text-center;
 
 	.content {
-		border:0 !important;
+		border: 0 !important;
+		color: #fff;
+		background-color: @darkBlue;
+		padding: 15px;
+
+		a {
+			color: @brand-primary;
+		}
 	}
 }
 
@@ -356,15 +353,6 @@
 	}
 }
 
-.emh-block-slider {
-	.block-title,
-	.content {
-	}
-	.content {
-		padding: 15px;
-	}
-}
-
 
 /* STYLES
  * Textes
@@ -373,7 +361,6 @@
 	.text-uppercase;
 	color: @brand-primary;
 	font-size: 24px;
-	// font-weight: normal;
 	border: 0;
 	padding-top: 15px;
 	padding-bottom: 10px;
@@ -548,15 +535,39 @@
 }
 
 
-
-
 .emh-badge-term {
 	display: inline-block;
-	// padding: 5px;
-	// background-color: #FFF;
 	margin-right: 10px;
 	background-color: #fff;
 	font-style: italic;
 	padding: 7px 15px;
 	.text-left;
+}
+
+
+.emh-block-slider {
+	.content {
+		padding: 15px 0;
+	}
+}
+
+
+.emh-more-link {
+	.text-hide;
+	&:before {
+		content: '\203a';// SINGLE RIGHT-POINTING ANGLE QUOTATION MARK (U+203A)
+		font-size: 20px;
+		display: block;
+		position: absolute;
+		bottom: 10px;
+		right: 0;
+		width: 27px;
+		height: 27px;
+		line-height: 1;
+		text-align: center;
+		background-color: #fff;
+		color: @brand-primary;
+		border: 3px solid @brand-primary;
+		border-radius: 100%;
+	}
 }
