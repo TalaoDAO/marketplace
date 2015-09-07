@@ -167,23 +167,18 @@ function emindhub_preprocess_block(&$vars) {
 
     // Last requests
     case 'views-news_thread-block':
-      $classes[] = 'emh-block-blue-title';
+      $classes[] = 'emh-block-dark-title';
       $classes[] = 'emh-block-dark';
-      // $classes[] = 'emh-block-slider';
       break;
 
     // More about us ?
     case 'formblock-contact_site':
       $classes[] = 'emh-block-dark-title';
-      // $content['prefix'] = '<p>' . c_szHaveQuestion . '</p><p>' . c_szLearnMore . '</p><p>' . c_szLeaveMsg . '</p>';
-      // echo '<pre>' . print_r($vars, TRUE) . '</pre>';
       break;
 
     // Main content
     case 'system-main':
       // $classes[] = 'emh-block-dark-title';
-      // $content['prefix'] = '<p>' . c_szHaveQuestion . '</p><p>' . c_szLearnMore . '</p><p>' . c_szLeaveMsg . '</p>';
-      // echo '<pre>' . print_r($vars, TRUE) . '</pre>';
       break;
 
     // Burger menu > Shortcuts

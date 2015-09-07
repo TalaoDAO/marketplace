@@ -10525,20 +10525,6 @@ fieldset[disabled] .btn-popin.focus {
 .emh-block-dark-title {
   margin: 1.18em 0 0 !important;
 }
-.emh-block-dark-title h1,
-.emh-block-dark-title .h1,
-.emh-block-dark-title h2,
-.emh-block-dark-title .h2,
-.emh-block-dark-title h3,
-.emh-block-dark-title .h3 {
-  text-transform: uppercase;
-  text-align: center;
-  margin: 20px 0 10px;
-  padding: 0 0 15px !important;
-  font-size: 20px !important;
-  font-weight: 700;
-  color: #4c6172;
-}
 .emh-block-dark-title .block-title {
   text-transform: uppercase;
   text-align: center;
@@ -11286,19 +11272,19 @@ fieldset[disabled] .btn-popin.focus {
   border: 0;
 }
 .emh-more-link:before {
-  content: '\203a';
+  content: '\002b';
   font-size: 20px;
   display: block;
   position: absolute;
   bottom: 10px;
   right: 0;
-  width: 27px;
-  height: 27px;
+  width: 30px;
+  height: 30px;
   line-height: 1;
   text-align: center;
   background-color: #fff;
   color: #009fe3;
-  border: 3px solid #009fe3;
+  border: 4px solid #009fe3;
   border-radius: 100%;
 }
 h1,
@@ -13626,19 +13612,19 @@ aside .block .content {
   border: 0;
 }
 #block-views-news-thread-block .content .field-content .views-more-link:before {
-  content: '\203a';
+  content: '\002b';
   font-size: 20px;
   display: block;
   position: absolute;
   bottom: 10px;
   right: 0;
-  width: 27px;
-  height: 27px;
+  width: 30px;
+  height: 30px;
   line-height: 1;
   text-align: center;
   background-color: #fff;
   color: #009fe3;
-  border: 3px solid #009fe3;
+  border: 4px solid #009fe3;
   border-radius: 100%;
 }
 .view-query-list form .form-group {
