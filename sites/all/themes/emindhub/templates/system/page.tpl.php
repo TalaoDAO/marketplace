@@ -156,19 +156,25 @@
           <?php print $breadcrumb; ?>
         </div>
       </div>
-    <?php endif;?>
+    <?php endif; ?>
   </div>
 </div>
-<?php endif;?>
+<?php endif; ?>
 
 <div class="main-container container-fluid">
 
   <div class="container">
 
+    <?php if (!empty($page['title'])): ?>
+    <?php print render($page['title']); ?>
+    <?php endif; ?>
+
+    <?php if ( $is_front ): ?>
     <?php print $messages; ?>
+    <?php endif; ?>
 
     <?php if (!empty($page['top'])): ?>
-      <?php print render($page['top']); ?>
+    <?php print render($page['top']); ?>
     <?php endif; ?>
 
     <div class="row">
@@ -182,16 +188,20 @@
       <section id="maincol" class="<?php if (empty($page['sidebar_first']) && empty($page['sidebar_second'])) { print 'col-sm-12'; } else if (!empty($page['sidebar_first']) || !empty($page['sidebar_second'])) { print 'col-sm-8'; } else { print 'col-sm-4'; } ?>">
 
         <?php if (!empty($page['highlighted'])): ?>
-          <div class="highlighted jumbotron"><?php print render($page['highlighted']); ?></div>
+        <div class="highlighted jumbotron"><?php print render($page['highlighted']); ?></div>
         <?php endif; ?>
 
         <a id="main-content"></a>
 
         <?php print render($title_prefix); ?>
         <?php if (!empty($title)): ?>
-          <h1 class="page-header"><?php print $title; ?></h1>
+        <h1 class="page-header"><?php print $title; ?></h1>
         <?php endif; ?>
         <?php print render($title_suffix); ?>
+
+        <?php if ( !$is_front ): ?>
+        <?php print $messages; ?>
+        <?php endif; ?>
 
         <?php if (!empty($tabs)): ?>
           <?php print render($tabs); ?>

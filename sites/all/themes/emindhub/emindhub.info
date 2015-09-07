@@ -12,6 +12,7 @@ regions[topmenu]        = Top menu
 regions[navigation]     = 'Navigation'
 regions[header]         = 'Top content'
 regions[header_right]   = Top content - Right
+regions[title]          = 'Title'
 regions[top]            = 'Page top'
 regions[highlighted]    = 'Highlighted'
 regions[help]           = 'Help'
@@ -21,21 +22,7 @@ regions[sidebar_second] = 'Secondary'
 regions[bottom]         = 'Page bottom'
 regions[bottom_right]   = 'Page bottom - Right'
 regions[footer]         = 'Footer'
-
-
-; OLD
-;regions[highlight]      = Highlight
-;regions[featured]       = Featured
 regions[burgermenu]     = Burger Menu
-;regions[contactform]    = Contact form
-;regions[languageselect]  = Language selection
-;regions[breadcrumbs]    = Navigation
-;regions[news]           = News thread
-;regions[searchmodule]  = Search
-;regions[theyuseus]      = They use emindhub
-;regions[theyareexpert]  = They are expert
-;regions[timeline]       = Timeline
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;
