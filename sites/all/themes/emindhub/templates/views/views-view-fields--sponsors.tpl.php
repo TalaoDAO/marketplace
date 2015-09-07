@@ -29,14 +29,14 @@
 // Show $node field, with custom display parameters
 // print render(field_view_field('node', $node, 'field_duration_of_the_mission'));
 ?>
-<div class="sponsor-user col-sm-4">
+<div class="user col-sm-4">
 
-  <?php if (isset($fields['field_employment_history'])) : ?>
-  <button type="button" class="btn btn-popin" data-toggle="modal" data-target="#sponsor-<?php print $fields['field_first_name']->raw; ?>">
+  <?php if (isset($fields['field_employment_history']) || isset($fields['field_sponsor_why']) || isset($fields['field_partner_why'])) : ?>
+  <button type="button" class="btn btn-popin" data-toggle="modal" data-target="#<?php print $fields['field_first_name']->raw; ?>">
   <?php endif; ?>
 
     <?php if (isset($fields['field_photo'])) : ?>
-    <?php print $fields['field_photo']->content; ?>
+    <div class="portrait"><?php print $fields['field_photo']->content; ?></div>
     <?php endif; ?>
 
     <?php if (isset($fields['field_first_name']) || isset($fields['field_last_name'])) : ?>
@@ -54,19 +54,19 @@
     <h4><?php print $fields['field_titre_metier']->content; ?></h4>
     <?php endif; ?>
 
-  <?php if (isset($fields['field_employment_history'])) : ?>
+  <?php if (isset($fields['field_employment_history']) || isset($fields['field_sponsor_why']) || isset($fields['field_partner_why'])) : ?>
   </button>
   <?php endif; ?>
 
-  <?php if (isset($fields['field_employment_history'])) : ?>
-  <div class="modal fade" id="sponsor-<?php print $fields['field_first_name']->raw; ?>" tabindex="-1" role="dialog" aria-labelledby="sponsor-<?php print $fields['field_first_name']->raw; ?>">
+  <?php if (isset($fields['field_employment_history']) || isset($fields['field_sponsor_why']) || isset($fields['field_partner_why'])) : ?>
+  <div class="modal fade" id="<?php print $fields['field_first_name']->raw; ?>" tabindex="-1" role="dialog" aria-labelledby="<?php print $fields['field_first_name']->raw; ?>">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
 
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <?php if (isset($fields['field_first_name']) || isset($fields['field_last_name'])) : ?>
-          <h3 class="modal-title" id="sponsor-<?php print $fields['field_first_name']->raw; ?>">
+          <h3 class="modal-title" id="<?php print $fields['field_first_name']->raw; ?>">
             <?php if (isset($fields['field_first_name'])) : ?>
             <?php print $fields['field_first_name']->content; ?>
             <?php endif; ?>
@@ -94,8 +94,21 @@
                 <h3><?php print $fields['field_titre_metier']->content; ?></h3>
                 <?php endif; ?>
 
-                <h4><?php print t('Experience'); ?></h4>
+                <?php if (isset($fields['field_employment_history'])) : ?>
+                <h4><?php print $fields['field_employment_history']->title; ?></h4>
                 <p><?php print $fields['field_employment_history']->content; ?></p>
+                <?php endif; ?>
+
+                <?php if (isset($fields['field_partner_why'])) : ?>
+                <h4><?php print $fields['field_partner_why']->title; ?></h4>
+                <p><?php print $fields['field_partner_why']->content; ?></p>
+                <?php endif; ?>
+
+                <?php if (isset($fields['field_sponsor_why'])) : ?>
+                <h4><?php print $fields['field_sponsor_why']->title; ?></h4>
+                <p><?php print $fields['field_sponsor_why']->content; ?></p>
+                <?php endif; ?>
+
               </div>
 
             </div>
