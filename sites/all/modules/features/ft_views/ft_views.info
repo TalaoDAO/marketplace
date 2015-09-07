@@ -11,6 +11,7 @@ dependencies[] = insert_view
 dependencies[] = quicktabs
 dependencies[] = viewreference
 dependencies[] = views
+dependencies[] = views_bootstrap
 dependencies[] = views_bulk_operations
 dependencies[] = views_extra_handlers
 dependencies[] = views_field_view
