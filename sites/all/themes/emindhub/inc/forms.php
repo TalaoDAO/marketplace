@@ -328,7 +328,6 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $current_pass_description = '';
   if (!$pass_reset) {
     $current_pass_description = t('Enter your current password to change the email or password.');
-    // $current_pass_description = t('Enter your current password to change the', array('%mail' => $protected_values['mail'], '%pass' => $protected_values['pass'], '!request_new' => $request_new));
   }
   $form['account']['current_pass']['#description'] = $current_pass_description;
 
