@@ -95,17 +95,17 @@
                 <?php endif; ?>
 
                 <?php if (isset($fields['field_employment_history'])) : ?>
-                <h4><?php print $fields['field_employment_history']->title; ?></h4>
+                <h4><?php print $fields['field_employment_history']->label; ?></h4>
                 <p><?php print $fields['field_employment_history']->content; ?></p>
                 <?php endif; ?>
 
                 <?php if (isset($fields['field_partner_why'])) : ?>
-                <h4><?php print $fields['field_partner_why']->title; ?></h4>
+                <h4><?php print $fields['field_partner_why']->label; ?></h4>
                 <p><?php print $fields['field_partner_why']->content; ?></p>
                 <?php endif; ?>
 
                 <?php if (isset($fields['field_sponsor_why'])) : ?>
-                <h4><?php print $fields['field_sponsor_why']->title; ?></h4>
+                <h4><?php print $fields['field_sponsor_why']->label; ?></h4>
                 <p><?php print $fields['field_sponsor_why']->content; ?></p>
                 <?php endif; ?>
 
