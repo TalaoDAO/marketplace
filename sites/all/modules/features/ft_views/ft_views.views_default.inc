@@ -276,8 +276,9 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['sticky']['field'] = 'sticky';
   $handler->display->display_options['filters']['sticky']['value'] = '1';
 
-  /* Display: (B) They use eMindHub services */
-  $handler = $view->new_display('block', '(B) They use eMindHub services', 'block');
+  /* Display: Block */
+  $handler = $view->new_display('block', 'Block', 'block');
+  $handler->display->display_options['block_description'] = 'They use eMindHub services';
   $export['entreprise_list'] = $view;
 
   $view = new view();
@@ -1538,6 +1539,11 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['body']['settings'] = array(
     'trim_length' => '600',
   );
+  /* Sort criterion: Content: Sticky */
+  $handler->display->display_options['sorts']['sticky']['id'] = 'sticky';
+  $handler->display->display_options['sorts']['sticky']['table'] = 'node';
+  $handler->display->display_options['sorts']['sticky']['field'] = 'sticky';
+  $handler->display->display_options['sorts']['sticky']['order'] = 'DESC';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -1567,8 +1573,7 @@ function ft_views_views_default_views() {
   $handler = $view->new_display('block', '(B) News', 'block');
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '2';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '5';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['style_options']['default_row_class'] = FALSE;
@@ -1630,7 +1635,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['body']['settings'] = array(
     'trim_length' => '300',
   );
-  $handler->display->display_options['block_description'] = 'News';
   $export['news_thread'] = $view;
 
   $view = new view();
@@ -2699,8 +2703,8 @@ function ft_views_views_default_views() {
     8 => '8',
   );
 
-  /* Display: (B) They are expert */
-  $handler = $view->new_display('block', '(B) They are expert', 'block_2');
+  /* Display: They are expert */
+  $handler = $view->new_display('block', 'They are expert', 'block_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'They are experts in eMindHub';
   $handler->display->display_options['defaults']['fields'] = FALSE;
@@ -2836,8 +2840,8 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
 
-  /* Display: (P) Users list */
-  $handler = $view->new_display('page', '(P) Users list', 'page_1');
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page_1');
   $handler->display->display_options['defaults']['access'] = FALSE;
   $handler->display->display_options['access']['type'] = 'role';
   $handler->display->display_options['access']['role'] = array(
