@@ -13175,6 +13175,12 @@ aside .block .content {
 #block-block-2 {
   text-align: center;
 }
+#block-block-2 .block-title {
+  background-color: #445766;
+  color: #fff;
+  margin: 0;
+  padding: 15px 15px 0;
+}
 #block-block-2 a.btn {
   text-transform: uppercase;
   padding: 6px 24px;

@@ -445,10 +445,7 @@ function emindhub_preprocess_search_block_form(&$vars) {
 
 
 
-// function emindhub_form_user_register_form_alter(&$vars) {
 function emindhub_form_user_register_form_alter(&$form, &$form_state, $form_id) {
-  // $vars['field_first_name']['#access'] = TRUE; // OLD
-  // $vars['field_last_name']['#access'] = TRUE; // OLD
 
   $form['emh_baseline'] = array(
     '#markup' => '<p class="emh-title-baseline">' . t('Create your account <strong>for free in no time</strong>') . '</p>',
@@ -464,7 +461,7 @@ function emindhub_form_user_register_form_alter(&$form, &$form_state, $form_id) 
 
   $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
 
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>'; die;
 }
 
 
