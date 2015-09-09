@@ -405,9 +405,7 @@ function entity_legal_views_api() {
  * Implements hook_field_extra_fields().
  */
 function entity_legal_field_extra_fields() {
-  // Add profile form methods to extra fields for user.
-  $method = new EntityLegalMethodProfileForm();
-  $documents = $method->getProfileFormMethodDocuments();
+  $documents = entity_legal_get_all_documents(TRUE, ENTITY_LEGAL_USER_ANONYMOUS);
 
   $extra = array();
 

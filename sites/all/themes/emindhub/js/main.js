@@ -1,14 +1,14 @@
 function onClickBurgerMenuBtn() {
-    var bm = document.querySelector('.region-burgermenu');
-    if (bm) {
-        bm.style.display = (bm.style.display != 'none'&& bm.style.display != '') ? 'none': 'block';
-        if (bm.style.display != 'none'&& bm.style.display != '') {
-            document.body.onclick = onClickBody;
-        }
-        else {
-            document.body.onclick = null;
-        }
+  var bm = document.querySelector('.region-burgermenu');
+  if (bm) {
+    bm.style.display = (bm.style.display != 'none'&& bm.style.display != '') ? 'none': 'block';
+    if (bm.style.display != 'none'&& bm.style.display != '') {
+      document.body.onclick = onClickBody;
     }
+    else {
+      document.body.onclick = null;
+    }
+  }
 }
 
 function onClickBody(evt) {
@@ -45,68 +45,28 @@ function FileUpload() {
 }
 
 
-// function signInClick(evt) {
-//     var eltSignUp = document.querySelector("div.popup-sign-up");
-//     eltSignUp.classList.remove("popup-sign-up-click");
-//     var elt = document.querySelector("div.popup-sign-in");
-//     elt.classList.add("popup-sign-in-click");
-//     document.body.onclick = onClickBodySignIn;
-// }
-
-// function onClickBodySignIn(evt) {
-//     var elt = evt.target;
-//     while (elt != null) {
-//         if (elt.className.indexOf("popup-sign-in") != -1 || elt.className.indexOf("popup-sign-in-content") != -1) {
-//             return;
-//         }
-//         elt = elt.parentElement;
-//     }
-//     //On est arrivé jusque ici donc on as pas cliqué dans le burger menu
-//     var elt = document.querySelector('div.popup-sign-in');
-//     elt.classList.remove("popup-sign-in-click");
-//     //bm.style.display = 'none';
-//     document.body.onclick = null;
-// }
-
-// function signUpClick(evt) {
-//     var eltSignIn = document.querySelector('div.popup-sign-in');
-//     eltSignIn.classList.remove("popup-sign-in-click");
-//     var elt = document.querySelector("div.popup-sign-up");
-//     elt.classList.add("popup-sign-up-click");
-//     document.body.onclick = onClickBodySignUp;
-// }
-
-// function onClickBodySignUp(evt) {
-//     var elt = evt.target;
-//     while (elt != null) {
-//         if (elt.className.indexOf("popup-sign-up") != -1 || elt.className.indexOf("popup-sign-up-content") != -1) {
-//             return;
-//         }
-//         elt = elt.parentElement;
-//     }
-//     //On est arrivé jusque ici donc on as pas cliqué dans le burger menu
-//     var elt = document.querySelector('div.popup-sign-up');
-//     elt.classList.remove("popup-sign-up-click");
-//     //bm.style.display = 'none';
-//     document.body.onclick = null;
-// }
-
 (function ($) {
+
   // http://stackoverflow.com/a/13203876
   $(document).ready(function() {
-    $('[data-toggle="popover"]').popover();
-    $("#signIn").popover({
-        html : true,
-        content: function() {
-          return $('#signInContent').html();
-        },
+    $('#signIn').popover({
+      content: function() {
+        return $('#signInContent').html();
+      },
+      container: 'body',
     });
-    $("#signUp").popover({
-        html : true,
-        content: function() {
-          return $('#signUpContent').html();
-        },
+    $('#signUp').popover({
+      content: function() {
+        return $('#signUpContent').html();
+      },
+      container: 'body',
     });
+
+    // Bootstrap tooltip
+    // $('.help-tip').tooltip({
+    //   html: true,
+    // });
+
   })
 })(jQuery);
 
@@ -114,34 +74,3 @@ function FileUpload() {
 var shiftWindow = function() { scrollBy(0, -150) };
 window.addEventListener("hashchange", shiftWindow);
 function load() { if (window.location.hash) shiftWindow(); }
-
-/*
-function signUpHover(evt) {
-
-    console.log(event);
-    var elt = event.toElement;
-    var left = elt.offsetLeft /2;
-    elt = elt.offsetParent;
-    while (elt != null) {
-        left += elt.offsetLeft;
-        elt = elt.offsetParent;
-    }
-    console.log(left);
-}*/
-/*
-$(function () {
-    var options = {
-        html: true,
-        content: $('.popup-sign-up-content').html(),
-        placement: 'bottom',
-        //trigger: 'hover',
-        trigger: 'manual',
-        delay: {
-            "show": 100,
-            "hide": 800
-        }
-    };
-    $('[data-toggle="popover"]').popover(options).mouseenter(function (e) {
-        $(this).popover('show');
-    });
-})*/

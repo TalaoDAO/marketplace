@@ -1,11 +1,7 @@
 sites/all/modules/.notused
 sites/all/modules/.unused
 sites/all/modules/debug
-sites/all/themes/emindhub/css/*.css
-sites/all/themes/emindhub/css/*.css.map
-sites/all/themes/emindhub/templates/unused/
-!sites/all/themes/emindhub/css/bootstrap.css
-sites/all/themes/emindhub/src/node_modules/
+
 
 # Ignore configuration files that may contain sensitive information.
 sites/*/settings*.php
@@ -14,6 +10,20 @@ sites/*/local.settings*.php
 # Ignore paths that contain user-generated content.
 sites/*/files
 sites/*/private
+
+
+# Ignore gulp files
+sites/all/themes/emindhub/src/node_modules
+sites/all/themes/emindhub/css/*.map
+
+
+# Ignore old theme files
+sites/all/themes/emindhub/css/emindhub.css
+sites/all/themes/emindhub/css/*.css.map
+sites/all/themes/emindhub/templates/unused/
+!sites/all/themes/emindhub/css/bootstrap.css
+sites/all/themes/emindhub/src/node_modules/
+
 
 # Ignore IDE and OS-related files
 .buildpath

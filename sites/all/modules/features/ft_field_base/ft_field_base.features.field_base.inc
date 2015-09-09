@@ -555,7 +555,7 @@ function ft_field_base_field_default_field_bases() {
       'profile2_private' => FALSE,
       'user_role_field' => array(
         1 => 0,
-        2 => 0,
+        2 => 2,
         3 => 0,
         4 => 0,
         5 => 0,
@@ -1027,7 +1027,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_name_visibility',
     'field_permissions' => array(
-      'owner_field' => '',
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
@@ -1045,6 +1045,17 @@ function ft_field_base_field_default_field_bases() {
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
       'profile2_private' => FALSE,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 2,
+        3 => 0,
+        4 => 0,
+        5 => 0,
+        6 => 0,
+        7 => 0,
+        8 => 0,
+        9 => 0,
+      ),
     ),
     'translatable' => 0,
     'type' => 'list_boolean',
@@ -2136,7 +2147,7 @@ function ft_field_base_field_default_field_bases() {
   // Exported field_base: 'field_user_list'
   $field_bases['field_user_list'] = array(
     'active' => 1,
-    'cardinality' => -1,
+    'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_user_list',
@@ -2194,36 +2205,6 @@ function ft_field_base_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'media',
-  );
-
-  // Exported field_base: 'field_working_field'
-  $field_bases['field_working_field'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_working_field',
-    'field_permissions' => array(
-      'owner_field' => 'Comment',
-      'type' => 0,
-    ),
-    'indexes' => array(
-      'value' => array(
-        0 => 'value',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'list',
-    'settings' => array(
-      'allowed_values' => array(
-        0 => '',
-        1 => '',
-      ),
-      'allowed_values_function' => '',
-      'entity_translation_sync' => FALSE,
-    ),
-    'translatable' => 0,
-    'type' => 'list_boolean',
   );
 
   // Exported field_base: 'field_working_status'
