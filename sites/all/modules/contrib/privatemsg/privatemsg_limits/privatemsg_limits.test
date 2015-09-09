@@ -12,7 +12,7 @@ class PrivatemsgLimitsTestCase extends PrivatemsgBaseTestCase {
   public static function getInfo() {
     return array(
       'name' => 'Privatemsg Limits',
-      'description' => 'Tests limits on sending and recieving messages.',
+      'description' => 'Tests limits on sending and receiving messages.',
       'group' => 'Privatemsg',
     );
   }

@@ -338,7 +338,7 @@ class PrivatemsgTestCase extends PrivatemsgBaseTestCase {
 
     $this->drupalPost('messages/new', $editinvalid, t('Send message'));
     $this->assertText(t('You must include at least one valid recipient.'), 'Message was not sent.');
-    $this->assertText(t('The following users will not receive this private message: @recipients', array('@recipients' => $editinvalid['recipient'])), 'Message about non-existing user displayed.');
+    $this->assertText(t('The following recipients will not receive this private message: @recipients.', array('@recipients' => $editinvalid['recipient'])), 'Message about non-existing user displayed.');
 
     $this->drupalPost('messages/new', $editrecipientblocked, t('Send message'));
     $this->assertText(t('@recipients has disabled his or her account.', array('@recipients' => $blocked_recipient->name)), 'Message about blocked user displayed.');
@@ -355,14 +355,14 @@ class PrivatemsgTestCase extends PrivatemsgBaseTestCase {
     $this->assertText(t('A message has been sent to @recipients.', array('@recipients' => $recipient->name)), 'Message sent confirmation displayed.');
 
     $this->drupalPost('messages/new', $editempty, t('Send message'));
-    $this->assertText(t('You must include a subject line with your message.'), 'Empty subject message displayed.');
+    $this->assertText(t('You must include a subject line or a message.'), 'Empty subject message displayed.');
 
     $this->drupalPost('messages/new', $editonlyspace, t('Send message'));
     $this->assertText(t('A message has been sent to @recipients.', array('@recipients' => $recipient2->name)), 'Message sent confirmation displayed.');
 
     $this->drupalPost('messages/new', $editmixed, t('Send message'));
     $this->assertText(t('A message has been sent to @recipients.', array('@recipients' => $recipient->name)), 'Message sent confirmation displayed.');
-    $this->assertText(t('The following users will not receive this private message: @recipients', array('@recipients' => $invalidmixed)), 'Message about non-existing user displayed.');
+    $this->assertText(t('The following recipients will not receive this private message: @recipients.', array('@recipients' => $invalidmixed)), 'Message about non-existing user displayed.');
 
     $this->drupalPost('messages/new', $editformatted, t('Send message'));
     $this->assertText(t('A message has been sent to @recipients.', array('@recipients' => $recipient2->name)), 'Message sent confirmation displayed.');
@@ -463,7 +463,7 @@ class PrivatemsgTestCase extends PrivatemsgBaseTestCase {
 
     // Create a message between the users that we can use to test
     $return = privatemsg_new_thread(array($disableduser), $this->randomName(20), $this->randomName(100), array('author' => $enableduser));
-    $mid = $return['message']->thread_id;
+    $return['message']->thread_id;
 
     $this->drupalLogin($disableduser);
     // Now disable $disabledUser.
@@ -484,11 +484,11 @@ class PrivatemsgTestCase extends PrivatemsgBaseTestCase {
     $this->drupalGet('messages/new');
     $this->assertResponse(403, t('HTTP Response 403: Access to Write New Message page was blocked to user with private messaging disabled'));
 
-    // Use a newly loaded user object to test the API calls.
-    $disableduser_loaded = user_load($disableduser->uid, TRUE);
+    // Clear static cache.
+    drupal_static_reset('privatemsg_settings');
 
     // Check that $disableduser cannot submit a reply
-    $result = privatemsg_reply($return['message']->thread_id, $this->randomName(100), array('author' => $disableduser_loaded));
+    $result = privatemsg_reply($return['message']->thread_id, $this->randomName(100), array('author' => $disableduser));
 
     $this->assertFalse($result['success'], 'Message reply was not sent.');
 
@@ -650,6 +650,7 @@ class PrivatemsgTestCase extends PrivatemsgBaseTestCase {
     }
 
     // Mid 4 should have been flushed.
+    entity_get_controller('privatemsg_message')->resetCache();
     $message = privatemsg_message_load(4, $author);
     $this->assertTrue(empty($message), t('Message #4 has been flushed'));
   }
@@ -754,7 +755,7 @@ class PrivatemsgTestCase extends PrivatemsgBaseTestCase {
     $this->drupalPost(NULL, NULL, t('Cancel account'));
 
     // Confirm account cancellation request.
-    $this->drupalGet("user/$recipient2->uid/cancel/confirm/$timestamp/" . user_pass_rehash($recipient2->pass, $timestamp, $recipient2->login));
+    $this->drupalGet("user/$recipient2->uid/cancel/confirm/$timestamp/" . user_pass_rehash($recipient2->pass, $timestamp, $recipient2->login, $recipient2->uid));
 
     // Simpletest thinks that we are still logged in.
     $this->loggedInUser = NULL;
@@ -790,7 +791,7 @@ class PrivatemsgTestCase extends PrivatemsgBaseTestCase {
     $this->drupalPost(NULL, NULL, t('Cancel account'));
 
     // Confirm account cancellation request.
-    $this->drupalGet("user/$dummy->uid/cancel/confirm/$timestamp/" . user_pass_rehash($dummy->pass, $timestamp, $dummy->login));
+    $this->drupalGet("user/$dummy->uid/cancel/confirm/$timestamp/" . user_pass_rehash($dummy->pass, $timestamp, $dummy->login, $dummy->uid));
   }
 
   function checkThreadDelete($message) {
@@ -830,7 +831,6 @@ class PrivatemsgTestCase extends PrivatemsgBaseTestCase {
 
     // Preview message.
     $this->drupalPost('messages/new', $message, t('Preview message'));
-    $this->assertTitle(t('Write new message to @user', array('@user' => $user->name)) . ' | Drupal', t('Correct title is displayed.'));
     $this->assertFieldByXPath($this->buildXPathQuery('//div[@class=:class]/p', array(':class' => 'privatemsg-message-body')), $message['body[value]'], t('Message body is previewed'));
     $this->assertFieldByName('body[value]', $message['body[value]'], t('Message body field has the correct default value.'));
 
@@ -855,7 +855,7 @@ class PrivatemsgTestCase extends PrivatemsgBaseTestCase {
     $this->drupalLogin($current);
 
     // Use specific names to be able to test for specific name combinations.
-    user_save($current, array('name' => 'wathever'));
+    user_save($current, array('name' => 'whatever'));
     user_save($user1, array('name' => 'aaaa'));
     user_save($user2, array('name' => 'aaab'));
     user_save($user3, array('name' => 'bbbb'));
@@ -890,14 +890,6 @@ class PrivatemsgTestCase extends PrivatemsgBaseTestCase {
     $this->assertEqual(count($autocomplete), 1, t('Autocomplete object contains one suggestion.'));
     $this->assertEqual($autocomplete[strip_tags($user4->name) . ', '], strip_tags($user4->name));
   }
-
-  /**
-   * Implements tearDown().
-   */
-  function tearDown() {
-    //we dont really need to do this. i'm adding it just to keep it in front of my eyes so i can memorize it.
-    parent::tearDown();
-  }
 }
 
 /**
@@ -931,7 +923,7 @@ class PrivatemsgFieldsTestCase extends PrivatemsgBaseTestCase {
 
     // Create a new field.
     $edit = array(
-      'fields[_add_new_field][label]' => $label = $this->randomName(),
+      'fields[_add_new_field][label]' => $this->randomName(),
       'fields[_add_new_field][field_name]' => $name = strtolower($this->randomName()),
       'fields[_add_new_field][type]' => 'text',
       'fields[_add_new_field][widget_type]' => 'text_textfield',
@@ -990,8 +982,8 @@ class PrivatemsgFieldsTestCase extends PrivatemsgBaseTestCase {
 
     // Create a new field.
     $edit = array(
-      'fields[_add_new_field][label]' => $label = $this->randomName(),
-      'fields[_add_new_field][field_name]' => $name = strtolower($this->randomName()),
+      'fields[_add_new_field][label]' => $this->randomName(),
+      'fields[_add_new_field][field_name]' => strtolower($this->randomName()),
       'fields[_add_new_field][type]' => 'image',
       'fields[_add_new_field][widget_type]' => 'image_image',
     );
@@ -1166,7 +1158,7 @@ class PrivatemsgLinksTestCase extends PrivatemsgBaseTestCase {
     $this->drupalPost('admin/structure/block', $blocks, t('Save blocks'));
 
     $this->drupalGet('');
-    $this->assertNoText(t('New message'), t('Privatemsg new block title not displayed.'));
+    $this->assertNoText(t('Unread message'), t('Privatemsg unread message block title not displayed.'));
 
     $message = array(
       'recipient' => $user->name,
@@ -1176,9 +1168,9 @@ class PrivatemsgLinksTestCase extends PrivatemsgBaseTestCase {
     $this->drupalPost('messages/new', $message, t('Send message'));
 
     $this->drupalLogin($user);
-    $this->assertText(t('New message'), t('Privatemsg new block title displayed.'));
+    $this->assertText(t('Unread message'), t('Privatemsg unread message block title displayed.'));
 
-    $this->assertText(t('You have a new message! Click here to read it.'), t('New message indication displayed.'));
+    $this->assertText(t('You have an unread message! Click here to read it.'), t('Unread message indication displayed.'));
   }
 }
 
@@ -1312,7 +1304,7 @@ class PrivatemsgAPITestCase extends PrivatemsgBaseTestCase {
    * Implements setUp().
    */
   function setUp() {
-    parent::setUp('privatemsg');
+    parent::setUp('privatemsg', 'privatemsg_roles');
 
     // Create the full html format.
     $full_html_format = array(
@@ -1363,7 +1355,7 @@ class PrivatemsgAPITestCase extends PrivatemsgBaseTestCase {
     $this->assertTrue($resultok2['success'], 'API allowed to send message without body');
 
     $resultf1 = privatemsg_new_thread(array($recipient1, $recipient2, $recipient3), '', 'No subject', array('author' => $author));
-    $this->assertEqual('A subject must be included with the message.', $resultf1['messages']['error'][0], 'API denied to send message without a subject');
+    $this->assertEqual('A subject or message must be included.', $resultf1['messages']['error'][0], 'API denied to send message without a subject');
 
     $resultf2 = privatemsg_new_thread(array(), 'no recipients', 'Body text', array('author' => $author));
     $this->assertEqual('At least one valid recipient must be included with the message.', $resultf2['messages']['error'][0], 'API denied to send message without recipients');
@@ -1410,11 +1402,18 @@ class PrivatemsgAPITestCase extends PrivatemsgBaseTestCase {
 
     $thread_row = $this->getMessageFromSubject('test reply');
 
+    $this->assertEqual($thread_row->reply_to_mid, 0, t('First message is not a reply to a thread.'));
     $resultok = privatemsg_reply($thread_row->mid, 'Test Body', array('author' => $author));
     $this->assertTrue($resultok['success'], 'Reply could be sent successfully');
 
+    $reply_to_mid = db_query('SELECT reply_to_mid FROM {pm_message} WHERE mid = :mid', array(':mid' => $resultok['message']->mid))->fetchField();
+    $this->assertEqual($reply_to_mid, $thread_row->mid, t('Reply is marked as reply of first message.'));
+
     $resultok = privatemsg_reply($thread_row->mid, 'Test Body', array('author' => $recipient1));
     $this->assertTrue($resultok['success'], 'Reply could be sent successfully');
+
+    $reply_to_mid = db_query('SELECT reply_to_mid FROM {pm_message} WHERE mid = :mid', array(':mid' => $resultok['message']->mid))->fetchField();
+    $this->assertEqual($reply_to_mid, $thread_row->mid, t('Reply is marked as reply of first message.'));
 
     $resultf1 = privatemsg_reply($thread_row->mid, '', array('author' => $recipient2));
     $this->assertFalse($resultf1['success'], 'API denied to send message without body.');
@@ -1423,44 +1422,46 @@ class PrivatemsgAPITestCase extends PrivatemsgBaseTestCase {
     $resultf2 = privatemsg_reply($thread_row->mid, 'Test Body', array('author' => $recipient3));
     $errormessage = t('@user is not allowed to write messages.', array('@user' => $recipient3->name));
     $this->assertEqual($errormessage, $resultf2['messages']['error'][0], 'API denied to send message from user without permission');
-
   }
 
   /**
    * Test various use cases for privatemsg_get_link().
    */
   function testGetLink() {
-    $author      = $this->drupalCreateUser(array('write privatemsg', 'read privatemsg'));
+    $author      = $this->drupalCreateUser(array('write privatemsg', 'read privatemsg', 'write privatemsg to all roles'));
+    $author2      = $this->drupalCreateUser(array('write privatemsg', 'read privatemsg'));
     $recipient1  = $this->drupalCreateUser(array('read privatemsg'));
     $recipient2  = $this->drupalCreateUser(array('read privatemsg'));
     $recipient3  = $this->drupalCreateUser(array('read privatemsg', 'allow disabling privatemsg'));
     $recipient4  = $this->drupalCreateUser();
 
+    // Create role with the same name as recipient 2.
+    $role = $this->drupalCreateRole(array('read privatemsg'), $recipient2->name);
+
     $this->drupalLogin($author);
 
     $this->drupalGet(privatemsg_get_link(array($recipient1)));
-    $this->assertFieldByName('recipient', $recipient1->name . ' [user]');
+    $this->assertFieldByName('recipient', $recipient1->name);
 
+    // Because of there is a role with the same name like recipient 2,
+    // add the [user] for recipient 2.
     $this->drupalGet(privatemsg_get_link(array($recipient1, $recipient2)));
-    $this->assertFieldByName('recipient', $recipient1->name . ' [user], ' . $recipient2->name . ' [user]');
+    $this->assertFieldByName('recipient', $recipient1->name . ', ' . $recipient2->name . ' [user]');
 
     $this->drupalGet(privatemsg_get_link(array($recipient1, $recipient2), $author));
-    $this->assertFieldByName('recipient', $recipient1->name . ' [user], ' . $recipient2->name . ' [user]');
+    $this->assertFieldByName('recipient', $recipient1->name . ', ' . $recipient2->name . ' [user]');
 
     $this->drupalGet(privatemsg_get_link(array($recipient1, $recipient2), $author, $subject = 'Str/"ang\\w3//'));
-    $this->assertFieldByName('recipient', $recipient1->name . ' [user], ' . $recipient2->name . ' [user]');
+    $this->assertFieldByName('recipient', $recipient1->name . ', ' . $recipient2->name . ' [user]');
     $this->assertFieldByName('subject', $subject);
 
     // Disable privatemsg for recipient 3.
-    db_insert('pm_disable')
-      ->fields(array(
-        'uid' => $recipient3->uid,
-      ))
-      ->execute();
+    privatemsg_set_setting('user', $recipient3->uid, 'disabled', 1);
+
     $this->assertFalse(privatemsg_get_link(array($recipient3), $author));
 
     $this->drupalGet(privatemsg_get_link(array($recipient1, $recipient3), $author));
-    $this->assertFieldByName('recipient', $recipient1->name . ' [user]');
+    $this->assertFieldByName('recipient', $recipient1->name);
 
     // Disable links to self, verify that a link is only returned when the
     // author is not the only recipient.
@@ -1469,17 +1470,94 @@ class PrivatemsgAPITestCase extends PrivatemsgBaseTestCase {
     $this->assertFalse(privatemsg_get_link(array($author), $author));
 
     $this->drupalGet(privatemsg_get_link(array($recipient1, $author), $author));
-    $this->assertFieldByName('recipient', $recipient1->name . ' [user]');
+    $this->assertFieldByName('recipient', $recipient1->name);
 
     // Verify that link is not shown when recipient doesn't have read
     // permission.
     $this->assertFalse(privatemsg_get_link(array($recipient4), $author));
 
     $this->drupalGet(privatemsg_get_link(array($recipient1, $recipient4), $author));
-    $this->assertFieldByName('recipient', $recipient1->name . ' [user]');
+    $this->assertFieldByName('recipient', $recipient1->name);
 
     // Verify that link is not shown when author does not have write permission.
     $this->drupalLogin($recipient1);
     $this->assertFalse(privatemsg_get_link(array($author), $recipient1));
+
+    // For user that has no permission to send message to role,
+    // the [user] suffix will not appear although there is a role with the same name as user.
+    $this->drupalLogin($author2);
+    $this->drupalGet(privatemsg_get_link(array($recipient2)));
+    $this->assertFieldByName('recipient', $recipient2->name);
+  }
+
+  /**
+   * Tests for the privatemsg_*_setting() functions.
+   */
+  function testSettings() {
+
+    $admin = user_load(1);
+    $user = $this->drupalCreateUser(array('write privatemsg'));
+    $user2 = $this->drupalCreateUser(array('write privatemsg'));
+
+    // Create some global and role default settings.
+    privatemsg_set_setting('global', 0, 'test', 1);
+    $roles = array_keys($user->roles);
+    $first_role = array_shift($roles);
+    privatemsg_set_setting('role', $first_role, 'test', 2);
+
+    // Add some user specific setting.
+    privatemsg_set_setting('user', $admin->uid, 'test', 3);
+    privatemsg_set_setting('user', $user->uid, 'test2', 4);
+    privatemsg_set_setting('user', $user2->uid, 'test2', -1);
+
+    // Clear the static cache.
+    drupal_static_reset('privatemsg_settings');
+
+    // Get the ids for each user.
+    $admin_ids = privatemsg_get_default_setting_ids($admin);
+    $user_ids = privatemsg_get_default_setting_ids($user);
+    $user2_ids = privatemsg_get_default_setting_ids($user2);
+
+    $this->assertEqual(privatemsg_get_setting('test', $admin_ids), 3, t('The admin has a user level setting.'));
+    $this->assertEqual(privatemsg_get_setting('test', $user_ids), 2, t('The first user has role-level default.'));
+    $this->assertEqual(privatemsg_get_setting('test', $user2_ids), 1, t('The second user defaults to the global.'));
+
+    $this->assertEqual(privatemsg_get_setting('test2', $user_ids), 4, t('The value for another setting is read correctly.'));
+    $this->assertEqual(privatemsg_get_setting('test2', $user2_ids), 0, t('Negative values are ignored.'));
+
+    // Update existing settings, verify that the updated value is used now.
+    privatemsg_set_setting('role', $first_role, 'test', 5);
+    privatemsg_set_setting('user', $admin->uid, 'test', 6);
+    privatemsg_set_setting('user', $user2->uid, 'test', 7);
+
+    $this->assertEqual(privatemsg_get_setting('test', $admin_ids), 6, t('The updated user level setting is used.'));
+    $this->assertEqual(privatemsg_get_setting('test', $user_ids), 5, t('The updated role level setting is used.'));
+    $this->assertEqual(privatemsg_get_setting('test', $user2_ids), 7, t('The second user uses the new setting.'));
+
+    // Default some settings.
+    privatemsg_del_setting('role', $first_role, 'test');
+    privatemsg_del_setting('user', $admin->uid, 'test');
+
+    $this->assertEqual(privatemsg_get_setting('test', $admin_ids), 1, t('The user level setting was deleted, the default is now used.'));
+    $this->assertEqual(privatemsg_get_setting('test', $user_ids), 1, t('The role level setting was deleted, the default is now used.'));
+
+    // Test variable_get() fallback.
+    variable_set('privatemsg_setting_test3', 10);
+    privatemsg_set_setting('user', $admin->uid, 'test3', 11);
+    $this->assertEqual(privatemsg_get_setting('test3', $user_ids), 10, t('The variable_get() fallback is used when no other value exists.'));
+    $this->assertEqual(privatemsg_get_setting('test3', $admin_ids),11, t('The updated user level setting is used.'));
+
+    // Explicitly set a global default now.
+    privatemsg_set_setting('global', 0, 'test3', 12);
+    $this->assertEqual(privatemsg_get_setting('test3', $user_ids), 12, t('The variable_get() fallback is not used when other values exists.'));
+
+    // Test argument fallback.
+    privatemsg_set_setting('user', $admin->uid, 'test4', 14);
+    $this->assertEqual(privatemsg_get_setting('test4', $user_ids, 13), 13, t('The argument fallback is used when no other value exists.'));
+    $this->assertEqual(privatemsg_get_setting('test4', $admin_ids),14, t('The user level setting is used.'));
+
+    // Explicitly set a global default now.
+    privatemsg_set_setting('global', 0, 'test4', 15);
+    $this->assertEqual(privatemsg_get_setting('test4', $user_ids, 13), 15, t('The variable_get() fallback is not used when other values exists.'));
   }
 }

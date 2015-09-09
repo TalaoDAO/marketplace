@@ -56,10 +56,10 @@ function privatemsg_limits_privatemsg_message_validate($message, $form = FALSE) 
       $wait_time = _privatemsg_limits_get_oldest($message->author, variable_get('privatemsg_limits_send_timeframe', 3600));
       $period = format_interval(variable_get('privatemsg_limits_send_timeframe', 3600));
       if (variable_get('privatemsg_limits_receive_object', 'message') == 'message') {
-        $errors[] = t("Your message was not sent because you have exceeded your sending limit. You are allowed to send %limit messages every @period. You can send your next message in in @wait_time.", array('@wait_time' => $wait_time, '%limit' => $amount, '@period' => $period));
+        $errors[] = t("Your message was not sent because you have exceeded your sending limit. You are allowed to send %limit messages every @period. You can send your next message in @wait_time.", array('@wait_time' => $wait_time, '%limit' => $amount, '@period' => $period));
       }
       else {
-        $errors[] = t("Your message was not sent because you have exceeded your sending limit. You are allowed to start %limit conversations every @period. You can start your next conversation in in @wait_time.", array('@wait_time' => $wait_time, '%limit' => $amount, '@period' => $period));
+        $errors[] = t("Your message was not sent because you have exceeded your sending limit. You are allowed to start %limit conversations every @period. You can start your next conversation in @wait_time.", array('@wait_time' => $wait_time, '%limit' => $amount, '@period' => $period));
       }
     }
   }

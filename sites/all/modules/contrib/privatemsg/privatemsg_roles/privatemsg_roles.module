@@ -9,9 +9,9 @@
  * Implements hook_perm().
  */
 function privatemsg_roles_permission() {
-  return array(
-    'write privatemsg to roles' => array(
-      'title' => t('Write private message to roles'),
+  $permissions = array(
+    'write privatemsg to all roles' => array(
+      'title' => t('Write private messages to all roles'),
       'description' => t('Allows to write messages to all users which belong to a specific role.'),
     ),
     'view roles recipients' => array(
@@ -19,6 +19,13 @@ function privatemsg_roles_permission() {
       'description' => t('Ability to view roles recipients and the name of these roles.'),
     ),
   );
+  foreach (user_roles(TRUE) as $role) {
+    $permissions['write privatemsg to role ' . $role] = array(
+      'title' => t('Write private messages to role %role', array('%role' => $role)),
+      'description' => t('Allows to write messages to all users which belong to a specific role.'),
+    );
+  }
+  return $permissions;
 }
 
 function privatemsg_roles_theme() {
@@ -42,16 +49,44 @@ function privatemsg_roles_privatemsg_recipient_type_info() {
       'autocomplete' => 'privatemsg_roles_autocomplete',
       'generate recipients' => 'privatemsg_roles_load_recipients',
       'count' => 'privatemsg_roles_count_recipients',
-      'write access' => 'write privatemsg to roles',
+      'write callback' => 'privatemsg_roles_write_access',
       'view access' => 'view roles recipients',
     ),
   );
 }
 
 /**
+ * Write permission check for roles recipients.
+ */
+function privatemsg_roles_write_access($recipient) {
+
+  // Check if user has permission to write to all roles.
+  if (user_access('write privatemsg to all roles')) {
+    return TRUE;
+  }
+
+  if ($recipient) {
+    if (empty($recipient->name)) {
+      $recipients = privatemsg_roles_load_multiple(array($recipient->recipient), $recipient->type);
+      $recipient = array_shift($recipients);
+    }
+    // Check permission for this recipient.
+    return user_access('write privatemsg to role ' . $recipient->name);
+  }
+  // Check if user has permission to write at least one role.
+  foreach (user_roles(TRUE) as $role) {
+    if (user_access('write privatemsg to role ' . $role)) {
+      return TRUE;
+    }
+  }
+  // No permission, return FALSE.
+  return FALSE;
+}
+
+/**
  * Load a number of roles based on their rid.
  */
-function privatemsg_roles_load_multiple($rids) {
+function privatemsg_roles_load_multiple($rids, $type) {
   $result = db_query("SELECT name, rid AS recipient FROM {role} WHERE rid IN (:rids)", array(':rids' => $rids));
 
   $roles = array();
@@ -109,15 +144,17 @@ function privatemsg_roles_count_recipients($recipient) {
 /**
  * Provides autocomplete suggestions for roles.
  */
-function privatemsg_roles_autocomplete($fragment, $names, $limit) {
+function privatemsg_roles_autocomplete($fragment, $names, $limit, $type) {
   $result = _privatemsg_assemble_query(array('autocomplete_roles', 'privatemsg_roles'), $fragment, $names)
     ->range(0, $limit)
     ->execute();
   $roles = array();
   foreach ($result as $role) {
-    $role->type = 'role';
-    $role->recipient = $role->rid;
-    $roles[privatemsg_recipient_key($role)] = $role;
+    if (user_access('write privatemsg to all roles') || user_access('write privatemsg to role ' . $role->name)) {
+      $role->type = 'role';
+      $role->recipient = $role->rid;
+      $roles[privatemsg_recipient_key($role)] = $role;
+    }
   }
   return $roles;
 }

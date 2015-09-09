@@ -29,9 +29,9 @@ function privatemsg_admin_settings() {
   );
   $form['display_settings']['privatemsg_display_loginmessage'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Inform the user about new messages on login'),
+    '#title' => t('Inform the user about unread messages on login'),
     '#default_value' => variable_get('privatemsg_display_loginmessage', TRUE),
-    '#description' => t('This option can safely be disabled if the "New message indication" block is used instead.'),
+    '#description' => t('This option can safely be disabled if the "Unread message indication" block is used instead.'),
     '#weight'      => -5,
   );
   $form['display_settings']['privatemsg_display_disabled_message'] = array(
@@ -111,17 +111,37 @@ function privatemsg_admin_settings() {
     '#description' => t('Choose the number of conversations that should be listed per page.'),
   );
 
-  $form['privatemsg_listing']['privatemsg_display_fields'] = array(
-    '#type' => 'checkboxes',
+  $form['privatemsg_listing']['privatemsg_fields'] = array(
+    '#type' => 'fieldset',
     '#title' => t('Configure fields'),
-    '#description' => t('Select which columns/fields should be displayed in the message listings. Subject and Last updated cannot be disabled.'),
-    '#options' => array(
-      'participants'    => t('Participants'),
-      'thread_started'  => t('Started'),
-      'count'           => t('Messages'),
+    '#description' => t('Select which columns/fields should be displayed in the message listings.'),
+    '#collapsible' => FALSE,
+    '#theme' => 'privatemsg_admin_settings_display_fields',
+    'privatemsg_display_fields' => array(
+      '#tree' => TRUE,
     ),
-    '#default_value' => variable_get('privatemsg_display_fields', array('participants')),
+    'privatemsg_display_fields_weights' => array(
+      '#tree' => TRUE,
+    ),
   );
+
+  foreach (privatemsg_get_headers() as $key => $header) {
+    $form['privatemsg_listing']['privatemsg_fields']['privatemsg_display_fields'][$key] = array(
+      '#type' => 'checkbox',
+      '#title' => $header['#title'],
+      '#return_value' => $key,
+      '#default_value' => $header['#enabled'],
+      '#disabled' => $header['#locked'],
+      '#weight' => $header['#weight'],
+    );
+
+    $form['privatemsg_listing']['privatemsg_fields']['privatemsg_display_fields_weights'][$key] = array(
+      '#type' => 'weight',
+      '#title' => t('!field weight', array('!field' => $header['#title'])),
+      '#default_value' => $header['#weight'],
+      '#delta' => 20,
+    );
+  }
 
   $amounts = drupal_map_assoc(array(5, 10, 20, 30, 50, 70, 90, 150, 200, 250, 300));
   $form['privatemsg_listing']['privatemsg_view_max_amount'] = array(
@@ -169,7 +189,7 @@ function privatemsg_admin_settings() {
   $form['links']['privatemsg_display_link_self'] = array(
     '#type' => 'checkbox',
     '#title' => t('Display "Send this user a message" links for themself'),
-    '#description' => t('If enabled, each users sees that link on their own profile, comments and similiar places.'),
+    '#description' => t('If enabled, each users sees that link on their own profile, comments and similar places.'),
     '#default_value' => variable_get('privatemsg_display_link_self', TRUE),
     '#weight'        => -10,
   );

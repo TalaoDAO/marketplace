@@ -58,7 +58,7 @@ function privatemsg_filter_menu() {
   $items['admin/config/messaging/privatemsg/tags/rebuild'] = array(
     'title'            => 'Rebuild inbox',
     'page callback'    => 'drupal_get_form',
-    'page arguments'   => array('privatemsg_filter_inbox_rebuid_form'),
+    'page arguments'   => array('privatemsg_filter_inbox_rebuild_form'),
     'file'             => 'privatemsg_filter.admin.inc',
     'access arguments' => array('administer privatemsg settings'),
     'type'             => MENU_LOCAL_TASK,
@@ -94,7 +94,7 @@ function privatemsg_filter_menu() {
     'menu_name'        => 'user-menu',
   );
   $items['messages/sent'] = array(
-    'title'            => 'Sent Messages',
+    'title'            => 'Sent messages',
     'page callback'    => 'privatemsg_list_page',
     'page arguments'   => array('sent'),
     'file'             => 'privatemsg.pages.inc',
@@ -156,9 +156,6 @@ function privatemsg_filter_form_privatemsg_admin_settings_alter(&$form, $form_st
     '#description'   => t('WARNING: turning on this feature will slow down search performance by a large factor. Gets worse as your messages database increases.'),
     '#default_value' => variable_get('privatemsg_filter_searchbody', FALSE),
   );
-
-  // Add tags to the list of possible columns.
-  $form['privatemsg_listing']['privatemsg_display_fields']['#options']['tags'] = t('Tags');
 
   $form['#submit'][] = 'privatemsg_filter_settings_submit';
 }
@@ -330,8 +327,7 @@ function privatemsg_filter_get_tags_data($account) {
 }
 
 function privatemsg_filter_dropdown(&$form_state, $account) {
-
-  drupal_add_css(drupal_get_path('module', 'privatemsg_filter') . '/privatemsg_filter.css');
+  $form['#attached']['css'][] = drupal_get_path('module', 'privatemsg_filter') . '/privatemsg_filter.css';
 
   $form['filter'] = array(
     '#type' => 'fieldset',
@@ -507,7 +503,7 @@ function privatemsg_filter_form_privatemsg_list_alter(&$form, $form_state) {
     $form += privatemsg_filter_dropdown($form_state, $form['account']['#value']);
   }
 
-  $fields = array_filter(variable_get('privatemsg_display_fields', array('participants')));
+  $fields = privatemsg_get_enabled_headers();
   if (privatemsg_user_access('tag private messages') && in_array('tags', $fields) && !empty($form['updated']['list']['#options'])) {
     // Load thread id's of the current list.
     $threads = array_keys($form['updated']['list']['#options']);
@@ -595,18 +591,17 @@ function privatemsg_filter_privatemsg_thread_operations($type) {
 }
 
 /**
- * Define the header for the tags column.
- *
- * @see theme_privatemsg_list_header()
+ * Implements hook_privatemsg_header_info().
  */
-function theme_privatemsg_list_header__tags() {
-  if (privatemsg_user_access('tag private messages')) {
-    return array(
+function privatemsg_filter_privatemsg_header_info() {
+  return array(
+    'tags' => array(
       'data' => t('Tags'),
-      'class' => 'privatemsg-header-tags',
-      '#weight' => -42,
-    );
-  }
+      'class' => array('privatemsg-header-tags'),
+      '#weight' => -23,
+      '#access' => privatemsg_user_access('tag private messages'),
+    ),
+  );
 }
 
 
@@ -751,11 +746,15 @@ function privatemsg_filter_privatemsg_view_alter(&$content) {
 function privatemsg_filter_show_tags($thread_id, $show_form) {
   global $user;
 
-  drupal_add_css(drupal_get_path('module', 'privatemsg_filter') . '/privatemsg_filter.css');
   $element = array(
     '#prefix' => '<div id="privatemsg-filter-tags">',
     '#suffix' => '</div>',
     '#weight' => -10,
+    '#attached' => array(
+      'css' => array(
+        drupal_get_path('module', 'privatemsg_filter') . '/privatemsg_filter.css',
+      ),
+    ),
   );
 
   if (!$show_form) {

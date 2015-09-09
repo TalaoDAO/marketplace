@@ -148,7 +148,7 @@ function hook_query_privatemsg_deleted_alter($query) {
  * All message-level hooks look like hook_privatemsg_message_op,
  * where op is one of the following:
  * - @link hook_privatemsg_message_load load @endlink: Called when a full
- *   message is loaded similiar to nodeapi_load, new values can be returned and
+ *   message is loaded similar to nodeapi_load, new values can be returned and
  *   will be added to $message, parameter: $message
  * - @link hook_privatemsg_message_validate validate @endlink: Validation,
  *   before the message is sent/saved. Return validation errors as array,
@@ -174,8 +174,8 @@ function hook_query_privatemsg_deleted_alter($query) {
  * array (
  *   'mid' => 3517, // message id, identifies a message
  *   'author' => 27, // author id
- *   'subject' => 'raclebugav', // Message subject
- *   'body' => 'bla bla', // Body of the message
+ *   'subject' => 'Message subject',
+ *   'body' => 'Body of the message',
  *   'timestamp' => 351287003, // unix timestamp, creation time
  *   'is_new' => 0, // If the message has been read by the user
  *   'thread_id' => 3341, // thread id, this is actually the mid from the first
@@ -222,7 +222,7 @@ function hook_privatemsg_message_validate($message, $form = FALSE) {
   foreach ($message->recipients as $recipient) {
     if ($recipient->name == 'blocked user') {
       $_privatemsg_invalid_recipients[] = $recipient->uid;
-      $errors[] = t('%name has chosen to not recieve any more messages from you.', array('%name' => privatemsg_recipient_format($recipient, array('plain' => TRUE))));
+      $errors[] = t('%name has chosen to not receive any more messages from you.', array('%name' => privatemsg_recipient_format($recipient, array('plain' => TRUE))));
     }
   }
 }
@@ -280,14 +280,14 @@ function hook_privatemsg_message_insert($message) {
  *   Id of the message.
  * @param $thread_id
  *   Id of the thread the message belongs to.
- * @param $recipient
+ * @param $recipient_id
  *   Recipient id, a user id if type is user or hidden.
  * @param $type
  *   Type of the recipient.
  * @param $added
  *   TRUE if the recipient is added, FALSE if he is removed.
  */
-function hook_privatemsg_message_recipient_changed($mid, $thread_id, $recipient, $type, $added) {
+function hook_privatemsg_message_recipient_changed($mid, $thread_id, $recipient_id, $type, $added) {
   if ($added && ($type == 'user' || $type == 'hidden')) {
     privatemsg_filter_add_tags(array($thread_id), variable_get('privatemsg_filter_inbox_tag', ''), (object)array('uid' => $recipient));
   }
@@ -389,6 +389,32 @@ function hook_privatemsg_thread_operations() {
  * @see privatemsg_message_change_status()
  */
 function hook_privatemsg_message_status_changed($pmid, $status, $account) {
+
+}
+
+/**
+ * Allows response to a deleted change.
+ *
+ * Modules implementing this hook should be aware that messages are only
+ * marked as deleted and not removed from the database. They will only
+ * eventually be deleted by the flushing.
+ *
+ * Therefore, modules should not delete data in this hook but in
+ * hook_privatemsg_message_flush().
+ *
+ * @param $mid
+ *   Message id.
+ * @param $deleted
+ *   TRUE when the message was marked as deleted, FALSE when marked as not
+ *   deleted.
+ * @param $account
+ *   User object, if NULL then the message was marked as deleted for all users.
+ *
+ * @see privatemsg_message_change_delete()
+ * @see privatemsg_thread_change_delete()
+ *
+ */
+function hook_privatemsg_message_status_deleted($mid, $deleted, $account) {
 
 }
 
@@ -583,3 +609,50 @@ function hook_privatemsg_operation_executed($operation, $threads, $account = NUL
 /**
  * @}
  */
+
+/**
+ * Declare headers for message listings.
+ *
+ * @return
+ *   An array keyed by an identifier. All header definition keys for theme_table
+ *   and tablesort_sql() and the following additional keys:
+ *     - #enabled: TRUE if the header should be enabled by default. FALSE by
+ *                 default.
+ *     - #locked: TRUE if it the header should be locked and can not be
+ *                enabled or disabled in the user interface.
+ *     - #weight: The default weight which can be changed in the user interface.
+ *     - #title: A title used in the administrative user interface. Defaults to
+ *               data.
+ *     - #access: Control if the header is accessible, TRUE or FALSE.
+ *     - #theme: Optionally define a theme function for the field. Defaults to
+ *               'privatemsg_list_field_$key'.
+ *
+ * @see theme_table()
+ * @ingroup theming
+ */
+function hook_privatemsg_header_info() {
+  return array(
+    'subject' => array(
+      'data'    => t('Subject'),
+      'field'   => 'subject',
+      'class'   => 'privatemsg-header-subject',
+      '#enabled' => TRUE,
+      '#locked'  => TRUE,
+      '#weight'  => -20,
+    ),
+  );
+}
+
+/**
+ * Alter the defined header structure.
+ *
+ * @param $headers
+ *   All headers returned by hook_privatemsg_header_info().
+ *
+ *
+ * @see hook_privatemsg_header_info()
+ * @ingroup theming
+ */
+function hook_privatemsg_header_info_alter(&$headers) {
+
+}

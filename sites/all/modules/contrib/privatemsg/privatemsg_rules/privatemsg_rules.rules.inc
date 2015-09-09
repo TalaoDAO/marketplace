@@ -223,7 +223,7 @@ function privatemsg_rules_new($args, $element) {
   rules_log('Writing new message with subject %subject to %user from %author', array('%subject' => $args['subject'], '%user' => $recipient->name, '%author' => $args['author']->name));
   $result = privatemsg_new_thread(array($recipient), $args['subject'], $args['body'], $args);
   if ($result['success']) {
-    rules_log('New message sucessfully sent, !link', array('!link' => l($args['subject'], 'messages/view/' . $result['message']->thread_id)));
+    rules_log('New message successfully sent, !link', array('!link' => l($args['subject'], 'messages/view/' . $result['message']->thread_id)));
   }
   else {
     foreach ($result['messages']['error'] as $args) {
@@ -274,7 +274,7 @@ function privatemsg_rules_new_role($args, $element) {
   rules_log('Writing new message with subject %subject to roles %roles from %author.', array('%subject' => $args['subject'], '%author' => $args['author']->name, '%roles' => $recipient_names));
   $result = privatemsg_new_thread($recipient_array, $args['subject'], $args['body'], $args);
   if ($result['success']) {
-    rules_log('New message sucessfully sent, !link.', array('!link' => l($args['subject'], 'messages/view/' . $result['message']->thread_id)));
+    rules_log('New message successfully sent, !link.', array('!link' => l($args['subject'], 'messages/view/' . $result['message']->thread_id)));
   }
   else {
     foreach ($result['messages']['error'] as $message) {
@@ -314,7 +314,7 @@ function privatemsg_rules_reply($args, $element) {
   rules_log('Writing reply to thread %thread_id from %author', array('%thread_id' => $args['thread_id'], '%author' => $args['author']->name));
   $result = privatemsg_reply($args['thread_id'], $args['body'], $args);
   if ($result['success']) {
-    rules_log('New message sucessfully sent, !link', array('!link' => l(drupal_substr($args['body'], 0, 15), 'messages/view/' . $result['message']->thread_id)));
+    rules_log('New message successfully sent, !link', array('!link' => l(drupal_substr($args['body'], 0, 15), 'messages/view/' . $result['message']->thread_id)));
   }
   else {
     foreach ($result['messages']['error'] as $message) {

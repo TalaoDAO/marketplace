@@ -108,21 +108,44 @@ function privatemsg_schema() {
         'unsigned'      => TRUE,
         'default'       => 0,
       ),
+      'reply_to_mid' => array(
+        'description'   => 'mid of the message this is a reply to (if any)',
+        'type'          => 'int',
+        'default'       => 0,
+        'not null'      => TRUE,
+        'unsigned'      => TRUE,
+      )
     ),
     'primary key'     => array('mid'),
   );
 
-  $schema['pm_disable'] = array(
-    'description'       => '{pm_disable} holds the list of users that have disabled private messaging',
+  $schema['pm_setting'] = array(
+    'description'       => '{pm_setting} holds user specific (including defaults) settings',
     'fields' => array(
-      'uid'    => array(
-        'description'   => 'ID of the user',
+      'id'    => array(
+        'description'   => 'Together with type, associates a setting to a user, role, global default, ...',
         'type'          => 'int',
         'not null'      => TRUE,
         'unsigned'      => TRUE,
       ),
+      'type' => array(
+        'description'   => 'Together with id, associates a setting to a user, role, global default, ...',
+        'type'          => 'varchar',
+        'length'        => 128,
+        'not null'      => TRUE,
+      ),
+      'setting' => array(
+        'description'   => 'The name of a setting',
+        'type'          => 'varchar',
+        'length'        => 128,
+        'not null'      => TRUE,
+      ),
+      'value'    => array(
+        'description'   => 'Holds the value of a given setting',
+        'type'          => 'int',
+      ),
     ),
-    'primary key'       => array('uid'),
+    'primary key'       => array('id', 'type', 'setting'),
   );
 
   return $schema;
@@ -146,6 +169,7 @@ function privatemsg_uninstall() {
   variable_del('privatemsg_per_page');
   variable_del('privatemsg_display_loginmessage');
   variable_del('privatemsg_display_fields');
+  variable_del('privatemsg_display_fields_weights');
   variable_del('privatemsg_display_link_self');
   variable_del('privatemsg_view_default_amount');
   variable_del('privatemsg_view_max_amount');
@@ -334,4 +358,71 @@ function privatemsg_update_7006() {
   variable_set("date_format_privatemsg_current_day", 'g:i a');
   variable_set("date_format_privatemsg_current_year", 'M j');
   variable_set("date_format_privatemsg_years", 'n/j/y');
+}
+
+/**
+ * Add the {pm_settings} table.
+ */
+function privatemsg_update_7200() {
+  $table = array(
+    'description'       => '{pm_setting} holds user specific (including defaults) settings',
+    'fields' => array(
+      'id'    => array(
+        'description'   => 'Together with type, associates a setting to a user, role, global default, ...',
+        'type'          => 'int',
+        'not null'      => TRUE,
+        'unsigned'      => TRUE,
+      ),
+      'type' => array(
+        'description'   => 'Together with id, associates a setting to a user, role, global default, ...',
+        'type'          => 'varchar',
+        'length'        => 128,
+        'not null'      => TRUE,
+      ),
+      'setting' => array(
+        'description'   => 'The name of a setting',
+        'type'          => 'varchar',
+        'length'        => 128,
+        'not null'      => TRUE,
+      ),
+      'value'    => array(
+        'description'   => 'Holds the value of a given setting',
+        'type'          => 'int',
+      ),
+    ),
+    'primary key'       => array('id', 'type', 'setting'),
+  );
+
+  db_create_table('pm_setting', $table);
+}
+
+/**
+ * Migrate settings from {pm_disable} and delete table.
+ */
+function privatemsg_update_7201() {
+  $ret = array();
+
+  $result = db_query('SELECT * FROM {pm_disable}');
+  foreach ($result as $row) {
+    privatemsg_set_setting('user', $row->uid, 'disabled', 1);
+  }
+
+  db_drop_table('pm_disable');
+  return $ret;
+}
+
+
+/**
+ * Add field to track what message this is a reply to (if any).
+ */
+function privatemsg_update_7202() {
+  db_add_field('pm_message', 'reply_to_mid',
+    array(
+      'description'   => 'mid of the message this is a reply to (if any)',
+      'type'          => 'int',
+      'default'       => 0,
+      'not null'      => TRUE,
+      'unsigned'      => TRUE,
+    )
+  );
 }

@@ -1,10 +1,10 @@
-name = Privatemsg Realname Integration
-description = Provides reverse lookup for realnames
+name = Privatemsg Groups
+description = Allows to send message to all members of a group.
 package = Mail
 core = 7.x
 dependencies[] = privatemsg
-dependencies[] = realname
-
+dependencies[] = og (2.x)
+files[]=privatemsg_groups.test
 
 ; Information added by Drupal.org packaging script on 2015-06-20
 version = "7.x-2.x-dev"

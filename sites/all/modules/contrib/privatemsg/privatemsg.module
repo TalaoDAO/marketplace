@@ -41,7 +41,7 @@ function privatemsg_permission() {
     ),
     'delete privatemsg' => array(
       'title' => t('Delete private messages'),
-      'description' => t('Delete private messages'),
+      'description' => t('Allows users to delete messages they can read'),
     ),
     'allow disabling privatemsg' => array(
       'title' => t('Allow disabling private messages'),
@@ -58,6 +58,10 @@ function privatemsg_permission() {
     'select text format for privatemsg' => array(
       'title' => t('Select text format for private messages'),
       'description' => t('Allows to choose the text format when sending private messages. Otherwise, the default is used.'),
+    ),
+    'report private messages to mollom' => array(
+      'title' => t('Reporte private messages to mollom'),
+      'description' => t('Allows users to report messages as spam or unwanted content when they delete then, when Mollom is set up to check private messages.'),
     ),
   );
 }
@@ -95,7 +99,7 @@ function _privatemsg_generate_user_array($string, $slice = NULL) {
       list($type, $id) = explode('_', $uid);
       $type_info = privatemsg_recipient_get_type($type);
       if ($type_info && isset($type_info['load']) && is_callable($type_info['load'])) {
-        $temp_load = $type_info['load'](array($id));
+        $temp_load = $type_info['load'](array($id), $type);
         if ($participant = array_shift($temp_load)) {
           $participants[privatemsg_recipient_key($participant)] = $participant;
         }
@@ -128,7 +132,7 @@ function _privatemsg_format_participants($part_array, $limit = NULL, $no_text = 
 
       // Directly address the current user.
       if (isset($account->type) && in_array($account->type, array('hidden', 'user')) && $account->recipient == $user->uid) {
-        array_unshift($to, $no_text ? t('You') : t('you'));
+        array_unshift($to, $no_text ? t('You', array(), array('context' => 'Dative')) : t('you', array(), array('context' => 'Dative')));
         continue;
       }
 
@@ -260,6 +264,16 @@ function privatemsg_menu() {
     'type'             => MENU_DEFAULT_LOCAL_TASK,
     'weight'           => -10,
   );
+  if (module_exists('devel_generate')) {
+    $items['admin/config/development/generate/privatemsg'] = array(
+      'title' => 'Generate private messages',
+      'description' => 'Generate a given number of private messages. Optionally delete current private messages.',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('privatemsg_devel_generate_form'),
+      'access arguments' => array('administer privatemsg settings'),
+      'file' => 'privatemsg.devel_generate.inc',
+    );
+  }
   $items['messages/undo/action'] = array(
     'title'            => 'Private messages',
     'description'      => 'Undo last thread action',
@@ -278,7 +292,6 @@ function privatemsg_menu() {
     'access arguments' => array('read all private messages'),
     'type' => MENU_LOCAL_TASK,
   );
-
   return $items;
 }
 
@@ -321,7 +334,7 @@ function privatemsg_user_access($permission = 'read privatemsg', $account = NULL
     global $user;
     $account = $user;
   }
-  if (!$account->uid && !($permission == 'write privatemsg') ) { // YBA : Disallow anonymous access, regardless of permissions
+  if (!$account->uid) { // Disallow anonymous access, regardless of permissions
     return FALSE;
   }
   if (privatemsg_is_disabled($account) && ($permission == 'write privatemsg') ) {
@@ -373,17 +386,14 @@ function privatemsg_is_disabled($account) {
     return FALSE;
   }
 
-  if (!isset($account->privatemsg_disabled)) {
-    // Make sure we have a fully loaded user object and try to load it if not.
-    if ((!empty($account->roles) || $account = user_load($account->uid)) && user_access('allow disabling privatemsg', $account)) {
-      $account->privatemsg_disabled = (bool)db_query('SELECT 1 FROM {pm_disable} WHERE uid = :uid ', array(':uid' => $account->uid))->fetchField();
-    }
-    else {
-      $account->privatemsg_disabled = FALSE;
-    }
+  // Make sure we have a fully loaded user object and try to load it if not.
+  if ((!empty($account->roles) || $account = user_load($account->uid)) && user_access('allow disabling privatemsg', $account)) {
+    $ids = privatemsg_get_default_setting_ids($account);
+    return (bool)privatemsg_get_setting('disabled', $ids);
   }
-
-  return $account->privatemsg_disabled;
+  else {
+    return FALSE;
+  }
 }
 
 /**
@@ -511,7 +521,12 @@ function privatemsg_thread_load($thread_id, $account = NULL, $start = NULL, $use
       if (!$thread['read_all']) {
         $conditions['account'] = $account;
       }
-      $thread['messages'] = privatemsg_message_load_multiple($query->execute()->fetchCol(), $conditions);
+
+      // #2033161 privatemsg_message_load_multiple will load all threads if empty
+      $ids = $query->execute()->fetchCol();
+      if (count($ids)) {
+        $thread['messages'] = privatemsg_message_load_multiple($ids, $conditions);
+      }
 
       // If there are no messages, don't allow access to the thread.
       if (empty($thread['messages'])) {
@@ -532,9 +547,9 @@ function privatemsg_thread_load($thread_id, $account = NULL, $start = NULL, $use
         // General data, assume subject is the same for all messages of that thread.
         $thread['user'] = $account;
         $message = current($thread['messages']);
-        $thread['subject'] = $thread['subject-original'] = $message->subject;
+        $thread['subject'] = $thread['subject-tokenized'] = $message->subject;
         if ($message->has_tokens) {
-          $thread['subject'] = privatemsg_token_replace($thread['subject'], array('privatemsg_message' => $message), array('sanitize' => TRUE, 'privatemsg-show-span' => FALSE));
+          $thread['subject-tokenized'] = privatemsg_token_replace($thread['subject'], array('privatemsg_message' => $message), array('sanitize' => TRUE, 'privatemsg-show-span' => FALSE));
         }
       }
       $threads[$account->uid][$thread_id] = $thread;
@@ -588,7 +603,7 @@ function privatemsg_cron() {
   }
 
   // Number of user ids to process for this cron run.
-  $total_remaining = variable_get('privatemgs_cron_recipient_per_run', 1000);
+  $total_remaining = variable_get('privatemsg_cron_recipient_per_run', 1000);
   $current_process = variable_get('privatemsg_cron_recipient_process', array());
 
   // Instead of doing the order by in the database, which can be slow, we load
@@ -623,7 +638,7 @@ function privatemsg_cron() {
   foreach ($rows as $row) {
     $type = privatemsg_recipient_get_type($row->type);
     if (isset($type['load']) && is_callable($type['load'])) {
-      $loaded = $type['load'](array($row->recipient));
+      $loaded = $type['load'](array($row->recipient), $row->type);
       if (empty($loaded)) {
         continue;
       }
@@ -686,14 +701,8 @@ function privatemsg_theme() {
       'variables'        => array('recipients' => NULL),
       'template'         => 'privatemsg-between',
     ),
-    // Define pattern for header/field templates. The theme system will register all
+    // Define pattern for field templates. The theme system will register all
     // theme functions that start with the defined pattern.
-    'privatemsg_list_header'  => array(
-      'file'                  => 'privatemsg.theme.inc',
-      'path'                  => drupal_get_path('module', 'privatemsg'),
-      'pattern'               => 'privatemsg_list_header__',
-      'variables'             => array(),
-    ),
     'privatemsg_list_field'   => array(
       'file'                  => 'privatemsg.theme.inc',
       'path'                  => drupal_get_path('module', 'privatemsg'),
@@ -710,6 +719,12 @@ function privatemsg_theme() {
       'path'                  => drupal_get_path('module', 'privatemsg'),
       'variables'             => array('recipient' => NULL, 'options' => array()),
     ),
+    // Admin settings theme callbacks.
+    'privatemsg_admin_settings_display_fields' => array(
+      'file'                  => 'privatemsg.theme.inc',
+      'path'                  => drupal_get_path('module', 'privatemsg'),
+      'render element'        => 'element',
+    ),
   );
   // Include the theme file to load the theme suggestions.
   module_load_include('inc', 'privatemsg', 'privatemsg.theme');
@@ -717,6 +732,9 @@ function privatemsg_theme() {
   return $templates;
 }
 
+/**
+ * Implements hook_preprocess_THEME().
+ */
 function template_preprocess_privatemsg_view(&$vars) {
   global $user;
 
@@ -861,7 +879,7 @@ function _privatemsg_load_thread_participants($thread_id, $account, $ignore_hidd
   foreach ($to_load as $type => $ids) {
     $type_info = privatemsg_recipient_get_type($type);
     if (isset($type_info['load']) && is_callable($type_info['load'])) {
-      $loaded = $type_info['load']($ids);
+      $loaded = $type_info['load']($ids, $type);
       if (is_array($loaded)) {
         $participants += $loaded;
       }
@@ -1032,8 +1050,11 @@ function privatemsg_sql_list($account, $argument = 'list') {
   $query->addExpression('MAX(pm.has_tokens)', 'has_tokens');
   $query->addExpression('SUM(pmi.is_new)', 'is_new');
 
+  // Needed to for tracking replies.
+  $query->addExpression('MAX(pm.reply_to_mid)', 'last_reply_to_mid');
+
   // Load enabled columns
-  $fields = array_filter(variable_get('privatemsg_display_fields', array('participants')));
+  $fields = privatemsg_get_enabled_headers();
 
   if (in_array('count', $fields)) {
     // We only want the distinct number of messages in this thread.
@@ -1060,7 +1081,7 @@ function privatemsg_sql_list($account, $argument = 'list') {
     ->condition('pmi.type', array('hidden', 'user'))
     ->condition('pmi.deleted', 0)
     ->groupBy('pmi.thread_id')
-    ->orderByHeader(_privatemsg_list_headers(array_merge(array('subject', 'last_updated'), $fields)))
+    ->orderByHeader(privatemsg_get_headers())
     ->limit(variable_get('privatemsg_per_page', 25));
 }
 
@@ -1176,7 +1197,7 @@ function privatemsg_sql_autocomplete($search, $names) {
     ->fields('u', array('uid'))
     ->condition('u.name', $search . '%', 'LIKE')
     ->condition('u.status', 0, '<>')
-    ->where('NOT EXISTS (SELECT 1 FROM {pm_disable} pd WHERE pd.uid=u.uid)')
+    ->where("NOT EXISTS (SELECT 1 FROM {pm_setting} pms WHERE pms.id = u.uid AND pms.type = 'user' AND pms.setting = 'disabled')")
     ->orderBy('u.name', 'ASC')
     ->range(0, 10);
 
@@ -1205,6 +1226,25 @@ function privatemsg_sql_deleted($days, $max) {
     ->groupBy('pm.mid')
     ->having('MIN(pmi.deleted) > 0 AND MAX(pmi.deleted) < :old', array(':old' => REQUEST_TIME - $days * 86400))
     ->range(0, $max);
+}
+
+/**
+ * Query builder function to load user settings.
+ */
+function privatemsg_sql_settings($setting, $query_ids) {
+  $query = db_select('pm_setting', 'pms')
+    ->fields('pms', array('type', 'id', 'value'))
+    ->condition('pms.setting', $setting);
+
+  $ids_condition = db_or();
+  foreach ($query_ids as $type => $type_ids) {
+    $ids_condition->condition(db_and()
+      ->condition('pms.type', $type)
+      ->condition('pms.id', $type_ids)
+    );
+  }
+  $query->condition($ids_condition);
+  return $query;
 }
 
 /**
@@ -1257,10 +1297,6 @@ function privatemsg_user_cancel($edit, $account, $method) {
       _privatemsg_delete_data($account);
       break;
   }
-  // Always delete user settings.
-  db_delete('pm_disable')
-    ->condition('uid', $account->uid)
-    ->execute();
 }
 
 /**
@@ -1268,10 +1304,6 @@ function privatemsg_user_cancel($edit, $account, $method) {
  */
 function privatemsg_user_delete($account) {
   _privatemsg_delete_data($account);
-  // Always delete user settings.
-  db_delete('pm_disable')
-    ->condition('uid', $account->uid)
-    ->execute();
 }
 
 /**
@@ -1302,10 +1334,8 @@ function _privatemsg_delete_data($account) {
     ->condition('type', array('user', 'hidden'))
     ->execute();
 
-  // DELETE any disable flag for user.
-  db_delete('pm_disable')
-    ->condition('uid', $account->uid)
-    ->execute();
+  // Delete any disable flag for user.
+  privatemsg_del_setting('user', $account->uid, 'disabled');
 }
 
 /**
@@ -1334,7 +1364,7 @@ function privatemsg_form_alter(&$form, &$form_state, $form_id) {
 
     // We have to use user_access() because privatemsg_user_access() would
     // return FALSE when privatemsg is disabled.
-    if ((user_access('write privatemsg') || user_access('read privatemsg')) && user_access('allow disabling privatemsg')) {
+    if ((user_access('write privatemsg') || user_access('read privatemsg')) && user_access('allow disabling privatemsg') && privatemsg_allow_disable($form['#user'])) {
       $form['privatemsg']['pm_enable'] = array(
         '#type' => 'checkbox',
         '#title' => t('Enable private messages'),
@@ -1348,39 +1378,75 @@ function privatemsg_form_alter(&$form, &$form_state, $form_id) {
 
 /**
  * Hides the settings fieldset if there are no options to be displayed.
+ *
+ * @param array $element
+ *   Form element to check.
+ * @return array
+ *   Form element with '#access' key value TRUE if the fieldset has a child,
+ *   FALSE if the fieldset has no child.
  */
 function privatemsg_account_fieldset_remove_if_empty($element) {
+  // If there are no children elements, deny access.
   if (count(element_children($element)) == 0) {
+    $element['#access'] = FALSE;
+  }
+  else {
+    // If there are elements, check if at least one of them is visible. Deny
+    // access.
+    foreach (element_children($element) as $key) {
+      if ($element[$key]['#type'] != 'value' && (!isset($element[$key]['#access']) || $element[$key]['#access'])) {
+        return $element;
+      }
+    }
     $element['#access'] = FALSE;
   }
   return $element;
 }
 
 /**
- * Implements hook_user_insert().
+ * Implements hook_user_update().
  */
 function privatemsg_user_update(&$edit, $account, $category) {
-  if (isset($edit['pm_enable']) && (user_access('write privatemsg') || user_access('read privatemsg')) && user_access('allow disabling privatemsg')) {
+  if (isset($edit['pm_enable']) && (user_access('write privatemsg') || user_access('read privatemsg')) && user_access('allow disabling privatemsg') && privatemsg_allow_disable($account)) {
     $current = privatemsg_is_disabled($account);
-    $disabled = (!$edit['pm_enable']);
+    $disabled = (int) !$edit['pm_enable'];
     $edit['pm_enable'] = NULL;
 
-    $account->privatemsg_disabled = $disabled;
-
-    // only perform the save if the value has changed
+    // Only perform the save if the value has changed.
     if ($current != $disabled) {
-      if ($disabled) {
-        db_insert('pm_disable')
-          ->fields(array('uid' => $account->uid))
-          ->execute();
+      // If disabled is 1.
+      if ($disabled == 1) {
+        // Insert the setting.
+        privatemsg_set_setting('user', $account->uid, 'disabled', $disabled);
       }
       else {
-        db_delete('pm_disable')
-          ->condition('uid', $account->uid)
-          ->execute();
+        // Delete the setting.
+        privatemsg_del_setting('user', $account->uid, 'disabled');
       }
     }
   }
+}
+
+/**
+ * Checks if the user is allowed to disable/enable private message.
+ *
+ * @param object
+ *   User object to check.
+ * @return bool
+ *   TRUE if the user is allowed to disable the private message.
+ */
+function privatemsg_allow_disable($account) {
+  global $user;
+
+  $allow_disable_privatemsg = TRUE;
+  // Compare it to current user id.
+  if ($user->uid != $account->uid) {
+    // User must have administer permission to disable other users' private message
+    // and the edited user must be able to change the setting.
+    $allow_disable_privatemsg = (user_access('administer privatemsg settings') && user_access('allow disabling privatemsg', $account));
+  }
+
+  return $allow_disable_privatemsg;
 }
 
 /**
@@ -1453,9 +1519,9 @@ function privatemsg_block_configure($delta = '') {
   if ($delta == 'privatemsg-new') {
     $form['notification'] = array(
       '#type' => 'checkbox',
-      '#title' => t('Display block when there are no new messages'),
+      '#title' => t('Display block when there are no unread messages'),
       '#default_value' => variable_get('privatemsg_no_messages_notification', 0),
-      '#description' => t('Enable this to have this block always displayed, even if there are no new messages'),
+      '#description' => t('Enable this to have this block always displayed, even if there are no unread messages'),
     );
     return $form;
   }
@@ -1490,7 +1556,7 @@ function _privatemsg_block_new() {
   $count = privatemsg_unread_count();
   if ($count || variable_get('privatemsg_no_messages_notification', 0)) {
     $block = array(
-      'subject' => $count ? format_plural($count, 'New message', 'New messages') : t('No new messages'),
+      'subject' => $count ? format_plural($count, 'Unread message', 'Unread messages') : t('No unread messages'),
       'content' => theme('privatemsg_new_block', array('count' => $count)),
     );
     return $block;
@@ -1545,6 +1611,9 @@ function privatemsg_message_change_delete($pmid, $delete, $account = NULL) {
       ->condition('type', array('user', 'hidden'));
   }
   $update->execute();
+
+  // Allow modules to respond to the deleted changes.
+  module_invoke_all('privatemsg_message_status_deleted', $pmid, $delete, $account);
 }
 
 /**
@@ -1686,6 +1755,10 @@ function privatemsg_reply($thread_id, $body, $options = array()) {
     );
   }
 
+  // Add the reply_to_mid, so we can mark that message as replied
+  $thread = privatemsg_thread_load($thread_id);
+  $message->reply_to_mid = end($thread['messages'])->mid;
+
   $message->thread_id = $thread_id;
   // Load participants
   $message->recipients = _privatemsg_load_thread_participants($thread_id, $message->author);
@@ -1697,6 +1770,7 @@ function privatemsg_reply($thread_id, $body, $options = array()) {
       _privatemsg_handle_recipients($validated['message']->mid, $validated['message']->recipients, FALSE);
     }
   }
+
   return $validated;
 }
 
@@ -1724,10 +1798,10 @@ function _privatemsg_validate_message(&$message, $form = FALSE) {
   $message->subject = trim($message->subject);
   if (empty($message->subject)) {
     if ($form) {
-      form_set_error('subject', t('You must include a subject line with your message.'));
+      form_set_error('subject', t('You must include a subject line or a message.'));
     }
     else {
-      $messages['error'][] = t('A subject must be included with the message.');
+      $messages['error'][] = t('A subject or message must be included.');
     }
   }
 
@@ -1837,6 +1911,10 @@ function _privatemsg_send($message) {
     $args['format'] = $message->format;
     $args['timestamp'] = $message->timestamp;
     $args['has_tokens'] = (int)$message->has_tokens;
+    if (isset($message->reply_to_mid)) {
+      $args['reply_to_mid'] = $message->reply_to_mid;
+    }
+
     $mid = db_insert('pm_message')
       ->fields($args)
       ->execute();
@@ -2084,40 +2162,6 @@ function privatemsg_thread_change_status($threads, $status, $account = NULL) {
     drupal_set_message(format_plural(count($threads), 'Marked 1 thread as read.', 'Marked @count threads as read.'));
   }
 }
-/**
- * Returns a table header definition based on the submitted keys.
- *
- * Uses @link theming theme patterns @endlink to theme single headers.
- *
- * @param $has_posts
- *   TRUE when there is at least one row. Decides if the select all checkbox should be displayed.
- * @param $keys
- *   Array with the keys which are present in the query/should be displayed.
- * @return
- *   Array with header definitions for tablesort_sql and theme('table').
- */
-function _privatemsg_list_headers($keys) {
-
-  // theme() doesn't include the theme file for patterns, we need to do it manually.
-  include_once drupal_get_path('module', 'privatemsg') . '/privatemsg.theme.inc';
-
-  $header = array();
-  foreach ($keys as $key) {
-    // First, try to load a specific theme for that header, if not present, use the default.
-    if ($return = theme('privatemsg_list_header__' . $key)) {
-      // The default theme returns nothing, only store the value if we have something.
-      $header[$key] = $return;
-    }
-  }
-  uasort($header, 'element_sort');
-  // Remove weight column or it will show up in the markup.
-  foreach ($header as $key => $element) {
-    if (isset($header[$key]['#weight'])) {
-      unset($header[$key]['#weight']);
-    }
-  }
-  return $header;
-}
 
 /**
  * Formats all rows (#options) in the privatemsg tableselect thread list.
@@ -2130,18 +2174,29 @@ function _privatemsg_list_headers($keys) {
  *   Row definition for use with theme('table')
  */
 function _privatemsg_list_thread($tableselect) {
+  $enabled_headers = privatemsg_get_enabled_headers();
+  $headers = privatemsg_get_headers();
+
+  // theme() doesn't include the theme file for patterns, we need to do it
+  // manually.
+  include_once drupal_get_path('module', 'privatemsg') . '/privatemsg.theme.inc';
+
   foreach ($tableselect['#options'] as $id => $thread) {
     $row = array();
     if (!empty($thread['is_new'])) {
       // Set the css class in the tr tag.
       $row['#attributes']['class'][] = 'privatemsg-unread';
     }
-    foreach ($thread as $key => $data) {
-      // First, try to load a specific theme for that field, if not present, use the default.
-      if ($return = theme('privatemsg_list_field__' . $key, array('thread' => $thread))) {
-        // The default theme returns nothing, only store the value if we have something.
-        $row[$key] = $return;
-      }
+
+    if (!empty($thread['is_replied'])) {
+      // Set the css class in the tr tag.
+      $row['#attributes']['class'][] = 'privatemsg-replied';
+    }
+
+
+    foreach ($enabled_headers as $key) {
+      // Theme each enabled field.
+      $row[$key] = theme($headers[$key]['#theme'], array('thread' => $thread));
     }
     $tableselect['#options'][$id] = $row;
   }
@@ -2234,12 +2289,34 @@ function privatemsg_thread_change_delete($threads, $delete, $account = NULL) {
     $account = clone $user;
   }
 
-  // Load all messages of those threads including the deleted.
-  $query = _privatemsg_assemble_query('messages', $threads, $account, TRUE);
+  // Record which messages will be deleted.
+  $changed = db_select('pm_index', 'pmi')
+    ->fields('pmi', array('mid'))
+    ->condition('deleted', 0, $delete ? '=' : '>')
+    ->condition('recipient', $account->uid)
+    ->condition('type', array('user', 'hidden'))
+    ->condition('thread_id', $threads)
+    ->execute()
+    ->fetchCol();
 
-  // Delete each message. We need to do that to trigger the delete hook.
-  foreach ($query->execute() as $row) {
-    privatemsg_message_change_delete($row->mid, $delete, $account);
+  // Merge status and uid with the threads list. array_merge() will not overwrite/ignore thread_id 1.
+  $delete_value = 0;
+  if ($delete == TRUE) {
+    $delete_value = REQUEST_TIME;
+  }
+  // Update the status of the threads.
+  db_update('pm_index')
+    ->fields(array(
+      'deleted' => $delete_value
+    ))
+    ->condition('recipient', $account->uid)
+    ->condition('type', array('user', 'hidden'))
+    ->condition('thread_id', $threads)
+    ->execute();
+
+  // Allow modules to respond to the deleted changes.
+  foreach ($changed as $mid) {
+    module_invoke_all('privatemsg_message_status_deleted', $mid, $delete, $account);
   }
 
   if ($delete) {
@@ -2454,6 +2531,7 @@ function privatemsg_recipient_get_types() {
   }
   return $types;
 }
+
 /**
  * Return a single recipient type information.
  * @param $type
@@ -2523,7 +2601,7 @@ function privatemsg_message_change_recipient($mid, $uid, $type = 'user', $add = 
   }
   else {
     db_delete('pm_index')
-      >condition('mid', $mid)
+      ->condition('mid', $mid)
       ->condition('recipient', $uid)
       ->condition('type', $type)
       ->execute();
@@ -3092,6 +3170,19 @@ class PrivatemsgMessageController extends DrupalDefaultEntityController {
     $query->join('pm_index', 'pmi', "base.mid = pmi.mid");
     return $query;
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function cacheGet($ids, $conditions = array()) {
+    // Passing the account condition, which does not exist as a property to
+    // parent::cacheGet() causes notices, remove it.
+    // @todo Investigate if this causes any undesired side effects.
+    if (isset($conditions['account'])) {
+      unset($conditions['account']);
+    }
+    return parent::cacheGet($ids, $conditions);
+  }
 }
 
 /**
@@ -3151,4 +3242,287 @@ function privatemsg_format_date($timestamp) {
     return format_date($timestamp, 'privatemsg_current_year');
   }
   return format_date($timestamp, 'privatemsg_years');
+}
+
+/**
+ * Returns an array of defined column headers for message listings.
+ *
+ * @param $visible_only
+ *   Disabled and denied headers and properties starting with # are removed.
+ *
+ * @return
+ *   Array of headers.
+ *
+ * @see hook_privatemsg_header_info()
+ *
+ * @ingroup theming
+ */
+function privatemsg_get_headers($visible_only = FALSE) {
+  $headers = drupal_static(__FUNCTION__, NULL);
+
+  if ($headers === NULL) {
+    $headers = module_invoke_all('privatemsg_header_info');
+    if (!is_array($headers)) {
+      $headers = array();
+    }
+
+    $weights = variable_get('privatemsg_display_fields_weights', array());
+    $enabled = variable_get('privatemsg_display_fields', array('subject', 'participants', 'last_updated'));
+
+    // Apply defaults and configurations.
+    foreach ($headers as $key => &$header) {
+      // Apply defaults.
+      $header += array(
+        '#enabled' => FALSE,
+        '#weight' => 0,
+        '#title' => $header['data'],
+        '#access' => TRUE,
+        '#locked' => FALSE,
+        '#theme' => 'privatemsg_list_field__' . $key,
+      );
+      if (empty($header['#locked']) && isset($enabled[$key])) {
+        $header['#enabled'] = (bool)$enabled[$key];
+      }
+      if (isset($weights[$key])) {
+        $header['#weight'] =  $weights[$key];
+      }
+    }
+
+    drupal_alter('privatemsg_header_info', $headers);
+    uasort($headers, 'element_sort');
+  }
+  if ($visible_only) {
+    // Remove all attributes prefixed with a # and disabled headers.
+    $headers_visible = $headers;
+    foreach ($headers_visible as $header_key => &$header) {
+      if (!$header['#enabled'] || !$header['#access']) {
+        unset($headers_visible[$header_key]);
+      }
+      else {
+        foreach ($header as $key => $value) {
+          if ($key[0] == '#') {
+            unset($header[$key]);
+          }
+        }
+      }
+    }
+    return $headers_visible;
+  }
+  else {
+    return $headers;
+  }
+}
+
+/**
+ * Returns an array of enabled header keys.
+ *
+ * @return
+ *   A indexed array with the header keys as value, ordered by their weight.
+ */
+function privatemsg_get_enabled_headers() {
+  return array_keys(privatemsg_get_headers(TRUE));
+}
+
+/**
+ * Implements hook_privatemsg_header_info().
+ */
+function privatemsg_privatemsg_header_info() {
+  return array(
+    'subject' => array(
+      'data'    => t('Subject'),
+      'field'   => 'subject',
+      'class'   => array('privatemsg-header-subject'),
+      '#enabled' => TRUE,
+      '#locked'  => TRUE,
+      '#weight'  => -20,
+    ),
+    'count' => array(
+      'data'    => t('Messages'),
+      'class'   => array('privatemsg-header-count'),
+      '#weight'  => -5,
+    ),
+    'participants' => array(
+      'data'    => t('Participants'),
+      'class'   => array('privatemsg-header-participants'),
+      '#weight'  => -15,
+      '#enabled' => TRUE,
+    ),
+    'last_updated' => array(
+      'data'    => t('Last Updated'),
+      'field'   => 'last_updated',
+      'sort'    => 'desc',
+      'class'   => array('privatemsg-header-lastupdated'),
+      '#enabled' => TRUE,
+      '#locked'  => TRUE,
+      '#weight'  => 20,
+    ),
+    'thread_started' => array(
+      'data'    => t('Started'),
+      'field'   => 'thread_started',
+      'class'   => array('privatemsg-header-threadstarted'),
+      '#weight'  => -10,
+    ),
+  );
+}
+
+/**
+ * Implements hook_mollom_form_list().
+ */
+function privatemsg_mollom_form_list() {
+  $forms['privatemsg_new'] = array(
+    'title' => t('Send new message form'),
+    'entity' => 'privatemsg_message',
+    'delete form' => 'privatemsg_delete',
+  );
+  return $forms;
+}
+
+/**
+ * Implements hook_mollom_form_info().
+ */
+function privatemsg_mollom_form_info() {
+  $form_info = array(
+    'mode' => MOLLOM_MODE_ANALYSIS,
+    'bypass access' => array('administer privatemsg'),
+    'report access' => array('report private messages to mollom'),
+    'elements' => array(
+      'subject' => t('Subject'),
+      'body' => t('Body'),
+    ),
+    'mapping' => array(
+      'post_id' => 'mid',
+      'post_title' => 'subject',
+    ),
+  );
+
+  return $form_info;
+}
+
+/**
+ * Retrieve a user setting.
+ *
+ * First, the entries in {pm_setting} are loaded. If there is no value for the
+ * global, a variable with the name privatemsg_setting_$setting is also checked.
+ *
+ * @param $setting
+ *   Name of the setting.
+ * @param $ids
+ *   For which ids should be looked. Keyed by the type, the value is an array of
+ *   ids for that type. The first key is the most specific (typically user),
+ *   followed by optional others, ordered by importance. For example roles and
+ *   then global.
+ * @param $default
+ *   The default value if none was found. Defaults to NULL.
+ *
+ * @return
+ *   The most specific value found.
+ *
+ * @see privatemsg_get_default_settings_ids().
+ */
+function privatemsg_get_setting($setting, $ids = NULL, $default = NULL) {
+  $cache = &drupal_static('privatemsg_settings', array());
+
+  if (empty($ids)) {
+    $ids = privatemsg_get_default_setting_ids();
+  }
+
+  // First, try the static cache with the most specific type only. Do not check
+  // others since there might be a more specific setting which is not yet
+  // cached.
+  $type_ids = reset($ids);
+  $type = key($ids);
+  foreach ($type_ids as $type_id) {
+    if (isset($cache[$setting][$type][$type_id]) && $cache[$setting][$type][$type_id] !== FALSE && $cache[$setting][$type][$type_id] >= 0) {
+      return $cache[$setting][$type][$type_id];
+    }
+  }
+
+  // Second, look for all uncached settings.
+  $query_ids = array();
+  foreach ($ids as $type => $type_ids) {
+    foreach ($type_ids as $type_id) {
+      if (!isset($cache[$setting][$type][$type_id])) {
+        $query_ids[$type][] = $type_id;
+        // Default to FALSE for that value in case nothing can be found.
+        $cache[$setting][$type][$type_id] = FALSE;
+      }
+    }
+  }
+
+  // If there are any, query them.
+  if (!empty($query_ids)) {
+    // Build the query and execute it.
+    $query = _privatemsg_assemble_query('settings', $setting, $query_ids);
+    foreach ($query->execute() as $row) {
+      $cache[$setting][$row->type][$row->id] = $row->value;
+    }
+
+    // If there is no global default in the database, try to get one with
+    // variable_get().
+    if ($cache[$setting]['global'][0] === FALSE) {
+      $cache[$setting]['global'][0] = variable_get('privatemsg_setting_' . $setting, FALSE);
+    }
+  }
+
+  // Now, go over all cached settings and return the first match.
+  foreach ($ids as $type => $type_ids) {
+    foreach ($type_ids as $type_id) {
+      if (isset($cache[$setting][$type][$type_id]) && $cache[$setting][$type][$type_id] !== FALSE && $cache[$setting][$type][$type_id] >= 0) {
+        return $cache[$setting][$type][$type_id];
+      }
+    }
+  }
+
+  // Nothing matched, return the provided default.
+  return $default;
+}
+
+function privatemsg_set_setting($type, $id, $setting, $value) {
+  db_merge('pm_setting')
+    ->key(array(
+      'type' => $type,
+      'id' => $id,
+      'setting' => $setting,
+    ))
+    ->fields(array('value' => $value))
+    ->execute();
+
+  // Update static cache.
+  $cache = &drupal_static('privatemsg_settings', array());
+  $cache[$setting][$type][$id] = $value;
+}
+
+function privatemsg_del_setting($type, $id, $setting) {
+  db_delete('pm_setting')
+    ->condition('type', $type)
+    ->condition('id', $id)
+    ->condition('setting', $setting)
+    ->execute();
+
+  // Update static cache.
+  $cache = &drupal_static('privatemsg_settings', array());
+  unset($cache[$setting][$type][$id]);
+}
+
+/**
+ * Extract the default ids of a user account.
+ *
+ * Defaults to the user id, role ids and the global default.
+ *
+ * @param $account
+ *   User object, defaults to the current user.
+ *
+ * @return
+ *   Array of ids to be used in privatemsg_get_setting().
+ */
+function privatemsg_get_default_setting_ids($account = NULL) {
+  if (!$account) {
+    global $user;
+    $account = $user;
+  }
+  return array(
+    'user' => array($account->uid),
+    'role' => array_keys($account->roles),
+    'global' => array(0),
+  );
 }

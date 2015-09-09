@@ -66,7 +66,7 @@ class views_handler_field_privatemsg_link extends views_handler_field {
       '#type' => 'textfield',
       '#title' => t('Custom destination'),
       '#default_value' => $this->options['custom_destination'],
-      '#description' => t('If non-empty, users will be forwared to the given url. You can use replacement tokens to insert any existing field output.'),
+      '#description' => t('If non-empty, users will be forwarded to the given url. You can use replacement tokens to insert any existing field output.'),
       '#states' => array(
         'visible' => array(
           "input[name='options[return]']" => array('checked' => TRUE),
