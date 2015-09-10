@@ -369,8 +369,7 @@ function emindhub_form_lang_dropdown_form_alter(&$form, &$form_state, $form_id) 
 
 function emindhub_form_user_login_block_alter(&$form, &$form_state, $form_id) {
 
-  // echo '<pre>' . print_r($form['actions']['#prefix'], TRUE) . '</pre>';
-  // $form['actions']['#prefix'] = '';
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
 
   $form['name']['#size'] = 30;
   $form['name']['#title_display'] = 'invisible';
@@ -380,11 +379,12 @@ function emindhub_form_user_login_block_alter(&$form, &$form_state, $form_id) {
   $form['pass']['#title_display'] = 'invisible';
   $form['pass']['#attributes']['placeholder'] = $form['pass']['#title'];
 
-  $form['actions']['#weight'] = 9;
+  $form['actions']['#weight'] = 8;
+
+  $form['linkedin_auth_links']['#weight'] = 9;
 
   $markup = l(t('Forgot your password?'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
-
-  $markup = '<div class="clearfix login-links">' . $markup . '</div>';
+  $markup = '<ul class="login-links">' . $markup . '</ul>';
   $form['links']['#markup'] = $markup;
   $form['links']['#weight'] = 10;
 

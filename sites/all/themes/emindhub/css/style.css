@@ -11495,30 +11495,9 @@ input#autocomplete-deluxe-input {
 .popover {
   color: #fff;
 }
-.popover.signUp h4 {
-  text-transform: uppercase;
-  font-weight: 700;
-}
-.popover.signUp h4 span {
-  display: block;
-}
-.popover.signUp .btn {
-  display: block;
-  margin-bottom: 15px;
-}
-.popover.signUp .btn:last-child {
-  margin-bottom: 0;
-}
 .popover h4 {
   font-size: 16px;
   margin-bottom: 15px;
-}
-.popover .login-links {
-  margin-top: 15px;
-}
-.popover .login-links a {
-  font-style: italic;
-  color: #fff;
 }
 .popover .popover-content {
   padding: 15px;
@@ -12169,6 +12148,38 @@ input.error,
 .navbar #block-search-form {
   float: left;
   margin: 0;
+}
+/* HEADER
+ * Login
+ */
+.popover.signUp h4 {
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.popover.signUp h4 span {
+  display: block;
+}
+.popover.signUp .btn {
+  display: block;
+  margin-bottom: 15px;
+}
+.popover.signUp .btn:last-child {
+  margin-bottom: 0;
+}
+.popover ul {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.popover ul a {
+  font-style: italic;
+  color: #fff;
+}
+.popover li[attributes="linkedin-auth-login-link-drupal-login-block"] {
+  background: transparent url("../images/services/linkedIn_picto_mini.png") no-repeat center left;
+  padding: 10px 0 10px 30px;
+  border-top: 1px solid #4c6172;
+  border-bottom: 1px solid #4c6172;
 }
 /* HEADER
  * Navigation

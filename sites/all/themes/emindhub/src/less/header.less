@@ -67,6 +67,51 @@
 
 
 /* HEADER
+ * Login
+ */
+.popover {
+
+	&.signUp {
+		h4 {
+			.text-uppercase;
+			font-weight: 700;
+			span {
+				display: block;
+			}
+		}
+		.btn {
+			display: block;
+			margin-bottom: 15px;
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	ul {
+		margin: 10px 0 0;
+		padding: 0;
+		list-style: none;
+		a {
+			font-style: italic;
+			color: #fff;
+		}
+	}
+
+	li[attributes="linkedin-auth-login-link-drupal-login-block"] {
+		background: transparent url("../images/services/linkedIn_picto_mini.png") no-repeat center left;
+		padding: 10px 0 10px 30px;
+		border-top: 1px solid @darkerBlue;
+		border-bottom: 1px solid @darkerBlue;
+	}
+
+	.login-links {
+		// margin-top: 15px;
+	}
+}
+
+
+/* HEADER
  * Navigation
  */
 header nav.navbar {

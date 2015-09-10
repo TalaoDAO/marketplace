@@ -37,6 +37,7 @@ exclude[css][] = 'sites/all/modules/contrib/chosen/css/chosen-drupal.css'
 exclude[css][] = 'sites/all/modules/contrib/date/date_api/date.css'
 exclude[css][] = 'sites/all/modules/contrib/eu_cookie_compliance/css/eu_cookie_compliance.css'
 exclude[css][] = 'sites/all/modules/contrib/link/link.css'
+exclude[css][] = 'sites/all/modules/contrib/linkedin/linkedin_auth/linkedin_auth.css'
 exclude[css][] = 'sites/all/modules/contrib/views/css/views.css'
 exclude[css][] = 'sites/all/modules/patched/field_collection/field_collection.theme.css'
 
