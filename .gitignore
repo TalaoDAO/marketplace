@@ -17,14 +17,6 @@ sites/all/themes/emindhub/src/node_modules
 sites/all/themes/emindhub/css/*.map
 
 
-# Ignore old theme files
-sites/all/themes/emindhub/css/emindhub.css
-sites/all/themes/emindhub/css/*.css.map
-sites/all/themes/emindhub/templates/unused/
-!sites/all/themes/emindhub/css/bootstrap.css
-sites/all/themes/emindhub/src/node_modules/
-
-
 # Ignore IDE and OS-related files
 .buildpath
 .metadata
