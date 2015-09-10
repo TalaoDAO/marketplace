@@ -3,6 +3,10 @@
 // LTH : add bootstrap class to field markup
 function emindhub_form_element($variables) {
   $element = &$variables ['element'];
+  // echo '<pre>' . print $element['#name'] . '</pre>';
+  // if ($element['#name'] == 'current_pass') {
+  //   echo 'BAM'; die;
+  // }
 
   // This function is invoked as theme wrapper, but the rendered form element
   // may not necessarily have been processed by form_builder().
@@ -40,7 +44,7 @@ function emindhub_form_element($variables) {
   if (!empty($element ['#description'])) {
   	// LTH : use Bootstrap badge + tooltip for field description
   	// $description .= $element ["#description"];
-  	$description .= '<span class="badge help-tip" data-toggle="tooltip" data-placement="bottom" data-html="true" title="' . $element ["#description"] . '">?</span>';
+    $description .= '<span class="badge help-tip" data-toggle="tooltip" data-placement="bottom" data-html="true" title="' . $element ["#description"] . '">?</span>';
   }
 
   switch ($element ['#title_display']) {
@@ -166,7 +170,6 @@ function emindhub_element_info_alter(&$type) {
 }
 
 
-
 function emindhub_date_combo($variables) {
   // Retourne le champ date de manière simplifiée
   return theme('form_element', $variables);
@@ -254,10 +257,12 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
 function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
-  // $element_info = element_info('password_confirm');
-  // $process = $element_info['#process'];
-  // $process[] = 'emindhub_form_process_password_confirm';
-  // $form['account']['pass']['#process'] = $process;
+  // echo '<pre>' . print_r($form['field_link_to_my_blog'], TRUE) . '</pre>';
+
+  $element_info = element_info('password_confirm');
+  $process = $element_info['#process'];
+  $process[] = 'emindhub_form_process_password_confirm';
+  $form['account']['pass']['#process'] = $process;
 
   // Add class to fieldset
   // $form['#groups']['group_complement']->format_settings['instance_settings']['classes'] .= ' form-group-2col';
@@ -267,7 +272,20 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $form['field_last_name']['#suffix'] = '</div>';
 
   $form['account']['name']['#prefix'] = '<div class="form-group-2col row">';
-  $form['account']['current_pass']['#suffix'] = '</div>';
+  $form['account']['mail']['#weight'] = -9;
+  $form['account']['mail']['#suffix'] = '</div>';
+
+
+  // FIX Boostrap help tooltip
+  $account = $form['#user'];
+  $pass_reset = isset($_SESSION['pass_reset_' . $account->uid]) && isset($_GET['pass-reset-token']) && ($_GET['pass-reset-token'] == $_SESSION['pass_reset_' . $account->uid]);
+  $current_pass_description = '';
+  if (!$pass_reset) {
+    $current_pass_description = t('Enter your current password to change the email or password.');
+  }
+  $form['account']['current_pass']['#description'] = $current_pass_description;
+  $form['account']['current_pass']['#required'] = 0;
+  $form['account']['current_pass']['#type'] = 'hidden';
 
   $form['field_address']['und'][0]['street_block']['thoroughfare']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_address']['und'][0]['street_block']['premise']['#suffix'] = '</div>';
@@ -290,15 +308,6 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $form['field_notification_frequency']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_known_specific']['#suffix'] = '</div>';
 
-  // FIX Boostrap help tooltip
-  $account = $form['#user'];
-  $pass_reset = isset($_SESSION['pass_reset_' . $account->uid]) && isset($_GET['pass-reset-token']) && ($_GET['pass-reset-token'] == $_SESSION['pass_reset_' . $account->uid]);
-  $current_pass_description = '';
-  if (!$pass_reset) {
-    $current_pass_description = t('Enter your current password to change the email or password.');
-  }
-  $form['account']['current_pass']['#description'] = $current_pass_description;
-
   $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
 
   $form['field_photo']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
@@ -320,8 +329,8 @@ function emindhub_my_file_element_process(&$element, &$form_state, $form) {
 
 function emindhub_form_process_password_confirm($element) {
 
+  // echo '<pre>' . print_r($element, TRUE) . '</pre>';
   $element['pass1']['#title'] = t('New password');
-  $element['pass2']['#title'] = t('Confirm password');
   return $element;
 
 }

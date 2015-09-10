@@ -4869,7 +4869,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'user',
     'field_name' => 'field_domaine',
-    'label' => 'Domain(s)',
+    'label' => 'Field(s) of expertise',
     'required' => 0,
     'settings' => array(
       'user_register_form' => 0,
@@ -5620,7 +5620,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'user',
     'field_name' => 'field_position_list',
-    'label' => 'My position(s)',
+    'label' => 'My background',
     'required' => 0,
     'settings' => array(
       'user_register_form' => 0,
@@ -5824,7 +5824,7 @@ function ft_content_type_field_default_field_instances() {
       ),
     ),
     'deleted' => 0,
-    'description' => 'More about <a href="/content/sponsorship">sponsorship</a>',
+    'description' => 'More about <a href=\'/content/sponsorship\'>sponsorship</a>',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -6104,6 +6104,7 @@ function ft_content_type_field_default_field_instances() {
   t('Domain(s)');
   t('Duration of the mission');
   t('Entreprise type');
+  t('Field(s) of expertise');
   t('First Name');
   t('Group');
   t('Group content visibility');
@@ -6120,8 +6121,8 @@ function ft_content_type_field_default_field_instances() {
   t('Last Name');
   t('Link to my blog or my website');
   t('Logo');
-  t('More about <a href="/content/sponsorship">sponsorship</a>');
-  t('My position(s)');
+  t('More about <a href=\'/content/sponsorship\'>sponsorship</a>');
+  t('My background');
   t('Name of my sponsor');
   t('Name visibility');
   t('Organisation');

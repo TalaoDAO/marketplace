@@ -79,7 +79,7 @@
 
     <div class="row">
 
-      <div class="col-sm-4">
+      <div class="col-sm-3">
 
         <?php if ($logo): ?>
         <a class="logo navbar-btn pull-left" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
@@ -95,7 +95,7 @@
 
       </div> <!-- END .col -->
 
-      <div class="col-sm-8">
+      <div class="col-sm-9">
 
         <nav class="navbar">
 

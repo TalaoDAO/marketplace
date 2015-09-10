@@ -568,3 +568,24 @@
 		border-radius: 100%;
 	}
 }
+
+.panel.panel-default {
+	> .panel-heading {
+    color: @darkBlue;
+		a {
+			text-decoration: none;
+		}
+	}
+	&.views-row-odd {
+		> .panel-heading,
+		> .panel-collapse {
+	    background-color: #F5F5F5;
+		}
+	}
+	&.views-row-even {
+		> .panel-heading,
+		> .panel-collapse {
+	    background-color: #FFF;
+		}
+	}
+}
