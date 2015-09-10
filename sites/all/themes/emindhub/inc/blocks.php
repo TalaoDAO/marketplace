@@ -165,8 +165,9 @@ function emindhub_preprocess_block(&$vars) {
       $classes[] = 'emh-block-blue-title';
       break;
 
-    // Last requests
+    // News
     case 'views-news_thread-block':
+    case 'views-news_thread-block_2':
       $classes[] = 'emh-block-dark-title';
       $classes[] = 'emh-block-dark';
       break;
