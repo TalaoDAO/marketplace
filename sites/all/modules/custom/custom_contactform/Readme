@@ -1,4 +1,0 @@
-This is a Drupal 7 module that would allow a user to add extra fields to the site contact form. 
-No gui to add fields, just edit the contact_add_fields.module file based on the comments.
-Create a folder named contact_add_fields, and upload it into yourwebsite/sites/all/modules.
-Make sure you follow the directions in the file.
