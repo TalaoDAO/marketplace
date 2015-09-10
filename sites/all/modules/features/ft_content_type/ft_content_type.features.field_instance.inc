@@ -5060,7 +5060,6 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Organisation visibility',
     'required' => 0,
     'settings' => array(
-      'entity_translation_sync' => FALSE,
       'user_register_form' => 1,
     ),
     'widget' => array(
@@ -5393,7 +5392,6 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Name visibility',
     'required' => 0,
     'settings' => array(
-      'entity_translation_sync' => FALSE,
       'user_register_form' => 1,
     ),
     'widget' => array(
