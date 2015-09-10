@@ -255,7 +255,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 function emindhub_form_contact_site_form_alter(&$form, &$form_state, $form_id) {
 
   $form['emh_baseline'] = array(
-    '#markup' => '<p class="emh-title-baseline">' . c_szHaveQuestion . '<br />' . c_szLearnMore . '<br /><strong>' . c_szLeaveMsg . '</strong></p>',
+    '#markup' => '<p class="emh-title-baseline">' . c_szLearnMore . '<br /><strong>' . c_szLeaveMsg . '</strong></p>',
     '#weight' => '-1000', // First !
   );
 
