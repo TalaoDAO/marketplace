@@ -252,38 +252,6 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 }
 
 
-function emindhub_form_contact_site_form_alter(&$form, &$form_state, $form_id) {
-
-  $form['emh_baseline'] = array(
-    '#markup' => '<p class="emh-title-baseline">' . c_szLearnMore . '<br /><strong>' . c_szLeaveMsg . '</strong></p>',
-    '#weight' => '-1000', // First !
-  );
-
-  $form['civility']['#title_display'] = "invisible";
-  $form['civility']['#attributes']['placeholder'] = $form['civility']['#title'];
-
-  $form['lastname']['#title_display'] = "invisible";
-  $form['lastname']['#attributes']['placeholder'] = $form['lastname']['#title'];
-
-  $form['firstname']['#title_display'] = "invisible";
-  $form['firstname']['#attributes']['placeholder'] = $form['firstname']['#title'];
-
-  $form['entreprise']['#title_display'] = "invisible";
-  $form['entreprise']['#attributes']['placeholder'] = $form['entreprise']['#title'];
-
-  $form['phone']['#title_display'] = "invisible";
-  $form['phone']['#attributes']['placeholder'] = $form['phone']['#title'];
-
-  $form['mail']['#title_display'] = "invisible";
-  $form['mail']['#attributes']['placeholder'] = $form['mail']['#title'];
-
-  $form['message']['#title_display'] = "invisible";
-  $form['message']['#attributes']['placeholder'] = $form['message']['#title'];
-
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
-}
-
-
 function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
   // $element_info = element_info('password_confirm');
