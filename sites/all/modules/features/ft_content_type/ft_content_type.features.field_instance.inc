@@ -5427,7 +5427,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'user',
     'field_name' => 'field_notification_frequency',
-    'label' => 'How often do you want to receive emindhub\'s notifications?',
+    'label' => 'How often do you want to receive eMindHub\'s notifications?',
     'required' => 0,
     'settings' => array(
       'user_register_form' => 0,
@@ -6113,7 +6113,7 @@ function ft_content_type_field_default_field_instances() {
   t('Group visibility');
   t('Groups audience');
   t('How did you hear about us?');
-  t('How often do you want to receive emindhub\'s notifications?');
+  t('How often do you want to receive eMindHub\'s notifications?');
   t('I choose to make public all this information in my profile');
   t('Image');
   t('Is promoted');
