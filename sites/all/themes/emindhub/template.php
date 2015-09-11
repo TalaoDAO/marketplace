@@ -485,7 +485,8 @@ function emindhub_beautiful_user_name( $link = FALSE ) {
   $profileLink = drupal_get_path_alias('user/' . $account->uid);
 
   if ($link == TRUE) $output = '<a href="' . $base_url . '/' . $profileLink . '">';
-  $output .= $firstName . '&nbsp;' . $lastName . '&nbsp;<span class="username badge">@' . $userName . '</span>';
+  // $output .= $firstName . '&nbsp;' . $lastName . '&nbsp;<span class="username badge">@' . $userName . '</span>';
+  $output .= $firstName . '&nbsp;' . $lastName;
   if ($link == TRUE) $output .= '</a>';
 
   return $output;
