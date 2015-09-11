@@ -17,7 +17,8 @@
     }
   }
   span.legend,
-  span.title {
+  span.title,
+  .domain-lead-experts {
     margin-left: 35px;
     line-height: 25px;
   }
@@ -28,7 +29,7 @@
     }
   }
 
-  .item-list {
+  .view-content {
     h3 {
       color: #fff;
       background-color: @brand-primary;
@@ -73,6 +74,26 @@
 
     span.glyphicon {
       float: right;
+    }
+
+    .domain-lead-experts {
+      ul.user-list {
+        display: inline-block;
+        li {
+          display: inline-block;
+          &:after {
+            content: ", ";
+          }
+          &:last-child {
+            &:after {
+              content: "";
+            }
+          }
+        }
+      }
+      .views-field-field-last-name {
+        .text-uppercase;
+      }
     }
 
   }

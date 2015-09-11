@@ -15553,56 +15553,72 @@ form#webform-node-form #edit-field-expiration-date .form-type-textfield > label 
   border-color: #5cb85c;
 }
 .view-domainlist span.legend,
-.view-domainlist span.title {
+.view-domainlist span.title,
+.view-domainlist .domain-lead-experts {
   margin-left: 35px;
   line-height: 25px;
 }
 .view-domainlist p.legend span.statut {
   margin-right: 10px;
 }
-.view-domainlist .item-list h3 {
+.view-domainlist .view-content h3 {
   color: #fff;
   background-color: #009fe3;
   text-transform: uppercase;
   margin-bottom: 0;
   padding: 10px 15px;
 }
-.view-domainlist .item-list ul {
+.view-domainlist .view-content ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.view-domainlist .item-list .panel-title a {
+.view-domainlist .view-content .panel-title a {
   display: block;
 }
-.view-domainlist .item-list .panel-group .panel {
+.view-domainlist .view-content .panel-group .panel {
   border-bottom-width: 0;
 }
-.view-domainlist .item-list .panel-group .panel:last-child {
+.view-domainlist .view-content .panel-group .panel:last-child {
   border-bottom-width: 1px;
 }
-.view-domainlist .item-list .panel-group .panel-heading + .panel-collapse > .panel-body,
-.view-domainlist .item-list .panel-group .panel-heading + .panel-collapse > .list-group {
+.view-domainlist .view-content .panel-group .panel-heading + .panel-collapse > .panel-body,
+.view-domainlist .view-content .panel-group .panel-heading + .panel-collapse > .list-group {
   border-top: 0;
 }
-.view-domainlist .item-list .panel-group .panel + .panel {
+.view-domainlist .view-content .panel-group .panel + .panel {
   margin-top: 0;
 }
-.view-domainlist .item-list .panel.panel-default > .panel-heading {
+.view-domainlist .view-content .panel.panel-default > .panel-heading {
   min-height: 45px;
 }
-.view-domainlist .item-list .panel-body {
+.view-domainlist .view-content .panel-body {
   padding-left: 55px;
 }
-.view-domainlist .item-list span.statut {
+.view-domainlist .view-content span.statut {
   font: 0/0 a;
   color: transparent;
   text-shadow: none;
   background-color: transparent;
   border: 0;
 }
-.view-domainlist .item-list span.glyphicon {
+.view-domainlist .view-content span.glyphicon {
   float: right;
+}
+.view-domainlist .view-content .domain-lead-experts ul.user-list {
+  display: inline-block;
+}
+.view-domainlist .view-content .domain-lead-experts ul.user-list li {
+  display: inline-block;
+}
+.view-domainlist .view-content .domain-lead-experts ul.user-list li:after {
+  content: ", ";
+}
+.view-domainlist .view-content .domain-lead-experts ul.user-list li:last-child:after {
+  content: "";
+}
+.view-domainlist .view-content .domain-lead-experts .views-field-field-last-name {
+  text-transform: uppercase;
 }
 .page-messages #maincol {
   margin-left: -15px;

@@ -54,7 +54,7 @@
         <a id="signIn" type="a" class="user-menu sign-in" data-placement="bottom" data-html="true" data-template='<div class="popover signIn" role="tooltip"><div class="arrow"></div><div class="popover-content signInContent"></div></div>'><?php print c_szLogin; ?></a>
         <div id="signInContent" style="display: none;">
           <h4><?php print c_szLoginToEmh; ?></h4>
-          <?php print drupal_render(drupal_get_form('user_login_block')); ?>
+          <?php $login_block = drupal_get_form('user_login_block'); print drupal_render($login_block); ?>
         </div>
       </li>
       <li>

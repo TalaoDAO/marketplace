@@ -333,7 +333,7 @@ function ft_field_base_field_default_field_bases() {
   // Exported field_base: 'field_domain_lead_experts'
   $field_bases['field_domain_lead_experts'] = array(
     'active' => 1,
-    'cardinality' => -1,
+    'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_domain_lead_experts',
