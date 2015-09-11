@@ -53,7 +53,7 @@ function emh_contactform_form_contact_site_form_alter(&$form, &$form_state, $for
 		),
 	);
 
-	$form['organisation'] = array(
+	$form['entreprise'] = array(
 		// '#title' => t('Your organisation'),
 		'#title_display' => 'invisible',
 		'#type' => 'textfield',
@@ -118,6 +118,6 @@ function emh_contactform_mail_alter(&$message) {
 	 	$message['subject'] = $message['subject'].' '. t('From').' '.$message['from'];
 	 	$message['body'][] = t('From - ').' '.$message['params']['firstname'].' '.$message['params']['lastname'];
 		$message['body'][] = t('Telephone').': '.$message['params']['phone'];
-		$message['body'][] = t('Organisation').': '.$message['params']['organisation'];
+		$message['body'][] = t('entreprise').': '.$message['params']['entreprise'];
 	}
 }

@@ -3,18 +3,6 @@
  */
 form#user-profile-form {
 
-  .form-type-password-confirm {
-    .make-row();
-    > .password-parent,
-    > .confirm-parent {
-      .make-sm-column(6);
-    }
-    // .form-group form-type-password form-item-pass-pass1 password-parent {
-    //
-    // }
-  }
-
-
   .link-field-subrow {
     .form-group-2col;
   }
@@ -22,24 +10,32 @@ form#user-profile-form {
   .imagefield-crop-widget {
     .make-row();
     margin: 0;
+
     .imagefield-crop-preview {
       .make-sm-column(4);
       .make-row();
       margin: 0;
+
       .jcrop-preview-wrapper {
         .make-sm-column(4);
         padding: 0;
         .img-circle;
   			.center-block;
+
+        img.preview-existing {
+          display: block !important;
+        }
         img.jcrop-preview {
           width: 110px !important;
           height: auto !important;
+          display: block !important;
         }
       }
       .description {
         .make-sm-column(8);
       }
     }
+
     .imagefield-crop-cropbox {
       .make-sm-column(4);
       .make-row();
@@ -52,15 +48,18 @@ form#user-profile-form {
         .make-sm-column(8);
       }
     }
+
     .file {
       .make-sm-column(2);
     }
+
     @media (min-width: @screen-sm-min) {
       button.form-submit {
         float: right;
         margin-right: 15px;
       }
     }
+
   }
 
   #edit-field-skills-set {

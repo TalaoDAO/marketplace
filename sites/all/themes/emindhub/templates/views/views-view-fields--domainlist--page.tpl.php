@@ -32,6 +32,14 @@
 
 <div class="panel-heading" role="tab" id="domain-<?php print $fields['tid']->content; ?>-title">
   <h4 class="panel-title">
+    <span class="statut state-<?php print $fields['field_domain_state']->content; ?>"><span class="legend sr-only"><?php print $fields['field_domain_state']->content; ?></span></span>
+    <span class="title"><?php print $fields['name']->content; ?></span>
+  </h4>
+</div>
+
+
+<!-- <div class="panel-heading" role="tab" id="domain-<?php print $fields['tid']->content; ?>-title">
+  <h4 class="panel-title">
     <?php if ($fields['field_domain_state']->content == 'Active') : ?>
     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#domain-<?php print $fields['tid']->content; ?>-collapse" aria-expanded="false" aria-controls="domain-<?php print $fields['tid']->content; ?>-collapse">
       <span class="statut state-<?php print $fields['field_domain_state']->content; ?>"><?php print $fields['field_domain_state']->content; ?></span>
@@ -51,4 +59,4 @@
     <?php print $fields['field_domain_state']->content; ?>
   </div>
 </div>
-<?php endif; ?>
+<?php endif; ?> -->

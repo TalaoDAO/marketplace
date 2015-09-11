@@ -37,7 +37,7 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'field-group-fieldset',
+        'classes' => 'group-account field-group-div',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -71,7 +71,7 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'group-address field-group-div field-group-fieldset',
+        'classes' => 'group-address field-group-div',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -330,7 +330,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Complement',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'field_notification_frequency',
       1 => 'field_known_how',
@@ -342,7 +342,7 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'field-group-fieldset',
+        'classes' => 'group-complement field-group-div',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -546,6 +546,7 @@ function ft_content_type_field_group_info() {
       0 => 'group_address',
       1 => 'group_misc',
       2 => 'group_skills',
+      3 => 'group_sponsorship',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -639,7 +640,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Hidden',
-    'weight' => '7',
+    'weight' => '5',
     'children' => array(
       0 => 'og_user_node',
       1 => 'field_is_sponsor',
@@ -1071,9 +1072,7 @@ function ft_content_type_field_group_info() {
     'children' => array(
       0 => 'field_link_to_my_blog',
       1 => 'field_working_status',
-      2 => 'field_sponsorship',
-      3 => 'field_sponsor1',
-      4 => 'field_position',
+      2 => 'field_position',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1081,7 +1080,7 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'group-misc field-group-div field-group-fieldset',
+        'classes' => 'group-misc field-group-div',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -2236,7 +2235,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_expert';
   $field_group->data = array(
     'label' => 'Skills',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
       0 => 'field_titre_metier',
       1 => 'field_domaine',
@@ -2255,7 +2254,7 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'group-skills field-group-div field-group-fieldset',
+        'classes' => 'group-skills field-group-div',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -2266,6 +2265,40 @@ function ft_content_type_field_group_info() {
     ),
   );
   $export['group_skills|user|user|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_sponsorship|user|user|form';
+  $field_group->group_name = 'group_sponsorship';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_expert';
+  $field_group->data = array(
+    'label' => 'Sponsorship',
+    'weight' => '3',
+    'children' => array(
+      0 => 'field_sponsorship',
+      1 => 'field_sponsor1',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Sponsorship',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-sponsorship field-group-div',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_sponsorship|user|user|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -2449,21 +2482,29 @@ function ft_content_type_field_group_info() {
   $field_group->entity_type = 'user';
   $field_group->bundle = 'user';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_business';
+  $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'I wish to share my experience with emindhub',
-    'weight' => '4',
+    'label' => 'Share your experience',
+    'weight' => '2',
     'children' => array(
       0 => 'field_testimony',
+      1 => 'field_sponsor_why',
+      2 => 'field_partner_why',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'div',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Share your experience',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => '',
         'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-testimony field-group-div',
+        'description' => '',
+        'show_label' => '1',
+        'label_element' => 'h2',
+        'effect' => 'none',
+        'speed' => 'fast',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_testimony|user|user|form'] = $field_group;

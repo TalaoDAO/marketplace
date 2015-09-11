@@ -392,10 +392,12 @@
  * Formulaires
  */
 .form-group-col {
-		.make-row();
-		> * .form-group {
-			margin-bottom: 0;
-		}
+	.make-row();
+
+	> * .form-group {
+		margin-bottom: 0;
+	}
+
 	@media (min-width: @screen-sm-min) {
 		margin-left: 0;
 		margin-right: 0;
@@ -406,12 +408,14 @@
 }
 .form-group-2col {
 	.form-group-col;
-		> *:nth-child(1) {
-			.make-sm-column(6);
-		}
-		> *:nth-child(2) {
-			.make-sm-column(6);
-		}
+
+	> *:nth-child(1) {
+		.make-sm-column(6);
+	}
+	> *:nth-child(2) {
+		.make-sm-column(6);
+	}
+
 	@media (min-width: @screen-sm-min) {
 		> *:nth-child(1) {
 			padding-left: 0;
@@ -422,6 +426,7 @@
 			padding-left: 7.5px;
 		}
 	}
+
 }
 .form-group-3col {
 	.form-group-col;

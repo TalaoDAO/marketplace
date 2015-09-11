@@ -152,7 +152,8 @@ function emindhub_fivestar_summary($variables) {
   }
 
   $output = '<div class=\'fivestar-summary fivestar-summary-' . $div_class . '\'>' . $output . '</div>';
-  return $output;
+  // We hide public profile legend : there's only one vote, user's one
+  // return $output;
 }
 
 
@@ -257,7 +258,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
 function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
-  // echo '<pre>' . print_r($form['field_link_to_my_blog'], TRUE) . '</pre>';
+  // echo '<pre>' . print_r($form['field_address']['und'][0], TRUE) . '</pre>';
 
   $element_info = element_info('password_confirm');
   $process = $element_info['#process'];
@@ -277,16 +278,21 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
 
   // FIX Boostrap help tooltip
-  $account = $form['#user'];
-  $pass_reset = isset($_SESSION['pass_reset_' . $account->uid]) && isset($_GET['pass-reset-token']) && ($_GET['pass-reset-token'] == $_SESSION['pass_reset_' . $account->uid]);
-  $current_pass_description = '';
-  if (!$pass_reset) {
-    $current_pass_description = t('Enter your current password to change the email or password.');
-  }
-  $form['account']['current_pass']['#description'] = $current_pass_description;
-  $form['account']['current_pass']['#required'] = 0;
-  $form['account']['current_pass']['#type'] = 'hidden';
+  // $account = $form['#user'];
+  // $pass_reset = isset($_SESSION['pass_reset_' . $account->uid]) && isset($_GET['pass-reset-token']) && ($_GET['pass-reset-token'] == $_SESSION['pass_reset_' . $account->uid]);
+  // $current_pass_description = '';
+  // if (!$pass_reset) {
+  //   $current_pass_description = t('Enter your current password to change the email or password.');
+  // }
+  // $form['account']['current_pass']['#description'] = $current_pass_description;
+  // $form['account']['current_pass']['#required'] = 0;
+  // $form['account']['current_pass']['#type'] = 'hidden';
 
+  unset($form['account']['current_pass']);
+  unset($form['account']['current_pass_required_values']);
+  $form['#validate'] = array_diff($form['#validate'], array('user_validate_current_pass'));
+
+  $form['field_address']['und'][0]['#type'] = 'div';
   $form['field_address']['und'][0]['street_block']['thoroughfare']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_address']['und'][0]['street_block']['premise']['#suffix'] = '</div>';
 
@@ -313,6 +319,7 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $form['field_photo']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
   $form['field_cv']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
 
+  // echo '<pre>' . print_r($form['account'], TRUE) . '</pre>';
   // echo '<pre>' . print_r($form['field_cv'], TRUE) . '</pre>';
   // echo '<pre>' . print_r($form['field_notification_frequency'], TRUE) . '</pre>';
 
@@ -331,6 +338,7 @@ function emindhub_form_process_password_confirm($element) {
 
   // echo '<pre>' . print_r($element, TRUE) . '</pre>';
   $element['pass1']['#title'] = t('New password');
+  $element['pass2']['#title'] = t('Confirm new password');
   return $element;
 
 }
@@ -442,13 +450,13 @@ function emindhub_form_user_register_form_alter(&$form, &$form_state, $form_id) 
 }
 
 
-function emindhub_preprocess_select_as_checkboxes(&$variables) {
-  $element = &$variables['element'];
-  // Remove form-control class added to original "select" element
-  if (($key = array_search('form-control', $element['#attributes']['class'])) !== false) {
-    unset($element['#attributes']['class'][$key]);
-  }
-}
+// function emindhub_preprocess_select_as_checkboxes(&$variables) {
+//   $element = &$variables['element'];
+//   // Remove form-control class added to original "select" element
+//   if (($key = array_search('form-control', $element['#attributes']['class'])) !== false) {
+//     unset($element['#attributes']['class'][$key]);
+//   }
+// }
 
 
 function emindhub_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {

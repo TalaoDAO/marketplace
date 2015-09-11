@@ -4794,7 +4794,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 27,
+        'weight' => 29,
       ),
     ),
     'entity_type' => 'user',
@@ -5002,7 +5002,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 11,
+        'weight' => 14,
       ),
       'full' => array(
         'label' => 'above',
@@ -5046,7 +5046,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 16,
+        'weight' => 19,
       ),
       'full' => array(
         'label' => 'above',
@@ -5129,7 +5129,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 26,
+        'weight' => 28,
       ),
     ),
     'entity_type' => 'user',
@@ -5165,7 +5165,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 24,
+        'weight' => 26,
       ),
     ),
     'entity_type' => 'user',
@@ -5197,7 +5197,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 9,
+        'weight' => 12,
       ),
       'full' => array(
         'label' => 'above',
@@ -5235,7 +5235,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 10,
+        'weight' => 13,
       ),
       'full' => array(
         'label' => 'above',
@@ -5275,7 +5275,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 14,
+        'weight' => 17,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -5378,7 +5378,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 15,
+        'weight' => 18,
       ),
       'full' => array(
         'label' => 'above',
@@ -5416,7 +5416,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 8,
+        'weight' => 11,
       ),
       'full' => array(
         'label' => 'above',
@@ -5575,7 +5575,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 25,
+        'weight' => 27,
       ),
     ),
     'entity_type' => 'user',
@@ -5699,7 +5699,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 17,
+        'weight' => 20,
       ),
       'full' => array(
         'label' => 'above',
@@ -5738,7 +5738,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 12,
+        'weight' => 15,
       ),
       'full' => array(
         'label' => 'above',
@@ -5783,7 +5783,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 13,
+        'weight' => 16,
       ),
       'full' => array(
         'label' => 'above',
@@ -5830,7 +5830,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 7,
+        'weight' => 10,
       ),
       'full' => array(
         'label' => 'above',
@@ -5868,7 +5868,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 5,
+        'weight' => 8,
       ),
       'full' => array(
         'label' => 'above',
@@ -5996,7 +5996,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 6,
+        'weight' => 9,
       ),
       'full' => array(
         'label' => 'above',
@@ -6034,7 +6034,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 18,
+        'weight' => 21,
       ),
       'full' => array(
         'label' => 'above',

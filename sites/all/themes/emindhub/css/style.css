@@ -9748,8 +9748,8 @@ button.close {
 #block-block-16 .content ul:after,
 #block-progress-tracker-progress-tracker ul.progress-tracker:before,
 #block-progress-tracker-progress-tracker ul.progress-tracker:after,
-form#user-profile-form .form-type-password-confirm:before,
-form#user-profile-form .form-type-password-confirm:after,
+.form-type-password-confirm:before,
+.form-type-password-confirm:after,
 form#user-profile-form .link-field-subrow:before,
 form#user-profile-form .link-field-subrow:after,
 form#user-profile-form .imagefield-crop-widget:before,
@@ -9787,7 +9787,7 @@ form#user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox:after,
 .bef-select-as-checkboxes .bef-checkboxes:after,
 #block-block-16 .content ul:after,
 #block-progress-tracker-progress-tracker ul.progress-tracker:after,
-form#user-profile-form .form-type-password-confirm:after,
+.form-type-password-confirm:after,
 form#user-profile-form .link-field-subrow:after,
 form#user-profile-form .imagefield-crop-widget:after,
 form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview:after,
@@ -10362,13 +10362,6 @@ div.form-item div.password-suggestions {
 }
 div.password-suggestions ul {
   margin-bottom: 0;
-}
-.confirm-parent,
-.password-parent {
-  clear: left;
-  /* LTR */
-  margin: 0;
-  width: 36.3em;
 }
 .progress-wrapper .progress {
   margin-bottom: 10px;
@@ -11154,7 +11147,7 @@ fieldset[disabled] .btn-popin.focus {
   margin-bottom: 10px;
   font-size: 30px;
   font-weight: 700;
-  font-size: 24px;
+  font-size: 22px;
   text-transform: uppercase;
   color: #4c6172;
   text-align: center;
@@ -11653,27 +11646,19 @@ fieldset[disabled] .btn-popin.focus {
 }
 h1,
 h2,
-h3,
-h4,
-h5,
-h6,
 .h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6 {
+.h2 {
   font-weight: 700;
 }
 h2,
 .h2 {
-  font-size: 24px;
+  font-size: 22px;
   text-transform: uppercase;
   color: #4c6172;
 }
 h3,
 .h3 {
-  font-size: 20px;
+  font-size: 18px;
   color: #4c6172;
 }
 h4,
@@ -12427,8 +12412,9 @@ input.error,
   border-color: #a94442;
   background-color: #f2dede;
 }
-.password-strength,
-.password-suggestions {
+div.password-strength,
+div.password-suggestions,
+div.password-confirm {
   font: 0/0 a;
   color: transparent;
   text-shadow: none;
@@ -13177,65 +13163,13 @@ fieldset[disabled] .views-navigation-next.focus {
 .section .meta li * {
   display: inline-block;
 }
-.view-header {
+.view-header p {
+  margin-bottom: 15px;
+}
+.view-header p:first-child {
   background-color: #4c6172;
   color: #fff;
   padding: 15px;
-  margin-bottom: 15px;
-}
-.view-domainlist .item-list h3 {
-  color: #fff;
-  background-color: #009fe3;
-  text-transform: uppercase;
-  margin-bottom: 0;
-  padding: 10px 15px;
-}
-.view-domainlist .item-list ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.view-domainlist .item-list .panel-title a {
-  display: block;
-}
-.view-domainlist .item-list .panel-group .panel {
-  border-bottom-width: 0;
-}
-.view-domainlist .item-list .panel-group .panel:last-child {
-  border-bottom-width: 1px;
-}
-.view-domainlist .item-list .panel-group .panel-heading + .panel-collapse > .panel-body,
-.view-domainlist .item-list .panel-group .panel-heading + .panel-collapse > .list-group {
-  border-top: 0;
-}
-.view-domainlist .item-list .panel-group .panel + .panel {
-  margin-top: 0;
-}
-.view-domainlist .item-list .panel-body {
-  padding-left: 55px;
-}
-.view-domainlist .item-list span.statut {
-  font: 0/0 a;
-  color: transparent;
-  text-shadow: none;
-  background-color: transparent;
-  border: 0;
-}
-.view-domainlist .item-list span.statut:after {
-  display: inline-block;
-  content: "";
-  width: 25px;
-  height: 25px;
-  background: #fff;
-  border-radius: 100%;
-  border: 5px solid #f2f2f2;
-  margin-right: 10px;
-}
-.view-domainlist .item-list span.statut.state-Active:after {
-  border-color: #5cb85c;
-}
-.view-domainlist .item-list span.glyphicon {
-  float: right;
 }
 .region-burgermenu {
   display: none;
@@ -14308,7 +14242,6 @@ form h2 {
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 18px;
-  font-weight: 700;
   font-size: 16px;
   padding: 0 0 5px;
   margin-bottom: 15px !important;
@@ -14571,27 +14504,39 @@ form#global-filter-1 button#edit-submit .badge {
   color: #009fe3;
   background-color: #ffffff;
 }
-/* FORMS
- * Profile
- */
-form#user-profile-form .form-type-password-confirm {
+.form-type-password-confirm {
   margin-left: -15px;
   margin-right: -15px;
+  margin-left: 0;
+  margin-right: 0;
 }
-form#user-profile-form .form-type-password-confirm > .password-parent,
-form#user-profile-form .form-type-password-confirm > .confirm-parent {
+.form-type-password-confirm div.password-parent,
+.form-type-password-confirm div.confirm-parent {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 767px) {
-  form#user-profile-form .form-type-password-confirm > .password-parent,
-  form#user-profile-form .form-type-password-confirm > .confirm-parent {
+  .form-type-password-confirm div.password-parent,
+  .form-type-password-confirm div.confirm-parent {
     float: left;
     width: 50%;
   }
 }
+@media (min-width: 767px) {
+  .form-type-password-confirm div.password-parent {
+    padding-left: 0;
+    padding-right: 7.5px;
+  }
+  .form-type-password-confirm div.confirm-parent {
+    padding-right: 0;
+    padding-left: 7.5px;
+  }
+}
+/* FORMS
+ * Profile
+ */
 form#user-profile-form .link-field-subrow {
   margin-left: -15px;
   margin-right: -15px;
@@ -14679,9 +14624,13 @@ form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview .jcrop-p
     width: 33.33333333%;
   }
 }
+form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview .jcrop-preview-wrapper img.preview-existing {
+  display: block !important;
+}
 form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview .jcrop-preview-wrapper img.jcrop-preview {
   width: 110px !important;
   height: auto !important;
+  display: block !important;
 }
 form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview .description {
   position: relative;
@@ -15200,6 +15149,7 @@ form#user-profile-form .imagefield-crop-widget .file {
   text-shadow: none;
   background-color: transparent;
   border: 0;
+  display: none;
 }
 @media (max-width: 767px) {
   input.password-confirm,
@@ -15586,6 +15536,70 @@ form#webform-node-form #edit-field-expiration-date .form-type-textfield > label 
   text-shadow: none;
   background-color: transparent;
   border: 0;
+}
+.view-domainlist span.statut:before {
+  position: absolute;
+  content: "";
+  width: 25px;
+  height: 25px;
+  background: #fff;
+  border-radius: 100%;
+  border: 5px solid #f2f2f2;
+}
+.view-domainlist span.statut.state-Active:before {
+  border-color: #5cb85c;
+}
+.view-domainlist span.legend,
+.view-domainlist span.title {
+  margin-left: 35px;
+  line-height: 25px;
+}
+.view-domainlist p.legend span.statut {
+  margin-right: 10px;
+}
+.view-domainlist .item-list h3 {
+  color: #fff;
+  background-color: #009fe3;
+  text-transform: uppercase;
+  margin-bottom: 0;
+  padding: 10px 15px;
+}
+.view-domainlist .item-list ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.view-domainlist .item-list .panel-title a {
+  display: block;
+}
+.view-domainlist .item-list .panel-group .panel {
+  border-bottom-width: 0;
+}
+.view-domainlist .item-list .panel-group .panel:last-child {
+  border-bottom-width: 1px;
+}
+.view-domainlist .item-list .panel-group .panel-heading + .panel-collapse > .panel-body,
+.view-domainlist .item-list .panel-group .panel-heading + .panel-collapse > .list-group {
+  border-top: 0;
+}
+.view-domainlist .item-list .panel-group .panel + .panel {
+  margin-top: 0;
+}
+.view-domainlist .item-list .panel.panel-default > .panel-heading {
+  min-height: 45px;
+}
+.view-domainlist .item-list .panel-body {
+  padding-left: 55px;
+}
+.view-domainlist .item-list span.statut {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.view-domainlist .item-list span.glyphicon {
+  float: right;
 }
 .page-messages #maincol {
   margin-left: -15px;

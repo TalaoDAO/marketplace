@@ -114,6 +114,7 @@ features[field_group][] = group_scope|node|question1|form
 features[field_group][] = group_scope|node|webform|form
 features[field_group][] = group_skills|user|user|default
 features[field_group][] = group_skills|user|user|form
+features[field_group][] = group_sponsorship|user|user|form
 features[field_group][] = group_target|node|challenge|form
 features[field_group][] = group_target|node|poll|form
 features[field_group][] = group_target|node|question1|form

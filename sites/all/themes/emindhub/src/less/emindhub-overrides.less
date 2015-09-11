@@ -1,15 +1,16 @@
 // Bootstrap titles
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+h1, h2,
+.h1, .h2 {
 	font-weight: 700;
 }
 h2, .h2 {
-	font-size: 24px;
+	font-size: 22px;
 	.text-uppercase;
 
 	color: @darkerBlue;
 }
 h3, .h3 {
-	font-size: 20px;
+	font-size: 18px;
 	color: @darkerBlue;
 }
 h4, .h4 {
@@ -401,8 +402,9 @@ input.error,
 
 
 // TODO: hide this in PHP !
-.password-strength,
-.password-suggestions {
+div.password-strength,
+div.password-suggestions,
+div.password-confirm {
   .text-hide;
   display: none !important;
 }
