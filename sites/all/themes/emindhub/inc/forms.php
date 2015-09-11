@@ -450,13 +450,14 @@ function emindhub_form_user_register_form_alter(&$form, &$form_state, $form_id) 
 }
 
 
-// function emindhub_preprocess_select_as_checkboxes(&$variables) {
-//   $element = &$variables['element'];
-//   // Remove form-control class added to original "select" element
-//   if (($key = array_search('form-control', $element['#attributes']['class'])) !== false) {
-//     unset($element['#attributes']['class'][$key]);
-//   }
-// }
+// Bootstrap compliance : design select
+function emindhub_preprocess_select_as_checkboxes(&$variables) {
+  $element = &$variables['element'];
+  // Remove form-control class added to original "select" element
+  if (($key = array_search('form-control', $element['#attributes']['class'])) !== false) {
+    unset($element['#attributes']['class'][$key]);
+  }
+}
 
 
 function emindhub_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
