@@ -1,0 +1,36 @@
+<?php
+/**
+* @file
+* Code for eMindHub Challenge feature.
+*/
+
+
+/* Challenge hook form alter
+ * node/add/challenge
+ * node/$ID/edit
+ */
+function emh_challenge_form_challenge_node_form_alter(&$form, &$form_state, $form_id) {
+
+	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
+	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
+
+	// Add class before & after fields
+  $form['field_document']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_image']['#suffix'] = '</div>';
+
+  $form['field_domaine']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_tags']['#suffix'] = '</div>';
+
+  $form['field_anonymous']['#prefix'] = '<div class="form-group-3col row">';
+  $form['field_use_my_entreprise']['#suffix'] = '</div>';
+
+  $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_reward']['#suffix'] = '</div>';
+
+  $form['og_group_ref']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_other_members']['#suffix'] = '</div>';
+
+	$form['field_document']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
+  $form['field_image']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
+
+}

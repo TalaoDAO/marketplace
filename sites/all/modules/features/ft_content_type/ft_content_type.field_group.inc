@@ -21,14 +21,15 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Account',
-    'weight' => '-50',
+    'weight' => '0',
     'children' => array(
-      0 => 'field_name_visibility',
-      1 => 'field_entreprise_visibility',
-      2 => 'field_entreprise',
-      3 => 'field_photo',
-      4 => 'account',
-      5 => 'group_oneliner',
+      0 => 'field_first_name',
+      1 => 'field_last_name',
+      2 => 'field_name_visibility',
+      3 => 'field_entreprise_visibility',
+      4 => 'field_entreprise',
+      5 => 'field_photo',
+      6 => 'account',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -36,7 +37,7 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'field-group-fieldset',
+        'classes' => 'group-account field-group-div',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -70,7 +71,7 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'group-address field-group-div field-group-fieldset',
+        'classes' => 'group-address field-group-div',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -129,12 +130,13 @@ function ft_content_type_field_group_info() {
   $field_group->entity_type = 'user';
   $field_group->bundle = 'user';
   $field_group->mode = 'default';
-  $field_group->parent_name = 'group_skills';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'My background',
-    'weight' => '40',
+    'weight' => '2',
     'children' => array(
-      0 => 'group_container_background',
+      0 => 'field_employment_history',
+      1 => 'field_position_list',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -328,11 +330,11 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Complement',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
-      0 => 'field_known_specific',
-      1 => 'group_label2',
-      2 => 'group_label',
+      0 => 'field_notification_frequency',
+      1 => 'field_known_how',
+      2 => 'field_known_specific',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -340,7 +342,7 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'field-group-fieldset',
+        'classes' => 'group-complement field-group-div',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -544,6 +546,7 @@ function ft_content_type_field_group_info() {
       0 => 'group_address',
       1 => 'group_misc',
       2 => 'group_skills',
+      3 => 'group_sponsorship',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -604,7 +607,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'hidden',
-    'weight' => '23',
+    'weight' => '22',
     'children' => array(),
     'format_type' => 'html-element',
     'format_settings' => array(
@@ -637,17 +640,18 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Hidden',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
       0 => 'og_user_node',
       1 => 'field_is_sponsor',
       2 => 'field_is_promoted',
-      3 => 'masquerade',
-      4 => 'privatemsg',
-      5 => 'timezone',
-      6 => 'contact',
-      7 => 'locale',
-      8 => 'wysiwyg',
+      3 => 'field_is_partner',
+      4 => 'masquerade',
+      5 => 'privatemsg',
+      6 => 'timezone',
+      7 => 'contact',
+      8 => 'locale',
+      9 => 'wysiwyg',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -678,9 +682,9 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'My interests',
-    'weight' => '4',
+    'weight' => '3',
     'children' => array(
-      0 => 'group_container_interests',
+      0 => 'field_other_areas',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -770,10 +774,8 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_oneliner3';
   $field_group->data = array(
     'label' => 'Your activity',
-    'weight' => '50',
-    'children' => array(
-      0 => 'field_use_my_entreprise',
-    ),
+    'weight' => '41',
+    'children' => array(),
     'format_type' => 'html-element',
     'format_settings' => array(
       'label' => 'Your activity',
@@ -890,10 +892,8 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_oneliner3';
   $field_group->data = array(
     'label' => 'Your organisation',
-    'weight' => '49',
-    'children' => array(
-      0 => 'field_show_entreprise',
-    ),
+    'weight' => '40',
+    'children' => array(),
     'format_type' => 'html-element',
     'format_settings' => array(
       'label' => 'Your organisation',
@@ -1010,10 +1010,8 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_oneliner3';
   $field_group->data = array(
     'label' => 'Your name',
-    'weight' => '48',
-    'children' => array(
-      0 => 'field_anonymous',
-    ),
+    'weight' => '39',
+    'children' => array(),
     'format_type' => 'html-element',
     'format_settings' => array(
       'label' => 'Your name',
@@ -1074,9 +1072,7 @@ function ft_content_type_field_group_info() {
     'children' => array(
       0 => 'field_link_to_my_blog',
       1 => 'field_working_status',
-      2 => 'field_sponsorship',
-      3 => 'field_sponsor1',
-      4 => 'field_position',
+      2 => 'field_position',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1084,7 +1080,7 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'group-misc field-group-div field-group-fieldset',
+        'classes' => 'group-misc field-group-div',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -1213,7 +1209,10 @@ function ft_content_type_field_group_info() {
     'weight' => '45',
     'children' => array(
       0 => 'field_entreprise_description',
-      1 => 'group_oneliner3',
+      1 => 'field_anonymous',
+      2 => 'field_show_entreprise',
+      3 => 'field_use_my_entreprise',
+      4 => 'group_oneliner3',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1816,8 +1815,11 @@ function ft_content_type_field_group_info() {
     'label' => 'My public profile',
     'weight' => '0',
     'children' => array(
-      0 => 'group_container_public_darken',
-      1 => 'group_container_public',
+      0 => 'field_first_name',
+      1 => 'field_entreprise',
+      2 => 'field_address',
+      3 => 'field_titre_metier',
+      4 => 'field_photo',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1826,7 +1828,7 @@ function ft_content_type_field_group_info() {
         'id' => '',
         'classes' => 'profile-section profile-section-public field-group-div',
         'description' => '',
-        'show_label' => '1',
+        'show_label' => '0',
         'label_element' => 'h2',
         'effect' => 'none',
         'speed' => 'fast',
@@ -2108,10 +2110,10 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'group-scope field-group-div group-oneliner field-group-fieldset',
+        'classes' => 'group-scope field-group-div',
         'description' => '',
         'show_label' => '0',
-        'label_element' => 'h3',
+        'label_element' => 'h2',
         'effect' => 'none',
         'speed' => 'fast',
       ),
@@ -2142,10 +2144,10 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'field-group-fieldset group-oneliner',
+        'classes' => 'group-scope field-group-div',
         'description' => '',
         'show_label' => '0',
-        'label_element' => 'h3',
+        'label_element' => 'h2',
         'effect' => 'none',
         'speed' => 'fast',
       ),
@@ -2176,10 +2178,10 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'group-scope field-group-div group-oneliner field-group-fieldset',
+        'classes' => 'group-scope field-group-div',
         'description' => '',
         'show_label' => '0',
-        'label_element' => 'h3',
+        'label_element' => 'h2',
         'effect' => 'none',
         'speed' => 'fast',
       ),
@@ -2201,8 +2203,8 @@ function ft_content_type_field_group_info() {
     'label' => 'My skills',
     'weight' => '1',
     'children' => array(
-      0 => 'group_background',
-      1 => 'group_container_skills',
+      0 => 'field_domaine',
+      1 => 'field_skills_set',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -2232,7 +2234,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_expert';
   $field_group->data = array(
     'label' => 'Skills',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
       0 => 'field_titre_metier',
       1 => 'field_domaine',
@@ -2251,7 +2253,7 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'group-skills field-group-div field-group-fieldset',
+        'classes' => 'group-skills field-group-div',
         'description' => '',
         'show_label' => '0',
         'label_element' => 'h3',
@@ -2266,6 +2268,40 @@ function ft_content_type_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_sponsorship|user|user|form';
+  $field_group->group_name = 'group_sponsorship';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_expert';
+  $field_group->data = array(
+    'label' => 'Sponsorship',
+    'weight' => '3',
+    'children' => array(
+      0 => 'field_sponsorship',
+      1 => 'field_sponsor1',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Sponsorship',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-sponsorship field-group-div',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_sponsorship|user|user|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_target|node|challenge|form';
   $field_group->group_name = 'group_target';
   $field_group->entity_type = 'node';
@@ -2274,11 +2310,13 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Target',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
-      0 => 'field_request_circle',
-      1 => 'group_oneliner2',
-      2 => 'group_oneliner1',
+      0 => 'field_expiration_date',
+      1 => 'og_group_ref',
+      2 => 'field_request_circle',
+      3 => 'field_other_members',
+      4 => 'field_reward',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -2286,10 +2324,10 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'field-group-fieldset',
+        'classes' => 'group-target field-group-div',
         'description' => '',
         'show_label' => '0',
-        'label_element' => 'h3',
+        'label_element' => 'h2',
         'effect' => 'none',
         'speed' => 'fast',
       ),
@@ -2342,9 +2380,11 @@ function ft_content_type_field_group_info() {
     'label' => 'Target',
     'weight' => '5',
     'children' => array(
-      0 => 'field_request_circle',
-      1 => 'group_oneliner1',
-      2 => 'group_oneliner2',
+      0 => 'field_expiration_date',
+      1 => 'og_group_ref',
+      2 => 'field_request_circle',
+      3 => 'field_other_members',
+      4 => 'field_reward',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -2352,10 +2392,10 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'field-group-fieldset',
+        'classes' => 'group-target field-group-div',
         'description' => '',
         'show_label' => '0',
-        'label_element' => 'h3',
+        'label_element' => 'h2',
         'effect' => 'none',
         'speed' => 'fast',
       ),
@@ -2375,11 +2415,13 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Target',
-    'weight' => '4',
+    'weight' => '6',
     'children' => array(
-      0 => 'field_request_circle',
-      1 => 'group_oneliner',
-      2 => 'group_oneliner2',
+      0 => 'og_group_ref',
+      1 => 'field_expiration_date',
+      2 => 'field_request_circle',
+      3 => 'field_other_members',
+      4 => 'field_reward',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -2387,10 +2429,10 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'field-group-fieldset',
+        'classes' => 'field-group-div',
         'description' => '',
         'show_label' => '0',
-        'label_element' => 'h3',
+        'label_element' => 'h2',
         'effect' => 'none',
         'speed' => 'fast',
       ),
@@ -2410,9 +2452,9 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'My testimony',
-    'weight' => '5',
+    'weight' => '4',
     'children' => array(
-      0 => 'group_container_testimony',
+      0 => 'field_testimony',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -2439,21 +2481,29 @@ function ft_content_type_field_group_info() {
   $field_group->entity_type = 'user';
   $field_group->bundle = 'user';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_business';
+  $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'I wish to share my experience with emindhub',
-    'weight' => '4',
+    'label' => 'Share your experience',
+    'weight' => '2',
     'children' => array(
       0 => 'field_testimony',
+      1 => 'field_sponsor_why',
+      2 => 'field_partner_why',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'div',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Share your experience',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => '',
         'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-testimony field-group-div',
+        'description' => '',
+        'show_label' => '1',
+        'label_element' => 'h2',
+        'effect' => 'none',
+        'speed' => 'fast',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_testimony|user|user|form'] = $field_group;
@@ -2490,6 +2540,114 @@ function ft_content_type_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_visibility|node|challenge|form';
+  $field_group->group_name = 'group_visibility';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'challenge';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Choose to make visible',
+    'weight' => '3',
+    'children' => array(
+      0 => 'field_entreprise_description',
+      1 => 'field_anonymous',
+      2 => 'field_show_entreprise',
+      3 => 'field_use_my_entreprise',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Choose to make visible',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-visibility field-group-div',
+        'description' => '',
+        'show_label' => '1',
+        'label_element' => 'h2',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_visibility|node|challenge|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_visibility|node|question1|form';
+  $field_group->group_name = 'group_visibility';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'question1';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Choose to make visible',
+    'weight' => '3',
+    'children' => array(
+      0 => 'field_entreprise_description',
+      1 => 'field_anonymous',
+      2 => 'field_use_my_entreprise',
+      3 => 'field_show_entreprise',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Choose to make visible',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-visibility field-group-div',
+        'description' => '',
+        'show_label' => '1',
+        'label_element' => 'h2',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_visibility|node|question1|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_visibility|node|webform|form';
+  $field_group->group_name = 'group_visibility';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'webform';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Choose to make visible',
+    'weight' => '3',
+    'children' => array(
+      0 => 'field_entreprise_description',
+      1 => 'field_anonymous',
+      2 => 'field_show_entreprise',
+      3 => 'field_use_my_entreprise',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Choose to make visible',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-visibility field-group-div',
+        'description' => '',
+        'show_label' => '1',
+        'label_element' => 'h2',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_visibility|node|webform|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_what|node|challenge|form';
   $field_group->group_name = 'group_what';
   $field_group->entity_type = 'node';
@@ -2501,7 +2659,8 @@ function ft_content_type_field_group_info() {
     'weight' => '1',
     'children' => array(
       0 => 'body',
-      1 => 'group_oneliner',
+      1 => 'field_document',
+      2 => 'field_image',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -2509,10 +2668,10 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'field-group-fieldset',
+        'classes' => 'group-what field-group-div',
         'description' => '',
         'show_label' => '0',
-        'label_element' => 'h3',
+        'label_element' => 'h2',
         'effect' => 'none',
         'speed' => 'fast',
       ),
@@ -2572,10 +2731,10 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'field-group-fieldset',
+        'classes' => 'group-what field-group-div',
         'description' => '',
         'show_label' => '0',
-        'label_element' => 'h3',
+        'label_element' => 'h2',
         'effect' => 'none',
         'speed' => 'fast',
       ),
@@ -2598,8 +2757,10 @@ function ft_content_type_field_group_info() {
     'weight' => '1',
     'children' => array(
       0 => 'body',
-      1 => 'group_oneliner4',
-      2 => 'group_oneliner5',
+      1 => 'field_duration_of_the_mission',
+      2 => 'field_start_date',
+      3 => 'field_image',
+      4 => 'field_document',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -2607,10 +2768,10 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
-        'classes' => 'field-group-fieldset',
+        'classes' => 'group-what field-group-div',
         'description' => '',
         'show_label' => '0',
-        'label_element' => 'h3',
+        'label_element' => 'h2',
         'effect' => 'none',
         'speed' => 'fast',
       ),

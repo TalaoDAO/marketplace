@@ -1,4 +1,0 @@
-@echo off
-lessc emindhub.less > emindhub.css
-pause
-@cls

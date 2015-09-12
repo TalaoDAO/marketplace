@@ -123,6 +123,11 @@ class EntityLegalMethodsTestCase extends EntityLegalTestCase {
     $document_path = $document_uri['path'];
 
     $this->assertLinkByHref(url($document_path), 0, 'Link to document found');
+
+    // Ensure the field extra field is available for re-ordering.
+    $this->drupalLogin($this->adminUser);
+    $this->drupalGet('admin/config/people/accounts/fields');
+    $this->assertText('legal_' . $document->identifier());
   }
 
   /**
@@ -140,6 +145,11 @@ class EntityLegalMethodsTestCase extends EntityLegalTestCase {
     $this->assertFieldByName('legal_' . $document->identifier(), NULL, 'Agree checkbox found');
 
     $this->assertRaw('<div class="entity entity-entity-legal-document-version entity-legal-document-version-' . $document->identifier(), 'Document markup found on register page');
+
+    // Ensure the field extra field is available for re-ordering.
+    $this->drupalLogin($this->adminUser);
+    $this->drupalGet('admin/config/people/accounts/fields');
+    $this->assertText('legal_' . $document->identifier());
   }
 
   /**

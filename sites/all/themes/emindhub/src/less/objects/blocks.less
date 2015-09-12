@@ -1,0 +1,635 @@
+aside {
+	margin-top: 15px;
+	.block {
+		.emh-block-normal;
+	}
+}
+
+
+@media (max-width: @screen-sm-min) {
+	.block {
+		margin-bottom: 15px;
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+
+
+#block-search-form {
+	@media (min-width: 767px) {
+		padding-top: 8px;
+		padding-bottom: 8px;
+	}
+	.input-group {
+		.box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
+		border: 1px solid #B2BBC2;
+		background-color: #F2F2F2;
+	}
+	input {
+		box-shadow: none;
+		background-color: transparent;
+		border: 0;
+		font-style: italic;
+	}
+	button {
+		.text-hide;
+		height: 34px;
+		width: 34px;
+		background-repeat: no-repeat;
+		background-position: center center;
+
+		// Loupe bleue
+		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAxhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDM0MiwgMjAxMC8wMS8xMC0xODowNjo0MyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2MzlGNzk5OUZFMkIxMUU0OUU4RUY5OEY5QTYzQURBNCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo2MzlGNzk5QUZFMkIxMUU0OUU4RUY5OEY5QTYzQURBNCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjYzOUY3OTk3RkUyQjExRTQ5RThFRjk4RjlBNjNBREE0IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjYzOUY3OTk4RkUyQjExRTQ5RThFRjk4RjlBNjNBREE0Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+5aRTuwAAAVZJREFUeNqck0FERFEUhs97ZWg7REREiWkTJUqrIhHDZFZFyxYprdumRftmE2UWrVJaZCii1WhVDG0jSrRqFRFD/+G/43dNb6qfzzvPve9/555zbmLVFxN1gTVQAmOgFzyDBjgCF9ZGiZj4R4dg3H6Wm2zSuKVuPmfBJcjx/Q3UwTvoB1MgD4qMp8GjmvjiqRjsgR3wKT/zPftgmUf0/ROg6Ysp2OImVwVsRwbGjFbAlRy9HBZTpuj6oEGW1iUuqkmBcYNGWXqSoo6oSZNxzn6nHhmHlsk9Y29tXweDSRbW9aAmZ+JczTDwTA/k/VhNKpwJ1wKogcHIwLtxy2cwuI4n1j+6k1Ybh8mHboAEfYFhndpUqj4KTmTzEJiJDMKxalq/JLqA4QqUWURj9274g0WwK5nOeUbtTDppg1fA9QrmU/u7vBGrzNAv5/l/TEJ3lphJ/VuAAQDsi0Wgzb1GoQAAAABJRU5ErkJggg==);
+	}
+}
+
+
+/* HEADER
+ * User login + User menu
+ */
+#block-user-login,
+#block-system-user-menu {
+	.nav {
+		float: right;
+		li > a {
+			color: #337AB7;
+			font-size: 12px;
+			cursor: pointer;
+		}
+	}
+}
+
+
+/* HEADER
+ * Languages
+ */
+#block-bootstrap-languages-language {
+	.make-sm-column(2);
+	.make-xs-column(4);
+	.text-right;
+	.nav {
+		margin: 10px 0;
+		float: right;
+	}
+}
+
+
+// Registration
+#block-block-2 {
+	.text-center;
+	.block-title {
+		// .h4;
+		background-color: @darkBlue;
+		color: #fff;
+		margin: 0;
+		padding: 15px 15px 0;
+	}
+	a.btn {
+		.text-uppercase;
+		padding: 6px 24px;
+		font-weight: 700;
+	}
+}
+
+// Homepage : baseline
+#block-block-7 {
+	.content {
+		@media (min-width: @screen-sm-min) {
+			margin-top: 50px;
+		}
+
+		p {
+			&:first-of-type,
+			&:last-of-type {
+				color: #8CD4F2;
+			}
+		}
+	}
+}
+
+// Homepage : request
+#block-block-8 {
+	p {
+		&:first-of-type,
+		&:last-of-type strong {
+			color: #009FE3;
+		}
+	}
+}
+
+// Homepage : expertise
+#block-block-9 {
+	p {
+		&:first-of-type,
+		&:last-of-type strong {
+			color: #C89234;
+		}
+	}
+}
+
+// Homepage : Experts
+#block-block-10,
+#block-block-11,
+#block-block-12 {
+	.content {
+		background-repeat: no-repeat;
+	}
+	a {
+		display: block;
+		text-decoration: none;
+
+		span.default-text {
+			.text-uppercase;
+			color: #009FE3;
+			font-size: 18px;
+
+			span {
+				font-weight: bold;
+			}
+
+			div {
+				color: #4C6172;
+				font-size: 14px;
+			}
+		}
+
+		span.hover {
+			z-index: 100;
+			cursor: pointer;
+			transition: all 0.5s ease 0s;
+			background-color: #4C6172;
+			color: #FFF;
+
+			span {
+				text-transform: uppercase;
+				display: block;
+			}
+		}
+	}
+
+	@media (max-width: @screen-sm-min) {
+		span.default-text {
+			display: block;
+			padding: 15px;
+			div {
+				.hidden();
+			}
+		}
+		span.hover {
+			display: block;
+			padding: 15px;
+		}
+	}
+
+	@media (min-width: @screen-sm-min) {
+		.content {
+			background-position: 5% 50%;
+			position: relative;
+		}
+		a {
+			padding: 4em 0.3em 2em 13em;
+			height: 12em;
+
+			span.default-text {
+				span {
+					display: block;
+				}
+			}
+
+			span.hover {
+				display: none;
+				z-index: 100;
+				cursor: pointer;
+				transition: all 0.5s ease 0s;
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				width: 100%;
+				padding: 1.5em 2.12em;
+				height: 12em;
+
+				span {
+					position: absolute;
+					bottom: 1.5em;
+				}
+			}
+
+			&:hover {
+				span.hover {
+					display: block;
+				}
+			}
+		}
+	}
+}
+@media (min-width: @screen-sm-min) {
+	body.not-logged-in {
+		#block-block-10 .content { background-image: url("../images/askQuestion.png"); }
+		#block-block-11 .content { background-image: url("../images/launchChallenge.png"); }
+		#block-block-12 .content { background-image: url("../images/findExpert.png"); }
+	}
+	body.logged-in {
+		#block-block-10 .content { background-image: url("../images/answerQuestion.png"); }
+		#block-block-11 .content { background-image: url("../images/answerChallenge.png"); }
+		#block-block-12 .content { background-image: url("../images/answerExpertCall.png"); }
+		#block-block-10 .content a span.default-text,
+		#block-block-11 .content a span.default-text,
+		#block-block-12 .content a span.default-text { color: @darkerBlue; }
+	}
+}
+
+
+// Homepage : Experts
+#block-block-15 {
+	.content {
+		font-size: 16px;
+		ul {
+			list-style: none;
+			padding: 0;
+			li {
+				padding-left: 75px;
+				background-repeat: no-repeat;
+				background-position: top left;
+				margin-bottom: 30px;
+				min-height: 55px;
+				&:first-child {
+					background-image: url("../images/atomium.png");
+				}
+				&:last-child {
+					background-image: url("../images/people.png");
+				}
+			}
+		}
+		strong {
+			.emh-blue;
+			font-weight: inherit;
+			display: block;
+		}
+	}
+}
+#block-block-16 {
+	.content {
+		background: transparent url("../images/ondes.png") no-repeat center center;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		ul {
+			list-style: none;
+			padding: 0;
+			.make-row();
+			li {
+				.make-sm-column(4);
+				.text-uppercase;
+
+				&.tip-experts {
+					@media (min-width: @screen-sm-min) {
+						margin-left: 16.6667%;
+					}
+				}
+
+				a {
+					display: block;
+					padding-top: 1.18em;
+					padding-bottom: 1.18em;
+					text-decoration: none;
+					color: inherit;
+					font-size: 16px;
+					padding-left: 75px;
+					background-repeat: no-repeat;
+					background-position: top left;
+					background-image: url("../images/cercle.png");
+					height: 70px;
+				}
+			}
+		}
+	}
+}
+
+
+// Why use eMindHub ?
+#block-block-18,
+#block-block-19,
+#block-block-20 {
+	.block-title {
+		padding-top: 4.5em;
+		padding-bottom: 0.5em;
+		background-repeat: no-repeat;
+		background-position: 50% 20%;
+	}
+	.content {
+		padding-bottom: 1.7em;
+		@media (min-width: @screen-sm-min) {
+			min-height: 83px;
+		}
+	}
+}
+#block-block-18 .block-title { background-image: url("../images/rapidityHeader.png"); }
+#block-block-19 .block-title { background-image: url("../images/securityHeader.png"); }
+#block-block-20 .block-title { background-image: url("../images/qualityHeader.png"); }
+#block-block-10 {
+	clear: both;
+}
+
+
+// HP Welcome
+#block-block-21 {
+	// padding: 0;
+}
+
+
+// More about us ?
+#block-formblock-contact-site {
+	border: 0;
+
+	.content {
+		border: 1px solid #D4D9DD;
+		padding: 15px;
+	}
+
+	@media (min-width: @screen-sm-min) {
+		.form-item-civility {
+			.make-sm-column(6);
+			padding-left: 0;
+		}
+		.form-item-firstname {
+			clear: both;
+			.make-sm-column(6);
+			padding-left: 0;
+			padding-right: 7.5px;
+		}
+		.form-item-lastname {
+			.make-sm-column(6);
+			padding-right: 0;
+			padding-left: 7.5px;
+		}
+		.form-item-entreprise {
+			clear: both;
+		}
+		.form-item-phone {
+			.make-sm-column(6);
+			padding-right: 7.5px;
+			padding-left: 0;
+		}
+		.form-item-mail {
+			.make-sm-column(6);
+			padding-right: 0;
+			padding-left: 7.5px;
+		}
+		.form-item-message {
+			clear: both;
+		}
+	}
+}
+
+
+// They use eMindHub services
+#block-views-entreprise-list-block {
+	.content {
+		@media (min-width: @screen-sm-min) {
+			.views-field views-field-field-logo {
+				img {
+					.center-block;
+				}
+			}
+		}
+	}
+	.carousel-control {
+	  &.left {
+			#gradient > .horizontal(@start-color: rgba(255,255,255,.5); @end-color: rgba(255,255,255,.0001));
+	  }
+	  &.right {
+			#gradient > .horizontal(@start-color: rgba(255,255,255,.0001); @end-color: rgba(255,255,255,.5));
+	  }
+	}
+}
+
+
+// They are experts in eMindHub
+#block-views-users-list-block-2 {
+	.content {
+		background-color: @lightGrey;
+	}
+	.views-field-field-photo {
+		img {
+			.img-circle;
+			.center-block;
+		}
+	}
+	.views-field-nothing {
+		font-weight: bold;
+		margin-bottom: 10px;
+	}
+	.carousel-control {
+	  &.left {
+			#gradient > .horizontal(@start-color: rgba(242,242,242,.5); @end-color: rgba(242,242,242,.0001));
+	  }
+	  &.right {
+			#gradient > .horizontal(@start-color: rgba(242,242,242,.0001); @end-color: rgba(242,242,242,.5));
+	  }
+	}
+	@media (min-width: @screen-sm-min) {
+		.views-row {
+			.make-row();
+			> * {
+				.make-sm-column(6);
+			}
+		}
+		.views-field-field-photo {
+			.make-sm-column(6);
+		}
+	}
+}
+
+
+// News
+#block-views-news-thread-block,
+#block-views-news-thread-block-2 {
+	.view-content {
+		> div {
+			margin-bottom: 15px;
+			padding-bottom: 45px;
+			position: relative;
+			border-bottom: 2px dotted @table-border-color;
+			&:last-child {
+				margin-bottom: 0;
+				border-bottom: 0;
+			}
+		}
+	}
+	.content {
+		h3 {
+			margin: 0;
+		}
+		.field-content {
+			.views-more-link {
+				.emh-more-link;
+			}
+		}
+	}
+}
+
+
+// Last requests
+.view-query-list {
+	// Filtres
+	form {
+		.form-group {
+			margin-bottom: 0;
+		}
+		#edit-uid-current-wrapper {
+			.make-sm-column(3);
+		}
+		#edit-status-1-wrapper {
+			.make-sm-column(3);
+		}
+	}
+	// Contenu
+	.views-field-field-picto {
+		.text-center;
+	}
+	.views-field-created {
+		.text-center;
+	}
+	.views-field-field-expiration-date {
+		.text-center;
+	}
+	.views-field-field-reward {
+		.text-right;
+	}
+	.views-field-nothing { // TODO : add real class
+		.text-right;
+	}
+}
+
+
+// Timeline
+#block-progress-tracker-progress-tracker {
+	.block-title {
+		margin-top: 0;
+	}
+	ul.progress-tracker {
+		.make-row();
+		padding: 0;
+		margin: 0 0 15px;
+
+		li {
+			.make-sm-column(6);
+			.text-center;
+			.text-uppercase;
+
+	    list-style: outside none none;
+	    margin: 0px;
+	    padding: 5px 10px;
+
+	    font-weight: 700;
+	    color: #FFF;
+	    background-color: #A1ACB5;
+
+			&.first {
+		    border-top-left-radius: @border-radius-base;
+		    border-bottom-left-radius: @border-radius-base;
+				border-right: 2px solid #fff;
+			}
+			&.last {
+		    border-top-right-radius: @border-radius-base;
+		    border-bottom-right-radius: @border-radius-base;
+				border-left: 2px solid #fff;
+			}
+		}
+	}
+
+}
+
+
+// Sponsors / Partners list
+#block-views-sponsors-partners-block,
+#block-views-sponsors-sponsors-block {
+
+	.user {
+		margin-bottom: 15px;
+		min-height: 226px;
+		.text-center;
+
+		h3,
+		h4,
+		p {
+			.text-left;
+		}
+
+		.btn {
+			display: block;
+			text-transform: none;
+			padding: 0;
+			white-space: normal;
+			h3 {
+				color: @brand-primary;
+			}
+			h4 {
+				color: @darkerBlue;
+			}
+		}
+
+		img {
+			.center-block;
+			.img-circle;
+			background-color: @gray-lighter;
+
+		}
+		.portrait {
+			display: inline-block;
+			position: relative;
+			margin: 20px auto 0;
+
+			&:after {
+				content: "";
+				display: block;
+				width: 52px;
+				height: 52px;
+				position: absolute;
+				top: -20px;
+				right: -20px;
+				background-repeat: no-repeat;
+				background-position: top right;
+			}
+		}
+
+		.collapse {
+			background-color: @gray-lighter;
+			padding: 15px;
+			position: relative;
+			span.caret {
+				border-width: 15px;
+				position: absolute;
+				top: 0;
+			}
+		}
+	}
+}
+#block-views-sponsors-partners-block {
+	.user {
+		.portrait {
+			&:after {
+				background-image: url("../images/picto/round_blue.png");
+			}
+		}
+	}
+}
+#block-views-sponsors-sponsors-block {
+	.user {
+		.portrait {
+			&:after {
+				background-image: url("../images/picto/round_grey.png");
+			}
+		}
+	}
+}
+
+
+// We are looking for experts, join us !
+#block-block-6 {
+	.block-title {
+		padding-top: 115px;
+		margin-top: 15px;
+		background: transparent url("../images/logo/eMindHub_Aerospace_logo.png") no-repeat center top;
+	}
+}

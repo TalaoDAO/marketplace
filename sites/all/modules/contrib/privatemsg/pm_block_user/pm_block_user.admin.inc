@@ -159,10 +159,14 @@ function pm_block_user_remove_submit($form, &$form_state) {
  * Menu callback for blocked user settings.
  */
 function pm_block_user_settings($form, &$form_state) {
-  drupal_add_css(drupal_get_path('module', 'pm_block_user') . '/pm_block_user.css');
   // Need to cache form for AHAH, so it can be rebuilt from cache later.
   $form = array(
     '#cache' => TRUE,
+    '#attached' => array(
+      'css' => array(
+        drupal_get_path('module', 'pm_block_user') . '/pm_block_user.css',
+      ),
+    ),
   );
 
   // Container for just the actions, used for AHAH.

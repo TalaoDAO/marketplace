@@ -189,7 +189,7 @@ function privatemsg_filter_tags_delete_submit($form, &$form_state) {
 /**
  * Display confirmation message before rebuilding inbox tag.
  */
-function privatemsg_filter_inbox_rebuid_form() {
+function privatemsg_filter_inbox_rebuild_form() {
   $status = '<p>' . t('Newly sent messages are automatically tagged with a hidden system tag. To also have existing messages show up in the inbox, you need to process these by starting the rebuild process. Rebuilding may take some time if there are many messages. After rebuilding has completed messages will automatically show up in the inbox.') . '</p>';
 
   $form['status'] = array('#markup' => $status);
@@ -204,7 +204,7 @@ function privatemsg_filter_inbox_rebuid_form() {
 /**
  * Submit callback for inbox rebuild form.
  */
-function privatemsg_filter_inbox_rebuid_form_submit($form, &$form_state) {
+function privatemsg_filter_inbox_rebuild_form_submit($form, &$form_state) {
   $batch = array(
     'title' => t('Rebuilding inbox'),
     'operations' => array(

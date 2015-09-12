@@ -1,38 +1,81 @@
-name = emindhub
-description = Théme développé pour emindhub. Basé sur Bootstrap pour une interface responsive
+name = eMindHub
+description = Thème développé pour eMindHub. Basé sur Bootstrap pour une interface responsive.
 core = 7.x
-engine = phptemplate
+base theme = bootstrap
 
-; Ajout de fichiers CSS
-stylesheets[all][] = css/emindhub.css
 
-; Javascript
-scripts[] = js/bootstrap.min.js
-scripts[] = js/bootstrap/tooltip.js
-scripts[] = js/bootstrap/popover.js
+;;;;;;;;;;;;;;;;;;;;;
+;; Regions
+;;;;;;;;;;;;;;;;;;;;;
+
+regions[topmenu]        = Top menu
+regions[navigation]     = 'Navigation'
+regions[header]         = 'Top content'
+regions[header_right]   = Top content - Right
+regions[title]          = 'Title'
+regions[top]            = 'Page top'
+regions[highlighted]    = 'Highlighted'
+regions[help]           = 'Help'
+regions[content]        = 'Content'
+regions[sidebar_first]  = 'Primary'
+regions[sidebar_second] = 'Secondary'
+regions[bottom]         = 'Page bottom'
+regions[bottom_right]   = 'Page bottom - Right'
+regions[footer]         = 'Footer'
+regions[burgermenu]     = Burger Menu
+
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Stylesheets
+;;;;;;;;;;;;;;;;;;;;;
+
+stylesheets[all][] = css/style.css
+; exclude module styles
+exclude[css][] = 'modules/field/theme/field.css'
+exclude[css][] = 'sites/all/modules/contrib/autocomplete_deluxe/autocomplete_deluxe.css'
+exclude[css][] = 'sites/all/modules/contrib/chosen/css/chosen-drupal.css'
+exclude[css][] = 'sites/all/modules/contrib/date/date_api/date.css'
+exclude[css][] = 'sites/all/modules/contrib/eu_cookie_compliance/css/eu_cookie_compliance.css'
+exclude[css][] = 'sites/all/modules/contrib/link/link.css'
+exclude[css][] = 'sites/all/modules/contrib/linkedin/linkedin_auth/linkedin_auth.css'
+exclude[css][] = 'sites/all/modules/contrib/views/css/views.css'
+exclude[css][] = 'sites/all/modules/patched/field_collection/field_collection.theme.css'
+
+
+; For information on choosing the desired method, please read the Drupal
+; Bootstrap sub-theme "how-to" documentation:
+; https://drupal.org/node/1978010
+
+; ;----------------------------------
+; ; METHOD 1: Bootstrap Source Files
+; ;----------------------------------
+;
+; ;;;;;;;;;;;;;;;;;;;;;
+; ;; Scripts
+; ;;;;;;;;;;;;;;;;;;;;;
+;
 scripts[] = js/main.js
+scripts[] = 'libraries/bootstrap/js/affix.js'
+scripts[] = 'libraries/bootstrap/js/alert.js'
+scripts[] = 'libraries/bootstrap/js/button.js'
+scripts[] = 'libraries/bootstrap/js/carousel.js'
+scripts[] = 'libraries/bootstrap/js/collapse.js'
+scripts[] = 'libraries/bootstrap/js/dropdown.js'
+scripts[] = 'libraries/bootstrap/js/modal.js'
+scripts[] = 'libraries/bootstrap/js/tooltip.js'
+scripts[] = 'libraries/bootstrap/js/popover.js'
+scripts[] = 'libraries/bootstrap/js/scrollspy.js'
+scripts[] = 'libraries/bootstrap/js/tab.js'
+scripts[] = 'libraries/bootstrap/js/transition.js'
 
-; DEFAULT REGIONS
-regions[page_top] = Page Top
-regions[header] = Header
-regions[highlight] = Highlight
-regions[help] = Help
-regions[content] = Content
-regions[sidebar_first] = Sidebar First
-regions[sidebar_second] = Sidebar Second
+; ; Disable BootstrapCDN if using Bootstrap source files in your sub-theme.
+; settings[bootstrap_cdn] = ''
 
-regions[page_bottom] = Page Bottom
-regions[featured] = Featured
-regions[highlighted] = Highlighted
 
-regions[burgermenu] = Burger Menu
-regions[contactform] = Contact form
-regions[footer] = Footer
-regions[languageselect] = Language selection
-regions[breadcrumbs] = Navigation
-regions[news] = News thread
-regions[searchmodule] = Search
-regions[theyuseus] = They use emindhub
-regions[theyareexpert] = They are expert
-regions[timeline] = Timeline
-regions[topmenu] = Top menu
+; ;-------------------------
+; ; METHOD 2: Bootstrap CDN
+; ;-------------------------
+;
+; Method 2 uses BootstrapCDN, the only thing you might need to provide here
+; is overrides to Bootstrap theme settings. Copy them here from the base theme
+; to override.

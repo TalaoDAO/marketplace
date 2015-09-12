@@ -1,0 +1,33 @@
+
+.linkedin-auth-login-link a,
+.linkedin-auth-login-link-drupal-login-page a,
+.linkedin-auth-login-link-drupal-login-block a {
+  background: transparent url('ln16.png') no-repeat 0 50%;
+  padding: 0 18px;
+}
+.linkedin-auth-login-link-drupal-login-block a{
+  background: transparent url('ln16.png') no-repeat 0 50%;
+  padding: 0 20px;
+}
+
+.item-list ul li.linkedin-auth-login-link-linkedin-login-block{  
+  padding :0;
+  list-style-type: none ;  
+  font-weight:bold;
+  background-image: none;
+}
+.item-list ul li.linkedin-auth-login-link-linkedin-login-block a{
+  background: url('ln30.png') no-repeat 0 50%;
+  display:block;
+  line-height:32px;
+  padding-left:30px;
+}
+#user-login-form ul {
+  margin-top: 0;
+}
+#user-login ul {
+  margin: 0 0 5px;
+}
+#user-login ul li {
+  margin: 0;
+}

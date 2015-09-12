@@ -392,7 +392,7 @@ function ft_content_type_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'comment_webform';
-  $strongarm->value = '0';
+  $strongarm->value = '2';
   $export['comment_webform'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -705,13 +705,13 @@ function ft_content_type_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '8',
+          'weight' => '10',
         ),
       ),
       'display' => array(
         'webform' => array(
           'default' => array(
-            'weight' => '18',
+            'weight' => '10',
             'visible' => TRUE,
           ),
         ),
@@ -1129,7 +1129,7 @@ function ft_content_type_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_submitted_challenge';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
   $export['node_submitted_challenge'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -1157,14 +1157,14 @@ function ft_content_type_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_submitted_question1';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
   $export['node_submitted_question1'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_submitted_webform';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
   $export['node_submitted_webform'] = $strongarm;
 
   $strongarm = new stdClass();

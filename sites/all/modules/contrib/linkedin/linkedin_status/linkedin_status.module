@@ -1,0 +1,134 @@
+<?php
+
+/**
+ * @file Main hooks implementation for LinkedIn Profile module
+ */
+
+/**
+ * Implements hook_init().
+ */
+function linkedin_status_init() {
+  global $theme_path;
+  $li_css = $theme_path . '/linkedin_status.css';
+  if (file_exists($li_css)) {
+    drupal_add_css($li_css);
+  }
+  else {
+    drupal_add_css(drupal_get_path('module', 'linkedin_status') . '/linkedin_status.css');
+  }  
+  module_load_include('pages.inc', 'linkedin_status');
+}
+
+/*
+ * Implementationi of hook_perm()
+ */
+
+/**
+ * @todo Please document this function.
+ * @see http://drupal.org/node/1354
+ */
+function linkedin_status_permission() {
+  return array(
+    'update LinkedIn status' => array(
+      'title' => t('update LinkedIn status'),
+      'description' => t('Post to LInkedin on node edit/creation.'),
+    ),
+    'use custom status text' => array(
+      'title' => t('use custom status text'),
+      'description' => t('Change the text sent to LinkedIn when posting.'),
+    ),
+  );
+}
+
+/*
+ * Implementation of hook_linkedin_user_edit_perms :
+ * Let Linkedin module know what permissions are available at user/%user/edit/linkedin
+ */
+
+/**
+ * @todo Please document this function.
+ * @see http://drupal.org/node/1354
+ */
+function linkedin_status_linkedin_user_edit_perms() {
+  return array('update LinkedIn status');
+}
+
+/*
+ * hook_form_alter()
+ * Call the user form when needed.
+ */
+function linkedin_status_form_alter(&$form, &$form_state, $form_id) {  
+  //add posting form into nodes edit page and comments
+  if (isset($form['#node']) && user_access('update LinkedIn status')) {
+    if ($form['#node']->type . '_node_form' == $form_id && variable_get('linkedin_status_enabled_' . $form['#node']->type, 0) == 1) {
+      $node = $form['#node'];
+    }
+    elseif ('comment_node_' . $form['#node']->type . '_form' == $form_id && variable_get('linkedin_status_enabled_comment', 0) == 1) {
+      $node = node_load($form['nid']['#value']);
+    }
+    else {
+      return;
+    }
+    module_load_include('pages.inc', 'linkedin_status');
+    global $user;
+    $array = array();
+    $form['linkedin'] = linkedin_status_update_form_elements($node, $user);
+    array_unshift($form['#submit'], 'linkedin_status_update_form_submit');
+  }
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+function linkedin_status_node_insert($node) {
+  if ($node->linkedin_status['posting'] == '1' && !empty($node->linkedin_status['status'])) {
+    global $user;    
+    linkedin_status_set_status($node->linkedin_status['status'], $node);
+  }
+}
+
+/**
+ * Invokes hook_li_placeholders, hook_li_body, and hook_li_set_status
+ */
+function linkedin_status_set_status($status, $node) {
+  global $user;
+  $placeholders = module_invoke_all('li_placeholders', $node);
+  $body = module_invoke_all('li_body', $status, $placeholders);
+  drupal_alter('linkedin_status_set_status', $body, $node);
+  module_invoke_all('li_set_status', $user->uid, $body);
+}
+
+/**
+ * Implements hook_li_placeholders().
+ */
+function linkedin_status_li_placeholders($node) {
+  global $user;
+  global $base_url;
+  $placeholders = array(
+    '!title' => $node->title,
+    '!url' => url('node/' . $node->nid, array('absolute' => TRUE)),
+    '!user' => $user->name,
+    '!site' => variable_get('site_name', $base_url),
+  );
+  return $placeholders;
+}
+
+/**
+ * Implements hook_li_body().
+ */
+function linkedin_status_li_body($status, $placeholders) {
+  global $user;
+  $body['comment'] = strtr($status, $placeholders);
+  $body['title'] = $placeholders['!title'];
+  $body['submitted-url'] = $placeholders['!url'];
+  return $body;
+}
+
+/**
+ * Implements hook_li_set_status().
+ */
+function linkedin_status_li_set_status($uid, $status) {
+  global $user;
+  linkedin_put_profile_field($user->uid, $status, 'shares');
+  drupal_set_message(t('Posted to LinkedIn'));
+}

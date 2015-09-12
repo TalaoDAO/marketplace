@@ -190,8 +190,6 @@ class PrivatemsgTagsTestCase extends PrivatemsgBaseTestCase {
   function testTagsAdministration() {
     // Create users.
     $admin = $this->drupalCreateuser(array('administer privatemsg settings', 'read privatemsg', 'write privatemsg', 'tag private messages', 'create private message tags'));
-    $webuser = $this->drupalCreateuser(array('read privatemsg', 'write privatemsg', 'tag private messages', 'create private message tags'));
-
     // Prepare data.
     $private = array(
       'tag' => $this->randomName(10),
@@ -233,7 +231,7 @@ class PrivatemsgTagsTestCase extends PrivatemsgBaseTestCase {
       $this->assertText($tag['tag'], t('Tag %tag displayed', array('%tag' => $tag['tag'])));
     }
 
-    // Verfiy private/public flag.
+    // Verify private/public flag.
     $rows = $this->xpath('//table/tbody/tr');
     foreach ($rows as $row) {
       // Index 0 is tag name.
@@ -299,7 +297,7 @@ class PrivatemsgTagsTestCase extends PrivatemsgBaseTestCase {
     $thread_id1 = $response['message']->thread_id;
 
     $response = privatemsg_new_thread(array($webuser), $subject2 = $this->randomName(10), $this->randomName(20), array('author' => $admin));
-    $thread_id2 = $response['message']->thread_id;
+    $response['message']->thread_id;
 
     // Log in and check that both messages are visible.
     $this->drupalLogin($webuser);
@@ -468,8 +466,7 @@ class PrivatemsgFilterWidgetTestCase extends PrivatemsgBaseTestCase {
     $this->assertNoFieldById('edit-author');
 
     // Create a new thread from user 1 through the api.
-    $response = privatemsg_new_thread(array($user2), $subject = $this->randomName(10), $body = $this->randomName(20), array('author' => $user1));
-    $thread_id = $response['message']->thread_id;
+    $response = privatemsg_new_thread(array($user2), $subject = $this->randomName(10), $this->randomName(20), array('author' => $user1));
 
     $this->drupalGet('messages');
 
@@ -488,8 +485,7 @@ class PrivatemsgFilterWidgetTestCase extends PrivatemsgBaseTestCase {
     $this->assertText($subject);
 
     // Create a new thread through the api.
-    $response = privatemsg_new_thread(array($user2), $subject2 = $this->randomName(10), $body2 = $this->randomName(20), array('author' => $user3));
-    $thread_id = $response['message']->thread_id;
+    $response = privatemsg_new_thread(array($user2), $subject2 = $this->randomName(10), $this->randomName(20), array('author' => $user3));
 
     // Make sure that the new message is displayed.
     $this->drupalGet('messages');

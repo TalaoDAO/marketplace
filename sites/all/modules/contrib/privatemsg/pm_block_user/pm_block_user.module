@@ -112,7 +112,7 @@ function pm_block_user_privatemsg_autocomplete_alter(&$matches, $names, $fragmen
 /**
  * Theme the user actions form.
  *
- * @ingroup themeable
+ * @ingroup theming
  */
 function theme_pm_block_user_actions($form) {
   // @todo: Something is wrong, remove this hack.
@@ -347,7 +347,7 @@ function pm_block_user_privatemsg_message_view_alter(&$vars) {
  * Implements hook_user_cancel().
  */
 function pm_block_user_user_cancel($edit, $account, $method) {
-  // Always delete, we don't need to keepy anonymous blocking rules.
+  // Always delete, we don't need to keep anonymous blocking rules.
   db_delete('pm_block_user')
     ->condition(db_or()
       ->condition('author', $account->uid)

@@ -22,7 +22,7 @@ class PrivatemsgRolesTestCase extends PrivatemsgBaseTestCase {
   }
 
   function testSendMessagetoRoleAPI() {
-    $admin = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg', 'write privatemsg to roles'));
+    $admin = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg', 'write privatemsg to all roles'));
     $user1 = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg'));
     $user2 = $this->drupalCreateUser();
 
@@ -44,11 +44,10 @@ class PrivatemsgRolesTestCase extends PrivatemsgBaseTestCase {
   }
 
   function testSendMessagetoRoleCron() {
-    $admin = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg', 'write privatemsg to roles'));
     $user1 = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg'));
 
     variable_set('privatemsg_recipient_small_threshold', 20);
-    variable_set('privatemgs_cron_recipient_per_run', 20);
+    variable_set('privatemsg_cron_recipient_per_run', 20);
 
     // Create 26 users (more than are allowed to be process directly).
     $users = array();
@@ -59,15 +58,22 @@ class PrivatemsgRolesTestCase extends PrivatemsgBaseTestCase {
       user_save($users[$i], $edit);
     }
 
-    $recipient = user_role_load($user1->roles[4]);
+    // Update permissions.
+    $this->checkPermissions(array(), TRUE);
+
+    $recipient = user_role_load($user1->roles[3]);
     $recipient->recipient = $recipient->rid;
     $recipient->type = 'role';
+
+    // Create user with specific role permission.
+    $admin = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg', 'write privatemsg to role ' . $recipient->name));
+
     privatemsg_new_thread(array($recipient), $subject = $this->randomName(10), $body = $this->randomName(50), array('author' => $admin));
 
     // Run cron.
     privatemsg_cron();
 
-    // Test a few recipients to see if they recieved the message.
+    // Test a few recipients to see if they received the message.
     foreach (array(0, 5, 18) as $uid) {
       $this->drupalLogin($users[$uid]);
       $this->drupalGet('messages');
@@ -77,7 +83,7 @@ class PrivatemsgRolesTestCase extends PrivatemsgBaseTestCase {
       $this->assertText($body, t('Thread starter body displayed.'));
     }
 
-    // Make sure that user 20 has not yet recieved the message.
+    // Make sure that user 20 has not yet received the message.
     $this->drupalLogin($users[20]);
     $this->drupalGet('messages');
     $this->assertNoText($subject, t('Message is not yet displayed for this user'));
@@ -97,7 +103,7 @@ class PrivatemsgRolesTestCase extends PrivatemsgBaseTestCase {
   }
 
   function testSendMessagetoRoleBatch() {
-    $admin = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg', 'write privatemsg to roles'));
+    $admin = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg', 'write privatemsg to all roles'));
     $user1 = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg'));
 
     variable_set('privatemsg_recipient_small_threshold', 20);
@@ -120,7 +126,7 @@ class PrivatemsgRolesTestCase extends PrivatemsgBaseTestCase {
     $this->drupalPost('messages/new', $edit, t('Send message'));
     $this->assertText(t('A message has been sent to @role (role).', array('@role' => user_role_load($user1->roles[4])->name)));
 
-    // Test a few recipients to see if they all recieved the message.
+    // Test a few recipients to see if they all received the message.
     foreach ($users as $user) {
       $this->drupalLogin($user);
       $this->drupalGet('messages');
@@ -133,8 +139,13 @@ class PrivatemsgRolesTestCase extends PrivatemsgBaseTestCase {
 
   function testPermission() {
     $user1 = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg'));
-    $user2 = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg'));
-    $this->drupalLogin($user1);
+    // Update permissions.
+    $this->checkPermissions(array(), TRUE);
+    // Give permission to write only a specific role.
+    $role_name = user_role_load($user1->roles[3])->name;
+    $user2 = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg', 'write privatemsg to role ' . $role_name));
+
+    $this->drupalLogin($user2);
 
     // Send a message to the role of user 1 and 2.
     $edit = array(
@@ -147,23 +158,29 @@ class PrivatemsgRolesTestCase extends PrivatemsgBaseTestCase {
   }
 
   function testSendMessageToRole() {
-    $admin = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg', 'write privatemsg to roles'));
     $user1 = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg'));
     $user2 = $this->drupalCreateUser(array('view roles recipients'));
 
     // Add role of user 1 to user 2;
     $edit = array('roles' => $user2->roles + $user1->roles);
     user_save($user2, $edit);
+
+    // Update permissions.
+    $this->checkPermissions(array(), TRUE);
+
+    $role_name = user_role_load($user1->roles[3])->name;
+    $admin = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg', 'view roles recipients', 'write privatemsg to role ' . $role_name));
     $this->drupalLogin($admin);
 
+
     // Verify autocomplete feature.
-    $role_name = user_role_load($user1->roles[4])->name;
+    $role_name = user_role_load($user1->roles[3])->name;
     $json = $this->drupalGet('messages/autocomplete/' . drupal_substr($role_name, 0, 2));
     $autocomplete = (array)json_decode($json);
     $this->assertEqual($autocomplete[$role_name . ', '], $role_name);
 
     // Access the form through a url that pre-fills the recipient field.
-    $this->drupalGet('messages/new/role_4');
+    $this->drupalGet('messages/new/role_3');
 
     // Send a message to the role of user 1 and 2.
     $edit = array(
@@ -171,7 +188,7 @@ class PrivatemsgRolesTestCase extends PrivatemsgBaseTestCase {
       'body[value]' => $this->randomName(50),
     );
     $this->drupalPost(NULL, $edit, t('Send message'));
-    $this->assertText(t('A message has been sent to @role (role).', array('@role' => user_role_load($user1->roles[4])->name)));
+    $this->assertText(t('A message has been sent to @role (role).', array('@role' => $role_name)));
 
     // Log in as user1 and check that the message is listed, is marked as new
     // and can be marked as read.
@@ -221,7 +238,7 @@ class PrivatemsgRolesTestCase extends PrivatemsgBaseTestCase {
   }
 
   function testSendMessageToRoleBlocked() {
-    $admin = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg', 'write privatemsg to roles'));
+    $admin = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg', 'write privatemsg to all roles'));
     $user1 = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg'));
     $user2 = $this->drupalCreateUser();
 
@@ -264,7 +281,7 @@ class PrivatemsgRolesTestCase extends PrivatemsgBaseTestCase {
   }
 
   function testNewUser() {
-    $admin = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg', 'write privatemsg to roles'));
+    $admin = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg', 'write privatemsg to all roles'));
     $user1 = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg'));
 
     // Send a message to the role of user 1.
@@ -287,5 +304,34 @@ class PrivatemsgRolesTestCase extends PrivatemsgBaseTestCase {
 
     $this->drupalGet('messages');
     $this->assertNoText($edit['subject'], t('Newly added user does not see the old message sent to his role'));
+  }
+
+  /**
+   * Verify that deleting a user does not leave stale data behind.
+   */
+  function testDeleteUser() {
+    $admin = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg', 'write privatemsg to all roles'));
+    $user = $this->drupalCreateUser(array('read privatemsg', 'write privatemsg'));
+
+    // Send a message to the role of user 1.
+    $role_name = user_role_load(4)->name;
+    $this->drupalLogin($admin);
+    $edit = array(
+      'recipient' => $role_name . '[role]',
+      'subject' => $this->randomName(10),
+      'body[value]' => $this->randomName(50),
+    );
+    $this->drupalPost('messages/new', $edit, t('Send message'));
+    $this->assertText(t('A message has been sent to @role (role).', array('@role' => $role_name)));
+
+    $this->drupalLogin($user);
+
+    $this->drupalGet('messages');
+    $this->assertText($edit['subject'], t('Message sent to role is visible.'));
+
+    // Delete user and make sure that no recipient entries of him are left in
+    // table.
+    user_delete($user->uid);
+    $this->assertFalse(db_query_range("SELECT 1 FROM {pm_index} WHERE recipient = :recipient AND type IN ('user', 'hidden')", 0, 1, array(':recipient' => $user->uid))->fetchField());
   }
 }

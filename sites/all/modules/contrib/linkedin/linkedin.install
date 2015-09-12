@@ -1,0 +1,88 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the linkedin module.
+ *
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function linkedin_schema() {
+  $schema['linkedin_token'] = array(
+    'description' => 'Tokens for request and services accesses.',
+    'fields' => array(
+      'uid' => array(
+        'description' => 'User ID from {user}.uid.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'token_key' => array(
+        'description' => 'Tokens for request and services accesses.',
+        'type' => 'varchar',
+        'length' => 100,
+        'not null' => TRUE,
+      ),
+      'token_secret' => array(
+        'description' => 'Token "password".',
+        'type' => 'varchar',
+        'length' => 100,
+        'not null' => TRUE,
+      ),
+      'type' => array(
+        'description' => 'Type of the token: request or access.',
+        'type' => 'varchar',
+        'length' => 7,
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('uid'),
+    'indexes' => array(
+      'token_key_type' => array('token_key'),
+    ),
+  );
+  return $schema;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function linkedin_uninstall() {
+  // Delete variables
+  variable_del('linkedin_consumer_key');
+  variable_del('linkedin_consumer_secret');
+  $types = node_type_get_names();
+  array_push($types, 'event_signup');
+  foreach ($types as $type) {
+    $type = strtolower($type);
+    variable_del('linkedin_enabled_' . $type);
+    variable_del('linkedin_default_format_' . $type);
+  }
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function linkedin_requirements($phase) {
+  $requirements = array();
+  $t = get_t();
+  $has_curl = function_exists('curl_init');
+  $requirements['curl'] = array(
+    'title' => $t('cURL'),
+    'value' => $has_curl ? $t('Enabled') : $t('Not found'),
+  );
+  if (!$has_curl) {
+    $requirements['curl']['severity'] = REQUIREMENT_ERROR;
+    $requirements['curl']['description'] = $t('Linkedin module could not be installed because the PHP <a href="@curl_url">cURL</a> library is not available.', array('@curl_url' => 'http://php.net/manual/en/curl.setup.php'));
+  }
+  return $requirements;
+}
+
+/**
+ * Remove unused variable linkedin_auth_login_block.
+ */
+function linkedin_update_7100() {
+  variable_del('linkedin_auth_login_block');
+}

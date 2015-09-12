@@ -1,0 +1,151 @@
+form {
+
+	/* FORMS
+	 * General
+	 */
+	> * > .form-item-title,
+	.field-group-fieldset,
+	.field-group-div {
+		padding: 15px;
+		margin-bottom: 15px;
+		background-color: @lightGrey;
+		> .form-group:last-child,
+		> .form-group:last-child .form-group:last-child {
+			margin-bottom: 0;
+		}
+	}
+	legend,
+	h2 {
+		.h4;
+		padding: 0 0 5px;
+		margin-bottom: 15px !important; // .overrides.css
+		float: left;
+		display: block;
+		width: 100%;
+		line-height: 1em;
+		margin: 0;
+		border-bottom: 1px solid @legend-border-color;
+	}
+	label {
+		line-height: 18px;
+	}
+	.group-hidden {
+		opacity: 0;
+		visibility: hidden;
+		display: none;
+	}
+
+
+	/* FORMS
+	 * Fields
+	 */
+	// Date
+	.field-widget-date-popup {
+		.badge.help-tip {
+			margin-left: 5px;
+		}
+		input {
+			float: left;
+		}
+	}
+
+	// Adress
+	.field-type-addressfield {
+		margin-bottom: 0;
+	}
+
+	// Years of experience
+	.field-type-number-integer {
+		.form-control {
+			.text-center;
+			max-width: 50px;
+		}
+	}
+
+	// Website
+	.form-type-link-field {
+		> label {
+			// .text-hide;
+		}
+	}
+
+	// Upload file + image
+	.file-widget,
+	.field-type-image,
+	.image-widget-data {
+		.file-return,
+		.file-upload span {
+			display: none;
+		}
+		input.form-file {
+			height: auto;
+		}
+		span.file {
+			word-wrap: break-word;
+		}
+
+		@media (max-width: @screen-sm-min) {
+			span.input-group-btn,
+			.form-submit {
+				display: inline-block;
+				margin-top: 5px;
+			}
+		}
+
+		@media (min-width: @screen-sm-min) {
+			.make-row();
+			width: 100%;
+			margin: 0;
+			.file-upload {
+				.make-sm-column(8);
+				padding: 0;
+			}
+			span.input-group-btn,
+			.form-submit {
+				float: left;
+				width: auto;
+			}
+			span.file {
+				.make-sm-column(10);
+				padding: 0;
+			}
+		}
+	}
+
+  // Boutons submit + légende
+  .form-row {
+    display: table;
+    width: 100%;
+    // max-width: 500px;
+    > * {
+      display: table-cell;
+    }
+  }
+  .form-mandatory {
+    .text-right;
+    line-height: 32px;
+  }
+
+  // Enlever le gras et le curseur sur certains labels
+  .form-group.form-type-checkbox,
+  .form-group.form-type-bef-checkbox,
+  .form-group.views-exposed-form,
+	.form-radios {
+    input {
+      position: absolute;
+    }
+    label {
+      font-weight: normal; // forms.css
+      cursor: pointer;
+      word-wrap: break-word;
+      margin-left: 20px;
+    }
+  }
+
+	.form-radios {
+		.form-group {
+			margin-bottom: 0;
+		}
+	}
+
+}
