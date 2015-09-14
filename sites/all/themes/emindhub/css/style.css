@@ -14016,46 +14016,49 @@ aside .block .content {
   border: 4px solid #009fe3;
   border-radius: 100%;
 }
-.view-query-list form .form-group {
+#block-views-query-list-block .block-title {
+  margin-top: 0;
+}
+#block-views-query-list-block form .form-group {
   margin-bottom: 0;
 }
-.view-query-list form #edit-uid-current-wrapper {
+#block-views-query-list-block form #edit-uid-current-wrapper {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 767px) {
-  .view-query-list form #edit-uid-current-wrapper {
+  #block-views-query-list-block form #edit-uid-current-wrapper {
     float: left;
     width: 25%;
   }
 }
-.view-query-list form #edit-status-1-wrapper {
+#block-views-query-list-block form #edit-status-1-wrapper {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 767px) {
-  .view-query-list form #edit-status-1-wrapper {
+  #block-views-query-list-block form #edit-status-1-wrapper {
     float: left;
     width: 25%;
   }
 }
-.view-query-list .views-field-field-picto {
+#block-views-query-list-block .views-field-field-picto {
   text-align: center;
 }
-.view-query-list .views-field-created {
+#block-views-query-list-block .views-field-created {
   text-align: center;
 }
-.view-query-list .views-field-field-expiration-date {
+#block-views-query-list-block .views-field-field-expiration-date {
   text-align: center;
 }
-.view-query-list .views-field-field-reward {
+#block-views-query-list-block .views-field-field-reward {
   text-align: right;
 }
-.view-query-list .views-field-nothing {
+#block-views-query-list-block .views-field-nothing {
   text-align: right;
 }
 #block-progress-tracker-progress-tracker .block-title {
