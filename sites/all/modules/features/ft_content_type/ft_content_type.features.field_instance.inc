@@ -5112,6 +5112,42 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_is_partner'
+  $field_instances['user-user-field_is_partner'] = array(
+    'bundle' => 'user',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 7,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_is_partner',
+    'label' => 'Is partner',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 10,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_is_promoted'
   $field_instances['user-user-field_is_promoted'] = array(
     'bundle' => 'user',
@@ -5482,6 +5518,39 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_partner_why'
+  $field_instances['user-user-field_partner_why'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 6,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_partner_why',
+    'label' => 'Why did I choose to become a partner?',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 8,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_photo'
   $field_instances['user-user-field_photo'] = array(
     'bundle' => 'user',
@@ -5812,6 +5881,39 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_sponsor_why'
+  $field_instances['user-user-field_sponsor_why'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_sponsor_why',
+    'label' => 'Why did I choose to become a sponsor?',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 9,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_sponsorship'
   $field_instances['user-user-field_sponsorship'] = array(
     'bundle' => 'user',
@@ -6113,6 +6215,7 @@ function ft_content_type_field_default_field_instances() {
   t('How often do you want to receive eMindHub\'s notifications?');
   t('I choose to make public all this information in my profile');
   t('Image');
+  t('Is partner');
   t('Is promoted');
   t('Is sponsor');
   t('Last Name');
@@ -6153,6 +6256,8 @@ function ft_content_type_field_default_field_instances() {
   t('Use this field if you want to restrict Alert to some users');
   t('User List');
   t('Video');
+  t('Why did I choose to become a partner?');
+  t('Why did I choose to become a sponsor?');
   t('Working Status');
   t('Years of experience');
   t('Your activity');
