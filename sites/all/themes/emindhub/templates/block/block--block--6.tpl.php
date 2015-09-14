@@ -50,13 +50,13 @@ global $base_url;
 
   <?php print render($title_prefix); ?>
   <?php if ($title): ?>
-  <a href="<?php print $base_url . '/' . drupal_get_path_alias('node/337'); ?>"><h2<?php print $title_attributes; ?>><span><?php print $title; ?></span></h2></a>
+  <a href="<?php print $base_url . '/' . drupal_get_path_alias('fields-of-expertise'); ?>"><h2<?php print $title_attributes; ?>><span><?php print $title; ?></span></h2></a>
   <?php endif;?>
   <?php print render($title_suffix); ?>
 
   <?php if ($content): ?>
     <div class="content">
-      <a href="<?php print $base_url . '/' . drupal_get_path_alias('node/337'); ?>"><?php print $content ?></a>
+      <a href="<?php print $base_url . '/' . drupal_get_path_alias('fields-of-expertise'); ?>"><?php print $content ?></a>
     </div>
   <?php endif;?>
 
