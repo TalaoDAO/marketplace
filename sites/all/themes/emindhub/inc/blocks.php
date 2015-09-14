@@ -165,17 +165,22 @@ function emindhub_preprocess_block(&$vars) {
       $classes[] = 'emh-block-blue-title';
       break;
 
-    // News (2 items)
+    // News
     case 'views-news_thread-block':
-      $classes[] = 'emh-block-dark-title';
       $classes[] = 'emh-block-dark';
+      $classes[] = 'emh-block-slider';
+      if (user_is_logged_in()) :
+        $classes[] = 'emh-block-blue-title';
+      else :
+        $classes[] = 'emh-block-dark-title';
+      endif;
       break;
 
     // News (1 items)
-    case 'views-news_thread-block_2':
-      $classes[] = 'emh-block-blue-title';
-      $classes[] = 'emh-block-dark';
-      break;
+    // case 'views-news_thread-block_2':
+    //   $classes[] = 'emh-block-blue-title';
+    //   $classes[] = 'emh-block-dark';
+    //   break;
 
     // More about us ?
     case 'formblock-contact_site':

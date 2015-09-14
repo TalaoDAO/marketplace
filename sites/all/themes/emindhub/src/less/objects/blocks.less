@@ -466,6 +466,14 @@ aside {
 			}
 		}
 	}
+	.carousel-control {
+	  &.left {
+			#gradient > .horizontal(@start-color: rgba(68,87,102,.5); @end-color: rgba(68,87,102,.0001));
+	  }
+	  &.right {
+			#gradient > .horizontal(@start-color: rgba(68,87,102,.0001); @end-color: rgba(68,87,102,.5));
+	  }
+	}
 }
 
 
