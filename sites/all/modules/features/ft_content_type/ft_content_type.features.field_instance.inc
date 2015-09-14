@@ -506,6 +506,51 @@ function ft_content_type_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'entity_legal_document_version-terms_of_use-entity_legal_document_text'
+  $field_instances['entity_legal_document_version-terms_of_use-entity_legal_document_text'] = array(
+    'bundle' => 'terms_of_use',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(
+          'trim_length' => 600,
+        ),
+        'type' => 'text_summary_or_trimmed',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'entity_legal_document_version',
+    'field_name' => 'entity_legal_document_text',
+    'label' => 'Document text',
+    'required' => FALSE,
+    'settings' => array(
+      'display_summary' => TRUE,
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 20,
+        'summary_rows' => 5,
+      ),
+      'type' => 'text_textarea_with_summary',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance:
   // 'field_collection_item-field_position_list-field_entreprise'
   $field_instances['field_collection_item-field_position_list-field_entreprise'] = array(
     'bundle' => 'field_position_list',
@@ -6200,6 +6245,7 @@ function ft_content_type_field_default_field_instances() {
   t('Desired starting date');
   t('Determine if this is an OG group.');
   t('Document');
+  t('Document text');
   t('Domain(s)');
   t('Duration of the mission');
   t('Entreprise type');
