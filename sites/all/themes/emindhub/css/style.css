@@ -9744,8 +9744,8 @@ button.close {
 .bef-select-as-checkboxes:after,
 .bef-select-as-checkboxes .bef-checkboxes:before,
 .bef-select-as-checkboxes .bef-checkboxes:after,
-#block-block-16 .content ul:before,
-#block-block-16 .content ul:after,
+#block-block-11 .content ul:before,
+#block-block-11 .content ul:after,
 #block-progress-tracker-progress-tracker ul.progress-tracker:before,
 #block-progress-tracker-progress-tracker ul.progress-tracker:after,
 .form-type-password-confirm:before,
@@ -9785,7 +9785,7 @@ form#user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox:after,
 .views-exposed-form .views-exposed-widgets:after,
 .bef-select-as-checkboxes:after,
 .bef-select-as-checkboxes .bef-checkboxes:after,
-#block-block-16 .content ul:after,
+#block-block-11 .content ul:after,
 #block-progress-tracker-progress-tracker ul.progress-tracker:after,
 .form-type-password-confirm:after,
 form#user-profile-form .link-field-subrow:after,
@@ -13573,8 +13573,8 @@ aside .block .content {
 #block-block-7 .content p:last-of-type {
   color: #8CD4F2;
 }
-#block-block-8 p:first-of-type,
-#block-block-8 p:last-of-type strong {
+#block-block-15 p:first-of-type,
+#block-block-15 p:last-of-type strong {
   color: #009FE3;
 }
 #block-block-9 p:first-of-type,
@@ -13582,37 +13582,37 @@ aside .block .content {
   color: #C89234;
 }
 #block-block-10 .content,
-#block-block-11 .content,
-#block-block-12 .content {
+#block-block-8 .content,
+#block-block-16 .content {
   background-repeat: no-repeat;
 }
 #block-block-10 a,
-#block-block-11 a,
-#block-block-12 a {
+#block-block-8 a,
+#block-block-16 a {
   display: block;
   text-decoration: none;
 }
 #block-block-10 a span.default-text,
-#block-block-11 a span.default-text,
-#block-block-12 a span.default-text {
+#block-block-8 a span.default-text,
+#block-block-16 a span.default-text {
   text-transform: uppercase;
   color: #009FE3;
   font-size: 18px;
 }
 #block-block-10 a span.default-text span,
-#block-block-11 a span.default-text span,
-#block-block-12 a span.default-text span {
+#block-block-8 a span.default-text span,
+#block-block-16 a span.default-text span {
   font-weight: bold;
 }
 #block-block-10 a span.default-text div,
-#block-block-11 a span.default-text div,
-#block-block-12 a span.default-text div {
+#block-block-8 a span.default-text div,
+#block-block-16 a span.default-text div {
   color: #4C6172;
   font-size: 14px;
 }
 #block-block-10 a span.hover,
-#block-block-11 a span.hover,
-#block-block-12 a span.hover {
+#block-block-8 a span.hover,
+#block-block-16 a span.hover {
   z-index: 100;
   cursor: pointer;
   transition: all 0.5s ease 0s;
@@ -13620,51 +13620,51 @@ aside .block .content {
   color: #FFF;
 }
 #block-block-10 a span.hover span,
-#block-block-11 a span.hover span,
-#block-block-12 a span.hover span {
+#block-block-8 a span.hover span,
+#block-block-16 a span.hover span {
   text-transform: uppercase;
   display: block;
 }
 @media (max-width: 767px) {
   #block-block-10 span.default-text,
-  #block-block-11 span.default-text,
-  #block-block-12 span.default-text {
+  #block-block-8 span.default-text,
+  #block-block-16 span.default-text {
     display: block;
     padding: 15px;
   }
   #block-block-10 span.default-text div,
-  #block-block-11 span.default-text div,
-  #block-block-12 span.default-text div {
+  #block-block-8 span.default-text div,
+  #block-block-16 span.default-text div {
     display: none !important;
   }
   #block-block-10 span.hover,
-  #block-block-11 span.hover,
-  #block-block-12 span.hover {
+  #block-block-8 span.hover,
+  #block-block-16 span.hover {
     display: block;
     padding: 15px;
   }
 }
 @media (min-width: 767px) {
   #block-block-10 .content,
-  #block-block-11 .content,
-  #block-block-12 .content {
+  #block-block-8 .content,
+  #block-block-16 .content {
     background-position: 5% 50%;
     position: relative;
   }
   #block-block-10 a,
-  #block-block-11 a,
-  #block-block-12 a {
+  #block-block-8 a,
+  #block-block-16 a {
     padding: 4em 0.3em 2em 13em;
     height: 12em;
   }
   #block-block-10 a span.default-text span,
-  #block-block-11 a span.default-text span,
-  #block-block-12 a span.default-text span {
+  #block-block-8 a span.default-text span,
+  #block-block-16 a span.default-text span {
     display: block;
   }
   #block-block-10 a span.hover,
-  #block-block-11 a span.hover,
-  #block-block-12 a span.hover {
+  #block-block-8 a span.hover,
+  #block-block-16 a span.hover {
     display: none;
     z-index: 100;
     cursor: pointer;
@@ -13677,14 +13677,14 @@ aside .block .content {
     height: 12em;
   }
   #block-block-10 a span.hover span,
-  #block-block-11 a span.hover span,
-  #block-block-12 a span.hover span {
+  #block-block-8 a span.hover span,
+  #block-block-16 a span.hover span {
     position: absolute;
     bottom: 1.5em;
   }
   #block-block-10 a:hover span.hover,
-  #block-block-11 a:hover span.hover,
-  #block-block-12 a:hover span.hover {
+  #block-block-8 a:hover span.hover,
+  #block-block-16 a:hover span.hover {
     display: block;
   }
 }
@@ -13692,64 +13692,64 @@ aside .block .content {
   body.not-logged-in #block-block-10 .content {
     background-image: url("../images/askQuestion.png");
   }
-  body.not-logged-in #block-block-11 .content {
+  body.not-logged-in #block-block-8 .content {
     background-image: url("../images/launchChallenge.png");
   }
-  body.not-logged-in #block-block-12 .content {
+  body.not-logged-in #block-block-16 .content {
     background-image: url("../images/findExpert.png");
   }
   body.logged-in #block-block-10 .content {
     background-image: url("../images/answerQuestion.png");
   }
-  body.logged-in #block-block-11 .content {
+  body.logged-in #block-block-8 .content {
     background-image: url("../images/answerChallenge.png");
   }
-  body.logged-in #block-block-12 .content {
+  body.logged-in #block-block-16 .content {
     background-image: url("../images/answerExpertCall.png");
   }
   body.logged-in #block-block-10 .content a span.default-text,
-  body.logged-in #block-block-11 .content a span.default-text,
-  body.logged-in #block-block-12 .content a span.default-text {
+  body.logged-in #block-block-8 .content a span.default-text,
+  body.logged-in #block-block-16 .content a span.default-text {
     color: #4c6172;
   }
 }
-#block-block-15 .content {
+#block-block-12 .content {
   font-size: 16px;
 }
-#block-block-15 .content ul {
+#block-block-12 .content ul {
   list-style: none;
   padding: 0;
 }
-#block-block-15 .content ul li {
+#block-block-12 .content ul li {
   padding-left: 75px;
   background-repeat: no-repeat;
   background-position: top left;
   margin-bottom: 30px;
   min-height: 55px;
 }
-#block-block-15 .content ul li:first-child {
+#block-block-12 .content ul li:first-child {
   background-image: url("../images/atomium.png");
 }
-#block-block-15 .content ul li:last-child {
+#block-block-12 .content ul li:last-child {
   background-image: url("../images/people.png");
 }
-#block-block-15 .content strong {
+#block-block-12 .content strong {
   color: #009fe3;
   font-weight: inherit;
   display: block;
 }
-#block-block-16 .content {
+#block-block-11 .content {
   background: transparent url("../images/ondes.png") no-repeat center center;
   padding-top: 20px;
   padding-bottom: 20px;
 }
-#block-block-16 .content ul {
+#block-block-11 .content ul {
   list-style: none;
   padding: 0;
   margin-left: -15px;
   margin-right: -15px;
 }
-#block-block-16 .content ul li {
+#block-block-11 .content ul li {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
@@ -13757,17 +13757,17 @@ aside .block .content {
   text-transform: uppercase;
 }
 @media (min-width: 767px) {
-  #block-block-16 .content ul li {
+  #block-block-11 .content ul li {
     float: left;
     width: 33.33333333%;
   }
 }
 @media (min-width: 767px) {
-  #block-block-16 .content ul li.tip-experts {
+  #block-block-11 .content ul li.tip-experts {
     margin-left: 16.6667%;
   }
 }
-#block-block-16 .content ul li a {
+#block-block-11 .content ul li a {
   display: block;
   padding-top: 1.18em;
   padding-bottom: 1.18em;
@@ -13780,33 +13780,33 @@ aside .block .content {
   background-image: url("../images/cercle.png");
   height: 70px;
 }
-#block-block-18 .block-title,
-#block-block-19 .block-title,
-#block-block-20 .block-title {
+#block-block-20 .block-title,
+#block-block-21 .block-title,
+#block-block-19 .block-title {
   padding-top: 4.5em;
   padding-bottom: 0.5em;
   background-repeat: no-repeat;
   background-position: 50% 20%;
 }
-#block-block-18 .content,
-#block-block-19 .content,
-#block-block-20 .content {
+#block-block-20 .content,
+#block-block-21 .content,
+#block-block-19 .content {
   padding-bottom: 1.7em;
 }
 @media (min-width: 767px) {
-  #block-block-18 .content,
-  #block-block-19 .content,
-  #block-block-20 .content {
+  #block-block-20 .content,
+  #block-block-21 .content,
+  #block-block-19 .content {
     min-height: 83px;
   }
 }
-#block-block-18 .block-title {
+#block-block-20 .block-title {
   background-image: url("../images/rapidityHeader.png");
 }
-#block-block-19 .block-title {
+#block-block-21 .block-title {
   background-image: url("../images/securityHeader.png");
 }
-#block-block-20 .block-title {
+#block-block-19 .block-title {
   background-image: url("../images/qualityHeader.png");
 }
 #block-block-10 {
