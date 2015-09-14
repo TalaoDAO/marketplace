@@ -55,24 +55,10 @@
 
   <div class="content">
     <?php //print $content ?>
-
-    <?php if (!(user_is_logged_in())) : ?>
-    <a href="<?php print url("business/register"); ?>">
-      <span class="default-text"><?php print sprintf(c_szFindExpert, "<span>", "</span><div>", "</div>"); ?></span>
-      <span class="hover">
-        <?php echo c_szBuildSurvey; ?><br />
-        <span><?php echo c_szRegisterKnowMore; ?></span>
-      </span>
-    </a>
-    <?php else : ?>
-      <a href="<?php print url("query-list/all?type[webform]=webform"); ?>">
-        <span class="default-text">
-          <?php print t('Respond <span>to surveys</span>'); ?>
-          <div><?php print t('Learn more') ?></div>
-        </span>
-      </a>
-    <?php endif; ?>
-
+    <ul>
+      <li><strong><?php print c_szExperimentedPro; ?></strong><?php print c_szInYourNetwork; ?></li>
+      <li><strong><?php print c_szWithEmindhub; ?></strong><?php print c_szYouOrganize; ?></li>
+    </ul>
   </div>
 
 </section> <!-- /.block -->

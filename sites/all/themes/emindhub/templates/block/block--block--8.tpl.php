@@ -53,14 +53,26 @@
   <?php endif;?>
   <?php print render($title_suffix); ?>
 
-  <?php if ($content): ?>
-    <div class="content">
-      <?php //print $content; ?>
-      <a href="<?php print url('business/register'); ?>">
-        <p><?php print ('You have<br /><strong>a request</strong>'); ?></p>
-        <p><?php print t('<strong>Sign-up</strong> as a client and use eMindHub\'s services'); ?></p>
+  <div class="content">
+    <?php //print $content ?>
+
+    <?php if (!(user_is_logged_in())) : ?>
+    <a href="<?php print url("business/register"); ?>">
+      <span class="default-text"><?php echo sprintf(c_szCreateChallenge, "<span>", "</span><div>", "</div>"); ?></span>
+      <span class="hover">
+        <?php echo c_szCompeteExperts; ?><br />
+        <span><?php print c_szRegisterKnowMore; ?></span>
+      </span>
+    </a>
+    <?php else : ?>
+      <a href="<?php print url("query-list/all?type[challenge]=challenge"); ?>">
+        <span class="default-text">
+          <?php print t('Respond <span>to challenges</span>'); ?>
+          <div><?php print t('Learn more') ?></div>
+        </span>
       </a>
-    </div>
-  <?php endif;?>
+    <?php endif; ?>
+
+  </div>
 
 </section> <!-- /.block -->

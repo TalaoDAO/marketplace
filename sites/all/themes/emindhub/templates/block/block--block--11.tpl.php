@@ -55,24 +55,23 @@
 
   <div class="content">
     <?php //print $content ?>
-
-    <?php if (!(user_is_logged_in())) : ?>
-    <a href="<?php print url("business/register"); ?>">
-      <span class="default-text"><?php echo sprintf(c_szCreateChallenge, "<span>", "</span><div>", "</div>"); ?></span>
-      <span class="hover">
-        <?php echo c_szCompeteExperts; ?><br />
-        <span><?php print c_szRegisterKnowMore; ?></span>
-      </span>
-    </a>
-    <?php else : ?>
-      <a href="<?php print url("query-list/all?type[challenge]=challenge"); ?>">
-        <span class="default-text">
-          <?php print t('Respond <span>to challenges</span>'); ?>
-          <div><?php print t('Learn more') ?></div>
-        </span>
-      </a>
-    <?php endif; ?>
-
+    <ul>
+      <li class="tip-experts">
+        <a href="#" data-toggle="tooltip" data-placement="bottom" title="<?php print c_szWorldDb; ?>"><?php print c_szAll; ?> <br><?php print c_szAllExperts; ?></a>
+      </li>
+      <li class="tip-sponsored">
+        <a href="#" data-toggle="tooltip" data-placement="bottom" title="<?php print c_szSponsoredByPeers; ?>"><?php print c_szSponsored; ?> <br><?php print c_szExperts; ?></a>
+      </li>
+      <li class="tip-partners">
+        <a href="#" data-toggle="tooltip" data-placement="bottom" title="<?php print c_szYourPartnersAndEmployees; ?>"><?php print c_szYourNetwork; ?> <br><?php print c_szActive; ?></a>
+      </li>
+      <li class="tip-formers">
+        <a href="#" data-toggle="tooltip" data-placement="bottom" title="<?php print c_szOldsContributors; ?>"><?php print c_szYours; ?> <br><?php print c_szAlumnis; ?></a>
+      </li>
+      <li class="tip-circles">
+        <a href="#" data-toggle="tooltip" data-placement="bottom" title="<?php print c_szOnDemandCircles; ?>"><?php print c_szYouCircles; ?> <br><?php print c_szPrivates; ?></a>
+      </li>
+    </ul>
   </div>
 
 </section> <!-- /.block -->

@@ -73,19 +73,19 @@ function emindhub_preprocess_block(&$vars) {
       break;
 
     // HP - Ask a question
-    case 'block-10':
+    case 'block-14':
       $classes[] = 'col-sm-4';
       $classes[] = 'emh-block-grey';
       break;
 
     // HP - Start a challenge
-    case 'block-11':
+    case 'block-8':
       $classes[] = 'col-sm-4';
       $classes[] = 'emh-block-grey';
       break;
 
     // HP - Create a survey
-    case 'block-12':
+    case 'block-16':
       $classes[] = 'col-sm-4';
       $classes[] = 'emh-block-grey';
       break;
@@ -98,49 +98,49 @@ function emindhub_preprocess_block(&$vars) {
       break;
 
     // HP - About experts
-    case 'block-14':
+    case 'block-10':
       $classes[] = 'col-sm-12';
       $classes[] = 'emh-block-dark-title';
       $content = '';
       break;
 
     // HP - Experts : text
-    case 'block-15':
+    case 'block-12':
       $classes[] = 'col-sm-4';
       break;
 
     // HP - Experts : picto
-    case 'block-16':
+    case 'block-11':
       $classes[] = 'col-sm-8';
       break;
 
     // HP - Why use eMindHub ?
-    case 'block-17':
+    case 'block-18':
       $classes[] = 'col-sm-12';
       $classes[] = 'emh-block-dark-title';
       $content = '';
       break;
 
     // HP - Rapidity
-    case 'block-18':
-      $classes[] = 'col-sm-4';
-      $classes[] = 'emh-block-blue';
-      break;
-
-    // HP - Security
-    case 'block-19':
-      $classes[] = 'col-sm-4';
-      $classes[] = 'emh-block-blue';
-      break;
-
-    // HP - Quality
     case 'block-20':
       $classes[] = 'col-sm-4';
       $classes[] = 'emh-block-blue';
       break;
 
-    // HP - Welcome
+    // HP - Security
     case 'block-21':
+      $classes[] = 'col-sm-4';
+      $classes[] = 'emh-block-blue';
+      break;
+
+    // HP - Quality
+    case 'block-19':
+      $classes[] = 'col-sm-4';
+      $classes[] = 'emh-block-blue';
+      break;
+
+    // HP - Welcome
+    case 'block-17':
       $classes[] = 'col-sm-8';
       $classes[] = 'emh-block-blue-main-title';
       $content = '';

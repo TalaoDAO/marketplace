@@ -53,12 +53,14 @@
   <?php endif;?>
   <?php print render($title_suffix); ?>
 
-  <div class="content">
-    <?php //print $content ?>
-    <ul>
-      <li><strong><?php print c_szExperimentedPro; ?></strong><?php print c_szInYourNetwork; ?></li>
-      <li><strong><?php print c_szWithEmindhub; ?></strong><?php print c_szYouOrganize; ?></li>
-    </ul>
-  </div>
+  <?php if ($content): ?>
+    <div class="content">
+      <?php //print $content; ?>
+      <a href="<?php print url('business/register'); ?>">
+        <p><?php print ('You have<br /><strong>a request</strong>'); ?></p>
+        <p><?php print t('<strong>Sign-up</strong> as a client and use eMindHub\'s services'); ?></p>
+      </a>
+    </div>
+  <?php endif;?>
 
 </section> <!-- /.block -->
