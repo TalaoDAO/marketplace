@@ -13581,36 +13581,36 @@ aside .block .content {
 #block-block-9 p:last-of-type strong {
   color: #C89234;
 }
-#block-block-10 .content,
+#block-block-14 .content,
 #block-block-8 .content,
 #block-block-16 .content {
   background-repeat: no-repeat;
 }
-#block-block-10 a,
+#block-block-14 a,
 #block-block-8 a,
 #block-block-16 a {
   display: block;
   text-decoration: none;
 }
-#block-block-10 a span.default-text,
+#block-block-14 a span.default-text,
 #block-block-8 a span.default-text,
 #block-block-16 a span.default-text {
   text-transform: uppercase;
   color: #009FE3;
   font-size: 18px;
 }
-#block-block-10 a span.default-text span,
+#block-block-14 a span.default-text span,
 #block-block-8 a span.default-text span,
 #block-block-16 a span.default-text span {
   font-weight: bold;
 }
-#block-block-10 a span.default-text div,
+#block-block-14 a span.default-text div,
 #block-block-8 a span.default-text div,
 #block-block-16 a span.default-text div {
   color: #4C6172;
   font-size: 14px;
 }
-#block-block-10 a span.hover,
+#block-block-14 a span.hover,
 #block-block-8 a span.hover,
 #block-block-16 a span.hover {
   z-index: 100;
@@ -13619,25 +13619,25 @@ aside .block .content {
   background-color: #4C6172;
   color: #FFF;
 }
-#block-block-10 a span.hover span,
+#block-block-14 a span.hover span,
 #block-block-8 a span.hover span,
 #block-block-16 a span.hover span {
   text-transform: uppercase;
   display: block;
 }
 @media (max-width: 767px) {
-  #block-block-10 span.default-text,
+  #block-block-14 span.default-text,
   #block-block-8 span.default-text,
   #block-block-16 span.default-text {
     display: block;
     padding: 15px;
   }
-  #block-block-10 span.default-text div,
+  #block-block-14 span.default-text div,
   #block-block-8 span.default-text div,
   #block-block-16 span.default-text div {
     display: none !important;
   }
-  #block-block-10 span.hover,
+  #block-block-14 span.hover,
   #block-block-8 span.hover,
   #block-block-16 span.hover {
     display: block;
@@ -13645,24 +13645,24 @@ aside .block .content {
   }
 }
 @media (min-width: 767px) {
-  #block-block-10 .content,
+  #block-block-14 .content,
   #block-block-8 .content,
   #block-block-16 .content {
     background-position: 5% 50%;
     position: relative;
   }
-  #block-block-10 a,
+  #block-block-14 a,
   #block-block-8 a,
   #block-block-16 a {
     padding: 4em 0.3em 2em 13em;
     height: 12em;
   }
-  #block-block-10 a span.default-text span,
+  #block-block-14 a span.default-text span,
   #block-block-8 a span.default-text span,
   #block-block-16 a span.default-text span {
     display: block;
   }
-  #block-block-10 a span.hover,
+  #block-block-14 a span.hover,
   #block-block-8 a span.hover,
   #block-block-16 a span.hover {
     display: none;
@@ -13676,13 +13676,13 @@ aside .block .content {
     padding: 1.5em 2.12em;
     height: 12em;
   }
-  #block-block-10 a span.hover span,
+  #block-block-14 a span.hover span,
   #block-block-8 a span.hover span,
   #block-block-16 a span.hover span {
     position: absolute;
     bottom: 1.5em;
   }
-  #block-block-10 a:hover span.hover,
+  #block-block-14 a:hover span.hover,
   #block-block-8 a:hover span.hover,
   #block-block-16 a:hover span.hover {
     display: block;
