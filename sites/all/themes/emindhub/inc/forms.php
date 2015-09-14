@@ -437,6 +437,11 @@ function emindhub_form_user_register_form_alter(&$form, &$form_state, $form_id) 
     '#weight' => '-1000', // First !
   );
 
+  $form['emh_content'] = array(
+    '#markup' => '<p>' . t('You can directly login with your LinkedIn account or complete the form below to create your account.') . '</p>',
+    '#weight' => '-999',
+  );
+
   // Add class before & after fields
   $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_last_name']['#suffix'] = '</div>';
