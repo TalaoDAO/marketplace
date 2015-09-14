@@ -11,6 +11,112 @@ function ft_views_views_default_views() {
   $export = array();
 
   $view = new view();
+  $view->name = 'blog';
+  $view->description = 'Blog view, with filter by domain';
+  $view->tag = 'emh';
+  $view->base_table = 'node';
+  $view->human_name = 'Blog';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Blog';
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['row_plugin'] = 'node';
+  /* Header: Global: Text area */
+  $handler->display->display_options['header']['area']['id'] = 'area';
+  $handler->display->display_options['header']['area']['table'] = 'views';
+  $handler->display->display_options['header']['area']['field'] = 'area';
+  $handler->display->display_options['header']['area']['content'] = '<ul class="action-links">
+          <li><a href="/dev-emindhub/node/add/blog">Post new blog entry.</a></li>
+        </ul>';
+  $handler->display->display_options['header']['area']['format'] = 'filtered_html';
+  /* Relationship: Content: Author */
+  $handler->display->display_options['relationships']['uid']['id'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['table'] = 'node';
+  $handler->display->display_options['relationships']['uid']['field'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['required'] = TRUE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  /* Sort criterion: Content: Sticky */
+  $handler->display->display_options['sorts']['sticky']['id'] = 'sticky';
+  $handler->display->display_options['sorts']['sticky']['table'] = 'node';
+  $handler->display->display_options['sorts']['sticky']['field'] = 'sticky';
+  $handler->display->display_options['sorts']['sticky']['order'] = 'DESC';
+  /* Sort criterion: Content: Post date */
+  $handler->display->display_options['sorts']['created']['id'] = 'created';
+  $handler->display->display_options['sorts']['created']['table'] = 'node';
+  $handler->display->display_options['sorts']['created']['field'] = 'created';
+  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  /* Contextual filter: User: Name */
+  $handler->display->display_options['arguments']['name']['id'] = 'name';
+  $handler->display->display_options['arguments']['name']['table'] = 'users';
+  $handler->display->display_options['arguments']['name']['field'] = 'name';
+  $handler->display->display_options['arguments']['name']['relationship'] = 'uid';
+  $handler->display->display_options['arguments']['name']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['name']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['name']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['name']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['name']['limit'] = '0';
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'blog' => 'blog',
+  );
+  /* Filter criterion: Field: Domain(s) (field_domaine) */
+  $handler->display->display_options['filters']['field_domaine_tid']['id'] = 'field_domaine_tid';
+  $handler->display->display_options['filters']['field_domaine_tid']['table'] = 'field_data_field_domaine';
+  $handler->display->display_options['filters']['field_domaine_tid']['field'] = 'field_domaine_tid';
+  $handler->display->display_options['filters']['field_domaine_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_domaine_tid']['expose']['operator_id'] = 'field_domaine_tid_op';
+  $handler->display->display_options['filters']['field_domaine_tid']['expose']['label'] = 'Domain(s) (field_domaine)';
+  $handler->display->display_options['filters']['field_domaine_tid']['expose']['operator'] = 'field_domaine_tid_op';
+  $handler->display->display_options['filters']['field_domaine_tid']['expose']['identifier'] = 'field_domaine_tid';
+  $handler->display->display_options['filters']['field_domaine_tid']['expose']['remember'] = TRUE;
+  $handler->display->display_options['filters']['field_domaine_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_domaine_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+    9 => 0,
+  );
+  $handler->display->display_options['filters']['field_domaine_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_domaine_tid']['vocabulary'] = 'domaine';
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['path'] = 'blog';
+  $export['blog'] = $view;
+
+  $view = new view();
   $view->name = 'circle_members';
   $view->description = 'Newest group members.';
   $view->tag = 'emh';
@@ -243,6 +349,115 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_last_name']['element_label_colon'] = FALSE;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   $export['circle_members'] = $view;
+
+  $view = new view();
+  $view->name = 'domainlist';
+  $view->description = '';
+  $view->tag = 'emh, experimental';
+  $view->base_table = 'taxonomy_term_data';
+  $view->human_name = 'Domain List';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Fields of expertise';
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'none';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['grouping'] = array(
+    0 => array(
+      'field' => 'name_1',
+      'rendered' => 0,
+      'rendered_strip' => 0,
+    ),
+  );
+  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['default_field_elements'] = FALSE;
+  /* Relationship: Taxonomy term: Parent term */
+  $handler->display->display_options['relationships']['parent']['id'] = 'parent';
+  $handler->display->display_options['relationships']['parent']['table'] = 'taxonomy_term_hierarchy';
+  $handler->display->display_options['relationships']['parent']['field'] = 'parent';
+  $handler->display->display_options['relationships']['parent']['required'] = TRUE;
+  /* Field: Taxonomy term: Name */
+  $handler->display->display_options['fields']['name_1']['id'] = 'name_1';
+  $handler->display->display_options['fields']['name_1']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['name_1']['field'] = 'name';
+  $handler->display->display_options['fields']['name_1']['relationship'] = 'parent';
+  $handler->display->display_options['fields']['name_1']['label'] = '';
+  $handler->display->display_options['fields']['name_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['name_1']['element_label_colon'] = FALSE;
+  /* Field: Taxonomy term: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['label'] = '';
+  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['name']['element_default_classes'] = FALSE;
+  /* Field: Taxonomy term: State */
+  $handler->display->display_options['fields']['field_domain_state']['id'] = 'field_domain_state';
+  $handler->display->display_options['fields']['field_domain_state']['table'] = 'field_data_field_domain_state';
+  $handler->display->display_options['fields']['field_domain_state']['field'] = 'field_domain_state';
+  $handler->display->display_options['fields']['field_domain_state']['label'] = '';
+  $handler->display->display_options['fields']['field_domain_state']['element_label_colon'] = FALSE;
+  /* Field: Taxonomy term: Term ID */
+  $handler->display->display_options['fields']['tid']['id'] = 'tid';
+  $handler->display->display_options['fields']['tid']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['tid']['field'] = 'tid';
+  $handler->display->display_options['fields']['tid']['label'] = '';
+  $handler->display->display_options['fields']['tid']['element_label_colon'] = FALSE;
+  /* Field: Taxonomy term: Lead experts */
+  $handler->display->display_options['fields']['field_domain_lead_experts']['id'] = 'field_domain_lead_experts';
+  $handler->display->display_options['fields']['field_domain_lead_experts']['table'] = 'field_data_field_domain_lead_experts';
+  $handler->display->display_options['fields']['field_domain_lead_experts']['field'] = 'field_domain_lead_experts';
+  $handler->display->display_options['fields']['field_domain_lead_experts']['label'] = '';
+  $handler->display->display_options['fields']['field_domain_lead_experts']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_domain_lead_experts']['type'] = 'entityreference_entity_id';
+  $handler->display->display_options['fields']['field_domain_lead_experts']['settings'] = array(
+    'link' => 0,
+  );
+  /* Sort criterion: Taxonomy term: Weight */
+  $handler->display->display_options['sorts']['weight']['id'] = 'weight';
+  $handler->display->display_options['sorts']['weight']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['sorts']['weight']['field'] = 'weight';
+  /* Filter criterion: Taxonomy vocabulary: Machine name */
+  $handler->display->display_options['filters']['machine_name']['id'] = 'machine_name';
+  $handler->display->display_options['filters']['machine_name']['table'] = 'taxonomy_vocabulary';
+  $handler->display->display_options['filters']['machine_name']['field'] = 'machine_name';
+  $handler->display->display_options['filters']['machine_name']['value'] = array(
+    'domaine' => 'domaine',
+  );
+
+  /* Display: Block */
+  $handler = $view->new_display('block', 'Block', 'block');
+
+  /* Display: (P) Domain list */
+  $handler = $view->new_display('page', '(P) Domain list', 'page_1');
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  /* Header: Global: Text area */
+  $handler->display->display_options['header']['area']['id'] = 'area';
+  $handler->display->display_options['header']['area']['table'] = 'views';
+  $handler->display->display_options['header']['area']['field'] = 'area';
+  $handler->display->display_options['header']['area']['content'] = '<p>Every domain is regulated by, at least, one lead expert whose main mission is to encourage the experts to respond to the demands, to monitor the quality of the exchanges and to guarantee the strict compliance with the Charter.<br />All the lead experts form the emindhub scientific college.</p>
+<p class="legend"><span class="statut state-Active"><span class="legend">Active service</span></span><span class="statut state-Inactive"><span class="legend">Service soon opened</span></span></p>';
+  $handler->display->display_options['header']['area']['format'] = 'full_html';
+  $handler->display->display_options['path'] = 'fields-of-expertise';
+  $handler->display->display_options['menu']['type'] = 'normal';
+  $handler->display->display_options['menu']['title'] = 'Fields of expertise';
+  $handler->display->display_options['menu']['weight'] = '2';
+  $handler->display->display_options['menu']['name'] = 'menu-top-anonymous';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $export['domainlist'] = $view;
 
   $view = new view();
   $view->name = 'entreprise_list';
@@ -2706,6 +2921,189 @@ function ft_views_views_default_views() {
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
   $export['query_list'] = $view;
+
+  $view = new view();
+  $view->name = 'sponsors';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'users';
+  $view->human_name = 'Partners & Sponsors';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Partners';
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'none';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
+  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['hide_empty'] = TRUE;
+  $handler->display->display_options['row_options']['default_field_elements'] = FALSE;
+  /* Field: User: Photo */
+  $handler->display->display_options['fields']['field_photo']['id'] = 'field_photo';
+  $handler->display->display_options['fields']['field_photo']['table'] = 'field_data_field_photo';
+  $handler->display->display_options['fields']['field_photo']['field'] = 'field_photo';
+  $handler->display->display_options['fields']['field_photo']['label'] = '';
+  $handler->display->display_options['fields']['field_photo']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_photo']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_photo']['settings'] = array(
+    'image_style' => 'thumbnail',
+    'image_link' => '',
+  );
+  /* Field: User: First Name */
+  $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['label'] = '';
+  $handler->display->display_options['fields']['field_first_name']['element_label_colon'] = FALSE;
+  /* Field: User: Last Name */
+  $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['label'] = '';
+  $handler->display->display_options['fields']['field_last_name']['element_label_colon'] = FALSE;
+  /* Field: Field: Profile Title */
+  $handler->display->display_options['fields']['field_titre_metier']['id'] = 'field_titre_metier';
+  $handler->display->display_options['fields']['field_titre_metier']['table'] = 'field_data_field_titre_metier';
+  $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
+  $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
+  $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
+  /* Field: Field: Describe your work experience: degrees, companies, etc. */
+  $handler->display->display_options['fields']['field_employment_history']['id'] = 'field_employment_history';
+  $handler->display->display_options['fields']['field_employment_history']['table'] = 'field_data_field_employment_history';
+  $handler->display->display_options['fields']['field_employment_history']['field'] = 'field_employment_history';
+  $handler->display->display_options['fields']['field_employment_history']['label'] = 'Experience';
+  /* Field: User: Why did I choose to become a partner? */
+  $handler->display->display_options['fields']['field_partner_why']['id'] = 'field_partner_why';
+  $handler->display->display_options['fields']['field_partner_why']['table'] = 'field_data_field_partner_why';
+  $handler->display->display_options['fields']['field_partner_why']['field'] = 'field_partner_why';
+  $handler->display->display_options['fields']['field_partner_why']['label'] = 'Why did I choose to be a partner?';
+  $handler->display->display_options['fields']['field_partner_why']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_partner_why']['element_default_classes'] = FALSE;
+  /* Sort criterion: User: Last Name (field_last_name) */
+  $handler->display->display_options['sorts']['field_last_name_value']['id'] = 'field_last_name_value';
+  $handler->display->display_options['sorts']['field_last_name_value']['table'] = 'field_data_field_last_name';
+  $handler->display->display_options['sorts']['field_last_name_value']['field'] = 'field_last_name_value';
+  /* Filter criterion: User: Active */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'users';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '1';
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: User: Is sponsor (field_is_sponsor) */
+  $handler->display->display_options['filters']['field_is_sponsor_value']['id'] = 'field_is_sponsor_value';
+  $handler->display->display_options['filters']['field_is_sponsor_value']['table'] = 'field_data_field_is_sponsor';
+  $handler->display->display_options['filters']['field_is_sponsor_value']['field'] = 'field_is_sponsor_value';
+  $handler->display->display_options['filters']['field_is_sponsor_value']['value'] = array(
+    1 => '1',
+  );
+  $handler->display->display_options['filters']['field_is_sponsor_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_is_sponsor_value']['reduce_duplicates'] = TRUE;
+
+  /* Display: Sponsors */
+  $handler = $view->new_display('block', 'Sponsors', 'sponsors_block');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Sponsors';
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  /* Header: Global: Text area */
+  $handler->display->display_options['header']['area']['id'] = 'area';
+  $handler->display->display_options['header']['area']['table'] = 'views';
+  $handler->display->display_options['header']['area']['field'] = 'area';
+  $handler->display->display_options['header']['area']['content'] = '<p>The project is supported by several well-known and qualified experts who contribute actively, and even financially, to its development.</p>
+<p>The sponsor experts are meeting once a month at a strategic committee.</p>';
+  $handler->display->display_options['header']['area']['format'] = 'filtered_html';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: User: Photo */
+  $handler->display->display_options['fields']['field_photo']['id'] = 'field_photo';
+  $handler->display->display_options['fields']['field_photo']['table'] = 'field_data_field_photo';
+  $handler->display->display_options['fields']['field_photo']['field'] = 'field_photo';
+  $handler->display->display_options['fields']['field_photo']['label'] = '';
+  $handler->display->display_options['fields']['field_photo']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_photo']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_photo']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_photo']['settings'] = array(
+    'image_style' => 'thumbnail',
+    'image_link' => '',
+  );
+  /* Field: User: First Name */
+  $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['label'] = '';
+  $handler->display->display_options['fields']['field_first_name']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_first_name']['element_label_type'] = '0';
+  $handler->display->display_options['fields']['field_first_name']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_first_name']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_first_name']['element_default_classes'] = FALSE;
+  /* Field: User: Last Name */
+  $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['label'] = '';
+  $handler->display->display_options['fields']['field_last_name']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_last_name']['element_label_type'] = '0';
+  $handler->display->display_options['fields']['field_last_name']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_last_name']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_last_name']['element_default_classes'] = FALSE;
+  /* Field: Field: Profile Title */
+  $handler->display->display_options['fields']['field_titre_metier']['id'] = 'field_titre_metier';
+  $handler->display->display_options['fields']['field_titre_metier']['table'] = 'field_data_field_titre_metier';
+  $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
+  $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
+  $handler->display->display_options['fields']['field_titre_metier']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_titre_metier']['element_label_type'] = '0';
+  $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_titre_metier']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_titre_metier']['element_default_classes'] = FALSE;
+  /* Field: Field: Describe your work experience: degrees, companies, etc. */
+  $handler->display->display_options['fields']['field_employment_history']['id'] = 'field_employment_history';
+  $handler->display->display_options['fields']['field_employment_history']['table'] = 'field_data_field_employment_history';
+  $handler->display->display_options['fields']['field_employment_history']['field'] = 'field_employment_history';
+  $handler->display->display_options['fields']['field_employment_history']['label'] = 'Experience';
+  $handler->display->display_options['fields']['field_employment_history']['element_type'] = '0';
+  $handler->display->display_options['fields']['field_employment_history']['element_label_type'] = '0';
+  $handler->display->display_options['fields']['field_employment_history']['element_wrapper_type'] = '0';
+  $handler->display->display_options['fields']['field_employment_history']['element_default_classes'] = FALSE;
+  /* Field: User: Why did I choose to become a sponsor? */
+  $handler->display->display_options['fields']['field_sponsor_why']['id'] = 'field_sponsor_why';
+  $handler->display->display_options['fields']['field_sponsor_why']['table'] = 'field_data_field_sponsor_why';
+  $handler->display->display_options['fields']['field_sponsor_why']['field'] = 'field_sponsor_why';
+  $handler->display->display_options['fields']['field_sponsor_why']['label'] = 'Why did I choose to sponsor eMindHub?';
+  $handler->display->display_options['fields']['field_sponsor_why']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_sponsor_why']['element_default_classes'] = FALSE;
+  $handler->display->display_options['block_description'] = 'Sponsors';
+
+  /* Display: Partners */
+  $handler = $view->new_display('block', 'Partners', 'partners_block');
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: User: Active */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'users';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '1';
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: User: Is partner (field_is_partner) */
+  $handler->display->display_options['filters']['field_is_partner_value']['id'] = 'field_is_partner_value';
+  $handler->display->display_options['filters']['field_is_partner_value']['table'] = 'field_data_field_is_partner';
+  $handler->display->display_options['filters']['field_is_partner_value']['field'] = 'field_is_partner_value';
+  $handler->display->display_options['filters']['field_is_partner_value']['value'] = array(
+    1 => '1',
+  );
+  $handler->display->display_options['filters']['field_is_partner_value']['reduce_duplicates'] = TRUE;
+  $handler->display->display_options['block_description'] = 'Partners';
+  $export['sponsors'] = $view;
 
   $view = new view();
   $view->name = 'testimony';
