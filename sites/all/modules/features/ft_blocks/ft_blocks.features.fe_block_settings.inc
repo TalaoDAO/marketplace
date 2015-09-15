@@ -970,9 +970,7 @@ business/register',
     'module' => 'views',
     'node_types' => array(),
     'pages' => '<front>',
-    'roles' => array(
-      'anonymous user' => 1,
-    ),
+    'roles' => array(),
     'themes' => array(
       'emindhub' => array(
         'region' => 'bottom_right',
@@ -1006,8 +1004,8 @@ business/register',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'bottom_right',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
         'weight' => 0,
       ),

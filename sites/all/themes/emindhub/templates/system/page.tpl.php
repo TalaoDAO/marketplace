@@ -88,7 +88,7 @@
         <?php endif; ?>
 
         <?php if (user_is_logged_in()) : ?>
-        <div class="burger-menu-btn-container" onclick="onClickBurgerMenuBtn()">
+        <div class="burger-menu-btn-container" onclick="onClickBurgerMenuBtn();">
           <?php print $openBurgerImg; ?>
         </div>
         <?php endif; ?>
@@ -150,13 +150,13 @@
 <?php if ( !$is_front || $logged_in ): ?>
 <div id="trail" class="container-fluid">
   <div class="container">
-    <?php if (!empty($breadcrumb)): ?>
+    <!-- <?php if (!empty($breadcrumb)): ?>
       <div class="row">
         <div class="col-sm-4 col-sm-offset-8">
           <?php print $breadcrumb; ?>
         </div>
       </div>
-    <?php endif; ?>
+    <?php endif; ?> -->
   </div>
 </div>
 <?php endif; ?>
