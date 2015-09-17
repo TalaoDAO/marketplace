@@ -13975,32 +13975,25 @@ aside .block .content {
     width: 50%;
   }
 }
-#block-views-news-thread-block .view-content > div,
-#block-views-news-thread-block-2 .view-content > div {
-  margin-bottom: 15px;
-  padding-bottom: 45px;
-  position: relative;
-  border-bottom: 2px dotted #dddddd;
-}
-#block-views-news-thread-block .view-content > div:last-child,
-#block-views-news-thread-block-2 .view-content > div:last-child {
-  margin-bottom: 0;
-  border-bottom: 0;
-}
 #block-views-news-thread-block .content h3,
 #block-views-news-thread-block-2 .content h3 {
   margin: 0;
 }
-#block-views-news-thread-block .content .field-content .views-more-link,
-#block-views-news-thread-block-2 .content .field-content .views-more-link {
+#block-views-news-thread-block .content p.field-content,
+#block-views-news-thread-block-2 .content p.field-content {
+  padding-bottom: 45px;
+  position: relative;
+}
+#block-views-news-thread-block .content p.field-content .views-more-link,
+#block-views-news-thread-block-2 .content p.field-content .views-more-link {
   font: 0/0 a;
   color: transparent;
   text-shadow: none;
   background-color: transparent;
   border: 0;
 }
-#block-views-news-thread-block .content .field-content .views-more-link:before,
-#block-views-news-thread-block-2 .content .field-content .views-more-link:before {
+#block-views-news-thread-block .content p.field-content .views-more-link:before,
+#block-views-news-thread-block-2 .content p.field-content .views-more-link:before {
   content: '\002b';
   font-size: 20px;
   display: block;

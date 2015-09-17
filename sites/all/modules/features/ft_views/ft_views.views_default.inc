@@ -1989,6 +1989,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['body']['field'] = 'body';
   $handler->display->display_options['fields']['body']['label'] = '';
   $handler->display->display_options['fields']['body']['alter']['max_length'] = '150';
+  $handler->display->display_options['fields']['body']['alter']['more_link'] = TRUE;
   $handler->display->display_options['fields']['body']['alter']['more_link_path'] = '[path]';
   $handler->display->display_options['fields']['body']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['body']['alter']['trim'] = TRUE;
@@ -2349,7 +2350,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['label'] = 'Empty';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = '<div class="alert alert-warning alert-dismissible" role="alert"><center><strong><big><img alt="" widht="49" height="30" src="/sites/all/themes/emindhub/images/PICTO PRODUCTION.png" />Respond to clients\' requests from September 2015.<big></strong></center></div>';
+  $handler->display->display_options['empty']['area']['content'] = '<div class="alert alert-warning alert-dismissible" role="alert"><center><strong><big><img alt="" widht="49" height="30" src="/sites/all/themes/emindhub/images/PICTO PRODUCTION.png" />Respond to clients\' requests from October 2015.<big></strong></center></div>';
   $handler->display->display_options['empty']['area']['format'] = 'full_html';
   /* Relationship: Content: Author */
   $handler->display->display_options['relationships']['uid']['id'] = 'uid';
