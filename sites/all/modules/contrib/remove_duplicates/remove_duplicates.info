@@ -1,0 +1,12 @@
+name = Remove Duplicates
+description = "Remove duplicate nodes according to node fields or CCK fields."
+core = 7.x
+package = Content management
+configure = admin/config/content/remove_duplicates
+
+; Information added by Drupal.org packaging script on 2015-04-13
+version = "7.x-1.4"
+core = "7.x"
+project = "remove_duplicates"
+datestamp = "1428944507"
+

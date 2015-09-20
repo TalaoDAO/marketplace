@@ -1,0 +1,1897 @@
+<?php
+
+/**
+ * @file
+ * Remove duplicate nodes according to node fields or Custom fields.
+ *
+ * Author : Sami Radi - VirtuoWorks.
+ */
+
+/**
+ * Implements hook_permission().
+ */
+function remove_duplicates_permission() {
+  return array(
+    'administer remove_duplicates' => array(
+      'title' => t('Use Remove Duplicates'),
+      'restrict access' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function remove_duplicates_menu() {
+
+  // Titles and Descriptions should no longer be wrapped in t().
+  // See : https://drupal.org/node/140311
+  $items['admin/config/content/remove_duplicates'] = array(
+    'title' => 'Remove Duplicates',
+    'description' => 'Delete Duplicate Nodes',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('remove_duplicates_settings_form'),
+    'access arguments' => array('administer remove_duplicates'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+/**
+ * Form constructor for the module.
+ *
+ * Form constructor for the module settings page (step 1/2)
+ * and confirm settings page (step 2/2).
+ *
+ * @see remove_duplicates_settings_submit()
+ *
+ * @ingroup forms.
+ */
+function remove_duplicates_settings_form($form, &$form_state) {
+
+  $remove_duplicates_message = t('Be careful, you might be losing data! I recommend doing a backup before removing duplicates.');
+  drupal_set_message($remove_duplicates_message, 'warning', FALSE);
+
+  if (!empty($form_state['storage']['confirm'])) {
+    // Form constructor for the module settings confirmation page (Step 2/2).
+    $form = remove_duplicates_build_confirm_settings_form($form, $form_state);
+  }
+  else {
+    // Form constructor for the module settings page (Step 1/2).
+    $form = remove_duplicates_build_settings_form($form, $form_state);
+  }
+
+  return $form;
+}
+
+/**
+ * Implements hook_form_submit().
+ *
+ * Processing the settings form or the settings
+ * confirmation form according to confirm state.
+ */
+function remove_duplicates_settings_form_submit($form, &$form_state) {
+
+  if (!empty($form_state['storage']['confirm'])) {
+    // Processing the module settings confirmation form
+    // (Processing form from step 2/2).
+    remove_duplicates_confirm_settings_form_submit_process($form, $form_state);
+  }
+  else {
+    // Processing the module settings form
+    // (Processing form from step 1/2).
+    remove_duplicates_settings_form_submit_process($form, $form_state);
+  }
+
+}
+
+/**
+ * Form constructor for the module settings page (Step 1/2).
+ *
+ * @see remove_duplicates_settings_form_submit()
+ *
+ * @ingroup forms.
+ */
+function remove_duplicates_build_settings_form($form, &$form_state) {
+
+  $message = t('All actions are logged in <b>Reports</b> >> <b>Recent log messages</b>.');
+
+  $form['message'] = array(
+    '#type'   => 'item',
+    '#markup'  => '<div class="description"><p>' . $message . '</p></div>',
+  );
+
+  $node_types = node_type_get_names();
+  $node_types_fields = _remove_duplicates_get_node_types_fields();
+
+  $form['remove_duplicates_node_types'] = array(
+    '#type' => 'select',
+    '#title' => t('Select a node type.'),
+    '#options' => $node_types,
+    '#default_value' => variable_get('remove_duplicates_node_types', array('page')),
+    '#description' => t('Select the node type from which duplicates are going to be found.'),
+  );
+
+  foreach ($node_types_fields as $machine_name => $node_type_fields) {
+
+    $form[$machine_name . '_node_fields'] = array(
+      '#type' => 'select',
+      '#title' => t('Select a field from this node type.'),
+      '#options' => $node_type_fields,
+      '#states' => array(
+        'visible' => array(
+          ':input[name="remove_duplicates_node_types"]' => array('value' => $machine_name),
+        ),
+      ),
+      '#description' => t('Select the field which is going to be used to find duplicates for this node type .'),
+    );
+
+  }
+
+  $options = array(
+    0 => t('Display results as a list (with duplicates to remove autoselection)'),
+    1 => t('Display results as a table (with duplicates to remove autoselection)'),
+    2 => t('Display results as a tableselect (with duplicates to remove manual selection)'),
+  );
+
+  $form['remove_duplicates_select_results_layout'] = array(
+    '#type' => 'radios',
+    '#title' => t('Results layout'),
+    '#default_value' => 2,
+    '#options' => $options,
+    '#description' => t('You can choose between three layouts to display found duplicates.'),
+  );
+
+  $form['remove_duplicates_case_sensitive'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('The search for duplicate nodes IS <b>case sensitive</b>.'),
+    '#default_value' => TRUE,
+    '#description' => t('If checked, duplicates search will be case sensitive.'),
+  );
+
+  $form['remove_duplicates_prioritize_published'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Keep at least one published node.'),
+    '#default_value' => TRUE,
+    '#states' => array(
+      'visible' => array(
+        ':input[name="remove_duplicates_select_results_layout"]' => array('!value' => 2),
+      ),
+      'invisible' => array(
+        ':input[name="remove_duplicates_select_results_layout"]' => array('value' => 2),
+      ),
+    ),
+    '#description' => t('At least one published node among the duplicates found will be kept. If unchecked, there will be no status check among duplicates.'),
+  );
+
+  $warning = t('PHP settings limit the maximum post size. If you have 1000+ duplicates found, <b>increase</b> your max post size setting to insure that the <b>whole</b> duplicate selection will be sent to the batch.');
+
+  $form['warning'] = array(
+    '#type'   => 'item',
+    '#markup'  => '<div class="description"><p>' . $warning . '</p></div>',
+    '#states' => array(
+      'visible' => array(
+        ':input[name="remove_duplicates_select_results_layout"]' => array('value' => 2),
+      ),
+    ),
+  );
+
+  $form['message'] = array(
+    '#type'   => 'item',
+    '#markup'  => '<div class="description"><p>' . $message . '</p></div>',
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Find Duplicates'),
+  );
+
+  return $form;
+}
+
+/**
+ * Processing the settings form (Processing step 1/2).
+ *
+ * If the settings form has not been confirmed,
+ * the confirm form is set to be built.
+ *
+ * @see remove_duplicates_settings_form()
+ */
+function remove_duplicates_settings_form_submit_process($form, &$form_state) {
+
+  if (empty($form_state['storage']['confirm'])) {
+
+    $form_state['rebuild'] = TRUE;
+    $form_state['storage']['confirm'] = TRUE;
+
+  }
+
+}
+
+/**
+ * Form constructor for the module settings confirmation page (Step 2/2).
+ *
+ * @see remove_duplicates_confirm_settings_form_submit()
+ *
+ * @ingroup forms.
+ */
+function remove_duplicates_build_confirm_settings_form($form, &$form_state) {
+
+  if (isset($form_state['values']['remove_duplicates_node_types'])) {
+
+    // Set node type hidden field.
+    $node_type_machine_name = $form_state['values']['remove_duplicates_node_types'];
+
+    $form['remove_duplicates_node_types'] = array(
+      '#type' => 'hidden',
+      '#value' => $node_type_machine_name,
+    );
+
+    if (isset($form_state['values'][$node_type_machine_name . '_node_fields'])) {
+
+      $form[$node_type_machine_name . '_node_fields'] = array(
+        '#type' => 'hidden',
+        '#value' => $form_state['values'][$node_type_machine_name . '_node_fields'],
+      );
+
+      $node_field_machine_name = $form_state['values'][$node_type_machine_name . '_node_fields'];
+      $prioritize_published_nodes = $form_state['values']['remove_duplicates_prioritize_published'];
+      $case_sensitive = $form_state['values']['remove_duplicates_case_sensitive'];
+
+      // Display found duplicates.
+      switch ($form_state['values']['remove_duplicates_select_results_layout']) {
+        case 1:
+          $output = _remove_duplicates_get_table_output($node_type_machine_name, $node_field_machine_name, $prioritize_published_nodes, $case_sensitive);
+          break;
+
+        case 2:
+          $output = _remove_duplicates_get_tableselect_output($node_type_machine_name, $node_field_machine_name, $prioritize_published_nodes, $case_sensitive);
+          break;
+
+        default:
+          $output = _remove_duplicates_get_list_output($node_type_machine_name, $node_field_machine_name, $prioritize_published_nodes, $case_sensitive);
+      }
+
+      // The field name is not very explicit but short to insure
+      // that the post size won't be too big even with a large
+      // number of duplicates selected. Previously named :
+      // remove_duplicates_duplicates_to_remove
+      $form['r'] = $output['#element'];
+
+      // End Of Display.
+      if (empty($output['#proceed'])) {
+
+        $remove_duplicates_message = t('Everything went fine. No duplicates were found.');
+        drupal_set_message($remove_duplicates_message);
+
+        $form_state['storage']['confirm'] = FALSE;
+
+      }
+
+      if (isset($form_state['values']['remove_duplicates_prioritize_published'])) {
+
+        $form['remove_duplicates_prioritize_published'] = array(
+          '#type' => 'hidden',
+          '#value' => $form_state['values']['remove_duplicates_prioritize_published'],
+        );
+
+      }
+      else {
+        $remove_duplicates_message = t('Priority not set. No duplicates were deleted.');
+        drupal_set_message($remove_duplicates_message, 'error');
+        $form_state['storage']['confirm'] = FALSE;
+      }
+
+      if (isset($form_state['values']['remove_duplicates_case_sensitive'])) {
+
+        $form['remove_duplicates_case_sensitive'] = array(
+          '#type' => 'hidden',
+          '#value' => $form_state['values']['remove_duplicates_case_sensitive'],
+        );
+
+      }
+      else {
+        $remove_duplicates_message = t('Case sensitivity not set. No duplicates were deleted.');
+        drupal_set_message($remove_duplicates_message, 'error');
+        $form_state['storage']['confirm'] = FALSE;
+      }
+
+    }
+    else {
+      $remove_duplicates_message = t('Node field not set. No duplicates were deleted.');
+      drupal_set_message($remove_duplicates_message, 'error');
+      $form_state['storage']['confirm'] = FALSE;
+    }
+  }
+  else {
+    $remove_duplicates_message = t('Node type not set. No duplicates were deleted.');
+    drupal_set_message($remove_duplicates_message, 'error');
+    $form_state['storage']['confirm'] = FALSE;
+  }
+
+  if (!empty($form_state['storage']['confirm'])) {
+    $form = confirm_form(
+        $form,
+        t('Are you sure you want to remove duplicates ?'),
+        'admin/config/content/remove_duplicates',
+        t('Found duplicates are going to be permanently removed.'),
+        t('Remove Duplicates'),
+        t('Cancel')
+      );
+  }
+  else {
+
+    $form['actions']['cancel'] = array(
+      '#type'   => 'item',
+      '#markup'  => l(t('Cancel'), 'admin/config/content/remove_duplicates'),
+    );
+  }
+
+  return $form;
+}
+
+/**
+ * Processing the settings form (Processing step 2/2).
+ *
+ * If the settings form has been confirmed, the batch is started.
+ */
+function remove_duplicates_confirm_settings_form_submit_process($form, &$form_state) {
+
+  if (!empty($form_state['storage']['confirm'])) {
+
+    if (isset($form_state['values']['remove_duplicates_node_types'])) {
+
+      $node_types = node_type_get_names();
+      $node_type_machine_name = $form_state['values']['remove_duplicates_node_types'];
+
+      if (isset($node_types[$node_type_machine_name])) {
+        if (isset($form_state['values'][$node_type_machine_name . '_node_fields'])) {
+
+          $node_field_info = field_info_instances('node', $node_type_machine_name);
+          $node_field_machine_name = $form_state['values'][$node_type_machine_name . '_node_fields'];
+
+          if ((is_array($node_field_info) && isset($node_field_info[$node_field_machine_name])) || ($node_field_machine_name == 'title')) {
+
+            $prioritize_published_nodes = ((empty($form_state['values']['remove_duplicates_prioritize_published'])) ? FALSE : TRUE);
+
+            $case_sensitive = ((empty($form_state['values']['remove_duplicates_case_sensitive'])) ? FALSE : TRUE);
+
+            $nodes_marked_as_removable = ((empty($form_state['values']['r'])) ? array() : $form_state['values']['r']);
+
+            $batch = array(
+              'title' => t('Searching for Duplicates'),
+              'operations' => array(
+                array(
+                  'remove_duplicates_batch_operation', array(
+                    $node_type_machine_name,
+                    $node_field_machine_name,
+                    $prioritize_published_nodes,
+                    $case_sensitive,
+                    $nodes_marked_as_removable,
+                  ),
+                ),
+              ),
+              'progress_message' => t('Work In Progress...'),
+              'error_message' => t('An Error Has Occured'),
+              'finished' => 'remove_duplicates_batch_finished',
+            );
+
+            // Watchdog message should not be wrapped in t().
+            // See : https://api.drupal.org/comment/33838#comment-33838
+            watchdog('remove_duplicates', 'Batch - Remove Duplicates batch start', array(), WATCHDOG_INFO);
+            batch_set($batch);
+          }
+          else {
+            $remove_duplicates_message = t('Node field selected not found. No duplicates were deleted');
+            drupal_set_message($remove_duplicates_message, 'error');
+          }
+        }
+        else {
+          $remove_duplicates_message = t('No field selected. No duplicates were deleted');
+          drupal_set_message($remove_duplicates_message, 'error');
+        }
+      }
+      else {
+        $remove_duplicates_message = t('Node type selected not found. No duplicates were deleted');
+        drupal_set_message($remove_duplicates_message, 'error');
+      }
+    }
+    else {
+      $remove_duplicates_message = t('No node type selected. No duplicates were deleted');
+      drupal_set_message($remove_duplicates_message, 'error');
+    }
+
+  }
+
+}
+
+/**
+ * Operation for batch_set().
+ *
+ * @param string $node_type_machine_name
+ *   The node type to fetch.
+ *
+ * @param string $node_field_machine_name
+ *   The {field} used to group nodes and therefore create sets
+ *   of duplicate nodes.
+ *
+ * @param bool $prioritize_published_nodes
+ *   If TRUE, the last published node in a set of duplicate nodes will be kept.
+ *   Otherwise, the first node in a set of duplicate nodes will be kept.
+ *
+ * @param bool $case_sensitive
+ *   If TRUE, duplicates detection is case sensitive
+ *   Otherwise, duplicates detection is case insensitive.
+ *
+ * @param array $nodes_marked_as_removable
+ *   [Optional] An array of nids to remove.
+ *   Provided when using custom tableselect output.
+ */
+function remove_duplicates_batch_operation($node_type_machine_name, $node_field_machine_name, $prioritize_published_nodes, $case_sensitive, $nodes_marked_as_removable, &$context) {
+
+  if (isset($context['sandbox']) && isset($context['sandbox']['nodes_to_remove'])) {
+    $nodes_to_remove = $context['sandbox']['nodes_to_remove'];
+  }
+  else {
+    $nodes_to_remove = _remove_duplicates_get_nodes_ids_to_remove($node_type_machine_name, $node_field_machine_name, $prioritize_published_nodes, $case_sensitive, $nodes_marked_as_removable);
+  }
+
+  if (empty($context['sandbox'])) {
+    $context['sandbox']['current'] = 0;
+    $context['sandbox']['progress'] = 0;
+    $context['sandbox']['max'] = count($nodes_to_remove);
+    $context['sandbox']['nodes_to_remove'] = $nodes_to_remove;
+  }
+
+  if (empty($nodes_to_remove)) {
+    $context['finished'] = 1;
+    if (isset($context['sandbox']) && isset($context['sandbox']['nodes_to_remove'])) {
+      unset($context['sandbox']['nodes_to_remove']);
+    }
+  }
+  else {
+    $limit = 5;
+    if (count($nodes_to_remove) < $limit) {
+      $limit = count($nodes_to_remove);
+    }
+
+    $preserve_keys = TRUE;
+    $nodes_to_remove = array_slice($nodes_to_remove, 0, $limit, $preserve_keys);
+
+    if (count($nodes_to_remove)) {
+      $nodes_to_remove_nids = array();
+      foreach ($nodes_to_remove as $node_to_remove) {
+        if (is_object($node_to_remove)) {
+          if ($node_to_remove->nid) {
+            $nodes_to_remove_nids[$node_to_remove->nid] = $node_to_remove->nid;
+          }
+
+          watchdog('remove_duplicates', 'Batch - Duplicate node @nid deleted : @title | updated on @changed | created on @created.', array(
+            '@nid' => (isset($node_to_remove->nid)) ? $node_to_remove->nid : NULL,
+            '@title' => (isset($node_to_remove->title)) ? $node_to_remove->title : NULL,
+            '@changed' => (isset($node_to_remove->changed)) ? format_date($node_to_remove->changed) : NULL,
+            '@created' => (isset($node_to_remove->created)) ? format_date($node_to_remove->created) : NULL,
+          ), WATCHDOG_DEBUG);
+        }
+      }
+
+      node_delete_multiple($nodes_to_remove_nids);
+
+      foreach ($nodes_to_remove_nids as $nid) {
+        if (isset($context['sandbox']['nodes_to_remove']) && isset($context['sandbox']['nodes_to_remove'][$nid])) {
+          unset($context['sandbox']['nodes_to_remove'][$nid]);
+        }
+      }
+    }
+
+    $context['sandbox']['progress'] = $context['sandbox']['progress'] + $limit;
+    if ($context['sandbox']['progress'] != $context['sandbox']['max']  &&  $context['sandbox']['max'] != 0) {
+      $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+    }
+    else {
+      $context['finished'] = 0.99;
+    }
+  }
+
+  $context['results']['processed'] = $context['sandbox']['progress'];
+}
+
+/**
+ * Callback for batch_set().
+ *
+ * @param bool $success
+ *   A boolean indicating whether the batch operation successfully concluded.
+ * @param int $results
+ *   The results from the batch process.
+ * @param array $operations
+ *   The batch operations that remained unprocessed. Only relevant if $success
+ *   is FALSE.
+ *
+ * @ingroup callbacks
+ */
+function remove_duplicates_batch_finished($success, $results, $operations) {
+  if (empty($success)) {
+    $remove_duplicates_message = t('Everything went fine. No duplicates deleted');
+    watchdog('remove_duplicates', 'Batch - Remove Duplicates batch end. No duplicates deleted.', array(), WATCHDOG_INFO);
+  }
+  else {
+    $remove_duplicates_message = t('@processed duplicates deleted.', array('@processed' => ((string) $results['processed'])));
+    watchdog('remove_duplicates', 'Batch - Remove Duplicates batch end. @processed duplicates deleted.', array('@processed' => ((string) $results['processed'])), WATCHDOG_INFO);
+  }
+  drupal_set_message($remove_duplicates_message);
+}
+
+/**
+ * Get all duplicate nodes ids to remove.
+ *
+ * @param string $node_type_machine_name
+ *   The node type to fetch.
+ *
+ * @param string $node_field_machine_name
+ *   The {field} used to group nodes and therefore create sets of
+ *   duplicate nodes.
+ *
+ * @param bool $prioritize_published_nodes
+ *   If TRUE, the last published node in a set of duplicate nodes will be kept.
+ *   Otherwise, the first node in a set of duplicate nodes will be kept.
+ *
+ * @param bool $case_sensitive
+ *   If TRUE, duplicates detection is case sensitive
+ *   Otherwise, duplicates detection is case insensitive.
+ *
+ * @param array $nodes_marked_as_removable
+ *   [Optional] An array of nids to remove.
+ *   Provided when using custom tableselect output.
+ *
+ * @return array
+ *   An array of node nids
+ */
+function _remove_duplicates_get_nodes_ids_to_remove($node_type_machine_name, $node_field_machine_name, $prioritize_published_nodes, $case_sensitive, $nodes_marked_as_removable = array()) {
+
+  $duplicate_node_groups = _remove_duplicates_get_duplicate_node_groups($node_type_machine_name, $node_field_machine_name, $case_sensitive);
+
+  if (is_array($duplicate_node_groups)) {
+
+    if (isset($duplicate_node_groups['count']) && is_array($duplicate_node_groups['count'])) {
+      $count_nodes = (array_key_exists('nodes', $duplicate_node_groups['count'])) ? $duplicate_node_groups['count']['nodes'] : 0;
+      $count_node_groups = (array_key_exists('node_groups', $duplicate_node_groups['count'])) ? $duplicate_node_groups['count']['node_groups'] : 0;
+
+      watchdog('remove_duplicates', 'Batch - Found duplicate nodes : [@count_nodes] | node groups : [@count_node_groups]', array(
+        '@count_nodes' => $count_nodes,
+        '@count_node_groups' => $count_node_groups,
+      ), WATCHDOG_INFO);
+      // If duplicate nodes to remove were not manually selected.
+      if (empty($nodes_marked_as_removable)) {
+        watchdog('remove_duplicates', 'Batch - Duplicate nodes to remove estimate before filtering : [@nodes_to_remove_estimate]', array(
+          '@nodes_to_remove_estimate' => $count_nodes - $count_node_groups,
+        ), WATCHDOG_INFO);
+      }
+      else {
+        if (count($nodes_marked_as_removable) < $count_nodes) {
+          $remove_duplicates_message = t('All the data from table selection was not recovered. Check out yout PHP settings to increase maximum post size or re-run search and remove operations to delete remaining duplicates.');
+          drupal_set_message($remove_duplicates_message, 'error');
+
+          watchdog('remove_duplicates', 'Batch - All the data from table selection was not recovered. Check out yout PHP settings to increase maximum post size.', array(), WATCHDOG_ERROR);
+        }
+        $nodes_marked_as_removable_count = count(array_filter($nodes_marked_as_removable));
+
+        watchdog('remove_duplicates', 'Batch - Duplicate nodes to remove estimate before filtering : [@nodes_to_remove_estimate]', array(
+          '@nodes_to_remove_estimate' => $nodes_marked_as_removable_count,
+        ), WATCHDOG_INFO);
+      }
+    }
+
+    if (isset($duplicate_node_groups['data']) && is_array($duplicate_node_groups['data']) && count($duplicate_node_groups['data'])) {
+      $nodes_to_remove = array();
+      foreach ($duplicate_node_groups['data'] as $duplicate_node_group) {
+        if (is_array($duplicate_node_group) && count($duplicate_node_group) > 1) {
+
+          if (empty($nodes_marked_as_removable)) {
+            // Preserving the first node in the current duplicate node group.
+            $node_to_keep = array_shift($duplicate_node_group);
+          }
+          // Filling the array with the rest of the nodes in the group.
+          foreach ($duplicate_node_group as $duplicate_node) {
+            if (is_object($duplicate_node) && isset($duplicate_node->nid) && isset($duplicate_node->status)) {
+              if (!empty($nodes_marked_as_removable)) {
+                if (!empty($nodes_marked_as_removable[$duplicate_node->nid])) {
+                  $nodes_to_remove[$duplicate_node->nid] = $duplicate_node;
+                }
+              }
+              else {
+                if ($prioritize_published_nodes) {
+                  if ($duplicate_node->status == 1 && $node_to_keep->status != 1) {
+                    $nodes_to_remove[$node_to_keep->nid] = $node_to_keep;
+                  }
+                  else {
+                    $nodes_to_remove[$duplicate_node->nid] = $duplicate_node;
+                  }
+                }
+                else {
+                  $nodes_to_remove[$duplicate_node->nid] = $duplicate_node;
+                }
+              }
+
+            }
+          }
+          unset($node_to_keep);
+        }
+      }
+      if (is_array($nodes_to_remove) && ($nodes_count = count($nodes_to_remove))) {
+        watchdog('remove_duplicates', 'Batch - Duplicate nodes to remove after filtering : [@count_nodes]', array(
+          '@count_nodes' => $nodes_count,
+        ), WATCHDOG_INFO);
+        return $nodes_to_remove;
+      }
+      else {
+        return array();
+      }
+    }
+  }
+
+  return array();
+}
+
+/**
+ * Get the field common name used in node objects.
+ *
+ * @param string $node_field_machine_name
+ *   The {field} used to group nodes and therefore create sets of
+ *   duplicate nodes.
+ *
+ * @return string
+ *   A field name to use with extracted db records
+ */
+function _remove_duplicates_get_field_common_name($node_field_machine_name) {
+
+  if (in_array(strtolower($node_field_machine_name), array('title'))) {
+    // Basic field.
+    $field = $node_field_machine_name;
+  }
+  else {
+    // Custom field.
+    $field_info = field_info_field($node_field_machine_name);
+
+    if (!empty($field_info['storage']['details']['sql']['FIELD_LOAD_CURRENT'])) {
+      $table = key($field_info['storage']['details']['sql']['FIELD_LOAD_CURRENT']);
+      $field = current($field_info['storage']['details']['sql']['FIELD_LOAD_CURRENT'][$table]);
+
+      if (!(db_table_exists($table) && db_field_exists($table, $field))) {
+        return NULL;
+      }
+    }
+    else {
+      return NULL;
+    }
+  }
+
+  return $field;
+}
+
+/**
+ * Get all duplicate node grouped according to selected field.
+ *
+ * @param string $node_type_machine_name
+ *   The node type to fetch.
+ *
+ * @param string $node_field_machine_name
+ *   The {field} used to group nodes and therefore create sets of
+ *   duplicate nodes.
+ *
+ * @param bool $case_sensitive
+ *   If TRUE, duplicates detection is case sensitive
+ *   Otherwise, duplicates detection is case insensitive.
+ *
+ * @return array
+ *   An array of duplicate nodes groups
+ */
+function _remove_duplicates_get_duplicate_node_groups($node_type_machine_name, $node_field_machine_name, $case_sensitive) {
+
+  $field = _remove_duplicates_get_field_common_name($node_field_machine_name);
+
+  if (empty($field)) {
+    return array();
+  }
+  else {
+    $records = _remove_duplicates_get_nodes($node_type_machine_name, $node_field_machine_name, $case_sensitive);
+
+    if (is_array($records) && count($records)) {
+      // Creating node groups.
+      $node_groups = array();
+      foreach ($records as $record) {
+        if (is_object($record) && isset($record->$field)) {
+          // MD5 unicity magic to group nodes according to field content.
+          if ($case_sensitive) {
+            $node_groups[md5($record->$field)][] = $record;
+          }
+          else {
+            $node_groups[md5(strtolower($record->$field))][] = $record;
+          }
+        }
+      }
+
+      // Keeping only node groups with duplicates.
+      $duplicate_node_groups = array();
+      $node_groups_count = $nodes_count = 0;
+      foreach ($node_groups as $md5key => $node_group) {
+        if (is_array($node_group) && ($node_group_count = count($node_group)) > 1) {
+          $nodes_count += $node_group_count;
+          $duplicate_node_groups[$md5key] = $node_group;
+        }
+      }
+      $node_groups_count = count($duplicate_node_groups);
+      return array(
+        'count' => array(
+          'nodes' => $nodes_count,
+          'node_groups' => $node_groups_count,
+        ),
+        'data' => $duplicate_node_groups,
+      );
+    }
+    else {
+      return array(
+        'count' => array(
+          'nodes' => 0,
+          'node_groups' => 0,
+        ),
+        'data' => array(),
+      );
+    }
+  }
+}
+
+/**
+ * Get all nodes with selected type / field.
+ *
+ * @param string $node_type_machine_name
+ *   The node type to fetch.
+ *
+ * @param string $node_field_machine_name
+ *   The {field} to join with the fetched node type.
+ *
+ * @param bool $case_sensitive
+ *   If TRUE, duplicates detection is case sensitive
+ *   Otherwise, duplicates detection is case insensitive.
+ *
+ * @return array
+ *   An array of node objects with 3 properties : nid, status, {field}.
+ */
+function _remove_duplicates_get_nodes($node_type_machine_name = NULL, $node_field_machine_name = NULL, $case_sensitive = TRUE) {
+
+  $records = array();
+
+  // EntityFieldQuery does not support GROUP BY nor DISTINCT.
+  // See : https://drupal.org/node/1565708
+  // Using raw database calls instead.
+  if (in_array(strtolower($node_field_machine_name), array('title'))) {
+    // For basic title field.
+    $field = $node_field_machine_name;
+
+    if (Database::getConnection()->databaseType() == 'pgsql') {
+
+      // In PostgreSQL string comparisons are case sensitive by default.
+
+      // Nested Query pattern (case sensitive) :
+      // @code
+      //  SELECT s.{field} AS {field},
+      //  COUNT( * ) AS duplicate
+      //  FROM node s
+      //  WHERE (
+      //    s.type = {node_type_machine_name}
+      //  )
+      //  GROUP BY {$field}
+      // @endcode
+
+      // Nested Query pattern (case insensitive) :
+      // @code
+      //  SELECT s.lowered as {field},
+      //  SUM(s.duplicate) AS duplicate
+      //  FROM (
+      //    SELECT s.{field} AS {field}, lower(s.{field}) AS lowered,
+      //    COUNT( * ) AS duplicate
+      //    FROM node s
+      //    WHERE (
+      //      s.type = {node_type_machine_name}
+      //    )
+      //    GROUP BY lowered, {field}
+      //  ) s
+      //  GROUP BY lowered
+      // @endcode
+
+      $nested_query = db_select('node', 's');
+      $nested_query->fields('s', array($field));
+      $nested_query->addExpression('COUNT(*)', 'duplicate');
+      $nested_query->condition('s.type', $node_type_machine_name, '=');
+      if ($case_sensitive) {
+        $nested_query->groupBy($field);
+      }
+      else {
+        $nested_query->addExpression('lower(s.' . $field . ')', 'lowered');
+        $nested_query->groupBy('lowered');
+        $nested_query->groupBy($field);
+        $nested_query = db_select($nested_query, 's');
+        $nested_query->addExpression('s.lowered', $field);
+        $nested_query->addExpression('SUM(s.duplicate)', 'duplicate');
+        $nested_query->groupBy('lowered');
+      }
+
+      // Sub Query pattern (both cases) :
+      // @code
+      //  SELECT n.{field} AS {field}
+      //  FROM {$nested_query} n
+      //  WHERE duplicates > 1
+      // @endcode
+      $sub_query = db_select($nested_query, 'n');
+      $sub_query->fields('n', array($field));
+      $sub_query->condition('duplicate', 1, '>');
+    }
+    else {
+
+      // In MySQL nonbinary string comparisons are case insensitive by default.
+      // See : https://dev.mysql.com/doc/refman/5.0/en/case-sensitivity.html
+
+      // Sub Query pattern (case sensitive) :
+      // @code
+      //  SELECT n.{field} AS {field}, md5(n.{field}) AS checksum,
+      //  COUNT( * ) AS duplicate
+      //  FROM node n
+      //  WHERE (
+      //    n.type = {node_type_machine_name}
+      //  )
+      //  GROUP BY checksum
+      //  HAVING count( duplicate ) >1
+      // @endcode
+
+      // Sub Query pattern (case insensitive) :
+      // @code
+      //  SELECT n.{field} AS {field},
+      //  COUNT( * ) AS duplicate
+      //  FROM node n
+      //  WHERE (
+      //    n.type = {node_type_machine_name}
+      //  )
+      //  GROUP BY {field}
+      //  HAVING count( duplicate ) > 1
+      // @endcode
+      $sub_query = db_select('node', 'n');
+      $sub_query->fields('n', array($field));
+      $sub_query->addExpression('COUNT(*)', 'duplicate');
+      if ($case_sensitive) {
+        $sub_query->addExpression('md5(n.' . $field . ')', 'checksum');
+        $sub_query->groupBy('checksum');
+      }
+      else {
+        $sub_query->groupBy($field);
+      }
+      $sub_query->condition('n.type', $node_type_machine_name, '=');
+      $sub_query->havingCondition('duplicate', 1, '>');
+    }
+
+    // Main Query pattern (case sensitive) :
+    // @code
+    //  SELECT n.nid AS nid, n.uid AS uid, n.status AS status,
+    //  n.created AS created, n.changed AS changed,
+    //  n.{field} AS {field}, u.name AS name
+    //  FROM node n
+    //  INNER JOIN users u ON n.uid = u.uid
+    //  INNER JOIN (
+    //    {sub_query}
+    //  ) nn ON md5(n.{field}) = md5(nn.{field})
+    //  WHERE (
+    //    n.type = {node_type_machine_name}
+    //  )
+    //  ORDER BY {field} ASC
+    // @endcode
+
+    // Main Query pattern (case insensitive) :
+    // @code
+    //  SELECT n.nid AS nid, n.uid AS uid, n.status AS status,
+    //  n.created AS created, n.changed AS changed,
+    //  n.{field} AS {field}, u.name AS name
+    //  FROM node n
+    //  INNER JOIN users u ON n.uid = u.uid
+    //  INNER JOIN (
+    //    {sub_query}
+    //  ) nn ON n.{field} = nn.{field}
+    //  WHERE (
+    //    n.type = {node_type_machine_name}
+    //  )
+    //  ORDER BY {field} ASC
+    // @endcode
+    $main_query = db_select('node', 'n');
+    $main_query->fields('n', array(
+      'nid',
+      'uid',
+      'status',
+      'created',
+      'changed',
+      $field,
+    ));
+    $main_query->fields('u', array('name'));
+    $main_query->join('users', 'u', 'n.uid = u.uid');
+    if ($case_sensitive) {
+      $main_query->join($sub_query, 'nn', 'md5(n.' . $field . ') = md5(nn.' . $field . ')');
+    }
+    else {
+      if (Database::getConnection()->databaseType() == 'pgsql') {
+        $main_query->join($sub_query, 'nn', 'lower(n.' . $field . ') = lower(nn.' . $field . ')');
+      }
+      else {
+        $main_query->join($sub_query, 'nn', 'n.' . $field . ' = nn.' . $field);
+      }
+    }
+    $main_query->condition('n.type', $node_type_machine_name, '=');
+    $main_query->orderBy($field, 'ASC');
+
+    $records = $main_query->execute()->fetchall();
+  }
+  else {
+    // For Custom Fields.
+    $field_info = field_info_field($node_field_machine_name);
+
+    if (!empty($field_info['storage']['details']['sql']['FIELD_LOAD_CURRENT'])) {
+      $table = key($field_info['storage']['details']['sql']['FIELD_LOAD_CURRENT']);
+      $field = current($field_info['storage']['details']['sql']['FIELD_LOAD_CURRENT'][$table]);
+
+      if (db_table_exists($table) && db_field_exists($table, $field)) {
+
+        if (Database::getConnection()->databaseType() == 'pgsql') {
+          // Nested Query pattern (case sensitive) :
+          // @code
+          //  SELECT cf.{field} AS {field},
+          //  COUNT( * ) AS duplicate
+          //  FROM node s
+          //  INNER JOIN {table} cf ON cf.bundle = {node_type_machine_name}
+          //  AND cf.entity_type = 'node' AND cf.entity_id = s.nid
+          //  WHERE (
+          //    s.type = {node_type_machine_name}
+          //  )
+          //  GROUP BY {$field}
+          // @endcode
+
+          // Nested Query pattern (case insensitive) :
+          // @code
+          //  SELECT s.lowered as {field},
+          //  SUM(s.duplicate) AS duplicate
+          //  FROM (
+          //    SELECT cf.{field} AS {field}, lower(cf.{field}) AS lowered,
+          //    COUNT( * ) AS duplicate
+          //    FROM node s
+          //    INNER JOIN {table} cf ON cf.bundle = {node_type_machine_name}
+          //    AND cf.entity_type = 'node' AND cf.entity_id = s.nid
+          //    WHERE (
+          //      s.type = {node_type_machine_name}
+          //    )
+          //    GROUP BY lowered, {field}
+          //  ) s
+          //  GROUP BY lowered
+          // @endcode
+
+          $nested_query = db_select('node', 's');
+          $nested_query->addJoin('INNER', $table, 'cf', 'cf.bundle = :bundle AND cf.entity_type = :entity_type AND s.nid = cf.entity_id ', array(
+              ':bundle' => $node_type_machine_name,
+              ':entity_type' => 'node',
+            ));
+          $nested_query->fields('cf', array($field));
+          $nested_query->addExpression('COUNT(*)', 'duplicate');
+          $nested_query->condition('s.type', $node_type_machine_name, '=');
+          if ($case_sensitive) {
+            $nested_query->groupBy($field);
+          }
+          else {
+            $nested_query->addExpression('lower(cf.' . $field . ')', 'lowered');
+            $nested_query->groupBy('lowered');
+            $nested_query->groupBy($field);
+            $nested_query = db_select($nested_query, 's');
+            $nested_query->addExpression('s.lowered', $field);
+            $nested_query->addExpression('SUM(s.duplicate)', 'duplicate');
+            $nested_query->groupBy('lowered');
+          }
+
+          // Sub Query pattern (both cases) :
+          // @code
+          //  SELECT cf.{field} AS {field}
+          //  FROM {$nested_query} cf
+          //  WHERE duplicates > 1
+          // @endcode
+          $sub_query = db_select($nested_query, 'cf');
+          $sub_query->fields('cf', array($field));
+          $sub_query->condition('duplicate', 1, '>');
+        }
+        else {
+          // Sub Query pattern (case sensitive) :
+          // @code
+          //  SELECT cf.{field} AS {field}, md5(cf.{field}) AS checksum,
+          //  COUNT( * ) AS duplicate
+          //  FROM node n
+          //  INNER JOIN {table} cf ON cf.bundle = {node_type_machine_name}
+          //  AND cf.entity_type = 'node' AND cf.entity_id = n.nid
+          //  WHERE (
+          //    n.type = {node_type_machine_name}
+          //  )
+          //  GROUP BY checksum
+          //  HAVING count( duplicate ) > 1
+          // @endcode
+
+          // Sub Query pattern (case insensitive) :
+          // @code
+          //  SELECT cf.{field} AS {field},
+          //  COUNT( * ) AS duplicate
+          //  FROM node n
+          //  INNER JOIN {table} cf ON cf.bundle = {node_type_machine_name}
+          //  AND cf.entity_type = 'node' AND cf.entity_id = n.nid
+          //  WHERE (
+          //    n.type = {node_type_machine_name}
+          //  )
+          //  GROUP BY {field}
+          //  HAVING count( duplicate ) > 1
+          // @endcode
+          $sub_query = db_select('node', 'n');
+          $sub_query->addJoin('INNER', $table, 'cf', 'cf.bundle = :bundle AND cf.entity_type = :entity_type AND n.nid = cf.entity_id ', array(
+              ':bundle' => $node_type_machine_name,
+              ':entity_type' => 'node',
+            ));
+          $sub_query->condition('n.type', $node_type_machine_name, '=');
+          $sub_query->fields('cf', array($field));
+          $sub_query->addExpression('COUNT(*)', 'duplicate');
+          if ($case_sensitive) {
+            $sub_query->addExpression('md5(cf.' . $field . ')', 'checksum');
+            $sub_query->groupBy('checksum');
+          }
+          else {
+            $sub_query->groupBy($field);
+          }
+          $sub_query->havingCondition('duplicate', 1, '>');
+        }
+
+        // Main Query pattern (case sensitive) :
+        // @code
+        //  SELECT n.nid AS nid, n.uid AS uid, n.status AS status,
+        //  n.created AS created, n.changed AS changed, n.title AS title,
+        //  u.name AS name, cf.{field} AS {field}
+        //  FROM node n
+        //  INNER JOIN users u ON n.uid = u.uid
+        //  INNER JOIN {table} cf ON cf.bundle = {node_type_machine_name}
+        //  AND cf.entity_type = 'node' AND cf.entity_id = n.nid
+        //  INNER JOIN (
+        //    {sub_query}
+        //  ) nn ON md5(cf.{field}) = md5(nn.{field})
+        //  WHERE (
+        //    n.type = {node_type_machine_name}
+        //  )
+        //  ORDER BY {field} ASC
+        // @endcode
+
+        // Main Query pattern (case insensitive) :
+        // @code
+        //  SELECT n.nid AS nid, n.uid AS uid, n.status AS status,
+        //  n.created AS created, n.changed AS changed, n.title AS title,
+        //  u.name AS name, cf.{field} AS {field}
+        //  FROM node n
+        //  INNER JOIN users u ON n.uid = u.uid
+        //  INNER JOIN {table} cf ON cf.bundle = {node_type_machine_name}
+        //  AND cf.entity_type = 'node' AND cf.entity_id = n.nid
+        //  INNER JOIN (
+        //    {sub_query}
+        //  ) nn ON cf.{field} = nn.{field}
+        //  WHERE (
+        //    n.type = {node_type_machine_name}
+        //  )
+        //  ORDER BY {field} ASC
+        // @endcode
+        $main_query = db_select('node', 'n');
+        $main_query->fields('n', array(
+          'nid',
+          'uid',
+          'status',
+          'created',
+          'changed',
+          'title',
+        ));
+        $main_query->fields('u', array('name'));
+        $main_query->fields('cf', array($field));
+        $main_query->addJoin('INNER', $table, 'cf', 'cf.bundle = :bundle AND cf.entity_type = :entity_type AND n.nid = cf.entity_id ', array(
+            ':bundle' => $node_type_machine_name,
+            ':entity_type' => 'node',
+          ));
+        $main_query->join('users', 'u', 'n.uid = u.uid');
+        if ($case_sensitive) {
+          $main_query->join($sub_query, 'nn', 'md5(cf.' . $field . ') = md5(nn.' . $field . ')');
+        }
+        else {
+          if (Database::getConnection()->databaseType() == 'pgsql') {
+            $main_query->join($sub_query, 'nn', 'lower(cf.' . $field . ') = lower(nn.' . $field . ')');
+          }
+          else {
+            $main_query->join($sub_query, 'nn', 'cf.' . $field . ' = nn.' . $field);
+          }
+        }
+        $main_query->condition('n.type', $node_type_machine_name, '=');
+        $main_query->orderBy($field, 'ASC');
+
+        $records = $main_query->execute()->fetchall();
+      }
+    }
+  }
+
+  return $records;
+}
+
+/**
+ * Get all available fields for each node types.
+ *
+ * @return array
+ *   An array of node types fields
+ */
+function _remove_duplicates_get_node_types_fields() {
+
+  $node_types_fields = array();
+  $node_types = node_type_get_names();
+
+  foreach ($node_types as $machine_name => $human_readable_name) {
+
+    $node_types_fields[$machine_name] = array();
+    $node_types_fields[$machine_name]['title'] = t('Title');
+
+    $field_info = field_info_instances('node', $machine_name);
+    if (is_array($field_info)) {
+
+      foreach ($field_info as $field) {
+        if (isset($field['label']) && isset($field['field_name'])) {
+          $node_types_fields[$machine_name][$field['field_name']] = $field['label'];
+        }
+      }
+
+    }
+
+  }
+
+  return $node_types_fields;
+}
+
+/**
+ * Get a list themed output (Legacy output).
+ *
+ * @param string $node_type_machine_name
+ *   The fetched node type.
+ *
+ * @param string $node_field_machine_name
+ *   The {field} used to find duplicates.
+ *
+ * @param bool $prioritize_published_nodes
+ *   If TRUE, the last published node in a set of duplicate nodes will be kept.
+ *   Otherwise, the first node in a set of duplicate nodes will be kept.
+ *
+ * @return array
+ *   An array with 2 keys :
+ *    #markup  An HTML string representing the list themed output.
+ *    #proceed A boolean indicating whether or not duplicates were found.
+ */
+function _remove_duplicates_get_list_output($node_type_machine_name, $node_field_machine_name, $prioritize_published_nodes, $case_sensitive) {
+
+  $node_types = node_type_get_names();
+  $node_types_fields = _remove_duplicates_get_node_types_fields();
+
+  $duplicate_node_groups = _remove_duplicates_get_duplicate_node_groups($node_type_machine_name, $node_field_machine_name, $case_sensitive);
+
+  if (is_array($duplicate_node_groups)) {
+
+    if (isset($duplicate_node_groups['count']) && is_array($duplicate_node_groups['count'])) {
+      $count_nodes = (array_key_exists('nodes', $duplicate_node_groups['count'])) ? $duplicate_node_groups['count']['nodes'] : 0;
+      $count_node_groups = (array_key_exists('node_groups', $duplicate_node_groups['count'])) ? $duplicate_node_groups['count']['node_groups'] : 0;
+
+      watchdog('remove_duplicates', 'Search - Found duplicate nodes : [@count_nodes] | node groups : [@count_node_groups]', array(
+        '@count_nodes' => $count_nodes,
+        '@count_node_groups' => $count_node_groups,
+      ), WATCHDOG_INFO);
+
+      watchdog('remove_duplicates', 'Search - Duplicate nodes to remove estimate : [@nodes_to_remove_estimate]', array(
+        '@nodes_to_remove_estimate' => $count_nodes - $count_node_groups,
+      ), WATCHDOG_INFO);
+    }
+
+    if (isset($duplicate_node_groups['data']) && is_array($duplicate_node_groups['data']) && count($duplicate_node_groups['data'])) {
+      // Outputs an HTML list of duplicates found.
+      $list_output = array();
+      foreach ($duplicate_node_groups['data'] as $duplicate_node_group) {
+        $items = array();
+        $node_group_title = NULL;
+        $nodetypefieldvalue = array();
+        $keep_node_nid = $keep_node_status = NULL;
+        $field = _remove_duplicates_get_field_common_name($node_field_machine_name);
+        foreach ($duplicate_node_group as $duplicate_node) {
+          // Defining the group title.
+          $nodetypefieldvalue[$duplicate_node->$field] = $duplicate_node->$field;
+          // Defaults to keeping the first node in the group.
+          if (empty($keep_node_nid)) {
+            $keep_node_status = $duplicate_node->status;
+            $keep_node_nid = $duplicate_node->nid;
+          }
+          // Defining the node which is going to be kept among duplicates.
+          if (isset($keep_node_nid)) {
+            // If "Keep at least one published node." is checked
+            // keeping the first published node in the group.
+            if ($prioritize_published_nodes) {
+              if ($duplicate_node->status && !$keep_node_status) {
+                $keep_node_nid = $duplicate_node->nid;
+                $keep_node_status = $duplicate_node->status;
+              }
+            }
+          }
+        }
+        // Defining the group title.
+        if (empty($node_group_title) && is_array($nodetypefieldvalue)) {
+          $node_group_title = t('Duplicates where "@nodetypefield" = @nodetypefieldvalue', array(
+            '@nodetypefieldvalue' => '"' . implode('" ' . t('or') . ' "', $nodetypefieldvalue) . '"',
+            '@nodetypefield' => ((string) $node_types_fields[$node_type_machine_name][$node_field_machine_name]),
+          ));
+        }
+        reset($duplicate_node_group);
+        foreach ($duplicate_node_group as $duplicate_node) {
+          $node_title = l($duplicate_node->title, 'node/' . $duplicate_node->nid, array('attributes' => array('onclick' => 'window.open(this.href,parseInt(Math.random()*1000));return false;')));
+
+          $node_status = array();
+          if ($duplicate_node->status) {
+            $node_status[] = '<span style="color:black;">' . t('Published') . '</span>';
+          }
+          else {
+            $node_status[] = '<span style="color:gray;">' . t('Unpublished') . '</span>';
+          }
+          if (isset($keep_node_nid) && $keep_node_nid == $duplicate_node->nid) {
+            $node_status[] = '<span style="color:green;">' . t('Will be kept.') . '</span>';
+          }
+          else {
+            $node_status[] = '<span style="color:red;">' . t('Will be deleted.') . '</span>';
+          }
+
+          $items[] = theme('item_list', array(
+              'items' => $node_status,
+              'title' => $node_title,
+              'type' => 'ul',
+              'attributes' => array(),
+            ));
+        }
+
+        $list_output[] = theme('item_list', array(
+            'items' => $items,
+            'title' => $node_group_title,
+            'type' => 'ul',
+            'attributes' => array(),
+          ));
+      }
+
+      $main_title = t('Duplicates found for node type "@nodetype" according to field "@nodetypefield" :', array(
+        '@nodetype' => ((string) $node_types[$node_type_machine_name]),
+        '@nodetypefield' => ((string) $node_types_fields[$node_type_machine_name][$node_field_machine_name]),
+      ));
+
+      $list_output = theme('item_list', array(
+          'items' => $list_output,
+          'title' => $main_title,
+          'type' => 'ul',
+          'attributes' => array(
+            'style' => 'font-size:0.9em;',
+          ),
+        ));
+
+      $output = array(
+        '#proceed' => TRUE,
+        '#element' => array(
+          '#type' => 'item',
+          '#title' => t('Results'),
+          '#markup' => $list_output,
+        ),
+      );
+
+      return $output;
+    }
+  }
+
+  watchdog('remove_duplicates', 'Search - No duplicates found for node [@node_type_machine_name] according to field [@node_field_machine_name]', array(
+    '@node_type_machine_name' => $node_type_machine_name,
+    '@node_field_machine_name' => $node_field_machine_name,
+  ), WATCHDOG_INFO);
+
+  // Outputs a no duplicates found message.
+  $text_output = t('No duplicates for node type "@nodetype" according to field "@nodetypefield".', array(
+    '@nodetype' => ((string) $node_types[$node_type_machine_name]),
+    '@nodetypefield' => ((string) $node_types_fields[$node_type_machine_name][$node_field_machine_name]),
+  ));
+
+  $html_output = '<div class="description"><p><span style="font-weight:bold;color:red;">' . $text_output . '</span></p></div>';
+
+  $output = array(
+    '#proceed' => FALSE,
+    '#element' => array(
+      '#type' => 'item',
+      '#title' => t('Results'),
+      '#markup' => $html_output,
+    ),
+  );
+
+  return $output;
+}
+
+/**
+ * Get a table themed output (Legacy output).
+ *
+ * @param string $node_type_machine_name
+ *   The fetched node type.
+ *
+ * @param string $node_field_machine_name
+ *   The {field} used to find duplicates.
+ *
+ * @param bool $prioritize_published_nodes
+ *   If TRUE, the last published node in a set of duplicate nodes will be kept.
+ *   Otherwise, the first node in a set of duplicate nodes will be kept.
+ *
+ * @param bool $case_sensitive
+ *   If TRUE, duplicates detection is case sensitive
+ *   Otherwise, duplicates detection is case insensitive.
+ *
+ * @return array
+ *   An array with 2 keys :
+ *    #markup  An HTML string representing the table themed output.
+ *    #proceed A boolean indicating whether or not duplicates were found.
+ */
+function _remove_duplicates_get_table_output($node_type_machine_name, $node_field_machine_name, $prioritize_published_nodes, $case_sensitive) {
+
+  $node_types = node_type_get_names();
+  $node_types_fields = _remove_duplicates_get_node_types_fields();
+
+  $duplicate_node_groups = _remove_duplicates_get_duplicate_node_groups($node_type_machine_name, $node_field_machine_name, $case_sensitive);
+
+  if (is_array($duplicate_node_groups)) {
+
+    if (isset($duplicate_node_groups['count']) && is_array($duplicate_node_groups['count'])) {
+      $count_nodes = (array_key_exists('nodes', $duplicate_node_groups['count'])) ? $duplicate_node_groups['count']['nodes'] : 0;
+      $count_node_groups = (array_key_exists('node_groups', $duplicate_node_groups['count'])) ? $duplicate_node_groups['count']['node_groups'] : 0;
+
+      watchdog('remove_duplicates', 'Search - Found duplicate nodes : [@count_nodes] | node groups : [@count_node_groups]', array(
+        '@count_nodes' => $count_nodes,
+        '@count_node_groups' => $count_node_groups,
+      ), WATCHDOG_INFO);
+
+      watchdog('remove_duplicates', 'Search - Duplicate nodes to remove estimate : [@nodes_to_remove_estimate]', array(
+        '@nodes_to_remove_estimate' => $count_nodes - $count_node_groups,
+      ), WATCHDOG_INFO);
+    }
+
+    if (isset($duplicate_node_groups['data']) && is_array($duplicate_node_groups['data']) && count($duplicate_node_groups['data'])) {
+      // Outputs an table of duplicates found.
+      $table_output = NULL;
+      // Construction of duplicate node group tables.
+      $duplicate_node_group_table_rows = array();
+      $duplicate_node_group_table_header = array(
+        array(
+          'header' => TRUE,
+          'data' => t('remove'),
+        ),
+        array(
+          'header' => TRUE,
+          'data' => t('title'),
+        ),
+        array(
+          'header' => TRUE,
+          'data' => t('author'),
+        ),
+        array(
+          'header' => TRUE,
+          'data' => t('published'),
+        ),
+        array(
+          'header' => TRUE,
+          'data' => t('updated'),
+        ),
+        array(
+          'header' => TRUE,
+          'data' => t('created'),
+        ),
+      );
+
+      $duplicate_node_group_table_rows[] = array(
+        array(
+          'header' => TRUE,
+          'data' => t('Found Duplicates'),
+          'colspan' => count($duplicate_node_group_table_header),
+        ),
+      );
+
+      $duplicate_node_group_table_rows[] = array(
+        array(
+          'header' => TRUE,
+          'data' => t('For node type'),
+        ),
+        array(
+          'data' => ((string) $node_types[$node_type_machine_name]),
+        ),
+        array(
+          'header' => TRUE,
+          'data' => t('With field name'),
+        ),
+        array(
+          'colspan' => count($duplicate_node_group_table_header) - 3,
+          'data' => ((string) $node_types_fields[$node_type_machine_name][$node_field_machine_name]),
+        ),
+      );
+
+      foreach ($duplicate_node_groups['data'] as $duplicate_node_group) {
+
+        // Defining the default duplicate group title.
+        $first_duplicate_node = NULL;
+        $node_group_title = $node_group_field_name = $node_group_field_value = NULL;
+        if (is_array($duplicate_node_group) && count($duplicate_node_group)) {
+          $field_common_name = _remove_duplicates_get_field_common_name($node_field_machine_name);
+          $node_group_field_value = array();
+          foreach ($duplicate_node_group as $duplicate_node) {
+            if (is_object($duplicate_node) && !empty($duplicate_node->$field_common_name)) {
+              $node_group_field_value[((string) $duplicate_node->$field_common_name)] = ((string) $duplicate_node->$field_common_name);
+            }
+          }
+          $node_group_field_name = ((string) $node_types_fields[$node_type_machine_name][$node_field_machine_name]);
+          $node_group_field_value = '"' . implode('" ' . t('or') . ' "', $node_group_field_value) . '"';
+          $node_group_title = t('Where "@nodetypefield" is', array(
+            '@nodetypefield' => $node_group_field_name,
+          ));
+        }
+
+        // Defining the default kept node among duplicates.
+        $keep_node_nid = $keep_node_status = NULL;
+        foreach ($duplicate_node_group as $duplicate_node) {
+          // Defaults to keeping the first node in the group.
+          if (empty($keep_node_nid)) {
+            $keep_node_nid = $duplicate_node->nid;
+            $keep_node_status = $duplicate_node->status;
+          }
+          // Defining the node which is going to be kept among duplicates.
+          if (isset($keep_node_nid)) {
+            // If "Keep at least one published node." is checked
+            // keeping the first published node in the group.
+            if ($prioritize_published_nodes) {
+              if ($duplicate_node->status && !$keep_node_status) {
+                $keep_node_nid = $duplicate_node->nid;
+                $keep_node_status = $duplicate_node->status;
+              }
+            }
+          }
+        }
+        reset($duplicate_node_group);
+        // Defining the group table first rows.
+        $duplicate_node_group_table_rows[] = array(
+          array(
+            'header' => TRUE,
+            'data' => $node_group_title,
+          ),
+          array(
+            'data' => $node_group_field_value,
+            'colspan' => count($duplicate_node_group_table_header) - 1,
+          ),
+        );
+        $duplicate_node_group_table_rows[] = $duplicate_node_group_table_header;
+        // Construction of duplicate node group table.
+        foreach ($duplicate_node_group as $duplicate_node) {
+          $duplicate_node_group_table_row = array();
+          // Data for 'remove' column :
+          if (isset($keep_node_nid) && $keep_node_nid == $duplicate_node->nid) {
+            $duplicate_node_group_table_row[] = array(
+              'data' => '<span style="color:red;">' . t('No') . '</span>',
+            );
+          }
+          else {
+            $duplicate_node_group_table_row[] = array(
+              'data' => '<span style="color:green;">' . t('Yes') . '</span>',
+            );
+          }
+          // Data for 'title' column :
+          $duplicate_node_group_table_row[] = array(
+            'data' => l($duplicate_node->title, 'node/' . $duplicate_node->nid, array('attributes' => array('onclick' => 'window.open(this.href,parseInt(Math.random()*1000));return false;'))),
+          );
+          // Data for 'author' column :
+          $duplicate_node_group_table_row[] = array(
+            'data' => $duplicate_node->name,
+          );
+          // Data for 'status' column :
+          if ($duplicate_node->status) {
+            $duplicate_node_group_table_row[] = array(
+              'data' => '<span style="color:black;">' . t('Yes') . '</span>',
+            );
+          }
+          else {
+            $duplicate_node_group_table_row[] = array(
+              'data' => '<span style="color:gray;">' . t('No') . '</span>',
+            );
+          }
+          // Data for 'updated' column :
+          $duplicate_node_group_table_row[] = array(
+            'data' => format_date($duplicate_node->changed),
+          );
+          // Data for 'created' column :
+          $duplicate_node_group_table_row[] = array(
+            'data' => format_date($duplicate_node->created),
+          );
+          // Adding new row to rows array.
+          $duplicate_node_group_table_rows[] = $duplicate_node_group_table_row;
+        }
+        // End of duplicate node group table construction.
+      }
+
+      $table_output = theme('table', array(
+        'rows' => $duplicate_node_group_table_rows,
+      ));
+
+      $output = array(
+        '#proceed' => TRUE,
+        '#element' => array(
+          '#type' => 'item',
+          '#title' => t('Results'),
+          '#markup' => $table_output,
+        ),
+      );
+
+      return $output;
+    }
+  }
+
+  watchdog('remove_duplicates', 'Search - No duplicates found for node [@node_type_machine_name] according to field [@node_field_machine_name]', array(
+    '@node_type_machine_name' => $node_type_machine_name,
+    '@node_field_machine_name' => $node_field_machine_name,
+  ), WATCHDOG_INFO);
+
+  // Outputs a no duplicates found message.
+  $text_output = t('No duplicates for node type "@nodetype" according to field "@nodetypefield".', array(
+    '@nodetype' => ((string) $node_types[$node_type_machine_name]),
+    '@nodetypefield' => ((string) $node_types_fields[$node_type_machine_name][$node_field_machine_name]),
+  ));
+
+  $html_output = '<div class="description"><p><span style="font-weight:bold;color:red;">' . $text_output . '</span></p></div>';
+
+  $output = array(
+    '#proceed' => FALSE,
+    '#element' => array(
+      '#type' => 'item',
+      '#title' => t('Results'),
+      '#markup' => $html_output,
+    ),
+  );
+
+  return $output;
+}
+
+/**
+ * Get a tableselect data output.
+ *
+ * @param string $node_type_machine_name
+ *   The fetched node type.
+ *
+ * @param string $node_field_machine_name
+ *   The {field} used to find duplicates.
+ *
+ * @param bool $prioritize_published_nodes
+ *   If TRUE, the last published node in a set of duplicate nodes will be kept.
+ *   Otherwise, the first node in a set of duplicate nodes will be kept.
+ *
+ * @param bool $case_sensitive
+ *   If TRUE, duplicates detection is case sensitive
+ *   Otherwise, duplicates detection is case insensitive.
+ *
+ * @return array
+ *   An array with 2 keys :
+ *    #element A datastructure to use with custom tableselect form element.
+ *    #proceed A boolean indicating whether or not duplicates were found.
+ */
+function _remove_duplicates_get_tableselect_output($node_type_machine_name, $node_field_machine_name, $prioritize_published_nodes, $case_sensitive) {
+
+  $node_types = node_type_get_names();
+  $node_types_fields = _remove_duplicates_get_node_types_fields();
+
+  $duplicate_node_groups = _remove_duplicates_get_duplicate_node_groups($node_type_machine_name, $node_field_machine_name, $case_sensitive);
+
+  if (is_array($duplicate_node_groups)) {
+
+    if (isset($duplicate_node_groups['count']) && is_array($duplicate_node_groups['count'])) {
+      $count_nodes = (array_key_exists('nodes', $duplicate_node_groups['count'])) ? $duplicate_node_groups['count']['nodes'] : 0;
+      $count_node_groups = (array_key_exists('node_groups', $duplicate_node_groups['count'])) ? $duplicate_node_groups['count']['node_groups'] : 0;
+
+      watchdog('remove_duplicates', 'Search - Found duplicate nodes : [@count_nodes] | node groups : [@count_node_groups]', array(
+        '@count_nodes' => $count_nodes,
+        '@count_node_groups' => $count_node_groups,
+      ), WATCHDOG_INFO);
+
+      watchdog('remove_duplicates', 'Search - Duplicate nodes to remove estimate : [@nodes_to_remove_estimate]', array(
+        '@nodes_to_remove_estimate' => $count_nodes - $count_node_groups,
+      ), WATCHDOG_INFO);
+    }
+
+    if (isset($duplicate_node_groups['data']) && is_array($duplicate_node_groups['data']) && count($duplicate_node_groups['data'])) {
+      // Outputs a data structure to use with
+      // Remove Duplicates specific tableselect.
+      // Default duplicate node group table header.
+      $duplicate_node_group_table_header = array(
+        'remove' => t('remove'),
+        'title' => t('title'),
+        'author' => t('author'),
+        'status' => t('published'),
+        'updated' => t('updated'),
+        'created' => t('created'),
+      );
+      // Construction of duplicate node group tables.
+      $duplicate_node_group_tables = array();
+      // Construction of duplicate node group tables title.
+      $duplicate_node_group_tables['#header'] = array(
+        array(
+          'header' => TRUE,
+          'data' => t('Found Duplicates'),
+          'colspan' => count($duplicate_node_group_table_header),
+        ),
+      );
+      // Construction of duplicate node group tables.
+      $duplicate_node_group_tables['#tables'] = array();
+      foreach ($duplicate_node_groups['data'] as $duplicate_node_group) {
+        // Construction of duplicate node group table.
+        $duplicate_node_group_table = array();
+        // Construction of duplicate node group table header.
+        $duplicate_node_group_table['#header'] = array();
+        // Defining the duplicate group header prefix.
+        $node_group_title = $node_group_field_name = $node_group_field_value = NULL;
+        if (is_array($duplicate_node_group) && count($duplicate_node_group)) {
+          $field_common_name = _remove_duplicates_get_field_common_name($node_field_machine_name);
+          $node_group_field_value = array();
+          foreach ($duplicate_node_group as $duplicate_node) {
+            if (is_object($duplicate_node) && !empty($duplicate_node->$field_common_name)) {
+              $node_group_field_value[((string) $duplicate_node->$field_common_name)] = ((string) $duplicate_node->$field_common_name);
+            }
+          }
+          $node_group_field_name = ((string) $node_types_fields[$node_type_machine_name][$node_field_machine_name]);
+          $node_group_field_value = '"' . implode('" ' . t('or') . ' "', $node_group_field_value) . '"';
+          $node_group_title = t('Where "@nodetypefield" is', array(
+            '@nodetypefield' => $node_group_field_name,
+          ));
+        }
+
+        $duplicate_node_group_table['#header']['#prefix'] = array(
+          array(
+            'header' => TRUE,
+            'data' => $node_group_title,
+          ),
+          array(
+            'data' => $node_group_field_value,
+            'colspan' => count($duplicate_node_group_table_header) - 1,
+          ),
+        );
+        // Defining the duplicate group header root.
+        $duplicate_node_group_table['#header']['#root'] = $duplicate_node_group_table_header;
+        // Defining the default kept node among duplicates.
+        $keep_node_nid = $keep_node_status = NULL;
+        foreach ($duplicate_node_group as $duplicate_node) {
+          // Defaults to keeping the first node in the group.
+          if (empty($keep_node_nid)) {
+            $keep_node_nid = $duplicate_node->nid;
+            $keep_node_status = $duplicate_node->status;
+          }
+          // Defining the node which is going to be kept among duplicates.
+          if (isset($keep_node_nid)) {
+            // If "Keep at least one published node." is checked
+            // keeping the first published node in the group.
+            if ($prioritize_published_nodes) {
+              if ($duplicate_node->status && !$keep_node_status) {
+                $keep_node_nid = $duplicate_node->nid;
+                $keep_node_status = $duplicate_node->status;
+              }
+            }
+          }
+        }
+        reset($duplicate_node_group);
+        // Defining the duplicate group options.
+        $duplicate_node_group_table['#value'] = array();
+        $duplicate_node_group_table['#options'] = array();
+        $duplicate_node_group_table['#default_value'] = array();
+        foreach ($duplicate_node_group as $duplicate_node) {
+          $duplicate_node_group_table['#options'][$duplicate_node->nid] = array();
+          // Data for 'remove' column :
+          $duplicate_node_group_table['#value'][$duplicate_node->nid] = $duplicate_node->nid;
+          if (isset($keep_node_nid) && $keep_node_nid == $duplicate_node->nid) {
+            $duplicate_node_group_table['#options'][$duplicate_node->nid]['remove'] = '<span style="color:red;">' . t('No') . '</span>';
+          }
+          else {
+            $duplicate_node_group_table['#default_value'][$duplicate_node->nid] = $duplicate_node->nid;
+            $duplicate_node_group_table['#options'][$duplicate_node->nid]['remove'] = '<span style="color:green;">' . t('Yes') . '</span>';
+          }
+          // Data for 'title' column :
+          $duplicate_node_group_table['#options'][$duplicate_node->nid]['title'] = l($duplicate_node->title, 'node/' . $duplicate_node->nid, array('attributes' => array('onclick' => 'window.open(this.href,parseInt(Math.random()*1000));return false;')));
+          // Data for 'author' column :
+          $duplicate_node_group_table['#options'][$duplicate_node->nid]['author'] = $duplicate_node->name;
+          // Data for 'status' column :
+          if ($duplicate_node->status) {
+            $duplicate_node_group_table['#options'][$duplicate_node->nid]['status'] = '<span style="color:black;">' . t('Yes') . '</span>';
+          }
+          else {
+            $duplicate_node_group_table['#options'][$duplicate_node->nid]['status'] = '<span style="color:gray;">' . t('No') . '</span>';
+          }
+          // Data for 'updated' column :
+          $duplicate_node_group_table['#options'][$duplicate_node->nid]['updated'] = format_date($duplicate_node->changed);
+          // Data for 'created' column :
+          $duplicate_node_group_table['#options'][$duplicate_node->nid]['created'] = format_date($duplicate_node->created);
+          // End of duplicate node group options construction.
+        }
+        $duplicate_node_group_tables['#tables'][] = $duplicate_node_group_table;
+      }
+
+      // Custom table select element output to use with forms.
+      $output = array(
+        '#proceed' => TRUE,
+        '#element' => array(
+          '#title' => t('Results'),
+          '#type' => 'remove_duplicates_tableselect',
+          '#options' => $duplicate_node_group_tables,
+        ),
+      );
+
+      return $output;
+    }
+  }
+
+  watchdog('remove_duplicates', 'Search - No duplicates found for node [@node_type_machine_name] according to field [@node_field_machine_name]', array(
+    '@node_type_machine_name' => $node_type_machine_name,
+    '@node_field_machine_name' => $node_field_machine_name,
+  ), WATCHDOG_INFO);
+
+  // Outputs a no duplicates found message.
+  $text_output = t('No duplicates for node type "@nodetype" according to field "@nodetypefield".', array(
+    '@nodetype' => ((string) $node_types[$node_type_machine_name]),
+    '@nodetypefield' => ((string) $node_types_fields[$node_type_machine_name][$node_field_machine_name]),
+  ));
+
+  $html_output = '<div class="description"><p><span style="font-weight:bold;color:red;">' . $text_output . '</span></p></div>';
+
+  $output = array(
+    '#proceed' => FALSE,
+    '#element' => array(
+      '#type' => 'item',
+      '#title' => t('Results'),
+      '#markup' => $html_output,
+    ),
+  );
+
+  return $output;
+}
+
+/**
+ * Implements hook_element_info().
+ */
+function remove_duplicates_element_info() {
+  return array(
+    'remove_duplicates_tableselect' => array(
+      '#tree' => TRUE,
+      '#input' => TRUE,
+      '#options' => array(),
+      '#process' => array(
+        'remove_duplicates_form_process_tableselect',
+      ),
+      '#theme' => 'remove_duplicates_tableselect',
+    ));
+}
+
+/**
+ * Process function for Remove Duplicates tableselect.
+ */
+function remove_duplicates_form_process_tableselect($element, $form_state, $complete_form) {
+  if (!empty($element['#options']) && (isset($element['#options']['#tables']) && is_array($element['#options']['#tables']) && count($element['#options']['#tables']))) {
+    $element['#value'] = (isset($element['#value']) && is_array($element['#value'])) ? $element['#value'] : array();
+    foreach ($element['#options']['#tables'] as &$sub_element) {
+      $sub_element['#tree'] = TRUE;
+      $value = (isset($sub_element['#value']) && is_array($sub_element['#value'])) ? $sub_element['#value'] : array();
+      $element['#value'] = array_unique(array_merge($element['#value'], $value));
+      if (isset($sub_element['#options']) && is_array($sub_element['#options']) && count($sub_element['#options'])) {
+        if (!isset($sub_element['#default_value']) || $sub_element['#default_value'] === 0) {
+          $sub_element['#default_value'] = array();
+        }
+        // Create a checkbox for each item in #options in such a way that the
+        // value of the tableselect element behaves as if it had been of type
+        // checkboxes.
+        foreach ($sub_element['#options'] as $key => $choice) {
+          // Do not overwrite manually created children.
+          if (!isset($element[$key])) {
+            $title = '';
+            if (!empty($sub_element['#options'][$key]['title']['data']['#title'])) {
+              $title = t('Update @title', array(
+                '@title' => $sub_element['#options'][$key]['title']['data']['#title'],
+              ));
+            }
+            $checked = array();
+            if (isset($value[$key]) && isset($sub_element['#default_value'][$key])) {
+              $checked = array('checked' => 'checked');
+            }
+            $element[$key] = array(
+              '#type' => 'checkbox',
+              '#title' => $title,
+              '#title_display' => 'invisible',
+              '#return_value' => $key,
+              '#default_value' => (!empty($checked) && isset($value[$key])) ? $key : NULL,
+              '#attributes' => (isset($sub_element['#attributes']) ? $sub_element['#attributes'] : array()) + $checked,
+            );
+            $element['#options'][$key] = TRUE;
+            if (isset($sub_element['#options'][$key]['#weight'])) {
+              $element[$key]['#weight'] = $sub_element['#options'][$key]['#weight'];
+            }
+          }
+        }
+      }
+      else {
+        $sub_element['#value'] = array();
+      }
+    }
+  }
+  return $element;
+}
+
+/**
+ * Implements hook_theme().
+ *
+ * Remove Duplicates tableselect theme function registration.
+ */
+function remove_duplicates_theme($existing, $type, $theme, $path) {
+  return array(
+    'remove_duplicates_tableselect' => array(
+      'render element' => 'element',
+    ),
+  );
+}
+
+/**
+ * Implements hook_theme().
+ *
+ * Remove Duplicates tableselect theme function implementation.
+ */
+function theme_remove_duplicates_tableselect($variables) {
+  $element = $variables['element'];
+  if (isset($element['#options']) && is_array($element['#options']['#tables'])) {
+    $rows = array();
+    if (!empty($element['#options']['#header']) && is_array($element['#options']['#header'])) {
+      // Add an empty header to provide room for
+      // the checkboxes in the first table column.
+      array_unshift($element['#options']['#header'], array('header' => TRUE, 'data' => array()));
+      $rows[] = $element['#options']['#header'];
+    }
+    foreach ($element['#options']['#tables'] as $sub_element) {
+      // Add an empty header to provide room for
+      // the checkboxes in the first table column.
+      if (!empty($sub_element['#header']) && is_array($sub_element['#header'])) {
+        if (!empty($sub_element['#header']['#prefix']) && is_array($sub_element['#header']['#prefix'])) {
+          array_unshift($sub_element['#header']['#prefix'], array('header' => TRUE, 'data' => array()));
+          $rows[] = $sub_element['#header']['#prefix'];
+        }
+        if (!empty($sub_element['#header']['#root']) && is_array($sub_element['#header']['#root'])) {
+          $header = $sub_element['#header']['#root'];
+          foreach ($sub_element['#header']['#root'] as $fieldname => $title) {
+            $sub_element['#header']['#root'][$fieldname] = array(
+              'header' => TRUE,
+              'data' => $title,
+            );
+          }
+          array_unshift($sub_element['#header']['#root'], array('header' => TRUE, 'data' => array()));
+          $rows[] = $sub_element['#header']['#root'];
+        }
+      }
+      if (!empty($sub_element['#options']) && is_array($sub_element['#options'])) {
+        // Generate a table row for each selectable item in #options.
+        foreach (element_children($sub_element['#options']) as $key) {
+          $row = array('data' => array());
+          if (isset($sub_element['#options'][$key]['#attributes'])) {
+            $row += $sub_element['#options'][$key]['#attributes'];
+          }
+          // Render the checkbox / radio element.
+          $row['data'][] = drupal_render($element[$key]);
+          // As theme_table only maps header and row columns by order,
+          // create the correct order by iterating over the header fields.
+          if (!empty($header)) {
+            foreach ($header as $fieldname => $title) {
+              $row['data'][] = $sub_element['#options'][$key][$fieldname];
+            }
+          }
+          $rows[] = $row;
+        }
+      }
+    }
+    return theme('table', array('rows' => $rows, 'attributes' => $element['#attributes']));
+  }
+}
