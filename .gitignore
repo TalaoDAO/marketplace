@@ -14,7 +14,7 @@ sites/*/private
 
 # Ignore gulp files
 sites/all/themes/emindhub/src/node_modules
-sites/all/themes/emindhub/css/*.map
+*.map
 
 
 # Ignore IDE and OS-related files

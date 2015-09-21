@@ -132,6 +132,7 @@ features[field_instance][] = comment-comment_node_question1-field_private_commen
 features[field_instance][] = comment-comment_node_question1-field_private_comment_body
 features[field_instance][] = comment-comment_node_user_alert-comment_body
 features[field_instance][] = comment-comment_node_webform-comment_body
+features[field_instance][] = entity_legal_document_version-terms_of_use-entity_legal_document_text
 features[field_instance][] = field_collection_item-field_position_list-field_entreprise
 features[field_instance][] = field_collection_item-field_position_list-field_position
 features[field_instance][] = field_collection_item-field_position_list-field_year_of_experiences
