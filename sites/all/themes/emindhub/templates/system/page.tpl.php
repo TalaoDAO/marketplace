@@ -79,23 +79,23 @@
 
     <div class="row">
 
-      <div class="col-sm-3">
-
-        <?php if ($logo): ?>
-        <a class="logo navbar-btn pull-left" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
-          <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
-        </a>
-        <?php endif; ?>
+      <div class="col-sm-3 col-xs-8">
 
         <?php if (user_is_logged_in()) : ?>
-        <div class="burger-menu-btn-container" onclick="onClickBurgerMenuBtn();">
+        <div class="burger-menu-btn-container pull-right" onclick="onClickBurgerMenuBtn();">
           <?php print $openBurgerImg; ?>
         </div>
         <?php endif; ?>
 
+        <?php if ($logo): ?>
+        <a class="logo navbar-btn" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
+          <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
+        </a>
+        <?php endif; ?>
+
       </div> <!-- END .col -->
 
-      <div class="col-sm-9">
+      <div class="col-sm-9 col-xs-4">
 
         <nav class="navbar">
 

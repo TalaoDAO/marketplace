@@ -12496,6 +12496,15 @@ div.password-confirm {
   margin-right: auto;
 }
 /* HEADER
+ * Logo
+ */
+.navbar .logo {
+  display: block;
+}
+.navbar .logo img {
+  max-width: 100%;
+}
+/* HEADER
  * Topmenu
  */
 .region-topmenu > section:nth-child(2) {
