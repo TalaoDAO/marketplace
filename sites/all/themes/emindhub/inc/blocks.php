@@ -42,9 +42,6 @@ function emindhub_preprocess_block(&$vars) {
 
   switch ($block_id) {
 
-    case 'block-bootstrap-languages':
-      // $classes[] = 'col-sm-2 col-xs-3'; // TODO
-      break;
     case 'block-menu-footer-menu':
       // $classes[] = 'text-right'; // TODO
       break;
@@ -59,7 +56,11 @@ function emindhub_preprocess_block(&$vars) {
 
     // User Login block
     case 'user-login':
-      $classes[] = 'col-sm-4 col-sm-offset-6 col-xs-9';
+      $classes[] = 'col-sm-4 col-sm-offset-6 col-xs-8';
+      break;
+
+    case 'block-bootstrap-languages':
+      // $classes[] = 'col-sm-2 col-xs-3'; // TODO
       break;
 
     // Registration block : expert/business

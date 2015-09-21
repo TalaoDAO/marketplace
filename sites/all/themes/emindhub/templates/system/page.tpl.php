@@ -79,7 +79,7 @@
 
     <div class="row">
 
-      <div class="col-sm-3 col-xs-8">
+      <div class="col-sm-3 col-xs-12">
 
         <?php if (user_is_logged_in()) : ?>
         <div class="burger-menu-btn-container pull-right" onclick="onClickBurgerMenuBtn();">
@@ -95,7 +95,7 @@
 
       </div> <!-- END .col -->
 
-      <div class="col-sm-9 col-xs-4">
+      <div class="col-sm-9 col-xs-12">
 
         <nav class="navbar">
 

@@ -12520,6 +12520,9 @@ div.password-confirm {
 /* HEADER
  * Login
  */
+#block-user-login .nav > li {
+  display: inline-block;
+}
 .popover.signUp h4 {
   text-transform: uppercase;
   font-weight: 700;
@@ -13543,7 +13546,7 @@ aside .block .content {
 #block-bootstrap-languages-language {
   position: relative;
   float: left;
-  width: 33.33333333%;
+  width: 25%;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
