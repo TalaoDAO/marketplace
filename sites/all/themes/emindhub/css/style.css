@@ -12605,10 +12605,10 @@ header nav.navbar {
     text-transform: uppercase;
     padding: 5px 20px;
   }
-  .region-navigation #block-menu-menu-top-anonymous .nav > li:last-child {
+  .region-navigation #block-system-main-menu .nav > li:last-child {
     background: transparent url("../images/mailIcon.png") no-repeat scroll 13% 25%;
   }
-  .region-navigation #block-menu-menu-top-anonymous .nav > li:last-child > a {
+  .region-navigation #block-system-main-menu .nav > li:last-child > a {
     color: #009fe3;
   }
 }
@@ -13214,15 +13214,19 @@ body.admin-menu .region-burgermenu {
   font-weight: bold;
   color: #4C6172;
 }
-#block-menu-menu-footer-menu .nav > li {
+.region-footer .nav > li {
   display: table;
 }
-#block-menu-menu-footer-menu .nav > li > * {
+.region-footer .nav > li > * {
   display: table-cell;
 }
-#block-menu-menu-footer-menu .nav > li a {
+.region-footer .nav > li a {
   font-weight: 700;
   font-size: 14px;
+}
+.region-footer .nav > li a#link-LinkedIn {
+  padding-left: 35px;
+  background: transparent url("../images/linkedinMini.png") no-repeat center left;
 }
 .breadcrumb {
   margin-bottom: 0;
