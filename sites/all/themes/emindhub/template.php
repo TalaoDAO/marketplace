@@ -368,9 +368,9 @@ function isBusinessUser($account = null) {
 	return $account->uid && in_array('business', $account->roles);
 }
 
-function isAdminUser () {
+function isAdminUser() {
 	global $user;
-	return (in_array('administrator', array_values($user->roles)));
+	return (in_array( array('administrator', 'webmaster'), array_values($user->roles)));
 }
 
 function getImgSrc($fileName) {
