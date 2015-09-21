@@ -1816,8 +1816,8 @@ function ft_content_type_conditional_fields_default_fields() {
   $items[] = array(
     'entity' => 'user',
     'bundle' => 'user',
-    'dependent' => 'field_sponsor_why',
-    'dependee' => 'field_is_sponsor',
+    'dependent' => 'field_partner_why',
+    'dependee' => 'field_is_partner',
     'options' => array(
       'state' => 'visible',
       'condition' => 'checked',
@@ -1951,8 +1951,8 @@ function ft_content_type_conditional_fields_default_fields() {
   $items[] = array(
     'entity' => 'user',
     'bundle' => 'user',
-    'dependent' => 'field_partner_why',
-    'dependee' => 'field_is_partner',
+    'dependent' => 'field_sponsor_why',
+    'dependee' => 'field_is_sponsor',
     'options' => array(
       'state' => 'visible',
       'condition' => 'checked',

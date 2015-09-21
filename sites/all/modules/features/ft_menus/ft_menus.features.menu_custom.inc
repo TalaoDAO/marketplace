@@ -18,26 +18,10 @@ function ft_menus_menu_default_menu_custom() {
     'language' => 'und',
     'i18n_mode' => 0,
   );
-  // Exported menu: menu-ask.
-  $menus['menu-ask'] = array(
-    'menu_name' => 'menu-ask',
-    'title' => 'Ask',
-    'description' => '',
-    'language' => 'und',
-    'i18n_mode' => 0,
-  );
   // Exported menu: menu-burger-menu.
   $menus['menu-burger-menu'] = array(
     'menu_name' => 'menu-burger-menu',
     'title' => 'Burger Menu',
-    'description' => '',
-    'language' => 'und',
-    'i18n_mode' => 0,
-  );
-  // Exported menu: menu-findexpert.
-  $menus['menu-findexpert'] = array(
-    'menu_name' => 'menu-findexpert',
-    'title' => 'FindExpert',
     'description' => '',
     'language' => 'und',
     'i18n_mode' => 0,
@@ -50,29 +34,21 @@ function ft_menus_menu_default_menu_custom() {
     'language' => 'und',
     'i18n_mode' => 0,
   );
-  // Exported menu: menu-respond.
-  $menus['menu-respond'] = array(
-    'menu_name' => 'menu-respond',
-    'title' => 'Respond',
+  // Exported menu: menu-networks.
+  $menus['menu-networks'] = array(
+    'menu_name' => 'menu-networks',
+    'title' => 'Networks',
     'description' => '',
     'language' => 'und',
-    'i18n_mode' => 5,
+    'i18n_mode' => 0,
   );
   // Exported menu: menu-top.
   $menus['menu-top'] = array(
     'menu_name' => 'menu-top',
-    'title' => 'Top',
-    'description' => '',
+    'title' => 'Dashboard menu',
+    'description' => 'Top navigation for authentificated users.',
     'language' => 'und',
-    'i18n_mode' => 1,
-  );
-  // Exported menu: menu-top-anonymous.
-  $menus['menu-top-anonymous'] = array(
-    'menu_name' => 'menu-top-anonymous',
-    'title' => 'Top anonymous',
-    'description' => '',
-    'language' => 'und',
-    'i18n_mode' => 5,
+    'i18n_mode' => 0,
   );
   // Exported menu: user-menu.
   $menus['user-menu'] = array(
@@ -84,16 +60,14 @@ function ft_menus_menu_default_menu_custom() {
   );
   // Translatables
   // Included for use with string extractors like potx.
-  t('Ask');
   t('Burger Menu');
-  t('FindExpert');
+  t('Dashboard menu');
   t('Footer menu');
   t('Main menu');
-  t('Respond');
+  t('Networks');
   t('The <em>Main</em> menu is used on many sites to show the major sections of the site, often in a top navigation bar.');
   t('The <em>User</em> menu contains links related to the user\'s account, as well as the \'Log out\' link.');
-  t('Top');
-  t('Top anonymous');
+  t('Top navigation for authentificated users.');
   t('User menu');
 
 
