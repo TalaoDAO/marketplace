@@ -34,7 +34,7 @@
 
   <h4 class="panel-title">
     <span class="statut state-<?php print $fields['field_domain_state']->content; ?>"><?php print $fields['field_domain_state']->content; ?></span>
-    <span class="title"><?php print $fields['name']->content; ?></span>
+    <span class="title"><?php print t($fields['name_field_et']->content); ?></span>
   </h4>
 
   <?php if (isset($fields['field_domain_lead_experts']->content)) : ?>
