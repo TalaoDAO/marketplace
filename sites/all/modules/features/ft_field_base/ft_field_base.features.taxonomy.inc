@@ -13,11 +13,11 @@ function ft_field_base_taxonomy_default_vocabularies() {
       'name' => 'Domains',
       'machine_name' => 'domaine',
       'description' => 'Domaine de compétences',
-      'hierarchy' => 1,
+      'hierarchy' => 0,
       'module' => 'taxonomy',
       'weight' => 0,
       'language' => 'und',
-      'i18n_mode' => 0,
+      'i18n_mode' => 1,
     ),
     'forums' => array(
       'name' => 'Forums',
@@ -37,7 +37,7 @@ function ft_field_base_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
       'language' => 'und',
-      'i18n_mode' => 0,
+      'i18n_mode' => 1,
     ),
     'notification_frequencies' => array(
       'name' => 'Notification frequencies',
@@ -47,7 +47,7 @@ function ft_field_base_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
       'language' => 'und',
-      'i18n_mode' => 0,
+      'i18n_mode' => 1,
     ),
     'position' => array(
       'name' => 'Position',
@@ -57,7 +57,7 @@ function ft_field_base_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
       'language' => 'und',
-      'i18n_mode' => 0,
+      'i18n_mode' => 1,
     ),
     'skill' => array(
       'name' => 'Skills',
@@ -67,7 +67,7 @@ function ft_field_base_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
       'language' => 'und',
-      'i18n_mode' => 0,
+      'i18n_mode' => 1,
     ),
     'tags' => array(
       'name' => 'Tags',
@@ -77,7 +77,7 @@ function ft_field_base_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
       'language' => 'und',
-      'i18n_mode' => 4,
+      'i18n_mode' => 1,
     ),
   );
 }

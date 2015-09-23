@@ -205,7 +205,6 @@ features[user_permission][] = access environment indicator demo
 features[user_permission][] = access environment indicator dev
 features[user_permission][] = access environment indicator overwritten_environment
 features[user_permission][] = access environment indicator preprod
-features[user_permission][] = access environment indicator preview
 features[user_permission][] = access epostcard
 features[user_permission][] = access forward
 features[user_permission][] = access image styles mapping reports

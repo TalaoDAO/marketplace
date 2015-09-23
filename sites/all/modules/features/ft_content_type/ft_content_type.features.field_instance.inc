@@ -297,6 +297,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Comment',
     'required' => TRUE,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -536,6 +537,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => FALSE,
     'settings' => array(
       'display_summary' => TRUE,
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -579,6 +581,7 @@ function ft_content_type_field_default_field_instances() {
           'status' => 0,
         ),
       ),
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -621,6 +624,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Position',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -661,6 +665,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Years of experience',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'max' => 50,
       'min' => 0,
       'prefix' => '',
@@ -705,6 +710,7 @@ function ft_content_type_field_default_field_instances() {
           'status' => 0,
         ),
       ),
+      'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -2601,6 +2607,49 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-page-title_field'
+  $field_instances['node-page-title_field'] = array(
+    'bundle' => 'page',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 1,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'title_field',
+    'label' => 'Titre',
+    'required' => TRUE,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => FALSE,
+        'page' => FALSE,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -5,
+    ),
+  );
+
   // Exported field_instance: 'node-poll-field_description'
   $field_instances['node-poll-field_description'] = array(
     'bundle' => 'poll',
@@ -3523,6 +3572,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'display_summary' => 0,
+      'entity_translation_sync' => FALSE,
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -4193,6 +4243,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Questions',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
@@ -4916,6 +4967,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Address',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => 0,
     ),
     'widget' => array(
@@ -4959,6 +5011,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'description_field' => 0,
+      'entity_translation_sync' => FALSE,
       'file_directory' => '',
       'file_extensions' => 'txt pdf doc docx odw',
       'filefield_paths' => array(
@@ -5028,6 +5081,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Field(s) of expertise',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => 0,
     ),
     'widget' => array(
@@ -5216,6 +5270,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Organisation visibility',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => 1,
     ),
     'widget' => array(
@@ -5256,6 +5311,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'First Name',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => 1,
     ),
@@ -5293,6 +5349,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Is partner',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => 0,
     ),
     'widget' => array(
@@ -5329,6 +5386,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Is promoted',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => 0,
     ),
     'widget' => array(
@@ -5365,6 +5423,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Is sponsor',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => 0,
     ),
     'widget' => array(
@@ -5403,6 +5462,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'How did you hear about us?',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => 0,
     ),
     'widget' => array(
@@ -5482,6 +5542,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Last Name',
     'required' => 1,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => 1,
     ),
@@ -5583,6 +5644,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Name visibility',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => 1,
     ),
     'widget' => array(
@@ -5621,6 +5683,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'How often do you want to receive eMindHub\'s notifications?',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => 0,
     ),
     'widget' => array(
@@ -5695,6 +5758,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Why did I choose to become a partner?',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => 0,
     ),
@@ -5807,6 +5871,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Position',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => 0,
     ),
     'widget' => array(
@@ -5847,6 +5912,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'My background',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => 0,
     ),
     'widget' => array(
@@ -5897,6 +5963,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Specific skill(s)',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => 0,
     ),
     'widget' => array(
@@ -6026,6 +6093,7 @@ function ft_content_type_field_default_field_instances() {
           'status' => 0,
         ),
       ),
+      'entity_translation_sync' => FALSE,
       'user_register_form' => 0,
     ),
     'widget' => array(
@@ -6058,6 +6126,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Why did I choose to become a sponsor?',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'text_processing' => 0,
       'user_register_form' => 0,
     ),
@@ -6101,6 +6170,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Sponsorhip',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => 0,
     ),
     'widget' => array(
@@ -6267,6 +6337,7 @@ function ft_content_type_field_default_field_instances() {
     'label' => 'Working Status',
     'required' => 0,
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_register_form' => 0,
     ),
     'widget' => array(
@@ -6412,6 +6483,7 @@ function ft_content_type_field_default_field_instances() {
   t('Telephone');
   t('Testimony');
   t('This is the text a user may send to the group administrators.');
+  t('Titre');
   t('Use this field if you want to restrict Alert to some users');
   t('User List');
   t('Video');

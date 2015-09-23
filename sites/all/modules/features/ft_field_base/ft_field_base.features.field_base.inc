@@ -82,7 +82,9 @@ function ft_field_base_field_default_field_bases() {
     ),
     'locked' => 0,
     'module' => 'text',
-    'settings' => array(),
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+    ),
     'translatable' => 1,
     'type' => 'text_with_summary',
   );
@@ -277,6 +279,9 @@ function ft_field_base_field_default_field_bases() {
     'settings' => array(
       'display_default' => 0,
       'display_field' => 0,
+      'entity_translation_sync' => array(
+        0 => 'fid',
+      ),
       'uri_scheme' => 'public',
       'user_role_field' => array(
         1 => 0,
@@ -370,6 +375,7 @@ function ft_field_base_field_default_field_bases() {
     'locked' => 0,
     'module' => 'entityreference',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'handler' => 'base',
       'handler_settings' => array(
         'behaviors' => array(
@@ -414,6 +420,7 @@ function ft_field_base_field_default_field_bases() {
         1 => 'Active',
       ),
       'allowed_values_function' => '',
+      'entity_translation_sync' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'list_boolean',
@@ -523,7 +530,7 @@ function ft_field_base_field_default_field_bases() {
         9 => 0,
       ),
     ),
-    'translatable' => 0,
+    'translatable' => 1,
     'type' => 'text_long',
   );
 
@@ -612,7 +619,7 @@ function ft_field_base_field_default_field_bases() {
         9 => 9,
       ),
     ),
-    'translatable' => 0,
+    'translatable' => 1,
     'type' => 'text_long',
   );
 
@@ -856,6 +863,7 @@ function ft_field_base_field_default_field_bases() {
         1 => 'Is a partner',
       ),
       'allowed_values_function' => '',
+      'entity_translation_sync' => FALSE,
       'user_role_field' => array(
         1 => 0,
         2 => 0,
@@ -896,6 +904,7 @@ function ft_field_base_field_default_field_bases() {
         1 => 'Is promoted to front page',
       ),
       'allowed_values_function' => '',
+      'entity_translation_sync' => FALSE,
       'user_role_field' => array(
         1 => 0,
         2 => 0,
@@ -936,6 +945,7 @@ function ft_field_base_field_default_field_bases() {
         1 => 'Is a sponsor',
       ),
       'allowed_values_function' => '',
+      'entity_translation_sync' => FALSE,
       'user_role_field' => array(
         1 => 0,
         2 => 0,
@@ -992,7 +1002,7 @@ function ft_field_base_field_default_field_bases() {
         9 => 9,
       ),
     ),
-    'translatable' => 0,
+    'translatable' => 1,
     'type' => 'taxonomy_term_reference',
   );
 
@@ -1030,7 +1040,7 @@ function ft_field_base_field_default_field_bases() {
         9 => 9,
       ),
     ),
-    'translatable' => 0,
+    'translatable' => 1,
     'type' => 'text',
   );
 
@@ -1230,7 +1240,7 @@ function ft_field_base_field_default_field_bases() {
         9 => 9,
       ),
     ),
-    'translatable' => 0,
+    'translatable' => 1,
     'type' => 'taxonomy_term_reference',
   );
 
@@ -1266,7 +1276,7 @@ function ft_field_base_field_default_field_bases() {
         9 => 0,
       ),
     ),
-    'translatable' => 0,
+    'translatable' => 1,
     'type' => 'text_long',
   );
 
@@ -1327,6 +1337,7 @@ function ft_field_base_field_default_field_bases() {
     'locked' => 0,
     'module' => 'text',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_role_field' => array(
         1 => 0,
         2 => 0,
@@ -1438,6 +1449,7 @@ function ft_field_base_field_default_field_bases() {
           'parent' => 0,
         ),
       ),
+      'entity_translation_sync' => FALSE,
       'options_list_callback' => 'i18n_taxonomy_allowed_values',
       'user_role_field' => array(
         1 => 0,
@@ -1474,6 +1486,7 @@ function ft_field_base_field_default_field_bases() {
     'locked' => 0,
     'module' => 'field_collection',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'hide_blank_items' => 1,
       'path' => '',
       'user_role_field' => array(
@@ -1488,7 +1501,7 @@ function ft_field_base_field_default_field_bases() {
         9 => 0,
       ),
     ),
-    'translatable' => 0,
+    'translatable' => 1,
     'type' => 'field_collection',
   );
 
@@ -2044,6 +2057,7 @@ function ft_field_base_field_default_field_bases() {
     'locked' => 0,
     'module' => 'text',
     'settings' => array(
+      'entity_translation_sync' => FALSE,
       'user_role_field' => array(
         1 => 0,
         2 => 0,
@@ -2446,7 +2460,7 @@ function ft_field_base_field_default_field_bases() {
         9 => 0,
       ),
     ),
-    'translatable' => 0,
+    'translatable' => 1,
     'type' => 'list_text',
   );
 
@@ -2587,6 +2601,28 @@ function ft_field_base_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'list_boolean',
+  );
+
+  // Exported field_base: 'name_field'
+  $field_bases['name_field'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'name_field',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'max_length' => 255,
+    ),
+    'translatable' => 1,
+    'type' => 'text',
   );
 
   // Exported field_base: 'og_group_ref'

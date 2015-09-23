@@ -143,7 +143,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access environment indicator',
     'roles' => array(
       'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'environment_indicator',
   );
@@ -182,15 +182,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access environment indicator preprod',
     'roles' => array(
       'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'environment_indicator',
-  );
-
-  // Exported permission: 'access environment indicator preview'.
-  $permissions['access environment indicator preview'] = array(
-    'name' => 'access environment indicator preview',
-    'roles' => array(
       'authenticated user' => 'authenticated user',
     ),
     'module' => 'environment_indicator',
