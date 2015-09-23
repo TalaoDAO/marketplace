@@ -19,7 +19,7 @@ function ft_rules_default_rules_configuration() {
       "DO" : [
         { "user_add_role" : {
             "account" : [ "hybridauth-user" ],
-            "roles" : { "value" : { "4" : "4" } }
+            "roles" : { "value" : { "8" : "8" } }
           }
         }
       ]
@@ -90,7 +90,7 @@ function ft_rules_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "ACTIVE" : false,
       "OWNER" : "rules",
-      "TAGS" : [ "Circle", "email", "EMH" ],
+      "TAGS" : [ "Circle", "EMH", "email" ],
       "REQUIRES" : [ "rules", "og" ],
       "ON" : { "og_user_insert" : [] },
       "DO" : [
