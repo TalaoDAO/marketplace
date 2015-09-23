@@ -13203,6 +13203,13 @@ fieldset[disabled] .views-navigation-next.focus {
   color: #fff;
   padding: 15px;
 }
+.content .node .links {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
 .region-burgermenu {
   display: none;
   background-color: #2E3243;
