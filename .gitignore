@@ -1,7 +1,7 @@
 sites/all/modules/.notused
 sites/all/modules/.unused
 sites/all/modules/debug
-
+sites/all/modules/testing/
 
 # Ignore configuration files that may contain sensitive information.
 sites/*/settings*.php
@@ -15,7 +15,6 @@ sites/*/private
 # Ignore gulp files
 sites/all/themes/emindhub/src/node_modules
 *.map
-
 
 # Ignore IDE and OS-related files
 .buildpath
