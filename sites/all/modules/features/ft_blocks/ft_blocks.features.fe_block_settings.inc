@@ -1076,37 +1076,6 @@ business/register',
     'visibility' => 1,
   );
 
-  $export['views-news_thread-block_2'] = array(
-    'cache' => -1,
-    'css_class' => '',
-    'custom' => 0,
-    'delta' => 'news_thread-block_2',
-    'i18n_block_language' => array(),
-    'i18n_mode' => 0,
-    'module' => 'views',
-    'node_types' => array(),
-    'pages' => '<front>',
-    'roles' => array(
-      'authenticated user' => 2,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'emindhub',
-        'weight' => 0,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '',
-    'visibility' => 1,
-  );
-
   $export['views-og_members-block_1'] = array(
     'cache' => -1,
     'css_class' => '',
