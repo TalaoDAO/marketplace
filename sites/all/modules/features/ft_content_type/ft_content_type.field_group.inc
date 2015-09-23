@@ -646,7 +646,7 @@ function ft_content_type_field_group_info() {
       1 => 'field_is_sponsor',
       2 => 'field_is_promoted',
       3 => 'field_is_partner',
-      4 => 'masquerade',
+      4 => 'piwik',
       5 => 'privatemsg',
       6 => 'timezone',
       7 => 'contact',
@@ -1870,8 +1870,8 @@ function ft_content_type_field_group_info() {
     'weight' => '2',
     'children' => array(
       0 => 'field_testimony',
-      1 => 'field_sponsor_why',
-      2 => 'field_partner_why',
+      1 => 'field_partner_why',
+      2 => 'field_sponsor_why',
     ),
     'format_type' => 'div',
     'format_settings' => array(

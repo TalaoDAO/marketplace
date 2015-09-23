@@ -5,6 +5,7 @@ package = EMH
 version = 7.x-1.0-dev
 project = ft_views
 dependencies[] = better_exposed_filters
+dependencies[] = ctools
 dependencies[] = entityreference
 dependencies[] = insert_view
 dependencies[] = quicktabs

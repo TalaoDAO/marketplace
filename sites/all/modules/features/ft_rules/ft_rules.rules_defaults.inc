@@ -9,6 +9,22 @@
  */
 function ft_rules_default_rules_configuration() {
   $items = array();
+  $items['rules_add_expert_role_on_hybridauth'] = entity_import('rules_config', '{ "rules_add_expert_role_on_hybridauth" : {
+      "LABEL" : "Add \\u0022Expert\\u0022 role on hybridauth",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "TAGS" : [ "emh" ],
+      "REQUIRES" : [ "rules", "hybridauth" ],
+      "ON" : { "hybridauth_user_insert" : [] },
+      "DO" : [
+        { "user_add_role" : {
+            "account" : [ "hybridauth-user" ],
+            "roles" : { "value" : { "8" : "8" } }
+          }
+        }
+      ]
+    }
+  }');
   $items['rules_auto_subscribe_to_general_group'] = entity_import('rules_config', '{ "rules_auto_subscribe_to_general_group" : {
       "LABEL" : "Auto subscribe to general group",
       "PLUGIN" : "reaction rule",
@@ -74,7 +90,7 @@ function ft_rules_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "ACTIVE" : false,
       "OWNER" : "rules",
-      "TAGS" : [ "Circle", "email", "EMH" ],
+      "TAGS" : [ "Circle", "EMH", "email" ],
       "REQUIRES" : [ "rules", "og" ],
       "ON" : { "og_user_insert" : [] },
       "DO" : [

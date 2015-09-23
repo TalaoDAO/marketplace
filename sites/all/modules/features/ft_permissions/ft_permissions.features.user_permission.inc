@@ -143,7 +143,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access environment indicator',
     'roles' => array(
       'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'environment_indicator',
   );
@@ -187,11 +187,12 @@ function ft_permissions_user_default_permissions() {
     'module' => 'environment_indicator',
   );
 
-  // Exported permission: 'access environment indicator preview'.
-  $permissions['access environment indicator preview'] = array(
-    'name' => 'access environment indicator preview',
+  // Exported permission: 'access environment indicator prod'.
+  $permissions['access environment indicator prod'] = array(
+    'name' => 'access environment indicator prod',
     'roles' => array(
-      'authenticated user' => 'authenticated user',
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'environment_indicator',
   );
@@ -617,6 +618,16 @@ function ft_permissions_user_default_permissions() {
     'module' => 'entity_legal',
   );
 
+  // Exported permission: 'administer entity translation'.
+  $permissions['administer entity translation'] = array(
+    'name' => 'administer entity translation',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'entity_translation',
+  );
+
   // Exported permission: 'administer environment indicator settings'.
   $permissions['administer environment indicator settings'] = array(
     'name' => 'administer environment indicator settings',
@@ -804,6 +815,15 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'metatag',
+  );
+
+  // Exported permission: 'administer module filter'.
+  $permissions['administer module filter'] = array(
+    'name' => 'administer module filter',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'module_filter',
   );
 
   // Exported permission: 'administer modules'.
@@ -1004,6 +1024,15 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'stringoverrides',
+  );
+
+  // Exported permission: 'administer switch'.
+  $permissions['administer switch'] = array(
+    'name' => 'administer switch',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'switchtheme',
   );
 
   // Exported permission: 'administer taxonomy'.
@@ -3353,6 +3382,16 @@ function ft_permissions_user_default_permissions() {
     'module' => 'user',
   );
 
+  // Exported permission: 'select different theme'.
+  $permissions['select different theme'] = array(
+    'name' => 'select different theme',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'switchtheme',
+  );
+
   // Exported permission: 'select text format for privatemsg'.
   $permissions['select text format for privatemsg'] = array(
     'name' => 'select text format for privatemsg',
@@ -3386,6 +3425,16 @@ function ft_permissions_user_default_permissions() {
     'module' => 'shortcut',
   );
 
+  // Exported permission: 'switch theme'.
+  $permissions['switch theme'] = array(
+    'name' => 'switch theme',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'switchtheme',
+  );
+
   // Exported permission: 'tag private messages'.
   $permissions['tag private messages'] = array(
     'name' => 'tag private messages',
@@ -3396,6 +3445,16 @@ function ft_permissions_user_default_permissions() {
     'module' => 'privatemsg_filter',
   );
 
+  // Exported permission: 'toggle field translatability'.
+  $permissions['toggle field translatability'] = array(
+    'name' => 'toggle field translatability',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'entity_translation',
+  );
+
   // Exported permission: 'translate admin strings'.
   $permissions['translate admin strings'] = array(
     'name' => 'translate admin strings',
@@ -3404,6 +3463,16 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'i18n_string',
+  );
+
+  // Exported permission: 'translate any entity'.
+  $permissions['translate any entity'] = array(
+    'name' => 'translate any entity',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'entity_translation',
   );
 
   // Exported permission: 'translate content'.
@@ -3424,6 +3493,30 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'locale',
+  );
+
+  // Exported permission: 'translate node entities'.
+  $permissions['translate node entities'] = array(
+    'name' => 'translate node entities',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'entity_translation',
+  );
+
+  // Exported permission: 'translate taxonomy_term entities'.
+  $permissions['translate taxonomy_term entities'] = array(
+    'name' => 'translate taxonomy_term entities',
+    'roles' => array(),
+    'module' => 'entity_translation',
+  );
+
+  // Exported permission: 'translate user entities'.
+  $permissions['translate user entities'] = array(
+    'name' => 'translate user entities',
+    'roles' => array(),
+    'module' => 'entity_translation',
   );
 
   // Exported permission: 'translate user-defined strings'.
@@ -3708,6 +3801,17 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'flag',
+  );
+
+  // Exported permission: 'use hybridauth'.
+  $permissions['use hybridauth'] = array(
+    'name' => 'use hybridauth',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'hybridauth',
   );
 
   // Exported permission: 'use page manager'.

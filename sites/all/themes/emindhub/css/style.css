@@ -12422,6 +12422,12 @@ div.password-confirm {
   border: 0;
   display: none !important;
 }
+.hybridauth-widget-wrapper ul.hybridauth-widget li {
+  padding: 0;
+  list-style-type: none;
+  list-style-image: none;
+  background: none;
+}
 @media (max-width: 767px) {
   header#navbar .row > * {
     padding: 0;
@@ -12546,11 +12552,25 @@ div.password-confirm {
   font-style: italic;
   color: #fff;
 }
-.popover li[attributes="linkedin-auth-login-link-drupal-login-block"] {
-  background: transparent url("../images/services/linkedIn_picto_mini.png") no-repeat center left;
-  padding: 10px 0 10px 30px;
+.popover .hybridauth-widget-wrapper h3 {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+  margin: 0;
+}
+.popover .hybridauth-widget-wrapper ul {
   border-top: 1px solid #4c6172;
+}
+.popover .hybridauth-widget-wrapper ul a {
+  padding: 10px 0;
   border-bottom: 1px solid #4c6172;
+  display: block;
+}
+.popover .hybridauth-widget-wrapper ul a[data-hybridauth-provider="LinkedIn"]:after {
+  content: "Log in with LinkedIn";
+  margin-left: 10px;
 }
 /* HEADER
  * Navigation

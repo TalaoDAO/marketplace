@@ -366,7 +366,8 @@ function emindhub_form_user_login_block_alter(&$form, &$form_state, $form_id) {
 
   $form['actions']['#weight'] = 8;
 
-  $form['linkedin_auth_links']['#weight'] = 9;
+  // $form['linkedin_auth_links']['#weight'] = 9;
+  $form['hybridauth']['#weight'] = 9;
 
   $markup = l(t('Forgot your password?'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
   $markup = '<ul class="login-links">' . $markup . '</ul>';
