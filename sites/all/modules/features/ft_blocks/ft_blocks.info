@@ -64,7 +64,6 @@ features[fe_block_settings][] = user-login
 features[fe_block_settings][] = user_alert-user_alert
 features[fe_block_settings][] = views-entreprise_list-block
 features[fe_block_settings][] = views-news_thread-block
-features[fe_block_settings][] = views-news_thread-block_2
 features[fe_block_settings][] = views-og_members-block_1
 features[fe_block_settings][] = views-query_list-block
 features[fe_block_settings][] = views-sponsors-partners_block
