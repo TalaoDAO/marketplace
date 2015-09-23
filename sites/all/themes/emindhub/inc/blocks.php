@@ -43,7 +43,6 @@ function emindhub_preprocess_block(&$vars) {
   switch ($block_id) {
 
     case 'menu-menu-footer-menu':
-      // $classes[] = 'text-right'; // TODO
       $classes[] = 'col-sm-3 col-sm-offset-6 text-right';
       break;
 

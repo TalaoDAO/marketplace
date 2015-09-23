@@ -41,9 +41,12 @@ function bootstrap_menu_tree__user_menu(&$variables) {
 function bootstrap_menu_tree__menu_top(&$variables) {
   return '<ul class="menu nav nav-justified">' . $variables['tree'] . '</ul>';
 }
-function bootstrap_menu_tree__main_menu(&$variables) {
+function bootstrap_menu_tree__menu_top_anonymous(&$variables) {
   return '<ul class="menu nav nav-justified">' . $variables['tree'] . '</ul>';
 }
+// function bootstrap_menu_tree__main_menu(&$variables) {
+//   return '<ul class="menu nav nav-justified">' . $variables['tree'] . '</ul>';
+// }
 // function bootstrap_menu_tree__menu_burger_menu(&$variables) {
 //   return '<ul class="menu nav navbar-emh-burger">' . $variables['tree'] . '</ul>';
 // }
