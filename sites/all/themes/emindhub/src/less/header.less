@@ -112,11 +112,25 @@
 		}
 	}
 
-	li[attributes="linkedin-auth-login-link-drupal-login-block"] {
-		background: transparent url("../images/services/linkedIn_picto_mini.png") no-repeat center left;
-		padding: 10px 0 10px 30px;
-		border-top: 1px solid @darkerBlue;
-		border-bottom: 1px solid @darkerBlue;
+	.hybridauth-widget-wrapper {
+		h3 {
+			.text-hide;
+			margin: 0;
+		}
+		ul {
+			border-top: 1px solid @darkerBlue;
+			a {
+				padding: 10px 0;
+				border-bottom: 1px solid @darkerBlue;
+				display: block;
+				&[data-hybridauth-provider="LinkedIn"] {
+					&:after {
+						content: "Log in with LinkedIn";
+						margin-left: 10px;
+					}
+				}
+			}
+		}
 	}
 
 	.login-links {
