@@ -368,9 +368,14 @@ function isBusinessUser($account = null) {
 	return $account->uid && in_array('business', $account->roles);
 }
 
+function isWebmasterUser() {
+	global $user;
+	return (in_array( 'webmaster', array_values($user->roles)));
+}
+
 function isAdminUser() {
 	global $user;
-	return (in_array( array('administrator', 'webmaster'), array_values($user->roles)));
+	return (in_array( 'administrator', array_values($user->roles)));
 }
 
 function getImgSrc($fileName) {
@@ -384,30 +389,12 @@ function imagePath($fileName) {
 function isHomePage() {
 	$isHomePage = drupal_is_front_page();
 	if (!$isHomePage) {
-		/*$arUrl = explode('/', current_path());
-		if ($arUrl[count($arUrl)-1] == "homepage") {
-			$isHomePage = TRUE;
-		}*/
 		if (drupal_get_path_alias() == "homepage") {
 			$isHomePage = TRUE;
 		}
 	}
 	return $isHomePage;
 }
-
-// function isExpertRegister() {
-//   if (drupal_get_path_alias() == "expert/register") {
-//	 $isExpertRegister = TRUE;
-//   }
-//   return $isExpertRegister;
-// }
-//
-// function isBusinessRegister() {
-//   if (drupal_get_path_alias() == "business/register") {
-//	 $isBusinessRegister = TRUE;
-//   }
-//   return $isBusinessRegister;
-// }
 
 
 function pp($arr){
