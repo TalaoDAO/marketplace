@@ -14022,25 +14022,25 @@ aside .block .content {
     width: 50%;
   }
 }
-#block-views-news-thread-block .content h3,
-#block-views-news-thread-block-2 .content h3 {
+#block-views-news-thread-block .content h3 {
   margin: 0;
+  color: #fff;
 }
-#block-views-news-thread-block .content p.field-content,
-#block-views-news-thread-block-2 .content p.field-content {
+#block-views-news-thread-block .content h3 a {
+  color: inherit;
+}
+#block-views-news-thread-block .content p.field-content {
   padding-bottom: 45px;
   position: relative;
 }
-#block-views-news-thread-block .content p.field-content .views-more-link,
-#block-views-news-thread-block-2 .content p.field-content .views-more-link {
+#block-views-news-thread-block .content p.field-content .views-more-link {
   font: 0/0 a;
   color: transparent;
   text-shadow: none;
   background-color: transparent;
   border: 0;
 }
-#block-views-news-thread-block .content p.field-content .views-more-link:before,
-#block-views-news-thread-block-2 .content p.field-content .views-more-link:before {
+#block-views-news-thread-block .content p.field-content .views-more-link:before {
   content: '\002b';
   font-size: 20px;
   display: block;
@@ -14056,16 +14056,14 @@ aside .block .content {
   border: 4px solid #009fe3;
   border-radius: 100%;
 }
-#block-views-news-thread-block .carousel-control.left,
-#block-views-news-thread-block-2 .carousel-control.left {
+#block-views-news-thread-block .carousel-control.left {
   background-image: -webkit-linear-gradient(left, rgba(68, 87, 102, 0.5) 0%, rgba(68, 87, 102, 0.0001) 100%);
   background-image: -o-linear-gradient(left, rgba(68, 87, 102, 0.5) 0%, rgba(68, 87, 102, 0.0001) 100%);
   background-image: linear-gradient(to right, rgba(68, 87, 102, 0.5) 0%, rgba(68, 87, 102, 0.0001) 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80445766', endColorstr='#00445766', GradientType=1);
 }
-#block-views-news-thread-block .carousel-control.right,
-#block-views-news-thread-block-2 .carousel-control.right {
+#block-views-news-thread-block .carousel-control.right {
   background-image: -webkit-linear-gradient(left, rgba(68, 87, 102, 0.0001) 0%, rgba(68, 87, 102, 0.5) 100%);
   background-image: -o-linear-gradient(left, rgba(68, 87, 102, 0.0001) 0%, rgba(68, 87, 102, 0.5) 100%);
   background-image: linear-gradient(to right, rgba(68, 87, 102, 0.0001) 0%, rgba(68, 87, 102, 0.5) 100%);
