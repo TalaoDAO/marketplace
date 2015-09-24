@@ -14068,49 +14068,49 @@ aside .block .content {
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00445766', endColorstr='#80445766', GradientType=1);
 }
-#block-views-query-list-block .block-title {
+.view-query-list .block-title {
   margin-top: 0;
 }
-#block-views-query-list-block form .form-group {
+.view-query-list form .form-group {
   margin-bottom: 0;
 }
-#block-views-query-list-block form #edit-uid-current-wrapper {
+.view-query-list form #edit-uid-current-wrapper {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 767px) {
-  #block-views-query-list-block form #edit-uid-current-wrapper {
+  .view-query-list form #edit-uid-current-wrapper {
     float: left;
     width: 25%;
   }
 }
-#block-views-query-list-block form #edit-status-1-wrapper {
+.view-query-list form #edit-status-1-wrapper {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 767px) {
-  #block-views-query-list-block form #edit-status-1-wrapper {
+  .view-query-list form #edit-status-1-wrapper {
     float: left;
     width: 25%;
   }
 }
-#block-views-query-list-block .views-field-field-picto {
+.view-query-list .views-field-field-picto {
   text-align: center;
 }
-#block-views-query-list-block .views-field-created {
+.view-query-list .views-field-created {
   text-align: center;
 }
-#block-views-query-list-block .views-field-field-expiration-date {
+.view-query-list .views-field-field-expiration-date {
   text-align: center;
 }
-#block-views-query-list-block .views-field-field-reward {
+.view-query-list .views-field-field-reward {
   text-align: right;
 }
-#block-views-query-list-block .views-field-nothing {
+.view-query-list .views-field-nothing {
   text-align: right;
 }
 #block-progress-tracker-progress-tracker .block-title {
