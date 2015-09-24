@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Install File for Fancy File Delete.
+ */
+
+/**
+ * Implements hook_enable().
+ */
+function fancy_file_delete_enable() {
+  // So the hook_menu items in views shows up.
+  drupal_flush_all_caches();
+}
