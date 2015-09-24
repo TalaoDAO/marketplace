@@ -15227,9 +15227,6 @@ form#user-profile-form .imagefield-crop-widget .file {
     max-width: 100%;
   }
 }
-.page-user h1.page-header {
-  display: none !important;
-}
 .page-user .profile-section {
   margin-bottom: 15px;
   background-color: #F6F7F8;
@@ -15591,6 +15588,9 @@ form#user-profile-form .imagefield-crop-widget .file {
     float: left;
     width: 50%;
   }
+}
+.page-user:not(.page-user-drafts) h1.page-header {
+  display: none !important;
 }
 form#webform-node-form #edit-field-expiration-date .form-type-textfield > label {
   font: 0/0 a;
