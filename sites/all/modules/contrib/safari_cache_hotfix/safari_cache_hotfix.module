@@ -1,0 +1,39 @@
+<?php
+require_once 'vendor/autoload.php';
+use UAParser\Parser;
+/**
+ * https://drupal.org/node/1910178
+ */
+
+/**
+ * http://stackoverflow.com/questions/3384935/safari-browser-ignoring-my-no-cache
+ * http://stackoverflow.com/questions/158319/cross-browser-onload-event-and-the-back-button
+ *
+ * Implements hook_preprocess_html().
+ */
+function safari_cache_hotfix_preprocess_html(&$variables) {
+    $variables['attributes_array']['onunload'] = '';
+}
+
+/**
+ * We have to hook into boot, in order to be able to send our headers for safari
+ * browsers even for cached pages. This also requires the system table entry to
+ * have bootstrap set to 1.
+ *
+ * Implements hook_boot().
+ */
+function safari_cache_hotfix_boot() {
+  if (strpos($_SERVER['HTTP_USER_AGENT'], 'Safari')!==FALSE) {
+    $ua = $_SERVER['HTTP_USER_AGENT'];
+    $parser = Parser::create();
+    $result = $parser->parse($ua);
+    if ($result->ua->family == 'Safari') {
+      $default_headers = array(
+        'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0',
+      );
+      foreach($default_headers AS $k => $v) {
+        drupal_add_http_header($k, $v);
+      }
+    }
+  }
+}

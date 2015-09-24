@@ -1,0 +1,3 @@
+name = Safari Cache Hotfix
+description = Hotfix for caching issues with safari
+core = 7.x

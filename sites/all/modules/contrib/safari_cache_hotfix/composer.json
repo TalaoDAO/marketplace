@@ -1,0 +1,5 @@
+{
+    "require": {
+        "tobie/ua-parser": "*@dev"
+    }
+}
