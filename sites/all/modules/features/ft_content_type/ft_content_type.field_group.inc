@@ -646,12 +646,13 @@ function ft_content_type_field_group_info() {
       1 => 'field_is_sponsor',
       2 => 'field_is_promoted',
       3 => 'field_is_partner',
-      4 => 'piwik',
-      5 => 'privatemsg',
-      6 => 'timezone',
-      7 => 'contact',
-      8 => 'locale',
-      9 => 'wysiwyg',
+      4 => 'ckeditor',
+      5 => 'piwik',
+      6 => 'privatemsg',
+      7 => 'timezone',
+      8 => 'contact',
+      9 => 'locale',
+      10 => 'group_testimony',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1864,7 +1865,7 @@ function ft_content_type_field_group_info() {
   $field_group->entity_type = 'user';
   $field_group->bundle = 'user';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Share your experience',
     'weight' => '2',
