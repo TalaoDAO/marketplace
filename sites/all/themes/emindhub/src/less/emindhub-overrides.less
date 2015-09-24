@@ -161,9 +161,19 @@ span.form-required {
 .input-group:not(.file-widget) {
 	max-width: 352px;
 }
+
 // Textarea
-.form-textarea-wrapper.resizable-textarea {
-	max-width: 500px;
+body.page-user-edit {
+	.form-textarea-wrapper.resizable-textarea {
+		max-width: 500px;
+	}
+}
+
+// Node edit case
+body.page-node-edit {
+	.form-textarea-wrapper.resizable-textarea {
+		max-width: auto !important;
+	}
 }
 
 

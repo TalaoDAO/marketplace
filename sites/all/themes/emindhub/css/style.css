@@ -11862,8 +11862,11 @@ span.form-required {
 .input-group:not(.file-widget) {
   max-width: 352px;
 }
-.form-textarea-wrapper.resizable-textarea {
+body.page-user-edit .form-textarea-wrapper.resizable-textarea {
   max-width: 500px;
+}
+body.page-node-edit .form-textarea-wrapper.resizable-textarea {
+  max-width: auto !important;
 }
 .view-filters {
   margin-bottom: 15px;
@@ -13203,7 +13206,8 @@ fieldset[disabled] .views-navigation-next.focus {
   color: #fff;
   padding: 15px;
 }
-.content .node .links {
+.content .node .links li.fr,
+.content .node .links li.en {
   font: 0/0 a;
   color: transparent;
   text-shadow: none;
