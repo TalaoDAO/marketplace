@@ -43,17 +43,6 @@ function emindhub_css_alter(&$css) {
 }
 
 
-function emindhub_theme() {
-	return array(
-	  // 'user_picture' => array(
-  	// 	'path' => drupal_get_path('theme', 'emindhub').'/templates/user',
-  	// 	'template' => 'user_picture',
-  	// 	'render element' => 'image',
-	  // ),
-	);
-}
-
-
 function emindhub_file($variables) {
 	$element = $variables['element'];
 	$element['#attributes']['type'] = 'file';
@@ -64,221 +53,18 @@ function emindhub_file($variables) {
 }
 
 
-// function emindhub_preprocess_user_picture(&$variables) {
-// 	$variables['user_picture'] = '';
-// 	//if (variable_get('user_pictures', TRUE)) {
-// 		if (isset($variables['account'])) {
-// 			$account = $variables['account'];
-// 			if (!empty($account->picture)) {
-// 				// @TODO: Ideally this function would only be passed file objects, but
-// 				// since there's a lot of legacy code that JOINs the {users} table to
-// 				// {node} or {comments} and passes the results into this function if we
-// 				// a numeric value in the picture field we'll assume it's a file id
-// 				// and load it for them. Once we've got user_load_multiple() and
-// 				// comment_load_multiple() functions the user module will be able to load
-// 				// the picture files in mass during the object's load process.
-// 				if (is_numeric($account->picture)) {
-// 					$account->picture = file_load($account->picture);
-// 				}
-// 				if (!empty($account->picture->uri)) {
-// 					$filepath = $account->picture->uri;
-// 				}
-// 			}
-// 			elseif (variable_get('user_picture_default', '')) {
-// 				$filepath = variable_get('user_picture_default', '');
-// 			}
-// 			if (isset($filepath)) {
-// 				$alt = t("@user's picture", array('@user' => format_username($account)));
-// 				// If the image does not have a valid Drupal scheme (for eg. HTTP),
-// 				// don't load image styles.
-// 				if (module_exists('image') && file_valid_uri($filepath) && $style = variable_get('user_picture_style', '')) {
-// 					$variables['user_picture'] = theme('user_picture', array(
-// 							'style_name' => $style,
-// 							'path' => $filepath,
-// 							'alt' => $alt,
-// 							'title' => $alt
-// 						));
-// 				}
-// 				else {
-// 					$variables['user_picture'] = theme('user_picture', array(
-// 							'path' => $filepath,
-// 							'alt' => $alt,
-// 							'title' => $alt
-// 						));
-// 				}
-// 				if (!empty($account->uid) && user_access('access user profiles')) {
-// 					$attributes = array(
-// 						'attributes' => array('title' => c_szViewUsrProfile),
-// 						'html' => TRUE
-// 					);
-// 					$variables['user_picture'] = l($variables['user_picture'], "user/$account->uid", $attributes);
-// 				}
-// 			}
-// 		}
-// 		else {
-// 			dsm('! isset($variables[account])');
-// 		}
-// 	/*} else {
-// 		dsm('variable_get("user_pictures", 0)');
-// 	}*/
-// }
-
-
 /**
  * Additional page variables
  */
 function emindhub_preprocess_page(&$vars, &$variables) {
 
 	// CUSTOMIZABLE TEXT  ==============================================================
-	// banniere
-	$vars['banniereText'] = sprintf(c_szTextBanniere, "<p>", "</p>");
-
-	// $vars['firstMenu'] = GetMenu($vars);
-
-	// LOGO SECTION  ==============================================================
-	// site logo
-	// $vars['imagelogo'] = theme('image', array(
-	// 	'path' => imagePath("logo.png"),
-	// 	'alt'  => $vars['site_name'],
-	// 	'getsize' => FALSE,
-	// 	'attributes' => array(
-	// 		'id' => 'logo',
-	// 		'class' => array(
-	// 			'img-responsive'
-	// 		),
-	// 	),
-	// ));
-  //
-	// $vars['imagelogo'] = l(
-	// 	$vars['imagelogo'],
-	// 	'<front>',
-	// 	array(
-	// 		'html' => TRUE,
-	// 		'attributes' => array(
-	// 			'title' => c_szBackHome,
-	// 		)
-	// 	)
-	// );
-
-	// IMAGES SECTION  ==============================================================
-	// mail icon
-// 	$vars['mailIcon'] = theme('image', array(
-// 		'path' => imagePath('mailIcon.png'),
-// 		'alt' => 'email',
-// 		'getsize' => FALSE,
-// 	));
-//
-// 	// Vous avez une demande
-// 	$vars['demandeImg'] = theme('image', array(
-// 		'path' => imagePath("demande.png"),
-// //		'alt' => t('Vous avez une demande'),
-// 		'getsize' => FALSE,
-// 	));
-//
-// 	// Vous avez une expertise
-// 	$vars['expertiseImg'] = theme('image', array(
-// 		'path' => imagePath("expertise.png"),
-// //		'alt'=> t('Vous avez une expertise'),
-// 		'getsize' => FALSE,
-// 	));
-//
-// 	$vars['atomiumImg'] = theme('image', array(
-// 		'path' => imagePath("atomium.png"),
-// 		'alt'=> '',
-// 		'getsize' => FALSE,
-// 	));
-//
-// 	$vars['cercleImg'] = theme('image', array(
-// 		'path' => imagePath("cercle.png"),
-// 		'alt'=> '',
-// 		'getsize' => FALSE,
-// 	));
-//
-// 	$vars['peopleImg'] = theme('image', array(
-// 		'path' => imagePath("people.png"),
-// 		'alt'=> '',
-// 		'getsize' => FALSE,
-// 	));
-//
-// 	$vars['rapiditeImg'] = theme('image', array(
-// 		'path' => imagePath("rapidite.png"),
-// 		'alt'=> '',
-// 		'getsize' => FALSE,
-// 	));
-//
-// 	$vars['securiteImg'] = theme('image', array(
-// 		'path' => imagePath("securite.png"),
-// 		'alt'=> '',
-// 		'getsize' => FALSE,
-// 	));
-//
-// 	$vars['qualiteImg'] = theme('image', array(
-// 		'path' => imagePath("qualite.png"),
-// 		'alt'=> '',
-// 		'getsize' => FALSE,
-// 	));
-//
-// 	$vars['pointImg'] = theme('image', array(
-// 		'path' => imagePath("point.png"),
-// 		'alt'=> '',
-// 		'getsize' => FALSE,
-// 	));
-//
-// 	$vars['aerofuturImg'] = theme('image', array(
-// 		'path' => imagePath("aerofutur.png"),
-// 		'alt'=> '',
-// 		'getsize' => FALSE,
-// 	));
-//
-// 	$vars['jmLbcImg'] = theme('image', array(
-// 		'path' => imagePath("jmLbc.png"),
-// 		'alt'=> '',
-// 		'getsize' => FALSE,
-// 	));
-//
-// 	$vars['bulleImg'] = theme('image', array(
-// 		'path' => imagePath("bulle.png"),
-// 		'alt'=> '',
-// 		'getsize' => FALSE,
-// 	));
-//
-// 	$vars['previousImg'] = theme('image', array(
-// 		'path' => imagePath("previous.png"),
-// 		'alt'=> '',
-// 		'getsize' => FALSE,
-// 	));
-//
-// 	$vars['menuIconImg'] = theme('image', array(
-// 		'path' => imagePath("menuIcon.png"),
-// 		'alt'=> '',
-// 		'getsize' => FALSE,
-// 	));
-//
-// 	$vars['nextImg'] = theme('image', array(
-// 		'path' => imagePath("next.png"),
-// 		'alt'=> '',
-// 		'getsize' => FALSE,
-// 	));
-//
-// 	$vars['fluxIconImg'] = theme('image', array(
-// 		'path' => imagePath("fluxIcon.png"),
-// 		'alt'=> '',
-// 		'getsize' => FALSE,
-// 	));
-//
-// 	$vars['actuImg'] = theme('image', array(
-// 		'path' => imagePath("actu.png"),
-// 		'alt'=> '',
-// 		'getsize' => FALSE,
-// 	));
-//
+	// $vars['banniereText'] = sprintf(c_szTextBanniere, "<p>", "</p>");
 	$vars['openBurgerImg'] = theme('image', array(
 		'path' => imagePath("menuBtn.png"),
 		'alt' => '',
 		'getsize' => FALSE,
 	));
-//
-// 	$vars['secondMenu'] = FALSE;
 
 }
 
@@ -349,16 +135,8 @@ function node_informations_add(&$variables) {
 }
 
 
-// function emindhub_password_confirm_process($element) {
-// 	$element['pass1']['#attributes']['title'] = 'Title';
-// 	$element['pass2']['#attributes']['title'] = 'Title2';
-// 	return $element;
-// }
-
-
-
 /*
- * USEFUL FUNCTION
+ * USEFUL FUNCTIONS
  */
 function isBusinessUser($account = null) {
 	global $user;

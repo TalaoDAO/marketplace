@@ -14681,14 +14681,6 @@ form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview .jcrop-p
     width: 33.33333333%;
   }
 }
-form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview .jcrop-preview-wrapper img.preview-existing {
-  display: block !important;
-}
-form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview .jcrop-preview-wrapper img.jcrop-preview {
-  width: 110px !important;
-  height: auto !important;
-  display: block !important;
-}
 form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview .description {
   position: relative;
   min-height: 1px;
