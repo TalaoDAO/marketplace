@@ -1,0 +1,130 @@
+<?php
+
+/**
+ * Implements hook_permission().
+ */
+function fancy_file_delete_permission() {
+  return array(
+    'administer fancy file delete' => array(
+      'title' => t('Administer Fancy File Delete'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function fancy_file_delete_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'fancy_file_delete_manual') {
+    $form['actions']['submit']['#value'] = 'Make it So #1';
+  }
+  if ($form_id == 'fancy_file_delete_orphan' || $form_id == 'fancy_file_delete_unmanaged') {
+    $form['actions']['submit']['#value'] = 'Engage';
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function fancy_file_delete_menu() {
+  $items = array();
+  $items['admin/config/content/fancy_file_delete'] = array(
+    'title' => 'Fancy File Delete',
+    'description' => 'Delete Multiple Files Based off FID or orphaned / unamaged files',
+    'page callback' => 'fancy_file_delete_info',
+    'access arguments' => array('administer fancy file delete'),
+    'file' => 'includes/fancy_file_delete.admin.inc'
+  );
+
+  $items['admin/config/content/fancy_file_delete/info'] = array(
+    'title' => 'Info',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -12,
+  );
+
+  $items['admin/config/content/fancy_file_delete/manual'] = array(
+    'title' => 'Manual',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fancy_file_delete_manual'),
+    'access arguments' => array('administer fancy file delete'),
+    'weight' => -10,
+    'file' => 'includes/fancy_file_delete.admin.inc'
+  );
+
+  $items['admin/config/content/fancy_file_delete/unmanaged'] = array(
+    'title' => 'Unmanaged',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fancy_file_delete_unmanaged'),
+    'access arguments' => array('administer fancy file delete'),
+    'weight' => -8,
+    'file' => 'includes/fancy_file_delete.admin.inc'
+  );
+
+  return $items;
+}
+
+/**
+ * Implementation of hook_views_api().
+ */
+function fancy_file_delete_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'fancy_file_delete') .'/views',
+  );
+}
+
+/**
+ * Implements hook_action_info().
+ */
+function fancy_file_delete_action_info() {
+  return array(
+    'fancy_file_delete_files' => array(
+      'type' => 'entity',
+      'label' => t('Delete Files'),
+      'configurable' => FALSE,
+      'pass rows' => TRUE,
+      'permissions' => array('administer fancy file delete'),
+    ),
+    'fancy_file_delete_files_force' => array(
+      'type' => 'entity',
+      'label' => t('FORCE Delete Files (No Turning Back!)'),
+      'configurable' => FALSE,
+      'pass rows' => TRUE,
+      'permissions' => array('administer fancy file delete'),
+    ),
+  );
+}
+
+/**
+ * Normal File Delete Action for hook_action_info.
+ */
+function fancy_file_delete_files(&$entity, $context) {
+  module_load_include('inc', 'fancy_file_delete', 'includes/fancy_file_delete.admin');
+  // Set entities to batch our way.
+  $operations = array();
+  foreach ($entity as $key => $value) {
+    if ($key == 'fid') {
+      $operations[] = array('fancy_file_delete_batch', array($value, FALSE));
+    }
+  }
+  // Send to batch.
+   _fancy_file_delete_batch_run($operations);
+}
+
+/**
+ * Force File Delete Action for hook_action_info.
+ */
+function fancy_file_delete_files_force(&$entity, $context) {
+  module_load_include('inc', 'fancy_file_delete', 'includes/fancy_file_delete.admin');
+  // Set entities to batch our way.
+  $operations = array();
+  foreach ($entity as $key => $value) {
+    if ($key == 'fid') {
+      $operations[] = array('fancy_file_delete_batch', array($value, TRUE));
+    }
+  }
+  // Send to batch.
+   _fancy_file_delete_batch_run($operations);
+}
