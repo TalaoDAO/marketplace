@@ -14,7 +14,7 @@ function ft_wysiwyg_ckeditor_profile_defaults() {
       'settings' => array(
         'ss' => 2,
         'toolbar' => '[
-    [\'Format\',\'Bold\',\'Italic\',\'NumberedList\',\'BulletedList\']
+    [\'Format\',\'Bold\',\'Italic\',\'NumberedList\',\'BulletedList\',\'Indent\',\'Outdent\']
 ]',
         'expand' => 't',
         'default' => 't',
