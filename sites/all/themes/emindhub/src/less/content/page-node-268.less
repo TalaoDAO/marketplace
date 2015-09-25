@@ -1,1 +1,63 @@
 /* Page Our services */
+.page-node-268 {
+  .node {
+    .content {
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      #services-benefits {
+        .text-uppercase;
+        .text-center;
+        font-weight: bold;
+      }
+      #services-experts {
+        .text-right;
+      }
+      #services-question,
+      #services-challenge,
+      #services-survey {
+        .text-center;
+        background-color: @softGrey;
+        padding: 15px;
+        margin: 15px 15px 0;
+        h3 {
+          .text-uppercase;
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}
+@media (min-width: @screen-sm-min) {
+	.page-node-268 {
+    .node {
+      .content {
+        #services-question,
+        #services-challenge,
+        #services-survey {
+          background-repeat: no-repeat;
+          background-position: 65% 5%;
+          padding: 10em 15px 15px;
+          margin-top: 15px;
+          width: 30.75%;
+        }
+    		#services-question {
+          background-image: url("../images/askQuestion.png");
+          margin-left: 15px;
+          margin-right: 7.5px;
+        }
+    		#services-challenge {
+          background-image: url("../images/launchChallenge.png");
+          margin-left: 7.5px;
+          margin-right: 7.5px;
+        }
+    		#services-survey {
+          background-image: url("../images/findExpert.png");
+          margin-left: 7.5px;
+          margin-right: 15px;
+        }
+      }
+    }
+  }
+}
