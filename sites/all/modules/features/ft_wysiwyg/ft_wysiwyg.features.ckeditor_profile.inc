@@ -14,19 +14,8 @@ function ft_wysiwyg_ckeditor_profile_defaults() {
       'settings' => array(
         'ss' => 2,
         'toolbar' => '[
-    [\'Source\'],
-    [\'Cut\',\'Copy\',\'Paste\',\'PasteText\',\'PasteFromWord\',\'-\',\'SpellChecker\', \'Scayt\'],
-    [\'Undo\',\'Redo\',\'Find\',\'Replace\',\'-\',\'SelectAll\'],
-    [\'Image\',\'Media\',\'Flash\',\'Table\',\'HorizontalRule\',\'Smiley\',\'SpecialChar\'],
-    [\'Maximize\', \'ShowBlocks\'],
-    \'/\',
-    [\'Format\'],
-    [\'Bold\',\'Italic\',\'Underline\',\'Strike\',\'-\',\'Subscript\',\'Superscript\',\'-\',\'RemoveFormat\'],
-    [\'NumberedList\',\'BulletedList\',\'-\',\'Outdent\',\'Indent\',\'Blockquote\'],
-    [\'JustifyLeft\',\'JustifyCenter\',\'JustifyRight\',\'JustifyBlock\',\'-\',\'BidiLtr\',\'BidiRtl\'],
-    [\'Link\',\'Unlink\',\'Anchor\',\'Linkit\']
-]
-    ',
+    [\'Format\',\'Bold\',\'Italic\',\'NumberedList\',\'BulletedList\']
+]',
         'expand' => 't',
         'default' => 't',
         'show_toggle' => 't',
@@ -54,38 +43,19 @@ function ft_wysiwyg_ckeditor_profile_defaults() {
         ),
         'css_mode' => 'none',
         'css_path' => '',
-        'css_style' => 'theme',
+        'css_style' => 'default',
         'styles_path' => '',
         'filebrowser' => 'none',
         'filebrowser_image' => '',
         'filebrowser_flash' => '',
         'UserFilesPath' => '%b%f/',
         'UserFilesAbsolutePath' => '%d%b%f/',
-        'forcePasteAsPlainText' => 'f',
+        'forcePasteAsPlainText' => 't',
         'html_entities' => 'f',
         'scayt_autoStartup' => 'f',
         'theme_config_js' => 'f',
         'js_conf' => '',
-        'loadPlugins' => array(
-          'ckeditor_link' => array(
-            'name' => 'drupal_path',
-            'desc' => 'CKEditor Link - A plugin to easily create links to Drupal internal paths',
-            'path' => '%base_path%sites/all/modules/contrib/ckeditor_link/plugins/link/',
-            'buttons' => FALSE,
-          ),
-          'mediaembed' => array(
-            'name' => 'mediaembed',
-            'desc' => 'Plugin for inserting Drupal embeded media',
-            'path' => '%plugin_dir%mediaembed/',
-            'buttons' => array(
-              'MediaEmbed' => array(
-                'label' => 'MediaEmbed',
-                'icon' => 'images/icon.png',
-              ),
-            ),
-            'default' => 'f',
-          ),
-        ),
+        'loadPlugins' => array(),
       ),
       'input_formats' => array(
         'filtered_html' => 'Filtered HTML',
@@ -108,7 +78,7 @@ function ft_wysiwyg_ckeditor_profile_defaults() {
     [\'NumberedList\',\'BulletedList\',\'Outdent\',\'Indent\'],
     [\'Link\',\'Unlink\'],
     [\'HorizontalRule\'],
-    []
+    [\'MediaEmbed\']
 ]',
         'expand' => 't',
         'default' => 't',

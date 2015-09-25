@@ -108,6 +108,38 @@ http://emindhub.com
 http://gitemindhub/dev-emindhub
 http://gitemindhub/test-emindhub',
           'protocol_style' => 'proto-rel',
+          'local_paths_exploded' => array(
+            0 => array(
+              'scheme' => 'http',
+              'host' => 'www.emindhub.com',
+            ),
+            1 => array(
+              'scheme' => 'http',
+              'host' => 'demo.emindhub.com',
+            ),
+            2 => array(
+              'scheme' => 'http',
+              'host' => 'emindhub.com',
+            ),
+            3 => array(
+              'scheme' => 'http',
+              'host' => 'gitemindhub',
+              'path' => '/dev-emindhub',
+            ),
+            4 => array(
+              'scheme' => 'http',
+              'host' => 'gitemindhub',
+              'path' => '/test-emindhub',
+            ),
+            5 => array(
+              'path' => '/',
+            ),
+            6 => array(
+              'path' => '/',
+              'host' => 'default',
+            ),
+          ),
+          'base_url_host' => 'default',
         ),
       ),
     ),
