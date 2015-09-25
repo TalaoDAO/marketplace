@@ -13736,28 +13736,37 @@ aside .block .content {
   }
 }
 @media (min-width: 767px) {
-  body.not-logged-in #block-block-14 .content {
+  body.not-logged-in #block-block-14 .content,
+  body.role-business #block-block-14 .content,
+  body.role-business-preview #block-block-14 .content {
     background-image: url("../images/askQuestion.png");
   }
-  body.not-logged-in #block-block-8 .content {
+  body.not-logged-in #block-block-8 .content,
+  body.role-business #block-block-8 .content,
+  body.role-business-preview #block-block-8 .content {
     background-image: url("../images/launchChallenge.png");
   }
-  body.not-logged-in #block-block-16 .content {
+  body.not-logged-in #block-block-16 .content,
+  body.role-business #block-block-16 .content,
+  body.role-business-preview #block-block-16 .content {
     background-image: url("../images/findExpert.png");
-  }
-  body.logged-in #block-block-14 .content {
-    background-image: url("../images/answerQuestion.png");
-  }
-  body.logged-in #block-block-8 .content {
-    background-image: url("../images/answerChallenge.png");
-  }
-  body.logged-in #block-block-16 .content {
-    background-image: url("../images/answerExpertCall.png");
   }
   body.logged-in #block-block-14 .content a span.default-text,
   body.logged-in #block-block-8 .content a span.default-text,
   body.logged-in #block-block-16 .content a span.default-text {
     color: #4c6172;
+  }
+  body.role-expert #block-block-14 .content,
+  body.role-preview #block-block-14 .content {
+    background-image: url("../images/answerQuestion.png");
+  }
+  body.role-expert #block-block-8 .content,
+  body.role-preview #block-block-8 .content {
+    background-image: url("../images/answerChallenge.png");
+  }
+  body.role-expert #block-block-16 .content,
+  body.role-preview #block-block-16 .content {
+    background-image: url("../images/answerExpertCall.png");
   }
 }
 #block-block-12 .content {

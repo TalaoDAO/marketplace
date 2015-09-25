@@ -224,18 +224,23 @@ aside {
 	}
 }
 @media (min-width: @screen-sm-min) {
-	body.not-logged-in {
+	body.not-logged-in,
+	body.role-business,
+	body.role-business-preview {
 		#block-block-14 .content { background-image: url("../images/askQuestion.png"); }
 		#block-block-8 .content { background-image: url("../images/launchChallenge.png"); }
 		#block-block-16 .content { background-image: url("../images/findExpert.png"); }
 	}
 	body.logged-in {
-		#block-block-14 .content { background-image: url("../images/answerQuestion.png"); }
-		#block-block-8 .content { background-image: url("../images/answerChallenge.png"); }
-		#block-block-16 .content { background-image: url("../images/answerExpertCall.png"); }
 		#block-block-14 .content a span.default-text,
 		#block-block-8 .content a span.default-text,
 		#block-block-16 .content a span.default-text { color: @darkerBlue; }
+	}
+	body.role-expert,
+	body.role-preview {
+		#block-block-14 .content { background-image: url("../images/answerQuestion.png"); }
+		#block-block-8 .content { background-image: url("../images/answerChallenge.png"); }
+		#block-block-16 .content { background-image: url("../images/answerExpertCall.png"); }
 	}
 }
 
