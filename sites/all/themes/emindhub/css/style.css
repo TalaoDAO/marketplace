@@ -11644,6 +11644,11 @@ fieldset[disabled] .btn-popin.focus {
 .panel.panel-default.views-row-even > .panel-collapse {
   background-color: #FFF;
 }
+.introduction {
+  background-color: #4c6172;
+  color: #fff;
+  padding: 15px;
+}
 h1,
 h2,
 .h1,
@@ -13736,28 +13741,37 @@ aside .block .content {
   }
 }
 @media (min-width: 767px) {
-  body.not-logged-in #block-block-14 .content {
+  body.not-logged-in #block-block-14 .content,
+  body.role-business #block-block-14 .content,
+  body.role-business-preview #block-block-14 .content {
     background-image: url("../images/askQuestion.png");
   }
-  body.not-logged-in #block-block-8 .content {
+  body.not-logged-in #block-block-8 .content,
+  body.role-business #block-block-8 .content,
+  body.role-business-preview #block-block-8 .content {
     background-image: url("../images/launchChallenge.png");
   }
-  body.not-logged-in #block-block-16 .content {
+  body.not-logged-in #block-block-16 .content,
+  body.role-business #block-block-16 .content,
+  body.role-business-preview #block-block-16 .content {
     background-image: url("../images/findExpert.png");
-  }
-  body.logged-in #block-block-14 .content {
-    background-image: url("../images/answerQuestion.png");
-  }
-  body.logged-in #block-block-8 .content {
-    background-image: url("../images/answerChallenge.png");
-  }
-  body.logged-in #block-block-16 .content {
-    background-image: url("../images/answerExpertCall.png");
   }
   body.logged-in #block-block-14 .content a span.default-text,
   body.logged-in #block-block-8 .content a span.default-text,
   body.logged-in #block-block-16 .content a span.default-text {
     color: #4c6172;
+  }
+  body.role-expert #block-block-14 .content,
+  body.role-preview #block-block-14 .content {
+    background-image: url("../images/answerQuestion.png");
+  }
+  body.role-expert #block-block-8 .content,
+  body.role-preview #block-block-8 .content {
+    background-image: url("../images/answerChallenge.png");
+  }
+  body.role-expert #block-block-16 .content,
+  body.role-preview #block-block-16 .content {
+    background-image: url("../images/answerExpertCall.png");
   }
 }
 #block-block-12 .content {
@@ -14024,10 +14038,9 @@ aside .block .content {
 }
 #block-views-news-thread-block .content h3 {
   margin: 0;
-  color: #fff;
 }
 #block-views-news-thread-block .content h3 a {
-  color: inherit;
+  color: #fff;
 }
 #block-views-news-thread-block .content p.field-content {
   padding-bottom: 45px;
@@ -15723,6 +15736,111 @@ form#webform-node-form #edit-field-expiration-date .form-type-textfield > label 
   .page-messages #maincol .region-content {
     float: left;
     width: 75%;
+  }
+}
+/* Page Our services */
+.page-node-268 .node .content #services-top {
+  margin-top: 15px;
+}
+.page-node-268 .node .content #services-top ul {
+  list-style: none;
+  padding: 0;
+}
+.page-node-268 .node .content #services-clients h3,
+.page-node-268 .node .content #services-benefits,
+.page-node-268 .node .content #services-experts h3 {
+  text-transform: uppercase;
+}
+.page-node-268 .node .content #services-benefits {
+  text-align: center;
+  font-weight: bold;
+  font-size: 17px;
+  line-height: 1.75em;
+  word-wrap: break-word;
+}
+.page-node-268 .node .content #services-experts {
+  text-align: right;
+}
+.page-node-268 .node .content #services-question,
+.page-node-268 .node .content #services-challenge,
+.page-node-268 .node .content #services-survey {
+  text-align: center;
+  background-color: #f2f2f2;
+  padding: 15px;
+  margin: 15px 15px 0;
+}
+.page-node-268 .node .content #services-question h3,
+.page-node-268 .node .content #services-challenge h3,
+.page-node-268 .node .content #services-survey h3 {
+  text-transform: uppercase;
+  margin-top: 0;
+}
+@media (min-width: 767px) {
+  .page-node-268 .node .content .row {
+    padding-bottom: 15px;
+  }
+  .page-node-268 .node .content #services-top,
+  .page-node-268 .node .content #services-clients,
+  .page-node-268 .node .content #services-experts {
+    min-height: 230px;
+  }
+  .page-node-268 .node .content #services-top {
+    background: transparent url("../images/content/node/268/our-services_blue-circle.png") no-repeat center center;
+  }
+  .page-node-268 .node .content #services-clients {
+    padding-bottom: 230px;
+  }
+  .page-node-268 .node .content #services-clients:after {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    content: "";
+    display: block;
+    width: 250px;
+    height: 250px;
+    border-radius: 100%;
+    background: #ffffff url("../images/content/node/268/our-services_clients-circle.png") no-repeat center center;
+  }
+  .page-node-268 .node .content #services-benefits {
+    padding: 95px 0 0;
+  }
+  .page-node-268 .node .content #services-experts {
+    padding-top: 230px;
+  }
+  .page-node-268 .node .content #services-experts:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+    display: block;
+    width: 250px;
+    height: 250px;
+    border-radius: 100%;
+    background: #ffffff url("../images/content/node/268/our-services_experts-circle.png") no-repeat center center;
+  }
+  .page-node-268 .node .content #services-question,
+  .page-node-268 .node .content #services-challenge,
+  .page-node-268 .node .content #services-survey {
+    background-repeat: no-repeat;
+    background-position: 65% 5%;
+    padding: 10em 15px 15px;
+    margin-top: 15px;
+    width: 30.75%;
+  }
+  .page-node-268 .node .content #services-question {
+    background-image: url("../images/askQuestion.png");
+    margin-left: 15px;
+    margin-right: 7.5px;
+  }
+  .page-node-268 .node .content #services-challenge {
+    background-image: url("../images/launchChallenge.png");
+    margin-left: 7.5px;
+    margin-right: 7.5px;
+  }
+  .page-node-268 .node .content #services-survey {
+    background-image: url("../images/findExpert.png");
+    margin-left: 7.5px;
+    margin-right: 15px;
   }
 }
 

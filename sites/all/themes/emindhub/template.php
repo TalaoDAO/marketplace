@@ -70,9 +70,13 @@ function emindhub_preprocess_page(&$vars, &$variables) {
 
 function emindhub_preprocess_html(&$variables) {
 	drupal_add_css('http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' , array('type' => 'external'));
-	if (isBusinessUser()) {
-		$variables['classes_array'][] = 'business-user';
-	}
+
+  global $user;
+  foreach ( $user->roles as $role_id => $role ) {
+    // $variables['classes_array'][] = "role-id-".$role_id;
+    $variables['classes_array'][] = "role-".strtolower(drupal_clean_css_identifier($role));
+  }
+  // $variables['classes_array'][] = "user-uid-".$user->uid;
 }
 
 function emindhub_preprocess_node(&$variables, $hook) {
@@ -140,20 +144,22 @@ function node_informations_add(&$variables) {
  */
 function isBusinessUser($account = null) {
 	global $user;
-	if (is_null($account)) {
-		$account = $user;
-	}
-	return $account->uid && in_array('business', $account->roles);
+  return (in_array('business', array_values($user->roles)) || in_array('business-preview', array_values($user->roles)));
+}
+
+function isExpertUser($account = null) {
+	global $user;
+  return (in_array('expert', array_values($user->roles)) || in_array('expert-preview', array_values($user->roles)));
 }
 
 function isWebmasterUser() {
 	global $user;
-	return (in_array( 'webmaster', array_values($user->roles)));
+	return (in_array('webmaster', array_values($user->roles)));
 }
 
 function isAdminUser() {
 	global $user;
-	return (in_array( 'administrator', array_values($user->roles)));
+	return (in_array('administrator', array_values($user->roles)));
 }
 
 function getImgSrc($fileName) {
@@ -199,7 +205,7 @@ function customDSM($input, $name = NULL, $type = 'status') {
 
 // YBA : hide env indicator switcher
 function emindhub_environment_indicator_switches($variables) {
-  return "";
+  return '';
 }
 
 
