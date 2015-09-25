@@ -1,5 +1,5 @@
 ﻿/**
- * @license Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
@@ -13,10 +13,10 @@
  * (1) http://ckeditor.com/builder
  *     Visit online builder to build CKEditor from scratch.
  *
- * (2) http://ckeditor.com/builder/95c14d9d2e334e82323471de0ff6f022
+ * (2) http://ckeditor.com/builder/d6acbc97eae86c3925762dcfe97486af
  *     Visit online builder to build CKEditor, starting with the same setup as before.
  *
- * (3) http://ckeditor.com/builder/download/95c14d9d2e334e82323471de0ff6f022
+ * (3) http://ckeditor.com/builder/download/d6acbc97eae86c3925762dcfe97486af
  *     Straight download link to the latest version of CKEditor (Optimized) with the same setup as before.
  *
  * NOTE:
@@ -28,11 +28,26 @@ var CKBUILDER_CONFIG = {
 	skin: 'moono',
 	preset: 'standard',
 	ignore: [
+		'.bender',
+		'bender.js',
+		'bender-err.log',
+		'bender-out.log',
 		'dev',
-		'.gitignore',
+		'.DS_Store',
+		'.editorconfig',
 		'.gitattributes',
+		'.gitignore',
+		'gruntfile.js',
+		'.idea',
+		'.jscsrc',
+		'.jshintignore',
+		'.jshintrc',
+		'less',
+		'.mailmap',
+		'node_modules',
+		'package.json',
 		'README.md',
-		'.mailmap'
+		'tests'
 	],
 	plugins : {
 		'a11yhelp' : 1,
@@ -60,6 +75,7 @@ var CKBUILDER_CONFIG = {
 		'removeformat' : 1,
 		'resize' : 1,
 		'scayt' : 1,
+		'showborders' : 1,
 		'sourcearea' : 1,
 		'specialchar' : 1,
 		'stylescombo' : 1,
@@ -72,71 +88,7 @@ var CKBUILDER_CONFIG = {
 		'wysiwygarea' : 1
 	},
 	languages : {
-		'af' : 1,
-		'ar' : 1,
-		'bg' : 1,
-		'bn' : 1,
-		'bs' : 1,
-		'ca' : 1,
-		'cs' : 1,
-		'cy' : 1,
-		'da' : 1,
-		'de' : 1,
-		'el' : 1,
 		'en' : 1,
-		'en-au' : 1,
-		'en-ca' : 1,
-		'en-gb' : 1,
-		'eo' : 1,
-		'es' : 1,
-		'et' : 1,
-		'eu' : 1,
-		'fa' : 1,
-		'fi' : 1,
-		'fo' : 1,
-		'fr' : 1,
-		'fr-ca' : 1,
-		'gl' : 1,
-		'gu' : 1,
-		'he' : 1,
-		'hi' : 1,
-		'hr' : 1,
-		'hu' : 1,
-		'id' : 1,
-		'is' : 1,
-		'it' : 1,
-		'ja' : 1,
-		'ka' : 1,
-		'km' : 1,
-		'ko' : 1,
-		'ku' : 1,
-		'lt' : 1,
-		'lv' : 1,
-		'mk' : 1,
-		'mn' : 1,
-		'ms' : 1,
-		'nb' : 1,
-		'nl' : 1,
-		'no' : 1,
-		'pl' : 1,
-		'pt' : 1,
-		'pt-br' : 1,
-		'ro' : 1,
-		'ru' : 1,
-		'si' : 1,
-		'sk' : 1,
-		'sl' : 1,
-		'sq' : 1,
-		'sr' : 1,
-		'sr-latn' : 1,
-		'sv' : 1,
-		'th' : 1,
-		'tr' : 1,
-		'tt' : 1,
-		'ug' : 1,
-		'uk' : 1,
-		'vi' : 1,
-		'zh' : 1,
-		'zh-cn' : 1
+		'fr' : 1
 	}
 };
