@@ -14038,10 +14038,9 @@ aside .block .content {
 }
 #block-views-news-thread-block .content h3 {
   margin: 0;
-  color: #fff;
 }
 #block-views-news-thread-block .content h3 a {
-  color: inherit;
+  color: #fff;
 }
 #block-views-news-thread-block .content p.field-content {
   padding-bottom: 45px;
