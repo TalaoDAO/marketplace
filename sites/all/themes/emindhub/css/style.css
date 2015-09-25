@@ -11862,8 +11862,11 @@ span.form-required {
 .input-group:not(.file-widget) {
   max-width: 352px;
 }
-.form-textarea-wrapper.resizable-textarea {
+body.page-user-edit .form-textarea-wrapper.resizable-textarea {
   max-width: 500px;
+}
+body.page-node-edit .form-textarea-wrapper.resizable-textarea {
+  max-width: auto !important;
 }
 .view-filters {
   margin-bottom: 15px;
@@ -13203,6 +13206,14 @@ fieldset[disabled] .views-navigation-next.focus {
   color: #fff;
   padding: 15px;
 }
+.content .node .links li.fr,
+.content .node .links li.en {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
 .region-burgermenu {
   display: none;
   background-color: #2E3243;
@@ -14011,25 +14022,25 @@ aside .block .content {
     width: 50%;
   }
 }
-#block-views-news-thread-block .content h3,
-#block-views-news-thread-block-2 .content h3 {
+#block-views-news-thread-block .content h3 {
   margin: 0;
+  color: #fff;
 }
-#block-views-news-thread-block .content p.field-content,
-#block-views-news-thread-block-2 .content p.field-content {
+#block-views-news-thread-block .content h3 a {
+  color: inherit;
+}
+#block-views-news-thread-block .content p.field-content {
   padding-bottom: 45px;
   position: relative;
 }
-#block-views-news-thread-block .content p.field-content .views-more-link,
-#block-views-news-thread-block-2 .content p.field-content .views-more-link {
+#block-views-news-thread-block .content p.field-content .views-more-link {
   font: 0/0 a;
   color: transparent;
   text-shadow: none;
   background-color: transparent;
   border: 0;
 }
-#block-views-news-thread-block .content p.field-content .views-more-link:before,
-#block-views-news-thread-block-2 .content p.field-content .views-more-link:before {
+#block-views-news-thread-block .content p.field-content .views-more-link:before {
   content: '\002b';
   font-size: 20px;
   display: block;
@@ -14045,65 +14056,63 @@ aside .block .content {
   border: 4px solid #009fe3;
   border-radius: 100%;
 }
-#block-views-news-thread-block .carousel-control.left,
-#block-views-news-thread-block-2 .carousel-control.left {
+#block-views-news-thread-block .carousel-control.left {
   background-image: -webkit-linear-gradient(left, rgba(68, 87, 102, 0.5) 0%, rgba(68, 87, 102, 0.0001) 100%);
   background-image: -o-linear-gradient(left, rgba(68, 87, 102, 0.5) 0%, rgba(68, 87, 102, 0.0001) 100%);
   background-image: linear-gradient(to right, rgba(68, 87, 102, 0.5) 0%, rgba(68, 87, 102, 0.0001) 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80445766', endColorstr='#00445766', GradientType=1);
 }
-#block-views-news-thread-block .carousel-control.right,
-#block-views-news-thread-block-2 .carousel-control.right {
+#block-views-news-thread-block .carousel-control.right {
   background-image: -webkit-linear-gradient(left, rgba(68, 87, 102, 0.0001) 0%, rgba(68, 87, 102, 0.5) 100%);
   background-image: -o-linear-gradient(left, rgba(68, 87, 102, 0.0001) 0%, rgba(68, 87, 102, 0.5) 100%);
   background-image: linear-gradient(to right, rgba(68, 87, 102, 0.0001) 0%, rgba(68, 87, 102, 0.5) 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00445766', endColorstr='#80445766', GradientType=1);
 }
-#block-views-query-list-block .block-title {
+.view-query-list .block-title {
   margin-top: 0;
 }
-#block-views-query-list-block form .form-group {
+.view-query-list form .form-group {
   margin-bottom: 0;
 }
-#block-views-query-list-block form #edit-uid-current-wrapper {
+.view-query-list form #edit-uid-current-wrapper {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 767px) {
-  #block-views-query-list-block form #edit-uid-current-wrapper {
+  .view-query-list form #edit-uid-current-wrapper {
     float: left;
     width: 25%;
   }
 }
-#block-views-query-list-block form #edit-status-1-wrapper {
+.view-query-list form #edit-status-1-wrapper {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 767px) {
-  #block-views-query-list-block form #edit-status-1-wrapper {
+  .view-query-list form #edit-status-1-wrapper {
     float: left;
     width: 25%;
   }
 }
-#block-views-query-list-block .views-field-field-picto {
+.view-query-list .views-field-field-picto {
   text-align: center;
 }
-#block-views-query-list-block .views-field-created {
+.view-query-list .views-field-created {
   text-align: center;
 }
-#block-views-query-list-block .views-field-field-expiration-date {
+.view-query-list .views-field-field-expiration-date {
   text-align: center;
 }
-#block-views-query-list-block .views-field-field-reward {
+.view-query-list .views-field-field-reward {
   text-align: right;
 }
-#block-views-query-list-block .views-field-nothing {
+.view-query-list .views-field-nothing {
   text-align: right;
 }
 #block-progress-tracker-progress-tracker .block-title {
@@ -14672,14 +14681,6 @@ form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview .jcrop-p
     width: 33.33333333%;
   }
 }
-form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview .jcrop-preview-wrapper img.preview-existing {
-  display: block !important;
-}
-form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview .jcrop-preview-wrapper img.jcrop-preview {
-  width: 110px !important;
-  height: auto !important;
-  display: block !important;
-}
 form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview .description {
   position: relative;
   min-height: 1px;
@@ -15216,9 +15217,6 @@ form#user-profile-form .imagefield-crop-widget .file {
     max-width: 100%;
   }
 }
-.page-user h1.page-header {
-  display: none !important;
-}
 .page-user .profile-section {
   margin-bottom: 15px;
   background-color: #F6F7F8;
@@ -15580,6 +15578,9 @@ form#user-profile-form .imagefield-crop-widget .file {
     float: left;
     width: 50%;
   }
+}
+.page-user:not(.page-user-drafts) h1.page-header {
+  display: none !important;
 }
 form#webform-node-form #edit-field-expiration-date .form-type-textfield > label {
   font: 0/0 a;

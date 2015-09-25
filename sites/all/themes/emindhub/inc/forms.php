@@ -157,18 +157,18 @@ function emindhub_fivestar_summary($variables) {
 }
 
 
-// Cacher les icônes de mise en page + types de format, peut-être trop ??
-// function emindhub_element_info_alter(&$type) {
-//   if (!isAdminUser()) {
-//   	if (isset($type['text_format']['#process'])) {
-//   		foreach ($type['text_format']['#process'] as &$callback) {
-//   			if ($callback === 'filter_process_format') {
-//   				$callback = 'emindhub_process_format';
-//   			}
-//   		}
-//   	}
-//   }
-// }
+// WYSIWYG : Cacher les types de format, peut-être trop ??
+function emindhub_element_info_alter(&$type) {
+  // if ( !isAdminUser() || !isWebmasterUser() ) {
+  	if (isset($type['text_format']['#process'])) {
+  		foreach ($type['text_format']['#process'] as &$callback) {
+  			if ($callback === 'filter_process_format') {
+  				$callback = 'emindhub_process_format';
+  			}
+  		}
+  	}
+  // }
+}
 
 
 function emindhub_date_combo($variables) {
@@ -199,10 +199,6 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
   // echo '<pre>' . print_r($form, TRUE) . '</pre>';
   // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
-
-  // $form['body']['und'][0]['#format'] = '<div class="form-row">';
-  // $form['body']['und'][0]['#format']['format']['#access'] = FALSE;
-  // $form[LANGUAGE_NONE][0]['format']['format']['#access'] = FALSE;
 
   $form['actions']['#prefix'] = '<div class="form-row">';
   $form['actions']['#prefix'] .= '<div class="form-actions">';
@@ -276,18 +272,6 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $form['account']['mail']['#weight'] = -9;
   $form['account']['mail']['#suffix'] = '</div>';
 
-
-  // FIX Boostrap help tooltip
-  // $account = $form['#user'];
-  // $pass_reset = isset($_SESSION['pass_reset_' . $account->uid]) && isset($_GET['pass-reset-token']) && ($_GET['pass-reset-token'] == $_SESSION['pass_reset_' . $account->uid]);
-  // $current_pass_description = '';
-  // if (!$pass_reset) {
-  //   $current_pass_description = t('Enter your current password to change the email or password.');
-  // }
-  // $form['account']['current_pass']['#description'] = $current_pass_description;
-  // $form['account']['current_pass']['#required'] = 0;
-  // $form['account']['current_pass']['#type'] = 'hidden';
-
   unset($form['account']['current_pass']);
   unset($form['account']['current_pass_required_values']);
   $form['#validate'] = array_diff($form['#validate'], array('user_validate_current_pass'));
@@ -316,7 +300,7 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
   $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
 
-  $form['field_photo']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
+  // $form['field_photo']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
   $form['field_cv']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
 
   // echo '<pre>' . print_r($form['account'], TRUE) . '</pre>';
@@ -395,19 +379,11 @@ function emindhub_form_has_required($form) {
 */
 function emindhub_form_search_block_form_alter(&$form, &$form_state, $form_id) {
 
-  // $form['actions']['#attributes']['class'][] = 'element-invisible';
-
-  // $form['search_block_form']['#attributes']['class'][] = 'navbar-form';
-  // $form['search_block_form']['#attributes']['class'][] = 'navbar-left';
-
   $form['search_block_form']['#title'] = c_szSearch; // Change the text on the label element
   $form['search_block_form']['#title_display'] = 'invisible'; // Toggle label visibility
   $form['search_block_form']['#size'] = 40;  // define size of the textfield
-  // $form['actions']['submit']['#value'] = c_szGo; // Change the text on the submit button
-  // $form['actions']['submit']['#attributes']['class'][] = 'element-invisible';
 
   // Add extra attributes to the text box
-  // $form['search_block_form']['#attributes']['class'] = array('search-input', 'form-control');
   $form['search_block_form']['#attributes']['onblur'] = "if (this.value == '') {this.value = 'Search';}";
   $form['search_block_form']['#attributes']['onfocus'] = "if (this.value == 'Search') {this.value = '';}";
   // Prevent user from searching the default text
@@ -421,14 +397,6 @@ function emindhub_form_search_block_form_alter(&$form, &$form_state, $form_id) {
   // echo '<pre>' . print_r($form['search_block_form'], TRUE) . '</pre>'; die;
 
 }
-
-/**
-* Changes the search form to use the "search" input element of HTML5.
-*/
-function emindhub_preprocess_search_block_form(&$vars) {
-  // $vars['search_form'] = str_replace('type="text"', 'type="search"', $vars['search_form']);
-}
-
 
 
 function emindhub_form_user_register_form_alter(&$form, &$form_state, $form_id) {
@@ -463,9 +431,4 @@ function emindhub_preprocess_select_as_checkboxes(&$variables) {
   if (($key = array_search('form-control', $element['#attributes']['class'])) !== false) {
     unset($element['#attributes']['class'][$key]);
   }
-}
-
-
-function emindhub_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
 }

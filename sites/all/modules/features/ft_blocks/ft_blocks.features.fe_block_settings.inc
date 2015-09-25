@@ -546,7 +546,10 @@ business/register',
     'module' => 'bootstrap_languages',
     'node_types' => array(),
     'pages' => '',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 3,
+      'webmaster' => 6,
+    ),
     'themes' => array(
       'emindhub' => array(
         'region' => 'topmenu',
@@ -1044,6 +1047,108 @@ business/register',
       ),
     ),
     'title' => 'Scope of services in aerospace',
+    'visibility' => 1,
+  );
+
+  $export['views-my_responses_calls3-block'] = array(
+    'cache' => -1,
+    'css_class' => '',
+    'custom' => 0,
+    'delta' => 'my_responses_calls3-block',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => 'node/300',
+    'roles' => array(
+      'administrator' => 3,
+      'business' => 5,
+      'business preview' => 9,
+      'webmaster' => 6,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'content',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '<none>',
+    'visibility' => 1,
+  );
+
+  $export['views-my_responses_challenges-block'] = array(
+    'cache' => -1,
+    'css_class' => '',
+    'custom' => 0,
+    'delta' => 'my_responses_challenges-block',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => 'node/300',
+    'roles' => array(
+      'administrator' => 3,
+      'business' => 5,
+      'business preview' => 9,
+      'webmaster' => 6,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'content',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '<none>',
+    'visibility' => 1,
+  );
+
+  $export['views-my_responses_questions1-block'] = array(
+    'cache' => -1,
+    'css_class' => '',
+    'custom' => 0,
+    'delta' => 'my_responses_questions1-block',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => 'node/300',
+    'roles' => array(
+      'administrator' => 3,
+      'business' => 5,
+      'business preview' => 9,
+      'webmaster' => 6,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'content',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '<none>',
     'visibility' => 1,
   );
 

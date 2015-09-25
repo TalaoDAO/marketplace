@@ -1,7 +1,4 @@
 .page-user {
-	h1.page-header {
-		.hidden();
-	}
 
 	.profile-section {
 
@@ -171,4 +168,13 @@
 
 	}
 
+}
+
+.page-user {
+
+	&:not(.page-user-drafts) {
+		h1.page-header {
+			.hidden();
+		}
+	}
 }
