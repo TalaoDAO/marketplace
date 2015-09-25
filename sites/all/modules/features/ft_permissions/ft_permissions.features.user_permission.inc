@@ -80,19 +80,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'backup_migrate',
   );
 
-  // Exported permission: 'access ckeditor link'.
-  $permissions['access ckeditor link'] = array(
-    'name' => 'access ckeditor link',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'business' => 'business',
-      'business preview' => 'business preview',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'ckeditor_link',
-  );
-
   // Exported permission: 'access comments'.
   $permissions['access comments'] = array(
     'name' => 'access comments',
@@ -535,24 +522,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'block',
   );
 
-  // Exported permission: 'administer ckeditor'.
-  $permissions['administer ckeditor'] = array(
-    'name' => 'administer ckeditor',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'ckeditor',
-  );
-
-  // Exported permission: 'administer ckeditor link'.
-  $permissions['administer ckeditor link'] = array(
-    'name' => 'administer ckeditor link',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'ckeditor_link',
-  );
-
   // Exported permission: 'administer comments'.
   $permissions['administer comments'] = array(
     'name' => 'administer comments',
@@ -680,15 +649,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'field_group',
-  );
-
-  // Exported permission: 'administer filters'.
-  $permissions['administer filters'] = array(
-    'name' => 'administer filters',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'filter',
   );
 
   // Exported permission: 'administer flags'.
@@ -1460,15 +1420,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: 'customize ckeditor'.
-  $permissions['customize ckeditor'] = array(
-    'name' => 'customize ckeditor',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'ckeditor',
   );
 
   // Exported permission: 'customize shortcut links'.
@@ -3796,43 +3747,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'page_manager',
-  );
-
-  // Exported permission: 'use text format ds_code'.
-  $permissions['use text format ds_code'] = array(
-    'name' => 'use text format ds_code',
-    'roles' => array(),
-    'module' => 'filter',
-  );
-
-  // Exported permission: 'use text format filtered_html'.
-  $permissions['use text format filtered_html'] = array(
-    'name' => 'use text format filtered_html',
-    'roles' => array(
-      'business' => 'business',
-      'business preview' => 'business preview',
-      'expert' => 'expert',
-      'expert preview' => 'expert preview',
-      'référent' => 'référent',
-    ),
-    'module' => 'filter',
-  );
-
-  // Exported permission: 'use text format full_html'.
-  $permissions['use text format full_html'] = array(
-    'name' => 'use text format full_html',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'filter',
-  );
-
-  // Exported permission: 'use text format php_code'.
-  $permissions['use text format php_code'] = array(
-    'name' => 'use text format php_code',
-    'roles' => array(),
-    'module' => 'filter',
   );
 
   // Exported permission: 'use tokens in privatemsg'.

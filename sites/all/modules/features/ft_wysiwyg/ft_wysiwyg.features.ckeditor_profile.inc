@@ -78,7 +78,7 @@ function ft_wysiwyg_ckeditor_profile_defaults() {
     [\'NumberedList\',\'BulletedList\',\'Outdent\',\'Indent\'],
     [\'Link\',\'Unlink\'],
     [\'HorizontalRule\'],
-    [\'MediaEmbed\']
+    [\'Image\',\'MediaEmbed\']
 ]',
         'expand' => 't',
         'default' => 't',
