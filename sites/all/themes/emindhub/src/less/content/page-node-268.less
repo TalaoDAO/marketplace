@@ -6,10 +6,20 @@
         list-style: none;
         padding: 0;
       }
-      #services-benefits {
+      #services-top {
+        margin-top: 15px;
+      }
+      #services-clients h3,
+      #services-benefits,
+      #services-experts h3 {
         .text-uppercase;
+      }
+      #services-benefits {
         .text-center;
         font-weight: bold;
+        font-size: 17px;
+        line-height: 1.75em;
+        word-wrap: break-word;
       }
       #services-experts {
         .text-right;
@@ -33,6 +43,46 @@
 	.page-node-268 {
     .node {
       .content {
+        #services-top,
+        #services-clients,
+        #services-experts {
+          min-height: 250px;
+        }
+        #services-top {
+          background: transparent url("../images/content/node/268/our-services_blue-circle.png") no-repeat center center;
+        }
+        #services-clients {
+          padding-bottom: 250px;
+          &:after {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            content: "";
+            display: block;
+            width: 250px;
+            height: 250px;
+            border-radius: 100%;
+            background: #fff url("../images/content/node/268/our-services_clients-circle.png") no-repeat center center;
+          }
+        }
+        #services-benefits {
+          padding: 105px 0 0;
+        }
+        #services-experts {
+          padding-top: 250px;
+          &:before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            content: "";
+            display: block;
+            width: 250px;
+            height: 250px;
+            border-radius: 100%;
+            background: #fff url("../images/content/node/268/our-services_experts-circle.png") no-repeat center center;
+          }
+        }
+
         #services-question,
         #services-challenge,
         #services-survey {

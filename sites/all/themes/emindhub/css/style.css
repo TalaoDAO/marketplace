@@ -15743,10 +15743,20 @@ form#webform-node-form #edit-field-expiration-date .form-type-textfield > label 
   list-style: none;
   padding: 0;
 }
-.page-node-268 .node .content #services-benefits {
+.page-node-268 .node .content #services-top {
+  margin-top: 15px;
+}
+.page-node-268 .node .content #services-clients h3,
+.page-node-268 .node .content #services-benefits,
+.page-node-268 .node .content #services-experts h3 {
   text-transform: uppercase;
+}
+.page-node-268 .node .content #services-benefits {
   text-align: center;
   font-weight: bold;
+  font-size: 17px;
+  line-height: 1.75em;
+  word-wrap: break-word;
 }
 .page-node-268 .node .content #services-experts {
   text-align: right;
@@ -15766,6 +15776,45 @@ form#webform-node-form #edit-field-expiration-date .form-type-textfield > label 
   margin-top: 0;
 }
 @media (min-width: 767px) {
+  .page-node-268 .node .content #services-top,
+  .page-node-268 .node .content #services-clients,
+  .page-node-268 .node .content #services-experts {
+    min-height: 250px;
+  }
+  .page-node-268 .node .content #services-top {
+    background: transparent url("../images/content/node/268/our-services_blue-circle.png") no-repeat center center;
+  }
+  .page-node-268 .node .content #services-clients {
+    padding-bottom: 250px;
+  }
+  .page-node-268 .node .content #services-clients:after {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    content: "";
+    display: block;
+    width: 250px;
+    height: 250px;
+    border-radius: 100%;
+    background: #ffffff url("../images/content/node/268/our-services_clients-circle.png") no-repeat center center;
+  }
+  .page-node-268 .node .content #services-benefits {
+    padding: 105px 0 0;
+  }
+  .page-node-268 .node .content #services-experts {
+    padding-top: 250px;
+  }
+  .page-node-268 .node .content #services-experts:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+    display: block;
+    width: 250px;
+    height: 250px;
+    border-radius: 100%;
+    background: #ffffff url("../images/content/node/268/our-services_experts-circle.png") no-repeat center center;
+  }
   .page-node-268 .node .content #services-question,
   .page-node-268 .node .content #services-challenge,
   .page-node-268 .node .content #services-survey {
