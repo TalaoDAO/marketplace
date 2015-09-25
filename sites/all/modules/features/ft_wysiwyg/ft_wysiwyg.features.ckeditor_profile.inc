@@ -103,7 +103,7 @@ function ft_wysiwyg_ckeditor_profile_defaults() {
       'settings' => array(
         'ss' => 2,
         'toolbar' => '[
-    [\'Format\',\'RemoveFormat\',\'Bold\',\'Italic\',\'Blockquote\'],
+    [\'Format\',\'Styles\',\'RemoveFormat\',\'Bold\',\'Italic\',\'Blockquote\'],
     [\'JustifyLeft\',\'JustifyCenter\',\'JustifyRight\'],
     [\'NumberedList\',\'BulletedList\',\'Outdent\',\'Indent\'],
     [\'Link\',\'Unlink\'],
@@ -137,8 +137,8 @@ function ft_wysiwyg_ckeditor_profile_defaults() {
         ),
         'css_mode' => 'none',
         'css_path' => '',
-        'css_style' => 'default',
-        'styles_path' => '',
+        'css_style' => 'self',
+        'styles_path' => '%hsites/all/themes/emindhub/js/ckeditor.styles.js',
         'filebrowser' => 'none',
         'filebrowser_image' => '',
         'filebrowser_flash' => '',
@@ -148,25 +148,13 @@ function ft_wysiwyg_ckeditor_profile_defaults() {
         'html_entities' => 'f',
         'scayt_autoStartup' => 'f',
         'theme_config_js' => 'f',
-        'js_conf' => '',
+        'js_conf' => 'config.extraAllowedContent = \'div(col-md-*,container-fluid,row);*[id](*);*[class](*)\';',
         'loadPlugins' => array(
           'ckeditor_link' => array(
             'name' => 'drupal_path',
             'desc' => 'CKEditor Link - A plugin to easily create links to Drupal internal paths',
             'path' => '%base_path%sites/all/modules/contrib/ckeditor_link/plugins/link/',
             'buttons' => FALSE,
-          ),
-          'media' => array(
-            'name' => 'media',
-            'desc' => 'Plugin for inserting images from Drupal media module',
-            'path' => '%plugin_dir%media/',
-            'buttons' => array(
-              'Media' => array(
-                'label' => 'Media',
-                'icon' => 'images/icon.gif',
-              ),
-            ),
-            'default' => 'f',
           ),
           'mediaembed' => array(
             'name' => 'mediaembed',
