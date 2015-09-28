@@ -1,0 +1,128 @@
+<?php
+
+/**
+ * @file
+ * Installation hooks for Points Management.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function emh_points_schema() {
+  $schema = array();
+  $schema['emh_points'] = array(
+    'description' => 'Holds the points',
+    'fields' => array(
+      'pid' => array(
+        'description' => 'Points ID',
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'entity_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The entity id this data is attached to',
+      ),
+      'entity_type' => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The entity type this data is attached to',
+      ),
+      'bundle' => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The entity bundle to which this data belongs',
+      ),
+      'points' => array(
+        'description' => 'Current Points',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'max_points' => array(
+        'description' => 'Out of a maximum points',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'last_update' => array(
+        'description' => 'Timestamp',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'expiration_date' => array(
+        'description' => 'Timestamp',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('pid'),
+    'indexes' => array(
+      'last_update' => array('last_update'),
+      'points' => array('points'),
+    ),
+  );
+
+  $schema['emh_points_txn'] = array(
+    'description' => 'Points Transactions',
+    'fields' => array(
+      'txn_id' => array(
+        'description' => 'Transaction ID',
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'Author of the transaction',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'points' => array(
+        'description' => 'Points',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'time_stamp' => array(
+        'description' => 'Timestamp',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'description' => array(
+        'description' => 'Description',
+        'type' => 'text',
+      ),
+      'entity_id' => array(
+        'description' => 'ID of an entity in the Database',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'entity_type' => array(
+        'description' => 'Type of entity',
+        'type' => 'varchar',
+        'length' => 128,
+      ),
+      'operation' => array(
+        'description' => 'Operation being carried out',
+        'type' => 'varchar',
+        'length' => 48,
+      ),
+    ),
+    'primary key' => array('txn_id'),
+    'indexes' => array(
+      'operation' => array('operation'),
+      'uid' => array('uid'),
+      'points' => array('points'),
+    )
+  );
+  return $schema;
+}
