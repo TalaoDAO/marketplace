@@ -1,0 +1,121 @@
+<?php
+
+/**
+ * @file
+ * Points managements for EMH website.
+ */
+define('POINTS_ADDITION', 'addition');
+define('POINTS_REMOVAL', 'removal');
+define('POINTS_EXPIRATION', 'expiration');
+
+/**
+ * Implements hook_permission().
+ */
+function emh_points_permission() {
+  return array(
+    'administer points' => array('title' => t('Administer Points')),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function emh_points_menu() {
+  $items = array();
+  $items['admin/emindhub/points'] = array(
+    'title' => 'Points',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('emh_points_admin_form'),
+    'access arguments' => array('administer points'),
+    'file' => 'emh_points.admin.inc',
+  );
+  $items['admin/emindhub/points/user_add_points'] = array(
+    'title' => 'Manage Points for Users',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('emh_points_manage_users_form'),
+    'access arguments' => array('administer points'),
+    'file' => 'emh_points.admin.inc',
+    'type' => MENU_LOCAL_ACTION,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function emh_points_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'emh_points') . '/views',
+  );
+}
+
+/**
+ * Add points to an entity().
+ */
+function emh_points_add_points($entity, $points, $log) {
+  // To add point, there are almost no functional checks.
+  if (!is_numeric($points) || $points <= 0) {
+    drupal_set_message(t('You should only add a positive number of points.'));
+    return;
+  }
+  if (empty($entity)) {
+    drupal_set_message(t('You should only add points to a valid entity'));
+    return;
+  }
+  // Create transaction.
+  global $user;
+  db_insert('emh_points_txn')
+    ->fields(array(
+      'uid' => $user->uid,
+      'points'=> $points,
+      'time_stamp' => REQUEST_TIME,
+      'description' => $log,
+      'entity_id' => $entity->id,
+      'entity_type' => $entity->type,
+      'operation' => POINTS_ADDITION,
+    ))
+    ->execute();
+  // Add points.
+  db_insert('emh_points')
+    ->fields(array(
+      'entity_id' => $entity->id,
+      'entity_type'=> $entity->type,
+      'bundle' => $entity->bundle,
+      'points' => $points,
+      // At the creation, max points = points.
+      'max_points' => $points,
+      'last_update' => REQUEST_TIME,
+      'expiration_date' => strtotime(variable_get('emh_points_expiration', '+ 1 year')),
+    ))
+    ->execute();
+}
+
+/**
+ * Implements hook_entity_load().
+ */
+function emh_points_entity_load($entities, $type) {
+  // Eventually add total points for this entity.
+  foreach($entities as $entity) {
+    emh_points_entity_load_single($entity);
+  }
+}
+
+/**
+ * Helper callback to load points on a single entity.
+ */
+function emh_points_entity_load_single($entity) {
+  if (empty($entity->entity_id) || empty($entity->entity_type)) {
+    return;
+  }
+  $query = db_select('emh_points', 'p')
+    ->condition('p.entity_type', $entity->entity_type)
+    ->condition('p.entity_id', $entity->entity_id);
+  $query->addExpression('SUM(p.points)');
+  $points = $query->execute()->fetchField();
+  if (!empty($points)) {
+    $entity->emh_points = $points;
+  } else {
+    $entity->emh_points = 0;
+  }
+}

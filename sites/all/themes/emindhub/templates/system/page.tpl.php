@@ -180,9 +180,9 @@
     <div class="row">
 
       <?php if (!empty($page['sidebar_first'])): ?>
-        <aside class="col-sm-4" role="complementary">
-          <?php print render($page['sidebar_first']); ?>
-        </aside>  <!-- /#sidebar-first -->
+      <aside class="col-sm-4" role="complementary">
+        <?php print render($page['sidebar_first']); ?>
+      </aside>  <!-- /#sidebar-first -->
       <?php endif; ?>
 
       <section id="maincol" class="<?php if (empty($page['sidebar_first']) && empty($page['sidebar_second'])) { print 'col-sm-12'; } else if (!empty($page['sidebar_first']) || !empty($page['sidebar_second'])) { print 'col-sm-8'; } else { print 'col-sm-4'; } ?>">
@@ -226,9 +226,9 @@
       </section>
 
       <?php if (!empty($page['sidebar_second'])): ?>
-        <aside class="col-sm-4" role="complementary">
-          <?php print render($page['sidebar_second']); ?>
-        </aside>  <!-- /#sidebar-second -->
+      <aside class="col-sm-4" role="complementary">
+        <?php print render($page['sidebar_second']); ?>
+      </aside>  <!-- /#sidebar-second -->
       <?php endif; ?>
 
     </div>
