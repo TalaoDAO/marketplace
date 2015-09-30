@@ -26,6 +26,34 @@ function webform_auto_field_menu_alter(&$items) {
   );
 }
 
+function webform_auto_field_form_webform_node_form_alter(&$form, &$form_state) {
+  $form['BULK'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Add your components'),
+    '#collapsible' => TRUE, // Added
+    '#collapsed' => FALSE,  // Added
+  );
+  $form['BULK']['type_of_field'] = array(
+    '#type' => 'select',
+    '#title' => t('Type of Component'),
+    '#description' => t('Select the type of component you want to bulk generate.'),
+    '#options' => array('textfield' => 'textfield', 'textarea' => 'textarea'),
+    '#default_value' => 'textfield',
+  );
+  $form['BULK']['field_titles'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Component Names'),
+    '#description' => t('Enter a list of component titles. A field of the type you selected above will be created for each one of the titles you enter here. You may enter a comma seperated list or enter one on each line.'),
+  );
+  $form['BULK']['mandatory'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Mandatory'),
+    '#description' => t('Make all of the components required.'),
+    '#default_value' => FALSE,
+  );
+  $form['actions']['submit']['#submit'][1] = 'webform_auto_field_component_generation_form_submit'; // 1 prevent webform redirection
+  //$form['#submit'][] = 'webform_auto_field_component_generation_form_submit';
+}
 
 /**
  * Bulk component generation form.
@@ -65,9 +93,16 @@ function webform_auto_field_component_generation_form($form, $form_state, $node)
  * Bulk generation form submission handler
  */
 function webform_auto_field_component_generation_form_submit($form, &$form_state) {
+  ddl($form_state);
+  module_load_include('inc', 'webform', 'includes/webform.components');
   $component_type = $form_state['values']['type_of_field'];
   $component_names = _webform_auto_field_sanitize_names($form_state['values']['field_titles']);
-  $nid = (int)$form_state['values']['nid'];
+  if (isset($form_state['nid']))
+    $nid = $form_state['nid'];
+  else if (isset($form_state['node']->nid))
+    $nid = $form_state['node']->nid;
+  else
+    $nid = (int)$form_state['values']['nid'];
   $mandatory = $form_state['values']['mandatory'];
   $weight_count = 0;
   
@@ -77,10 +112,11 @@ function webform_auto_field_component_generation_form_submit($form, &$form_state
       drupal_set_message(t('There was a problem adding the ' . $name . ' component.'), 'error');
     }
     $weight_count ++;
-  }
-  
+  }  
+  entity_get_controller('node')->resetCache(array($nid));
   drupal_set_message(t('Form component generation is complete. Drag your fields to re-order them.'));
-  drupal_goto('/node/' . $nid . '/webform');
+  //drupal_goto('/node/' . $nid . '/webform');
+  webform_form_submit($form, $form_sate);
 }
 
 /**
@@ -97,11 +133,12 @@ function _webform_auto_field_sanitize_names ($titles) {
     // removes spaces before and after bulk string
     $titles = trim($titles);
     // remove additional spaces between each comma
-    $titles = str_replace(', ', ',', $titles);
+    //$titles = str_replace(', ', ',', $titles);
     // remove carriage returns
-    $titles = str_replace("\r\n", ',', $titles);
+    //$titles = str_replace("\r\n", ',', $titles);
     // create an array of titles
-    $raw_title_array = explode(',', $titles);
+    //$raw_title_array = explode(',', $titles);
+    $raw_title_array = explode(PHP_EOL, $titles);
     // For each title remove any whitespace at beginning
     // or end, make them each plain text, and create
     // a key for each that will serve as a machine name for
