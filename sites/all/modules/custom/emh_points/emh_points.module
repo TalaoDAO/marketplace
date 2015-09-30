@@ -51,11 +51,11 @@ function emh_points_views_api() {
 }
 
 /**
- * Add points to an entity().
+ * Add points to an entity.
  */
 function emh_points_add_points($entity, $points, $log) {
   // To add point, there are almost no functional checks.
-  if (!is_numeric($points) || $points <= 0) {
+  if (!is_numeric($points) || (int)$points <= 0) {
     drupal_set_message(t('You should only add a positive number of points.'));
     return;
   }
@@ -63,19 +63,6 @@ function emh_points_add_points($entity, $points, $log) {
     drupal_set_message(t('You should only add points to a valid entity'));
     return;
   }
-  // Create transaction.
-  global $user;
-  db_insert('emh_points_txn')
-    ->fields(array(
-      'uid' => $user->uid,
-      'points'=> $points,
-      'time_stamp' => REQUEST_TIME,
-      'description' => $log,
-      'entity_id' => $entity->id,
-      'entity_type' => $entity->type,
-      'operation' => POINTS_ADDITION,
-    ))
-    ->execute();
   // Add points.
   db_insert('emh_points')
     ->fields(array(
@@ -87,6 +74,84 @@ function emh_points_add_points($entity, $points, $log) {
       'max_points' => $points,
       'last_update' => REQUEST_TIME,
       'expiration_date' => strtotime(variable_get('emh_points_expiration', '+ 1 year')),
+    ))
+    ->execute();
+  // Create transaction.
+  global $user;
+  db_insert('emh_points_txn')
+    ->fields(array(
+      'uid' => $user->uid,
+      'points'=> (int)$points,
+      'time_stamp' => REQUEST_TIME,
+      'description' => $log,
+      'entity_id' => $entity->id,
+      'entity_type' => $entity->type,
+      'operation' => POINTS_ADDITION,
+    ))
+    ->execute();
+}
+
+/**
+ * Remove points from an entity.
+ */
+function emh_points_remove_points($entity, $points, $log) {
+  // Functional validation.
+  if (!is_numeric($points) || (int)$points <= 0) {
+    drupal_set_message(t('You should only remove a positive number of points.'));
+    return;
+  }
+  // Does the entity have enough points ?
+  $current_points = 0;
+  $query = db_select('emh_points', 'p')
+    ->condition('p.entity_type', $entity->type)
+    ->condition('p.entity_id', $entity->id);
+  $query->addExpression('SUM(p.points)');
+  $current_points = $query->execute()->fetchField();
+  if ($current_points < (int)$points) {
+    drupal_set_message(t('It\'s impossible to remove those many points (only @points left).', array('@points' => $current_points)));
+  }
+  // Functional algorithm, remove points that will expire first.
+  $to_be_removed = (int)$points;
+  $query = db_select('emh_points', 'p')
+    ->fields('p', array('pid', 'points'))
+    ->condition('p.entity_type', $entity->type)
+    ->condition('p.entity_id', $entity->id)
+    ->condition('p.points', 0, '>')
+    ->orderBy('p.expiration_date', 'ASC')
+    ->execute();
+  while($to_be_removed > 0) {
+    $record = $query->fetchAssoc();
+    if ($record['points'] >= $to_be_removed) {
+      db_merge('emh_points')
+        ->key(array('pid' => $record['pid']))
+        ->fields(array(
+          'points' => ($record['points'] - $to_be_removed),
+          'last_update' => REQUEST_TIME,
+        ))
+        ->execute();
+      $to_be_removed = 0;
+    } else {
+      db_merge('emh_points')
+        ->key(array('pid' => $record['pid']))
+        ->fields(array(
+          'points' => 0,
+          'last_update' => REQUEST_TIME,
+        ))
+        ->execute();
+      $to_be_removed -= $record['points'];
+    }
+  }
+  // Compute transaction.
+  global $user;
+  db_insert('emh_points_txn')
+    ->fields(array(
+      'uid' => $user->uid,
+      'points'=> (int)$points,
+      'time_stamp' => REQUEST_TIME,
+      'description' => $log,
+      'entity_id' => $entity->id,
+      'entity_type' => $entity->type,
+      'operation' => POINTS_REMOVAL,
     ))
     ->execute();
 }
