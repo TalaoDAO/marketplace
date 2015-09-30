@@ -1,0 +1,21 @@
+name = Webform Auto Field
+description = This module gives you a way to automatically generate fields from a list of field titles.
+
+; Core version (required)
+core = 7.x
+
+; Package name
+package = Webform
+
+; Module dependencies
+dependencies[] = webform
+
+; Files
+files[] = webform_auto_field.module
+
+; Information added by drupal.org packaging script on 2012-07-01
+version = "7.x-1.0-beta2"
+core = "7.x"
+project = "webform_auto_field"
+datestamp = "1341104574"
+

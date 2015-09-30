@@ -1,0 +1,195 @@
+<?php
+
+/**
+ * @file
+ * This is the file description for Webform Auto Field module.
+ *
+ * This module adds a textarea to the webform creation form to enter a list of
+ * field titles. It also adds an additional field to select textfield or
+ * textarea generation. This list is used to automatically generate fields for
+ * each one of the items in the list. This saves you a lot of time if you need
+ * to generate multiple fields of a particular type for a long form.
+ */
+
+/**
+ * Implements hook_menu_alter().
+ */
+function webform_auto_field_menu_alter(&$items) {
+  $items['node/%webform_menu/webform/bulk'] = array(
+    'title' => 'Bulk generate form components',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('webform_auto_field_component_generation_form', 1),
+    'access callback' => 'node_access',
+    'access arguments' => array('update', 1),
+    'weight' => 10,
+    'type' => MENU_LOCAL_TASK,
+  );
+}
+
+
+/**
+ * Bulk component generation form.
+ */
+function webform_auto_field_component_generation_form($form, $form_state, $node) {
+  $form['type_of_field'] = array(
+    '#type' => 'select',
+    '#title' => t('Type of Component'),
+    '#description' => t('Select the type of component you want to bulk generate.'),
+    '#options' => array('textfield' => 'textfield', 'textarea' => 'textarea'),
+    '#default_value' => 'textfield',
+  );
+  $form['field_titles'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Component Names'),
+    '#description' => t('Enter a list of component titles. A field of the type you selected above will be created for each one of the titles you enter here. You may enter a comma seperated list or enter one on each line.'),
+  );
+  $form['mandatory'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Mandatory'),
+    '#description' => t('Make all of the components required.'),
+    '#default_value' => FALSE,
+  );
+  
+  $form['nid'] = array(
+    '#type' => 'value',
+    '#value' => $node->nid,
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Generate'),
+  );
+  return $form;
+}
+
+/**
+ * Bulk generation form submission handler
+ */
+function webform_auto_field_component_generation_form_submit($form, &$form_state) {
+  $component_type = $form_state['values']['type_of_field'];
+  $component_names = _webform_auto_field_sanitize_names($form_state['values']['field_titles']);
+  $nid = (int)$form_state['values']['nid'];
+  $mandatory = $form_state['values']['mandatory'];
+  $weight_count = 0;
+  
+  foreach ($component_names as $key => $name) {
+    $component = _webform_auto_field_create_component($component_type, $key, $name, $nid, $mandatory, $weight_count);
+    if (!webform_component_insert($component)) {
+      drupal_set_message(t('There was a problem adding the ' . $name . ' component.'), 'error');
+    }
+    $weight_count ++;
+  }
+  
+  drupal_set_message(t('Form component generation is complete. Drag your fields to re-order them.'));
+  drupal_goto('/node/' . $nid . '/webform');
+}
+
+/**
+ * Sanitize the field title values that were submitted.
+ *
+ * @param string $titles
+ *   a string of field titles
+ *
+ * @return array
+ *   an array of string values for each title
+ */
+function _webform_auto_field_sanitize_names ($titles) {
+  if (is_string($titles)) {
+    // removes spaces before and after bulk string
+    $titles = trim($titles);
+    // remove additional spaces between each comma
+    $titles = str_replace(', ', ',', $titles);
+    // remove carriage returns
+    $titles = str_replace("\r\n", ',', $titles);
+    // create an array of titles
+    $raw_title_array = explode(',', $titles);
+    // For each title remove any whitespace at beginning
+    // or end, make them each plain text, and create
+    // a key for each that will serve as a machine name for
+    // the field.
+    $title_array = array();
+    foreach ($raw_title_array as $raw_title) {
+      $field_title = check_plain(trim($raw_title));
+      $field_title_key = str_replace(' ', '_', strtolower($field_title));
+      $title_array[$field_title_key] = $field_title;
+    }
+    return $title_array;
+  }
+  
+  return FALSE;
+}
+
+/**
+ * Create a component array
+ *
+ * @param string $type
+ *  The type of component
+ * @param string $key
+ *  The form key (machine name)
+ * @param string $name
+ *  The name (label)
+ * @param integer $nid
+ *  The node id of the webform to add this component to
+ * @param integer $mandatory
+ *  boolean value to set this as a mandatory field or not
+ * 
+ * @return array
+ *  A component array 
+ */
+function _webform_auto_field_create_component ($type, $key, $name, $nid, $mandatory = 0, $weight = 0) {
+  $component = array();
+  $component['type'] = $type;
+  $component['nid'] = $nid;
+  $component['pid'] = 0;
+  $component['clone'] = FALSE;
+  $component['name'] = $name;
+  $component['form_key'] = $key;
+  $component['mandatory'] = $mandatory;
+  $component['weight'] = $weight;
+  return $component;
+}
+
+/**
+ * Add the auto-generated fields.
+ *
+ * @param $node
+ *   The node object.
+ *
+ * @return
+ *   TRUE unless the node field_titles are empty.
+ */
+function _webform_auto_field_add_fields($node) {
+  if (empty($node->field_titles)) {
+    return FALSE;
+  }
+
+  $weight = 0;
+
+  foreach ($title_array as $field_title) {
+    
+
+    $field_form_state = array(
+      'submitted' => TRUE,
+      'values' => array(
+        'type' => $node->type_of_field,
+        'nid' => $node->nid,
+        'clone' => FALSE,
+        'name' => $field_title,
+        'form_key' => $field_title_key,
+        'weight' => $weight,
+        'op' => 'Submit',
+      ),
+    );
+
+    $field_component = array(
+      'type' => $node->type_of_field,
+      'nid' => $node->nid,
+      'name' => $field_title,
+      'weight' => $weight,
+      'mandatory' => 0,
+    );
+
+    drupal_execute('webform_component_edit_form', $field_form_state, $node, $field_component);
+    $weight++;
+  }
+  return TRUE;
+}
