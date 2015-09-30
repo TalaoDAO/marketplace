@@ -31,12 +31,24 @@ function emh_points_views_data() {
       'extra' => array(array('field' => 'entity_type', 'value' => 'node', 'operator' => '=')),
     ),
   );
-  $data['emh_points_txn']['table']['group'] = t('Points');
+  $data['emh_points_txn']['table']['group'] = t('Points Transaction');
   $data['emh_points_txn']['table']['base'] = array(
     'field' => 'txn_id',
     'title' => t('Points Transactions'),
     'defaults' => array(
       'field' => 'description',
+    ),
+  );
+  $data['emh_points_txn']['table']['join'] = array(
+    'users' => array(
+      'left_field' => 'uid',
+      'field' => 'entity_id',
+      'extra' => array(array('field' => 'entity_type', 'value' => 'user', 'operator' => '=')),
+    ),
+    'node' => array(
+      'left_field' => 'nid',
+      'field' => 'entity_id',
+      'extra' => array(array('field' => 'entity_type', 'value' => 'node', 'operator' => '=')),
     ),
   );
   // Then the fields.
