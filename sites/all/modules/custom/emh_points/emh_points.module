@@ -97,20 +97,32 @@ function emh_points_add_points($entity, $points, $log) {
 function emh_points_entity_load($entities, $type) {
   // Eventually add total points for this entity.
   foreach($entities as $entity) {
-    emh_points_entity_load_single($entity);
+    emh_points_entity_load_single($entity, $type);
   }
 }
 
 /**
  * Helper callback to load points on a single entity.
  */
-function emh_points_entity_load_single($entity) {
-  if (empty($entity->entity_id) || empty($entity->entity_type)) {
+function emh_points_entity_load_single($entity, $type) {
+  switch($type) {
+    case 'node': $wrapper = entity_metadata_wrapper('node', $entity);
+    break;
+    case 'user': $wrapper = entity_metadata_wrapper('user', $entity);
+    break;
+  /*
+    default: $wrapper = $entity->wrapper();
+    break;
+   */
+  }
+  if (empty($wrapper)) {
+    // taxonomy_vocabulary, taxonomy_term, field_collection_item
+    // entity_legal_document, entity_legal_document_version, ...
     return;
   }
   $query = db_select('emh_points', 'p')
-    ->condition('p.entity_type', $entity->entity_type)
-    ->condition('p.entity_id', $entity->entity_id);
+    ->condition('p.entity_type', $type)
+    ->condition('p.entity_id', $wrapper->getIdentifier());
   $query->addExpression('SUM(p.points)');
   $points = $query->execute()->fetchField();
   if (!empty($points)) {
