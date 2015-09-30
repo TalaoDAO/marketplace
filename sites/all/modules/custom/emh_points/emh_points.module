@@ -94,7 +94,7 @@ function emh_points_add_points($entity, $points, $log) {
 /**
  * Remove points from an entity.
  */
-function emh_points_remove_points($entity, $points, $log) {
+function emh_points_delete_points($entity, $points, $log) {
   // Functional validation.
   if (!is_numeric($points) || (int)$points <= 0) {
     drupal_set_message(t('You should only remove a positive number of points.'));
@@ -195,4 +195,132 @@ function emh_points_entity_load_single($entity, $type) {
   } else {
     $entity->emh_points = 0;
   }
+}
+
+/**
+ * Helper function to build "our" entity.
+ */
+function emh_points_build_entity_for_points($entity) {
+  $test_entity = entity_metadata_wrapper('node', $entity);
+  $type = 'node';
+  if (!$test_entity->getIdentifier()) {
+    $test_entity = entity_metadata_wrapper('user', $entity);
+    $type = 'user';
+  }
+  $emh_entity = new StdClass();
+  $emh_entity->type = $type;
+  $emh_entity->bundle = $test_entity->getBundle();
+  $emh_entity->id = $test_entity->getIdentifier();
+  return $emh_entity;
+}
+
+/**
+ * Implements hook_action_info().
+ * Essentially for VBO integration.
+ */
+function emh_points_action_info() {
+  $actions = array();
+  $actions['emh_points_give_points'] = array(
+    'type' => 'entity',
+    'label' => t('Give points to an entity'),
+    'configurable' => TRUE,
+    'triggers' => array(),
+    'permissions' => array('administer points'),
+  );
+  $actions['emh_points_remove_points'] = array(
+    'type' => 'entity',
+    'label' => t('Remove points from an entity'),
+    'configurable' => TRUE,
+    'triggers' => array(),
+    'permissions' => array('administer points'),
+  );
+  return $actions;
+}
+
+//
+// Actions for VBO integration.
+//
+
+/**
+ * Give points to an entity.
+ */
+function emh_points_give_points(&$entity, $context) {
+  $emh_entity = emh_points_build_entity_for_points($entity);
+  $points = $context['points'];
+  $log = $context['log'];
+  emh_points_add_points($emh_entity, $points, $log);
+}
+
+/**
+ * Remove points from an entity.
+ */
+function emh_points_remove_points(&$entity, $context) {
+  $emh_entity = emh_points_build_entity_for_points($entity);
+  $points = $context['points'];
+  $log = $context['log'];
+  emh_points_delete_points($emh_entity, $points, $log);
+}
+
+//
+// Configuration forms for VBO integration.
+//
+
+/**
+ * Configuration form for giving points.
+ */
+function emh_points_give_points_form($settings, &$form_state) {
+  $form = array();
+  $form['points'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Points'),
+    '#required' => TRUE,
+    '#default_value' => '100',
+    '#element_validate' => array('element_validate_integer_positive'),
+  );
+  $form['log'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Log message'),
+    '#required' => TRUE,
+  );
+  return $form;
+}
+
+/**
+ * Submit callback for the form above.
+ */
+function emh_points_give_points_submit($form, &$form_state) {
+  $return = array();
+  $return['points'] = $form_state['values']['points'];
+  $return['log'] = $form_state['values']['log'];
+  return $return;
+}
+
+/**
+ * Configuration form for removing points.
+ */
+function emh_points_remove_points_form($settings, &$form_state) {
+  $form = array();
+  $form['points'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Points'),
+    '#required' => TRUE,
+    '#default_value' => '100',
+    '#element_validate' => array('element_validate_integer_positive'),
+  );
+  $form['log'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Log message'),
+    '#required' => TRUE,
+  );
+  return $form;
+}
+
+/**
+ * Submit callback for the form above.
+ */
+function emh_points_remove_points_submit($form, &$form_state) {
+  $return = array();
+  $return['points'] = $form_state['values']['points'];
+  $return['log'] = $form_state['values']['log'];
+  return $return;
 }

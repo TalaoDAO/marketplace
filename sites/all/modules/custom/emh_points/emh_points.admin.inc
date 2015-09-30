@@ -106,7 +106,7 @@ function emh_points_manage_users_form_submit($form, $form_state) {
   $entity->bundle = 'user';
   switch($values['operation']) {
   case POINTS_REMOVAL:
-    emh_points_remove_points($entity, $values['points'], $values['log']);
+    emh_points_delete_points($entity, $values['points'], $values['log']);
     break;
   case POINTS_ADDITION:
     emh_points_add_points($entity, $values['points'], $values['log']);
