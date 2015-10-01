@@ -52,3 +52,34 @@ function emh_points_user_has_enough_points($user, $points) {
   $current_points = $query->execute()->fetchField();
   return ($current_points >= $points);
 }
+
+/**
+ * Implements hook_rules_action_info().
+ * @ingroup rules
+ */
+function emh_points_rules_action_info() {
+  $actions = array();
+  $actions['move_points'] = array(
+    'label' => t('Move points'),
+    'group' => t('Points'),
+    'base' => 'emh_points_move_points',
+    'parameter' => array(
+      'source' => array('label' => t('Source'), 'type' => 'entity'),
+      'destination' => array('label' => t('Destination'), 'type' => 'entity'),
+      'points' => array('label' => t('Number of points to move'), 'type' => 'integer'),
+    ),
+  );
+  return $actions;
+}
+
+/**
+ * Callback for the action above
+ */
+function emh_points_move_points($source, $destination, $points) {
+  $emh_source = emh_points_build_entity_for_points($source);
+  $emh_destination = emh_points_build_entity_for_points($destination);
+  // Remove points from source.
+  emh_points_delete_points($emh_source, $points, t('Move points from !source to !destination.', array('!source' => emh_points_format_entity($souce), '!destination' => emh_points_format_entity($destination))));
+  // Add points to destination.
+  emh_points_add_points($emh_destination, $points, t('Move points from !source to !destination.', array('!source' => emh_points_format_entity($souce), '!destination' => emh_points_format_entity($destination))));
+}
