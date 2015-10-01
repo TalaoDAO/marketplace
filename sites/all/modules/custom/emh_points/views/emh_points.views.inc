@@ -7,6 +7,7 @@
 
 /**
  * Implements hook_views_data().
+ * @ingroup views
  */
 function emh_points_views_data() {
   $data = array();

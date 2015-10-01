@@ -7,6 +7,7 @@
 
 /**
  * Implements hook_views_default_views().
+ * @ingroup views
  */
 function emh_points_views_default_views() {
   $views = array();
