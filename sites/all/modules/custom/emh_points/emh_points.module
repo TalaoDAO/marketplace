@@ -51,6 +51,44 @@ function emh_points_views_api() {
 }
 
 /**
+ * Implements hook_cron().
+ * Points expiration & expiration warning.
+ */
+function emh_points_cron() {
+  // Points expiration.
+  $query = db_select('emh_points', 'p')
+    ->fields('p', array('pid', 'points', 'entity_id', 'entity_type'))
+    ->condition('p.points', 0, '>')
+    ->condition('p.expiration_date', REQUEST_TIME, '<')
+    ->orderBy('p.expiration_date', 'ASC')
+    ->execute();
+  foreach($query as $row) {
+    // Expire points.
+    db_merge('emh_points')
+      ->key(array('pid' => $row->pid))
+      ->fields(array(
+        'points' => 0,
+        'last_update' => REQUEST_TIME,
+      ))
+      ->execute();
+    // Create transaction.
+    db_insert('emh_points_txn')
+      ->fields(array(
+        'uid' => 1,
+        'points'=> (int)$row->points,
+        'time_stamp' => REQUEST_TIME,
+        'description' => t('Points expiration'),
+        'entity_id' => $row->entity_id,
+        'entity_type' => $row->entity_type,
+        'operation' => POINTS_EXPIRATION,
+      ))
+      ->execute();
+  }
+  // Expiration warning.
+  // @TODO.
+}
+
+/**
  * Add points to an entity.
  */
 function emh_points_add_points($entity, $points, $log) {
