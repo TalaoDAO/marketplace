@@ -39,6 +39,12 @@ function emh_points_menu() {
     'file' => 'emh_points.admin.inc',
     'type' => MENU_LOCAL_ACTION,
   );
+  $items['arrange/%/%'] = array(
+    'title' => 'Arrange points',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('emh_points_arrange_form', 1, 2),
+    'access arguments' => array('use points'),
+  );
   return $items;
 }
 
@@ -334,6 +340,70 @@ function emh_points_move_points($source, $destination, $points) {
 }
 
 /**
+ * Main repartition form.
+ */
+function emh_points_arrange_form($form, &$form_state, $points, $users) {
+  $form = array();
+  $users = explode(',', $users);
+  $default_points = floor($points / (count($users) - 1));
+  $form['points'] = array(
+    '#type' => 'value',
+    '#default_value' => $points,
+  );
+  foreach($users as $user) {
+    if (empty($user)) {
+      continue;
+    }
+    $account = user_load($user);
+    $form['user_' . $user] = array(
+      '#type' => 'textfield',
+      '#title' => t('Points for @user', array('@user' => $account->field_first_name[LANGUAGE_NONE]['0']['value'] . ' ' . $account->field_last_name[LANGUAGE_NONE]['0']['value'])),
+      '#default_value' => $default_points,
+      '#element_validate' => array('element_validate_integer_positive'),
+    );
+  }
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Arrange points'),
+  );
+  return $form;
+}
+
+/**
+ * Validation callback to the form above.
+ */
+function emh_points_arrange_form_validate(&$form, &$form_state) {
+  $points = $form_state['values']['points'];
+  $total = 0;
+  $elements = array();
+  foreach($form_state['values'] as $key => $value) {
+    if (substr($key, 0, 5) == 'user_') {
+      $elements[] = $key;
+      $total += $value;
+    }
+  }
+  if ($points != $total) {
+    form_set_error(implode('][', $elements), t('You should assign all the points!'));
+  }
+}
+
+/**
+ * Submit callback for the form above.
+ */
+function emh_points_arrange_form_submit(&$form, &$form_state) {
+  $points = $form_state['values']['points'];
+  global $user;
+  foreach($form_state['values'] as $key => $value) {
+    if (substr($key, 0, 5) == 'user_') {
+      $uid = substr($key, 5);
+      $account = user_load($uid);
+      emh_points_move_points($user, $account, $value);
+    }
+  }
+  $form_state['redirect'] = '<front>';
+}
+
+/**
  * Implements hook_action_info().
  * Essentially for VBO integration.
  */
@@ -341,24 +411,32 @@ function emh_points_action_info() {
   $actions = array();
   $actions['emh_points_give_points'] = array(
     'type' => 'entity',
-    'label' => t('Give points to an entity'),
+    'label' => t('Give points to entities'),
     'configurable' => TRUE,
     'triggers' => array(),
     'permissions' => array('administer points'),
   );
   $actions['emh_points_remove_points'] = array(
     'type' => 'entity',
-    'label' => t('Remove points from an entity'),
+    'label' => t('Remove points from entities'),
     'configurable' => TRUE,
     'triggers' => array(),
     'permissions' => array('administer points'),
   );
   $actions['emh_points_transfert_points'] = array(
     'type' => 'entity',
-    'label' => t('Transfer some of my points to this entity'),
+    'label' => t('Transfer some of my points to these entities'),
     'configurable' => TRUE,
     'triggers' => array(),
     'permissions' => array('use points'),
+  );
+  $actions['emh_points_arrange_points'] = array(
+    'type' => 'entity',
+    'label' => t('Arrange some of my points to these entities'),
+    'configurable' => TRUE,
+    'triggers' => array(),
+    'permissions' => array('use points'),
+    'aggregate' => TRUE,
   );
   return $actions;
 }
@@ -394,6 +472,19 @@ function emh_points_transfert_points(&$entity, $context) {
   global $user;
   $points = $context['points'];
   emh_points_move_points($user, $entity, $points);
+}
+
+/**
+ * Arrange points between users.
+ */
+function emh_points_arrange_points(&$entities, $context) {
+  $points = $context['points'];
+  $output = '';
+  foreach($entities as $id => $entity) {
+    $output .= $id;
+    $output .= ',';
+  }
+  drupal_goto('arrange/' . $points . '/' . $output);
 }
 
 //
@@ -479,6 +570,30 @@ function emh_points_transfert_points_form($settings, &$form_state) {
  * Submit callback for the form above.
  */
 function emh_points_transfert_points_submit($form, &$form_state) {
+  $return = array();
+  $return['points'] = $form_state['values']['points'];
+  return $return;
+}
+
+/**
+ * Configuration for arranging points.
+ */
+function emh_points_arrange_points_form($settings, &$form_state) {
+  $form = array();
+  $form['points'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Points'),
+    '#required' => TRUE,
+    '#default_value' => '100',
+    '#element_validate' => array('element_validate_integer_positive'),
+  );
+  return $form;
+} 
+
+/**
+ * Submit callback for the form above.
+ */
+function emh_points_arrange_points_submit($form, &$form_state) {
   $return = array();
   $return['points'] = $form_state['values']['points'];
   return $return;
