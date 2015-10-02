@@ -39,10 +39,10 @@ function emh_points_menu() {
     'file' => 'emh_points.admin.inc',
     'type' => MENU_LOCAL_ACTION,
   );
-  $items['arrange/%/%'] = array(
+  $items['arrange/%/%/%/%/%'] = array(
     'title' => 'Arrange points',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('emh_points_arrange_form', 1, 2),
+    'page arguments' => array('emh_points_arrange_form', 1, 2, 3, 4, 5),
     'access arguments' => array('use points'),
   );
   return $items;
@@ -346,22 +346,62 @@ function emh_points_move_points($source, $destination, $points) {
 /**
  * Main repartition form.
  */
-function emh_points_arrange_form($form, &$form_state, $points, $users) {
+function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id_source, $type_dest, $dests) {
+  // Access control.
+  global $user;
+  switch($type_source) {
+    case 'user':
+      if ($user->uid != $id_source) {
+        drupal_access_denied();
+        drupal_exit();
+      }
+      break;
+    case 'node':
+      $node = node_load($id_source);
+      if (empty($node) || $user->uid != $node->uid) {
+        drupal_access_denied();
+        drupal_exit();
+      }
+      break;
+    default:
+      drupal_access_denied();
+      drupal_exit();
+      break;
+  }
   $form = array();
-  $users = explode(',', $users);
-  $default_points = floor($points / (count($users) - 1));
+  $dests = explode(',', $dests);
+  $default_points = floor($points / count($dests));
   $form['points'] = array(
     '#type' => 'value',
     '#default_value' => $points,
   );
-  foreach($users as $user) {
-    if (empty($user)) {
+  $form['type_source'] = array(
+    '#type' => 'value',
+    '#default_value' => $type_source,
+  );
+  $form['id_source'] = array(
+    '#type' => 'value',
+    '#default_value' => $id_source,
+  );
+  $form['type_dest'] = array(
+    '#type' => 'value',
+    '#default_value' => $type_dest,
+  );
+  foreach($dests as $dest) {
+    if (empty($dest)) {
       continue;
     }
-    $account = user_load($user);
-    $form['user_' . $user] = array(
+    switch($type_dest) {
+    case 'node':
+      $entity = node_load($dest);
+      break;
+    case 'user':
+      $entity = user_load($dest);
+      break;
+    }
+    $form['dest_' . $dest] = array(
       '#type' => 'textfield',
-      '#title' => t('Points for @user', array('@user' => $account->field_first_name[LANGUAGE_NONE]['0']['value'] . ' ' . $account->field_last_name[LANGUAGE_NONE]['0']['value'])),
+      '#title' => t('Points for @dest', array('@dest' => emh_points_format_entity($entity))),
       '#default_value' => $default_points,
       '#element_validate' => array('element_validate_integer_positive'),
     );
@@ -381,7 +421,7 @@ function emh_points_arrange_form_validate(&$form, &$form_state) {
   $total = 0;
   $elements = array();
   foreach($form_state['values'] as $key => $value) {
-    if (substr($key, 0, 5) == 'user_') {
+    if (substr($key, 0, 5) == 'dest_') {
       $elements[] = $key;
       $total += $value;
     }
@@ -395,13 +435,27 @@ function emh_points_arrange_form_validate(&$form, &$form_state) {
  * Submit callback for the form above.
  */
 function emh_points_arrange_form_submit(&$form, &$form_state) {
-  $points = $form_state['values']['points'];
-  global $user;
+  switch($form_state['values']['type_source']) {
+  case 'node':
+    $source = node_load($form_state['values']['id_source']);
+    break;
+  case 'user':
+    $source = user_load($form_state['values']['id_source']);
+    break;
+  }
   foreach($form_state['values'] as $key => $value) {
-    if (substr($key, 0, 5) == 'user_') {
-      $uid = substr($key, 5);
+    if (substr($key, 0, 5) == 'dest_') {
+      $id = substr($key, 5);
+      switch($form_state['values']['type_dest']) {
+      case 'node':
+        $dest = node_load($id);
+        break;
+      case 'user':
+        $dest = user_load($id);
+        break;
+      }
       $account = user_load($uid);
-      emh_points_move_points($user, $account, $value);
+      emh_points_move_points($source, $dest, $value);
     }
   }
   $form_state['redirect'] = '<front>';
@@ -484,11 +538,17 @@ function emh_points_transfert_points(&$entity, $context) {
 function emh_points_arrange_points(&$entities, $context) {
   $points = $context['points'];
   $output = '';
+  $type = 'user';
   foreach($entities as $id => $entity) {
+    if (!empty($entity->type)) {
+      $type = 'node';
+    }
     $output .= $id;
     $output .= ',';
   }
-  drupal_goto('arrange/' . $points . '/' . $output);
+  $output = substr($output, 0, -1);
+  global $user;
+  drupal_goto('arrange/' . $points . '/user/' . $user->uid . '/' . $type  . '/' . $output);
 }
 
 //
