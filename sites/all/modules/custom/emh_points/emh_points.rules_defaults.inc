@@ -18,6 +18,9 @@ function emh_points_default_rules_configuration() {
       "OWNER" : "rules",
       "REQUIRES" : [ "emh_points", "rules" ],
       "ON" : { "node_insert--question1" : { "bundle" : "question1" } },
+      "IF" : [
+        { "entity_has_field" : { "entity" : [ "node" ], "field" : "field_reward" } }
+      ],
       "DO" : [
         { "move_points" : {
           "source" : [ "node:author" ],
