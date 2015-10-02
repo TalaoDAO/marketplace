@@ -7,6 +7,7 @@
 define('POINTS_ADDITION', 'addition');
 define('POINTS_REMOVAL', 'removal');
 define('POINTS_EXPIRATION', 'expiration');
+define('POINTS_TRANSFERT', 'transfert');
 
 /**
  * Implements hook_permission().
@@ -264,7 +265,15 @@ function emh_points_entity_load_single($entity, $type) {
  * Helper function to build "our" entity.
  */
 function emh_points_build_entity_for_points($entity) {
-  if (!empty($node->type)) {
+  // If coming from Rules, it's already a metadata_wrapper...
+  if ($entity instanceOf EntityDrupalWrapper) {
+    $test_entity = clone $entity;
+    if ('user' == $test_entity->getBundle()) {
+      $type = 'user';
+    } else {
+      $type = 'node';
+    }
+  } else if (!empty($entity->type)) {
     $test_entity = entity_metadata_wrapper('node', $entity);
     $type = 'node';
   } else {
@@ -282,7 +291,14 @@ function emh_points_build_entity_for_points($entity) {
  * Helper function to display an entity.
  */
 function emh_points_format_entity($entity) {
-  if (!empty($node->type)) {
+  if ($entity instanceOf EntityDrupalWrapper) {
+    $test_entity = clone $entity;
+    if ('user' == $test_entity->getBundle()) {
+      $type = 'user';
+    } else {
+      $type = 'node';
+    }
+  } else if (!empty($entity->type)) {
     $test_entity = entity_metadata_wrapper('node', $entity);
     $type = 'node';
   } else {
@@ -297,9 +313,9 @@ function emh_points_format_entity($entity) {
       $output .= $test_entity->field_first_name->value() . ' ' . $test_entity->field_last_name->value();
       break;
     case 'node':
-      $output = $entity->type;
+      $output = $test_entity->getBundle();
       $output .= ' ';
-      $output .= $entity->title;
+      $output .= $test_entity->label();
       break;
   }
   return $output;
