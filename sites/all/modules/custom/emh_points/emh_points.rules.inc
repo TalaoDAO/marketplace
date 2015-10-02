@@ -71,15 +71,3 @@ function emh_points_rules_action_info() {
   );
   return $actions;
 }
-
-/**
- * Callback for the action above
- */
-function emh_points_move_points($source, $destination, $points) {
-  $emh_source = emh_points_build_entity_for_points($source);
-  $emh_destination = emh_points_build_entity_for_points($destination);
-  // Remove points from source.
-  emh_points_delete_points($emh_source, $points, t('Move points from !source to !destination.', array('!source' => emh_points_format_entity($source), '!destination' => emh_points_format_entity($destination))));
-  // Add points to destination.
-  emh_points_add_points($emh_destination, $points, t('Move points from !source to !destination.', array('!source' => emh_points_format_entity($source), '!destination' => emh_points_format_entity($destination))));
-}

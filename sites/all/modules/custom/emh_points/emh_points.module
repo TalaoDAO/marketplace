@@ -14,6 +14,7 @@ define('POINTS_EXPIRATION', 'expiration');
 function emh_points_permission() {
   return array(
     'administer points' => array('title' => t('Administer Points')),
+    'use points' => array('title' => t('Use Points')),
   );
 }
 
@@ -305,6 +306,18 @@ function emh_points_format_entity($entity) {
 }
 
 /**
+ * Main moving points action.
+ */
+function emh_points_move_points($source, $destination, $points) {
+  $emh_source = emh_points_build_entity_for_points($source);
+  $emh_destination = emh_points_build_entity_for_points($destination);
+  // Remove points from source.
+  emh_points_delete_points($emh_source, $points, t('Move points from !source to !destination.', array('!source' => emh_points_format_entity($source), '!destination' => emh_points_format_entity($destination))));
+  // Add points to destination.
+  emh_points_add_points($emh_destination, $points, t('Move points from !source to !destination.', array('!source' => emh_points_format_entity($source), '!destination' => emh_points_format_entity($destination))));
+}
+
+/**
  * Implements hook_action_info().
  * Essentially for VBO integration.
  */
@@ -323,6 +336,13 @@ function emh_points_action_info() {
     'configurable' => TRUE,
     'triggers' => array(),
     'permissions' => array('administer points'),
+  );
+  $actions['emh_points_transfert_points'] = array(
+    'type' => 'entity',
+    'label' => t('Transfer some of my points to this entity'),
+    'configurable' => TRUE,
+    'triggers' => array(),
+    'permissions' => array('use points'),
   );
   return $actions;
 }
@@ -349,6 +369,15 @@ function emh_points_remove_points(&$entity, $context) {
   $points = $context['points'];
   $log = $context['log'];
   emh_points_delete_points($emh_entity, $points, $log);
+}
+
+/**
+ * Transfert points to an entity.
+ */
+function emh_points_transfert_points(&$entity, $context) {
+  global $user;
+  $points = $context['points'];
+  emh_points_move_points($user, $entity, $points);
 }
 
 //
@@ -412,5 +441,29 @@ function emh_points_remove_points_submit($form, &$form_state) {
   $return = array();
   $return['points'] = $form_state['values']['points'];
   $return['log'] = $form_state['values']['log'];
+  return $return;
+}
+
+/**
+ * Configuration form for transfering points.
+ */
+function emh_points_transfert_points_form($settings, &$form_state) {
+  $form = array();
+  $form['points'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Points'),
+    '#required' => TRUE,
+    '#default_value' => '100',
+    '#element_validate' => array('element_validate_integer_positive'),
+  );
+  return $form;
+}
+
+/**
+ * Submit callback for the form above.
+ */
+function emh_points_transfert_points_submit($form, &$form_state) {
+  $return = array();
+  $return['points'] = $form_state['values']['points'];
   return $return;
 }
