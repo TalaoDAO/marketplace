@@ -314,9 +314,13 @@ function emh_points_format_entity($entity) {
   $output = '';
   switch($type) {
     case 'user':
-      $output = t('User');
-      $output .= ' ';
-      $output .= $test_entity->field_first_name->value() . ' ' . $test_entity->field_last_name->value();
+      if ($test_entity->getIdentifier() == 1) {
+        $output = 'eMindHub';
+      } else {
+        $output = t('User');
+        $output .= ' ';
+        $output .= $test_entity->field_first_name->value() . ' ' . $test_entity->field_last_name->value();
+      }
       break;
     case 'node':
       $output = $test_entity->getBundle();
