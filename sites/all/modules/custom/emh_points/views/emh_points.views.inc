@@ -42,14 +42,20 @@ function emh_points_views_data() {
   );
   $data['emh_points_txn']['table']['join'] = array(
     'users' => array(
+      'left_table' => 'users',
       'left_field' => 'uid',
-      'field' => 'entity_id',
-      'extra' => array(array('field' => 'entity_type', 'value' => 'user', 'operator' => '=')),
+      'table' => 'emh_points_txn',
+      'field' => 'dest_id',
+      'type' => 'INNER',
+      'extra' => array(array('field' => 'dest_type', 'value' => 'user', 'operator' => '=')),
     ),
     'node' => array(
+      'left_table' => 'node',
       'left_field' => 'nid',
-      'field' => 'entity_id',
-      'extra' => array(array('field' => 'entity_type', 'value' => 'node', 'operator' => '=')),
+      'table' => 'emh_points_txn',
+      'field' => 'dest_id',
+      'type' => 'INNER',
+      'extra' => array(array('field' => 'dest_type', 'value' => 'node', 'operator' => '=')),
     ),
   );
   // Then the fields.
@@ -229,8 +235,8 @@ function emh_points_views_data() {
       'handler' => 'views_handler_filter_string',
     ),
   );
-  $data['emh_points_txn']['entity_id'] = array(
-    'title' => 'Entity ID',
+  $data['emh_points_txn']['source_id'] = array(
+    'title' => t('Source ID'),
     'field' => array(
       'handler' => 'views_handler_field_numeric',
       'click sortable' => TRUE,
@@ -242,8 +248,33 @@ function emh_points_views_data() {
       'handler' => 'views_handler_sort',
     ),
   );
-  $data['emh_points_txn']['entity_type'] = array(
-    'title'=> t('Entity type'),
+  $data['emh_points_txn']['source_type'] = array(
+    'title'=> t('Source type'),
+    'field' => array(
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+  );
+  $data['emh_points_txn']['dest_id'] = array(
+    'title' => t('Destination ID'),
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
+  $data['emh_points_txn']['dest_type'] = array(
+    'title'=> t('Destination type'),
     'field' => array(
       'click sortable' => TRUE,
     ),
@@ -266,5 +297,17 @@ function emh_points_views_data() {
       'handler' => 'views_handler_filter_string',
     ),
   );
+  // Double join on TXN.
+  $data['emh_points_txn_source'] = $data['emh_points_txn'];
+  $data['emh_points_txn_source']['table']['join']['users']['field'] = 'source_id';
+  $data['emh_points_txn_source']['table']['join']['users']['extra'][0]['field'] = 'source_type';
+  $data['emh_points_txn_source']['table']['join']['node']['field'] = 'source_id';
+  $data['emh_points_txn_source']['table']['join']['node']['extra'][0]['field'] = 'source_type';
+  $data['emh_points_txn_dest'] = $data['emh_points_txn'];
+  $data['emh_points_txn_dest']['table']['join']['users']['field'] = 'dest_id';
+  $data['emh_points_txn_dest']['table']['join']['users']['extra'][0]['field'] = 'dest_type';
+  $data['emh_points_txn_dest']['table']['join']['node']['field'] = 'dest_id';
+  $data['emh_points_txn_dest']['table']['join']['node']['extra'][0]['field'] = 'dest_type';
+  unset($data['emh_points_txn']);
   return $data;
 }
