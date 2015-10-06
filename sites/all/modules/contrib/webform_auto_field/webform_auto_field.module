@@ -77,7 +77,7 @@ function webform_auto_field_component_generation_form($form, $form_state, $node)
     '#description' => t('Make all of the components required.'),
     '#default_value' => FALSE,
   );
-  
+
   $form['nid'] = array(
     '#type' => 'value',
     '#value' => $node->nid,
@@ -105,14 +105,14 @@ function webform_auto_field_component_generation_form_submit($form, &$form_state
     $nid = (int)$form_state['values']['nid'];
   $mandatory = $form_state['values']['mandatory'];
   $weight_count = 0;
-  
+
   foreach ($component_names as $key => $name) {
     $component = _webform_auto_field_create_component($component_type, $key, $name, $nid, $mandatory, $weight_count);
     if (!webform_component_insert($component)) {
       drupal_set_message(t('There was a problem adding the ' . $name . ' component.'), 'error');
     }
     $weight_count ++;
-  }  
+  }
   entity_get_controller('node')->resetCache(array($nid));
   drupal_set_message(t('Form component generation is complete. Drag your fields to re-order them.'));
   //drupal_goto('/node/' . $nid . '/webform');
@@ -151,7 +151,7 @@ function _webform_auto_field_sanitize_names ($titles) {
     }
     return $title_array;
   }
-  
+
   return FALSE;
 }
 
@@ -168,9 +168,9 @@ function _webform_auto_field_sanitize_names ($titles) {
  *  The node id of the webform to add this component to
  * @param integer $mandatory
  *  boolean value to set this as a mandatory field or not
- * 
+ *
  * @return array
- *  A component array 
+ *  A component array
  */
 function _webform_auto_field_create_component ($type, $key, $name, $nid, $mandatory = 0, $weight = 0) {
   $component = array();
@@ -202,7 +202,7 @@ function _webform_auto_field_add_fields($node) {
   $weight = 0;
 
   foreach ($title_array as $field_title) {
-    
+
 
     $field_form_state = array(
       'submitted' => TRUE,
