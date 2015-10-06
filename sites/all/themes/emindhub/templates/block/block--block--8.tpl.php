@@ -56,21 +56,29 @@
   <div class="content">
     <?php //print $content ?>
 
-    <?php if (!(user_is_logged_in())) : ?>
+    <?php if (isBusinessUser()) : ?>
+      <a href="<?php print url("node/add/challenge"); ?>">
+        <span class="default-text"><?php echo sprintf(t('Start %sa challenge%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?></span>
+        <span class="hover">
+          <?php echo t('Request for service propositions to innovate or solve a problem'); ?><br />
+          <span><?php print t('Start a challenge'); ?></span>
+        </span>
+      </a>
+
+    <?php elseif (isExpertUser()) : ?>
+    <a href="<?php print url("query-list/all?type[challenge]=challenge"); ?>">
+      <span class="default-text"><?php echo sprintf(t('Respond %sto challenges%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?>
+      </span>
+    </a>
+
+    <?php else : ?>
     <a href="<?php print url("business/register"); ?>">
-      <span class="default-text"><?php echo sprintf(c_szCreateChallenge, "<span>", "</span><div>", "</div>"); ?></span>
+      <span class="default-text"><?php echo sprintf(t('Start %sa challenge%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?></span>
       <span class="hover">
         <?php echo t('Request for service propositions to innovate or solve a problem'); ?><br />
         <span><?php print t('Register to know more'); ?></span>
       </span>
     </a>
-    <?php else : ?>
-      <a href="<?php print url("query-list/all?type[challenge]=challenge"); ?>">
-        <span class="default-text">
-          <?php print t('Respond <span>to challenges</span>'); ?>
-          <div><?php print t('Learn more') ?></div>
-        </span>
-      </a>
     <?php endif; ?>
 
   </div>

@@ -56,21 +56,29 @@
   <div class="content">
     <?php //print $content ?>
 
-    <?php if (!(user_is_logged_in())) : ?>
-    <a href="<?php print url("business/register"); ?>">
-      <span class="default-text"><?php print sprintf(c_szFindExpert, "<span>", "</span><div>", "</div>"); ?></span>
-      <span class="hover">
-        <?php echo t('Create a survey to find an expert profile'); ?><br />
-        <span><?php echo t('Register to know more'); ?></span>
-      </span>
-    </a>
-    <?php else : ?>
-      <a href="<?php print url("query-list/all?type[webform]=webform"); ?>">
-        <span class="default-text">
-          <?php print t('Respond <span>to surveys</span>'); ?>
-          <div><?php print t('Learn more') ?></div>
+    <?php if (isBusinessUser()) : ?>
+      <a href="<?php print url("node/add/webform"); ?>">
+        <span class="default-text"><?php echo sprintf(t('Create %sa survey%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?></span>
+        <span class="hover">
+          <?php echo t('Create a survey to find an expert profile'); ?><br />
+          <span><?php print t('Create a survey'); ?></span>
         </span>
       </a>
+
+    <?php elseif (isExpertUser()) : ?>
+    <a href="<?php print url("query-list/all?type[webform]=webform"); ?>">
+      <span class="default-text"><?php echo sprintf(t('Respond %sto surveys%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?>
+      </span>
+    </a>
+
+    <?php else : ?>
+    <a href="<?php print url("business/register"); ?>">
+      <span class="default-text"><?php echo sprintf(t('Create %sa survey%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?></span>
+      <span class="hover">
+        <?php echo t('Create a survey to find an expert profile'); ?><br />
+        <span><?php print t('Register to know more'); ?></span>
+      </span>
+    </a>
     <?php endif; ?>
 
   </div>
