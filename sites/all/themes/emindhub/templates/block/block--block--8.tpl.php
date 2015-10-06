@@ -60,8 +60,8 @@
     <a href="<?php print url("business/register"); ?>">
       <span class="default-text"><?php echo sprintf(c_szCreateChallenge, "<span>", "</span><div>", "</div>"); ?></span>
       <span class="hover">
-        <?php echo c_szCompeteExperts; ?><br />
-        <span><?php print c_szRegisterKnowMore; ?></span>
+        <?php echo t('Request for service propositions to innovate or solve a problem'); ?><br />
+        <span><?php print t('Register to know more'); ?></span>
       </span>
     </a>
     <?php else : ?>
