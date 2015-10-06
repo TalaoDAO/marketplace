@@ -5056,7 +5056,7 @@ function ft_content_type_field_default_field_instances() {
           'use_widget_handlers' => 0,
         ),
         'type' => 'addressfield_default',
-        'weight' => 16,
+        'weight' => 119,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -5261,7 +5261,7 @@ function ft_content_type_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 15,
+        'weight' => 118,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -5405,7 +5405,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 13,
+        'weight' => 116,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -5889,11 +5889,11 @@ function ft_content_type_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'module' => 'image',
         'settings' => array(
           'image_link' => '',
-          'image_style' => '',
+          'image_style' => 'profile_picture',
         ),
         'type' => 'image',
         'weight' => 115,
@@ -6381,7 +6381,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 14,
+        'weight' => 117,
       ),
       'full' => array(
         'label' => 'hidden',
