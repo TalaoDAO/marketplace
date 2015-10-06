@@ -100,16 +100,27 @@ function emh_points_schema() {
         'description' => 'Description',
         'type' => 'text',
       ),
-      'entity_id' => array(
-        'description' => 'ID of an entity in the Database',
+      'source_type' => array(
+        'description' => 'Type of source entity',
+        'type' => 'varchar',
+        'length' => 128,
+      ),
+      'source_id' => array(
+        'description' => 'Source ID of the entity',
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
       ),
-      'entity_type' => array(
-        'description' => 'Type of entity',
+      'dest_type' => array(
+        'description' => 'Type of destination entity',
         'type' => 'varchar',
         'length' => 128,
+      ),
+      'dest_id' => array(
+        'description' => 'Destination ID of the entity',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
       ),
       'operation' => array(
         'description' => 'Operation being carried out',

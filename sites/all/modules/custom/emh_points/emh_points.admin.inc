@@ -68,6 +68,12 @@ function emh_points_manage_users_form() {
     '#type' => 'textfield',
     '#default_value' => '100',
   );
+  $form['operation'] = array(
+    '#title' => 'Operation',
+    '#type' => 'select',
+    '#options' => array(POINTS_ADDITION => POINTS_ADDITION, POINTS_REMOVAL => POINTS_REMOVAL),
+    '#chosen' => FALSE,
+  );
   $form['log'] = array(
     '#title' => t('Log message'),
     '#type' => 'textarea',
@@ -79,12 +85,63 @@ function emh_points_manage_users_form() {
   return $form;
 }
 
+/**
+ * Validation callback for the form.
+ */
+function emh_points_manage_users_form_validate($form, $form_state) {
+  $values = $form_state['values'];
+  if (!is_numeric($values['points']) || (int)$values['points'] <= 0) {
+    form_set_error('points', t('Points should be a positive integer'));
+  }
+}
+
+/**
+ * Submit callback for the form.
+ */
 function emh_points_manage_users_form_submit($form, $form_state) {
   $values = $form_state['values'];
-  $user = user_load($values['uid']);
   $entity = new StdClass();
-  $entity->type = 'user';
   $entity->id = $values['uid'];
-  $entity->bundle= 'user';
-  emh_points_add_points($entity, $values['points'], $values['log']);
+  $entity->type = 'user';
+  $entity->bundle = 'user';
+  switch($values['operation']) {
+  case POINTS_REMOVAL:
+    emh_points_delete_points($entity, $values['points']);
+    // Compute transaction.
+    global $user;
+    db_insert('emh_points_txn')
+      ->fields(array(
+        'uid' => $user->uid,
+        'points'=> (int)$values['points'],
+        'time_stamp' => REQUEST_TIME,
+        'description' => $values['log'],
+        'source_type' => 'user',
+        'source_id' => 1,
+        'dest_type' => $entity->type,
+        'dest_id' => $entity->id,
+        'operation' => POINTS_REMOVAL,
+      ))
+      ->execute();
+    break;
+  case POINTS_ADDITION:
+    emh_points_add_points($entity, $values['points']);
+    // Create transaction.
+    global $user;
+    db_insert('emh_points_txn')
+      ->fields(array(
+        'uid' => $user->uid,
+        'points'=> (int)$values['points'],
+        'time_stamp' => REQUEST_TIME,
+        'description' => $values['log'],
+        'source_type' => 'user',
+        'source_id' => 1,
+        'dest_type' => $entity->type,
+        'dest_id' => $entity->id,
+        'operation' => POINTS_ADDITION,
+      ))
+      ->execute();
+    break;
+  default: // Nothing to do.
+    break;
+  }
 }
