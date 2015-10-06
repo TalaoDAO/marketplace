@@ -159,7 +159,7 @@
 					<?php if (isset($elements['#node']->created)) : ?>
 					<li>
 						<div class="field field-name-field-created-date field-type-datetime field-label-inline clearfix">
-							<div class="field-label"><?php print c_szPublicationDt; ?></div>
+							<div class="field-label"><?php print t('Publication date:'); ?></div>
 							<div class="field-items">
 								<div class="field-item even">
 									<?php print format_date($elements['#node']->created, 'custom', 'm/d/Y'); ?>
@@ -179,7 +179,7 @@
 
 					<li>
 						<div class="field field-name-field-submission field-type-serial field-label-inline clearfix">
-							<div class="field-label"><?php print c_szNumResponses; ?></div>
+							<div class="field-label"><?php print t('Number of responses:'); ?></div>
 							<div class="field-items">
 								<div class="field-item even">
 									<?php print $comment_count; ?>
@@ -202,7 +202,7 @@
 		) : ?>
 
 		<div class="row section ">
-			<h3><span><?php print c_szSubmitted; ?></span></h3>
+			<h3><span><?php print t('Submitted by:'); ?></span></h3>
 			<div class="col-sm-12">
 				<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/userInformations.tpl.php'; ?>
 			</div>
@@ -232,7 +232,7 @@
 		<div class="row section emh-fieldgroup-blue-title">
 
 			<?php if (!user_has_role(5)): ?>
-		  <h2 class="h3"><span><?php echo c_szAnswerQuestion; ?></span></h2>
+		  <h2 class="h3"><span><?php echo t('Answer a question'); ?></span></h2>
 		  <?php endif; ?>
 
 			<?php // TODO : add comment form ?>
