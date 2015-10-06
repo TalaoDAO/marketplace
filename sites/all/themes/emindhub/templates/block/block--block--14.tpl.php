@@ -60,8 +60,8 @@
     <a href="<?php print url("business/register"); ?>">
       <span class="default-text"><?php echo sprintf(c_szAddQuestion, "<span>", "</span><div>", "</div>"); ?></span>
       <span class="hover">
-        <?php echo c_szAskRealTime; ?><br />
-        <span><?php echo c_szRegisterKnowMore; ?></span>
+        <?php echo t('Ask a question online and get responses from experts'); ?><br />
+        <span><?php echo t('Register to know more'); ?></span>
       </span>
     </a>
     <?php else : ?>
