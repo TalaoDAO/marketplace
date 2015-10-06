@@ -60,8 +60,8 @@
     <a href="<?php print url("business/register"); ?>">
       <span class="default-text"><?php print sprintf(c_szFindExpert, "<span>", "</span><div>", "</div>"); ?></span>
       <span class="hover">
-        <?php echo c_szBuildSurvey; ?><br />
-        <span><?php echo c_szRegisterKnowMore; ?></span>
+        <?php echo t('Create a survey to find an expert profile'); ?><br />
+        <span><?php echo t('Register to know more'); ?></span>
       </span>
     </a>
     <?php else : ?>
