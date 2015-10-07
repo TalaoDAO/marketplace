@@ -58,6 +58,23 @@ function emh_points_views_data() {
       'extra' => array(array('field' => 'dest_type', 'value' => 'node', 'operator' => '=')),
     ),
   );
+  $data['emh_points_total']['table']['group'] = t('Points');
+  $data['emh_points_total']['table']['join'] = array(
+    'users' => array(
+      'left_table' => 'users',
+      'table' => 'emh_points_total',
+      'left_field' => 'uid',
+      'field' => 'entity_id',
+      'extra' => array(array('field' => 'entity_type', 'value' => 'user', 'operator' => '=')),
+    ),
+    'node' => array(
+      'left_table' => 'node',
+      'table' => 'emh_points_total',
+      'left_field' => 'nid',
+      'field' => 'entity_id',
+      'extra' => array(array('field' => 'entity_type', 'value' => 'node', 'operator' => '=')),
+    ),
+  );
   // Then the fields.
   $data['emh_points']['pid'] = array(
     'title' => 'Pid',
@@ -295,6 +312,19 @@ function emh_points_views_data() {
     ),
     'filter' => array(
       'handler' => 'views_handler_filter_string',
+    ),
+  );
+  $data['emh_points_total']['total_points'] = array(
+    'title' => 'Total Points',
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
     ),
   );
   // Double join on TXN.

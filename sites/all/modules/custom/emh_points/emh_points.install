@@ -70,6 +70,32 @@ function emh_points_schema() {
     ),
   );
 
+  $schema['emh_points_total'] = array(
+    'description' => 'Points aggregation',
+    'fields' => array(
+      'entity_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The entity id this data is attached to',
+      ),
+      'entity_type' => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The entity type this data is attached to',
+      ),
+      'total_points' => array(
+        'description' => 'Total Points',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('entity_id', 'entity_type'),
+  );
+
   $schema['emh_points_txn'] = array(
     'description' => 'Points Transactions',
     'fields' => array(
@@ -136,4 +162,41 @@ function emh_points_schema() {
     )
   );
   return $schema;
+}
+
+/**
+ * Add the new total points table.
+ */
+function emh_points_update_7101() {
+  if (!db_table_exists('emh_points_total')) {
+    $table = array(
+      'description' => 'Points aggregation',
+      'fields' => array(
+        'entity_id' => array(
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'description' => 'The entity id this data is attached to',
+        ),
+        'entity_type' => array(
+          'type' => 'varchar',
+          'length' => 128,
+          'not null' => TRUE,
+          'default' => '',
+          'description' => 'The entity type this data is attached to',
+        ),
+        'total_points' => array(
+          'description' => 'Total Points',
+          'type' => 'int',
+          'not null' => TRUE,
+          'default' => 0,
+        ),
+      ),
+      'primary key' => array('entity_id', 'entity_type'),
+    );
+    db_create_table('emh_points_total', $table);
+  }
+
+  // Update table.
+  db_query("INSERT INTO {emh_points_total} SELECT entity_id, entity_type, SUM(points) FROM {emh_points} GROUP BY entity_id, entity_type");
 }

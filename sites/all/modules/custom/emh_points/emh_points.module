@@ -101,6 +101,11 @@ function emh_points_cron() {
         'operation' => POINTS_EXPIRATION,
       ))
       ->execute();
+    // Update total.
+    db_merge('emh_points_total')
+      ->key(array('entity_id' => $row->entity_id, 'entity_type' => $row->entity_type))
+      ->expression('total_points', 'total_points - :amount', array(':amount' => $row->points))
+      ->execute();
   }
   // Expiration warning.
   // @TODO.
@@ -156,6 +161,11 @@ function emh_points_add_points($entity, $points) {
       'expiration_date' => strtotime(variable_get('emh_points_expiration', '+ 1 year')),
     ))
     ->execute();
+  // Update total.
+  db_merge('emh_points_total')
+    ->key(array('entity_id' => $entity->id, 'entity_type' => $entity->type))
+    ->expression('total_points', 'total_points + :amount', array(':amount' => $points))
+    ->execute();
 }
 
 /**
@@ -208,6 +218,11 @@ function emh_points_delete_points($entity, $points) {
       $to_be_removed -= $record['points'];
     }
   }
+  // Update total.
+  db_merge('emh_points_total')
+    ->key(array('entity_id' => $entity->id, 'entity_type' => $entity->type))
+    ->expression('total_points', 'total_points - :amount', array(':amount' => $points))
+    ->execute();
 }
 
 /**
