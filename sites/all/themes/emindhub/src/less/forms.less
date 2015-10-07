@@ -112,19 +112,20 @@ form {
 		}
 	}
 
-  // Boutons submit + légende
-  .form-row {
-    display: table;
-    width: 100%;
-    // max-width: 500px;
-    > * {
-      display: table-cell;
-    }
-  }
-  .form-mandatory {
-    .text-right;
-    line-height: 32px;
-  }
+	@media (min-width: @screen-sm-min) {
+	  // Boutons submit + légende
+	  .form-row {
+	    display: table;
+	    width: 100%;
+	    > * {
+	      display: table-cell;
+	    }
+	  }
+	  .form-mandatory {
+	    .text-right;
+	    line-height: 32px;
+	  }
+	}
 
   // Enlever le gras et le curseur sur certains labels
   .form-group.form-type-checkbox,

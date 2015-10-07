@@ -11728,6 +11728,7 @@ ul.ui-autocomplete {
   -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   background-clip: padding-box;
+  width: auto;
 }
 ul.ui-autocomplete.pull-right {
   right: 0;
@@ -11751,6 +11752,9 @@ ul.ui-autocomplete > li > a {
 ul.ui-autocomplete a {
   cursor: pointer;
 }
+.form-type-autocomplete-deluxe label {
+  display: block;
+}
 .autocomplete-deluxe-container {
   display: block;
   width: 100%;
@@ -11769,6 +11773,7 @@ ul.ui-autocomplete a {
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  display: inline-block;
   max-width: 352px;
   height: auto;
 }
@@ -11839,6 +11844,7 @@ input#autocomplete-deluxe-input {
   padding: 0;
   border: 0;
   box-shadow: none;
+  float: left;
 }
 .tooltip {
   font-size: 14px;
@@ -14439,16 +14445,18 @@ form .image-widget-data span.file {
     width: 83.33333333%;
   }
 }
-form .form-row {
-  display: table;
-  width: 100%;
-}
-form .form-row > * {
-  display: table-cell;
-}
-form .form-mandatory {
-  text-align: right;
-  line-height: 32px;
+@media (min-width: 767px) {
+  form .form-row {
+    display: table;
+    width: 100%;
+  }
+  form .form-row > * {
+    display: table-cell;
+  }
+  form .form-mandatory {
+    text-align: right;
+    line-height: 32px;
+  }
 }
 form .form-group.form-type-checkbox input,
 form .form-group.form-type-bef-checkbox input,

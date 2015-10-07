@@ -72,12 +72,17 @@ h4, .h4 {
 // Autocomplete Deluxe
 ul.ui-autocomplete {
 	.dropdown-menu;
+	width: auto;
 	a {
 		cursor: pointer;
 	}
 }
+.form-type-autocomplete-deluxe label {
+	display: block;
+}
 .autocomplete-deluxe-container {
 	.form-control;
+	display: inline-block; // Tip for regular input height
 	max-width: 352px;
 	height: auto;
 }
@@ -115,6 +120,7 @@ input#autocomplete-deluxe-input {
 	padding: 0;
 	border: 0;
 	box-shadow: none;
+	float: left;
 }
 
 
