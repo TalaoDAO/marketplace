@@ -1,0 +1,728 @@
+<?php
+
+/**
+ * @file
+ * Points managements for EMH website.
+ */
+define('POINTS_ADDITION', 'addition');
+define('POINTS_REMOVAL', 'removal');
+define('POINTS_EXPIRATION', 'expiration');
+define('POINTS_TRANSFERT', 'transfert');
+
+/**
+ * Implements hook_permission().
+ */
+function emh_points_permission() {
+  return array(
+    'administer points' => array('title' => t('Administer Points')),
+    'use points' => array('title' => t('Use Points')),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function emh_points_menu() {
+  $items = array();
+  $items['admin/emindhub/points'] = array(
+    'title' => 'Points',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('emh_points_admin_form'),
+    'access arguments' => array('administer points'),
+    'file' => 'emh_points.admin.inc',
+  );
+  $items['admin/emindhub/points/user_add_points'] = array(
+    'title' => 'Manage Points for Users',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('emh_points_manage_users_form'),
+    'access arguments' => array('administer points'),
+    'file' => 'emh_points.admin.inc',
+    'type' => MENU_LOCAL_ACTION,
+  );
+  $items['arrange/%/%/%/%/%'] = array(
+    'title' => 'Arrange points',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('emh_points_arrange_form', 1, 2, 3, 4, 5),
+    'access arguments' => array('use points'),
+  );
+  $items['points'] = array(
+    'title' => 'not used',
+    'title callback' => 'emh_points_get_user_points',
+    'page callback' => 'emh_points_show_user_history',
+    'menu_name' => 'user-menu',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function emh_points_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'emh_points') . '/views',
+  );
+}
+
+/**
+ * Implements hook_cron().
+ * Points expiration & expiration warning.
+ */
+function emh_points_cron() {
+  // Points expiration.
+  $query = db_select('emh_points', 'p')
+    ->fields('p', array('pid', 'points', 'entity_id', 'entity_type'))
+    ->condition('p.points', 0, '>')
+    ->condition('p.expiration_date', REQUEST_TIME, '<')
+    ->orderBy('p.expiration_date', 'ASC')
+    ->execute();
+  foreach($query as $row) {
+    // Expire points.
+    db_merge('emh_points')
+      ->key(array('pid' => $row->pid))
+      ->fields(array(
+        'points' => 0,
+        'last_update' => REQUEST_TIME,
+      ))
+      ->execute();
+    // Create transaction.
+    db_insert('emh_points_txn')
+      ->fields(array(
+        'uid' => 1,
+        'points'=> (int)$row->points,
+        'time_stamp' => REQUEST_TIME,
+        'description' => t('Points expiration'),
+        'source_type' => 'user',
+        'source_id' => 1,
+        'dest_type' => $row->entity_type,
+        'dest_id' => $row->entity_id,
+        'operation' => POINTS_EXPIRATION,
+      ))
+      ->execute();
+    // Update total.
+    db_merge('emh_points_total')
+      ->key(array('entity_id' => $row->entity_id, 'entity_type' => $row->entity_type))
+      ->expression('total_points', 'total_points - :amount', array(':amount' => $row->points))
+      ->execute();
+  }
+  // Expiration warning.
+  // @TODO.
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function emh_points_form_question1_node_form_alter(&$form, &$form_state) {
+  $form['field_reward'][LANGUAGE_NONE]['0']['#element_validate'][] = 'emh_points_validate_enough_points';
+}
+
+/**
+ * Validation callback to ensure you have enough points to create a Question.
+ */
+function emh_points_validate_enough_points($element, &$form_state, $form) {
+  $points = $element['value']['#value'];
+  $current_points = 0;
+  global $user;
+  $query = db_select('emh_points', 'p')
+    ->condition('p.entity_type', 'user')
+    ->condition('p.entity_id', $user->uid);
+  $query->addExpression('SUM(p.points)');
+  $current_points = $query->execute()->fetchField();
+  if ($current_points < $points) {
+    form_error($element, t('You don\'t have enough points (@count).', array('@count' => $current_points)));
+  }
+}
+
+/**
+ * Add points to an entity.
+ */
+function emh_points_add_points($entity, $points) {
+  // To add point, there are almost no functional checks.
+  if (!is_numeric($points) || (int)$points <= 0) {
+    drupal_set_message(t('You should only add a positive number of points.'));
+    return FALSE;
+  }
+  if (empty($entity)) {
+    drupal_set_message(t('You should only add points to a valid entity'));
+    return FALSE;
+  }
+  // Add points.
+  db_insert('emh_points')
+    ->fields(array(
+      'entity_id' => $entity->id,
+      'entity_type'=> $entity->type,
+      'bundle' => $entity->bundle,
+      'points' => $points,
+      // At the creation, max points = points.
+      'max_points' => $points,
+      'last_update' => REQUEST_TIME,
+      'expiration_date' => strtotime(variable_get('emh_points_expiration', '+ 1 year')),
+    ))
+    ->execute();
+  // Update total.
+  db_merge('emh_points_total')
+    ->key(array('entity_id' => $entity->id, 'entity_type' => $entity->type))
+    ->expression('total_points', 'total_points + :amount', array(':amount' => $points))
+    ->execute();
+}
+
+/**
+ * Remove points from an entity.
+ */
+function emh_points_delete_points($entity, $points) {
+  // Functional validation.
+  if (!is_numeric($points) || (int)$points <= 0) {
+    drupal_set_message(t('You should only remove a positive number of points.'));
+    return;
+  }
+  // Does the entity have enough points ?
+  $current_points = 0;
+  $query = db_select('emh_points', 'p')
+    ->condition('p.entity_type', $entity->type)
+    ->condition('p.entity_id', $entity->id);
+  $query->addExpression('SUM(p.points)');
+  $current_points = $query->execute()->fetchField();
+  if ($current_points < (int)$points) {
+    drupal_set_message(t('It\'s impossible to remove those many points (only @points left).', array('@points' => $current_points)));
+  }
+  // Functional algorithm, remove points that will expire first.
+  $to_be_removed = (int)$points;
+  $query = db_select('emh_points', 'p')
+    ->fields('p', array('pid', 'points'))
+    ->condition('p.entity_type', $entity->type)
+    ->condition('p.entity_id', $entity->id)
+    ->condition('p.points', 0, '>')
+    ->orderBy('p.expiration_date', 'ASC')
+    ->execute();
+  while($to_be_removed > 0) {
+    $record = $query->fetchAssoc();
+    if ($record['points'] >= $to_be_removed) {
+      db_merge('emh_points')
+        ->key(array('pid' => $record['pid']))
+        ->fields(array(
+          'points' => ($record['points'] - $to_be_removed),
+          'last_update' => REQUEST_TIME,
+        ))
+        ->execute();
+      $to_be_removed = 0;
+    } else {
+      db_merge('emh_points')
+        ->key(array('pid' => $record['pid']))
+        ->fields(array(
+          'points' => 0,
+          'last_update' => REQUEST_TIME,
+        ))
+        ->execute();
+      $to_be_removed -= $record['points'];
+    }
+  }
+  // Update total.
+  db_merge('emh_points_total')
+    ->key(array('entity_id' => $entity->id, 'entity_type' => $entity->type))
+    ->expression('total_points', 'total_points - :amount', array(':amount' => $points))
+    ->execute();
+}
+
+/**
+ * Implements hook_entity_load().
+ */
+function emh_points_entity_load($entities, $type) {
+  // Eventually add total points for this entity.
+  foreach($entities as $entity) {
+    emh_points_entity_load_single($entity, $type);
+  }
+}
+
+/**
+ * Helper callback to load points on a single entity.
+ */
+function emh_points_entity_load_single($entity, $type) {
+  switch($type) {
+    case 'node': $wrapper = entity_metadata_wrapper('node', $entity);
+    break;
+    case 'user': $wrapper = entity_metadata_wrapper('user', $entity);
+    break;
+  /*
+    default: $wrapper = $entity->wrapper();
+    break;
+   */
+  }
+  if (empty($wrapper)) {
+    // taxonomy_vocabulary, taxonomy_term, field_collection_item
+    // entity_legal_document, entity_legal_document_version, ...
+    return;
+  }
+  $query = db_select('emh_points', 'p')
+    ->condition('p.entity_type', $type)
+    ->condition('p.entity_id', $wrapper->getIdentifier());
+  $query->addExpression('SUM(p.points)');
+  $points = $query->execute()->fetchField();
+  if (!empty($points)) {
+    $entity->emh_points = $points;
+  } else {
+    $entity->emh_points = 0;
+  }
+}
+
+/**
+ * Helper function to build "our" entity.
+ */
+function emh_points_build_entity_for_points($entity) {
+  // If coming from Rules, it's already a metadata_wrapper...
+  if ($entity instanceOf EntityDrupalWrapper) {
+    $test_entity = clone $entity;
+    if ('user' == $test_entity->getBundle()) {
+      $type = 'user';
+    } else {
+      $type = 'node';
+    }
+  } else if (!empty($entity->type)) {
+    $test_entity = entity_metadata_wrapper('node', $entity);
+    $type = 'node';
+  } else {
+    $test_entity = entity_metadata_wrapper('user', $entity);
+    $type = 'user';
+  }
+  $emh_entity = new StdClass();
+  $emh_entity->type = $type;
+  $emh_entity->bundle = $test_entity->getBundle();
+  $emh_entity->id = $test_entity->getIdentifier();
+  return $emh_entity;
+}
+
+/**
+ * Helper function to display an entity.
+ */
+function emh_points_format_entity($entity) {
+  if ($entity instanceOf EntityDrupalWrapper) {
+    $test_entity = clone $entity;
+    if ('user' == $test_entity->getBundle()) {
+      $type = 'user';
+    } else {
+      $type = 'node';
+    }
+  } else if (!empty($entity->type)) {
+    $test_entity = entity_metadata_wrapper('node', $entity);
+    $type = 'node';
+  } else {
+    $test_entity = entity_metadata_wrapper('user', $entity);
+    $type = 'user';
+  }
+  $output = '';
+  switch($type) {
+    case 'user':
+      if ($test_entity->getIdentifier() == 1) {
+        $output = 'eMindHub';
+      } else {
+        $output = t('User');
+        $output .= ' ';
+        $output .= $test_entity->field_first_name->value() . ' ' . $test_entity->field_last_name->value();
+      }
+      break;
+    case 'node':
+      $output = $test_entity->getBundle();
+      $output .= ' ';
+      $output .= $test_entity->label();
+      break;
+  }
+  return $output;
+}
+
+/**
+ * Main moving points action.
+ */
+function emh_points_move_points($source, $destination, $points) {
+  $emh_source = emh_points_build_entity_for_points($source);
+  $emh_destination = emh_points_build_entity_for_points($destination);
+  // Remove points from source.
+  emh_points_delete_points($emh_source, $points);
+  // Add points to destination.
+  emh_points_add_points($emh_destination, $points);
+  $log = t('Move points from !source to !destination.', array('!source' => emh_points_format_entity($source), '!destination' => emh_points_format_entity($destination)));
+  // Compute transaction.
+  global $user;
+  db_insert('emh_points_txn')
+    ->fields(array(
+      'uid' => $user->uid,
+      'points'=> (int)$points,
+      'time_stamp' => REQUEST_TIME,
+      'description' => $log,
+      'source_type' => $emh_source->type,
+      'source_id' => $emh_source->id,
+      'dest_type' => $emh_destination->type,
+      'dest_id' => $emh_destination->id,
+      'operation' => POINTS_TRANSFERT,
+    ))
+    ->execute();
+}
+
+/**
+ * Main repartition form.
+ */
+function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id_source, $type_dest, $dests) {
+  // Access control.
+  global $user;
+  switch($type_source) {
+    case 'user':
+      if ($user->uid != $id_source) {
+        drupal_access_denied();
+        drupal_exit();
+      }
+      break;
+    case 'node':
+      $node = node_load($id_source);
+      if (empty($node) || $user->uid != $node->uid) {
+        drupal_access_denied();
+        drupal_exit();
+      }
+      break;
+    default:
+      drupal_access_denied();
+      drupal_exit();
+      break;
+  }
+  $form = array();
+  $dests = explode(',', $dests);
+  $default_points = floor($points / count($dests));
+  $form['points'] = array(
+    '#type' => 'value',
+    '#default_value' => $points,
+  );
+  $form['type_source'] = array(
+    '#type' => 'value',
+    '#default_value' => $type_source,
+  );
+  $form['id_source'] = array(
+    '#type' => 'value',
+    '#default_value' => $id_source,
+  );
+  $form['type_dest'] = array(
+    '#type' => 'value',
+    '#default_value' => $type_dest,
+  );
+  foreach($dests as $dest) {
+    if (empty($dest)) {
+      continue;
+    }
+    switch($type_dest) {
+    case 'node':
+      $entity = node_load($dest);
+      break;
+    case 'user':
+      $entity = user_load($dest);
+      break;
+    }
+    $form['dest_' . $dest] = array(
+      '#type' => 'textfield',
+      '#title' => t('Points for @dest', array('@dest' => emh_points_format_entity($entity))),
+      '#default_value' => $default_points,
+      '#element_validate' => array('element_validate_integer_positive'),
+    );
+  }
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Arrange points'),
+  );
+  return $form;
+}
+
+/**
+ * Validation callback to the form above.
+ */
+function emh_points_arrange_form_validate(&$form, &$form_state) {
+  $points = $form_state['values']['points'];
+  $total = 0;
+  $elements = array();
+  foreach($form_state['values'] as $key => $value) {
+    if (substr($key, 0, 5) == 'dest_') {
+      $elements[] = $key;
+      $total += $value;
+    }
+  }
+  if ($points != $total) {
+    form_set_error(implode('][', $elements), t('You should assign all the points!'));
+  }
+}
+
+/**
+ * Submit callback for the form above.
+ */
+function emh_points_arrange_form_submit(&$form, &$form_state) {
+  switch($form_state['values']['type_source']) {
+  case 'node':
+    $source = node_load($form_state['values']['id_source']);
+    break;
+  case 'user':
+    $source = user_load($form_state['values']['id_source']);
+    break;
+  }
+  foreach($form_state['values'] as $key => $value) {
+    if (substr($key, 0, 5) == 'dest_') {
+      $id = substr($key, 5);
+      switch($form_state['values']['type_dest']) {
+      case 'node':
+        $dest = node_load($id);
+        break;
+      case 'user':
+        $dest = user_load($id);
+        break;
+      }
+      $account = user_load($uid);
+      emh_points_move_points($source, $dest, $value);
+    }
+  }
+  $form_state['redirect'] = '<front>';
+}
+
+/**
+ * Implements hook_action_info().
+ * Essentially for VBO integration.
+ */
+function emh_points_action_info() {
+  $actions = array();
+  $actions['emh_points_give_points'] = array(
+    'type' => 'entity',
+    'label' => t('Give points to entities'),
+    'configurable' => TRUE,
+    'triggers' => array(),
+    'permissions' => array('administer points'),
+  );
+  $actions['emh_points_remove_points'] = array(
+    'type' => 'entity',
+    'label' => t('Remove points from entities'),
+    'configurable' => TRUE,
+    'triggers' => array(),
+    'permissions' => array('administer points'),
+  );
+  $actions['emh_points_transfert_points'] = array(
+    'type' => 'entity',
+    'label' => t('Transfer some of my points to these entities'),
+    'configurable' => TRUE,
+    'triggers' => array(),
+    'permissions' => array('use points'),
+  );
+  $actions['emh_points_arrange_points'] = array(
+    'type' => 'entity',
+    'label' => t('Arrange some of my points to these entities'),
+    'configurable' => TRUE,
+    'triggers' => array(),
+    'permissions' => array('use points'),
+    'aggregate' => TRUE,
+  );
+  return $actions;
+}
+
+//
+// Actions for VBO integration.
+//
+
+/**
+ * Give points to an entity.
+ */
+function emh_points_give_points(&$entity, $context) {
+  $emh_entity = emh_points_build_entity_for_points($entity);
+  $points = $context['points'];
+  $log = $context['log'];
+  $status = emh_points_add_points($emh_entity, $points);
+  if (!$status) return;
+  // Create transaction.
+  global $user;
+  db_insert('emh_points_txn')
+    ->fields(array(
+      'uid' => $user->uid,
+      'points'=> (int)$points,
+      'time_stamp' => REQUEST_TIME,
+      'description' => $log,
+      'source_type' => 'user',
+      'source_id' => 1,
+      'dest_type' => $entity->type,
+      'dest_id' => $entity->id,
+      'operation' => POINTS_ADDITION,
+    ))
+    ->execute();
+}
+
+/**
+ * Remove points from an entity.
+ */
+function emh_points_remove_points(&$entity, $context) {
+  $emh_entity = emh_points_build_entity_for_points($entity);
+  $points = $context['points'];
+  $log = $context['log'];
+  emh_points_delete_points($emh_entity, $points);
+  // Compute transaction.
+  global $user;
+  db_insert('emh_points_txn')
+    ->fields(array(
+      'uid' => $user->uid,
+      'points'=> (int)$points,
+      'time_stamp' => REQUEST_TIME,
+      'description' => $log,
+      'source_type' => 'user',
+      'source_id' => 1,
+      'dest_type' => $entity->type,
+      'dest_id' => $entity->id,
+      'operation' => POINTS_REMOVAL,
+    ))
+    ->execute();
+}
+
+/**
+ * Transfert points to an entity.
+ */
+function emh_points_transfert_points(&$entity, $context) {
+  global $user;
+  $points = $context['points'];
+  emh_points_move_points($user, $entity, $points);
+}
+
+/**
+ * Arrange points between users.
+ */
+function emh_points_arrange_points(&$entities, $context) {
+  $points = $context['points'];
+  $output = '';
+  $type = 'user';
+  foreach($entities as $id => $entity) {
+    if (!empty($entity->type)) {
+      $type = 'node';
+    }
+    $output .= $id;
+    $output .= ',';
+  }
+  $output = substr($output, 0, -1);
+  global $user;
+  drupal_goto('arrange/' . $points . '/user/' . $user->uid . '/' . $type  . '/' . $output);
+}
+
+//
+// Configuration forms for VBO integration.
+//
+
+/**
+ * Configuration form for giving points.
+ */
+function emh_points_give_points_form($settings, &$form_state) {
+  $form = array();
+  $form['points'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Points'),
+    '#required' => TRUE,
+    '#default_value' => '100',
+    '#element_validate' => array('element_validate_integer_positive'),
+  );
+  $form['log'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Log message'),
+    '#required' => TRUE,
+  );
+  return $form;
+}
+
+/**
+ * Submit callback for the form above.
+ */
+function emh_points_give_points_submit($form, &$form_state) {
+  $return = array();
+  $return['points'] = $form_state['values']['points'];
+  $return['log'] = $form_state['values']['log'];
+  return $return;
+}
+
+/**
+ * Configuration form for removing points.
+ */
+function emh_points_remove_points_form($settings, &$form_state) {
+  $form = array();
+  $form['points'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Points'),
+    '#required' => TRUE,
+    '#default_value' => '100',
+    '#element_validate' => array('element_validate_integer_positive'),
+  );
+  $form['log'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Log message'),
+    '#required' => TRUE,
+  );
+  return $form;
+}
+
+/**
+ * Submit callback for the form above.
+ */
+function emh_points_remove_points_submit($form, &$form_state) {
+  $return = array();
+  $return['points'] = $form_state['values']['points'];
+  $return['log'] = $form_state['values']['log'];
+  return $return;
+}
+
+/**
+ * Configuration form for transfering points.
+ */
+function emh_points_transfert_points_form($settings, &$form_state) {
+  $form = array();
+  $form['points'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Points'),
+    '#required' => TRUE,
+    '#default_value' => '100',
+    '#element_validate' => array('element_validate_integer_positive'),
+  );
+  return $form;
+}
+
+/**
+ * Submit callback for the form above.
+ */
+function emh_points_transfert_points_submit($form, &$form_state) {
+  $return = array();
+  $return['points'] = $form_state['values']['points'];
+  return $return;
+}
+
+/**
+ * Configuration for arranging points.
+ */
+function emh_points_arrange_points_form($settings, &$form_state) {
+  $form = array();
+  $form['points'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Points'),
+    '#required' => TRUE,
+    '#default_value' => '100',
+    '#element_validate' => array('element_validate_integer_positive'),
+  );
+  return $form;
+}
+
+/**
+ * Submit callback for the form above.
+ */
+function emh_points_arrange_points_submit($form, &$form_state) {
+  $return = array();
+  $return['points'] = $form_state['values']['points'];
+  return $return;
+}
+
+/**
+ * Get current user points.
+ */
+function emh_points_get_user_points($account) {
+  if ($account == NULL || is_string($account)) {
+    global $user;
+    $account = user_load($user->uid);
+  }
+  return '<span class="badge">' . $account->emh_points . '&nbsp;' . t('points') . '</span>';
+}
+
+/**
+ * TODO : Show current user points history.
+ */
+function emh_points_show_user_history() {
+  return '';
+}
