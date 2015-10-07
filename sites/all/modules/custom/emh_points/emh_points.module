@@ -112,30 +112,6 @@ function emh_points_cron() {
 }
 
 /**
- * Implements hook_form_FORM_ID_alter().
- */
-function emh_points_form_question1_node_form_alter(&$form, &$form_state) {
-  $form['field_reward'][LANGUAGE_NONE]['0']['#element_validate'][] = 'emh_points_validate_enough_points';
-}
-
-/**
- * Validation callback to ensure you have enough points to create a Question.
- */
-function emh_points_validate_enough_points($element, &$form_state, $form) {
-  $points = $element['value']['#value'];
-  $current_points = 0;
-  global $user;
-  $query = db_select('emh_points', 'p')
-    ->condition('p.entity_type', 'user')
-    ->condition('p.entity_id', $user->uid);
-  $query->addExpression('SUM(p.points)');
-  $current_points = $query->execute()->fetchField();
-  if ($current_points < $points) {
-    form_error($element, t('You don\'t have enough points (@count).', array('@count' => $current_points)));
-  }
-}
-
-/**
  * Add points to an entity.
  */
 function emh_points_add_points($entity, $points) {
