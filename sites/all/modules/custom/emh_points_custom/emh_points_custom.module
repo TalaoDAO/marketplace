@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @file
+ * Specific configuration of points for eMindHub.
+ */
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function emh_points_custom_form_emh_points_admin_form_alter(&$form, &$form_state) {
+  // Addition of the 3 global thresholds.
+  $form['question1_challenge'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Points threshold for Challenge'),
+    '#default_value' => variable_get('question1_challenge', '100'),
+    '#element_validate' => array('element_validate_integer_positive'),
+  );
+  $form['question1_survey'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Points threshold for Survey'),
+    '#default_value' => variable_get('question1_survey', '100'),
+    '#element_validate' => array('element_validate_integer_positive'),
+  );
+  $form['question1_threshold'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Points threshold for Question1'),
+    '#default_value' => variable_get('question1_threshold', '100'),
+    '#element_validate' => array('element_validate_integer_positive'),
+  );
+}
