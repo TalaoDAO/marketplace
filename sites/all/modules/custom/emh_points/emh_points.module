@@ -166,6 +166,11 @@ function emh_points_add_points($entity, $points) {
     ->key(array('entity_id' => $entity->id, 'entity_type' => $entity->type))
     ->expression('total_points', 'total_points + :amount', array(':amount' => $points))
     ->execute();
+  // Raise Rules event.
+  if ($entity->type == 'user') {
+    $account = user_load($entity->id);
+    rules_invoke_event('emh_points_new_points', $points, $account);
+  }
 }
 
 /**
@@ -725,4 +730,38 @@ function emh_points_get_user_points($account) {
  */
 function emh_points_show_user_history() {
   return '';
+}
+
+/**
+ * Access control : does a user have access to another user profile.
+ */
+function emh_points_user_can_see_full_user($uid, $uid2) {
+  if ($uid == 1) {
+    // Admin ( = eMindHub) has every right.
+    return TRUE;
+  }
+  $direct = db_select('emh_points_txn', 'txn')
+    ->condition('txn.source_id', $uid)
+    ->condition('txn.dest_id', $uid2)
+    ->condition('txn.source_type', 'user')
+    ->condition('txn.dest_type', 'user');
+  $direct->addExpression('COUNT(txn.txn_id)');
+  $direct = $direct->execute()
+    ->fetchField();
+  if ($direct > 0) {
+    // There is a direct link.
+    return TRUE;
+  }
+  $indirect = db_select('emh_points_txn', 'txn');
+  $indirect->addExpression('COUNT(txn.txn_id)');
+  $indirect->innerjoin('node', 'n', 'n.nid = txn.source_id');
+  $indirect = $indirect
+    ->condition('txn.dest_id', $uid2)
+    ->condition('txn.source_type', 'node')
+    ->condition('txn.dest_type', 'user')
+    ->condition('n.uid', $uid)
+    ->execute()
+    ->fetchField();
+  // Is there a link through a node?
+  return ($indirect > 0);
 }

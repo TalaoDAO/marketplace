@@ -20,18 +20,6 @@ function emh_points_views_data() {
       'field' => 'points',
     ),
   );
-  $data['emh_points']['table']['join'] = array(
-    'users' => array(
-      'left_field' => 'uid',
-      'field' => 'entity_id',
-      'extra' => array(array('field' => 'entity_type', 'value' => 'user', 'operator' => '=')),
-    ),
-    'node' => array(
-      'left_field' => 'nid',
-      'field' => 'entity_id',
-      'extra' => array(array('field' => 'entity_type', 'value' => 'node', 'operator' => '=')),
-    ),
-  );
   $data['emh_points_txn']['table']['group'] = t('Points Transaction');
   $data['emh_points_txn']['table']['base'] = array(
     'field' => 'txn_id',
@@ -217,6 +205,58 @@ function emh_points_views_data() {
       'handler' => 'views_handler_field_user',
     ),
   );
+  $data['emh_points_txn']['source_id_user'] = array(
+    'title' => t('User source of the transaction'),
+    'relationship' => array(
+      'title' => t('User source of the transaction'),
+      'handler' => 'views_handler_relationship',
+      'base' => 'users',
+      'base field' => 'uid',
+      'table' => 'emh_points_txn',
+      'field' => 'source_id',
+      'label' => t('User source of the transaction'),
+      'extra' => array(array('table' => 'emh_points_txn_dest', 'field' => 'source_type', 'value' => 'user', 'operator' => '=')),
+    ),
+  );
+  $data['emh_points_txn']['dest_id_user'] = array(
+    'title' => t('User destination of the transaction'),
+    'relationship' => array(
+      'title' => t('User destination of the transaction'),
+      'handler' => 'views_handler_relationship',
+      'base' => 'users',
+      'base field' => 'uid',
+      'table' => 'emh_points_txn',
+      'field' => 'dest_id',
+      'label' => t('User destination of the transaction'),
+      'extra' => array(array('table' => 'emh_points_txn_source', 'field' => 'dest_type', 'value' => 'user', 'operator' => '=')),
+    ),
+  );
+  $data['emh_points_txn']['source_id_node'] = array(
+    'title' => t('Node source of the transaction'),
+    'relationship' => array(
+      'title' => t('Node source of the transaction'),
+      'handler' => 'views_handler_relationship',
+      'base' => 'node',
+      'base field' => 'nid',
+      'table' => 'emh_points_txn',
+      'field' => 'source_id',
+      'label' => t('Node source of the transaction'),
+      'extra' => array(array('table' => 'emh_points_txn_dest', 'field' => 'source_type', 'value' => 'node', 'operator' => '=')),
+    ),
+  );
+  $data['emh_points_txn']['dest_id_node'] = array(
+    'title' => t('Node destination of the transaction'),
+    'relationship' => array(
+      'title' => t('Node destination of the transaction'),
+      'handler' => 'views_handler_relationship',
+      'base' => 'node',
+      'base field' => 'nid',
+      'table' => 'emh_points_txn',
+      'field' => 'dest_id',
+      'label' => t('Node destination of the transaction'),
+      'extra' => array(array('table' => 'emh_points_txn_source', 'field' => 'dest_type', 'value' => 'node', 'operator' => '=')),
+    ),
+  );
   $data['emh_points_txn']['points'] = array(
     'title' => 'Points',
     'field' => array(
@@ -333,11 +373,15 @@ function emh_points_views_data() {
   $data['emh_points_txn_source']['table']['join']['users']['extra'][0]['field'] = 'source_type';
   $data['emh_points_txn_source']['table']['join']['node']['field'] = 'source_id';
   $data['emh_points_txn_source']['table']['join']['node']['extra'][0]['field'] = 'source_type';
+  unset($data['emh_points_txn_source']['source_type']);
+  unset($data['emh_points_txn_source']['source_id']);
   $data['emh_points_txn_dest'] = $data['emh_points_txn'];
   $data['emh_points_txn_dest']['table']['join']['users']['field'] = 'dest_id';
   $data['emh_points_txn_dest']['table']['join']['users']['extra'][0]['field'] = 'dest_type';
   $data['emh_points_txn_dest']['table']['join']['node']['field'] = 'dest_id';
   $data['emh_points_txn_dest']['table']['join']['node']['extra'][0]['field'] = 'dest_type';
+  unset($data['emh_points_txn_dest']['dest_id']);
+  unset($data['emh_points_txn_dest']['dest_type']);
   unset($data['emh_points_txn']);
   return $data;
 }

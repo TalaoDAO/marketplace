@@ -19,6 +19,15 @@ function emh_points_rules_event_info() {
       'owner' => array('type' => 'user', 'label' => t('Owner of the points')),
     ),
   );
+  $events['emh_points_new_points'] = array(
+    'label' => t('Points are added'),
+    'module' => 'emh_points',
+    'group' => t('Points'),
+    'variables' => array(
+      'points' => array('type' => 'integer', 'label' => t('Number of points that have been transfered')),
+      'owner' => array('type' => 'user', 'label' => t('Owner of the points')),
+    ),
+  );
   return $events;
 }
 
