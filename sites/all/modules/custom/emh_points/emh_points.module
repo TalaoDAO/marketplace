@@ -45,15 +45,13 @@ function emh_points_menu() {
     'page arguments' => array('emh_points_arrange_form', 1, 2, 3, 4, 5),
     'access arguments' => array('use points'),
   );
-  $items['user/%user/points'] = array(
+  $items['points'] = array(
     'title' => 'not used',
     'title callback' => 'emh_points_get_user_points',
-    'title arguments' => array(1),
     'page callback' => 'emh_points_show_user_history',
     'menu_name' => 'user-menu',
     'access callback' => TRUE,
-    'type' => MENU_LOCAL_TASK | MENU_NORMAL_ITEM,
-    'weight' => 5,
+    'type' => MENU_NORMAL_ITEM,
   );
   return $items;
 }
@@ -699,8 +697,12 @@ function emh_points_arrange_points_submit($form, &$form_state) {
 /**
  * Get current user points.
  */
-function emh_points_get_user_points($user) {
-  return '<span class="badge">' . $user->emh_points . '&nbsp;' . t('points') . '</span>';
+function emh_points_get_user_points($account) {
+  if ($account == NULL || is_string($account)) {
+    global $user;
+    $account = user_load($user->uid);
+  }
+  return '<span class="badge">' . $account->emh_points . '&nbsp;' . t('points') . '</span>';
 }
 
 /**
