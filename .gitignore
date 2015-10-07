@@ -1,5 +1,11 @@
 sites/all/modules/debug
 
+#behat
+bdd/vendor
+bdd/bin
+bdd/composer.lock
+bdd/composer.phar
+
 # Ignore configuration files that may contain sensitive information.
 sites/*/settings*.php
 sites/*/local.settings*.php
