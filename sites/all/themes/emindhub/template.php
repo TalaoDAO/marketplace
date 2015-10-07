@@ -1,12 +1,12 @@
 <?php
 
-//require_once("templates/PHPDebug.php");
-require_once("templates/includes/string_list.php");
+//require_once('templates/PHPDebug.php');
+require_once('templates/includes/string_list.php');
 
-require_once("inc/forms.php");
-require_once("inc/menus.php");
-require_once("inc/regions.php");
-require_once("inc/blocks.php");
+require_once('inc/forms.php');
+require_once('inc/menus.php');
+require_once('inc/regions.php');
+require_once('inc/blocks.php');
 
 
 /**
@@ -49,7 +49,7 @@ function emindhub_file($variables) {
 	element_set_attributes($element, array('id', 'name', 'size'));
 	_form_set_class($element, array('form-file'));
 
-	return sprintf('<input type="text" disabled data-fileinputtext="%s" class="file-return"><div class="file-upload"><span>%s</span><input' . drupal_attributes($element['#attributes']) . ' /></div>', $element["#id"], c_szChooseFile);
+	return sprintf('<input type="text" disabled data-fileinputtext="%s" class="file-return"><div class="file-upload"><span>%s</span><input' . drupal_attributes($element['#attributes']) . ' /></div>', $element['#id'], c_szChooseFile);
 }
 
 
@@ -59,9 +59,9 @@ function emindhub_file($variables) {
 function emindhub_preprocess_page(&$vars, &$variables) {
 
 	// CUSTOMIZABLE TEXT  ==============================================================
-	// $vars['banniereText'] = sprintf(c_szTextBanniere, "<p>", "</p>");
+	// $vars['banniereText'] = sprintf(c_szTextBanniere, "<p>", "</p>');
 	$vars['openBurgerImg'] = theme('image', array(
-		'path' => imagePath("menuBtn.png"),
+		'path' => imagePath('menuBtn.png'),
 		'alt' => '',
 		'getsize' => FALSE,
 	));
@@ -74,7 +74,7 @@ function emindhub_preprocess_html(&$variables) {
   global $user;
   foreach ( $user->roles as $role_id => $role ) {
     // $variables['classes_array'][] = "role-id-".$role_id;
-    $variables['classes_array'][] = "role-".strtolower(drupal_clean_css_identifier($role));
+    $variables['classes_array'][] = 'role-'.strtolower(drupal_clean_css_identifier($role));
   }
   // $variables['classes_array'][] = "user-uid-".$user->uid;
 }
@@ -106,19 +106,22 @@ function emindhub_preprocess_node__webform(&$variables) {
 }
 
 function node_informations_add(&$variables) {
-	$variables['company_name'] = "";
-	$variables['company_description'] = "";
-	$variables['user_name'] = "";
+	$variables['company_name'] = '';
+	$variables['company_description'] = '';
+	$variables['user_name'] = '';
+
+  $variables['links'] = $elements['links'];
+
 	if (isset($variables['elements']['body'])) {
 		$user = user_load_by_name($variables['elements']['body']['#object']->name);
 		$account = user_load($user->uid);
 
 		if ($account) {
-			$firstName = "";
+			$firstName = '';
 			if (isset($account->field_first_name[LANGUAGE_NONE]) && $account->field_first_name[LANGUAGE_NONE]) {
 				$firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
 			}
-			$lastName = "";
+			$lastName = '';
 			if (isset($account->field_last_name[LANGUAGE_NONE]) && $account->field_last_name[LANGUAGE_NONE]) {
 				$lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
 			}
@@ -131,7 +134,7 @@ function node_informations_add(&$variables) {
 				if ($entity) {
 					$variables['company_name'] = $entity->title;
 					if ($entity->body)
-						$variables['company_description'] = $entity->body[LANGUAGE_NONE][0]["value"];
+						$variables['company_description'] = $entity->body[LANGUAGE_NONE][0]['value'];
 				}
 			}
 		}
@@ -163,17 +166,17 @@ function isAdminUser() {
 }
 
 function getImgSrc($fileName) {
-	return sprintf("%s/images/%s", base_path().path_to_theme(), $fileName);
+	return sprintf('%s/images/%s', base_path().path_to_theme(), $fileName);
 }
 
 function imagePath($fileName) {
-	return sprintf("%s/images/%s", path_to_theme(), $fileName);
+	return sprintf('%s/images/%s', path_to_theme(), $fileName);
 }
 
 function isHomePage() {
 	$isHomePage = drupal_is_front_page();
 	if (!$isHomePage) {
-		if (drupal_get_path_alias() == "homepage") {
+		if (drupal_get_path_alias() == 'homepage') {
 			$isHomePage = TRUE;
 		}
 	}
@@ -213,11 +216,11 @@ function emindhub_welcome_message() {
   if ( drupal_is_front_page() && user_is_logged_in() ) {
     global $user;
     $account = user_load($user->uid);
-    $firstName = "";
+    $firstName = '';
     if (isset($account->field_first_name[LANGUAGE_NONE]) && $account->field_first_name[LANGUAGE_NONE]) {
       $firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
     }
-    $lastName = "";
+    $lastName = '';
     if (isset($account->field_last_name[LANGUAGE_NONE]) && $account->field_last_name[LANGUAGE_NONE]) {
       $lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
     }
@@ -242,11 +245,11 @@ function emindhub_beautiful_user_name( $link = FALSE ) {
       break;
   }
 
-  $firstName = "";
+  $firstName = '';
   if (isset($account->field_first_name[LANGUAGE_NONE]) && $account->field_first_name[LANGUAGE_NONE]) {
     $firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
   }
-  $lastName = "";
+  $lastName = '';
   if (isset($account->field_last_name[LANGUAGE_NONE]) && $account->field_last_name[LANGUAGE_NONE]) {
     $lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
   }
@@ -362,4 +365,101 @@ function emindhub_preprocess_field(&$vars) {
     $vars['item_attributes_array'][$delta]['class'] = $item_classes;
     $vars['item_attributes_array'][$delta]['class'][] = $delta % 2 ? 'even' : 'odd';
   }
+}
+
+
+function emindhub_show_user_name() {
+  global $user, $node;
+  $account = user_load($user->uid);
+
+  $visibility = FALSE;
+
+  // Check node options
+  // 0|Use profile settings
+  // 1|Display my full name
+  // 2|Hide my full name
+  if ( $field_anonymous[LANGUAGE_NONE][0]['value'] == 1 ) $visibility = TRUE;
+
+  // Check user profile options
+  if ( $field_anonymous[LANGUAGE_NONE][0]['value'] == 0 && $account->field_name_visibility[LANGUAGE_NONE][0]['value'] == 1 ) $visibility = TRUE;
+
+  return $visibility;
+
+}
+
+
+function emindhub_show_user_company() {
+
+  global $user, $node;
+  $account = user_load($user->uid);
+
+  $visibility = FALSE;
+
+  // Check node options
+  // 0|Use profile settings
+  // 1|Display the name
+  // 2|Hide the name
+  if ( $field_show_entreprise[LANGUAGE_NONE][0]['value'] == 1 ) $visibility = TRUE;
+
+  // Check user profile options
+  if ( $field_show_entreprise[LANGUAGE_NONE][0]['value'] == 0 && $account->field_entreprise_visibility[LANGUAGE_NONE][0]['value'] == 1 ) $visibility = TRUE;
+
+  return $visibility;
+
+}
+
+
+function emindhub_user_has_photo() {
+
+  global $user;
+  $account = user_load($user->uid);
+
+  if ( $account->field_photo[LANGUAGE_NONE][0] ) return TRUE;
+
+}
+
+
+function emindhub_show_user_photo( $class ) {
+
+  global $user;
+  $account = user_load($user->uid);
+
+  $photo = '';
+
+  if ( emindhub_user_has_photo() == TRUE ) {
+    $photo = image_style_url('thumbnail', $account->field_photo[LANGUAGE_NONE][0]['uri']);
+    $photo = '<img src="' . $photo . '" class="' . $class . '" />';
+  } else {
+    $photo = '<div class="user-badge '. $class . '"></div>';
+  }
+
+  return $photo;
+
+}
+
+
+
+
+function emindhub_beautiful_comment_add_text( $node ) {
+
+  $comment_add_text = t('Add new comment');
+
+  switch ($node->type) {
+
+    case 'question1':
+      $comment_add_text = t('Answer the question');
+      break;
+
+    case 'challenge':
+      $comment_add_text = t('Answer the challenge');
+      break;
+
+    // case 'webform':
+    //   $comment_add_text = 'Answer the survey';
+    //   break;
+
+  }
+
+  return $comment_add_text;
+
 }

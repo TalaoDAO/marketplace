@@ -80,6 +80,8 @@
  * @ingroup themeable
  */
 
+ // echo '<pre>' . print_r($node->body, TRUE) . '</pre>'; die;
+
  // Show $node field, with display parameters
  // print render($content['field_duration_of_the_mission']);
  // Show $node field, with custom display parameters
@@ -130,14 +132,15 @@
 		<?php } ?>
 
 		<div class="row section">
-			<div class="col-sm-12">
-				<?php print render($content['body']); ?>
+
+			<?php if ( emindhub_show_user_name() == TRUE || emindhub_show_user_company() == TRUE ) : ?>
+			<div class="col-sm-4">
+				<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/userInformations.tpl.php'; ?>
 			</div>
-		</div>
+			<?php endif; ?>
 
-		<div class="row section">
-
-      <div class="col-sm-6">
+			<?php if ( isset($content['field_domaine']) || isset($content['field_tags']) ) : ?>
+      <div class="col-sm-4">
 
 				<div class="row">
 			    <div class="col-sm-12">
@@ -147,8 +150,9 @@
 				</div>
 
       </div>
+			<?php endif; ?>
 
-      <div class="col-sm-6 meta">
+			<div class="col-sm-4 meta">
 
 				<ul>
 
@@ -194,63 +198,24 @@
 
 	  </div>
 
-		<?php
-		if (
-		  (isset($field_anonymous[0]['value']) && $field_anonymous[0]['value'] == 1) ||
-		  (isset($field_show_entreprise[0]['value']) && $field_show_entreprise[0]['value'] == 1) ||
-		  (isset($field_use_my_entreprise[0]['value']) && $field_use_my_entreprise[0]['value'] == 1)
-		) : ?>
-
-		<div class="row section ">
-			<h3><span><?php print t('Submitted by:'); ?></span></h3>
+		<?php if (isset($body[0]['value'])) : ?>
+		<div class="row section">
 			<div class="col-sm-12">
-				<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/userInformations.tpl.php'; ?>
+				<?php print $body[0]['value']; ?>
 			</div>
 		</div>
 		<?php endif; ?>
 
-	  <div class="row section">
+		<?php print render($content['links']); // FLAG ?>
 
-			<div class="col-sm-12">
-
-		    <?php print $elements['links']['flag']['#links']['flag-my_selection']['title']; ?>
-
-				<?php if (node_access('update', $node)) : ?>
-	      <?php print l(t('Edit'),'node/'.$node->nid.'/edit', array('attributes' => array('class' => array('btn','btn-primary','btn-expert'))) ); ?>
-				<?php endif; ?>
-
-				<?php
-				$linkAddComment = $elements['links']['comment']['#links']['comment-add'];
-		    if ($linkAddComment) { ?>
-		    <?php print l($linkAddComment['title'], $linkAddComment['href'], array('attributes' => array('class' => array('btn', 'btn-primary', 'btn-expert')))); ?>
-		    <?php } ?>
-
-			</div>
-
-		</div>
-
-		<div class="row section emh-fieldgroup-blue-title">
-
-			<?php if (!user_has_role(5)): ?>
-		  <h2 class="h3"><span><?php echo t('Answer a question'); ?></span></h2>
-		  <?php endif; ?>
-
-			<?php // TODO : add comment form ?>
-
-			<?php print render($content['comments']); ?>
-
-		</div>
+		<?php print render($content['comments']); ?>
 
 		<?php
 			// We hide the comments and links now so that we can render them later.
-			hide($content['comments']);
-			hide($content['links']);
+			// hide($content['comments']);
+			// hide($content['links']);
 			//print render($content);
 		?>
 	</div>
-
-	<?php //print render($content['links']); // FLAG ?>
-
-
 
 </div>

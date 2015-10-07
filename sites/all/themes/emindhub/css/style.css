@@ -11649,6 +11649,11 @@ fieldset[disabled] .btn-popin.focus {
   color: #fff;
   padding: 15px;
 }
+.emh-group {
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #f2f2f2;
+}
 h1,
 h2,
 .h1,
@@ -12690,7 +12695,7 @@ header#page-header .region-header-right .block a {
   color: inherit;
 }
 body {
-  background-color: #F6F7F8;
+  background-color: #f2f2f2;
 }
 #trail {
   background-color: #445766;
@@ -13171,7 +13176,10 @@ fieldset[disabled] .views-navigation-next.focus {
   padding-top: 15px;
   padding-bottom: 15px;
   margin: 0 0 15px;
-  background-color: #F6F7F8;
+  background-color: #f2f2f2;
+}
+.section:last-child {
+  margin-bottom: 0;
 }
 .section.emh-fieldgroup-blue-title {
   padding-top: 0;
@@ -13197,6 +13205,7 @@ fieldset[disabled] .views-navigation-next.focus {
   font-style: italic;
   padding: 7px 15px;
   text-align: left;
+  margin-bottom: 5px;
 }
 .section .field-type-taxonomy-term-reference a {
   display: inline-block;
@@ -14285,6 +14294,24 @@ div.fivestar-widget div.hover a,
 div.rating div a:hover {
   background-position: 0 -42px;
   /* RTL */
+}
+.user-badge {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50%;
+  background: #FFF;
+  text-align: center;
+  height: 100px;
+  width: 100px;
+}
+.field-group-div {
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #f2f2f2;
+}
+.field-group-div:last-child {
+  margin-bottom: 0;
 }
 form {
   /* FORMS

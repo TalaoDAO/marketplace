@@ -1,3 +1,10 @@
+.field-group-div {
+	.emh-group;
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
 form {
 
 	/* FORMS
@@ -6,9 +13,7 @@ form {
 	> * > .form-item-title,
 	.field-group-fieldset,
 	.field-group-div {
-		padding: 15px;
-		margin-bottom: 15px;
-		background-color: @lightGrey;
+		.emh-group;
 		> .form-group:last-child,
 		> .form-group:last-child .form-group:last-child {
 			margin-bottom: 0;

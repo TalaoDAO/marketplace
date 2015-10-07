@@ -1,5 +1,5 @@
 body {
-  background-color: #F6F7F8;
+  background-color: @lightGrey;
 }
 
 #trail {
@@ -85,7 +85,11 @@ a.flag {
   padding-top: 15px;
   padding-bottom: 15px;
 	margin: 0 0 15px;
-	background-color: #F6F7F8;
+	background-color: @lightGrey;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 
   &.emh-fieldgroup-blue-title {
     padding-top: 0;
@@ -106,9 +110,11 @@ a.flag {
   .field-name-body {
     font-size: 16px;
   }
+
   .field-type-taxonomy-term-reference {
     .field-items .field-item {
       .emh-badge-term;
+      margin-bottom: 5px;
     }
     a {
       .emh-badge-term;

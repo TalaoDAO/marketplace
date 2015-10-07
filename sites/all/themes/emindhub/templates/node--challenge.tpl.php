@@ -129,14 +129,17 @@
     </div>
 		<?php } ?>
 
+		<?php if (isset($body[0]['value'])) : ?>
 		<div class="row section">
 			<div class="col-sm-12">
-				<?php print render($content['body']); ?>
+				<?php print $body[0]['value']; ?>
 			</div>
 		</div>
+		<?php endif; ?>
 
 		<div class="row section">
 
+			<?php if ( isset($content['field_domaine']) || isset($content['field_tags']) ) : ?>
       <div class="col-sm-6">
 
 				<div class="row">
@@ -147,6 +150,7 @@
 				</div>
 
       </div>
+			<?php endif; ?>
 
       <div class="col-sm-3 meta">
 
@@ -206,9 +210,10 @@
 		  (isset($field_show_entreprise[0]['value']) && $field_show_entreprise[0]['value'] == 1) ||
 		  (isset($field_use_my_entreprise[0]['value']) && $field_use_my_entreprise[0]['value'] == 1)
 		) : ?>
-
-		<div class="row section ">
-			<h3><span><?php print t('Submitted by:'); ?></span></h3>
+		<div class="row section submitted">
+			<div class="col-sm-12">
+				<h3><span><?php print t('Submitted by:'); ?></span></h3>
+			</div>
 			<div class="col-sm-12">
 				<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/userInformations.tpl.php'; ?>
 			</div>
