@@ -11,7 +11,7 @@ use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 /**
  * Defines application features from the specific context.
  */
-class FeatureContext extends RawDrupalContext {
+class FeatureContext extends DrupalContext {
 
   /**
    * Initializes context.
@@ -75,6 +75,19 @@ class FeatureContext extends RawDrupalContext {
       throw new \Exception(sprintf("Failed to log in as user '%s' with role '%s'", "business1", "business"));
     }
   }
+
+   /**
+   * @Given I give :name :points emh points
+   */
+  public function assertGiveUserPoints($name, $points) {
+    if (!isset($this->users[$name])) {
+      throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
+    }
+    $user = user_load($this->users[$name]->uid);
+    $context = array('points' => $points, 'log' => 'Behat add points to user');
+    emh_points_give_points($user, $context);
+  }
+
 
 }
 

@@ -9,6 +9,7 @@ Feature: Create question and answers
     | name    | mail                 | roles    |
     | client1 | client1@emindhub.com | business |
     | expert1 | expert1@emindhub.com | expert   |
+    Given I give "client1" 300 emh points
     Given "question1" content:
     | title        | field_domaine | og_group_ref | field_reward | author  |
     | What about ? | Energy        | All experts  | 100          | client1 |
