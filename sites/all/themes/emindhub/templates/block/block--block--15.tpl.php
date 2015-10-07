@@ -57,8 +57,8 @@
     <div class="content">
       <?php //print $content; ?>
       <a href="<?php print url('business/register'); ?>">
-        <p><?php print (t('You have<br /><strong>a request</strong>')); ?></p>
-        <p><?php print t('<strong>Sign-up</strong> as a client and use eMindHub\'s services'); ?></p>
+        <p><?php echo sprintf(t('You have %sa request%s'), '<br /><strong>', '</strong>'); ?></p>
+        <p><?php echo sprintf(t('%sSign-up%s as a client and use eMindHub\'s services'), '<strong>', '</strong>'); ?></p>
       </a>
     </div>
   <?php endif;?>

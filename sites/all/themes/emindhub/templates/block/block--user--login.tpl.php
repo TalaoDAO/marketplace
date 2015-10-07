@@ -51,18 +51,18 @@
     <?php //print $content ?>
     <ul class="nav navbar-nav navbar-emh-separator">
       <li>
-        <a id="signIn" type="a" class="user-menu sign-in" data-placement="bottom" data-html="true" data-template='<div class="popover signIn" role="tooltip"><div class="arrow"></div><div class="popover-content signInContent"></div></div>'><?php print c_szLogin; ?></a>
+        <a id="signIn" type="a" class="user-menu sign-in" data-placement="bottom" data-html="true" data-template='<div class="popover signIn" role="tooltip"><div class="arrow"></div><div class="popover-content signInContent"></div></div>'><?php print t('Login'); ?></a>
         <div id="signInContent" style="display: none;">
-          <h4><?php print c_szLoginToEmh; ?></h4>
+          <h4><?php print t('Login to eMindHub:'); ?></h4>
           <?php $login_block = drupal_get_form('user_login_block'); print drupal_render($login_block); ?>
         </div>
       </li>
       <li>
-        <a id="signUp" type="a" class="user-menu sign-up" data-placement="bottom" data-html="true" data-template='<div class="popover signUp" role="tooltip"><div class="arrow"></div><div class="popover-content signUpContent"></div></div>'><?php print c_szRegister; ?></a>
+        <a id="signUp" type="a" class="user-menu sign-up" data-placement="bottom" data-html="true" data-template='<div class="popover signUp" role="tooltip"><div class="arrow"></div><div class="popover-content signUpContent"></div></div>'><?php print t('Register'); ?></a>
         <div id="signUpContent" style="display: none;">
-          <h4><?php print c_szSignIn; ?><span class="light-blue-text"><?php print c_szInAMinute; ?></span><?php print c_szStart; ?></h4>
-          <a href="<?php print url("business/register"); ?>" class="btn btn-submit signin"><?php print c_szSeeker; ?></a>
-          <a href="<?php print url("expert/register"); ?>" class="btn btn-submit signin"><?php print c_szExpert; ?></a>
+          <h4><?php print t('Sign-in <span class="light-blue-text">in 1 minute</span> and start!'); ?></h4>
+          <a href="<?php print url("business/register"); ?>" class="btn btn-submit signin"><?php print t('As a client'); ?></a>
+          <a href="<?php print url("expert/register"); ?>" class="btn btn-submit signin"><?php print t('As an expert'); ?></a>
         </div>
       </li>
     </ul>
