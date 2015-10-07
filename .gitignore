@@ -1,11 +1,3 @@
-#Ignore behat composer downloaded files
-bdd/bin
-bdd/vendor
-bdd/composer.lock
-bdd/composer.phar
-
-sites/all/modules/.notused
-sites/all/modules/.unused
 sites/all/modules/debug
 
 # Ignore configuration files that may contain sensitive information.
