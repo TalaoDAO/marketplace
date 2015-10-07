@@ -138,10 +138,26 @@ function emh_points_add_points($entity, $points) {
     ))
     ->execute();
   // Update total.
-  db_merge('emh_points_total')
-    ->key(array('entity_id' => $entity->id, 'entity_type' => $entity->type))
-    ->expression('total_points', 'total_points + :amount', array(':amount' => $points))
-    ->execute();
+  // Is there a total already
+  $total = db_select('emh_points_total', 't')
+    ->fields('t', array('total_points'))
+    ->condition('entity_id', $entity->id)
+    ->condition('entity_type', $entity->type)
+    ->execute()->fetchField();
+  if ($total === FALSE) {
+    db_insert('emh_points_total')
+      ->fields(array(
+        'entity_id' => $entity->id,
+        'entity_type' => $entity->type,
+        'total_points' => $points
+      ))
+      ->execute();
+  } else {
+    db_merge('emh_points_total')
+      ->key(array('entity_id' => $entity->id,'entity_type' => $entity->type))
+      ->expression('total_points', 'total_points + :amount', array(':amount' => $points))
+      ->execute();
+  }
   // Raise Rules event.
   if ($entity->type == 'user') {
     $account = user_load($entity->id);
