@@ -568,42 +568,6 @@ business/register',
     'visibility' => 0,
   );
 
-  $export['global_filter-global_filter_1'] = array(
-    'cache' => -1,
-    'css_class' => '',
-    'custom' => 0,
-    'delta' => 'global_filter_1',
-    'i18n_block_language' => array(),
-    'i18n_mode' => 0,
-    'module' => 'global_filter',
-    'node_types' => array(),
-    'pages' => '',
-    'roles' => array(
-      'administrator' => 3,
-      'authenticated user' => 2,
-      'business' => 5,
-      'expert' => 4,
-      'référent' => 7,
-      'webmaster' => 6,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => 'burgermenu',
-        'status' => 1,
-        'theme' => 'emindhub',
-        'weight' => -40,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => 'Domains',
-    'visibility' => 0,
-  );
-
   $export['menu-menu-burger-menu'] = array(
     'cache' => -1,
     'css_class' => '',
