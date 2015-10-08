@@ -14,9 +14,9 @@ function emindhub_preprocess_node__challenge(&$variables) {
 	node_informations_add($variables);
 }
 
-function emindhub_preprocess_node__question(&$variables) {
-	node_informations_add($variables);
-}
+// function emindhub_preprocess_node__question(&$variables) {
+// 	node_informations_add($variables);
+// }
 
 function emindhub_preprocess_node__question1(&$variables) {
 	node_informations_add($variables);
@@ -29,11 +29,22 @@ function emindhub_preprocess_node__webform(&$variables) {
 
 
 function node_informations_add(&$variables) {
+
+	// Views navigation between nodes
+	$variables['linkBack'] = '';
+	$variables['linkPrev'] = '';
+	$variables['linkNext'] = '';
+	// echo '<pre>' . print_r($variables['elements']['links']['views_navigation']['#links']['back'], TRUE) . '</pre>';
+	if (isset($variables['elements']['links']['views_navigation'])) {
+		$variables['linkBack'] = $variables['elements']['links']['views_navigation']['#links']['back'];
+		$variables['linkPrev'] = $variables['elements']['links']['views_navigation']['#links']['previous'];
+		$variables['linkNext'] = $variables['elements']['links']['views_navigation']['#links']['next'];
+	}
+
+	// User profile infos
 	$variables['company_name'] = '';
 	$variables['company_description'] = '';
 	$variables['user_name'] = '';
-
-  $variables['links'] = $elements['links'];
 
 	if (isset($variables['elements']['body'])) {
 		$user = user_load_by_name($variables['elements']['body']['#object']->name);
@@ -48,7 +59,7 @@ function node_informations_add(&$variables) {
 			if (isset($account->field_last_name[LANGUAGE_NONE]) && $account->field_last_name[LANGUAGE_NONE]) {
 				$lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
 			}
-			$variables['user_name'] = $lastName . ' ' . $firstName;
+			$variables['user_name'] = $lastName . '&nbsp;' . $firstName;
 
 			if ($account->field_entreprise) {
 				$targetId = $account->field_entreprise[LANGUAGE_NONE][0]['target_id'];
@@ -62,11 +73,13 @@ function node_informations_add(&$variables) {
 			}
 		}
 	}
+
 }
 
 
 function emindhub_node_view_alter( &$build ) {
 
+	// echo '<pre>' . print_r($build, TRUE) . '</pre>';
   // if ($build['#view_mode'] == 'teaser') {
     // remove "add comment" link from node teaser mode display
     unset($build['links']['comment']['#links']['comment-add']);
@@ -75,3 +88,16 @@ function emindhub_node_view_alter( &$build ) {
   // }
 
 }
+
+
+// function emindhub_comment_view_alter( &$build ) {
+//
+// 	// echo '<pre>' . print_r($build['links'], TRUE) . '</pre>';
+//   // if ($build['#view_mode'] == 'teaser') {
+//     // remove "add comment" link from node teaser mode display
+//     unset($build['links']['comment']['#links']['comment-add']);
+//     // and if logged out this will cause another list item to appear, so let's get rid of that
+//     unset($build['links']['comment']['#links']['comment_forbidden']);
+//   // }
+//
+// }

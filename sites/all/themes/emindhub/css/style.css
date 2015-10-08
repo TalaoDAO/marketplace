@@ -13482,6 +13482,9 @@ fieldset[disabled] .views-navigation-next.focus {
 .comment .content > div {
   padding: 15px 0;
 }
+.section.actions ul.links {
+  margin: 0;
+}
 .region-burgermenu {
   display: none;
   background-color: #2E3243;

@@ -95,35 +95,11 @@
 
 	<div class="content"<?php print $content_attributes; ?>>
 
-	  <?php
-	  if (isset($variables['elements']['links']['views_navigation'])) {
-	    $linkBack = $variables['elements']['links']['views_navigation']['#links']['back'];
-	    $linkPrev = $variables['elements']['links']['views_navigation']['#links']['previous'];
-	    $linkNext = $variables['elements']['links']['views_navigation']['#links']['next'];
-	  } ?>
-  	<?php if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
-    <div class="row section">
-      <div class="col-sm-3 to-list">
-        <a href="<?php print base_path() . $linkBack['href']; ?>" <?php print drupal_attributes($linkBack['attributes']); ?>>
-					<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> <?php print $linkBack['title']; ?>
-				</a>
-      </div>
-      <div class="col-sm-3 col-sm-offset-3 col-xs-6 previous text-right">
-				<a href="<?php print base_path() . $linkPrev['href']; ?>" <?php print drupal_attributes($linkPrev['attributes']); ?>>
-					<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <?php print $linkPrev['title']; ?>
-				</a>
-      </div>
-      <div class="col-sm-3 col-xs-6 next">
-				<a href="<?php print base_path() . $linkNext['href']; ?>" <?php print drupal_attributes($linkNext['attributes']); ?>>
-					<?php print $linkNext['title']; ?> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-				</a>
-    	</div>
-    </div>
-		<?php } ?>
+	  <?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeNavigation.tpl.php'; ?>
 
 		<div class="row section">
 
-			<?php if ( emindhub_show_user_name( $node ) == TRUE || emindhub_show_user_company( $node ) == TRUE ) : ?>
+			<?php if ( emh_access_user_name( $node ) == TRUE || emh_access_user_company( $node ) == TRUE ) : ?>
 			<div class="col-sm-3">
 				<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/userInformations.tpl.php'; ?>
 			</div>
@@ -175,8 +151,8 @@
 					<li><?php print render($content['field_reward']); ?></li>
 					<?php endif; ?>
 
-          <?php if (!function_exists("webform_get_submission_count")) : ?>
-					<?php include_once(drupal_get_path('module', 'webform')."/includes/webform.submissions.inc"); ?>
+          <?php //if (function_exists('webform_get_submission_count')) : ?>
+					<?php include_once(drupal_get_path('module', 'webform') . '/includes/webform.submissions.inc'); ?>
 					<li>
 						<div class="field field-name-field-submission field-type-serial field-label-inline clearfix">
 							<div class="field-label"><?php print t('Number of responses:'); ?></div>
@@ -187,7 +163,7 @@
 							</div>
 						</div>
 					</li>
-					<?php endif; ?>
+					<?php //endif; ?>
 
           <?php if (isset($field_has_salary[0]['value']) && $field_has_salary[0]['value'] == 1) : ?>
           <li><?php print render($content['field_has_salary']); ?></li>
@@ -214,7 +190,7 @@
 		</div>
 		<?php endif; ?>
 
-		<?php print render($content['links']); ?>
+		<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeLinks.tpl.php'; ?>
 
 		<?php // print render($content['comments']); ?>
 
