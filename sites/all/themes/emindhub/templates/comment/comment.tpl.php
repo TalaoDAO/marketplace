@@ -61,16 +61,29 @@
 
 // echo '<pre>' . print_r($comment, TRUE) . '</pre>';
 // echo '<pre>' . print_r($content->field_private_comment_body, TRUE) . '</pre>';
-
+global $base_url;
+$comment_author = user_load($comment->uid);
+$first_name = field_get_items('user', $comment_author, 'field_first_name');
+$last_name = field_get_items('user', $comment_author, 'field_last_name');
+$profile_url = drupal_get_path_alias('user/' . $comment->uid);
+$flag = flag_get_flag('my_contacts');
 ?>
 <div class="<?php print $classes; ?> clearfix container"<?php print $attributes; ?>>
 
   <div class="row">
 
     <div class="col-sm-12 author">
-      <?php //print $picture; ?>
-      <?php //print emindhub_beautiful_user_name( 'comment', TRUE ); ?>
-      <?php print $author; ?> - <span class="submitted"><?php print $created; ?></span>
+
+      <?php if ( emh_points_user_can_see_full_user( $user->uid, $comment->uid ) == TRUE || ($flag && $flag->is_flagged($comment->uid, $GLOBALS['user']->uid)) ) : ?>
+      <a href="<?php print $base_url . '/' . $profile_url; ?>">
+      <?php endif; ?>
+        <?php //print $author; ?>
+        <?php //print $picture; ?>
+        <span class="author-firstname"><?php print render($first_name[0]['value']); ?></span>&nbsp;<span class="author-lastname"><?php print render($last_name[0]['value']); ?></span>
+      <?php if ( emh_points_user_can_see_full_user( $user->uid, $comment->uid ) == TRUE || ($flag && $flag->is_flagged($comment->uid, $GLOBALS['user']->uid)) ) : ?>
+      </a>
+      <?php endif; ?>
+      &nbsp;-&nbsp;<span class="submitted"><?php print $created; ?></span>
     </div>
 
     <div class="content col-sm-12"<?php print $content_attributes; ?>>

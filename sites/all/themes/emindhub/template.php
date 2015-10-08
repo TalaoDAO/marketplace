@@ -178,7 +178,7 @@ function emindhub_beautiful_user_name( $object, $link = FALSE ) {
       break;
   }
 
-
+  $output = '';
 
   $firstName = '';
   if (isset($account->field_first_name[LANGUAGE_NONE]) && $account->field_first_name[LANGUAGE_NONE]) {
@@ -313,46 +313,6 @@ function emindhub_preprocess_field(&$vars) {
 }
 
 
-function emindhub_show_user_name( $node ) {
-
-  $account = user_load($node->uid);
-
-  $visibility = FALSE;
-
-  // Check node options
-  // 0|Use profile settings
-  // 1|Display my full name
-  // 2|Hide my full name
-  if ( $field_anonymous[LANGUAGE_NONE][0]['value'] == 1 ) $visibility = TRUE;
-
-  // Check user profile options
-  if ( $field_anonymous[LANGUAGE_NONE][0]['value'] == 0 && $account->field_name_visibility[LANGUAGE_NONE][0]['value'] == 1 ) $visibility = TRUE;
-
-  return $visibility;
-
-}
-
-
-function emindhub_show_user_company( $node ) {
-
-  $account = user_load($node->uid);
-
-  $visibility = FALSE;
-
-  // Check node options
-  // 0|Use profile settings
-  // 1|Display the name
-  // 2|Hide the name
-  if ( $field_show_entreprise[LANGUAGE_NONE][0]['value'] == 1 ) $visibility = TRUE;
-
-  // Check user profile options
-  if ( $field_show_entreprise[LANGUAGE_NONE][0]['value'] == 0 && $account->field_entreprise_visibility[LANGUAGE_NONE][0]['value'] == 1 ) $visibility = TRUE;
-
-  return $visibility;
-
-}
-
-
 // TODO
 // function emindhub_preprocess_user_picture(&$variables) {
 //   global $user;
@@ -407,7 +367,7 @@ function emindhub_author_has_picture( $node ) {
 
   $account = user_load($node->uid);
 
-  if ( $account->field_photo[LANGUAGE_NONE][0] ) return TRUE;
+  if ( field_get_items('user', $account, 'field_first_name') ) return TRUE;
 
 }
 
@@ -415,11 +375,12 @@ function emindhub_author_has_picture( $node ) {
 function emindhub_beautiful_author_picture( $node, $class ) {
 
   $account = user_load($node->uid);
+  $photo_uri = field_get_items('user', $account, 'field_photo');
 
   $photo = '';
 
   if ( emindhub_author_has_picture( $node ) == TRUE ) {
-    $photo = image_style_url('thumbnail', $account->field_photo[LANGUAGE_NONE][0]['uri']);
+    $photo = image_style_url('thumbnail', $photo_uri[0]['uri']);
     $photo = '<img src="' . $photo . '" class="' . $class . '" />';
   } else {
     $photo = '<div class="user-badge '. $class . '"></div>';
