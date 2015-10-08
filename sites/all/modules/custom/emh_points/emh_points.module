@@ -112,6 +112,42 @@ function emh_points_cron() {
 }
 
 /**
+ * Implements hook_node_delete().
+ */
+function emh_points_node_delete($node) {
+  emh_points_entity_points_delete($node->nid, 'node');
+}
+
+/**
+ * Implements hook_user_delete().
+ */
+function emh_points_user_delete($user) {
+  emh_points_entity_points_delete($user->uid, 'user');
+}
+
+/**
+ * Helper callback for points deletion.
+ */
+function emh_points_entity_points_delete($id, $type) {
+  db_delete('emh_points')
+    ->condition('entity_id', $id)
+    ->condition('entity_type', $type)
+    ->execute();
+  db_delete('emh_points_total')
+    ->condition('entity_id', $id)
+    ->condition('entity_type', $type)
+    ->execute();
+  db_delete('emh_points_txn')
+    ->condition('source_id', $id)
+    ->condition('source_type', $type)
+    ->execute();
+  db_delete('emh_points_txn')
+    ->condition('dest_id', $id)
+    ->condition('dest_type', $type)
+    ->execute();
+}
+
+/**
  * Add points to an entity.
  */
 function emh_points_add_points($entity, $points) {
