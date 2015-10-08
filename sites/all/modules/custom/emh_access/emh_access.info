@@ -1,0 +1,5 @@
+name = eMindHub Access
+package = EMH
+dependencies[] = emh_points
+core = 7.x
+project = emh_access
