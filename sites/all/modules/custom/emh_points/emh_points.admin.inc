@@ -61,7 +61,6 @@ function emh_points_manage_users_form() {
     '#title' => t('Select user'),
     '#type' => 'select',
     '#options' => $options,
-    '#chosen' => FALSE,
   );
   $form['points'] = array(
     '#title' => t('Points'),
