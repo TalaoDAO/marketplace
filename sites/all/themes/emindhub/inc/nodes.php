@@ -1,0 +1,77 @@
+<?php
+
+function emindhub_preprocess_node(&$variables, $hook) {
+	if (isset($variables['node']->type)) {
+		$function = __FUNCTION__ . '__' . $variables['node']->type;
+		if (function_exists($function)) {
+			$function($variables, $hook);
+		}
+	}
+}
+
+
+function emindhub_preprocess_node__challenge(&$variables) {
+	node_informations_add($variables);
+}
+
+function emindhub_preprocess_node__question(&$variables) {
+	node_informations_add($variables);
+}
+
+function emindhub_preprocess_node__question1(&$variables) {
+	node_informations_add($variables);
+}
+
+
+function emindhub_preprocess_node__webform(&$variables) {
+	node_informations_add($variables);
+}
+
+
+function node_informations_add(&$variables) {
+	$variables['company_name'] = '';
+	$variables['company_description'] = '';
+	$variables['user_name'] = '';
+
+  $variables['links'] = $elements['links'];
+
+	if (isset($variables['elements']['body'])) {
+		$user = user_load_by_name($variables['elements']['body']['#object']->name);
+		$account = user_load($user->uid);
+
+		if ($account) {
+			$firstName = '';
+			if (isset($account->field_first_name[LANGUAGE_NONE]) && $account->field_first_name[LANGUAGE_NONE]) {
+				$firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
+			}
+			$lastName = '';
+			if (isset($account->field_last_name[LANGUAGE_NONE]) && $account->field_last_name[LANGUAGE_NONE]) {
+				$lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
+			}
+			$variables['user_name'] = $lastName . ' ' . $firstName;
+
+			if ($account->field_entreprise) {
+				$targetId = $account->field_entreprise[LANGUAGE_NONE][0]['target_id'];
+				$entity = node_load($targetId);
+        // echo '<pre>' . print_r($entity, TRUE) . '</pre>'; die;
+				if ($entity) {
+					$variables['company_name'] = $entity->title;
+					if ($entity->body)
+						$variables['company_description'] = $entity->body[LANGUAGE_NONE][0]['value'];
+				}
+			}
+		}
+	}
+}
+
+
+function emindhub_node_view_alter( &$build ) {
+
+  // if ($build['#view_mode'] == 'teaser') {
+    // remove "add comment" link from node teaser mode display
+    unset($build['links']['comment']['#links']['comment-add']);
+    // and if logged out this will cause another list item to appear, so let's get rid of that
+    unset($build['links']['comment']['#links']['comment_forbidden']);
+  // }
+
+}

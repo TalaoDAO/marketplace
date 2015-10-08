@@ -87,19 +87,11 @@
 ?>
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-	<?php print $user_picture; ?>
-
 	<?php print render($title_prefix); ?>
 	<?php if (!$page): ?>
 		<h2<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h2>
 	<?php endif; ?>
 	<?php print render($title_suffix); ?>
-
-	<?php if ($display_submitted): ?>
-		<div class="submitted">
-			<?php print $submitted; ?>
-		</div>
-	<?php endif; ?>
 
 	<div class="content"<?php print $content_attributes; ?>>
 
@@ -130,14 +122,15 @@
 		<?php } ?>
 
 		<div class="row section">
-			<div class="col-sm-12">
-				<?php print render($content['body']); ?>
+
+			<?php if ( emindhub_show_user_name( $node ) == TRUE || emindhub_show_user_company( $node ) == TRUE ) : ?>
+			<div class="col-sm-3">
+				<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/userInformations.tpl.php'; ?>
 			</div>
-		</div>
+			<?php endif; ?>
 
-		<div class="row section">
-
-      <div class="col-sm-6">
+			<?php if ( isset($content['field_domaine']) || isset($content['field_tags']) ) : ?>
+      <div class="col-sm-3">
 
 				<div class="row">
 			    <div class="col-sm-12">
@@ -147,8 +140,9 @@
 				</div>
 
       </div>
+			<?php endif; ?>
 
-      <div class="col-sm-6 meta">
+			<div class="col-sm-3 meta">
 
 				<ul>
 
@@ -192,65 +186,33 @@
 
       </div>
 
+			<?php if (isset($content['field_image'])) : ?>
+			<?php // TODO : add default image ?>
+			<div class="col-sm-3 text-right">
+				<?php print render($content['field_image']); ?>
+			</div>
+			<?php endif; ?>
+
 	  </div>
 
-		<?php
-		if (
-		  (isset($field_anonymous[0]['value']) && $field_anonymous[0]['value'] == 1) ||
-		  (isset($field_show_entreprise[0]['value']) && $field_show_entreprise[0]['value'] == 1) ||
-		  (isset($field_use_my_entreprise[0]['value']) && $field_use_my_entreprise[0]['value'] == 1)
-		) : ?>
-
-		<div class="row section ">
-			<h3><span><?php print t('Submitted by:'); ?></span></h3>
+		<?php if (isset($body[0]['value'])) : ?>
+		<div class="row section">
 			<div class="col-sm-12">
-				<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/userInformations.tpl.php'; ?>
+				<?php print $body[0]['value']; ?>
 			</div>
 		</div>
 		<?php endif; ?>
 
-	  <div class="row section">
+		<?php print render($content['links']); ?>
 
-			<div class="col-sm-12">
-
-		    <?php print $elements['links']['flag']['#links']['flag-my_selection']['title']; ?>
-
-				<?php if (node_access('update', $node)) : ?>
-	      <?php print l(t('Edit'),'node/'.$node->nid.'/edit', array('attributes' => array('class' => array('btn','btn-primary','btn-expert'))) ); ?>
-				<?php endif; ?>
-
-				<?php
-				$linkAddComment = $elements['links']['comment']['#links']['comment-add'];
-		    if ($linkAddComment) { ?>
-		    <?php print l($linkAddComment['title'], $linkAddComment['href'], array('attributes' => array('class' => array('btn', 'btn-primary', 'btn-expert')))); ?>
-		    <?php } ?>
-
-			</div>
-
-		</div>
-
-		<div class="row section emh-fieldgroup-blue-title">
-
-			<?php if (!user_has_role(5)): ?>
-		  <h2 class="h3"><span><?php echo t('Answer a question'); ?></span></h2>
-		  <?php endif; ?>
-
-			<?php // TODO : add comment form ?>
-
-			<?php print render($content['comments']); ?>
-
-		</div>
+		<?php print render($content['comments']); ?>
 
 		<?php
 			// We hide the comments and links now so that we can render them later.
-			hide($content['comments']);
-			hide($content['links']);
+			// hide($content['comments']);
+			// hide($content['links']);
 			//print render($content);
 		?>
 	</div>
-
-	<?php //print render($content['links']); // FLAG ?>
-
-
 
 </div>

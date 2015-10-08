@@ -94,30 +94,12 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'background',
-    'weight' => '0',
-    'children' => array(
-      0 => 'body',
-      1 => 'field_domaine',
-      2 => 'field_expiration_date',
-      3 => 'field_picto',
-      4 => 'field_tags',
-      5 => 'og_group_ref',
-      6 => 'field_reward',
-      7 => 'group_title',
-    ),
-    'format_type' => 'div',
+    'weight' => '10',
+    'children' => array(),
+    'format_type' => 'hidden',
     'format_settings' => array(
-      'label' => 'background',
-      'instance_settings' => array(
-        'id' => '',
-        'classes' => 'group-background field-group-div',
-        'description' => '',
-        'show_label' => '0',
-        'label_element' => 'h3',
-        'effect' => 'none',
-        'speed' => 'fast',
-      ),
-      'formatter' => 'open',
+      'formatter' => '',
+      'instance_settings' => array(),
     ),
   );
   $export['group_background|node|question1|default'] = $field_group;
@@ -1900,23 +1882,15 @@ function ft_content_type_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'question1';
   $field_group->mode = 'default';
-  $field_group->parent_name = 'group_background';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'title',
-    'weight' => '8',
+    'weight' => '11',
     'children' => array(),
-    'format_type' => 'div',
+    'format_type' => 'hidden',
     'format_settings' => array(
-      'formatter' => 'collapsible',
-      'instance_settings' => array(
-        'description' => '',
-        'show_label' => 1,
-        'label_element' => 'h3',
-        'effect' => 'none',
-        'speed' => 'fast',
-        'classes' => 'group-title field-group-div',
-        'id' => '',
-      ),
+      'formatter' => '',
+      'instance_settings' => array(),
     ),
   );
   $export['group_title|node|question1|default'] = $field_group;
