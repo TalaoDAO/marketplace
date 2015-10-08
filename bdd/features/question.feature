@@ -48,6 +48,6 @@ Feature: Create question and answers
     When I go to "content/my-responses"
     #Then I break
     Then I should see "expert1"
-    #And I should see "(no subject)" in the "expert1" row
+    And I should see "(No subject)" in the "expert1" row
     And I should see "All experts" in the "expert1" row
 
