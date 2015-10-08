@@ -64,16 +64,24 @@ hr {
 .navbar-emh-separator {
 	@media (min-width: @screen-sm-min) {
 		> li {
-			&:after {
+			&:before {
 				content: "|";
 				display: inline-block;
 				color: @darkerBlue;
 			}
-			&:last-child {
-					&:after {
-						content: "";
-					}
-
+			&:first-child {
+				&:before {
+					content: "";
+				}
+			}
+			// User points
+			&:nth-child(2) {
+				&:before {
+					content: "";
+				}
+				> a {
+					padding-left: 0;
+				}
 			}
 			> a {
 				display: inline-block; // For correct separator position

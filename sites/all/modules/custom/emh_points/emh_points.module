@@ -748,7 +748,9 @@ function emh_points_get_user_points($account) {
     global $user;
     $account = user_load($user->uid);
   }
-  return '<span class="badge">' . $account->emh_points . '&nbsp;' . t('points') . '</span>';
+  $text = t('point');
+  if ($account->emh_points > 0) $text = t('points');
+  return '<span class="badge">' . $account->emh_points . '&nbsp;' . $text . '</span>';
 }
 
 /**

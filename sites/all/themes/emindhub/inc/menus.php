@@ -11,7 +11,11 @@ function emindhub_preprocess_menu_link(&$vars) {
   // Reference the menu item
   $element = &$vars['element'];
 
+  // echo '<pre>' . print_r($element, TRUE) . '</pre>';
+
   switch ($element['#href']) {
+
+    // User menu > Account
     case 'user':
       global $user;
       $account = user_load($user->uid);
@@ -27,6 +31,12 @@ function emindhub_preprocess_menu_link(&$vars) {
       $element['#title'] = $name;
       $element['#localized_options']['html'] = 1;
       break;
+
+    // User menu > Points
+    case 'points':
+      $element['#localized_options']['html'] = 1;
+      break;
+
   }
 
 }

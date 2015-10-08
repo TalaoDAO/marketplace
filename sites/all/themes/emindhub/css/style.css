@@ -10641,13 +10641,19 @@ hr {
   text-decoration: none;
 }
 @media (min-width: 767px) {
-  .navbar-emh-separator > li:after {
+  .navbar-emh-separator > li:before {
     content: "|";
     display: inline-block;
     color: #4c6172;
   }
-  .navbar-emh-separator > li:last-child:after {
+  .navbar-emh-separator > li:first-child:before {
     content: "";
+  }
+  .navbar-emh-separator > li:nth-child(2):before {
+    content: "";
+  }
+  .navbar-emh-separator > li:nth-child(2) > a {
+    padding-left: 0;
   }
   .navbar-emh-separator > li > a {
     display: inline-block;
