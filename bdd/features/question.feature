@@ -38,16 +38,16 @@ Feature: Create question and answers
     When I go to homepage
     Then I should see "What about ?"
     When I click "What about ?" in the "What about ?" row
-    Then I should see "ANSWER A QUESTION"
-    Given I enter "Ma réponse" for "Subject"
-    And I enter "Je suis un expert" for "Public response"
+    Then I should see "Answer the question"
+    #Given I enter "Ma réponse" for "Subject"
+    Given I enter "Je suis un expert" for "Public response"
     And I press "Publish"
-    Then I should see "Ma réponse"
-    And I should see "Permalink Submitted by expert1"
+    #Then I should see "Ma réponse"
+    And I should see "expert1"
     Given I am logged in as "client1"
     When I go to "content/my-responses"
     #Then I break
     Then I should see "expert1"
-    And I should see "Ma réponse" in the "expert1" row
+    #And I should see "(no subject)" in the "expert1" row
     And I should see "All experts" in the "expert1" row
 
