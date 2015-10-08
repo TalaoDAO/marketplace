@@ -369,19 +369,22 @@ function emh_points_views_data() {
   );
   // Double join on TXN.
   $data['emh_points_txn_source'] = $data['emh_points_txn'];
+  $data['emh_points_txn_source']['table']['group'] = t('Points Transaction (source)');
   $data['emh_points_txn_source']['table']['join']['users']['field'] = 'source_id';
   $data['emh_points_txn_source']['table']['join']['users']['extra'][0]['field'] = 'source_type';
   $data['emh_points_txn_source']['table']['join']['node']['field'] = 'source_id';
   $data['emh_points_txn_source']['table']['join']['node']['extra'][0]['field'] = 'source_type';
   unset($data['emh_points_txn_source']['source_type']);
   unset($data['emh_points_txn_source']['source_id']);
+  unset($data['emh_points_txn_source']['table']['base']);
   $data['emh_points_txn_dest'] = $data['emh_points_txn'];
+  $data['emh_points_txn_dest']['table']['group'] = t('Points Transaction (destination)');
   $data['emh_points_txn_dest']['table']['join']['users']['field'] = 'dest_id';
   $data['emh_points_txn_dest']['table']['join']['users']['extra'][0]['field'] = 'dest_type';
   $data['emh_points_txn_dest']['table']['join']['node']['field'] = 'dest_id';
   $data['emh_points_txn_dest']['table']['join']['node']['extra'][0]['field'] = 'dest_type';
   unset($data['emh_points_txn_dest']['dest_id']);
   unset($data['emh_points_txn_dest']['dest_type']);
-  unset($data['emh_points_txn']);
+  unset($data['emh_points_txn_dest']['table']['base']);
   return $data;
 }
