@@ -27,6 +27,7 @@ Feature: Create question and answers
     Then I enter "J'ai une idée" for "Public response"
     And I press "Publish"
 
+  @exclude
   Scenario: Manual arrange of points
     Then I should have 100 points on "What about ?" node
     Given I am logged in as "client1"
@@ -52,8 +53,11 @@ Feature: Create question and answers
 
     When I go to "homepage"
     And I click "What about ?" in the "What about ?" row
-    And I click "Choose winners"
-    Then I should see "Operations"
+    Then I should see "2 responses"
+    #Then I break
+    #Then I click "2 responses"
+    Then I click "Choose winners"
+    And I should see "Operations"
     #When I check  "views_bulk_operations[0]"
     #When I check the box 1
     When I check the box "edit-views-bulk-operations-0"

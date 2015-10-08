@@ -180,7 +180,7 @@
 		<?php endif; ?>
 
 		<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeLinks.tpl.php'; ?>
-
+                <a href="<?php print url('/node/'.$node->nid.'/answers');?>">Choose winners</a>
 		<?php print render($content['comments']); ?>
 
 		<?php
