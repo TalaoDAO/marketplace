@@ -404,7 +404,7 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
       break;
     case 'node':
       $node = node_load($id_source);
-      if (empty($node) || $user->uid != $node->uid) {
+      if (empty($node) || ($user->uid != 1 && $user->uid != $node->uid)) {
         drupal_access_denied();
         drupal_exit();
       }
@@ -414,6 +414,7 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
       drupal_exit();
       break;
   }
+  // @TODO : verify that users/nodes have enough points.
   $form = array();
   $dests = explode(',', $dests);
   $default_points = floor($points / count($dests));
@@ -504,7 +505,15 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
       emh_points_move_points($source, $dest, $value);
     }
   }
-  $form_state['redirect'] = '<front>';
+  switch($form_state['values']['type_source']) {
+    case 'node':
+      $form_state['redirect'] = 'node/' . $form_state['values']['id_source'];
+      break;
+    case 'user':
+    default:
+      $form_state['redirect'] = '<front>';
+      break;
+  }
 }
 
 /**
@@ -538,6 +547,22 @@ function emh_points_action_info() {
     'type' => 'entity',
     'label' => t('Arrange some of my points to these entities'),
     'configurable' => TRUE,
+    'triggers' => array(),
+    'permissions' => array('use points'),
+    'aggregate' => TRUE,
+  );
+  $actions['emh_points_arrange_group_points'] = array(
+    'type' => 'user',
+    'label' => t('Arrange group points to these entities'),
+    'configurable' => TRUE,
+    'triggers' => array(),
+    'permissions' => array('use points'),
+    'aggregate' => TRUE,
+  );
+  $actions['emh_points_arrange_node_points'] = array(
+    'type' => 'user',
+    'label' => t('Arrange node points to these entities'),
+    'configurable' => FALSE,
     'triggers' => array(),
     'permissions' => array('use points'),
     'aggregate' => TRUE,
@@ -626,6 +651,38 @@ function emh_points_arrange_points(&$entities, $context) {
   $output = substr($output, 0, -1);
   global $user;
   drupal_goto('arrange/' . $points . '/user/' . $user->uid . '/' . $type  . '/' . $output);
+}
+
+/**
+ * Arrange group points between users.
+ */
+function emh_points_arrange_group_points(&$entities, $context) {
+  $points = $context['points'];
+  $group = arg(1);
+  $output = '';
+  $type = 'user';
+  foreach($entities as $id => $entity) {
+    $output .= $id;
+    $output .= ',';
+  }
+  $output = substr($output, 0, -1);
+  drupal_goto('arrange/' . $points . '/node/' . $group . '/' . $type  . '/' . $output);
+}
+
+/**
+ * Arrange node points between users.
+ */
+function emh_points_arrange_node_points(&$entities, $context) {
+  $node = arg(1);
+  $node = node_load($node);
+  $output = '';
+  $type = 'user';
+  foreach($entities as $id => $entity) {
+    $output .= $id;
+    $output .= ',';
+  }
+  $output = substr($output, 0, -1);
+  drupal_goto('arrange/' . $node->emh_points . '/node/' . $node->nid . '/' . $type  . '/' . $output);
 }
 
 //
@@ -735,6 +792,44 @@ function emh_points_arrange_points_form($settings, &$form_state) {
  * Submit callback for the form above.
  */
 function emh_points_arrange_points_submit($form, &$form_state) {
+  $return = array();
+  $return['points'] = $form_state['values']['points'];
+  return $return;
+}
+
+/**
+ * Configuration for arranging points.
+ */
+function emh_points_arrange_group_points_form($settings, &$form_state) {
+  $group = arg(1);
+  $group = node_load($group);
+  $form = array();
+  $form['points'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Points'),
+    '#required' => TRUE,
+    '#default_value' => $group->emh_points,
+    '#element_validate' => array('element_validate_integer_positive', 'emh_points_validate_group_points'),
+  );
+  return $form;
+}
+
+/**
+ * Validate callback for the form above.
+ */
+function emh_points_validate_group_points($element, &$form_state, $form) {
+  $points = $element['#value'];
+  $group = arg(1);
+  $group = node_load($group);
+  if ((int)$points > (int)$group->emh_points) {
+    form_error($element, t('You don\'t have enough points (@points).', array('@points' => $group->emh_points)));
+  }
+}
+
+/**
+ * Submit callback for the form above.
+ */
+function emh_points_arrange_group_points_submit($form, &$form_state) {
   $return = array();
   $return['points'] = $form_state['values']['points'];
   return $return;
