@@ -436,8 +436,8 @@ function emindhub_preprocess_select_as_checkboxes(&$variables) {
 
 function emindhub_form_comment_form_alter(&$form, &$form_state, $form_id) {
 
-  // $form['author']['#access'] = 0;
-  // $form['subject']['#access'] = 0;
+  $form['author']['#access'] = 0;
+  $form['subject']['#access'] = 0;
 
   // echo '<pre>' . print_r($form, TRUE) . '</pre>';
 

@@ -80,8 +80,6 @@
  * @ingroup themeable
  */
 
- // echo '<pre>' . print_r($node->body, TRUE) . '</pre>'; die;
-
  // Show $node field, with display parameters
  // print render($content['field_duration_of_the_mission']);
  // Show $node field, with custom display parameters
@@ -89,19 +87,11 @@
 ?>
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-	<?php print $user_picture; ?>
-
 	<?php print render($title_prefix); ?>
 	<?php if (!$page): ?>
 		<h2<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h2>
 	<?php endif; ?>
 	<?php print render($title_suffix); ?>
-
-	<?php if ($display_submitted): ?>
-		<div class="submitted">
-			<?php print $submitted; ?>
-		</div>
-	<?php endif; ?>
 
 	<div class="content"<?php print $content_attributes; ?>>
 
@@ -133,14 +123,14 @@
 
 		<div class="row section">
 
-			<?php if ( emindhub_show_user_name() == TRUE || emindhub_show_user_company() == TRUE ) : ?>
-			<div class="col-sm-4">
+			<?php if ( emindhub_show_user_name( $node ) == TRUE || emindhub_show_user_company( $node ) == TRUE ) : ?>
+			<div class="col-sm-3">
 				<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/userInformations.tpl.php'; ?>
 			</div>
 			<?php endif; ?>
 
 			<?php if ( isset($content['field_domaine']) || isset($content['field_tags']) ) : ?>
-      <div class="col-sm-4">
+      <div class="col-sm-3">
 
 				<div class="row">
 			    <div class="col-sm-12">
@@ -152,7 +142,7 @@
       </div>
 			<?php endif; ?>
 
-			<div class="col-sm-4 meta">
+			<div class="col-sm-3 meta">
 
 				<ul>
 
@@ -196,6 +186,13 @@
 
       </div>
 
+			<?php if (isset($content['field_image'])) : ?>
+			<?php // TODO : add default image ?>
+			<div class="col-sm-3 text-right">
+				<?php print render($content['field_image']); ?>
+			</div>
+			<?php endif; ?>
+
 	  </div>
 
 		<?php if (isset($body[0]['value'])) : ?>
@@ -206,7 +203,7 @@
 		</div>
 		<?php endif; ?>
 
-		<?php print render($content['links']); // FLAG ?>
+		<?php print render($content['links']); ?>
 
 		<?php print render($content['comments']); ?>
 

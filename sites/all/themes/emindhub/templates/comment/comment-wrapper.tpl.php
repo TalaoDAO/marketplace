@@ -39,7 +39,7 @@
 <div id="comments" class="<?php print $classes; ?> row section emh-fieldgroup-blue-title"<?php print $attributes; ?>>
   <?php if ($content['comments'] && $node->type != 'forum'): ?>
     <?php print render($title_prefix); ?>
-    <h2 class="h3"><span><?php print t('Comments'); ?></span></h2>
+    <h2 class="h3"><span><?php print emindhub_beautiful_comment_list_text( $node ); ?></span></h2>
     <?php print render($title_suffix); ?>
   <?php endif; ?>
 

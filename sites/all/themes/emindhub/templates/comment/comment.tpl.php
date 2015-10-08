@@ -60,32 +60,31 @@
  */
 
 // echo '<pre>' . print_r($comment, TRUE) . '</pre>';
+// echo '<pre>' . print_r($content->field_private_comment_body, TRUE) . '</pre>';
 
 ?>
-<div class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
-  <?php print $picture ?>
+<div class="<?php print $classes; ?> clearfix container"<?php print $attributes; ?>>
 
-  <?php if ($new): ?>
-    <span class="new"><?php print $new ?></span>
-  <?php endif; ?>
+  <div class="row">
 
-  <div class="submitted">
-    <?php print $permalink; ?>
-    <?php print $submitted; ?>
-  </div>
-
-  <div class="content"<?php print $content_attributes; ?>>
-    <?php
-      // We hide the comments and links now so that we can render them later.
-      hide($content['links']);
-      print render($content);
-    ?>
-    <?php if ($signature): ?>
-    <div class="user-signature clearfix">
-      <?php print $signature ?>
+    <div class="col-sm-12 author">
+      <?php //print $picture; ?>
+      <?php //print emindhub_beautiful_user_name( 'comment', TRUE ); ?>
+      <?php print $author; ?> - <span class="submitted"><?php print $created; ?></span>
     </div>
-    <?php endif; ?>
+
+    <div class="content col-sm-12"<?php print $content_attributes; ?>>
+      <?php
+        // We hide the comments and links now so that we can render them later.
+        hide($content['links']);
+        print render($content);
+      ?>
+    </div>
+
+    <div class="col-sm-12">
+      <?php print render($content['links']) ?>
+    </div>
+
   </div>
 
-  <?php print render($content['links']) ?>
 </div>

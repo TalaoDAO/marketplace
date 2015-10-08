@@ -212,6 +212,17 @@ table.views-table {
 }
 .table-striped {
 	> tbody > tr:nth-of-type(even) {
+		background-color: @gray-very-lighter;
+	}
+}
+
+// Forcer le odd/even sur les listes de commentaires
+#comments {
+	> div.comment {
+		padding-top: 10px;
+		border-top: 1px solid #DDD;
+	}
+	> div.comment:nth-of-type(even) {
 		background-color: #fff;
 	}
 }
@@ -439,4 +450,23 @@ div.password-confirm {
 .hybridauth-widget-wrapper ul.hybridauth-widget li a {
   // padding: 0;
   // margin: 0;
+}
+
+
+// Links
+.list-inline > li {
+	> a {
+		.btn;
+		.btn-default;
+	}
+
+	&.comment-delete {
+		> a {
+			.btn-danger;
+		}
+	}
+
+	a.flag {
+		.btn-submit;
+	}
 }

@@ -49,7 +49,7 @@
 
   <?php print render($title_prefix); ?>
   <?php //if ($title): ?>
-    <h1<?php print $title_attributes; ?>><?php print emindhub_welcome_message(); ?></h1>
+    <h1<?php print $title_attributes; ?>><?php print emindhub_beautiful_welcome_message(); ?></h1>
   <?php //endif;?>
   <?php print render($title_suffix); ?>
 

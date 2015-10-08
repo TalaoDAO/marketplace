@@ -52,7 +52,7 @@
     <?php foreach ($items as $delta => $item): ?>
       <div class="field-item h3 <?php print $delta % 2 ? 'odd' : 'even'; ?>"<?php print $item_attributes[$delta]; ?>>
         <?php //print render($item); ?>
-        <?php print emindhub_beautiful_user_name(); ?>
+        <?php print emindhub_beautiful_user_name( 'user', FALSE ); ?>
     </div>
     <?php endforeach; ?>
   </div>
