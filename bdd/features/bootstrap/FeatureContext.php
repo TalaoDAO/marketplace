@@ -88,6 +88,22 @@ class FeatureContext extends DrupalContext {
     emh_points_give_points($user, $context);
   }
 
+   /**
+   * @Then I should have :points points on :node node
+   */
+  public function assertNodePoints($points, $title) {
+    $node = NULL;
+    foreach ($this->nodes as $snode) {
+      if ($snode->title == $title) $node=$snode;
+    }
+    if (!isset($node)) {
+      throw new \Exception(sprintf('No node with %s title is registered with the driver.', $title));
+    }
+    $dnode = node_load($node->nid);
+    if (!  ($dnode->emh_points == (int) $points) ) {
+      throw new \Exception(sprintf('The node with %s title should have %s points instead of %s.', $title, $points, $dnode->emh_points));
+    }
+  }
 
 }
 
