@@ -92,17 +92,57 @@ class FeatureContext extends DrupalContext {
    * @Then I should have :points points on :node node
    */
   public function assertNodePoints($points, $title) {
-    $node = NULL;
+    $fnode = NULL;
     foreach ($this->nodes as $snode) {
-      if ($snode->title == $title) $node=$snode;
+      if ($snode->title == $title) $fnode=$snode;
     }
-    if (!isset($node)) {
+    if (!isset($fnode)) {
       throw new \Exception(sprintf('No node with %s title is registered with the driver.', $title));
     }
-    $dnode = node_load($node->nid);
-    if (!  ($dnode->emh_points == (int) $points) ) {
-      throw new \Exception(sprintf('The node with %s title should have %s points instead of %s.', $title, $points, $dnode->emh_points));
+    $node = node_load($fnode->nid);
+    if (!  ($node->emh_points == (int) $points) ) {
+      throw new \Exception(sprintf('The node with %s title should have %s points instead of %s.', $title, $points, $node->emh_points));
     }
+  }
+
+   /**
+   * @Then user :name transfers :points points on :title node
+   */
+  public function userTransfertNodePoints($name, $points, $title) {
+    $fnode = NULL;
+    foreach ($this->nodes as $snode) {
+      if ($snode->title == $title) $fnode=$snode;
+    }
+    if (!isset($fnode)) {
+      throw new \Exception(sprintf('No node with %s title is registered with the driver.', $title));
+    }
+    $node = node_load($fnode->nid);
+
+    if (!isset($this->users[$name])) {
+      throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
+    }
+    $user = user_load($this->users[$name]->uid);
+    emh_points_move_points($user, $node, (int) $points);
+  }
+
+   /**
+   * @Then node :title transfers :points points on :name user
+   */
+  public function nodeTransfertUserPoints($title, $points, $name) {
+    $fnode = NULL;
+    foreach ($this->nodes as $snode) {
+      if ($snode->title == $title) $fnode=$snode;
+    }
+    if (!isset($fnode)) {
+      throw new \Exception(sprintf('No node with %s title is registered with the driver.', $title));
+    }
+    $node = node_load($fnode->nid);
+    
+    if (!isset($this->users[$name])) {
+      throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
+    } 
+    $user = user_load($this->users[$name]->uid);
+    emh_points_move_points($node, $user, (int) $points);
   }
 
 }

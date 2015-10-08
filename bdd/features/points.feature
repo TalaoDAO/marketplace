@@ -21,17 +21,21 @@ Feature: Create question and answers
     Given I am logged in as "expert1"
     When I go to homepage
     When I click "What about ?" in the "What about ?" row
-    Given I enter "Ma réponse" for "Subject"
-    And I enter "Je suis un expert" for "Public response"
+    Then I enter "Je suis un expert" for "Public response"
     And I press "Publish"
 
     Given I am logged in as "expert2"
     When I go to homepage
     When I click "What about ?" in the "What about ?" row
-    Given I enter "Je réponds" for "Subject"
-    And I enter "J'ai une idée" for "Public response"
+    Then I enter "J'ai une idée" for "Public response"
     And I press "Publish"
 
     Given I am logged in as "client1"
     When I go to "content/my-responses"
-    
+    Then I should see "expert1"
+    And I should see "expert2"
+    Then node "What about ?" transfers 50 points on "expert1" user
+    Then node "What about ?" transfers 50 points on "expert2" user
+
+
+    Then I break
