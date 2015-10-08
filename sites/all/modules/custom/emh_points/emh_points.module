@@ -552,9 +552,17 @@ function emh_points_action_info() {
     'aggregate' => TRUE,
   );
   $actions['emh_points_arrange_group_points'] = array(
-    'type' => 'entity',
+    'type' => 'user',
     'label' => t('Arrange group points to these entities'),
     'configurable' => TRUE,
+    'triggers' => array(),
+    'permissions' => array('use points'),
+    'aggregate' => TRUE,
+  );
+  $actions['emh_points_arrange_node_points'] = array(
+    'type' => 'user',
+    'label' => t('Arrange node points to these entities'),
+    'configurable' => FALSE,
     'triggers' => array(),
     'permissions' => array('use points'),
     'aggregate' => TRUE,
@@ -659,6 +667,22 @@ function emh_points_arrange_group_points(&$entities, $context) {
   }
   $output = substr($output, 0, -1);
   drupal_goto('arrange/' . $points . '/node/' . $group . '/' . $type  . '/' . $output);
+}
+
+/**
+ * Arrange node points between users.
+ */
+function emh_points_arrange_node_points(&$entities, $context) {
+  $node = arg(1);
+  $node = node_load($node);
+  $output = '';
+  $type = 'user';
+  foreach($entities as $id => $entity) {
+    $output .= $id;
+    $output .= ',';
+  }
+  $output = substr($output, 0, -1);
+  drupal_goto('arrange/' . $node->emh_points . '/node/' . $node->nid . '/' . $type  . '/' . $output);
 }
 
 //
