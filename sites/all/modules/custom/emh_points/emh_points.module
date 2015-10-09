@@ -154,11 +154,11 @@ function emh_points_add_points($entity, $points) {
   // To add point, there are almost no functional checks.
   if (!is_numeric($points) || (int)$points <= 0) {
     drupal_set_message(t('You should only add a positive number of points.'));
-    return FALSE;
+    return;
   }
   if (empty($entity)) {
     drupal_set_message(t('You should only add points to a valid entity'));
-    return FALSE;
+    return;
   }
   // Add points.
   db_insert('emh_points')
@@ -199,6 +199,8 @@ function emh_points_add_points($entity, $points) {
     $account = user_load($entity->id);
     rules_invoke_event('emh_points_new_points', $points, $account);
   }
+  // Empty cache to reload the emh_points.
+  entity_get_controller($entity->type)->resetCache(array($entity->id));
 }
 
 /**
@@ -256,6 +258,8 @@ function emh_points_delete_points($entity, $points) {
     ->key(array('entity_id' => $entity->id, 'entity_type' => $entity->type))
     ->expression('total_points', 'total_points - :amount', array(':amount' => $points))
     ->execute();
+  // Empty cache to reload the emh_points.
+  entity_get_controller($entity->type)->resetCache(array($entity->id));
 }
 
 /**
@@ -587,8 +591,7 @@ function emh_points_give_points(&$entity, $context) {
   $emh_entity = emh_points_build_entity_for_points($entity);
   $points = $context['points'];
   $log = $context['log'];
-  $status = emh_points_add_points($emh_entity, $points);
-  if (!$status) return;
+  emh_points_add_points($emh_entity, $points);
   // Create transaction.
   global $user;
   db_insert('emh_points_txn')
@@ -599,8 +602,8 @@ function emh_points_give_points(&$entity, $context) {
       'description' => $log,
       'source_type' => 'user',
       'source_id' => 1,
-      'dest_type' => $entity->type,
-      'dest_id' => $entity->id,
+      'dest_type' => $emh_entity->type,
+      'dest_id' => $emh_entity->id,
       'operation' => POINTS_ADDITION,
     ))
     ->execute();
@@ -624,8 +627,8 @@ function emh_points_remove_points(&$entity, $context) {
       'description' => $log,
       'source_type' => 'user',
       'source_id' => 1,
-      'dest_type' => $entity->type,
-      'dest_id' => $entity->id,
+      'dest_type' => $emh_entity->type,
+      'dest_id' => $emh_entity->id,
       'operation' => POINTS_REMOVAL,
     ))
     ->execute();
