@@ -474,7 +474,7 @@ function emh_points_arrange_form_validate(&$form, &$form_state) {
     }
   }
   if ($points != $total) {
-    form_set_error(implode('][', $elements), t('You should assign all the points!'));
+    form_set_error(implode('][', $elements), t('You should assign all the @points points!', array('@points' => $points)));
   }
 }
 
