@@ -6,6 +6,62 @@
  */
 
 /**
+ * Implements hook_field_access.
+ */
+function emh_points_custom_field_access($op, $field, $entity_type, $entity, $account) {
+  if ($op == 'view' && $entity_type == 'user') {
+    if ($account->uid == $entity->uid) return TRUE;
+    switch($field['field_name']) {
+      // We can always access first, last names and photo.
+      case 'field_first_name':
+        return TRUE;
+        break;
+      case 'field_last_name':
+        return TRUE;
+        break;
+      case 'field_photo':
+        return TRUE;
+        break;
+      // For other fields, it depends of our relation with the user:
+      default:
+        return emh_points_user_can_see_full_user($account->uid, $entity->uid);
+        break;
+    }
+  } else {
+    return TRUE;
+  }
+}
+
+/*
+function emh_points_custom_menu() {
+  $items = array();
+  $items['test_access/%/%'] = array(
+    'title' => 'dont care',
+    'page callback'=> 'emh_points_custom_test_access',
+    'page arguments'=> array(1, 2),
+    'access callback' => TRUE,
+  );
+  return $items;
+}
+
+function emh_points_custom_test_access($uid, $uid2) {
+  global $user;
+  $original_user = $user;
+  $old_state = drupal_save_session();
+  drupal_save_session(FALSE);
+  $user = user_load($uid);
+
+  $test_user = user_load($uid2);
+  $output = user_view($test_user);
+
+  $user = $original_user;
+  drupal_save_session($old_state);
+
+  return $output;
+}
+ */
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function emh_points_custom_form_emh_points_admin_form_alter(&$form, &$form_state) {
