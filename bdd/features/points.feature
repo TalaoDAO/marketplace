@@ -27,7 +27,7 @@ Feature: Test points
     Then I enter "J'ai une idée" for "Public response"
     And I press "Publish"
 
-  @exclude
+  #@exclude
   Scenario: Manual arrange of points
     Then I should have 100 points on "What about ?" node
     Given I am logged in as "client1"
@@ -72,7 +72,7 @@ Feature: Test points
     And I press "Arrange points"
     Then I should see the success message "100 total points dispatched" 
     #Then I break
-    #Then I should have 0 points on "What about ?" node
+    Then I should have 0 points on "What about ?" node
     And I should have "60" points on "expert1" user
     And I should have "40" points on "expert2" user
 

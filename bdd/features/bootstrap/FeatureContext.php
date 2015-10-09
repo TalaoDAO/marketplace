@@ -113,6 +113,7 @@ class FeatureContext extends DrupalContext {
     if (!isset($fnode)) {
       throw new \Exception(sprintf('No node with %s title is registered with the driver.', $title));
     }
+    entity_get_controller('node')->resetCache(array($fnode->nid)); // temporary, should be cleaned by VBO
     $node = node_load($fnode->nid);
     if (!  ($node->emh_points == (int) $points) ) {
       throw new \Exception(sprintf('The node with "%s" title should have %s points instead of %s.', $title, $points, $node->emh_points));
