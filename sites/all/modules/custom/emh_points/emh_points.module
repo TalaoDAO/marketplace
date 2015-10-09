@@ -847,10 +847,10 @@ function emh_points_get_user_points($account) {
 }
 
 /**
- * TODO : Show current user points history.
+ * Show current user points history.
  */
 function emh_points_show_user_history() {
-  return '';
+  drupal_goto('history');
 }
 
 /**

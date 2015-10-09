@@ -72,7 +72,6 @@ function emh_points_views_default_views() {
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'user/%/history_source';
-  $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'History (source)';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
@@ -95,6 +94,7 @@ function emh_points_views_default_views() {
   $handler->display->display_options['fields']['points']['id'] = 'points';
   $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn_dest';
   $handler->display->display_options['fields']['points']['field'] = 'points';
+  $handler->display->display_options['fields']['points']['prefix'] = '+';
   /* Field: Points Transaction: Description of the transaction */
   $handler->display->display_options['fields']['description']['id'] = 'description';
   $handler->display->display_options['fields']['description']['table'] = 'emh_points_txn_dest';
@@ -106,8 +106,52 @@ function emh_points_views_default_views() {
   $handler->display->display_options['sorts']['time_stamp']['field'] = 'time_stamp';
   $handler->display->display_options['sorts']['time_stamp']['order'] = 'DESC';
   $handler->display->display_options['path'] = 'user/%/history_dest';
-  $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'History (destination)';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
+
+  /* Display: History */
+  $handler = $view->new_display('page', 'History', 'history');
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: View area */
+  $handler->display->display_options['footer']['view']['id'] = 'view';
+  $handler->display->display_options['footer']['view']['table'] = 'views';
+  $handler->display->display_options['footer']['view']['field'] = 'view';
+  $handler->display->display_options['footer']['view']['view_to_insert'] = 'points_history:page_1';
+  $handler->display->display_options['footer']['view']['inherit_arguments'] = TRUE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Points Transaction (source): Timestamp */
+  $handler->display->display_options['fields']['time_stamp']['id'] = 'time_stamp';
+  $handler->display->display_options['fields']['time_stamp']['table'] = 'emh_points_txn_source';
+  $handler->display->display_options['fields']['time_stamp']['field'] = 'time_stamp';
+  $handler->display->display_options['fields']['time_stamp']['date_format'] = 'short';
+  $handler->display->display_options['fields']['time_stamp']['second_date_format'] = 'privatemsg_current_day';
+  /* Field: Points Transaction (source): Operation */
+  $handler->display->display_options['fields']['operation']['id'] = 'operation';
+  $handler->display->display_options['fields']['operation']['table'] = 'emh_points_txn_source';
+  $handler->display->display_options['fields']['operation']['field'] = 'operation';
+  /* Field: Points Transaction (source): Points */
+  $handler->display->display_options['fields']['points']['id'] = 'points';
+  $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn_source';
+  $handler->display->display_options['fields']['points']['field'] = 'points';
+  $handler->display->display_options['fields']['points']['prefix'] = '-';
+  /* Field: Points Transaction (source): Description of the transaction */
+  $handler->display->display_options['fields']['description']['id'] = 'description';
+  $handler->display->display_options['fields']['description']['table'] = 'emh_points_txn_source';
+  $handler->display->display_options['fields']['description']['field'] = 'description';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: User: Uid */
+  $handler->display->display_options['arguments']['uid']['id'] = 'uid';
+  $handler->display->display_options['arguments']['uid']['table'] = 'users';
+  $handler->display->display_options['arguments']['uid']['field'] = 'uid';
+  $handler->display->display_options['arguments']['uid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'current_user';
+  $handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['path'] = 'history';
+  $handler->display->display_options['menu']['title'] = 'History';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
