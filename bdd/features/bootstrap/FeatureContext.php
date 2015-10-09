@@ -89,7 +89,21 @@ class FeatureContext extends DrupalContext {
   }
 
    /**
-   * @Then I should have :points points on :node node
+   * @Then I should have :points points on :name user
+   */
+  public function assertUserPoints($points, $name) {
+    if (!isset($this->users[$name])) {
+      throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
+    }
+    $user = user_load($this->users[$name]->uid);
+    if (!  ($user->emh_points == (int) $points) ) {
+      throw new \Exception(sprintf('The user with "%s" title should have %s points instead of %s.', $name, $points, $node->emh_points));
+    }
+  }
+
+
+   /**
+   * @Then I should have :points points on :title node
    */
   public function assertNodePoints($points, $title) {
     $fnode = NULL;
@@ -101,7 +115,7 @@ class FeatureContext extends DrupalContext {
     }
     $node = node_load($fnode->nid);
     if (!  ($node->emh_points == (int) $points) ) {
-      throw new \Exception(sprintf('The node with %s title should have %s points instead of %s.', $title, $points, $node->emh_points));
+      throw new \Exception(sprintf('The node with "%s" title should have %s points instead of %s.', $title, $points, $node->emh_points));
     }
   }
 

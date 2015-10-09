@@ -1,8 +1,8 @@
 @api
-Feature: Create question and answers
-  In order to test Question creation, and privacy of responses
-  As a business client
-  I want to create a question, and watch responses
+Feature: Test points 
+  In order to test emh points 
+  As a client 
+  I want to dispatch points on experts
 
   Background: Create questions and answers
     Given users:
@@ -37,6 +37,8 @@ Feature: Create question and answers
     Then node "What about ?" transfers 50 points on "expert1" user
     Then node "What about ?" transfers 50 points on "expert2" user
     Then I should have 0 points on "What about ?" node
+    And I should have 50 points on "expert1" user
+    And I should have 50 points on "expert2" user
 
     Given I am logged in as a user with the "administrator" role
     When I go to "admin/emindhub/points/transaction-log"
@@ -65,11 +67,14 @@ Feature: Create question and answers
     And I press "Distribute points"
     Then I should see "Points for Iron Man"
     And I should see "Points for Klark Kent"
-    When I fill in "Points for Iron Man" with 50
-    And I fill in "Points for Klark Kent" with 50
-    And I click "Arrange points"
-    #Then I should see the success message( containing) "Arranged" 
-    Then I should have 0 points on "What about ?" node
+    When I fill in "Points for Iron Man" with "60"
+    And I fill in "Points for Klark Kent" with "40"
+    And I press "Arrange points"
+    Then I should see the success message "100 total points dispatched" 
+    #Then I break
+    #Then I should have 0 points on "What about ?" node
+    And I should have "60" points on "expert1" user
+    And I should have "40" points on "expert2" user
 
     Given I am logged in as a user with the "administrator" role
     When I go to "admin/emindhub/points/transaction-log"

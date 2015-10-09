@@ -6,9 +6,9 @@ Feature: Create question and answers
 
   Background: Create questions
     Given users:
-    | name    | mail                 | roles    |
-    | client1 | client1@emindhub.com | business |
-    | expert1 | expert1@emindhub.com | expert   |
+    | name    | mail                 | roles    | field_first_name | field_last_name |
+    | client1 | client1@emindhub.com | business | Captain          | America         |
+    | expert1 | expert1@emindhub.com | expert   | Iron             | Man             |
     Given I give "client1" 300 emh points
     Given "question1" content:
     | title        | field_domaine | og_group_ref | field_reward | author  |
@@ -43,7 +43,7 @@ Feature: Create question and answers
     Given I enter "Je suis un expert" for "Public response"
     And I press "Publish"
     #Then I should see "Ma réponse"
-    And I should see "expert1"
+    And I should see "Iron Man"
     Given I am logged in as "client1"
     When I go to "content/my-responses"
     #Then I break
