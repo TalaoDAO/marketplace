@@ -518,6 +518,8 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
       $form_state['redirect'] = '<front>';
       break;
   }
+  $points = $form_state['values']['points'];
+  drupal_set_message(t('@count total points dispatched', array('@count' => $points)));
 }
 
 /**
