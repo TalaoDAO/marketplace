@@ -251,3 +251,39 @@
   //   }
   // }
 }
+
+#views-form-circle-members-block-2 {
+  .row {
+    margin-bottom: 15px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+	.views-field-field-photo {
+		img,
+    span {
+			.img-circle;
+			.center-block;
+		}
+    span {
+      background-color: @lightGrey;
+      width: 110px;
+      height: 110px;
+    }
+	}
+	.views-field-nothing {
+		font-weight: bold;
+		margin-bottom: 10px;
+	}
+	@media (min-width: @screen-sm-min) {
+		.views-row {
+			.make-row();
+			> * {
+				.make-sm-column(6);
+			}
+		}
+		.views-field-field-photo {
+			.make-sm-column(6);
+		}
+	}
+}
