@@ -1820,16 +1820,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'taxonomy',
   );
 
-  // Exported permission: 'delete terms in userpoints'.
-  $permissions['delete terms in userpoints'] = array(
-    'name' => 'delete terms in userpoints',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'taxonomy',
-  );
-
   // Exported permission: 'display EU Cookie Compliance popup'.
   $permissions['display EU Cookie Compliance popup'] = array(
     'name' => 'display EU Cookie Compliance popup',
@@ -2289,16 +2279,6 @@ function ft_permissions_user_default_permissions() {
       'expert' => 'expert',
       'expert preview' => 'expert preview',
       'référent' => 'référent',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'taxonomy',
-  );
-
-  // Exported permission: 'edit terms in userpoints'.
-  $permissions['edit terms in userpoints'] = array(
-    'name' => 'edit terms in userpoints',
-    'roles' => array(
-      'administrator' => 'administrator',
       'webmaster' => 'webmaster',
     ),
     'module' => 'taxonomy',
@@ -2910,15 +2890,6 @@ function ft_permissions_user_default_permissions() {
   // Exported permission: 'merge terms'.
   $permissions['merge terms'] = array(
     'name' => 'merge terms',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'term_merge',
-  );
-
-  // Exported permission: 'merge userpoints terms'.
-  $permissions['merge userpoints terms'] = array(
-    'name' => 'merge userpoints terms',
     'roles' => array(
       'administrator' => 'administrator',
     ),
