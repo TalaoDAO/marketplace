@@ -15968,6 +15968,28 @@ form#webform-node-form #edit-field-expiration-date .form-type-textfield > label 
 .view-domainlist .view-content .domain-lead-experts .views-field-field-last-name {
   text-transform: uppercase;
 }
+.page-my-circles .view-header {
+  background-color: #f2f2f2;
+  padding: 15px 15px 0;
+}
+.page-my-circles .view-header .form-type-textfield {
+  display: inline-block;
+}
+.page-my-circles .view-header input[type=text] {
+  display: inline-block;
+}
+.page-my-circles .views-exposed-widget select {
+  margin-left: 1em;
+}
+.page-my-circles .views-field-title {
+  display: none;
+}
+.page-my-circles .views-field-created {
+  background-color: #f2f2f2;
+}
+.page-my-circles .view-circle-members {
+  margin-bottom: 1.5em;
+}
 .page-messages #maincol {
   margin-left: -15px;
   margin-right: -15px;
