@@ -963,16 +963,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['view_submission']['table'] = 'webform_submissions';
   $handler->display->display_options['fields']['view_submission']['field'] = 'view_submission';
   $handler->display->display_options['fields']['view_submission']['label'] = 'Response';
-  /* Field: Content: Choose circle of experts */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['relationship'] = 'nid';
   $handler->display->display_options['fields']['og_group_ref']['label'] = 'Circle';
-  $handler->display->display_options['fields']['og_group_ref']['settings'] = array(
-    'link' => 1,
-  );
-  $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
   /* Field: Flags: Flag link */
   $handler->display->display_options['fields']['ops']['id'] = 'ops';
   $handler->display->display_options['fields']['ops']['table'] = 'flagging';
@@ -1097,16 +1093,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['view_submission']['table'] = 'webform_submissions';
   $handler->display->display_options['fields']['view_submission']['field'] = 'view_submission';
   $handler->display->display_options['fields']['view_submission']['label'] = 'Response';
-  /* Field: Content: Choose circle of experts */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['relationship'] = 'nid';
   $handler->display->display_options['fields']['og_group_ref']['label'] = 'Circle';
-  $handler->display->display_options['fields']['og_group_ref']['settings'] = array(
-    'link' => 1,
-  );
-  $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: User: Uid */
   $handler->display->display_options['arguments']['uid_1']['id'] = 'uid_1';
@@ -1262,16 +1254,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['views_conditional']['then'] = 'Best';
   $handler->display->display_options['fields']['views_conditional']['or'] = '[nothing]';
   $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
-  /* Field: Content: Choose circle of experts */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['relationship'] = 'nid';
   $handler->display->display_options['fields']['og_group_ref']['label'] = 'Circle';
-  $handler->display->display_options['fields']['og_group_ref']['settings'] = array(
-    'link' => 1,
-  );
-  $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
   /* Field: Flags: Flag link */
   $handler->display->display_options['fields']['ops']['id'] = 'ops';
   $handler->display->display_options['fields']['ops']['table'] = 'flagging';
@@ -1434,16 +1422,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['views_conditional']['then'] = 'Best';
   $handler->display->display_options['fields']['views_conditional']['or'] = '[nothing]';
   $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
-  /* Field: Content: Choose circle of experts */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['relationship'] = 'nid';
   $handler->display->display_options['fields']['og_group_ref']['label'] = 'Circle';
-  $handler->display->display_options['fields']['og_group_ref']['settings'] = array(
-    'link' => 1,
-  );
-  $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: User: Uid */
   $handler->display->display_options['arguments']['uid']['id'] = 'uid';
@@ -1608,16 +1592,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['views_conditional']['then'] = 'Best';
   $handler->display->display_options['fields']['views_conditional']['or'] = '[nothing]';
   $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
-  /* Field: Content: Choose circle of experts */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['relationship'] = 'nid';
   $handler->display->display_options['fields']['og_group_ref']['label'] = 'Circle';
-  $handler->display->display_options['fields']['og_group_ref']['settings'] = array(
-    'link' => 1,
-  );
-  $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
   /* Field: Flags: Flag link */
   $handler->display->display_options['fields']['ops']['id'] = 'ops';
   $handler->display->display_options['fields']['ops']['table'] = 'flagging';
@@ -1781,16 +1761,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['views_conditional']['then'] = 'Best';
   $handler->display->display_options['fields']['views_conditional']['or'] = '[nothing]';
   $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
-  /* Field: Content: Choose circle of experts */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['relationship'] = 'nid';
   $handler->display->display_options['fields']['og_group_ref']['label'] = 'Circle';
-  $handler->display->display_options['fields']['og_group_ref']['settings'] = array(
-    'link' => 1,
-  );
-  $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: User: Uid */
   $handler->display->display_options['arguments']['uid']['id'] = 'uid';
@@ -2167,6 +2143,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['use_more_text'] = 'Advanced search';
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -2449,6 +2426,15 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  /* Field: Content: Groups audience */
+  $handler->display->display_options['fields']['og_group_ref_1']['id'] = 'og_group_ref_1';
+  $handler->display->display_options['fields']['og_group_ref_1']['table'] = 'field_data_og_group_ref';
+  $handler->display->display_options['fields']['og_group_ref_1']['field'] = 'og_group_ref';
+  $handler->display->display_options['fields']['og_group_ref_1']['label'] = 'Circle';
+  $handler->display->display_options['fields']['og_group_ref_1']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['og_group_ref_1']['delta_offset'] = '0';
   /* Field: Content: Post date */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'node';
@@ -2467,26 +2453,10 @@ function ft_views_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Content: Choose circle of experts */
-  $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
-  $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
-  $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
-  $handler->display->display_options['fields']['og_group_ref']['label'] = 'Circle';
-  $handler->display->display_options['fields']['og_group_ref']['settings'] = array(
-    'link' => 0,
-  );
-  $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
   /* Field: Content: Reward */
   $handler->display->display_options['fields']['field_reward']['id'] = 'field_reward';
   $handler->display->display_options['fields']['field_reward']['table'] = 'field_data_field_reward';
   $handler->display->display_options['fields']['field_reward']['field'] = 'field_reward';
-  /* Field: Flags: Flagged */
-  $handler->display->display_options['fields']['flagged']['id'] = 'flagged';
-  $handler->display->display_options['fields']['flagged']['table'] = 'flagging';
-  $handler->display->display_options['fields']['flagged']['field'] = 'flagged';
-  $handler->display->display_options['fields']['flagged']['relationship'] = 'flag_content_rel';
-  $handler->display->display_options['fields']['flagged']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['flagged']['not'] = 0;
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
@@ -2502,6 +2472,224 @@ function ft_views_views_default_views() {
   $handler->display->display_options['sorts']['type']['id'] = 'type';
   $handler->display->display_options['sorts']['type']['table'] = 'node';
   $handler->display->display_options['sorts']['type']['field'] = 'type';
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'challenge' => 'challenge',
+    'question1' => 'question1',
+    'webform' => 'webform',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  $handler->display->display_options['filters']['type']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['type']['expose']['operator_id'] = 'type_op';
+  $handler->display->display_options['filters']['type']['expose']['label'] = 'Type';
+  $handler->display->display_options['filters']['type']['expose']['operator'] = 'type_op';
+  $handler->display->display_options['filters']['type']['expose']['identifier'] = 'type';
+  $handler->display->display_options['filters']['type']['expose']['remember'] = TRUE;
+  $handler->display->display_options['filters']['type']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['type']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+    9 => 0,
+  );
+  $handler->display->display_options['filters']['type']['expose']['reduce'] = TRUE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
+  $handler->display->display_options['filters']['type_1']['table'] = 'node';
+  $handler->display->display_options['filters']['type_1']['field'] = 'type';
+  $handler->display->display_options['filters']['type_1']['value'] = array(
+    'challenge' => 'challenge',
+    'question1' => 'question1',
+    'webform' => 'webform',
+  );
+  $handler->display->display_options['filters']['type_1']['group'] = 1;
+  /* Filter criterion: Field: Domain(s) (field_domaine) (translated) */
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['id'] = 'field_domaine_tid_i18n';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['table'] = 'field_data_field_domaine';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['field'] = 'field_domaine_tid_i18n';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['group'] = 1;
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['expose']['operator_id'] = 'field_domaine_tid_i18n_op';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['expose']['label'] = 'Domain(s)';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['expose']['operator'] = 'field_domaine_tid_i18n_op';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['expose']['identifier'] = 'field_domaine_tid_i18n';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['expose']['remember'] = TRUE;
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+    9 => 0,
+  );
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['type'] = 'select';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['vocabulary'] = 'domaine';
+  /* Filter criterion: Content: Groups audience (og_group_ref) */
+  $handler->display->display_options['filters']['og_group_ref_target_id']['id'] = 'og_group_ref_target_id';
+  $handler->display->display_options['filters']['og_group_ref_target_id']['table'] = 'field_data_og_group_ref';
+  $handler->display->display_options['filters']['og_group_ref_target_id']['field'] = 'og_group_ref_target_id';
+  $handler->display->display_options['filters']['og_group_ref_target_id']['group'] = 1;
+  $handler->display->display_options['filters']['og_group_ref_target_id']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['og_group_ref_target_id']['expose']['operator_id'] = 'og_group_ref_target_id_op';
+  $handler->display->display_options['filters']['og_group_ref_target_id']['expose']['label'] = 'Circle';
+  $handler->display->display_options['filters']['og_group_ref_target_id']['expose']['operator'] = 'og_group_ref_target_id_op';
+  $handler->display->display_options['filters']['og_group_ref_target_id']['expose']['identifier'] = 'og_group_ref_target_id';
+  $handler->display->display_options['filters']['og_group_ref_target_id']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+    9 => 0,
+  );
+  /* Filter criterion: User: Current */
+  $handler->display->display_options['filters']['uid_current']['id'] = 'uid_current';
+  $handler->display->display_options['filters']['uid_current']['table'] = 'users';
+  $handler->display->display_options['filters']['uid_current']['field'] = 'uid_current';
+  $handler->display->display_options['filters']['uid_current']['relationship'] = 'uid';
+  $handler->display->display_options['filters']['uid_current']['value'] = 'All';
+  $handler->display->display_options['filters']['uid_current']['group'] = 1;
+  $handler->display->display_options['filters']['uid_current']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['uid_current']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['uid_current']['expose']['label'] = 'Only my contributions';
+  $handler->display->display_options['filters']['uid_current']['expose']['operator'] = 'uid_current_op';
+  $handler->display->display_options['filters']['uid_current']['expose']['identifier'] = 'uid_current';
+  $handler->display->display_options['filters']['uid_current']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+    9 => 0,
+  );
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status_1']['id'] = 'status_1';
+  $handler->display->display_options['filters']['status_1']['table'] = 'node';
+  $handler->display->display_options['filters']['status_1']['field'] = 'status';
+  $handler->display->display_options['filters']['status_1']['value'] = '1';
+  $handler->display->display_options['filters']['status_1']['group'] = 1;
+  $handler->display->display_options['filters']['status_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['status_1']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['status_1']['expose']['label'] = 'Only my domains';
+  $handler->display->display_options['filters']['status_1']['expose']['operator'] = 'status_1_op';
+  $handler->display->display_options['filters']['status_1']['expose']['identifier'] = 'status_1';
+  $handler->display->display_options['filters']['status_1']['expose']['remember'] = TRUE;
+  $handler->display->display_options['filters']['status_1']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+    9 => 0,
+  );
+
+  /* Display: Advanced */
+  $handler = $view->new_display('page', 'Advanced', 'page');
+  $handler->display->display_options['field_language'] = 'und';
+  $handler->display->display_options['views_navigation'] = TRUE;
+  $handler->display->display_options['views_navigation_back'] = TRUE;
+  $handler->display->display_options['views_navigation_title'] = TRUE;
+  $handler->display->display_options['path'] = 'query-list';
+
+  /* Display: Homepage */
+  $handler = $view->new_display('block', 'Homepage', 'block');
+  $handler->display->display_options['field_language'] = 'und';
+  $handler->display->display_options['field_language_add_to_query'] = 0;
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '5';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Picto */
+  $handler->display->display_options['fields']['field_picto']['id'] = 'field_picto';
+  $handler->display->display_options['fields']['field_picto']['table'] = 'field_data_field_picto';
+  $handler->display->display_options['fields']['field_picto']['field'] = 'field_picto';
+  $handler->display->display_options['fields']['field_picto']['label'] = 'Type';
+  $handler->display->display_options['fields']['field_picto']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_picto']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_picto']['settings'] = array(
+    'image_style' => '',
+    'image_link' => '',
+  );
+  /* Field: Content: Type */
+  $handler->display->display_options['fields']['type']['id'] = 'type';
+  $handler->display->display_options['fields']['type']['table'] = 'node';
+  $handler->display->display_options['fields']['type']['field'] = 'type';
+  $handler->display->display_options['fields']['type']['label'] = '';
+  $handler->display->display_options['fields']['type']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['type']['element_label_colon'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  /* Field: Content: Groups audience */
+  $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
+  $handler->display->display_options['fields']['og_group_ref']['table'] = 'field_data_og_group_ref';
+  $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
+  $handler->display->display_options['fields']['og_group_ref']['label'] = 'Circle';
+  $handler->display->display_options['fields']['og_group_ref']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
+  /* Field: Content: Post date */
+  $handler->display->display_options['fields']['created']['id'] = 'created';
+  $handler->display->display_options['fields']['created']['table'] = 'node';
+  $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['date_format'] = 'short_date';
+  $handler->display->display_options['fields']['created']['second_date_format'] = 'privatemsg_current_day';
+  /* Field: Content: Deadline */
+  $handler->display->display_options['fields']['field_expiration_date']['id'] = 'field_expiration_date';
+  $handler->display->display_options['fields']['field_expiration_date']['table'] = 'field_data_field_expiration_date';
+  $handler->display->display_options['fields']['field_expiration_date']['field'] = 'field_expiration_date';
+  $handler->display->display_options['fields']['field_expiration_date']['label'] = 'Expiration Date';
+  $handler->display->display_options['fields']['field_expiration_date']['settings'] = array(
+    'format_type' => 'short_date',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Reward */
+  $handler->display->display_options['fields']['field_reward']['id'] = 'field_reward';
+  $handler->display->display_options['fields']['field_reward']['table'] = 'field_data_field_reward';
+  $handler->display->display_options['fields']['field_reward']['field'] = 'field_reward';
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['label'] = 'Answers';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '1';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -2546,18 +2734,18 @@ function ft_views_views_default_views() {
     'question1' => 'question1',
     'webform' => 'webform',
   );
-  /* Filter criterion: User: Current */
-  $handler->display->display_options['filters']['uid_current']['id'] = 'uid_current';
-  $handler->display->display_options['filters']['uid_current']['table'] = 'users';
-  $handler->display->display_options['filters']['uid_current']['field'] = 'uid_current';
-  $handler->display->display_options['filters']['uid_current']['relationship'] = 'uid';
-  $handler->display->display_options['filters']['uid_current']['value'] = 'All';
-  $handler->display->display_options['filters']['uid_current']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['uid_current']['expose']['operator_id'] = '';
-  $handler->display->display_options['filters']['uid_current']['expose']['label'] = 'Only my contributions';
-  $handler->display->display_options['filters']['uid_current']['expose']['operator'] = 'uid_current_op';
-  $handler->display->display_options['filters']['uid_current']['expose']['identifier'] = 'uid_current';
-  $handler->display->display_options['filters']['uid_current']['expose']['remember_roles'] = array(
+  /* Filter criterion: Field: Domain(s) (field_domaine) (translated) */
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['id'] = 'field_domaine_tid_i18n';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['table'] = 'field_data_field_domaine';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['field'] = 'field_domaine_tid_i18n';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['expose']['operator_id'] = 'field_domaine_tid_i18n_op';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['expose']['label'] = 'Domain(s)';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['expose']['operator'] = 'field_domaine_tid_i18n_op';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['expose']['identifier'] = 'field_domaine_tid_i18n';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['expose']['remember'] = TRUE;
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     3 => 0,
@@ -2568,113 +2756,8 @@ function ft_views_views_default_views() {
     8 => 0,
     9 => 0,
   );
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status_1']['id'] = 'status_1';
-  $handler->display->display_options['filters']['status_1']['table'] = 'node';
-  $handler->display->display_options['filters']['status_1']['field'] = 'status';
-  $handler->display->display_options['filters']['status_1']['value'] = '1';
-  $handler->display->display_options['filters']['status_1']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['status_1']['expose']['operator_id'] = '';
-  $handler->display->display_options['filters']['status_1']['expose']['label'] = 'Only my domains';
-  $handler->display->display_options['filters']['status_1']['expose']['operator'] = 'status_1_op';
-  $handler->display->display_options['filters']['status_1']['expose']['identifier'] = 'status_1';
-  $handler->display->display_options['filters']['status_1']['expose']['remember'] = TRUE;
-  $handler->display->display_options['filters']['status_1']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    4 => 0,
-    5 => 0,
-    6 => 0,
-    7 => 0,
-    8 => 0,
-    9 => 0,
-  );
-
-  /* Display: Homepage */
-  $handler = $view->new_display('page', 'Homepage', 'page');
-  $handler->display->display_options['field_language'] = 'und';
-  $handler->display->display_options['views_navigation'] = TRUE;
-  $handler->display->display_options['views_navigation_back'] = TRUE;
-  $handler->display->display_options['views_navigation_title'] = TRUE;
-  $handler->display->display_options['path'] = 'query-list';
-
-  /* Display: Block */
-  $handler = $view->new_display('block', 'Block', 'block');
-  $handler->display->display_options['field_language'] = 'und';
-  $handler->display->display_options['field_language_add_to_query'] = 0;
-  $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '5';
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Picto */
-  $handler->display->display_options['fields']['field_picto']['id'] = 'field_picto';
-  $handler->display->display_options['fields']['field_picto']['table'] = 'field_data_field_picto';
-  $handler->display->display_options['fields']['field_picto']['field'] = 'field_picto';
-  $handler->display->display_options['fields']['field_picto']['label'] = 'Type';
-  $handler->display->display_options['fields']['field_picto']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_picto']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_picto']['settings'] = array(
-    'image_style' => '',
-    'image_link' => '',
-  );
-  /* Field: Content: Type */
-  $handler->display->display_options['fields']['type']['id'] = 'type';
-  $handler->display->display_options['fields']['type']['table'] = 'node';
-  $handler->display->display_options['fields']['type']['field'] = 'type';
-  $handler->display->display_options['fields']['type']['label'] = '';
-  $handler->display->display_options['fields']['type']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['type']['element_label_colon'] = FALSE;
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Content: Post date */
-  $handler->display->display_options['fields']['created']['id'] = 'created';
-  $handler->display->display_options['fields']['created']['table'] = 'node';
-  $handler->display->display_options['fields']['created']['field'] = 'created';
-  $handler->display->display_options['fields']['created']['date_format'] = 'short_date';
-  $handler->display->display_options['fields']['created']['second_date_format'] = 'privatemsg_current_day';
-  /* Field: Content: Deadline */
-  $handler->display->display_options['fields']['field_expiration_date']['id'] = 'field_expiration_date';
-  $handler->display->display_options['fields']['field_expiration_date']['table'] = 'field_data_field_expiration_date';
-  $handler->display->display_options['fields']['field_expiration_date']['field'] = 'field_expiration_date';
-  $handler->display->display_options['fields']['field_expiration_date']['label'] = 'Expiration Date';
-  $handler->display->display_options['fields']['field_expiration_date']['settings'] = array(
-    'format_type' => 'short_date',
-    'fromto' => 'both',
-    'multiple_number' => '',
-    'multiple_from' => '',
-    'multiple_to' => '',
-  );
-  /* Field: Content: Choose circle of experts */
-  $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
-  $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
-  $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
-  $handler->display->display_options['fields']['og_group_ref']['label'] = 'Circle';
-  $handler->display->display_options['fields']['og_group_ref']['settings'] = array(
-    'link' => 0,
-  );
-  $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
-  /* Field: Content: Reward */
-  $handler->display->display_options['fields']['field_reward']['id'] = 'field_reward';
-  $handler->display->display_options['fields']['field_reward']['table'] = 'field_data_field_reward';
-  $handler->display->display_options['fields']['field_reward']['field'] = 'field_reward';
-  /* Field: Flags: Flagged */
-  $handler->display->display_options['fields']['flagged']['id'] = 'flagged';
-  $handler->display->display_options['fields']['flagged']['table'] = 'flagging';
-  $handler->display->display_options['fields']['flagged']['field'] = 'flagged';
-  $handler->display->display_options['fields']['flagged']['relationship'] = 'flag_content_rel';
-  $handler->display->display_options['fields']['flagged']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['flagged']['not'] = 0;
-  /* Field: Global: Custom text */
-  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['label'] = 'Answers';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '1';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['type'] = 'select';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['vocabulary'] = 'domaine';
   $handler->display->display_options['views_navigation'] = TRUE;
   $handler->display->display_options['views_navigation_back'] = TRUE;
   $handler->display->display_options['views_navigation_title'] = TRUE;
@@ -2732,15 +2815,11 @@ function ft_views_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Content: Choose circle of experts */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['label'] = 'Circle';
-  $handler->display->display_options['fields']['og_group_ref']['settings'] = array(
-    'link' => 0,
-  );
-  $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
   /* Field: Content: Reward */
   $handler->display->display_options['fields']['field_reward']['id'] = 'field_reward';
   $handler->display->display_options['fields']['field_reward']['table'] = 'field_data_field_reward';
@@ -2933,15 +3012,11 @@ function ft_views_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Content: Choose circle of experts */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['label'] = 'Circle';
-  $handler->display->display_options['fields']['og_group_ref']['settings'] = array(
-    'link' => 0,
-  );
-  $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
   /* Field: Content: Reward */
   $handler->display->display_options['fields']['field_reward']['id'] = 'field_reward';
   $handler->display->display_options['fields']['field_reward']['table'] = 'field_data_field_reward';
