@@ -160,5 +160,17 @@ class FeatureContext extends DrupalContext {
     emh_points_move_points($node, $user, (int) $points);
   }
 
+    /**
+     * @param int $seconds
+     *   Amount of seconds when nothing to happens.
+     *
+     * @Given /^(?:|I )wait (\d+) seconds$/
+     */
+    public function waitSeconds($seconds)
+    {
+        sleep($seconds);
+    }
+
+
 }
 

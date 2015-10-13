@@ -35,12 +35,12 @@ function emh_question_form_question1_node_form_alter(&$form, &$form_state, $form
 function emh_question_form_comment_node_question1_form_alter(&$form, &$form_state) {
   $form['comment_body']['#states'] = array(
     'visible' => array(
-      ':input[name="field_private_comment[und]"]' => array('value' => 1),
+      ':input[name="field_private_comment[und]"]' => array('value' => 0),
     ),
   );
   $form['field_private_comment_body']['#states'] = array(
     'visible' => array(
-      ':input[name="field_private_comment[und]"]' => array('value' => 0),
+      ':input[name="field_private_comment[und]"]' => array('value' => 1),
     ),
   );
 }

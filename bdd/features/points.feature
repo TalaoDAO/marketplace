@@ -31,7 +31,7 @@ Feature: Test points
   Scenario: Manual arrange of points
     Then I should have 100 points on "What about ?" node
     Given I am logged in as "client1"
-    When I go to "content/my-responses"
+    When I go to "my-responses"
     Then I should see "expert1"
     And I should see "expert2"
     Then node "What about ?" transfers 70 points on "expert1" user
@@ -56,7 +56,7 @@ Feature: Test points
   Scenario: VBO arrange of points
     Then I should have 100 points on "What about ?" node
     Given I am logged in as "client1"
-    When I go to "content/my-responses"
+    When I go to "my-responses"
     Then I should see "expert1"
     And I should see "expert2"
 

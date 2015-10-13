@@ -33,7 +33,7 @@ Feature: Test profil visibility
   Scenario: Check visibility
     Then I should have 100 points on "What about ?" node
     Given I am logged in as "client1"
-    When I go to "content/my-responses"
+    When I go to "my-responses"
     Then I should see "expert1"
     And I should see "expert2"
     When node "What about ?" transfers 50 points on "expert1" user
