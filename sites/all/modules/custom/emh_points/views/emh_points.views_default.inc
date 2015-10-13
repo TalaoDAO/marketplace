@@ -16,7 +16,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'points_history';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'emh, points';
   $view->base_table = 'users';
   $view->human_name = 'Points history';
   $view->core = 7;
@@ -161,7 +161,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'my_relationships';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'emh, points';
   $view->base_table = 'node';
   $view->human_name = 'My relationships';
   $view->core = 7;
@@ -246,7 +246,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'transaction_log';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'emh, points';
   $view->base_table = 'emh_points_txn';
   $view->human_name = 'Transaction log';
   $view->core = 7;
@@ -445,7 +445,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'give_user_points';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'emh, points';
   $view->base_table = 'users';
   $view->human_name = 'Give user points';
   $view->core = 7;
@@ -595,7 +595,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'og_points_repartition';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'emh, points';
   $view->base_table = 'users';
   $view->human_name = 'OG Arrange Points';
   $view->core = 7;
@@ -678,7 +678,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'answers';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'emh, points';
   $view->base_table = 'comment';
   $view->human_name = 'Answers';
   $view->core = 7;
@@ -822,7 +822,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'webform_answers';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'emh, points';
   $view->base_table = 'webform_submissions';
   $view->human_name = 'Webform Answers';
   $view->core = 7;
@@ -947,7 +947,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'my_rewarded_answers';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'emh, points';
   $view->base_table = 'node';
   $view->human_name = 'My rewarded answers';
   $view->core = 7;
