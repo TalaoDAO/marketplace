@@ -16,7 +16,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'points_history';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'emh, points';
   $view->base_table = 'users';
   $view->human_name = 'Points history';
   $view->core = 7;
@@ -161,7 +161,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'my_relationships';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'emh, points';
   $view->base_table = 'node';
   $view->human_name = 'My relationships';
   $view->core = 7;
@@ -180,31 +180,19 @@ function emh_points_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '50';
   $handler->display->display_options['style_plugin'] = 'table';
-  /* Relationship: Points Transaction: User destination of the transaction */
+  /* Relationship: Points Transaction (source): User destination of the transaction */
   $handler->display->display_options['relationships']['dest_id_user']['id'] = 'dest_id_user';
   $handler->display->display_options['relationships']['dest_id_user']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['relationships']['dest_id_user']['field'] = 'dest_id_user';
   $handler->display->display_options['relationships']['dest_id_user']['label'] = 'destination';
   $handler->display->display_options['relationships']['dest_id_user']['required'] = TRUE;
-  /* Field: Bulk operations: User */
-  $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
-  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'users';
-  $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
-  $handler->display->display_options['fields']['views_bulk_operations']['relationship'] = 'dest_id_user';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '1';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['row_clickable'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
-    'action::flag_user_action' => array(
-      'selected' => 1,
-      'postpone_processing' => 0,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-  );
+  /* Relationship: Flags: my_contacts */
+  $handler->display->display_options['relationships']['flag_content_rel']['id'] = 'flag_content_rel';
+  $handler->display->display_options['relationships']['flag_content_rel']['table'] = 'users';
+  $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
+  $handler->display->display_options['relationships']['flag_content_rel']['relationship'] = 'dest_id_user';
+  $handler->display->display_options['relationships']['flag_content_rel']['required'] = 0;
+  $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'my_contacts';
   /* Field: User: First Name */
   $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
   $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
@@ -220,12 +208,25 @@ function emh_points_views_default_views() {
   $handler->display->display_options['fields']['view_user']['table'] = 'users';
   $handler->display->display_options['fields']['view_user']['field'] = 'view_user';
   $handler->display->display_options['fields']['view_user']['relationship'] = 'dest_id_user';
+  /* Field: Flags: Flagged */
+  $handler->display->display_options['fields']['flagged']['id'] = 'flagged';
+  $handler->display->display_options['fields']['flagged']['table'] = 'flagging';
+  $handler->display->display_options['fields']['flagged']['field'] = 'flagged';
+  $handler->display->display_options['fields']['flagged']['relationship'] = 'flag_content_rel';
+  $handler->display->display_options['fields']['flagged']['label'] = 'My contacts';
+  $handler->display->display_options['fields']['flagged']['type'] = 'unicode-yes-no';
+  $handler->display->display_options['fields']['flagged']['not'] = 0;
+  /* Field: Flags: Flag link */
+  $handler->display->display_options['fields']['ops']['id'] = 'ops';
+  $handler->display->display_options['fields']['ops']['table'] = 'flagging';
+  $handler->display->display_options['fields']['ops']['field'] = 'ops';
+  $handler->display->display_options['fields']['ops']['relationship'] = 'flag_content_rel';
   /* Contextual filter: Content: Author uid */
   $handler->display->display_options['arguments']['uid']['id'] = 'uid';
   $handler->display->display_options['arguments']['uid']['table'] = 'node';
   $handler->display->display_options['arguments']['uid']['field'] = 'uid';
-  $handler->display->display_options['arguments']['uid']['default_action'] = 'not found';
-  $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['uid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'current_user';
   $handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
@@ -239,14 +240,14 @@ function emh_points_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'user/%/my-relationships';
+  $handler->display->display_options['path'] = 'my-relationships';
 
   $views[$view->name] = $view;
 
   $view = new view();
   $view->name = 'transaction_log';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'emh, points';
   $view->base_table = 'emh_points_txn';
   $view->human_name = 'Transaction log';
   $view->core = 7;
@@ -445,7 +446,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'give_user_points';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'emh, points';
   $view->base_table = 'users';
   $view->human_name = 'Give user points';
   $view->core = 7;
@@ -595,7 +596,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'og_points_repartition';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'emh, points';
   $view->base_table = 'users';
   $view->human_name = 'OG Arrange Points';
   $view->core = 7;
@@ -604,7 +605,7 @@ function emh_points_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Arrange points';
+  $handler->display->display_options['title'] = 'Distribute points';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'access user profiles';
@@ -668,7 +669,7 @@ function emh_points_views_default_views() {
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'node/%/points-repartition';
   $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Arrange points';
+  $handler->display->display_options['menu']['title'] = 'Distribute points';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
@@ -678,7 +679,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'answers';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'emh, points';
   $view->base_table = 'comment';
   $view->human_name = 'Answers';
   $view->core = 7;
@@ -822,7 +823,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'webform_answers';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'emh, points';
   $view->base_table = 'webform_submissions';
   $view->human_name = 'Webform Answers';
   $view->core = 7;
@@ -947,7 +948,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'my_rewarded_answers';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'emh, points';
   $view->base_table = 'node';
   $view->human_name = 'My rewarded answers';
   $view->core = 7;
@@ -994,6 +995,18 @@ function emh_points_views_default_views() {
   $handler->display->display_options['fields']['points']['id'] = 'points';
   $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['fields']['points']['field'] = 'points';
+  /* Field: Comment: Author uid */
+  $handler->display->display_options['fields']['uid']['id'] = 'uid';
+  $handler->display->display_options['fields']['uid']['table'] = 'comment';
+  $handler->display->display_options['fields']['uid']['field'] = 'uid';
+  $handler->display->display_options['fields']['uid']['relationship'] = 'cid';
+  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
+  /* Field: Points Transaction (source): Destination ID */
+  $handler->display->display_options['fields']['dest_id']['id'] = 'dest_id';
+  $handler->display->display_options['fields']['dest_id']['table'] = 'emh_points_txn_source';
+  $handler->display->display_options['fields']['dest_id']['field'] = 'dest_id';
+  $handler->display->display_options['fields']['dest_id']['exclude'] = TRUE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -1024,6 +1037,12 @@ function emh_points_views_default_views() {
     'challenge' => 'challenge',
     'question1' => 'question1',
   );
+  /* Filter criterion: Global: Fields comparison */
+  $handler->display->display_options['filters']['fields_compare']['id'] = 'fields_compare';
+  $handler->display->display_options['filters']['fields_compare']['table'] = 'views';
+  $handler->display->display_options['filters']['fields_compare']['field'] = 'fields_compare';
+  $handler->display->display_options['filters']['fields_compare']['right_field'] = 'dest_id';
+  $handler->display->display_options['filters']['fields_compare']['left_field'] = 'uid';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -1065,6 +1084,18 @@ function emh_points_views_default_views() {
   $handler->display->display_options['fields']['points']['id'] = 'points';
   $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['fields']['points']['field'] = 'points';
+  /* Field: Points Transaction (source): Destination ID */
+  $handler->display->display_options['fields']['dest_id']['id'] = 'dest_id';
+  $handler->display->display_options['fields']['dest_id']['table'] = 'emh_points_txn_source';
+  $handler->display->display_options['fields']['dest_id']['field'] = 'dest_id';
+  $handler->display->display_options['fields']['dest_id']['exclude'] = TRUE;
+  /* Field: Comment: Author uid */
+  $handler->display->display_options['fields']['uid']['id'] = 'uid';
+  $handler->display->display_options['fields']['uid']['table'] = 'comment';
+  $handler->display->display_options['fields']['uid']['field'] = 'uid';
+  $handler->display->display_options['fields']['uid']['relationship'] = 'cid';
+  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: Author uid */
   $handler->display->display_options['arguments']['uid']['id'] = 'uid';
