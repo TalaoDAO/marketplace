@@ -40,7 +40,7 @@ function emh_points_menu() {
     'type' => MENU_LOCAL_ACTION,
   );
   $items['arrange/%/%/%/%/%'] = array(
-    'title' => 'Arrange points',
+    'title' => 'Distribute points',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('emh_points_arrange_form', 1, 2, 3, 4, 5),
     'access arguments' => array('use points'),
@@ -459,7 +459,7 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
   }
   $form['submit'] = array(
     '#type' => 'submit',
-    '#value' => t('Arrange points'),
+    '#value' => t('Distribute points'),
   );
   return $form;
 }
@@ -554,7 +554,7 @@ function emh_points_action_info() {
   );
   $actions['emh_points_arrange_points'] = array(
     'type' => 'entity',
-    'label' => t('Arrange some of my points to these entities'),
+    'label' => t('Distribute some of my points to these entities'),
     'configurable' => TRUE,
     'triggers' => array(),
     'permissions' => array('use points'),
@@ -563,7 +563,7 @@ function emh_points_action_info() {
   );
   $actions['emh_points_arrange_group_points'] = array(
     'type' => 'user',
-    'label' => t('Arrange group points to these entities'),
+    'label' => t('Distribute group points to these entities'),
     'configurable' => TRUE,
     'triggers' => array(),
     'permissions' => array('use points'),
@@ -572,7 +572,7 @@ function emh_points_action_info() {
   );
   $actions['emh_points_arrange_node_points'] = array(
     'type' => 'user',
-    'label' => t('Arrange node points to these entities'),
+    'label' => t('Distribute node points to these entities'),
     'configurable' => FALSE,
     'triggers' => array(),
     'permissions' => array('use points'),
