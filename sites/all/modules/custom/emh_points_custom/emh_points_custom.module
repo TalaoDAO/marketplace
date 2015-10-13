@@ -10,6 +10,13 @@
  */
 function emh_points_custom_field_access($op, $field, $entity_type, $entity, $account) {
   if ($op == 'view' && $entity_type == 'user') {
+    if (empty($entity)) {
+      return FALSE;
+    }
+    if (empty($account)) {
+      global $user;
+      $account = $user;
+    }
     if ($account->uid == $entity->uid) return TRUE;
     switch($field['field_name']) {
       // We can always access first, last names and photo.
