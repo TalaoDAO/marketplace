@@ -23,6 +23,14 @@ function emh_points_custom_field_access($op, $field, $entity_type, $entity, $acc
         return TRUE;
         break;
       // For other fields, it depends of our relation with the user:
+      case 'field_address':
+        $flag = flag_get_flag('my_contacts');
+        return ($flag && $flag->is_flagged($entity->uid, $account->uid));
+        break;
+      case 'field_telephone':
+        $flag = flag_get_flag('my_contacts');
+        return ($flag && $flag->is_flagged($entity->uid, $account->uid));
+        break;
       default:
         return emh_points_user_can_see_full_user($account->uid, $entity->uid);
         break;
@@ -32,7 +40,6 @@ function emh_points_custom_field_access($op, $field, $entity_type, $entity, $acc
   }
 }
 
-/*
 function emh_points_custom_menu() {
   $items = array();
   $items['test_access/%/%'] = array(
@@ -59,6 +66,7 @@ function emh_points_custom_test_access($uid, $uid2) {
 
   return $output;
 }
+/*
  */
 
 /**
