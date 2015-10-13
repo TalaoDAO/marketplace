@@ -35,7 +35,7 @@ function node_informations_add(&$variables) {
 	$variables['linkPrev'] = '';
 	$variables['linkNext'] = '';
 	// echo '<pre>' . print_r($variables['elements']['links']['views_navigation']['#links']['back'], TRUE) . '</pre>';
-	if (isset($variables['elements']['links']['views_navigation'])) {
+	if (!empty($variables['elements']['links']['views_navigation'])) {
 		$variables['linkBack'] = $variables['elements']['links']['views_navigation']['#links']['back'];
 		$variables['linkPrev'] = $variables['elements']['links']['views_navigation']['#links']['previous'];
 		$variables['linkNext'] = $variables['elements']['links']['views_navigation']['#links']['next'];
