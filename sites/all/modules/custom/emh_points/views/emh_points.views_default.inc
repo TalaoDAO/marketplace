@@ -995,6 +995,18 @@ function emh_points_views_default_views() {
   $handler->display->display_options['fields']['points']['id'] = 'points';
   $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['fields']['points']['field'] = 'points';
+  /* Field: Comment: Author uid */
+  $handler->display->display_options['fields']['uid']['id'] = 'uid';
+  $handler->display->display_options['fields']['uid']['table'] = 'comment';
+  $handler->display->display_options['fields']['uid']['field'] = 'uid';
+  $handler->display->display_options['fields']['uid']['relationship'] = 'cid';
+  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
+  /* Field: Points Transaction (source): Destination ID */
+  $handler->display->display_options['fields']['dest_id']['id'] = 'dest_id';
+  $handler->display->display_options['fields']['dest_id']['table'] = 'emh_points_txn_source';
+  $handler->display->display_options['fields']['dest_id']['field'] = 'dest_id';
+  $handler->display->display_options['fields']['dest_id']['exclude'] = TRUE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -1025,6 +1037,12 @@ function emh_points_views_default_views() {
     'challenge' => 'challenge',
     'question1' => 'question1',
   );
+  /* Filter criterion: Global: Fields comparison */
+  $handler->display->display_options['filters']['fields_compare']['id'] = 'fields_compare';
+  $handler->display->display_options['filters']['fields_compare']['table'] = 'views';
+  $handler->display->display_options['filters']['fields_compare']['field'] = 'fields_compare';
+  $handler->display->display_options['filters']['fields_compare']['right_field'] = 'dest_id';
+  $handler->display->display_options['filters']['fields_compare']['left_field'] = 'uid';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -1066,6 +1084,18 @@ function emh_points_views_default_views() {
   $handler->display->display_options['fields']['points']['id'] = 'points';
   $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['fields']['points']['field'] = 'points';
+  /* Field: Points Transaction (source): Destination ID */
+  $handler->display->display_options['fields']['dest_id']['id'] = 'dest_id';
+  $handler->display->display_options['fields']['dest_id']['table'] = 'emh_points_txn_source';
+  $handler->display->display_options['fields']['dest_id']['field'] = 'dest_id';
+  $handler->display->display_options['fields']['dest_id']['exclude'] = TRUE;
+  /* Field: Comment: Author uid */
+  $handler->display->display_options['fields']['uid']['id'] = 'uid';
+  $handler->display->display_options['fields']['uid']['table'] = 'comment';
+  $handler->display->display_options['fields']['uid']['field'] = 'uid';
+  $handler->display->display_options['fields']['uid']['relationship'] = 'cid';
+  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: Author uid */
   $handler->display->display_options['arguments']['uid']['id'] = 'uid';
