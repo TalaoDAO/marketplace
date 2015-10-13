@@ -12,6 +12,74 @@
 function emh_points_default_rules_configuration() {
   $items = array();
 
+  $items['rules_contact_buy'] = entity_import('rules_config', '{ "rules_contact_buy" : {
+      "LABEL" : "Contact buy",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "REQUIRES" : [ "php", "emh_points", "rules", "flag" ],
+      "ON" : { "flag_flagged_my_contacts" : [] },
+      "IF" : [
+        { "emh_points_user_has_enough_points" : {
+            "owner" : [ "flagging-user" ],
+            "points" : {
+              "select" : "flagging-user:uid",
+              "php" : { "code" : "return (int)variable_get(\u0027emh_points_contact_price\u0027, \u0027100\u0027);" }
+            }
+          }
+         }
+       ],
+       "DO" : [
+         { "entity_fetch" : {
+             "USING" : { "type" : "user", "id" : "1" },
+             "PROVIDE" : { "entity_fetched" : { "emindhub" : "eMindHub" } }
+           }
+         },
+         { "move_points" : {
+             "source" : [ "flagging-user" ],
+             "destination" : [ "emindhub" ],
+             "points" : {
+               "select" : "flagging-user:uid",
+               "php" : { "code" : "return (int)variable_get(\u0027emh_points_contact_price\u0027, \u0027100\u0027);" }
+             }
+           }
+         }
+      ]
+    }
+  }');
+
+  $items['rules_contact_impossible'] = entity_import('rules_config', '{ "rules_contact_impossible" : {
+      "LABEL" : "Contact impossible",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "REQUIRES" : [ "php", "emh_points", "flag", "rules" ],
+      "ON" : { "flag_flagged_my_contacts" : [] },
+      "IF" : [
+        { "NOT emh_points_user_has_enough_points" : {
+            "owner" : [ "flagging-user" ],
+            "points" : {
+              "select" : "flagging-user:uid",
+              "php" : { "code" : "return (int)variable_get(\u0027emh_points_contact_price\u0027, \u0027100\u0027);" }
+            }
+          }
+        }
+      ],
+      "DO" : [
+        { "flag_unflaguser" : {
+            "flag" : "my_contacts",
+            "user" : [ "flagged-user" ],
+            "flagging_user" : [ "flagging_user" ],
+            "permission_check" : "1"
+          }
+        },
+        { "drupal_message" : {
+            "message" : "You don\u0027t have enough points. You need \u003C?php echo variable_get(\u0027emh_points_contact_price\u0027, \u0027100\u0027) ?\u003E points.",
+            "type" : "error"
+          }
+        }
+      ]
+    }
+  }');
+
   $items['rules_transfert_points_for_content'] = entity_import('rules_config', '{ "rules_transfert_points_for_content" : {
       "LABEL" : "Transfert points for content",
       "PLUGIN" : "reaction rule",

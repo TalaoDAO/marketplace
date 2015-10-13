@@ -10,6 +10,13 @@
  */
 function emh_points_custom_field_access($op, $field, $entity_type, $entity, $account) {
   if ($op == 'view' && $entity_type == 'user') {
+    if (empty($entity)) {
+      return FALSE;
+    }
+    if (empty($account)) {
+      global $user;
+      $account = $user;
+    }
     if ($account->uid == $entity->uid) return TRUE;
     switch($field['field_name']) {
       // We can always access first, last names and photo.
@@ -90,6 +97,12 @@ function emh_points_custom_form_emh_points_admin_form_alter(&$form, &$form_state
     '#type' => 'textfield',
     '#title' => t('Points threshold for Survey'),
     '#default_value' => variable_get('emh_points_webform_threshold', '100'),
+    '#element_validate' => array('element_validate_integer_positive'),
+  );
+  $form['emh_points_contact_price'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Points to buy a contact'),
+    '#default_value' => variable_get('emh_points_contact_price', '100'),
     '#element_validate' => array('element_validate_integer_positive'),
   );
 }
