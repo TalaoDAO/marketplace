@@ -26,6 +26,7 @@ function _webform_defaults_select() {
       'other_text' => t('Other...'),
       'title_display' => 0,
       'description' => '',
+      'description_above' => FALSE,
       'custom_keys' => FALSE,
       'options_source' => '',
       'private' => FALSE,
@@ -488,7 +489,7 @@ function webform_expand_select_ids($element) {
 /**
  * Implements _webform_display_component().
  */
-function _webform_display_select($component, $value, $format = 'html') {
+function _webform_display_select($component, $value, $format = 'html', $submission = array()) {
   // Sort values by numeric key. These may be in alphabetic order from the database query,
   // which is not numeric order for keys '10' and higher.
   $value = (array) $value;
@@ -743,6 +744,24 @@ function _webform_table_select($component, $value) {
 }
 
 /**
+ * Implements _webform_action_set_component().
+ */
+function _webform_action_set_select($component, &$element, &$form_state, $value) {
+  // Set the value as an array for multiple select or single value otherwise.
+  if ($element['#type'] == 'checkboxes') {
+    $checkbox_values = $element['#options'];
+    array_walk($checkbox_values, function(&$value, $key) use($value) {
+      $value = (int)(strval($key) === $value);
+    });
+  }
+  else {
+    $value = $component['extra']['multiple'] ? array($value) : $value;
+  }
+  $element['#value'] = $value;
+  form_set_value($element, $value, $form_state);
+}
+
+/**
  * Implements _webform_csv_headers_component().
  */
 function _webform_csv_headers_select($component, $export_options) {
@@ -798,7 +817,9 @@ function _webform_csv_data_select($component, $export_options, $value) {
 
   if ($component['extra']['multiple']) {
     foreach ($options as $key => $item) {
-      $index = array_search($key, (array) $value);
+      // Strict search is needed to avoid a key of 0 from matching an empty
+      // value.
+      $index = array_search((string)$key, (array)$value, TRUE);
       if ($index !== FALSE) {
         if ($export_options['select_format'] == 'separate') {
           $return[] = 'X';

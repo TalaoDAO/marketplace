@@ -25,6 +25,7 @@ function _webform_defaults_date() {
       'datepicker' => 1,
       'title_display' => 0,
       'description' => '',
+      'description_above' => FALSE,
       'private' => FALSE,
       'analysis' => FALSE,
     ),
@@ -462,7 +463,7 @@ function _webform_submit_date($component, $value) {
 /**
  * Implements _webform_display_component().
  */
-function _webform_display_date($component, $value, $format = 'html') {
+function _webform_display_date($component, $value, $format = 'html', $submission = array()) {
   $value = webform_date_array(isset($value[0]) ? $value[0] : '', 'date');
 
   return array(
