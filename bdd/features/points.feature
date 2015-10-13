@@ -34,14 +34,14 @@ Feature: Test points
     When I go to "my-responses"
     Then I should see "expert1"
     And I should see "expert2"
-    Then node "What about ?" transfers 70 points on "expert1" user
-    Then node "What about ?" transfers 30 points on "expert2" user
+    When node "What about ?" transfers 70 points on "expert1" user
+    And node "What about ?" transfers 30 points on "expert2" user
     Then I should have 0 points on "What about ?" node
     And I should have 70 points on "expert1" user
     And I should have 30 points on "expert2" user
     When I go to "/answers-with-points"
-    Then I should see "70" in the "Iron" row
-    And I should see "30" in the "Klark" row
+    Then I should see "70" in the "Je suis un expert" row
+    And I should see "30" in the "J'ai une idée" row
 
     Given I am logged in as "expert1"
     When I go to "/my-rewarded-answers"

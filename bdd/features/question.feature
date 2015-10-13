@@ -14,7 +14,6 @@ Feature: Create question and answers
     | title        | field_domaine | og_group_ref | field_reward | author  |
     | What about ? | Energy        | All experts  | 100          | client1 |
 
-  @exclude
   Scenario: test questions as business
     Given I am logged in as "client1"
     When I go to "my-demands"
@@ -23,7 +22,6 @@ Feature: Create question and answers
     And I should see "100" in the "What about ?" row
     And I should see "All experts" in the "What about ?" row
 
-  @exclude
   Scenario: test questions as admin
     Given I am logged in as a user with the "administrator" role
     And I go to "admin/content"
@@ -43,7 +41,7 @@ Feature: Create question and answers
     #Given I enter "Ma réponse" for "Subject"
     Given I enter "Je suis un expert" for "Public response"
     And I press "Publish"
-    #And I wait for AJAX to finish
+    #And I wait for AJAX to finish -> don't work, force reload
     When I go to homepage
     When I click "What about ?" in the "What about ?" row
     Then I should see "Responses"
