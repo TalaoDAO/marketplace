@@ -34,11 +34,18 @@ Feature: Test points
     When I go to "content/my-responses"
     Then I should see "expert1"
     And I should see "expert2"
-    Then node "What about ?" transfers 50 points on "expert1" user
-    Then node "What about ?" transfers 50 points on "expert2" user
+    Then node "What about ?" transfers 70 points on "expert1" user
+    Then node "What about ?" transfers 30 points on "expert2" user
     Then I should have 0 points on "What about ?" node
-    And I should have 50 points on "expert1" user
-    And I should have 50 points on "expert2" user
+    And I should have 70 points on "expert1" user
+    And I should have 30 points on "expert2" user
+    When I go to "/answers-with-points"
+    Then I should see "70" in the "Iron" row
+    And I should see "30" in the "Klark" row
+
+    Given I am logged in as "expert1"
+    When I go to "/my-rewarded-answers"
+    Then I should see "70" in the "What about ?" row
 
     Given I am logged in as a user with the "administrator" role
     When I go to "admin/emindhub/points/transaction-log"
@@ -56,7 +63,6 @@ Feature: Test points
     When I go to "homepage"
     And I click "What about ?" in the "What about ?" row
     Then I should see "2 responses"
-    #Then I break
     #Then I click "2 responses"
     Then I click "Choose winners"
     And I should see "Operations"
@@ -69,9 +75,8 @@ Feature: Test points
     And I should see "Points for Klark Kent"
     When I fill in "Points for Iron Man" with "60"
     And I fill in "Points for Klark Kent" with "40"
-    And I press "Arrange points"
+    And I press "Distribute points"
     Then I should see the success message "100 total points dispatched" 
-    #Then I break
     Then I should have 0 points on "What about ?" node
     And I should have "60" points on "expert1" user
     And I should have "40" points on "expert2" user
@@ -82,5 +87,4 @@ Feature: Test points
     And I should see "Move points from question1 What about ? to Iron Man. "
     And I should see "Move points from question1 What about ? to Klark Kent. "
 
-    #Then I break
 

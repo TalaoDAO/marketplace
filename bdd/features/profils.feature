@@ -29,7 +29,7 @@ Feature: Test profil visibility
     And I press "Publish"
 
   #TODO: tel visibility not implemented yet
-  @exclude
+  #@exclude
   Scenario: Check visibility
     Then I should have 100 points on "What about ?" node
     Given I am logged in as "client1"
@@ -50,11 +50,10 @@ Feature: Test profil visibility
     Then I should see "Iron Man"
     When I click "Make him my contact"
     Then I should see "Your cannot undo this action"
-    Then I break
     When I go to "/users/expert1"
     Then I should see "Iron Man"
     And I should see "Chieur Génial"
-    And I should not see "0712345678"
+    And I should see "0712345678"
     When I go to "/users/expert2"
     Then I should see "Klark Kent"
     And I should see "Modèle"

@@ -40,11 +40,11 @@ Feature: Test points dispatch in OG
     #Then I should see the success message containing "has been added to the group"
     When I go to "/groups"
     And I click "Avengers"
-    And I click "Arrange points"
+    And I click "Distribute points"
     Then I should see "Operations"
     When I check the box "edit-views-bulk-operations-1"
     And I check the box "edit-views-bulk-operations-2"
-    And I press "Arrange group points to these entities"
+    And I press "Distribute group points to these entities"
     Then I should see "Points"
     When I fill in "Points" with "100"
     And I press "Next" 
@@ -52,7 +52,7 @@ Feature: Test points dispatch in OG
     And I should see "Points for Tony Stark"
     When I fill in "Points for Bruce Banner" with "60"
     And I fill in "Points for Tony Stark" with "40"
-    And I press "Arrange points"
+    And I press "Distribute points"
     #Then I break
     Then I should see the success message "100 total points dispatched"
     And I should have 100 points on "Avengers" node

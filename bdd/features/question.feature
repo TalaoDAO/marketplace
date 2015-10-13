@@ -43,6 +43,7 @@ Feature: Create question and answers
     Given I enter "Je suis un expert" for "Public response"
     And I press "Publish"
     #Then I should see "Ma réponse"
+    Then I should see "Je suis un expert"
     And I should see "Iron Man"
     Given I am logged in as "client1"
     When I go to "content/my-responses"
