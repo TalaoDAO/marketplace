@@ -200,3 +200,18 @@ function emh_points_update_7101() {
   // Update table.
   db_query("INSERT INTO {emh_points_total} SELECT entity_id, entity_type, SUM(points) FROM {emh_points} GROUP BY entity_id, entity_type");
 }
+
+/**
+ * Revert Views.
+ */
+function emh_points_update_7102() {
+  emh_points_reset_views();
+}
+
+function emh_points_reset_views() {
+  module_load_include('inc', 'emh_points', 'views/emh_points.views_default');
+  $default_views = emh_points_views_default_views();
+  foreach($default_views as $name => $view) {
+    views_revert_view($view);
+  }
+}
