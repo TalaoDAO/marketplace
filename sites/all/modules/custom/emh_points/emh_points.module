@@ -31,6 +31,13 @@ function emh_points_menu() {
     'access arguments' => array('administer points'),
     'file' => 'emh_points.admin.inc',
   );
+  $items['admin/emindhub/points/integrity'] = array(
+    'title' => 'Integrity',
+    'page callback' => 'emh_points_integrity_check',
+    'access arguments' => array('administer points'),
+    'file' => 'emh_points.admin.inc',
+    'type' => MENU_LOCAL_ACTION,
+  );
   $items['admin/emindhub/points/user_add_points'] = array(
     'title' => 'Manage Points for Users',
     'page callback' => 'drupal_get_form',
