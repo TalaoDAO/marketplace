@@ -31,6 +31,8 @@ Feature: Test points
   Scenario: Manual arrange of points
     Then I should have 100 points on "What about ?" node
     Given I am logged in as "client1"
+    When I go to homepage
+    Then I should see "2" in the "What about ?" row
     When I go to "my-responses"
     Then I should see "expert1"
     And I should see "expert2"
