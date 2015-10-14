@@ -41,12 +41,12 @@ Feature: Test points
     Then I should have 0 points on "What about ?" node
     And I should have 70 points on "expert1" user
     And I should have 30 points on "expert2" user
-    When I go to "/answers-with-points"
+    When I go to "/my-answers"
     Then I should see "70" in the "Je suis un expert" row
     And I should see "30" in the "J'ai une idée" row
 
     Given I am logged in as "expert1"
-    When I go to "/my-rewarded-answers"
+    When I go to "/my-answers"
     Then I should see "70" in the "What about ?" row
 
     Given I am logged in as a user with the "administrator" role
