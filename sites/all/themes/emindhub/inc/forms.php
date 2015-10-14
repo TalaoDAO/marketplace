@@ -379,7 +379,7 @@ function emindhub_form_has_required($form) {
 */
 function emindhub_form_search_block_form_alter(&$form, &$form_state, $form_id) {
 
-  $form['search_block_form']['#title'] = c_szSearch; // Change the text on the label element
+  $form['search_block_form']['#title'] = t('Search'); // Change the text on the label element
   $form['search_block_form']['#title_display'] = 'invisible'; // Toggle label visibility
   $form['search_block_form']['#size'] = 40;  // define size of the textfield
 
@@ -390,7 +390,7 @@ function emindhub_form_search_block_form_alter(&$form, &$form_state, $form_id) {
   $form['search_block_form']['#attributes']['onsubmit'] = "if(this.search_block_form.value=='Search'){ alert('Please enter a search'); return false; }";
 
   // Alternative (HTML5) placeholder attribute instead of using the javascript
-  $form['search_block_form']['#attributes']['placeholder'] = c_szYourSearch;
+  $form['search_block_form']['#attributes']['placeholder'] = t('Type your search, keywords...');
 
   $form['#theme_wrappers'] = array();
 
@@ -431,4 +431,16 @@ function emindhub_preprocess_select_as_checkboxes(&$variables) {
   if (($key = array_search('form-control', $element['#attributes']['class'])) !== false) {
     unset($element['#attributes']['class'][$key]);
   }
+}
+
+
+function emindhub_form_comment_form_alter(&$form, &$form_state, $form_id) {
+
+  $form['author']['#access'] = 0;
+  $form['subject']['#access'] = 0;
+
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+
+  return $form;
+
 }

@@ -144,3 +144,22 @@ function emh_points_manage_users_form_submit($form, $form_state) {
     break;
   }
 }
+
+/**
+ * Integrity check for points.
+ */
+function emh_points_integrity_check() {
+  // Global total
+  $query = db_select('emh_points', 'p');
+  $query->addExpression('SUM(p.points)');
+  $sum_points = $query->execute()->fetchField();
+  $query = db_select('emh_points_total', 'p');
+  $query->addExpression('SUM(p.total_points)');
+  $sum_total = $query->execute()->fetchField();
+  if ($sum_points != $sum_total) {
+    drupal_set_message(t('Totals are not equal : @count1 points and @count2 total points', array('@count1' => $sum_points, '@count2' => $sum_total)), 'error');
+  } else {
+    drupal_set_message(t('Everything checks out !'));
+  }
+  drupal_goto('admin/emindhub/points');
+}

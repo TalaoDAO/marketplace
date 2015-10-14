@@ -31,6 +31,13 @@ function emh_points_menu() {
     'access arguments' => array('administer points'),
     'file' => 'emh_points.admin.inc',
   );
+  $items['admin/emindhub/points/integrity'] = array(
+    'title' => 'Integrity',
+    'page callback' => 'emh_points_integrity_check',
+    'access arguments' => array('administer points'),
+    'file' => 'emh_points.admin.inc',
+    'type' => MENU_LOCAL_ACTION,
+  );
   $items['admin/emindhub/points/user_add_points'] = array(
     'title' => 'Manage Points for Users',
     'page callback' => 'drupal_get_form',
@@ -854,7 +861,9 @@ function emh_points_get_user_points($account) {
     global $user;
     $account = user_load($user->uid);
   }
-  return '<span class="badge">' . $account->emh_points . '&nbsp;' . t('points') . '</span>';
+  $text = t('point');
+  if ($account->emh_points > 0) $text = t('points');
+  return '<span class="badge">' . $account->emh_points . '&nbsp;' . $text . '</span>';
 }
 
 /**

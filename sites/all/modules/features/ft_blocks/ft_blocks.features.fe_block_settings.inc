@@ -1231,7 +1231,7 @@ node',
         'weight' => 0,
       ),
     ),
-    'title' => 'Partner',
+    'title' => 'Partners',
     'visibility' => 1,
   );
 

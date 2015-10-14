@@ -1,3 +1,8 @@
+hr {
+	border-color: @gray-light;
+}
+
+
 .nav {
 	.text-uppercase;
 
@@ -59,16 +64,24 @@
 .navbar-emh-separator {
 	@media (min-width: @screen-sm-min) {
 		> li {
-			&:after {
+			&:before {
 				content: "|";
 				display: inline-block;
 				color: @darkerBlue;
 			}
-			&:last-child {
-					&:after {
-						content: "";
-					}
-
+			&:first-child {
+				&:before {
+					content: "";
+				}
+			}
+			// User points
+			&:nth-child(2) {
+				&:before {
+					content: "";
+				}
+				> a {
+					padding-left: 0;
+				}
 			}
 			> a {
 				display: inline-block; // For correct separator position
@@ -599,4 +612,11 @@
   background-color: @darkerBlue;
   color: #fff;
   padding: 15px;
+}
+
+
+.emh-group {
+	padding: 15px;
+	margin-bottom: 15px;
+	background-color: @lightGrey;
 }

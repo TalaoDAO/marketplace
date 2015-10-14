@@ -2670,23 +2670,17 @@ function ft_field_base_field_default_field_bases() {
     'module' => 'entityreference',
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'handler' => 'og',
+      'handler' => 'views',
       'handler_settings' => array(
         'behaviors' => array(
-          'og_behavior' => array(
-            'status' => TRUE,
-          ),
           'views-select-list' => array(
             'status' => 0,
           ),
         ),
-        'membership_type' => 'og_membership_type_default',
-        'sort' => array(
-          'type' => 'none',
-        ),
-        'target_bundles' => array(
-          'circle' => 'circle',
-          'working_group' => 'working_group',
+        'view' => array(
+          'args' => array(),
+          'display_name' => 'entityreference_1',
+          'view_name' => 'user_circle_list',
         ),
       ),
       'handler_submit' => 'Change handler',
