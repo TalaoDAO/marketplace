@@ -1190,6 +1190,84 @@ function emh_points_views_default_views() {
   $handler->display->display_options['attachment_position'] = 'after';
   $handler->display->display_options['inherit_exposed_filters'] = TRUE;
 
+  /* Display: Attachment 2 */
+  $handler = $view->new_display('attachment', 'Attachment 2', 'attachment_2');
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '50';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = 'Question';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  /* Field: Comment: Title */
+  $handler->display->display_options['fields']['subject']['id'] = 'subject';
+  $handler->display->display_options['fields']['subject']['table'] = 'comment';
+  $handler->display->display_options['fields']['subject']['field'] = 'subject';
+  $handler->display->display_options['fields']['subject']['relationship'] = 'cid';
+  $handler->display->display_options['fields']['subject']['label'] = 'Answer';
+  /* Field: User: First Name */
+  $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['relationship'] = 'uid';
+  /* Field: User: Last Name */
+  $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['relationship'] = 'uid';
+  /* Field: Points Transaction (source): Points */
+  $handler->display->display_options['fields']['points']['id'] = 'points';
+  $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn_source';
+  $handler->display->display_options['fields']['points']['field'] = 'points';
+  /* Field: Comment: Author uid */
+  $handler->display->display_options['fields']['uid']['id'] = 'uid';
+  $handler->display->display_options['fields']['uid']['table'] = 'comment';
+  $handler->display->display_options['fields']['uid']['field'] = 'uid';
+  $handler->display->display_options['fields']['uid']['relationship'] = 'cid';
+  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
+  /* Field: Points Transaction (source): Destination ID */
+  $handler->display->display_options['fields']['dest_id']['id'] = 'dest_id';
+  $handler->display->display_options['fields']['dest_id']['table'] = 'emh_points_txn_source';
+  $handler->display->display_options['fields']['dest_id']['field'] = 'dest_id';
+  $handler->display->display_options['fields']['dest_id']['exclude'] = TRUE;
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Author uid */
+  $handler->display->display_options['arguments']['uid']['id'] = 'uid';
+  $handler->display->display_options['arguments']['uid']['table'] = 'node';
+  $handler->display->display_options['arguments']['uid']['field'] = 'uid';
+  $handler->display->display_options['arguments']['uid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'current_user';
+  $handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'question1' => 'question1',
+  );
+  /* Filter criterion: Global: Fields comparison */
+  $handler->display->display_options['filters']['fields_compare']['id'] = 'fields_compare';
+  $handler->display->display_options['filters']['fields_compare']['table'] = 'views';
+  $handler->display->display_options['filters']['fields_compare']['field'] = 'fields_compare';
+  $handler->display->display_options['filters']['fields_compare']['right_field'] = 'dest_id';
+  $handler->display->display_options['filters']['fields_compare']['left_field'] = 'uid';
+
   $views[$view->name] = $view;
 
   $view = new view();

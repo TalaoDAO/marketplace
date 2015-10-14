@@ -917,24 +917,46 @@ function emh_points_user_can_see_full_user($uid, $uid2) {
  */
 function emh_points_my_responses() {
   global $user;
-  $output = t('My rewarded answers');
-  $view = views_get_view('my_rewarded_answers');
-  $view->set_display('page');
-  $view->set_arguments($user->uid);
-  $view->pre_execute();
-  $view->execute();
-  $output .= $view->render();
-  $view = views_get_view('my_rewarded_answers');
-  $view->set_display('attachment_1');
-  $view->set_arguments($user->uid);
-  $view->pre_execute();
-  $view->execute();
-  $output .= $view->render();
-  $view = views_get_view('my_webform_rewarded_answers');
-  $view->set_display('page_1');
-  $view->set_arguments($user->uid);
-  $view->pre_execute();
-  $view->execute();
-  $output .= $view->render();
+  if (is_array($user->roles) && in_array('expert', array_values($user->roles))) {
+    $output = t('My rewarded answers');
+    $view = views_get_view('my_rewarded_answers');
+    $view->set_display('page');
+    $view->set_arguments($user->uid);
+    $view->pre_execute();
+    $view->execute();
+    $output .= $view->render();
+    $view = views_get_view('my_rewarded_answers');
+    $view->set_display('attachment_1');
+    $view->set_arguments($user->uid);
+    $view->pre_execute();
+    $view->execute();
+    $output .= $view->render();
+    $view = views_get_view('my_webform_rewarded_answers');
+    $view->set_display('page_1');
+    $view->set_arguments($user->uid);
+    $view->pre_execute();
+    $view->execute();
+    $output .= $view->render();
+  } else {
+    $output = t('Answers I\'ve rewarded');
+    $view = views_get_view('my_rewarded_answers');
+    $view->set_display('page_1');
+    $view->set_arguments($user->uid);
+    $view->pre_execute();
+    $view->execute();
+    $output .= $view->render();
+    $view = views_get_view('my_rewarded_answers');
+    $view->set_display('attachment_2');
+    $view->set_arguments($user->uid);
+    $view->pre_execute();
+    $view->execute();
+    $output .= $view->render();
+    $view = views_get_view('my_webform_rewarded_answers');
+    $view->set_display('page_2');
+    $view->set_arguments($user->uid);
+    $view->pre_execute();
+    $view->execute();
+    $output .= $view->render();
+  }
   return $output;
 }
