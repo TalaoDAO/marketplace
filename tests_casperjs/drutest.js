@@ -7,7 +7,7 @@
  * @see https://github.com/henvic/phantom-casper-simple-talk/blob/master/wordpress.js
  */
 var config = {
-  'host': 'http://gitemindhub/qd/drupal/',
+  'host': 'http://gitemindhub/dev-eminhub',
   'form': {
     'name': 'admin',
     'pass': 'admin'

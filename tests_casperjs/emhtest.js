@@ -161,56 +161,6 @@ casper.test.begin('Testing roles environnement', function suite(test) {
 
       }); // END enter user profile
 
-      // BEGIN Burger menu
-      if ( !( profile.name === 'Anonymous' ) ) {
-
-        casper.then(function() {
-
-          casper.then(function () {
-            casper.click( '.burger-menu-btn-container' );
-
-            // wait for modal to fade-in
-            casper.waitForSelector( '.region.region-burgermenu:not([style*="display: none"])',
-              function success() {
-                casper.test.comment( 'Hello burger !' );
-
-                casper.each(viewports, function(casper, viewport) {
-
-                  casper.then(function() {
-
-                    this.viewport(viewport.viewport.width, viewport.viewport.height);
-                    casper.test.comment( 'Taking a screenshot for ' + viewport.name + ' (' + viewport.viewport.width + 'x' + viewport.viewport.height + ')' );
-                    phantomcss.screenshot( '.region.region-burgermenu', profile.name + '_Burger-menu_' + viewport.name + '-' + viewport.viewport.width + 'x' + viewport.viewport.height );
-
-                  });
-
-                }); // END each viewports
-
-              },
-              function timeout() {
-                casper.test.fail( 'Should see burger menu' );
-              }
-            );
-          });
-
-          casper.then(function () {
-            casper.click( '.burgermenu-close-icon' );
-
-            // wait for modal to fade-out
-            casper.waitForSelector( '.region.region-burgermenu[style*="display: none"]',
-              function success() {
-                casper.test.comment( 'Bye bye burger !' );
-              },
-              function timeout() {
-                casper.test.fail( 'Should be able to walk away from the burger menu' );
-              }
-            );
-          });
-
-        });
-
-      } // END Burger menu
-      
       // Regular screenshots
       casper.then(function() {
 
