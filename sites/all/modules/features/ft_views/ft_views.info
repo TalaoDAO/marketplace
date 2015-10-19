@@ -34,7 +34,6 @@ features[views_view][] = news_thread
 features[views_view][] = query_list
 features[views_view][] = sponsors
 features[views_view][] = testimony
-features[views_view][] = user_circle_list
 features[views_view][] = users_list
 features[views_view][] = users_list_for_register
 features_exclude[dependencies][eva] = eva
