@@ -97,6 +97,14 @@
 
 	  <?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeNavigation.tpl.php'; ?>
 
+		<?php if (isset($body[0]['value'])) : ?>
+		<div class="row section">
+			<div class="col-sm-12">
+				<?php print $body[0]['value']; ?>
+			</div>
+		</div>
+		<?php endif; ?>
+
 		<div class="row section">
 
 			<?php if ( emh_access_user_name( $node ) == TRUE || emh_access_user_company( $node ) == TRUE ) : ?>
@@ -147,6 +155,10 @@
 					<li><?php print render($content['field_duration_of_the_mission']); ?></li>
 					<?php endif; ?>
 
+					<?php if (isset($content['field_expiration_date'])) : ?>
+					<li><?php print render($content['field_expiration_date']); ?></li>
+					<?php endif; ?>
+
 					<?php if (isset($content['field_reward'])) : ?>
 					<li><?php print render($content['field_reward']); ?></li>
 					<?php endif; ?>
@@ -181,14 +193,6 @@
 			<?php endif; ?>
 
 	  </div>
-
-	  <?php if (isset($body[0]['value'])) : ?>
-		<div class="row section">
-			<div class="col-sm-12">
-				<?php print $body[0]['value']; ?>
-			</div>
-		</div>
-		<?php endif; ?>
 
 		<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeLinks.tpl.php'; ?>
 

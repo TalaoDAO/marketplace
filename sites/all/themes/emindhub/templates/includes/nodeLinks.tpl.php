@@ -30,7 +30,7 @@
       if ($comment_count > 1) $count_label = t('responses');
       ?>
       <!-- <li class="comments_link first last"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/answers"><?php print $comment_count . '&nbsp;' . $count_label; ?></a> -->
-      <li class="comments_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/answers"><?php print t('Choose winners'); ?></a>
+      <li class="comments_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/answers"><?php print t('Select best answers'); ?></a>
       </li>
       <?php endif; ?>
 
