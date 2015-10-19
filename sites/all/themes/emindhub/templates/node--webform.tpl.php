@@ -81,13 +81,11 @@
  */
 
  // Show $node field, with display parameters
- // print render($content['field_duration_of_the_mission']);
+// echo '<pre>' . print_r($content['webform']['#node']->webform['components'], TRUE) . '</pre>'; die;
  // Show $node field, with custom display parameters
  // print render(field_view_field('node', $node, 'field_duration_of_the_mission'));
 ?>
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
-
-	<?php print $user_picture; ?>
 
 	<?php print render($title_prefix); ?>
 	<?php if (!$page): ?>
@@ -95,49 +93,20 @@
 	<?php endif; ?>
 	<?php print render($title_suffix); ?>
 
-	<?php if ($display_submitted): ?>
-		<div class="submitted">
-			<?php print $submitted; ?>
-		</div>
-	<?php endif; ?>
-
 	<div class="content"<?php print $content_attributes; ?>>
 
-	  <?php
-	  if (isset($variables['elements']['links']['views_navigation'])) {
-	    $linkBack = $variables['elements']['links']['views_navigation']['#links']['back'];
-	    $linkPrev = $variables['elements']['links']['views_navigation']['#links']['previous'];
-	    $linkNext = $variables['elements']['links']['views_navigation']['#links']['next'];
-	  } ?>
-  	<?php if (isset($linkBack) && isset($linkPrev) && isset($linkNext)) { ?>
-    <div class="row section">
-      <div class="col-sm-3 challenge-to-list">
-        <a href="<?php print base_path() . $linkBack['href']; ?>" <?php print drupal_attributes($linkBack['attributes']); ?>>
-					<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> <?php print $linkBack['title']; ?>
-				</a>
-      </div>
-      <div class="col-sm-3 col-sm-offset-3 col-xs-6 challenge-previous text-right">
-				<a href="<?php print base_path() . $linkPrev['href']; ?>" <?php print drupal_attributes($linkPrev['attributes']); ?>>
-					<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <?php print $linkPrev['title']; ?>
-				</a>
-      </div>
-      <div class="col-sm-3 col-xs-6 challenge-next">
-				<a href="<?php print base_path() . $linkNext['href']; ?>" <?php print drupal_attributes($linkNext['attributes']); ?>>
-					<?php print $linkNext['title']; ?> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-				</a>
-    	</div>
-    </div>
-		<?php } ?>
+	  <?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeNavigation.tpl.php'; ?>
 
 		<div class="row section">
-			<div class="col-sm-12">
-				<?php print render($content['body']); ?>
+
+			<?php if ( emh_access_user_name( $node ) == TRUE || emh_access_user_company( $node ) == TRUE ) : ?>
+			<div class="col-sm-3">
+				<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/userInformations.tpl.php'; ?>
 			</div>
-		</div>
+			<?php endif; ?>
 
-		<div class="row section">
-
-      <div class="col-sm-6">
+			<?php if ( isset($content['field_domaine']) || isset($content['field_tags']) ) : ?>
+      <div class="col-sm-3">
 
 				<div class="row">
 			    <div class="col-sm-12">
@@ -147,8 +116,9 @@
 				</div>
 
       </div>
+			<?php endif; ?>
 
-      <div class="col-sm-3 meta">
+			<div class="col-sm-3 meta">
 
 				<ul>
 
@@ -159,7 +129,7 @@
 					<?php if (isset($elements['#node']->created)) : ?>
 					<li>
 						<div class="field field-name-field-created-date field-type-datetime field-label-inline clearfix">
-							<div class="field-label"><?php print c_szPublicationDt; ?></div>
+							<div class="field-label"><?php print t('Publication date:'); ?></div>
 							<div class="field-items">
 								<div class="field-item even">
 									<?php print format_date($elements['#node']->created, 'custom', 'm/d/Y'); ?>
@@ -181,11 +151,11 @@
 					<li><?php print render($content['field_reward']); ?></li>
 					<?php endif; ?>
 
-          <?php if (!function_exists("webform_get_submission_count")) : ?>
-					<?php include_once(drupal_get_path('module', 'webform')."/includes/webform.submissions.inc"); ?>
+          <?php //if (function_exists('webform_get_submission_count')) : ?>
+					<?php include_once(drupal_get_path('module', 'webform') . '/includes/webform.submissions.inc'); ?>
 					<li>
 						<div class="field field-name-field-submission field-type-serial field-label-inline clearfix">
-							<div class="field-label"><?php print c_szNumResponses; ?></div>
+							<div class="field-label"><?php print t('Number of responses:'); ?></div>
 							<div class="field-items">
 								<div class="field-item even">
 									<?php print webform_get_submission_count($node->nid); ?>
@@ -193,10 +163,10 @@
 							</div>
 						</div>
 					</li>
-					<?php endif; ?>
+					<?php //endif; ?>
 
           <?php if (isset($field_has_salary[0]['value']) && $field_has_salary[0]['value'] == 1) : ?>
-            <li><?php print render($content['field_has_salary']); ?></li>
+          <li><?php print render($content['field_has_salary']); ?></li>
           <?php endif; ?>
 
 				</ul>
@@ -204,6 +174,7 @@
       </div>
 
 			<?php if (isset($content['field_image'])) : ?>
+			<?php // TODO : add default image ?>
 			<div class="col-sm-3 text-right">
 				<?php print render($content['field_image']); ?>
 			</div>
@@ -211,66 +182,33 @@
 
 	  </div>
 
-		<?php if (isset($content['field_object_of_the_mission'])) : ?>
+	  <?php if (isset($body[0]['value'])) : ?>
 		<div class="row section">
 			<div class="col-sm-12">
-				<?php print $elements['field_object_of_the_mission'][0]['#markup']; ?>
+				<?php print $body[0]['value']; ?>
 			</div>
 		</div>
 		<?php endif; ?>
 
-		<?php
-		if (
-		  (isset($field_anonymous[0]['value']) && $field_anonymous[0]['value'] == 1) ||
-		  (isset($field_show_entreprise[0]['value']) && $field_show_entreprise[0]['value'] == 1) ||
-		  (isset($field_use_my_entreprise[0]['value']) && $field_use_my_entreprise[0]['value'] == 1)
-		) : ?>
+		<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeLinks.tpl.php'; ?>
 
-		<div class="row section ">
-			<h3><span><?php print c_szSubmitted; ?></span></h3>
-			<div class="col-sm-12">
-				<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/userInformations.tpl.php'; ?>
-			</div>
-		</div>
-		<?php endif; ?>
-
-	  <div class="row section">
-
-			<div class="col-sm-12">
-
-		    <?php print $elements['links']['flag']['#links']['flag-my_selection']['title']; ?>
-
-				<?php if (node_access('update', $node)) : ?>
-	      <?php print l(t('Edit'),'node/'.$node->nid.'/edit', array('attributes' => array('class' => array('btn','btn-primary','btn-expert'))) ); ?>
-	      <?php print l(t('Edit questions'),'node/'.$node->nid.'/webform', array('attributes' => array('class' => array('btn','btn-primary','btn-expert'))) ); ?>
-				<?php print l(t('View responses'),'node/'.$node->nid.'/webform-results', array('attributes' => array('class' => array('btn','btn-primary','btn-expert'))) ); ?>
-				<?php endif; ?>
-
-			</div>
-
-		</div>
-
-		<div class="row section emh-fieldgroup-blue-title">
-
-			<?php if (!user_has_role(5)): ?>
-		  <h2 class="h3"><span><?php echo c_szAnswerExpertCall; ?></span></h2>
-		  <?php endif; ?>
-
-			<div class="col-sm-12">
-				<?php print render($content['webform']); ?>
-			</div>
-		</div>
+		<?php // print render($content['comments']); ?>
 
 		<?php
 			// We hide the comments and links now so that we can render them later.
 			hide($content['comments']);
 			hide($content['links']);
-			//print render($content);
+			// print render($content);
 		?>
+
+		<?php if ($content['webform']['#node']->webform['components']) : ?>
+			<div id="comments" class="<?php print $classes; ?> row section emh-fieldgroup-blue-title"<?php print $attributes; ?>>
+		    <h2 class="h3"><span><?php print t('Answer the survey') ?></span></h2>
+		    <div class="field-group-div">
+		      <?php print render($content['webform']); ?>
+		    </div>
+			</div>
+		<?php endif; ?>
 	</div>
-
-	<?php //print render($content['links']); // FLAG ?>
-
-	<?php //print render($content['comments']); ?>
 
 </div>

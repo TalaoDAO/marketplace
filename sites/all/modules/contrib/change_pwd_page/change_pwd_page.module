@@ -1,0 +1,236 @@
+<?php
+
+/**
+ * @file
+ * Provides the Password Change form in a separate page.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function change_pwd_page_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#change_pwd_page':
+      $output = '<p>' . t('The Password Separate Form module provides the separate password change form. By default it comes with user account page that little bit confusing for end users. This module would help to provide this form as a separate form to help end users, there is no need to change password fields every time if you are editing some other fields on user account page.') . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function change_pwd_page_menu() {
+  $items['user/%user/change-password'] = array(
+    'title' => 'Change Password',
+    'description' => 'Separate Change Password Form',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('change_pwd_page_form', 1),
+    'access callback' => 'user_edit_access',
+    'access arguments' => array(1),
+    'type' => MENU_LOCAL_TASK,
+  );
+  return $items;
+}
+
+/**
+ * Password change form.
+ */
+function change_pwd_page_form($form, &$form_state, $account) {
+  global $user;
+  $register = ($user->uid > 0 ? FALSE : TRUE);
+  
+  // Get the currently logged in user object.
+  $form['#account'] = $account;
+  
+  if (!isset($form_state['user'])) {
+    $form_state['user'] = $account;
+  }
+  else {
+    $account = $form_state['user'];
+  }
+
+  $form['#user'] = $account;
+  
+  // Display password field only for existing users or when user is allowed to
+  // assign a password during registration.
+  if (!$register) {
+    // To skip the current password field, the user must have logged in via a
+    // one-time link and have the token in the URL.
+    $pass_reset = isset($_SESSION['pass_reset_' . $account->uid]) && isset($_GET['pass-reset-token']) && ($_GET['pass-reset-token'] == $_SESSION['pass_reset_' . $account->uid]);
+    $protected_values = array();
+    $current_pass_description = '';
+    // The user may only change their own password without their current
+    // password if they logged in via a one-time login link.
+    if (!$pass_reset) {
+      $protected_values['mail'] = isset($form['account']['mail']['#title']) ? $form['account']['mail']['#title'] : '';
+      $protected_values['pass'] = t('Password');
+      $request_new = l(t('Request new password'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
+      $current_pass_description = t('Enter your current password to change the %mail or %pass. !request_new.', array('%mail' => $protected_values['mail'], '%pass' => $protected_values['pass'], '!request_new' => $request_new));
+    }
+    
+    // The user must enter their current password to change to a new one.
+    if ($user->uid == $account->uid) {
+      // Textfield for current password confirmation.
+      $form['current_pass'] = array(
+        '#type' => 'password',
+        '#title' => t('Current password'),
+        '#size' => 25,
+        '#required' => TRUE,
+        '#attributes' => array('autocomplete' => 'off'),
+        '#access' => !empty($protected_values),
+        '#description' => $current_pass_description,  
+      );
+      if(!empty($protected_values)) {
+        $form['#validate'][] = 'change_pwd_page_validate_current_pass';
+      }
+    }
+    // Password confirm field.
+    $form['account']['pass'] = array(
+      '#type' => 'password_confirm',
+      '#size' => 25,
+      '#title' => t('New Password'),
+      '#required' => TRUE,
+    );
+  }
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
+
+  return $form;
+}
+
+/**
+ * Validate handler for change_pwd_page_form().
+ */
+function change_pwd_page_validate_current_pass(&$form, &$form_state) {
+  // Make sure the password functions are present.
+  require_once DRUPAL_ROOT . '/' . variable_get('password_inc', 'includes/password.inc');
+
+  // Make sure the provided current password is valid for this account.
+  if (!user_check_password($form_state['values']['current_pass'], $form['#account'])) {
+    form_set_error('current_pass', t('The current password you provided is incorrect.'));
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ * Remove the current password field from the user_profile_form form
+ * (user/%/edit).
+ */
+function change_pwd_page_form_user_profile_form_alter(&$form, &$form_state) {
+  // Hide the current password fields.
+  $form['account']['pass_value']['#access'] = FALSE;
+  $form['account']['pass']['#access'] = FALSE;
+}
+
+/**
+ * Submit handler for change_pwd_page_form().
+ */
+function change_pwd_page_form_submit(&$form, &$form_state) {
+  // Set up the edit array to pass to user_save().
+  $edit = array('pass' => $form_state['values']['pass']);
+
+  // Save the account with the new password.
+  user_save($form['#account'], $edit);
+
+  // Inform the user.
+  drupal_set_message(t('Your password has been changed.'));
+}
+
+/**
+ * Implements hook_admin_paths_alter.
+ */
+function change_pwd_page_admin_paths_alter(&$paths) {
+  // User password change page.
+  $paths['user/*/change-password'] = 1;
+}
+
+/**
+ * Implements hook_menu_alter.
+ * Change page arguments to call custom function for user reset password menu item.
+ */
+function change_pwd_page_menu_alter(&$items) {
+  $items['user/reset/%/%/%']['page arguments'] = array('change_pwd_page_user_pass_reset', 2, 3, 4);
+}
+
+/**
+ * Menu callback; process one time login link and redirects to the user page on
+ * success.
+ */
+function change_pwd_page_user_pass_reset($form, &$form_state, $uid, $timestamp, $hashed_pass, $action = NULL) {
+  global $user;
+
+  // When processing the one-time login link, we have to make sure that a user
+  // isn't already logged in.
+  if ($user->uid) {
+    // The existing user is already logged in.
+    if ($user->uid == $uid) {
+      drupal_set_message(t('You are logged in as %user. <a href="!user_edit">Change your password.</a>', array('%user' => $user->name, '!user_edit' => url("user/$user->uid/change-password"))));
+    }
+    // A different user is already logged in on the computer.
+    else {
+      $reset_link_account = user_load($uid);
+      if (!empty($reset_link_account)) {
+        drupal_set_message(t('Another user (%other_user) is already logged into the site on this computer, but you tried to use a one-time link for user %resetting_user. Please <a href="!logout">logout</a> and try using the link again.',
+          array('%other_user' => $user->name, '%resetting_user' => $reset_link_account->name, '!logout' => url('user/logout'))));
+      }
+      else {
+        // Invalid one-time link specifies an unknown user.
+        drupal_set_message(t('The one-time login link you clicked is invalid.'));
+      }
+    }
+    drupal_goto();
+  }
+  else {
+    // Time out, in seconds, until login URL expires. Defaults to 24 hours =
+    // 86400 seconds.
+    $timeout = variable_get('user_password_reset_timeout', 86400);
+    $current = REQUEST_TIME;
+    // Some redundant checks for extra security ?
+    $users = user_load_multiple(array($uid), array('status' => '1'));
+    if ($timestamp <= $current && $account = reset($users)) {
+      // No time out for first time login.
+      if ($account->login && $current - $timestamp > $timeout) {
+        drupal_set_message(t('You have tried to use a one-time login link that has expired. Please request a new one using the form below.'));
+        drupal_goto('user/password');
+      }
+      elseif ($account->uid && $timestamp >= $account->login && $timestamp <= $current && $hashed_pass == user_pass_rehash($account->pass, $timestamp, $account->login)) {
+        // First stage is a confirmation form, then login
+        if ($action == 'change-password') {
+          // Set the new user.
+          $user = $account;
+          // user_login_finalize() also updates the login timestamp of the
+          // user, which invalidates further use of the one-time login link.
+          user_login_finalize();
+          watchdog('user', 'User %name used one-time login link at time %timestamp.', array('%name' => $account->name, '%timestamp' => $timestamp));
+          drupal_set_message(t('You have just used your one-time login link. It is no longer necessary to use this link to log in. Please change your password.'));
+          // Let the user's password be changed without the current password
+          // check.
+          $token = drupal_random_key();
+          $_SESSION['pass_reset_' . $user->uid] = $token;
+          drupal_goto('user/' . $user->uid . '/change-password', array('query' => array('pass-reset-token' => $token)));
+        }
+        else {
+          $form['message'] = array('#markup' => t('<p>This is a one-time login for %user_name and will expire on %expiration_date.</p><p>Click on this button to log in to the site and change your password.</p>', array('%user_name' => $account->name, '%expiration_date' => format_date($timestamp + $timeout))));
+          $form['help'] = array('#markup' => '<p>' . t('This login can be used only once.') . '</p>');
+          $form['actions'] = array('#type' => 'actions');
+          $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Log in'));
+          $form['#action'] = url("user/reset/$uid/$timestamp/$hashed_pass/change-password");
+          return $form;
+        }
+      }
+      else {
+        drupal_set_message(t('You have tried to use a one-time login link that has either been used or is no longer valid. Please request a new one using the form below.'));
+        drupal_goto('user/password');
+      }
+    }
+    else {
+      // Deny access, no more clues.
+      // Everything will be in the watchdog's URL for the administrator to
+      // check.
+      drupal_access_denied();
+      drupal_exit();
+    }
+  }
+}

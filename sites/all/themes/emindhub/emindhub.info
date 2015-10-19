@@ -46,14 +46,14 @@ exclude[css][] = 'sites/all/modules/patched/field_collection/field_collection.th
 ; Bootstrap sub-theme "how-to" documentation:
 ; https://drupal.org/node/1978010
 
-; ;----------------------------------
-; ; METHOD 1: Bootstrap Source Files
-; ;----------------------------------
-;
-; ;;;;;;;;;;;;;;;;;;;;;
-; ;; Scripts
-; ;;;;;;;;;;;;;;;;;;;;;
-;
+;----------------------------------
+; METHOD 1: Bootstrap Source Files
+;----------------------------------
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Scripts
+;;;;;;;;;;;;;;;;;;;;;
+
 scripts[] = js/main.js
 scripts[] = 'libraries/bootstrap/js/affix.js'
 scripts[] = 'libraries/bootstrap/js/alert.js'
@@ -68,14 +68,14 @@ scripts[] = 'libraries/bootstrap/js/scrollspy.js'
 scripts[] = 'libraries/bootstrap/js/tab.js'
 scripts[] = 'libraries/bootstrap/js/transition.js'
 
-; ; Disable BootstrapCDN if using Bootstrap source files in your sub-theme.
+; Disable BootstrapCDN if using Bootstrap source files in your sub-theme.
 ; settings[bootstrap_cdn] = ''
 
 
-; ;-------------------------
-; ; METHOD 2: Bootstrap CDN
-; ;-------------------------
-;
+;-------------------------
+; METHOD 2: Bootstrap CDN
+;-------------------------
+
 ; Method 2 uses BootstrapCDN, the only thing you might need to provide here
 ; is overrides to Bootstrap theme settings. Copy them here from the base theme
 ; to override.

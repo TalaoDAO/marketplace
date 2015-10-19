@@ -80,19 +80,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'backup_migrate',
   );
 
-  // Exported permission: 'access ckeditor link'.
-  $permissions['access ckeditor link'] = array(
-    'name' => 'access ckeditor link',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'business' => 'business',
-      'business preview' => 'business preview',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'ckeditor_link',
-  );
-
   // Exported permission: 'access comments'.
   $permissions['access comments'] = array(
     'name' => 'access comments',
@@ -197,6 +184,16 @@ function ft_permissions_user_default_permissions() {
     'module' => 'environment_indicator',
   );
 
+  // Exported permission: 'access environment indicator test'.
+  $permissions['access environment indicator test'] = array(
+    'name' => 'access environment indicator test',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'environment_indicator',
+  );
+
   // Exported permission: 'access epostcard'.
   $permissions['access epostcard'] = array(
     'name' => 'access epostcard',
@@ -214,16 +211,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'forward',
-  );
-
-  // Exported permission: 'access image styles mapping reports'.
-  $permissions['access image styles mapping reports'] = array(
-    'name' => 'access image styles mapping reports',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'image_styles_mapping',
   );
 
   // Exported permission: 'access mb content'.
@@ -535,15 +522,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'block',
   );
 
-  // Exported permission: 'administer ckeditor link'.
-  $permissions['administer ckeditor link'] = array(
-    'name' => 'administer ckeditor link',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'ckeditor_link',
-  );
-
   // Exported permission: 'administer comments'.
   $permissions['administer comments'] = array(
     'name' => 'administer comments',
@@ -671,15 +649,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'field_group',
-  );
-
-  // Exported permission: 'administer filters'.
-  $permissions['administer filters'] = array(
-    'name' => 'administer filters',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'filter',
   );
 
   // Exported permission: 'administer flags'.
@@ -815,15 +784,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'metatag',
-  );
-
-  // Exported permission: 'administer module filter'.
-  $permissions['administer module filter'] = array(
-    'name' => 'administer module filter',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'module_filter',
   );
 
   // Exported permission: 'administer modules'.
@@ -1024,15 +984,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'stringoverrides',
-  );
-
-  // Exported permission: 'administer switch'.
-  $permissions['administer switch'] = array(
-    'name' => 'administer switch',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'switchtheme',
   );
 
   // Exported permission: 'administer taxonomy'.
@@ -1869,16 +1820,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'taxonomy',
   );
 
-  // Exported permission: 'delete terms in userpoints'.
-  $permissions['delete terms in userpoints'] = array(
-    'name' => 'delete terms in userpoints',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'taxonomy',
-  );
-
   // Exported permission: 'display EU Cookie Compliance popup'.
   $permissions['display EU Cookie Compliance popup'] = array(
     'name' => 'display EU Cookie Compliance popup',
@@ -1939,15 +1880,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: 'edit any checklistapi checklist'.
-  $permissions['edit any checklistapi checklist'] = array(
-    'name' => 'edit any checklistapi checklist',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'checklistapi',
   );
 
   // Exported permission: 'edit any circle content'.
@@ -2352,16 +2284,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'taxonomy',
   );
 
-  // Exported permission: 'edit terms in userpoints'.
-  $permissions['edit terms in userpoints'] = array(
-    'name' => 'edit terms in userpoints',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'taxonomy',
-  );
-
   // Exported permission: 'edit webform components'.
   $permissions['edit webform components'] = array(
     'name' => 'edit webform components',
@@ -2649,7 +2571,10 @@ function ft_permissions_user_default_permissions() {
   // Exported permission: 'execute term_merge_action'.
   $permissions['execute term_merge_action'] = array(
     'name' => 'execute term_merge_action',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
     'module' => 'actions_permissions',
   );
 
@@ -2965,15 +2890,6 @@ function ft_permissions_user_default_permissions() {
   // Exported permission: 'merge terms'.
   $permissions['merge terms'] = array(
     'name' => 'merge terms',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'term_merge',
-  );
-
-  // Exported permission: 'merge userpoints terms'.
-  $permissions['merge userpoints terms'] = array(
-    'name' => 'merge userpoints terms',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -3382,16 +3298,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'user',
   );
 
-  // Exported permission: 'select different theme'.
-  $permissions['select different theme'] = array(
-    'name' => 'select different theme',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'switchtheme',
-  );
-
   // Exported permission: 'select text format for privatemsg'.
   $permissions['select text format for privatemsg'] = array(
     'name' => 'select text format for privatemsg',
@@ -3423,16 +3329,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'shortcut',
-  );
-
-  // Exported permission: 'switch theme'.
-  $permissions['switch theme'] = array(
-    'name' => 'switch theme',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'switchtheme',
   );
 
   // Exported permission: 'tag private messages'.
@@ -3824,42 +3720,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'page_manager',
   );
 
-  // Exported permission: 'use text format ds_code'.
-  $permissions['use text format ds_code'] = array(
-    'name' => 'use text format ds_code',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'filter',
-  );
-
-  // Exported permission: 'use text format filtered_html'.
-  $permissions['use text format filtered_html'] = array(
-    'name' => 'use text format filtered_html',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'filter',
-  );
-
-  // Exported permission: 'use text format full_html'.
-  $permissions['use text format full_html'] = array(
-    'name' => 'use text format full_html',
-    'roles' => array(
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'filter',
-  );
-
-  // Exported permission: 'use text format php_code'.
-  $permissions['use text format php_code'] = array(
-    'name' => 'use text format php_code',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'filter',
-  );
-
   // Exported permission: 'use tokens in privatemsg'.
   $permissions['use tokens in privatemsg'] = array(
     'name' => 'use tokens in privatemsg',
@@ -3868,26 +3728,6 @@ function ft_permissions_user_default_permissions() {
       'authenticated user' => 'authenticated user',
     ),
     'module' => 'privatemsg',
-  );
-
-  // Exported permission: 'view any checklistapi checklist'.
-  $permissions['view any checklistapi checklist'] = array(
-    'name' => 'view any checklistapi checklist',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'checklistapi',
-  );
-
-  // Exported permission: 'view checklistapi checklists report'.
-  $permissions['view checklistapi checklists report'] = array(
-    'name' => 'view checklistapi checklists report',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'checklistapi',
   );
 
   // Exported permission: 'view field_picto'.

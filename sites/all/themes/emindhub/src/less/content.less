@@ -1,5 +1,5 @@
 body {
-  background-color: #F6F7F8;
+  background-color: @lightGrey;
 }
 
 #trail {
@@ -85,7 +85,11 @@ a.flag {
   padding-top: 15px;
   padding-bottom: 15px;
 	margin: 0 0 15px;
-	background-color: #F6F7F8;
+	background-color: @lightGrey;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 
   &.emh-fieldgroup-blue-title {
     padding-top: 0;
@@ -106,10 +110,11 @@ a.flag {
   .field-name-body {
     font-size: 16px;
   }
+
   .field-type-taxonomy-term-reference {
     .field-items .field-item {
-      // display: inline-block;
       .emh-badge-term;
+      margin-bottom: 5px;
     }
     a {
       .emh-badge-term;
@@ -126,16 +131,29 @@ a.flag {
 
 
 .view-header {
-  p {
+	p {
     margin-bottom: 15px;
     &:first-child {
-      background-color: @darkerBlue;
-      color: #fff;
-      padding: 15px;
+      .introduction;
     }
   }
 }
 
 .content .node .links {
-  .text-hide;
+  li.fr,
+  li.en {
+    .text-hide;
+  }
+}
+
+
+
+.comment .content > div {
+  padding: 15px 0;
+}
+
+.section.actions {
+  ul.links {
+    margin: 0;
+  }
 }

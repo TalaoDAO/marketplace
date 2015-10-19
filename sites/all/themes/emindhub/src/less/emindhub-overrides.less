@@ -72,12 +72,17 @@ h4, .h4 {
 // Autocomplete Deluxe
 ul.ui-autocomplete {
 	.dropdown-menu;
+	width: auto;
 	a {
 		cursor: pointer;
 	}
 }
+.form-type-autocomplete-deluxe label {
+	display: block;
+}
 .autocomplete-deluxe-container {
 	.form-control;
+	display: inline-block; // Tip for regular input height
 	max-width: 352px;
 	height: auto;
 }
@@ -115,6 +120,7 @@ input#autocomplete-deluxe-input {
 	padding: 0;
 	border: 0;
 	box-shadow: none;
+	float: left;
 }
 
 
@@ -161,9 +167,19 @@ span.form-required {
 .input-group:not(.file-widget) {
 	max-width: 352px;
 }
+
 // Textarea
-.form-textarea-wrapper.resizable-textarea {
-	max-width: 500px;
+body.page-user-edit {
+	.form-textarea-wrapper.resizable-textarea {
+		max-width: 500px;
+	}
+}
+
+// Node edit case
+body.page-node-edit {
+	.form-textarea-wrapper.resizable-textarea {
+		max-width: auto !important;
+	}
 }
 
 
@@ -196,6 +212,17 @@ table.views-table {
 }
 .table-striped {
 	> tbody > tr:nth-of-type(even) {
+		background-color: @gray-very-lighter;
+	}
+}
+
+// Forcer le odd/even sur les listes de commentaires
+#comments {
+	> div.comment {
+		padding-top: 10px;
+		border-top: 1px solid #DDD;
+	}
+	> div.comment:nth-of-type(even) {
 		background-color: #fff;
 	}
 }
@@ -423,4 +450,23 @@ div.password-confirm {
 .hybridauth-widget-wrapper ul.hybridauth-widget li a {
   // padding: 0;
   // margin: 0;
+}
+
+
+// Links
+.list-inline > li {
+	> a {
+		.btn;
+		.btn-default;
+	}
+
+	&.comment-delete {
+		> a {
+			.btn-danger;
+		}
+	}
+
+	a.flag {
+		.btn-submit;
+	}
 }

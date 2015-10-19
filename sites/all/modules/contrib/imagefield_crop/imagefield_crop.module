@@ -401,7 +401,7 @@ function imagefield_crop_widget_value(&$element, &$input, $form_state) {
       $orig = clone $src;
       $orig->fid = 0;
       $orig->uri = $orig_uri;
-      $orig->filename = basename($orig_uri);
+      $orig->filename = drupal_basename($orig_uri);
       $orig->status = 1;
       $orig = file_save($orig);
       file_usage_add($orig, 'imagefield_crop', 'file', $src->fid);

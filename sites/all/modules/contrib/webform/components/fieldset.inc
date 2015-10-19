@@ -19,6 +19,7 @@ function _webform_defaults_fieldset() {
       'collapsible' => 0,
       'collapsed' => 0,
       'description' => '',
+      'description_above' => FALSE,
       'private' => FALSE,
     ),
   );
@@ -82,7 +83,7 @@ function webform_fieldset_prerender($element) {
 /**
  * Implements _webform_display_component().
  */
-function _webform_display_fieldset($component, $value, $format = 'html') {
+function _webform_display_fieldset($component, $value, $format = 'html', $submission = array()) {
   if ($format == 'text') {
     $element = array(
       '#title' => $component['name'],

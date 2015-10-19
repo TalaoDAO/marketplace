@@ -1,0 +1,4 @@
+name = EMH Points
+description = Points Managements for EMH website
+core = 7.x
+package = EMH

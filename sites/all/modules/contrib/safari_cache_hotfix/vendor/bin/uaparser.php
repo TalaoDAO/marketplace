@@ -1,0 +1,1 @@
+../tobie/ua-parser/php/bin/uaparser.php

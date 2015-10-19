@@ -56,8 +56,8 @@
   <div class="content">
     <?php //print $content ?>
     <ul>
-      <li><strong><?php print c_szExperimentedPro; ?></strong><?php print c_szInYourNetwork; ?></li>
-      <li><strong><?php print c_szWithEmindhub; ?></strong><?php print c_szYouOrganize; ?></li>
+      <li><?php print t('<strong>Experienced professionals, active retirees, researchers, students...</strong> Find the experts you need in the eMindHub\'s network'); ?></li>
+      <li><?php print t('<strong>With eMindHub,</strong> address your request to one or several circles of experts'); ?></li>
     </ul>
   </div>
 

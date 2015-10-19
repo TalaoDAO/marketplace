@@ -57,7 +57,7 @@
     <div class="content">
       <?php //print $content; ?>
       <a href="<?php print url('expert/register'); ?>">
-        <p><?php print ('You have<br /><strong>an expertise</strong>'); ?></p>
+        <p><?php print t('You have<br /><strong>an expertise</strong>'); ?></p>
         <p><?php print t('<strong>Sign-up</strong> as an expert and answer the requests'); ?></p>
       </a>
     </div>

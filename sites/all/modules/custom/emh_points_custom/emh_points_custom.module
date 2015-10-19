@@ -1,0 +1,179 @@
+<?php
+
+/**
+ * @file
+ * Specific configuration of points for eMindHub.
+ */
+
+/**
+ * Implements hook_field_access.
+ */
+function emh_points_custom_field_access($op, $field, $entity_type, $entity, $account) {
+  if ($op == 'view' && $entity_type == 'user') {
+    if (empty($entity)) {
+      return TRUE;
+    }
+    if (empty($account)) {
+      global $user;
+      $account = $user;
+    }
+    if ($account->uid == $entity->uid) return TRUE;
+    switch($field['field_name']) {
+      // We can always access first, last names and photo.
+      case 'field_first_name':
+        return TRUE;
+        break;
+      case 'field_last_name':
+        return TRUE;
+        break;
+      case 'field_photo':
+        return TRUE;
+        break;
+      // For other fields, it depends of our relation with the user:
+      case 'field_address':
+        $flag = flag_get_flag('my_contacts');
+        return ($flag && $flag->is_flagged($entity->uid, $account->uid));
+        break;
+      case 'field_telephone':
+        $flag = flag_get_flag('my_contacts');
+        return ($flag && $flag->is_flagged($entity->uid, $account->uid));
+        break;
+      default:
+        return emh_points_user_can_see_full_user($account->uid, $entity->uid);
+        break;
+    }
+  } else {
+    return TRUE;
+  }
+}
+
+function emh_points_custom_menu() {
+  $items = array();
+  $items['test_access/%/%'] = array(
+    'title' => 'dont care',
+    'page callback'=> 'emh_points_custom_test_access',
+    'page arguments'=> array(1, 2),
+    'access callback' => TRUE,
+  );
+  return $items;
+}
+
+function emh_points_custom_test_access($uid, $uid2) {
+  global $user;
+  $original_user = $user;
+  $old_state = drupal_save_session();
+  drupal_save_session(FALSE);
+  $user = user_load($uid);
+
+  $test_user = user_load($uid2);
+  $output = user_view($test_user);
+
+  $user = $original_user;
+  drupal_save_session($old_state);
+
+  return $output;
+}
+/*
+ */
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function emh_points_custom_form_emh_points_admin_form_alter(&$form, &$form_state) {
+  // Addition of the 3 global thresholds.
+  $form['emh_points_challenge_threshold'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Points threshold for Challenge'),
+    '#default_value' => variable_get('emh_points_challenge_threshold', '100'),
+    '#element_validate' => array('element_validate_integer_positive'),
+  );
+  $form['emh_points_question1_threshold'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Points threshold for Question1'),
+    '#default_value' => variable_get('emh_points_question1_threshold', '100'),
+    '#element_validate' => array('element_validate_integer_positive'),
+  );
+  $form['emh_points_webform_threshold'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Points threshold for Survey'),
+    '#default_value' => variable_get('emh_points_webform_threshold', '100'),
+    '#element_validate' => array('element_validate_integer_positive'),
+  );
+  $form['emh_points_contact_price'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Points to buy a contact'),
+    '#default_value' => variable_get('emh_points_contact_price', '100'),
+    '#element_validate' => array('element_validate_integer_positive'),
+  );
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ * Add reward field validation.
+ */
+function emh_points_custom_form_challenge_node_form_alter(&$form, &$form_state) {
+  $form['field_reward'][LANGUAGE_NONE]['0']['#element_validate'][] = 'emh_points_validate_enough_points';
+  $form['field_reward'][LANGUAGE_NONE]['0']['#element_validate'][] = 'emh_points_validate_challenge_threshold';
+}
+function emh_points_custom_form_question1_node_form_alter(&$form, &$form_state) {
+  $form['field_reward'][LANGUAGE_NONE]['0']['#element_validate'][] = 'emh_points_validate_enough_points';
+  $form['field_reward'][LANGUAGE_NONE]['0']['#element_validate'][] = 'emh_points_validate_question1_threshold';
+}
+function emh_points_custom_form_webform_node_form_alter(&$form, &$form_state) {
+  $form['field_reward'][LANGUAGE_NONE]['0']['#element_validate'][] = 'emh_points_validate_enough_points';
+  $form['field_reward'][LANGUAGE_NONE]['0']['#element_validate'][] = 'emh_points_validate_webform_threshold';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+/*
+function emh_points_custom_form_views_form_answers_page_alter(&$form, &$form_state) {
+  $nid = arg(1);
+  $node = node_load($nid);
+  if ($node->emh_points == 0) {
+    drupal_goto('node/' . $nid);
+  }
+}
+ */
+
+/**
+ * Validation callback to ensure you have enough points to create a Question.
+ */
+function emh_points_validate_enough_points($element, &$form_state, $form) {
+  $points = $element['value']['#value'];
+  $current_points = 0;
+  global $user;
+  $query = db_select('emh_points', 'p')
+    ->condition('p.entity_type', 'user')
+    ->condition('p.entity_id', $user->uid);
+  $query->addExpression('SUM(p.points)');
+  $current_points = $query->execute()->fetchField();
+  if ($current_points < $points) {
+    form_error($element, t('You don\'t have enough points (@count).', array('@count' => $current_points)));
+  }
+}
+
+function emh_points_validate_challenge_threshold($element, &$form_state, $form) {
+  $threshold = variable_get('emh_points_challenge_threshold', 100);
+  $points = $element['value']['#value'];
+  if ($points < $threshold) {
+    form_error($element, t('You should at least allocate @count points.', array('@count' => $threshold)));
+  }
+}
+
+function emh_points_validate_question1_threshold($element, &$form_state, $form) {
+  $threshold = variable_get('emh_points_question1_threshold', 100);
+  $points = $element['value']['#value'];
+  if ($points < $threshold) {
+    form_error($element, t('You should at least allocate @count points.', array('@count' => $threshold)));
+  }
+}
+
+function emh_points_validate_webform_threshold($element, &$form_state, $form) {
+  $threshold = variable_get('emh_points_webform_threshold', 100);
+  $points = $element['value']['#value'];
+  if ($points < $threshold) {
+    form_error($element, t('You should at least allocate @count points.', array('@count' => $threshold)));
+  }
+}

@@ -1,7 +1,10 @@
-sites/all/modules/.notused
-sites/all/modules/.unused
 sites/all/modules/debug
-sites/all/modules/testing/
+
+#behat
+bdd/bin
+bdd/vendor
+bdd/composer.phar
+bdd/composer.lock
 
 # Ignore configuration files that may contain sensitive information.
 sites/*/settings*.php

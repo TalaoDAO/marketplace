@@ -31,7 +31,7 @@ function emh_survey_form_webform_component_edit_form_alter(&$form, &$form_state,
 	$form['extra']['description']['#type'] = 'textfield';
 
 	// We hide mandatory field BUT we don't forget to force it
-	$form['validation']['mandatory']['#default_value'] = 1;
+	$form['validation']['required']['#default_value'] = 1;
 
 	// Action submit label
 	$form['actions']['submit']['#value'] = t('Save my question and go back to my form');

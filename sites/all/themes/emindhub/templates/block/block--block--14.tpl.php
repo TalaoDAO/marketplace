@@ -56,21 +56,29 @@
   <div class="content">
     <?php //print $content ?>
 
-    <?php if (!(user_is_logged_in())) : ?>
-    <a href="<?php print url("business/register"); ?>">
-      <span class="default-text"><?php echo sprintf(c_szAddQuestion, "<span>", "</span><div>", "</div>"); ?></span>
-      <span class="hover">
-        <?php echo c_szAskRealTime; ?><br />
-        <span><?php echo c_szRegisterKnowMore; ?></span>
-      </span>
-    </a>
-    <?php else : ?>
-      <a href="<?php print url("query-list/all?type[question1]=question1"); ?>">
-        <span class="default-text">
-          <?php print t('Respond <span>to questions</span>'); ?>
-          <div><?php print t('Learn more') ?></div>
+    <?php if (isBusinessUser()) : ?>
+      <a href="<?php print url("node/add/question1"); ?>">
+        <span class="default-text"><?php echo sprintf(t('Ask %sa question%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?></span>
+        <span class="hover">
+          <?php echo t('Ask a question online and get responses from experts'); ?><br />
+          <span><?php print t('Ask a question'); ?></span>
         </span>
       </a>
+
+    <?php elseif (isExpertUser()) : ?>
+    <a href="<?php print url("query-list/all?type[question1]=question1"); ?>">
+      <span class="default-text"><?php echo sprintf(t('Respond %sto questions%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?>
+      </span>
+    </a>
+
+    <?php else : ?>
+    <a href="<?php print url("business/register"); ?>">
+      <span class="default-text"><?php echo sprintf(t('Ask %sa question%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?></span>
+      <span class="hover">
+        <?php echo t('Ask a question online and get responses from experts'); ?><br />
+        <span><?php print t('Register to know more'); ?></span>
+      </span>
+    </a>
     <?php endif; ?>
 
   </div>
