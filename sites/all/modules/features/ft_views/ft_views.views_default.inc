@@ -781,7 +781,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_plugin'] = 'views_bootstrap_table_plugin_style';
   $handler->display->display_options['style_options']['columns'] = array(
     'title' => 'title',
     'created' => 'created',
@@ -810,6 +810,12 @@ function ft_views_views_default_views() {
     ),
   );
   $handler->display->display_options['style_options']['sticky'] = TRUE;
+  $handler->display->display_options['style_options']['bootstrap_styles'] = array(
+    'striped' => 0,
+    'bordered' => 0,
+    'hover' => 0,
+    'condensed' => 0,
+  );
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
@@ -963,7 +969,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['view_submission']['table'] = 'webform_submissions';
   $handler->display->display_options['fields']['view_submission']['field'] = 'view_submission';
   $handler->display->display_options['fields']['view_submission']['label'] = 'Response';
-  /* Field: Content: Choose circle of experts */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
@@ -1093,7 +1099,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['view_submission']['table'] = 'webform_submissions';
   $handler->display->display_options['fields']['view_submission']['field'] = 'view_submission';
   $handler->display->display_options['fields']['view_submission']['label'] = 'Response';
-  /* Field: Content: Choose circle of experts */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
@@ -1254,7 +1260,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['views_conditional']['then'] = 'Best';
   $handler->display->display_options['fields']['views_conditional']['or'] = '[nothing]';
   $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
-  /* Field: Content: Choose circle of experts */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
@@ -1422,7 +1428,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['views_conditional']['then'] = 'Best';
   $handler->display->display_options['fields']['views_conditional']['or'] = '[nothing]';
   $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
-  /* Field: Content: Choose circle of experts */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
@@ -1592,7 +1598,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['views_conditional']['then'] = 'Best';
   $handler->display->display_options['fields']['views_conditional']['or'] = '[nothing]';
   $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
-  /* Field: Broken/missing handler */
+  /* Field: Content: Choose circle of experts */
   $handler->display->display_options['fields']['og_group_ref_1']['id'] = 'og_group_ref_1';
   $handler->display->display_options['fields']['og_group_ref_1']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['fields']['og_group_ref_1']['field'] = 'og_group_ref';
@@ -1761,7 +1767,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['views_conditional']['then'] = 'Best';
   $handler->display->display_options['fields']['views_conditional']['or'] = '[nothing]';
   $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
-  /* Field: Broken/missing handler */
+  /* Field: Content: Choose circle of experts */
   $handler->display->display_options['fields']['og_group_ref_1']['id'] = 'og_group_ref_1';
   $handler->display->display_options['fields']['og_group_ref_1']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['fields']['og_group_ref_1']['field'] = 'og_group_ref';
@@ -2424,7 +2430,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Broken/missing handler */
+  /* Field: Content: Choose circle of experts */
   $handler->display->display_options['fields']['og_group_ref_1']['id'] = 'og_group_ref_1';
   $handler->display->display_options['fields']['og_group_ref_1']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['fields']['og_group_ref_1']['field'] = 'og_group_ref';
@@ -2548,15 +2554,10 @@ function ft_views_views_default_views() {
   );
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['vocabulary'] = 'domaine';
-  /* Filter criterion: Broken/missing handler */
+  /* Filter criterion: Content: Choose circle of experts (og_group_ref) */
   $handler->display->display_options['filters']['og_group_ref_target_id']['id'] = 'og_group_ref_target_id';
   $handler->display->display_options['filters']['og_group_ref_target_id']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['filters']['og_group_ref_target_id']['field'] = 'og_group_ref_target_id';
-  $handler->display->display_options['filters']['og_group_ref_target_id']['value'] = array(
-    'min' => '',
-    'max' => '',
-    'value' => '',
-  );
   $handler->display->display_options['filters']['og_group_ref_target_id']['group'] = 1;
   $handler->display->display_options['filters']['og_group_ref_target_id']['exposed'] = TRUE;
   $handler->display->display_options['filters']['og_group_ref_target_id']['expose']['operator_id'] = 'og_group_ref_target_id_op';
@@ -2765,7 +2766,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Broken/missing handler */
+  /* Field: Content: Choose circle of experts */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
@@ -2960,7 +2961,7 @@ function ft_views_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Broken/missing handler */
+  /* Field: Content: Choose circle of experts */
   $handler->display->display_options['fields']['og_group_ref_1']['id'] = 'og_group_ref_1';
   $handler->display->display_options['fields']['og_group_ref_1']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['fields']['og_group_ref_1']['field'] = 'og_group_ref';
@@ -3157,7 +3158,7 @@ function ft_views_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Broken/missing handler */
+  /* Field: Content: Choose circle of experts */
   $handler->display->display_options['fields']['og_group_ref_1']['id'] = 'og_group_ref_1';
   $handler->display->display_options['fields']['og_group_ref_1']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['fields']['og_group_ref_1']['field'] = 'og_group_ref';
