@@ -167,7 +167,7 @@
 					<?php include_once(drupal_get_path('module', 'webform') . '/includes/webform.submissions.inc'); ?>
 					<li>
 						<div class="field field-name-field-submission field-type-serial field-label-inline clearfix">
-							<div class="field-label"><?php print t('Number of responses:'); ?></div>
+							<div class="field-label"><?php print t('Number of answers:'); ?></div>
 							<div class="field-items">
 								<div class="field-item even">
 									<?php print webform_get_submission_count($node->nid); ?>

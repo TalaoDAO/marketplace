@@ -67,7 +67,7 @@
 
     <?php elseif (isExpertUser()) : ?>
     <a href="<?php print url('query-list/all?type[challenge]=challenge'); ?>">
-      <span class="default-text"><?php echo sprintf(t('Respond %sto challenges%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?>
+      <span class="default-text"><?php echo sprintf(t('Answer %sto challenges%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?>
       </span>
     </a>
 
