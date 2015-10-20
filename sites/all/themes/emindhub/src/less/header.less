@@ -140,6 +140,28 @@
 
 
 /* HEADER
+ * User manu
+ */
+#block-system-user-menu {
+	.navbar-emh-separator {
+		@media (min-width: @screen-sm-min) {
+			> li {
+				// User points
+				&:nth-child(2) {
+					&:before {
+						content: "";
+					}
+					> a {
+						padding-left: 0;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+/* HEADER
  * Navigation
  */
 header nav.navbar {

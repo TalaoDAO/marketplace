@@ -67,7 +67,7 @@
 
     <?php elseif (isExpertUser()) : ?>
     <a href="<?php print url("query-list/all?type[webform]=webform"); ?>">
-      <span class="default-text"><?php echo sprintf(t('Answer %sto surveys%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?>
+      <span class="default-text"><?php echo sprintf(t('Answer %ssurveys%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?>
       </span>
     </a>
 
