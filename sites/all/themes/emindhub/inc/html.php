@@ -8,5 +8,13 @@ function emindhub_preprocess_html(&$variables) {
     // $variables['classes_array'][] = 'role-id-' . $role_id;
     $variables['classes_array'][] = 'role-' . strtolower(drupal_clean_css_identifier($role));
   }
-  // $variables['classes_array'][] = 'user-uid-' . $user->uid;
+	// $variables['classes_array'][] = 'user-uid-' . $user->uid;
+
+  global $language;
+	// print_r($language); die;
+	if (isset($language)) {
+    // $variables['classes_array'][] = 'role-id-' . $role_id;
+    $variables['classes_array'][] = 'lang-' . $language->language;
+  }
+
 }

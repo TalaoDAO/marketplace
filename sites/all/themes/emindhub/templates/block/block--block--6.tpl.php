@@ -44,19 +44,32 @@
  *
  * @ingroup themeable
  */
-global $base_url;
 ?>
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
   <?php print render($title_prefix); ?>
   <?php if ($title): ?>
-  <a href="<?php print $base_url . '/' . drupal_get_path_alias('fields-of-expertise'); ?>"><h2<?php print $title_attributes; ?>><span><?php print $title; ?></span></h2></a>
+    <?php print l(
+      '<h2' . $title_attributes . '><span>' . $title . '</span></h2>',
+      'fields-of-expertise',
+      array(
+        'language' => $language,
+        'html' => TRUE
+      )
+    ); ?>
   <?php endif;?>
   <?php print render($title_suffix); ?>
 
   <?php if ($content): ?>
   <div class="content">
-    <a href="<?php print $base_url . '/' . drupal_get_path_alias('fields-of-expertise'); ?>"><?php print $content ?></a>
+    <?php print l(
+      $content,
+      'fields-of-expertise',
+      array(
+        'language' => $language,
+        'html' => TRUE
+      )
+    ); ?>
   </div>
   <?php endif;?>
 
