@@ -13484,6 +13484,7 @@ fieldset[disabled] .views-navigation-next.focus {
 }
 .section.actions ul.links {
   margin: 0;
+  display: inline-block;
 }
 .region-burgermenu {
   display: none;
@@ -14355,26 +14356,16 @@ aside .block .content {
 .view-query-list form .form-group {
   margin-bottom: 0;
 }
-.view-query-list form #edit-uid-current-wrapper {
+.view-query-list form #edit-field-domaine-tid-i18n-wrapper,
+.view-query-list form #edit-field-tags-tid-i18n-wrapper {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 767px) {
-  .view-query-list form #edit-uid-current-wrapper {
-    float: left;
-    width: 25%;
-  }
-}
-.view-query-list form #edit-status-1-wrapper {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 767px) {
-  .view-query-list form #edit-status-1-wrapper {
+  .view-query-list form #edit-field-domaine-tid-i18n-wrapper,
+  .view-query-list form #edit-field-tags-tid-i18n-wrapper {
     float: left;
     width: 25%;
   }

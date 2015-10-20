@@ -2709,24 +2709,11 @@ function ft_permissions_user_default_permissions() {
     'module' => 'flag',
   );
 
-  // Exported permission: 'flag winner_calls3'.
-  $permissions['flag winner_calls3'] = array(
-    'name' => 'flag winner_calls3',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'business' => 'business',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'flag',
-  );
-
   // Exported permission: 'flag winner_challenge'.
   $permissions['flag winner_challenge'] = array(
     'name' => 'flag winner_challenge',
     'roles' => array(
-      'administrator' => 'administrator',
-      'business' => 'business',
-      'webmaster' => 'webmaster',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'flag',
   );
@@ -2735,9 +2722,7 @@ function ft_permissions_user_default_permissions() {
   $permissions['flag winner_question1'] = array(
     'name' => 'flag winner_question1',
     'roles' => array(
-      'administrator' => 'administrator',
-      'business' => 'business',
-      'webmaster' => 'webmaster',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'flag',
   );
@@ -3437,24 +3422,11 @@ function ft_permissions_user_default_permissions() {
     'module' => 'flag',
   );
 
-  // Exported permission: 'unflag winner_calls3'.
-  $permissions['unflag winner_calls3'] = array(
-    'name' => 'unflag winner_calls3',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'business' => 'business',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'flag',
-  );
-
   // Exported permission: 'unflag winner_challenge'.
   $permissions['unflag winner_challenge'] = array(
     'name' => 'unflag winner_challenge',
     'roles' => array(
-      'administrator' => 'administrator',
-      'business' => 'business',
-      'webmaster' => 'webmaster',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'flag',
   );
@@ -3463,9 +3435,7 @@ function ft_permissions_user_default_permissions() {
   $permissions['unflag winner_question1'] = array(
     'name' => 'unflag winner_question1',
     'roles' => array(
-      'administrator' => 'administrator',
-      'business' => 'business',
-      'webmaster' => 'webmaster',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'flag',
   );

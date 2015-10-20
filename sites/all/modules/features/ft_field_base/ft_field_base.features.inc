@@ -125,6 +125,7 @@ function ft_field_base_flag_default_flags() {
       0 => 'name',
     ),
     'api_version' => 3,
+    'status' => FALSE,
   );
   // Exported flag: "Winner challenge".
   $flags['winner_challenge'] = array(

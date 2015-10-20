@@ -30,6 +30,8 @@ function emindhub_preprocess_node__webform(&$variables) {
 
 function node_informations_add(&$variables) {
 
+	// echo '<pre>' . print_r($variables['elements']['links'], TRUE) . '</pre>';
+
 	// Views navigation between nodes
 	$variables['linkBack'] = '';
 	$variables['linkPrev'] = '';

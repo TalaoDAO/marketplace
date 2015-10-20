@@ -3898,7 +3898,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'inline',
         'module' => 'date',
         'settings' => array(
-          'format_type' => 'long',
+          'format_type' => 'short_date',
           'fromto' => 'both',
           'multiple_from' => '',
           'multiple_number' => '',

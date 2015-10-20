@@ -1183,9 +1183,10 @@ function ft_content_type_field_group_info() {
     'children' => array(
       0 => 'field_first_name',
       1 => 'field_entreprise',
-      2 => 'field_address',
-      3 => 'field_titre_metier',
-      4 => 'field_photo',
+      2 => 'field_telephone',
+      3 => 'field_address',
+      4 => 'field_titre_metier',
+      5 => 'field_photo',
     ),
     'format_type' => 'div',
     'format_settings' => array(
