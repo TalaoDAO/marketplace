@@ -69,7 +69,7 @@ var profiles = [
   },
   {
     'name': 'Expert',
-    'login': { 'name': 'expert1', 'pass': 'expert1' },
+    'login': { 'name': 'expert0', 'pass': 'expert0' },
     'urls': [
       config.host,                            // Homepage
       config.host + 'user/2/drafts',          // My drafts
