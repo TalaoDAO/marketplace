@@ -402,7 +402,7 @@ function emindhub_form_search_block_form_alter(&$form, &$form_state, $form_id) {
 function emindhub_form_user_register_form_alter(&$form, &$form_state, $form_id) {
 
   $form['emh_baseline'] = array(
-    '#markup' => '<p class="emh-title-baseline">' . t('Create your account <strong>for free in no time</strong>') . '</p>',
+    '#markup' => '<p class="emh-title-baseline">' . sprintf(t('Create your account %sfor free in no time%s'), '<strong>', '</strong>') . '</p>',
     '#weight' => '-1000', // First !
   );
 

@@ -13471,8 +13471,8 @@ fieldset[disabled] .views-navigation-next.focus {
   color: #fff;
   padding: 15px;
 }
-.content .node .links li.fr,
-.content .node .links li.en {
+.content .node .links li.fr a,
+.content .node .links li.en a {
   font: 0/0 a;
   color: transparent;
   text-shadow: none;
@@ -14782,6 +14782,9 @@ body.front .alert {
     background-image: url("../images/banniere_EN.png");
     background-position: center center;
     background-repeat: no-repeat;
+  }
+  body.front.not-logged-in.lang-fr header#page-header {
+    background-image: url("../images/banniere_FR.png");
   }
 }
 /* FORMS

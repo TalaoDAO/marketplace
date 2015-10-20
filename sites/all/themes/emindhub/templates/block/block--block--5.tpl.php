@@ -44,9 +44,11 @@
  *
  * @ingroup themeable
  */
-global $base_url;
+global $base_url, $language;
+
 $front_theme = path_to_theme();
 $front_theme = $base_url . '/' . $front_theme;
+$current_lang = $language->language;
 ?>
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
@@ -60,8 +62,8 @@ $front_theme = $base_url . '/' . $front_theme;
     <div class="content">
       <?php //print $content; ?>
       <p>
-        <a class="colorbox" href="<?php print $front_theme; ?>/images/content/block/eMindHub_Benefits.png">
-        <img alt="" class="center-block" src="<?php print $front_theme; ?>/images/content/block/eMindHub_Benefits_ld.png" /><br />
+        <a class="colorbox" href="<?php print $front_theme; ?>/images/content/block/eMindHub_Benefits_<?php print $current_lang; ?>.png">
+        <img alt="Benefits" class="center-block" src="<?php print $front_theme; ?>/images/content/block/eMindHub_Benefits_ld_<?php print $current_lang; ?>.png" /><br />
         <?php print t('Click to zoom'); ?></a>
       </p>
     </div>

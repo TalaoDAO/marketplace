@@ -157,7 +157,7 @@
 
 					<li>
 						<div class="field field-name-field-submission field-type-serial field-label-inline clearfix">
-							<div class="field-label"><?php print t('Number of responses:'); ?></div>
+							<div class="field-label"><?php print t('Number of answers:'); ?></div>
 							<div class="field-items">
 								<div class="field-item even">
 									<?php print $comment_count; ?>
