@@ -10649,12 +10649,6 @@ hr {
   .navbar-emh-separator > li:first-child:before {
     content: "";
   }
-  .navbar-emh-separator > li:nth-child(2):before {
-    content: "";
-  }
-  .navbar-emh-separator > li:nth-child(2) > a {
-    padding-left: 0;
-  }
   .navbar-emh-separator > li > a {
     display: inline-block;
   }
@@ -12835,6 +12829,17 @@ fieldset[disabled] .list-inline > li a.flag.focus {
 .popover .hybridauth-widget-wrapper ul a[data-hybridauth-provider="LinkedIn"]:after {
   content: "Log in with LinkedIn";
   margin-left: 10px;
+}
+/* HEADER
+ * User manu
+ */
+@media (min-width: 767px) {
+  #block-system-user-menu .navbar-emh-separator > li:nth-child(2):before {
+    content: "";
+  }
+  #block-system-user-menu .navbar-emh-separator > li:nth-child(2) > a {
+    padding-left: 0;
+  }
 }
 /* HEADER
  * Navigation
