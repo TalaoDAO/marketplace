@@ -55,9 +55,9 @@ global $base_url;
   <?php print render($title_suffix); ?>
 
   <?php if ($content): ?>
-    <div class="content">
-      <a href="<?php print $base_url . '/' . drupal_get_path_alias('fields-of-expertise'); ?>"><?php print $content ?></a>
-    </div>
+  <div class="content">
+    <a href="<?php print $base_url . '/' . drupal_get_path_alias('fields-of-expertise'); ?>"><?php print $content ?></a>
+  </div>
   <?php endif;?>
 
 </section> <!-- /.block -->

@@ -61,7 +61,7 @@ $front_theme = $base_url . '/' . $front_theme;
       <?php //print $content; ?>
       <p>
         <a class="colorbox" href="<?php print $front_theme; ?>/images/content/block/eMindHub_Benefits.png">
-        <img alt="" class="center-block" src="<?php print $front_theme; ?>/images/content/block/eMindHub_Benefits_ld.png" /><br />
+        <img alt="Benefits" class="center-block" src="<?php print $front_theme; ?>/images/content/block/eMindHub_Benefits_ld.png" /><br />
         <?php print t('Click to zoom'); ?></a>
       </p>
     </div>

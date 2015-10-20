@@ -57,13 +57,13 @@
     <?php //print $content ?>
 
     <?php if (isBusinessUser()) : ?>
-      <a href="<?php print url("node/add/challenge"); ?>">
-        <span class="default-text"><?php echo sprintf(t('Start %sa challenge%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?></span>
-        <span class="hover">
-          <?php echo t('Request for service propositions to innovate or solve a problem'); ?><br />
-          <span><?php print t('Start a challenge'); ?></span>
-        </span>
-      </a>
+    <a href="<?php print url("node/add/challenge"); ?>">
+      <span class="default-text"><?php echo sprintf(t('Start %sa challenge%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?></span>
+      <span class="hover">
+        <?php echo t('Request for service propositions to innovate or solve a problem'); ?><br />
+        <span><?php print t('Start a challenge'); ?></span>
+      </span>
+    </a>
 
     <?php elseif (isExpertUser()) : ?>
     <a href="<?php print url("query-list/all?type[challenge]=challenge"); ?>">
