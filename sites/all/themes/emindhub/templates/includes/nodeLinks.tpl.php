@@ -29,7 +29,7 @@
       $count_label = t('answer');
       if ($comment_count > 1) $count_label = t('answers');
       ?>
-      <li class="comments_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/answers"><?php print t('Select best answers'); ?></a>
+      <li class="comments_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/answers" class="btn btn-primary"><?php print t('Select best answers'); ?></a>
       </li>
       <?php endif; ?>
 
