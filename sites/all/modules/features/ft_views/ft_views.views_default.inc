@@ -774,8 +774,8 @@ function ft_views_views_default_views() {
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'My Drafts';
   $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'view own unpublished content';
+  $handler->display->display_options['link_display'] = 'page_1';
+  $handler->display->display_options['access']['type'] = 'none';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
@@ -858,8 +858,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['arguments']['uid']['field'] = 'uid';
   $handler->display->display_options['arguments']['uid']['relationship'] = 'uid';
   $handler->display->display_options['arguments']['uid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'user';
-  $handler->display->display_options['arguments']['uid']['default_argument_options']['user'] = FALSE;
+  $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'current_user';
   $handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
@@ -876,16 +875,14 @@ function ft_views_views_default_views() {
   /* Display: My Drafts */
   $handler = $view->new_display('page', 'My Drafts', 'page_1');
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
-  $handler->display->display_options['path'] = 'user/%/drafts';
+  $handler->display->display_options['field_language'] = '***DEFAULT_LANGUAGE***';
+  $handler->display->display_options['path'] = 'user/my-drafts';
   $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Your Drafts';
+  $handler->display->display_options['menu']['title'] = 'My Drafts';
   $handler->display->display_options['menu']['description'] = 'Drafts you are working on';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
-
-  /* Display: Block */
-  $handler = $view->new_display('block', 'Block', 'block_1');
   $export['my_drafts'] = $view;
 
   $view = new view();
@@ -1604,6 +1601,10 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['og_group_ref_1']['field'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref_1']['relationship'] = 'nid';
   $handler->display->display_options['fields']['og_group_ref_1']['label'] = 'Circle';
+  $handler->display->display_options['fields']['og_group_ref_1']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['og_group_ref_1']['delta_offset'] = '0';
   /* Field: Flags: Flag link */
   $handler->display->display_options['fields']['ops']['id'] = 'ops';
   $handler->display->display_options['fields']['ops']['table'] = 'flagging';
@@ -1773,6 +1774,10 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['og_group_ref_1']['field'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref_1']['relationship'] = 'nid';
   $handler->display->display_options['fields']['og_group_ref_1']['label'] = 'Circle';
+  $handler->display->display_options['fields']['og_group_ref_1']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['og_group_ref_1']['delta_offset'] = '0';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: User: Uid */
   $handler->display->display_options['arguments']['uid']['id'] = 'uid';
@@ -2435,6 +2440,10 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['og_group_ref_1']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['fields']['og_group_ref_1']['field'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref_1']['label'] = 'Circle';
+  $handler->display->display_options['fields']['og_group_ref_1']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['og_group_ref_1']['delta_offset'] = '0';
   /* Field: Content: Post date */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'node';
@@ -2771,6 +2780,10 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['label'] = 'Circle';
+  $handler->display->display_options['fields']['og_group_ref']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
   /* Field: Content: Post date */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'node';
@@ -2966,6 +2979,10 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['og_group_ref_1']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['fields']['og_group_ref_1']['field'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref_1']['label'] = 'Circle';
+  $handler->display->display_options['fields']['og_group_ref_1']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['og_group_ref_1']['delta_offset'] = '0';
   /* Field: Content: Reward */
   $handler->display->display_options['fields']['field_reward']['id'] = 'field_reward';
   $handler->display->display_options['fields']['field_reward']['table'] = 'field_data_field_reward';
@@ -3163,6 +3180,10 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['og_group_ref_1']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['fields']['og_group_ref_1']['field'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref_1']['label'] = 'Circle';
+  $handler->display->display_options['fields']['og_group_ref_1']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['og_group_ref_1']['delta_offset'] = '0';
   /* Field: Content: Reward */
   $handler->display->display_options['fields']['field_reward']['id'] = 'field_reward';
   $handler->display->display_options['fields']['field_reward']['table'] = 'field_data_field_reward';
