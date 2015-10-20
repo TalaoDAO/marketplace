@@ -14390,6 +14390,9 @@ aside .block .content {
 .view-query-list .views-field-nothing {
   text-align: right;
 }
+.view-query-list .views-field-expression {
+  text-align: right;
+}
 #block-progress-tracker-progress-tracker .block-title {
   margin-top: 0;
 }
