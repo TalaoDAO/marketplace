@@ -223,24 +223,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'mb_content',
   );
 
-  // Exported permission: 'access own authorizations'.
-  $permissions['access own authorizations'] = array(
-    'name' => 'access own authorizations',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'oauth_common',
-  );
-
-  // Exported permission: 'access own consumers'.
-  $permissions['access own consumers'] = array(
-    'name' => 'access own consumers',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'oauth_common',
-  );
-
   // Exported permission: 'access own webform results'.
   $permissions['access own webform results'] = array(
     'name' => 'access own webform results',
@@ -531,15 +513,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'comment',
   );
 
-  // Exported permission: 'administer consumers'.
-  $permissions['administer consumers'] = array(
-    'name' => 'administer consumers',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'oauth_common',
-  );
-
   // Exported permission: 'administer contact forms'.
   $permissions['administer contact forms'] = array(
     'name' => 'administer contact forms',
@@ -813,15 +786,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: 'administer oauth'.
-  $permissions['administer oauth'] = array(
-    'name' => 'administer oauth',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'oauth_common',
   );
 
   // Exported permission: 'administer page manager'.
@@ -2890,24 +2854,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'pathauto',
-  );
-
-  // Exported permission: 'oauth authorize any consumers'.
-  $permissions['oauth authorize any consumers'] = array(
-    'name' => 'oauth authorize any consumers',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'oauth_common',
-  );
-
-  // Exported permission: 'oauth register any consumers'.
-  $permissions['oauth register any consumers'] = array(
-    'name' => 'oauth register any consumers',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'oauth_common',
   );
 
   // Exported permission: 'opt-in or out of tracking'.
