@@ -1,0 +1,16 @@
+<?php 
+
+/**
+ * @file
+ * Installation-related hooks for EMH Points Custom module
+ */
+
+/**
+ * Add weight to the module.
+ */
+function emh_points_custom_update_7101() {
+  db_update('system')
+    ->fields(array('weight' => 1))
+    ->condition('name', 'emh_points_custom')
+    ->execute();
+}
