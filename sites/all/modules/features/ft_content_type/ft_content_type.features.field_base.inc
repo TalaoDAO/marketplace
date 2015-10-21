@@ -10,55 +10,47 @@
 function ft_content_type_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_questions'
-  $field_bases['field_questions'] = array(
+  // Exported field_base: 'field_needs_for_expertise'
+  $field_bases['field_needs_for_expertise'] = array(
     'active' => 1,
     'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_questions',
+    'field_name' => 'field_needs_for_expertise',
     'field_permissions' => array(
       'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
-      'format' => array(
-        0 => 'format',
+      'tid' => array(
+        0 => 'tid',
       ),
     ),
     'locked' => 0,
-    'module' => 'text',
+    'module' => 'taxonomy',
     'settings' => array(
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => 'domaine',
+          'parent' => 0,
+        ),
+      ),
       'entity_translation_sync' => FALSE,
+      'options_list_callback' => 'i18n_taxonomy_allowed_values',
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 5,
+        6 => 0,
+        7 => 0,
+        8 => 0,
+        9 => 9,
+      ),
     ),
     'translatable' => 0,
-    'type' => 'text_long',
-  );
-
-  // Exported field_base: 'title_field'
-  $field_bases['title_field'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'title_field',
-    'field_permissions' => array(
-      'owner_field' => 'Comment',
-      'type' => 0,
-    ),
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'max_length' => 255,
-    ),
-    'translatable' => 1,
-    'type' => 'text',
+    'type' => 'taxonomy_term_reference',
   );
 
   return $field_bases;

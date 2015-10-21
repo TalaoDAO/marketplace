@@ -11881,9 +11881,6 @@ span.form-required {
 .input-group:not(.file-widget) {
   max-width: 352px;
 }
-body.page-user-edit .form-textarea-wrapper.resizable-textarea {
-  max-width: 500px;
-}
 body.page-node-edit .form-textarea-wrapper.resizable-textarea {
   max-width: auto !important;
 }
@@ -15571,11 +15568,11 @@ form#user-profile-form .imagefield-crop-widget .file {
 .page-user .profile-section .field-collection-container > .field > .field-items > .field-item {
   margin-bottom: 5px;
 }
-.page-user .profile-section.profile-section-public {
+.page-user .profile-section.group-profile {
   padding-top: 15px;
 }
-.page-user .profile-section.profile-section-public .h3,
-.page-user .profile-section.profile-section-public .h4 {
+.page-user .profile-section.group-profile .h3,
+.page-user .profile-section.group-profile .h4 {
   margin: 0;
 }
 .page-user .profile-section .field-name-field-photo img {

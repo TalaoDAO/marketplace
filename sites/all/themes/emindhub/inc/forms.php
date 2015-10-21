@@ -264,7 +264,7 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   // Add class to fieldset
   // $form['#groups']['group_complement']->format_settings['instance_settings']['classes'] .= ' form-group-2col';
 
-  // Add class before & after fields
+  // Profile
   $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_last_name']['#suffix'] = '</div>';
 
@@ -276,6 +276,7 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   unset($form['account']['current_pass_required_values']);
   $form['#validate'] = array_diff($form['#validate'], array('user_validate_current_pass'));
 
+  // Contact
   $form['field_address']['und'][0]['#type'] = 'div';
   $form['field_address']['und'][0]['street_block']['thoroughfare']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_address']['und'][0]['street_block']['premise']['#suffix'] = '</div>';
@@ -283,23 +284,32 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $form['field_address']['und'][0]['locality_block']['postal_code']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_address']['und'][0]['locality_block']['locality']['#suffix'] = '</div>';
 
-  $form['field_working_status']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_position']['#suffix'] = '</div>';
+  $form['field_telephone']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_link_to_my_blog']['#suffix'] = '</div>';
 
-  $form['field_employment_history']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_other_areas']['#suffix'] = '</div>';
+  // Organisation
+  $form['field_position']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_working_status']['#suffix'] = '</div>';
 
-  $form['field_sponsorship']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_sponsor1']['#suffix'] = '</div>';
+  // Needs
+  $form['field_needs_for_expertise']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_specific_skills3']['#suffix'] = '</div>';
 
+  // Skills & background
   $form['field_titre_metier']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_domaine']['#suffix'] = '</div>';
 
+  // Sponsorship
+  $form['field_sponsorship']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_sponsor1']['#suffix'] = '</div>';
+
+  // Complement
   $form['field_notification_frequency']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_known_specific']['#suffix'] = '</div>';
 
   $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
 
+  // FIXME : fait buguer la prévisualisation des portraits
   // $form['field_photo']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
   $form['field_cv']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
 

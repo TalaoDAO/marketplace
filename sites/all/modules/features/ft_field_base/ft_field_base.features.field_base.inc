@@ -108,14 +108,14 @@ function ft_field_base_field_default_field_bases() {
       'profile2_private' => FALSE,
       'user_role_field' => array(
         1 => 0,
-        2 => 0,
-        3 => 3,
-        4 => 4,
-        5 => 5,
+        2 => 2,
+        3 => 0,
+        4 => 0,
+        5 => 0,
         6 => 0,
-        7 => 7,
-        8 => 8,
-        9 => 9,
+        7 => 0,
+        8 => 0,
+        9 => 0,
       ),
     ),
     'translatable' => 0,
@@ -456,14 +456,14 @@ function ft_field_base_field_default_field_bases() {
       'profile2_private' => FALSE,
       'user_role_field' => array(
         1 => 0,
-        2 => 2,
+        2 => 0,
         3 => 0,
         4 => 4,
-        5 => 5,
+        5 => 0,
         6 => 0,
         7 => 7,
         8 => 8,
-        9 => 9,
+        9 => 0,
       ),
     ),
     'translatable' => 0,
@@ -530,7 +530,7 @@ function ft_field_base_field_default_field_bases() {
         9 => 0,
       ),
     ),
-    'translatable' => 0,
+    'translatable' => 1,
     'type' => 'text_long',
   );
 
@@ -619,7 +619,7 @@ function ft_field_base_field_default_field_bases() {
         9 => 9,
       ),
     ),
-    'translatable' => 0,
+    'translatable' => 1,
     'type' => 'text_long',
   );
 
@@ -992,14 +992,14 @@ function ft_field_base_field_default_field_bases() {
       'profile2_private' => FALSE,
       'user_role_field' => array(
         1 => 0,
-        2 => 0,
+        2 => 2,
         3 => 0,
-        4 => 4,
-        5 => 5,
+        4 => 0,
+        5 => 0,
         6 => 0,
-        7 => 7,
-        8 => 8,
-        9 => 9,
+        7 => 0,
+        8 => 0,
+        9 => 0,
       ),
     ),
     'translatable' => 1,
@@ -1030,14 +1030,14 @@ function ft_field_base_field_default_field_bases() {
       'profile2_private' => FALSE,
       'user_role_field' => array(
         1 => 0,
-        2 => 0,
+        2 => 2,
         3 => 0,
-        4 => 4,
-        5 => 5,
+        4 => 0,
+        5 => 0,
         6 => 0,
-        7 => 7,
-        8 => 8,
-        9 => 9,
+        7 => 0,
+        8 => 0,
+        9 => 0,
       ),
     ),
     'translatable' => 1,
@@ -1114,13 +1114,13 @@ function ft_field_base_field_default_field_bases() {
       'url' => 0,
       'user_role_field' => array(
         1 => 0,
-        2 => 0,
+        2 => 2,
         3 => 0,
-        4 => 4,
+        4 => 0,
         5 => 0,
         6 => 0,
         7 => 0,
-        8 => 8,
+        8 => 0,
         9 => 0,
       ),
     ),
@@ -1200,6 +1200,49 @@ function ft_field_base_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
+  // Exported field_base: 'field_needs_for_expertise'
+  $field_bases['field_needs_for_expertise'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_needs_for_expertise',
+    'field_permissions' => array(
+      'owner_field' => 'Comment',
+      'type' => 0,
+    ),
+    'indexes' => array(
+      'tid' => array(
+        0 => 'tid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'taxonomy',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => 'domaine',
+          'parent' => 0,
+        ),
+      ),
+      'entity_translation_sync' => FALSE,
+      'options_list_callback' => 'i18n_taxonomy_allowed_values',
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 5,
+        6 => 0,
+        7 => 0,
+        8 => 0,
+        9 => 9,
+      ),
+    ),
+    'translatable' => 0,
+    'type' => 'taxonomy_term_reference',
+  );
+
   // Exported field_base: 'field_notification_frequency'
   $field_bases['field_notification_frequency'] = array(
     'active' => 1,
@@ -1230,14 +1273,14 @@ function ft_field_base_field_default_field_bases() {
       'profile2_private' => FALSE,
       'user_role_field' => array(
         1 => 0,
-        2 => 0,
+        2 => 2,
         3 => 0,
-        4 => 4,
-        5 => 5,
+        4 => 0,
+        5 => 0,
         6 => 0,
-        7 => 7,
-        8 => 8,
-        9 => 9,
+        7 => 0,
+        8 => 0,
+        9 => 0,
       ),
     ),
     'translatable' => 1,
@@ -1276,7 +1319,7 @@ function ft_field_base_field_default_field_bases() {
         9 => 0,
       ),
     ),
-    'translatable' => 0,
+    'translatable' => 1,
     'type' => 'text_long',
   );
 
@@ -1340,7 +1383,7 @@ function ft_field_base_field_default_field_bases() {
       'entity_translation_sync' => FALSE,
       'user_role_field' => array(
         1 => 0,
-        2 => 0,
+        2 => 2,
         3 => 0,
         4 => 0,
         5 => 0,
@@ -1453,13 +1496,13 @@ function ft_field_base_field_default_field_bases() {
       'options_list_callback' => 'i18n_taxonomy_allowed_values',
       'user_role_field' => array(
         1 => 0,
-        2 => 0,
+        2 => 2,
         3 => 0,
-        4 => 4,
+        4 => 0,
         5 => 0,
         6 => 0,
         7 => 0,
-        8 => 8,
+        8 => 0,
         9 => 0,
       ),
     ),
@@ -1501,7 +1544,7 @@ function ft_field_base_field_default_field_bases() {
         9 => 0,
       ),
     ),
-    'translatable' => 0,
+    'translatable' => 1,
     'type' => 'field_collection',
   );
 
@@ -1617,31 +1660,6 @@ function ft_field_base_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'list_boolean',
-  );
-
-  // Exported field_base: 'field_questions'
-  $field_bases['field_questions'] = array(
-    'active' => 1,
-    'cardinality' => -1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_questions',
-    'field_permissions' => array(
-      'owner_field' => 'Comment',
-      'type' => 0,
-    ),
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-    ),
-    'translatable' => 0,
-    'type' => 'text_long',
   );
 
   // Exported field_base: 'field_referent'
@@ -2085,7 +2103,7 @@ function ft_field_base_field_default_field_bases() {
       'entity_translation_sync' => FALSE,
       'user_role_field' => array(
         1 => 0,
-        2 => 0,
+        2 => 2,
         3 => 0,
         4 => 0,
         5 => 0,
@@ -2132,7 +2150,7 @@ function ft_field_base_field_default_field_bases() {
         4 => 4,
         5 => 0,
         6 => 0,
-        7 => 0,
+        7 => 7,
         8 => 8,
         9 => 0,
       ),
@@ -2229,7 +2247,7 @@ function ft_field_base_field_default_field_bases() {
       'profile2_private' => FALSE,
       'user_role_field' => array(
         1 => 0,
-        2 => 0,
+        2 => 2,
         3 => 0,
         4 => 0,
         5 => 0,
@@ -2266,14 +2284,14 @@ function ft_field_base_field_default_field_bases() {
       'profile2_private' => FALSE,
       'user_role_field' => array(
         1 => 0,
-        2 => 0,
+        2 => 2,
         3 => 0,
         4 => 0,
-        5 => 5,
+        5 => 0,
         6 => 0,
         7 => 0,
         8 => 0,
-        9 => 9,
+        9 => 0,
       ),
     ),
     'translatable' => 0,
@@ -2475,13 +2493,13 @@ function ft_field_base_field_default_field_bases() {
       'profile2_private' => FALSE,
       'user_role_field' => array(
         1 => 0,
-        2 => 0,
+        2 => 2,
         3 => 0,
-        4 => 4,
+        4 => 0,
         5 => 0,
         6 => 0,
-        7 => 7,
-        8 => 8,
+        7 => 0,
+        8 => 0,
         9 => 0,
       ),
     ),
