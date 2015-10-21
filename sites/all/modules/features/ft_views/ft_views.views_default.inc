@@ -192,7 +192,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['name']['label'] = '';
   $handler->display->display_options['fields']['name']['exclude'] = TRUE;
   $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
-  /* Field: Field: Profile Title */
+  /* Field: Field: Profile title */
   $handler->display->display_options['fields']['field_titre_metier']['id'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['table'] = 'field_data_field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
@@ -326,7 +326,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['nothing']['label'] = '';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '[field_first_name] [field_last_name]';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
-  /* Field: Field: Profile Title */
+  /* Field: Field: Profile title */
   $handler->display->display_options['fields']['field_titre_metier']['id'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['table'] = 'field_data_field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
@@ -392,7 +392,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['sorts']['name_1']['id'] = 'name_1';
   $handler->display->display_options['sorts']['name_1']['table'] = 'users';
   $handler->display->display_options['sorts']['name_1']['field'] = 'name';
-  /* Sort criterion: Field: Profile Title (field_titre_metier) */
+  /* Sort criterion: Field: Profile title (field_titre_metier) */
   $handler->display->display_options['sorts']['field_titre_metier_value']['id'] = 'field_titre_metier_value';
   $handler->display->display_options['sorts']['field_titre_metier_value']['table'] = 'field_data_field_titre_metier';
   $handler->display->display_options['sorts']['field_titre_metier_value']['field'] = 'field_titre_metier_value';
@@ -1158,14 +1158,14 @@ function ft_views_views_default_views() {
   $view->description = '';
   $view->tag = 'emh, reponses';
   $view->base_table = 'comment';
-  $view->human_name = 'My Responses - Challenges';
+  $view->human_name = 'My answers - Challenges';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'My Responses - Challenges';
+  $handler->display->display_options['title'] = 'My answers - Challenges';
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
@@ -1496,14 +1496,14 @@ function ft_views_views_default_views() {
   $view->description = '';
   $view->tag = 'emh, reponses';
   $view->base_table = 'comment';
-  $view->human_name = 'My Responses - Questions1';
+  $view->human_name = 'My answers - Questions';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'My Responses - Questions';
+  $handler->display->display_options['title'] = 'My answers - Questions';
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
@@ -3725,13 +3725,13 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
   $handler->display->display_options['fields']['field_last_name']['label'] = '';
   $handler->display->display_options['fields']['field_last_name']['element_label_colon'] = FALSE;
-  /* Field: Field: Profile Title */
+  /* Field: Field: Profile title */
   $handler->display->display_options['fields']['field_titre_metier']['id'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['table'] = 'field_data_field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
-  /* Field: Field: Describe your work experience: degrees, companies, etc. */
+  /* Field: Field: Describe your work experience */
   $handler->display->display_options['fields']['field_employment_history']['id'] = 'field_employment_history';
   $handler->display->display_options['fields']['field_employment_history']['table'] = 'field_data_field_employment_history';
   $handler->display->display_options['fields']['field_employment_history']['field'] = 'field_employment_history';
@@ -3809,7 +3809,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_last_name']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_last_name']['element_wrapper_type'] = '0';
   $handler->display->display_options['fields']['field_last_name']['element_default_classes'] = FALSE;
-  /* Field: Field: Profile Title */
+  /* Field: Field: Profile title */
   $handler->display->display_options['fields']['field_titre_metier']['id'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['table'] = 'field_data_field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
@@ -3819,7 +3819,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_titre_metier']['element_wrapper_type'] = '0';
   $handler->display->display_options['fields']['field_titre_metier']['element_default_classes'] = FALSE;
-  /* Field: Field: Describe your work experience: degrees, companies, etc. */
+  /* Field: Field: Describe your work experience */
   $handler->display->display_options['fields']['field_employment_history']['id'] = 'field_employment_history';
   $handler->display->display_options['fields']['field_employment_history']['table'] = 'field_data_field_employment_history';
   $handler->display->display_options['fields']['field_employment_history']['field'] = 'field_employment_history';
@@ -3993,7 +3993,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_last_name']['label'] = '';
   $handler->display->display_options['fields']['field_last_name']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_last_name']['element_label_colon'] = FALSE;
-  /* Field: Field: Profile Title */
+  /* Field: Field: Profile title */
   $handler->display->display_options['fields']['field_titre_metier']['id'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['table'] = 'field_data_field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
@@ -4077,7 +4077,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['nothing']['label'] = '';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '[field_first_name] [field_last_name]';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
-  /* Field: Field: Profile Title */
+  /* Field: Field: Profile title */
   $handler->display->display_options['fields']['field_titre_metier']['id'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['table'] = 'field_data_field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
@@ -4160,7 +4160,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
   $handler->display->display_options['fields']['field_last_name']['label'] = '';
   $handler->display->display_options['fields']['field_last_name']['element_label_colon'] = FALSE;
-  /* Field: Field: Profile Title */
+  /* Field: Field: Profile title */
   $handler->display->display_options['fields']['field_titre_metier']['id'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['table'] = 'field_data_field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
@@ -4259,7 +4259,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
   $handler->display->display_options['fields']['field_last_name']['label'] = '';
   $handler->display->display_options['fields']['field_last_name']['element_label_colon'] = FALSE;
-  /* Field: Field: Profile Title */
+  /* Field: Field: Profile title */
   $handler->display->display_options['fields']['field_titre_metier']['id'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['table'] = 'field_data_field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
