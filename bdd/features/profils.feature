@@ -6,7 +6,7 @@ Feature: Test profil visibility
 
   Background: Create questions and answers
     Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_titre_metier |
+    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas |
     | client1 | client1@emindhub.com | business | Captain          | America         | 0612345678      | Chef de groupe     |
     | expert1 | expert1@emindhub.com | expert   | Iron             | Man             | 0712345678      | Chieur génial      |
     | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | 0812345678      | Modèle             |
@@ -34,8 +34,6 @@ Feature: Test profil visibility
     Then I should have 100 points on "What about ?" node
     Given I am logged in as "client1"
     When I go to "my-responses"
-    Then I should see "expert1"
-    And I should see "expert2"
     When node "What about ?" transfers 50 points on "expert1" user
     And node "What about ?" transfers 50 points on "expert2" user
     Then I should have 0 points on "What about ?" node

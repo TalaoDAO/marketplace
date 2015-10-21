@@ -53,9 +53,9 @@ Feature: Create question and answers
 
     Given I am logged in as "client1"
     When I go to "my-responses"
-    Then I should see "expert1"
-    And I should see "Je suis un expert" in the "expert1" row
-    And I should see "All experts" in the "expert1" row
+    Then I should see "Iron Man"
+    And I should see "Je suis un expert" in the "Iron Man" row
+    And I should see "All experts" in the "Iron Man" row
     When I go to homepage
     And I click "What about ?" in the "What about ?" row
     Then I should not see "Answer the question"
