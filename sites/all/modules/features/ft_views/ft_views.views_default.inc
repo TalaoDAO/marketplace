@@ -3832,13 +3832,55 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_sponsor_why']['id'] = 'field_sponsor_why';
   $handler->display->display_options['fields']['field_sponsor_why']['table'] = 'field_data_field_sponsor_why';
   $handler->display->display_options['fields']['field_sponsor_why']['field'] = 'field_sponsor_why';
-  $handler->display->display_options['fields']['field_sponsor_why']['label'] = 'Why did I choose to sponsor eMindHub?';
+  $handler->display->display_options['fields']['field_sponsor_why']['label'] = '';
   $handler->display->display_options['fields']['field_sponsor_why']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_sponsor_why']['element_default_classes'] = FALSE;
   $handler->display->display_options['block_description'] = 'Sponsors';
 
   /* Display: Partners */
   $handler = $view->new_display('block', 'Partners', 'partners_block');
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: User: Photo */
+  $handler->display->display_options['fields']['field_photo']['id'] = 'field_photo';
+  $handler->display->display_options['fields']['field_photo']['table'] = 'field_data_field_photo';
+  $handler->display->display_options['fields']['field_photo']['field'] = 'field_photo';
+  $handler->display->display_options['fields']['field_photo']['label'] = '';
+  $handler->display->display_options['fields']['field_photo']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_photo']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_photo']['settings'] = array(
+    'image_style' => 'thumbnail',
+    'image_link' => '',
+  );
+  /* Field: User: First Name */
+  $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['label'] = '';
+  $handler->display->display_options['fields']['field_first_name']['element_label_colon'] = FALSE;
+  /* Field: User: Last Name */
+  $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['label'] = '';
+  $handler->display->display_options['fields']['field_last_name']['element_label_colon'] = FALSE;
+  /* Field: Field: Profile title */
+  $handler->display->display_options['fields']['field_titre_metier']['id'] = 'field_titre_metier';
+  $handler->display->display_options['fields']['field_titre_metier']['table'] = 'field_data_field_titre_metier';
+  $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
+  $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
+  $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
+  /* Field: Field: Describe your work experience */
+  $handler->display->display_options['fields']['field_employment_history']['id'] = 'field_employment_history';
+  $handler->display->display_options['fields']['field_employment_history']['table'] = 'field_data_field_employment_history';
+  $handler->display->display_options['fields']['field_employment_history']['field'] = 'field_employment_history';
+  $handler->display->display_options['fields']['field_employment_history']['label'] = 'Experience';
+  /* Field: User: Why did I choose to become a partner? */
+  $handler->display->display_options['fields']['field_partner_why']['id'] = 'field_partner_why';
+  $handler->display->display_options['fields']['field_partner_why']['table'] = 'field_data_field_partner_why';
+  $handler->display->display_options['fields']['field_partner_why']['field'] = 'field_partner_why';
+  $handler->display->display_options['fields']['field_partner_why']['label'] = '';
+  $handler->display->display_options['fields']['field_partner_why']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_partner_why']['element_default_classes'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: User: Active */
