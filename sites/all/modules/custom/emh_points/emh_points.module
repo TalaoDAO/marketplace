@@ -417,6 +417,7 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
         drupal_access_denied();
         drupal_exit();
       }
+      drupal_set_title(emh_points_format_entity($user));
       break;
     case 'node':
       $node = node_load($id_source);
@@ -424,6 +425,7 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
         drupal_access_denied();
         drupal_exit();
       }
+      drupal_set_title($node->title);
       break;
     default:
       drupal_access_denied();
@@ -437,6 +439,9 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
   $form['points'] = array(
     '#type' => 'value',
     '#default_value' => $points,
+  );
+  $form['points_help'] = array(
+    '#markup' => '<div>' . t('Points to distribute: @count', array('@count' => $points)) . '</div>',
   );
   $form['type_source'] = array(
     '#type' => 'value',
@@ -471,8 +476,15 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
   }
   $form['submit'] = array(
     '#type' => 'submit',
-    '#value' => t('Distribute points'),
+    '#value' => t('Validate distribution'),
   );
+  if ($type_source == 'node' && in_array($node->type, array('challenge', 'question1', 'webform'))) {
+    $form['submit']['#value'] = t('Validate distribution and close the request');
+    $form['baseline'] = array(
+      '#markup' => '<div>' . t('Distribute points to best experts') . '</div>',
+      '#weight' => -100,
+    );
+  }
   return $form;
 }
 
@@ -517,7 +529,6 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
         $dest = user_load($id);
         break;
       }
-      $account = user_load($uid);
       emh_points_move_points($source, $dest, $value);
     }
   }
@@ -533,7 +544,7 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
       break;
   }
   $points = $form_state['values']['points'];
-  drupal_set_message(t('@count total points dispatched', array('@count' => $points)));
+  drupal_set_message(t('All the points have been dispatched.'));
 }
 
 /**

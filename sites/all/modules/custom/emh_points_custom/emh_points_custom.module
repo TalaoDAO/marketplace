@@ -111,6 +111,16 @@ function emh_points_custom_form_emh_points_admin_form_alter(&$form, &$form_state
 }
 
 /**
+ * Implements hook_views_bulk_operations_form_alter().
+ */
+function emh_points_custom_views_bulk_operations_form_alter(&$form) {
+  // Only when we want it.
+  if (!empty(arg(2)) && (arg(2) == 'answers' || arg(2) == 'webform-answers')) {
+    $form['select']['#weight'] = 100;
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  * Add reward field validation.
  */
