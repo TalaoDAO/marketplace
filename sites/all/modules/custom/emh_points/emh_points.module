@@ -523,6 +523,8 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
   }
   switch($form_state['values']['type_source']) {
     case 'node':
+      // Points have been distributed, we should close the demand.
+      emh_points_close_node($form_state['values']['id_source']);
       $form_state['redirect'] = 'node/' . $form_state['values']['id_source'];
       break;
     case 'user':
@@ -532,6 +534,32 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
   }
   $points = $form_state['values']['points'];
   drupal_set_message(t('@count total points dispatched', array('@count' => $points)));
+}
+
+/**
+ * Close a node if needed.
+ */
+function emh_points_close_node($nid) {
+  $node = node_load($nid);
+  if (!empty($node)) {
+    switch($node->type) {
+      case 'webform':
+        $node->webform['status'] = 0;
+        node_save($node);
+        break;
+      case 'question1':
+        $node->comment = COMMENT_NODE_CLOSED;
+        node_save($node);
+        break;
+      case 'challenge':
+        $node->comment = COMMENT_NODE_CLOSED;
+        node_save($node);
+        break;
+      default:
+        // Nothing to do.
+        break;
+    }
+  }
 }
 
 /**
