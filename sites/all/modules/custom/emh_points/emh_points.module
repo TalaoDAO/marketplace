@@ -417,6 +417,7 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
         drupal_access_denied();
         drupal_exit();
       }
+      drupal_set_title(emh_points_format_entity($user));
       break;
     case 'node':
       $node = node_load($id_source);
@@ -424,6 +425,7 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
         drupal_access_denied();
         drupal_exit();
       }
+      drupal_set_title($node->title);
       break;
     default:
       drupal_access_denied();
@@ -437,6 +439,9 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
   $form['points'] = array(
     '#type' => 'value',
     '#default_value' => $points,
+  );
+  $form['points_help'] = array(
+    '#markup' => '<div>' . t('Points to distribute: @count', array('@count' => $points)) . '</div>',
   );
   $form['type_source'] = array(
     '#type' => 'value',
@@ -471,8 +476,15 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
   }
   $form['submit'] = array(
     '#type' => 'submit',
-    '#value' => t('Distribute points'),
+    '#value' => t('Validate distribution'),
   );
+  if ($type_source == 'node' && in_array($node->type, array('challenge', 'question1', 'webform'))) {
+    $form['submit']['#value'] = t('Validate distribution and close the request');
+    $form['baseline'] = array(
+      '#markup' => '<div>' . t('Distribute points to best experts') . '</div>',
+      '#weight' => -100,
+    );
+  }
   return $form;
 }
 
@@ -517,12 +529,13 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
         $dest = user_load($id);
         break;
       }
-      $account = user_load($uid);
       emh_points_move_points($source, $dest, $value);
     }
   }
   switch($form_state['values']['type_source']) {
     case 'node':
+      // Points have been distributed, we should close the demand.
+      emh_points_close_node($form_state['values']['id_source']);
       $form_state['redirect'] = 'node/' . $form_state['values']['id_source'];
       break;
     case 'user':
@@ -531,7 +544,33 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
       break;
   }
   $points = $form_state['values']['points'];
-  drupal_set_message(t('@count total points dispatched', array('@count' => $points)));
+  drupal_set_message(t('All the points have been dispatched.'));
+}
+
+/**
+ * Close a node if needed.
+ */
+function emh_points_close_node($nid) {
+  $node = node_load($nid);
+  if (!empty($node)) {
+    switch($node->type) {
+      case 'webform':
+        $node->webform['status'] = 0;
+        node_save($node);
+        break;
+      case 'question1':
+        $node->comment = COMMENT_NODE_CLOSED;
+        node_save($node);
+        break;
+      case 'challenge':
+        $node->comment = COMMENT_NODE_CLOSED;
+        node_save($node);
+        break;
+      default:
+        // Nothing to do.
+        break;
+    }
+  }
 }
 
 /**
@@ -959,4 +998,20 @@ function emh_points_my_responses() {
     $output .= $view->render();
   }
   return $output;
+}
+
+/**
+ * Views handler helper.
+ */
+function emh_points_get_comment_points($cid) {
+  $comment = comment_load($cid);
+  if (empty($comment)) {
+    return 0;
+  }
+  $points = db_select('emh_points_txn', 'txn')
+    ->fields('txn', array('points'))
+    ->condition('txn.source_id', $comment->nid)
+    ->condition('txn.dest_id', $comment->uid)
+    ->execute()->fetchField();
+  return (empty($points) ? 0 : $points);
 }

@@ -33,9 +33,9 @@ Feature: Test points
     Given I am logged in as "client1"
     When I go to homepage
     Then I should see "2" in the "What about ?" row
-    When I go to "my-responses"
-    Then I should see "expert1"
-    And I should see "expert2"
+    When I go to "/my-responses"
+    Then I should see "Iron Man"
+    And I should see "Klark Kent"
     When node "What about ?" transfers 70 points on "expert1" user
     And node "What about ?" transfers 30 points on "expert2" user
     Then I should have 0 points on "What about ?" node
@@ -58,15 +58,13 @@ Feature: Test points
   Scenario: VBO arrange of points
     Then I should have 100 points on "What about ?" node
     Given I am logged in as "client1"
-    When I go to "my-responses"
-    Then I should see "expert1"
-    And I should see "expert2"
+    When I go to "/my-responses"
+    Then I should see "Iron Man"
+    And I should see "Klark Kent"
 
     When I go to "homepage"
     And I click "What about ?" in the "What about ?" row
-    Then I should see "2 responses"
-    #Then I click "2 responses"
-    Then I click "Choose winners"
+    Then I click "Select best answers"
     And I should see "Operations"
     #When I check  "views_bulk_operations[0]"
     #When I check the box 1
@@ -77,8 +75,10 @@ Feature: Test points
     And I should see "Points for Klark Kent"
     When I fill in "Points for Iron Man" with "60"
     And I fill in "Points for Klark Kent" with "40"
-    And I press "Distribute points"
-    Then I should see the success message "100 total points dispatched" 
+    #And I press "Distribute points"
+    # Validate distribution and close the request
+    And I press "edit-submit" 
+    Then I should see the success message "All the points have been dispatched" 
     Then I should have 0 points on "What about ?" node
     And I should have "60" points on "expert1" user
     And I should have "40" points on "expert2" user

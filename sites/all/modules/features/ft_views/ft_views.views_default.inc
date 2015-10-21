@@ -778,7 +778,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['access']['type'] = 'none';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
-  $handler->display->display_options['query']['options']['query_comment'] = FALSE;
+  $handler->display->display_options['query']['options']['disable_sql_rewrite'] = TRUE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['style_plugin'] = 'views_bootstrap_table_plugin_style';
@@ -1509,6 +1509,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['distinct'] = TRUE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
   $handler->display->display_options['pager']['type'] = 'some';
@@ -1544,6 +1545,11 @@ function ft_views_views_default_views() {
   $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['flag_content_rel']['required'] = 0;
   $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'winner_question1';
+  /* Relationship: Comment: Author */
+  $handler->display->display_options['relationships']['uid_1']['id'] = 'uid_1';
+  $handler->display->display_options['relationships']['uid_1']['table'] = 'comment';
+  $handler->display->display_options['relationships']['uid_1']['field'] = 'uid';
+  $handler->display->display_options['relationships']['uid_1']['label'] = 'author_comment';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -1561,6 +1567,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'comment';
   $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['exclude'] = TRUE;
   /* Field: Comment: Title */
   $handler->display->display_options['fields']['subject']['id'] = 'subject';
   $handler->display->display_options['fields']['subject']['table'] = 'comment';
@@ -1611,6 +1618,28 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['ops']['field'] = 'ops';
   $handler->display->display_options['fields']['ops']['relationship'] = 'flag_content_rel';
   $handler->display->display_options['fields']['ops']['label'] = 'Choose';
+  /* Field: Comment: Comment points */
+  $handler->display->display_options['fields']['emh_points']['id'] = 'emh_points';
+  $handler->display->display_options['fields']['emh_points']['table'] = 'comment';
+  $handler->display->display_options['fields']['emh_points']['field'] = 'emh_points';
+  /* Field: User: First Name */
+  $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['relationship'] = 'uid_1';
+  $handler->display->display_options['fields']['field_first_name']['exclude'] = TRUE;
+  /* Field: User: Last Name */
+  $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['relationship'] = 'uid_1';
+  $handler->display->display_options['fields']['field_last_name']['exclude'] = TRUE;
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing_1']['id'] = 'nothing_1';
+  $handler->display->display_options['fields']['nothing_1']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing_1']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing_1']['label'] = 'Expert';
+  $handler->display->display_options['fields']['nothing_1']['alter']['text'] = '[field_first_name] [field_last_name]';
   /* Sort criterion: Comment: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'comment';
@@ -2411,6 +2440,11 @@ function ft_views_views_default_views() {
   $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['flag_content_rel']['required'] = 0;
   $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'my_selection';
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
   /* Field: Content: Picto */
   $handler->display->display_options['fields']['field_picto']['id'] = 'field_picto';
   $handler->display->display_options['fields']['field_picto']['table'] = 'field_data_field_picto';
@@ -2471,18 +2505,30 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['comment_count']['table'] = 'node_comment_statistics';
   $handler->display->display_options['fields']['comment_count']['field'] = 'comment_count';
   $handler->display->display_options['fields']['comment_count']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['comment_count']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['comment_count']['alter']['path'] = 'node/[nid]/comment';
   /* Field: Webform: Webform submission count */
   $handler->display->display_options['fields']['webform_submission_count_node']['id'] = 'webform_submission_count_node';
   $handler->display->display_options['fields']['webform_submission_count_node']['table'] = 'node';
   $handler->display->display_options['fields']['webform_submission_count_node']['field'] = 'webform_submission_count_node';
   $handler->display->display_options['fields']['webform_submission_count_node']['exclude'] = TRUE;
-  /* Field: Global: Math expression */
-  $handler->display->display_options['fields']['expression']['id'] = 'expression';
-  $handler->display->display_options['fields']['expression']['table'] = 'views';
-  $handler->display->display_options['fields']['expression']['field'] = 'expression';
-  $handler->display->display_options['fields']['expression']['label'] = 'Answers';
-  $handler->display->display_options['fields']['expression']['precision'] = '0';
-  $handler->display->display_options['fields']['expression']['expression'] = '[comment_count]+[webform_submission_count_node]';
+  /* Field: Views: Views Conditional */
+  $handler->display->display_options['fields']['views_conditional']['id'] = 'views_conditional';
+  $handler->display->display_options['fields']['views_conditional']['table'] = 'views_conditional';
+  $handler->display->display_options['fields']['views_conditional']['field'] = 'views_conditional';
+  $handler->display->display_options['fields']['views_conditional']['label'] = 'Answers';
+  $handler->display->display_options['fields']['views_conditional']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['views_conditional']['if'] = 'comment_count';
+  $handler->display->display_options['fields']['views_conditional']['condition'] = '1';
+  $handler->display->display_options['fields']['views_conditional']['equalto'] = '0';
+  $handler->display->display_options['fields']['views_conditional']['then'] = '[webform_submission_count_node]';
+  $handler->display->display_options['fields']['views_conditional']['or'] = '[comment_count]';
+  $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['exclude'] = TRUE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -2751,6 +2797,11 @@ function ft_views_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '5';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
   /* Field: Content: Picto */
   $handler->display->display_options['fields']['field_picto']['id'] = 'field_picto';
   $handler->display->display_options['fields']['field_picto']['table'] = 'field_data_field_picto';
@@ -2811,18 +2862,25 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['comment_count']['table'] = 'node_comment_statistics';
   $handler->display->display_options['fields']['comment_count']['field'] = 'comment_count';
   $handler->display->display_options['fields']['comment_count']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['comment_count']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['comment_count']['alter']['path'] = 'node/[nid]/comment';
   /* Field: Webform: Webform submission count */
   $handler->display->display_options['fields']['webform_submission_count_node']['id'] = 'webform_submission_count_node';
   $handler->display->display_options['fields']['webform_submission_count_node']['table'] = 'node';
   $handler->display->display_options['fields']['webform_submission_count_node']['field'] = 'webform_submission_count_node';
   $handler->display->display_options['fields']['webform_submission_count_node']['exclude'] = TRUE;
-  /* Field: Global: Math expression */
-  $handler->display->display_options['fields']['expression']['id'] = 'expression';
-  $handler->display->display_options['fields']['expression']['table'] = 'views';
-  $handler->display->display_options['fields']['expression']['field'] = 'expression';
-  $handler->display->display_options['fields']['expression']['label'] = 'Answers';
-  $handler->display->display_options['fields']['expression']['precision'] = '0';
-  $handler->display->display_options['fields']['expression']['expression'] = '[comment_count]+[webform_submission_count_node]';
+  /* Field: Views: Views Conditional */
+  $handler->display->display_options['fields']['views_conditional']['id'] = 'views_conditional';
+  $handler->display->display_options['fields']['views_conditional']['table'] = 'views_conditional';
+  $handler->display->display_options['fields']['views_conditional']['field'] = 'views_conditional';
+  $handler->display->display_options['fields']['views_conditional']['label'] = 'Answers';
+  $handler->display->display_options['fields']['views_conditional']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['views_conditional']['if'] = 'comment_count';
+  $handler->display->display_options['fields']['views_conditional']['condition'] = '1';
+  $handler->display->display_options['fields']['views_conditional']['equalto'] = '0';
+  $handler->display->display_options['fields']['views_conditional']['then'] = '[webform_submission_count_node]';
+  $handler->display->display_options['fields']['views_conditional']['or'] = '[comment_count]';
+  $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
@@ -3279,6 +3337,337 @@ function ft_views_views_default_views() {
   );
   $handler->display->display_options['filters']['type']['expose']['reduce'] = TRUE;
   $handler->display->display_options['path'] = 'my-demands';
+  $handler->display->display_options['menu']['type'] = 'normal';
+  $handler->display->display_options['menu']['title'] = 'My demands';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['name'] = 'menu-burger-menu';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
+
+  /* Display: My drafts */
+  $handler = $view->new_display('page', 'My drafts', 'page_3');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'My drafts';
+  $handler->display->display_options['defaults']['access'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'role';
+  $handler->display->display_options['access']['role'] = array(
+    5 => '5',
+    9 => '9',
+  );
+  $handler->display->display_options['defaults']['query'] = FALSE;
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['disable_sql_rewrite'] = TRUE;
+  $handler->display->display_options['query']['options']['distinct'] = TRUE;
+  $handler->display->display_options['defaults']['exposed_form'] = FALSE;
+  $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
+  $handler->display->display_options['exposed_form']['options']['bef'] = array(
+    'general' => array(
+      'allow_secondary' => 0,
+      'secondary_label' => 'Advanced options',
+      'collapsible_label' => NULL,
+      'combine_rewrite' => NULL,
+      'reset_label' => NULL,
+      'bef_filter_description' => NULL,
+      'any_label' => NULL,
+      'filter_rewrite_values' => NULL,
+    ),
+    'type' => array(
+      'bef_format' => 'bef',
+      'more_options' => array(
+        'bef_select_all_none' => 0,
+        'bef_collapsible' => 0,
+        'is_secondary' => 0,
+        'any_label' => '',
+        'bef_filter_description' => '',
+        'tokens' => array(
+          'available' => array(
+            0 => 'global_types',
+            'secondary_label' => NULL,
+            'collapsible_label' => NULL,
+            'combine_rewrite' => NULL,
+            'reset_label' => NULL,
+            'bef_filter_description' => NULL,
+            'any_label' => NULL,
+            'filter_rewrite_values' => NULL,
+          ),
+          'secondary_label' => NULL,
+          'collapsible_label' => NULL,
+          'combine_rewrite' => NULL,
+          'reset_label' => NULL,
+          'bef_filter_description' => NULL,
+          'any_label' => NULL,
+          'filter_rewrite_values' => NULL,
+        ),
+        'rewrite' => array(
+          'filter_rewrite_values' => '',
+          'secondary_label' => NULL,
+          'collapsible_label' => NULL,
+          'combine_rewrite' => NULL,
+          'reset_label' => NULL,
+          'bef_filter_description' => NULL,
+          'any_label' => NULL,
+        ),
+        'secondary_label' => NULL,
+        'collapsible_label' => NULL,
+        'combine_rewrite' => NULL,
+        'reset_label' => NULL,
+        'filter_rewrite_values' => NULL,
+      ),
+      'secondary_label' => NULL,
+      'collapsible_label' => NULL,
+      'combine_rewrite' => NULL,
+      'reset_label' => NULL,
+      'bef_filter_description' => NULL,
+      'any_label' => NULL,
+      'filter_rewrite_values' => NULL,
+    ),
+    'secondary_label' => NULL,
+    'collapsible_label' => NULL,
+    'combine_rewrite' => NULL,
+    'reset_label' => NULL,
+    'bef_filter_description' => NULL,
+    'any_label' => NULL,
+    'filter_rewrite_values' => NULL,
+  );
+  $handler->display->display_options['exposed_form']['options']['input_required'] = 0;
+  $handler->display->display_options['exposed_form']['options']['text_input_required_format'] = 'filtered_html';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'field_picto' => 'field_picto',
+    'type' => 'type',
+    'title' => 'title',
+    'created' => 'created',
+    'field_expiration_date' => 'field_expiration_date',
+    'og_group_ref' => 'og_group_ref',
+    'field_reward' => 'field_reward',
+    'flagged' => 'flagged',
+    'nothing' => 'nothing',
+  );
+  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['info'] = array(
+    'field_picto' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'type' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'title' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'created' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_expiration_date' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'og_group_ref' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_reward' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'flagged' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'nothing' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Picto */
+  $handler->display->display_options['fields']['field_picto']['id'] = 'field_picto';
+  $handler->display->display_options['fields']['field_picto']['table'] = 'field_data_field_picto';
+  $handler->display->display_options['fields']['field_picto']['field'] = 'field_picto';
+  $handler->display->display_options['fields']['field_picto']['label'] = 'Type';
+  $handler->display->display_options['fields']['field_picto']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_picto']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_picto']['settings'] = array(
+    'image_style' => '',
+    'image_link' => '',
+  );
+  /* Field: Content: Type */
+  $handler->display->display_options['fields']['type']['id'] = 'type';
+  $handler->display->display_options['fields']['type']['table'] = 'node';
+  $handler->display->display_options['fields']['type']['field'] = 'type';
+  $handler->display->display_options['fields']['type']['label'] = '';
+  $handler->display->display_options['fields']['type']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['type']['element_label_colon'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  /* Field: Content: Post date */
+  $handler->display->display_options['fields']['created']['id'] = 'created';
+  $handler->display->display_options['fields']['created']['table'] = 'node';
+  $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['date_format'] = 'short_date';
+  $handler->display->display_options['fields']['created']['second_date_format'] = 'privatemsg_current_day';
+  /* Field: Content: Deadline */
+  $handler->display->display_options['fields']['field_expiration_date']['id'] = 'field_expiration_date';
+  $handler->display->display_options['fields']['field_expiration_date']['table'] = 'field_data_field_expiration_date';
+  $handler->display->display_options['fields']['field_expiration_date']['field'] = 'field_expiration_date';
+  $handler->display->display_options['fields']['field_expiration_date']['label'] = 'Expiration Date';
+  $handler->display->display_options['fields']['field_expiration_date']['settings'] = array(
+    'format_type' => 'short_date',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Choose circle of experts */
+  $handler->display->display_options['fields']['og_group_ref_1']['id'] = 'og_group_ref_1';
+  $handler->display->display_options['fields']['og_group_ref_1']['table'] = 'field_data_og_group_ref';
+  $handler->display->display_options['fields']['og_group_ref_1']['field'] = 'og_group_ref';
+  $handler->display->display_options['fields']['og_group_ref_1']['label'] = 'Circle';
+  $handler->display->display_options['fields']['og_group_ref_1']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['og_group_ref_1']['delta_offset'] = '0';
+  /* Field: Content: Reward */
+  $handler->display->display_options['fields']['field_reward']['id'] = 'field_reward';
+  $handler->display->display_options['fields']['field_reward']['table'] = 'field_data_field_reward';
+  $handler->display->display_options['fields']['field_reward']['field'] = 'field_reward';
+  /* Field: Flags: Flagged */
+  $handler->display->display_options['fields']['flagged']['id'] = 'flagged';
+  $handler->display->display_options['fields']['flagged']['table'] = 'flagging';
+  $handler->display->display_options['fields']['flagged']['field'] = 'flagged';
+  $handler->display->display_options['fields']['flagged']['relationship'] = 'flag_content_rel';
+  $handler->display->display_options['fields']['flagged']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['flagged']['not'] = 0;
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['label'] = 'Answers';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = '1';
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Content: Type */
+  $handler->display->display_options['sorts']['type']['id'] = 'type';
+  $handler->display->display_options['sorts']['type']['table'] = 'node';
+  $handler->display->display_options['sorts']['type']['field'] = 'type';
+  /* Sort criterion: Content: Post date */
+  $handler->display->display_options['sorts']['created']['id'] = 'created';
+  $handler->display->display_options['sorts']['created']['table'] = 'node';
+  $handler->display->display_options['sorts']['created']['field'] = 'created';
+  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '0';
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
+  $handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+  $handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+  $handler->display->display_options['filters']['status']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+    9 => 0,
+  );
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
+  $handler->display->display_options['filters']['type_1']['table'] = 'node';
+  $handler->display->display_options['filters']['type_1']['field'] = 'type';
+  $handler->display->display_options['filters']['type_1']['value'] = array(
+    'webform' => 'webform',
+    'challenge' => 'challenge',
+    'question' => 'question',
+    'question1' => 'question1',
+  );
+  /* Filter criterion: User: Current */
+  $handler->display->display_options['filters']['uid_current']['id'] = 'uid_current';
+  $handler->display->display_options['filters']['uid_current']['table'] = 'users';
+  $handler->display->display_options['filters']['uid_current']['field'] = 'uid_current';
+  $handler->display->display_options['filters']['uid_current']['relationship'] = 'uid';
+  $handler->display->display_options['filters']['uid_current']['value'] = '1';
+  $handler->display->display_options['filters']['uid_current']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['uid_current']['expose']['label'] = 'Is the logged in user';
+  $handler->display->display_options['filters']['uid_current']['expose']['operator'] = 'uid_current_op';
+  $handler->display->display_options['filters']['uid_current']['expose']['identifier'] = 'uid_current';
+  $handler->display->display_options['filters']['uid_current']['expose']['remember'] = TRUE;
+  $handler->display->display_options['filters']['uid_current']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+  );
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'challenge' => 'challenge',
+    'question1' => 'question1',
+    'webform' => 'webform',
+  );
+  $handler->display->display_options['filters']['type']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['type']['expose']['operator_id'] = 'type_op';
+  $handler->display->display_options['filters']['type']['expose']['label'] = 'Type';
+  $handler->display->display_options['filters']['type']['expose']['operator'] = 'type_op';
+  $handler->display->display_options['filters']['type']['expose']['identifier'] = 'type';
+  $handler->display->display_options['filters']['type']['expose']['remember'] = TRUE;
+  $handler->display->display_options['filters']['type']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['type']['expose']['remember_roles'] = array(
+    2 => 0,
+    5 => '5',
+    9 => '9',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+  );
+  $handler->display->display_options['filters']['type']['expose']['reduce'] = TRUE;
+  $handler->display->display_options['path'] = 'my-drafts';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'My demands';
   $handler->display->display_options['menu']['weight'] = '0';

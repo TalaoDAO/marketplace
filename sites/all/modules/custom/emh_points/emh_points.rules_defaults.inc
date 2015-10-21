@@ -91,13 +91,40 @@ function emh_points_default_rules_configuration() {
         "node_insert--webform" : { "bundle" : "webform" }
       },
       "IF" : [
+        { "entity_has_field" : { "entity" : [ "node" ], "field" : "field_reward" } },
+        { "node_is_published" : { "node" : [ "node" ] } }
+      ],
+      "DO" : [
+        { "move_points" : {
+            "source" : [ "node:author" ],
+            "destination" : [ "node" ],
+            "points" : [ "node:field-reward" ]
+          }
+        }
+      ]
+    }
+  }');
+  $items['emh_points_transfert_points_for_published_content'] = entity_import('rules_config', '{ "emh_points_transfert_points_for_published_content" : {
+      "LABEL" : "Transfert points for published content",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "REQUIRES" : [ "rules", "emh_points" ],
+      "ON" : {
+        "node_update--question1" : { "bundle" : "question1" },
+        "node_update--challenge" : { "bundle" : "challenge" },
+        "node_update--webform" : { "bundle" : "webform" }
+      },
+      "IF" : [
+        { "NOT node_is_published" : { "node" : [ "node-unchanged" ] } },
+        { "node_is_published" : { "node" : [ "node" ] } },
         { "entity_has_field" : { "entity" : [ "node" ], "field" : "field_reward" } }
       ],
       "DO" : [
         { "move_points" : {
-          "source" : [ "node:author" ],
-          "destination" : [ "node" ],
-          "points" : [ "node:field-reward" ]                                                                        }
+            "source" : [ "node:author" ],
+            "destination" : [ "node" ],
+            "points" : [ "node:field-reward" ]
+          }
         }
       ]
     }
