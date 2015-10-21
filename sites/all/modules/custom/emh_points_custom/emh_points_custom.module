@@ -115,24 +115,18 @@ function emh_points_custom_form_emh_points_admin_form_alter(&$form, &$form_state
  * Add reward field validation.
  */
 function emh_points_custom_form_challenge_node_form_alter(&$form, &$form_state) {
-  $form['field_reward'][LANGUAGE_NONE]['0']['#element_validate'][] = 'emh_points_validate_enough_points';
-  $form['field_reward'][LANGUAGE_NONE]['0']['#element_validate'][] = 'emh_points_validate_challenge_threshold';
-  if (!empty($form['nid']['#value']) && !empty($form['#node']->status)) {
-    $form['field_reward'][LANGUAGE_NONE]['0']['#disabled'] = TRUE;
-    unset($form['actions']['draft']);
-  }
+  emh_points_custom_form_add_points_control($form, $form_state, 'challenge');
 }
 function emh_points_custom_form_question1_node_form_alter(&$form, &$form_state) {
-  $form['field_reward'][LANGUAGE_NONE]['0']['#element_validate'][] = 'emh_points_validate_enough_points';
-  $form['field_reward'][LANGUAGE_NONE]['0']['#element_validate'][] = 'emh_points_validate_question1_threshold';
-  if (!empty($form['nid']['#value']) && !empty($form['#node']->status)) {
-    $form['field_reward'][LANGUAGE_NONE]['0']['#disabled'] = TRUE;
-    unset($form['actions']['draft']);
-  }
+  emh_points_custom_form_add_points_control($form, $form_state, 'question1');
 }
 function emh_points_custom_form_webform_node_form_alter(&$form, &$form_state) {
+  emh_points_custom_form_add_points_control($form, $form_state, 'webform');
+}
+
+function emh_points_custom_form_add_points_control(&$form, &$form_state, $type) {
   $form['field_reward'][LANGUAGE_NONE]['0']['#element_validate'][] = 'emh_points_validate_enough_points';
-  $form['field_reward'][LANGUAGE_NONE]['0']['#element_validate'][] = 'emh_points_validate_webform_threshold';
+  $form['field_reward'][LANGUAGE_NONE]['0']['#element_validate'][] = 'emh_points_validate_' . $type . '_threshold';
   if (!empty($form['nid']['#value']) && !empty($form['#node']->status)) {
     $form['field_reward'][LANGUAGE_NONE]['0']['#disabled'] = TRUE;
     unset($form['actions']['draft']);
