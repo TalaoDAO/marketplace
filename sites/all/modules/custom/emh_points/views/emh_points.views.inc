@@ -386,5 +386,15 @@ function emh_points_views_data() {
   unset($data['emh_points_txn_dest']['dest_id']);
   unset($data['emh_points_txn_dest']['dest_type']);
   unset($data['emh_points_txn_dest']['table']['base']);
+  // Pseudo-field on comment.
+  $data['comment']['emh_points'] = array(
+    'group' => 'Comment',
+    'real field' => 'cid',
+    'help' => 'Comment points',
+    'title' => 'Comment points',
+    'field' => array(
+      'handler' => 'views_handler_field_emh_comment_points',
+    ),
+  );
   return $data;
 }
