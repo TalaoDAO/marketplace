@@ -50,6 +50,7 @@ function emh_points_custom_field_access($op, $field, $entity_type, $entity, $acc
   }
 }
 
+/*
 function emh_points_custom_menu() {
   $items = array();
   $items['test_access/%/%'] = array(
@@ -76,7 +77,6 @@ function emh_points_custom_test_access($uid, $uid2) {
 
   return $output;
 }
-/*
  */
 
 /**
