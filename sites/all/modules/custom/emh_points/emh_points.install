@@ -215,3 +215,11 @@ function emh_points_reset_views() {
     views_revert_view($view);
   }
 }
+
+/**
+ * Revert Views.
+ */
+function emh_points_update_7103() {
+  emh_points_reset_views();
+}
+
