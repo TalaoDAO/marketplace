@@ -81,7 +81,7 @@
 
       <div class="col-sm-3 col-xs-12">
 
-        <?php if (user_is_logged_in()) : ?>
+        <?php if (!empty($page['burgermenu'])): ?>
         <div class="burger-menu-btn-container pull-right" onclick="onClickBurgerMenuBtn();">
           <?php print $openBurgerImg; ?>
         </div>
