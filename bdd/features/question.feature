@@ -45,7 +45,7 @@ Feature: Create question and answers
     When I go to homepage
     When I click "What about ?" in the "What about ?" row
     Then I should see "Responses"
-    And I should see "Choose winners"
+    And I should see "Select best answers"
     #And I should see "Iron Man" in the "comment" region
     And I should see "Iron Man"
     #And I should see "Je suis un expert" in the "comment" region
