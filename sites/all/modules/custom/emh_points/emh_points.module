@@ -999,3 +999,19 @@ function emh_points_my_responses() {
   }
   return $output;
 }
+
+/**
+ * Views handler helper.
+ */
+function emh_points_get_comment_points($cid) {
+  $comment = comment_load($cid);
+  if (empty($comment)) {
+    return 0;
+  }
+  $points = db_select('emh_points_txn', 'txn')
+    ->fields('txn', array('points'))
+    ->condition('txn.source_id', $comment->nid)
+    ->condition('txn.dest_id', $comment->uid)
+    ->execute()->fetchField();
+  return (empty($points) ? 0 : $points);
+}
