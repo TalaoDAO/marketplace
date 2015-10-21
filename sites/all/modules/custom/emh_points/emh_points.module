@@ -529,7 +529,6 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
         $dest = user_load($id);
         break;
       }
-      $account = user_load($uid);
       emh_points_move_points($source, $dest, $value);
     }
   }
