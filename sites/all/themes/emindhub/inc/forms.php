@@ -272,3 +272,7 @@ function emindhub_views_bulk_operations_form_alter(&$form) {
     $form['select']['action::emh_points_arrange_node_points']['#attributes']['class'][] = 'btn-submit';
   }
 }
+
+function emindhub_form_emh_points_arrange_form_alter(&$form, &$form_state, $type_source) {
+  $form['submit']['#attributes']['class'][] = 'btn-submit';
+}
