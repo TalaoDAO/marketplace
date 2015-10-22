@@ -5130,7 +5130,7 @@ function ft_content_type_field_default_field_instances() {
     'default_value' => NULL,
     'default_value_function' => '',
     'deleted' => 0,
-    'description' => '',
+    'description' => 'If you belong to a group such as a company, association, club, training center, research center, etc., specify it here.',
     'display' => array(
       'default' => array(
         'label' => 'hidden',
@@ -6461,6 +6461,7 @@ function ft_content_type_field_default_field_instances() {
   t('How did you hear about us?');
   t('How often do you want to receive eMindHub\'s notifications?');
   t('I choose to make public all this information in my profile');
+  t('If you belong to a group such as a company, association, club, training center, research center, etc., specify it here.');
   t('Image');
   t('Is partner');
   t('Is promoted');
