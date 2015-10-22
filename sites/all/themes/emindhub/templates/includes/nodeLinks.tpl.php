@@ -19,7 +19,7 @@
       $count_label = t('answer');
       if ($count > 1) $count_label = t('answers');
       ?>
-      <li class="submissions_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/webform-results"><?php print $count . '&nbsp;' . $count_label; ?></a>
+      <li class="submissions_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/survey-answers"><?php print $count . '&nbsp;' . $count_label; ?></a>
       </li>
       <?php endif; ?>
       <?php endif; ?>
