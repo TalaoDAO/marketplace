@@ -18,13 +18,13 @@ Feature: Test points
     Given I am logged in as "expert1"
     When I go to homepage
     When I click "What about ?" in the "What about ?" row
-    Then I enter "Je suis un expert" for "Public response"
+    Then I enter "Je suis un expert" for "Public answer"
     And I press "Publish"
 
     Given I am logged in as "expert2"
     When I go to homepage
     When I click "What about ?" in the "What about ?" row
-    Then I enter "J'ai une idée" for "Public response"
+    Then I enter "J'ai une idée" for "Public answer"
     And I press "Publish"
 
   #@exclude

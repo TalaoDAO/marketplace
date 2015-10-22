@@ -43,7 +43,7 @@ Feature: Create question and answers
     When I click "What about ?" in the "What about ?" row
     Then I should see "Answer the question"
     #Given I enter "Ma réponse" for "Subject"
-    Given I enter "Je suis un expert" for "Public response"
+    Given I enter "Je suis un expert" for "Public answer"
     And I press "Publish"
     #And I wait for AJAX to finish -> don't work, force reload
     When I go to homepage
@@ -71,8 +71,8 @@ Feature: Create question and answers
     Given I am logged in as "expert1"
     When I go to homepage
     And I click "What about ?" in the "What about ?" row
-    Then I should see "Private response"
-    Given I enter "Je suis un expert" for "Private response"
+    Then I should see "Private answer"
+    Given I enter "Je suis un expert" for "Private answer"
     And I press "Publish"
     When I go to homepage
     When I click "What about ?" in the "What about ?" row
