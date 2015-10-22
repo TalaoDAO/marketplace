@@ -70,7 +70,6 @@ features[field_base][] = field_other_areas
 features[field_base][] = field_other_members
 features[field_base][] = field_partner_why
 features[field_base][] = field_photo
-features[field_base][] = field_picto
 features[field_base][] = field_position
 features[field_base][] = field_position_list
 features[field_base][] = field_private
