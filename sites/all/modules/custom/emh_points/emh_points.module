@@ -440,9 +440,6 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
     '#type' => 'value',
     '#default_value' => $points,
   );
-  $form['points_help'] = array(
-    '#markup' => '<p class="emh-title-baseline">' . t('Points to distribute: <strong>@count</strong>', array('@count' => $points)) . '</p>',
-  );
   $form['type_source'] = array(
     '#type' => 'value',
     '#default_value' => $type_source,
@@ -480,8 +477,9 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
   );
   if ($type_source == 'node' && in_array($node->type, array('challenge', 'question1', 'webform'))) {
     $form['submit']['#value'] = t('Validate distribution and close the request');
+    $form['submit']['#attributes']['class'][] = 'btn-submit';
     $form['baseline'] = array(
-      '#markup' => '<p class="emh-title-baseline">' . t('Distribute points to best experts') . '</p>',
+      '#markup' => '<p class="emh-title-baseline">' . t('Distribute <strong>@count points</strong> to best experts', array('@count' => $points)) . '</p>',
       '#weight' => -100,
     );
   }

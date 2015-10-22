@@ -118,7 +118,7 @@ function emh_points_custom_views_bulk_operations_form_alter(&$form) {
   $view = arg(2);
   if (!empty($view) && ($view == 'answers' || $view == 'webform-answers')) {
     $form['select']['#weight'] = 100;
-    $form['points_help'] = array(
+    $form['baseline'] = array(
       '#markup' => '<p class="emh-title-baseline">' . t('Select best answer(s)') . '</p>',
     );
   }

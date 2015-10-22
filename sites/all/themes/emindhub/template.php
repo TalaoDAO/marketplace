@@ -6,6 +6,7 @@ require_once('templates/includes/string_list.php');
 require_once('inc/html.php');
 require_once('inc/nodes.php');
 require_once('inc/forms.php');
+require_once('inc/form_elements.php');
 require_once('inc/menus.php');
 require_once('inc/regions.php');
 require_once('inc/blocks.php');
