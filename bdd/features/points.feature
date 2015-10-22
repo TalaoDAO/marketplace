@@ -41,6 +41,9 @@ Feature: Test points
     Then I should have 0 points on "What about ?" node
     And I should have 70 points on "expert1" user
     And I should have 30 points on "expert2" user
+    When I go to "/my-responses"
+    Then I should see "70" in the "Je suis un expert" row
+    And I should see "30" in the "J'ai une idée" row
     When I go to "/my-answers"
     Then I should see "70" in the "Je suis un expert" row
     And I should see "30" in the "J'ai une idée" row
