@@ -61,7 +61,7 @@ function emh_points_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
   $items['my-answers'] = array(
-    'title' => 'My responses',
+    'title' => 'My answers',
     'page callback' => 'emh_points_my_responses',
     'access arguments' => array('use points'),
   );
@@ -534,7 +534,7 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
   }
   switch($form_state['values']['type_source']) {
     case 'node':
-      // Points have been distributed, we should close the demand.
+      // Points have been distributed, we should close the request.
       emh_points_close_node($form_state['values']['id_source']);
       $form_state['redirect'] = 'node/' . $form_state['values']['id_source'];
       break;
