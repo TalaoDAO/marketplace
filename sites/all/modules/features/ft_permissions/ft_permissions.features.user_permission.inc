@@ -825,26 +825,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'piwik',
   );
 
-  // Exported permission: 'administer privatecomments forms'.
-  $permissions['administer privatecomments forms'] = array(
-    'name' => 'administer privatecomments forms',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'privatecomments',
-  );
-
-  // Exported permission: 'administer privatemsg settings'.
-  $permissions['administer privatemsg settings'] = array(
-    'name' => 'administer privatemsg settings',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'privatemsg',
-  );
-
   // Exported permission: 'administer quicktabs'.
   $permissions['administer quicktabs'] = array(
     'name' => 'administer quicktabs',
@@ -1046,16 +1026,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'votingapi',
-  );
-
-  // Exported permission: 'allow disabling privatemsg'.
-  $permissions['allow disabling privatemsg'] = array(
-    'name' => 'allow disabling privatemsg',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'privatemsg',
   );
 
   // Exported permission: 'block IP addresses'.
@@ -1311,16 +1281,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: 'create private message tags'.
-  $permissions['create private message tags'] = array(
-    'name' => 'create private message tags',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'privatemsg_filter',
   );
 
   // Exported permission: 'create question1 content'.
@@ -1686,22 +1646,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: 'delete privatemsg'.
-  $permissions['delete privatemsg'] = array(
-    'name' => 'delete privatemsg',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
-      'business' => 'business',
-      'business preview' => 'business preview',
-      'expert' => 'expert',
-      'expert preview' => 'expert preview',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'privatemsg',
   );
 
   // Exported permission: 'delete revisions'.
@@ -2651,16 +2595,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'actions_permissions',
   );
 
-  // Exported permission: 'filter private messages'.
-  $permissions['filter private messages'] = array(
-    'name' => 'filter private messages',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'privatemsg_filter',
-  );
-
   // Exported permission: 'flag my_selection'.
   $permissions['flag my_selection'] = array(
     'name' => 'flag my_selection',
@@ -2669,24 +2603,6 @@ function ft_permissions_user_default_permissions() {
       'expert' => 'expert',
       'expert preview' => 'expert preview',
       'webmaster' => 'webmaster',
-    ),
-    'module' => 'flag',
-  );
-
-  // Exported permission: 'flag winner_challenge'.
-  $permissions['flag winner_challenge'] = array(
-    'name' => 'flag winner_challenge',
-    'roles' => array(
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'flag',
-  );
-
-  // Exported permission: 'flag winner_question1'.
-  $permissions['flag winner_question1'] = array(
-    'name' => 'flag winner_question1',
-    'roles' => array(
-      'authenticated user' => 'authenticated user',
     ),
     'module' => 'flag',
   );
@@ -3111,30 +3027,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'fivestar',
   );
 
-  // Exported permission: 'read all private messages'.
-  $permissions['read all private messages'] = array(
-    'name' => 'read all private messages',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'business' => 'business',
-      'business preview' => 'business preview',
-      'expert' => 'expert',
-      'expert preview' => 'expert preview',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'privatemsg',
-  );
-
-  // Exported permission: 'read privatemsg'.
-  $permissions['read privatemsg'] = array(
-    'name' => 'read privatemsg',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'privatemsg',
-  );
-
   // Exported permission: 'rename features'.
   $permissions['rename features'] = array(
     'name' => 'rename features',
@@ -3142,24 +3034,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'features',
-  );
-
-  // Exported permission: 'reply only privatemsg'.
-  $permissions['reply only privatemsg'] = array(
-    'name' => 'reply only privatemsg',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
-      'référent' => 'référent',
-    ),
-    'module' => 'privatemsg',
-  );
-
-  // Exported permission: 'report private messages to mollom'.
-  $permissions['report private messages to mollom'] = array(
-    'name' => 'report private messages to mollom',
-    'roles' => array(),
-    'module' => 'privatemsg',
   );
 
   // Exported permission: 'restore from backup'.
@@ -3233,16 +3107,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'user',
   );
 
-  // Exported permission: 'select text format for privatemsg'.
-  $permissions['select text format for privatemsg'] = array(
-    'name' => 'select text format for privatemsg',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'privatemsg',
-  );
-
   // Exported permission: 'skip comment approval'.
   $permissions['skip comment approval'] = array(
     'name' => 'skip comment approval',
@@ -3264,16 +3128,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'shortcut',
-  );
-
-  // Exported permission: 'tag private messages'.
-  $permissions['tag private messages'] = array(
-    'name' => 'tag private messages',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'privatemsg_filter',
   );
 
   // Exported permission: 'toggle field translatability'.
@@ -3374,24 +3228,6 @@ function ft_permissions_user_default_permissions() {
       'expert' => 'expert',
       'expert preview' => 'expert preview',
       'webmaster' => 'webmaster',
-    ),
-    'module' => 'flag',
-  );
-
-  // Exported permission: 'unflag winner_challenge'.
-  $permissions['unflag winner_challenge'] = array(
-    'name' => 'unflag winner_challenge',
-    'roles' => array(
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'flag',
-  );
-
-  // Exported permission: 'unflag winner_question1'.
-  $permissions['unflag winner_question1'] = array(
-    'name' => 'unflag winner_question1',
-    'roles' => array(
-      'authenticated user' => 'authenticated user',
     ),
     'module' => 'flag',
   );
@@ -3646,16 +3482,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'page_manager',
   );
 
-  // Exported permission: 'use tokens in privatemsg'.
-  $permissions['use tokens in privatemsg'] = array(
-    'name' => 'use tokens in privatemsg',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'privatemsg',
-  );
-
   // Exported permission: 'view field_picto'.
   $permissions['view field_picto'] = array(
     'name' => 'view field_picto',
@@ -3743,16 +3569,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'view roles recipients'.
-  $permissions['view roles recipients'] = array(
-    'name' => 'view roles recipients',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'privatemsg_roles',
-  );
-
   // Exported permission: 'view scheduled content'.
   $permissions['view scheduled content'] = array(
     'name' => 'view scheduled content',
@@ -3782,81 +3598,6 @@ function ft_permissions_user_default_permissions() {
       'référent' => 'référent',
     ),
     'module' => 'poll',
-  );
-
-  // Exported permission: 'write privatemsg'.
-  $permissions['write privatemsg'] = array(
-    'name' => 'write privatemsg',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-      'référent' => 'référent',
-    ),
-    'module' => 'privatemsg',
-  );
-
-  // Exported permission: 'write privatemsg to all roles'.
-  $permissions['write privatemsg to all roles'] = array(
-    'name' => 'write privatemsg to all roles',
-    'roles' => array(),
-    'module' => 'privatemsg_roles',
-  );
-
-  // Exported permission: 'write privatemsg to role administrator'.
-  $permissions['write privatemsg to role administrator'] = array(
-    'name' => 'write privatemsg to role administrator',
-    'roles' => array(),
-    'module' => 'privatemsg_roles',
-  );
-
-  // Exported permission: 'write privatemsg to role authenticated user'.
-  $permissions['write privatemsg to role authenticated user'] = array(
-    'name' => 'write privatemsg to role authenticated user',
-    'roles' => array(),
-    'module' => 'privatemsg_roles',
-  );
-
-  // Exported permission: 'write privatemsg to role business'.
-  $permissions['write privatemsg to role business'] = array(
-    'name' => 'write privatemsg to role business',
-    'roles' => array(),
-    'module' => 'privatemsg_roles',
-  );
-
-  // Exported permission: 'write privatemsg to role business preview'.
-  $permissions['write privatemsg to role business preview'] = array(
-    'name' => 'write privatemsg to role business preview',
-    'roles' => array(),
-    'module' => 'privatemsg_roles',
-  );
-
-  // Exported permission: 'write privatemsg to role expert'.
-  $permissions['write privatemsg to role expert'] = array(
-    'name' => 'write privatemsg to role expert',
-    'roles' => array(),
-    'module' => 'privatemsg_roles',
-  );
-
-  // Exported permission: 'write privatemsg to role expert preview'.
-  $permissions['write privatemsg to role expert preview'] = array(
-    'name' => 'write privatemsg to role expert preview',
-    'roles' => array(),
-    'module' => 'privatemsg_roles',
-  );
-
-  // Exported permission: 'write privatemsg to role référent'.
-  $permissions['write privatemsg to role référent'] = array(
-    'name' => 'write privatemsg to role référent',
-    'roles' => array(),
-    'module' => 'privatemsg_roles',
-  );
-
-  // Exported permission: 'write privatemsg to role webmaster'.
-  $permissions['write privatemsg to role webmaster'] = array(
-    'name' => 'write privatemsg to role webmaster',
-    'roles' => array(),
-    'module' => 'privatemsg_roles',
   );
 
   return $permissions;
