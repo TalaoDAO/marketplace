@@ -484,20 +484,47 @@ aside {
 		.form-group {
 			margin-bottom: 0;
 		}
-		// #edit-uid-current-wrapper {
-		// 	.make-sm-column(3);
-		// }
-		// #edit-status-1-wrapper {
-		// 	.make-sm-column(3);
-		// }
 		#edit-field-domaine-tid-i18n-wrapper,
 		#edit-field-tags-tid-i18n-wrapper {
 			.make-sm-column(3);
 		}
 	}
 	// Contenu
-	.views-field-field-picto {
+	table > thead > tr > th,
+	table > tbody > tr > td {
+		vertical-align: middle;
+	}
+	.views-field-type {
 		.text-center;
+	}
+	td.views-field-type {
+		a {
+			.text-hide;
+			&:before {
+				content: "";
+				width: 20px;
+				height: 20px;
+				display: inline-block;
+				background-color: transparent;
+				background-position: center center;
+				background-repeat: no-repeat;
+			}
+		}
+		&.question1 {
+			a::before {
+				background-image: url("../images/picto/picto_question_small.png");
+			}
+		}
+		&.webform {
+			a::before {
+				background-image: url("../images/picto/picto_survey_small.png");
+			}
+		}
+		&.challenge {
+			a::before {
+				background-image: url("../images/picto/picto_challenge_small.png");
+			}
+		}
 	}
 	.views-field-created {
 		.text-center;
@@ -508,7 +535,8 @@ aside {
 	.views-field-field-reward {
 		.text-right;
 	}
-	.views-field-nothing { // TODO : add real class
+	// NB answers
+	.views-field-views-conditional {
 		.text-right;
 	}
 	.views-field-expression {

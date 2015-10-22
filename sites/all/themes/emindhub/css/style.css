@@ -14407,8 +14407,37 @@ aside .block .content {
     width: 25%;
   }
 }
-.view-query-list .views-field-field-picto {
+.view-query-list table > thead > tr > th,
+.view-query-list table > tbody > tr > td {
+  vertical-align: middle;
+}
+.view-query-list .views-field-type {
   text-align: center;
+}
+.view-query-list td.views-field-type a {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.view-query-list td.views-field-type a:before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background-color: transparent;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.view-query-list td.views-field-type.question1 a::before {
+  background-image: url("../images/picto/picto_question_small.png");
+}
+.view-query-list td.views-field-type.webform a::before {
+  background-image: url("../images/picto/picto_survey_small.png");
+}
+.view-query-list td.views-field-type.challenge a::before {
+  background-image: url("../images/picto/picto_challenge_small.png");
 }
 .view-query-list .views-field-created {
   text-align: center;
@@ -14419,7 +14448,7 @@ aside .block .content {
 .view-query-list .views-field-field-reward {
   text-align: right;
 }
-.view-query-list .views-field-nothing {
+.view-query-list .views-field-views-conditional {
   text-align: right;
 }
 .view-query-list .views-field-expression {

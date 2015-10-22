@@ -2114,10 +2114,10 @@ function ft_views_views_default_views() {
 
   $view = new view();
   $view->name = 'query_list';
-  $view->description = 'Vue principale de la homepage & my-selection & my-contributions';
+  $view->description = '';
   $view->tag = 'emh';
   $view->base_table = 'node';
-  $view->human_name = 'Query List';
+  $view->human_name = 'Requests';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -2392,24 +2392,14 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['nid']['table'] = 'node';
   $handler->display->display_options['fields']['nid']['field'] = 'nid';
   $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
-  /* Field: Content: Picto */
-  $handler->display->display_options['fields']['field_picto']['id'] = 'field_picto';
-  $handler->display->display_options['fields']['field_picto']['table'] = 'field_data_field_picto';
-  $handler->display->display_options['fields']['field_picto']['field'] = 'field_picto';
-  $handler->display->display_options['fields']['field_picto']['label'] = 'Type';
-  $handler->display->display_options['fields']['field_picto']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_picto']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_picto']['settings'] = array(
-    'image_style' => '',
-    'image_link' => '',
-  );
   /* Field: Content: Type */
   $handler->display->display_options['fields']['type']['id'] = 'type';
   $handler->display->display_options['fields']['type']['table'] = 'node';
   $handler->display->display_options['fields']['type']['field'] = 'type';
-  $handler->display->display_options['fields']['type']['label'] = '';
-  $handler->display->display_options['fields']['type']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['type']['element_class'] = '[type]';
   $handler->display->display_options['fields']['type']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['type']['link_to_node'] = TRUE;
+  $handler->display->display_options['fields']['type']['machine_name'] = TRUE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -2727,7 +2717,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['views_navigation'] = TRUE;
   $handler->display->display_options['views_navigation_back'] = TRUE;
   $handler->display->display_options['views_navigation_title'] = TRUE;
-  $handler->display->display_options['path'] = 'query-list';
+  $handler->display->display_options['path'] = 'requests';
 
   /* Display: Last requests */
   $handler = $view->new_display('block', 'Last requests', 'block');
@@ -2740,33 +2730,25 @@ function ft_views_views_default_views() {
   $handler->display->display_options['field_language'] = 'und';
   $handler->display->display_options['field_language_add_to_query'] = 0;
   $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '5';
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Nid */
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
   $handler->display->display_options['fields']['nid']['table'] = 'node';
   $handler->display->display_options['fields']['nid']['field'] = 'nid';
   $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
-  /* Field: Content: Picto */
-  $handler->display->display_options['fields']['field_picto']['id'] = 'field_picto';
-  $handler->display->display_options['fields']['field_picto']['table'] = 'field_data_field_picto';
-  $handler->display->display_options['fields']['field_picto']['field'] = 'field_picto';
-  $handler->display->display_options['fields']['field_picto']['label'] = 'Type';
-  $handler->display->display_options['fields']['field_picto']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_picto']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_picto']['settings'] = array(
-    'image_style' => '',
-    'image_link' => '',
-  );
   /* Field: Content: Type */
   $handler->display->display_options['fields']['type']['id'] = 'type';
   $handler->display->display_options['fields']['type']['table'] = 'node';
   $handler->display->display_options['fields']['type']['field'] = 'type';
-  $handler->display->display_options['fields']['type']['label'] = '';
-  $handler->display->display_options['fields']['type']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['type']['element_class'] = '[type]';
   $handler->display->display_options['fields']['type']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['type']['link_to_node'] = TRUE;
+  $handler->display->display_options['fields']['type']['machine_name'] = TRUE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -2786,6 +2768,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'node';
   $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['label'] = 'Publication date';
   $handler->display->display_options['fields']['created']['date_format'] = 'short_date';
   $handler->display->display_options['fields']['created']['second_date_format'] = 'privatemsg_current_day';
   /* Field: Content: Deadline */
@@ -2938,23 +2921,14 @@ function ft_views_views_default_views() {
     7 => '7',
   );
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Picto */
-  $handler->display->display_options['fields']['field_picto']['id'] = 'field_picto';
-  $handler->display->display_options['fields']['field_picto']['table'] = 'field_data_field_picto';
-  $handler->display->display_options['fields']['field_picto']['field'] = 'field_picto';
-  $handler->display->display_options['fields']['field_picto']['label'] = 'Type';
-  $handler->display->display_options['fields']['field_picto']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_picto']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_picto']['settings'] = array(
-    'image_style' => '',
-    'image_link' => '',
-  );
   /* Field: Content: Type */
   $handler->display->display_options['fields']['type']['id'] = 'type';
   $handler->display->display_options['fields']['type']['table'] = 'node';
   $handler->display->display_options['fields']['type']['field'] = 'type';
-  $handler->display->display_options['fields']['type']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['type']['element_class'] = '[type]';
   $handler->display->display_options['fields']['type']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['type']['link_to_node'] = TRUE;
+  $handler->display->display_options['fields']['type']['machine_name'] = TRUE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -2965,6 +2939,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'node';
   $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['label'] = 'Publication date';
   $handler->display->display_options['fields']['created']['date_format'] = 'short_date';
   $handler->display->display_options['fields']['created']['second_date_format'] = 'privatemsg_current_day';
   /* Field: Content: Deadline */
@@ -3051,10 +3026,10 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['flagged']['value'] = '1';
   $handler->display->display_options['path'] = 'my-selections';
 
-  /* Display: My demands */
-  $handler = $view->new_display('page', 'My demands', 'page_2');
+  /* Display: My requests */
+  $handler = $view->new_display('page', 'My requests', 'page_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'My demands';
+  $handler->display->display_options['title'] = 'My requests';
   $handler->display->display_options['defaults']['access'] = FALSE;
   $handler->display->display_options['access']['type'] = 'role';
   $handler->display->display_options['access']['role'] = array(
@@ -3138,24 +3113,14 @@ function ft_views_views_default_views() {
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Picto */
-  $handler->display->display_options['fields']['field_picto']['id'] = 'field_picto';
-  $handler->display->display_options['fields']['field_picto']['table'] = 'field_data_field_picto';
-  $handler->display->display_options['fields']['field_picto']['field'] = 'field_picto';
-  $handler->display->display_options['fields']['field_picto']['label'] = 'Type';
-  $handler->display->display_options['fields']['field_picto']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_picto']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_picto']['settings'] = array(
-    'image_style' => '',
-    'image_link' => '',
-  );
   /* Field: Content: Type */
   $handler->display->display_options['fields']['type']['id'] = 'type';
   $handler->display->display_options['fields']['type']['table'] = 'node';
   $handler->display->display_options['fields']['type']['field'] = 'type';
-  $handler->display->display_options['fields']['type']['label'] = '';
-  $handler->display->display_options['fields']['type']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['type']['element_class'] = '[type]';
   $handler->display->display_options['fields']['type']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['type']['link_to_node'] = TRUE;
+  $handler->display->display_options['fields']['type']['machine_name'] = TRUE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -3166,6 +3131,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'node';
   $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['label'] = 'Publication date';
   $handler->display->display_options['fields']['created']['date_format'] = 'short_date';
   $handler->display->display_options['fields']['created']['second_date_format'] = 'privatemsg_current_day';
   /* Field: Content: Deadline */
@@ -3283,9 +3249,9 @@ function ft_views_views_default_views() {
     8 => 0,
   );
   $handler->display->display_options['filters']['type']['expose']['reduce'] = TRUE;
-  $handler->display->display_options['path'] = 'my-demands';
+  $handler->display->display_options['path'] = 'my-requests';
   $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'My demands';
+  $handler->display->display_options['menu']['title'] = 'My requests';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'menu-burger-menu';
   $handler->display->display_options['menu']['context'] = 0;
@@ -3455,24 +3421,14 @@ function ft_views_views_default_views() {
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Picto */
-  $handler->display->display_options['fields']['field_picto']['id'] = 'field_picto';
-  $handler->display->display_options['fields']['field_picto']['table'] = 'field_data_field_picto';
-  $handler->display->display_options['fields']['field_picto']['field'] = 'field_picto';
-  $handler->display->display_options['fields']['field_picto']['label'] = 'Type';
-  $handler->display->display_options['fields']['field_picto']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_picto']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_picto']['settings'] = array(
-    'image_style' => '',
-    'image_link' => '',
-  );
   /* Field: Content: Type */
   $handler->display->display_options['fields']['type']['id'] = 'type';
   $handler->display->display_options['fields']['type']['table'] = 'node';
   $handler->display->display_options['fields']['type']['field'] = 'type';
-  $handler->display->display_options['fields']['type']['label'] = '';
-  $handler->display->display_options['fields']['type']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['type']['element_class'] = '[type]';
   $handler->display->display_options['fields']['type']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['type']['link_to_node'] = TRUE;
+  $handler->display->display_options['fields']['type']['machine_name'] = TRUE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -3483,6 +3439,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'node';
   $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['label'] = 'Publication date';
   $handler->display->display_options['fields']['created']['date_format'] = 'short_date';
   $handler->display->display_options['fields']['created']['second_date_format'] = 'privatemsg_current_day';
   /* Field: Content: Deadline */
