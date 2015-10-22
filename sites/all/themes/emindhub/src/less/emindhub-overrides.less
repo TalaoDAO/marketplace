@@ -195,8 +195,21 @@ body.page-node-edit {
 		.make-row();
 
 		> * {
-			.make-sm-column(6);
+			.make-sm-column(3);
 			padding: 0 15px; // views.css
+		}
+		> #edit-type-wrapper {
+			.make-sm-column(4);
+			.bef-select-as-checkboxes .bef-checkboxes {
+		    width: 100%;
+			}
+		}
+		> .views-submit-button,
+		> .views-reset-button {
+			.make-sm-column(1);
+			@media screen and (min-width: @screen-sm-min) {
+				margin-top: 24px;
+			}
 		}
 	}
 	.views-exposed-widget {

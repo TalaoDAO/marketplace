@@ -2123,7 +2123,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['distinct'] = TRUE;
   $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
-  $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
+  $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
   $handler->display->display_options['exposed_form']['options']['bef'] = array(
     'general' => array(
       'allow_secondary' => 0,
@@ -2138,7 +2138,7 @@ function ft_views_views_default_views() {
     'type' => array(
       'bef_format' => 'bef',
       'more_options' => array(
-        'bef_select_all_none' => 1,
+        'bef_select_all_none' => 0,
         'bef_collapsible' => 0,
         'is_secondary' => 0,
         'any_label' => '',
@@ -2185,10 +2185,10 @@ function ft_views_views_default_views() {
       'any_label' => NULL,
       'filter_rewrite_values' => NULL,
     ),
-    'uid_current' => array(
+    'field_domaine_tid_i18n' => array(
       'bef_format' => 'default',
       'more_options' => array(
-        'bef_select_all_none' => FALSE,
+        'bef_select_all_none' => 0,
         'bef_collapsible' => 0,
         'is_secondary' => 0,
         'any_label' => '',
@@ -2196,6 +2196,7 @@ function ft_views_views_default_views() {
         'tokens' => array(
           'available' => array(
             0 => 'global_types',
+            1 => 'vocabulary',
             'secondary_label' => NULL,
             'collapsible_label' => NULL,
             'combine_rewrite' => NULL,
@@ -2235,10 +2236,10 @@ function ft_views_views_default_views() {
       'any_label' => NULL,
       'filter_rewrite_values' => NULL,
     ),
-    'status_1' => array(
+    'field_tags_tid_i18n' => array(
       'bef_format' => 'default',
       'more_options' => array(
-        'bef_select_all_none' => FALSE,
+        'bef_select_all_none' => 0,
         'bef_collapsible' => 0,
         'is_secondary' => 0,
         'any_label' => '',
@@ -2246,6 +2247,7 @@ function ft_views_views_default_views() {
         'tokens' => array(
           'available' => array(
             0 => 'global_types',
+            1 => 'vocabulary',
             'secondary_label' => NULL,
             'collapsible_label' => NULL,
             'combine_rewrite' => NULL,
@@ -2363,7 +2365,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['label'] = 'Empty';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = '<div class="alert alert-warning alert-dismissible" role="alert"><center><strong><big><img alt="" widht="49" height="30" src="/sites/all/themes/emindhub/images/PICTO PRODUCTION.png" />Respond to clients\' requests from October 2015.<big></strong></center></div>';
+  $handler->display->display_options['empty']['area']['content'] = '<div class="alert alert-warning alert-dismissible" role="alert"><center><strong><big><img alt="" widht="49" height="30" src="/sites/all/themes/emindhub/images/PICTO PRODUCTION.png" />Answer to clients\' requests from October 2015.<big></strong></center></div>';
   $handler->display->display_options['empty']['area']['format'] = 'full_html';
   /* Relationship: Content: Author */
   $handler->display->display_options['relationships']['uid']['id'] = 'uid';
@@ -2718,8 +2720,8 @@ function ft_views_views_default_views() {
   $handler->display->display_options['views_navigation_title'] = TRUE;
   $handler->display->display_options['path'] = 'query-list';
 
-  /* Display: Homepage */
-  $handler = $view->new_display('block', 'Homepage', 'block');
+  /* Display: Last requests */
+  $handler = $view->new_display('block', 'Last requests', 'block');
   $handler->display->display_options['defaults']['use_more'] = FALSE;
   $handler->display->display_options['use_more'] = TRUE;
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;

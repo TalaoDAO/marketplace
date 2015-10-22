@@ -11907,7 +11907,42 @@ body.page-node-edit .form-textarea-wrapper.resizable-textarea {
 @media (min-width: 767px) {
   .views-exposed-form .views-exposed-widgets > * {
     float: left;
-    width: 50%;
+    width: 25%;
+  }
+}
+.views-exposed-form .views-exposed-widgets > #edit-type-wrapper {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 767px) {
+  .views-exposed-form .views-exposed-widgets > #edit-type-wrapper {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+.views-exposed-form .views-exposed-widgets > #edit-type-wrapper .bef-select-as-checkboxes .bef-checkboxes {
+  width: 100%;
+}
+.views-exposed-form .views-exposed-widgets > .views-submit-button,
+.views-exposed-form .views-exposed-widgets > .views-reset-button {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 767px) {
+  .views-exposed-form .views-exposed-widgets > .views-submit-button,
+  .views-exposed-form .views-exposed-widgets > .views-reset-button {
+    float: left;
+    width: 8.33333333%;
+  }
+}
+@media screen and (min-width: 767px) {
+  .views-exposed-form .views-exposed-widgets > .views-submit-button,
+  .views-exposed-form .views-exposed-widgets > .views-reset-button {
+    margin-top: 24px;
   }
 }
 .views-exposed-form .views-exposed-widget {
