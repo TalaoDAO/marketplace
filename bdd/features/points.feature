@@ -81,7 +81,7 @@ Feature: Test points
     #And I press "Distribute points"
     # Validate distribution and close the request
     And I press "edit-submit" 
-    Then I should see the success message "All the points have been dispatched" 
+    Then I should see the success message "All the points have been distributed" 
     Then I should have 0 points on "What about ?" node
     And I should have "60" points on "expert1" user
     And I should have "40" points on "expert2" user

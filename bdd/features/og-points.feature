@@ -53,7 +53,7 @@ Feature: Test points dispatch in OG
     When I fill in "Points for Bruce Banner" with "60"
     And I fill in "Points for Tony Stark" with "40"
     And I press "edit-submit"
-    Then I should see the success message "All the points have been dispatched"
+    Then I should see the success message "All the points have been distributed"
     And I should have 100 points on "Avengers" node
     And I should have "60" points on "client2" user
     And I should have "40" points on "client3" user
