@@ -216,7 +216,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
-  /* Field: Field: Organisation */
+  /* Field: Field: Organisation / company */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';
@@ -351,7 +351,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_titre_metier']['hide_empty'] = TRUE;
-  /* Field: Field: Organisation */
+  /* Field: Field: Organisation / company */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';
@@ -1214,6 +1214,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['relationships']['uid_1']['table'] = 'comment';
   $handler->display->display_options['relationships']['uid_1']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid_1']['label'] = 'author_comment';
+  /* Field: Comment: ID */
+  $handler->display->display_options['fields']['cid_1']['id'] = 'cid_1';
+  $handler->display->display_options['fields']['cid_1']['table'] = 'comment';
+  $handler->display->display_options['fields']['cid_1']['field'] = 'cid';
+  $handler->display->display_options['fields']['cid_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['cid_1']['link_to_comment'] = FALSE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -1227,12 +1233,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['changed']['label'] = 'Answer date';
   $handler->display->display_options['fields']['changed']['date_format'] = 'short_date';
   $handler->display->display_options['fields']['changed']['second_date_format'] = 'short';
-  /* Field: Comment: ID */
-  $handler->display->display_options['fields']['cid_1']['id'] = 'cid_1';
-  $handler->display->display_options['fields']['cid_1']['table'] = 'comment';
-  $handler->display->display_options['fields']['cid_1']['field'] = 'cid';
-  $handler->display->display_options['fields']['cid_1']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['cid_1']['link_to_comment'] = FALSE;
   /* Field: User: First Name */
   $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
   $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
@@ -1253,15 +1253,18 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['nothing_1']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing_1']['label'] = 'Author';
   $handler->display->display_options['fields']['nothing_1']['alter']['text'] = '[field_first_name] [field_last_name]';
-  /* Field: Comment: Title */
-  $handler->display->display_options['fields']['subject']['id'] = 'subject';
-  $handler->display->display_options['fields']['subject']['table'] = 'comment';
-  $handler->display->display_options['fields']['subject']['field'] = 'subject';
-  $handler->display->display_options['fields']['subject']['label'] = 'Answer';
-  $handler->display->display_options['fields']['subject']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['subject']['alter']['text'] = 'View';
-  $handler->display->display_options['fields']['subject']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['subject']['alter']['ellipsis'] = FALSE;
+  /* Field: Comment: Comment */
+  $handler->display->display_options['fields']['comment_body']['id'] = 'comment_body';
+  $handler->display->display_options['fields']['comment_body']['table'] = 'field_data_comment_body';
+  $handler->display->display_options['fields']['comment_body']['field'] = 'comment_body';
+  $handler->display->display_options['fields']['comment_body']['label'] = 'Answer';
+  $handler->display->display_options['fields']['comment_body']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['comment_body']['alter']['path'] = 'comment/[cid_1]';
+  $handler->display->display_options['fields']['comment_body']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['comment_body']['type'] = 'text_trimmed';
+  $handler->display->display_options['fields']['comment_body']['settings'] = array(
+    'trim_length' => '20',
+  );
   /* Sort criterion: Comment: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'comment';
@@ -1537,6 +1540,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['relationships']['uid_1']['table'] = 'comment';
   $handler->display->display_options['relationships']['uid_1']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid_1']['label'] = 'author_comment';
+  /* Field: Comment: ID */
+  $handler->display->display_options['fields']['cid_1']['id'] = 'cid_1';
+  $handler->display->display_options['fields']['cid_1']['table'] = 'comment';
+  $handler->display->display_options['fields']['cid_1']['field'] = 'cid';
+  $handler->display->display_options['fields']['cid_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['cid_1']['link_to_comment'] = FALSE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -1550,12 +1559,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['changed']['label'] = 'Answer date';
   $handler->display->display_options['fields']['changed']['date_format'] = 'short_date';
   $handler->display->display_options['fields']['changed']['second_date_format'] = 'privatemsg_current_day';
-  /* Field: Comment: ID */
-  $handler->display->display_options['fields']['cid_1']['id'] = 'cid_1';
-  $handler->display->display_options['fields']['cid_1']['table'] = 'comment';
-  $handler->display->display_options['fields']['cid_1']['field'] = 'cid';
-  $handler->display->display_options['fields']['cid_1']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['cid_1']['link_to_comment'] = FALSE;
   /* Field: User: First Name */
   $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
   $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
@@ -1576,15 +1579,41 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['nothing_1']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing_1']['label'] = 'Author';
   $handler->display->display_options['fields']['nothing_1']['alter']['text'] = '[field_first_name] [field_last_name]';
-  /* Field: Comment: Title */
-  $handler->display->display_options['fields']['subject']['id'] = 'subject';
-  $handler->display->display_options['fields']['subject']['table'] = 'comment';
-  $handler->display->display_options['fields']['subject']['field'] = 'subject';
-  $handler->display->display_options['fields']['subject']['label'] = 'Answer';
-  $handler->display->display_options['fields']['subject']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['subject']['alter']['text'] = 'View';
-  $handler->display->display_options['fields']['subject']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['subject']['alter']['ellipsis'] = FALSE;
+  /* Field: Comment: Comment */
+  $handler->display->display_options['fields']['comment_body']['id'] = 'comment_body';
+  $handler->display->display_options['fields']['comment_body']['table'] = 'field_data_comment_body';
+  $handler->display->display_options['fields']['comment_body']['field'] = 'comment_body';
+  $handler->display->display_options['fields']['comment_body']['label'] = '';
+  $handler->display->display_options['fields']['comment_body']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['comment_body']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['comment_body']['alter']['path'] = 'comment/[cid_1]';
+  $handler->display->display_options['fields']['comment_body']['alter']['max_length'] = '20';
+  $handler->display->display_options['fields']['comment_body']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['comment_body']['alter']['trim'] = TRUE;
+  $handler->display->display_options['fields']['comment_body']['element_label_colon'] = FALSE;
+  /* Field: Comment: Private response */
+  $handler->display->display_options['fields']['field_private_comment_body']['id'] = 'field_private_comment_body';
+  $handler->display->display_options['fields']['field_private_comment_body']['table'] = 'field_data_field_private_comment_body';
+  $handler->display->display_options['fields']['field_private_comment_body']['field'] = 'field_private_comment_body';
+  $handler->display->display_options['fields']['field_private_comment_body']['label'] = '';
+  $handler->display->display_options['fields']['field_private_comment_body']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_private_comment_body']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_private_comment_body']['alter']['path'] = 'comment/[cid_1]';
+  $handler->display->display_options['fields']['field_private_comment_body']['alter']['max_length'] = '20';
+  $handler->display->display_options['fields']['field_private_comment_body']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['field_private_comment_body']['alter']['trim'] = TRUE;
+  $handler->display->display_options['fields']['field_private_comment_body']['element_label_colon'] = FALSE;
+  /* Field: Views: Views Conditional */
+  $handler->display->display_options['fields']['views_conditional']['id'] = 'views_conditional';
+  $handler->display->display_options['fields']['views_conditional']['table'] = 'views_conditional';
+  $handler->display->display_options['fields']['views_conditional']['field'] = 'views_conditional';
+  $handler->display->display_options['fields']['views_conditional']['label'] = 'Answer';
+  $handler->display->display_options['fields']['views_conditional']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['views_conditional']['if'] = 'comment_body';
+  $handler->display->display_options['fields']['views_conditional']['condition'] = '6';
+  $handler->display->display_options['fields']['views_conditional']['then'] = '[comment_body]';
+  $handler->display->display_options['fields']['views_conditional']['or'] = '[field_private_comment_body]';
+  $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
   /* Sort criterion: Comment: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'comment';
