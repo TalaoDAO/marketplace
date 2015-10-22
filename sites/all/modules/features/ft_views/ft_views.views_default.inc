@@ -1165,7 +1165,7 @@ function ft_views_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'My answers - Challenges';
+  $handler->display->display_options['title'] = 'Challenges';
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
@@ -1200,75 +1200,59 @@ function ft_views_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['relationship'] = 'nid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
-  /* Relationship: Flags: winner_challenge */
-  $handler->display->display_options['relationships']['flag_content_rel']['id'] = 'flag_content_rel';
-  $handler->display->display_options['relationships']['flag_content_rel']['table'] = 'comment';
-  $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
-  $handler->display->display_options['relationships']['flag_content_rel']['required'] = 0;
-  $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'winner_challenge';
+  /* Relationship: Comment: Author */
+  $handler->display->display_options['relationships']['uid_1']['id'] = 'uid_1';
+  $handler->display->display_options['relationships']['uid_1']['table'] = 'comment';
+  $handler->display->display_options['relationships']['uid_1']['field'] = 'uid';
+  $handler->display->display_options['relationships']['uid_1']['label'] = 'author_comment';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['relationship'] = 'nid';
-  $handler->display->display_options['fields']['title']['label'] = 'Challenges';
+  $handler->display->display_options['fields']['title']['label'] = 'Request';
   /* Field: Comment: Updated date */
   $handler->display->display_options['fields']['changed']['id'] = 'changed';
   $handler->display->display_options['fields']['changed']['table'] = 'comment';
   $handler->display->display_options['fields']['changed']['field'] = 'changed';
-  $handler->display->display_options['fields']['changed']['label'] = 'Date';
+  $handler->display->display_options['fields']['changed']['label'] = 'Answer date';
   $handler->display->display_options['fields']['changed']['date_format'] = 'short_date';
   $handler->display->display_options['fields']['changed']['second_date_format'] = 'short';
-  /* Field: Comment: Author */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'comment';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
-  /* Field: Comment: Title */
-  $handler->display->display_options['fields']['subject']['id'] = 'subject';
-  $handler->display->display_options['fields']['subject']['table'] = 'comment';
-  $handler->display->display_options['fields']['subject']['field'] = 'subject';
-  $handler->display->display_options['fields']['subject']['label'] = 'Response';
-  $handler->display->display_options['fields']['subject']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['subject']['alter']['ellipsis'] = FALSE;
   /* Field: Comment: ID */
   $handler->display->display_options['fields']['cid_1']['id'] = 'cid_1';
   $handler->display->display_options['fields']['cid_1']['table'] = 'comment';
   $handler->display->display_options['fields']['cid_1']['field'] = 'cid';
   $handler->display->display_options['fields']['cid_1']['exclude'] = TRUE;
   $handler->display->display_options['fields']['cid_1']['link_to_comment'] = FALSE;
+  /* Field: User: First Name */
+  $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['relationship'] = 'uid_1';
+  $handler->display->display_options['fields']['field_first_name']['label'] = 'First name';
+  $handler->display->display_options['fields']['field_first_name']['exclude'] = TRUE;
+  /* Field: User: Last Name */
+  $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['relationship'] = 'uid_1';
+  $handler->display->display_options['fields']['field_last_name']['label'] = 'Last name';
+  $handler->display->display_options['fields']['field_last_name']['exclude'] = TRUE;
   /* Field: Global: Custom text */
-  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = 'Choose';
-  $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['nothing']['alter']['path'] = 'bestreply/mark/[cid_1]';
-  /* Field: Views: Views Conditional */
-  $handler->display->display_options['fields']['views_conditional']['id'] = 'views_conditional';
-  $handler->display->display_options['fields']['views_conditional']['table'] = 'views_conditional';
-  $handler->display->display_options['fields']['views_conditional']['field'] = 'views_conditional';
-  $handler->display->display_options['fields']['views_conditional']['label'] = 'Status';
-  $handler->display->display_options['fields']['views_conditional']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['views_conditional']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['views_conditional']['if'] = 'cid';
-  $handler->display->display_options['fields']['views_conditional']['condition'] = '1';
-  $handler->display->display_options['fields']['views_conditional']['equalto'] = '[cid_1]';
-  $handler->display->display_options['fields']['views_conditional']['then'] = 'Best';
-  $handler->display->display_options['fields']['views_conditional']['or'] = '[nothing]';
-  $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
-  /* Field: Broken/missing handler */
-  $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
-  $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
-  $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
-  $handler->display->display_options['fields']['og_group_ref']['relationship'] = 'nid';
-  $handler->display->display_options['fields']['og_group_ref']['label'] = 'Circle';
-  /* Field: Flags: Flag link */
-  $handler->display->display_options['fields']['ops']['id'] = 'ops';
-  $handler->display->display_options['fields']['ops']['table'] = 'flagging';
-  $handler->display->display_options['fields']['ops']['field'] = 'ops';
-  $handler->display->display_options['fields']['ops']['relationship'] = 'flag_content_rel';
-  $handler->display->display_options['fields']['ops']['label'] = 'Choose';
+  $handler->display->display_options['fields']['nothing_1']['id'] = 'nothing_1';
+  $handler->display->display_options['fields']['nothing_1']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing_1']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing_1']['label'] = 'Author';
+  $handler->display->display_options['fields']['nothing_1']['alter']['text'] = '[field_first_name] [field_last_name]';
+  /* Field: Comment: Title */
+  $handler->display->display_options['fields']['subject']['id'] = 'subject';
+  $handler->display->display_options['fields']['subject']['table'] = 'comment';
+  $handler->display->display_options['fields']['subject']['field'] = 'subject';
+  $handler->display->display_options['fields']['subject']['label'] = 'Answer';
+  $handler->display->display_options['fields']['subject']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['subject']['alter']['text'] = 'View';
+  $handler->display->display_options['fields']['subject']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['subject']['alter']['ellipsis'] = FALSE;
   /* Sort criterion: Comment: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'comment';
@@ -1503,7 +1487,7 @@ function ft_views_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'My answers - Questions';
+  $handler->display->display_options['title'] = 'Questions';
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
@@ -1539,12 +1523,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['relationship'] = 'nid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
-  /* Relationship: Flags: winner_question1 */
-  $handler->display->display_options['relationships']['flag_content_rel']['id'] = 'flag_content_rel';
-  $handler->display->display_options['relationships']['flag_content_rel']['table'] = 'comment';
-  $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
-  $handler->display->display_options['relationships']['flag_content_rel']['required'] = 0;
-  $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'winner_question1';
   /* Relationship: Comment: Author */
   $handler->display->display_options['relationships']['uid_1']['id'] = 'uid_1';
   $handler->display->display_options['relationships']['uid_1']['table'] = 'comment';
@@ -1555,91 +1533,49 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title']['table'] = 'node';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['relationship'] = 'nid';
-  $handler->display->display_options['fields']['title']['label'] = 'Questions';
+  $handler->display->display_options['fields']['title']['label'] = 'Request';
   /* Field: Comment: Updated date */
   $handler->display->display_options['fields']['changed']['id'] = 'changed';
   $handler->display->display_options['fields']['changed']['table'] = 'comment';
   $handler->display->display_options['fields']['changed']['field'] = 'changed';
-  $handler->display->display_options['fields']['changed']['label'] = 'Date';
+  $handler->display->display_options['fields']['changed']['label'] = 'Answer date';
   $handler->display->display_options['fields']['changed']['date_format'] = 'short_date';
   $handler->display->display_options['fields']['changed']['second_date_format'] = 'privatemsg_current_day';
-  /* Field: Comment: Author */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'comment';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['exclude'] = TRUE;
-  /* Field: Comment: Title */
-  $handler->display->display_options['fields']['subject']['id'] = 'subject';
-  $handler->display->display_options['fields']['subject']['table'] = 'comment';
-  $handler->display->display_options['fields']['subject']['field'] = 'subject';
-  $handler->display->display_options['fields']['subject']['label'] = 'Response';
-  $handler->display->display_options['fields']['subject']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['subject']['alter']['ellipsis'] = FALSE;
   /* Field: Comment: ID */
   $handler->display->display_options['fields']['cid_1']['id'] = 'cid_1';
   $handler->display->display_options['fields']['cid_1']['table'] = 'comment';
   $handler->display->display_options['fields']['cid_1']['field'] = 'cid';
   $handler->display->display_options['fields']['cid_1']['exclude'] = TRUE;
   $handler->display->display_options['fields']['cid_1']['link_to_comment'] = FALSE;
-  /* Field: Global: Custom text */
-  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = 'Choose';
-  $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['nothing']['alter']['path'] = 'bestreply/mark/[cid_1]';
-  /* Field: Views: Views Conditional */
-  $handler->display->display_options['fields']['views_conditional']['id'] = 'views_conditional';
-  $handler->display->display_options['fields']['views_conditional']['table'] = 'views_conditional';
-  $handler->display->display_options['fields']['views_conditional']['field'] = 'views_conditional';
-  $handler->display->display_options['fields']['views_conditional']['label'] = 'Status';
-  $handler->display->display_options['fields']['views_conditional']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['views_conditional']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['views_conditional']['if'] = 'cid';
-  $handler->display->display_options['fields']['views_conditional']['condition'] = '1';
-  $handler->display->display_options['fields']['views_conditional']['equalto'] = '[cid_1]';
-  $handler->display->display_options['fields']['views_conditional']['then'] = 'Best';
-  $handler->display->display_options['fields']['views_conditional']['or'] = '[nothing]';
-  $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
-  /* Field: Content: Choose circle of experts */
-  $handler->display->display_options['fields']['og_group_ref_1']['id'] = 'og_group_ref_1';
-  $handler->display->display_options['fields']['og_group_ref_1']['table'] = 'field_data_og_group_ref';
-  $handler->display->display_options['fields']['og_group_ref_1']['field'] = 'og_group_ref';
-  $handler->display->display_options['fields']['og_group_ref_1']['relationship'] = 'nid';
-  $handler->display->display_options['fields']['og_group_ref_1']['label'] = 'Circle';
-  $handler->display->display_options['fields']['og_group_ref_1']['settings'] = array(
-    'link' => 0,
-  );
-  $handler->display->display_options['fields']['og_group_ref_1']['delta_offset'] = '0';
-  /* Field: Flags: Flag link */
-  $handler->display->display_options['fields']['ops']['id'] = 'ops';
-  $handler->display->display_options['fields']['ops']['table'] = 'flagging';
-  $handler->display->display_options['fields']['ops']['field'] = 'ops';
-  $handler->display->display_options['fields']['ops']['relationship'] = 'flag_content_rel';
-  $handler->display->display_options['fields']['ops']['label'] = 'Choose';
-  /* Field: Comment: Comment points */
-  $handler->display->display_options['fields']['emh_points']['id'] = 'emh_points';
-  $handler->display->display_options['fields']['emh_points']['table'] = 'comment';
-  $handler->display->display_options['fields']['emh_points']['field'] = 'emh_points';
   /* Field: User: First Name */
   $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
   $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
   $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
   $handler->display->display_options['fields']['field_first_name']['relationship'] = 'uid_1';
+  $handler->display->display_options['fields']['field_first_name']['label'] = 'First name';
   $handler->display->display_options['fields']['field_first_name']['exclude'] = TRUE;
   /* Field: User: Last Name */
   $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
   $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
   $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
   $handler->display->display_options['fields']['field_last_name']['relationship'] = 'uid_1';
+  $handler->display->display_options['fields']['field_last_name']['label'] = 'Last name';
   $handler->display->display_options['fields']['field_last_name']['exclude'] = TRUE;
   /* Field: Global: Custom text */
   $handler->display->display_options['fields']['nothing_1']['id'] = 'nothing_1';
   $handler->display->display_options['fields']['nothing_1']['table'] = 'views';
   $handler->display->display_options['fields']['nothing_1']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing_1']['label'] = 'Expert';
+  $handler->display->display_options['fields']['nothing_1']['label'] = 'Author';
   $handler->display->display_options['fields']['nothing_1']['alter']['text'] = '[field_first_name] [field_last_name]';
+  /* Field: Comment: Title */
+  $handler->display->display_options['fields']['subject']['id'] = 'subject';
+  $handler->display->display_options['fields']['subject']['table'] = 'comment';
+  $handler->display->display_options['fields']['subject']['field'] = 'subject';
+  $handler->display->display_options['fields']['subject']['label'] = 'Answer';
+  $handler->display->display_options['fields']['subject']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['subject']['alter']['text'] = 'View';
+  $handler->display->display_options['fields']['subject']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['subject']['alter']['ellipsis'] = FALSE;
   /* Sort criterion: Comment: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'comment';
