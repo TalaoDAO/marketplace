@@ -335,7 +335,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'comment',
     'field_name' => 'comment_body',
-    'label' => 'Public response',
+    'label' => 'Public answer',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -420,7 +420,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'comment',
     'field_name' => 'field_private_comment_body',
-    'label' => 'Private response',
+    'label' => 'Private answer',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -6295,10 +6295,10 @@ function ft_content_type_field_default_field_instances() {
   t('Phone');
   t('Photo');
   t('Position');
-  t('Private response');
+  t('Private answer');
   t('Profile title');
   t('Property rules');
-  t('Public response');
+  t('Public answer');
   t('Questions');
   t('Request message');
   t('Response');
