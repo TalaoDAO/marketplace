@@ -77,7 +77,7 @@
         </a>
       </li>
       <li class="tip-circles">
-        <a href="#" data-toggle="tooltip" data-placement="bottom" title="<?php print t('Circles created on demand'); ?>">
+        <a href="#" data-toggle="tooltip" data-placement="bottom" title="<?php print t('Circles created on request'); ?>">
           <?php print t('Your customised selection'); ?>
         </a>
       </li>
