@@ -254,7 +254,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
 function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
-  // echo '<pre>' . print_r($form['field_address']['und'][0], TRUE) . '</pre>';
+  // echo '<pre>' . print_r($form['field_needs_for_expertise']['#attributes'], TRUE) . '</pre>';
 
   $element_info = element_info('password_confirm');
   $process = $element_info['#process'];
@@ -293,6 +293,8 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
   // Needs
   $form['field_needs_for_expertise']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_needs_for_expertise']['und']['#title'] = $form['field_needs_for_expertise']['und']['#title'] . ' ' . t('(choose one or several fields)');
+  $form['field_specific_skills3']['und']['#title'] = $form['field_specific_skills3']['und']['#title'] . ' ' . t('(using keywords or tags)');
   $form['field_specific_skills3']['#suffix'] = '</div>';
 
   // Skills & background
@@ -316,6 +318,7 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   // echo '<pre>' . print_r($form['account'], TRUE) . '</pre>';
   // echo '<pre>' . print_r($form['field_cv'], TRUE) . '</pre>';
   // echo '<pre>' . print_r($form['field_notification_frequency'], TRUE) . '</pre>';
+  // echo '<pre>' . print_r($form['field_needs_for_expertise']['und']['#title'], TRUE) . '</pre>';
 
 }
 

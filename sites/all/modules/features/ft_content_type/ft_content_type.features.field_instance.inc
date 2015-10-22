@@ -4118,6 +4118,46 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-webform-field_questions'
+  $field_instances['node-webform-field_questions'] = array(
+    'bundle' => 'webform',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 15,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_questions',
+    'label' => 'Questions',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 2,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 7,
+    ),
+  );
+
   // Exported field_instance: 'node-webform-field_request_circle'
   $field_instances['node-webform-field_request_circle'] = array(
     'bundle' => 'webform',
@@ -5113,7 +5153,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'user',
     'field_name' => 'field_entreprise',
-    'label' => 'Organisation',
+    'label' => 'Organisation / company',
     'required' => 0,
     'settings' => array(
       'behaviors' => array(
@@ -5170,7 +5210,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'user',
     'field_name' => 'field_entreprise_description',
-    'label' => 'Description of my organisation',
+    'label' => 'Activity of my organisation / company',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -6386,6 +6426,7 @@ function ft_content_type_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Activity of my organisation / company');
   t('Address');
   t('Alert Level');
   t('Any other areas of interest that might help to know you better');
@@ -6435,6 +6476,7 @@ function ft_content_type_field_default_field_instances() {
   t('Needs for expertise');
   t('Nom');
   t('Organisation');
+  t('Organisation / company');
   t('Organisation visibility');
   t('Other experts');
   t('Other members');
@@ -6447,6 +6489,7 @@ function ft_content_type_field_default_field_instances() {
   t('Profile title');
   t('Property rules');
   t('Public response');
+  t('Questions');
   t('Request message');
   t('Response');
   t('Response visbility');
