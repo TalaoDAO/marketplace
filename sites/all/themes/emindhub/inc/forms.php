@@ -21,7 +21,7 @@ function emindhub_process_format($element) {
 
 function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
-  // echo '<pre>' . print_r($form_id, TRUE) . '</pre>';
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
   // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
 
   $form['actions']['#prefix'] = '<div class="form-row">';
@@ -32,12 +32,15 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
   foreach (
 	array(
 	  'cancel',
+		'goback',
+		'see',
 	  'delete',
 	  'preview_changes',
 	  'draft',
 	  'preview',
 	  'submit',
 	) as $action ) {
+		$form['actions'][$action]['#attributes']['class'][] = 'btn';
 	  $form['actions'][$action]['#weight'] = $i++;
 	}
 

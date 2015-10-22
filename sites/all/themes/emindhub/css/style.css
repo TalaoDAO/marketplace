@@ -11873,6 +11873,7 @@ input#autocomplete-deluxe-input {
 .btn {
   text-transform: uppercase;
   font-weight: 700;
+  margin-right: 5px;
 }
 span.form-required {
   color: #d9534f;
@@ -12252,7 +12253,6 @@ textarea.chosen-container-multi .chosen-choices {
   max-width: 40%;
 }
 #sliding-popup .popup-content #popup-buttons button {
-  margin-right: 5px;
   margin-top: 1em;
   display: inline-block;
   margin-bottom: 0;
@@ -12274,6 +12274,7 @@ textarea.chosen-container-multi .chosen-choices {
   user-select: none;
   text-transform: uppercase;
   font-weight: 700;
+  margin-right: 5px;
 }
 #sliding-popup .popup-content #popup-buttons button:focus,
 #sliding-popup .popup-content #popup-buttons button:active:focus,
@@ -12510,6 +12511,7 @@ div.password-confirm {
   user-select: none;
   text-transform: uppercase;
   font-weight: 700;
+  margin-right: 5px;
   color: #4c6172;
   background-color: transparent;
   border-color: #f2f2f2;
@@ -13082,6 +13084,7 @@ a.views-navigation-back {
   user-select: none;
   text-transform: uppercase;
   font-weight: 700;
+  margin-right: 5px;
   color: #4c6172;
   background-color: transparent;
   border-color: #f2f2f2;
@@ -13197,6 +13200,7 @@ a.flag {
   user-select: none;
   text-transform: uppercase;
   font-weight: 700;
+  margin-right: 5px;
   color: #ffffff;
   background-color: #4c6172;
   border-color: #425463;
@@ -13313,6 +13317,7 @@ a.flag .badge {
   user-select: none;
   text-transform: uppercase;
   font-weight: 700;
+  margin-right: 5px;
   color: #333333;
   background-color: transparent;
   border-color: transparent;

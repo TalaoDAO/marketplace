@@ -16,56 +16,74 @@ function emh_survey_form_alter(&$form, &$form_state, $form_id) {
 
 }
 
+
 /* Webform hook form alter
- * node/$ID/webform/components/$ID
+ * node/add/webform
+ * node/$ID/edit
  */
-function emh_survey_form_webform_component_edit_form_alter(&$form, &$form_state, $form_id) {
-
-	// Question label
-	$form['name']['#title'] = t('Your question');
-
-	// Hide unnecessary fields
-	foreach (
-		array(
-			'form_key',
-			'value',
-			'display',
-			'validation',
-		) as $field) {
-		$form[$field]['#access'] = FALSE;
-	}
-
-	// Hide unnecessary field description
-	$form['name']['#description'] = '';
-	$form['extra']['description']['#description'] = '';
-
-	// Change description format (textarea is too big)
-	$form['extra']['description']['#type'] = 'textfield';
-
-	// We hide mandatory field BUT we don't forget to force it
-	$form['validation']['required']['#default_value'] = 1;
-
-	// Action submit label
-	$form['actions']['submit']['#value'] = t('Save my question and go back to my form');
+function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
 
 	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
+	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
+
+	// Force user roles access
+	// $form['webform']['#value']['roles'] = array(
+	// 	'0' => '3', // administrator
+	// 	'1' => '4', // expert
+	// 	'2' => '6', // webmaster
+	// );
+
+	// Add class before & after fields
+  $form['field_duration_of_the_mission']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_start_date']['#suffix'] = '</div>';
+
+  $form['field_document']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_image']['#suffix'] = '</div>';
+
+  $form['field_domaine']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_tags']['#suffix'] = '</div>';
+
+  $form['field_anonymous']['#prefix'] = '<div class="form-group-3col row">';
+  $form['field_use_my_entreprise']['#suffix'] = '</div>';
+
+  $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_reward']['#suffix'] = '</div>';
+
+  $form['og_group_ref']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_other_members']['#suffix'] = '</div>';
+
+	$form['field_document']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
+  $form['field_image']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
+
+	$form['actions']['submit']['#value'] = t('Save and go manage your questions');
 }
 
+
 /* Webform hook form alter
+ * node/$ID/webform
  * node/$ID/webform/components
  */
 function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $form_id) {
 
-	$form['actions']['submit']['#value'] = t('Save your questions');
+	$form['actions']['submit']['#value'] = t('Save the order of your questions');
 
 	$webform_id = $form['#node']->nid;
-	$form['actions']['goback']['#markup'] = t('<a href="@url" class="btn btn-submit" id="edit-back">Go back edit your form</a>', array('@url' => url('node/' . $webform_id . '/edit')));
-	$form['actions']['goback']['#weight'] = 44;
+	$form['actions']['goback']['#markup'] = t('<a href="@url" class="btn btn-default" id="edit-back">Back</a>', array('@url' => url('node/' . $webform_id . '/edit')));
+	// $form['actions']['goback']['#weight'] = 44;
 	$form['actions']['goback']['#access'] = TRUE;
 
-	$form['actions']['see']['#markup'] = t('<a href="@url" class="btn btn-submit" id="edit-view">View your form</a>', array('@url' => url('node/' . $webform_id)));
-	$form['actions']['see']['#weight'] = 46;
+	$form['actions']['see']['#markup'] = t('<a href="@url" class="btn btn-default" id="edit-view">View your survey</a>', array('@url' => url('node/' . $webform_id)));
+	// $form['actions']['see']['#weight'] = 46;
 	$form['actions']['see']['#access'] = TRUE;
+
+	// Hide unnecessary fields
+	foreach (
+		array(
+			'type',
+			'required',
+		) as $field) {
+		$form['add'][$field]['#type'] = 'hidden';
+	}
 
 	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
 	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
@@ -130,42 +148,37 @@ function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $fo
 
 
 /* Webform hook form alter
- * node/add/webform
- * node/$ID/edit
+ * node/$ID/webform/components/$ID
  */
-function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
+function emh_survey_form_webform_component_edit_form_alter(&$form, &$form_state, $form_id) {
+
+	// Question label
+	$form['name']['#title'] = t('Your question');
+
+	// Hide unnecessary fields
+	foreach (
+		array(
+			'form_key',
+			'value',
+			'display',
+			'validation',
+		) as $field) {
+		$form[$field]['#access'] = FALSE;
+	}
+
+	// Hide unnecessary field description
+	$form['name']['#description'] = '';
+	$form['extra']['description']['#title'] = t('Description (additional information to clarify the meaning of your question)');
+	$form['extra']['description']['#description'] = '';
+
+	// Change description format (textarea is too big)
+	$form['extra']['description']['#type'] = 'textfield';
+
+	// We hide mandatory field BUT we don't forget to force it
+	$form['validation']['required']['#default_value'] = 1;
+
+	// Action submit label
+	$form['actions']['submit']['#value'] = t('Save your question');
 
 	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
-	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
-
-	// Force user roles access
-	// $form['webform']['#value']['roles'] = array(
-	// 	'0' => '3', // administrator
-	// 	'1' => '4', // expert
-	// 	'2' => '6', // webmaster
-	// );
-
-	// Add class before & after fields
-  $form['field_duration_of_the_mission']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_start_date']['#suffix'] = '</div>';
-
-  $form['field_document']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_image']['#suffix'] = '</div>';
-
-  $form['field_domaine']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_tags']['#suffix'] = '</div>';
-
-  $form['field_anonymous']['#prefix'] = '<div class="form-group-3col row">';
-  $form['field_use_my_entreprise']['#suffix'] = '</div>';
-
-  $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_reward']['#suffix'] = '</div>';
-
-  $form['og_group_ref']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_other_members']['#suffix'] = '</div>';
-
-	$form['field_document']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
-  $form['field_image']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
-
-	$form['actions']['submit']['#value'] = t('Save and go manage your questions');
 }
