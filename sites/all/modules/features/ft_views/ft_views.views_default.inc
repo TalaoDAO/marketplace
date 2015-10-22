@@ -948,10 +948,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['relationships']['nid']['table'] = 'webform_submissions';
   $handler->display->display_options['relationships']['nid']['field'] = 'nid';
   $handler->display->display_options['relationships']['nid']['required'] = TRUE;
-  /* Relationship: Broken/missing handler */
-  $handler->display->display_options['relationships']['flag_content_rel']['id'] = 'flag_content_rel';
-  $handler->display->display_options['relationships']['flag_content_rel']['table'] = 'webform_submissions';
-  $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -975,18 +971,16 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['view_submission']['table'] = 'webform_submissions';
   $handler->display->display_options['fields']['view_submission']['field'] = 'view_submission';
   $handler->display->display_options['fields']['view_submission']['label'] = 'Response';
-  /* Field: Broken/missing handler */
+  /* Field: Content: Choose circle of experts */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
-  $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
+  $handler->display->display_options['fields']['og_group_ref']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['relationship'] = 'nid';
   $handler->display->display_options['fields']['og_group_ref']['label'] = 'Circle';
-  /* Field: Flags: Flag link */
-  $handler->display->display_options['fields']['ops']['id'] = 'ops';
-  $handler->display->display_options['fields']['ops']['table'] = 'flagging';
-  $handler->display->display_options['fields']['ops']['field'] = 'ops';
-  $handler->display->display_options['fields']['ops']['relationship'] = 'flag_content_rel';
-  $handler->display->display_options['fields']['ops']['label'] = 'Choose';
+  $handler->display->display_options['fields']['og_group_ref']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
   /* Contextual filter: Content: Author uid */
   $handler->display->display_options['arguments']['uid']['id'] = 'uid';
   $handler->display->display_options['arguments']['uid']['table'] = 'node';
@@ -1105,12 +1099,16 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['view_submission']['table'] = 'webform_submissions';
   $handler->display->display_options['fields']['view_submission']['field'] = 'view_submission';
   $handler->display->display_options['fields']['view_submission']['label'] = 'Response';
-  /* Field: Broken/missing handler */
+  /* Field: Content: Choose circle of experts */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
-  $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
+  $handler->display->display_options['fields']['og_group_ref']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['relationship'] = 'nid';
   $handler->display->display_options['fields']['og_group_ref']['label'] = 'Circle';
+  $handler->display->display_options['fields']['og_group_ref']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: User: Uid */
   $handler->display->display_options['arguments']['uid_1']['id'] = 'uid_1';
@@ -1400,33 +1398,16 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['cid_1']['field'] = 'cid';
   $handler->display->display_options['fields']['cid_1']['exclude'] = TRUE;
   $handler->display->display_options['fields']['cid_1']['link_to_comment'] = FALSE;
-  /* Field: Global: Custom text */
-  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = 'Choose';
-  $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['nothing']['alter']['path'] = 'bestreply/mark/[cid_1]';
-  /* Field: Views: Views Conditional */
-  $handler->display->display_options['fields']['views_conditional']['id'] = 'views_conditional';
-  $handler->display->display_options['fields']['views_conditional']['table'] = 'views_conditional';
-  $handler->display->display_options['fields']['views_conditional']['field'] = 'views_conditional';
-  $handler->display->display_options['fields']['views_conditional']['label'] = 'Status';
-  $handler->display->display_options['fields']['views_conditional']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['views_conditional']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['views_conditional']['if'] = 'cid';
-  $handler->display->display_options['fields']['views_conditional']['condition'] = '1';
-  $handler->display->display_options['fields']['views_conditional']['equalto'] = '[cid_1]';
-  $handler->display->display_options['fields']['views_conditional']['then'] = 'Best';
-  $handler->display->display_options['fields']['views_conditional']['or'] = '[nothing]';
-  $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
-  /* Field: Broken/missing handler */
+  /* Field: Content: Choose circle of experts */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
-  $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
+  $handler->display->display_options['fields']['og_group_ref']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['relationship'] = 'nid';
   $handler->display->display_options['fields']['og_group_ref']['label'] = 'Circle';
+  $handler->display->display_options['fields']['og_group_ref']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: User: Uid */
   $handler->display->display_options['arguments']['uid']['id'] = 'uid';
