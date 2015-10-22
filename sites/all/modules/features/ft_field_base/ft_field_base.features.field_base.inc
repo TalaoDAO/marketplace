@@ -1514,7 +1514,7 @@ function ft_field_base_field_default_field_bases() {
         9 => 0,
       ),
     ),
-    'translatable' => 1,
+    'translatable' => 0,
     'type' => 'field_collection',
   );
 
