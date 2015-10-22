@@ -9,7 +9,6 @@ function emindhub_preprocess_node(&$variables, $hook) {
 	}
 }
 
-
 function emindhub_preprocess_node__challenge(&$variables) {
 	node_informations_add($variables);
 }
@@ -21,7 +20,6 @@ function emindhub_preprocess_node__challenge(&$variables) {
 function emindhub_preprocess_node__question1(&$variables) {
 	node_informations_add($variables);
 }
-
 
 function emindhub_preprocess_node__webform(&$variables) {
 	node_informations_add($variables);

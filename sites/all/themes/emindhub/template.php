@@ -69,6 +69,11 @@ function emindhub_preprocess_page(&$vars, &$variables) {
 		'getsize' => FALSE,
 	));
 
+  // if (!empty($variables['node']) && $variables['node']->type == 'webform') {
+    // $variables['show_title'] = FALSE;
+		$variables['title'] = t('TEST Submission #@serial', array('@serial' => $submission->serial));
+  // }
+
 }
 
 

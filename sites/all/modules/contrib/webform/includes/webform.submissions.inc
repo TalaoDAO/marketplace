@@ -521,7 +521,7 @@ function webform_submission_resend($form, $form_state, $node, $submission) {
     $addresses = webform_format_email_address($email['email'], NULL, $node, $submission, FALSE, FALSE, NULL, $mapping);
     $addresses_valid = array_map('webform_valid_email_address', $addresses);
     $valid_email = count($addresses) == array_sum($addresses_valid);
-    
+
     $form['resend'][$eid] = array(
       '#type' => 'checkbox',
       '#default_value' => $valid_email && $email['status'],
@@ -636,7 +636,7 @@ function webform_submission_render($node, $submission, $email, $format, $exclude
   $renderable['#theme'] = array('webform_submission_' . $node->nid, 'webform_submission');
 
   $components = $node->webform['components'];
-  
+
   // Remove excluded components.
   if (is_array($excluded_components)) {
     foreach ($excluded_components as $cid) {
