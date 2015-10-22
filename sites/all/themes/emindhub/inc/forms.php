@@ -197,7 +197,7 @@ function emindhub_process_format($element) {
 
 function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+  // echo '<pre>' . print_r($form_id, TRUE) . '</pre>';
   // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
 
   $form['actions']['#prefix'] = '<div class="form-row">';
@@ -433,7 +433,7 @@ function emindhub_form_user_register_form_alter(&$form, &$form_state, $form_id) 
 
   $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
 
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>'; die;
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
 }
 
 
@@ -456,4 +456,13 @@ function emindhub_form_comment_form_alter(&$form, &$form_state, $form_id) {
 
   return $form;
 
+}
+
+
+function emindhub_views_bulk_operations_form_alter(&$form) {
+  // Only when we want it.
+  $view = arg(2);
+  if (!empty($view) && ($view == 'answers' || $view == 'webform-answers')) {
+    $form['select']['action::emh_points_arrange_node_points']['#attributes']['class'][] = 'btn-submit';
+  }
 }
