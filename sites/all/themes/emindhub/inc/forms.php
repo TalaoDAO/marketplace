@@ -271,7 +271,7 @@ function emindhub_form_comment_form_alter(&$form, &$form_state, $form_id) {
 function emindhub_views_bulk_operations_form_alter(&$form) {
   // Only when we want it.
   $view = arg(2);
-  if (!empty($view) && ($view == 'answers' || $view == 'webform-answers')) {
+  if (!empty($view) && ($view == 'answers' || $view == 'survey-answers')) {
     $form['select']['action::emh_points_arrange_node_points']['#attributes']['class'][] = 'btn-submit';
   }
 }

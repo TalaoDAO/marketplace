@@ -47,7 +47,7 @@ function emh_points_menu() {
     'type' => MENU_LOCAL_ACTION,
   );
   $items['arrange/%/%/%/%/%'] = array(
-    'title' => 'Distribute points',
+    'title' => 'Validate selection and distribute points',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('emh_points_arrange_form', 1, 2, 3, 4, 5),
     'access arguments' => array('use points'),
@@ -542,7 +542,7 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
       break;
   }
   $points = $form_state['values']['points'];
-  drupal_set_message(t('All the points have been dispatched.'));
+  drupal_set_message(t('All the points have been distributed.'));
 }
 
 /**

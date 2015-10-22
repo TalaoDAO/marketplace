@@ -719,7 +719,7 @@ function emh_points_views_default_views() {
   $view->description = '';
   $view->tag = 'emh, points';
   $view->base_table = 'comment';
-  $view->human_name = 'Answers';
+  $view->human_name = 'Question / Challenge answers';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -751,7 +751,7 @@ function emh_points_views_default_views() {
     'comment_body_1' => 'comment_body_1',
     'views_conditional' => 'views_conditional',
   );
-  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['default'] = 'created';
   $handler->display->display_options['style_options']['info'] = array(
     'cid' => array(
       'sortable' => 0,
@@ -794,8 +794,8 @@ function emh_points_views_default_views() {
       'empty_column' => 0,
     ),
     'created' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -1041,14 +1041,14 @@ function emh_points_views_default_views() {
   $view->description = '';
   $view->tag = 'emh, points';
   $view->base_table = 'webform_submissions';
-  $view->human_name = 'Webform Answers';
+  $view->human_name = 'Survey answers';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Webform Answers';
+  $handler->display->display_options['title'] = 'Answers';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'access own webform results';
@@ -1059,18 +1059,20 @@ function emh_points_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '50';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
-    'views_bulk_operations' => 'views_bulk_operations',
-    'field_photo' => 'field_photo',
+    'uid' => 'uid',
     'field_first_name' => 'field_first_name',
     'field_last_name' => 'field_last_name',
+    'views_bulk_operations' => 'views_bulk_operations',
+    'submitted' => 'submitted',
+    'nothing' => 'nothing',
   );
-  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['default'] = 'submitted';
   $handler->display->display_options['style_options']['info'] = array(
-    'field_photo' => array(
+    'uid' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
-      'separator' => ' ',
+      'separator' => '',
       'empty_column' => 0,
     ),
     'field_first_name' => array(
@@ -1092,47 +1094,28 @@ function emh_points_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
+    'submitted' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'nothing' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
   );
-  /* Header: Global: Text area */
-  $handler->display->display_options['header']['area']['id'] = 'area';
-  $handler->display->display_options['header']['area']['table'] = 'views';
-  $handler->display->display_options['header']['area']['field'] = 'area';
-  $handler->display->display_options['header']['area']['empty'] = TRUE;
-  $handler->display->display_options['header']['area']['content'] = 'Select best answer(s)';
-  $handler->display->display_options['header']['area']['format'] = 'filtered_html';
+  $handler->display->display_options['style_options']['sticky'] = TRUE;
   /* Relationship: Webform submissions: User */
   $handler->display->display_options['relationships']['uid']['id'] = 'uid';
   $handler->display->display_options['relationships']['uid']['table'] = 'webform_submissions';
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
-  /* Field: Bulk operations: User */
-  $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
-  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'users';
-  $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
-  $handler->display->display_options['fields']['views_bulk_operations']['relationship'] = 'uid';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '1';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['row_clickable'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
-    'action::emh_points_arrange_node_points' => array(
-      'selected' => 1,
-      'skip_confirmation' => 1,
-      'override_label' => 1,
-      'label' => 'Distribute points',
-    ),
-  );
-  /* Field: User: Photo */
-  $handler->display->display_options['fields']['field_photo']['id'] = 'field_photo';
-  $handler->display->display_options['fields']['field_photo']['table'] = 'field_data_field_photo';
-  $handler->display->display_options['fields']['field_photo']['field'] = 'field_photo';
-  $handler->display->display_options['fields']['field_photo']['relationship'] = 'uid';
-  $handler->display->display_options['fields']['field_photo']['label'] = 'Expert';
-  $handler->display->display_options['fields']['field_photo']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_photo']['settings'] = array(
-    'image_style' => 'profile_picture',
-    'image_link' => '',
-  );
+  /* Relationship: Content: Webform submission */
+  $handler->display->display_options['relationships']['webform_submission']['id'] = 'webform_submission';
+  $handler->display->display_options['relationships']['webform_submission']['table'] = 'node';
+  $handler->display->display_options['relationships']['webform_submission']['field'] = 'webform_submission';
   /* Field: User: Uid */
   $handler->display->display_options['fields']['uid']['id'] = 'uid';
   $handler->display->display_options['fields']['uid']['table'] = 'users';
@@ -1158,11 +1141,39 @@ function emh_points_views_default_views() {
   $handler->display->display_options['fields']['field_last_name']['label'] = '';
   $handler->display->display_options['fields']['field_last_name']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_last_name']['element_label_colon'] = FALSE;
-  /* Field: Global: Custom text */
+  /* Field: Bulk operations: User */
+  $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
+  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'users';
+  $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
+  $handler->display->display_options['fields']['views_bulk_operations']['relationship'] = 'uid';
+  $handler->display->display_options['fields']['views_bulk_operations']['label'] = 'Select';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '1';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['row_clickable'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
+    'action::emh_points_arrange_node_points' => array(
+      'selected' => 1,
+      'skip_confirmation' => 1,
+      'override_label' => 1,
+      'label' => 'Distribute points',
+    ),
+  );
+  /* Field: Webform submissions: Submitted */
+  $handler->display->display_options['fields']['submitted']['id'] = 'submitted';
+  $handler->display->display_options['fields']['submitted']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['submitted']['field'] = 'submitted';
+  $handler->display->display_options['fields']['submitted']['label'] = 'Answer date';
+  $handler->display->display_options['fields']['submitted']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['submitted']['date_format'] = 'short_date';
+  $handler->display->display_options['fields']['submitted']['second_date_format'] = 'privatemsg_current_day';
+  /* Field: Author */
   $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['label'] = 'Expert';
+  $handler->display->display_options['fields']['nothing']['ui_name'] = 'Author';
+  $handler->display->display_options['fields']['nothing']['label'] = 'Author';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '[field_first_name] [field_last_name]';
   $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['nothing']['alter']['path'] = 'user/[uid]';
