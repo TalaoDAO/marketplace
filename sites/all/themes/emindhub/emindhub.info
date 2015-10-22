@@ -39,6 +39,7 @@ exclude[css][] = 'sites/all/modules/contrib/eu_cookie_compliance/css/eu_cookie_c
 exclude[css][] = 'sites/all/modules/contrib/link/link.css'
 exclude[css][] = 'sites/all/modules/contrib/hybridauth/css/hybridauth.css'
 exclude[css][] = 'sites/all/modules/contrib/views/css/views.css'
+exclude[css][] = 'sites/all/modules/contrib/views_bulk_operations/css/views_bulk_operations.css'
 exclude[css][] = 'sites/all/modules/patched/field_collection/field_collection.theme.css'
 
 
