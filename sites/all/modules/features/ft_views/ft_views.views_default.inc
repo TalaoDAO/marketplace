@@ -134,8 +134,41 @@ function ft_views_views_default_views() {
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
-  $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
+  $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
+  $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
+  $handler->display->display_options['exposed_form']['options']['bef'] = array(
+    'general' => array(
+      'allow_secondary' => 0,
+      'secondary_label' => 'Advanced options',
+      'collapsible_label' => NULL,
+      'combine_rewrite' => NULL,
+      'reset_label' => NULL,
+    ),
+    'sort' => array(
+      'bef_format' => 'default',
+      'advanced' => array(
+        'collapsible' => 0,
+        'collapsible_label' => 'Sort options',
+        'combine' => 0,
+        'combine_param' => 'sort_bef_combine',
+        'combine_rewrite' => '',
+        'reset' => 0,
+        'reset_label' => '',
+        'is_secondary' => 0,
+        'secondary_label' => NULL,
+      ),
+      'secondary_label' => NULL,
+      'collapsible_label' => NULL,
+      'combine_rewrite' => NULL,
+      'reset_label' => NULL,
+    ),
+    'secondary_label' => NULL,
+    'collapsible_label' => NULL,
+    'combine_rewrite' => NULL,
+    'reset_label' => NULL,
+  );
+  $handler->display->display_options['exposed_form']['options']['input_required'] = 0;
+  $handler->display->display_options['exposed_form']['options']['text_input_required_format'] = 'filtered_html';
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '9';
   $handler->display->display_options['pager']['options']['offset'] = '0';
@@ -143,21 +176,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Header: Global: PHP */
-  $handler->display->display_options['header']['php']['id'] = 'php';
-  $handler->display->display_options['header']['php']['table'] = 'views';
-  $handler->display->display_options['header']['php']['field'] = 'php';
-  $handler->display->display_options['header']['php']['empty'] = TRUE;
-  $handler->display->display_options['header']['php']['php_output'] = '<?php
-  $form = array();
-  $form[\'name\'] = array();
-  $form[\'name\'][\'#type\'] = \'textfield\';
-  $form[\'name\'][\'#title\'] = t(\'Add a new expert\');
-  $form[\'submit\'] = array();
-  $form[\'submit\'][\'#type\'] = \'submit\';
-  $form[\'submit\'][\'#value\'] = t(\'Add to circle\');
-  print drupal_render($form);
-?>';
   /* Relationship: OG membership: OG membership from User */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'users';
@@ -372,22 +390,13 @@ function ft_views_views_default_views() {
   $handler->display->display_options['sorts']['created']['relationship'] = 'og_membership_rel';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
   $handler->display->display_options['sorts']['created']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['created']['expose']['label'] = 'Created';
+  $handler->display->display_options['sorts']['created']['expose']['label'] = 'Member since';
   $handler->display->display_options['sorts']['created']['granularity'] = 'day';
   /* Sort criterion: User: Name */
   $handler->display->display_options['sorts']['name']['id'] = 'name';
   $handler->display->display_options['sorts']['name']['table'] = 'users';
   $handler->display->display_options['sorts']['name']['field'] = 'name';
-  $handler->display->display_options['sorts']['name']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['name']['expose']['label'] = 'Name';
-  /* Sort criterion: OG membership: Created */
-  $handler->display->display_options['sorts']['created_1']['id'] = 'created_1';
-  $handler->display->display_options['sorts']['created_1']['table'] = 'og_membership';
-  $handler->display->display_options['sorts']['created_1']['field'] = 'created';
-  $handler->display->display_options['sorts']['created_1']['relationship'] = 'og_membership_rel';
-  $handler->display->display_options['sorts']['created_1']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['created_1']['expose']['label'] = 'Member since';
-  $handler->display->display_options['sorts']['created_1']['granularity'] = 'day';
   /* Sort criterion: User: Name */
   $handler->display->display_options['sorts']['name_1']['id'] = 'name_1';
   $handler->display->display_options['sorts']['name_1']['table'] = 'users';
@@ -397,7 +406,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['sorts']['field_titre_metier_value']['table'] = 'field_data_field_titre_metier';
   $handler->display->display_options['sorts']['field_titre_metier_value']['field'] = 'field_titre_metier_value';
   $handler->display->display_options['sorts']['field_titre_metier_value']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['field_titre_metier_value']['expose']['label'] = 'Profile Title';
+  $handler->display->display_options['sorts']['field_titre_metier_value']['expose']['label'] = 'Profile title';
 
   /* Display: Block simple */
   $handler = $view->new_display('block', 'Block simple', 'block_1');
@@ -753,7 +762,7 @@ function ft_views_views_default_views() {
   $handler = $view->new_display('page', 'Page', 'page_1');
   $handler->display->display_options['path'] = 'my-circles';
   $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'My Circles';
+  $handler->display->display_options['menu']['title'] = 'My circles';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'menu-burger-menu';
   $handler->display->display_options['menu']['context'] = 0;
