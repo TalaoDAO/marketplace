@@ -14448,7 +14448,8 @@ aside .block .content {
 .view-query-list .views-field-field-reward {
   text-align: right;
 }
-.view-query-list .views-field-views-conditional {
+.view-query-list .views-field-views-conditional,
+.view-query-list .views-field-nothing {
   text-align: right;
 }
 .view-query-list .views-field-expression {
