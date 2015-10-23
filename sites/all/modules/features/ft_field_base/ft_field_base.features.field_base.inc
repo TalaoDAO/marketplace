@@ -2507,6 +2507,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'group_access',
     'field_permissions' => array(
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(
@@ -2524,7 +2525,6 @@ function ft_field_base_field_default_field_bases() {
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
-      'profile2_private' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'list_boolean',
@@ -2537,9 +2537,6 @@ function ft_field_base_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'group_content_access',
-    'field_permissions' => array(
-      'type' => 0,
-    ),
     'indexes' => array(
       'value' => array(
         0 => 'value',
@@ -2556,7 +2553,6 @@ function ft_field_base_field_default_field_bases() {
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
-      'profile2_private' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'list_integer',
@@ -2583,34 +2579,6 @@ function ft_field_base_field_default_field_bases() {
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
-    ),
-    'translatable' => 0,
-    'type' => 'list_boolean',
-  );
-
-  // Exported field_base: 'group_register'
-  $field_bases['group_register'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'group_register',
-    'indexes' => array(
-      'value' => array(
-        0 => 'value',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'list',
-    'no_ui' => TRUE,
-    'settings' => array(
-      'allowed_values' => array(
-        0 => 'Do not show on registration page',
-        1 => 'Show on registration page',
-      ),
-      'allowed_values_function' => '',
-      'entity_translation_sync' => FALSE,
-      'profile2_private' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'list_boolean',
@@ -2645,10 +2613,6 @@ function ft_field_base_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'og_group_ref',
-    'field_permissions' => array(
-      'owner_field' => 'Comment',
-      'type' => 0,
-    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -2658,21 +2622,19 @@ function ft_field_base_field_default_field_bases() {
     'module' => 'entityreference',
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'handler' => 'views',
+      'handler' => 'og',
       'handler_settings' => array(
         'behaviors' => array(
-          'views-select-list' => array(
-            'status' => 0,
+          'og_behavior' => array(
+            'status' => TRUE,
           ),
         ),
-        'view' => array(
-          'args' => array(),
-          'display_name' => 'entityreference_1',
-          'view_name' => 'user_circle_list',
+        'membership_type' => 'og_membership_type_default',
+        'target_bundles' => array(
+          0 => 'circle',
         ),
       ),
       'handler_submit' => 'Change handler',
-      'profile2_private' => FALSE,
       'target_type' => 'node',
     ),
     'target_type' => 'node',

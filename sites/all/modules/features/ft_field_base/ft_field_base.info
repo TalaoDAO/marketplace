@@ -103,7 +103,6 @@ features[field_base][] = field_year_of_experiences
 features[field_base][] = group_access
 features[field_base][] = group_content_access
 features[field_base][] = group_group
-features[field_base][] = group_register
 features[field_base][] = name_field
 features[field_base][] = og_group_ref
 features[field_base][] = og_membership_request
