@@ -19,12 +19,14 @@ Feature: Test points
     When I go to homepage
     When I click "What about ?" in the "What about ?" row
     Then I enter "Je suis un expert" for "Public answer"
+    And I select the radio button "My answer will be public"
     And I press "Publish"
 
     Given I am logged in as "expert2"
     When I go to homepage
     When I click "What about ?" in the "What about ?" row
     Then I enter "J'ai une idée" for "Public answer"
+    And I select the radio button "My answer will be public"
     And I press "Publish"
 
   #@exclude
