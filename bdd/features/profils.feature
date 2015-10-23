@@ -41,7 +41,8 @@ Feature: Test profil visibility
     Then I should have 0 points on "What about ?" node
     And I should have 50 points on "expert1" user
     And I should have 50 points on "expert2" user
-    When I click "My relationships"
+    #When I click "My relationships"
+    When I go to "my-relationships"
     #Then I should see "Operations"
     Then I should see "Iron"
     And I should see "Klark"
