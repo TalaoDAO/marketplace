@@ -16,20 +16,18 @@
 ?>
 
 <?php if ($mode == 'display' || $mode == 'form'): ?>
-  <div class="clearfix">
-    <?php print $submission_actions; ?>
-    <?php print $submission_navigation; ?>
-  </div>
+  <?php print $submission_actions; ?>
+  <?php print $submission_navigation; ?>
 <?php endif; ?>
 
 <?php print $submission_information; ?>
 
-<div class="webform-submission">
-  <?php print render($submission_content); ?>
+<div class="row section webform-submission">
+    <div class="col-sm-12">
+    <?php print render($submission_content); ?>
+  </div>
 </div>
 
 <?php if ($mode == 'display' || $mode == 'form'): ?>
-  <div class="clearfix">
-    <?php print $submission_navigation; ?>
-  </div>
+  <?php print $submission_navigation; ?>
 <?php endif; ?>
