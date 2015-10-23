@@ -52,5 +52,6 @@ function _emh_survey_string_overrides() {
     'No Components, add a component below.' => 'No questions, add a question below.',
     'New component name' => 'New question name',
     'This will immediately delete the %name component from the %webform webform. This cannot be undone.' => 'This will immediately delete the %name question from the %webform survey. This cannot be undone.',
+    'Submission #@serial' => 'Answer #@serial',
   );
 }

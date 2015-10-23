@@ -12,13 +12,10 @@
  * - $account: The user that submitted the form.
  */
 ?>
-<fieldset class="webform-submission-info clearfix">
-  <legend><?php print t('Submission information'); ?></legend>
-  <?php print theme('user_picture', array('account' => $account)); ?>
-  <div class="webform-submission-info-text">
+<div class="row section">
+  <div class="col-sm-12">
     <div><?php print t('Survey: !form', array('!form' => l($node->title, 'node/' . $node->nid))); ?></div>
     <div><?php print t('Submitted by !name', array('!name' => theme('username', array('account' => $account)))); ?></div>
     <div><?php print check_plain(format_date($submission->submitted, webform_variable_get('webform_date_type'))); ?></div>
-    <div><?php print check_plain($submission->remote_addr); ?></div>
   </div>
-</fieldset>
+</div>
