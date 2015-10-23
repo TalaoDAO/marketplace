@@ -357,11 +357,7 @@ function ft_content_type_field_default_field_instances() {
   // 'comment-comment_node_question1-field_private_comment'
   $field_instances['comment-comment_node_question1-field_private_comment'] = array(
     'bundle' => 'comment_node_question1',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -380,7 +376,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'comment',
     'field_name' => 'field_private_comment',
-    'label' => 'Response visbility',
+    'label' => 'Answer visibility',
     'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -6239,6 +6235,7 @@ function ft_content_type_field_default_field_instances() {
   t('Activity of my organisation / company');
   t('Address');
   t('Alert Level');
+  t('Answer visibility');
   t('Any other areas of interest that might help to know you better');
   t('Author visibility');
   t('AutoRef');
@@ -6302,7 +6299,6 @@ function ft_content_type_field_default_field_instances() {
   t('Questions');
   t('Request message');
   t('Response');
-  t('Response visbility');
   t('Reward');
   t('Select audience');
   t('Self-appraisal');
