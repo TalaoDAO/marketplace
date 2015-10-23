@@ -14703,9 +14703,12 @@ form .field-widget-date-popup input {
 form .field-type-addressfield {
   margin-bottom: 0;
 }
-form .field-type-number-integer .form-control {
-  text-align: center;
-  max-width: 50px;
+form .field-name-field-reward label {
+  display: block;
+}
+form .field-name-field-reward input {
+  width: auto;
+  display: inline-block;
 }
 form .file-widget .file-return,
 form .field-type-image .file-return,
@@ -15553,6 +15556,10 @@ form#user-profile-form .imagefield-crop-widget .file {
     margin-left: 50%;
     padding-left: 7.5px;
   }
+}
+form#user-profile-form .field-name-field-year-of-experiences .form-control {
+  text-align: center;
+  max-width: 50px;
 }
 /* FORMS
  * Register

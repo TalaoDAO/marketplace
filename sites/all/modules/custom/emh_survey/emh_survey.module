@@ -26,13 +26,6 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
 	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
 	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
 
-	// Force user roles access
-	// $form['webform']['#value']['roles'] = array(
-	// 	'0' => '3', // administrator
-	// 	'1' => '4', // expert
-	// 	'2' => '6', // webmaster
-	// );
-
 	// Add class before & after fields
   $form['field_duration_of_the_mission']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_start_date']['#suffix'] = '</div>';
@@ -47,6 +40,7 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
   $form['field_use_my_entreprise']['#suffix'] = '</div>';
 
   $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
+	$form['field_reward']['und'][0]['value']['#title'] = t('Cost');
   $form['field_reward']['#suffix'] = '</div>';
 
   $form['og_group_ref']['#prefix'] = '<div class="form-group-2col row">';
@@ -69,11 +63,9 @@ function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $fo
 
 	$webform_id = $form['#node']->nid;
 	$form['actions']['goback']['#markup'] = t('<a href="@url" class="btn btn-default" id="edit-back">Back</a>', array('@url' => url('node/' . $webform_id . '/edit')));
-	// $form['actions']['goback']['#weight'] = 44;
 	$form['actions']['goback']['#access'] = TRUE;
 
 	$form['actions']['see']['#markup'] = t('<a href="@url" class="btn btn-default" id="edit-view">View your survey</a>', array('@url' => url('node/' . $webform_id)));
-	// $form['actions']['see']['#weight'] = 46;
 	$form['actions']['see']['#access'] = TRUE;
 
 	// Hide unnecessary fields
@@ -86,63 +78,6 @@ function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $fo
 	}
 
 	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
-	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
-	// die;
-
-	// TODO : make these hooks working !
-
-	// TODO : Hide field type choice
-	// $form['add']['type']['#access'] = FALSE;
-
-	// TODO : Force mandatory option
-	// $form['add']['mandatory']['#default_value'] = TRUE;
-
-	// TODO : Force field placeholder
-	// $form['add']['name']['#attributes']['rel'] = t('Write your question...');
-
-	// TODO : add class to <th> and <td> elements
-	// $header = array(
-	//	 array(
-	//		 'data' => t('Label'),
-	//		 'class' => array('wc-label')
-	//	 ),
-	//	 array(
-	//		 'data' => t('Type'),
-	//		 'class' => array('wc-type')
-	//	 ),
-	//	 array(
-	//		 'data' => t('Value'),
-	//		 'class' => array('wc-value')
-	//	 ),
-	//	 array(
-	//		 'data' => t('Mandatory'),
-	//		 'class' => array('wc-mandatory')
-	//	 ),
-	//	 array(
-	//		 'data' => t('Weight'),
-	//		 'class' => array('wc-weight')
-	//	 ),
-	//	 array(
-	//		 'data' => t('Operations'),
-	//		 'colspan' => 3,
-	//		 'class' => array('wc-operations')
-	//	 ),
-	// );
-
-	// TODO : Change default message when no question already added
-	// if (empty($node->webform['components'])) {
-	//	 $rows[] = array(array('data' => t('No questions, add a question below.'), 'colspan' => 9));
-	// }
-
-	// TODO : Force value with select options
-	// $form['add']['name']['#type'] = 'select';
-	// $form['add']['name']['#default_value'] = 'q1';
-	// $form['add']['name']['#options'] = array(
-	//	 'q1' => t('Question 1'),
-	//	 'q2' => t('Question 2'),
-	//	 'q3' => t('Question 3'),
-	//	 'q4' => t('Question 4'),
-	// );
 
 }
 
