@@ -1530,7 +1530,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 16,
+      'weight' => 15,
     ),
   );
 
@@ -1675,7 +1675,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 14,
+      'weight' => 13,
     ),
   );
 
@@ -1917,6 +1917,7 @@ function ft_content_type_field_default_field_instances() {
   $field_instances['node-challenge-og_group_ref'] = array(
     'bundle' => 'challenge',
     'default_value' => NULL,
+    'default_value_function' => '',
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -1936,18 +1937,12 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'og_group_ref',
-    'label' => 'Groups audience',
-    'required' => FALSE,
+    'label' => 'Choose circle of experts',
+    'required' => 1,
     'settings' => array(
       'behaviors' => array(
-        'og_widget' => array(
-          'admin' => array(
-            'widget_type' => 'entityreference_autocomplete',
-          ),
-          'default' => array(
-            'widget_type' => 'options_select',
-          ),
-          'status' => TRUE,
+        'prepopulate' => array(
+          'status' => 0,
         ),
       ),
       'entity_translation_sync' => FALSE,
@@ -1966,10 +1961,13 @@ function ft_content_type_field_default_field_instances() {
       ),
     ),
     'widget' => array(
-      'module' => 'og',
-      'settings' => array(),
-      'type' => 'og_complex',
-      'weight' => 41,
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 14,
     ),
   );
 
@@ -2800,7 +2798,7 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_domaine',
     'label' => 'Domain(s)',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
@@ -2952,7 +2950,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 53,
+      'weight' => 52,
     ),
   );
 
@@ -3061,7 +3059,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 51,
+      'weight' => 50,
     ),
   );
 
@@ -3303,6 +3301,7 @@ function ft_content_type_field_default_field_instances() {
   $field_instances['node-question1-og_group_ref'] = array(
     'bundle' => 'question1',
     'default_value' => NULL,
+    'default_value_function' => '',
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -3322,18 +3321,12 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'og_group_ref',
-    'label' => 'Groups audience',
-    'required' => FALSE,
+    'label' => 'Choose circle of experts',
+    'required' => 1,
     'settings' => array(
       'behaviors' => array(
-        'og_widget' => array(
-          'admin' => array(
-            'widget_type' => 'entityreference_autocomplete',
-          ),
-          'default' => array(
-            'widget_type' => 'options_select',
-          ),
-          'status' => TRUE,
+        'prepopulate' => array(
+          'status' => 0,
         ),
       ),
       'entity_translation_sync' => FALSE,
@@ -3352,10 +3345,13 @@ function ft_content_type_field_default_field_instances() {
       ),
     ),
     'widget' => array(
-      'module' => 'og',
-      'settings' => array(),
-      'type' => 'og_complex',
-      'weight' => 54,
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 51,
     ),
   );
 
@@ -3976,7 +3972,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 39,
+      'weight' => 38,
     ),
   );
 
@@ -4118,7 +4114,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 37,
+      'weight' => 36,
     ),
   );
 
@@ -4415,6 +4411,7 @@ function ft_content_type_field_default_field_instances() {
   $field_instances['node-webform-og_group_ref'] = array(
     'bundle' => 'webform',
     'default_value' => NULL,
+    'default_value_function' => '',
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -4434,18 +4431,12 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'og_group_ref',
-    'label' => 'Groups audience',
-    'required' => FALSE,
+    'label' => 'Choose circle of experts',
+    'required' => 1,
     'settings' => array(
       'behaviors' => array(
-        'og_widget' => array(
-          'admin' => array(
-            'widget_type' => 'entityreference_autocomplete',
-          ),
-          'default' => array(
-            'widget_type' => 'options_select',
-          ),
-          'status' => TRUE,
+        'prepopulate' => array(
+          'status' => 0,
         ),
       ),
       'entity_translation_sync' => FALSE,
@@ -4464,10 +4455,13 @@ function ft_content_type_field_default_field_instances() {
       ),
     ),
     'widget' => array(
-      'module' => 'og',
-      'settings' => array(),
-      'type' => 'og_complex',
-      'weight' => 63,
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 37,
     ),
   );
 
@@ -6200,6 +6194,7 @@ function ft_content_type_field_default_field_instances() {
   t('AutoRef');
   t('Body');
   t('CV');
+  t('Choose circle of experts');
   t('Comment');
   t('Context and objectives of the mission');
   t('Deadline');
@@ -6221,7 +6216,6 @@ function ft_content_type_field_default_field_instances() {
   t('Group content visibility');
   t('Group membership');
   t('Group visibility');
-  t('Groups audience');
   t('How did you hear about us?');
   t('How often do you want to receive eMindHub\'s notifications?');
   t('I choose to make public all this information in my profile');
