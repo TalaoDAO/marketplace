@@ -18,11 +18,13 @@ Feature: Create question and answers
   #@exclude
   Scenario: test questions as business
     Given I am logged in as "client1"
+    When I go to homepage
+    Then I should see "All experts" in the "What about ?" row
     When I go to "my-requests"
     Then I should see "My request"
     And I should see "What about ?"
     And I should see "100" in the "What about ?" row
-    #And I should see "All experts" in the "What about ?" row
+    Then I should see "All experts" in the "What about ?" row
 
   #@exclude
   Scenario: test questions as admin
@@ -60,7 +62,6 @@ Feature: Create question and answers
     When I go to "my-responses"
     Then I should see "Iron Man"
     And I should see "Je suis un expert" in the "Iron Man" row
-    And I should see "All experts" in the "Iron Man" row
     When I go to homepage
     And I click "What about ?" in the "What about ?" row
     Then I should not see "Answer the question"
@@ -68,6 +69,7 @@ Feature: Create question and answers
     And I should see "Iron Man"
     And I should see "Je suis un expert"
 
+  #@exclude
   Scenario: private response visibility
     Given I am logged in as "expert1"
     When I go to homepage
