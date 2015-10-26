@@ -60,6 +60,15 @@ function ft_permissions_user_default_permissions() {
     'module' => 'webform',
   );
 
+  // Exported permission: 'access audit files reports'.
+  $permissions['access audit files reports'] = array(
+    'name' => 'access audit files reports',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'auditfiles',
+  );
+
   // Exported permission: 'access backup and migrate'.
   $permissions['access backup and migrate'] = array(
     'name' => 'access backup and migrate',
@@ -123,6 +132,16 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'contextual',
+  );
+
+  // Exported permission: 'access devel information'.
+  $permissions['access devel information'] = array(
+    'name' => 'access devel information',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'devel',
   );
 
   // Exported permission: 'access environment indicator'.
@@ -211,6 +230,16 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'forward',
+  );
+
+  // Exported permission: 'access image styles mapping reports'.
+  $permissions['access image styles mapping reports'] = array(
+    'name' => 'access image styles mapping reports',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'image_styles_mapping',
   );
 
   // Exported permission: 'access mb content'.
@@ -343,16 +372,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'og_role_override',
   );
 
-  // Exported permission: 'act as administrator member in og node:working_group'.
-  $permissions['act as administrator member in og node:working_group'] = array(
-    'name' => 'act as administrator member in og node:working_group',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'og_role_override',
-  );
-
   // Exported permission: 'act as member in og node:circle'.
   $permissions['act as member in og node:circle'] = array(
     'name' => 'act as member in og node:circle',
@@ -363,29 +382,9 @@ function ft_permissions_user_default_permissions() {
     'module' => 'og_role_override',
   );
 
-  // Exported permission: 'act as member in og node:working_group'.
-  $permissions['act as member in og node:working_group'] = array(
-    'name' => 'act as member in og node:working_group',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'og_role_override',
-  );
-
   // Exported permission: 'act as non-member in og node:circle'.
   $permissions['act as non-member in og node:circle'] = array(
     'name' => 'act as non-member in og node:circle',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'og_role_override',
-  );
-
-  // Exported permission: 'act as non-member in og node:working_group'.
-  $permissions['act as non-member in og node:working_group'] = array(
-    'name' => 'act as non-member in og node:working_group',
     'roles' => array(
       'administrator' => 'administrator',
       'webmaster' => 'webmaster',
@@ -439,16 +438,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'ds_ui',
   );
 
-  // Exported permission: 'administer EU Cookie Compliance popup'.
-  $permissions['administer EU Cookie Compliance popup'] = array(
-    'name' => 'administer EU Cookie Compliance popup',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'eu_cookie_compliance',
-  );
-
   // Exported permission: 'administer actions'.
   $permissions['administer actions'] = array(
     'name' => 'administer actions',
@@ -456,6 +445,15 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'system',
+  );
+
+  // Exported permission: 'administer audit files'.
+  $permissions['administer audit files'] = array(
+    'name' => 'administer audit files',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'auditfiles',
   );
 
   // Exported permission: 'administer autoassignrole'.
@@ -586,6 +584,15 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'environment_indicator',
+  );
+
+  // Exported permission: 'administer fancy file delete'.
+  $permissions['administer fancy file delete'] = array(
+    'name' => 'administer fancy file delete',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'fancy_file_delete',
   );
 
   // Exported permission: 'administer features'.
@@ -759,6 +766,15 @@ function ft_permissions_user_default_permissions() {
     'module' => 'metatag',
   );
 
+  // Exported permission: 'administer module filter'.
+  $permissions['administer module filter'] = array(
+    'name' => 'administer module filter',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'module_filter',
+  );
+
   // Exported permission: 'administer modules'.
   $permissions['administer modules'] = array(
     'name' => 'administer modules',
@@ -823,6 +839,26 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'piwik',
+  );
+
+  // Exported permission: 'administer points'.
+  $permissions['administer points'] = array(
+    'name' => 'administer points',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'emh_points',
+  );
+
+  // Exported permission: 'administer privatecomments forms'.
+  $permissions['administer privatecomments forms'] = array(
+    'name' => 'administer privatecomments forms',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'privatecomments',
   );
 
   // Exported permission: 'administer quicktabs'.
@@ -930,6 +966,15 @@ function ft_permissions_user_default_permissions() {
     'module' => 'stringoverrides',
   );
 
+  // Exported permission: 'administer switch'.
+  $permissions['administer switch'] = array(
+    'name' => 'administer switch',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'switchtheme',
+  );
+
   // Exported permission: 'administer taxonomy'.
   $permissions['administer taxonomy'] = array(
     'name' => 'administer taxonomy',
@@ -988,6 +1033,15 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'user',
+  );
+
+  // Exported permission: 'administer uuid'.
+  $permissions['administer uuid'] = array(
+    'name' => 'administer uuid',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'uuid',
   );
 
   // Exported permission: 'administer views'.
@@ -1728,17 +1782,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'taxonomy',
   );
 
-  // Exported permission: 'display EU Cookie Compliance popup'.
-  $permissions['display EU Cookie Compliance popup'] = array(
-    'name' => 'display EU Cookie Compliance popup',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'eu_cookie_compliance',
-  );
-
   // Exported permission: 'display drupal links'.
   $permissions['display drupal links'] = array(
     'name' => 'display drupal links',
@@ -1788,6 +1831,15 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
+  );
+
+  // Exported permission: 'edit any checklistapi checklist'.
+  $permissions['edit any checklistapi checklist'] = array(
+    'name' => 'edit any checklistapi checklist',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'checklistapi',
   );
 
   // Exported permission: 'edit any circle content'.
@@ -2201,6 +2253,16 @@ function ft_permissions_user_default_permissions() {
     'module' => 'webform',
   );
 
+  // Exported permission: 'execute auditfiles_merge_files'.
+  $permissions['execute auditfiles_merge_files'] = array(
+    'name' => 'execute auditfiles_merge_files',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'actions_permissions',
+  );
+
   // Exported permission: 'execute auto_entitylabel_entity_update_action'.
   $permissions['execute auto_entitylabel_entity_update_action'] = array(
     'name' => 'execute auto_entitylabel_entity_update_action',
@@ -2246,6 +2308,91 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'webmaster' => 'webmaster',
+    ),
+    'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'execute emh_points_arrange_group_points'.
+  $permissions['execute emh_points_arrange_group_points'] = array(
+    'name' => 'execute emh_points_arrange_group_points',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'business' => 'business',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'execute emh_points_arrange_node_points'.
+  $permissions['execute emh_points_arrange_node_points'] = array(
+    'name' => 'execute emh_points_arrange_node_points',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'business' => 'business',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'execute emh_points_arrange_points'.
+  $permissions['execute emh_points_arrange_points'] = array(
+    'name' => 'execute emh_points_arrange_points',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'business' => 'business',
+      'expert preview' => 'expert preview',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'execute emh_points_give_points'.
+  $permissions['execute emh_points_give_points'] = array(
+    'name' => 'execute emh_points_give_points',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'execute emh_points_remove_points'.
+  $permissions['execute emh_points_remove_points'] = array(
+    'name' => 'execute emh_points_remove_points',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'execute emh_points_transfert_points'.
+  $permissions['execute emh_points_transfert_points'] = array(
+    'name' => 'execute emh_points_transfert_points',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'business' => 'business',
+      'expert preview' => 'expert preview',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'execute fancy_file_delete_files'.
+  $permissions['execute fancy_file_delete_files'] = array(
+    'name' => 'execute fancy_file_delete_files',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'execute fancy_file_delete_files_force'.
+  $permissions['execute fancy_file_delete_files_force'] = array(
+    'name' => 'execute fancy_file_delete_files_force',
+    'roles' => array(
+      'administrator' => 'administrator',
     ),
     'module' => 'actions_permissions',
   );
@@ -2435,6 +2582,15 @@ function ft_permissions_user_default_permissions() {
     'module' => 'actions_permissions',
   );
 
+  // Exported permission: 'execute php code'.
+  $permissions['execute php code'] = array(
+    'name' => 'execute php code',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'devel',
+  );
+
   // Exported permission: 'execute system_block_ip_action'.
   $permissions['execute system_block_ip_action'] = array(
     'name' => 'execute system_block_ip_action',
@@ -2593,6 +2749,36 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'export nodes'.
+  $permissions['export nodes'] = array(
+    'name' => 'export nodes',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'node_export',
+  );
+
+  // Exported permission: 'export own nodes'.
+  $permissions['export own nodes'] = array(
+    'name' => 'export own nodes',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'node_export',
+  );
+
+  // Exported permission: 'flag my_contacts'.
+  $permissions['flag my_contacts'] = array(
+    'name' => 'flag my_contacts',
+    'roles' => array(
+      'authenticated user' => 'authenticated user',
+      'business' => 'business',
+      'business preview' => 'business preview',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'flag',
   );
 
   // Exported permission: 'flag my_selection'.
@@ -3107,6 +3293,16 @@ function ft_permissions_user_default_permissions() {
     'module' => 'user',
   );
 
+  // Exported permission: 'select different theme'.
+  $permissions['select different theme'] = array(
+    'name' => 'select different theme',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'switchtheme',
+  );
+
   // Exported permission: 'skip comment approval'.
   $permissions['skip comment approval'] = array(
     'name' => 'skip comment approval',
@@ -3128,6 +3324,26 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'shortcut',
+  );
+
+  // Exported permission: 'switch theme'.
+  $permissions['switch theme'] = array(
+    'name' => 'switch theme',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'switchtheme',
+  );
+
+  // Exported permission: 'switch users'.
+  $permissions['switch users'] = array(
+    'name' => 'switch users',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'devel',
   );
 
   // Exported permission: 'toggle field translatability'.
@@ -3218,6 +3434,15 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'i18n_string',
+  );
+
+  // Exported permission: 'unflag my_contacts'.
+  $permissions['unflag my_contacts'] = array(
+    'name' => 'unflag my_contacts',
+    'roles' => array(
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'flag',
   );
 
   // Exported permission: 'unflag my_selection'.
@@ -3394,6 +3619,15 @@ function ft_permissions_user_default_permissions() {
     'module' => 'piwik',
   );
 
+  // Exported permission: 'use PHP to import nodes'.
+  $permissions['use PHP to import nodes'] = array(
+    'name' => 'use PHP to import nodes',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'node_export',
+  );
+
   // Exported permission: 'use advanced search'.
   $permissions['use advanced search'] = array(
     'name' => 'use advanced search',
@@ -3480,6 +3714,38 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'page_manager',
+  );
+
+  // Exported permission: 'use points'.
+  $permissions['use points'] = array(
+    'name' => 'use points',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'business' => 'business',
+      'expert' => 'expert',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'emh_points',
+  );
+
+  // Exported permission: 'view any checklistapi checklist'.
+  $permissions['view any checklistapi checklist'] = array(
+    'name' => 'view any checklistapi checklist',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'checklistapi',
+  );
+
+  // Exported permission: 'view checklistapi checklists report'.
+  $permissions['view checklistapi checklists report'] = array(
+    'name' => 'view checklistapi checklists report',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'checklistapi',
   );
 
   // Exported permission: 'view field_picto'.
