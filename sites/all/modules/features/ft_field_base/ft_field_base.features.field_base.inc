@@ -1564,7 +1564,7 @@ function ft_field_base_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        0 => 'My answer will be public',
+        0 => 'My answer will be visible by all experts',
         1 => 'My answer will be visible only by the client',
       ),
       'allowed_values_function' => '',
