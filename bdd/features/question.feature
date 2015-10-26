@@ -60,6 +60,7 @@ Feature: Create question and answers
     When I go to "my-responses"
     Then I should see "Iron Man"
     And I should see "Je suis un expert" in the "Iron Man" row
+    And I should see "All experts" in the "Iron Man" row
     When I go to homepage
     And I click "What about ?" in the "What about ?" row
     Then I should not see "Answer the question"
