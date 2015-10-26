@@ -19,7 +19,6 @@ Feature: Create question and answers
   Scenario: test questions as business
     Given I am logged in as "client1"
     When I go to homepage
-    Then I break
     Then I should see "All experts" in the "What about ?" row
     When I go to "my-requests"
     Then I should see "My request"
