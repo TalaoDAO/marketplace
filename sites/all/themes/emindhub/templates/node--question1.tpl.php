@@ -107,11 +107,9 @@
 
 		<div class="row section">
 
-			<?php if ( emh_access_user_name( $node ) == TRUE || emh_access_user_company( $node ) == TRUE ) : ?>
 			<div class="col-sm-3">
 				<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/userInformations.tpl.php'; ?>
 			</div>
-			<?php endif; ?>
 
 			<?php if ( isset($content['field_domaine']) || isset($content['field_tags']) ) : ?>
       <div class="col-sm-3">
