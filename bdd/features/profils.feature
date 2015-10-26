@@ -20,12 +20,14 @@ Feature: Test profil visibility
     When I go to homepage
     When I click "What about ?" in the "What about ?" row
     Then I enter "Je suis un expert" for "Public answer"
+    And I select the radio button "My answer will be public"
     And I press "Publish"
 
     Given I am logged in as "expert2"
     When I go to homepage
     When I click "What about ?" in the "What about ?" row
     Then I enter "J'ai une idée" for "Public answer"
+    And I select the radio button "My answer will be public"
     And I press "Publish"
 
   #TODO: tel visibility not implemented yet
@@ -39,7 +41,8 @@ Feature: Test profil visibility
     Then I should have 0 points on "What about ?" node
     And I should have 50 points on "expert1" user
     And I should have 50 points on "expert2" user
-    When I click "My relationships"
+    #When I click "My relationships"
+    When I go to "my-relationships"
     #Then I should see "Operations"
     Then I should see "Iron"
     And I should see "Klark"
