@@ -2520,11 +2520,12 @@ function ft_field_base_field_default_field_bases() {
     'no_ui' => TRUE,
     'settings' => array(
       'allowed_values' => array(
-        0 => 'Public - accessible to all site users',
-        1 => 'Private - accessible only to group members',
+        0 => 'Public',
+        1 => 'Private',
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
+      'profile2_private' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'list_boolean',
@@ -2537,6 +2538,9 @@ function ft_field_base_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'group_content_access',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
     'indexes' => array(
       'value' => array(
         0 => 'value',
@@ -2553,6 +2557,7 @@ function ft_field_base_field_default_field_bases() {
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
+      'profile2_private' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'list_integer',
@@ -2626,20 +2631,26 @@ function ft_field_base_field_default_field_bases() {
     'module' => 'entityreference',
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'handler' => 'views',
+      'handler' => 'og',
       'handler_settings' => array(
         'behaviors' => array(
+          'og_behavior' => array(
+            'status' => TRUE,
+          ),
           'views-select-list' => array(
             'status' => 0,
           ),
         ),
-        'view' => array(
-          'args' => array(),
-          'display_name' => 'entityreference_1',
-          'view_name' => 'user_circle_list',
+        'membership_type' => 'og_membership_type_default',
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          'circle' => 'circle',
         ),
       ),
       'handler_submit' => 'Change handler',
+      'profile2_private' => FALSE,
       'target_type' => 'node',
     ),
     'target_type' => 'node',

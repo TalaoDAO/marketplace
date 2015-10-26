@@ -216,7 +216,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
-  /* Field: Field: Organisation / company */
+  /* Field: Field: Organisation */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';
@@ -351,7 +351,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_titre_metier']['hide_empty'] = TRUE;
-  /* Field: Field: Organisation / company */
+  /* Field: Field: Organisation */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';
@@ -724,7 +724,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['arguments']['etid']['ui_name'] = 'We pass the user ID as the Entity ID.';
   $handler->display->display_options['arguments']['etid']['default_action'] = 'default';
   $handler->display->display_options['arguments']['etid']['title_enable'] = TRUE;
-  $handler->display->display_options['arguments']['etid']['title'] = '%1\'s groups';
+  $handler->display->display_options['arguments']['etid']['title'] = 'My circles';
   $handler->display->display_options['arguments']['etid']['default_argument_type'] = 'current_user';
   $handler->display->display_options['arguments']['etid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['etid']['summary']['format'] = 'default_summary';
@@ -1104,7 +1104,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['view_submission']['table'] = 'webform_submissions';
   $handler->display->display_options['fields']['view_submission']['field'] = 'view_submission';
   $handler->display->display_options['fields']['view_submission']['label'] = 'Response';
-  /* Field: Content: Choose circle of experts */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
@@ -1399,7 +1399,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['cid_1']['field'] = 'cid';
   $handler->display->display_options['fields']['cid_1']['exclude'] = TRUE;
   $handler->display->display_options['fields']['cid_1']['link_to_comment'] = FALSE;
-  /* Field: Content: Choose circle of experts */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
@@ -1592,7 +1592,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['views_conditional']['then'] = '[comment_body]';
   $handler->display->display_options['fields']['views_conditional']['or'] = '[field_private_comment_body]';
   $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
-  /* Field: Content: Choose circle of experts */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
@@ -1760,7 +1760,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['views_conditional']['then'] = 'Best';
   $handler->display->display_options['fields']['views_conditional']['or'] = '[nothing]';
   $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
-  /* Field: Content: Choose circle of experts */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['og_group_ref_1']['id'] = 'og_group_ref_1';
   $handler->display->display_options['fields']['og_group_ref_1']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['fields']['og_group_ref_1']['field'] = 'og_group_ref';
@@ -2420,15 +2420,11 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Content: Choose circle of experts */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['og_group_ref_1']['id'] = 'og_group_ref_1';
   $handler->display->display_options['fields']['og_group_ref_1']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['fields']['og_group_ref_1']['field'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref_1']['label'] = 'Circle(s)';
-  $handler->display->display_options['fields']['og_group_ref_1']['settings'] = array(
-    'link' => 0,
-  );
-  $handler->display->display_options['fields']['og_group_ref_1']['delta_offset'] = '0';
   /* Field: Content: Post date */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'node';
@@ -2561,7 +2557,7 @@ function ft_views_views_default_views() {
   );
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['vocabulary'] = 'domaine';
-  /* Filter criterion: Content: Choose circle of experts (og_group_ref) */
+  /* Filter criterion: Broken/missing handler */
   $handler->display->display_options['filters']['og_group_ref_target_id']['id'] = 'og_group_ref_target_id';
   $handler->display->display_options['filters']['og_group_ref_target_id']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['filters']['og_group_ref_target_id']['field'] = 'og_group_ref_target_id';
@@ -2770,15 +2766,11 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Content: Choose circle of experts */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['og_group_ref_1']['id'] = 'og_group_ref_1';
   $handler->display->display_options['fields']['og_group_ref_1']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['fields']['og_group_ref_1']['field'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref_1']['label'] = 'Circle(s)';
-  $handler->display->display_options['fields']['og_group_ref_1']['settings'] = array(
-    'link' => 0,
-  );
-  $handler->display->display_options['fields']['og_group_ref_1']['delta_offset'] = '0';
   /* Field: Content: Post date */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'node';
@@ -2970,7 +2962,7 @@ function ft_views_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Content: Choose circle of experts */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['og_group_ref_1']['id'] = 'og_group_ref_1';
   $handler->display->display_options['fields']['og_group_ref_1']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['fields']['og_group_ref_1']['field'] = 'og_group_ref';
@@ -3158,7 +3150,7 @@ function ft_views_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Content: Choose circle of experts */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['og_group_ref_1']['id'] = 'og_group_ref_1';
   $handler->display->display_options['fields']['og_group_ref_1']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['fields']['og_group_ref_1']['field'] = 'og_group_ref';
@@ -3462,7 +3454,7 @@ function ft_views_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Content: Choose circle of experts */
+  /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['og_group_ref_1']['id'] = 'og_group_ref_1';
   $handler->display->display_options['fields']['og_group_ref_1']['table'] = 'field_data_og_group_ref';
   $handler->display->display_options['fields']['og_group_ref_1']['field'] = 'og_group_ref';
@@ -4021,6 +4013,23 @@ function ft_views_views_default_views() {
       'name' => 'nid',
     ),
   );
+
+  /* Display: All groups */
+  $handler = $view->new_display('entityreference', 'All groups', 'entityreference_2');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'entityreference_style';
+  $handler->display->display_options['style_options']['search_fields'] = array(
+    'title' => 'title',
+    'nid' => 0,
+  );
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'entityreference_fields';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
   $export['user_circle_list'] = $view;
 
   $view = new view();
