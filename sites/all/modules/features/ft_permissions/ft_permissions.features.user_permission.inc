@@ -232,16 +232,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'forward',
   );
 
-  // Exported permission: 'access image styles mapping reports'.
-  $permissions['access image styles mapping reports'] = array(
-    'name' => 'access image styles mapping reports',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'image_styles_mapping',
-  );
-
   // Exported permission: 'access mb content'.
   $permissions['access mb content'] = array(
     'name' => 'access mb content',
@@ -1831,15 +1821,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: 'edit any checklistapi checklist'.
-  $permissions['edit any checklistapi checklist'] = array(
-    'name' => 'edit any checklistapi checklist',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'checklistapi',
   );
 
   // Exported permission: 'edit any circle content'.
@@ -3726,26 +3707,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'emh_points',
-  );
-
-  // Exported permission: 'view any checklistapi checklist'.
-  $permissions['view any checklistapi checklist'] = array(
-    'name' => 'view any checklistapi checklist',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'checklistapi',
-  );
-
-  // Exported permission: 'view checklistapi checklists report'.
-  $permissions['view checklistapi checklists report'] = array(
-    'name' => 'view checklistapi checklists report',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'checklistapi',
   );
 
   // Exported permission: 'view field_picto'.
