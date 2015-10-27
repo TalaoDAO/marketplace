@@ -81,11 +81,11 @@ function ft_field_base_flag_default_flags() {
     'show_contextual_link' => 0,
     'show_on_profile' => 1,
     'access_uid' => 'others',
-    'api_version' => 3,
     'module' => 'ft_field_base',
     'locked' => array(
       0 => 'name',
     ),
+    'api_version' => 3,
   );
   // Exported flag: "My selection".
   $flags['my_selection'] = array(

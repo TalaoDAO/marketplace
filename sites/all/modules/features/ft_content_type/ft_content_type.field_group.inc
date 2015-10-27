@@ -678,13 +678,11 @@ function ft_content_type_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'challenge';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_oneliner3';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Your organisation *',
     'weight' => '24',
-    'children' => array(
-      0 => 'field_show_entreprise',
-    ),
+    'children' => array(),
     'format_type' => 'html-element',
     'format_settings' => array(
       'label' => 'Your organisation *',
@@ -708,13 +706,11 @@ function ft_content_type_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'question1';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_oneliner3';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Your organisation *',
     'weight' => '5',
-    'children' => array(
-      0 => 'field_show_entreprise',
-    ),
+    'children' => array(),
     'format_type' => 'html-element',
     'format_settings' => array(
       'label' => 'Your organisation *',
@@ -738,7 +734,7 @@ function ft_content_type_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'webform';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_oneliner3';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Your activity',
     'weight' => '41',
@@ -796,13 +792,11 @@ function ft_content_type_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'challenge';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_oneliner3';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Your activity *',
     'weight' => '25',
-    'children' => array(
-      0 => 'field_use_my_entreprise',
-    ),
+    'children' => array(),
     'format_type' => 'html-element',
     'format_settings' => array(
       'label' => 'Your activity *',
@@ -826,13 +820,11 @@ function ft_content_type_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'question1';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_oneliner3';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Your activity *',
     'weight' => '6',
-    'children' => array(
-      0 => 'field_use_my_entreprise',
-    ),
+    'children' => array(),
     'format_type' => 'html-element',
     'format_settings' => array(
       'label' => 'Your activity *',
@@ -856,7 +848,7 @@ function ft_content_type_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'webform';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_oneliner3';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Your organisation',
     'weight' => '40',
@@ -914,13 +906,11 @@ function ft_content_type_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'challenge';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_oneliner3';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Your name *',
     'weight' => '23',
-    'children' => array(
-      0 => 'field_anonymous',
-    ),
+    'children' => array(),
     'format_type' => 'html-element',
     'format_settings' => array(
       'label' => 'Your name *',
@@ -944,13 +934,11 @@ function ft_content_type_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'question1';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_oneliner3';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Your name *',
     'weight' => '4',
-    'children' => array(
-      0 => 'field_anonymous',
-    ),
+    'children' => array(),
     'format_type' => 'html-element',
     'format_settings' => array(
       'label' => 'Your name *',
@@ -974,7 +962,7 @@ function ft_content_type_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'webform';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_oneliner3';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Your name',
     'weight' => '39',
@@ -1796,10 +1784,10 @@ function ft_content_type_field_group_info() {
     'weight' => '5',
     'children' => array(
       0 => 'field_expiration_date',
-      1 => 'og_group_ref',
-      2 => 'field_request_circle',
-      3 => 'field_other_members',
-      4 => 'field_reward',
+      1 => 'field_request_circle',
+      2 => 'field_other_members',
+      3 => 'field_reward',
+      4 => 'og_group_ref',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1864,10 +1852,10 @@ function ft_content_type_field_group_info() {
     'weight' => '5',
     'children' => array(
       0 => 'field_expiration_date',
-      1 => 'og_group_ref',
-      2 => 'field_request_circle',
-      3 => 'field_other_members',
-      4 => 'field_reward',
+      1 => 'field_request_circle',
+      2 => 'field_other_members',
+      3 => 'field_reward',
+      4 => 'og_group_ref',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1900,11 +1888,11 @@ function ft_content_type_field_group_info() {
     'label' => 'Target',
     'weight' => '6',
     'children' => array(
-      0 => 'og_group_ref',
-      1 => 'field_expiration_date',
-      2 => 'field_request_circle',
-      3 => 'field_other_members',
-      4 => 'field_reward',
+      0 => 'field_expiration_date',
+      1 => 'field_request_circle',
+      2 => 'field_other_members',
+      3 => 'field_reward',
+      4 => 'og_group_ref',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -2267,9 +2255,7 @@ function ft_content_type_field_group_info() {
   $field_group->data = array(
     'label' => 'Who',
     'weight' => '3',
-    'children' => array(
-      0 => 'group_oneliner4',
-    ),
+    'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
       'label' => 'Who',
@@ -2325,9 +2311,7 @@ function ft_content_type_field_group_info() {
   $field_group->data = array(
     'label' => 'Who',
     'weight' => '4',
-    'children' => array(
-      0 => 'group_oneliner',
-    ),
+    'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
       'label' => 'Who',
@@ -2358,9 +2342,7 @@ function ft_content_type_field_group_info() {
   $field_group->data = array(
     'label' => 'Who',
     'weight' => '3',
-    'children' => array(
-      0 => 'group_oneliner1',
-    ),
+    'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
       'label' => 'Who',

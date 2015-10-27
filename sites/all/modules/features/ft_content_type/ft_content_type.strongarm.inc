@@ -490,6 +490,9 @@ function ft_content_type_strongarm() {
         'path' => array(
           'weight' => '8',
         ),
+        'metatags' => array(
+          'weight' => '40',
+        ),
       ),
     ),
   );
@@ -662,6 +665,9 @@ function ft_content_type_strongarm() {
         'path' => array(
           'weight' => '6',
         ),
+        'metatags' => array(
+          'weight' => '40',
+        ),
       ),
       'display' => array(),
     ),
@@ -706,6 +712,9 @@ function ft_content_type_strongarm() {
         ),
         'path' => array(
           'weight' => '10',
+        ),
+        'metatags' => array(
+          'weight' => '40',
         ),
       ),
       'display' => array(

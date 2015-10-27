@@ -2520,8 +2520,8 @@ function ft_field_base_field_default_field_bases() {
     'no_ui' => TRUE,
     'settings' => array(
       'allowed_values' => array(
-        0 => 'Public - accessible to all site users',
-        1 => 'Private - accessible only to group members',
+        0 => 'Public',
+        1 => 'Private',
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
@@ -2637,10 +2637,16 @@ function ft_field_base_field_default_field_bases() {
           'og_behavior' => array(
             'status' => TRUE,
           ),
+          'views-select-list' => array(
+            'status' => 0,
+          ),
         ),
         'membership_type' => 'og_membership_type_default',
+        'sort' => array(
+          'type' => 'none',
+        ),
         'target_bundles' => array(
-          0 => 'circle',
+          'circle' => 'circle',
         ),
       ),
       'handler_submit' => 'Change handler',
