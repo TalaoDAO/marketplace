@@ -14071,15 +14071,15 @@ aside .block .content {
     color: #4c6172;
   }
   body.role-expert #block-block-14 .content,
-  body.role-preview #block-block-14 .content {
+  body.role-expert-preview #block-block-14 .content {
     background-image: url("../images/answerQuestion.png");
   }
   body.role-expert #block-block-8 .content,
-  body.role-preview #block-block-8 .content {
+  body.role-expert-preview #block-block-8 .content {
     background-image: url("../images/answerChallenge.png");
   }
   body.role-expert #block-block-16 .content,
-  body.role-preview #block-block-16 .content {
+  body.role-expert-preview #block-block-16 .content {
     background-image: url("../images/answerExpertCall.png");
   }
 }

@@ -80,14 +80,14 @@ function emindhub_preprocess_page(&$vars, &$variables) {
 /*
  * USEFUL FUNCTIONS
  */
-function isBusinessUser($account = null) {
+function isBusinessUser() {
 	global $user;
-  return (in_array('business', array_values($user->roles)) || in_array('business-preview', array_values($user->roles)));
+  return (in_array('business', array_values($user->roles)) || in_array('business preview', array_values($user->roles)));
 }
 
-function isExpertUser($account = null) {
+function isExpertUser() {
 	global $user;
-  return (in_array('expert', array_values($user->roles)) || in_array('expert-preview', array_values($user->roles)));
+  return (in_array('expert', array_values($user->roles)) || in_array('expert preview', array_values($user->roles)));
 }
 
 function isWebmasterUser() {
