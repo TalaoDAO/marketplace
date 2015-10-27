@@ -1550,49 +1550,6 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-challenge-field_property_rules'
-  $field_instances['node-challenge-field_property_rules'] = array(
-    'bundle' => 'challenge',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 14,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_property_rules',
-    'label' => 'Property rules',
-    'required' => 1,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 0,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 6,
-    ),
-  );
-
   // Exported field_instance: 'node-challenge-field_request_circle'
   $field_instances['node-challenge-field_request_circle'] = array(
     'bundle' => 'challenge',
@@ -6281,7 +6238,6 @@ function ft_content_type_field_default_field_instances() {
   t('Position');
   t('Private answer');
   t('Profile title');
-  t('Property rules');
   t('Public answer');
   t('Request message');
   t('Response');
