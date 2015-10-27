@@ -213,16 +213,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'forward',
   );
 
-  // Exported permission: 'access mb content'.
-  $permissions['access mb content'] = array(
-    'name' => 'access mb content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'mb_content',
-  );
-
   // Exported permission: 'access own webform results'.
   $permissions['access own webform results'] = array(
     'name' => 'access own webform results',
