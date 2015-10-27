@@ -232,16 +232,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'forward',
   );
 
-  // Exported permission: 'access image styles mapping reports'.
-  $permissions['access image styles mapping reports'] = array(
-    'name' => 'access image styles mapping reports',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'image_styles_mapping',
-  );
-
   // Exported permission: 'access mb content'.
   $permissions['access mb content'] = array(
     'name' => 'access mb content',
@@ -1282,15 +1272,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'create field_picto'.
-  $permissions['create field_picto'] = array(
-    'name' => 'create field_picto',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'create field_referent'.
   $permissions['create field_referent'] = array(
     'name' => 'create field_referent',
@@ -1833,15 +1814,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'edit any checklistapi checklist'.
-  $permissions['edit any checklistapi checklist'] = array(
-    'name' => 'edit any checklistapi checklist',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'checklistapi',
-  );
-
   // Exported permission: 'edit any circle content'.
   $permissions['edit any circle content'] = array(
     'name' => 'edit any circle content',
@@ -1935,15 +1907,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: 'edit field_picto'.
-  $permissions['edit field_picto'] = array(
-    'name' => 'edit field_picto',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'field_permissions',
   );
 
   // Exported permission: 'edit field_referent'.
@@ -2045,15 +2008,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: 'edit own field_picto'.
-  $permissions['edit own field_picto'] = array(
-    'name' => 'edit own field_picto',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'field_permissions',
   );
 
   // Exported permission: 'edit own field_referent'.
@@ -3728,37 +3682,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'emh_points',
   );
 
-  // Exported permission: 'view any checklistapi checklist'.
-  $permissions['view any checklistapi checklist'] = array(
-    'name' => 'view any checklistapi checklist',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'checklistapi',
-  );
-
-  // Exported permission: 'view checklistapi checklists report'.
-  $permissions['view checklistapi checklists report'] = array(
-    'name' => 'view checklistapi checklists report',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'checklistapi',
-  );
-
-  // Exported permission: 'view field_picto'.
-  $permissions['view field_picto'] = array(
-    'name' => 'view field_picto',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'view field_referent'.
   $permissions['view field_referent'] = array(
     'name' => 'view field_referent',
@@ -3791,15 +3714,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'media',
-  );
-
-  // Exported permission: 'view own field_picto'.
-  $permissions['view own field_picto'] = array(
-    'name' => 'view own field_picto',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'field_permissions',
   );
 
   // Exported permission: 'view own field_referent'.

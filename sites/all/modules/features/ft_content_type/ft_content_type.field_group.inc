@@ -1784,10 +1784,9 @@ function ft_content_type_field_group_info() {
     'weight' => '5',
     'children' => array(
       0 => 'field_expiration_date',
-      1 => 'field_request_circle',
-      2 => 'field_other_members',
+      1 => 'og_group_ref',
+      2 => 'field_request_circle',
       3 => 'field_reward',
-      4 => 'og_group_ref',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1852,10 +1851,9 @@ function ft_content_type_field_group_info() {
     'weight' => '5',
     'children' => array(
       0 => 'field_expiration_date',
-      1 => 'field_request_circle',
-      2 => 'field_other_members',
+      1 => 'og_group_ref',
+      2 => 'field_request_circle',
       3 => 'field_reward',
-      4 => 'og_group_ref',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1888,11 +1886,10 @@ function ft_content_type_field_group_info() {
     'label' => 'Target',
     'weight' => '6',
     'children' => array(
-      0 => 'field_expiration_date',
-      1 => 'field_request_circle',
-      2 => 'field_other_members',
+      0 => 'og_group_ref',
+      1 => 'field_expiration_date',
+      2 => 'field_request_circle',
       3 => 'field_reward',
-      4 => 'og_group_ref',
     ),
     'format_type' => 'div',
     'format_settings' => array(
