@@ -1492,11 +1492,7 @@ function ft_content_type_field_default_field_instances() {
   // Exported field_instance: 'node-challenge-field_request_circle'
   $field_instances['node-challenge-field_request_circle'] = array(
     'bundle' => 'challenge',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -1516,7 +1512,7 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_request_circle',
     'label' => 'Select audience',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
@@ -2799,11 +2795,7 @@ function ft_content_type_field_default_field_instances() {
   // Exported field_instance: 'node-question1-field_request_circle'
   $field_instances['node-question1-field_request_circle'] = array(
     'bundle' => 'question1',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -3708,11 +3700,7 @@ function ft_content_type_field_default_field_instances() {
   // Exported field_instance: 'node-webform-field_request_circle'
   $field_instances['node-webform-field_request_circle'] = array(
     'bundle' => 'webform',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -3732,7 +3720,7 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_request_circle',
     'label' => 'Select audience',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,

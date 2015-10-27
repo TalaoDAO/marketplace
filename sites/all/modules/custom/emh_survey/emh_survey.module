@@ -47,6 +47,8 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
   $form['field_image']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
 
 	$form['actions']['submit']['#value'] = t('Save and go manage your questions');
+
+	$form['group_content_access']['#access'] =  FALSE;
 }
 
 
