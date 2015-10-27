@@ -1272,15 +1272,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'create field_picto'.
-  $permissions['create field_picto'] = array(
-    'name' => 'create field_picto',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'create field_referent'.
   $permissions['create field_referent'] = array(
     'name' => 'create field_referent',
@@ -1918,15 +1909,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'edit field_picto'.
-  $permissions['edit field_picto'] = array(
-    'name' => 'edit field_picto',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'edit field_referent'.
   $permissions['edit field_referent'] = array(
     'name' => 'edit field_referent',
@@ -2026,15 +2008,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: 'edit own field_picto'.
-  $permissions['edit own field_picto'] = array(
-    'name' => 'edit own field_picto',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'field_permissions',
   );
 
   // Exported permission: 'edit own field_referent'.
@@ -3709,17 +3682,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'emh_points',
   );
 
-  // Exported permission: 'view field_picto'.
-  $permissions['view field_picto'] = array(
-    'name' => 'view field_picto',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'view field_referent'.
   $permissions['view field_referent'] = array(
     'name' => 'view field_referent',
@@ -3752,15 +3714,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'media',
-  );
-
-  // Exported permission: 'view own field_picto'.
-  $permissions['view own field_picto'] = array(
-    'name' => 'view own field_picto',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'field_permissions',
   );
 
   // Exported permission: 'view own field_referent'.
