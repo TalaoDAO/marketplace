@@ -173,9 +173,8 @@ function ft_field_base_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        0 => 'Use profile settings',
-        1 => 'Display my full name',
-        2 => 'Hide my full name',
+        0 => 'Display my full name',
+        1 => 'Hide my full name',
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
@@ -621,48 +620,6 @@ function ft_field_base_field_default_field_bases() {
     ),
     'translatable' => 1,
     'type' => 'text_long',
-  );
-
-  // Exported field_base: 'field_entreprise_visibility'
-  $field_bases['field_entreprise_visibility'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_entreprise_visibility',
-    'field_permissions' => array(
-      'owner_field' => 'Comment',
-      'type' => 0,
-    ),
-    'indexes' => array(
-      'value' => array(
-        0 => 'value',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'list',
-    'settings' => array(
-      'allowed_values' => array(
-        0 => 'My organisation name will not be visible on my profile',
-        1 => 'I choose to make public the name of my organisation',
-      ),
-      'allowed_values_function' => '',
-      'entity_translation_sync' => FALSE,
-      'profile2_private' => FALSE,
-      'user_role_field' => array(
-        1 => 0,
-        2 => 2,
-        3 => 0,
-        4 => 0,
-        5 => 0,
-        6 => 0,
-        7 => 0,
-        8 => 0,
-        9 => 0,
-      ),
-    ),
-    'translatable' => 0,
-    'type' => 'list_boolean',
   );
 
   // Exported field_base: 'field_expiration_date'
@@ -1158,48 +1115,6 @@ function ft_field_base_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_name_visibility'
-  $field_bases['field_name_visibility'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_name_visibility',
-    'field_permissions' => array(
-      'owner_field' => 'Comment',
-      'type' => 0,
-    ),
-    'indexes' => array(
-      'value' => array(
-        0 => 'value',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'list',
-    'settings' => array(
-      'allowed_values' => array(
-        0 => 'My name will not be visible on my profile',
-        1 => 'I choose to make public my full name',
-      ),
-      'allowed_values_function' => '',
-      'entity_translation_sync' => FALSE,
-      'profile2_private' => FALSE,
-      'user_role_field' => array(
-        1 => 0,
-        2 => 2,
-        3 => 0,
-        4 => 0,
-        5 => 0,
-        6 => 0,
-        7 => 0,
-        8 => 0,
-        9 => 0,
-      ),
-    ),
-    'translatable' => 0,
-    'type' => 'list_boolean',
-  );
-
   // Exported field_base: 'field_needs_for_expertise'
   $field_bases['field_needs_for_expertise'] = array(
     'active' => 1,
@@ -1666,9 +1581,8 @@ function ft_field_base_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        0 => 'Use profile settings',
-        1 => 'Display the name',
-        2 => 'Hide the name',
+        0 => 'Display the name',
+        1 => 'Hide the name',
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
@@ -1789,48 +1703,6 @@ function ft_field_base_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'field_collection',
-  );
-
-  // Exported field_base: 'field_skills_visibility'
-  $field_bases['field_skills_visibility'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_skills_visibility',
-    'field_permissions' => array(
-      'owner_field' => 'Comment',
-      'type' => 0,
-    ),
-    'indexes' => array(
-      'value' => array(
-        0 => 'value',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'list',
-    'settings' => array(
-      'allowed_values' => array(
-        0 => 'My skills will not be visible on my profile',
-        1 => 'I choose to make public all this information in my profile',
-      ),
-      'allowed_values_function' => '',
-      'entity_translation_sync' => FALSE,
-      'profile2_private' => FALSE,
-      'user_role_field' => array(
-        1 => 0,
-        2 => 0,
-        3 => 0,
-        4 => 4,
-        5 => 0,
-        6 => 0,
-        7 => 0,
-        8 => 8,
-        9 => 0,
-      ),
-    ),
-    'translatable' => 0,
-    'type' => 'list_boolean',
   );
 
   // Exported field_base: 'field_specific_skills3'
@@ -2290,9 +2162,9 @@ function ft_field_base_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        0 => 'No description',
-        1 => 'Use the profile description',
-        2 => 'Customize the description',
+        0 => 'Display',
+        1 => 'Hide',
+        2 => 'Customize',
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,

@@ -32,6 +32,15 @@ function emh_points_custom_field_access($op, $field, $entity_type, $entity, $acc
       case 'field_titre_metier':
         return TRUE;
         break;
+      case 'field_employment_history':
+        return TRUE;
+        break;
+      case 'field_sponsor_why':
+        return TRUE;
+        break;
+      case 'field_partner_why':
+        return TRUE;
+        break;
       // For other fields, it depends of our relation with the user:
       case 'field_address':
         $flag = flag_get_flag('my_contacts');

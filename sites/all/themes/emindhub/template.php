@@ -69,25 +69,20 @@ function emindhub_preprocess_page(&$vars, &$variables) {
 		'getsize' => FALSE,
 	));
 
-  // if (!empty($variables['node']) && $variables['node']->type == 'webform') {
-    // $variables['show_title'] = FALSE;
-		$variables['title'] = t('TEST Submission #@serial', array('@serial' => $submission->serial));
-  // }
-
 }
 
 
 /*
  * USEFUL FUNCTIONS
  */
-function isBusinessUser($account = null) {
+function isBusinessUser() {
 	global $user;
-  return (in_array('business', array_values($user->roles)) || in_array('business-preview', array_values($user->roles)));
+  return (in_array('business', array_values($user->roles)) || in_array('business preview', array_values($user->roles)));
 }
 
-function isExpertUser($account = null) {
+function isExpertUser() {
 	global $user;
-  return (in_array('expert', array_values($user->roles)) || in_array('expert-preview', array_values($user->roles)));
+  return (in_array('expert', array_values($user->roles)) || in_array('expert preview', array_values($user->roles)));
 }
 
 function isWebmasterUser() {
