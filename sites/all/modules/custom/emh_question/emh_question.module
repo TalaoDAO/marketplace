@@ -11,7 +11,7 @@
  */
 function emh_question_form_question1_node_form_alter(&$form, &$form_state, $form_id) {
 
-	// echo '<pre>' . print_r($form['field_reward']['und'][0]['value'], TRUE) . '</pre>';
+	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
 	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
 
 	// Add class before & after fields
@@ -24,6 +24,8 @@ function emh_question_form_question1_node_form_alter(&$form, &$form_state, $form
   $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_reward']['und'][0]['value']['#title'] = t('Cost (minimum 100 points required)');
   $form['field_reward']['#suffix'] = '</div>';
+
+  $form['group_content_access']['#access'] =  FALSE;
 
 }
 

@@ -31,4 +31,6 @@ function emh_challenge_form_challenge_node_form_alter(&$form, &$form_state, $for
 	$form['field_document']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
   $form['field_image']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
 
+  $form['group_content_access']['#access'] =  FALSE;
+
 }
