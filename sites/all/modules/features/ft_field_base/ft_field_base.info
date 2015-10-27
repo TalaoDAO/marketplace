@@ -67,7 +67,6 @@ features[field_base][] = field_name_visibility
 features[field_base][] = field_needs_for_expertise
 features[field_base][] = field_notification_frequency
 features[field_base][] = field_other_areas
-features[field_base][] = field_other_members
 features[field_base][] = field_partner_why
 features[field_base][] = field_photo
 features[field_base][] = field_position

@@ -1489,51 +1489,6 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-challenge-field_other_members'
-  $field_instances['node-challenge-field_other_members'] = array(
-    'bundle' => 'challenge',
-    'default_value' => NULL,
-    'default_value_function' => '',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 16,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_other_members',
-    'label' => 'Other members',
-    'required' => 0,
-    'settings' => array(
-      'behaviors' => array(
-        'prepopulate' => array(
-          'status' => 0,
-        ),
-      ),
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'apply_chosen' => '',
-      ),
-      'type' => 'options_select',
-      'weight' => 15,
-    ),
-  );
-
   // Exported field_instance: 'node-challenge-field_picto'
   $field_instances['node-challenge-field_picto'] = array(
     'bundle' => 'challenge',
@@ -2065,60 +2020,6 @@ function ft_content_type_field_default_field_instances() {
       ),
       'type' => 'options_select',
       'weight' => 9,
-    ),
-  );
-
-  // Exported field_instance: 'node-circle-field_other_members'
-  $field_instances['node-circle-field_other_members'] = array(
-    'bundle' => 'circle',
-    'default_value' => NULL,
-    'default_value_function' => '',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 9,
-      ),
-      'full' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_other_members',
-    'label' => 'Other members',
-    'required' => 0,
-    'settings' => array(
-      'behaviors' => array(
-        'prepopulate' => array(
-          'status' => 0,
-        ),
-      ),
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'apply_chosen' => '',
-      ),
-      'type' => 'options_select',
-      'weight' => 7,
     ),
   );
 
@@ -2996,51 +2897,6 @@ function ft_content_type_field_default_field_instances() {
       ),
       'type' => 'date_popup',
       'weight' => 48,
-    ),
-  );
-
-  // Exported field_instance: 'node-question1-field_other_members'
-  $field_instances['node-question1-field_other_members'] = array(
-    'bundle' => 'question1',
-    'default_value' => NULL,
-    'default_value_function' => '',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 15,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_other_members',
-    'label' => 'Other experts',
-    'required' => 0,
-    'settings' => array(
-      'behaviors' => array(
-        'prepopulate' => array(
-          'status' => 0,
-        ),
-      ),
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'apply_chosen' => '',
-      ),
-      'type' => 'options_select',
-      'weight' => 52,
     ),
   );
 
@@ -4018,51 +3874,6 @@ function ft_content_type_field_default_field_instances() {
       ),
       'type' => 'image_image',
       'weight' => 62,
-    ),
-  );
-
-  // Exported field_instance: 'node-webform-field_other_members'
-  $field_instances['node-webform-field_other_members'] = array(
-    'bundle' => 'webform',
-    'default_value' => NULL,
-    'default_value_function' => '',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 18,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_other_members',
-    'label' => 'Other members',
-    'required' => 0,
-    'settings' => array(
-      'behaviors' => array(
-        'prepopulate' => array(
-          'status' => 0,
-        ),
-      ),
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'apply_chosen' => '',
-      ),
-      'type' => 'options_select',
-      'weight' => 38,
     ),
   );
 
@@ -6503,8 +6314,6 @@ function ft_content_type_field_default_field_instances() {
   t('Organisation');
   t('Organisation / company');
   t('Organisation visibility');
-  t('Other experts');
-  t('Other members');
   t('Other, please specify');
   t('Phone');
   t('Photo');

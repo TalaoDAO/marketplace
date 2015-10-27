@@ -43,9 +43,6 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
 	$form['field_reward']['und'][0]['value']['#title'] = t('Cost (minimum 1 000 points required)');
   $form['field_reward']['#suffix'] = '</div>';
 
-  $form['og_group_ref']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_other_members']['#suffix'] = '</div>';
-
 	$form['field_document']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
   $form['field_image']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
 
