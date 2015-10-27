@@ -17,17 +17,21 @@ $company = node_load($company[0]['target_id']);
       <div class="col-md-5 profile-picture">
         <?php print emindhub_beautiful_author_picture( $node, 'img-circle center-block' ); ?>
       </div>
-      <?php endif ?>
+      <?php endif; ?>
 
       <div class="col-md-7">
 
-        <?php if ( emh_access_user_name( $node ) == TRUE && ( $first_name || $last_name ) ) : ?>
-        <p class="user"><strong><span class="author-firstname"><?php print render($first_name[0]['value']); ?></span>&nbsp;<span class="author-lastname"><?php print render($last_name[0]['value']); ?></span></strong></p>
-        <?php endif ?>
+        <p class="user"><strong>
+          <?php if ( emh_access_user_name( $node ) == TRUE && ( $first_name || $last_name ) ) : ?>
+          <span class="author-firstname"><?php print render($first_name[0]['value']); ?></span>&nbsp;<span class="author-lastname"><?php print render($last_name[0]['value']); ?></span>
+          <?php else : ?>
+          <span class="author-anonymous"><?php print t('Anonymous'); ?></span>
+          <?php endif; ?>
+        </strong></p>
 
         <?php if ( emh_access_user_company( $node ) == TRUE && ( $company ) ) : ?>
         <p class="company"><strong><?php print $company->title; ?></strong></p>
-        <?php endif ?>
+        <?php endif; ?>
 
       </div>
 

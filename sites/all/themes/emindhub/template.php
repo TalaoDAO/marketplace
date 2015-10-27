@@ -405,11 +405,8 @@ function emindhub_beautiful_comment_list_text( $node ) {
   switch ($node->type) {
 
     case 'question1':
-      $comment_add_text = t('Responses');
-      break;
-
     case 'challenge':
-      $comment_add_text = t('Responses');
+      $comment_add_text = t('Answers');
       break;
 
   }
