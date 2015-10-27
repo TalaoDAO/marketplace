@@ -1347,7 +1347,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_entreprise_description',
-    'label' => 'Description of my organisation',
+    'label' => 'Description of the activity of organisation / company',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -2720,7 +2720,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_entreprise_description',
-    'label' => 'Description of my organisation',
+    'label' => 'Description of the activity of organisation / company',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -3555,7 +3555,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_entreprise_description',
-    'label' => 'Description of my organisation',
+    'label' => 'Description of the activity of organisation / company',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -5992,7 +5992,7 @@ function ft_content_type_field_default_field_instances() {
   t('Degrees, companies, etc.');
   t('Describe your work experience');
   t('Description');
-  t('Description of my organisation');
+  t('Description of the activity of organisation / company');
   t('Desired starting date');
   t('Determine if this is an OG group.');
   t('Document');

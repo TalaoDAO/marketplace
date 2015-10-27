@@ -173,9 +173,8 @@ function ft_field_base_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        0 => 'Use profile settings',
-        1 => 'Display my full name',
-        2 => 'Hide my full name',
+        0 => 'Display my full name',
+        1 => 'Hide my full name',
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
@@ -1666,9 +1665,8 @@ function ft_field_base_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        0 => 'Use profile settings',
-        1 => 'Display the name',
-        2 => 'Hide the name',
+        0 => 'Display the name',
+        1 => 'Hide the name',
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
@@ -2290,9 +2288,9 @@ function ft_field_base_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        0 => 'No description',
-        1 => 'Use the profile description',
-        2 => 'Customize the description',
+        0 => 'Display',
+        1 => 'Hide',
+        2 => 'Customize',
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
