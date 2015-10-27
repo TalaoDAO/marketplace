@@ -24,7 +24,7 @@ Feature: Create question and answers
     Then I should see "My request"
     And I should see "What about ?"
     And I should see "100" in the "What about ?" row
-    Then I should see "All experts" in the "What about ?" row
+    #Then I should see "All experts" in the "What about ?" row
 
   #@exclude
   Scenario: test questions as admin
@@ -46,12 +46,12 @@ Feature: Create question and answers
     Then I should see "Answer the question"
     #Given I enter "Ma réponse" for "Subject"
     Given I enter "Je suis un expert" for "Public answer"
-    And I select the radio button "My answer will be public"
+    And I select the radio button "My answer will be visible by all experts"
     And I press "Publish"
     #And I wait for AJAX to finish -> don't work, force reload
     When I go to homepage
     When I click "What about ?" in the "What about ?" row
-    Then I should see "Responses"
+    Then I should see "Answers"
     And I should see "Select best answers"
     #And I should see "Iron Man" in the "comment" region
     And I should see "Iron Man"
@@ -65,7 +65,7 @@ Feature: Create question and answers
     When I go to homepage
     And I click "What about ?" in the "What about ?" row
     Then I should not see "Answer the question"
-    And I should see "Responses"
+    And I should see "Answers"
     And I should see "Iron Man"
     And I should see "Je suis un expert"
 
@@ -80,7 +80,7 @@ Feature: Create question and answers
     And I press "Publish"
     When I go to homepage
     When I click "What about ?" in the "What about ?" row
-    Then I should see "Responses"
+    Then I should see "Answers"
     And I should see "Je suis un expert"
 
     Given I am logged in as "client1"

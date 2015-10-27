@@ -20,14 +20,14 @@ Feature: Test profil visibility
     When I go to homepage
     When I click "What about ?" in the "What about ?" row
     Then I enter "Je suis un expert" for "Public answer"
-    And I select the radio button "My answer will be public"
+    And I select the radio button "My answer will be visible by all experts"
     And I press "Publish"
 
     Given I am logged in as "expert2"
     When I go to homepage
     When I click "What about ?" in the "What about ?" row
     Then I enter "J'ai une idée" for "Public answer"
-    And I select the radio button "My answer will be public"
+    And I select the radio button "My answer will be visible by all experts"
     And I press "Publish"
 
   #TODO: tel visibility not implemented yet
