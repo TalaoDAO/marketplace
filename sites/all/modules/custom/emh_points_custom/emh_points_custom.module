@@ -200,3 +200,33 @@ function emh_points_validate_webform_threshold($element, &$form_state, $form) {
     form_error($element, t('You should at least allocate @count points.', array('@count' => $threshold)));
   }
 }
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function emh_points_custom_form_comment_node_question1_form_alter(&$form, &$form_state) {
+  emh_points_custom_display_comment_form_access($form);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function emh_points_custom_form_comment_node_challenge_form_alter(&$form, &$form_state) {
+  emh_points_custom_display_comment_form_access($form);
+}
+
+/**
+ * Helper function.
+ */
+function emh_points_custom_display_comment_form_access(&$form) {
+  // Has the user already commented?
+  global $user;
+  $already = db_select('comment', 'c')
+    ->fields('c', array('subject'))
+    ->condition('nid', $form['nid']['#value'])
+    ->condition('uid', $user->uid)
+    ->execute()->fetchField();
+  if (!empty($already)) {
+    $form['#access'] = FALSE;
+  }
+}
