@@ -38,9 +38,6 @@ function emh_access_user_name( $node ) {
 
   $account = user_load($node->uid);
 
-  // echo '<pre>USER NAME ' . print_r($account->field_name_visibility, TRUE) . '</pre>';
-  // echo '<pre>NODE NAME ' . print_r($node->field_anonymous, TRUE) . '</pre>';
-
   $access = FALSE;
 
   // Check node options
@@ -55,9 +52,6 @@ function emh_access_user_name( $node ) {
 function emh_access_user_company( $node ) {
 
   $account = user_load($node->uid);
-
-  // echo '<pre>USER ENTREPRISE ' . print_r($account->field_entreprise_visibility, TRUE) . '</pre>';
-  // echo '<pre>NODE ENTREPRISE ' . print_r($node->field_show_entreprise, TRUE) . '</pre>';
 
   $access = FALSE;
 

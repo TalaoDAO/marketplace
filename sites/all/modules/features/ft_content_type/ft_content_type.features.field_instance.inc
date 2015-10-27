@@ -4778,49 +4778,6 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_entreprise_visibility'
-  $field_instances['user-user-field_entreprise_visibility'] = array(
-    'bundle' => 'user',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 23,
-      ),
-      'full' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 15,
-      ),
-    ),
-    'entity_type' => 'user',
-    'field_name' => 'field_entreprise_visibility',
-    'label' => 'Organisation visibility',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => 1,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 0,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 19,
-    ),
-  );
-
   // Exported field_instance: 'user-user-field_first_name'
   $field_instances['user-user-field_first_name'] = array(
     'bundle' => 'user',
@@ -5149,49 +5106,6 @@ function ft_content_type_field_default_field_instances() {
       'settings' => array(),
       'type' => 'link_field',
       'weight' => 14,
-    ),
-  );
-
-  // Exported field_instance: 'user-user-field_name_visibility'
-  $field_instances['user-user-field_name_visibility'] = array(
-    'bundle' => 'user',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 22,
-      ),
-      'full' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 14,
-      ),
-    ),
-    'entity_type' => 'user',
-    'field_name' => 'field_name_visibility',
-    'label' => 'Name visibility',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => 1,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 0,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 18,
     ),
   );
 
@@ -5534,49 +5448,6 @@ function ft_content_type_field_default_field_instances() {
       'settings' => array(),
       'type' => 'field_collection_embed',
       'weight' => 26,
-    ),
-  );
-
-  // Exported field_instance: 'user-user-field_skills_visibility'
-  $field_instances['user-user-field_skills_visibility'] = array(
-    'bundle' => 'user',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 24,
-      ),
-      'full' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 16,
-      ),
-    ),
-    'entity_type' => 'user',
-    'field_name' => 'field_skills_visibility',
-    'label' => 'I choose to make public all this information in my profile',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => 0,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 0,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 20,
     ),
   );
 
@@ -6010,7 +5881,6 @@ function ft_content_type_field_default_field_instances() {
   t('Group visibility');
   t('How did you hear about us?');
   t('How often do you want to receive eMindHub\'s notifications?');
-  t('I choose to make public all this information in my profile');
   t('If you belong to a group such as a company, association, club, training center, research center, etc., specify it here.');
   t('Image');
   t('Is partner');
@@ -6023,12 +5893,10 @@ function ft_content_type_field_default_field_instances() {
   t('Logo');
   t('More about <a href=\'/content/sponsorship\'>sponsorship</a>');
   t('Name of my sponsor');
-  t('Name visibility');
   t('Needs for expertise');
   t('Nom');
   t('Organisation');
   t('Organisation / company');
-  t('Organisation visibility');
   t('Other, please specify');
   t('Phone');
   t('Photo');
