@@ -1148,11 +1148,7 @@ function ft_content_type_field_default_field_instances() {
   // Exported field_instance: 'node-challenge-field_anonymous'
   $field_instances['node-challenge-field_anonymous'] = array(
     'bundle' => 'challenge',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -1576,11 +1572,7 @@ function ft_content_type_field_default_field_instances() {
   // Exported field_instance: 'node-challenge-field_show_entreprise'
   $field_instances['node-challenge-field_show_entreprise'] = array(
     'bundle' => 'challenge',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -1665,11 +1657,7 @@ function ft_content_type_field_default_field_instances() {
   // Exported field_instance: 'node-challenge-field_use_my_entreprise'
   $field_instances['node-challenge-field_use_my_entreprise'] = array(
     'bundle' => 'challenge',
-    'default_value' => array(
-      0 => array(
-        'value' => 1,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -2616,11 +2604,7 @@ function ft_content_type_field_default_field_instances() {
   // Exported field_instance: 'node-question1-field_anonymous'
   $field_instances['node-question1-field_anonymous'] = array(
     'bundle' => 'question1',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -2879,11 +2863,7 @@ function ft_content_type_field_default_field_instances() {
   // Exported field_instance: 'node-question1-field_show_entreprise'
   $field_instances['node-question1-field_show_entreprise'] = array(
     'bundle' => 'question1',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -2968,11 +2948,7 @@ function ft_content_type_field_default_field_instances() {
   // Exported field_instance: 'node-question1-field_use_my_entreprise'
   $field_instances['node-question1-field_use_my_entreprise'] = array(
     'bundle' => 'question1',
-    'default_value' => array(
-      0 => array(
-        'value' => 1,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -3308,11 +3284,7 @@ function ft_content_type_field_default_field_instances() {
   // Exported field_instance: 'node-webform-field_anonymous'
   $field_instances['node-webform-field_anonymous'] = array(
     'bundle' => 'webform',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -3784,11 +3756,7 @@ function ft_content_type_field_default_field_instances() {
   // Exported field_instance: 'node-webform-field_show_entreprise'
   $field_instances['node-webform-field_show_entreprise'] = array(
     'bundle' => 'webform',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -3928,11 +3896,7 @@ function ft_content_type_field_default_field_instances() {
   // Exported field_instance: 'node-webform-field_use_my_entreprise'
   $field_instances['node-webform-field_use_my_entreprise'] = array(
     'bundle' => 'webform',
-    'default_value' => array(
-      0 => array(
-        'value' => 1,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
