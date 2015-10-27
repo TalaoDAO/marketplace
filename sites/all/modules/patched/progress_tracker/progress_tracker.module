@@ -92,7 +92,7 @@ function _progress_tracker_field() {
     if (arg(0) == 'node' && is_numeric(arg(1))) {
       $nid = arg(1);
       if ($nid) {
-        $node = node_load($nid);    
+        $node = node_load($nid);
       } else return '';
     } else return '';
     $wrapper = entity_metadata_wrapper('node', $node);
@@ -104,10 +104,10 @@ function _progress_tracker_field() {
         $step_arr = explode('|', $step);
         $field_name = trim($step_arr[0]);
         $field_value = $wrapper->$field_name->value();
-        if ($last_date == 0) 
+        if ($last_date == 0)
           $period = format_date($field_value, 'custom', 'm/d/Y');
         else
-          $period = floor( ($field_value - $last_date)/(60*60*24) ) . " jours";
+          $period = floor( ($field_value - $last_date)/(60*60*24) ) . ' ' . t('days');
         $last_date = $field_value;
         $selected_class = array();
         if (intval($field_value) > time()) {
@@ -149,7 +149,7 @@ function _progress_tracker_path() {
     if (is_array($steps) && count($steps) > 0) {
       $items[] = array(
        'data' => implode('/', $cur_url),
-       'class' => '', 
+       'class' => '',
       );
       foreach ($steps as $step_number => $step) {
         $step_arr = explode('|', $step);
