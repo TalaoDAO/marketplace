@@ -5,7 +5,6 @@ bdd/bin
 bdd/vendor
 bdd/composer.phar
 bdd/composer.lock
-bdd/behat.yml
 
 # Ignore configuration files that may contain sensitive information.
 sites/*/settings*.php
