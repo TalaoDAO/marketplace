@@ -36,6 +36,7 @@ dependencies[] = serial
 dependencies[] = strongarm
 dependencies[] = taxonomy
 dependencies[] = text
+features[conditional_fields][] = comment:comment_node_question1
 features[conditional_fields][] = node:challenge
 features[conditional_fields][] = node:question1
 features[conditional_fields][] = node:webform
