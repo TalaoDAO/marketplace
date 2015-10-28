@@ -216,7 +216,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
-  /* Field: Field: Organisation */
+  /* Field: Field: Organisation / company */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';
@@ -351,7 +351,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_titre_metier']['hide_empty'] = TRUE;
-  /* Field: Field: Organisation */
+  /* Field: Field: Organisation / company */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';
@@ -766,6 +766,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['group_access_value']['value'] = array(
     0 => '0',
   );
+  /* Filter criterion: Content: Promoted to front page */
+  $handler->display->display_options['filters']['promote']['id'] = 'promote';
+  $handler->display->display_options['filters']['promote']['table'] = 'node';
+  $handler->display->display_options['filters']['promote']['field'] = 'promote';
+  $handler->display->display_options['filters']['promote']['relationship'] = 'og_membership_related_node_group';
+  $handler->display->display_options['filters']['promote']['value'] = '0';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
@@ -1925,7 +1931,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['path']['exclude'] = TRUE;
   $handler->display->display_options['fields']['path']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['path']['absolute'] = TRUE;
-  /* Field: Entity translation: Titre: translated */
+  /* Field: Entity translation: Title: translated */
   $handler->display->display_options['fields']['title_field_et']['id'] = 'title_field_et';
   $handler->display->display_options['fields']['title_field_et']['table'] = 'field_data_title_field';
   $handler->display->display_options['fields']['title_field_et']['field'] = 'title_field_et';
@@ -2036,7 +2042,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['path']['exclude'] = TRUE;
   $handler->display->display_options['fields']['path']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['path']['absolute'] = TRUE;
-  /* Field: Entity translation: Titre: translated */
+  /* Field: Entity translation: Title: translated */
   $handler->display->display_options['fields']['title_field_et']['id'] = 'title_field_et';
   $handler->display->display_options['fields']['title_field_et']['table'] = 'field_data_title_field';
   $handler->display->display_options['fields']['title_field_et']['field'] = 'title_field_et';
@@ -2483,7 +2489,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Content: Groups audience */
+  /* Field: Content: Choose circle of experts */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
@@ -2699,6 +2705,10 @@ function ft_views_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'OR',
+  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
@@ -2794,6 +2804,24 @@ function ft_views_views_default_views() {
   );
   $handler->display->display_options['filters']['field_tags_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['vocabulary'] = 'tags';
+  /* Filter criterion: User: Active */
+  $handler->display->display_options['filters']['status_1']['id'] = 'status_1';
+  $handler->display->display_options['filters']['status_1']['table'] = 'users';
+  $handler->display->display_options['filters']['status_1']['field'] = 'status';
+  $handler->display->display_options['filters']['status_1']['relationship'] = 'uid';
+  $handler->display->display_options['filters']['status_1']['value'] = '1';
+  $handler->display->display_options['filters']['status_1']['group'] = 2;
+  /* Filter criterion: User: Roles */
+  $handler->display->display_options['filters']['rid']['id'] = 'rid';
+  $handler->display->display_options['filters']['rid']['table'] = 'users_roles';
+  $handler->display->display_options['filters']['rid']['field'] = 'rid';
+  $handler->display->display_options['filters']['rid']['relationship'] = 'uid';
+  $handler->display->display_options['filters']['rid']['operator'] = 'not';
+  $handler->display->display_options['filters']['rid']['value'] = array(
+    5 => '5',
+    9 => '9',
+  );
+  $handler->display->display_options['filters']['rid']['group'] = 2;
   $handler->display->display_options['views_navigation'] = TRUE;
   $handler->display->display_options['views_navigation_back'] = TRUE;
   $handler->display->display_options['views_navigation_title'] = TRUE;
@@ -2821,6 +2849,10 @@ function ft_views_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'OR',
+  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
@@ -2916,6 +2948,24 @@ function ft_views_views_default_views() {
   );
   $handler->display->display_options['filters']['field_tags_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['vocabulary'] = 'tags';
+  /* Filter criterion: User: Active */
+  $handler->display->display_options['filters']['status_1']['id'] = 'status_1';
+  $handler->display->display_options['filters']['status_1']['table'] = 'users';
+  $handler->display->display_options['filters']['status_1']['field'] = 'status';
+  $handler->display->display_options['filters']['status_1']['relationship'] = 'uid';
+  $handler->display->display_options['filters']['status_1']['value'] = '1';
+  $handler->display->display_options['filters']['status_1']['group'] = 2;
+  /* Filter criterion: User: Roles */
+  $handler->display->display_options['filters']['rid']['id'] = 'rid';
+  $handler->display->display_options['filters']['rid']['table'] = 'users_roles';
+  $handler->display->display_options['filters']['rid']['field'] = 'rid';
+  $handler->display->display_options['filters']['rid']['relationship'] = 'uid';
+  $handler->display->display_options['filters']['rid']['operator'] = 'not';
+  $handler->display->display_options['filters']['rid']['value'] = array(
+    5 => '5',
+    9 => '9',
+  );
+  $handler->display->display_options['filters']['rid']['group'] = 2;
   $handler->display->display_options['views_navigation'] = TRUE;
   $handler->display->display_options['views_navigation_back'] = TRUE;
   $handler->display->display_options['views_navigation_title'] = TRUE;
@@ -3141,7 +3191,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Content: Groups audience */
+  /* Field: Content: Choose circle of experts */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
@@ -3360,7 +3410,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['status']['type_custom_true'] = 'Published';
   $handler->display->display_options['fields']['status']['type_custom_false'] = 'Draft';
   $handler->display->display_options['fields']['status']['not'] = 0;
-  /* Field: Content: Groups audience */
+  /* Field: Content: Choose circle of experts */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
