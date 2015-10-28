@@ -53,5 +53,10 @@ function _emh_survey_string_overrides() {
     'New component name' => 'New question name',
     'This will immediately delete the %name component from the %webform webform. This cannot be undone.' => 'This will immediately delete the %name question from the %webform survey. This cannot be undone.',
     'Submission #@serial' => 'Answer #@serial',
+    'Submissions for %user' => 'Answers',
+    'Edit component: @name' => 'Edit question @name',
+    'New component %name added.' => 'New question %name added.',
+    'Changes made in this table will not be saved until the form is submitted.' => 'Changes made to your questions will not be saved until you save it.',
+    'The component positions and required values have been updated.' => 'Your questions have been updated.',
   );
 }
