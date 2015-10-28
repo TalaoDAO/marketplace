@@ -46,7 +46,7 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
 	$form['field_document']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
   $form['field_image']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
 
-	$form['actions']['submit']['#value'] = t('Save and go manage your questions');
+	$form['actions']['submit']['#value'] = t('Save and continue');
 
 	$form['group_content_access']['#access'] =  FALSE;
 }
@@ -58,7 +58,7 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
  */
 function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $form_id) {
 
-	$form['actions']['submit']['#value'] = t('Save the order of your questions');
+	$form['actions']['submit']['#value'] = t('Save questions\' order');
 
 	$webform_id = $form['#node']->nid;
 	$form['actions']['goback']['#markup'] = t('<a href="@url" class="btn btn-default" id="edit-back">Back</a>', array('@url' => url('node/' . $webform_id . '/edit')));
