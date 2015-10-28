@@ -38,19 +38,12 @@ function emh_access_user_name( $node ) {
 
   $account = user_load($node->uid);
 
-  // echo '<pre>USER NAME ' . print_r($account->field_name_visibility, TRUE) . '</pre>';
-  // echo '<pre>NODE NAME ' . print_r($node->field_anonymous, TRUE) . '</pre>';
-
   $access = FALSE;
 
   // Check node options
-  // 0|Use profile settings
-  // 1|Display my full name
-  // 2|Hide my full name
-  if ( $node->field_anonymous[LANGUAGE_NONE][0]['value'] == 1 ) $access = TRUE;
-
-  // Check user profile options
-  if ( $node->field_anonymous[LANGUAGE_NONE][0]['value'] == 0 && $account->field_name_visibility[LANGUAGE_NONE][0]['value'] == 1 ) $access = TRUE;
+  // 0|Display my full name
+  // 1|Hide my full name
+  if ( $node->field_anonymous[LANGUAGE_NONE][0]['value'] == 0 ) $access = TRUE;
 
   return $access;
 
@@ -60,19 +53,12 @@ function emh_access_user_company( $node ) {
 
   $account = user_load($node->uid);
 
-  // echo '<pre>USER ENTREPRISE ' . print_r($account->field_entreprise_visibility, TRUE) . '</pre>';
-  // echo '<pre>NODE ENTREPRISE ' . print_r($node->field_show_entreprise, TRUE) . '</pre>';
-
   $access = FALSE;
 
   // Check node options
-  // 0|Use profile settings
-  // 1|Display the name
-  // 2|Hide the name
-  if ( $node->field_show_entreprise[LANGUAGE_NONE][0]['value'] == 1 ) $access = TRUE;
-
-  // Check user profile options
-  if ( $node->field_show_entreprise[LANGUAGE_NONE][0]['value'] == 0 && $account->field_entreprise_visibility[LANGUAGE_NONE][0]['value'] == 1 ) $access = TRUE;
+  // 0|Display the name
+  // 1|Hide the name
+  if ( $node->field_show_entreprise[LANGUAGE_NONE][0]['value'] == 0 ) $access = TRUE;
 
   return $access;
 

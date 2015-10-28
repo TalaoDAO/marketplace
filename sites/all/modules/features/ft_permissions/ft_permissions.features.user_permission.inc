@@ -764,16 +764,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'system',
   );
 
-  // Exported permission: 'administer more buttons'.
-  $permissions['administer more buttons'] = array(
-    'name' => 'administer more buttons',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'mb',
-  );
-
   // Exported permission: 'administer nodes'.
   $permissions['administer nodes'] = array(
     'name' => 'administer nodes',
@@ -3353,16 +3343,6 @@ function ft_permissions_user_default_permissions() {
   // Exported permission: 'translate taxonomy_term entities'.
   $permissions['translate taxonomy_term entities'] = array(
     'name' => 'translate taxonomy_term entities',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'entity_translation',
-  );
-
-  // Exported permission: 'translate user entities'.
-  $permissions['translate user entities'] = array(
-    'name' => 'translate user entities',
     'roles' => array(
       'administrator' => 'administrator',
       'webmaster' => 'webmaster',

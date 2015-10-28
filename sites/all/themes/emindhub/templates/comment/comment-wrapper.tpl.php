@@ -45,10 +45,13 @@
 
   <?php print render($content['comments']); ?>
 
-  <?php if ($content['comment_form']): ?>
-    <h2 class="h3"><span><?php print emindhub_beautiful_comment_add_text( $node ); ?></span></h2>
-    <div class="field-group-div">
-      <?php print render($content['comment_form']); ?>
-    </div>
+  <?php if (!empty($content['comment_form'])): ?>
+    <?php $form = render($content['comment_form']); ?>
+    <?php if (!empty($form)): ?>
+      <h2 class="h3"><span><?php print emindhub_beautiful_comment_add_text( $node ); ?></span></h2>
+      <div class="field-group-div">
+        <?php print $form; ?>
+      </div>
+    <?php endif; ?>
   <?php endif; ?>
 </div>
