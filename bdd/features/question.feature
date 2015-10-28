@@ -24,7 +24,7 @@ Feature: Create question and answers
     Then I should see "My request"
     And I should see "What about ?"
     And I should see "100" in the "What about ?" row
-    #Then I should see "All experts" in the "What about ?" row
+    Then I should see "All experts" in the "What about ?" row
 
   #@exclude
   Scenario: test questions as admin
