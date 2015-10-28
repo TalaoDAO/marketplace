@@ -11,12 +11,30 @@ function ft_blocks_default_fe_block_boxes() {
   $export = array();
 
   $fe_block_boxes = new stdClass();
+  $fe_block_boxes->info = 'Bêta version';
+  $fe_block_boxes->format = 'filtered_html';
+  $fe_block_boxes->machine_name = 'beta';
+  $fe_block_boxes->body = '<p>Welcome to eMindHub, thank you for being among the first users of our platform! This is a beta version, for any suggestion or comment please leave a message through the contact form.</p>
+';
+
+  $export['beta'] = $fe_block_boxes;
+
+  $fe_block_boxes = new stdClass();
   $fe_block_boxes->info = 'What are the advantages';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'expert_avantages';
   $fe_block_boxes->body = '<p>Contenu géré directement dans le tpl du block.</p>';
 
   $export['expert_avantages'] = $fe_block_boxes;
+
+  $fe_block_boxes = new stdClass();
+  $fe_block_boxes->info = 'HP - Experts points info';
+  $fe_block_boxes->format = 'filtered_html';
+  $fe_block_boxes->machine_name = 'experts_points_info';
+  $fe_block_boxes->body = '<p>You can earn points by responding to a request and when the client recognize the value of your contribution. You can therefore monetize your points once you have reached a threshold of at least 500 points.</p>
+';
+
+  $export['experts_points_info'] = $fe_block_boxes;
 
   $fe_block_boxes = new stdClass();
   $fe_block_boxes->info = 'Registration block : expert/business';
