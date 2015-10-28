@@ -202,13 +202,15 @@
 			hide($content['links']);
 			// print render($content);
 		?>
-
+		
+		<?php if ($node->webform['status'] != 0) : ?>
 		<div id="comments" class="<?php print $classes; ?> row section emh-fieldgroup-blue-title"<?php print $attributes; ?>>
 	    <h2 class="h3"><span><?php print t('Answer the survey') ?></span></h2>
 	    <div class="field-group-div">
 	      <?php print render($content['webform']); ?>
 	    </div>
 		</div>
+	<?php endif; ?>
 	</div>
 
 </div>
