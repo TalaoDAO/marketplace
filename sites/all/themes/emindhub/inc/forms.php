@@ -81,7 +81,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
 function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
-  // echo '<pre>' . print_r($form['field_needs_for_expertise']['#attributes'], TRUE) . '</pre>';
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
 
   $element_info = element_info('password_confirm');
   $process = $element_info['#process'];
@@ -134,6 +134,14 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
   // Complement
   $form['field_notification_frequency']['#prefix'] = '<div class="form-group-2col row">';
+	global $user;
+	if (in_array('business', array_values($user->roles)) || in_array('business preview', array_values($user->roles))) {
+		// print 'business';
+		$form['field_notification_frequency']['und']['#description'] = t('How often do you want to receive eMindHub\'s notifications about new answers to your requests ?');
+	}
+	if (in_array('expert', array_values($user->roles)) || in_array('expert preview', array_values($user->roles))) {
+		$form['field_notification_frequency']['und']['#description'] = t('How often do you want to receive eMindHub\'s notifications about new requests ?');
+	}
   $form['field_known_specific']['#suffix'] = '</div>';
 
   $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
@@ -141,11 +149,6 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   // FIXME : fait buguer la prévisualisation des portraits
   // $form['field_photo']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
   $form['field_cv']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
-
-  // echo '<pre>' . print_r($form['account'], TRUE) . '</pre>';
-  // echo '<pre>' . print_r($form['field_cv'], TRUE) . '</pre>';
-  // echo '<pre>' . print_r($form['field_notification_frequency'], TRUE) . '</pre>';
-  // echo '<pre>' . print_r($form['field_needs_for_expertise']['und']['#title'], TRUE) . '</pre>';
 
 }
 
