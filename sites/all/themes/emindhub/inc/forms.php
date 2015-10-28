@@ -33,12 +33,12 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 	array(
 	  'cancel',
 		'goback',
-		'see',
 	  'delete',
 	  'preview_changes',
 	  'draft',
 	  'preview',
 	  'submit',
+		'see',
 	) as $action ) {
 		$form['actions'][$action]['#attributes']['class'][] = 'btn';
 	  $form['actions'][$action]['#weight'] = $i++;
