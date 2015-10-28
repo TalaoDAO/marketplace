@@ -4817,7 +4817,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 24,
+      'weight' => 18,
     ),
   );
 
@@ -4854,7 +4854,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 25,
+      'weight' => 19,
     ),
   );
 
@@ -4891,7 +4891,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 23,
+      'weight' => 17,
     ),
   );
 
@@ -5129,7 +5129,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'user',
     'field_name' => 'field_notification_frequency',
-    'label' => 'How often do you want to receive eMindHub\'s notifications?',
+    'label' => 'Frequency of notifications',
     'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -5805,7 +5805,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'og',
       'settings' => array(),
       'type' => 'og_complex',
-      'weight' => 22,
+      'weight' => 16,
     ),
   );
 
@@ -5838,13 +5838,13 @@ function ft_content_type_field_default_field_instances() {
   t('Field(s) of expertise');
   t('First Name');
   t('For example : Expert in electromechanical systems.');
+  t('Frequency of notifications');
   t('Group');
   t('Group content visibility');
   t('Group membership');
   t('Group register');
   t('Group visibility');
   t('How did you hear about us?');
-  t('How often do you want to receive eMindHub\'s notifications?');
   t('If you belong to a group such as a company, association, club, training center, research center, etc., specify it here.');
   t('Image');
   t('Is partner');
