@@ -147,11 +147,11 @@ function emindhub_beautiful_welcome_message() {
     global $user;
     $account = user_load($user->uid);
     $firstName = '';
-    if (isset($account->field_first_name[LANGUAGE_NONE]) && $account->field_first_name[LANGUAGE_NONE]) {
+    if (!empty($account->field_first_name[LANGUAGE_NONE])) {
       $firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
     }
     $lastName = '';
-    if (isset($account->field_last_name[LANGUAGE_NONE]) && $account->field_last_name[LANGUAGE_NONE]) {
+    if (!empty($account->field_last_name[LANGUAGE_NONE])) {
       $lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
     }
     return t('Welcome') . '&nbsp;<span>' . $firstName . '&nbsp;' . $lastName . '</span>';
@@ -182,11 +182,11 @@ function emindhub_beautiful_user_name( $object, $link = FALSE ) {
   $output = '';
 
   $firstName = '';
-  if (isset($account->field_first_name[LANGUAGE_NONE]) && $account->field_first_name[LANGUAGE_NONE]) {
+  if (!empty($account->field_first_name[LANGUAGE_NONE])) {
     $firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
   }
   $lastName = '';
-  if (isset($account->field_last_name[LANGUAGE_NONE]) && $account->field_last_name[LANGUAGE_NONE]) {
+  if (!empty($account->field_last_name[LANGUAGE_NONE])) {
     $lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
   }
   $userName = $account->name;
@@ -219,7 +219,7 @@ function emindhub_beautiful_user_profile_link( $author = TRUE ) {
     }
   }
 
-  if (isset($profileLink)) {
+  if (!empty($profileLink)) {
     global $base_url;
     return '<a href="' . $base_url . '/' . $profileLink . '">' . $base_url . '/' . $profileLink . '</a>';
   }
