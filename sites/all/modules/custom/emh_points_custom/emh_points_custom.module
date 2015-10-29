@@ -88,7 +88,7 @@ function emh_points_custom_node_presave($node) {
       // Unpublish the node
       $node->status = 0;
       // Inform the user.
-      drupal_set_message(t('You cannot publish a survey without any question.'));
+      drupal_set_message(t('You cannot publish a survey without any question.'), 'warning');
     }
   }
 }
