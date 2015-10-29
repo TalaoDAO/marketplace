@@ -97,7 +97,7 @@
 
 	  <?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeNavigation.tpl.php'; ?>
 
-		<?php if (isset($body[0]['value'])) : ?>
+		<?php if (!empty($body[0]['value'])) : ?>
 		<div class="row section">
 			<div class="col-sm-12">
 				<?php print $body[0]['value']; ?>
@@ -111,7 +111,7 @@
 				<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/userInformations.tpl.php'; ?>
 			</div>
 
-			<?php if ( isset($content['field_domaine']) || isset($content['field_tags']) ) : ?>
+			<?php if ( !empty($content['field_domaine']) || !empty($content['field_tags']) ) : ?>
       <div class="col-sm-3">
 
 				<div class="row">
@@ -128,11 +128,11 @@
 
 				<ul>
 
-					<?php if (isset($content['field_autoref'])) : ?>
+					<?php if (!empty($content['field_autoref'])) : ?>
 					<li><?php print render($content['field_autoref']); ?></li>
 					<?php endif; ?>
 
-					<?php if (isset($elements['#node']->created)) : ?>
+					<?php if (!empty($elements['#node']->created)) : ?>
 					<li>
 						<div class="field field-name-field-created-date field-type-datetime field-label-inline clearfix">
 							<div class="field-label"><?php print t('Publication date:'); ?></div>
@@ -145,19 +145,19 @@
 					</li>
 					<?php endif; ?>
 
-					<?php if (isset($content['field_start_date'])) : ?>
+					<?php if (!empty($content['field_start_date'])) : ?>
 					<li><?php print render($content['field_start_date']); ?></li>
 					<?php endif; ?>
 
-					<?php if (isset($content['field_duration_of_the_mission'])) : ?>
+					<?php if (!empty($content['field_duration_of_the_mission'])) : ?>
 					<li><?php print render($content['field_duration_of_the_mission']); ?></li>
 					<?php endif; ?>
 
-					<?php if (isset($content['field_expiration_date'])) : ?>
+					<?php if (!empty($content['field_expiration_date'])) : ?>
 					<li><?php print render($content['field_expiration_date']); ?></li>
 					<?php endif; ?>
 
-					<?php if (isset($content['field_reward'])) : ?>
+					<?php if (!empty($content['field_reward'])) : ?>
 					<li><?php print render($content['field_reward']); ?></li>
 					<?php endif; ?>
 
@@ -175,7 +175,7 @@
 					</li>
 					<?php //endif; ?>
 
-          <?php if (isset($field_has_salary[0]['value']) && $field_has_salary[0]['value'] == 1) : ?>
+          <?php if (!empty($field_has_salary[0]['value']) && $field_has_salary[0]['value'] == 1) : ?>
           <li><?php print render($content['field_has_salary']); ?></li>
           <?php endif; ?>
 
@@ -183,7 +183,7 @@
 
       </div>
 
-			<?php if (isset($content['field_image'])) : ?>
+			<?php if (!empty($content['field_image'])) : ?>
 			<?php // TODO : add default image ?>
 			<div class="col-sm-3 text-right">
 				<?php print render($content['field_image']); ?>
@@ -202,7 +202,7 @@
 			hide($content['links']);
 			// print render($content);
 		?>
-		
+
 		<?php if ($node->webform['status'] != 0) : ?>
 		<div id="comments" class="<?php print $classes; ?> row section emh-fieldgroup-blue-title"<?php print $attributes; ?>>
 	    <h2 class="h3"><span><?php print t('Answer the survey') ?></span></h2>

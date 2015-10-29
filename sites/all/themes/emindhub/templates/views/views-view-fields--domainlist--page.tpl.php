@@ -37,7 +37,7 @@
     <span class="title"><?php print t($fields['name_field_et']->content); ?></span>
   </h4>
 
-  <?php if (isset($fields['field_domain_lead_experts']->content)) : ?>
+  <?php if (!empty($fields['field_domain_lead_experts']->content)) : ?>
   <div class="domain-lead-experts">
     <span><?php print t('Lead experts:'); ?>&nbsp;</span><?php print views_embed_view('circle_members','block_1', $fields['field_domain_lead_experts']->content); ?>
   </div>
