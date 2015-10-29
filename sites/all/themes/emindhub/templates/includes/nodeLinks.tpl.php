@@ -13,10 +13,10 @@
       <?php endif; ?>
 
       <?php if (!isExpertUser()) : ?>
-        
+
       <?php if (function_exists('webform_get_submission_count')) : ?>
       <?php if (webform_get_submission_count($node->nid) > 0) : ?>
-      <li class="answers_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/survey-answers"><?php print t('Select best answers'); ?></a>
+      <li class="answers_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/survey_answers"><?php print t('Select best answers'); ?></a>
       </li>
       <?php endif; ?>
       <?php endif; ?>
