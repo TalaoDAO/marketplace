@@ -3759,7 +3759,7 @@ function ft_views_views_default_views() {
   /* Display: Last requests Clients */
   $handler = $view->new_display('block', 'Last requests Clients', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Last requests Clients';
+  $handler->display->display_options['title'] = 'Last requests';
   $handler->display->display_options['defaults']['use_more'] = FALSE;
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
