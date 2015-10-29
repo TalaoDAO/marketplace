@@ -216,7 +216,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
-  /* Field: Field: Organisation */
+  /* Field: Field: Organisation / company */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';
@@ -351,7 +351,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_titre_metier']['hide_empty'] = TRUE;
-  /* Field: Field: Organisation */
+  /* Field: Field: Organisation / company */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';
@@ -1354,6 +1354,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['cid_1']['field'] = 'cid';
   $handler->display->display_options['fields']['cid_1']['exclude'] = TRUE;
   $handler->display->display_options['fields']['cid_1']['link_to_comment'] = FALSE;
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['relationship'] = 'nid';
+  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
   /* Field: Content: Path */
   $handler->display->display_options['fields']['path']['id'] = 'path';
   $handler->display->display_options['fields']['path']['table'] = 'node';
@@ -1402,8 +1408,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['comment_body']['label'] = '';
   $handler->display->display_options['fields']['comment_body']['exclude'] = TRUE;
   $handler->display->display_options['fields']['comment_body']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['comment_body']['alter']['path'] = '[path]#comment-[cid_1]';
-  $handler->display->display_options['fields']['comment_body']['alter']['absolute'] = TRUE;
+  $handler->display->display_options['fields']['comment_body']['alter']['path'] = 'node/[nid]#comment-[cid_1]';
   $handler->display->display_options['fields']['comment_body']['alter']['max_length'] = '50';
   $handler->display->display_options['fields']['comment_body']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['comment_body']['alter']['trim'] = TRUE;
@@ -1418,8 +1423,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_private_comment_body']['label'] = '';
   $handler->display->display_options['fields']['field_private_comment_body']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_private_comment_body']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['field_private_comment_body']['alter']['path'] = '[path]#comment-[cid_1]';
-  $handler->display->display_options['fields']['field_private_comment_body']['alter']['absolute'] = TRUE;
+  $handler->display->display_options['fields']['field_private_comment_body']['alter']['path'] = 'node/[nid]#comment-[cid_1]';
   $handler->display->display_options['fields']['field_private_comment_body']['alter']['max_length'] = '50';
   $handler->display->display_options['fields']['field_private_comment_body']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['field_private_comment_body']['alter']['trim'] = TRUE;
