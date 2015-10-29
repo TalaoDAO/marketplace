@@ -47,7 +47,7 @@ function emh_points_menu() {
     'type' => MENU_LOCAL_ACTION,
   );
   $items['arrange/%/%/%/%/%'] = array(
-    'title' => 'Distribute points',
+    'title' => 'Validate selection and distribute points',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('emh_points_arrange_form', 1, 2, 3, 4, 5),
     'access arguments' => array('use points'),
@@ -61,7 +61,7 @@ function emh_points_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
   $items['my-answers'] = array(
-    'title' => 'My responses',
+    'title' => 'My answers',
     'page callback' => 'emh_points_my_responses',
     'access arguments' => array('use points'),
   );
@@ -440,9 +440,6 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
     '#type' => 'value',
     '#default_value' => $points,
   );
-  $form['points_help'] = array(
-    '#markup' => '<div>' . t('Points to distribute: @count', array('@count' => $points)) . '</div>',
-  );
   $form['type_source'] = array(
     '#type' => 'value',
     '#default_value' => $type_source,
@@ -480,8 +477,9 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
   );
   if ($type_source == 'node' && in_array($node->type, array('challenge', 'question1', 'webform'))) {
     $form['submit']['#value'] = t('Validate distribution and close the request');
+    // $form['submit']['#attributes']['class'][] = 'btn-submit';
     $form['baseline'] = array(
-      '#markup' => '<div>' . t('Distribute points to best experts') . '</div>',
+      '#markup' => '<p class="emh-title-baseline">' . t('Distribute <strong>@count points</strong> to best experts', array('@count' => $points)) . '</p>',
       '#weight' => -100,
     );
   }
@@ -534,7 +532,7 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
   }
   switch($form_state['values']['type_source']) {
     case 'node':
-      // Points have been distributed, we should close the demand.
+      // Points have been distributed, we should close the request.
       emh_points_close_node($form_state['values']['id_source']);
       $form_state['redirect'] = 'node/' . $form_state['values']['id_source'];
       break;
@@ -544,7 +542,7 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
       break;
   }
   $points = $form_state['values']['points'];
-  drupal_set_message(t('All the points have been dispatched.'));
+  drupal_set_message(t('All the points have been distributed.'));
 }
 
 /**

@@ -32,6 +32,15 @@ function emh_points_custom_field_access($op, $field, $entity_type, $entity, $acc
       case 'field_titre_metier':
         return TRUE;
         break;
+      case 'field_employment_history':
+        return TRUE;
+        break;
+      case 'field_sponsor_why':
+        return TRUE;
+        break;
+      case 'field_partner_why':
+        return TRUE;
+        break;
       // For other fields, it depends of our relation with the user:
       case 'field_address':
         $flag = flag_get_flag('my_contacts');
@@ -130,8 +139,11 @@ function emh_points_custom_form_emh_points_admin_form_alter(&$form, &$form_state
 function emh_points_custom_views_bulk_operations_form_alter(&$form) {
   // Only when we want it.
   $view = arg(2);
-  if (!empty($view) && ($view == 'answers' || $view == 'webform-answers')) {
+  if (!empty($view) && ($view == 'answers' || $view == 'survey-answers')) {
     $form['select']['#weight'] = 100;
+    $form['baseline'] = array(
+      '#markup' => '<p class="emh-title-baseline">' . t('Select best answer(s)') . '</p>',
+    );
   }
 }
 

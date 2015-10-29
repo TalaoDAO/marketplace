@@ -22,10 +22,10 @@ function emh_question_form_question1_node_form_alter(&$form, &$form_state, $form
   $form['field_use_my_entreprise']['#suffix'] = '</div>';
 
   $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_reward']['und'][0]['value']['#title'] = t('Cost (minimum 100 points required)');
   $form['field_reward']['#suffix'] = '</div>';
 
-  $form['og_group_ref']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_other_members']['#suffix'] = '</div>';
+  $form['group_content_access']['#access'] =  FALSE;
 
 }
 

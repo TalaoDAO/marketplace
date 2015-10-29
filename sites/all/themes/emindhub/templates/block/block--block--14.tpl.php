@@ -66,9 +66,9 @@
       </a>
 
     <?php elseif (isExpertUser()) : ?>
-    <a href="<?php print url("query-list/all?type[question1]=question1"); ?>">
-      <span class="default-text"><?php echo sprintf(t('Answer %squestions%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?>
-      </span>
+    <?php global $base_url; $safe_link = rawurldecode($base_url . '/requests/all?type[question]=question1'); ?>
+    <a href="<?php print $safe_link; ?>">
+      <span class="default-text"><?php echo sprintf(t('Answer %squestions%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?></span>
     </a>
 
     <?php else : ?>

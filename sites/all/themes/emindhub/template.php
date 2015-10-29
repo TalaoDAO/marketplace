@@ -6,6 +6,7 @@ require_once('templates/includes/string_list.php');
 require_once('inc/html.php');
 require_once('inc/nodes.php');
 require_once('inc/forms.php');
+require_once('inc/form_elements.php');
 require_once('inc/menus.php');
 require_once('inc/regions.php');
 require_once('inc/blocks.php');
@@ -74,14 +75,14 @@ function emindhub_preprocess_page(&$vars, &$variables) {
 /*
  * USEFUL FUNCTIONS
  */
-function isBusinessUser($account = null) {
+function isBusinessUser() {
 	global $user;
-  return (in_array('business', array_values($user->roles)) || in_array('business-preview', array_values($user->roles)));
+  return (in_array('business', array_values($user->roles)) || in_array('business preview', array_values($user->roles)));
 }
 
-function isExpertUser($account = null) {
+function isExpertUser() {
 	global $user;
-  return (in_array('expert', array_values($user->roles)) || in_array('expert-preview', array_values($user->roles)));
+  return (in_array('expert', array_values($user->roles)) || in_array('expert preview', array_values($user->roles)));
 }
 
 function isWebmasterUser() {
@@ -399,11 +400,8 @@ function emindhub_beautiful_comment_list_text( $node ) {
   switch ($node->type) {
 
     case 'question1':
-      $comment_add_text = t('Responses');
-      break;
-
     case 'challenge':
-      $comment_add_text = t('Responses');
+      $comment_add_text = t('Answers');
       break;
 
   }

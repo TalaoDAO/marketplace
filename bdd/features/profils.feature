@@ -6,7 +6,7 @@ Feature: Test profil visibility
 
   Background: Create questions and answers
     Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_titre_metier |
+    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas |
     | client1 | client1@emindhub.com | business | Captain          | America         | 0612345678      | Chef de groupe     |
     | expert1 | expert1@emindhub.com | expert   | Iron             | Man             | 0712345678      | Chieur génial      |
     | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | 0812345678      | Modèle             |
@@ -19,13 +19,15 @@ Feature: Test profil visibility
     Given I am logged in as "expert1"
     When I go to homepage
     When I click "What about ?" in the "What about ?" row
-    Then I enter "Je suis un expert" for "Public response"
+    Then I enter "Je suis un expert" for "Public answer"
+    And I select the radio button "My answer will be visible by all experts"
     And I press "Publish"
 
     Given I am logged in as "expert2"
     When I go to homepage
     When I click "What about ?" in the "What about ?" row
-    Then I enter "J'ai une idée" for "Public response"
+    Then I enter "J'ai une idée" for "Public answer"
+    And I select the radio button "My answer will be visible by all experts"
     And I press "Publish"
 
   #TODO: tel visibility not implemented yet
@@ -34,14 +36,13 @@ Feature: Test profil visibility
     Then I should have 100 points on "What about ?" node
     Given I am logged in as "client1"
     When I go to "my-responses"
-    Then I should see "expert1"
-    And I should see "expert2"
     When node "What about ?" transfers 50 points on "expert1" user
     And node "What about ?" transfers 50 points on "expert2" user
     Then I should have 0 points on "What about ?" node
     And I should have 50 points on "expert1" user
     And I should have 50 points on "expert2" user
-    When I click "My relationships"
+    #When I click "My relationships"
+    When I go to "my-relationships"
     #Then I should see "Operations"
     Then I should see "Iron"
     And I should see "Klark"

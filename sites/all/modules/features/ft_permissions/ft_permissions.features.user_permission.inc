@@ -60,6 +60,15 @@ function ft_permissions_user_default_permissions() {
     'module' => 'webform',
   );
 
+  // Exported permission: 'access audit files reports'.
+  $permissions['access audit files reports'] = array(
+    'name' => 'access audit files reports',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'auditfiles',
+  );
+
   // Exported permission: 'access backup and migrate'.
   $permissions['access backup and migrate'] = array(
     'name' => 'access backup and migrate',
@@ -123,6 +132,16 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'contextual',
+  );
+
+  // Exported permission: 'access devel information'.
+  $permissions['access devel information'] = array(
+    'name' => 'access devel information',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'devel',
   );
 
   // Exported permission: 'access environment indicator'.
@@ -333,16 +352,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'og_role_override',
   );
 
-  // Exported permission: 'act as administrator member in og node:working_group'.
-  $permissions['act as administrator member in og node:working_group'] = array(
-    'name' => 'act as administrator member in og node:working_group',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'og_role_override',
-  );
-
   // Exported permission: 'act as member in og node:circle'.
   $permissions['act as member in og node:circle'] = array(
     'name' => 'act as member in og node:circle',
@@ -353,29 +362,9 @@ function ft_permissions_user_default_permissions() {
     'module' => 'og_role_override',
   );
 
-  // Exported permission: 'act as member in og node:working_group'.
-  $permissions['act as member in og node:working_group'] = array(
-    'name' => 'act as member in og node:working_group',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'og_role_override',
-  );
-
   // Exported permission: 'act as non-member in og node:circle'.
   $permissions['act as non-member in og node:circle'] = array(
     'name' => 'act as non-member in og node:circle',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'og_role_override',
-  );
-
-  // Exported permission: 'act as non-member in og node:working_group'.
-  $permissions['act as non-member in og node:working_group'] = array(
-    'name' => 'act as non-member in og node:working_group',
     'roles' => array(
       'administrator' => 'administrator',
       'webmaster' => 'webmaster',
@@ -429,16 +418,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'ds_ui',
   );
 
-  // Exported permission: 'administer EU Cookie Compliance popup'.
-  $permissions['administer EU Cookie Compliance popup'] = array(
-    'name' => 'administer EU Cookie Compliance popup',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'eu_cookie_compliance',
-  );
-
   // Exported permission: 'administer actions'.
   $permissions['administer actions'] = array(
     'name' => 'administer actions',
@@ -446,6 +425,15 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'system',
+  );
+
+  // Exported permission: 'administer audit files'.
+  $permissions['administer audit files'] = array(
+    'name' => 'administer audit files',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'auditfiles',
   );
 
   // Exported permission: 'administer autoassignrole'.
@@ -576,6 +564,15 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'environment_indicator',
+  );
+
+  // Exported permission: 'administer fancy file delete'.
+  $permissions['administer fancy file delete'] = array(
+    'name' => 'administer fancy file delete',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'fancy_file_delete',
   );
 
   // Exported permission: 'administer features'.
@@ -749,6 +746,15 @@ function ft_permissions_user_default_permissions() {
     'module' => 'metatag',
   );
 
+  // Exported permission: 'administer module filter'.
+  $permissions['administer module filter'] = array(
+    'name' => 'administer module filter',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'module_filter',
+  );
+
   // Exported permission: 'administer modules'.
   $permissions['administer modules'] = array(
     'name' => 'administer modules',
@@ -756,16 +762,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'system',
-  );
-
-  // Exported permission: 'administer more buttons'.
-  $permissions['administer more buttons'] = array(
-    'name' => 'administer more buttons',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'mb',
   );
 
   // Exported permission: 'administer nodes'.
@@ -815,6 +811,16 @@ function ft_permissions_user_default_permissions() {
     'module' => 'piwik',
   );
 
+  // Exported permission: 'administer points'.
+  $permissions['administer points'] = array(
+    'name' => 'administer points',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'emh_points',
+  );
+
   // Exported permission: 'administer privatecomments forms'.
   $permissions['administer privatecomments forms'] = array(
     'name' => 'administer privatecomments forms',
@@ -823,16 +829,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'privatecomments',
-  );
-
-  // Exported permission: 'administer privatemsg settings'.
-  $permissions['administer privatemsg settings'] = array(
-    'name' => 'administer privatemsg settings',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'privatemsg',
   );
 
   // Exported permission: 'administer quicktabs'.
@@ -940,6 +936,15 @@ function ft_permissions_user_default_permissions() {
     'module' => 'stringoverrides',
   );
 
+  // Exported permission: 'administer switch'.
+  $permissions['administer switch'] = array(
+    'name' => 'administer switch',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'switchtheme',
+  );
+
   // Exported permission: 'administer taxonomy'.
   $permissions['administer taxonomy'] = array(
     'name' => 'administer taxonomy',
@@ -1000,6 +1005,15 @@ function ft_permissions_user_default_permissions() {
     'module' => 'user',
   );
 
+  // Exported permission: 'administer uuid'.
+  $permissions['administer uuid'] = array(
+    'name' => 'administer uuid',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'uuid',
+  );
+
   // Exported permission: 'administer views'.
   $permissions['administer views'] = array(
     'name' => 'administer views',
@@ -1036,16 +1050,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'votingapi',
-  );
-
-  // Exported permission: 'allow disabling privatemsg'.
-  $permissions['allow disabling privatemsg'] = array(
-    'name' => 'allow disabling privatemsg',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'privatemsg',
   );
 
   // Exported permission: 'block IP addresses'.
@@ -1248,15 +1252,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'create field_picto'.
-  $permissions['create field_picto'] = array(
-    'name' => 'create field_picto',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'create field_referent'.
   $permissions['create field_referent'] = array(
     'name' => 'create field_referent',
@@ -1301,16 +1296,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: 'create private message tags'.
-  $permissions['create private message tags'] = array(
-    'name' => 'create private message tags',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'privatemsg_filter',
   );
 
   // Exported permission: 'create question1 content'.
@@ -1659,8 +1644,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete own webform submissions',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
-      'expert' => 'expert',
       'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
@@ -1676,22 +1659,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: 'delete privatemsg'.
-  $permissions['delete privatemsg'] = array(
-    'name' => 'delete privatemsg',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
-      'business' => 'business',
-      'business preview' => 'business preview',
-      'expert' => 'expert',
-      'expert preview' => 'expert preview',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'privatemsg',
   );
 
   // Exported permission: 'delete revisions'.
@@ -1772,17 +1739,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'taxonomy',
-  );
-
-  // Exported permission: 'display EU Cookie Compliance popup'.
-  $permissions['display EU Cookie Compliance popup'] = array(
-    'name' => 'display EU Cookie Compliance popup',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'eu_cookie_compliance',
   );
 
   // Exported permission: 'display drupal links'.
@@ -1931,15 +1887,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'edit field_picto'.
-  $permissions['edit field_picto'] = array(
-    'name' => 'edit field_picto',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'edit field_referent'.
   $permissions['edit field_referent'] = array(
     'name' => 'edit field_referent',
@@ -2041,15 +1988,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'edit own field_picto'.
-  $permissions['edit own field_picto'] = array(
-    'name' => 'edit own field_picto',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'edit own field_referent'.
   $permissions['edit own field_referent'] = array(
     'name' => 'edit own field_referent',
@@ -2131,8 +2069,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit own webform submissions',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
-      'business preview' => 'business preview',
       'expert' => 'expert',
       'expert preview' => 'expert preview',
       'référent' => 'référent',
@@ -2247,6 +2183,16 @@ function ft_permissions_user_default_permissions() {
     'module' => 'webform',
   );
 
+  // Exported permission: 'execute auditfiles_merge_files'.
+  $permissions['execute auditfiles_merge_files'] = array(
+    'name' => 'execute auditfiles_merge_files',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'actions_permissions',
+  );
+
   // Exported permission: 'execute auto_entitylabel_entity_update_action'.
   $permissions['execute auto_entitylabel_entity_update_action'] = array(
     'name' => 'execute auto_entitylabel_entity_update_action',
@@ -2292,6 +2238,91 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'webmaster' => 'webmaster',
+    ),
+    'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'execute emh_points_arrange_group_points'.
+  $permissions['execute emh_points_arrange_group_points'] = array(
+    'name' => 'execute emh_points_arrange_group_points',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'business' => 'business',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'execute emh_points_arrange_node_points'.
+  $permissions['execute emh_points_arrange_node_points'] = array(
+    'name' => 'execute emh_points_arrange_node_points',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'business' => 'business',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'execute emh_points_arrange_points'.
+  $permissions['execute emh_points_arrange_points'] = array(
+    'name' => 'execute emh_points_arrange_points',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'business' => 'business',
+      'expert preview' => 'expert preview',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'execute emh_points_give_points'.
+  $permissions['execute emh_points_give_points'] = array(
+    'name' => 'execute emh_points_give_points',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'execute emh_points_remove_points'.
+  $permissions['execute emh_points_remove_points'] = array(
+    'name' => 'execute emh_points_remove_points',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'execute emh_points_transfert_points'.
+  $permissions['execute emh_points_transfert_points'] = array(
+    'name' => 'execute emh_points_transfert_points',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'business' => 'business',
+      'expert preview' => 'expert preview',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'execute fancy_file_delete_files'.
+  $permissions['execute fancy_file_delete_files'] = array(
+    'name' => 'execute fancy_file_delete_files',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'actions_permissions',
+  );
+
+  // Exported permission: 'execute fancy_file_delete_files_force'.
+  $permissions['execute fancy_file_delete_files_force'] = array(
+    'name' => 'execute fancy_file_delete_files_force',
+    'roles' => array(
+      'administrator' => 'administrator',
     ),
     'module' => 'actions_permissions',
   );
@@ -2481,6 +2512,15 @@ function ft_permissions_user_default_permissions() {
     'module' => 'actions_permissions',
   );
 
+  // Exported permission: 'execute php code'.
+  $permissions['execute php code'] = array(
+    'name' => 'execute php code',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'devel',
+  );
+
   // Exported permission: 'execute system_block_ip_action'.
   $permissions['execute system_block_ip_action'] = array(
     'name' => 'execute system_block_ip_action',
@@ -2641,14 +2681,34 @@ function ft_permissions_user_default_permissions() {
     'module' => 'actions_permissions',
   );
 
-  // Exported permission: 'filter private messages'.
-  $permissions['filter private messages'] = array(
-    'name' => 'filter private messages',
+  // Exported permission: 'export nodes'.
+  $permissions['export nodes'] = array(
+    'name' => 'export nodes',
     'roles' => array(
       'administrator' => 'administrator',
+    ),
+    'module' => 'node_export',
+  );
+
+  // Exported permission: 'export own nodes'.
+  $permissions['export own nodes'] = array(
+    'name' => 'export own nodes',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'node_export',
+  );
+
+  // Exported permission: 'flag my_contacts'.
+  $permissions['flag my_contacts'] = array(
+    'name' => 'flag my_contacts',
+    'roles' => array(
+      'authenticated user' => 'authenticated user',
+      'business' => 'business',
+      'business preview' => 'business preview',
       'webmaster' => 'webmaster',
     ),
-    'module' => 'privatemsg_filter',
+    'module' => 'flag',
   );
 
   // Exported permission: 'flag my_selection'.
@@ -2659,24 +2719,6 @@ function ft_permissions_user_default_permissions() {
       'expert' => 'expert',
       'expert preview' => 'expert preview',
       'webmaster' => 'webmaster',
-    ),
-    'module' => 'flag',
-  );
-
-  // Exported permission: 'flag winner_challenge'.
-  $permissions['flag winner_challenge'] = array(
-    'name' => 'flag winner_challenge',
-    'roles' => array(
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'flag',
-  );
-
-  // Exported permission: 'flag winner_question1'.
-  $permissions['flag winner_question1'] = array(
-    'name' => 'flag winner_question1',
-    'roles' => array(
-      'authenticated user' => 'authenticated user',
     ),
     'module' => 'flag',
   );
@@ -3101,30 +3143,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'fivestar',
   );
 
-  // Exported permission: 'read all private messages'.
-  $permissions['read all private messages'] = array(
-    'name' => 'read all private messages',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'business' => 'business',
-      'business preview' => 'business preview',
-      'expert' => 'expert',
-      'expert preview' => 'expert preview',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'privatemsg',
-  );
-
-  // Exported permission: 'read privatemsg'.
-  $permissions['read privatemsg'] = array(
-    'name' => 'read privatemsg',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'privatemsg',
-  );
-
   // Exported permission: 'rename features'.
   $permissions['rename features'] = array(
     'name' => 'rename features',
@@ -3132,24 +3150,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'features',
-  );
-
-  // Exported permission: 'reply only privatemsg'.
-  $permissions['reply only privatemsg'] = array(
-    'name' => 'reply only privatemsg',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
-      'référent' => 'référent',
-    ),
-    'module' => 'privatemsg',
-  );
-
-  // Exported permission: 'report private messages to mollom'.
-  $permissions['report private messages to mollom'] = array(
-    'name' => 'report private messages to mollom',
-    'roles' => array(),
-    'module' => 'privatemsg',
   );
 
   // Exported permission: 'restore from backup'.
@@ -3223,14 +3223,14 @@ function ft_permissions_user_default_permissions() {
     'module' => 'user',
   );
 
-  // Exported permission: 'select text format for privatemsg'.
-  $permissions['select text format for privatemsg'] = array(
-    'name' => 'select text format for privatemsg',
+  // Exported permission: 'select different theme'.
+  $permissions['select different theme'] = array(
+    'name' => 'select different theme',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
+      'authenticated user' => 'authenticated user',
     ),
-    'module' => 'privatemsg',
+    'module' => 'switchtheme',
   );
 
   // Exported permission: 'skip comment approval'.
@@ -3256,14 +3256,24 @@ function ft_permissions_user_default_permissions() {
     'module' => 'shortcut',
   );
 
-  // Exported permission: 'tag private messages'.
-  $permissions['tag private messages'] = array(
-    'name' => 'tag private messages',
+  // Exported permission: 'switch theme'.
+  $permissions['switch theme'] = array(
+    'name' => 'switch theme',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
+      'authenticated user' => 'authenticated user',
     ),
-    'module' => 'privatemsg_filter',
+    'module' => 'switchtheme',
+  );
+
+  // Exported permission: 'switch users'.
+  $permissions['switch users'] = array(
+    'name' => 'switch users',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'devel',
   );
 
   // Exported permission: 'toggle field translatability'.
@@ -3336,16 +3346,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'entity_translation',
   );
 
-  // Exported permission: 'translate user entities'.
-  $permissions['translate user entities'] = array(
-    'name' => 'translate user entities',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'entity_translation',
-  );
-
   // Exported permission: 'translate user-defined strings'.
   $permissions['translate user-defined strings'] = array(
     'name' => 'translate user-defined strings',
@@ -3356,6 +3356,15 @@ function ft_permissions_user_default_permissions() {
     'module' => 'i18n_string',
   );
 
+  // Exported permission: 'unflag my_contacts'.
+  $permissions['unflag my_contacts'] = array(
+    'name' => 'unflag my_contacts',
+    'roles' => array(
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'flag',
+  );
+
   // Exported permission: 'unflag my_selection'.
   $permissions['unflag my_selection'] = array(
     'name' => 'unflag my_selection',
@@ -3364,24 +3373,6 @@ function ft_permissions_user_default_permissions() {
       'expert' => 'expert',
       'expert preview' => 'expert preview',
       'webmaster' => 'webmaster',
-    ),
-    'module' => 'flag',
-  );
-
-  // Exported permission: 'unflag winner_challenge'.
-  $permissions['unflag winner_challenge'] = array(
-    'name' => 'unflag winner_challenge',
-    'roles' => array(
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'flag',
-  );
-
-  // Exported permission: 'unflag winner_question1'.
-  $permissions['unflag winner_question1'] = array(
-    'name' => 'unflag winner_question1',
-    'roles' => array(
-      'authenticated user' => 'authenticated user',
     ),
     'module' => 'flag',
   );
@@ -3548,6 +3539,15 @@ function ft_permissions_user_default_permissions() {
     'module' => 'piwik',
   );
 
+  // Exported permission: 'use PHP to import nodes'.
+  $permissions['use PHP to import nodes'] = array(
+    'name' => 'use PHP to import nodes',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'node_export',
+  );
+
   // Exported permission: 'use advanced search'.
   $permissions['use advanced search'] = array(
     'name' => 'use advanced search',
@@ -3636,25 +3636,16 @@ function ft_permissions_user_default_permissions() {
     'module' => 'page_manager',
   );
 
-  // Exported permission: 'use tokens in privatemsg'.
-  $permissions['use tokens in privatemsg'] = array(
-    'name' => 'use tokens in privatemsg',
+  // Exported permission: 'use points'.
+  $permissions['use points'] = array(
+    'name' => 'use points',
     'roles' => array(
       'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
+      'business' => 'business',
+      'expert' => 'expert',
+      'webmaster' => 'webmaster',
     ),
-    'module' => 'privatemsg',
-  );
-
-  // Exported permission: 'view field_picto'.
-  $permissions['view field_picto'] = array(
-    'name' => 'view field_picto',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'field_permissions',
+    'module' => 'emh_points',
   );
 
   // Exported permission: 'view field_referent'.
@@ -3691,15 +3682,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'media',
   );
 
-  // Exported permission: 'view own field_picto'.
-  $permissions['view own field_picto'] = array(
-    'name' => 'view own field_picto',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'field_permissions',
-  );
-
   // Exported permission: 'view own field_referent'.
   $permissions['view own field_referent'] = array(
     'name' => 'view own field_referent',
@@ -3733,16 +3715,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'view roles recipients'.
-  $permissions['view roles recipients'] = array(
-    'name' => 'view roles recipients',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'privatemsg_roles',
-  );
-
   // Exported permission: 'view scheduled content'.
   $permissions['view scheduled content'] = array(
     'name' => 'view scheduled content',
@@ -3772,81 +3744,6 @@ function ft_permissions_user_default_permissions() {
       'référent' => 'référent',
     ),
     'module' => 'poll',
-  );
-
-  // Exported permission: 'write privatemsg'.
-  $permissions['write privatemsg'] = array(
-    'name' => 'write privatemsg',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-      'référent' => 'référent',
-    ),
-    'module' => 'privatemsg',
-  );
-
-  // Exported permission: 'write privatemsg to all roles'.
-  $permissions['write privatemsg to all roles'] = array(
-    'name' => 'write privatemsg to all roles',
-    'roles' => array(),
-    'module' => 'privatemsg_roles',
-  );
-
-  // Exported permission: 'write privatemsg to role administrator'.
-  $permissions['write privatemsg to role administrator'] = array(
-    'name' => 'write privatemsg to role administrator',
-    'roles' => array(),
-    'module' => 'privatemsg_roles',
-  );
-
-  // Exported permission: 'write privatemsg to role authenticated user'.
-  $permissions['write privatemsg to role authenticated user'] = array(
-    'name' => 'write privatemsg to role authenticated user',
-    'roles' => array(),
-    'module' => 'privatemsg_roles',
-  );
-
-  // Exported permission: 'write privatemsg to role business'.
-  $permissions['write privatemsg to role business'] = array(
-    'name' => 'write privatemsg to role business',
-    'roles' => array(),
-    'module' => 'privatemsg_roles',
-  );
-
-  // Exported permission: 'write privatemsg to role business preview'.
-  $permissions['write privatemsg to role business preview'] = array(
-    'name' => 'write privatemsg to role business preview',
-    'roles' => array(),
-    'module' => 'privatemsg_roles',
-  );
-
-  // Exported permission: 'write privatemsg to role expert'.
-  $permissions['write privatemsg to role expert'] = array(
-    'name' => 'write privatemsg to role expert',
-    'roles' => array(),
-    'module' => 'privatemsg_roles',
-  );
-
-  // Exported permission: 'write privatemsg to role expert preview'.
-  $permissions['write privatemsg to role expert preview'] = array(
-    'name' => 'write privatemsg to role expert preview',
-    'roles' => array(),
-    'module' => 'privatemsg_roles',
-  );
-
-  // Exported permission: 'write privatemsg to role référent'.
-  $permissions['write privatemsg to role référent'] = array(
-    'name' => 'write privatemsg to role référent',
-    'roles' => array(),
-    'module' => 'privatemsg_roles',
-  );
-
-  // Exported permission: 'write privatemsg to role webmaster'.
-  $permissions['write privatemsg to role webmaster'] = array(
-    'name' => 'write privatemsg to role webmaster',
-    'roles' => array(),
-    'module' => 'privatemsg_roles',
   );
 
   return $permissions;

@@ -9,7 +9,6 @@ function emindhub_preprocess_node(&$variables, $hook) {
 	}
 }
 
-
 function emindhub_preprocess_node__challenge(&$variables) {
 	node_informations_add($variables);
 }
@@ -21,7 +20,6 @@ function emindhub_preprocess_node__challenge(&$variables) {
 function emindhub_preprocess_node__question1(&$variables) {
 	node_informations_add($variables);
 }
-
 
 function emindhub_preprocess_node__webform(&$variables) {
 	node_informations_add($variables);
@@ -37,11 +35,9 @@ function node_informations_add(&$variables) {
 	$variables['linkPrev'] = '';
 	$variables['linkNext'] = '';
 	// echo '<pre>' . print_r($variables['elements']['links']['views_navigation']['#links']['back'], TRUE) . '</pre>';
-	if (!empty($variables['elements']['links']['views_navigation'])) {
-		$variables['linkBack'] = $variables['elements']['links']['views_navigation']['#links']['back'];
-		$variables['linkPrev'] = $variables['elements']['links']['views_navigation']['#links']['previous'];
-		$variables['linkNext'] = $variables['elements']['links']['views_navigation']['#links']['next'];
-	}
+	if (!empty($variables['elements']['links']['views_navigation']['#links']['back'])) $variables['linkBack'] = $variables['elements']['links']['views_navigation']['#links']['back'];
+	if (!empty($variables['elements']['links']['views_navigation']['#links']['previous'])) $variables['linkPrev'] = $variables['elements']['links']['views_navigation']['#links']['previous'];
+	if (!empty($variables['elements']['links']['views_navigation']['#links']['next'])) $variables['linkNext'] = $variables['elements']['links']['views_navigation']['#links']['next'];
 
 	// User profile infos
 	$variables['company_name'] = '';

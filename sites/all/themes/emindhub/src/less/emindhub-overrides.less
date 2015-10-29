@@ -156,6 +156,7 @@ input#autocomplete-deluxe-input {
 .btn {
 	.text-uppercase;
 	font-weight: 700;
+	margin-right: 5px;
 }
 
 
@@ -171,7 +172,7 @@ span.form-required {
 // Textarea
 body.page-user-edit {
 	.form-textarea-wrapper.resizable-textarea {
-		max-width: 500px;
+		// max-width: 500px;
 	}
 }
 
@@ -195,8 +196,21 @@ body.page-node-edit {
 		.make-row();
 
 		> * {
-			.make-sm-column(6);
+			.make-sm-column(3);
 			padding: 0 15px; // views.css
+		}
+		> #edit-type-wrapper {
+			.make-sm-column(4);
+			.bef-select-as-checkboxes .bef-checkboxes {
+		    width: 100%;
+			}
+		}
+		> .views-submit-button,
+		> .views-reset-button {
+			.make-sm-column(1);
+			@media screen and (min-width: @screen-sm-min) {
+				margin-top: 24px;
+			}
 		}
 	}
 	.views-exposed-widget {

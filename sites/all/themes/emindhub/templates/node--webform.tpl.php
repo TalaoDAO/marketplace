@@ -107,11 +107,9 @@
 
 		<div class="row section">
 
-			<?php if ( emh_access_user_name( $node ) == TRUE || emh_access_user_company( $node ) == TRUE ) : ?>
 			<div class="col-sm-3">
 				<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/userInformations.tpl.php'; ?>
 			</div>
-			<?php endif; ?>
 
 			<?php if ( isset($content['field_domaine']) || isset($content['field_tags']) ) : ?>
       <div class="col-sm-3">
@@ -204,15 +202,15 @@
 			hide($content['links']);
 			// print render($content);
 		?>
-
-		<?php if ($content['webform']['#node']->webform['components']) : ?>
-			<div id="comments" class="<?php print $classes; ?> row section emh-fieldgroup-blue-title"<?php print $attributes; ?>>
-		    <h2 class="h3"><span><?php print t('Answer the survey') ?></span></h2>
-		    <div class="field-group-div">
-		      <?php print render($content['webform']); ?>
-		    </div>
-			</div>
-		<?php endif; ?>
+		
+		<?php if ($node->webform['status'] != 0) : ?>
+		<div id="comments" class="<?php print $classes; ?> row section emh-fieldgroup-blue-title"<?php print $attributes; ?>>
+	    <h2 class="h3"><span><?php print t('Answer the survey') ?></span></h2>
+	    <div class="field-group-div">
+	      <?php print render($content['webform']); ?>
+	    </div>
+		</div>
+	<?php endif; ?>
 	</div>
 
 </div>

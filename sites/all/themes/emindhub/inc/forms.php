@@ -1,181 +1,5 @@
 <?php
 
-// LTH : add bootstrap class to field markup
-function emindhub_form_element($variables) {
-  $element = &$variables ['element'];
-  // echo '<pre>' . print $element['#name'] . '</pre>';
-  // if ($element['#name'] == 'current_pass') {
-  //   echo 'BAM'; die;
-  // }
-
-  // This function is invoked as theme wrapper, but the rendered form element
-  // may not necessarily have been processed by form_builder().
-  $element += array(
-	  '#title_display' => 'before',
-  );
-
-  // Add element #id for #type 'item'.
-  if (isset($element ['#markup']) && !empty($element ['#id'])) {
-	  $attributes ['id'] = $element ['#id'];
-  }
-  // Add element's #type and #name as class to aid with JS/CSS selectors.
-  // $attributes ['class'] = array('form-item');
-  $attributes ['class'] = array('form-group');
-  if (!empty($element ['#type'])) {
-	  $attributes ['class'][] = 'form-type-' . strtr($element ['#type'], '_', '-');
-  }
-  if (!empty($element ['#name'])) {
-	  $attributes ['class'][] = 'form-item-' . strtr($element ['#name'], array(' ' => '-', '_' => '-', '[' => '-', ']' => ''));
-  }
-  // Add a class for disabled elements to facilitate cross-browser styling.
-  if (!empty($element ['#attributes']['disabled'])) {
-	  $attributes ['class'][] = 'form-disabled';
-  }
-  $output = '<div' . drupal_attributes($attributes) . '>' . "\n";
-
-  // If #title is not set, we don't display any label or required marker.
-  if (!isset($element ['#title'])) {
-	  $element ['#title_display'] = 'none';
-  }
-  $prefix = isset($element ['#field_prefix']) ? '<span class="field-prefix">' . $element ['#field_prefix'] . '</span> ' : '';
-  $suffix = isset($element ['#field_suffix']) ? ' <span class="field-suffix">' . $element ['#field_suffix'] . '</span>' : '';
-
-  $description = '';
-  if (!empty($element ['#description'])) {
-  	// LTH : use Bootstrap badge + tooltip for field description
-  	// $description .= $element ["#description"];
-    $description .= '<span class="badge help-tip" data-toggle="tooltip" data-placement="bottom" data-html="true" title="' . $element ["#description"] . '">?</span>';
-  }
-
-  switch ($element ['#title_display']) {
-	case 'before':
-	case 'invisible':
-	  $output .= ' ' . theme('form_element_label', $variables);
-	  $output .= ' ' . $description; // LTH
-	  $output .= ' ' . $prefix . $element ['#children'] . $suffix . "\n";
-	  break;
-
-	case 'after':
-	  $output .= ' ' . $prefix . $element ['#children'] . $suffix;
-	  $output .= ' ' . theme('form_element_label', $variables) . "\n";
-	  $output .= ' ' . $description; // LTH
-	  break;
-
-	case 'none':
-	case 'attribute':
-	  // Output no label and no required marker, only the children.
-	  $output .= ' ' . $description; // LTH
-	  $output .= ' ' . $prefix . $element ['#children'] . $suffix . "\n";
-	  break;
-  }
-
-  $output .= "</div>\n";
-
-  return $output;
-}
-
-
-/**
- * Display the text associated with a static star display.
- *
- * Note that passing in explicit data types is extremely important when using
- * this function. A NULL value will exclude the value entirely from display,
- * while a 0 value indicates that the text should be shown but it has no value
- * yet.
- *
- * All ratings are from 0 to 100.
- *
- * @param $user_rating
- *   The current user's rating.
- * @param $average
- *   The average rating.
- * @param $votes
- *   The total number of votes.
- * @param $stars
- *   The number of stars being displayed.
- * @return
- *   A themed HTML string representing the star widget.
- */
-function emindhub_fivestar_summary($variables) {
-  $microdata = $variables['microdata'];
-  extract($variables, EXTR_SKIP);
-  $output = '';
-  $div_class = '';
-  $average_rating_microdata = '';
-  $rating_count_microdata = '';
-  if (isset($user_rating)) {
-    $div_class = isset($votes) ? 'user-count' : 'user';
-    $user_stars = round(($user_rating * $stars) / 100, 1);
-    $output .= '<span class=\'user-rating\'>' . t('Your rating: <span>!stars</span>', array('!stars' => $user_rating ? $user_stars : t('None'))) . '</span>';
-  }
-  if (isset($user_rating) && isset($average_rating)) {
-    $output .= ' ';
-  }
-  if (isset($average_rating)) {
-    if (isset($user_rating)) {
-      $div_class = 'combo';
-    }
-    else {
-      $div_class = isset($votes) ? 'average-count' : 'average';
-    }
-
-    $average_stars = round(($average_rating * $stars) / 100, 1);
-    if (!empty($microdata['average_rating']['#attributes'])) {
-      $average_rating_microdata = drupal_attributes($microdata['average_rating']['#attributes']);
-    }
-    $output .= '<span class=\'average-rating\'>' . t('Average: !stars',
-      array('!stars' => "<span $average_rating_microdata>$average_stars</span>")) . '</span>';
-  }
-
-  if (isset($votes)) {
-    if (!isset($user_rating) && !isset($average_rating)) {
-      $div_class = 'count';
-    }
-    if ($votes === 0) {
-      $output = '<span class=\'empty\'>'. t('No votes yet') .'</span>';
-    }
-    else {
-      if (!empty($microdata['rating_count']['#attributes'])) {
-        $rating_count_microdata = drupal_attributes($microdata['rating_count']['#attributes']);
-      }
-      // We don't directly substitute $votes (i.e. use '@count') in format_plural,
-      // because it has a span around it which is not translatable.
-      $votes_str = format_plural($votes, '!cnt vote', '!cnt votes', array(
-        '!cnt' => '<span ' . $rating_count_microdata . '>' . intval($votes) . '</span>'));
-      if (isset($user_rating) || isset($average_rating)) {
-        $output .= ' <span class=\'total-votes\'>(' . $votes_str . ')</span>';
-      }
-      else {
-        $output .= ' <span class=\'total-votes\'>' . $votes_str . '</span>';
-      }
-    }
-  }
-
-  $output = '<div class=\'fivestar-summary fivestar-summary-' . $div_class . '\'>' . $output . '</div>';
-  // We hide public profile legend : there's only one vote, user's one
-  // return $output;
-}
-
-
-// WYSIWYG : Cacher les types de format, peut-être trop ??
-// function emindhub_element_info_alter(&$type) {
-//   // if ( !isAdminUser() || !isWebmasterUser() ) {
-//   	if (isset($type['text_format']['#process'])) {
-//   		foreach ($type['text_format']['#process'] as &$callback) {
-//   			if ($callback === 'filter_process_format') {
-//   				$callback = 'emindhub_process_format';
-//   			}
-//   		}
-//   	}
-//   // }
-// }
-
-
-function emindhub_date_combo($variables) {
-  // Retourne le champ date de manière simplifiée
-  return theme('form_element', $variables);
-}
-
 
 function emindhub_process_format($element) {
 	// array of field names to restrict (add more here as needed)
@@ -208,12 +32,15 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
   foreach (
 	array(
 	  'cancel',
+		'goback',
 	  'delete',
 	  'preview_changes',
 	  'draft',
 	  'preview',
 	  'submit',
+		'see',
 	) as $action ) {
+		$form['actions'][$action]['#attributes']['class'][] = 'btn';
 	  $form['actions'][$action]['#weight'] = $i++;
 	}
 
@@ -254,7 +81,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
 function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
-  // echo '<pre>' . print_r($form['field_address']['und'][0], TRUE) . '</pre>';
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
 
   $element_info = element_info('password_confirm');
   $process = $element_info['#process'];
@@ -264,7 +91,7 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   // Add class to fieldset
   // $form['#groups']['group_complement']->format_settings['instance_settings']['classes'] .= ' form-group-2col';
 
-  // Add class before & after fields
+  // Profile
   $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_last_name']['#suffix'] = '</div>';
 
@@ -276,6 +103,7 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   unset($form['account']['current_pass_required_values']);
   $form['#validate'] = array_diff($form['#validate'], array('user_validate_current_pass'));
 
+  // Contact
   $form['field_address']['und'][0]['#type'] = 'div';
   $form['field_address']['und'][0]['street_block']['thoroughfare']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_address']['und'][0]['street_block']['premise']['#suffix'] = '</div>';
@@ -283,40 +111,47 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $form['field_address']['und'][0]['locality_block']['postal_code']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_address']['und'][0]['locality_block']['locality']['#suffix'] = '</div>';
 
-  $form['field_working_status']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_position']['#suffix'] = '</div>';
+  $form['field_telephone']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_link_to_my_blog']['#suffix'] = '</div>';
 
-  $form['field_employment_history']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_other_areas']['#suffix'] = '</div>';
+  // Organisation
+  $form['field_position']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_working_status']['#suffix'] = '</div>';
 
-  $form['field_sponsorship']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_sponsor1']['#suffix'] = '</div>';
+  // Needs
+  $form['field_needs_for_expertise']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_needs_for_expertise']['und']['#title'] = $form['field_needs_for_expertise']['und']['#title'] . ' ' . t('(choose one or several fields)');
+  $form['field_specific_skills3']['und']['#title'] = $form['field_specific_skills3']['und']['#title'] . ' ' . t('(using keywords or tags)');
+  $form['field_specific_skills3']['#suffix'] = '</div>';
 
+  // Skills & background
   $form['field_titre_metier']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_domaine']['#suffix'] = '</div>';
 
+  // Sponsorship
+  $form['field_sponsorship']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_sponsor1']['#suffix'] = '</div>';
+
+  // Complement
   $form['field_notification_frequency']['#prefix'] = '<div class="form-group-2col row">';
+	global $user;
+	if (in_array('business', array_values($user->roles)) || in_array('business preview', array_values($user->roles))) {
+		// print 'business';
+		$form['field_notification_frequency']['und']['#description'] = t('How often do you want to receive eMindHub\'s notifications about new answers to your requests ?');
+	}
+	if (in_array('expert', array_values($user->roles)) || in_array('expert preview', array_values($user->roles))) {
+		$form['field_notification_frequency']['und']['#description'] = t('How often do you want to receive eMindHub\'s notifications about new requests ?');
+	}
   $form['field_known_specific']['#suffix'] = '</div>';
 
   $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
 
+  // FIXME : fait buguer la prévisualisation des portraits
   // $form['field_photo']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
   $form['field_cv']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
 
-  // echo '<pre>' . print_r($form['account'], TRUE) . '</pre>';
-  // echo '<pre>' . print_r($form['field_cv'], TRUE) . '</pre>';
-  // echo '<pre>' . print_r($form['field_notification_frequency'], TRUE) . '</pre>';
-
 }
 
-function emindhub_my_file_element_process(&$element, &$form_state, $form) {
-  $element = file_managed_file_process($element, $form_state, $form);
-
-  $element['upload_button']['#attributes']['class'][] = 'btn-info';
-  // $element['upload_button']['#access'] = FALSE;
-  // echo '<pre>' . print_r($element, TRUE) . '</pre>';
-  return $element;
-}
 
 function emindhub_form_process_password_confirm($element) {
 
@@ -420,17 +255,7 @@ function emindhub_form_user_register_form_alter(&$form, &$form_state, $form_id) 
 
   $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
 
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>'; die;
-}
-
-
-// Bootstrap compliance : design select
-function emindhub_preprocess_select_as_checkboxes(&$variables) {
-  $element = &$variables['element'];
-  // Remove form-control class added to original "select" element
-  if (($key = array_search('form-control', $element['#attributes']['class'])) !== false) {
-    unset($element['#attributes']['class'][$key]);
-  }
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
 }
 
 
@@ -443,4 +268,17 @@ function emindhub_form_comment_form_alter(&$form, &$form_state, $form_id) {
 
   return $form;
 
+}
+
+
+function emindhub_views_bulk_operations_form_alter(&$form) {
+  // Only when we want it.
+  $view = arg(2);
+  if (!empty($view) && ($view == 'answers' || $view == 'survey-answers')) {
+    $form['select']['action::emh_points_arrange_node_points']['#attributes']['class'][] = 'btn-submit';
+  }
+}
+
+function emindhub_form_emh_points_arrange_form_alter(&$form, &$form_state, $type_source) {
+  $form['submit']['#attributes']['class'][] = 'btn-submit';
 }
