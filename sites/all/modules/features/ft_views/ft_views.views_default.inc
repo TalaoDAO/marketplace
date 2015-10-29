@@ -2640,7 +2640,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Content: Groups audience */
+  /* Field: Content: Choose circle of experts */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
@@ -3343,7 +3343,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Content: Groups audience */
+  /* Field: Content: Choose circle of experts */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
@@ -3386,6 +3386,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['webform_submission_count_node']['table'] = 'node';
   $handler->display->display_options['fields']['webform_submission_count_node']['field'] = 'webform_submission_count_node';
   $handler->display->display_options['fields']['webform_submission_count_node']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['webform_submission_count_node']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['webform_submission_count_node']['empty'] = '0';
   /* Field: Views: Views Conditional */
   $handler->display->display_options['fields']['views_conditional']['id'] = 'views_conditional';
@@ -3562,7 +3563,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['status']['type_custom_true'] = 'Published';
   $handler->display->display_options['fields']['status']['type_custom_false'] = 'Draft';
   $handler->display->display_options['fields']['status']['not'] = 0;
-  /* Field: Content: Groups audience */
+  /* Field: Content: Choose circle of experts */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
@@ -3605,6 +3606,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['webform_submission_count_node']['table'] = 'node';
   $handler->display->display_options['fields']['webform_submission_count_node']['field'] = 'webform_submission_count_node';
   $handler->display->display_options['fields']['webform_submission_count_node']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['webform_submission_count_node']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['webform_submission_count_node']['empty'] = '0';
   /* Field: Views: Views Conditional */
   $handler->display->display_options['fields']['views_conditional']['id'] = 'views_conditional';
