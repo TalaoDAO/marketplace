@@ -1,21 +1,45 @@
 table#webform-components {
-  thead {
-    tr {
-      th {
-        &:nth-child(2),
-        &:nth-child(3),
-        &:nth-child(4) {
-          .text-hide;
-          display: none;
-        }
-      }
+	thead {
+		tr {
+			th {
+				&:nth-child(2),
+				&:nth-child(3),
+				&:nth-child(4),
+				&:nth-child(5) {
+					.text-hide;
+					display: none;
+				}
+			}
+		}
+	}
+	.webform-component-formkey,
+	.webform-component-type,
+	.webform-component-value,
+	.webform-component-required,
+	.webform-component-clone {
+		.text-hide;
+		display: none;
+	}
+	.webform-component-add,
+	.webform-component-edit,
+	.webform-component-delete {
+		width: 100px;
+    .text-center;
+	}
+	.webform-component-edit,
+	.webform-component-delete {
+		 a {
+			 .btn;
+		 }
+	 }
+	.webform-component-edit {
+    a {
+      .btn-default;
     }
-  }
-  .webform-component-type,
-  .webform-component-value,
-  .webform-component-required,
-  .webform-component-clone {
-    .text-hide;
-    display: none;
-  }
+	 }
+	.webform-component-delete {
+    a {
+      .btn-danger;
+    }
+	}
 }

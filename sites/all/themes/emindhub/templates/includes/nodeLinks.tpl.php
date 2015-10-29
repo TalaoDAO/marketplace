@@ -14,13 +14,13 @@
 
       <?php if (function_exists('webform_get_submission_count')) : ?>
       <?php if (webform_get_submission_count($node->nid) > 0) : ?>
-      <li class="submissions_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/survey-answers"><?php print t('Select best answers'); ?></a>
+      <li class="answers_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/survey-answers" class="btn btn-primary btn-submit"><?php print t('Select best answers'); ?></a>
       </li>
       <?php endif; ?>
       <?php endif; ?>
 
       <?php if ($comment_count > 0) : ?>
-      <li class="comments_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/answers" class="btn btn-primary"><?php print t('Select best answers'); ?></a>
+      <li class="answers_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/answers" class="btn btn-primary btn-submit"><?php print t('Select best answers'); ?></a>
       </li>
       <?php endif; ?>
 
