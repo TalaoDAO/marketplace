@@ -71,6 +71,7 @@ features[fe_block_settings][] = views-my_responses_questions1-block
 features[fe_block_settings][] = views-news_thread-block
 features[fe_block_settings][] = views-og_members-block_1
 features[fe_block_settings][] = views-query_list-block
+features[fe_block_settings][] = views-query_list-block_1
 features[fe_block_settings][] = views-sponsors-partners_block
 features[fe_block_settings][] = views-sponsors-sponsors_block
 features[fe_block_settings][] = views-users_list-block_2
