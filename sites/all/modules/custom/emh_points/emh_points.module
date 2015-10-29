@@ -1019,6 +1019,7 @@ function emh_points_get_comment_points($cid) {
  * Views handler helper.
  */
 function emh_points_get_webform_submission_points($sid) {
+  module_load_include('inc', 'webform', 'includes/webform.submissions');
   $submissions = webform_get_submissions(array('sid' => $sid));
   $submission = reset($submissions);
   if (empty($submission)) {

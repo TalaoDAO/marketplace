@@ -44,17 +44,17 @@ function node_informations_add(&$variables) {
 	$variables['company_description'] = '';
 	$variables['user_name'] = '';
 
-	if (isset($variables['elements']['body'])) {
+	if (!empty($variables['elements']['body'])) {
 		$user = user_load_by_name($variables['elements']['body']['#object']->name);
 		$account = user_load($user->uid);
 
 		if ($account) {
 			$firstName = '';
-			if (isset($account->field_first_name[LANGUAGE_NONE]) && $account->field_first_name[LANGUAGE_NONE]) {
+			if (!empty($account->field_first_name[LANGUAGE_NONE])) {
 				$firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
 			}
 			$lastName = '';
-			if (isset($account->field_last_name[LANGUAGE_NONE]) && $account->field_last_name[LANGUAGE_NONE]) {
+			if (!empty($account->field_last_name[LANGUAGE_NONE])) {
 				$lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
 			}
 			$variables['user_name'] = $lastName . '&nbsp;' . $firstName;

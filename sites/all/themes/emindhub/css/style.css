@@ -12606,6 +12606,63 @@ fieldset[disabled] .list-inline > li > a.focus {
   color: transparent;
   background-color: #4c6172;
 }
+.list-inline > li.answers_link > a {
+  color: #ffffff;
+  background-color: #009fe3;
+  border-color: #008dca;
+}
+.list-inline > li.answers_link > a:focus,
+.list-inline > li.answers_link > a.focus {
+  color: #ffffff;
+  background-color: #007bb0;
+  border-color: #00344a;
+}
+.list-inline > li.answers_link > a:hover {
+  color: #ffffff;
+  background-color: #007bb0;
+  border-color: #00628c;
+}
+.list-inline > li.answers_link > a:active,
+.list-inline > li.answers_link > a.active,
+.open > .dropdown-toggle.list-inline > li.answers_link > a {
+  color: #ffffff;
+  background-color: #007bb0;
+  border-color: #00628c;
+}
+.list-inline > li.answers_link > a:active:hover,
+.list-inline > li.answers_link > a.active:hover,
+.open > .dropdown-toggle.list-inline > li.answers_link > a:hover,
+.list-inline > li.answers_link > a:active:focus,
+.list-inline > li.answers_link > a.active:focus,
+.open > .dropdown-toggle.list-inline > li.answers_link > a:focus,
+.list-inline > li.answers_link > a:active.focus,
+.list-inline > li.answers_link > a.active.focus,
+.open > .dropdown-toggle.list-inline > li.answers_link > a.focus {
+  color: #ffffff;
+  background-color: #00628c;
+  border-color: #00344a;
+}
+.list-inline > li.answers_link > a:active,
+.list-inline > li.answers_link > a.active,
+.open > .dropdown-toggle.list-inline > li.answers_link > a {
+  background-image: none;
+}
+.list-inline > li.answers_link > a.disabled:hover,
+.list-inline > li.answers_link > a[disabled]:hover,
+fieldset[disabled] .list-inline > li.answers_link > a:hover,
+.list-inline > li.answers_link > a.disabled:focus,
+.list-inline > li.answers_link > a[disabled]:focus,
+fieldset[disabled] .list-inline > li.answers_link > a:focus,
+.list-inline > li.answers_link > a.disabled.focus,
+.list-inline > li.answers_link > a[disabled].focus,
+fieldset[disabled] .list-inline > li.answers_link > a.focus {
+  background-color: #009fe3;
+  border-color: #008dca;
+}
+.list-inline > li.answers_link > a .badge {
+  color: #009fe3;
+  background-color: #ffffff;
+}
 .list-inline > li.comment-delete > a {
   color: #d9534f;
   background-color: #ffffff;
@@ -13521,7 +13578,10 @@ a.flag .badge {
   background-color: transparent;
   border: 0;
 }
-.comment .content > div {
+#comments .indented {
+  margin-left: 25px;
+}
+#comments .comment .content > div {
   padding: 15px 0;
 }
 .section.actions ul.links {
@@ -14444,20 +14504,8 @@ aside .block .content {
 .view-query-list td.views-field-type.challenge a::before {
   background-image: url("../images/picto/picto_challenge_small.png");
 }
-.view-query-list .views-field-created {
-  text-align: center;
-}
-.view-query-list .views-field-field-expiration-date {
-  text-align: center;
-}
-.view-query-list .views-field-field-reward {
-  text-align: right;
-}
 .view-query-list .views-field-views-conditional,
 .view-query-list .views-field-nothing {
-  text-align: right;
-}
-.view-query-list .views-field-expression {
   text-align: right;
 }
 #block-progress-tracker-progress-tracker .block-title {
@@ -14576,6 +14624,35 @@ aside .block .content {
   padding-top: 115px;
   margin-top: 15px;
   background: transparent url("../images/logo/eMindHub_Aerospace_logo.png") no-repeat center top;
+}
+.views-field-created,
+.views-field-field-expiration-date,
+.views-field-changed,
+.views-field-submitted {
+  text-align: center;
+  width: 130px;
+}
+.views-field-title {
+  width: 220px;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  /* pour Opera 9 */
+  text-overflow: ellipsis;
+  /* pour le reste du monde */
+}
+.views-field-uid,
+.view-my-responses-questions1 .views-field-nothing-1,
+.view-my-responses-challenge .views-field-nothing-1 {
+  width: 200px;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  /* pour Opera 9 */
+  text-overflow: ellipsis;
+  /* pour le reste du monde */
+}
+.views-field-field-reward,
+.views-field-emh-points {
+  text-align: right;
 }
 div.fivestar-widget-static .star {
   width: 21px;
@@ -16122,7 +16199,8 @@ form#webform-node-form #edit-field-expiration-date .form-type-textfield > label 
 }
 table#webform-components thead tr th:nth-child(2),
 table#webform-components thead tr th:nth-child(3),
-table#webform-components thead tr th:nth-child(4) {
+table#webform-components thead tr th:nth-child(4),
+table#webform-components thead tr th:nth-child(5) {
   font: 0/0 a;
   color: transparent;
   text-shadow: none;
@@ -16130,6 +16208,7 @@ table#webform-components thead tr th:nth-child(4) {
   border: 0;
   display: none;
 }
+table#webform-components .webform-component-formkey,
 table#webform-components .webform-component-type,
 table#webform-components .webform-component-value,
 table#webform-components .webform-component-required,
@@ -16140,6 +16219,204 @@ table#webform-components .webform-component-clone {
   background-color: transparent;
   border: 0;
   display: none;
+}
+table#webform-components .webform-component-add,
+table#webform-components .webform-component-edit,
+table#webform-components .webform-component-delete {
+  width: 100px;
+  text-align: center;
+}
+table#webform-components .webform-component-edit a,
+table#webform-components .webform-component-delete a {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-right: 5px;
+}
+table#webform-components .webform-component-edit a:focus,
+table#webform-components .webform-component-delete a:focus,
+table#webform-components .webform-component-edit a:active:focus,
+table#webform-components .webform-component-delete a:active:focus,
+table#webform-components .webform-component-edit a.active:focus,
+table#webform-components .webform-component-delete a.active:focus,
+table#webform-components .webform-component-edit a.focus,
+table#webform-components .webform-component-delete a.focus,
+table#webform-components .webform-component-edit a:active.focus,
+table#webform-components .webform-component-delete a:active.focus,
+table#webform-components .webform-component-edit a.active.focus,
+table#webform-components .webform-component-delete a.active.focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+table#webform-components .webform-component-edit a:hover,
+table#webform-components .webform-component-delete a:hover,
+table#webform-components .webform-component-edit a:focus,
+table#webform-components .webform-component-delete a:focus,
+table#webform-components .webform-component-edit a.focus,
+table#webform-components .webform-component-delete a.focus {
+  color: #4c6172;
+  text-decoration: none;
+}
+table#webform-components .webform-component-edit a:active,
+table#webform-components .webform-component-delete a:active,
+table#webform-components .webform-component-edit a.active,
+table#webform-components .webform-component-delete a.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+table#webform-components .webform-component-edit a.disabled,
+table#webform-components .webform-component-delete a.disabled,
+table#webform-components .webform-component-edit a[disabled],
+table#webform-components .webform-component-delete a[disabled],
+fieldset[disabled] table#webform-components .webform-component-edit a,
+fieldset[disabled] table#webform-components .webform-component-delete a {
+  cursor: not-allowed;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+atable#webform-components .webform-component-edit a.disabled,
+atable#webform-components .webform-component-delete a.disabled,
+fieldset[disabled] atable#webform-components .webform-component-edit a,
+fieldset[disabled] atable#webform-components .webform-component-delete a {
+  pointer-events: none;
+}
+table#webform-components .webform-component-edit a {
+  color: #4c6172;
+  background-color: transparent;
+  border-color: #f2f2f2;
+}
+table#webform-components .webform-component-edit a:focus,
+table#webform-components .webform-component-edit a.focus {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: #b3b3b3;
+}
+table#webform-components .webform-component-edit a:hover {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: #d4d4d4;
+}
+table#webform-components .webform-component-edit a:active,
+table#webform-components .webform-component-edit a.active,
+.open > .dropdown-toggletable#webform-components .webform-component-edit a {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: #d4d4d4;
+}
+table#webform-components .webform-component-edit a:active:hover,
+table#webform-components .webform-component-edit a.active:hover,
+.open > .dropdown-toggletable#webform-components .webform-component-edit a:hover,
+table#webform-components .webform-component-edit a:active:focus,
+table#webform-components .webform-component-edit a.active:focus,
+.open > .dropdown-toggletable#webform-components .webform-component-edit a:focus,
+table#webform-components .webform-component-edit a:active.focus,
+table#webform-components .webform-component-edit a.active.focus,
+.open > .dropdown-toggletable#webform-components .webform-component-edit a.focus {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: #b3b3b3;
+}
+table#webform-components .webform-component-edit a:active,
+table#webform-components .webform-component-edit a.active,
+.open > .dropdown-toggletable#webform-components .webform-component-edit a {
+  background-image: none;
+}
+table#webform-components .webform-component-edit a.disabled:hover,
+table#webform-components .webform-component-edit a[disabled]:hover,
+fieldset[disabled] table#webform-components .webform-component-edit a:hover,
+table#webform-components .webform-component-edit a.disabled:focus,
+table#webform-components .webform-component-edit a[disabled]:focus,
+fieldset[disabled] table#webform-components .webform-component-edit a:focus,
+table#webform-components .webform-component-edit a.disabled.focus,
+table#webform-components .webform-component-edit a[disabled].focus,
+fieldset[disabled] table#webform-components .webform-component-edit a.focus {
+  background-color: transparent;
+  border-color: #f2f2f2;
+}
+table#webform-components .webform-component-edit a .badge {
+  color: transparent;
+  background-color: #4c6172;
+}
+table#webform-components .webform-component-delete a {
+  color: #d9534f;
+  background-color: #ffffff;
+  border-color: #f2f2f2;
+}
+table#webform-components .webform-component-delete a:focus,
+table#webform-components .webform-component-delete a.focus {
+  color: #d9534f;
+  background-color: #e6e6e6;
+  border-color: #b3b3b3;
+}
+table#webform-components .webform-component-delete a:hover {
+  color: #d9534f;
+  background-color: #e6e6e6;
+  border-color: #d4d4d4;
+}
+table#webform-components .webform-component-delete a:active,
+table#webform-components .webform-component-delete a.active,
+.open > .dropdown-toggletable#webform-components .webform-component-delete a {
+  color: #d9534f;
+  background-color: #e6e6e6;
+  border-color: #d4d4d4;
+}
+table#webform-components .webform-component-delete a:active:hover,
+table#webform-components .webform-component-delete a.active:hover,
+.open > .dropdown-toggletable#webform-components .webform-component-delete a:hover,
+table#webform-components .webform-component-delete a:active:focus,
+table#webform-components .webform-component-delete a.active:focus,
+.open > .dropdown-toggletable#webform-components .webform-component-delete a:focus,
+table#webform-components .webform-component-delete a:active.focus,
+table#webform-components .webform-component-delete a.active.focus,
+.open > .dropdown-toggletable#webform-components .webform-component-delete a.focus {
+  color: #d9534f;
+  background-color: #d4d4d4;
+  border-color: #b3b3b3;
+}
+table#webform-components .webform-component-delete a:active,
+table#webform-components .webform-component-delete a.active,
+.open > .dropdown-toggletable#webform-components .webform-component-delete a {
+  background-image: none;
+}
+table#webform-components .webform-component-delete a.disabled:hover,
+table#webform-components .webform-component-delete a[disabled]:hover,
+fieldset[disabled] table#webform-components .webform-component-delete a:hover,
+table#webform-components .webform-component-delete a.disabled:focus,
+table#webform-components .webform-component-delete a[disabled]:focus,
+fieldset[disabled] table#webform-components .webform-component-delete a:focus,
+table#webform-components .webform-component-delete a.disabled.focus,
+table#webform-components .webform-component-delete a[disabled].focus,
+fieldset[disabled] table#webform-components .webform-component-delete a.focus {
+  background-color: #ffffff;
+  border-color: #f2f2f2;
+}
+table#webform-components .webform-component-delete a .badge {
+  color: #ffffff;
+  background-color: #d9534f;
 }
 .page-messages #maincol {
   margin-left: -15px;
