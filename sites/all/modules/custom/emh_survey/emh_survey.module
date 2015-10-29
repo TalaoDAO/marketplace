@@ -11,7 +11,6 @@ function emh_survey_form_alter(&$form, &$form_state, $form_id) {
   // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
 
 	if ((isset($form['#node']) && $form['#node']->type == 'webform')) {
-		$form['#node']->webform['submit_limit'] = 1;
 		$form['actions']['submit']['#value'] = t('Submit my answer');
   }
 
@@ -123,4 +122,13 @@ function emh_survey_form_webform_component_edit_form_alter(&$form, &$form_state,
 	$form['actions']['submit']['#value'] = t('Save your question');
 
 	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
+}
+
+/**
+ * Implements hook_node_defaults_alter().
+ */
+function emh_survey_webform_node_defaults_alter(&$defaults) {
+  $defaults['enforce_limit'] = 'yes';
+  $defaults['submit_limit'] = '1';
+  $defaults['submit_interval'] = '-1';
 }
