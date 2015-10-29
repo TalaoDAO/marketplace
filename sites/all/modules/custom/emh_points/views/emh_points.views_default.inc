@@ -1723,12 +1723,21 @@ function emh_points_views_default_views_alter(&$views) {
     $handler->display->display_options['arguments']['nid']['table'] = 'webform_submissions';
     $handler->display->display_options['arguments']['nid']['field'] = 'nid';
     $handler->display->display_options['arguments']['nid']['default_action'] = 'not found';
+    $handler->display->display_options['arguments']['nid']['title_enable'] = TRUE;
+    $handler->display->display_options['arguments']['nid']['title'] = '%1';
     $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'fixed';
     $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
     $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
     $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
     $handler->display->display_options['arguments']['nid']['specify_validation'] = TRUE;
     $handler->display->display_options['arguments']['nid']['validate']['type'] = 'node';
+    $handler->display->display_options['arguments']['nid']['validate_options']['types'] = array(
+        'webform' => 'webform',
+      );
+
+    /* Display: Page */
+    $handler = $view->new_display('page', 'Page', 'page_1');
+    $handler->display->display_options['path'] = 'node/%/survey_answers';
 
     $views['webform_results'] = $view;
   }
