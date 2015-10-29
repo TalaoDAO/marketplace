@@ -396,5 +396,15 @@ function emh_points_views_data() {
       'handler' => 'views_handler_field_emh_comment_points',
     ),
   );
+  // Pseudo-field on webform submissions.
+  $data['webform_submissions']['emh_points'] = array(
+    'group' => t('Webform submissions'),
+    'real field' => 'sid',
+    'help' => 'Webform submission points',
+    'title' => 'Webform submission points',
+    'field' => array(
+      'handler' => 'views_handler_field_emh_webform_submission_points',
+    ),
+  );
   return $data;
 }

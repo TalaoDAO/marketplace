@@ -1013,3 +1013,21 @@ function emh_points_get_comment_points($cid) {
     ->execute()->fetchField();
   return (empty($points) ? 0 : $points);
 }
+
+
+/**
+ * Views handler helper.
+ */
+function emh_points_get_webform_submission_points($sid) {
+  $submissions = webform_get_submissions(array('sid' => $sid));
+  $submission = reset($submissions);
+  if (empty($submission)) {
+    return 0;
+  }
+  $points = db_select('emh_points_txn', 'txn')
+    ->fields('txn', array('points'))
+    ->condition('txn.source_id', $submission->nid)
+    ->condition('txn.dest_id', $submission->uid)
+    ->execute()->fetchField();
+  return (empty($points) ? 0 : $points);
+}
