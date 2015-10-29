@@ -1133,7 +1133,7 @@ business/register',
         'region' => 'content',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -39,
+        'weight' => -38,
       ),
       'seven' => array(
         'region' => '',
@@ -1167,7 +1167,7 @@ business/register',
         'region' => 'content',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -41,
+        'weight' => -42,
       ),
       'seven' => array(
         'region' => '',
@@ -1274,39 +1274,6 @@ node',
     'visibility' => 1,
   );
 
-  $export['views-query_list-block_1'] = array(
-    'cache' => -1,
-    'css_class' => '',
-    'custom' => 0,
-    'delta' => 'query_list-block_1',
-    'i18n_block_language' => array(),
-    'i18n_mode' => 0,
-    'module' => 'views',
-    'node_types' => array(),
-    'pages' => 'homepage
-node',
-    'roles' => array(
-      'business' => 5,
-      'business preview' => 9,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => 'content',
-        'status' => 1,
-        'theme' => 'emindhub',
-        'weight' => -44,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '',
-    'visibility' => 1,
-  );
-
   $export['views-sponsors-partners_block'] = array(
     'cache' => -1,
     'css_class' => '',
@@ -1323,7 +1290,7 @@ node',
         'region' => 'content',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -43,
+        'weight' => -44,
       ),
       'seven' => array(
         'region' => '',
@@ -1352,7 +1319,7 @@ node',
         'region' => 'content',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -42,
+        'weight' => -43,
       ),
       'seven' => array(
         'region' => '',
