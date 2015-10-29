@@ -141,6 +141,7 @@ function emh_points_custom_views_bulk_operations_form_alter(&$form) {
   $view = arg(2);
   if (!empty($view) && ($view == 'answers' || $view == 'survey_answers')) {
     // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+    $form['select']['#type'] = 'menu';
     $form['select']['#weight'] = 100;
     $form['baseline'] = array(
       '#markup' => '<p class="emh-title-baseline">' . t('Select best answer(s)') . '</p>',
