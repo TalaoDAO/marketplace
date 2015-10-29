@@ -11,6 +11,7 @@ function emh_survey_form_alter(&$form, &$form_state, $form_id) {
   // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
 
 	if ((isset($form['#node']) && $form['#node']->type == 'webform')) {
+		$form['#node']->webform['submit_limit'] = 1;
 		$form['actions']['submit']['#value'] = t('Submit my answer');
   }
 
