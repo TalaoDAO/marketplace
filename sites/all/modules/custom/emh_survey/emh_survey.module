@@ -102,6 +102,7 @@ function emh_survey_form_webform_component_edit_form_alter(&$form, &$form_state,
 			'value',
 			'display',
 			'validation',
+			'position',
 		) as $field) {
 		$form[$field]['#access'] = FALSE;
 	}
