@@ -1152,7 +1152,7 @@ function ft_views_views_default_views() {
     8 => 0,
     9 => 0,
   );
-  $handler->display->display_options['block_description'] = 'Surveys';
+  $handler->display->display_options['block_description'] = 'My answers - Surveys - Business';
 
   /* Display: B - Expert */
   $handler = $view->new_display('block', 'B - Expert', 'block_expert');
@@ -1202,7 +1202,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['is_draft_1']['value'] = array(
     0 => '0',
   );
-  $handler->display->display_options['filters']['is_draft_1']['exposed'] = TRUE;
   $handler->display->display_options['filters']['is_draft_1']['expose']['operator_id'] = 'is_draft_1_op';
   $handler->display->display_options['filters']['is_draft_1']['expose']['label'] = 'Draft';
   $handler->display->display_options['filters']['is_draft_1']['expose']['operator'] = 'is_draft_1_op';
@@ -1219,7 +1218,7 @@ function ft_views_views_default_views() {
     8 => 0,
     9 => 0,
   );
-  $handler->display->display_options['block_description'] = 'Surveys';
+  $handler->display->display_options['block_description'] = 'My answers - Surveys - Experts';
   $export['my_responses_calls3'] = $view;
 
   $view = new view();
@@ -1551,7 +1550,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'challenge' => 'challenge',
   );
-  $handler->display->display_options['block_description'] = 'Challenges';
+  $handler->display->display_options['block_description'] = 'My answers - Challenge - Business';
 
   /* Display: B - Expert */
   $handler = $view->new_display('block', 'B - Expert', 'block_expert');
@@ -1587,7 +1586,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['block_description'] = 'Challenges';
+  $handler->display->display_options['block_description'] = 'My answers - Challenge - Experts';
   $export['my_responses_challenges'] = $view;
 
   $view = new view();
@@ -1903,7 +1902,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'question1' => 'question1',
   );
-  $handler->display->display_options['block_description'] = 'Questions';
+  $handler->display->display_options['block_description'] = 'My answers - Questions - Business';
 
   /* Display: B - Expert */
   $handler = $view->new_display('block', 'B - Expert', 'block_expert');
@@ -1985,7 +1984,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'question1' => 'question1',
   );
-  $handler->display->display_options['block_description'] = 'Questions';
+  $handler->display->display_options['block_description'] = 'My answers - Questions - Experts';
   $export['my_responses_questions1'] = $view;
 
   $view = new view();
@@ -2087,7 +2086,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['path']['exclude'] = TRUE;
   $handler->display->display_options['fields']['path']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['path']['absolute'] = TRUE;
-  /* Field: Entity translation: Title: translated */
+  /* Field: Entity translation: Titre: translated */
   $handler->display->display_options['fields']['title_field_et']['id'] = 'title_field_et';
   $handler->display->display_options['fields']['title_field_et']['table'] = 'field_data_title_field';
   $handler->display->display_options['fields']['title_field_et']['field'] = 'title_field_et';
@@ -2198,7 +2197,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['path']['exclude'] = TRUE;
   $handler->display->display_options['fields']['path']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['path']['absolute'] = TRUE;
-  /* Field: Entity translation: Title: translated */
+  /* Field: Entity translation: Titre: translated */
   $handler->display->display_options['fields']['title_field_et']['id'] = 'title_field_et';
   $handler->display->display_options['fields']['title_field_et']['table'] = 'field_data_title_field';
   $handler->display->display_options['fields']['title_field_et']['field'] = 'title_field_et';
@@ -2645,7 +2644,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Content: Choose circle of experts */
+  /* Field: Content: Groups audience */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
@@ -3322,7 +3321,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Content: Choose circle of experts */
+  /* Field: Content: Groups audience */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
@@ -3542,7 +3541,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['status']['type_custom_true'] = 'Published';
   $handler->display->display_options['fields']['status']['type_custom_false'] = 'Draft';
   $handler->display->display_options['fields']['status']['not'] = 0;
-  /* Field: Content: Choose circle of experts */
+  /* Field: Content: Groups audience */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
