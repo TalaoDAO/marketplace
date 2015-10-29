@@ -430,3 +430,10 @@ function emindhub_beautiful_comment_add_text( $node ) {
   return $comment_add_text;
 
 }
+
+/**
+ * Implements hook_preprocess_comment().
+ */
+function emindhub_preprocess_comment(&$variables) {
+  unset($variables['content']['links']['comment']['#links']['comment-reply']);
+}
