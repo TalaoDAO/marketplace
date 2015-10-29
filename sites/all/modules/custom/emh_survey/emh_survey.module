@@ -72,7 +72,7 @@ function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $fo
 
 	$form['add']['type']['#default_value'] = 'textarea';
 
-	$form['actions']['submit']['#value'] = t('Save questions\' order');
+	$form['actions']['submit']['#value'] = t('Save order of questions');
 
 	$webform_id = $form['#node']->nid;
 	$form['actions']['goback']['#markup'] = t('<a href="@url" class="btn btn-default" id="edit-back">Back</a>', array('@url' => url('node/' . $webform_id . '/edit')));
