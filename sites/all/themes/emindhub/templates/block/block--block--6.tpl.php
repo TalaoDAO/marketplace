@@ -44,7 +44,6 @@
  *
  * @ingroup themeable
  */
-global $language;
 ?>
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
@@ -54,7 +53,6 @@ global $language;
       '<h2' . $title_attributes . '><span>' . $title . '</span></h2>',
       'fields-of-expertise',
       array(
-        'language' => $language,
         'html' => TRUE
       )
     ); ?>
@@ -67,7 +65,6 @@ global $language;
       $content,
       'fields-of-expertise',
       array(
-        'language' => $language,
         'html' => TRUE
       )
     ); ?>
