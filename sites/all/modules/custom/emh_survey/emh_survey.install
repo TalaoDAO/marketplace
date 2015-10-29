@@ -49,6 +49,7 @@ function emh_survey_disable() {
  */
 function _emh_survey_string_overrides() {
   return array(
+    // Webform submission
     'No Components, add a component below.' => 'No questions, add a question below.',
     'New component name' => 'New question name',
     'This will immediately delete the %name component from the %webform webform. This cannot be undone.' => 'This will immediately delete the %name question from the %webform survey. This cannot be undone.',
@@ -56,7 +57,9 @@ function _emh_survey_string_overrides() {
     'Submissions for %user' => 'Answers',
     'Edit component: @name' => 'Edit question @name',
     'New component %name added.' => 'New question %name added.',
-    'Changes made in this table will not be saved until the form is submitted.' => 'Changes made to your questions will not be saved until you save it.',
     'The component positions and required values have been updated.' => 'Your questions have been updated.',
+
+    // Comment
+    'Edit comment %comment' => 'Edit answer',
   );
 }
