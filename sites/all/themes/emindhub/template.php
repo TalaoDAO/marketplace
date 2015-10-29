@@ -436,4 +436,7 @@ function emindhub_beautiful_comment_add_text( $node ) {
  */
 function emindhub_preprocess_comment(&$variables) {
   unset($variables['content']['links']['comment']['#links']['comment-reply']);
+  if ($variables['elements']['#node']->comment == COMMENT_NODE_CLOSED) {
+    unset($variables['content']['links']['comment']['#links']);
+  }
 }
