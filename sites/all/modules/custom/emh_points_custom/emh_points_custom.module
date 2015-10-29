@@ -89,6 +89,20 @@ function emh_points_custom_test_access($uid, $uid2) {
  */
 
 /**
+ * Implements hook_node_presave().
+ */
+function emh_points_custom_node_presave($node) {
+  if ($node->type == 'webform') {
+    if ($node->status == 1 && (empty($node->webform) || empty($node->webform['components']))) {
+      // Unpublish the node
+      $node->status = 0;
+      // Inform the user.
+      drupal_set_message(t('You cannot publish a survey without any question.'), 'warning');
+    }
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function emh_points_custom_form_emh_points_admin_form_alter(&$form, &$form_state) {
