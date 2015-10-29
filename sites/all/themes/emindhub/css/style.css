@@ -13521,7 +13521,10 @@ a.flag .badge {
   background-color: transparent;
   border: 0;
 }
-.comment .content > div {
+#comments .indented {
+  margin-left: 25px;
+}
+#comments .comment .content > div {
   padding: 15px 0;
 }
 .section.actions ul.links {
@@ -14444,20 +14447,8 @@ aside .block .content {
 .view-query-list td.views-field-type.challenge a::before {
   background-image: url("../images/picto/picto_challenge_small.png");
 }
-.view-query-list .views-field-created {
-  text-align: center;
-}
-.view-query-list .views-field-field-expiration-date {
-  text-align: center;
-}
-.view-query-list .views-field-field-reward {
-  text-align: right;
-}
 .view-query-list .views-field-views-conditional,
 .view-query-list .views-field-nothing {
-  text-align: right;
-}
-.view-query-list .views-field-expression {
   text-align: right;
 }
 #block-progress-tracker-progress-tracker .block-title {
@@ -14576,6 +14567,25 @@ aside .block .content {
   padding-top: 115px;
   margin-top: 15px;
   background: transparent url("../images/logo/eMindHub_Aerospace_logo.png") no-repeat center top;
+}
+.views-field-created,
+.views-field-field-expiration-date,
+.views-field-changed,
+.views-field-submitted {
+  text-align: center;
+  width: 130px;
+}
+.views-field-title {
+  width: 220px;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  /* pour Opera 9 */
+  text-overflow: ellipsis;
+  /* pour le reste du monde */
+}
+.views-field-field-reward,
+.views-field-emh-points {
+  text-align: right;
 }
 div.fivestar-widget-static .star {
   width: 21px;
