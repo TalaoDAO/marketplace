@@ -14583,6 +14583,16 @@ aside .block .content {
   text-overflow: ellipsis;
   /* pour le reste du monde */
 }
+.views-field-uid,
+.view-my-responses-questions1 .views-field-nothing-1,
+.view-my-responses-challenge .views-field-nothing-1 {
+  width: 200px;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  /* pour Opera 9 */
+  text-overflow: ellipsis;
+  /* pour le reste du monde */
+}
 .views-field-field-reward,
 .views-field-emh-points {
   text-align: right;

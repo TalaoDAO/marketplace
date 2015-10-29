@@ -1053,6 +1053,11 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['nothing']['alter']['text'] = 'View answer';
   $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['nothing']['alter']['path'] = 'node/[nid]/submission/[sid]';
+  /* Field: Webform submissions: Webform submission points */
+  $handler->display->display_options['fields']['emh_points']['id'] = 'emh_points';
+  $handler->display->display_options['fields']['emh_points']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['emh_points']['field'] = 'emh_points';
+  $handler->display->display_options['fields']['emh_points']['label'] = 'Points';
   /* Sort criterion: Webform submissions: Submitted */
   $handler->display->display_options['sorts']['submitted']['id'] = 'submitted';
   $handler->display->display_options['sorts']['submitted']['table'] = 'webform_submissions';
@@ -2082,7 +2087,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['path']['exclude'] = TRUE;
   $handler->display->display_options['fields']['path']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['path']['absolute'] = TRUE;
-  /* Field: Entity translation: Title: translated */
+  /* Field: Entity translation: Titre: translated */
   $handler->display->display_options['fields']['title_field_et']['id'] = 'title_field_et';
   $handler->display->display_options['fields']['title_field_et']['table'] = 'field_data_title_field';
   $handler->display->display_options['fields']['title_field_et']['field'] = 'title_field_et';
@@ -2193,7 +2198,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['path']['exclude'] = TRUE;
   $handler->display->display_options['fields']['path']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['path']['absolute'] = TRUE;
-  /* Field: Entity translation: Title: translated */
+  /* Field: Entity translation: Titre: translated */
   $handler->display->display_options['fields']['title_field_et']['id'] = 'title_field_et';
   $handler->display->display_options['fields']['title_field_et']['table'] = 'field_data_title_field';
   $handler->display->display_options['fields']['title_field_et']['field'] = 'title_field_et';
@@ -2640,7 +2645,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Content: Choose circle of experts */
+  /* Field: Content: Groups audience */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
@@ -3347,7 +3352,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Content: Choose circle of experts */
+  /* Field: Content: Groups audience */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
@@ -3567,7 +3572,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['status']['type_custom_true'] = 'Published';
   $handler->display->display_options['fields']['status']['type_custom_false'] = 'Draft';
   $handler->display->display_options['fields']['status']['not'] = 0;
-  /* Field: Content: Choose circle of experts */
+  /* Field: Content: Groups audience */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
