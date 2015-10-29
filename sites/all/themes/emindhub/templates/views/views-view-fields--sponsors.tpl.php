@@ -31,46 +31,46 @@
 ?>
 <div class="user col-sm-4">
 
-  <?php if (isset($fields['field_employment_history']) || isset($fields['field_sponsor_why']) || isset($fields['field_partner_why'])) : ?>
+  <?php if (!empty($fields['field_employment_history']) || !empty($fields['field_sponsor_why']) || !empty($fields['field_partner_why'])) : ?>
   <button type="button" class="btn btn-popin" data-toggle="modal" data-target="#<?php print $fields['field_first_name']->raw; ?>">
   <?php endif; ?>
 
-    <?php if (isset($fields['field_photo'])) : ?>
+    <?php if (!empty($fields['field_photo'])) : ?>
     <div class="portrait"><?php print $fields['field_photo']->content; ?></div>
     <?php endif; ?>
 
-    <?php if (isset($fields['field_first_name']) || isset($fields['field_last_name'])) : ?>
+    <?php if (!empty($fields['field_first_name']) || !empty($fields['field_last_name'])) : ?>
     <h3>
-      <?php if (isset($fields['field_first_name'])) : ?>
+      <?php if (!empty($fields['field_first_name'])) : ?>
       <?php print $fields['field_first_name']->content; ?>
       <?php endif; ?>
-      <?php if (isset($fields['field_last_name'])) : ?>
+      <?php if (!empty($fields['field_last_name'])) : ?>
       <?php print $fields['field_last_name']->content; ?>
       <?php endif; ?>
     </h3>
     <?php endif; ?>
 
-    <?php if (isset($fields['field_titre_metier'])) : ?>
+    <?php if (!empty($fields['field_titre_metier'])) : ?>
     <h4><?php print $fields['field_titre_metier']->content; ?></h4>
     <?php endif; ?>
 
-  <?php if (isset($fields['field_employment_history']) || isset($fields['field_sponsor_why']) || isset($fields['field_partner_why'])) : ?>
+  <?php if (!empty($fields['field_employment_history']) || !empty($fields['field_sponsor_why']) || !empty($fields['field_partner_why'])) : ?>
   </button>
   <?php endif; ?>
 
-  <?php if (isset($fields['field_employment_history']) || isset($fields['field_sponsor_why']) || isset($fields['field_partner_why'])) : ?>
+  <?php if (!empty($fields['field_employment_history']) || !empty($fields['field_sponsor_why']) || !empty($fields['field_partner_why'])) : ?>
   <div class="modal fade" id="<?php print $fields['field_first_name']->raw; ?>" tabindex="-1" role="dialog" aria-labelledby="<?php print $fields['field_first_name']->raw; ?>">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
 
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <?php if (isset($fields['field_first_name']) || isset($fields['field_last_name'])) : ?>
+          <?php if (!empty($fields['field_first_name']) || !empty($fields['field_last_name'])) : ?>
           <h3 class="modal-title" id="<?php print $fields['field_first_name']->raw; ?>">
-            <?php if (isset($fields['field_first_name'])) : ?>
+            <?php if (!empty($fields['field_first_name'])) : ?>
             <?php print $fields['field_first_name']->content; ?>
             <?php endif; ?>
-            <?php if (isset($fields['field_last_name'])) : ?>
+            <?php if (!empty($fields['field_last_name'])) : ?>
             <?php print $fields['field_last_name']->content; ?>
             <?php endif; ?>
           </h3>
@@ -83,28 +83,28 @@
 
             <div class="row">
 
-              <?php if (isset($fields['field_photo'])) : ?>
+              <?php if (!empty($fields['field_photo'])) : ?>
               <div class="col-sm-2">
                 <?php print $fields['field_photo']->content; ?>
               </div>
               <?php endif; ?>
 
               <div class="col-sm-10">
-                <?php if (isset($fields['field_titre_metier'])) : ?>
+                <?php if (!empty($fields['field_titre_metier'])) : ?>
                 <h3><?php print $fields['field_titre_metier']->content; ?></h3>
                 <?php endif; ?>
 
-                <?php if (isset($fields['field_employment_history'])) : ?>
+                <?php if (!empty($fields['field_employment_history'])) : ?>
                 <h4><?php print $fields['field_employment_history']->label; ?></h4>
                 <p><?php print $fields['field_employment_history']->content; ?></p>
                 <?php endif; ?>
 
-                <?php if (isset($fields['field_partner_why'])) : ?>
+                <?php if (!empty($fields['field_partner_why'])) : ?>
                 <h4><?php print $fields['field_partner_why']->label; ?></h4>
                 <p><?php print $fields['field_partner_why']->content; ?></p>
                 <?php endif; ?>
 
-                <?php if (isset($fields['field_sponsor_why'])) : ?>
+                <?php if (!empty($fields['field_sponsor_why'])) : ?>
                 <h4><?php print $fields['field_sponsor_why']->label; ?></h4>
                 <p><?php print $fields['field_sponsor_why']->content; ?></p>
                 <?php endif; ?>

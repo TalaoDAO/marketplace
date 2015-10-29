@@ -97,7 +97,7 @@
 
   	<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeNavigation.tpl.php'; ?>
 
-		<?php if (isset($body[0]['value'])) : ?>
+		<?php if (!empty($body[0]['value'])) : ?>
 		<div class="row section">
 			<div class="col-sm-12">
 				<?php print $body[0]['value']; ?>
@@ -111,7 +111,7 @@
 				<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/userInformations.tpl.php'; ?>
 			</div>
 
-			<?php if ( isset($content['field_domaine']) || isset($content['field_tags']) ) : ?>
+			<?php if ( !empty($content['field_domaine']) || !empty($content['field_tags']) ) : ?>
       <div class="col-sm-3">
 
 				<div class="row">
@@ -128,11 +128,11 @@
 
 				<ul>
 
-					<?php if (isset($content['field_autoref'])) : ?>
+					<?php if (!empty($content['field_autoref'])) : ?>
 					<li><?php print render($content['field_autoref']); ?></li>
 					<?php endif; ?>
 
-					<?php if (isset($elements['#node']->created)) : ?>
+					<?php if (!empty($elements['#node']->created)) : ?>
 					<li>
 						<div class="field field-name-field-created-date field-type-datetime field-label-inline clearfix">
 							<div class="field-label"><?php print t('Publication date:'); ?></div>
@@ -145,11 +145,11 @@
 					</li>
 					<?php endif; ?>
 
-					<?php if (isset($content['field_expiration_date'])) : ?>
+					<?php if (!empty($content['field_expiration_date'])) : ?>
 					<li><?php print render($content['field_expiration_date']); ?></li>
 					<?php endif; ?>
 
-					<?php if (isset($content['field_reward'])) : ?>
+					<?php if (!empty($content['field_reward'])) : ?>
 					<li><?php print render($content['field_reward']); ?></li>
 					<?php endif; ?>
 
@@ -168,7 +168,7 @@
 
       </div>
 
-			<?php if (isset($content['field_image'])) : ?>
+			<?php if (!empty($content['field_image'])) : ?>
 			<?php // TODO : add default image ?>
 			<div class="col-sm-3 text-right">
 				<?php print render($content['field_image']); ?>
