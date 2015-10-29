@@ -1049,6 +1049,105 @@ business/register',
     'visibility' => 0,
   );
 
+  $export['views-01297140ea5ccce8d24f3c703da2aaa3'] = array(
+    'cache' => -1,
+    'css_class' => '',
+    'custom' => 0,
+    'delta' => '01297140ea5ccce8d24f3c703da2aaa3',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => 'node/300',
+    'roles' => array(
+      'expert' => 4,
+      'expert preview' => 8,
+      'référent' => 7,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'content',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => -39,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 1,
+  );
+
+  $export['views-7d0e01b6bec26eb141930d321747febd'] = array(
+    'cache' => -1,
+    'css_class' => '',
+    'custom' => 0,
+    'delta' => '7d0e01b6bec26eb141930d321747febd',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => 'node/300',
+    'roles' => array(
+      'expert' => 4,
+      'expert preview' => 8,
+      'référent' => 7,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'content',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => -41,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 1,
+  );
+
+  $export['views-d5d704bbc8904420c5b32361a0446d81'] = array(
+    'cache' => -1,
+    'css_class' => '',
+    'custom' => 0,
+    'delta' => 'd5d704bbc8904420c5b32361a0446d81',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => 'node/300',
+    'roles' => array(
+      'expert' => 4,
+      'expert preview' => 8,
+      'référent' => 7,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'content',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 1,
+  );
+
   $export['views-entreprise_list-block'] = array(
     'cache' => -1,
     'css_class' => '',
@@ -1272,6 +1371,38 @@ node',
     ),
     'title' => '',
     'visibility' => 1,
+  );
+
+  $export['views-query_list-block_1'] = array(
+    'cache' => -1,
+    'css_class' => '',
+    'custom' => 0,
+    'delta' => 'query_list-block_1',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(
+      'business' => 5,
+      'business preview' => 9,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'emindhub',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
   );
 
   $export['views-sponsors-partners_block'] = array(

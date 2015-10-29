@@ -1152,7 +1152,7 @@ function ft_views_views_default_views() {
     8 => 0,
     9 => 0,
   );
-  $handler->display->display_options['block_description'] = 'Surveys';
+  $handler->display->display_options['block_description'] = 'My answers - Surveys - Business';
 
   /* Display: B - Expert */
   $handler = $view->new_display('block', 'B - Expert', 'block_expert');
@@ -1202,7 +1202,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['is_draft_1']['value'] = array(
     0 => '0',
   );
-  $handler->display->display_options['filters']['is_draft_1']['exposed'] = TRUE;
   $handler->display->display_options['filters']['is_draft_1']['expose']['operator_id'] = 'is_draft_1_op';
   $handler->display->display_options['filters']['is_draft_1']['expose']['label'] = 'Draft';
   $handler->display->display_options['filters']['is_draft_1']['expose']['operator'] = 'is_draft_1_op';
@@ -1219,7 +1218,7 @@ function ft_views_views_default_views() {
     8 => 0,
     9 => 0,
   );
-  $handler->display->display_options['block_description'] = 'Surveys';
+  $handler->display->display_options['block_description'] = 'My answers - Surveys - Experts';
   $export['my_responses_calls3'] = $view;
 
   $view = new view();
@@ -1404,6 +1403,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['comment_body']['exclude'] = TRUE;
   $handler->display->display_options['fields']['comment_body']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['comment_body']['alter']['path'] = '[path]#comment-[cid_1]';
+  $handler->display->display_options['fields']['comment_body']['alter']['absolute'] = TRUE;
   $handler->display->display_options['fields']['comment_body']['alter']['max_length'] = '50';
   $handler->display->display_options['fields']['comment_body']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['comment_body']['alter']['trim'] = TRUE;
@@ -1419,6 +1419,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_private_comment_body']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_private_comment_body']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['field_private_comment_body']['alter']['path'] = '[path]#comment-[cid_1]';
+  $handler->display->display_options['fields']['field_private_comment_body']['alter']['absolute'] = TRUE;
   $handler->display->display_options['fields']['field_private_comment_body']['alter']['max_length'] = '50';
   $handler->display->display_options['fields']['field_private_comment_body']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['field_private_comment_body']['alter']['trim'] = TRUE;
@@ -1551,7 +1552,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'challenge' => 'challenge',
   );
-  $handler->display->display_options['block_description'] = 'Challenges';
+  $handler->display->display_options['block_description'] = 'My answers - Challenge - Business';
 
   /* Display: B - Expert */
   $handler = $view->new_display('block', 'B - Expert', 'block_expert');
@@ -1587,7 +1588,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['block_description'] = 'Challenges';
+  $handler->display->display_options['block_description'] = 'My answers - Challenge - Experts';
   $export['my_responses_challenges'] = $view;
 
   $view = new view();
@@ -1773,6 +1774,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['comment_body']['exclude'] = TRUE;
   $handler->display->display_options['fields']['comment_body']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['comment_body']['alter']['path'] = '[path]#comment-[cid_1]';
+  $handler->display->display_options['fields']['comment_body']['alter']['absolute'] = TRUE;
   $handler->display->display_options['fields']['comment_body']['alter']['max_length'] = '50';
   $handler->display->display_options['fields']['comment_body']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['comment_body']['alter']['trim'] = TRUE;
@@ -1785,6 +1787,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_private_comment_body']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_private_comment_body']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['field_private_comment_body']['alter']['path'] = '[path]#comment-[cid_1]';
+  $handler->display->display_options['fields']['field_private_comment_body']['alter']['absolute'] = TRUE;
   $handler->display->display_options['fields']['field_private_comment_body']['alter']['max_length'] = '50';
   $handler->display->display_options['fields']['field_private_comment_body']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['field_private_comment_body']['alter']['trim'] = TRUE;
@@ -1903,7 +1906,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'question1' => 'question1',
   );
-  $handler->display->display_options['block_description'] = 'Questions';
+  $handler->display->display_options['block_description'] = 'My answers - Questions - Business';
 
   /* Display: B - Expert */
   $handler = $view->new_display('block', 'B - Expert', 'block_expert');
@@ -1985,7 +1988,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'question1' => 'question1',
   );
-  $handler->display->display_options['block_description'] = 'Questions';
+  $handler->display->display_options['block_description'] = 'My answers - Questions - Experts';
   $export['my_responses_questions1'] = $view;
 
   $view = new view();
