@@ -1074,7 +1074,6 @@ function ft_content_type_strongarm() {
   $strongarm->name = 'node_options_circle';
   $strongarm->value = array(
     0 => 'status',
-    1 => 'promote',
   );
   $export['node_options_circle'] = $strongarm;
 

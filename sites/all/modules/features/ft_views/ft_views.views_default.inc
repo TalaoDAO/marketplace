@@ -216,7 +216,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
-  /* Field: Field: Organisation */
+  /* Field: Field: Organisation / company */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';
@@ -351,7 +351,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_titre_metier']['hide_empty'] = TRUE;
-  /* Field: Field: Organisation */
+  /* Field: Field: Organisation / company */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';
@@ -766,6 +766,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['group_access_value']['value'] = array(
     0 => '0',
   );
+  /* Filter criterion: Content: Promoted to front page */
+  $handler->display->display_options['filters']['promote']['id'] = 'promote';
+  $handler->display->display_options['filters']['promote']['table'] = 'node';
+  $handler->display->display_options['filters']['promote']['field'] = 'promote';
+  $handler->display->display_options['filters']['promote']['relationship'] = 'og_membership_related_node_group';
+  $handler->display->display_options['filters']['promote']['value'] = '0';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
@@ -2207,56 +2213,6 @@ function ft_views_views_default_views() {
       'any_label' => NULL,
       'filter_rewrite_values' => NULL,
     ),
-    'status_1' => array(
-      'bef_format' => 'default',
-      'more_options' => array(
-        'bef_select_all_none' => FALSE,
-        'bef_collapsible' => 0,
-        'is_secondary' => 0,
-        'any_label' => '',
-        'bef_filter_description' => '',
-        'tokens' => array(
-          'available' => array(
-            0 => 'global_types',
-            'secondary_label' => NULL,
-            'collapsible_label' => NULL,
-            'combine_rewrite' => NULL,
-            'reset_label' => NULL,
-            'bef_filter_description' => NULL,
-            'any_label' => NULL,
-            'filter_rewrite_values' => NULL,
-          ),
-          'secondary_label' => NULL,
-          'collapsible_label' => NULL,
-          'combine_rewrite' => NULL,
-          'reset_label' => NULL,
-          'bef_filter_description' => NULL,
-          'any_label' => NULL,
-          'filter_rewrite_values' => NULL,
-        ),
-        'rewrite' => array(
-          'filter_rewrite_values' => '',
-          'secondary_label' => NULL,
-          'collapsible_label' => NULL,
-          'combine_rewrite' => NULL,
-          'reset_label' => NULL,
-          'bef_filter_description' => NULL,
-          'any_label' => NULL,
-        ),
-        'secondary_label' => NULL,
-        'collapsible_label' => NULL,
-        'combine_rewrite' => NULL,
-        'reset_label' => NULL,
-        'filter_rewrite_values' => NULL,
-      ),
-      'secondary_label' => NULL,
-      'collapsible_label' => NULL,
-      'combine_rewrite' => NULL,
-      'reset_label' => NULL,
-      'bef_filter_description' => NULL,
-      'any_label' => NULL,
-      'filter_rewrite_values' => NULL,
-    ),
     'field_domaine_tid_i18n_1' => array(
       'bef_format' => 'default',
       'more_options' => array(
@@ -2359,6 +2315,56 @@ function ft_views_views_default_views() {
       'any_label' => NULL,
       'filter_rewrite_values' => NULL,
     ),
+    'status_1' => array(
+      'bef_format' => 'default',
+      'more_options' => array(
+        'bef_select_all_none' => FALSE,
+        'bef_collapsible' => 0,
+        'is_secondary' => 0,
+        'any_label' => 'All',
+        'bef_filter_description' => '',
+        'tokens' => array(
+          'available' => array(
+            0 => 'global_types',
+            'secondary_label' => NULL,
+            'collapsible_label' => NULL,
+            'combine_rewrite' => NULL,
+            'reset_label' => NULL,
+            'bef_filter_description' => NULL,
+            'any_label' => NULL,
+            'filter_rewrite_values' => NULL,
+          ),
+          'secondary_label' => NULL,
+          'collapsible_label' => NULL,
+          'combine_rewrite' => NULL,
+          'reset_label' => NULL,
+          'bef_filter_description' => NULL,
+          'any_label' => NULL,
+          'filter_rewrite_values' => NULL,
+        ),
+        'rewrite' => array(
+          'filter_rewrite_values' => '',
+          'secondary_label' => NULL,
+          'collapsible_label' => NULL,
+          'combine_rewrite' => NULL,
+          'reset_label' => NULL,
+          'bef_filter_description' => NULL,
+          'any_label' => NULL,
+        ),
+        'secondary_label' => NULL,
+        'collapsible_label' => NULL,
+        'combine_rewrite' => NULL,
+        'reset_label' => NULL,
+        'filter_rewrite_values' => NULL,
+      ),
+      'secondary_label' => NULL,
+      'collapsible_label' => NULL,
+      'combine_rewrite' => NULL,
+      'reset_label' => NULL,
+      'bef_filter_description' => NULL,
+      'any_label' => NULL,
+      'filter_rewrite_values' => NULL,
+    ),
     'secondary_label' => NULL,
     'collapsible_label' => NULL,
     'combine_rewrite' => NULL,
@@ -2375,7 +2381,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['style_options']['columns'] = array(
     'type' => 'type',
     'title' => 'title',
-    'status' => 'status',
     'og_group_ref' => 'og_group_ref',
     'created' => 'created',
     'field_expiration_date' => 'field_expiration_date',
@@ -2400,13 +2405,6 @@ function ft_views_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'status' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
     'og_group_ref' => array(
       'align' => '',
       'separator' => '',
@@ -2414,7 +2412,7 @@ function ft_views_views_default_views() {
     ),
     'created' => array(
       'sortable' => 1,
-      'default_sort_order' => 'asc',
+      'default_sort_order' => 'desc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -2491,7 +2489,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Content: Groups audience */
+  /* Field: Content: Choose circle of experts */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
@@ -2543,7 +2541,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['views_conditional']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['views_conditional']['if'] = 'type';
   $handler->display->display_options['fields']['views_conditional']['condition'] = '1';
-  $handler->display->display_options['fields']['views_conditional']['equalto'] = 'survey';
+  $handler->display->display_options['fields']['views_conditional']['equalto'] = 'webform';
   $handler->display->display_options['fields']['views_conditional']['then'] = '[webform_submission_count_node]';
   $handler->display->display_options['fields']['views_conditional']['or'] = '[comment_count]';
   $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
@@ -2707,6 +2705,10 @@ function ft_views_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'OR',
+  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
@@ -2802,6 +2804,24 @@ function ft_views_views_default_views() {
   );
   $handler->display->display_options['filters']['field_tags_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['vocabulary'] = 'tags';
+  /* Filter criterion: User: Active */
+  $handler->display->display_options['filters']['status_1']['id'] = 'status_1';
+  $handler->display->display_options['filters']['status_1']['table'] = 'users';
+  $handler->display->display_options['filters']['status_1']['field'] = 'status';
+  $handler->display->display_options['filters']['status_1']['relationship'] = 'uid';
+  $handler->display->display_options['filters']['status_1']['value'] = '1';
+  $handler->display->display_options['filters']['status_1']['group'] = 2;
+  /* Filter criterion: User: Roles */
+  $handler->display->display_options['filters']['rid']['id'] = 'rid';
+  $handler->display->display_options['filters']['rid']['table'] = 'users_roles';
+  $handler->display->display_options['filters']['rid']['field'] = 'rid';
+  $handler->display->display_options['filters']['rid']['relationship'] = 'uid';
+  $handler->display->display_options['filters']['rid']['operator'] = 'not';
+  $handler->display->display_options['filters']['rid']['value'] = array(
+    5 => '5',
+    9 => '9',
+  );
+  $handler->display->display_options['filters']['rid']['group'] = 2;
   $handler->display->display_options['views_navigation'] = TRUE;
   $handler->display->display_options['views_navigation_back'] = TRUE;
   $handler->display->display_options['views_navigation_title'] = TRUE;
@@ -2810,7 +2830,6 @@ function ft_views_views_default_views() {
   /* Display: Last requests */
   $handler = $view->new_display('block', 'Last requests', 'block');
   $handler->display->display_options['defaults']['use_more'] = FALSE;
-  $handler->display->display_options['use_more'] = TRUE;
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
   $handler->display->display_options['use_more_always'] = FALSE;
@@ -2830,6 +2849,10 @@ function ft_views_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'OR',
+  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
@@ -2925,6 +2948,24 @@ function ft_views_views_default_views() {
   );
   $handler->display->display_options['filters']['field_tags_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['vocabulary'] = 'tags';
+  /* Filter criterion: User: Active */
+  $handler->display->display_options['filters']['status_1']['id'] = 'status_1';
+  $handler->display->display_options['filters']['status_1']['table'] = 'users';
+  $handler->display->display_options['filters']['status_1']['field'] = 'status';
+  $handler->display->display_options['filters']['status_1']['relationship'] = 'uid';
+  $handler->display->display_options['filters']['status_1']['value'] = '1';
+  $handler->display->display_options['filters']['status_1']['group'] = 2;
+  /* Filter criterion: User: Roles */
+  $handler->display->display_options['filters']['rid']['id'] = 'rid';
+  $handler->display->display_options['filters']['rid']['table'] = 'users_roles';
+  $handler->display->display_options['filters']['rid']['field'] = 'rid';
+  $handler->display->display_options['filters']['rid']['relationship'] = 'uid';
+  $handler->display->display_options['filters']['rid']['operator'] = 'not';
+  $handler->display->display_options['filters']['rid']['value'] = array(
+    5 => '5',
+    9 => '9',
+  );
+  $handler->display->display_options['filters']['rid']['group'] = 2;
   $handler->display->display_options['views_navigation'] = TRUE;
   $handler->display->display_options['views_navigation_back'] = TRUE;
   $handler->display->display_options['views_navigation_title'] = TRUE;
@@ -3150,7 +3191,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Content: Groups audience */
+  /* Field: Content: Choose circle of experts */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
@@ -3202,7 +3243,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['views_conditional']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['views_conditional']['if'] = 'type';
   $handler->display->display_options['fields']['views_conditional']['condition'] = '1';
-  $handler->display->display_options['fields']['views_conditional']['equalto'] = 'survey';
+  $handler->display->display_options['fields']['views_conditional']['equalto'] = 'webform';
   $handler->display->display_options['fields']['views_conditional']['then'] = '[webform_submission_count_node]';
   $handler->display->display_options['fields']['views_conditional']['or'] = '[comment_count]';
   $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
@@ -3364,8 +3405,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['status']['id'] = 'status';
   $handler->display->display_options['fields']['status']['table'] = 'node';
   $handler->display->display_options['fields']['status']['field'] = 'status';
+  $handler->display->display_options['fields']['status']['label'] = 'Status';
+  $handler->display->display_options['fields']['status']['type'] = 'custom';
+  $handler->display->display_options['fields']['status']['type_custom_true'] = 'Published';
+  $handler->display->display_options['fields']['status']['type_custom_false'] = 'Draft';
   $handler->display->display_options['fields']['status']['not'] = 0;
-  /* Field: Content: Groups audience */
+  /* Field: Content: Choose circle of experts */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
@@ -3417,7 +3462,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['views_conditional']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['views_conditional']['if'] = 'type';
   $handler->display->display_options['fields']['views_conditional']['condition'] = '1';
-  $handler->display->display_options['fields']['views_conditional']['equalto'] = 'survey';
+  $handler->display->display_options['fields']['views_conditional']['equalto'] = 'webform';
   $handler->display->display_options['fields']['views_conditional']['then'] = '[webform_submission_count_node]';
   $handler->display->display_options['fields']['views_conditional']['or'] = '[comment_count]';
   $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
@@ -3560,7 +3605,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['status_1']['expose']['label'] = 'Published';
   $handler->display->display_options['filters']['status_1']['expose']['operator'] = 'status_1_op';
   $handler->display->display_options['filters']['status_1']['expose']['identifier'] = 'status_1';
-  $handler->display->display_options['filters']['status_1']['expose']['remember'] = TRUE;
   $handler->display->display_options['filters']['status_1']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,

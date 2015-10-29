@@ -1962,52 +1962,6 @@ function ft_content_type_field_default_field_instances() {
     'widget_type' => 'options_select',
   );
 
-  // Exported field_instance: 'node-circle-group_content_access'
-  $field_instances['node-circle-group_content_access'] = array(
-    'bundle' => 'circle',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 3,
-      ),
-      'full' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 6,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'group_content_access',
-    'label' => 'Group content visibility',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'apply_chosen' => '',
-      ),
-      'type' => 'options_select',
-      'weight' => 5,
-    ),
-  );
-
   // Exported field_instance: 'node-circle-group_group'
   $field_instances['node-circle-group_group'] = array(
     'bundle' => 'circle',
@@ -2070,50 +2024,6 @@ function ft_content_type_field_default_field_instances() {
       ),
       'type' => 'options_onoff',
       'weight' => 0,
-    ),
-  );
-
-  // Exported field_instance: 'node-circle-group_register'
-  $field_instances['node-circle-group_register'] = array(
-    'bundle' => 'circle',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 4,
-      ),
-      'full' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 5,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'group_register',
-    'label' => 'Group register',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_buttons',
-      'weight' => 6,
     ),
   );
 
@@ -4227,44 +4137,6 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-working_group-group_register'
-  $field_instances['node-working_group-group_register'] = array(
-    'bundle' => 'working_group',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 3,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'group_register',
-    'label' => 'Group register',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_buttons',
-      'weight' => 33,
-    ),
-  );
-
   // Exported field_instance:
   // 'og_membership-og_membership_type_default-og_membership_request'
   $field_instances['og_membership-og_membership_type_default-og_membership_request'] = array(
@@ -4817,7 +4689,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 24,
+      'weight' => 18,
     ),
   );
 
@@ -4854,7 +4726,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 25,
+      'weight' => 19,
     ),
   );
 
@@ -4891,7 +4763,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 23,
+      'weight' => 17,
     ),
   );
 
@@ -5129,7 +5001,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'user',
     'field_name' => 'field_notification_frequency',
-    'label' => 'How often do you want to receive eMindHub\'s notifications?',
+    'label' => 'Frequency of notifications',
     'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -5805,7 +5677,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'og',
       'settings' => array(),
       'type' => 'og_complex',
-      'weight' => 22,
+      'weight' => 16,
     ),
   );
 
@@ -5838,13 +5710,12 @@ function ft_content_type_field_default_field_instances() {
   t('Field(s) of expertise');
   t('First Name');
   t('For example : Expert in electromechanical systems.');
+  t('Frequency of notifications');
   t('Group');
   t('Group content visibility');
   t('Group membership');
-  t('Group register');
   t('Group visibility');
   t('How did you hear about us?');
-  t('How often do you want to receive eMindHub\'s notifications?');
   t('If you belong to a group such as a company, association, club, training center, research center, etc., specify it here.');
   t('Image');
   t('Is partner');
