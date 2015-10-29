@@ -4,3 +4,4 @@ core = 7.x
 package = EMH
 
 files[] = views/views_handler_field_emh_comment_points.inc
+files[] = views/views_handler_field_emh_webform_submission_points.inc
