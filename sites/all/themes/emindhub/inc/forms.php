@@ -198,8 +198,8 @@ function emindhub_form_user_login_block_alter(&$form, &$form_state, $form_id) {
 // Check if form and fields are required
 // https://www.drupal.org/node/72197#comment-6000064
 function emindhub_form_has_required($form) {
-  if (isset($form['#required']) && $form['#required']) {
-	   return TRUE;
+  if (!empty($form['#required'])) {
+	  return TRUE;
   }
   foreach (element_children($form) as $key) {
   	if (emindhub_form_has_required($form[$key])) {

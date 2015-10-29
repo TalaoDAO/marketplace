@@ -3402,8 +3402,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'unpublish comments on own challenge nodes',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
-      'business preview' => 'business preview',
       'webmaster' => 'webmaster',
     ),
     'module' => 'comment_publish',
@@ -3464,8 +3462,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'unpublish comments on own question1 nodes',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
-      'business preview' => 'business preview',
       'webmaster' => 'webmaster',
     ),
     'module' => 'comment_publish',
@@ -3486,8 +3482,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'unpublish comments on own webform nodes',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
-      'business preview' => 'business preview',
       'webmaster' => 'webmaster',
     ),
     'module' => 'comment_publish',

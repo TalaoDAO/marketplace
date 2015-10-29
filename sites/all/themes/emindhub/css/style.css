@@ -12606,6 +12606,63 @@ fieldset[disabled] .list-inline > li > a.focus {
   color: transparent;
   background-color: #4c6172;
 }
+.list-inline > li.answers_link > a {
+  color: #ffffff;
+  background-color: #009fe3;
+  border-color: #008dca;
+}
+.list-inline > li.answers_link > a:focus,
+.list-inline > li.answers_link > a.focus {
+  color: #ffffff;
+  background-color: #007bb0;
+  border-color: #00344a;
+}
+.list-inline > li.answers_link > a:hover {
+  color: #ffffff;
+  background-color: #007bb0;
+  border-color: #00628c;
+}
+.list-inline > li.answers_link > a:active,
+.list-inline > li.answers_link > a.active,
+.open > .dropdown-toggle.list-inline > li.answers_link > a {
+  color: #ffffff;
+  background-color: #007bb0;
+  border-color: #00628c;
+}
+.list-inline > li.answers_link > a:active:hover,
+.list-inline > li.answers_link > a.active:hover,
+.open > .dropdown-toggle.list-inline > li.answers_link > a:hover,
+.list-inline > li.answers_link > a:active:focus,
+.list-inline > li.answers_link > a.active:focus,
+.open > .dropdown-toggle.list-inline > li.answers_link > a:focus,
+.list-inline > li.answers_link > a:active.focus,
+.list-inline > li.answers_link > a.active.focus,
+.open > .dropdown-toggle.list-inline > li.answers_link > a.focus {
+  color: #ffffff;
+  background-color: #00628c;
+  border-color: #00344a;
+}
+.list-inline > li.answers_link > a:active,
+.list-inline > li.answers_link > a.active,
+.open > .dropdown-toggle.list-inline > li.answers_link > a {
+  background-image: none;
+}
+.list-inline > li.answers_link > a.disabled:hover,
+.list-inline > li.answers_link > a[disabled]:hover,
+fieldset[disabled] .list-inline > li.answers_link > a:hover,
+.list-inline > li.answers_link > a.disabled:focus,
+.list-inline > li.answers_link > a[disabled]:focus,
+fieldset[disabled] .list-inline > li.answers_link > a:focus,
+.list-inline > li.answers_link > a.disabled.focus,
+.list-inline > li.answers_link > a[disabled].focus,
+fieldset[disabled] .list-inline > li.answers_link > a.focus {
+  background-color: #009fe3;
+  border-color: #008dca;
+}
+.list-inline > li.answers_link > a .badge {
+  color: #009fe3;
+  background-color: #ffffff;
+}
 .list-inline > li.comment-delete > a {
   color: #d9534f;
   background-color: #ffffff;
@@ -14577,6 +14634,16 @@ aside .block .content {
 }
 .views-field-title {
   width: 220px;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  /* pour Opera 9 */
+  text-overflow: ellipsis;
+  /* pour le reste du monde */
+}
+.views-field-uid,
+.view-my-responses-questions1 .views-field-nothing-1,
+.view-my-responses-challenge .views-field-nothing-1 {
+  width: 200px;
   overflow: hidden;
   -o-text-overflow: ellipsis;
   /* pour Opera 9 */
