@@ -223,3 +223,11 @@ function emh_points_update_7103() {
   emh_points_reset_views();
 }
 
+
+/**
+ * Revert Webform results view.
+ */
+function emh_points_update_7104() {
+  $view = views_get_view('webform_results');
+  views_revert_view($view);
+}
