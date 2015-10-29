@@ -245,11 +245,11 @@ function emh_points_custom_display_comment_form_access(&$form) {
   // Has the user already commented?
   global $user;
   $already = db_select('comment', 'c')
-    ->fields('c', array('subject'))
+    ->fields('c', array('cid'))
     ->condition('nid', $form['nid']['#value'])
     ->condition('uid', $user->uid)
     ->execute()->fetchField();
-  if (!empty($already)) {
+  if (!empty($already) && empty($form['cid']['#value'])) {
     $form['#access'] = FALSE;
   }
 }
