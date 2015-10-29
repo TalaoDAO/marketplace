@@ -1719,6 +1719,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['relationships']['uid_1']['table'] = 'comment';
   $handler->display->display_options['relationships']['uid_1']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid_1']['label'] = 'author_comment';
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['fields']['nid']['relationship'] = 'nid';
+  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
   /* Field: Comment: ID */
   $handler->display->display_options['fields']['cid_1']['id'] = 'cid_1';
   $handler->display->display_options['fields']['cid_1']['table'] = 'comment';
@@ -1773,8 +1779,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['comment_body']['label'] = '';
   $handler->display->display_options['fields']['comment_body']['exclude'] = TRUE;
   $handler->display->display_options['fields']['comment_body']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['comment_body']['alter']['path'] = '[path]#comment-[cid_1]';
-  $handler->display->display_options['fields']['comment_body']['alter']['absolute'] = TRUE;
+  $handler->display->display_options['fields']['comment_body']['alter']['path'] = 'node/[nid]#comment-[cid_1]';
   $handler->display->display_options['fields']['comment_body']['alter']['max_length'] = '50';
   $handler->display->display_options['fields']['comment_body']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['comment_body']['alter']['trim'] = TRUE;
@@ -1786,7 +1791,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_private_comment_body']['label'] = '';
   $handler->display->display_options['fields']['field_private_comment_body']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_private_comment_body']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['field_private_comment_body']['alter']['path'] = '[path]#comment-[cid_1]';
+  $handler->display->display_options['fields']['field_private_comment_body']['alter']['path'] = 'node/[nid]#comment-[cid_1]';
   $handler->display->display_options['fields']['field_private_comment_body']['alter']['absolute'] = TRUE;
   $handler->display->display_options['fields']['field_private_comment_body']['alter']['max_length'] = '50';
   $handler->display->display_options['fields']['field_private_comment_body']['alter']['word_boundary'] = FALSE;
