@@ -18,7 +18,7 @@
 <div class="row section webform-submission-navigation">
 
   <div class="col-sm-3 nav-back">
-    <?php print l('<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> ' . t('Back to <em class="placeholder">Answers</em>'), 'node/' . $node->nid . '/webform-results', array('html' => TRUE)); ?>
+    <?php print l('<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> ' . t('Back to <em class="placeholder">Answers</em>'), 'node/' . $node->nid . '/survey_answers', array('html' => TRUE)); ?>
   </div>
 
   <div class="col-sm-3 col-sm-offset-3 col-xs-6 nav-previous text-right">
@@ -33,7 +33,7 @@
   <?php if ($next): ?>
     <?php print l(t('Next answer') . ' <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>', $next_url, array('attributes' => array('class' => array('webform-submission-next')), 'html' => TRUE, 'query' => ($mode == 'form' ? array('destination' => $next_url) : NULL))); ?>
   <?php else: ?>
-    
+
   <?php endif; ?>
   </div>
 
