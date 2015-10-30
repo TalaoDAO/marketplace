@@ -14,7 +14,7 @@ function ft_blocks_default_fe_block_boxes() {
   $fe_block_boxes->info = 'Bêta version';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'beta';
-  $fe_block_boxes->body = '<p><strong>Welcome to eMindHub!</strong>&nbsp;Thank you for being among the first users of our platform! This is a beta version, for any suggestion or comment please leave a message through the <a href="/emindhub.com/www/contact">contact form</a>.</p>
+  $fe_block_boxes->body = '<p><strong>Welcome to eMindHub!</strong>&nbsp;Thank you for being among the first users of our platform! This is a beta version, for any suggestion or comment please leave a message through the <a href="/contact">contact form</a>.</p>
 ';
 
   $export['beta'] = $fe_block_boxes;
