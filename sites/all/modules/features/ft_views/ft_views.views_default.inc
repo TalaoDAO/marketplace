@@ -216,7 +216,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
-  /* Field: Field: Organisation / company */
+  /* Field: Field: Organisation */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';
@@ -351,7 +351,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_titre_metier']['hide_empty'] = TRUE;
-  /* Field: Field: Organisation / company */
+  /* Field: Field: Organisation */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';
@@ -2864,8 +2864,10 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['field_domaine_tid_i18n_1']['type'] = 'select';
   $handler->display->display_options['filters']['field_domaine_tid_i18n_1']['vocabulary'] = 'domaine';
 
-  /* Display: All requests */
-  $handler = $view->new_display('page', 'All requests', 'page');
+  /* Display: P - All requests */
+  $handler = $view->new_display('page', 'P - All requests', 'page');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'All requests';
   $handler->display->display_options['field_language'] = 'und';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
@@ -2986,8 +2988,8 @@ function ft_views_views_default_views() {
   $handler->display->display_options['views_navigation_title'] = TRUE;
   $handler->display->display_options['path'] = 'requests';
 
-  /* Display: Last requests */
-  $handler = $view->new_display('block', 'Last requests', 'block');
+  /* Display: B - Last requests */
+  $handler = $view->new_display('block', 'B - Last requests', 'block');
   $handler->display->display_options['defaults']['use_more'] = FALSE;
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
@@ -3113,8 +3115,8 @@ function ft_views_views_default_views() {
   $handler->display->display_options['views_navigation_back'] = TRUE;
   $handler->display->display_options['views_navigation_title'] = TRUE;
 
-  /* Display: My selections */
-  $handler = $view->new_display('page', 'My selections', 'page_1');
+  /* Display: P - My selections */
+  $handler = $view->new_display('page', 'P - My selections', 'page_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'My selections';
   $handler->display->display_options['defaults']['access'] = FALSE;
@@ -3505,8 +3507,8 @@ function ft_views_views_default_views() {
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
-  /* Display: My requests */
-  $handler = $view->new_display('page', 'My requests', 'page_2');
+  /* Display: P - My requests */
+  $handler = $view->new_display('page', 'P - My requests', 'page_2');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'My requests';
   $handler->display->display_options['defaults']['access'] = FALSE;
@@ -3768,8 +3770,8 @@ function ft_views_views_default_views() {
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
-  /* Display: Last requests Clients */
-  $handler = $view->new_display('block', 'Last requests Clients', 'block_1');
+  /* Display: B - My requests */
+  $handler = $view->new_display('block', 'B - My requests', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Last requests';
   $handler->display->display_options['defaults']['use_more'] = FALSE;

@@ -7,11 +7,12 @@
 
 function emh_survey_form_alter(&$form, &$form_state, $form_id) {
 
-  // echo '<pre>' . print_r($form_id, TRUE) . '</pre>';
-  // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
-
 	if ((isset($form['#node']) && $form['#node']->type == 'webform')) {
+		$form['#node']->webform['submit_notice'] = 0;
 		$form['actions']['submit']['#value'] = t('Submit my answer');
+
+		// echo '<pre>' . print_r($form, TRUE) . '</pre>';
+	  // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
   }
 
 }
@@ -72,13 +73,13 @@ function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $fo
 
 	$form['add']['type']['#default_value'] = 'textarea';
 
-	$form['actions']['submit']['#value'] = t('Save questions\' order');
+	$form['actions']['submit']['#value'] = t('Save order of questions');
 
 	$webform_id = $form['#node']->nid;
 	$form['actions']['goback']['#markup'] = t('<a href="@url" class="btn btn-default" id="edit-back">Back</a>', array('@url' => url('node/' . $webform_id . '/edit')));
 	$form['actions']['goback']['#access'] = TRUE;
 
-	$form['actions']['see']['#markup'] = t('<a href="@url" class="btn-submit btn btn-primary form-submit" id="edit-view">View your survey</a>', array('@url' => url('node/' . $webform_id)));
+	$form['actions']['see']['#markup'] = t('<a href="@url" class="btn-submit btn btn-primary form-submit" id="edit-view">Publish your survey</a>', array('@url' => url('node/' . $webform_id)));
 	$form['actions']['see']['#access'] = TRUE;
 
 }

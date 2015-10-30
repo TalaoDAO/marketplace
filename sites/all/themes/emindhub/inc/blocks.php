@@ -167,6 +167,7 @@ function emindhub_preprocess_block(&$vars) {
 
     // Query list
     case 'views-query_list-block':
+    case 'views-query_list-block_1':
       $classes[] = 'emh-block-blue-title';
       break;
 
