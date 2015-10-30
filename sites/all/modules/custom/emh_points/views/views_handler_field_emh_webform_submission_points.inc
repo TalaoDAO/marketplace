@@ -23,7 +23,7 @@ class views_handler_field_emh_webform_submission_points extends views_handler_fi
    */
   function render($values) {
     if (isset($values->{$this->aliases['sid']})) {
-      $cid = $values->{$this->aliases['sid']};
+      $sid = $values->{$this->aliases['sid']};
     }
     else {
       return 0;

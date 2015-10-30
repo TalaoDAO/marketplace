@@ -1010,6 +1010,8 @@ function emh_points_get_comment_points($cid) {
     ->fields('txn', array('points'))
     ->condition('txn.source_id', $comment->nid)
     ->condition('txn.dest_id', $comment->uid)
+    ->condition('txn.source_type', 'node')
+    ->condition('txn.dest_type', 'user')
     ->execute()->fetchField();
   return (empty($points) ? 0 : $points);
 }
@@ -1029,6 +1031,8 @@ function emh_points_get_webform_submission_points($sid) {
     ->fields('txn', array('points'))
     ->condition('txn.source_id', $submission->nid)
     ->condition('txn.dest_id', $submission->uid)
+    ->condition('txn.source_type', 'node')
+    ->condition('txn.dest_type', 'user')
     ->execute()->fetchField();
   return (empty($points) ? 0 : $points);
 }
