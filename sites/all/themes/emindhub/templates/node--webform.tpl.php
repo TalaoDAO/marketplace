@@ -81,7 +81,7 @@
  */
 
  // Show $node field, with display parameters
-// echo '<pre>' . print_r($content['webform']['#node']->webform['components'], TRUE) . '</pre>'; die;
+ // echo '<pre>' . print_r($content['webform']['#node']->webform, TRUE) . '</pre>'; die;
  // Show $node field, with custom display parameters
  // print render(field_view_field('node', $node, 'field_duration_of_the_mission'));
 ?>
@@ -212,6 +212,30 @@
 	    </div>
 		</div>
 		<?php endif; ?>
+		<?php endif; ?>
+
+		<?php	// Print the webform submission to the submitter
+		include_once drupal_get_path('module','webform') . '/includes/webform.submissions.inc';
+		$submissions = webform_get_submissions($node->nid, $uid);
+		if (!empty($submissions)) : ?>
+		<div id="answer" class="row section emh-fieldgroup-blue-title">
+			<h2 class="h3"><span><?php print t('Your answer') ?></span></h2>
+			<div class="field-group-div">
+				<?php
+				$sid = $submissions[1]->sid;
+			  $submission = webform_get_submission($node->nid, $sid);
+			  $email = NULL; $format = 'html';
+			  print drupal_render(webform_submission_render($node, $submission, $email, $format));
+				?>
+			</div>
+		</div>
+
+		<div class="row section actions">
+		  <div class="col-sm-12 text-right">
+		    <ul class="links list-inline">
+		      <li class="edit_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $sid; ?>/edit"><?php print t('Edit your answer'); ?></a></li>
+		  </div>
+		</div>
 		<?php endif; ?>
 
 	</div>

@@ -603,7 +603,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Hidden',
-    'weight' => '10',
+    'weight' => '9',
     'children' => array(
       0 => 'og_user_node',
       1 => 'field_is_sponsor',
