@@ -5,6 +5,7 @@ $first_name = field_get_items('user', $author, 'field_first_name');
 $last_name = field_get_items('user', $author, 'field_last_name');
 $company = field_get_items('user', $author, 'field_entreprise');
 $company = node_load($company[0]['target_id']);
+$activity = field_get_items('user', $author, 'field_entreprise_description');
 ?>
 <div class="row submitted">
   <div class="col-sm-12">
@@ -31,6 +32,18 @@ $company = node_load($company[0]['target_id']);
 
         <?php if ( emh_access_user_company( $node ) == TRUE && ( $company ) ) : ?>
         <p class="company"><strong><?php print $company->title; ?></strong></p>
+        <?php endif; ?>
+
+        <?php if (!empty($field_use_my_entreprise[0]['value'])) : ?>
+
+        <?php if ($field_use_my_entreprise[0]['value'] == 0) : ?>
+        <p class="activity"><em><?php print $activity[0]['value']; ?></em></p>
+        <?php endif; ?>
+
+        <?php if ($field_use_my_entreprise[0]['value'] == 2) : ?>
+        <p class="activity"><em><?php print render($content['field_entreprise_description']); ?></em></p>
+        <?php endif; ?>
+
         <?php endif; ?>
 
       </div>
