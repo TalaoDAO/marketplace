@@ -13588,6 +13588,13 @@ a.flag .badge {
   margin: 0;
   display: inline-block;
 }
+.field-label-inline .field-label,
+.field-label-inline .field-items {
+  display: inline-block;
+}
+.field-label-inline .field-label {
+  font-weight: bold;
+}
 .region-burgermenu {
   display: none;
   background-color: #2E3243;
@@ -15786,8 +15793,7 @@ form#user-profile-form .field-name-field-year-of-experiences .form-control {
   width: 50px;
   text-align: center;
 }
-.page-user .profile-section .field-name-field-skill2,
-.page-user .profile-section .field-name-field-position {
+.page-user .profile-section .field-name-field-skill2 {
   display: inline-block;
   margin-right: 10px;
   background-color: #fff;

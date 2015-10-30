@@ -290,11 +290,15 @@ function emindhub_preprocess_field(&$vars) {
         case 'field_domaine':
         case 'field_tags':
         case 'field_skills_set':
+        case 'field_position':
+        case 'field_working_status':
         case 'field_position_list':
         case 'field_employment_history':
+        case 'field_needs_for_expertise':
         case 'field_other_areas':
           $classes[] = 'col-sm-12';
           break;
+
       }
       break;
   }
