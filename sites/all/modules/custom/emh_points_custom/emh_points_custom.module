@@ -89,6 +89,20 @@ function emh_points_custom_test_access($uid, $uid2) {
  */
 
 /**
+ * Implements hook_node_presave().
+ */
+function emh_points_custom_node_presave($node) {
+  if ($node->type == 'webform') {
+    if ($node->status == 1 && (empty($node->webform) || empty($node->webform['components']))) {
+      // Unpublish the node
+      $node->status = 0;
+      // Inform the user.
+      drupal_set_message(t('You cannot publish a survey without any question.'), 'warning');
+    }
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function emh_points_custom_form_emh_points_admin_form_alter(&$form, &$form_state) {
@@ -125,7 +139,9 @@ function emh_points_custom_form_emh_points_admin_form_alter(&$form, &$form_state
 function emh_points_custom_views_bulk_operations_form_alter(&$form) {
   // Only when we want it.
   $view = arg(2);
-  if (!empty($view) && ($view == 'answers' || $view == 'survey-answers')) {
+  if (!empty($view) && ($view == 'answers' || $view == 'survey_answers')) {
+    // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+    $form['select']['#type'] = 'menu';
     $form['select']['#weight'] = 100;
     $form['baseline'] = array(
       '#markup' => '<p class="emh-title-baseline">' . t('Select best answer(s)') . '</p>',
@@ -231,11 +247,11 @@ function emh_points_custom_display_comment_form_access(&$form) {
   // Has the user already commented?
   global $user;
   $already = db_select('comment', 'c')
-    ->fields('c', array('subject'))
+    ->fields('c', array('cid'))
     ->condition('nid', $form['nid']['#value'])
     ->condition('uid', $user->uid)
     ->execute()->fetchField();
-  if (!empty($already)) {
+  if (!empty($already) && empty($form['cid']['#value'])) {
     $form['#access'] = FALSE;
   }
 }

@@ -11,9 +11,7 @@ function emindhub_preprocess_html(&$variables) {
 	// $variables['classes_array'][] = 'user-uid-' . $user->uid;
 
   global $language;
-	// print_r($language); die;
-	if (isset($language)) {
-    // $variables['classes_array'][] = 'role-id-' . $role_id;
+	if (!empty($language)) {
     $variables['classes_array'][] = 'lang-' . $language->language;
   }
 

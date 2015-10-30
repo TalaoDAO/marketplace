@@ -53,7 +53,6 @@
       '<h2' . $title_attributes . '><span>' . $title . '</span></h2>',
       'fields-of-expertise',
       array(
-        'language' => $language,
         'html' => TRUE
       )
     ); ?>
@@ -66,7 +65,6 @@
       $content,
       'fields-of-expertise',
       array(
-        'language' => $language,
         'html' => TRUE
       )
     ); ?>

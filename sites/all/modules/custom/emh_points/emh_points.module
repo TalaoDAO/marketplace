@@ -1010,6 +1010,29 @@ function emh_points_get_comment_points($cid) {
     ->fields('txn', array('points'))
     ->condition('txn.source_id', $comment->nid)
     ->condition('txn.dest_id', $comment->uid)
+    ->condition('txn.source_type', 'node')
+    ->condition('txn.dest_type', 'user')
+    ->execute()->fetchField();
+  return (empty($points) ? 0 : $points);
+}
+
+
+/**
+ * Views handler helper.
+ */
+function emh_points_get_webform_submission_points($sid) {
+  module_load_include('inc', 'webform', 'includes/webform.submissions');
+  $submissions = webform_get_submissions(array('sid' => $sid));
+  $submission = reset($submissions);
+  if (empty($submission)) {
+    return 0;
+  }
+  $points = db_select('emh_points_txn', 'txn')
+    ->fields('txn', array('points'))
+    ->condition('txn.source_id', $submission->nid)
+    ->condition('txn.dest_id', $submission->uid)
+    ->condition('txn.source_type', 'node')
+    ->condition('txn.dest_type', 'user')
     ->execute()->fetchField();
   return (empty($points) ? 0 : $points);
 }

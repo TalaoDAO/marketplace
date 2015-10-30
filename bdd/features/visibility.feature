@@ -48,7 +48,7 @@ Feature: Test visibility
     Then I should see "Fight Magneto"
     And I should not see "Fight Ultron"
     And I should not see "Fight Hydra"
-    And I should see "Fight Thanos"
+    And I should not see "Fight Thanos"
     Given I am logged in as "expert1"
     Then I should not see "Fight Magneto"
     And I should see "Fight Ultron"

@@ -147,11 +147,11 @@ function emindhub_beautiful_welcome_message() {
     global $user;
     $account = user_load($user->uid);
     $firstName = '';
-    if (isset($account->field_first_name[LANGUAGE_NONE]) && $account->field_first_name[LANGUAGE_NONE]) {
+    if (!empty($account->field_first_name[LANGUAGE_NONE])) {
       $firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
     }
     $lastName = '';
-    if (isset($account->field_last_name[LANGUAGE_NONE]) && $account->field_last_name[LANGUAGE_NONE]) {
+    if (!empty($account->field_last_name[LANGUAGE_NONE])) {
       $lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
     }
     return t('Welcome') . '&nbsp;<span>' . $firstName . '&nbsp;' . $lastName . '</span>';
@@ -182,11 +182,11 @@ function emindhub_beautiful_user_name( $object, $link = FALSE ) {
   $output = '';
 
   $firstName = '';
-  if (isset($account->field_first_name[LANGUAGE_NONE]) && $account->field_first_name[LANGUAGE_NONE]) {
+  if (!empty($account->field_first_name[LANGUAGE_NONE])) {
     $firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
   }
   $lastName = '';
-  if (isset($account->field_last_name[LANGUAGE_NONE]) && $account->field_last_name[LANGUAGE_NONE]) {
+  if (!empty($account->field_last_name[LANGUAGE_NONE])) {
     $lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
   }
   $userName = $account->name;
@@ -219,7 +219,7 @@ function emindhub_beautiful_user_profile_link( $author = TRUE ) {
     }
   }
 
-  if (isset($profileLink)) {
+  if (!empty($profileLink)) {
     global $base_url;
     return '<a href="' . $base_url . '/' . $profileLink . '">' . $base_url . '/' . $profileLink . '</a>';
   }
@@ -290,11 +290,15 @@ function emindhub_preprocess_field(&$vars) {
         case 'field_domaine':
         case 'field_tags':
         case 'field_skills_set':
+        case 'field_position':
+        case 'field_working_status':
         case 'field_position_list':
         case 'field_employment_history':
+        case 'field_needs_for_expertise':
         case 'field_other_areas':
           $classes[] = 'col-sm-12';
           break;
+
       }
       break;
   }
@@ -429,4 +433,14 @@ function emindhub_beautiful_comment_add_text( $node ) {
 
   return $comment_add_text;
 
+}
+
+/**
+ * Implements hook_preprocess_comment().
+ */
+function emindhub_preprocess_comment(&$variables) {
+  unset($variables['content']['links']['comment']['#links']['comment-reply']);
+  if ($variables['elements']['#node']->comment == COMMENT_NODE_CLOSED) {
+    unset($variables['content']['links']['comment']['#links']);
+  }
 }

@@ -7,11 +7,12 @@
 
 function emh_survey_form_alter(&$form, &$form_state, $form_id) {
 
-  // echo '<pre>' . print_r($form_id, TRUE) . '</pre>';
-  // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
-
 	if ((isset($form['#node']) && $form['#node']->type == 'webform')) {
+		$form['#node']->webform['submit_notice'] = 0;
 		$form['actions']['submit']['#value'] = t('Submit my answer');
+
+		// echo '<pre>' . print_r($form, TRUE) . '</pre>';
+	  // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
   }
 
 }
@@ -58,14 +59,8 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
  */
 function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $form_id) {
 
-	$form['actions']['submit']['#value'] = t('Save questions\' order');
-
-	$webform_id = $form['#node']->nid;
-	$form['actions']['goback']['#markup'] = t('<a href="@url" class="btn btn-default" id="edit-back">Back</a>', array('@url' => url('node/' . $webform_id . '/edit')));
-	$form['actions']['goback']['#access'] = TRUE;
-
-	$form['actions']['see']['#markup'] = t('<a href="@url" class="btn-submit btn btn-primary form-submit" id="edit-view">View your survey</a>', array('@url' => url('node/' . $webform_id)));
-	$form['actions']['see']['#access'] = TRUE;
+	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
+	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
 
 	// Hide unnecessary fields
 	foreach (
@@ -76,6 +71,17 @@ function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $fo
 		$form['add'][$field]['#type'] = 'hidden';
 	}
 
+	$form['add']['type']['#default_value'] = 'textarea';
+
+	$form['actions']['submit']['#value'] = t('Save order of questions');
+
+	$webform_id = $form['#node']->nid;
+	$form['actions']['goback']['#markup'] = t('<a href="@url" class="btn btn-default" id="edit-back">Back</a>', array('@url' => url('node/' . $webform_id . '/edit')));
+	$form['actions']['goback']['#access'] = TRUE;
+
+	$form['actions']['see']['#markup'] = t('<a href="@url" class="btn-submit btn btn-primary form-submit" id="edit-view">Publish your survey</a>', array('@url' => url('node/' . $webform_id)));
+	$form['actions']['see']['#access'] = TRUE;
+
 }
 
 
@@ -83,6 +89,9 @@ function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $fo
  * node/$ID/webform/components/$ID
  */
 function emh_survey_form_webform_component_edit_form_alter(&$form, &$form_state, $form_id) {
+
+	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
+	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
 
 	// Question label
 	$form['name']['#title'] = t('Your question');
@@ -94,6 +103,7 @@ function emh_survey_form_webform_component_edit_form_alter(&$form, &$form_state,
 			'value',
 			'display',
 			'validation',
+			'position',
 		) as $field) {
 		$form[$field]['#access'] = FALSE;
 	}
@@ -113,4 +123,13 @@ function emh_survey_form_webform_component_edit_form_alter(&$form, &$form_state,
 	$form['actions']['submit']['#value'] = t('Save your question');
 
 	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
+}
+
+/**
+ * Implements hook_node_defaults_alter().
+ */
+function emh_survey_webform_node_defaults_alter(&$defaults) {
+  $defaults['enforce_limit'] = 'yes';
+  $defaults['submit_limit'] = '1';
+  $defaults['submit_interval'] = '-1';
 }
