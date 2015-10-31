@@ -12,13 +12,17 @@ core = 7.x
 ; Simpletest files.
 
 files[] = tests/filefield_paths.test
+files[] = tests/filefield_paths.general.test
+files[] = tests/filefield_paths.text_replace.test
+files[] = tests/filefield_paths.tokens.test
+files[] = tests/filefield_paths.update.test
 files[] = tests/pathauto.test
 files[] = tests/redirect.test
 files[] = tests/transliteration.test
 
-; Information added by Drupal.org packaging script on 2015-09-15
-version = "7.x-1.0-rc1"
+; Information added by Drupal.org packaging script on 2015-10-28
+version = "7.x-1.0-rc2"
 core = "7.x"
 project = "filefield_paths"
-datestamp = "1442310840"
+datestamp = "1446011088"
 

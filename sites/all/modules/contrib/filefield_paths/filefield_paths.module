@@ -24,18 +24,8 @@ foreach (module_list() as $module) {
 function filefield_paths_form_alter(&$form) {
   // Force all File (Field) Paths uploads to go to the temporary file system
   // prior to being processed.
-  if (isset($form['#entity']) && $form['#type'] == 'form') {
-    $instances = field_info_instances($form['#entity_type'], $form['#bundle']);
-    foreach ($instances as $field_name => $field) {
-      if (isset($field['settings']['filefield_paths_enabled']) && $field['settings']['filefield_paths_enabled']) {
-        $language = field_language($form['#entity_type'], $form['#entity'], $field_name);
-        if (isset($form[$field_name][$language]) && is_array($form[$field_name][$language])) {
-          foreach (element_children($form[$field_name][$language]) as $delta) {
-            $form[$field_name][$language][$delta]['#upload_location'] = 'temporary://filefield_paths';
-          }
-        }
-      }
-    }
+  if (isset($form['#entity']) && isset($form['#entity_type']) && isset($form['#bundle']) && $form['#type'] == 'form') {
+    filefield_paths_temporary_upload_location($form);
   }
 
   $field_types = _filefield_paths_get_field_types();
@@ -183,6 +173,26 @@ function filefield_paths_form_alter(&$form) {
     $form['#submit'][] = 'filefield_paths_form_submit';
   }
 }
+
+/**
+ * Recursively set temporary upload location of all File (Field) Paths enabled
+ * managed file fields.
+ *
+ * @param $element
+ */
+function filefield_paths_temporary_upload_location(&$element) {
+  if (isset($element['#type']) && $element['#type'] == 'managed_file' && isset($element['#entity_type']) && isset($element['#field_name']) && isset($element['#bundle'])) {
+    $instance = field_info_instance($element['#entity_type'], $element['#field_name'], $element['#bundle']);
+    if (isset($instance['settings']['filefield_paths_enabled']) && $instance['settings']['filefield_paths_enabled']) {
+      $element['#upload_location'] = 'temporary://filefield_paths';
+    }
+    return;
+  }
+  foreach (element_children($element) as $child) {
+    filefield_paths_temporary_upload_location($element[$child]);
+  }
+}
+
 
 /**
  * Submit callback for File (Field) Paths settings form.
@@ -449,6 +459,10 @@ function _filefield_paths_replace_path($old, $new, $entity) {
 function _filefield_paths_replace_path_get_prefixes($scheme, $preg_quote = FALSE, $reset = FALSE) {
   $prefixes =& drupal_static(__FUNCTION__, array());
 
+  // Force clean urls on.
+  $clean_url = $GLOBALS['conf']['clean_url'];
+  $GLOBALS['conf']['clean_url'] = TRUE;
+
   $id = $scheme . '::' . (string) $preg_quote;
   if (!isset($prefixes[$id]) || $reset) {
     $prefixes[$id]['uri']      = "{$scheme}://";
@@ -467,6 +481,9 @@ function _filefield_paths_replace_path_get_prefixes($scheme, $preg_quote = FALSE
       }
     }
   }
+
+  // Restore clean url settings.
+  $GLOBALS['conf']['clean_url'] = $clean_url;
 
   return $prefixes[$id];
 }
@@ -570,10 +587,14 @@ function filefield_paths_process_string($value, $data, $settings = array()) {
     }
     if ($pathauto == TRUE) {
       if ('file_name' == $settings['context'] && count($paths) == $i + 1) {
-        $pathinfo = pathinfo($path);
+        $pathinfo             = pathinfo($path);
+        $basename             = drupal_basename($path);
+        $extension            = preg_match('/\.[^.]+$/', $basename, $matches) ? $matches[0] : NULL;
+        $pathinfo['filename'] = !is_null($extension) ? drupal_substr($basename, 0, drupal_strlen($basename) - drupal_strlen($extension)) : $basename;
+
         if ($remove_slashes) {
           $path = '';
-          if (!empty($pathinfo['dirname']) and $pathinfo['dirname'] !== '.') {
+          if (!empty($pathinfo['dirname']) && $pathinfo['dirname'] !== '.') {
             $path .= $pathinfo['dirname'] . '/';
           }
           $path .= $pathinfo['filename'];

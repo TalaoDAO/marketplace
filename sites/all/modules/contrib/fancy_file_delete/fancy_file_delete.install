@@ -6,9 +6,78 @@
  */
 
 /**
+ * Implements hook_uninstall().
+ */
+function fancy_file_delete_uninstall() {
+  if (db_table_exists('unmanaged_files')) {
+    db_drop_table('unmanaged_files');
+  }
+}
+
+/**
+ * Implements hook_schema().
+ */
+function fancy_file_delete_schema() {
+  $schema = array();
+
+  $schema['unmanaged_files'] = array(
+    'description' => 'Ironically adding Unmanaged files to the DB so we can use this to delete the files.',
+    'fields' => array(
+      'unfid' => array(
+        'description' => 'The primary identifier for the entity.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'path' => array(
+        'description' => 'The path of the file.',
+        'type' => 'text',
+        'size' => 'big',
+        'serialize' => TRUE,
+        'object default' => array(),
+      ),
+    ),
+    'primary key' => array('unfid'),
+  );
+
+  return $schema;
+}
+
+/**
  * Implements hook_enable().
  */
 function fancy_file_delete_enable() {
   // So the hook_menu items in views shows up.
   drupal_flush_all_caches();
+}
+
+/**
+ * Ironically adding a DB table to handle unmanaged files.
+ */
+function fancy_file_delete_update_7101() {
+  // If the unamanged tables doesnt exist.
+  if (!db_table_exists('unmanaged_files')) {
+    $schema['unmanaged_files'] = array(
+      'description' => 'Ironically adding Unmanaged files to the DB so we can use this to delete the files.',
+      'fields' => array(
+        'unfid' => array(
+          'description' => 'The primary identifier for the entity.',
+          'type' => 'serial',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ),
+        'path' => array(
+          'description' => 'The path of the file.',
+          'type' => 'text',
+          'size' => 'big',
+          'serialize' => TRUE,
+          'object default' => array(),
+        ),
+      ),
+      'primary key' => array('unfid'),
+    );
+
+    // Add the unmanaged table in.
+    db_create_table('unmanaged_files', $schema['unmanaged_files']);
+  }
 }

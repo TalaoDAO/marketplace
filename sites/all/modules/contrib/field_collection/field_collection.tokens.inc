@@ -50,6 +50,11 @@ function field_collection_token_info() {
  * Inject an additional 'host' token to the 'field_collection_item' token type.
  */
 function field_collection_token_info_alter(&$data) {
+  $data['types']['field_collection_item'] = array(
+    'name' => t('Field collection'),
+    'description' => t('Tokens related to field collection.'),
+    'needs-data' => 'field_collection_item',
+  );
   $data['tokens']['field_collection_item']['host'] = array(
     'name' => t('Host entity'),
     'description' => t('The host entity of this field collection item.'),

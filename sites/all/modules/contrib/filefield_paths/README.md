@@ -27,6 +27,7 @@ Features
     * Convert unicode characters into US-ASCII with the Transliteration module.
 * Automatically updates unprocessed file paths in any Text fields on the entity.
 * Retroactive updates - rename and/or move previously uploaded files.
+* Active updating - actively rename and/or move previously uploaded files.
 * Automatically create an redirect when moving uploaded files using the Redirect
   module.
 

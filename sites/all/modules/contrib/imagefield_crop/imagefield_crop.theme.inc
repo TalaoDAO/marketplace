@@ -1,10 +1,9 @@
 <?php
-
 /**
  * @file
- * Themeable functions for imagefiel_crop module.
+ * Themeable functions for imagefield_crop module.
  */
- 
+
  function theme_imagefield_crop_widget($variables) {
 
   $element = $variables['element'];
@@ -48,7 +47,11 @@ function theme_imagefield_crop_preview($variables) {
   $info = $variables['element']['#imagefield_crop'];
   $output = '<div class="jcrop-preview-wrapper" style="width:' . $info['#width'] . 'px;height:' . $info['#height'] . 'px;overflow:hidden;">';
   $output .= $variables['element']['#markup'];
-  $output .= theme('image', array('path' => $info['#path'], 'alt' => 'jcrop-preview', 'attributes' => array('class' => 'jcrop-preview', 'style' => 'display:none')));
+  $output .= theme('image', array(
+    'path' => $info['#path'],
+    'alt' => 'jcrop-preview',
+    'attributes' => array('class' => 'jcrop-preview', 'style' => 'display:none'),
+  ));
   $output .= '</div>';
   return $output;
 }

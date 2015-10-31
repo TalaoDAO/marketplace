@@ -56,7 +56,6 @@ function autoassignrole_schema() {
       ),
       'path' => array(
         'type' => 'text',
-        'length' => 255,
         'not null' => TRUE,
         'description' => 'The path for this page',
       ),
@@ -117,7 +116,7 @@ function autoassignrole_update_7100() {
     while ($setting = $results->fetchObject()) {
       if (isset($defaults[$setting->arid])) {
         if (strcmp($setting->value, $defaults[$setting->arid]) === 0) {
-          drupal_set_message(t('AutoAssignRole upgrade: !var is using the default value so has been skipped.', array('!var' => $setting->arid)));
+          drupal_set_message(t('AutoAssignRole upgrade: @var is using the default value so has been skipped.', array('@var' => $setting->arid)));
         }
         else {
           // Expand any serialized objects, ignore any error messages.
@@ -129,7 +128,7 @@ function autoassignrole_update_7100() {
           }
           // Save the custom value.
           variable_set('autoassignrole_' . $setting->arid, $setting->value);
-          drupal_set_message(t('AutoAssignRole upgrade: !var has been converted.', array('!var' => $setting->arid)));
+          drupal_set_message(t('AutoAssignRole upgrade: @var has been converted.', array('@var' => $setting->arid)));
         }
       }
     }
@@ -162,7 +161,6 @@ function autoassignrole_update_7101() {
         ),
         'path' => array(
           'type' => 'text',
-          'length' => 255,
           'not null' => TRUE,
           'description' => 'The path for this page',
         ),
@@ -243,5 +241,19 @@ function autoassignrole_update_7103() {
 
     // Delete the old d6 table.
     db_drop_table('autoassignrole_page_v6');
+  }
+}
+
+/**
+ * Update the user description variable to allow HTML.
+ */
+function autoassignrole_update_7104() {
+  $user_desc = _autoassignrole_get_user_description();
+  if (!is_array($user_desc)) {
+    $defaults = array(
+      'value' => $user_desc,
+      'format' => filter_default_format(),
+    );
+    variable_set('autoassignrole_user_description', $defaults);
   }
 }

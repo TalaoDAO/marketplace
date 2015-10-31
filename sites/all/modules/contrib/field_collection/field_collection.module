@@ -588,10 +588,7 @@ function field_collection_item_is_empty(FieldCollectionItemEntity $item) {
   $is_empty = TRUE;
 
   // Check whether all fields are booleans.
-  $all_boolean = $instances && !(bool) array_filter($instances, function ($instance) {
-    $field = field_info_field($instance['field_name']);
-    return $field['type'] != 'list_boolean';
-  });
+  $all_boolean = $instances && !(bool) array_filter('_field_collection_field_is_not_boolean');
 
   foreach ($instances as $instance) {
     $field_name = $instance['field_name'];
@@ -622,6 +619,14 @@ function field_collection_item_is_empty(FieldCollectionItemEntity $item) {
   // Allow other modules a chance to alter the value before returning.
   drupal_alter('field_collection_is_empty', $is_empty, $item);
   return $is_empty;
+}
+
+/**
+ * Callback used by array_filter in field_collection_is_empty.
+ */
+function _field_collection_field_is_not_boolean($instance) {
+  $field = field_info_field($instance['field_name']);
+  return $field['type'] != 'list_boolean';
 }
 
 /**

@@ -34,6 +34,9 @@ function fancy_file_delete_batch($fid, $force, &$context) {
   }
   // Delete unmanaged.
   else {
+    db_delete('unmanaged_files')
+    ->condition('path', $fid)
+    ->execute();
     file_unmanaged_delete($fid);
     $context['results'][] = $fid;
   }

@@ -184,7 +184,7 @@ function _mail_edit_list_get_header($languages_selected, $display_language_names
     foreach ($languages_selected as $lang_name) {
       $header[] = array('data' => $lang_name);
     }
-    $header[] = array('data' => '');
+    $header[] = array('data' => t('Purge'));
   }
   else {
     $header[] = array('data' => t('Operations'), 'colspan' => 2);
@@ -229,11 +229,9 @@ function _mail_edit_list_row($template, array $languages, $display_language_name
     else {
       $link_text = t($display_language_names ? 'Add @language' : 'Add', $variable);
     }
-    if ($count > 0) {
-      $form['operations'] = array(
-        '#markup' => l(($count > 1 ? t('Purge All') : t('Purge')), 'admin/config/system/mail-edit/purge/' . $template->module . '_' . $template->mailkey),
-      );
-    }
+    $form['operations'] = array(
+        '#markup' => l(($count > 0 ? t('Purge All') : t('Purge')), 'admin/config/system/mail-edit/purge/' . $template->module . '_' . $template->mailkey),
+    );
     $form[$lang_code] = array(
       '#markup' => l($link_text, 'admin/config/system/mail-edit/' . $template->id . '/' . $lang_code),
     );
@@ -343,7 +341,9 @@ function _mail_edit_module_list($all = FALSE) {
   }
   foreach ($query->execute() as $module) {
     $info = unserialize($module->info);
-    $modules[$all][$module->name] = $info['name'];
+    if (isset($info['name'])) {
+      $modules[$all][$module->name] = $info['name'];
+    }
   }
   return $modules[$all];
 }
@@ -362,6 +362,10 @@ function mail_edit_template_form(array $form, array $form_state, $id, $lang) {
   _mail_edit_include();
   _mail_edit_module_load_include('alter.inc');
   $template = _mail_edit_load($id, $lang, TRUE);
+  if ($template === FALSE) {
+    drupal_not_found();
+    drupal_exit();
+  }
   $new = !empty($template['default']);
 
   $language_list = mail_edit_language_list();
@@ -376,7 +380,8 @@ function mail_edit_template_form(array $form, array $form_state, $id, $lang) {
       ? 'Create new %mailkey template'
       : 'Update %mailkey template'), $variables);
   }
-  drupal_set_title($message, PASS_THROUGH);
+  $dst = 'drupal_set_title';  // Keep Coder happy.
+  $dst($message, PASS_THROUGH);
 
   $form = array();
   $form['update'] = array(
@@ -431,7 +436,7 @@ function mail_edit_template_form(array $form, array $form_state, $id, $lang) {
  *
  * @return array
  */
-function mail_edit_template_subform($template){
+function mail_edit_template_subform($template) {
   //dpm($template, "mail_edit_template_subform");
   $form = array(
     '#type'          => 'fieldset',
@@ -463,12 +468,13 @@ function mail_edit_template_subform($template){
       '#token_types'     => (empty($token_types) ? array() : $token_types),
       '#show_restricted' => ($template['type']['module'] == 'user'),
       '#weight'          => 10,
+      '#dialog'          => TRUE,
     );
     drupal_add_css(drupal_get_path('module', 'mail_edit') . '/mail_edit.admin.css');
   }
   else {
     $form['token_tree'] = array(
-      '#markup' => '<p>' . t('Enable the <a href="@drupal-token">Token module</a> to view the available token browser.', array('@drupal-token' => 'http://drupal.org/project/token')) . '</p>',
+      '#markup' => '<p>' . t('Enable the <a href="@drupal-token">Token module</a> to view the available tokens.', array('@drupal-token' => 'https://www.drupal.org/project/token')) . '</p>',
     );
   }
 
@@ -480,38 +486,38 @@ function mail_edit_template_subform($template){
     '#weight'      => 15,
   );
   $form['dynamic'][] = array(
-    '#markup' => t('Dynamic text provides a way to dynamically adapt templates based on comparisons with token values.') . '<br />' .
-                 t('Note: Be careful about spaces and line breaks &mdash; they do count!') .
-                 '<div>' .
-                 '<div style="font-size: 4ex; margin-top: 1em"><b style="color: red">{{</b><u>left</u>&lt;&gt;<u>right</u><b style="color: red">?</b><u>true_text</u><b style="color: red">:</b><u>false_text</u><b style="color: red">}}</b></div><br />' .
-                 '<div style="font-size: 4ex"><b style="color: red">{{</b><u>condition</u><b style="color: red">?</b><u>true_text</u><b style="color: red">:</b><u>false_text</u><b style="color: red">}}</b></div><br />' .
-                 '<dl style="margin-bottom: 0">' .
-                 '<dt>' . t('!left and !right', array('!left' => '<u>left</u>', '!right' => '<u>right</u>')) . '</dt><dd style="margin-bottom: 0">' . t("Any text (including nothing), which may also contain tokens but no question marks (@qm) or comparison operators.", array('@qm' => "'?'")) . '</dd><br />' .
-                 '<dt>&lt;&gt;</dt><dd style="margin-bottom: 0">' . t('Any of the common comparison operators (@list).', array('@list' => "'==', '!=', '>', '<', '>=', '<='")) . '</dd><br />' .
-                 '<dt><u>condition</u></dt><dd style="margin-bottom: 0">' . t('A token; the @condition is false if the token evaluates to empty or 0, true otherwise. A prepended exclamation mark (!excl) reverses the logic.', array('@condition' => 'condition', '!excl' => "'!'")) . '</dd><br />' .
-                 '<dt><u>true_text</u></dt><dd style="margin-bottom: 0">' . t("Any text (including nothing), but no colon (@colon), except inside token names or nested dynamic clauses.<br />Square brackets (@brackets) must match and cannot be nested.", array('@colon' => "':'", '@brackets' => "'[', ']'")) . '</dd><br />' .
-                 '<dt><u>false_text</u></dt><dd style="margin-bottom: 0">' . t("Any text (including nothing).") . '</dd><br />' .
-                 '</dl>' .
-                 t('If the comparison evaluates to true, then !true_text is used, otherwise !false_text.', array('!true_text' => '<u>true_text</u>', '!false_text' => '<u>false_text</u>')) . '<br />' .
-                 '</div>' .
-                 '<div>' .
-                 '<div style="font-size: 4ex; margin-top: 1em"><b style="color: red">{{</b><u>count</u><b style="color: red">#</b><u>repeated_text</u><b style="color: red">}}</b></div><br />' .
-                 '<dl style="margin-bottom: 0">' .
-                 '<dt><u>count</u></dt><dd style="margin-bottom: 0">' . t('A number or token that evaluates to a number. A prepended exclamation mark (!excl) turns 0 into 1 and anything else into 0; two prepended exclamation marks (!two_excl) keep 0 and turn anything else into 1.', array('!excl' => "'!'", '!two_excl' => "'!!'")) . '</dd><br />' .
-                 '<dt><u>repeated_text</u></dt><dd style="margin-bottom: 0">' . t("The text that is to be repeated !count times. The text can include !number0 and !number1 which will be replaced by the 0- or 1-based index of the current iteration; the former can be used for indexing array tokens, i.e. !example, the latter for numbering the items starting at 1, as the end user would expect.", array('!count' => '<u>count</u>', '!number0' => "'#0'", '!number1' => "'#1'", '!example' => "'[<u>array</u><span style='color: red'>:index:#0</span>:<u>whatever</u>]'")) . '<br />' .
-                 t('Example: the following code lists the roles and rids (role keys) of the user, one per line:') . '<br />' .
-                 '<code>{{[user:roles:count]# &nbsp; #1: [user:roles:index:#0] ([user:roles:keys:value:#0])<br />}}</code>' . '</dd><br />' .
-                 '</dl>' .
-                 '</div>' .
-                 '<div>' .
-                 '<div style="font-size: 4ex; margin-top: 0.5em"><b style="color: red">{{</b><u>context</u><b style="color: red">@</b><u>conditional_text</u><b style="color: red">}}</b></div><br />' .
-                 '<dl style="margin-bottom: 0">' .
-                 '<dt><u>context</u></dt><dd style="margin-bottom: 0">' . t('A string that is passed in to discern the context of applying the template. A prepended exclamation mark (!excl) reverses the logic.', array('!excl' => "'!'")) . '<br />' . t('If the resulting text is used as a mail message, then the context is !MAIL. Client modules can pass in different context strings to get templates filled in for other purposes.', array('!MAIL' => "'MAIL'")) . '</dd><br />' .
-                 '<dt><u>conditional_text</u></dt><dd style="margin-bottom: 0">' . t("The text that is to be used in the given context, or in every other context if the exclamation mark (!excl) is used. This construct supports an additional level of nesting.", array('!count' => '<u>count</u>', '!number0' => "'#0'", '!number1' => "'#1'", '!excl' => "'!'")) . '</dd><br />' .
-                 '</dl>' .
-                 '</div>' .
-                 '<p>' . t('The replacement texts can contain line breaks and tokens, and they support four levels of nesting.') . '</p>' .
-                 '<p>' . t("As an extension to Dupal's token system, !Mail_Editor adds support for spaces and newlines inside the separator string of !join tokens.", array('!Mail_Editor' => 'Mail Editor', '!join' => '[*:join:?]')) . '</p>',
+    '#markup'  => t('Dynamic text provides a way to dynamically adapt templates based on comparisons with token values.') . '<br />' .
+                  t('Note: Be careful about spaces and line breaks &mdash; they do count!') .
+                  '<div>' .
+                  '<div style="font-size: 4ex; margin-top: 1em"><b style="color: red">{{</b><u>left</u>&lt;&gt;<u>right</u><b style="color: red">?</b><u>true_text</u><b style="color: red">:</b><u>false_text</u><b style="color: red">}}</b></div><br />' .
+                  '<div style="font-size: 4ex"><b style="color: red">{{</b><u>condition</u><b style="color: red">?</b><u>true_text</u><b style="color: red">:</b><u>false_text</u><b style="color: red">}}</b></div><br />' .
+                  '<dl style="margin-bottom: 0">' .
+                  '<dt>' . t('!left and !right', array('!left' => '<u>left</u>', '!right' => '<u>right</u>')) . '</dt><dd style="margin-bottom: 0">' . t("Any text (including nothing), which may also contain tokens but no question marks (@qm) or comparison operators.", array('@qm' => "'?'")) . '</dd><br />' .
+                  '<dt>&lt;&gt;</dt><dd style="margin-bottom: 0">' . t('Any of the common comparison operators (@list).', array('@list' => "'==', '!=', '>', '<', '>=', '<='")) . '</dd><br />' .
+                  '<dt><u>condition</u></dt><dd style="margin-bottom: 0">' . t('A token; the @condition is false if the token evaluates to empty or 0, true otherwise. A prepended exclamation mark (!excl) reverses the logic.', array('@condition' => 'condition', '!excl' => "'!'")) . '</dd><br />' .
+                  '<dt><u>true_text</u></dt><dd style="margin-bottom: 0">' . t("Any text (including nothing), but no colon (@colon), except inside token names or nested dynamic clauses.<br />Square brackets (@brackets) must match and cannot be nested.", array('@colon' => "':'", '@brackets' => "'[', ']'")) . '</dd><br />' .
+                  '<dt><u>false_text</u></dt><dd style="margin-bottom: 0">' . t("Any text (including nothing).") . '</dd><br />' .
+                  '</dl>' .
+                  t('If the comparison evaluates to true, then !true_text is used, otherwise !false_text.', array('!true_text' => '<u>true_text</u>', '!false_text' => '<u>false_text</u>')) . '<br />' .
+                  '</div>' .
+                  '<div>' .
+                  '<div style="font-size: 4ex; margin-top: 1em"><b style="color: red">{{</b><u>count</u><b style="color: red">#</b><u>repeated_text</u><b style="color: red">}}</b></div><br />' .
+                  '<dl style="margin-bottom: 0">' .
+                  '<dt><u>count</u></dt><dd style="margin-bottom: 0">' . t('A number or token that evaluates to a number. A prepended exclamation mark (!excl) turns 0 into 1 and anything else into 0; two prepended exclamation marks (!two_excl) keep 0 and turn anything else into 1.', array('!excl' => "'!'", '!two_excl' => "'!!'")) . '</dd><br />' .
+                  '<dt><u>repeated_text</u></dt><dd style="margin-bottom: 0">' . t("The text that is to be repeated !count times. The text can include !number0 and !number1 which will be replaced by the 0- or 1-based index of the current iteration; the former can be used for indexing array tokens, i.e. !example, the latter for numbering the items starting at 1, as the end user would expect.", array('!count' => '<u>count</u>', '!number0' => "'#0'", '!number1' => "'#1'", '!example' => "'[<u>array</u><span style='color: red'>:index:#0</span>:<u>whatever</u>]'")) . '<br />' .
+                  t('Example: the following code lists the roles and rids (role keys) of the user, one per line:') . '<br />' .
+                  '<code>{{[user:roles:count]# &nbsp; #1: [user:roles:index:#0] ([user:roles:keys:value:#0])<br />}}</code>' . '</dd><br />' .
+                  '</dl>' .
+                  '</div>' .
+                  '<div>' .
+                  '<div style="font-size: 4ex; margin-top: 0.5em"><b style="color: red">{{</b><u>context</u><b style="color: red">@</b><u>conditional_text</u><b style="color: red">}}</b></div><br />' .
+                  '<dl style="margin-bottom: 0">' .
+                  '<dt><u>context</u></dt><dd style="margin-bottom: 0">' . t('A string that is passed in to discern the context of applying the template. A prepended exclamation mark (!excl) reverses the logic.', array('!excl' => "'!'")) . '<br />' . t('If the resulting text is used as a mail message, then the context is !MAIL. Client modules can pass in different context strings to get templates filled in for other purposes.', array('!MAIL' => "'MAIL'")) . '</dd><br />' .
+                  '<dt><u>conditional_text</u></dt><dd style="margin-bottom: 0">' . t("The text that is to be used in the given context, or in every other context if the exclamation mark (!excl) is used. This construct supports an additional level of nesting.", array('!count' => '<u>count</u>', '!number0' => "'#0'", '!number1' => "'#1'", '!excl' => "'!'")) . '</dd><br />' .
+                  '</dl>' .
+                  '</div>' .
+                  '<p>' . t('The replacement texts can contain line breaks and tokens, and they support four levels of nesting.') . '</p>' .
+                  '<p>' . t("As an extension to Dupal's token system, !Mail_Editor adds support for spaces and newlines inside the separator string of !join tokens.", array('!Mail_Editor' => 'Mail Editor', '!join' => '[*:join:?]')) . '</p>',
   );
   return $form;
 }
@@ -568,13 +574,14 @@ function mail_edit_template_remove_confirm_submit(array $form, array &$form_stat
     '%id' => $id,
     '%language' => $language_list[$lang_code],
   );
+  $dsm = 'drupal_set_message';  // Keep Coder happy.
   if (count($language_list) > 1) {
-    drupal_set_message(t($success
+    $dsm(t($success
       ? '%language translation of %id has been removed.'
       : 'Failed to remove %language translation of %id.', $variables));
   }
   else {
-    drupal_set_message(t($success
+    $dsm(t($success
       ? 'Template %id has been removed.'
       : 'Failed to remove the %id template.', $variables));
   }
@@ -695,13 +702,19 @@ function mail_edit_purge_mailkey(array $form, array $form_state, $mailkey) {
  */
 function mail_edit_purge_mailkey_submit(array $form, array &$form_state) {
   $id = $form_state['values']['mailkey'];
-  db_delete('mail_edit')
+  $count = db_delete('mail_edit')
     ->condition('id', $id)
     ->execute();
-  db_delete('mail_edit_registry')
+  $count += db_delete('mail_edit_registry')
     ->condition('id', $id)
     ->execute();
-  drupal_set_message(t('The %mailkey template has been purged.', array('%mailkey' => $id)));
+  if ($count > 0) {
+    drupal_set_message(t('The %mailkey template has been purged.', array('%mailkey' => $id)));
+    cache_clear_all('mail_edit_registry', 'cache');
+  }
+  else {
+    drupal_set_message(t('The %mailkey template was not found.', array('%mailkey' => $id)));
+  }
   unset($_SESSION['mail_edit']['module']);
   $form_state['redirect'] = 'admin/config/system/mail-edit';
 }

@@ -46,7 +46,6 @@ function user_mail_edit_text($mailkey, $language) {
  *
  * @return array
  */
-function user_mail_edit_token_types($mailkey)
-{
+function user_mail_edit_token_types($mailkey) {
   return array('user');
 }

@@ -2,6 +2,15 @@ autoassignole x.x-x.x, xxxx-xx-xx
 ---------------------------------------
 
 
+autoassignole 7.x-1.0-rc1, 2015-09-02
+---------------------------------------
+Issue #1855766 by mike.davis: Description field
+Issue #2314637 by mike.davis: database mismatch
+Issue #2313197 by mike.davis: Administrator configures registration paths -
+  simpletests
+Issue #971614 by mike.davis: Introduce states to auto admin settings page
+
+
 autoassignole 7.x-1.0-beta4, 2015-02-13
 ---------------------------------------
 Issue #2416387 by Stefan Vaduva: User selectable roles not working again.
