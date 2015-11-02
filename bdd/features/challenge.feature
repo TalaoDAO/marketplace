@@ -4,7 +4,7 @@ Feature: Create challenge and answers
   As a business client
   I want to create a question, and watch responses
 
-  Background: Create questions
+  Background: Create challenge
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | password |
     | client1 | client1@emindhub.com | business | Captain          | America         | client1  |
@@ -15,7 +15,7 @@ Feature: Create challenge and answers
     | title        | field_domaine | og_group_ref | field_reward | author  |
     | What about ? | Energy        | All experts  | 100          | client1 |
 
-  Scenario: private response visibility
+  Scenario: challenge : private response visibility
     Given I am logged in as "expert1"
     When I go to homepage
     And I click "What about ?" in the "What about ?" row

@@ -4,7 +4,7 @@ Feature: Test points dispatch in OG
   As a client with a team
   I want to dispatch points on my team members
 
-  Background: Create questions and answers
+  Background: OG Points : Create questions and answers
     #client1 is webmaster to gain access to tabs until links are added
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name |
@@ -15,7 +15,7 @@ Feature: Test points dispatch in OG
     | title    | author  |
     | Avengers | client1 |
 
-  Scenario: Dispatch points
+  Scenario: OG Points : distribute points
     Given I give "client1" 300 emh points
     Given user "client1" transfers 200 points on "Avengers" node
     Given I am logged in as "client1"

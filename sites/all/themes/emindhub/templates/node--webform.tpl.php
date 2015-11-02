@@ -193,6 +193,7 @@
 	  </div>
 
 		<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeLinks.tpl.php'; ?>
+            <a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/webform"><?php print t('Edit your questions'); ?></a>
 
 		<?php // print render($content['comments']); ?>
 

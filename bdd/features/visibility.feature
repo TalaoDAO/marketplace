@@ -1,10 +1,10 @@
 @api
-Feature: Test visibility
+Feature: Test og visibility
   In order to test emh requests visibility
   As anonymous, clients, and experts
   I want to check if I see the right datas
 
-  Background: Create questions and answers
+  Background: og visibility : Create questions and answers
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name |
     | client1 | client1@emindhub.com | business | Steve            | Rogers          |
@@ -32,7 +32,7 @@ Feature: Test visibility
     | Fight Thanos  | Drones         | Avengers, X-Men | 100          | client1 |
 
 
-  Scenario: Test visibility
+  Scenario: og visibility : Test visibility
     Given I am logged in as a user with the "webmaster" role
     When I go to homepage
     Then I should see "Fight Magneto"
