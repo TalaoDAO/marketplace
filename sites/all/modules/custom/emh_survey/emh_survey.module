@@ -8,7 +8,6 @@
 function emh_survey_form_alter(&$form, &$form_state, $form_id) {
 
 	if ((isset($form['#node']) && $form['#node']->type == 'webform')) {
-		$form['#node']->webform['submit_notice'] = 0;
 		$form['actions']['submit']['#value'] = t('Submit my answer');
 
 		// echo '<pre>' . print_r($form, TRUE) . '</pre>';
@@ -132,4 +131,5 @@ function emh_survey_webform_node_defaults_alter(&$defaults) {
   $defaults['enforce_limit'] = 'yes';
   $defaults['submit_limit'] = '1';
   $defaults['submit_interval'] = '-1';
+  $defaults['submit_notice'] = '0';
 }
