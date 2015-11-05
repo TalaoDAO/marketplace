@@ -14661,6 +14661,13 @@ aside .block .content {
 .views-field-emh-points {
   text-align: right;
 }
+.view-query-list.view-display-id-block .views-field-title {
+  width: auto;
+}
+.view-query-list.view-display-id-block .views-field-field-reward,
+.view-query-list.view-display-id-block .views-field-views-conditional {
+  width: 130px;
+}
 div.fivestar-widget-static .star {
   width: 21px;
   height: 21px;
