@@ -7,12 +7,15 @@ use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
+use Behat\Behat\Hook\Scope\AfterStepScope;
 
 /**
  * Defines application features from the specific context.
  */
 class FeatureContext extends DrupalContext {
 
+  private $screenShotPath;
+  
   /**
    * Initializes context.
    *
@@ -20,7 +23,9 @@ class FeatureContext extends DrupalContext {
    * You can also pass arbitrary arguments to the
    * context constructor through behat.yml.
    */
-  public function __construct() {
+  public function __construct($screen_shot_path) {
+        //$this->screenShotPath = $screen_shot_path;
+        $this->screenShotPath = 'bdd/screenshot/';
   }
 
   /* @BeforeScenario
@@ -182,6 +187,34 @@ class FeatureContext extends DrupalContext {
       $file_and_path = '/var/www/tmp/behat_page.html';
       file_put_contents($file_and_path, $html_data);
 
+    }
+
+
+
+   /**
+     * Take screen-shot when step fails. 
+     *
+     * @AfterStep
+     * @param AfterStepScope $scope
+     */
+    public function takeScreenshotAfterFailedStep(AfterStepScope $scope)
+    {
+        if (99 === $scope->getTestResult()->getResultCode()) {
+            $driver = $this->getSession()->getDriver();
+            $path = '/var/www/tmp/';
+
+            if (! is_dir($path.$this->screenShotPath)) {
+                mkdir($path.$this->screenShotPath, 0777, true);
+            }
+            $step = $scope->getStep();
+	    $id = /*$step->getParent()->getTitle() . '.' .*/ $step->getType() . ' ' . $step->getText();
+	    $id = $scope->getFeature()->getTitle().' '.$step->getLine().'-'.  $step->getType() . ' ' . $step->getText();
+	    $filename = 'Fail.'.preg_replace('/[^a-zA-Z0-9-_\.]/','_', $id) . '.html';
+ 
+            $html_data = $this->getSession()->getDriver()->getContent();
+            file_put_contents($path.$this->screenShotPath.$filename, $html_data);
+            echo 'Screenshot error at : http://gitemindhub/tmp/'.$this->screenShotPath.$filename;
+        }
     }
 }
 
