@@ -40,10 +40,12 @@ function emh_access_user_name( $node ) {
   // Check node options
   // 0|Display my full name
   // 1|Hide my full name
-  if ( $node->field_anonymous[LANGUAGE_NONE][0]['value'] == 0 ) $access = TRUE;
+  $anonymous_mode = field_get_items('node', $node, 'field_anonymous');
+  if ($anonymous_mode[0]['value'] == 0) {
+    $access = TRUE;
+  }
 
   return $access;
-
 }
 
 function emh_access_user_company( $node ) {
@@ -53,8 +55,10 @@ function emh_access_user_company( $node ) {
   // Check node options
   // 0|Display the name
   // 1|Hide the name
-  if ( $node->field_show_entreprise[LANGUAGE_NONE][0]['value'] == 0 ) $access = TRUE;
+  $show_entreprise = field_get_items('node', $node, 'field_show_entreprise');
+  if ($show_entreprise[0]['value'] == 0) {
+    $access = TRUE;
+  }
 
   return $access;
-
 }
