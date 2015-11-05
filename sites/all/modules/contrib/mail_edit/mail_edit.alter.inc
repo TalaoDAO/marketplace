@@ -12,16 +12,19 @@
  * @param string|object $language
  * @param bool $force_always
  *
- * @return array|null
+ * @return array|null|bool
+ *   Returns FALSE if we get an invalid $id or $language,
+ *   NULL if we have no template yet, or a keyed array with the default and/or
+ *   customized templates.
  */
 function _mail_edit_load($id, $language, $force_always = FALSE) {
   if (is_string($language)) {
-    $lang_code = $language;
-    $language = new stdClass();
-    $language->language = $lang_code;
+    $languages = language_list();
+    $language = (isset($languages[$language]) ? $languages[$language] : NULL);
   }
-  else {
-    $lang_code = $language->language;
+  if (!is_object($language)) {
+    // If the language is unknown, we bail out.
+    return FALSE;
   }
   // Find out if this mail id is in our registry.
   if (!cache_get('mail_edit_registry')) {
@@ -33,7 +36,7 @@ function _mail_edit_load($id, $language, $force_always = FALSE) {
     ->condition('mer.id', $id);
   if (!$template_type = $query->execute()->fetchAssoc()) {
     // If we don't have any registry record we shouldn't attempt to alter it.
-    return NULL;
+    return FALSE;
   }
   $module = $template_type['module'];
   $mailkey = $template_type['mailkey'];
@@ -42,7 +45,7 @@ function _mail_edit_load($id, $language, $force_always = FALSE) {
   $query = db_select('mail_edit', 'me')
     ->fields('me')
     ->condition('me.id', $id)
-    ->condition('me.language', $lang_code);
+    ->condition('me.language', $language->language);
   $template = $query->execute()->fetchAssoc();
   $default_template = module_invoke($module, 'mail_edit_text', $mailkey, $language);
   if ($template) {
@@ -89,12 +92,10 @@ function _mail_edit_mail_alter(array &$message) {
   if ($message['module'] == 'user') {
     $options['callback'] = 'user_mail_tokens';
   }
-  $message['subject'] = trim(drupal_html_to_text(mail_edit_format($template['subject'], $data, $options)));
-  $args = array($template['body'], $data, $options);
-  if (isset($message['params']['context']['mail_edit'])) {
-    $args[] = $message['params']['context']['mail_edit'];
-  }
-  $body = call_user_func_array('mail_edit_format', $args);
+  $subject = mail_edit_format($template['subject'], $data, $options);
+  $message['subject'] = trim(drupal_html_to_text($subject));
+  $context = (isset($message['params']['context']['mail_edit']) ? $message['params']['context']['mail_edit'] : NULL);
+  $body = mail_edit_format($template['body'], $data, $options, $context);
   // Remove trailing spaces because these may be interpreted as soft line
   // breaks by the email client.
   $message['body'] = array(preg_replace('/ +(\r?\n)/', '\\1', $body));

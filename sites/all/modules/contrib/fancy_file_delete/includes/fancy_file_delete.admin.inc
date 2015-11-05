@@ -72,61 +72,6 @@ function fancy_file_delete_manual_submit($form, &$form_state) {
 }
 
 /**
- * Unmanaged Deletion Page Callback.
- */
-function fancy_file_delete_unmanaged() {
-  $form['close'] = array(
-    '#type' => 'item',
-    '#markup' => '<h2>' . t('Warning, this will delete all files that are orphaned (ones that are in the files directory with no record on the file_usage table)') . '</h2>' .
-     '<h5>' . t('There is no turning back once you hit submit!') . '</h5>',
-  );
-
-  $form['#submit'][] = 'fancy_file_delete_unmanaged_submit';
-
-  return system_settings_form($form);
-}
-
-/**
- * Submit callback for auto form.
- */
-function fancy_file_delete_unmanaged_submit($form, &$form_state) {
-  $operations = array();
-  // Get all files from default standard file dir.
-  $dir = variable_get('file_public_path', 'sites/default/files');
-  $files = file_scan_directory($dir, '(.*?)');
-
-  // Go through each one and replace this with a proper uri.
-  foreach ($files as $file) {
-    $file_check[] = str_replace($dir . '/', 'public://', $file->uri);
-  }
-
-  // All the files in the file_managed table
-  $query = db_select('file_managed', 'fm')
-    ->fields('fm', array('uri'))
-    ->execute();
-
-  // Set this to a numeric keyed array so we can check this easier.
-  foreach ($query->fetchAll() as $result) {
-    $db_check[] = $result->uri;
-  }
-  // Get the files not in the file_managed table.
-  $results = array_diff($file_check, $db_check);
-
-  // Go through and add this to the batch.
-  if(count($results) > 0) {
-    foreach ($results as $result) {
-      $operations[] = array('fancy_file_delete_batch', array($result, FALSE));
-    }
-    // Send to batch.
-    _fancy_file_delete_batch_run($operations);
-  }
-  else {
-    drupal_set_message(t('No Unmanaged Files Were Found.'));
-    drupal_goto('admin/config/content/fancy_file_delete/unmanaged');
-  }
-}
-
-/**
  * The batch operations to run for either function.
  *
  * @param  object $operations

@@ -8,15 +8,19 @@ dependencies[] = entity
 dependencies[] = views
 dependencies[] = views_bulk_operations
 
+scripts[] = js/fancyfiledelete.js
+
+files[] = includes/FancyFileDeleteDirectoryOnlyRecursiveFilterIterator.inc
 files[] = views/fancy_file_delete.views.inc
 files[] = views/fancy_file_delete.views_default.inc
-files[] = views/inc/fancy_file_delete_orphan_file_filter.inc
+files[] = views/inc/FancyFileDeleteOrphanFileFilter.inc
+files[] = views/inc/FancyFileDeleteUnmanagedDirectoryFilter.inc
 
 configure = admin/config/content/fancy_file_delete
 
-; Information added by Drupal.org packaging script on 2015-09-11
-version = "7.x-1.0-beta6"
+; Information added by Drupal.org packaging script on 2015-10-18
+version = "7.x-1.0-beta8"
 core = "7.x"
 project = "fancy_file_delete"
-datestamp = "1441996165"
+datestamp = "1445130545"
 

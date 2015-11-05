@@ -48,6 +48,11 @@ function autoassignrole_auto_settings() {
     '#default_value' => variable_get('autoassignrole_admin_active', 0),
     '#description' => t('Automatic role assignment occurs when the user first logins to the account. This happens without the users knowledge. Set to Enabled to allow this functionality or Disabled to not allow.'),
     '#options' => array(1 => t('Enabled'), 0 => t('Disabled')),
+    '#states' => array(
+      'visible' => array(
+        ':input[name="autoassignrole_auto_active"]' => array('value' => 1),
+      ),
+    ),
   );
 
   // We can disregard the authenticated user role since it is assigned to each
@@ -62,6 +67,11 @@ function autoassignrole_auto_settings() {
       '#default_value' => variable_get('autoassignrole_auto_roles', array()),
       '#description' => t('Check the specific roles the user will automatically be assigned to when created by an administrator or through the new user registration process. The Authenticated User role is automatically assigned by Drupal core and can not be edited.'),
       '#options' => $roles,
+      '#states' => array(
+        'visible' => array(
+          ':input[name="autoassignrole_auto_active"]' => array('value' => 1),
+        ),
+      ),
     );
   }
 
@@ -95,6 +105,11 @@ function autoassignrole_user_settings() {
       '#default_value' => variable_get('autoassignrole_user_roles', array()),
       '#description' => t('Check the specific roles the user will have the option of choosing. The Authenticated User role is automatically assigned by Drupal core and can not be edited.'),
       '#options' => $roles,
+      '#states' => array(
+        'visible' => array(
+          ':input[name="autoassignrole_user_active"]' => array('value' => 1),
+        ),
+      ),
     );
   }
 
@@ -104,6 +119,11 @@ function autoassignrole_user_settings() {
     '#default_value' => variable_get('autoassignrole_user_multiple', 0),
     '#description' => t('Should the end user be allowed to choose a single role or can they choose multiple roles?'),
     '#options' => array(0 => t('Single role'), 1 => t('Multiple roles')),
+    '#states' => array(
+      'visible' => array(
+        ':input[name="autoassignrole_user_active"]' => array('value' => 1),
+      ),
+    ),
   );
 
   $form['autoassignrole_user_selection'] = array(
@@ -115,6 +135,11 @@ function autoassignrole_user_settings() {
       AUTOASSIGNROLE_ELEMENT_RADIO_CHECKBOX => t('Radio Buttons/Checkboxes'),
       AUTOASSIGNROLE_ELEMENT_SELECT => t('Selection Box'),
     ),
+    '#states' => array(
+      'visible' => array(
+        ':input[name="autoassignrole_user_active"]' => array('value' => 1),
+      ),
+    ),
   );
 
   $form['autoassignrole_user_required'] = array(
@@ -123,6 +148,11 @@ function autoassignrole_user_settings() {
     '#default_value' => variable_get('autoassignrole_user_required', 0),
     '#description' => t('Should the end user be required to choose a role?'),
     '#options' => array(0 => t('No'), 1 => t('Yes')),
+    '#states' => array(
+      'visible' => array(
+        ':input[name="autoassignrole_user_active"]' => array('value' => 1),
+      ),
+    ),
   );
 
   $form['autoassignrole_user_sort'] = array(
@@ -135,14 +165,25 @@ function autoassignrole_user_settings() {
       'SORT_DESC' => t('Descending'),
       'SORT_WEIGHT' => t('Weight of field'),
     ),
+    '#states' => array(
+      'visible' => array(
+        ':input[name="autoassignrole_user_active"]' => array('value' => 1),
+      ),
+    ),
   );
 
+  // Set the user description filter format.
+  $autoassignrole_user_description = _autoassignrole_get_user_description();
+
   $form['autoassignrole_user_description'] = array(
-    '#type' => 'textarea',
+    '#type' => 'text_format',
     '#title' => t('User Role Description'),
     '#description' => t('The description displayed to the end user when they are selecting their role during registration.'),
-    '#default_value' => variable_get('autoassignrole_user_description', t('Select a role')),
+    '#default_value' => $autoassignrole_user_description['value'],
     '#required' => FALSE,
+    '#format' => $autoassignrole_user_description['format'],
+    '#prefix' => '<div id="autoassignrole_user_description_wrapper">',
+    '#suffix' => '</div>',
   );
 
   $form['autoassignrole_user_fieldset_title'] = array(
@@ -152,6 +193,11 @@ function autoassignrole_user_settings() {
     '#default_value' => variable_get('autoassignrole_user_fieldset_title', t('User Roles')),
     '#size' => 60,
     '#maxlength' => 128,
+    '#states' => array(
+      'visible' => array(
+        ':input[name="autoassignrole_user_active"]' => array('value' => 1),
+      ),
+    ),
   );
 
   $form['autoassignrole_user_title'] = array(
@@ -162,6 +208,11 @@ function autoassignrole_user_settings() {
     '#size' => 60,
     '#maxlength' => 128,
     '#required' => FALSE,
+    '#states' => array(
+      'visible' => array(
+        ':input[name="autoassignrole_user_active"]' => array('value' => 1),
+      ),
+    ),
   );
 
   return system_settings_form($form);
@@ -280,7 +331,7 @@ function autoassignrole_page_form_validate($form_id, &$form_state) {
     else {
       $query = db_select('menu_links', 'm')
         ->fields('m', array('mlid'))
-        ->condition('link_path', $path, 'LIKE'); //YBA LIKE instead of like
+        ->condition('link_path', $path, 'like');
       $count = $query->countQuery()->execute()->fetchField();
       if (drupal_lookup_path('source', $path) || $count > 0) {
         // The menu item exists so need to check if the path has something other
@@ -323,7 +374,7 @@ function autoassignrole_page_form_submit($form_id, &$form_state) {
 
   if ($return) {
     menu_rebuild();
-    drupal_set_message(t('Successfuly @operation Page @page', array('@operation' => $operation, '@page' => $page['title'])));
+    drupal_set_message(t('Successfully @operation Page @page', array('@operation' => $operation, '@page' => $page['title'])));
     drupal_goto('admin/config/people/autoassignrole/pages');
   }
   else {

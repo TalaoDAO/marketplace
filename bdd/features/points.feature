@@ -4,7 +4,7 @@ Feature: Test points
   As a client 
   I want to dispatch points on experts
 
-  Background: Create questions and answers
+  Background: points : create questions and answers
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name |
     | client1 | client1@emindhub.com | business | Captain          | America         |
@@ -30,7 +30,7 @@ Feature: Test points
     And I press "Publish"
 
   #@exclude
-  Scenario: Manual arrange of points
+  Scenario: points: Manual distribute
     Then I should have 100 points on "What about ?" node
     Given I am logged in as "client1"
     When I go to homepage
@@ -60,7 +60,7 @@ Feature: Test points
     And I should see "Move points from question1 What about ? to Iron Man. "
     And I should see "Move points from question1 What about ? to Klark Kent. "
 
-  Scenario: VBO arrange of points
+  Scenario: points : VBO distribute
     Then I should have 100 points on "What about ?" node
     Given I am logged in as "client1"
     When I go to "/my-responses"

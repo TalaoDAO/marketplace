@@ -267,17 +267,27 @@ function autoassignrole_form_user_register_form_alter(&$form, &$form_state) {
         $roles = array(0 => t('None')) + $roles;
       }
 
+      // Set the user description filter format.
+      $autoassignrole_user_description = _autoassignrole_get_user_description();
+
       // Add in the element.
       $form['autoassignrole_user']['user_roles'] = array(
         '#type' => $type,
         '#title' => filter_xss(variable_get('autoassignrole_user_title', t('Role'))),
         '#options' => $roles,
-        '#description' => filter_xss(variable_get('autoassignrole_user_description', t('Select a role'))),
+        '#description' => filter_xss_admin($autoassignrole_user_description['value']),
         '#required' => variable_get('autoassignrole_user_required', 0),
         '#multiple' => $multiple,
       );
     }
   }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function autoassignrole_form_autoassignrole_user_settings_alter(&$form, &$form_state, $form_id) {
+  $form['#attached']['js'][] = drupal_get_path('module', 'autoassignrole') . '/autoassignrole.js';
 }
 
 /**
@@ -321,4 +331,19 @@ function _autoasignrole_get_page_query() {
       'menu',
       'display',
     ));
+}
+
+/**
+ * Get the user description filter field data.
+ *
+ * @return array
+ *   The user description filter value.
+ */
+function _autoassignrole_get_user_description() {
+  $defaults = array(
+    'value' => t('Select a role'),
+    'format' => filter_default_format(),
+  );
+
+  return variable_get('autoassignrole_user_description', $defaults);
 }

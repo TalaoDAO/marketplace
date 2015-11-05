@@ -55,6 +55,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access all webform results',
     'roles' => array(
       'administrator' => 'administrator',
+      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
@@ -783,15 +784,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'page_manager',
   );
 
-  // Exported permission: 'administer pathauto'.
-  $permissions['administer pathauto'] = array(
-    'name' => 'administer pathauto',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'pathauto',
-  );
-
   // Exported permission: 'administer permissions'.
   $permissions['administer permissions'] = array(
     'name' => 'administer permissions',
@@ -1376,6 +1368,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete all webform submissions',
     'roles' => array(
       'administrator' => 'administrator',
+      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
@@ -1756,6 +1749,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit all webform submissions',
     'roles' => array(
       'administrator' => 'administrator',
+      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
@@ -2178,7 +2172,11 @@ function ft_permissions_user_default_permissions() {
   $permissions['edit webform components'] = array(
     'name' => 'edit webform components',
     'roles' => array(
-      'authenticated user' => 'authenticated user',
+      'administrator' => 'administrator',
+      'business' => 'business',
+      'business preview' => 'business preview',
+      'référent' => 'référent',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
   );
@@ -2475,36 +2473,6 @@ function ft_permissions_user_default_permissions() {
   // Exported permission: 'execute og_user_roles_action'.
   $permissions['execute og_user_roles_action'] = array(
     'name' => 'execute og_user_roles_action',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'actions_permissions',
-  );
-
-  // Exported permission: 'execute pathauto_node_update_action'.
-  $permissions['execute pathauto_node_update_action'] = array(
-    'name' => 'execute pathauto_node_update_action',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'actions_permissions',
-  );
-
-  // Exported permission: 'execute pathauto_taxonomy_term_update_action'.
-  $permissions['execute pathauto_taxonomy_term_update_action'] = array(
-    'name' => 'execute pathauto_taxonomy_term_update_action',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'actions_permissions',
-  );
-
-  // Exported permission: 'execute pathauto_user_update_action'.
-  $permissions['execute pathauto_user_update_action'] = array(
-    'name' => 'execute pathauto_user_update_action',
     'roles' => array(
       'administrator' => 'administrator',
       'webmaster' => 'webmaster',
@@ -2879,17 +2847,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'term_merge',
-  );
-
-  // Exported permission: 'notify of path changes'.
-  $permissions['notify of path changes'] = array(
-    'name' => 'notify of path changes',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'pathauto',
   );
 
   // Exported permission: 'opt-in or out of tracking'.

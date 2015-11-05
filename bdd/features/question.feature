@@ -16,7 +16,7 @@ Feature: Create question and answers
     | What about ? | Energy        | All experts  | 100          | client1 |
 
   #@exclude
-  Scenario: test questions as business
+  Scenario: questions : test as business
     Given I am logged in as "client1"
     When I go to homepage
     Then I should see "All experts" in the "What about ?" row
@@ -27,7 +27,7 @@ Feature: Create question and answers
     And I should see "All experts" in the "What about ?" row
 
   #@exclude
-  Scenario: test questions as admin
+  Scenario: questions : test as admin
     Given I am logged in as a user with the "administrator" role
     And I go to "admin/content"
     Then I should see "What about ?"
@@ -38,7 +38,7 @@ Feature: Create question and answers
 #    Then I should see "What about ?"
 
   #@exclude
-  Scenario: respond from an expert
+  Scenario: questions : respond from an expert
     Given I am logged in as "expert1"
     When I go to homepage
     Then I should see "What about ?"
@@ -70,7 +70,7 @@ Feature: Create question and answers
     And I should see "Je suis un expert"
 
   #@exclude
-  Scenario: private response visibility
+  Scenario: question : private response visibility
     Given I am logged in as "expert1"
     When I go to homepage
     And I click "What about ?" in the "What about ?" row

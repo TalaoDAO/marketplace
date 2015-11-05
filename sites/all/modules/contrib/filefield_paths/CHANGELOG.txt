@@ -1,3 +1,13 @@
+File (Field) Paths 7.x-1.0-rc2, 2015-10-28
+--------------------------------------------------------------------------------
+
+- #2592519: Fixed issue with temporary upload location and field collections.
+- #2576547: Fixed issue with Media Youtube files being processed.
+- #2570127: Added stricter checks for filefield_paths_form_alter().
+- #2569589: Fixed issue with unicode characters in pathauto processing.
+
+
+
 File (Field) Paths 7.x-1.0-rc1, 2015-09-15
 --------------------------------------------------------------------------------
 

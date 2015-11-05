@@ -35,9 +35,8 @@ function mail_edit_permission() {
  * @return array
  */
 function mail_edit_menu() {
-  $items = array();
   $items['admin/config/system/mail-edit'] = array(
-    'access arguments' => array('administer mail templates'),
+    'access callback' => 'mail_edit_access',
     'file' => 'mail_edit.admin.inc',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('mail_edit_list_form'),
@@ -45,27 +44,36 @@ function mail_edit_menu() {
     'title' => 'Mail templates',
   );
   $items['admin/config/system/mail-edit/purge/%'] = array(
-    'access arguments' => array('administer mail templates'),
+    'access callback' => 'mail_edit_access',
     'file' => 'mail_edit.admin.inc',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('mail_edit_purge_mailkey', 5),
     'type' => MENU_CALLBACK,
   );
   $items['admin/config/system/mail-edit/%/%'] = array(
-    'access arguments' => array('administer mail templates'),
+    'access callback' => 'mail_edit_access',
     'file' => 'mail_edit.admin.inc',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('mail_edit_template_form', 4, 5),
     'type' => MENU_CALLBACK,
   );
   $items['admin/config/system/mail-edit/%/%/remove'] = array(
-    'access arguments' => array('administer mail templates'),
+    'access callback' => 'mail_edit_access',
     'file' => 'mail_edit.admin.inc',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('mail_edit_template_remove_confirm', 4, 5),
     'type' => MENU_CALLBACK,
   );
   return $items;
+}
+
+/**
+ * Checks the current user's access to Mail Edit's pages.
+ *
+ * @return bool
+ */
+function mail_edit_access() {
+  return user_access('administer mail templates') && user_access('access administration pages');
 }
 
 /**
@@ -116,7 +124,7 @@ function mail_edit_mail_alter(array &$message) {
  */
 function mail_edit_load($module, $mailkey, $language, $force_always = FALSE) {
   _mail_edit_module_load_include('alter.inc');
-  return _mail_edit_load($module, $mailkey, $language, $force_always);
+  return _mail_edit_load($module . '_' . $mailkey, $language, $force_always);
 }
 
 /**
@@ -134,8 +142,9 @@ function mail_edit_load($module, $mailkey, $language, $force_always = FALSE) {
  *
  * @return string
  */
-function mail_edit_format($template, $data, $options = array(), $context = 'MAIL') {
+function mail_edit_format($template, $data, $options = array(), $context = NULL) {
   _mail_edit_module_load_include('alter.inc');
+  $context = (isset($context) ? $context : 'MAIL');
   $result = _mail_edit_preprocess($template, $data, $options, $context);
   $result = token_replace($result, $data, $options);
   return $result;
@@ -204,7 +213,7 @@ function _mail_edit_module_load_include($name_or_ext, $ext = NULL) {
  * @param $item
  */
 function mail_edit_menu_breadcrumb_alter(&$active_trail, $item) {
-  if ($item['path'] == 'admin/config/system/mail-edit/%/%') {
+  if (isset($item['path']) && $item['path'] == 'admin/config/system/mail-edit/%/%') {
     $active_trail = array($active_trail[0]);
     foreach ($item['map'] as $i) {
       $path = (!isset($path) ? $i : $path . '/' . $i);

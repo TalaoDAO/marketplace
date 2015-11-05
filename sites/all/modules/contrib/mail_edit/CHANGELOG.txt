@@ -5,6 +5,20 @@ CHANGELOG.txt for Mail Editor for Drupal 7
 mail_edit 7.x-1.x-dev:
 
 
+mail_edit 7.x-1.1 (2015-07-05):
+  Bug fixed:
+    - #2165875 by miiimooo: Fix the mail_edit_load() API function.
+    - #1826220 by acrollet: Fix a notice in mail_edit_menu_breadcrumb_alter().
+    - Provide a 'Purge' operation for all template records, especially orphaned ones.
+    - #1806944: Require the 'Use the administration pages and help' permission to access our pages.
+    - Force a refresh of the registry after purging a template.
+    - Add missing parameter checking.
+  Enhancements:
+    - Minor code refactoring, no functional changes.
+    - #2456719 by DamienMcKenna: Change token tree to use the new dialog.
+    - Fix Coder issues (no functional changes).
+
+
 mail_edit 7.x-1.0 (2012-06-21):
   Bug fixed:
     - Fix the breadcrumb one last time...

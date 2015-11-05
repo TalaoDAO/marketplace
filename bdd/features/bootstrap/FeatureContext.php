@@ -171,6 +171,17 @@ class FeatureContext extends DrupalContext {
         sleep($seconds);
     }
 
+    /**
+     * This works for the Goutte driver and I assume other HTML-only ones.
+     *
+     * @Then /^show me the HTML page$/
+     */
+    public function show_me_the_html_page_in_the_browser() {
 
+      $html_data = $this->getSession()->getDriver()->getContent();
+      $file_and_path = '/var/www/tmp/behat_page.html';
+      file_put_contents($file_and_path, $html_data);
+
+    }
 }
 

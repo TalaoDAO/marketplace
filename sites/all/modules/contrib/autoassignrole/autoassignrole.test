@@ -516,13 +516,13 @@ class AutoassignroleAdminUserTestCase extends DrupalWebTestCase {
     // Check that the user can see the admin settings page.
     $this->drupalGet('admin/config/people/autoassignrole/user');
     $this->assertField(
-     'autoassignrole_user_description',
+     'autoassignrole_user_description[value]',
      'The autoassignrole_user_description field is accessible.'
     );
 
     // Set autoassignrole_user_description to a random string.
     $random_string = $this->randomName();
-    $edit['autoassignrole_user_description'] = $random_string;
+    $edit['autoassignrole_user_description[value]'] = $random_string;
     $this->drupalPost(
       'admin/config/people/autoassignrole/user',
       $edit,
@@ -530,8 +530,9 @@ class AutoassignroleAdminUserTestCase extends DrupalWebTestCase {
     );
 
     // Verify autoassignrole_user_fieldset_title has been saved.
+    $autoassignrole_user_description = _autoassignrole_get_user_description();
     $this->assertEqual(
-      variable_get('autoassignrole_user_description', -1),
+      $autoassignrole_user_description['value'],
       $random_string,
       'autoassignrole_user_description has been set to random string'
     );
@@ -602,6 +603,125 @@ class AutoassignroleAdminUserTestCase extends DrupalWebTestCase {
   }
 }
 
+class AuthassignroleRolePerPathTestCase extends DrupalWebTestCase {
+
+  protected $page_title;
+
+  protected $page_path;
+
+  /**
+   * Helper method for creating a random AutoAssignRole page.
+   */
+  protected function createAarPage($specificRid = NULL) {
+    // Check that the user can see the admin add page.
+    $this->drupalGet('admin/config/people/autoassignrole/pages/add');
+
+    // Verify that there are roles exposed.
+    $role_keys = array_keys($this->roles);
+    $this->assertField(
+     'roles[' . $role_keys[0] . ']',
+     'Looking for the autoassignrole_auto_roles checkboxes.'
+    );
+
+    // Verify that a checkbox for each of our valid roles shows on the page.
+    foreach ($this->roles as $rid => $role) {
+      // Only assign the specific rid to this page.
+      if (!is_null($specificRid)) {
+        if ($specificRid != $rid) {
+          continue;
+        }
+      }
+      $edit["roles[$rid]"] = $rid;
+    }
+
+    // Set the title.
+    $this->page_title = $this->randomName();
+    $edit['title'] = $this->page_title;
+    // Set the path.
+    $edit['path'] = $this->page_path = 'test/register/' . $this->page_title;
+
+    // Check each of our roles and submit the form.
+    $this->drupalPost(
+      'admin/config/people/autoassignrole/pages/add',
+      $edit,
+      t('Add')
+    );
+
+    // Verify the path has been saved.
+    $this->assertText('Successfully Created Page ' . $this->page_title, 'Verified that path has been created.');
+  }
+}
+
+/**
+ * Extend the DrupalWebTestCase.
+ */
+class AutoassignroleAdminRolePerPageTestCase extends AuthassignroleRolePerPathTestCase {
+  protected $admin_user;
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Admin role by path',
+      'description' => 'Tests the administrative setting for auto assign role role per page',
+      'group' => 'Auto assign role',
+    );
+  }
+
+  function setUp() {
+    parent::setUp('autoassignrole');
+    $this->admin_user = $this->drupalCreateUser(array(
+      'administer autoassignrole',
+      'access administration pages',
+    ));
+    $permissions = array('access content');
+    $this->drupalCreateRole($permissions);
+
+    $this->roles = user_roles(TRUE);
+    unset($this->roles[DRUPAL_AUTHENTICATED_RID]);
+  }
+
+  /**
+   * Validate that the block for this functionality exists on
+   * admin/config/people/autoassignrole.
+   */
+  function testAutoConfigAarBlock() {
+    // Create a new user who can access the administration settings.
+    $this->drupalLogin($this->admin_user);
+
+    // Check that the user can see a link to the auto settings.
+    $this->drupalGet('admin/config/people/autoassignrole');
+    $this->assertLink('Per Role Pages', 0, 'Allow user to define registration path to be assigned role(s) on admin/config/people/autoassignrole');
+  }
+
+  /**
+   * Test admin functionality of creating a role per path.
+   * @see https://www.drupal.org/node/971320
+   */
+  function testAutoRolePerPageAdd() {
+    // Create a new user who can access the administration settings.
+    $this->drupalLogin($this->admin_user);
+
+    // Check that the user can see the admin add page.
+    $this->createAarPage();
+
+    // Click to edit this new path.
+    $this->clickLink(t('Edit'));
+
+    // Verify the title has been saved correctly.
+    $this->assertFieldByName('title', $this->page_title, 'Role per path title has random string');
+    $this->assertFieldByName('path', 'test/register/' . $this->page_title, 'Role per path path is correct');
+
+    // Go back to the list of AAR pages.
+    $this->drupalGet('admin/config/people/autoassignrole/pages');
+
+    // Click to delete link.
+    $this->clickLink(t('Delete'));
+
+    // Verify the delete confirmation message.
+    $this->assertText('Are you sure you want to delete the page ' . $this->page_title);
+  }
+}
+
+
 /**
  * Extend the DrupalWebTestCase.
  */
@@ -660,5 +780,100 @@ class AutoassignroleUserCreationTestCase extends DrupalWebTestCase {
       array_key_exists($this->rid, $this->test_user->roles),
       'User is not automatically assigned role when autoassignrole_auto_active is set to 0'
     );
+  }
+}
+
+/**
+ * Extend the DrupalWebTestCase.
+ */
+class AutoassignroleUserCreationRolePerPathTestCase extends AuthassignroleRolePerPathTestCase {
+  protected $rid;
+  protected $roleName;
+  protected $roles;
+  protected $admin_user;
+
+  public static function getInfo() {
+    return array(
+      'name' => 'User creation by path',
+      'description' => 'Tests the user creation functionality for auto assign role automatic assignment based upon a path',
+      'group' => 'Auto assign role',
+    );
+  }
+
+  function setUp() {
+    parent::setUp('autoassignrole');
+    $this->admin_user = $this->drupalCreateUser(array(
+      'administer permissions',
+      'administer users',
+      'administer autoassignrole',
+      'access administration pages',
+    ));
+    // Create a random role.
+    $this->roleName = $this->randomName();
+    $this->rid = $this->drupalCreateRole(array(), $this->roleName);
+    $this->roles = user_roles(TRUE);
+    unset($this->roles[DRUPAL_AUTHENTICATED_RID]);
+  }
+
+  /**
+   * Test the user registration based on a path.
+   * @see https://www.drupal.org/node/971320
+   */
+  function testUserAutoRegistrationByPath() {
+    // enable clean urls.
+    variable_set('clean_url', 1);
+
+    // Login as the admin user.
+    $this->drupalLogin($this->admin_user);
+    // Create the AAR registration page to assign to the new role.
+    $this->createAarPage($this->rid);
+    // Logout as an admin.
+    $this->drupalLogout();
+
+    // Register as a new user with the new path.
+    $this->drupalGet($this->page_path);
+
+    // Fill in the register form.
+    $testUserName = 'testUser-' . $this->randomName();
+    $form['name'] = $testUserName;
+    $form['mail'] = 'test@test.com';
+
+    // Check each of our roles and submit the form.
+    $this->drupalPost($this->page_path, $form, t('Create new account'));
+    // Logout as user registered user.
+    $this->drupalLogout();
+
+    // Login as admin user to check new users role.
+    $this->drupalLogin($this->admin_user);
+    // Get the list of users.
+    $this->drupalGet('admin/people');
+
+    // Get the user span details.
+    $userSpans = $this->xpath('//span[@class="username"]');
+    $userUrl = '';
+    foreach ($userSpans as $user) {
+      if ($user[0] == $testUserName) {
+        foreach($user[0]->attributes() as $key => $value) {
+          if ($key == 'about') {
+            $userUrl = $value;
+            break;
+          }
+        }
+      }
+    }
+
+    // Load the user to check their roles.
+    preg_match('/\/user\/([0-9]+)/', $userUrl, $matches);
+    $userId = $matches[1];
+    $user = user_load($userId);
+
+    $this->assertTrue(isset($user->roles[$this->rid]), t('The user [@userId] has been assigned role: \'@roleName\' [@rid] (roles [@roles]).',
+      array(
+        '@userId' => $userId,
+        '@roleName' => $this->roleName,
+        '@rid' => $this->rid,
+        '@roles' => print_r($user->roles, true),
+      )
+    ));
   }
 }

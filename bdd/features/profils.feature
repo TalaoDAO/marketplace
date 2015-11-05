@@ -4,7 +4,7 @@ Feature: Test profil visibility
   As a client with some experts
   I want check if profile is well displayed
 
-  Background: Create questions and answers
+  Background: profils : Create questions and answers
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas |
     | client1 | client1@emindhub.com | business | Captain          | America         | 0612345678      | Chef de groupe     |
@@ -32,7 +32,7 @@ Feature: Test profil visibility
 
   #TODO: tel visibility not implemented yet
   #@exclude
-  Scenario: Check visibility
+  Scenario: profils : Check visibility
     Then I should have 100 points on "What about ?" node
     Given I am logged in as "client1"
     When I go to "my-responses"
