@@ -46,15 +46,7 @@ function ft_rules_default_rules_configuration() {
       "OWNER" : "rules",
       "TAGS" : [ "Circle", "EMH" ],
       "REQUIRES" : [ "rules", "og" ],
-      "ON" : { "user_insert" : [] },
-      "IF" : [
-        { "user_has_role" : {
-            "account" : [ "account" ],
-            "roles" : { "value" : { "4" : "4", "5" : "5", "7" : "7", "8" : "8", "9" : "9" } },
-            "operation" : "OR"
-          }
-        }
-      ],
+      "ON" : { "user_update" : [] },
       "DO" : [
         { "entity_fetch" : {
             "USING" : { "type" : "node", "id" : "314" },
@@ -80,6 +72,35 @@ function ft_rules_default_rules_configuration() {
             "DO" : [
               { "og_subcribe_user" : { "user" : [ "list-item" ], "group" : [ "node" ] } }
             ]
+          }
+        }
+      ]
+    }
+  }');
+  $items['rules_set_clients_as_admin_in_mandatory_group'] = entity_import('rules_config', '{ "rules_set_clients_as_admin_in_mandatory_group" : {
+      "LABEL" : "Set clients as admin in circles",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "REQUIRES" : [ "rules", "og" ],
+      "ON" : { "og_user_insert" : [] },
+      "IF" : [
+        { "NOT user_has_role" : {
+            "account" : [ "account" ],
+            "roles" : { "value" : { "4" : "4", "8" : "8" } },
+            "operation" : "OR"
+          }
+        }
+      ],
+      "DO" : [
+        { "entity_fetch" : {
+            "USING" : { "type" : "node", "id" : "314" },
+            "PROVIDE" : { "entity_fetched" : { "entity_fetched" : "Fetched entity" } }
+          }
+        },
+        { "og_grant_og_role" : {
+            "account" : [ "account" ],
+            "group" : [ "entity-fetched" ],
+            "roles" : { "value" : { "administrator member" : "administrator member" } }
           }
         }
       ]
