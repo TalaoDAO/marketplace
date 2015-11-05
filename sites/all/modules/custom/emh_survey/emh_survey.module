@@ -8,7 +8,6 @@
 function emh_survey_form_alter(&$form, &$form_state, $form_id) {
 
 	if ((isset($form['#node']) && $form['#node']->type == 'webform')) {
-		$form['#node']->webform['submit_notice'] = 0;
 		$form['actions']['submit']['#value'] = t('Submit my answer');
 
 		// echo '<pre>' . print_r($form, TRUE) . '</pre>';
@@ -82,6 +81,15 @@ function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $fo
 	$form['actions']['see']['#markup'] = t('<a href="@url" class="btn-submit btn btn-primary form-submit" id="edit-view">Publish your survey</a>', array('@url' => url('node/' . $webform_id)));
 	$form['actions']['see']['#access'] = TRUE;
 
+  $form['#submit'][] = 'emh_survey_remove_param';
+}
+
+/**
+ * Helper submit callback that removes cid parameter.
+ */
+function emh_survey_remove_param($form, &$form_state) {
+  $nid = $form_state['values']['nid'];
+  $form_state['redirect'] = 'node/' . $nid . '/webform/components';
 }
 
 
@@ -132,4 +140,5 @@ function emh_survey_webform_node_defaults_alter(&$defaults) {
   $defaults['enforce_limit'] = 'yes';
   $defaults['submit_limit'] = '1';
   $defaults['submit_interval'] = '-1';
+  $defaults['submit_notice'] = '0';
 }
