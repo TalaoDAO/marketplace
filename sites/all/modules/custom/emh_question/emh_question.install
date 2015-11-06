@@ -21,3 +21,14 @@ function emh_question_update_7001() {
   ->condition('name', 'emh_question')
   ->execute();
 }
+
+/**
+ * Aliases question creation path.
+ */
+function emh_question_update_7002() {
+  $path = array(
+    'source' => 'node/add/question1',
+    'alias' => 'node/add/question',
+  );
+  path_save($path);
+}

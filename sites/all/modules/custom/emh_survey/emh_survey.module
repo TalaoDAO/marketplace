@@ -12,6 +12,14 @@ function emh_survey_form_alter(&$form, &$form_state, $form_id) {
 
 		// echo '<pre>' . print_r($form, TRUE) . '</pre>';
 	  // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
+    if (isBusinessUser()) {
+      foreach($form['submitted'] as $key => $element) {
+        if (is_array($element) && !empty($element['#type']) && $element['#type'] == 'textarea') {
+          $form['submitted'][$key]['#disabled'] = 'disabled';
+          $form['actions']['#access'] = FALSE;
+        }
+      }
+    }
   }
 
 }
