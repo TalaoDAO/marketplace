@@ -142,3 +142,10 @@ function emh_survey_webform_node_defaults_alter(&$defaults) {
   $defaults['submit_interval'] = '-1';
   $defaults['submit_notice'] = '0';
 }
+
+/**
+ * Implements hook_views_api().
+ */
+function emh_survey_views_api() {
+  return array('api' => 3);
+}
