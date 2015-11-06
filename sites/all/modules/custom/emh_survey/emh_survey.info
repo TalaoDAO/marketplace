@@ -2,3 +2,6 @@ name = eMindHub Survey
 package = EMH
 core = 7.x
 project = emh_survey
+
+; Classes autoloading
+files[] = emh_survey_handler_field_submission_count.inc
