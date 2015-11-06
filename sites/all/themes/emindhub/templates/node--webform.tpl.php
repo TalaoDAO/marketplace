@@ -206,7 +206,8 @@
 			// print render($content);
 		?>
 
-		<?php if (!isBusinessUser()) : ?>
+    <?php global $user; ?>
+		<?php if (!isBusinessUser() || $node->uid == $user->uid) : ?>
 		<?php if ($node->webform['status'] != 0) : ?>
 		<div id="comments" class="<?php print $classes; ?> row section emh-fieldgroup-blue-title"<?php print $attributes; ?>>
 	    <h2 class="h3"><span><?php print t('Answer the survey') ?></span></h2>
