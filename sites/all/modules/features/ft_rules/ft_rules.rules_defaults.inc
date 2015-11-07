@@ -45,7 +45,7 @@ function ft_rules_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "TAGS" : [ "Circle", "EMH" ],
-      "REQUIRES" : [ "rules", "og" ],
+      "REQUIRES" : [ "rules", "og", "views_rules" ],
       "ON" : { "user_update" : [] },
       "DO" : [
         { "entity_fetch" : {
@@ -53,7 +53,14 @@ function ft_rules_default_rules_configuration() {
             "PROVIDE" : { "entity_fetched" : { "entity_fetched" : "Fetched entity" } }
           }
         },
-        { "og_subcribe_user" : { "user" : [ "account" ], "group" : [ "entity-fetched" ] } }
+        { "og_subcribe_user" : { "user" : [ "account" ], "group" : [ "entity-fetched" ] } },
+        { "VIEW LOOP" : {
+            "VIEW" : "user_circle_list",
+            "DISPLAY" : "views_rules_1",
+            "ROW VARIABLES" : { "node" : { "node" : "Node" } },
+            "DO" : []
+          }
+        }
       ]
     }
   }');
@@ -89,11 +96,12 @@ function ft_rules_default_rules_configuration() {
             "roles" : { "value" : { "4" : "4", "8" : "8" } },
             "operation" : "OR"
           }
-        }
+        },
+        { "entity_is_of_type" : { "entity" : [ "og-membership:group" ], "type" : "node" } }
       ],
       "DO" : [
         { "entity_fetch" : {
-            "USING" : { "type" : "node", "id" : "314" },
+            "USING" : { "type" : "node", "id" : [ "og-membership:group:nid" ] },
             "PROVIDE" : { "entity_fetched" : { "entity_fetched" : "Fetched entity" } }
           }
         },

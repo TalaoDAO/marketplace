@@ -4296,7 +4296,30 @@ function ft_views_views_default_views() {
 
   /* Display: Rules */
   $handler = $view->new_display('views_rules', 'Rules', 'views_rules_1');
-  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['defaults']['access'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'none';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'node';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  /* Field: Content: Nid */
+  $handler->display->display_options['fields']['nid']['id'] = 'nid';
+  $handler->display->display_options['fields']['nid']['table'] = 'node';
+  $handler->display->display_options['fields']['nid']['field'] = 'nid';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
@@ -4313,13 +4336,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'circle' => 'circle',
   );
-  /* Filter criterion: Content: Group visibility (group_access) */
-  $handler->display->display_options['filters']['group_access_value']['id'] = 'group_access_value';
-  $handler->display->display_options['filters']['group_access_value']['table'] = 'field_data_group_access';
-  $handler->display->display_options['filters']['group_access_value']['field'] = 'group_access_value';
-  $handler->display->display_options['filters']['group_access_value']['value'] = array(
-    0 => '0',
-  );
   $handler->display->display_options['rules_parameter'] = array(
     'uid' => array(
       'enabled' => 1,
@@ -4330,16 +4346,16 @@ function ft_views_views_default_views() {
   );
   $handler->display->display_options['rules_variables'] = array(
     'title' => array(
-      'enabled' => 1,
+      'enabled' => 0,
       'rendered' => 0,
-      'type' => 'node',
+      'type' => 'text',
       'label' => 'Content: Title',
       'name' => 'title',
     ),
     'nid' => array(
       'enabled' => 1,
       'rendered' => 0,
-      'type' => 'node',
+      'type' => 'integer',
       'label' => 'Nid',
       'name' => 'nid',
     ),
@@ -4596,6 +4612,11 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['id'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['table'] = 'field_data_field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
+  /* Field: User: CV */
+  $handler->display->display_options['fields']['field_cv']['id'] = 'field_cv';
+  $handler->display->display_options['fields']['field_cv']['table'] = 'field_data_field_cv';
+  $handler->display->display_options['fields']['field_cv']['field'] = 'field_cv';
+  $handler->display->display_options['fields']['field_cv']['click_sort_column'] = 'fid';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: User: Roles */
