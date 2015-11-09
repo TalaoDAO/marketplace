@@ -57,7 +57,7 @@
     <?php //print $content ?>
 
     <?php if (isBusinessUser()) : ?>
-      <a href="<?php print url("node/add/survey"); ?>">
+      <a href="<?php print url("node/add/webform"); ?>">
         <span class="default-text"><?php echo sprintf(t('Create %sa survey%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?></span>
         <span class="hover">
           <?php echo t('Create a survey to find an expert profile'); ?><br />

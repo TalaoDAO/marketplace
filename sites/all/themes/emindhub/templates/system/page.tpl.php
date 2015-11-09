@@ -203,12 +203,8 @@
         <?php print $messages; ?>
         <?php endif; ?>
 
-        <?php
-        $context = arg(0);
-        if ( $context == 'messages' || (isWebmasterUser()) || (isAdminUser()) ) : ?>
         <?php if (!empty($tabs)): ?>
           <?php print render($tabs); ?>
-        <?php endif; ?>
         <?php endif; ?>
 
         <?php if (!empty($page['help'])): ?>
