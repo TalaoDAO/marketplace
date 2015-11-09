@@ -2,6 +2,7 @@
 
 function emindhub_menu_alter(&$items) {
   unset($items['user/register']);
+  $items['user/%user/hybridauth']['access callback'] = FALSE;
 }
 
 
