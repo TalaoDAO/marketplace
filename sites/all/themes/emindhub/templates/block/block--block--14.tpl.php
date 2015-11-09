@@ -57,7 +57,7 @@
     <?php //print $content ?>
 
     <?php if (isBusinessUser()) : ?>
-      <a href="<?php print url("node/add/question1"); ?>">
+      <a href="<?php print url("node/add/question"); ?>">
         <span class="default-text"><?php echo sprintf(t('Ask %sa question%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?></span>
         <span class="hover">
           <?php echo t('Ask a question online and get answers from experts'); ?><br />
