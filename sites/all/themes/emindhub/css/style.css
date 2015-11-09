@@ -13573,14 +13573,6 @@ a.flag .badge {
   color: #fff;
   padding: 15px;
 }
-.content .node .links li.fr a,
-.content .node .links li.en a {
-  font: 0/0 a;
-  color: transparent;
-  text-shadow: none;
-  background-color: transparent;
-  border: 0;
-}
 #comments .indented {
   margin-left: 25px;
 }
