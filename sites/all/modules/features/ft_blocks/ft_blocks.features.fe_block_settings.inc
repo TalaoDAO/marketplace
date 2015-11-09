@@ -47,9 +47,7 @@ function ft_blocks_default_fe_block_settings() {
     'cache' => -1,
     'css_class' => '',
     'custom' => 0,
-    'i18n_block_language' => array(
-      0 => 'en',
-    ),
+    'i18n_block_language' => array(),
     'i18n_mode' => 1,
     'machine_name' => 'expert_avantages',
     'module' => 'block',
@@ -71,7 +69,7 @@ business/register',
         'weight' => 0,
       ),
     ),
-    'title' => 'What are the main benefits for experts ?',
+    'title' => 'What are the main benefits for experts?',
     'visibility' => 1,
   );
 
