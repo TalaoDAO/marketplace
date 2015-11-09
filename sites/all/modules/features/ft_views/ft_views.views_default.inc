@@ -216,7 +216,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
-  /* Field: Field: Organisation / company */
+  /* Field: Field: Organisation */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';
@@ -351,7 +351,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_titre_metier']['hide_empty'] = TRUE;
-  /* Field: Field: Organisation / company */
+  /* Field: Field: Organisation */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';
@@ -2959,6 +2959,7 @@ function ft_views_views_default_views() {
   );
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['vocabulary'] = 'domaine';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['hierarchy'] = 1;
   /* Filter criterion: Content: Tags (field_tags) (translated) */
   $handler->display->display_options['filters']['field_tags_tid_i18n']['id'] = 'field_tags_tid_i18n';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['table'] = 'field_data_field_tags';
@@ -3087,6 +3088,7 @@ function ft_views_views_default_views() {
   );
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['vocabulary'] = 'domaine';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['hierarchy'] = 1;
   /* Filter criterion: Content: Tags (field_tags) (translated) */
   $handler->display->display_options['filters']['field_tags_tid_i18n']['id'] = 'field_tags_tid_i18n';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['table'] = 'field_data_field_tags';
@@ -3476,6 +3478,7 @@ function ft_views_views_default_views() {
   );
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['vocabulary'] = 'domaine';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['hierarchy'] = 1;
   /* Filter criterion: Content: Tags (field_tags) (translated) */
   $handler->display->display_options['filters']['field_tags_tid_i18n']['id'] = 'field_tags_tid_i18n';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['table'] = 'field_data_field_tags';
@@ -3716,6 +3719,7 @@ function ft_views_views_default_views() {
   );
   $handler->display->display_options['filters']['field_domaine_tid_i18n_1']['type'] = 'select';
   $handler->display->display_options['filters']['field_domaine_tid_i18n_1']['vocabulary'] = 'domaine';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n_1']['hierarchy'] = 1;
   /* Filter criterion: Content: Tags (field_tags) (translated) */
   $handler->display->display_options['filters']['field_tags_tid_i18n']['id'] = 'field_tags_tid_i18n';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['table'] = 'field_data_field_tags';
@@ -3871,6 +3875,7 @@ function ft_views_views_default_views() {
   );
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['vocabulary'] = 'domaine';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['hierarchy'] = 1;
   /* Filter criterion: Content: Tags (field_tags) (translated) */
   $handler->display->display_options['filters']['field_tags_tid_i18n']['id'] = 'field_tags_tid_i18n';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['table'] = 'field_data_field_tags';
