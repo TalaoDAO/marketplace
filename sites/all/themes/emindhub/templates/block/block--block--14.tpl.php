@@ -66,7 +66,7 @@
       </a>
 
     <?php elseif (isExpertUser()) : ?>
-    <?php global $base_url; $safe_link = rawurldecode($base_url . '/requests/all?type[question]=question1'); ?>
+    <?php global $base_url; $safe_link = rawurldecode($base_url . '/requests/all?type[question1]=question1'); ?>
     <a href="<?php print $safe_link; ?>">
       <span class="default-text"><?php echo sprintf(t('Answer %squestions%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?></span>
     </a>
