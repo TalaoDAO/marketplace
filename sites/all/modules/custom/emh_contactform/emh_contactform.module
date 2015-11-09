@@ -21,7 +21,7 @@ function emh_contactform_help($path, $arg) {
 function emh_contactform_form_contact_site_form_alter(&$form, &$form_state, $form_id) {
 
 	$form['emh_baseline'] = array(
-    '#markup' => '<p class="emh-title-baseline">' . c_szLearnMore . '<br /><strong>' . c_szLeaveMsg . '</strong></p>',
+    '#markup' => '<p class="emh-title-baseline">' . t('Want to learn more?') . '<br /><strong>' . t('Leave us a message, we will get back at you within 24h!') . '</strong></p>',
     '#weight' => '-1000', // First !
   );
 
@@ -110,11 +110,14 @@ function emh_contactform_form_contact_site_form_alter(&$form, &$form_state, $for
 	foreach ($order as $key => $field) {
 		$form[$field]['#weight'] = $key;
 	}
+
+	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
+
 }
 
 function emh_contactform_mail_alter(&$message) {
 	if ($message['id'] == 'contact_page_mail') {
-		$message['id'] = 'custom_contact_mail';// Important, otherwise suject will be ovveriden
+		$message['id'] = 'custom_contact_mail'; // Important, otherwise suject will be overriden
 	 	$message['subject'] = $message['subject'].' '. t('From').' '.$message['from'];
 	 	$message['body'][] = t('From - ').' '.$message['params']['firstname'].' '.$message['params']['lastname'];
 		$message['body'][] = t('Telephone').': '.$message['params']['phone'];
