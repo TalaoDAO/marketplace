@@ -3777,7 +3777,7 @@ function ft_views_views_default_views() {
   /* Display: B - My requests */
   $handler = $view->new_display('block', 'B - My requests', 'block_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Last requests';
+  $handler->display->display_options['title'] = 'My requests';
   $handler->display->display_options['defaults']['use_more'] = FALSE;
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
