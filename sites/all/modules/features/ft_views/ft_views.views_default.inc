@@ -2984,6 +2984,12 @@ function ft_views_views_default_views() {
   );
   $handler->display->display_options['filters']['field_tags_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['vocabulary'] = 'tags';
+  /* Filter criterion: Points: Total Points */
+  $handler->display->display_options['filters']['total_points']['id'] = 'total_points';
+  $handler->display->display_options['filters']['total_points']['table'] = 'emh_points_total';
+  $handler->display->display_options['filters']['total_points']['field'] = 'total_points';
+  $handler->display->display_options['filters']['total_points']['operator'] = '!=';
+  $handler->display->display_options['filters']['total_points']['value']['value'] = '0';
   $handler->display->display_options['views_navigation'] = TRUE;
   $handler->display->display_options['views_navigation_back'] = TRUE;
   $handler->display->display_options['views_navigation_title'] = TRUE;
@@ -3113,6 +3119,12 @@ function ft_views_views_default_views() {
   );
   $handler->display->display_options['filters']['field_tags_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['vocabulary'] = 'tags';
+  /* Filter criterion: Points: Total Points */
+  $handler->display->display_options['filters']['total_points']['id'] = 'total_points';
+  $handler->display->display_options['filters']['total_points']['table'] = 'emh_points_total';
+  $handler->display->display_options['filters']['total_points']['field'] = 'total_points';
+  $handler->display->display_options['filters']['total_points']['operator'] = '!=';
+  $handler->display->display_options['filters']['total_points']['value']['value'] = '0';
   $handler->display->display_options['views_navigation'] = TRUE;
   $handler->display->display_options['views_navigation_back'] = TRUE;
   $handler->display->display_options['views_navigation_title'] = TRUE;
