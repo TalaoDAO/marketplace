@@ -12788,7 +12788,7 @@ fieldset[disabled] .list-inline > li a.flag.focus {
 @media (min-width: 767px) {
   body:not(.cke_editable),
   body.admin-menu {
-    padding-top: 137px;
+    padding-top: 133px;
   }
   body.admin-menu header#navbar {
     position: fixed;
@@ -14943,7 +14943,7 @@ body.front .alert {
   }
   body.front.logged-in,
   body.front.logged-in.admin-menu {
-    padding-top: 138px;
+    padding-top: 133px;
   }
   body.front.logged-in .main-container section#maincol,
   body.front.logged-in.admin-menu .main-container section#maincol {
