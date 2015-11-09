@@ -608,10 +608,7 @@ business/register',
     'module' => 'bootstrap_languages',
     'node_types' => array(),
     'pages' => '',
-    'roles' => array(
-      'administrator' => 3,
-      'webmaster' => 6,
-    ),
+    'roles' => array(),
     'themes' => array(
       'emindhub' => array(
         'region' => 'topmenu',
