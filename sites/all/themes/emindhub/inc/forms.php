@@ -227,8 +227,6 @@ function emindhub_form_search_block_form_alter(&$form, &$form_state, $form_id) {
   // Alternative (HTML5) placeholder attribute instead of using the javascript
   $form['search_block_form']['#attributes']['placeholder'] = t('Type your search, keywords...');
 
-  $form['#theme_wrappers'] = array();
-
   // echo '<pre>' . print_r($form['search_block_form'], TRUE) . '</pre>'; die;
 
 }
