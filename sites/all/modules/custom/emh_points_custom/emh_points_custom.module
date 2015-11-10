@@ -110,19 +110,19 @@ function emh_points_custom_form_emh_points_admin_form_alter(&$form, &$form_state
   $form['emh_points_challenge_threshold'] = array(
     '#type' => 'textfield',
     '#title' => t('Points threshold for Challenge'),
-    '#default_value' => variable_get('emh_points_challenge_threshold', '100'),
+    '#default_value' => variable_get('emh_points_challenge_threshold', '1000'),
     '#element_validate' => array('element_validate_integer_positive'),
   );
   $form['emh_points_question1_threshold'] = array(
     '#type' => 'textfield',
-    '#title' => t('Points threshold for Question1'),
+    '#title' => t('Points threshold for Question'),
     '#default_value' => variable_get('emh_points_question1_threshold', '100'),
     '#element_validate' => array('element_validate_integer_positive'),
   );
   $form['emh_points_webform_threshold'] = array(
     '#type' => 'textfield',
     '#title' => t('Points threshold for Survey'),
-    '#default_value' => variable_get('emh_points_webform_threshold', '100'),
+    '#default_value' => variable_get('emh_points_webform_threshold', '500'),
     '#element_validate' => array('element_validate_integer_positive'),
   );
   $form['emh_points_contact_price'] = array(
