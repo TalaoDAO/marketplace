@@ -56,9 +56,9 @@
   <?php if ($content): ?>
     <div class="content">
       <?php //print $content; ?>
-      <a href="<?php print url('business/register'); ?>">
+      <a href="<?php print url('freetrial'); ?>">
         <p><?php echo sprintf(t('You have %sa request%s'), '<br /><strong>', '</strong>'); ?></p>
-        <p><?php echo sprintf(t('%sSign-up%s as a client and use eMindHub\'s services'), '<strong>', '</strong>'); ?></p>
+        <p><?php echo sprintf(t('%sAsk for a free trial%s and use eMindHub\'s services'), '<strong>', '</strong>'); ?></p>
       </a>
     </div>
   <?php endif;?>
