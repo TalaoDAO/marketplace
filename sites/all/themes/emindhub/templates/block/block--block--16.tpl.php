@@ -68,7 +68,7 @@
     </a>
 
     <?php else : ?>
-    <a href="<?php print url("business/register"); ?>">
+    <a href="<?php print url("freetrial"); ?>">
       <?php echo sprintf(t('%sSurvey%sCreate a survey to find an expert profile%sAsk for a free trial%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
     </a>
     <?php endif; ?>

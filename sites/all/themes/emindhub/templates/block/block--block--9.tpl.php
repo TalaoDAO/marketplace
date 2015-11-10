@@ -57,8 +57,8 @@
     <div class="content">
       <?php //print $content; ?>
       <a href="<?php print url('expert/register'); ?>">
-        <p><?php print t('You have<br /><strong>an expertise</strong>'); ?></p>
-        <p><?php print t('<strong>Sign-up FOR FREE</strong> as an expert and answer the requests'); ?></p>
+        <p><?php echo sprintf(t('Your have%san expertise%s'), '<br /><strong>', '</strong>'); ?></p>
+        <p><?php echo sprintf(t('%sSign-up for free and start!%s'), '<strong>', '</strong>'); ?></p>
       </a>
     </div>
   <?php endif;?>
