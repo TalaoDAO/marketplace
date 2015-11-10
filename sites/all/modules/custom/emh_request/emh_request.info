@@ -2,3 +2,6 @@ name = eMindHub Request: abstraction layer to standardize the way we manage requ
 package = EMH
 core = 7.x
 project = emh_request
+
+; Classes autoloading
+files[] = EmhAnswer.php

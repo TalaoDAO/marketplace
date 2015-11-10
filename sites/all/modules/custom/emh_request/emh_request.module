@@ -3,3 +3,140 @@
  * @file
  * Code for eMindHub Request feature.
  */
+
+
+/**
+ * Implements hook_entity_info().
+ */
+function emh_request_entity_info() {
+  $entities = array();
+
+  $entities['emh_answer'] = array(
+    'label' => t('Answer'),
+    'entity class' => 'EmhAnswer',
+    'controller class' => 'EntityAPIController',
+    'base table' => 'emh_answer',
+    'load hook' => 'emh_answer_load',
+    'fieldable' => TRUE,
+    'entity keys' => array(
+      'id' => 'answer_id',
+    ),
+    'view modes' => array(
+      'full' => array(
+        'label' => t('Full'),
+        'custom settings' => FALSE,
+      ),
+      'teaser' => array(
+        'label' => t('Teaser'),
+        'custom settings' => FALSE,
+      ),
+    ),
+  );
+
+  return $entities;
+}
+
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+//function emh_request_entity_info_alter(&$info) {
+//  dpm($info);
+//}
+
+
+/**
+ * Implements hook_entity_insert().
+ */
+function emh_request_entity_insert($entity, $type) {
+  if ($type == 'comment') {
+    $node = node_load($entity->nid);
+
+    if ($node->type == 'challenge' || $node->type == 'question1') {
+      $answer = new EmhAnswer(array(
+        'entity_type' => $type,
+        'bundle'      => $type,
+        'entity_id'   => $entity->cid,
+        'points'      => 0,
+      ));
+      $answer->save();
+    }
+  }
+}
+
+
+/**
+ * Implements hook_entity_delete().
+ */
+function emh_request_entity_delete($entity, $type) {
+  if ($type == 'comment') {
+    $node = node_load($entity->nid);
+
+    if ($node->type == 'challenge' || $node->type == 'question1') {
+      $answer = emh_answer_load_by_ref_entity('comment', $entity);
+      $answer->delete();
+    }
+  }
+}
+
+
+/**
+ * Implements hook_webform_submission_insert().
+ */
+function emh_request_webform_submission_insert($node, $submission) {
+  $answer = new EmhAnswer(array(
+    'entity_type' => 'webform_submission',
+    'bundle'      => 'webform_submission',
+    'entity_id'   => $submission->sid,
+    'points'      => 0,
+  ));
+
+  $answer->save();
+}
+
+
+/**
+ * Implements hook_webform_submission_delete().
+ */
+function emh_request_webform_submission_delete($node, $submission) {
+  $answer = emh_answer_load_by_ref_entity('webform_submission', $entity);
+  $answer->delete();
+}
+
+
+/**
+ * Loads a single answer entity.
+ */
+function emh_answer_load($id, $reset = FALSE) {
+  $entity = entity_load('emh_answer', array($id), array(), $reset);
+  return !empty($entity) ? reset($entity) : NULL;
+}
+
+
+/**
+ * Loads multiple answer entities.
+ */
+function emh_answer_load_multiple($ids = FALSE, $conditions = array(), $reset = FALSE) {
+  return entity_load('emh_answer', $ids, $conditions, $reset);
+}
+
+
+/**
+ * Loads a single answer entity by the referenced entity info.
+ */
+function emh_answer_load_by_ref_entity($entity_type, $entity, $reset = FALSE) {
+  if ($entity_type != 'webform_submission') {
+    list($id, , $bundle) = entity_extract_ids($entity_type, $entity);
+  } else {
+    list($id, $bundle) = array($entity->sid, $entity_type);
+  }
+
+  $conditions = array(
+    'entity_type' => $entity_type,
+    'bundle'      => $bundle,
+    'entity_id'   => $id,
+  );
+
+  $entity = entity_load('emh_answer', array(), $conditions, $reset);
+  return !empty($entity) ? reset($entity) : NULL;
+}

@@ -1,0 +1,56 @@
+<?php
+/**
+ * @file
+ * Installation hooks for the emh_request module.
+ */
+
+
+/**
+ * Implements hook_schema().
+ */
+function emh_request_schema() {
+  $schema = array();
+
+  $schema['emh_answer'] = array(
+    'description' => '',
+    'fields' => array(
+      'answer_id' => array(
+        'description' => 'Answer ID',
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'entity_type' => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The entity type this data is attached to',
+      ),
+      'bundle' => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The entity bundle this data is attached to',
+      ),
+      'entity_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The entity id this data is attached to',
+      ),
+      'points' => array(
+        'description' => 'Current Points',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('answer_id'),
+    'indexes' => array(
+      'points' => array('points'),
+    ),
+  );
+
+  return $schema;
+}
