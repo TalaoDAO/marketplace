@@ -69,6 +69,16 @@ function emindhub_preprocess_page(&$vars, &$variables) {
 		'getsize' => FALSE,
 	));
 
+  // Beta version
+  if ( drupal_is_front_page() == TRUE && user_is_logged_in() == TRUE ) {
+    drupal_set_message(t('<strong>Welcome to eMindHub!</strong> Thank you for being among the first users of our platform! This is a beta version, for any suggestion or comment please leave a message through the <a href="/contact">contact form</a>.'), 'info');
+  }
+
+  // Experts points info
+  if ( drupal_is_front_page() == TRUE && isExpertUser() == TRUE ) {
+    drupal_set_message(t('You can earn points by responding to a request and when the client recognize the value of your contribution. You can therefore monetize your points once you have reached a threshold of at least 500 points.'), 'info');
+  }
+
 }
 
 
@@ -82,7 +92,7 @@ function isBusinessUser() {
 
 function isExpertUser() {
 	global $user;
-  return (in_array('expert', array_values($user->roles)) || in_array('expert preview', array_values($user->roles)));
+  return (in_array('expert', array_values($user->roles)) || in_array('expert preview', array_values($user->roles)) || in_array('référent', array_values($user->roles)));
 }
 
 function isWebmasterUser() {

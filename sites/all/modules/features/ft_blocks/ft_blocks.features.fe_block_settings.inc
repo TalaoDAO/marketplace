@@ -27,8 +27,8 @@ function ft_blocks_default_fe_block_settings() {
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'top',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
         'weight' => -47,
       ),
@@ -90,8 +90,8 @@ business/register',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'top',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
         'weight' => -47,
       ),
