@@ -79,7 +79,7 @@ function ft_field_base_flag_default_flags() {
     'show_on_form' => 0,
     'access_author' => '',
     'show_contextual_link' => 0,
-    'show_on_profile' => 0,
+    'show_on_profile' => 1,
     'access_uid' => 'others',
     'module' => 'ft_field_base',
     'locked' => array(

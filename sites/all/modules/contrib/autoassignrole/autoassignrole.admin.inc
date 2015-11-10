@@ -331,7 +331,7 @@ function autoassignrole_page_form_validate($form_id, &$form_state) {
     else {
       $query = db_select('menu_links', 'm')
         ->fields('m', array('mlid'))
-        ->condition('link_path', $path, 'like');
+        ->condition('link_path', $path, 'LIKE'); 
       $count = $query->countQuery()->execute()->fetchField();
       if (drupal_lookup_path('source', $path) || $count > 0) {
         // The menu item exists so need to check if the path has something other
