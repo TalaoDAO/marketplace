@@ -14599,6 +14599,13 @@ aside .block .content {
   margin-top: 15px;
   background: transparent url("../images/logo/eMindHub_Aerospace_logo.png") no-repeat center top;
 }
+.emh-field-reward {
+  width: 110px;
+  text-align: right;
+}
+.views-field-type {
+  width: 20px;
+}
 .views-field-created,
 .views-field-field-expiration-date,
 .views-field-changed,
@@ -14606,34 +14613,33 @@ aside .block .content {
   text-align: center;
   width: 130px;
 }
-.views-field-title {
-  width: 220px;
-  overflow: hidden;
-  -o-text-overflow: ellipsis;
-  /* pour Opera 9 */
-  text-overflow: ellipsis;
-  /* pour le reste du monde */
+.views-field-og-group-ref {
+  width: 150px;
 }
 .views-field-uid,
 .view-my-responses-questions1 .views-field-nothing-1,
 .view-my-responses-challenge .views-field-nothing-1 {
   width: 200px;
-  overflow: hidden;
-  -o-text-overflow: ellipsis;
-  /* pour Opera 9 */
-  text-overflow: ellipsis;
-  /* pour le reste du monde */
 }
 .views-field-field-reward,
 .views-field-emh-points {
+  width: 110px;
   text-align: right;
 }
-.view-query-list.view-display-id-block .views-field-title {
-  width: auto;
+.view-query-list.view-display-id-block_1 .views-field-views-conditional,
+.view-query-list.view-id-query_list .views-field-views-conditional,
+.view-query-list.view-display-id-page_2 .views-field-views-conditional,
+.view-display-id-page_1 .views-field-views-conditional {
+  width: 110px;
+  text-align: right;
 }
-.view-query-list.view-display-id-block .views-field-field-reward,
-.view-query-list.view-display-id-block .views-field-views-conditional {
-  width: 130px;
+.view-my-responses-questions1 .views-field-nothing,
+.view-my-responses-calls3 .views-field-nothing,
+.view-my-responses-challenges .views-field-nothing,
+.view-my-responses-questions1 .views-field-views-conditional,
+.view-my-responses-calls3 .views-field-views-conditional,
+.view-my-responses-challenges .views-field-views-conditional {
+  width: 350px;
 }
 div.fivestar-widget-static .star {
   width: 21px;
