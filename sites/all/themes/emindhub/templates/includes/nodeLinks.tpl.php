@@ -1,29 +1,23 @@
 <div class="row section actions">
   <div class="col-sm-8">
-    <?php print render($content['links']['node']); ?>
-    <?php print render($content['links']['forward']); ?>
+    <?php print render($content['links']); ?>
+    <?php //print render($content['links']['node']); ?>
+    <?php //print render($content['links']['forward']); ?>
   </div>
   <div class="col-sm-4 text-right">
 
     <ul class="links list-inline">
 
-      <?php if (node_access('update', $node)) : ?>
-      <li class="edit_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/edit"><?php print t('Edit'); ?></a>
-        </li>
-      <?php endif; ?>
-
       <?php if (!isExpertUser()) : ?>
 
       <?php if (function_exists('webform_get_submission_count')) : ?>
       <?php if (webform_get_submission_count($node->nid) > 0) : ?>
-      <li class="answers_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/survey_answers"><?php print t('Select best answers'); ?></a>
-      </li>
+      <li class="answers_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/survey_answers"><?php print t('Select best answers'); ?></a></li>
       <?php endif; ?>
       <?php endif; ?>
 
       <?php if ($comment_count > 0) : ?>
-      <li class="answers_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/answers"><?php print t('Select best answers'); ?></a>
-      </li>
+      <li class="answers_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/answers"><?php print t('Select best answers'); ?></a></li>
       <?php endif; ?>
 
       <?php endif; ?>
