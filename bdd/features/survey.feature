@@ -18,7 +18,8 @@ Feature: Create survey and answers
   Scenario: survey response
     Given I am logged in as "client1"
     When I go to "/content/what-about"
-    Then I click "Edit your questions"
+    #Then I click "Edit your questions"
+    Then I click "Webform"
     When I fill in "New question name" with "First question"
     And I press "Add"
     And I press "Save your question"
