@@ -23,7 +23,8 @@ function ft_blocks_default_fe_block_boxes() {
   $fe_block_boxes->info = 'What are the advantages';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'expert_avantages';
-  $fe_block_boxes->body = '<p>Contenu géré directement dans le tpl du block.</p>';
+  $fe_block_boxes->body = '<p>Contenu géré directement dans le tpl du block.</p>
+';
 
   $export['expert_avantages'] = $fe_block_boxes;
 

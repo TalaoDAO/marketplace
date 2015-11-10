@@ -23,7 +23,7 @@ class FeatureContext extends DrupalContext {
    * You can also pass arbitrary arguments to the
    * context constructor through behat.yml.
    */
-  public function __construct($screen_shot_path) {
+  public function __construct(/*$screen_shot_path*/) {
         //$this->screenShotPath = $screen_shot_path;
         $this->screenShotPath = 'bdd/screenshot/';
   }
@@ -199,6 +199,8 @@ class FeatureContext extends DrupalContext {
      */
     public function takeScreenshotAfterFailedStep(AfterStepScope $scope)
     {
+        // come from : https://github.com/Behat/Behat/issues/649
+        // and from : https://gist.github.com/fbrnc/4550079
         if (99 === $scope->getTestResult()->getResultCode()) {
             $driver = $this->getSession()->getDriver();
             $path = '/var/www/tmp/';

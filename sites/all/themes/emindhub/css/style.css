@@ -11911,19 +11911,22 @@ body.page-node-edit .form-textarea-wrapper.resizable-textarea {
     width: 25%;
   }
 }
-.views-exposed-form .views-exposed-widgets > #edit-type-wrapper {
+.views-exposed-form .views-exposed-widgets > #edit-type-wrapper,
+.views-exposed-form .views-exposed-widgets > #edit-type-1-wrapper {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 767px) {
-  .views-exposed-form .views-exposed-widgets > #edit-type-wrapper {
+  .views-exposed-form .views-exposed-widgets > #edit-type-wrapper,
+  .views-exposed-form .views-exposed-widgets > #edit-type-1-wrapper {
     float: left;
     width: 33.33333333%;
   }
 }
-.views-exposed-form .views-exposed-widgets > #edit-type-wrapper .bef-select-as-checkboxes .bef-checkboxes {
+.views-exposed-form .views-exposed-widgets > #edit-type-wrapper .bef-select-as-checkboxes .bef-checkboxes,
+.views-exposed-form .views-exposed-widgets > #edit-type-1-wrapper .bef-select-as-checkboxes .bef-checkboxes {
   width: 100%;
 }
 .views-exposed-form .views-exposed-widgets > .views-submit-button,
@@ -12785,7 +12788,7 @@ fieldset[disabled] .list-inline > li a.flag.focus {
 @media (min-width: 767px) {
   body:not(.cke_editable),
   body.admin-menu {
-    padding-top: 137px;
+    padding-top: 133px;
   }
   body.admin-menu header#navbar {
     position: fixed;
@@ -14661,6 +14664,13 @@ aside .block .content {
 .views-field-emh-points {
   text-align: right;
 }
+.view-query-list.view-display-id-block .views-field-title {
+  width: auto;
+}
+.view-query-list.view-display-id-block .views-field-field-reward,
+.view-query-list.view-display-id-block .views-field-views-conditional {
+  width: 130px;
+}
 div.fivestar-widget-static .star {
   width: 21px;
   height: 21px;
@@ -14933,7 +14943,7 @@ body.front .alert {
   }
   body.front.logged-in,
   body.front.logged-in.admin-menu {
-    padding-top: 138px;
+    padding-top: 133px;
   }
   body.front.logged-in .main-container section#maincol,
   body.front.logged-in.admin-menu .main-container section#maincol {

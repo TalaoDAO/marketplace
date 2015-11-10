@@ -30,6 +30,16 @@ function emh_survey_update_7001() {
   ->execute();
 }
 
+/**
+ * Aliases survey creation path.
+ */
+function emh_survey_update_7002() {
+  $path = array(
+    'source' => 'node/add/webform',
+    'alias' => 'node/add/survey',
+  );
+  path_save($path);
+}
 
 /**
  * Implements hook_disable().

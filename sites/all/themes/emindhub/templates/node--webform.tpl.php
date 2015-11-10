@@ -193,7 +193,9 @@
 	  </div>
 
 		<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeLinks.tpl.php'; ?>
+      <?php if (node_access('update', $node)) : ?>
             <a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/webform"><?php print t('Edit your questions'); ?></a>
+      <?php endif; ?>
 
 		<?php // print render($content['comments']); ?>
 
@@ -204,7 +206,8 @@
 			// print render($content);
 		?>
 
-		<?php if (!isBusinessUser()) : ?>
+    <?php global $user; ?>
+		<?php if (!isBusinessUser() || $node->uid == $user->uid) : ?>
 		<?php if ($node->webform['status'] != 0) : ?>
 		<div id="comments" class="<?php print $classes; ?> row section emh-fieldgroup-blue-title"<?php print $attributes; ?>>
 	    <h2 class="h3"><span><?php print t('Answer the survey') ?></span></h2>

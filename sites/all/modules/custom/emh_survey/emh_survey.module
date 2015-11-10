@@ -12,6 +12,14 @@ function emh_survey_form_alter(&$form, &$form_state, $form_id) {
 
 		// echo '<pre>' . print_r($form, TRUE) . '</pre>';
 	  // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
+    if (isBusinessUser()) {
+      foreach($form['submitted'] as $key => $element) {
+        if (is_array($element) && !empty($element['#type']) && $element['#type'] == 'textarea') {
+          $form['submitted'][$key]['#disabled'] = 'disabled';
+          $form['actions']['#access'] = FALSE;
+        }
+      }
+    }
   }
 
 }
@@ -40,7 +48,7 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
   $form['field_use_my_entreprise']['#suffix'] = '</div>';
 
   $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
-	$form['field_reward']['und'][0]['value']['#title'] = t('Cost (minimum 1 000 points required)');
+	$form['field_reward']['und'][0]['value']['#title'] = t('Cost (minimum 500 points required)');
   $form['field_reward']['#suffix'] = '</div>';
 
 	$form['field_document']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
@@ -141,4 +149,11 @@ function emh_survey_webform_node_defaults_alter(&$defaults) {
   $defaults['submit_limit'] = '1';
   $defaults['submit_interval'] = '-1';
   $defaults['submit_notice'] = '0';
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function emh_survey_views_api() {
+  return array('api' => 3);
 }
