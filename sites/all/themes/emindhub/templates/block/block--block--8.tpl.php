@@ -64,7 +64,7 @@
     <?php elseif (isExpertUser()) : ?>
     <?php global $base_url; $safe_link = rawurldecode($base_url . '/requests/all?type[challenge]=challenge'); ?>
     <a href="<?php print $safe_link; ?>">
-      <?php echo sprintf(t('Answer %schallenges%sLearn more%s'), '<span>', '</span><span class="mobilize-call">', '</span>'); ?>
+      <?php echo sprintf(t('%sChallenge%sAnswer to service propositions to innovate or solve a problem%sSee more challenges%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
     </a>
 
     <?php else : ?>
