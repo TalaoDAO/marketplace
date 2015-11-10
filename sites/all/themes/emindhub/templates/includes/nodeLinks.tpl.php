@@ -1,8 +1,7 @@
 <div class="row section actions">
   <div class="col-sm-8">
-    <?php print render($content['links']); ?>
-    <?php //print render($content['links']['node']); ?>
-    <?php //print render($content['links']['forward']); ?>
+    <?php print render($content['links']['node']); ?>
+    <?php print render($content['links']['forward']); ?>
   </div>
   <div class="col-sm-4 text-right">
 
