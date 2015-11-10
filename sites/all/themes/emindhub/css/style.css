@@ -14004,9 +14004,15 @@ aside .block .content {
 #block-block-7 .content p:last-of-type {
   color: #8CD4F2;
 }
+#block-block-15 a {
+  text-decoration: none;
+}
 #block-block-15 p:first-of-type,
 #block-block-15 p:last-of-type strong {
   color: #009FE3;
+}
+#block-block-9 a {
+  text-decoration: none;
 }
 #block-block-9 p:first-of-type,
 #block-block-9 p:last-of-type strong {
@@ -14063,7 +14069,7 @@ aside .block .content {
   #block-block-14 a,
   #block-block-8 a,
   #block-block-16 a {
-    padding: 2em 0.3em 4em 13em;
+    padding: 2em 0.5em 4em 13em;
     height: 12em;
   }
   #block-block-14 span.mobilize-info,
