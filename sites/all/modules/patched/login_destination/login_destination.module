@@ -253,7 +253,13 @@ function login_destination_toolbar_pre_render($toolbar) {
  * Implements hook_user_login
  */
 function login_destination_user_login(&$edit, $account) {
-  if (!isset($_POST['form_id']) || $_POST['form_id'] != 'user_pass_reset' || variable_get('login_destination_immediate_redirect', FALSE)) {
+  $form_exception = 'user_pass_reset';
+
+  if (module_exists('change_pwd_page')) {
+    $form_exception = 'change_pwd_page_user_pass_reset';
+  }
+
+  if (!isset($_POST['form_id']) || $_POST['form_id'] != $form_exception || variable_get('login_destination_immediate_redirect', FALSE)) {
     login_destination_perform_redirect('login');
   }
 }
