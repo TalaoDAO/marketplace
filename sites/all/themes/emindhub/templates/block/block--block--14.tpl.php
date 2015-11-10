@@ -58,29 +58,22 @@
 
     <?php if (isBusinessUser()) : ?>
       <a href="<?php print url("node/add/question1"); ?>">
-        <span class="default-text"><?php echo sprintf(t('Ask %sa question%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?></span>
-        <span class="hover">
-          <?php echo t('Ask a question online and get answers from experts'); ?><br />
-          <span><?php print t('Ask a question'); ?></span>
+        <?php echo sprintf(t('%sQuestion%sAsk a question online and get answers from experts%sAsk a question%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
         </span>
       </a>
 
     <?php elseif (isExpertUser()) : ?>
     <?php global $base_url; $safe_link = rawurldecode($base_url . '/requests/all?type[question1]=question1'); ?>
     <a href="<?php print $safe_link; ?>">
-      <span class="default-text"><?php echo sprintf(t('Answer %squestions%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?></span>
+      <?php echo sprintf(t('Answer %squestions%sLearn more%s'), '<span>', '</span><span class="mobilize-call">', '</span>'); ?>
     </a>
 
     <?php else : ?>
     <a href="<?php print url("business/register"); ?>">
-      <span class="default-text"><?php echo sprintf(t('Ask %sa question%sLearn more%s'), '<span>', '</span><div>', '</div>'); ?></span>
-      <span class="hover">
-        <?php echo t('Ask a question online and get answers from experts'); ?><br />
-        <span><?php print t('Register to know more'); ?></span>
-      </span>
+      <?php echo sprintf(t('%sQuestion%sAsk a question online and get answers from experts%sAsk for a free trial%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
     </a>
     <?php endif; ?>
 
-  </div>
+  </span>
 
 </section> <!-- /.block -->

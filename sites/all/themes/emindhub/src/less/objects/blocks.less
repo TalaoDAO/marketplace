@@ -139,45 +139,31 @@ aside {
 		display: block;
 		text-decoration: none;
 
-		span.default-text {
+		span {
+			display: block;
+		}
+
+		span.mobilize-type {
+			font-weight: bold;
 			.text-uppercase;
-			color: #009FE3;
 			font-size: 18px;
-
-			span {
-				font-weight: bold;
-			}
-
-			div {
-				color: #4C6172;
-				font-size: 14px;
-			}
 		}
 
-		span.hover {
-			z-index: 100;
-			cursor: pointer;
-			transition: all 0.5s ease 0s;
-			background-color: #4C6172;
-			color: #FFF;
-
-			span {
-				text-transform: uppercase;
-				display: block;
-			}
+		span.mobilize-info {
+			color: #4C6172;
 		}
+
+		span.mobilize-call {
+			font-weight: bold;
+			.text-uppercase;
+		}
+
 	}
 
 	@media (max-width: @screen-sm-min) {
-		span.default-text {
-			display: block;
-			padding: 15px;
-			div {
-				.hidden();
-			}
-		}
-		span.hover {
-			display: block;
+		// display: block;
+		// padding: 15px;
+		a {
 			padding: 15px;
 		}
 	}
@@ -188,38 +174,14 @@ aside {
 			position: relative;
 		}
 		a {
-			padding: 4em 0.3em 2em 13em;
+			padding: 2em 0.3em 4em 13em;
 			height: 12em;
-
-			span.default-text {
-				span {
-					display: block;
-				}
-			}
-
-			span.hover {
-				display: none;
-				z-index: 100;
-				cursor: pointer;
-				transition: all 0.5s ease 0s;
-				position: absolute;
-				top: 0px;
-				left: 0px;
-				width: 100%;
-				padding: 1.5em 2.12em;
-				height: 12em;
-
-				span {
-					position: absolute;
-					bottom: 1.5em;
-				}
-			}
-
-			&:hover {
-				span.hover {
-					display: block;
-				}
-			}
+		}
+		span.mobilize-info {
+			min-height: 4.28571em;
+		}
+		span.mobilize-call {
+			margin-top: .5em;
 		}
 	}
 }

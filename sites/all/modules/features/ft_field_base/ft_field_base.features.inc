@@ -72,14 +72,14 @@ function ft_field_base_flag_default_flags() {
     'link_type' => 'toggle',
     'weight' => 0,
     'show_in_links' => array(
-      'full' => 0,
+      'full' => 'full',
       'token' => 0,
     ),
     'show_as_field' => 0,
     'show_on_form' => 0,
     'access_author' => '',
     'show_contextual_link' => 0,
-    'show_on_profile' => 1,
+    'show_on_profile' => 0,
     'access_uid' => 'others',
     'module' => 'ft_field_base',
     'locked' => array(
