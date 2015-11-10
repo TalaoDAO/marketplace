@@ -17,7 +17,7 @@ aside {
 
 
 #block-search-form {
-	@media (min-width: 767px) {
+	@media (min-width: @screen-sm-min) {
 		padding-top: 8px;
 		padding-bottom: 8px;
 	}
@@ -51,11 +51,15 @@ aside {
 #block-user-login,
 #block-system-user-menu {
 	.nav {
-		float: right;
-		li > a {
+		> li > a {
 			color: #337AB7;
 			font-size: 12px;
 			cursor: pointer;
+		}
+	}
+	@media (min-width: @screen-sm-min) {
+		.nav {
+			float: right;
 		}
 	}
 }
@@ -65,7 +69,7 @@ aside {
  * Languages
  */
 #block-bootstrap-languages-language {
-	.make-sm-column(2);
+	.make-sm-column(1);
 	.make-xs-column(3);
 	.text-right;
 	.nav {
@@ -79,7 +83,6 @@ aside {
 #block-block-2 {
 	.text-center;
 	.block-title {
-		// .h4;
 		background-color: @darkBlue;
 		color: #fff;
 		margin: 0;
