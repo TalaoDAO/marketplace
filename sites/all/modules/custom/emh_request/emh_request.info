@@ -1,0 +1,4 @@
+name = eMindHub Request: abstraction layer to standardize the way we manage requests.
+package = EMH
+core = 7.x
+project = emh_request
