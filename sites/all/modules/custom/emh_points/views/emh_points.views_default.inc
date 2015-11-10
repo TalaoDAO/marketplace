@@ -12,20 +12,20 @@
 function emh_points_views_default_views() {
   $views = array();
 
-  // Points history
+  // Points statement
   $view = new view();
   $view->name = 'points_history';
   $view->description = '';
   $view->tag = 'emh, points';
   $view->base_table = 'users';
-  $view->human_name = 'Points history';
+  $view->human_name = 'Points statement';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Points history';
+  $handler->display->display_options['title'] = 'Points statement';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'use points';

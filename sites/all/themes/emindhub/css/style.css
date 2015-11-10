@@ -14622,7 +14622,8 @@ aside .block .content {
   width: 200px;
 }
 .views-field-field-reward,
-.views-field-emh-points {
+.views-field-emh-points,
+.views-field-points {
   width: 110px;
   text-align: right;
 }
