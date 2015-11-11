@@ -3307,17 +3307,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'flag',
   );
 
-  // Exported permission: 'use hybridauth'.
-  $permissions['use hybridauth'] = array(
-    'name' => 'use hybridauth',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'hybridauth',
-  );
-
   // Exported permission: 'use page manager'.
   $permissions['use page manager'] = array(
     'name' => 'use page manager',
