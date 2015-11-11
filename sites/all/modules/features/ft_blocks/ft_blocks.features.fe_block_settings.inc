@@ -847,7 +847,10 @@ business/register',
     'module' => 'search',
     'node_types' => array(),
     'pages' => '',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 3,
+      'webmaster' => 6,
+    ),
     'themes' => array(
       'emindhub' => array(
         'region' => 'topmenu',

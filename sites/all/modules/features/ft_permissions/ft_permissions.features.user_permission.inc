@@ -864,7 +864,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'administer search',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'search',
@@ -3029,8 +3028,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'search content',
     'roles' => array(
       'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
-      'référent' => 'référent',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'search',
   );
@@ -3248,8 +3246,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'use advanced search',
     'roles' => array(
       'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
-      'référent' => 'référent',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'search',
   );
