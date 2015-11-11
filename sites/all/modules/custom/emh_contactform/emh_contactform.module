@@ -46,7 +46,7 @@ function emh_contactform_form_contact_site_form_alter(&$form, &$form_state, $for
 	$form['phone'] = array(
 		'#title' => t('Your phone'),
 		'#type' => 'textfield',
-		'#required' => TRUE,
+		// '#required' => TRUE,
 	);
 
 	$form['mail'] = array(
