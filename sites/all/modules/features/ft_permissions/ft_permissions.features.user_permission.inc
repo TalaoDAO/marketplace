@@ -2624,9 +2624,6 @@ function ft_permissions_user_default_permissions() {
   $permissions['flag my_contacts'] = array(
     'name' => 'flag my_contacts',
     'roles' => array(
-      'authenticated user' => 'authenticated user',
-      'business' => 'business',
-      'business preview' => 'business preview',
       'webmaster' => 'webmaster',
     ),
     'module' => 'flag',
