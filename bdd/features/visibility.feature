@@ -1,4 +1,4 @@
-@api
+@api 
 Feature: Test og visibility
   In order to test emh requests visibility
   As anonymous, clients, and experts
@@ -6,7 +6,7 @@ Feature: Test og visibility
 
   Background: og visibility : Create questions and answers
     Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name |
+    | name    | mail                 | roles               | field_first_name | field_last_name |
     | client1 | client1@emindhub.com | business | Steve            | Rogers          |
     | client2 | client2@emindhub.com | business | Charle           | Xavier          |
     Given "circle" content:
@@ -31,7 +31,11 @@ Feature: Test og visibility
     | title         | field_domaine  | og_group_ref    | field_reward | author  |
     | Fight Thanos  | Drones         | Avengers, X-Men | 100          | client1 |
 
+  Scenario: bidon
+    #Make my contact deactivated for now
+    When I go to homepage
 
+  @exclude
   Scenario: og visibility : Test visibility
     Given I am logged in as a user with the "webmaster" role
     When I go to homepage
