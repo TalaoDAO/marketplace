@@ -58,7 +58,7 @@
       <?php //print $content; ?>
       <a href="<?php print url('freetrial'); ?>">
         <p><?php echo sprintf(t('You have %sa request%s'), '<br /><strong>', '</strong>'); ?></p>
-        <p><?php echo sprintf(t('%sAsk for a free trial%s and use eMindHub\'s services'), '<strong>', '</strong>'); ?></p>
+        <p><?php echo sprintf(t('%sAsk for a free trial%s and submit your request to the experts'), '<strong>', '</strong>'); ?></p>
       </a>
     </div>
   <?php endif;?>

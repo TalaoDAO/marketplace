@@ -257,7 +257,7 @@ business/register',
         'weight' => 0,
       ),
     ),
-    'title' => 'About experts',
+    'title' => 'Our value proposition',
     'visibility' => 1,
   );
 
@@ -350,7 +350,7 @@ business/register',
         'weight' => 0,
       ),
     ),
-    'title' => 'How to mobilize the experts ?',
+    'title' => '3 kinds of requests',
     'visibility' => 1,
   );
 
@@ -501,7 +501,7 @@ business/register',
         'weight' => 0,
       ),
     ),
-    'title' => 'Why use eMindHub ?',
+    'title' => 'Key benefits to clients',
     'visibility' => 1,
   );
 
@@ -594,7 +594,7 @@ business/register',
         'weight' => 0,
       ),
     ),
-    'title' => 'Security',
+    'title' => 'Confidentiality',
     'visibility' => 1,
   );
 

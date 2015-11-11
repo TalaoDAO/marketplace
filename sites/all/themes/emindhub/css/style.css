@@ -13022,7 +13022,7 @@ header#page-header .region-header-right .block:last-of-type {
   margin-bottom: 0;
 }
 header#page-header .region-header-right .block p {
-  padding: 10px 30px;
+  padding: 10px 20px;
   margin: 0;
 }
 header#page-header .region-header-right .block p:first-of-type {
@@ -14049,6 +14049,7 @@ aside .block .content {
   font-weight: bold;
   text-transform: uppercase;
   font-size: 18px;
+  margin-bottom: .25em;
 }
 #block-block-14 a span.mobilize-info,
 #block-block-8 a span.mobilize-info,
@@ -14078,7 +14079,9 @@ aside .block .content {
   #block-block-14 a,
   #block-block-8 a,
   #block-block-16 a {
-    padding: 2em 0.5em 4em 13em;
+    padding-top: 2em;
+    padding-left: 13em;
+    padding-right: 1.5em;
     height: 12em;
   }
   #block-block-14 span.mobilize-info,
@@ -14089,7 +14092,7 @@ aside .block .content {
   #block-block-14 span.mobilize-call,
   #block-block-8 span.mobilize-call,
   #block-block-16 span.mobilize-call {
-    margin-top: .5em;
+    margin-top: .25em;
   }
 }
 @media (min-width: 767px) {
@@ -14127,7 +14130,7 @@ aside .block .content {
   }
 }
 #block-block-12 .content {
-  font-size: 16px;
+  font-size: 14px;
 }
 #block-block-12 .content ul {
   list-style: none;
@@ -14149,12 +14152,13 @@ aside .block .content {
 #block-block-12 .content strong {
   color: #009fe3;
   font-weight: inherit;
+  font-size: 16px;
   display: block;
 }
 #block-block-11 .content {
   background: transparent url("../images/ondes.png") no-repeat center center;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 #block-block-11 .content ul {
   list-style: none;
@@ -14168,6 +14172,15 @@ aside .block .content {
   padding-left: 15px;
   padding-right: 15px;
   text-transform: uppercase;
+  display: block;
+  padding-top: 1.18em;
+  padding-bottom: 1.18em;
+  font-size: 16px;
+  padding-left: 75px;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-image: url("../images/cercle.png");
+  height: 70px;
 }
 @media (min-width: 767px) {
   #block-block-11 .content ul li {
@@ -14179,19 +14192,6 @@ aside .block .content {
   #block-block-11 .content ul li.tip-experts {
     margin-left: 16.6667%;
   }
-}
-#block-block-11 .content ul li a {
-  display: block;
-  padding-top: 1.18em;
-  padding-bottom: 1.18em;
-  text-decoration: none;
-  color: inherit;
-  font-size: 16px;
-  padding-left: 75px;
-  background-repeat: no-repeat;
-  background-position: top left;
-  background-image: url("../images/cercle.png");
-  height: 70px;
 }
 #block-block-20 .block-title,
 #block-block-21 .block-title,

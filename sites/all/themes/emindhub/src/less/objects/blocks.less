@@ -166,6 +166,7 @@ aside {
 			font-weight: bold;
 			.text-uppercase;
 			font-size: 18px;
+			margin-bottom: .25em;
 		}
 
 		span.mobilize-info {
@@ -191,14 +192,16 @@ aside {
 			position: relative;
 		}
 		a {
-			padding: 2em 0.5em 4em 13em;
+			padding-top: 2em;
+			padding-left: 13em;
+			padding-right: 1.5em;
 			height: 12em;
 		}
 		span.mobilize-info {
 			min-height: 4.28571em;
 		}
 		span.mobilize-call {
-			margin-top: .5em;
+			margin-top: .25em;
 		}
 	}
 }
@@ -227,7 +230,7 @@ aside {
 // Homepage : Experts
 #block-block-12 {
 	.content {
-		font-size: 16px;
+		font-size: 14px;
 		ul {
 			list-style: none;
 			padding: 0;
@@ -248,6 +251,7 @@ aside {
 		strong {
 			.emh-blue;
 			font-weight: inherit;
+			font-size: 16px;
 			display: block;
 		}
 	}
@@ -255,8 +259,8 @@ aside {
 #block-block-11 {
 	.content {
 		background: transparent url("../images/ondes.png") no-repeat center center;
-		padding-top: 20px;
-		padding-bottom: 20px;
+		padding-top: 40px;
+		padding-bottom: 40px;
 		ul {
 			list-style: none;
 			padding: 0;
@@ -265,25 +269,22 @@ aside {
 				.make-sm-column(4);
 				.text-uppercase;
 
+				display: block;
+				padding-top: 1.18em;
+				padding-bottom: 1.18em;
+				font-size: 16px;
+				padding-left: 75px;
+				background-repeat: no-repeat;
+				background-position: top left;
+				background-image: url("../images/cercle.png");
+				height: 70px;
+
 				&.tip-experts {
 					@media (min-width: @screen-sm-min) {
 						margin-left: 16.6667%;
 					}
 				}
 
-				a {
-					display: block;
-					padding-top: 1.18em;
-					padding-bottom: 1.18em;
-					text-decoration: none;
-					color: inherit;
-					font-size: 16px;
-					padding-left: 75px;
-					background-repeat: no-repeat;
-					background-position: top left;
-					background-image: url("../images/cercle.png");
-					height: 70px;
-				}
 			}
 		}
 	}
