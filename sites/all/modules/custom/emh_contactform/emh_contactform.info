@@ -1,4 +1,4 @@
-name = eMindHub Contact form
+name = EMH Contact form
 description = Custom fields for general contact form.
 package = EMH
 core = 7.x

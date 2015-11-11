@@ -1,4 +1,3 @@
-name = eMindHub Challenge
+name = EMH Challenge
 package = EMH
 core = 7.x
-project = emh_challenge

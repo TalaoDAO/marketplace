@@ -1,4 +1,4 @@
-name = eMindHub Free trial
+name = EMH Free trial
 description = Offer free trial for new customers.
 package = EMH
 core = 7.x

@@ -1,7 +1,7 @@
-name = eMindHub Survey
+name = EMH Survey
 package = EMH
+dependencies[] = webform
 core = 7.x
-project = emh_survey
 
 ; Classes autoloading
 files[] = emh_survey_handler_field_submission_count.inc
