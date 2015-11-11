@@ -10,7 +10,7 @@
 function ft_content_type_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'comment-comment_node_article-comment_body'
+  // Exported field_instance: 'comment-comment_node_article-comment_body'.
   $field_instances['comment-comment_node_article-comment_body'] = array(
     'bundle' => 'comment_node_article',
     'default_value' => NULL,
@@ -44,7 +44,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'comment-comment_node_blog-comment_body'
+  // Exported field_instance: 'comment-comment_node_blog-comment_body'.
   $field_instances['comment-comment_node_blog-comment_body'] = array(
     'bundle' => 'comment_node_blog',
     'default_value' => NULL,
@@ -78,7 +78,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'comment-comment_node_challenge-comment_body'
+  // Exported field_instance: 'comment-comment_node_challenge-comment_body'.
   $field_instances['comment-comment_node_challenge-comment_body'] = array(
     'bundle' => 'comment_node_challenge',
     'default_value' => NULL,
@@ -113,7 +113,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'comment-comment_node_challenge-field_document'
+  // Exported field_instance: 'comment-comment_node_challenge-field_document'.
   $field_instances['comment-comment_node_challenge-field_document'] = array(
     'bundle' => 'comment_node_challenge',
     'deleted' => 0,
@@ -164,7 +164,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'comment-comment_node_challenge-field_video'
+  // Exported field_instance: 'comment-comment_node_challenge-field_video'.
   $field_instances['comment-comment_node_challenge-field_video'] = array(
     'bundle' => 'comment_node_challenge',
     'deleted' => 0,
@@ -209,7 +209,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'comment-comment_node_circle-comment_body'
+  // Exported field_instance: 'comment-comment_node_circle-comment_body'.
   $field_instances['comment-comment_node_circle-comment_body'] = array(
     'bundle' => 'comment_node_circle',
     'default_value' => NULL,
@@ -243,7 +243,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'comment-comment_node_corporate-comment_body'
+  // Exported field_instance: 'comment-comment_node_corporate-comment_body'.
   $field_instances['comment-comment_node_corporate-comment_body'] = array(
     'bundle' => 'comment_node_corporate',
     'default_value' => NULL,
@@ -277,7 +277,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'comment-comment_node_page-comment_body'
+  // Exported field_instance: 'comment-comment_node_page-comment_body'.
   $field_instances['comment-comment_node_page-comment_body'] = array(
     'bundle' => 'comment_node_page',
     'default_value' => NULL,
@@ -311,7 +311,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'comment-comment_node_question1-comment_body'
+  // Exported field_instance: 'comment-comment_node_question1-comment_body'.
   $field_instances['comment-comment_node_question1-comment_body'] = array(
     'bundle' => 'comment_node_question1',
     'default_value' => NULL,
@@ -354,7 +354,7 @@ function ft_content_type_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'comment-comment_node_question1-field_private_comment'
+  // 'comment-comment_node_question1-field_private_comment'.
   $field_instances['comment-comment_node_question1-field_private_comment'] = array(
     'bundle' => 'comment_node_question1',
     'default_value' => NULL,
@@ -392,7 +392,7 @@ function ft_content_type_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'comment-comment_node_question1-field_private_comment_body'
+  // 'comment-comment_node_question1-field_private_comment_body'.
   $field_instances['comment-comment_node_question1-field_private_comment_body'] = array(
     'bundle' => 'comment_node_question1',
     'default_value' => NULL,
@@ -434,7 +434,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'comment-comment_node_user_alert-comment_body'
+  // Exported field_instance: 'comment-comment_node_user_alert-comment_body'.
   $field_instances['comment-comment_node_user_alert-comment_body'] = array(
     'bundle' => 'comment_node_user_alert',
     'default_value' => NULL,
@@ -468,7 +468,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'comment-comment_node_webform-comment_body'
+  // Exported field_instance: 'comment-comment_node_webform-comment_body'.
   $field_instances['comment-comment_node_webform-comment_body'] = array(
     'bundle' => 'comment_node_webform',
     'default_value' => NULL,
@@ -504,7 +504,7 @@ function ft_content_type_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'entity_legal_document_version-terms_of_use-entity_legal_document_text'
+  // 'entity_legal_document_version-terms_of_use-entity_legal_document_text'.
   $field_instances['entity_legal_document_version-terms_of_use-entity_legal_document_text'] = array(
     'bundle' => 'terms_of_use',
     'default_value' => NULL,
@@ -550,7 +550,7 @@ function ft_content_type_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_position_list-field_entreprise'
+  // 'field_collection_item-field_position_list-field_entreprise'.
   $field_instances['field_collection_item-field_position_list-field_entreprise'] = array(
     'bundle' => 'field_position_list',
     'default_value' => NULL,
@@ -601,7 +601,7 @@ function ft_content_type_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_position_list-field_position'
+  // 'field_collection_item-field_position_list-field_position'.
   $field_instances['field_collection_item-field_position_list-field_position'] = array(
     'bundle' => 'field_position_list',
     'default_value' => NULL,
@@ -637,7 +637,7 @@ function ft_content_type_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_position_list-field_year_of_experiences'
+  // 'field_collection_item-field_position_list-field_year_of_experiences'.
   $field_instances['field_collection_item-field_position_list-field_year_of_experiences'] = array(
     'bundle' => 'field_position_list',
     'default_value' => NULL,
@@ -679,7 +679,7 @@ function ft_content_type_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_skills_set-field_skill2'
+  // 'field_collection_item-field_skills_set-field_skill2'.
   $field_instances['field_collection_item-field_skills_set-field_skill2'] = array(
     'bundle' => 'field_skills_set',
     'default_value' => NULL,
@@ -730,7 +730,7 @@ function ft_content_type_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_skills_set-field_skill_autoeval'
+  // 'field_collection_item-field_skills_set-field_skill_autoeval'.
   $field_instances['field_collection_item-field_skills_set-field_skill_autoeval'] = array(
     'bundle' => 'field_skills_set',
     'default_value' => NULL,
@@ -779,7 +779,7 @@ function ft_content_type_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_skills_set-field_year_of_experiences'
+  // 'field_collection_item-field_skills_set-field_year_of_experiences'.
   $field_instances['field_collection_item-field_skills_set-field_year_of_experiences'] = array(
     'bundle' => 'field_skills_set',
     'default_value' => NULL,
@@ -820,7 +820,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-article-body'
+  // Exported field_instance: 'node-article-body'.
   $field_instances['node-article-body'] = array(
     'bundle' => 'article',
     'default_value' => NULL,
@@ -865,7 +865,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-article-field_image'
+  // Exported field_instance: 'node-article-field_image'.
   $field_instances['node-article-field_image'] = array(
     'bundle' => 'article',
     'deleted' => 0,
@@ -939,7 +939,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-blog-body'
+  // Exported field_instance: 'node-blog-body'.
   $field_instances['node-blog-body'] = array(
     'bundle' => 'blog',
     'default_value' => NULL,
@@ -984,7 +984,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-blog-field_domaine'
+  // Exported field_instance: 'node-blog-field_domaine'.
   $field_instances['node-blog-field_domaine'] = array(
     'bundle' => 'blog',
     'default_value' => NULL,
@@ -1025,7 +1025,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-blog-field_image'
+  // Exported field_instance: 'node-blog-field_image'.
   $field_instances['node-blog-field_image'] = array(
     'bundle' => 'blog',
     'deleted' => 0,
@@ -1099,7 +1099,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-challenge-body'
+  // Exported field_instance: 'node-challenge-body'.
   $field_instances['node-challenge-body'] = array(
     'bundle' => 'challenge',
     'default_value' => NULL,
@@ -1145,7 +1145,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-challenge-field_anonymous'
+  // Exported field_instance: 'node-challenge-field_anonymous'.
   $field_instances['node-challenge-field_anonymous'] = array(
     'bundle' => 'challenge',
     'default_value' => NULL,
@@ -1185,7 +1185,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-challenge-field_autoref'
+  // Exported field_instance: 'node-challenge-field_autoref'.
   $field_instances['node-challenge-field_autoref'] = array(
     'bundle' => 'challenge',
     'default_value' => NULL,
@@ -1222,7 +1222,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-challenge-field_document'
+  // Exported field_instance: 'node-challenge-field_document'.
   $field_instances['node-challenge-field_document'] = array(
     'bundle' => 'challenge',
     'deleted' => 0,
@@ -1278,7 +1278,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-challenge-field_domaine'
+  // Exported field_instance: 'node-challenge-field_domaine'.
   $field_instances['node-challenge-field_domaine'] = array(
     'bundle' => 'challenge',
     'default_value' => NULL,
@@ -1320,7 +1320,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-challenge-field_entreprise_description'
+  // Exported field_instance: 'node-challenge-field_entreprise_description'.
   $field_instances['node-challenge-field_entreprise_description'] = array(
     'bundle' => 'challenge',
     'default_value' => NULL,
@@ -1361,7 +1361,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-challenge-field_expiration_date'
+  // Exported field_instance: 'node-challenge-field_expiration_date'.
   $field_instances['node-challenge-field_expiration_date'] = array(
     'bundle' => 'challenge',
     'deleted' => 0,
@@ -1376,6 +1376,7 @@ function ft_content_type_field_default_field_instances() {
           'multiple_from' => '',
           'multiple_number' => '',
           'multiple_to' => '',
+          'show_remaining_days' => FALSE,
         ),
         'type' => 'date_default',
         'weight' => 5,
@@ -1415,7 +1416,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-challenge-field_image'
+  // Exported field_instance: 'node-challenge-field_image'.
   $field_instances['node-challenge-field_image'] = array(
     'bundle' => 'challenge',
     'deleted' => 0,
@@ -1485,7 +1486,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-challenge-field_request_circle'
+  // Exported field_instance: 'node-challenge-field_request_circle'.
   $field_instances['node-challenge-field_request_circle'] = array(
     'bundle' => 'challenge',
     'default_value' => NULL,
@@ -1522,7 +1523,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-challenge-field_reward'
+  // Exported field_instance: 'node-challenge-field_reward'.
   $field_instances['node-challenge-field_reward'] = array(
     'bundle' => 'challenge',
     'default_value' => NULL,
@@ -1569,7 +1570,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-challenge-field_show_entreprise'
+  // Exported field_instance: 'node-challenge-field_show_entreprise'.
   $field_instances['node-challenge-field_show_entreprise'] = array(
     'bundle' => 'challenge',
     'default_value' => NULL,
@@ -1609,7 +1610,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-challenge-field_tags'
+  // Exported field_instance: 'node-challenge-field_tags'.
   $field_instances['node-challenge-field_tags'] = array(
     'bundle' => 'challenge',
     'default_value' => NULL,
@@ -1654,7 +1655,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-challenge-field_use_my_entreprise'
+  // Exported field_instance: 'node-challenge-field_use_my_entreprise'.
   $field_instances['node-challenge-field_use_my_entreprise'] = array(
     'bundle' => 'challenge',
     'default_value' => NULL,
@@ -1694,7 +1695,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-challenge-group_content_access'
+  // Exported field_instance: 'node-challenge-group_content_access'.
   $field_instances['node-challenge-group_content_access'] = array(
     'bundle' => 'challenge',
     'default_value' => array(
@@ -1748,7 +1749,7 @@ function ft_content_type_field_default_field_instances() {
     'widget_type' => 'options_select',
   );
 
-  // Exported field_instance: 'node-challenge-og_group_ref'
+  // Exported field_instance: 'node-challenge-og_group_ref'.
   $field_instances['node-challenge-og_group_ref'] = array(
     'bundle' => 'challenge',
     'default_value' => NULL,
@@ -1806,7 +1807,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-circle-body'
+  // Exported field_instance: 'node-circle-body'.
   $field_instances['node-circle-body'] = array(
     'bundle' => 'circle',
     'default_value' => NULL,
@@ -1858,7 +1859,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-circle-field_anonymous'
+  // Exported field_instance: 'node-circle-field_anonymous'.
   $field_instances['node-circle-field_anonymous'] = array(
     'bundle' => 'circle',
     'default_value' => NULL,
@@ -1903,7 +1904,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-circle-group_access'
+  // Exported field_instance: 'node-circle-group_access'.
   $field_instances['node-circle-group_access'] = array(
     'bundle' => 'circle',
     'default_value' => array(
@@ -1962,7 +1963,7 @@ function ft_content_type_field_default_field_instances() {
     'widget_type' => 'options_select',
   );
 
-  // Exported field_instance: 'node-circle-group_group'
+  // Exported field_instance: 'node-circle-group_group'.
   $field_instances['node-circle-group_group'] = array(
     'bundle' => 'circle',
     'default_value' => array(
@@ -2027,7 +2028,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-corporate-body'
+  // Exported field_instance: 'node-corporate-body'.
   $field_instances['node-corporate-body'] = array(
     'bundle' => 'corporate',
     'default_value' => NULL,
@@ -2072,7 +2073,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-corporate-field_logo'
+  // Exported field_instance: 'node-corporate-field_logo'.
   $field_instances['node-corporate-field_logo'] = array(
     'bundle' => 'corporate',
     'deleted' => 0,
@@ -2142,7 +2143,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-corporate-field_type_entreprise'
+  // Exported field_instance: 'node-corporate-field_type_entreprise'.
   $field_instances['node-corporate-field_type_entreprise'] = array(
     'bundle' => 'corporate',
     'default_value' => NULL,
@@ -2182,7 +2183,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-page-body'
+  // Exported field_instance: 'node-page-body'.
   $field_instances['node-page-body'] = array(
     'bundle' => 'page',
     'default_value' => NULL,
@@ -2227,7 +2228,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-page-title_field'
+  // Exported field_instance: 'node-page-title_field'.
   $field_instances['node-page-title_field'] = array(
     'bundle' => 'page',
     'default_value' => NULL,
@@ -2270,7 +2271,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-poll-field_description'
+  // Exported field_instance: 'node-poll-field_description'.
   $field_instances['node-poll-field_description'] = array(
     'bundle' => 'poll',
     'default_value' => array(
@@ -2324,7 +2325,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-poll-field_domaine'
+  // Exported field_instance: 'node-poll-field_domaine'.
   $field_instances['node-poll-field_domaine'] = array(
     'bundle' => 'poll',
     'default_value' => NULL,
@@ -2366,7 +2367,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-poll-field_expiration_date'
+  // Exported field_instance: 'node-poll-field_expiration_date'.
   $field_instances['node-poll-field_expiration_date'] = array(
     'bundle' => 'poll',
     'deleted' => 0,
@@ -2381,6 +2382,7 @@ function ft_content_type_field_default_field_instances() {
           'multiple_from' => '',
           'multiple_number' => '',
           'multiple_to' => '',
+          'show_remaining_days' => FALSE,
         ),
         'type' => 'date_default',
         'weight' => 6,
@@ -2420,7 +2422,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-poll-field_tags'
+  // Exported field_instance: 'node-poll-field_tags'.
   $field_instances['node-poll-field_tags'] = array(
     'bundle' => 'poll',
     'default_value' => NULL,
@@ -2465,7 +2467,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-question1-body'
+  // Exported field_instance: 'node-question1-body'.
   $field_instances['node-question1-body'] = array(
     'bundle' => 'question1',
     'default_value' => NULL,
@@ -2511,7 +2513,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-question1-field_anonymous'
+  // Exported field_instance: 'node-question1-field_anonymous'.
   $field_instances['node-question1-field_anonymous'] = array(
     'bundle' => 'question1',
     'default_value' => NULL,
@@ -2551,7 +2553,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-question1-field_domaine'
+  // Exported field_instance: 'node-question1-field_domaine'.
   $field_instances['node-question1-field_domaine'] = array(
     'bundle' => 'question1',
     'default_value' => NULL,
@@ -2591,7 +2593,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-question1-field_entreprise_description'
+  // Exported field_instance: 'node-question1-field_entreprise_description'.
   $field_instances['node-question1-field_entreprise_description'] = array(
     'bundle' => 'question1',
     'default_value' => NULL,
@@ -2632,7 +2634,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-question1-field_expiration_date'
+  // Exported field_instance: 'node-question1-field_expiration_date'.
   $field_instances['node-question1-field_expiration_date'] = array(
     'bundle' => 'question1',
     'deleted' => 0,
@@ -2647,6 +2649,7 @@ function ft_content_type_field_default_field_instances() {
           'multiple_from' => '',
           'multiple_number' => '',
           'multiple_to' => '',
+          'show_remaining_days' => FALSE,
         ),
         'type' => 'date_default',
         'weight' => 2,
@@ -2686,7 +2689,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-question1-field_request_circle'
+  // Exported field_instance: 'node-question1-field_request_circle'.
   $field_instances['node-question1-field_request_circle'] = array(
     'bundle' => 'question1',
     'default_value' => NULL,
@@ -2723,7 +2726,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-question1-field_reward'
+  // Exported field_instance: 'node-question1-field_reward'.
   $field_instances['node-question1-field_reward'] = array(
     'bundle' => 'question1',
     'default_value' => NULL,
@@ -2770,7 +2773,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-question1-field_show_entreprise'
+  // Exported field_instance: 'node-question1-field_show_entreprise'.
   $field_instances['node-question1-field_show_entreprise'] = array(
     'bundle' => 'question1',
     'default_value' => NULL,
@@ -2810,7 +2813,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-question1-field_tags'
+  // Exported field_instance: 'node-question1-field_tags'.
   $field_instances['node-question1-field_tags'] = array(
     'bundle' => 'question1',
     'default_value' => NULL,
@@ -2855,7 +2858,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-question1-field_use_my_entreprise'
+  // Exported field_instance: 'node-question1-field_use_my_entreprise'.
   $field_instances['node-question1-field_use_my_entreprise'] = array(
     'bundle' => 'question1',
     'default_value' => NULL,
@@ -2895,7 +2898,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-question1-group_content_access'
+  // Exported field_instance: 'node-question1-group_content_access'.
   $field_instances['node-question1-group_content_access'] = array(
     'bundle' => 'question1',
     'default_value' => array(
@@ -2949,7 +2952,7 @@ function ft_content_type_field_default_field_instances() {
     'widget_type' => 'options_select',
   );
 
-  // Exported field_instance: 'node-question1-og_group_ref'
+  // Exported field_instance: 'node-question1-og_group_ref'.
   $field_instances['node-question1-og_group_ref'] = array(
     'bundle' => 'question1',
     'default_value' => NULL,
@@ -3007,7 +3010,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-user_alert-body'
+  // Exported field_instance: 'node-user_alert-body'.
   $field_instances['node-user_alert-body'] = array(
     'bundle' => 'user_alert',
     'default_value' => NULL,
@@ -3053,7 +3056,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-user_alert-field_alert_level'
+  // Exported field_instance: 'node-user_alert-field_alert_level'.
   $field_instances['node-user_alert-field_alert_level'] = array(
     'bundle' => 'user_alert',
     'default_value' => array(
@@ -3097,7 +3100,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-user_alert-field_user_list'
+  // Exported field_instance: 'node-user_alert-field_user_list'.
   $field_instances['node-user_alert-field_user_list'] = array(
     'bundle' => 'user_alert',
     'default_value' => NULL,
@@ -3145,7 +3148,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-body'
+  // Exported field_instance: 'node-webform-body'.
   $field_instances['node-webform-body'] = array(
     'bundle' => 'webform',
     'default_value' => NULL,
@@ -3191,7 +3194,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_anonymous'
+  // Exported field_instance: 'node-webform-field_anonymous'.
   $field_instances['node-webform-field_anonymous'] = array(
     'bundle' => 'webform',
     'default_value' => NULL,
@@ -3231,7 +3234,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_autoref'
+  // Exported field_instance: 'node-webform-field_autoref'.
   $field_instances['node-webform-field_autoref'] = array(
     'bundle' => 'webform',
     'default_value' => NULL,
@@ -3269,7 +3272,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_document'
+  // Exported field_instance: 'node-webform-field_document'.
   $field_instances['node-webform-field_document'] = array(
     'bundle' => 'webform',
     'deleted' => 0,
@@ -3331,7 +3334,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_domaine'
+  // Exported field_instance: 'node-webform-field_domaine'.
   $field_instances['node-webform-field_domaine'] = array(
     'bundle' => 'webform',
     'default_value' => NULL,
@@ -3373,7 +3376,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_duration_of_the_mission'
+  // Exported field_instance: 'node-webform-field_duration_of_the_mission'.
   $field_instances['node-webform-field_duration_of_the_mission'] = array(
     'bundle' => 'webform',
     'default_value' => NULL,
@@ -3414,7 +3417,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_entreprise_description'
+  // Exported field_instance: 'node-webform-field_entreprise_description'.
   $field_instances['node-webform-field_entreprise_description'] = array(
     'bundle' => 'webform',
     'default_value' => NULL,
@@ -3455,7 +3458,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_expiration_date'
+  // Exported field_instance: 'node-webform-field_expiration_date'.
   $field_instances['node-webform-field_expiration_date'] = array(
     'bundle' => 'webform',
     'deleted' => 0,
@@ -3470,6 +3473,7 @@ function ft_content_type_field_default_field_instances() {
           'multiple_from' => '',
           'multiple_number' => '',
           'multiple_to' => '',
+          'show_remaining_days' => FALSE,
         ),
         'type' => 'date_default',
         'weight' => 4,
@@ -3509,7 +3513,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_image'
+  // Exported field_instance: 'node-webform-field_image'.
   $field_instances['node-webform-field_image'] = array(
     'bundle' => 'webform',
     'deleted' => 0,
@@ -3579,7 +3583,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_request_circle'
+  // Exported field_instance: 'node-webform-field_request_circle'.
   $field_instances['node-webform-field_request_circle'] = array(
     'bundle' => 'webform',
     'default_value' => NULL,
@@ -3616,7 +3620,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_reward'
+  // Exported field_instance: 'node-webform-field_reward'.
   $field_instances['node-webform-field_reward'] = array(
     'bundle' => 'webform',
     'default_value' => NULL,
@@ -3663,7 +3667,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_show_entreprise'
+  // Exported field_instance: 'node-webform-field_show_entreprise'.
   $field_instances['node-webform-field_show_entreprise'] = array(
     'bundle' => 'webform',
     'default_value' => NULL,
@@ -3703,7 +3707,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_start_date'
+  // Exported field_instance: 'node-webform-field_start_date'.
   $field_instances['node-webform-field_start_date'] = array(
     'bundle' => 'webform',
     'deleted' => 0,
@@ -3718,6 +3722,7 @@ function ft_content_type_field_default_field_instances() {
           'multiple_from' => '',
           'multiple_number' => '',
           'multiple_to' => '',
+          'show_remaining_days' => FALSE,
         ),
         'type' => 'date_default',
         'weight' => 7,
@@ -3757,7 +3762,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_tags'
+  // Exported field_instance: 'node-webform-field_tags'.
   $field_instances['node-webform-field_tags'] = array(
     'bundle' => 'webform',
     'default_value' => NULL,
@@ -3803,7 +3808,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_use_my_entreprise'
+  // Exported field_instance: 'node-webform-field_use_my_entreprise'.
   $field_instances['node-webform-field_use_my_entreprise'] = array(
     'bundle' => 'webform',
     'default_value' => NULL,
@@ -3843,7 +3848,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-group_content_access'
+  // Exported field_instance: 'node-webform-group_content_access'.
   $field_instances['node-webform-group_content_access'] = array(
     'bundle' => 'webform',
     'default_value' => array(
@@ -3897,7 +3902,7 @@ function ft_content_type_field_default_field_instances() {
     'widget_type' => 'options_select',
   );
 
-  // Exported field_instance: 'node-webform-og_group_ref'
+  // Exported field_instance: 'node-webform-og_group_ref'.
   $field_instances['node-webform-og_group_ref'] = array(
     'bundle' => 'webform',
     'default_value' => NULL,
@@ -3955,7 +3960,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-working_group-body'
+  // Exported field_instance: 'node-working_group-body'.
   $field_instances['node-working_group-body'] = array(
     'bundle' => 'working_group',
     'default_value' => NULL,
@@ -4000,7 +4005,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-working_group-group_access'
+  // Exported field_instance: 'node-working_group-group_access'.
   $field_instances['node-working_group-group_access'] = array(
     'bundle' => 'working_group',
     'default_value' => NULL,
@@ -4038,7 +4043,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-working_group-group_content_access'
+  // Exported field_instance: 'node-working_group-group_content_access'.
   $field_instances['node-working_group-group_content_access'] = array(
     'bundle' => 'working_group',
     'default_value' => NULL,
@@ -4078,7 +4083,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-working_group-group_group'
+  // Exported field_instance: 'node-working_group-group_group'.
   $field_instances['node-working_group-group_group'] = array(
     'bundle' => 'working_group',
     'default_value' => array(
@@ -4138,7 +4143,7 @@ function ft_content_type_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'og_membership-og_membership_type_default-og_membership_request'
+  // 'og_membership-og_membership_type_default-og_membership_request'.
   $field_instances['og_membership-og_membership_type_default-og_membership_request'] = array(
     'bundle' => 'og_membership_type_default',
     'default_value' => NULL,
@@ -4172,7 +4177,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-domaine-field_domain_lead_experts'
+  // Exported field_instance: 'taxonomy_term-domaine-field_domain_lead_experts'.
   $field_instances['taxonomy_term-domaine-field_domain_lead_experts'] = array(
     'bundle' => 'domaine',
     'default_value' => NULL,
@@ -4226,7 +4231,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-domaine-field_domain_state'
+  // Exported field_instance: 'taxonomy_term-domaine-field_domain_state'.
   $field_instances['taxonomy_term-domaine-field_domain_state'] = array(
     'bundle' => 'domaine',
     'default_value' => array(
@@ -4264,7 +4269,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-domaine-name_field'
+  // Exported field_instance: 'taxonomy_term-domaine-name_field'.
   $field_instances['taxonomy_term-domaine-name_field'] = array(
     'bundle' => 'domaine',
     'default_value' => NULL,
@@ -4301,7 +4306,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_address'
+  // Exported field_instance: 'user-user-field_address'.
   $field_instances['user-user-field_address'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -4365,7 +4370,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_cv'
+  // Exported field_instance: 'user-user-field_cv'.
   $field_instances['user-user-field_cv'] = array(
     'bundle' => 'user',
     'deleted' => 0,
@@ -4427,7 +4432,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_domaine'
+  // Exported field_instance: 'user-user-field_domaine'.
   $field_instances['user-user-field_domaine'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -4468,7 +4473,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_employment_history'
+  // Exported field_instance: 'user-user-field_employment_history'.
   $field_instances['user-user-field_employment_history'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -4510,7 +4515,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_entreprise'
+  // Exported field_instance: 'user-user-field_entreprise'.
   $field_instances['user-user-field_entreprise'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -4574,7 +4579,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_entreprise_description'
+  // Exported field_instance: 'user-user-field_entreprise_description'.
   $field_instances['user-user-field_entreprise_description'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -4614,7 +4619,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_first_name'
+  // Exported field_instance: 'user-user-field_first_name'.
   $field_instances['user-user-field_first_name'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -4656,7 +4661,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_is_partner'
+  // Exported field_instance: 'user-user-field_is_partner'.
   $field_instances['user-user-field_is_partner'] = array(
     'bundle' => 'user',
     'default_value' => array(
@@ -4693,7 +4698,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_is_promoted'
+  // Exported field_instance: 'user-user-field_is_promoted'.
   $field_instances['user-user-field_is_promoted'] = array(
     'bundle' => 'user',
     'default_value' => array(
@@ -4730,7 +4735,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_is_sponsor'
+  // Exported field_instance: 'user-user-field_is_sponsor'.
   $field_instances['user-user-field_is_sponsor'] = array(
     'bundle' => 'user',
     'default_value' => array(
@@ -4767,7 +4772,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_known_how'
+  // Exported field_instance: 'user-user-field_known_how'.
   $field_instances['user-user-field_known_how'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -4806,7 +4811,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_known_specific'
+  // Exported field_instance: 'user-user-field_known_specific'.
   $field_instances['user-user-field_known_specific'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -4846,7 +4851,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_last_name'
+  // Exported field_instance: 'user-user-field_last_name'.
   $field_instances['user-user-field_last_name'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -4887,7 +4892,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_link_to_my_blog'
+  // Exported field_instance: 'user-user-field_link_to_my_blog'.
   $field_instances['user-user-field_link_to_my_blog'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -4945,7 +4950,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_needs_for_expertise'
+  // Exported field_instance: 'user-user-field_needs_for_expertise'.
   $field_instances['user-user-field_needs_for_expertise'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -4979,7 +4984,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_notification_frequency'
+  // Exported field_instance: 'user-user-field_notification_frequency'.
   $field_instances['user-user-field_notification_frequency'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -5018,7 +5023,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_other_areas'
+  // Exported field_instance: 'user-user-field_other_areas'.
   $field_instances['user-user-field_other_areas'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -5060,7 +5065,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_partner_why'
+  // Exported field_instance: 'user-user-field_partner_why'.
   $field_instances['user-user-field_partner_why'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -5094,7 +5099,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_photo'
+  // Exported field_instance: 'user-user-field_photo'.
   $field_instances['user-user-field_photo'] = array(
     'bundle' => 'user',
     'deleted' => 0,
@@ -5163,7 +5168,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_position'
+  // Exported field_instance: 'user-user-field_position'.
   $field_instances['user-user-field_position'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -5198,7 +5203,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_position_list'
+  // Exported field_instance: 'user-user-field_position_list'.
   $field_instances['user-user-field_position_list'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -5236,7 +5241,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_skills_set'
+  // Exported field_instance: 'user-user-field_skills_set'.
   $field_instances['user-user-field_skills_set'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -5287,7 +5292,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_specific_skills3'
+  // Exported field_instance: 'user-user-field_specific_skills3'.
   $field_instances['user-user-field_specific_skills3'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -5332,7 +5337,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_sponsor1'
+  // Exported field_instance: 'user-user-field_sponsor1'.
   $field_instances['user-user-field_sponsor1'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -5377,7 +5382,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_sponsor_why'
+  // Exported field_instance: 'user-user-field_sponsor_why'.
   $field_instances['user-user-field_sponsor_why'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -5411,7 +5416,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_sponsorship'
+  // Exported field_instance: 'user-user-field_sponsorship'.
   $field_instances['user-user-field_sponsorship'] = array(
     'bundle' => 'user',
     'default_value' => array(
@@ -5454,7 +5459,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_telephone'
+  // Exported field_instance: 'user-user-field_telephone'.
   $field_instances['user-user-field_telephone'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -5497,7 +5502,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_testimony'
+  // Exported field_instance: 'user-user-field_testimony'.
   $field_instances['user-user-field_testimony'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -5540,7 +5545,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_titre_metier'
+  // Exported field_instance: 'user-user-field_titre_metier'.
   $field_instances['user-user-field_titre_metier'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -5582,7 +5587,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_working_status'
+  // Exported field_instance: 'user-user-field_working_status'.
   $field_instances['user-user-field_working_status'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
@@ -5622,7 +5627,7 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-og_user_node'
+  // Exported field_instance: 'user-user-og_user_node'.
   $field_instances['user-user-og_user_node'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
