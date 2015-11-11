@@ -13980,6 +13980,11 @@ aside .block .content {
   margin: 10px 0;
   float: right;
 }
+@media (min-width: 767px) {
+  .page-user.role-anonymous-user #block-menu-menu-top-anonymous {
+    margin-top: 50px;
+  }
+}
 #block-block-2 {
   text-align: center;
 }
