@@ -2,26 +2,21 @@
 
 function emh_freetrial_menu() {
   $items = array();
-
-  $items['freetrial'] = array( //this creates a URL that will call this form at "examples/form-example"
-    'title' => t('Free trial offer'), //page title
-    // 'description' => 'A form to mess around with.',
-    'page callback' => 'drupal_get_form', //this is the function that will be called when the page is accessed.  for a form, use drupal_get_form
-    'page arguments' => array('emh_freetrial_form'), //put the name of the form here
+  $items['freetrial'] = array(
+    'title' => t('Free trial offer'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('emh_freetrial_form'),
     'access callback' => TRUE
   );
-
-	$items['admin/emh_freetrial/settings'] = array(
-    'title' => 'Enter Email ID',
+	$items['admin/config/freetrial'] = array(
+    'title' => 'Free trial',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('emh_freetrial_form_settings'),
-    'description' => "Enter Email ID to get drupal feedback message.",
+    'description' => "Enter email to get free trial requests.",
     'access callback' => 'user_access',
     'access arguments' => array('access administration menu'),
   );
-
   return $items;
-
 }
 
 
