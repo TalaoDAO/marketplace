@@ -917,15 +917,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'stringoverrides',
   );
 
-  // Exported permission: 'administer switch'.
-  $permissions['administer switch'] = array(
-    'name' => 'administer switch',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'switchtheme',
-  );
-
   // Exported permission: 'administer taxonomy'.
   $permissions['administer taxonomy'] = array(
     'name' => 'administer taxonomy',
@@ -3042,16 +3033,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'user',
   );
 
-  // Exported permission: 'select different theme'.
-  $permissions['select different theme'] = array(
-    'name' => 'select different theme',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'switchtheme',
-  );
-
   // Exported permission: 'skip comment approval'.
   $permissions['skip comment approval'] = array(
     'name' => 'skip comment approval',
@@ -3073,16 +3054,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'shortcut',
-  );
-
-  // Exported permission: 'switch theme'.
-  $permissions['switch theme'] = array(
-    'name' => 'switch theme',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'switchtheme',
   );
 
   // Exported permission: 'switch users'.
