@@ -12,6 +12,7 @@ function ft_rules_default_rules_configuration() {
   $items['rules_add_expert_role_on_hybridauth'] = entity_import('rules_config', '{ "rules_add_expert_role_on_hybridauth" : {
       "LABEL" : "Add \\u0022Expert\\u0022 role on hybridauth",
       "PLUGIN" : "reaction rule",
+      "ACTIVE" : false,
       "OWNER" : "rules",
       "TAGS" : [ "emh" ],
       "REQUIRES" : [ "rules", "hybridauth" ],
@@ -119,7 +120,7 @@ function ft_rules_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "ACTIVE" : false,
       "OWNER" : "rules",
-      "TAGS" : [ "Circle", "EMH", "email" ],
+      "TAGS" : [ "Circle", "email", "EMH" ],
       "REQUIRES" : [ "rules", "og" ],
       "ON" : { "og_user_insert" : [] },
       "DO" : [
