@@ -25,14 +25,6 @@ function emh_contactform_form_contact_site_form_alter(&$form, &$form_state, $for
     '#weight' => '-1000', // First !
   );
 
-	$form['civility'] = array(
-		// '#title' => t('Civility'),
-		'#title_display' => 'invisible',
-		'#type' => 'select',
-		'#options' => array(t('Mr'), t('Mrs'), t('Ms')),
-		'#required' => TRUE,
-	);
-
 	$form['firstname'] = array(
 		// '#title' => t('Your first name'),
 		'#title_display' => 'invisible',
