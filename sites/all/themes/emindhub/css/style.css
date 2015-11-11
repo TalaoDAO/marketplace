@@ -12779,6 +12779,11 @@ fieldset[disabled] .list-inline > li a.flag.focus {
   color: #009fe3;
   background-color: #ffffff;
 }
+html.js div.contextual-links-wrapper {
+  position: absolute;
+  float: none;
+  width: auto;
+}
 header#navbar .row > div:nth-child(2) {
   padding: 0;
 }
