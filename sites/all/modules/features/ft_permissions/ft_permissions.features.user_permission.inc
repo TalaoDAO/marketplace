@@ -520,15 +520,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'administer css injection'.
-  $permissions['administer css injection'] = array(
-    'name' => 'administer css injection',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'css_injector',
-  );
-
   // Exported permission: 'administer dependencies'.
   $permissions['administer dependencies'] = array(
     'name' => 'administer dependencies',
