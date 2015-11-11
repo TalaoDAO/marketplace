@@ -71,7 +71,8 @@ function emindhub_preprocess_page(&$vars, &$variables) {
 
   // Beta version
   if ( drupal_is_front_page() == TRUE && user_is_logged_in() == TRUE ) {
-    drupal_set_message(t('<strong>Welcome to eMindHub!</strong> Thank you for being among the first users of our platform! This is a beta version, for any suggestion or comment please leave a message through the <a href="/contact">contact form</a>.'), 'info');
+    global $base_url;
+    drupal_set_message(t('<strong>Welcome to eMindHub!</strong> Thank you for being among the first users of our platform! This is a beta version, for any suggestion or comment please leave a message through the <a href="' . $base_url . '/contact">contact form</a>.'), 'info');
   }
 
   // Experts points info
