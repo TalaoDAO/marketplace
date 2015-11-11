@@ -26,61 +26,39 @@ function emh_contactform_form_contact_site_form_alter(&$form, &$form_state, $for
   );
 
 	$form['firstname'] = array(
-		// '#title' => t('Your first name'),
-		'#title_display' => 'invisible',
+		'#title' => t('Your first name'),
 		'#type' => 'textfield',
 		'#required' => TRUE,
-		'#attributes' => array(
-			'placeholder' => t('Your first name'),
-		),
 	);
 
 	$form['lastname'] = array(
-		// '#title' => t('Your last name'),
-		'#title_display' => 'invisible',
+		'#title' => t('Your last name'),
 		'#type' => 'textfield',
 		'#required' => TRUE,
-		'#attributes' => array(
-			'placeholder' => t('Your last name'),
-		),
 	);
 
 	$form['entreprise'] = array(
-		// '#title' => t('Your organisation'),
-		'#title_display' => 'invisible',
+		'#title' => t('Your organisation'),
 		'#type' => 'textfield',
 		//'#required' => TRUE,
-		'#attributes' => array(
-			'placeholder' => t('Your organisation'),
-		),
 	);
 
 	$form['phone'] = array(
-		// '#title' => t('Your phone'),
-		'#title_display' => 'invisible',
+		'#title' => t('Your phone'),
 		'#type' => 'textfield',
 		'#required' => TRUE,
-		'#attributes' => array(
-			'placeholder' => t('Your phone'),
-		),
 	);
 
 	$form['mail'] = array(
-		'#title_display' => 'invisible',
+		'#title' => t('Your email'),
 		'#type' => 'textfield',
 		'#required' => TRUE,
-		'#attributes' => array(
-			'placeholder' => t('Your email'),
-		),
 	);
 
 	$form['message'] = array(
-		'#title_display' => 'invisible',
+		'#title' => t('Your message'),
 		'#type' => 'textarea',
 		'#required' => TRUE,
-		'#attributes' => array(
-			'placeholder' => t('Your message'),
-		),
 	);
 
 	$form['name']['#required'] = FALSE;
