@@ -60,7 +60,7 @@ function emindhub_preprocess_block(&$vars) {
 
     // User Login block
     case 'user-login':
-      $classes[] = 'col-sm-4 col-sm-offset-6 col-xs-8';
+      $classes[] = 'col-sm-4 col-sm-offset-8 col-xs-8';
       break;
 
     case 'block-bootstrap-languages':
