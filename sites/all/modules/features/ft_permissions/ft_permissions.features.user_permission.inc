@@ -795,15 +795,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'privatecomments',
   );
 
-  // Exported permission: 'administer quicktabs'.
-  $permissions['administer quicktabs'] = array(
-    'name' => 'administer quicktabs',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'quicktabs',
-  );
-
   // Exported permission: 'administer rules'.
   $permissions['administer rules'] = array(
     'name' => 'administer rules',

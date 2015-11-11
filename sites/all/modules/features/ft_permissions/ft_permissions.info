@@ -183,7 +183,6 @@ features[user_permission][] = administer permissions
 features[user_permission][] = administer piwik
 features[user_permission][] = administer points
 features[user_permission][] = administer privatecomments forms
-features[user_permission][] = administer quicktabs
 features[user_permission][] = administer rules
 features[user_permission][] = administer rules forms
 features[user_permission][] = administer rules forms rules
