@@ -12780,9 +12780,9 @@ fieldset[disabled] .list-inline > li a.flag.focus {
   background-color: #ffffff;
 }
 html.js div.contextual-links-wrapper {
-  position: absolute;
-  float: none;
-  width: auto;
+  position: absolute !important;
+  float: none !important;
+  width: auto !important;
 }
 header#navbar .row > div:nth-child(2) {
   padding: 0;
