@@ -113,7 +113,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'My background',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(),
     'format_type' => 'hidden',
     'format_settings' => array(
@@ -509,7 +509,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Expert',
-    'weight' => '9',
+    'weight' => '1',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -610,12 +610,13 @@ function ft_content_type_field_group_info() {
       2 => 'field_is_promoted',
       3 => 'field_is_partner',
       4 => 'ckeditor',
-      5 => 'piwik',
-      6 => 'timezone',
-      7 => 'contact',
-      8 => 'locale',
-      9 => 'group_expert',
-      10 => 'group_testimony',
+      5 => 'mimemail',
+      6 => 'piwik',
+      7 => 'timezone',
+      8 => 'contact',
+      9 => 'locale',
+      10 => 'group_expert',
+      11 => 'group_testimony',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1917,7 +1918,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'My testimony',
-    'weight' => '6',
+    'weight' => '8',
     'children' => array(
       0 => 'field_testimony',
     ),
@@ -1949,7 +1950,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Share your experience',
-    'weight' => '15',
+    'weight' => '5',
     'children' => array(
       0 => 'field_testimony',
       1 => 'field_partner_why',
