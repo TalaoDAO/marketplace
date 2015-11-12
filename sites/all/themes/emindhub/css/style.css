@@ -15234,6 +15234,13 @@ form#user-profile-form .image-widget .image-widget-data .file {
     width: 50%;
   }
 }
+form#user-profile-form .image-widget .image-widget-data .file a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
+  display: block;
+}
 form#user-profile-form .image-widget .image-widget-data .file-size {
   position: relative;
   min-height: 1px;
