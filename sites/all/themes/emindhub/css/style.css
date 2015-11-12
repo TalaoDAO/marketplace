@@ -14639,6 +14639,12 @@ aside .block .content {
   text-align: center;
   width: 130px;
 }
+.views-field-time-stamp {
+  width: 150px;
+}
+.views-field-operation {
+  width: 100px;
+}
 .views-field-og-group-ref {
   width: 150px;
 }
