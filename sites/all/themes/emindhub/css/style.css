@@ -13986,6 +13986,11 @@ aside .block .content {
   display: inline-block;
   line-height: 20px;
 }
+#block-user-login .nav > li > a,
+#block-system-user-menu .nav > li > a {
+  color: #337AB7;
+  cursor: pointer;
+}
 @media (min-width: 767px) {
   #block-user-login .nav,
   #block-system-user-menu .nav {
