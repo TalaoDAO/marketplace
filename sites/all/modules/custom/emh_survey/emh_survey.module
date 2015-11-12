@@ -12,8 +12,8 @@ function emh_survey_menu_alter(&$items) {
   // Alters webform items titles
   $items['node/%node/edit']['title callback'] = 'emh_survey_title_callback';
   $items['node/%node/edit']['title arguments'] = array(1);
-  $items['node/%webform_menu/webform']['title'] = 'Edit questions';
-  $items['node/%webform_menu/webform-results']['title'] = 'Answers';
+  $items['node/%webform_menu/webform']['title'] = t('Edit questions');
+  $items['node/%webform_menu/webform-results']['title'] = t('Answers');
 }
 
 
