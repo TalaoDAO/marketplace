@@ -284,3 +284,17 @@ function emindhub_views_bulk_operations_form_alter(&$form) {
 function emindhub_form_emh_points_arrange_form_alter(&$form, &$form_state, $type_source) {
   $form['submit']['#attributes']['class'][] = 'btn-submit';
 }
+
+
+function emindhub_form_change_pwd_page_form_alter(&$form, &$form_state, $form_id) {
+
+	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
+
+	$form['account']['pass']['#title'] = t('Enter your new password');
+
+	$form['submit']['#value'] = t('Change my password');
+	$form['submit']['#attributes']['class'][] = 'btn-submit';
+
+	return $form;
+
+}
