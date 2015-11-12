@@ -51,10 +51,14 @@ aside {
 #block-user-login,
 #block-system-user-menu {
 	.nav {
-		> li > a {
+		text-transform: none;
+		> li > span {
 			color: #337AB7;
 			font-size: 12px;
 			cursor: pointer;
+			padding: 15px;
+			display: inline-block;
+			line-height: 20px;
 
 		}
 	}
@@ -67,7 +71,7 @@ aside {
 #block-system-user-menu {
 	@media (min-width: @screen-sm-min) {
 		.nav {
-			> li > a {
+			> li > span {
 				overflow: hidden;
 				text-overflow: ellipsis;
 				white-space: nowrap;
@@ -75,7 +79,7 @@ aside {
 				padding-right: 25px;
 				span.caret {
 					position: absolute;
-					top: 50%;
+					top: 24px;
 					right: 15px;
 				}
 			}
