@@ -140,3 +140,11 @@ function emh_answer_load_by_ref_entity($entity_type, $entity, $reset = FALSE) {
   $entity = entity_load('emh_answer', array(), $conditions, $reset);
   return !empty($entity) ? reset($entity) : NULL;
 }
+
+
+/**
+ * Implements hook_views_api().
+ */
+function emh_request_views_api() {
+  return array('api' => 3);
+}
