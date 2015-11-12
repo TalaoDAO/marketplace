@@ -10642,8 +10642,10 @@ hr {
 @media (min-width: 767px) {
   .navbar-emh-separator > li:before {
     content: "|";
-    display: inline-block;
     color: #4c6172;
+    display: block;
+    line-height: 50px;
+    float: left;
   }
   .navbar-emh-separator > li:first-child:before {
     content: "";
@@ -13629,14 +13631,6 @@ body.admin-menu .region-burgermenu {
 .footer nav a {
   font-weight: bold;
   color: #4C6172;
-}
-.region-footer #block-menu-menu-footer-menu .nav > li,
-.region-footer #block-menu-menu-networks .nav > li {
-  display: table;
-}
-.region-footer #block-menu-menu-footer-menu .nav > li > *,
-.region-footer #block-menu-menu-networks .nav > li > * {
-  display: table-cell;
 }
 .region-footer #block-menu-menu-footer-menu .nav > li a,
 .region-footer #block-menu-menu-networks .nav > li a {
