@@ -20,7 +20,7 @@ Feature: Create challenge and answers
     When I go to homepage
     And I click "What about ?" in the "What about ?" row
     #Then I should see "Answer the challenge"
-    Given I enter "Je suis un expert" for "Response"
+    Given I enter "Je suis un expert" for "Answer"
     And I press "Publish"
     When I go to homepage
     When I click "What about ?" in the "What about ?" row
