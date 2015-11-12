@@ -7,42 +7,68 @@ form#user-profile-form {
     .form-group-2col;
   }
 
-  .imagefield-crop-widget {
+  // .imagefield-crop-widget,
+  .image-widget {
     .make-row();
     margin: 0;
 
-    .imagefield-crop-preview {
-      .make-sm-column(4);
-      .make-row();
-      margin: 0;
-
-      .jcrop-preview-wrapper {
-        .make-sm-column(4);
-        padding: 0;
-        .img-circle;
-  			.center-block;
-      }
-      .description {
-        .make-sm-column(8);
-      }
-    }
-
-    .imagefield-crop-cropbox {
-      .make-sm-column(4);
-      .make-row();
-      margin: 0;
-      .jcrop-holder {
-        .make-sm-column(4);
-        padding: 0;
-      }
-      .description {
-        .make-sm-column(8);
-      }
-    }
-
-    .file {
+    .image-preview {
       .make-sm-column(2);
     }
+
+    .image-widget-data {
+      .make-sm-column(10);
+      .make-row();
+      margin: 0;
+
+      .file {
+        .make-sm-column(6);
+      }
+
+      .file-size {
+        .make-sm-column(4);
+      }
+    }
+
+    .form-item-field-photo-und-0-focal-point {
+      display: none;
+    }
+    .focal-point-help {
+      clear: both;
+    }
+
+    // .imagefield-crop-preview {
+    //   .make-sm-column(4);
+    //   .make-row();
+    //   margin: 0;
+    //
+    //   .jcrop-preview-wrapper {
+    //     .make-sm-column(4);
+    //     padding: 0;
+    //     .img-circle;
+  	// 		.center-block;
+    //   }
+    //   .description {
+    //     .make-sm-column(8);
+    //   }
+    // }
+    //
+    // .imagefield-crop-cropbox {
+    //   .make-sm-column(4);
+    //   .make-row();
+    //   margin: 0;
+    //   .jcrop-holder {
+    //     .make-sm-column(4);
+    //     padding: 0;
+    //   }
+    //   .description {
+    //     .make-sm-column(8);
+    //   }
+    // }
+    //
+    // .file {
+    //   .make-sm-column(2);
+    // }
 
     @media (min-width: @screen-sm-min) {
       button.form-submit {

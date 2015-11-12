@@ -5108,17 +5108,12 @@ function ft_content_type_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'imagefield_crop',
+      'module' => 'image',
       'settings' => array(
-        'collapsible' => 2,
-        'croparea' => '110x110',
-        'enforce_minimum' => 1,
-        'enforce_ratio' => 1,
         'preview_image_style' => 'profile_picture',
         'progress_indicator' => 'throbber',
-        'resolution' => '110x110',
       ),
-      'type' => 'imagefield_crop_widget',
+      'type' => 'image_image',
       'weight' => 21,
     ),
   );

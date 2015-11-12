@@ -41,7 +41,20 @@ function ft_content_type_image_default_styles() {
   // Exported image style: profile_picture.
   $styles['profile_picture'] = array(
     'label' => 'profile picture',
-    'effects' => array(),
+    'effects' => array(
+      9 => array(
+        'name' => 'focal_point_scale_and_crop',
+        'data' => array(
+          'width' => 110,
+          'height' => 110,
+          'focal_point_advanced' => array(
+            'shift_x' => '',
+            'shift_y' => '',
+          ),
+        ),
+        'weight' => 1,
+      ),
+    ),
   );
 
   return $styles;
