@@ -501,9 +501,6 @@ aside {
 	table > tbody > tr > td {
 		vertical-align: middle;
 	}
-	.views-field-type {
-		.text-center;
-	}
 	td.views-field-type {
 		a {
 			.text-hide;
@@ -533,10 +530,21 @@ aside {
 			}
 		}
 	}
-	// NB answers
-	.views-field-views-conditional,
-	.views-field-nothing {
-	  .text-right;
+}
+// My requests
+.view-display-id-block_1,
+.view-display-id-page_2 {
+	// Filtres
+	form {
+		#edit-field-domaine-tid-i18n-wrapper,
+		#edit-field-domaine-tid-i18n-1-wrapper,
+		#edit-field-tags-tid-i18n-wrapper,
+		#edit-field-tags-tid-i18n-1-wrapper,
+		#edit-status-wrapper,
+		#edit-status-1-wrapper {
+			.make-sm-column(2);
+			padding-right: 0;
+		}
 	}
 }
 

@@ -14505,9 +14505,6 @@ aside .block .content {
 .view-query-list table > tbody > tr > td {
   vertical-align: middle;
 }
-.view-query-list .views-field-type {
-  text-align: center;
-}
 .view-query-list td.views-field-type a {
   font: 0/0 a;
   color: transparent;
@@ -14533,9 +14530,40 @@ aside .block .content {
 .view-query-list td.views-field-type.challenge a::before {
   background-image: url("../images/picto/picto_challenge_small.png");
 }
-.view-query-list .views-field-views-conditional,
-.view-query-list .views-field-nothing {
-  text-align: right;
+.view-display-id-block_1 form #edit-field-domaine-tid-i18n-wrapper,
+.view-display-id-page_2 form #edit-field-domaine-tid-i18n-wrapper,
+.view-display-id-block_1 form #edit-field-domaine-tid-i18n-1-wrapper,
+.view-display-id-page_2 form #edit-field-domaine-tid-i18n-1-wrapper,
+.view-display-id-block_1 form #edit-field-tags-tid-i18n-wrapper,
+.view-display-id-page_2 form #edit-field-tags-tid-i18n-wrapper,
+.view-display-id-block_1 form #edit-field-tags-tid-i18n-1-wrapper,
+.view-display-id-page_2 form #edit-field-tags-tid-i18n-1-wrapper,
+.view-display-id-block_1 form #edit-status-wrapper,
+.view-display-id-page_2 form #edit-status-wrapper,
+.view-display-id-block_1 form #edit-status-1-wrapper,
+.view-display-id-page_2 form #edit-status-1-wrapper {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-right: 0;
+}
+@media (min-width: 767px) {
+  .view-display-id-block_1 form #edit-field-domaine-tid-i18n-wrapper,
+  .view-display-id-page_2 form #edit-field-domaine-tid-i18n-wrapper,
+  .view-display-id-block_1 form #edit-field-domaine-tid-i18n-1-wrapper,
+  .view-display-id-page_2 form #edit-field-domaine-tid-i18n-1-wrapper,
+  .view-display-id-block_1 form #edit-field-tags-tid-i18n-wrapper,
+  .view-display-id-page_2 form #edit-field-tags-tid-i18n-wrapper,
+  .view-display-id-block_1 form #edit-field-tags-tid-i18n-1-wrapper,
+  .view-display-id-page_2 form #edit-field-tags-tid-i18n-1-wrapper,
+  .view-display-id-block_1 form #edit-status-wrapper,
+  .view-display-id-page_2 form #edit-status-wrapper,
+  .view-display-id-block_1 form #edit-status-1-wrapper,
+  .view-display-id-page_2 form #edit-status-1-wrapper {
+    float: left;
+    width: 16.66666667%;
+  }
 }
 #block-progress-tracker-progress-tracker .block-title {
   margin-top: 0;
@@ -14660,6 +14688,7 @@ aside .block .content {
 }
 .views-field-type {
   width: 20px;
+  text-align: center;
 }
 .views-field-created,
 .views-field-field-expiration-date,
