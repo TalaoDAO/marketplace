@@ -13959,7 +13959,8 @@ aside .block .content {
   #block-system-user-menu .nav {
     float: right;
   }
-  #block-user-login .nav > li > a,
+}
+@media (min-width: 767px) {
   #block-system-user-menu .nav > li > a {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -13967,7 +13968,6 @@ aside .block .content {
     max-width: 250px;
     padding-right: 25px;
   }
-  #block-user-login .nav > li > a span.caret,
   #block-system-user-menu .nav > li > a span.caret {
     position: absolute;
     top: 50%;
