@@ -27,7 +27,7 @@ function emh_contactform_form_contact_site_form_alter(&$form, &$form_state, $for
 	);
 
 	$form['entreprise'] = array(
-		'#title' => t('Your organisation'),
+		'#title' => t('Your organisation / company'),
 		'#type' => 'textfield',
 		//'#required' => TRUE,
 	);

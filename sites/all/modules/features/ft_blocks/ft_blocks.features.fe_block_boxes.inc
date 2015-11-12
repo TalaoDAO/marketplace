@@ -97,10 +97,10 @@ function ft_blocks_default_fe_block_boxes() {
   $export['hp_experts_text'] = $fe_block_boxes;
 
   $fe_block_boxes = new stdClass();
-  $fe_block_boxes->info = 'HP - 3 kinds of requests';
+  $fe_block_boxes->info = 'HP - 3 ways to find experts';
   $fe_block_boxes->format = 'filtered_html';
   $fe_block_boxes->machine_name = 'hp_mobilize';
-  $fe_block_boxes->body = '<p>3 kinds of requests</p>
+  $fe_block_boxes->body = '<p>3 ways to find experts</p>
 ';
 
   $export['hp_mobilize'] = $fe_block_boxes;
