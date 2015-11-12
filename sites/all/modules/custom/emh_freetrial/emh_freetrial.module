@@ -40,7 +40,7 @@ function emh_freetrial_form($form, &$form_state) {
 	);
 
 	$form['entreprise'] = array(
-		'#title' => t('Your organisation'),
+		'#title' => t('Your organisation / company'),
 		'#type' => 'textfield',
 		//'#required' => TRUE,
 	);
