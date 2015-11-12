@@ -95,7 +95,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'comment',
     'field_name' => 'comment_body',
-    'label' => 'Response',
+    'label' => 'Answer',
     'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -5646,6 +5646,7 @@ function ft_content_type_field_default_field_instances() {
   t('Activity of my organisation / company');
   t('Address');
   t('Alert Level');
+  t('Answer');
   t('Answer visibility');
   t('Any other areas of interest that might help to know you better');
   t('Author visibility');
@@ -5700,7 +5701,6 @@ function ft_content_type_field_default_field_instances() {
   t('Profile title');
   t('Public answer');
   t('Request message');
-  t('Response');
   t('Reward');
   t('Select audience');
   t('Self-appraisal');
