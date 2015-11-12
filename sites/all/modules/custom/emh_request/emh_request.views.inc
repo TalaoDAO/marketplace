@@ -7,19 +7,43 @@
 function emh_request_views_data() {
   $data = array();
 
-//  $data['answer']['table']['group'] = t('Answer');
-//  $data['answer']['table']['base'] = array(
-//    'field' => 'answer_id',
-//    'title' => t('Answer'),
-//  );
-//
-//  $data['exposed']['id'] = array(
-//    'title' => t('Count'),
-//    'help' => t('Number of answers.'),
-//    'field' => array(
-//      'handler' => 'views_handler_field_numeric',
-//    ),
-//  );
+  $data['emh_answer']['table']['group'] = t('Answer');
+  $data['emh_answer']['table']['base'] = array(
+    'field' => 'answer_id',
+    'title' => t('Answer'),
+  );
+
+  $data['emh_answer']['request_type'] = array(
+    'title' => t('Request type'),
+    'help' => t('Type of the request associated with the answer'),
+    'field' => array(
+      'handler' => 'emh_request_handler_field_generic',
+    ),
+  );
+
+  $data['emh_answer']['request_title'] = array(
+    'title' => t('Request title'),
+    'help' => t('Title of the request associated with the answer'),
+    'field' => array(
+      'handler' => 'emh_request_handler_field_generic',
+    ),
+  );
+
+  $data['emh_answer']['creation_date'] = array(
+    'title' => t('Date'),
+    'help' => t('Answer creation date'),
+    'field' => array(
+      'handler' => 'emh_request_handler_field_generic',
+    ),
+  );
+
+  $data['emh_answer']['body'] = array(
+    'title' => t('Body'),
+    'help' => t('Answer body'),
+    'field' => array(
+      'handler' => 'emh_request_handler_field_generic',
+    ),
+  );
 
   return $data;
 }

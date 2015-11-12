@@ -7,3 +7,4 @@ project = emh_request
 files[] = EmhAnswer.php
 files[] = emh_request_handler_field_answers_count.inc
 files[] = emh_request_handler_field_last_answer_user.inc
+files[] = emh_request_handler_field_generic.inc

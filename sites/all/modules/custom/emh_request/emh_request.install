@@ -60,7 +60,7 @@ function emh_request_schema() {
  */
 function emh_request_enable() {
   db_query('TRUNCATE TABLE emh_answer;');
-  
+
   $comments = db_select('comment', 'c');
   $comments->join('node', 'n', 'n.nid = c.nid');
   $comments = $comments->fields('c', array('cid', 'nid'))
@@ -70,7 +70,7 @@ function emh_request_enable() {
   while ($comment = $comments->fetchAssoc()) {
     $answer = new EmhAnswer(array(
       'request_id'      => $comment['nid'],
-      'ref_entity_type' => 'node',
+      'ref_entity_type' => 'comment',
       'ref_entity_id'   => $comment['cid'],
       'points'          => 0,
     ));
