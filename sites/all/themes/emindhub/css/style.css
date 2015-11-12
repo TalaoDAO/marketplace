@@ -15201,6 +15201,12 @@ form#user-profile-form .image-widget .image-preview {
     width: 16.66666667%;
   }
 }
+form#user-profile-form .image-widget .image-preview img {
+  border-radius: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 form#user-profile-form .image-widget .image-widget-data {
   position: relative;
   min-height: 1px;
