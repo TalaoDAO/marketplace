@@ -350,7 +350,7 @@ business/register',
         'weight' => 0,
       ),
     ),
-    'title' => '3 kinds of requests',
+    'title' => '3 ways to find experts',
     'visibility' => 1,
   );
 

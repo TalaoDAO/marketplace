@@ -14169,6 +14169,9 @@ aside .block .content {
   font-size: 16px;
   display: block;
 }
+#block-block-12 .content li.value-expert strong {
+  color: #c89234;
+}
 #block-block-11 .content {
   background: transparent url("../images/ondes.png") no-repeat center center;
   padding-top: 40px;

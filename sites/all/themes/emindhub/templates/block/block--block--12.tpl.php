@@ -56,8 +56,8 @@
   <div class="content">
     <?php //print $content ?>
     <ul>
-      <li><?php print t('<strong>Industrial and service companies, institutions, investors, research centers, ...</strong> Identify and get in touch with experts who will address your technical and business issues'); ?></li>
-      <li><?php print t('<strong>Experienced professionals, active retirees, resaerchers, PhDs, ...,</strong> Promote your skills, find new customers and make money by responding to client requests and sponsoring new experts'); ?></li>
+      <li class="value-business"><?php print t('<strong>Industrial and service companies, institutions, investors, research centers, ...</strong> Identify and get in touch with experts who will address your technical and business issues'); ?></li>
+      <li class="value-expert"><?php print t('<strong>Experienced professionals, active retirees, researchers, PhDs, ...</strong> Promote your skills, find new customers and make money by responding to client requests and sponsoring new experts'); ?></li>
     </ul>
   </div>
 
