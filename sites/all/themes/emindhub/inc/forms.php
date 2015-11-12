@@ -57,7 +57,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
   $form['actions']['#suffix'] = '</div> <!-- END .form-actions -->';
 
   // Add required legend if minimum one field is required
-  if ( emindhub_form_has_required($form) == TRUE ) {
+  if ( emindhub_form_has_required($form, $form_id) == TRUE ) {
   	$form['actions']['#suffix'] .= '
   		<div class="form-mandatory">
   			<span class="form-required">*</span>&nbsp;' . t('Required fields') . '
@@ -197,16 +197,14 @@ function emindhub_form_user_login_block_alter(&$form, &$form_state, $form_id) {
 
 // Check if form and fields are required
 // https://www.drupal.org/node/72197#comment-6000064
-function emindhub_form_has_required($form) {
+function emindhub_form_has_required($form, $form_id) {
 
-	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
-
-	if ($form['#form_id']!= 'user_login_block') {
+	if ($form_id != 'user_login_block') {
 		if (!empty($form['#required'])) {
 		  return TRUE;
 	  }
 	  foreach (element_children($form) as $key) {
-	  	if (emindhub_form_has_required($form[$key])) {
+	  	if (emindhub_form_has_required($form[$key], $form_id)) {
 	  	  return TRUE;
 	  	}
 	  }
