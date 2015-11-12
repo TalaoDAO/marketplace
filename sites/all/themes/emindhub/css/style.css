@@ -13974,11 +13974,17 @@ aside .block .content {
 /* HEADER
  * User login + User menu
  */
-#block-user-login .nav > li > a,
-#block-system-user-menu .nav > li > a {
+#block-user-login .nav,
+#block-system-user-menu .nav {
+  text-transform: none;
+}
+#block-user-login .nav > li > span,
+#block-system-user-menu .nav > li > span {
   color: #337AB7;
-  font-size: 12px;
   cursor: pointer;
+  padding: 15px;
+  display: inline-block;
+  line-height: 20px;
 }
 @media (min-width: 767px) {
   #block-user-login .nav,
@@ -13987,16 +13993,16 @@ aside .block .content {
   }
 }
 @media (min-width: 767px) {
-  #block-system-user-menu .nav > li > a {
+  #block-system-user-menu .nav > li > span {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     max-width: 250px;
-    padding-right: 25px;
+    padding-right: 30px;
   }
-  #block-system-user-menu .nav > li > a span.caret {
+  #block-system-user-menu .nav > li > span span.caret {
     position: absolute;
-    top: 50%;
+    top: 24px;
     right: 15px;
   }
 }
