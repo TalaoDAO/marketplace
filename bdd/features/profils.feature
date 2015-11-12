@@ -30,8 +30,11 @@ Feature: Test profil visibility
     And I select the radio button "My answer will be visible by all experts"
     And I press "Publish"
 
-  #TODO: tel visibility not implemented yet
-  #@exclude
+  Scenario: bidon
+    #Make my contact deactivated for now
+    When I go to homepage
+
+  @exclude
   Scenario: profils : Check visibility
     Then I should have 100 points on "What about ?" node
     Given I am logged in as "client1"
@@ -47,7 +50,7 @@ Feature: Test profil visibility
     Then I should see "Iron"
     And I should see "Klark"
     And I should not see "Bruce"
-    When I click "view" in the "Iron" row
+    When I click "Iron Man" in the "Iron Man" row
     Then I should see "Iron Man"
     When I click "Make him my contact"
     Then I should see "Your cannot undo this action"
