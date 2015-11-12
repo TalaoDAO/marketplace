@@ -1687,11 +1687,6 @@ function emh_points_views_default_views_alter(&$views) {
     );
     $handler->display->display_options['style_options']['sticky'] = TRUE;
     $handler->display->display_options['style_options']['empty_table'] = TRUE;
-    /* Header: Global: Result summary with an additional token to change the items/page */
-    $handler->display->display_options['header']['webform_result']['id'] = 'webform_result';
-    $handler->display->display_options['header']['webform_result']['table'] = 'views';
-    $handler->display->display_options['header']['webform_result']['field'] = 'webform_result';
-    $handler->display->display_options['header']['webform_result']['content'] = '<div class="webform-results-per-page">Showing @start - @end of @total. &nbsp; @items_per_page_links</div>';
     /* No results behavior: Global: Unfiltered text */
     $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
     $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
@@ -1798,8 +1793,8 @@ function emh_points_views_default_views_alter(&$views) {
     $handler->display->display_options['arguments']['nid']['specify_validation'] = TRUE;
     $handler->display->display_options['arguments']['nid']['validate']['type'] = 'node';
     $handler->display->display_options['arguments']['nid']['validate_options']['types'] = array(
-        'webform' => 'webform',
-      );
+      'webform' => 'webform',
+    );
 
     /* Display: Page */
     $handler = $view->new_display('page', 'Page', 'page_1');
