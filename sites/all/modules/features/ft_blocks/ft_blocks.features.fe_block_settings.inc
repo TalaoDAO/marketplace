@@ -53,7 +53,8 @@ function ft_blocks_default_fe_block_settings() {
     'module' => 'block',
     'node_types' => array(),
     'pages' => 'expert/register
-business/register',
+business/register
+freetrial',
     'roles' => array(),
     'themes' => array(
       'emindhub' => array(
@@ -117,7 +118,8 @@ business/register',
     'node_types' => array(),
     'pages' => '<front>
 expert/register
-business/register',
+business/register
+freetrial',
     'roles' => array(
       'anonymous user' => 1,
     ),

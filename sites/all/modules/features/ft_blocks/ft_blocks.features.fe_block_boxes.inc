@@ -41,7 +41,12 @@ function ft_blocks_default_fe_block_boxes() {
   $fe_block_boxes->info = 'Registration block : expert/business';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'home_register';
-  $fe_block_boxes->body = '<p><a class="btn btn-submit" href="business/register">Register as a client</a></p><p><a class="btn btn-submit" href="expert/register">Register as an expert</a></p><p>Create your account in 1 minute !</p>';
+  $fe_block_boxes->body = '<p><a class="btn btn-submit" href="freetrial">Register as a client</a></p>
+
+<p><a class="btn btn-submit" href="expert/register">Register as an expert</a></p>
+
+<p>Create your account in 1 minute !</p>
+';
 
   $export['home_register'] = $fe_block_boxes;
 
