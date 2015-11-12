@@ -164,51 +164,6 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'comment-comment_node_challenge-field_video'.
-  $field_instances['comment-comment_node_challenge-field_video'] = array(
-    'bundle' => 'comment_node_challenge',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => NULL,
-        'settings' => array(),
-        'type' => 'media_large',
-        'weight' => 4,
-      ),
-    ),
-    'entity_type' => 'comment',
-    'field_name' => 'field_video',
-    'label' => 'Video',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'file_extensions' => 'jpg jpeg gif png txt doc docx xls xlsx pdf ppt pptx pps ppsx odt ods odp mp3 mov m4v mp4 mpeg avi ogg oga ogv wmv ico',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'media',
-      'settings' => array(
-        'allowed_schemes' => array(
-          'private' => 0,
-          'public' => 0,
-          'youtube' => 'youtube',
-        ),
-        'allowed_types' => array(
-          'audio' => 0,
-          'default' => 0,
-          'image' => 0,
-          'video' => 'video',
-        ),
-        'progress_indicator' => 'throbber',
-      ),
-      'type' => 'media_generic',
-      'weight' => 4,
-    ),
-  );
-
   // Exported field_instance: 'comment-comment_node_circle-comment_body'.
   $field_instances['comment-comment_node_circle-comment_body'] = array(
     'bundle' => 'comment_node_circle',
@@ -5761,7 +5716,6 @@ function ft_content_type_field_default_field_instances() {
   t('Titre');
   t('Use this field if you want to restrict Alert to some users');
   t('User List');
-  t('Video');
   t('Why did I choose to become a partner?');
   t('Why did I choose to become a sponsor?');
   t('Working status');

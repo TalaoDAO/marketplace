@@ -126,7 +126,6 @@ features[field_instance][] = comment-comment_node_article-comment_body
 features[field_instance][] = comment-comment_node_blog-comment_body
 features[field_instance][] = comment-comment_node_challenge-comment_body
 features[field_instance][] = comment-comment_node_challenge-field_document
-features[field_instance][] = comment-comment_node_challenge-field_video
 features[field_instance][] = comment-comment_node_circle-comment_body
 features[field_instance][] = comment-comment_node_corporate-comment_body
 features[field_instance][] = comment-comment_node_page-comment_body
