@@ -19,21 +19,20 @@ function emh_request_schema() {
         'type' => 'serial',
         'not null' => TRUE,
       ),
-      'entity_type' => array(
+      'request_id' => array(
+        'description' => 'Request ID (nid)',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'ref_entity_type' => array(
         'type' => 'varchar',
         'length' => 128,
         'not null' => TRUE,
         'default' => '',
         'description' => 'The entity type this data is attached to',
       ),
-      'bundle' => array(
-        'type' => 'varchar',
-        'length' => 128,
-        'not null' => TRUE,
-        'default' => '',
-        'description' => 'The entity bundle this data is attached to',
-      ),
-      'entity_id' => array(
+      'ref_entity_id' => array(
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
@@ -53,4 +52,42 @@ function emh_request_schema() {
   );
 
   return $schema;
+}
+
+
+/**
+ * Implements hook_enable().
+ */
+function emh_request_enable() {
+  db_query('TRUNCATE TABLE emh_answer;');
+  
+  $comments = db_select('comment', 'c');
+  $comments->join('node', 'n', 'n.nid = c.nid');
+  $comments = $comments->fields('c', array('cid', 'nid'))
+    ->condition('n.type', array('challenge', 'question1'), 'IN')
+    ->execute();
+
+  while ($comment = $comments->fetchAssoc()) {
+    $answer = new EmhAnswer(array(
+      'request_id'      => $comment['nid'],
+      'ref_entity_type' => 'node',
+      'ref_entity_id'   => $comment['cid'],
+      'points'          => 0,
+    ));
+    $answer->save();
+  }
+
+  $submissions = db_select('webform_submissions', 'ws')
+    ->fields('ws', array('sid', 'nid'))
+    ->execute();
+
+  while ($submission = $submissions->fetchAssoc()) {
+    $answer = new EmhAnswer(array(
+      'request_id'      => $submission['nid'],
+      'ref_entity_type' => 'webform_submission',
+      'ref_entity_id'   => $submission['sid'],
+      'points'          => 0,
+    ));
+    $answer->save();
+  }
 }

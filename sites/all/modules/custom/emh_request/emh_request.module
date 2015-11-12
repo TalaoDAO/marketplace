@@ -54,10 +54,10 @@ function emh_request_entity_insert($entity, $type) {
 
     if ($node->type == 'challenge' || $node->type == 'question1') {
       $answer = new EmhAnswer(array(
-        'entity_type' => $type,
-        'bundle'      => $type,
-        'entity_id'   => $entity->cid,
-        'points'      => 0,
+        'request_id'      => $entity->nid,
+        'ref_entity_type' => $type,
+        'ref_entity_id'   => $entity->cid,
+        'points'          => 0,
       ));
       $answer->save();
     }
@@ -85,10 +85,10 @@ function emh_request_entity_delete($entity, $type) {
  */
 function emh_request_webform_submission_insert($node, $submission) {
   $answer = new EmhAnswer(array(
-    'entity_type' => 'webform_submission',
-    'bundle'      => 'webform_submission',
-    'entity_id'   => $submission->sid,
-    'points'      => 0,
+    'request_id'      => $node->nid,
+    'ref_entity_type' => 'webform_submission',
+    'ref_entity_id'   => $submission->sid,
+    'points'          => 0,
   ));
 
   $answer->save();
@@ -126,15 +126,15 @@ function emh_answer_load_multiple($ids = FALSE, $conditions = array(), $reset = 
  */
 function emh_answer_load_by_ref_entity($entity_type, $entity, $reset = FALSE) {
   if ($entity_type != 'webform_submission') {
-    list($id, , $bundle) = entity_extract_ids($entity_type, $entity);
+    $ids = entity_extract_ids($entity_type, $entity);
+    $id = $ids[0];
   } else {
-    list($id, $bundle) = array($entity->sid, $entity_type);
+    $id = $entity->sid;
   }
 
   $conditions = array(
-    'entity_type' => $entity_type,
-    'bundle'      => $bundle,
-    'entity_id'   => $id,
+    'ref_entity_type' => $entity_type,
+    'ref_entity_id'   => $id,
   );
 
   $entity = entity_load('emh_answer', array(), $conditions, $reset);
