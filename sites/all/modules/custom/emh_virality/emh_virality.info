@@ -1,0 +1,7 @@
+name = EMH Virality
+description = Features for the virality
+core = 7.x
+package = EMH
+
+; Classes autoloading
+files[] = EmhInvitation.php

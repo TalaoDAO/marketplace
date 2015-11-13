@@ -1,0 +1,85 @@
+<?php
+/**
+ * @file
+ * Virality's features.
+ */
+
+
+//----------------------------------------------------------------------
+//-- MENU & PERMISSIONS
+//----------------------------------------------------------------------
+
+
+/**
+ * Implements hook_menu().
+ */
+function emh_virality_menu() {
+  $items = array();
+  return $items;
+}
+
+
+/**
+ * Implements hook_permission().
+ */
+function emh_virality_permission() {
+  return array();
+}
+
+
+//----------------------------------------------------------------------
+//-- ENTITIES
+//----------------------------------------------------------------------
+
+
+/**
+ * Implements hook_entity_info().
+ */
+function emh_virality_entity_info() {
+  $entities = array();
+
+  // Defines the emh_invitation entity
+  $entities['emh_invitation'] = array(
+    'label' => t('Invitation'),
+    'entity class' => 'EmhInvitation',
+    'controller class' => 'EntityAPIController',
+    'base table' => 'emh_invitation',
+    'fieldable' => FALSE,
+    'entity keys' => array('id' => 'invitation_id'),
+  );
+
+  return $entities;
+}
+
+
+/**
+ * Loads a single invitation entity.
+ */
+function emh_invitation_load($id, $reset = FALSE) {
+  $entity = entity_load('emh_invitation', array($id), array(), $reset);
+  return !empty($entity) ? reset($entity) : NULL;
+}
+
+
+/**
+ * Loads multiple invitation entities.
+ */
+function emh_invitation_load_multiple($ids = FALSE, $conditions = array(), $reset = FALSE) {
+  return entity_load('emh_invitation', $ids, $conditions, $reset);
+}
+
+
+//----------------------------------------------------------------------
+//-- MISC
+//----------------------------------------------------------------------
+
+
+/**
+ * Implements hook_views_api().
+ */
+//function emh_virality_views_api() {
+//  return array(
+//    'api' => 3,
+//    'path' => drupal_get_path('module', 'emh_virality') . '/views',
+//  );
+//}
