@@ -77,7 +77,7 @@ function emindhub_preprocess_page(&$vars, &$variables) {
 
   // Experts points info
   if ( drupal_is_front_page() == TRUE && isExpertUser() == TRUE ) {
-    drupal_set_message(t('You can earn points by responding to a request and when the client recognize the value of your contribution. You can therefore monetize your points once you have reached a threshold of at least 1500 points.'), 'info');
+    drupal_set_message(t('You can earn points by responding to a request and when the client recognize the value of your contribution. You can therefore monetize your points once you have reached a threshold of at least '.variable_get('emh_points_monetization_threshold', '1500').' points.'), 'info');
   }
 
 }
