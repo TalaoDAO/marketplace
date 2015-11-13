@@ -62,7 +62,7 @@ function ft_field_base_flag_default_flags() {
     'title' => 'My contacts',
     'global' => 0,
     'types' => array(),
-    'flag_short' => 'Make him my contact',
+    'flag_short' => 'Add to my contacts',
     'flag_long' => '',
     'flag_message' => '',
     'unflag_short' => 'Unflag this item',

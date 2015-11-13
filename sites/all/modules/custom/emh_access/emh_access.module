@@ -4,36 +4,7 @@
 * Code for eMindHub access feature.
 */
 
-
-function emh_access_profile() {
-
-  // TODO: use User role field ?
-
-  $access = FALSE; // We prefer to disallow access rather than allow it !
-
-  global $user;
-  $uid = $user->uid;
-  $uid2 = $node->uid;
-
-  // Check if the user we want to see is allowing to watch his/her profile
-  if ( emh_access_user_name( $node ) == TRUE || emh_access_user_company( $node ) == TRUE ) {
-
-    print 'i can !';
-    $access = TRUE;
-
-  }
-
-  // Check if there's any chance to see full profile, no matter what the user had choosen in its profile
-  if ( emh_points_user_can_see_full_user( $uid, $uid2 ) == TRUE ) {
-
-    $access = TRUE;
-
-  }
-
-  return $access;
-}
-
-function emh_access_user_name( $node ) {
+function emh_access_author_name( $node ) {
 
   $access = FALSE;
 
@@ -48,7 +19,7 @@ function emh_access_user_name( $node ) {
   return $access;
 }
 
-function emh_access_user_company( $node ) {
+function emh_access_author_company( $node ) {
 
   $access = FALSE;
 

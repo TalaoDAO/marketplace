@@ -7,17 +7,6 @@
 * Resources from: http://www.pensamientosdivergentes.net/blog/modifying-contact-form-drupal-how-add-field, 			http://www.metaltoad.com/blog/how-add-field-drupal-contact-form
 */
 
-function emh_contactform_help($path, $arg) {
-	switch($path) {
-		case "admin/help#emh_contactform":
-			return '<p>'. t("allows users to add new fields to the site wide contact form - at the moment there is no option to configure it").'</p>';
-			break;
-	}
-}
-
-//this is what actually adds the new fields onto the form
-//if you want to add more fields, just add another $form['your_new_field'] line
-
 function emh_contactform_form_contact_site_form_alter(&$form, &$form_state, $form_id) {
 
 	$form['emh_baseline'] = array(
@@ -25,70 +14,40 @@ function emh_contactform_form_contact_site_form_alter(&$form, &$form_state, $for
     '#weight' => '-1000', // First !
   );
 
-	$form['civility'] = array(
-		// '#title' => t('Civility'),
-		'#title_display' => 'invisible',
-		'#type' => 'select',
-		'#options' => array(t('Mr'), t('Mrs'), t('Ms')),
-		'#required' => TRUE,
-	);
-
 	$form['firstname'] = array(
-		// '#title' => t('Your first name'),
-		'#title_display' => 'invisible',
+		'#title' => t('Your first name'),
 		'#type' => 'textfield',
 		'#required' => TRUE,
-		'#attributes' => array(
-			'placeholder' => t('Your first name'),
-		),
 	);
 
 	$form['lastname'] = array(
-		// '#title' => t('Your last name'),
-		'#title_display' => 'invisible',
+		'#title' => t('Your last name'),
 		'#type' => 'textfield',
 		'#required' => TRUE,
-		'#attributes' => array(
-			'placeholder' => t('Your last name'),
-		),
 	);
 
 	$form['entreprise'] = array(
-		// '#title' => t('Your organisation'),
-		'#title_display' => 'invisible',
+		'#title' => t('Your organisation / company'),
 		'#type' => 'textfield',
 		//'#required' => TRUE,
-		'#attributes' => array(
-			'placeholder' => t('Your organisation'),
-		),
 	);
 
 	$form['phone'] = array(
-		// '#title' => t('Your phone'),
-		'#title_display' => 'invisible',
+		'#title' => t('Your phone'),
 		'#type' => 'textfield',
-		'#required' => TRUE,
-		'#attributes' => array(
-			'placeholder' => t('Your phone'),
-		),
+		// '#required' => TRUE,
 	);
 
 	$form['mail'] = array(
-		'#title_display' => 'invisible',
+		'#title' => t('Your email'),
 		'#type' => 'textfield',
 		'#required' => TRUE,
-		'#attributes' => array(
-			'placeholder' => t('Your email'),
-		),
 	);
 
 	$form['message'] = array(
-		'#title_display' => 'invisible',
+		'#title' => t('Your message'),
 		'#type' => 'textarea',
 		'#required' => TRUE,
-		'#attributes' => array(
-			'placeholder' => t('Your message'),
-		),
 	);
 
 	$form['name']['#required'] = FALSE;

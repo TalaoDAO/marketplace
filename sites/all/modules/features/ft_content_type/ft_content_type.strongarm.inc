@@ -1064,7 +1064,6 @@ function ft_content_type_strongarm() {
   $strongarm->name = 'node_options_challenge';
   $strongarm->value = array(
     0 => 'status',
-    1 => 'promote',
   );
   $export['node_options_challenge'] = $strongarm;
 
@@ -1102,7 +1101,6 @@ function ft_content_type_strongarm() {
   $strongarm->name = 'node_options_question1';
   $strongarm->value = array(
     0 => 'status',
-    1 => 'promote',
   );
   $export['node_options_question1'] = $strongarm;
 
@@ -1112,7 +1110,6 @@ function ft_content_type_strongarm() {
   $strongarm->name = 'node_options_webform';
   $strongarm->value = array(
     0 => 'status',
-    1 => 'promote',
   );
   $export['node_options_webform'] = $strongarm;
 

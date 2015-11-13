@@ -17,7 +17,7 @@ aside {
 
 
 #block-search-form {
-	@media (min-width: 767px) {
+	@media (min-width: @screen-sm-min) {
 		padding-top: 8px;
 		padding-bottom: 8px;
 	}
@@ -51,11 +51,40 @@ aside {
 #block-user-login,
 #block-system-user-menu {
 	.nav {
-		float: right;
-		li > a {
+		text-transform: none;
+		> li > span {
 			color: #337AB7;
-			font-size: 12px;
 			cursor: pointer;
+			padding: 15px;
+			display: inline-block;
+			line-height: 20px;
+		}
+		> li > a {
+			color: #337AB7;
+			cursor: pointer;
+		}
+	}
+	@media (min-width: @screen-sm-min) {
+		.nav {
+			float: right;
+		}
+	}
+}
+#block-system-user-menu {
+	@media (min-width: @screen-sm-min) {
+		.nav {
+			> li > span {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				max-width: 250px;
+				padding-right: 30px;
+				span.caret {
+					position: absolute;
+					top: 24px;
+					right: 15px;
+				}
+			}
 		}
 	}
 }
@@ -65,7 +94,7 @@ aside {
  * Languages
  */
 #block-bootstrap-languages-language {
-	.make-sm-column(2);
+	.make-sm-column(1);
 	.make-xs-column(3);
 	.text-right;
 	.nav {
@@ -75,11 +104,20 @@ aside {
 }
 
 
+// Top menu anonyme
+@media (min-width: @screen-sm-min) {
+	.page-user.role-anonymous-user {
+		#block-menu-menu-top-anonymous {
+			margin-top: 50px;
+		}
+	}
+}
+
+
 // Registration
 #block-block-2 {
 	.text-center;
 	.block-title {
-		// .h4;
 		background-color: @darkBlue;
 		color: #fff;
 		margin: 0;
@@ -153,6 +191,7 @@ aside {
 			font-weight: bold;
 			.text-uppercase;
 			font-size: 18px;
+			margin-bottom: .25em;
 		}
 
 		span.mobilize-info {
@@ -178,14 +217,16 @@ aside {
 			position: relative;
 		}
 		a {
-			padding: 2em 0.5em 4em 13em;
+			padding-top: 2em;
+			padding-left: 13em;
+			padding-right: 1.5em;
 			height: 12em;
 		}
 		span.mobilize-info {
 			min-height: 4.28571em;
 		}
 		span.mobilize-call {
-			margin-top: .5em;
+			margin-top: .25em;
 		}
 	}
 }
@@ -214,7 +255,7 @@ aside {
 // Homepage : Experts
 #block-block-12 {
 	.content {
-		font-size: 16px;
+		font-size: 14px;
 		ul {
 			list-style: none;
 			padding: 0;
@@ -233,17 +274,23 @@ aside {
 			}
 		}
 		strong {
-			.emh-blue;
+			color: @brand-primary;
 			font-weight: inherit;
+			font-size: 16px;
 			display: block;
+		}
+		li.value-expert {
+			strong {
+				color: @expertYellow;
+			}
 		}
 	}
 }
 #block-block-11 {
 	.content {
 		background: transparent url("../images/ondes.png") no-repeat center center;
-		padding-top: 20px;
-		padding-bottom: 20px;
+		padding-top: 40px;
+		padding-bottom: 40px;
 		ul {
 			list-style: none;
 			padding: 0;
@@ -252,25 +299,22 @@ aside {
 				.make-sm-column(4);
 				.text-uppercase;
 
+				display: block;
+				padding-top: 1.18em;
+				padding-bottom: 1.18em;
+				font-size: 16px;
+				padding-left: 75px;
+				background-repeat: no-repeat;
+				background-position: top left;
+				background-image: url("../images/cercle.png");
+				height: 70px;
+
 				&.tip-experts {
 					@media (min-width: @screen-sm-min) {
 						margin-left: 16.6667%;
 					}
 				}
 
-				a {
-					display: block;
-					padding-top: 1.18em;
-					padding-bottom: 1.18em;
-					text-decoration: none;
-					color: inherit;
-					font-size: 16px;
-					padding-left: 75px;
-					background-repeat: no-repeat;
-					background-position: top left;
-					background-image: url("../images/cercle.png");
-					height: 70px;
-				}
 			}
 		}
 	}
@@ -460,9 +504,6 @@ aside {
 	table > tbody > tr > td {
 		vertical-align: middle;
 	}
-	.views-field-type {
-		.text-center;
-	}
 	td.views-field-type {
 		a {
 			.text-hide;
@@ -492,10 +533,21 @@ aside {
 			}
 		}
 	}
-	// NB answers
-	.views-field-views-conditional,
-	.views-field-nothing {
-	  .text-right;
+}
+// My requests
+.view-display-id-block_1,
+.view-display-id-page_2 {
+	// Filtres
+	form {
+		#edit-field-domaine-tid-i18n-wrapper,
+		#edit-field-domaine-tid-i18n-1-wrapper,
+		#edit-field-tags-tid-i18n-wrapper,
+		#edit-field-tags-tid-i18n-1-wrapper,
+		#edit-status-wrapper,
+		#edit-status-1-wrapper {
+			.make-sm-column(2);
+			padding-right: 0;
+		}
 	}
 }
 

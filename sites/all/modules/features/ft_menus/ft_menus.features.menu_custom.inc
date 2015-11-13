@@ -79,6 +79,5 @@ function ft_menus_menu_default_menu_custom() {
   t('Top navigation for authentificated users.');
   t('User menu');
 
-
   return $menus;
 }

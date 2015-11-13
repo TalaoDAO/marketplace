@@ -1,9 +1,7 @@
-@media (max-width: @screen-sm-min) {
-	header#navbar {
-		.row {
-			> * {
-				padding: 0;
-			}
+header#navbar {
+	.row {
+		> div:nth-child(2) {
+			padding: 0;
 		}
 	}
 }
@@ -59,21 +57,10 @@
 
 
 /* HEADER
- * Topmenu
- */
-.region-topmenu > section {
-	&:nth-child(2) {
-		padding: 0;
-	}
-}
-
-
-/* HEADER
  * Search
  */
 .navbar #block-search-form {
 	float: left;
-	margin: 0;
 }
 
 
@@ -167,6 +154,9 @@
 header nav.navbar {
 	margin-bottom: 0;
 	border: 0;
+	.navbar-collapse.in {
+	  overflow: hidden !important;
+	}
 }
 .region-navigation {
 	.nav > li > a,
@@ -270,7 +260,7 @@ header#page-header {
 			}
 
 			p {
-				padding: 10px 30px;
+				padding: 10px 20px;
 				margin: 0;
 
 				&:first-of-type {

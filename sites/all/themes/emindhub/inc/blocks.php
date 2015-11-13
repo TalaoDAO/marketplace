@@ -43,24 +43,24 @@ function emindhub_preprocess_block(&$vars) {
   switch ($block_id) {
 
     case 'menu-menu-footer-menu':
-      $classes[] = 'col-sm-9 text-right';
+      $classes[] = 'col-sm-8';
       break;
 
     case 'menu-menu-networks':
-      $classes[] = 'col-sm-3 text-right';
+      $classes[] = 'col-sm-3';
       break;
 
     case 'search-form':
-      $classes[] = 'col-sm-5 col-xs-12';
+      $classes[] = 'col-sm-4 col-sm-offset-1 col-xs-12';
       break;
 
     case 'system-user-menu':
-      $classes[] = 'col-sm-5 col-xs-9';
+      $classes[] = 'col-sm-12 col-xs-12';
       break;
 
     // User Login block
     case 'user-login':
-      $classes[] = 'col-sm-4 col-sm-offset-6 col-xs-8';
+      $classes[] = 'col-sm-4 col-sm-offset-8 col-xs-8';
       break;
 
     case 'block-bootstrap-languages':

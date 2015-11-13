@@ -198,6 +198,9 @@ body.page-node-edit {
 		> * {
 			.make-sm-column(3);
 			padding: 0 15px; // views.css
+			.form-group {
+				margin-bottom: 0;
+			}
 		}
 		> #edit-type-wrapper,
     > #edit-type-1-wrapper {
@@ -490,4 +493,12 @@ div.password-confirm {
 	a.flag {
 		.btn-submit;
 	}
+}
+
+
+// Contextual links
+html.js div.contextual-links-wrapper {
+	position: absolute !important;
+  float: none !important;
+  width: auto !important;
 }

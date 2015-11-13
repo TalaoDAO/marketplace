@@ -8,17 +8,18 @@ function emindhub_menu_alter(&$items) {
 
 
 function emindhub_preprocess_menu_link(&$vars) {
-  // TODO : altérer uniquement le lien spécifique et non pas le lien par URL
 
   // Reference the menu item
   $element = &$vars['element'];
 
   // echo '<pre>' . print_r($element, TRUE) . '</pre>';
 
-  switch ($element['#href']) {
+  switch ($element['#original_link']['mlid']) {
 
     // User menu > Account
-    case 'user':
+    case '7829': // Local
+    case '7702': // PreProd
+    case '7579': // Prod
       global $user;
       $account = user_load($user->uid);
       $firstName = "";
@@ -33,6 +34,9 @@ function emindhub_preprocess_menu_link(&$vars) {
       $element['#title'] = $name;
       $element['#localized_options']['html'] = 1;
       break;
+
+  }
+  switch ($element['#href']) {
 
     // User menu > Points
     case 'points':

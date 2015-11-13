@@ -5,7 +5,44 @@
 */
 
 
+/**
+ * Implements hook_menu_alter().
+ */
+function emh_survey_menu_alter(&$items) {
+  // Alters webform items titles
+  // $items['node/%node/edit']['title callback'] = 'emh_survey_title_callback';
+  // $items['node/%node/edit']['title arguments'] = array(1);
+  $items['node/%webform_menu/webform']['title'] = t('Questions');
+
+  // Disable access
+  $items['node/%webform_menu/webform/conditionals']['access callback'] = FALSE;
+  $items['node/%webform_menu/webform/emails']['access callback'] = FALSE;
+  $items['node/%webform_menu/webform/configure']['access callback'] = FALSE;
+  $items['node/%webform_menu/webform-results']['access callback'] = FALSE;
+  $items['node/%webform_menu/webform-results/analysis']['access callback'] = FALSE;
+  $items['node/%webform_menu/webform-results/table']['access callback'] = FALSE;
+  $items['node/%webform_menu/webform-results/download']['access callback'] = FALSE;
+
+}
+
+
+/**
+ * Title callback.
+ */
+// function emh_survey_title_callback($node) {
+//   if ($node->type == 'webform') {
+//     return t('Edit survey');
+//   }
+//   return t('Edit');
+// }
+
+
+/**
+ * Implements hook_form_alter().
+ */
 function emh_survey_form_alter(&$form, &$form_state, $form_id) {
+
+  // TODO: cibler le formulaire de soumission
 
 	if ((isset($form['#node']) && $form['#node']->type == 'webform')) {
 		$form['actions']['submit']['#value'] = t('Submit my answer');
@@ -13,7 +50,7 @@ function emh_survey_form_alter(&$form, &$form_state, $form_id) {
 		// echo '<pre>' . print_r($form, TRUE) . '</pre>';
 	  // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
     if (isBusinessUser()) {
-      foreach($form['submitted'] as $key => $element) {
+      foreach( $form['submitted'] as $key => $element ) {
         if (is_array($element) && !empty($element['#type']) && $element['#type'] == 'textarea') {
           $form['submitted'][$key]['#disabled'] = 'disabled';
           $form['actions']['#access'] = FALSE;

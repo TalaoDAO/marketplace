@@ -1,5 +1,4 @@
-name = eMindHub Circles
+name = EMH Circles
 package = EMH
 dependencies[] = og
 core = 7.x
-project = emh_circles

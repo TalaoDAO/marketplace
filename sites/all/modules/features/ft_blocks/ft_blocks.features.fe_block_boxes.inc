@@ -41,7 +41,12 @@ function ft_blocks_default_fe_block_boxes() {
   $fe_block_boxes->info = 'Registration block : expert/business';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'home_register';
-  $fe_block_boxes->body = '<p><a class="btn btn-submit" href="business/register">Register as a client</a></p><p><a class="btn btn-submit" href="expert/register">Register as an expert</a></p><p>Create your account in 1 minute !</p>';
+  $fe_block_boxes->body = '<p><a class="btn btn-submit" href="freetrial">Register as a client</a></p>
+
+<p><a class="btn btn-submit" href="expert/register">Register as an expert</a></p>
+
+<p>Create your account in 1 minute !</p>
+';
 
   $export['home_register'] = $fe_block_boxes;
 
@@ -70,10 +75,11 @@ function ft_blocks_default_fe_block_boxes() {
   $export['hp_expertise'] = $fe_block_boxes;
 
   $fe_block_boxes = new stdClass();
-  $fe_block_boxes->info = 'HP - About experts';
+  $fe_block_boxes->info = 'HP - Our value proposition';
   $fe_block_boxes->format = 'filtered_html';
   $fe_block_boxes->machine_name = 'hp_experts';
-  $fe_block_boxes->body = 'About experts';
+  $fe_block_boxes->body = '<p>Our value proposition</p>
+';
 
   $export['hp_experts'] = $fe_block_boxes;
 
@@ -81,7 +87,8 @@ function ft_blocks_default_fe_block_boxes() {
   $fe_block_boxes->info = 'HP - Experts : picto';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'hp_experts_picto';
-  $fe_block_boxes->body = '<ul><li>All the experts<br />Our worldwide database of experts</li><li>Sponsored experts<br />Experts sponsored by their peers</li><li>Your active network<br />Your employees and your business partners</li><li>Your Alumni<br />People who left your organization</li><li>Your customised selection<br />Circles created on demand</li></ul>';
+  $fe_block_boxes->body = '<p>Contenu géré dans le template.</p>
+';
 
   $export['hp_experts_picto'] = $fe_block_boxes;
 
@@ -89,15 +96,17 @@ function ft_blocks_default_fe_block_boxes() {
   $fe_block_boxes->info = 'HP - Experts : text';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'hp_experts_text';
-  $fe_block_boxes->body = '<p><strong>Experienced professionals, active retirees, researchers, students&hellip;</strong><br />Find the experts you need in the emindhub&#39;s network</p><p><strong>With emindhub,</strong><br />address your request to one or several circles of experts</p>';
+  $fe_block_boxes->body = '<p>Contenu géré dans le template.</p>
+';
 
   $export['hp_experts_text'] = $fe_block_boxes;
 
   $fe_block_boxes = new stdClass();
-  $fe_block_boxes->info = 'HP - How to mobilize the experts ?';
+  $fe_block_boxes->info = 'HP - 3 ways to find experts';
   $fe_block_boxes->format = 'filtered_html';
   $fe_block_boxes->machine_name = 'hp_mobilize';
-  $fe_block_boxes->body = 'How to mobilize the experts ?';
+  $fe_block_boxes->body = '<p>3 ways to find experts</p>
+';
 
   $export['hp_mobilize'] = $fe_block_boxes;
 
@@ -134,10 +143,11 @@ function ft_blocks_default_fe_block_boxes() {
   $export['hp_welcome'] = $fe_block_boxes;
 
   $fe_block_boxes = new stdClass();
-  $fe_block_boxes->info = 'HP - Why use eMindHub ?';
+  $fe_block_boxes->info = 'HP - Key benefits to clients';
   $fe_block_boxes->format = 'filtered_html';
   $fe_block_boxes->machine_name = 'hp_why';
-  $fe_block_boxes->body = 'Why use eMindHub ?';
+  $fe_block_boxes->body = '<p>Key benefits to clients</p>
+';
 
   $export['hp_why'] = $fe_block_boxes;
 
@@ -158,10 +168,11 @@ function ft_blocks_default_fe_block_boxes() {
   $export['hp_why_rapidity'] = $fe_block_boxes;
 
   $fe_block_boxes = new stdClass();
-  $fe_block_boxes->info = 'HP - Security';
+  $fe_block_boxes->info = 'HP - Confidentiality';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'hp_why_security';
-  $fe_block_boxes->body = '<p><strong>eMindHub</strong> allows you to choose <strong>circles</strong> of trustworthy experts</p>';
+  $fe_block_boxes->body = '<p><strong>eMindHub</strong> allows you to choose <strong>circles</strong> of trustworthy experts</p>
+';
 
   $export['hp_why_security'] = $fe_block_boxes;
 

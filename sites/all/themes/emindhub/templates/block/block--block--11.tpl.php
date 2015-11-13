@@ -57,29 +57,19 @@
     <?php //print $content ?>
     <ul>
       <li class="tip-experts">
-        <a href="#" data-toggle="tooltip" data-placement="bottom" title="<?php print t('Our worldwide database of experts'); ?>">
-          <?php print t('All the experts'); ?>
-        </a>
+        <?php print t('Full aerospace'); ?>
       </li>
       <li class="tip-sponsored">
-        <a href="#" data-toggle="tooltip" data-placement="bottom" title="<?php print t('Experts sponsored by their peers'); ?>">
-          <?php print t('Sponsored experts'); ?>
-        </a>
+        <?php print t('Full independence'); ?>
       </li>
       <li class="tip-partners">
-        <a href="#" data-toggle="tooltip" data-placement="bottom" title="<?php print t('Your employees and your business partners'); ?>">
-          <?php print t('Your active network'); ?>
-        </a>
+        <?php print t('Direct access'); ?>
       </li>
       <li class="tip-formers">
-        <a href="#" data-toggle="tooltip" data-placement="bottom" title="<?php print t('People who left your organisation'); ?>">
-          <?php print t('Your Alumni'); ?>
-        </a>
+        <?php print t('No commission'); ?>
       </li>
       <li class="tip-circles">
-        <a href="#" data-toggle="tooltip" data-placement="bottom" title="<?php print t('Circles created on request'); ?>">
-          <?php print t('Your customised selection'); ?>
-        </a>
+        <?php print t('No exclusivity'); ?>
       </li>
     </ul>
   </div>

@@ -7,10 +7,10 @@ function emindhub_preprocess_region(&$variables, $hook) {
 
   switch ($region_id) {
     case 'topmenu':
-      $classes[] = 'text-right row';
+      $classes[] = 'row';
       break;
     case 'navigation':
-      // $classes[] = 'text-right';
+      $classes[] = 'row';
       break;
     case 'header':
       if (drupal_is_front_page()) :

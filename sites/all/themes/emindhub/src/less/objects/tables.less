@@ -1,3 +1,15 @@
+.emh-field-reward {
+  width: 110px;
+  .text-right;
+}
+
+
+// Types
+.views-field-type {
+  width: 20px;
+  .text-center;
+}
+
 // Dates
 .views-field-created,
 .views-field-field-expiration-date,
@@ -7,12 +19,25 @@
   width: 130px;
 }
 
-// Titles
-.views-field-title {
-  width: 220px;
-  overflow: hidden;
-  -o-text-overflow: ellipsis; /* pour Opera 9 */
-  text-overflow: ellipsis; /* pour le reste du monde */
+// Date + timestamp
+.views-field-time-stamp {
+  width: 150px;
+}
+
+// Operation
+.views-field-operation {
+  width: 100px;
+}
+
+// Status
+.views-field-status,
+.views-field-is-draft {
+  width: 100px;
+}
+
+// Circles
+.views-field-og-group-ref {
+  width: 150px;
 }
 
 // Users
@@ -20,30 +45,29 @@
 .view-my-responses-questions1 .views-field-nothing-1,
 .view-my-responses-challenge .views-field-nothing-1 {
   width: 200px;
-  overflow: hidden;
-  -o-text-overflow: ellipsis; /* pour Opera 9 */
-  text-overflow: ellipsis; /* pour le reste du monde */
 }
 
-// Values (€ / Points)
+// Reward / Points
 .views-field-field-reward,
-.views-field-emh-points {
-  .text-right;
+.views-field-emh-points,
+.views-field-points {
+  .emh-field-reward;
+}
+.view-query-list.view-display-id-block_1, // Last requests
+.view-query-list.view-id-query_list, // Last requests
+.view-query-list.view-display-id-page_2, // My answers - Challenge
+.view-display-id-page_1 { // My selections
+  .views-field-views-conditional {
+    .emh-field-reward;
+  }
 }
 
-.views-field-expression {
-  // .text-right;
-}
-
-// Query list view
-.view-query-list {
-  &.view-display-id-block {
-    .views-field-title {
-      width: auto;
-    }
-    .views-field-field-reward,
-    .views-field-views-conditional {
-      width: 130px;
-    }
+// Answer
+.view-my-responses-questions1, // My answers - Question
+.view-my-responses-calls3, // My answers - Survey
+.view-my-responses-challenges { // My answers - Challenge
+  .views-field-nothing,
+  .views-field-views-conditional {
+    width: 350px;
   }
 }

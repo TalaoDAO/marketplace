@@ -58,19 +58,19 @@
 
     <?php if (isBusinessUser()) : ?>
       <a href="<?php print url("node/add/question1"); ?>">
-        <?php echo sprintf(t('%sQuestion%sAsk a question online and get answers from experts%sAsk a question%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
+        <?php echo sprintf(t('%sQuestion%sAsk a question online and get multiple answers from experts%sAsk a question%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
         </span>
       </a>
 
     <?php elseif (isExpertUser()) : ?>
     <?php global $base_url; $safe_link = rawurldecode($base_url . '/requests/all?type[question1]=question1'); ?>
     <a href="<?php print $safe_link; ?>">
-      <?php echo sprintf(t('Answer %squestions%sLearn more%s'), '<span>', '</span><span class="mobilize-call">', '</span>'); ?>
+      <?php echo sprintf(t('%sQuestion%sAnswer questions and provide clients with ideas, advices, feedbacks, etc.%sSee more questions%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
     </a>
 
     <?php else : ?>
     <a href="<?php print url("freetrial"); ?>">
-      <?php echo sprintf(t('%sQuestion%sAsk a question online and get answers from experts%sAsk for a free trial%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
+      <?php echo sprintf(t('%sQuestion%sAsk a question online and get multiple answers from experts%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span>'); ?>
     </a>
     <?php endif; ?>
 

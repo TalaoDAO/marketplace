@@ -11,11 +11,20 @@
  * - $submission: The contents of the webform submission.
  * - $account: The user that submitted the form.
  */
+$first_name = field_get_items('user', $account, 'field_first_name');
+$last_name = field_get_items('user', $account, 'field_last_name');
+// echo '<pre>' . print_r($account, TRUE) . '</pre>';
 ?>
 <div class="row section">
   <div class="col-sm-12">
     <div><?php print t('Survey: !form', array('!form' => l($node->title, 'node/' . $node->nid))); ?></div>
-    <div><?php print t('Submitted by !name', array('!name' => theme('username', array('account' => $account)))); ?></div>
+    <div>
+    <?php if ( $first_name || $last_name ) : ?>
+    <?php print t('Submitted by'); ?> <span class="author-firstname"><?php print render($first_name[0]['value']); ?></span>&nbsp;<span class="author-lastname"><?php print render($last_name[0]['value']); ?></span>
+    <?php else : ?>
+    <?php print t('Submitted by !name', array('!name' => theme('username', array('account' => $account)))); ?>
+    <?php endif; ?>
+    </div>
     <div><?php print check_plain(format_date($submission->submitted, webform_variable_get('webform_date_type'))); ?></div>
   </div>
 </div>

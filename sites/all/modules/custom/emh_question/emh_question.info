@@ -1,4 +1,3 @@
-name = eMindHub Question
+name = EMH Question
 package = EMH
 core = 7.x
-project = emh_question

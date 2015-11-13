@@ -7,41 +7,45 @@ form#user-profile-form {
     .form-group-2col;
   }
 
-  .imagefield-crop-widget {
+  // .imagefield-crop-widget,
+  .image-widget {
     .make-row();
     margin: 0;
 
-    .imagefield-crop-preview {
-      .make-sm-column(4);
-      .make-row();
-      margin: 0;
-
-      .jcrop-preview-wrapper {
-        .make-sm-column(4);
-        padding: 0;
-        .img-circle;
-  			.center-block;
-      }
-      .description {
-        .make-sm-column(8);
-      }
-    }
-
-    .imagefield-crop-cropbox {
-      .make-sm-column(4);
-      .make-row();
-      margin: 0;
-      .jcrop-holder {
-        .make-sm-column(4);
-        padding: 0;
-      }
-      .description {
-        .make-sm-column(8);
-      }
-    }
-
-    .file {
+    .image-preview {
       .make-sm-column(2);
+      img {
+        .img-circle;
+      	.center-block;
+      }
+    }
+
+    .image-widget-data {
+      .make-sm-column(10);
+      .make-row();
+      margin: 0;
+
+      .file {
+        .make-sm-column(6);
+        a {
+          overflow: hidden;
+  				text-overflow: ellipsis;
+  				white-space: nowrap;
+  				max-width: 200px;
+          display: block;
+        }
+      }
+
+      .file-size {
+        .make-sm-column(4);
+      }
+    }
+
+    .form-item-field-photo-und-0-focal-point {
+      display: none;
+    }
+    .focal-point-help {
+      clear: both;
     }
 
     @media (min-width: @screen-sm-min) {

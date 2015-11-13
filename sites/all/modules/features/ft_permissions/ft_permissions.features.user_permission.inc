@@ -455,15 +455,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'backup_migrate',
   );
 
-  // Exported permission: 'administer block classes'.
-  $permissions['administer block classes'] = array(
-    'name' => 'administer block classes',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'block_class',
-  );
-
   // Exported permission: 'administer block groups'.
   $permissions['administer block groups'] = array(
     'name' => 'administer block groups',
@@ -518,15 +509,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: 'administer css injection'.
-  $permissions['administer css injection'] = array(
-    'name' => 'administer css injection',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'css_injector',
   );
 
   // Exported permission: 'administer dependencies'.
@@ -813,15 +795,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'privatecomments',
   );
 
-  // Exported permission: 'administer quicktabs'.
-  $permissions['administer quicktabs'] = array(
-    'name' => 'administer quicktabs',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'quicktabs',
-  );
-
   // Exported permission: 'administer rules'.
   $permissions['administer rules'] = array(
     'name' => 'administer rules',
@@ -864,7 +837,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'administer search',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'search',
@@ -916,15 +888,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'stringoverrides',
-  );
-
-  // Exported permission: 'administer switch'.
-  $permissions['administer switch'] = array(
-    'name' => 'administer switch',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'switchtheme',
   );
 
   // Exported permission: 'administer taxonomy'.
@@ -2661,9 +2624,6 @@ function ft_permissions_user_default_permissions() {
   $permissions['flag my_contacts'] = array(
     'name' => 'flag my_contacts',
     'roles' => array(
-      'authenticated user' => 'authenticated user',
-      'business' => 'business',
-      'business preview' => 'business preview',
       'webmaster' => 'webmaster',
     ),
     'module' => 'flag',
@@ -3029,8 +2989,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'search content',
     'roles' => array(
       'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
-      'référent' => 'référent',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'search',
   );
@@ -3042,16 +3001,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'user',
-  );
-
-  // Exported permission: 'select different theme'.
-  $permissions['select different theme'] = array(
-    'name' => 'select different theme',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'switchtheme',
   );
 
   // Exported permission: 'skip comment approval'.
@@ -3075,16 +3024,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'shortcut',
-  );
-
-  // Exported permission: 'switch theme'.
-  $permissions['switch theme'] = array(
-    'name' => 'switch theme',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'switchtheme',
   );
 
   // Exported permission: 'switch users'.
@@ -3248,8 +3187,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'use advanced search',
     'roles' => array(
       'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
-      'référent' => 'référent',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'search',
   );
@@ -3308,17 +3246,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'flag',
-  );
-
-  // Exported permission: 'use hybridauth'.
-  $permissions['use hybridauth'] = array(
-    'name' => 'use hybridauth',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'hybridauth',
   );
 
   // Exported permission: 'use page manager'.
