@@ -11083,6 +11083,7 @@ fieldset[disabled] .btn-popin.focus {
 .emh-block-blue-main-title h3 span,
 .emh-block-blue-main-title .h3 span {
   color: #445766;
+  display: inline-block;
 }
 .emh-block-blue-main-title h1:after,
 .emh-block-blue-main-title .h1:after,
@@ -11115,6 +11116,7 @@ fieldset[disabled] .btn-popin.focus {
 }
 .emh-block-blue-main-title .block-title span {
   color: #445766;
+  display: inline-block;
 }
 .emh-block-blue-main-title .block-title:after {
   display: none;
@@ -11214,6 +11216,7 @@ fieldset[disabled] .btn-popin.focus {
 }
 .emh-title-main span {
   color: #445766;
+  display: inline-block;
 }
 #block-system-main .emh-title-baseline {
   color: #009fe3;
@@ -13148,6 +13151,7 @@ body {
 }
 .main-container #maincol > h1.page-header span {
   color: #445766;
+  display: inline-block;
 }
 .region-content > section {
   margin-bottom: 15px;
