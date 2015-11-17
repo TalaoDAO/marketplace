@@ -5,60 +5,6 @@
  * Specific configuration of points for eMindHub.
  */
 
-/**
- * Implements hook_field_access.
- */
-function emh_points_custom_field_access($op, $field, $entity_type, $entity, $account) {
-  if ($op == 'view' && $entity_type == 'user') {
-    if (empty($entity)) {
-      return TRUE;
-    }
-    if (empty($account)) {
-      global $user;
-      $account = $user;
-    }
-    if ($account->uid == $entity->uid) return TRUE;
-    switch($field['field_name']) {
-      // We can always access first, last names and photo.
-      case 'field_first_name':
-        return TRUE;
-        break;
-      case 'field_last_name':
-        return TRUE;
-        break;
-      case 'field_photo':
-        return TRUE;
-        break;
-      case 'field_titre_metier':
-        return TRUE;
-        break;
-      case 'field_employment_history':
-        return TRUE;
-        break;
-      case 'field_sponsor_why':
-        return TRUE;
-        break;
-      case 'field_partner_why':
-        return TRUE;
-        break;
-      // For other fields, it depends of our relation with the user:
-      case 'field_address':
-        $flag = flag_get_flag('my_contacts');
-        return ($flag && $flag->is_flagged($entity->uid, $account->uid));
-        break;
-      case 'field_telephone':
-        $flag = flag_get_flag('my_contacts');
-        return ($flag && $flag->is_flagged($entity->uid, $account->uid));
-        break;
-      default:
-        return emh_points_user_can_see_full_user($account->uid, $entity->uid);
-        break;
-    }
-  } else {
-    return TRUE;
-  }
-}
-
 /*
 function emh_points_custom_menu() {
   $items = array();
@@ -88,19 +34,6 @@ function emh_points_custom_test_access($uid, $uid2) {
 }
  */
 
-/**
- * Implements hook_node_presave().
- */
-function emh_points_custom_node_presave($node) {
-  if ($node->type == 'webform') {
-    if ($node->status == 1 && (empty($node->webform) || empty($node->webform['components']))) {
-      // Unpublish the node
-      $node->status = 0;
-      // Inform the user.
-      drupal_set_message(t('You cannot publish a survey without any question.'), 'warning');
-    }
-  }
-}
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -261,33 +194,4 @@ function emh_points_custom_display_comment_form_access(&$form) {
   if (!empty($already) && empty($form['cid']['#value'])) {
     $form['#access'] = FALSE;
   }
-}
-
-/**
- * Implements hook_node_access().
- */
-function emh_points_custom_node_access($node, $op, $account) {
-  if ($op == 'update') {
-    switch ($node->type) {
-    case 'webform':
-      module_load_include('inc', 'webform', 'includes/webform.submissions');
-      $submissions = webform_get_submissions($node->nid);
-      if (!empty($submissions)) {
-        return NODE_ACCESS_DENY;
-      }
-      break;
-    case 'question1':
-      if (!empty($node->comment_count)) {
-        return NODE_ACCESS_DENY;
-      }
-    case 'challenge':
-      if (!empty($node->comment_count)) {
-        return NODE_ACCESS_DENY;
-      }
-      break;
-    default:
-      break;
-    }
-  }
-  return NODE_ACCESS_IGNORE;
 }

@@ -15,13 +15,13 @@ function emh_survey_menu_alter(&$items) {
   $items['node/%webform_menu/webform']['title'] = t('Questions');
 
   // Disable access
-  $items['node/%webform_menu/webform/conditionals']['access callback'] = FALSE;
-  $items['node/%webform_menu/webform/emails']['access callback'] = FALSE;
-  $items['node/%webform_menu/webform/configure']['access callback'] = FALSE;
-  $items['node/%webform_menu/webform-results']['access callback'] = FALSE;
-  $items['node/%webform_menu/webform-results/analysis']['access callback'] = FALSE;
-  $items['node/%webform_menu/webform-results/table']['access callback'] = FALSE;
-  $items['node/%webform_menu/webform-results/download']['access callback'] = FALSE;
+  // $items['node/%webform_menu/webform/conditionals']['access callback'] = FALSE;
+  // $items['node/%webform_menu/webform/emails']['access callback'] = FALSE;
+  // $items['node/%webform_menu/webform/configure']['access callback'] = FALSE;
+  // $items['node/%webform_menu/webform-results']['access callback'] = FALSE;
+  // $items['node/%webform_menu/webform-results/analysis']['access callback'] = FALSE;
+  // $items['node/%webform_menu/webform-results/table']['access callback'] = FALSE;
+  // $items['node/%webform_menu/webform-results/download']['access callback'] = FALSE;
 
 }
 
@@ -45,11 +45,11 @@ function emh_survey_form_alter(&$form, &$form_state, $form_id) {
   // TODO: cibler le formulaire de soumission
 
 	if ((isset($form['#node']) && $form['#node']->type == 'webform')) {
-		$form['actions']['submit']['#value'] = t('Submit my answer');
+		// $form['actions']['submit']['#value'] = t('Submit my answer');
 
 		// echo '<pre>' . print_r($form, TRUE) . '</pre>';
 	  // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
-    if (isBusinessUser()) {
+    if ( isBusinessUser() && !empty($form['submitted']) ) {
       foreach( $form['submitted'] as $key => $element ) {
         if (is_array($element) && !empty($element['#type']) && $element['#type'] == 'textarea') {
           $form['submitted'][$key]['#disabled'] = 'disabled';
@@ -68,7 +68,6 @@ function emh_survey_form_alter(&$form, &$form_state, $form_id) {
  */
 function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
 
-	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
 	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
 
 	// Add class before & after fields
@@ -91,9 +90,12 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
 	$form['field_document']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
   $form['field_image']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
 
-	$form['actions']['submit']['#value'] = t('Save and continue');
+	$form['actions']['draft']['#value'] = t('Save draft');
+	$form['actions']['submit']['#value'] = t('Publish my survey');
 
 	$form['group_content_access']['#access'] =  FALSE;
+
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
 }
 
 
@@ -119,12 +121,12 @@ function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $fo
 
 	$form['actions']['submit']['#value'] = t('Save order of questions');
 
-	$webform_id = $form['#node']->nid;
-	$form['actions']['goback']['#markup'] = t('<a href="@url" class="btn btn-default" id="edit-back">Back</a>', array('@url' => url('node/' . $webform_id . '/edit')));
-	$form['actions']['goback']['#access'] = TRUE;
-
-	$form['actions']['see']['#markup'] = t('<a href="@url" class="btn-submit btn btn-primary form-submit" id="edit-view">Publish your survey</a>', array('@url' => url('node/' . $webform_id)));
-	$form['actions']['see']['#access'] = TRUE;
+	// $webform_id = $form['#node']->nid;
+	// $form['actions']['goback']['#markup'] = t('<a href="@url" class="btn btn-default" id="edit-back">Back</a>', array('@url' => url('node/' . $webform_id . '/edit')));
+	// $form['actions']['goback']['#access'] = TRUE;
+  //
+	// $form['actions']['see']['#markup'] = t('<a href="@url" class="btn-submit btn btn-primary form-submit" id="edit-view">Publish your survey</a>', array('@url' => url('node/' . $webform_id)));
+	// $form['actions']['see']['#access'] = TRUE;
 
   $form['#submit'][] = 'emh_survey_remove_param';
 }
@@ -182,10 +184,13 @@ function emh_survey_form_webform_component_edit_form_alter(&$form, &$form_state,
  * Implements hook_node_defaults_alter().
  */
 function emh_survey_webform_node_defaults_alter(&$defaults) {
+  $defaults['allow_draft'] = '1';
   $defaults['enforce_limit'] = 'yes';
+  $defaults['progressbar_bar'] = '0';
   $defaults['submit_limit'] = '1';
   $defaults['submit_interval'] = '-1';
   $defaults['submit_notice'] = '0';
+  // echo '<pre>' . print_r($defaults, true) . '</pre>'; die;
 }
 
 /**
@@ -193,4 +198,18 @@ function emh_survey_webform_node_defaults_alter(&$defaults) {
  */
 function emh_survey_views_api() {
   return array('api' => 3);
+}
+
+/**
+ * Implements hook_node_presave().
+ */
+function emh_survey_node_presave($node) {
+  if ($node->type == 'webform') {
+    if ($node->status == 1 && (empty($node->webform) || empty($node->webform['components']))) {
+      // Unpublish the node
+      $node->status = 0;
+      // Inform the user.
+      drupal_set_message(t('You cannot publish a survey without any question.'), 'warning');
+    }
+  }
 }
