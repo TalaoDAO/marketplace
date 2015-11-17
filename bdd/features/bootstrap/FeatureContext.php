@@ -103,7 +103,7 @@ class FeatureContext extends DrupalContext {
     }
     $user = user_load($this->users[$name]->uid);
     if (! ($user->emh_points == (int) $points) ) {
-      throw new \Exception(sprintf('The user with "%s" title should have %s points instead of %s.', $name, $points, $node->emh_points));
+      throw new \Exception(sprintf('The user with "%s" title should have %s points instead of %s.', $name, $points, $user->emh_points));
     }
   }
 
