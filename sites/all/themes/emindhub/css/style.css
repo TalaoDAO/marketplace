@@ -11083,6 +11083,7 @@ fieldset[disabled] .btn-popin.focus {
 .emh-block-blue-main-title h3 span,
 .emh-block-blue-main-title .h3 span {
   color: #445766;
+  display: inline-block;
 }
 .emh-block-blue-main-title h1:after,
 .emh-block-blue-main-title .h1:after,
@@ -11115,6 +11116,7 @@ fieldset[disabled] .btn-popin.focus {
 }
 .emh-block-blue-main-title .block-title span {
   color: #445766;
+  display: inline-block;
 }
 .emh-block-blue-main-title .block-title:after {
   display: none;
@@ -11214,6 +11216,7 @@ fieldset[disabled] .btn-popin.focus {
 }
 .emh-title-main span {
   color: #445766;
+  display: inline-block;
 }
 #block-system-main .emh-title-baseline {
   color: #009fe3;
@@ -13148,6 +13151,7 @@ body {
 }
 .main-container #maincol > h1.page-header span {
   color: #445766;
+  display: inline-block;
 }
 .region-content > section {
   margin-bottom: 15px;
@@ -14535,17 +14539,11 @@ aside .block .content {
 .view-query-list td.views-field-type.challenge a::before {
   background-image: url("../images/picto/picto_challenge_small.png");
 }
-.view-display-id-block_1 form #edit-field-domaine-tid-i18n-wrapper,
 .view-display-id-page_2 form #edit-field-domaine-tid-i18n-wrapper,
-.view-display-id-block_1 form #edit-field-domaine-tid-i18n-1-wrapper,
 .view-display-id-page_2 form #edit-field-domaine-tid-i18n-1-wrapper,
-.view-display-id-block_1 form #edit-field-tags-tid-i18n-wrapper,
 .view-display-id-page_2 form #edit-field-tags-tid-i18n-wrapper,
-.view-display-id-block_1 form #edit-field-tags-tid-i18n-1-wrapper,
 .view-display-id-page_2 form #edit-field-tags-tid-i18n-1-wrapper,
-.view-display-id-block_1 form #edit-status-wrapper,
 .view-display-id-page_2 form #edit-status-wrapper,
-.view-display-id-block_1 form #edit-status-1-wrapper,
 .view-display-id-page_2 form #edit-status-1-wrapper {
   position: relative;
   min-height: 1px;
@@ -14554,17 +14552,11 @@ aside .block .content {
   padding-right: 0;
 }
 @media (min-width: 767px) {
-  .view-display-id-block_1 form #edit-field-domaine-tid-i18n-wrapper,
   .view-display-id-page_2 form #edit-field-domaine-tid-i18n-wrapper,
-  .view-display-id-block_1 form #edit-field-domaine-tid-i18n-1-wrapper,
   .view-display-id-page_2 form #edit-field-domaine-tid-i18n-1-wrapper,
-  .view-display-id-block_1 form #edit-field-tags-tid-i18n-wrapper,
   .view-display-id-page_2 form #edit-field-tags-tid-i18n-wrapper,
-  .view-display-id-block_1 form #edit-field-tags-tid-i18n-1-wrapper,
   .view-display-id-page_2 form #edit-field-tags-tid-i18n-1-wrapper,
-  .view-display-id-block_1 form #edit-status-wrapper,
   .view-display-id-page_2 form #edit-status-wrapper,
-  .view-display-id-block_1 form #edit-status-1-wrapper,
   .view-display-id-page_2 form #edit-status-1-wrapper {
     float: left;
     width: 16.66666667%;
@@ -14713,7 +14705,7 @@ aside .block .content {
   width: 100px;
 }
 .views-field-og-group-ref {
-  width: 150px;
+  width: 200px;
 }
 .views-field-uid,
 .view-my-responses-questions1 .views-field-nothing-1,

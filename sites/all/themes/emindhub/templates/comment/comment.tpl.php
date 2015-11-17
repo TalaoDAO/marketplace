@@ -61,11 +61,13 @@
 
 // echo '<pre>' . print_r($comment, TRUE) . '</pre>';
 // echo '<pre>' . print_r($content->field_private_comment_body, TRUE) . '</pre>';
+
 global $base_url;
+
 $comment_author = user_load($comment->uid);
 $first_name = field_get_items('user', $comment_author, 'field_first_name');
 $last_name = field_get_items('user', $comment_author, 'field_last_name');
-$profile_url = drupal_get_path_alias('user/' . $comment->uid);
+$profile_url = $base_url . '/' . drupal_get_path_alias('user/' . $comment->uid);
 $flag = flag_get_flag('my_contacts');
 ?>
 <div class="<?php print $classes; ?> clearfix container"<?php print $attributes; ?>>
@@ -75,7 +77,7 @@ $flag = flag_get_flag('my_contacts');
     <div class="col-sm-12 author">
 
       <?php if ( emh_points_user_can_see_full_user( $user->uid, $comment->uid ) == TRUE || ($flag && $flag->is_flagged($comment->uid, $GLOBALS['user']->uid)) ) : ?>
-      <a href="<?php print $base_url . '/' . $profile_url; ?>">
+      <a href="<?php print $profile_url; ?>">
       <?php endif; ?>
         <?php //print $author; ?>
         <?php //print $picture; ?>
