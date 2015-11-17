@@ -52,9 +52,7 @@ function ft_blocks_default_fe_block_settings() {
     'machine_name' => 'expert_avantages',
     'module' => 'block',
     'node_types' => array(),
-    'pages' => 'expert/register
-business/register
-freetrial',
+    'pages' => 'expert/register',
     'roles' => array(),
     'themes' => array(
       'emindhub' => array(
