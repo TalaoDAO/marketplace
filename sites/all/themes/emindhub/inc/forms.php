@@ -25,20 +25,21 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
   // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
 
   $form['actions']['#prefix'] = '<div class="form-row">';
-  $form['actions']['#prefix'] .= '<div class="form-actions">';
+  $form['actions']['#prefix'] .= '<div class="btn-group form-actions" role="group" aria-label="Actions">';
 
   // Actions order
   $i = 0;
   foreach (
 	array(
 	  'cancel',
-		'goback',
 	  'delete',
 	  'preview_changes',
 	  'draft',
 	  'preview',
 	  'submit',
 		'see',
+		'goback',
+		'goquestions',
 	) as $action ) {
 		$form['actions'][$action]['#attributes']['class'][] = 'btn';
 	  $form['actions'][$action]['#weight'] = $i++;
@@ -54,7 +55,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
     $form['actions']['submit']['#attributes']['class'] = array('btn-submit');
   }
 
-  $form['actions']['#suffix'] = '</div> <!-- END .form-actions -->';
+  $form['actions']['#suffix'] .= '</div> <!-- END .form-actions -->';
 
   // Add required legend if minimum one field is required
   if ( emindhub_form_has_required($form, $form_id) == TRUE ) {

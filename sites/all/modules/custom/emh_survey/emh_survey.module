@@ -15,17 +15,14 @@ function emh_survey_menu_alter(&$items) {
   $items['node/%webform_menu/webform']['title'] = t('Questions');
 
   // Disable access
-  if ($uid != 1) {
-    // Admin ( = eMindHub) has every right.
-    $items['node/%webform_menu/webform/conditionals']['access callback'] = FALSE;
-    $items['node/%webform_menu/webform/emails']['access callback'] = FALSE;
-    $items['node/%webform_menu/webform/configure']['access callback'] = FALSE;
-    $items['node/%webform_menu/webform-results']['access callback'] = FALSE;
-    $items['node/%webform_menu/webform-results/analysis']['access callback'] = FALSE;
-    $items['node/%webform_menu/webform-results/table']['access callback'] = FALSE;
-    $items['node/%webform_menu/webform-results/download']['access callback'] = FALSE;
-  }
-  
+  $items['node/%webform_menu/webform/conditionals']['access callback'] = FALSE;
+  $items['node/%webform_menu/webform/emails']['access callback'] = FALSE;
+  $items['node/%webform_menu/webform/configure']['access callback'] = FALSE;
+  $items['node/%webform_menu/webform-results']['access callback'] = FALSE;
+  $items['node/%webform_menu/webform-results/analysis']['access callback'] = FALSE;
+  $items['node/%webform_menu/webform-results/table']['access callback'] = FALSE;
+  $items['node/%webform_menu/webform-results/download']['access callback'] = FALSE;
+
 }
 
 
@@ -71,8 +68,6 @@ function emh_survey_form_alter(&$form, &$form_state, $form_id) {
  */
 function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
 
-	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
-
 	// Add class before & after fields
   $form['field_duration_of_the_mission']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_start_date']['#suffix'] = '</div>';
@@ -93,12 +88,23 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
 	$form['field_document']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
   $form['field_image']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
 
-	$form['actions']['draft']['#value'] = t('Save draft');
-	$form['actions']['submit']['#value'] = t('Publish my survey');
+	$form['actions']['draft']['#value'] = t('Save as draft');
+
+  $form['actions']['submit']['#value'] = t('Publish');
+  if ($form['#node']->type == 'webform' && empty($form['#node']->webform['components'])) {
+    $form['actions']['submit']['#disabled'] = TRUE;
+  }
+
+  $webform_id = $form['#node']->nid;
+  if (!empty($webform_id)) {
+    $form['actions']['goquestions']['#markup'] = t('<a href="@url" class="btn btn-default pull-right" id="edit-back">Questions <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>', array('@url' => url('node/' . $webform_id . '/webform')));
+  	$form['actions']['goquestions']['#access'] = TRUE;
+  }
 
 	$form['group_content_access']['#access'] =  FALSE;
 
   // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+
 }
 
 
@@ -124,10 +130,10 @@ function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $fo
 
 	$form['actions']['submit']['#value'] = t('Save order of questions');
 
-	// $webform_id = $form['#node']->nid;
-	// $form['actions']['goback']['#markup'] = t('<a href="@url" class="btn btn-default" id="edit-back">Back</a>', array('@url' => url('node/' . $webform_id . '/edit')));
-	// $form['actions']['goback']['#access'] = TRUE;
-  //
+	$webform_id = $form['#node']->nid;
+	$form['actions']['goback']['#markup'] = t('<a href="@url" class="btn btn-default pull-right" id="edit-back"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Edit</a>', array('@url' => url('node/' . $webform_id . '/edit')));
+	$form['actions']['goback']['#access'] = TRUE;
+
 	// $form['actions']['see']['#markup'] = t('<a href="@url" class="btn-submit btn btn-primary form-submit" id="edit-view">Publish your survey</a>', array('@url' => url('node/' . $webform_id)));
 	// $form['actions']['see']['#access'] = TRUE;
 
