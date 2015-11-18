@@ -95,9 +95,9 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
     $form['actions']['submit']['#disabled'] = TRUE;
   }
 
-  $webform_id = $form['#node']->nid;
-  if (!empty($webform_id)) {
-    $form['actions']['goquestions']['#markup'] = t('<a href="@url" class="btn btn-default pull-right" id="edit-back">Questions <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>', array('@url' => url('node/' . $webform_id . '/webform')));
+  $webform = $form['#node'];
+  if (!empty($webform->nid)) {
+    $form['actions']['goquestions']['#markup'] = t('<a href="@url" class="btn btn-default pull-right" id="edit-back">Questions <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>', array('@url' => url('node/' . $webform->nid . '/webform')));
   	$form['actions']['goquestions']['#access'] = TRUE;
   }
 
