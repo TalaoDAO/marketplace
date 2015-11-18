@@ -15,14 +15,17 @@ function emh_survey_menu_alter(&$items) {
   $items['node/%webform_menu/webform']['title'] = t('Questions');
 
   // Disable access
-  // $items['node/%webform_menu/webform/conditionals']['access callback'] = FALSE;
-  // $items['node/%webform_menu/webform/emails']['access callback'] = FALSE;
-  // $items['node/%webform_menu/webform/configure']['access callback'] = FALSE;
-  // $items['node/%webform_menu/webform-results']['access callback'] = FALSE;
-  // $items['node/%webform_menu/webform-results/analysis']['access callback'] = FALSE;
-  // $items['node/%webform_menu/webform-results/table']['access callback'] = FALSE;
-  // $items['node/%webform_menu/webform-results/download']['access callback'] = FALSE;
-
+  if ($uid != 1) {
+    // Admin ( = eMindHub) has every right.
+    $items['node/%webform_menu/webform/conditionals']['access callback'] = FALSE;
+    $items['node/%webform_menu/webform/emails']['access callback'] = FALSE;
+    $items['node/%webform_menu/webform/configure']['access callback'] = FALSE;
+    $items['node/%webform_menu/webform-results']['access callback'] = FALSE;
+    $items['node/%webform_menu/webform-results/analysis']['access callback'] = FALSE;
+    $items['node/%webform_menu/webform-results/table']['access callback'] = FALSE;
+    $items['node/%webform_menu/webform-results/download']['access callback'] = FALSE;
+  }
+  
 }
 
 
