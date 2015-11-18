@@ -82,7 +82,7 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
   $form['field_use_my_entreprise']['#suffix'] = '</div>';
 
   $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
-	$form['field_reward']['und'][0]['value']['#title'] = t('Cost (minimum 500 points required)');
+	$form['field_reward']['und'][0]['value']['#title'] = t('Cost (minimum !value points required)', array( '!value' => variable_get('emh_points_webform_threshold', '500')));
   $form['field_reward']['#suffix'] = '</div>';
 
 	$form['field_document']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
