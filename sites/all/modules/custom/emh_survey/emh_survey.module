@@ -137,6 +137,43 @@ function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $fo
 
 	// $form['actions']['see']['#markup'] = t('<a href="@url" class="btn-submit btn btn-primary form-submit" id="edit-view">Publish your survey</a>', array('@url' => url('node/' . $webform_id)));
 	// $form['actions']['see']['#access'] = TRUE;
+
+  if ($form['#node']->status == NODE_NOT_PUBLISHED && count($form['components'])) {
+    $form['actions']['publish'] = array(
+      '#type' => 'submit',
+      '#value' => t('Publish'),
+      '#submit' => array('emh_survey_webform_components_form_publish'),
+    );
+  }
+}
+
+
+/**
+ * Additionnal submit callback for the webform components form.
+ * Added to the "Publish" button.
+ */
+function emh_survey_webform_components_form_publish($form, &$form_state) {
+  // Only if the user clicked the "Publish" button
+  if ($form_state['triggering_element']['#value'] == $form['actions']['publish']['#value']) {
+    $form['#node']->status = NODE_PUBLISHED;
+
+    try {
+      node_save($form['#node']);
+
+      $msg_args = array(
+        '@type' => node_type_get_name($form['#node']),
+        '%title' => $form['#node']->title,
+      );
+
+      drupal_set_message(t('@type %title has been updated.', $msg_args));
+
+      // Redirects to the survey view
+      $form_state['redirect'] = 'node/' . $form['#node']->nid;
+    }
+    catch (Exception $e) {
+      drupal_set_message(t('The post could not be saved.'), 'error');
+    }
+  }
 }
 
 
