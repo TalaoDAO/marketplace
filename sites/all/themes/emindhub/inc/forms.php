@@ -55,7 +55,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
     $form['actions']['submit']['#attributes']['class'] = array('btn-submit');
   }
 
-  $form['actions']['#suffix'] .= '</div> <!-- END .form-actions -->';
+  $form['actions']['#suffix'] = '</div> <!-- END .form-actions -->';
 
   // Add required legend if minimum one field is required
   if ( emindhub_form_has_required($form, $form_id) == TRUE ) {
