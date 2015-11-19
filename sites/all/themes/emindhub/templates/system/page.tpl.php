@@ -150,13 +150,11 @@
 <?php if ( !$is_front || $logged_in ): ?>
 <div id="trail" class="container-fluid">
   <div class="container">
-    <!-- <?php if (!empty($breadcrumb)): ?>
       <div class="row">
-        <div class="col-sm-4 col-sm-offset-8">
-          <?php print $breadcrumb; ?>
+        <div class="col-sm-4 col-sm-offset-8 text-right">
+          <a class="btn btn-flash" href="<?php print url('points'); ?>"><?php print t('Invite experts and earn points!'); ?></a>
         </div>
       </div>
-    <?php endif; ?> -->
   </div>
 </div>
 <?php endif; ?>

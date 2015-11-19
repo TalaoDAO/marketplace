@@ -10847,6 +10847,17 @@ fieldset[disabled] .btn-popin.focus {
   color: transparent;
   background-color: #333333;
 }
+.btn-flash {
+  color: #1abc9c;
+  text-shadow: 0px 0px 2px #000000;
+  padding-left: 37px;
+  background-image: url("../images/picto/picto_points_small.png");
+  background-position: left center;
+  background-repeat: no-repeat;
+}
+.btn-flash:hover {
+  color: #53cdb5;
+}
 .emh-block-normal {
   margin-bottom: 15px;
 }
@@ -12824,7 +12835,7 @@ header#navbar .row > div:nth-child(2) {
 @media (min-width: 767px) {
   body:not(.cke_editable),
   body.admin-menu {
-    padding-top: 133px;
+    padding-top: 142px;
   }
   body.admin-menu header#navbar {
     position: fixed;
@@ -13075,12 +13086,12 @@ body {
 }
 #trail {
   background-color: #445766;
-  padding: 10px 0;
+  padding: 5px 0;
   min-height: 20px;
 }
 @media (min-width: 767px) {
   #trail {
-    min-height: 50px;
+    min-height: 40px;
   }
 }
 .main-container {
@@ -13604,6 +13615,11 @@ a.flag .badge {
 .view-header p:first-child {
   background-color: #4c6172;
   color: #fff;
+  padding: 15px;
+}
+.node-unpublished {
+  border: 1px solid #faebcc;
+  background-color: #fcf8e3;
   padding: 15px;
 }
 .content .node .links li.fr a,
@@ -15006,7 +15022,7 @@ body.front .alert {
   }
   body.front.logged-in,
   body.front.logged-in.admin-menu {
-    padding-top: 133px;
+    padding-top: 142px;
   }
   body.front.logged-in .main-container section#maincol,
   body.front.logged-in.admin-menu .main-container section#maincol {

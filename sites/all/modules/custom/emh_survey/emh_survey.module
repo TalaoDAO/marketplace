@@ -68,36 +68,19 @@ function emh_survey_form_alter(&$form, &$form_state, $form_id) {
  */
 function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
 
-	// Add class before & after fields
-  $form['field_duration_of_the_mission']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_start_date']['#suffix'] = '</div>';
-
-  $form['field_document']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_image']['#suffix'] = '</div>';
-
-  $form['field_domaine']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_tags']['#suffix'] = '</div>';
-
-  $form['field_anonymous']['#prefix'] = '<div class="form-group-3col row">';
-  $form['field_use_my_entreprise']['#suffix'] = '</div>';
-
-  $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
-	$form['field_reward']['und'][0]['value']['#title'] = t('Cost (minimum 500 points required)');
-  $form['field_reward']['#suffix'] = '</div>';
+	$form['field_reward']['und'][0]['value']['#title'] = t('Cost (minimum !value points required)', array( '!value' => variable_get('emh_points_webform_threshold', '500')));
 
 	$form['field_document']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
   $form['field_image']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
-
-	$form['actions']['draft']['#value'] = t('Save as draft');
 
   $form['actions']['submit']['#value'] = t('Publish');
   if ($form['#node']->type == 'webform' && empty($form['#node']->webform['components'])) {
     $form['actions']['submit']['#disabled'] = TRUE;
   }
 
-  $webform_id = $form['#node']->nid;
-  if (!empty($webform_id)) {
-    $form['actions']['goquestions']['#markup'] = t('<a href="@url" class="btn btn-default pull-right" id="edit-back">Questions <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>', array('@url' => url('node/' . $webform_id . '/webform')));
+  $webform = $form['#node'];
+  if (!empty($webform->nid)) {
+    $form['actions']['goquestions']['#markup'] = t('<a href="@url" id="edit-back">Questions</a>', array('@url' => url('node/' . $webform->nid . '/webform')));
   	$form['actions']['goquestions']['#access'] = TRUE;
   }
 
@@ -108,7 +91,8 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
 }
 
 
-/* Webform hook form alter
+/**
+ * Webform hook form alter
  * node/$ID/webform
  * node/$ID/webform/components
  */
@@ -131,21 +115,52 @@ function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $fo
 	$form['actions']['submit']['#value'] = t('Save order of questions');
 
 	$webform_id = $form['#node']->nid;
-	$form['actions']['goback']['#markup'] = t('<a href="@url" class="btn btn-default pull-right" id="edit-back"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Edit</a>', array('@url' => url('node/' . $webform_id . '/edit')));
+	$form['actions']['goback']['#markup'] = t('<a href="@url" id="edit-back">Edit</a>', array('@url' => url('node/' . $webform_id . '/edit')));
 	$form['actions']['goback']['#access'] = TRUE;
 
-	// $form['actions']['see']['#markup'] = t('<a href="@url" class="btn-submit btn btn-primary form-submit" id="edit-view">Publish your survey</a>', array('@url' => url('node/' . $webform_id)));
-	// $form['actions']['see']['#access'] = TRUE;
-
-  $form['#submit'][] = 'emh_survey_remove_param';
+  if ($form['#node']->status == NODE_NOT_PUBLISHED && count($form['components'])) {
+    $form['actions']['publish'] = array(
+      '#type' => 'submit',
+      '#value' => t('Publish'),
+      '#submit' => array('emh_survey_webform_components_form_publish'),
+    );
+  } else {
+    $form['actions']['publish'] = array(
+      '#type' => 'submit',
+      '#value' => t('Publish'),
+      '#submit' => array('emh_survey_webform_components_form_publish'),
+      '#disabled' => TRUE,
+    );
+  }
 }
 
+
 /**
- * Helper submit callback that removes cid parameter.
+ * Additionnal submit callback for the webform components form.
+ * Added to the "Publish" button.
  */
-function emh_survey_remove_param($form, &$form_state) {
-  $nid = $form_state['values']['nid'];
-  $form_state['redirect'] = 'node/' . $nid . '/webform/components';
+function emh_survey_webform_components_form_publish($form, &$form_state) {
+  // Only if the user clicked the "Publish" button
+  if ($form_state['triggering_element']['#value'] == $form['actions']['publish']['#value']) {
+    $form['#node']->status = NODE_PUBLISHED;
+
+    try {
+      node_save($form['#node']);
+
+      $msg_args = array(
+        '@type' => node_type_get_name($form['#node']),
+        '%title' => $form['#node']->title,
+      );
+
+      drupal_set_message(t('@type %title has been published.', $msg_args));
+
+      // Redirects to the survey view
+      $form_state['redirect'] = 'node/' . $form['#node']->nid;
+    }
+    catch (Exception $e) {
+      drupal_set_message(t('The survey could not be saved.'), 'error');
+    }
+  }
 }
 
 
@@ -186,8 +201,20 @@ function emh_survey_form_webform_component_edit_form_alter(&$form, &$form_state,
 	// Action submit label
 	$form['actions']['submit']['#value'] = t('Save your question');
 
-	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
+  $form['#submit'][] = 'emh_survey_webform_component_edit_form_redirect';
+
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
 }
+
+
+/**
+ * Additionnal submit callback for the webform component edition form.
+ */
+function emh_survey_webform_component_edit_form_redirect($form, &$form_state) {
+  $nid = $form_state['values']['nid'];
+  $form_state['redirect'] = 'node/' . $nid . '/webform/components';
+}
+
 
 /**
  * Implements hook_node_defaults_alter().

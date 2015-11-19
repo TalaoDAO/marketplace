@@ -5,7 +5,7 @@
 */
 
 
-/* Challenge hook form alter
+/* Question hook form alter
  * node/add/question1
  * node/$ID/edit
  */
@@ -14,16 +14,7 @@ function emh_question_form_question1_node_form_alter(&$form, &$form_state, $form
 	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
 	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
 
-	// Add class before & after fields
-  $form['field_domaine']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_tags']['#suffix'] = '</div>';
-
-  $form['field_anonymous']['#prefix'] = '<div class="form-group-3col row">';
-  $form['field_use_my_entreprise']['#suffix'] = '</div>';
-
-  $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_reward']['und'][0]['value']['#title'] = t('Cost (minimum 100 points required)');
-  $form['field_reward']['#suffix'] = '</div>';
+  $form['field_reward']['und'][0]['value']['#title'] = t('Cost (minimum !value points required)', array( '!value' => variable_get('emh_points_question1_threshold', '100')));
 
   $form['group_content_access']['#access'] =  FALSE;
 

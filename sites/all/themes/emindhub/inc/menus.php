@@ -51,24 +51,24 @@ function emindhub_preprocess_menu_link(&$vars) {
 /**
  * Overrides theme_menu_tree().
  */
-function bootstrap_menu_tree__user_menu(&$variables) {
+function emindhub_menu_tree__user_menu(&$variables) {
   return '<ul class="menu nav navbar-nav navbar-emh-separator">' . $variables['tree'] . '</ul>';
 }
-function bootstrap_menu_tree__menu_top(&$variables) {
+function emindhub_menu_tree__menu_top(&$variables) {
   return '<ul class="menu nav nav-justified">' . $variables['tree'] . '</ul>';
 }
-function bootstrap_menu_tree__menu_top_anonymous(&$variables) {
+function emindhub_menu_tree__menu_top_anonymous(&$variables) {
   return '<ul class="menu nav nav-justified">' . $variables['tree'] . '</ul>';
 }
-// function bootstrap_menu_tree__main_menu(&$variables) {
+// function emindhub_menu_tree__main_menu(&$variables) {
 //   return '<ul class="menu nav nav-justified">' . $variables['tree'] . '</ul>';
 // }
-// function bootstrap_menu_tree__menu_burger_menu(&$variables) {
+// function emindhub_menu_tree__menu_burger_menu(&$variables) {
 //   return '<ul class="menu nav navbar-emh-burger">' . $variables['tree'] . '</ul>';
 // }
-function bootstrap_menu_tree__menu_footer_menu(&$variables) {
+function emindhub_menu_tree__menu_footer_menu(&$variables) {
   return '<ul class="menu nav navbar-nav navbar-emh-separator navbar-right">' . $variables['tree'] . '</ul>';
 }
-function bootstrap_menu_tree__menu_networks(&$variables) {
+function emindhub_menu_tree__menu_networks(&$variables) {
   return '<ul class="menu nav navbar-nav navbar-emh-separator navbar-right">' . $variables['tree'] . '</ul>';
 }
