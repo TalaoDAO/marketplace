@@ -45,7 +45,7 @@ function emh_survey_form_alter(&$form, &$form_state, $form_id) {
   // TODO: cibler le formulaire de soumission
 
 	if ((isset($form['#node']) && $form['#node']->type == 'webform')) {
-		// $form['actions']['submit']['#value'] = t('Submit my answer');
+		$form['actions']['submit']['#value'] = t('Submit my answer');
 
 		// echo '<pre>' . print_r($form, TRUE) . '</pre>';
 	  // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
@@ -73,12 +73,25 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
 	$form['field_document']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
   $form['field_image']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
 
-  $form['actions']['submit']['#value'] = t('Publish');
+  $webform = $form['#node'];
+
+  // Actions : Save as draft
+  if ($form['#node']->status == NODE_NOT_PUBLISHED) {
+    $form['actions']['draft']['#value'] = t('Save draft');
+  }
+
+  // Actions : Publish / Save
+  if ( !empty($webform->nid) && $form['#node']->status == NODE_NOT_PUBLISHED ) {
+    $form['actions']['submit']['#value'] = t('Publish');
+  } else {
+    $form['actions']['submit']['#value'] = t('Save');
+  }
+  // Publication unactive unless there's 1 question added
   if ($form['#node']->type == 'webform' && empty($form['#node']->webform['components'])) {
     $form['actions']['submit']['#disabled'] = TRUE;
   }
 
-  $webform = $form['#node'];
+  // Nav : Questions
   if (!empty($webform->nid)) {
     $form['actions']['goquestions']['#markup'] = t('<a href="@url" id="edit-back">Questions</a>', array('@url' => url('node/' . $webform->nid . '/webform')));
   	$form['actions']['goquestions']['#access'] = TRUE;
