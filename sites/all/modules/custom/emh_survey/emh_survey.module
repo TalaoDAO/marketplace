@@ -78,8 +78,9 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
   // Actions : Save as draft
   if ($form['#node']->status == NODE_NOT_PUBLISHED) {
     $form['actions']['draft']['#value'] = t('Save draft');
+  } else {
+    $form['actions']['draft']['#access'] = FALSE;
   }
-
   // Actions : Publish / Save
   if ( !empty($webform->nid) && $form['#node']->status == NODE_NOT_PUBLISHED ) {
     $form['actions']['submit']['#value'] = t('Publish');
@@ -90,7 +91,6 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
   if ($form['#node']->type == 'webform' && empty($form['#node']->webform['components'])) {
     $form['actions']['submit']['#disabled'] = TRUE;
   }
-
   // Nav : Questions
   if (!empty($webform->nid)) {
     $form['actions']['goquestions']['#markup'] = t('<a href="@url" id="edit-back">Questions</a>', array('@url' => url('node/' . $webform->nid . '/webform')));
