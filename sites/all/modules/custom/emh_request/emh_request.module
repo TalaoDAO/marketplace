@@ -28,3 +28,51 @@ function emh_request_node_access($node, $op, $account) {
   }
   return NODE_ACCESS_IGNORE;
 }
+
+function emh_request_get_status($node) {
+
+	$node = node_load($node);
+  $status = array();
+
+	if (!empty($node->emh_points)) {
+    $today = date('Y-m-d H:i:s');
+    $deadline = $node->field_expiration_date['und'][0]['value'];
+		if ($today < $deadline) {
+			$status = array( 'status' => 'open', 'label' => t('Open') );
+		} else {
+			$status = array( 'status' => 'selection', 'label' => t('Selection in progress') );
+		}
+	} else {
+		$status = array( 'status' => 'closed', 'label' => t('Closed') );
+	}
+
+	if (!empty($status)) {
+		$status = '<span class="emh-status ' . $status['status'] . '">' . $status['label'] . '</span>';
+	}
+
+	return $status;
+
+}
+
+
+function emh_request_count_answers($node) {
+
+	$count = '';
+
+	switch($node->type) {
+		case 'webform':
+			include_once(drupal_get_path('module', 'webform') . '/includes/webform.submissions.inc');
+			$count = webform_get_submission_count($node->nid);
+			break;
+		case 'question1':
+		case 'challenge':
+			$count = $node->comment_count;
+			break;
+		default:
+			// Nothing to do.
+			break;
+	}
+
+	return $count;
+
+}

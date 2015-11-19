@@ -9746,8 +9746,10 @@ button.close {
 .bef-select-as-checkboxes .bef-checkboxes:after,
 #block-block-11 .content ul:before,
 #block-block-11 .content ul:after,
-#block-progress-tracker-progress-tracker ul.progress-tracker:before,
-#block-progress-tracker-progress-tracker ul.progress-tracker:after,
+#block-progress-tracker-progress-tracker #progress-tracker-wrapper:before,
+#block-progress-tracker-progress-tracker #progress-tracker-wrapper:after,
+#block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker:before,
+#block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker:after,
 form#change-pwd-page-form .form-type-password-confirm:before,
 form#change-pwd-page-form .form-type-password-confirm:after,
 form#user-profile-form .link-field-subrow:before,
@@ -9784,7 +9786,8 @@ form#user-profile-form .image-widget .image-widget-data:after,
 .bef-select-as-checkboxes:after,
 .bef-select-as-checkboxes .bef-checkboxes:after,
 #block-block-11 .content ul:after,
-#block-progress-tracker-progress-tracker ul.progress-tracker:after,
+#block-progress-tracker-progress-tracker #progress-tracker-wrapper:after,
+#block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker:after,
 form#change-pwd-page-form .form-type-password-confirm:after,
 form#user-profile-form .link-field-subrow:after,
 form#user-profile-form .image-widget:after,
@@ -11697,6 +11700,15 @@ fieldset[disabled] .btn-popin.focus {
 .emh-form-legend small,
 .emh-form-legend .small {
   font-size: 75%;
+}
+.emh-status.open {
+  background-color: #53d899;
+}
+.emh-status.selection {
+  background-color: #01a7e5;
+}
+.emh-status.closed {
+  background-color: #A1ACB5;
 }
 h1,
 h2,
@@ -14581,13 +14593,53 @@ aside .block .content {
 #block-progress-tracker-progress-tracker .block-title {
   margin-top: 0;
 }
-#block-progress-tracker-progress-tracker ul.progress-tracker {
+#block-progress-tracker-progress-tracker #progress-tracker-wrapper {
+  margin-left: -15px;
+  margin-right: -15px;
+  margin: 0;
+}
+#block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-status {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding: 0;
+}
+@media (min-width: 767px) {
+  #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-status {
+    float: left;
+    width: 25%;
+  }
+}
+#block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-status span {
+  display: block;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  font-weight: 700;
+  color: #FFF;
+  border-right: 4px solid #fff;
+}
+#block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding: 0;
+}
+@media (min-width: 767px) {
+  #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps {
+    float: left;
+    width: 75%;
+  }
+}
+#block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker {
   margin-left: -15px;
   margin-right: -15px;
   padding: 0;
   margin: 0 0 15px;
 }
-#block-progress-tracker-progress-tracker ul.progress-tracker li {
+#block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker li {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
@@ -14599,20 +14651,20 @@ aside .block .content {
   padding: 5px 10px;
   font-weight: 700;
   color: #FFF;
-  background-color: #A1ACB5;
+  background-color: #b5b5b5;
 }
 @media (min-width: 767px) {
-  #block-progress-tracker-progress-tracker ul.progress-tracker li {
+  #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker li {
     float: left;
     width: 50%;
   }
 }
-#block-progress-tracker-progress-tracker ul.progress-tracker li.first {
+#block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker li.first {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-right: 2px solid #fff;
 }
-#block-progress-tracker-progress-tracker ul.progress-tracker li.last {
+#block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker li.last {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   border-left: 2px solid #fff;
