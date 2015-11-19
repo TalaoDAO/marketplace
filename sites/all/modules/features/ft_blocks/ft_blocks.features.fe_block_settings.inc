@@ -815,7 +815,8 @@ freetrial',
     'module' => 'progress_tracker',
     'node_types' => array(
       0 => 'challenge',
-      1 => 'webform',
+      1 => 'question1',
+      2 => 'webform',
     ),
     'pages' => '',
     'roles' => array(),
@@ -833,7 +834,7 @@ freetrial',
         'weight' => 0,
       ),
     ),
-    'title' => 'Timeline',
+    'title' => '<none>',
     'visibility' => 0,
   );
 
