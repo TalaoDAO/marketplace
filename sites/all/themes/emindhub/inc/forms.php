@@ -135,12 +135,11 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
   // Complement
   $form['field_notification_frequency']['#prefix'] = '<div class="form-group-2col row">';
-	global $user;
-	if (in_array('business', array_values($user->roles)) || in_array('business preview', array_values($user->roles))) {
+	if (isBusinessUser()) {
 		// print 'business';
 		$form['field_notification_frequency']['und']['#description'] = t('How often do you want to receive eMindHub\'s notifications about new answers to your requests ?');
 	}
-	if (in_array('expert', array_values($user->roles)) || in_array('expert preview', array_values($user->roles))) {
+	if (isExpertUser()) {
 		$form['field_notification_frequency']['und']['#description'] = t('How often do you want to receive eMindHub\'s notifications about new requests ?');
 	}
   $form['field_known_specific']['#suffix'] = '</div>';
