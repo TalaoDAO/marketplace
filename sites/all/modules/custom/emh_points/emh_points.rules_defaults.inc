@@ -80,6 +80,7 @@ function emh_points_default_rules_configuration() {
     }
   }');
 
+  // Donne les points si tu publies le contenu dès sa création
   $items['rules_transfert_points_for_content'] = entity_import('rules_config', '{ "rules_transfert_points_for_content" : {
       "LABEL" : "Transfert points for content",
       "PLUGIN" : "reaction rule",
@@ -104,6 +105,8 @@ function emh_points_default_rules_configuration() {
       ]
     }
   }');
+
+  // Donne des points si tu édites un contenu et le publie alors qu'il était brouillon
   $items['emh_points_transfert_points_for_published_content'] = entity_import('rules_config', '{ "emh_points_transfert_points_for_published_content" : {
       "LABEL" : "Transfert points for published content",
       "PLUGIN" : "reaction rule",
