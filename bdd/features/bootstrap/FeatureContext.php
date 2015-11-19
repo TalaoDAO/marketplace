@@ -213,7 +213,7 @@ class FeatureContext extends DrupalContext {
 	    $filename = 'Fail.'.preg_replace('/[^a-zA-Z0-9-_\.]/','_', $id) . '.html';
 
       $html_data = $this->getSession()->getDriver()->getContent();
-      file_put_contents( $base_url . $this->tempPath . $this->screenshotPath . '/' . $filename, $html_data);
+      file_put_contents( DRUPAL_ROOT. $this->tempPath . $this->screenshotPath . '/' . $filename, $html_data);
       echo 'Screenshot error at : ' . $base_url . $this->tempPath . $this->screenshotPath . '/' . $filename;
     }
   }
