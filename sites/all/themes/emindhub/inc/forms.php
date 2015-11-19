@@ -37,7 +37,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 	  'draft',
 	  'preview',
 	  'submit',
-		'see',
+	  'publish',
 		'goback',
 		'goquestions',
 	) as $action ) {
@@ -53,6 +53,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
     $form['actions']['draft']['#attributes']['class'][] = 'btn-primary';
     $form['actions']['preview']['#attributes']['class'][] = 'btn-primary';
     $form['actions']['submit']['#attributes']['class'] = array('btn-submit');
+    $form['actions']['publish']['#attributes']['class'] = array('btn-submit');
   }
 
   $form['actions']['#suffix'] = '</div> <!-- END .form-actions -->';
@@ -64,6 +65,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
   			<span class="form-required">*</span>&nbsp;' . t('Required fields') . '
   		</div> <!-- END .form-mandatory -->';
   }
+	
   $form['actions']['#suffix'] .= '</div> <!-- END .row -->';
 
 
@@ -296,5 +298,102 @@ function emindhub_form_change_pwd_page_form_alter(&$form, &$form_state, $form_id
 	$form['submit']['#attributes']['class'][] = 'btn-submit';
 
 	return $form;
+
+}
+
+
+/* Webform hook form alter
+ * node/add/webform
+ * node/$ID/edit
+ */
+function emindhub_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
+
+	// Add class before & after fields
+  $form['field_duration_of_the_mission']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_start_date']['#suffix'] = '</div>';
+
+  $form['field_document']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_image']['#suffix'] = '</div>';
+
+  $form['field_domaine']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_tags']['#suffix'] = '</div>';
+
+  $form['field_anonymous']['#prefix'] = '<div class="form-group-3col row">';
+  $form['field_use_my_entreprise']['#suffix'] = '</div>';
+
+  $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_reward']['#suffix'] = '</div>';
+
+	$webform = $form['#node'];
+  if (!empty($webform->nid)) {
+    $form['actions']['goquestions']['#markup'] = t('<a href="@url" class="btn btn-default pull-right" id="edit-back">Questions <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>', array('@url' => url('node/' . $webform->nid . '/webform')));
+  }
+
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+
+}
+
+
+/**
+ * Webform hook form alter
+ * node/$ID/webform
+ * node/$ID/webform/components
+ */
+function emindhub_form_webform_components_form_alter(&$form, &$form_state, $form_id) {
+
+	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
+	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
+
+	$form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
+
+	$webform_id = $form['#node']->nid;
+	$form['actions']['goback']['#markup'] = t('<a href="@url" class="btn btn-default pull-right" id="edit-back"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Edit</a>', array('@url' => url('node/' . $webform_id . '/edit')));
+
+}
+
+
+/* Challenge hook form alter
+ * node/add/challenge
+ * node/$ID/edit
+ */
+function emindhub_form_challenge_node_form_alter(&$form, &$form_state, $form_id) {
+
+	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
+	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
+
+	// Add class before & after fields
+  $form['field_document']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_image']['#suffix'] = '</div>';
+
+  $form['field_domaine']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_tags']['#suffix'] = '</div>';
+
+  $form['field_anonymous']['#prefix'] = '<div class="form-group-3col row">';
+  $form['field_use_my_entreprise']['#suffix'] = '</div>';
+
+  $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_reward']['#suffix'] = '</div>';
+
+}
+
+
+/* Question hook form alter
+ * node/add/question1
+ * node/$ID/edit
+ */
+function emindhub_form_question1_node_form_alter(&$form, &$form_state, $form_id) {
+
+	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
+	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
+
+	// Add class before & after fields
+  $form['field_domaine']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_tags']['#suffix'] = '</div>';
+
+  $form['field_anonymous']['#prefix'] = '<div class="form-group-3col row">';
+  $form['field_use_my_entreprise']['#suffix'] = '</div>';
+
+  $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_reward']['#suffix'] = '</div>';
 
 }
