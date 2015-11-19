@@ -23,12 +23,12 @@ Feature: Create survey and answers
     When I fill in "New question name" with "First question"
     And I press "Add"
     And I press "Save your question"
-    And I click "Publish your survey"
+    And I press "Publish"
     And I click "Edit"
     When I select "Display my full name" from "Your name"
     And I select "Display the name" from "Your organisation"
     And I select "Display" from "Your activity"
-    And I press "Save and continue" 
+    And I press "Save"
     #Then show me the HTML page
     Then I should see the success message containing "has been updated."
 
