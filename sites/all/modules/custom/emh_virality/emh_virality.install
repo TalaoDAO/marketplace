@@ -60,6 +60,9 @@ function emh_virality_schema() {
       ),
     ),
     'primary key' => array('invitation_id'),
+    'unique keys' => array(
+      'unique_invitation' => array('referrer_id', 'referral_mail'),
+    ),
     //'indexes' => array(),
   );
 
