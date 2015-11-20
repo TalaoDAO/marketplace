@@ -35,7 +35,7 @@ function emh_request_node_access($node, $op, $account) {
  * node/$ID/edit
  */
 function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
-  
+
   switch ($form['#node']->type) {
 
     case 'question1':
@@ -74,6 +74,7 @@ function emh_request_get_status($node) {
 
       $today = date('Y-m-d H:i:s');
       $deadline = $node->field_expiration_date['und'][0]['value'];
+      $deadline = date('Y-m-d H:i:s', strtotime("$deadline +1 day"));
       if ($today < $deadline) {
         $workflow = array( 'status' => 'open', 'label' => t('Open') );
       }
