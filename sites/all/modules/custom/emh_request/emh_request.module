@@ -45,6 +45,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       // Actions : Save as draft + Publish / Save
       $form['actions']['draft']['#value'] = t('Save draft');
       $form['actions']['submit']['#value'] = t('Publish');
+      // If nid not empty, we're in the edit page
       if ( !empty($form['nid']['#value']) ) {
         $form['actions']['draft']['#access'] = FALSE;
         $form['actions']['submit']['#value'] = t('Save');
