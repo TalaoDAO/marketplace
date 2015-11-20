@@ -5,3 +5,7 @@ package = EMH
 
 ; Classes autoloading
 files[] = EmhInvitation.php
+
+; Dependencies
+dependencies[] = entity
+dependencies[] = rules
