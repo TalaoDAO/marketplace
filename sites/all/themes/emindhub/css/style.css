@@ -11701,6 +11701,9 @@ fieldset[disabled] .btn-popin.focus {
 .emh-form-legend .small {
   font-size: 75%;
 }
+.emh-status.draft {
+  background-color: #eea236;
+}
 .emh-status.open {
   background-color: #53d899;
 }
@@ -13629,11 +13632,6 @@ a.flag .badge {
   color: #fff;
   padding: 15px;
 }
-.node-unpublished {
-  border: 1px solid #faebcc;
-  background-color: #fcf8e3;
-  padding: 15px;
-}
 .content .node .links li.fr a,
 .content .node .links li.en a {
   font: 0/0 a;
@@ -14567,29 +14565,6 @@ aside .block .content {
 .view-query-list td.views-field-type.challenge a::before {
   background-image: url("../images/picto/picto_challenge_small.png");
 }
-.view-display-id-page_2 form #edit-field-domaine-tid-i18n-wrapper,
-.view-display-id-page_2 form #edit-field-domaine-tid-i18n-1-wrapper,
-.view-display-id-page_2 form #edit-field-tags-tid-i18n-wrapper,
-.view-display-id-page_2 form #edit-field-tags-tid-i18n-1-wrapper,
-.view-display-id-page_2 form #edit-status-wrapper,
-.view-display-id-page_2 form #edit-status-1-wrapper {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-right: 0;
-}
-@media (min-width: 767px) {
-  .view-display-id-page_2 form #edit-field-domaine-tid-i18n-wrapper,
-  .view-display-id-page_2 form #edit-field-domaine-tid-i18n-1-wrapper,
-  .view-display-id-page_2 form #edit-field-tags-tid-i18n-wrapper,
-  .view-display-id-page_2 form #edit-field-tags-tid-i18n-1-wrapper,
-  .view-display-id-page_2 form #edit-status-wrapper,
-  .view-display-id-page_2 form #edit-status-1-wrapper {
-    float: left;
-    width: 16.66666667%;
-  }
-}
 #block-progress-tracker-progress-tracker .block-title {
   margin-top: 0;
 }
@@ -14618,7 +14593,6 @@ aside .block .content {
   padding: 5px 10px;
   font-weight: 700;
   color: #FFF;
-  border-right: 4px solid #fff;
 }
 #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps {
   position: relative;
@@ -14659,15 +14633,20 @@ aside .block .content {
     width: 50%;
   }
 }
-#block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker li.first {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  border-right: 2px solid #fff;
-}
-#block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker li.last {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-left: 2px solid #fff;
+@media (min-width: 767px) {
+  #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-status span {
+    border-right: 4px solid #fff;
+  }
+  #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker li.first {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-right: 2px solid #fff;
+  }
+  #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker li.last {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-left: 2px solid #fff;
+  }
 }
 #block-views-sponsors-partners-block .user,
 #block-views-sponsors-sponsors-block .user {

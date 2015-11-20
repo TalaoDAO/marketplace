@@ -5,6 +5,7 @@
  * Implements hook_preprocess_block()
  */
 function emindhub_preprocess_block(&$vars) {
+  // echo '<pre>' . print_r($vars['block'], TRUE) . '</pre>';
   $block_id = $vars['block']->module . '-' . $vars['block']->delta;
   // print_r($block_id);
   $classes = &$vars['classes_array'];

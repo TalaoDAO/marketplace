@@ -178,12 +178,12 @@ function emindhub_date_combo($variables) {
 
 
 function emindhub_my_file_element_process(&$element, &$form_state, $form) {
-  $element = file_managed_file_process($element, $form_state, $form);
 
+  $element = file_managed_file_process($element, $form_state, $form);
   $element['upload_button']['#attributes']['class'][] = 'btn-info';
-  // $element['upload_button']['#access'] = FALSE;
-  // echo '<pre>' . print_r($element, TRUE) . '</pre>';
+
   return $element;
+
 }
 
 

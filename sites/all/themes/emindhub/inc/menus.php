@@ -14,6 +14,8 @@ function emindhub_preprocess_menu_link(&$vars) {
 
   // echo '<pre>' . print_r($element, TRUE) . '</pre>';
 
+  // TODO: se baser sur le chemin system ?
+
   switch ($element['#original_link']['mlid']) {
 
     // User menu > Account

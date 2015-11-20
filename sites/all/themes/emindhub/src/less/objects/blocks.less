@@ -534,21 +534,6 @@ aside {
 		}
 	}
 }
-// P - My requests
-.view-display-id-page_2 {
-	// Filtres
-	form {
-		#edit-field-domaine-tid-i18n-wrapper,
-		#edit-field-domaine-tid-i18n-1-wrapper,
-		#edit-field-tags-tid-i18n-wrapper,
-		#edit-field-tags-tid-i18n-1-wrapper,
-		#edit-status-wrapper,
-		#edit-status-1-wrapper {
-			.make-sm-column(2);
-			padding-right: 0;
-		}
-	}
-}
 
 
 // Timeline
@@ -572,7 +557,6 @@ aside {
 
 		    font-weight: 700;
 		    color: #FFF;
-				border-right: 4px solid #fff;
 			}
 		}
 		.pt-steps {
@@ -596,16 +580,31 @@ aside {
 			    font-weight: 700;
 			    color: #FFF;
 			    background-color: @gray-light2;
+				}
+			}
+		}
+	}
 
-					&.first {
-				    border-top-left-radius: @border-radius-base;
-				    border-bottom-left-radius: @border-radius-base;
-						border-right: 2px solid #fff;
-					}
-					&.last {
-				    border-top-right-radius: @border-radius-base;
-				    border-bottom-right-radius: @border-radius-base;
-						border-left: 2px solid #fff;
+	@media (min-width: @screen-sm-min) {
+		#progress-tracker-wrapper {
+			.pt-status {
+				span {
+					border-right: 4px solid #fff;
+				}
+			}
+			.pt-steps {
+				ul.progress-tracker {
+					li {
+						&.first {
+							border-top-left-radius: @border-radius-base;
+							border-bottom-left-radius: @border-radius-base;
+							border-right: 2px solid #fff;
+						}
+						&.last {
+							border-top-right-radius: @border-radius-base;
+							border-bottom-right-radius: @border-radius-base;
+							border-left: 2px solid #fff;
+						}
 					}
 				}
 			}

@@ -29,28 +29,68 @@ function emh_request_node_access($node, $op, $account) {
   return NODE_ACCESS_IGNORE;
 }
 
+
+/* Hook form alter
+ * node/add/type
+ * node/$ID/edit
+ */
+function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
+  
+  switch ($form['#node']->type) {
+
+    case 'question1':
+    case 'webform':
+    case 'challenge':
+
+      // Actions : Save as draft + Publish / Save
+      $form['actions']['draft']['#value'] = t('Save draft');
+      $form['actions']['submit']['#value'] = t('Publish');
+      if ( !empty($form['nid']['#value']) ) {
+        $form['actions']['draft']['#access'] = FALSE;
+        $form['actions']['submit']['#value'] = t('Save');
+      }
+
+      // Hide node access
+    	$form['group_content_access']['#access'] =  FALSE;
+      break;
+
+    default:
+      break;
+  }
+
+}
+
+
 function emh_request_get_status($node) {
 
 	$node = node_load($node);
-  $status = array();
+  $workflow = array();
 
-	if (!empty($node->emh_points)) {
-    $today = date('Y-m-d H:i:s');
-    $deadline = $node->field_expiration_date['und'][0]['value'];
-		if ($today < $deadline) {
-			$status = array( 'status' => 'open', 'label' => t('Open') );
-		} else {
-			$status = array( 'status' => 'selection', 'label' => t('Selection in progress') );
-		}
-	} else {
-		$status = array( 'status' => 'closed', 'label' => t('Closed') );
+  if ($node->status == 0) {
+    $workflow = array( 'status' => 'draft', 'label' => t('Draft') );
+  }
+  else {
+    if (!empty($node->emh_points)) {
+
+      $today = date('Y-m-d H:i:s');
+      $deadline = $node->field_expiration_date['und'][0]['value'];
+      if ($today < $deadline) {
+        $workflow = array( 'status' => 'open', 'label' => t('Open') );
+      }
+      else {
+        $workflow = array( 'status' => 'selection', 'label' => t('Selection in progress') );
+      }
+    }
+    else {
+      $workflow = array( 'status' => 'closed', 'label' => t('Closed') );
+    }
+  }
+
+	if (!empty($workflow)) {
+		$workflow = '<span class="emh-status ' . $workflow['status'] . '">' . $workflow['label'] . '</span>';
 	}
 
-	if (!empty($status)) {
-		$status = '<span class="emh-status ' . $status['status'] . '">' . $status['label'] . '</span>';
-	}
-
-	return $status;
+	return $workflow;
 
 }
 
