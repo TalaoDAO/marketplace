@@ -1,8 +1,8 @@
 @api
 Feature: Create challenge and answers
-  In order to test challenge creation, and privacy of responses
+  In order to test challenge creation, and privacy of answers
   As a business client
-  I want to create a question, and watch responses
+  I want to create a question, and watch answers
 
   Background: Create challenge
     Given users:
@@ -15,7 +15,7 @@ Feature: Create challenge and answers
     | title        | field_domaine | og_group_ref | field_reward | author  |
     | What about ? | Energy        | All experts  | 100          | client1 |
 
-  Scenario: challenge : private response visibility
+  Scenario: challenge : private answer visibility
     Given I am logged in as "expert1"
     When I go to homepage
     And I click "What about ?" in the "What about ?" row

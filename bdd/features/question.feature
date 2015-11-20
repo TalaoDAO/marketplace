@@ -1,8 +1,8 @@
 @api
 Feature: Create question and answers
-  In order to test Question creation, and privacy of responses
+  In order to test Question creation, and privacy of answers
   As a business client
-  I want to create a question, and watch responses
+  I want to create a question, and watch answers
 
   Background: Create questions
     Given users:
@@ -70,7 +70,7 @@ Feature: Create question and answers
     And I should see "Je suis un expert"
 
   #@exclude
-  Scenario: question : private response visibility
+  Scenario: question : private answer visibility
     Given I am logged in as "expert1"
     When I go to homepage
     And I click "What about ?" in the "What about ?" row
