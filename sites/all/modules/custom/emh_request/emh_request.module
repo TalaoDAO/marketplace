@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * Implements hook_node_access().
+ */
+function emh_request_node_access($node, $op, $account) {
+  if ($op == 'update') {
+    switch ($node->type) {
+    case 'webform':
+      module_load_include('inc', 'webform', 'includes/webform.submissions');
+      $submissions = webform_get_submissions($node->nid);
+      if (!empty($submissions)) {
+        return NODE_ACCESS_DENY;
+      }
+      break;
+    case 'question1':
+      if (!empty($node->comment_count)) {
+        return NODE_ACCESS_DENY;
+      }
+    case 'challenge':
+      if (!empty($node->comment_count)) {
+        return NODE_ACCESS_DENY;
+      }
+      break;
+    default:
+      break;
+    }
+  }
+  return NODE_ACCESS_IGNORE;
+}

@@ -120,7 +120,7 @@ function ft_rules_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "ACTIVE" : false,
       "OWNER" : "rules",
-      "TAGS" : [ "Circle", "email", "EMH" ],
+      "TAGS" : [ "Circle", "EMH", "email" ],
       "REQUIRES" : [ "rules", "og" ],
       "ON" : { "og_user_insert" : [] },
       "DO" : [

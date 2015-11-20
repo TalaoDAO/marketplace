@@ -988,40 +988,6 @@ function emh_points_show_user_history($account = NULL) {
 
 
 /**
- * Access control : does a user have access to another user profile.
- */
-function emh_points_user_can_see_full_user($uid, $uid2) {
-  if ($uid == 1) {
-    // Admin ( = eMindHub) has every right.
-    return TRUE;
-  }
-  $direct = db_select('emh_points_txn', 'txn')
-    ->condition('txn.source_id', $uid)
-    ->condition('txn.dest_id', $uid2)
-    ->condition('txn.source_type', 'user')
-    ->condition('txn.dest_type', 'user');
-  $direct->addExpression('COUNT(txn.txn_id)');
-  $direct = $direct->execute()
-    ->fetchField();
-  if ($direct > 0) {
-    // There is a direct link.
-    return TRUE;
-  }
-  $indirect = db_select('emh_points_txn', 'txn');
-  $indirect->addExpression('COUNT(txn.txn_id)');
-  $indirect->innerjoin('node', 'n', 'n.nid = txn.source_id');
-  $indirect = $indirect
-    ->condition('txn.dest_id', $uid2)
-    ->condition('txn.source_type', 'node')
-    ->condition('txn.dest_type', 'user')
-    ->condition('n.uid', $uid)
-    ->execute()
-    ->fetchField();
-  // Is there a link through a node?
-  return ($indirect > 0);
-}
-
-/**
  * Answers callback to unify Views.
  */
 function emh_points_my_responses() {
