@@ -1,13 +1,15 @@
 <?php
-
 /**
  * @file
  * Points managements for EMH website.
  */
+
+
 define('POINTS_ADDITION', 'addition');
 define('POINTS_REMOVAL', 'removal');
 define('POINTS_EXPIRATION', 'expiration');
 define('POINTS_TRANSFERT', 'transfert');
+
 
 /**
  * Implements hook_permission().
@@ -16,8 +18,10 @@ function emh_points_permission() {
   return array(
     'administer points' => array('title' => t('Administer Points')),
     'use points' => array('title' => t('Use Points')),
+    'view others points history' => array('title' => t('View others points history')),
   );
 }
+
 
 /**
  * Implements hook_menu().
@@ -52,21 +56,83 @@ function emh_points_menu() {
     'page arguments' => array('emh_points_arrange_form', 1, 2, 3, 4, 5),
     'access arguments' => array('use points'),
   );
+
+  // Route for the points history of the current user
   $items['points'] = array(
-    'title' => 'not used',
-    'title callback' => 'emh_points_get_user_points',
+    'title' => 'Points',
     'page callback' => 'emh_points_show_user_history',
+    'access callback' => 'emh_points_user_history_access',
     'menu_name' => 'user-menu',
-    'access callback' => TRUE,
     'type' => MENU_NORMAL_ITEM,
   );
+
+  // Route for the points history of a specific user
+  $items['user/%user/points'] = array(
+    'title' => 'Points',
+    'page callback' => 'emh_points_show_user_history',
+    'page arguments' => array(1),
+    'access callback' => 'emh_points_user_history_access',
+    'access arguments' => array(1),
+    'type' => MENU_LOCAL_TASK,
+  );
+
   $items['my-answers'] = array(
     'title' => 'My answers',
     'page callback' => 'emh_points_my_responses',
     'access arguments' => array('use points'),
   );
+
   return $items;
 }
+
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function emh_points_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  // Changes the href of the points history tab
+  // if it goes to the current user's points history.
+  if (strpos($root_path, 'user/%') === 0) {
+    global $user;
+    $account = menu_get_object('user');
+
+    if ($user->uid == $account->uid) {
+      foreach ($data['tabs'][0]['output'] as &$tab) {
+        if ($tab['#link']['path'] == 'user/%/points') {
+          $tab['#link']['href'] = 'points';
+          break;
+        }
+      }
+    }
+  }
+}
+
+
+/**
+ * Access callback for the points history page.
+ */
+function emh_points_user_history_access($account = NULL) {
+  global $user;
+
+  // If the user tries to access its own points history (/points)
+  if ($account == NULL) {
+    if (user_access('use points')) {
+      return TRUE;
+    }
+  }
+  // If the user tries to access the points history of a specific user (/user/%/points)
+  else {
+    if ($account->uid == $user->uid) {
+      return TRUE;
+    }
+    if (user_access('view others points history')) {
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}
+
 
 /**
  * Implements hook_views_api().
@@ -898,25 +964,28 @@ function emh_points_arrange_group_points_submit($form, &$form_state) {
   return $return;
 }
 
-/**
- * Get current user points.
- */
-function emh_points_get_user_points($account) {
-  if ($account == NULL || is_string($account)) {
-    global $user;
-    $account = user_load($user->uid);
-  }
-  $text = t('point');
-  if ($account->emh_points > 0) $text = t('points');
-  return '<span class="badge">' . $account->emh_points . '&nbsp;' . $text . '</span>';
-}
 
 /**
- * Show current user points history.
+ * Show user points history.
+ * @param stdClass $account An user object: the current user is considered if no one is provided
+ * @return array Page render array
+ *
+ * @todo Display a message if we try to view the points history of an user which doesn't use points
  */
-function emh_points_show_user_history() {
-  drupal_goto('history');
+function emh_points_show_user_history($account = NULL) {
+  global $user;
+
+  if (current_path() == 'points') {
+    menu_set_active_item('user/' . $user->uid . '/points');
+  }
+
+  if ($account == NULL) {
+    $account = $user;
+  }
+
+  return views_embed_view('points_history', 'block', $account->uid);
 }
+
 
 /**
  * Access control : does a user have access to another user profile.
