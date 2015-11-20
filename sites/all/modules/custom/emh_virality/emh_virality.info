@@ -8,4 +8,5 @@ files[] = EmhInvitation.php
 
 ; Dependencies
 dependencies[] = entity
+dependencies[] = mimemail
 dependencies[] = rules

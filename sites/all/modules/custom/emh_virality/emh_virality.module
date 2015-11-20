@@ -265,6 +265,65 @@ function emh_virality_invitation_form_submit($form, &$form_state) {
 
 
 //----------------------------------------------------------------------
+//-- TOKENS
+//----------------------------------------------------------------------
+
+
+/**
+ * Implements hook_token_info().
+ */
+function emh_virality_token_info() {
+  $tokens = array();
+
+  $tokens['tokens']['emh_invitation']['referrer-firstname'] = array(
+    'name' => t('Referrer firstname'),
+    'description' => t('Invitation referrer firstname'),
+    'type' => 'text',
+    'entity-token' => TRUE,
+  );
+
+  $tokens['tokens']['emh_invitation']['referrer-lastname'] = array(
+    'name' => t('Referrer lastname'),
+    'description' => t('Invitation referrer lastname'),
+    'type' => 'text',
+    'entity-token' => TRUE,
+  );
+
+  return $tokens;
+}
+
+
+/**
+ * Implements hook_tokens().
+ */
+function emh_virality_tokens($type, $tokens, array $data = array(), array $options = array()) {
+  $replacements = array();
+
+  if ($type == 'emh_invitation') {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'referrer-firstname':
+          $invitation = $data['emh_invitation'];
+          $referrer = user_load($invitation->referrer_id);
+          $firstname = field_get_items('user', $referrer, 'field_first_name');
+          $replacements[$original] = empty($firstname[0]['safe_value']) ? '' : trim($firstname[0]['safe_value']);
+          break;
+
+        case 'referrer-lastname':
+          $invitation = $data['emh_invitation'];
+          $referrer = user_load($invitation->referrer_id);
+          $lastname = field_get_items('user', $referrer, 'field_last_name');
+          $replacements[$original] = empty($lastname[0]['safe_value']) ? '' : trim($lastname[0]['safe_value']);
+          break;
+      }
+    }
+  }
+
+  return $replacements;
+}
+
+
+//----------------------------------------------------------------------
 //-- MISC
 //----------------------------------------------------------------------
 
