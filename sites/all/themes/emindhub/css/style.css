@@ -10679,60 +10679,89 @@ hr {
 .emh-blue {
   color: #009fe3;
 }
-.btn-submit {
+.btn-submit,
+.form-submit {
   color: #ffffff;
   background-color: #009fe3;
   border-color: #008dca;
 }
 .btn-submit:focus,
-.btn-submit.focus {
+.form-submit:focus,
+.btn-submit.focus,
+.form-submit.focus {
   color: #ffffff;
   background-color: #007bb0;
   border-color: #00344a;
 }
-.btn-submit:hover {
+.btn-submit:hover,
+.form-submit:hover {
   color: #ffffff;
   background-color: #007bb0;
   border-color: #00628c;
 }
 .btn-submit:active,
+.form-submit:active,
 .btn-submit.active,
-.open > .dropdown-toggle.btn-submit {
+.form-submit.active,
+.open > .dropdown-toggle.btn-submit,
+.open > .dropdown-toggle.form-submit {
   color: #ffffff;
   background-color: #007bb0;
   border-color: #00628c;
 }
 .btn-submit:active:hover,
+.form-submit:active:hover,
 .btn-submit.active:hover,
+.form-submit.active:hover,
 .open > .dropdown-toggle.btn-submit:hover,
+.open > .dropdown-toggle.form-submit:hover,
 .btn-submit:active:focus,
+.form-submit:active:focus,
 .btn-submit.active:focus,
+.form-submit.active:focus,
 .open > .dropdown-toggle.btn-submit:focus,
+.open > .dropdown-toggle.form-submit:focus,
 .btn-submit:active.focus,
+.form-submit:active.focus,
 .btn-submit.active.focus,
-.open > .dropdown-toggle.btn-submit.focus {
+.form-submit.active.focus,
+.open > .dropdown-toggle.btn-submit.focus,
+.open > .dropdown-toggle.form-submit.focus {
   color: #ffffff;
   background-color: #00628c;
   border-color: #00344a;
 }
 .btn-submit:active,
+.form-submit:active,
 .btn-submit.active,
-.open > .dropdown-toggle.btn-submit {
+.form-submit.active,
+.open > .dropdown-toggle.btn-submit,
+.open > .dropdown-toggle.form-submit {
   background-image: none;
 }
 .btn-submit.disabled:hover,
+.form-submit.disabled:hover,
 .btn-submit[disabled]:hover,
+.form-submit[disabled]:hover,
 fieldset[disabled] .btn-submit:hover,
+fieldset[disabled] .form-submit:hover,
 .btn-submit.disabled:focus,
+.form-submit.disabled:focus,
 .btn-submit[disabled]:focus,
+.form-submit[disabled]:focus,
 fieldset[disabled] .btn-submit:focus,
+fieldset[disabled] .form-submit:focus,
 .btn-submit.disabled.focus,
+.form-submit.disabled.focus,
 .btn-submit[disabled].focus,
-fieldset[disabled] .btn-submit.focus {
+.form-submit[disabled].focus,
+fieldset[disabled] .btn-submit.focus,
+fieldset[disabled] .form-submit.focus {
   background-color: #009fe3;
   border-color: #008dca;
 }
-.btn-submit .badge {
+.btn-submit .badge,
+.form-submit .badge {
   color: #009fe3;
   background-color: #ffffff;
 }
