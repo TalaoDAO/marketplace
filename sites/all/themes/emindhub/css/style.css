@@ -15096,8 +15096,7 @@ form .form-radios label {
 form .form-radios .form-group {
   margin-bottom: 0;
 }
-body.front h1.page-header,
-body.front #trail {
+body.front h1.page-header {
   display: none !important;
 }
 body.front.not-logged-in .main-container {
@@ -15106,6 +15105,9 @@ body.front.not-logged-in .main-container {
 body.front.not-logged-in .main-container section#maincol {
   margin-top: 0;
   padding-top: 0;
+}
+body.front.not-logged-in #trail {
+  display: none !important;
 }
 body.front.not-logged-in .navbar-emh:after {
   display: none;
