@@ -41,20 +41,31 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 		'goback',
 		'goquestions',
 	) as $action ) {
-		$form['actions'][$action]['#attributes']['class'][] = 'btn';
-	  $form['actions'][$action]['#weight'] = $i++;
-	}
+		if (!empty($form['actions'][$action])) {
+			$form['actions'][$action]['#attributes']['class'][] = 'btn';
+			$form['actions'][$action]['#weight'] = $i++;
 
-  // Actions classes
-  if ($form_id != 'search_block_form') {
-    $form['actions']['cancel']['#attributes']['class'][] = 'btn-default';
-    $form['actions']['delete']['#attributes']['class'][] = 'btn-danger';
-    $form['actions']['preview_changes']['#attributes']['class'][] = 'btn-primary';
-    $form['actions']['draft']['#attributes']['class'][] = 'btn-primary';
-    $form['actions']['preview']['#attributes']['class'][] = 'btn-primary';
-    $form['actions']['submit']['#attributes']['class'] = array('btn-submit');
-    $form['actions']['publish']['#attributes']['class'] = array('btn-submit');
-  }
+			if ($form_id != 'search_block_form') {
+				switch ($action) {
+					case 'cancel':
+						$form['actions'][$action]['#attributes']['class'][] = 'btn-default';
+						break;
+					case 'delete':
+						$form['actions'][$action]['#attributes']['class'][] = 'btn-danger';
+						break;
+					case 'preview_changes':
+					case 'draft':
+					case 'preview':
+					case 'submit':
+					case 'publish':
+						$form['actions'][$action]['#attributes']['class'][] = 'btn-primary';
+						break;
+					default:
+						break;
+				}
+			}
+		}
+	}
 
   $form['actions']['#suffix'] = '</div> <!-- END .form-actions -->';
 
@@ -65,7 +76,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
   			<span class="form-required">*</span>&nbsp;' . t('Required fields') . '
   		</div> <!-- END .form-mandatory -->';
   }
-	
+
   $form['actions']['#suffix'] .= '</div> <!-- END .row -->';
 
 
