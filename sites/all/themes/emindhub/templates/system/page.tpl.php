@@ -147,17 +147,17 @@
 </header> <!-- /#page-header -->
 <?php endif; ?>
 
-<?php if ( !$is_front || $logged_in ): ?>
 <div id="trail" class="container-fluid">
   <div class="container">
       <div class="row">
         <div class="col-sm-4 col-sm-offset-8 text-right">
-          <a class="btn btn-flash" href="<?php print url('points'); ?>"><?php print t('Invite experts and earn points!'); ?></a>
+          <?php if ( $logged_in ): ?>
+          <a class="btn btn-flash icon-community" href="<?php print url('points'); ?>"><?php print t('Invite experts and earn points!'); ?></a>
+          <?php endif; ?>
         </div>
       </div>
   </div>
 </div>
-<?php endif; ?>
 
 <div class="main-container container-fluid">
 

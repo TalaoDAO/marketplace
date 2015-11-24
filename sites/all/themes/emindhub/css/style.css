@@ -10853,13 +10853,15 @@ fieldset[disabled] .btn-popin.focus {
 .btn-flash {
   color: #1abc9c;
   text-shadow: 0px 0px 2px #000000;
-  padding-left: 37px;
-  background-image: url("../images/picto/picto_points_small.png");
   background-position: left center;
   background-repeat: no-repeat;
 }
 .btn-flash:hover {
   color: #53cdb5;
+}
+.icon-community {
+  padding-left: 37px;
+  background-image: url("../images/picto/picto_community_small.png");
 }
 .emh-block-normal {
   margin-bottom: 15px;
@@ -12848,7 +12850,9 @@ header#navbar .row > div:nth-child(2) {
   padding: 0;
 }
 @media (min-width: 767px) {
-  body:not(.cke_editable),
+  body {
+    padding-top: 138px;
+  }
   body.admin-menu {
     padding-top: 142px;
   }
@@ -15063,7 +15067,8 @@ form .form-radios label {
 form .form-radios .form-group {
   margin-bottom: 0;
 }
-body.front h1.page-header {
+body.front h1.page-header,
+body.front #trail {
   display: none !important;
 }
 body.front.not-logged-in .main-container {
