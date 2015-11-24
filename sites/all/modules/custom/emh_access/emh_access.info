@@ -1,4 +1,5 @@
 name = EMH Access
 package = EMH
-dependencies[] = emh_points, flag
+dependencies[] = emh_points
+dependencies[] = flag
 core = 7.x
