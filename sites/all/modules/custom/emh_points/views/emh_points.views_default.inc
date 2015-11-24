@@ -35,25 +35,25 @@ function emh_points_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '30';
   $handler->display->display_options['style_plugin'] = 'table';
-  /* Field: Points Transaction: Timestamp */
+  /* Field: Points Transaction (source): Timestamp */
   $handler->display->display_options['fields']['time_stamp']['id'] = 'time_stamp';
   $handler->display->display_options['fields']['time_stamp']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['fields']['time_stamp']['field'] = 'time_stamp';
   $handler->display->display_options['fields']['time_stamp']['date_format'] = 'short';
   $handler->display->display_options['fields']['time_stamp']['second_date_format'] = 'privatemsg_current_day';
-  /* Field: Points Transaction: Operation */
+  /* Field: Points Transaction (source): Operation */
   $handler->display->display_options['fields']['operation']['id'] = 'operation';
   $handler->display->display_options['fields']['operation']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['fields']['operation']['field'] = 'operation';
-  /* Field: Points Transaction: Points */
+  /* Field: Points Transaction (source): Points */
   $handler->display->display_options['fields']['points']['id'] = 'points';
   $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['fields']['points']['field'] = 'points';
-  /* Field: Points Transaction: Description of the transaction */
+  /* Field: Points Transaction (source): Description of the transaction */
   $handler->display->display_options['fields']['description']['id'] = 'description';
   $handler->display->display_options['fields']['description']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['fields']['description']['field'] = 'description';
-  /* Sort criterion: Points Transaction: Timestamp */
+  /* Sort criterion: Points Transaction (source): Timestamp */
   $handler->display->display_options['sorts']['time_stamp']['id'] = 'time_stamp';
   $handler->display->display_options['sorts']['time_stamp']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['sorts']['time_stamp']['field'] = 'time_stamp';
@@ -68,48 +68,6 @@ function emh_points_views_default_views() {
   $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['uid']['validate']['type'] = 'user';
-
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'user/%/history_source';
-  $handler->display->display_options['menu']['title'] = 'History (source)';
-  $handler->display->display_options['menu']['weight'] = '0';
-  $handler->display->display_options['menu']['context'] = 0;
-  $handler->display->display_options['menu']['context_only_inline'] = 0;
-
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page_1');
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Points Transaction: Timestamp */
-  $handler->display->display_options['fields']['time_stamp']['id'] = 'time_stamp';
-  $handler->display->display_options['fields']['time_stamp']['table'] = 'emh_points_txn_dest';
-  $handler->display->display_options['fields']['time_stamp']['field'] = 'time_stamp';
-  $handler->display->display_options['fields']['time_stamp']['date_format'] = 'short';
-  $handler->display->display_options['fields']['time_stamp']['second_date_format'] = 'privatemsg_current_day';
-  /* Field: Points Transaction: Operation */
-  $handler->display->display_options['fields']['operation']['id'] = 'operation';
-  $handler->display->display_options['fields']['operation']['table'] = 'emh_points_txn_dest';
-  $handler->display->display_options['fields']['operation']['field'] = 'operation';
-  /* Field: Points Transaction: Points */
-  $handler->display->display_options['fields']['points']['id'] = 'points';
-  $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn_dest';
-  $handler->display->display_options['fields']['points']['field'] = 'points';
-  $handler->display->display_options['fields']['points']['prefix'] = '+';
-  /* Field: Points Transaction: Description of the transaction */
-  $handler->display->display_options['fields']['description']['id'] = 'description';
-  $handler->display->display_options['fields']['description']['table'] = 'emh_points_txn_dest';
-  $handler->display->display_options['fields']['description']['field'] = 'description';
-  $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Sort criterion: Points Transaction: Timestamp */
-  $handler->display->display_options['sorts']['time_stamp']['id'] = 'time_stamp';
-  $handler->display->display_options['sorts']['time_stamp']['table'] = 'emh_points_txn_dest';
-  $handler->display->display_options['sorts']['time_stamp']['field'] = 'time_stamp';
-  $handler->display->display_options['sorts']['time_stamp']['order'] = 'DESC';
-  $handler->display->display_options['path'] = 'user/%/history_dest';
-  $handler->display->display_options['menu']['title'] = 'History (destination)';
-  $handler->display->display_options['menu']['weight'] = '0';
-  $handler->display->display_options['menu']['context'] = 0;
-  $handler->display->display_options['menu']['context_only_inline'] = 0;
 
   /* Display: History */
   $handler = $view->new_display('page', 'History', 'history');
@@ -152,6 +110,54 @@ function emh_points_views_default_views() {
   $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['path'] = 'history';
   $handler->display->display_options['menu']['title'] = 'History';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
+
+  /* Display: Block */
+  $handler = $view->new_display('block', 'Block', 'block');
+  $handler->display->display_options['defaults']['access'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'none';
+  $handler->display->display_options['block_description'] = 'Points statement';
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Points Transaction (destination): Timestamp */
+  $handler->display->display_options['fields']['time_stamp']['id'] = 'time_stamp';
+  $handler->display->display_options['fields']['time_stamp']['table'] = 'emh_points_txn_dest';
+  $handler->display->display_options['fields']['time_stamp']['field'] = 'time_stamp';
+  $handler->display->display_options['fields']['time_stamp']['date_format'] = 'short';
+  $handler->display->display_options['fields']['time_stamp']['second_date_format'] = 'privatemsg_current_day';
+  /* Field: Points Transaction (destination): Operation */
+  $handler->display->display_options['fields']['operation']['id'] = 'operation';
+  $handler->display->display_options['fields']['operation']['table'] = 'emh_points_txn_dest';
+  $handler->display->display_options['fields']['operation']['field'] = 'operation';
+  /* Field: Points Transaction (destination): Points */
+  $handler->display->display_options['fields']['points']['id'] = 'points';
+  $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn_dest';
+  $handler->display->display_options['fields']['points']['field'] = 'points';
+  $handler->display->display_options['fields']['points']['prefix'] = '+';
+  /* Field: Points Transaction (destination): Description of the transaction */
+  $handler->display->display_options['fields']['description']['id'] = 'description';
+  $handler->display->display_options['fields']['description']['table'] = 'emh_points_txn_dest';
+  $handler->display->display_options['fields']['description']['field'] = 'description';
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Points Transaction (destination): Timestamp */
+  $handler->display->display_options['sorts']['time_stamp']['id'] = 'time_stamp';
+  $handler->display->display_options['sorts']['time_stamp']['table'] = 'emh_points_txn_dest';
+  $handler->display->display_options['sorts']['time_stamp']['field'] = 'time_stamp';
+  $handler->display->display_options['sorts']['time_stamp']['order'] = 'DESC';
+  $handler->display->display_options['path'] = 'user/%/history_dest';
+  $handler->display->display_options['menu']['title'] = 'History (destination)';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['path'] = 'user/%/history_source';
+  $handler->display->display_options['menu']['title'] = 'History (source)';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
