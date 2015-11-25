@@ -15,4 +15,13 @@ function emindhub_preprocess_html(&$variables) {
     $variables['classes_array'][] = 'lang-' . $language->language;
   }
 
+	// 403 + 404
+	$headers = drupal_get_http_header();
+	if (isset($headers['status']) && $headers['status'] == '403 Forbidden') {
+    $variables['classes_array'][] = 'page-403';
+  }
+  if (isset($headers['status']) && $headers['status'] == '404 Not Found') {
+    $variables['classes_array'][] = 'page-404';
+  }
+
 }
