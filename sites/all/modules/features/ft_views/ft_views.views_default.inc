@@ -5463,6 +5463,62 @@ function ft_views_views_default_views() {
   );
   $handler->display->display_options['path'] = 'mailchimp_business_experts.csv';
   $handler->display->display_options['sitename_title'] = 0;
+
+  /* Display: Expert list for sponsos */
+  $handler = $view->new_display('views_data_export', 'Expert list for sponsos', 'views_data_export_4');
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'views_data_export_csv';
+  $handler->display->display_options['style_options']['provide_file'] = 0;
+  $handler->display->display_options['style_options']['parent_sort'] = 0;
+  $handler->display->display_options['style_options']['separator'] = ';';
+  $handler->display->display_options['style_options']['quote'] = 0;
+  $handler->display->display_options['style_options']['trim'] = 0;
+  $handler->display->display_options['style_options']['replace_newlines'] = 0;
+  $handler->display->display_options['style_options']['newline_token'] = '1';
+  $handler->display->display_options['style_options']['header'] = 1;
+  $handler->display->display_options['style_options']['keep_html'] = 0;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: User: First Name */
+  $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
+  /* Field: User: Last Name */
+  $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
+  /* Field: Field: Organisation */
+  $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
+  $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
+  $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';
+  $handler->display->display_options['fields']['field_entreprise']['settings'] = array(
+    'link' => 0,
+  );
+  /* Field: User: Name of my sponsor */
+  $handler->display->display_options['fields']['field_sponsor1']['id'] = 'field_sponsor1';
+  $handler->display->display_options['fields']['field_sponsor1']['table'] = 'field_data_field_sponsor1';
+  $handler->display->display_options['fields']['field_sponsor1']['field'] = 'field_sponsor1';
+  $handler->display->display_options['fields']['field_sponsor1']['settings'] = array(
+    'link' => 0,
+  );
+  /* Field: Field: Domain(s) */
+  $handler->display->display_options['fields']['field_domaine']['id'] = 'field_domaine';
+  $handler->display->display_options['fields']['field_domaine']['table'] = 'field_data_field_domaine';
+  $handler->display->display_options['fields']['field_domaine']['field'] = 'field_domaine';
+  $handler->display->display_options['fields']['field_domaine']['label'] = 'Fields of expertise';
+  $handler->display->display_options['fields']['field_domaine']['type'] = 'ds_taxonomy_separator';
+  $handler->display->display_options['fields']['field_domaine']['delta_offset'] = '0';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: User: Roles */
+  $handler->display->display_options['filters']['rid']['id'] = 'rid';
+  $handler->display->display_options['filters']['rid']['table'] = 'users_roles';
+  $handler->display->display_options['filters']['rid']['field'] = 'rid';
+  $handler->display->display_options['filters']['rid']['value'] = array(
+    4 => '4',
+    8 => '8',
+  );
+  $handler->display->display_options['path'] = 'sponsors-expert-list.csv';
   $export['user_export_'] = $view;
 
   $view = new view();
