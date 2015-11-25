@@ -106,7 +106,7 @@ aside {
 
 // Top menu anonyme
 @media (min-width: @screen-sm-min) {
-	.page-user.role-anonymous-user {
+	.page-user.role-anonymous-user:not(.page-403) {
 		#block-menu-menu-top-anonymous {
 			margin-top: 50px;
 		}
@@ -537,20 +537,40 @@ aside {
 
 .view-display-id-block, // B - Last requests
 .view-display-id-page { // P - All requests
-	// Filtres
+	// Filtres de seconde ligne
 	form {
 		#edit-total-points-wrapper {
 			.make-sm-column-offset(4);
+		}
+		@media (min-width: @screen-sm-min) {
+			#edit-status-wrapper,
+			#edit-status-1-wrapper,
+			#edit-total-points-wrapper {
+				margin-top: 10px;
+			}
+			.views-exposed-form .views-exposed-widgets > .views-submit-button {
+			  margin-top: 34px;
+			}
 		}
 	}
 }
 
 .view-display-id-page_2 { // P - My requests
-	// Filtres
+	// Filtres de seconde ligne
 	form {
 		#edit-status-wrapper,
 		#edit-status-1-wrapper {
 			.make-sm-column-offset(4);
+		}
+		@media (min-width: @screen-sm-min) {
+			#edit-status-wrapper,
+			#edit-status-1-wrapper,
+			#edit-total-points-wrapper {
+				margin-top: 10px;
+			}
+			.views-exposed-form .views-exposed-widgets > .views-submit-button {
+			  margin-top: 34px;
+			}
 		}
 	}
 }

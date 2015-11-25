@@ -10679,60 +10679,89 @@ hr {
 .emh-blue {
   color: #009fe3;
 }
-.btn-submit {
+.btn-submit,
+.form-submit {
   color: #ffffff;
   background-color: #009fe3;
   border-color: #008dca;
 }
 .btn-submit:focus,
-.btn-submit.focus {
+.form-submit:focus,
+.btn-submit.focus,
+.form-submit.focus {
   color: #ffffff;
   background-color: #007bb0;
   border-color: #00344a;
 }
-.btn-submit:hover {
+.btn-submit:hover,
+.form-submit:hover {
   color: #ffffff;
   background-color: #007bb0;
   border-color: #00628c;
 }
 .btn-submit:active,
+.form-submit:active,
 .btn-submit.active,
-.open > .dropdown-toggle.btn-submit {
+.form-submit.active,
+.open > .dropdown-toggle.btn-submit,
+.open > .dropdown-toggle.form-submit {
   color: #ffffff;
   background-color: #007bb0;
   border-color: #00628c;
 }
 .btn-submit:active:hover,
+.form-submit:active:hover,
 .btn-submit.active:hover,
+.form-submit.active:hover,
 .open > .dropdown-toggle.btn-submit:hover,
+.open > .dropdown-toggle.form-submit:hover,
 .btn-submit:active:focus,
+.form-submit:active:focus,
 .btn-submit.active:focus,
+.form-submit.active:focus,
 .open > .dropdown-toggle.btn-submit:focus,
+.open > .dropdown-toggle.form-submit:focus,
 .btn-submit:active.focus,
+.form-submit:active.focus,
 .btn-submit.active.focus,
-.open > .dropdown-toggle.btn-submit.focus {
+.form-submit.active.focus,
+.open > .dropdown-toggle.btn-submit.focus,
+.open > .dropdown-toggle.form-submit.focus {
   color: #ffffff;
   background-color: #00628c;
   border-color: #00344a;
 }
 .btn-submit:active,
+.form-submit:active,
 .btn-submit.active,
-.open > .dropdown-toggle.btn-submit {
+.form-submit.active,
+.open > .dropdown-toggle.btn-submit,
+.open > .dropdown-toggle.form-submit {
   background-image: none;
 }
 .btn-submit.disabled:hover,
+.form-submit.disabled:hover,
 .btn-submit[disabled]:hover,
+.form-submit[disabled]:hover,
 fieldset[disabled] .btn-submit:hover,
+fieldset[disabled] .form-submit:hover,
 .btn-submit.disabled:focus,
+.form-submit.disabled:focus,
 .btn-submit[disabled]:focus,
+.form-submit[disabled]:focus,
 fieldset[disabled] .btn-submit:focus,
+fieldset[disabled] .form-submit:focus,
 .btn-submit.disabled.focus,
+.form-submit.disabled.focus,
 .btn-submit[disabled].focus,
-fieldset[disabled] .btn-submit.focus {
+.form-submit[disabled].focus,
+fieldset[disabled] .btn-submit.focus,
+fieldset[disabled] .form-submit.focus {
   background-color: #009fe3;
   border-color: #008dca;
 }
-.btn-submit .badge {
+.btn-submit .badge,
+.form-submit .badge {
   color: #009fe3;
   background-color: #ffffff;
 }
@@ -10853,13 +10882,15 @@ fieldset[disabled] .btn-popin.focus {
 .btn-flash {
   color: #1abc9c;
   text-shadow: 0px 0px 2px #000000;
-  padding-left: 37px;
-  background-image: url("../images/picto/picto_points_small.png");
   background-position: left center;
   background-repeat: no-repeat;
 }
 .btn-flash:hover {
   color: #53cdb5;
+}
+.icon-community {
+  padding-left: 37px;
+  background-image: url("../images/picto/picto_community_small.png");
 }
 .emh-block-normal {
   margin-bottom: 15px;
@@ -12848,7 +12879,9 @@ header#navbar .row > div:nth-child(2) {
   padding: 0;
 }
 @media (min-width: 767px) {
-  body:not(.cke_editable),
+  body {
+    padding-top: 138px;
+  }
   body.admin-menu {
     padding-top: 142px;
   }
@@ -14064,7 +14097,7 @@ aside .block .content {
   float: right;
 }
 @media (min-width: 767px) {
-  .page-user.role-anonymous-user #block-menu-menu-top-anonymous {
+  .page-user.role-anonymous-user:not(.page-403) #block-menu-menu-top-anonymous {
     margin-top: 50px;
   }
 }
@@ -14572,9 +14605,33 @@ aside .block .content {
   }
 }
 @media (min-width: 767px) {
+  .view-display-id-block form #edit-status-wrapper,
+  .view-display-id-page form #edit-status-wrapper,
+  .view-display-id-block form #edit-status-1-wrapper,
+  .view-display-id-page form #edit-status-1-wrapper,
+  .view-display-id-block form #edit-total-points-wrapper,
+  .view-display-id-page form #edit-total-points-wrapper {
+    margin-top: 10px;
+  }
+  .view-display-id-block form .views-exposed-form .views-exposed-widgets > .views-submit-button,
+  .view-display-id-page form .views-exposed-form .views-exposed-widgets > .views-submit-button {
+    margin-top: 34px;
+  }
+}
+@media (min-width: 767px) {
   .view-display-id-page_2 form #edit-status-wrapper,
   .view-display-id-page_2 form #edit-status-1-wrapper {
     margin-left: 33.33333333%;
+  }
+}
+@media (min-width: 767px) {
+  .view-display-id-page_2 form #edit-status-wrapper,
+  .view-display-id-page_2 form #edit-status-1-wrapper,
+  .view-display-id-page_2 form #edit-total-points-wrapper {
+    margin-top: 10px;
+  }
+  .view-display-id-page_2 form .views-exposed-form .views-exposed-widgets > .views-submit-button {
+    margin-top: 34px;
   }
 }
 #block-progress-tracker-progress-tracker .block-title {
@@ -15048,6 +15105,9 @@ body.front.not-logged-in .main-container {
 body.front.not-logged-in .main-container section#maincol {
   margin-top: 0;
   padding-top: 0;
+}
+body.front.not-logged-in #trail {
+  display: none !important;
 }
 body.front.not-logged-in .navbar-emh:after {
   display: none;
@@ -16198,6 +16258,12 @@ form#webform-node-form #edit-field-expiration-date .form-type-textfield > label 
   text-shadow: none;
   background-color: transparent;
   border: 0;
+}
+form#webform-components-form input#edit-add-name,
+form#webform-component-edit-form input#edit-add-name,
+form#webform-components-form input#edit-name,
+form#webform-component-edit-form input#edit-name {
+  max-width: 500px;
 }
 .view-domainlist span.statut:before {
   position: absolute;

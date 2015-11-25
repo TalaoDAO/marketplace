@@ -218,7 +218,7 @@ function emindhub_preprocess_block(&$vars) {
     case 'emh_virality-invitation_form':
       $classes[] = 'emh-block-blue-title';
       break;
-      
+
   }
 
   // echo '<pre>' . print_r($vars, TRUE) . '</pre>';
