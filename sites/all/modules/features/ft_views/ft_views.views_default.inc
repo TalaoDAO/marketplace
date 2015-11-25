@@ -2691,7 +2691,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['path']['exclude'] = TRUE;
   $handler->display->display_options['fields']['path']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['path']['absolute'] = TRUE;
-  /* Field: Entity translation: Titre: translated */
+  /* Field: Entity translation: Title: translated */
   $handler->display->display_options['fields']['title_field_et']['id'] = 'title_field_et';
   $handler->display->display_options['fields']['title_field_et']['table'] = 'field_data_title_field';
   $handler->display->display_options['fields']['title_field_et']['field'] = 'title_field_et';
@@ -2802,7 +2802,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['path']['exclude'] = TRUE;
   $handler->display->display_options['fields']['path']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['path']['absolute'] = TRUE;
-  /* Field: Entity translation: Titre: translated */
+  /* Field: Entity translation: Title: translated */
   $handler->display->display_options['fields']['title_field_et']['id'] = 'title_field_et';
   $handler->display->display_options['fields']['title_field_et']['table'] = 'field_data_title_field';
   $handler->display->display_options['fields']['title_field_et']['field'] = 'title_field_et';
@@ -3329,7 +3329,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Content: Groups audience */
+  /* Field: Content: Choose circle of experts */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
   $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
@@ -4547,6 +4547,15 @@ function ft_views_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['empty'] = FALSE;
+  /* No results behavior: Global: Text area */
+  $handler->display->display_options['empty']['area']['id'] = 'area';
+  $handler->display->display_options['empty']['area']['table'] = 'views';
+  $handler->display->display_options['empty']['area']['field'] = 'area';
+  $handler->display->display_options['empty']['area']['label'] = 'Empty';
+  $handler->display->display_options['empty']['area']['empty'] = TRUE;
+  $handler->display->display_options['empty']['area']['content'] = 'You have no published requests yet.';
+  $handler->display->display_options['empty']['area']['format'] = 'full_html';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   /* Relationship: Content: Author */
   $handler->display->display_options['relationships']['uid']['id'] = 'uid';
@@ -4656,6 +4665,11 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['uid_current']['relationship'] = 'uid';
   $handler->display->display_options['filters']['uid_current']['value'] = '1';
   $handler->display->display_options['filters']['uid_current']['group'] = 1;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '1';
   $handler->display->display_options['views_navigation'] = TRUE;
   $handler->display->display_options['views_navigation_back'] = TRUE;
   $handler->display->display_options['views_navigation_title'] = TRUE;

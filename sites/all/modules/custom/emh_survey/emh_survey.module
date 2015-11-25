@@ -106,6 +106,7 @@ function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $fo
 		$form['add'][$field]['#type'] = 'hidden';
 	}
 
+	$form['add']['name']['#size'] = '60';
 	$form['add']['type']['#default_value'] = 'textarea';
 
 	$form['actions']['submit']['#value'] = t('Save order of questions');
@@ -128,6 +129,9 @@ function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $fo
       '#disabled' => TRUE,
     );
   }
+
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+
 }
 
 
