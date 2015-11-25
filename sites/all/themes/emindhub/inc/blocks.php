@@ -213,6 +213,12 @@ function emindhub_preprocess_block(&$vars) {
     case 'progress_tracker-progress_tracker':
       $classes[] = 'emh-block-blue-title';
       break;
+
+    // Parrainage
+    case 'emh_virality-invitation_form':
+      $classes[] = 'emh-block-blue-title';
+      break;
+      
   }
 
   // echo '<pre>' . print_r($vars, TRUE) . '</pre>';
