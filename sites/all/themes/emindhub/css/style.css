@@ -14600,21 +14600,26 @@ aside .block .content {
 }
 @media (min-width: 767px) {
   .view-display-id-block form #edit-total-points-wrapper,
-  .view-display-id-page form #edit-total-points-wrapper {
+  .view-display-id-page form #edit-total-points-wrapper,
+  .view-display-id-page_1 form #edit-total-points-wrapper {
     margin-left: 33.33333333%;
   }
 }
 @media (min-width: 767px) {
   .view-display-id-block form #edit-status-wrapper,
   .view-display-id-page form #edit-status-wrapper,
+  .view-display-id-page_1 form #edit-status-wrapper,
   .view-display-id-block form #edit-status-1-wrapper,
   .view-display-id-page form #edit-status-1-wrapper,
+  .view-display-id-page_1 form #edit-status-1-wrapper,
   .view-display-id-block form #edit-total-points-wrapper,
-  .view-display-id-page form #edit-total-points-wrapper {
+  .view-display-id-page form #edit-total-points-wrapper,
+  .view-display-id-page_1 form #edit-total-points-wrapper {
     margin-top: 10px;
   }
   .view-display-id-block form .views-exposed-form .views-exposed-widgets > .views-submit-button,
-  .view-display-id-page form .views-exposed-form .views-exposed-widgets > .views-submit-button {
+  .view-display-id-page form .views-exposed-form .views-exposed-widgets > .views-submit-button,
+  .view-display-id-page_1 form .views-exposed-form .views-exposed-widgets > .views-submit-button {
     margin-top: 34px;
   }
 }
@@ -14799,6 +14804,13 @@ aside .block .content {
   width: 110px;
   text-align: right;
 }
+.emh-field-answers {
+  width: 70px;
+  text-align: right;
+}
+.emh-field-status {
+  width: 70px;
+}
 .views-field-type {
   width: 20px;
   text-align: center;
@@ -14825,7 +14837,7 @@ aside .block .content {
 }
 .views-field-uid,
 .view-my-responses-questions1 .views-field-nothing-1,
-.view-my-responses-challenge .views-field-nothing-1 {
+.view-my-responses-challenges .views-field-nothing-1 {
   width: 200px;
 }
 .views-field-field-reward,
@@ -14838,8 +14850,14 @@ aside .block .content {
 .view-query-list.view-id-query_list .views-field-views-conditional,
 .view-query-list.view-display-id-page_2 .views-field-views-conditional,
 .view-display-id-page_1 .views-field-views-conditional {
-  width: 110px;
+  width: 70px;
   text-align: right;
+}
+.view-query-list.view-display-id-block_1 .views-field-views-conditional-1,
+.view-query-list.view-id-query_list .views-field-views-conditional-1,
+.view-query-list.view-display-id-page_2 .views-field-views-conditional-1,
+.view-display-id-page_1 .views-field-views-conditional-1 {
+  width: 70px;
 }
 .view-my-responses-questions1 .views-field-nothing,
 .view-my-responses-calls3 .views-field-nothing,

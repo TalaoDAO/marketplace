@@ -2,6 +2,13 @@
   width: 110px;
   .text-right;
 }
+.emh-field-answers {
+  width: 70px;
+  .text-right;
+}
+.emh-field-status {
+  width: 70px;
+}
 
 
 // Types
@@ -43,7 +50,7 @@
 // Users
 .views-field-uid,
 .view-my-responses-questions1 .views-field-nothing-1,
-.view-my-responses-challenge .views-field-nothing-1 {
+.view-my-responses-challenges .views-field-nothing-1 {
   width: 200px;
 }
 
@@ -53,19 +60,27 @@
 .views-field-points {
   .emh-field-reward;
 }
+
+
 .view-query-list.view-display-id-block_1, // Last requests
 .view-query-list.view-id-query_list, // Last requests
 .view-query-list.view-display-id-page_2, // My answers - Challenge
 .view-display-id-page_1 { // My selections
+  // Answers
   .views-field-views-conditional {
-    .emh-field-reward;
+    .emh-field-answers;
+  }
+  // Status
+  .views-field-views-conditional-1 {
+    .emh-field-status;
   }
 }
 
-// Answer
+
 .view-my-responses-questions1, // My answers - Question
 .view-my-responses-calls3, // My answers - Survey
 .view-my-responses-challenges { // My answers - Challenge
+  // Answer link/title
   .views-field-nothing,
   .views-field-views-conditional {
     width: 350px;
