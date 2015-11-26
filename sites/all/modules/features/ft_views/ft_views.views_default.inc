@@ -1152,11 +1152,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['nothing']['alter']['text'] = 'View answer';
   $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['nothing']['alter']['path'] = 'node/[nid]/submission/[sid]';
-  /* Field: Webform submissions: Webform submission points */
-  $handler->display->display_options['fields']['emh_points']['id'] = 'emh_points';
-  $handler->display->display_options['fields']['emh_points']['table'] = 'webform_submissions';
-  $handler->display->display_options['fields']['emh_points']['field'] = 'emh_points';
-  $handler->display->display_options['fields']['emh_points']['label'] = 'Points';
+  /* Field: Points: Answer Points */
+  $handler->display->display_options['fields']['points']['id'] = 'points';
+  $handler->display->display_options['fields']['points']['table'] = 'emh_points_answers';
+  $handler->display->display_options['fields']['points']['field'] = 'points';
+  $handler->display->display_options['fields']['points']['label'] = 'Points';
+  $handler->display->display_options['fields']['points']['separator'] = '';
   /* Sort criterion: Webform submissions: Submitted */
   $handler->display->display_options['sorts']['submitted']['id'] = 'submitted';
   $handler->display->display_options['sorts']['submitted']['table'] = 'webform_submissions';
@@ -1312,11 +1313,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['nothing']['alter']['text'] = 'View answer';
   $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['nothing']['alter']['path'] = 'node/[nid]/submission/[sid]';
-  /* Field: Webform submissions: Webform submission points */
-  $handler->display->display_options['fields']['emh_points']['id'] = 'emh_points';
-  $handler->display->display_options['fields']['emh_points']['table'] = 'webform_submissions';
-  $handler->display->display_options['fields']['emh_points']['field'] = 'emh_points';
-  $handler->display->display_options['fields']['emh_points']['label'] = 'Points';
+  /* Field: Points: Answer Points */
+  $handler->display->display_options['fields']['points']['id'] = 'points';
+  $handler->display->display_options['fields']['points']['table'] = 'emh_points_answers';
+  $handler->display->display_options['fields']['points']['field'] = 'points';
+  $handler->display->display_options['fields']['points']['label'] = 'Points';
+  $handler->display->display_options['fields']['points']['separator'] = '';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: User: Uid */
   $handler->display->display_options['arguments']['uid_1']['id'] = 'uid_1';
@@ -1660,11 +1662,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['views_conditional']['then'] = '[comment_body]';
   $handler->display->display_options['fields']['views_conditional']['or'] = '[field_private_comment_body]';
   $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
-  /* Field: Comment: Comment points */
-  $handler->display->display_options['fields']['emh_points']['id'] = 'emh_points';
-  $handler->display->display_options['fields']['emh_points']['table'] = 'comment';
-  $handler->display->display_options['fields']['emh_points']['field'] = 'emh_points';
-  $handler->display->display_options['fields']['emh_points']['label'] = 'Points';
+  /* Field: Points: Answer Points */
+  $handler->display->display_options['fields']['points']['id'] = 'points';
+  $handler->display->display_options['fields']['points']['table'] = 'emh_points_answers';
+  $handler->display->display_options['fields']['points']['field'] = 'points';
+  $handler->display->display_options['fields']['points']['label'] = 'Points';
+  $handler->display->display_options['fields']['points']['separator'] = '';
   /* Sort criterion: Comment: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'comment';
@@ -1975,11 +1978,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['views_conditional']['then'] = '[comment_body]';
   $handler->display->display_options['fields']['views_conditional']['or'] = '[field_private_comment_body]';
   $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
-  /* Field: Comment: Comment points */
-  $handler->display->display_options['fields']['emh_points']['id'] = 'emh_points';
-  $handler->display->display_options['fields']['emh_points']['table'] = 'comment';
-  $handler->display->display_options['fields']['emh_points']['field'] = 'emh_points';
-  $handler->display->display_options['fields']['emh_points']['label'] = 'Points';
+  /* Field: Points: Answer Points */
+  $handler->display->display_options['fields']['points']['id'] = 'points';
+  $handler->display->display_options['fields']['points']['table'] = 'emh_points_answers';
+  $handler->display->display_options['fields']['points']['field'] = 'points';
+  $handler->display->display_options['fields']['points']['label'] = 'Points';
+  $handler->display->display_options['fields']['points']['separator'] = '';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: User: Uid */
   $handler->display->display_options['arguments']['uid']['id'] = 'uid';
@@ -2323,11 +2327,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['views_conditional']['then'] = '[comment_body]';
   $handler->display->display_options['fields']['views_conditional']['or'] = '[field_private_comment_body]';
   $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
-  /* Field: Comment: Comment points */
-  $handler->display->display_options['fields']['emh_points']['id'] = 'emh_points';
-  $handler->display->display_options['fields']['emh_points']['table'] = 'comment';
-  $handler->display->display_options['fields']['emh_points']['field'] = 'emh_points';
-  $handler->display->display_options['fields']['emh_points']['label'] = 'Points';
+  /* Field: Points: Answer Points */
+  $handler->display->display_options['fields']['points']['id'] = 'points';
+  $handler->display->display_options['fields']['points']['table'] = 'emh_points_answers';
+  $handler->display->display_options['fields']['points']['field'] = 'points';
+  $handler->display->display_options['fields']['points']['label'] = 'Points';
+  $handler->display->display_options['fields']['points']['separator'] = '';
   /* Sort criterion: Comment: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'comment';
@@ -2527,11 +2532,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['views_conditional']['then'] = '[comment_body]';
   $handler->display->display_options['fields']['views_conditional']['or'] = '[field_private_comment_body]';
   $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
-  /* Field: Comment: Comment points */
-  $handler->display->display_options['fields']['emh_points']['id'] = 'emh_points';
-  $handler->display->display_options['fields']['emh_points']['table'] = 'comment';
-  $handler->display->display_options['fields']['emh_points']['field'] = 'emh_points';
-  $handler->display->display_options['fields']['emh_points']['label'] = 'Points';
+  /* Field: Points: Answer Points */
+  $handler->display->display_options['fields']['points']['id'] = 'points';
+  $handler->display->display_options['fields']['points']['table'] = 'emh_points_answers';
+  $handler->display->display_options['fields']['points']['field'] = 'points';
+  $handler->display->display_options['fields']['points']['label'] = 'Points';
+  $handler->display->display_options['fields']['points']['separator'] = '';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: User: Uid */
   $handler->display->display_options['arguments']['uid']['id'] = 'uid';
