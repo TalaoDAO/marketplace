@@ -274,11 +274,10 @@ function emh_virality_invitation_form_submit($form, &$form_state) {
 
   $user_emails = $query->execute()->fetchCol();
 
-  // Retrieves the emails already invited by the current user
+  // Retrieves the emails already invited
   $query = db_select('emh_invitation', 'i')
     ->fields('i', array('referral_mail'))
-    ->condition('referral_mail', $valid_emails, 'IN')
-    ->condition('referrer_id', $user->uid);
+    ->condition('referral_mail', $valid_emails, 'IN');
 
   $invited_emails = $query->execute()->fetchCol();
 
@@ -294,7 +293,7 @@ function emh_virality_invitation_form_submit($form, &$form_state) {
     }
 
     if (in_array($email, $invited_emails)) {
-      drupal_set_message(t('You have already invited @email, the invitation hasn\'t been sent', array('@email' => $email)), 'warning');
+      drupal_set_message(t('@email has already been sponsored, the invitation hasn\'t been sent', array('@email' => $email)), 'warning');
       continue;
     }
 
