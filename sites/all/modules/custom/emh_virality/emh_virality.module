@@ -220,35 +220,50 @@ function emh_virality_invitation_form_submit($form, &$form_state) {
     }
   }
 
-  // Retrieves the emails already recorded
+  // Retrieves the emails already used by users
   $query = db_select('users', 'u')
     ->fields('u', array('mail'))
     ->condition('mail', $valid_emails, 'IN');
 
-  $existing_emails = $query->execute()->fetchCol();
+  $user_emails = $query->execute()->fetchCol();
 
-  // Records each invitation if the email doesn't already exist in the users table
+  // Retrieves the emails already invited by the current user
+  $query = db_select('emh_invitation', 'i')
+    ->fields('i', array('referral_mail'))
+    ->condition('referral_mail', $valid_emails, 'IN')
+    ->condition('referrer_id', $user->uid);
+
+  $invited_emails = $query->execute()->fetchCol();
+
+  // Records each invitation if:
+  // - the email doesn't already exist in the users table
+  // - the email hasn't already been invited
   $recorded_emails = array();
 
   foreach ($valid_emails as $email) {
-    if (!in_array($email, $existing_emails)) {
-      try {
-        $invitation = new EmhInvitation(array(
-          'referrer_id' => $user->uid,
-          'referral_mail' => $email,
-          'date' => time(),
-        ));
-
-        $invitation->save();
-
-        $recorded_emails[] = check_plain($email);
-      }
-      catch (Exception $e) {
-        watchdog('emh_virality', t('Invitation recording failed: @error', array('@error' => $e->getMessage())));
-      }
-    }
-    else {
+    if (in_array($email, $user_emails)) {
       drupal_set_message(t('@email is already registered on eMindHub, the invitation hasn\'t been sent', array('@email' => $email)), 'warning');
+      continue;
+    }
+
+    if (in_array($email, $invited_emails)) {
+      drupal_set_message(t('You have already invited @email, the invitation hasn\'t been sent', array('@email' => $email)), 'warning');
+      continue;
+    }
+
+    try {
+      $invitation = new EmhInvitation(array(
+        'referrer_id' => $user->uid,
+        'referral_mail' => $email,
+        'date' => time(),
+      ));
+
+      $invitation->save();
+
+      $recorded_emails[] = check_plain($email);
+    }
+    catch (Exception $e) {
+      watchdog('emh_virality', t('Invitation recording failed: @error', array('@error' => $e->getMessage())));
     }
   }
 
