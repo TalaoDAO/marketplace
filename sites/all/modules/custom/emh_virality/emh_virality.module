@@ -122,39 +122,86 @@ function emh_virality_block_view($delta = '') {
         break;
       }
 
-      global $user;
+      $reward = _emh_virality_get_invitation_reward();
 
-      if (in_array('business', $user->roles)) {
-        $reward = variable_get('emh_virality_business_invitation_reward');
-      }
-      elseif (in_array('expert', $user->roles)) {
-        $reward = variable_get('emh_virality_expert_invitation_reward');
-      }
-      else {
-        // If the user is neither a business nor an expert,
-        // we don't display the block.
-        break;
-      }
+      if ($reward > 0) {
+        $text = 'You can earn points by inviting <b>experts</b> to grow eMindHub network:'
+          . ' each time your referral will respond to a request and be recognized by the client, you\'ll earn !amount points.'
+          . ' You can therefore monetize your points once you have reached a threshold of at least 1500 points.';
 
-      $text = 'You can earn points by inviting <b>experts</b> to grow eMindHub network:'
-        . ' each time your referral will respond to a request and be recognized by the client, you\'ll earn !amount points.'
-        . ' You can therefore monetize your points once you have reached a threshold of at least 1500 points.';
-
-      $block = array(
-        'subject' => t('Invite experts and earn points!'),
-        'content' => array(
-          'text' => array(
-            '#theme' => 'html_tag',
-            '#tag' => 'p',
-            '#value' => t($text, array('!amount' => $reward)),
+        $block = array(
+          'subject' => t('Invite experts and earn points!'),
+          'content' => array(
+            'text' => array(
+              '#theme' => 'html_tag',
+              '#tag' => 'p',
+              '#value' => t($text, array('!amount' => $reward)),
+            ),
+            'form' => drupal_get_form('emh_virality_invitation_form'),
           ),
-          'form' => drupal_get_form('emh_virality_invitation_form'),
-        ),
-      );
+        );
+      }
       break;
   }
 
   return $block;
+}
+
+
+//----------------------------------------------------------------------
+//-- POINTS
+//----------------------------------------------------------------------
+
+
+/**
+ * Implements hook_move_points_after().
+ * @param array $transaction
+ * @param stdClass $source
+ * @param stdClass $destination
+ *
+ * @see emh_points_move_points()
+ */
+function emh_virality_move_points_after($transaction, $source, $destination) {
+  // If some points moved from node to user
+  if ($transaction['source_type'] == 'node' && $transaction['dest_type'] == 'user') {
+    $query = db_select('emh_invitation', 'i')
+      ->fields('i', array('invitation_id'))
+      ->condition('referral_id', $destination->uid)
+      ->condition('status', EmhInvitation::STATUS_WAITING)
+      ->orderBy('date', 'ASC')
+      ->range(0, 1);
+
+    $invitation_id = $query->execute()->fetchField();
+
+    if ($invitation_id) {
+      $invitation = emh_invitation_load($invitation_id);
+
+      try {
+        $db_trans = db_transaction('invitation_reward');
+
+        // Updates the invitation status
+        $invitation->status = EmhInvitation::STATUS_VALIDATED;
+        $invitation->save();
+
+        // Rewards the referrer
+        $referrer = user_load($invitation->referrer_id);
+
+        $log_vars = array(
+          '@referrer' => emh_points_format_entity($referrer),
+          '@id' => $invitation->invitation_id,
+        );
+
+        emh_points_give_points($referrer, array(
+          'points' => _emh_virality_get_invitation_reward($referrer),
+          'log' => t('eMindHub rewards @referrer for a validated invitation', $log_vars),
+        ));
+      }
+      catch (Exception $e) {
+        $db_trans->rollback();
+        watchdog('emh_virality', 'The reward processus for a viral invitation failed: @error', array('@error' => $e->getMessage()), WATCHDOG_ERROR);
+      }
+    }
+  }
 }
 
 
@@ -378,3 +425,25 @@ function emh_virality_tokens($type, $tokens, array $data = array(), array $optio
 //    'path' => drupal_get_path('module', 'emh_virality') . '/views',
 //  );
 //}
+
+
+//----------------------------------------------------------------------
+//-- HELPERS
+//----------------------------------------------------------------------
+
+
+function _emh_virality_get_invitation_reward($account = NULL) {
+  if ($account == NULL) {
+    global $user;
+    $account = $user;
+  }
+
+  if (in_array('business', $account->roles)) {
+    return variable_get('emh_virality_business_invitation_reward', 0);
+  }
+  elseif (in_array('expert', $account->roles)) {
+    return variable_get('emh_virality_expert_invitation_reward', 0);
+  }
+
+  return 0;
+}

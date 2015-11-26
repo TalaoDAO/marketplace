@@ -7,6 +7,7 @@ package = EMH
 files[] = EmhInvitation.php
 
 ; Dependencies
+dependencies[] = emh_points
 dependencies[] = entity
 dependencies[] = mimemail
 dependencies[] = rules
