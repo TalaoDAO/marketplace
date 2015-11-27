@@ -72,6 +72,7 @@
  *
  * @ingroup themeable
  */
+global $base_url;
 ?>
 <header id="navbar" role="banner" class="navbar navbar-emh">
 
@@ -79,7 +80,11 @@
 
     <div class="row">
 
+      <?php if ( $logged_in ): ?>
+      <div class="col-sm-2 col-xs-12">
+      <?php else : ?>
       <div class="col-sm-3 col-xs-12">
+      <?php endif; ?>
 
         <?php if (!empty($page['burgermenu'])): ?>
         <div class="burger-menu-btn-container pull-right" onclick="onClickBurgerMenuBtn();">
@@ -89,13 +94,21 @@
 
         <?php if ($logo): ?>
         <a class="logo navbar-btn" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
-          <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
+          <?php if ( $logged_in ): ?>
+          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/eMindHub_logo_ld.png" alt="<?php print $site_name; ?>" />
+          <?php else : ?>
+          <img src="<?php print $logo; ?>" alt="<?php print $site_name; ?>" />
+          <?php endif; ?>
         </a>
         <?php endif; ?>
 
       </div> <!-- END .col -->
 
+      <?php if ( $logged_in ): ?>
+      <div class="col-sm-10 col-xs-12">
+      <?php else : ?>
       <div class="col-sm-9 col-xs-12">
+      <?php endif; ?>
 
         <nav class="navbar">
 
@@ -149,7 +162,7 @@
 
 <div class="main-container container-fluid">
 
-    <header>
+    <header id="title">
 
       <div class="container">
 

@@ -10961,12 +10961,16 @@ fieldset[disabled] .btn-popin.focus {
   text-shadow: 0px 0px 2px #000000;
   background-position: left center;
   background-repeat: no-repeat;
-  margin-top: 11px;
   text-align: left;
-  padding: 0;
 }
 .btn-flash:hover {
   color: #53cdb5;
+}
+@media (min-width: 767px) {
+  .btn-flash {
+    margin-top: 11px;
+    padding: 0;
+  }
 }
 .icon-community {
   padding-left: 35px;
@@ -12985,14 +12989,11 @@ html.js div.contextual-links-wrapper {
   margin-right: 0;
 }
 header#navbar .row > div:nth-child(2) {
-  padding: 0;
+  padding-right: 0;
 }
 @media (min-width: 767px) {
   body {
-    padding-top: 142px;
-  }
-  body.admin-menu {
-    padding-top: 142px;
+    padding-top: 138px;
   }
   body.admin-menu header#navbar {
     position: fixed;
@@ -13039,6 +13040,48 @@ header#navbar .row > div:nth-child(2) {
 @media (min-width: 767px) and (min-width: 767px) {
   header#navbar {
     border-radius: 0;
+  }
+}
+header#title {
+  padding-top: 15px;
+}
+/* HEADER
+ * Light version
+ */
+@media (min-width: 767px) {
+  .logged-in {
+    padding-top: 92px;
+  }
+  .logged-in header#navbar .row > div:nth-child(1) {
+    padding-right: 0;
+  }
+  .logged-in header#navbar .logo {
+    padding-right: 0;
+    margin-top: 11px;
+  }
+  .logged-in header#navbar .navbar-nav > li > a,
+  .logged-in header#navbar #block-user-login .nav > li > span,
+  .logged-in header#navbar #block-system-user-menu .nav > li > span {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .logged-in header#navbar #block-system-user-menu .nav > li > span span.caret {
+    top: 19px;
+  }
+  .logged-in header#navbar .region-navigation .nav > li > a,
+  .logged-in header#navbar .region-navigation .nav > li > span.dropdown-toggle {
+    padding-top: 3px;
+    padding-bottom: 13px;
+  }
+  .logged-in header#navbar .region-navigation .nav > li > a.active,
+  .logged-in header#navbar .region-navigation .nav > li > span.dropdown-toggle.active {
+    background-image: none;
+  }
+  .logged-in header#navbar .burger-menu-btn-container {
+    top: 37px;
+  }
+  .logged-in header#navbar.navbar-emh:after {
+    height: 10px;
   }
 }
 /* HEADER
@@ -13307,15 +13350,19 @@ aside,
 #maincol {
   padding-top: 15px;
 }
-aside#sidebar-second {
-  padding-left: 0;
+@media (min-width: 767px) {
+  aside#sidebar-second {
+    padding-left: 0;
+  }
 }
 .one-sidebar.sidebar-first #maincol,
 .two-sidebars #maincol {
   border-left: 1px solid #DDD;
 }
-#flashes {
-  padding-left: 0;
+@media (min-width: 767px) {
+  #flashes {
+    padding-left: 0;
+  }
 }
 .nav-back > * {
   display: inline-block;
@@ -15213,10 +15260,6 @@ body.front .main-container > .container > .row:first-child {
   body.front.not-logged-in,
   body.front.not-logged-in.admin-menu {
     padding-top: 117px;
-  }
-  body.front.logged-in,
-  body.front.logged-in.admin-menu {
-    padding-top: 142px;
   }
   body.front.logged-in .main-container section#maincol,
   body.front.logged-in.admin-menu .main-container section#maincol {

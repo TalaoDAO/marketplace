@@ -54,7 +54,9 @@ aside,
   padding-top: 15px;
 }
 aside#sidebar-second {
-  padding-left: 0;
+  @media (min-width: @screen-sm-min) {
+    padding-left: 0;
+  }
 }
 
 .one-sidebar.sidebar-first,
@@ -65,7 +67,9 @@ aside#sidebar-second {
 }
 
 #flashes {
-  padding-left: 0;
+  @media (min-width: @screen-sm-min) {
+    padding-left: 0;
+  }
 }
 
 
