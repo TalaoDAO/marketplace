@@ -36,6 +36,9 @@ DirectoryIndex index.php index.html index.htm
   php_value mbstring.http_input             pass
   php_value mbstring.http_output            pass
   php_flag mbstring.encoding_translation    off
+  php_value xcache.cacher                   off
+  php_value xcache.size                     0
+  php_value xcache.stat                     off
 </IfModule>
 
 # Requires mod_expires to be enabled.
