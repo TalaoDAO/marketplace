@@ -48,46 +48,41 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
 	// Secondary actions
 	$secondary_actions = array(
-	  'cancel'	=> array(
-			'loaded'	=> FALSE,
-			'first'		=> FALSE,
-			'last'		=> FALSE,
-		),
-	  'delete'	=> array(
-			'loaded'	=> FALSE,
-			'first'		=> FALSE,
-			'last'		=> FALSE,
-		),
+	  'cancel'	=> array(),
+	  'delete'	=> array(),
 	);
 
-	foreach ($secondary_actions as $key => $action) {
-		if ( !empty($form['actions'][$key]) ) {
-			$secondary_actions[$key]['loaded'] = TRUE;
+	foreach ($secondary_actions as $action => $value) {
+		$secondary_actions[$action] = array (
+			'loaded'	=> FALSE,
+			'first'		=> FALSE,
+			'last'		=> FALSE,
+		);
+		if ( !empty($form['actions'][$action]) ) {
+			$secondary_actions[$action]['loaded'] = TRUE;
 		}
 	}
-	// TODO vérifier seulement les cas 'loaded'
+
 	$first = array_slice($secondary_actions, 1, 1, true);
-	// echo '<pre>' . print_r($first, TRUE). '</pre>';
 	$last = array_slice($secondary_actions, -1, 1, true);
-	// echo '<pre>' . print_r($last, TRUE). '</pre>';
-	foreach ($secondary_actions as $key => $action) {
-		if ( $secondary_actions[$key]['loaded'] == TRUE ) {
-			if ( $form['actions'][$key] == $first[$key] ) $secondary_actions[$key]['first'] = TRUE;
-			if ( $form['actions'][$key] == $last[$key] ) $secondary_actions[$key]['last'] = TRUE;
+	foreach ($secondary_actions as $action => $value) {
+		if ( $value['loaded'] == TRUE ) {
+			if ( $value == $first ) $secondary_actions[$action]['first'] = TRUE;
+			if ( $value == $last ) $secondary_actions[$action]['last'] = TRUE;
 		}
 
 	}
 
-	echo '<pre>' . print_r($secondary_actions, TRUE). '</pre>';
+	// echo '<pre>' . print_r($secondary_actions, TRUE). '</pre>';
 
 	// Primary actions
-	$primary_actions = array(
-		'preview_changes',
-	  'draft',
-	  'preview',
-	  'submit',
-	  'publish',
-	);
+	// $primary_actions = array(
+	// 	'preview_changes',
+	//   'draft',
+	//   'preview',
+	//   'submit',
+	//   'publish',
+	// );
 
 
   $form['actions']['#suffix'] = '</div> <!-- END .btn-group -->';
