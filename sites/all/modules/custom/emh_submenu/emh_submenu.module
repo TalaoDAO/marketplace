@@ -29,7 +29,8 @@ function emh_submenu_block_view($delta = '') {
         break;
       }
 
-      if (empty(menu_secondary_local_tasks())) {
+      $submenu = menu_secondary_local_tasks();
+      if (empty($submenu)) {
         break;
       }
 

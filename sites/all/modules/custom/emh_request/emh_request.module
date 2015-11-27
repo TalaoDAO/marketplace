@@ -157,8 +157,6 @@ function emh_request_block_view($delta = '') {
   $request_types = emh_request_get_types();
   foreach ($request_types as $type) {
 
-    print $type;
-
     switch ($delta) {
 
       case 'request_help_' . $type:
