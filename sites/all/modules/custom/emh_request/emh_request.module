@@ -1,0 +1,147 @@
+<?php
+
+/**
+ * Implements hook_node_access().
+ */
+function emh_request_node_access($node, $op, $account) {
+  if ($op == 'update') {
+    switch ($node->type) {
+    case 'webform':
+      module_load_include('inc', 'webform', 'includes/webform.submissions');
+      $submissions = webform_get_submissions($node->nid);
+      if (!empty($submissions)) {
+        return NODE_ACCESS_DENY;
+      }
+      break;
+    case 'question1':
+      if (!empty($node->comment_count)) {
+        return NODE_ACCESS_DENY;
+      }
+    case 'challenge':
+      if (!empty($node->comment_count)) {
+        return NODE_ACCESS_DENY;
+      }
+      break;
+    default:
+      break;
+    }
+  }
+  return NODE_ACCESS_IGNORE;
+}
+
+
+/* Hook form alter
+ * node/add/type
+ * node/$ID/edit
+ */
+function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
+
+  switch ($form['#node']->type) {
+
+    case 'question1':
+    case 'webform':
+    case 'challenge':
+
+      // Actions : Save as draft + Publish / Save
+      $form['actions']['draft']['#value'] = t('Save draft');
+      $form['actions']['submit']['#value'] = t('Publish');
+      // If nid not empty, we're in the edit page
+      if ( !empty($form['nid']['#value']) ) {
+        $form['actions']['draft']['#access'] = FALSE;
+        $form['actions']['submit']['#value'] = t('Save');
+      }
+
+      // Hide node access
+    	$form['group_content_access']['#access'] =  FALSE;
+      break;
+
+    default:
+      break;
+  }
+
+}
+
+
+function emh_request_get_status($node) {
+
+	$node = node_load($node);
+  $workflow = array();
+
+  if ($node->status == 0) {
+    $workflow = array( 'status' => 'draft', 'label' => t('Draft') );
+  }
+  else {
+    if (!empty($node->emh_points)) {
+
+      $today = date('Y-m-d H:i:s');
+      $deadline = $node->field_expiration_date['und'][0]['value'];
+      $deadline = date('Y-m-d H:i:s', strtotime("$deadline +1 day"));
+      if ($today < $deadline) {
+        $workflow = array( 'status' => 'open', 'label' => t('Open') );
+      }
+      else {
+        $workflow = array( 'status' => 'selection', 'label' => t('Selection in progress') );
+      }
+    }
+    else {
+      $workflow = array( 'status' => 'closed', 'label' => t('Closed') );
+    }
+  }
+
+	if (!empty($workflow)) {
+		$workflow = '<span class="emh-status ' . $workflow['status'] . '">' . $workflow['label'] . '</span>';
+	}
+
+	return $workflow;
+
+}
+
+
+function emh_request_count_answers($node) {
+
+	$count = '';
+
+	switch($node->type) {
+		case 'webform':
+			include_once(drupal_get_path('module', 'webform') . '/includes/webform.submissions.inc');
+			$count = webform_get_submission_count($node->nid);
+			break;
+		case 'question1':
+		case 'challenge':
+			$count = $node->comment_count;
+			break;
+		default:
+			// Nothing to do.
+			break;
+	}
+
+	return $count;
+
+}
+/**
+ * Helper function to retrieve a comment answer, depending on the status.
+ */
+function emh_request_get_answer($comment) {
+  $output = '';
+  if (empty($comment->field_private_comment)) {
+    // No status => body field.
+    $output = $comment->comment_body[LANGUAGE_NONE]['0']['value'];
+  }
+  switch($comment->field_private_comment[LANGUAGE_NONE]['0']['value']) {
+  case 0:
+    $output = $comment->comment_body[LANGUAGE_NONE]['0']['value'];
+    break;
+  case 1:
+    $output = $comment->field_private_comment_body[LANGUAGE_NONE]['0']['value'];
+    break;
+  }
+  return strip_tags(views_trim_text(
+    array(
+      'max_length' => 50,
+      'word_boundary' => TRUE,
+      'ellipsis' => TRUE,
+      'html' => TRUE,
+    ),
+    $output
+  ));
+}
