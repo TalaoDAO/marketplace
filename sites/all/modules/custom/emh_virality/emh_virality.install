@@ -20,8 +20,15 @@ function emh_virality_schema() {
         'unsigned' => TRUE,
         'not null' => TRUE,
       ),
-      'date' => array(
+      'created_at' => array(
         'description' => 'Creation timestamp of the invitation',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'updated_at' => array(
+        'description' => 'Update timestamp of the invitation',
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,

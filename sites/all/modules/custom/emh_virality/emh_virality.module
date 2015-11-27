@@ -168,7 +168,7 @@ function emh_virality_move_points_after($transaction, $source, $destination) {
       ->fields('i', array('invitation_id'))
       ->condition('referral_id', $destination->uid)
       ->condition('status', EmhInvitation::STATUS_WAITING)
-      ->orderBy('date', 'ASC')
+      ->orderBy('created_at', 'ASC')
       ->range(0, 1);
 
     $invitation_id = $query->execute()->fetchField();
@@ -301,7 +301,7 @@ function emh_virality_invitation_form_submit($form, &$form_state) {
       $invitation = new EmhInvitation(array(
         'referrer_id' => $user->uid,
         'referral_mail' => $email,
-        'date' => time(),
+        'created_at' => time(),
       ));
 
       $invitation->save();
@@ -366,6 +366,7 @@ function emh_virality_user_insert(&$edit, $account, $category) {
     // and sets the referral ID
     db_update('emh_invitation')
       ->fields(array(
+        'updated_at' => time(),
         'referral_id' => $account->uid,
         'status' => EmhInvitation::STATUS_WAITING,
       ))
@@ -386,6 +387,7 @@ function emh_virality_user_update(&$edit, $account, $category) {
     // and sets the referral ID
     db_update('emh_invitation')
       ->fields(array(
+        'updated_at' => time(),
         'referral_id' => $account->uid,
         'status' => EmhInvitation::STATUS_WAITING,
       ))
@@ -461,14 +463,54 @@ function emh_virality_tokens($type, $tokens, array $data = array(), array $optio
 
 
 /**
- * Implements hook_views_api().
+ * Implements hook_points_history_page_alter().
+ * @see emh_points_show_user_history()
  */
-//function emh_virality_views_api() {
-//  return array(
-//    'api' => 3,
-//    'path' => drupal_get_path('module', 'emh_virality') . '/views',
-//  );
-//}
+function emh_virality_points_history_page_alter(&$build, $account) {
+  $query = db_select('emh_invitation', 'i')
+    ->extend('PagerDefault')
+    ->element(2)
+    ->fields('i', array())
+    ->condition('referrer_id', $account->uid)
+    ->orderBy('updated_at', 'DESC')
+    ->limit(30);
+
+  $invitations = $query->execute()->fetchAll(PDO::FETCH_OBJ);
+
+  $rows = array();
+  foreach ($invitations as $invitation) {
+    // Prepares status
+    switch ($invitation->status) {
+      case EmhInvitation::STATUS_SENT:      $status = t('Invitation sent.'); break;
+      case EmhInvitation::STATUS_WAITING:   $status = t('Waiting to be recognized.'); break;
+      case EmhInvitation::STATUS_VALIDATED: $status = t('Invitation validated.'); break;
+    }
+
+    $rows[] = array(
+      $invitation->referral_mail,
+      format_date($invitation->updated_at, 'short_date'),
+      $status,
+    );
+  }
+
+  $build['invitations_title'] = array(
+    '#theme' => 'html_tag',
+    '#tag' => 'h2',
+    '#value' => t('Invitations'),
+  );
+
+  $build['invitations'] = array(
+    '#theme' => 'table',
+    '#header' => array(t('Email'), t('Date'), t('Status')),
+    '#rows' => $rows,
+    '#empty' => t('No invitation.'),
+  );
+
+  $build['invitations_pager'] = array(
+    '#theme' => 'pager',
+    '#element' => 2,
+  );
+}
 
 
 //----------------------------------------------------------------------

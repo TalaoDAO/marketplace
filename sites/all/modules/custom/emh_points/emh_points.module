@@ -986,7 +986,62 @@ function emh_points_show_user_history($account = NULL) {
     $account = $user;
   }
 
-  return views_embed_view('points_history', 'block', $account->uid);
+  $query = db_select('emh_points_txn', 'pt')
+    ->extend('PagerDefault')
+    ->element(1)
+    ->fields('pt', array())
+    ->condition(db_or()
+      ->condition(db_and()
+        ->condition('source_type', 'user')
+        ->condition('source_id', $account->uid)
+      )
+      ->condition(db_and()
+        ->condition('dest_type', 'user')
+        ->condition('dest_id', $account->uid)
+      )
+    )
+    ->orderBy('time_stamp', 'DESC')
+    ->limit(30);
+
+  $transactions = $query->execute()->fetchAll(PDO::FETCH_OBJ);
+
+  $rows = array();
+  foreach ($transactions as $transaction) {
+    // Prepares points amount display
+    $points = ($transaction->source_type == 'user' && $transaction->source_id == $account->uid) ? '- ' : '+ ';
+    $points .= $transaction->points;
+
+    $rows[] = array(
+      $transaction->operation,
+      $transaction->description,
+      format_date($transaction->time_stamp, 'short_date'),
+      $points,
+    );
+  }
+
+  $build = array();
+
+  $build['title'] = array(
+    '#theme' => 'html_tag',
+    '#tag' => 'h2',
+    '#value' => t('Points statement'),
+  );
+
+  $build['table'] = array(
+    '#theme' => 'table',
+    '#header' => array(t('Type'), '', t('Date'), t('Points')),
+    '#rows' => $rows,
+    '#empty' => t('No points transaction.'),
+  );
+
+  $build['pager'] = array(
+    '#theme' => 'pager',
+    '#element' => 1,
+  );
+
+  drupal_alter('points_history_page', $build, $account);
+
+  return $build;
 }
 
 

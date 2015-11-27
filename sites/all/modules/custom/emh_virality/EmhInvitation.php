@@ -54,4 +54,9 @@ class EmhInvitation extends Entity {
     return ($this->status == self::STATUS_VALIDATED);
   }
 
+  public function save() {
+    $this->updated_at = time();
+    parent::save();
+  }
+
 }
