@@ -440,12 +440,12 @@ function emh_points_format_entity($entity) {
     case 'comment':
       $user = user_load($entity->uid);
       $test_user = entity_metadata_wrapper('user', $user);
-      $output = $test_user->field_first_name->value() . ' ' . $test_user->field_last_name->value() . ' ("' . emh_request_get_answer($entity) . '")';
+      $output = $test_user->field_first_name->value() . ' ' . $test_user->field_last_name->value();
       break;
     case 'webform_submission':
       $user = user_load($entity->uid);
       $test_user = entity_metadata_wrapper('user', $user);
-      $output = 'Webform : ' . $test_user->field_first_name->value() . ' ' . $test_user->field_last_name->value();
+      $output = $test_user->field_first_name->value() . ' ' . $test_user->field_last_name->value();
       break;
   }
   return $output;
@@ -545,9 +545,34 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
       $entity = webform_get_submission($id_source, $dest);
       break;
     }
-    $form['dest_' . $dest] = array(
+    $form[$dest] = array(
+      '#type' => 'fieldset',
+      '#collapsible' => FALSE,
+    );
+    $form[$dest]['source'] = array(
+      '#type' => 'markup',
+      '#markup' => t('Points for @dest', array('@dest' => emh_points_format_entity($entity))),
+      '#prefix' => '<div>',
+      '#suffix' => '</div>',
+    );
+    if (in_array($type_dest, array('comment', 'webform_submission'))) {
+      $markup = '';
+      switch($type_dest) {
+      case 'comment':
+        $markup = emh_request_get_answer($entity);
+        break;
+      case 'webform_submission':
+        break;
+      }
+      $form[$dest]['answer'] = array(
+        '#type' => 'markup',
+        '#markup' => $markup,
+        '#prefix' => '<div>',
+        '#suffix' => '</div>',
+      );
+    }
+    $form[$dest]['dest_' . $dest] = array(
       '#type' => 'textfield',
-      '#title' => t('Points for @dest', array('@dest' => emh_points_format_entity($entity))),
       '#default_value' => $default_points,
       '#element_validate' => array('element_validate_integer_positive'),
     );
