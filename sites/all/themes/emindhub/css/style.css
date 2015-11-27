@@ -12993,7 +12993,7 @@ header#navbar .row > div:nth-child(2) {
 }
 @media (min-width: 767px) {
   body {
-    padding-top: 138px;
+    padding-top: 137px;
   }
   body.admin-menu header#navbar {
     position: fixed;
