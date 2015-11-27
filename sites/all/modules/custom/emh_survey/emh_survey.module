@@ -340,7 +340,7 @@ function emh_survey_block_info() {
     'status' => 1,
     'region' => 'sidebar_first',
     'visibility' => BLOCK_VISIBILITY_LISTED,
-    'pages' => 'node/add/webform\nnode/add/survey',
+    'pages' => "node/add/webform\nnode/add/survey",
   );
 
   return $blocks;
