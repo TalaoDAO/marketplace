@@ -352,6 +352,51 @@ function emh_virality_points_history_forms_submit($form, &$form_state) {
 
 
 //----------------------------------------------------------------------
+//-- USERS
+//----------------------------------------------------------------------
+
+
+/**
+ * Implements hook_user_insert().
+ */
+function emh_virality_user_insert(&$edit, $account, $category) {
+  // If the user is already enabled
+  if ($account->status == 1 && in_array('expert', $account->roles)) {
+    // Changes status from "sent" to "waiting"
+    // and sets the referral ID
+    db_update('emh_invitation')
+      ->fields(array(
+        'referral_id' => $account->uid,
+        'status' => EmhInvitation::STATUS_WAITING,
+      ))
+      ->condition('referral_mail', $account->mail)
+      ->condition('status', EmhInvitation::STATUS_SENT)
+      ->execute();
+  }
+}
+
+
+/**
+ * Implements hook_user_update().
+ */
+function emh_virality_user_update(&$edit, $account, $category) {
+  // If the user has been enabled
+  if ($account->status == 1 && $account->original->status == 0 && in_array('expert', $account->roles)) {
+    // Changes status from "sent" to "waiting"
+    // and sets the referral ID
+    db_update('emh_invitation')
+      ->fields(array(
+        'referral_id' => $account->uid,
+        'status' => EmhInvitation::STATUS_WAITING,
+      ))
+      ->condition('referral_mail', $account->mail)
+      ->condition('status', EmhInvitation::STATUS_SENT)
+      ->execute();
+  }
+}
+
+
+//----------------------------------------------------------------------
 //-- TOKENS
 //----------------------------------------------------------------------
 
