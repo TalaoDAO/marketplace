@@ -1,4 +1,5 @@
-name = eMindHub Request: abstraction layer to standardize the way we manage requests.
+name = EMH Request
+name = Abstraction layer and global functions for all requests: question, survey, challenge.
 package = EMH
 core = 7.x
 project = emh_request
