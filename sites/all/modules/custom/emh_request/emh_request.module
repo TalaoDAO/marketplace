@@ -118,6 +118,60 @@ function emh_request_count_answers($node) {
 	return $count;
 
 }
+
+/**
+ * Implements hook_block_info().
+ */
+function emh_request_block_info() {
+  $blocks = array();
+
+  $request_types = emh_request_get_types();
+  foreach ($request_types as $type) {
+
+    $blocks["request_help_$type"] = array(
+      'info' => t("Add $type - Help"),
+      'cache' => DRUPAL_CACHE_PER_ROLE,
+      'weight' => -100,
+      'status' => 1,
+      'region' => 'sidebar_second',
+      'visibility' => BLOCK_VISIBILITY_LISTED,
+      'pages' => "node/add/$type",
+    );
+
+  }
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function emh_request_block_view($delta = '') {
+  $block = array();
+
+  $request_types = emh_request_get_types();
+  foreach ($request_types as $type) {
+
+    switch ($delta) {
+
+      case 'request_help_' . $type:
+        $data = variable_get("emh_block_request_help_$type", array('value' => '', 'format' => 'filtered_html'));
+        $block = array(
+          'subject' => '<none>',
+          'content' => array(
+            'text' => array(
+              '#markup' => check_markup($data['value'], $data['format']),
+            ),
+          ),
+        );
+        break;
+    }
+
+  }
+
+  return $block;
+}
+
 /**
  * Helper function to retrieve a comment answer, depending on the status.
  */
