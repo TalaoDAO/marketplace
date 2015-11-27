@@ -53,32 +53,8 @@ function emh_survey_menu_alter(&$items) {
   $items['node/%webform_menu/webform/configure']['access callback'] = FALSE;
 
   // Node component forms.
-
-  $items['node/%webform_menu/webform/components/%webform_menu_component']['access callback'] = FALSE;
-  $items['node/%webform_menu/edit/questions/%webform_menu_component'] = array(
-    'load arguments' => array(1, 5),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('webform_component_edit_form', 1, 4, FALSE),
-    'access callback' => 'webform_node_update_access',
-    'access arguments' => array(1),
-    'file' => 'includes/webform.components.inc',
-    'file path' => drupal_get_path('module', 'webform'), // Useful outside of webform directory !
-    'type' => MENU_LOCAL_TASK,
-  );
-
   $items['node/%webform_menu/webform/components/%webform_menu_component/clone']['access callback'] = FALSE;
-
   $items['node/%webform_menu/webform/components/%webform_menu_component/delete']['access callback'] = FALSE;
-  $items['node/%webform_menu/edit/questions/%webform_menu_component/delete'] = array(
-    'load arguments' => array(1, 5),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('webform_component_delete_form', 1, 4),
-    'access callback' => 'webform_node_update_access',
-    'access arguments' => array(1),
-    'file' => 'includes/webform.components.inc',
-    'file path' => drupal_get_path('module', 'webform'), // Useful outside of webform directory !
-    'type' => MENU_LOCAL_TASK,
-  );
 
 }
 
@@ -349,4 +325,52 @@ function emh_survey_node_presave($node) {
       drupal_set_message(t('You cannot publish a survey without any question.'), 'warning');
     }
   }
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function emh_survey_block_info() {
+  $blocks = array();
+
+  $blocks['survey_add_submenu'] = array(
+    'info' => t('Survey - Add page submenu'),
+    'cache' => DRUPAL_CACHE_PER_ROLE,
+    'weight' => -100,
+    'status' => 1,
+    'region' => 'sidebar_first',
+    'visibility' => BLOCK_VISIBILITY_LISTED,
+    'pages' => 'node/add/webform\nnode/add/survey',
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function emh_survey_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+
+    case 'survey_add_submenu':
+      if (!user_is_logged_in()) {
+        break;
+      }
+
+      $menu = '<ul class="tabs--secondary nav-subtabs">'
+              . '<li class="active"><span class="active">' . t('General infos') . '<span class="element-invisible">(active tab)</span></span></li>'
+              . '<li class="disabled"><span>' . t('Questions') . '</span></li>'
+            . '</ul>';
+
+      $block = array(
+        'title' => '<none>',
+        'content' => $menu,
+      );
+      break;
+
+  }
+
+  return $block;
 }
