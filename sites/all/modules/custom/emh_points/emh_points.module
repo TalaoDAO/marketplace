@@ -573,6 +573,7 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
     }
     $form[$dest]['dest_' . $dest] = array(
       '#type' => 'textfield',
+      '#title' => t('Points for @dest', array('@dest' => emh_points_format_entity($entity))),
       '#default_value' => $default_points,
       '#element_validate' => array('element_validate_integer_positive'),
     );
