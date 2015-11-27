@@ -39,6 +39,9 @@ function emindhub_preprocess_region(&$variables, $hook) {
     case 'bottom_right':
       $classes[] = 'col-sm-4';
       break;
+    case 'sidebar_first':
+      $classes = array('region region-sidebar-first' ); // HACK for removing well class
+      break;
   }
 
 }
