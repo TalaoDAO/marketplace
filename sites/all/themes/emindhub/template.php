@@ -1,15 +1,19 @@
 <?php
 
+
 //require_once('templates/PHPDebug.php');
 require_once('templates/includes/string_list.php');
 
-require_once('inc/html.php');
-require_once('inc/nodes.php');
-require_once('inc/forms.php');
-require_once('inc/form_elements.php');
-require_once('inc/menus.php');
-require_once('inc/regions.php');
-require_once('inc/blocks.php');
+require_once('theme/blocks.func.php');
+require_once('theme/common.inc');
+require_once('theme/forms.func.php');
+require_once('theme/form_elements.func.php');
+require_once('theme/html.func.php');
+require_once('theme/menus.func.php');
+require_once('theme/nodes.func.php');
+require_once('theme/regions.func.php');
+require_once('theme/menu/menu-local-tasks.func.php');
+require_once('theme/system/button.vars.php');
 
 
 /**
@@ -454,4 +458,66 @@ function emindhub_preprocess_comment(&$variables) {
   if ($variables['elements']['#node']->comment == COMMENT_NODE_CLOSED) {
     unset($variables['content']['links']['comment']['#links']);
   }
+}
+
+
+function emindhub_beautiful_maincol() {
+
+  $class = '';
+
+  $left_col = FALSE;
+  if ( !empty($page['sidebar_first']) || !empty(menu_secondary_local_tasks()) ) $left_col = TRUE;
+
+  $right_col = FALSE;
+  if ( !empty($page['sidebar_second']) || !empty($page['help']) ) $right_col = TRUE;
+
+  if ( $left_col == FALSE && $right_col == FALSE ) { $class = 'col-sm-12'; }
+  else if ( $left_col == TRUE && $right_col == FALSE ) { $class = 'col-sm-10'; }
+  else if ( $left_col == FALSE && $right_col == TRUE ) { $class = 'col-sm-8'; }
+  else { $class = 'col-sm-12'; }
+
+  return $class;
+
+}
+
+
+function emindhub_beautiful_baseline($args) {
+
+  // print_r($args); die;
+  // Array ( [0] => node [1] => add [2] => webform )
+  // Array ( [0] => node [1] => 638 [2] => edit )
+
+  $baseline = '';
+
+  $type = '';
+  $show_help = FALSE;
+
+  if ($args[1] == 'add') {
+    $type = $args[2];
+    $show_help = TRUE;
+  }
+  else if ($args[2] == 'edit') {
+    $type = node_load($args[1])->type;
+    $show_help = TRUE;
+  }
+
+  // print $type; print $show_help; die;
+
+  if ($show_help == TRUE) {
+
+    switch ($type) {
+
+      case 'webform':
+        $baseline = t('Create a survey to identify best experts profiles for a specific task or mission');
+        break;
+      default:
+        $baseline = '';
+        break;
+
+    }
+
+  }
+
+  return $baseline;
+
 }
