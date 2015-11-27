@@ -26,6 +26,23 @@ regions[burgermenu]     = Burger Menu
 
 
 ;;;;;;;;;;;;;;;;;;;;;
+;; Theme Settings
+;;;;;;;;;;;;;;;;;;;;;
+
+
+; Region Wells
+; --------------
+settings[bootstrap_region_well-navigation] = ''
+settings[bootstrap_region_well-header] = ''
+settings[bootstrap_region_well-highlighted] = ''
+settings[bootstrap_region_well-help] = ''
+settings[bootstrap_region_well-content] = ''
+settings[bootstrap_region_well-sidebar_first] = ''
+settings[bootstrap_region_well-sidebar_second] = ''
+settings[bootstrap_region_well-footer] = ''
+
+
+;;;;;;;;;;;;;;;;;;;;;
 ;; Stylesheets
 ;;;;;;;;;;;;;;;;;;;;;
 
