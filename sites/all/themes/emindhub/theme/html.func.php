@@ -24,4 +24,6 @@ function emindhub_preprocess_html(&$variables) {
     $variables['classes_array'][] = 'page-404';
   }
 
+	$variables['baseline'] = emindhub_beautiful_baseline(arg());
+
 }

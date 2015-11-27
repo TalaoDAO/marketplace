@@ -28,8 +28,6 @@ function emindhub_preprocess_node__webform(&$variables) {
 
 function node_informations_add(&$variables) {
 
-	// echo '<pre>' . print_r($variables, TRUE) . '</pre>';
-
 	// Views navigation between nodes
 	$variables['linkBack'] = '';
 	$variables['linkPrev'] = '';
@@ -73,6 +71,12 @@ function node_informations_add(&$variables) {
 	}
 
 	$variables['request_status'] = emh_request_get_status(arg(1));
+
+	// print_r(arg()); die;
+
+	$variables['baseline'] = emindhub_beautiful_baseline(arg());
+
+	// echo '<pre>' . print_r($variables, TRUE) . '</pre>';
 
 }
 

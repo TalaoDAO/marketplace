@@ -21,13 +21,13 @@ function emindhub_process_format($element) {
 
 function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
-  // echo '<pre>' . print_r($form_id, TRUE) . '</pre>';
+  // echo '<pre>' . print_r($form['actions'], TRUE) . '</pre>';
   // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
 
-  $form['actions']['#prefix'] = '<div class="form-row">';
-  $form['actions']['#prefix'] .= '<div class="btn-group form-actions" role="group" aria-label="Actions">';
+  $form['actions']['#prefix'] = '<div class="btn-toolbar">';
+  $form['actions']['#prefix'] .= '<div class="btn-group" role="group" aria-label="Secondary actions">';
 
-  // Actions order
+	// Actions order
   $i = 0;
   foreach (
 	array(
@@ -42,32 +42,56 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 		'goquestions',
 	) as $action ) {
 		if (!empty($form['actions'][$action])) {
-			$form['actions'][$action]['#attributes']['class'][] = 'btn';
 			$form['actions'][$action]['#weight'] = $i++;
-
-			if ($form_id != 'search_block_form') {
-				switch ($action) {
-					case 'cancel':
-						$form['actions'][$action]['#attributes']['class'][] = 'btn-default';
-						break;
-					case 'delete':
-						$form['actions'][$action]['#attributes']['class'][] = 'btn-danger';
-						break;
-					case 'preview_changes':
-					case 'draft':
-					case 'preview':
-					case 'submit':
-					case 'publish':
-						$form['actions'][$action]['#attributes']['class'][] = 'btn-primary';
-						break;
-					default:
-						break;
-				}
-			}
 		}
 	}
 
-  $form['actions']['#suffix'] = '</div> <!-- END .form-actions -->';
+	// Secondary actions
+	$secondary_actions = array(
+	  'cancel'	=> array(
+			'loaded'	=> FALSE,
+			'first'		=> FALSE,
+			'last'		=> FALSE,
+		),
+	  'delete'	=> array(
+			'loaded'	=> FALSE,
+			'first'		=> FALSE,
+			'last'		=> FALSE,
+		),
+	);
+
+	foreach ($secondary_actions as $key => $action) {
+		if ( !empty($form['actions'][$key]) ) {
+			$secondary_actions[$key]['loaded'] = TRUE;
+		}
+	}
+	// TODO vérifier seulement les cas 'loaded'
+	$first = array_slice($secondary_actions, 1, 1, true);
+	// echo '<pre>' . print_r($first, TRUE). '</pre>';
+	$last = array_slice($secondary_actions, -1, 1, true);
+	// echo '<pre>' . print_r($last, TRUE). '</pre>';
+	foreach ($secondary_actions as $key => $action) {
+		if ( $secondary_actions[$key]['loaded'] == TRUE ) {
+			if ( $form['actions'][$key] == $first[$key] ) $secondary_actions[$key]['first'] = TRUE;
+			if ( $form['actions'][$key] == $last[$key] ) $secondary_actions[$key]['last'] = TRUE;
+		}
+
+	}
+
+	echo '<pre>' . print_r($secondary_actions, TRUE). '</pre>';
+
+	// Primary actions
+	$primary_actions = array(
+		'preview_changes',
+	  'draft',
+	  'preview',
+	  'submit',
+	  'publish',
+	);
+
+
+  $form['actions']['#suffix'] = '</div> <!-- END .btn-group -->';
+	$form['actions']['#suffix'] .= '</div> <!-- END .btn-toolbar -->';
 
   // Add required legend if minimum one field is required
   if ( emindhub_form_has_required($form, $form_id) == TRUE ) {
@@ -76,8 +100,6 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
   			<span class="form-required">*</span>&nbsp;' . t('Required fields') . '
   		</div> <!-- END .form-mandatory -->';
   }
-
-  $form['actions']['#suffix'] .= '</div> <!-- END .row -->';
 
 
   // Hide "Show row weights" for regular users
@@ -335,10 +357,10 @@ function emindhub_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
   $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_reward']['#suffix'] = '</div>';
 
-	$webform = $form['#node'];
-  if (!empty($webform->nid)) {
-    $form['actions']['goquestions']['#markup'] = t('<a href="@url" class="btn btn-default pull-right" id="edit-back">Questions <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>', array('@url' => url('node/' . $webform->nid . '/webform')));
-  }
+	// $webform = $form['#node'];
+  // if (!empty($webform->nid)) {
+  //   $form['actions']['goquestions']['#markup'] = t('<a href="@url" class="btn btn-default pull-right" id="edit-back">Questions <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>', array('@url' => url('node/' . $webform->nid . '/webform')));
+  // }
 
   // echo '<pre>' . print_r($form, TRUE) . '</pre>';
 
@@ -355,10 +377,10 @@ function emindhub_form_webform_components_form_alter(&$form, &$form_state, $form
 	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
 	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
 
-	$form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
+	// $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
 
-	$webform_id = $form['#node']->nid;
-	$form['actions']['goback']['#markup'] = t('<a href="@url" class="btn btn-default pull-right" id="edit-back"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Edit</a>', array('@url' => url('node/' . $webform_id . '/edit')));
+	// $webform_id = $form['#node']->nid;
+	// $form['actions']['goback']['#markup'] = t('<a href="@url" class="btn btn-default pull-right" id="edit-back"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Edit</a>', array('@url' => url('node/' . $webform_id . '/edit')));
 
 }
 
