@@ -147,105 +147,117 @@
 </header> <!-- /#page-header -->
 <?php endif; ?>
 
-<div id="trail" class="container-fluid">
-  <div class="container">
-      <div class="row">
-        <div class="col-sm-4 col-sm-offset-8 text-right">
-          <?php if ( $logged_in ): ?>
-          <a class="btn btn-flash icon-community" href="<?php print url('points'); ?>"><?php print t('Invite experts and earn points!'); ?></a>
-          <?php endif; ?>
-        </div>
-      </div>
-  </div>
-</div>
-
 <div class="main-container container-fluid">
 
-  <div class="container">
+    <header>
 
-    <?php if (!empty($page['title'])): ?>
-    <?php print render($page['title']); ?>
-    <?php endif; ?>
-
-    <?php if ( $is_front ): ?>
-    <?php print $messages; ?>
-    <?php endif; ?>
-
-    <?php if (!empty($page['top'])): ?>
-    <?php print render($page['top']); ?>
-    <?php endif; ?>
-
-    <div class="row">
-
-      <?php if (!empty($page['sidebar_first'])): ?>
-      <aside class="col-sm-4" role="complementary">
-        <?php print render($page['sidebar_first']); ?>
-      </aside>  <!-- /#sidebar-first -->
-      <?php endif; ?>
-
-      <section id="maincol" class="<?php if (empty($page['sidebar_first']) && empty($page['sidebar_second'])) { print 'col-sm-12'; } else if (!empty($page['sidebar_first']) || !empty($page['sidebar_second'])) { print 'col-sm-8'; } else { print 'col-sm-4'; } ?>">
-
-        <?php if (!empty($page['highlighted'])): ?>
-        <div class="highlighted jumbotron"><?php print render($page['highlighted']); ?></div>
-        <?php endif; ?>
+      <div class="container">
 
         <a id="main-content"></a>
 
-        <?php print render($title_prefix); ?>
-        <?php if (!empty($title)): ?>
-        <h1 class="page-header"><?php print $title; ?></h1>
-        <?php endif; ?>
-        <?php print render($title_suffix); ?>
+        <div class="row">
 
-        <?php if ( !$is_front ): ?>
+          <div class="col-sm-9">
+
+            <?php if (!empty($page['title'])): ?>
+            <?php print render($page['title']); ?>
+            <?php endif; ?>
+
+            <?php if (!empty($page['highlighted'])): ?>
+            <div class="highlighted jumbotron"><?php print render($page['highlighted']); ?></div>
+            <?php endif; ?>
+
+            <?php print render($title_prefix); ?>
+            <?php if (!empty($title)): ?>
+            <h1 class="page-header"><?php print $title; ?></h1>
+            <?php endif; ?>
+            <?php print render($title_suffix); ?>
+
+            <?php if (!empty($baseline)) : ?>
+              <p class="emh-title-baseline"><?php print $baseline; ?></p>
+            <?php endif; ?>
+
+          </div>
+
+          <div id="flashes" class="col-sm-3">
+
+            <?php if ( $logged_in ): ?>
+            <a class="btn btn-flash icon-community" href="<?php print url('points'); ?>"><?php print t('Invite experts and earn points!'); ?></a>
+            <?php endif; ?>
+
+          </div>
+
+        </div>
+
         <?php print $messages; ?>
+
+        <?php if (!empty(emindhub_menu_tabs_primary($tabs))): ?>
+          <ul class="tabs--primary nav nav-tabs">
+            <?php print render(emindhub_menu_tabs_primary($tabs)); ?>
+          </ul>
         <?php endif; ?>
 
-        <?php if (!empty($tabs)): ?>
-          <?php print render($tabs); ?>
-        <?php endif; ?>
+      </div>
 
-        <?php if (!empty($page['help'])): ?>
-          <?php print render($page['help']); ?>
-        <?php endif; ?>
+    </header>
 
-        <?php if (!empty($action_links)): ?>
-          <ul class="action-links"><?php print render($action_links); ?></ul>
-        <?php endif; ?>
+    <div class="container">
 
-        <?php print render($page['content']); ?>
-
-        <?php //echo '<pre>' . print_r(block_list('content'), TRUE) . '</pre>'; ?>
-
-      </section>
-
-      <?php if (!empty($page['sidebar_second'])): ?>
-      <aside class="col-sm-4" role="complementary">
-        <?php print render($page['sidebar_second']); ?>
-      </aside>  <!-- /#sidebar-second -->
+      <?php if (!empty($page['top'])): ?>
+      <?php print render($page['top']); ?>
       <?php endif; ?>
+
+      <div class="row">
+
+        <?php if (!empty($page['sidebar_first'])) : ?>
+        <aside id="sidebar-first" class="col-sm-2" role="complementary">
+          <?php print render($page['sidebar_first']); ?>
+        </aside>  <!-- /#sidebar-first -->
+        <?php endif; ?>
+
+        <section id="maincol"<?php print $content_column_class; ?>>
+
+          <?php if (!empty($action_links)): ?>
+            <ul class="action-links"><?php print render($action_links); ?></ul>
+          <?php endif; ?>
+
+          <?php print render($page['content']); ?>
+
+        </section>
+
+        <?php if (!empty($page['sidebar_second']) || !empty($page['help'])): ?>
+        <aside id="sidebar-second" class="col-sm-3" role="complementary">
+          <?php if (!empty($page['help'])): ?>
+            <?php print render($page['help']); ?>
+          <?php endif; ?>
+          <?php print render($page['sidebar_second']); ?>
+        </aside>  <!-- /#sidebar-second -->
+        <?php endif; ?>
+
+      </div>
 
     </div>
 
     <?php if (!empty($page['bottom']) || !empty($page['bottom_right'])): ?>
-    <div class="bottom row">
+    <div class="container">
+      <div class="bottom row">
 
-      <?php if (!empty($page['bottom']) && !empty($page['bottom_right'])): ?>
-      <div class="row">
-        <?php print render($page['bottom']); ?>
-        <?php print render($page['bottom_right']); ?>
+        <?php if (!empty($page['bottom']) && !empty($page['bottom_right'])): ?>
+        <div class="row">
+          <?php print render($page['bottom']); ?>
+          <?php print render($page['bottom_right']); ?>
+        </div>
+        <?php endif; ?>
+
+        <?php if ( (!empty($page['bottom']) && empty($page['bottom_right'])) || (empty($page['bottom']) && !empty($page['bottom_right'])) ): ?>
+          <?php print render($page['bottom']); ?>
+          <?php print render($page['bottom_right']); ?>
+        <?php endif; ?>
+
       </div>
-      <?php endif; ?>
-
-      <?php if ( (!empty($page['bottom']) && empty($page['bottom_right'])) || (empty($page['bottom']) && !empty($page['bottom_right'])) ): ?>
-        <?php print render($page['bottom']); ?>
-        <?php print render($page['bottom_right']); ?>
-      <?php endif; ?>
-
     </div>
     <?php endif; ?>
 
-  </div>
 </div>
 
 <?php print render($page['burgermenu']); ?>
