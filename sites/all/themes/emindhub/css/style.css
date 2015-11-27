@@ -13144,6 +13144,9 @@ header#title {
   font-style: italic;
   color: #fff;
 }
+.popover .hybridauth-widget-wrapper {
+  clear: both;
+}
 .popover .hybridauth-widget-wrapper h3 {
   font: 0/0 a;
   color: transparent;
