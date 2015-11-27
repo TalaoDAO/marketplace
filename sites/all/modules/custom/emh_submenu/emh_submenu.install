@@ -1,0 +1,23 @@
+<?php
+/**
+ * @file
+ * Code for the eMindHub Submenu module installation.
+ */
+
+/**
+ * Implements hook_enable
+ */
+function emh_submenu_enable() {
+  emh_submenu_update_7001();
+}
+
+/**
+ * Force module weight for hook_form_alter execution
+ */
+function emh_submenu_update_7001() {
+  db_update('system')
+  ->fields(array('weight' => 1))
+  ->condition('type', 'module')
+  ->condition('name', 'emh_submenu')
+  ->execute();
+}

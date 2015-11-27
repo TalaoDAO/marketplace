@@ -502,3 +502,25 @@ html.js div.contextual-links-wrapper {
   float: none !important;
   width: auto !important;
 }
+
+
+// Form actions
+.form-actions {
+	.btn-toolbar;
+	.make-row();
+	> .btn-group {
+		.make-sm-column(6);
+		margin-left: 0;
+
+		&.btn-group-primary {
+			.text-right;
+			> .btn {
+				float: none;
+			}
+			> .btn:last-child {
+			  margin-right: 0;
+			}
+		}
+
+	}
+}

@@ -3,7 +3,8 @@
 function emindhub_menu_alter(&$items) {
   unset($items['user/register']);
   $items['user/%user/hybridauth']['access callback'] = FALSE;
-  $items['user/%user/edit']['title'] = 'Edit account';
+  $items['user/%user/edit']['title'] = t('Edit account');
+  $items['user/%user/change-password']['title'] = t('Change password');
 }
 
 

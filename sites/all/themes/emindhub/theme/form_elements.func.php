@@ -157,20 +157,6 @@ function emindhub_fivestar_summary($variables) {
 }
 
 
-// WYSIWYG : Cacher les types de format, peut-être trop ??
-// function emindhub_element_info_alter(&$type) {
-//   // if ( !isAdminUser() || !isWebmasterUser() ) {
-//   	if (isset($type['text_format']['#process'])) {
-//   		foreach ($type['text_format']['#process'] as &$callback) {
-//   			if ($callback === 'filter_process_format') {
-//   				$callback = 'emindhub_process_format';
-//   			}
-//   		}
-//   	}
-//   // }
-// }
-
-
 function emindhub_date_combo($variables) {
   // Retourne le champ date de manière simplifiée
   return theme('form_element', $variables);
@@ -180,7 +166,7 @@ function emindhub_date_combo($variables) {
 function emindhub_my_file_element_process(&$element, &$form_state, $form) {
 
   $element = file_managed_file_process($element, $form_state, $form);
-  $element['upload_button']['#attributes']['class'][] = 'btn-info';
+  // $element['upload_button']['#attributes']['class'][] = 'btn-info';
 
   return $element;
 

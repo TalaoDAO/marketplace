@@ -10,14 +10,11 @@ body.front {
     // Remove negative top margin
     .main-container {
       border-top: 0;
+
       section#maincol {
         margin-top: 0;
         padding-top: 0;
       }
-    }
-
-    #trail {
-      .hidden();
     }
 
     .navbar-emh:after {
@@ -29,8 +26,8 @@ body.front {
     margin-top: 0;
   }
 
-  .alert {
-    margin-top: @line-height-computed;
+  .main-container > .container > .row:first-child {
+    padding-top: 20px;
   }
 
 }
@@ -42,7 +39,7 @@ body.front {
   }
   body.front.logged-in,
   body.front.logged-in.admin-menu {
-    padding-top: 142px; // .fixed-to-top
+    // padding-top: 142px; // .fixed-to-top
     .main-container {
       section#maincol {
         margin-top: 0;

@@ -8,10 +8,10 @@ base theme = bootstrap
 ;; Regions
 ;;;;;;;;;;;;;;;;;;;;;
 
-regions[topmenu]        = Top menu
+regions[topmenu]        = 'Top menu'
 regions[navigation]     = 'Navigation'
 regions[header]         = 'Top content'
-regions[header_right]   = Top content - Right
+regions[header_right]   = 'Top content - Right'
 regions[title]          = 'Title'
 regions[top]            = 'Page top'
 regions[highlighted]    = 'Highlighted'
@@ -22,8 +22,7 @@ regions[sidebar_second] = 'Secondary'
 regions[bottom]         = 'Page bottom'
 regions[bottom_right]   = 'Page bottom - Right'
 regions[footer]         = 'Footer'
-regions[burgermenu]     = Burger Menu
-
+regions[burgermenu]     = 'Burger Menu'
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Stylesheets

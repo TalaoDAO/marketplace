@@ -1,4 +1,0 @@
-name = EMH Request
-description = Global functions for all requests : question, survey, challenge.
-package = EMH
-core = 7.x
