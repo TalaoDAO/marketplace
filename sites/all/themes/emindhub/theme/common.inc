@@ -40,6 +40,7 @@ function _emindhub_colorize_button($text) {
       // t('Search'),
       t('Publish'),
       t('Upload'),
+      t('Log in'),
     ),
     'btn-success' => array(
       // t('Add'),
