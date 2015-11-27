@@ -29,7 +29,7 @@ Feature: Test points
     And I select the radio button "My answer will be visible by all experts"
     And I press "Publish"
 
-  #@exclude
+  @exclude
   Scenario: points: Manual distribute
     Then I should have 100 points on "What about ?" node
     Given I am logged in as "client1"
@@ -75,10 +75,10 @@ Feature: Test points
     When I check the box "edit-views-bulk-operations-0"
     And I check the box "edit-views-bulk-operations-1"
     And I press "Distribute points"
-    Then I should see "Points for Iron Man"
-    And I should see "Points for Klark Kent"
-    When I fill in "Points for Iron Man" with "60"
-    And I fill in "Points for Klark Kent" with "40"
+    Then I should see "Points for Comment : Iron Man"
+    And I should see "Points for Comment : Klark Kent"
+    When I fill in "Points for Comment : Iron Man" with "60"
+    And I fill in "Points for Comment : Klark Kent" with "40"
     #And I press "Distribute points"
     # Validate distribution and close the request
     And I press "edit-submit" 

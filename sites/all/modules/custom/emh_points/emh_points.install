@@ -161,6 +161,39 @@ function emh_points_schema() {
       'points' => array('points'),
     )
   );
+  $schema['emh_points_answers'] = array(
+    'description' => 'holds answer points',
+    'fields' => array(
+      'nid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The node id this answer is attached to',
+      ),
+      'uid' => array(
+        'description' => 'Author of the answer',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'answer_id' => array(
+        'description' => 'ID of the answer (either a comment or a webform_submission)',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'points' => array(
+        'description' => 'Points',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary_key' => array('nid', 'answer_id'),
+    'indexes' => array(
+      'uid' => array('uid'),
+    ),
+  );
   return $schema;
 }
 
@@ -223,11 +256,56 @@ function emh_points_update_7103() {
   emh_points_reset_views();
 }
 
-
 /**
  * Revert Webform results view.
  */
 function emh_points_update_7104() {
   $view = views_get_view('webform_results');
   views_revert_view($view);
+}
+
+/**
+ * Add a new table for answers.
+ */
+function emh_points_update_7105() {
+  if (!db_table_exists('emh_points_answers')) {
+    $table = array(
+      'description' => 'holds answer points',
+      'fields' => array(
+        'nid' => array(
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+          'description' => 'The node id this answer is attached to',
+        ),
+        'uid' => array(
+          'description' => 'Author of the answer',
+          'type' => 'int',
+          'not null' => TRUE,
+          'default' => 0,
+        ),
+        'answer_id' => array(
+          'description' => 'ID of the answer (either a comment or a webform_submission)',
+          'type' => 'int',
+          'not null' => TRUE,
+          'default' => 0,
+        ),
+        'points' => array(
+          'description' => 'Points',
+          'type' => 'int',
+          'not null' => TRUE,
+          'default' => 0,
+        ),
+      ),
+      'primary_key' => array('nid', 'answer_id'),
+      'indexes' => array(
+        'uid' => array('uid'),
+      ),
+    );
+    db_create_table('emh_points_answers', $table);
+  }
+
+  // Update table with old data.
+  db_query("INSERT INTO {emh_points_answers} SELECT t.source_id AS nid, t.dest_id AS uid, c.cid AS answer_id, t.points AS points FROM emh_points_txn t INNER JOIN comment c ON t.source_id = c.nid AND t.dest_id = c.uid WHERE source_type = 'node' AND dest_type = 'user'");
+  db_query("INSERT INTO {emh_points_answers} SELECT t.source_id AS nid, t.dest_id AS uid, s.sid AS answer_id, t.points AS points FROM emh_points_txn t INNER JOIN webform_submissions s ON t.source_id = s.nid AND t.dest_id = s.uid WHERE source_type = 'node' AND dest_type = 'user'");
 }

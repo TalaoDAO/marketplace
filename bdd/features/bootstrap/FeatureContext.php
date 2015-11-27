@@ -101,7 +101,7 @@ class FeatureContext extends DrupalContext {
     if (!isset($this->users[$name])) {
       throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
     }
-    $user = user_load($this->users[$name]->uid);
+    $user = user_load($this->users[$name]->uid, TRUE);
     if (! ($user->emh_points == (int) $points) ) {
       throw new \Exception(sprintf('The user with "%s" title should have %s points instead of %s.', $name, $points, $user->emh_points));
     }
