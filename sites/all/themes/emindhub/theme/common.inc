@@ -32,7 +32,6 @@ function _emindhub_colorize_button($text) {
       // t('Confirm'),
       // t('Submit'),
       // t('Search'),
-      t('Cancel'),
     ),
     'btn-primary' => array(
       // t('Save'),
@@ -40,6 +39,7 @@ function _emindhub_colorize_button($text) {
       // t('Submit'),
       // t('Search'),
       t('Publish'),
+      t('Upload'),
     ),
     'btn-success' => array(
       // t('Add'),
@@ -59,6 +59,7 @@ function _emindhub_colorize_button($text) {
     'btn-danger' => array(
       // t('Delete'),
       // t('Remove'),
+      t('Cancel'),
     ),
   );
   // Specific matching first.

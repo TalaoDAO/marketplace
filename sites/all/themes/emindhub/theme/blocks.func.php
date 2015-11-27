@@ -214,6 +214,12 @@ function emindhub_preprocess_block(&$vars) {
       $classes[] = 'emh-block-blue-title';
       break;
 
+    // Tabs submenu
+    case 'emh_submenu-submenu':
+    case 'emh_survey-survey_add_submenu':
+      $classes[] = 'emh-block-light';
+      break;
+
   }
 
   // echo '<pre>' . print_r($vars, TRUE) . '</pre>';
