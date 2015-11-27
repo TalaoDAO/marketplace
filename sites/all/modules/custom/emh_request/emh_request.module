@@ -134,7 +134,6 @@ function emh_request_block_configure($delta='') {
       $form['text_body'] = array(
         '#type' => 'text_format',
         '#title' => t('Block body'),
-        '#default_value' => variable_get('text_variable', ''),
       );
       break;
   }
@@ -150,7 +149,7 @@ function emh_request_block_save($delta = '', $edit = array()) {
     case 'survey_help':
     case 'challenge_help':
       // Saving the WYSIWYG text
-      variable_set('text_variable', $edit['text_body']['value']);
+      variable_set('text_body', $edit['text_body']['value']);
       break;
   }
 }
@@ -168,7 +167,7 @@ function emh_request_block_info() {
     'status' => 1,
     'region' => 'sidebar_second',
     'visibility' => BLOCK_VISIBILITY_LISTED,
-    'pages' => 'node/add/question\nnode/add/question1',
+    'pages' => "node/add/question\nnode/add/question1",
   );
 
   $blocks['survey_help'] = array(
@@ -178,7 +177,7 @@ function emh_request_block_info() {
     'status' => 1,
     'region' => 'sidebar_second',
     'visibility' => BLOCK_VISIBILITY_LISTED,
-    'pages' => 'node/add/webform\nnode/add/survey',
+    'pages' => "node/add/webform\nnode/add/survey",
   );
 
   $blocks['challenge_help'] = array(
@@ -193,6 +192,7 @@ function emh_request_block_info() {
 
   return $blocks;
 }
+
 
 /**
  * Implements hook_block_view().
@@ -229,7 +229,7 @@ function request_help_view() {
   $block = array();
 
   // Capture WYSIWYG text from the variable
-  $text = variable_get('text_variable', '');
+  $text = variable_get('text_body', '');
 
   // Block output in HTML with div wrapper
   $block = array(
