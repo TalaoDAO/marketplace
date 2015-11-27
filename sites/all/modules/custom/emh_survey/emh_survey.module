@@ -162,7 +162,7 @@ function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $fo
 
 	$form['add']['name']['#size'] = '60';
 	$form['add']['type']['#default_value'] = 'textarea';
-  $form['add']['add']['#submit'][] = 'emh_survey_webform_components_form_add_submit';
+//YBA don't work  $form['add']['add']['#submit'][] = 'emh_survey_webform_components_form_add_submit';
 
 	$form['actions']['submit']['#value'] = t('Save order of questions');
 
@@ -191,7 +191,6 @@ function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $fo
  */
 function emh_survey_webform_components_form_add_submit($form, &$form_state) {
   $node = node_load($form_state['values']['nid']);
-
   $component = $form_state['values']['add'];
 
   // Set the values in the query string for the add component page.
@@ -201,6 +200,8 @@ function emh_survey_webform_components_form_add_submit($form, &$form_state) {
     'pid' => $component['pid'],
     'weight' => $component['weight'],
   );
+  ddl($query);
+
 
   // Forward the "destination" query string value to the next form.
   if (isset($_GET['destination'])) {

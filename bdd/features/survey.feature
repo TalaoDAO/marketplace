@@ -18,11 +18,12 @@ Feature: Create survey and answers
   Scenario: survey answer
     Given I am logged in as "client1"
     When I go to "/content/what-about"
+    Then I click "Edit" in the "main_container" region
     Then I click "Questions"
-    When I fill in "New question name" with "First question"
+    When I fill in "New question" with "First question"
     And I press "Add"
     And I press "Save your question"
-    And I click "Edit"
+    And I click "General infos"
     When I select "Display my full name" from "Your name"
     And I select "Display the name" from "Your organisation"
     And I select "Display" from "Your activity"
