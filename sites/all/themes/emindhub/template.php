@@ -1,49 +1,21 @@
 <?php
 
+
 //require_once('templates/PHPDebug.php');
 require_once('templates/includes/string_list.php');
 
-require_once('inc/html.php');
-require_once('inc/nodes.php');
-require_once('inc/forms.php');
-require_once('inc/form_elements.php');
-require_once('inc/menus.php');
-require_once('inc/regions.php');
-require_once('inc/blocks.php');
-
-
-/**
- * Implements hook_css_alter().
- *
- * @param $css
- *   The array of CSS files.
- */
-function emindhub_css_alter(&$css) {
-
-  // Remove jQuery UI css files
-  // http://drupal.stackexchange.com/a/38592
-  $disabled_drupal_css = array(
-    'misc/ui/jquery.ui.core.css',
-    'misc/ui/jquery.ui.theme.css',
-    'misc/ui/jquery.ui.datepicker.css',
-    'misc/ui/jquery.ui.resizable.css',
-    'misc/ui/jquery.ui.button.css',
-    'misc/ui/jquery.ui.dialog.css',
-    'misc/ui/jquery.ui.menu.css',
-    'misc/ui/jquery.ui.autocomplete.css',
-  );
-
-  // Remove drupal default css files.
-  foreach ($css as $key => $item) {
-    if (in_array($key, $disabled_drupal_css)) {
-      // Remove css and its altered version that can be added by jquery_update.
-      unset($css[$css[$key]['data']]);
-      unset($css[$key]);
-    }
-  }
-
-  // echo '<pre>' . print_r($css, TRUE) . '</pre>'; die;
-}
+require_once('theme/alter.inc');
+require_once('theme/blocks.func.php');
+require_once('theme/common.inc');
+require_once('theme/forms.func.php');
+require_once('theme/form_elements.func.php');
+require_once('theme/html.func.php');
+require_once('theme/menus.func.php');
+require_once('theme/nodes.func.php');
+require_once('theme/regions.func.php');
+require_once('theme/menu/menu-local-tasks.func.php');
+require_once('theme/system/button.vars.php');
+require_once('theme/system/page.vars.php');
 
 
 function emindhub_file($variables) {
@@ -53,33 +25,6 @@ function emindhub_file($variables) {
 	_form_set_class($element, array('form-file'));
 
 	return sprintf('<input type="text" disabled data-fileinputtext="%s" class="file-return"><div class="file-upload"><span>%s</span><input' . drupal_attributes($element['#attributes']) . ' /></div>', $element['#id'], c_szChooseFile);
-}
-
-
-/**
- * Additional page variables
- */
-function emindhub_preprocess_page(&$vars, &$variables) {
-
-	// CUSTOMIZABLE TEXT  ==============================================================
-	// $vars['banniereText'] = sprintf(c_szTextBanniere, "<p>", "</p>');
-	$vars['openBurgerImg'] = theme('image', array(
-		'path' => imagePath('menuBtn.png'),
-		'alt' => '',
-		'getsize' => FALSE,
-	));
-
-  // Beta version
-  if ( drupal_is_front_page() == TRUE && user_is_logged_in() == TRUE ) {
-    global $base_url;
-    drupal_set_message(t('<strong>Welcome to eMindHub!</strong> Thank you for being among the first users of our platform! This is a beta version, for any suggestion or comment please leave a message through the <a href="' . $base_url . '/contact">contact form</a>.'), 'info');
-  }
-
-  // Experts points info
-  if ( drupal_is_front_page() == TRUE && isExpertUser() == TRUE ) {
-    drupal_set_message(t('You can earn points by responding to a request and when the client recognize the value of your contribution. You can therefore monetize your points once you have reached a threshold of at least 1500 points.'), 'info');
-  }
-
 }
 
 
@@ -205,10 +150,10 @@ function emindhub_beautiful_user_name( $object, $link = FALSE ) {
   global $base_url;
   $profileLink = drupal_get_path_alias('user/' . $account->uid);
 
-  if ($link == TRUE) $output = '<a href="' . $base_url . '/' . $profileLink . '">';
+  if ($link) $output = '<a href="' . $base_url . '/' . $profileLink . '">';
   // $output .= $firstName . '&nbsp;' . $lastName . '&nbsp;<span class="username badge">@' . $userName . '</span>';
   $output .= $firstName . '&nbsp;' . $lastName;
-  if ($link == TRUE) $output .= '</a>';
+  if ($link) $output .= '</a>';
 
   return $output;
 
@@ -243,17 +188,17 @@ function emindhub_beautiful_user_profile_link( $author = TRUE ) {
  * http://atendesigngroup.com/blog/adding-css-classes-fields-drupal
  */
 
-function emindhub_preprocess_field(&$vars) {
+function emindhub_preprocess_field(&$variables) {
 
-  // echo '<pre>' . print_r($vars, TRUE) . '</pre>';
+  // echo '<pre>' . print_r($variables, TRUE) . '</pre>';
 
   /* Set shortcut variables. Hooray for less typing! */
-  $name = $vars['element']['#field_name'];
-  $bundle = $vars['element']['#bundle'];
-  $mode = $vars['element']['#view_mode'];
-  $classes = &$vars['classes_array'];
-  $title_classes = &$vars['title_attributes_array']['class'];
-  $content_classes = &$vars['content_attributes_array']['class'];
+  $name = $variables['element']['#field_name'];
+  $bundle = $variables['element']['#bundle'];
+  $mode = $variables['element']['#view_mode'];
+  $classes = &$variables['classes_array'];
+  $title_classes = &$variables['title_attributes_array']['class'];
+  $content_classes = &$variables['content_attributes_array']['class'];
   $item_classes = array();
 
   /* Global field classes */
@@ -323,9 +268,9 @@ function emindhub_preprocess_field(&$vars) {
   // }
 
   // Apply odd or even classes along with our custom classes to each item */
-  foreach ($vars['items'] as $delta => $item) {
-    $vars['item_attributes_array'][$delta]['class'] = $item_classes;
-    $vars['item_attributes_array'][$delta]['class'][] = $delta % 2 ? 'even' : 'odd';
+  foreach ($variables['items'] as $delta => $item) {
+    $variables['item_attributes_array'][$delta]['class'] = $item_classes;
+    $variables['item_attributes_array'][$delta]['class'][] = $delta % 2 ? 'even' : 'odd';
   }
 }
 
@@ -396,7 +341,7 @@ function emindhub_beautiful_author_picture( $node, $class ) {
 
   $photo = '';
 
-  if ( emindhub_author_has_picture( $node ) == TRUE ) {
+  if ( emindhub_author_has_picture( $node ) ) {
     $photo = image_style_url('thumbnail', $photo_uri[0]['uri']);
     $photo = '<img src="' . $photo . '" class="' . $class . '" />';
   } else {
@@ -454,4 +399,84 @@ function emindhub_preprocess_comment(&$variables) {
   if ($variables['elements']['#node']->comment == COMMENT_NODE_CLOSED) {
     unset($variables['content']['links']['comment']['#links']);
   }
+}
+
+
+function emindhub_beautiful_baseline() {
+  $baseline = '';
+  $type = '';
+  $show_help = FALSE;
+  $args = arg();
+
+  if ($args[1] == 'add') {
+    $type = $args[2];
+    $show_help = TRUE;
+  }
+  // else if ($args[2] == 'edit') {
+  //   $type = node_load($args[1])->type;
+  //   $show_help = TRUE;
+  // }
+	// else if ($args[0] == 'my-relationships') {
+	// 	$show_help = TRUE;
+	// }
+
+  if ($show_help) {
+    switch ($type) {
+
+      case 'question1':
+        $baseline = t('Ask a question online and get multiple answers from experts');
+        break;
+      case 'webform':
+        $baseline = t('Create a survey to identify best experts profiles for a specific task or mission');
+        break;
+      case 'challenge':
+        $baseline = t('Request for service proposals to innovate or solve a problem');
+        break;
+      default:
+        $baseline = '';
+        break;
+
+    }
+  }
+
+  return $baseline;
+}
+
+
+function emindhub_beautiful_form_actions(&$form, $actions, $label = 'primary') {
+	$aria_label = '';
+	$first = FALSE;
+	foreach( $actions as $action => $value ) {
+    $actions[$action] = array(
+			'loaded' => FALSE,
+			'first' => FALSE,
+			'last' => FALSE,
+		);
+    if ( !empty($form['actions'][$action]) ) {
+			if ( !isset($form['actions'][$action]['#access']) || $form['actions'][$action]['#access'] == TRUE ) {
+				$actions[$action]['loaded'] = TRUE;
+				if ( !$first ) {
+	        $first = TRUE;
+	        $actions[$action]['first'] = TRUE;
+
+					if ($label == 'primary' ) $pull_right = ' pull-right';
+	        $form['actions'][$action]['#prefix'] = '<div class="btn-group btn-group-' . $label . $pull_right . '" role="group" aria-label="' . $label . ' actions">';
+	      }
+			}
+    }
+	}
+
+	$actions = array_reverse($actions);
+	$last = FALSE;
+	foreach( $actions as $action => $value ) {
+    if ( $actions[$action]['loaded'] == TRUE && !$last ) {
+      $last = TRUE;
+      $actions[$action]['last'] = TRUE;
+			$form['actions'][$action]['#suffix'] = '</div> <!-- END .btn-group -->';
+    }
+	}
+	$actions = array_reverse($actions);
+
+	return $form['actions'];
+
 }

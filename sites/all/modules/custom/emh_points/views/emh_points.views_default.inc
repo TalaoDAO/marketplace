@@ -35,25 +35,25 @@ function emh_points_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '30';
   $handler->display->display_options['style_plugin'] = 'table';
-  /* Field: Points Transaction: Timestamp */
+  /* Field: Points Transaction (source): Timestamp */
   $handler->display->display_options['fields']['time_stamp']['id'] = 'time_stamp';
   $handler->display->display_options['fields']['time_stamp']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['fields']['time_stamp']['field'] = 'time_stamp';
   $handler->display->display_options['fields']['time_stamp']['date_format'] = 'short';
   $handler->display->display_options['fields']['time_stamp']['second_date_format'] = 'privatemsg_current_day';
-  /* Field: Points Transaction: Operation */
+  /* Field: Points Transaction (source): Operation */
   $handler->display->display_options['fields']['operation']['id'] = 'operation';
   $handler->display->display_options['fields']['operation']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['fields']['operation']['field'] = 'operation';
-  /* Field: Points Transaction: Points */
+  /* Field: Points Transaction (source): Points */
   $handler->display->display_options['fields']['points']['id'] = 'points';
   $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['fields']['points']['field'] = 'points';
-  /* Field: Points Transaction: Description of the transaction */
+  /* Field: Points Transaction (source): Description of the transaction */
   $handler->display->display_options['fields']['description']['id'] = 'description';
   $handler->display->display_options['fields']['description']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['fields']['description']['field'] = 'description';
-  /* Sort criterion: Points Transaction: Timestamp */
+  /* Sort criterion: Points Transaction (source): Timestamp */
   $handler->display->display_options['sorts']['time_stamp']['id'] = 'time_stamp';
   $handler->display->display_options['sorts']['time_stamp']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['sorts']['time_stamp']['field'] = 'time_stamp';
@@ -68,48 +68,6 @@ function emh_points_views_default_views() {
   $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['uid']['validate']['type'] = 'user';
-
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'user/%/history_source';
-  $handler->display->display_options['menu']['title'] = 'History (source)';
-  $handler->display->display_options['menu']['weight'] = '0';
-  $handler->display->display_options['menu']['context'] = 0;
-  $handler->display->display_options['menu']['context_only_inline'] = 0;
-
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page_1');
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Points Transaction: Timestamp */
-  $handler->display->display_options['fields']['time_stamp']['id'] = 'time_stamp';
-  $handler->display->display_options['fields']['time_stamp']['table'] = 'emh_points_txn_dest';
-  $handler->display->display_options['fields']['time_stamp']['field'] = 'time_stamp';
-  $handler->display->display_options['fields']['time_stamp']['date_format'] = 'short';
-  $handler->display->display_options['fields']['time_stamp']['second_date_format'] = 'privatemsg_current_day';
-  /* Field: Points Transaction: Operation */
-  $handler->display->display_options['fields']['operation']['id'] = 'operation';
-  $handler->display->display_options['fields']['operation']['table'] = 'emh_points_txn_dest';
-  $handler->display->display_options['fields']['operation']['field'] = 'operation';
-  /* Field: Points Transaction: Points */
-  $handler->display->display_options['fields']['points']['id'] = 'points';
-  $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn_dest';
-  $handler->display->display_options['fields']['points']['field'] = 'points';
-  $handler->display->display_options['fields']['points']['prefix'] = '+';
-  /* Field: Points Transaction: Description of the transaction */
-  $handler->display->display_options['fields']['description']['id'] = 'description';
-  $handler->display->display_options['fields']['description']['table'] = 'emh_points_txn_dest';
-  $handler->display->display_options['fields']['description']['field'] = 'description';
-  $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Sort criterion: Points Transaction: Timestamp */
-  $handler->display->display_options['sorts']['time_stamp']['id'] = 'time_stamp';
-  $handler->display->display_options['sorts']['time_stamp']['table'] = 'emh_points_txn_dest';
-  $handler->display->display_options['sorts']['time_stamp']['field'] = 'time_stamp';
-  $handler->display->display_options['sorts']['time_stamp']['order'] = 'DESC';
-  $handler->display->display_options['path'] = 'user/%/history_dest';
-  $handler->display->display_options['menu']['title'] = 'History (destination)';
-  $handler->display->display_options['menu']['weight'] = '0';
-  $handler->display->display_options['menu']['context'] = 0;
-  $handler->display->display_options['menu']['context_only_inline'] = 0;
 
   /* Display: History */
   $handler = $view->new_display('page', 'History', 'history');
@@ -152,6 +110,54 @@ function emh_points_views_default_views() {
   $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['path'] = 'history';
   $handler->display->display_options['menu']['title'] = 'History';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
+
+  /* Display: Block */
+  $handler = $view->new_display('block', 'Block', 'block');
+  $handler->display->display_options['defaults']['access'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'none';
+  $handler->display->display_options['block_description'] = 'Points statement';
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Points Transaction (destination): Timestamp */
+  $handler->display->display_options['fields']['time_stamp']['id'] = 'time_stamp';
+  $handler->display->display_options['fields']['time_stamp']['table'] = 'emh_points_txn_dest';
+  $handler->display->display_options['fields']['time_stamp']['field'] = 'time_stamp';
+  $handler->display->display_options['fields']['time_stamp']['date_format'] = 'short';
+  $handler->display->display_options['fields']['time_stamp']['second_date_format'] = 'privatemsg_current_day';
+  /* Field: Points Transaction (destination): Operation */
+  $handler->display->display_options['fields']['operation']['id'] = 'operation';
+  $handler->display->display_options['fields']['operation']['table'] = 'emh_points_txn_dest';
+  $handler->display->display_options['fields']['operation']['field'] = 'operation';
+  /* Field: Points Transaction (destination): Points */
+  $handler->display->display_options['fields']['points']['id'] = 'points';
+  $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn_dest';
+  $handler->display->display_options['fields']['points']['field'] = 'points';
+  $handler->display->display_options['fields']['points']['prefix'] = '+';
+  /* Field: Points Transaction (destination): Description of the transaction */
+  $handler->display->display_options['fields']['description']['id'] = 'description';
+  $handler->display->display_options['fields']['description']['table'] = 'emh_points_txn_dest';
+  $handler->display->display_options['fields']['description']['field'] = 'description';
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Points Transaction (destination): Timestamp */
+  $handler->display->display_options['sorts']['time_stamp']['id'] = 'time_stamp';
+  $handler->display->display_options['sorts']['time_stamp']['table'] = 'emh_points_txn_dest';
+  $handler->display->display_options['sorts']['time_stamp']['field'] = 'time_stamp';
+  $handler->display->display_options['sorts']['time_stamp']['order'] = 'DESC';
+  $handler->display->display_options['path'] = 'user/%/history_dest';
+  $handler->display->display_options['menu']['title'] = 'History (destination)';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['path'] = 'user/%/history_source';
+  $handler->display->display_options['menu']['title'] = 'History (source)';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
@@ -320,7 +326,6 @@ function emh_points_views_default_views() {
   /* Display: My relationships */
   $handler = $view->new_display('page', 'My relationships', 'page');
   $handler->display->display_options['path'] = 'my-relationships';
-  $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'My relationships';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'menu-top';
@@ -964,9 +969,8 @@ function emh_points_views_default_views() {
   $handler->display->display_options['fields']['field_last_name']['element_label_colon'] = FALSE;
   /* Field: Bulk operations: User */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
-  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'users';
+  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'comment';
   $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
-  $handler->display->display_options['fields']['views_bulk_operations']['relationship'] = 'uid';
   $handler->display->display_options['fields']['views_bulk_operations']['label'] = 'Select';
   $handler->display->display_options['fields']['views_bulk_operations']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '1';
@@ -1110,501 +1114,6 @@ function emh_points_views_default_views() {
 
   $views[$view->name] = $view;
 
-  $view = new view();
-  $view->name = 'my_rewarded_answers';
-  $view->description = '';
-  $view->tag = 'emh, points';
-  $view->base_table = 'node';
-  $view->human_name = 'My rewarded answers';
-  $view->core = 7;
-  $view->api_version = '3.0';
-  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
-  /* Display: Master */
-  $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'My rewarded answers';
-  $handler->display->display_options['use_ajax'] = TRUE;
-  $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'use points';
-  $handler->display->display_options['cache']['type'] = 'none';
-  $handler->display->display_options['query']['type'] = 'views_query';
-  $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '50';
-  $handler->display->display_options['style_plugin'] = 'table';
-  /* Relationship: Comment: Comments of the node */
-  $handler->display->display_options['relationships']['cid']['id'] = 'cid';
-  $handler->display->display_options['relationships']['cid']['table'] = 'node';
-  $handler->display->display_options['relationships']['cid']['field'] = 'cid';
-  $handler->display->display_options['relationships']['cid']['required'] = TRUE;
-  /* Relationship: Comment: Author */
-  $handler->display->display_options['relationships']['uid']['id'] = 'uid';
-  $handler->display->display_options['relationships']['uid']['table'] = 'comment';
-  $handler->display->display_options['relationships']['uid']['field'] = 'uid';
-  $handler->display->display_options['relationships']['uid']['relationship'] = 'cid';
-  $handler->display->display_options['relationships']['uid']['required'] = TRUE;
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = 'Question';
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Comment: Title */
-  $handler->display->display_options['fields']['subject']['id'] = 'subject';
-  $handler->display->display_options['fields']['subject']['table'] = 'comment';
-  $handler->display->display_options['fields']['subject']['field'] = 'subject';
-  $handler->display->display_options['fields']['subject']['relationship'] = 'cid';
-  $handler->display->display_options['fields']['subject']['label'] = 'Answer';
-  /* Field: Points Transaction (source): Points */
-  $handler->display->display_options['fields']['points']['id'] = 'points';
-  $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn_source';
-  $handler->display->display_options['fields']['points']['field'] = 'points';
-  /* Field: Comment: Author uid */
-  $handler->display->display_options['fields']['uid']['id'] = 'uid';
-  $handler->display->display_options['fields']['uid']['table'] = 'comment';
-  $handler->display->display_options['fields']['uid']['field'] = 'uid';
-  $handler->display->display_options['fields']['uid']['relationship'] = 'cid';
-  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
-  /* Field: Points Transaction (source): Destination ID */
-  $handler->display->display_options['fields']['dest_id']['id'] = 'dest_id';
-  $handler->display->display_options['fields']['dest_id']['table'] = 'emh_points_txn_source';
-  $handler->display->display_options['fields']['dest_id']['field'] = 'dest_id';
-  $handler->display->display_options['fields']['dest_id']['exclude'] = TRUE;
-  /* Sort criterion: Content: Post date */
-  $handler->display->display_options['sorts']['created']['id'] = 'created';
-  $handler->display->display_options['sorts']['created']['table'] = 'node';
-  $handler->display->display_options['sorts']['created']['field'] = 'created';
-  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Contextual filter: Comment: Author uid */
-  $handler->display->display_options['arguments']['uid']['id'] = 'uid';
-  $handler->display->display_options['arguments']['uid']['table'] = 'comment';
-  $handler->display->display_options['arguments']['uid']['field'] = 'uid';
-  $handler->display->display_options['arguments']['uid']['relationship'] = 'cid';
-  $handler->display->display_options['arguments']['uid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'current_user';
-  $handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 1;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'challenge' => 'challenge',
-  );
-  /* Filter criterion: Global: Fields comparison */
-  $handler->display->display_options['filters']['fields_compare']['id'] = 'fields_compare';
-  $handler->display->display_options['filters']['fields_compare']['table'] = 'views';
-  $handler->display->display_options['filters']['fields_compare']['field'] = 'fields_compare';
-  $handler->display->display_options['filters']['fields_compare']['right_field'] = 'dest_id';
-  $handler->display->display_options['filters']['fields_compare']['left_field'] = 'uid';
-
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'my-rewarded-answers';
-
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page_1');
-  $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Answers I\'ve rewarded';
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = 'Question';
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Points: Total Points */
-  $handler->display->display_options['fields']['total_points']['id'] = 'total_points';
-  $handler->display->display_options['fields']['total_points']['table'] = 'emh_points_total';
-  $handler->display->display_options['fields']['total_points']['field'] = 'total_points';
-  /* Field: Comment: Title */
-  $handler->display->display_options['fields']['subject']['id'] = 'subject';
-  $handler->display->display_options['fields']['subject']['table'] = 'comment';
-  $handler->display->display_options['fields']['subject']['field'] = 'subject';
-  $handler->display->display_options['fields']['subject']['relationship'] = 'cid';
-  $handler->display->display_options['fields']['subject']['label'] = 'Answer';
-  /* Field: User: First Name */
-  $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
-  $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
-  $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
-  $handler->display->display_options['fields']['field_first_name']['relationship'] = 'uid';
-  $handler->display->display_options['fields']['field_first_name']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_first_name']['element_label_colon'] = FALSE;
-  /* Field: User: Last Name */
-  $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
-  $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
-  $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
-  $handler->display->display_options['fields']['field_last_name']['relationship'] = 'uid';
-  $handler->display->display_options['fields']['field_last_name']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_last_name']['element_label_colon'] = FALSE;
-  /* Field: Global: Custom text */
-  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['label'] = 'Expert';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '[field_first_name] [field_last_name]';
-  /* Field: Points Transaction (source): Points */
-  $handler->display->display_options['fields']['points']['id'] = 'points';
-  $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn_source';
-  $handler->display->display_options['fields']['points']['field'] = 'points';
-  /* Field: Points Transaction (source): Destination ID */
-  $handler->display->display_options['fields']['dest_id']['id'] = 'dest_id';
-  $handler->display->display_options['fields']['dest_id']['table'] = 'emh_points_txn_source';
-  $handler->display->display_options['fields']['dest_id']['field'] = 'dest_id';
-  $handler->display->display_options['fields']['dest_id']['exclude'] = TRUE;
-  /* Field: Comment: Author uid */
-  $handler->display->display_options['fields']['uid']['id'] = 'uid';
-  $handler->display->display_options['fields']['uid']['table'] = 'comment';
-  $handler->display->display_options['fields']['uid']['field'] = 'uid';
-  $handler->display->display_options['fields']['uid']['relationship'] = 'cid';
-  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Content: Author uid */
-  $handler->display->display_options['arguments']['uid']['id'] = 'uid';
-  $handler->display->display_options['arguments']['uid']['table'] = 'node';
-  $handler->display->display_options['arguments']['uid']['field'] = 'uid';
-  $handler->display->display_options['arguments']['uid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'current_user';
-  $handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['path'] = 'answers-with-points';
-
-  /* Display: Attachment */
-  $handler = $view->new_display('attachment', 'Attachment', 'attachment_1');
-  $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '50';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 1;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'question1' => 'question1',
-  );
-  /* Filter criterion: Global: Fields comparison */
-  $handler->display->display_options['filters']['fields_compare']['id'] = 'fields_compare';
-  $handler->display->display_options['filters']['fields_compare']['table'] = 'views';
-  $handler->display->display_options['filters']['fields_compare']['field'] = 'fields_compare';
-  $handler->display->display_options['filters']['fields_compare']['right_field'] = 'dest_id';
-  $handler->display->display_options['filters']['fields_compare']['left_field'] = 'uid';
-  $handler->display->display_options['displays'] = array(
-    'default' => 0,
-    'page' => 0,
-    'page_1' => 0,
-  );
-  $handler->display->display_options['attachment_position'] = 'after';
-  $handler->display->display_options['inherit_exposed_filters'] = TRUE;
-
-  /* Display: Attachment 2 */
-  $handler = $view->new_display('attachment', 'Attachment 2', 'attachment_2');
-  $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '50';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = 'Question';
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Comment: Title */
-  $handler->display->display_options['fields']['subject']['id'] = 'subject';
-  $handler->display->display_options['fields']['subject']['table'] = 'comment';
-  $handler->display->display_options['fields']['subject']['field'] = 'subject';
-  $handler->display->display_options['fields']['subject']['relationship'] = 'cid';
-  $handler->display->display_options['fields']['subject']['label'] = 'Answer';
-  /* Field: User: First Name */
-  $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
-  $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
-  $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
-  $handler->display->display_options['fields']['field_first_name']['relationship'] = 'uid';
-  $handler->display->display_options['fields']['field_first_name']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_first_name']['element_label_colon'] = FALSE;
-  /* Field: User: Last Name */
-  $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
-  $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
-  $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
-  $handler->display->display_options['fields']['field_last_name']['relationship'] = 'uid';
-  $handler->display->display_options['fields']['field_last_name']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_last_name']['element_label_colon'] = FALSE;
-  /* Field: Global: Custom text */
-  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['label'] = 'Expert';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '[field_first_name] [field_last_name]';
-  /* Field: Points Transaction (source): Points */
-  $handler->display->display_options['fields']['points']['id'] = 'points';
-  $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn_source';
-  $handler->display->display_options['fields']['points']['field'] = 'points';
-  /* Field: Comment: Author uid */
-  $handler->display->display_options['fields']['uid']['id'] = 'uid';
-  $handler->display->display_options['fields']['uid']['table'] = 'comment';
-  $handler->display->display_options['fields']['uid']['field'] = 'uid';
-  $handler->display->display_options['fields']['uid']['relationship'] = 'cid';
-  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
-  /* Field: Points Transaction (source): Destination ID */
-  $handler->display->display_options['fields']['dest_id']['id'] = 'dest_id';
-  $handler->display->display_options['fields']['dest_id']['table'] = 'emh_points_txn_source';
-  $handler->display->display_options['fields']['dest_id']['field'] = 'dest_id';
-  $handler->display->display_options['fields']['dest_id']['exclude'] = TRUE;
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Content: Author uid */
-  $handler->display->display_options['arguments']['uid']['id'] = 'uid';
-  $handler->display->display_options['arguments']['uid']['table'] = 'node';
-  $handler->display->display_options['arguments']['uid']['field'] = 'uid';
-  $handler->display->display_options['arguments']['uid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'current_user';
-  $handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 1;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'question1' => 'question1',
-  );
-  /* Filter criterion: Global: Fields comparison */
-  $handler->display->display_options['filters']['fields_compare']['id'] = 'fields_compare';
-  $handler->display->display_options['filters']['fields_compare']['table'] = 'views';
-  $handler->display->display_options['filters']['fields_compare']['field'] = 'fields_compare';
-  $handler->display->display_options['filters']['fields_compare']['right_field'] = 'dest_id';
-  $handler->display->display_options['filters']['fields_compare']['left_field'] = 'uid';
-
-  $views[$view->name] = $view;
-
-  $view = new view();
-  $view->name = 'my_webform_rewarded_answers';
-  $view->description = '';
-  $view->tag = 'default';
-  $view->base_table = 'webform_submissions';
-  $view->human_name = 'My webform rewarded answers';
-  $view->core = 7;
-  $view->api_version = '3.0';
-  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
-
-  /* Display: Master */
-  $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'My rewarded answers';
-  $handler->display->display_options['use_ajax'] = TRUE;
-  $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'none';
-  $handler->display->display_options['cache']['type'] = 'none';
-  $handler->display->display_options['query']['type'] = 'views_query';
-  $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '50';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['pager']['options']['id'] = '0';
-  $handler->display->display_options['pager']['options']['quantity'] = '9';
-  $handler->display->display_options['style_plugin'] = 'table';
-  $handler->display->display_options['style_options']['columns'] = array(
-    'serial' => 'serial',
-    'webform_all_fields' => 'webform_all_fields',
-    'dest_id' => 'dest_id',
-    'points' => 'points',
-  );
-  $handler->display->display_options['style_options']['default'] = '-1';
-  $handler->display->display_options['style_options']['info'] = array(
-    'serial' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'webform_all_fields' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'dest_id' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'points' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-  );
-  /* Relationship: Webform submissions: Node */
-  $handler->display->display_options['relationships']['nid']['id'] = 'nid';
-  $handler->display->display_options['relationships']['nid']['table'] = 'webform_submissions';
-  $handler->display->display_options['relationships']['nid']['field'] = 'nid';
-  $handler->display->display_options['relationships']['nid']['required'] = TRUE;
-  /* Relationship: Webform submissions: User */
-  $handler->display->display_options['relationships']['uid']['id'] = 'uid';
-  $handler->display->display_options['relationships']['uid']['table'] = 'webform_submissions';
-  $handler->display->display_options['relationships']['uid']['field'] = 'uid';
-  $handler->display->display_options['relationships']['uid']['required'] = TRUE;
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['relationship'] = 'nid';
-  $handler->display->display_options['fields']['title']['label'] = 'Survey';
-  /* Field: Webform submission data: All values */
-  $handler->display->display_options['fields']['webform_all_fields']['id'] = 'webform_all_fields';
-  $handler->display->display_options['fields']['webform_all_fields']['table'] = 'webform_submissions';
-  $handler->display->display_options['fields']['webform_all_fields']['field'] = 'webform_all_fields';
-  $handler->display->display_options['fields']['webform_all_fields']['label'] = 'Answers';
-  $handler->display->display_options['fields']['webform_all_fields']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['webform_all_fields']['custom_label'] = 'custom';
-  /* Field: Points Transaction (source): Points */
-  $handler->display->display_options['fields']['points']['id'] = 'points';
-  $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn_source';
-  $handler->display->display_options['fields']['points']['field'] = 'points';
-  $handler->display->display_options['fields']['points']['relationship'] = 'nid';
-  /* Field: User: Uid */
-  $handler->display->display_options['fields']['uid']['id'] = 'uid';
-  $handler->display->display_options['fields']['uid']['table'] = 'users';
-  $handler->display->display_options['fields']['uid']['field'] = 'uid';
-  $handler->display->display_options['fields']['uid']['relationship'] = 'uid';
-  $handler->display->display_options['fields']['uid']['label'] = '';
-  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
-  /* Field: Points Transaction (source): Destination ID */
-  $handler->display->display_options['fields']['dest_id']['id'] = 'dest_id';
-  $handler->display->display_options['fields']['dest_id']['table'] = 'emh_points_txn_source';
-  $handler->display->display_options['fields']['dest_id']['field'] = 'dest_id';
-  $handler->display->display_options['fields']['dest_id']['relationship'] = 'nid';
-  $handler->display->display_options['fields']['dest_id']['exclude'] = TRUE;
-  /* Contextual filter: User: Uid */
-  $handler->display->display_options['arguments']['uid']['id'] = 'uid';
-  $handler->display->display_options['arguments']['uid']['table'] = 'users';
-  $handler->display->display_options['arguments']['uid']['field'] = 'uid';
-  $handler->display->display_options['arguments']['uid']['relationship'] = 'uid';
-  $handler->display->display_options['arguments']['uid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'current_user';
-  $handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
-  /* Filter criterion: Global: Fields comparison */
-  $handler->display->display_options['filters']['fields_compare']['id'] = 'fields_compare';
-  $handler->display->display_options['filters']['fields_compare']['table'] = 'views';
-  $handler->display->display_options['filters']['fields_compare']['field'] = 'fields_compare';
-  $handler->display->display_options['filters']['fields_compare']['right_field'] = 'dest_id';
-  $handler->display->display_options['filters']['fields_compare']['left_field'] = 'uid';
-
-  /* Display: Page */
-  $handler = $view->new_display('page', 'Page', 'page_1');
-  $handler->display->display_options['path'] = 'my-webform-rewarded-answers';
-
-  /* Display: Page 2 */
-  $handler = $view->new_display('page', 'Page 2', 'page_2');
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['relationship'] = 'nid';
-  $handler->display->display_options['fields']['title']['label'] = 'Survey';
-  /* Field: Webform submission data: All values */
-  $handler->display->display_options['fields']['webform_all_fields']['id'] = 'webform_all_fields';
-  $handler->display->display_options['fields']['webform_all_fields']['table'] = 'webform_submissions';
-  $handler->display->display_options['fields']['webform_all_fields']['field'] = 'webform_all_fields';
-  $handler->display->display_options['fields']['webform_all_fields']['label'] = 'Answers';
-  $handler->display->display_options['fields']['webform_all_fields']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['webform_all_fields']['custom_label'] = 'custom';
-  /* Field: Points Transaction (source): Points */
-  $handler->display->display_options['fields']['points']['id'] = 'points';
-  $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn_source';
-  $handler->display->display_options['fields']['points']['field'] = 'points';
-  $handler->display->display_options['fields']['points']['relationship'] = 'nid';
-  /* Field: User: Uid */
-  $handler->display->display_options['fields']['uid']['id'] = 'uid';
-  $handler->display->display_options['fields']['uid']['table'] = 'users';
-  $handler->display->display_options['fields']['uid']['field'] = 'uid';
-  $handler->display->display_options['fields']['uid']['relationship'] = 'uid';
-  $handler->display->display_options['fields']['uid']['label'] = '';
-  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
-  /* Field: Points Transaction (source): Destination ID */
-  $handler->display->display_options['fields']['dest_id']['id'] = 'dest_id';
-  $handler->display->display_options['fields']['dest_id']['table'] = 'emh_points_txn_source';
-  $handler->display->display_options['fields']['dest_id']['field'] = 'dest_id';
-  $handler->display->display_options['fields']['dest_id']['relationship'] = 'nid';
-  $handler->display->display_options['fields']['dest_id']['exclude'] = TRUE;
-  /* Field: User: First Name */
-  $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
-  $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
-  $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
-  $handler->display->display_options['fields']['field_first_name']['relationship'] = 'uid';
-  $handler->display->display_options['fields']['field_first_name']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_first_name']['element_label_colon'] = FALSE;
-  /* Field: User: Last Name */
-  $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
-  $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
-  $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
-  $handler->display->display_options['fields']['field_last_name']['relationship'] = 'uid';
-  $handler->display->display_options['fields']['field_last_name']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_last_name']['element_label_colon'] = FALSE;
-  /* Field: Global: Custom text */
-  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['label'] = 'Expert';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '[field_first_name] [field_last_name]';
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Content: Author uid */
-  $handler->display->display_options['arguments']['uid']['id'] = 'uid';
-  $handler->display->display_options['arguments']['uid']['table'] = 'node';
-  $handler->display->display_options['arguments']['uid']['field'] = 'uid';
-  $handler->display->display_options['arguments']['uid']['relationship'] = 'nid';
-  $handler->display->display_options['arguments']['uid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'current_user';
-  $handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['path'] = 'webform-answers-Ive-rewarded';
-
-  $views[$view->name] = $view;
-
   // Return all views
   return $views;
 }
@@ -1700,9 +1209,8 @@ function emh_points_views_default_views_alter(&$views) {
     $handler->display->display_options['relationships']['uid']['field'] = 'uid';
     /* Field: Bulk operations: User */
     $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
-    $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'users';
+    $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'webform_submissions';
     $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
-    $handler->display->display_options['fields']['views_bulk_operations']['relationship'] = 'uid';
     $handler->display->display_options['fields']['views_bulk_operations']['label'] = 'Select';
     $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '1';
     $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;

@@ -5,6 +5,7 @@
  * Implements hook_preprocess_block()
  */
 function emindhub_preprocess_block(&$vars) {
+  // echo '<pre>' . print_r($vars['block'], TRUE) . '</pre>';
   $block_id = $vars['block']->module . '-' . $vars['block']->delta;
   // print_r($block_id);
   $classes = &$vars['classes_array'];
@@ -212,6 +213,13 @@ function emindhub_preprocess_block(&$vars) {
     case 'progress_tracker-progress_tracker':
       $classes[] = 'emh-block-blue-title';
       break;
+
+    // Tabs submenu
+    case 'emh_submenu-submenu':
+    case 'emh_survey-survey_add_submenu':
+      $classes[] = 'emh-block-light';
+      break;
+
   }
 
   // echo '<pre>' . print_r($vars, TRUE) . '</pre>';

@@ -63,6 +63,23 @@ function emh_points_views_data() {
       'extra' => array(array('field' => 'entity_type', 'value' => 'node', 'operator' => '=')),
     ),
   );
+  $data['emh_points_answers']['table']['group'] = t('Points');
+  $data['emh_points_answers']['table']['join'] = array(
+    'comment' => array(
+      'left_table' => 'comment',
+      'table' => 'emh_points_answers',
+      'left_field' => 'cid',
+      'field' => 'answer_id',
+      'extra' => 'comment.nid = emh_points_answers.nid',
+    ),
+    'webform_submissions' => array(
+      'left_table' => 'webform_submissions',
+      'table' => 'emh_points_answers',
+      'left_field' => 'sid',
+      'field' => 'answer_id',
+      'extra' => 'webform_submissions.nid = emh_points_answers.nid',
+    ),
+  );
   // Then the fields.
   $data['emh_points']['pid'] = array(
     'title' => 'Pid',
@@ -367,6 +384,19 @@ function emh_points_views_data() {
       'handler' => 'views_handler_sort',
     ),
   );
+  $data['emh_points_answers']['points'] = array(
+    'title' => 'Answer Points',
+    'field' => array(
+      'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+  );
   // Double join on TXN.
   $data['emh_points_txn_source'] = $data['emh_points_txn'];
   $data['emh_points_txn_source']['table']['group'] = t('Points Transaction (source)');
@@ -386,25 +416,5 @@ function emh_points_views_data() {
   unset($data['emh_points_txn_dest']['dest_id']);
   unset($data['emh_points_txn_dest']['dest_type']);
   unset($data['emh_points_txn_dest']['table']['base']);
-  // Pseudo-field on comment.
-  $data['comment']['emh_points'] = array(
-    'group' => 'Comment',
-    'real field' => 'cid',
-    'help' => 'Comment points',
-    'title' => 'Comment points',
-    'field' => array(
-      'handler' => 'views_handler_field_emh_comment_points',
-    ),
-  );
-  // Pseudo-field on webform submissions.
-  $data['webform_submissions']['emh_points'] = array(
-    'group' => t('Webform submissions'),
-    'real field' => 'sid',
-    'help' => 'Webform submission points',
-    'title' => 'Webform submission points',
-    'field' => array(
-      'handler' => 'views_handler_field_emh_webform_submission_points',
-    ),
-  );
   return $data;
 }

@@ -39,7 +39,7 @@ form {
 	// Date
 	.field-widget-date-popup {
 		.badge.help-tip {
-			margin-left: 5px;
+			.hidden;
 		}
 		input {
 			float: left;
@@ -76,13 +76,10 @@ form {
 		span.file {
 			word-wrap: break-word;
 		}
-
-		@media (max-width: @screen-sm-min) {
-			span.input-group-btn,
-			.form-submit {
-				display: inline-block;
-				margin-top: 5px;
-			}
+		span.input-group-btn,
+		.form-submit {
+			display: inline-block;
+			margin-top: 5px;
 		}
 
 		@media (min-width: @screen-sm-min) {
@@ -95,8 +92,7 @@ form {
 			}
 			span.input-group-btn,
 			.form-submit {
-				float: left;
-				width: auto;
+				margin: 0 0 0 5px;
 			}
 			span.file {
 				.make-sm-column(10);
@@ -117,6 +113,7 @@ form {
 	  .form-mandatory {
 	    .text-right;
 	    line-height: 32px;
+			clear: both;
 	  }
 	}
 

@@ -29,7 +29,7 @@ Feature: Test points
     And I select the radio button "My answer will be visible by all experts"
     And I press "Publish"
 
-  #@exclude
+  @exclude
   Scenario: points: Manual distribute
     Then I should have 100 points on "What about ?" node
     Given I am logged in as "client1"

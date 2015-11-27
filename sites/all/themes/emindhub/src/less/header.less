@@ -1,16 +1,15 @@
 header#navbar {
 	.row {
 		> div:nth-child(2) {
-			padding: 0;
+			padding-right: 0;
 		}
 	}
 }
 
 
 @media (min-width: @screen-sm-min) {
-	body:not(.cke_editable),
-	body.admin-menu {
-		padding-top: 133px; // .fixed-to-top
+	body {
+		padding-top: 137px;
 	}
 	body.admin-menu {
 		header#navbar {
@@ -24,6 +23,59 @@ header#navbar {
       padding-left: 0;
     }
 	}
+}
+
+header#title {
+	padding-top: 15px;
+}
+
+/* HEADER
+ * Light version
+ */
+.logged-in {
+	@media (min-width: @screen-sm-min) {
+	padding-top: 92px;
+
+	header#navbar {
+		.row {
+			> div:nth-child(1) {
+				padding-right: 0;
+			}
+		}
+		.logo {
+	    padding-right: 0;
+			margin-top: 11px;
+		}
+		.navbar-nav > li > a,
+		#block-user-login .nav > li > span,
+		#block-system-user-menu .nav > li > span {
+	    padding-top: 10px;
+	    padding-bottom: 10px;
+		}
+		#block-system-user-menu .nav > li > span span.caret {
+	    top: 19px;
+		}
+		.region-navigation .nav > li > a,
+		.region-navigation .nav > li > span.dropdown-toggle {
+	    padding-top: 3px;
+	    padding-bottom: 13px;
+		}
+
+		.region-navigation .nav > li > a.active, .region-navigation .nav > li > span.dropdown-toggle.active {
+	    background-image: none;
+		}
+
+		.burger-menu-btn-container {
+	    top: 37px;
+		}
+
+		&.navbar-emh {
+			&:after {
+				height: 10px;
+			}
+		}
+	}
+}
 }
 
 
@@ -100,6 +152,7 @@ header#navbar {
 	}
 
 	.hybridauth-widget-wrapper {
+		clear: both;
 		h3 {
 			.text-hide;
 			margin: 0;

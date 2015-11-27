@@ -1,13 +1,15 @@
 <?php
-
 /**
  * @file
  * Points managements for EMH website.
  */
+
+
 define('POINTS_ADDITION', 'addition');
 define('POINTS_REMOVAL', 'removal');
 define('POINTS_EXPIRATION', 'expiration');
 define('POINTS_TRANSFERT', 'transfert');
+
 
 /**
  * Implements hook_permission().
@@ -16,8 +18,10 @@ function emh_points_permission() {
   return array(
     'administer points' => array('title' => t('Administer Points')),
     'use points' => array('title' => t('Use Points')),
+    'view others points history' => array('title' => t('View others points history')),
   );
 }
+
 
 /**
  * Implements hook_menu().
@@ -52,21 +56,77 @@ function emh_points_menu() {
     'page arguments' => array('emh_points_arrange_form', 1, 2, 3, 4, 5),
     'access arguments' => array('use points'),
   );
+
+  // Route for the points history of the current user
   $items['points'] = array(
-    'title' => 'not used',
-    'title callback' => 'emh_points_get_user_points',
+    'title' => 'Points',
     'page callback' => 'emh_points_show_user_history',
+    'access callback' => 'emh_points_user_history_access',
     'menu_name' => 'user-menu',
-    'access callback' => TRUE,
     'type' => MENU_NORMAL_ITEM,
   );
-  $items['my-answers'] = array(
-    'title' => 'My answers',
-    'page callback' => 'emh_points_my_responses',
-    'access arguments' => array('use points'),
+
+  // Route for the points history of a specific user
+  $items['user/%user/points'] = array(
+    'title' => 'Points',
+    'page callback' => 'emh_points_show_user_history',
+    'page arguments' => array(1),
+    'access callback' => 'emh_points_user_history_access',
+    'access arguments' => array(1),
+    'type' => MENU_LOCAL_TASK,
   );
+
   return $items;
 }
+
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function emh_points_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  // Changes the href of the points history tab
+  // if it goes to the current user's points history.
+  if (strpos($root_path, 'user/%') === 0) {
+    global $user;
+    $account = menu_get_object('user');
+
+    if ($user->uid == $account->uid) {
+      foreach ($data['tabs'][0]['output'] as &$tab) {
+        if ($tab['#link']['path'] == 'user/%/points') {
+          $tab['#link']['href'] = 'points';
+          break;
+        }
+      }
+    }
+  }
+}
+
+
+/**
+ * Access callback for the points history page.
+ */
+function emh_points_user_history_access($account = NULL) {
+  global $user;
+
+  // If the user tries to access its own points history (/points)
+  if ($account == NULL) {
+    if (user_access('use points')) {
+      return TRUE;
+    }
+  }
+  // If the user tries to access the points history of a specific user (/user/%/points)
+  else {
+    if ($account->uid == $user->uid) {
+      return TRUE;
+    }
+    if (user_access('view others points history')) {
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}
+
 
 /**
  * Implements hook_views_api().
@@ -355,6 +415,10 @@ function emh_points_format_entity($entity) {
   } else if (!empty($entity->type)) {
     $test_entity = entity_metadata_wrapper('node', $entity);
     $type = 'node';
+  } else if (!empty($entity->cid)) {
+    $type = 'comment';
+  } else if (!empty($entity->sid)) {
+    $type = 'webform_submission';
   } else {
     $test_entity = entity_metadata_wrapper('user', $entity);
     $type = 'user';
@@ -372,6 +436,16 @@ function emh_points_format_entity($entity) {
       $output = $test_entity->getBundle();
       $output .= ' ';
       $output .= $test_entity->label();
+      break;
+    case 'comment':
+      $user = user_load($entity->uid);
+      $test_user = entity_metadata_wrapper('user', $user);
+      $output = $test_user->field_first_name->value() . ' ' . $test_user->field_last_name->value();
+      break;
+    case 'webform_submission':
+      $user = user_load($entity->uid);
+      $test_user = entity_metadata_wrapper('user', $user);
+      $output = $test_user->field_first_name->value() . ' ' . $test_user->field_last_name->value();
       break;
   }
   return $output;
@@ -463,8 +537,41 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
     case 'user':
       $entity = user_load($dest);
       break;
+    case 'comment':
+      $entity = comment_load($dest);
+      break;
+    case 'webform_submission':
+      module_load_include('inc', 'webform', 'includes/webform.submissions');
+      $entity = webform_get_submission($id_source, $dest);
+      break;
     }
-    $form['dest_' . $dest] = array(
+    $form[$dest] = array(
+      '#type' => 'fieldset',
+      '#collapsible' => FALSE,
+    );
+    $form[$dest]['source'] = array(
+      '#type' => 'markup',
+      '#markup' => t('Points for @dest', array('@dest' => emh_points_format_entity($entity))),
+      '#prefix' => '<div>',
+      '#suffix' => '</div>',
+    );
+    if (in_array($type_dest, array('comment', 'webform_submission'))) {
+      $markup = '';
+      switch($type_dest) {
+      case 'comment':
+        $markup = emh_request_get_answer($entity);
+        break;
+      case 'webform_submission':
+        break;
+      }
+      $form[$dest]['answer'] = array(
+        '#type' => 'markup',
+        '#markup' => $markup,
+        '#prefix' => '<div>',
+        '#suffix' => '</div>',
+      );
+    }
+    $form[$dest]['dest_' . $dest] = array(
       '#type' => 'textfield',
       '#title' => t('Points for @dest', array('@dest' => emh_points_format_entity($entity))),
       '#default_value' => $default_points,
@@ -477,7 +584,6 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
   );
   if ($type_source == 'node' && in_array($node->type, array('challenge', 'question1', 'webform'))) {
     $form['submit']['#value'] = t('Validate distribution and close the request');
-    // $form['submit']['#attributes']['class'][] = 'btn-submit';
     $form['baseline'] = array(
       '#markup' => '<p class="emh-title-baseline">' . t('Distribute <strong>@count points</strong> to best experts', array('@count' => $points)) . '</p>',
       '#weight' => -100,
@@ -528,6 +634,33 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
         break;
       case 'user':
         $dest = user_load($id);
+        break;
+      case 'comment':
+        $comment = comment_load($id);
+        $dest = user_load($comment->uid);
+        // Historise comment points.
+        db_insert('emh_points_answers')
+          ->fields(array(
+            'nid' => $comment->nid,
+            'uid' => $comment->uid,
+            'answer_id' => $id,
+            'points' => $value,
+          ))
+          ->execute();
+        break;
+      case 'webform_submission':
+        module_load_include('inc', 'webform', 'includes/webform.submissions');
+        $entity = webform_get_submission($form_state['values']['id_source'], $id);
+        $dest = user_load($entity->uid);
+        // Historise comment points.
+        db_insert('emh_points_answers')
+          ->fields(array(
+            'nid' => $entity->nid,
+            'uid' => $entity->uid,
+            'answer_id' => $id,
+            'points' => $value,
+          ))
+          ->execute();
         break;
       }
       emh_points_move_points($source, $dest, $value);
@@ -623,7 +756,7 @@ function emh_points_action_info() {
     'behavior' => array('emh'),
   );
   $actions['emh_points_arrange_node_points'] = array(
-    'type' => 'user',
+    'type' => 'entity',
     'label' => t('Distribute node points to these entities'),
     'configurable' => FALSE,
     'triggers' => array(),
@@ -708,6 +841,12 @@ function emh_points_arrange_points(&$entities, $context) {
     if (!empty($entity->type)) {
       $type = 'node';
     }
+    if (!empty($entity->cid)) {
+      $type = 'comment';
+    }
+    if (!empty($entity->sid)) {
+      $type = 'webform_submission';
+    }
     $output .= $id;
     $output .= ',';
   }
@@ -743,6 +882,12 @@ function emh_points_arrange_node_points(&$entities, $context) {
   foreach($entities as $id => $entity) {
     $output .= $id;
     $output .= ',';
+    if (!empty($entity->cid)) {
+      $type = 'comment';
+    }
+    if (!empty($entity->sid)) {
+      $type = 'webform_submission';
+    }
   }
   $output = substr($output, 0, -1);
   drupal_goto('arrange/' . $node->emh_points . '/node/' . $node->nid . '/' . $type  . '/' . $output);
@@ -898,144 +1043,41 @@ function emh_points_arrange_group_points_submit($form, &$form_state) {
   return $return;
 }
 
-/**
- * Get current user points.
- */
-function emh_points_get_user_points($account) {
-  if ($account == NULL || is_string($account)) {
-    global $user;
-    $account = user_load($user->uid);
-  }
-  $text = t('point');
-  if ($account->emh_points > 0) $text = t('points');
-  return '<span class="badge">' . $account->emh_points . '&nbsp;' . $text . '</span>';
-}
 
 /**
- * Show current user points history.
+ * Show user points history.
+ * @param stdClass $account An user object: the current user is considered if no one is provided
+ * @return array Page render array
+ *
+ * @todo Display a message if we try to view the points history of an user which doesn't use points
  */
-function emh_points_show_user_history() {
-  drupal_goto('history');
-}
-
-/**
- * Access control : does a user have access to another user profile.
- */
-function emh_points_user_can_see_full_user($uid, $uid2) {
-  if ($uid == 1) {
-    // Admin ( = eMindHub) has every right.
-    return TRUE;
-  }
-  $direct = db_select('emh_points_txn', 'txn')
-    ->condition('txn.source_id', $uid)
-    ->condition('txn.dest_id', $uid2)
-    ->condition('txn.source_type', 'user')
-    ->condition('txn.dest_type', 'user');
-  $direct->addExpression('COUNT(txn.txn_id)');
-  $direct = $direct->execute()
-    ->fetchField();
-  if ($direct > 0) {
-    // There is a direct link.
-    return TRUE;
-  }
-  $indirect = db_select('emh_points_txn', 'txn');
-  $indirect->addExpression('COUNT(txn.txn_id)');
-  $indirect->innerjoin('node', 'n', 'n.nid = txn.source_id');
-  $indirect = $indirect
-    ->condition('txn.dest_id', $uid2)
-    ->condition('txn.source_type', 'node')
-    ->condition('txn.dest_type', 'user')
-    ->condition('n.uid', $uid)
-    ->execute()
-    ->fetchField();
-  // Is there a link through a node?
-  return ($indirect > 0);
-}
-
-/**
- * Answers callback to unify Views.
- */
-function emh_points_my_responses() {
+function emh_points_show_user_history($account = NULL) {
   global $user;
-  if (is_array($user->roles) && in_array('expert', array_values($user->roles))) {
-    $output = t('My rewarded answers');
-    $view = views_get_view('my_rewarded_answers');
-    $view->set_display('page');
-    $view->set_arguments(array($user->uid));
-    $view->pre_execute();
-    $view->execute();
-    $output .= $view->render();
-    $view = views_get_view('my_rewarded_answers');
-    $view->set_display('attachment_1');
-    $view->set_arguments(array($user->uid));
-    $view->pre_execute();
-    $view->execute();
-    $output .= $view->render();
-    $view = views_get_view('my_webform_rewarded_answers');
-    $view->set_display('page_1');
-    $view->set_arguments(array($user->uid));
-    $view->pre_execute();
-    $view->execute();
-    $output .= $view->render();
-  } else {
-    $output .= t('Answers I\'ve rewarded');
-    $view = views_get_view('my_rewarded_answers');
-    $view->set_display('page_1');
-    $view->set_arguments(array($user->uid));
-    $view->pre_execute();
-    $view->execute();
-    $output .= $view->render();
-    $view = views_get_view('my_rewarded_answers');
-    $view->set_display('attachment_2');
-    $view->set_arguments(array($user->uid));
-    $view->pre_execute();
-    $view->execute();
-    $output .= $view->render();
-    $view = views_get_view('my_webform_rewarded_answers');
-    $view->set_display('page_2');
-    $view->set_arguments(array($user->uid));
-    $view->pre_execute();
-    $view->execute();
-    $output .= $view->render();
+
+  if (current_path() == 'points') {
+    menu_set_active_item('user/' . $user->uid . '/points');
   }
-  return $output;
+
+  if ($account == NULL) {
+    $account = $user;
+  }
+
+  return views_embed_view('points_history', 'block', $account->uid);
 }
 
 /**
- * Views handler helper.
+ * Implements hook_entity_info().
  */
-function emh_points_get_comment_points($cid) {
-  $comment = comment_load($cid);
-  if (empty($comment)) {
-    return 0;
-  }
-  $points = db_select('emh_points_txn', 'txn')
-    ->fields('txn', array('points'))
-    ->condition('txn.source_id', $comment->nid)
-    ->condition('txn.dest_id', $comment->uid)
-    ->condition('txn.source_type', 'node')
-    ->condition('txn.dest_type', 'user')
-    ->execute()->fetchField();
-  return (empty($points) ? 0 : $points);
-}
-
-
-/**
- * Views handler helper.
- */
-function emh_points_get_webform_submission_points($sid) {
-  module_load_include('inc', 'webform', 'includes/webform.submissions');
-  $submissions = webform_get_submissions(array('sid' => $sid));
-  $submission = reset($submissions);
-  if (empty($submission)) {
-    return 0;
-  }
-  $points = db_select('emh_points_txn', 'txn')
-    ->fields('txn', array('points'))
-    ->condition('txn.source_id', $submission->nid)
-    ->condition('txn.dest_id', $submission->uid)
-    ->condition('txn.source_type', 'node')
-    ->condition('txn.dest_type', 'user')
-    ->execute()->fetchField();
-  return (empty($points) ? 0 : $points);
+function emh_points_entity_info() {
+  $info = array();
+  $info['webform_submission'] = array(
+    'label' => t('Simple Webform Submission Entity'),
+    'base table' => 'webform_submissions',
+    'fieldable' => FALSE,
+    'entity keys' => array(
+      'id' => 'sid',
+      'label' => 'sid',
+    ),
+  );
+  return $info;
 }

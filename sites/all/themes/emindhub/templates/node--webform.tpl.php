@@ -97,10 +97,15 @@
 
 	  <?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeNavigation.tpl.php'; ?>
 
-		<?php if (!empty($body[0]['value'])) : ?>
+		<?php if (!empty($body[0]['value']) || !empty($content['field_document'])) : ?>
 		<div class="row section">
 			<div class="col-sm-12">
 				<?php print $body[0]['value']; ?>
+			</div>
+			<div class="col-sm-12">
+				<?php if (!empty($content['field_document'])) : ?>
+				<?php print render($content['field_document']); ?></li>
+				<?php endif; ?>
 			</div>
 		</div>
 		<?php endif; ?>
@@ -205,7 +210,8 @@
 
     <?php global $user; ?>
 		<?php if (!isBusinessUser() || $node->uid == $user->uid) : ?>
-		<?php if ($node->webform['status'] != 0) : ?>
+		<?php //echo '<pre>' . print_r($node->webform, true) . '</pre>'; ?>
+		<?php if (!empty($node->webform['components'])) : ?>
 		<div id="comments" class="<?php print $classes; ?> row section emh-fieldgroup-blue-title"<?php print $attributes; ?>>
 	    <h2 class="h3"><span><?php print t('Answer the survey') ?></span></h2>
 	    <div class="field-group-div">

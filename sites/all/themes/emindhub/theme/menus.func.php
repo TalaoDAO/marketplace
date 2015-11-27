@@ -3,7 +3,8 @@
 function emindhub_menu_alter(&$items) {
   unset($items['user/register']);
   $items['user/%user/hybridauth']['access callback'] = FALSE;
-  $items['user/%user/edit']['title'] = 'Edit account';
+  $items['user/%user/edit']['title'] = t('Edit account');
+  $items['user/%user/change-password']['title'] = t('Change password');
 }
 
 
@@ -13,6 +14,8 @@ function emindhub_preprocess_menu_link(&$vars) {
   $element = &$vars['element'];
 
   // echo '<pre>' . print_r($element, TRUE) . '</pre>';
+
+  // TODO: se baser sur le chemin system ?
 
   switch ($element['#original_link']['mlid']) {
 
@@ -34,41 +37,53 @@ function emindhub_preprocess_menu_link(&$vars) {
       $element['#title'] = $name;
       $element['#localized_options']['html'] = 1;
       break;
-
   }
-  switch ($element['#href']) {
+}
 
-    // User menu > Points
-    case 'points':
-      $element['#localized_options']['html'] = 1;
-      break;
 
+/**
+ * Overrides theme_menu_link().
+ */
+function emindhub_menu_link__user_menu(&$vars) {
+  $element = &$vars['element'];
+
+  if ($element['#href'] == 'points') {
+    global $user;
+
+    // Loads the whole user data
+    if (!isset($user->emh_points)) {
+      $user = user_load($user->uid);
+    }
+
+    $element['#title'] = '<span class="badge">' . t('@amount points', array('@amount' => $user->emh_points)) . '</span>';
+    $element['#localized_options']['html'] = TRUE;
   }
 
+  return bootstrap_menu_link($vars);
 }
 
 
 /**
  * Overrides theme_menu_tree().
  */
-function bootstrap_menu_tree__user_menu(&$variables) {
+function emindhub_menu_tree__user_menu(&$variables) {
   return '<ul class="menu nav navbar-nav navbar-emh-separator">' . $variables['tree'] . '</ul>';
 }
-function bootstrap_menu_tree__menu_top(&$variables) {
+function emindhub_menu_tree__menu_top(&$variables) {
   return '<ul class="menu nav nav-justified">' . $variables['tree'] . '</ul>';
 }
-function bootstrap_menu_tree__menu_top_anonymous(&$variables) {
+function emindhub_menu_tree__menu_top_anonymous(&$variables) {
   return '<ul class="menu nav nav-justified">' . $variables['tree'] . '</ul>';
 }
-// function bootstrap_menu_tree__main_menu(&$variables) {
+// function emindhub_menu_tree__main_menu(&$variables) {
 //   return '<ul class="menu nav nav-justified">' . $variables['tree'] . '</ul>';
 // }
-// function bootstrap_menu_tree__menu_burger_menu(&$variables) {
+// function emindhub_menu_tree__menu_burger_menu(&$variables) {
 //   return '<ul class="menu nav navbar-emh-burger">' . $variables['tree'] . '</ul>';
 // }
-function bootstrap_menu_tree__menu_footer_menu(&$variables) {
+function emindhub_menu_tree__menu_footer_menu(&$variables) {
   return '<ul class="menu nav navbar-nav navbar-emh-separator navbar-right">' . $variables['tree'] . '</ul>';
 }
-function bootstrap_menu_tree__menu_networks(&$variables) {
+function emindhub_menu_tree__menu_networks(&$variables) {
   return '<ul class="menu nav navbar-nav navbar-emh-separator navbar-right">' . $variables['tree'] . '</ul>';
 }

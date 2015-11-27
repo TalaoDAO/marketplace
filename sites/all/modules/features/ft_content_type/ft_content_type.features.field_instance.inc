@@ -135,7 +135,7 @@ function ft_content_type_field_default_field_instances() {
       'description_field' => 0,
       'entity_translation_sync' => FALSE,
       'file_directory' => '',
-      'file_extensions' => 'txt pdf',
+      'file_extensions' => 'pdf xls xlsx doc docx ppt pptx odt ods odp',
       'filefield_paths' => array(
         'active_updating' => 0,
         'file_name' => array(
@@ -1192,7 +1192,7 @@ function ft_content_type_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_default',
@@ -1213,7 +1213,7 @@ function ft_content_type_field_default_field_instances() {
       'description_field' => 0,
       'entity_translation_sync' => FALSE,
       'file_directory' => '',
-      'file_extensions' => 'txt pdf',
+      'file_extensions' => 'pdf xls xlsx doc docx ppt pptx odt ods odp',
       'filefield_paths' => array(
         'active_updating' => 0,
         'file_name' => array(
@@ -3251,7 +3251,7 @@ function ft_content_type_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_default',
@@ -3272,12 +3272,13 @@ function ft_content_type_field_default_field_instances() {
       'description_field' => 0,
       'entity_translation_sync' => FALSE,
       'file_directory' => '',
-      'file_extensions' => 'pdf doc docx odf ods txt',
+      'file_extensions' => 'pdf xls xlsx doc docx ppt pptx odt ods odp',
       'filefield_paths' => array(
         'active_updating' => 0,
         'file_name' => array(
           'options' => array(
             'pathauto' => 0,
+            'slashes' => 0,
             'transliterate' => 0,
           ),
           'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
@@ -3285,10 +3286,12 @@ function ft_content_type_field_default_field_instances() {
         'file_path' => array(
           'options' => array(
             'pathauto' => 0,
+            'slashes' => 0,
             'transliterate' => 0,
           ),
           'value' => '',
         ),
+        'redirect' => FALSE,
         'retroactive_update' => 0,
       ),
       'filefield_paths_enabled' => 1,

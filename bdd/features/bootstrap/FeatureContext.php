@@ -14,8 +14,8 @@ use Behat\Behat\Hook\Scope\AfterStepScope;
  */
 class FeatureContext extends DrupalContext {
 
-  private $screenShotPath;
-  
+  private $screenshotPath;
+
   /**
    * Initializes context.
    *
@@ -23,9 +23,10 @@ class FeatureContext extends DrupalContext {
    * You can also pass arbitrary arguments to the
    * context constructor through behat.yml.
    */
-  public function __construct(/*$screen_shot_path*/) {
-        //$this->screenShotPath = $screen_shot_path;
-        $this->screenShotPath = 'bdd/screenshot/';
+  public function __construct( $tempPath = '/bdd/tmp', $screenshotPath = '/screenshots', $htmlpagePath = '/behat_page.html' ) {
+    $this->tempPath = $tempPath;
+    $this->screenshotPath = $screenshotPath;
+    $this->htmlPagePath = $htmlpagePath;
   }
 
   /* @BeforeScenario
@@ -100,12 +101,11 @@ class FeatureContext extends DrupalContext {
     if (!isset($this->users[$name])) {
       throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
     }
-    $user = user_load($this->users[$name]->uid);
-    if (!  ($user->emh_points == (int) $points) ) {
-      throw new \Exception(sprintf('The user with "%s" title should have %s points instead of %s.', $name, $points, $node->emh_points));
+    $user = user_load($this->users[$name]->uid, TRUE);
+    if (! ($user->emh_points == (int) $points) ) {
+      throw new \Exception(sprintf('The user with "%s" title should have %s points instead of %s.', $name, $points, $user->emh_points));
     }
   }
-
 
    /**
    * @Then I should have :points points on :title node
@@ -120,7 +120,7 @@ class FeatureContext extends DrupalContext {
     }
     entity_get_controller('node')->resetCache(array($fnode->nid)); // temporary, should be cleaned by VBO
     $node = node_load($fnode->nid);
-    if (!  ($node->emh_points == (int) $points) ) {
+    if (! ($node->emh_points == (int) $points) ) {
       throw new \Exception(sprintf('The node with "%s" title should have %s points instead of %s.', $title, $points, $node->emh_points));
     }
   }
@@ -157,66 +157,64 @@ class FeatureContext extends DrupalContext {
       throw new \Exception(sprintf('No node with %s title is registered with the driver.', $title));
     }
     $node = node_load($fnode->nid);
-    
+
     if (!isset($this->users[$name])) {
       throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
-    } 
+    }
     $user = user_load($this->users[$name]->uid);
     emh_points_move_points($node, $user, (int) $points);
   }
 
-    /**
-     * @param int $seconds
-     *   Amount of seconds when nothing to happens.
-     *
-     * @Given /^(?:|I )wait (\d+) seconds$/
-     */
-    public function waitSeconds($seconds)
-    {
-        sleep($seconds);
-    }
+  /**
+   * @param int $seconds
+   *   Amount of seconds when nothing to happens.
+   *
+   * @Given /^(?:|I )wait (\d+) seconds$/
+   */
+  public function waitSeconds($seconds)
+  {
+    sleep($seconds);
+  }
 
-    /**
-     * This works for the Goutte driver and I assume other HTML-only ones.
-     *
-     * @Then /^show me the HTML page$/
-     */
-    public function show_me_the_html_page_in_the_browser() {
+  /**
+   * This works for the Goutte driver and I assume other HTML-only ones.
+   *
+   * @Then /^show me the HTML page$/
+   */
+  public function show_me_the_html_page_in_the_browser() {
 
-      $html_data = $this->getSession()->getDriver()->getContent();
-      $file_and_path = '/var/www/tmp/behat_page.html';
-      file_put_contents($file_and_path, $html_data);
+    global $base_url;
+    $html_data = $this->getSession()->getDriver()->getContent();
+    file_put_contents($base_url . $this->tempPath . $this->htmlPagePath, $html_data);
 
-    }
+  }
 
+ /**
+   * Take screen-shot when step fails.
+   *
+   * @AfterStep
+   * @param AfterStepScope $scope
+   */
+  public function takeScreenshotAfterFailedStep(AfterStepScope $scope)
+  {
+    // come from : https://github.com/Behat/Behat/issues/649
+    // and from : https://gist.github.com/fbrnc/4550079
 
+    global $base_url;
 
-   /**
-     * Take screen-shot when step fails. 
-     *
-     * @AfterStep
-     * @param AfterStepScope $scope
-     */
-    public function takeScreenshotAfterFailedStep(AfterStepScope $scope)
-    {
-        // come from : https://github.com/Behat/Behat/issues/649
-        // and from : https://gist.github.com/fbrnc/4550079
-        if (99 === $scope->getTestResult()->getResultCode()) {
-            $driver = $this->getSession()->getDriver();
-            $path = '/var/www/tmp/';
+    if (99 === $scope->getTestResult()->getResultCode()) {
 
-            if (! is_dir($path.$this->screenShotPath)) {
-                mkdir($path.$this->screenShotPath, 0777, true);
-            }
-            $step = $scope->getStep();
+      if (! is_dir( $base_url . $this->tempPath . $this->screenshotPath )) {
+        mkdir( $base_url . $this->tempPath . $this->screenshotPath, 0777, true );
+      }
+      $step = $scope->getStep();
 	    $id = /*$step->getParent()->getTitle() . '.' .*/ $step->getType() . ' ' . $step->getText();
 	    $id = $scope->getFeature()->getTitle().' '.$step->getLine().'-'.  $step->getType() . ' ' . $step->getText();
 	    $filename = 'Fail.'.preg_replace('/[^a-zA-Z0-9-_\.]/','_', $id) . '.html';
- 
-            $html_data = $this->getSession()->getDriver()->getContent();
-            file_put_contents($path.$this->screenShotPath.$filename, $html_data);
-            echo 'Screenshot error at : http://gitemindhub/tmp/'.$this->screenShotPath.$filename;
-        }
-    }
-}
 
+      $html_data = $this->getSession()->getDriver()->getContent();
+      file_put_contents( DRUPAL_ROOT. $this->tempPath . $this->screenshotPath . '/' . $filename, $html_data);
+      echo 'Screenshot error at : ' . $base_url . $this->tempPath . $this->screenshotPath . '/' . $filename;
+    }
+  }
+}

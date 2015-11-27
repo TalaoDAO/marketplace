@@ -52,9 +52,7 @@ function ft_blocks_default_fe_block_settings() {
     'machine_name' => 'expert_avantages',
     'module' => 'block',
     'node_types' => array(),
-    'pages' => 'expert/register
-business/register
-freetrial',
+    'pages' => 'expert/register',
     'roles' => array(),
     'themes' => array(
       'emindhub' => array(
@@ -817,7 +815,8 @@ freetrial',
     'module' => 'progress_tracker',
     'node_types' => array(
       0 => 'challenge',
-      1 => 'webform',
+      1 => 'question1',
+      2 => 'webform',
     ),
     'pages' => '',
     'roles' => array(),
@@ -835,7 +834,7 @@ freetrial',
         'weight' => 0,
       ),
     ),
-    'title' => 'Timeline',
+    'title' => '<none>',
     'visibility' => 0,
   );
 

@@ -65,6 +65,32 @@ function ft_rules_default_rules_configuration() {
       ]
     }
   }');
+  $items['rules_on_hybridauth_register'] = entity_import('rules_config', '{ "rules_on_hybridauth_register" : {
+      "LABEL" : "On hybridauth register",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "REQUIRES" : [ "rules", "hybridauth" ],
+      "ON" : { "hybridauth_user_insert" : [] },
+      "DO" : [
+        { "data_set" : {
+            "data" : [ "hybridauth-user:field-first-name" ],
+            "value" : [ "hybridauth:firstName" ]
+          }
+        },
+        { "data_set" : {
+            "data" : [ "hybridauth-user:field-last-name" ],
+            "value" : [ "hybridauth:lastName" ]
+          }
+        },
+        { "data_set" : { "data" : [ "hybridauth-user:mail" ], "value" : [ "hybridauth:email" ] } },
+        { "user_add_role" : {
+            "account" : [ "hybridauth-user" ],
+            "roles" : { "value" : { "4" : "4", "8" : "8" } }
+          }
+        }
+      ]
+    }
+  }');
   $items['rules_pre_subscribe_membres'] = entity_import('rules_config', '{ "rules_pre_subscribe_membres" : {
       "LABEL" : "Pre subscribe members to new Circles",
       "PLUGIN" : "reaction rule",
@@ -120,7 +146,7 @@ function ft_rules_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "ACTIVE" : false,
       "OWNER" : "rules",
-      "TAGS" : [ "Circle", "email", "EMH" ],
+      "TAGS" : [ "Circle", "EMH", "email" ],
       "REQUIRES" : [ "rules", "og" ],
       "ON" : { "og_user_insert" : [] },
       "DO" : [

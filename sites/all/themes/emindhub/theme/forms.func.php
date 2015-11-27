@@ -19,42 +19,49 @@ function emindhub_process_format($element) {
 }
 
 
+/**
+ * Implements hook_form_alter().
+ */
 function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
-  // echo '<pre>' . print_r($form_id, TRUE) . '</pre>';
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
   // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
 
-  $form['actions']['#prefix'] = '<div class="form-row">';
-  $form['actions']['#prefix'] .= '<div class="form-actions">';
+	if (!empty($form['actions'])) {
 
-  // Actions order
-  $i = 0;
-  foreach (
-	array(
-	  'cancel',
-		'goback',
-	  'delete',
-	  'preview_changes',
-	  'draft',
-	  'preview',
-	  'submit',
-		'see',
-	) as $action ) {
-		$form['actions'][$action]['#attributes']['class'][] = 'btn';
-	  $form['actions'][$action]['#weight'] = $i++;
+		// Actions order
+	  $i = 0;
+	  foreach (
+		array(
+		  'cancel',
+		  'delete',
+		  'preview_changes',
+		  'draft',
+		  'preview',
+		  'submit',
+		  'publish',
+		) as $action ) {
+			if (!empty($form['actions'][$action])) {
+				$form['actions'][$action]['#weight'] = $i++;
+			}
+		}
+
+		// Bootstrap buttons group
+		$secondary_actions = array(
+		  'cancel'	=> array(),
+		  'delete'	=> array(),
+		);
+		emindhub_beautiful_form_actions($form, $secondary_actions, 'secondary');
+		$primary_actions = array(
+			'preview_changes'	=> array(),
+		  'draft'						=> array(),
+		  'preview'					=> array(),
+		  'submit'					=> array(),
+		  'publish'					=> array(),
+		);
+		emindhub_beautiful_form_actions($form, $primary_actions);
+
 	}
-
-  // Actions classes
-  if ($form_id != 'search_block_form') {
-    $form['actions']['cancel']['#attributes']['class'][] = 'btn-default';
-    $form['actions']['delete']['#attributes']['class'][] = 'btn-danger';
-    $form['actions']['preview_changes']['#attributes']['class'][] = 'btn-primary';
-    $form['actions']['draft']['#attributes']['class'][] = 'btn-primary';
-    $form['actions']['preview']['#attributes']['class'][] = 'btn-primary';
-    $form['actions']['submit']['#attributes']['class'] = array('btn-submit');
-  }
-
-  $form['actions']['#suffix'] = '</div> <!-- END .form-actions -->';
 
   // Add required legend if minimum one field is required
   if ( emindhub_form_has_required($form, $form_id) == TRUE ) {
@@ -63,7 +70,6 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
   			<span class="form-required">*</span>&nbsp;' . t('Required fields') . '
   		</div> <!-- END .form-mandatory -->';
   }
-  $form['actions']['#suffix'] .= '</div> <!-- END .row -->';
 
 
   // Hide "Show row weights" for regular users
@@ -79,6 +85,9 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 }
 
 
+/**
+ * Implements hook_form_alter().
+ */
 function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
   // echo '<pre>' . print_r($form, TRUE) . '</pre>';
@@ -134,12 +143,11 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
   // Complement
   $form['field_notification_frequency']['#prefix'] = '<div class="form-group-2col row">';
-	global $user;
-	if (in_array('business', array_values($user->roles)) || in_array('business preview', array_values($user->roles))) {
+	if (isBusinessUser()) {
 		// print 'business';
 		$form['field_notification_frequency']['und']['#description'] = t('How often do you want to receive eMindHub\'s notifications about new answers to your requests ?');
 	}
-	if (in_array('expert', array_values($user->roles)) || in_array('expert preview', array_values($user->roles))) {
+	if (isExpertUser()) {
 		$form['field_notification_frequency']['und']['#description'] = t('How often do you want to receive eMindHub\'s notifications about new requests ?');
 	}
   $form['field_known_specific']['#suffix'] = '</div>';
@@ -163,6 +171,9 @@ function emindhub_form_process_password_confirm($element) {
 }
 
 
+/**
+ * Implements hook_form_alter().
+ */
 function emindhub_form_lang_dropdown_form_alter(&$form, &$form_state, $form_id) {
 
   $form['#attributes']['class'][] = 'navbar-form';
@@ -186,12 +197,12 @@ function emindhub_form_user_login_block_alter(&$form, &$form_state, $form_id) {
   $form['actions']['#weight'] = 8;
 
   // $form['linkedin_auth_links']['#weight'] = 9;
-  $form['hybridauth']['#weight'] = 9;
+  $form['hybridauth']['#weight'] = 10;
 
   $markup = l(t('Forgot your password?'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
   $markup = '<ul class="login-links">' . $markup . '</ul>';
   $form['links']['#markup'] = $markup;
-  $form['links']['#weight'] = 10;
+  $form['links']['#weight'] = 9;
 
 }
 
@@ -214,8 +225,8 @@ function emindhub_form_has_required($form, $form_id) {
 
 
 /**
-* hook_form_FORM_ID_alter
-*/
+ * Implements hook_form_alter().
+ */
 function emindhub_form_search_block_form_alter(&$form, &$form_state, $form_id) {
 
   $form['search_block_form']['#title'] = t('Search'); // Change the text on the label element
@@ -236,6 +247,9 @@ function emindhub_form_search_block_form_alter(&$form, &$form_state, $form_id) {
 }
 
 
+/**
+ * Implements hook_form_alter().
+ */
 function emindhub_form_user_register_form_alter(&$form, &$form_state, $form_id) {
 
   $form['emh_baseline'] = array(
@@ -261,6 +275,9 @@ function emindhub_form_user_register_form_alter(&$form, &$form_state, $form_id) 
 }
 
 
+/**
+ * Implements hook_form_alter().
+ */
 function emindhub_form_comment_form_alter(&$form, &$form_state, $form_id) {
 
   $form['author']['#access'] = 0;
@@ -273,6 +290,9 @@ function emindhub_form_comment_form_alter(&$form, &$form_state, $form_id) {
 }
 
 
+/**
+ * Implements hook_form_alter().
+ */
 function emindhub_views_bulk_operations_form_alter(&$form) {
   // Only when we want it.
   $view = arg(2);
@@ -281,11 +301,18 @@ function emindhub_views_bulk_operations_form_alter(&$form) {
   }
 }
 
+
+/**
+ * Implements hook_form_alter().
+ */
 function emindhub_form_emh_points_arrange_form_alter(&$form, &$form_state, $type_source) {
   $form['submit']['#attributes']['class'][] = 'btn-submit';
 }
 
 
+/**
+ * Implements hook_form_alter().
+ */
 function emindhub_form_change_pwd_page_form_alter(&$form, &$form_state, $form_id) {
 
 	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
@@ -296,5 +323,105 @@ function emindhub_form_change_pwd_page_form_alter(&$form, &$form_state, $form_id
 	$form['submit']['#attributes']['class'][] = 'btn-submit';
 
 	return $form;
+
+}
+
+
+/**
+ * Implements hook_form_alter().
+ * node/add/webform
+ * node/$ID/edit
+ */
+function emindhub_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
+
+	// Add class before & after fields
+  $form['field_duration_of_the_mission']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_start_date']['#suffix'] = '</div>';
+
+  $form['field_document']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_image']['#suffix'] = '</div>';
+
+  $form['field_domaine']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_tags']['#suffix'] = '</div>';
+
+  $form['field_anonymous']['#prefix'] = '<div class="form-group-3col row">';
+  $form['field_use_my_entreprise']['#suffix'] = '</div>';
+
+  $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_reward']['#suffix'] = '</div>';
+
+	// $webform = $form['#node'];
+  // if (!empty($webform->nid)) {
+  //   $form['actions']['goquestions']['#markup'] = t('<a href="@url" class="btn btn-default pull-right" id="edit-back">Questions <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>', array('@url' => url('node/' . $webform->nid . '/webform')));
+  // }
+
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+
+}
+
+
+/**
+ * Implements hook_form_alter().
+ * node/$ID/webform
+ * node/$ID/webform/components
+ */
+function emindhub_form_webform_components_form_alter(&$form, &$form_state, $form_id) {
+
+	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
+	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
+
+	// $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
+
+	// $webform_id = $form['#node']->nid;
+	// $form['actions']['goback']['#markup'] = t('<a href="@url" class="btn btn-default pull-right" id="edit-back"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Edit</a>', array('@url' => url('node/' . $webform_id . '/edit')));
+
+}
+
+
+/**
+ * Implements hook_form_alter().
+ * node/add/challenge
+ * node/$ID/edit
+ */
+function emindhub_form_challenge_node_form_alter(&$form, &$form_state, $form_id) {
+
+	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
+	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
+
+	// Add class before & after fields
+  $form['field_document']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_image']['#suffix'] = '</div>';
+
+  $form['field_domaine']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_tags']['#suffix'] = '</div>';
+
+  $form['field_anonymous']['#prefix'] = '<div class="form-group-3col row">';
+  $form['field_use_my_entreprise']['#suffix'] = '</div>';
+
+  $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_reward']['#suffix'] = '</div>';
+
+}
+
+
+/**
+ * Implements hook_form_alter().
+ * node/add/question1
+ * node/$ID/edit
+ */
+function emindhub_form_question1_node_form_alter(&$form, &$form_state, $form_id) {
+
+	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
+	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
+
+	// Add class before & after fields
+  $form['field_domaine']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_tags']['#suffix'] = '</div>';
+
+  $form['field_anonymous']['#prefix'] = '<div class="form-group-3col row">';
+  $form['field_use_my_entreprise']['#suffix'] = '</div>';
+
+  $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_reward']['#suffix'] = '</div>';
 
 }

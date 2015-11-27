@@ -97,10 +97,15 @@
 
 	  <?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeNavigation.tpl.php'; ?>
 
-		<?php if (!empty($body[0]['value'])) : ?>
+		<?php if (!empty($body[0]['value']) || !empty($content['field_document'])) : ?>
 		<div class="row section">
 			<div class="col-sm-12">
 				<?php print $body[0]['value']; ?>
+			</div>
+			<div class="col-sm-12">
+				<?php if (!empty($content['field_document'])) : ?>
+				<?php print render($content['field_document']); ?></li>
+				<?php endif; ?>
 			</div>
 		</div>
 		<?php endif; ?>
