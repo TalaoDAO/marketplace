@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * Implements hook_block_info().
+ */
+function emh_submenu_block_info() {
+  $blocks = array();
+
+  $blocks['submenu'] = array(
+    'info' => t('Tabs Submenu'),
+    'cache' => DRUPAL_CACHE_PER_ROLE,
+    'weight' => -100,
+    'status' => 1,
+    'region' => 'sidebar_first',
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function emh_submenu_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'submenu':
+      if (!user_is_logged_in()) {
+        break;
+      }
+
+      if (empty(menu_secondary_local_tasks())) {
+        break;
+      }
+
+      $menu = '<ul class="tabs--secondary nav-subtabs">'
+                . render(menu_secondary_local_tasks())
+              .'</ul>';
+
+      $block = array(
+        'title' => '<none>',
+        'content' => $menu,
+      );
+      break;
+  }
+
+  return $block;
+}
