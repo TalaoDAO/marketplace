@@ -204,7 +204,7 @@ global $base_url;
 
         <?php print $messages; ?>
 
-        <?php if (!empty(emindhub_menu_tabs_primary($tabs))): ?>
+        <?php $submenu = emindhub_menu_tabs_primary($tabs); if (!empty($submenu)): ?>
           <ul class="tabs--primary nav nav-tabs">
             <?php print render(emindhub_menu_tabs_primary($tabs)); ?>
           </ul>
