@@ -65,7 +65,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
   // Add required legend if minimum one field is required
   if ( emindhub_form_has_required($form, $form_id) == TRUE ) {
-  	$form['actions']['#suffix'] .= '
+  	$form['actions']['#suffix'] = '
   		<div class="form-mandatory">
   			<span class="form-required">*</span>&nbsp;' . t('Required fields') . '
   		</div> <!-- END .form-mandatory -->';
@@ -257,10 +257,10 @@ function emindhub_form_user_register_form_alter(&$form, &$form_state, $form_id) 
     '#weight' => '-1000', // First !
   );
 
-  /*$form['emh_content'] = array(
-    '#markup' => '<p>' . t('You can directly login with your LinkedIn account or complete the form below to create your account.') . '</p>',
+  $form['emh_content'] = array(
+    '#markup' => '<p class="emh-title-baseline">' . t('You can directly login with your LinkedIn account or complete the form below to create your account.') . '</p>',
     '#weight' => '-999',
-  );*/
+  );
 
   // Add class before & after fields
   $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
@@ -269,7 +269,7 @@ function emindhub_form_user_register_form_alter(&$form, &$form_state, $form_id) 
   $form['account']['name']['#prefix'] = '<div class="form-group-2col row">';
   $form['account']['current_pass']['#suffix'] = '</div>';
 
-  $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
+  // $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
 
   // echo '<pre>' . print_r($form, TRUE) . '</pre>';
 }
