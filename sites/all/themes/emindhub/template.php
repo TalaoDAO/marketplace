@@ -444,6 +444,7 @@ function emindhub_beautiful_baseline() {
 
 
 function emindhub_beautiful_form_actions(&$form, $actions, $label = 'primary') {
+
 	$aria_label = '';
 	$first = FALSE;
 	foreach( $actions as $action => $value ) {
@@ -477,6 +478,6 @@ function emindhub_beautiful_form_actions(&$form, $actions, $label = 'primary') {
 	}
 	$actions = array_reverse($actions);
 
-	return $form['actions'];
+	if (!empty($actions)) return $form['actions'];
 
 }
