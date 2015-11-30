@@ -444,7 +444,7 @@ function emindhub_beautiful_baseline() {
 
 
 function emindhub_beautiful_form_actions(&$form, $actions, $label = 'primary') {
-	$aria_label = '';
+
 	$first = FALSE;
 	foreach( $actions as $action => $value ) {
     $actions[$action] = array(
@@ -459,7 +459,8 @@ function emindhub_beautiful_form_actions(&$form, $actions, $label = 'primary') {
 	        $first = TRUE;
 	        $actions[$action]['first'] = TRUE;
 
-					if ($label == 'primary' ) $pull_right = ' pull-right';
+					if ( $label == 'primary' ) $pull_right = ' pull-right';
+					else $pull_right = '';
 	        $form['actions'][$action]['#prefix'] = '<div class="btn-group btn-group-' . $label . $pull_right . '" role="group" aria-label="' . $label . ' actions">';
 	      }
 			}
@@ -477,6 +478,6 @@ function emindhub_beautiful_form_actions(&$form, $actions, $label = 'primary') {
 	}
 	$actions = array_reverse($actions);
 
-	return $form['actions'];
+	if (!empty($actions)) return $form['actions'];
 
 }

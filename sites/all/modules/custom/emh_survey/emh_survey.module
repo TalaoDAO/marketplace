@@ -4,6 +4,11 @@
 * Code for eMindHub survey feature.
 */
 
+/*
+ * TODO Création
+ * Step 1 : lien Cancel ? (retour accueil ?)
+ * Step 2 : ajouter lien delete + save draft
+
 
 /**
  * Implements hook_menu_alter().
@@ -54,7 +59,6 @@ function emh_survey_menu_alter(&$items) {
 
   // Node component forms.
   $items['node/%webform_menu/webform/components/%webform_menu_component/clone']['access callback'] = FALSE;
-  $items['node/%webform_menu/webform/components/%webform_menu_component/delete']['access callback'] = FALSE;
 
 }
 
@@ -75,7 +79,6 @@ function emh_survey_menu_alter(&$items) {
  */
 function emh_survey_form_alter(&$form, &$form_state, $form_id) {
 
-  $matches = array();
   if (isset($form['#node']->type) && $form_id == $form['#node']->type . '_node_form' && variable_get('webform_node_' . $form['#node']->type, FALSE)) {
     $node = $form['#node'];
     // Preserve all Webform options currently set on the node.
@@ -95,8 +98,6 @@ function emh_survey_form_alter(&$form, &$form_state, $form_id) {
 	if ((isset($form['#node']) && $form['#node']->type == 'webform')) {
 		// $form['actions']['submit']['#value'] = t('Submit my answer');
 
-		// echo '<pre>' . print_r($form, TRUE) . '</pre>';
-	  // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
     if ( isBusinessUser() && !empty($form['submitted']) ) {
       foreach( $form['submitted'] as $key => $element ) {
         if (is_array($element) && !empty($element['#type']) && $element['#type'] == 'textarea') {
@@ -106,6 +107,8 @@ function emh_survey_form_alter(&$form, &$form_state, $form_id) {
       }
     }
   }
+
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
 
 }
 
@@ -134,9 +137,26 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
   $form['field_image']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
 
   // Publication unactive unless there's 1 question added
-  if (empty($form['#node']->webform['components'])) {
+  // Node in creation state = no nid
+  if (!isset($form['#node']->nid)) {
+    $form['actions']['draft']['#value'] = t('Save draft and continue');
     $form['actions']['submit']['#disabled'] = TRUE;
   }
+  // Node created, unpublished
+  if ($form['#node']->status == NODE_NOT_PUBLISHED) {
+    $form['actions']['submit']['#value'] = t('Save draft');
+    $form['actions']['publish'] = array(
+      '#type' => 'submit',
+      '#value' => t('Publish'),
+      '#submit' => array('emh_survey_webform_components_form_publish'),
+    );
+    // Without components
+    if (empty($form['#node']->webform['components'])) {
+      $form['actions']['publish']['#disabled'] = TRUE;
+    }
+  }
+
+  // echo '<pre>' . print_r($form['actions'], TRUE) . '</pre>';
 
 }
 
@@ -148,7 +168,7 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
  */
 function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $form_id) {
 
-	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
+	// echo '<pre>' . print_r($form['actions'], TRUE) . '</pre>';
 	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
 
 	// Hide unnecessary fields
@@ -162,17 +182,36 @@ function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $fo
 
 	$form['add']['name']['#size'] = '60';
 	$form['add']['type']['#default_value'] = 'textarea';
-//YBA don't work  $form['add']['add']['#submit'][] = 'emh_survey_webform_components_form_add_submit';
 
 	$form['actions']['submit']['#value'] = t('Save order of questions');
 
   if ($form['#node']->status == NODE_NOT_PUBLISHED && count($form['components'])) {
+    $form['actions']['delete'] = array(
+      '#type' => 'submit',
+      '#value' => t('Delete'),
+      '#submit' => array('node_form_delete_submit'),
+    );
+    $form['actions']['draft'] = array(
+      '#type' => 'submit',
+      '#value' => t('Save draft'),
+      '#submit' => array('emh_survey_webform_components_form_draft'),
+    );
     $form['actions']['publish'] = array(
       '#type' => 'submit',
       '#value' => t('Publish'),
       '#submit' => array('emh_survey_webform_components_form_publish'),
     );
   } else {
+    $form['actions']['delete'] = array(
+      '#type' => 'submit',
+      '#value' => t('Delete'),
+      '#submit' => array('node_form_delete_submit'),
+    );
+    $form['actions']['draft'] = array(
+      '#type' => 'submit',
+      '#value' => t('Save draft'),
+      '#submit' => array('emh_survey_webform_components_form_draft'),
+    );
     $form['actions']['publish'] = array(
       '#type' => 'submit',
       '#value' => t('Publish'),
@@ -181,14 +220,15 @@ function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $fo
     );
   }
 
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+  // echo '<pre>' . print_r($form['actions'], TRUE) . '</pre>';
 
 }
 
-
 /**
- * Submit handler for webform_components_form() that adds a new component.
+ * Additionnal submit callback for the webform components form.
+ * Added to the "Publish" button.
  */
+<<<<<<< HEAD
 function emh_survey_webform_components_form_add_submit($form, &$form_state) {
   $node = node_load($form_state['values']['nid']);
   $component = $form_state['values']['add'];
@@ -202,21 +242,7 @@ function emh_survey_webform_components_form_add_submit($form, &$form_state) {
   );
   ddl($query);
 
-
-  // Forward the "destination" query string value to the next form.
-  if (isset($_GET['destination'])) {
-    $query['destination'] = $_GET['destination'];
-    unset($_GET['destination']);
-    drupal_static_reset('drupal_get_destination');
-  }
-  $form_state['redirect'] = array('node/' . $node->nid . '/edit/questions/new/' . $component['type'], array('query' => $query));
-}
-
-
-/**
- * Additionnal submit callback for the webform components form.
- * Added to the "Publish" button.
- */
+=======
 function emh_survey_webform_components_form_publish($form, &$form_state) {
   // Only if the user clicked the "Publish" button
   if ($form_state['triggering_element']['#value'] == $form['actions']['publish']['#value']) {
@@ -231,6 +257,33 @@ function emh_survey_webform_components_form_publish($form, &$form_state) {
       );
 
       drupal_set_message(t('@type %title has been published.', $msg_args));
+>>>>>>> refactor_requests
+
+      // Redirects to the survey view
+      $form_state['redirect'] = 'node/' . $form['#node']->nid;
+    }
+    catch (Exception $e) {
+      drupal_set_message(t('The survey could not be saved.'), 'error');
+    }
+  }
+}
+
+/**
+ * Additionnal submit callback for the webform components form.
+ * Added to the "Save draft" button.
+ */
+function emh_survey_webform_components_form_draft($form, &$form_state) {
+  // Only if the user clicked the "Save draft" button
+  if ($form_state['triggering_element']['#value'] == $form['actions']['draft']['#value']) {
+    try {
+      node_save($form['#node']);
+
+      $msg_args = array(
+        '@type' => node_type_get_name($form['#node']),
+        '%title' => $form['#node']->title,
+      );
+
+      drupal_set_message(t('@type %title has been updated.', $msg_args));
 
       // Redirects to the survey view
       $form_state['redirect'] = 'node/' . $form['#node']->nid;
