@@ -4,20 +4,11 @@
 * Code for eMindHub survey feature.
 */
 
-/*
- * TODO Création
- * Step 1 : lien Cancel ? (retour accueil ?)
- * Step 2 : ajouter lien delete + save draft
-
 
 /**
  * Implements hook_menu_alter().
  */
 function emh_survey_menu_alter(&$items) {
-  // Alters webform items titles
-  // $items['node/%node/edit']['title callback'] = 'emh_survey_title_callback';
-  // $items['node/%node/edit']['title arguments'] = array(1);
-  // $items['node/%webform_menu/webform']['title'] = t('Questions');
 
   // Disable access
   $items['node/%webform_menu/webform/emails']['access callback'] = FALSE;
@@ -62,18 +53,6 @@ function emh_survey_menu_alter(&$items) {
 
 }
 
-
-/**
- * Title callback.
- */
-// function emh_survey_title_callback($node) {
-//   if ($node->type == 'webform') {
-//     return t('Edit survey');
-//   }
-//   return t('Edit');
-// }
-
-
 /**
  * Implements hook_form_alter().
  */
@@ -86,11 +65,6 @@ function emh_survey_form_alter(&$form, &$form_state, $form_id) {
       '#type' => 'value',
       '#value' => $node->webform,
     );
-
-    // If a new node, redirect the user to the components form after save.
-    if (empty($node->nid) && in_array($node->type, webform_variable_get('webform_node_types_primary'))) {
-      $form['actions']['submit']['#submit'][] = 'emh_survey_webform_form_submit';
-    }
   }
 
   // TODO: cibler le formulaire de soumission
@@ -120,7 +94,6 @@ function emh_survey_form_alter(&$form, &$form_state, $form_id) {
  * fires after the hook_submit() function above.
  */
 function emh_survey_webform_form_submit($form, &$form_state) {
-  drupal_set_message(t('The new webform %title has been created. Add new fields to your webform with the form below.', array('%title' => $form_state['values']['title'])));
   $form_state['redirect'] = 'node/' . $form_state['nid'] . '/edit/questions';
 }
 
@@ -141,10 +114,12 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
   if (!isset($form['#node']->nid)) {
     $form['actions']['draft']['#value'] = t('Save draft and continue');
     $form['actions']['submit']['#disabled'] = TRUE;
+    $form['actions']['draft']['#submit'][] = 'emh_survey_webform_form_submit';
   }
   // Node created, unpublished
   if ($form['#node']->status == NODE_NOT_PUBLISHED) {
     $form['actions']['submit']['#value'] = t('Save draft');
+    $form['actions']['submit']['#submit'][] = 'emh_survey_webform_form_submit';
     $form['actions']['publish'] = array(
       '#type' => 'submit',
       '#value' => t('Publish'),
@@ -152,11 +127,14 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
     );
     // Without components
     if (empty($form['#node']->webform['components'])) {
+      drupal_set_message(t('You cannot publish a survey without any question, please add one or more questions.'), 'warning');
       $form['actions']['publish']['#disabled'] = TRUE;
     }
+  } else {
+    $form['actions']['delete']['#access'] = FALSE;
   }
 
-  // echo '<pre>' . print_r($form['actions'], TRUE) . '</pre>';
+  // echo '<pre>' . print_r($form['#node'], TRUE) . '</pre>';
 
 }
 
@@ -185,7 +163,7 @@ function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $fo
 
 	$form['actions']['submit']['#value'] = t('Save order of questions');
 
-  if ($form['#node']->status == NODE_NOT_PUBLISHED && count($form['components'])) {
+  if ($form['#node']->status == NODE_NOT_PUBLISHED) {
     $form['actions']['delete'] = array(
       '#type' => 'submit',
       '#value' => t('Delete'),
@@ -201,23 +179,10 @@ function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $fo
       '#value' => t('Publish'),
       '#submit' => array('emh_survey_webform_components_form_publish'),
     );
-  } else {
-    $form['actions']['delete'] = array(
-      '#type' => 'submit',
-      '#value' => t('Delete'),
-      '#submit' => array('node_form_delete_submit'),
-    );
-    $form['actions']['draft'] = array(
-      '#type' => 'submit',
-      '#value' => t('Save draft'),
-      '#submit' => array('emh_survey_webform_components_form_draft'),
-    );
-    $form['actions']['publish'] = array(
-      '#type' => 'submit',
-      '#value' => t('Publish'),
-      '#submit' => array('emh_survey_webform_components_form_publish'),
-      '#disabled' => TRUE,
-    );
+    if (empty($form['#node']->webform['components'])) {
+      drupal_set_message(t('You cannot publish a survey without any question, please add one or more questions.'), 'warning');
+      $form['actions']['publish']['#disabled'] = TRUE;
+    }
   }
 
   // echo '<pre>' . print_r($form['actions'], TRUE) . '</pre>';
@@ -267,10 +232,9 @@ function emh_survey_webform_components_form_draft($form, &$form_state) {
         '%title' => $form['#node']->title,
       );
 
+      // Redirects to the survey edit questions view
+      $form_state['redirect'] = 'node/' . $form['#node']->nid . '/edit/questions';
       drupal_set_message(t('@type %title has been updated.', $msg_args));
-
-      // Redirects to the survey view
-      $form_state['redirect'] = 'node/' . $form['#node']->nid;
     }
     catch (Exception $e) {
       drupal_set_message(t('The survey could not be saved.'), 'error');
