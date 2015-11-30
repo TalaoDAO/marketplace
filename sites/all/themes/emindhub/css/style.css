@@ -13469,7 +13469,8 @@ aside .block .content {
 }
 aside,
 #maincol {
-  padding-top: 15px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 @media (min-width: 767px) {
   aside#sidebar-second {
@@ -15376,6 +15377,7 @@ body.front aside {
 }
 body.front .main-container > .container > .row:first-child {
   padding-top: 20px;
+  padding-bottom: 20px;
 }
 @media (min-width: 767px) {
   body.front.not-logged-in,
@@ -15386,6 +15388,7 @@ body.front .main-container > .container > .row:first-child {
   body.front.logged-in.admin-menu .main-container section#maincol {
     margin-top: 0;
     padding-top: 0;
+    padding-bottom: 0;
   }
   body.front.not-logged-in header#page-header {
     background-image: url("../images/banniere_EN.png");
