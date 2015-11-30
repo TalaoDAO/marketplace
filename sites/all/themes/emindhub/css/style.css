@@ -10595,6 +10595,9 @@ table .checkbox input[type="checkbox"] {
 hr {
   border-color: #777777;
 }
+img {
+  max-width: 100%;
+}
 .nav {
   text-transform: uppercase;
 }
@@ -12038,6 +12041,121 @@ input#autocomplete-deluxe-input {
   font-weight: 700;
   margin-right: 5px;
 }
+.btn.disabled,
+.btn[disabled],
+fieldset[disabled] .btn {
+  color: #4c6172;
+  background-color: transparent;
+  border-color: #f2f2f2;
+}
+.btn.disabled:focus,
+.btn[disabled]:focus,
+fieldset[disabled] .btn:focus,
+.btn.disabled.focus,
+.btn[disabled].focus,
+fieldset[disabled] .btn.focus {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: #b3b3b3;
+}
+.btn.disabled:hover,
+.btn[disabled]:hover,
+fieldset[disabled] .btn:hover {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: #d4d4d4;
+}
+.btn.disabled:active,
+.btn[disabled]:active,
+fieldset[disabled] .btn:active,
+.btn.disabled.active,
+.btn[disabled].active,
+fieldset[disabled] .btn.active,
+.open > .dropdown-toggle.btn.disabled,
+.open > .dropdown-toggle.btn[disabled],
+.open > .dropdown-togglefieldset[disabled] .btn {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: #d4d4d4;
+}
+.btn.disabled:active:hover,
+.btn[disabled]:active:hover,
+fieldset[disabled] .btn:active:hover,
+.btn.disabled.active:hover,
+.btn[disabled].active:hover,
+fieldset[disabled] .btn.active:hover,
+.open > .dropdown-toggle.btn.disabled:hover,
+.open > .dropdown-toggle.btn[disabled]:hover,
+.open > .dropdown-togglefieldset[disabled] .btn:hover,
+.btn.disabled:active:focus,
+.btn[disabled]:active:focus,
+fieldset[disabled] .btn:active:focus,
+.btn.disabled.active:focus,
+.btn[disabled].active:focus,
+fieldset[disabled] .btn.active:focus,
+.open > .dropdown-toggle.btn.disabled:focus,
+.open > .dropdown-toggle.btn[disabled]:focus,
+.open > .dropdown-togglefieldset[disabled] .btn:focus,
+.btn.disabled:active.focus,
+.btn[disabled]:active.focus,
+fieldset[disabled] .btn:active.focus,
+.btn.disabled.active.focus,
+.btn[disabled].active.focus,
+fieldset[disabled] .btn.active.focus,
+.open > .dropdown-toggle.btn.disabled.focus,
+.open > .dropdown-toggle.btn[disabled].focus,
+.open > .dropdown-togglefieldset[disabled] .btn.focus {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: #b3b3b3;
+}
+.btn.disabled:active,
+.btn[disabled]:active,
+fieldset[disabled] .btn:active,
+.btn.disabled.active,
+.btn[disabled].active,
+fieldset[disabled] .btn.active,
+.open > .dropdown-toggle.btn.disabled,
+.open > .dropdown-toggle.btn[disabled],
+.open > .dropdown-togglefieldset[disabled] .btn {
+  background-image: none;
+}
+.btn.disabled.disabled:hover,
+.btn[disabled].disabled:hover,
+fieldset[disabled] .btn.disabled:hover,
+.btn.disabled[disabled]:hover,
+.btn[disabled][disabled]:hover,
+fieldset[disabled] .btn[disabled]:hover,
+fieldset[disabled] .btn.disabled:hover,
+fieldset[disabled] .btn[disabled]:hover,
+fieldset[disabled] fieldset[disabled] .btn:hover,
+.btn.disabled.disabled:focus,
+.btn[disabled].disabled:focus,
+fieldset[disabled] .btn.disabled:focus,
+.btn.disabled[disabled]:focus,
+.btn[disabled][disabled]:focus,
+fieldset[disabled] .btn[disabled]:focus,
+fieldset[disabled] .btn.disabled:focus,
+fieldset[disabled] .btn[disabled]:focus,
+fieldset[disabled] fieldset[disabled] .btn:focus,
+.btn.disabled.disabled.focus,
+.btn[disabled].disabled.focus,
+fieldset[disabled] .btn.disabled.focus,
+.btn.disabled[disabled].focus,
+.btn[disabled][disabled].focus,
+fieldset[disabled] .btn[disabled].focus,
+fieldset[disabled] .btn.disabled.focus,
+fieldset[disabled] .btn[disabled].focus,
+fieldset[disabled] fieldset[disabled] .btn.focus {
+  background-color: transparent;
+  border-color: #f2f2f2;
+}
+.btn.disabled .badge,
+.btn[disabled] .badge,
+fieldset[disabled] .btn .badge {
+  color: transparent;
+  background-color: #4c6172;
+}
 span.form-required {
   color: #d9534f;
 }
@@ -13351,7 +13469,8 @@ aside .block .content {
 }
 aside,
 #maincol {
-  padding-top: 15px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 @media (min-width: 767px) {
   aside#sidebar-second {
@@ -15258,6 +15377,7 @@ body.front aside {
 }
 body.front .main-container > .container > .row:first-child {
   padding-top: 20px;
+  padding-bottom: 20px;
 }
 @media (min-width: 767px) {
   body.front.not-logged-in,
@@ -15268,6 +15388,7 @@ body.front .main-container > .container > .row:first-child {
   body.front.logged-in.admin-menu .main-container section#maincol {
     margin-top: 0;
     padding-top: 0;
+    padding-bottom: 0;
   }
   body.front.not-logged-in header#page-header {
     background-image: url("../images/banniere_EN.png");
