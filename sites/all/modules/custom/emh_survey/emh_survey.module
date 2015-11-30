@@ -228,21 +228,6 @@ function emh_survey_form_webform_components_form_alter(&$form, &$form_state, $fo
  * Additionnal submit callback for the webform components form.
  * Added to the "Publish" button.
  */
-<<<<<<< HEAD
-function emh_survey_webform_components_form_add_submit($form, &$form_state) {
-  $node = node_load($form_state['values']['nid']);
-  $component = $form_state['values']['add'];
-
-  // Set the values in the query string for the add component page.
-  $query = array(
-    'name' => $component['name'],
-    'required' => $component['required'],
-    'pid' => $component['pid'],
-    'weight' => $component['weight'],
-  );
-  ddl($query);
-
-=======
 function emh_survey_webform_components_form_publish($form, &$form_state) {
   // Only if the user clicked the "Publish" button
   if ($form_state['triggering_element']['#value'] == $form['actions']['publish']['#value']) {
@@ -257,7 +242,6 @@ function emh_survey_webform_components_form_publish($form, &$form_state) {
       );
 
       drupal_set_message(t('@type %title has been published.', $msg_args));
->>>>>>> refactor_requests
 
       // Redirects to the survey view
       $form_state['redirect'] = 'node/' . $form['#node']->nid;
