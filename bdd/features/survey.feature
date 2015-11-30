@@ -13,7 +13,7 @@ Feature: Create survey and answers
     Given I give "client1" 1000 emh points
     Given "webform" content:
     | title        | field_domaine | og_group_ref | field_reward | author  | status |
-    | What about ? | Energy        | All experts  | 1000         | client1 | 1      |
+    | What about ? | Energy        | All experts  | 1000         | client1 | 0      |
 
   Scenario: survey answer
     Given I am logged in as "client1"
@@ -27,9 +27,9 @@ Feature: Create survey and answers
     When I select "Display my full name" from "Your name"
     And I select "Display the name" from "Your organisation"
     And I select "Display" from "Your activity"
-    And I press "Save"
+    And I press "Publish"
     #Then show me the HTML page
-    Then I should see the success message containing "has been updated."
+    Then I should see the success message containing "has been published."
 
     Given I am logged in as "expert1"
     And I click "What about ?"
