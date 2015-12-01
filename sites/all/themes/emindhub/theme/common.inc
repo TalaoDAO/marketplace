@@ -42,6 +42,7 @@ function _emindhub_colorize_button($text) {
       t('Upload'),
       t('Log in'),
       t('Send'),
+      t('E-mail new password'),
     ),
     'btn-success' => array(
       // t('Add'),
