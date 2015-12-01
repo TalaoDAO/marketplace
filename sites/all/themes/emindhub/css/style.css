@@ -16522,10 +16522,14 @@ form#webform-node-form #edit-field-expiration-date .form-type-textfield > label 
   border: 0;
 }
 form#webform-components-form input#edit-add-name,
-form#webform-component-edit-form input#edit-add-name,
+form#webform-component-edit-form input#edit-add-name {
+  max-width: 80%;
+}
 form#webform-components-form input#edit-name,
-form#webform-component-edit-form input#edit-name {
-  max-width: 500px;
+form#webform-component-edit-form input#edit-name,
+form#webform-components-form input#edit-extra-description,
+form#webform-component-edit-form input#edit-extra-description {
+  max-width: 100%;
 }
 .view-domainlist span.statut:before {
   position: absolute;
