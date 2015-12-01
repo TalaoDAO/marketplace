@@ -6,19 +6,34 @@ body.front {
   }
 
   &.not-logged-in {
+    padding-top: 113px;
+    header#navbar {
+			&.navbar-emh {
+				&:after {
+					.hidden();
+				}
+      }
+    }
 
     // Remove negative top margin
     .main-container {
       border-top: 0;
 
       section#maincol {
-        margin-top: 0;
-        padding-top: 0;
+        .hidden();
       }
     }
 
-    .navbar-emh:after {
-      display: none;
+    .main-container > .container > .row:first-child {
+      // padding-top: 20px;
+      padding-bottom: 20px;
+    }
+  }
+
+  &.logged-in {
+    .main-container > .container > .row:first-child {
+      padding-top: 20px;
+      padding-bottom: 20px;
     }
   }
 
@@ -26,17 +41,12 @@ body.front {
     margin-top: 0;
   }
 
-  .main-container > .container > .row:first-child {
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
-
 }
 
 @media (min-width: @screen-sm-min) {
   body.front.not-logged-in,
   body.front.not-logged-in.admin-menu {
-    padding-top: 117px; // .fixed-to-top
+    // padding-top: 117px; // .fixed-to-top
   }
   body.front.logged-in,
   body.front.logged-in.admin-menu {
