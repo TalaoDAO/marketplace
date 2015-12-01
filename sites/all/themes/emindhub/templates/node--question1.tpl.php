@@ -177,7 +177,7 @@
 
 	  </div>
 
-		<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeLinks.tpl.php'; ?>
+		<?php //require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeLinks.tpl.php'; ?>
 
 		<?php print render($content['comments']); ?>
 

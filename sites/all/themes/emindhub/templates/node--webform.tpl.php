@@ -166,7 +166,6 @@
 					<li><?php print render($content['field_reward']); ?></li>
 					<?php endif; ?>
 
-          <?php //if (function_exists('webform_get_submission_count')) : ?>
 					<?php include_once(drupal_get_path('module', 'webform') . '/includes/webform.submissions.inc'); ?>
 					<li>
 						<div class="field field-name-field-submission field-type-serial field-label-inline clearfix">
@@ -178,7 +177,6 @@
 							</div>
 						</div>
 					</li>
-					<?php //endif; ?>
 
           <?php if (!empty($field_has_salary[0]['value']) && $field_has_salary[0]['value'] == 1) : ?>
           <li><?php print render($content['field_has_salary']); ?></li>
@@ -197,7 +195,7 @@
 
 	  </div>
 
-		<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeLinks.tpl.php'; ?>
+		<?php //require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeLinks.tpl.php'; ?>
 
 		<?php // print render($content['comments']); ?>
 
@@ -209,8 +207,7 @@
 		?>
 
     <?php global $user; ?>
-		<?php if (!isBusinessUser() || $node->uid == $user->uid) : ?>
-		<?php //echo '<pre>' . print_r($node->webform, true) . '</pre>'; ?>
+		<?php if ( (!isBusinessUser() || $node->uid == $user->uid) && $node->webform['status'] ) : ?>
 		<?php if (!empty($node->webform['components'])) : ?>
 		<div id="comments" class="<?php print $classes; ?> row section emh-fieldgroup-blue-title"<?php print $attributes; ?>>
 	    <h2 class="h3"><span><?php print t('Answer the survey') ?></span></h2>

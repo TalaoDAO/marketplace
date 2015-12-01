@@ -16507,6 +16507,9 @@ form#user-profile-form .field-name-field-year-of-experiences .form-control {
     width: 50%;
   }
 }
+.page-user:not(.page-user-drafts) h1.page-header {
+  display: none !important;
+}
 form#webform-node-form #edit-field-expiration-date .form-type-textfield > label {
   font: 0/0 a;
   color: transparent;

@@ -39,6 +39,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 		  'draft',
 		  'preview',
 		  'submit',
+			'save',
 		  'publish',
 		) as $action ) {
 			if (!empty($form['actions'][$action])) {
@@ -57,6 +58,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 		  'draft'						=> array(),
 		  'preview'					=> array(),
 		  'submit'					=> array(),
+			'save'						=> array(),
 		  'publish'					=> array(),
 		);
 		emindhub_beautiful_form_actions($form, $primary_actions);
