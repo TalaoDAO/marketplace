@@ -11341,10 +11341,14 @@ fieldset[disabled] .btn-popin.focus {
   display: inline-block;
 }
 .emh-title-baseline {
-  color: #FFF;
+  color: #009fe3;
+  margin-bottom: 0;
   font-size: 18px;
   font-style: italic;
   margin-bottom: 20px;
+}
+header#title .emh-title-baseline {
+  color: #FFF;
 }
 /* STYLES
  * Formulaires
