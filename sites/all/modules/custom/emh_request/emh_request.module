@@ -10,15 +10,18 @@ function emh_request_node_access($node, $op, $account) {
       module_load_include('inc', 'webform', 'includes/webform.submissions');
       $submissions = webform_get_submissions($node->nid);
       if (!empty($submissions)) {
+        drupal_set_message(t('You cannot edit a survey with one or more answers.'), 'warning');
         return NODE_ACCESS_DENY;
       }
       break;
     case 'question1':
       if (!empty($node->comment_count)) {
+        drupal_set_message(t('You cannot edit a question with one or more answers.'), 'warning');
         return NODE_ACCESS_DENY;
       }
     case 'challenge':
       if (!empty($node->comment_count)) {
+        drupal_set_message(t('You cannot edit a challenge with one or more answers.'), 'warning');
         return NODE_ACCESS_DENY;
       }
       break;
