@@ -2,25 +2,67 @@
  * Register
  */
 #user-register-form {
+  .group-organisation {
+    margin-bottom: 0;
+  }
   .form-item-legal-terms-of-use {
     padding: 15px;
+    margin-bottom: 0;
+  }
+  #edit-submit {
+    .btn-primary !important;
+  }
+  .hybridauth-widget-wrapper {
+    .make-row();
+    margin: 0 !important;
+
+    background-color: @gray-lighter;
+    > * {
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
+    h3 {
+      .make-sm-column(3);
+      margin: 0;
+    }
+    .hybridauth-widget {
+      .make-sm-column(9);
+    }
   }
 }
 
 .form-type-password-confirm {
+  clear: both;
+  .make-row();
+  > .form-group {
+    .make-sm-column(6);
+  }
   .help-tip {
     .text-hide;
-    display: none;
+    .hidden();
   }
 }
 
 @media (max-width: @screen-sm-min) {
+  .form-type-password-confirm {
+    margin: 0;
+  }
   input.password-confirm,
   input.password-field {
     width: 100%;
   }
 }
 @media (min-width: @screen-sm-min) {
+  .form-type-password-confirm {
+    > .form-group {
+      &.password-parent {
+        padding-right: 7.5px;
+      }
+      &.confirm-parent {
+        padding-left: 7.5px;
+      }
+    }
+  }
   .confirm-parent,
   .password-parent {
     width: auto;
