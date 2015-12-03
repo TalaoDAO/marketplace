@@ -125,9 +125,7 @@ function emh_virality_block_view($delta = '') {
       $reward = _emh_virality_get_invitation_reward();
 
       if ($reward > 0) {
-        $text = 'You can earn points by inviting <b>experts</b> to grow eMindHub network:'
-          . ' each time your referral will respond to a request and be recognized by the client, you\'ll earn !amount points.'
-          . ' You can therefore monetize your points once you have reached a threshold of at least 1500 points.';
+        $text = 'You can earn points by inviting <b>experts</b> in your network to join eMindHub. You will get a reward (50 points per expert) the first time each new expert you sponsored is selected by a client for his contribution (i.e. response to a question, a survey or a challenge).<br />We remind you that you can monetize your points once you have reached a threshold of at least 1500 points.';
 
         $block = array(
           'subject' => t('Invite experts and earn points!'),
@@ -219,7 +217,7 @@ function emh_virality_invitation_form($form, &$form_state) {
     '#title' => t('Emails'),
     '#required' => TRUE,
     '#attributes' => array(
-      'placeholder' => t('Add emails separated by commas'),
+      'placeholder' => t('Add emails separated by comma'),
     ),
   );
 
