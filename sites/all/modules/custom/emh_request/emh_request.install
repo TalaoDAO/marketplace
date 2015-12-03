@@ -1,107 +1,23 @@
 <?php
 /**
  * @file
- * Installation hooks for the emh_request module.
+ * Code for the eMindHub Survey module installation.
  */
 
-
 /**
- * Implements hook_schema().
- */
-function emh_request_schema() {
-  $schema = array();
-
-  $schema['emh_answer'] = array(
-    'description' => '',
-    'fields' => array(
-      'answer_id' => array(
-        'description' => 'Answer ID',
-        'type' => 'serial',
-        'not null' => TRUE,
-      ),
-      'request_id' => array(
-        'description' => 'Request ID (nid)',
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-      ),
-      'ref_entity_type' => array(
-        'type' => 'varchar',
-        'length' => 128,
-        'not null' => TRUE,
-        'default' => '',
-        'description' => 'The entity type this data is attached to',
-      ),
-      'ref_entity_id' => array(
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-        'description' => 'The entity id this data is attached to',
-      ),
-      'points' => array(
-        'description' => 'Current Points',
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
-      ),
-    ),
-    'primary key' => array('answer_id'),
-    'indexes' => array(
-      'points' => array('points'),
-    ),
-  );
-
-  return $schema;
-}
-
-
-/**
- * Implements hook_enable().
+ * Implements hook_enable
  */
 function emh_request_enable() {
-	emh_request_update_7001();
+  emh_request_update_7001();
 
-	global $language;
+  global $language;
   $lang = $language->language;
   $strings = variable_get("locale_custom_strings_$lang", array());
   foreach (_emh_request_string_overrides() as $string => $override) {
     $strings[''][$string] = $override;
   }
   variable_set("locale_custom_strings_$lang", $strings);
-
-  db_query('TRUNCATE TABLE emh_answer;');
-
-  $comments = db_select('comment', 'c');
-  $comments->join('node', 'n', 'n.nid = c.nid');
-  $comments = $comments->fields('c', array('cid', 'nid'))
-    ->condition('n.type', array('challenge', 'question1'), 'IN')
-    ->execute();
-
-  while ($comment = $comments->fetchAssoc()) {
-    $answer = new EmhAnswer(array(
-      'request_id'      => $comment['nid'],
-      'ref_entity_type' => 'comment',
-      'ref_entity_id'   => $comment['cid'],
-      'points'          => 0,
-    ));
-    $answer->save();
-  }
-
-  $submissions = db_select('webform_submissions', 'ws')
-    ->fields('ws', array('sid', 'nid'))
-    ->execute();
-
-  while ($submission = $submissions->fetchAssoc()) {
-    $answer = new EmhAnswer(array(
-      'request_id'      => $submission['nid'],
-      'ref_entity_type' => 'webform_submission',
-      'ref_entity_id'   => $submission['sid'],
-      'points'          => 0,
-    ));
-    $answer->save();
-  }
 }
-
 
 /**
  * Force module weight for hook_form_alter execution
