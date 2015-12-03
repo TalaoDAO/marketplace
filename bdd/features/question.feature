@@ -64,7 +64,6 @@ Feature: Create question and answers
     When I go to homepage
     And I click "What about ?" in the "What about ?" row
     Then I should not see "Answer the question"
-    And I should see "Select best answers"
     And I should see "Answers"
     And I should see "Iron Man"
     And I should see "Je suis un expert"

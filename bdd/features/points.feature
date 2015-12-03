@@ -69,7 +69,7 @@ Feature: Test points
 
     When I go to "homepage"
     And I click "What about ?" in the "What about ?" row
-    Then I click "Select best answers"
+    Then I click "Answers"
     #When I check  "views_bulk_operations[0]"
     #When I check the box 1
     When I check the box "edit-views-bulk-operations-0"
