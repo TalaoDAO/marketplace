@@ -10728,7 +10728,7 @@ img {
 }
 .navbar-emh:after {
   background: #009fe3 url("../images/grid_light.png") no-repeat center center;
-  height: 20px;
+  height: 10px;
   display: block;
 }
 .navbar-emh .navbar-toggle {
@@ -13115,7 +13115,7 @@ header#navbar .row > div:nth-child(2) {
 }
 @media (min-width: 767px) {
   body {
-    padding-top: 137px;
+    padding-top: 123px;
   }
   body.admin-menu header#navbar {
     position: fixed;
@@ -13329,14 +13329,7 @@ header nav.navbar .navbar-collapse.in {
 @media (min-width: 767px) {
   .region-navigation .nav > li > a,
   .region-navigation .nav > li > span.dropdown-toggle {
-    padding-bottom: 35px;
     cursor: pointer;
-  }
-  .region-navigation .nav > li > a.active,
-  .region-navigation .nav > li > span.dropdown-toggle.active {
-    background-image: url("../images/topMenu_active_bg.png");
-    background-repeat: no-repeat;
-    background-position: bottom center;
   }
   .region-navigation .dropdown-menu {
     border: 0;
@@ -13355,12 +13348,6 @@ header nav.navbar .navbar-collapse.in {
     color: #fff;
     text-transform: uppercase;
     padding: 5px 20px;
-  }
-  .region-navigation #block-system-main-menu .nav > li:last-child {
-    background: transparent url("../images/mailIcon.png") no-repeat scroll 13% 25%;
-  }
-  .region-navigation #block-system-main-menu .nav > li:last-child > a {
-    color: #009fe3;
   }
 }
 /* HEADER
@@ -13408,16 +13395,6 @@ header#page-header .region-header-right .block a {
 }
 body {
   background-color: #f2f2f2;
-}
-#trail {
-  background-color: #445766;
-  padding: 5px 0;
-  min-height: 20px;
-}
-@media (min-width: 767px) {
-  #trail {
-    min-height: 40px;
-  }
 }
 h1.page-header {
   text-transform: uppercase;
@@ -15366,28 +15343,29 @@ form .form-radios .form-group {
 body.front h1.page-header {
   display: none !important;
 }
+body.front.not-logged-in {
+  padding-top: 113px;
+}
+body.front.not-logged-in header#navbar.navbar-emh:after {
+  display: none !important;
+}
 body.front.not-logged-in .main-container {
   border-top: 0;
 }
 body.front.not-logged-in .main-container section#maincol {
-  margin-top: 0;
-  padding-top: 0;
+  display: none !important;
 }
-body.front.not-logged-in .navbar-emh:after {
-  display: none;
+body.front.not-logged-in .main-container > .container > .row:first-child {
+  padding-bottom: 20px;
+}
+body.front.logged-in .main-container > .container > .row:first-child {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 body.front aside {
   margin-top: 0;
 }
-body.front .main-container > .container > .row:first-child {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
 @media (min-width: 767px) {
-  body.front.not-logged-in,
-  body.front.not-logged-in.admin-menu {
-    padding-top: 117px;
-  }
   body.front.logged-in .main-container section#maincol,
   body.front.logged-in.admin-menu .main-container section#maincol {
     margin-top: 0;
@@ -16511,7 +16489,7 @@ form#user-profile-form .field-name-field-year-of-experiences .form-control {
     width: 50%;
   }
 }
-.page-user:not(.page-user-drafts) h1.page-header {
+.page-user:not(.page-403) h1.page-header {
   display: none !important;
 }
 form#webform-node-form #edit-field-expiration-date .form-type-textfield > label {
