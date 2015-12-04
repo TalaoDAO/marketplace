@@ -1,70 +1,22 @@
 <?php
+/**
+ * @file
+ * Code for eMindHub Request feature.
+ */
+
 
 /**
- * Implements hook_node_access().
+ * Custom function : global list of request types
  */
-function emh_request_node_access($node, $op, $account) {
-  if ($op == 'update') {
-    switch ($node->type) {
-    case 'webform':
-      module_load_include('inc', 'webform', 'includes/webform.submissions');
-      $submissions = webform_get_submissions($node->nid);
-      if (!empty($submissions)) {
-        drupal_set_message(t('You cannot edit a survey with one or more answers.'), 'warning');
-        return NODE_ACCESS_DENY;
-      }
-      break;
-    case 'question1':
-      if (!empty($node->comment_count)) {
-        drupal_set_message(t('You cannot edit a question with one or more answers.'), 'warning');
-        return NODE_ACCESS_DENY;
-      }
-    case 'challenge':
-      if (!empty($node->comment_count)) {
-        drupal_set_message(t('You cannot edit a challenge with one or more answers.'), 'warning');
-        return NODE_ACCESS_DENY;
-      }
-      break;
-    default:
-      break;
-    }
-  }
-  return NODE_ACCESS_IGNORE;
+function emh_request_get_types() {
+  $types = array( 'question1', 'webform', 'challenge' );
+  return $types;
 }
 
 
-/* Hook form alter
- * node/add/type
- * node/$ID/edit
+/**
+ * Custom function : global status of request types
  */
-function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
-
-  switch ($form['#node']->type) {
-
-    case 'question1':
-    case 'webform':
-    case 'challenge':
-
-      // Actions : Save as draft + Publish / Save
-      $form['actions']['draft']['#value'] = t('Save draft');
-      $form['actions']['submit']['#value'] = t('Publish');
-      // If nid not empty, we're in the edit page
-      if ( !empty($form['nid']['#value']) ) {
-        $form['actions']['draft']['#access'] = FALSE;
-        $form['actions']['submit']['#value'] = t('Save');
-      }
-
-      // Hide node access
-    	$form['group_content_access']['#access'] =  FALSE;
-      break;
-
-    default:
-      break;
-  }
-
-}
-
-
 function emh_request_get_status($node) {
 
 	$node = node_load($node);
@@ -100,6 +52,9 @@ function emh_request_get_status($node) {
 }
 
 
+/**
+ * Custom function : global answers count
+ */
 function emh_request_count_answers($node) {
 
 	$count = '';
@@ -122,67 +77,71 @@ function emh_request_count_answers($node) {
 
 }
 
+
 /**
- * Helper function to retrieve a comment answer, depending on the status.
+ * Implements hook_node_access().
  */
-function emh_request_get_answer($comment) {
-  $output = '';
-  if (empty($comment->field_private_comment)) {
-    // No status => body field.
-    $output = $comment->comment_body[LANGUAGE_NONE]['0']['value'];
+function emh_request_node_access($node, $op, $account) {
+  if ($op == 'update') {
+    switch ($node->type) {
+      case 'webform':
+        module_load_include('inc', 'webform', 'includes/webform.submissions');
+        $submissions = webform_get_submissions($node->nid);
+        if (!empty($submissions)) {
+          drupal_set_message(t('You cannot edit a survey with one or more answers.'), 'warning');
+          return NODE_ACCESS_DENY;
+        }
+        break;
+      case 'question1':
+        if (!empty($node->comment_count)) {
+          drupal_set_message(t('You cannot edit a question with one or more answers.'), 'warning');
+          return NODE_ACCESS_DENY;
+        }
+        break;
+      case 'challenge':
+        if (!empty($node->comment_count)) {
+          drupal_set_message(t('You cannot edit a challenge with one or more answers.'), 'warning');
+          return NODE_ACCESS_DENY;
+        }
+        break;
+      default:
+        break;
+    }
   }
-  switch($comment->field_private_comment[LANGUAGE_NONE]['0']['value']) {
-  case 0:
-    $output = $comment->comment_body[LANGUAGE_NONE]['0']['value'];
-    break;
-  case 1:
-    $output = $comment->field_private_comment_body[LANGUAGE_NONE]['0']['value'];
-    break;
-  }
-  return strip_tags(views_trim_text(
-    array(
-      'max_length' => 50,
-      'word_boundary' => TRUE,
-      'ellipsis' => TRUE,
-      'html' => TRUE,
-    ),
-    $output
-  ));
+  return NODE_ACCESS_IGNORE;
 }
 
-/**
- * Implements hook_block_configure().
- */
-function emh_request_block_configure($delta='') {
-  $form = array();
-
-  switch($delta) {
-    case 'question_help':
-    case 'survey_help':
-    case 'challenge_help':
-      // Text field form element
-      $form['text_body'] = array(
-        '#type' => 'text_format',
-        '#title' => t('Block body'),
-        '#default_value' => variable_get('text_variable', ''),
-      );
-      break;
-  }
-  return $form;
-}
 
 /**
- * Implements hook_block_save().
+ * Implements hook_form_alter().
+ * node/add/type
+ * node/$ID/edit
  */
-function emh_request_block_save($delta = '', $edit = array()) {
-  switch($delta) {
-    case 'question_help':
-    case 'survey_help':
-    case 'challenge_help':
-      // Saving the WYSIWYG text
-      variable_set('text_variable', $edit['text_body']['value']);
+function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
+
+  switch ($form['#node']->type) {
+
+    case 'question1':
+    case 'webform':
+    case 'challenge':
+
+      // Actions : Save as draft + Publish / Save
+      $form['actions']['draft']['#value'] = t('Save draft');
+      $form['actions']['submit']['#value'] = t('Publish');
+      // If nid not empty, we're in the edit page
+      if ( !empty($form['nid']['#value']) ) {
+        $form['actions']['draft']['#access'] = FALSE;
+        $form['actions']['submit']['#value'] = t('Save');
+      }
+
+      // Hide node access
+    	$form['group_content_access']['#access'] =  FALSE;
+      break;
+
+    default:
       break;
   }
+
 }
 
 /**
@@ -191,35 +150,20 @@ function emh_request_block_save($delta = '', $edit = array()) {
 function emh_request_block_info() {
   $blocks = array();
 
-  $blocks['question_help'] = array(
-    'info' => t('Add question - Help'),
-    'cache' => DRUPAL_CACHE_PER_ROLE,
-    'weight' => -100,
-    'status' => 1,
-    'region' => 'sidebar_second',
-    'visibility' => BLOCK_VISIBILITY_LISTED,
-    'pages' => 'node/add/question\nnode/add/question1',
-  );
+  $request_types = emh_request_get_types();
+  foreach ($request_types as $type) {
 
-  $blocks['survey_help'] = array(
-    'info' => t('Add survey - Help'),
-    'cache' => DRUPAL_CACHE_PER_ROLE,
-    'weight' => -100,
-    'status' => 1,
-    'region' => 'sidebar_second',
-    'visibility' => BLOCK_VISIBILITY_LISTED,
-    'pages' => 'node/add/webform\nnode/add/survey',
-  );
+    $blocks["request_help_$type"] = array(
+      'info' => t("Add $type - Help"),
+      'cache' => DRUPAL_CACHE_PER_ROLE,
+      'weight' => -100,
+      'status' => 1,
+      'region' => 'sidebar_second',
+      'visibility' => BLOCK_VISIBILITY_LISTED,
+      'pages' => "node/add/$type",
+    );
 
-  $blocks['challenge_help'] = array(
-    'info' => t('Add challenge - Help'),
-    'cache' => DRUPAL_CACHE_PER_ROLE,
-    'weight' => -100,
-    'status' => 1,
-    'region' => 'sidebar_second',
-    'visibility' => BLOCK_VISIBILITY_LISTED,
-    'pages' => 'node/add/challenge',
-  );
+  }
 
   return $blocks;
 }
@@ -230,45 +174,68 @@ function emh_request_block_info() {
 function emh_request_block_view($delta = '') {
   $block = array();
 
-  switch ($delta) {
+  $request_types = emh_request_get_types();
+  foreach ($request_types as $type) {
 
-    case 'question_help':
-    case 'survey_help':
-    case 'challenge_help':
-      if (!user_is_logged_in()) {
+    switch ($delta) {
+
+      case 'request_help_' . $type:
+        $data = variable_get("emh_block_request_help_$type", array('value' => '', 'format' => 'filtered_html'));
+        $block = array(
+          'subject' => '<none>',
+          'content' => array(
+            'text' => array(
+              '#markup' => check_markup($data['value'], $data['format']),
+            ),
+          ),
+        );
         break;
-      }
+    }
 
-      $block = array(
-        'title' => '<none>',
-        'content' => request_help_view(),
-      );
-      break;
   }
 
   return $block;
 }
 
 /**
- * Custom function to assemble renderable array for block content.
- * Returns a renderable array with the block content.
- * @return
- *   returns a renderable array of block content.
+ * Implements hook_block_configure().
  */
-function request_help_view() {
-  $block = array();
+function emh_request_block_configure($delta='') {
+  $form = array();
 
-  // Capture WYSIWYG text from the variable
-  $text = variable_get('text_variable', '');
+  $request_types = emh_request_get_types();
+  foreach ($request_types as $type) {
 
-  // Block output in HTML with div wrapper
-  $block = array(
-    'message' => array(
-      '#type' => 'markup',
-      '#markup' => $text,
-      '#suffix' => '',
-    ),
-  );
+    switch($delta) {
+      case 'request_help_' . $type:
 
-  return $block;
+        $data = variable_get("emh_block_request_help_$type", array('value' => '', 'format' => 'filtered_html'));
+        $form['text'] = array(
+          '#type' => 'text_format',
+          '#title' => t('Block text'),
+          '#default_value' => $data['value'],
+          '#format' => $data['format'],
+        );
+        break;
+    }
+
+  }
+
+  return $form;
+}
+
+/**
+ * Implements hook_block_save().
+ */
+function emh_request_block_save($delta = '', $edit = array()) {
+  $request_types = emh_request_get_types();
+  foreach ($request_types as $type) {
+
+    switch($delta) {
+      case 'request_help_' . $type:
+        variable_set("emh_block_request_help_$type", $edit['text']);
+        break;
+
+    }
+  }
 }
