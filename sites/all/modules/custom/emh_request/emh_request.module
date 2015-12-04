@@ -239,3 +239,32 @@ function emh_request_block_save($delta = '', $edit = array()) {
     }
   }
 }
+
+
+/**
+ * Helper function to retrieve a comment answer, depending on the status.
+ */
+function emh_request_get_answer($comment) {
+  $output = '';
+  if (empty($comment->field_private_comment)) {
+    // No status => body field.
+    $output = $comment->comment_body[LANGUAGE_NONE]['0']['value'];
+  }
+  switch($comment->field_private_comment[LANGUAGE_NONE]['0']['value']) {
+  case 0:
+    $output = $comment->comment_body[LANGUAGE_NONE]['0']['value'];
+    break;
+  case 1:
+    $output = $comment->field_private_comment_body[LANGUAGE_NONE]['0']['value'];
+    break;
+  }
+  return strip_tags(views_trim_text(
+    array(
+      'max_length' => 50,
+      'word_boundary' => TRUE,
+      'ellipsis' => TRUE,
+      'html' => TRUE,
+    ),
+    $output
+  ));
+}
