@@ -28,7 +28,10 @@ function emh_virality_menu() {
  * Implements hook_permission().
  */
 function emh_virality_permission() {
-  return array();
+  return array(
+    'invite experts' => array('title' => t('Invite Experts')),
+    'view others invitations history' => array('title' => t('View others invitations history')),
+  );
 }
 
 
