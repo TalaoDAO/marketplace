@@ -81,6 +81,7 @@ function emh_virality_schema() {
  * Implements hook_enable().
  */
 function emh_virality_enable() {
+  emh_virality_update_7001();
   variable_set('emh_virality_business_invitation_reward', 50);
   variable_set('emh_virality_expert_invitation_reward', 50);
 }
@@ -92,4 +93,14 @@ function emh_virality_enable() {
 function emh_virality_uninstall() {
   variable_del('emh_virality_business_invitation_reward');
   variable_del('emh_virality_expert_invitation_reward');
+}
+
+
+/**
+ * Extend access to the Invitations tab to authentificated users + Invitations history to webmasters.
+ */
+function emh_virality_update_7001() {
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('invite experts'));
+  user_role_grant_permissions(3, array('view others invitations history')); // Administrator role
+  user_role_grant_permissions(6, array('view others invitations history')); // Webmaster role
 }
