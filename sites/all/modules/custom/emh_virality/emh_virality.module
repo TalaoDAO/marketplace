@@ -20,6 +20,24 @@ define('VIRAL_INVITATIONS_MAX', 10);
  */
 function emh_virality_menu() {
   $items = array();
+
+  // Route for the invitation page of the current user
+  $items['invitations'] = array(
+    'title' => 'Invitations',
+    'page callback' => 'emh_points_show_user_history',
+    'access callback' => 'emh_virality_user_history_access',
+  );
+
+  // Route for the invitation page of a specific user
+  $items['user/%user/invitations'] = array(
+    'title' => 'Invitations',
+    'page callback' => 'emh_points_show_user_history',
+    'page arguments' => array(1),
+    'access callback' => 'emh_virality_user_history_access',
+    'access arguments' => array(1),
+    'type' => MENU_LOCAL_TASK,
+  );
+
   return $items;
 }
 
@@ -32,6 +50,53 @@ function emh_virality_permission() {
     'invite experts' => array('title' => t('Invite Experts')),
     'view others invitations history' => array('title' => t('View others invitations history')),
   );
+}
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function emh_virality_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  // Changes the href of the invitations history tab
+  // if it goes to the current user's invitations history.
+  if (strpos($root_path, 'user/%') === 0) {
+    global $user;
+    $account = menu_get_object('user');
+
+    if ($user->uid == $account->uid) {
+      foreach ($data['tabs'][0]['output'] as &$tab) {
+        if ($tab['#link']['path'] == 'user/%/invitations') {
+          $tab['#link']['href'] = 'invitations';
+          break;
+        }
+      }
+    }
+  }
+}
+
+
+/**
+ * Access callback for the invitations history page.
+ */
+function emh_virality_user_history_access($account = NULL) {
+  global $user;
+
+  // If the user tries to access its own invitations history (/invitations)
+  if ($account == NULL) {
+    if (user_access('invite experts')) {
+      return TRUE;
+    }
+  }
+  // If the user tries to access the invitations history of a specific user (/user/%/invitations)
+  else {
+    if ($account->uid == $user->uid) {
+      return TRUE;
+    }
+    if (user_access('view others invitations history')) {
+      return TRUE;
+    }
+  }
+
+  return FALSE;
 }
 
 
