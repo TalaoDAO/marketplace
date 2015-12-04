@@ -24,14 +24,14 @@ function emh_virality_menu() {
   // Route for the invitation page of the current user
   $items['invitations'] = array(
     'title' => 'Invitations',
-    'page callback' => 'emh_points_show_user_history',
+    'page callback' => 'emh_virality_show_user_history',
     'access callback' => 'emh_virality_user_history_access',
   );
 
   // Route for the invitation page of a specific user
   $items['user/%user/invitations'] = array(
     'title' => 'Invitations',
-    'page callback' => 'emh_points_show_user_history',
+    'page callback' => 'emh_virality_show_user_history',
     'page arguments' => array(1),
     'access callback' => 'emh_virality_user_history_access',
     'access arguments' => array(1),
@@ -162,7 +162,7 @@ function emh_virality_block_info() {
     'pages' => '<?php
         global $user;
 
-        if (drupal_match_path(current_path(), \'user/*/points\')) {
+        if (drupal_match_path(current_path(), \'user/*/invitations\')) {
           $account = menu_get_object(\'user\');
           if ($account->uid == $user->uid) {
             return TRUE;
@@ -193,7 +193,8 @@ function emh_virality_block_view($delta = '') {
       $reward = _emh_virality_get_invitation_reward();
 
       if ($reward > 0) {
-        $text = 'You can earn points by inviting <b>experts</b> in your network to join eMindHub. You will get a reward (50 points per expert) the first time each new expert you sponsored is selected by a client for his contribution (i.e. response to a question, a survey or a challenge).<br />We remind you that you can monetize your points once you have reached a threshold of at least 1500 points.';
+        $text = 'You can earn points by inviting <b>experts</b> in your network to join eMindHub. You will get a reward (50 points per expert) the first time each new expert you sponsored is selected by a client for his contribution (i.e. response to a question, a survey or a challenge).<br />'
+                . 'We remind you that you can monetize your points once you have reached a threshold of at least 1500 points.';
 
         $block = array(
           'subject' => t('Invite experts and earn points!'),
@@ -395,25 +396,25 @@ function emh_virality_invitation_form_submit($form, &$form_state) {
  * Implements hook_form_alter().
  */
 function emh_virality_form_alter(&$form, &$form_state, $form_id) {
-  // Forms placed in the points history page must be submitted to the "/points"
+  // Forms placed in the invitations history page must be submitted to the "/invitations"
   // url if the user is currently viewing its own history
-  if (drupal_match_path(current_path(), 'user/*/points')) {
+  if (drupal_match_path(current_path(), 'user/*/invitations')) {
     global $user;
     $account = menu_get_object('user');
 
     if ($user->uid == $account->uid) {
-      $form['#action'] = url('points');
-      $form['#submit'][] = 'emh_virality_points_history_forms_submit';
+      $form['#action'] = url('invitations');
+      $form['#submit'][] = 'emh_virality_invitations_history_forms_submit';
     }
   }
 }
 
 
 /**
- * Additional submit callback for forms placed in the points history page.
+ * Additional submit callback for forms placed in the invitations history page.
  */
-function emh_virality_points_history_forms_submit($form, &$form_state) {
-  $form_state['redirect'] = 'points';
+function emh_virality_invitations_history_forms_submit($form, &$form_state) {
+  $form_state['redirect'] = 'invitations';
 }
 
 
@@ -528,11 +529,17 @@ function emh_virality_tokens($type, $tokens, array $data = array(), array $optio
 //----------------------------------------------------------------------
 
 
-/**
- * Implements hook_points_history_page_alter().
- * @see emh_points_show_user_history()
- */
-function emh_virality_points_history_page_alter(&$build, $account) {
+function emh_virality_show_user_history($account = NULL) {
+  global $user;
+
+  if (current_path() == 'invitations') {
+    menu_set_active_item('user/' . $user->uid . '/invitations');
+  }
+
+  if ($account == NULL) {
+    $account = $user;
+  }
+
   $query = db_select('emh_invitation', 'i')
     ->extend('PagerDefault')
     ->element(2)
@@ -559,23 +566,29 @@ function emh_virality_points_history_page_alter(&$build, $account) {
     );
   }
 
-  $build['invitations_title'] = array(
+  $build = array();
+
+  $build['title'] = array(
     '#theme' => 'html_tag',
     '#tag' => 'h2',
-    '#value' => t('Invitations'),
+    '#value' => t('Invitations statement'),
   );
 
-  $build['invitations'] = array(
+  $build['table'] = array(
     '#theme' => 'table',
     '#header' => array(t('Email'), t('Date'), t('Status')),
     '#rows' => $rows,
     '#empty' => t('No invitation.'),
   );
 
-  $build['invitations_pager'] = array(
+  $build['pager'] = array(
     '#theme' => 'pager',
     '#element' => 2,
   );
+
+  drupal_alter('invitations_history_page', $build, $account);
+
+  return $build;
 }
 
 
