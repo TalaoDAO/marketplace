@@ -406,14 +406,13 @@ function emindhub_beautiful_baseline() {
   $baseline = '';
   $type = '';
   $show_help = FALSE;
-  $args = arg();
 
-  if ($args[1] == 'add') {
-    $type = $args[2];
+  if (arg(1) == 'add') {
+    $type = arg(2);
     $show_help = TRUE;
   }
-  // else if ($args[2] == 'edit') {
-  //   $type = node_load($args[1])->type;
+  // else if (arg(2) == 'edit') {
+  //   $type = node_load(arg(1))->type;
   //   $show_help = TRUE;
   // }
 	// else if ($args[0] == 'my-relationships') {
