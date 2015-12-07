@@ -117,6 +117,7 @@ features[user_permission][] = access content overview
 features[user_permission][] = access contextual links
 features[user_permission][] = access devel information
 features[user_permission][] = access environment indicator
+features[user_permission][] = access environment indicator clone_of_dev
 features[user_permission][] = access environment indicator demo
 features[user_permission][] = access environment indicator dev
 features[user_permission][] = access environment indicator overwritten_environment

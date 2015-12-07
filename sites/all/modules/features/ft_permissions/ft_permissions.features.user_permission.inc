@@ -150,7 +150,15 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access environment indicator',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
+    ),
+    'module' => 'environment_indicator',
+  );
+
+  // Exported permission: 'access environment indicator clone_of_dev'.
+  $permissions['access environment indicator clone_of_dev'] = array(
+    'name' => 'access environment indicator clone_of_dev',
+    'roles' => array(
+      'administrator' => 'administrator',
     ),
     'module' => 'environment_indicator',
   );
@@ -159,8 +167,7 @@ function ft_permissions_user_default_permissions() {
   $permissions['access environment indicator demo'] = array(
     'name' => 'access environment indicator demo',
     'roles' => array(
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
+      'administrator' => 'administrator',
     ),
     'module' => 'environment_indicator',
   );
@@ -169,8 +176,7 @@ function ft_permissions_user_default_permissions() {
   $permissions['access environment indicator dev'] = array(
     'name' => 'access environment indicator dev',
     'roles' => array(
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
+      'administrator' => 'administrator',
     ),
     'module' => 'environment_indicator',
   );
@@ -188,8 +194,7 @@ function ft_permissions_user_default_permissions() {
   $permissions['access environment indicator preprod'] = array(
     'name' => 'access environment indicator preprod',
     'roles' => array(
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
+      'administrator' => 'administrator',
     ),
     'module' => 'environment_indicator',
   );
@@ -199,7 +204,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access environment indicator prod',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'environment_indicator',
   );
@@ -208,8 +212,7 @@ function ft_permissions_user_default_permissions() {
   $permissions['access environment indicator test'] = array(
     'name' => 'access environment indicator test',
     'roles' => array(
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
+      'administrator' => 'administrator',
     ),
     'module' => 'environment_indicator',
   );
