@@ -135,7 +135,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       }
 
       // Hide node access
-    	$form['group_content_access']['#access'] =  FALSE;
+      $form['group_content_access']['#access'] =  FALSE;
       break;
 
     default:
