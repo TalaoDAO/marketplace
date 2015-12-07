@@ -86,8 +86,10 @@ Feature: Create question and answers
     When I go to homepage
     And I click "What about ?"
     Then I should see "Je suis un expert"
+    And I should see "Iron Man"
 
     Given I am logged in as "expert2"
     When I go to homepage
     And I click "What about ?"
     Then I should not see "Je suis un expert"
+    And I should not see "Iron Man"

@@ -6,7 +6,7 @@ Feature: Test og visibility
 
   Background: og visibility : Create questions and answers
     Given users:
-    | name    | mail                 | roles               | field_first_name | field_last_name |
+    | name    | mail                 | roles    | field_first_name | field_last_name |
     | client1 | client1@emindhub.com | business | Steve            | Rogers          |
     | client2 | client2@emindhub.com | business | Charle           | Xavier          |
     Given "circle" content:
@@ -35,7 +35,7 @@ Feature: Test og visibility
     #Make my contact deactivated for now
     When I go to homepage
 
-  @exclude
+  #@exclude
   Scenario: og visibility : Test visibility
     Given I am logged in as a user with the "webmaster" role
     When I go to homepage
@@ -69,6 +69,12 @@ Feature: Test og visibility
     And I should not see "Fight Ultron"
     And I should not see "Fight Hydra"
     And I should not see "Fight Thanos"
+    When I go to "/content/fight-magneto"
+    Then I should not see "Fight Magneto"
+    When I go to "/content/fight-hydra"
+    Then I should not see "Fight Hydra"
+    When I go to "/content/fight-thanos"
+    Then I should not see "Fight Thanos"
     When I go to "/node"
     Then I should not see "Fight Magneto"
     And I should not see "Fight Ultron"

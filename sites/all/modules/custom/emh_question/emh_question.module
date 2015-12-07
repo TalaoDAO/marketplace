@@ -16,7 +16,6 @@ function emh_question_form_question1_node_form_alter(&$form, &$form_state, $form
 
   $form['field_reward']['und'][0]['value']['#title'] = t('Cost (minimum !value points required)', array( '!value' => variable_get('emh_points_question1_threshold', '100')));
 
-  $form['group_content_access']['#access'] =  FALSE;
 
 }
 
