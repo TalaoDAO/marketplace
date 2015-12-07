@@ -10,20 +10,11 @@
 function emh_request_node_access($node, $op, $account) {
   if ($op == 'update') {
     switch ($node->type) {
-      case 'webform':
-        module_load_include('inc', 'webform', 'includes/webform.submissions');
-        $submissions = webform_get_submissions($node->nid);
-        if (!empty($submissions)) {
-          return NODE_ACCESS_DENY;
-        }
-        break;
       case 'question1':
-        if (!empty($node->comment_count)) {
-          return NODE_ACCESS_DENY;
-        }
-        break;
+      case 'webform':
       case 'challenge':
-        if (!empty($node->comment_count)) {
+        $count = emh_request_count_answers($node);
+        if ($count > 0) {
           return NODE_ACCESS_DENY;
         }
         break;
