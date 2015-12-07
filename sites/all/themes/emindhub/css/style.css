@@ -13119,6 +13119,9 @@ html.js div.contextual-links-wrapper {
 header#navbar .row > div:nth-child(2) {
   padding-right: 0;
 }
+body:not(.admin-menu) {
+  margin-top: 0 !important;
+}
 @media (min-width: 767px) {
   body {
     padding-top: 123px;
