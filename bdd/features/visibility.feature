@@ -80,4 +80,3 @@ Feature: Test og visibility
     And I should not see "Fight Ultron"
     And I should not see "Fight Hydra"
     And I should not see "Fight Thanos"
-    Then I break
