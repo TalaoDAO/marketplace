@@ -195,22 +195,33 @@ function emh_request_block_save($delta = '', $edit = array()) {
 
 
 /**
- * Helper function to retrieve a comment answer, depending on the status.
+ * Helper function to retrieve an answer, depending on the status.
  */
-function emh_request_get_answer($comment) {
+function emh_request_get_answer($entity, $type) {
   $output = '';
-  if (empty($comment->field_private_comment)) {
-    // No status => body field.
-    $output = $comment->comment_body[LANGUAGE_NONE]['0']['value'];
+
+  switch ($type) {
+    case 'comment':
+      if (empty($entity->field_private_comment)) {
+        // No status => body field.
+        $output = $entity->comment_body[LANGUAGE_NONE]['0']['value'];
+      }
+      switch($entity->field_private_comment[LANGUAGE_NONE]['0']['value']) {
+        case 0:
+          $output = $entity->comment_body[LANGUAGE_NONE]['0']['value'];
+          break;
+        case 1:
+          $output = $entity->field_private_comment_body[LANGUAGE_NONE]['0']['value'];
+          break;
+      }
+      break;
+    case 'webform_submission':
+      foreach ($entity->data as $answer) {
+        $output .= $answer[0] . '&nbsp;';
+      }
+      break;
   }
-  switch($comment->field_private_comment[LANGUAGE_NONE]['0']['value']) {
-  case 0:
-    $output = $comment->comment_body[LANGUAGE_NONE]['0']['value'];
-    break;
-  case 1:
-    $output = $comment->field_private_comment_body[LANGUAGE_NONE]['0']['value'];
-    break;
-  }
+
   return strip_tags(views_trim_text(
     array(
       'max_length' => 50,

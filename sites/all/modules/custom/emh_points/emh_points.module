@@ -563,9 +563,10 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
       $markup = '';
       switch($type_dest) {
       case 'comment':
-        $markup = emh_request_get_answer($entity);
+        $markup = emh_request_get_answer($entity, 'comment');
         break;
       case 'webform_submission':
+        $markup = emh_request_get_answer($entity, 'webform_submission');
         break;
       }
       $form[$dest]['answer'] = array(
