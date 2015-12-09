@@ -70,40 +70,42 @@ $last_name = field_get_items('user', $comment_author, 'field_last_name');
 $profile_url = $base_url . '/' . drupal_get_path_alias('user/' . $comment->uid);
 $flag = flag_get_flag('my_contacts');
 ?>
-<div class="<?php print $classes; ?> clearfix container"<?php print $attributes; ?>>
+<div class="<?php print $classes; ?> clearfix row"<?php print $attributes; ?>>
 
-  <div class="row">
+  <?php if ( (module_exists('emh_access') && emh_access_user_can_see_full_answer($user->uid, $comment->uid, $node->uid)) || !empty($content['comment_body']) ) : ?>
 
-    <div class="col-sm-12 author">
+  <div class="col-sm-2 meta">
 
-      <?php if (module_exists('emh_access')) : ?>
-      <?php if ( emh_access_user_can_see_full_user( $user->uid, $comment->uid ) || ($flag && $flag->is_flagged($comment->uid, $GLOBALS['user']->uid)) ) : ?>
+    <p class="author">
+      <?php if ( module_exists('emh_access') && (emh_access_user_can_see_full_user( $user->uid, $comment->uid ) || ($flag && $flag->is_flagged($comment->uid, $GLOBALS['user']->uid))) ) : ?>
       <a href="<?php print $profile_url; ?>">
       <?php endif; ?>
-      <?php endif; ?>
-        <?php //print $author; ?>
-        <?php //print $picture; ?>
-        <span class="author-firstname"><?php print render($first_name[0]['value']); ?></span>&nbsp;<span class="author-lastname"><?php print render($last_name[0]['value']); ?></span>
-      <?php if (module_exists('emh_access')) : ?>
-      <?php if ( emh_access_user_can_see_full_user( $user->uid, $comment->uid ) || ($flag && $flag->is_flagged($comment->uid, $GLOBALS['user']->uid)) ) : ?>
+
+      <?php //print $author; ?>
+      <?php //print $picture; ?>
+      <span class="author-firstname"><?php print render($first_name[0]['value']); ?></span>&nbsp;<span class="author-lastname"><?php print render($last_name[0]['value']); ?></span>
+
+      <?php if ( module_exists('emh_access') && (emh_access_user_can_see_full_user( $user->uid, $comment->uid ) || ($flag && $flag->is_flagged($comment->uid, $GLOBALS['user']->uid))) ) : ?>
       </a>
       <?php endif; ?>
-      <?php endif; ?>
-      &nbsp;-&nbsp;<span class="submitted"><?php print $created; ?></span>
-    </div>
+    </p>
 
-    <div class="content col-sm-12"<?php print $content_attributes; ?>>
-      <?php
-        // We hide the comments and links now so that we can render them later.
-        hide($content['links']);
-        print render($content);
-      ?>
-    </div>
-
-    <div class="col-sm-12">
-      <?php print render($content['links']) ?>
-    </div>
+    <span class="submitted"><?php print $created; ?></span>
 
   </div>
+
+  <div class="col-sm-10 answer <?php print $content_attributes; ?>">
+
+    <?php hide($content['links']); ?>
+    <?php print render($content); ?>
+    <?php print render($content['links']) ?>
+
+  </div>
+
+  <?php else : ?>
+
+  <span class="submitted"><?php print t('This answer is private.'); ?></span>
+
+  <?php endif; ?>
 
 </div>

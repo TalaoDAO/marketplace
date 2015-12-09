@@ -12264,13 +12264,6 @@ table.views-table > tbody > tr:hover {
 .table-striped > tbody > tr:nth-of-type(even) {
   background-color: #fafafa;
 }
-#comments > div.comment {
-  padding-top: 10px;
-  border-top: 1px solid #DDD;
-}
-#comments > div.comment:nth-of-type(even) {
-  background-color: #fff;
-}
 /* Better exposed filters
  * */
 .bef-select-as-checkboxes {
@@ -13931,11 +13924,94 @@ a.flag .badge {
   background-color: transparent;
   border: 0;
 }
-#comments .indented {
-  margin-left: 25px;
+#comments {
+  padding-bottom: 0;
 }
 #comments .comment .content > div {
   padding: 15px 0;
+}
+#comments > .comment {
+  padding: 15px;
+  margin: 0;
+  border-top: 1px solid #DDD;
+}
+#comments > .comment.indented {
+  margin-left: 25px;
+}
+#comments > .comment.comment-by-viewer {
+  background-color: #f9f4ea;
+}
+#comments > .comment > .meta {
+  padding-left: 0;
+}
+#comments > .comment > .answer {
+  padding-right: 0;
+}
+#comments .list-inline {
+  margin-left: 0;
+  margin-bottom: 0;
+}
+#comments .list-inline .comment-edit a {
+  color: #ffffff;
+  background-color: #009fe3;
+  border-color: #008dca;
+}
+#comments .list-inline .comment-edit a:focus,
+#comments .list-inline .comment-edit a.focus {
+  color: #ffffff;
+  background-color: #007bb0;
+  border-color: #00344a;
+}
+#comments .list-inline .comment-edit a:hover {
+  color: #ffffff;
+  background-color: #007bb0;
+  border-color: #00628c;
+}
+#comments .list-inline .comment-edit a:active,
+#comments .list-inline .comment-edit a.active,
+.open > .dropdown-toggle#comments .list-inline .comment-edit a {
+  color: #ffffff;
+  background-color: #007bb0;
+  border-color: #00628c;
+}
+#comments .list-inline .comment-edit a:active:hover,
+#comments .list-inline .comment-edit a.active:hover,
+.open > .dropdown-toggle#comments .list-inline .comment-edit a:hover,
+#comments .list-inline .comment-edit a:active:focus,
+#comments .list-inline .comment-edit a.active:focus,
+.open > .dropdown-toggle#comments .list-inline .comment-edit a:focus,
+#comments .list-inline .comment-edit a:active.focus,
+#comments .list-inline .comment-edit a.active.focus,
+.open > .dropdown-toggle#comments .list-inline .comment-edit a.focus {
+  color: #ffffff;
+  background-color: #00628c;
+  border-color: #00344a;
+}
+#comments .list-inline .comment-edit a:active,
+#comments .list-inline .comment-edit a.active,
+.open > .dropdown-toggle#comments .list-inline .comment-edit a {
+  background-image: none;
+}
+#comments .list-inline .comment-edit a.disabled:hover,
+#comments .list-inline .comment-edit a[disabled]:hover,
+fieldset[disabled] #comments .list-inline .comment-edit a:hover,
+#comments .list-inline .comment-edit a.disabled:focus,
+#comments .list-inline .comment-edit a[disabled]:focus,
+fieldset[disabled] #comments .list-inline .comment-edit a:focus,
+#comments .list-inline .comment-edit a.disabled.focus,
+#comments .list-inline .comment-edit a[disabled].focus,
+fieldset[disabled] #comments .list-inline .comment-edit a.focus {
+  background-color: #009fe3;
+  border-color: #008dca;
+}
+#comments .list-inline .comment-edit a .badge {
+  color: #009fe3;
+  background-color: #ffffff;
+}
+#comments .field-name-comment-body,
+#comments .field-name-field-private-comment-body {
+  font-size: 16px;
+  font-style: italic;
 }
 .section.actions ul.links {
   margin: 0;
