@@ -70,7 +70,7 @@ function node_informations_add(&$variables) {
 		}
 	}
 
-	$variables['request_status'] = emh_request_get_status(arg(1));
+	if (module_exists('emh_request')) $variables['request_status'] = emh_request_get_status(arg(1));
 
 	// echo '<pre>' . print_r($variables, TRUE) . '</pre>';
 

@@ -76,14 +76,18 @@ $flag = flag_get_flag('my_contacts');
 
     <div class="col-sm-12 author">
 
-      <?php if ( emh_access_user_can_see_full_user( $user->uid, $comment->uid ) == TRUE || ($flag && $flag->is_flagged($comment->uid, $GLOBALS['user']->uid)) ) : ?>
+      <?php if (module_exists('emh_access')) : ?>
+      <?php if ( emh_access_user_can_see_full_user( $user->uid, $comment->uid ) || ($flag && $flag->is_flagged($comment->uid, $GLOBALS['user']->uid)) ) : ?>
       <a href="<?php print $profile_url; ?>">
+      <?php endif; ?>
       <?php endif; ?>
         <?php //print $author; ?>
         <?php //print $picture; ?>
         <span class="author-firstname"><?php print render($first_name[0]['value']); ?></span>&nbsp;<span class="author-lastname"><?php print render($last_name[0]['value']); ?></span>
-      <?php if ( emh_access_user_can_see_full_user( $user->uid, $comment->uid ) == TRUE || ($flag && $flag->is_flagged($comment->uid, $GLOBALS['user']->uid)) ) : ?>
+      <?php if (module_exists('emh_access')) : ?>
+      <?php if ( emh_access_user_can_see_full_user( $user->uid, $comment->uid ) || ($flag && $flag->is_flagged($comment->uid, $GLOBALS['user']->uid)) ) : ?>
       </a>
+      <?php endif; ?>
       <?php endif; ?>
       &nbsp;-&nbsp;<span class="submitted"><?php print $created; ?></span>
     </div>

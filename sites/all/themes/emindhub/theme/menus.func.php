@@ -47,16 +47,18 @@ function emindhub_preprocess_menu_link(&$vars) {
 function emindhub_menu_link__user_menu(&$vars) {
   $element = &$vars['element'];
 
-  if ($element['#href'] == 'points') {
-    global $user;
+  if (module_exists('emh_points')) {
+    if ($element['#href'] == 'points') {
+      global $user;
 
-    // Loads the whole user data
-    if (!isset($user->emh_points)) {
-      $user = user_load($user->uid);
+      // Loads the whole user data
+      if (!isset($user->emh_points)) {
+        $user = user_load($user->uid);
+      }
+
+      $element['#title'] = '<span class="badge">' . t('@amount points', array('@amount' => $user->emh_points)) . '</span>';
+      $element['#localized_options']['html'] = TRUE;
     }
-
-    $element['#title'] = '<span class="badge">' . t('@amount points', array('@amount' => $user->emh_points)) . '</span>';
-    $element['#localized_options']['html'] = TRUE;
   }
 
   return bootstrap_menu_link($vars);

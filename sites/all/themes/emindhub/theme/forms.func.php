@@ -269,11 +269,6 @@ function emindhub_form_user_register_form_alter(&$form, &$form_state, $form_id) 
   $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_last_name']['#suffix'] = '</div>';
 
-  $form['account']['name']['#prefix'] = '<div class="form-group-2col row">';
-  $form['account']['current_pass']['#suffix'] = '</div>';
-
-  // $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
-
   // echo '<pre>' . print_r($form, TRUE) . '</pre>';
 }
 
