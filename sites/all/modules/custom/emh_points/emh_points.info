@@ -1,5 +1,9 @@
 name = EMH Points
 description = Points Managements for EMH website
 package = EMH
-dependencies[] = emh_request
 core = 7.x
+
+files[] = views/emh_points_handler_field_answer.inc
+
+; Dependencies
+dependencies[] = emh_request
