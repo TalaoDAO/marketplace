@@ -1,6 +1,6 @@
 <?php
 
-class views_handler_field_emh_webform_submission_points extends views_handler_field {
+class views_handler_field_emh_webform_answer extends views_handler_field {
 
   /**
    * Add additional fields.
@@ -29,7 +29,10 @@ class views_handler_field_emh_webform_submission_points extends views_handler_fi
       return 0;
     }
 
-    return emh_request_get_answer($sid, 'webform_submission');
+    module_load_include('inc', 'webform', 'includes/webform.submissions');
+    $nid = arg(1);
+    $entity = webform_get_submission($nid, $sid);
+    return '<a href="' . url("node/$nid/results/$sid") . '">' . emh_request_get_answer($entity, 'webform_submission') . '</a>';
   }
 
   /**

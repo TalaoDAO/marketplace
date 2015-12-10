@@ -1,6 +1,6 @@
 <?php
 
-class views_handler_field_emh_comment_points extends views_handler_field {
+class views_handler_field_emh_comment_answer extends views_handler_field {
 
   /**
    * Add additional fields.
@@ -29,7 +29,9 @@ class views_handler_field_emh_comment_points extends views_handler_field {
       return 0;
     }
 
-    return emh_request_get_answer($cid, 'comment');
+    $nid = arg(1);
+    $entity = comment_load($cid);
+    return '<a href="' . url("node/$nid/comment-$cid") . '">' . emh_request_get_answer($entity, 'comment') . '</a>';
   }
 
   /**
