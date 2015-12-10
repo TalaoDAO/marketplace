@@ -1151,44 +1151,47 @@ function emh_points_views_default_views_alter(&$views) {
     $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all_label'] = 'All';
     $handler->display->display_options['style_plugin'] = 'table';
     $handler->display->display_options['style_options']['columns'] = array(
-      'view_submission' => 'view_submission',
+      'views_bulk_operations' => 'views_bulk_operations',
       'submitted' => 'submitted',
-      'name' => 'name',
-      'remote_addr' => 'remote_addr',
+      'field_first_name' => 'field_first_name',
+      'field_last_name' => 'field_last_name',
+      'view_user' => 'view_user',
+      'emh_answer' => 'emh_answer',
     );
-    $handler->display->display_options['style_options']['default'] = 'view_submission';
+    $handler->display->display_options['style_options']['default'] = '-1';
     $handler->display->display_options['style_options']['info'] = array(
-      'view_submission' => array(
-        'sortable' => 1,
-        'default_sort_order' => 'desc',
+      'views_bulk_operations' => array(
         'align' => '',
         'separator' => '',
         'empty_column' => 0,
       ),
       'submitted' => array(
         'sortable' => 1,
+        'default_sort_order' => 'desc',
+        'align' => '',
+        'separator' => '',
+        'empty_column' => 0,
+      ),
+      'field_first_name' => array(
+        'sortable' => 0,
         'default_sort_order' => 'asc',
         'align' => '',
         'separator' => '',
         'empty_column' => 0,
       ),
-      'name' => array(
-        'sortable' => 1,
+      'field_last_name' => array(
+        'sortable' => 0,
         'default_sort_order' => 'asc',
         'align' => '',
         'separator' => '',
         'empty_column' => 0,
       ),
-      'remote_addr' => array(
-        'sortable' => 1,
-        'default_sort_order' => 'asc',
+      'view_user' => array(
         'align' => '',
         'separator' => '',
         'empty_column' => 0,
       ),
-      'webform_all_fields' => array(
-        'sortable' => 1,
-        'default_sort_order' => 'asc',
+      'emh_answer' => array(
         'align' => '',
         'separator' => '',
         'empty_column' => 0,
@@ -1207,7 +1210,7 @@ function emh_points_views_default_views_alter(&$views) {
     $handler->display->display_options['relationships']['uid']['id'] = 'uid';
     $handler->display->display_options['relationships']['uid']['table'] = 'webform_submissions';
     $handler->display->display_options['relationships']['uid']['field'] = 'uid';
-    /* Field: Bulk operations: User */
+    /* Field: Bulk operations: Webform submissions */
     $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
     $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'webform_submissions';
     $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
@@ -1225,15 +1228,13 @@ function emh_points_views_default_views_alter(&$views) {
         'label' => 'Distribute points',
       ),
     );
-    /* Field: Webform submissions: View link */
-    $handler->display->display_options['fields']['view_submission']['id'] = 'view_submission';
-    $handler->display->display_options['fields']['view_submission']['table'] = 'webform_submissions';
-    $handler->display->display_options['fields']['view_submission']['field'] = 'view_submission';
-    $handler->display->display_options['fields']['view_submission']['label'] = '#';
-    $handler->display->display_options['fields']['view_submission']['exclude'] = TRUE;
-    $handler->display->display_options['fields']['view_submission']['element_label_colon'] = FALSE;
-    $handler->display->display_options['fields']['view_submission']['text'] = '[serial]';
-    $handler->display->display_options['fields']['view_submission']['access_check'] = 0;
+    /* Field: Webform submissions: Submitted */
+    $handler->display->display_options['fields']['submitted']['id'] = 'submitted';
+    $handler->display->display_options['fields']['submitted']['table'] = 'webform_submissions';
+    $handler->display->display_options['fields']['submitted']['field'] = 'submitted';
+    $handler->display->display_options['fields']['submitted']['label'] = 'Answer date';
+    $handler->display->display_options['fields']['submitted']['date_format'] = 'short_date';
+    $handler->display->display_options['fields']['submitted']['second_date_format'] = 'long';
     /* Field: User: First Name */
     $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
     $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
@@ -1255,38 +1256,13 @@ function emh_points_views_default_views_alter(&$views) {
     $handler->display->display_options['fields']['view_user']['table'] = 'users';
     $handler->display->display_options['fields']['view_user']['field'] = 'view_user';
     $handler->display->display_options['fields']['view_user']['relationship'] = 'uid';
-    $handler->display->display_options['fields']['view_user']['label'] = 'Expert';
+    $handler->display->display_options['fields']['view_user']['label'] = 'Author';
     $handler->display->display_options['fields']['view_user']['alter']['alter_text'] = TRUE;
     $handler->display->display_options['fields']['view_user']['alter']['text'] = '[field_first_name] [field_last_name]';
-    /* Field: Webform submissions: Submitted */
-    $handler->display->display_options['fields']['submitted']['id'] = 'submitted';
-    $handler->display->display_options['fields']['submitted']['table'] = 'webform_submissions';
-    $handler->display->display_options['fields']['submitted']['field'] = 'submitted';
-    $handler->display->display_options['fields']['submitted']['exclude'] = TRUE;
-    $handler->display->display_options['fields']['submitted']['date_format'] = 'short';
-    $handler->display->display_options['fields']['submitted']['second_date_format'] = 'long';
-    /* Field: User: Name */
-    $handler->display->display_options['fields']['name']['id'] = 'name';
-    $handler->display->display_options['fields']['name']['table'] = 'users';
-    $handler->display->display_options['fields']['name']['field'] = 'name';
-    $handler->display->display_options['fields']['name']['relationship'] = 'uid';
-    $handler->display->display_options['fields']['name']['label'] = 'User';
-    $handler->display->display_options['fields']['name']['exclude'] = TRUE;
-    $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
-    /* Field: Webform submissions: Remote address */
-    $handler->display->display_options['fields']['remote_addr']['id'] = 'remote_addr';
-    $handler->display->display_options['fields']['remote_addr']['table'] = 'webform_submissions';
-    $handler->display->display_options['fields']['remote_addr']['field'] = 'remote_addr';
-    $handler->display->display_options['fields']['remote_addr']['label'] = 'IP address';
-    $handler->display->display_options['fields']['remote_addr']['exclude'] = TRUE;
-    /* Field: Webform submission data: All values */
-    $handler->display->display_options['fields']['webform_all_fields']['id'] = 'webform_all_fields';
-    $handler->display->display_options['fields']['webform_all_fields']['table'] = 'webform_submissions';
-    $handler->display->display_options['fields']['webform_all_fields']['field'] = 'webform_all_fields';
-    $handler->display->display_options['fields']['webform_all_fields']['label'] = '';
-    $handler->display->display_options['fields']['webform_all_fields']['exclude'] = TRUE;
-    $handler->display->display_options['fields']['webform_all_fields']['alter']['nl2br'] = TRUE;
-    $handler->display->display_options['fields']['webform_all_fields']['format'] = 'text';
+    /* Field: Webform submissions: Answer */
+    $handler->display->display_options['fields']['emh_answer']['id'] = 'emh_answer';
+    $handler->display->display_options['fields']['emh_answer']['table'] = 'webform_submissions';
+    $handler->display->display_options['fields']['emh_answer']['field'] = 'emh_answer';
     /* Contextual filter: Webform submissions: Node */
     $handler->display->display_options['arguments']['nid']['id'] = 'nid';
     $handler->display->display_options['arguments']['nid']['table'] = 'webform_submissions';
