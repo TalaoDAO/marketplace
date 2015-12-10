@@ -79,16 +79,20 @@ function emh_points_custom_form_emh_points_admin_form_alter(&$form, &$form_state
 function emh_points_custom_views_bulk_operations_form_alter(&$form) {
   // Only when we want it.
   $nid = arg(1); $view = arg(2);
-  $has_points = emh_points_custom_request_has_points($nid);
-  if (!empty($view) && ($view == 'answers' || $view == 'results')) {
-    $form['select']['#type'] = 'menu';
-    $form['select']['#weight'] = 100;
-    $form['baseline'] = array(
-      '#markup' => '<p class="emh-title-baseline">' . t('Select best answer(s)') . '</p>',
-    );
-    if (!$has_points) $form['select']['action::emh_points_arrange_node_points']['#access'] = FALSE;
-    // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+  $has_points = emh_request_has_points($nid);
+  if ($has_points) {
+    if (!empty($view) && ($view == 'answers' || $view == 'results')) {
+      $form['select']['#type'] = 'menu';
+      $form['select']['#weight'] = 100;
+      $form['baseline'] = array(
+        '#markup' => '<p class="emh-title-baseline">' . t('Select best answer(s)') . '</p>',
+      );
+      // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+    }
+  } else {
+    $form['select']['action::emh_points_arrange_node_points']['#access'] = FALSE;
   }
+
 }
 
 /**
@@ -196,12 +200,4 @@ function emh_points_custom_display_comment_form_access(&$form) {
   if (!empty($already) && empty($form['cid']['#value'])) {
     $form['#access'] = FALSE;
   }
-}
-
-/**
- * Helper function.
- */
-function emh_points_custom_request_has_points($nid) {
-  $node = node_load($nid);
-  if (!empty($node) && !empty($node->emh_points)) return TRUE;
 }
