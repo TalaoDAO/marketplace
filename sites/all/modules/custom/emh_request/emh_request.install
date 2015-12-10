@@ -72,6 +72,7 @@ function _emh_request_string_overrides() {
     'New component %name added.' => 'New question %name added.',
     'The component positions and required values have been updated.' => 'Your questions have been updated.',
     'Submissions for this form are closed.' => 'Answers for this survey are closed.',
+    'You have already submitted this form.' => 'You have already submitted this survey.',
 
     // Comment
     'Edit comment %comment' => 'Edit answer',
