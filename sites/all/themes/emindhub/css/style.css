@@ -17099,6 +17099,17 @@ table#webform-components .webform-component-delete a .badge {
   color: #ffffff;
   background-color: #d9534f;
 }
+.webform-component > label {
+  display: block;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #DDD;
+}
+.webform-component:first-of-type > label {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
 .page-messages #maincol {
   margin-left: -15px;
   margin-right: -15px;
