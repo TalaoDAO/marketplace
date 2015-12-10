@@ -254,10 +254,11 @@ function emh_request_get_types() {
 
 /**
  * Helper function to retrieve the status of a request.
+ * draft / open / selection / closed
  */
-function emh_request_get_status($node) {
+function emh_request_get_status($nid) {
 
-	$node = node_load($node);
+	$node = node_load($nid);
   $workflow = array();
 
   if ($node->status == 0) {
@@ -280,10 +281,6 @@ function emh_request_get_status($node) {
       $workflow = array( 'status' => 'closed', 'label' => t('Closed') );
     }
   }
-
-	if (!empty($workflow)) {
-		$workflow = '<span class="emh-status ' . $workflow['status'] . '">' . $workflow['label'] . '</span>';
-	}
 
 	return $workflow;
 
