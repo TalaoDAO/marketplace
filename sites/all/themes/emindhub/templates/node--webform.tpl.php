@@ -206,7 +206,14 @@
 			// print render($content);
 		?>
 
-    <?php global $user; ?>
+		<?php	// Print the webform submission to the submitter
+		include_once drupal_get_path('module','webform') . '/includes/webform.submissions.inc';
+		global $user; $uid = $user->uid;
+		$submissions = webform_get_submissions(array('nid' => $nid, 'uid' => $uid));
+		?>
+
+		<?php if (empty($submissions)) : ?>
+
 		<?php if ( (!isBusinessUser() || $node->uid == $user->uid) && $node->webform['status'] ) : ?>
 		<?php if (!empty($node->webform['components'])) : ?>
 		<div id="comments" class="<?php print $classes; ?> row section emh-fieldgroup-blue-title"<?php print $attributes; ?>>
@@ -218,11 +225,8 @@
 		<?php endif; ?>
 		<?php endif; ?>
 
-		<?php	// Print the webform submission to the submitter
-		include_once drupal_get_path('module','webform') . '/includes/webform.submissions.inc';
-		global $user; $uid = $user->uid;
-		$submissions = webform_get_submissions(array('nid' => $nid, 'uid' => $uid));
-		if (!empty($submissions)) : ?>
+		<?php else: ?>
+
 		<?php foreach ($submissions as $submission) : ?>
 		<div id="answer" class="row section emh-fieldgroup-blue-title">
 			<h2 class="h3"><span><?php print t('Your answer') ?></span></h2>
@@ -234,14 +238,12 @@
 			  print drupal_render(webform_submission_render($node, $submission, $email, $format));
 				?>
 			</div>
-		</div>
-		<div class="row section actions">
-		  <div class="col-sm-12 text-right">
-		    <ul class="links list-inline">
-		      <li class="edit_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $sid; ?>/edit"><?php print t('Edit your answer'); ?></a></li>
-		  </div>
+			<ul class="links list-inline text-right">
+				<li class="edit_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/results/<?php print $sid; ?>/edit"><?php print t('Edit'); ?></a></li>
+			</ul>
 		</div>
 		<?php endforeach; ?>
+
 		<?php endif; ?>
 
 	</div>

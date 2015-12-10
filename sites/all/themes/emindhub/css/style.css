@@ -12896,59 +12896,88 @@ fieldset[disabled] .list-inline > li > a.focus {
   color: transparent;
   background-color: #4c6172;
 }
+.list-inline > li.edit_link > a,
 .list-inline > li.answers_link > a {
   color: #ffffff;
   background-color: #009fe3;
   border-color: #008dca;
 }
+.list-inline > li.edit_link > a:focus,
 .list-inline > li.answers_link > a:focus,
+.list-inline > li.edit_link > a.focus,
 .list-inline > li.answers_link > a.focus {
   color: #ffffff;
   background-color: #007bb0;
   border-color: #00344a;
 }
+.list-inline > li.edit_link > a:hover,
 .list-inline > li.answers_link > a:hover {
   color: #ffffff;
   background-color: #007bb0;
   border-color: #00628c;
 }
+.list-inline > li.edit_link > a:active,
 .list-inline > li.answers_link > a:active,
+.list-inline > li.edit_link > a.active,
 .list-inline > li.answers_link > a.active,
+.open > .dropdown-toggle.list-inline > li.edit_link > a,
 .open > .dropdown-toggle.list-inline > li.answers_link > a {
   color: #ffffff;
   background-color: #007bb0;
   border-color: #00628c;
 }
+.list-inline > li.edit_link > a:active:hover,
 .list-inline > li.answers_link > a:active:hover,
+.list-inline > li.edit_link > a.active:hover,
 .list-inline > li.answers_link > a.active:hover,
+.open > .dropdown-toggle.list-inline > li.edit_link > a:hover,
 .open > .dropdown-toggle.list-inline > li.answers_link > a:hover,
+.list-inline > li.edit_link > a:active:focus,
 .list-inline > li.answers_link > a:active:focus,
+.list-inline > li.edit_link > a.active:focus,
 .list-inline > li.answers_link > a.active:focus,
+.open > .dropdown-toggle.list-inline > li.edit_link > a:focus,
 .open > .dropdown-toggle.list-inline > li.answers_link > a:focus,
+.list-inline > li.edit_link > a:active.focus,
 .list-inline > li.answers_link > a:active.focus,
+.list-inline > li.edit_link > a.active.focus,
 .list-inline > li.answers_link > a.active.focus,
+.open > .dropdown-toggle.list-inline > li.edit_link > a.focus,
 .open > .dropdown-toggle.list-inline > li.answers_link > a.focus {
   color: #ffffff;
   background-color: #00628c;
   border-color: #00344a;
 }
+.list-inline > li.edit_link > a:active,
 .list-inline > li.answers_link > a:active,
+.list-inline > li.edit_link > a.active,
 .list-inline > li.answers_link > a.active,
+.open > .dropdown-toggle.list-inline > li.edit_link > a,
 .open > .dropdown-toggle.list-inline > li.answers_link > a {
   background-image: none;
 }
+.list-inline > li.edit_link > a.disabled:hover,
 .list-inline > li.answers_link > a.disabled:hover,
+.list-inline > li.edit_link > a[disabled]:hover,
 .list-inline > li.answers_link > a[disabled]:hover,
+fieldset[disabled] .list-inline > li.edit_link > a:hover,
 fieldset[disabled] .list-inline > li.answers_link > a:hover,
+.list-inline > li.edit_link > a.disabled:focus,
 .list-inline > li.answers_link > a.disabled:focus,
+.list-inline > li.edit_link > a[disabled]:focus,
 .list-inline > li.answers_link > a[disabled]:focus,
+fieldset[disabled] .list-inline > li.edit_link > a:focus,
 fieldset[disabled] .list-inline > li.answers_link > a:focus,
+.list-inline > li.edit_link > a.disabled.focus,
 .list-inline > li.answers_link > a.disabled.focus,
+.list-inline > li.edit_link > a[disabled].focus,
 .list-inline > li.answers_link > a[disabled].focus,
+fieldset[disabled] .list-inline > li.edit_link > a.focus,
 fieldset[disabled] .list-inline > li.answers_link > a.focus {
   background-color: #009fe3;
   border-color: #008dca;
 }
+.list-inline > li.edit_link > a .badge,
 .list-inline > li.answers_link > a .badge {
   color: #009fe3;
   background-color: #ffffff;
