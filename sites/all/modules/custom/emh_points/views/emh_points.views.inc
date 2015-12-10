@@ -397,20 +397,6 @@ function emh_points_views_data() {
       'handler' => 'views_handler_sort',
     ),
   );
-  $data['emh_points_answers']['answer'] = array(
-    'title' => 'Answer',
-    'help' => t('Related trimmed answer.'),
-    'field' => array(
-      'handler' => 'emh_points_handler_field_answer',
-      'click sortable' => FALSE,
-    ),
-    'filter' => array(
-      'handler' => 'views_handler_filter_string',
-    ),
-    'sort' => array(
-      'handler' => 'views_handler_sort',
-    ),
-  );
   // Double join on TXN.
   $data['emh_points_txn_source'] = $data['emh_points_txn'];
   $data['emh_points_txn_source']['table']['group'] = t('Points Transaction (source)');

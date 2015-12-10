@@ -66,7 +66,7 @@ function _emh_request_string_overrides() {
     'No Components, add a component below.' => 'No questions, add a question below.',
     'New component name' => 'New question',
     'This will immediately delete the %name component from the %webform webform. This cannot be undone.' => 'This will immediately delete the %name question from the %webform survey. This cannot be undone.',
-    'Submission #@serial' => 'Answer #@serial',
+    // 'Submission #@serial' => 'Answer #@serial',
     'Submissions for %user' => 'Answers',
     'Edit component: @name' => 'Edit question @name',
     'New component %name added.' => 'New question %name added.',

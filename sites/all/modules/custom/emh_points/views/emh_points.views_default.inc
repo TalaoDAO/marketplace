@@ -1306,7 +1306,7 @@ function emh_points_views_default_views_alter(&$views) {
 
     /* Display: Page */
     $handler = $view->new_display('page', 'Page', 'page_1');
-    $handler->display->display_options['path'] = 'node/%/survey_answers';
+    $handler->display->display_options['path'] = 'node/%/results';
     $handler->display->display_options['menu']['type'] = 'tab';
     $handler->display->display_options['menu']['title'] = 'Answers';
     $handler->display->display_options['menu']['weight'] = '10';

@@ -195,6 +195,17 @@ function emh_request_block_save($delta = '', $edit = array()) {
 
 
 /**
+ * Implements hook_views_api().
+ */
+function emh_request_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'emh_request') . '/views',
+  );
+}
+
+
+/**
  * Helper function to retrieve an answer, depending on the status.
  */
 function emh_request_get_answer($entity, $type) {
