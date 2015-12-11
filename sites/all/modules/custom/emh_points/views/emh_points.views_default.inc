@@ -945,31 +945,6 @@ function emh_points_views_default_views() {
       'label' => 'Distribute points',
     ),
   );
-  /* Field: User: Uid */
-  $handler->display->display_options['fields']['uid']['id'] = 'uid';
-  $handler->display->display_options['fields']['uid']['table'] = 'users';
-  $handler->display->display_options['fields']['uid']['field'] = 'uid';
-  $handler->display->display_options['fields']['uid']['relationship'] = 'uid';
-  $handler->display->display_options['fields']['uid']['label'] = '';
-  $handler->display->display_options['fields']['uid']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
-  /* Field: User: First Name */
-  $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
-  $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
-  $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
-  $handler->display->display_options['fields']['field_first_name']['relationship'] = 'uid';
-  $handler->display->display_options['fields']['field_first_name']['label'] = '';
-  $handler->display->display_options['fields']['field_first_name']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_first_name']['element_label_colon'] = FALSE;
-  /* Field: User: Last Name */
-  $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
-  $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
-  $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
-  $handler->display->display_options['fields']['field_last_name']['relationship'] = 'uid';
-  $handler->display->display_options['fields']['field_last_name']['label'] = '';
-  $handler->display->display_options['fields']['field_last_name']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_last_name']['element_label_colon'] = FALSE;
   /* Field: Comment: Post date */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'comment';
@@ -978,16 +953,11 @@ function emh_points_views_default_views() {
   $handler->display->display_options['fields']['created']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['created']['date_format'] = 'short_date';
   $handler->display->display_options['fields']['created']['second_date_format'] = 'privatemsg_current_day';
-  /* Field: Author */
-  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['ui_name'] = 'Author';
-  $handler->display->display_options['fields']['nothing']['label'] = 'Author';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '[field_first_name] [field_last_name]';
-  $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['nothing']['alter']['path'] = 'user/[uid]';
-  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
+  /* Field: Comment: EMH Author */
+  $handler->display->display_options['fields']['emh_author']['id'] = 'emh_author';
+  $handler->display->display_options['fields']['emh_author']['table'] = 'comment';
+  $handler->display->display_options['fields']['emh_author']['field'] = 'emh_author';
+  $handler->display->display_options['fields']['emh_author']['label'] = 'Author';
   /* Field: Comment: Answer */
   $handler->display->display_options['fields']['emh_answer']['id'] = 'emh_answer';
   $handler->display->display_options['fields']['emh_answer']['table'] = 'comment';
@@ -1158,30 +1128,11 @@ function emh_points_views_default_views_alter(&$views) {
     $handler->display->display_options['fields']['submitted']['label'] = 'Answer date';
     $handler->display->display_options['fields']['submitted']['date_format'] = 'short_date';
     $handler->display->display_options['fields']['submitted']['second_date_format'] = 'long';
-    /* Field: User: First Name */
-    $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
-    $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
-    $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
-    $handler->display->display_options['fields']['field_first_name']['relationship'] = 'uid';
-    $handler->display->display_options['fields']['field_first_name']['label'] = '';
-    $handler->display->display_options['fields']['field_first_name']['exclude'] = TRUE;
-    $handler->display->display_options['fields']['field_first_name']['element_label_colon'] = FALSE;
-    /* Field: User: Last Name */
-    $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
-    $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
-    $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
-    $handler->display->display_options['fields']['field_last_name']['relationship'] = 'uid';
-    $handler->display->display_options['fields']['field_last_name']['label'] = '';
-    $handler->display->display_options['fields']['field_last_name']['exclude'] = TRUE;
-    $handler->display->display_options['fields']['field_last_name']['element_label_colon'] = FALSE;
-    /* Field: User: Link */
-    $handler->display->display_options['fields']['view_user']['id'] = 'view_user';
-    $handler->display->display_options['fields']['view_user']['table'] = 'users';
-    $handler->display->display_options['fields']['view_user']['field'] = 'view_user';
-    $handler->display->display_options['fields']['view_user']['relationship'] = 'uid';
-    $handler->display->display_options['fields']['view_user']['label'] = 'Author';
-    $handler->display->display_options['fields']['view_user']['alter']['alter_text'] = TRUE;
-    $handler->display->display_options['fields']['view_user']['alter']['text'] = '[field_first_name] [field_last_name]';
+    /* Field: Webform submissions: EMH Author */
+    $handler->display->display_options['fields']['emh_author']['id'] = 'emh_author';
+    $handler->display->display_options['fields']['emh_author']['table'] = 'webform_submissions';
+    $handler->display->display_options['fields']['emh_author']['field'] = 'emh_author';
+    $handler->display->display_options['fields']['emh_author']['label'] = 'Author';
     /* Field: Webform submissions: Answer */
     $handler->display->display_options['fields']['emh_answer']['id'] = 'emh_answer';
     $handler->display->display_options['fields']['emh_answer']['table'] = 'webform_submissions';
