@@ -235,7 +235,7 @@ function emh_request_get_answer($entity, $type) {
 
   return strip_tags(views_trim_text(
     array(
-      'max_length' => 50,
+      'max_length' => 100,
       'word_boundary' => TRUE,
       'ellipsis' => TRUE,
       'html' => TRUE,
