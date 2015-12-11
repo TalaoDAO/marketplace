@@ -59,16 +59,6 @@
  * @ingroup themeable
  */
 
-// echo '<pre>' . print_r($comment, TRUE) . '</pre>';
-// echo '<pre>' . print_r($content->field_private_comment_body, TRUE) . '</pre>';
-
-global $base_url;
-
-$comment_author = user_load($comment->uid);
-$first_name = field_get_items('user', $comment_author, 'field_first_name');
-$last_name = field_get_items('user', $comment_author, 'field_last_name');
-$profile_url = $base_url . '/' . drupal_get_path_alias('user/' . $comment->uid);
-$flag = flag_get_flag('my_contacts');
 ?>
 <div class="<?php print $classes; ?> clearfix row"<?php print $attributes; ?>>
 
@@ -77,17 +67,7 @@ $flag = flag_get_flag('my_contacts');
   <div class="col-sm-2 meta">
 
     <p class="author">
-      <?php if ( module_exists('emh_access') && (emh_access_user_can_see_full_user( $user->uid, $comment->uid ) || ($flag && $flag->is_flagged($comment->uid, $GLOBALS['user']->uid))) ) : ?>
-      <a href="<?php print $profile_url; ?>">
-      <?php endif; ?>
-
-      <?php //print $author; ?>
-      <?php //print $picture; ?>
-      <span class="author-firstname"><?php print render($first_name[0]['value']); ?></span>&nbsp;<span class="author-lastname"><?php print render($last_name[0]['value']); ?></span>
-
-      <?php if ( module_exists('emh_access') && (emh_access_user_can_see_full_user( $user->uid, $comment->uid ) || ($flag && $flag->is_flagged($comment->uid, $GLOBALS['user']->uid))) ) : ?>
-      </a>
-      <?php endif; ?>
+      <?php if ( module_exists('emh_users') ) print emh_users_get_beautiful_profile_link($comment->uid); ?>
     </p>
 
     <span class="submitted"><?php print $created; ?></span>
