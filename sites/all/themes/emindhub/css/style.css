@@ -15185,6 +15185,17 @@ table th[class*="col-"] {
   width: 110px;
   text-align: right;
 }
+.views-field-views-bulk-operations {
+  width: 50px;
+  text-align: center;
+}
+.views-field-views-bulk-operations .form-group {
+  margin-bottom: 0;
+}
+.views-field-views-bulk-operations .form-group input {
+  position: relative !important;
+  margin-top: 0 !important;
+}
 .view-query-list.view-display-id-block_1 .views-field-views-conditional,
 .view-query-list.view-id-query_list .views-field-views-conditional,
 .view-query-list.view-display-id-page_2 .views-field-views-conditional,
