@@ -1,0 +1,7 @@
+name = EMH Users
+description = Global functions for all users.
+package = EMH
+core = 7.x
+
+files[] = views/views_handler_field_emh_comment_author.inc
+files[] = views/views_handler_field_emh_webform_author.inc

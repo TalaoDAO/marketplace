@@ -1,0 +1,65 @@
+<?php
+/**
+ * @file
+ * Code for eMindHub Profiles feature.
+ */
+
+/**
+* Implements hook_views_api().
+*/
+function emh_users_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'emh_users') . '/views',
+  );
+}
+
+
+function emh_users_get_beautiful_realname($uid) {
+
+  $account = user_load($uid);
+  $firstName = '';
+  if (!empty($account->field_first_name[LANGUAGE_NONE])) {
+    $firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
+    $firstName = ucwords($firstName);
+  }
+  $lastName = '';
+  if (!empty($account->field_last_name[LANGUAGE_NONE])) {
+    $lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
+    $lastName = strtoupper($lastName);
+  }
+  if (!empty($firstName) && !empty($lastName)) {
+    return '<span class="author firstname">' . $firstName  . '</span>'. ' ' . '<span class="author lastname">' . $lastName . '</span>';
+  }
+  else {
+    return $account->name;
+  }
+
+}
+
+function emh_users_get_beautiful_author($node) {
+  if (empty($node)) {
+    $node = node_load(arg(1));
+  }
+  // print_r($node);
+  if (emh_access_author_name($node)) {
+    return emh_users_get_beautiful_realname($node->uid);
+  }
+  else {
+    return '<span class="author anonymous">' . t('Anonymous') . '</span>';
+  }
+}
+
+
+function emh_users_get_beautiful_profile_link($uid) {
+
+  global $user;
+  $name = emh_users_get_beautiful_realname($uid);
+  if (emh_access_user_can_see_full_user($user->uid, $uid)) {
+    return '<a href="' . url('user/' . $uid) . '">' . $name . '</a>';
+  }
+  else {
+    return $name;
+  }
+
+}
