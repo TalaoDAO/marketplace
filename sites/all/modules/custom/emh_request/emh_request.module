@@ -36,8 +36,8 @@ function emh_request_preprocess_page(&$variables) {
   $type = '';
   $count = '';
   $show_message = FALSE;
-
-  if (arg(0) == 'node') {
+  
+  if (arg(0) == 'node' && empty(arg(2))) {
     $node = node_load(arg(1));
     $type = $node->type;
     $count = emh_request_count_answers($node);
