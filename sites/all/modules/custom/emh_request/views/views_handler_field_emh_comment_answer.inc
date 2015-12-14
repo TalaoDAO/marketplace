@@ -19,7 +19,7 @@ class views_handler_field_emh_comment_answer extends views_handler_field {
   }
 
   /**
-   * Renders our field, displays the number of points of the comment.
+   * Renders our field, displays the answer.
    */
   function render($values) {
     if (isset($values->{$this->aliases['cid']})) {
