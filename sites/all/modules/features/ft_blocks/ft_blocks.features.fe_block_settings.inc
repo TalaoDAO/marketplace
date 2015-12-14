@@ -14,7 +14,6 @@ function ft_blocks_default_fe_block_settings() {
 
   $export['block-beta'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 0,
@@ -45,7 +44,6 @@ function ft_blocks_default_fe_block_settings() {
 
   $export['block-expert_avantages'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -74,7 +72,6 @@ function ft_blocks_default_fe_block_settings() {
 
   $export['block-experts_points_info'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 0,
@@ -107,7 +104,6 @@ function ft_blocks_default_fe_block_settings() {
 
   $export['block-home_register'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -141,7 +137,6 @@ freetrial',
 
   $export['block-hp_baseline'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -172,7 +167,6 @@ freetrial',
 
   $export['block-hp_challenge'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -201,7 +195,6 @@ freetrial',
 
   $export['block-hp_expertise'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -232,7 +225,6 @@ freetrial',
 
   $export['block-hp_experts'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -263,7 +255,6 @@ freetrial',
 
   $export['block-hp_experts_picto'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -294,7 +285,6 @@ freetrial',
 
   $export['block-hp_experts_text'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -325,7 +315,6 @@ freetrial',
 
   $export['block-hp_mobilize'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -356,7 +345,6 @@ freetrial',
 
   $export['block-hp_question'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -385,7 +373,6 @@ freetrial',
 
   $export['block-hp_request'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -416,7 +403,6 @@ freetrial',
 
   $export['block-hp_survey'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -445,7 +431,6 @@ freetrial',
 
   $export['block-hp_welcome'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -476,7 +461,6 @@ freetrial',
 
   $export['block-hp_why'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -507,7 +491,6 @@ freetrial',
 
   $export['block-hp_why_quality'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -538,7 +521,6 @@ freetrial',
 
   $export['block-hp_why_rapidity'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -569,7 +551,6 @@ freetrial',
 
   $export['block-hp_why_security'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -600,7 +581,6 @@ freetrial',
 
   $export['bootstrap_languages-language'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'language',
     'i18n_block_language' => array(),
@@ -629,7 +609,6 @@ freetrial',
 
   $export['menu-menu-burger-menu'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'menu-burger-menu',
     'i18n_block_language' => array(),
@@ -658,7 +637,6 @@ freetrial',
 
   $export['menu-menu-footer-menu'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'menu-footer-menu',
     'i18n_block_language' => array(),
@@ -687,7 +665,6 @@ freetrial',
 
   $export['menu-menu-networks'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'menu-networks',
     'i18n_block_language' => array(),
@@ -716,7 +693,6 @@ freetrial',
 
   $export['menu-menu-top'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'menu-top',
     'i18n_block_language' => array(),
@@ -747,7 +723,6 @@ freetrial',
 
   $export['menu-menu-top-anonymous'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'menu-top-anonymous',
     'i18n_block_language' => array(),
@@ -778,7 +753,6 @@ freetrial',
 
   $export['og_extras-node_links'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'node_links',
     'i18n_block_language' => array(),
@@ -807,7 +781,6 @@ freetrial',
 
   $export['progress_tracker-progress_tracker'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'progress_tracker',
     'i18n_block_language' => array(),
@@ -840,7 +813,6 @@ freetrial',
 
   $export['search-form'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'form',
     'i18n_block_language' => array(),
@@ -872,7 +844,6 @@ freetrial',
 
   $export['system-help'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'help',
     'i18n_block_language' => array(),
@@ -901,7 +872,6 @@ freetrial',
 
   $export['system-main'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'main',
     'i18n_block_language' => array(),
@@ -930,7 +900,6 @@ freetrial',
 
   $export['system-main-menu'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'main-menu',
     'i18n_block_language' => array(),
@@ -959,7 +928,6 @@ freetrial',
 
   $export['system-user-menu'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'user-menu',
     'i18n_block_language' => array(),
@@ -990,7 +958,6 @@ freetrial',
 
   $export['user-login'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'login',
     'i18n_block_language' => array(),
@@ -1021,7 +988,6 @@ freetrial',
 
   $export['user_alert-user_alert'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'user_alert',
     'i18n_block_language' => array(),
@@ -1050,7 +1016,6 @@ freetrial',
 
   $export['views-01297140ea5ccce8d24f3c703da2aaa3'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => '01297140ea5ccce8d24f3c703da2aaa3',
     'i18n_block_language' => array(),
@@ -1083,7 +1048,6 @@ freetrial',
 
   $export['views-7d0e01b6bec26eb141930d321747febd'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => '7d0e01b6bec26eb141930d321747febd',
     'i18n_block_language' => array(),
@@ -1116,7 +1080,6 @@ freetrial',
 
   $export['views-d5d704bbc8904420c5b32361a0446d81'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'd5d704bbc8904420c5b32361a0446d81',
     'i18n_block_language' => array(),
@@ -1149,7 +1112,6 @@ freetrial',
 
   $export['views-entreprise_list-block'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'entreprise_list-block',
     'i18n_block_language' => array(),
@@ -1178,7 +1140,6 @@ freetrial',
 
   $export['views-my_responses_calls3-block'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'my_responses_calls3-block',
     'i18n_block_language' => array(),
@@ -1212,7 +1173,6 @@ freetrial',
 
   $export['views-my_responses_challenges-block'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'my_responses_challenges-block',
     'i18n_block_language' => array(),
@@ -1246,7 +1206,6 @@ freetrial',
 
   $export['views-my_responses_questions1-block'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'my_responses_questions1-block',
     'i18n_block_language' => array(),
@@ -1280,7 +1239,6 @@ freetrial',
 
   $export['views-news_thread-block'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'news_thread-block',
     'i18n_block_language' => array(),
@@ -1309,7 +1267,6 @@ freetrial',
 
   $export['views-og_members-block_1'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'og_members-block_1',
     'i18n_block_language' => array(),
@@ -1338,7 +1295,6 @@ freetrial',
 
   $export['views-query_list-block'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'query_list-block',
     'i18n_block_language' => array(),
@@ -1374,7 +1330,6 @@ node',
 
   $export['views-query_list-block_1'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'query_list-block_1',
     'i18n_block_language' => array(),
@@ -1407,7 +1362,6 @@ node',
 
   $export['views-sponsors-partners_block'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'sponsors-partners_block',
     'i18n_block_language' => array(),
@@ -1436,7 +1390,6 @@ node',
 
   $export['views-sponsors-sponsors_block'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'sponsors-sponsors_block',
     'i18n_block_language' => array(),
@@ -1465,7 +1418,6 @@ node',
 
   $export['views-users_list-block_2'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'users_list-block_2',
     'i18n_block_language' => array(),
