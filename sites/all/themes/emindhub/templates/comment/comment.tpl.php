@@ -67,7 +67,7 @@
   <div class="col-sm-2 meta">
 
     <p class="author">
-      <?php if ( module_exists('emh_users') ) print emh_users_get_beautiful_profile_link($comment->uid); ?>
+      <?php if ( module_exists('emh_user') ) print emh_user_get_beautiful_profile_link($comment->uid); ?>
     </p>
 
     <span class="submitted"><?php print $created; ?></span>

@@ -25,8 +25,8 @@ $activity = field_get_items('user', $author, 'field_entreprise_description');
       <div class="col-md-7">
 
         <p class="user"><strong>
-          <?php if (module_exists('emh_users')) : ?>
-          <?php print emh_users_get_beautiful_author($node); ?>
+          <?php if (module_exists('emh_user')) : ?>
+          <?php print emh_user_get_beautiful_author($node); ?>
           <?php else : ?>
           <?php print $name; ?>
           <?php endif; ?>
