@@ -1,13 +1,13 @@
 <?php
 
-class views_handler_field_emh_webform_author extends views_handler_field {
+class views_handler_field_emh_comment_author extends views_handler_field {
 
   /**
    * Add additional fields.
    */
   function construct() {
     parent::construct();
-    $this->additional_fields['sid'] = 'sid';
+    $this->additional_fields['cid'] = 'cid';
   }
 
   /**
@@ -22,17 +22,15 @@ class views_handler_field_emh_webform_author extends views_handler_field {
    * Renders our field, displays the number of points of the comment.
    */
   function render($values) {
-    if (isset($values->{$this->aliases['sid']})) {
-      $sid = $values->{$this->aliases['sid']};
+    if (isset($values->{$this->aliases['cid']})) {
+      $cid = $values->{$this->aliases['cid']};
     }
     else {
       return 0;
     }
 
-    module_load_include('inc', 'webform', 'includes/webform.submissions');
-    $nid = arg(1);
-    $entity = webform_get_submission($nid, $sid);
-    return emh_users_get_beautiful_profile_link($entity->uid);
+    $entity = comment_load($cid);
+    return emh_user_get_beautiful_profile_link($entity->uid);
   }
 
   /**

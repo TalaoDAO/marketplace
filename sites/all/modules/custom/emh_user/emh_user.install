@@ -1,25 +1,25 @@
 <?php
 /**
  * @file
- * Installation hooks for the EMH Users module.
+ * Installation hooks for the EMH User module.
  */
 
 
 /**
 * Implements hook_enable
 */
-function emh_users_enable() {
-  emh_users_update_7001();
+function emh_user_enable() {
+  emh_user_update_7001();
 }
 
 
 /**
  * Force module weight for hook_form_alter execution
  */
-function emh_users_update_7001() {
+function emh_user_update_7001() {
   db_update('system')
   ->fields(array('weight' => 1))
   ->condition('type', 'module')
-  ->condition('name', 'emh_users')
+  ->condition('name', 'emh_user')
   ->execute();
 }

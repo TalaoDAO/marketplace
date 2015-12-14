@@ -9,7 +9,7 @@
  * Implements hook_views_data().
  * @ingroup views
  */
-function emh_users_views_data() {
+function emh_user_views_data() {
   $data = array();
 
   // Pseudo-field on comment.
