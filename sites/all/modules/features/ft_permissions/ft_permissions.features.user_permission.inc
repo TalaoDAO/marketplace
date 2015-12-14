@@ -778,16 +778,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'piwik',
   );
 
-  // Exported permission: 'administer points'.
-  $permissions['administer points'] = array(
-    'name' => 'administer points',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'emh_points',
-  );
-
   // Exported permission: 'administer privatecomments forms'.
   $permissions['administer privatecomments forms'] = array(
     'name' => 'administer privatecomments forms',
@@ -3259,18 +3249,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'page_manager',
-  );
-
-  // Exported permission: 'use points'.
-  $permissions['use points'] = array(
-    'name' => 'use points',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'business' => 'business',
-      'expert' => 'expert',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'emh_points',
   );
 
   // Exported permission: 'view field_referent'.
