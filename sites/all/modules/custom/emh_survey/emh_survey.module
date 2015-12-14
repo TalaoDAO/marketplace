@@ -393,7 +393,10 @@ function emh_survey_webform_node_defaults_alter(&$defaults) {
  * Implements hook_views_api().
  */
 function emh_survey_views_api() {
-  return array('api' => 3);
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'emh_survey') . '/views',
+  );
 }
 
 /**
