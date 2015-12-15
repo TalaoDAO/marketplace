@@ -79,6 +79,25 @@ function emh_points_menu() {
   return $items;
 }
 
+function emh_points_menu_alter(&$items){
+  $items['node/%/answers']['access callback'] = 'emh_points_access';
+  $items['node/%/answers']['access arguments'] = array(1);
+}
+
+/**
+ * Helper access callback.
+ */
+function emh_points_access($nid) {
+  if (empty($account)) {
+    global $user;
+    $account = user_load($user);
+  }
+  $node = node_load($nid);
+  if (node_access('update', $node, $account)) {
+    return TRUE;
+  }
+  return FALSE;
+}
 
 /**
  * Implements hook_menu_local_tasks_alter().

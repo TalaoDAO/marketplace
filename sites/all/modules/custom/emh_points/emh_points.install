@@ -202,6 +202,7 @@ function emh_points_schema() {
  */
 function emh_points_enable() {
   emh_points_update_7106();
+  emh_points_update_7107();
 }
 
 /**
@@ -324,4 +325,15 @@ function emh_points_update_7106() {
   user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('use points'));
   user_role_grant_permissions(3, array('administer points', 'view others points history')); // Administrator role
   user_role_grant_permissions(6, array('administer points', 'view others points history')); // Webmaster role
+}
+
+/**
+ * Force module weight for hook_form_alter execution
+ */
+function emh_points_update_7107() {
+  db_update('system')
+  ->fields(array('weight' => 1))
+  ->condition('type', 'module')
+  ->condition('name', 'emh_points')
+  ->execute();
 }
