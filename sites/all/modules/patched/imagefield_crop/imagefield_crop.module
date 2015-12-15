@@ -408,9 +408,14 @@ function _imagefield_crop_entity_presave($entity, $fields) {
     if ($field['widget']['type'] != 'imagefield_crop_widget') {
       continue;
     }
-    if (!isset($entity->{$field_name})) {
+    if (!isset($entity->{$field_name}) ) {
       continue;
     }
+    // YBA : https://www.drupal.org/node/1913412
+    if (empty($entity->{$field_name}) ) {
+      continue;
+    }
+
     // Get the language key for the field, if fields language key is not
     // $entity->language set $lang to 'und'.
     $lang = LANGUAGE_NONE;

@@ -8,8 +8,10 @@ Feature: Create question and answers
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | password |
     | client1 | client1@emindhub.com | business | Captain          | America         | client1  |
-    | expert1 | expert1@emindhub.com | expert   | Iron             | Man             | expert1  |
-    | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | expert2  |
+    Given users:
+    | name    | mail                 | roles    | field_first_name | field_last_name | password | field_domaine |
+    | expert1 | expert1@emindhub.com | expert   | Iron             | Man             | expert1  | Energy        |
+    | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | expert2  | Energy        |
     Given I give "client1" 300 emh points
     Given "question1" content:
     | title        | field_domaine | og_group_ref | field_reward | author  |
