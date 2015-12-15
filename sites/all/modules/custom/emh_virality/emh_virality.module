@@ -612,3 +612,20 @@ function _emh_virality_get_invitation_reward($account = NULL) {
 
   return 0;
 }
+
+function emh_virality_user_is_referrer($referral, $referrer = NULL) {
+  if ($referrer == NULL) {
+    global $user;
+    $referrer = $user;
+  }
+  $query = db_select('emh_invitation', 'i')
+    ->fields('i', array('invitation_id'))
+    ->condition('referrer_id', $referrer->uid)
+    ->condition('referral_id', $referral->uid)
+    ->condition('status', EmhInvitation::STATUS_VALIDATED);
+  $referring = $query->execute()->fetchField();
+  if (!empty($referring)) {
+    return TRUE;
+  }
+  return FALSE;
+}
