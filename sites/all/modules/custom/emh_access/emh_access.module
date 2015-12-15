@@ -83,15 +83,6 @@ function emh_access_field_access($op, $field, $entity_type, $entity, $account) {
           case 'field_partner_why':
             return TRUE;
             break;
-          // For other fields, it depends of our relation with the user:
-          case 'field_address':
-            $flag = flag_get_flag('my_contacts');
-            return ($flag && $flag->is_flagged($entity->uid, $account->uid));
-            break;
-          case 'field_telephone':
-            $flag = flag_get_flag('my_contacts');
-            return ($flag && $flag->is_flagged($entity->uid, $account->uid));
-            break;
           default:
             return emh_access_user_can_see_full_user($account->uid, $entity->uid);
             break;
@@ -140,6 +131,12 @@ function emh_access_user_can_see_full_user($uid, $uid2) {
       return TRUE;
     }
   }
+
+  // EMH Virality
+  if (module_exists('emh_virality')) {
+    emh_virality_user_is_referrer($uid2, $uid);
+  }
+
 
   // EMH Points
   if (module_exists('emh_points')) {
