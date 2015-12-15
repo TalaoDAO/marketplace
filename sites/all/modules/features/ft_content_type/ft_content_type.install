@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Installation hooks for FT Content Type feature.
+ */
+
+/**
+ * Update notification frequency.
+ */
+function ft_content_type_update_7101() {
+  // Update current choices.
+  db_update('field_data_field_notification_frequency')
+    ->fields(array(
+      'field_notification_frequency_tid' => 48
+    ))
+    ->condition('field_notification_frequency_tid', array(49, 114), 'IN')
+    ->execute();
+  db_update('field_revision_field_notification_frequency')
+    ->fields(array(
+      'field_notification_frequency_tid' => 48
+    ))
+    ->condition('field_notification_frequency_tid', array(49, 114), 'IN')
+    ->execute();
+  // Update possible choices from the field by deleting taxonomy terms.
+  taxonomy_term_delete(49);
+  taxonomy_term_delete(114);
+}
