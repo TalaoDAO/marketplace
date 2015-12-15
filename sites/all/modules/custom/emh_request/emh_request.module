@@ -320,3 +320,65 @@ function emh_request_has_points($nid) {
   $node = node_load($nid);
   if (!empty($node) && !empty($node->emh_points)) return TRUE;
 }
+
+/**
+ * Implements hook_node_insert().
+ */
+function emh_request_node_insert($node) {
+  if ($node->status === NODE_PUBLISHED) {
+    emh_request_try_to_notify($node);
+  }
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function emh_request_node_update($node) {
+  if ($node->status === NODE_PUBLISHED && $node->original->status === NODE_NOT_PUBLISHED) {
+    emh_request_try_to_notify($node);
+  }
+}
+
+/**
+ * Helper function to notify people.
+ */
+function emh_request_try_to_notify($node) {
+  // Validate pre-requisites.
+  if (empty($node->field_domaine) || empty($node->og_group_ref)) {
+    return;
+  }
+  // Get all user from groups.
+  $users = array();
+  $domains = array();
+  $mails = array();
+  foreach($node->og_group_ref[LANGUAGE_NONE] as $delta => $group) {
+    $query = new EntityFieldQuery();
+    $query
+      ->entityCondition('entity_type', 'og_membership')
+      ->propertyCondition('group_type', 'node', '=')
+      ->propertyCondition('gid', $group['target_id'], '=')
+      ->propertyCondition('entity_type', 'user', '=');
+    $result = $query->execute();
+    if (!empty($result['og_membership'])) {
+      $og_memberships = og_membership_load_multiple(array_keys($result['og_membership']));
+      foreach ($og_memberships as $og_membership) {
+        $users[] = $og_membership->etid;
+      }
+    }
+  }
+  // Get all domains from node.
+  foreach($node->field_domaine[LANGUAGE_NONE] as $delta => $term) {
+    $domains[] = $term['tid'];
+  }
+  // Load users.
+  $users = user_load_multiple($users);
+  // For each user of each group, check domain.
+  foreach($users as $user) {
+    foreach($user->field_domaine[LANGUAGE_NONE] as $delta => $term) {
+      // If right domain && notification authorized.
+      if (in_array($term['tid'], $domains) && $user->field_notification_frequency[LANGUAGE_NONE][0]['tid'] == 48) {
+        rules_invoke_event('emh_request_notify_new_request', $node, $user);
+      }
+    }
+  }
+}
