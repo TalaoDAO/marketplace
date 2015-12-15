@@ -106,10 +106,7 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_last_name']['#suffix'] = '</div>';
 
-  $form['account']['name']['#prefix'] = '<div class="form-group-2col row">';
   $form['account']['name']['#access'] = FALSE;
-  $form['account']['mail']['#weight'] = -9;
-  $form['account']['mail']['#suffix'] = '</div>';
 
   unset($form['account']['current_pass']);
   unset($form['account']['current_pass_required_values']);
