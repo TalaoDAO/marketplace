@@ -49,7 +49,6 @@ function emh_user_get_beautiful_author($node) {
   }
 }
 
-
 function emh_user_get_beautiful_profile_link($uid) {
 
   global $user;
@@ -61,4 +60,17 @@ function emh_user_get_beautiful_profile_link($uid) {
     return $name;
   }
 
+}
+
+function emh_user_is_webmaster() {
+  global $user;
+  $account = user_load($user->uid);
+  if ($user->uid == 1) {
+    // Admin ( = eMindHub) has every right.
+    return TRUE;
+  }
+  if (user_has_role(3, $account) || user_has_role(6, $account)) {
+    return TRUE;
+  }
+  return FALSE;
 }
