@@ -325,7 +325,7 @@ function emh_request_has_points($nid) {
  * Implements hook_node_insert().
  */
 function emh_request_node_insert($node) {
-  if ($node->status === NODE_PUBLISHED) {
+  if ($node->status == NODE_PUBLISHED) {
     emh_request_try_to_notify($node);
   }
 }
@@ -334,7 +334,7 @@ function emh_request_node_insert($node) {
  * Implements hook_node_update().
  */
 function emh_request_node_update($node) {
-  if ($node->status === NODE_PUBLISHED && $node->original->status === NODE_NOT_PUBLISHED) {
+  if ($node->status == NODE_PUBLISHED && $node->original->status == NODE_NOT_PUBLISHED) {
     emh_request_try_to_notify($node);
   }
 }
@@ -374,10 +374,14 @@ function emh_request_try_to_notify($node) {
   $users = user_load_multiple($users);
   // For each user of each group, check domain.
   foreach($users as $user) {
-    foreach($user->field_domaine[LANGUAGE_NONE] as $delta => $term) {
-      // If right domain && notification authorized.
-      if (in_array($term['tid'], $domains) && $user->field_notification_frequency[LANGUAGE_NONE][0]['tid'] == 48) {
-        rules_invoke_event('emh_request_notify_new_request', $node, $user);
+    // If user has the right role(s) and wants to be notified.
+    if (emh_user_is_expert($user) && !empty($user->field_notification_frequency[LANGUAGE_NONE]) && $user->field_notification_frequency[LANGUAGE_NONE][0]['tid'] == 48) {
+      foreach($user->field_domaine[LANGUAGE_NONE] as $delta => $term) {
+        // If right domain && notification authorized.
+        if (in_array($term['tid'], $domains)) {
+          rules_invoke_event('emh_request_notify_new_request', $node, $user);
+          continue;
+        }
       }
     }
   }

@@ -5106,6 +5106,7 @@ function ft_content_type_field_default_field_instances() {
         'file_name' => array(
           'options' => array(
             'pathauto' => 0,
+            'slashes' => 0,
             'transliterate' => 0,
           ),
           'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
@@ -5113,11 +5114,13 @@ function ft_content_type_field_default_field_instances() {
         'file_path' => array(
           'options' => array(
             'pathauto' => 0,
+            'slashes' => 0,
             'transliterate' => 0,
           ),
           'value' => 'picture',
         ),
-        'retroactive_update' => 1,
+        'redirect' => FALSE,
+        'retroactive_update' => 0,
       ),
       'filefield_paths_enabled' => 1,
       'max_filesize' => '',
@@ -5128,12 +5131,17 @@ function ft_content_type_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'image',
+      'module' => 'imagefield_crop',
       'settings' => array(
+        'collapsible' => 2,
+        'croparea' => '110x110',
+        'enforce_minimum' => 1,
+        'enforce_ratio' => 1,
         'preview_image_style' => 'profile_picture',
         'progress_indicator' => 'throbber',
+        'resolution' => '110x110',
       ),
-      'type' => 'image_image',
+      'type' => 'imagefield_crop_widget',
       'weight' => 21,
     ),
   );

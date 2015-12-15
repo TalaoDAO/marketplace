@@ -23,6 +23,7 @@ dependencies[] = ft_field_base
 dependencies[] = i18n_field
 dependencies[] = i18n_taxonomy
 dependencies[] = image
+dependencies[] = imagefield_crop
 dependencies[] = link
 dependencies[] = list
 dependencies[] = media

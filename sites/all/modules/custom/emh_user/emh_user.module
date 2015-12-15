@@ -62,21 +62,30 @@ function emh_user_get_beautiful_profile_link($uid) {
 
 }
 
-function emh_user_is_business() {
-	global $user;
-  return (in_array('business', array_values($user->roles)) || in_array('business preview', array_values($user->roles)));
+function emh_user_is_business($account = NULL) {
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+  return (in_array('business', array_values($account->roles)) || in_array('business preview', array_values($account->roles)));
 }
 
-function emh_user_is_expert() {
-	global $user;
-  return (in_array('expert', array_values($user->roles)) || in_array('expert preview', array_values($user->roles)) || in_array('référent', array_values($user->roles)));
+function emh_user_is_expert($account = NULL) {
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+  return (in_array('expert', array_values($account->roles)) || in_array('expert preview', array_values($account->roles)) || in_array('référent', array_values($account->roles)));
 }
 
-function emh_user_is_webmaster() {
-	global $user;
-  if ($user->uid == 1) {
+function emh_user_is_webmaster($account = NULL) {
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+  if ($account->uid == 1) {
     // Admin ( = eMindHub) has every right.
     return TRUE;
   }
-	return (in_array('webmaster', array_values($user->roles)) || in_array('administrator', array_values($user->roles)));
+	return (in_array('webmaster', array_values($account->roles)) || in_array('administrator', array_values($account->roles)));
 }
