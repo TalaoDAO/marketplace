@@ -7,7 +7,7 @@
 
     <ul class="links list-inline">
 
-      <?php if (!isExpertUser()) : ?>
+      <?php if (!emh_user_is_expert()) : ?>
 
       <?php if (function_exists('webform_get_submission_count')) : ?>
       <?php if (webform_get_submission_count($node->nid) > 0) : ?>

@@ -31,26 +31,6 @@ function emindhub_file($variables) {
 /*
  * USEFUL FUNCTIONS
  */
-function isBusinessUser() {
-	global $user;
-  return (in_array('business', array_values($user->roles)) || in_array('business preview', array_values($user->roles)));
-}
-
-function isExpertUser() {
-	global $user;
-  return (in_array('expert', array_values($user->roles)) || in_array('expert preview', array_values($user->roles)) || in_array('référent', array_values($user->roles)));
-}
-
-function isWebmasterUser() {
-	global $user;
-	return (in_array('webmaster', array_values($user->roles)));
-}
-
-function isAdminUser() {
-	global $user;
-	return (in_array('administrator', array_values($user->roles)));
-}
-
 function getImgSrc($fileName) {
 	return sprintf('%s/images/%s', base_path().path_to_theme(), $fileName);
 }

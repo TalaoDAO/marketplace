@@ -62,15 +62,21 @@ function emh_user_get_beautiful_profile_link($uid) {
 
 }
 
+function emh_user_is_business() {
+	global $user;
+  return (in_array('business', array_values($user->roles)) || in_array('business preview', array_values($user->roles)));
+}
+
+function emh_user_is_expert() {
+	global $user;
+  return (in_array('expert', array_values($user->roles)) || in_array('expert preview', array_values($user->roles)) || in_array('référent', array_values($user->roles)));
+}
+
 function emh_user_is_webmaster() {
-  global $user;
-  $account = user_load($user->uid);
+	global $user;
   if ($user->uid == 1) {
     // Admin ( = eMindHub) has every right.
     return TRUE;
   }
-  if (user_has_role(3, $account) || user_has_role(6, $account)) {
-    return TRUE;
-  }
-  return FALSE;
+	return (in_array('webmaster', array_values($user->roles)) || in_array('administrator', array_values($user->roles)));
 }
