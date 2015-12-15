@@ -219,6 +219,7 @@ function emindhub_preprocess_field(&$variables) {
         case 'field_entreprise':
         case 'field_address':
         case 'field_telephone':
+        case 'field_email':
           $classes[] = 'col-sm-10';
           break;
 
@@ -231,6 +232,7 @@ function emindhub_preprocess_field(&$variables) {
         case 'field_position_list':
         case 'field_employment_history':
         case 'field_needs_for_expertise':
+        case 'field_specific_skills3':
         case 'field_other_areas':
           $classes[] = 'col-sm-12';
           break;
