@@ -16454,7 +16454,8 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
   background-color: #EFF1F3;
   padding: 15px;
 }
-.page-user .profile-section .field-name-field-domaine .field-items > .field-item {
+.page-user .profile-section .field-name-field-domaine .field-items > .field-item,
+.page-user .profile-section .field-name-field-specific-skills3 .field-items > .field-item {
   display: inline-block;
   margin-right: 10px;
   background-color: #fff;
