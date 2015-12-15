@@ -351,7 +351,7 @@ function emh_request_try_to_notify($node) {
   $users = array();
   $domains = array();
   $mails = array();
-  foreach($node->og_group_ref[$node->language] as $delta => $group) {
+  foreach($node->og_group_ref[LANGUAGE_NONE] as $delta => $group) {
     $query = new EntityFieldQuery();
     $query
       ->entityCondition('entity_type', 'og_membership')
@@ -367,7 +367,7 @@ function emh_request_try_to_notify($node) {
     }
   }
   // Get all domains from node.
-  foreach($node->field_domaine[$node->language] as $delta => $term) {
+  foreach($node->field_domaine[LANGUAGE_NONE] as $delta => $term) {
     $domains[] = $term['tid'];
   }
   // Load users.
