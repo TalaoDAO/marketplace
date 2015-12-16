@@ -614,14 +614,14 @@ function _emh_virality_get_invitation_reward($account = NULL) {
 }
 
 function emh_virality_user_is_referrer($referral, $referrer = NULL) {
-  if ($referrer == NULL) {
+  if (empty($referrer)) {
     global $user;
-    $referrer = $user;
+    $referrer = $user->uid;
   }
   $query = db_select('emh_invitation', 'i')
     ->fields('i', array('invitation_id'))
-    ->condition('referrer_id', $referrer->uid)
-    ->condition('referral_id', $referral->uid)
+    ->condition('referrer_id', $referrer)
+    ->condition('referral_id', $referral)
     ->condition('status', EmhInvitation::STATUS_VALIDATED);
   $referring = $query->execute()->fetchField();
   if (!empty($referring)) {
