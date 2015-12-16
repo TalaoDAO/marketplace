@@ -574,24 +574,21 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
     );
     $form[$dest]['source'] = array(
       '#type' => 'markup',
-      '#markup' => t('Points for @dest', array('@dest' => emh_points_format_entity($entity))),
-      '#prefix' => '<div>',
+      '#markup' => emh_points_format_entity($entity),
+      '#prefix' => '<div class="answer-author">',
       '#suffix' => '</div>',
     );
     if (in_array($type_dest, array('comment', 'webform_submission'))) {
       $markup = '';
       switch($type_dest) {
-      case 'comment':
-        $markup = emh_request_get_answer($entity, 'comment');
-        break;
-      case 'webform_submission':
-        $markup = emh_request_get_answer($entity, 'webform_submission');
+        default:
+        $markup = emh_request_get_answer($entity, $type_dest);
         break;
       }
       $form[$dest]['answer'] = array(
         '#type' => 'markup',
         '#markup' => $markup,
-        '#prefix' => '<div>',
+        '#prefix' => '<div class="answer">',
         '#suffix' => '</div>',
       );
     }

@@ -9756,6 +9756,8 @@ button.close {
 #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker:after,
 form#change-pwd-page-form .form-type-password-confirm:before,
 form#change-pwd-page-form .form-type-password-confirm:after,
+form#emh-points-arrange-form fieldset .panel-body:before,
+form#emh-points-arrange-form fieldset .panel-body:after,
 form#user-profile-form .link-field-subrow:before,
 form#user-profile-form .link-field-subrow:after,
 form#user-profile-form .image-widget:before,
@@ -9799,6 +9801,7 @@ form#user-profile-form .image-widget .image-widget-data:after,
 #block-progress-tracker-progress-tracker #progress-tracker-wrapper:after,
 #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker:after,
 form#change-pwd-page-form .form-type-password-confirm:after,
+form#emh-points-arrange-form fieldset .panel-body:after,
 form#user-profile-form .link-field-subrow:after,
 form#user-profile-form .image-widget:after,
 form#user-profile-form .image-widget .image-widget-data:after,
@@ -15578,6 +15581,49 @@ form#change-pwd-page-form .form-item-pass > label .form-required {
   text-shadow: none;
   background-color: transparent;
   border: 0;
+}
+form#emh-points-arrange-form fieldset .panel-body {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+form#emh-points-arrange-form fieldset .panel-body .answer-author {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 767px) {
+  form#emh-points-arrange-form fieldset .panel-body .answer-author {
+    float: left;
+    width: 16.66666667%;
+  }
+}
+form#emh-points-arrange-form fieldset .panel-body .answer {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 767px) {
+  form#emh-points-arrange-form fieldset .panel-body .answer {
+    float: left;
+    width: 58.33333333%;
+  }
+}
+form#emh-points-arrange-form fieldset .panel-body .form-group {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 767px) {
+  form#emh-points-arrange-form fieldset .panel-body .form-group {
+    float: left;
+    width: 25%;
+  }
+}
+form#emh-points-arrange-form fieldset .panel-body .form-group label {
+  display: none !important;
 }
 /* FORMS
  * Burger menu filter
