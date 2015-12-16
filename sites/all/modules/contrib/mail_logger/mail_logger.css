@@ -1,0 +1,85 @@
+.mail_logger_wrapper {
+  margin    : 0 0 10px 0;
+}
+.mail_logger_wrapper div {
+}
+.mail_type_label {
+  float     : left;
+  margin    : 0 10px 0 0;
+  width     : 100px;
+  background-color:#DCD5D2;
+}
+.mail_type_data {
+  background-color:#DCD5D2;
+
+}
+.date_sent_label {
+  float     : left;
+  margin    : 0 10px 0 0;
+  width     : 100px;
+  background-color:#CCCCCC;
+
+}
+.date_sent_data {
+  background-color:#CCCCCC;
+
+}
+.mail_from_label {
+  float     : left;
+  margin    : 0 10px 0 0;
+  width     : 100px;
+  background-color:#DCD5D2;
+}
+.mail_from_data {
+  background-color:#DCD5D2;
+
+}
+.mail_to_label {
+  float     : left;
+  margin    : 0 10px 0 0;
+  width     : 100px;
+  background-color:#CCCCCC;
+
+}
+.mail_to_data {
+  background-color:#CCCCCC;
+
+}
+.mail_subject_label {
+  float     : left;
+  margin    : 0 10px 0 0;
+  width     : 100px;
+  background-color:#DCD5D2;
+
+}
+.mail_subject_data {
+  background-color:#DCD5D2;
+
+}
+.mail_body_label {
+  background-color:#CCCCCC;
+  font-weight:bold;
+}
+.mail_body_data {
+  background-color:#DCD5D2;
+  padding:10px;
+}
+.form-item-from-date{
+    float: left;
+}
+.form-item-to-date{
+    float:left;
+    margin-left: 30px;
+}
+.form-item-search-value{
+    float: left;
+    margin-left: 30px;
+    width: 300px;
+}
+.form-item-search-field{
+    float: left;
+    clear: both;
+}
+.form-item-filter{
+    clear: both;
+}
