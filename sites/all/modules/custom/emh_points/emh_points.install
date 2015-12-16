@@ -328,7 +328,7 @@ function emh_points_update_7106() {
 }
 
 /**
- * Force module weight for hook_form_alter execution
+ * Force module weight for hook_menu_alter execution
  */
 function emh_points_update_7107() {
   db_update('system')
@@ -336,4 +336,11 @@ function emh_points_update_7107() {
   ->condition('type', 'module')
   ->condition('name', 'emh_points')
   ->execute();
+}
+
+/**
+ * Revert Views.
+ */
+function emh_points_update_7108() {
+  emh_points_reset_views();
 }

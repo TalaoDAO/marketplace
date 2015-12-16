@@ -93,7 +93,7 @@ function emh_points_access($nid) {
     $account = user_load($user);
   }
   $node = node_load($nid);
-  if (node_access('update', $node, $account)) {
+  if (($node->uid == $account->uid) || node_access('update', $node, $account)) {
     return TRUE;
   }
   return FALSE;
