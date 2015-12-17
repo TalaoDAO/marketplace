@@ -95,7 +95,7 @@ function emh_access_field_access($op, $field, $entity_type, $entity, $account) {
           return TRUE;
             break;
           default:
-            return emh_access_user_can_see_full_answer($account->uid, $entity->uid, $node->uid);
+            return emh_access_user_can_see_full_answer($entity, $account);
             break;
         }
         break;
@@ -169,17 +169,20 @@ function emh_access_user_can_see_full_user($uid, $uid2) {
 
 /**
  * Access control : Does a user have access to another user answer?
- * Current logged-in user : $uid
- * Answer author : $uid2
- * Node author : $uid3
  */
-function emh_access_user_can_see_full_answer($uid, $uid2, $uid3) {
-  if ($uid == 1) {
+function emh_access_user_can_see_full_answer($entity, $account = NULL) {
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+  $node = node_load($entity->nid);
+  if ($account->uid == 1) {
     // Admin ( = eMindHub) has every right.
     return TRUE;
   }
-  if ($uid == $uid2 || $uid == $uid3) {
+  if ($entity->uid == $account->uid || $node->uid == $account->uid) {
     // Node author and answer author have every right.
     return TRUE;
   }
+  return FALSE;
 }
