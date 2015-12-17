@@ -39,13 +39,25 @@ Feature: Create survey and answers
     And I press "Submit"
     Then I should see "Thank you, your answer has been sent."
 
+    # An expert cannot respond twice to the same survey.
+    When I go to homepage
+    And I click "What about?"
+    And I should not see "Answer the survey"
+
+    # But he can edit his own answer
+    And I should see "Everybody can be, trust me."
+    And I click "Edit"
+    And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we know."
+    And I press "Save"
+    Then I should see "Your answer has been updated."
+
     # The author check the expert's answer.
     Given I am logged in as "client1"
     When I go to "/content/what-about"
     Then I click "Answers" in the "title" region
     Then I should see "Iron Man"
-    And I click "Everybody can be, trust me."
+    And I click "Everybody can be, trust me, I'm the best we know."
     Then I should see "How to become a superhero?"
-    And I should see "Everybody can be, trust me."
+    And I should see "Everybody can be, trust me, I'm the best we know."
     Then I click "Back to Answers"
     And I should see "Select best answer(s)"
