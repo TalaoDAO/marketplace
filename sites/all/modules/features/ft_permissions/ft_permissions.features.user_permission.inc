@@ -769,15 +769,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'user',
   );
 
-  // Exported permission: 'administer piwik'.
-  $permissions['administer piwik'] = array(
-    'name' => 'administer piwik',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'piwik',
-  );
-
   // Exported permission: 'administer privatecomments forms'.
   $permissions['administer privatecomments forms'] = array(
     'name' => 'administer privatecomments forms',
@@ -2792,15 +2783,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'term_merge',
   );
 
-  // Exported permission: 'opt-in or out of tracking'.
-  $permissions['opt-in or out of tracking'] = array(
-    'name' => 'opt-in or out of tracking',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'piwik',
-  );
-
   // Exported permission: 'override email address'.
   $permissions['override email address'] = array(
     'name' => 'override email address',
@@ -3155,15 +3137,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'php',
-  );
-
-  // Exported permission: 'use PHP for tracking visibility'.
-  $permissions['use PHP for tracking visibility'] = array(
-    'name' => 'use PHP for tracking visibility',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'piwik',
   );
 
   // Exported permission: 'use PHP to import nodes'.
