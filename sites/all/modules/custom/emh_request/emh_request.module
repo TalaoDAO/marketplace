@@ -38,9 +38,10 @@ function emh_request_preprocess_page(&$variables) {
   $show_message = FALSE;
 
   $arg0 = arg(0);
+  $arg1 = arg(1);
   $arg2 = arg(2);
   if ($arg0 == 'node' && empty($arg2)) {
-    $node = node_load(arg(1));
+    $node = node_load($arg1);
     $type = $node->type;
     $count = emh_request_count_answers($node);
     if (($count > 0) && ($node->uid == $uid)) $show_message = TRUE;
