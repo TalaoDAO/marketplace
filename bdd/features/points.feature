@@ -1,19 +1,25 @@
 @api
-Feature: Test points 
-  In order to test emh points 
-  As a client 
+Feature: Test points
+  In order to test emh points
+  As a client
   I want to dispatch points on experts
 
   Background: points : create questions and answers
+    Given "circle" content:
+    | title    | author  |
+    | Avengers | client1 |
+
     Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name |
-    | client1 | client1@emindhub.com | business | Captain          | America         |
-    | expert1 | expert1@emindhub.com | expert   | Iron             | Man             |
-    | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            |
+    | name    | mail                 | roles    | field_first_name | field_last_name | password | og_user_node |
+    | client1 | client1@emindhub.com | business | Captain          | America         | client1  | Avengers     |
+    | expert1 | expert1@emindhub.com | expert   | Iron             | Man             | expert1  | Avengers     |
+    | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | expert2  | Avengers     |
+
     Given I give "client1" 300 emh points
+
     Given "question1" content:
     | title        | field_domaine | og_group_ref | field_reward | author  |
-    | What about ? | Energy        | All experts  | 100          | client1 |
+    | What about ? | Energy        | Avengers  | 100          | client1 |
 
     Given I am logged in as "expert1"
     When I go to homepage
@@ -81,8 +87,8 @@ Feature: Test points
     And I fill in "Points for Klark Kent" with "40"
     #And I press "Distribute points"
     # Validate distribution and close the request
-    And I press "edit-submit" 
-    Then I should see the success message "All the points have been distributed" 
+    And I press "edit-submit"
+    Then I should see the success message "All the points have been distributed"
     Then I should have 0 points on "What about ?" node
     And I should have "60" points on "expert1" user
     And I should have "40" points on "expert2" user
@@ -92,5 +98,3 @@ Feature: Test points
     Then I should see "Move points from Captain America to question1 What about ?."
     And I should see "Move points from question1 What about ? to Iron Man. "
     And I should see "Move points from question1 What about ? to Klark Kent. "
-
-
