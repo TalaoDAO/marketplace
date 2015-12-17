@@ -80,23 +80,38 @@ function emh_points_menu() {
 }
 
 function emh_points_menu_alter(&$items){
-  $items['node/%/answers']['access callback'] = 'emh_points_access';
-  $items['node/%/answers']['access arguments'] = array(1);
+  $items['node/%views_arg/answers']['access callback'] = 'emh_points_answers_tab_access';
+  $items['node/%views_arg/answers']['access arguments'] = array(1);
+  $items['node/%views_arg/results']['access callback'] = 'emh_points_answers_tab_access';
+  $items['node/%views_arg/results']['access arguments'] = array(1);
 }
 
 /**
  * Helper access callback.
  */
-function emh_points_access($nid) {
-  if (empty($account)) {
-    global $user;
-    $account = user_load($user);
-  }
+function emh_points_answers_tab_access($nid) {
+  global $user;
+  $account = $user;
   $node = node_load($nid);
   if (($node->uid == $account->uid) || node_access('update', $node, $account)) {
     return TRUE;
   }
   return FALSE;
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function emh_points_module_implements_alter(&$implementations, $hook) {
+  // When the implementations of hook_menu_alter are called, we need our module
+  // to be called after views, so let's remove it from the implementations then
+  // add it to the end.
+  if ($hook == 'menu_alter') {
+    if (isset($implementations['emh_points'])) {
+      unset($implementations['emh_points']);
+      $implementations['emh_points'] = FALSE;
+    }
+  }
 }
 
 /**
