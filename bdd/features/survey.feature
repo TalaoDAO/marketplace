@@ -52,7 +52,7 @@ Feature: Create survey and answers
     And I should see "Everybody can be, trust me."
 
     # But he can edit his own answer
-    When I click "Edit"
+    When I click "Edit" in the "content" region
     Then I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we know."
     And I press "Save"
     Then I should see "Your answer has been updated."
