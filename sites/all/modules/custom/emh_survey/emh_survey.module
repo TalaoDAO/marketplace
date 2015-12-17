@@ -60,53 +60,10 @@ function emh_survey_menu_alter(&$items) {
   $items['node/%webform_menu/webform/components/%webform_menu_component/clone']['access arguments'] = array();
 
   // Node submissions.
-  $items['node/%webform_menu/submission/%webform_menu_submission']['access callback'] = 'emh_user_is_webmaster';
-  $items['node/%webform_menu/submission/%webform_menu_submission']['access arguments'] = array();
-  $items['node/%webform_menu/results/%webform_menu_submission'] = array(
-    'title' => 'Survey answer',
-    'load arguments' => array(1),
-    'page callback' => 'webform_submission_page',
-    'page arguments' => array(1, 3, 'html'),
-    'title callback' => 'emh_survey_webform_submission_title',
-    'title arguments' => array(1, 3),
-    'access callback' => 'webform_submission_access',
-    'access arguments' => array(1, 3, 'view'),
-    'file' => 'includes/webform.submissions.inc',
-    'file path' => drupal_get_path('module', 'webform'), // Useful outside of webform directory !
-    'weight' => 1,
-    'type' => MENU_LOCAL_TASK,
-    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
-  );
-  $items['node/%webform_menu/submission/%webform_menu_submission/view']['access callback'] = 'emh_user_is_webmaster';
-  $items['node/%webform_menu/submission/%webform_menu_submission/view']['access arguments'] = array();
-  $items['node/%webform_menu/results/%webform_menu_submission/view'] = array(
-    'title' => 'View',
-    'load arguments' => array(1),
-    'page callback' => 'webform_submission_page',
-    'page arguments' => array(1, 3, 'html'),
-    'title callback' => 'emh_survey_webform_submission_title',
-    'title arguments' => array(1, 3),
-    'access callback' => 'webform_submission_access',
-    'access arguments' => array(1, 3, 'view'),
-    'weight' => 0,
-    'file' => 'includes/webform.submissions.inc',
-    'file path' => drupal_get_path('module', 'webform'), // Useful outside of webform directory !
-    'type' => MENU_DEFAULT_LOCAL_TASK,
-  );
-  $items['node/%webform_menu/submission/%webform_menu_submission/edit']['access callback'] = 'emh_user_is_webmaster';
-  $items['node/%webform_menu/submission/%webform_menu_submission/edit']['access arguments'] = array();
-  $items['node/%webform_menu/results/%webform_menu_submission/edit'] = array(
-    'title' => 'Edit',
-    'load arguments' => array(1),
-    'page callback' => 'webform_submission_page',
-    'page arguments' => array(1, 3, 'form'),
-    'access callback' => 'webform_submission_access',
-    'access arguments' => array(1, 3, 'edit'),
-    'weight' => 1,
-    'file' => 'includes/webform.submissions.inc',
-    'file path' => drupal_get_path('module', 'webform'), // Useful outside of webform directory !
-    'type' => MENU_LOCAL_TASK,
-  );
+  $items['node/%webform_menu/submission/%webform_menu_submission']['title callback'] = 'emh_survey_webform_submission_title';
+  $items['node/%webform_menu/submission/%webform_menu_submission']['title arguments'] = array(1, 2);
+  $items['node/%webform_menu/submission/%webform_menu_submission/view']['title callback'] = 'emh_survey_webform_submission_title';
+  $items['node/%webform_menu/submission/%webform_menu_submission/view']['title arguments'] = array(1, 2);
 
 }
 
@@ -473,3 +430,25 @@ function emh_survey_block_view($delta = '') {
 
   return $block;
 }
+
+/**
+ * Preprocess function for webform-submission-navigation.tpl.php.
+ */
+// function emh_survey_preprocess_webform_submission_navigation(&$vars) {
+//   $start_path = ($vars['mode'] == 'print') ? 'print/' : 'node/';
+//
+//   $previous_query = db_select('webform_submissions')
+//     ->condition('nid', $vars['node']->nid)
+//     ->condition('sid', $vars['submission']->sid, '<');
+//   $previous_query->addExpression('MAX(sid)');
+//
+//   $next_query = db_select('webform_submissions')
+//     ->condition('nid', $vars['node']->nid)
+//     ->condition('sid', $vars['submission']->sid, '>');
+//   $next_query->addExpression('MIN(sid)');
+//
+//   $vars['previous'] = $previous_query->execute()->fetchField();
+//   $vars['next'] = $next_query->execute()->fetchField();
+//   $vars['previous_url'] = $start_path . $vars['node']->nid . '/results/' . $vars['previous'] . ($vars['mode'] == 'form' ? '/edit' : '');
+//   $vars['next_url'] = $start_path . $vars['node']->nid . '/results/' . $vars['next'] . ($vars['mode'] == 'form' ? '/edit' : '');
+// }
