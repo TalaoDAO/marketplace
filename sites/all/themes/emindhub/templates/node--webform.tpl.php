@@ -236,7 +236,7 @@
 				?>
 			</div>
 			<ul class="links list-inline text-right">
-				<li class="edit_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/results/<?php print $sid; ?>/edit"><?php print t('Edit'); ?></a></li>
+				<li class="edit_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $sid; ?>/edit"><?php print t('Edit'); ?></a></li>
 			</ul>
 		</div>
 		<?php endforeach; ?>
