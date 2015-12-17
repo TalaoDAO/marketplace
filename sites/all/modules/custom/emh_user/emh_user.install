@@ -29,31 +29,7 @@ function emh_user_update_7001() {
  * Force new user email field to be populate for the first time
  */
 // function emh_user_update_7102() {
-//   // Grab all the uids in the users table
-//   // $uids = db_query('SELECT uid FROM {users}')->fetchCol();
-//   //
-//   // // Load the users
-//   // $accounts = user_load_multiple($uids);
-//   //
-//   // // Loop through and edit each user
-//   // foreach ($accounts as $account) {
-//   //   // Load the extra data from whatever source you're using
-//   //   // print_r($user); die;
-//   //   // $extra_data = $user->mail;
-//   //   // Update the field
-//   //   // $user->field_email[$user->language][0]['value'] = $user->mail;
-//   //   // Save the user object
-//   //
-//   //   // create an array of properties to update
-//   //   $edit = array();
-//   //   $edit['field_email'][$account->language][0]['value'] = $account->mail;
-//   //   // $edit = array(
-//   //   //   'field_email' => $account->mail,
-//   //   // );
-//   //
-//   //   user_save($account, $edit);
-//   // }
-//
+// 
 //   set_time_limit(0);
 //   $uids = db_query('SELECT uid FROM {users} WHERE uid != 0')->fetchCol();
 //   $users = user_load_multiple($uids);
