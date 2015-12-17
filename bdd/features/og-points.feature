@@ -7,10 +7,10 @@ Feature: Test points dispatch in OG
   Background: OG Points : Create questions and answers
     #client1 is webmaster to gain access to tabs until links are added
     Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name |
+    | name    | mail                 | roles               | field_first_name | field_last_name |
     | client1 | client1@emindhub.com | business, webmaster | Steve            | Rogers          |
-    | client2 | client2@emindhub.com | business | Bruce            | Banner          |
-    | client3 | client3@emindhub.com | business | Tony             | Stark           |
+    | client2 | client2@emindhub.com | business            | Bruce            | Banner          |
+    | client3 | client3@emindhub.com | business            | Tony             | Stark           |
     Given "circle" content:
     | title    | author  |
     | Avengers | client1 |
@@ -47,7 +47,7 @@ Feature: Test points dispatch in OG
     And I press "Distribute group points to these entities"
     Then I should see "Points"
     When I fill in "Points" with "100"
-    And I press "Next" 
+    And I press "Next"
     Then I should see "Points for Bruce Banner"
     And I should see "Points for Tony Stark"
     When I fill in "Points for Bruce Banner" with "60"
@@ -57,4 +57,3 @@ Feature: Test points dispatch in OG
     And I should have 100 points on "Avengers" node
     And I should have "60" points on "client2" user
     And I should have "40" points on "client3" user
-
