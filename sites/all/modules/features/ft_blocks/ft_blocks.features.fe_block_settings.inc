@@ -339,7 +339,7 @@ freetrial',
         'weight' => 0,
       ),
     ),
-    'title' => '3 ways to find experts',
+    'title' => 'How to find experts?',
     'visibility' => 1,
   );
 
