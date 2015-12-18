@@ -4448,39 +4448,6 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_email'.
-  $field_instances['user-user-field_email'] = array(
-    'bundle' => 'user',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'email',
-        'settings' => array(),
-        'type' => 'email_default',
-        'weight' => 121,
-      ),
-    ),
-    'entity_type' => 'user',
-    'field_name' => 'field_email',
-    'label' => 'Email',
-    'required' => FALSE,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'module' => 'email',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'email_textfield',
-      'weight' => 37,
-    ),
-  );
-
   // Exported field_instance: 'user-user-field_employment_history'.
   $field_instances['user-user-field_employment_history'] = array(
     'bundle' => 'user',
@@ -4702,7 +4669,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 42,
+      'weight' => 8,
     ),
   );
 
@@ -4739,7 +4706,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 43,
+      'weight' => 11,
     ),
   );
 
@@ -4776,7 +4743,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 41,
+      'weight' => 7,
     ),
   );
 
@@ -5191,7 +5158,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 122,
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'user',
@@ -5610,7 +5577,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'i18n_field',
         'settings' => array(),
         'type' => 'i18n_list_default',
-        'weight' => 123,
+        'weight' => 6,
       ),
       'full' => array(
         'label' => 'above',
@@ -5693,7 +5660,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'og',
       'settings' => array(),
       'type' => 'og_complex',
-      'weight' => 40,
+      'weight' => 6,
     ),
   );
 
@@ -5723,7 +5690,6 @@ function ft_content_type_field_default_field_instances() {
   t('Document text');
   t('Domain(s)');
   t('Duration of the mission');
-  t('Email');
   t('Entreprise type');
   t('Field(s) of expertise');
   t('First Name');

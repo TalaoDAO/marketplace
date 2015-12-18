@@ -509,7 +509,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Expert',
-    'weight' => '38',
+    'weight' => '1',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -609,15 +609,14 @@ function ft_content_type_field_group_info() {
       1 => 'field_is_sponsor',
       2 => 'field_is_promoted',
       3 => 'field_is_partner',
-      4 => 'field_email',
-      5 => 'ckeditor',
-      6 => 'mimemail',
-      7 => 'piwik',
-      8 => 'timezone',
-      9 => 'contact',
-      10 => 'locale',
-      11 => 'group_expert',
-      12 => 'group_testimony',
+      4 => 'ckeditor',
+      5 => 'mimemail',
+      6 => 'piwik',
+      7 => 'timezone',
+      8 => 'contact',
+      9 => 'locale',
+      10 => 'group_expert',
+      11 => 'group_testimony',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1292,7 +1291,6 @@ function ft_content_type_field_group_info() {
       3 => 'field_address',
       4 => 'field_titre_metier',
       5 => 'field_photo',
-      6 => 'field_email',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1952,7 +1950,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Share your experience',
-    'weight' => '39',
+    'weight' => '5',
     'children' => array(
       0 => 'field_testimony',
       1 => 'field_partner_why',

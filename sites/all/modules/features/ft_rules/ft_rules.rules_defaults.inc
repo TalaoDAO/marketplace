@@ -91,22 +91,6 @@ function ft_rules_default_rules_configuration() {
       ]
     }
   }');
-  $items['rules_populate_user_profile_email_field'] = entity_import('rules_config', '{ "rules_populate_user_profile_email_field" : {
-      "LABEL" : "Populate user profile email field",
-      "PLUGIN" : "reaction rule",
-      "OWNER" : "rules",
-      "TAGS" : [ "EMH" ],
-      "REQUIRES" : [ "rules" ],
-      "ON" : { "user_insert" : [], "user_update" : [] },
-      "DO" : [
-        { "data_set" : {
-            "data" : [ "site:current-user:field-email" ],
-            "value" : [ "site:current-user:mail" ]
-          }
-        }
-      ]
-    }
-  }');
   $items['rules_pre_subscribe_membres'] = entity_import('rules_config', '{ "rules_pre_subscribe_membres" : {
       "LABEL" : "Pre subscribe members to new Circles",
       "PLUGIN" : "reaction rule",
@@ -162,7 +146,7 @@ function ft_rules_default_rules_configuration() {
       "PLUGIN" : "reaction rule",
       "ACTIVE" : false,
       "OWNER" : "rules",
-      "TAGS" : [ "Circle", "email", "EMH" ],
+      "TAGS" : [ "Circle", "EMH", "email" ],
       "REQUIRES" : [ "rules", "og" ],
       "ON" : { "og_user_insert" : [] },
       "DO" : [
