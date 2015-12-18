@@ -209,7 +209,7 @@
 		$submissions = webform_get_submissions(array('nid' => $nid, 'uid' => $uid));
 		?>
 
-		<?php if (empty($submissions)) : ?>
+		<?php if (empty($submissions) || $submissions['is_draft']) : ?>
 
 		<?php if ( (!emh_user_is_business() || $node->uid == $user->uid) && $node->webform['status'] ) : ?>
 		<?php if (!empty($node->webform['components'])) : ?>
