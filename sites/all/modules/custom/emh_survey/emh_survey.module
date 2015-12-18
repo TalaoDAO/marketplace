@@ -62,8 +62,12 @@ function emh_survey_menu_alter(&$items) {
   // Node submissions.
   $items['node/%webform_menu/submission/%webform_menu_submission']['title callback'] = 'emh_survey_webform_submission_title';
   $items['node/%webform_menu/submission/%webform_menu_submission']['title arguments'] = array(1, 2);
+  // $items['node/%webform_menu/submission/%webform_menu_submission']['access callback'] = 'emh_survey_is_author';
+  // $items['node/%webform_menu/submission/%webform_menu_submission']['access arguments'] = array(1);
   $items['node/%webform_menu/submission/%webform_menu_submission/view']['title callback'] = 'emh_survey_webform_submission_title';
   $items['node/%webform_menu/submission/%webform_menu_submission/view']['title arguments'] = array(1, 2);
+  // $items['node/%webform_menu/submission/%webform_menu_submission/view']['access callback'] = 'emh_survey_is_author';
+  // $items['node/%webform_menu/submission/%webform_menu_submission/view']['access arguments'] = array(1);
 
 }
 
@@ -88,11 +92,18 @@ function emh_survey_form_alter(&$form, &$form_state, $form_id) {
     );
   }
 
-  // TODO: cibler le formulaire de soumission
+  if (isset($form['#node']->nid)) {
+    $survey_ID = $form['#node']->nid;
+    switch ($form_id) {
+      case "webform_client_form_$survey_ID":
+        if (!empty($form['#is_draft']) || empty($form['#submission'])) $form['actions']['submit']['#value'] = t('Publish my answer');
+        break;
+      default:
+        break;
+    }
+  }
 
 	if ((isset($form['#node']) && $form['#node']->type == 'webform')) {
-		// $form['actions']['submit']['#value'] = t('Submit my answer');
-
     if ( emh_user_is_business() && !empty($form['submitted']) ) {
       foreach( $form['submitted'] as $key => $element ) {
         if (is_array($element) && !empty($element['#type']) && $element['#type'] == 'textarea') {
@@ -119,7 +130,8 @@ function emh_survey_webform_form_submit($form, &$form_state) {
 }
 
 
-/* Webform hook form alter
+/**
+ * Implements hook_form_alter().
  * node/add/webform
  * node/$ID/edit
  */
@@ -160,7 +172,22 @@ function emh_survey_form_webform_node_form_alter(&$form, &$form_state, $form_id)
 
 
 /**
- * Webform hook form alter
+ * Implements hook_form_alter().
+ * node/add/webform
+ * node/$ID/edit
+ */
+function emh_survey_form_webform_configure_form_alter(&$form, &$form_state, $form_id) {
+
+  $form['advanced']['allow_draft']['#default_value'] = 1;
+  $form['#node']->webform['allow_draft'] = 1;
+
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+
+}
+
+
+/**
+ * Implements hook_form_alter().
  * node/$ID/webform
  * node/$ID/webform/components
  */
@@ -294,7 +321,8 @@ function emh_survey_webform_components_form_draft($form, &$form_state) {
 }
 
 
-/* Webform hook form alter
+/**
+ * Implements hook_form_alter().
  * node/$ID/webform/components/$ID
  */
 function emh_survey_form_webform_component_edit_form_alter(&$form, &$form_state, $form_id) {

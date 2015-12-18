@@ -42,17 +42,23 @@ Feature: Create survey and answers
     And I click "What about?"
     #Then I should not see "Answers" in the "title" region
     When I fill in "How to become a superhero?" with "Everybody can be, trust me."
-    And I press "Submit"
+    # Draft answer
+    And I press "Save Draft"
+    Then I should see "Your answer has been saved as draft."
+    # Published answer
+    When I click "Edit" in the "answer" region
+    Then I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
+    And I press "Publish my answer"
     Then I should see "Thank you, your answer has been sent."
 
     # An expert cannot respond twice to the same survey.
     When I go to homepage
     And I click "What about?"
     Then I should not see "Answer the survey"
-    And I should see "Everybody can be, trust me."
+    And I should see "Everybody can be, trust me, I'm the best we known."
 
     # But he can edit his own answer
-    When I click "Edit" in the "content" region
+    When I click "Edit" in the "answer" region
     Then I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we know."
     And I press "Save"
     Then I should see "Your answer has been updated."

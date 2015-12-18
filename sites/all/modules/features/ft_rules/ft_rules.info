@@ -14,6 +14,7 @@ features[rules_config][] = rules_add_expert_role_on_hybridauth
 features[rules_config][] = rules_auto_subscribe_to_general_group
 features[rules_config][] = rules_mandatory_group
 features[rules_config][] = rules_on_hybridauth_register
+features[rules_config][] = rules_populate_user_profile_email_field
 features[rules_config][] = rules_pre_subscribe_membres
 features[rules_config][] = rules_set_clients_as_admin_in_mandatory_group
 features[rules_config][] = rules_subscription_to_group_email
