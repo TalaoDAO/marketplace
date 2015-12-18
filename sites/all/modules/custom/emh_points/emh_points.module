@@ -80,23 +80,10 @@ function emh_points_menu() {
 }
 
 function emh_points_menu_alter(&$items){
-  $items['node/%views_arg/answers']['access callback'] = 'emh_points_answers_tab_access';
+  $items['node/%views_arg/answers']['access callback'] = 'emh_user_is_author';
   $items['node/%views_arg/answers']['access arguments'] = array(1);
-  $items['node/%views_arg/results']['access callback'] = 'emh_points_answers_tab_access';
+  $items['node/%views_arg/results']['access callback'] = 'emh_user_is_author';
   $items['node/%views_arg/results']['access arguments'] = array(1);
-}
-
-/**
- * Helper access callback.
- */
-function emh_points_answers_tab_access($nid) {
-  global $user;
-  $account = $user;
-  $node = node_load($nid);
-  if (($node->uid == $account->uid) || node_access('update', $node, $account)) {
-    return TRUE;
-  }
-  return FALSE;
 }
 
 /**
