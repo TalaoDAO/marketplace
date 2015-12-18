@@ -73,6 +73,7 @@ function _emh_request_string_overrides() {
     'Submissions for this form are closed.' => 'Answers for this survey are closed.',
     'You have already submitted this form.' => 'You have already submitted this survey.',
     'Submission updated.' => 'Your answer has been updated.',
+    'Submission saved. You may return to this form later and it will restore the current values.' => 'Your answer has been saved as draft. You may return to this survey later and it will restore your current answer.',
 
     // Comment
     'Edit comment %comment' => 'Edit answer',
