@@ -10,10 +10,10 @@ Feature: Test points
     | Avengers | client1 |
 
     Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name | password | og_user_node |
-    | client1 | client1@emindhub.com | business | Captain          | America         | client1  | Avengers     |
-    | expert1 | expert1@emindhub.com | expert   | Iron             | Man             | expert1  | Avengers     |
-    | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | expert2  | Avengers     |
+    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node |
+    | client1 | client1@emindhub.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     |
+    | expert1 | expert1@emindhub.com | expert   | Iron             | Man             | 0712345678      | Chieur génial      | Avengers     |
+    | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | 0812345678      | Modèle             | Avengers     |
 
     Given I give "client1" 300 emh points
 
@@ -109,6 +109,10 @@ Feature: Test points
     When I go to "/my-relationships"
     Then I should see the link "Iron Man"
     And I should see the link "Klark Kent"
+
+    # And now, the expert phone is shown
+    When I click "Iron Man"
+    Then I should see "0712345678"
 
     Given I am logged in as a user with the "administrator" role
     When I go to "admin/emindhub/points/transaction-log"
