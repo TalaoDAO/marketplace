@@ -24,7 +24,7 @@ function emindhub_process_format($element) {
  */
 function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+  // echo '<pre>' . print_r($form_id, TRUE) . '</pre>';
   // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
 
 	if (!empty($form['actions'])) {
@@ -105,12 +105,6 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   // Profile
   $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_last_name']['#suffix'] = '</div>';
-
-  $form['account']['name']['#access'] = FALSE;
-
-  unset($form['account']['current_pass']);
-  unset($form['account']['current_pass_required_values']);
-  $form['#validate'] = array_diff($form['#validate'], array('user_validate_current_pass'));
 
   // Contact
   $form['field_address']['und'][0]['#type'] = 'div';

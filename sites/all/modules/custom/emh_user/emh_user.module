@@ -14,6 +14,22 @@ function emh_user_views_api() {
   );
 }
 
+/**
+ * Implements hook_form_alter().
+ */
+function emh_user_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
+
+  $form['account']['name']['#access'] = FALSE;
+
+  unset($form['account']['current_pass']);
+  unset($form['account']['current_pass_required_values']);
+  $form['#validate'] = array_diff($form['#validate'], array('user_validate_current_pass'));
+
+}
+
+/**
+ * Helper function to get user realname instead of username.
+ */
 function emh_user_get_beautiful_realname($uid) {
 
   $account = user_load($uid);
@@ -36,11 +52,13 @@ function emh_user_get_beautiful_realname($uid) {
 
 }
 
+/**
+ * Helper function to check if current user has access to other user's realname.
+ */
 function emh_user_get_beautiful_author($node) {
   if (empty($node)) {
     $node = node_load(arg(1));
   }
-  // print_r($node);
   if (emh_access_author_name($node)) {
     return emh_user_get_beautiful_realname($node->uid);
   }
@@ -49,6 +67,9 @@ function emh_user_get_beautiful_author($node) {
   }
 }
 
+/**
+ * Helper function to check access to user profile url.
+ */
 function emh_user_get_beautiful_profile_link($uid) {
 
   global $user;
@@ -67,6 +88,10 @@ function emh_user_is_business($account = NULL) {
     global $user;
     $account = $user;
   }
+  if (emh_user_is_webmaster($account)) {
+    // Webmaster has every right.
+    return TRUE;
+  }
   return (in_array('business', array_values($account->roles)) || in_array('business preview', array_values($account->roles)));
 }
 
@@ -75,7 +100,35 @@ function emh_user_is_expert($account = NULL) {
     global $user;
     $account = $user;
   }
+  if (emh_user_is_webmaster($account)) {
+    // Webmaster has every right.
+    return TRUE;
+  }
   return (in_array('expert', array_values($account->roles)) || in_array('expert preview', array_values($account->roles)) || in_array('référent', array_values($account->roles)));
+}
+
+function emh_user_is_author($nid, $account = NULL) {
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+  if (emh_user_is_webmaster($account)) {
+    // Webmaster has every right.
+    return TRUE;
+  }
+  if (empty($nid)) {
+    $nid = arg(1);
+  }
+  // print $nid;
+  $node = node_load($nid);
+  // print_r($node);
+  // print $node->uid . ' ' . $account->uid;
+  if (($node->uid == $account->uid) || node_access('update', $node, $account)) {
+    return TRUE;
+  }
+  return FALSE;
+  // die;
+  // echo 'NON';
 }
 
 function emh_user_is_webmaster($account = NULL) {
