@@ -607,6 +607,7 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
         '#suffix' => '</div>',
       );
     }
+    if ($dest === end($dests)) $default_points = $points - ($default_points * (count($dests)-1));
     $form[$dest]['dest_' . $dest] = array(
       '#type' => 'textfield',
       '#title' => t('Points for @dest', array('@dest' => emh_points_format_entity($entity))),
