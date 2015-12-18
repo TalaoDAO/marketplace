@@ -84,7 +84,7 @@
 
   <?php else : ?>
 
-  <span class="submitted"><?php print t('This answer is private.'); ?></span>
+  <span class="submitted"><?php print t('Private answer from another expert.'); ?></span>
 
   <?php endif; ?>
 
