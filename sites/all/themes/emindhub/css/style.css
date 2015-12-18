@@ -11824,6 +11824,14 @@ header#title .emh-title-baseline {
 .emh-form-legend .small {
   font-size: 75%;
 }
+.emh-status-block span {
+  display: block;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  font-weight: 700;
+  color: #FFF;
+}
 .emh-status.draft {
   background-color: #eea236;
 }
@@ -13484,6 +13492,10 @@ aside,
   padding-top: 20px;
   padding-bottom: 20px;
 }
+aside#sidebar-second ul,
+aside#sidebar-second ol {
+  padding-left: 20px;
+}
 @media (min-width: 767px) {
   aside#sidebar-second {
     padding-left: 0;
@@ -14996,12 +15008,6 @@ table th[class*="col-"] {
   padding-right: 15px;
   padding: 0;
 }
-@media (min-width: 767px) {
-  #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-status {
-    float: left;
-    width: 25%;
-  }
-}
 #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-status span {
   display: block;
   text-align: center;
@@ -15009,6 +15015,12 @@ table th[class*="col-"] {
   padding: 6px 12px;
   font-weight: 700;
   color: #FFF;
+}
+@media (min-width: 767px) {
+  #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-status {
+    float: left;
+    width: 25%;
+  }
 }
 #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps {
   position: relative;
