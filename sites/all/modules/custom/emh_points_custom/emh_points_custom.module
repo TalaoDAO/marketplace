@@ -148,6 +148,10 @@ function emh_points_validate_enough_points($element, &$form_state, $form) {
 }
 
 function emh_points_validate_challenge_threshold($element, &$form_state, $form) {
+  // Only validate the threshold if the chosen circle is public.
+  if (_emh_points_custom_private_circles($form_state, $form)) {
+    return;
+  }
   $threshold = variable_get('emh_points_challenge_threshold', 100);
   $points = $element['value']['#value'];
   if ($points < $threshold) {
@@ -156,6 +160,10 @@ function emh_points_validate_challenge_threshold($element, &$form_state, $form) 
 }
 
 function emh_points_validate_question1_threshold($element, &$form_state, $form) {
+  // Only validate the threshold if the chosen circle is public.
+  if (_emh_points_custom_private_circles($form_state, $form)) {
+    return;
+  }
   $threshold = variable_get('emh_points_question1_threshold', 100);
   $points = $element['value']['#value'];
   if ($points < $threshold) {
@@ -164,11 +172,32 @@ function emh_points_validate_question1_threshold($element, &$form_state, $form) 
 }
 
 function emh_points_validate_webform_threshold($element, &$form_state, $form) {
+  // Only validate the threshold if the chosen circle is public.
+  if (_emh_points_custom_private_circles($form_state, $form)) {
+    return;
+  }
   $threshold = variable_get('emh_points_webform_threshold', 100);
   $points = $element['value']['#value'];
   if ($points < $threshold) {
     form_error($element, t('You should at least allocate @count points.', array('@count' => $threshold)));
   }
+}
+
+/**
+ * Helper function to validate circle privacy.
+ */
+function _emh_points_custom_private_circles($form_state, $form) {
+  $private = TRUE;
+  $circles = $form_state['values']['og_group_ref'][LANGUAGE_NONE];
+  foreach($circles as $delta => $circle) {
+    $loaded_circle = node_load($circle['target_id']);
+    if ($loaded_circle->group_access[LANGUAGE_NONE]['0']['value'] == TRUE) {
+      // Public circle
+      $private = FALSE;
+      break;
+    }
+  }
+  return $private;
 }
 
 /**

@@ -268,7 +268,7 @@ function emh_request_get_status($nid) {
     $workflow = array( 'status' => 'draft', 'label' => t('Draft') );
   }
   else {
-    if (!empty($node->emh_points)) {
+    if (!emh_points_get_points_closed_status($nid)) {
 
       $today = date('Y-m-d H:i:s');
       $deadline = $node->field_expiration_date['und'][0]['value'];
@@ -294,21 +294,22 @@ function emh_request_get_status($nid) {
  */
 function emh_request_count_answers($node) {
 
-	$count = '';
-
-	switch($node->type) {
-		case 'webform':
-			include_once(drupal_get_path('module', 'webform') . '/includes/webform.submissions.inc');
-			$count = webform_get_submission_count($node->nid);
-			break;
-		case 'question1':
-		case 'challenge':
-			$count = $node->comment_count;
-			break;
-		default:
-			// Nothing to do.
-			break;
-	}
+	$count = 0;
+  if (!empty($node)) {
+    switch($node->type) {
+    case 'webform':
+      include_once(drupal_get_path('module', 'webform') . '/includes/webform.submissions.inc');
+      $count = webform_get_submission_count($node->nid);
+      break;
+    case 'question1':
+    case 'challenge':
+      $count = $node->comment_count;
+      break;
+    default:
+      // Nothing to do.
+      break;
+    }
+  }
 
 	return $count;
 
