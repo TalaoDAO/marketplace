@@ -19,7 +19,7 @@ Feature: Create question and answers
 
     Given "question1" content:
     | title        | field_domaine | og_group_ref | field_reward | author  |
-    | What about?  | Energy        | Avengers  | 100          | client1 |
+    | What about?  | Energy        | Avengers     | 100          | client1 |
 
   #@exclude
   Scenario: questions : test as business
@@ -41,7 +41,7 @@ Feature: Create question and answers
     Then I should see "What about?"
 
   #@exclude
-  Scenario: An expert responds to a question.
+  Scenario: An expert responds publicly to a question.
     Given I am logged in as "expert1"
     When I go to homepage
     Then I should see "What about?"
@@ -62,35 +62,53 @@ Feature: Create question and answers
     Then I should see "Iron Man"
     And I should see "I'm the best superhero in da world." in the "Iron Man" row
     When I go to homepage
-    And I click "What about?" in the "What about?" row
+    Then I should see "1" in the "What about?" row
+    When I click "What about?" in the "What about?" row
     Then I should not see "Answer the question"
     And I should see "Answers"
     And I should see "Iron Man"
     And I should see "I'm the best superhero in da world."
 
-  #@exclude
-  Scenario: Check question answers privacy
-    Given I am logged in as "expert1"
+    Given I am logged in as "expert2"
     When I go to homepage
-    And I click "What about?" in the "What about?" row
+    When I click "What about?" in the "What about?" row
+    Then I should see "Answers"
+    And I should see "Iron Man"
+    And I should see "I'm the best superhero in da world."
+
+  #@exclude
+  Scenario: An expert responds privately to a question.
+    Given I am logged in as "expert2"
+    When I go to homepage
+    Then I should see "What about?"
+    When I click "What about?" in the "What about?" row
     #Then I should not see "Answers" in the "title" region
-    And I should see "Private answer"
-    Given I enter "I'm the best superhero in da world." for "Private answer"
+    And I should see "Answer the question"
+    Given I enter "The truth is elsewhere." for "Private answer"
     And I select the radio button "My answer will be visible only by the client"
     And I press "Publish"
     When I go to homepage
     When I click "What about?" in the "What about?" row
     Then I should see "Answers"
-    And I should see "I'm the best superhero in da world."
+    And I should see "Klark Kent"
+    And I should see "The truth is elsewhere."
 
     Given I am logged in as "client1"
+    When I go to "my-responses"
+    Then I should see "Klark Kent"
+    And I should see "The truth is elsewhere." in the "Klark Kent" row
     When I go to homepage
-    And I click "What about?"
-    Then I should see "I'm the best superhero in da world."
-    And I should see "Iron Man"
+    Then I should see "1" in the "What about?" row
+    When I click "What about?" in the "What about?" row
+    Then I should not see "Answer the question"
+    And I should see "Answers"
+    And I should see "Klark Kent"
+    And I should see "The truth is elsewhere."
 
-    Given I am logged in as "expert2"
+    # Another expert cannot view the private answer
+    Given I am logged in as "expert1"
     When I go to homepage
-    And I click "What about?"
-    Then I should not see "I'm the best superhero in da world."
-    And I should not see "Iron Man"
+    When I click "What about?" in the "What about?" row
+    Then I should see "Private answer from another expert."
+    And I should not see "Klark Kent"
+    And I should not see "The truth is elsewhere."

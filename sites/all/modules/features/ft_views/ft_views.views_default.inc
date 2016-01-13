@@ -3217,11 +3217,8 @@ function ft_views_views_default_views() {
     'created' => 'created',
     'field_expiration_date' => 'field_expiration_date',
     'field_reward' => 'field_reward',
-    'comment_count' => 'comment_count',
-    'webform_submission_count_node' => 'webform_submission_count_node',
-    'views_conditional' => 'views_conditional',
-    'total_points' => 'total_points',
-    'views_conditional_1' => 'views_conditional_1',
+    'total_answers' => 'total_answers',
+    'request_status' => 'request_status',
   );
   $handler->display->display_options['style_options']['default'] = 'created';
   $handler->display->display_options['style_options']['info'] = array(
@@ -3265,31 +3262,12 @@ function ft_views_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'comment_count' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
+    'total_answers' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'webform_submission_count_node' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'views_conditional' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'total_points' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'views_conditional_1' => array(
+    'request_status' => array(
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
@@ -3366,48 +3344,16 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_reward']['id'] = 'field_reward';
   $handler->display->display_options['fields']['field_reward']['table'] = 'field_data_field_reward';
   $handler->display->display_options['fields']['field_reward']['field'] = 'field_reward';
-  /* Field: Content: Comment count */
-  $handler->display->display_options['fields']['comment_count']['id'] = 'comment_count';
-  $handler->display->display_options['fields']['comment_count']['table'] = 'node_comment_statistics';
-  $handler->display->display_options['fields']['comment_count']['field'] = 'comment_count';
-  $handler->display->display_options['fields']['comment_count']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['comment_count']['empty'] = '0';
-  $handler->display->display_options['fields']['comment_count']['separator'] = ' ';
-  /* Field: Webform: Webform submission count */
-  $handler->display->display_options['fields']['webform_submission_count_node']['id'] = 'webform_submission_count_node';
-  $handler->display->display_options['fields']['webform_submission_count_node']['table'] = 'node';
-  $handler->display->display_options['fields']['webform_submission_count_node']['field'] = 'webform_submission_count_node';
-  $handler->display->display_options['fields']['webform_submission_count_node']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['webform_submission_count_node']['alter']['strip_tags'] = TRUE;
-  $handler->display->display_options['fields']['webform_submission_count_node']['empty'] = '0';
-  /* Field: Views: Views Conditional */
-  $handler->display->display_options['fields']['views_conditional']['id'] = 'views_conditional';
-  $handler->display->display_options['fields']['views_conditional']['table'] = 'views_conditional';
-  $handler->display->display_options['fields']['views_conditional']['field'] = 'views_conditional';
-  $handler->display->display_options['fields']['views_conditional']['label'] = 'Answers';
-  $handler->display->display_options['fields']['views_conditional']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['views_conditional']['if'] = 'type';
-  $handler->display->display_options['fields']['views_conditional']['condition'] = '1';
-  $handler->display->display_options['fields']['views_conditional']['equalto'] = 'webform';
-  $handler->display->display_options['fields']['views_conditional']['then'] = '[webform_submission_count_node]';
-  $handler->display->display_options['fields']['views_conditional']['or'] = '[comment_count]';
-  $handler->display->display_options['fields']['views_conditional']['strip_tags'] = 0;
-  /* Field: Points: Total Points */
-  $handler->display->display_options['fields']['total_points']['id'] = 'total_points';
-  $handler->display->display_options['fields']['total_points']['table'] = 'emh_points_total';
-  $handler->display->display_options['fields']['total_points']['field'] = 'total_points';
-  $handler->display->display_options['fields']['total_points']['exclude'] = TRUE;
-  /* Field: Views: Views Conditional */
-  $handler->display->display_options['fields']['views_conditional_1']['id'] = 'views_conditional_1';
-  $handler->display->display_options['fields']['views_conditional_1']['table'] = 'views_conditional';
-  $handler->display->display_options['fields']['views_conditional_1']['field'] = 'views_conditional';
-  $handler->display->display_options['fields']['views_conditional_1']['label'] = 'Status';
-  $handler->display->display_options['fields']['views_conditional_1']['if'] = 'total_points';
-  $handler->display->display_options['fields']['views_conditional_1']['condition'] = '2';
-  $handler->display->display_options['fields']['views_conditional_1']['equalto'] = '0';
-  $handler->display->display_options['fields']['views_conditional_1']['then'] = 'Open';
-  $handler->display->display_options['fields']['views_conditional_1']['or'] = 'Closed';
-  $handler->display->display_options['fields']['views_conditional_1']['strip_tags'] = 0;
+  /* Field: Node: Total Answers */
+  $handler->display->display_options['fields']['total_answers']['id'] = 'total_answers';
+  $handler->display->display_options['fields']['total_answers']['table'] = 'node';
+  $handler->display->display_options['fields']['total_answers']['field'] = 'total_answers';
+  $handler->display->display_options['fields']['total_answers']['label'] = 'Answers';
+  /* Field: Node: Request status */
+  $handler->display->display_options['fields']['request_status']['id'] = 'request_status';
+  $handler->display->display_options['fields']['request_status']['table'] = 'node';
+  $handler->display->display_options['fields']['request_status']['field'] = 'request_status';
+  $handler->display->display_options['fields']['request_status']['label'] = 'Status';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -3763,6 +3709,62 @@ function ft_views_views_default_views() {
   $handler->display->display_options['relationships']['uid']['table'] = 'node';
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Type */
+  $handler->display->display_options['fields']['type']['id'] = 'type';
+  $handler->display->display_options['fields']['type']['table'] = 'node';
+  $handler->display->display_options['fields']['type']['field'] = 'type';
+  $handler->display->display_options['fields']['type']['element_class'] = '[type]';
+  $handler->display->display_options['fields']['type']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['type']['link_to_node'] = TRUE;
+  $handler->display->display_options['fields']['type']['machine_name'] = TRUE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  /* Field: Content: Choose circle of experts */
+  $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
+  $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
+  $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
+  $handler->display->display_options['fields']['og_group_ref']['label'] = 'Circle(s)';
+  $handler->display->display_options['fields']['og_group_ref']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
+  /* Field: Content: Post date */
+  $handler->display->display_options['fields']['created']['id'] = 'created';
+  $handler->display->display_options['fields']['created']['table'] = 'node';
+  $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['date_format'] = 'short_date';
+  $handler->display->display_options['fields']['created']['second_date_format'] = 'privatemsg_current_day';
+  /* Field: Content: Deadline */
+  $handler->display->display_options['fields']['field_expiration_date']['id'] = 'field_expiration_date';
+  $handler->display->display_options['fields']['field_expiration_date']['table'] = 'field_data_field_expiration_date';
+  $handler->display->display_options['fields']['field_expiration_date']['field'] = 'field_expiration_date';
+  $handler->display->display_options['fields']['field_expiration_date']['label'] = 'Expiration Date';
+  $handler->display->display_options['fields']['field_expiration_date']['settings'] = array(
+    'format_type' => 'short_date',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Reward */
+  $handler->display->display_options['fields']['field_reward']['id'] = 'field_reward';
+  $handler->display->display_options['fields']['field_reward']['table'] = 'field_data_field_reward';
+  $handler->display->display_options['fields']['field_reward']['field'] = 'field_reward';
+  /* Field: Node: Total Answers */
+  $handler->display->display_options['fields']['total_answers']['id'] = 'total_answers';
+  $handler->display->display_options['fields']['total_answers']['table'] = 'node';
+  $handler->display->display_options['fields']['total_answers']['field'] = 'total_answers';
+  $handler->display->display_options['fields']['total_answers']['label'] = 'Answers';
+  /* Field: Node: Request status */
+  $handler->display->display_options['fields']['request_status']['id'] = 'request_status';
+  $handler->display->display_options['fields']['request_status']['table'] = 'node';
+  $handler->display->display_options['fields']['request_status']['field'] = 'request_status';
+  $handler->display->display_options['fields']['request_status']['label'] = 'Status';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */

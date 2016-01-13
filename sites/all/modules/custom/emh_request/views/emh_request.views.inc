@@ -22,6 +22,7 @@ function emh_request_views_data() {
       'handler' => 'views_handler_field_emh_comment_answer',
     ),
   );
+
   // Pseudo-field on webform submissions.
   $data['webform_submissions']['emh_answer'] = array(
     'group' => t('Webform submissions'),
@@ -30,6 +31,33 @@ function emh_request_views_data() {
     'title' => 'Answer',
     'field' => array(
       'handler' => 'views_handler_field_emh_webform_answer',
+    ),
+  );
+
+  // Pseudo-field on request submissions answers count.
+  $data['webform_submissions']['emh_answer'] = array(
+    'group' => t('Webform submissions'),
+    'real field' => 'sid',
+    'help' => 'Answer',
+    'title' => 'Answer',
+    'field' => array(
+      'handler' => 'views_handler_field_emh_webform_answer',
+    ),
+  );
+
+  $data['node']['total_answers'] = array(
+    'group' => t('Node'),
+    'title' => 'Total Answers',
+    'field' => array(
+      'handler' => 'views_handler_field_emh_request_answer_count',
+    ),
+  );
+
+  $data['node']['request_status'] = array(
+    'group' => t('Node'),
+    'title' => 'Request status',
+    'field' => array(
+      'handler' => 'views_handler_field_emh_request_status',
     ),
   );
 

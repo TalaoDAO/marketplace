@@ -15211,7 +15211,7 @@ table th[class*="col-"] {
   text-align: right;
 }
 .emh-field-status {
-  width: 70px;
+  width: 150px;
 }
 .views-field-type {
   width: 20px;
@@ -15230,12 +15230,19 @@ table th[class*="col-"] {
 .views-field-operation {
   width: 100px;
 }
+.views-field-total-answers {
+  width: 70px;
+  text-align: right;
+}
+.views-field-request-status {
+  width: 150px;
+}
 .views-field-status,
 .views-field-is-draft {
   width: 100px;
 }
 .views-field-og-group-ref {
-  width: 200px;
+  width: 150px;
 }
 .views-field-uid,
 .view-my-responses-questions1 .views-field-nothing-1,
@@ -15258,19 +15265,6 @@ table th[class*="col-"] {
 .views-field-views-bulk-operations .form-group input {
   position: relative !important;
   margin-top: 0 !important;
-}
-.view-query-list.view-display-id-block_1 .views-field-views-conditional,
-.view-query-list.view-id-query_list .views-field-views-conditional,
-.view-query-list.view-display-id-page_2 .views-field-views-conditional,
-.view-display-id-page_1 .views-field-views-conditional {
-  width: 70px;
-  text-align: right;
-}
-.view-query-list.view-display-id-block_1 .views-field-views-conditional-1,
-.view-query-list.view-id-query_list .views-field-views-conditional-1,
-.view-query-list.view-display-id-page_2 .views-field-views-conditional-1,
-.view-display-id-page_1 .views-field-views-conditional-1 {
-  width: 70px;
 }
 .view-my-responses-questions1 .views-field-nothing,
 .view-my-responses-calls3 .views-field-nothing,
