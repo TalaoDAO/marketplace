@@ -9760,10 +9760,6 @@ form#emh-points-arrange-form fieldset .panel-body:before,
 form#emh-points-arrange-form fieldset .panel-body:after,
 form#user-profile-form .link-field-subrow:before,
 form#user-profile-form .link-field-subrow:after,
-form#user-profile-form .image-widget:before,
-form#user-profile-form .image-widget:after,
-form#user-profile-form .image-widget .image-widget-data:before,
-form#user-profile-form .image-widget .image-widget-data:after,
 #user-register-form .hybridauth-widget-wrapper:before,
 #user-register-form .hybridauth-widget-wrapper:after,
 .page-messages #maincol:before,
@@ -9801,8 +9797,6 @@ form#user-profile-form .image-widget .image-widget-data:after,
 form#change-pwd-page-form .form-type-password-confirm:after,
 form#emh-points-arrange-form fieldset .panel-body:after,
 form#user-profile-form .link-field-subrow:after,
-form#user-profile-form .image-widget:after,
-form#user-profile-form .image-widget .image-widget-data:after,
 #user-register-form .hybridauth-widget-wrapper:after,
 .page-messages #maincol:after {
   clear: both;
@@ -15801,86 +15795,22 @@ form#user-profile-form .link-field-subrow > *:nth-child(2) {
     padding-left: 7.5px;
   }
 }
-form#user-profile-form .image-widget {
-  margin-left: -15px;
-  margin-right: -15px;
-  margin: 0;
+form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview,
+form#user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox {
+  float: left;
+  margin-right: 15px;
 }
-form#user-profile-form .image-widget .image-preview {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 767px) {
-  form#user-profile-form .image-widget .image-preview {
-    float: left;
-    width: 16.66666667%;
-  }
-}
-form#user-profile-form .image-widget .image-preview img {
+form#user-profile-form .imagefield-crop-widget .jcrop-preview-wrapper {
   border-radius: 50%;
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
-form#user-profile-form .image-widget .image-widget-data {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-left: -15px;
-  margin-right: -15px;
-  margin: 0;
+form#user-profile-form .imagefield-crop-widget .file {
+  display: none !important;
 }
-@media (min-width: 767px) {
-  form#user-profile-form .image-widget .image-widget-data {
-    float: left;
-    width: 83.33333333%;
-  }
-}
-form#user-profile-form .image-widget .image-widget-data .file {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 767px) {
-  form#user-profile-form .image-widget .image-widget-data .file {
-    float: left;
-    width: 50%;
-  }
-}
-form#user-profile-form .image-widget .image-widget-data .file a {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 200px;
-  display: block;
-}
-form#user-profile-form .image-widget .image-widget-data .file-size {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 767px) {
-  form#user-profile-form .image-widget .image-widget-data .file-size {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-form#user-profile-form .image-widget .form-item-field-photo-und-0-focal-point {
-  display: none;
-}
-form#user-profile-form .image-widget .focal-point-help {
-  clear: both;
-}
-@media (min-width: 767px) {
-  form#user-profile-form .image-widget button.form-submit {
-    float: right;
-    margin-right: 15px;
-  }
+form#user-profile-form .imagefield-crop-widget .jcrop-holder {
+  background-color: transparent ! important;
 }
 @media (min-width: 767px) {
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) {

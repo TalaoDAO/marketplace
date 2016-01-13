@@ -1,0 +1,938 @@
+<?php
+
+/**
+ * Implements hook_field_info().
+ */
+function imagefield_crop_field_info() {
+  return array(
+    'imagefield_crop' => array(
+      'label' => t('Image cropped'),
+      'description' => t('This field stores the ID of an image file as an integer value.'),
+      'settings' => array(
+        'uri_scheme' => variable_get('file_default_scheme', 'public'),
+        'default_image' => 0,
+      ),
+      'instance_settings' => array(
+        'file_extensions' => 'png gif jpg jpeg',
+        'file_directory' => '',
+        'max_filesize' => '',
+        'alt_field' => 0,
+        'title_field' => 0,
+        'max_resolution' => '',
+        'min_resolution' => '',
+      ),
+      'default_widget' => 'imagefield_crop_widget',
+      'default_formatter' => 'image',
+      'default_token_formatter' => 'file_url_plain',
+      'property_type' => 'field_item_image',
+      'property_callbacks' => array('entity_metadata_field_image_callback', 'entity_metadata_field_file_callback'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_filefield_paths_field_type_info().
+ *
+ * Making field imagefield_crop available for usage by filefield_paths module.
+ */
+function imagefield_crop_filefield_paths_field_type_info() {
+  return array('imagefield_crop');
+}
+
+/**
+ * Implements hook_field_settings_form().
+ */
+function imagefield_crop_field_settings_form($field, $instance) {
+  return image_field_settings_form($field, $instance);
+}
+
+/**
+ * Implements hook_field_instance_settings_form().
+ */
+function imagefield_crop_field_instance_settings_form($field, $instance) {
+  return image_field_instance_settings_form($field, $instance);
+}
+
+/**
+ * Implements hook_field_load().
+ */
+function imagefield_crop_field_load($entity_type, $entities, $field, $instances, $langcode, &$items, $age) {
+  file_field_load($entity_type, $entities, $field, $instances, $langcode, $items, $age);
+}
+
+/**
+ * Implements hook_field_prepare_view().
+ */
+function imagefield_crop_field_prepare_view($entity_type, $entities, $field, $instances, $langcode, &$items) {
+  // Before render of image, we should set actual width and height values to pass to image attributes.
+  foreach ($items as &$item) {
+    if ((!isset($item[0]['width']) || !isset($item[0]['height'])) && (isset($item[0]['cropbox_width']) && isset($item[0]['cropbox_height']))) {
+      $item[0]['width'] = $item[0]['cropbox_width'];
+      $item[0]['height'] = $item[0]['cropbox_height'];
+    }
+  }
+  image_field_prepare_view($entity_type, $entities, $field, $instances, $langcode, $items);
+}
+
+/**
+ * Implements hook_field_presave().
+ */
+function imagefield_crop_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  file_field_presave($entity_type, $entity, $field, $instance, $langcode, $items);
+}
+
+/**
+ * Implements hook_field_insert().
+ */
+function imagefield_crop_field_insert($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  // If it's translation of the other node, we should create new image file from source and use it for processing.
+  if (!empty($entity->translation_source)) {
+    foreach ($items as &$item) {
+      $file = _imagefield_crop_file_to_crop($item['fid']);
+      $new_file = imagefield_crop_create_copy($file);
+      $item['fid'] = $new_file->fid;
+    }
+  }
+
+  file_field_insert($entity_type, $entity, $field, $instance, $langcode, $items);
+  $scale = NULL;
+  if (!empty($instance['widget']['settings']['resolution'])) {
+    list($scale['width'], $scale['height']) = explode('x', $instance['widget']['settings']['resolution']);
+  }
+  foreach ($items as &$item) {
+    $src = file_load($item['fid']);
+    if ($src && ($src->filemime != 'image/gif' || $instance['widget']['settings']['gif_processing'] == 'convert')) {
+      $orig = imagefield_crop_create_copy($src);
+      file_usage_add($orig, 'imagefield_crop', 'file', $src->fid);
+      _imagefield_crop_resize(drupal_realpath($orig->uri), $item, $scale, $src);
+      $src->uri = file_unmanaged_copy($src->uri, $src->uri);
+      file_save($src);
+    }
+  }
+}
+
+/**
+ * Implements hook_field_update().
+ */
+function imagefield_crop_field_update($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  list($id, $vid, $bundle) = entity_extract_ids($entity_type, $entity);
+  // On new revisions, all files are considered to be a new usage and no
+  // deletion of previous file usages are necessary.
+  $scale = NULL;
+  if ($instance['widget']['settings']['resolution']) {
+    $context = array('entity' => $entity);
+    drupal_alter('imagefield_crop_instance', $instance, $context);
+    list($scale['width'], $scale['height']) = explode('x', $instance['widget']['settings']['resolution']);
+  }
+  // Create a bare-bones entity so that we can load its previous values.
+  $original = entity_create_stub_entity($entity_type, array($id, $vid, $bundle));
+  field_attach_load($entity_type, array($id => $original), FIELD_LOAD_CURRENT, array('field_id' => $field['id']));
+
+  $original_items = array();
+  if (!empty($original->{$field['field_name']}[$langcode])) {
+    foreach ($original->{$field['field_name']}[$langcode] as $original_item) {
+      $original_items[$original_item['fid']] = $original_item;
+    }
+  }
+
+  if (!empty($entity->revision)) {
+    foreach ($items as &$item) {
+      $file = file_load($item['fid']);
+      // if the file isn't gif or it can be converted, then we can perform further file processing.
+      $can_resize = $file && ($file->filemime != 'image/gif' || $instance['widget']['settings']['gif_processing'] == 'convert');
+      if (isset($item['cropbox_changed']) && $item['cropbox_changed']) {
+        // If fid isn't in the original id's, saved in the previous revision,
+        // then its new file, and we need to process it.
+        if (!in_array($item['fid'], array_keys($original_items))) {
+          // Check whether image can be resized and cropped.
+          if ($can_resize) {
+            $new_source_file = imagefield_crop_create_copy($file);
+            file_usage_add($new_source_file, 'imagefield_crop', 'file', $file->fid);
+            _imagefield_crop_resize(drupal_realpath($new_source_file->uri), $item, $scale, $file);
+            $file->uri = file_unmanaged_copy($file->uri, $file->uri);
+            file_save($file);
+          }
+          file_usage_add($file, 'file', $entity_type, $id);
+        }
+        else {
+          // Check whether image can be resized and cropped. If not, just add usage.
+          if ($can_resize) {
+            $file_to_crop = _imagefield_crop_file_to_crop($file->fid);
+            $new_file = imagefield_crop_create_copy($file);
+            _imagefield_crop_resize(drupal_realpath($file_to_crop->uri), $item, $scale, $new_file);
+            file_usage_add($file_to_crop, 'imagefield_crop', 'file', $new_file->fid);
+            file_usage_add($new_file, 'file', $entity_type, $id);
+            $new_file->uri = file_unmanaged_copy($new_file->uri, $new_file->uri);
+            file_save($new_file);
+            $item['fid'] = $new_file->fid;
+          }
+          else {
+            file_usage_add($file, 'file', $entity_type, $id);
+          }
+        }
+      }
+      else {
+        // Check whether image can be resized and cropped.
+        if ($can_resize) {
+          $file_to_crop = _imagefield_crop_file_to_crop($file->fid);
+          file_usage_add($file_to_crop, 'imagefield_crop', 'file', $file->fid);
+        }
+        file_usage_add($file, 'file', $entity_type, $id);
+      }
+      image_path_flush($file->uri);
+    }
+    return;
+  }
+
+  $current_fids = array();
+  foreach ($items as $item) {
+    $current_fids[] = $item['fid'];
+    // Update files if cropping area was changed or new file has been uploaded.
+    if (isset($item['cropbox_changed']) && $item['cropbox_changed']) {
+      $file = file_load($item['fid']);
+      $can_resize = $file && ($file->filemime != 'image/gif' || $instance['widget']['settings']['gif_processing'] == 'convert');
+      // Process new files.
+      if (!in_array($item['fid'], array_keys($original_items))) {
+        // Check whether image can be resized and cropped.
+        if ($can_resize) {
+          $new_source_file = imagefield_crop_create_copy($file);
+          file_usage_add($new_source_file, 'imagefield_crop', 'file', $file->fid);
+          _imagefield_crop_resize(drupal_realpath($new_source_file->uri), $item, $scale, $file);
+          $file->uri = file_unmanaged_copy($file->uri, $file->uri);
+          file_save($file);
+        }
+        file_usage_add($file, 'file', $entity_type, $id);
+      }
+      // Recropp image.
+      else {
+        // Check whether image can be resized and cropped.
+        if ($can_resize) {
+          $file_to_crop = _imagefield_crop_file_to_crop($file->fid);
+          _imagefield_crop_resize(drupal_realpath($file_to_crop->uri), $item, $scale, $file);
+        }
+        $file->uri = file_unmanaged_copy($file->uri, $file->uri);
+        file_save($file);
+      }
+      image_path_flush($file->uri);
+    }
+  }
+
+  // Avoid wrong deletion due the mechanics of module workbench_moderation.
+  if (empty($entity->workbench_moderation['updating_live_revision'])) {
+    // Delete old files if any.
+    foreach ($original_items as $orig_fid => $original_item) {
+      if (!in_array($orig_fid, $current_fids)) {
+        if (!$source_file = @_imagefield_crop_file_to_crop($original_item['fid'])) {
+          // The file was deleted, no need to delete the file.
+          continue;
+        }
+        // Decrement the file usage count by 1 and delete the file if possible.
+        file_field_delete_file($original_item, $field, $entity_type, $id);
+        if ($source_file) {
+          file_usage_delete($source_file, 'imagefield_crop', 'file', $original_item['fid']);
+          file_delete($source_file);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_field_delete().
+ */
+function imagefield_crop_field_delete($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  list($id, $vid, $bundle) = entity_extract_ids($entity_type, $entity);
+  // Delete all file usages within this entity.
+  foreach (imagefield_crop_files_usage_list_by_entity($entity_type, $id) as $fid => $usage) {
+    $file = file_load($fid);
+    file_field_delete_file($file, $field, $entity_type, $id, 0);
+    $orig_file = _imagefield_crop_file_to_crop($fid);
+    if ($orig_file && $orig_file->fid != $fid) {
+      file_usage_delete($orig_file, 'imagefield_crop', NULL, NULL, 0);
+      file_delete($orig_file);
+    }
+  }
+}
+
+/**
+ * Implements hook_field_delete_revision().
+ */
+function imagefield_crop_field_delete_revision($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  list($id, $vid, $bundle) = entity_extract_ids($entity_type, $entity);
+  foreach ($items as $delta => $item) {
+    // Decrement the file usage count by 1 and delete the file if possible.
+    if (file_field_delete_file($item, $field, $entity_type, $id)) {
+      $orig_file = _imagefield_crop_file_to_crop($item['fid']);
+      if ($orig_file && $orig_file->fid != $item['fid']) {
+        file_usage_delete($orig_file, 'imagefield_crop', 'file', $item['fid']);
+        file_delete($orig_file);
+      }
+      $items[$delta] = NULL;
+    }
+  }
+}
+
+/**
+ * Implements hook_field_is_empty().
+ */
+function imagefield_crop_field_is_empty($item, $field) {
+  return file_field_is_empty($item, $field);
+}
+
+/**
+ * Implements hook__crop_field_formatter_info_alter().
+ */
+function imagefield_crop_field_formatter_info_alter(&$info) {
+  // Let a new field type re-use an existing formatter.
+  $info['image']['field types'][] = 'imagefield_crop';
+}
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function imagefield_crop_field_widget_info() {
+  return array(
+    'imagefield_crop_widget' => array(
+      'label' => t('Image with cropping'),
+      'field types' => array('imagefield_crop'),
+      'settings' => array(
+        'progress_indicator' => 'throbber',
+        'preview_image_style' => 'thumbnail',
+        'preview_image_width' => '',
+        'collapsible' => 2,
+        'resolution' => '200x150',
+        'validate_resolution' => 0,
+        'enforce_ratio' => TRUE,
+        'custom_ratio' => '',
+        'enforce_minimum' => TRUE,
+        'croparea' => '500x500',
+        'gif_processing' => 'convert',
+        'select_maximum_area' => TRUE,
+      ),
+      'behaviors' => array(
+        'multiple values' => FIELD_BEHAVIOR_CUSTOM,
+        'default value' => FIELD_BEHAVIOR_NONE,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_settings_form().
+ */
+function imagefield_crop_field_widget_settings_form($field, $instance) {
+  $widget = $instance['widget'];
+  $settings = $widget['settings'];
+
+  // Use the image widget settings form.
+  $form = image_field_widget_settings_form($field, $instance);
+
+  $form['collapsible'] = array(
+    '#type' => 'radios',
+    '#title' => t('Collapsible behavior'),
+    '#options' => array(
+      1 => t('None.'),
+      2 => t('Collapsible, expanded by default.'),
+      3 => t('Collapsible, collapsed by default.'),
+    ),
+    '#default_value' => $settings['collapsible'],
+  );
+
+  // Resolution settings.
+  $resolution = explode('x', $settings['resolution']) + array('', '');
+  $form['resolution'] = array(
+    '#title' => t('The resolution to crop the image onto'),
+    '#element_validate' => array('_image_field_resolution_validate'),
+    '#theme_wrappers' => array('form_element'),
+    '#description' => t('The output resolution of the cropped image, expressed as WIDTHxHEIGHT (e.g. 640x480). Leave blank to skip rescale after cropping. Note: output resolution must be defined in order to present a dynamic preview.'),
+  );
+  $form['resolution']['x'] = array(
+    '#type' => 'textfield',
+    '#default_value' => $resolution[0],
+    '#size' => 5,
+    '#maxlength' => 5,
+    '#field_suffix' => ' x ',
+    '#theme_wrappers' => array(),
+  );
+  $form['resolution']['y'] = array(
+    '#type' => 'textfield',
+    '#default_value' => $resolution[1],
+    '#size' => 5,
+    '#maxlength' => 5,
+    '#field_suffix' => ' ' . t('pixels'),
+    '#theme_wrappers' => array(),
+  );
+  $form['validate_resolution'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Validate minimum resolution'),
+    '#default_value' => $settings['validate_resolution'],
+    '#description' => t('If output resolution is set, but validation is disabled then images with smaller dimensions won\'t be cropped.'),
+    '#states' => array(
+      'invisible' => array(
+        'input[name="instance[widget][settings][resolution][x]"]' => array('value' => ''),
+        'input[name="instance[widget][settings][resolution][y]"]' => array('value' => ''),
+      ),
+    ),
+  );
+  $form['select_maximum_area'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Select maximum possible area'),
+    '#default_value' => $settings['select_maximum_area'],
+    '#description' => t('If checked, widget will select maximum area on the image and then resize it to output resolution.'),
+    '#states' => array(
+      'invisible' => array(
+        'input[name="instance[widget][settings][resolution][x]"]' => array('value' => ''),
+        'input[name="instance[widget][settings][resolution][y]"]' => array('value' => ''),
+      ),
+    ),
+  );
+  $form['enforce_ratio'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enforce crop box ratio'),
+    '#default_value' => $settings['enforce_ratio'],
+    '#description' => t('Check this to force the ratio of the output on the crop box. NOTE: If you leave this unchecked but enforce an output resolution, the final image might be distorted'),
+    '#element_validate' => array('_imagefield_crop_widget_enforce_ratio_validate'),
+  );
+
+  $custom_ratio = explode('x', $settings['custom_ratio']) + array('', '');
+  $form['custom_ratio'] = array(
+    '#type' => 'container',
+    '#title' => t('Custom ratio'),
+    '#element_validate' => array('_image_field_resolution_validate', '_imagefield_crop_widget_custom_ratio_validate'),
+    '#theme_wrappers' => array('form_element'),
+    '#description' => t('Ratio for crop area. For example 4:3 or 16:9 as width to height.'),
+    '#markup' => '',
+    '#states' => array(
+      'visible' => array(
+        'input[name="instance[widget][settings][resolution][x]"]' => array('value' => ''),
+        'input[name="instance[widget][settings][resolution][y]"]' => array('value' => ''),
+        'input[name="instance[widget][settings][enforce_ratio]"]' => array('checked' => TRUE),
+      ),
+    ),
+  );
+  $form['custom_ratio']['x'] = array(
+    '#type' => 'textfield',
+    '#default_value' => $custom_ratio[0],
+    '#size' => 5,
+    '#maxlength' => 5,
+    '#field_suffix' => ' x ',
+    '#theme_wrappers' => array(),
+  );
+  $form['custom_ratio']['y'] = array(
+    '#type' => 'textfield',
+    '#default_value' => $custom_ratio[1],
+    '#size' => 5,
+    '#maxlength' => 5,
+    '#field_suffix' => ' ' . t('pixels'),
+    '#theme_wrappers' => array(),
+  );
+  $form['enforce_minimum'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enforce minimum crop size based on the output size'),
+    '#default_value' => $settings['enforce_minimum'],
+    '#description' => t('Check this to force a minimum cropping selection equal to the output size. NOTE: If you leave this unchecked you might get zoomed pixels if the cropping area is smaller than the output resolution.'),
+    '#element_validate' => array('_imagefield_crop_widget_enforce_minimum_validate'),
+  );
+
+  // Crop area settings.
+  $croparea = explode('x', $settings['croparea']) + array('', '');
+  $form['croparea'] = array(
+    '#title' => t('The resolution of the cropping area'),
+    '#element_validate' => array('_imagefield_crop_widget_croparea_validate'),
+    '#theme_wrappers' => array('form_element'),
+    '#description' => t('The resolution of the area used for the cropping of the image. Image will displayed at this resolution for cropping. Use WIDTHxHEIGHT format, empty or zero values are permitted, e.g. 500x will limit crop box to 500 pixels width.'),
+  );
+  $form['croparea']['x'] = array(
+    '#type' => 'textfield',
+    '#default_value' => $croparea[0],
+    '#size' => 5,
+    '#maxlength' => 5,
+    '#field_suffix' => ' x ',
+    '#theme_wrappers' => array(),
+  );
+  $form['croparea']['y'] = array(
+    '#type' => 'textfield',
+    '#default_value' => $croparea[1],
+    '#size' => 5,
+    '#maxlength' => 5,
+    '#field_suffix' => ' ' . t('pixels'),
+    '#theme_wrappers' => array(),
+  );
+  $form['gif_processing'] = array(
+    '#type' => 'radios',
+    '#title' => t('Gif files processing'),
+    '#options' => array(
+      'convert' => t('Convert into jpeg and resize'),
+      'skip' => t('Do not resize'),
+    ),
+    '#default_value' => $settings['gif_processing'],
+  );
+
+  /* Introduce different setting for preview box.
+   * Width of the box should be defined, rather than image style,
+   * as its proportions are already defined by "resolution" of the cropping.
+   */
+  unset($form['preview_image_style']);
+  $form['preview_image_width'] = array(
+    '#title' => t('Preview box width'),
+    '#type' => 'textfield',
+    '#default_value' => $settings['preview_image_width'],
+    '#size' => 5,
+    '#maxlength' => 5,
+    '#field_suffix' => ' ' . t('pixels'),
+    '#weight' => 15,
+    '#description' => t('Scale cropped image to a given width for preview.'),
+  );
+
+  return $form;
+}
+
+function _imagefield_crop_widget_custom_ratio_validate($element, &$form_state) {
+  $settings = $form_state['values']['instance']['widget']['settings'];
+  // _image_field_resolution_validate() does most of the validation
+  // If enforce ratio is checked and resolution is not, then check for custom ratio.
+  if ($settings['enforce_ratio'] && empty($settings['resolution']) && empty($element['x']['#value'])) {
+    form_error($element, t('<em>Custom ratio</em> must be defined as WIDTH:HEIGHT if <em>Enforce crop box ratio</em> is set and output resolution is not defined'));
+  }
+}
+
+function _imagefield_crop_widget_enforce_ratio_validate($element, &$form_state) {
+  $settings = $form_state['values']['instance']['widget']['settings'];
+  if (!empty($settings['resolution']) && !$element['#value']) {
+    drupal_set_message(t('Output resolution is defined, but not enforced. Final images might be distroted'));
+  }
+}
+
+function _imagefield_crop_widget_enforce_minimum_validate($element, &$form_state) {
+  $settings = $form_state['values']['instance']['widget']['settings'];
+  if (is_array($settings['resolution'])) {
+    $rw = ($settings['resolution']['x']) ? $settings['resolution']['x'] : 0;
+    $rh = ($settings['resolution']['y']) ? $settings['resolution']['y'] : 0;
+  }
+  else {
+    list($rw, $rh) = !empty($settings['resolution']) ? explode('x', $settings['resolution']) : array(0, 0);
+  }
+
+  if ($settings['enforce_minimum'] &&
+      (!is_numeric($rw) || intval($rw) != $rw || $rw <= 0 ||
+       !is_numeric($rh) || intval($rh) != $rh || $rh <= 0)) {
+    form_error($element, t('Target resolution must be defined as WIDTH_HEIGHT if minimum is to be enforced.'));
+  }
+}
+
+function _imagefield_crop_widget_croparea_validate($element, &$form_state) {
+  foreach (array('x', 'y') as $dimension) {
+    $value = $element[$dimension]['#value'];
+    if (!empty($value) && !is_numeric($value)) {
+      form_error($element[$dimension], t('The @dimension value must be numeric.', array('@dimesion' => $dimension)));
+      return;
+    }
+  }
+  form_set_value($element, intval($element['x']['#value']) . 'x' . intval($element['y']['#value']), $form_state);
+}
+
+/**
+ * Implements hook_field_widget_form().
+ */
+function imagefield_crop_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  $elements = image_field_widget_form($form, $form_state, $field, $instance, $langcode, $items, $delta, $element);
+  foreach (element_children($elements) as $delta) {
+    $elements[$delta]['#value_callback'] = 'imagefield_crop_value_callback';
+    // Add all extra functionality provided by the imagefield_crop widget.
+    $elements[$delta]['#process'][] = 'imagefield_crop_widget_process';
+    $elements[$delta]['#upload_validators']['imagefield_crop_upload_validate'] = array($field, $instance);
+  }
+  return $elements;
+}
+
+/**
+ * An element #process callback for the imagefield_crop field type.
+ */
+function imagefield_crop_widget_process($element, &$form_state, $form) {
+  $item = $element['#value'];
+  $item['fid'] = $element['fid']['#value'];
+
+  $instance = field_widget_instance($element, $form_state);
+
+  $context = array('form' => $form);
+  drupal_alter('imagefield_crop_instance', $instance, $context);
+
+  $widget_settings = $instance['widget']['settings'];
+  $element['#theme'] = 'imagefield_crop_widget';
+  $description = !empty($instance['description']) ? $instance['description'] : t('Click on the image and drag to mark how the image will be cropped');
+  $element['#description'] = theme('file_upload_help', array('description' => $description, 'upload_validators' => $element['#upload_validators']));
+
+  $path = drupal_get_path('module', 'imagefield_crop');
+  $element['#attached']['js'][] = "$path/Jcrop/js/jquery.Jcrop.js";
+  // We must define Drupal.behaviors for ahah to work, even if there is no file.
+  $element['#attached']['js'][] = "$path/imagefield_crop.js";
+  $element['#attached']['css'][] = "$path/Jcrop/css/jquery.Jcrop.css";
+
+  if ($element['#file']) {
+    $file_to_crop = _imagefield_crop_file_to_crop($element['#file']->fid);
+    if (!empty($widget_settings['resolution'])) {
+      $element['preview'] = array(
+        '#type' => 'markup',
+        '#file' => $file_to_crop, // This is used by the #process function
+        '#process' => array('imagefield_crop_widget_preview_process'),
+        '#theme' => 'imagefield_crop_preview',
+        '#markup' => theme('image', array(
+          'path' => $element['#file']->uri,
+          'getsize' => FALSE,
+          'attributes' => array('class' => 'preview-existing'),
+        )),
+      );
+    }
+    else {
+      unset($element['preview']);
+    }
+    $element['cropbox'] = array(
+      '#markup' => theme('image', array(
+        'path' => $file_to_crop->uri,
+        'attributes' => array(
+          'class' => 'cropbox',
+          'id' => $element['#id'] . '-cropbox'))),
+    );
+    // Get image info to find out dimensions.
+    $image_info = image_get_info(drupal_realpath($file_to_crop->uri));
+    // If ratio is set, then set default cropping area to this size.
+    if ($widget_settings['enforce_ratio']) {
+      if (!empty($widget_settings['resolution'])) {
+        // If select maximum area property is selected, then try to find biggest possible area on the image.
+        if ($widget_settings['select_maximum_area']) {
+          list($output_width, $output_height) = explode('x', $widget_settings['resolution']);
+          $output_ratio = $output_width / $output_height;
+          $crop_area_height = floor($image_info['width'] / $output_ratio);
+          $crop_area_width = $image_info['width'];
+          if ($crop_area_height > $image_info['height']) {
+            $crop_area_width = floor($image_info['height'] * $output_ratio);
+            $crop_area_height = $image_info['height'];
+          }
+        }
+        // Else select minimum output resolution.
+        else {
+          list($crop_area_width, $crop_area_height) = explode('x', $widget_settings['resolution']);
+        }
+      }
+      // Here we try to select maximum possible cropping area according to proportions like 4:3.
+      elseif (!empty($widget_settings['custom_ratio'])) {
+        list($ratio_width, $ratio_height) = explode('x', $widget_settings['custom_ratio']);
+        $crop_area_height = floor($image_info['width'] / $ratio_width * $ratio_height);
+        $crop_area_width = $image_info['width'];
+        if ($crop_area_height > $image_info['height']) {
+          $crop_area_height = $image_info['height'];
+          $crop_area_width = floor($image_info['height'] / $ratio_height * $ratio_width);
+        }
+      }
+    }
+    else {
+      list($crop_area_width, $crop_area_height) = array($image_info['width'], $image_info['height']);
+    }
+    $element['cropbox_x'] = array(
+      '#type' => 'hidden',
+      '#attributes' => array('class' => array('edit-image-crop-x')),
+      '#default_value' => isset($item['cropbox_x']) ? $item['cropbox_x'] : 0,
+    );
+    $element['cropbox_y'] = array(
+      '#type' => 'hidden',
+      '#attributes' => array('class' => array('edit-image-crop-y')),
+      '#default_value' => isset($item['cropbox_y']) ? $item['cropbox_y'] : 0,
+    );
+    $element['cropbox_height'] = array(
+      '#type' => 'hidden',
+      '#attributes' => array('class' => array('edit-image-crop-height')),
+      '#default_value' => isset($item['cropbox_height']) ? $item['cropbox_height'] : $crop_area_height,
+    );
+    $element['cropbox_width'] = array(
+      '#type' => 'hidden',
+      '#attributes' => array('class' => array('edit-image-crop-width')),
+      '#default_value' => isset($item['cropbox_width']) ? $item['cropbox_width'] : $crop_area_width,
+    );
+    $element['cropbox_changed'] = array(
+      '#type' => 'hidden',
+      '#attributes' => array('class' => array('edit-image-crop-changed')),
+      '#default_value' => isset($item['cropbox_changed']) ? $item['cropbox_changed'] : 0,
+    );
+
+    list($res_w, $res_h) = !empty($widget_settings['resolution']) ? explode('x', $widget_settings['resolution']) : array(0, 0);
+    list($crop_w, $crop_h) = explode('x', $widget_settings['croparea']);
+
+    $ratio = NULL;
+    // Enforce ratio is set.
+    if ($widget_settings['enforce_ratio']) {
+      // If resolution is set, then calculate ratio from output resolution
+      // else use values set in custom ratio fields.
+      list($custom_ration_w, $custom_ration_h) = !empty($widget_settings['resolution']) ? explode('x', $widget_settings['resolution']) : explode('x', $widget_settings['custom_ratio']);
+      $ratio = $custom_ration_w / $custom_ration_h;
+    }
+    $settings = array(
+      $element['#id'] => array(
+        'box' => array(
+          'ratio' => isset($ratio) ? $ratio : 0,
+          'box_width' => $crop_w,
+          'box_height' => $crop_h,
+        ),
+        'minimum' => array(
+          'width' => $widget_settings['enforce_minimum'] ? $res_w : NULL,
+          'height' => $widget_settings['enforce_minimum'] ? $res_h : NULL,
+        ),
+      ),
+    );
+    $element['#attached']['js'][] = array(
+      'data' => array('imagefield_crop' => $settings),
+      'type' => 'setting',
+      'scope' => 'header',
+    );
+  }
+
+  return $element;
+}
+
+function imagefield_crop_widget_preview_process($element, &$form_state, $form) {
+  $file = $element['#file'];
+  if ($file->fid == 0) {
+    return $element;
+  }
+  // The widget belongs to the parent, so we got to find it first.
+  $parents = array_slice($element['#array_parents'], 0, -1);
+  $parent = drupal_array_get_nested_value($form, $parents);
+  $instance = field_widget_instance($parent, $form_state);
+
+  $context = array('form' => $form);
+  drupal_alter('imagefield_crop_instance', $instance, $context);
+
+  list($width, $height) = !empty($instance['widget']['settings']['resolution']) ? explode('x', $instance['widget']['settings']['resolution']) : array(0, 0);
+
+  if (!empty($instance['widget']['settings']['preview_image_width'])) {
+    $height = $instance['widget']['settings']['preview_image_width'] / $width * $height;
+    $width = $instance['widget']['settings']['preview_image_width'];
+  }
+
+  $image_info = image_get_info(drupal_realpath($file->uri));
+  $settings = array(
+    $parent['#id'] => array(
+      'preview' => array(
+        'orig_width' => $image_info['width'],
+        'orig_height' => $image_info['height'],
+        'width' => (int) $width,
+        'height' => (int) $height,
+      ),
+    ),
+  );
+
+  $element['#attached']['js'][] = array(
+    'data' => array('imagefield_crop' => $settings),
+    'type' => 'setting',
+    'scope' => 'header',
+  );
+  $element['#imagefield_crop'] = array(
+    '#file' => $element['#file'],
+    '#width' => $width,
+    '#height' => $height,
+    '#path' => file_create_url($file->uri),
+  );
+  return $element;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function imagefield_crop_theme() {
+  return array(
+    'imagefield_crop_widget' => array(
+      'render element' => 'element',
+    ),
+    'imagefield_crop_preview' => array(
+      'render element' => 'element',
+    ),
+  );
+}
+
+function theme_imagefield_crop_widget($variables) {
+  $element = $variables['element'];
+  $output = '';
+  $output .= '<div class="imagefield-crop-widget form-managed-file clearfix">';
+
+  if (isset($element['preview'])) {
+    $output .= '<div class="imagefield-crop-preview">';
+    $output .= drupal_render($element['preview']);
+    $output .= '</div>';
+  }
+  if (isset($element['cropbox'])) {
+    $output .= '<div class="imagefield-crop-cropbox">';
+    $output .= drupal_render($element['cropbox']);
+    $output .= '</div>';
+  }
+  $output .= drupal_render_children($element);
+  $output .= '</div>';
+  return $output;
+}
+
+function theme_imagefield_crop_preview($variables) {
+  $info = $variables['element']['#imagefield_crop'];
+  $output = '<div class="jcrop-preview-wrapper" style="width:' . $info['#width'] . 'px;height:' . $info['#height'] . 'px;overflow:hidden;">';
+  $output .= $variables['element']['#markup'];
+  $output .= theme('image', array(
+    'path' => $info['#path'],
+    'alt' => 'jcrop-preview',
+    'attributes' => array('class' => 'jcrop-preview', 'style' => 'display:none'),
+  ));
+  $output .= '</div>';
+  return $output;
+}
+
+/**
+ * Crop the image and resize it.
+ */
+function _imagefield_crop_resize($src, $input = NULL, $scale = NULL, $dst_file = NULL) {
+  $image = image_load($src);
+  if ($image) {
+    $result = TRUE;
+    if ($input) {
+      $result = $result && image_crop($image, $input['cropbox_x'], $input['cropbox_y'], $input['cropbox_width'], $input['cropbox_height']);
+    }
+
+    if ($scale && $scale['width'] < $input['cropbox_width'] && $scale['height'] < $input['cropbox_height']) {
+      $result = $result && image_scale_and_crop($image, $scale['width'], $scale['height']);
+    }
+
+    $result = $result && image_save($image, isset($dst_file->uri) ? drupal_realpath($dst_file->uri) : $src);
+    module_invoke_all('imagefield_crop_image_crop_updated', $dst_file);
+    return $result;
+  }
+
+  return FALSE;
+}
+
+function _imagefield_crop_file_to_crop($fid) {
+  // Try to find the original file for this image.
+  $source_fid = db_select('file_usage', 'fu')
+    ->fields('fu', array('fid'))
+    ->condition('module', 'imagefield_crop')
+    ->condition('type', 'file')
+    ->condition('id', $fid)
+    ->condition('count', 0, '>')
+    ->range(0, 1)
+    ->execute()
+    ->fetchField();
+  if ($source_fid) {
+    return file_load($source_fid);
+  }
+  return file_load($fid);
+}
+
+/**
+ * Returns file usages by entity.
+ */
+function imagefield_crop_files_usage_list_by_entity($entity_type, $entity_id) {
+  $result = db_select('file_usage', 'f')
+    ->fields('f', array('fid', 'module', 'type', 'id', 'count'))
+    ->condition('type', $entity_type)
+    ->condition('id', $entity_id)
+    ->condition('count', 0, '>')
+    ->execute();
+  $references = array();
+  foreach ($result as $usage) {
+    $references[$usage->fid] = $usage;
+  }
+  return $references;
+}
+
+/**
+ * Element value callback. Used to set crop area to image size, if image is
+ * smaller then output resolution, but validation isn't enabled.
+ *
+ * @return array
+ */
+function imagefield_crop_value_callback($element, $input = FALSE, $form_state) {
+  // We depend on the managed file element to handle uploads.
+  $return = file_field_widget_value($element, $input, $form_state);
+  if ($input) {
+    if ($input['fid'] == 0 && $return['fid']) {
+      $return['cropbox_changed'] = 1;
+    }
+    $instance = field_widget_instance($element, $form_state);
+    $widget_settings = $instance['widget']['settings'];
+    if ($input['fid'] && $widget_settings['enforce_ratio'] && !empty($widget_settings['resolution'])) {
+      $file = _imagefield_crop_file_to_crop($input['fid']);
+      if ($file) {
+        $image_info = image_get_info(drupal_realpath($file->uri));
+        $return['cropbox_x'] = $input['cropbox_x'] < 0 ? 0 : $input['cropbox_x'];
+        $return['cropbox_y'] = $input['cropbox_y'] < 0 ? 0 : $input['cropbox_y'];
+        $return['cropbox_width'] = $input['cropbox_width'] > $image_info['width'] ? $image_info['width'] : $input['cropbox_width'];
+        $return['cropbox_height'] = $input['cropbox_height'] > $image_info['height'] ? $image_info['height'] : $input['cropbox_height'];
+      }
+    }
+  }
+
+  return $return;
+}
+
+/**
+ * Validate function for images to be cropped.
+ *
+ * Returns an error if output resolution for field is set, but file is smaller.
+ *
+ * @return array
+ */
+function imagefield_crop_upload_validate($file, $field, $instance) {
+  $errors = array();
+  $widget_settings = $instance['widget']['settings'];
+  $info = image_get_info($file->uri);
+  if (!$info) {
+    $errors[] = t('Image seems to be broken and can\'t be processed. Please try to upload another image or resave this current image with graphic editor');
+  }
+  elseif ($info && $widget_settings['validate_resolution'] && $widget_settings['enforce_ratio'] && !empty($widget_settings['resolution'])) {
+    list($width, $height) = explode('x', $widget_settings['resolution']);
+    if ($info['width'] < $width || $info['height'] < $height) {
+      $errors[] = t('The image is too small; the minimum dimensions are %dimensions pixels.', array('%dimensions' => $widget_settings['resolution']));
+    }
+  }
+
+  if ($instance['settings']['max_filesize'] && parse_size($instance['settings']['max_filesize']) < $file->filesize) {
+    $errors[] = t('This image is too large.  The maximum size is !max', array('!max' => $instance['settings']['max_filesize']));
+  }
+
+  return $errors;
+}
+
+/**
+ * Creates a copy of the file.
+ *
+ * @param object $file
+ *   File to copy.
+ *
+ * @return object
+ *   Copied file.
+ */
+function imagefield_crop_create_copy($file) {
+  if ($file->filemime == 'image/gif') {
+    $realpath = drupal_realpath($file->uri);
+    $new_uri = file_destination(substr($file->uri, 0, -4) . '.jpeg', FILE_EXISTS_RENAME);
+    $image = image_load($realpath);
+    $image->info['extension'] = 'jpeg';
+    $image->info['mime_type'] = 'image/jpeg';
+    $success = image_gd_save($image, $new_uri);
+    if ($success) {
+      $file->uri = $new_uri;
+      $file->filename = drupal_basename($new_uri);
+      $file->filemime = 'image/jpeg';
+      file_save($file);
+      file_unmanaged_delete($realpath);
+    }
+  }
+  $new_uri = file_unmanaged_copy($file->uri, $file->uri);
+  $new_file = clone $file;
+  $new_file->fid = 0;
+  $new_file->status = FILE_STATUS_PERMANENT;
+  $new_file->uri = $new_uri;
+  $new_file->filename = drupal_basename($new_uri);
+  return file_save($new_file);
+}
+
+function imagefield_crop_views_api() {
+  return array(
+    'api' => views_api_version(),
+    'path' => drupal_get_path('module', 'imagefield_crop') . '/includes',
+  );
+}
