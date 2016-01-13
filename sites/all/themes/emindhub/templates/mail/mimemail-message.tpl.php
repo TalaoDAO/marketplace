@@ -32,7 +32,7 @@ global $base_url;
 		<?php if ($css): ?>
     <style type="text/css">
       <!--
-      <?php print $css ?>
+      <?php print $css; ?>
       -->
     </style>
     <?php endif; ?>
@@ -54,25 +54,24 @@ global $base_url;
 				<tr>
 					<td align="center" valign="top" id="bodyCell">
 
-						<table bgcolor="#F2F2F2" border="0" cellpadding="0" cellspacing="0" width="500" id="emailHeader">
+						<!-- Entête -->
+						<table bgcolor="#F2F2F2" border="0" cellpadding="0" cellspacing="0" width="600" id="emailHeader">
 
 							<tr>
 								<td align="center" valign="top">
 									<table border="0" cellpadding="0" cellspacing="0" width="100%">
 										<tr>
 											<td align="center" valign="top">
-												<table border="0" cellpadding="10" cellspacing="0" width="500" class="flexibleContainer">
+												<table border="0" cellpadding="10" cellspacing="0" width="600" class="flexibleContainer">
 													<tr>
-														<td valign="top" width="500" class="flexibleContainerCell">
-															<table align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
+														<td valign="top" width="600" class="flexibleContainerCell">
+															<table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
 																<tr>
-																	<td align="left" valign="middle" id="invisibleIntroduction" class="flexibleContainerBox" style="display:none !important; mso-hide:all;">
+																	<td align="center" valign="middle" class="flexibleContainerBox">
 																		<table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:100%;">
 																			<tr>
-																				<td align="left" class="textContent">
-																					<div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#828282;text-align:center;line-height:120%;">
-																						<?php print $subject; ?>
-																					</div>
+																				<td align="center" class="textContent" style="padding: 9px 18px; text-align: center;">
+																					<a href="http://www.emindhub.com/?pk_campaign=website&amp;pk_kwd=logo" target="_blank"><img alt="eMindHub" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/eMindHub_logo_baseline.png" style="width: 200px; height: 78px; margin: 0px;" height="78" width="200" align="center"></a>
 																				</td>
 																			</tr>
 																		</table>
@@ -90,79 +89,26 @@ global $base_url;
 
 						</table>
 
-						<table bgcolor="#FFFFFF"  border="0" cellpadding="0" cellspacing="0" width="500" id="emailBody">
+						<table bgcolor="#FFFFFF" border="0" cellpadding="0" cellspacing="0" width="600" id="emailBody">
 
-							<tr>
-								<td align="center" valign="top">
-									<table border="0" cellpadding="0" cellspacing="0" width="100%" style="color:#FFFFFF;" bgcolor="#009FE3">
-										<tr>
-											<td align="center" valign="top">
-												<table border="0" cellpadding="0" cellspacing="0" width="500" class="flexibleContainer">
-													<tr>
-														<td align="center" valign="top" width="500" class="flexibleContainerCell">
-															<table border="0" cellpadding="30" cellspacing="0" width="100%">
-																<tr>
-																	<td align="center" valign="top" class="textContent">
-																		<h1 style="color:#FFFFFF;line-height:100%;font-family:Helvetica,Arial,sans-serif;font-size:25px;font-weight:normal;margin-bottom:5px;text-align:center;"><?php print $subject; ?></h1>
-																	</td>
-																</tr>
-															</table>
-														</td>
-													</tr>
-												</table>
-											</td>
-										</tr>
-									</table>
-								</td>
-							</tr>
-
+							<!-- Titre + Contenu + Signature -->
 							<tr>
 								<td align="left" valign="top">
 									<table border="0" cellpadding="0" cellspacing="0" width="100%">
 										<tr>
 											<td align="left" valign="top">
-												<table border="0" cellpadding="0" cellspacing="0" width="500" class="flexibleContainer">
+												<table border="0" cellpadding="0" cellspacing="0" width="600" class="flexibleContainer">
 													<tr>
-														<td align="left" valign="top" width="500" class="flexibleContainerCell">
+														<td align="left" valign="top" width="600" class="flexibleContainerCell">
 															<table border="0" cellpadding="30" cellspacing="0" width="100%">
 																<tr>
 																	<td align="left" valign="top">
 																		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 																			<tr>
 																				<td valign="top" class="textContent">
-																					<?php print $body ?>
-																				</td>
-																			</tr>
-																		</table>
-																	</td>
-																</tr>
-															</table>
-														</td>
-													</tr>
-												</table>
-											</td>
-										</tr>
-									</table>
-								</td>
-							</tr>
-
-							<!-- Signature -->
-							<tr>
-								<td align="left" valign="top">
-									<table border="0" cellpadding="0" cellspacing="0" width="100%">
-										<tr>
-											<td align="left" valign="top">
-												<table border="0" cellpadding="0" cellspacing="0" width="500" class="flexibleContainer">
-													<tr>
-														<td align="left" valign="top" width="500" class="flexibleContainerCell">
-															<table border="0" cellpadding="30" cellspacing="0" width="100%">
-																<tr>
-																	<td align="left" valign="top">
-																		<table border="0" cellpadding="0" cellspacing="0" width="100%">
-																			<tr>
-																				<td valign="top" class="textContent">
-																					<div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;color:#333;line-height:135%;font-weight:bold;"><?php print $site_name; ?></div>
-																					<div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;margin-top:3px;color:#333;line-height:135%;"><a href="<?php print $base_url; ?>" target="_blank" style="text-decoration:none;color:#009FE3;"><span style="text-decoration:none;color:#009FE3;"><?php print $base_url; ?></span></a></div>
+																					<h1><?php print $subject; ?></h1>
+																					<div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:16px;margin-bottom:0;color:#333;line-height:150%;"><?php print $body ?></div>
+																					<div style="padding-top:10px;color:#333;font-family:Helvetica,Arial,sans-serif;font-size: 16px;line-height:150%;text-align:left;"><strong><?php print t('Your eMindhub team'); ?></strong></div>
 																				</td>
 																			</tr>
 																		</table>
@@ -180,21 +126,131 @@ global $base_url;
 
 						</table>
 
-						<table bgcolor="#F2F2F2" border="0" cellpadding="0" cellspacing="0" width="500" id="emailFooter">
+						<table bgcolor="#F2F2F2" border="0" cellpadding="0" cellspacing="0" width="600" id="emailFooter">
 							<tr>
 								<td align="center" valign="top">
 									<table border="0" cellpadding="0" cellspacing="0" width="100%">
 										<tr>
 											<td align="center" valign="top">
-												<table border="0" cellpadding="0" cellspacing="0" width="500" class="flexibleContainer">
+												<table border="0" cellpadding="0" cellspacing="0" width="600" class="flexibleContainer">
 													<tr>
-														<td align="center" valign="top" width="500" class="flexibleContainerCell">
+														<td align="center" valign="top" width="600" class="flexibleContainerCell">
+															<table border="0" cellpadding="30" cellspacing="0" width="100%">
+																<tr>
+																	<td bgcolor="#F2F2F2" style="padding-top:9px; padding-right:9px; padding-left:9px;" valign="top" align="center">
+						                        <table align="center" border="0" cellpadding="0" cellspacing="0">
+						                          <tbody><tr>
+						                            <td valign="top" align="center">
+
+                                    <!--[if mso]>
+                                    <table align="center" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                    <![endif]-->
+
+                                      <!--[if mso]>
+                                      <td align="center" valign="top">
+                                      <![endif]-->
+
+
+                                        <table style="display:inline;" align="left" border="0" cellpadding="0" cellspacing="0">
+                                          <tbody><tr>
+                                              <td style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer" valign="top">
+                                                  <table class="mcnFollowContentItem" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                      <tbody><tr>
+                                                          <td style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;" valign="middle" align="left">
+                                                              <table width="" align="left" border="0" cellpadding="0" cellspacing="0">
+                                                                  <tbody><tr>
+
+                                                                          <td class="mcnFollowIconContent" valign="middle" width="24" align="center">
+                                                                              <a href="http://www.emindhub.com/?pk_campaign=website&amp;pk_kwd=picto" target="_blank"><img alt="eMindHub" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/picto/picto_emindhub_small.png" style="display:block;" class="" height="24" width="24"></a>
+                                                                          </td>
+
+
+                                                                          <td class="mcnFollowTextContent" style="padding-left:5px;" valign="middle" align="left">
+                                                                              <a href="http://www.emindhub.com/?pk_campaign=website&amp;pk_kwd=picto" target="" style="font-family: Helvetica; font-size: 12px; text-decoration: none; color: rgb(101, 101, 101);">Website</a>
+                                                                          </td>
+
+                                                                  </tr>
+                                                              </tbody></table>
+                                                          </td>
+                                                      </tr>
+                                                  </tbody></table>
+                                              </td>
+                                          </tr>
+                                      </tbody></table>
+
+	                                  <!--[if mso]>
+	                                  </td>
+	                                  <![endif]-->
+
+	                                  <!--[if mso]>
+	                                  <td align="center" valign="top">
+	                                  <![endif]-->
+
+                                      <table style="display:inline;" align="left" border="0" cellpadding="0" cellspacing="0">
+                                          <tbody><tr>
+                                              <td style="padding-right:0; padding-bottom:9px;" class="mcnFollowContentItemContainer" valign="top">
+                                                  <table class="mcnFollowContentItem" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                      <tbody><tr>
+                                                          <td style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;" valign="middle" align="left">
+                                                              <table width="" align="left" border="0" cellpadding="0" cellspacing="0">
+                                                                  <tbody><tr>
+
+                                                                          <td class="mcnFollowIconContent" valign="middle" width="24" align="center">
+                                                                              <a href="https://www.linkedin.com/company/emindhub" target="_blank"><img alt="LinkedIn" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/picto/picto_linkedin_small.png" style="display:block;" class="" height="24" width="24"></a>
+                                                                          </td>
+
+
+                                                                          <td class="mcnFollowTextContent" style="padding-left:5px;" valign="middle" align="left">
+                                                                              <a href="https://www.linkedin.com/company/emindhub" target="" style="font-family: Helvetica; font-size: 12px; text-decoration: none; color: rgb(101, 101, 101);">LinkedIn</a>
+                                                                          </td>
+
+                                                                  </tr>
+                                                              </tbody></table>
+                                                          </td>
+                                                      </tr>
+                                                  </tbody></table>
+                                              </td>
+                                          </tr>
+                                        </tbody></table>
+
+                                      <!--[if mso]>
+                                      </td>
+                                      <![endif]-->
+
+                                    <!--[if mso]>
+                                    </tr>
+                                    </table>
+                                    <![endif]-->
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td align="center" valign="top">
+									<table border="0" cellpadding="0" cellspacing="0" width="100%">
+										<tr>
+											<td align="center" valign="top">
+												<table border="0" cellpadding="0" cellspacing="0" width="600" class="flexibleContainer">
+													<tr>
+														<td align="center" valign="top" width="600" class="flexibleContainerCell">
 															<table border="0" cellpadding="30" cellspacing="0" width="100%">
 																<tr>
 																	<td valign="top" bgcolor="#F2F2F2">
 
-																		<div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#828282;text-align:center;line-height:120%;">
-																			<div>Copyright &#169; <?php echo date("Y"); ?> <a href="<?php print $base_url; ?>" target="_blank" style="text-decoration:none;color:#828282;"><span style="color:#828282;"><?php print $site_name; ?></span></a></div>
+																		<div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#656565;text-align:center;line-height:120%;">
+																			<div>Copyright &#169; <?php echo date("Y"); ?> <?php print $site_name; ?>, <?php print('All rights reserved'); ?>.</div>
 																		</div>
 
 																	</td>
