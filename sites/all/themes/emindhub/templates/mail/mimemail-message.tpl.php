@@ -91,7 +91,7 @@ global $base_url;
 
 						<table bgcolor="#FFFFFF" border="0" cellpadding="0" cellspacing="0" width="600" id="emailBody">
 
-							<!-- Titre + Contenu + Signature -->
+							<!-- Contenu + Signature -->
 							<tr>
 								<td align="left" valign="top">
 									<table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -106,7 +106,6 @@ global $base_url;
 																		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 																			<tr>
 																				<td valign="top" class="textContent">
-																					<h1><?php print $subject; ?></h1>
 																					<div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:16px;margin-bottom:0;color:#333;line-height:150%;"><?php print $body ?></div>
 																					<div style="padding-top:10px;color:#333;font-family:Helvetica,Arial,sans-serif;font-size: 16px;line-height:150%;text-align:left;"><strong><?php print t('Your eMindhub team'); ?></strong></div>
 																				</td>
