@@ -164,6 +164,15 @@
 	a {
 		display: block;
 		text-decoration: none;
+		padding: 1em;
+		&:before {
+			display: inline-block;
+			height: 100px;
+			content: "";
+			background-position: 50% 50%;
+			background-repeat: no-repeat;
+			background-size: contain;
+		}
 
 		span {
 			display: block;
@@ -191,24 +200,26 @@
 		a {
 			padding: 15px;
 		}
+		a:before {
+			width: 100%;
+		}
 	}
 
 	@media (min-width: @screen-sm-min) {
-		.content {
-			background-position: 5% 50%;
-			position: relative;
+		a:before {
+			width: 100%;
 		}
+	}
+
+	@media (min-width: @screen-md-min) {
 		a {
-			padding-top: 2em;
-			padding-left: 13em;
-			padding-right: 1.5em;
-			height: 12em;
-		}
-		span.mobilize-info {
-			min-height: 4.28571em;
-		}
-		span.mobilize-call {
-			margin-top: .25em;
+			min-height: 130px;
+			&:before {
+				width: 130px;
+				margin-right: 1em;
+				margin-bottom: 1em;
+				float: left;
+			}
 		}
 	}
 }
@@ -216,9 +227,9 @@
 	body.not-logged-in,
 	body.role-business,
 	body.role-business-preview {
-		#block-block-14 .content { background-image: url("../images/askQuestion.png"); }
-		#block-block-8 .content { background-image: url("../images/launchChallenge.png"); }
-		#block-block-16 .content { background-image: url("../images/findExpert.png"); }
+		#block-block-14 .content a:before { background-image: url("../images/askQuestion.png"); }
+		#block-block-8 .content a:before { background-image: url("../images/launchChallenge.png"); }
+		#block-block-16 .content a:before { background-image: url("../images/findExpert.png"); }
 	}
 	body.logged-in {
 		#block-block-14 .content a span.default-text,
@@ -227,9 +238,9 @@
 	}
 	body.role-expert,
 	body.role-expert-preview {
-		#block-block-14 .content { background-image: url("../images/answerQuestion.png"); }
-		#block-block-8 .content { background-image: url("../images/answerChallenge.png"); }
-		#block-block-16 .content { background-image: url("../images/answerExpertCall.png"); }
+		#block-block-14 .content a:before { background-image: url("../images/answerQuestion.png"); }
+		#block-block-8 .content a:before { background-image: url("../images/answerChallenge.png"); }
+		#block-block-16 .content a:before { background-image: url("../images/answerExpertCall.png"); }
 	}
 }
 
@@ -519,7 +530,7 @@
 
 .view-display-id-block, // B - Last requests
 .view-display-id-page, // P - All requests
-.view-display-id-page_1 { // My selections
+.view-display-id-page_1 { // My circles
 	// Filtres de seconde ligne
 	form {
 		#edit-total-points-wrapper {
