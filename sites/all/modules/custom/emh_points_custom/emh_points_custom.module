@@ -112,7 +112,8 @@ function emh_points_custom_form_add_points_control(&$form, &$form_state, $type) 
   $form['field_reward'][LANGUAGE_NONE]['0']['#element_validate'][] = 'emh_points_validate_enough_points';
   $form['field_reward'][LANGUAGE_NONE]['0']['#element_validate'][] = 'emh_points_validate_' . $type . '_threshold';
   if (!empty($form['nid']['#value']) && !empty($form['#node']->status)) {
-    $form['field_reward'][LANGUAGE_NONE]['0']['#disabled'] = TRUE;
+    // #575
+    // $form['field_reward'][LANGUAGE_NONE]['0']['#disabled'] = TRUE;
     unset($form['actions']['draft']);
   }
 }
@@ -134,7 +135,29 @@ function emh_points_custom_form_views_form_answers_page_alter(&$form, &$form_sta
  * Validation callback to ensure you have enough points to create a Question.
  */
 function emh_points_validate_enough_points($element, &$form_state, $form) {
-  $points = $element['value']['#value'];
+  $points = 0;
+  // Check if it's a node creation.
+  $node = $form_state['node'];
+  if (!isset($node->nid) || isset($node->is_new)) {
+    $points = $element['value']['#value'];
+  } else {
+    // If not, is the not published ?
+    if ($node->status) {
+      // We cannot lessen the reward.
+      if ($node->field_reward[LANGUAGE_NONE]['0']['value'] > $element['value']['#value']) {
+        // Reward is diminished, forbidden if published.
+        form_error($element, t('You cannot lessen the reward.'));
+      } elseif ($node->field_reward[LANGUAGE_NONE]['0']['value'] < $element['value']['#value']) {
+        $points = $element['value']['#value'] - $node->field_reward[LANGUAGE_NONE]['0']['value'];
+      } else {
+        // Egality, nothing to check.
+        return;
+      }
+    } else {
+      // Node is not published, we can do everything.
+      $points = $element['value']['#value'];
+    }
+  }
   $current_points = 0;
   global $user;
   $query = db_select('emh_points', 'p')

@@ -13,10 +13,12 @@ function emh_request_node_access($node, $op, $account) {
       case 'question1':
       case 'webform':
       case 'challenge':
+        /*
         $count = emh_request_count_answers($node);
         if ($count > 0) {
           return NODE_ACCESS_DENY;
         }
+         */
         break;
       default:
         break;
@@ -28,6 +30,8 @@ function emh_request_node_access($node, $op, $account) {
 /**
  * Implements hook_preprocess_page().
  */
+// #575
+/*
 function emh_request_preprocess_page(&$variables) {
   global $user;
   $uid = $user->uid;
@@ -66,7 +70,7 @@ function emh_request_preprocess_page(&$variables) {
   }
 
 }
-
+ */
 
 /**
  * Implements hook_form_alter().
@@ -89,6 +93,17 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
         $form['actions']['draft']['#access'] = FALSE;
         $form['actions']['submit']['#value'] = t('Save');
       }
+
+      // If node is published & there are some answers, only some updates are possible.
+      // #575, 576
+      $count = emh_request_count_answers($form['#node']);
+      if ($form['#node']->status && $count > 0) {
+        // Prevent domain & circle update.
+        $form['field_domaine']['#access'] = FALSE;
+        $form['field_request_circle']['#access'] = FALSE;
+        $form['og_group_ref']['#access'] = FALSE;
+      }
+
 
       // Hide node access
       $form['group_content_access']['#access'] =  FALSE;

@@ -14,9 +14,9 @@ function emh_question_form_question1_node_form_alter(&$form, &$form_state, $form
 	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
 	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
 
-  $form['field_reward']['und'][0]['value']['#title'] = t('Cost (minimum !value points required)', array( '!value' => variable_get('emh_points_question1_threshold', '100')));
-
-
+  // $form['field_reward']['und'][0]['value']['#title'] = t('Cost (minimum !value points required)', array( '!value' => variable_get('emh_points_question1_threshold', '100')));
+  $form['field_reward']['und'][0]['value']['#title'] = t('Cost');
+  $form['field_reward']['und'][0]['value']['#field_suffix'] = t('(minimum !value points required)', array('!value' => variable_get('emh_points_question1_threshold', '100')));
 }
 
 /**
