@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Installation hook for EMH Access module.
+ */
+
+/**
+ * Implements hook_update_7101().
+ */
+function emh_access_update_7101() {
+  // Revert feature.
+  module_load_include('inc', 'features', 'features.export');
+  features_include();
+  $revert = array(
+    'ft_field_base' => array('field_base'),
+    'ft_content_type' => array('field_instance', 'field_group'),
+  );
+  features_revert($revert);
+  // Update field_data_field_mail.
+  db_query("INSERT INTO field_data_field_mail SELECT 'user', 'user', 0, uid, uid, 'und', 0, mail, NULL FROM users WHERE uid != 0");
+  db_query("INSERT INTO field_revision_field_mail SELECT 'user', 'user', 0, uid, uid, 'und', 0, mail, NULL FROM users WHERE uid != 0");
+}

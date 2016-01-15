@@ -62,6 +62,7 @@ features[field_base][] = field_known_specific
 features[field_base][] = field_last_name
 features[field_base][] = field_link_to_my_blog
 features[field_base][] = field_logo
+features[field_base][] = field_mail
 features[field_base][] = field_needs_for_expertise
 features[field_base][] = field_notification_frequency
 features[field_base][] = field_other_areas

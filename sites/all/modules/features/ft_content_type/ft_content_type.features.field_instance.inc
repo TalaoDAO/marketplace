@@ -4460,7 +4460,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 16,
+        'weight' => 17,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4669,7 +4669,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 8,
+      'weight' => 6,
     ),
   );
 
@@ -4706,7 +4706,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 11,
+      'weight' => 8,
     ),
   );
 
@@ -4743,7 +4743,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 7,
+      'weight' => 5,
     ),
   );
 
@@ -4925,6 +4925,41 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_mail'.
+  $field_instances['user-user-field_mail'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_plain',
+        'weight' => 121,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_mail',
+    'label' => 'Mail',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 1,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_needs_for_expertise'.
   $field_instances['user-user-field_needs_for_expertise'] = array(
     'bundle' => 'user',
@@ -4937,7 +4972,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 3,
+        'weight' => 15,
       ),
     ),
     'entity_type' => 'user',
@@ -5204,7 +5239,7 @@ function ft_content_type_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_view',
-        'weight' => 15,
+        'weight' => 16,
       ),
     ),
     'entity_type' => 'user',
@@ -5242,7 +5277,7 @@ function ft_content_type_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_view',
-        'weight' => 14,
+        'weight' => 15,
       ),
       'full' => array(
         'label' => 'above',
@@ -5287,7 +5322,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 4,
+        'weight' => 16,
       ),
       'full' => array(
         'label' => 'above',
@@ -5582,7 +5617,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'i18n_field',
         'settings' => array(),
         'type' => 'i18n_list_default',
-        'weight' => 6,
+        'weight' => 7,
       ),
       'full' => array(
         'label' => 'above',
@@ -5665,7 +5700,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'og',
       'settings' => array(),
       'type' => 'og_complex',
-      'weight' => 6,
+      'weight' => 4,
     ),
   );
 
@@ -5715,6 +5750,7 @@ function ft_content_type_field_default_field_instances() {
   t('Lead experts');
   t('Link to my website or my blog');
   t('Logo');
+  t('Mail');
   t('More about <a href=\'/content/sponsorship\'>sponsorship</a>');
   t('Name of my sponsor');
   t('Needs for expertise');
