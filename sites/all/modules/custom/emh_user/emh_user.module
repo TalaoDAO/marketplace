@@ -119,16 +119,8 @@ function emh_user_is_author($nid, $account = NULL) {
   if (empty($nid)) {
     $nid = arg(1);
   }
-  // print $nid;
   $node = node_load($nid);
-  // print_r($node);
-  // print $node->uid . ' ' . $account->uid;
-  if (($node->uid == $account->uid) || node_access('update', $node, $account)) {
-    return TRUE;
-  }
-  return FALSE;
-  // die;
-  // echo 'NON';
+  return($node->uid == $account->uid);
 }
 
 function emh_user_is_webmaster($account = NULL) {
