@@ -32,11 +32,6 @@
 }
 
 .form-type-password-confirm {
-  clear: both;
-  .make-row();
-  > .form-group {
-    .make-sm-column(6);
-  }
   .help-tip {
     .text-hide;
     .hidden();
@@ -54,7 +49,10 @@
 }
 @media (min-width: @screen-sm-min) {
   .form-type-password-confirm {
+    clear: both;
+    .make-row();
     > .form-group {
+      .make-sm-column(6);
       &.password-parent {
         padding-right: 7.5px;
       }

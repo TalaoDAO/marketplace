@@ -7,7 +7,7 @@
   .text-right;
 }
 .emh-field-status {
-  width: 70px;
+  width: 150px;
 }
 
 
@@ -36,7 +36,17 @@
   width: 100px;
 }
 
-// Status
+// Answers
+.views-field-total-answers {
+  .emh-field-answers;
+}
+
+// Request status
+.views-field-request-status {
+  .emh-field-status;
+}
+
+// Answer status
 .views-field-status,
 .views-field-is-draft {
   width: 100px;
@@ -44,7 +54,7 @@
 
 // Circles
 .views-field-og-group-ref {
-  width: 200px;
+  width: 150px;
 }
 
 // Users
@@ -73,22 +83,6 @@
     }
   }
 }
-
-
-.view-query-list.view-display-id-block_1, // Last requests
-.view-query-list.view-id-query_list, // Last requests
-.view-query-list.view-display-id-page_2, // My answers - Challenge
-.view-display-id-page_1 { // My selections
-  // Answers
-  .views-field-views-conditional {
-    .emh-field-answers;
-  }
-  // Status
-  .views-field-views-conditional-1 {
-    .emh-field-status;
-  }
-}
-
 
 .view-my-responses-questions1, // My answers - Question
 .view-my-responses-calls3, // My answers - Survey

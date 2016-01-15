@@ -154,15 +154,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'environment_indicator',
   );
 
-  // Exported permission: 'access environment indicator clone_of_dev'.
-  $permissions['access environment indicator clone_of_dev'] = array(
-    'name' => 'access environment indicator clone_of_dev',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'environment_indicator',
-  );
-
   // Exported permission: 'access environment indicator demo'.
   $permissions['access environment indicator demo'] = array(
     'name' => 'access environment indicator demo',

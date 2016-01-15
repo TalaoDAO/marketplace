@@ -1,10 +1,5 @@
 (function ($) {
-/**
- * @file
- * Imagefield_crop module js
- *
- * JS for cropping image widget
- */
+
 Drupal.behaviors.imagefield_crop = {
   attach: function (context, settings) {
     // wait till 'fadeIn' effect ends (defined in filefield_widget.inc)
@@ -26,7 +21,7 @@ Drupal.behaviors.imagefield_crop = {
         var self_id = self.attr('id');
         var id = self_id.substring(0, self_id.indexOf('-cropbox'));
         // get the name attribute for imagefield name
-        var widget = self.parent().parent();
+        var widget = self.parent().parent().parent();
 
           if ($(".edit-image-crop-changed", widget).val() == 1) {
               $('.preview-existing', widget).css({display: 'none'});
@@ -50,34 +45,28 @@ Drupal.behaviors.imagefield_crop = {
               marginTop: '-' + Math.round(ry * c.y) + 'px',
               display: 'block'
             });
-            // Crop image even if user has left image untouched.
-            $(widget).siblings('.preview-existing').css({display: 'none'});
-            $(widget).siblings(".edit-image-crop-x").val(c.x);
-            $(widget).siblings(".edit-image-crop-y").val(c.y);
-            if (c.w) $(widget).siblings(".edit-image-crop-width").val(c.w);
-            if (c.h) $(widget).siblings(".edit-image-crop-height").val(c.h);
-            $(widget).siblings(".edit-image-crop-changed").val(1);
           },
           onSelect: function(c) {
-            $(widget).siblings('.preview-existing').css({display: 'none'});
-            $(widget).siblings(".edit-image-crop-x").val(c.x);
-            $(widget).siblings(".edit-image-crop-y").val(c.y);
-            if (c.w) $(widget).siblings(".edit-image-crop-width").val(c.w);
-            if (c.h) $(widget).siblings(".edit-image-crop-height").val(c.h);
-            $(widget).siblings(".edit-image-crop-changed").val(1);
+            $('.preview-existing', widget).css({display: 'none'});
+            $(".edit-image-crop-x", widget).val(c.x);
+            $(".edit-image-crop-y", widget).val(c.y);
+            if (c.w) $(".edit-image-crop-width", widget).val(c.w);
+            if (c.h) $(".edit-image-crop-height", widget).val(c.h);
+            $(".edit-image-crop-changed", widget).val(1);
           },
           aspectRatio: settings.imagefield_crop[id].box.ratio,
           boxWidth: settings.imagefield_crop[id].box.box_width,
           boxHeight: settings.imagefield_crop[id].box.box_height,
-          minSize: [Drupal.settings.imagefield_crop[id].minimum.width, Drupal.settings.imagefield_crop[id].minimum.height], 
+          minSize: [Drupal.settings.imagefield_crop[id].minimum.width, Drupal.settings.imagefield_crop[id].minimum.height],
+          keySupport: false,
           /*
            * Setting the select here calls onChange event, and we lose the original image visibility
           */
           setSelect: [
-            parseInt($(widget).siblings(".edit-image-crop-x").val()),
-            parseInt($(widget).siblings(".edit-image-crop-y").val()),
-            parseInt($(widget).siblings(".edit-image-crop-width").val()) + parseInt($(widget).siblings(".edit-image-crop-x").val()),
-            parseInt($(widget).siblings(".edit-image-crop-height").val()) + parseInt($(widget).siblings(".edit-image-crop-y").val())
+            parseInt($(".edit-image-crop-x", widget).val()),
+            parseInt($(".edit-image-crop-y", widget).val()),
+            parseInt($(".edit-image-crop-width", widget).val()) + parseInt($(".edit-image-crop-x", widget).val()),
+            parseInt($(".edit-image-crop-height", widget).val()) + parseInt($(".edit-image-crop-y", widget).val())
           ]
         });
       });

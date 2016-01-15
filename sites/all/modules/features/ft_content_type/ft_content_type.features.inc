@@ -41,9 +41,7 @@ function ft_content_type_image_default_styles() {
   // Exported image style: profile_picture.
   $styles['profile_picture'] = array(
     'label' => 'profile picture',
-    'effects' => array(
-      9 => NULL,
-    ),
+    'effects' => array(),
   );
 
   return $styles;

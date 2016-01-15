@@ -170,7 +170,7 @@ global $base_url;
 
         <div class="row">
 
-          <div class="col-sm-9">
+          <div class="col-sm-8 col-md-9">
 
             <?php if (!empty($page['title'])): ?>
             <?php print render($page['title']); ?>
@@ -192,7 +192,7 @@ global $base_url;
 
           </div>
 
-          <div id="flashes" class="col-sm-3">
+          <div id="flashes" class="col-sm-4 col-md-3">
 
             <?php if ( $logged_in ): ?>
             <a class="btn btn-flash icon-community" href="<?php print url('invitations'); ?>"><?php print t('Invite experts and earn points!'); ?></a>

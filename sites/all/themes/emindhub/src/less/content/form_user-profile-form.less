@@ -7,54 +7,22 @@ form#user-profile-form {
     .form-group-2col;
   }
 
-  // .imagefield-crop-widget,
-  .image-widget {
-    .make-row();
-    margin: 0;
-
-    .image-preview {
-      .make-sm-column(2);
-      img {
-        .img-circle;
-      	.center-block;
-      }
+  .imagefield-crop-widget {
+    .imagefield-crop-preview,
+    .imagefield-crop-cropbox {
+      float: left;
+      margin-right: 15px;
     }
-
-    .image-widget-data {
-      .make-sm-column(10);
-      .make-row();
-      margin: 0;
-
-      .file {
-        .make-sm-column(6);
-        a {
-          overflow: hidden;
-  				text-overflow: ellipsis;
-  				white-space: nowrap;
-  				max-width: 200px;
-          display: block;
-        }
-      }
-
-      .file-size {
-        .make-sm-column(4);
-      }
+    .jcrop-preview-wrapper {
+      .img-circle;
+      .center-block;
     }
-
-    .form-item-field-photo-und-0-focal-point {
-      display: none;
+    .file {
+      .hidden();
     }
-    .focal-point-help {
-      clear: both;
+    .jcrop-holder {
+      background-color: transparent ! important;
     }
-
-    @media (min-width: @screen-sm-min) {
-      button.form-submit {
-        float: right;
-        margin-right: 15px;
-      }
-    }
-
   }
 
   #edit-field-skills-set {

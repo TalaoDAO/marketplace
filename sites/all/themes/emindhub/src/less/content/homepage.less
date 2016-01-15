@@ -6,7 +6,6 @@ body.front {
   }
 
   &.not-logged-in {
-    padding-top: 113px;
     header#navbar {
 			&.navbar-emh {
 				&:after {
@@ -44,9 +43,8 @@ body.front {
 }
 
 @media (min-width: @screen-sm-min) {
-  body.front.not-logged-in,
-  body.front.not-logged-in.admin-menu {
-    // padding-top: 117px; // .fixed-to-top
+  body.front.not-logged-in {
+    padding-top: 113px;
   }
   body.front.logged-in,
   body.front.logged-in.admin-menu {

@@ -245,7 +245,7 @@ function emh_points_entity_points_delete($id, $type) {
  */
 function emh_points_add_points($entity, $points) {
   // To add point, there are almost no functional checks.
-  if (!is_numeric($points) || (int)$points <= 0) {
+  if (!is_numeric($points) || (int)$points < 0) {
     drupal_set_message(t('You should only add a positive number of points.'));
     return;
   }
@@ -301,7 +301,7 @@ function emh_points_add_points($entity, $points) {
  */
 function emh_points_delete_points($entity, $points) {
   // Functional validation.
-  if (!is_numeric($points) || (int)$points <= 0) {
+  if (!is_numeric($points) || (int)$points < 0) {
     drupal_set_message(t('You should only remove a positive number of points.'));
     return;
   }
@@ -724,6 +724,22 @@ function emh_points_close_node($nid) {
         $node->comment = COMMENT_NODE_CLOSED;
         node_save($node);
         break;
+      default:
+        // Nothing to do.
+        break;
+    }
+  }
+}
+
+function emh_points_get_points_closed_status($nid) {
+  $node = node_load($nid);
+  if (!empty($node)) {
+    switch($node->type) {
+      case 'webform':
+        return ($node->webform['status'] == 0);
+      case 'question1':
+      case 'challenge':
+        return ($node->comment == COMMENT_NODE_CLOSED);
       default:
         // Nothing to do.
         break;

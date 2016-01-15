@@ -9760,14 +9760,8 @@ form#emh-points-arrange-form fieldset .panel-body:before,
 form#emh-points-arrange-form fieldset .panel-body:after,
 form#user-profile-form .link-field-subrow:before,
 form#user-profile-form .link-field-subrow:after,
-form#user-profile-form .image-widget:before,
-form#user-profile-form .image-widget:after,
-form#user-profile-form .image-widget .image-widget-data:before,
-form#user-profile-form .image-widget .image-widget-data:after,
 #user-register-form .hybridauth-widget-wrapper:before,
 #user-register-form .hybridauth-widget-wrapper:after,
-.form-type-password-confirm:before,
-.form-type-password-confirm:after,
 .page-messages #maincol:before,
 .page-messages #maincol:after {
   content: " ";
@@ -9803,10 +9797,7 @@ form#user-profile-form .image-widget .image-widget-data:after,
 form#change-pwd-page-form .form-type-password-confirm:after,
 form#emh-points-arrange-form fieldset .panel-body:after,
 form#user-profile-form .link-field-subrow:after,
-form#user-profile-form .image-widget:after,
-form#user-profile-form .image-widget .image-widget-data:after,
 #user-register-form .hybridauth-widget-wrapper:after,
-.form-type-password-confirm:after,
 .page-messages #maincol:after {
   clear: both;
 }
@@ -10606,6 +10597,7 @@ hr {
 }
 img {
   max-width: 100%;
+  height: auto;
 }
 .nav {
   text-transform: uppercase;
@@ -10973,7 +10965,11 @@ fieldset[disabled] .btn-popin.focus {
   text-shadow: 0px 0px 2px #000000;
   background-position: left center;
   background-repeat: no-repeat;
+  white-space: normal;
   text-align: left;
+}
+.btn-flash.btn {
+  margin-right: 0;
 }
 .btn-flash:hover {
   color: #53cdb5;
@@ -11131,6 +11127,7 @@ fieldset[disabled] .btn-popin.focus {
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 18px;
+  white-space: normal;
   font-size: 16px;
   color: #009fe3;
   text-transform: uppercase;
@@ -11174,6 +11171,7 @@ fieldset[disabled] .btn-popin.focus {
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 18px;
+  white-space: normal;
   font-size: 16px;
   color: #009fe3;
   text-transform: uppercase;
@@ -11285,6 +11283,7 @@ fieldset[disabled] .btn-popin.focus {
   margin-top: 20px;
   margin-bottom: 10px;
   font-size: 30px;
+  white-space: normal;
   font-weight: 700;
   font-size: 22px;
   text-transform: uppercase;
@@ -11803,6 +11802,7 @@ header#title .emh-title-baseline {
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 18px;
+  white-space: normal;
   font-size: 16px;
   padding: 0 0 5px;
   margin-bottom: 15px !important;
@@ -11845,6 +11845,20 @@ header#title .emh-title-baseline {
   background-color: #A1ACB5;
 }
 h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+  white-space: normal;
+}
+h1,
 h2,
 .h1,
 .h2 {
@@ -11864,6 +11878,21 @@ h3,
 h4,
 .h4 {
   font-size: 16px;
+}
+@media (min-width: 767px) {
+  .container {
+    width: auto;
+  }
+}
+@media (min-width: 991px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1199px) {
+  .container {
+    width: 1170px;
+  }
 }
 .navbar {
   margin-bottom: 0;
@@ -12251,7 +12280,7 @@ body.page-node-edit .form-textarea-wrapper.resizable-textarea {
 @media screen and (min-width: 767px) {
   .views-exposed-form .views-exposed-widgets > .views-submit-button,
   .views-exposed-form .views-exposed-widgets > .views-reset-button {
-    margin-top: 24px;
+    margin-top: 25px;
   }
 }
 .views-exposed-form .views-exposed-widget {
@@ -13507,6 +13536,7 @@ aside#sidebar-second ol {
 }
 @media (min-width: 767px) {
   #flashes {
+    padding-right: 0;
     padding-left: 0;
   }
 }
@@ -14502,6 +14532,17 @@ table th[class*="col-"] {
 #block-block-16 a {
   display: block;
   text-decoration: none;
+  padding: 1em;
+}
+#block-block-14 a:before,
+#block-block-8 a:before,
+#block-block-16 a:before {
+  display: inline-block;
+  height: 100px;
+  content: "";
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 #block-block-14 a span,
 #block-block-8 a span,
@@ -14533,47 +14574,48 @@ table th[class*="col-"] {
   #block-block-16 a {
     padding: 15px;
   }
+  #block-block-14 a:before,
+  #block-block-8 a:before,
+  #block-block-16 a:before {
+    width: 100%;
+  }
 }
 @media (min-width: 767px) {
-  #block-block-14 .content,
-  #block-block-8 .content,
-  #block-block-16 .content {
-    background-position: 5% 50%;
-    position: relative;
+  #block-block-14 a:before,
+  #block-block-8 a:before,
+  #block-block-16 a:before {
+    width: 100%;
   }
+}
+@media (min-width: 991px) {
   #block-block-14 a,
   #block-block-8 a,
   #block-block-16 a {
-    padding-top: 2em;
-    padding-left: 13em;
-    padding-right: 1.5em;
-    height: 12em;
+    min-height: 130px;
   }
-  #block-block-14 span.mobilize-info,
-  #block-block-8 span.mobilize-info,
-  #block-block-16 span.mobilize-info {
-    min-height: 4.28571em;
-  }
-  #block-block-14 span.mobilize-call,
-  #block-block-8 span.mobilize-call,
-  #block-block-16 span.mobilize-call {
-    margin-top: .25em;
+  #block-block-14 a:before,
+  #block-block-8 a:before,
+  #block-block-16 a:before {
+    width: 130px;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    float: left;
   }
 }
 @media (min-width: 767px) {
-  body.not-logged-in #block-block-14 .content,
-  body.role-business #block-block-14 .content,
-  body.role-business-preview #block-block-14 .content {
+  body.not-logged-in #block-block-14 .content a:before,
+  body.role-business #block-block-14 .content a:before,
+  body.role-business-preview #block-block-14 .content a:before {
     background-image: url("../images/askQuestion.png");
   }
-  body.not-logged-in #block-block-8 .content,
-  body.role-business #block-block-8 .content,
-  body.role-business-preview #block-block-8 .content {
+  body.not-logged-in #block-block-8 .content a:before,
+  body.role-business #block-block-8 .content a:before,
+  body.role-business-preview #block-block-8 .content a:before {
     background-image: url("../images/launchChallenge.png");
   }
-  body.not-logged-in #block-block-16 .content,
-  body.role-business #block-block-16 .content,
-  body.role-business-preview #block-block-16 .content {
+  body.not-logged-in #block-block-16 .content a:before,
+  body.role-business #block-block-16 .content a:before,
+  body.role-business-preview #block-block-16 .content a:before {
     background-image: url("../images/findExpert.png");
   }
   body.logged-in #block-block-14 .content a span.default-text,
@@ -14581,16 +14623,16 @@ table th[class*="col-"] {
   body.logged-in #block-block-16 .content a span.default-text {
     color: #4c6172;
   }
-  body.role-expert #block-block-14 .content,
-  body.role-expert-preview #block-block-14 .content {
+  body.role-expert #block-block-14 .content a:before,
+  body.role-expert-preview #block-block-14 .content a:before {
     background-image: url("../images/answerQuestion.png");
   }
-  body.role-expert #block-block-8 .content,
-  body.role-expert-preview #block-block-8 .content {
+  body.role-expert #block-block-8 .content a:before,
+  body.role-expert-preview #block-block-8 .content a:before {
     background-image: url("../images/answerChallenge.png");
   }
-  body.role-expert #block-block-16 .content,
-  body.role-expert-preview #block-block-16 .content {
+  body.role-expert #block-block-16 .content a:before,
+  body.role-expert-preview #block-block-16 .content a:before {
     background-image: url("../images/answerExpertCall.png");
   }
 }
@@ -14978,17 +15020,23 @@ table th[class*="col-"] {
   }
 }
 @media (min-width: 767px) {
+  .view-display-id-block_1 form #edit-status-wrapper,
   .view-display-id-page_2 form #edit-status-wrapper,
+  .view-display-id-block_1 form #edit-status-1-wrapper,
   .view-display-id-page_2 form #edit-status-1-wrapper {
     margin-left: 33.33333333%;
   }
 }
 @media (min-width: 767px) {
+  .view-display-id-block_1 form #edit-status-wrapper,
   .view-display-id-page_2 form #edit-status-wrapper,
+  .view-display-id-block_1 form #edit-status-1-wrapper,
   .view-display-id-page_2 form #edit-status-1-wrapper,
+  .view-display-id-block_1 form #edit-total-points-wrapper,
   .view-display-id-page_2 form #edit-total-points-wrapper {
     margin-top: 10px;
   }
+  .view-display-id-block_1 form .views-exposed-form .views-exposed-widgets > .views-submit-button,
   .view-display-id-page_2 form .views-exposed-form .views-exposed-widgets > .views-submit-button {
     margin-top: 34px;
   }
@@ -15163,7 +15211,7 @@ table th[class*="col-"] {
   text-align: right;
 }
 .emh-field-status {
-  width: 70px;
+  width: 150px;
 }
 .views-field-type {
   width: 20px;
@@ -15182,12 +15230,19 @@ table th[class*="col-"] {
 .views-field-operation {
   width: 100px;
 }
+.views-field-total-answers {
+  width: 70px;
+  text-align: right;
+}
+.views-field-request-status {
+  width: 150px;
+}
 .views-field-status,
 .views-field-is-draft {
   width: 100px;
 }
 .views-field-og-group-ref {
-  width: 200px;
+  width: 150px;
 }
 .views-field-uid,
 .view-my-responses-questions1 .views-field-nothing-1,
@@ -15210,19 +15265,6 @@ table th[class*="col-"] {
 .views-field-views-bulk-operations .form-group input {
   position: relative !important;
   margin-top: 0 !important;
-}
-.view-query-list.view-display-id-block_1 .views-field-views-conditional,
-.view-query-list.view-id-query_list .views-field-views-conditional,
-.view-query-list.view-display-id-page_2 .views-field-views-conditional,
-.view-display-id-page_1 .views-field-views-conditional {
-  width: 70px;
-  text-align: right;
-}
-.view-query-list.view-display-id-block_1 .views-field-views-conditional-1,
-.view-query-list.view-id-query_list .views-field-views-conditional-1,
-.view-query-list.view-display-id-page_2 .views-field-views-conditional-1,
-.view-display-id-page_1 .views-field-views-conditional-1 {
-  width: 70px;
 }
 .view-my-responses-questions1 .views-field-nothing,
 .view-my-responses-calls3 .views-field-nothing,
@@ -15317,6 +15359,7 @@ form h2 {
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 18px;
+  white-space: normal;
   font-size: 16px;
   padding: 0 0 5px;
   margin-bottom: 15px !important;
@@ -15482,9 +15525,6 @@ form .form-radios .form-group {
 body.front h1.page-header {
   display: none !important;
 }
-body.front.not-logged-in {
-  padding-top: 113px;
-}
 body.front.not-logged-in header#navbar.navbar-emh:after {
   display: none !important;
 }
@@ -15505,6 +15545,9 @@ body.front aside {
   margin-top: 0;
 }
 @media (min-width: 767px) {
+  body.front.not-logged-in {
+    padding-top: 113px;
+  }
   body.front.logged-in .main-container section#maincol,
   body.front.logged-in.admin-menu .main-container section#maincol {
     margin-top: 0;
@@ -15566,6 +15609,7 @@ form#change-pwd-page-form .form-item-pass > label {
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 18px;
+  white-space: normal;
   font-size: 16px;
   padding: 0 0 5px;
   margin-bottom: 15px !important;
@@ -15757,86 +15801,22 @@ form#user-profile-form .link-field-subrow > *:nth-child(2) {
     padding-left: 7.5px;
   }
 }
-form#user-profile-form .image-widget {
-  margin-left: -15px;
-  margin-right: -15px;
-  margin: 0;
+form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview,
+form#user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox {
+  float: left;
+  margin-right: 15px;
 }
-form#user-profile-form .image-widget .image-preview {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 767px) {
-  form#user-profile-form .image-widget .image-preview {
-    float: left;
-    width: 16.66666667%;
-  }
-}
-form#user-profile-form .image-widget .image-preview img {
+form#user-profile-form .imagefield-crop-widget .jcrop-preview-wrapper {
   border-radius: 50%;
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
-form#user-profile-form .image-widget .image-widget-data {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-left: -15px;
-  margin-right: -15px;
-  margin: 0;
+form#user-profile-form .imagefield-crop-widget .file {
+  display: none !important;
 }
-@media (min-width: 767px) {
-  form#user-profile-form .image-widget .image-widget-data {
-    float: left;
-    width: 83.33333333%;
-  }
-}
-form#user-profile-form .image-widget .image-widget-data .file {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 767px) {
-  form#user-profile-form .image-widget .image-widget-data .file {
-    float: left;
-    width: 50%;
-  }
-}
-form#user-profile-form .image-widget .image-widget-data .file a {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 200px;
-  display: block;
-}
-form#user-profile-form .image-widget .image-widget-data .file-size {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 767px) {
-  form#user-profile-form .image-widget .image-widget-data .file-size {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-form#user-profile-form .image-widget .form-item-field-photo-und-0-focal-point {
-  display: none;
-}
-form#user-profile-form .image-widget .focal-point-help {
-  clear: both;
-}
-@media (min-width: 767px) {
-  form#user-profile-form .image-widget button.form-submit {
-    float: right;
-    margin-right: 15px;
-  }
+form#user-profile-form .imagefield-crop-widget .jcrop-holder {
+  background-color: transparent ! important;
 }
 @media (min-width: 767px) {
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) {
@@ -16381,23 +16361,6 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
     width: 75%;
   }
 }
-.form-type-password-confirm {
-  clear: both;
-  margin-left: -15px;
-  margin-right: -15px;
-}
-.form-type-password-confirm > .form-group {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 767px) {
-  .form-type-password-confirm > .form-group {
-    float: left;
-    width: 50%;
-  }
-}
 .form-type-password-confirm .help-tip {
   font: 0/0 a;
   color: transparent;
@@ -16416,6 +16379,17 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
   }
 }
 @media (min-width: 767px) {
+  .form-type-password-confirm {
+    clear: both;
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+  .form-type-password-confirm > .form-group {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
   .form-type-password-confirm > .form-group.password-parent {
     padding-right: 7.5px;
   }
@@ -16430,6 +16404,12 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
   input.password-field {
     width: 350px;
     max-width: 100%;
+  }
+}
+@media (min-width: 767px) and (min-width: 767px) {
+  .form-type-password-confirm > .form-group {
+    float: left;
+    width: 50%;
   }
 }
 .page-user .profile-section {
