@@ -15,7 +15,7 @@ Feature: Test points
     | expert1 | expert1@emindhub.com | expert   | Iron             | Man             | 0712345678      | Chieur génial      | Avengers     |
     | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | 0812345678      | Modèle             | Avengers     |
 
-    Given I give "client1" 300 emh points
+    Given I give "client1" 500 emh points
 
     Given "question1" content:
     | title        | field_domaine | og_group_ref | field_reward | author  |
@@ -34,6 +34,23 @@ Feature: Test points
     Then I enter "You should definitely trust me." for "Public answer"
     And I select the radio button "My answer will be visible by all experts"
     And I press "Publish"
+
+  Scenario: points: Edit already published question
+    Then I should have 100 points on "What about?" node
+    Given I am logged in as "client1"
+    When I go to "homepage"
+    And I click "What about?" in the "What about?" row
+    And I click "Edit" in the "tabs_primary" region
+    Then I should see "Cost" 
+    And the "Cost" field should contain "100"
+    When I enter "200" for "Cost"
+    And I select "Display my full name" from "Your name"
+    And I select "Display the name" from "Your organisation"
+    And I select "Display" from "Your activity"
+    And I press "Save"
+    #And I break
+    Then I should have 200 points on "What about?" node
+    And I should have 300 points on "client1" user
 
   @exclude
   Scenario: points: Manual distribute
@@ -66,6 +83,7 @@ Feature: Test points
     And I should see "Move points from question1 What about? to Iron Man. "
     And I should see "Move points from question1 What about? to Klark Kent. "
 
+  @exclude
   Scenario: points : VBO distribute
     Then I should have 100 points on "What about?" node
     Given I am logged in as "client1"
