@@ -15211,7 +15211,7 @@ table th[class*="col-"] {
   text-align: right;
 }
 .emh-field-status {
-  width: 150px;
+  width: 80px;
 }
 .views-field-type {
   width: 20px;
@@ -15235,7 +15235,7 @@ table th[class*="col-"] {
   text-align: right;
 }
 .views-field-request-status {
-  width: 150px;
+  width: 80px;
 }
 .views-field-status,
 .views-field-is-draft {

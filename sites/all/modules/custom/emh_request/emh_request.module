@@ -292,7 +292,7 @@ function emh_request_get_status($nid) {
         $workflow = array( 'status' => 'open', 'label' => t('Open') );
       }
       else {
-        $workflow = array( 'status' => 'selection', 'label' => t('Selection in progress') );
+        $workflow = array( 'status' => 'selection', 'label' => t('Selection') );
       }
     }
     else {
