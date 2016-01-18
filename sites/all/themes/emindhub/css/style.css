@@ -12213,6 +12213,12 @@ span.form-required {
 .input-group:not(.file-widget) {
   max-width: 352px;
 }
+.radio input[type="radio"],
+.radio-inline input[type="radio"],
+.checkbox input[type="checkbox"],
+.checkbox-inline input[type="checkbox"] {
+  margin-left: 0;
+}
 body.page-node-edit .form-textarea-wrapper.resizable-textarea {
   max-width: auto !important;
 }
@@ -15517,7 +15523,6 @@ form .form-radios label {
   font-weight: normal;
   cursor: pointer;
   word-wrap: break-word;
-  margin-left: 20px;
 }
 form .form-radios .form-group {
   margin-bottom: 0;
