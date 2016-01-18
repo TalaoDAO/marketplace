@@ -219,7 +219,7 @@ function emindhub_preprocess_field(&$variables) {
         case 'field_entreprise':
         case 'field_address':
         case 'field_telephone':
-        case 'field_email':
+        case 'field_mail':
           $classes[] = 'col-sm-10';
           break;
 
