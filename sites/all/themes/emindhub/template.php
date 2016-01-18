@@ -8,13 +8,13 @@ require_once('theme/alter.inc');
 require_once('theme/blocks.func.php');
 require_once('theme/common.inc');
 require_once('theme/forms.func.php');
-require_once('theme/form_elements.func.php');
 require_once('theme/html.func.php');
 require_once('theme/menus.func.php');
 require_once('theme/nodes.func.php');
 require_once('theme/regions.func.php');
 require_once('theme/menu/menu-local-tasks.func.php');
 require_once('theme/system/button.vars.php');
+require_once('theme/system/form_elements.func.php');
 require_once('theme/system/page.vars.php');
 
 
