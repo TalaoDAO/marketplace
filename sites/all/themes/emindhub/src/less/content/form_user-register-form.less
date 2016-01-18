@@ -4,6 +4,7 @@
 #user-register-form {
   .group-organisation {
     margin-bottom: 0;
+    clear: both;
   }
   .form-item-legal-terms-of-use {
     padding: 15px;
@@ -48,11 +49,8 @@
   }
 }
 @media (min-width: @screen-sm-min) {
-  .form-type-password-confirm {
-    clear: both;
-    .make-row();
+  .form-type-password-confirm .row {
     > .form-group {
-      .make-sm-column(6);
       &.password-parent {
         padding-right: 7.5px;
       }

@@ -106,13 +106,16 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_last_name']['#suffix'] = '</div>';
 
-  // Contact
-  $form['field_address']['und'][0]['#type'] = 'div';
-  $form['field_address']['und'][0]['street_block']['thoroughfare']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_address']['und'][0]['street_block']['premise']['#suffix'] = '</div>';
+	// Reduce email description for better Bootstrap display (tooltip)
+  $form['account']['mail']['#description'] = t('All e-mails from the system will be sent to this address. The e-mail address will only be used if you wish to receive a new password or certain news or notifications by e-mail.');
 
-  $form['field_address']['und'][0]['locality_block']['postal_code']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_address']['und'][0]['locality_block']['locality']['#suffix'] = '</div>';
+  // Contact
+  $form['field_address'][LANGUAGE_NONE][0]['#type'] = 'div';
+  $form['field_address'][LANGUAGE_NONE][0]['street_block']['thoroughfare']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_address'][LANGUAGE_NONE][0]['street_block']['premise']['#suffix'] = '</div>';
+
+  $form['field_address'][LANGUAGE_NONE][0]['locality_block']['postal_code']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_address'][LANGUAGE_NONE][0]['locality_block']['locality']['#suffix'] = '</div>';
 
   $form['field_telephone']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_link_to_my_blog']['#suffix'] = '</div>';
@@ -123,8 +126,8 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
   // Needs
   $form['field_needs_for_expertise']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_needs_for_expertise']['und']['#title'] = $form['field_needs_for_expertise']['und']['#title'] . ' ' . t('(choose one or several fields)');
-  $form['field_specific_skills3']['und']['#title'] = $form['field_specific_skills3']['und']['#title'] . ' ' . t('(using keywords or tags)');
+  $form['field_needs_for_expertise'][LANGUAGE_NONE]['#title'] = $form['field_needs_for_expertise'][LANGUAGE_NONE]['#title'] . ' ' . t('(choose one or several fields)');
+  $form['field_specific_skills3'][LANGUAGE_NONE]['#title'] = $form['field_specific_skills3'][LANGUAGE_NONE]['#title'] . ' ' . t('(using keywords or tags)');
   $form['field_specific_skills3']['#suffix'] = '</div>';
 
   // Skills & background
@@ -138,19 +141,18 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   // Complement
   $form['field_notification_frequency']['#prefix'] = '<div class="form-group-2col row">';
 	if (emh_user_is_business()) {
-		// print 'business';
-		$form['field_notification_frequency']['und']['#description'] = t('How often do you want to receive eMindHub\'s notifications about new answers to your requests ?');
+		$form['field_notification_frequency'][LANGUAGE_NONE]['#description'] = t('How often do you want to receive eMindHub\'s notifications about new answers to your requests ?');
 	}
 	if (emh_user_is_expert()) {
-		$form['field_notification_frequency']['und']['#description'] = t('How often do you want to receive eMindHub\'s notifications about new requests ?');
+		$form['field_notification_frequency'][LANGUAGE_NONE]['#description'] = t('How often do you want to receive eMindHub\'s notifications about new requests ?');
 	}
   $form['field_known_specific']['#suffix'] = '</div>';
 
   $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
 
   // FIXME : fait buguer la prévisualisation des portraits
-  // $form['field_photo']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
-  $form['field_cv']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
+  // $form['field_photo'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
+  $form['field_cv'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
 
 }
 
@@ -260,7 +262,29 @@ function emindhub_form_user_register_form_alter(&$form, &$form_state, $form_id) 
   $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_last_name']['#suffix'] = '</div>';
 
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+	// Reduce email description for better Bootstrap display (tooltip)
+  $form['account']['mail']['#description'] = t('All e-mails from the system will be sent to this address. The e-mail address will only be used if you wish to receive a new password or certain news or notifications by e-mail.');
+
+}
+
+/**
+ * Implementation of hook_element_info_alter().
+ */
+function emindhub_element_info_alter(&$type) {
+	if (isset($type['password_confirm'])) {
+		$type['password_confirm']['#process'][] = 'emindhub_process_password_confirm';
+	}
+}
+
+/**
+ * Function emindhub_process_password_confirm() for editing label.
+ */
+function emindhub_process_password_confirm($element) {
+	if ($element['#array_parents'][0] == 'account') {
+		$element['pass1']['#prefix'] = '<div class="form-group-2col row">';
+		$element['pass2']['#suffix'] = '</div>';
+	}
+	return $element;
 }
 
 

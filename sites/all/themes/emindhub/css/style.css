@@ -14613,39 +14613,37 @@ table th[class*="col-"] {
     float: left;
   }
 }
-@media (min-width: 767px) {
-  body.not-logged-in #block-block-14 .content a:before,
-  body.role-business #block-block-14 .content a:before,
-  body.role-business-preview #block-block-14 .content a:before {
-    background-image: url("../images/askQuestion.png");
-  }
-  body.not-logged-in #block-block-8 .content a:before,
-  body.role-business #block-block-8 .content a:before,
-  body.role-business-preview #block-block-8 .content a:before {
-    background-image: url("../images/launchChallenge.png");
-  }
-  body.not-logged-in #block-block-16 .content a:before,
-  body.role-business #block-block-16 .content a:before,
-  body.role-business-preview #block-block-16 .content a:before {
-    background-image: url("../images/findExpert.png");
-  }
-  body.logged-in #block-block-14 .content a span.default-text,
-  body.logged-in #block-block-8 .content a span.default-text,
-  body.logged-in #block-block-16 .content a span.default-text {
-    color: #4c6172;
-  }
-  body.role-expert #block-block-14 .content a:before,
-  body.role-expert-preview #block-block-14 .content a:before {
-    background-image: url("../images/answerQuestion.png");
-  }
-  body.role-expert #block-block-8 .content a:before,
-  body.role-expert-preview #block-block-8 .content a:before {
-    background-image: url("../images/answerChallenge.png");
-  }
-  body.role-expert #block-block-16 .content a:before,
-  body.role-expert-preview #block-block-16 .content a:before {
-    background-image: url("../images/answerExpertCall.png");
-  }
+body.not-logged-in #block-block-14 .content a:before,
+body.role-business #block-block-14 .content a:before,
+body.role-business-preview #block-block-14 .content a:before {
+  background-image: url("../images/askQuestion.png");
+}
+body.not-logged-in #block-block-8 .content a:before,
+body.role-business #block-block-8 .content a:before,
+body.role-business-preview #block-block-8 .content a:before {
+  background-image: url("../images/launchChallenge.png");
+}
+body.not-logged-in #block-block-16 .content a:before,
+body.role-business #block-block-16 .content a:before,
+body.role-business-preview #block-block-16 .content a:before {
+  background-image: url("../images/findExpert.png");
+}
+body.logged-in #block-block-14 .content a span.default-text,
+body.logged-in #block-block-8 .content a span.default-text,
+body.logged-in #block-block-16 .content a span.default-text {
+  color: #4c6172;
+}
+body.role-expert #block-block-14 .content a:before,
+body.role-expert-preview #block-block-14 .content a:before {
+  background-image: url("../images/answerQuestion.png");
+}
+body.role-expert #block-block-8 .content a:before,
+body.role-expert-preview #block-block-8 .content a:before {
+  background-image: url("../images/answerChallenge.png");
+}
+body.role-expert #block-block-16 .content a:before,
+body.role-expert-preview #block-block-16 .content a:before {
+  background-image: url("../images/answerExpertCall.png");
 }
 #block-block-12 .content {
   font-size: 14px;
@@ -15515,12 +15513,6 @@ form .form-mandatory {
     line-height: 32px;
   }
 }
-form .form-group.form-type-checkbox input,
-form .form-group.form-type-bef-checkbox input,
-form .form-group.views-exposed-form input,
-form .form-radios input {
-  position: absolute;
-}
 form .form-group.form-type-checkbox label,
 form .form-group.form-type-bef-checkbox label,
 form .form-group.views-exposed-form label,
@@ -16274,6 +16266,7 @@ form#user-profile-form .field-name-field-year-of-experiences .form-control {
  */
 #user-register-form .group-organisation {
   margin-bottom: 0;
+  clear: both;
 }
 #user-register-form .form-item-legal-terms-of-use {
   padding: 15px;
@@ -16389,21 +16382,10 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
   }
 }
 @media (min-width: 767px) {
-  .form-type-password-confirm {
-    clear: both;
-    margin-left: -15px;
-    margin-right: -15px;
-  }
-  .form-type-password-confirm > .form-group {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .form-type-password-confirm > .form-group.password-parent {
+  .form-type-password-confirm .row > .form-group.password-parent {
     padding-right: 7.5px;
   }
-  .form-type-password-confirm > .form-group.confirm-parent {
+  .form-type-password-confirm .row > .form-group.confirm-parent {
     padding-left: 7.5px;
   }
   .confirm-parent,
@@ -16414,12 +16396,6 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
   input.password-field {
     width: 350px;
     max-width: 100%;
-  }
-}
-@media (min-width: 767px) and (min-width: 767px) {
-  .form-type-password-confirm > .form-group {
-    float: left;
-    width: 50%;
   }
 }
 .page-user .profile-section {
