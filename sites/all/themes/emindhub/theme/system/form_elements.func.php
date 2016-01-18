@@ -22,63 +22,9 @@
  *   A themed HTML string representing the star widget.
  */
 function emindhub_fivestar_summary($variables) {
-  $microdata = $variables['microdata'];
-  extract($variables, EXTR_SKIP);
-  $output = '';
-  $div_class = '';
-  $average_rating_microdata = '';
-  $rating_count_microdata = '';
-  if (isset($user_rating)) {
-    $div_class = isset($votes) ? 'user-count' : 'user';
-    $user_stars = round(($user_rating * $stars) / 100, 1);
-    $output .= '<span class=\'user-rating\'>' . t('Your rating: <span>!stars</span>', array('!stars' => $user_rating ? $user_stars : t('None'))) . '</span>';
-  }
-  if (isset($user_rating) && isset($average_rating)) {
-    $output .= ' ';
-  }
-  if (isset($average_rating)) {
-    if (isset($user_rating)) {
-      $div_class = 'combo';
-    }
-    else {
-      $div_class = isset($votes) ? 'average-count' : 'average';
-    }
-
-    $average_stars = round(($average_rating * $stars) / 100, 1);
-    if (!empty($microdata['average_rating']['#attributes'])) {
-      $average_rating_microdata = drupal_attributes($microdata['average_rating']['#attributes']);
-    }
-    $output .= '<span class=\'average-rating\'>' . t('Average: !stars',
-      array('!stars' => "<span $average_rating_microdata>$average_stars</span>")) . '</span>';
-  }
-
-  if (isset($votes)) {
-    if (!isset($user_rating) && !isset($average_rating)) {
-      $div_class = 'count';
-    }
-    if ($votes === 0) {
-      $output = '<span class=\'empty\'>'. t('No votes yet') .'</span>';
-    }
-    else {
-      if (!empty($microdata['rating_count']['#attributes'])) {
-        $rating_count_microdata = drupal_attributes($microdata['rating_count']['#attributes']);
-      }
-      // We don't directly substitute $votes (i.e. use '@count') in format_plural,
-      // because it has a span around it which is not translatable.
-      $votes_str = format_plural($votes, '!cnt vote', '!cnt votes', array(
-        '!cnt' => '<span ' . $rating_count_microdata . '>' . intval($votes) . '</span>'));
-      if (isset($user_rating) || isset($average_rating)) {
-        $output .= ' <span class=\'total-votes\'>(' . $votes_str . ')</span>';
-      }
-      else {
-        $output .= ' <span class=\'total-votes\'>' . $votes_str . '</span>';
-      }
-    }
-  }
-
-  $output = '<div class=\'fivestar-summary fivestar-summary-' . $div_class . '\'>' . $output . '</div>';
   // We hide public profile legend : there's only one vote, user's one
-  // return $output;
+  $output = '';
+  return $output;
 }
 
 
