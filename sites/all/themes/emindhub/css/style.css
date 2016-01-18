@@ -10625,8 +10625,13 @@ img {
   border-bottom: 0;
   text-transform: none;
 }
-.nav-tabs > li > a {
+.nav-tabs.tabs--primary > li > a {
   color: #FFF;
+}
+.nav-tabs.tabs--primary > li.active > a,
+.nav-tabs.tabs--primary > li.active > a:hover,
+.nav-tabs.tabs--primary > li.active > a:focus {
+  color: #555555;
 }
 .nav-subtabs {
   display: inline-block;

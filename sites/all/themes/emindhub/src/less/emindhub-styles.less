@@ -36,9 +36,14 @@ img {
 		margin-bottom: 0;
 		border-bottom: 0;
 		text-transform: none;
-	}
-	> li > a {
-	  color: #FFF;
+		> li > a {
+		  color: #FFF;
+		}
+		> li.active > a,
+		> li.active > a:hover,
+		> li.active > a:focus {
+			color: @navbar-default-link-active-color;
+		}
 	}
 }
 
