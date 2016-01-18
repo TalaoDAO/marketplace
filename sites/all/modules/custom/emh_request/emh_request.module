@@ -286,7 +286,7 @@ function emh_request_get_status($nid) {
     if (!emh_points_get_points_closed_status($nid)) {
 
       $today = date('Y-m-d H:i:s');
-      $deadline = $node->field_expiration_date['und'][0]['value'];
+      $deadline = $node->field_expiration_date[LANGUAGE_NONE][0]['value'];
       $deadline = date('Y-m-d H:i:s', strtotime("$deadline +1 day"));
       if ($today < $deadline) {
         $workflow = array( 'status' => 'open', 'label' => t('Open') );
