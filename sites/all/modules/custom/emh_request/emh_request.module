@@ -99,9 +99,9 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       $count = emh_request_count_answers($form['#node']);
       if ($form['#node']->status && $count > 0) {
         // Prevent domain & circle update.
-        $form['field_domaine']['#access'] = FALSE;
-        $form['field_request_circle']['#access'] = FALSE;
-        $form['og_group_ref']['#access'] = FALSE;
+        $form['field_domaine']['#disabled'] = TRUE;
+        $form['field_request_circle']['#disabled'] = TRUE;
+        $form['og_group_ref']['#disabled'] = TRUE;
       }
 
 
