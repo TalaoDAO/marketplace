@@ -231,7 +231,6 @@ function emindhub_preprocess_field(&$variables) {
           break;
 
 				default:
-          $classes[] = 'col-sm-12';
           break;
 
       }
