@@ -393,11 +393,20 @@ function emh_request_try_to_notify($node) {
   foreach($users as $user) {
     // If user has the right role(s) and wants to be notified.
     if (emh_user_is_expert($user) && !empty($user->field_notification_frequency[LANGUAGE_NONE]) && $user->field_notification_frequency[LANGUAGE_NONE][0]['tid'] == 48) {
-      foreach($user->field_domaine[LANGUAGE_NONE] as $delta => $term) {
-        // If right domain && notification authorized.
-        if (in_array($term['tid'], $domains)) {
-          rules_invoke_event('emh_request_notify_new_request', $node, $user);
-          continue;
+      // Check multidomains option
+      // drush vset --yes emh_request_send_notification_email_all_domains FALSE
+      $multidomains_option = variable_get('emh_request_send_notification_email_all_domains', 0);
+      if ($multidomains_option == TRUE) {
+        // Notify every expert within the Organic Group
+        rules_invoke_event('emh_request_notify_new_request', $node, $user);
+        continue;
+      } else {
+        foreach($user->field_domaine[LANGUAGE_NONE] as $delta => $term) {
+          // If right domain && notification authorized.
+          if (in_array($term['tid'], $domains)) {
+            rules_invoke_event('emh_request_notify_new_request', $node, $user);
+            continue;
+          }
         }
       }
     }

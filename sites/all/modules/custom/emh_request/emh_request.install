@@ -11,6 +11,7 @@
 function emh_request_enable() {
   emh_request_update_7001();
   emh_request_update_7002();
+  emh_request_update_7103();
 
   global $language;
   $lang = $language->language;
@@ -19,8 +20,29 @@ function emh_request_enable() {
     $strings[''][$string] = $override;
   }
   variable_set("locale_custom_strings_$lang", $strings);
+
+  variable_set('emh_request_send_notification_email_all_domains', 0);
 }
 
+/**
+ * Implements hook_disable().
+ */
+function emh_request_disable() {
+  global $language;
+  $lang = $language->language;
+  $strings = variable_get("locale_custom_strings_$lang", array());
+  foreach (_emh_request_string_overrides() as $string => $override) {
+    unset($strings[''][$string]);
+  }
+  variable_set("locale_custom_strings_$lang", $strings);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function emh_request_uninstall() {
+  variable_del('emh_request_send_notification_email_all_domains');
+}
 
 /**
  * Force module weight for hook_form_alter execution
@@ -45,16 +67,10 @@ function emh_request_update_7002() {
 }
 
 /**
- * Implements hook_disable().
+ * Add setting for request notification by domain
  */
-function emh_request_disable() {
-  global $language;
-  $lang = $language->language;
-  $strings = variable_get("locale_custom_strings_$lang", array());
-  foreach (_emh_request_string_overrides() as $string => $override) {
-    unset($strings[''][$string]);
-  }
-  variable_set("locale_custom_strings_$lang", $strings);
+function emh_request_update_7103() {
+  variable_set('emh_request_send_notification_email_all_domains', 1);
 }
 
 /**
