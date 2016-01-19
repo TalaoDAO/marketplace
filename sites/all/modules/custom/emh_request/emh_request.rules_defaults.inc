@@ -53,7 +53,7 @@ function emh_request_default_rules_configuration() {
     "PLUGIN" : "reaction rule",
     "OWNER" : "rules",
     "REQUIRES" : [ "rules", "mimemail", "emh_request" ],
-    "ON" : { "emh_request_notify_webmaster_new_request" : [] },
+    "ON" : { "emh_request_notify_new_request" : [] },
     "IF" : [
       { "node_is_of_type" : {
           "node" : [ "node" ],
