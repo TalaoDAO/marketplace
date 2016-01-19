@@ -26,6 +26,7 @@ function emindhub_form_element_label(&$variables) {
 
   // LTH : Convert some descriptions to tooltips.
   $tooltip = FALSE;
+  $description = '';
   if (!empty($element['#description'])) {
     if (theme_get_setting('bootstrap_tooltip_descriptions')) {
       // Regular Bootstrap theme tooltip
