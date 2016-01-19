@@ -80,3 +80,10 @@ scripts[] = 'libraries/bootstrap/js/transition.js'
 ; Method 2 uses BootstrapCDN, the only thing you might need to provide here
 ; is overrides to Bootstrap theme settings. Copy them here from the base theme
 ; to override.
+
+
+; Tooltips
+; --------------
+settings[bootstrap_tooltip_enabled] = 1
+settings[bootstrap_tooltip_descriptions] = 0
+settings[bootstrap_tooltip_html] = 1
