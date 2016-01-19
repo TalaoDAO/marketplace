@@ -83,7 +83,7 @@ Feature: Test points
     And I should see "Move points from question1 What about? to Iron Man. "
     And I should see "Move points from question1 What about? to Klark Kent. "
 
-  @exclude
+  #@exclude
   Scenario: points : VBO distribute
     Then I should have 100 points on "What about?" node
     Given I am logged in as "client1"
