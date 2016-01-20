@@ -15803,6 +15803,15 @@ form#user-profile-form .link-field-subrow > *:nth-child(2) {
     padding-left: 7.5px;
   }
 }
+form#user-profile-form .imagefield-crop-widget {
+  /* Zen - max-width: 100% for img tags in normalize.css messes up ImageField Crop's
+     * preview and cropbox - we have to set max-width to none to fix it
+     * per https://drupal.org/node/1779494
+     */
+}
+form#user-profile-form .imagefield-crop-widget img {
+  max-width: none;
+}
 form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview,
 form#user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox {
   float: left;
