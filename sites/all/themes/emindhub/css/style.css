@@ -16534,6 +16534,9 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
     margin-left: 0;
     margin-right: 0;
   }
+  .page-user .profile-section.group-profile {
+    min-height: 140px;
+  }
   .page-user .profile-section .field-name-field-photo {
     position: absolute;
   }
