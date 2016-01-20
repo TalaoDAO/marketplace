@@ -1,5 +1,7 @@
 name = EMH Access
 package = EMH
+dependencies[] = emh_circles
 dependencies[] = emh_points
 dependencies[] = flag
+dependencies[] = og
 core = 7.x

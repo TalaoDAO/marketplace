@@ -124,6 +124,12 @@ function emh_access_user_can_see_full_user($uid, $uid2) {
     return TRUE;
   }
 
+  // Organic Groups / EMH Circles
+  if (module_exists('og') && module_exists('emh_circles')) {
+    emh_circles_get_relationship($uid, $uid2);
+    print emh_circles_get_relationship($uid, $uid2);
+  }
+
   // Flags
   if (module_exists('flag')) {
     $flag = flag_get_flag('my_contacts');
@@ -136,7 +142,6 @@ function emh_access_user_can_see_full_user($uid, $uid2) {
   if (module_exists('emh_virality')) {
     emh_virality_user_is_referrer($uid2, $uid);
   }
-
 
   // EMH Points
   if (module_exists('emh_points')) {
