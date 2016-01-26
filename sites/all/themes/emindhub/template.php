@@ -215,21 +215,6 @@ function emindhub_preprocess_field(&$variables) {
           $classes[] = 'col-sm-2';
           break;
 
-        case 'field_first_name':
-        case 'field_titre_metier':
-        case 'field_entreprise':
-        case 'field_address':
-        case 'field_telephone':
-        case 'field_mail':
-					$user = user_load(arg(1));
-					$field = field_get_items('user', $user, 'field_photo');
-					if ($field) {
-						$classes[] = 'col-sm-10 col-sm-offset-2';
-					} else {
-						$classes[] = 'col-sm-12';
-					}
-          break;
-
 				default:
           break;
 

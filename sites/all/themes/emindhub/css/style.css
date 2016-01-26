@@ -15421,34 +15421,41 @@ form .field-name-field-reward input {
 form .file-widget .file-return,
 form .field-type-image .file-return,
 form .image-widget-data .file-return,
+form .field-widget-imagefield-crop-widget .file-return,
 form .file-widget .file-upload span,
 form .field-type-image .file-upload span,
-form .image-widget-data .file-upload span {
+form .image-widget-data .file-upload span,
+form .field-widget-imagefield-crop-widget .file-upload span {
   display: none;
 }
 form .file-widget input.form-file,
 form .field-type-image input.form-file,
-form .image-widget-data input.form-file {
+form .image-widget-data input.form-file,
+form .field-widget-imagefield-crop-widget input.form-file {
   height: auto;
 }
 form .file-widget span.file,
 form .field-type-image span.file,
-form .image-widget-data span.file {
+form .image-widget-data span.file,
+form .field-widget-imagefield-crop-widget span.file {
   word-wrap: break-word;
 }
 form .file-widget span.input-group-btn,
 form .field-type-image span.input-group-btn,
 form .image-widget-data span.input-group-btn,
+form .field-widget-imagefield-crop-widget span.input-group-btn,
 form .file-widget .form-submit,
 form .field-type-image .form-submit,
-form .image-widget-data .form-submit {
+form .image-widget-data .form-submit,
+form .field-widget-imagefield-crop-widget .form-submit {
   display: inline-block;
   margin-top: 5px;
 }
 @media (min-width: 767px) {
   form .file-widget,
   form .field-type-image,
-  form .image-widget-data {
+  form .image-widget-data,
+  form .field-widget-imagefield-crop-widget {
     margin-left: -15px;
     margin-right: -15px;
     width: 100%;
@@ -15456,7 +15463,8 @@ form .image-widget-data .form-submit {
   }
   form .file-widget .file-upload,
   form .field-type-image .file-upload,
-  form .image-widget-data .file-upload {
+  form .image-widget-data .file-upload,
+  form .field-widget-imagefield-crop-widget .file-upload {
     position: relative;
     min-height: 1px;
     padding-left: 15px;
@@ -15466,14 +15474,17 @@ form .image-widget-data .form-submit {
   form .file-widget span.input-group-btn,
   form .field-type-image span.input-group-btn,
   form .image-widget-data span.input-group-btn,
+  form .field-widget-imagefield-crop-widget span.input-group-btn,
   form .file-widget .form-submit,
   form .field-type-image .form-submit,
-  form .image-widget-data .form-submit {
+  form .image-widget-data .form-submit,
+  form .field-widget-imagefield-crop-widget .form-submit {
     margin: 0 0 0 5px;
   }
   form .file-widget span.file,
   form .field-type-image span.file,
-  form .image-widget-data span.file {
+  form .image-widget-data span.file,
+  form .field-widget-imagefield-crop-widget span.file {
     position: relative;
     min-height: 1px;
     padding-left: 15px;
@@ -15484,7 +15495,8 @@ form .image-widget-data .form-submit {
 @media (min-width: 767px) and (min-width: 767px) {
   form .file-widget .file-upload,
   form .field-type-image .file-upload,
-  form .image-widget-data .file-upload {
+  form .image-widget-data .file-upload,
+  form .field-widget-imagefield-crop-widget .file-upload {
     float: left;
     width: 66.66666667%;
   }
@@ -15492,7 +15504,8 @@ form .image-widget-data .form-submit {
 @media (min-width: 767px) and (min-width: 767px) {
   form .file-widget span.file,
   form .field-type-image span.file,
-  form .image-widget-data span.file {
+  form .image-widget-data span.file,
+  form .field-widget-imagefield-crop-widget span.file {
     float: left;
     width: 83.33333333%;
   }
@@ -15823,7 +15836,8 @@ form#user-profile-form .imagefield-crop-widget .jcrop-preview-wrapper {
   margin-left: auto;
   margin-right: auto;
 }
-form#user-profile-form .imagefield-crop-widget .file {
+form#user-profile-form .imagefield-crop-widget .file,
+form#user-profile-form .imagefield-crop-widget .file-upload > span {
   display: none !important;
 }
 form#user-profile-form .imagefield-crop-widget .jcrop-holder {
@@ -16467,6 +16481,15 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
 .page-user .profile-section.group-profile .h4 {
   margin: 0;
 }
+.page-user .profile-section .field-name-field-first-name,
+.page-user .profile-section .field-name-field-titre-metier,
+.page-user .profile-section .field-name-field-entreprise,
+.page-user .profile-section .field-name-field-address,
+.page-user .profile-section .field-name-field-telephone,
+.page-user .profile-section .field-name-field-mail {
+  margin-left: 15px;
+  margin-right: 15px;
+}
 .page-user .profile-section .field-name-field-photo img {
   border-radius: 50%;
   display: block;
@@ -16544,12 +16567,6 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
     padding: 0;
     margin-left: 0;
     margin-right: 0;
-  }
-  .page-user .profile-section.group-profile {
-    min-height: 140px;
-  }
-  .page-user .profile-section .field-name-field-photo {
-    position: absolute;
   }
   .page-user .profile-section .field-name-name {
     clear: both;
