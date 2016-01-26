@@ -60,6 +60,7 @@ function emh_access_field_access($op, $field, $entity_type, $entity, $account) {
     switch ($entity_type) {
 
       case 'user':
+        print $field['field_name'] . ' : ';
         switch($field['field_name']) {
           // We can always access few fields.
           case 'field_first_name':
@@ -126,8 +127,8 @@ function emh_access_user_can_see_full_user($uid, $uid2) {
 
   // Organic Groups / EMH Circles
   if (module_exists('og') && module_exists('emh_circles')) {
-    emh_circles_get_relationship($uid, $uid2);
-    print emh_circles_get_relationship($uid, $uid2);
+    // emh_circles_get_relationship($uid, $uid2);
+    print emh_circles_get_relationship($uid, $uid2) . '<br>';
   }
 
   // Flags
