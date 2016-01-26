@@ -16472,6 +16472,8 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  max-width: 110px !important;
+  max-height: 110px !important;
 }
 .page-user .profile-section .field-name-field-address * {
   display: inline-block;
