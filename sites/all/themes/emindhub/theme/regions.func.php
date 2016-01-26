@@ -14,14 +14,14 @@ function emindhub_preprocess_region(&$variables, $hook) {
       break;
     case 'header':
       if (drupal_is_front_page()) :
-        $classes[] = 'col-sm-5';
+        $classes[] = 'col-sm-6';
       else :
         $classes[] = 'col-sm-9';
       endif;
       break;
     case 'header_right':
       if (drupal_is_front_page()) :
-        $classes[] = 'col-sm-3 col-sm-offset-4';
+        $classes[] = 'col-sm-6 col-sm-offset-6';
       else :
         $classes[] = 'col-sm-3';
       endif;

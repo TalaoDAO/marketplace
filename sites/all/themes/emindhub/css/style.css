@@ -13433,9 +13433,16 @@ header nav.navbar .navbar-collapse.in {
  * Banner
  */
 header#page-header {
-  background-color: #009fe3;
+  background-image: -webkit-linear-gradient(top, #15538c 0%, #165892 100%);
+  background-image: -o-linear-gradient(top, #15538c 0%, #165892 100%);
+  background-image: linear-gradient(to bottom, #15538c 0%, #165892 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff15538c', endColorstr='#ff165892', GradientType=0);
   padding-top: 15px;
   padding-bottom: 15px;
+}
+header#page-header > .container {
+  background: transparent url("../images/grid_dark.png") repeat-y top center;
 }
 header#page-header .region-header {
   color: #fff;
@@ -14513,6 +14520,7 @@ table th[class*="col-"] {
 @media (min-width: 768px) {
   #block-block-7 .content {
     margin-top: 50px;
+    margin-bottom: 50px;
   }
 }
 #block-block-7 .content p:first-of-type,
@@ -15568,14 +15576,6 @@ body.front aside {
     margin-top: 0;
     padding-top: 0;
     padding-bottom: 0;
-  }
-  body.front.not-logged-in header#page-header {
-    background-image: url("../images/banniere_EN.png");
-    background-position: center center;
-    background-repeat: no-repeat;
-  }
-  body.front.not-logged-in.lang-fr header#page-header {
-    background-image: url("../images/banniere_FR.png");
   }
 }
 form#change-pwd-page-form .form-type-password-confirm {
