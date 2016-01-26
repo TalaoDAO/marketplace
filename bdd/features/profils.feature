@@ -4,17 +4,17 @@ Feature: Test profil visibility
   As a client with some experts
   I want check if profile is well displayed
 
-  Background: profils : Create questions and answers
+  Background: Create questions and answers
     Given "circle" content:
     | title    | author  |
     | Avengers | client1 |
 
     Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node |
-    | client1 | client1@emindhub.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     |
-    | expert1 | expert1@emindhub.com | expert   | Iron             | Man             | 0712345678      | Chieur génial      | Avengers     |
-    | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | 0812345678      | Modèle             | Avengers     |
-    | expert3 | expert3@emindhub.com | expert   | Bruce            | Banner          | 0912345678      | Cogneur            | Avengers     |
+    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail          |
+    | client1 | client1@emindhub.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | client1@emindhub.com |
+    | expert1 | expert1@emindhub.com | expert   | Iron             | Man             | 0712345678      | Chieur génial      | Avengers     | expert1@emindhub.com |
+    | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | 0812345678      | Modèle             | Avengers     | expert2@emindhub.com |
+    | expert3 | expert3@emindhub.com | expert   | Bruce            | Banner          | 0912345678      | Cogneur            | Avengers     | expert3@emindhub.com |
 
     Given I give "client1" 300 emh points
 
@@ -36,39 +36,29 @@ Feature: Test profil visibility
     And I select the radio button "My answer will be visible by all experts"
     And I press "Publish"
 
-  Scenario: bidon
-    #Make my contact deactivated for now
-    When I go to homepage
+  Scenario: Check profile fields visibility
 
-  @exclude
-  Scenario: profils : Check visibility
     Then I should have 100 points on "What about ?" node
     Given I am logged in as "client1"
     When I go to "my-responses"
-    When node "What about ?" transfers 50 points on "expert1" user
-    And node "What about ?" transfers 50 points on "expert2" user
+    When node "What about ?" transfers 100 points on "expert1" user
     Then I should have 0 points on "What about ?" node
-    And I should have 50 points on "expert1" user
-    And I should have 50 points on "expert2" user
-    #When I click "My relationships"
-    When I go to "my-relationships"
-    #Then I should see "Operations"
-    Then I should see "Iron"
-    And I should see "Klark"
-    And I should not see "Bruce"
-    When I click "Iron Man" in the "Iron Man" row
-    Then I should see "Iron Man"
-    When I click "Make him my contact"
-    Then I should see "Your cannot undo this action"
+    And I should have 100 points on "expert1" user
+
     When I go to "/users/expert1"
     Then I should see "Iron Man"
     And I should see "Chieur Génial"
     And I should see "0712345678"
+    And I should see "expert1@emindhub.com"
+
     When I go to "/users/expert2"
     Then I should see "Klark Kent"
-    And I should see "Modèle"
+    And I should not see "Modèle"
     And I should not see "0812345678"
+    And I should not see "expert2@emindhub.com"
+
     When I go to "/users/expert3"
     Then I should see "Bruce Banner"
     And I should not see "Cogneur"
     And I should not see "0912345678"
+    And I should not see "expert3@emindhub.com"
