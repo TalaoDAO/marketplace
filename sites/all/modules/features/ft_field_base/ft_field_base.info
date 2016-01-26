@@ -17,6 +17,7 @@ dependencies[] = fivestar
 dependencies[] = flag
 dependencies[] = ft_content_type
 dependencies[] = image
+dependencies[] = imagefield_crop
 dependencies[] = link
 dependencies[] = list
 dependencies[] = media

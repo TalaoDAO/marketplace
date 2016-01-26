@@ -1328,7 +1328,7 @@ function ft_field_base_field_default_field_bases() {
       ),
     ),
     'locked' => 0,
-    'module' => 'image',
+    'module' => 'imagefield_crop',
     'settings' => array(
       'default_image' => 0,
       'entity_translation_sync' => array(
@@ -1348,7 +1348,7 @@ function ft_field_base_field_default_field_bases() {
       ),
     ),
     'translatable' => 0,
-    'type' => 'image',
+    'type' => 'imagefield_crop',
   );
 
   // Exported field_base: 'field_position'.

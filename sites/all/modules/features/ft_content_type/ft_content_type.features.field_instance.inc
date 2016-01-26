@@ -5182,7 +5182,7 @@ function ft_content_type_field_default_field_instances() {
         'validate_resolution' => 0,
       ),
       'type' => 'imagefield_crop_widget',
-      'weight' => 21,
+      'weight' => 18,
     ),
   );
 
