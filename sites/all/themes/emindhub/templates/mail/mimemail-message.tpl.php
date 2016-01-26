@@ -70,8 +70,10 @@ global $base_url;
 																	<td align="center" valign="middle" class="flexibleContainerBox">
 																		<table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:100%;">
 																			<tr>
-																				<td align="center" class="textContent" style="padding:9px 18px;text-align:center;">
-																					<a href="<?php print $base_url; ?>/?pk_campaign=website&amp;pk_kwd=logo" target="_blank"><img alt="eMindHub" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/eMindHub_logo_baseline.png" style="width:200px;height:78px;margin:0px;" height="78" width="200" align="center"></a>
+																				<td align="center" style="padding:9px 18px;text-align:center!important;">
+																					<a href="<?php print $base_url; ?>/?pk_campaign=website&amp;pk_kwd=logo" target="_blank" style="display:inline-block;">
+																						<img alt="<?php print $site_name; ?>" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/eMindHub_logo_baseline.png" style="width:200px;height:78px;margin:0px;" height="78" width="200" align="center">
+																					</a>
 																				</td>
 																			</tr>
 																		</table>
@@ -105,7 +107,7 @@ global $base_url;
 																	<td align="left" valign="top">
 																		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 																			<tr>
-																				<td valign="top" class="textContent">
+																				<td valign="top">
 																					<div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:16px;margin-bottom:0;color:#333;line-height:150%;"><?php print $body ?></div>
 																					<div style="padding-top:10px;color:#333;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;text-align:left;"><strong><?php print t('Your eMindhub team'); ?></strong></div>
 																				</td>
@@ -153,19 +155,19 @@ global $base_url;
 
                                         <table style="display:inline;" align="left" border="0" cellpadding="0" cellspacing="0">
                                           <tbody><tr>
-                                              <td style="padding-right:10px;padding-bottom:9px;" class="mcnFollowContentItemContainer" valign="top">
-                                                  <table class="mcnFollowContentItem" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                              <td style="padding-right:10px;padding-bottom:9px;" valign="top">
+                                                  <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                                       <tbody><tr>
                                                           <td style="padding-top:5px;padding-right:10px;padding-bottom:5px;padding-left:9px;" valign="middle" align="left">
                                                               <table width="" align="left" border="0" cellpadding="0" cellspacing="0">
                                                                   <tbody><tr>
 
-                                                                          <td class="mcnFollowIconContent" valign="middle" width="24" align="center">
-                                                                              <a href="<?php print $base_url; ?>/?pk_campaign=website&amp;pk_kwd=picto" target="_blank"><img alt="eMindHub" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/picto/picto_emindhub_small.png" style="display:block;" class="" height="24" width="24"></a>
+                                                                          <td valign="middle" width="24" align="center">
+                                                                              <a href="<?php print $base_url; ?>/?pk_campaign=website&amp;pk_kwd=picto" target="_blank"><img alt="<?php print $site_name; ?>" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/picto/picto_emindhub_small.png" style="display:block;" height="24" width="24"></a>
                                                                           </td>
 
 
-                                                                          <td class="mcnFollowTextContent" style="padding-left:5px;" valign="middle" align="left">
+                                                                          <td style="padding-left:5px;" valign="middle" align="left">
                                                                               <a href="<?php print $base_url; ?>/?pk_campaign=website&amp;pk_kwd=picto" target="" style="font-family:Helvetica;font-size:12px;text-decoration:none;color:rgb(101, 101, 101);">Website</a>
                                                                           </td>
 
@@ -188,19 +190,19 @@ global $base_url;
 
                                       <table style="display:inline;" align="left" border="0" cellpadding="0" cellspacing="0">
                                           <tbody><tr>
-                                              <td style="padding-right:0;padding-bottom:9px;" class="mcnFollowContentItemContainer" valign="top">
-                                                  <table class="mcnFollowContentItem" width="100%" border="0" cellpadding="0" cellspacing="0">
+                                              <td style="padding-right:0;padding-bottom:9px;" valign="top">
+                                                  <table width="100%" border="0" cellpadding="0" cellspacing="0">
                                                       <tbody><tr>
                                                           <td style="padding-top:5px;padding-right:10px;padding-bottom:5px;padding-left:9px;" valign="middle" align="left">
                                                               <table width="" align="left" border="0" cellpadding="0" cellspacing="0">
                                                                   <tbody><tr>
 
-                                                                          <td class="mcnFollowIconContent" valign="middle" width="24" align="center">
-                                                                              <a href="https://www.linkedin.com/company/emindhub" target="_blank"><img alt="LinkedIn" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/picto/picto_linkedin_small.png" style="display:block;" class="" height="24" width="24"></a>
+                                                                          <td valign="middle" width="24" align="center">
+                                                                              <a href="https://www.linkedin.com/company/emindhub" target="_blank"><img alt="LinkedIn" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/picto/picto_linkedin_small.png" style="display:block;" height="24" width="24"></a>
                                                                           </td>
 
 
-                                                                          <td class="mcnFollowTextContent" style="padding-left:5px;" valign="middle" align="left">
+                                                                          <td style="padding-left:5px;" valign="middle" align="left">
                                                                               <a href="https://www.linkedin.com/company/emindhub" target="" style="font-family:Helvetica;font-size:12px;text-decoration:none;color:rgb(101, 101, 101);">LinkedIn</a>
                                                                           </td>
 
