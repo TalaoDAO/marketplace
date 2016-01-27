@@ -48,19 +48,19 @@
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
   <?php print render($title_prefix); ?>
-  <?php if ($title): ?>
-    <h2<?php print $title_attributes; ?>><span><?php print $title; ?></span></h2>
-  <?php endif;?>
+    <a href="<?php print url('expert/register'); ?>">
+      <h2<?php print $title_attributes; ?>><span><?php echo sprintf(t('%sSign up %sfor free%sRespond to customer requests %smatching your expertise%s'), '<span class="title-first">', '<strong>', '</strong></span><span class="title-second">', '<br />', '</span>'); ?></span></h2>
+    </a>
+    <?php //if ($title): ?>
+      <?php //print $title; ?>
+    <?php //endif;?>
   <?php print render($title_suffix); ?>
 
   <?php if ($content): ?>
     <div class="content">
-      <?php //print $content; ?>
-      <a href="<?php print url('expert/register'); ?>">
-        <p><?php echo sprintf(t('Your have%san expertise%s'), '<br /><strong>', '</strong>'); ?></p>
-        <p><?php echo sprintf(t('%sSign-up for free%s and answer client requests matching your expertise'), '<strong>', '</strong>'); ?></p>
-      </a>
+      <?php print $content; ?>
     </div>
+    <a href="<?php print url('expert/register'); ?>" class="btn btn-expert calltoaction"><?php echo sprintf(t('Sign up %sfor free%s'), '<strong>', '</strong>'); ?></a>
   <?php endif;?>
 
 </section> <!-- /.block -->

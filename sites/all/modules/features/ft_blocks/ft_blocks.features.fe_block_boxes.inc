@@ -54,14 +54,48 @@ function ft_blocks_default_fe_block_boxes() {
   $fe_block_boxes->info = 'HP - Baseline';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'hp_baseline';
-  $fe_block_boxes->body = '<p>The global</p>
-
-<p><strong>aerospace web platform</strong></p>
-
-<p>linking companies and experts</p>
+  $fe_block_boxes->body = '<h2>The global&nbsp;<strong>aerospace web platform&nbsp;</strong>linking companies and experts</h2>
 ';
 
   $export['hp_baseline'] = $fe_block_boxes;
+
+  $fe_block_boxes = new stdClass();
+  $fe_block_boxes->info = 'HP - Business - Get a free trial';
+  $fe_block_boxes->format = 'full_html';
+  $fe_block_boxes->machine_name = 'hp_business_free_trial';
+  $fe_block_boxes->body = '<h3>Why should you use eMindHub?</h3>
+
+<ul>
+	<li>Direct access to aerospace experts all over the world</li>
+	<li>Instant and high quality responses to your requests</li>
+	<li>Choose an expert through responses received</li>
+	<li>Personalised settings for full confidentiality</li>
+	<li>Manage your own network of experts</li>
+</ul>
+';
+
+  $export['hp_business_free_trial'] = $fe_block_boxes;
+
+  $fe_block_boxes = new stdClass();
+  $fe_block_boxes->info = 'HP - Business - You are';
+  $fe_block_boxes->format = 'filtered_html';
+  $fe_block_boxes->machine_name = 'hp_business_you_are';
+  $fe_block_boxes->body = '<ul>
+	<li>OEM</li>
+	<li>MRO</li>
+	<li>Airline</li>
+	<li>Service company</li>
+</ul>
+
+<ul>
+	<li>Industrial SME</li>
+	<li>Investor</li>
+	<li>Research center</li>
+	<li>Training center</li>
+</ul>
+';
+
+  $export['hp_business_you_are'] = $fe_block_boxes;
 
   $fe_block_boxes = new stdClass();
   $fe_block_boxes->info = 'HP - Start a challenge';
@@ -72,10 +106,48 @@ function ft_blocks_default_fe_block_boxes() {
   $export['hp_challenge'] = $fe_block_boxes;
 
   $fe_block_boxes = new stdClass();
-  $fe_block_boxes->info = 'HP - You have an expertise';
+  $fe_block_boxes->info = 'HP - Expert - Sign up for free';
+  $fe_block_boxes->format = 'full_html';
+  $fe_block_boxes->machine_name = 'hp_expert_sign_up';
+  $fe_block_boxes->body = '<h3>Why should you use eMindHub?</h3>
+
+<ul>
+	<li>Direct contact with potential customers</li>
+	<li>Maintain contact with the aerospace community</li>
+	<li>Control your independence</li>
+	<li>Set your fees without royalties</li>
+</ul>
+';
+
+  $export['hp_expert_sign_up'] = $fe_block_boxes;
+
+  $fe_block_boxes = new stdClass();
+  $fe_block_boxes->info = 'HP - Expert - You are';
+  $fe_block_boxes->format = 'filtered_html';
+  $fe_block_boxes->machine_name = 'hp_expert_you_are';
+  $fe_block_boxes->body = '<ul>
+	<li>An experienced professional</li>
+	<li>An active retiree</li>
+	<li>A researcher</li>
+	<li>A PhD</li>
+</ul>
+';
+
+  $export['hp_expert_you_are'] = $fe_block_boxes;
+
+  $fe_block_boxes = new stdClass();
+  $fe_block_boxes->info = 'HP - Expert - Do you have an expertise?';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'hp_expertise';
-  $fe_block_boxes->body = '<p>Contenu géré directement dans le tpl du block.</p>';
+  $fe_block_boxes->body = '<h2>Do you have <strong>an expertise?</strong></h2>
+
+<h3>Get yourself known to your future clients&nbsp;and generate revenue online!</h3>
+
+<ul>
+	<li>Demonstrate your skills and find assignments</li>
+	<li>Monetize your professional network</li>
+</ul>
+';
 
   $export['hp_expertise'] = $fe_block_boxes;
 
@@ -124,10 +196,19 @@ function ft_blocks_default_fe_block_boxes() {
   $export['hp_question'] = $fe_block_boxes;
 
   $fe_block_boxes = new stdClass();
-  $fe_block_boxes->info = 'HP - You have a request';
+  $fe_block_boxes->info = 'HP - Business - Is your company looking for expertise?';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'hp_request';
-  $fe_block_boxes->body = '<p>Contenu géré directement dans le tpl du block.</p>';
+  $fe_block_boxes->body = '<h2>Is your company <strong>looking for expertise?</strong></h2>
+
+<h3>Get best experts working for you!</h3>
+
+<ul>
+	<li>Obtain advice, return on experience and insights</li>
+	<li>Entrust experts with specific tasks</li>
+	<li>Call experts pools for innovation</li>
+</ul>
+';
 
   $export['hp_request'] = $fe_block_boxes;
 

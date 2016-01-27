@@ -9748,6 +9748,14 @@ button.close {
 .form-actions:after,
 .form-actions:before,
 .form-actions:after,
+#block-block-26 .content:before,
+#block-block-26 .content:after,
+#block-block-27 .content:before,
+#block-block-27 .content:after,
+#block-block-28 .content:before,
+#block-block-28 .content:after,
+#block-block-29 .content:before,
+#block-block-29 .content:after,
 #block-block-11 .content ul:before,
 #block-block-11 .content ul:after,
 #block-progress-tracker-progress-tracker #progress-tracker-wrapper:before,
@@ -9791,6 +9799,10 @@ form#user-profile-form .link-field-subrow:after,
 .bef-select-as-checkboxes .bef-checkboxes:after,
 .form-actions:after,
 .form-actions:after,
+#block-block-26 .content:after,
+#block-block-27 .content:after,
+#block-block-28 .content:after,
+#block-block-29 .content:after,
 #block-block-11 .content ul:after,
 #block-progress-tracker-progress-tracker #progress-tracker-wrapper:after,
 #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker:after,
@@ -10964,6 +10976,63 @@ fieldset[disabled] .btn-popin.focus {
 .btn-popin .badge {
   color: transparent;
   background-color: #333333;
+}
+.btn-expert {
+  color: #ffffff;
+  background-color: #e39000;
+  border-color: #c89234;
+}
+.btn-expert:focus,
+.btn-expert.focus {
+  color: #ffffff;
+  background-color: #b07000;
+  border-color: #63481a;
+}
+.btn-expert:hover {
+  color: #ffffff;
+  background-color: #b07000;
+  border-color: #976f27;
+}
+.btn-expert:active,
+.btn-expert.active,
+.open > .dropdown-toggle.btn-expert {
+  color: #ffffff;
+  background-color: #b07000;
+  border-color: #976f27;
+}
+.btn-expert:active:hover,
+.btn-expert.active:hover,
+.open > .dropdown-toggle.btn-expert:hover,
+.btn-expert:active:focus,
+.btn-expert.active:focus,
+.open > .dropdown-toggle.btn-expert:focus,
+.btn-expert:active.focus,
+.btn-expert.active.focus,
+.open > .dropdown-toggle.btn-expert.focus {
+  color: #ffffff;
+  background-color: #8c5900;
+  border-color: #63481a;
+}
+.btn-expert:active,
+.btn-expert.active,
+.open > .dropdown-toggle.btn-expert {
+  background-image: none;
+}
+.btn-expert.disabled:hover,
+.btn-expert[disabled]:hover,
+fieldset[disabled] .btn-expert:hover,
+.btn-expert.disabled:focus,
+.btn-expert[disabled]:focus,
+fieldset[disabled] .btn-expert:focus,
+.btn-expert.disabled.focus,
+.btn-expert[disabled].focus,
+fieldset[disabled] .btn-expert.focus {
+  background-color: #e39000;
+  border-color: #c89234;
+}
+.btn-expert .badge {
+  color: #e39000;
+  background-color: #ffffff;
 }
 .btn-flash {
   color: #1abc9c;
@@ -13433,11 +13502,7 @@ header nav.navbar .navbar-collapse.in {
  * Banner
  */
 header#page-header {
-  background-image: -webkit-linear-gradient(top, #15538c 0%, #165892 100%);
-  background-image: -o-linear-gradient(top, #15538c 0%, #165892 100%);
-  background-image: linear-gradient(to bottom, #15538c 0%, #165892 100%);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff15538c', endColorstr='#ff165892', GradientType=0);
+  background-color: #247da7;
   padding-top: 15px;
   padding-bottom: 15px;
 }
@@ -14523,23 +14588,207 @@ table th[class*="col-"] {
     margin-bottom: 50px;
   }
 }
-#block-block-7 .content p:first-of-type,
-#block-block-7 .content p:last-of-type {
-  color: #8CD4F2;
+#block-block-7 .content h2 {
+  color: #80d9ff;
+  font-weight: normal;
+  line-height: 1.5;
+  font-size: 32px;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 }
-#block-block-15 a {
-  text-decoration: none;
+#block-block-7 .content h2 strong {
+  font-weight: bold;
+  display: block;
+  color: #FFF;
 }
-#block-block-15 p:first-of-type,
-#block-block-15 p:last-of-type strong {
-  color: #009FE3;
+#block-block-15,
+#block-block-9 {
+  background-color: #f2f2f2;
+  font-size: 17px;
+  line-height: 1.6em;
 }
+#block-block-15 .content,
+#block-block-9 .content {
+  padding: 0;
+}
+#block-block-15 .content > a > *,
+#block-block-9 .content > a > * {
+  padding: 1em 15px;
+  margin: 0;
+}
+#block-block-15 a,
 #block-block-9 a {
   text-decoration: none;
+  color: inherit;
 }
-#block-block-9 p:first-of-type,
-#block-block-9 p:last-of-type strong {
-  color: #C89234;
+#block-block-15 h2,
+#block-block-9 h2 {
+  font-weight: normal;
+  line-height: 1.3;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+}
+#block-block-15 h2 strong,
+#block-block-9 h2 strong {
+  display: block;
+  font-weight: bold;
+}
+#block-block-15 h3,
+#block-block-9 h3 {
+  color: #FFF;
+  font-size: 22px;
+  font-weight: bold;
+  display: block;
+  margin: 0;
+  padding: 15px;
+  line-height: 1.3em;
+  min-height: 4em;
+  padding: 1em 15px;
+}
+#block-block-15 ul,
+#block-block-9 ul {
+  list-style: none;
+  min-height: 6.8em;
+}
+#block-block-15 h3 {
+  background-color: #009fe3;
+  line-height: 2.6em;
+}
+#block-block-9 h3 {
+  background-color: #c89234;
+}
+#block-block-26 .content,
+#block-block-27 .content {
+  margin-left: -15px;
+  margin-right: -15px;
+  margin: 0;
+  padding: 0 15px !important;
+  font-size: 17px;
+  line-height: 1.6em;
+}
+#block-block-26 .content ul,
+#block-block-27 .content ul {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  #block-block-26 .content ul,
+  #block-block-27 .content ul {
+    float: left;
+    width: 50%;
+  }
+}
+#block-block-27 a {
+  color: #c89234;
+}
+#block-block-28,
+#block-block-29 {
+  background-color: #f2f2f2;
+  margin-top: 50px;
+  text-align: center;
+}
+#block-block-28 .block-title,
+#block-block-29 .block-title {
+  margin: 0;
+  background-color: #445766;
+  color: #FFF;
+  line-height: 1.3;
+  font-weight: normal;
+  text-align: left;
+}
+#block-block-28 .block-title .title-first,
+#block-block-29 .block-title .title-first {
+  display: inline-block;
+  width: 140px;
+  height: 140px;
+  padding-top: 41.4px;
+  margin-top: -29px;
+  float: left;
+  border-radius: 50%;
+  text-align: center;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+#block-block-28 .block-title .title-first strong,
+#block-block-29 .block-title .title-first strong {
+  display: block;
+  font-weight: bold;
+}
+#block-block-28 .block-title .title-second,
+#block-block-29 .block-title .title-second {
+  display: inline-block;
+  margin-left: 20px;
+  font-size: 20px;
+  text-transform: none;
+  padding: 15px;
+}
+#block-block-28 .content,
+#block-block-29 .content {
+  margin-left: -15px;
+  margin-right: -15px;
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.6em;
+  text-align: left;
+}
+#block-block-28 .content > a,
+#block-block-29 .content > a {
+  display: block;
+  color: inherit;
+}
+#block-block-28 .content > a > *,
+#block-block-29 .content > a > * {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  #block-block-28 .content > a > *,
+  #block-block-29 .content > a > * {
+    float: left;
+    width: 100%;
+  }
+}
+#block-block-28 .content > a > h3,
+#block-block-29 .content > a > h3 {
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: bold;
+}
+#block-block-28 .content > a ul,
+#block-block-29 .content > a ul {
+  list-style: none;
+  margin: 0 0 15px;
+  padding: 0;
+  min-height: 191px;
+}
+#block-block-28 .content > a ul li,
+#block-block-29 .content > a ul li {
+  margin: 0 15px;
+  padding: 5px 0;
+  border-top: 1px solid #b5b5b5;
+}
+#block-block-28 a.btn,
+#block-block-29 a.btn {
+  font-weight: normal;
+  margin-bottom: 15px;
+  font-size: 1.5em;
+}
+#block-block-28 a.btn strong,
+#block-block-29 a.btn strong {
+  font-weight: bold;
+}
+#block-block-28 .block-title .title-first {
+  background-color: #009fe3;
+}
+#block-block-28 .content > a > h3 {
+  color: #009fe3;
+}
+#block-block-29 .block-title .title-first {
+  background-color: #c89234;
+}
+#block-block-29 .content > a > h3 {
+  color: #c89234;
 }
 #block-block-14 .content,
 #block-block-8 .content,
@@ -14579,7 +14828,7 @@ table th[class*="col-"] {
 #block-block-14 a span.mobilize-info,
 #block-block-8 a span.mobilize-info,
 #block-block-16 a span.mobilize-info {
-  color: #4C6172;
+  color: #4c6172;
 }
 #block-block-14 a span.mobilize-call,
 #block-block-8 a span.mobilize-call,

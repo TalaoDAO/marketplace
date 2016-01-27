@@ -48,19 +48,19 @@
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
   <?php print render($title_prefix); ?>
-  <?php if ($title): ?>
-    <h2<?php print $title_attributes; ?>><span><?php print $title; ?></span></h2>
-  <?php endif;?>
+    <a href="<?php print url('freetrial'); ?>">
+      <h2<?php print $title_attributes; ?>><span><?php echo sprintf(t('%sGet a %sfree trial%sSubmit your request %sto our experts%s'), '<span class="title-first">', '<strong>', '</strong></span><span class="title-second">', '<br />', '</span>'); ?></span></h2>
+    </a>
+    <?php //if ($title): ?>
+      <?php //print $title; ?>
+    <?php //endif;?>
   <?php print render($title_suffix); ?>
 
   <?php if ($content): ?>
     <div class="content">
-      <?php //print $content; ?>
-      <a href="<?php print url('freetrial'); ?>">
-        <p><?php echo sprintf(t('You have %sa request%s'), '<br /><strong>', '</strong>'); ?></p>
-        <p><?php echo sprintf(t('%sAsk for a free trial%s and submit your request to the experts'), '<strong>', '</strong>'); ?></p>
-      </a>
+      <?php print $content; ?>
     </div>
+    <a href="<?php print url('freetrial'); ?>" class="btn btn-primary calltoaction"><?php echo sprintf(t('Get a %sfree trial%s'), '<strong>', '</strong>'); ?></a>
   <?php endif;?>
 
 </section> <!-- /.block -->

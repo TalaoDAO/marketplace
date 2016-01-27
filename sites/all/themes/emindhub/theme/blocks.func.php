@@ -4,15 +4,14 @@
 /**
  * Implements hook_preprocess_block()
  */
-function emindhub_preprocess_block(&$vars) {
-  // echo '<pre>' . print_r($vars['block'], TRUE) . '</pre>';
-  $block_id = $vars['block']->module . '-' . $vars['block']->delta;
+function emindhub_preprocess_block(&$variables) {
+  $block_id = $variables['block']->module . '-' . $variables['block']->delta;
   // print_r($block_id);
-  $classes = &$vars['classes_array'];
-  $title_classes = &$vars['title_attributes_array']['class'];
-  $content_classes = &$vars['content_attributes_array']['class'];
-  $title = &$vars['block']->title;
-  $content = &$vars['content'];
+  $classes = &$variables['classes_array'];
+  $title_classes = &$variables['title_attributes_array']['class'];
+  $content_classes = &$variables['content_attributes_array']['class'];
+  $title = &$variables['block']->title;
+  $content = &$variables['content'];
 
   /* Add global classes to all blocks */
   // $title_classes[] = 'block-title';
@@ -145,11 +144,51 @@ function emindhub_preprocess_block(&$vars) {
       $classes[] = 'emh-block-blue';
       break;
 
+    // HP - Business
+    case 'block-15':
+      $content = '<a href="' . url('freetrial') . '">' . $content . '</a>';
+      break;
+
+    // HP - Expert
+    case 'block-9':
+      $content = '<a href="' . url('expert/register') . '">' . $content . '</a>';
+      break;
+
     // HP - Welcome
     case 'block-17':
       $classes[] = 'col-sm-8';
       $classes[] = 'emh-block-blue-main-title';
       $content = '';
+      break;
+
+    // HP - Business - You are
+    case 'block-26':
+      $classes[] = 'emh-block-light';
+      $classes[] = 'emh-block-dark-title';
+      $content = '<a href="' . url('freetrial') . '">' . $content . '</a>';
+      break;
+
+    // HP - Expert - You are
+    case 'block-27':
+      $classes[] = 'emh-block-light';
+      $classes[] = 'emh-block-dark-title';
+      $content = '<a href="' . url('expert/register') . '">' . $content . '</a>';
+      break;
+
+    // HP - Business - Get a free trial
+    case 'block-28':
+      $classes[] = 'emh-block-light';
+      // $title = sprintf(t('Get a %sfree trial%s'), '<strong>', '</strong>');
+      // $title = '<a href="' . url('freetrial') . '">' . $title . '</a>';
+      $content = '<a href="' . url('freetrial') . '">' . $content . '</a>';
+      break;
+
+    // HP - Expert - Sign up for free
+    case 'block-29':
+      $classes[] = 'emh-block-light';
+      // $title = sprintf(t('Sign up %sfor free%s'), '<strong>', '</strong>');
+      // $title = '<a href="' . url('expert/register') . '">' . $title . '</a>';
+      $content = '<a href="' . url('expert/register') . '">' . $content . '</a>';
       break;
 
     // They use
@@ -226,6 +265,6 @@ function emindhub_preprocess_block(&$vars) {
       break;
   }
 
-  // echo '<pre>' . print_r($vars, TRUE) . '</pre>';
+  // echo '<pre>' . print_r($variables['block'], TRUE) . '</pre>';
 
 }
