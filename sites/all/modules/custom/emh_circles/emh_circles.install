@@ -9,6 +9,8 @@
  */
 function emh_circles_enable() {
 
+  emh_circles_update_7101();
+
   global $language;
   $lang = $language->language;
   $strings = variable_get("locale_custom_strings_$lang", array());
@@ -18,7 +20,6 @@ function emh_circles_enable() {
   variable_set("locale_custom_strings_$lang", $strings);
 
 }
-
 
 /**
  * Implements hook_disable().

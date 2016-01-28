@@ -3,20 +3,3 @@
 * @file
 * Code for eMindHub circles feature.
 */
-
-function emh_circles_get_relationship($uid, $uid2) {
-  if (empty($uid)) {
-    global $user;
-    $uid = $user->uid;
-  }
-  $u1_account = user_load($uid);
-  $u1_circles = og_get_groups_by_user($u1_account, 'node');
-  $u2_account = user_load($uid2);
-  $u2_circles = og_get_groups_by_user($u2_account, 'node');
-  unset( $u1_circles[ '314' ] );
-  unset( $u2_circles[ '314' ] );
-  if (array_intersect($u1_circles, $u2_circles)) {
-    return TRUE;
-  }
-  return FALSE;
-}
