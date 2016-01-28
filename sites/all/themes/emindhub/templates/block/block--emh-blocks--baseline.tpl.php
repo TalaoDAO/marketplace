@@ -44,23 +44,43 @@
  *
  * @ingroup themeable
  */
+global $base_url;
 ?>
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-  <?php print render($title_prefix); ?>
-    <a href="<?php print url('expert/register'); ?>">
-      <h2<?php print $title_attributes; ?>><span><?php echo sprintf(t('%sSign up %sfor free%sRespond to customer requests %smatching your expertise%s'), '<span class="title-first">', '<strong>', '</strong></span><span class="title-second">', '<br />', '</span>'); ?></span></h2>
-    </a>
-    <?php //if ($title): ?>
-      <?php //print $title; ?>
-    <?php //endif;?>
-  <?php print render($title_suffix); ?>
+  <div class="content">
+    <div id="homepage-slider" class="carousel slide" data-ride="carousel">
 
-  <?php if ($content): ?>
-    <div class="content">
-      <?php print $content; ?>
+      <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+      </ol>
+
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/banner/eMindHub_banner_01.jpg" alt="The global aerospace web platform linking companies and experts">
+          <div class="carousel-caption">
+            <h3>The global <strong>aerospace web platform </strong>linking companies and experts</h3>
+          </div>
+        </div>
+        <div class="item">
+          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/banner/eMindHub_banner_02.jpg" alt="First online Hub dedicated to Aerospace industry">
+          <div class="carousel-caption">
+            <h3><strong>First online Hub </strong>dedicated to Aerospace industry</h3>
+          </div>
+        </div>
+      </div>
+
+      <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+      
     </div>
-    <a href="<?php print url('expert/register'); ?>" class="btn btn-expert calltoaction"><?php echo sprintf(t('Sign up %sfor free%s'), '<strong>', '</strong>'); ?></a>
-  <?php endif;?>
+  </div>
 
 </section> <!-- /.block -->

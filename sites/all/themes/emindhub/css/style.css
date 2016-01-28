@@ -9748,14 +9748,12 @@ button.close {
 .form-actions:after,
 .form-actions:before,
 .form-actions:after,
-#block-block-26 .content:before,
-#block-block-26 .content:after,
-#block-block-27 .content:before,
-#block-block-27 .content:after,
-#block-block-28 .content:before,
-#block-block-28 .content:after,
-#block-block-29 .content:before,
-#block-block-29 .content:after,
+#block-emh-blocks-business-you-are .content:before,
+#block-emh-blocks-business-you-are .content:after,
+#block-emh-blocks-business-why .content:before,
+#block-emh-blocks-business-why .content:after,
+#block-emh-blocks-expert-why .content:before,
+#block-emh-blocks-expert-why .content:after,
 #block-block-11 .content ul:before,
 #block-block-11 .content ul:after,
 #block-progress-tracker-progress-tracker #progress-tracker-wrapper:before,
@@ -9799,10 +9797,9 @@ form#user-profile-form .link-field-subrow:after,
 .bef-select-as-checkboxes .bef-checkboxes:after,
 .form-actions:after,
 .form-actions:after,
-#block-block-26 .content:after,
-#block-block-27 .content:after,
-#block-block-28 .content:after,
-#block-block-29 .content:after,
+#block-emh-blocks-business-you-are .content:after,
+#block-emh-blocks-business-why .content:after,
+#block-emh-blocks-expert-why .content:after,
 #block-block-11 .content ul:after,
 #block-progress-tracker-progress-tracker #progress-tracker-wrapper:after,
 #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker:after,
@@ -13502,12 +13499,8 @@ header nav.navbar .navbar-collapse.in {
  * Banner
  */
 header#page-header {
-  background-color: #247da7;
-  padding-top: 15px;
-  padding-bottom: 15px;
-}
-header#page-header > .container {
-  background: transparent url("../images/grid_dark.png") repeat-y top center;
+  background: #114577 url("../images/banner/eMindHub_banner_01.jpg") no-repeat center center;
+  background-size: contain;
 }
 header#page-header .region-header {
   color: #fff;
@@ -14593,46 +14586,54 @@ table th[class*="col-"] {
   font-weight: normal;
   line-height: 1.5;
   font-size: 32px;
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
 }
 #block-block-7 .content h2 strong {
   font-weight: bold;
   display: block;
   color: #FFF;
 }
-#block-block-15,
-#block-block-9 {
+#block-emh-blocks-business-question,
+#block-emh-blocks-expert-question {
   background-color: #f2f2f2;
+  -moz-box-shadow: 0px 0px 10px 0px #b5b5b5;
+  -webkit-box-shadow: 0px 0px 10px 0px #b5b5b5;
+  -o-box-shadow: 0px 0px 10px 0px #b5b5b5;
+  box-shadow: 0px 0px 10px 0px #b5b5b5;
+  filter: progid:DXImageTransform.Microsoft.Shadow(color=#b5b5b5, Direction=NaN, Strength=10);
   font-size: 17px;
   line-height: 1.6em;
 }
-#block-block-15 .content,
-#block-block-9 .content {
+#block-emh-blocks-business-question .content,
+#block-emh-blocks-expert-question .content {
   padding: 0;
+  border: 0;
 }
-#block-block-15 .content > a > *,
-#block-block-9 .content > a > * {
+#block-emh-blocks-business-question .content > a > *,
+#block-emh-blocks-expert-question .content > a > * {
   padding: 1em 15px;
   margin: 0;
 }
-#block-block-15 a,
-#block-block-9 a {
+#block-emh-blocks-business-question a,
+#block-emh-blocks-expert-question a {
   text-decoration: none;
   color: inherit;
 }
-#block-block-15 h2,
-#block-block-9 h2 {
+#block-emh-blocks-business-question h2,
+#block-emh-blocks-expert-question h2 {
   font-weight: normal;
+  font-size: 26px;
   line-height: 1.3;
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+  padding: 15px;
+  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.25);
 }
-#block-block-15 h2 strong,
-#block-block-9 h2 strong {
+#block-emh-blocks-business-question h2 strong,
+#block-emh-blocks-expert-question h2 strong {
   display: block;
   font-weight: bold;
 }
-#block-block-15 h3,
-#block-block-9 h3 {
+#block-emh-blocks-business-question h3,
+#block-emh-blocks-expert-question h3 {
   color: #FFF;
   font-size: 22px;
   font-weight: bold;
@@ -14643,151 +14644,161 @@ table th[class*="col-"] {
   min-height: 4em;
   padding: 1em 15px;
 }
-#block-block-15 ul,
-#block-block-9 ul {
+#block-emh-blocks-business-question ul,
+#block-emh-blocks-expert-question ul {
   list-style: none;
   min-height: 6.8em;
 }
-#block-block-15 h3 {
+#block-emh-blocks-business-question h3 {
   background-color: #009fe3;
   line-height: 2.6em;
 }
-#block-block-9 h3 {
+#block-emh-blocks-expert-question h3 {
   background-color: #c89234;
 }
-#block-block-26 .content,
-#block-block-27 .content {
-  margin-left: -15px;
-  margin-right: -15px;
+#block-emh-blocks-business-you-are .content,
+#block-emh-blocks-expert-you-are .content {
   margin: 0;
   padding: 0 15px !important;
   font-size: 17px;
   line-height: 1.6em;
 }
-#block-block-26 .content ul,
-#block-block-27 .content ul {
+#block-emh-blocks-business-you-are .content {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+#block-emh-blocks-business-you-are .content ul {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 768px) {
-  #block-block-26 .content ul,
-  #block-block-27 .content ul {
+  #block-emh-blocks-business-you-are .content ul {
     float: left;
     width: 50%;
   }
 }
-#block-block-27 a {
+#block-emh-blocks-expert-you-are a {
   color: #c89234;
 }
-#block-block-28,
-#block-block-29 {
-  background-color: #f2f2f2;
+#block-emh-blocks-business-why,
+#block-emh-blocks-expert-why {
   margin-top: 50px;
   text-align: center;
 }
-#block-block-28 .block-title,
-#block-block-29 .block-title {
+#block-emh-blocks-business-why .block-title,
+#block-emh-blocks-expert-why .block-title {
   margin: 0;
-  background-color: #445766;
+  background: #445766 url("../images/bg_white-grey.png") no-repeat left center;
   color: #FFF;
   line-height: 1.3;
   font-weight: normal;
   text-align: left;
 }
-#block-block-28 .block-title .title-first,
-#block-block-29 .block-title .title-first {
+#block-emh-blocks-business-why .block-title .title-first,
+#block-emh-blocks-expert-why .block-title .title-first {
+  z-index: 1;
   display: inline-block;
   width: 140px;
   height: 140px;
   padding-top: 41.4px;
   margin-top: -29px;
   float: left;
+  position: relative;
   border-radius: 50%;
   text-align: center;
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 0px 10px 0px #b5b5b5;
+  -webkit-box-shadow: 0px 0px 10px 0px #b5b5b5;
+  -o-box-shadow: 0px 0px 10px 0px #b5b5b5;
+  box-shadow: 0px 0px 10px 0px #b5b5b5;
+  filter: progid:DXImageTransform.Microsoft.Shadow(color=#b5b5b5, Direction=NaN, Strength=10);
 }
-#block-block-28 .block-title .title-first strong,
-#block-block-29 .block-title .title-first strong {
+#block-emh-blocks-business-why .block-title .title-first strong,
+#block-emh-blocks-expert-why .block-title .title-first strong {
   display: block;
   font-weight: bold;
 }
-#block-block-28 .block-title .title-second,
-#block-block-29 .block-title .title-second {
+#block-emh-blocks-business-why .block-title .title-second,
+#block-emh-blocks-expert-why .block-title .title-second {
   display: inline-block;
   margin-left: 20px;
   font-size: 20px;
   text-transform: none;
   padding: 15px;
 }
-#block-block-28 .content,
-#block-block-29 .content {
+#block-emh-blocks-business-why .content,
+#block-emh-blocks-expert-why .content {
   margin-left: -15px;
   margin-right: -15px;
   margin: 0;
+  z-index: 1;
+  background-color: #f2f2f2;
   font-size: 17px;
   line-height: 1.6em;
   text-align: left;
 }
-#block-block-28 .content > a,
-#block-block-29 .content > a {
+#block-emh-blocks-business-why .content > a,
+#block-emh-blocks-expert-why .content > a {
   display: block;
   color: inherit;
 }
-#block-block-28 .content > a > *,
-#block-block-29 .content > a > * {
+#block-emh-blocks-business-why .content > a > *,
+#block-emh-blocks-expert-why .content > a > * {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 768px) {
-  #block-block-28 .content > a > *,
-  #block-block-29 .content > a > * {
+  #block-emh-blocks-business-why .content > a > *,
+  #block-emh-blocks-expert-why .content > a > * {
     float: left;
     width: 100%;
   }
 }
-#block-block-28 .content > a > h3,
-#block-block-29 .content > a > h3 {
+#block-emh-blocks-business-why .content > a > h3,
+#block-emh-blocks-expert-why .content > a > h3 {
   text-transform: uppercase;
   font-size: 18px;
   font-weight: bold;
 }
-#block-block-28 .content > a ul,
-#block-block-29 .content > a ul {
+#block-emh-blocks-business-why .content > a ul,
+#block-emh-blocks-expert-why .content > a ul {
   list-style: none;
   margin: 0 0 15px;
   padding: 0;
-  min-height: 191px;
+  min-height: 241px;
 }
-#block-block-28 .content > a ul li,
-#block-block-29 .content > a ul li {
+#block-emh-blocks-business-why .content > a ul li,
+#block-emh-blocks-expert-why .content > a ul li {
   margin: 0 15px;
-  padding: 5px 0;
+  padding: 10px 0;
   border-top: 1px solid #b5b5b5;
 }
-#block-block-28 a.btn,
-#block-block-29 a.btn {
+#block-emh-blocks-business-why a.btn,
+#block-emh-blocks-expert-why a.btn {
   font-weight: normal;
-  margin-bottom: 15px;
+  margin-top: 15px;
   font-size: 1.5em;
 }
-#block-block-28 a.btn strong,
-#block-block-29 a.btn strong {
+#block-emh-blocks-business-why a.btn strong,
+#block-emh-blocks-expert-why a.btn strong {
   font-weight: bold;
 }
-#block-block-28 .block-title .title-first {
-  background-color: #009fe3;
+#block-emh-blocks-business-why .block-title .title-first {
+  background: #009fe3 url("../images/picto/picto_atomium_blue.png") no-repeat center center;
+  background-size: contain;
 }
-#block-block-28 .content > a > h3 {
+#block-emh-blocks-business-why .content > a > h3 {
   color: #009fe3;
 }
-#block-block-29 .block-title .title-first {
-  background-color: #c89234;
+#block-emh-blocks-expert-why .block-title .title-first {
+  background: #c89234 url("../images/picto/picto_people_yellow.png") no-repeat center center;
+  background-size: contain;
 }
-#block-block-29 .content > a > h3 {
+#block-emh-blocks-expert-why .content > a > h3 {
   color: #c89234;
 }
 #block-block-14 .content,
@@ -15794,6 +15805,9 @@ form .form-radios label {
 form .form-radios .form-group {
   margin-bottom: 0;
 }
+body.front header#title {
+  padding-top: 0;
+}
 body.front h1.page-header {
   display: none !important;
 }
@@ -15808,6 +15822,16 @@ body.front.not-logged-in .main-container section#maincol {
 }
 body.front.not-logged-in .main-container > .container > .row:first-child {
   padding-bottom: 20px;
+}
+@media (min-width: 768px) {
+  body.front.not-logged-in #sidebar-first {
+    padding-left: 0;
+    padding-right: 30px;
+  }
+  body.front.not-logged-in #sidebar-second {
+    padding-left: 30px;
+    padding-right: 0;
+  }
 }
 body.front.logged-in .main-container > .container > .row:first-child {
   padding-top: 20px;

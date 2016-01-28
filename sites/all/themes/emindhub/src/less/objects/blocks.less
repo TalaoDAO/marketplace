@@ -125,7 +125,7 @@
 			font-weight: normal;
 			line-height: 1.5;
 			font-size: 32px;
-			text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+			text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
 			strong {
 				font-weight: bold;
 				display: block;
@@ -137,13 +137,20 @@
 
 // Homepage : Business #15
 // Homepage : Expert #9
-#block-block-15,
-#block-block-9 {
+#block-emh-blocks-business-question,
+#block-emh-blocks-expert-question {
 	background-color: @gray-lighter;
+	// border: 0;
+	-moz-box-shadow: 0px 0px 10px 0px @gray-light2;
+	-webkit-box-shadow: 0px 0px 10px 0px @gray-light2;
+	-o-box-shadow: 0px 0px 10px 0px @gray-light2;
+	box-shadow: 0px 0px 10px 0px @gray-light2;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=@gray-light2, Direction=NaN, Strength=10);
 	font-size: 17px;
 	line-height: 1.6em;
 	.content {
 		padding: 0;
+		border: 0;
 		> a {
 			> * {
 				padding: 1em 15px;
@@ -157,8 +164,10 @@
 	}
 	h2 {
 		font-weight: normal;
+		font-size: 26px;
 		line-height: 1.3;
-		text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+		padding: 15px;
+		text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.25);
 		strong {
 			display: block;
 			font-weight: bold;
@@ -180,13 +189,13 @@
 		min-height: 6.8em;
 	}
 }
-#block-block-15 {
+#block-emh-blocks-business-question {
 	h3 {
 		background-color: @brand-primary;
 		line-height: 2.6em;
 	}
 }
-#block-block-9 {
+#block-emh-blocks-expert-question {
 	h3 {
 		background-color: @expertYellow;
 	}
@@ -194,51 +203,61 @@
 
 // Homepage : Business #26
 // Homepage : Expert #27
-#block-block-26,
-#block-block-27 {
+#block-emh-blocks-business-you-are,
+#block-emh-blocks-expert-you-are {
 	.content {
-		.make-row();
 		margin: 0;
 		padding: 0 15px !important;
-
 		font-size: 17px;
 		line-height: 1.6em;
+	}
+}
+#block-emh-blocks-business-you-are {
+	.content {
+		.make-row();
 		ul {
 			.make-sm-column(6);
 		}
 	}
 }
-#block-block-27 {
+#block-emh-blocks-expert-you-are {
 	a {
 		color: @expertYellow;
 	}
 }
 
-// Homepage : Business #28
-// Homepage : Expert #29
-#block-block-28,
-#block-block-29 {
-	background-color: @gray-lighter;
+// Homepage : Business Why
+// Homepage : Expert Why
+#block-emh-blocks-business-why,
+#block-emh-blocks-expert-why {
 	margin-top: 50px;
 	.text-center;
 	.block-title {
 		margin: 0;
-		background-color: @darkBlue;
+		background: @darkBlue url("../images/bg_white-grey.png") no-repeat left center;
 		color: #FFF;
 		line-height: 1.3;
 		font-weight: normal;
 		.text-left;
 
 		.title-first {
+			z-index: 1;
 			display: inline-block;
 			width: 140px;
 			height: 140px;
 			padding-top: 41.4px;
 			margin-top: -29px;
 			float: left;
+			position: relative;
+
 			.img-circle;
 			.text-center;
-			text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+			text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+			-moz-box-shadow: 0px 0px 10px 0px @gray-light2;
+			-webkit-box-shadow: 0px 0px 10px 0px @gray-light2;
+			-o-box-shadow: 0px 0px 10px 0px @gray-light2;
+			box-shadow: 0px 0px 10px 0px @gray-light2;
+			filter:progid:DXImageTransform.Microsoft.Shadow(color=@gray-light2, Direction=NaN, Strength=10);
 			strong {
 				display: block;
 				font-weight: bold;
@@ -255,7 +274,8 @@
 	.content {
 		.make-row();
 		margin: 0;
-
+		z-index: 1;
+		background-color: @gray-lighter;
 		font-size: 17px;
 		line-height: 1.6em;
 		.text-left;
@@ -274,10 +294,10 @@
 				list-style: none;
 				margin: 0 0 15px;
 				padding: 0;
-				min-height: 191px;
+				min-height: 241px;
 				li {
 					margin: 0 15px;
-					padding: 5px 0;
+					padding: 10px 0;
 					border-top: 1px solid @gray-light2;
 				}
 			}
@@ -285,17 +305,18 @@
 	}
 	a.btn {
 		font-weight: normal;
-		margin-bottom: 15px;
+		margin-top: 15px;
 		font-size: 1.5em;
 		strong {
 			font-weight: bold;
 		}
 	}
 }
-#block-block-28 {
+#block-emh-blocks-business-why {
 	.block-title {
 		.title-first {
-			background-color: @brand-primary;
+			background: @brand-primary url("../images/picto/picto_atomium_blue.png") no-repeat center center;
+			background-size: contain;
 		}
 	}
 	.content {
@@ -306,10 +327,12 @@
 		}
 	}
 }
-#block-block-29 {
+#block-emh-blocks-expert-why {
 	.block-title {
 		.title-first {
-			background-color: @expertYellow;
+			// background-color: @expertYellow;
+			background: @expertYellow url("../images/picto/picto_people_yellow.png") no-repeat center center;
+			background-size: contain;
 		}
 	}
 	.content {

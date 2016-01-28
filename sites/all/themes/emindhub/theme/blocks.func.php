@@ -144,16 +144,6 @@ function emindhub_preprocess_block(&$variables) {
       $classes[] = 'emh-block-blue';
       break;
 
-    // HP - Business
-    case 'block-15':
-      $content = '<a href="' . url('freetrial') . '">' . $content . '</a>';
-      break;
-
-    // HP - Expert
-    case 'block-9':
-      $content = '<a href="' . url('expert/register') . '">' . $content . '</a>';
-      break;
-
     // HP - Welcome
     case 'block-17':
       $classes[] = 'col-sm-8';
@@ -161,33 +151,39 @@ function emindhub_preprocess_block(&$variables) {
       $content = '';
       break;
 
+    // HP - Business
+    case 'block-emh-blocks-business-question':
+      $content = '<a href="' . url('freetrial') . '">' . $content . '</a>';
+      break;
+
+    // HP - Expert
+    case 'block-emh-blocks-expert-question':
+      $content = '<a href="' . url('expert/register') . '">' . $content . '</a>';
+      break;
+
     // HP - Business - You are
-    case 'block-26':
+    case 'block-emh-blocks-business-you-are':
       $classes[] = 'emh-block-light';
       $classes[] = 'emh-block-dark-title';
       $content = '<a href="' . url('freetrial') . '">' . $content . '</a>';
       break;
 
     // HP - Expert - You are
-    case 'block-27':
+    case 'block-emh-blocks-expert-you-are':
       $classes[] = 'emh-block-light';
       $classes[] = 'emh-block-dark-title';
       $content = '<a href="' . url('expert/register') . '">' . $content . '</a>';
       break;
 
     // HP - Business - Get a free trial
-    case 'block-28':
+    case 'block-emh-blocks-business-why':
       $classes[] = 'emh-block-light';
-      // $title = sprintf(t('Get a %sfree trial%s'), '<strong>', '</strong>');
-      // $title = '<a href="' . url('freetrial') . '">' . $title . '</a>';
       $content = '<a href="' . url('freetrial') . '">' . $content . '</a>';
       break;
 
     // HP - Expert - Sign up for free
-    case 'block-29':
+    case 'block-emh-blocks-expert-why':
       $classes[] = 'emh-block-light';
-      // $title = sprintf(t('Sign up %sfor free%s'), '<strong>', '</strong>');
-      // $title = '<a href="' . url('expert/register') . '">' . $title . '</a>';
       $content = '<a href="' . url('expert/register') . '">' . $content . '</a>';
       break;
 

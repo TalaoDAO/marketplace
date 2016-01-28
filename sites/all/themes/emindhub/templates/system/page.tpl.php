@@ -225,7 +225,7 @@ global $base_url;
 
         <?php if (!empty($page['sidebar_first'])) : ?>
         <?php if ($is_front) : ?>
-        <aside id="sidebar-first" class="col-sm-6" role="complementary">
+        <aside id="sidebar-first" class="col-sm-5 col-sm-offset-1" role="complementary">
         <?php else : ?>
         <aside id="sidebar-first" class="col-sm-2" role="complementary">
         <?php endif; ?>
@@ -245,7 +245,7 @@ global $base_url;
 
         <?php if (!empty($page['sidebar_second']) || !empty($page['help'])): ?>
         <?php if ($is_front) : ?>
-        <aside id="sidebar-second" class="col-sm-6" role="complementary">
+        <aside id="sidebar-second" class="col-sm-5" role="complementary">
         <?php else : ?>
         <aside id="sidebar-second" class="col-sm-3" role="complementary">
         <?php endif; ?>

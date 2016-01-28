@@ -1,5 +1,9 @@
 body.front {
 
+  header#title {
+    padding-top: 0;
+  }
+
   // Hide page title
   h1.page-header {
     .hidden();
@@ -26,6 +30,17 @@ body.front {
     .main-container > .container > .row:first-child {
       // padding-top: 20px;
       padding-bottom: 20px;
+    }
+
+    @media (min-width: @screen-sm-min) {
+      #sidebar-first {
+        padding-left: 0;
+        padding-right: 30px;
+      }
+      #sidebar-second {
+        padding-left: 30px;
+        padding-right: 0;
+      }
     }
   }
 

@@ -14,7 +14,7 @@ function emindhub_preprocess_region(&$variables, $hook) {
       break;
     case 'header':
       if (drupal_is_front_page()) :
-        $classes[] = 'col-sm-6';
+        $classes[] = 'col-sm-12';
       else :
         $classes[] = 'col-sm-9';
       endif;
