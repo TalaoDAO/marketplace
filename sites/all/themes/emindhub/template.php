@@ -215,7 +215,34 @@ function emindhub_preprocess_field(&$variables) {
           $classes[] = 'col-sm-2';
           break;
 
+				case 'field_first_name':
+				case 'field_last_name':
+				case 'field_titre_metier':
+				case 'field_entreprise':
+				case 'field_address':
+				case 'field_telephone':
+				case 'field_mail':
+					$user = user_load(arg(1));
+					$field = field_get_items('user', $user, 'field_photo');
+					if ($field) {
+						$classes[] = 'col-sm-10';
+					} else {
+						$classes[] = 'col-sm-12';
+					}
+					break;
+
+				// Requests fields
+				case 'field_autoref':
+				case 'field_start_date':
+				case 'field_duration_of_the_mission':
+				case 'field_expiration_date':
+				case 'field_reward':
+				case 'field_has_salary':
+					$classes[] = '';
+					break;
+
 				default:
+					$classes[] = 'col-sm-12';
           break;
 
       }
