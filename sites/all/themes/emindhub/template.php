@@ -231,6 +231,16 @@ function emindhub_preprocess_field(&$variables) {
 					}
 					break;
 
+				// Requests fields
+				case 'field_autoref':
+				case 'field_start_date':
+				case 'field_duration_of_the_mission':
+				case 'field_expiration_date':
+				case 'field_reward':
+				case 'field_has_salary':
+					$classes[] = '';
+					break;
+
 				default:
 					$classes[] = 'col-sm-12';
           break;
