@@ -58,13 +58,11 @@ global $base_url;
 
       <div class="carousel-inner" role="listbox">
         <div class="item active">
-          <!-- <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/banner/eMindHub_banner_01.jpg" alt="<?php print t('The global aerospace web platform linking companies and experts'); ?>"> -->
           <div class="carousel-caption">
             <h2><?php echo sprintf(t('The global %saerospace web platform%s linking companies and experts'), '<strong>', '</strong>'); ?></h2>
           </div>
         </div>
         <div class="item">
-          <!-- <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/banner/eMindHub_banner_02.jpg" alt="<?php print t('First online Hub dedicated to Aerospace industry'); ?>"> -->
           <div class="carousel-caption">
             <h2><?php echo sprintf(t('%sFirst online Hub%s dedicated to Aerospace industry'), '<strong>', '</strong>'); ?></h2>
           </div>
