@@ -52,34 +52,34 @@ global $base_url;
     <div id="homepage-slider" class="carousel slide" data-ride="carousel">
 
       <ol class="carousel-indicators">
-        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#homepage-slider" data-slide-to="0" class="active"></li>
+        <li data-target="#homepage-slider" data-slide-to="1"></li>
       </ol>
 
       <div class="carousel-inner" role="listbox">
         <div class="item active">
-          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/banner/eMindHub_banner_01.jpg" alt="The global aerospace web platform linking companies and experts">
+          <!-- <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/banner/eMindHub_banner_01.jpg" alt="<?php print t('The global aerospace web platform linking companies and experts'); ?>"> -->
           <div class="carousel-caption">
-            <h3>The global <strong>aerospace web platform </strong>linking companies and experts</h3>
+            <h2><?php echo sprintf(t('The global %saerospace web platform%s linking companies and experts'), '<strong>', '</strong>'); ?></h2>
           </div>
         </div>
         <div class="item">
-          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/banner/eMindHub_banner_02.jpg" alt="First online Hub dedicated to Aerospace industry">
+          <!-- <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/banner/eMindHub_banner_02.jpg" alt="<?php print t('First online Hub dedicated to Aerospace industry'); ?>"> -->
           <div class="carousel-caption">
-            <h3><strong>First online Hub </strong>dedicated to Aerospace industry</h3>
+            <h2><?php echo sprintf(t('%sFirst online Hub%s dedicated to Aerospace industry'), '<strong>', '</strong>'); ?></h2>
           </div>
         </div>
       </div>
 
-      <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+      <a class="left carousel-control" href="#homepage-slider" role="button" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
+        <span class="sr-only"><?php print t('Previous'); ?></span>
       </a>
-      <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+      <a class="right carousel-control" href="#homepage-slider" role="button" data-slide="next">
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
+        <span class="sr-only"><?php print t('Next'); ?></span>
       </a>
-      
+
     </div>
   </div>
 

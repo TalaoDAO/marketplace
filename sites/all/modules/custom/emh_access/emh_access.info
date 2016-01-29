@@ -4,4 +4,5 @@ dependencies[] = emh_circles
 dependencies[] = emh_points
 dependencies[] = flag
 dependencies[] = og
+dependencies[] = customerror
 core = 7.x

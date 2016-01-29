@@ -7,6 +7,7 @@
 function emindhub_preprocess_block(&$variables) {
   $block_id = $variables['block']->module . '-' . $variables['block']->delta;
   // print_r($block_id);
+  // print_r($variables['block']);
   $classes = &$variables['classes_array'];
   $title_classes = &$variables['title_attributes_array']['class'];
   $content_classes = &$variables['content_attributes_array']['class'];
@@ -151,38 +152,38 @@ function emindhub_preprocess_block(&$variables) {
       $content = '';
       break;
 
-    // HP - Business
-    case 'block-emh-blocks-business-question':
+    // HP - Business - Question
+    case 'emh_blocks-business_question':
       $content = '<a href="' . url('freetrial') . '">' . $content . '</a>';
       break;
 
-    // HP - Expert
-    case 'block-emh-blocks-expert-question':
+    // HP - Expert - Question
+    case 'emh_blocks-expert_question':
       $content = '<a href="' . url('expert/register') . '">' . $content . '</a>';
       break;
 
     // HP - Business - You are
-    case 'block-emh-blocks-business-you-are':
+    case 'emh_blocks-business_you_are':
       $classes[] = 'emh-block-light';
       $classes[] = 'emh-block-dark-title';
       $content = '<a href="' . url('freetrial') . '">' . $content . '</a>';
       break;
 
     // HP - Expert - You are
-    case 'block-emh-blocks-expert-you-are':
+    case 'emh_blocks-expert_you_are':
       $classes[] = 'emh-block-light';
       $classes[] = 'emh-block-dark-title';
       $content = '<a href="' . url('expert/register') . '">' . $content . '</a>';
       break;
 
     // HP - Business - Get a free trial
-    case 'block-emh-blocks-business-why':
+    case 'emh_blocks-business_why':
       $classes[] = 'emh-block-light';
       $content = '<a href="' . url('freetrial') . '">' . $content . '</a>';
       break;
 
     // HP - Expert - Sign up for free
-    case 'block-emh-blocks-expert-why':
+    case 'emh_blocks-expert_why':
       $classes[] = 'emh-block-light';
       $content = '<a href="' . url('expert/register') . '">' . $content . '</a>';
       break;

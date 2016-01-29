@@ -115,28 +115,58 @@
 // Homepage : baseline
 #block-block-7 {
 	.content {
-		@media (min-width: @screen-sm-min) {
-			margin-top: 50px;
-			margin-bottom: 50px;
-		}
 		h2 {
 			// color: #8CD4F2;
 			color: #80d9ff;
 			font-weight: normal;
 			line-height: 1.5;
-			font-size: 32px;
-			text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+			font-size: 26px;
+			text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.75);
 			strong {
 				font-weight: bold;
 				display: block;
 				color: #FFF;
 			}
 		}
+		.carousel-indicators {
+			bottom: 0;
+		}
+		.carousel-inner {
+			.item {
+				min-height: 239px;
+				&:first-child {
+					background: transparent url("../images/banner/eMindHub_banner_01.jpg") no-repeat center center;
+				}
+				&:last-child {
+					background: transparent url("../images/banner/eMindHub_banner_02.jpg") no-repeat center center;
+				}
+			}
+		}
+		.carousel-caption {
+			.text-left;
+			left: 10%;
+		}
+		.carousel-control {
+		  &.left {
+				#gradient > .horizontal(@start-color: rgba(17,69,119,1); @end-color: rgba(17,69,119,.0001));
+		  }
+		  &.right {
+				#gradient > .horizontal(@start-color: rgba(17,69,119,.0001); @end-color: rgba(17,69,119,1));
+		  }
+		}
+
+		// @media (min-width: @screen-sm-min) {
+		// 	.carousel-inner {
+		// 		.item {
+		// 			min-height: 239px;
+		// 		}
+		// 	}
+		// }
 	}
 }
 
-// Homepage : Business #15
-// Homepage : Expert #9
+// Homepage : Business Question
+// Homepage : Expert Question
 #block-emh-blocks-business-question,
 #block-emh-blocks-expert-question {
 	background-color: @gray-lighter;
@@ -201,8 +231,8 @@
 	}
 }
 
-// Homepage : Business #26
-// Homepage : Expert #27
+// Homepage : Business You are
+// Homepage : Expert You are
 #block-emh-blocks-business-you-are,
 #block-emh-blocks-expert-you-are {
 	.content {
@@ -234,7 +264,7 @@
 	.text-center;
 	.block-title {
 		margin: 0;
-		background: @darkBlue url("../images/bg_white-grey.png") no-repeat left center;
+		background: @darkBlue;
 		color: #FFF;
 		line-height: 1.3;
 		font-weight: normal;
@@ -289,6 +319,7 @@
 				.text-uppercase;
 				font-size: 18px;
 				font-weight: bold;
+				clear: both;
 			}
 			ul {
 				list-style: none;
@@ -309,6 +340,12 @@
 		font-size: 1.5em;
 		strong {
 			font-weight: bold;
+		}
+	}
+
+	@media (min-width: @screen-sm-min) {
+		.block-title {
+			background: @darkBlue url("../images/bg_white-grey.png") no-repeat left center;
 		}
 	}
 }

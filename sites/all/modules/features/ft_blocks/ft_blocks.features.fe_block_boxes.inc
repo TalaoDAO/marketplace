@@ -54,7 +54,7 @@ function ft_blocks_default_fe_block_boxes() {
   $fe_block_boxes->info = 'HP - Baseline';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'hp_baseline';
-  $fe_block_boxes->body = '<h2>The global&nbsp;<strong>aerospace web platform&nbsp;</strong>linking companies and experts</h2>
+  $fe_block_boxes->body = '<p>Contenu géré dans le template.</p>
 ';
 
   $export['hp_baseline'] = $fe_block_boxes;

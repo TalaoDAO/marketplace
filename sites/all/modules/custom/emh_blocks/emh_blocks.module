@@ -4,75 +4,43 @@
 * Code for eMindHub blocks feature.
 */
 
+function emh_blocks_get_roles() {
+  return array(
+    'business',
+    'expert',
+  );
+}
+
+function emh_blocks_get_list() {
+  return array(
+    'question',
+    'you_are',
+    'why',
+  );
+}
+
 /**
  * Implements hook_block_info().
  */
 function emh_blocks_block_info() {
   $blocks = array();
 
-  $blocks["baseline"] = array(
-    'info' => t("HP - Baseline"),
-    'cache' => DRUPAL_CACHE_PER_ROLE,
-    'weight' => -100,
-    'status' => 1,
-    'region' => 'header',
-    'visibility' => BLOCK_VISIBILITY_LISTED,
-    'pages' => "<front>",
-  );
-  $blocks["business_question"] = array(
-    'info' => t("HP - Business - Question"),
-    'cache' => DRUPAL_CACHE_PER_ROLE,
-    'weight' => -100,
-    'status' => 1,
-    'region' => 'sidebar_first',
-    'visibility' => BLOCK_VISIBILITY_LISTED,
-    'pages' => "<front>",
-  );
-  $blocks["expert_question"] = array(
-    'info' => t("HP - Expert - Question"),
-    'cache' => DRUPAL_CACHE_PER_ROLE,
-    'weight' => -100,
-    'status' => 1,
-    'region' => 'sidebar_second',
-    'visibility' => BLOCK_VISIBILITY_LISTED,
-    'pages' => "<front>",
-  );
-  $blocks["business_you_are"] = array(
-    'info' => t("HP - Business - You are"),
-    'cache' => DRUPAL_CACHE_PER_ROLE,
-    'weight' => -99,
-    'status' => 1,
-    'region' => 'sidebar_first',
-    'visibility' => BLOCK_VISIBILITY_LISTED,
-    'pages' => "<front>",
-  );
-  $blocks["expert_you_are"] = array(
-    'info' => t("HP - Expert - You are"),
-    'cache' => DRUPAL_CACHE_PER_ROLE,
-    'weight' => -99,
-    'status' => 1,
-    'region' => 'sidebar_second',
-    'visibility' => BLOCK_VISIBILITY_LISTED,
-    'pages' => "<front>",
-  );
-  $blocks["business_why"] = array(
-    'info' => t("HP - Business - Why"),
-    'cache' => DRUPAL_CACHE_PER_ROLE,
-    'weight' => -98,
-    'status' => 1,
-    'region' => 'sidebar_first',
-    'visibility' => BLOCK_VISIBILITY_LISTED,
-    'pages' => "<front>",
-  );
-  $blocks["expert_why"] = array(
-    'info' => t("HP - Expert - Why"),
-    'cache' => DRUPAL_CACHE_PER_ROLE,
-    'weight' => -98,
-    'status' => 1,
-    'region' => 'sidebar_second',
-    'visibility' => BLOCK_VISIBILITY_LISTED,
-    'pages' => "<front>",
-  );
+  $emh_roles = emh_blocks_get_roles();
+  $emh_blocks = emh_blocks_get_list();
+
+  foreach ($emh_roles as $emh_role) {
+    foreach ($emh_blocks as $emh_block) {
+      $blocks[$emh_role . '_' . $emh_block] = array(
+        'info' => 'HP - ' . $emh_role . ' - ' . $emh_block,
+        'cache' => DRUPAL_CACHE_PER_ROLE,
+        'weight' => -100,
+        'status' => 1,
+        'region' => 'sidebar_first',
+        'visibility' => BLOCK_VISIBILITY_LISTED,
+        'pages' => "<front>",
+      );
+    }
+  }
 
   return $blocks;
 }
@@ -83,24 +51,29 @@ function emh_blocks_block_info() {
 function emh_blocks_block_view($delta = '') {
   $block = array();
 
-  switch ($delta) {
-    case 'baseline':
-    case 'business_question':
-    case 'expert_question':
-    case 'business_you_are':
-    case 'expert_you_are':
-    case 'business_why':
-    case 'expert_why':
-      $data = variable_get("emh_blocks_$delta", array('value' => '', 'format' => 'filtered_html'));
-      $block = array(
-        'subject' => '<none>',
-        'content' => array(
-          'text' => array(
-            '#markup' => check_markup($data['value'], $data['format']),
-          ),
-        ),
-      );
-      break;
+  $emh_roles = emh_blocks_get_roles();
+  $emh_blocks = emh_blocks_get_list();
+
+  foreach ($emh_roles as $emh_role) {
+    foreach ($emh_blocks as $emh_block) {
+
+      switch ($delta) {
+
+        case $emh_role . '_' . $emh_block:
+          $data = variable_get("emh_block_$delta", array('value' => '', 'format' => 'full_html'));
+          $block = array(
+            'subject' => '<none>',
+            'content' => array(
+              'text' => array(
+                '#markup' => check_markup($data['value'], $data['format']),
+              ),
+            ),
+          );
+          break;
+
+      }
+
+    }
   }
 
   return $block;
@@ -112,22 +85,27 @@ function emh_blocks_block_view($delta = '') {
 function emh_blocks_block_configure($delta='') {
   $form = array();
 
-  switch($delta) {
-    case 'baseline':
-    case 'business_question':
-    case 'expert_question':
-    case 'business_you_are':
-    case 'expert_you_are':
-    case 'business_why':
-    case 'expert_why':
-      $data = variable_get("emh_blocks_$delta", array('value' => '', 'format' => 'filtered_html'));
-      $form['text'] = array(
-        '#type' => 'text_format',
-        '#title' => t('Block text'),
-        '#default_value' => $data['value'],
-        '#format' => $data['format'],
-      );
-      break;
+  $emh_roles = emh_blocks_get_roles();
+  $emh_blocks = emh_blocks_get_list();
+
+  foreach ($emh_roles as $emh_role) {
+    foreach ($emh_blocks as $emh_block) {
+
+      switch($delta) {
+
+        case $emh_role . '_' . $emh_block:
+          $data = variable_get("emh_block_$delta", array('value' => '', 'format' => 'full_html'));
+          $form['text'] = array(
+            '#type' => 'text_format',
+            '#title' => t('Block text'),
+            '#default_value' => $data['value'],
+            '#format' => $data['format'],
+          );
+          break;
+
+      }
+
+    }
   }
 
   return $form;
@@ -137,15 +115,20 @@ function emh_blocks_block_configure($delta='') {
  * Implements hook_block_save().
  */
 function emh_blocks_block_save($delta = '', $edit = array()) {
-  switch($delta) {
-    case 'baseline':
-    case 'business_question':
-    case 'expert_question':
-    case 'business_you_are':
-    case 'expert_you_are':
-    case 'business_why':
-    case 'expert_why':
-      variable_set("emh_blocks_block_$delta", $edit['text']);
-      break;
+  $emh_roles = emh_blocks_get_roles();
+  $emh_blocks = emh_blocks_get_list();
+
+  foreach ($emh_roles as $emh_role) {
+    foreach ($emh_blocks as $emh_block) {
+
+      switch($delta) {
+
+        case $emh_role . '_' . $emh_block:
+          variable_set("emh_block_$delta", $edit['text']);
+          break;
+
+      }
+
+    }
   }
 }

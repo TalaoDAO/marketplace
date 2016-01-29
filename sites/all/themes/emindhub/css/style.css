@@ -11818,6 +11818,10 @@ header#title .emh-title-baseline {
 .emh-block-slider .content {
   padding: 15px 0;
 }
+.emh-block-slider .carousel-inner > .item {
+  padding-left: 10%;
+  padding-right: 10%;
+}
 .emh-more-link {
   font: 0/0 a;
   color: transparent;
@@ -11967,10 +11971,6 @@ h4,
 }
 .navbar {
   margin-bottom: 0;
-}
-.carousel-inner > .item {
-  padding-left: 10%;
-  padding-right: 10%;
 }
 .icon-prev:before,
 .icon-next:before {
@@ -13499,8 +13499,7 @@ header nav.navbar .navbar-collapse.in {
  * Banner
  */
 header#page-header {
-  background: #114577 url("../images/banner/eMindHub_banner_01.jpg") no-repeat center center;
-  background-size: contain;
+  background-color: #114577;
 }
 header#page-header .region-header {
   color: #fff;
@@ -14575,23 +14574,47 @@ table th[class*="col-"] {
   padding: 6px 24px;
   font-weight: 700;
 }
-@media (min-width: 768px) {
-  #block-block-7 .content {
-    margin-top: 50px;
-    margin-bottom: 50px;
-  }
-}
 #block-block-7 .content h2 {
   color: #80d9ff;
   font-weight: normal;
   line-height: 1.5;
-  font-size: 32px;
-  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+  font-size: 26px;
+  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.75);
 }
 #block-block-7 .content h2 strong {
   font-weight: bold;
   display: block;
   color: #FFF;
+}
+#block-block-7 .content .carousel-indicators {
+  bottom: 0;
+}
+#block-block-7 .content .carousel-inner .item {
+  min-height: 239px;
+}
+#block-block-7 .content .carousel-inner .item:first-child {
+  background: transparent url("../images/banner/eMindHub_banner_01.jpg") no-repeat center center;
+}
+#block-block-7 .content .carousel-inner .item:last-child {
+  background: transparent url("../images/banner/eMindHub_banner_02.jpg") no-repeat center center;
+}
+#block-block-7 .content .carousel-caption {
+  text-align: left;
+  left: 10%;
+}
+#block-block-7 .content .carousel-control.left {
+  background-image: -webkit-linear-gradient(left, #114577 0%, rgba(17, 69, 119, 0.0001) 100%);
+  background-image: -o-linear-gradient(left, #114577 0%, rgba(17, 69, 119, 0.0001) 100%);
+  background-image: linear-gradient(to right, #114577 0%, rgba(17, 69, 119, 0.0001) 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff114577', endColorstr='#00114577', GradientType=1);
+}
+#block-block-7 .content .carousel-control.right {
+  background-image: -webkit-linear-gradient(left, rgba(17, 69, 119, 0.0001) 0%, #114577 100%);
+  background-image: -o-linear-gradient(left, rgba(17, 69, 119, 0.0001) 0%, #114577 100%);
+  background-image: linear-gradient(to right, rgba(17, 69, 119, 0.0001) 0%, #114577 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00114577', endColorstr='#ff114577', GradientType=1);
 }
 #block-emh-blocks-business-question,
 #block-emh-blocks-expert-question {
@@ -14690,7 +14713,7 @@ table th[class*="col-"] {
 #block-emh-blocks-business-why .block-title,
 #block-emh-blocks-expert-why .block-title {
   margin: 0;
-  background: #445766 url("../images/bg_white-grey.png") no-repeat left center;
+  background: #445766;
   color: #FFF;
   line-height: 1.3;
   font-weight: normal;
@@ -14763,6 +14786,7 @@ table th[class*="col-"] {
   text-transform: uppercase;
   font-size: 18px;
   font-weight: bold;
+  clear: both;
 }
 #block-emh-blocks-business-why .content > a ul,
 #block-emh-blocks-expert-why .content > a ul {
@@ -14786,6 +14810,12 @@ table th[class*="col-"] {
 #block-emh-blocks-business-why a.btn strong,
 #block-emh-blocks-expert-why a.btn strong {
   font-weight: bold;
+}
+@media (min-width: 768px) {
+  #block-emh-blocks-business-why .block-title,
+  #block-emh-blocks-expert-why .block-title {
+    background: #445766 url("../images/bg_white-grey.png") no-repeat left center;
+  }
 }
 #block-emh-blocks-business-why .block-title .title-first {
   background: #009fe3 url("../images/picto/picto_atomium_blue.png") no-repeat center center;
