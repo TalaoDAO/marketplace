@@ -9750,6 +9750,10 @@ button.close {
 .form-actions:after,
 #block-emh-blocks-business-you-are .content:before,
 #block-emh-blocks-business-you-are .content:after,
+#block-emh-blocks-business-why .block-title > span:before,
+#block-emh-blocks-business-why .block-title > span:after,
+#block-emh-blocks-expert-why .block-title > span:before,
+#block-emh-blocks-expert-why .block-title > span:after,
 #block-emh-blocks-business-why .content:before,
 #block-emh-blocks-business-why .content:after,
 #block-emh-blocks-expert-why .content:before,
@@ -9800,6 +9804,8 @@ form#user-profile-form .link-field-subrow:after,
 .form-actions:after,
 .form-actions:after,
 #block-emh-blocks-business-you-are .content:after,
+#block-emh-blocks-business-why .block-title > span:after,
+#block-emh-blocks-expert-why .block-title > span:after,
 #block-emh-blocks-business-why .content:after,
 #block-emh-blocks-expert-why .content:after,
 #block-block-11 .content ul:after,
@@ -14713,6 +14719,10 @@ table th[class*="col-"] {
   margin-top: 50px;
   text-align: center;
 }
+#block-emh-blocks-business-why br,
+#block-emh-blocks-expert-why br {
+  display: none;
+}
 #block-emh-blocks-business-why .block-title,
 #block-emh-blocks-expert-why .block-title {
   margin: 0;
@@ -14722,44 +14732,58 @@ table th[class*="col-"] {
   font-weight: normal;
   text-align: left;
 }
-#block-emh-blocks-business-why .block-title .title-first,
-#block-emh-blocks-expert-why .block-title .title-first {
-  z-index: 1;
-  display: inline-block;
-  width: 140px;
-  height: 140px;
-  padding-top: 41.4px;
-  margin-top: -29px;
-  float: left;
-  position: relative;
-  border-radius: 50%;
-  text-align: center;
-  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 0px 0px 10px 0px #b5b5b5;
-  -webkit-box-shadow: 0px 0px 10px 0px #b5b5b5;
-  -o-box-shadow: 0px 0px 10px 0px #b5b5b5;
-  box-shadow: 0px 0px 10px 0px #b5b5b5;
-  filter: progid:DXImageTransform.Microsoft.Shadow(color=#b5b5b5, Direction=NaN, Strength=10);
+#block-emh-blocks-business-why .block-title > span,
+#block-emh-blocks-expert-why .block-title > span {
+  margin-left: -15px;
+  margin-right: -15px;
+  margin: 0;
 }
-#block-emh-blocks-business-why .block-title .title-first strong,
-#block-emh-blocks-expert-why .block-title .title-first strong {
-  display: block;
+#block-emh-blocks-business-why .block-title > span > .title-first,
+#block-emh-blocks-expert-why .block-title > span > .title-first {
+  position: relative;
+  float: left;
+  width: 100%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding: 15px;
+  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+}
+@media (min-width: 768px) {
+  #block-emh-blocks-business-why .block-title > span > .title-first,
+  #block-emh-blocks-expert-why .block-title > span > .title-first {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+#block-emh-blocks-business-why .block-title > span > .title-first strong,
+#block-emh-blocks-expert-why .block-title > span > .title-first strong {
   font-weight: bold;
 }
-#block-emh-blocks-business-why .block-title .title-second,
-#block-emh-blocks-expert-why .block-title .title-second {
-  display: inline-block;
-  margin-left: 20px;
+#block-emh-blocks-business-why .block-title > span > .title-second,
+#block-emh-blocks-expert-why .block-title > span > .title-second {
+  position: relative;
+  float: left;
+  width: 100%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
   font-size: 20px;
   text-transform: none;
   padding: 15px;
+}
+@media (min-width: 768px) {
+  #block-emh-blocks-business-why .block-title > span > .title-second,
+  #block-emh-blocks-expert-why .block-title > span > .title-second {
+    float: left;
+    width: 66.66666667%;
+  }
 }
 #block-emh-blocks-business-why .content,
 #block-emh-blocks-expert-why .content {
   margin-left: -15px;
   margin-right: -15px;
   margin: 0;
-  z-index: 1;
   background-color: #f2f2f2;
   font-size: 17px;
   line-height: 1.6em;
@@ -14815,24 +14839,60 @@ table th[class*="col-"] {
   font-weight: bold;
 }
 @media (min-width: 768px) {
-  #block-emh-blocks-business-why .block-title,
-  #block-emh-blocks-expert-why .block-title {
-    background: #445766 url("../images/bg_white-grey.png") no-repeat left center;
+  #block-emh-blocks-business-why .block-title > span > .title-first,
+  #block-emh-blocks-expert-why .block-title > span > .title-first {
+    padding: 0;
+  }
+  #block-emh-blocks-business-why br,
+  #block-emh-blocks-expert-why br {
+    display: block;
+  }
+  #block-emh-blocks-business-why .title-first,
+  #block-emh-blocks-expert-why .title-first {
+    width: 140px !important;
+    height: 140px !important;
+    padding-top: 41.4px !important;
+    margin-top: -29px;
+    border-radius: 50%;
+    text-align: center;
+    -moz-box-shadow: 0px 0px 10px 0px #b5b5b5;
+    -webkit-box-shadow: 0px 0px 10px 0px #b5b5b5;
+    -o-box-shadow: 0px 0px 10px 0px #b5b5b5;
+    box-shadow: 0px 0px 10px 0px #b5b5b5;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#b5b5b5, Direction=NaN, Strength=10);
+  }
+  #block-emh-blocks-business-why .title-first strong,
+  #block-emh-blocks-expert-why .title-first strong {
+    display: block;
+  }
+  #block-emh-blocks-business-why .content,
+  #block-emh-blocks-expert-why .content {
+    margin-top: -20px;
   }
 }
 #block-emh-blocks-business-why .block-title .title-first {
-  background: #009fe3 url("../images/picto/picto_atomium_blue.png") no-repeat center center;
+  background: #009fe3 url("../images/picto/picto_atomium_blue.png") no-repeat right center;
   background-size: contain;
 }
 #block-emh-blocks-business-why .content > a > h3 {
   color: #009fe3;
 }
+@media (min-width: 768px) {
+  #block-emh-blocks-business-why {
+    background-position: center center;
+  }
+}
 #block-emh-blocks-expert-why .block-title .title-first {
-  background: #c89234 url("../images/picto/picto_people_yellow.png") no-repeat center center;
+  background: #c89234 url("../images/picto/picto_people_yellow.png") no-repeat right center;
   background-size: contain;
 }
 #block-emh-blocks-expert-why .content > a > h3 {
   color: #c89234;
+}
+@media (min-width: 768px) {
+  #block-emh-blocks-expert-why {
+    background-position: center center;
+  }
 }
 #block-block-14 .content,
 #block-block-8 .content,
