@@ -44,41 +44,19 @@
  *
  * @ingroup themeable
  */
-global $base_url;
 ?>
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
+  <?php print render($title_prefix); ?>
+  <?php if ($title): ?>
+    <h2<?php print $title_attributes; ?>><span><?php print $title; ?></span></h2>
+  <?php endif;?>
+  <?php print render($title_suffix); ?>
+
   <div class="content">
-    <div id="homepage-slider" class="carousel slide" data-ride="carousel">
-
-      <ol class="carousel-indicators">
-        <li data-target="#homepage-slider" data-slide-to="0" class="active"></li>
-        <li data-target="#homepage-slider" data-slide-to="1"></li>
-      </ol>
-
-      <div class="carousel-inner" role="listbox">
-        <div class="item active">
-          <div class="carousel-caption">
-            <h2><?php echo sprintf(t('The global %saerospace web platform%s linking companies and experts'), '<strong>', '</strong>'); ?></h2>
-          </div>
-        </div>
-        <div class="item">
-          <div class="carousel-caption">
-            <h2><?php echo sprintf(t('First online Hub %sdedicated to %sthe Aerospace industry%s'), '<br />', '<strong>', '</strong>'); ?></h2>
-          </div>
-        </div>
-      </div>
-
-      <a class="left carousel-control" href="#homepage-slider" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only"><?php print t('Previous'); ?></span>
-      </a>
-      <a class="right carousel-control" href="#homepage-slider" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only"><?php print t('Next'); ?></span>
-      </a>
-
-    </div>
+    <p><a class="btn btn-submit" href="<?php print url('freetrial'); ?>"><?php print t('Register as a client'); ?></a></p>
+    <p><a class="btn btn-submit" href="<?php print url('expert/register'); ?>"><?php print t('Register as an expert'); ?></a></p>
+    <p><?php print t('Create your account in 1 minute !'); ?></p>
   </div>
 
 </section> <!-- /.block -->

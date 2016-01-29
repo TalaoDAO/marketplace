@@ -26,11 +26,11 @@ function ft_content_type_image_default_styles() {
   $styles['news_block'] = array(
     'label' => 'news block (265x105)',
     'effects' => array(
-      3 => array(
+      2 => array(
         'name' => 'image_scale',
         'data' => array(
-          'width' => 265,
-          'height' => 105,
+          'width' => 300,
+          'height' => 250,
           'upscale' => 0,
         ),
         'weight' => 1,
