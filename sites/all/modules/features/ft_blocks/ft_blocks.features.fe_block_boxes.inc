@@ -63,7 +63,8 @@ function ft_blocks_default_fe_block_boxes() {
   $fe_block_boxes->info = 'HP - Start a challenge';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'hp_challenge';
-  $fe_block_boxes->body = '<p>Contenu géré dans le template.</p>';
+  $fe_block_boxes->body = '<p>Contenu géré dans le template.</p>
+';
 
   $export['hp_challenge'] = $fe_block_boxes;
 
@@ -123,7 +124,8 @@ function ft_blocks_default_fe_block_boxes() {
   $fe_block_boxes->info = 'HP - Ask a question';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'hp_question';
-  $fe_block_boxes->body = '<p>Contenu géré dans le template.</p>';
+  $fe_block_boxes->body = '<p>Contenu géré dans le template.</p>
+';
 
   $export['hp_question'] = $fe_block_boxes;
 
@@ -148,7 +150,8 @@ function ft_blocks_default_fe_block_boxes() {
   $fe_block_boxes->info = 'HP - Create a survey';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'hp_survey';
-  $fe_block_boxes->body = '<p>Contenu géré dans le template.</p>';
+  $fe_block_boxes->body = '<p>Contenu géré dans le template.</p>
+';
 
   $export['hp_survey'] = $fe_block_boxes;
 
