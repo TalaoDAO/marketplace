@@ -224,7 +224,11 @@ global $base_url;
       <div class="row">
 
         <?php if (!empty($page['sidebar_first'])) : ?>
+        <?php if ($is_front) : ?>
+        <aside id="sidebar-first" class="col-sm-5 col-sm-offset-1" role="complementary">
+        <?php else : ?>
         <aside id="sidebar-first" class="col-sm-2" role="complementary">
+        <?php endif; ?>
           <?php print render($page['sidebar_first']); ?>
         </aside>  <!-- /#sidebar-first -->
         <?php endif; ?>
@@ -240,7 +244,11 @@ global $base_url;
         </section>
 
         <?php if (!empty($page['sidebar_second']) || !empty($page['help'])): ?>
+        <?php if ($is_front) : ?>
+        <aside id="sidebar-second" class="col-sm-5" role="complementary">
+        <?php else : ?>
         <aside id="sidebar-second" class="col-sm-3" role="complementary">
+        <?php endif; ?>
           <?php if (!empty($page['help'])): ?>
             <?php print render($page['help']); ?>
           <?php endif; ?>

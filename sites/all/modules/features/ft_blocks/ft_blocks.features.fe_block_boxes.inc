@@ -54,7 +54,8 @@ function ft_blocks_default_fe_block_boxes() {
   $fe_block_boxes->info = 'HP - Baseline';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'hp_baseline';
-  $fe_block_boxes->body = '<p>Get online access&nbsp;to</p><p>the 1st global network of experts</p><p>in aerospace</p>';
+  $fe_block_boxes->body = '<p>Contenu géré dans le template.</p>
+';
 
   $export['hp_baseline'] = $fe_block_boxes;
 
@@ -62,15 +63,24 @@ function ft_blocks_default_fe_block_boxes() {
   $fe_block_boxes->info = 'HP - Start a challenge';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'hp_challenge';
-  $fe_block_boxes->body = '<p>Contenu géré dans le template.</p>';
+  $fe_block_boxes->body = '<p>Contenu géré dans le template.</p>
+';
 
   $export['hp_challenge'] = $fe_block_boxes;
 
   $fe_block_boxes = new stdClass();
-  $fe_block_boxes->info = 'HP - You have an expertise';
+  $fe_block_boxes->info = 'HP - Expert - Do you have an expertise?';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'hp_expertise';
-  $fe_block_boxes->body = '<p>Contenu géré directement dans le tpl du block.</p>';
+  $fe_block_boxes->body = '<h2>Do you have <strong>an expertise?</strong></h2>
+
+<h3>Get yourself known to your future clients&nbsp;and generate revenue online!</h3>
+
+<ul>
+	<li>Demonstrate your skills and find assignments</li>
+	<li>Monetize your professional network</li>
+</ul>
+';
 
   $export['hp_expertise'] = $fe_block_boxes;
 
@@ -114,15 +124,25 @@ function ft_blocks_default_fe_block_boxes() {
   $fe_block_boxes->info = 'HP - Ask a question';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'hp_question';
-  $fe_block_boxes->body = '<p>Contenu géré dans le template.</p>';
+  $fe_block_boxes->body = '<p>Contenu géré dans le template.</p>
+';
 
   $export['hp_question'] = $fe_block_boxes;
 
   $fe_block_boxes = new stdClass();
-  $fe_block_boxes->info = 'HP - You have a request';
+  $fe_block_boxes->info = 'HP - Business - Is your company looking for expertise?';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'hp_request';
-  $fe_block_boxes->body = '<p>Contenu géré directement dans le tpl du block.</p>';
+  $fe_block_boxes->body = '<h2>Is your company <strong>looking for expertise?</strong></h2>
+
+<h3>Get best experts working for you!</h3>
+
+<ul>
+	<li>Obtain advice, return on experience and insights</li>
+	<li>Entrust experts with specific tasks</li>
+	<li>Call experts pools for innovation</li>
+</ul>
+';
 
   $export['hp_request'] = $fe_block_boxes;
 
@@ -130,7 +150,8 @@ function ft_blocks_default_fe_block_boxes() {
   $fe_block_boxes->info = 'HP - Create a survey';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'hp_survey';
-  $fe_block_boxes->body = '<p>Contenu géré dans le template.</p>';
+  $fe_block_boxes->body = '<p>Contenu géré dans le template.</p>
+';
 
   $export['hp_survey'] = $fe_block_boxes;
 

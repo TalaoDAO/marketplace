@@ -1,0 +1,134 @@
+<?php
+/**
+* @file
+* Code for eMindHub blocks feature.
+*/
+
+function emh_blocks_get_roles() {
+  return array(
+    'business',
+    'expert',
+  );
+}
+
+function emh_blocks_get_list() {
+  return array(
+    'question',
+    'you_are',
+    'why',
+  );
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function emh_blocks_block_info() {
+  $blocks = array();
+
+  $emh_roles = emh_blocks_get_roles();
+  $emh_blocks = emh_blocks_get_list();
+
+  foreach ($emh_roles as $emh_role) {
+    foreach ($emh_blocks as $emh_block) {
+      $blocks[$emh_role . '_' . $emh_block] = array(
+        'info' => 'HP - ' . $emh_role . ' - ' . $emh_block,
+        'cache' => DRUPAL_CACHE_PER_ROLE,
+        'weight' => -100,
+        'status' => 1,
+        'region' => 'sidebar_first',
+        'visibility' => BLOCK_VISIBILITY_LISTED,
+        'pages' => "<front>",
+      );
+    }
+  }
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function emh_blocks_block_view($delta = '') {
+  $block = array();
+
+  $emh_roles = emh_blocks_get_roles();
+  $emh_blocks = emh_blocks_get_list();
+
+  foreach ($emh_roles as $emh_role) {
+    foreach ($emh_blocks as $emh_block) {
+
+      switch ($delta) {
+
+        case $emh_role . '_' . $emh_block:
+          $data = variable_get("emh_block_$delta", array('value' => '', 'format' => 'full_html'));
+          $block = array(
+            'subject' => '<none>',
+            'content' => array(
+              'text' => array(
+                '#markup' => check_markup($data['value'], $data['format']),
+              ),
+            ),
+          );
+          break;
+
+      }
+
+    }
+  }
+
+  return $block;
+}
+
+/**
+ * Implements hook_block_configure().
+ */
+function emh_blocks_block_configure($delta='') {
+  $form = array();
+
+  $emh_roles = emh_blocks_get_roles();
+  $emh_blocks = emh_blocks_get_list();
+
+  foreach ($emh_roles as $emh_role) {
+    foreach ($emh_blocks as $emh_block) {
+
+      switch($delta) {
+
+        case $emh_role . '_' . $emh_block:
+          $data = variable_get("emh_block_$delta", array('value' => '', 'format' => 'full_html'));
+          $form['text'] = array(
+            '#type' => 'text_format',
+            '#title' => t('Block text'),
+            '#default_value' => $data['value'],
+            '#format' => $data['format'],
+          );
+          break;
+
+      }
+
+    }
+  }
+
+  return $form;
+}
+
+/**
+ * Implements hook_block_save().
+ */
+function emh_blocks_block_save($delta = '', $edit = array()) {
+  $emh_roles = emh_blocks_get_roles();
+  $emh_blocks = emh_blocks_get_list();
+
+  foreach ($emh_roles as $emh_role) {
+    foreach ($emh_blocks as $emh_block) {
+
+      switch($delta) {
+
+        case $emh_role . '_' . $emh_block:
+          variable_set("emh_block_$delta", $edit['text']);
+          break;
+
+      }
+
+    }
+  }
+}

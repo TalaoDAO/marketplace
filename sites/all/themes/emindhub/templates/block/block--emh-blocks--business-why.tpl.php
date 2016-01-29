@@ -47,18 +47,15 @@
 ?>
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-  <?php print render($title_prefix); ?>
-  <?php if ($title): ?>
-    <h2<?php print $title_attributes; ?>><span><?php print $title; ?></span></h2>
-  <?php endif;?>
-  <?php print render($title_suffix); ?>
+  <a href="<?php print url('freetrial'); ?>">
+    <h2<?php print $title_attributes; ?>><span><?php echo sprintf(t('%sGet a %sfree trial%sSubmit your request %sto our experts%s'), '<span class="title-first">', '<strong>', '</strong></span><span class="title-second">', '<br />', '</span>'); ?></span></h2>
+  </a>
 
   <?php if ($content): ?>
     <div class="content">
-      <a href="<?php print url('freetrial'); ?>">
-        <?php print $content; ?>
-      </a>
+      <?php print $content; ?>
     </div>
+    <a href="<?php print url('freetrial'); ?>" class="btn btn-primary calltoaction"><?php echo sprintf(t('Sign up %sas a client%s'), '<strong>', '</strong>'); ?></a>
   <?php endif;?>
 
 </section> <!-- /.block -->

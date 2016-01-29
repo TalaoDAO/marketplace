@@ -57,7 +57,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -45,
+        'weight' => -43,
       ),
       'seven' => array(
         'region' => '',
@@ -174,7 +174,9 @@ freetrial',
     'module' => 'block',
     'node_types' => array(),
     'pages' => '<front>',
-    'roles' => array(),
+    'roles' => array(
+      'authenticated user' => 2,
+    ),
     'themes' => array(
       'emindhub' => array(
         'region' => 'top',
@@ -207,8 +209,8 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'header_right',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
         'weight' => -42,
       ),
@@ -237,8 +239,8 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'top',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
         'weight' => -41,
       ),
@@ -267,8 +269,8 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'top',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
         'weight' => -39,
       ),
@@ -297,8 +299,8 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'top',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
         'weight' => -40,
       ),
@@ -327,8 +329,8 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'top',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
         'weight' => -45,
       ),
@@ -352,7 +354,9 @@ freetrial',
     'module' => 'block',
     'node_types' => array(),
     'pages' => '<front>',
-    'roles' => array(),
+    'roles' => array(
+      'authenticated user' => 2,
+    ),
     'themes' => array(
       'emindhub' => array(
         'region' => 'top',
@@ -385,8 +389,8 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'header_right',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
         'weight' => -43,
       ),
@@ -410,7 +414,9 @@ freetrial',
     'module' => 'block',
     'node_types' => array(),
     'pages' => '<front>',
-    'roles' => array(),
+    'roles' => array(
+      'authenticated user' => 2,
+    ),
     'themes' => array(
       'emindhub' => array(
         'region' => 'top',
@@ -473,8 +479,8 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'bottom',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
         'weight' => -45,
       ),
@@ -503,8 +509,8 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'bottom',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
         'weight' => -44,
       ),
@@ -533,8 +539,8 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'bottom',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
         'weight' => -43,
       ),
@@ -563,8 +569,8 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'bottom',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
         'weight' => -42,
       ),
@@ -605,6 +611,270 @@ freetrial',
     ),
     'title' => '<none>',
     'visibility' => 0,
+  );
+
+  $export['emh_blocks-business_question'] = array(
+    'cache' => 1,
+    'custom' => 0,
+    'delta' => 'business_question',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 1,
+    'module' => 'emh_blocks',
+    'node_types' => array(),
+    'pages' => '<front>',
+    'roles' => array(
+      'anonymous user' => 1,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'sidebar_first',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => -51,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => -100,
+      ),
+    ),
+    'title' => '<none>',
+    'visibility' => 1,
+  );
+
+  $export['emh_blocks-business_why'] = array(
+    'cache' => 1,
+    'custom' => 0,
+    'delta' => 'business_why',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 1,
+    'module' => 'emh_blocks',
+    'node_types' => array(),
+    'pages' => '<front>',
+    'roles' => array(
+      'anonymous user' => 1,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'sidebar_first',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => -49,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => -100,
+      ),
+    ),
+    'title' => '<none>',
+    'visibility' => 1,
+  );
+
+  $export['emh_blocks-business_you_are'] = array(
+    'cache' => 1,
+    'custom' => 0,
+    'delta' => 'business_you_are',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 1,
+    'module' => 'emh_blocks',
+    'node_types' => array(),
+    'pages' => '<front>',
+    'roles' => array(
+      'anonymous user' => 1,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'sidebar_first',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => -50,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => -100,
+      ),
+    ),
+    'title' => 'You are',
+    'visibility' => 1,
+  );
+
+  $export['emh_blocks-expert_question'] = array(
+    'cache' => 1,
+    'custom' => 0,
+    'delta' => 'expert_question',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 1,
+    'module' => 'emh_blocks',
+    'node_types' => array(),
+    'pages' => '<front>',
+    'roles' => array(
+      'anonymous user' => 1,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'sidebar_second',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => -51,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => -100,
+      ),
+    ),
+    'title' => '<none>',
+    'visibility' => 1,
+  );
+
+  $export['emh_blocks-expert_why'] = array(
+    'cache' => 1,
+    'custom' => 0,
+    'delta' => 'expert_why',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 1,
+    'module' => 'emh_blocks',
+    'node_types' => array(),
+    'pages' => '<front>',
+    'roles' => array(
+      'anonymous user' => 1,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'sidebar_second',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => -49,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => -100,
+      ),
+    ),
+    'title' => '<none>',
+    'visibility' => 1,
+  );
+
+  $export['emh_blocks-expert_you_are'] = array(
+    'cache' => 1,
+    'custom' => 0,
+    'delta' => 'expert_you_are',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 1,
+    'module' => 'emh_blocks',
+    'node_types' => array(),
+    'pages' => '<front>',
+    'roles' => array(
+      'anonymous user' => 1,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'sidebar_second',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => -50,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => -100,
+      ),
+    ),
+    'title' => 'You are',
+    'visibility' => 1,
+  );
+
+  $export['emh_request-request_help_challenge'] = array(
+    'cache' => 1,
+    'custom' => 0,
+    'delta' => 'request_help_challenge',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'module' => 'emh_request',
+    'node_types' => array(),
+    'pages' => 'node/add/challenge',
+    'roles' => array(),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'sidebar_second',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => -48,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => -100,
+      ),
+    ),
+    'title' => 'Help_challenges',
+    'visibility' => 1,
+  );
+
+  $export['emh_request-request_help_question1'] = array(
+    'cache' => 1,
+    'custom' => 0,
+    'delta' => 'request_help_question1',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'module' => 'emh_request',
+    'node_types' => array(),
+    'pages' => 'node/add/question1',
+    'roles' => array(),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'sidebar_second',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => -47,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => -100,
+      ),
+    ),
+    'title' => 'Help_questions',
+    'visibility' => 1,
+  );
+
+  $export['emh_request-request_help_webform'] = array(
+    'cache' => 1,
+    'custom' => 0,
+    'delta' => 'request_help_webform',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'module' => 'emh_request',
+    'node_types' => array(),
+    'pages' => 'node/add/webform',
+    'roles' => array(),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'sidebar_second',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => -46,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => -100,
+      ),
+    ),
+    'title' => 'Help_surveys',
+    'visibility' => 1,
   );
 
   $export['menu-menu-burger-menu'] = array(
@@ -766,7 +1036,7 @@ freetrial',
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -40,
+        'weight' => -46,
       ),
       'seven' => array(
         'region' => '',
@@ -1122,8 +1392,8 @@ freetrial',
     'roles' => array(),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'bottom',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
         'weight' => -41,
       ),
@@ -1249,7 +1519,7 @@ freetrial',
     'roles' => array(),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'bottom_right',
+        'region' => 'bottom',
         'status' => 1,
         'theme' => 'emindhub',
         'weight' => -42,
@@ -1261,7 +1531,7 @@ freetrial',
         'weight' => 0,
       ),
     ),
-    'title' => '',
+    'title' => '<none>',
     'visibility' => 1,
   );
 
@@ -1280,7 +1550,7 @@ freetrial',
         'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -45,
+        'weight' => -44,
       ),
       'seven' => array(
         'region' => '',
@@ -1428,8 +1698,8 @@ node',
     'roles' => array(),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'bottom',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
         'weight' => -40,
       ),

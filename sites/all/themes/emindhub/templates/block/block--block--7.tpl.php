@@ -44,21 +44,43 @@
  *
  * @ingroup themeable
  */
+global $base_url;
 ?>
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-  <?php print render($title_prefix); ?>
-  <?php if ($title): ?>
-    <h2<?php print $title_attributes; ?>><span><?php print $title; ?></span></h2>
-  <?php endif;?>
-  <?php print render($title_suffix); ?>
+  <div class="content">
+    <div id="homepage-slider" class="carousel slide" data-ride="carousel">
 
-  <?php if ($content): ?>
-    <div class="content">
-      <a href="<?php print url('freetrial'); ?>">
-        <?php print $content; ?>
+      <ol class="carousel-indicators">
+        <li data-target="#homepage-slider" data-slide-to="0" class="active"></li>
+        <li data-target="#homepage-slider" data-slide-to="1"></li>
+      </ol>
+
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <!-- <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/banner/eMindHub_banner_01.jpg" alt="<?php print t('The global aerospace web platform linking companies and experts'); ?>"> -->
+          <div class="carousel-caption">
+            <h2><?php echo sprintf(t('The global %saerospace web platform%s linking companies and experts'), '<strong>', '</strong>'); ?></h2>
+          </div>
+        </div>
+        <div class="item">
+          <!-- <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/banner/eMindHub_banner_02.jpg" alt="<?php print t('First online Hub dedicated to Aerospace industry'); ?>"> -->
+          <div class="carousel-caption">
+            <h2><?php echo sprintf(t('%sFirst online Hub%s dedicated to Aerospace industry'), '<strong>', '</strong>'); ?></h2>
+          </div>
+        </div>
+      </div>
+
+      <a class="left carousel-control" href="#homepage-slider" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only"><?php print t('Previous'); ?></span>
       </a>
+      <a class="right carousel-control" href="#homepage-slider" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only"><?php print t('Next'); ?></span>
+      </a>
+
     </div>
-  <?php endif;?>
+  </div>
 
 </section> <!-- /.block -->

@@ -115,41 +115,268 @@
 // Homepage : baseline
 #block-block-7 {
 	.content {
-		@media (min-width: @screen-sm-min) {
-			margin-top: 50px;
+		h2 {
+			// color: #8CD4F2;
+			color: #80d9ff;
+			font-weight: normal;
+			line-height: 1.5;
+			font-size: 26px;
+			text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.75);
+			strong {
+				font-weight: bold;
+				display: block;
+				color: #FFF;
+			}
+		}
+		.carousel-indicators {
+			bottom: 0;
+		}
+		.carousel-inner {
+			.item {
+				min-height: 239px;
+				&:first-child {
+					background: transparent url("../images/banner/eMindHub_banner_01.jpg") no-repeat center center;
+				}
+				&:last-child {
+					background: transparent url("../images/banner/eMindHub_banner_02.jpg") no-repeat center center;
+				}
+			}
+		}
+		.carousel-caption {
+			.text-left;
+			left: 10%;
+		}
+		.carousel-control {
+		  &.left {
+				#gradient > .horizontal(@start-color: rgba(17,69,119,1); @end-color: rgba(17,69,119,.0001));
+		  }
+		  &.right {
+				#gradient > .horizontal(@start-color: rgba(17,69,119,.0001); @end-color: rgba(17,69,119,1));
+		  }
 		}
 
-		p {
-			&:first-of-type,
-			&:last-of-type {
-				color: #8CD4F2;
+		// @media (min-width: @screen-sm-min) {
+		// 	.carousel-inner {
+		// 		.item {
+		// 			min-height: 239px;
+		// 		}
+		// 	}
+		// }
+	}
+}
+
+// Homepage : Business Question
+// Homepage : Expert Question
+#block-emh-blocks-business-question,
+#block-emh-blocks-expert-question {
+	background-color: @gray-lighter;
+	// border: 0;
+	-moz-box-shadow: 0px 0px 10px 0px @gray-light2;
+	-webkit-box-shadow: 0px 0px 10px 0px @gray-light2;
+	-o-box-shadow: 0px 0px 10px 0px @gray-light2;
+	box-shadow: 0px 0px 10px 0px @gray-light2;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=@gray-light2, Direction=NaN, Strength=10);
+	font-size: 17px;
+	line-height: 1.6em;
+	.content {
+		padding: 0;
+		border: 0;
+		> a {
+			> * {
+				padding: 1em 15px;
+				margin: 0;
+			}
+		}
+	}
+	a {
+		text-decoration: none;
+		color: inherit;
+	}
+	h2 {
+		font-weight: normal;
+		font-size: 26px;
+		line-height: 1.3;
+		padding: 15px;
+		text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.25);
+		strong {
+			display: block;
+			font-weight: bold;
+		}
+	}
+	h3 {
+		color: #FFF;
+		font-size: 22px;
+		font-weight: bold;
+		display: block;
+		margin: 0;
+		padding: 15px;
+		line-height: 1.3em;
+		min-height: 4em;
+		padding: 1em 15px;
+	}
+	ul {
+		list-style: none;
+		min-height: 6.8em;
+	}
+}
+#block-emh-blocks-business-question {
+	h3 {
+		background-color: @brand-primary;
+		line-height: 2.6em;
+	}
+}
+#block-emh-blocks-expert-question {
+	h3 {
+		background-color: @expertYellow;
+	}
+}
+
+// Homepage : Business You are
+// Homepage : Expert You are
+#block-emh-blocks-business-you-are,
+#block-emh-blocks-expert-you-are {
+	.content {
+		margin: 0;
+		padding: 0 15px !important;
+		font-size: 17px;
+		line-height: 1.6em;
+	}
+}
+#block-emh-blocks-business-you-are {
+	.content {
+		.make-row();
+		ul {
+			.make-sm-column(6);
+		}
+	}
+}
+#block-emh-blocks-expert-you-are {
+	a {
+		color: @expertYellow;
+	}
+}
+
+// Homepage : Business Why
+// Homepage : Expert Why
+#block-emh-blocks-business-why,
+#block-emh-blocks-expert-why {
+	margin-top: 50px;
+	.text-center;
+	.block-title {
+		margin: 0;
+		background: @darkBlue;
+		color: #FFF;
+		line-height: 1.3;
+		font-weight: normal;
+		.text-left;
+
+		.title-first {
+			z-index: 1;
+			display: inline-block;
+			width: 140px;
+			height: 140px;
+			padding-top: 41.4px;
+			margin-top: -29px;
+			float: left;
+			position: relative;
+
+			.img-circle;
+			.text-center;
+			text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+			-moz-box-shadow: 0px 0px 10px 0px @gray-light2;
+			-webkit-box-shadow: 0px 0px 10px 0px @gray-light2;
+			-o-box-shadow: 0px 0px 10px 0px @gray-light2;
+			box-shadow: 0px 0px 10px 0px @gray-light2;
+			filter:progid:DXImageTransform.Microsoft.Shadow(color=@gray-light2, Direction=NaN, Strength=10);
+			strong {
+				display: block;
+				font-weight: bold;
+			}
+		}
+		.title-second {
+			display: inline-block;
+			margin-left: 20px;
+			font-size: 20px;
+			text-transform: none;
+			padding: 15px;
+		}
+	}
+	.content {
+		.make-row();
+		margin: 0;
+		z-index: 1;
+		background-color: @gray-lighter;
+		font-size: 17px;
+		line-height: 1.6em;
+		.text-left;
+		> a {
+			display: block;
+			color: inherit;
+			> * {
+				.make-sm-column(12);
+			}
+			> h3 {
+				.text-uppercase;
+				font-size: 18px;
+				font-weight: bold;
+				clear: both;
+			}
+			ul {
+				list-style: none;
+				margin: 0 0 15px;
+				padding: 0;
+				min-height: 241px;
+				li {
+					margin: 0 15px;
+					padding: 10px 0;
+					border-top: 1px solid @gray-light2;
+				}
+			}
+		}
+	}
+	a.btn {
+		font-weight: normal;
+		margin-top: 15px;
+		font-size: 1.5em;
+		strong {
+			font-weight: bold;
+		}
+	}
+
+	@media (min-width: @screen-sm-min) {
+		.block-title {
+			background: @darkBlue url("../images/bg_white-grey.png") no-repeat left center;
+		}
+	}
+}
+#block-emh-blocks-business-why {
+	.block-title {
+		.title-first {
+			background: @brand-primary url("../images/picto/picto_atomium_blue.png") no-repeat center center;
+			background-size: contain;
+		}
+	}
+	.content {
+		> a {
+			> h3 {
+				color: @brand-primary;
 			}
 		}
 	}
 }
-
-// Homepage : request
-#block-block-15 {
-	a {
-		text-decoration: none;
-	}
-	p {
-		&:first-of-type,
-		&:last-of-type strong {
-			color: #009FE3;
+#block-emh-blocks-expert-why {
+	.block-title {
+		.title-first {
+			// background-color: @expertYellow;
+			background: @expertYellow url("../images/picto/picto_people_yellow.png") no-repeat center center;
+			background-size: contain;
 		}
 	}
-}
-
-// Homepage : expertise
-#block-block-9 {
-	a {
-		text-decoration: none;
-	}
-	p {
-		&:first-of-type,
-		&:last-of-type strong {
-			color: #C89234;
+	.content {
+		> a {
+			> h3 {
+				color: @expertYellow;
+			}
 		}
 	}
 }
@@ -186,7 +413,7 @@
 		}
 
 		span.mobilize-info {
-			color: #4C6172;
+			color: @darkerBlue;
 		}
 
 		span.mobilize-call {

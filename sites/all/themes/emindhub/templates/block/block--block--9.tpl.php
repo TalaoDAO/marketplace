@@ -55,10 +55,8 @@
 
   <?php if ($content): ?>
     <div class="content">
-      <?php //print $content; ?>
       <a href="<?php print url('expert/register'); ?>">
-        <p><?php echo sprintf(t('Your have%san expertise%s'), '<br /><strong>', '</strong>'); ?></p>
-        <p><?php echo sprintf(t('%sSign-up for free%s and answer client requests matching your expertise'), '<strong>', '</strong>'); ?></p>
+        <?php print $content; ?>
       </a>
     </div>
   <?php endif;?>
