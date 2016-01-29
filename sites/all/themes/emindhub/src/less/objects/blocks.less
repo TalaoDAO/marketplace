@@ -677,13 +677,28 @@ body.role-expert-preview {
 // News
 #block-views-news-thread-block {
 	.content {
+		.item {
+			.make-row();
+			> * {
+				.make-sm-column(10);
+			}
+			> a {
+				.make-sm-column(2);
+			}
+		}
 		h3 {
 			margin: 0;
+			.text-uppercase;
+			font-weight: bold;
+			font-size: 22px;
 			a {
 				color: #fff;
 			}
 		}
-		p.field-content {
+		.field-date {
+			color: #80d9ff;
+		}
+		.field-content {
 			padding-bottom: 45px;
 			position: relative;
 			.views-more-link {

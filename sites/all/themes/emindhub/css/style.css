@@ -9756,6 +9756,8 @@ button.close {
 #block-emh-blocks-expert-why .content:after,
 #block-block-11 .content ul:before,
 #block-block-11 .content ul:after,
+#block-views-news-thread-block .content .item:before,
+#block-views-news-thread-block .content .item:after,
 #block-progress-tracker-progress-tracker #progress-tracker-wrapper:before,
 #block-progress-tracker-progress-tracker #progress-tracker-wrapper:after,
 #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker:before,
@@ -9801,6 +9803,7 @@ form#user-profile-form .link-field-subrow:after,
 #block-emh-blocks-business-why .content:after,
 #block-emh-blocks-expert-why .content:after,
 #block-block-11 .content ul:after,
+#block-views-news-thread-block .content .item:after,
 #block-progress-tracker-progress-tracker #progress-tracker-wrapper:after,
 #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker:after,
 form#change-pwd-page-form .form-type-password-confirm:after,
@@ -15205,24 +15208,58 @@ body.role-expert-preview #block-block-16 .content a:before {
     width: 50%;
   }
 }
+#block-views-news-thread-block .content .item {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+#block-views-news-thread-block .content .item > * {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  #block-views-news-thread-block .content .item > * {
+    float: left;
+    width: 83.33333333%;
+  }
+}
+#block-views-news-thread-block .content .item > a {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  #block-views-news-thread-block .content .item > a {
+    float: left;
+    width: 16.66666667%;
+  }
+}
 #block-views-news-thread-block .content h3 {
   margin: 0;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 22px;
 }
 #block-views-news-thread-block .content h3 a {
   color: #fff;
 }
-#block-views-news-thread-block .content p.field-content {
+#block-views-news-thread-block .content .field-date {
+  color: #80d9ff;
+}
+#block-views-news-thread-block .content .field-content {
   padding-bottom: 45px;
   position: relative;
 }
-#block-views-news-thread-block .content p.field-content .views-more-link {
+#block-views-news-thread-block .content .field-content .views-more-link {
   font: 0/0 a;
   color: transparent;
   text-shadow: none;
   background-color: transparent;
   border: 0;
 }
-#block-views-news-thread-block .content p.field-content .views-more-link:before {
+#block-views-news-thread-block .content .field-content .views-more-link:before {
   content: '\002b';
   font-size: 20px;
   display: block;
