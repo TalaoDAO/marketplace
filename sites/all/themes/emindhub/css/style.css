@@ -15282,7 +15282,7 @@ body.role-expert-preview #block-block-16 .content a:before {
 @media (min-width: 768px) {
   #block-views-news-thread-block .content .item > * {
     float: left;
-    width: 75%;
+    width: 66.66666667%;
   }
 }
 #block-views-news-thread-block .content .item > a {
@@ -15294,7 +15294,7 @@ body.role-expert-preview #block-block-16 .content a:before {
 @media (min-width: 768px) {
   #block-views-news-thread-block .content .item > a {
     float: left;
-    width: 25%;
+    width: 33.33333333%;
   }
 }
 #block-views-news-thread-block .content h3 {
@@ -15349,6 +15349,11 @@ body.role-expert-preview #block-block-16 .content a:before {
   background-image: linear-gradient(to right, rgba(68, 87, 102, 0.0001) 0%, rgba(68, 87, 102, 0.5) 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00445766', endColorstr='#80445766', GradientType=1);
+}
+@media (min-width: 768px) {
+  #block-views-news-thread-block .content .item > a {
+    width: 292px !important;
+  }
 }
 .view-query-list .block-title {
   margin-top: 0;
