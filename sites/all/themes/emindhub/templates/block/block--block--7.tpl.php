@@ -64,7 +64,7 @@ global $base_url;
         </div>
         <div class="item">
           <div class="carousel-caption">
-            <h2><?php echo sprintf(t('First online Hub %sdedicated to %sthe Aerospace stakeholders%s'), '<br />', '<strong>', '</strong>'); ?></h2>
+            <h2><?php echo sprintf(t('%sFirst online Hub %sdedicated to %sthe Aerospace stakeholders%s'), '<strong>', '</strong>', '<strong>', '</strong>'); ?></h2>
           </div>
         </div>
       </div>
