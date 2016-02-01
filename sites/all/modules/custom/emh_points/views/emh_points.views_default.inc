@@ -1153,6 +1153,13 @@ function emh_points_views_default_views_alter(&$views) {
     $handler->display->display_options['arguments']['nid']['validate_options']['types'] = array(
       'webform' => 'webform',
     );
+    /* Filter criterion: Webform submissions: Draft */
+    $handler->display->display_options['filters']['is_draft']['id'] = 'is_draft';
+    $handler->display->display_options['filters']['is_draft']['table'] = 'webform_submissions';
+    $handler->display->display_options['filters']['is_draft']['field'] = 'is_draft';
+    $handler->display->display_options['filters']['is_draft']['value'] = array(
+      0 => '0',
+    );
 
     /* Display: Page */
     $handler = $view->new_display('page', 'Page', 'page_1');
