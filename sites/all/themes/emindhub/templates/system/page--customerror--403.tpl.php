@@ -181,9 +181,9 @@ global $base_url;
             <?php endif; ?>
 
             <?php print render($title_prefix); ?>
-            <?php if (!empty($title)): ?>
-            <h1 class="page-header"><?php print $title; ?></h1>
-            <?php endif; ?>
+            <?php //if (!empty($title)): ?>
+            <h1 class="page-header"><?php //print $title; ?><?php print t('Log in'); ?></h1>
+            <?php //endif; ?>
             <?php print render($title_suffix); ?>
 
             <?php if (!empty($baseline)) : ?>
@@ -235,9 +235,8 @@ global $base_url;
             <ul class="action-links"><?php print render($action_links); ?></ul>
           <?php endif; ?>
 
-          <?php print render($page['content']); ?>
-
-          <h2><?php print t('Log in'); ?></h2>
+          <?php //print render($page['content']); ?>
+          
           <?php
           $elements = drupal_get_form("user_login");
           $form = drupal_render($elements);
