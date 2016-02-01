@@ -15282,7 +15282,7 @@ body.role-expert-preview #block-block-16 .content a:before {
 @media (min-width: 768px) {
   #block-views-news-thread-block .content .item > * {
     float: left;
-    width: 83.33333333%;
+    width: 75%;
   }
 }
 #block-views-news-thread-block .content .item > a {
@@ -15294,7 +15294,7 @@ body.role-expert-preview #block-block-16 .content a:before {
 @media (min-width: 768px) {
   #block-views-news-thread-block .content .item > a {
     float: left;
-    width: 16.66666667%;
+    width: 25%;
   }
 }
 #block-views-news-thread-block .content h3 {
