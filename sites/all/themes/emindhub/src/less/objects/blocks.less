@@ -700,10 +700,10 @@ body.role-expert-preview {
 		.item {
 			.make-row();
 			> * {
-				.make-sm-column(9);
+				.make-sm-column(8);
 			}
 			> a {
-				.make-sm-column(3);
+				.make-sm-column(4);
 			}
 		}
 		h3 {
@@ -733,6 +733,16 @@ body.role-expert-preview {
 	  &.right {
 			#gradient > .horizontal(@start-color: rgba(68,87,102,.0001); @end-color: rgba(68,87,102,.5));
 	  }
+	}
+
+	@media (min-width: @screen-sm-min) {
+		.content {
+			.item {
+				> a {
+					width: 292px !important;
+				}
+			}
+		}
 	}
 }
 
