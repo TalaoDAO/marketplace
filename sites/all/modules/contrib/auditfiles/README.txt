@@ -99,43 +99,18 @@ system.
 
 BUTTONS ON THE REPORTS
 ----------------------
-There are anywhere from zero to seven buttons available on any of the file
-comparison reports. Below is a description of when the buttons are displayed and
-what they do.
-
 At the tops of the reports, there might be one or more of the following buttons,
-depending on how you have configured the module: Load first batch set, Load all
-records, Load previous batch set, Load next batch set and Reset record
+depending on how you have configured the module: Load all files and Reset file
 selection.
 
-Load all records
-----------------
+Load all files
+--------------
 If the "Maximum records" field is not zero, this button will be displayed on the
 reports. When it is pressed, the report is re-run using Drupal's Batch API, and
 will load all records for the report.
 
-Load first batch set
---------------------
-If the "Batch set size" field is not zero, this button will be displayed on the
-reports. When this button is pressed, the first set of records is loaded, using
-Drupal's Batch API, and displayed in the report.
-
-Load next batch set
--------------------
-If the "Batch set size" field is not zero, this button will be displayed on the
-reports. When it is pressed, the next set of records is loaded, using Drupal's
-Batch API, and displayed in the report. Much like paging at the bottom of the
-report, this pages records sets through the available records.
-
-Load previous batch set
------------------------
-If the "Batch set size" field is not zero, this button will be displayed on the
-reports. When it is pressed, the previous set of records is loaded, using
-Drupal's Batch API, and displayed in the report. Much like paging at the bottom
-of the report, this pages records sets through the available records.
-
-Reset record selection
-----------------------
+Reset file list
+---------------
 If the "Maximum records" field is not zero, this button will be displayed on the
 reports. When it is pressed, the variables used for controlling which set of
 records and any saved records will be reset and the first page of the report
@@ -166,13 +141,13 @@ LIMITING FEATURES EXPLAINED
 ---------------------------
 There are two administrative configuration settings that help with limiting the
 records displayed, for when a report times out or exceeds the available memory.
-They are: "Maximum records" and "Batch size." They are both found in the "Report
+They are: "Maximum records" and "Batch size" They are both found in the "Report
 options" fieldset.
 
 There are four possible combinations of these settings, one of which is invalid:
  1) Both set to zero: With these settings, all records are loaded and displayed.
  2) "Maximum records" set to some positive integer grater than zero and "Batch
-    size." set to zero: With this combination, only the number of records in
+    size" set to zero: With this combination, only the number of records in
     "Maximum records" will be initially loaded and displayed. At the top of the
     report page, there will be a button labeled "Load all records," with which
     you can load all records using Drupal's Batch API. This combination is also
@@ -186,12 +161,12 @@ There are four possible combinations of these settings, one of which is invalid:
  4) Both set to some positive integer grater than zero: Sometimes, setting
     "Maximum records" and batch loading all the records isn't enough, and a
     report may still time out or exhaust the available memory. If that is the
-    case, entering a positive integer in this setting will limit the batch
-    operation and provide a paging mechanism for accessing the other records.
-    To test if this will be helpful or not, set it to a lower number. If the
-    report loads, then set it to a higher number to access more records per
-    batch load operation. Since it is still using the Batch API, this number can
-    be rather high, in an attempt to access as many records as possible.
+    case, entering a positive integer in the "Batch size" setting will limit the
+    batch operation and provide a paging mechanism for accessing the other
+    records. To test if this will be helpful or not, set it to a lower number.
+    If the report loads, then set it to a higher number to access more records
+    per batch load operation. Since it is still using the Batch API, this number
+    can be rather high, in an attempt to access as many records as possible.
 
 For all options above, paging can be enabled with the "Number of items per page"
 setting.

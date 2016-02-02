@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Allows forwarding of nodes by email,
@@ -102,7 +101,7 @@ function forward_tracker() {
   $form_state['values']['path'] = drupal_get_normal_path($_GET['path']);
   $args = explode('/', $form_state['values']['path']);
 
-  if ($form_state['values']['path'] == variable_get('site_frontpage', 'node')) {
+  if (!isset($form_state['values']['path']) || $form_state['values']['path'] == variable_get('site_frontpage', 'node')) {
     $form_state['values']['path'] = '<front>';
   }
 
@@ -335,14 +334,14 @@ function forward_page() {
     $node = node_load($nid);
     if (!node_access('view', $node)) {
       // Access is denied
-      return drupal_access_denied();
+      return MENU_ACCESS_DENIED;
     }
     $form_state['values']['path'] = 'node/' . $node->nid;
   }
   else {
     $args = explode('/', $form_state['values']['path']);
     if ($args[0] == 'admin') {
-      return drupal_access_denied();
+      return MENU_ACCESS_DENIED;
     }
     $node = new stdClass();
     $node->title = $form_state['values']['path'];
@@ -372,7 +371,6 @@ function forward_form($form, &$form_state, $path = NULL, $node = NULL, $nodeapi 
 
   $emailtype = ($path == 'epostcard') ? 'epostcard' : 'email';
 
-  $form = array();
   $cid = array();
 
   if (preg_match("/\?cid=/i", $path) == 1) {
@@ -548,12 +546,8 @@ function forward_form_validate($form, &$form_state) {
   $url = $base_url . '/' . $form_state['values']['path'];
 
   // normalize address entries
-  $recipients = trim($form_state['values']['recipients']);
-  $recipients = str_replace(array("\r\n", "\n", "\r"), ',', $recipients);
-  $recipients = str_replace(' ', '', $recipients);
-
-  // convert addresses to an array
-  $recipient_addresses = explode(',', $recipients);
+  $tokens = forward_recipient_list($form_state);
+  $recipient_addresses = $tokens['recipients'];
 
   $bad_items = array('Content-Type:', 'MIME-Version:', 'Content-Transfer-Encoding:', 'bcc:', 'cc:');
   $bad_string = FALSE;
@@ -571,7 +565,7 @@ function forward_form_validate($form, &$form_state) {
   if (!$form_state['values']['name']) {
     form_set_error('name', t('You must enter your name.'));
   }
-  if ($recipients == '') {
+  if (empty($recipient_addresses)) {
     form_set_error('recipients', t('You did not enter any recipients.'));
   }
   else {
@@ -598,10 +592,14 @@ function forward_form_validate($form, &$form_state) {
  */
 function forward_recipient_list($form_state) {
   // Process variables for use as tokens.
-  $recipients = trim($form_state['values']['recipients']);
-  $recipients = preg_replace('/,,+/', ',', trim($recipients,','));
-  $recipients = str_replace(array("\r\n", "\n", "\r"), ',', $recipients);
-  $recipients = explode(',', $recipients);
+  $recipients = str_replace(array("\r\n", "\n", "\r"), ',', $form_state['values']['recipients']);
+  $r = array();
+  foreach (explode(',', $recipients) as $recipient) {
+    if (trim($recipient) != '') {
+      $r[trim($recipient)] = TRUE;
+    }
+  }
+  $recipients = array_keys($r);
   $token = array(
     'sender' => $form_state['values']['name'],
     'recipients' => $recipients,
@@ -733,7 +731,7 @@ function forward_form_submit($form, &$form_state) {
       $content = node_load($nid);
       if (!node_access('view', $content)) {
         // Access is denied if user does not have access to view this node
-        return drupal_access_denied();
+        return MENU_ACCESS_DENIED;
       }
       $node = $content;
       $node->content = array();
@@ -777,10 +775,10 @@ function forward_form_submit($form, &$form_state) {
 
       switch ($content->body) {
         case MENU_NOT_FOUND:
-          return drupal_not_found();
+          return MENU_NOT_FOUND;
           break;
         case MENU_ACCESS_DENIED:
-          return drupal_access_denied();
+          return MENU_ACCESS_DENIED;
           break;
       }
       $content->teaser = '';
@@ -1158,7 +1156,7 @@ function forward_js_submit($form, &$form_state) {
       (function ($) {
         $(document).ready(function() {
           $.fn.colorbox.close();
-          window.location = "'. base_path() . drupal_get_path_alias($returnurl).'";
+          window.location = "' .  url($returnurl, array('absolute' => TRUE)) . '";
         });
       })(jQuery);
     </script>';
@@ -1188,7 +1186,15 @@ function forward_tracking() {
     array('data' => t('Forwards')),
     array('data' => t('Clickthroughs')),
   );
-  $result = db_query_range('SELECT n.title, f.* FROM {forward_statistics} f LEFT JOIN {node} n ON f.nid = n.nid ORDER BY f.forward_count DESC', 0, 10);
+  $query = db_select('forward_statistics', 'f', array('target' => 'slave'))->extend('PagerDefault')->element(0);
+  $query->innerJoin('node', 'n', 'f.nid = n.nid');
+
+   $query
+    ->fields('f', array('nid','last_forward_timestamp', 'forward_count', 'clickthrough_count'))
+    ->fields('n', array('title'))
+    ->limit(10)
+    ->orderBy('f.forward_count', 'DESC');
+  $result = $query->execute();
   $num_rows = FALSE;
 
   foreach ($result as $log) {
@@ -1209,7 +1215,7 @@ function forward_tracking() {
     '#rows' => $rows,
     '#empty' => t('No statistics available.'),
   );
-  $output['forward_most_pager'] = array('#theme' => 'pager');
+  $output['forward_most_pager'] = array('#theme' => 'pager','#element' =>0);
 
   /**
    * Most Clickthroughs
@@ -1222,7 +1228,16 @@ function forward_tracking() {
     array('data' => t('Forwards')),
     array('data' => t('Clickthroughs')),
   );
-  $result = db_query_range('SELECT n.title, f.* FROM {forward_statistics} f LEFT JOIN {node} n ON f.nid = n.nid ORDER BY f.clickthrough_count DESC', 0, 10);
+  $query = db_select('forward_statistics', 'f', array('target' => 'slave'))->extend('PagerDefault')->element(1);
+  $query->innerJoin('node', 'n', 'f.nid = n.nid');
+
+   $query
+    ->fields('f', array('nid','last_forward_timestamp', 'forward_count', 'clickthrough_count'))
+    ->fields('n', array('title'))
+    ->limit(10)
+    ->orderBy('f.clickthrough_count', 'DESC');
+  $result = $query->execute();
+
   $num_rows = FALSE;
 
   foreach ($result as $log) {
@@ -1243,9 +1258,7 @@ function forward_tracking() {
     '#rows' => $rows,
     '#empty' => t('No statistics available.'),
   );
-  $output['forward_clickthroughs_pager'] = array('#theme' => 'pager');
-
-
+  $output['forward_clickthroughs_pager'] = array('#theme' => 'pager','#element' =>1);
 
   /**
    * Recently Forwarded Pages
@@ -1259,8 +1272,8 @@ function forward_tracking() {
     array('data' => t('User ID'), 'field' => 'uid'),
     array('data' => t('Hostname'), 'field' => 'hostname')
   );
-  
-  $query = db_select('forward_log', 'f', array('target' => 'slave'))->extend('PagerDefault')->extend('TableSort');
+
+  $query = db_select('forward_log', 'f', array('target' => 'slave'))->extend('PagerDefault')->extend('TableSort')->element(2);
   $query->innerJoin('users', 'u', 'f.uid = u.uid');
   $query
     ->fields('f', array('timestamp', 'type', 'path', 'uid', 'hostname'))
@@ -1268,7 +1281,7 @@ function forward_tracking() {
     ->limit(30)
     ->orderByHeader($header);
   $result = $query->execute();
-  
+
   $num_rows = FALSE;
 
   foreach ($result as $log) {
@@ -1290,7 +1303,7 @@ function forward_tracking() {
     '#rows' => $rows,
     '#empty' => t('No statistics available.'),
   );
-  $output['forward_recent_pager'] = array('#theme' => 'pager');
+  $output['forward_recent_pager'] = array('#theme' => 'pager','#element' =>2);
 
   drupal_set_title(t('Forward Tracking'));
   return $output;

@@ -11,19 +11,26 @@ function mail_logger_overview() {
   drupal_add_css(drupal_get_path('module', 'mail_logger') . '/mail_logger.css');
   $form = drupal_get_form('mail_logger_form_overview');
   $output = drupal_render($form);
+  $date_format = variable_get('mail_logger_log_date_format', 'short');
 
-  $header = array(
-    array('data' => t('Date Sent'), 'field' => 'date_sent', 'sort' => 'desc'),
-    array('data' => t('Mailkey'), 'field' => 'mailkey'),
-    array('data' => t('Language'), 'field' => 'language'),
-    array('data' => t('To'), 'field' => 'mailto'),
-    array('data' => t('From'), 'field' => 'mailfrom'),
-    array('data' => t('Subject'), 'field' => 'subject'),
-  );
+  $table = array(
+    'header' => array(
+      array('data' => t('Date Sent'), 'field' => 'date_sent', 'sort' => 'desc'),
+      array('data' => t('Mailkey'), 'field' => 'mailkey'),
+      array('data' => t('Language'), 'field' => 'language'),
+      array('data' => t('To'), 'field' => 'mailto'),
+      array('data' => t('From'), 'field' => 'mailfrom'),
+      array('data' => t('Subject'), 'field' => 'subject'),
+      array('data' => t('IP Addr'), 'field' => 'ipaddr'),
+      ),
+    'rows' => array(),
+    'empty' => t('No outgoing email available.'),
+    'attributes' => array('id' => 'mail-logger-log'),
+    );
 
   $query = db_select('mail_logger', 'ml')
-    ->extend('PagerDefault')->limit(50)
-    ->extend('TableSort')->orderByHeader($header)
+    ->extend('PagerDefault')->limit(variable_get('mail_logger_log_lines_per_page', 50))
+    ->extend('TableSort')->orderByHeader($table['header'])
     ->fields('ml', array(
       'mlid',
       'mailkey',
@@ -31,7 +38,8 @@ function mail_logger_overview() {
       'mailto',
       'mailfrom',
       'subject',
-      'date_sent'
+      'date_sent',
+      'ipaddr',
     ));
 
   $type = $_SESSION['mail_logger_overview_filter'];
@@ -40,48 +48,46 @@ function mail_logger_overview() {
     $query->condition('mailkey', $type);
   }
 
-  if(!empty($_SESSION['mail_logger_overview_from_date'])){
-      $from_time = strtotime($_SESSION['mail_logger_overview_from_date']['year'].'-'.$_SESSION['mail_logger_overview_from_date']['month'].'-'.$_SESSION['mail_logger_overview_from_date']['day']);
-  }else{
-      $from_time = strtotime('-1 month');
+  if (!empty($_SESSION['mail_logger_overview_from_date'])) {
+    $from_time = strtotime($_SESSION['mail_logger_overview_from_date']['year'].'-'.$_SESSION['mail_logger_overview_from_date']['month'].'-'.$_SESSION['mail_logger_overview_from_date']['day']);
+  }
+  else{
+    $from_time = strtotime('-1 month');
   }
 
-  if(!empty($_SESSION['mail_logger_overview_to_date'])){
-      $to_time = strtotime($_SESSION['mail_logger_overview_to_date']['year'].'-'.$_SESSION['mail_logger_overview_to_date']['month'].'-'.$_SESSION['mail_logger_overview_to_date']['day'] . 't23:59:59');
-  }else{
-      $to_time = strtotime('now') + 86400;
+  if (!empty($_SESSION['mail_logger_overview_to_date'])) {
+    $to_time = strtotime($_SESSION['mail_logger_overview_to_date']['year'].'-'.$_SESSION['mail_logger_overview_to_date']['month'].'-'.$_SESSION['mail_logger_overview_to_date']['day'] . 't23:59:59');
+  }
+  else{
+    $to_time = strtotime('now') + 86400;
   }
   $query->condition('date_sent', $from_time, '>=');
   $query->condition('date_sent', $to_time, '<=');
 
-  if(!empty($_SESSION['mail_logger_overview_search_field']) && !empty($_SESSION['mail_logger_overview_search_value'])){
-      $search_field = $_SESSION['mail_logger_overview_search_field'];
-      $search_value = $_SESSION['mail_logger_overview_search_value'];
-      $query->condition($search_field, '%'.$search_value.'%', 'LIKE');
+  if (!empty($_SESSION['mail_logger_overview_search_field']) && !empty($_SESSION['mail_logger_overview_search_value'])) {
+    $search_field = $_SESSION['mail_logger_overview_search_field'];
+    $search_value = $_SESSION['mail_logger_overview_search_value'];
+    $query->condition($search_field, '%'.$search_value.'%', 'LIKE');
   }
 
   $result = $query->execute();
 
-  $rows = array();
   foreach ($result as $mail_logger) {
-    $rows[] = array('data' =>
+    $table['rows'][] = array('data' =>
       array(
         // Cells
-        format_date($mail_logger->date_sent, 'small'),
+        format_date($mail_logger->date_sent, $date_format),
         $mail_logger->mailkey,
         $mail_logger->language,
         $mail_logger->mailto,
         $mail_logger->mailfrom,
         l(truncate_utf8($mail_logger->subject, 56, TRUE, TRUE), 'admin/reports/mail-logger/mail/' . $mail_logger->mlid),
-      ),
-    );
+        $mail_logger->ipaddr,
+        ),
+      );
   }
 
-  if (!$rows) {
-    $rows[] = array(array('data' => t('No log messages available.'), 'colspan' => 6));
-  }
-
-  $output .= theme('table', array('header' => $header, 'rows' => $rows));
+  $output .= theme('table', $table);
   $output .= theme('pager', array());
 
   return $output;
@@ -144,7 +150,7 @@ function mail_logger_form_overview() {
   $form['filter_logs'] = array(
     '#type' => 'fieldset',
     '#title' => 'Filter Mail Log',
-    '#collapsible' => true,
+    '#collapsible' => TRUE,
     '#collapsed' => !$is_filtering,
   );
   $form['filter_logs']['from_date'] = array(
@@ -165,9 +171,17 @@ function mail_logger_form_overview() {
 
   $form['filter_logs']['search_field'] = array(
     '#type' => 'select',
-    '#options' => array(''=>'-- Select a field --', 'mailto'=>'To Email Address', 'mailfrom'=>'From Email Address', 'subject'=>'Subject', 'body'=>'Body', 'language'=>'Language'),
+    '#options' => array(
+      '' => '-- Select a field --',
+      'mailto' => 'To Email Address',
+      'mailfrom' => 'From Email Address',
+      'subject' => 'Subject',
+      'body' => 'Body',
+      'language' => 'Language',
+      ),
     '#title' => t('Field'),
-    '#default_value' => (!empty($_SESSION['mail_logger_overview_search_field'])) ? $_SESSION['mail_logger_overview_search_field'] : ''
+    '#default_value' => (!empty($_SESSION['mail_logger_overview_search_field'])) ?
+      $_SESSION['mail_logger_overview_search_field'] : ''
   );
   $form['filter_logs']['search_value'] = array(
     '#type' => 'textfield',
@@ -206,13 +220,19 @@ function mail_logger_form_overview_validate($form, &$form_state) {
     return;
   }
 
-  if ($form_state['values']['to_date'] < $form_state['values']['from_date']) {
+  $from_date = strtotime($form_state['values']['from_date']['year']
+    . $form_state['values']['from_date']['month']
+    . $form_state['values']['from_date']['day']);
+  $to_date = strtotime($form_state['values']['to_date']['year']
+    . $form_state['values']['to_date']['month']
+    . $form_state['values']['to_date']['day']);
+  if ($to_date < $from_date) {
     form_set_error('to_date', 'The To Date must be after the From Date.');
   }
   if (!empty($form_state['values']['search_value']) && empty($form_state['values']['search_field'])) {
     form_set_error('search_field', 'Please choose a search field.');
   }
-  else if (empty($form_state['values']['search_value']) && !empty($form_state['values']['search_field'])) {
+  elseif (empty($form_state['values']['search_value']) && !empty($form_state['values']['search_field'])) {
     form_set_error('search_value', 'Please enter a search text.');
   }
 }
@@ -227,7 +247,8 @@ function mail_logger_form_overview_submit($form, &$form_state) {
     $_SESSION['mail_logger_overview_to_date'] = $form_state['values']['to_date'];
     $_SESSION['mail_logger_overview_search_field'] = $form_state['values']['search_field'];
     $_SESSION['mail_logger_overview_search_value'] = $form_state['values']['search_value'];
-  } else if (in_array('reset', $form_state['triggering_element']['#attributes'])) {
+  }
+  elseif (in_array('reset', $form_state['triggering_element']['#attributes'])) {
     $_SESSION['mail_logger_overview_filter'] = 'all';
     $_SESSION['mail_logger_overview_from_date'] = '';
     $_SESSION['mail_logger_overview_to_date'] = '';

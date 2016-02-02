@@ -27,7 +27,7 @@ function mail_logger_schema() {
       'mailto'        => array(
         'description'   => 'to whom this mail is going',
         'type'          => 'varchar',
-        'length'        => 255,
+        'length'        => 2047,
         'not null'      => TRUE,
       ),
       'subject'       => array(
@@ -66,14 +66,21 @@ function mail_logger_schema() {
         'length'        => 20,
         'not null'      => TRUE,
       ),
+      'ipaddr'      => array(
+        'description'   => 'IP Address of User',
+        'type'          => 'varchar',
+        'length'        => 45,              // Long enough for IPv6.
+        'not null'      => TRUE,
+      ),
     ),
     'primary key'     => array('mlid'),
     'indexes'         => array(
-      'mailto'          => array('mailto'),
+      'mailto'          => array(array('mailto', 200)),
       'mailfrom'        => array('mailfrom'),
       'subject'         => array(array('subject', 20)),
       'date_sent'       => array('date_sent'),
       'language'        => array('language'),
+      'ipaddr'          => array('ipaddr'),
     ),
   );
 
@@ -101,4 +108,43 @@ function mail_logger_enable() {
   // the final mail parameters by setting the weight of mail_logger to something large.
   $max_weight = db_query("SELECT max(weight) FROM {system} WHERE name <> 'mail_logger'")->fetchField();
   db_query("UPDATE {system} SET weight = :max_weight WHERE name = 'mail_logger'", array(':max_weight' => $max_weight + 100));
+}
+
+/**
+ * Expand 'mailto' column.
+ */
+function mail_logger_update_7000() {
+  db_change_field('mail_logger', 'mailto', 'mailto',
+    array(
+      'description' => 'to whom this mail is going',
+      'type' => 'varchar',
+      'length' => 2047,
+       'not null' => TRUE,
+      ),
+    array('mailto' => array(array('mailto', 200)))
+    );
+  return t('The Mail_logger "mailto" column has been expanded.');
+}
+
+/**
+ * Add 'ipaddr' column.
+ */
+function mail_logger_update_7001() {
+  if (db_field_exists('mail_logger', 'ipaddr')) {
+    return t('mail_logger_update_7001 was unneccessary.');
+  }
+  else {
+    db_add_field('mail_logger', 'ipaddr',
+      array(
+          'description' => 'IP Address of User',
+          'type' => 'varchar',
+          'length' => 45,
+          'not null' => TRUE,
+        ),
+      array(
+        'indexes' => array('ipaddr' => array('ipaddr')),
+        )
+      );
+    return t('The Mail_logger "ipaddr" field was added.');
+  }
 }

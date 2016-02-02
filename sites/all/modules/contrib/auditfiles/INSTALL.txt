@@ -39,6 +39,11 @@ CONFIGURATION
 -------------
  * Configure the module in Administration > Configuration and modules > System >
    Audit Files menu (admin/config/system/auditfiles).
+   * File system paths: This allows system administrators to specify which file
+     system to use when querying and comparing files on the file system with
+     what is recorded in the database.
+     * File system path: Select the file system path to use. The default is
+       the path specified in Drupal's Public files setting.
    * Exclusions: There may be some files, file extensions and/or directories
      that you do not want to taken into consideration when generating the
      various reports. These fields allow the site administrator the ability to
@@ -67,13 +72,14 @@ CONFIGURATION
        page of a report. If there are more than this number on a page, then a
        pager will be used to display the additional items. Set this to 0 to show
        all items on a single page.
-     * Maximum records: This is the maximum number of records to return for each
-       report. If any of the reports are timing out, set this to some positive
-       integer to limit the number of records that are queried in the database.
+     * Maximum records: This is the maximum number of records to load for each
+       report. If any report is timing out, set this to some positive integer to
+       limit the number of records that are loaded.
        See the Limiting Features Explained section in the README.txt file for
        more information. Set this to 0 for no limit.
-     * Batch set size: This the number of records to use for displaying data
-       in batches. Enter a positive integer here and the batch operations will
-       be broken up into sets of this number of records. See the Limiting
-       Features Explained section in the README.txt file for more information.
-       Set this to 0 for no limit.
+     * Batch size: This the maximum number of records to load for each report
+       using Drupal's Batch API. Because Drupal's Batch API resets the HTTP
+       request during the process, a much larger number can be used here to load
+       more records on a report.
+       See the Limiting Features Explained section in the README.txt file for
+       more information. Set this to 0 for no limit.

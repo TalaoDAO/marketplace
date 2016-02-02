@@ -17,6 +17,7 @@ function theme_mail_logger_read_mail($mail) {
   $output .= '<div class="date_sent_label">Date Sent: </div><div class="date_sent_data">' . format_date($mail->date_sent, 'small') . '</div>';
   $output .= '<div class="mail_from_label">From: </div><div class="mail_from_data">' . check_plain($mail->mailfrom) . '</div>';
   $output .= '<div class="mail_to_label">To: </div><div class="mail_to_data">' . check_plain($mail->mailto) . '</div>';
+  $output .= '<div class="mail_ipaddr_label">User IP Address: </div><div class="mail_ipaddr_data">' . check_plain($mail->ipaddr) . '</div>';
   $output .= '<div class="mail_subject_label">Subject: </div><div class="mail_subject_data">' . check_plain($mail->subject) . '</div>';
   $output .= '<div class="mail_body_label">Body: </div>';
   if (preg_match('/<html.*?>(.*?)<\/html>/s', $mail->body, $mailbody)) {

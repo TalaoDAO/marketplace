@@ -1,3 +1,67 @@
+24 November 2015 (oadaeh)
+----------------
+* auditfiles.notindatabase.inc, auditfiles.notonserver.inc,
+  auditfiles.managednotused.inc, auditfiles.usednotmanaged.inc,
+  auditfiles.usednotreferenced.inc, auditfiles.referencednotused.inc,
+  auditfiles.mergefilereferences.inc
+  - Removed sorting, as it either did not work, or caused time outs with large
+    result sets.
+
+22 November 2015 (oadaeh)
+----------------
+* INSTALL.txt, README.txt, auditfiles.notindatabase.inc,
+  auditfiles.notonserver.inc, auditfiles.managednotused.inc,
+  auditfiles.usednotmanaged.inc, auditfiles.usednotreferenced.inc,
+  auditfiles.referencednotused.inc, auditfiles.mergefilereferences.inc
+  - Removed and/or updated documentation, functions, and variables related to
+    removing the implementing of the batch sets concept.
+
+18 November 2015 (oadaeh)
+----------------
+* auditfiles.notindatabase.inc, auditfiles.referencednotused.inc
+  - Change how the batch processes are handled for displaying files, in order to
+    eliminate the batch sets concept.
+* auditfiles.admin.inc, auditfiles.notindatabase.inc
+  - Added a config setting for specifying the file stream.
+
+3 November 2015 (oadaeh)
+---------------
+* auditfiles.notindatabase.inc, auditfiles.notonserver.inc,
+  auditfiles.managednotused.inc, auditfiles.usednotmanaged.inc,
+  auditfiles.usednotreferenced.inc, auditfiles.referencednotused.inc,
+  auditfiles.mergefilereferences.inc
+  - Issue #2602560 by oadaeh: Translate button titles when checking them.
+
+24 October 2015 (oadaeh)
+---------------
+* auditfiles.notonserver.inc, auditfiles.managednotused.inc,
+  auditfiles.usednotmanaged.inc, auditfiles.usednotreferenced.inc,
+  auditfiles.mergefilereferences.inc
+  - Change how the batch processes are handled for displaying files, in order to
+    eliminate the batch sets concept.
+
+4 October 2015 (oadaeh)
+--------------
+* auditfiles.mergefilereferences.inc, auditfiles.views_default.inc
+  - Changing the Merge file references view to a non-Views based page, so that
+    it is possible to give the option of not displaying files that do not have
+    duplicate names.
+
+9 September 2015 (oadaeh)
+----------------
+* auditfiles.notonserver.inc, auditfiles.managednotused.inc,
+  auditfiles.usednotmanaged.inc, auditfiles.usednotreferenced.inc,
+  auditfiles.referencednotused.inc
+  - Restore table sorting.
+* auditfiles.referencednotused.inc
+  - Fix operation confirmation dialog, so adding and deleting work correctly.
+
+2 September 2015 (oadaeh)
+----------------
+* auditfiles.module
+  - Improved the code that does the actual merging, including checking for
+    missing entries and for duplicates that get created by the merge process.
+
 10 July 2015 (oadaeh)
 ------------
 * (all files)
