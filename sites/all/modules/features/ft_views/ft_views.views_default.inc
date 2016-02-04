@@ -5870,6 +5870,96 @@ function ft_views_views_default_views() {
     8 => '8',
   );
   $handler->display->display_options['path'] = 'sponsors-expert-list.csv';
+
+  /* Display: User notification check */
+  $handler = $view->new_display('page', 'User notification check', 'page_3');
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: User: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'users';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['label'] = '';
+  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+  /* Field: User: First Name */
+  $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
+  /* Field: User: Last Name */
+  $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
+  /* Field: User: E-mail */
+  $handler->display->display_options['fields']['mail']['id'] = 'mail';
+  $handler->display->display_options['fields']['mail']['table'] = 'users';
+  $handler->display->display_options['fields']['mail']['field'] = 'mail';
+  /* Field: Bulk operations: User */
+  $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
+  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'users';
+  $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '1';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['row_clickable'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
+    'action::views_bulk_operations_modify_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+      'settings' => array(
+        'show_all_tokens' => 1,
+        'display_values' => array(
+          'user::field_notification_frequency' => 'user::field_notification_frequency',
+        ),
+      ),
+    ),
+    'action::system_send_email_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+  );
+  /* Field: User: Uid */
+  $handler->display->display_options['fields']['uid']['id'] = 'uid';
+  $handler->display->display_options['fields']['uid']['table'] = 'users';
+  $handler->display->display_options['fields']['uid']['field'] = 'uid';
+  $handler->display->display_options['fields']['uid']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['uid']['alter']['path'] = 'user/[uid]/edit';
+  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
+  /* Field: User: Frequency of notifications */
+  $handler->display->display_options['fields']['field_notification_frequency']['id'] = 'field_notification_frequency';
+  $handler->display->display_options['fields']['field_notification_frequency']['table'] = 'field_data_field_notification_frequency';
+  $handler->display->display_options['fields']['field_notification_frequency']['field'] = 'field_notification_frequency';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: User: Frequency of notifications (field_notification_frequency) */
+  $handler->display->display_options['filters']['field_notification_frequency_tid']['id'] = 'field_notification_frequency_tid';
+  $handler->display->display_options['filters']['field_notification_frequency_tid']['table'] = 'field_data_field_notification_frequency';
+  $handler->display->display_options['filters']['field_notification_frequency_tid']['field'] = 'field_notification_frequency_tid';
+  $handler->display->display_options['filters']['field_notification_frequency_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_notification_frequency_tid']['expose']['operator_id'] = 'field_notification_frequency_tid_op';
+  $handler->display->display_options['filters']['field_notification_frequency_tid']['expose']['label'] = 'Frequency of notifications (field_notification_frequency)';
+  $handler->display->display_options['filters']['field_notification_frequency_tid']['expose']['operator'] = 'field_notification_frequency_tid_op';
+  $handler->display->display_options['filters']['field_notification_frequency_tid']['expose']['identifier'] = 'field_notification_frequency_tid';
+  $handler->display->display_options['filters']['field_notification_frequency_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    8 => 0,
+    9 => 0,
+  );
+  $handler->display->display_options['filters']['field_notification_frequency_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_notification_frequency_tid']['vocabulary'] = 'notification_frequencies';
+  $handler->display->display_options['path'] = 'admin-user-notif';
   $export['user_export_'] = $view;
 
   $view = new view();
