@@ -112,7 +112,9 @@
 	}
 }
 
-// HP : Baseline
+/* HOMEPAGE
+ * Baseline
+ */
 #block-block-7 {
 	.content {
 		h2 {
@@ -156,12 +158,12 @@
 	}
 }
 
-// Homepage : Business Question
-// Homepage : Expert Question
-#block-emh-blocks-business-question,
-#block-emh-blocks-expert-question {
+/* HOMEPAGE
+ * Question
+ */
+#block-block-15,
+#block-block-9 {
 	background-color: @gray-lighter;
-	// border: 0;
 	-moz-box-shadow: 0px 0px 10px 0px @gray-light2;
 	-webkit-box-shadow: 0px 0px 10px 0px @gray-light2;
 	-o-box-shadow: 0px 0px 10px 0px @gray-light2;
@@ -210,22 +212,23 @@
 		min-height: 6.8em;
 	}
 }
-#block-emh-blocks-business-question {
+#block-block-15 {
 	h3 {
 		background-color: @brand-primary;
 		line-height: 2.6em;
 	}
 }
-#block-emh-blocks-expert-question {
+#block-block-9 {
 	h3 {
 		background-color: @expertYellow;
 	}
 }
 
-// Homepage : Business You are
-// Homepage : Expert You are
-#block-emh-blocks-business-you-are,
-#block-emh-blocks-expert-you-are {
+/* HOMEPAGE
+ * You are
+ */
+#block-block-18,
+#block-block-11 {
 	.content {
 		margin: 0;
 		padding: 0 15px !important;
@@ -233,7 +236,7 @@
 		line-height: 1.6em;
 	}
 }
-#block-emh-blocks-business-you-are {
+#block-block-18 {
 	.content {
 		.make-row();
 		ul {
@@ -241,16 +244,17 @@
 		}
 	}
 }
-#block-emh-blocks-expert-you-are {
+#block-block-11 {
 	a {
 		color: @expertYellow;
 	}
 }
 
-// Homepage : Business Why
-// Homepage : Expert Why
-#block-emh-blocks-business-why,
-#block-emh-blocks-expert-why {
+/* HOMEPAGE
+ * Why?
+ */
+#block-block-13,
+#block-block-12 {
 	margin-top: 50px;
 	.text-center;
 
@@ -364,7 +368,7 @@
 
 	}
 }
-#block-emh-blocks-business-why {
+#block-block-13 {
 	.block-title {
 		.title-first {
 			background: @brand-primary url("../images/picto/picto_atomium_blue.png") no-repeat right center;
@@ -382,7 +386,7 @@
 		background-position: center center;
 	}
 }
-#block-emh-blocks-expert-why {
+#block-block-12 {
 	.block-title {
 		.title-first {
 			background: @expertYellow url("../images/picto/picto_people_yellow.png") no-repeat right center;
@@ -400,6 +404,7 @@
 		background-position: center center;
 	}
 }
+
 
 // Homepage : Experts
 #block-block-14,
@@ -490,75 +495,6 @@ body.role-expert-preview {
 }
 
 
-// Homepage : Experts
-#block-block-12 {
-	.content {
-		font-size: 14px;
-		ul {
-			list-style: none;
-			padding: 0;
-			li {
-				padding-left: 75px;
-				background-repeat: no-repeat;
-				background-position: top left;
-				margin-bottom: 30px;
-				min-height: 55px;
-				&:first-child {
-					background-image: url("../images/atomium.png");
-				}
-				&:last-child {
-					background-image: url("../images/people.png");
-				}
-			}
-		}
-		strong {
-			color: @brand-primary;
-			font-weight: inherit;
-			font-size: 16px;
-			display: block;
-		}
-		li.value-expert {
-			strong {
-				color: @expertYellow;
-			}
-		}
-	}
-}
-#block-block-11 {
-	.content {
-		background: transparent url("../images/ondes.png") no-repeat center center;
-		padding-top: 40px;
-		padding-bottom: 40px;
-		ul {
-			list-style: none;
-			padding: 0;
-			.make-row();
-			li {
-				.make-sm-column(4);
-				.text-uppercase;
-
-				display: block;
-				padding-top: 1.18em;
-				padding-bottom: 1.18em;
-				font-size: 16px;
-				padding-left: 75px;
-				background-repeat: no-repeat;
-				background-position: top left;
-				background-image: url("../images/cercle.png");
-				height: 70px;
-
-				&.tip-experts {
-					@media (min-width: @screen-sm-min) {
-						margin-left: 16.6667%;
-					}
-				}
-
-			}
-		}
-	}
-}
-
-
 // Why use eMindHub ?
 #block-block-20,
 #block-block-21,
@@ -581,12 +517,6 @@ body.role-expert-preview {
 #block-block-19 .block-title { background-image: url("../images/qualityHeader.png"); }
 #block-block-10 {
 	clear: both;
-}
-
-
-// HP Welcome
-#block-block-17 {
-	// padding: 0;
 }
 
 
