@@ -96,32 +96,8 @@ function emindhub_preprocess_block(&$variables) {
       $classes[] = 'emh-block-grey';
       break;
 
-    // HP - How to mobilize the experts ?
-    case 'block-13':
-      $classes[] = 'col-sm-12';
-      $classes[] = 'emh-block-dark-title';
-      $content = '';
-      break;
-
     // HP - About experts
     case 'block-10':
-      $classes[] = 'col-sm-12';
-      $classes[] = 'emh-block-dark-title';
-      $content = '';
-      break;
-
-    // HP - Experts : text
-    case 'block-12':
-      $classes[] = 'col-sm-4';
-      break;
-
-    // HP - Experts : picto
-    case 'block-11':
-      $classes[] = 'col-sm-8';
-      break;
-
-    // HP - Why use eMindHub ?
-    case 'block-18':
       $classes[] = 'col-sm-12';
       $classes[] = 'emh-block-dark-title';
       $content = '';
@@ -153,37 +129,37 @@ function emindhub_preprocess_block(&$variables) {
       break;
 
     // HP - Business - Question
-    case 'emh_blocks-business_question':
+    case 'block-15':
       $content = '<a href="' . url('freetrial') . '">' . $content . '</a>';
       break;
 
     // HP - Expert - Question
-    case 'emh_blocks-expert_question':
+    case 'block-9':
       $content = '<a href="' . url('expert/register') . '">' . $content . '</a>';
       break;
 
     // HP - Business - You are
-    case 'emh_blocks-business_you_are':
+    case 'block-18':
       $classes[] = 'emh-block-light';
       $classes[] = 'emh-block-dark-title';
       $content = '<a href="' . url('freetrial') . '">' . $content . '</a>';
       break;
 
     // HP - Expert - You are
-    case 'emh_blocks-expert_you_are':
+    case 'block-11':
       $classes[] = 'emh-block-light';
       $classes[] = 'emh-block-dark-title';
       $content = '<a href="' . url('expert/register') . '">' . $content . '</a>';
       break;
 
     // HP - Business - Get a free trial
-    case 'emh_blocks-business_why':
+    case 'block-13':
       $classes[] = 'emh-block-light';
       $content = '<a href="' . url('freetrial') . '">' . $content . '</a>';
       break;
 
     // HP - Expert - Sign up for free
-    case 'emh_blocks-expert_why':
+    case 'block-12':
       $classes[] = 'emh-block-light';
       $content = '<a href="' . url('expert/register') . '">' . $content . '</a>';
       break;
