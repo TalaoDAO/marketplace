@@ -121,7 +121,7 @@ function ft_blocks_default_fe_block_boxes() {
 
   $fe_block_boxes = new stdClass();
   $fe_block_boxes->info = 'HP - Business - Why should you use eMindHub?';
-  $fe_block_boxes->format = 'filtered_html';
+  $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'hp_mobilize';
   $fe_block_boxes->body = '<h3>Why should you use eMindHub?</h3>
 
