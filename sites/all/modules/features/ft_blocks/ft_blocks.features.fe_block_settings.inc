@@ -1392,7 +1392,8 @@ freetrial',
     'module' => 'views',
     'node_types' => array(),
     'pages' => 'homepage
-node',
+node
+fr',
     'roles' => array(
       'administrator' => 3,
       'expert' => 4,
