@@ -1393,7 +1393,11 @@ freetrial',
     'node_types' => array(),
     'pages' => 'homepage
 node
-fr',
+node/323
+fr
+fr/homepage
+fr/node
+fr/node/323',
     'roles' => array(
       'administrator' => 3,
       'expert' => 4,
@@ -1428,7 +1432,12 @@ fr',
     'module' => 'views',
     'node_types' => array(),
     'pages' => 'homepage
-node',
+node
+node/323
+fr
+fr/homepage
+fr/node
+fr/node/323',
     'roles' => array(
       'business' => 5,
       'business preview' => 9,
