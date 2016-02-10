@@ -236,6 +236,9 @@ function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
     // Node author and answer author have every right.
     return TRUE;
   }
+  if (emh_user_is_business()) {
+    return TRUE;
+  }
   if (module_exists('pcp')) {
     $userPercent = pcp_get_complete_percentage_data('user', 'user', $account);
     if ($userPercent['current_percent'] == '100') {
