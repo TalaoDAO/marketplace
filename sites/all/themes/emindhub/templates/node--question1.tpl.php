@@ -95,6 +95,17 @@
 
 	<div class="content"<?php print $content_attributes; ?>>
 
+		<?php if (emh_access_user_can_see_full_request()) : ?>
+
+		<?php if (module_exists('progress_tracker')) : ?>
+		<?php $progress_block = module_invoke('progress_tracker', 'block_view', 'progress_tracker'); ?>
+		<section id="block-progress-tracker-progress-tracker" class="block block-progress-tracker emh-block-blue-title clearfix">
+			<div class="content">
+				<?php print render($progress_block['content']); ?>
+			</div>
+		</section>
+		<?php endif; ?>
+
   	<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeNavigation.tpl.php'; ?>
 
 		<?php if (!empty($body[0]['value']) || !empty($content['field_image'])) : ?>
@@ -186,6 +197,27 @@
 			// hide($content['links']);
 			//print render($content);
 		?>
+
+		<?php else : ?>
+
+		<div class="highlighted jumbotron">
+			<div class="container">
+				<div class="region region-highlighted row">
+					<section id="block-pcp-pcp-profile-percent-complete" class="block block-pcp col-sm-12 clearfix">
+						<h2 class="block-title"><span><?php print t('Please complete your profile to see this request'); ?></span></h2>
+						<div class="content">
+							<?php if (module_exists('pcp')) : ?>
+							<?php $pcp_block = module_invoke('pcp', 'block_view', 'pcp_profile_percent_complete'); ?>
+							<?php print render($pcp_block['content']); ?>
+							<?php else : ?>
+							<?php endif; ?>
+						</div>
+					</section> <!-- /.block -->
+				</div>
+			</div>
+		</div>
+		<?php endif; ?>
+
 	</div>
 
 </div>
