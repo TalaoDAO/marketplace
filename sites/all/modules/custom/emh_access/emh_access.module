@@ -215,3 +215,33 @@ function emh_access_user_presave(&$edit, $account, $category) {
   }
   $edit['field_mail'][LANGUAGE_NONE]['0']['value'] = $mail;
 }
+
+/**
+ * Access control : Does a user have access to full request?
+ */
+function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+  if (empty($node)) {
+    $entity = arg(1);
+    $node = node_load($entity->nid);
+  }
+  if ($account->uid == 1) {
+    // Admin ( = eMindHub) has every right.
+    return TRUE;
+  }
+  if ($node->uid == $account->uid) {
+    // Node author and answer author have every right.
+    return TRUE;
+  }
+  if (module_exists('pcp')) {
+    $userPercent = pcp_get_complete_percentage_data('user', 'user', $account);
+    if ($userPercent['current_percent'] == '100') {
+      return TRUE;
+    }
+    return FALSE;
+  }
+  return FALSE;
+}
