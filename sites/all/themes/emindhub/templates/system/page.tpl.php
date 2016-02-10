@@ -176,10 +176,6 @@ global $base_url;
             <?php print render($page['title']); ?>
             <?php endif; ?>
 
-            <?php if (!empty($page['highlighted'])): ?>
-            <div class="highlighted jumbotron"><?php print render($page['highlighted']); ?></div>
-            <?php endif; ?>
-
             <?php print render($title_prefix); ?>
             <?php if (!empty($title)): ?>
             <h1 class="page-header"><?php print $title; ?></h1>
@@ -216,6 +212,12 @@ global $base_url;
     </header>
 
     <div class="container">
+
+      <?php if (!empty($page['highlighted'])): ?>
+      <div class="highlighted jumbotron">
+          <?php print render($page['highlighted']); ?>
+      </div>
+      <?php endif; ?>
 
       <?php if (!empty($page['top'])): ?>
       <?php print render($page['top']); ?>
