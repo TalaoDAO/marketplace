@@ -537,3 +537,25 @@ html.js div.contextual-links-wrapper {
 
 	}
 }
+
+
+.jumbotron {
+	margin-top: @jumbotron-padding;
+	.text-center;
+  .block-title {
+    color: @jumbotron-heading-color;
+		margin-top: 0;
+  }
+	a {
+		color: #FFF;
+		font-weight: bold;
+	}
+	form {
+		.text-left;
+	}
+	@media screen and (min-width: @screen-sm-min) {
+    .block-title {
+      font-size: @jumbotron-heading-font-size;
+    }
+  }
+}

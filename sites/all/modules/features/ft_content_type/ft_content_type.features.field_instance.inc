@@ -4520,7 +4520,7 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'user',
     'field_name' => 'field_entreprise',
     'label' => 'Organisation / company',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'behaviors' => array(
         'prepopulate' => array(
@@ -4997,7 +4997,11 @@ function ft_content_type_field_default_field_instances() {
   // Exported field_instance: 'user-user-field_notification_frequency'.
   $field_instances['user-user-field_notification_frequency'] = array(
     'bundle' => 'user',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'tid' => 48,
+      ),
+    ),
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -5017,10 +5021,10 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'user',
     'field_name' => 'field_notification_frequency',
     'label' => 'Frequency of notifications',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'user_register_form' => 1,
+      'user_register_form' => 0,
     ),
     'widget' => array(
       'active' => 1,
@@ -5588,11 +5592,11 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'user',
     'field_name' => 'field_titre_metier',
     'label' => 'Profile title',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'text_processing' => 0,
-      'user_register_form' => 1,
+      'user_register_form' => 0,
     ),
     'widget' => array(
       'active' => 1,
@@ -5629,10 +5633,10 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'user',
     'field_name' => 'field_working_status',
     'label' => 'Working status',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'user_register_form' => 0,
+      'user_register_form' => 1,
     ),
     'widget' => array(
       'active' => 1,

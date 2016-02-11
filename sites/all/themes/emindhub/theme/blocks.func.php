@@ -236,6 +236,11 @@ function emindhub_preprocess_block(&$variables) {
     case 'emh_virality-invitation_form':
       $classes[] = 'emh-block-blue-title';
       break;
+
+    // Profile percent complete
+    case 'pcp-pcp_profile_percent_complete':
+      $classes[] = 'col-sm-12';
+      break;
   }
 
   // echo '<pre>' . print_r($variables['block'], TRUE) . '</pre>';

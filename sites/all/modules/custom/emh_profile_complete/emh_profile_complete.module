@@ -1,0 +1,94 @@
+<?php
+/**
+ * @file
+ * Code for eMindHub Profile Complete feature.
+ */
+
+function emh_profile_complete_get_required_expert_fields() {
+  $required_fields = array(
+    'field_entreprise',
+    'field_working_status',
+    'field_domaine',
+  );
+  return $required_fields;
+}
+
+function emh_profile_complete_get_required_empty_profile_form($form, &$form_state) {
+
+  global $user;
+  $account = user_load($user->uid);
+  $attach_form = array();
+
+  // TODO
+  // $required_fields = emh_profile_complete_get_required_empty_fields();
+  $required_fields = emh_profile_complete_get_required_expert_fields();
+
+  foreach ($required_fields as $required_field) {
+    if (field_access('edit', $required_field, 'user')) {
+      field_attach_form('user', $account, $attach_form, $form_state, NULL, array('field_name' => $required_field));
+      $form[$required_field] = $attach_form[$required_field];
+    }
+  }
+
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Update your profile'),
+    '#weight' => '100',
+  );
+
+  return $form;
+
+}
+
+function emh_profile_complete_get_required_empty_profile_form_submit($form, &$form_state) {
+
+  global $user;
+  $account = user_load($user->uid);
+  $edit = array();
+
+  // TODO
+  // $required_fields = emh_profile_complete_get_required_missing_fields();
+  $required_fields = emh_profile_complete_get_required_expert_fields();
+
+  foreach ($required_fields as $required_field) {
+    $field_name = $required_field;
+    $edit[$field_name] = $form_state['values'][$field_name];
+  }
+
+  $edit = array_merge( $edit, array(
+    'status' => 1,
+    'access' => REQUEST_TIME,
+  ) );
+
+  drupal_set_message(t('Your profile has been updated. You have now access to requests.'));
+
+  user_save($account, $edit);
+
+}
+
+// function emh_profile_complete_get_required_empty_fields() {
+//   module_load_include('pages.inc', 'user', 'user');
+//   global $user;
+//   $account = user_load($user->uid);
+//   $form = drupal_get_form('user_profile_form', $user);
+//   return _find_all_children_required_empty_elements($form, 'user', $account);
+// }
+
+// function _find_all_children_required_empty_elements(&$element, $entity_type = NULL, $entity = NULL) {
+//   $results = array();
+//   $children = element_children($element);
+//   $entityID = entity_extract_ids($entity_type, $entity);
+//
+//   foreach ($children as $key) {
+//     $child = &$element[$key];
+//     if (is_array($child)) {
+//         $field_name = $child['#field_name'];
+//         if ( field_access('edit', $child, 'user') && !empty($child['#type']) && !empty($child['#required']) && ($field_name !== 'field_first_name') || ($field_name !== 'field_last_name') || ($field_name !== 'field_needs_for_expertise') && !(field_get_items($entity, $entityID[0], $child)) )
+//           $results[] = &$child;
+//
+//         $results = array_merge($results, _find_all_children_required_empty_elements($child));
+//     }
+//     unset($child);
+//   }
+//   return $results;
+// }

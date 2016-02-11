@@ -66,7 +66,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 	}
 
   // Add required legend if minimum one field is required
-  if ( emindhub_form_has_required($form, $form_id) == TRUE ) {
+  if (emindhub_form_has_required($form, $form_id)) {
   	$form['actions']['#suffix'] = '
   		<div class="form-mandatory">
   			<span class="form-required">*</span>&nbsp;' . t('Required fields') . '
@@ -163,6 +163,24 @@ function emindhub_form_process_password_confirm($element) {
   $element['pass1']['#title'] = t('New password');
   $element['pass2']['#title'] = t('Confirm new password');
   return $element;
+
+}
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function emindhub_form_emh_profile_complete_get_required_empty_profile_form_alter(&$form, &$form_state, $form_id) {
+
+	$form['field_entreprise']['#prefix'] = '<div class="form-group-3col row">';
+	$form['field_entreprise']['#weight'] = '1';
+	$form['field_working_status']['#weight'] = '2';
+	$form['field_domaine']['#weight'] = '3';
+	$form['field_domaine']['#suffix'] = '</div>';
+
+	$form['actions']['#weight'] = '100';
+	$form['actions']['submit']['#attributes']['class'][] = 'btn-asphalt';
+	$form['actions']['#suffix'] = '';
 
 }
 
