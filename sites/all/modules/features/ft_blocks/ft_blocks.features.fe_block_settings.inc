@@ -898,7 +898,7 @@ requests',
         'weight' => 0,
       ),
     ),
-    'title' => 'Please complete your profile',
+    'title' => 'Complete your profile and get launched!',
     'visibility' => 1,
   );
 
