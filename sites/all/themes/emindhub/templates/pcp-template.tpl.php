@@ -17,13 +17,10 @@
  */
 ?>
 
-<div class="progress">
-  <div class="progress-bar progress-bar-asphalt" role="progressbar" aria-valuenow="<?php print $current_percent; ?>" aria-valuemin="0" aria-valuemax="100" style="min-width: <?php print $current_percent; ?>em; width: <?php print $current_percent; ?>%;">
-    <?php print $current_percent; ?>%
-  </div>
-</div>
+<p><?php print t('Fill out these informations and get <strong>access to requests</strong>.'); ?></p>
 
-<?php if (isset($nextfield_name) && isset($next_percent)) { ?>
-  <p><?php print t('Filling out <em>!empty-field</em> will bring your profile to !complete% complete and will allow you to <strong>access to requests</strong>.', array('!empty-field' => l($nextfield_title, $next_path, $field_link_option), '!complete' => $next_percent)); ?></p>
-  <a class="btn btn-asphalt" href="<?php print $next_path; ?>"><?php print t('Update your profile'); ?></a>
-<?php } ?>
+<?php
+global $user;
+$form = drupal_get_form('emh_profile_complete_get_required_empty_profile_form', $user);
+print drupal_render($form);
+?>
