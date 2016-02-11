@@ -13338,6 +13338,9 @@ html.js div.contextual-links-wrapper {
   color: #FFF;
   font-weight: bold;
 }
+.jumbotron form {
+  text-align: left;
+}
 @media screen and (min-width: 768px) {
   .jumbotron .block-title {
     font-size: 24px;
@@ -16125,6 +16128,19 @@ form#emh-points-arrange-form fieldset .panel-body .form-group {
 }
 form#emh-points-arrange-form fieldset .panel-body .form-group label {
   display: none !important;
+}
+form#emh-user-get-required-empty-profile-form {
+  margin-top: 15px;
+  float: left;
+  width: 100%;
+}
+form#emh-user-get-required-empty-profile-form .btn-group {
+  width: 100%;
+  margin-top: 15px;
+  text-align: center;
+}
+form#emh-user-get-required-empty-profile-form .btn-group .btn {
+  float: none;
 }
 /* FORMS
  * Burger menu filter
