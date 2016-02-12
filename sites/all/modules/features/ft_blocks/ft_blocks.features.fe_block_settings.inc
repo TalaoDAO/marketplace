@@ -81,7 +81,6 @@ function ft_blocks_default_fe_block_settings() {
     'pages' => '<front>',
     'roles' => array(
       'expert' => 4,
-      'expert preview' => 8,
       'référent' => 7,
     ),
     'themes' => array(
@@ -1148,7 +1147,6 @@ requests',
     'pages' => 'node/300',
     'roles' => array(
       'expert' => 4,
-      'expert preview' => 8,
       'référent' => 7,
     ),
     'themes' => array(
@@ -1180,7 +1178,6 @@ requests',
     'pages' => 'node/300',
     'roles' => array(
       'expert' => 4,
-      'expert preview' => 8,
       'référent' => 7,
     ),
     'themes' => array(
@@ -1212,7 +1209,6 @@ requests',
     'pages' => 'node/300',
     'roles' => array(
       'expert' => 4,
-      'expert preview' => 8,
       'référent' => 7,
     ),
     'themes' => array(
@@ -1273,7 +1269,6 @@ requests',
     'roles' => array(
       'administrator' => 3,
       'business' => 5,
-      'business preview' => 9,
       'webmaster' => 6,
     ),
     'themes' => array(
@@ -1306,7 +1301,6 @@ requests',
     'roles' => array(
       'administrator' => 3,
       'business' => 5,
-      'business preview' => 9,
       'webmaster' => 6,
     ),
     'themes' => array(
@@ -1339,7 +1333,6 @@ requests',
     'roles' => array(
       'administrator' => 3,
       'business' => 5,
-      'business preview' => 9,
       'webmaster' => 6,
     ),
     'themes' => array(
@@ -1434,7 +1427,6 @@ fr/node/323',
     'roles' => array(
       'administrator' => 3,
       'expert' => 4,
-      'expert preview' => 8,
       'référent' => 7,
       'webmaster' => 6,
     ),
@@ -1473,7 +1465,6 @@ fr/node
 fr/node/323',
     'roles' => array(
       'business' => 5,
-      'business preview' => 9,
     ),
     'themes' => array(
       'emindhub' => array(

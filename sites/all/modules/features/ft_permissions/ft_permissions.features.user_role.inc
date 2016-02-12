@@ -22,22 +22,10 @@ function ft_permissions_user_default_roles() {
     'weight' => 4,
   );
 
-  // Exported role: business preview.
-  $roles['business preview'] = array(
-    'name' => 'business preview',
-    'weight' => 8,
-  );
-
   // Exported role: expert.
   $roles['expert'] = array(
     'name' => 'expert',
     'weight' => 3,
-  );
-
-  // Exported role: expert preview.
-  $roles['expert preview'] = array(
-    'name' => 'expert preview',
-    'weight' => 7,
   );
 
   // Exported role: référent.
