@@ -11,16 +11,16 @@ base theme = bootstrap
 regions[topmenu]        = 'Top menu'
 regions[navigation]     = 'Navigation'
 regions[header]         = 'Top content'
-regions[header_right]   = 'Top content - Right'
+;regions[header_right]   = 'Top content - Right'
 regions[title]          = 'Title'
-regions[top]            = 'Page top'
 regions[highlighted]    = 'Highlighted'
+regions[top]            = 'Page top'
 regions[help]           = 'Help'
 regions[content]        = 'Content'
 regions[sidebar_first]  = 'Primary'
 regions[sidebar_second] = 'Secondary'
 regions[bottom]         = 'Page bottom'
-regions[bottom_right]   = 'Page bottom - Right'
+;regions[bottom_right]   = 'Page bottom - Right'
 regions[footer]         = 'Footer'
 regions[burgermenu]     = 'Burger Menu'
 
@@ -40,7 +40,7 @@ exclude[css][] = 'sites/all/modules/contrib/hybridauth/css/hybridauth.css'
 exclude[css][] = 'sites/all/modules/contrib/views/css/views.css'
 exclude[css][] = 'sites/all/modules/contrib/views_bulk_operations/css/views_bulk_operations.css'
 exclude[css][] = 'sites/all/modules/contrib/webform/css/webform-admin.css'
-exclude[css][] = 'sites/all/modules/patched/field_collection/field_collection.theme.css'
+exclude[css][] = 'sites/all/modules/contrib/field_collection/field_collection.theme.css'
 
 
 ; For information on choosing the desired method, please read the Drupal
@@ -80,3 +80,10 @@ scripts[] = 'libraries/bootstrap/js/transition.js'
 ; Method 2 uses BootstrapCDN, the only thing you might need to provide here
 ; is overrides to Bootstrap theme settings. Copy them here from the base theme
 ; to override.
+
+
+; Tooltips
+; --------------
+settings[bootstrap_tooltip_enabled] = 1
+settings[bootstrap_tooltip_descriptions] = 0
+settings[bootstrap_tooltip_html] = 1

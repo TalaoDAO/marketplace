@@ -95,24 +95,41 @@
 
 	<div class="content"<?php print $content_attributes; ?>>
 
+		<?php if (emh_access_user_can_see_full_request()) : ?>
+
+		<?php if (module_exists('progress_tracker')) : ?>
+		<?php $progress_block = module_invoke('progress_tracker', 'block_view', 'progress_tracker'); ?>
+		<section id="block-progress-tracker-progress-tracker" class="block block-progress-tracker emh-block-blue-title clearfix">
+			<div class="content">
+				<?php print render($progress_block['content']); ?>
+			</div>
+		</section>
+		<?php endif; ?>
+
   	<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeNavigation.tpl.php'; ?>
 
-		<?php if (!empty($body[0]['value'])) : ?>
+		<?php if (!empty($body[0]['value']) || !empty($content['field_image'])) : ?>
 		<div class="row section">
-			<div class="col-sm-12">
+			<div class="col-sm-9">
 				<?php print $body[0]['value']; ?>
 			</div>
+			<?php if (!empty($content['field_image'])) : ?>
+			<?php // TODO : add default image ?>
+			<div class="col-sm-3 text-right">
+				<?php print render($content['field_image']); ?>
+			</div>
+			<?php endif; ?>
 		</div>
 		<?php endif; ?>
 
 		<div class="row section">
 
-			<div class="col-sm-3">
+			<div class="col-sm-4">
 				<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/userInformations.tpl.php'; ?>
 			</div>
 
 			<?php if ( !empty($content['field_domaine']) || !empty($content['field_tags']) ) : ?>
-      <div class="col-sm-3">
+      <div class="col-sm-4">
 
 				<div class="row">
 			    <div class="col-sm-12">
@@ -124,7 +141,7 @@
       </div>
 			<?php endif; ?>
 
-			<div class="col-sm-3 meta">
+			<div class="col-sm-4 meta">
 
 				<ul>
 
@@ -168,16 +185,9 @@
 
       </div>
 
-			<?php if (!empty($content['field_image'])) : ?>
-			<?php // TODO : add default image ?>
-			<div class="col-sm-3 text-right">
-				<?php print render($content['field_image']); ?>
-			</div>
-			<?php endif; ?>
-
 	  </div>
 
-		<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeLinks.tpl.php'; ?>
+		<?php //require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeLinks.tpl.php'; ?>
 
 		<?php print render($content['comments']); ?>
 
@@ -187,6 +197,11 @@
 			// hide($content['links']);
 			//print render($content);
 		?>
+
+		<?php else : ?>
+		<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeProfileComplete.tpl.php'; ?>
+		<?php endif; ?>
+
 	</div>
 
 </div>

@@ -4,15 +4,15 @@
 /**
  * Implements hook_preprocess_block()
  */
-function emindhub_preprocess_block(&$vars) {
-  // echo '<pre>' . print_r($vars['block'], TRUE) . '</pre>';
-  $block_id = $vars['block']->module . '-' . $vars['block']->delta;
+function emindhub_preprocess_block(&$variables) {
+  $block_id = $variables['block']->module . '-' . $variables['block']->delta;
   // print_r($block_id);
-  $classes = &$vars['classes_array'];
-  $title_classes = &$vars['title_attributes_array']['class'];
-  $content_classes = &$vars['content_attributes_array']['class'];
-  $title = &$vars['block']->title;
-  $content = &$vars['content'];
+  // print_r($variables['block']);
+  $classes = &$variables['classes_array'];
+  $title_classes = &$variables['title_attributes_array']['class'];
+  $content_classes = &$variables['content_attributes_array']['class'];
+  $title = &$variables['block']->title;
+  $content = &$variables['content'];
 
   /* Add global classes to all blocks */
   // $title_classes[] = 'block-title';
@@ -96,32 +96,8 @@ function emindhub_preprocess_block(&$vars) {
       $classes[] = 'emh-block-grey';
       break;
 
-    // HP - How to mobilize the experts ?
-    case 'block-13':
-      $classes[] = 'col-sm-12';
-      $classes[] = 'emh-block-dark-title';
-      $content = '';
-      break;
-
     // HP - About experts
     case 'block-10':
-      $classes[] = 'col-sm-12';
-      $classes[] = 'emh-block-dark-title';
-      $content = '';
-      break;
-
-    // HP - Experts : text
-    case 'block-12':
-      $classes[] = 'col-sm-4';
-      break;
-
-    // HP - Experts : picto
-    case 'block-11':
-      $classes[] = 'col-sm-8';
-      break;
-
-    // HP - Why use eMindHub ?
-    case 'block-18':
       $classes[] = 'col-sm-12';
       $classes[] = 'emh-block-dark-title';
       $content = '';
@@ -150,6 +126,42 @@ function emindhub_preprocess_block(&$vars) {
       $classes[] = 'col-sm-8';
       $classes[] = 'emh-block-blue-main-title';
       $content = '';
+      break;
+
+    // HP - Business - Question
+    case 'block-15':
+      $content = '<a href="' . url('freetrial') . '">' . $content . '</a>';
+      break;
+
+    // HP - Expert - Question
+    case 'block-9':
+      $content = '<a href="' . url('expert/register') . '">' . $content . '</a>';
+      break;
+
+    // HP - Business - You are
+    case 'block-18':
+      $classes[] = 'emh-block-light';
+      $classes[] = 'emh-block-dark-title';
+      $content = '<a href="' . url('freetrial') . '">' . $content . '</a>';
+      break;
+
+    // HP - Expert - You are
+    case 'block-11':
+      $classes[] = 'emh-block-light';
+      $classes[] = 'emh-block-dark-title';
+      $content = '<a href="' . url('expert/register') . '">' . $content . '</a>';
+      break;
+
+    // HP - Business - Get a free trial
+    case 'block-13':
+      $classes[] = 'emh-block-light';
+      $content = '<a href="' . url('freetrial') . '">' . $content . '</a>';
+      break;
+
+    // HP - Expert - Sign up for free
+    case 'block-12':
+      $classes[] = 'emh-block-light';
+      $content = '<a href="' . url('expert/register') . '">' . $content . '</a>';
       break;
 
     // They use
@@ -220,8 +232,17 @@ function emindhub_preprocess_block(&$vars) {
       $classes[] = 'emh-block-light';
       break;
 
+    // Parrainage
+    case 'emh_virality-invitation_form':
+      $classes[] = 'emh-block-blue-title';
+      break;
+
+    // Profile percent complete
+    case 'pcp-pcp_profile_percent_complete':
+      $classes[] = 'col-sm-12';
+      break;
   }
 
-  // echo '<pre>' . print_r($vars, TRUE) . '</pre>';
+  // echo '<pre>' . print_r($variables['block'], TRUE) . '</pre>';
 
 }

@@ -1,13 +1,11 @@
-
 name = Login Destination
 description = Customize the destination that the user is redirected to after login.
 core = 7.x
-files[] = login_destination.module
-files[] = login_destination.admin.inc
 configure = admin/config/people/login-destination
-; Information added by drupal.org packaging script on 2012-12-18
-version = "7.x-1.1"
+
+; Information added by Drupal.org packaging script on 2016-01-22
+version = "7.x-1.4"
 core = "7.x"
 project = "login_destination"
-datestamp = "1355853150"
+datestamp = "1453451940"
 

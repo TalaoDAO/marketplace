@@ -14,7 +14,6 @@ function ft_blocks_default_fe_block_settings() {
 
   $export['block-beta'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 0,
@@ -30,7 +29,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => '',
         'status' => 0,
         'theme' => 'emindhub',
-        'weight' => -45,
+        'weight' => -46,
       ),
       'seven' => array(
         'region' => '',
@@ -45,7 +44,6 @@ function ft_blocks_default_fe_block_settings() {
 
   $export['block-expert_avantages'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -59,7 +57,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -45,
+        'weight' => -40,
       ),
       'seven' => array(
         'region' => '',
@@ -74,7 +72,6 @@ function ft_blocks_default_fe_block_settings() {
 
   $export['block-experts_points_info'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 0,
@@ -84,7 +81,6 @@ function ft_blocks_default_fe_block_settings() {
     'pages' => '<front>',
     'roles' => array(
       'expert' => 4,
-      'expert preview' => 8,
       'référent' => 7,
     ),
     'themes' => array(
@@ -92,7 +88,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => '',
         'status' => 0,
         'theme' => 'emindhub',
-        'weight' => -45,
+        'weight' => -36,
       ),
       'seven' => array(
         'region' => '',
@@ -107,7 +103,6 @@ function ft_blocks_default_fe_block_settings() {
 
   $export['block-home_register'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -126,7 +121,7 @@ freetrial',
         'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -45,
+        'weight' => -43,
       ),
       'seven' => array(
         'region' => '',
@@ -141,7 +136,6 @@ freetrial',
 
   $export['block-hp_baseline'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -157,7 +151,7 @@ freetrial',
         'region' => 'header',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => 0,
+        'weight' => -49,
       ),
       'seven' => array(
         'region' => '',
@@ -172,7 +166,6 @@ freetrial',
 
   $export['block-hp_challenge'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -180,13 +173,15 @@ freetrial',
     'module' => 'block',
     'node_types' => array(),
     'pages' => '<front>',
-    'roles' => array(),
+    'roles' => array(
+      'authenticated user' => 2,
+    ),
     'themes' => array(
       'emindhub' => array(
         'region' => 'top',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -42,
+        'weight' => -47,
       ),
       'seven' => array(
         'region' => '',
@@ -201,7 +196,6 @@ freetrial',
 
   $export['block-hp_expertise'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -214,10 +208,10 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'header_right',
+        'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -42,
+        'weight' => -49,
       ),
       'seven' => array(
         'region' => '',
@@ -232,7 +226,6 @@ freetrial',
 
   $export['block-hp_experts'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -245,10 +238,10 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'top',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
-        'weight' => -41,
+        'weight' => -35,
       ),
       'seven' => array(
         'region' => '',
@@ -263,7 +256,6 @@ freetrial',
 
   $export['block-hp_experts_picto'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -276,10 +268,10 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'top',
+        'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -39,
+        'weight' => -48,
       ),
       'seven' => array(
         'region' => '',
@@ -288,13 +280,12 @@ freetrial',
         'weight' => 0,
       ),
     ),
-    'title' => '<none>',
+    'title' => 'You are',
     'visibility' => 1,
   );
 
   $export['block-hp_experts_text'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -307,10 +298,10 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'top',
+        'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -40,
+        'weight' => -47,
       ),
       'seven' => array(
         'region' => '',
@@ -325,7 +316,6 @@ freetrial',
 
   $export['block-hp_mobilize'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -338,10 +328,10 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'top',
+        'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -45,
+        'weight' => -47,
       ),
       'seven' => array(
         'region' => '',
@@ -350,13 +340,12 @@ freetrial',
         'weight' => 0,
       ),
     ),
-    'title' => '3 ways to find experts',
+    'title' => '<none>',
     'visibility' => 1,
   );
 
   $export['block-hp_question'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -364,13 +353,15 @@ freetrial',
     'module' => 'block',
     'node_types' => array(),
     'pages' => '<front>',
-    'roles' => array(),
+    'roles' => array(
+      'authenticated user' => 2,
+    ),
     'themes' => array(
       'emindhub' => array(
         'region' => 'top',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -44,
+        'weight' => -49,
       ),
       'seven' => array(
         'region' => '',
@@ -385,7 +376,6 @@ freetrial',
 
   $export['block-hp_request'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -398,10 +388,10 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'header_right',
+        'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -43,
+        'weight' => -49,
       ),
       'seven' => array(
         'region' => '',
@@ -416,7 +406,6 @@ freetrial',
 
   $export['block-hp_survey'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -424,13 +413,15 @@ freetrial',
     'module' => 'block',
     'node_types' => array(),
     'pages' => '<front>',
-    'roles' => array(),
+    'roles' => array(
+      'authenticated user' => 2,
+    ),
     'themes' => array(
       'emindhub' => array(
         'region' => 'top',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -43,
+        'weight' => -48,
       ),
       'seven' => array(
         'region' => '',
@@ -445,7 +436,6 @@ freetrial',
 
   $export['block-hp_welcome'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -476,7 +466,6 @@ freetrial',
 
   $export['block-hp_why'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -489,10 +478,10 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'bottom',
+        'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -45,
+        'weight' => -48,
       ),
       'seven' => array(
         'region' => '',
@@ -501,13 +490,12 @@ freetrial',
         'weight' => 0,
       ),
     ),
-    'title' => 'Key benefits to clients',
+    'title' => 'You are',
     'visibility' => 1,
   );
 
   $export['block-hp_why_quality'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -520,10 +508,10 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'bottom',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
-        'weight' => -44,
+        'weight' => -34,
       ),
       'seven' => array(
         'region' => '',
@@ -538,7 +526,6 @@ freetrial',
 
   $export['block-hp_why_rapidity'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -551,10 +538,10 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'bottom',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
-        'weight' => -43,
+        'weight' => -33,
       ),
       'seven' => array(
         'region' => '',
@@ -569,7 +556,6 @@ freetrial',
 
   $export['block-hp_why_security'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
@@ -582,10 +568,10 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'bottom',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
-        'weight' => -42,
+        'weight' => -37,
       ),
       'seven' => array(
         'region' => '',
@@ -600,7 +586,6 @@ freetrial',
 
   $export['bootstrap_languages-language'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'language',
     'i18n_block_language' => array(),
@@ -627,9 +612,92 @@ freetrial',
     'visibility' => 0,
   );
 
+  $export['emh_request-request_help_challenge'] = array(
+    'cache' => 1,
+    'custom' => 0,
+    'delta' => 'request_help_challenge',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'module' => 'emh_request',
+    'node_types' => array(),
+    'pages' => 'node/add/challenge',
+    'roles' => array(),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'sidebar_second',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => -46,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => -100,
+      ),
+    ),
+    'title' => 'Help_challenges',
+    'visibility' => 1,
+  );
+
+  $export['emh_request-request_help_question1'] = array(
+    'cache' => 1,
+    'custom' => 0,
+    'delta' => 'request_help_question1',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'module' => 'emh_request',
+    'node_types' => array(),
+    'pages' => 'node/add/question1',
+    'roles' => array(),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'sidebar_second',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => -45,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => -100,
+      ),
+    ),
+    'title' => 'Help_questions',
+    'visibility' => 1,
+  );
+
+  $export['emh_request-request_help_webform'] = array(
+    'cache' => 1,
+    'custom' => 0,
+    'delta' => 'request_help_webform',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'module' => 'emh_request',
+    'node_types' => array(),
+    'pages' => 'node/add/webform',
+    'roles' => array(),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'sidebar_second',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => -44,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => -100,
+      ),
+    ),
+    'title' => 'Help_surveys',
+    'visibility' => 1,
+  );
+
   $export['menu-menu-burger-menu'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'menu-burger-menu',
     'i18n_block_language' => array(),
@@ -643,7 +711,7 @@ freetrial',
         'region' => '',
         'status' => 0,
         'theme' => 'emindhub',
-        'weight' => -38,
+        'weight' => -47,
       ),
       'seven' => array(
         'region' => '',
@@ -658,7 +726,6 @@ freetrial',
 
   $export['menu-menu-footer-menu'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'menu-footer-menu',
     'i18n_block_language' => array(),
@@ -687,7 +754,6 @@ freetrial',
 
   $export['menu-menu-networks'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'menu-networks',
     'i18n_block_language' => array(),
@@ -716,7 +782,6 @@ freetrial',
 
   $export['menu-menu-top'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'menu-top',
     'i18n_block_language' => array(),
@@ -747,7 +812,6 @@ freetrial',
 
   $export['menu-menu-top-anonymous'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'menu-top-anonymous',
     'i18n_block_language' => array(),
@@ -778,7 +842,6 @@ freetrial',
 
   $export['og_extras-node_links'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'node_links',
     'i18n_block_language' => array(),
@@ -792,7 +855,7 @@ freetrial',
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -40,
+        'weight' => -44,
       ),
       'seven' => array(
         'region' => '',
@@ -805,9 +868,41 @@ freetrial',
     'visibility' => 0,
   );
 
+  $export['pcp-pcp_profile_percent_complete'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => 'pcp_profile_percent_complete',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 1,
+    'module' => 'pcp',
+    'node_types' => array(),
+    'pages' => '<front>
+my-responses
+my-selections
+requests',
+    'roles' => array(
+      'expert' => 4,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'highlighted',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => 'Complete your profile and get launched!',
+    'visibility' => 1,
+  );
+
   $export['progress_tracker-progress_tracker'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'progress_tracker',
     'i18n_block_language' => array(),
@@ -822,10 +917,10 @@ freetrial',
     'roles' => array(),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'content',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
-        'weight' => -45,
+        'weight' => -49,
       ),
       'seven' => array(
         'region' => '',
@@ -840,7 +935,6 @@ freetrial',
 
   $export['search-form'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'form',
     'i18n_block_language' => array(),
@@ -857,7 +951,7 @@ freetrial',
         'region' => '',
         'status' => 0,
         'theme' => 'emindhub',
-        'weight' => -41,
+        'weight' => -12,
       ),
       'seven' => array(
         'region' => '',
@@ -872,7 +966,6 @@ freetrial',
 
   $export['system-help'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'help',
     'i18n_block_language' => array(),
@@ -901,7 +994,6 @@ freetrial',
 
   $export['system-main'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'main',
     'i18n_block_language' => array(),
@@ -915,7 +1007,7 @@ freetrial',
         'region' => 'content',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -45,
+        'weight' => -46,
       ),
       'seven' => array(
         'region' => 'content',
@@ -930,7 +1022,6 @@ freetrial',
 
   $export['system-main-menu'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'main-menu',
     'i18n_block_language' => array(),
@@ -944,7 +1035,7 @@ freetrial',
         'region' => '',
         'status' => 0,
         'theme' => 'emindhub',
-        'weight' => -45,
+        'weight' => -23,
       ),
       'seven' => array(
         'region' => '',
@@ -959,7 +1050,6 @@ freetrial',
 
   $export['system-user-menu'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'user-menu',
     'i18n_block_language' => array(),
@@ -990,7 +1080,6 @@ freetrial',
 
   $export['user-login'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'login',
     'i18n_block_language' => array(),
@@ -1021,7 +1110,6 @@ freetrial',
 
   $export['user_alert-user_alert'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'user_alert',
     'i18n_block_language' => array(),
@@ -1035,7 +1123,7 @@ freetrial',
         'region' => 'content',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -45,
+        'weight' => -48,
       ),
       'seven' => array(
         'region' => 'help',
@@ -1050,7 +1138,6 @@ freetrial',
 
   $export['views-01297140ea5ccce8d24f3c703da2aaa3'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => '01297140ea5ccce8d24f3c703da2aaa3',
     'i18n_block_language' => array(),
@@ -1060,7 +1147,6 @@ freetrial',
     'pages' => 'node/300',
     'roles' => array(
       'expert' => 4,
-      'expert preview' => 8,
       'référent' => 7,
     ),
     'themes' => array(
@@ -1083,7 +1169,6 @@ freetrial',
 
   $export['views-7d0e01b6bec26eb141930d321747febd'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => '7d0e01b6bec26eb141930d321747febd',
     'i18n_block_language' => array(),
@@ -1093,7 +1178,6 @@ freetrial',
     'pages' => 'node/300',
     'roles' => array(
       'expert' => 4,
-      'expert preview' => 8,
       'référent' => 7,
     ),
     'themes' => array(
@@ -1116,7 +1200,6 @@ freetrial',
 
   $export['views-d5d704bbc8904420c5b32361a0446d81'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'd5d704bbc8904420c5b32361a0446d81',
     'i18n_block_language' => array(),
@@ -1126,7 +1209,6 @@ freetrial',
     'pages' => 'node/300',
     'roles' => array(
       'expert' => 4,
-      'expert preview' => 8,
       'référent' => 7,
     ),
     'themes' => array(
@@ -1149,7 +1231,6 @@ freetrial',
 
   $export['views-entreprise_list-block'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'entreprise_list-block',
     'i18n_block_language' => array(),
@@ -1160,10 +1241,10 @@ freetrial',
     'roles' => array(),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'bottom',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
-        'weight' => -41,
+        'weight' => -13,
       ),
       'seven' => array(
         'region' => '',
@@ -1178,7 +1259,6 @@ freetrial',
 
   $export['views-my_responses_calls3-block'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'my_responses_calls3-block',
     'i18n_block_language' => array(),
@@ -1189,7 +1269,6 @@ freetrial',
     'roles' => array(
       'administrator' => 3,
       'business' => 5,
-      'business preview' => 9,
       'webmaster' => 6,
     ),
     'themes' => array(
@@ -1212,7 +1291,6 @@ freetrial',
 
   $export['views-my_responses_challenges-block'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'my_responses_challenges-block',
     'i18n_block_language' => array(),
@@ -1223,7 +1301,6 @@ freetrial',
     'roles' => array(
       'administrator' => 3,
       'business' => 5,
-      'business preview' => 9,
       'webmaster' => 6,
     ),
     'themes' => array(
@@ -1246,7 +1323,6 @@ freetrial',
 
   $export['views-my_responses_questions1-block'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'my_responses_questions1-block',
     'i18n_block_language' => array(),
@@ -1257,7 +1333,6 @@ freetrial',
     'roles' => array(
       'administrator' => 3,
       'business' => 5,
-      'business preview' => 9,
       'webmaster' => 6,
     ),
     'themes' => array(
@@ -1280,7 +1355,6 @@ freetrial',
 
   $export['views-news_thread-block'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'news_thread-block',
     'i18n_block_language' => array(),
@@ -1291,7 +1365,7 @@ freetrial',
     'roles' => array(),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'bottom_right',
+        'region' => 'bottom',
         'status' => 1,
         'theme' => 'emindhub',
         'weight' => -42,
@@ -1303,13 +1377,12 @@ freetrial',
         'weight' => 0,
       ),
     ),
-    'title' => '',
+    'title' => '<none>',
     'visibility' => 1,
   );
 
   $export['views-og_members-block_1'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'og_members-block_1',
     'i18n_block_language' => array(),
@@ -1323,7 +1396,7 @@ freetrial',
         'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -45,
+        'weight' => -42,
       ),
       'seven' => array(
         'region' => '',
@@ -1338,7 +1411,6 @@ freetrial',
 
   $export['views-query_list-block'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'query_list-block',
     'i18n_block_language' => array(),
@@ -1346,11 +1418,15 @@ freetrial',
     'module' => 'views',
     'node_types' => array(),
     'pages' => 'homepage
-node',
+node
+node/323
+fr
+fr/homepage
+fr/node
+fr/node/323',
     'roles' => array(
       'administrator' => 3,
       'expert' => 4,
-      'expert preview' => 8,
       'référent' => 7,
       'webmaster' => 6,
     ),
@@ -1374,7 +1450,6 @@ node',
 
   $export['views-query_list-block_1'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'query_list-block_1',
     'i18n_block_language' => array(),
@@ -1382,10 +1457,14 @@ node',
     'module' => 'views',
     'node_types' => array(),
     'pages' => 'homepage
-node',
+node
+node/323
+fr
+fr/homepage
+fr/node
+fr/node/323',
     'roles' => array(
       'business' => 5,
-      'business preview' => 9,
     ),
     'themes' => array(
       'emindhub' => array(
@@ -1407,7 +1486,6 @@ node',
 
   $export['views-sponsors-partners_block'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'sponsors-partners_block',
     'i18n_block_language' => array(),
@@ -1436,7 +1514,6 @@ node',
 
   $export['views-sponsors-sponsors_block'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'sponsors-sponsors_block',
     'i18n_block_language' => array(),
@@ -1465,7 +1542,6 @@ node',
 
   $export['views-users_list-block_2'] = array(
     'cache' => -1,
-    'css_class' => '',
     'custom' => 0,
     'delta' => 'users_list-block_2',
     'i18n_block_language' => array(),
@@ -1476,10 +1552,10 @@ node',
     'roles' => array(),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'bottom',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
-        'weight' => -40,
+        'weight' => 1,
       ),
       'seven' => array(
         'region' => '',

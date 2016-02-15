@@ -21,24 +21,21 @@ class menu_token_entity_context implements menu_token_handler {
     $entity_type = $options['_type'];
     $entity_info = entity_get_info($entity_type);
 
-    // Taken from entity_uri() to determine the uri callback for this entity
-    // type.
-    // A bundle-specific callback takes precedence over the generic one for the
-    // entity type.
-    if (isset($entity_info['uri callback'])) {
-      $uri_callback = $entity_info['uri callback'];
-    }
-    else {
-      return NULL;
-    }
+    $path_components = explode('/', $entity_info['path']);
+    foreach ($path_components as $position => $component) {
+      // If this is a menu argument, then use the current position to find
+      // the entity id.
+      if (strpos($component, '%') === 0) {
+        break;
+      }
 
-    $path = @$uri_callback();
-    $path = current(explode('/', $path['path']));
-
-    if (arg(0) === $path && is_numeric(arg(1))) {
-      return entity_load_single($entity_type, arg(1));
+      // If the current URL deviates from the expected path, assume the
+      // entity is not present.
+      if ($component !== arg($position)) {
+        return FALSE;
+      }
     }
 
-    return FALSE;
+    return entity_load_single($entity_type, arg($position));
   }
 }

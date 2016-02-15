@@ -11,6 +11,8 @@
 /**
  * Generates the report.
  *
+ * This cannot be sorted, because a result set that is too large will time out.
+ *
  * @param array $form
  *   The form definition.
  * @param array $form_state
@@ -26,48 +28,22 @@ function auditfiles_used_not_managed_form(array $form, array &$form_state) {
     return _auditfiles_used_not_managed_confirm_operation($form, $form_state);
   }
 
-  $output = '<p>' . t("Any files listed below are in the file_usage database
-    table, but not in the file_managed table. Files listed here have been
-    removed from Drupal's file management, but are still being listed as used
-    somewhere. You should verify the file's existence in the server and in the
-    content it is listed as being used in, and either delete the reference in
-    the report below, or add it to the file_managed table.") . '</p>';
-  $output .= t('The files in this list are using the %scheme scheme and are
-    relative to the files directory path, located at %path.',
-    array(
-      '%scheme' => file_default_scheme(),
-      '%path' => variable_get('file_' . file_default_scheme() . '_path', conf_path() . '/files'),
-    )
-  ) . '</p>';
-  $form['introduction'] = array(
-    '#markup' => $output,
-  );
-
   // Get the records to display.
-  // Check to see if the data has been stored.
-  if (!empty($form_state['storage']['saved_rows'])) {
-    // The data is currently saved, so use that.
-    $rows = unserialize($form_state['storage']['saved_rows']);
-  }
-  else {
-    // Check to see if the batch operation was just run. If so, use that data.
-    $rows = variable_get('auditfiles_used_not_managed_files_to_display', array());
-    if (empty($rows)) {
-      // The data is not saved and the batch operation has not been run, so get
-      // the data using the default options.
-      $file_ids = _auditfiles_used_not_managed_get_file_list();
-      if (!empty($file_ids)) {
-        foreach ($file_ids as $file_id) {
-          $rows[$file_id] = _auditfiles_used_not_managed_get_file_data($file_id);
-        }
+  // Check to see if there is saved data, and if so, use that.
+  $rows = variable_get('auditfiles_used_not_managed_files_to_display', array());
+  if (empty($rows)) {
+    // The data is not saved and the batch operation has not been run, so get
+    // the data using the default options.
+    $file_ids = _auditfiles_used_not_managed_get_file_list();
+    if (!empty($file_ids)) {
+      foreach ($file_ids as $file_id) {
+        $rows[$file_id] = _auditfiles_used_not_managed_get_file_data($file_id);
       }
     }
+
+    // Save the data for persistent use.
+    variable_set('auditfiles_used_not_managed_files_to_display', $rows);
   }
-  // Save the data for later retrieval.
-  $form['saved_rows'] = array(
-    '#type' => 'hidden',
-    '#value' => serialize($rows),
-  );
 
   // Set up the pager.
   if (!empty($rows)) {
@@ -79,18 +55,11 @@ function auditfiles_used_not_managed_form(array $form, array &$form_state) {
     }
   }
 
-  // Get any specified record selection limiters.
-  $record_limiters = _auditfiles_used_not_managed_get_record_limiters();
-  $record_selection = $record_limiters['record_selection'];
-  $maximum_records = $record_limiters['maximum_records'];
-
   // Define the form.
   // Setup the record count and related messages.
+  $maximum_records = variable_get('auditfiles_report_options_maximum_records', 0);
   if (!empty($rows)) {
-    if ($record_selection == 'batch_sets') {
-      $file_count_message = 'Found @count files in this batch set in the file_usage table that are not in the file_managed table.';
-    }
-    elseif ($maximum_records > 0) {
+    if ($maximum_records > 0) {
       $file_count_message = 'Found at least @count files in the file_usage table that are not in the file_managed table.';
     }
     else {
@@ -106,42 +75,22 @@ function auditfiles_used_not_managed_form(array $form, array &$form_state) {
     $form_count = 'Found no files in the file_usage table that are not in the file_managed table.';
   }
 
-  // Add the button to batch process the list of results.
-  if ($record_selection == 'limited') {
-    $batch_size = variable_get('auditfiles_report_options_batch_size', 0);
-    if ($batch_size > 0) {
-      $form['batch_process'] = array(
-        '#type' => 'submit',
-        '#value' => t('Load first batch set'),
-      );
-    }
-    else {
-      $form['batch_process'] = array(
-        '#type' => 'submit',
-        '#value' => t('Load all records'),
-      );
-    }
-  }
-  elseif ($record_selection == 'batch_sets') {
-    // Add the button to load the previous batch set.
-    $form['batch_process_prev'] = array(
-      '#type' => 'submit',
-      '#value' => t('Load previous batch set'),
-    );
-    // Add the button to load the next batch set.
-    $form['batch_process_next'] = array(
-      '#type' => 'submit',
-      '#value' => t('Load next batch set'),
-    );
-  }
   // Add the button to reset the record selection.
-  if ($record_selection != 'normal') {
-    $form['reset_records'] = array(
+  $form['reset_records'] = array(
+    '#type' => 'submit',
+    '#value' => t('Reset file list'),
+    '#suffix' => '<div>' . t("Use this button to reset this report's variables and load the page anew.") . '</div>',
+  );
+  // Add the button to batch process the list of results.
+  if ($maximum_records > 0) {
+    $form['batch_process'] = array(
       '#type' => 'submit',
-      '#value' => t('Reset record selection'),
+      '#value' => t('Load all files'),
+      '#suffix' => '<div>' . t('Use this button to load the number of records specified with the "Batch size" administrative configuration setting.') . '</div>',
     );
   }
 
+  // Create the form table.
   $form['files'] = array(
     '#type' => 'tableselect',
     '#header' => _auditfiles_used_not_managed_get_header(),
@@ -149,6 +98,7 @@ function auditfiles_used_not_managed_form(array $form, array &$form_state) {
     '#prefix' => '<div><em>' . $form_count . '</em></div>',
   );
 
+  // Add the data.
   if (!empty($rows) && !empty($pages)) {
     $form['files']['#options'] = $pages[$current_page];
   }
@@ -159,6 +109,7 @@ function auditfiles_used_not_managed_form(array $form, array &$form_state) {
     $form['files']['#options'] = array();
   }
 
+  // Add any action buttons.
   if (!empty($rows)) {
     $form['actions'] = array('#type' => 'actions');
     $form['actions']['submit'] = array(
@@ -166,6 +117,7 @@ function auditfiles_used_not_managed_form(array $form, array &$form_state) {
       '#value' => t('Delete selected items from the file_usage table'),
     );
 
+    // Add the pager.
     $form['pager'] = array('#markup' => theme('pager'));
   }
 
@@ -179,52 +131,21 @@ function auditfiles_used_not_managed_form_submit($form, &$form_state) {
   // Check if an operation was performed.
   if (!empty($form_state['values']['op'])) {
     // Check which operation was performed and start the batch process.
-    if ($form_state['values']['op'] == 'Load all records' || $form_state['values']['op'] == 'Load first batch set') {
+    if ($form_state['values']['op'] == t('Load all files')) {
       // Clear the variable, so subsequent pages will load the correct data.
-      variable_del('auditfiles_files_to_display');
-      $batch_size = variable_get('auditfiles_report_options_batch_size', 0);
-      if ($batch_size > 0) {
-        // Set appropriate variables for this operation.
-        variable_set('auditfiles_used_not_managed_record_selection', 'batch_sets');
-      }
-      else {
-        // Set appropriate variables for this operation.
-        variable_set('auditfiles_used_not_managed_record_selection', 'batched');
-      }
+      variable_del('auditfiles_used_not_managed_files_to_display');
       // Prepare and set the batch.
       batch_set(_auditfiles_used_not_managed_batch_display_create_batch());
     }
-    elseif ($form_state['values']['op'] == 'Load previous batch set') {
-      // Clear the variable, so subsequent pages will load the correct data.
-      variable_del('auditfiles_files_to_display');
-      // Set appropriate variables for this operation.
-      $batch_size = variable_get('auditfiles_report_options_batch_size', 0);
-      $batch_offset = variable_get('auditfiles_used_not_managed_batch_offset', 0);
-      variable_set('auditfiles_used_not_managed_batch_offset', $batch_offset - $batch_size);
-      variable_set('auditfiles_used_not_managed_record_selection', 'batch_sets');
-      // Prepare and set the batch.
-      batch_set(_auditfiles_used_not_managed_batch_display_create_batch());
+    elseif ($form_state['values']['op'] == t('Reset file list')) {
+      // Reset all the variables for this report, so subsequent pages loads will
+      // load and use the correct data.
+      db_delete('variable')
+        ->condition('name', 'auditfiles_used_not_managed_%', 'LIKE')
+        ->execute();
+      cache_clear_all('variables', 'cache_bootstrap');
     }
-    elseif ($form_state['values']['op'] == 'Load next batch set') {
-      // Clear the variable, so subsequent pages will load the correct data.
-      variable_del('auditfiles_files_to_display');
-      // Set appropriate variables for this operation.
-      $batch_size = variable_get('auditfiles_report_options_batch_size', 0);
-      $batch_offset = variable_get('auditfiles_used_not_managed_batch_offset', 0);
-      variable_set('auditfiles_used_not_managed_batch_offset', $batch_offset + $batch_size);
-      variable_set('auditfiles_used_not_managed_record_selection', 'batch_sets');
-      // Prepare and set the batch.
-      batch_set(_auditfiles_used_not_managed_batch_display_create_batch());
-    }
-    elseif ($form_state['values']['op'] == 'Reset record selection') {
-      // Clear the variable, so subsequent pages will load the correct data.
-      variable_del('auditfiles_files_to_display');
-      // Set appropriate variables for this operation.
-      unset($form_state['values']['saved_rows']);
-      variable_set('auditfiles_used_not_managed_record_selection', 'normal');
-      variable_del('auditfiles_used_not_managed_batch_offset');
-    }
-    elseif ($form_state['values']['op'] == 'Delete selected items from the file_usage table'
+    elseif ($form_state['values']['op'] == t('Delete selected items from the file_usage table')
       && !empty($form_state['values']['files'])) {
       foreach ($form_state['values']['files'] as $file_id) {
         if (!empty($file_id)) {
@@ -240,16 +161,12 @@ function auditfiles_used_not_managed_form_submit($form, &$form_state) {
 
       drupal_set_message(t('No items were selected to operate on.'));
     }
-    elseif ($form_state['values']['op'] == 'Yes') {
+    elseif ($form_state['values']['op'] == t('Yes')) {
       if ($form_state['values']['operation'] == 'delete') {
         // Prepare and set the batch.
         batch_set(_auditfiles_used_not_managed_batch_delete_create_batch($form_state['values']['changelist']));
       }
     }
-  }
-
-  if (!empty($form_state['values']['saved_rows'])) {
-    $form_state['storage']['saved_rows'] = $form_state['values']['saved_rows'];
   }
 }
 
@@ -279,7 +196,7 @@ function _auditfiles_used_not_managed_batch_finish_batch($success, $results, $op
   if ($success) {
     if (!empty($results['files_to_display'])) {
       // Save the gathered data for display.
-      variable_set('auditfiles_files_to_display', $results['files_to_display']);
+      variable_set('auditfiles_used_not_managed_files_to_display', $results['files_to_display']);
     }
   }
   else {
@@ -322,33 +239,131 @@ function _auditfiles_used_not_managed_batch_display_create_batch() {
  */
 function _auditfiles_used_not_managed_batch_display_get_operations() {
   $operations = array();
-  $file_ids = _auditfiles_used_not_managed_get_file_list();
-  foreach ($file_ids as $file_id) {
-    $operations[] = array(
-      '_auditfiles_used_not_managed_batch_display_process_batch',
-      array($file_id),
-    );
-  }
+  $operations[] = array(
+    '_auditfiles_used_not_managed_batch_display_get_files',
+    array(),
+  );
+  $operations[] = array(
+    '_auditfiles_used_not_managed_batch_display_process_files',
+    array(),
+  );
   return $operations;
 }
 
 /**
- * The batch process for displaying the files.
+ * The batch process operation for getting the files.
  *
- * @param int $file_id
- *   The ID for the file being processed.
  * @param array $context
  *   Used by the Batch API to keep track of and pass data from one operation to
  *   the next.
  */
-function _auditfiles_used_not_managed_batch_display_process_batch($file_id, array &$context) {
-  // Process the current file.
-  $file = _auditfiles_used_not_managed_get_file_data($file_id);
-  // The contents of 'results' are available as $results in the 'finished'
-  // function.
-  $context['results']['files_to_display'][$file_id] = $file;
-  // Set a progress message.
-  $context['message'] = t('Processed file ID %file_id.', array('%file_id' => $file_id));
+function _auditfiles_used_not_managed_batch_display_get_files(array &$context) {
+  if (empty($context['sandbox'])) {
+    $context['sandbox'] = array();
+    $context['sandbox']['progress'] = 0;
+    $context['sandbox']['current_file'] = 0;
+    $query = 'SELECT COUNT(DISTINCT fid) FROM {file_usage} fu WHERE fid NOT IN (SELECT fid FROM {file_managed})';
+    $record_count = db_query($query)->fetchField();
+    $batch_size = variable_get('auditfiles_report_options_batch_size', 0);
+    if ($batch_size > 0 && $record_count > $batch_size) {
+      $context['sandbox']['max'] = $batch_size;
+    }
+    else {
+      $context['sandbox']['max'] = $record_count;
+    }
+  }
+  if (empty($context['results']['file_list'])) {
+    $context['results']['file_list'] = array();
+  }
+
+  // Get the file data from the database.
+  // This cannot be sorted any other way here, or the results are not complete.
+  $query = 'SELECT fid
+    FROM {file_usage}
+    WHERE fid NOT IN (SELECT fid FROM {file_managed})
+      AND fid > :fid
+    ORDER BY fid ASC
+    LIMIT 20';
+  $files = db_query($query, array(':fid' => $context['sandbox']['current_file']))->fetchAll();
+
+  foreach ($files as $file) {
+    $context['results']['file_list'][$file->fid] = $file->fid;
+
+    // Update the progress information.
+    $context['sandbox']['progress']++;
+    $context['sandbox']['current_file'] = $file->fid;
+    $context['message'] = t(
+      'Getting the list of files. Processed file @num1 of @num2. Last file ID processed: !file_id.',
+      array(
+        '@num1' => $context['sandbox']['progress'],
+        '@num2' => $context['sandbox']['max'],
+        '!file_id' => $file->fid,
+      )
+    );
+  }
+
+  if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
+    $context['finished'] = ($context['sandbox']['progress'] >= $context['sandbox']['max']);
+  }
+}
+
+/**
+ * The batch process operation for formatting the files for display on the page.
+ *
+ * @param array $context
+ *   Used by the Batch API to keep track of and pass data from one operation to
+ *   the next.
+ */
+function _auditfiles_used_not_managed_batch_display_process_files(array &$context) {
+  if (empty($context['sandbox'])) {
+    $context['sandbox'] = array();
+    if (empty($context['results']['file_list'])) {
+      $context['sandbox']['progress'] = 1;
+      $context['sandbox']['max'] = 1;
+    }
+    else {
+      $context['sandbox']['progress'] = 0;
+      $context['sandbox']['max'] = count($context['results']['file_list']);
+    }
+  }
+  if (empty($context['results']['files_to_display'])) {
+    $context['results']['files_to_display'] = array();
+  }
+
+  if (!empty($context['results']['file_list'])) {
+    $file_list = array_slice($context['results']['file_list'], 0, 20, TRUE);
+
+    $query = 'SELECT fid, module, type, id, count
+      FROM file_usage
+      WHERE fid IN (:file_list)';
+    $files_list = db_query($query, array(':file_list' => $file_list))->fetchAll();
+
+    foreach ($files_list as $file) {
+      $context['results']['files_to_display'][$file->fid] = array(
+        'fid' => $file->fid,
+        'module' => $file->module . ' ' . t('module'),
+        'id' => l($file->type . '/' . $file->id, $file->type . '/' . $file->id),
+        'count' => $file->count,
+      );
+
+      unset($context['results']['file_list'][$file->fid]);
+
+      // Update the progress information.
+      $context['sandbox']['progress']++;
+      $context['message'] = t(
+        'Processing the file list. Processed file @num1 of @num2. Last file ID processed: !file_id.',
+        array(
+          '@num1' => $context['sandbox']['progress'],
+          '@num2' => $context['sandbox']['max'],
+          '!file_id' => $file->fid,
+        )
+      );
+    }
+  }
+
+  if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
+    $context['finished'] = ($context['sandbox']['progress'] >= $context['sandbox']['max']);
+  }
 }
 
 /**
@@ -379,15 +394,12 @@ function _auditfiles_used_not_managed_confirm_operation(array $form, array &$for
   if (!empty($values['files'])) {
     foreach ($values['files'] as $file_id) {
       if (!empty($file_id)) {
-        $file = file_load($file_id);
-        if (!empty($file)) {
-          $form['changelist'][$file_id] = array(
-            '#type' => 'hidden',
-            '#value' => $file_id,
-            '#prefix' => '<li><strong>' . $file->filename . '</strong> ' . t('will be deleted from the file_usage table.'),
-            '#suffix' => "</li>\n",
-          );
-        }
+        $form['changelist'][$file_id] = array(
+          '#type' => 'hidden',
+          '#value' => $file_id,
+          '#prefix' => '<li>' . t('File ID') . ' <strong>' . $file_id . '</strong> ' . t('will be deleted from the file_usage table.'),
+          '#suffix' => "</li>\n",
+        );
       }
       else {
         // Unsetting the unprocessed files prevents confirm_submit from dealing
@@ -513,19 +525,13 @@ function _auditfiles_used_not_managed_batch_delete_process_file($file_id) {
 function _auditfiles_used_not_managed_get_file_list() {
   // Get all the file IDs in the file_usage table that are not in the
   // file_managed table.
-  $query = "SELECT DISTINCT(fid) FROM {file_usage} WHERE fid NOT IN (SELECT fid FROM {file_managed})";
+  $query = 'SELECT DISTINCT fid FROM {file_usage} fu WHERE fid NOT IN (SELECT fid FROM {file_managed})';
 
   // If record limition has been configured, only use those records within that
   // specification.
-  $record_limiters = _auditfiles_used_not_managed_get_record_limiters();
-  $maximum_records = $record_limiters['maximum_records'];
+  $maximum_records = variable_get('auditfiles_report_options_maximum_records', 0);
   if ($maximum_records > 0) {
-    $query .= " LIMIT " . $maximum_records;
-    // Set the offest.
-    $query .= " OFFSET " . variable_get('auditfiles_used_not_managed_batch_offset', 0);
-  }
-  else {
-    variable_set('auditfiles_used_not_managed_batch_offset', 0);
+    $query .= ' LIMIT ' . $maximum_records;
   }
 
   return db_query($query)->fetchCol();
@@ -543,7 +549,7 @@ function _auditfiles_used_not_managed_get_file_list() {
  */
 function _auditfiles_used_not_managed_get_file_data($file_id) {
   // Get the file information for the specified file ID from the database.
-  $query = "SELECT * FROM {file_usage} WHERE fid = " . $file_id;
+  $query = 'SELECT * FROM {file_usage} WHERE fid = ' . $file_id;
   $file = db_query($query)->fetchObject();
   // Prepare the file information for displaying on the page. If the file exists
   // on the server, this will be an empty array, and it can be ignored.
@@ -560,39 +566,6 @@ function _auditfiles_used_not_managed_get_file_data($file_id) {
  */
 
 /**
- * Returns any report limiting settings.
- *
- * Returns the information that is needed to modify the report and display based
- * on any report limiting options that may have been set on the administrative
- * configuration settings page.
- *
- * @return array
- *   An associative array with these two values:
- *   - record_selection: A string representing record selection type, on which
- *     maximum_records is based.
- *   - maximum_records: An integer representing the total number of records to
- *     display on a report. (A value of 0 means there is no limit.)
- */
-function _auditfiles_used_not_managed_get_record_limiters() {
-  $record_selection = variable_get('auditfiles_used_not_managed_record_selection', 'normal');
-  $maximum_records = 0;
-  if ($record_selection == 'batch_sets') {
-    $maximum_records = variable_get('auditfiles_report_options_batch_size', 0);
-  }
-  elseif ($record_selection != 'batched') {
-    $maximum_records = variable_get('auditfiles_report_options_maximum_records', 0);
-    if ($maximum_records > 0) {
-      $record_selection = 'limited';
-      variable_set('auditfiles_used_not_managed_record_selection', 'limited');
-    }
-  }
-  return array(
-    'record_selection' => $record_selection,
-    'maximum_records' => $maximum_records,
-  );
-}
-
-/**
  * Returns the header to use for the display table.
  *
  * @return array
@@ -602,20 +575,15 @@ function _auditfiles_used_not_managed_get_header() {
   return array(
     'fid' => array(
       'data' => t('File ID'),
-      'field' => 'fu.fid',
-      'sort' => 'asc',
     ),
     'module' => array(
       'data' => t('Used by'),
-      'field' => 'fu.module',
     ),
     'id' => array(
       'data' => t('Used in'),
-      'field' => 'fu.id',
     ),
     'count' => array(
       'data' => t('Count'),
-      'field' => 'fu.count',
     ),
   );
 }

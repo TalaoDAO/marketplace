@@ -150,7 +150,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access environment indicator',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'environment_indicator',
   );
@@ -159,8 +158,7 @@ function ft_permissions_user_default_permissions() {
   $permissions['access environment indicator demo'] = array(
     'name' => 'access environment indicator demo',
     'roles' => array(
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
+      'administrator' => 'administrator',
     ),
     'module' => 'environment_indicator',
   );
@@ -169,8 +167,7 @@ function ft_permissions_user_default_permissions() {
   $permissions['access environment indicator dev'] = array(
     'name' => 'access environment indicator dev',
     'roles' => array(
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
+      'administrator' => 'administrator',
     ),
     'module' => 'environment_indicator',
   );
@@ -188,8 +185,7 @@ function ft_permissions_user_default_permissions() {
   $permissions['access environment indicator preprod'] = array(
     'name' => 'access environment indicator preprod',
     'roles' => array(
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
+      'administrator' => 'administrator',
     ),
     'module' => 'environment_indicator',
   );
@@ -199,7 +195,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access environment indicator prod',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'environment_indicator',
   );
@@ -208,8 +203,7 @@ function ft_permissions_user_default_permissions() {
   $permissions['access environment indicator test'] = array(
     'name' => 'access environment indicator test',
     'roles' => array(
-      'anonymous user' => 'anonymous user',
-      'authenticated user' => 'authenticated user',
+      'administrator' => 'administrator',
     ),
     'module' => 'environment_indicator',
   );
@@ -240,8 +234,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
       'authenticated user' => 'authenticated user',
       'business' => 'business',
-      'business preview' => 'business preview',
-      'expert preview' => 'expert preview',
       'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
@@ -254,9 +246,7 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
-      'business preview' => 'business preview',
       'expert' => 'expert',
-      'expert preview' => 'expert preview',
       'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
@@ -764,25 +754,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'user',
-  );
-
-  // Exported permission: 'administer piwik'.
-  $permissions['administer piwik'] = array(
-    'name' => 'administer piwik',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'piwik',
-  );
-
-  // Exported permission: 'administer points'.
-  $permissions['administer points'] = array(
-    'name' => 'administer points',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'emh_points',
   );
 
   // Exported permission: 'administer privatecomments forms'.
@@ -2017,7 +1988,6 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'expert' => 'expert',
-      'expert preview' => 'expert preview',
       'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
@@ -2086,7 +2056,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
       'business' => 'business',
       'expert' => 'expert',
-      'expert preview' => 'expert preview',
       'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
@@ -2100,7 +2069,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
       'business' => 'business',
       'expert' => 'expert',
-      'expert preview' => 'expert preview',
       'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
@@ -2114,7 +2082,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
       'business' => 'business',
       'expert' => 'expert',
-      'expert preview' => 'expert preview',
       'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
@@ -2127,7 +2094,6 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
-      'business preview' => 'business preview',
       'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
@@ -2221,7 +2187,6 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
-      'expert preview' => 'expert preview',
       'webmaster' => 'webmaster',
     ),
     'module' => 'actions_permissions',
@@ -2253,7 +2218,6 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
-      'expert preview' => 'expert preview',
       'webmaster' => 'webmaster',
     ),
     'module' => 'actions_permissions',
@@ -2635,7 +2599,6 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'expert' => 'expert',
-      'expert preview' => 'expert preview',
       'webmaster' => 'webmaster',
     ),
     'module' => 'flag',
@@ -2797,15 +2760,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'term_merge',
-  );
-
-  // Exported permission: 'opt-in or out of tracking'.
-  $permissions['opt-in or out of tracking'] = array(
-    'name' => 'opt-in or out of tracking',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'piwik',
   );
 
   // Exported permission: 'override email address'.
@@ -3131,7 +3085,6 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'expert' => 'expert',
-      'expert preview' => 'expert preview',
       'webmaster' => 'webmaster',
     ),
     'module' => 'flag',
@@ -3162,15 +3115,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'php',
-  );
-
-  // Exported permission: 'use PHP for tracking visibility'.
-  $permissions['use PHP for tracking visibility'] = array(
-    'name' => 'use PHP for tracking visibility',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'piwik',
   );
 
   // Exported permission: 'use PHP to import nodes'.
@@ -3256,18 +3200,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'page_manager',
-  );
-
-  // Exported permission: 'use points'.
-  $permissions['use points'] = array(
-    'name' => 'use points',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'business' => 'business',
-      'expert' => 'expert',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'emh_points',
   );
 
   // Exported permission: 'view field_referent'.

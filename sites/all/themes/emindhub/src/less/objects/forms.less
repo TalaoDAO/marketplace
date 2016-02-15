@@ -65,7 +65,8 @@ form {
 	// Upload file + image
 	.file-widget,
 	.field-type-image,
-	.image-widget-data {
+	.image-widget-data,
+	.field-widget-imagefield-crop-widget {
 		.file-return,
 		.file-upload span {
 			display: none;
@@ -101,6 +102,10 @@ form {
 		}
 	}
 
+	.form-mandatory {
+		clear: both;
+	}
+
 	@media (min-width: @screen-sm-min) {
 	  // Boutons submit + légende
 	  .form-row {
@@ -113,7 +118,6 @@ form {
 	  .form-mandatory {
 	    .text-right;
 	    line-height: 32px;
-			clear: both;
 	  }
 	}
 
@@ -122,14 +126,10 @@ form {
   .form-group.form-type-bef-checkbox,
   .form-group.views-exposed-form,
 	.form-radios {
-    input {
-      position: absolute;
-    }
     label {
       font-weight: normal; // forms.css
       cursor: pointer;
       word-wrap: break-word;
-      margin-left: 20px;
     }
   }
 

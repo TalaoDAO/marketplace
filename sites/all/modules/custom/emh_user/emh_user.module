@@ -1,0 +1,146 @@
+<?php
+/**
+ * @file
+ * Code for eMindHub Profiles feature.
+ */
+
+/**
+* Implements hook_views_api().
+*/
+function emh_user_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'emh_user') . '/views',
+  );
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function emh_user_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
+
+  $form['account']['name']['#access'] = FALSE;
+
+  unset($form['account']['current_pass']);
+  unset($form['account']['current_pass_required_values']);
+  $form['#validate'] = array_diff($form['#validate'], array('user_validate_current_pass'));
+  $form['#submit'][] = '_emh_user_form_user_profile_handler';
+
+}
+
+function _emh_user_form_user_profile_handler(&$form, &$form_state) {
+  $path = $_SERVER['HTTP_REFERER'];
+  if (isset($_GET['current'])) {            //if (isset($_GET['destination'])) {
+    $path = $_GET['current'];             // $path = $_GET['destination'];
+  }                                               // }
+  // echo $path;
+  $form_state['redirect'] = $path;
+}
+
+/**
+ * Helper function to get user realname instead of username.
+ */
+function emh_user_get_beautiful_realname($uid) {
+
+  $account = user_load($uid);
+  $firstName = '';
+  if (!empty($account->field_first_name[LANGUAGE_NONE])) {
+    $firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
+    $firstName = ucwords($firstName);
+  }
+  $lastName = '';
+  if (!empty($account->field_last_name[LANGUAGE_NONE])) {
+    $lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
+    $lastName = strtoupper($lastName);
+  }
+  if (!empty($firstName) && !empty($lastName)) {
+    return '<span class="author firstname">' . $firstName  . '</span>'. ' ' . '<span class="author lastname">' . $lastName . '</span>';
+  }
+  else {
+    return $account->name;
+  }
+
+}
+
+/**
+ * Helper function to check if current user has access to other user's realname.
+ */
+function emh_user_get_beautiful_author($node) {
+  if (empty($node)) {
+    $node = node_load(arg(1));
+  }
+  if (emh_access_author_name($node)) {
+    return emh_user_get_beautiful_realname($node->uid);
+  }
+  else {
+    return '<span class="author anonymous">' . t('Anonymous') . '</span>';
+  }
+}
+
+/**
+ * Helper function to check access to user profile url.
+ */
+function emh_user_get_beautiful_profile_link($uid) {
+
+  global $user;
+  $name = emh_user_get_beautiful_realname($uid);
+  if (emh_access_user_can_see_full_user($user->uid, $uid)) {
+    return '<a href="' . url('user/' . $uid) . '">' . $name . '</a>';
+  }
+  else {
+    return $name;
+  }
+
+}
+
+function emh_user_is_business($account = NULL) {
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+  if (emh_user_is_webmaster($account)) {
+    // Webmaster has every right.
+    return TRUE;
+  }
+  return (in_array('business', array_values($account->roles)) || in_array('business preview', array_values($account->roles)));
+}
+
+function emh_user_is_expert($account = NULL) {
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+  if (emh_user_is_webmaster($account)) {
+    // Webmaster has every right.
+    return TRUE;
+  }
+  return (in_array('expert', array_values($account->roles)) || in_array('expert preview', array_values($account->roles)) || in_array('référent', array_values($account->roles)));
+}
+
+function emh_user_is_author($nid, $account = NULL) {
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+  if (emh_user_is_webmaster($account)) {
+    // Webmaster has every right.
+    return TRUE;
+  }
+  if (empty($nid)) {
+    $nid = arg(1);
+  }
+  $node = node_load($nid);
+  return($node->uid == $account->uid);
+}
+
+function emh_user_is_webmaster($account = NULL) {
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+  if ($account->uid == 1) {
+    // Admin ( = eMindHub) has every right.
+    return TRUE;
+  }
+	return (in_array('webmaster', array_values($account->roles)) || in_array('administrator', array_values($account->roles)));
+}

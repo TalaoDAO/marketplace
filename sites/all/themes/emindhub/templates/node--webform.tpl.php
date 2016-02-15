@@ -95,29 +95,44 @@
 
 	<div class="content"<?php print $content_attributes; ?>>
 
-	  <?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeNavigation.tpl.php'; ?>
+		<?php if (emh_access_user_can_see_full_request()) : ?>
 
-		<?php if (!empty($body[0]['value']) || !empty($content['field_document'])) : ?>
-		<div class="row section">
-			<div class="col-sm-12">
-				<?php print $body[0]['value']; ?>
+		<?php if (module_exists('progress_tracker')) : ?>
+		<?php $progress_block = module_invoke('progress_tracker', 'block_view', 'progress_tracker'); ?>
+		<section id="block-progress-tracker-progress-tracker" class="block block-progress-tracker emh-block-blue-title clearfix">
+			<div class="content">
+				<?php print render($progress_block['content']); ?>
 			</div>
-			<div class="col-sm-12">
+		</section>
+		<?php endif; ?>
+
+		<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeNavigation.tpl.php'; ?>
+
+		<?php if (!empty($body[0]['value']) || !empty($content['field_document']) || !empty($content['field_image'])) : ?>
+		<div class="row section">
+			<div class="col-sm-9">
+				<?php print $body[0]['value']; ?>
 				<?php if (!empty($content['field_document'])) : ?>
 				<?php print render($content['field_document']); ?></li>
 				<?php endif; ?>
 			</div>
+			<?php if (!empty($content['field_image'])) : ?>
+			<?php // TODO : add default image ?>
+			<div class="col-sm-3 text-right">
+				<?php print render($content['field_image']); ?>
+			</div>
+			<?php endif; ?>
 		</div>
 		<?php endif; ?>
 
 		<div class="row section">
 
-			<div class="col-sm-3">
+			<div class="col-sm-4">
 				<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/userInformations.tpl.php'; ?>
 			</div>
 
 			<?php if ( !empty($content['field_domaine']) || !empty($content['field_tags']) ) : ?>
-      <div class="col-sm-3">
+      <div class="col-sm-4">
 
 				<div class="row">
 			    <div class="col-sm-12">
@@ -129,7 +144,7 @@
       </div>
 			<?php endif; ?>
 
-			<div class="col-sm-3 meta">
+			<div class="col-sm-4 meta">
 
 				<ul>
 
@@ -166,7 +181,6 @@
 					<li><?php print render($content['field_reward']); ?></li>
 					<?php endif; ?>
 
-          <?php //if (function_exists('webform_get_submission_count')) : ?>
 					<?php include_once(drupal_get_path('module', 'webform') . '/includes/webform.submissions.inc'); ?>
 					<li>
 						<div class="field field-name-field-submission field-type-serial field-label-inline clearfix">
@@ -178,7 +192,6 @@
 							</div>
 						</div>
 					</li>
-					<?php //endif; ?>
 
           <?php if (!empty($field_has_salary[0]['value']) && $field_has_salary[0]['value'] == 1) : ?>
           <li><?php print render($content['field_has_salary']); ?></li>
@@ -188,16 +201,9 @@
 
       </div>
 
-			<?php if (!empty($content['field_image'])) : ?>
-			<?php // TODO : add default image ?>
-			<div class="col-sm-3 text-right">
-				<?php print render($content['field_image']); ?>
-			</div>
-			<?php endif; ?>
-
 	  </div>
 
-		<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeLinks.tpl.php'; ?>
+		<?php //require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeLinks.tpl.php'; ?>
 
 		<?php // print render($content['comments']); ?>
 
@@ -208,9 +214,15 @@
 			// print render($content);
 		?>
 
-    <?php global $user; ?>
-		<?php if (!isBusinessUser() || $node->uid == $user->uid) : ?>
-		<?php //echo '<pre>' . print_r($node->webform, true) . '</pre>'; ?>
+		<?php	// Print the webform submission to the submitter
+		include_once drupal_get_path('module','webform') . '/includes/webform.submissions.inc';
+		global $user; $uid = $user->uid;
+		$submissions = webform_get_submissions(array('nid' => $nid, 'uid' => $uid));
+		?>
+
+		<?php if (empty($submissions) || $submissions['is_draft']) : ?>
+
+		<?php if ( (!emh_user_is_business() || $node->uid == $user->uid) && $node->webform['status'] ) : ?>
 		<?php if (!empty($node->webform['components'])) : ?>
 		<div id="comments" class="<?php print $classes; ?> row section emh-fieldgroup-blue-title"<?php print $attributes; ?>>
 	    <h2 class="h3"><span><?php print t('Answer the survey') ?></span></h2>
@@ -221,11 +233,8 @@
 		<?php endif; ?>
 		<?php endif; ?>
 
-		<?php	// Print the webform submission to the submitter
-		include_once drupal_get_path('module','webform') . '/includes/webform.submissions.inc';
-		global $user; $uid = $user->uid;
-		$submissions = webform_get_submissions(array('nid' => $nid, 'uid' => $uid));
-		if (!empty($submissions)) : ?>
+		<?php else: ?>
+
 		<?php foreach ($submissions as $submission) : ?>
 		<div id="answer" class="row section emh-fieldgroup-blue-title">
 			<h2 class="h3"><span><?php print t('Your answer') ?></span></h2>
@@ -237,14 +246,16 @@
 			  print drupal_render(webform_submission_render($node, $submission, $email, $format));
 				?>
 			</div>
-		</div>
-		<div class="row section actions">
-		  <div class="col-sm-12 text-right">
-		    <ul class="links list-inline">
-		      <li class="edit_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $sid; ?>/edit"><?php print t('Edit your answer'); ?></a></li>
-		  </div>
+			<ul class="links list-inline text-right">
+				<li class="edit_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $sid; ?>/edit"><?php print t('Edit'); ?></a></li>
+			</ul>
 		</div>
 		<?php endforeach; ?>
+
+		<?php endif; ?>
+
+		<?php else : ?>
+		<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeProfileComplete.tpl.php'; ?>
 		<?php endif; ?>
 
 	</div>

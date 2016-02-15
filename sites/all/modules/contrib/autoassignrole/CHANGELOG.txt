@@ -1,6 +1,11 @@
 autoassignole x.x-x.x, xxxx-xx-xx
 ---------------------------------------
 
+autoassignole 7.x-1.0, 2015-11-04
+---------------------------------------
+Issue #2333715 by alberto56, mike.davis: Make it possible to programmatically add user-selectable roles
+Issue #1312030 by muschpusch, mike.davis: user strings not translatable
+
 
 autoassignole 7.x-1.0-rc1, 2015-09-02
 ---------------------------------------

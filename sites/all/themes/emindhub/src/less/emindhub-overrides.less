@@ -1,4 +1,13 @@
 // Bootstrap titles
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+	// word-break: break-all;
+	white-space: normal;
+}
 h1, h2,
 .h1, .h2 {
 	font-weight: 700;
@@ -6,7 +15,6 @@ h1, h2,
 h2, .h2 {
 	font-size: 22px;
 	.text-uppercase;
-
 	color: @darkerBlue;
 }
 h3, .h3 {
@@ -17,20 +25,23 @@ h4, .h4 {
 	font-size: 16px;
 }
 
+.container {
+  @media (min-width: @screen-sm-min) {
+    width: auto;
+  }
+	@media (min-width: @screen-md-min) {
+    width: @container-md;
+  }
+  @media (min-width: @screen-lg-min) {
+    width: @container-lg;
+  }
+}
 
 // Bootstrap navbar
 .navbar {
 	margin-bottom: 0;
 }
 
-
-// Bootstrap carrousel
-.carousel-inner {
-	> .item {
-		padding-left: 10%;
-		padding-right: 10%;
-	}
-}
 .icon-prev,
 .icon-next {
 	&:before {
@@ -181,6 +192,14 @@ body.page-user-edit {
 	}
 }
 
+// Checkbox / Radio
+.radio input[type="radio"],
+.radio-inline input[type="radio"],
+.checkbox input[type="checkbox"],
+.checkbox-inline input[type="checkbox"] {
+  margin-left: 0;
+}
+
 // Node edit case
 body.page-node-edit {
 	.form-textarea-wrapper.resizable-textarea {
@@ -218,7 +237,7 @@ body.page-node-edit {
 		> .views-reset-button {
 			.make-sm-column(1);
 			@media screen and (min-width: @screen-sm-min) {
-				margin-top: 24px;
+				margin-top: 25px;
 			}
 		}
 	}
@@ -236,17 +255,6 @@ table.views-table {
 .table-striped {
 	> tbody > tr:nth-of-type(even) {
 		background-color: @gray-very-lighter;
-	}
-}
-
-// Forcer le odd/even sur les listes de commentaires
-#comments {
-	> div.comment {
-		padding-top: 10px;
-		border-top: 1px solid #DDD;
-	}
-	> div.comment:nth-of-type(even) {
-		background-color: #fff;
 	}
 }
 
@@ -482,11 +490,11 @@ div.password-confirm {
 		.btn;
 		.btn-default;
 	}
+	&.edit_link,
 	&.answers_link {
 		> a {
 			.btn-submit;
 		}
-
 	}
 
 	&.comment-delete {
@@ -528,4 +536,26 @@ html.js div.contextual-links-wrapper {
 		}
 
 	}
+}
+
+
+.jumbotron {
+	margin-top: @jumbotron-padding;
+	.text-center;
+  .block-title {
+    color: @jumbotron-heading-color;
+		margin-top: 0;
+  }
+	a {
+		color: #FFF;
+		font-weight: bold;
+	}
+	form {
+		.text-left;
+	}
+	@media screen and (min-width: @screen-sm-min) {
+    .block-title {
+      font-size: @jumbotron-heading-font-size;
+    }
+  }
 }

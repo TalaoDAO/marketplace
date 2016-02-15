@@ -7,54 +7,30 @@ form#user-profile-form {
     .form-group-2col;
   }
 
-  // .imagefield-crop-widget,
-  .image-widget {
-    .make-row();
-    margin: 0;
-
-    .image-preview {
-      .make-sm-column(2);
-      img {
-        .img-circle;
-      	.center-block;
-      }
+  .imagefield-crop-widget {
+    /* Zen - max-width: 100% for img tags in normalize.css messes up ImageField Crop's
+     * preview and cropbox - we have to set max-width to none to fix it
+     * per https://drupal.org/node/1779494
+     */
+    img {
+      max-width:none;
     }
-
-    .image-widget-data {
-      .make-sm-column(10);
-      .make-row();
-      margin: 0;
-
-      .file {
-        .make-sm-column(6);
-        a {
-          overflow: hidden;
-  				text-overflow: ellipsis;
-  				white-space: nowrap;
-  				max-width: 200px;
-          display: block;
-        }
-      }
-
-      .file-size {
-        .make-sm-column(4);
-      }
+    .imagefield-crop-preview,
+    .imagefield-crop-cropbox {
+      float: left;
+      margin-right: 15px;
     }
-
-    .form-item-field-photo-und-0-focal-point {
-      display: none;
+    .jcrop-preview-wrapper {
+      .img-circle;
+      .center-block;
     }
-    .focal-point-help {
-      clear: both;
+    .file,
+    .file-upload > span {
+      .hidden();
     }
-
-    @media (min-width: @screen-sm-min) {
-      button.form-submit {
-        float: right;
-        margin-right: 15px;
-      }
+    .jcrop-holder {
+      background-color: transparent ! important;
     }
-
   }
 
   #edit-field-skills-set {

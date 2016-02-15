@@ -1,20 +1,26 @@
 @api
-Feature: Test profil visibility 
+Feature: Test profil visibility
   In order to test profile visibility
   As a client with some experts
   I want check if profile is well displayed
 
   Background: profils : Create questions and answers
+    Given "circle" content:
+    | title    | author  |
+    | Avengers | client1 |
+
     Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas |
-    | client1 | client1@emindhub.com | business | Captain          | America         | 0612345678      | Chef de groupe     |
-    | expert1 | expert1@emindhub.com | expert   | Iron             | Man             | 0712345678      | Chieur génial      |
-    | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | 0812345678      | Modèle             |
-    | expert3 | expert3@emindhub.com | expert   | Bruce            | Banner          | 0912345678      | Cogneur            |
+    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node |
+    | client1 | client1@emindhub.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     |
+    | expert1 | expert1@emindhub.com | expert   | Iron             | Man             | 0712345678      | Chieur génial      | Avengers     |
+    | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | 0812345678      | Modèle             | Avengers     |
+    | expert3 | expert3@emindhub.com | expert   | Bruce            | Banner          | 0912345678      | Cogneur            | Avengers     |
+
     Given I give "client1" 300 emh points
+
     Given "question1" content:
     | title        | field_domaine | og_group_ref | field_reward | author  |
-    | What about ? | Energy        | All experts  | 100          | client1 |
+    | What about ? | Energy        | Avengers     | 100          | client1 |
 
     Given I am logged in as "expert1"
     When I go to homepage

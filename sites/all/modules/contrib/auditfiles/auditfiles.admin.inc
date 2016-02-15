@@ -8,6 +8,30 @@
  * Creates page for configuring the administrative settings.
  */
 function auditfiles_admin_settings($form, &$form_state) {
+  $form['auditfiles_file_system_paths'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('File system paths'),
+    '#collapsible' => TRUE,
+  );
+  // Show the file system path select list.
+  $file_system_paths = file_get_stream_wrappers();
+  $options = array();
+  foreach ($file_system_paths as $file_system_path_id => $file_system_path) {
+    $options[$file_system_path_id] = $file_system_path['name'] . ': '
+      . variable_get('file_' . $file_system_path_id . '_path', conf_path() . '/files')
+      . ' (' . $file_system_path['description'] . ')';
+  }
+  $form['auditfiles_file_system_paths']['auditfiles_file_system_path'] = array(
+    '#type' => 'select',
+    '#title' => 'File system path',
+    '#default_value' => variable_get('auditfiles_file_system_path', 'public'),
+    '#options' => $options,
+    '#description' => t('Select the file system path to use when searching for
+      and comparing files.<br />
+      File system paths can be modified on the system !file_system settings
+      page.', array('!file_system' => l(t('File system'), 'admin/config/media/file-system'))),
+  );
+
   $form['auditfiles_exclusions'] = array(
     '#type' => 'fieldset',
     '#title' => t('Exclusions'),
@@ -32,9 +56,7 @@ function auditfiles_admin_settings($form, &$form_state) {
     '#title' => t('Exclude these paths'),
     '#default_value' => trim(variable_get('auditfiles_exclude_paths', 'color;css;ctools;js')),
     '#description' => t('Enter a list of paths to exclude, each separated by the
-      semi-colon character (;). Do not include the leading slash. Paths are
-      relative to %directorypath',
-      array('%directorypath' => file_default_scheme())),
+      semi-colon character (;). Do not include the leading slash.'),
   );
 
   $form['auditfiles_domains'] = array(
@@ -96,7 +118,7 @@ function auditfiles_admin_settings($form, &$form_state) {
     '#default_value' => variable_get('auditfiles_report_options_maximum_records', 0),
     '#size' => 10,
     '#description' => t('Enter an integer representing the maximum number of
-      records to return on each report.<br />
+      records to return for each report.<br />
       If any of the reports are timing out, set this to some positive integer to
       limit the number of records that are queried in the database. For reports
       where the limit is reached, a button to batch process the loading of the
@@ -106,19 +128,15 @@ function auditfiles_admin_settings($form, &$form_state) {
   );
   $form['auditfiles_report_options']['auditfiles_report_options_batch_size'] = array(
     '#type' => 'textfield',
-    '#title' => t('Batch set size'),
+    '#title' => t('Batch size'),
     '#default_value' => variable_get('auditfiles_report_options_batch_size', 0),
     '#size' => 10,
-    '#description' => t("Sometimes, the above limitations and batching
-      operations aren't enough, and the reports may still timeout or exhaust the
-      available memory. If that is the case, enter a positive integer here and
-      the batch operations will be broken up into sets of this number of
-      records. You will be given a method for paging from one batch set to
-      anther.<br />
-      To test if this will be helpful or not, set it to a low number. If the
-      report loads, then set it to a higher number to access more records per
-      batch load operation.<br />
-      Set this to 0 for no limit."),
+    '#description' => t('If you have a lot of files (100,000+), it will take an
+      exponentially longer amount of time and memory to retrieve file data the
+      longer it goes through the batch process. Decreasing the the number of
+      files loaded, by setting this to a positive, non-zero integer, will keep
+      the batch process down to a reasonable amount of time.<br />
+      Set this to 0 for no limit.'),
   );
 
   return system_settings_form($form);

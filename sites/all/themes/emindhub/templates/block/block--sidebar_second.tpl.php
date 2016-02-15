@@ -49,7 +49,11 @@
 
   <?php print render($title_prefix); ?>
   <?php if ($title): ?>
+    <?php if ($is_front) : ?>
+    <h2<?php print $title_attributes; ?>><span><?php print $title; ?></span></h2>
+    <?php else: ?>
     <h3<?php print $title_attributes; ?>><span><?php print $title; ?></span></h3>
+    <?php endif;?>
   <?php endif;?>
   <?php print render($title_suffix); ?>
 

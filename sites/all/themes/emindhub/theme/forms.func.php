@@ -24,7 +24,7 @@ function emindhub_process_format($element) {
  */
 function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+  // echo '<pre>' . print_r($form_id, TRUE) . '</pre>';
   // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
 
 	if (!empty($form['actions'])) {
@@ -39,6 +39,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 		  'draft',
 		  'preview',
 		  'submit',
+			'save',
 		  'publish',
 		) as $action ) {
 			if (!empty($form['actions'][$action])) {
@@ -57,6 +58,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 		  'draft'						=> array(),
 		  'preview'					=> array(),
 		  'submit'					=> array(),
+			'save'						=> array(),
 		  'publish'					=> array(),
 		);
 		emindhub_beautiful_form_actions($form, $primary_actions);
@@ -64,7 +66,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 	}
 
   // Add required legend if minimum one field is required
-  if ( emindhub_form_has_required($form, $form_id) == TRUE ) {
+  if (emindhub_form_has_required($form, $form_id)) {
   	$form['actions']['#suffix'] = '
   		<div class="form-mandatory">
   			<span class="form-required">*</span>&nbsp;' . t('Required fields') . '
@@ -104,21 +106,16 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_last_name']['#suffix'] = '</div>';
 
-  $form['account']['name']['#prefix'] = '<div class="form-group-2col row">';
-  $form['account']['mail']['#weight'] = -9;
-  $form['account']['mail']['#suffix'] = '</div>';
-
-  unset($form['account']['current_pass']);
-  unset($form['account']['current_pass_required_values']);
-  $form['#validate'] = array_diff($form['#validate'], array('user_validate_current_pass'));
+	// Reduce email description for better Bootstrap display (tooltip)
+  $form['account']['mail']['#description'] = t('All e-mails from the system will be sent to this address. The e-mail address will only be used if you wish to receive a new password or certain news or notifications by e-mail.');
 
   // Contact
-  $form['field_address']['und'][0]['#type'] = 'div';
-  $form['field_address']['und'][0]['street_block']['thoroughfare']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_address']['und'][0]['street_block']['premise']['#suffix'] = '</div>';
+  $form['field_address'][LANGUAGE_NONE][0]['#type'] = 'div';
+  $form['field_address'][LANGUAGE_NONE][0]['street_block']['thoroughfare']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_address'][LANGUAGE_NONE][0]['street_block']['premise']['#suffix'] = '</div>';
 
-  $form['field_address']['und'][0]['locality_block']['postal_code']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_address']['und'][0]['locality_block']['locality']['#suffix'] = '</div>';
+  $form['field_address'][LANGUAGE_NONE][0]['locality_block']['postal_code']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_address'][LANGUAGE_NONE][0]['locality_block']['locality']['#suffix'] = '</div>';
 
   $form['field_telephone']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_link_to_my_blog']['#suffix'] = '</div>';
@@ -129,8 +126,8 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
   // Needs
   $form['field_needs_for_expertise']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_needs_for_expertise']['und']['#title'] = $form['field_needs_for_expertise']['und']['#title'] . ' ' . t('(choose one or several fields)');
-  $form['field_specific_skills3']['und']['#title'] = $form['field_specific_skills3']['und']['#title'] . ' ' . t('(using keywords or tags)');
+  $form['field_needs_for_expertise'][LANGUAGE_NONE]['#title'] = $form['field_needs_for_expertise'][LANGUAGE_NONE]['#title'] . ' ' . t('(choose one or several fields)');
+  $form['field_specific_skills3'][LANGUAGE_NONE]['#title'] = $form['field_specific_skills3'][LANGUAGE_NONE]['#title'] . ' ' . t('(using keywords or tags)');
   $form['field_specific_skills3']['#suffix'] = '</div>';
 
   // Skills & background
@@ -143,20 +140,19 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
   // Complement
   $form['field_notification_frequency']['#prefix'] = '<div class="form-group-2col row">';
-	if (isBusinessUser()) {
-		// print 'business';
-		$form['field_notification_frequency']['und']['#description'] = t('How often do you want to receive eMindHub\'s notifications about new answers to your requests ?');
+	if (emh_user_is_business()) {
+		$form['field_notification_frequency'][LANGUAGE_NONE]['#description'] = t('How often do you want to receive eMindHub\'s notifications about new answers to your requests ?');
 	}
-	if (isExpertUser()) {
-		$form['field_notification_frequency']['und']['#description'] = t('How often do you want to receive eMindHub\'s notifications about new requests ?');
+	if (emh_user_is_expert()) {
+		$form['field_notification_frequency'][LANGUAGE_NONE]['#description'] = t('How often do you want to receive eMindHub\'s notifications about new requests ?');
 	}
   $form['field_known_specific']['#suffix'] = '</div>';
 
   $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
 
   // FIXME : fait buguer la prévisualisation des portraits
-  // $form['field_photo']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
-  $form['field_cv']['und'][0]['#process'][] = 'emindhub_my_file_element_process';
+  // $form['field_photo'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
+  $form['field_cv'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
 
 }
 
@@ -167,6 +163,24 @@ function emindhub_form_process_password_confirm($element) {
   $element['pass1']['#title'] = t('New password');
   $element['pass2']['#title'] = t('Confirm new password');
   return $element;
+
+}
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function emindhub_form_emh_profile_complete_get_required_empty_profile_form_alter(&$form, &$form_state, $form_id) {
+
+	$form['field_entreprise']['#prefix'] = '<div class="form-group-3col row">';
+	$form['field_entreprise']['#weight'] = '1';
+	$form['field_working_status']['#weight'] = '2';
+	$form['field_domaine']['#weight'] = '3';
+	$form['field_domaine']['#suffix'] = '</div>';
+
+	$form['actions']['#weight'] = '100';
+	$form['actions']['submit']['#attributes']['class'][] = 'btn-asphalt';
+	$form['actions']['#suffix'] = '';
 
 }
 
@@ -266,12 +280,29 @@ function emindhub_form_user_register_form_alter(&$form, &$form_state, $form_id) 
   $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_last_name']['#suffix'] = '</div>';
 
-  $form['account']['name']['#prefix'] = '<div class="form-group-2col row">';
-  $form['account']['current_pass']['#suffix'] = '</div>';
+	// Reduce email description for better Bootstrap display (tooltip)
+  $form['account']['mail']['#description'] = t('All e-mails from the system will be sent to this address. The e-mail address will only be used if you wish to receive a new password or certain news or notifications by e-mail.');
 
-  // $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
+}
 
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+/**
+ * Implementation of hook_element_info_alter().
+ */
+function emindhub_element_info_alter(&$type) {
+	if (isset($type['password_confirm'])) {
+		$type['password_confirm']['#process'][] = 'emindhub_process_password_confirm';
+	}
+}
+
+/**
+ * Function emindhub_process_password_confirm() for editing label.
+ */
+function emindhub_process_password_confirm($element) {
+	if ($element['#array_parents'][0] == 'account') {
+		$element['pass1']['#prefix'] = '<div class="form-group-2col row">';
+		$element['pass2']['#suffix'] = '</div>';
+	}
+	return $element;
 }
 
 
@@ -296,7 +327,7 @@ function emindhub_form_comment_form_alter(&$form, &$form_state, $form_id) {
 function emindhub_views_bulk_operations_form_alter(&$form) {
   // Only when we want it.
   $view = arg(2);
-  if (!empty($view) && ($view == 'answers' || $view == 'survey_answers')) {
+  if (!empty($view) && ($view == 'answers' || $view == 'results')) {
     $form['select']['action::emh_points_arrange_node_points']['#attributes']['class'][] = 'btn-submit';
   }
 }

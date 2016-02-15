@@ -170,14 +170,10 @@ global $base_url;
 
         <div class="row">
 
-          <div class="col-sm-9">
+          <div class="col-sm-8 col-md-9">
 
             <?php if (!empty($page['title'])): ?>
             <?php print render($page['title']); ?>
-            <?php endif; ?>
-
-            <?php if (!empty($page['highlighted'])): ?>
-            <div class="highlighted jumbotron"><?php print render($page['highlighted']); ?></div>
             <?php endif; ?>
 
             <?php print render($title_prefix); ?>
@@ -192,10 +188,10 @@ global $base_url;
 
           </div>
 
-          <div id="flashes" class="col-sm-3">
+          <div id="flashes" class="col-sm-4 col-md-3">
 
             <?php if ( $logged_in ): ?>
-            <a class="btn btn-flash icon-community" href="<?php print url('points'); ?>"><?php print t('Invite experts and earn points!'); ?></a>
+            <a class="btn btn-flash icon-community" href="<?php print url('invitations'); ?>"><?php print t('Invite experts and earn points!'); ?></a>
             <?php endif; ?>
 
           </div>
@@ -217,6 +213,12 @@ global $base_url;
 
     <div class="container">
 
+      <?php if (!empty($page['highlighted'])): ?>
+      <div class="highlighted jumbotron">
+          <?php print render($page['highlighted']); ?>
+      </div>
+      <?php endif; ?>
+
       <?php if (!empty($page['top'])): ?>
       <?php print render($page['top']); ?>
       <?php endif; ?>
@@ -224,7 +226,11 @@ global $base_url;
       <div class="row">
 
         <?php if (!empty($page['sidebar_first'])) : ?>
+        <?php if ($is_front) : ?>
+        <aside id="sidebar-first" class="col-sm-5 col-sm-offset-1" role="complementary">
+        <?php else : ?>
         <aside id="sidebar-first" class="col-sm-2" role="complementary">
+        <?php endif; ?>
           <?php print render($page['sidebar_first']); ?>
         </aside>  <!-- /#sidebar-first -->
         <?php endif; ?>
@@ -240,7 +246,11 @@ global $base_url;
         </section>
 
         <?php if (!empty($page['sidebar_second']) || !empty($page['help'])): ?>
+        <?php if ($is_front) : ?>
+        <aside id="sidebar-second" class="col-sm-5" role="complementary">
+        <?php else : ?>
         <aside id="sidebar-second" class="col-sm-3" role="complementary">
+        <?php endif; ?>
           <?php if (!empty($page['help'])): ?>
             <?php print render($page['help']); ?>
           <?php endif; ?>

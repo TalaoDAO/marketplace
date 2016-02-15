@@ -8,13 +8,14 @@ require_once('theme/alter.inc');
 require_once('theme/blocks.func.php');
 require_once('theme/common.inc');
 require_once('theme/forms.func.php');
-require_once('theme/form_elements.func.php');
 require_once('theme/html.func.php');
 require_once('theme/menus.func.php');
 require_once('theme/nodes.func.php');
 require_once('theme/regions.func.php');
 require_once('theme/menu/menu-local-tasks.func.php');
 require_once('theme/system/button.vars.php');
+require_once('theme/system/form-element.func.php');
+require_once('theme/system/form-element-label.func.php');
 require_once('theme/system/page.vars.php');
 
 
@@ -31,26 +32,6 @@ function emindhub_file($variables) {
 /*
  * USEFUL FUNCTIONS
  */
-function isBusinessUser() {
-	global $user;
-  return (in_array('business', array_values($user->roles)) || in_array('business preview', array_values($user->roles)));
-}
-
-function isExpertUser() {
-	global $user;
-  return (in_array('expert', array_values($user->roles)) || in_array('expert preview', array_values($user->roles)) || in_array('référent', array_values($user->roles)));
-}
-
-function isWebmasterUser() {
-	global $user;
-	return (in_array('webmaster', array_values($user->roles)));
-}
-
-function isAdminUser() {
-	global $user;
-	return (in_array('administrator', array_values($user->roles)));
-}
-
 function getImgSrc($fileName) {
 	return sprintf('%s/images/%s', base_path().path_to_theme(), $fileName);
 }
@@ -234,25 +215,34 @@ function emindhub_preprocess_field(&$variables) {
           $classes[] = 'col-sm-2';
           break;
 
-        case 'field_first_name':
-        case 'field_titre_metier':
-        case 'field_entreprise':
-        case 'field_address':
-        case 'field_telephone':
-          $classes[] = 'col-sm-10';
-          break;
+				case 'field_first_name':
+				case 'field_last_name':
+				case 'field_titre_metier':
+				case 'field_entreprise':
+				case 'field_address':
+				case 'field_telephone':
+				case 'field_mail':
+					$user = user_load(arg(1));
+					$field = field_get_items('user', $user, 'field_photo');
+					if ($field) {
+						$classes[] = 'col-sm-10';
+					} else {
+						$classes[] = 'col-sm-12';
+					}
+					break;
 
-        case 'field_link_to_my_blog':
-        case 'field_domaine':
-        case 'field_tags':
-        case 'field_skills_set':
-        case 'field_position':
-        case 'field_working_status':
-        case 'field_position_list':
-        case 'field_employment_history':
-        case 'field_needs_for_expertise':
-        case 'field_other_areas':
-          $classes[] = 'col-sm-12';
+				// Requests fields
+				case 'field_autoref':
+				case 'field_start_date':
+				case 'field_duration_of_the_mission':
+				case 'field_expiration_date':
+				case 'field_reward':
+				case 'field_has_salary':
+					$classes[] = '';
+					break;
+
+				default:
+					$classes[] = 'col-sm-12';
           break;
 
       }
@@ -406,14 +396,13 @@ function emindhub_beautiful_baseline() {
   $baseline = '';
   $type = '';
   $show_help = FALSE;
-  $args = arg();
 
-  if ($args[1] == 'add') {
-    $type = $args[2];
+  if (arg(1) == 'add') {
+    $type = arg(2);
     $show_help = TRUE;
   }
-  // else if ($args[2] == 'edit') {
-  //   $type = node_load($args[1])->type;
+  // else if (arg(2) == 'edit') {
+  //   $type = node_load(arg(1))->type;
   //   $show_help = TRUE;
   // }
 	// else if ($args[0] == 'my-relationships') {
@@ -480,4 +469,71 @@ function emindhub_beautiful_form_actions(&$form, $actions, $label = 'primary') {
 
 	if (!empty($actions)) return $form['actions'];
 
+}
+
+
+/**
+* Generic function for adding aria-describedby attribute to form elements. Note
+* the attribute only needs to be added if the element includes a description.
+*/
+function emindhub_add_aria_attributes(&$variables) {
+	if (!empty($variables['element']['#description'])) {
+		$variables['element']['#attributes']['aria-describedby'] = $variables['element']['#id'] . '-description';
+	}
+}
+
+/**
+* Preprocess textareas to add in aria attributes.
+*/
+function emindhub_preprocess_textarea(&$variables) {
+	emindhub_add_aria_attributes($variables);
+}
+
+/**
+* Preprocess textfield to add in aria attributes.
+*/
+function emindhub_preprocess_textfield(&$variables) {
+	emindhub_add_aria_attributes($variables);
+}
+
+/**
+* Preprocess radios to add in aria attributes.
+*/
+function emindhub_preprocess_radios(&$variables) {
+	emindhub_add_aria_attributes($variables);
+}
+
+/**
+* Preprocess checkboxes to add in aria attributes.
+*/
+function emindhub_preprocess_checkboxes(&$variables) {
+	emindhub_add_aria_attributes($variables);
+}
+
+/**
+* Preprocess select to add in aria attributes.
+*/
+function emindhub_preprocess_select(&$variables) {
+	emindhub_add_aria_attributes($variables);
+}
+
+/**
+* Preprocess date to add in aria attributes.
+*/
+function emindhub_preprocess_date(&$variables) {
+	emindhub_add_aria_attributes($variables);
+}
+
+/**
+* Preprocess webform_email to add in aria attributes.
+*/
+function emindhub_preprocess_webform_email(&$variables) {
+	emindhub_add_aria_attributes($variables);
+}
+
+/**
+* Preprocess webform_number to add in aria attributes.
+*/
+function emindhub_preprocess_webform_number(&$variables) {
+	emindhub_add_aria_attributes($variables);
 }

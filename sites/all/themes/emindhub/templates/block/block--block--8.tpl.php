@@ -56,12 +56,12 @@
   <div class="content">
     <?php //print $content ?>
 
-    <?php if (isBusinessUser()) : ?>
+    <?php if (emh_user_is_business()) : ?>
     <a href="<?php print url('node/add/challenge'); ?>">
       <?php echo sprintf(t('%sChallenge%sRequest for service proposals to innovate or solve a problem%sStart a challenge%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
     </a>
 
-    <?php elseif (isExpertUser()) : ?>
+    <?php elseif (emh_user_is_expert()) : ?>
     <?php global $base_url; $safe_link = rawurldecode($base_url . '/requests/all?type[challenge]=challenge'); ?>
     <a href="<?php print $safe_link; ?>">
       <?php echo sprintf(t('%sChallenge%sAnswer requests for service proposals%sSee more challenges%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>

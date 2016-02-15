@@ -6,86 +6,108 @@
 
 function emh_access_author_name($node) {
 
-  $access = FALSE;
+  global $user;
+  if ($user->uid == 1) {
+    // Admin ( = eMindHub) has every right.
+    return TRUE;
+  }
 
   // Check node options
   // 0|Display my full name
   // 1|Hide my full name
   $anonymous_mode = field_get_items('node', $node, 'field_anonymous');
   if ($anonymous_mode[0]['value'] == 0) {
-    $access = TRUE;
+    return TRUE;
   }
 
-  return $access;
 }
 
 function emh_access_author_company($node) {
 
-  $access = FALSE;
+  global $user;
+  if ($user->uid == 1) {
+    // Admin ( = eMindHub) has every right.
+    return TRUE;
+  }
 
   // Check node options
   // 0|Display the name
   // 1|Hide the name
   $show_entreprise = field_get_items('node', $node, 'field_show_entreprise');
   if ($show_entreprise[0]['value'] == 0) {
-    $access = TRUE;
+    return TRUE;
   }
 
-  return $access;
 }
 
 /**
  * Implements hook_field_access.
  */
 function emh_access_field_access($op, $field, $entity_type, $entity, $account) {
-  if ($op == 'view' && $entity_type == 'user') {
-    if (empty($entity)) {
-      return TRUE;
-    }
+
+  if ($op == 'view') {
+
+    if (empty($entity)) return TRUE;
     if (empty($account)) {
       global $user;
       $account = $user;
     }
     if ($account->uid == $entity->uid) return TRUE;
-    switch($field['field_name']) {
-      // We can always access first, last names and photo.
-      case 'field_first_name':
-        return TRUE;
+    if (empty($node)) {
+      global $node;
+    }
+
+    switch ($entity_type) {
+
+      case 'user':
+        switch($field['field_name']) {
+          // We can always access few fields.
+          case 'field_first_name':
+            return TRUE;
+            break;
+          case 'field_last_name':
+            return TRUE;
+            break;
+          case 'field_photo':
+            return TRUE;
+            break;
+          case 'field_titre_metier':
+            return TRUE;
+            break;
+          case 'field_employment_history':
+            return TRUE;
+            break;
+          case 'field_sponsor_why':
+            return TRUE;
+            break;
+          case 'field_partner_why':
+            return TRUE;
+            break;
+          default:
+            return emh_access_user_can_see_full_user($account->uid, $entity->uid);
+            break;
+        }
         break;
-      case 'field_last_name':
-        return TRUE;
-        break;
-      case 'field_photo':
-        return TRUE;
-        break;
-      case 'field_titre_metier':
-        return TRUE;
-        break;
-      case 'field_employment_history':
-        return TRUE;
-        break;
-      case 'field_sponsor_why':
-        return TRUE;
-        break;
-      case 'field_partner_why':
-        return TRUE;
-        break;
-      // For other fields, it depends of our relation with the user:
-      case 'field_address':
-        $flag = flag_get_flag('my_contacts');
-        return ($flag && $flag->is_flagged($entity->uid, $account->uid));
-        break;
-      case 'field_telephone':
-        $flag = flag_get_flag('my_contacts');
-        return ($flag && $flag->is_flagged($entity->uid, $account->uid));
+
+      case 'comment':
+        switch($field['field_name']) {
+          case 'comment_body':
+          return TRUE;
+            break;
+          default:
+            return emh_access_user_can_see_full_answer($entity, $account);
+            break;
+        }
         break;
       default:
-        return emh_access_user_can_see_full_user($account->uid, $entity->uid);
+        return TRUE;
         break;
     }
+
   } else {
     return TRUE;
   }
+
 }
 
 /**
@@ -96,28 +118,133 @@ function emh_access_user_can_see_full_user($uid, $uid2) {
     // Admin ( = eMindHub) has every right.
     return TRUE;
   }
-  $direct = db_select('emh_points_txn', 'txn')
-    ->condition('txn.source_id', $uid)
-    ->condition('txn.dest_id', $uid2)
-    ->condition('txn.source_type', 'user')
-    ->condition('txn.dest_type', 'user');
-  $direct->addExpression('COUNT(txn.txn_id)');
-  $direct = $direct->execute()
-    ->fetchField();
-  if ($direct > 0) {
-    // There is a direct link.
+
+  if ($uid == $uid2) {
+    // This is my own profile
     return TRUE;
   }
-  $indirect = db_select('emh_points_txn', 'txn');
-  $indirect->addExpression('COUNT(txn.txn_id)');
-  $indirect->innerjoin('node', 'n', 'n.nid = txn.source_id');
-  $indirect = $indirect
-    ->condition('txn.dest_id', $uid2)
-    ->condition('txn.source_type', 'node')
-    ->condition('txn.dest_type', 'user')
-    ->condition('n.uid', $uid)
-    ->execute()
-    ->fetchField();
-  // Is there a link through a node?
-  return ($indirect > 0);
+
+  // Organic Groups / EMH Circles
+  if (module_exists('og')) {
+    if (empty($uid)) {
+      global $user;
+      $uid = $user->uid;
+    }
+    $u1_account = user_load($uid);
+    $u1_circles = og_get_groups_by_user($u1_account, 'node');
+    $u2_account = user_load($uid2);
+    $u2_circles = og_get_groups_by_user($u2_account, 'node');
+    unset( $u1_circles[ '314' ] ); // TODO: manager this differently!
+    unset( $u2_circles[ '314' ] );
+    if (array_intersect($u1_circles, $u2_circles)) {
+      return TRUE;
+    }
+  }
+
+  // Flags
+  if (module_exists('flag')) {
+    $flag = flag_get_flag('my_contacts');
+    if ($flag && $flag->is_flagged($uid2, $uid)) {
+      return TRUE;
+    }
+  }
+
+  // EMH Virality
+  if (module_exists('emh_virality')) {
+    emh_virality_user_is_referrer($uid2, $uid);
+  }
+
+  // EMH Points
+  if (module_exists('emh_points')) {
+    $direct = db_select('emh_points_txn', 'txn')
+      ->condition('txn.source_id', $uid)
+      ->condition('txn.dest_id', $uid2)
+      ->condition('txn.source_type', 'user')
+      ->condition('txn.dest_type', 'user');
+    $direct->addExpression('COUNT(txn.txn_id)');
+    $direct = $direct->execute()
+      ->fetchField();
+    if ($direct > 0) {
+      // There is a direct link.
+      return TRUE;
+    }
+    $indirect = db_select('emh_points_txn', 'txn');
+    $indirect->addExpression('COUNT(txn.txn_id)');
+    $indirect->innerjoin('node', 'n', 'n.nid = txn.source_id');
+    $indirect = $indirect
+      ->condition('txn.dest_id', $uid2)
+      ->condition('txn.source_type', 'node')
+      ->condition('txn.dest_type', 'user')
+      ->condition('n.uid', $uid)
+      ->execute()
+      ->fetchField();
+    // Is there a link through a node?
+    return ($indirect > 0);
+  }
+}
+
+/**
+ * Access control : Does a user have access to another user answer?
+ */
+function emh_access_user_can_see_full_answer($entity, $account = NULL) {
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+  $node = node_load($entity->nid);
+  if ($account->uid == 1) {
+    // Admin ( = eMindHub) has every right.
+    return TRUE;
+  }
+  if ($entity->uid == $account->uid || $node->uid == $account->uid) {
+    // Node author and answer author have every right.
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * Implements hook_user_presave().
+ */
+function emh_access_user_presave(&$edit, $account, $category) {
+  // Synchronise pseudo-field (to use access hook) with Drupal core field.
+  if (!empty($edit['mail'])) {
+    $mail = $edit['mail'];
+  } else {
+    $mail = $account->mail;
+  }
+  $edit['field_mail'][LANGUAGE_NONE]['0']['value'] = $mail;
+}
+
+/**
+ * Access control : Does a user have access to full request?
+ */
+function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+  if (empty($node)) {
+    $entity = arg(1);
+    $node = node_load($entity->nid);
+  }
+  if ($account->uid == 1) {
+    // Admin ( = eMindHub) has every right.
+    return TRUE;
+  }
+  if ($node->uid == $account->uid) {
+    // Node author and answer author have every right.
+    return TRUE;
+  }
+  if (emh_user_is_business()) {
+    return TRUE;
+  }
+  if (module_exists('pcp')) {
+    $userPercent = pcp_get_complete_percentage_data('user', 'user', $account);
+    if ($userPercent['current_percent'] == '100') {
+      return TRUE;
+    }
+    return FALSE;
+  }
+  return FALSE;
 }

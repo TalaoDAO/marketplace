@@ -4,6 +4,7 @@ hr {
 
 img {
 	max-width: 100%;
+	height: auto;
 }
 
 
@@ -35,9 +36,14 @@ img {
 		margin-bottom: 0;
 		border-bottom: 0;
 		text-transform: none;
-	}
-	> li > a {
-	  color: #FFF;
+		> li > a {
+		  color: #FFF;
+		}
+		> li.active > a,
+		> li.active > a:hover,
+		> li.active > a:focus {
+			color: @navbar-default-link-active-color;
+		}
 	}
 }
 
@@ -87,7 +93,7 @@ img {
 	border: 0;
 	&:after {
 		background: @brand-primary url("../images/grid_light.png") no-repeat center center;
-		height: 20px;
+		height: 10px;
 		display: block;
 	}
 
@@ -185,13 +191,28 @@ img {
 	.button-variant(@btn-popin-color; @btn-popin-bg; @btn-popin-border);
 }
 
+// New button style : .btn-expert
+.btn-expert {
+	.button-variant(#FFF; @mediumYellow; @expertYellow);
+}
+
+// New button style : .btn-asphalt
+.btn-asphalt {
+	.button-variant(#FFF; @asphalt-dark; @asphalt-darker);
+}
+
 // New button style : .btn-flash
 .btn-flash {
 	color: @emerald;
 	text-shadow: 0px 0px 2px rgba(0, 0, 0, 1);
 	background-position: left center;
 	background-repeat: no-repeat;
+	white-space: normal;
 	.text-left;
+
+	&.btn {
+		margin-right: 0;
+	}
 	&:hover {
 		color: @emerald-light;
 	}
@@ -223,12 +244,6 @@ img {
 }
 
 .emh-block-light {
-	// margin-bottom: 15px;
-	//
-	// &:last-of-type {
-	// 	margin-bottom: 0;
-	// }
-
 	.content {
 		border: 0 !important;
 		padding: 0 !important;
@@ -469,11 +484,19 @@ img {
 	}
 
 }
+
 .emh-title-baseline {
-	color: #FFF;
+	color: @brand-primary;
+	margin-bottom: 0;
 	font-size: 18px;
 	font-style: italic;
 	margin-bottom: 20px;
+}
+header#title {
+	.emh-title-baseline {
+		color: #FFF;
+
+	}
 }
 
 
@@ -640,6 +663,13 @@ img {
 	.content {
 		padding: 15px 0;
 	}
+	// Bootstrap carrousel
+	.carousel-inner {
+		> .item {
+			padding-left: 10%;
+			padding-right: 10%;
+		}
+	}
 }
 
 
@@ -711,6 +741,17 @@ img {
 	text-transform: uppercase;
 }
 
+.emh-status-block {
+	span {
+		display: block;
+		.text-center;
+		.text-uppercase;
+		padding: 6px 12px;
+
+		font-weight: 700;
+		color: #FFF;
+	}
+}
 .emh-status {
 	&.draft {
 		background-color: @btn-warning-border;
@@ -724,4 +765,9 @@ img {
 	&.closed {
 		background-color: #A1ACB5;
 	}
+}
+
+// Progress-bar
+.progress-bar-asphalt {
+  .progress-bar-variant(@asphalt);
 }

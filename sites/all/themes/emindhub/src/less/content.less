@@ -2,18 +2,6 @@ body {
   background-color: @lightGrey;
 }
 
-#trail {
-  background-color: @darkBlue;
-  padding: 5px 0;
-  min-height: 20px;
-  // line-height: 20px;
-
-  @media (min-width: @screen-sm-min) {
-    min-height: 40px;
-    // line-height: 50px;
-  }
-}
-
 h1.page-header {
   .emh-title-main;
 }
@@ -55,6 +43,9 @@ aside,
   padding-bottom: 20px;
 }
 aside#sidebar-second {
+  ul, ol {
+    padding-left: 20px;
+  }
   @media (min-width: @screen-sm-min) {
     padding-left: 0;
   }
@@ -69,6 +60,7 @@ aside#sidebar-second {
 
 #flashes {
   @media (min-width: @screen-sm-min) {
+    padding-right: 0;
     padding-left: 0;
   }
 }
@@ -172,11 +164,41 @@ a.flag {
 
 // Commentaires / Réponses
 #comments {
-  .indented {
-    margin-left: 25px;
-  }
+  padding-bottom: 0;
+
   .comment .content > div {
     padding: 15px 0;
+  }
+	> .comment {
+		padding: 15px;
+    margin: 0;
+		border-top: 1px solid #DDD;
+
+    &.indented {
+      margin-left: 25px;
+    }
+    &.comment-by-viewer {
+      background-color: @lightYellow;
+    }
+
+    > .meta {
+      padding-left: 0;
+    }
+    > .answer {
+      padding-right: 0;
+    }
+	}
+	.list-inline {
+    margin-left: 0;
+		margin-bottom: 0;
+    .comment-edit a {
+      .btn-primary;
+    }
+	}
+  .field-name-comment-body,
+  .field-name-field-private-comment-body {
+    font-size: 16px;
+    font-style: italic;
   }
 }
 

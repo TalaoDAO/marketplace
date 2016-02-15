@@ -17,6 +17,7 @@ function serial_field_info() {
       'property_type' => 'serial',
       'default_widget' => 'serial',
       'default_formatter' => 'serial_formatter_default',
+      'property_type' => 'integer',
     ),
   );
 }
@@ -92,10 +93,8 @@ function serial_field_is_empty($item, $field) {
  * Implements hook_node_presave().
  */
 function serial_node_presave($node) {
-  if (module_exists('auto_nodetitle')) {
-    if (auto_nodetitle_get_setting($node->type)) {
-      auto_nodetitle_set_title($node);
-    }
+  if (module_exists('auto_nodetitle') && auto_nodetitle_is_needed($node)) {
+    auto_nodetitle_set_title($node);
   }
 }
 

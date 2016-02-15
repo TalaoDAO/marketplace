@@ -24,8 +24,10 @@ function emindhub_preprocess_page(&$variables) {
   }
 
   // Experts points info
-  if ( drupal_is_front_page() && isExpertUser() ) {
-    drupal_set_message(t('You can earn points by responding to a request and when the client recognize the value of your contribution. You can therefore monetize your points once you have reached a threshold of at least '.variable_get('emh_points_monetization_threshold', '1500').' points.'), 'info');
+  if ( drupal_is_front_page() && emh_user_is_expert() ) {
+    if (module_exists('emh_points')) {
+      drupal_set_message(t('You can earn points by responding to a request and when the client recognize the value of your contribution. You can therefore monetize your points once you have reached a threshold of at least ' . variable_get('emh_points_monetization_threshold', '1500') . ' points.'), 'info');
+    }
   }
 
   // Add information about the number of sidebars.

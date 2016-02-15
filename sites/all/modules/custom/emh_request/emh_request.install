@@ -1,14 +1,17 @@
 <?php
 /**
  * @file
- * Code for the eMindHub Survey module installation.
+ * Installation hooks for the emh_request module.
  */
 
+
 /**
- * Implements hook_enable
- */
+* Implements hook_enable
+*/
 function emh_request_enable() {
   emh_request_update_7001();
+  emh_request_update_7002();
+  emh_request_update_7103();
 
   global $language;
   $lang = $language->language;
@@ -17,6 +20,28 @@ function emh_request_enable() {
     $strings[''][$string] = $override;
   }
   variable_set("locale_custom_strings_$lang", $strings);
+
+  variable_set('emh_request_send_notification_email_all_domains', 0);
+}
+
+/**
+ * Implements hook_disable().
+ */
+function emh_request_disable() {
+  global $language;
+  $lang = $language->language;
+  $strings = variable_get("locale_custom_strings_$lang", array());
+  foreach (_emh_request_string_overrides() as $string => $override) {
+    unset($strings[''][$string]);
+  }
+  variable_set("locale_custom_strings_$lang", $strings);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function emh_request_uninstall() {
+  variable_del('emh_request_send_notification_email_all_domains');
 }
 
 /**
@@ -42,16 +67,10 @@ function emh_request_update_7002() {
 }
 
 /**
- * Implements hook_disable().
+ * Add setting for request notification by domain
  */
-function emh_request_disable() {
-  global $language;
-  $lang = $language->language;
-  $strings = variable_get("locale_custom_strings_$lang", array());
-  foreach (_emh_request_string_overrides() as $string => $override) {
-    unset($strings[''][$string]);
-  }
-  variable_set("locale_custom_strings_$lang", $strings);
+function emh_request_update_7103() {
+  variable_set('emh_request_send_notification_email_all_domains', 1);
 }
 
 /**
@@ -63,11 +82,14 @@ function _emh_request_string_overrides() {
     'No Components, add a component below.' => 'No questions, add a question below.',
     'New component name' => 'New question',
     'This will immediately delete the %name component from the %webform webform. This cannot be undone.' => 'This will immediately delete the %name question from the %webform survey. This cannot be undone.',
-    'Submission #@serial' => 'Answer #@serial',
     'Submissions for %user' => 'Answers',
     'Edit component: @name' => 'Edit question @name',
     'New component %name added.' => 'New question %name added.',
     'The component positions and required values have been updated.' => 'Your questions have been updated.',
+    'Submissions for this form are closed.' => 'Answers for this survey are closed.',
+    'You have already submitted this form.' => 'You have already submitted this survey.',
+    'Submission updated.' => 'Your answer has been updated.',
+    'Submission saved. You may return to this form later and it will restore the current values.' => 'Your answer has been saved as draft. You may return to this survey later and it will restore your current answer.',
 
     // Comment
     'Edit comment %comment' => 'Edit answer',

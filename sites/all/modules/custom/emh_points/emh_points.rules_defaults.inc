@@ -133,5 +133,44 @@ function emh_points_default_rules_configuration() {
     }
   }');
 
+  $items['emh_points_transfert_points_for_updated_content'] = entity_import('rules_config', '{ "emh_points_transfert_points_for_updated_content" : {
+      "LABEL" : "Transfert points for updated content",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "REQUIRES" : [ "rules", "emh_points" ],
+      "ON" : {
+        "node_update--question1" : { "bundle" : "question1" },
+        "node_update--challenge" : { "bundle" : "challenge" },
+        "node_update--webform" : { "bundle" : "webform" }
+      },
+      "IF" : [
+        { "node_is_published" : { "node" : [ "node-unchanged" ] } },
+        { "node_is_published" : { "node" : [ "node" ] } },
+        { "entity_has_field" : { "entity" : [ "node-unchanged" ], "field" : "field_reward" } },
+        { "entity_has_field" : { "entity" : [ "node" ], "field" : "field_reward" } },
+        { "data_is" : {
+          "data" : [ "node-unchanged:field-reward" ],
+          "op" : "\u003C",
+          "value" : [ "node:field-reward" ]
+        }}
+      ],
+      "DO" : [
+        { "data_calc" : {
+          "USING" : {
+            "input_1" : [ "node:field-reward" ],
+            "op" : "-",
+            "input_2" : [ "node-unchanged:field-reward" ]
+          },
+          "PROVIDE" : { "result" : { "amount" : "New amount" } }
+        }},
+        { "move_points" : {
+          "source" : [ "node:author" ],
+          "destination" : [ "node" ],
+          "points" : [ "amount" ]
+        }}
+      ]
+    }
+  }');
+
   return $items;
 }

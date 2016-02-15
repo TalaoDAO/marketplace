@@ -3,5 +3,4 @@ package = EMH
 dependencies[] = webform
 core = 7.x
 
-; Classes autoloading
-files[] = emh_survey_handler_field_submission_count.inc
+files[] = views/emh_survey_handler_field_submission_count.inc

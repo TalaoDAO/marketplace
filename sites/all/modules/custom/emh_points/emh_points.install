@@ -198,6 +198,14 @@ function emh_points_schema() {
 }
 
 /**
+ * Implements hook_enable().
+ */
+function emh_points_enable() {
+  emh_points_update_7106();
+  emh_points_update_7107();
+}
+
+/**
  * Add the new total points table.
  */
 function emh_points_update_7101() {
@@ -308,4 +316,24 @@ function emh_points_update_7105() {
   // Update table with old data.
   db_query("INSERT INTO {emh_points_answers} SELECT t.source_id AS nid, t.dest_id AS uid, c.cid AS answer_id, t.points AS points FROM emh_points_txn t INNER JOIN comment c ON t.source_id = c.nid AND t.dest_id = c.uid WHERE source_type = 'node' AND dest_type = 'user'");
   db_query("INSERT INTO {emh_points_answers} SELECT t.source_id AS nid, t.dest_id AS uid, s.sid AS answer_id, t.points AS points FROM emh_points_txn t INNER JOIN webform_submissions s ON t.source_id = s.nid AND t.dest_id = s.uid WHERE source_type = 'node' AND dest_type = 'user'");
+}
+
+/**
+ * Extend access to Use points to authentificated users + Administer points / View other points history to webmasters.
+ */
+function emh_points_update_7106() {
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('use points'));
+  user_role_grant_permissions(3, array('administer points', 'view others points history')); // Administrator role
+  user_role_grant_permissions(6, array('administer points', 'view others points history')); // Webmaster role
+}
+
+/**
+ * Force module weight for hook_menu_alter execution
+ */
+function emh_points_update_7107() {
+  db_update('system')
+  ->fields(array('weight' => 1))
+  ->condition('type', 'module')
+  ->condition('name', 'emh_points')
+  ->execute();
 }

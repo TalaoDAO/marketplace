@@ -35,6 +35,8 @@
 			img {
 				.img-circle;
 				.center-block;
+				max-width: 110px !important; // jquery.Jcrop.js
+				max-height: 110px !important; // jquery.Jcrop.js
 			}
 		}
 
@@ -56,7 +58,8 @@
 			padding: 15px;
 		}
 
-		.field-name-field-domaine {
+		.field-name-field-domaine,
+		.field-name-field-specific-skills3 {
 			.field-items {
 				> .field-item {
 					.emh-badge-term;
@@ -108,7 +111,6 @@
 			}
 
 			.field-name-field-domaine {
-				// padding: 0;
 				.field-items {
 					.make-row();
 					margin: 0;
@@ -168,10 +170,9 @@
 }
 
 .page-user {
-
-	&:not(.page-user-drafts) {
+	&:not(.page-403) {
 		h1.page-header {
-			// .hidden();
+			.hidden();
 		}
 	}
 }

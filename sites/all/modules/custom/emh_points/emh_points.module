@@ -79,6 +79,27 @@ function emh_points_menu() {
   return $items;
 }
 
+function emh_points_menu_alter(&$items){
+  $items['node/%views_arg/answers']['access callback'] = 'emh_user_is_author';
+  $items['node/%views_arg/answers']['access arguments'] = array(1);
+  $items['node/%views_arg/results']['access callback'] = 'emh_user_is_author';
+  $items['node/%views_arg/results']['access arguments'] = array(1);
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function emh_points_module_implements_alter(&$implementations, $hook) {
+  // When the implementations of hook_menu_alter are called, we need our module
+  // to be called after views, so let's remove it from the implementations then
+  // add it to the end.
+  if ($hook == 'menu_alter') {
+    if (isset($implementations['emh_points'])) {
+      unset($implementations['emh_points']);
+      $implementations['emh_points'] = FALSE;
+    }
+  }
+}
 
 /**
  * Implements hook_menu_local_tasks_alter().
@@ -224,7 +245,7 @@ function emh_points_entity_points_delete($id, $type) {
  */
 function emh_points_add_points($entity, $points) {
   // To add point, there are almost no functional checks.
-  if (!is_numeric($points) || (int)$points <= 0) {
+  if (!is_numeric($points) || (int)$points < 0) {
     drupal_set_message(t('You should only add a positive number of points.'));
     return;
   }
@@ -280,7 +301,7 @@ function emh_points_add_points($entity, $points) {
  */
 function emh_points_delete_points($entity, $points) {
   // Functional validation.
-  if (!is_numeric($points) || (int)$points <= 0) {
+  if (!is_numeric($points) || (int)$points < 0) {
     drupal_set_message(t('You should only remove a positive number of points.'));
     return;
   }
@@ -462,21 +483,25 @@ function emh_points_move_points($source, $destination, $points) {
   // Add points to destination.
   emh_points_add_points($emh_destination, $points);
   $log = t('Move points from !source to !destination.', array('!source' => emh_points_format_entity($source), '!destination' => emh_points_format_entity($destination)));
+
   // Compute transaction.
   global $user;
-  db_insert('emh_points_txn')
-    ->fields(array(
-      'uid' => $user->uid,
-      'points'=> (int)$points,
-      'time_stamp' => REQUEST_TIME,
-      'description' => $log,
-      'source_type' => $emh_source->type,
-      'source_id' => $emh_source->id,
-      'dest_type' => $emh_destination->type,
-      'dest_id' => $emh_destination->id,
-      'operation' => POINTS_TRANSFERT,
-    ))
-    ->execute();
+
+  $txn = array(
+    'uid' => $user->uid,
+    'points'=> (int)$points,
+    'time_stamp' => REQUEST_TIME,
+    'description' => $log,
+    'source_type' => $emh_source->type,
+    'source_id' => $emh_source->id,
+    'dest_type' => $emh_destination->type,
+    'dest_id' => $emh_destination->id,
+    'operation' => POINTS_TRANSFERT,
+  );
+
+  db_insert('emh_points_txn')->fields($txn)->execute();
+
+  module_invoke_all('move_points_after', $txn, $source, $destination);
 }
 
 /**
@@ -551,26 +576,25 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
     );
     $form[$dest]['source'] = array(
       '#type' => 'markup',
-      '#markup' => t('Points for @dest', array('@dest' => emh_points_format_entity($entity))),
-      '#prefix' => '<div>',
+      '#markup' => emh_points_format_entity($entity),
+      '#prefix' => '<div class="answer-author">',
       '#suffix' => '</div>',
     );
     if (in_array($type_dest, array('comment', 'webform_submission'))) {
       $markup = '';
       switch($type_dest) {
-      case 'comment':
-        $markup = emh_request_get_answer($entity);
-        break;
-      case 'webform_submission':
+        default:
+        $markup = emh_request_get_answer($entity, $type_dest);
         break;
       }
       $form[$dest]['answer'] = array(
         '#type' => 'markup',
         '#markup' => $markup,
-        '#prefix' => '<div>',
+        '#prefix' => '<div class="answer">',
         '#suffix' => '</div>',
       );
     }
+    if ($dest === end($dests)) $default_points = $points - ($default_points * (count($dests)-1));
     $form[$dest]['dest_' . $dest] = array(
       '#type' => 'textfield',
       '#title' => t('Points for @dest', array('@dest' => emh_points_format_entity($entity))),
@@ -700,6 +724,22 @@ function emh_points_close_node($nid) {
         $node->comment = COMMENT_NODE_CLOSED;
         node_save($node);
         break;
+      default:
+        // Nothing to do.
+        break;
+    }
+  }
+}
+
+function emh_points_get_points_closed_status($nid) {
+  $node = node_load($nid);
+  if (!empty($node)) {
+    switch($node->type) {
+      case 'webform':
+        return ($node->webform['status'] == 0);
+      case 'question1':
+      case 'challenge':
+        return ($node->comment == COMMENT_NODE_CLOSED);
       default:
         // Nothing to do.
         break;
@@ -1062,7 +1102,62 @@ function emh_points_show_user_history($account = NULL) {
     $account = $user;
   }
 
-  return views_embed_view('points_history', 'block', $account->uid);
+  $query = db_select('emh_points_txn', 'pt')
+    ->extend('PagerDefault')
+    ->element(1)
+    ->fields('pt', array())
+    ->condition(db_or()
+      ->condition(db_and()
+        ->condition('source_type', 'user')
+        ->condition('source_id', $account->uid)
+      )
+      ->condition(db_and()
+        ->condition('dest_type', 'user')
+        ->condition('dest_id', $account->uid)
+      )
+    )
+    ->orderBy('time_stamp', 'DESC')
+    ->limit(30);
+
+  $transactions = $query->execute()->fetchAll(PDO::FETCH_OBJ);
+
+  $rows = array();
+  foreach ($transactions as $transaction) {
+    // Prepares points amount display
+    $points = ($transaction->source_type == 'user' && $transaction->source_id == $account->uid) ? '- ' : '+ ';
+    $points .= $transaction->points;
+
+    $rows[] = array(
+      $transaction->operation,
+      $transaction->description,
+      format_date($transaction->time_stamp, 'short_date'),
+      $points,
+    );
+  }
+
+  $build = array();
+
+  $build['title'] = array(
+    '#theme' => 'html_tag',
+    '#tag' => 'h2',
+    '#value' => t('Points statement'),
+  );
+
+  $build['table'] = array(
+    '#theme' => 'table',
+    '#header' => array(t('Type'), '', t('Date'), t('Points')),
+    '#rows' => $rows,
+    '#empty' => t('No points transaction.'),
+  );
+
+  $build['pager'] = array(
+    '#theme' => 'pager',
+    '#element' => 1,
+  );
+
+  drupal_alter('points_history_page', $build, $account);
+
+  return $build;
 }
 
 /**

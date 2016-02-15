@@ -1,0 +1,5 @@
+name = EMH Profile Complete
+description = Get user profile complete!
+package = EMH
+dependencies[] = pcp
+core = 7.x

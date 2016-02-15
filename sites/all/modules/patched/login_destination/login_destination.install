@@ -58,6 +58,13 @@ function login_destination_schema() {
         'default' => 0,
         'description' => "The rule's weight.",
       ),
+      'enabled' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'unsigned' => TRUE,
+        'default' => 1,
+        'description' => "The rule enabled/disabled status.",
+      ),
     ),
     'primary key' => array('id'),
     'indexes' => array(
@@ -69,12 +76,17 @@ function login_destination_schema() {
 }
 
 /**
- * Implementation of hook_install().
+ * Implements hook_install().
  */
 function login_destination_install() {
-  // update the alter option of 'user/logout' to TRUE (menu_save invokes necessary hooks)
-  $result = db_query("SELECT mlid, menu_name FROM {menu_links} WHERE link_path = 'user/logout' OR link_path = 'user/login' OR  link_path = 'user' ORDER BY mlid ASC");
-  foreach($result as $res) {
+  // Update the alter option of 'user/logout' to TRUE,
+  // (menu_save invokes necessary hooks).
+  $result = db_query("
+    SELECT mlid, menu_name
+    FROM {menu_links}
+    WHERE link_path = 'user/logout' OR link_path = 'user/login' OR  link_path = 'user'
+    ORDER BY mlid ASC");
+  foreach ($result as $res) {
     $item = menu_link_load($res->mlid);
     $item['options']['alter'] = TRUE;
     db_update('menu_links')
@@ -87,13 +99,16 @@ function login_destination_install() {
 }
 
 /**
- * Implementation of hook_uninstall().
+ * Implements hook_uninstall().
  */
 function login_destination_uninstall() {
   variable_del('login_destination_preserve_destination');
   variable_del('login_destination_profile_redirect');
 }
 
+/**
+ * Implements hook_update_N().
+ */
 function login_destination_update_7000() {
   $type = variable_get('ld_condition_type', 'always');
   $snippet = variable_get('ld_condition_snippet', '');
@@ -117,7 +132,7 @@ function login_destination_update_7000() {
 
   if ($type == 'snippet') {
     $form_state['values']['destination_type'] = 1;
-    // syntax for return value has changed.
+    // Syntax for return value has changed.
     $form_state['values']['destination'] = '<?php /* ' . $snippet . ' */ ?>';
   }
   else {
@@ -137,4 +152,45 @@ function login_destination_update_7000() {
   variable_del('ld_destination');
   variable_del('ld_url_type');
   variable_del('ld_url_destination');
+}
+
+/**
+ * Implements hook_update_N().
+ */
+function login_destination_update_7001() {
+  $spec = array(
+    'type' => 'int',
+    'unsigned' => TRUE,
+    'not null' => TRUE,
+    'default' => 1,
+  );
+
+  db_add_field('login_destination', 'enabled', $spec);
+}
+
+/**
+ * Clear hooks cache.
+ */
+function login_destination_update_7002() {
+  cache_clear_all('hook_info', 'cache_bootstrap');
+}
+
+/**
+ * Automatically give all roles with permission "Administer Users" the new dedicated permission
+ * "Administer Login Destination settings".
+ */
+function login_destination_update_7003() {
+  drupal_set_message(t('The Login Destination module has just been updated.<br>
+  A new permission called "Administer Login Destination settings" has now been
+  added.<br>Previously the access to the Login Destination\'s settings page was
+  managed by the "Administer Users" permission.<br>That\'s why all roles with
+  that old permission have been just automatically given the new dedicated
+  "Administer Login Destination settings" permission.<br>If you want to
+  duoble-check things, you can go to the
+  <a href="/admin/people/permissions" title="Permissions page" >Permissions page</a> now.'));
+
+  $roles = user_roles(TRUE, 'administer users');
+  foreach ($roles as $rid => $role_name) {
+    user_role_grant_permissions($rid, array('administer login destination settings'));
+  }
 }

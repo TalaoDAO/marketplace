@@ -18,9 +18,9 @@ files[] = views/inc/FancyFileDeleteUnmanagedDirectoryFilter.inc
 
 configure = admin/config/content/fancy_file_delete
 
-; Information added by Drupal.org packaging script on 2015-10-18
-version = "7.x-1.0-beta8"
+; Information added by Drupal.org packaging script on 2015-12-18
+version = "7.x-1.0-beta9"
 core = "7.x"
 project = "fancy_file_delete"
-datestamp = "1445130545"
+datestamp = "1450460340"
 
