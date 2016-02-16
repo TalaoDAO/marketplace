@@ -10,20 +10,20 @@
 function emh_survey_menu_alter(&$items) {
 
   // Disable access
-  $items['node/%webform_menu/webform/emails']['access callback'] = 'emh_user_is_webmaster';
-  $items['node/%webform_menu/webform/emails']['access arguments'] = array();
-  $items['node/%webform_menu/webform-results']['access callback'] = 'emh_user_is_webmaster';
-  $items['node/%webform_menu/webform-results']['access arguments'] = array();
-  $items['node/%webform_menu/webform-results/analysis']['access callback'] = 'emh_user_is_webmaster';
-  $items['node/%webform_menu/webform-results/analysis']['access arguments'] = array();
-  $items['node/%webform_menu/webform-results/table']['access callback'] = 'emh_user_is_webmaster';
-  $items['node/%webform_menu/webform-results/table']['access arguments'] = array();
-  $items['node/%webform_menu/webform-results/download']['access callback'] = 'emh_user_is_webmaster';
-  $items['node/%webform_menu/webform-results/download']['access arguments'] = array();
+  $items['node/%webform_menu/webform/emails']['access callback'] = 'emh_survey_advanced_access';
+  $items['node/%webform_menu/webform/emails']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform-results']['access callback'] = 'emh_survey_advanced_access';
+  $items['node/%webform_menu/webform-results']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform-results/analysis']['access callback'] = 'emh_survey_advanced_access';
+  $items['node/%webform_menu/webform-results/analysis']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform-results/table']['access callback'] = 'emh_survey_advanced_access';
+  $items['node/%webform_menu/webform-results/table']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform-results/download']['access callback'] = 'emh_survey_advanced_access';
+  $items['node/%webform_menu/webform-results/download']['access arguments'] = array(1);
 
   // Node page tabs.
-  $items['node/%webform_menu/webform']['access callback'] = 'emh_user_is_webmaster';
-  $items['node/%webform_menu/webform']['access arguments'] = array();
+  $items['node/%webform_menu/webform']['access callback'] = 'emh_survey_advanced_access';
+  $items['node/%webform_menu/webform']['access arguments'] = array(1);
   $items['node/%webform_menu/edit/questions'] = array(
     'title' => t('Questions'),
     'page callback' => 'webform_components_page',
@@ -37,8 +37,8 @@ function emh_survey_menu_alter(&$items) {
     'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
   );
 
-  $items['node/%webform_menu/webform/components']['access callback'] = 'emh_user_is_webmaster';
-  $items['node/%webform_menu/webform/components']['access arguments'] = array();
+  $items['node/%webform_menu/webform/components']['access callback'] = 'emh_survey_advanced_access';
+  $items['node/%webform_menu/webform/components']['access arguments'] = array(1);
   $items['node/%webform_menu/edit/components'] = array(
     'title' => t('General infos'),
     'page callback' => 'webform_components_page',
@@ -50,14 +50,14 @@ function emh_survey_menu_alter(&$items) {
     'weight' => 0,
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
-  $items['node/%webform_menu/webform/conditionals']['access callback'] = 'emh_user_is_webmaster';
-  $items['node/%webform_menu/webform/conditionals']['access arguments'] = array();
-  $items['node/%webform_menu/webform/configure']['access callback'] = 'emh_user_is_webmaster';
-  $items['node/%webform_menu/webform/configure']['access arguments'] = array();
+  $items['node/%webform_menu/webform/conditionals']['access callback'] = 'emh_survey_advanced_access';
+  $items['node/%webform_menu/webform/conditionals']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform/configure']['access callback'] = 'emh_survey_advanced_access';
+  $items['node/%webform_menu/webform/configure']['access arguments'] = array(1);
 
   // Node component forms.
-  $items['node/%webform_menu/webform/components/%webform_menu_component/clone']['access callback'] = 'emh_user_is_webmaster';
-  $items['node/%webform_menu/webform/components/%webform_menu_component/clone']['access arguments'] = array();
+  $items['node/%webform_menu/webform/components/%webform_menu_component/clone']['access callback'] = 'emh_survey_advanced_access';
+  $items['node/%webform_menu/webform/components/%webform_menu_component/clone']['access arguments'] = array(1);
 
   // Node submissions.
   $items['node/%webform_menu/submission/%webform_menu_submission']['title callback'] = 'emh_survey_webform_submission_title';
@@ -76,6 +76,28 @@ function emh_survey_menu_alter(&$items) {
  */
 function emh_survey_webform_submission_title($node, $submission) {
   return $node->title;
+}
+
+/**
+ * Access callback for the request answers page.
+ */
+function emh_survey_advanced_access($nid, $account = NULL) {
+  global $user;
+  $account = $user;
+  if (empty($nid)) {
+    $nid = arg(1);
+  }
+  $node = node_load($nid);
+  // Admin, webmasters, etc.
+  switch ($node->type) {
+    case 'question1':
+    case 'challenge':
+      if (user_access(administer comments)) return TRUE;
+      break;
+    case 'webform':
+      if (user_access(access all webform results)) return TRUE;
+      break;
+  }
 }
 
 /**
@@ -104,7 +126,7 @@ function emh_survey_form_alter(&$form, &$form_state, $form_id) {
   }
 
 	if ((isset($form['#node']) && $form['#node']->type == 'webform')) {
-    if ( emh_user_is_business() && !empty($form['submitted']) ) {
+    if ( user_access('edit webform components') && !empty($form['submitted']) ) {
       foreach( $form['submitted'] as $key => $element ) {
         if (is_array($element) && !empty($element['#type']) && $element['#type'] == 'textarea') {
           $form['submitted'][$key]['#disabled'] = 'disabled';
