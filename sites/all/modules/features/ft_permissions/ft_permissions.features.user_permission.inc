@@ -234,8 +234,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
       'authenticated user' => 'authenticated user',
       'business' => 'business',
-      'business preview' => 'business preview',
-      'expert preview' => 'expert preview',
       'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
@@ -248,9 +246,7 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
-      'business preview' => 'business preview',
       'expert' => 'expert',
-      'expert preview' => 'expert preview',
       'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
@@ -1992,7 +1988,6 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'expert' => 'expert',
-      'expert preview' => 'expert preview',
       'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
@@ -2061,7 +2056,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
       'business' => 'business',
       'expert' => 'expert',
-      'expert preview' => 'expert preview',
       'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
@@ -2075,7 +2069,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
       'business' => 'business',
       'expert' => 'expert',
-      'expert preview' => 'expert preview',
       'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
@@ -2089,7 +2082,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
       'business' => 'business',
       'expert' => 'expert',
-      'expert preview' => 'expert preview',
       'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
@@ -2102,7 +2094,6 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
-      'business preview' => 'business preview',
       'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
@@ -2196,7 +2187,6 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
-      'expert preview' => 'expert preview',
       'webmaster' => 'webmaster',
     ),
     'module' => 'actions_permissions',
@@ -2228,7 +2218,6 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
-      'expert preview' => 'expert preview',
       'webmaster' => 'webmaster',
     ),
     'module' => 'actions_permissions',
@@ -2610,7 +2599,6 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'expert' => 'expert',
-      'expert preview' => 'expert preview',
       'webmaster' => 'webmaster',
     ),
     'module' => 'flag',
@@ -3097,7 +3085,6 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'expert' => 'expert',
-      'expert preview' => 'expert preview',
       'webmaster' => 'webmaster',
     ),
     'module' => 'flag',
