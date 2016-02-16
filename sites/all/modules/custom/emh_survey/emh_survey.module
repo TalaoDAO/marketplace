@@ -92,10 +92,10 @@ function emh_survey_advanced_access($nid, $account = NULL) {
   switch ($node->type) {
     case 'question1':
     case 'challenge':
-      if (user_access(administer comments)) return TRUE;
+      if (user_access('administer comments')) return TRUE;
       break;
     case 'webform':
-      if (user_access(access all webform results)) return TRUE;
+      if (user_access('access all webform results')) return TRUE;
       break;
   }
 }

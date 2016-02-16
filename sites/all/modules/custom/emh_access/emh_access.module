@@ -238,13 +238,13 @@ function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
   }
   switch ($node->type) {
     case 'question1':
-      if (user_access('question1: comment on any question1 content') return TRUE;
+      if (user_access('question1: comment on any question1 content')) return TRUE;
       break;
     case 'webform':
-      if (user_access('edit own webform submissions') return TRUE;
+      if (user_access('edit own webform submissions')) return TRUE;
       break;
     case 'challenge':
-      if (user_access('challenge: comment on any challenge content') return TRUE;
+      if (user_access('challenge: comment on any challenge content')) return TRUE;
       break;
   }
   if (module_exists('pcp')) {
