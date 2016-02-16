@@ -5,15 +5,26 @@ Feature: Create question and answers
   I want to create a question, and watch answers
 
   Background: Create questions
+
     Given "circle" content:
     | title    | author  |
     | Avengers | client1 |
 
+    Given "corporate" content:
+    | title     | author  |
+    | Google    | admin   |
+    | Apple     | admin   |
+    | Facebook  | admin   |
+    | Twitter   | admin   |
+    | Pinterest | admin   |
+    | Viadeo    | admin   |
+    | Linkedin  | admin   |
+
     Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name | password | og_user_node |
-    | client1 | client1@emindhub.com | business | Captain          | America         | client1  | Avengers     |
-    | expert1 | expert1@emindhub.com | expert   | Iron             | Man             | expert1  | Avengers     |
-    | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | expert2  | Avengers     |
+    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
+    | client1 | client1@emindhub.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | client1@emindhub.com | Google  | Independant | Maintenance |
+    | expert1 | expert1@emindhub.com | expert   | Iron             | Man             | 0712345670      | Chieur génial      | Avengers     | expert1@emindhub.com | Facebook  | Employee  | Energy        |
+    | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | 0712345671      | Modèle             | Avengers     | expert2@emindhub.com | Twitter   | Employee  | Other         |
 
     Given I give "client1" 300 emh points
 
