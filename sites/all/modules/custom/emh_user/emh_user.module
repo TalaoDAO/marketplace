@@ -112,7 +112,7 @@ function emh_user_is_business($account = NULL) {
     // Webmaster has every right.
     return TRUE;
   }
-  return (in_array('business', array_values($account->roles)) || in_array('business preview', array_values($account->roles)));
+  return (in_array('business', array_values($account->roles)));
 }
 
 function emh_user_is_expert($account = NULL) {
@@ -124,7 +124,7 @@ function emh_user_is_expert($account = NULL) {
     // Webmaster has every right.
     return TRUE;
   }
-  return (in_array('expert', array_values($account->roles)) || in_array('expert preview', array_values($account->roles)) || in_array('référent', array_values($account->roles)));
+  return (in_array('expert', array_values($account->roles)) || in_array('référent', array_values($account->roles)));
 }
 
 function emh_user_is_author($nid, $account = NULL) {

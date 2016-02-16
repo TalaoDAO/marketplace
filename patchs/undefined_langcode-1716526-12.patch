@@ -1,0 +1,50 @@
+From 3a1cb7a4ceae84885c7183d89a862dd945cfff99 Mon Sep 17 00:00:00 2001
+From: Jakob Perry <japerry@45640.no-reply.drupal.org>
+Date: Wed, 10 Feb 2016 00:09:58 -0800
+Subject: [PATCH] 1716526
+
+---
+ field_collection.module | 19 ++++++++++++-------
+ 1 file changed, 12 insertions(+), 7 deletions(-)
+
+diff --git a/field_collection.module b/field_collection.module
+index db7b859..a2037b4 100644
+--- a/field_collection.module
++++ b/field_collection.module
+@@ -1009,21 +1009,26 @@ function field_collection_field_attach_form($entity_type, $entity, &$form, &$for
+   foreach (field_info_instances($entity_type, $form['#bundle']) as $field_name => $instance) {
+     $field = field_info_field($field_name);
+ 
+-    if ($field['type'] == 'field_collection' && field_collection_hide_blank_items($field)
+-        && field_access('edit', $field, $entity_type) && $instance['widget']['type'] == 'field_collection_embed') {
++    // If the field is not a field_collection, or you don't have access, or the
++    // Form you're attaching the field to doesn't contain the element, continue.
++    if ($field['type'] != 'field_collection'
++      || !field_access('edit', $field, $entity_type)
++      || !isset($form[$field_name])
++      || $instance['widget']['type'] != 'field_collection_embed'
++    ) {
++      continue;
++    }
+ 
++    if (field_collection_hide_blank_items($field)) {
+       $element_langcode = $form[$field_name]['#language'];
+       if ($form[$field_name][$element_langcode]['#max_delta'] > 0) {
+         $form[$field_name][$element_langcode]['#max_delta']--;
+       }
+     }
+ 
+-    if ($field['type'] == 'field_collection'
+-        && $field['cardinality'] == FIELD_CARDINALITY_UNLIMITED
++    if ($field['cardinality'] == FIELD_CARDINALITY_UNLIMITED
+         && empty($form_state['programmed'])
+-        && field_access('edit', $field, $entity_type)
+-        && $instance['widget']['type'] == 'field_collection_embed') {
+-
++    ) {
+       $element_langcode = $form[$field_name]['#language'];
+       $element_wrapper = $form[$field_name][$element_langcode]['add_more']['#ajax']['wrapper'];
+       for ($i = 0; $i <= $form[$field_name][$element_langcode]['#max_delta']; $i++) {
+-- 
+2.5.4 (Apple Git-61)
+
