@@ -236,7 +236,7 @@ function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
     // Node author and answer author have every right.
     return TRUE;
   }
-  if (emh_user_is_business()) {
+  if (user_access('question1: comment on any question1 content') || user_access('edit own webform submissions') || user_access('challenge: comment on any challenge content')) {
     return TRUE;
   }
   if (module_exists('pcp')) {
