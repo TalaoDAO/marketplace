@@ -1009,8 +1009,17 @@ function field_collection_field_attach_form($entity_type, $entity, &$form, &$for
   foreach (field_info_instances($entity_type, $form['#bundle']) as $field_name => $instance) {
     $field = field_info_field($field_name);
 
-    if ($field['type'] == 'field_collection' && field_collection_hide_blank_items($field)
-        && field_access('edit', $field, $entity_type) && $instance['widget']['type'] == 'field_collection_embed') {
+    // If the field is not a field_collection, or you don't have access, or the
+    // Form you're attaching the field to doesn't contain the element, continue.
+    if ($field['type'] != 'field_collection'
+      || !field_access('edit', $field, $entity_type)
+      || !isset($form[$field_name])
+      || $instance['widget']['type'] != 'field_collection_embed'
+    ) {
+      continue;
+    }
+
+    if (field_collection_hide_blank_items($field)) {
 
       $element_langcode = $form[$field_name]['#language'];
       if ($form[$field_name][$element_langcode]['#max_delta'] > 0) {
@@ -1018,11 +1027,9 @@ function field_collection_field_attach_form($entity_type, $entity, &$form, &$for
       }
     }
 
-    if ($field['type'] == 'field_collection'
-        && $field['cardinality'] == FIELD_CARDINALITY_UNLIMITED
+    if ($field['cardinality'] == FIELD_CARDINALITY_UNLIMITED
         && empty($form_state['programmed'])
-        && field_access('edit', $field, $entity_type)
-        && $instance['widget']['type'] == 'field_collection_embed') {
+    ) {
 
       $element_langcode = $form[$field_name]['#language'];
       $element_wrapper = $form[$field_name][$element_langcode]['add_more']['#ajax']['wrapper'];

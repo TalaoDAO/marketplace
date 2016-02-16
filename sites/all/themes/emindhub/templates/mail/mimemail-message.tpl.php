@@ -109,7 +109,7 @@ global $base_url;
 																			<tr>
 																				<td valign="top">
 																					<div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:16px;margin-bottom:0;color:#333;line-height:150%;"><?php print $body ?></div>
-																					<div style="padding-top:10px;color:#333;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;text-align:left;"><strong><?php print t('Your eMindhub team'); ?></strong></div>
+																					<div style="padding-top:10px;color:#333;font-family:Helvetica,Arial,sans-serif;font-size:16px;line-height:150%;text-align:left;"><strong><?php print t('Your eMindHub team'); ?></strong></div>
 																				</td>
 																			</tr>
 																		</table>

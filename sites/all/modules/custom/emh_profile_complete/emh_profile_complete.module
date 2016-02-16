@@ -60,7 +60,7 @@ function emh_profile_complete_get_required_empty_profile_form_submit($form, &$fo
     'access' => REQUEST_TIME,
   ) );
 
-  drupal_set_message(t('Your profile has been updated. You have now access to requests.'));
+  drupal_set_message(t('Your profile has been updated. You have now access to client requests.'));
 
   user_save($account, $edit);
 

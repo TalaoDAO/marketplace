@@ -17,8 +17,6 @@
  */
 ?>
 
-<p><?php print t('Fill out these informations and get <strong>access to requests</strong>.'); ?></p>
-
 <?php
 global $user;
 $form = drupal_get_form('emh_profile_complete_get_required_empty_profile_form', $user);
