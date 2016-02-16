@@ -250,7 +250,6 @@ features[node][] = question1
 features[node][] = webform
 features[node][] = working_group
 features[taxonomy][] = domaine
-features[taxonomy][] = forums
 features[taxonomy][] = known_how
 features[taxonomy][] = notification_frequencies
 features[taxonomy][] = position
