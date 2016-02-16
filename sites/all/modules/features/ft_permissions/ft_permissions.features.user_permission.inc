@@ -1048,16 +1048,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'user',
   );
 
-  // Exported permission: 'cancel own vote'.
-  $permissions['cancel own vote'] = array(
-    'name' => 'cancel own vote',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'poll',
-  );
-
   // Exported permission: 'challenge: comment on any challenge content'.
   $permissions['challenge: comment on any challenge content'] = array(
     'name' => 'challenge: comment on any challenge content',
@@ -1196,19 +1186,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'create page content',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'create poll content'.
-  $permissions['create poll content'] = array(
-    'name' => 'create poll content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'business' => 'business',
-      'expert' => 'expert',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1371,17 +1348,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'delete any poll content'.
-  $permissions['delete any poll content'] = array(
-    'name' => 'delete any poll content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: 'delete any question1 content'.
   $permissions['delete any question1 content'] = array(
     'name' => 'delete any question1 content',
@@ -1506,19 +1472,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete own page content',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'delete own poll content'.
-  $permissions['delete own poll content'] = array(
-    'name' => 'delete own poll content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'business' => 'business',
-      'expert' => 'expert',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1752,17 +1705,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'edit any poll content'.
-  $permissions['edit any poll content'] = array(
-    'name' => 'edit any poll content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: 'edit any question1 content'.
   $permissions['edit any question1 content'] = array(
     'name' => 'edit any question1 content',
@@ -1932,19 +1874,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit own page content',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'edit own poll content'.
-  $permissions['edit own poll content'] = array(
-    'name' => 'edit own poll content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'business' => 'business',
-      'expert' => 'expert',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -2635,17 +2564,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'media',
   );
 
-  // Exported permission: 'inspect all votes'.
-  $permissions['inspect all votes'] = array(
-    'name' => 'inspect all votes',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'poll',
-  );
-
   // Exported permission: 'legal re-accept terms_of_use'.
   $permissions['legal re-accept terms_of_use'] = array(
     'name' => 'legal re-accept terms_of_use',
@@ -3287,17 +3205,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'system',
-  );
-
-  // Exported permission: 'vote on polls'.
-  $permissions['vote on polls'] = array(
-    'name' => 'vote on polls',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
-      'référent' => 'référent',
-    ),
-    'module' => 'poll',
   );
 
   return $permissions;
