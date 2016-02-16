@@ -392,7 +392,14 @@ function emh_request_try_to_notify($node) {
   // For each user of each group, check domain.
   foreach($users as $user) {
     // If user has the right role(s) and wants to be notified.
-    if (emh_user_is_expert($user) && !empty($user->field_notification_frequency[LANGUAGE_NONE]) && $user->field_notification_frequency[LANGUAGE_NONE][0]['tid'] == 48) {
+    if (
+        (
+          ($node->type == 'question1' && user_access('question1: comment on any question1 content'))
+            || ($node->type == 'webform' && user_access('edit own webform submissions'))
+            || ($node->type == 'challenge' && user_access('challenge: comment on any challenge content'))
+        )
+        && !empty($user->field_notification_frequency[LANGUAGE_NONE]) && $user->field_notification_frequency[LANGUAGE_NONE][0]['tid'] == 48
+    ) {
       // Check multidomains option
       // drush vset --yes emh_request_send_notification_email_all_domains FALSE
       $multidomains_option = variable_get('emh_request_send_notification_email_all_domains', 0);
