@@ -897,7 +897,7 @@ requests',
         'weight' => 0,
       ),
     ),
-    'title' => 'Complete your profile and get launched!',
+    'title' => 'Please complete the following information to access client requests',
     'visibility' => 1,
   );
 
