@@ -20,6 +20,7 @@ Feature: Test og visibility
     | Pinterest | admin   |
     | Viadeo    | admin   |
     | Linkedin  | admin   |
+    | Tumblr    | admin   |
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
@@ -33,7 +34,10 @@ Feature: Test og visibility
     | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | 0712345671      | Modèle             | Avengers     | expert2@emindhub.com | Twitter   | Employee  | Other         |
     | expert3 | expert3@emindhub.com | expert   | Bruce            | Banner          | 0712345672      | Cogneur            | Avengers     | expert3@emindhub.com | Pinterest | Employee  | Drones        |
     | expert4 | expert4@emindhub.com | expert   | Scott            | Summers         | 0712345673      | Bucheron           | X-Men        | expert4@emindhub.com | Viadeo    | Employee  | Helicopters   |
-    | expert5 | expert5@emindhub.com | expert   | Jean             | Grey            | 0712345674      | Boulanger          | X-Men        | expert5@emindhub.com | Linkedin  | Employee  | Satellites    |
+
+    Given users:
+    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise   | field_working_status |
+    | expert5 | expert5@emindhub.com | expert   | Jean             | Grey            | 0712345674      | Boulanger          | X-Men        | expert5@emindhub.com | Linkedin  | Employee  |
 
     Given I give "client1" 400 emh points
     Given I give "client2" 100 emh points
@@ -98,6 +102,21 @@ Feature: Test og visibility
     And I should not see "Fight Ultron"
     And I should not see "Fight Hydra"
     And I should not see "Fight Thanos"
+
+  Scenario: Check profile completion and request visibility
+    Given I am logged in as "expert5"
+
+    When I go to homepage
+    Then I should see "Please complete the following information to access client requests"
+
+    When I go to "/content/fight-magneto"
+    Then I should see "Please complete the following information to access client requests"
+    And I should not see "Answer the question"
+
+    When I enter "86" for "Field(s) of expertise"
+    And I press "Update your profile"
+    Then I should see the success message containing "You have now access to client requests."
+    And I should see "Answer the question"
 
   Scenario: Check profile fields visibility
     Given I am logged in as "client2"
