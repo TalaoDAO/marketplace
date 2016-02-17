@@ -225,8 +225,8 @@ function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
     $account = $user;
   }
   if (empty($node)) {
-    $entity = arg(1);
-    $node = node_load($entity->nid);
+    $nid = arg(1);
+    $node = node_load($nid);
   }
   if ($account->uid == 1) {
     // Admin ( = eMindHub) has every right.
