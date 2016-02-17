@@ -10,6 +10,17 @@ Feature: Test points dispatch in OG
     | title    | author  |
     | Avengers | client1 |
 
+    Given "corporate" content:
+    | title     | author  |
+    | Google    | admin   |
+    | Apple     | admin   |
+    | Facebook  | admin   |
+    | Twitter   | admin   |
+    | Pinterest | admin   |
+    | Viadeo    | admin   |
+    | Linkedin  | admin   |
+    | Tumblr    | admin   |
+
     #client1 is webmaster to gain access to tabs until links are added
 
     Given users:

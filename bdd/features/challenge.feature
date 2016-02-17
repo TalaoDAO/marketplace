@@ -19,6 +19,7 @@ Feature: Create challenge and answers
     | Pinterest | admin   |
     | Viadeo    | admin   |
     | Linkedin  | admin   |
+    | Tumblr    | admin   |
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
