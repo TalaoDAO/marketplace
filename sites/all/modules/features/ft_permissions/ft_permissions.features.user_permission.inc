@@ -1161,7 +1161,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'create corporate content',
     'roles' => array(
       'administrator' => 'administrator',
-      'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',
       'webmaster' => 'webmaster',
     ),
