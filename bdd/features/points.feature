@@ -141,7 +141,7 @@ Feature: Test points
 
     # And now, the expert phone is shown
     When I click "Iron Man"
-    Then I should see "0712345678"
+    Then I should see "0712345670"
 
     Given I am logged in as a user with the "administrator" role
     When I go to "admin/emindhub/points/transaction-log"
