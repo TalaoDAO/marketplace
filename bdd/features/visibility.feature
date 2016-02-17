@@ -25,6 +25,7 @@ Feature: Test og visibility
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
     | client1 | client1@emindhub.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | client1@emindhub.com | Google  | Independant | Maintenance |
     | client2 | client2@emindhub.com | business | Charle           | Xavier          |                 |                    | X-Men        | client2@emindhub.com | Apple   | Independant | Engines     |
+    | client3 | client3@emindhub.com | business | Tony             | Stark           |                 |                    | X-Men        | client3@emindhub.com | Tumblr  | Independant | Drones      |
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise   | field_working_status | field_domaine |
