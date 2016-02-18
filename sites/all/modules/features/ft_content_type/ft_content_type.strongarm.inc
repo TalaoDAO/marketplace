@@ -1082,7 +1082,6 @@ function ft_content_type_strongarm() {
   $strongarm->name = 'node_options_corporate';
   $strongarm->value = array(
     0 => 'status',
-    1 => 'promote',
   );
   $export['node_options_corporate'] = $strongarm;
 
@@ -1204,7 +1203,7 @@ function ft_content_type_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_submitted_corporate';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
   $export['node_submitted_corporate'] = $strongarm;
 
   $strongarm = new stdClass();

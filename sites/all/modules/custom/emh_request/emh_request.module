@@ -276,17 +276,27 @@ function emh_request_get_types() {
  */
 function emh_request_get_status($nid) {
 
-	$node = node_load($nid);
+  if (empty($nid)) {
+    $arg0 = arg(0);
+    $arg1 = arg(1);
+    $arg2 = arg(2);
+    if ($arg0 == 'node' && empty($arg2)) {
+      $node = node_load($arg1);
+    }
+  }
+  $node = node_load($nid);
   $workflow = array();
+  $today = '';
+  $deadline = '';
 
   if ($node->status == 0) {
     $workflow = array( 'status' => 'draft', 'label' => t('Draft') );
   }
   else {
     if (!emh_points_get_points_closed_status($nid)) {
-
       $today = date('Y-m-d H:i:s');
-      $deadline = $node->field_expiration_date[LANGUAGE_NONE][0]['value'];
+      $items = field_get_items('node',$node,'field_expiration_date');
+      $deadline = isset($items[0]['value']) ? $items[0]['value'] : '';
       $deadline = date('Y-m-d H:i:s', strtotime("$deadline +1 day"));
       if ($today < $deadline) {
         $workflow = array( 'status' => 'open', 'label' => t('Open') );
@@ -392,7 +402,7 @@ function emh_request_try_to_notify($node) {
   // For each user of each group, check domain.
   foreach($users as $user) {
     // If user has the right role(s) and wants to be notified.
-    if (emh_user_is_expert($user) && !empty($user->field_notification_frequency[LANGUAGE_NONE]) && $user->field_notification_frequency[LANGUAGE_NONE][0]['tid'] == 48) {
+    if (emh_user_is_expert($user) && !empty($user->field_notification_frequency[LANGUAGE_NONE]) && $user->field_notification_frequency[LANGUAGE_NONE]['0']['tid'] == 48) {
       // Check multidomains option
       // drush vset --yes emh_request_send_notification_email_all_domains FALSE
       $multidomains_option = variable_get('emh_request_send_notification_email_all_domains', 0);

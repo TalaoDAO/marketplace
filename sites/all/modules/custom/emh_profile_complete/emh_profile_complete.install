@@ -1,0 +1,31 @@
+<?php
+/**
+ * @file
+ * Installation hooks for the emh_profile_complete module.
+ */
+
+
+/**
+* Implements hook_enable
+*/
+function emh_profile_complete_enable() {
+  emh_profile_complete_update_7001();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function emh_profile_complete_uninstall() {
+  $rules_config = rules_config_load('rules_welcome_message');
+  $rules_config->active = TRUE;
+  $rules_config->save();
+}
+
+/**
+ * Disables rules_welcome_message rule.
+ */
+function emh_profile_complete_update_7001() {
+  $rules_config = rules_config_load('rules_welcome_message');
+  $rules_config->active = FALSE;
+  $rules_config->save();
+}
