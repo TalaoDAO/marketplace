@@ -4,31 +4,6 @@
  * Code for eMindHub Profile Complete feature.
  */
 
-/**
- * Implements hook_preprocess_status_messages().
- */
-function emh_profile_complete_preprocess_status_messages(&$variables) {
-  if (module_exists('user_registrationpassword')) {
-    // https://api.drupal.org/comment/51793#comment-51793
-    $message = 'You have just used your one-time login link. Your account is now active and you are authenticated.';
-    if (isset($_SESSION['messages'])) {
-      foreach ($_SESSION['messages'] as $type => $messages) {
-        if ($type == 'status') {
-          $pos = array_search($message, $messages);
-          if ($pos !== FALSE) {
-            unset($_SESSION['messages'][$type][$pos]);
-            // http://dropbucket.org/node/547
-            // Remove the empty status message wrapper if no other messages have been set.
-            if (empty($_SESSION['messages'][$type])) {
-              unset($_SESSION['messages'][$type]);
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
 function emh_profile_complete_get_required_expert_fields() {
   $required_fields = array(
     'field_entreprise',
