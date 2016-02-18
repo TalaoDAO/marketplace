@@ -22,7 +22,7 @@ function emh_user_default_rules_configuration() {
       "ON" : { "user_login" : [] },
       "DO" : [
         { "drupal_message" : {
-          "message" : "\u003Cstrong\u003EWelcome to eMindHub!\u003C\/strong\u003E Thank you for being among the first users of our platform! This is a beta version, for any suggestion or comment please leave a message through the \u003Ca href=\u0022[site:url]\/contact\u0022\u003Econtact form\u003C\/a\u003E.",
+          "message" : "\u003Cstrong\u003EWelcome to eMindHub!\u003C\/strong\u003E Thank you for being among the first users of our platform! This is a beta version, for any suggestion or comment please leave a message through the \u003Ca href=\u0022[site:url]\contact\u0022\u003Econtact form\u003C\/a\u003E.",
           "type" : "info",
           "repeat" : "0"
         } }
