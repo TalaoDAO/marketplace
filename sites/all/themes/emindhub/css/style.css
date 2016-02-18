@@ -16130,17 +16130,17 @@ form#emh-points-arrange-form fieldset .panel-body .form-group {
 form#emh-points-arrange-form fieldset .panel-body .form-group label {
   display: none !important;
 }
-form#emh-profile-complete-get-required-empty-profile-form {
+form#emh-pcp-special-get-empty-fields-form {
   margin-top: 15px;
   float: left;
   width: 100%;
 }
-form#emh-profile-complete-get-required-empty-profile-form .btn-group {
+form#emh-pcp-special-get-empty-fields-form .btn-group {
   width: 100%;
   margin-top: 15px;
   text-align: center;
 }
-form#emh-profile-complete-get-required-empty-profile-form .btn-group .btn {
+form#emh-pcp-special-get-empty-fields-form .btn-group .btn {
   float: none;
 }
 /* FORMS
