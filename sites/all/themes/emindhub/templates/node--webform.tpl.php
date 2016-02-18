@@ -254,8 +254,6 @@
 
 		<?php endif; ?>
 
-		<?php else : ?>
-		<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeProfileComplete.tpl.php'; ?>
 		<?php endif; ?>
 
 	</div>
