@@ -19,16 +19,6 @@ function ft_content_type_taxonomy_default_vocabularies() {
       'language' => 'und',
       'i18n_mode' => 1,
     ),
-    'forums' => array(
-      'name' => 'Forums',
-      'machine_name' => 'forums',
-      'description' => 'Forum navigation vocabulary',
-      'hierarchy' => 1,
-      'module' => 'forum',
-      'weight' => -10,
-      'language' => 'und',
-      'i18n_mode' => 0,
-    ),
     'known_how' => array(
       'name' => 'How have you heard of us',
       'machine_name' => 'known_how',
