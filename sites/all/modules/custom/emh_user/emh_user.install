@@ -12,7 +12,6 @@ function emh_user_enable() {
   emh_user_update_7001();
 }
 
-
 /**
  * Force module weight for hook_form_alter execution
  */
@@ -23,21 +22,3 @@ function emh_user_update_7001() {
   ->condition('name', 'emh_user')
   ->execute();
 }
-
-
-/**
- * Force new user email field to be populate for the first time
- */
-// function emh_user_update_7102() {
-// 
-//   set_time_limit(0);
-//   $uids = db_query('SELECT uid FROM {users} WHERE uid != 0')->fetchCol();
-//   $users = user_load_multiple($uids);
-//   foreach ($users as $user) {
-//     // $edit = array();
-//     // $edit['field_email'][$user->language][0]['value'] = $user->mail;
-//     // user_save($user, $edit);
-//     user_save($user);
-//   }
-//
-// }

@@ -170,7 +170,7 @@ function emindhub_form_process_password_confirm($element) {
 /**
  * Implements hook_form_alter().
  */
-function emindhub_form_emh_profile_complete_get_required_empty_profile_form_alter(&$form, &$form_state, $form_id) {
+function emindhub_form_emh_pcp_special_get_empty_fields_form_alter(&$form, &$form_state, $form_id) {
 
 	$form['field_entreprise']['#prefix'] = '<div class="form-group-3col row">';
 	$form['field_entreprise']['#weight'] = '1';

@@ -164,6 +164,7 @@ function ft_rules_default_rules_configuration() {
   $items['rules_welcome_message'] = entity_import('rules_config', '{ "rules_welcome_message" : {
       "LABEL" : "Welcome message",
       "PLUGIN" : "reaction rule",
+      "ACTIVE" : false,
       "OWNER" : "rules",
       "TAGS" : [ "emh" ],
       "REQUIRES" : [ "rules", "user_registrationpassword" ],

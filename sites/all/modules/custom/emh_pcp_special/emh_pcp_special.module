@@ -1,0 +1,223 @@
+<?php
+/**
+ * @file
+ * Code for eMindHub PCP Special feature.
+ */
+
+function emh_pcp_special_list_special_fields() {
+  $required_fields = array(
+    'field_entreprise',
+    'field_working_status',
+    'field_domaine',
+  );
+  return $required_fields;
+}
+
+function emh_pcp_special_get_empty_fields_form($form, &$form_state) {
+
+  global $user;
+  $account = user_load($user->uid);
+  $attach_form = array();
+
+  $required_fields = emh_pcp_special_list_special_fields();
+  foreach ($required_fields as $required_field) {
+    if (field_access('edit', $required_field, 'user')) {
+      field_attach_form('user', $account, $attach_form, $form_state, NULL, array('field_name' => $required_field));
+      $form[$required_field] = $attach_form[$required_field];
+    }
+  }
+
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Update your profile'),
+    '#weight' => '100',
+  );
+
+  return $form;
+
+}
+
+function emh_pcp_special_get_empty_fields_form_submit($form, &$form_state) {
+
+  global $user;
+  $account = user_load($user->uid);
+  $edit = array();
+
+  $required_fields = emh_pcp_special_list_special_fields();
+
+  foreach ($required_fields as $required_field) {
+    $field_name = $required_field;
+    $edit[$field_name] = $form_state['values'][$field_name];
+  }
+
+  $edit = array_merge( $edit, array(
+    'status' => 1,
+    'access' => REQUEST_TIME,
+  ) );
+
+  drupal_set_message(t('Your profile has been updated. You have now access to client requests.'));
+
+  user_save($account, $edit);
+
+}
+
+/**
+ * Get all the profile fields that have been tagged.
+ * See pcp_get_tagged_profile_fields().
+ */
+function emh_pcp_special_get_profile_fields($entity_type = NULL, $bundle = NULL, $field_name = NULL) {
+  $special_fields = array();
+  $expert_fields = emh_pcp_special_list_special_fields();
+  foreach ($expert_fields as $expert_field) {
+    $enabled_fields["$entity_type:$bundle:$expert_field"] = "$entity_type:$bundle:$expert_field";
+  }
+  if (empty($enabled_fields)) {
+    return array();
+  }
+
+  $query = db_select('field_config_instance', 'fci');
+  $query->addField('fci', 'field_name', 'field_name');
+  $query->condition('fci.deleted', 0);
+
+  $or = db_or();
+  foreach ($enabled_fields as $enabled_field_identifier) {
+    $enabled_field_name_elements = explode(':', $enabled_field_identifier);
+    if (count($enabled_field_name_elements) > 2) {
+      $or->condition('fci.field_name', $enabled_field_name_elements[2]);
+    }
+  }
+  $query->condition($or);
+
+  if (isset($entity_type)) {
+    $query->condition('entity_type', $entity_type);
+  }
+
+  if (isset($bundle)) {
+    $query->condition('bundle', $bundle);
+  }
+
+  if (isset($field_name)) {
+    $query->condition('field_name', $field_name);
+  }
+
+  $result = $query->execute();
+
+  $fields = array();
+  foreach ($result as $row) {
+    $fields[$entity_type . ':' . $bundle . ':' . $row->field_name] = $row->field_name;
+  }
+
+  return $fields;
+}
+
+/**
+ * Get the profile complete percentage data for a given user.
+ * See pcp_get_complete_percentage_data()
+ */
+function emh_pcp_special_get_complete_percentage_data($entity_type, $bundle, $user) {
+
+  // Determine which fields have been tagged for evaluation.
+  $fields = emh_pcp_special_get_profile_fields($entity_type, $bundle, NULL);
+
+  // Restrict profile completeness for fields the user don't have access to.
+  // Access rules are provided by user role field module.
+  if (module_exists('user_role_field')) {
+    $user_roles = array_keys($user->roles);
+    $fields = _pcp_check_user_field_access($fields, $user_roles);
+  }
+
+  // We need to define these values here in case $data is returned early.
+  $data = array();
+  $data['entity_type'] = $entity_type;
+  $data['bundle'] = $bundle;
+  $data['uid'] = $user->uid;
+
+  // If no fields have been tagged, indicate that the profile is complete.
+  if (!$fields) {
+    $data['current_percent'] = 100;
+    $data['incomplete'] = 0;
+    return $data;
+  }
+
+  // Gather all profile values for this user.
+  $user_profile_values = pcp_get_user_profile_values($user->uid, $entity_type, $bundle);
+  $user_additional_values = pcp_get_user_additional_values($user->uid, $entity_type, $bundle);
+  $user_values = $user_profile_values + $user_additional_values;
+
+  // Enumerate empty fields by comparing tagged fields to user profile values.
+  $empty_fields = array();
+  foreach ($fields as $field_name) {
+    if (empty($user_values[$field_name])) {
+      $empty_fields[$field_name] = $field_name;
+    }
+  }
+
+  $fields_count = count($fields);
+  $empty_fields_count = count($empty_fields);
+
+  $completed_fields = $fields_count - $empty_fields_count;
+  $current_percent = number_format(($completed_fields / $fields_count), 2) * 100;
+
+  $data['completed']  = $completed_fields;
+  $data['incomplete'] = $empty_fields_count;
+  $data['total'] = $fields_count;
+
+  $data['current_percent'] = $current_percent;
+
+  return $data;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function emh_pcp_special_block_info() {
+  $blocks['emh_pcp_special'] = array(
+    'info' => t('EMH PCP Special'),
+    'cache' => DRUPAL_NO_CACHE,
+    'status' => 1,
+    'region' => 'highlighted',
+    'visibility' => BLOCK_VISIBILITY_LISTED,
+    'pages' => "<front>\nmy-responses\nmy-selections\nrequests\nnode/*",
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function emh_pcp_special_block_view($delta = '') {
+  global $user;
+  $block = array();
+
+  // No need to render a block for anonymous users.
+  if (user_is_anonymous()) {
+    return;
+  }
+
+  switch ($delta) {
+    case 'emh_pcp_special':
+
+      $out = emh_pcp_special_get_complete_percentage_data('user', 'user', $user);
+      if ($out['incomplete'] == 0 || empty($out)) {
+        $block['subject'] = '';
+        $block['content'] = '';
+      }
+      else {
+        $block['subject'] = t('Please complete the following informations to access client requests');
+        $block['content'] = array(
+          '#markup' => _emh_pcp_special_block_content(),
+        );
+      }
+
+      break;
+  }
+
+  return $block;
+
+}
+
+function _emh_pcp_special_block_content() {
+  $form = drupal_get_form('emh_pcp_special_get_empty_fields_form');
+  return drupal_render($form);
+}

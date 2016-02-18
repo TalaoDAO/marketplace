@@ -868,39 +868,6 @@ freetrial',
     'visibility' => 0,
   );
 
-  $export['pcp-pcp_profile_percent_complete'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'delta' => 'pcp_profile_percent_complete',
-    'i18n_block_language' => array(),
-    'i18n_mode' => 1,
-    'module' => 'pcp',
-    'node_types' => array(),
-    'pages' => '<front>
-my-responses
-my-selections
-requests',
-    'roles' => array(
-      'expert' => 4,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => 'highlighted',
-        'status' => 1,
-        'theme' => 'emindhub',
-        'weight' => 0,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => 'Please complete the following information to access client requests',
-    'visibility' => 1,
-  );
-
   $export['progress_tracker-progress_tracker'] = array(
     'cache' => -1,
     'custom' => 0,
