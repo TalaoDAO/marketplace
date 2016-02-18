@@ -35,8 +35,6 @@ function emh_pcp_special_get_empty_fields_form($form, &$form_state) {
 
   return $form;
 
-  // print_r($form); die;
-
 }
 
 function emh_pcp_special_get_empty_fields_form_submit($form, &$form_state) {
@@ -64,19 +62,8 @@ function emh_pcp_special_get_empty_fields_form_submit($form, &$form_state) {
 }
 
 /**
- * Get all the special profile fields that have been tagged.
- * If an $fiid is passed in, only the data for that field will be returned.
- *
- * @param $fiid
- *   (optional) NULL The field instance id of the field data should be returned for. If null, all fields
- *   are returned.
- * @param $entity_type
- *   (optional) NULL The type of entity to return fields for.
- * @param $bundle
- *   (optional) NULL The bundle to return fields for.
- *
- * @return
- *   field identifier (entity_type:bundle:field_name) and name(s).
+ * Get all the profile fields that have been tagged.
+ * See pcp_get_tagged_profile_fields().
  */
 function emh_pcp_special_get_profile_fields($entity_type = NULL, $bundle = NULL, $field_name = NULL) {
   $special_fields = array();
@@ -124,13 +111,8 @@ function emh_pcp_special_get_profile_fields($entity_type = NULL, $bundle = NULL,
 }
 
 /**
- * Get the profile complete percentage data for a given user (only for special fields).
- *
- * @param $user
- *   User object
- *
- * @return
- *   PCP data array.
+ * Get the profile complete percentage data for a given user.
+ * See pcp_get_complete_percentage_data()
  */
 function emh_pcp_special_get_complete_percentage_data($entity_type, $bundle, $user) {
 
@@ -224,7 +206,7 @@ function emh_pcp_special_block_view($delta = '') {
       else {
         $block['subject'] = t('Please complete the following informations to access client requests');
         $block['content'] = array(
-          '#markup' => emh_pcp_special_block_content(),
+          '#markup' => _emh_pcp_special_block_content(),
         );
       }
 
@@ -235,7 +217,7 @@ function emh_pcp_special_block_view($delta = '') {
 
 }
 
-function emh_pcp_special_block_content() {
+function _emh_pcp_special_block_content() {
   $form = drupal_get_form('emh_pcp_special_get_empty_fields_form');
   return drupal_render($form);
 }
