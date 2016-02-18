@@ -13333,6 +13333,7 @@ html.js div.contextual-links-wrapper {
 .jumbotron .block-title {
   color: #ffffff;
   margin-top: 0;
+  text-transform: none;
 }
 .jumbotron a {
   color: #FFF;
