@@ -1,0 +1,7 @@
+name = EMH Configuration
+description = Global configuration.
+package = EMH
+dependencies[] = autologout
+dependencies[] = pcp
+dependencies[] = emh_pcp_special
+core = 7.x
