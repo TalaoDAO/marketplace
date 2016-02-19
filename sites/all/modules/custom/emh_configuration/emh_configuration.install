@@ -1,0 +1,78 @@
+<?php
+/**
+ * @file
+ * Installation hooks for the EMH configuration module.
+ */
+
+
+/**
+* Implements hook_enable().
+*/
+function emh_configuration_enable() {
+  emh_configuration_update_7001();
+  emh_configuration_update_7002();
+  emh_configuration_update_7003();
+  emh_configuration_update_7004();
+  emh_configuration_update_7005();
+}
+
+/**
+ * Uninstall modules : EMH blocks, forum, poll
+ */
+function emh_configuration_update_7001() {
+  module_disable(array('emh_blocks', 'forum', 'poll'));
+  drupal_uninstall_modules(array('emh_blocks', 'forum', 'poll'));
+}
+
+/**
+ * Delete roles : expert preview, business preview
+ */
+function emh_configuration_update_7002() {
+  user_role_delete('expert preview');
+  user_role_delete('business preview');
+}
+
+/**
+ * Install modules : Autologout, PCP, EMH PCP Special
+ */
+function emh_configuration_update_7003() {
+  module_enable(array('autologout', 'pcp', 'emh_pcp_special'));
+}
+
+/**
+ * Populate PCP fields parameters
+ */
+function emh_configuration_update_7004() {
+  $value = array(
+    'user:user:field_first_name' => 'user:user:field_first_name',
+    'user:user:field_last_name' => 'user:user:field_last_name',
+    'user:user:field_entreprise' => 'user:user:field_entreprise',
+    'user:user:field_telephone' => 'user:user:field_telephone',
+    'user:user:field_address' => 'user:user:field_address',
+    'user:user:field_titre_metier' => 'user:user:field_titre_metier',
+    'user:user:field_working_status' => 'user:user:field_working_status',
+    'user:user:field_domaine' => 'user:user:field_domaine',
+    'user:user:field_skills_set' => 'user:user:field_skills_set',
+    'user:user:field_employment_history' => 'user:user:field_employment_history',
+    'user:user:field_notification_frequency' => 'user:user:field_notification_frequency',
+    'user:user:field_entreprise_description' => 'user:user:field_entreprise_description',
+    'user:user:field_specific_skills3' => 'user:user:field_specific_skills3',
+    'user:user:field_photo' => 'user:user:field_photo',
+    'user:user:field_position' => 'user:user:field_position',
+    'user:user:field_cv' => 'user:user:field_cv',
+    'user:user:field_position_list' => 'user:user:field_position_list',
+    'user:user:field_needs_for_expertise' => 'user:user:field_needs_for_expertise',
+  );
+  variable_set('pcp_enabled_fields', $value);
+  variable_set('pcp_hide_block_on_complete', '1');
+}
+
+/**
+ * Delete Search module tables
+ */
+function emh_configuration_update_7005() {
+  db_delete('search_total')
+    ->execute();
+  db_delete('search_index')
+    ->execute();
+}
