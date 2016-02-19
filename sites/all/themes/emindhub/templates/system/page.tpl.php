@@ -200,7 +200,7 @@ global $base_url;
 
         <?php print $messages; ?>
 
-        <?php $primary_tabs = emindhub_menu_tabs_primary($tabs);
+        <?php $primary_tabs = emh_submenu_menu_tabs_primary($tabs);
         if (!empty($primary_tabs)): ?>
           <ul class="tabs--primary nav nav-tabs">
             <?php print render($primary_tabs); ?>
