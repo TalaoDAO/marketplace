@@ -43,7 +43,26 @@ function emh_configuration_update_7003() {
  * Populate PCP fields parameters
  */
 function emh_configuration_update_7004() {
-  $value = 'a:18:{s:26:"user:user:field_first_name";s:26:"user:user:field_first_name";s:25:"user:user:field_last_name";s:25:"user:user:field_last_name";s:26:"user:user:field_entreprise";s:26:"user:user:field_entreprise";s:25:"user:user:field_telephone";s:25:"user:user:field_telephone";s:23:"user:user:field_address";s:23:"user:user:field_address";s:28:"user:user:field_titre_metier";s:28:"user:user:field_titre_metier";s:30:"user:user:field_working_status";s:30:"user:user:field_working_status";s:23:"user:user:field_domaine";s:23:"user:user:field_domaine";s:26:"user:user:field_skills_set";s:26:"user:user:field_skills_set";s:34:"user:user:field_employment_history";s:34:"user:user:field_employment_history";s:38:"user:user:field_notification_frequency";s:38:"user:user:field_notification_frequency";s:38:"user:user:field_entreprise_description";s:38:"user:user:field_entreprise_description";s:32:"user:user:field_specific_skills3";s:32:"user:user:field_specific_skills3";s:21:"user:user:field_photo";s:21:"user:user:field_photo";s:24:"user:user:field_position";s:24:"user:user:field_position";s:18:"user:user:field_cv";s:18:"user:user:field_cv";s:29:"user:user:field_position_list";s:29:"user:user:field_position_list";s:35:"user:user:field_needs_for_expertise";s:35:"user:user:field_needs_for_expertise";}';
+  $value = array(
+    'user:user:field_first_name' => 'user:user:field_first_name',
+    'user:user:field_last_name' => 'user:user:field_last_name',
+    'user:user:field_entreprise' => 'user:user:field_entreprise',
+    'user:user:field_telephone' => 'user:user:field_telephone',
+    'user:user:field_address' => 'user:user:field_address',
+    'user:user:field_titre_metier' => 'user:user:field_titre_metier',
+    'user:user:field_working_status' => 'user:user:field_working_status',
+    'user:user:field_domaine' => 'user:user:field_domaine',
+    'user:user:field_skills_set' => 'user:user:field_skills_set',
+    'user:user:field_employment_history' => 'user:user:field_employment_history',
+    'user:user:field_notification_frequency' => 'user:user:field_notification_frequency',
+    'user:user:field_entreprise_description' => 'user:user:field_entreprise_description',
+    'user:user:field_specific_skills3' => 'user:user:field_specific_skills3',
+    'user:user:field_photo' => 'user:user:field_photo',
+    'user:user:field_position' => 'user:user:field_position',
+    'user:user:field_cv' => 'user:user:field_cv',
+    'user:user:field_position_list' => 'user:user:field_position_list',
+    'user:user:field_needs_for_expertise' => 'user:user:field_needs_for_expertise',
+  );
   variable_set('pcp_enabled_fields', $value);
   variable_set('pcp_hide_block_on_complete', '1');
 }
