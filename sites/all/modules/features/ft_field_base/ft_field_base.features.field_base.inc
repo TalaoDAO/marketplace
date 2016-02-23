@@ -2268,10 +2268,10 @@ function ft_field_base_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        'Retired' => 'Retired',
+        'Independant' => 'Freelancer',
         'Employee' => 'Employee',
         'Student' => 'Student',
-        'Independant' => 'Independant',
+        'Retired' => 'Other',
       ),
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
@@ -2284,8 +2284,6 @@ function ft_field_base_field_default_field_bases() {
         5 => 0,
         6 => 0,
         7 => 0,
-        8 => 0,
-        9 => 0,
       ),
     ),
     'translatable' => 0,
