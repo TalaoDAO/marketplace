@@ -203,8 +203,6 @@
 
 	  </div>
 
-		<?php //require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeLinks.tpl.php'; ?>
-
 		<?php // print render($content['comments']); ?>
 
 		<?php
@@ -222,7 +220,7 @@
 
 		<?php if (empty($submissions) || $submissions['is_draft']) : ?>
 
-		<?php if ( (!emh_user_is_business() || $node->uid == $user->uid) && $node->webform['status'] ) : ?>
+		<?php if ( (user_access('edit own webform submissions') || $node->uid == $user->uid) && $node->webform['status'] ) : ?>
 		<?php if (!empty($node->webform['components'])) : ?>
 		<div id="comments" class="<?php print $classes; ?> row section emh-fieldgroup-blue-title"<?php print $attributes; ?>>
 	    <h2 class="h3"><span><?php print t('Answer the survey') ?></span></h2>

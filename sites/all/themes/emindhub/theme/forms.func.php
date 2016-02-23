@@ -140,10 +140,10 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
   // Complement
   $form['field_notification_frequency']['#prefix'] = '<div class="form-group-2col row">';
-	if (emh_user_is_business()) {
+	if (user_access('create question1 content') || user_access('create webform content') || user_access('create challenge content')) {
 		$form['field_notification_frequency'][LANGUAGE_NONE]['#description'] = t('How often do you want to receive eMindHub\'s notifications about new answers to your requests ?');
 	}
-	if (emh_user_is_expert()) {
+	if (user_access('question1: comment on any question1 content') || user_access('edit own webform submissions') || user_access('challenge: comment on any challenge content')) {
 		$form['field_notification_frequency'][LANGUAGE_NONE]['#description'] = t('How often do you want to receive eMindHub\'s notifications about new requests ?');
 	}
   $form['field_known_specific']['#suffix'] = '</div>';
