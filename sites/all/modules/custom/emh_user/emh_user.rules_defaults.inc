@@ -48,5 +48,53 @@ function emh_user_default_rules_configuration() {
     }
   ');
 
+  $rules['rules_emh_user_show_profile_completion_message_expert'] = entity_import('rules_config', '
+    { "rules_show_profile_completion_message_expert" : {
+        "LABEL" : "Show profile completion message - Expert",
+        "PLUGIN" : "reaction rule",
+        "WEIGHT" : "2",
+        "OWNER" : "rules",
+        "TAGS" : [ "EMH" ],
+        "REQUIRES" : [ "pcp", "rules" ],
+        "ON" : { "user_login" : [] },
+        "IF" : [
+          { "NOT pcp_profile_is_completed" : { "account" : [ "account" ] } },
+          { "user_has_role" : { "account" : [ "account" ], "roles" : { "value" : { "4" : "4" } } } }
+        ],
+        "DO" : [
+          { "drupal_message" : {
+              "message" : "\u003Cstrong\u003EPromote your expertise\u003C\/strong\u003E by \u003Ca href=\u0022[account:edit-url]\u0022\u003Efilling out your profile\u003C\/a\u003E.",
+              "type" : "warning"
+            }
+          }
+        ]
+      }
+    }
+  ');
+
+  $rules['rules_emh_user_show_profile_completion_message_business'] = entity_import('rules_config', '
+    { "rules_show_profile_completion_message_business" : {
+        "LABEL" : "Show profile completion message - Business",
+        "PLUGIN" : "reaction rule",
+        "WEIGHT" : "2",
+        "OWNER" : "rules",
+        "TAGS" : [ "EMH" ],
+        "REQUIRES" : [ "pcp", "rules" ],
+        "ON" : { "user_login" : [] },
+        "IF" : [
+          { "NOT pcp_profile_is_completed" : { "account" : [ "account" ] } },
+          { "user_has_role" : { "account" : [ "account" ], "roles" : { "value" : { "5" : "5" } } } }
+        ],
+        "DO" : [
+          { "drupal_message" : {
+              "message" : "To better \u003Cstrong\u003Emeet your expectations\u003C\/strong\u003E, please \u003Ca href=\u0022[account:edit-url]\u0022\u003Efill out your profile\u003C\/a\u003E.",
+              "type" : "warning"
+            }
+          }
+        ]
+      }
+    }
+  ');
+
   return $rules;
 }

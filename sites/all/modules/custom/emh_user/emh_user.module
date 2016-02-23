@@ -63,32 +63,6 @@ function emh_user_preprocess_status_messages(&$variables) {
 }
 
 /**
- * Implements hook_user_login().
- */
-function emh_user_user_login(&$edit, $account) {
-  $user_roles = array(
-    '0' => '4', // Expert
-    '1' => '5', // Business
-  );
-  $user_messages = array(
-    '4' => t('<strong>Promote your expertise</strong> by <a href="[current-user:edit-url]">filling out your profile</a>.'), // Expert
-    '5' => t('To better <strong>meet your expectations</strong>, please <a href="[current-user:edit-url]">fill out your profile</a>.'), // Business
-  );
-  $current_user_roles = array_keys($account->roles);
-  $check_user_role = array_intersect($current_user_roles, $user_roles);
-  if (!empty($check_user_role)) {
-    $emh_user_data = pcp_get_complete_percentage_data('user', 'user', $account);
-    if ($emh_user_data['current_percent'] < 100) {
-      $current_user_object['user'] = $account;
-      foreach ($check_user_role as $role) {
-        $emh_user_login_message = token_replace($user_messages[$role], $current_user_object);
-        drupal_set_message($emh_user_login_message, 'warning');
-      }
-    }
-  }
-}
-
-/**
  * Helper function to get user realname instead of username.
  */
 function emh_user_get_beautiful_realname($uid) {

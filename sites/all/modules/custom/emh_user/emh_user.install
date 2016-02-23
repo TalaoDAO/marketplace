@@ -24,10 +24,23 @@ function emh_user_update_7001() {
 }
 
 /**
-* Disables rules_welcome_message rule.
+* Delete rules_welcome_message rule.
 */
 function emh_user_update_7002() {
-  $rules_config = rules_config_load('rules_welcome_message');
-  $rules_config->active = FALSE;
-  $rules_config->save();
+  features_revert(array('ft_rules' => array('rules_config')));
+  if ($rules_config = rules_config_load('rules_welcome_message')) {
+    $rules_config->delete();
+  }
+}
+
+/**
+* Revert rules_emh_user_show_beta_login_message and rules_emh_user_show_expert_login_message rules.
+*/
+function emh_user_update_7003() {
+  if ($rules_config = rules_config_load('rules_emh_user_show_beta_login_message')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('rules_emh_user_show_expert_login_message')) {
+    $rules_config->delete();
+  }
 }
