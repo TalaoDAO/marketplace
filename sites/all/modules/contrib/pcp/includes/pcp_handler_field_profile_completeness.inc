@@ -1,8 +1,7 @@
 <?php
 
 /**
- * @file pcp_handler_profile_completeness.inc
- *
+ * @file
  * Handler for the 'Profile: completeness' field.
  * This is for Profile2 profiles.
  */
@@ -57,7 +56,13 @@ class pcp_handler_field_profile_completeness extends views_handler_field {
   }
 
   /**
-   * Render data. 
+   * Render data.
+   *
+   * @param object $values
+   *   Object having information about pcp.
+   *
+   * @return
+   *   Render data.
    */
   public function render($values) {
     $profile2_entity = entity_get_info('profile2');

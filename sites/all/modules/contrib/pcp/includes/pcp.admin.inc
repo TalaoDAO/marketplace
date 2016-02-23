@@ -13,18 +13,18 @@
 function pcp_admin_settings($form, &$form_state) {
   $form['general_settings'] = array(
     '#type' => 'fieldset',
-    '#title' => 'General Settings',
+    '#title' => t('General Settings'),
   );
   $form['general_settings']['hide_block_on_complete'] = array(
     '#type' => 'checkbox',
-    '#title' => 'Hide Block When Complete',
+    '#title' => t('Hide Block When Complete'),
     '#default_value' => variable_get('pcp_hide_block_on_complete', 0),
     '#description' => t('When a user reaches 100% complete of their profile, do you want the profile complete percent block to go away? If so, check this box on.'),
   );
   if (variable_get('user_pictures', 0)) {
     $form['general_settings']['pcp_enable_user_picture'] = array(
       '#type' => 'checkbox',
-      '#title' => 'Enable User Picture Support',
+      '#title' => t('Enable User Picture Support'),
       '#default_value' => variable_get('pcp_enable_user_picture', 0),
       '#description' => t('Picture support has been turned on, do you want to make it required as part of Profile Complete Percent? Checking this box will make it required.'),
     );
@@ -32,7 +32,7 @@ function pcp_admin_settings($form, &$form_state) {
 
   $form['profile_field_settings'] = array(
     '#type' => 'fieldset',
-    '#title' => 'Core Profile Field Settings',
+    '#title' => t('Core Profile Field Settings'),
     '#description' => t('Checking a profile field below will add that field to the logic of the complete percentage. Please note that these are simply core profile fields, not fields attached to Profile2 profiles.'),
   );
 
@@ -90,9 +90,11 @@ function pcp_admin_settings($form, &$form_state) {
     $options[$fiid] = $field_info['label'];
   }
 
+  $profile_fields_description = empty($options) ? t('There are no profile fields enabled. Please !link first', array('!link' => l(t('add some profile fields'), 'admin/config/people/accounts/fields'))) : t('Checking a profile field below will add that field to the logic of the complete percentage.');
+
   $form['profile_field_settings']['profile_fields'] = array(
     '#title' => t('Profile Fields'),
-    '#description' => empty($options) ? t('There are no profile fields enabled. Please <a href="@link">add some profile fields</a> first.', array('@link' => url('admin/config/people/accounts/fields'))) : t('Checking a profile field below will add that field to the logic of the complete percentage.'),
+    '#description' => filter_xss($profile_fields_description),
     '#type' => 'checkboxes',
     '#options' => $options,
     '#default_value' => array_flip($settings['default_values']),

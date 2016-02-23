@@ -1,0 +1,148 @@
+<?php
+
+/**
+ * @file
+ * Having simpletest case.
+ */
+
+/**
+ * Tests the functionality of the profile complete percentage module.
+ */
+class PCP extends DrupalWebTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Profile Complete Percentage',
+      'description' => 'Test Complete Profile Percentage module functionality.',
+      'group' => 'User',
+    );
+  }
+
+  public function setUp() {
+    // Enable complete profile percentage module.
+    parent::setUp(array('pcp'));
+  }
+
+  /**
+   * All Tests cases of Profile Complete Percentage functionality.
+   */
+  public function testProfileCompletePercentagefunctionality() {
+
+    // Create administration user.
+    $this->admin_user = $this->drupalCreateUser(array(
+      'administer blocks',
+      'access administration pages',
+    ));
+
+    // Create authenticate user.
+    $this->web_user = $this->drupalCreateUser(array(
+      'access content',
+    ));
+
+    // Login as admin.
+    $this->drupalLogin($this->admin_user);
+
+    // Create user profile field.
+    $field = array(
+      'field_name' => 'first_name',
+      'type' => 'text'
+    );
+    field_create_field($field);
+
+    // Create instances on user profile.
+    $instance = array(
+      'field_name' => 'first_name',
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'label' => 'First Name',
+      'widget' => array(
+        'type' => 'text_textfield',
+        'size' => 60,
+      ),
+      'settings' => array('user_register_form' => TRUE),
+    );
+    field_create_instance($instance);
+
+    // Create user profile field.
+    $field['field_name'] = 'last_name';
+    field_create_field($field);
+
+    // Create instances on user profile.
+    $instance['field_name'] = 'last_name';
+    $instance['label'] = 'Last Name';
+    field_create_instance($instance);
+
+    // Create user profile field.
+    $field['field_name'] = 'location';
+    field_create_field($field);
+
+    // Create instances on user profile.
+    $instance['field_name'] = 'location';
+    $instance['label'] = 'Location';
+    field_create_instance($instance);
+
+    // Goto block configuration page.
+    $this->drupalGet('admin/structure/block/manage/pcp/pcp_profile_percent_complete/configure');
+
+    // Show block in sidebar first region.
+    $edit = array();
+    $edit['regions[bartik]'] = 'sidebar_first';
+    $this->drupalPost(NULL, $edit, t('Save block'));
+
+    // Logout admin user.
+    $this->drupalLogout();
+
+    // Login with authenticate user.
+    $this->drupalLogin($this->web_user);
+
+    // Goto Home page.
+    $this->drupalGet('');
+    $this->assertText('100% Complete', 'Initial Profile complete shows 100%');
+
+    // Make user fields as pcp user field.
+    $enabled_fields = array('user:user:first_name' => 'user:user:first_name',
+                            'user:user:last_name' => 'user:user:last_name');
+    variable_set('pcp_enabled_fields', $enabled_fields);
+
+    // Goto Home page.
+    $this->drupalGet('');
+    $this->assertText('0% Complete', "User haven't fill any pcp field");
+
+    // Goto user profile edit page.
+    $this->drupalGet('user/' . $this->web_user->uid . '/edit');
+
+    // Fill pcp user field.
+    $edit = array();
+    $edit['first_name[und][0][value]'] = 'john';
+    $this->drupalPost(NULL, $edit, t('Save'));
+
+    // Goto Home page.
+    $this->drupalGet('');
+    $this->assertText('50% Complete', '50% Profile completes');
+
+    // Goto user profile edit page.
+    $this->drupalGet('user/' . $this->web_user->uid . '/edit');
+
+    // Fill non pcp user field.
+    $edit = array();
+    $edit['location[und][0][value]'] = 'new york';
+    $this->drupalPost(NULL, $edit, t('Save'));
+
+    // Goto Home page.
+    $this->drupalGet('');
+    $this->assertText('50% Complete', '50% Profile completes');
+
+    // Goto user profile edit page.
+    $this->drupalGet('user/' . $this->web_user->uid . '/edit');
+
+    // Fill pcp user field.
+    $edit = array();
+    $edit['last_name[und][0][value]'] = 'den';
+    $this->drupalPost(NULL, $edit, t('Save'));
+
+    // Goto Home page.
+    $this->drupalGet('');
+    $this->assertText('100% Complete', '100% Profile completes');
+  }
+
+}
