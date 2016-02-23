@@ -107,10 +107,10 @@ Feature: Test og visibility
     Given I am logged in as "expert5"
 
     When I go to homepage
-    Then I should see "Please complete the following informations to access client requests"
+    Then I should see "Please complete the following information to access client requests"
 
     When I go to "/content/fight-magneto"
-    Then I should see "Please complete the following informations to access client requests"
+    Then I should see "Please complete the following information to access client requests"
     And I should not see "Answer the question"
 
     When I enter "86" for "Field(s) of expertise"
