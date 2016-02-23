@@ -126,7 +126,7 @@ function emh_survey_form_alter(&$form, &$form_state, $form_id) {
   }
 
 	if ((isset($form['#node']) && $form['#node']->type == 'webform')) {
-      if ( user_access('edit webform components') && !empty($form['submitted']) ) {
+    if ( user_access('edit webform components') && !empty($form['submitted']) ) {
       foreach( $form['submitted'] as $key => $element ) {
         if (is_array($element) && !empty($element['#type']) && $element['#type'] == 'textarea') {
           $form['submitted'][$key]['#disabled'] = 'disabled';

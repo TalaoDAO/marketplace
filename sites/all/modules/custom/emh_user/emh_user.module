@@ -15,6 +15,16 @@ function emh_user_views_api() {
 }
 
 /**
+* Implements hook_menu_alter().
+*/
+function emh_user_menu_alter(&$items) {
+  unset($items['user/register']);
+  $items['user/%user/hybridauth']['access callback'] = FALSE;
+  $items['user/%user/edit']['title'] = t('Edit account');
+  $items['user/%user/change-password']['title'] = t('Change password');
+}
+
+/**
  * Implements hook_form_alter().
  */
 function emh_user_form_user_profile_form_alter(&$form, &$form_state, $form_id) {

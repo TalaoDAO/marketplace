@@ -147,6 +147,30 @@ function emh_points_request_answers_access($nid) {
 }
 
 /**
+ * Access callback for the request answers page.
+ */
+function emh_points_request_answers_access($nid) {
+  global $user;
+  $account = $user;
+  if (empty($nid)) {
+    $nid = arg(1);
+  }
+  $node = node_load($nid);
+  // Admin, webmasters, etc.
+  switch ($node->type) {
+    case 'question1':
+    case 'challenge':
+      if (user_access('administer comments')) return TRUE;
+      break;
+    case 'webform':
+      if (user_access('access all webform results')) return TRUE;
+      break;
+  }
+  // Node author
+  return($node->uid == $account->uid);
+}
+
+/**
  * Access callback for the points history page.
  */
 function emh_points_user_history_access($account = NULL) {
