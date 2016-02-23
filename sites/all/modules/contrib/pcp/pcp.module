@@ -49,13 +49,13 @@ function pcp_menu() {
 }
 
 /**
-* Implements hook_views_api().
-*/
+ * Implements hook_views_api().
+ */
 function pcp_views_api() {
- return array(
-   'api' => 3,
-   'path' => drupal_get_path('module', 'pcp') . '/includes',
- );
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'pcp') . '/includes',
+  );
 }
 
 /**
@@ -386,9 +386,9 @@ function pcp_get_user_profile_values($uid, $entity_type, $bundle = NULL) {
   elseif ($entity_type == 'profile2' && $profile = profile2_load_by_user($user, $bundle)) {
     foreach ($fields as $field_name => $field_values) {
       if (isset($profile->$field_name) && $field = $profile->$field_name) {
-        foreach ($field['und'][0] as $value) {
+        foreach ($field[LANGUAGE_NONE][0] as $value) {
           if (!is_null($value)) {
-            $user_fields[$field_name] = $field['und'][0];
+            $user_fields[$field_name] = $field[LANGUAGE_NONE][0];
             break;
           }
         }
@@ -454,9 +454,11 @@ function pcp_form_profile2_type_form_alter(&$form, &$form_state, $form_id) {
     $options[$fiid] = $field_info['label'];
   }
 
+  $profile_fields_description = empty($options) ? t('There are no fields enabled for this profile type. Please !link', array('!link' => l(t('add some profile fields') , 'admin/structure/profiles/manage/' . $bundle . '/fields'))) : t('Checking a profile field below will add that field to the logic of the complete percentage.');
+
   $form['profile_complete']['profile_fields'] = array(
     '#title' => t('Profile Fields'),
-    '#description' => empty($options) ? t('There are no fields enabled for this profile type. Please <a href="@link">add some profile fields</a> first.', array('@link' => url('admin/structure/profiles/manage/' . $bundle . '/fields'))) : t('Checking a profile field below will add that field to the logic of the complete percentage.'),
+    '#description' => filter_xss($profile_fields_description),
     '#type' => 'checkboxes',
     '#options' => $options,
     '#default_value' => array_flip($settings['default_values']),
@@ -530,7 +532,7 @@ function pcp_delete_field_requireness($form, &$form_state) {
 }
 
 /**
- * Implements hook_form_alter()
+ * Implements hook_form_alter().
  */
 function pcp_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'user_profile_form' || strpos($form_id, 'profile2_edit') === 0) {
@@ -619,6 +621,7 @@ function pcp_user_login(&$edit, $account) {
   // Default message, if user is not set any message.
   $pcp_login_message = variable_get('pcp_login_message', '');
   if (!empty($pcp_login_message)) {
+    $pcp_login_message = filter_xss($pcp_login_message);
     $current_user_roles = array_keys($account->roles);
     $user_roles = array_values(variable_get('pcp_login_message_role', array()));
     $check_user_role = array_intersect($current_user_roles, $user_roles);

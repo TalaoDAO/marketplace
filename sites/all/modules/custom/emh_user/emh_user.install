@@ -24,10 +24,11 @@ function emh_user_update_7001() {
 }
 
 /**
-* Disables rules_welcome_message rule.
+* Delete rules_welcome_message rule.
 */
 function emh_user_update_7002() {
-  $rules_config = rules_config_load('rules_welcome_message');
-  $rules_config->active = FALSE;
-  $rules_config->save();
+  features_revert(array('ft_rules' => array('rules_config')));
+  if ($rules_config = rules_config_load('rules_welcome_message')) {
+    $rules_config->delete();
+  }
 }

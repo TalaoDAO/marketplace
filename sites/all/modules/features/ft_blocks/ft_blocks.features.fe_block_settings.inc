@@ -12,36 +12,6 @@ function ft_blocks_default_fe_block_settings() {
 
   $export['version'] = '2.0';
 
-  $export['block-beta'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'i18n_block_language' => array(),
-    'i18n_mode' => 0,
-    'machine_name' => 'beta',
-    'module' => 'block',
-    'node_types' => array(),
-    'pages' => '<front>',
-    'roles' => array(
-      'authenticated user' => 2,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'emindhub',
-        'weight' => -46,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '<none>',
-    'visibility' => 1,
-  );
-
   $export['block-expert_avantages'] = array(
     'cache' => -1,
     'custom' => 0,
@@ -70,37 +40,6 @@ function ft_blocks_default_fe_block_settings() {
     'visibility' => 1,
   );
 
-  $export['block-experts_points_info'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'i18n_block_language' => array(),
-    'i18n_mode' => 0,
-    'machine_name' => 'experts_points_info',
-    'module' => 'block',
-    'node_types' => array(),
-    'pages' => '<front>',
-    'roles' => array(
-      'expert' => 4,
-      'référent' => 7,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'emindhub',
-        'weight' => -36,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '<none>',
-    'visibility' => 1,
-  );
-
   $export['block-home_register'] = array(
     'cache' => -1,
     'custom' => 0,
@@ -121,7 +60,7 @@ freetrial',
         'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -43,
+        'weight' => -42,
       ),
       'seven' => array(
         'region' => '',
@@ -271,7 +210,7 @@ freetrial',
         'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -48,
+        'weight' => -47,
       ),
       'seven' => array(
         'region' => '',
@@ -301,7 +240,7 @@ freetrial',
         'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -47,
+        'weight' => -46,
       ),
       'seven' => array(
         'region' => '',
@@ -331,7 +270,7 @@ freetrial',
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -47,
+        'weight' => -46,
       ),
       'seven' => array(
         'region' => '',
@@ -481,7 +420,7 @@ freetrial',
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -48,
+        'weight' => -47,
       ),
       'seven' => array(
         'region' => '',
@@ -627,7 +566,7 @@ freetrial',
         'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -46,
+        'weight' => -45,
       ),
       'seven' => array(
         'region' => '',
@@ -655,7 +594,7 @@ freetrial',
         'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -45,
+        'weight' => -44,
       ),
       'seven' => array(
         'region' => '',
@@ -683,7 +622,7 @@ freetrial',
         'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -44,
+        'weight' => -43,
       ),
       'seven' => array(
         'region' => '',
@@ -855,7 +794,7 @@ freetrial',
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -44,
+        'weight' => -43,
       ),
       'seven' => array(
         'region' => '',
@@ -1363,7 +1302,7 @@ freetrial',
         'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -42,
+        'weight' => -41,
       ),
       'seven' => array(
         'region' => '',

@@ -76,3 +76,18 @@ function emh_configuration_update_7005() {
   db_delete('search_index')
     ->execute();
 }
+
+/**
+* Delete old blocks and revert block features.
+*/
+function emh_configuration_update_7006() {
+  $module = 'block';
+  $deltas = array('24', '25');
+  foreach ($deltas as $delta) {
+    db_delete('block')
+      ->condition('module', $module)
+      ->condition('delta', $delta)
+      ->execute();
+  }
+  features_revert(array('ft_blocks' => array('fe_block_boxes')));
+}

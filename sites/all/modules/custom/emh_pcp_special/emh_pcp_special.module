@@ -204,7 +204,7 @@ function emh_pcp_special_block_view($delta = '') {
         $block['content'] = '';
       }
       else {
-        $block['subject'] = t('Please complete the following informations to access client requests');
+        $block['subject'] = t('Please complete the following information to access client requests');
         $block['content'] = array(
           '#markup' => _emh_pcp_special_block_content(),
         );
