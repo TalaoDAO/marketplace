@@ -14,6 +14,7 @@ function emh_configuration_enable() {
   emh_configuration_update_7003();
   emh_configuration_update_7004();
   emh_configuration_update_7005();
+  emh_configuration_update_7006();
 }
 
 /**
