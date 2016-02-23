@@ -83,7 +83,7 @@ function emh_configuration_update_7005() {
 function emh_configuration_update_7006() {
   $module = 'block';
   $deltas = array('24', '25');
-  foreach ()$deltas as $delta) {
+  foreach ($deltas as $delta) {
     db_delete('block')
       ->condition('module', $module)
       ->condition('delta', $delta)
