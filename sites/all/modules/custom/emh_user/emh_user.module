@@ -63,6 +63,43 @@ function emh_user_preprocess_status_messages(&$variables) {
 }
 
 /**
+ * Implements hook_user_login().
+ */
+function emh_user_user_login(&$edit, $account) {
+
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+
+  // retrieve user language
+  // $user_language = $account->language;
+  $user_language = 'en';
+
+  // don't do anything if no language is defined
+  if (!$user_language) {
+    return;
+  }
+
+  // verify if language exists
+  $languages = language_list();
+  if (!isset($languages[$user_language])) {
+    return;
+  }
+
+  // verify if language is enabled
+  if (!$languages[$user_language]->enabled) {
+    return;
+  }
+
+  drupal_goto('user', array(
+    'language' => $languages[$user_language],
+    'query' => drupal_get_destination(),
+    )
+  );
+}
+
+/**
  * Helper function to get user realname instead of username.
  */
 function emh_user_get_beautiful_realname($uid) {
