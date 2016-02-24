@@ -47,3 +47,10 @@ function emh_submenu_block_view($delta = '') {
 
   return $block;
 }
+
+function emh_submenu_menu_tabs_primary($tabs) {
+
+  if (count($tabs['#primary']) <= '1') return '';
+  else return $tabs['#primary'];
+
+}

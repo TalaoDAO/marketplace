@@ -8207,20 +8207,20 @@ a.badge:focus {
   padding-top: 30px;
   padding-bottom: 30px;
   margin-bottom: 30px;
-  color: inherit;
-  background-color: #f2f2f2;
+  color: #ffffff;
+  background-color: #1abc9c;
 }
 .jumbotron h1,
 .jumbotron .h1 {
-  color: inherit;
+  color: #ffffff;
 }
 .jumbotron p {
   margin-bottom: 15px;
-  font-size: 21px;
+  font-size: 17px;
   font-weight: 200;
 }
 .jumbotron > hr {
-  border-top-color: #d9d9d9;
+  border-top-color: #148f77;
 }
 .container .jumbotron,
 .container-fluid .jumbotron {
@@ -8243,7 +8243,7 @@ a.badge:focus {
   }
   .jumbotron h1,
   .jumbotron .h1 {
-    font-size: 63px;
+    font-size: 24px;
   }
 }
 .thumbnail {
@@ -11037,6 +11037,63 @@ fieldset[disabled] .btn-expert.focus {
   color: #e39000;
   background-color: #ffffff;
 }
+.btn-asphalt {
+  color: #ffffff;
+  background-color: #394a58;
+  border-color: #2c3944;
+}
+.btn-asphalt:focus,
+.btn-asphalt.focus {
+  color: #ffffff;
+  background-color: #253039;
+  border-color: #000000;
+}
+.btn-asphalt:hover {
+  color: #ffffff;
+  background-color: #253039;
+  border-color: #141a1f;
+}
+.btn-asphalt:active,
+.btn-asphalt.active,
+.open > .dropdown-toggle.btn-asphalt {
+  color: #ffffff;
+  background-color: #253039;
+  border-color: #141a1f;
+}
+.btn-asphalt:active:hover,
+.btn-asphalt.active:hover,
+.open > .dropdown-toggle.btn-asphalt:hover,
+.btn-asphalt:active:focus,
+.btn-asphalt.active:focus,
+.open > .dropdown-toggle.btn-asphalt:focus,
+.btn-asphalt:active.focus,
+.btn-asphalt.active.focus,
+.open > .dropdown-toggle.btn-asphalt.focus {
+  color: #ffffff;
+  background-color: #171e23;
+  border-color: #000000;
+}
+.btn-asphalt:active,
+.btn-asphalt.active,
+.open > .dropdown-toggle.btn-asphalt {
+  background-image: none;
+}
+.btn-asphalt.disabled:hover,
+.btn-asphalt[disabled]:hover,
+fieldset[disabled] .btn-asphalt:hover,
+.btn-asphalt.disabled:focus,
+.btn-asphalt[disabled]:focus,
+fieldset[disabled] .btn-asphalt:focus,
+.btn-asphalt.disabled.focus,
+.btn-asphalt[disabled].focus,
+fieldset[disabled] .btn-asphalt.focus {
+  background-color: #394a58;
+  border-color: #2c3944;
+}
+.btn-asphalt .badge {
+  color: #394a58;
+  background-color: #ffffff;
+}
 .btn-flash {
   color: #1abc9c;
   text-shadow: 0px 0px 2px #000000;
@@ -11924,6 +11981,14 @@ header#title .emh-title-baseline {
 }
 .emh-status.closed {
   background-color: #A1ACB5;
+}
+.progress-bar-asphalt {
+  background-color: #556d81;
+}
+.progress-striped .progress-bar-asphalt {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 h1,
 .h1,
@@ -13260,6 +13325,27 @@ html.js div.contextual-links-wrapper {
 }
 .form-actions > .btn-group.btn-group-primary > .btn:last-child {
   margin-right: 0;
+}
+.jumbotron {
+  margin-top: 30px;
+  text-align: center;
+}
+.jumbotron .block-title {
+  color: #ffffff;
+  margin-top: 0;
+  text-transform: none;
+}
+.jumbotron a {
+  color: #FFF;
+  font-weight: bold;
+}
+.jumbotron form {
+  text-align: left;
+}
+@media screen and (min-width: 768px) {
+  .jumbotron .block-title {
+    font-size: 24px;
+  }
 }
 header#navbar .row > div:nth-child(2) {
   padding-right: 0;
@@ -16038,6 +16124,19 @@ form#emh-points-arrange-form fieldset .panel-body .form-group {
 }
 form#emh-points-arrange-form fieldset .panel-body .form-group label {
   display: none !important;
+}
+form#emh-pcp-special-get-empty-fields-form {
+  margin-top: 15px;
+  float: left;
+  width: 100%;
+}
+form#emh-pcp-special-get-empty-fields-form .btn-group {
+  width: 100%;
+  margin-top: 15px;
+  text-align: center;
+}
+form#emh-pcp-special-get-empty-fields-form .btn-group .btn {
+  float: none;
 }
 /* FORMS
  * Burger menu filter

@@ -161,21 +161,5 @@ function ft_rules_default_rules_configuration() {
       ]
     }
   }');
-  $items['rules_welcome_message'] = entity_import('rules_config', '{ "rules_welcome_message" : {
-      "LABEL" : "Welcome message",
-      "PLUGIN" : "reaction rule",
-      "OWNER" : "rules",
-      "TAGS" : [ "emh" ],
-      "REQUIRES" : [ "rules", "user_registrationpassword" ],
-      "ON" : { "user_registrationpassword_activated" : [] },
-      "DO" : [
-        { "drupal_message" : {
-            "message" : "Welcome to [site:name] !\\r\\nPlease fill your profile information in \\u003Ca href=\\u0022[account:edit-url]\\u0022\\u003Emy account\\u003C\\/a\\u003E.",
-            "type" : "warning"
-          }
-        }
-      ]
-    }
-  }');
   return $items;
 }

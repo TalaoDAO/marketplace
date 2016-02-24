@@ -1,8 +1,7 @@
 <?php
 
 /**
- * @file pcp_handler_profile_completeness_core.inc
- *
+ * @file
  * Handler for the 'Profile: completeness' field.
  * This is for the core profile.
  */

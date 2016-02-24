@@ -95,6 +95,17 @@
 
 	<div class="content"<?php print $content_attributes; ?>>
 
+		<?php if (emh_access_user_can_see_full_request()) : ?>
+
+		<?php if (module_exists('progress_tracker')) : ?>
+		<?php $progress_block = module_invoke('progress_tracker', 'block_view', 'progress_tracker'); ?>
+		<section id="block-progress-tracker-progress-tracker" class="block block-progress-tracker emh-block-blue-title clearfix">
+			<div class="content">
+				<?php print render($progress_block['content']); ?>
+			</div>
+		</section>
+		<?php endif; ?>
+
   	<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeNavigation.tpl.php'; ?>
 
 		<?php if (!empty($body[0]['value']) || !empty($content['field_image'])) : ?>
@@ -186,6 +197,9 @@
 			// hide($content['links']);
 			//print render($content);
 		?>
+
+		<?php endif; ?>
+
 	</div>
 
 </div>

@@ -24,7 +24,42 @@ function emh_user_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   unset($form['account']['current_pass']);
   unset($form['account']['current_pass_required_values']);
   $form['#validate'] = array_diff($form['#validate'], array('user_validate_current_pass'));
+  $form['#submit'][] = '_emh_user_form_user_profile_handler';
 
+}
+
+function _emh_user_form_user_profile_handler(&$form, &$form_state) {
+  $path = $_SERVER['HTTP_REFERER'];
+  if (isset($_GET['current'])) {            //if (isset($_GET['destination'])) {
+    $path = $_GET['current'];             // $path = $_GET['destination'];
+  }                                               // }
+  // echo $path;
+  $form_state['redirect'] = $path;
+}
+
+/**
+ * Implements hook_preprocess_status_messages().
+ */
+function emh_user_preprocess_status_messages(&$variables) {
+  if (module_exists('user_registrationpassword')) {
+    // https://api.drupal.org/comment/51793#comment-51793
+    $message = 'You have just used your one-time login link. Your account is now active and you are authenticated.';
+    if (isset($_SESSION['messages'])) {
+      foreach ($_SESSION['messages'] as $type => $messages) {
+        if ($type == 'status') {
+          $pos = array_search($message, $messages);
+          if ($pos !== FALSE) {
+            unset($_SESSION['messages'][$type][$pos]);
+            // http://dropbucket.org/node/547
+            // Remove the empty status message wrapper if no other messages have been set.
+            if (empty($_SESSION['messages'][$type])) {
+              unset($_SESSION['messages'][$type]);
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 /**
@@ -129,7 +164,7 @@ function emh_user_is_business($account = NULL) {
     // Webmaster has every right.
     return TRUE;
   }
-  return (in_array('business', array_values($account->roles)) || in_array('business preview', array_values($account->roles)));
+  return (in_array('business', array_values($account->roles)));
 }
 
 function emh_user_is_expert($account = NULL) {
@@ -141,7 +176,7 @@ function emh_user_is_expert($account = NULL) {
     // Webmaster has every right.
     return TRUE;
   }
-  return (in_array('expert', array_values($account->roles)) || in_array('expert preview', array_values($account->roles)) || in_array('référent', array_values($account->roles)));
+  return (in_array('expert', array_values($account->roles)) || in_array('référent', array_values($account->roles)));
 }
 
 function emh_user_is_author($nid, $account = NULL) {

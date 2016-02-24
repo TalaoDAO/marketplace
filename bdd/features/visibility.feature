@@ -11,18 +11,33 @@ Feature: Test og visibility
     | Avengers | client1 |
     | X-Men    | client2 |
 
-    Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           |
-    | client1 | client1@emindhub.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | client1@emindhub.com |
-    | client2 | client2@emindhub.com | business | Charle           | Xavier          |                 |                    | X-Men        | client2@emindhub.com |
+    Given "corporate" content:
+    | title     | author  |
+    | Google    | admin   |
+    | Apple     | admin   |
+    | Facebook  | admin   |
+    | Twitter   | admin   |
+    | Pinterest | admin   |
+    | Viadeo    | admin   |
+    | Linkedin  | admin   |
+    | Tumblr    | admin   |
 
     Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           |
-    | expert1 | expert1@emindhub.com | expert   | Iron             | Man             | 0712345678      | Chieur génial      | Avengers     | expert1@emindhub.com |
-    | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | 0812345678      | Modèle             | Avengers     | expert2@emindhub.com |
-    | expert3 | expert3@emindhub.com | expert   | Bruce            | Banner          | 0912345678      | Cogneur            | Avengers     | expert3@emindhub.com |
-    | expert4 | expert4@emindhub.com | expert   | Scott            | Summers         | 0912345677      | Bucheron           | X-Men        | expert4@emindhub.com |
-    | expert5 | expert5@emindhub.com | expert   | Jean             | Grey            | 0912345679      | Boulanger          | X-Men        | expert5@emindhub.com |
+    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
+    | client1 | client1@emindhub.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | client1@emindhub.com | Google  | Freelancer | Maintenance |
+    | client2 | client2@emindhub.com | business | Charle           | Xavier          |                 |                    | X-Men        | client2@emindhub.com | Apple   | Freelancer | Engines     |
+    | client3 | client3@emindhub.com | business | Tony             | Stark           |                 |                    | X-Men        | client3@emindhub.com | Tumblr  | Freelancer | Drones      |
+
+    Given users:
+    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise   | field_working_status | field_domaine |
+    | expert1 | expert1@emindhub.com | expert   | Iron             | Man             | 0712345670      | Chieur génial      | Avengers     | expert1@emindhub.com | Facebook  | Employee  | Energy        |
+    | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | 0712345671      | Modèle             | Avengers     | expert2@emindhub.com | Twitter   | Employee  | Other         |
+    | expert3 | expert3@emindhub.com | expert   | Bruce            | Banner          | 0712345672      | Cogneur            | Avengers     | expert3@emindhub.com | Pinterest | Employee  | Drones        |
+    | expert4 | expert4@emindhub.com | expert   | Scott            | Summers         | 0712345673      | Bucheron           | X-Men        | expert4@emindhub.com | Viadeo    | Employee  | Helicopters   |
+
+    Given users:
+    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise   | field_working_status |
+    | expert5 | expert5@emindhub.com | expert   | Jean             | Grey            | 0712345674      | Boulanger          | X-Men        | expert5@emindhub.com | Linkedin  | Employee  |
 
     Given I give "client1" 400 emh points
     Given I give "client2" 100 emh points
@@ -88,23 +103,38 @@ Feature: Test og visibility
     And I should not see "Fight Hydra"
     And I should not see "Fight Thanos"
 
+  Scenario: Check profile completion and request visibility
+    Given I am logged in as "expert5"
+
+    When I go to homepage
+    Then I should see "Please complete the following information to access client requests"
+
+    When I go to "/content/fight-magneto"
+    Then I should see "Please complete the following information to access client requests"
+    And I should not see "Answer the question"
+
+    When I enter "86" for "Field(s) of expertise"
+    And I press "Update your profile"
+    Then I should see the success message containing "You have now access to client requests."
+    And I should see "Answer the question"
+
   Scenario: Check profile fields visibility
     Given I am logged in as "client2"
 
     When I go to "/users/expert4"
     Then I should see "Scott Summers"
     And I should see "Bucheron"
-    And I should see "0912345677"
+    And I should see "0712345673"
     And I should see "expert4@emindhub.com"
 
     When I go to "/users/expert2"
     Then I should see "Klark Kent"
     And I should not see "Modèle"
-    And I should not see "0812345678"
+    And I should not see "0712345671"
     And I should not see "expert2@emindhub.com"
 
     When I go to "/users/expert3"
     Then I should see "Bruce Banner"
     And I should not see "Cogneur"
-    And I should not see "0912345678"
+    And I should not see "0712345672"
     And I should not see "expert3@emindhub.com"

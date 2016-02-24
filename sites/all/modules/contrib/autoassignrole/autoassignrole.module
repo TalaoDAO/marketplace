@@ -347,3 +347,32 @@ function _autoassignrole_get_user_description() {
 
   return variable_get('autoassignrole_user_description', $defaults);
 }
+
+/**
+ * Sets the list of user-selectable roles.
+ *
+ * This function is useful in case you are deploying functionality from
+ * one site to another, or for any other reason you want to use an API
+ * instead of the form at admin/config/people/autoassignrole/user.
+ *
+ * Using this function will replace all previously-selected roles as they
+ * appear on admin/config/people/autoassignrole/user with the list provided.
+ *
+ * @param array $role_names
+ *   An array of role human names (for example array('administrator',
+ *   'myrole')).
+ *
+ * @throws
+ *   Exception.
+ */
+function autoassignrole_set_user_selectable_roles($role_names) {
+  $rids = array();
+  foreach ($role_names as $role_name) {
+    $role = user_role_load_by_name($role_name);
+    if (!$role) {
+      throw new Exception(format_string('The role @role_name is not defined in the system (its ID cannot be retrieved using user_role_load_by_name()) and cannot be added as a user selectable role', array('@role_name' => $role_name)));
+    }
+    $rids[$role->rid] = $role->rid;
+  }
+  variable_set('autoassignrole_user_roles', $rids);
+}

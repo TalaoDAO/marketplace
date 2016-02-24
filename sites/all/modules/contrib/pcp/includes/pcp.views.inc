@@ -1,8 +1,7 @@
 <?php
 
 /**
- * @file pcp.views.inc
- *
+ * @file
  * Declare Profile Complete Percent fields.
  */
 

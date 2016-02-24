@@ -17,19 +17,6 @@ function emindhub_preprocess_page(&$variables) {
     'getsize' => FALSE,
   ));
 
-  // Beta version
-  if ( drupal_is_front_page() && user_is_logged_in() ) {
-    global $base_url;
-    drupal_set_message(t('<strong>Welcome to eMindHub!</strong> Thank you for being among the first users of our platform! This is a beta version, for any suggestion or comment please leave a message through the <a href="' . $base_url . '/contact">contact form</a>.'), 'info');
-  }
-
-  // Experts points info
-  if ( drupal_is_front_page() && emh_user_is_expert() ) {
-    if (module_exists('emh_points')) {
-      drupal_set_message(t('You can earn points by responding to a request and when the client recognize the value of your contribution. You can therefore monetize your points once you have reached a threshold of at least ' . variable_get('emh_points_monetization_threshold', '1500') . ' points.'), 'info');
-    }
-  }
-
   // Add information about the number of sidebars.
   if (!empty($variables['page']['sidebar_first']) && !empty($variables['page']['sidebar_second'])) {
     $variables['content_column_class'] = ' class="col-sm-7"';

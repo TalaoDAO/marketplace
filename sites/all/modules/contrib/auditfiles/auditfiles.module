@@ -77,20 +77,20 @@ function auditfiles_help($path, $arg) {
       break;
 
     case 'admin/reports/auditfiles/notindatabase':
-      $files_link = l(t('files'), 'admin/config/media/file-system');
+      $files_link = l(t('file system path'), 'admin/config/system/auditfiles');
       $output .= '<p>';
       $output .= t(
-        'This report lists the files that are in the "!files_link" directory, but are not in the file_managed database table.',
+        'This report lists the files that are in the admin specified !files_link directory, but are not in the file_managed database table.',
         array('!files_link' => $files_link)
       );
       $output .= '</p>';
       break;
 
     case 'admin/reports/auditfiles/notonserver':
-      $files_link = l(t('files'), 'admin/config/media/file-system');
+      $files_link = l(t('file system path'), 'admin/config/system/auditfiles');
       $output .= '<p>';
       $output .= t(
-        'This report lists the files that are in the file_managed database table, but are not in the "!files_link" directory.',
+        'This report lists the files that are in the file_managed database table, but are not in the admin specified !files_link directory.',
         array('!files_link' => $files_link)
       );
       $output .= '</p>';
@@ -222,6 +222,16 @@ function auditfiles_menu() {
     'weight' => 5,
   );
 
+  $items['admin/reports/auditfiles/mergefilereferences'] = array(
+    'title' => 'Merge file references',
+    'description' => 'Lists potential duplicate files in the file_managed table, and allows for merging them into a single file.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('auditfiles_merge_file_references_form'),
+    'access arguments' => array('access audit files reports'),
+    'file' => 'auditfiles.mergefilereferences.inc',
+    'weight' => 6,
+  );
+
   return $items;
 }
 
@@ -258,7 +268,7 @@ function auditfiles_merge_files_form($settings, &$form_state) {
     $file = file_load($file_id);
     // Create the options array for display in the form.
     $files[$file_id] = t(
-      'File ID: !fileid; Name: !filename; URI: !fileuri; MIME: !filemime; Size: !filesize; Time uploaded: !timestamp',
+      'File ID: !fileid; Name: !filename; URI: !fileuri; MIME: !filemime; Size: !filesize; Time uploaded: !timestamp (!formatted)',
       array(
         '!fileid' => $file_id,
         '!filename' => $file->filename,
@@ -266,6 +276,7 @@ function auditfiles_merge_files_form($settings, &$form_state) {
         '!filemime' => $file->filemime,
         '!filesize' => $file->filesize,
         '!timestamp' => $file->timestamp,
+        '!formatted' => date('r', $file->timestamp),
       )
     );
   }
@@ -308,22 +319,66 @@ function auditfiles_merge_files_submit($form, $form_state) {
 function auditfiles_merge_files(array &$files, array $context) {
   // Make sure that more than one file was selected.
   if (count($files) > 1) {
-    // Get the first file out of the array, as a reference and so it is not
-    // deleted.
-    $keeper = $files[$context['file_being_kept']];
+    // Remove the file being kept from the array of files, so it is not deleted.
+    $kept_file = $files[$context['file_being_kept']];
     unset($files[$context['file_being_kept']]);
+
+    // Get the data for the record being kept.
+    $results = db_select('file_usage', 'fu')
+      ->fields('fu', array('id', 'count'))
+      ->condition('fid', $kept_file->fid)
+      ->execute()
+      ->fetchAll();
+    if (empty($results)) {
+      $message = t('There was no file usage data found for the file you choose to keep. No changes were made.');
+      drupal_set_message($message, 'warning');
+      return;
+    }
+    $kept_file_data = reset($results);
+
     // Iterate through the rest of the files in the array.
     foreach ($files as $file) {
-      // Make all file usages for all files point to the first fid.
-      db_update('file_usage')
-        ->fields(array('fid' => $keeper->fid))
+      // Get the file data of the file being compared.
+      $results = db_select('file_usage', 'fu')
+        ->fields('fu', array('id', 'count'))
         ->condition('fid', $file->fid)
-        ->execute();
+        ->execute()
+        ->fetchAll();
+      if (empty($results)) {
+        $message = t(
+          'There was an error retrieving the file usage data from the database for file ID !fid. Please check the files in one of the other reports. No changes were made for this file.',
+          array('!fid' => $file->fid)
+        );
+        drupal_set_message($message, 'warning');
+        continue;
+      }
+      $compared_file_data = reset($results);
+
+      // Compare it with the kept file.
+      if ($kept_file_data->id == $compared_file_data->id) {
+        // If it matches, update the kept file and delete the one being
+        // compared.
+        $kept_file_data->count += $compared_file_data->count;
+        // Delete the unnecessary entry from the file_usage table.
+        db_delete('file_usage')
+          ->condition('fid', $file->fid)
+          ->execute();
+      }
+      else {
+        // If it does not match, update the one being compared.
+        // Make the file usages point to the fid of the file being kept.
+        db_update('file_usage')
+          ->fields(array('fid' => $kept_file->fid))
+          ->condition('fid', $file->fid)
+          ->execute();
+      }
+
       // Delete the unnecessary entries from the file_managed table.
       db_delete('file_managed')
         ->condition('fid', $file->fid)
         ->execute();
-      // Delete the duplicate files.
+
+      // Delete the duplicate file.
       file_unmanaged_delete($file->uri);
     }
   }

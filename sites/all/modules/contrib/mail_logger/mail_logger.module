@@ -91,11 +91,13 @@ function mail_logger_mail_alter(&$message) {
     $logger['date_sent'] = REQUEST_TIME;
     if (!isset($logger['language'])) {
       $language = LANGUAGE_NONE;
-    } elseif (is_object($logger['language'])) {
-      $language = $logger['language']->language;
-    } else {
-      $language = $logger['language'];
     }
+    else {
+      $language = (is_object($logger['language']) ? $logger['language']->language : $logger['language']);
+    }
+
+    $logger['to'] = (empty($logger['to']) ? t('* empty *') : $logger['to']);
+
     db_insert('mail_logger', array())
       ->fields(array(
         'mailkey'   => $logger['id'],
@@ -106,8 +108,10 @@ function mail_logger_mail_alter(&$message) {
         'headers'   => serialize($logger['headers']),
         'date_sent' => $logger['date_sent'],
         'language'  => $language,
+        'ipaddr'    => $_SERVER['REMOTE_ADDR'],
       ))
       ->execute();
+
     // Fire 'mail_logger' 'mail_sent' action.
     module_invoke_all('mail_logger', 'mail_sent', $message, user_load_by_mail($message['from']), user_load_by_mail($message['to']));
   }
@@ -265,7 +269,7 @@ function mail_logger_token_values($type, $object = NULL) {
  */
 function mail_logger_load($id) {
   $mail = db_select('mail_logger', 'ml')
-    ->range(0,1)
+    ->range(0, 1)
     ->fields('ml')
     ->condition('mlid', $id)
     ->execute()

@@ -168,12 +168,19 @@ function fancy_file_delete_unmanaged_update_view() {
   }
 
   // Go through and add this to the batch.
-  if(count($files) > 0) {
-    $um = db_select('unmanaged_files', 'um')
-      ->fields('um', array('path'))
-      ->condition('path', array($files),'IN')
-      ->execute()
-      ->fetchAll();
+  if (count($files) > 0) {
+
+    // I changed this to use array chunk & db_query for performance
+    // see issue: https://www.drupal.org/node/2637028
+    $files_chunk = array_chunk($files, (count($files) / 4), TRUE);
+    foreach ($files_chunk as $filez) {
+      $query = "SELECT 'path' FROM {unmanaged_files} WHERE 'path' IN (:files)";
+      $umsplit[] = db_query($query, array(':files' => $filez))->fetchAll();
+    }
+    $um = array();
+    foreach ($umsplit as $trill) {
+      $um = $um + $trill;
+    }
 
     // Go in and check it and set it as an array to check.
     $um_check = array();
@@ -183,7 +190,7 @@ function fancy_file_delete_unmanaged_update_view() {
     // Again check the difference, only want ones not in the table.
     $um_final = array_diff($files, $um_check);
 
-    if(count($um_final) > 0) {
+    if (count($um_final) > 0) {
       $insert_unmanaged = db_insert('unmanaged_files')->fields(array('path'));
       foreach ($um_final as $key => $value) {
         $insert_unmanaged->values(array(
@@ -205,7 +212,9 @@ function fancy_file_delete_unmanaged_get_chosen_dirs() {
   $all_dirs = fancy_file_delete_unmanaged_get_directories();
   $chosen_dirs = variable_get('fancy_file_delete_unmanaged_chosen_dirs', FALSE);
   if ($chosen_dirs === FALSE) {
-    return $all_dirs;
+    // Return only public on first pass for performance.
+    // see issue: https://www.drupal.org/node/2637028
+    return array('public://');
   }
   else {
     // Only include directories that currently exist.
@@ -261,9 +270,9 @@ function fancy_file_delete_unmanaged_get_files(array $paths) {
   $db_check = array();
 
   // All the files in the file_managed table
-  $query = db_select('file_managed', 'fm')
-    ->fields('fm', array('uri'))
-    ->execute();
+  // I changed this to use db_query for performance.
+  // see issue: https://www.drupal.org/node/2637028
+  $query = db_query('SELECT uri FROM {file_managed}');
 
   // Set this to a numeric keyed array so we can check this easier.
   foreach ($query->fetchAll() as $result) {

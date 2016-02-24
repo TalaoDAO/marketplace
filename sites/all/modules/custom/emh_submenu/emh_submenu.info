@@ -1,4 +1,5 @@
 name = EMH Submenu
-description = 
+description = Manage tabs submenu in a block, for better design purpose.
 package = EMH
 core = 7.x
+dependencies[] = menu

@@ -204,7 +204,7 @@ global $base_url;
 
         <?php print $messages; ?>
 
-        <?php $primary_tabs = emindhub_menu_tabs_primary($tabs);
+        <?php $primary_tabs = emh_submenu_menu_tabs_primary($tabs);
         if (!empty($primary_tabs)): ?>
           <ul class="tabs--primary nav nav-tabs">
             <?php print render($primary_tabs); ?>
@@ -236,7 +236,7 @@ global $base_url;
           <?php endif; ?>
 
           <?php //print render($page['content']); ?>
-          
+
           <?php
           $elements = drupal_get_form("user_login");
           $form = drupal_render($elements);

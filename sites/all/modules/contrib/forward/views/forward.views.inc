@@ -47,6 +47,7 @@ function forward_views_data() {
     'help' => t('The number of times a node or page was forwarded.'),
     'field' => array(
       'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
     ),
     'filter' => array(
       'handler' => 'views_handler_filter_numeric',
@@ -60,6 +61,7 @@ function forward_views_data() {
     'help' => t('The number of times a node or page in a forward email was clicked on.'),
     'field' => array(
       'handler' => 'views_handler_field_numeric',
+      'click sortable' => TRUE,
     ),
     'filter' => array(
       'handler' => 'views_handler_filter_numeric',
@@ -73,6 +75,7 @@ function forward_views_data() {
     'help' => t('The last time that a node or page was forwarded.'),
     'field' => array(
       'handler' => 'views_handler_field_date',
+      'click sortable' => TRUE,
     ),
     'filter' => array(
       'handler' => 'views_handler_filter_timestamp',

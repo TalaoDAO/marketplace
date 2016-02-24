@@ -1,6 +1,12 @@
 <?php
+
 /**
- * Implements hook_rules_condition_info() on behalf of the pcp module.
+ * @file
+ * Integrate rule modules with pcp.
+ */
+
+/**
+ * Implements hook_rules_condition_info().
  */
 function pcp_rules_condition_info() {
   $conditions = array();

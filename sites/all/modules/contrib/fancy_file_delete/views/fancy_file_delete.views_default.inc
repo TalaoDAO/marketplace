@@ -266,14 +266,14 @@ function fancy_file_delete_views_default_views() {
   $handler->display->display_options['header']['area']['empty'] = TRUE;
   $handler->display->display_options['header']['area']['content'] = '<h2>Warning, this will delete all files that are unmanaged</h2>
     <h5><em>Unmanaged = ones that are in the files directory with no record on the file_managed table </em><strong>There is no turning back once you hit submit!</strong></h5>';
-  $handler->display->display_options['header']['area']['format'] = 'panopoly_wysiwyg_text';
+  $handler->display->display_options['header']['area']['format'] = 'full_html';
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
   $handler->display->display_options['empty']['area']['content'] = 'No Unmanaged Files!';
-  $handler->display->display_options['empty']['area']['format'] = 'panopoly_wysiwyg_text';
+  $handler->display->display_options['empty']['area']['format'] = 'full_html';
   /* Field: Bulk operations: Unmanaged Files */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'unmanaged_files';

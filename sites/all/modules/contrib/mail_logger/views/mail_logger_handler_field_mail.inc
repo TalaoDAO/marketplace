@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Views handlers for the Mail Logger module.
+ */
 
 /**
  * Field handler to provide a mailto link for email fields.

@@ -10,8 +10,6 @@
 function emindhub_menu_local_tasks(&$variables) {
   $output = '';
 
-  echo '<pre>' . print_r($variables, TRUE) . '</pre>';
-
   if (!empty($variables['primary'])) {
     $variables['primary']['#prefix'] = '<h2 class="element-invisible">' . t('Primary tabs') . '</h2>';
     $variables['primary']['#prefix'] .= '<ul class="tabs--primary nav nav-tabs">';
@@ -29,9 +27,9 @@ function emindhub_menu_local_tasks(&$variables) {
   return $output;
 }
 
-function emindhub_menu_tabs_primary($tabs) {
-
-  if (count($tabs['#primary']) <= '1') return '';
-  else return $tabs['#primary'];
-
-}
+// function emindhub_menu_tabs_primary($tabs) {
+//
+//   if (count($tabs['#primary']) <= '1') return '';
+//   else return $tabs['#primary'];
+//
+// }

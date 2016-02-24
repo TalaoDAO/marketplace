@@ -6,10 +6,11 @@ configure = admin/config/people/pcp
 
 files[] = includes/pcp_handler_field_profile_completeness.inc
 files[] = includes/pcp_handler_field_profile_completeness_core.inc
+files[] = pcp.test
 
-; Information added by Drupal.org packaging script on 2015-04-25
-version = "7.x-1.7"
+; Information added by Drupal.org packaging script on 2015-05-08
+version = "7.x-1.7+4-dev"
 core = "7.x"
 project = "pcp"
-datestamp = "1429981681"
+datestamp = "1431110599"
 

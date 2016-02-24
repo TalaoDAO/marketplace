@@ -81,3 +81,14 @@ function fancy_file_delete_update_7101() {
     db_create_table('unmanaged_files', $schema['unmanaged_files']);
   }
 }
+
+/**
+ * Clear Chosen Dir variable for new performance tweaks.
+ */
+function fancy_file_delete_update_7102() {
+  // Remove this thang.
+  variable_del('fancy_file_delete_unmanaged_chosen_dirs');
+
+  // Run this again so the views get updated to small tweaks made.
+  drupal_flush_all_caches();
+}

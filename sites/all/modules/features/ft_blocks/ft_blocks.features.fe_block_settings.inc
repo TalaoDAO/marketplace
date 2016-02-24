@@ -12,36 +12,6 @@ function ft_blocks_default_fe_block_settings() {
 
   $export['version'] = '2.0';
 
-  $export['block-beta'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'i18n_block_language' => array(),
-    'i18n_mode' => 0,
-    'machine_name' => 'beta',
-    'module' => 'block',
-    'node_types' => array(),
-    'pages' => '<front>',
-    'roles' => array(
-      'authenticated user' => 2,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'emindhub',
-        'weight' => -46,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '<none>',
-    'visibility' => 1,
-  );
-
   $export['block-expert_avantages'] = array(
     'cache' => -1,
     'custom' => 0,
@@ -57,7 +27,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -39,
+        'weight' => -40,
       ),
       'seven' => array(
         'region' => '',
@@ -67,38 +37,6 @@ function ft_blocks_default_fe_block_settings() {
       ),
     ),
     'title' => 'What are the main benefits for experts?',
-    'visibility' => 1,
-  );
-
-  $export['block-experts_points_info'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'i18n_block_language' => array(),
-    'i18n_mode' => 0,
-    'machine_name' => 'experts_points_info',
-    'module' => 'block',
-    'node_types' => array(),
-    'pages' => '<front>',
-    'roles' => array(
-      'expert' => 4,
-      'expert preview' => 8,
-      'référent' => 7,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'emindhub',
-        'weight' => -36,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '<none>',
     'visibility' => 1,
   );
 
@@ -152,7 +90,7 @@ freetrial',
         'region' => 'header',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -51,
+        'weight' => -48,
       ),
       'seven' => array(
         'region' => '',
@@ -182,7 +120,7 @@ freetrial',
         'region' => 'top',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -42,
+        'weight' => -47,
       ),
       'seven' => array(
         'region' => '',
@@ -212,7 +150,7 @@ freetrial',
         'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -51,
+        'weight' => -48,
       ),
       'seven' => array(
         'region' => '',
@@ -272,7 +210,7 @@ freetrial',
         'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -50,
+        'weight' => -47,
       ),
       'seven' => array(
         'region' => '',
@@ -302,7 +240,7 @@ freetrial',
         'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -49,
+        'weight' => -46,
       ),
       'seven' => array(
         'region' => '',
@@ -332,7 +270,7 @@ freetrial',
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -49,
+        'weight' => -46,
       ),
       'seven' => array(
         'region' => '',
@@ -362,7 +300,7 @@ freetrial',
         'region' => 'top',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -44,
+        'weight' => -48,
       ),
       'seven' => array(
         'region' => '',
@@ -392,7 +330,7 @@ freetrial',
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -51,
+        'weight' => -48,
       ),
       'seven' => array(
         'region' => '',
@@ -422,7 +360,7 @@ freetrial',
         'region' => 'top',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -43,
+        'weight' => -48,
       ),
       'seven' => array(
         'region' => '',
@@ -482,7 +420,7 @@ freetrial',
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -50,
+        'weight' => -47,
       ),
       'seven' => array(
         'region' => '',
@@ -889,10 +827,10 @@ freetrial',
     'roles' => array(),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'content',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
-        'weight' => -45,
+        'weight' => -48,
       ),
       'seven' => array(
         'region' => '',
@@ -979,7 +917,7 @@ freetrial',
         'region' => 'content',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -45,
+        'weight' => -46,
       ),
       'seven' => array(
         'region' => 'content',
@@ -1095,7 +1033,7 @@ freetrial',
         'region' => 'content',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -45,
+        'weight' => -48,
       ),
       'seven' => array(
         'region' => 'help',
@@ -1119,7 +1057,6 @@ freetrial',
     'pages' => 'node/300',
     'roles' => array(
       'expert' => 4,
-      'expert preview' => 8,
       'référent' => 7,
     ),
     'themes' => array(
@@ -1151,7 +1088,6 @@ freetrial',
     'pages' => 'node/300',
     'roles' => array(
       'expert' => 4,
-      'expert preview' => 8,
       'référent' => 7,
     ),
     'themes' => array(
@@ -1183,7 +1119,6 @@ freetrial',
     'pages' => 'node/300',
     'roles' => array(
       'expert' => 4,
-      'expert preview' => 8,
       'référent' => 7,
     ),
     'themes' => array(
@@ -1244,7 +1179,6 @@ freetrial',
     'roles' => array(
       'administrator' => 3,
       'business' => 5,
-      'business preview' => 9,
       'webmaster' => 6,
     ),
     'themes' => array(
@@ -1277,7 +1211,6 @@ freetrial',
     'roles' => array(
       'administrator' => 3,
       'business' => 5,
-      'business preview' => 9,
       'webmaster' => 6,
     ),
     'themes' => array(
@@ -1310,7 +1243,6 @@ freetrial',
     'roles' => array(
       'administrator' => 3,
       'business' => 5,
-      'business preview' => 9,
       'webmaster' => 6,
     ),
     'themes' => array(
@@ -1396,11 +1328,15 @@ freetrial',
     'module' => 'views',
     'node_types' => array(),
     'pages' => 'homepage
-node',
+node
+node/323
+fr
+fr/homepage
+fr/node
+fr/node/323',
     'roles' => array(
       'administrator' => 3,
       'expert' => 4,
-      'expert preview' => 8,
       'référent' => 7,
       'webmaster' => 6,
     ),
@@ -1431,10 +1367,14 @@ node',
     'module' => 'views',
     'node_types' => array(),
     'pages' => 'homepage
-node',
+node
+node/323
+fr
+fr/homepage
+fr/node
+fr/node/323',
     'roles' => array(
       'business' => 5,
-      'business preview' => 9,
     ),
     'themes' => array(
       'emindhub' => array(

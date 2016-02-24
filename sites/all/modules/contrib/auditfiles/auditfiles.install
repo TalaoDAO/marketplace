@@ -11,6 +11,7 @@ function auditfiles_uninstall() {
   db_delete('variable')
     ->condition('name', 'auditfiles_%', 'LIKE')
     ->execute();
+  cache_clear_all('variables', 'cache_bootstrap');
 }
 
 /**
