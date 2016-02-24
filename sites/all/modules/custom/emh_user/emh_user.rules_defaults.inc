@@ -59,6 +59,7 @@ function emh_user_default_rules_configuration() {
         "LABEL" : "Show profile completion message - Client",
         "PLUGIN" : "reaction rule",
         "WEIGHT" : "2",
+        "ACTIVE" : false,
         "OWNER" : "rules",
         "TAGS" : [ "EMH" ],
         "REQUIRES" : [ "rules", "pcp", "php" ],

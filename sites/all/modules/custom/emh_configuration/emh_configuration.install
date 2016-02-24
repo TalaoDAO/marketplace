@@ -89,6 +89,13 @@ function emh_configuration_update_7006() {
       ->condition('module', $module)
       ->condition('delta', $delta)
       ->execute();
+    db_delete('block_custom')
+      ->condition('bid', $delta)
+      ->execute();
+    db_delete('block_role')
+      ->condition('module', $module)
+      ->condition('delta', $delta)
+      ->execute();
   }
   features_revert(array('ft_blocks' => array('fe_block_boxes')));
 }
