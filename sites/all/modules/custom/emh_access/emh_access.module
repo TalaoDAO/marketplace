@@ -114,6 +114,13 @@ function emh_access_field_access($op, $field, $entity_type, $entity, $account) {
  * Access control : does a user have access to another user profile.
  */
 function emh_access_user_can_see_full_user($uid, $uid2) {
+  if (empty($uid)) {
+    global $user;
+    $uid = $user->uid;
+  }
+  $u1_account = user_load($uid);
+  $u2_account = user_load($uid2);
+
   if ($uid == 1) {
     // Admin ( = eMindHub) has every right.
     return TRUE;
@@ -125,16 +132,22 @@ function emh_access_user_can_see_full_user($uid, $uid2) {
   }
 
   // Organic Groups / EMH Circles
-  if (module_exists('og')) {
-    if (empty($uid)) {
-      global $user;
-      $uid = $user->uid;
-    }
-    $u1_account = user_load($uid);
-    $u1_circles = og_get_groups_by_user($u1_account, 'node');
-    $u2_account = user_load($uid2);
+  // User1 is admin of one of User2 circles
+  if (module_exists('og') && module_exists('emh_circles')) {
     $u2_circles = og_get_groups_by_user($u2_account, 'node');
-    unset( $u1_circles[ '314' ] ); // TODO: manager this differently!
+    foreach ($u2_circles as $circle) {
+      if (_emh_circles_check_user_is_adminmember_of_group($user->uid, $circle) || _emh_circles_check_user_is_admin_of_group($user->uid, $circle) ) {
+        return TRUE;
+      }
+    }
+  }
+
+  // Organic Groups
+  // User1 & User2 belong to the same circle (except 'All experts')
+  if (module_exists('og')) {
+    $u1_circles = og_get_groups_by_user($u1_account, 'node');
+    $u2_circles = og_get_groups_by_user($u2_account, 'node');
+    unset( $u1_circles[ '314' ] ); // TODO: manage this differently!
     unset( $u2_circles[ '314' ] );
     if (array_intersect($u1_circles, $u2_circles)) {
       return TRUE;

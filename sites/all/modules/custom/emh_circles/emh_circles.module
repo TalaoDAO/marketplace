@@ -3,3 +3,34 @@
 * @file
 * Code for eMindHub circles feature.
 */
+
+function _emh_circles_check_user_is_adminmember_of_group($uid, $gid) {
+  $query = db_select('og_users_roles', 'og');
+  $query->condition('gid', $gid, '=');
+  $query->condition('uid', $uid, '=');
+  $query->distinct();
+  $query->fields('og', array('rid'));
+  $result = $query->execute();
+  $role_id = $result->fetchAssoc();
+  if ($role_id['rid'] >= 3) {
+    return TRUE;
+  }
+  else {
+    return FALSE;
+  }
+}
+
+function _emh_circles_check_user_is_admin_of_group($uid, $gid) {
+  $query = db_select('node', 'n');
+  $query->condition('nid', $gid, '=');
+  $query->distinct();
+  $query->fields('n', array('uid'));
+  $result = $query->execute();
+  $node_uid = $result->fetchAssoc();
+  if ($node_uid['uid'] == $uid) {
+    return TRUE;
+  }
+  else {
+    return FALSE;
+  }
+}
