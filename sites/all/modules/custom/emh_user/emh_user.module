@@ -65,13 +65,6 @@ function emh_user_preprocess_status_messages(&$variables) {
 /**
  * Implements hook_form_alter().
  */
-// function emh_user_form_user_register_form_alter(&$form, &$form_state, $form_id) {
-//   $form['locale']['language']['#default_value'] = 'en';
-// }
-
-/**
- * Implements hook_form_alter().
- */
 function emh_user_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'user_login' || $form_id == 'user_login_block') {
     unset($form['#action']);
