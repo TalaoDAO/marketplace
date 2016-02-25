@@ -4,4 +4,5 @@ package = EMH
 dependencies[] = autologout
 dependencies[] = pcp
 dependencies[] = emh_pcp_special
+dependencies[] = language_access
 core = 7.x

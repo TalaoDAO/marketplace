@@ -74,6 +74,18 @@ function emh_request_update_7103() {
 }
 
 /**
+* Revert request notification rules.
+*/
+function emh_request_update_7104() {
+  if ($rules_config = rules_config_load('rules_emh_request_send_notification_email')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('rules_emh_request_send_webmaster_notification_email')) {
+    $rules_config->delete();
+  }
+}
+
+/**
  * Provides string overrides.
  */
 function _emh_request_string_overrides() {
