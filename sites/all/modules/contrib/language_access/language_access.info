@@ -1,0 +1,12 @@
+name = "Language access"
+description = "Provide access permissions by language."
+core = 7.x
+package = Multilingual - Internationalization
+dependencies[] = locale
+
+; Information added by Drupal.org packaging script on 2015-02-04
+version = "7.x-1.01"
+core = "7.x"
+project = "language_access"
+datestamp = "1423036083"
+

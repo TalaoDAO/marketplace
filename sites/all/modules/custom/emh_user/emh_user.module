@@ -63,40 +63,16 @@ function emh_user_preprocess_status_messages(&$variables) {
 }
 
 /**
- * Implements hook_user_login().
+ * Implements hook_form_alter().
  */
-function emh_user_user_login(&$edit, $account) {
-
-  if (empty($account)) {
-    global $user;
-    $account = $user;
+function emh_user_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'user_login' || $form_id == 'user_login_block') {
+    unset($form['#action']);
+    $form['#submit'][] = 'emh_user_redirect_submit';
   }
-
-  // retrieve user language
-  // $user_language = $account->language;
-  $user_language = 'en';
-
-  // don't do anything if no language is defined
-  if (!$user_language) {
-    return;
-  }
-
-  // verify if language exists
-  $languages = language_list();
-  if (!isset($languages[$user_language])) {
-    return;
-  }
-
-  // verify if language is enabled
-  if (!$languages[$user_language]->enabled) {
-    return;
-  }
-
-  drupal_goto('user', array(
-    'language' => $languages[$user_language],
-    'query' => drupal_get_destination(),
-    )
-  );
+}
+function emh_user_redirect_submit($form, &$form_state) {
+  $form_state['redirect'] = url('<front>', array('absolute'=> true, 'language' =>  (object)array('language' =>  FALSE)));
 }
 
 /**
