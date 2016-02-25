@@ -1,10 +1,12 @@
 name = EMH User
 description = Global functions for all users.
 package = EMH
-dependencies[] = pcp
 dependencies[] = emh_points
-dependencies[] = user_registrationpassword
 dependencies[] = hybridauth
+dependencies[] = pcp
+dependencies[] = rules
+dependencies[] = user_registrationpassword
+dependencies[] = views
 core = 7.x
 
 files[] = views/views_handler_field_emh_author.inc
