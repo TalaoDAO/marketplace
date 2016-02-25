@@ -118,12 +118,8 @@ function ft_rules_default_rules_configuration() {
       "REQUIRES" : [ "rules", "og" ],
       "ON" : { "og_user_insert" : [] },
       "IF" : [
-        { "NOT user_has_role" : {
-            "account" : [ "account" ],
-            "roles" : { "value" : { "4" : "4", "8" : "8" } },
-            "operation" : "OR"
-          }
-        },
+        { "user_has_role" : { "account" : [ "account" ], "roles" : { "value" : { "5" : "5" } } } },
+        { "AND" : [] },
         { "entity_is_of_type" : { "entity" : [ "og-membership:group" ], "type" : "node" } }
       ],
       "DO" : [
