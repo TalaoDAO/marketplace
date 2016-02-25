@@ -62,24 +62,28 @@ Feature: Test og visibility
     And I should see "Fight Thanos"
 
     Given I am logged in as "client1"
+    When I go to homepage
     Then I should not see "Fight Magneto"
     And I should see "Fight Ultron"
     And I should see "Fight Hydra"
     And I should see "Fight Thanos"
 
     Given I am logged in as "client2"
+    When I go to homepage
     Then I should see "Fight Magneto"
     And I should not see "Fight Ultron"
     And I should not see "Fight Hydra"
     And I should not see "Fight Thanos"
 
     Given I am logged in as "expert1"
+    When I go to homepage
     Then I should not see "Fight Magneto"
     And I should see "Fight Ultron"
     And I should see "Fight Hydra"
     And I should see "Fight Thanos"
 
     Given I am logged in as "expert4"
+    When I go to homepage
     Then I should see "Fight Magneto"
     And I should not see "Fight Ultron"
     And I should not see "Fight Hydra"
@@ -91,12 +95,16 @@ Feature: Test og visibility
     And I should not see "Fight Ultron"
     And I should not see "Fight Hydra"
     And I should not see "Fight Thanos"
+
     When I go to "/content/fight-magneto"
     Then I should not see "Fight Magneto"
+
     When I go to "/content/fight-hydra"
     Then I should not see "Fight Hydra"
+
     When I go to "/content/fight-thanos"
     Then I should not see "Fight Thanos"
+
     When I go to "/node"
     Then I should not see "Fight Magneto"
     And I should not see "Fight Ultron"

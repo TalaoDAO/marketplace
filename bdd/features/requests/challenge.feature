@@ -36,24 +36,24 @@ Feature: Create challenge and answers
     Given I am logged in as "expert1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
-    #Then I should not see "Answers" in the "title" region
-    Given I enter "I'm the best superhero in da world." for "Answer"
+    And I enter "I'm the best superhero in da world." for "Answer"
     And I press "Publish"
-    When I go to homepage
-    When I click "What about?" in the "What about?" row
+    And I go to homepage
+    And I click "What about?" in the "What about?" row
     Then I should see "Answers"
     And I should see "I'm the best superhero in da world."
 
     Given I am logged in as "client1"
     When I go to homepage
-    And I click "What about?"
+    And I click "What about?" in the "What about?" row
     Then I should see "I'm the best superhero in da world."
 
     Given I am logged in as "expert2"
     When I go to homepage
-    And I click "What about?"
+    And I click "What about?" in the "What about?" row
     Then I should not see "I'm the best superhero in da world."
 
     Given I am logged in as "expert1"
-    And I click "What about?"
+    When I go to homepage
+    And I click "What about?" in the "What about?" row
     Then I should not see "Answers" in the "title" region

@@ -36,13 +36,13 @@ Feature: Create survey and answers
   Scenario: Survey publication
     Given I am logged in as "client1"
     When I go to "/content/what-about"
-    Then I click "Edit" in the "tabs_primary" region
-    Then I click "Questions"
-    When I fill in "New question" with "How to become a superhero?"
+    And I click "Edit" in the "tabs_primary" region
+    And I click "Questions"
+    And I fill in "New question" with "How to become a superhero?"
     And I press "Add"
     And I press "Save your question"
     And I click "General infos"
-    When I select "Display my full name" from "Your name"
+    And I select "Display my full name" from "Your name"
     And I select "Display the name" from "Your organisation"
     And I select "Display" from "Your activity"
     And I press "Publish"
@@ -52,14 +52,13 @@ Feature: Create survey and answers
     Given I am logged in as "expert1"
     When I go to homepage
     And I click "What about?"
-    #Then I should not see "Answers" in the "title" region
-    When I fill in "How to become a superhero?" with "Everybody can be, trust me."
+    And I fill in "How to become a superhero?" with "Everybody can be, trust me."
     # Draft answer
     And I press "Save Draft"
     Then I should see "Your answer has been saved as draft."
     # Published answer
     When I click "Edit" in the "answer" region
-    Then I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
+    And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
     And I press "Publish my answer"
     Then I should see "Thank you, your answer has been sent."
 
@@ -71,15 +70,16 @@ Feature: Create survey and answers
 
     # But he can edit his own answer
     When I click "Edit" in the "answer" region
-    Then I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we know."
+    And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we know."
     And I press "Save"
     Then I should see "Your answer has been updated."
 
     # The author checks the expert's answer.
     Given I am logged in as "client1"
     When I go to "/content/what-about"
-    Then I click "Answers" in the "title" region
+    And I click "Answers" in the "title" region
     Then I should see "Iron Man"
+
     When I click "Everybody can be, trust me, I'm the best we know."
     Then I should see "How to become a superhero?"
     And I should see "Everybody can be, trust me, I'm the best we know."
