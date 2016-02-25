@@ -69,7 +69,7 @@ function emh_configuration_update_7004() {
 }
 
 /**
- * Delete Search module tables
+ * Delete Search module tables.
  */
 function emh_configuration_update_7005() {
   db_delete('search_total')
@@ -89,6 +89,33 @@ function emh_configuration_update_7006() {
       ->condition('module', $module)
       ->condition('delta', $delta)
       ->execute();
+    db_delete('block_custom')
+      ->condition('bid', $delta)
+      ->execute();
+    db_delete('block_role')
+      ->condition('module', $module)
+      ->condition('delta', $delta)
+      ->execute();
   }
   features_revert(array('ft_blocks' => array('fe_block_boxes')));
+}
+
+/**
+ * Uninstall module Login Destination + Enable module Language Access.
+ */
+function emh_configuration_update_7007() {
+  module_disable(array('login_destination'));
+  drupal_uninstall_modules(array('login_destination'));
+  module_enable(array('language_access'));
+}
+
+/**
+ * Add permissions : Languages access.
+ */
+function emh_configuration_update_7008() {
+  user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, array('access language en'));
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('access language en'));
+  user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, array('access language fr'));
+  user_role_grant_permissions(3, array('access language fr')); // Administrator
+  user_role_grant_permissions(6, array('access language fr')); // Webmaster
 }

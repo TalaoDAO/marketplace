@@ -73,6 +73,19 @@ function emh_user_preprocess_status_messages(&$variables) {
 }
 
 /**
+ * Implements hook_form_alter().
+ */
+function emh_user_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'user_login' || $form_id == 'user_login_block') {
+    unset($form['#action']);
+    $form['#submit'][] = 'emh_user_redirect_submit';
+  }
+}
+function emh_user_redirect_submit($form, &$form_state) {
+  $form_state['redirect'] = url('<front>', array('absolute'=> true, 'language' =>  (object)array('language' =>  FALSE)));
+}
+
+/**
  * Helper function to get user realname instead of username.
  */
 function emh_user_get_beautiful_realname($uid) {
