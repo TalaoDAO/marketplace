@@ -1,4 +1,6 @@
 name = EMH Circles
 package = EMH
 dependencies[] = og
+dependencies[] = rules
+dependencies[] = views
 core = 7.x
