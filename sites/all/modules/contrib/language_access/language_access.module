@@ -1,0 +1,58 @@
+<?php
+
+/**
+ * Implementation of hook_init().
+ */
+function language_access_init() {
+  global $language;
+
+  if (!user_access('access language ' . $language->language)) {
+    $path = current_path();
+
+    if ($path == 'user') {
+      return;
+    }
+
+    // Remove the destination query from $_GET so that drupal_goto works as expected
+    unset($_GET['destination']);
+    $default_language = language_default();
+
+    // Check if current language is different from the default language
+    if ($language->language != $default_language->language) {
+      drupal_goto($path, array('language' => $default_language), 301);
+    }
+  }
+
+}
+
+
+/**
+ * Implementation of hook_permission().
+ */
+function language_access_permission() {
+  $languages = language_list('enabled');
+
+  $perms = array();
+
+  foreach ($languages[1] as $language) {
+    $perms['access language ' . $language->language] = array(
+      'title' => t('Access language ' . $language->language),
+    );
+  }
+
+  return $perms;
+}
+
+/**
+ * Implementation of hook_language_switch_links_alter().
+ */
+function language_access_language_switch_links_alter(&$links, $type, $path) {
+
+  $languages = language_list('enabled');
+
+  foreach ($languages[1] as $language) {
+    if (!user_access('access language ' . $language->language)) {
+     if (isset($links[$language->language])) unset($links[$language->language]);
+    }
+  }
+}

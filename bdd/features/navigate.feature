@@ -1,19 +1,26 @@
-Feature: Navigate
+@api
+Feature: Navigation
   Everything from the site.
 
-@api
-Scenario: Title
-  Given I am on the homepage
-  Then I should see "eMindHub"
+  Scenario: Title
+    Given I am on the homepage
+    Then I should see "eMindHub"
 
-@api
-Scenario: Log in
-  Given I visit "/user"
-   # fill the username and password input fields, and click submit
-  When I fill in "E-mail or username" with "admin"
+  Scenario: Log in
+    Given I visit "/user"
+    # fill the username and password input fields, and click submit
+    When I fill in "E-mail or username" with "admin"
     And I fill in "Password" with "admin"
     And I press the "Log in" button
-  Then I should get a "200" HTTP response
+    Then I should get a "200" HTTP response
     And I should see text matching "Hello admin"
 
-
+  Scenario: test ask menus
+    Given I am logged in as a user with the "business" role
+    When I go to homepage
+    Then I should see "Ask" in the "top" region
+    And I should see "a question" in the "top" region
+    And I should see "Start" in the "top" region
+    And I should see "a challenge" in the "top" region
+    And I should see "Create" in the "top" region
+    And I should see "a survey" in the "top" region
