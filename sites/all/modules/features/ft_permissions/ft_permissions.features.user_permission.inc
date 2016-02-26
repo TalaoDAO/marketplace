@@ -339,7 +339,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'act as administrator member in og node:circle',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'og_role_override',
@@ -350,6 +349,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'act as member in og node:circle',
     'roles' => array(
       'administrator' => 'administrator',
+      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'og_role_override',

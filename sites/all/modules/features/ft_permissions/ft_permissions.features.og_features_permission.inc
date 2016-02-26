@@ -21,6 +21,7 @@ function ft_permissions_og_features_default_permissions() {
   $permissions['node:circle:access own webform submissions'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
@@ -70,6 +71,7 @@ function ft_permissions_og_features_default_permissions() {
   $permissions['node:circle:edit own webform submissions'] = array(
     'roles' => array(
       'administrator member' => 'administrator member',
+      'member' => 'member',
     ),
   );
 
