@@ -34,3 +34,13 @@ function _emh_circles_check_user_is_admin_of_group($uid, $gid) {
     return FALSE;
   }
 }
+
+/**
+ * Implements hook_views_api().
+ */
+function emh_circles_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'emh_circles') . '/views',
+  );
+}
