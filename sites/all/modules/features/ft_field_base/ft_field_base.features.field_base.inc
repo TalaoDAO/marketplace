@@ -1498,7 +1498,7 @@ function ft_field_base_field_default_field_bases() {
     'field_name' => 'field_private_comment_body',
     'field_permissions' => array(
       'owner_field' => 'Comment',
-      'type' => 3,
+      'type' => 0,
     ),
     'indexes' => array(
       'format' => array(
