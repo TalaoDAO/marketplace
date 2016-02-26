@@ -245,6 +245,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access own webform submissions',
     'roles' => array(
       'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
       'business' => 'business',
       'expert' => 'expert',
       'webmaster' => 'webmaster',
@@ -1221,7 +1222,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'create working_group content',
     'roles' => array(
       'administrator' => 'administrator',
-      'expert' => 'expert',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1372,7 +1372,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete own blog content',
     'roles' => array(
       'administrator' => 'administrator',
-      'expert' => 'expert',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1383,7 +1382,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete own challenge content',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1394,7 +1392,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete own circle content',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1425,7 +1422,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete own question1 content',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1446,7 +1442,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete own webform content',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1467,7 +1462,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete own working_group content',
     'roles' => array(
       'administrator' => 'administrator',
-      'expert' => 'expert',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1835,7 +1829,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit own working_group content',
     'roles' => array(
       'administrator' => 'administrator',
-      'expert' => 'expert',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1912,6 +1905,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit webform components',
     'roles' => array(
       'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
       'business' => 'business',
       'référent' => 'référent',
       'webmaster' => 'webmaster',
