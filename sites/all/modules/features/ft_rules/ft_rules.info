@@ -15,6 +15,5 @@ features[rules_config][] = rules_auto_subscribe_to_general_group
 features[rules_config][] = rules_mandatory_group
 features[rules_config][] = rules_on_hybridauth_register
 features[rules_config][] = rules_pre_subscribe_membres
-features[rules_config][] = rules_set_clients_as_admin_in_mandatory_group
 features[rules_config][] = rules_subscription_to_group_email
 project path = sites/all/modules/features

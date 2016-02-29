@@ -111,33 +111,6 @@ function ft_rules_default_rules_configuration() {
       ]
     }
   }');
-  $items['rules_set_clients_as_admin_in_mandatory_group'] = entity_import('rules_config', '{ "rules_set_clients_as_admin_in_mandatory_group" : {
-      "LABEL" : "Set client as creator in circles",
-      "PLUGIN" : "reaction rule",
-      "OWNER" : "rules",
-      "TAGS" : [ "EMH" ],
-      "REQUIRES" : [ "rules", "og" ],
-      "ON" : { "og_user_insert" : [] },
-      "IF" : [
-        { "user_has_role" : { "account" : [ "account" ], "roles" : { "value" : { "5" : "5" } } } },
-        { "AND" : [] },
-        { "entity_is_of_type" : { "entity" : [ "og-membership:group" ], "type" : "node" } }
-      ],
-      "DO" : [
-        { "entity_fetch" : {
-            "USING" : { "type" : "node", "id" : [ "og-membership:group:nid" ] },
-            "PROVIDE" : { "entity_fetched" : { "entity_fetched" : "Fetched entity" } }
-          }
-        },
-        { "og_grant_og_role" : {
-            "account" : [ "account" ],
-            "group" : [ "entity-fetched" ],
-            "roles" : { "value" : { "Creator member" : "Creator member" } }
-          }
-        }
-      ]
-    }
-  }');
   $items['rules_subscription_to_group_email'] = entity_import('rules_config', '{ "rules_subscription_to_group_email" : {
       "LABEL" : "Subscription to group email",
       "PLUGIN" : "reaction rule",
