@@ -55,7 +55,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access all webform results',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
+      'referent' => 'referent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
@@ -97,7 +97,7 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
       'business' => 'business',
       'expert' => 'expert',
-      'référent' => 'référent',
+      'referent' => 'referent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'comment',
@@ -111,7 +111,7 @@ function ft_permissions_user_default_permissions() {
       'anonymous user' => 'anonymous user',
       'authenticated user' => 'authenticated user',
       'expert' => 'expert',
-      'référent' => 'référent',
+      'referent' => 'referent',
     ),
     'module' => 'node',
   );
@@ -234,7 +234,7 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
       'authenticated user' => 'authenticated user',
       'business' => 'business',
-      'référent' => 'référent',
+      'referent' => 'referent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
@@ -329,7 +329,7 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'authenticated user' => 'authenticated user',
-      'référent' => 'référent',
+      'referent' => 'referent',
     ),
     'module' => 'user',
   );
@@ -337,27 +337,6 @@ function ft_permissions_user_default_permissions() {
   // Exported permission: 'act as administrator member in og node:circle'.
   $permissions['act as administrator member in og node:circle'] = array(
     'name' => 'act as administrator member in og node:circle',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'og_role_override',
-  );
-
-  // Exported permission: 'act as member in og node:circle'.
-  $permissions['act as member in og node:circle'] = array(
-    'name' => 'act as member in og node:circle',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'og_role_override',
-  );
-
-  // Exported permission: 'act as non-member in og node:circle'.
-  $permissions['act as non-member in og node:circle'] = array(
-    'name' => 'act as non-member in og node:circle',
     'roles' => array(
       'administrator' => 'administrator',
       'webmaster' => 'webmaster',
@@ -1582,7 +1561,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit any challenge content',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
+      'referent' => 'referent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1623,7 +1602,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit any question1 content',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
+      'referent' => 'referent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1644,7 +1623,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit any webform content',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
+      'referent' => 'referent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1720,7 +1699,7 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
-      'référent' => 'référent',
+      'referent' => 'referent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1744,7 +1723,7 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
       'business' => 'business',
       'expert' => 'expert',
-      'référent' => 'référent',
+      'referent' => 'referent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'comment',
@@ -1785,7 +1764,7 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
-      'référent' => 'référent',
+      'referent' => 'referent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1807,7 +1786,7 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
-      'référent' => 'référent',
+      'referent' => 'referent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1907,7 +1886,7 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
       'authenticated user' => 'authenticated user',
       'business' => 'business',
-      'référent' => 'référent',
+      'referent' => 'referent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
@@ -2437,7 +2416,7 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
       'business' => 'business',
       'expert' => 'expert',
-      'référent' => 'référent',
+      'referent' => 'referent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'media',
@@ -2594,7 +2573,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'privatecomments challenge view all',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
+      'referent' => 'referent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'privatecomments',
@@ -2698,7 +2677,7 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
       'authenticated user' => 'authenticated user',
       'expert' => 'expert',
-      'référent' => 'référent',
+      'referent' => 'referent',
     ),
     'module' => 'save_draft',
   );
@@ -2739,7 +2718,7 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
       'business' => 'business',
       'expert' => 'expert',
-      'référent' => 'référent',
+      'referent' => 'referent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'comment',

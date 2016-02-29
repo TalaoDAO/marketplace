@@ -13,6 +13,7 @@ function ft_permissions_og_features_default_permissions() {
   // Exported og permission: 'node:circle:access all webform results'
   $permissions['node:circle:access all webform results'] = array(
     'roles' => array(
+      'Referent member' => 'Referent member',
       'administrator member' => 'administrator member',
     ),
   );
@@ -111,6 +112,8 @@ function ft_permissions_og_features_default_permissions() {
   // Exported og permission: 'node:circle:unsubscribe'
   $permissions['node:circle:unsubscribe'] = array(
     'roles' => array(
+      'Creator member' => 'Creator member',
+      'Referent member' => 'Referent member',
       'member' => 'member',
     ),
   );
