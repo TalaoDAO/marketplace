@@ -60,5 +60,35 @@ function emh_circles_default_rules_configuration() {
   }
   ');
 
+  $rules['rules_emh_circles_set_referents_as_referent_in_circles'] = entity_import('rules_config', '
+    { "rules_emh_circles_set_referents_as_referent_in_circles" : {
+    "LABEL" : "Circles - Set Referent as Referent member",
+    "PLUGIN" : "reaction rule",
+    "OWNER" : "rules",
+    "TAGS" : [ "EMH" ],
+    "REQUIRES" : [ "rules", "og" ],
+    "ON" : { "og_user_insert" : [] },
+    "IF" : [
+      { "user_has_role" : { "account" : [ "account" ], "roles" : { "value" : { "7" : "7" } } } },
+      { "AND" : [] },
+      { "entity_is_of_type" : { "entity" : [ "og-membership:group" ], "type" : "node" } }
+    ],
+    "DO" : [
+      { "entity_fetch" : {
+          "USING" : { "type" : "node", "id" : [ "og-membership:group:nid" ] },
+          "PROVIDE" : { "entity_fetched" : { "entity_fetched" : "Fetched entity" } }
+        }
+      },
+      { "og_grant_og_role" : {
+          "account" : [ "account" ],
+          "group" : [ "entity-fetched" ],
+          "roles" : { "value" : { "Referent member" : "Referent member" } }
+        }
+      }
+    ]
+  }
+  }
+  ');
+
   return $rules;
 }
