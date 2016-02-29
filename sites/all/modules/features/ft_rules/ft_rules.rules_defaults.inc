@@ -112,9 +112,10 @@ function ft_rules_default_rules_configuration() {
     }
   }');
   $items['rules_set_clients_as_admin_in_mandatory_group'] = entity_import('rules_config', '{ "rules_set_clients_as_admin_in_mandatory_group" : {
-      "LABEL" : "Set clients as admin in circles",
+      "LABEL" : "Set client as creator in circles",
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
+      "TAGS" : [ "EMH" ],
       "REQUIRES" : [ "rules", "og" ],
       "ON" : { "og_user_insert" : [] },
       "IF" : [
@@ -131,7 +132,7 @@ function ft_rules_default_rules_configuration() {
         { "og_grant_og_role" : {
             "account" : [ "account" ],
             "group" : [ "entity-fetched" ],
-            "roles" : { "value" : { "administrator member" : "administrator member" } }
+            "roles" : { "value" : { "Creator member" : "Creator member" } }
           }
         }
       ]
