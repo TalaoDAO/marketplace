@@ -9,8 +9,6 @@
  */
 function emh_circles_enable() {
 
-  emh_circles_update_7101();
-
   global $language;
   $lang = $language->language;
   $strings = variable_get("locale_custom_strings_$lang", array());
@@ -46,4 +44,55 @@ function _emh_circles_string_overrides() {
     "Member's groups" => "Member's circles",
   );
 
+}
+
+/**
+* Add OG role in Circles : Referent member & Creator member.
+*/
+function emh_circles_update_7002() {
+  $group = 'node';
+  $bundle = 'circle';
+
+  // Create new OG roles
+  $roles = array(
+    'Creator member',
+    'Referent member',
+  );
+  foreach ($roles as $role) {
+    $role = og_role_create($role, $group, 0, $bundle); // $name, $group_type = '', $gid = 0, $group_bundle = ''
+    og_role_save($role);
+  }
+
+  // Change permissions
+  $og_roles = array_flip(og_roles($group, $bundle)); // group, bundle
+
+  // Member role
+  $permissions = array(
+    'delete own challenge content' => 0,
+    'delete own question1 content' => 0,
+    'delete own webform content' => 0,
+  );
+  og_role_change_permissions($og_roles[OG_AUTHENTICATED_ROLE], $permissions);
+
+  // Creator role
+  $permissions = array(
+    'unsubscribe' => 1,
+    'create challenge content' => 1,
+    'update own challenge content' => 1,
+    'create question1 content' => 1,
+    'update own question1 content' => 1,
+    'create webform content' => 1,
+    'update own webform content' => 1,
+  );
+  og_role_change_permissions($og_roles['Creator member'], $permissions);
+
+  // Referent role
+  $permissions = array(
+    'access all webform results' => 1,
+    'unsubscribe' => 1,
+    'update any challenge content' => 1,
+    'update any question1 content' => 1,
+    'update any webform content' => 1,
+  );
+  og_role_change_permissions($og_roles['Referent member'], $permissions);
 }
