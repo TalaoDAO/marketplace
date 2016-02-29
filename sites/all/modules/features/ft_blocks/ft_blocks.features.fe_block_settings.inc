@@ -1057,7 +1057,7 @@ freetrial',
     'pages' => 'node/300',
     'roles' => array(
       'expert' => 4,
-      'référent' => 7,
+      'referent' => 7,
     ),
     'themes' => array(
       'emindhub' => array(
@@ -1088,7 +1088,7 @@ freetrial',
     'pages' => 'node/300',
     'roles' => array(
       'expert' => 4,
-      'référent' => 7,
+      'referent' => 7,
     ),
     'themes' => array(
       'emindhub' => array(
@@ -1119,7 +1119,7 @@ freetrial',
     'pages' => 'node/300',
     'roles' => array(
       'expert' => 4,
-      'référent' => 7,
+      'referent' => 7,
     ),
     'themes' => array(
       'emindhub' => array(
@@ -1337,7 +1337,7 @@ fr/node/323',
     'roles' => array(
       'administrator' => 3,
       'expert' => 4,
-      'référent' => 7,
+      'referent' => 7,
       'webmaster' => 6,
     ),
     'themes' => array(
