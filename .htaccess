@@ -1,7 +1,7 @@
-#AuthType Basic
-#AuthName "Password Protected Area"
-#AuthUserFile /var/www/.htpasswd
-#Require valid-user
+AuthType Basic
+AuthName "Password Protected Area"
+AuthUserFile /var/www/.htpasswd
+Require valid-user
 #
 # Apache/PHP/Drupal settings:
 #
@@ -36,9 +36,6 @@ DirectoryIndex index.php index.html index.htm
   php_value mbstring.http_input             pass
   php_value mbstring.http_output            pass
   php_flag mbstring.encoding_translation    off
-  php_value xcache.cacher                   off
-  php_value xcache.size                     0
-  php_value xcache.stat                     off
 </IfModule>
 
 # Requires mod_expires to be enabled.
