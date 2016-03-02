@@ -28,9 +28,9 @@ function ft_permissions_user_default_roles() {
     'weight' => 3,
   );
 
-  // Exported role: referent.
-  $roles['referent'] = array(
-    'name' => 'referent',
+  // Exported role: référent.
+  $roles['référent'] = array(
+    'name' => 'référent',
     'weight' => 6,
   );
 

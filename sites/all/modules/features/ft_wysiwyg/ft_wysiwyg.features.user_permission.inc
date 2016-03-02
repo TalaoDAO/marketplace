@@ -16,7 +16,7 @@ function ft_wysiwyg_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
-      'referent' => 'referent',
+      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'ckeditor_link',
@@ -71,7 +71,7 @@ function ft_wysiwyg_user_default_permissions() {
     'roles' => array(
       'business' => 'business',
       'expert' => 'expert',
-      'referent' => 'referent',
+      'référent' => 'référent',
     ),
     'module' => 'filter',
   );
