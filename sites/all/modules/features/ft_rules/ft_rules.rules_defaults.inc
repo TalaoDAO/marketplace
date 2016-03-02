@@ -41,30 +41,6 @@ function ft_rules_default_rules_configuration() {
       ]
     }
   }');
-  $items['rules_mandatory_group'] = entity_import('rules_config', '{ "rules_mandatory_group" : {
-      "LABEL" : "Mandatory Group",
-      "PLUGIN" : "reaction rule",
-      "OWNER" : "rules",
-      "TAGS" : [ "Circle", "EMH" ],
-      "REQUIRES" : [ "rules", "og", "views_rules" ],
-      "ON" : { "user_update" : [] },
-      "DO" : [
-        { "entity_fetch" : {
-            "USING" : { "type" : "node", "id" : "314" },
-            "PROVIDE" : { "entity_fetched" : { "entity_fetched" : "Fetched entity" } }
-          }
-        },
-        { "og_subcribe_user" : { "user" : [ "account" ], "group" : [ "entity-fetched" ] } },
-        { "VIEW LOOP" : {
-            "VIEW" : "user_circle_list",
-            "DISPLAY" : "views_rules_1",
-            "ROW VARIABLES" : { "node" : { "node" : "Node" } },
-            "DO" : []
-          }
-        }
-      ]
-    }
-  }');
   $items['rules_on_hybridauth_register'] = entity_import('rules_config', '{ "rules_on_hybridauth_register" : {
       "LABEL" : "On hybridauth register",
       "PLUGIN" : "reaction rule",
