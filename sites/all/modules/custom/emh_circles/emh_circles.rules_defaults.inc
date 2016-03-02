@@ -90,5 +90,32 @@ function emh_circles_default_rules_configuration() {
   }
   ');
 
+  $rules['rules_emh_circles_add_users_in_all_experts_circle'] = entity_import('rules_config', '
+    { "rules_emh_circles_add_users_in_all_experts_circle" : {
+    "LABEL" : "Mandatory Group",
+    "PLUGIN" : "reaction rule",
+    "OWNER" : "rules",
+    "TAGS" : [ "Circle", "EMH" ],
+    "REQUIRES" : [ "rules", "og", "user_registrationpassword" ],
+    "ON" : { "user_update" : [], "user_registrationpassword_activated" : [] },
+    "DO" : [
+      { "entity_fetch" : {
+          "USING" : { "type" : "node", "id" : "314" },
+          "PROVIDE" : { "entity_fetched" : { "entity_fetched" : "Fetched entity" } }
+        }
+      },
+      { "og_subcribe_user" : { "user" : [ "account" ], "group" : [ "entity-fetched" ] } },
+      { "VIEW LOOP" : {
+          "VIEW" : "user_circle_list",
+          "DISPLAY" : "views_rules_1",
+          "ROW VARIABLES" : { "node" : { "node" : "Node" } },
+          "DO" : []
+        }
+      }
+    ]
+  }
+  }
+  ');
+
   return $rules;
 }

@@ -107,4 +107,7 @@ function emh_circles_update_7003() {
   if ($rules_config = rules_config_load('rules_set_clients_as_admin_in_mandatory_group')) {
     $rules_config->delete();
   }
+  if ($rules_config = rules_config_load('rules_mandatory_group')) {
+    $rules_config->delete();
+  }
 }

@@ -2,6 +2,7 @@ name = EMH Circles
 package = EMH
 dependencies[] = og
 dependencies[] = rules
+dependencies[] = user_registrationpassword
 dependencies[] = views
 dependencies[] = views_bulk_operations
 core = 7.x
