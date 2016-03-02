@@ -4,40 +4,28 @@
 * Code for eMindHub access feature.
 */
 
-function emh_access_author_name($node) {
-
-  global $user;
-  if ($user->uid == 1) {
-    // Admin ( = eMindHub) has every right.
-    return TRUE;
-  }
-
-  // Check node options
-  // 0|Display my full name
-  // 1|Hide my full name
-  $anonymous_mode = field_get_items('node', $node, 'field_anonymous');
-  if ($anonymous_mode[0]['value'] == 0) {
-    return TRUE;
-  }
-
+/**
+ * Implements hook_permission().
+ */
+function emh_access_permission() {
+  return array(
+    'access full request' => array('title' => t('Request: View full published request')),
+    'access full answer' => array('title' => t('Answer: View full published answer')),
+    'access full user profile' => array('title' => t('Profile: View full user profile')),
+  );
 }
 
-function emh_access_author_company($node) {
-
-  global $user;
-  if ($user->uid == 1) {
-    // Admin ( = eMindHub) has every right.
-    return TRUE;
+/**
+ * Implements hook_user_presave().
+ */
+function emh_access_user_presave(&$edit, $account, $category) {
+  // Synchronise pseudo-field (to use access hook) with Drupal core field.
+  if (!empty($edit['mail'])) {
+    $mail = $edit['mail'];
+  } else {
+    $mail = $account->mail;
   }
-
-  // Check node options
-  // 0|Display the name
-  // 1|Hide the name
-  $show_entreprise = field_get_items('node', $node, 'field_show_entreprise');
-  if ($show_entreprise[0]['value'] == 0) {
-    return TRUE;
-  }
-
+  $edit['field_mail'][LANGUAGE_NONE]['0']['value'] = $mail;
 }
 
 /**
@@ -92,7 +80,7 @@ function emh_access_field_access($op, $field, $entity_type, $entity, $account) {
       case 'comment':
         switch($field['field_name']) {
           case 'comment_body':
-          return TRUE;
+            return TRUE;
             break;
           default:
             return emh_access_user_can_see_full_answer($entity, $account);
@@ -120,11 +108,6 @@ function emh_access_user_can_see_full_user($uid, $uid2) {
   }
   $u1_account = user_load($uid);
   $u2_account = user_load($uid2);
-
-  if ($uid == 1) {
-    // Admin ( = eMindHub) has every right.
-    return TRUE;
-  }
 
   if ($uid == $uid2) {
     // This is my own profile
@@ -194,6 +177,12 @@ function emh_access_user_can_see_full_user($uid, $uid2) {
     // Is there a link through a node?
     return ($indirect > 0);
   }
+
+  if (user_access('access full user profile')) {
+    return TRUE;
+  }
+
+  return FALSE;
 }
 
 /**
@@ -205,28 +194,17 @@ function emh_access_user_can_see_full_answer($entity, $account = NULL) {
     $account = $user;
   }
   $node = node_load($entity->nid);
-  if ($account->uid == 1) {
-    // Admin ( = eMindHub) has every right.
-    return TRUE;
-  }
+
   if ($entity->uid == $account->uid || $node->uid == $account->uid) {
     // Node author and answer author have every right.
     return TRUE;
   }
-  return FALSE;
-}
 
-/**
- * Implements hook_user_presave().
- */
-function emh_access_user_presave(&$edit, $account, $category) {
-  // Synchronise pseudo-field (to use access hook) with Drupal core field.
-  if (!empty($edit['mail'])) {
-    $mail = $edit['mail'];
-  } else {
-    $mail = $account->mail;
+  if (user_access('access full answer')) {
+    return TRUE;
   }
-  $edit['field_mail'][LANGUAGE_NONE]['0']['value'] = $mail;
+
+  return FALSE;
 }
 
 /**
@@ -241,14 +219,12 @@ function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
     $nid = arg(1);
     $node = node_load($nid);
   }
-  if ($account->uid == 1) {
-    // Admin ( = eMindHub) has every right.
-    return TRUE;
-  }
+
   if ($node->uid == $account->uid) {
     // Node author and answer author have every right.
     return TRUE;
   }
+
   if (module_exists('emh_pcp_special')) {
     $userPercent = emh_pcp_special_get_complete_percentage_data('user', 'user', $account);
     if ($userPercent['current_percent'] == '100') {
@@ -256,6 +232,7 @@ function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
     }
     return FALSE;
   }
+
   switch ($node->type) {
     case 'question1':
       if (user_access('question1: comment on any question1 content')) return TRUE;
@@ -267,5 +244,46 @@ function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
       if (user_access('challenge: comment on any challenge content')) return TRUE;
       break;
   }
+
+  if (user_access('access full request')) {
+    return TRUE;
+  }
+
   return FALSE;
+}
+
+function emh_access_author_name($node) {
+
+  global $user;
+  if ($user->uid == 1) {
+    // Admin ( = eMindHub) has every right.
+    return TRUE;
+  }
+
+  // Check node options
+  // 0|Display my full name
+  // 1|Hide my full name
+  $anonymous_mode = field_get_items('node', $node, 'field_anonymous');
+  if ($anonymous_mode[0]['value'] == 0) {
+    return TRUE;
+  }
+
+}
+
+function emh_access_author_company($node) {
+
+  global $user;
+  if ($user->uid == 1) {
+    // Admin ( = eMindHub) has every right.
+    return TRUE;
+  }
+
+  // Check node options
+  // 0|Display the name
+  // 1|Hide the name
+  $show_entreprise = field_get_items('node', $node, 'field_show_entreprise');
+  if ($show_entreprise[0]['value'] == 0) {
+    return TRUE;
+  }
+
 }

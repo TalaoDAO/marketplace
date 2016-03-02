@@ -53,3 +53,18 @@ function emh_access_update_7102() {
     variable_set('site_404', 'customerror/404');
   }
 }
+
+/**
+ * Add permissions : acces to full request, full answer, full user profile for Admin, webmaster and referent.
+ */
+function emh_access_update_7103() {
+  user_role_grant_permissions(3, array('access full request')); // Administrator
+  user_role_grant_permissions(6, array('access full request')); // Webmaster
+  user_role_grant_permissions(7, array('access full request')); // Referent
+  user_role_grant_permissions(3, array('access full answer')); // Administrator
+  user_role_grant_permissions(6, array('access full answer')); // Webmaster
+  user_role_grant_permissions(7, array('access full answer')); // Referent
+  user_role_grant_permissions(3, array('access full user profile')); // Administrator
+  user_role_grant_permissions(6, array('access full user profile')); // Webmaster
+  user_role_grant_permissions(7, array('access full user profile')); // Referent
+}
