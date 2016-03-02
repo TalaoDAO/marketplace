@@ -220,8 +220,12 @@ function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
     $node = node_load($nid);
   }
 
+  if (user_access('access full request')) {
+    return TRUE;
+  }
+
+  // Node author and answer author have every right.
   if ($node->uid == $account->uid) {
-    // Node author and answer author have every right.
     return TRUE;
   }
 
@@ -230,23 +234,26 @@ function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
     if ($userPercent['current_percent'] == '100') {
       return TRUE;
     }
-    return FALSE;
   }
 
   switch ($node->type) {
     case 'question1':
-      if (user_access('question1: comment on any question1 content')) return TRUE;
+      if (user_access('question1: comment on any question1 content')) {
+        return TRUE;
+      }
       break;
     case 'webform':
-      if (user_access('edit own webform submissions')) return TRUE;
+      if (user_access('edit own webform submissions')) {
+        return TRUE;
+      }
       break;
     case 'challenge':
-      if (user_access('challenge: comment on any challenge content')) return TRUE;
+      if (user_access('challenge: comment on any challenge content')) {
+        return TRUE;
+      }
       break;
-  }
-
-  if (user_access('access full request')) {
-    return TRUE;
+    default:
+      break;
   }
 
   return FALSE;
