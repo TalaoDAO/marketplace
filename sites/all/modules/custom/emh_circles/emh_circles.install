@@ -71,6 +71,9 @@ function emh_circles_update_7002() {
     'delete own challenge content' => 0,
     'delete own question1 content' => 0,
     'delete own webform content' => 0,
+    'update own challenge content' => 0,
+    'update own question1 content' => 0,
+    'update own webform content' => 0,
   );
   og_role_change_permissions($og_roles[OG_AUTHENTICATED_ROLE], $permissions);
 
