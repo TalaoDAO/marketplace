@@ -151,3 +151,24 @@ function emh_configuration_update_7009() {
   node_types_rebuild();
   menu_rebuild();
 }
+
+/**
+* Delete old rules.
+*/
+function emh_configuration_update_7010() {
+  if ($rules_config = rules_config_load('rules_schedule_inscription_clotures')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('rules_gammification_node')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('rules_gammification_comment')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('rules_private_proposal')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('rules_private_challenge')) {
+    $rules_config->delete();
+  }
+}
