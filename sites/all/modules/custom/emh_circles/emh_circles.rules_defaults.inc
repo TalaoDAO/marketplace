@@ -92,7 +92,7 @@ function emh_circles_default_rules_configuration() {
 
   $rules['rules_emh_circles_add_users_in_all_experts_circle'] = entity_import('rules_config', '
     { "rules_emh_circles_add_users_in_all_experts_circle" : {
-    "LABEL" : "Mandatory Group",
+    "LABEL" : "Circles - Set all users as Member of All experts",
     "PLUGIN" : "reaction rule",
     "OWNER" : "rules",
     "TAGS" : [ "Circle", "EMH" ],
@@ -104,14 +104,7 @@ function emh_circles_default_rules_configuration() {
           "PROVIDE" : { "entity_fetched" : { "entity_fetched" : "Fetched entity" } }
         }
       },
-      { "og_subcribe_user" : { "user" : [ "account" ], "group" : [ "entity-fetched" ] } },
-      { "VIEW LOOP" : {
-          "VIEW" : "user_circle_list",
-          "DISPLAY" : "views_rules_1",
-          "ROW VARIABLES" : { "node" : { "node" : "Node" } },
-          "DO" : []
-        }
-      }
+      { "og_subcribe_user" : { "user" : [ "account" ], "group" : [ "entity-fetched" ] } }
     ]
   }
   }
