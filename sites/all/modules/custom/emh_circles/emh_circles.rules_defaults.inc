@@ -37,23 +37,23 @@ function emh_circles_default_rules_configuration() {
     "WEIGHT" : "1",
     "OWNER" : "rules",
     "TAGS" : [ "Circles", "EMH" ],
-    "REQUIRES" : [ "rules", "og" ],
-    "ON" : { "og_user_insert" : [] },
+    "REQUIRES" : [ "rules", "og", "user_registrationpassword" ],
+    "ON" : { "user_update" : [], "user_registrationpassword_activated" : [] },
     "IF" : [
-      { "user_has_role" : { "account" : [ "account" ], "roles" : { "value" : { "5" : "5" } } } },
-      { "AND" : [] },
-      { "entity_is_of_type" : { "entity" : [ "og-membership:group" ], "type" : "node" } }
+      { "user_has_role" : { "account" : [ "account" ], "roles" : { "value" : { "5" : "5" } } } }
     ],
     "DO" : [
-      { "entity_fetch" : {
-          "USING" : { "type" : "node", "id" : [ "og-membership:group:nid" ] },
-          "PROVIDE" : { "entity_fetched" : { "entity_fetched" : "Fetched entity" } }
-        }
-      },
-      { "og_grant_og_role" : {
-          "account" : [ "account" ],
-          "group" : [ "entity-fetched" ],
-          "roles" : { "value" : { "Creator member" : "Creator member" } }
+      { "LOOP" : {
+          "USING" : { "list" : [ "account:og-user-node" ] },
+          "ITEM" : { "list_item" : "Current list item" },
+          "DO" : [
+            { "og_grant_og_role" : {
+                "account" : [ "account" ],
+                "group" : [ "list-item" ],
+                "roles" : { "value" : { "Creator member" : "Creator member" } }
+              }
+            }
+          ]
         }
       }
     ]
@@ -69,22 +69,22 @@ function emh_circles_default_rules_configuration() {
     "OWNER" : "rules",
     "TAGS" : [ "Circles", "EMH" ],
     "REQUIRES" : [ "rules", "og" ],
-    "ON" : { "og_user_insert" : [] },
+    "ON" : { "user_update" : [] },
     "IF" : [
-      { "user_has_role" : { "account" : [ "account" ], "roles" : { "value" : { "7" : "7" } } } },
-      { "AND" : [] },
-      { "entity_is_of_type" : { "entity" : [ "og-membership:group" ], "type" : "node" } }
+      { "user_has_role" : { "account" : [ "account" ], "roles" : { "value" : { "7" : "7" } } } }
     ],
     "DO" : [
-      { "entity_fetch" : {
-          "USING" : { "type" : "node", "id" : [ "og-membership:group:nid" ] },
-          "PROVIDE" : { "entity_fetched" : { "entity_fetched" : "Fetched entity" } }
-        }
-      },
-      { "og_grant_og_role" : {
-          "account" : [ "account" ],
-          "group" : [ "entity-fetched" ],
-          "roles" : { "value" : { "Referent member" : "Referent member" } }
+      { "LOOP" : {
+          "USING" : { "list" : [ "account:og-user-node" ] },
+          "ITEM" : { "list_item" : "Current list item" },
+          "DO" : [
+            { "og_grant_og_role" : {
+                "account" : [ "account" ],
+                "group" : [ "list-item" ],
+                "roles" : { "value" : { "Referent member" : "Referent member" } }
+              }
+            }
+          ]
         }
       }
     ]
