@@ -168,48 +168,48 @@ Feature: Create challenge and answers
     When I go to homepage
     And I click "What about?" in the "What about?" row
     And I click "Edit" in the "answers" region
-    And I enter "The truth is here." for "Public answer"
+    And I enter "The truth is here." for "answer"
     And I select the radio button "My answer will be visible only by the client"
     And I press "Publish"
     Then I should see "The truth is here."
 
-    # The author cannot edit a public answer
+    # The author cannot edit a answer
     Given I am logged in as "client1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
     Then I should not see "Edit" in the "answers" region
 
-    # A référent cannot edit a public answer
+    # A référent cannot edit a answer
     Given I am logged in as "référent1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
     Then I should not see "Edit" in the "answers" region
 
-    # An other expert cannot edit a public answer
+    # An other expert cannot edit a answer
     Given I am logged in as "expert1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
     Then I should not see "Edit" in the "answers" region
 
-    # The expert cannot delete its own public answer
+    # The expert cannot delete its own answer
     Given I am logged in as "expert2"
     When I go to homepage
     And I click "What about?" in the "What about?" row
     Then I should not see "Delete" in the "answers" region
 
-    # The author cannot delete a public answer
+    # The author cannot delete a answer
     Given I am logged in as "client1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
     Then I should not see "Delete" in the "answers" region
 
-    # A référent cannot delete a public answer
+    # A référent cannot delete a answer
     Given I am logged in as "référent1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
     Then I should not see "Delete" in the "answers" region
 
-    # An other expert cannot delete a public answer
+    # An other expert cannot delete a answer
     Given I am logged in as "expert1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
