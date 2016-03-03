@@ -1,7 +1,7 @@
 @api
 Feature: Test og visibility
   In order to test emh requests visibility
-  As anonymous, clients, and experts
+  As anonymous, client, expert, referent or webmaster
   I want to check if I see the right datas
 
   Background: og visibility : Create questions and answers
@@ -89,6 +89,7 @@ Feature: Test og visibility
     And I should not see "Fight Hydra"
     And I should see "Fight Thanos"
 
+    # Anonymous
     Given I am not logged in
     When I go to homepage
     Then I should not see "Fight Magneto"
