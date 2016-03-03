@@ -38,6 +38,23 @@ Feature: Create question and answers
     | title        | field_domaine | og_group_ref | field_reward | author  |
     | What about?  | Energy        | Avengers     | 100          | client1 |
 
+    # FIXME: Force user profile update for OG role addition
+    Given I am logged in as "référent1"
+    And I click "Edit account"
+    And I press "Save"
+
+    Given I am logged in as "client1"
+    And I click "Edit account"
+    And I press "Save"
+
+    Given I am logged in as "expert1"
+    And I click "Edit account"
+    And I press "Save"
+
+    Given I am logged in as "expert2"
+    And I click "Edit account"
+    And I press "Save"
+
   Scenario: An author can see its own question
     Given I am logged in as "client1"
     When I go to homepage
