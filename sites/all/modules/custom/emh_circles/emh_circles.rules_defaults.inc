@@ -11,7 +11,7 @@ function emh_circles_default_rules_configuration() {
     "LABEL" : "Webmaster notification - All experts circle error",
     "PLUGIN" : "reaction rule",
     "OWNER" : "rules",
-    "TAGS" : [ "EMH" ],
+    "TAGS" : [ "EMH", "Circles" ],
     "REQUIRES" : [ "views_bulk_operations", "rules" ],
     "ON" : { "cron" : [] },
     "IF" : [
@@ -34,8 +34,9 @@ function emh_circles_default_rules_configuration() {
     { "rules_emh_circles_set_clients_as_creator_in_circles" : {
     "LABEL" : "Circles - Set Client as Creator member",
     "PLUGIN" : "reaction rule",
+    "WEIGHT" : "1",
     "OWNER" : "rules",
-    "TAGS" : [ "EMH" ],
+    "TAGS" : [ "Circles", "EMH" ],
     "REQUIRES" : [ "rules", "og" ],
     "ON" : { "og_user_insert" : [] },
     "IF" : [
@@ -64,8 +65,9 @@ function emh_circles_default_rules_configuration() {
     { "rules_emh_circles_set_referents_as_referent_in_circles" : {
     "LABEL" : "Circles - Set Referent as Referent member",
     "PLUGIN" : "reaction rule",
+    "WEIGHT" : "1",
     "OWNER" : "rules",
-    "TAGS" : [ "EMH" ],
+    "TAGS" : [ "Circles", "EMH" ],
     "REQUIRES" : [ "rules", "og" ],
     "ON" : { "og_user_insert" : [] },
     "IF" : [
@@ -95,9 +97,14 @@ function emh_circles_default_rules_configuration() {
     "LABEL" : "Circles - Set all users as Member of All experts",
     "PLUGIN" : "reaction rule",
     "OWNER" : "rules",
-    "TAGS" : [ "Circle", "EMH" ],
+    "TAGS" : [ "EMH", "Circles" ],
     "REQUIRES" : [ "rules", "og", "user_registrationpassword" ],
-    "ON" : { "user_update" : [], "user_registrationpassword_activated" : [] },
+    "ON" : {
+      "user_update" : [],
+      "user_registrationpassword_activated" : [],
+      "user_insert" : []
+    },
+    "IF" : [ { "NOT user_is_blocked" : { "account" : [ "account" ] } } ],
     "DO" : [
       { "entity_fetch" : {
           "USING" : { "type" : "node", "id" : "314" },
