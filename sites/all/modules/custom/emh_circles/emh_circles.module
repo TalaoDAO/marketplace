@@ -3,3 +3,13 @@
 * @file
 * Code for eMindHub circles feature.
 */
+
+/**
+ * Implements hook_views_api().
+ */
+function emh_circles_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'emh_circles') . '/views',
+  );
+}
