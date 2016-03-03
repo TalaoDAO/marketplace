@@ -195,12 +195,12 @@ function emh_access_user_can_see_full_answer($entity, $account = NULL) {
   }
   $node = node_load($entity->nid);
 
-  if ($entity->uid == $account->uid || $node->uid == $account->uid) {
-    // Node author and answer author have every right.
+  if (user_access('access full answer')) {
     return TRUE;
   }
 
-  if (user_access('access full answer')) {
+  if ($entity->uid == $account->uid || $node->uid == $account->uid) {
+    // Node author and answer author have every right.
     return TRUE;
   }
 
