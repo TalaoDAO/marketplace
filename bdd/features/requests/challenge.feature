@@ -1,14 +1,14 @@
 @api
 Feature: Create challenge and answers
-  In order to test challenge creation, and privacy of answers
-  As a business client
-  I want to create a question, and watch answers
+  In order to test Challenge creation, and privacy of answers
+  As client, expert and référent
+  I want to create a Challenge, and watch answers
 
   Background: Create challenge
 
     Given "circle" content:
     | title    | author  |
-    | Avengers | client1 |
+    | Avengers | admin |
 
     Given "corporate" content:
     | title     | author  |
@@ -20,6 +20,11 @@ Feature: Create challenge and answers
     | Viadeo    | admin   |
     | Linkedin  | admin   |
     | Tumblr    | admin   |
+    | Amazon    | admin   |
+
+    Given users:
+    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
+    | référent1 | referent1@emindhub.com | référent | Paul          | Stanley         | 0612345678      | The Starchild     | Avengers     | referent1@emindhub.com | Amazon  | Other | Maintenance |
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
@@ -28,6 +33,7 @@ Feature: Create challenge and answers
     | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | 0712345671      | Modèle             | Avengers     | expert2@emindhub.com | Twitter   | Employee  | Other         |
 
     Given I give "client1" 300 emh points
+    
     Given "challenge" content:
     | title        | field_domaine | og_group_ref | field_reward | author  |
     | What about?  | Energy        | Avengers     | 100          | client1 |
