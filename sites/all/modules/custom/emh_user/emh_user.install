@@ -32,3 +32,12 @@ function emh_user_update_7002() {
     $rules_config->delete();
   }
 }
+
+/**
+* Delete rules_emh_user_activation_login_logout_hp_redirect rule.
+*/
+function emh_user_update_7003() {
+  if ($rules_config = rules_config_load('rules_emh_user_activation_login_logout_hp_redirect')) {
+    $rules_config->delete();
+  }
+}

@@ -80,26 +80,39 @@ function emh_user_default_rules_configuration() {
     }
   ');
 
-  $rules['rules_emh_user_activation_login_logout_hp_redirect'] = entity_import('rules_config', '
-    { "rules_emh_user_activation_login_logout_hp_redirect" : {
-      "LABEL" : "Activation, Login, Logout HP redirect",
-      "PLUGIN" : "reaction rule",
-      "WEIGHT" : "-10",
-      "OWNER" : "rules",
-      "TAGS" : [ "EMH" ],
-      "REQUIRES" : [ "rules", "user_registrationpassword", "hybridauth" ],
-      "ON" : {
-        "user_registrationpassword_activated" : [],
-        "user_login" : [],
-        "user_logout" : [],
-        "hybridauth_user_login" : [],
-        "hybridauth_user_insert" : []
-      },
-      "DO" : [
-        { "redirect" : { "url" : "\u003Cfront\u003E", "force" : "0", "destination" : "1" } }
-      ]
-      }
-    }
+  $rules['rules_emh_user_activation_login_hp_redirect'] = entity_import('rules_config', '
+    { "rules_emh_user_activation_login_hp_redirect" : {
+    "LABEL" : "Activation, Login HP redirect",
+    "PLUGIN" : "reaction rule",
+    "WEIGHT" : "-10",
+    "OWNER" : "rules",
+    "TAGS" : [ "EMH" ],
+    "REQUIRES" : [ "rules", "user_registrationpassword", "hybridauth" ],
+    "ON" : {
+      "user_registrationpassword_activated" : [],
+      "user_login" : [],
+      "hybridauth_user_login" : [],
+      "hybridauth_user_insert" : []
+    },
+    "DO" : [
+      { "redirect" : { "url" : "\u003Cfront\u003E", "force" : "0", "destination" : "1" } }
+    ]
+  }
+  }
+  ');
+
+  $rules['rules_emh_user_logout_hp_redirect'] = entity_import('rules_config', '
+    { "rules_emh_user_logout_hp_redirect" : {
+    "LABEL" : "Logout HP redirect",
+    "PLUGIN" : "reaction rule",
+    "WEIGHT" : "-10",
+    "OWNER" : "rules",
+    "TAGS" : [ "EMH" ],
+    "REQUIRES" : [ "rules" ],
+    "ON" : { "user_logout" : [] },
+    "DO" : [ { "redirect" : { "url" : "\u003Cfront\u003E" } } ]
+  }
+  }
   ');
 
   return $rules;
