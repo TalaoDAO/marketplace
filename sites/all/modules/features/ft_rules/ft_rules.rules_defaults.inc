@@ -61,7 +61,7 @@ function ft_rules_default_rules_configuration() {
         { "data_set" : { "data" : [ "hybridauth-user:mail" ], "value" : [ "hybridauth:email" ] } },
         { "user_add_role" : {
             "account" : [ "hybridauth-user" ],
-            "roles" : { "value" : { "4" : "4", "8" : "8" } }
+            "roles" : { "value" : { "4" : "4" } }
           }
         }
       ]
