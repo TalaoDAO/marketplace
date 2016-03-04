@@ -294,3 +294,30 @@ function emh_access_author_company($node) {
   }
 
 }
+
+
+/**
+ * Access callback for the request answers page.
+ */
+function _emh_access_request_answers($nid, $account = NULL) {
+  global $user;
+  $account = $user;
+  if (empty($nid)) {
+    $nid = arg(1);
+  }
+  $node = node_load($nid);
+  // Admin, webmasters, etc.
+  switch ($node->type) {
+    case 'question1':
+    case 'challenge':
+      if (user_access('administer comments')) return TRUE;
+      break;
+    case 'webform':
+      if (user_access('access all webform results')) return TRUE;
+      break;
+    default:
+      return FALSE;
+      break;
+  }
+  return FALSE;
+}
