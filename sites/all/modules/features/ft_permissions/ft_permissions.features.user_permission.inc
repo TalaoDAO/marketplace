@@ -1884,7 +1884,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit webform components',
     'roles' => array(
       'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
       'business' => 'business',
       'référent' => 'référent',
       'webmaster' => 'webmaster',
