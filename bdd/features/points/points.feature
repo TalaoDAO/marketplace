@@ -48,13 +48,16 @@ Feature: Test points
     And I press "Publish"
 
   Scenario: points: Edit already published question
+    Given I am logged in as "expert2"
     Then I should have 100 points on "What about?" node
+
     Given I am logged in as "client1"
     When I go to "homepage"
     And I click "What about?" in the "What about?" row
-    And I click "Edit" in the "tabs_primary" region
+    And I click "Edit" in the "primary tabs" region
     Then I should see "Cost"
     And the "Cost" field should contain "100"
+
     When I enter "200" for "Cost"
     And I select "Display my full name" from "Your name"
     And I select "Display the name" from "Your organisation"
@@ -66,21 +69,27 @@ Feature: Test points
 
   @exclude
   Scenario: points: Manual distribute
+    Given I am logged in as "expert2"
     Then I should have 100 points on "What about?" node
+
     Given I am logged in as "client1"
     When I go to homepage
     Then I should see "2" in the "What about?" row
+
     When I go to "/my-responses"
     Then I should see "Iron Man"
     And I should see "Klark Kent"
+
     When node "What about?" transfers 70 points on "expert1" user
     And node "What about?" transfers 30 points on "expert2" user
     Then I should have 0 points on "What about?" node
     And I should have 70 points on "expert1" user
     And I should have 30 points on "expert2" user
+
     When I go to "/my-responses"
     Then I should see "70" in the "I'm the best superhero in da world." row
     And I should see "30" in the "You should definitely trust me." row
+
     When I go to "/my-answers"
     Then I should see "70" in the "I'm the best superhero in da world." row
     And I should see "30" in the "You should definitely trust me." row
@@ -97,7 +106,9 @@ Feature: Test points
 
   #@exclude
   Scenario: points : VBO distribute
+    Given I am logged in as "expert2"
     Then I should have 100 points on "What about?" node
+
     Given I am logged in as "client1"
     When I go to "/my-responses"
     Then I should see "Iron Man"
@@ -106,6 +117,7 @@ Feature: Test points
     # Author cannot access expert profile yet.
     Then I should not see the link "Iron Man"
     And I should not see the link "Klark Kent"
+
     # And from My relathionships too
     When I go to "/my-relationships"
     Then I should not see the link "Iron Man"
@@ -113,28 +125,29 @@ Feature: Test points
 
     When I go to "homepage"
     And I click "What about?" in the "What about?" row
-    Then I click "Answers"
-    When I check the box "edit-views-bulk-operations-0"
+    And I click "Answers" in the "primary tabs" region
+    And I check the box "edit-views-bulk-operations-0"
     And I check the box "edit-views-bulk-operations-1"
     And I press "Distribute points"
     Then I should see "Points for Iron Man"
     And I should see "Points for Klark Kent"
+
     When I fill in "Points for Iron Man" with "60"
     And I fill in "Points for Klark Kent" with "40"
     And I press "edit-submit"
     Then I should see the success message "All the points have been distributed"
-    Then I should have 0 points on "What about?" node
+    And I should have 0 points on "What about?" node
     And I should have "60" points on "expert1" user
     And I should have "40" points on "expert2" user
 
     # The author cannot distribute twice.
     When I go to "/content/what-about"
-    And I click "Answers" in the "title" region
+    And I click "Answers" in the "primary tabs" region
     Then I should not see "Distribute points"
-
     # Author can now access expert profile from question's answer tab.
     And I should see the link "Iron MAN"
     And I should see the link "Klark KENT"
+    
     # And from My relathionships too
     When I go to "/my-relationships"
     Then I should see the link "Iron Man"
