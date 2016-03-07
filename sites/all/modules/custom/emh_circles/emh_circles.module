@@ -4,37 +4,6 @@
 * Code for eMindHub circles feature.
 */
 
-function _emh_circles_check_user_is_adminmember_of_group($uid, $gid) {
-  $query = db_select('og_users_roles', 'og');
-  $query->condition('gid', $gid, '=');
-  $query->condition('uid', $uid, '=');
-  $query->distinct();
-  $query->fields('og', array('rid'));
-  $result = $query->execute();
-  $role_id = $result->fetchAssoc();
-  if ($role_id['rid'] >= 3) {
-    return TRUE;
-  }
-  else {
-    return FALSE;
-  }
-}
-
-function _emh_circles_check_user_is_admin_of_group($uid, $gid) {
-  $query = db_select('node', 'n');
-  $query->condition('nid', $gid, '=');
-  $query->distinct();
-  $query->fields('n', array('uid'));
-  $result = $query->execute();
-  $node_uid = $result->fetchAssoc();
-  if ($node_uid['uid'] == $uid) {
-    return TRUE;
-  }
-  else {
-    return FALSE;
-  }
-}
-
 /**
  * Implements hook_views_api().
  */
@@ -43,4 +12,60 @@ function emh_circles_views_api() {
     'api' => 3,
     'path' => drupal_get_path('module', 'emh_circles') . '/views',
   );
+}
+
+function _emh_circles_check_user_is_referentmember_of_group($uid, $gid) {
+  $roleID = db_select('og_role', 'og')
+            ->condition('name', 'Referent member', '=')
+            ->distinct()
+            ->fields('og', array('rid'))
+            ->execute();
+  $roleID = $roleID->fetchAssoc();
+  if ($roleID) {
+    // print $roleID['rid'];
+    // print $gid;
+    $isReferentMember = db_select('og_users_roles', 'og')
+              ->condition('gid', $gid, '=')
+              ->condition('uid', $uid, '=')
+              ->condition('rid', $roleID['rid'], '=')
+              ->distinct()
+              ->fields('og', array('rid'))
+              ->execute();
+    $isReferentMember = $isReferentMember->fetchAssoc();
+    // print_r($isReferentMember);
+    if ($isReferentMember) {
+      // print 'referent';
+      return TRUE;
+    }
+    // print 'referent ?';
+    return FALSE;
+  }
+  return FALSE;
+}
+
+function _emh_circles_check_user_is_adminmember_of_group($uid, $gid) {
+  $result = db_select('og_users_roles', 'og')
+            ->condition('gid', $gid, '=')
+            ->condition('uid', $uid, '=')
+            ->distinct()
+            ->fields('og', array('rid'))
+            ->execute();
+  $userRolesID = $result->fetchAssoc();
+  if ($userRolesID['rid'] >= 3) {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+function _emh_circles_check_user_is_admin_of_group($uid, $gid) {
+  $result = db_select('node', 'n')
+            ->condition('nid', $gid, '=')
+            ->distinct()
+            ->fields('n', array('uid'))
+            ->execute();
+  $node_uid = $result->fetchAssoc();
+  if ($node_uid['uid'] == $uid) {
+    return TRUE;
+  }
+  return FALSE;
 }
