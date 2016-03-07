@@ -6,7 +6,19 @@ Feature: Create
 
     Given "circle" content:
     | title    | author  |
-    | Avengers     | admin   |
+    | Avengers | admin   |
+
+    Given "corporate" content:
+    | title     | author  |
+    | Google    | admin   |
+    | Apple     | admin   |
+    | Facebook  | admin   |
+    | Twitter   | admin   |
+    | Pinterest | admin   |
+    | Viadeo    | admin   |
+    | Linkedin  | admin   |
+    | Tumblr    | admin   |
+    | Amazon    | admin   |
 
     Given "page" content:
     | title    |
@@ -25,6 +37,11 @@ Feature: Create
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
     | référent1 | referent1@emindhub.com | référent | Paul          | Stanley         | 0612345678      | The Starchild     | Avengers     | referent1@emindhub.com | Amazon  | Other | Maintenance |
+
+    # FIXME: Force user profile update for OG role addition
+    Given I am logged in as "référent1"
+    And I click "Edit account"
+    And I press "Save"
 
   Scenario: Create a node
     Given I am logged in as a user with the "administrator" role

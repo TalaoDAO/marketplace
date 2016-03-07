@@ -1,14 +1,14 @@
 @api
-Feature: Create survey and answers
-  In order to test survey creation, and privacy of answers
-  As a business client
-  I want to create a survey, and watch answers
+Feature: Create Survey and answers
+  In order to test Survey creation, and privacy of answers
+  As client, expert and référent
+  I want to create a Survey, and watch answers
 
   Background: Create survey
 
     Given "circle" content:
     | title    | author  |
-    | Avengers | client1 |
+    | Avengers | admin   |
 
     Given "corporate" content:
     | title     | author  |
@@ -20,6 +20,11 @@ Feature: Create survey and answers
     | Viadeo    | admin   |
     | Linkedin  | admin   |
     | Tumblr    | admin   |
+    | Amazon    | admin   |
+
+    Given users:
+    | name    | mail                     | roles    | field_first_name | field_last_name | field_telephone | field_other_areas | og_user_node | field_mail             | field_entreprise  | field_working_status  | field_domaine |
+    | référent1 | referent1@emindhub.com | référent | Paul             | Stanley         | 0612345678      | The Starchild     | Avengers     | referent1@emindhub.com | Amazon  | Other | Maintenance |
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
@@ -30,23 +35,38 @@ Feature: Create survey and answers
     Given I give "client1" 1000 emh points
 
     Given "webform" content:
-    | title        | field_domaine | og_group_ref | field_reward | author  | status |
-    | What about?  | Energy        | Avengers     | 1000         | client1 | 0      |
+    | title        | field_domaine | og_group_ref | field_reward | author  | field_anonymous      | field_show_entreprise | field_use_my_entreprise |
+    | What about?  | Energy        | Avengers     | 1000         | client1 | Display my full name | Display the name      | Display                 |
 
-  Scenario: Survey publication
+    # FIXME: Force user profile update for OG role addition
+    Given I am logged in as "référent1"
+    And I click "Edit account"
+    And I press "Save"
+
     Given I am logged in as "client1"
-    When I go to "/content/what-about"
-    And I click "Edit" in the "tabs_primary" region
-    And I click "Questions"
+    And I click "Edit account"
+    And I press "Save"
+
+    Given I am logged in as "expert1"
+    And I click "Edit account"
+    And I press "Save"
+
+    Given I am logged in as "expert2"
+    And I click "Edit account"
+    And I press "Save"
+
+    # A client publish a survey.
+    Given I am logged in as "client1"
+    When I go to homepage
+    And I click "What about?" in the "What about?" row
+    And I click "Edit" in the "primary tabs" region
+    And I click "Questions" in the "secondary tabs" region
     And I fill in "New question" with "How to become a superhero?"
     And I press "Add"
     And I press "Save your question"
-    And I click "General infos"
-    And I select "Display my full name" from "Your name"
-    And I select "Display the name" from "Your organisation"
-    And I select "Display" from "Your activity"
+    And I click "General infos" in the "secondary tabs" region
     And I press "Publish"
-    Then I should see the success message containing "has been published."
+    Then I should see the success message "Survey What about? has been published."
 
     # An expert responds to the survey.
     Given I am logged in as "expert1"
@@ -55,33 +75,189 @@ Feature: Create survey and answers
     And I fill in "How to become a superhero?" with "Everybody can be, trust me."
     # Draft answer
     And I press "Save Draft"
-    Then I should see "Your answer has been saved as draft."
+    Then I should see the message "Your answer has been saved as draft."
     # Published answer
     When I click "Edit" in the "answer" region
     And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
     And I press "Publish my answer"
     Then I should see "Thank you, your answer has been sent."
 
-    # An expert cannot respond twice to the same survey.
+    # Another expert responds to the survey.
+    Given I am logged in as "expert2"
     When I go to homepage
     And I click "What about?"
-    Then I should not see "Answer the survey"
+    And I fill in "How to become a superhero?" with "You have to read DC comics."
+    # Draft answer
+    And I press "Save Draft"
+    Then I should see the message "Your answer has been saved as draft."
+    # Published answer
+    When I click "Edit" in the "answer" region
+    And I fill in "How to become a superhero?" with "You have to read DC comics of course!"
+    And I press "Publish my answer"
+    Then I should see "Thank you, your answer has been sent."
+
+  Scenario: An author can see its own survey
+    Given I am logged in as "client1"
+    When I go to homepage
+    Then I should see "Avengers" in the "What about?" row
+
+    When I go to "my-requests"
+    Then I should see "What about?"
+    And I should see "1000" in the "What about?" row
+    And I should see "Avengers" in the "What about?" row
+
+  Scenario: An author can edit its own survey
+    Given I am logged in as "client1"
+    When I go to homepage
+    And I click "What about?" in the "What about?" row
+    And I click "Edit" in the "primary tabs" region
+    Then I should see "Edit Survey What about?" in the "title" region
+
+    Given I enter "This is my survey." for "Description"
+    And I press "Save"
+    Then I should see the success message "Survey What about? has been updated."
+
+  Scenario: An author cannot delete its own survey
+    Given I am logged in as "client1"
+    When I go to homepage
+    And I click "What about?" in the "What about?" row
+    And I click "Edit" in the "primary tabs" region
+    Then I should not see "Delete" in the "actions" region
+
+  Scenario: A référent can see the survey
+    Given I am logged in as "référent1"
+    When I go to homepage
+    Then I should see "What about?" in the "What about?" row
+
+  Scenario: A référent can edit a survey
+    Given I am logged in as "référent1"
+    When I go to homepage
+    And I click "What about?" in the "What about?" row
+    And I click "Edit" in the "primary tabs" region
+    Then I should see "Edit Survey What about?" in the "title" region
+
+    Given I enter "This is your survey." for "Description"
+    And I press "Save"
+    Then I should see the success message "Survey What about? has been updated."
+
+  Scenario: A référent cannot delete a survey
+    Given I am logged in as "référent1"
+    When I go to homepage
+    And I click "What about?" in the "What about?" row
+    And I click "Edit" in the "primary tabs" region
+    Then I should not see "Delete" in the "actions" region
+
+  Scenario: A référent cannot respond to a survey
+    Given I am logged in as "référent1"
+    When I go to homepage
+    And I click "What about?" in the "What about?" row
+    #Then I should not see an "Answer" textarea form element
+
+  Scenario: An expert can see its own answer
+    Given I am logged in as "expert2"
+    When I go to homepage
+    And I click "What about?" in the "What about?" row
+    Then I should see "Your answer" in the "answers" region
+    And I should see "You have to read DC comics of course!" in the "answers" region
+
+  Scenario: The author can see the answers
+    Given I am logged in as "client1"
+    When I go to "my-responses"
+    Then I should see "Iron Man"
+    And I should see "Klark Kent"
+
+    When I go to homepage
+    Then I should see "2" in the "What about?" row
+
+    When I click "What about?" in the "What about?" row
+    #Then I should not see an "Answer" textarea form element
+
+    When I click "Answers" in the "primary tabs" region
+    Then I should see "Select best answer(s)"
+    And I should see "Iron Man"
+    And I should see "Everybody can be, trust me, I'm the best we known."
+    And I should see "Klark Kent"
+    And I should see "You have to read DC comics of course!"
+
+    When I click "Everybody can be, trust me, I'm the best we known."
+    Then I should see "How to become a superhero?"
     And I should see "Everybody can be, trust me, I'm the best we known."
 
-    # But he can edit his own answer
-    When I click "Edit" in the "answer" region
+  Scenario: A référent can see the answers
+    Given I am logged in as "référent1"
+    When I go to homepage
+    Then I should see "2" in the "What about?" row
+
+    When I click "What about?" in the "What about?" row
+    #Then I should not see an "Answer" textarea form element
+
+    When I click "Answers" in the "primary tabs" region
+    Then I should not see "Select best answer(s)"
+    And I should see "Iron Man"
+    And I should see "Everybody can be, trust me, I'm the best we known."
+    And I should see "Klark Kent"
+    And I should see "You have to read DC comics of course!"
+
+    When I click "Everybody can be, trust me, I'm the best we known."
+    Then I should see "How to become a superhero?"
+    And I should see "Everybody can be, trust me, I'm the best we known."
+
+  Scenario: Experts cannot see Answers tab
+    Given I am logged in as "expert1"
+    When I go to homepage
+    When I click "What about?" in the "What about?" row
+    Then I should not see the link "Answers" in the "header" region
+
+  Scenario: Another expert cannot see the answer
+    Given I am logged in as "expert1"
+    When I go to homepage
+    And I click "What about?" in the "What about?" row
+    And I should not see "You have to read DC comics of course!" in the "answers" region
+
+  Scenario: The expert cannot respond twice to the same survey
+    Given I am logged in as "expert1"
+    When I go to homepage
+    And I click "What about?" in the "What about?" row
+    Then I should not see "Answer the survey" in the "answers" region
+
+  Scenario: The expert can edit its own answer
+    Given I am logged in as "expert1"
+    When I go to homepage
+    And I click "What about?" in the "What about?" row
+    And I click "Edit" in the "answer" region
     And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we know."
     And I press "Save"
-    Then I should see "Your answer has been updated."
+    Then I should see the success message "Your answer has been updated."
 
-    # The author checks the expert's answer.
+  Scenario: The author cannot edit an answer
     Given I am logged in as "client1"
-    When I go to "/content/what-about"
-    And I click "Answers" in the "title" region
-    Then I should see "Iron Man"
+    When I go to homepage
+    And I click "What about?" in the "What about?" row
+    Then I should not see the link "edit" in the "answers" region
 
-    When I click "Everybody can be, trust me, I'm the best we know."
-    Then I should see "How to become a superhero?"
-    And I should see "Everybody can be, trust me, I'm the best we know."
-    When I click "Back to Answers"
-    Then I should see "Select best answer(s)"
+  Scenario: A référent cannot edit an answer
+    Given I am logged in as "référent1"
+    When I go to homepage
+    And I click "What about?" in the "What about?" row
+    Then I should not see the link "edit" in the "answers" region
+
+  @exclude
+  Scenario: The expert cannot delete its own answer
+    Given I am logged in as "expert2"
+    When I go to homepage
+    And I click "What about?" in the "What about?" row
+    Then I should not see "delete" in the "answers" region
+
+  @exclude
+  Scenario: The author cannot delete an answer
+    Given I am logged in as "client1"
+    When I go to homepage
+    And I click "What about?" in the "What about?" row
+    Then I should not see "delete" in the "answers" region
+
+  @exclude
+  Scenario: A référent cannot delete an answer
+    Given I am logged in as "référent1"
+    When I go to homepage
+    And I click "What about?" in the "What about?" row
+    Then I should not see "delete" in the "answers" region
