@@ -22,8 +22,6 @@ function _emh_circles_check_user_is_referentmember_of_group($uid, $gid) {
             ->execute();
   $roleID = $roleID->fetchAssoc();
   if ($roleID) {
-    // print $roleID['rid'];
-    // print $gid;
     $isReferentMember = db_select('og_users_roles', 'og')
               ->condition('gid', $gid, '=')
               ->condition('uid', $uid, '=')
@@ -32,12 +30,9 @@ function _emh_circles_check_user_is_referentmember_of_group($uid, $gid) {
               ->fields('og', array('rid'))
               ->execute();
     $isReferentMember = $isReferentMember->fetchAssoc();
-    // print_r($isReferentMember);
     if ($isReferentMember) {
-      // print 'referent';
       return TRUE;
     }
-    // print 'referent ?';
     return FALSE;
   }
   return FALSE;
