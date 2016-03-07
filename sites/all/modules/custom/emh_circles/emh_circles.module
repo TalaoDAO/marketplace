@@ -39,15 +39,25 @@ function _emh_circles_check_user_is_referentmember_of_group($uid, $gid) {
 }
 
 function _emh_circles_check_user_is_adminmember_of_group($uid, $gid) {
-  $result = db_select('og_users_roles', 'og')
-            ->condition('gid', $gid, '=')
-            ->condition('uid', $uid, '=')
+  $roleID = db_select('og_role', 'og')
+            ->condition('name', 'administrator member', '=')
             ->distinct()
             ->fields('og', array('rid'))
             ->execute();
-  $userRolesID = $result->fetchAssoc();
-  if ($userRolesID['rid'] >= 3) {
-    return TRUE;
+  $roleID = $roleID->fetchAssoc();
+  if ($roleID) {
+    $isAdminMember = db_select('og_users_roles', 'og')
+              ->condition('gid', $gid, '=')
+              ->condition('uid', $uid, '=')
+              ->condition('rid', $roleID['rid'], '=')
+              ->distinct()
+              ->fields('og', array('rid'))
+              ->execute();
+    $isAdminMember = $isAdminMember->fetchAssoc();
+    if ($isAdminMember) {
+      return TRUE;
+    }
+    return FALSE;
   }
   return FALSE;
 }
