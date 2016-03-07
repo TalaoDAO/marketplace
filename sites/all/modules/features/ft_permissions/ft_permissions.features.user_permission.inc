@@ -55,7 +55,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access all webform results',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
@@ -1885,7 +1884,6 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
@@ -2572,7 +2570,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'privatecomments challenge view all',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'privatecomments',
