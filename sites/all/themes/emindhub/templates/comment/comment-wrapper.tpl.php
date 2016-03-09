@@ -45,6 +45,7 @@
 
   <?php print render($content['comments']); ?>
 
+  <?php if (!emh_access_user_can_see_full_answer($nid)) : ?>
   <?php if (!empty($content['comment_form'])): ?>
     <?php $form = render($content['comment_form']); ?>
     <?php if (!empty($form)): ?>
@@ -53,5 +54,6 @@
         <?php print $form; ?>
       </div>
     <?php endif; ?>
+  <?php endif; ?>
   <?php endif; ?>
 </div>
