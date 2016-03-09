@@ -2570,6 +2570,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'privatecomments challenge view all',
     'roles' => array(
       'administrator' => 'administrator',
+      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'privatecomments',
