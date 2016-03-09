@@ -79,10 +79,13 @@ function emh_points_menu() {
   return $items;
 }
 
-function emh_points_menu_alter(&$items){
-  $items['node/%views_arg/answers']['access callback'] = 'emh_points_request_answers_access';
+/**
+ * Implements hook_menu_alter().
+ */
+function emh_points_menu_alter(&$items) {
+  $items['node/%views_arg/answers']['access callback'] = 'emh_access_user_can_see_full_answer';
   $items['node/%views_arg/answers']['access arguments'] = array(1);
-  $items['node/%views_arg/results']['access callback'] = 'emh_points_request_answers_access';
+  $items['node/%views_arg/results']['access callback'] = 'emh_access_user_can_see_full_answer';
   $items['node/%views_arg/results']['access arguments'] = array(1);
 }
 
@@ -120,30 +123,6 @@ function emh_points_menu_local_tasks_alter(&$data, $router_item, $root_path) {
       }
     }
   }
-}
-
-/**
- * Access callback for the request answers page.
- */
-function emh_points_request_answers_access($nid) {
-  global $user;
-  $account = $user;
-  if (empty($nid)) {
-    $nid = arg(1);
-  }
-  $node = node_load($nid);
-  // Admin, webmasters, etc.
-  switch ($node->type) {
-    case 'question1':
-    case 'challenge':
-      if (user_access('administer comments')) return TRUE;
-      break;
-    case 'webform':
-      if (user_access('access all webform results')) return TRUE;
-      break;
-  }
-  // Node author
-  return($node->uid == $account->uid);
 }
 
 /**
