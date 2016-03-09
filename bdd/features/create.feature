@@ -63,15 +63,15 @@ Feature: Create
 
   Scenario: A référent cannot create a question
     Given I am logged in as "référent1"
-    When I go to "node/add/question"
-    Then I should not have access
+    When I go to "node/add"
+    Then I should not see "Question" in the "content" region
 
   Scenario: A référent cannot create a survey
     Given I am logged in as "référent1"
-    When I go to "node/add/survey"
-    Then I should not have access
+    When I go to "node/add"
+    Then I should not see "Survey" in the "content" region
 
   Scenario: A référent cannot create a challenge
     Given I am logged in as "référent1"
-    When I go to "node/add/challenge"
-    Then I should not have access
+    When I go to "node/add"
+    Then I should not see "Challenge" in the "content" region
