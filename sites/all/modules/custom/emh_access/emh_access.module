@@ -83,7 +83,7 @@ function emh_access_field_access($op, $field, $entity_type, $entity, $account) {
             return TRUE;
             break;
           default:
-            return emh_access_user_can_see_full_answer($entity, $account);
+            return emh_access_user_can_see_full_answer($node->nid, $entity, $account);
             break;
         }
         break;
@@ -92,9 +92,9 @@ function emh_access_field_access($op, $field, $entity_type, $entity, $account) {
         break;
     }
 
-  } else {
-    return TRUE;
   }
+
+  return TRUE;
 
 }
 
@@ -108,51 +108,34 @@ function emh_access_user_can_see_full_user($uid, $uid2) {
   }
   $u1_account = user_load($uid);
   $u2_account = user_load($uid2);
+  $u1_circles = og_get_groups_by_user($u1_account, 'node');
+  $u2_circlesIDs = og_get_groups_by_user($u2_account, 'node');
 
-  if ($uid == $uid2) {
-    // This is my own profile
-    return TRUE;
-  }
+  // This is my own profile
+  if ($uid == $uid2) return TRUE;
 
-  if (user_access('access EMH profiles')) {
-    return TRUE;
-  }
+  if (user_access('access EMH profiles')) return TRUE;
 
   // Organic Groups / EMH Circles
   // User1 is admin/referent of one of User2 circles
   if (module_exists('og') && module_exists('emh_circles')) {
-    $u2_circlesIDs = og_get_groups_by_user($u2_account, 'node');
-    foreach ($u2_circlesIDs as $circleID) {
-      if (_emh_circles_check_user_is_adminmember_of_group($uid, $circleID)) {
-        return TRUE;
-      }
-      if (_emh_circles_check_user_is_admin_of_group($uid, $circleID)) {
-        return TRUE;
-      }
-      if (_emh_circles_check_user_is_referentmember_of_group($uid, $circleID)) {
-        return TRUE;
-      }
-    }
+    if (_emh_circles_check_user_is_adminmember_of_groups($uid, $u2_circlesIDs)) return TRUE;
+    if (_emh_circles_check_user_is_admin_of_groups($uid, $u2_circlesIDs)) return TRUE;
+    if (_emh_circles_check_user_is_referentmember_of_groups($uid, $u2_circlesIDs)) return TRUE;
   }
 
   // Organic Groups
   // User1 & User2 belong to the same circle (except 'All experts')
   if (module_exists('og')) {
-    $u1_circles = og_get_groups_by_user($u1_account, 'node');
-    $u2_circlesIDs = og_get_groups_by_user($u2_account, 'node');
     unset( $u1_circles[ '314' ] ); // TODO: manage this differently!
     unset( $u2_circlesIDs[ '314' ] );
-    if (array_intersect($u1_circles, $u2_circlesIDs)) {
-      return TRUE;
-    }
+    if (array_intersect($u1_circles, $u2_circlesIDs)) return TRUE;
   }
 
   // Flags
   if (module_exists('flag')) {
     $flag = flag_get_flag('my_contacts');
-    if ($flag && $flag->is_flagged($uid2, $uid)) {
-      return TRUE;
-    }
+    if ($flag && $flag->is_flagged($uid2, $uid)) return TRUE;
   }
 
   // EMH Virality
@@ -194,44 +177,32 @@ function emh_access_user_can_see_full_user($uid, $uid2) {
 /**
  * Access control : Does a user have access to another user answer?
  */
-function emh_access_user_can_see_full_answer($entity, $account = NULL) {
+function emh_access_user_can_see_full_answer($nid, $entity = NULL, $account = NULL) {
+  $node = node_load($nid);
   if (empty($account)) {
     global $user;
     $account = $user;
   }
-  if (empty($uid)) {
-    global $user;
-    $uid = $user->uid;
-  }
-  $uid = $user->uid;
 
-  $node = node_load($entity->nid);
-
-  if (user_access('access EMH answers')) {
-    return TRUE;
-  }
+  if (user_access('access EMH answers')) return TRUE;
 
   // Node author and answer author have every right.
-  if ($entity->uid == $account->uid || $node->uid == $account->uid) {
-    return TRUE;
-  }
+  if ($node->uid == $account->uid) return TRUE;
+  if (!empty($entity) && ($entity->uid == $account->uid)) return TRUE;
+
+  if (user_access('administer comments')) return TRUE;
+  if (user_access('access all webform results')) return TRUE;
 
   // Organic Groups / EMH Circles
   // User1 is admin/referent of node's circle
-  if (module_exists('og') && module_exists('emh_circles')) {
-    $circlesID = $node->og_group_ref[LANGUAGE_NONE]['0'];
-    if (!empty($circlesID)) {
-      foreach ($circlesID as $circleID) {
-        if (_emh_circles_check_user_is_adminmember_of_group($uid, $circleID)) {
-          return TRUE;
-        }
-        if (_emh_circles_check_user_is_admin_of_group($uid, $circleID)) {
-          return TRUE;
-        }
-        if (_emh_circles_check_user_is_referentmember_of_group($uid, $circleID)) {
-          return TRUE;
-        }
-      }
+  // TODO: add custom permissions for OG and Comments
+  $circleIDs = $node->og_group_ref[LANGUAGE_NONE]['0'];
+  if (!empty($circleIDs)) {
+    if (_emh_circles_check_user_is_adminmember_of_groups($account->uid, $circleIDs)) return TRUE;
+    if (_emh_circles_check_user_is_admin_of_groups($account->uid, $circleIDs)) return TRUE;
+    if (_emh_circles_check_user_is_referentmember_of_groups($account->uid, $circleIDs)) return TRUE;
+    foreach ($circleIDs as $gid) {
+      if (og_user_access('node', $gid, 'access all webform results')) return TRUE;
     }
   }
 
@@ -251,39 +222,25 @@ function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
     $node = node_load($nid);
   }
 
-  if (user_access('access EMH requests')) {
-    return TRUE;
-  }
+  if (user_access('access EMH requests')) return TRUE;
 
-  // Node author and answer author have every right.
-  if ($node->uid == $account->uid) {
-    return TRUE;
-  }
+  // Node author have every right.
+  if ($node->uid == $account->uid) return TRUE;
 
   // Organic Groups / EMH Circles
   // User1 is admin/referent of node's circle
   if (module_exists('og') && module_exists('emh_circles')) {
-    $circlesID = $node->og_group_ref[LANGUAGE_NONE]['0'];
-    if (!empty($circlesID)) {
-      foreach ($circlesID as $circleID) {
-        if (_emh_circles_check_user_is_adminmember_of_group($uid, $circleID)) {
-          return TRUE;
-        }
-        if (_emh_circles_check_user_is_admin_of_group($uid, $circleID)) {
-          return TRUE;
-        }
-        if (_emh_circles_check_user_is_referentmember_of_group($uid, $circleID)) {
-          return TRUE;
-        }
-      }
+    $circleIDs = $node->og_group_ref[LANGUAGE_NONE]['0'];
+    if (!empty($circleIDs)) {
+      if (_emh_circles_check_user_is_adminmember_of_groups($account->uid, $circleIDs)) return TRUE;
+      if (_emh_circles_check_user_is_admin_of_groups($account->uid, $circleIDs)) return TRUE;
+      if (_emh_circles_check_user_is_referentmember_of_groups($account->uid, $circleIDs)) return TRUE;
     }
   }
 
   if (module_exists('emh_pcp_special')) {
     $userPercent = emh_pcp_special_get_complete_percentage_data('user', 'user', $account);
-    if ($userPercent['current_percent'] == '100') {
-      return TRUE;
-    }
+    if ($userPercent['current_percent'] == '100') return TRUE;
   }
 
   return FALSE;
@@ -330,24 +287,17 @@ function emh_access_author_company($node) {
  * Access callback for request full access.
  */
 function _emh_access_full_access($nid, $account = NULL) {
-  global $user;
-  $account = $user;
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
   if (empty($nid)) {
     $nid = arg(1);
   }
-  $node = node_load($nid);
-  // Admin, webmasters, etc.
-  switch ($node->type) {
-    case 'question1':
-    case 'challenge':
-      if (user_access('administer comments')) return TRUE;
-      break;
-    case 'webform':
-      if (user_access('delete all webform submissions')) return TRUE;
-      break;
-    default:
-      return FALSE;
-      break;
-  }
+
+  if (user_access('access EMH requests')) return TRUE;
+  if (user_access('access EMH answers')) return TRUE;
+  if (user_access('access EMH profiles')) return TRUE;
+
   return FALSE;
 }
