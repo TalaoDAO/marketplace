@@ -55,6 +55,15 @@ Feature: Create Question and answers
     And I click "Edit account"
     And I press "Save"
 
+    # Make référent1 as a Referent member of Avengers circle
+    Given I am logged in as the admin
+    When I go to "content/avengers"
+    And I click "Group"
+    And I click "People"
+    And I click "edit" in the "référent1" row
+    And I check the box "Referent member"
+    And I press "Update membership"
+
     # An expert responds publicly to a question
     Given I am logged in as "expert1"
     When I go to homepage

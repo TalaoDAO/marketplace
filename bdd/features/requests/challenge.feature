@@ -55,9 +55,18 @@ Feature: Create Challenge and answers
     And I click "Edit account"
     And I press "Save"
 
+    # Make référent1 as a Referent member of Avengers circle
+    Given I am logged in as the admin
+    When I go to "content/avengers"
+    And I click "Group"
+    And I click "People"
+    And I click "edit" in the "référent1" row
+    And I check the box "Referent member"
+    And I press "Update membership"
+
     # An expert can respond to the challenge
     Given I am logged in as "expert2"
-    When I go to homepage
+    And I am on the homepage
     Then I should see "What about?"
 
     When I click "What about?" in the "What about?" row
@@ -67,7 +76,7 @@ Feature: Create Challenge and answers
 
   Scenario: An author can see its own challenge
     Given I am logged in as "client1"
-    When I go to homepage
+    And I am on the homepage
     Then I should see "Avengers" in the "What about?" row
 
     When I go to "my-requests"
@@ -77,8 +86,8 @@ Feature: Create Challenge and answers
 
   Scenario: An author can edit its own challenge
     Given I am logged in as "client1"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
+    And I am on the homepage
+    When I click "What about?" in the "What about?" row
     And I click "Edit" in the "primary tabs" region
     Then I should see "Edit Challenge What about?" in the "title" region
 
@@ -88,20 +97,19 @@ Feature: Create Challenge and answers
 
   Scenario: An author cannot delete its own challenge
     Given I am logged in as "client1"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
+    And I am on the homepage
+    When I click "What about?" in the "What about?" row
     And I click "Edit" in the "primary tabs" region
     Then I should not see "Delete" in the "actions" region
 
   Scenario: A référent can see the challenge
     Given I am logged in as "référent1"
-    When I go to homepage
+    And I am on the homepage
     Then I should see "What about?" in the "What about?" row
 
   Scenario: A référent can edit the challenge
     Given I am logged in as "référent1"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
+    When I go to "content/what-about"
     And I click "Edit" in the "primary tabs" region
     Then I should see "Edit Challenge What about?" in the "title" region
 
@@ -111,23 +119,19 @@ Feature: Create Challenge and answers
 
   Scenario: A référent cannot delete the challenge
     Given I am logged in as "référent1"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
+    When I go to "content/what-about"
     And I click "Edit" in the "primary tabs" region
     Then I should not see "Delete" in the "actions" region
 
   Scenario: A référent cannot respond to the challenge
     Given I am logged in as "référent1"
-    When I go to homepage
-    Then I should see "What about?"
-
-    When I click "What about?" in the "What about?" row
+    When I go to "content/what-about"
     #Then I should not see an "Answer" textarea form element
 
   Scenario: An expert can see its own answer
     Given I am logged in as "expert2"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
+    And I am on the homepage
+    When I click "What about?" in the "What about?" row
     Then I should see "Answers"
     And I should see "Klark Kent"
     And I should see "The truth is elsewhere."
@@ -138,7 +142,7 @@ Feature: Create Challenge and answers
     Then I should see "Klark Kent"
     And I should see "The truth is elsewhere." in the "Klark Kent" row
 
-    When I go to homepage
+    When I go to the homepage
     Then I should see "1" in the "What about?" row
 
     When I click "What about?" in the "What about?" row
@@ -149,8 +153,7 @@ Feature: Create Challenge and answers
 
   Scenario: A référent can see the answer
     Given I am logged in as "référent1"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
+    When I go to "content/what-about"
     #Then I should not see an "Answer" textarea form element
     And I should see "Answers"
     And I should see "Klark Kent"
@@ -158,21 +161,21 @@ Feature: Create Challenge and answers
 
   Scenario: Experts cannot see Answers tab
     Given I am logged in as "expert1"
-    When I go to homepage
+    And I am on the homepage
     When I click "What about?" in the "What about?" row
     Then I should not see the link "Answers" in the "header" region
 
   Scenario: Another expert cannot see the answer
     Given I am logged in as "expert1"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
+    And I am on the homepage
+    When I click "What about?" in the "What about?" row
     Then I should not see "Klark Kent"
     And I should not see "The truth is elsewhere."
 
   Scenario: The expert can edit its own answer
     Given I am logged in as "expert2"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
+    And I am on the homepage
+    When I click "What about?" in the "What about?" row
     And I click "edit" in the "answers" region
     And I enter "The truth is here." for "Answer"
     And I press "Publish"
@@ -180,30 +183,28 @@ Feature: Create Challenge and answers
 
   Scenario: The author cannot edit an answer
     Given I am logged in as "client1"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
+    And I am on the homepage
+    When I click "What about?" in the "What about?" row
     Then I should not see the link "edit" in the "answers" region
 
   Scenario: A référent cannot edit an answer
     Given I am logged in as "référent1"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
+    When I go to "content/what-about"
     Then I should not see the link "edit" in the "answers" region
 
   Scenario: The expert cannot delete its own answer
     Given I am logged in as "expert2"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
+    And I am on the homepage
+    When I click "What about?" in the "What about?" row
     Then I should not see "delete" in the "answers" region
 
   Scenario: The author cannot delete an answer
     Given I am logged in as "client1"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
+    And I am on the homepage
+    When I click "What about?" in the "What about?" row
     Then I should not see "delete" in the "answers" region
 
   Scenario: A référent cannot delete an answer
     Given I am logged in as "référent1"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
+    When I go to "content/what-about"
     Then I should not see "delete" in the "answers" region

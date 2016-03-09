@@ -55,6 +55,15 @@ Feature: Create Survey and answers
     And I click "Edit account"
     And I press "Save"
 
+    # Make référent1 as a Referent member of Avengers circle
+    Given I am logged in as the admin
+    When I go to "content/avengers"
+    And I click "Group"
+    And I click "People"
+    And I click "edit" in the "référent1" row
+    And I check the box "Referent member"
+    And I press "Update membership"
+
     # A client publish a survey.
     Given I am logged in as "client1"
     When I go to homepage
@@ -71,7 +80,7 @@ Feature: Create Survey and answers
     # An expert responds to the survey.
     Given I am logged in as "expert1"
     When I go to homepage
-    And I click "What about?"
+    And I click "What about?" in the "What about?" row
     And I fill in "How to become a superhero?" with "Everybody can be, trust me."
     # Draft answer
     And I press "Save Draft"
@@ -85,7 +94,7 @@ Feature: Create Survey and answers
     # Another expert responds to the survey.
     Given I am logged in as "expert2"
     When I go to homepage
-    And I click "What about?"
+    And I click "What about?" in the "What about?" row
     And I fill in "How to become a superhero?" with "You have to read DC comics."
     # Draft answer
     And I press "Save Draft"

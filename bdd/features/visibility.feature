@@ -8,8 +8,8 @@ Feature: Test og visibility
 
     Given "circle" content:
     | title    | author  |
-    | Avengers | client1 |
-    | X-Men    | client2 |
+    | Avengers | admin   |
+    | X-Men    | admin   |
 
     Given "corporate" content:
     | title     | author  |
@@ -90,11 +90,27 @@ Feature: Test og visibility
     And I click "Edit account"
     And I press "Save"
 
-  #@exclude
+    # Make référent1 as a Referent member of Avengers circle
+    Given I am logged in as the admin
+    When I go to "content/avengers"
+    And I click "Group"
+    And I click "People"
+    And I click "edit" in the "référent1" row
+    And I check the box "Referent member"
+    And I press "Update membership"
+
   Scenario: Webmaster can see the requests
     Given I am logged in as a user with the "webmaster" role
     When I go to homepage
     Then I should see "Fight Magneto"
+    And I should see "Fight Ultron"
+    And I should see "Fight Hydra"
+    And I should see "Fight Thanos"
+
+  Scenario: Referents can see the requests
+    Given I am logged in as "référent1"
+    When I go to homepage
+    Then I should not see "Fight Magneto"
     And I should see "Fight Ultron"
     And I should see "Fight Hydra"
     And I should see "Fight Thanos"
@@ -167,14 +183,8 @@ Feature: Test og visibility
     Then I should see the success message containing "You have now access to client requests."
     And I should see "Answer the question"
 
-  Scenario: A client can only see selected experts full profiles
+  Scenario: A client can only see selected experts full profiles from its circles
     Given I am logged in as "client2"
-
-    When I go to "/users/expert4"
-    Then I should see "Scott Summers"
-    And I should see "Bucheron"
-    And I should see "0712345673"
-    And I should see "expert4@emindhub.com"
 
     When I go to "/users/expert2"
     Then I should see "Klark Kent"
@@ -188,14 +198,14 @@ Feature: Test og visibility
     And I should not see "0712345672"
     And I should not see "expert3@emindhub.com"
 
-  Scenario: A référent can see full experts profiles
-    Given I am logged in as "référent1"
-
     When I go to "/users/expert4"
     Then I should see "Scott Summers"
     And I should see "Bucheron"
     And I should see "0712345673"
     And I should see "expert4@emindhub.com"
+
+  Scenario: A référent can only see full experts profiles from its circles
+    Given I am logged in as "référent1"
 
     When I go to "/users/expert2"
     Then I should see "Klark Kent"
@@ -208,3 +218,9 @@ Feature: Test og visibility
     And I should see "Cogneur"
     And I should see "0712345672"
     And I should see "expert3@emindhub.com"
+
+    When I go to "/users/expert4"
+    Then I should see "Scott Summers"
+    And I should not see "Bucheron"
+    And I should not see "0712345673"
+    And I should not see "expert4@emindhub.com"
