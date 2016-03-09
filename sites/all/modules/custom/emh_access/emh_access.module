@@ -42,7 +42,7 @@ function emh_access_field_access($op, $field, $entity_type, $entity, $account) {
     }
     if ($account->uid == $entity->uid) return TRUE;
     if (empty($node)) {
-      $nid = arg(1)
+      $nid = arg(1);
       if (arg(0) == 'node' && !empty($nid)) $node = node_load($nid);
     }
 
