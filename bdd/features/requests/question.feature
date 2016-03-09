@@ -56,7 +56,7 @@ Feature: Create Question and answers
     And I press "Save"
 
     # Make référent1 as a Referent member of Avengers circle
-    Given I am logged in as the admin
+    Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
     And I click "Group"
     And I click "People"

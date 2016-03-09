@@ -7,5 +7,5 @@ Feature: Basic
     Then I should see "eMindHub"
 
   Scenario: Log in
-    Given I am logged in as the admin
+    Given I am logged in as a user with the "administrator" role
     Then I should see text matching "Hello admin"
