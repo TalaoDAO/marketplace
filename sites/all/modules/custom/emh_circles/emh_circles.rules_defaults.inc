@@ -61,37 +61,6 @@ function emh_circles_default_rules_configuration() {
   }
   ');
 
-  $rules['rules_emh_circles_set_referents_as_referent_in_circles'] = entity_import('rules_config', '
-    { "rules_emh_circles_set_referents_as_referent_in_circles" : {
-    "LABEL" : "Circles - Set Referent as Referent member",
-    "PLUGIN" : "reaction rule",
-    "WEIGHT" : "1",
-    "OWNER" : "rules",
-    "TAGS" : [ "Circles", "EMH" ],
-    "REQUIRES" : [ "rules", "og" ],
-    "ON" : { "user_update" : [] },
-    "IF" : [
-      { "user_has_role" : { "account" : [ "account" ], "roles" : { "value" : { "7" : "7" } } } }
-    ],
-    "DO" : [
-      { "LOOP" : {
-          "USING" : { "list" : [ "account:og-user-node" ] },
-          "ITEM" : { "list_item" : "Current list item" },
-          "DO" : [
-            { "og_grant_og_role" : {
-                "account" : [ "account" ],
-                "group" : [ "list-item" ],
-                "roles" : { "value" : { "Referent member" : "Referent member" } }
-              }
-            }
-          ]
-        }
-      }
-    ]
-  }
-  }
-  ');
-
   $rules['rules_emh_circles_add_users_in_all_experts_circle'] = entity_import('rules_config', '
     { "rules_emh_circles_add_users_in_all_experts_circle" : {
     "LABEL" : "Circles - Set all users as Member of All experts",
