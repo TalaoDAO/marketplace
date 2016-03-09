@@ -14165,9 +14165,6 @@ a.flag .badge {
   background-color: transparent;
   border: 0;
 }
-#comments {
-  padding-bottom: 0;
-}
 #comments .comment .content > div {
   padding: 15px 0;
 }
@@ -14191,6 +14188,7 @@ a.flag .badge {
 #comments .list-inline {
   margin-left: 0;
   margin-bottom: 0;
+  text-align: right;
 }
 #comments .list-inline .comment-edit a {
   color: #ffffff;
