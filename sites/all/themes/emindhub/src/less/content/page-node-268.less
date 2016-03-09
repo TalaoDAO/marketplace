@@ -3,7 +3,9 @@
   .node {
     .content {
       #services-top {
+        .make-row();
         margin-top: 15px;
+        background: transparent url("../images/content/node/268/our-services_blue-circle.png") no-repeat center center;
         ul {
           list-style: none;
           padding: 0;
@@ -14,7 +16,23 @@
       #services-experts h3 {
         .text-uppercase;
       }
+      #services-clients {
+        .make-sm-column(4);
+        .make-md-column(5);
+        &:after {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          content: "";
+          display: block;
+          border-radius: 100%;
+          background: transparent url("../images/content/node/268/our-services_clients-circle.png") no-repeat center center;
+          background-size: contain;
+        }
+      }
       #services-benefits {
+        .make-sm-column(4);
+        .make-md-column(2);
         .text-center;
         font-weight: bold;
         font-size: 17px;
@@ -22,28 +40,110 @@
         word-wrap: break-word;
       }
       #services-experts {
+        .make-sm-column(4);
+        .make-md-column(5);
         .text-right;
+        &:before {
+          position: absolute;
+          top: 0;
+          left: 0;
+          content: "";
+          display: block;
+          border-radius: 100%;
+          background: transparent url("../images/content/node/268/our-services_experts-circle.png") no-repeat center center;
+          background-size: contain;
+        }
+      }
+      #services-bottom {
+        .make-row();
       }
       #services-question,
       #services-challenge,
       #services-survey {
+        .make-sm-column(4);
         .text-center;
-        background-color: @softGrey;
-        padding: 15px;
-        margin: 15px 15px 0;
-        h3 {
-          .text-uppercase;
-          margin-top: 0;
+        margin-top: 15px;
+        .content {
+          background-color: @softGrey;
+          background-repeat: no-repeat;
+          background-position: center 5%;
+          padding: 150px 15px 15px;
+          h3 {
+            .text-uppercase;
+            margin-top: 0;
+          }
+        }
+      }
+      #services-question {
+        .content {
+          background-image: url("../images/askQuestion.png");
+        }
+      }
+      #services-challenge {
+        .content {
+          background-image: url("../images/launchChallenge.png");
+        }
+      }
+      #services-survey {
+        .content {
+          background-image: url("../images/findExpert.png");
         }
       }
     }
   }
 }
-@media (min-width: @screen-sm-min) {
+@media (max-width: @screen-xs-max) {
+  .page-node-268 {
+    .node {
+      .content {
+        #services-clients {
+          background: transparent url("../images/content/node/268/our-services_clients-circle.png") no-repeat bottom center;
+          padding-bottom: 240px;
+          .text-center;
+        }
+        #services-experts {
+          background: transparent url("../images/content/node/268/our-services_experts-circle.png") no-repeat top center;
+          padding-top: 240px;
+          .text-center;
+        }
+      }
+    }
+  }
+}
+@media (min-width: @screen-xs-max) {
+  .page-node-268 {
+    .node {
+      .content {
+        #services-top {
+          background-size: contain;
+        }
+        #services-clients {
+          &:after {
+            width: 150px;
+            height: 150px;
+          }
+          padding-bottom: 150px;
+        }
+        #services-experts {
+          padding-top: 150px;
+          &:before {
+            width: 150px;
+            height: 150px;
+          }
+        }
+        #services-benefits {
+          padding: 50px 0 0;
+        }
+      }
+    }
+  }
+}
+@media (min-width: @screen-md-min) {
 	.page-node-268 {
     .node {
       .content {
-        .row {
+        #services-top,
+        #services-bottom {
           padding-bottom: 15px;
         }
         #services-top,
@@ -51,21 +151,11 @@
         #services-experts {
           min-height: 230px;
         }
-        #services-top {
-          background: transparent url("../images/content/node/268/our-services_blue-circle.png") no-repeat center center;
-        }
         #services-clients {
           padding-bottom: 230px;
           &:after {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            content: "";
-            display: block;
-            width: 250px;
-            height: 250px;
-            border-radius: 100%;
-            background: #fff url("../images/content/node/268/our-services_clients-circle.png") no-repeat center center;
+            width: 240px;
+            height: 240px;
           }
         }
         #services-benefits {
@@ -75,40 +165,9 @@
           padding-top: 230px;
           &:before {
             position: absolute;
-            top: 0;
-            left: 0;
-            content: "";
-            display: block;
-            width: 250px;
-            height: 250px;
-            border-radius: 100%;
-            background: #fff url("../images/content/node/268/our-services_experts-circle.png") no-repeat center center;
+            width: 240px;
+            height: 240px;
           }
-        }
-
-        #services-question,
-        #services-challenge,
-        #services-survey {
-          background-repeat: no-repeat;
-          background-position: 65% 5%;
-          padding: 10em 15px 15px;
-          margin-top: 15px;
-          width: 30.75%;
-        }
-    		#services-question {
-          background-image: url("../images/askQuestion.png");
-          margin-left: 15px;
-          margin-right: 7.5px;
-        }
-    		#services-challenge {
-          background-image: url("../images/launchChallenge.png");
-          margin-left: 7.5px;
-          margin-right: 7.5px;
-        }
-    		#services-survey {
-          background-image: url("../images/findExpert.png");
-          margin-left: 7.5px;
-          margin-right: 15px;
         }
       }
     }
