@@ -172,3 +172,10 @@ function emh_configuration_update_7010() {
     $rules_config->delete();
   }
 }
+
+/**
+ * HybridAuth : change emails duplicate option.
+ */
+function emh_configuration_update_7011() {
+  variable_set('hybridauth_duplicate_emails', '2');
+}
