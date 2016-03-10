@@ -192,7 +192,6 @@ Feature: Create Question and answers
     And I should see "Iron Man"
     And I should see "I'm the best superhero in da world."
 
-  @exclude
   Scenario: The expert can edit its own public answer
     Given I am logged in as "expert1"
     When I go to homepage
@@ -240,7 +239,6 @@ Feature: Create Question and answers
     And I click "What about?" in the "What about?" row
     Then I should not see the link "Delete" in the "answers" region
 
-  @exclude
   Scenario: An other expert cannot delete a public answer
     Given I am logged in as "expert2"
     When I go to homepage
@@ -287,7 +285,6 @@ Feature: Create Question and answers
     And I should not see "Klark Kent"
     And I should not see "The truth is elsewhere."
 
-  @exclude
   Scenario: The expert can edit its own private answer
     Given I am logged in as "expert2"
     When I go to homepage
