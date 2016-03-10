@@ -17,10 +17,10 @@ function emh_user_enable() {
  */
 function emh_user_update_7001() {
   db_update('system')
-  ->fields(array('weight' => 1))
-  ->condition('type', 'module')
-  ->condition('name', 'emh_user')
-  ->execute();
+    ->fields(array('weight' => 1))
+    ->condition('type', 'module')
+    ->condition('name', 'emh_user')
+    ->execute();
 }
 
 /**
@@ -47,18 +47,29 @@ function emh_user_update_7003() {
  */
 function emh_user_update_7004() {
   module_enable(array('roleswitcher'));
+
   $module = 'roleswitcher';
   $delta = 'switcher';
+  db_delete('block_role')
+    ->condition('module', $module, '=')
+    ->condition('delta', $delta, '=')
+    ->execute();
+  db_update('block')
+    ->condition('module', $module, '=')
+    ->condition('delta', $delta, '=')
+    ->fields(array('region' => 'burgermenu', 'weight' => '-100', 'status' => '1'))
+    ->execute();
+
   $roles = array(
     'administrator',
     'webmaster',
     'roleswitcher',
   );
   foreach ($roles as $role ) {
-    $role = user_role_load_by_name($role);
-    $query = db_insert('block_role')
-            ->fields(array('rid', 'module', 'delta'))
-            ->values(array('rid' => $role->rid, 'module'=> $module, 'delta' => $delta))
-            ->execute();
+    $rid = user_role_load_by_name($role)->rid;
+    db_insert('block_role')
+      ->fields(array('rid', 'module', 'delta'))
+      ->values(array('rid' => $rid, 'module' => $module, 'delta' => $delta))
+      ->execute();
   }
 }
