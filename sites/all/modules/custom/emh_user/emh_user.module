@@ -140,3 +140,67 @@ function emh_user_get_beautiful_profile_link($uid) {
   }
 
 }
+
+/**
+ * Implements hook_block_view_MODULE_DELTA_alter().
+ */
+function emh_user_block_view_roleswitcher_switcher_alter(&$data, $block) {
+  $data['content']['#theme'] = emh_user_roleswitcher_list;
+  $data['content']['#roles'] = emh_user_roleswitcher_roles();
+}
+
+function emh_user_roleswitcher_roles() {
+  $roles = array(
+    'expert',
+    'business',
+  );
+  $allowed_roles = array();
+  foreach ($roles as $role) {
+    $rid = user_role_load_by_name($role)->rid;
+    $name = user_role_load_by_name($role)->name;
+    $allowed_roles[$rid] = $name;
+  }
+  global $user;
+  $user_roles = $user->roles;
+  // We unset current roles matching with allowed ones in order to propose only the other ones
+  foreach ($user_roles as $user_role) {
+    $rid = user_role_load_by_name($user_role)->rid;
+    unset($allowed_roles[$rid]);
+  }
+  return $allowed_roles;
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function emh_user_theme() {
+  return array(
+    'emh_user_roleswitcher_list' => array(
+      'variables' => array('roles' => array(), 'attributes' => array()),
+    )
+  );
+}
+
+/**
+ * Theme function for roles list.
+ */
+function theme_emh_user_roleswitcher_list($variables) {
+  $output = "<ul>";
+  $options = $variables['attributes'];
+  foreach ($variables['roles'] as $rid => $name) {
+    $options['attributes']['class'] = array('btn', 'btn-' . $name);
+    if ($name != 'roleswitcher') {
+      if ($name == 'expert') {
+        $output .= "<li>" . l(t('I want to answer requests and earn points'), "roleswitcher/$rid", $options) . "</li>";
+      }
+      else if ($name == 'business') {
+        $output .= "<li>" . l(t('I want to create a request and find an expert'), "roleswitcher/$rid", $options) . "</li>";
+      } else {
+        $output .= "<li>" . l($name, "roleswitcher/$rid", $options) . "</li>";
+      }
+    }
+  }
+  $output .= "</ul>";
+  return $output;
+}
