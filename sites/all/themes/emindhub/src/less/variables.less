@@ -25,21 +25,33 @@
 
 @circleLightBlue:        #bfe7f8;
 @darkBlue:               #445766;
-@lightYellow:            #f9f4ea;
-@mediumYellow:           #e39000;
-@expertYellow:           #c89234;
-@emerald:                #1abc9c;
-@emerald-light:          #53cdb5;
+
+@lightYellow:            @golden-light;
+@mediumYellow:           @golden-dark;
+@expertYellow:           @golden-base;
+// @golden-base:            #c89234;
+@golden-base:            #e39000;
+@golden-darker:          darken(@golden-base, 20%);
+@golden-dark:            darken(@golden-base, 13.5%);
+@golden-light:           lighten(@golden-base, 46.7%);
+@golden-lighter:         lighten(@golden-base, 93.5%);
+
+@emerald:                @emerald-base;
+@emerald-base:           #1abc9c;
+@emerald-darker:         darken(@emerald-base, 20%);
+@emerald-dark:           darken(@emerald-base, 13.5%);
+@emerald-light:          lighten(@emerald-base, 46.7%);
+@emerald-lighter:        lighten(@emerald-base, 93.5%);
 
 @deepBlue:               #104476;
 @middleBlue:             #15538c;
 
 @darkerBlue:             #4C6172;
 
-@asphalt-base:           #11161a;
-@asphalt-darker:         lighten(@asphalt-base, 13.5%);
-@asphalt-dark:           lighten(@asphalt-base, 20%);
-@asphalt:                lighten(@asphalt-base, 33.5%);
+@asphalt:                @asphalt-base;
+@asphalt-base:           #33374a;
+@asphalt-darker:         darken(@asphalt-base, 20%);
+@asphalt-dark:           darken(@asphalt-base, 13.5%);
 @asphalt-light:          lighten(@asphalt-base, 46.7%);
 @asphalt-lighter:        lighten(@asphalt-base, 93.5%);
 

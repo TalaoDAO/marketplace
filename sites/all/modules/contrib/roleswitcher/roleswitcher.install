@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * @file
+ * Role Switcher module install/schema/update hooks.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function roleswitcher_install() {
+  // Create a role switcher role for testing purposes. Grant permission to administer permissions so the former role can be switched back any time.
+  $existing_role = user_role_load_by_name('roleswitcher');
+  if (!isset($existing_role->rid)) {
+    $switcher_role = new stdClass();
+    $switcher_role->name = 'roleswitcher';
+    user_role_save($switcher_role);
+  }
+  user_role_grant_permissions($switcher_role->rid, array('administer permissions'));
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function roleswitcher_uninstall() {
+  user_role_delete('roleswitcher');
+  variable_del('roleswitcher_store_mode');
+}
+
+/**
+ * Implements hook_disable().
+ */
+function roleswitcher_disable() {
+  menu_rebuild();
+}
+
+/**
+ * Add store mode variable.
+ */
+function roleswitcher_update_7101() {
+  if (!variable_get('roleswitcher_store_mode', NULL)) {
+    variable_set('roleswitcher_store_mode', 'database');
+  }
+}
