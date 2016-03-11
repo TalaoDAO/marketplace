@@ -716,16 +716,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'page_manager',
   );
 
-  // Exported permission: 'administer permissions'.
-  $permissions['administer permissions'] = array(
-    'name' => 'administer permissions',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'user',
-  );
-
   // Exported permission: 'administer privatecomments forms'.
   $permissions['administer privatecomments forms'] = array(
     'name' => 'administer privatecomments forms',
