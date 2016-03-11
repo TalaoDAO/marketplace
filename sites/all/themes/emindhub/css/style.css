@@ -13583,6 +13583,9 @@ header#title {
   content: "Log in with LinkedIn";
   margin-left: 10px;
 }
+body.lang-fr .popover .hybridauth-widget-wrapper ul a[data-hybridauth-provider="LinkedIn"]:after {
+  content: "Connectez-vous avec LinkedIn";
+}
 /* HEADER
  * User manu
  */

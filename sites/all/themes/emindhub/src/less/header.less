@@ -123,7 +123,6 @@ header#title {
 	display: inline-block;
 }
 .popover {
-
 	&.signUp {
 		h4 {
 			.text-uppercase;
@@ -172,9 +171,20 @@ header#title {
 			}
 		}
 	}
-
-	.login-links {
-		// margin-top: 15px;
+}
+body.lang-fr {
+	.popover {
+		.hybridauth-widget-wrapper {
+			ul {
+				a {
+					&[data-hybridauth-provider="LinkedIn"] {
+						&:after {
+							content: "Connectez-vous avec LinkedIn";
+						}
+					}
+				}
+			}
+		}
 	}
 }
 
