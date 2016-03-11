@@ -17,10 +17,10 @@ function emh_user_enable() {
  */
 function emh_user_update_7001() {
   db_update('system')
-  ->fields(array('weight' => 1))
-  ->condition('type', 'module')
-  ->condition('name', 'emh_user')
-  ->execute();
+    ->fields(array('weight' => 1))
+    ->condition('type', 'module')
+    ->condition('name', 'emh_user')
+    ->execute();
 }
 
 /**
@@ -39,5 +39,42 @@ function emh_user_update_7002() {
 function emh_user_update_7003() {
   if ($rules_config = rules_config_load('rules_emh_user_activation_login_logout_hp_redirect')) {
     $rules_config->delete();
+  }
+}
+
+/**
+ * Install module : RoleSwitcher.
+ */
+function emh_user_update_7004() {
+  module_enable(array('roleswitcher'));
+}
+
+/**
+ * Parameters for RoleSwitcher block.
+ */
+function emh_user_update_7005() {
+  $module = 'roleswitcher';
+  $delta = 'switcher';
+  db_delete('block_role')
+    ->condition('module', $module)
+    ->condition('delta', $delta)
+    ->execute();
+  db_update('block')
+    ->condition('module', $module)
+    ->condition('delta', $delta)
+    ->fields(array('region' => 'topmenu', 'weight' => '100', 'status' => '1', 'title' => '<none>'))
+    ->execute();
+
+  $roles = array(
+    'administrator',
+    'webmaster',
+    'roleswitcher',
+  );
+  foreach ($roles as $role ) {
+    $rid = user_role_load_by_name($role)->rid;
+    db_insert('block_role')
+      ->fields(array('rid', 'module', 'delta'))
+      ->values(array('rid' => $rid, 'module' => $module, 'delta' => $delta))
+      ->execute();
   }
 }

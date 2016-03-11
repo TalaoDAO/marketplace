@@ -927,3 +927,28 @@ body.role-expert-preview {
 		background: transparent url("../images/logo/eMindHub_Aerospace_logo.png") no-repeat center top;
 	}
 }
+
+// Roleswitcher
+#block-roleswitcher-switcher {
+	.make-md-column(2);
+	.text-right;
+	a {
+		.btn;
+		.btn-sm;
+		margin-top: 5px;
+	}
+}
+.role-expert {
+	#block-roleswitcher-switcher {
+		a {
+			.btn-business;
+		}
+	}
+}
+.role-business {
+	#block-roleswitcher-switcher {
+		a {
+			.btn-expert;
+		}
+	}
+}

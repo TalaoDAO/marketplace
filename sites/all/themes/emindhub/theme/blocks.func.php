@@ -56,7 +56,7 @@ function emindhub_preprocess_block(&$variables) {
       break;
 
     case 'system-user-menu':
-      $classes[] = 'col-sm-12 col-xs-12';
+      $classes[] = 'col-xs-12 col-sm-12 col-md-10';
       break;
 
     // User Login block
@@ -240,6 +240,9 @@ function emindhub_preprocess_block(&$variables) {
     // Profile percent complete
     case 'pcp-pcp_profile_percent_complete':
       $classes[] = 'col-sm-12';
+      break;
+
+    default:
       break;
   }
 
