@@ -11,7 +11,7 @@ function emh_circles_default_rules_configuration() {
     "LABEL" : "Webmaster notification - All experts circle error",
     "PLUGIN" : "reaction rule",
     "OWNER" : "rules",
-    "TAGS" : [ "EMH" ],
+    "TAGS" : [ "EMH", "Circles" ],
     "REQUIRES" : [ "views_bulk_operations", "rules" ],
     "ON" : { "cron" : [] },
     "IF" : [
@@ -25,6 +25,62 @@ function emh_circles_default_rules_configuration() {
           "language" : [ "" ]
         }
       }
+    ]
+  }
+  }
+  ');
+
+  $rules['rules_emh_circles_set_clients_as_creator_in_circles'] = entity_import('rules_config', '
+    { "rules_emh_circles_set_clients_as_creator_in_circles" : {
+    "LABEL" : "Circles - Set Client as Creator member",
+    "PLUGIN" : "reaction rule",
+    "WEIGHT" : "1",
+    "OWNER" : "rules",
+    "TAGS" : [ "Circles", "EMH" ],
+    "REQUIRES" : [ "rules", "og", "user_registrationpassword" ],
+    "ON" : { "user_update" : [], "user_registrationpassword_activated" : [] },
+    "IF" : [
+      { "user_has_role" : { "account" : [ "account" ], "roles" : { "value" : { "5" : "5" } } } }
+    ],
+    "DO" : [
+      { "LOOP" : {
+          "USING" : { "list" : [ "account:og-user-node" ] },
+          "ITEM" : { "list_item" : "Current list item" },
+          "DO" : [
+            { "og_grant_og_role" : {
+                "account" : [ "account" ],
+                "group" : [ "list-item" ],
+                "roles" : { "value" : { "Creator member" : "Creator member" } }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+  }
+  ');
+
+  $rules['rules_emh_circles_add_users_in_all_experts_circle'] = entity_import('rules_config', '
+    { "rules_emh_circles_add_users_in_all_experts_circle" : {
+    "LABEL" : "Circles - Set all users as Member of All experts",
+    "PLUGIN" : "reaction rule",
+    "OWNER" : "rules",
+    "TAGS" : [ "EMH", "Circles" ],
+    "REQUIRES" : [ "rules", "og", "user_registrationpassword" ],
+    "ON" : {
+      "user_update" : [],
+      "user_registrationpassword_activated" : [],
+      "user_insert" : []
+    },
+    "IF" : [ { "NOT user_is_blocked" : { "account" : [ "account" ] } } ],
+    "DO" : [
+      { "entity_fetch" : {
+          "USING" : { "type" : "node", "id" : "314" },
+          "PROVIDE" : { "entity_fetched" : { "entity_fetched" : "Fetched entity" } }
+        }
+      },
+      { "og_subcribe_user" : { "user" : [ "account" ], "group" : [ "entity-fetched" ] } }
     ]
   }
   }

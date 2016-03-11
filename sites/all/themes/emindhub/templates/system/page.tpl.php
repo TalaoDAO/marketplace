@@ -81,9 +81,9 @@ global $base_url;
     <div class="row">
 
       <?php if ( $logged_in ): ?>
-      <div class="col-sm-2 col-xs-12">
+      <div class="col-md-2">
       <?php else : ?>
-      <div class="col-sm-3 col-xs-12">
+      <div class="col-md-3">
       <?php endif; ?>
 
         <?php if (!empty($page['burgermenu'])): ?>
@@ -105,9 +105,9 @@ global $base_url;
       </div> <!-- END .col -->
 
       <?php if ( $logged_in ): ?>
-      <div class="col-sm-10 col-xs-12">
+      <div class="col-md-10">
       <?php else : ?>
-      <div class="col-sm-9 col-xs-12">
+      <div class="col-md-9">
       <?php endif; ?>
 
         <nav class="navbar">
@@ -170,7 +170,7 @@ global $base_url;
 
         <div class="row">
 
-          <div class="col-sm-8 col-md-9">
+          <div class="col-md-9">
 
             <?php if (!empty($page['title'])): ?>
             <?php print render($page['title']); ?>
@@ -188,7 +188,7 @@ global $base_url;
 
           </div>
 
-          <div id="flashes" class="col-sm-4 col-md-3">
+          <div id="flashes" class="col-md-3">
 
             <?php if ( $logged_in ): ?>
             <a class="btn btn-flash icon-community" href="<?php print url('invitations'); ?>"><?php print t('Invite experts and earn points!'); ?></a>
@@ -227,9 +227,9 @@ global $base_url;
 
         <?php if (!empty($page['sidebar_first'])) : ?>
         <?php if ($is_front) : ?>
-        <aside id="sidebar-first" class="col-sm-5 col-sm-offset-1" role="complementary">
+        <aside id="sidebar-first" class="col-md-5 col-md-offset-1" role="complementary">
         <?php else : ?>
-        <aside id="sidebar-first" class="col-sm-2" role="complementary">
+        <aside id="sidebar-first" class="col-md-2" role="complementary">
         <?php endif; ?>
           <?php print render($page['sidebar_first']); ?>
         </aside>  <!-- /#sidebar-first -->
@@ -247,9 +247,9 @@ global $base_url;
 
         <?php if (!empty($page['sidebar_second']) || !empty($page['help'])): ?>
         <?php if ($is_front) : ?>
-        <aside id="sidebar-second" class="col-sm-5" role="complementary">
+        <aside id="sidebar-second" class="col-md-5" role="complementary">
         <?php else : ?>
-        <aside id="sidebar-second" class="col-sm-3" role="complementary">
+        <aside id="sidebar-second" class="col-md-3" role="complementary">
         <?php endif; ?>
           <?php if (!empty($page['help'])): ?>
             <?php print render($page['help']); ?>

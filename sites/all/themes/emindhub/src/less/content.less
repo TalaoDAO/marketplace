@@ -25,7 +25,7 @@ aside {
 		.emh-block-normal;
 	}
 
-  @media (max-width: @screen-sm-min) {
+  @media (max-width: @screen-md-min) {
   	.block {
   		margin-bottom: 15px;
   		&:last-child {
@@ -46,7 +46,7 @@ aside#sidebar-second {
   ul, ol {
     padding-left: 20px;
   }
-  @media (min-width: @screen-sm-min) {
+  @media (min-width: @screen-md-min) {
     padding-left: 0;
   }
 }
@@ -59,7 +59,7 @@ aside#sidebar-second {
 }
 
 #flashes {
-  @media (min-width: @screen-sm-min) {
+  @media (min-width: @screen-md-min) {
     padding-right: 0;
     padding-left: 0;
   }
@@ -164,8 +164,6 @@ a.flag {
 
 // Commentaires / Réponses
 #comments {
-  padding-bottom: 0;
-
   .comment .content > div {
     padding: 15px 0;
   }
@@ -178,7 +176,10 @@ a.flag {
       margin-left: 25px;
     }
     &.comment-by-viewer {
-      background-color: @lightYellow;
+      // background-color: @lightYellow;
+    }
+    &:last-child {
+      padding-bottom: 0;
     }
 
     > .meta {
@@ -191,6 +192,7 @@ a.flag {
 	.list-inline {
     margin-left: 0;
 		margin-bottom: 0;
+    .text-right;
     .comment-edit a {
       .btn-primary;
     }

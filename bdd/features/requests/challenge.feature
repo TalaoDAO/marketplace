@@ -1,25 +1,21 @@
 @api
-Feature: Create challenge and answers
-  In order to test challenge creation, and privacy of answers
-  As a business client
-  I want to create a question, and watch answers
+Feature: Create Challenge and answers
+  In order to test Challenge creation, and privacy of answers
+  As client and expert and référent
+  I want to create a Challenge, and watch answers
 
   Background: Create challenge
 
     Given "circle" content:
     | title    | author  |
-    | Avengers | client1 |
+    | Avengers | admin   |
 
     Given "corporate" content:
     | title     | author  |
     | Google    | admin   |
-    | Apple     | admin   |
     | Facebook  | admin   |
     | Twitter   | admin   |
-    | Pinterest | admin   |
-    | Viadeo    | admin   |
-    | Linkedin  | admin   |
-    | Tumblr    | admin   |
+    | Amazon    | admin   |
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
@@ -27,33 +23,109 @@ Feature: Create challenge and answers
     | expert1 | expert1@emindhub.com | expert   | Iron             | Man             | 0712345670      | Chieur génial      | Avengers     | expert1@emindhub.com | Facebook  | Employee  | Energy        |
     | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | 0712345671      | Modèle             | Avengers     | expert2@emindhub.com | Twitter   | Employee  | Other         |
 
-    Given I give "client1" 300 emh points
+    Given I give "client1" 3000 emh points
+
     Given "challenge" content:
-    | title        | field_domaine | og_group_ref | field_reward | author  |
-    | What about?  | Energy        | Avengers     | 100          | client1 |
+    | title        | field_domaine | og_group_ref | field_reward | author  | field_anonymous      | field_show_entreprise | field_use_my_entreprise |
+    | What about?  | Energy        | Avengers     | 1000         | client1 | Display my full name | Display the name      | Display                 |
 
-  Scenario: Check challenge answers privacy
-    Given I am logged in as "expert1"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
-    And I enter "I'm the best superhero in da world." for "Answer"
-    And I press "Publish"
-    And I go to homepage
-    And I click "What about?" in the "What about?" row
-    Then I should see "Answers"
-    And I should see "I'm the best superhero in da world."
-
-    Given I am logged in as "client1"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
-    Then I should see "I'm the best superhero in da world."
-
+    # An expert can respond to the challenge
     Given I am logged in as "expert2"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
-    Then I should not see "I'm the best superhero in da world."
+    And I am on the homepage
+    Then I should see "What about?"
 
+    When I click "What about?" in the "What about?" row
+    #Then I should see an "Answer" textarea form element
+    Given I enter "The truth is elsewhere." for "Answer"
+    And I press "Publish"
+
+  Scenario: An author can see its own challenge
+    Given I am logged in as "client1"
+    And I am on the homepage
+    Then I should see "Avengers" in the "What about?" row
+
+    When I go to "my-requests"
+    Then I should see "What about?"
+    And I should see "1000" in the "What about?" row
+    And I should see "Avengers" in the "What about?" row
+
+  Scenario: An author can edit its own challenge
+    Given I am logged in as "client1"
+    And I am on the homepage
+    When I click "What about?" in the "What about?" row
+    And I click "Edit" in the "primary tabs" region
+    Then I should see "Edit Challenge What about?" in the "title" region
+
+    Given I enter "This is my challenge." for "Description"
+    And I press "Save"
+    Then I should see the success message "Challenge What about? has been updated."
+
+  Scenario: An author cannot delete its own challenge
+    Given I am logged in as "client1"
+    And I am on the homepage
+    When I click "What about?" in the "What about?" row
+    And I click "Edit" in the "primary tabs" region
+    Then I should not see "Delete" in the "actions" region
+
+  Scenario: An expert can see its own answer
+    Given I am logged in as "expert2"
+    And I am on the homepage
+    When I click "What about?" in the "What about?" row
+    Then I should see "Answers"
+    And I should see "Klark Kent"
+    And I should see "The truth is elsewhere."
+
+  Scenario: The author can see the answer
+    Given I am logged in as "client1"
+    When I go to "my-responses"
+    Then I should see "Klark Kent"
+    And I should see "The truth is elsewhere." in the "Klark Kent" row
+
+    When I go to the homepage
+    Then I should see "1" in the "What about?" row
+
+    When I click "What about?" in the "What about?" row
+    #Then I should not see an "Answer" textarea form element
+    And I should see "Answers"
+    And I should see "Klark Kent"
+    And I should see "The truth is elsewhere."
+
+  Scenario: Experts cannot see Answers tab
     Given I am logged in as "expert1"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
-    Then I should not see "Answers" in the "title" region
+    And I am on the homepage
+    When I click "What about?" in the "What about?" row
+    Then I should not see the link "Answers" in the "header" region
+
+  Scenario: Another expert cannot see the answer
+    Given I am logged in as "expert1"
+    And I am on the homepage
+    When I click "What about?" in the "What about?" row
+    Then I should not see "Klark Kent"
+    And I should not see "The truth is elsewhere."
+
+  Scenario: The expert can edit its own answer
+    Given I am logged in as "expert2"
+    And I am on the homepage
+    When I click "What about?" in the "What about?" row
+    And I click "edit" in the "answers" region
+    And I enter "The truth is here." for "Answer"
+    And I press "Publish"
+    Then I should see "The truth is here."
+
+  Scenario: The author cannot edit an answer
+    Given I am logged in as "client1"
+    And I am on the homepage
+    When I click "What about?" in the "What about?" row
+    Then I should not see the link "edit" in the "answers" region
+
+  Scenario: The expert cannot delete its own answer
+    Given I am logged in as "expert2"
+    And I am on the homepage
+    When I click "What about?" in the "What about?" row
+    Then I should not see "delete" in the "answers" region
+
+  Scenario: The author cannot delete an answer
+    Given I am logged in as "client1"
+    And I am on the homepage
+    When I click "What about?" in the "What about?" row
+    Then I should not see "delete" in the "answers" region

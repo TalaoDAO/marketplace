@@ -56,20 +56,15 @@
   <div class="content">
     <?php //print $content ?>
 
-    <?php if (emh_user_is_business()) : ?>
-      <a href="<?php print url("node/add/webform"); ?>">
-        <?php echo sprintf(t('%sSurvey%sCreate a survey to identify best experts profiles for a specific task or mission%sCreate a survey%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
-      </a>
-
-    <?php elseif (emh_user_is_expert()) : ?>
-    <?php global $base_url; $safe_link = rawurldecode($base_url . '/requests/all?type[webform]=webform'); ?>
-    <a href="<?php print $safe_link; ?>">
-      <?php echo sprintf(t('%sSurvey%sAnswer surveys and promote your skills to get a mission%sSee more surveys%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
+    <?php if (user_access('create webform content')) : ?>
+    <a href="<?php print url("node/add/webform"); ?>">
+      <?php echo sprintf(t('%sSurvey%sCreate a survey to identify best experts profiles for a specific task or mission%sCreate a survey%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
     </a>
 
     <?php else : ?>
-    <a href="<?php print url("freetrial"); ?>">
-      <?php echo sprintf(t('%sSurvey%sCreate a survey to identify best experts profiles for a specific task or mission%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span>'); ?>
+    <?php global $base_url; $safe_link = rawurldecode($base_url . '/requests/all?type[webform]=webform'); ?>
+    <a href="<?php print $safe_link; ?>">
+      <?php echo sprintf(t('%sSurvey%sAnswer surveys and promote your skills to get a mission%sSee more surveys%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
     </a>
     <?php endif; ?>
 

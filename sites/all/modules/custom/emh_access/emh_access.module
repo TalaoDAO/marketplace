@@ -4,40 +4,28 @@
 * Code for eMindHub access feature.
 */
 
-function emh_access_author_name($node) {
-
-  global $user;
-  if ($user->uid == 1) {
-    // Admin ( = eMindHub) has every right.
-    return TRUE;
-  }
-
-  // Check node options
-  // 0|Display my full name
-  // 1|Hide my full name
-  $anonymous_mode = field_get_items('node', $node, 'field_anonymous');
-  if ($anonymous_mode[0]['value'] == 0) {
-    return TRUE;
-  }
-
+/**
+ * Implements hook_permission().
+ */
+function emh_access_permission() {
+  return array(
+    'access EMH requests' => array('title' => t('Request: View all published EMH requests')),
+    'access EMH answers' => array('title' => t('Answer: View all published EMH answers')),
+    'access EMH profiles' => array('title' => t('Profile: View full users profiles')),
+  );
 }
 
-function emh_access_author_company($node) {
-
-  global $user;
-  if ($user->uid == 1) {
-    // Admin ( = eMindHub) has every right.
-    return TRUE;
+/**
+ * Implements hook_user_presave().
+ */
+function emh_access_user_presave(&$edit, $account, $category) {
+  // Synchronise pseudo-field (to use access hook) with Drupal core field.
+  if (!empty($edit['mail'])) {
+    $mail = $edit['mail'];
+  } else {
+    $mail = $account->mail;
   }
-
-  // Check node options
-  // 0|Display the name
-  // 1|Hide the name
-  $show_entreprise = field_get_items('node', $node, 'field_show_entreprise');
-  if ($show_entreprise[0]['value'] == 0) {
-    return TRUE;
-  }
-
+  $edit['field_mail'][LANGUAGE_NONE]['0']['value'] = $mail;
 }
 
 /**
@@ -54,7 +42,8 @@ function emh_access_field_access($op, $field, $entity_type, $entity, $account) {
     }
     if ($account->uid == $entity->uid) return TRUE;
     if (empty($node)) {
-      global $node;
+      $nid = arg(1);
+      if (arg(0) == 'node' && !empty($nid)) $node = node_load($nid);
     }
 
     switch ($entity_type) {
@@ -92,10 +81,10 @@ function emh_access_field_access($op, $field, $entity_type, $entity, $account) {
       case 'comment':
         switch($field['field_name']) {
           case 'comment_body':
-          return TRUE;
+            return TRUE;
             break;
           default:
-            return emh_access_user_can_see_full_answer($entity, $account);
+            return emh_access_user_can_see_full_answer($node->nid, $entity, $account);
             break;
         }
         break;
@@ -104,9 +93,9 @@ function emh_access_field_access($op, $field, $entity_type, $entity, $account) {
         break;
     }
 
-  } else {
-    return TRUE;
   }
+
+  return TRUE;
 
 }
 
@@ -114,39 +103,40 @@ function emh_access_field_access($op, $field, $entity_type, $entity, $account) {
  * Access control : does a user have access to another user profile.
  */
 function emh_access_user_can_see_full_user($uid, $uid2) {
-  if ($uid == 1) {
-    // Admin ( = eMindHub) has every right.
-    return TRUE;
+  if (empty($uid)) {
+    global $user;
+    $uid = $user->uid;
   }
+  $u1_account = user_load($uid);
+  $u2_account = user_load($uid2);
+  $u1_circles = og_get_groups_by_user($u1_account, 'node');
+  $u2_circlesIDs = og_get_groups_by_user($u2_account, 'node');
 
-  if ($uid == $uid2) {
-    // This is my own profile
-    return TRUE;
-  }
+  // This is my own profile
+  if ($uid == $uid2) return TRUE;
+
+  if (user_access('access EMH profiles')) return TRUE;
 
   // Organic Groups / EMH Circles
+  // User1 is admin/referent of one of User2 circles
+  if (module_exists('og') && module_exists('emh_circles')) {
+    if (_emh_circles_check_user_is_adminmember_of_groups($uid, $u2_circlesIDs)) return TRUE;
+    if (_emh_circles_check_user_is_admin_of_groups($uid, $u2_circlesIDs)) return TRUE;
+    if (_emh_circles_check_user_is_referentmember_of_groups($uid, $u2_circlesIDs)) return TRUE;
+  }
+
+  // Organic Groups
+  // User1 & User2 belong to the same circle (except 'All experts')
   if (module_exists('og')) {
-    if (empty($uid)) {
-      global $user;
-      $uid = $user->uid;
-    }
-    $u1_account = user_load($uid);
-    $u1_circles = og_get_groups_by_user($u1_account, 'node');
-    $u2_account = user_load($uid2);
-    $u2_circles = og_get_groups_by_user($u2_account, 'node');
-    unset( $u1_circles[ '314' ] ); // TODO: manager this differently!
-    unset( $u2_circles[ '314' ] );
-    if (array_intersect($u1_circles, $u2_circles)) {
-      return TRUE;
-    }
+    unset( $u1_circles[ '314' ] ); // TODO: manage this differently!
+    unset( $u2_circlesIDs[ '314' ] );
+    if (array_intersect($u1_circles, $u2_circlesIDs)) return TRUE;
   }
 
   // Flags
   if (module_exists('flag')) {
     $flag = flag_get_flag('my_contacts');
-    if ($flag && $flag->is_flagged($uid2, $uid)) {
-      return TRUE;
-    }
+    if ($flag && $flag->is_flagged($uid2, $uid)) return TRUE;
   }
 
   // EMH Virality
@@ -181,39 +171,43 @@ function emh_access_user_can_see_full_user($uid, $uid2) {
     // Is there a link through a node?
     return ($indirect > 0);
   }
+
+  return FALSE;
 }
 
 /**
  * Access control : Does a user have access to another user answer?
  */
-function emh_access_user_can_see_full_answer($entity, $account = NULL) {
+function emh_access_user_can_see_full_answer($nid, $entity = NULL, $account = NULL) {
+  $node = node_load($nid);
   if (empty($account)) {
     global $user;
     $account = $user;
   }
-  $node = node_load($entity->nid);
-  if ($account->uid == 1) {
-    // Admin ( = eMindHub) has every right.
-    return TRUE;
-  }
-  if ($entity->uid == $account->uid || $node->uid == $account->uid) {
-    // Node author and answer author have every right.
-    return TRUE;
-  }
-  return FALSE;
-}
 
-/**
- * Implements hook_user_presave().
- */
-function emh_access_user_presave(&$edit, $account, $category) {
-  // Synchronise pseudo-field (to use access hook) with Drupal core field.
-  if (!empty($edit['mail'])) {
-    $mail = $edit['mail'];
-  } else {
-    $mail = $account->mail;
+  if (user_access('access EMH answers')) return TRUE;
+
+  // Node author and answer author have every right.
+  if ($node->uid == $account->uid) return TRUE;
+  if (!empty($entity) && ($entity->uid == $account->uid)) return TRUE;
+
+  if (user_access('administer comments')) return TRUE;
+  if (user_access('access all webform results')) return TRUE;
+
+  // Organic Groups / EMH Circles
+  // User1 is admin/referent of node's circle
+  // TODO: add custom permissions for OG and Comments
+  $circleIDs = $node->og_group_ref[LANGUAGE_NONE]['0'];
+  if (!empty($circleIDs)) {
+    if (_emh_circles_check_user_is_adminmember_of_groups($account->uid, $circleIDs)) return TRUE;
+    if (_emh_circles_check_user_is_admin_of_groups($account->uid, $circleIDs)) return TRUE;
+    if (_emh_circles_check_user_is_referentmember_of_groups($account->uid, $circleIDs)) return TRUE;
+    foreach ($circleIDs as $gid) {
+      if (og_user_access('node', $gid, 'access all webform results')) return TRUE;
+    }
   }
-  $edit['field_mail'][LANGUAGE_NONE]['0']['value'] = $mail;
+
+  return FALSE;
 }
 
 /**
@@ -228,23 +222,83 @@ function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
     $nid = arg(1);
     $node = node_load($nid);
   }
-  if ($account->uid == 1) {
+
+  if (user_access('access EMH requests')) return TRUE;
+
+  // Node author have every right.
+  if ($node->uid == $account->uid) return TRUE;
+
+  // Organic Groups / EMH Circles
+  // User1 is admin/referent of node's circle
+  if (module_exists('og') && module_exists('emh_circles')) {
+    $circleIDs = $node->og_group_ref[LANGUAGE_NONE]['0'];
+    if (!empty($circleIDs)) {
+      if (_emh_circles_check_user_is_adminmember_of_groups($account->uid, $circleIDs)) return TRUE;
+      if (_emh_circles_check_user_is_admin_of_groups($account->uid, $circleIDs)) return TRUE;
+      if (_emh_circles_check_user_is_referentmember_of_groups($account->uid, $circleIDs)) return TRUE;
+    }
+  }
+
+  if (module_exists('emh_pcp_special')) {
+    $userPercent = emh_pcp_special_get_complete_percentage_data('user', 'user', $account);
+    if ($userPercent['current_percent'] == '100') return TRUE;
+  }
+
+  return FALSE;
+}
+
+function emh_access_author_name($node) {
+
+  global $user;
+  if ($user->uid == 1) {
     // Admin ( = eMindHub) has every right.
     return TRUE;
   }
-  if ($node->uid == $account->uid) {
-    // Node author and answer author have every right.
+
+  // Check node options
+  // 0|Display my full name
+  // 1|Hide my full name
+  $anonymous_mode = field_get_items('node', $node, 'field_anonymous');
+  if ($anonymous_mode[0]['value'] == 0) {
     return TRUE;
   }
-  if (emh_user_is_business()) {
+
+}
+
+function emh_access_author_company($node) {
+
+  global $user;
+  if ($user->uid == 1) {
+    // Admin ( = eMindHub) has every right.
     return TRUE;
   }
-  if (module_exists('emh_pcp_special')) {
-    $userPercent = emh_pcp_special_get_complete_percentage_data('user', 'user', $account);
-    if ($userPercent['current_percent'] == '100') {
-      return TRUE;
-    }
-    return FALSE;
+
+  // Check node options
+  // 0|Display the name
+  // 1|Hide the name
+  $show_entreprise = field_get_items('node', $node, 'field_show_entreprise');
+  if ($show_entreprise[0]['value'] == 0) {
+    return TRUE;
   }
+
+}
+
+
+/**
+ * Access callback for request full access.
+ */
+function _emh_access_full_access($nid, $account = NULL) {
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+  if (empty($nid)) {
+    $nid = arg(1);
+  }
+
+  if (user_access('access EMH requests')) return TRUE;
+  if (user_access('access EMH answers')) return TRUE;
+  if (user_access('access EMH profiles')) return TRUE;
+
   return FALSE;
 }

@@ -32,6 +32,7 @@ nbproject
 .hg
 atlassian-ide-plugin.xml
 *~
+.htaccess
 
 
 # Ignore CasperJS tests node_modules

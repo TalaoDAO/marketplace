@@ -45,6 +45,30 @@ function emh_request_uninstall() {
 }
 
 /**
+ * Provides string overrides.
+ */
+function _emh_request_string_overrides() {
+  return array(
+    // Webform submission
+    'No Components, add a component below.' => 'No questions, add a question below.',
+    'New component name' => 'New question',
+    'This will immediately delete the %name component from the %webform webform. This cannot be undone.' => 'This will immediately delete the %name question from the %webform survey. This cannot be undone.',
+    'Submissions for %user' => 'Answers',
+    'Edit component: @name' => 'Edit question @name',
+    'New component %name added.' => 'New question %name added.',
+    'The component positions and required values have been updated.' => 'Your questions have been updated.',
+    'Submissions for this form are closed.' => 'Answers for this survey are closed.',
+    'You have already submitted this form.' => 'You have already submitted this survey.',
+    'Submission updated.' => 'Your answer has been updated.',
+    'Submission saved. You may return to this form later and it will restore the current values.' => 'Your answer has been saved as draft. You may return to this survey later and it will restore your current answer.',
+
+    // Comment
+    'Edit comment %comment' => 'Edit answer',
+    'Your comment has been queued for review by site administrators and will be published after approval.' => 'Your comment has been saved as a draft.',
+  );
+}
+
+/**
  * Force module weight for hook_form_alter execution
  */
 function emh_request_update_7001() {
@@ -86,25 +110,8 @@ function emh_request_update_7104() {
 }
 
 /**
- * Provides string overrides.
- */
-function _emh_request_string_overrides() {
-  return array(
-    // Webform submission
-    'No Components, add a component below.' => 'No questions, add a question below.',
-    'New component name' => 'New question',
-    'This will immediately delete the %name component from the %webform webform. This cannot be undone.' => 'This will immediately delete the %name question from the %webform survey. This cannot be undone.',
-    'Submissions for %user' => 'Answers',
-    'Edit component: @name' => 'Edit question @name',
-    'New component %name added.' => 'New question %name added.',
-    'The component positions and required values have been updated.' => 'Your questions have been updated.',
-    'Submissions for this form are closed.' => 'Answers for this survey are closed.',
-    'You have already submitted this form.' => 'You have already submitted this survey.',
-    'Submission updated.' => 'Your answer has been updated.',
-    'Submission saved. You may return to this form later and it will restore the current values.' => 'Your answer has been saved as draft. You may return to this survey later and it will restore your current answer.',
-
-    // Comment
-    'Edit comment %comment' => 'Edit answer',
-    'Your comment has been queued for review by site administrators and will be published after approval.' => 'Your comment has been saved as a draft.',
-  );
+* Revert Views features.
+*/
+function emh_request_update_7105() {
+  features_revert(array('ft_views' => array('views_view')));
 }

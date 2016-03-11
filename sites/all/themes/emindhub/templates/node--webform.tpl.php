@@ -203,8 +203,6 @@
 
 	  </div>
 
-		<?php //require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeLinks.tpl.php'; ?>
-
 		<?php // print render($content['comments']); ?>
 
 		<?php
@@ -222,7 +220,7 @@
 
 		<?php if (empty($submissions) || $submissions['is_draft']) : ?>
 
-		<?php if ( (!emh_user_is_business() || $node->uid == $user->uid) && $node->webform['status'] ) : ?>
+		<?php if ( $node->webform['status'] ) : ?>
 		<?php if (!empty($node->webform['components'])) : ?>
 		<div id="comments" class="<?php print $classes; ?> row section emh-fieldgroup-blue-title"<?php print $attributes; ?>>
 	    <h2 class="h3"><span><?php print t('Answer the survey') ?></span></h2>
@@ -236,19 +234,19 @@
 		<?php else: ?>
 
 		<?php foreach ($submissions as $submission) : ?>
-		<div id="answer" class="row section emh-fieldgroup-blue-title">
+		<div id="comments" class="row section emh-fieldgroup-blue-title">
 			<h2 class="h3"><span><?php print t('Your answer') ?></span></h2>
-			<div class="field-group-div">
+			<div class="comment clearfix row">
 				<?php
 				$sid = $submission->sid;
 			  $submission = webform_get_submission($node->nid, $sid);
 			  $email = NULL; $format = 'html';
 			  print drupal_render(webform_submission_render($node, $submission, $email, $format));
 				?>
+				<ul class="links list-inline text-right">
+					<li class="edit_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $sid; ?>/edit"><?php print t('Edit'); ?></a></li>
+				</ul>
 			</div>
-			<ul class="links list-inline text-right">
-				<li class="edit_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $sid; ?>/edit"><?php print t('Edit'); ?></a></li>
-			</ul>
 		</div>
 		<?php endforeach; ?>
 

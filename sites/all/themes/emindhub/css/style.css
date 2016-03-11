@@ -9773,7 +9773,11 @@ form#user-profile-form .link-field-subrow:after,
 #user-register-form .hybridauth-widget-wrapper:before,
 #user-register-form .hybridauth-widget-wrapper:after,
 .page-messages #maincol:before,
-.page-messages #maincol:after {
+.page-messages #maincol:after,
+.page-node-268 .node .content #services-top:before,
+.page-node-268 .node .content #services-top:after,
+.page-node-268 .node .content #services-bottom:before,
+.page-node-268 .node .content #services-bottom:after {
   content: " ";
   display: table;
 }
@@ -9813,7 +9817,9 @@ form#change-pwd-page-form .form-type-password-confirm:after,
 form#emh-points-arrange-form fieldset .panel-body:after,
 form#user-profile-form .link-field-subrow:after,
 #user-register-form .hybridauth-widget-wrapper:after,
-.page-messages #maincol:after {
+.page-messages #maincol:after,
+.page-node-268 .node .content #services-top:after,
+.page-node-268 .node .content #services-bottom:after {
   clear: both;
 }
 .center-block {
@@ -10179,12 +10185,6 @@ body #admin-menu .dropdown li {
   margin-right: -15px;
   padding-left: 15px;
   padding-right: 15px;
-}
-@media screen and (min-width: 768px) {
-  .navbar .logo {
-    margin-right: 0;
-    padding-left: 0;
-  }
 }
 ul.secondary {
   float: left;
@@ -10601,7 +10601,7 @@ table .checkbox input[type="checkbox"] {
   padding-right: 15px;
   text-align: right;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .form-horizontal .form-group label {
     float: left;
     width: 16.66666667%;
@@ -10769,7 +10769,7 @@ img {
   padding: 5px;
   text-decoration: none;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .navbar-emh-separator > li:before {
     content: "|";
     color: #4c6172;
@@ -10983,25 +10983,25 @@ fieldset[disabled] .btn-popin.focus {
 .btn-expert {
   color: #ffffff;
   background-color: #e39000;
-  border-color: #c89234;
+  border-color: #9e6400;
 }
 .btn-expert:focus,
 .btn-expert.focus {
   color: #ffffff;
   background-color: #b07000;
-  border-color: #63481a;
+  border-color: #1f1300;
 }
 .btn-expert:hover {
   color: #ffffff;
   background-color: #b07000;
-  border-color: #976f27;
+  border-color: #613e00;
 }
 .btn-expert:active,
 .btn-expert.active,
 .open > .dropdown-toggle.btn-expert {
   color: #ffffff;
   background-color: #b07000;
-  border-color: #976f27;
+  border-color: #613e00;
 }
 .btn-expert:active:hover,
 .btn-expert.active:hover,
@@ -11014,7 +11014,7 @@ fieldset[disabled] .btn-popin.focus {
 .open > .dropdown-toggle.btn-expert.focus {
   color: #ffffff;
   background-color: #8c5900;
-  border-color: #63481a;
+  border-color: #1f1300;
 }
 .btn-expert:active,
 .btn-expert.active,
@@ -11031,34 +11031,91 @@ fieldset[disabled] .btn-expert:focus,
 .btn-expert[disabled].focus,
 fieldset[disabled] .btn-expert.focus {
   background-color: #e39000;
-  border-color: #c89234;
+  border-color: #9e6400;
 }
 .btn-expert .badge {
   color: #e39000;
   background-color: #ffffff;
 }
+.btn-business {
+  color: #ffffff;
+  background-color: #009fe3;
+  border-color: #008dca;
+}
+.btn-business:focus,
+.btn-business.focus {
+  color: #ffffff;
+  background-color: #007bb0;
+  border-color: #00344a;
+}
+.btn-business:hover {
+  color: #ffffff;
+  background-color: #007bb0;
+  border-color: #00628c;
+}
+.btn-business:active,
+.btn-business.active,
+.open > .dropdown-toggle.btn-business {
+  color: #ffffff;
+  background-color: #007bb0;
+  border-color: #00628c;
+}
+.btn-business:active:hover,
+.btn-business.active:hover,
+.open > .dropdown-toggle.btn-business:hover,
+.btn-business:active:focus,
+.btn-business.active:focus,
+.open > .dropdown-toggle.btn-business:focus,
+.btn-business:active.focus,
+.btn-business.active.focus,
+.open > .dropdown-toggle.btn-business.focus {
+  color: #ffffff;
+  background-color: #00628c;
+  border-color: #00344a;
+}
+.btn-business:active,
+.btn-business.active,
+.open > .dropdown-toggle.btn-business {
+  background-image: none;
+}
+.btn-business.disabled:hover,
+.btn-business[disabled]:hover,
+fieldset[disabled] .btn-business:hover,
+.btn-business.disabled:focus,
+.btn-business[disabled]:focus,
+fieldset[disabled] .btn-business:focus,
+.btn-business.disabled.focus,
+.btn-business[disabled].focus,
+fieldset[disabled] .btn-business.focus {
+  background-color: #009fe3;
+  border-color: #008dca;
+}
+.btn-business .badge {
+  color: #009fe3;
+  background-color: #ffffff;
+}
 .btn-asphalt {
   color: #ffffff;
-  background-color: #394a58;
-  border-color: #2c3944;
+  background-color: #33374a;
+  border-color: #171921;
 }
 .btn-asphalt:focus,
 .btn-asphalt.focus {
   color: #ffffff;
-  background-color: #253039;
+  background-color: #1e212c;
   border-color: #000000;
 }
 .btn-asphalt:hover {
   color: #ffffff;
-  background-color: #253039;
-  border-color: #141a1f;
+  background-color: #1e212c;
+  border-color: #000000;
 }
 .btn-asphalt:active,
 .btn-asphalt.active,
 .open > .dropdown-toggle.btn-asphalt {
   color: #ffffff;
-  background-color: #253039;
-  border-color: #141a1f;
+  background-color: #1e212c;
+  border-color: #000000;
 }
 .btn-asphalt:active:hover,
 .btn-asphalt.active:hover,
@@ -11070,7 +11127,7 @@ fieldset[disabled] .btn-expert.focus {
 .btn-asphalt.active.focus,
 .open > .dropdown-toggle.btn-asphalt.focus {
   color: #ffffff;
-  background-color: #171e23;
+  background-color: #101117;
   border-color: #000000;
 }
 .btn-asphalt:active,
@@ -11087,11 +11144,11 @@ fieldset[disabled] .btn-asphalt:focus,
 .btn-asphalt.disabled.focus,
 .btn-asphalt[disabled].focus,
 fieldset[disabled] .btn-asphalt.focus {
-  background-color: #394a58;
-  border-color: #2c3944;
+  background-color: #33374a;
+  border-color: #171921;
 }
 .btn-asphalt .badge {
-  color: #394a58;
+  color: #33374a;
   background-color: #ffffff;
 }
 .btn-flash {
@@ -11106,9 +11163,9 @@ fieldset[disabled] .btn-asphalt.focus {
   margin-right: 0;
 }
 .btn-flash:hover {
-  color: #53cdb5;
+  color: #ccf8ef;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .btn-flash {
     margin-top: 11px;
     padding: 0;
@@ -11153,7 +11210,7 @@ fieldset[disabled] .btn-asphalt.focus {
   font-weight: 700;
   color: #4c6172;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .emh-block-dark-title .block-title span {
     margin-left: auto;
     margin-right: auto;
@@ -11193,7 +11250,7 @@ fieldset[disabled] .btn-asphalt.focus {
   font-size: 16px;
   background-image: none;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .emh-block-blue-title .block-title span {
     background-color: #FFF;
     display: inline-block;
@@ -11222,13 +11279,13 @@ fieldset[disabled] .btn-asphalt.focus {
   background-color: #fff;
   background-image: none;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .emh-fieldgroup-blue-title h2 {
     float: left;
     width: 100%;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .emh-fieldgroup-blue-title h2 span {
     background-color: #FFF;
     display: inline-block;
@@ -11337,7 +11394,7 @@ fieldset[disabled] .btn-asphalt.focus {
   background-position: bottom left;
   margin-top: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .emh-block-blue-main-title h1,
   .emh-block-blue-main-title .h1,
   .emh-block-blue-main-title h2,
@@ -11376,7 +11433,7 @@ fieldset[disabled] .btn-asphalt.focus {
   background-position: bottom left;
   margin-top: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .emh-block-blue-main-title .block-title {
     padding-rigth: 15px;
     background-position: left 100%;
@@ -11404,7 +11461,7 @@ fieldset[disabled] .btn-asphalt.focus {
 }
 .emh-block-gold {
   color: #fff;
-  background-color: #c89234;
+  background-color: #e39000;
 }
 .emh-block-gold a {
   color: inherit;
@@ -11472,7 +11529,7 @@ fieldset[disabled] .btn-asphalt.focus {
   background-repeat: no-repeat;
   background-position: bottom left;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .emh-title-main {
     padding-rigth: 15px;
     background-position: left 100%;
@@ -11502,7 +11559,7 @@ header#title .emh-title-baseline {
 .form-group-col > * .form-group {
   margin-bottom: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .form-group-col {
     margin-left: 0;
     margin-right: 0;
@@ -11518,7 +11575,7 @@ header#title .emh-title-baseline {
 .form-group-2col > * .form-group {
   margin-bottom: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .form-group-2col {
     margin-left: 0;
     margin-right: 0;
@@ -11533,7 +11590,7 @@ header#title .emh-title-baseline {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .form-group-2col > *:nth-child(1) {
     float: left;
     width: 50%;
@@ -11545,13 +11602,13 @@ header#title .emh-title-baseline {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .form-group-2col > *:nth-child(2) {
     float: left;
     width: 50%;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .form-group-2col > *:nth-child(1) {
     padding-left: 0;
     padding-right: 7.5px;
@@ -11568,7 +11625,7 @@ header#title .emh-title-baseline {
 .form-group-3col > * .form-group {
   margin-bottom: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .form-group-3col {
     margin-left: 0;
     margin-right: 0;
@@ -11583,7 +11640,7 @@ header#title .emh-title-baseline {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .form-group-3col > *:nth-child(1) {
     float: left;
     width: 33.33333333%;
@@ -11595,7 +11652,7 @@ header#title .emh-title-baseline {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .form-group-3col > *:nth-child(2) {
     float: left;
     width: 33.33333333%;
@@ -11607,13 +11664,13 @@ header#title .emh-title-baseline {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .form-group-3col > *:nth-child(3) {
     float: left;
     width: 33.33333333%;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .form-group-3col > *:nth-child(1) {
     padding-left: 0;
     padding-right: 7.5px;
@@ -11627,7 +11684,7 @@ header#title .emh-title-baseline {
     padding-left: 7.5px;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .form-item-inline {
     margin-bottom: 0;
   }
@@ -11650,7 +11707,7 @@ header#title .emh-title-baseline {
     padding-left: 0;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .form-item-inline-4-8 label:first-of-type,
   .form-item-inline-4-8 .field-label {
     position: relative;
@@ -11667,7 +11724,7 @@ header#title .emh-title-baseline {
     padding-right: 15px;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   .form-item-inline-4-8 {
     margin-bottom: 0;
   }
@@ -11690,14 +11747,14 @@ header#title .emh-title-baseline {
     padding-left: 0;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   .form-item-inline-4-8 label:first-of-type,
   .form-item-inline-4-8 .field-label {
     float: left;
     width: 33.33333333%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   .form-item-inline-4-8 > .form-control:first-of-type,
   .form-item-inline-4-8 .input-group:first-of-type,
   .form-item-inline-4-8 .field-items {
@@ -11705,7 +11762,7 @@ header#title .emh-title-baseline {
     width: 66.66666667%;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .form-item-inline-6-6 label:first-of-type,
   .form-item-inline-6-6 .field-label {
     position: relative;
@@ -11722,7 +11779,7 @@ header#title .emh-title-baseline {
     padding-right: 15px;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   .form-item-inline-6-6 {
     margin-bottom: 0;
   }
@@ -11745,14 +11802,14 @@ header#title .emh-title-baseline {
     padding-left: 0;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   .form-item-inline-6-6 label:first-of-type,
   .form-item-inline-6-6 .field-label {
     float: left;
     width: 50%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   .form-item-inline-6-6 > .form-control:first-of-type,
   .form-item-inline-6-6 .input-group:first-of-type,
   .form-item-inline-6-6 .field-items {
@@ -11760,7 +11817,7 @@ header#title .emh-title-baseline {
     width: 50%;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .form-item-inline-8-4 label:first-of-type,
   .form-item-inline-8-4 .field-label {
     position: relative;
@@ -11777,7 +11834,7 @@ header#title .emh-title-baseline {
     padding-right: 15px;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   .form-item-inline-8-4 {
     margin-bottom: 0;
   }
@@ -11800,14 +11857,14 @@ header#title .emh-title-baseline {
     padding-left: 0;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   .form-item-inline-8-4 label:first-of-type,
   .form-item-inline-8-4 .field-label {
     float: left;
     width: 66.66666667%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   .form-item-inline-8-4 > .form-control:first-of-type,
   .form-item-inline-8-4 .input-group:first-of-type,
   .form-item-inline-8-4 .field-items {
@@ -11815,7 +11872,7 @@ header#title .emh-title-baseline {
     width: 33.33333333%;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .form-item-inline-9-3 label:first-of-type,
   .form-item-inline-9-3 .field-label {
     position: relative;
@@ -11832,7 +11889,7 @@ header#title .emh-title-baseline {
     padding-right: 15px;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   .form-item-inline-9-3 {
     margin-bottom: 0;
   }
@@ -11855,14 +11912,14 @@ header#title .emh-title-baseline {
     padding-left: 0;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   .form-item-inline-9-3 label:first-of-type,
   .form-item-inline-9-3 .field-label {
     float: left;
     width: 75%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   .form-item-inline-9-3 .form-control:first-of-type,
   .form-item-inline-9-3 .input-group:first-of-type,
   .form-item-inline-9-3 .field-items {
@@ -11983,7 +12040,7 @@ header#title .emh-title-baseline {
   background-color: #A1ACB5;
 }
 .progress-bar-asphalt {
-  background-color: #556d81;
+  background-color: #33374a;
 }
 .progress-striped .progress-bar-asphalt {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
@@ -12025,7 +12082,7 @@ h4,
 .h4 {
   font-size: 16px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .container {
     width: auto;
   }
@@ -12051,7 +12108,7 @@ h4,
   height: 20px;
   display: block;
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 992px) {
   .carousel-control .glyphicon-chevron-left,
   .carousel-control .glyphicon-chevron-right,
   .carousel-control .icon-prev,
@@ -12384,7 +12441,7 @@ body.page-node-edit .form-textarea-wrapper.resizable-textarea {
   padding-right: 15px;
   padding: 0 15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .views-exposed-form .views-exposed-widgets > * {
     float: left;
     width: 25%;
@@ -12400,7 +12457,7 @@ body.page-node-edit .form-textarea-wrapper.resizable-textarea {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .views-exposed-form .views-exposed-widgets > #edit-type-wrapper,
   .views-exposed-form .views-exposed-widgets > #edit-type-1-wrapper {
     float: left;
@@ -12418,14 +12475,14 @@ body.page-node-edit .form-textarea-wrapper.resizable-textarea {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .views-exposed-form .views-exposed-widgets > .views-submit-button,
   .views-exposed-form .views-exposed-widgets > .views-reset-button {
     float: left;
     width: 8.33333333%;
   }
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 992px) {
   .views-exposed-form .views-exposed-widgets > .views-submit-button,
   .views-exposed-form .views-exposed-widgets > .views-reset-button {
     margin-top: 25px;
@@ -12465,7 +12522,7 @@ table.views-table > tbody > tr:hover {
   padding-right: 15px;
   float: right !important;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .bef-select-as-checkboxes a.bef-toggle {
     float: left;
     width: 25%;
@@ -12481,7 +12538,7 @@ table.views-table > tbody > tr:hover {
   margin-left: 0;
   margin-right: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .bef-select-as-checkboxes .bef-checkboxes {
     float: left;
     width: 75%;
@@ -12494,7 +12551,7 @@ table.views-table > tbody > tr:hover {
   padding-right: 15px;
   padding-left: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .bef-select-as-checkboxes .bef-checkboxes .form-group {
     float: left;
     width: 33.33333333%;
@@ -13311,7 +13368,7 @@ html.js div.contextual-links-wrapper {
   padding-right: 15px;
   margin-left: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .form-actions > .btn-group {
     float: left;
     width: 50%;
@@ -13342,7 +13399,7 @@ html.js div.contextual-links-wrapper {
 .jumbotron form {
   text-align: left;
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 992px) {
   .jumbotron .block-title {
     font-size: 24px;
   }
@@ -13350,7 +13407,7 @@ html.js div.contextual-links-wrapper {
 header#navbar .row > div:nth-child(2) {
   padding-right: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   body {
     padding-top: 123px;
   }
@@ -13377,26 +13434,26 @@ header#navbar .row > div:nth-child(2) {
   header#navbar .navbar-collapse {
     max-height: 340px;
   }
-  header#navbar .col-sm-4 {
+  header#navbar .col-md-4 {
     padding-left: 0;
   }
 }
-@media (min-width: 768px) and (max-device-width: 480px) and (orientation: landscape) {
+@media (min-width: 992px) and (max-device-width: 480px) and (orientation: landscape) {
   body.admin-menu header#navbar .navbar-collapse {
     max-height: 200px;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 768px) {
   body.admin-menu header#navbar {
     border-radius: 0;
   }
 }
-@media (min-width: 768px) and (max-device-width: 480px) and (orientation: landscape) {
+@media (min-width: 992px) and (max-device-width: 480px) and (orientation: landscape) {
   header#navbar .navbar-collapse {
     max-height: 200px;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 768px) {
   header#navbar {
     border-radius: 0;
   }
@@ -13407,7 +13464,7 @@ header#title {
 /* HEADER
  * Light version
  */
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .logged-in {
     padding-top: 92px;
   }
@@ -13464,9 +13521,15 @@ header#title {
  */
 .navbar .logo {
   display: block;
+  text-align: center;
 }
 .navbar .logo img {
   max-width: 100%;
+}
+@media (min-width: 992px) {
+  .navbar .logo {
+    text-align: left;
+  }
 }
 /* HEADER
  * Search
@@ -13479,6 +13542,16 @@ header#title {
  */
 #block-user-login .nav > li {
   display: inline-block;
+}
+@media (max-width: 992px) {
+  .not-logged-in #block-user-login .nav {
+    width: 100%;
+    padding: 0;
+    text-align: center;
+  }
+  .not-logged-in #block-user-login .nav > li {
+    float: none;
+  }
 }
 .popover.signUp h4 {
   text-transform: uppercase;
@@ -13526,10 +13599,13 @@ header#title {
   content: "Log in with LinkedIn";
   margin-left: 10px;
 }
+body.lang-fr .popover .hybridauth-widget-wrapper ul a[data-hybridauth-provider="LinkedIn"]:after {
+  content: "Connectez-vous avec LinkedIn";
+}
 /* HEADER
  * User manu
  */
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #block-system-user-menu .navbar-emh-separator > li:nth-child(2):before {
     content: "";
   }
@@ -13557,13 +13633,13 @@ header nav.navbar .navbar-collapse.in {
 .region-navigation .nav > li.open > span.dropdown-toggle {
   color: #009fe3;
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .region-navigation .nav > li > a,
   .region-navigation .nav > li > span.dropdown-toggle {
     text-align: left;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .region-navigation .nav > li > a,
   .region-navigation .nav > li > span.dropdown-toggle {
     cursor: pointer;
@@ -13641,7 +13717,7 @@ h1.page-header {
   background-repeat: no-repeat;
   background-position: bottom left;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   h1.page-header {
     padding-rigth: 15px;
     background-position: left 100%;
@@ -13675,7 +13751,7 @@ aside .block .content {
   border: 1px solid #f2f2f2;
   padding: 15px;
 }
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   aside .block {
     margin-bottom: 15px;
   }
@@ -13692,7 +13768,7 @@ aside#sidebar-second ul,
 aside#sidebar-second ol {
   padding-left: 20px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   aside#sidebar-second {
     padding-left: 0;
   }
@@ -13701,7 +13777,7 @@ aside#sidebar-second ol {
 .two-sidebars #maincol {
   border-left: 1px solid #DDD;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #flashes {
     padding-right: 0;
     padding-left: 0;
@@ -14165,9 +14241,6 @@ a.flag .badge {
   background-color: transparent;
   border: 0;
 }
-#comments {
-  padding-bottom: 0;
-}
 #comments .comment .content > div {
   padding: 15px 0;
 }
@@ -14179,8 +14252,8 @@ a.flag .badge {
 #comments > .comment.indented {
   margin-left: 25px;
 }
-#comments > .comment.comment-by-viewer {
-  background-color: #f9f4ea;
+#comments > .comment:last-child {
+  padding-bottom: 0;
 }
 #comments > .comment > .meta {
   padding-left: 0;
@@ -14191,6 +14264,7 @@ a.flag .badge {
 #comments .list-inline {
   margin-left: 0;
   margin-bottom: 0;
+  text-align: right;
 }
 #comments .list-inline .comment-edit a {
   color: #ffffff;
@@ -14554,7 +14628,7 @@ table th[class*="col-"] {
     border-bottom: 0;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #block-search-form {
     padding-top: 8px;
     padding-bottom: 8px;
@@ -14605,13 +14679,13 @@ table th[class*="col-"] {
   color: #337AB7;
   cursor: pointer;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #block-user-login .nav,
   #block-system-user-menu .nav {
     float: right;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #block-system-user-menu .nav > li > span {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -14625,19 +14699,31 @@ table th[class*="col-"] {
     right: 15px;
   }
 }
+body.role-roleswitcher #block-system-user-menu {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  body.role-roleswitcher #block-system-user-menu {
+    float: left;
+    width: 83.33333333%;
+  }
+}
 /* HEADER
  * Languages
  */
 #block-bootstrap-languages-language {
   position: relative;
   float: left;
-  width: 25%;
+  width: 8.33333333%;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
   text-align: right;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #block-bootstrap-languages-language {
     float: left;
     width: 8.33333333%;
@@ -14647,7 +14733,7 @@ table th[class*="col-"] {
   margin: 10px 0;
   float: right;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .page-user.role-anonymous-user:not(.page-403) #block-menu-menu-top-anonymous {
     margin-top: 50px;
   }
@@ -14770,7 +14856,7 @@ table th[class*="col-"] {
   background-color: #009fe3;
 }
 #block-block-9 h3 {
-  background-color: #c89234;
+  background-color: #e39000;
 }
 /* HOMEPAGE
  * You are
@@ -14799,7 +14885,7 @@ table th[class*="col-"] {
   }
 }
 #block-block-11 a {
-  color: #c89234;
+  color: #e39000;
 }
 /* HOMEPAGE
  * Why?
@@ -14830,16 +14916,16 @@ table th[class*="col-"] {
 }
 #block-block-13 .block-title > span > .title-first,
 #block-block-12 .block-title > span > .title-first {
-  position: relative;
   float: left;
   width: 100%;
+  position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
   padding: 15px;
   text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
 }
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
   #block-block-13 .block-title > span > .title-first,
   #block-block-12 .block-title > span > .title-first {
     float: left;
@@ -14852,17 +14938,17 @@ table th[class*="col-"] {
 }
 #block-block-13 .block-title > span > .title-second,
 #block-block-12 .block-title > span > .title-second {
-  position: relative;
   float: left;
   width: 100%;
+  position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
+  padding: 15px;
   font-size: 20px;
   text-transform: none;
-  padding: 15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
   #block-block-13 .block-title > span > .title-second,
   #block-block-12 .block-title > span > .title-second {
     float: left;
@@ -14929,7 +15015,7 @@ table th[class*="col-"] {
 #block-block-12 a.btn strong {
   font-weight: bold;
 }
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
   #block-block-13 .block-title > span > .title-first,
   #block-block-12 .block-title > span > .title-first {
     padding: 0;
@@ -14968,19 +15054,19 @@ table th[class*="col-"] {
 #block-block-13 .content > a > h3 {
   color: #009fe3;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #block-block-13 {
     background-position: center center;
   }
 }
 #block-block-12 .block-title .title-first {
-  background: #c89234 url("../images/picto/picto_people_yellow.png") no-repeat right center;
+  background: #e39000 url("../images/picto/picto_people_yellow.png") no-repeat right center;
   background-size: contain;
 }
 #block-block-12 .content > a > h3 {
-  color: #c89234;
+  color: #e39000;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #block-block-12 {
     background-position: center center;
   }
@@ -15031,19 +15117,12 @@ table th[class*="col-"] {
   font-weight: bold;
   text-transform: uppercase;
 }
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   #block-block-14 a,
   #block-block-8 a,
   #block-block-16 a {
     padding: 15px;
   }
-  #block-block-14 a:before,
-  #block-block-8 a:before,
-  #block-block-16 a:before {
-    width: 100%;
-  }
-}
-@media (min-width: 768px) {
   #block-block-14 a:before,
   #block-block-8 a:before,
   #block-block-16 a:before {
@@ -15110,7 +15189,7 @@ body.role-expert-preview #block-block-16 .content a:before {
 #block-block-19 .content {
   padding-bottom: 1.7em;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #block-block-20 .content,
   #block-block-21 .content,
   #block-block-19 .content {
@@ -15136,7 +15215,7 @@ body.role-expert-preview #block-block-16 .content a:before {
   border: 1px solid #D4D9DD;
   padding: 15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #block-formblock-contact-site .form-item-civility {
     position: relative;
     min-height: 1px;
@@ -15184,37 +15263,37 @@ body.role-expert-preview #block-block-16 .content a:before {
     clear: both;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   #block-formblock-contact-site .form-item-civility {
     float: left;
     width: 50%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   #block-formblock-contact-site .form-item-firstname {
     float: left;
     width: 50%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   #block-formblock-contact-site .form-item-lastname {
     float: left;
     width: 50%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   #block-formblock-contact-site .form-item-phone {
     float: left;
     width: 50%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   #block-formblock-contact-site .form-item-mail {
     float: left;
     width: 50%;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #block-views-entreprise-list-block .content .views-field views-field-field-logo img {
     display: block;
     margin-left: auto;
@@ -15262,7 +15341,7 @@ body.role-expert-preview #block-block-16 .content a:before {
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00f2f2f2', endColorstr='#80f2f2f2', GradientType=1);
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #block-views-users-list-block-2 .views-row {
     margin-left: -15px;
     margin-right: -15px;
@@ -15280,13 +15359,13 @@ body.role-expert-preview #block-block-16 .content a:before {
     padding-right: 15px;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   #block-views-users-list-block-2 .views-row > * {
     float: left;
     width: 50%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   #block-views-users-list-block-2 .views-field-field-photo {
     float: left;
     width: 50%;
@@ -15302,7 +15381,7 @@ body.role-expert-preview #block-block-16 .content a:before {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #block-views-news-thread-block .content .item > * {
     float: left;
     width: 66.66666667%;
@@ -15314,7 +15393,7 @@ body.role-expert-preview #block-block-16 .content a:before {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #block-views-news-thread-block .content .item > a {
     float: left;
     width: 33.33333333%;
@@ -15373,7 +15452,7 @@ body.role-expert-preview #block-block-16 .content a:before {
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00445766', endColorstr='#80445766', GradientType=1);
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #block-views-news-thread-block .content .item > a {
     width: 292px !important;
   }
@@ -15391,7 +15470,7 @@ body.role-expert-preview #block-block-16 .content a:before {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .view-query-list form #edit-field-domaine-tid-i18n-wrapper,
   .view-query-list form #edit-field-tags-tid-i18n-wrapper {
     float: left;
@@ -15427,14 +15506,14 @@ body.role-expert-preview #block-block-16 .content a:before {
 .view-query-list td.views-field-type.challenge a::before {
   background-image: url("../images/picto/picto_challenge_small.png");
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .view-display-id-block form #edit-total-points-wrapper,
   .view-display-id-page form #edit-total-points-wrapper,
   .view-display-id-page_1 form #edit-total-points-wrapper {
     margin-left: 33.33333333%;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .view-display-id-block form #edit-status-wrapper,
   .view-display-id-page form #edit-status-wrapper,
   .view-display-id-page_1 form #edit-status-wrapper,
@@ -15452,7 +15531,7 @@ body.role-expert-preview #block-block-16 .content a:before {
     margin-top: 34px;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .view-display-id-block_1 form #edit-status-wrapper,
   .view-display-id-page_2 form #edit-status-wrapper,
   .view-display-id-block_1 form #edit-status-1-wrapper,
@@ -15460,7 +15539,7 @@ body.role-expert-preview #block-block-16 .content a:before {
     margin-left: 33.33333333%;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .view-display-id-block_1 form #edit-status-wrapper,
   .view-display-id-page_2 form #edit-status-wrapper,
   .view-display-id-block_1 form #edit-status-1-wrapper,
@@ -15497,7 +15576,7 @@ body.role-expert-preview #block-block-16 .content a:before {
   font-weight: 700;
   color: #FFF;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-status {
     float: left;
     width: 25%;
@@ -15510,7 +15589,7 @@ body.role-expert-preview #block-block-16 .content a:before {
   padding-right: 15px;
   padding: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps {
     float: left;
     width: 75%;
@@ -15536,13 +15615,13 @@ body.role-expert-preview #block-block-16 .content a:before {
   color: #FFF;
   background-color: #b5b5b5;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker li {
     float: left;
     width: 50%;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-status span {
     border-right: 4px solid #fff;
   }
@@ -15635,6 +15714,198 @@ body.role-expert-preview #block-block-16 .content a:before {
   margin-top: 15px;
   background: transparent url("../images/logo/eMindHub_Aerospace_logo.png") no-repeat center top;
 }
+#block-roleswitcher-switcher {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: right;
+}
+@media (min-width: 992px) {
+  #block-roleswitcher-switcher {
+    float: left;
+    width: 16.66666667%;
+  }
+}
+#block-roleswitcher-switcher a {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-right: 5px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 0;
+  margin-top: 5px;
+}
+#block-roleswitcher-switcher a:focus,
+#block-roleswitcher-switcher a:active:focus,
+#block-roleswitcher-switcher a.active:focus,
+#block-roleswitcher-switcher a.focus,
+#block-roleswitcher-switcher a:active.focus,
+#block-roleswitcher-switcher a.active.focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+#block-roleswitcher-switcher a:hover,
+#block-roleswitcher-switcher a:focus,
+#block-roleswitcher-switcher a.focus {
+  color: #4c6172;
+  text-decoration: none;
+}
+#block-roleswitcher-switcher a:active,
+#block-roleswitcher-switcher a.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+#block-roleswitcher-switcher a.disabled,
+#block-roleswitcher-switcher a[disabled],
+fieldset[disabled] #block-roleswitcher-switcher a {
+  cursor: not-allowed;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+a#block-roleswitcher-switcher a.disabled,
+fieldset[disabled] a#block-roleswitcher-switcher a {
+  pointer-events: none;
+}
+.role-expert #block-roleswitcher-switcher a {
+  color: #ffffff;
+  background-color: #009fe3;
+  border-color: #008dca;
+}
+.role-expert #block-roleswitcher-switcher a:focus,
+.role-expert #block-roleswitcher-switcher a.focus {
+  color: #ffffff;
+  background-color: #007bb0;
+  border-color: #00344a;
+}
+.role-expert #block-roleswitcher-switcher a:hover {
+  color: #ffffff;
+  background-color: #007bb0;
+  border-color: #00628c;
+}
+.role-expert #block-roleswitcher-switcher a:active,
+.role-expert #block-roleswitcher-switcher a.active,
+.open > .dropdown-toggle.role-expert #block-roleswitcher-switcher a {
+  color: #ffffff;
+  background-color: #007bb0;
+  border-color: #00628c;
+}
+.role-expert #block-roleswitcher-switcher a:active:hover,
+.role-expert #block-roleswitcher-switcher a.active:hover,
+.open > .dropdown-toggle.role-expert #block-roleswitcher-switcher a:hover,
+.role-expert #block-roleswitcher-switcher a:active:focus,
+.role-expert #block-roleswitcher-switcher a.active:focus,
+.open > .dropdown-toggle.role-expert #block-roleswitcher-switcher a:focus,
+.role-expert #block-roleswitcher-switcher a:active.focus,
+.role-expert #block-roleswitcher-switcher a.active.focus,
+.open > .dropdown-toggle.role-expert #block-roleswitcher-switcher a.focus {
+  color: #ffffff;
+  background-color: #00628c;
+  border-color: #00344a;
+}
+.role-expert #block-roleswitcher-switcher a:active,
+.role-expert #block-roleswitcher-switcher a.active,
+.open > .dropdown-toggle.role-expert #block-roleswitcher-switcher a {
+  background-image: none;
+}
+.role-expert #block-roleswitcher-switcher a.disabled:hover,
+.role-expert #block-roleswitcher-switcher a[disabled]:hover,
+fieldset[disabled] .role-expert #block-roleswitcher-switcher a:hover,
+.role-expert #block-roleswitcher-switcher a.disabled:focus,
+.role-expert #block-roleswitcher-switcher a[disabled]:focus,
+fieldset[disabled] .role-expert #block-roleswitcher-switcher a:focus,
+.role-expert #block-roleswitcher-switcher a.disabled.focus,
+.role-expert #block-roleswitcher-switcher a[disabled].focus,
+fieldset[disabled] .role-expert #block-roleswitcher-switcher a.focus {
+  background-color: #009fe3;
+  border-color: #008dca;
+}
+.role-expert #block-roleswitcher-switcher a .badge {
+  color: #009fe3;
+  background-color: #ffffff;
+}
+.role-business #block-roleswitcher-switcher a {
+  color: #ffffff;
+  background-color: #e39000;
+  border-color: #9e6400;
+}
+.role-business #block-roleswitcher-switcher a:focus,
+.role-business #block-roleswitcher-switcher a.focus {
+  color: #ffffff;
+  background-color: #b07000;
+  border-color: #1f1300;
+}
+.role-business #block-roleswitcher-switcher a:hover {
+  color: #ffffff;
+  background-color: #b07000;
+  border-color: #613e00;
+}
+.role-business #block-roleswitcher-switcher a:active,
+.role-business #block-roleswitcher-switcher a.active,
+.open > .dropdown-toggle.role-business #block-roleswitcher-switcher a {
+  color: #ffffff;
+  background-color: #b07000;
+  border-color: #613e00;
+}
+.role-business #block-roleswitcher-switcher a:active:hover,
+.role-business #block-roleswitcher-switcher a.active:hover,
+.open > .dropdown-toggle.role-business #block-roleswitcher-switcher a:hover,
+.role-business #block-roleswitcher-switcher a:active:focus,
+.role-business #block-roleswitcher-switcher a.active:focus,
+.open > .dropdown-toggle.role-business #block-roleswitcher-switcher a:focus,
+.role-business #block-roleswitcher-switcher a:active.focus,
+.role-business #block-roleswitcher-switcher a.active.focus,
+.open > .dropdown-toggle.role-business #block-roleswitcher-switcher a.focus {
+  color: #ffffff;
+  background-color: #8c5900;
+  border-color: #1f1300;
+}
+.role-business #block-roleswitcher-switcher a:active,
+.role-business #block-roleswitcher-switcher a.active,
+.open > .dropdown-toggle.role-business #block-roleswitcher-switcher a {
+  background-image: none;
+}
+.role-business #block-roleswitcher-switcher a.disabled:hover,
+.role-business #block-roleswitcher-switcher a[disabled]:hover,
+fieldset[disabled] .role-business #block-roleswitcher-switcher a:hover,
+.role-business #block-roleswitcher-switcher a.disabled:focus,
+.role-business #block-roleswitcher-switcher a[disabled]:focus,
+fieldset[disabled] .role-business #block-roleswitcher-switcher a:focus,
+.role-business #block-roleswitcher-switcher a.disabled.focus,
+.role-business #block-roleswitcher-switcher a[disabled].focus,
+fieldset[disabled] .role-business #block-roleswitcher-switcher a.focus {
+  background-color: #e39000;
+  border-color: #9e6400;
+}
+.role-business #block-roleswitcher-switcher a .badge {
+  color: #e39000;
+  background-color: #ffffff;
+}
 .emh-field-reward {
   width: 110px;
   text-align: right;
@@ -15699,12 +15970,7 @@ body.role-expert-preview #block-block-16 .content a:before {
   position: relative !important;
   margin-top: 0 !important;
 }
-.view-my-responses-questions1 .views-field-nothing,
-.view-my-responses-calls3 .views-field-nothing,
-.view-my-responses-challenges .views-field-nothing,
-.view-my-responses-questions1 .views-field-views-conditional,
-.view-my-responses-calls3 .views-field-views-conditional,
-.view-my-responses-challenges .views-field-views-conditional {
+.views-field-emh-answer {
   width: 350px;
 }
 div.fivestar-widget-static .star {
@@ -15875,7 +16141,7 @@ form .field-widget-imagefield-crop-widget .form-submit {
   display: inline-block;
   margin-top: 5px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   form .file-widget,
   form .field-type-image,
   form .image-widget-data,
@@ -15916,7 +16182,7 @@ form .field-widget-imagefield-crop-widget .form-submit {
     padding: 0;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   form .file-widget .file-upload,
   form .field-type-image .file-upload,
   form .image-widget-data .file-upload,
@@ -15925,7 +16191,7 @@ form .field-widget-imagefield-crop-widget .form-submit {
     width: 66.66666667%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   form .file-widget span.file,
   form .field-type-image span.file,
   form .image-widget-data span.file,
@@ -15937,7 +16203,7 @@ form .field-widget-imagefield-crop-widget .form-submit {
 form .form-mandatory {
   clear: both;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   form .form-row {
     display: table;
     width: 100%;
@@ -15979,7 +16245,7 @@ body.front.not-logged-in .main-container section#maincol {
 body.front.not-logged-in .main-container > .container > .row:first-child {
   padding-bottom: 20px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   body.front.not-logged-in #sidebar-first {
     padding-left: 0;
     padding-right: 30px;
@@ -15996,7 +16262,7 @@ body.front.logged-in .main-container > .container > .row:first-child {
 body.front aside {
   margin-top: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   body.front.not-logged-in {
     padding-top: 113px;
   }
@@ -16020,14 +16286,14 @@ form#change-pwd-page-form .form-type-password-confirm div.confirm-parent {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   form#change-pwd-page-form .form-type-password-confirm div.password-parent,
   form#change-pwd-page-form .form-type-password-confirm div.confirm-parent {
     float: left;
     width: 50%;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   form#change-pwd-page-form .form-type-password-confirm div.password-parent {
     padding-left: 0;
     padding-right: 7.5px;
@@ -16092,7 +16358,7 @@ form#emh-points-arrange-form fieldset .panel-body .answer-author {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   form#emh-points-arrange-form fieldset .panel-body .answer-author {
     float: left;
     width: 16.66666667%;
@@ -16104,7 +16370,7 @@ form#emh-points-arrange-form fieldset .panel-body .answer {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   form#emh-points-arrange-form fieldset .panel-body .answer {
     float: left;
     width: 58.33333333%;
@@ -16116,7 +16382,7 @@ form#emh-points-arrange-form fieldset .panel-body .form-group {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   form#emh-points-arrange-form fieldset .panel-body .form-group {
     float: left;
     width: 25%;
@@ -16215,7 +16481,7 @@ form#user-profile-form .link-field-subrow {
 form#user-profile-form .link-field-subrow > * .form-group {
   margin-bottom: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   form#user-profile-form .link-field-subrow {
     margin-left: 0;
     margin-right: 0;
@@ -16230,7 +16496,7 @@ form#user-profile-form .link-field-subrow > *:nth-child(1) {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   form#user-profile-form .link-field-subrow > *:nth-child(1) {
     float: left;
     width: 50%;
@@ -16242,13 +16508,13 @@ form#user-profile-form .link-field-subrow > *:nth-child(2) {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   form#user-profile-form .link-field-subrow > *:nth-child(2) {
     float: left;
     width: 50%;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   form#user-profile-form .link-field-subrow > *:nth-child(1) {
     padding-left: 0;
     padding-right: 7.5px;
@@ -16285,7 +16551,7 @@ form#user-profile-form .imagefield-crop-widget .file-upload > span {
 form#user-profile-form .imagefield-crop-widget .jcrop-holder {
   background-color: transparent ! important;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) {
     margin-left: -15px;
     margin-right: -15px;
@@ -16317,13 +16583,13 @@ form#user-profile-form .imagefield-crop-widget .jcrop-holder {
     margin: 0;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 {
     float: left;
     width: 33.33333333%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 label:first-of-type,
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .field-label {
     position: relative;
@@ -16340,7 +16606,7 @@ form#user-profile-form .imagefield-crop-widget .jcrop-holder {
     padding-right: 15px;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 {
     margin-bottom: 0;
   }
@@ -16363,14 +16629,14 @@ form#user-profile-form .imagefield-crop-widget .jcrop-holder {
     padding-left: 0;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 label:first-of-type,
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .field-label {
     float: left;
     width: 33.33333333%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 > .form-control:first-of-type,
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .input-group:first-of-type,
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 .field-items {
@@ -16378,13 +16644,13 @@ form#user-profile-form .imagefield-crop-widget .jcrop-holder {
     width: 66.66666667%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval {
     float: left;
     width: 33.33333333%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval label:first-of-type,
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .field-label {
     position: relative;
@@ -16401,7 +16667,7 @@ form#user-profile-form .imagefield-crop-widget .jcrop-holder {
     padding-right: 15px;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval {
     margin-bottom: 0;
   }
@@ -16424,14 +16690,14 @@ form#user-profile-form .imagefield-crop-widget .jcrop-holder {
     padding-left: 0;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval label:first-of-type,
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .field-label {
     float: left;
     width: 33.33333333%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval > .form-control:first-of-type,
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .input-group:first-of-type,
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval .field-items {
@@ -16439,13 +16705,13 @@ form#user-profile-form .imagefield-crop-widget .jcrop-holder {
     width: 66.66666667%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences {
     float: left;
     width: 25%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences label:first-of-type,
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .field-label {
     position: relative;
@@ -16462,7 +16728,7 @@ form#user-profile-form .imagefield-crop-widget .jcrop-holder {
     padding-right: 15px;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences {
     margin-bottom: 0;
   }
@@ -16485,14 +16751,14 @@ form#user-profile-form .imagefield-crop-widget .jcrop-holder {
     padding-left: 0;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences label:first-of-type,
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .field-label {
     float: left;
     width: 75%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .form-control:first-of-type,
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .input-group:first-of-type,
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences .field-items {
@@ -16500,7 +16766,7 @@ form#user-profile-form .imagefield-crop-widget .jcrop-holder {
     width: 25%;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) {
     margin-left: -15px;
     margin-right: -15px;
@@ -16532,13 +16798,13 @@ form#user-profile-form .imagefield-crop-widget .jcrop-holder {
     margin: 0;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position {
     float: left;
     width: 33.33333333%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position label:first-of-type,
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .field-label {
     position: relative;
@@ -16555,7 +16821,7 @@ form#user-profile-form .imagefield-crop-widget .jcrop-holder {
     padding-right: 15px;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position {
     margin-bottom: 0;
   }
@@ -16578,14 +16844,14 @@ form#user-profile-form .imagefield-crop-widget .jcrop-holder {
     padding-left: 0;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position label:first-of-type,
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .field-label {
     float: left;
     width: 33.33333333%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position > .form-control:first-of-type,
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .input-group:first-of-type,
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-position .field-items {
@@ -16593,13 +16859,13 @@ form#user-profile-form .imagefield-crop-widget .jcrop-holder {
     width: 66.66666667%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise {
     float: left;
     width: 33.33333333%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise label:first-of-type,
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .field-label {
     position: relative;
@@ -16616,7 +16882,7 @@ form#user-profile-form .imagefield-crop-widget .jcrop-holder {
     padding-right: 15px;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise {
     margin-bottom: 0;
   }
@@ -16639,14 +16905,14 @@ form#user-profile-form .imagefield-crop-widget .jcrop-holder {
     padding-left: 0;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise label:first-of-type,
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .field-label {
     float: left;
     width: 33.33333333%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise > .form-control:first-of-type,
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .input-group:first-of-type,
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-entreprise .field-items {
@@ -16654,13 +16920,13 @@ form#user-profile-form .imagefield-crop-widget .jcrop-holder {
     width: 66.66666667%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences {
     float: left;
     width: 25%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences label:first-of-type,
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .field-label {
     position: relative;
@@ -16677,7 +16943,7 @@ form#user-profile-form .imagefield-crop-widget .jcrop-holder {
     padding-right: 15px;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences {
     margin-bottom: 0;
   }
@@ -16700,14 +16966,14 @@ form#user-profile-form .imagefield-crop-widget .jcrop-holder {
     padding-left: 0;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences label:first-of-type,
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .field-label {
     float: left;
     width: 75%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 992px) and (min-width: 992px) and (min-width: 992px) {
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .form-control:first-of-type,
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .input-group:first-of-type,
   form#user-profile-form #edit-field-position-list tbody td:nth-child(2) .field-name-field-year-of-experiences .field-items {
@@ -16715,7 +16981,7 @@ form#user-profile-form .imagefield-crop-widget .jcrop-holder {
     width: 25%;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   form#user-profile-form #edit-field-known-specific {
     clear: both;
     margin-left: 50%;
@@ -16811,7 +17077,7 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
   padding-right: 15px;
   margin: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #user-register-form .hybridauth-widget-wrapper h3 {
     float: left;
     width: 25%;
@@ -16823,7 +17089,7 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #user-register-form .hybridauth-widget-wrapper .hybridauth-widget {
     float: left;
     width: 75%;
@@ -16837,7 +17103,7 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
   border: 0;
   display: none !important;
 }
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .form-type-password-confirm {
     margin: 0;
   }
@@ -16846,7 +17112,7 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
     width: 100%;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .form-type-password-confirm .row > .form-group.password-parent {
     padding-right: 7.5px;
   }
@@ -16879,13 +17145,13 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
   background-color: #fff;
   background-image: none;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .page-user .profile-section h2 {
     float: left;
     width: 100%;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .page-user .profile-section h2 span {
     background-color: #FFF;
     display: inline-block;
@@ -17099,7 +17365,7 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
     width: 33.33333333%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 768px) and (min-width: 992px) {
   .page-user .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences label:first-of-type,
   .page-user .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .field-label {
     position: relative;
@@ -17116,7 +17382,7 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
     padding-right: 15px;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 768px) and (min-width: 992px) and (min-width: 992px) {
   .page-user .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences {
     margin-bottom: 0;
   }
@@ -17139,14 +17405,14 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
     padding-left: 0;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 768px) and (min-width: 992px) and (min-width: 992px) {
   .page-user .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences label:first-of-type,
   .page-user .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .field-label {
     float: left;
     width: 50%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 768px) and (min-width: 992px) and (min-width: 992px) {
   .page-user .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences > .form-control:first-of-type,
   .page-user .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .input-group:first-of-type,
   .page-user .profile-section .field-name-field-skills-set .field-item .content .field-name-field-year-of-experiences .field-items {
@@ -17172,7 +17438,7 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
     width: 33.33333333%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 768px) and (min-width: 992px) {
   .page-user .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences label:first-of-type,
   .page-user .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .field-label {
     position: relative;
@@ -17189,7 +17455,7 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
     padding-right: 15px;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 768px) and (min-width: 992px) and (min-width: 992px) {
   .page-user .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences {
     margin-bottom: 0;
   }
@@ -17212,14 +17478,14 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
     padding-left: 0;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 768px) and (min-width: 992px) and (min-width: 992px) {
   .page-user .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences label:first-of-type,
   .page-user .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .field-label {
     float: left;
     width: 50%;
   }
 }
-@media (min-width: 768px) and (min-width: 768px) and (min-width: 768px) {
+@media (min-width: 768px) and (min-width: 992px) and (min-width: 992px) {
   .page-user .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences > .form-control:first-of-type,
   .page-user .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .input-group:first-of-type,
   .page-user .profile-section .field-name-field-position-list .field-item .content .field-name-field-year-of-experiences .field-items {
@@ -17700,7 +17966,10 @@ table#webform-components .webform-component-delete a .badge {
 }
 /* Page Our services */
 .page-node-268 .node .content #services-top {
+  margin-left: -15px;
+  margin-right: -15px;
   margin-top: 15px;
+  background: transparent url("../images/content/node/268/our-services_blue-circle.png") no-repeat center center;
 }
 .page-node-268 .node .content #services-top ul {
   list-style: none;
@@ -17711,32 +17980,168 @@ table#webform-components .webform-component-delete a .badge {
 .page-node-268 .node .content #services-experts h3 {
   text-transform: uppercase;
 }
+.page-node-268 .node .content #services-clients {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  .page-node-268 .node .content #services-clients {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+@media (min-width: 992px) {
+  .page-node-268 .node .content #services-clients {
+    float: left;
+    width: 41.66666667%;
+  }
+}
+.page-node-268 .node .content #services-clients:after {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  content: "";
+  display: block;
+  border-radius: 100%;
+  background: transparent url("../images/content/node/268/our-services_clients-circle.png") no-repeat center center;
+  background-size: contain;
+}
 .page-node-268 .node .content #services-benefits {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
   text-align: center;
   font-weight: bold;
   font-size: 17px;
   line-height: 1.75em;
   word-wrap: break-word;
 }
+@media (min-width: 768px) {
+  .page-node-268 .node .content #services-benefits {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+@media (min-width: 992px) {
+  .page-node-268 .node .content #services-benefits {
+    float: left;
+    width: 16.66666667%;
+  }
+}
 .page-node-268 .node .content #services-experts {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
   text-align: right;
+}
+@media (min-width: 768px) {
+  .page-node-268 .node .content #services-experts {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+@media (min-width: 992px) {
+  .page-node-268 .node .content #services-experts {
+    float: left;
+    width: 41.66666667%;
+  }
+}
+.page-node-268 .node .content #services-experts:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  display: block;
+  border-radius: 100%;
+  background: transparent url("../images/content/node/268/our-services_experts-circle.png") no-repeat center center;
+  background-size: contain;
+}
+.page-node-268 .node .content #services-bottom {
+  margin-left: -15px;
+  margin-right: -15px;
 }
 .page-node-268 .node .content #services-question,
 .page-node-268 .node .content #services-challenge,
 .page-node-268 .node .content #services-survey {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
   text-align: center;
-  background-color: #f2f2f2;
-  padding: 15px;
-  margin: 15px 15px 0;
+  margin-top: 15px;
 }
-.page-node-268 .node .content #services-question h3,
-.page-node-268 .node .content #services-challenge h3,
-.page-node-268 .node .content #services-survey h3 {
+@media (min-width: 768px) {
+  .page-node-268 .node .content #services-question,
+  .page-node-268 .node .content #services-challenge,
+  .page-node-268 .node .content #services-survey {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+.page-node-268 .node .content #services-question .content,
+.page-node-268 .node .content #services-challenge .content,
+.page-node-268 .node .content #services-survey .content {
+  background-color: #f2f2f2;
+  background-repeat: no-repeat;
+  background-position: center 5%;
+  padding: 150px 15px 15px;
+}
+.page-node-268 .node .content #services-question .content h3,
+.page-node-268 .node .content #services-challenge .content h3,
+.page-node-268 .node .content #services-survey .content h3 {
   text-transform: uppercase;
   margin-top: 0;
 }
-@media (min-width: 768px) {
-  .page-node-268 .node .content .row {
+.page-node-268 .node .content #services-question .content {
+  background-image: url("../images/askQuestion.png");
+}
+.page-node-268 .node .content #services-challenge .content {
+  background-image: url("../images/launchChallenge.png");
+}
+.page-node-268 .node .content #services-survey .content {
+  background-image: url("../images/findExpert.png");
+}
+@media (max-width: 767px) {
+  .page-node-268 .node .content #services-clients {
+    background: transparent url("../images/content/node/268/our-services_clients-circle.png") no-repeat bottom center;
+    padding-bottom: 240px;
+    text-align: center;
+  }
+  .page-node-268 .node .content #services-experts {
+    background: transparent url("../images/content/node/268/our-services_experts-circle.png") no-repeat top center;
+    padding-top: 240px;
+    text-align: center;
+  }
+}
+@media (min-width: 767px) {
+  .page-node-268 .node .content #services-top {
+    background-size: contain;
+  }
+  .page-node-268 .node .content #services-clients {
+    padding-bottom: 150px;
+  }
+  .page-node-268 .node .content #services-clients:after {
+    width: 150px;
+    height: 150px;
+  }
+  .page-node-268 .node .content #services-experts {
+    padding-top: 150px;
+  }
+  .page-node-268 .node .content #services-experts:before {
+    width: 150px;
+    height: 150px;
+  }
+  .page-node-268 .node .content #services-benefits {
+    padding: 50px 0 0;
+  }
+}
+@media (min-width: 992px) {
+  .page-node-268 .node .content #services-top,
+  .page-node-268 .node .content #services-bottom {
     padding-bottom: 15px;
   }
   .page-node-268 .node .content #services-top,
@@ -17744,22 +18149,12 @@ table#webform-components .webform-component-delete a .badge {
   .page-node-268 .node .content #services-experts {
     min-height: 230px;
   }
-  .page-node-268 .node .content #services-top {
-    background: transparent url("../images/content/node/268/our-services_blue-circle.png") no-repeat center center;
-  }
   .page-node-268 .node .content #services-clients {
     padding-bottom: 230px;
   }
   .page-node-268 .node .content #services-clients:after {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    content: "";
-    display: block;
-    width: 250px;
-    height: 250px;
-    border-radius: 100%;
-    background: #ffffff url("../images/content/node/268/our-services_clients-circle.png") no-repeat center center;
+    width: 240px;
+    height: 240px;
   }
   .page-node-268 .node .content #services-benefits {
     padding: 95px 0 0;
@@ -17769,38 +18164,8 @@ table#webform-components .webform-component-delete a .badge {
   }
   .page-node-268 .node .content #services-experts:before {
     position: absolute;
-    top: 0;
-    left: 0;
-    content: "";
-    display: block;
-    width: 250px;
-    height: 250px;
-    border-radius: 100%;
-    background: #ffffff url("../images/content/node/268/our-services_experts-circle.png") no-repeat center center;
-  }
-  .page-node-268 .node .content #services-question,
-  .page-node-268 .node .content #services-challenge,
-  .page-node-268 .node .content #services-survey {
-    background-repeat: no-repeat;
-    background-position: 65% 5%;
-    padding: 10em 15px 15px;
-    margin-top: 15px;
-    width: 30.75%;
-  }
-  .page-node-268 .node .content #services-question {
-    background-image: url("../images/askQuestion.png");
-    margin-left: 15px;
-    margin-right: 7.5px;
-  }
-  .page-node-268 .node .content #services-challenge {
-    background-image: url("../images/launchChallenge.png");
-    margin-left: 7.5px;
-    margin-right: 7.5px;
-  }
-  .page-node-268 .node .content #services-survey {
-    background-image: url("../images/findExpert.png");
-    margin-left: 7.5px;
-    margin-right: 15px;
+    width: 240px;
+    height: 240px;
   }
 }
 

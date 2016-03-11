@@ -19,16 +19,16 @@ function emindhub_preprocess_page(&$variables) {
 
   // Add information about the number of sidebars.
   if (!empty($variables['page']['sidebar_first']) && !empty($variables['page']['sidebar_second'])) {
-    $variables['content_column_class'] = ' class="col-sm-7"';
+    $variables['content_column_class'] = ' class="col-md-7"';
   }
   elseif (!empty($variables['page']['sidebar_first']) && empty($variables['page']['sidebar_second'])) {
-    $variables['content_column_class'] = ' class="col-sm-10"';
+    $variables['content_column_class'] = ' class="col-md-10"';
   }
   elseif (empty($variables['page']['sidebar_first']) && !empty($variables['page']['sidebar_second'])) {
-    $variables['content_column_class'] = ' class="col-sm-9"';
+    $variables['content_column_class'] = ' class="col-md-9"';
   }
   else {
-    $variables['content_column_class'] = ' class="col-sm-12"';
+    $variables['content_column_class'] = ' class="col-md-12"';
   }
 
   $variables['baseline'] = emindhub_beautiful_baseline();

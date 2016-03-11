@@ -41,30 +41,6 @@ function ft_rules_default_rules_configuration() {
       ]
     }
   }');
-  $items['rules_mandatory_group'] = entity_import('rules_config', '{ "rules_mandatory_group" : {
-      "LABEL" : "Mandatory Group",
-      "PLUGIN" : "reaction rule",
-      "OWNER" : "rules",
-      "TAGS" : [ "Circle", "EMH" ],
-      "REQUIRES" : [ "rules", "og", "views_rules" ],
-      "ON" : { "user_update" : [] },
-      "DO" : [
-        { "entity_fetch" : {
-            "USING" : { "type" : "node", "id" : "314" },
-            "PROVIDE" : { "entity_fetched" : { "entity_fetched" : "Fetched entity" } }
-          }
-        },
-        { "og_subcribe_user" : { "user" : [ "account" ], "group" : [ "entity-fetched" ] } },
-        { "VIEW LOOP" : {
-            "VIEW" : "user_circle_list",
-            "DISPLAY" : "views_rules_1",
-            "ROW VARIABLES" : { "node" : { "node" : "Node" } },
-            "DO" : []
-          }
-        }
-      ]
-    }
-  }');
   $items['rules_on_hybridauth_register'] = entity_import('rules_config', '{ "rules_on_hybridauth_register" : {
       "LABEL" : "On hybridauth register",
       "PLUGIN" : "reaction rule",
@@ -85,7 +61,7 @@ function ft_rules_default_rules_configuration() {
         { "data_set" : { "data" : [ "hybridauth-user:mail" ], "value" : [ "hybridauth:email" ] } },
         { "user_add_role" : {
             "account" : [ "hybridauth-user" ],
-            "roles" : { "value" : { "4" : "4", "8" : "8" } }
+            "roles" : { "value" : { "4" : "4" } }
           }
         }
       ]
@@ -106,32 +82,6 @@ function ft_rules_default_rules_configuration() {
             "DO" : [
               { "og_subcribe_user" : { "user" : [ "list-item" ], "group" : [ "node" ] } }
             ]
-          }
-        }
-      ]
-    }
-  }');
-  $items['rules_set_clients_as_admin_in_mandatory_group'] = entity_import('rules_config', '{ "rules_set_clients_as_admin_in_mandatory_group" : {
-      "LABEL" : "Set clients as admin in circles",
-      "PLUGIN" : "reaction rule",
-      "OWNER" : "rules",
-      "REQUIRES" : [ "rules", "og" ],
-      "ON" : { "og_user_insert" : [] },
-      "IF" : [
-        { "user_has_role" : { "account" : [ "account" ], "roles" : { "value" : { "5" : "5" } } } },
-        { "AND" : [] },
-        { "entity_is_of_type" : { "entity" : [ "og-membership:group" ], "type" : "node" } }
-      ],
-      "DO" : [
-        { "entity_fetch" : {
-            "USING" : { "type" : "node", "id" : [ "og-membership:group:nid" ] },
-            "PROVIDE" : { "entity_fetched" : { "entity_fetched" : "Fetched entity" } }
-          }
-        },
-        { "og_grant_og_role" : {
-            "account" : [ "account" ],
-            "group" : [ "entity-fetched" ],
-            "roles" : { "value" : { "administrator member" : "administrator member" } }
           }
         }
       ]

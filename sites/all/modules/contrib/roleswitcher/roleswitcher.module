@@ -1,0 +1,177 @@
+<?php
+
+/**
+ * @file
+ * Role Switcher module.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function roleswitcher_menu() {
+  $items = array();
+  $items['roleswitcher'] = array(
+    'title' => 'Switch role',
+    'type' => MENU_CALLBACK,
+    'page callback' => 'roleswitcher_page',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer permissions'),
+  );
+  $items['roleswitcher/%'] = array(
+    'title' => 'Switch role',
+    'type' => MENU_CALLBACK,
+    'page callback' => 'roleswitcher_switch_callback',
+    'page arguments' => array(1),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer permissions'),
+  );
+  // Admin settings callback
+  $items['admin/config/development/roleswitcher'] = array(
+    'title' => 'Role Switcher',
+    'description' => 'Define how to store Role Switcher data.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('roleswitcher_admin_form'),
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'roleswitcher.admin.inc',
+  );
+  return $items;
+}
+
+/**
+ * Menu callback for roleswitcher path.
+ */
+function roleswitcher_page() {
+  $block = block_load('roleswitcher', 'switcher');
+  return _block_get_renderable_array(_block_render_blocks(array($block)));
+}
+
+/**
+ * Menu callback for roleswitcher/% path.
+ */
+function roleswitcher_switch_callback($rid) {
+  if (!drupal_valid_token($_GET['token'], 'roleswitcher-switch')) {
+    return drupal_access_denied();
+  }
+  // Switch role.
+  if (variable_get('roleswitcher_store_mode', 'database') == 'session') {
+    // Use session for storing the switched roles.
+    roleswitcher_switch_light($rid);
+  }
+  else {
+    // Override user's actual roles in the database by the switched roles.
+    roleswitcher_switch($rid);
+  }
+  // Use roleswitcher page as destination if nothing else is defined.
+  $destination = isset($_GET['destination']) ? $_GET['destination'] : 'roleswitcher';
+  drupal_goto($destination);
+}
+
+function roleswitcher_switch($rid) {
+  global $user;
+  // Be sure that all the fields are loaded.
+  $user = user_load($user->uid);
+  // Clear current roles.
+  $user->roles = array();
+  // Assign roleswitcher role.
+  $roleswitcher = user_role_load_by_name('roleswitcher');
+  $user->roles[$roleswitcher->rid] = $roleswitcher->name;
+  // Assign requested role.
+  $role = user_role_load($rid);
+  $user->roles[$role->rid] = $role->name;
+  // Save user.
+  user_save($user);
+  return $user;
+}
+
+/**
+ * Switch roles without saving the data to $user object.
+ *
+ * This function saves the roles data to $_SESSION['roleswitcher_roles']
+ * and in hook_boot() we use it to change the roles in the $user->roles object.
+ */
+function roleswitcher_switch_light($rid) {
+  global $user;
+  $roles = array();
+  // Assign roleswitcher role.
+  $roleswitcher = user_role_load_by_name('roleswitcher');
+  $roles[$roleswitcher->rid] = $roleswitcher->name;
+  // Assign requested role.
+  $role = user_role_load($rid);
+  $roles[$role->rid] = $role->name;
+  // If user is logged in, add 'authenticated user' role.
+  if ($user->uid && $rid != 1) {
+    $roles[2] = 'authenticated user';
+  }
+  $_SESSION['roleswitcher_roles'] = $roles;
+}
+
+/**
+ * End roleswitcher_switch_light() task - change role without saving data to $user object.
+ */
+function roleswitcher_boot() {
+  if (variable_get('roleswitcher_store_mode') == 'session' && !empty($_SESSION['roleswitcher_roles'])) {
+    global $user;
+    $user->roles = $_SESSION['roleswitcher_roles'];
+  }
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function roleswitcher_block_info() {
+  $blocks['switcher'] = array(
+    'info' => t('Role switcher'),
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function roleswitcher_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'switcher':
+    default:
+      if (user_access('administer permissions')) {
+        $attributes = array(
+          'query' => drupal_get_destination()
+        );
+        $attributes['query']['token'] = drupal_get_token('roleswitcher-switch');
+        $block['subject'] = t('Role switcher');
+        $block['content'] = array(
+          '#theme' => 'roleswitcher_list',
+          '#roles' => user_roles(),
+          '#attributes' => $attributes,
+        );
+      }
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function roleswitcher_theme() {
+  return array(
+    'roleswitcher_list' => array(
+      'variables' => array('roles' => array(), 'attributes' => array()),
+    )
+  );
+}
+
+/**
+ * Theme function for roles list.
+ */
+function theme_roleswitcher_list($variables) {
+  $output = "<ul>";
+  foreach ($variables['roles'] as $rid => $name) {
+    if ($name != 'roleswitcher') {
+      $output .= "<li>" . l($name, "roleswitcher/$rid", $variables['attributes']) . "</li>";
+    }
+  }
+  $output .= "</ul>";
+  return $output;
+}

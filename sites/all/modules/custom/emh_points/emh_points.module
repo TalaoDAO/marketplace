@@ -79,10 +79,13 @@ function emh_points_menu() {
   return $items;
 }
 
-function emh_points_menu_alter(&$items){
-  $items['node/%views_arg/answers']['access callback'] = 'emh_user_is_author';
+/**
+ * Implements hook_menu_alter().
+ */
+function emh_points_menu_alter(&$items) {
+  $items['node/%views_arg/answers']['access callback'] = 'emh_access_user_can_see_full_answer';
   $items['node/%views_arg/answers']['access arguments'] = array(1);
-  $items['node/%views_arg/results']['access callback'] = 'emh_user_is_author';
+  $items['node/%views_arg/results']['access callback'] = 'emh_access_user_can_see_full_answer';
   $items['node/%views_arg/results']['access arguments'] = array(1);
 }
 
@@ -121,7 +124,6 @@ function emh_points_menu_local_tasks_alter(&$data, $router_item, $root_path) {
     }
   }
 }
-
 
 /**
  * Access callback for the points history page.
@@ -519,12 +521,14 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
       drupal_set_title(emh_points_format_entity($user));
       break;
     case 'node':
-      $node = node_load($id_source);
-      if (empty($node) || ($user->uid != 1 && $user->uid != $node->uid)) {
-        drupal_access_denied();
-        drupal_exit();
+      if (!user_access('execute emh_points_arrange_node_points')) {
+        $node = node_load($id_source);
+        if (empty($node) || ($user->uid != 1 && $user->uid != $node->uid)) {
+          drupal_access_denied();
+          drupal_exit();
+        }
+        drupal_set_title($node->title);
       }
-      drupal_set_title($node->title);
       break;
     default:
       drupal_access_denied();

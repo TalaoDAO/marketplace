@@ -53,3 +53,15 @@ function emh_access_update_7102() {
     variable_set('site_404', 'customerror/404');
   }
 }
+
+/**
+ * Add permissions : access EMH requests, access EMH answers, access EMH profiles for admin and webmaster roles.
+ */
+function emh_access_update_7103() {
+  user_role_grant_permissions(3, array('access EMH requests')); // administrator
+  user_role_grant_permissions(6, array('access EMH requests')); // webmaster
+  user_role_grant_permissions(3, array('access EMH answers')); // administrator
+  user_role_grant_permissions(6, array('access EMH answers')); // webmaster
+  user_role_grant_permissions(3, array('access EMH profiles')); // administrator
+  user_role_grant_permissions(6, array('access EMH profiles')); // webmaster
+}

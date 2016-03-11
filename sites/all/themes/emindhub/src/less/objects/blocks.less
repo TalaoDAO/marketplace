@@ -1,5 +1,5 @@
 #block-search-form {
-	@media (min-width: @screen-sm-min) {
+	@media (min-width: @screen-md-min) {
 		padding-top: 8px;
 		padding-bottom: 8px;
 	}
@@ -46,14 +46,14 @@
 			cursor: pointer;
 		}
 	}
-	@media (min-width: @screen-sm-min) {
+	@media (min-width: @screen-md-min) {
 		.nav {
 			float: right;
 		}
 	}
 }
 #block-system-user-menu {
-	@media (min-width: @screen-sm-min) {
+	@media (min-width: @screen-md-min) {
 		.nav {
 			> li > span {
 				overflow: hidden;
@@ -70,14 +70,19 @@
 		}
 	}
 }
+body.role-roleswitcher {
+	#block-system-user-menu {
+		.make-md-column(10);
+	}
+}
 
 
 /* HEADER
  * Languages
  */
 #block-bootstrap-languages-language {
-	.make-sm-column(1);
-	.make-xs-column(3);
+	.make-md-column(1);
+	.make-xs-column(1);
 	.text-right;
 	.nav {
 		margin: 10px 0;
@@ -87,7 +92,7 @@
 
 
 // Top menu anonyme
-@media (min-width: @screen-sm-min) {
+@media (min-width: @screen-md-min) {
 	.page-user.role-anonymous-user:not(.page-403) {
 		#block-menu-menu-top-anonymous {
 			margin-top: 50px;
@@ -269,9 +274,10 @@
 			.make-row();
 			margin: 0;
 			> .title-first {
-				.make-sm-column(4);
 				.make-xs-column(12);
+				.make-lg-column(4);
 				padding: 15px;
+				// display: inline-block;
 
 				text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
 				strong {
@@ -279,12 +285,13 @@
 				}
 			}
 			> .title-second {
-				.make-sm-column(8);
 				.make-xs-column(12);
+				.make-lg-column(8);
+				padding: 15px;
+				// display: inline-block;
 
 				font-size: 20px;
 				text-transform: none;
-				padding: 15px;
 			}
 		}
 	}
@@ -330,7 +337,7 @@
 		}
 	}
 
-	@media (min-width: @screen-sm-min) {
+	@media (min-width: @screen-lg-min) {
 		.block-title {
 			> span {
 				> .title-first {
@@ -377,7 +384,7 @@
 			}
 		}
 	}
-	@media (min-width: @screen-sm-min) {
+	@media (min-width: @screen-md-min) {
 		background-position: center center;
 	}
 }
@@ -395,7 +402,7 @@
 			}
 		}
 	}
-	@media (min-width: @screen-sm-min) {
+	@media (min-width: @screen-md-min) {
 		background-position: center center;
 	}
 }
@@ -443,20 +450,22 @@
 
 	}
 
-	@media (max-width: @screen-sm-min) {
+	@media (max-width: @screen-md-min) {
 		a {
 			padding: 15px;
-		}
-		a:before {
-			width: 100%;
+			&:before {
+				width: 100%;
+			}
 		}
 	}
 
-	@media (min-width: @screen-sm-min) {
-		a:before {
-			width: 100%;
-		}
-	}
+	// @media (min-width: @screen-md-min) {
+	// 	a {
+	// 		&:before {
+	// 			width: 100%;
+	// 		}
+	// 	}
+	// }
 
 	@media (min-width: @screen-md-min) {
 		a {
@@ -502,7 +511,7 @@ body.role-expert-preview {
 	}
 	.content {
 		padding-bottom: 1.7em;
-		@media (min-width: @screen-sm-min) {
+		@media (min-width: @screen-md-min) {
 			min-height: 83px;
 		}
 	}
@@ -524,19 +533,19 @@ body.role-expert-preview {
 		padding: 15px;
 	}
 
-	@media (min-width: @screen-sm-min) {
+	@media (min-width: @screen-md-min) {
 		.form-item-civility {
-			.make-sm-column(6);
+			.make-md-column(6);
 			padding-left: 0;
 		}
 		.form-item-firstname {
 			clear: both;
-			.make-sm-column(6);
+			.make-md-column(6);
 			padding-left: 0;
 			padding-right: 7.5px;
 		}
 		.form-item-lastname {
-			.make-sm-column(6);
+			.make-md-column(6);
 			padding-right: 0;
 			padding-left: 7.5px;
 		}
@@ -544,12 +553,12 @@ body.role-expert-preview {
 			clear: both;
 		}
 		.form-item-phone {
-			.make-sm-column(6);
+			.make-md-column(6);
 			padding-right: 7.5px;
 			padding-left: 0;
 		}
 		.form-item-mail {
-			.make-sm-column(6);
+			.make-md-column(6);
 			padding-right: 0;
 			padding-left: 7.5px;
 		}
@@ -563,7 +572,7 @@ body.role-expert-preview {
 // They use eMindHub services
 #block-views-entreprise-list-block {
 	.content {
-		@media (min-width: @screen-sm-min) {
+		@media (min-width: @screen-md-min) {
 			.views-field views-field-field-logo {
 				img {
 					.center-block;
@@ -605,15 +614,15 @@ body.role-expert-preview {
 			#gradient > .horizontal(@start-color: rgba(242,242,242,.0001); @end-color: rgba(242,242,242,.5));
 	  }
 	}
-	@media (min-width: @screen-sm-min) {
+	@media (min-width: @screen-md-min) {
 		.views-row {
 			.make-row();
 			> * {
-				.make-sm-column(6);
+				.make-md-column(6);
 			}
 		}
 		.views-field-field-photo {
-			.make-sm-column(6);
+			.make-md-column(6);
 		}
 	}
 }
@@ -625,10 +634,10 @@ body.role-expert-preview {
 		.item {
 			.make-row();
 			> * {
-				.make-sm-column(8);
+				.make-md-column(8);
 			}
 			> a {
-				.make-sm-column(4);
+				.make-md-column(4);
 			}
 		}
 		h3 {
@@ -660,7 +669,7 @@ body.role-expert-preview {
 	  }
 	}
 
-	@media (min-width: @screen-sm-min) {
+	@media (min-width: @screen-md-min) {
 		.content {
 			.item {
 				> a {
@@ -684,7 +693,7 @@ body.role-expert-preview {
 		}
 		#edit-field-domaine-tid-i18n-wrapper,
 		#edit-field-tags-tid-i18n-wrapper {
-			.make-sm-column(3);
+			.make-md-column(3);
 		}
 	}
 	// Contenu
@@ -729,9 +738,9 @@ body.role-expert-preview {
 	// Filtres de seconde ligne
 	form {
 		#edit-total-points-wrapper {
-			.make-sm-column-offset(4);
+			.make-md-column-offset(4);
 		}
-		@media (min-width: @screen-sm-min) {
+		@media (min-width: @screen-md-min) {
 			#edit-status-wrapper,
 			#edit-status-1-wrapper,
 			#edit-total-points-wrapper {
@@ -750,9 +759,9 @@ body.role-expert-preview {
 	form {
 		#edit-status-wrapper,
 		#edit-status-1-wrapper {
-			.make-sm-column-offset(4);
+			.make-md-column-offset(4);
 		}
-		@media (min-width: @screen-sm-min) {
+		@media (min-width: @screen-md-min) {
 			#edit-status-wrapper,
 			#edit-status-1-wrapper,
 			#edit-total-points-wrapper {
@@ -777,11 +786,11 @@ body.role-expert-preview {
 
 		.pt-status {
 			.emh-status-block;
-			.make-sm-column(3);
+			.make-md-column(3);
 			padding: 0;
 		}
 		.pt-steps {
-			.make-sm-column(9);
+			.make-md-column(9);
 			padding: 0;
 
 			ul.progress-tracker {
@@ -790,7 +799,7 @@ body.role-expert-preview {
 				margin: 0 0 15px;
 
 				li {
-					.make-sm-column(6);
+					.make-md-column(6);
 					.text-center;
 					.text-uppercase;
 
@@ -806,7 +815,7 @@ body.role-expert-preview {
 		}
 	}
 
-	@media (min-width: @screen-sm-min) {
+	@media (min-width: @screen-md-min) {
 		#progress-tracker-wrapper {
 			.pt-status {
 				span {
@@ -925,5 +934,30 @@ body.role-expert-preview {
 		padding-top: 115px;
 		margin-top: 15px;
 		background: transparent url("../images/logo/eMindHub_Aerospace_logo.png") no-repeat center top;
+	}
+}
+
+// Roleswitcher
+#block-roleswitcher-switcher {
+	.make-md-column(2);
+	.text-right;
+	a {
+		.btn;
+		.btn-sm;
+		margin-top: 5px;
+	}
+}
+.role-expert {
+	#block-roleswitcher-switcher {
+		a {
+			.btn-business;
+		}
+	}
+}
+.role-business {
+	#block-roleswitcher-switcher {
+		a {
+			.btn-expert;
+		}
 	}
 }
