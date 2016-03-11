@@ -338,10 +338,44 @@ function emh_points_update_7107() {
   ->execute();
 }
 
-
 /**
  * Revert Views.
  */
 function emh_points_update_7108() {
   emh_points_reset_views();
+}
+
+/**
+ * Add permissions : points for référent.
+ */
+function emh_points_update_7109() {
+  // Administrator role
+  user_role_grant_permissions(3, array(
+    'execute emh_points_give_points',
+    'execute emh_points_remove_points',
+    'execute emh_points_transfert_points',
+    'execute emh_points_arrange_points',
+    'execute emh_points_arrange_group_points',
+    'execute emh_points_arrange_node_points'
+  ));
+  // Webmaster role
+  user_role_grant_permissions(6, array(
+    'execute emh_points_give_points',
+    'execute emh_points_remove_points',
+    'execute emh_points_transfert_points',
+    'execute emh_points_arrange_points',
+    'execute emh_points_arrange_group_points',
+    'execute emh_points_arrange_node_points'
+  ));
+  // Business role
+  user_role_grant_permissions(5, array(
+    'execute emh_points_transfert_points',
+    'execute emh_points_arrange_points',
+    'execute emh_points_arrange_group_points',
+    'execute emh_points_arrange_node_points'
+  ));
+  // Référent role
+  user_role_grant_permissions(7, array(
+    'execute emh_points_arrange_node_points'
+  ));
 }
