@@ -26,7 +26,7 @@ h4, .h4 {
 }
 
 .container {
-  @media (min-width: @screen-sm-min) {
+  @media (min-width: @screen-md-min) {
     width: auto;
   }
 	@media (min-width: @screen-md-min) {
@@ -52,7 +52,7 @@ h4, .h4 {
 		display: block;
 	}
 }
-@media screen and (min-width: @screen-sm-min) {
+@media screen and (min-width: @screen-md-min) {
   .carousel-control {
     .glyphicon-chevron-left,
     .glyphicon-chevron-right,
@@ -220,7 +220,7 @@ body.page-node-edit {
 		.make-row();
 
 		> * {
-			.make-sm-column(3);
+			.make-md-column(3);
 			padding: 0 15px; // views.css
 			.form-group {
 				margin-bottom: 0;
@@ -228,15 +228,15 @@ body.page-node-edit {
 		}
 		> #edit-type-wrapper,
     > #edit-type-1-wrapper {
-			.make-sm-column(4);
+			.make-md-column(4);
 			.bef-select-as-checkboxes .bef-checkboxes {
 		    width: 100%;
 			}
 		}
 		> .views-submit-button,
 		> .views-reset-button {
-			.make-sm-column(1);
-			@media screen and (min-width: @screen-sm-min) {
+			.make-md-column(1);
+			@media screen and (min-width: @screen-md-min) {
 				margin-top: 25px;
 			}
 		}
@@ -264,16 +264,16 @@ table.views-table {
 .bef-select-as-checkboxes {
 	.make-row();
 	a.bef-toggle {
-		.make-sm-column(3);
+		.make-md-column(3);
 		float: right !important;
 	}
 	.bef-checkboxes {
-		.make-sm-column(9);
+		.make-md-column(9);
 		.make-row();
 		margin-left: 0;
 		margin-right: 0;
 		.form-group {
-			.make-sm-column(4);
+			.make-md-column(4);
 			padding-left: 0;
 			label {
 				padding-left: 5px;
@@ -522,7 +522,7 @@ html.js div.contextual-links-wrapper {
 	.btn-toolbar;
 	.make-row();
 	> .btn-group {
-		.make-sm-column(6);
+		.make-md-column(6);
 		margin-left: 0;
 
 		&.btn-group-primary {
@@ -554,7 +554,7 @@ html.js div.contextual-links-wrapper {
 	form {
 		.text-left;
 	}
-	@media screen and (min-width: @screen-sm-min) {
+	@media screen and (min-width: @screen-md-min) {
     .block-title {
       font-size: @jumbotron-heading-font-size;
     }

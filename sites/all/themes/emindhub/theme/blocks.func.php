@@ -23,9 +23,9 @@ function emindhub_preprocess_block(&$variables) {
   #print $block_id . '<br/>';
 
   // Structure
-    // col-sm-4
-    // col-sm-6
-    // col-sm-12 etc.
+    // col-md-4
+    // col-md-6
+    // col-md-12 etc.
 
   // Styles de titre
     // emh-block-blue-title
@@ -44,86 +44,90 @@ function emindhub_preprocess_block(&$variables) {
   switch ($block_id) {
 
     case 'menu-menu-footer-menu':
-      $classes[] = 'col-sm-8';
+      $classes[] = 'col-sm-8 col-md-8';
       break;
 
     case 'menu-menu-networks':
-      $classes[] = 'col-sm-3';
+      $classes[] = 'col-sm-3 col-md-3';
       break;
 
     case 'search-form':
-      $classes[] = 'col-sm-4 col-sm-offset-1 col-xs-12';
+      $classes[] = 'col-md-4 col-md-offset-1';
       break;
 
     case 'system-user-menu':
-      $classes[] = 'col-sm-12 col-xs-12';
+      $classes[] = 'col-md-12';
       break;
 
     // User Login block
     case 'user-login':
-      $classes[] = 'col-sm-4 col-sm-offset-8 col-xs-8';
+      $classes[] = 'col-md-4 col-md-offset-8';
       break;
 
     case 'block-bootstrap-languages':
-      // $classes[] = 'col-sm-2 col-xs-3'; // TODO
+      // $classes[] = 'col-md-2 col-xs-3'; // TODO
       break;
 
     // Registration block : expert/business
     case 'block-2':
-      $classes[] = 'emh-block-dark';
+      $classes[] = 'col-xs-6 col-md-12 emh-block-dark';
       break;
 
-    // HP - eMindHub is looking for experts
+    case 'block-5':
+      $classes[] = 'col-xs-6 col-md-12';
+      break;
+
+    // eMindHub is looking for experts
     case 'block-6':
-      $classes[] = 'emh-block-gold';
+      $classes[] = 'col-xs-6 col-md-12 emh-block-gold';
       break;
 
     // HP - Ask a question
     case 'block-14':
-      $classes[] = 'col-sm-4';
+      $classes[] = 'col-md-4';
       $classes[] = 'emh-block-grey';
       break;
 
     // HP - Start a challenge
     case 'block-8':
-      $classes[] = 'col-sm-4';
+      $classes[] = 'col-md-4';
       $classes[] = 'emh-block-grey';
       break;
 
     // HP - Create a survey
     case 'block-16':
-      $classes[] = 'col-sm-4';
+      $classes[] = 'col-md-4';
       $classes[] = 'emh-block-grey';
       break;
 
     // HP - About experts
     case 'block-10':
-      $classes[] = 'col-sm-12';
+      $classes[] = 'col-md-12';
       $classes[] = 'emh-block-dark-title';
       $content = '';
       break;
 
     // HP - Rapidity
     case 'block-20':
-      $classes[] = 'col-sm-4';
+      $classes[] = 'col-md-4';
       $classes[] = 'emh-block-blue';
       break;
 
     // HP - Security
     case 'block-21':
-      $classes[] = 'col-sm-4';
+      $classes[] = 'col-md-4';
       $classes[] = 'emh-block-blue';
       break;
 
     // HP - Quality
     case 'block-19':
-      $classes[] = 'col-sm-4';
+      $classes[] = 'col-md-4';
       $classes[] = 'emh-block-blue';
       break;
 
     // HP - Welcome
     case 'block-17':
-      $classes[] = 'col-sm-8';
+      $classes[] = 'col-md-8';
       $classes[] = 'emh-block-blue-main-title';
       $content = '';
       break;
@@ -166,14 +170,14 @@ function emindhub_preprocess_block(&$variables) {
 
     // They use
     case 'views-entreprise_list-block':
-      $classes[] = 'col-sm-6';
+      $classes[] = 'col-md-6';
       $classes[] = 'emh-block-blue-title';
       $classes[] = 'emh-block-slider';
       break;
 
     // They are
     case 'views-users_list-block_2':
-      $classes[] = 'col-sm-6';
+      $classes[] = 'col-md-6';
       $classes[] = 'emh-block-blue-title';
       $classes[] = 'emh-block-slider';
       break;
@@ -239,7 +243,7 @@ function emindhub_preprocess_block(&$variables) {
 
     // Profile percent complete
     case 'pcp-pcp_profile_percent_complete':
-      $classes[] = 'col-sm-12';
+      $classes[] = 'col-md-12';
       break;
   }
 
