@@ -6,7 +6,7 @@ header#navbar {
 	}
 }
 
-@media (min-width: @screen-sm-min) {
+@media (min-width: @screen-md-min) {
 	body {
 		padding-top: 123px;
 	}
@@ -18,7 +18,7 @@ header#navbar {
 	}
 	header#navbar {
 		.navbar-fixed-top;
-    .col-sm-4 {
+    .col-md-4 {
       padding-left: 0;
     }
 	}
@@ -32,7 +32,7 @@ header#title {
  * Light version
  */
 .logged-in {
-	@media (min-width: @screen-sm-min) {
+	@media (min-width: @screen-md-min) {
 		padding-top: 92px;
 
 		header#navbar {
@@ -102,8 +102,12 @@ header#title {
  */
 .navbar .logo {
 	display: block;
+	.text-center;
 	img {
 		max-width: 100%;
+	}
+	@media (min-width: @screen-md-min) {
+		.text-left;
 	}
 }
 
@@ -121,6 +125,20 @@ header#title {
  */
 #block-user-login .nav > li {
 	display: inline-block;
+}
+@media (max-width: @screen-md-min) {
+	.not-logged-in {
+		#block-user-login {
+			.nav {
+				width: 100%;
+				padding: 0;
+				.text-center;
+				> li {
+					float: none;
+				}
+			}
+		}
+	}
 }
 .popover {
 	&.signUp {
@@ -194,7 +212,7 @@ body.lang-fr {
  */
 #block-system-user-menu {
 	.navbar-emh-separator {
-		@media (min-width: @screen-sm-min) {
+		@media (min-width: @screen-md-min) {
 			> li {
 				// User points
 				&:nth-child(2) {
@@ -236,14 +254,14 @@ header nav.navbar {
 		}
 	}
 
-	@media (max-width: @screen-sm-min) {
+	@media (max-width: @screen-xs-max) {
 		.nav > li > a,
 		.nav > li > span.dropdown-toggle {
 			text-align: left;
 		}
 	}
 
-	@media (min-width: @screen-sm-min) {
+	@media (min-width: @screen-md-min) {
 		.nav > li > a,
 		.nav > li > span.dropdown-toggle {
 			cursor: pointer;
