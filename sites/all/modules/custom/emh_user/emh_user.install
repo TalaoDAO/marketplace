@@ -64,7 +64,6 @@ function emh_user_update_7005() {
     ->condition('delta', $delta)
     ->fields(array('region' => 'topmenu', 'weight' => '100', 'status' => '1', 'title' => '<none>'))
     ->execute();
-
   $roles = array(
     'administrator',
     'webmaster',
