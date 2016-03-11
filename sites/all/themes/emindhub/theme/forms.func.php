@@ -324,11 +324,14 @@ function emindhub_form_comment_form_alter(&$form, &$form_state, $form_id) {
 /**
  * Implements hook_form_alter().
  */
-function emindhub_views_bulk_operations_form_alter(&$form) {
+function emindhub_views_bulk_operations_form_alter(&$form, $form_state, $vbo_handler) {
   // Only when we want it.
   $view = arg(2);
   if (!empty($view) && ($view == 'answers' || $view == 'results')) {
     $form['select']['action::emh_points_arrange_node_points']['#attributes']['class'][] = 'btn-submit';
+		if (empty($vbo_handler->view->result)) {
+			$form['select']['#access'] = FALSE;
+		}
   }
 }
 
