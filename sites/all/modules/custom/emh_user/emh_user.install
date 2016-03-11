@@ -52,28 +52,28 @@ function emh_user_update_7004() {
 /**
  * Parameters for RoleSwitcher block.
  */
-function emh_user_update_7005() {
-  $module = 'roleswitcher';
-  $delta = 'switcher';
-  db_delete('block_role')
-    ->condition('module', $module)
-    ->condition('delta', $delta)
-    ->execute();
-  db_update('block')
-    ->condition('module', $module)
-    ->condition('delta', $delta)
-    ->fields(array('region' => 'topmenu', 'weight' => '100', 'status' => '1', 'title' => '<none>'))
-    ->execute();
-  $roles = array(
-    'administrator',
-    'webmaster',
-    'roleswitcher',
-  );
-  foreach ($roles as $role ) {
-    $rid = user_role_load_by_name($role)->rid;
-    db_insert('block_role')
-      ->fields(array('rid', 'module', 'delta'))
-      ->values(array('rid' => $rid, 'module' => $module, 'delta' => $delta))
-      ->execute();
-  }
-}
+// function emh_user_update_7005() {
+//   $module = 'roleswitcher';
+//   $delta = 'switcher';
+//   db_delete('block_role')
+//     ->condition('module', $module)
+//     ->condition('delta', $delta)
+//     ->execute();
+//   db_update('block')
+//     ->condition('module', $module)
+//     ->condition('delta', $delta)
+//     ->fields(array('region' => 'topmenu', 'weight' => '100', 'status' => '1', 'title' => '<none>'))
+//     ->execute();
+//   $roles = array(
+//     'administrator',
+//     'webmaster',
+//     'roleswitcher',
+//   );
+//   foreach ($roles as $role ) {
+//     $rid = user_role_load_by_name($role)->rid;
+//     db_insert('block_role')
+//       ->fields(array('rid', 'module', 'delta'))
+//       ->values(array('rid' => $rid, 'module' => $module, 'delta' => $delta))
+//       ->execute();
+//   }
+// }
