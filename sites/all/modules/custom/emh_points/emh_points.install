@@ -337,3 +337,11 @@ function emh_points_update_7107() {
   ->condition('name', 'emh_points')
   ->execute();
 }
+
+
+/**
+ * Revert Views.
+ */
+function emh_points_update_7108() {
+  emh_points_reset_views();
+}
