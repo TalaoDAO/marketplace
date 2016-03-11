@@ -14233,8 +14233,8 @@ a.flag .badge {
 #comments > .comment.indented {
   margin-left: 25px;
 }
-#comments > .comment.comment-by-viewer {
-  background-color: #ffefd2;
+#comments > .comment:last-child {
+  padding-bottom: 0;
 }
 #comments > .comment > .meta {
   padding-left: 0;
