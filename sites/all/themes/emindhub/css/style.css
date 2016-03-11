@@ -14680,6 +14680,18 @@ table th[class*="col-"] {
     right: 15px;
   }
 }
+body.role-roleswitcher #block-system-user-menu {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  body.role-roleswitcher #block-system-user-menu {
+    float: left;
+    width: 83.33333333%;
+  }
+}
 /* HEADER
  * Languages
  */
@@ -15827,26 +15839,26 @@ fieldset[disabled] .role-expert #block-roleswitcher-switcher a.focus {
 }
 .role-business #block-roleswitcher-switcher a {
   color: #ffffff;
-  background-color: #1abc9c;
-  border-color: #12806a;
+  background-color: #009fe3;
+  border-color: #008dca;
 }
 .role-business #block-roleswitcher-switcher a:focus,
 .role-business #block-roleswitcher-switcher a.focus {
   color: #ffffff;
-  background-color: #148f77;
-  border-color: #02100d;
+  background-color: #007bb0;
+  border-color: #00344a;
 }
 .role-business #block-roleswitcher-switcher a:hover {
   color: #ffffff;
-  background-color: #148f77;
-  border-color: #0a4a3d;
+  background-color: #007bb0;
+  border-color: #00628c;
 }
 .role-business #block-roleswitcher-switcher a:active,
 .role-business #block-roleswitcher-switcher a.active,
 .open > .dropdown-toggle.role-business #block-roleswitcher-switcher a {
   color: #ffffff;
-  background-color: #148f77;
-  border-color: #0a4a3d;
+  background-color: #007bb0;
+  border-color: #00628c;
 }
 .role-business #block-roleswitcher-switcher a:active:hover,
 .role-business #block-roleswitcher-switcher a.active:hover,
@@ -15858,8 +15870,8 @@ fieldset[disabled] .role-expert #block-roleswitcher-switcher a.focus {
 .role-business #block-roleswitcher-switcher a.active.focus,
 .open > .dropdown-toggle.role-business #block-roleswitcher-switcher a.focus {
   color: #ffffff;
-  background-color: #0f705d;
-  border-color: #02100d;
+  background-color: #00628c;
+  border-color: #00344a;
 }
 .role-business #block-roleswitcher-switcher a:active,
 .role-business #block-roleswitcher-switcher a.active,
@@ -15875,11 +15887,11 @@ fieldset[disabled] .role-business #block-roleswitcher-switcher a:focus,
 .role-business #block-roleswitcher-switcher a.disabled.focus,
 .role-business #block-roleswitcher-switcher a[disabled].focus,
 fieldset[disabled] .role-business #block-roleswitcher-switcher a.focus {
-  background-color: #1abc9c;
-  border-color: #12806a;
+  background-color: #009fe3;
+  border-color: #008dca;
 }
 .role-business #block-roleswitcher-switcher a .badge {
-  color: #1abc9c;
+  color: #009fe3;
   background-color: #ffffff;
 }
 .emh-field-reward {

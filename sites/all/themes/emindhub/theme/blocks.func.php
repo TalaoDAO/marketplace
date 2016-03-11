@@ -56,7 +56,7 @@ function emindhub_preprocess_block(&$variables) {
       break;
 
     case 'system-user-menu':
-      $classes[] = 'col-xs-12 col-sm-12 col-md-10';
+      $classes[] = 'col-xs-12 col-sm-12';
       break;
 
     // User Login block
