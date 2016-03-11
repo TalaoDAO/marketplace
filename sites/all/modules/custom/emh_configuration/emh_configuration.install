@@ -121,8 +121,72 @@ function emh_configuration_update_7008() {
 }
 
 /**
+* Delete Forum + Poll nodes and content types.
+*/
+function emh_configuration_update_7009() {
+  $types = array(
+    'forum',
+    'poll',
+  );
+  foreach($types as $type) {
+    // First, delete nodes
+    $results = db_select('node', 'n')
+                ->fields('n', array('nid'))
+                ->condition('type', $type)
+                ->execute();
+    foreach ($results as $result) {
+      $nids[] = $result->nid;
+    }
+    if (!empty($nids)) {
+      node_delete_multiple($nids);
+      drupal_set_message(t('%count nodes has been deleted.', array('%count' => count($nids))));
+    }
+    // Then, delete content type
+    if (node_type_load($type)) {
+      node_type_delete($type);
+      variable_del('node_preview_' . $type);
+      drupal_set_message(t('%type content type has been deleted.', array('%type' => $type)));
+    }
+  }
+  node_types_rebuild();
+  menu_rebuild();
+}
+
+/**
+* Delete old rules.
+*/
+function emh_configuration_update_7010() {
+  if ($rules_config = rules_config_load('rules_schedule_inscription_clotures')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('rules_gammification_node')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('rules_gammification_comment')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('rules_private_proposal')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('rules_private_challenge')) {
+    $rules_config->delete();
+  }
+}
+
+/**
  * HybridAuth : change emails duplicate option.
  */
-function emh_configuration_update_7009() {
+function emh_configuration_update_7011() {
   variable_set('hybridauth_duplicate_emails', '2');
+}
+
+/**
+ * Remove permissions : no more cookie for admin & webmaster!
+ */
+function emh_configuration_update_7012() {
+  user_role_revoke_permissions(DRUPAL_AUTHENTICATED_RID, array('display EU Cookie Compliance popup'));
+  user_role_revoke_permissions(3, array('display EU Cookie Compliance popup')); // Administrator
+  user_role_grant_permissions(4, array('display EU Cookie Compliance popup')); // Expert
+  user_role_grant_permissions(5, array('display EU Cookie Compliance popup')); // Business
+  user_role_grant_permissions(7, array('display EU Cookie Compliance popup')); // Referent
 }

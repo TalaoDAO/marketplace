@@ -56,21 +56,16 @@
   <div class="content">
     <?php //print $content ?>
 
-    <?php if (emh_user_is_business()) : ?>
-      <a href="<?php print url("node/add/question1"); ?>">
-        <?php echo sprintf(t('%sQuestion%sAsk a question online and get multiple answers from experts%sAsk a question%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
-        </span>
-      </a>
-
-    <?php elseif (emh_user_is_expert()) : ?>
-    <?php global $base_url; $safe_link = rawurldecode($base_url . '/requests/all?type[question1]=question1'); ?>
-    <a href="<?php print $safe_link; ?>">
-      <?php echo sprintf(t('%sQuestion%sAnswer questions and provide clients with ideas, advices, feedbacks, etc.%sSee more questions%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
+    <?php if (user_access('create question1 content')) : ?>
+    <a href="<?php print url("node/add/question1"); ?>">
+      <?php echo sprintf(t('%sQuestion%sAsk a question online and get multiple answers from experts%sAsk a question%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
+      </span>
     </a>
 
     <?php else : ?>
-    <a href="<?php print url("freetrial"); ?>">
-      <?php echo sprintf(t('%sQuestion%sAsk a question online and get multiple answers from experts%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span>'); ?>
+    <?php global $base_url; $safe_link = rawurldecode($base_url . '/requests/all?type[question1]=question1'); ?>
+    <a href="<?php print $safe_link; ?>">
+      <?php echo sprintf(t('%sQuestion%sAnswer questions and provide clients with ideas, advices, feedbacks, etc.%sSee more questions%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
     </a>
     <?php endif; ?>
 

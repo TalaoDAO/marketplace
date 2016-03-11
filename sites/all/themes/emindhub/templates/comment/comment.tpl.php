@@ -62,7 +62,7 @@
 ?>
 <div class="<?php print $classes; ?> clearfix row"<?php print $attributes; ?>>
 
-  <?php if ( (module_exists('emh_access') && emh_access_user_can_see_full_answer($comment)) || !empty($content['comment_body']) ) : ?>
+  <?php if ( (module_exists('emh_access') && emh_access_user_can_see_full_answer($node->nid, $comment)) || !empty($content['comment_body']) ) : ?>
 
   <div class="col-sm-2 meta">
 

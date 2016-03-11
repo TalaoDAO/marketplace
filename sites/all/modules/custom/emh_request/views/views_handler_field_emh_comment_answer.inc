@@ -29,9 +29,18 @@ class views_handler_field_emh_comment_answer extends views_handler_field {
       return 0;
     }
 
-    $nid = arg(1);
     $entity = comment_load($cid);
-    return '<a href="' . url("node/$nid/comment-$cid") . '">' . emh_request_get_answer($entity, 'comment') . '</a>';
+    global $language;
+    return l(
+            emh_request_get_answer($entity, 'comment'),
+            drupal_get_path_alias('node/' . $entity->nid),
+            array(
+              'language' => $language,
+              'html' => TRUE,
+              'fragment' => 'comment-' . $cid,
+            )
+          );
+
   }
 
   /**

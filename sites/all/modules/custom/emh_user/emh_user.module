@@ -15,6 +15,16 @@ function emh_user_views_api() {
 }
 
 /**
+* Implements hook_menu_alter().
+*/
+function emh_user_menu_alter(&$items) {
+  unset($items['user/register']);
+  $items['user/%user/hybridauth']['access callback'] = FALSE;
+  $items['user/%user/edit']['title'] = t('Edit account');
+  $items['user/%user/change-password']['title'] = t('Change password');
+}
+
+/**
  * Implements hook_form_alter().
  */
 function emh_user_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
@@ -131,54 +141,67 @@ function emh_user_get_beautiful_profile_link($uid) {
 
 }
 
-function emh_user_is_business($account = NULL) {
-  if (empty($account)) {
-    global $user;
-    $account = $user;
-  }
-  if (emh_user_is_webmaster($account)) {
-    // Webmaster has every right.
-    return TRUE;
-  }
-  return (in_array('business', array_values($account->roles)));
+/**
+ * Implements hook_block_view_MODULE_DELTA_alter().
+ */
+function emh_user_block_view_roleswitcher_switcher_alter(&$data, $block) {
+  $data['content']['#theme'] = emh_user_roleswitcher_list;
+  $roles = emh_user_roleswitcher_roles();
+  $data['content']['#roles'] = $roles;
 }
 
-function emh_user_is_expert($account = NULL) {
-  if (empty($account)) {
-    global $user;
-    $account = $user;
+function emh_user_roleswitcher_roles() {
+  $roles = array(
+    'expert',
+    'business',
+  );
+  $allowed_roles = array();
+  foreach ($roles as $role) {
+    $rid = user_role_load_by_name($role)->rid;
+    $name = user_role_load_by_name($role)->name;
+    $allowed_roles[$rid] = $name;
   }
-  if (emh_user_is_webmaster($account)) {
-    // Webmaster has every right.
-    return TRUE;
+  global $user;
+  if (variable_get('roleswitcher_store_mode') == 'session' && !empty($_SESSION['roleswitcher_roles'])) {
+    $user->roles = $_SESSION['roleswitcher_roles'];
   }
-  return (in_array('expert', array_values($account->roles)) || in_array('référent', array_values($account->roles)));
+  $user_roles = $user->roles;
+  // We unset current roles matching with allowed ones in order to propose only the other ones
+  foreach ($user_roles as $user_role) {
+    $rid = user_role_load_by_name($user_role)->rid;
+    unset($allowed_roles[$rid]);
+  }
+  return $allowed_roles;
 }
 
-function emh_user_is_author($nid, $account = NULL) {
-  if (empty($account)) {
-    global $user;
-    $account = $user;
-  }
-  if (emh_user_is_webmaster($account)) {
-    // Webmaster has every right.
-    return TRUE;
-  }
-  if (empty($nid)) {
-    $nid = arg(1);
-  }
-  $node = node_load($nid);
-  return($node->uid == $account->uid);
+
+/**
+ * Implements hook_theme().
+ */
+function emh_user_theme() {
+  return array(
+    'emh_user_roleswitcher_list' => array(
+      'variables' => array('roles' => array(), 'attributes' => array()),
+    )
+  );
 }
 
-function emh_user_is_webmaster($account = NULL) {
-  if (empty($account)) {
-    global $user;
-    $account = $user;
+/**
+ * Theme function for roles list.
+ */
+function theme_emh_user_roleswitcher_list($variables) {
+  $output = '';
+  foreach ($variables['roles'] as $rid => $name) {
+    if ($name != 'roleswitcher') {
+      if ($name == 'expert') {
+        $output .= l(t('Answer requests'), "roleswitcher/$rid", $variables['attributes']);
+      }
+      else if ($name == 'business') {
+        $output .= l(t('Submit requests'), "roleswitcher/$rid", $variables['attributes']);
+      } else {
+        $output .= l($name, "roleswitcher/$rid", $variables['attributes']);
+      }
+    }
   }
-  if ($account->uid == 1) {
-    // Admin ( = eMindHub) has every right.
-    return TRUE;
-  }
-	return (in_array('webmaster', array_values($account->roles)) || in_array('administrator', array_values($account->roles)));
+  return $output;
 }

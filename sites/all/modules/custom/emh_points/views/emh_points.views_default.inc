@@ -1097,7 +1097,7 @@ function emh_points_views_default_views_alter(&$views) {
     $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
     $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
     $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
-    $handler->display->display_options['empty']['area_text_custom']['content'] = 'There are no answers for this survey. <a href="/node/!1">View this survey</a>.';
+    $handler->display->display_options['empty']['area_text_custom']['content'] = 'There are no answers for this survey.';
     $handler->display->display_options['empty']['area_text_custom']['tokenize'] = TRUE;
     /* Relationship: Webform submissions: User */
     $handler->display->display_options['relationships']['uid']['id'] = 'uid';

@@ -63,7 +63,7 @@ function ft_content_type_node_info() {
     'challenge' => array(
       'name' => t('Challenge'),
       'base' => 'node_content',
-      'description' => '',
+      'description' => t('Request for service proposals to innovate or solve a problem'),
       'has_title' => '1',
       'title_label' => t('Title'),
       'help' => '',
@@ -95,7 +95,7 @@ function ft_content_type_node_info() {
     'question1' => array(
       'name' => t('Question'),
       'base' => 'node_content',
-      'description' => '',
+      'description' => t('Ask a question online and get multiple answers from experts'),
       'has_title' => '1',
       'title_label' => t('Title'),
       'help' => '',
@@ -103,7 +103,7 @@ function ft_content_type_node_info() {
     'webform' => array(
       'name' => t('Survey'),
       'base' => 'node_content',
-      'description' => t('Create a new form or questionnaire accessible to users. Submission results and statistics are recorded and accessible to privileged users.'),
+      'description' => t('Create a survey to identify best experts profiles for a specific task or mission'),
       'has_title' => '1',
       'title_label' => t('Title'),
       'help' => '',

@@ -30,9 +30,18 @@ class views_handler_field_emh_webform_answer extends views_handler_field {
     }
 
     module_load_include('inc', 'webform', 'includes/webform.submissions');
-    $nid = arg(1);
+    $submission = webform_get_submissions(array('sid' => $sid));
+    $nid = $submission[$sid]->nid;
     $entity = webform_get_submission($nid, $sid);
-    return '<a href="' . url("node/$nid/submission/$sid") . '">' . emh_request_get_answer($entity, 'webform_submission') . '</a>';
+    global $language;
+    return l(
+            emh_request_get_answer($entity, 'webform_submission'),
+            'node/' . $nid . '/submission/' . $sid,
+            array(
+              'language' => $language,
+              'html' => TRUE,
+            )
+          );
   }
 
   /**

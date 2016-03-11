@@ -164,8 +164,6 @@ a.flag {
 
 // Commentaires / Réponses
 #comments {
-  padding-bottom: 0;
-
   .comment .content > div {
     padding: 15px 0;
   }
@@ -178,7 +176,10 @@ a.flag {
       margin-left: 25px;
     }
     &.comment-by-viewer {
-      background-color: @lightYellow;
+      // background-color: @lightYellow;
+    }
+    &:last-child {
+      padding-bottom: 0;
     }
 
     > .meta {
@@ -191,6 +192,7 @@ a.flag {
 	.list-inline {
     margin-left: 0;
 		margin-bottom: 0;
+    .text-right;
     .comment-edit a {
       .btn-primary;
     }

@@ -55,7 +55,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access all webform results',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
@@ -245,6 +244,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access own webform submissions',
     'roles' => array(
       'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
       'business' => 'business',
       'expert' => 'expert',
       'webmaster' => 'webmaster',
@@ -336,26 +336,6 @@ function ft_permissions_user_default_permissions() {
   // Exported permission: 'act as administrator member in og node:circle'.
   $permissions['act as administrator member in og node:circle'] = array(
     'name' => 'act as administrator member in og node:circle',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'og_role_override',
-  );
-
-  // Exported permission: 'act as member in og node:circle'.
-  $permissions['act as member in og node:circle'] = array(
-    'name' => 'act as member in og node:circle',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'og_role_override',
-  );
-
-  // Exported permission: 'act as non-member in og node:circle'.
-  $permissions['act as non-member in og node:circle'] = array(
-    'name' => 'act as non-member in og node:circle',
     'roles' => array(
       'administrator' => 'administrator',
       'webmaster' => 'webmaster',
@@ -736,16 +716,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'page_manager',
   );
 
-  // Exported permission: 'administer permissions'.
-  $permissions['administer permissions'] = array(
-    'name' => 'administer permissions',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'user',
-  );
-
   // Exported permission: 'administer privatecomments forms'.
   $permissions['administer privatecomments forms'] = array(
     'name' => 'administer privatecomments forms',
@@ -1096,7 +1066,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'create article content',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1108,7 +1077,6 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'expert' => 'expert',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1222,8 +1190,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'create working_group content',
     'roles' => array(
       'administrator' => 'administrator',
-      'expert' => 'expert',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1244,7 +1210,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete all webform submissions',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
@@ -1275,7 +1240,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete any challenge content',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1286,7 +1250,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete any circle content',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1297,7 +1260,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete any corporate content',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1318,7 +1280,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete any question1 content',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1339,7 +1300,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete any webform content',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1370,7 +1330,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete own article content',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1381,8 +1340,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete own blog content',
     'roles' => array(
       'administrator' => 'administrator',
-      'expert' => 'expert',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1393,7 +1350,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete own challenge content',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1404,7 +1360,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete own circle content',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1435,7 +1390,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete own question1 content',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1456,7 +1410,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete own webform content',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1477,8 +1430,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete own working_group content',
     'roles' => array(
       'administrator' => 'administrator',
-      'expert' => 'expert',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1569,7 +1520,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit all webform submissions',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
@@ -1611,7 +1561,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit any circle content',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1622,7 +1571,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit any corporate content',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1718,7 +1666,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit own article content',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1730,7 +1677,6 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'expert' => 'expert',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1742,6 +1688,7 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
+      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1806,6 +1753,7 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
+      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1827,6 +1775,7 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
+      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1838,7 +1787,6 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'expert' => 'expert',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
@@ -1849,8 +1797,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit own working_group content',
     'roles' => array(
       'administrator' => 'administrator',
-      'expert' => 'expert',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1893,7 +1839,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
       'business' => 'business',
       'expert' => 'expert',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'taxonomy',
@@ -1906,7 +1851,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
       'business' => 'business',
       'expert' => 'expert',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'taxonomy',
@@ -1919,7 +1863,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
       'business' => 'business',
       'expert' => 'expert',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'taxonomy',
@@ -1931,7 +1874,6 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
@@ -1991,70 +1933,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'execute comment_unpublish_by_keyword_action',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'actions_permissions',
-  );
-
-  // Exported permission: 'execute emh_points_arrange_group_points'.
-  $permissions['execute emh_points_arrange_group_points'] = array(
-    'name' => 'execute emh_points_arrange_group_points',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'business' => 'business',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'actions_permissions',
-  );
-
-  // Exported permission: 'execute emh_points_arrange_node_points'.
-  $permissions['execute emh_points_arrange_node_points'] = array(
-    'name' => 'execute emh_points_arrange_node_points',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'business' => 'business',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'actions_permissions',
-  );
-
-  // Exported permission: 'execute emh_points_arrange_points'.
-  $permissions['execute emh_points_arrange_points'] = array(
-    'name' => 'execute emh_points_arrange_points',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'business' => 'business',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'actions_permissions',
-  );
-
-  // Exported permission: 'execute emh_points_give_points'.
-  $permissions['execute emh_points_give_points'] = array(
-    'name' => 'execute emh_points_give_points',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'actions_permissions',
-  );
-
-  // Exported permission: 'execute emh_points_remove_points'.
-  $permissions['execute emh_points_remove_points'] = array(
-    'name' => 'execute emh_points_remove_points',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'actions_permissions',
-  );
-
-  // Exported permission: 'execute emh_points_transfert_points'.
-  $permissions['execute emh_points_transfert_points'] = array(
-    'name' => 'execute emh_points_transfert_points',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'business' => 'business',
       'webmaster' => 'webmaster',
     ),
     'module' => 'actions_permissions',
@@ -2144,7 +2022,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'execute node_promote_action',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'actions_permissions',
@@ -2165,7 +2042,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'execute node_save_action',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'actions_permissions',
@@ -2176,7 +2052,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'execute node_unpromote_action',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'actions_permissions',
@@ -2207,7 +2082,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'execute og_membership_delete_action',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'actions_permissions',
@@ -2218,7 +2092,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'execute og_set_state_action',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'actions_permissions',
@@ -2278,7 +2151,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'execute system_send_email_action',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'actions_permissions',
@@ -2467,6 +2339,7 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
       'business' => 'business',
       'expert' => 'expert',
+      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'media',
@@ -2506,7 +2379,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'mass mailing with views_send',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'views_send',
@@ -2614,7 +2486,6 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'expert' => 'expert',
-      'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
     'module' => 'comment',
