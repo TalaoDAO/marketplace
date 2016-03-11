@@ -1,7 +1,7 @@
 @api
 Feature: Create Question and answers
   In order to test Question creation, and privacy of answers
-  As client, expert and référent
+  As client and expert
   I want to create a question, and watch answers
 
   Background: Create questions
@@ -24,10 +24,6 @@ Feature: Create Question and answers
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | référent1 | referent1@emindhub.com | référent | Paul          | Stanley         | 0612345678      | The Starchild     | Avengers     | referent1@emindhub.com | Amazon  | Other | Maintenance |
-
-    Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
     | client1 | client1@emindhub.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | client1@emindhub.com | Google  | Freelancer | Maintenance |
     | expert1 | expert1@emindhub.com | expert   | Iron             | Man             | 0712345670      | Chieur génial      | Avengers     | expert1@emindhub.com | Facebook  | Employee  | Energy        |
     | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | 0712345671      | Modèle             | Avengers     | expert2@emindhub.com | Twitter   | Employee  | Other         |
@@ -37,32 +33,6 @@ Feature: Create Question and answers
     Given "question1" content:
     | title        | field_domaine | og_group_ref | field_reward | author  | field_anonymous      | field_show_entreprise | field_use_my_entreprise |
     | What about?  | Energy        | Avengers     | 100         | client1 | Display my full name | Display the name      | Display                 |
-
-    # FIXME: Force user profile update for OG role addition
-    Given I am logged in as "référent1"
-    And I click "Edit account"
-    And I press "Save"
-
-    Given I am logged in as "client1"
-    And I click "Edit account"
-    And I press "Save"
-
-    Given I am logged in as "expert1"
-    And I click "Edit account"
-    And I press "Save"
-
-    Given I am logged in as "expert2"
-    And I click "Edit account"
-    And I press "Save"
-
-    # Make référent1 as a Referent member of Avengers circle
-    Given I am logged in as a user with the "administrator" role
-    When I go to "content/avengers"
-    And I click "Group"
-    And I click "People"
-    And I click "edit" in the "référent1" row
-    And I check the box "Referent member"
-    And I press "Update membership"
 
     # An expert responds publicly to a question
     Given I am logged in as "expert1"
@@ -115,37 +85,6 @@ Feature: Create Question and answers
     And I click "Edit" in the "primary tabs" region
     Then I should not see "Delete" in the "actions" region
 
-  Scenario: A référent can see the question
-    Given I am logged in as "référent1"
-    When I go to homepage
-    Then I should see "What about?" in the "What about?" row
-
-  Scenario: A référent can edit the question
-    Given I am logged in as "référent1"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
-    And I click "Edit" in the "primary tabs" region
-    Then I should see "Edit Question What about?" in the "title" region
-
-    Given I enter "This is your question." for "Description"
-    And I press "Save"
-    Then I should see the success message "Question What about? has been updated."
-
-  Scenario: A référent cannot delete the question
-    Given I am logged in as "référent1"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
-    And I click "Edit" in the "primary tabs" region
-    Then I should not see "Delete" in the "actions" region
-
-  Scenario: A référent cannot respond to the question
-    Given I am logged in as "référent1"
-    When I go to homepage
-    Then I should see "What about?"
-
-    When I click "What about?" in the "What about?" row
-    #Then I should not see an "Answer visibility" radio form element
-
   Scenario: An expert can see its own public answer
     Given I am logged in as "expert1"
     When I go to homepage
@@ -169,15 +108,6 @@ Feature: Create Question and answers
     And I should see "Iron Man"
     And I should see "I'm the best superhero in da world."
 
-  Scenario: A référent can see the public answer
-    Given I am logged in as "référent1"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
-    #Then I should not see an "Answer visibility" radio form element
-    And I should see "Answers"
-    And I should see "Iron Man"
-    And I should see "I'm the best superhero in da world."
-
   Scenario: Experts cannot see Answers tab
     Given I am logged in as "expert1"
     When I go to homepage
@@ -192,7 +122,6 @@ Feature: Create Question and answers
     And I should see "Iron Man"
     And I should see "I'm the best superhero in da world."
 
-  @exclude
   Scenario: The expert can edit its own public answer
     Given I am logged in as "expert1"
     When I go to homepage
@@ -205,12 +134,6 @@ Feature: Create Question and answers
 
   Scenario: The author cannot edit a public answer
     Given I am logged in as "client1"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
-    Then I should not see the link "edit" in the "answers" region
-
-  Scenario: A référent cannot edit a public answer
-    Given I am logged in as "référent1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
     Then I should not see the link "edit" in the "answers" region
@@ -234,13 +157,6 @@ Feature: Create Question and answers
     And I click "What about?" in the "What about?" row
     Then I should not see the link "Delete" in the "answers" region
 
-  Scenario: A référent cannot delete a public answer
-    Given I am logged in as "référent1"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
-    Then I should not see the link "Delete" in the "answers" region
-
-  @exclude
   Scenario: An other expert cannot delete a public answer
     Given I am logged in as "expert2"
     When I go to homepage
@@ -270,15 +186,6 @@ Feature: Create Question and answers
     And I should see "Klark Kent"
     And I should see "The truth is elsewhere."
 
-  Scenario: A référent can see the private answer
-    Given I am logged in as "référent1"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
-    #Then I should not see an "Answer visibility" radio form element
-    And I should see "Answers"
-    And I should see "Klark Kent"
-    And I should see "The truth is elsewhere."
-
   Scenario: An other expert cannot see the private answer
     Given I am logged in as "expert1"
     When I go to homepage
@@ -287,7 +194,6 @@ Feature: Create Question and answers
     And I should not see "Klark Kent"
     And I should not see "The truth is elsewhere."
 
-  @exclude
   Scenario: The expert can edit its own private answer
     Given I am logged in as "expert2"
     When I go to homepage

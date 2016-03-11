@@ -57,39 +57,6 @@ Feature: Test og visibility
     | title         | field_domaine  | og_group_ref    | field_reward | author  |
     | Fight Thanos  | Drones         | Avengers, X-Men | 100          | client1 |
 
-    # FIXME: Force user profile update for OG role addition
-    Given I am logged in as "référent1"
-    And I click "Edit account"
-    And I press "Save"
-
-    Given I am logged in as "client1"
-    And I click "Edit account"
-    And I press "Save"
-
-    Given I am logged in as "client2"
-    And I click "Edit account"
-    And I press "Save"
-
-    Given I am logged in as "expert1"
-    And I click "Edit account"
-    And I press "Save"
-
-    Given I am logged in as "expert2"
-    And I click "Edit account"
-    And I press "Save"
-
-    Given I am logged in as "expert3"
-    And I click "Edit account"
-    And I press "Save"
-
-    Given I am logged in as "expert4"
-    And I click "Edit account"
-    And I press "Save"
-
-    Given I am logged in as "expert5"
-    And I click "Edit account"
-    And I press "Save"
-
     # Make référent1 as a Referent member of Avengers circle
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"

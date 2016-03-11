@@ -1,7 +1,7 @@
 @api
 Feature: Create Challenge and answers
   In order to test Challenge creation, and privacy of answers
-  As client, expert and référent
+  As client and expert and référent
   I want to create a Challenge, and watch answers
 
   Background: Create challenge
@@ -13,18 +13,9 @@ Feature: Create Challenge and answers
     Given "corporate" content:
     | title     | author  |
     | Google    | admin   |
-    | Apple     | admin   |
     | Facebook  | admin   |
     | Twitter   | admin   |
-    | Pinterest | admin   |
-    | Viadeo    | admin   |
-    | Linkedin  | admin   |
-    | Tumblr    | admin   |
     | Amazon    | admin   |
-
-    Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | référent1 | referent1@emindhub.com | référent | Paul          | Stanley         | 0612345678      | The Starchild     | Avengers     | referent1@emindhub.com | Amazon  | Other | Maintenance |
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
@@ -37,32 +28,6 @@ Feature: Create Challenge and answers
     Given "challenge" content:
     | title        | field_domaine | og_group_ref | field_reward | author  | field_anonymous      | field_show_entreprise | field_use_my_entreprise |
     | What about?  | Energy        | Avengers     | 1000         | client1 | Display my full name | Display the name      | Display                 |
-
-    # FIXME: Force user profile update for OG role addition
-    Given I am logged in as "référent1"
-    And I click "Edit account"
-    And I press "Save"
-
-    Given I am logged in as "client1"
-    And I click "Edit account"
-    And I press "Save"
-
-    Given I am logged in as "expert1"
-    And I click "Edit account"
-    And I press "Save"
-
-    Given I am logged in as "expert2"
-    And I click "Edit account"
-    And I press "Save"
-
-    # Make référent1 as a Referent member of Avengers circle
-    Given I am logged in as a user with the "administrator" role
-    When I go to "content/avengers"
-    And I click "Group"
-    And I click "People"
-    And I click "edit" in the "référent1" row
-    And I check the box "Referent member"
-    And I press "Update membership"
 
     # An expert can respond to the challenge
     Given I am logged in as "expert2"
@@ -102,32 +67,6 @@ Feature: Create Challenge and answers
     And I click "Edit" in the "primary tabs" region
     Then I should not see "Delete" in the "actions" region
 
-  Scenario: A référent can see the challenge
-    Given I am logged in as "référent1"
-    And I am on the homepage
-    Then I should see "What about?" in the "What about?" row
-
-  Scenario: A référent can edit the challenge
-    Given I am logged in as "référent1"
-    When I go to "content/what-about"
-    And I click "Edit" in the "primary tabs" region
-    Then I should see "Edit Challenge What about?" in the "title" region
-
-    Given I enter "This is your challenge." for "Description"
-    And I press "Save"
-    Then I should see the success message "Challenge What about? has been updated."
-
-  Scenario: A référent cannot delete the challenge
-    Given I am logged in as "référent1"
-    When I go to "content/what-about"
-    And I click "Edit" in the "primary tabs" region
-    Then I should not see "Delete" in the "actions" region
-
-  Scenario: A référent cannot respond to the challenge
-    Given I am logged in as "référent1"
-    When I go to "content/what-about"
-    #Then I should not see an "Answer" textarea form element
-
   Scenario: An expert can see its own answer
     Given I am logged in as "expert2"
     And I am on the homepage
@@ -146,14 +85,6 @@ Feature: Create Challenge and answers
     Then I should see "1" in the "What about?" row
 
     When I click "What about?" in the "What about?" row
-    #Then I should not see an "Answer" textarea form element
-    And I should see "Answers"
-    And I should see "Klark Kent"
-    And I should see "The truth is elsewhere."
-
-  Scenario: A référent can see the answer
-    Given I am logged in as "référent1"
-    When I go to "content/what-about"
     #Then I should not see an "Answer" textarea form element
     And I should see "Answers"
     And I should see "Klark Kent"
@@ -187,11 +118,6 @@ Feature: Create Challenge and answers
     When I click "What about?" in the "What about?" row
     Then I should not see the link "edit" in the "answers" region
 
-  Scenario: A référent cannot edit an answer
-    Given I am logged in as "référent1"
-    When I go to "content/what-about"
-    Then I should not see the link "edit" in the "answers" region
-
   Scenario: The expert cannot delete its own answer
     Given I am logged in as "expert2"
     And I am on the homepage
@@ -202,9 +128,4 @@ Feature: Create Challenge and answers
     Given I am logged in as "client1"
     And I am on the homepage
     When I click "What about?" in the "What about?" row
-    Then I should not see "delete" in the "answers" region
-
-  Scenario: A référent cannot delete an answer
-    Given I am logged in as "référent1"
-    When I go to "content/what-about"
     Then I should not see "delete" in the "answers" region
