@@ -1,4 +1,4 @@
-@api
+@api @watchdog
 Feature: Navigation
   Everything from the site.
 

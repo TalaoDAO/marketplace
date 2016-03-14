@@ -1,4 +1,4 @@
-@api
+@api @watchdog
 Feature: Test points dispatch in OG
   In order to test emh points dispatch
   As a client with a team

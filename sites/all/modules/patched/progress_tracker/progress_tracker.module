@@ -104,12 +104,12 @@ function _progress_tracker_field() {
         $step_arr = explode('|', $step);
         $field_name = trim($step_arr[0]);
         $field_value = $wrapper->$field_name->value();
-
-        if ($last_date == 0)
-          $period = format_date($field_value, 'custom', 'm/d/Y');
-        else
-          $period = format_date($field_value, 'custom', 'm/d/Y') . ' (' . floor( ($field_value - $last_date)/(60*60*24) ) . ' ' . t('days') . ')';
-
+        if (! empty($node->$field_name) ) {
+          if ($last_date == 0)
+            $period = format_date($field_value, 'custom', 'm/d/Y');
+          else
+            $period = format_date($field_value, 'custom', 'm/d/Y') . ' (' . floor( ($field_value - $last_date)/(60*60*24) ) . ' ' . t('days') . ')';
+        } else $period = t("No limit");
         $last_date = $field_value;
         $selected_class = array();
         if (intval($field_value) > time()) {

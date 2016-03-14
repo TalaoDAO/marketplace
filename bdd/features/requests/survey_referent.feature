@@ -1,4 +1,4 @@
-@api
+@api @watchdog
 Feature: Create Survey and answers
   In order to test Survey creation, and privacy of answers
   As référent
@@ -121,7 +121,7 @@ Feature: Create Survey and answers
     #Then I should not see an "Answer" textarea form element
 
     When I click "Answers" in the "primary tabs" region
-    Then I should not see "Select best answer(s)"
+    Then I should see "Select best answer(s)"
     And I should see "Iron Man"
     And I should see "Everybody can be, trust me, I'm the best we known."
     And I should see "Klark Kent"

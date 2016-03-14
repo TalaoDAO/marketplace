@@ -89,7 +89,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       $form['actions']['draft']['#value'] = t('Save draft');
       $form['actions']['submit']['#value'] = t('Publish');
       // If nid not empty, we're in the edit page
-      if ( !empty($form['nid']['#value']) ) {
+      if ( !empty($form['nid']['#value']) && $form['#node']->status == NODE_PUBLISHED) {
         $form['actions']['draft']['#access'] = FALSE;
         $form['actions']['submit']['#value'] = t('Save');
       }
@@ -104,9 +104,9 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
         $form['og_group_ref']['#disabled'] = TRUE;
       }
 
-
       // Hide node access
       $form['group_content_access']['#access'] =  FALSE;
+
       break;
 
     default:
@@ -234,14 +234,15 @@ function emh_request_get_answer($entity, $type) {
       if (empty($entity->field_private_comment)) {
         // No status => body field.
         $output = $entity->comment_body[LANGUAGE_NONE]['0']['value'];
-      }
-      switch($entity->field_private_comment[LANGUAGE_NONE]['0']['value']) {
-        case 0:
-          $output = $entity->comment_body[LANGUAGE_NONE]['0']['value'];
-          break;
-        case 1:
-          $output = $entity->field_private_comment_body[LANGUAGE_NONE]['0']['value'];
-          break;
+      } else {
+        switch($entity->field_private_comment[LANGUAGE_NONE]['0']['value']) {
+          case 0:
+            $output = $entity->comment_body[LANGUAGE_NONE]['0']['value'];
+            break;
+          case 1:
+            $output = $entity->field_private_comment_body[LANGUAGE_NONE]['0']['value'];
+            break;
+        }
       }
       break;
     case 'webform_submission':
@@ -328,7 +329,7 @@ function emh_request_count_answers($node) {
       break;
     case 'question1':
     case 'challenge':
-      $count = $node->comment_count;
+      if (isset($node->comment_count)) $count = $node->comment_count;
       break;
     default:
       // Nothing to do.
@@ -404,9 +405,9 @@ function emh_request_try_to_notify($node) {
     // If user has the right role(s) and wants to be notified.
     if (
       (
-        ($node->type == 'question1' && user_access('question1: comment on any question1 content'))
-          || ($node->type == 'webform' && user_access('edit own webform submissions'))
-          || ($node->type == 'challenge' && user_access('challenge: comment on any challenge content'))
+        ($node->type == 'question1' && user_access('question1: comment on any question1 content', $user))
+          || ($node->type == 'webform' && user_access('edit own webform submissions', $user))
+          || ($node->type == 'challenge' && user_access('challenge: comment on any challenge content', $user))
       )
       && !empty($user->field_notification_frequency[LANGUAGE_NONE]) && $user->field_notification_frequency[LANGUAGE_NONE][0]['tid'] == 48
     ) {

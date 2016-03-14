@@ -1,4 +1,4 @@
-@api
+@api @watchdog
 Feature: Create
   Everything from the site.
 

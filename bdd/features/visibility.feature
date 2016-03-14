@@ -1,4 +1,4 @@
-@api
+@api @watchdog
 Feature: Test og visibility
   In order to test emh requests visibility
   As anonymous, client, expert, referent or webmaster

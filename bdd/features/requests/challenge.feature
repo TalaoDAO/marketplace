@@ -1,4 +1,4 @@
-@api
+@api @watchdog 
 Feature: Create Challenge and answers
   In order to test Challenge creation, and privacy of answers
   As client and expert and référent
