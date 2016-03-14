@@ -218,7 +218,7 @@
 		$submissions = webform_get_submissions(array('nid' => $nid, 'uid' => $uid));
 		?>
 
-		<?php if (empty($submissions) || $submissions['is_draft']) : ?>
+		<?php if (empty($submissions) || (!empty($submissions['is_draft']))) : ?>
 
 		<?php if ( $node->webform['status'] ) : ?>
 		<?php if (!empty($node->webform['components'])) : ?>
@@ -241,7 +241,8 @@
 				$sid = $submission->sid;
 			  $submission = webform_get_submission($node->nid, $sid);
 			  $email = NULL; $format = 'html';
-			  print drupal_render(webform_submission_render($node, $submission, $email, $format));
+				$webform = webform_submission_render($node, $submission, $email, $format);
+			  print drupal_render($webform);
 				?>
 				<ul class="links list-inline text-right">
 					<li class="edit_link"><a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $sid; ?>/edit"><?php print t('Edit'); ?></a></li>
