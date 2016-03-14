@@ -145,7 +145,7 @@ function emh_user_get_beautiful_profile_link($uid) {
  * Implements hook_block_view_MODULE_DELTA_alter().
  */
 function emh_user_block_view_roleswitcher_switcher_alter(&$data, $block) {
-  $data['content']['#theme'] = emh_user_roleswitcher_list;
+  $data['content']['#theme'] = 'emh_user_roleswitcher_list';
   $roles = emh_user_roleswitcher_roles();
   $data['content']['#roles'] = $roles;
 }
