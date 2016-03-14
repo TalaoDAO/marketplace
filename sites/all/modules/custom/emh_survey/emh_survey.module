@@ -11,25 +11,25 @@ function emh_survey_menu_alter(&$items) {
 
   // Disable access
   $items['node/%webform_menu/webform']['access callback'] = '_emh_access_full_access';
-  $items['node/%webform_menu/webform']['access arguments'] = array();
+  $items['node/%webform_menu/webform']['access arguments'] = array(1);
   $items['node/%webform_menu/webform/components']['access callback'] = '_emh_access_full_access';
-  $items['node/%webform_menu/webform/components']['access arguments'] = array();
+  $items['node/%webform_menu/webform/components']['access arguments'] = array(1);
   $items['node/%webform_menu/webform/components/%webform_menu_component/clone']['access callback'] = '_emh_access_full_access';
-  $items['node/%webform_menu/webform/components/%webform_menu_component/clone']['access arguments'] = array();
+  $items['node/%webform_menu/webform/components/%webform_menu_component/clone']['access arguments'] = array(1);
   $items['node/%webform_menu/webform/conditionals']['access callback'] = '_emh_access_full_access';
-  $items['node/%webform_menu/webform/conditionals']['access arguments'] = array();
+  $items['node/%webform_menu/webform/conditionals']['access arguments'] = array(1);
   $items['node/%webform_menu/webform/configure']['access callback'] = '_emh_access_full_access';
-  $items['node/%webform_menu/webform/configure']['access arguments'] = array();
+  $items['node/%webform_menu/webform/configure']['access arguments'] = array(1);
   $items['node/%webform_menu/webform/emails']['access callback'] = '_emh_access_full_access';
-  $items['node/%webform_menu/webform/emails']['access arguments'] = array();
+  $items['node/%webform_menu/webform/emails']['access arguments'] = array(1);
   $items['node/%webform_menu/webform-results']['access callback'] = '_emh_access_full_access';
-  $items['node/%webform_menu/webform-results']['access arguments'] = array();
+  $items['node/%webform_menu/webform-results']['access arguments'] = array(1);
   $items['node/%webform_menu/webform-results/analysis']['access callback'] = '_emh_access_full_access';
-  $items['node/%webform_menu/webform-results/analysis']['access arguments'] = array();
+  $items['node/%webform_menu/webform-results/analysis']['access arguments'] = array(1);
   $items['node/%webform_menu/webform-results/table']['access callback'] = '_emh_access_full_access';
-  $items['node/%webform_menu/webform-results/table']['access arguments'] = array();
+  $items['node/%webform_menu/webform-results/table']['access arguments'] = array(1);
   $items['node/%webform_menu/webform-results/download']['access callback'] = '_emh_access_full_access';
-  $items['node/%webform_menu/webform-results/download']['access arguments'] = array();
+  $items['node/%webform_menu/webform-results/download']['access arguments'] = array(1);
 
   // Node page tabs.
   $items['node/%webform_menu/edit/components'] = array(
