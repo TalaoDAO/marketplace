@@ -1,4 +1,4 @@
-@api
+@api @watchdog
 Feature: Create Survey and answers
   In order to test Survey creation, and privacy of answers
   As référent

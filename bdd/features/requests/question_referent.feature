@@ -1,4 +1,4 @@
-@api
+@ap @watchdogi
 Feature: Create Question and answers
   In order to test Question creation, and privacy of answers
   As référent

@@ -1,4 +1,4 @@
-@api
+@api @watchdog
 Feature: Test points
   In order to test emh points
   As a client
