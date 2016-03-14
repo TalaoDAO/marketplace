@@ -15973,6 +15973,9 @@ fieldset[disabled] .role-business #block-roleswitcher-switcher a.focus {
 .views-field-emh-author {
   width: 200px;
 }
+.views-field-emh-answer {
+  width: 350px;
+}
 div.fivestar-widget-static .star {
   width: 21px;
   height: 21px;
