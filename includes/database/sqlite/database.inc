@@ -70,7 +70,6 @@ class DatabaseConnection_sqlite extends DatabaseConnection {
     $connection_options['pdo'] += array(
       // Convert numeric values to strings when fetching.
       PDO::ATTR_STRINGIFY_FETCHES => TRUE,
-      // @todo Use PDO::ATTR_EMULATE_PREPARES as soon as Sqlite PDO supports it. See https://drupal.org/node/2031261 . @see \DatabaseStatement_sqlite::getStatement()
     );
     parent::__construct('sqlite:' . $connection_options['database'], '', '', $connection_options['pdo']);
 
@@ -394,76 +393,66 @@ class DatabaseStatement_sqlite extends DatabaseStatementPrefetch implements Iter
   /**
    * SQLite specific implementation of getStatement().
    *
-   * SQLite only supports 999 placeholders which is not sufficient in many cases.
-   * Using PDO::ATTR_EMULATE_PREPARES attribute would be the simplest solution for this but
-   * the SQLite PDO driver does not support it. So we do it here instead.
-   * Drupal does not utilise prepared statements much anyway so this is no performance burden.
-   * @todo Use PDO::ATTR_EMULATE_PREPARES in connection constructor as soon as SQLite PDO supports it.
+   * The PDO SQLite layer doesn't replace numeric placeholders in queries
+   * correctly, and this makes numeric expressions (such as COUNT(*) >= :count)
+   * fail. We replace numeric placeholders in the query ourselves to work
+   * around this bug.
+   *
+   * See http://bugs.php.net/bug.php?id=45259 for more details.
    */
   protected function getStatement($query, &$args = array()) {
-    $dbh = $this->dbh;
-    $quote_value = function($value) use($dbh) {
-      if (is_null($value)) {
-          return 'NULL';
-      }
-      elseif (is_float($value)) {
-          // Force the conversion to float so as not to lose precision in the automatic cast.
-          $value = sprintf('%F', $value);
-          return $value;
-      }
-      elseif (is_int($value)) {
-          return $value;
-      }
-      else {
-        // Quote and escape strings and whatever else.
-        $value = $dbh->quote($value);
-        return $value;
-      }
-    };
-
     if (count($args)) {
       // Check if $args is a simple numeric array.
-      if (array_keys($args) === range(0, count($args) - 1)) {
+      if (range(0, count($args) - 1) === array_keys($args)) {
         // In that case, we have unnamed placeholders.
-        // Now let's replace every '?' placeholder with one item from $replacements.
-        $get_replacement = function() use($args, $quote_value) {
-          static $i = 0;
-          $value = $args[$i];
-          $i += 1;
-          return $quote_value($value);
-        };
-        $query = preg_replace_callback('/\?/u', $get_replacement, $query);
+        $count = 0;
+        $new_args = array();
+        foreach ($args as $value) {
+          if (is_float($value) || is_int($value)) {
+            if (is_float($value)) {
+              // Force the conversion to float so as not to loose precision
+              // in the automatic cast.
+              $value = sprintf('%F', $value);
+            }
+            $query = substr_replace($query, $value, strpos($query, '?'), 1);
+          }
+          else {
+            $placeholder = ':db_statement_placeholder_' . $count++;
+            $query = substr_replace($query, $placeholder, strpos($query, '?'), 1);
+            $new_args[$placeholder] = $value;
+          }
+        }
+        $args = $new_args;
       }
       else {
         // Else, this is using named placeholders.
-        $get_replacement = function($match) use($args, $quote_value) {
-          $placeholder = $match[0];
-          static $replacements = array();
-          if (!isset($replacements[$placeholder])) {
-            if (isset($args[$placeholder])) {
-              $replacements[$placeholder] = $quote_value($args[$placeholder]);
+        foreach ($args as $placeholder => $value) {
+          if (is_float($value) || is_int($value)) {
+            if (is_float($value)) {
+              // Force the conversion to float so as not to loose precision
+              // in the automatic cast.
+              $value = sprintf('%F', $value);
             }
-            else {
-              // PDO allows placeholders to not be prefixed by a colon. See
-              // http://marc.info/?l=php-internals&m=111234321827149&w=2 for more.
-              $placeholder_without_colon = substr($placeholder, 1);
-              if (isset($args[$placeholder_without_colon])) {
-                $replacements[$placeholder] = $quote_value($args[$placeholder]);
-              }
-              else {
-                $replacements[$placeholder] = $placeholder;
-              }
-            }
-          }
-          return $replacements[$placeholder];
-        };
-        // We match any valid php identifier after a colon.
-        $query = preg_replace_callback('/:[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*\b/u', $get_replacement, $query);
-      }
 
-      // We replaced all placeholders so there must not be any arguments any more.
-      $args = array();
+            // We will remove this placeholder from the query as PDO throws an
+            // exception if the number of placeholders in the query and the
+            // arguments does not match.
+            unset($args[$placeholder]);
+            // PDO allows placeholders to not be prefixed by a colon. See
+            // http://marc.info/?l=php-internals&m=111234321827149&w=2 for
+            // more.
+            if ($placeholder[0] != ':') {
+              $placeholder = ":$placeholder";
+            }
+            // When replacing the placeholders, make sure we search for the
+            // exact placeholder. For example, if searching for
+            // ':db_placeholder_1', do not replace ':db_placeholder_11'.
+            $query = preg_replace('/' . preg_quote($placeholder) . '\b/', $value, $query);
+          }
+        }
+      }
     }
+
     return $this->dbh->PDOPrepare($query);
   }
 

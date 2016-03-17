@@ -508,17 +508,14 @@ function node_admin_nodes() {
   $options = array();
   foreach ($nodes as $node) {
     $langcode = entity_language('node', $node);
-    $uri = entity_uri('node', $node);
-    if ($langcode != LANGUAGE_NONE && isset($languages[$langcode])) {
-      $uri['options']['language'] = $languages[$langcode];
-    }
+    $l_options = $langcode != LANGUAGE_NONE && isset($languages[$langcode]) ? array('language' => $languages[$langcode]) : array();
     $options[$node->nid] = array(
       'title' => array(
         'data' => array(
           '#type' => 'link',
           '#title' => $node->title,
-          '#href' => $uri['path'],
-          '#options' => $uri['options'],
+          '#href' => 'node/' . $node->nid,
+          '#options' => $l_options,
           '#suffix' => ' ' . theme('mark', array('type' => node_mark($node->nid, $node->changed))),
         ),
       ),
