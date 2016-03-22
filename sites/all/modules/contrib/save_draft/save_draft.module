@@ -14,10 +14,6 @@ function save_draft_permission() {
       'title' => t('Save content as draft'),
       'description' => t('Allows a user to save a draft of their content.'),
     ),
-    'save comment draft' => array(
-      'title' => t('Save comment as draft'),
-      'description' => t('Allows a user to save a draft of their comment.'),
-    ),
   );
 }
 
@@ -93,26 +89,3 @@ function save_draft_validate($form, &$form_state) {
 function save_draft_submit($form, &$form_state) {
   node_form_submit($form, $form_state);
 }
-
-//YBA : add comment drafts
-function save_draft_form_comment_form_alter(&$form, &$form_state) {
-  if (user_access('save comment draft')) {
-    if (empty($form['#validate'])) {
-      $form['#validate'] = array();
-    }
-    array_unshift($form['#validate'], 'save_draft_validate');
-      $form['actions']['draft'] = array(
-        '#type' => 'submit',
-        '#class' => 'form-submit',
-        '#value' => t('Save as draft'),
-        '#weight' => '9',
-        '#submit' => array('comment_save_draft_submit')
-      );
-      $form['actions']['submit']['#value'] = t('Publish');
-  }
-}
-
-function comment_save_draft_submit($form, &$form_state) {
-  comment_form_submit($form, $form_state);
-}
-
