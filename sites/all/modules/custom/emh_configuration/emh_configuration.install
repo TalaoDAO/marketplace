@@ -198,6 +198,7 @@ function emh_configuration_update_7013() {
   module_enable(array('emh_answer'));
   user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('save draft'));
   user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('save comment draft'));
+  features_revert(array('ft_permissions' => array('user_permission')));
 }
 
 /**
