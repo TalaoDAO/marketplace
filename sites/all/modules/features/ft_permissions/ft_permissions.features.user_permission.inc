@@ -2584,27 +2584,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'save comment draft'.
-  $permissions['save comment draft'] = array(
-    'name' => 'save comment draft',
-    'roles' => array(
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'save_draft',
-  );
-
-  // Exported permission: 'save draft'.
-  $permissions['save draft'] = array(
-    'name' => 'save draft',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
-      'expert' => 'expert',
-      'référent' => 'référent',
-    ),
-    'module' => 'save_draft',
-  );
-
   // Exported permission: 'schedule (un)publishing of nodes'.
   $permissions['schedule (un)publishing of nodes'] = array(
     'name' => 'schedule (un)publishing of nodes',

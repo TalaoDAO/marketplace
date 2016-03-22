@@ -1,0 +1,41 @@
+<?php
+/**
+* @file
+* Code for eMindHub Answer feature.
+*/
+
+/**
+ * Implements hook_permission().
+ */
+function emh_answer_permission() {
+  return array(
+    'save comment draft' => array(
+      'title' => t('Save comment as draft'),
+      'description' => t('Allows a user to save a draft of their comment.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+// function emh_answer_form_comment_form_alter(&$form, &$form_state) {
+//   if (user_access('save comment draft')) {
+//     if (empty($form['#validate'])) {
+//       $form['#validate'] = array();
+//     }
+//     // array_unshift($form['#validate'], 'save_draft_validate');
+//     $form['actions']['draft'] = array(
+//       '#type' => 'submit',
+//       '#class' => 'form-submit',
+//       '#value' => t('Save as draft'),
+//       '#weight' => '9',
+//       '#submit' => array('_emh_answer_submit')
+//     );
+//     $form['actions']['submit']['#value'] = t('Publish');
+//   }
+// }
+
+function _emh_answer_submit($form, &$form_state) {
+  comment_form_submit($form, $form_state);
+}

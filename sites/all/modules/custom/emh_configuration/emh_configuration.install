@@ -190,3 +190,12 @@ function emh_configuration_update_7012() {
   user_role_grant_permissions(5, array('display EU Cookie Compliance popup')); // Business
   user_role_grant_permissions(7, array('display EU Cookie Compliance popup')); // Referent
 }
+
+/**
+ * Install module : EMH Answer.
+ */
+function emh_configuration_update_7013() {
+  module_enable(array('emh_answer'));
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('save draft'));
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('save comment draft'));
+}
