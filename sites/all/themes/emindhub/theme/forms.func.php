@@ -313,7 +313,7 @@ function emindhub_form_comment_form_alter(&$form, &$form_state, $form_id) {
 
   $form['author']['#access'] = 0;
   $form['subject']['#access'] = 0;
-	$form['actions']['submit']['#value'] = t('Publish');
+	if (empty($form['cid']['#value'])) $form['actions']['submit']['#value'] = t('Publish');
 
   // echo '<pre>' . print_r($form, TRUE) . '</pre>';
 
