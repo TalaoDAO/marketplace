@@ -64,7 +64,7 @@ function _emh_request_string_overrides() {
 
     // Comment
     'Edit comment %comment' => 'Edit answer',
-    'Your comment has been queued for review by site administrators and will be published after approval.' => 'Your comment has been saved as a draft.',
+    'Your comment has been queued for review by site administrators and will be published after approval.' => 'Your answer has been saved as a draft.',
   );
 }
 
