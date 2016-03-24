@@ -698,6 +698,13 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
     case 'node':
       // Points have been distributed, we should close the request.
       emh_points_close_node($form_state['values']['id_source']);
+      // And notify unrewarded answers
+      $unrewarded_answers = emh_points_get_unrewarded_answers($form_state['values']['id_source']);
+      foreach ($unrewarded_answers as $unrewarded_answer => $uid) {
+        $node = node_load($form_state['values']['id_source']);
+        $author = user_load($uid);
+        emh_points_notify_unrewarded_answer_author($node, $author);
+      }
       $form_state['redirect'] = 'node/' . $form_state['values']['id_source'];
       break;
     case 'user':
@@ -748,6 +755,108 @@ function emh_points_get_points_closed_status($nid) {
         // Nothing to do.
         break;
     }
+  }
+}
+
+/**
+ * Send email to request unrewarded answers' author.
+ */
+function emh_points_notify_unrewarded_answer_author($node, $user) {
+  $module = 'emh_points';
+  $key = 'notify_unrewarded_answer_author';
+  $mail = $user->mail;
+  $language = language_default();
+  $params = array(
+    '@url' => url('node/' . $node->nid . '/?pk_campaign=request_unrewarded_' . $node->type . '_' . $node->nid, array('absolute' => TRUE)),
+    '@title' => $node->title,
+    '@answer_author' => $user->field_first_name[LANGUAGE_NONE][0]['value'],
+  );
+  drupal_mail($module, $key, $mail, $language, $params);
+}
+
+function emh_points_get_answers($nid) {
+  $answers = array();
+  $node = node_load($nid);
+  if (!empty($node)) {
+    switch($node->type) {
+      case 'webform':
+        include_once drupal_get_path('module','webform') . '/includes/webform.submissions.inc';
+        $submissions = webform_get_submissions($nid);
+        if (!empty($submissions)) {
+          foreach ($submissions as $submission) {
+            $answers[$submission->sid] = $submission->uid;
+          }
+        }
+        break;
+      case 'question1':
+      case 'challenge':
+        $answers = db_select('comment', 'c')
+                    ->condition('nid', $nid)
+                    ->fields('c', array('cid'))
+                    ->fields('c', array('uid'))
+                    ->orderBy('cid', 'ASC')
+                    ->execute()
+                    ->fetchAllKeyed(0,1);
+        break;
+      default:
+        // Nothing to do.
+        break;
+    }
+  }
+  return $answers;
+}
+
+function emh_points_get_rewarded_answers($nid) {
+  $answers = db_select('emh_points_answers', 'a')
+                        ->condition('nid', $nid)
+                        ->fields('a', array('answer_id'))
+                        ->fields('a', array('uid'))
+                        ->orderBy('answer_id', 'ASC')
+                        ->execute()
+                        ->fetchAllKeyed(0,1);
+  return $answers;
+}
+
+function emh_points_get_unrewarded_answers($nid) {
+  $unrewarded_answers = array();
+  $all_answers = emh_points_get_answers($nid);
+  $rewarded_answers = emh_points_get_rewarded_answers($nid);
+  if (!empty($all_answers)) {
+    $unrewarded_answers = array_diff($all_answers, $rewarded_answers);
+  }
+  return $unrewarded_answers;
+}
+
+/**
+ * Implements hook_mail().
+ */
+function emh_points_mail($key, &$message, $params) {
+  switch($key) {
+    case 'notify_unrewarded_answer_author':
+      $message['subject'] = t('Your answer has not been selected', $params);
+      $message['body'] = array();
+      $message['body'][] = '<h1 style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:22px;margin-bottom:20px;color:#333;line-height:150%;">' . t('Your answer has not been selected') . '</h1>';
+      $message['body'][] = t('Dear @answer_author,', $params);
+      $message['body'][] = t('Your answer has not been selected on request') . ' <strong><a href="' . t('@url', $params) . '&amp;pk_kwd=link" title="' .  t('@title', $params) . '" target="_blank" style="font-weight:bold!important;">' . t('@title', $params) . ' </a></strong>';
+      $message['body'][] = t('Should you like to know more, just log into the platform now.');
+      $message['body'][] = '<table style="min-width:100%;" width="100%" border="0" cellpadding="0" cellspacing="0" class="emailButton">
+        <tbody>
+          <tr>
+            <td style="padding-top:0;padding-right:18px;padding-bottom:18px;padding-left:18px;" valign="top" align="center">
+              <table style="border-collapse:separate!important;border-radius:0px;background-color:rgb(0,159,227);" border="0" cellpadding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td style="font-family:Arial;font-size:16px;padding:15px;color:rgb(255, 255, 255);" valign="middle" align="center">
+                      <a href="' . t('@url', $params) . '&amp;pk_kwd=calltoaction" title="' .  t('Log in to eMindHub') . '" target="_blank" style="font-weight:bold!important;letter-spacing:normal;line-height:100%;text-align:center;text-decoration:none;color:#FFFFFF!important;">' . t('Log in to eMindHub') . ' </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>';
+      break;
   }
 }
 
