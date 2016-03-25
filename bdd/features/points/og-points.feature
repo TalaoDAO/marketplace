@@ -6,6 +6,18 @@ Feature: Test points dispatch in OG
 
   Background: OG Points : Create questions and answers
     #client1 is webmaster to gain access to tabs until links are added
+
+    Given "circle" content:
+    | title    | author  |
+    | Avengers | admin   |
+    | X-Men    | admin   |
+
+    Given "corporate" content:
+    | title     | author  |
+    | Google    | admin   |
+    | Apple     | admin   |
+    | Tumblr    | admin   |
+
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
     | client1 | emindhub.test+client1@gmail.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
