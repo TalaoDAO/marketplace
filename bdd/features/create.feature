@@ -10,14 +10,6 @@ Feature: Create
 
     Given "corporate" content:
     | title     | author  |
-    | Google    | admin   |
-    | Apple     | admin   |
-    | Facebook  | admin   |
-    | Twitter   | admin   |
-    | Pinterest | admin   |
-    | Viadeo    | admin   |
-    | Linkedin  | admin   |
-    | Tumblr    | admin   |
     | Amazon    | admin   |
 
     Given "page" content:

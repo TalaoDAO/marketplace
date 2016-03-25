@@ -31,7 +31,7 @@ Feature: Create Question and answers
 
     Given "question1" content:
     | title        | field_domaine | og_group_ref | field_reward | author  | field_anonymous      | field_show_entreprise | field_use_my_entreprise |
-    | What about?  | Energy        | Avengers     | 100         | client1 | Display my full name | Display the name      | Display                 |
+    | What about?  | Energy        | Avengers     | 100          | client1 | Display my full name | Display the name      | Display                 |
 
     # Make référent1 as a Referent member of Avengers circle
     Given I am logged in as a user with the "administrator" role

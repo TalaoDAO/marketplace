@@ -13,7 +13,6 @@ Feature: Create Challenge and answers
     Given "corporate" content:
     | title     | author  |
     | Google    | admin   |
-    | Facebook  | admin   |
     | Twitter   | admin   |
     | Amazon    | admin   |
 

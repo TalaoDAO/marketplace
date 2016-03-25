@@ -13,14 +13,8 @@ Feature: Create Question and answers
     Given "corporate" content:
     | title     | author  |
     | Google    | admin   |
-    | Apple     | admin   |
     | Facebook  | admin   |
     | Twitter   | admin   |
-    | Pinterest | admin   |
-    | Viadeo    | admin   |
-    | Linkedin  | admin   |
-    | Tumblr    | admin   |
-    | Amazon    | admin   |
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
@@ -32,7 +26,7 @@ Feature: Create Question and answers
 
     Given "question1" content:
     | title        | field_domaine | og_group_ref | field_reward | author  | field_anonymous      | field_show_entreprise | field_use_my_entreprise |
-    | What about?  | Energy        | Avengers     | 100         | client1 | Display my full name | Display the name      | Display                 |
+    | What about?  | Energy        | Avengers     | 100          | client1 | Display my full name | Display the name      | Display                 |
 
     # An expert responds publicly to a question
     Given I am logged in as "expert1"
