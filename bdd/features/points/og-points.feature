@@ -7,10 +7,11 @@ Feature: Test points dispatch in OG
   Background: OG Points : Create questions and answers
     #client1 is webmaster to gain access to tabs until links are added
     Given users:
-    | name    | mail                 | roles               | field_first_name | field_last_name |
-    | client1 | client1@emindhub.com | business, webmaster | Steve            | Rogers          |
-    | client2 | client2@emindhub.com | business            | Bruce            | Banner          |
-    | client3 | client3@emindhub.com | business            | Tony             | Stark           |
+    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
+    | client2 | emindhub.test+client2@gmail.com | business | Charle           | Xavier          |                 |                    | X-Men        | emindhub.test+client2@gmail.com | Apple   | Freelancer | Engines     |
+    | client3 | emindhub.test+client3@gmail.com | business | Tony             | Stark           |                 |                    | X-Men        | emindhub.test+client3@gmail.com | Tumblr  | Freelancer | Drones      |
+
     Given "circle" content:
     | title    | author  |
     | Avengers | client1 |

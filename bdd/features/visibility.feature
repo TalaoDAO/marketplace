@@ -25,24 +25,24 @@ Feature: Test og visibility
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | référent1 | referent1@emindhub.com | référent | Paul         | Stanley         | 0612345678      | The Starchild      | Avengers     | referent1@emindhub.com | Amazon  | Other | Maintenance |
+    | référent1 | emindhub.test+referent1@gmail.com | référent | Paul          | Stanley         | 0612345678      | The Starchild     | Avengers     | emindhub.test+referent1@gmail.com | Amazon  | Other | Maintenance |
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | client1 | client1@emindhub.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | client1@emindhub.com | Google  | Freelancer | Maintenance |
-    | client2 | client2@emindhub.com | business | Charle           | Xavier          |                 |                    | X-Men        | client2@emindhub.com | Apple   | Freelancer | Engines     |
-    | client3 | client3@emindhub.com | business | Tony             | Stark           |                 |                    | X-Men        | client3@emindhub.com | Tumblr  | Freelancer | Drones      |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
+    | client2 | emindhub.test+client2@gmail.com | business | Charle           | Xavier          |                 |                    | X-Men        | emindhub.test+client2@gmail.com | Apple   | Freelancer | Engines     |
+    | client3 | emindhub.test+client3@gmail.com | business | Tony             | Stark           |                 |                    | X-Men        | emindhub.test+client3@gmail.com | Tumblr  | Freelancer | Drones      |
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise   | field_working_status | field_domaine |
-    | expert1 | expert1@emindhub.com | expert   | Iron             | Man             | 0712345670      | Chieur génial      | Avengers     | expert1@emindhub.com | Facebook  | Employee  | Energy        |
-    | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | 0712345671      | Modèle             | Avengers     | expert2@emindhub.com | Twitter   | Employee  | Other         |
-    | expert3 | expert3@emindhub.com | expert   | Bruce            | Banner          | 0712345672      | Cogneur            | Avengers     | expert3@emindhub.com | Pinterest | Employee  | Drones        |
-    | expert4 | expert4@emindhub.com | expert   | Scott            | Summers         | 0712345673      | Bucheron           | X-Men        | expert4@emindhub.com | Viadeo    | Employee  | Helicopters   |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | Man             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
+    | expert2 | emindhub.test+expert2@gmail.com | expert   | Klark            | Kent            | 0712345671      | Modèle             | Avengers     | emindhub.test+expert2@gmail.com | Twitter   | Employee  | Other         |
+    | expert3 | emindhub.test+expert3@gmail.com | expert   | Bruce            | Banner          | 0712345672      | Cogneur            | Avengers     | emindhub.test+expert3@gmail.com | Pinterest | Employee  | Drones        |
+    | expert4 | emindhub.test+expert4@gmail.com | expert   | Scott            | Summers         | 0712345673      | Bucheron           | X-Men        | emindhub.test+expert4@gmail.com | Viadeo    | Employee  | Helicopters   |
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise   | field_working_status |
-    | expert5 | expert5@emindhub.com | expert   | Jean             | Grey            | 0712345674      | Boulanger          | X-Men        | expert5@emindhub.com | Linkedin  | Employee  |
+    | expert5 | emindhub.test+expert5@gmail.com | expert   | Jean             | Grey            | 0712345674      | Boulanger          | X-Men        | emindhub.test+expert5@gmail.com | Linkedin  | Employee  |
 
     Given I give "client1" 400 emh points
     Given I give "client2" 100 emh points
@@ -157,19 +157,19 @@ Feature: Test og visibility
     Then I should see "Klark Kent"
     And I should not see "Modèle"
     And I should not see "0712345671"
-    And I should not see "expert2@emindhub.com"
+    And I should not see "emindhub.test+expert2@gmail.com"
 
     When I go to "/users/expert3"
     Then I should see "Bruce Banner"
     And I should not see "Cogneur"
     And I should not see "0712345672"
-    And I should not see "expert3@emindhub.com"
+    And I should not see "emindhub.test+expert3@gmail.com"
 
     When I go to "/users/expert4"
     Then I should see "Scott Summers"
     And I should see "Bucheron"
     And I should see "0712345673"
-    And I should see "expert4@emindhub.com"
+    And I should see "emindhub.test+expert4@gmail.com"
 
   Scenario: A référent can only see full experts profiles from its circles
     Given I am logged in as "référent1"
@@ -178,16 +178,16 @@ Feature: Test og visibility
     Then I should see "Klark Kent"
     And I should see "Modèle"
     And I should see "0712345671"
-    And I should see "expert2@emindhub.com"
+    And I should see "emindhub.test+expert2@gmail.com"
 
     When I go to "/users/expert3"
     Then I should see "Bruce Banner"
     And I should see "Cogneur"
     And I should see "0712345672"
-    And I should see "expert3@emindhub.com"
+    And I should see "emindhub.test+expert3@gmail.com"
 
     When I go to "/users/expert4"
     Then I should see "Scott Summers"
     And I should not see "Bucheron"
     And I should not see "0712345673"
-    And I should not see "expert4@emindhub.com"
+    And I should not see "emindhub.test+expert4@gmail.com"
