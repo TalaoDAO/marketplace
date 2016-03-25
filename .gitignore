@@ -4,7 +4,6 @@ sites/all/modules/debug
 bdd/bin
 bdd/vendor
 bdd/composer.phar
-bdd/composer.lock
 bdd/tmp
 
 # Ignore configuration files that may contain sensitive information.
