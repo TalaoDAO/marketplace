@@ -876,7 +876,7 @@ function emh_points_mail($key, &$message, $params) {
         </tbody>
       </table>';
       break;
-	case 'notify_unrewarded_answer_author':
+	  case 'notify_unrewarded_answer_author':
       $message['subject'] = t('Your answer has not been selected', $params);
       $message['body'] = array();
       $message['body'][] = '<h1 style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:22px;margin-bottom:20px;color:#333;line-height:150%;">' . t('Your answer has not been selected') . '</h1>';
@@ -900,6 +900,8 @@ function emh_points_mail($key, &$message, $params) {
           </tr>
         </tbody>
       </table>';
+      break;
+    default:
       break;
   }
 }
