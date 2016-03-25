@@ -129,7 +129,7 @@ Feature: Create Question and answers
     And I click "edit" in the "answers" region
     And I enter "I'm the REAL best superhero in da world." for "Public answer"
     And I select the radio button "My answer will be visible by all experts"
-    And I press "Publish"
+    And I press "Save"
     Then I should see "I'm the REAL best superhero in da world."
 
   Scenario: The author cannot edit a public answer
@@ -201,5 +201,5 @@ Feature: Create Question and answers
     And I click "edit" in the "answers" region
     And I enter "The truth is here." for "Public answer"
     And I select the radio button "My answer will be visible only by the client"
-    And I press "Publish"
+    And I press "Save"
     Then I should see "The truth is here."

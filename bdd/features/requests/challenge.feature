@@ -109,7 +109,7 @@ Feature: Create Challenge and answers
     When I click "What about?" in the "What about?" row
     And I click "edit" in the "answers" region
     And I enter "The truth is here." for "Answer"
-    And I press "Publish"
+    And I press "Save"
     Then I should see "The truth is here."
 
   Scenario: The author cannot edit an answer
