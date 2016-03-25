@@ -5,11 +5,9 @@ Feature: Test points dispatch in OG
   I want to dispatch points on my team members
 
   Background: OG Points : Create questions and answers
-    #client1 is webmaster to gain access to tabs until links are added
 
     Given "circle" content:
     | title    | author  |
-    | Avengers | admin   |
     | X-Men    | admin   |
 
     Given "corporate" content:
@@ -18,9 +16,10 @@ Feature: Test points dispatch in OG
     | Apple     | admin   |
     | Tumblr    | admin   |
 
+    #client1 is webmaster to gain access to tabs until links are added
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
+    | client1 | emindhub.test+client1@gmail.com | business, webmaster | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
     | client2 | emindhub.test+client2@gmail.com | business | Charle           | Xavier          |                 |                    | X-Men        | emindhub.test+client2@gmail.com | Apple   | Freelancer | Engines     |
     | client3 | emindhub.test+client3@gmail.com | business | Tony             | Stark           |                 |                    | X-Men        | emindhub.test+client3@gmail.com | Tumblr  | Freelancer | Drones      |
 
@@ -68,10 +67,7 @@ Feature: Test points dispatch in OG
 
     When I fill in "Points" with "100"
     And I press "Next"
-    Then I should see "Points for Bruce Banner"
-    And I should see "Points for Tony Stark"
-
-    When I fill in "Points for Bruce Banner" with "60"
+    And I fill in "Points for Charle Xavier" with "60"
     And I fill in "Points for Tony Stark" with "40"
     And I press "edit-submit"
     Then I should see the success message "All the points have been distributed"
