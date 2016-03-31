@@ -4,7 +4,6 @@
  * Installation hooks for the virality features.
  */
 
-
 /**
  * Implements hook_schema().
  */
@@ -76,7 +75,6 @@ function emh_virality_schema() {
   return $schema;
 }
 
-
 /**
  * Implements hook_enable().
  */
@@ -86,7 +84,6 @@ function emh_virality_enable() {
   variable_set('emh_virality_expert_invitation_reward', 50);
 }
 
-
 /**
  * Implements hook_uninstall().
  */
@@ -95,7 +92,6 @@ function emh_virality_uninstall() {
   variable_del('emh_virality_expert_invitation_reward');
 }
 
-
 /**
  * Extend access to the Invitations tab to authentificated users + Invitations history to webmasters.
  */
@@ -103,4 +99,20 @@ function emh_virality_update_7001() {
   user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('invite experts'));
   user_role_grant_permissions(3, array('view others invitations history')); // Administrator role
   user_role_grant_permissions(6, array('view others invitations history')); // Webmaster role
+}
+
+/**
+ * Update invitation form block by removing PHP code.
+ */
+function emh_virality_update_7002() {
+  $module = 'emh_virality';
+  $delta = 'invitation_form';
+  db_update('block')
+    ->fields(array(
+      'visibility' => '1',
+      'pages' => "user/*/invitations\ninvitations",
+    ))
+    ->condition('module', $module)
+    ->condition('delta', $delta)
+    ->execute();
 }
