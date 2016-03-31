@@ -50,8 +50,8 @@ Feature: Create Question and answers
     When I click "What about?" in the "What about?" row
     #Then I should see an "Answer visibility" radio form element
 
-    Given I enter "I'm the best superhero in da world." for "Public answer"
-    And I select the radio button "My answer will be visible by all experts"
+    Given I select the radio button "My answer will be visible by all experts"
+    And I enter "I'm the best superhero in da world." for "Public answer"
     And I press "Publish"
 
     # An expert responds privately to a question
@@ -61,8 +61,8 @@ Feature: Create Question and answers
 
     When I click "What about?" in the "What about?" row
     And I should see "Answer the question"
-    Given I enter "The truth is elsewhere." for "Private answer"
-    And I select the radio button "My answer will be visible only by the client"
+    Given I select the radio button "My answer will be visible only by the client"
+    And I enter "The truth is elsewhere." for "Private answer"
     And I press "Publish"
 
   Scenario: A référent can see the question
