@@ -430,5 +430,5 @@ function emh_request_try_to_notify($node) {
     }
   }
   // Webmaster copy
-  rules_invoke_event('emh_request_notify_webmaster_new_request', $node);
+  // rules_invoke_event('emh_request_notify_webmaster_new_request', $node);
 }
