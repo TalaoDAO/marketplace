@@ -61,10 +61,10 @@ function emindhub_menu_link__user_menu(&$vars) {
  * Overrides theme_menu_tree().
  */
 function emindhub_menu_tree__user_menu(&$variables) {
-  return '<ul class="menu nav navbar-nav navbar-emh-separator">' . $variables['tree'] . '</ul>';
+  return '<ul class="menu nav navbar-nav">' . $variables['tree'] . '</ul>';
 }
 function emindhub_menu_tree__menu_top(&$variables) {
-  return '<ul class="menu nav nav-justified">' . $variables['tree'] . '</ul>';
+  return '<ul class="menu nav navbar-nav">' . $variables['tree'] . '</ul>';
 }
 function emindhub_menu_tree__menu_top_anonymous(&$variables) {
   return '<ul class="menu nav nav-justified">' . $variables['tree'] . '</ul>';

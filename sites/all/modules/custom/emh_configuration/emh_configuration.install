@@ -202,7 +202,7 @@ function emh_configuration_update_7013() {
 }
 
 /**
- * Change default webform parameters
+ * Change default webform parameters.
  */
 function emh_configuration_update_7014() {
   variable_set('webform_default_from_address', 'contact@emindhub.com');
@@ -212,4 +212,62 @@ function emh_configuration_update_7014() {
   variable_set('webform_default_format', '1');
   variable_set('webform_format_override', '1');
   variable_set('webform_token_access', '0');
+}
+
+/**
+ * Change top nav links.
+ */
+function emh_configuration_update_7017() {
+  // Create new links
+  db_insert('menu_links')
+    ->fields(array(
+      'link_title' => 'Requests',
+      'has_children' => '1',
+      'expanded' => '1',
+      'weight' => '-48',
+    ))
+    ->condition('mlid', '7383')
+    ->execute();
+  db_update('menu_links')
+    ->fields(array(
+      'link_title' => 'Manage my requests',
+      'has_children' => '1',
+      'expanded' => '1',
+      'weight' => '-48',
+    ))
+    ->condition('mlid', '7383')
+    ->execute();
+  db_update('menu_links')
+    ->fields(array(
+      'link_title' => 'Answers',
+      'weight' => '-47',
+    ))
+    ->condition('mlid', '5523')
+    ->execute();
+  db_update('menu_links')
+    ->fields(array(
+      'link_title' => 'My selections',
+      'plid' => '7383',
+      'weight' => '-50',
+    ))
+    ->condition('mlid', '7382')
+    ->execute();
+  db_update('menu_links')
+    ->fields(array(
+      'link_title' => 'My circles',
+      'has_children' => '1',
+      'expanded' => '1',
+      'weight' => '-46',
+    ))
+    ->condition('mlid', '4971')
+    ->execute();
+  db_update('menu_links')
+    ->fields(array(
+      'link_title' => 'My relationships',
+      'plid' => '4971',
+      'weight' => '-50',
+    ))
+    ->condition('mlid', '7708')
+    ->execute();
+  menu_rebuild();
 }

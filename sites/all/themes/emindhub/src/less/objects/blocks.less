@@ -26,6 +26,11 @@
 	}
 }
 
+// Navigation principale - Connecté
+#block-menu-menu-top {
+	border-right: 1px solid @gray-lighter;
+}
+
 
 /* HEADER
  * User login + User menu
@@ -53,26 +58,25 @@
 	}
 }
 #block-system-user-menu {
+	.nav > li.last.leaf > a {
+		padding-right: 0 !important;
+		padding-left: 5px !important;
+	}
 	@media (min-width: @screen-md-min) {
 		.nav {
 			> li > span {
-				overflow: hidden;
+				// overflow: hidden;
 				text-overflow: ellipsis;
 				white-space: nowrap;
 				max-width: 250px;
-				padding-right: 30px;
-				span.caret {
-					position: absolute;
-					top: 24px;
-					right: 15px;
-				}
+				// padding-right: 30px;
+				// span.caret {
+				// 	position: absolute;
+				// 	top: 24px;
+				// 	right: 15px;
+				// }
 			}
 		}
-	}
-}
-body.role-roleswitcher {
-	#block-system-user-menu {
-		.make-md-column(10);
 	}
 }
 
@@ -407,95 +411,115 @@ body.role-roleswitcher {
 }
 
 
-// Homepage : Experts
+// Homepage connecté: 3 blocks
 #block-block-14,
 #block-block-8,
 #block-block-16 {
 	.content {
 		background-repeat: no-repeat;
 	}
-	a {
+	.content > * {
+		.make-row();
+		padding: 0;
+		margin: 0;
+		box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
 		display: block;
-		text-decoration: none;
-		padding: 1em;
-		&:before {
-			display: inline-block;
-			height: 100px;
-			content: "";
+
+		.type-picto {
+			.make-md-column(2);
+			padding: 15px;
 			background-position: 50% 50%;
 			background-repeat: no-repeat;
-			background-size: contain;
+			// background-size: contain;
+			img {
+				// .img-responsive;
+				// .center-block;
+				display: none;
+			}
 		}
-
-		span {
-			display: block;
-		}
-
-		span.mobilize-type {
-			font-weight: bold;
-			.text-uppercase;
-			font-size: 18px;
-			margin-bottom: .25em;
-		}
-
-		span.mobilize-info {
-			color: @darkerBlue;
-		}
-
-		span.mobilize-call {
-			font-weight: bold;
-			.text-uppercase;
-		}
-
-	}
-
-	@media (max-width: @screen-md-min) {
-		a {
+		.type-info {
+			.make-md-column(10);
 			padding: 15px;
-			&:before {
-				width: 100%;
+			.text-right;
+
+			> span {
+				display: block;
+				.text-left;
+				&.mobilize-type {
+					font-weight: bold;
+					.text-uppercase;
+					font-size: 18px;
+					margin-bottom: .25em;
+				}
+				&.mobilize-info {
+					color: @darkerBlue;
+				}
+			}
+			.btn {
+				margin-top: 15px;
 			}
 		}
+		.type-more {
+			.make-md-column(2);
+			padding: 15px;
+		}
+
 	}
-
-	// @media (min-width: @screen-md-min) {
-	// 	a {
-	// 		&:before {
-	// 			width: 100%;
-	// 		}
-	// 	}
-	// }
-
-	@media (min-width: @screen-md-min) {
-		a {
-			min-height: 130px;
-			&:before {
-				width: 130px;
-				margin-right: 1em;
-				margin-bottom: 1em;
-				float: left;
-			}
+	.content > a {
+		.btn;
+		.btn-gray;
+		display: block;
+		text-decoration: none;
+		text-transform: none;
+		font-weight: normal;
+		white-space: normal;
+		.text-left;
+		.type-picto ,
+		.type-info,
+		.type-more {
+			min-height: 101px;
+		}
+	}
+	.content > div {
+		color: @darkerBlue;
+		background-color: @gray-lighter;
+		border: 1px solid @gray-light2;
+		.text-left;
+		.type-picto ,
+		.type-info,
+		.type-more {
+			min-height: 150px;
 		}
 	}
 }
-body.not-logged-in,
-body.role-business,
-body.role-business-preview {
-	#block-block-14 .content a:before { background-image: url("../images/askQuestion.png"); }
-	#block-block-8 .content a:before { background-image: url("../images/launchChallenge.png"); }
-	#block-block-16 .content a:before { background-image: url("../images/findExpert.png"); }
-}
-body.logged-in {
-	#block-block-14 .content a span.default-text,
-	#block-block-8 .content a span.default-text,
-	#block-block-16 .content a span.default-text { color: @darkerBlue; }
-}
-body.role-expert,
-body.role-expert-preview {
-	#block-block-14 .content a:before { background-image: url("../images/answerQuestion.png"); }
-	#block-block-8 .content a:before { background-image: url("../images/answerChallenge.png"); }
-	#block-block-16 .content a:before { background-image: url("../images/answerExpertCall.png"); }
-}
+#block-block-14 .type-picto { background-image: url("../images/picto/picto_question_small.png"); }
+#block-block-8 .type-picto { background-image: url("../images/picto/picto_challenge_small.png"); }
+#block-block-16 .type-picto { background-image: url("../images/picto/picto_survey_small.png"); }
+// body.not-logged-in,
+// body.role-business {
+// 	#block-block-14 .content a:before { background-image: url("../images/askQuestion.png"); }
+// 	#block-block-8 .content a:before { background-image: url("../images/launchChallenge.png"); }
+// 	#block-block-16 .content a:before { background-image: url("../images/findExpert.png"); }
+// }
+// body.logged-in {
+// 	#block-block-14 .content a span.default-text,
+// 	#block-block-8 .content a span.default-text,
+// 	#block-block-16 .content a span.default-text { color: @darkerBlue; }
+// }
+// body.role-business {
+// 	#block-block-14 .mobilize-type,
+// 	#block-block-8 .mobilize-type,
+// 	#block-block-16 .mobilize-type {
+// 		color: @brand-primary;
+// 	}
+// }
+// body.role-expert {
+// 	#block-block-14 .mobilize-type,
+// 	#block-block-8 .mobilize-type,
+// 	#block-block-16 .mobilize-type {
+// 		color: @golden-base;
+// 	}
+// }
 
 
 // Why use eMindHub ?
@@ -938,25 +962,30 @@ body.role-expert-preview {
 
 // Roleswitcher
 #block-roleswitcher-switcher {
-	.make-md-column(2);
+	.make-md-column(3);
 	.text-right;
 	a {
 		.btn;
 		.btn-sm;
-		margin-top: 5px;
+		margin-top: 10px;
 	}
 }
-.role-expert {
+body.role-expert {
 	#block-roleswitcher-switcher {
 		a {
 			.btn-business;
 		}
 	}
 }
-.role-business {
+body.role-business {
 	#block-roleswitcher-switcher {
 		a {
 			.btn-expert;
 		}
+	}
+}
+body.role-roleswitcher {
+	#block-system-user-menu {
+		.make-md-column(4);
 	}
 }

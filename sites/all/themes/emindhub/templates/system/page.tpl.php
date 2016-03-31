@@ -188,10 +188,10 @@ global $base_url;
 
           </div>
 
-          <div id="flashes" class="col-md-3">
+          <div id="flashes" class="col-md-3 text-right">
 
             <?php if ( $logged_in ): ?>
-            <a class="btn btn-flash icon-community" href="<?php print url('invitations'); ?>"><?php print t('Invite experts and earn points!'); ?></a>
+            <a class="btn btn-flash icon-community" href="<?php print url('invitations'); ?>"><?php print t('Invite experts'); ?></a>
             <?php endif; ?>
 
           </div>

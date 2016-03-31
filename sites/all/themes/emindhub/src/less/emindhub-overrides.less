@@ -41,6 +41,18 @@ h4, .h4 {
 .navbar {
 	margin-bottom: 0;
 }
+.nav > li > a,
+.nav > li > span.dropdown-toggle {
+  padding: 15px 20px;
+}
+.nav > li > span.dropdown-toggle {
+	position: relative;
+	display: block;
+	// padding-top: 15px;
+	// padding-bottom: 15px;
+	line-height: 20px;
+	cursor: pointer;
+}
 
 .icon-prev,
 .icon-next {
@@ -168,6 +180,9 @@ input#autocomplete-deluxe-input {
 	.text-uppercase;
 	font-weight: 700;
 	margin-right: 5px;
+	&:last-child {
+		margin-right: 0;
+	}
 }
 .btn.disabled,
 .btn[disabled],

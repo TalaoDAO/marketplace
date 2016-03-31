@@ -191,13 +191,15 @@ function emh_user_theme() {
  */
 function theme_emh_user_roleswitcher_list($variables) {
   $output = '';
+  $variables['attributes']['html'] = TRUE;
+  // print_r($variables['attributes']); die;
   foreach ($variables['roles'] as $rid => $name) {
     if ($name != 'roleswitcher') {
       if ($name == 'expert') {
-        $output .= l(t('Answer requests'), "roleswitcher/$rid", $variables['attributes']);
+        $output .= l('<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>&nbsp;&nbsp;' . t('Answer requests'), "roleswitcher/$rid", $variables['attributes']);
       }
       else if ($name == 'business') {
-        $output .= l(t('Submit requests'), "roleswitcher/$rid", $variables['attributes']);
+        $output .= l('<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>&nbsp;&nbsp;' . t('Submit requests'), "roleswitcher/$rid", $variables['attributes']);
       } else {
         $output .= l($name, "roleswitcher/$rid", $variables['attributes']);
       }

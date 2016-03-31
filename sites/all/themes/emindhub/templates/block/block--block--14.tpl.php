@@ -44,6 +44,8 @@
  *
  * @ingroup themeable
  */
+global $base_url;
+$safe_link = rawurldecode($base_url . '/requests/all?type[question1]=question1');
 ?>
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
@@ -57,15 +59,14 @@
     <?php //print $content ?>
 
     <?php if (user_access('create question1 content')) : ?>
-    <a href="<?php print url("node/add/question1"); ?>">
-      <?php echo sprintf(t('%sQuestion%sAsk a question online and get multiple answers from experts%sAsk a question%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
+    <div>
+      <?php echo sprintf(t('%sQuestion%sAsk a question online and get multiple answers from experts%sCreate a question%s'), '<div class="type-picto"></div><div class="type-info"><span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><a class="btn btn-business" href"' . url("node/add/question1") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a></div>'); ?>
       </span>
-    </a>
+    </div>
 
     <?php else : ?>
-    <?php global $base_url; $safe_link = rawurldecode($base_url . '/requests/all?type[question1]=question1'); ?>
     <a href="<?php print $safe_link; ?>">
-      <?php echo sprintf(t('%sQuestion%sAnswer questions and provide clients with ideas, advices, feedbacks, etc.%sSee more questions%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
+      <?php echo sprintf(t('%sQuestion%sAnswer questions and provide clients with ideas, advices, feedbacks, etc.%s'), '<div class="type-picto"></div><div class="type-info"><span class="mobilize-type">', '</span><span class="mobilize-info">', '</span></div>'); ?>
     </a>
     <?php endif; ?>
 
