@@ -22,6 +22,11 @@ function emh_question_form_question1_node_form_alter(&$form, &$form_state, $form
  * Implements hook_form_FORM_ID_alter().
  */
 function emh_question_form_comment_node_question1_form_alter(&$form, &$form_state) {
+  if (isset($form['#node']->field_force_public_answer) && !empty($form['#node']->field_force_public_answer)) {
+    $form['field_private_comment'][LANGUAGE_NONE]['#default_value'] = '0';
+    $form['field_private_comment']['#access'] = '0';
+    $form['field_private_comment_body']['#access'] = '0';
+  }
   $form['comment_body']['#states'] = array(
     'visible' => array(
       ':input[name="field_private_comment[und]"]' => array('value' => 0),
