@@ -47,8 +47,8 @@
 ?>
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-  <a href="<?php print url('freetrial'); ?>">
-    <h2<?php print $title_attributes; ?>><span><?php echo sprintf(t('%sGet a %sfree trial%sSubmit your request %sto our experts%s'), '<span class="title-first">', '<strong>', '</strong></span><span class="title-second">', '<br />', '</span>'); ?></span></h2>
+  <a href="<?php print url('client/register'); ?>">
+    <h2<?php print $title_attributes; ?>><span><?php echo sprintf(t('%sGet a %sfree trial%sSubmit your request %sto our experts%s'), '<span class="title-first">', '<strong>', '</strong></span><span class="title-second">', '<br />', '</span>'); ?></span></h2>
   </a>
 
   <?php if ($content): ?>

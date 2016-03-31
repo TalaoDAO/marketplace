@@ -1,9 +1,5 @@
 <?php
 
-
-//require_once('templates/PHPDebug.php');
-require_once('templates/includes/string_list.php');
-
 require_once('theme/alter.inc');
 require_once('theme/blocks.func.php');
 require_once('theme/common.inc');

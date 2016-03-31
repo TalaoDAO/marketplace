@@ -213,3 +213,30 @@ function emh_configuration_update_7014() {
   variable_set('webform_format_override', '1');
   variable_set('webform_token_access', '0');
 }
+
+/**
+ * Uninstall modules : autoassignrole, emh_freetrial + Register alias for former /freetrial URL.
+ */
+function emh_configuration_update_7015() {
+  // Uninstall modules
+  module_disable(array('autoassignrole', 'emh_freetrial'));
+  drupal_uninstall_modules(array('autoassignrole', 'emh_freetrial'));
+
+  // Create new alias for /freetrial
+  $path = array(
+    'source' => 'client/register',
+    'alias' => 'freetrial',
+  );
+  path_save($path);
+  
+  // Change block path view settings
+  features_revert(array('ft_blocks' => array('fe_block_boxes')));
+}
+
+
+/**
+ * Change default website email.
+ */
+function emh_configuration_update_7016() {
+  variable_set('site_mail', 'contact@emindhub.com');
+}
