@@ -1,7 +1,7 @@
 @api @watchdog
 Feature: Question
   In order to test Question
-  As a client and an expert
+  As a Client and an Expert
   I want to create a Question and test CRUD
 
   Background: Create questions

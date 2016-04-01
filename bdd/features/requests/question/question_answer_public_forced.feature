@@ -1,7 +1,7 @@
 @api @watchdog
 Feature: Question and forced public answers
   In order to test Question with forced public answers
-  As a client and an expert
+  As a Client and an Expert
   I want to create a Question and force answers to be public
 
   Background: Create questions

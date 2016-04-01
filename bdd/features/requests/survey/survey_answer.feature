@@ -1,7 +1,7 @@
 @api @watchdog
 Feature: Survey and answers
   In order to test Survey creation, and privacy of answers
-  As a client and an expert
+  As a Client and an Expert
   I want to create a Survey, and watch answers
 
   Background: Create survey

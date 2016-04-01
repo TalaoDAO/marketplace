@@ -1,7 +1,7 @@
 @api @watchdog
 Feature: Test points dispatch in OG
   In order to test emh points dispatch
-  As a client with a team
+  As a Client with a team
   I want to dispatch points on my team members
 
   Background: OG Points : Create questions and answers

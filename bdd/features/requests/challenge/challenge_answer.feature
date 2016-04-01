@@ -1,7 +1,7 @@
 @api @watchdog
 Feature: Challenge and answers
   In order to test Challenge creation, and privacy of answers
-  As a client and an expert
+  As a Client and an Expert
   I want to create a Challenge, and watch answers
 
   Background: Create challenge

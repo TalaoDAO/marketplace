@@ -1,7 +1,7 @@
 @api @watchdog
 Feature: Survey
   In order to test Survey creation
-  As client and expert
+  As a Client and an Expert
   I want to create a Survey, and watch answers
 
   Background: Create survey

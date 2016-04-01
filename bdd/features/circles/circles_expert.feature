@@ -1,7 +1,7 @@
 @api @watchdog
 Feature: Requests visibility for Expert
   In order to test Requests visibility
-  As an expert
+  As an Expert
   I want to check if I see the right datas
 
   Background: og visibility : Create questions and answers

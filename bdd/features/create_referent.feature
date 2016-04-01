@@ -1,7 +1,7 @@
 @api @watchdog
 Feature: Create permissions for Référents
   In order to protect node creation
-  As a référent
+  As a Référent
   I want to test CRUD
 
   Background: Create nodes and users

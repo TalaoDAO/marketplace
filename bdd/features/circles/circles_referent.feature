@@ -1,7 +1,7 @@
 @api @watchdog
 Feature: Requests visibility for Référent
   In order to test Requests visibility
-  As a referent
+  As a Référent
   I want to check if I see the right datas
 
   Background: og visibility : Create questions and answers

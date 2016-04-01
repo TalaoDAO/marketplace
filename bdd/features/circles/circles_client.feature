@@ -1,7 +1,7 @@
 @api @watchdog
 Feature: Requests visibility for Client
   In order to test Requests visibility
-  As a client
+  As a Client
   I want to check if I see the right datas
 
   Background: og visibility : Create questions and answers

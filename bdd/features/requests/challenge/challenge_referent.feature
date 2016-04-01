@@ -1,7 +1,7 @@
 @api @watchdog
 Feature: Challenge for Référent
   In order to test Challenge CRUD and answers privacy
-  As a référent
+  As a Référent
   I want to manage a Challenge, and watch answers
 
   Background: Create challenge

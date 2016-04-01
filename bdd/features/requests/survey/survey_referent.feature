@@ -1,7 +1,7 @@
 @api @watchdog
 Feature: Survey and answers for Référent
   In order to test Survey CRUD and answers privacy
-  As a référent
+  As a Référent
   I want to manage a Survey, and watch answers
 
   Background: Create survey

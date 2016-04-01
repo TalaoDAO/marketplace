@@ -1,7 +1,7 @@
 @api @watchdog
 Feature: Challenge
   In order to test Challenge
-  As a client and an expert
+  As a Client and an Expert
   I want to create a Challenge and test CRUD
 
   Background: Create challenge

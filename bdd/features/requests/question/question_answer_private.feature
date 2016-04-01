@@ -1,7 +1,7 @@
 @api @watchdog
 Feature: Question and private answers
   In order to test Question creation, and privacy of private answers
-  As a client and an expert
+  As a Client and an Expert
   I want to create a Question, and watch private answers
 
   Background: Create questions
