@@ -1,7 +1,7 @@
 @api @watchdog
 Feature: Create Question with forced public answers
   In order to test Question with forced public answers
-  As client and expert
+  As a client and an expert
   I want to create a question and force answers to be public
 
   Background: Create questions
@@ -14,7 +14,6 @@ Feature: Create Question with forced public answers
     | title     | author  |
     | Google    | admin   |
     | Facebook  | admin   |
-    | Twitter   | admin   |
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
