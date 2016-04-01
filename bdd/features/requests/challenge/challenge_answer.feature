@@ -1,7 +1,7 @@
 @api @watchdog
-Feature: Create Challenge and answers
+Feature: Challenge and answers
   In order to test Challenge creation, and privacy of answers
-  As client and expert and référent
+  As a Client and an Expert
   I want to create a Challenge, and watch answers
 
   Background: Create challenge
@@ -38,34 +38,6 @@ Feature: Create Challenge and answers
     Given I enter "The truth is elsewhere." for "Answer"
     And I press "Publish"
 
-  Scenario: An author can see its own challenge
-    Given I am logged in as "client1"
-    And I am on the homepage
-    Then I should see "Avengers" in the "What about?" row
-
-    When I go to "my-requests"
-    Then I should see "What about?"
-    And I should see "1000" in the "What about?" row
-    And I should see "Avengers" in the "What about?" row
-
-  Scenario: An author can edit its own challenge
-    Given I am logged in as "client1"
-    And I am on the homepage
-    When I click "What about?" in the "What about?" row
-    And I click "Edit" in the "primary tabs" region
-    Then I should see "Edit Challenge What about?" in the "title" region
-
-    Given I enter "This is my challenge." for "Description"
-    And I press "Save"
-    Then I should see the success message "Challenge What about? has been updated."
-
-  Scenario: An author cannot delete its own challenge
-    Given I am logged in as "client1"
-    And I am on the homepage
-    When I click "What about?" in the "What about?" row
-    And I click "Edit" in the "primary tabs" region
-    Then I should not see "Delete" in the "actions" region
-
   Scenario: An expert can see its own answer
     Given I am logged in as "expert2"
     And I am on the homepage
@@ -88,12 +60,6 @@ Feature: Create Challenge and answers
     And I should see "Answers"
     And I should see "Klark Kent"
     And I should see "The truth is elsewhere."
-
-  Scenario: Experts cannot see Answers tab
-    Given I am logged in as "expert1"
-    And I am on the homepage
-    When I click "What about?" in the "What about?" row
-    Then I should not see the link "Answers" in the "header" region
 
   Scenario: Another expert cannot see the answer
     Given I am logged in as "expert1"
