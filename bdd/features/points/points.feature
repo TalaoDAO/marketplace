@@ -1,7 +1,7 @@
 @api @watchdog
 Feature: Test points
   In order to test emh points
-  As a client
+  As a Client
   I want to dispatch points on experts
 
   Background: points : create questions and answers

@@ -1,8 +1,8 @@
 @api @watchdog
-Feature: Create Challenge and answers
-  In order to test Challenge creation, and privacy of answers
-  As référent
-  I want to create a Challenge, and watch answers
+Feature: Challenge for Référent
+  In order to test Challenge CRUD and answers privacy
+  As a Référent
+  I want to manage a Challenge, and watch answers
 
   Background: Create challenge
 
