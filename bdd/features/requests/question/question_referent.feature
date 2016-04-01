@@ -1,8 +1,8 @@
 @api @watchdogi
-Feature: Create Question and answers
+Feature: Question for Référent
   In order to test Question CRUD and answers privacy
   As a référent
-  I want to manage a question, and watch answers
+  I want to manage a Question, and watch answers
 
   Background: Create questions
 

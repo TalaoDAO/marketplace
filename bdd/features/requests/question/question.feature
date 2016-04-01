@@ -1,8 +1,8 @@
 @api @watchdog
-Feature: Create Question
+Feature: Question
   In order to test Question
   As a client and an expert
-  I want to create a question and test CRUD
+  I want to create a Question and test CRUD
 
   Background: Create questions
 
