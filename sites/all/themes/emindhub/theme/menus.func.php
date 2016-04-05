@@ -19,11 +19,11 @@ function emindhub_preprocess_menu_link(&$vars) {
       $account = user_load($user->uid);
       $firstName = "";
       if (!empty($account->field_first_name[LANGUAGE_NONE])) {
-        $firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
+        $firstName = check_plain($account->field_first_name[LANGUAGE_NONE][0]['value']);
       }
       $lastName = "";
       if (!empty($account->field_last_name[LANGUAGE_NONE])) {
-        $lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
+        $lastName = check_plain($account->field_last_name[LANGUAGE_NONE][0]['value']);
       }
       $name = $firstName . '&nbsp;<span class="emh-blue bold text-uppercase">' . $lastName . '</span>';
       $element['#title'] = $name;
