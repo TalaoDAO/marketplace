@@ -856,7 +856,7 @@ function emh_points_mail($key, &$message, $params) {
       $message['subject'] = t('You have been rewarded!', $params);
       $message['body'] = array();
       $message['body'][] = t('Dear @answer_author,', $params);
-      $message['body'][] = t('Thank you for responding to the request') . ' <strong><a href="' . t('@url', $params) . '&amp;pk_kwd=link" title="' .  t('@title', $params) . '" target="_blank" style="font-weight:bold!important;">' . t('@title', $params) . ' </a></strong>');
+      $message['body'][] = t('Thank you for responding to the request') . ' <strong><a href="' . t('@url', $params) . '&amp;pk_kwd=link" title="' .  t('@title', $params) . '" target="_blank" style="font-weight:bold!important;">' . t('@title', $params) . ' </a></strong>';
       $message['body'][] = t('Your answer has been selected by the client and you earned @points points! The client may now get in touch with you for further support.', $params);
       $message['body'][] = t('We remind you that you can monetize your points once you have reached a threshold of @threshold points.', $params);
       $message['body'][] = t('Should you like to know more, just log into the platform now.');
