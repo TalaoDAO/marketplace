@@ -21,7 +21,7 @@ function emindhub_file($variables) {
 	element_set_attributes($element, array('id', 'name', 'size'));
 	_form_set_class($element, array('form-file'));
 
-	return sprintf('<input type="text" disabled data-fileinputtext="%s" class="file-return"><div class="file-upload"><span>%s</span><input' . drupal_attributes($element['#attributes']) . ' /></div>', $element['#id'], c_szChooseFile);
+	return sprintf('<input type="text" disabled data-fileinputtext="%s" class="file-return"><div class="file-upload"><span>%s</span><input' . drupal_attributes($element['#attributes']) . ' /></div>', $element['#id'], t('Choose a file'));
 }
 
 
