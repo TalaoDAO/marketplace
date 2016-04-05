@@ -1,7 +1,7 @@
 @api @watchdog
-Feature: Create Survey and answers
+Feature: Survey and answers
   In order to test Survey creation, and privacy of answers
-  As référent
+  As a Client and an Expert
   I want to create a Survey, and watch answers
 
   Background: Create survey
@@ -15,11 +15,6 @@ Feature: Create Survey and answers
     | Google    | admin   |
     | Facebook  | admin   |
     | Twitter   | admin   |
-    | Amazon    | admin   |
-
-    Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | référent1 | emindhub.test+referent1@gmail.com | référent | Paul          | Stanley         | 0612345678      | The Starchild     | Avengers     | emindhub.test+referent1@gmail.com | Amazon  | Other | Maintenance |
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
@@ -32,15 +27,6 @@ Feature: Create Survey and answers
     Given "webform" content:
     | title        | field_domaine | og_group_ref | field_reward | author  | field_anonymous      | field_show_entreprise | field_use_my_entreprise |
     | What about?  | Energy        | Avengers     | 1000         | client1 | Display my full name | Display the name      | Display                 |
-
-    # Make référent1 as a Referent member of Avengers circle
-    Given I am logged in as a user with the "administrator" role
-    When I go to "content/avengers"
-    And I click "Group"
-    And I click "People"
-    And I click "edit" in the "référent1" row
-    And I check the box "Referent member"
-    And I press "Update membership"
 
     # A client publish a survey.
     Given I am logged in as "client1"
@@ -83,37 +69,19 @@ Feature: Create Survey and answers
     And I press "Publish my answer"
     Then I should see "Thank you, your answer has been sent."
 
-  Scenario: A référent can see the survey
-    Given I am logged in as "référent1"
-    When I go to homepage
-    Then I should see "What about?" in the "What about?" row
-
-  Scenario: A référent can edit a survey
-    Given I am logged in as "référent1"
+  Scenario: An expert can see its own answer
+    Given I am logged in as "expert2"
     When I go to homepage
     And I click "What about?" in the "What about?" row
-    And I click "Edit" in the "primary tabs" region
-    Then I should see "Edit Survey What about?" in the "title" region
+    Then I should see "Your answer" in the "answers" region
+    And I should see "You have to read DC comics of course!" in the "answers" region
 
-    Given I enter "This is your survey." for "Description"
-    And I press "Save"
-    Then I should see the success message "Survey What about? has been updated."
+  Scenario: The author can see the answers
+    Given I am logged in as "client1"
+    When I go to "my-responses"
+    Then I should see "Iron Man"
+    And I should see "Klark Kent"
 
-  Scenario: A référent cannot delete a survey
-    Given I am logged in as "référent1"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
-    And I click "Edit" in the "primary tabs" region
-    Then I should not see "Delete" in the "actions" region
-
-  Scenario: A référent cannot respond to a survey
-    Given I am logged in as "référent1"
-    When I go to homepage
-    And I click "What about?" in the "What about?" row
-    #Then I should not see an "Answer" textarea form element
-
-  Scenario: A référent can see the answers
-    Given I am logged in as "référent1"
     When I go to homepage
     Then I should see "2" in the "What about?" row
 
@@ -131,15 +99,43 @@ Feature: Create Survey and answers
     Then I should see "How to become a superhero?"
     And I should see "Everybody can be, trust me, I'm the best we known."
 
-  Scenario: A référent cannot edit an answer
-    Given I am logged in as "référent1"
+  Scenario: Another expert cannot see the answer
+    Given I am logged in as "expert1"
+    When I go to homepage
+    And I click "What about?" in the "What about?" row
+    And I should not see "You have to read DC comics of course!" in the "answers" region
+
+  Scenario: The expert cannot respond twice to the same survey
+    Given I am logged in as "expert1"
+    When I go to homepage
+    And I click "What about?" in the "What about?" row
+    Then I should not see "Answer the survey" in the "answers" region
+
+  Scenario: The expert can edit its own answer
+    Given I am logged in as "expert1"
+    When I go to homepage
+    And I click "What about?" in the "What about?" row
+    And I click "Edit" in the "answer" region
+    And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we know."
+    And I press "Save"
+    Then I should see the success message "Your answer has been updated."
+
+  Scenario: The author cannot edit an answer
+    Given I am logged in as "client1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
     Then I should not see the link "edit" in the "answers" region
 
   @exclude
-  Scenario: A référent cannot delete an answer
-    Given I am logged in as "référent1"
+  Scenario: The expert cannot delete its own answer
+    Given I am logged in as "expert2"
+    When I go to homepage
+    And I click "What about?" in the "What about?" row
+    Then I should not see "delete" in the "answers" region
+
+  @exclude
+  Scenario: The author cannot delete an answer
+    Given I am logged in as "client1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
     Then I should not see "delete" in the "answers" region

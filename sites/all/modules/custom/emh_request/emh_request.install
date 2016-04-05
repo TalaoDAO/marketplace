@@ -127,3 +127,12 @@ function emh_request_update_7106() {
     $rules_config->delete();
   }
 }
+
+/**
+* Revert request notification rules.
+*/
+function emh_request_update_7107() {
+  if ($rules_config = rules_config_load('rules_emh_request_send_webmaster_notification_email')) {
+    $rules_config->delete();
+  }
+}

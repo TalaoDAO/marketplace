@@ -51,6 +51,7 @@ function emh_request_default_rules_configuration() {
     { "rules_emh_request_send_webmaster_notification_email" : {
     "LABEL" : "Requests - Send email to Webmaster",
     "PLUGIN" : "reaction rule",
+    "ACTIVE" : false,
     "OWNER" : "rules",
     "TAGS" : [ "EMH, Request, Email" ],
     "REQUIRES" : [ "rules", "mimemail", "emh_request" ],

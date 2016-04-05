@@ -94,6 +94,9 @@ function emh_user_default_rules_configuration() {
       "hybridauth_user_login" : [],
       "hybridauth_user_insert" : []
     },
+    "IF" : [
+      { "NOT text_matches" : { "text" : [ "site:current-page:path" ], "match" : "user\/reset" } }
+    ],
     "DO" : [
       { "redirect" : { "url" : "\u003Cfront\u003E", "force" : "0", "destination" : "1" } }
     ]

@@ -77,3 +77,12 @@ function emh_user_update_7004() {
 //       ->execute();
 //   }
 // }
+
+/**
+* Revert rules_emh_user_activation_login_hp_redirect rule.
+*/
+function emh_user_update_7005() {
+  if ($rules_config = rules_config_load('rules_emh_user_activation_login_hp_redirect')) {
+    $rules_config->delete();
+  }
+}
