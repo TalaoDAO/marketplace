@@ -8,8 +8,17 @@ header#navbar {
 
 @media (min-width: @screen-md-min) {
 	body {
-		padding-top: 123px;
+		&.not-logged-in {
+			padding-top: 147px;
+			&.front {
+				padding-top: 137px;
+			}
+		}
+		&.logged-in {
+			padding-top: 61px;
+		}
 	}
+
 	body.admin-menu {
 		header#navbar {
 			.navbar-fixed-top;
@@ -38,7 +47,6 @@ header#navbar {
 		padding-top: 15px;
 	}
 	@media (min-width: @screen-md-min) {
-		padding-top: 61px;
 
 		header#navbar {
 			.row {
@@ -89,6 +97,13 @@ header#navbar {
 					height: 10px;
 				}
 			}
+		}
+	}
+}
+body.not-logged-in {
+	@media (min-width: @screen-md-min) {
+		.region-navigation {
+			margin-top: 18px;
 		}
 	}
 }

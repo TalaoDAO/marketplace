@@ -13522,8 +13522,14 @@ html.js div.contextual-links-wrapper {
   }
 }
 @media (min-width: 992px) {
-  body {
-    padding-top: 123px;
+  body.not-logged-in {
+    padding-top: 147px;
+  }
+  body.not-logged-in.front {
+    padding-top: 137px;
+  }
+  body.logged-in {
+    padding-top: 61px;
   }
   body.admin-menu header#navbar {
     position: fixed;
@@ -13582,9 +13588,6 @@ html.js div.contextual-links-wrapper {
   padding-top: 15px;
 }
 @media (min-width: 992px) {
-  .logged-in {
-    padding-top: 61px;
-  }
   .logged-in header#navbar .row > div:nth-child(1) {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -13613,6 +13616,11 @@ html.js div.contextual-links-wrapper {
   }
   .logged-in header#navbar.navbar-emh:after {
     height: 10px;
+  }
+}
+@media (min-width: 992px) {
+  body.not-logged-in .region-navigation {
+    margin-top: 18px;
   }
 }
 /* HEADER
@@ -16640,9 +16648,6 @@ body.front aside {
   margin-top: 0;
 }
 @media (min-width: 992px) {
-  body.front.not-logged-in {
-    padding-top: 113px;
-  }
   body.front.logged-in .main-container section#maincol,
   body.front.logged-in.admin-menu .main-container section#maincol {
     margin-top: 0;
