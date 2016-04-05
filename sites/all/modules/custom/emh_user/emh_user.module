@@ -189,18 +189,18 @@ function emh_user_get_beautiful_realname($uid) {
   $firstName = '';
   if (!empty($account->field_first_name[LANGUAGE_NONE])) {
     $firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
-    $firstName = ucwords($firstName);
+    $firstName = check_plain(ucwords($firstName));
   }
   $lastName = '';
   if (!empty($account->field_last_name[LANGUAGE_NONE])) {
     $lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
-    $lastName = strtoupper($lastName);
+    $lastName = check_plain(strtoupper($lastName));
   }
   if (!empty($firstName) && !empty($lastName)) {
     return '<span class="author firstname">' . $firstName  . '</span>'. ' ' . '<span class="author lastname">' . $lastName . '</span>';
   }
   else {
-    return $account->name;
+    return check_plain($account->name);
   }
 }
 
