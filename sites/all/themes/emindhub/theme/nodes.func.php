@@ -62,9 +62,10 @@ function node_informations_add(&$variables) {
 				$entity = node_load($targetId);
         // echo '<pre>' . print_r($entity, TRUE) . '</pre>'; die;
 				if ($entity) {
-					$variables['company_name'] = $entity->title;
-					if ($entity->body)
-						$variables['company_description'] = $entity->body[LANGUAGE_NONE][0]['value'];
+					$variables['company_name'] = check_plain($entity->title);
+					if ($entity->body) {
+						$variables['company_description'] = check_plain($entity->body[LANGUAGE_NONE][0]['value']);
+                                        }
 				}
 			}
 		}
