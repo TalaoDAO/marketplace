@@ -64,7 +64,7 @@ function _emh_request_string_overrides() {
 
     // Comment
     'Edit comment %comment' => 'Edit answer',
-    'Your comment has been queued for review by site administrators and will be published after approval.' => 'Your comment has been saved as a draft.',
+    'Your comment has been queued for review by site administrators and will be published after approval.' => 'Your answer has been saved as a draft.',
   );
 }
 
@@ -114,4 +114,25 @@ function emh_request_update_7104() {
 */
 function emh_request_update_7105() {
   features_revert(array('ft_views' => array('views_view')));
+}
+
+/**
+* Revert request notification rules.
+*/
+function emh_request_update_7106() {
+  if ($rules_config = rules_config_load('rules_emh_request_send_notification_email')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('rules_emh_request_send_webmaster_notification_email')) {
+    $rules_config->delete();
+  }
+}
+
+/**
+* Revert request notification rules.
+*/
+function emh_request_update_7107() {
+  if ($rules_config = rules_config_load('rules_emh_request_send_webmaster_notification_email')) {
+    $rules_config->delete();
+  }
 }

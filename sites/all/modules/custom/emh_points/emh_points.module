@@ -521,8 +521,8 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
       drupal_set_title(emh_points_format_entity($user));
       break;
     case 'node':
+      $node = node_load($id_source);
       if (!user_access('execute emh_points_arrange_node_points')) {
-        $node = node_load($id_source);
         if (empty($node) || ($user->uid != 1 && $user->uid != $node->uid)) {
           drupal_access_denied();
           drupal_exit();
@@ -675,12 +675,13 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
             'points' => $value,
           ))
           ->execute();
+          if ($form_state['values']['type_source'] == 'node') emh_points_notify_rewarded_answer_author($source, $dest, $value);
         break;
       case 'webform_submission':
         module_load_include('inc', 'webform', 'includes/webform.submissions');
         $entity = webform_get_submission($form_state['values']['id_source'], $id);
         $dest = user_load($entity->uid);
-        // Historise comment points.
+        // Historise submission points.
         db_insert('emh_points_answers')
           ->fields(array(
             'nid' => $entity->nid,
@@ -689,6 +690,7 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
             'points' => $value,
           ))
           ->execute();
+        if ($form_state['values']['type_source'] == 'node') emh_points_notify_rewarded_answer_author($source, $dest, $value);
         break;
       }
       emh_points_move_points($source, $dest, $value);
@@ -714,6 +716,24 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
   }
   $points = $form_state['values']['points'];
   drupal_set_message(t('All the points have been distributed.'));
+}
+
+/**
+ * Send email to request rewarded answers' author.
+ */
+function emh_points_notify_rewarded_answer_author($node, $user, $points) {
+  $module = 'emh_points';
+  $key = 'notify_rewarded_answer_author';
+  $mail = $user->mail;
+  $language = language_default();
+  $params = array(
+    '@url' => url('points?pk_campaign=request_rewarded_' . $node->type . '_' . $node->nid, array('absolute' => TRUE)),
+    '@title' => $node->title,
+    '@answer_author' => $user->field_first_name[LANGUAGE_NONE][0]['value'],
+    '@points' => $points,
+    '@threshold' => variable_get('emh_points_monetization_threshold', '1500'),
+  );
+  drupal_mail($module, $key, $mail, $language, $params);
 }
 
 /**
@@ -832,7 +852,33 @@ function emh_points_get_unrewarded_answers($nid) {
  */
 function emh_points_mail($key, &$message, $params) {
   switch($key) {
-    case 'notify_unrewarded_answer_author':
+    case 'notify_rewarded_answer_author':
+      $message['subject'] = t('You have been rewarded!', $params);
+      $message['body'] = array();
+      $message['body'][] = t('Dear @answer_author,', $params);
+      $message['body'][] = t('Thank you for responding to the request') . ' <strong><a href="' . t('@url', $params) . '&amp;pk_kwd=link" title="' .  t('@title', $params) . '" target="_blank" style="font-weight:bold!important;">' . t('@title', $params) . ' </a></strong>');
+      $message['body'][] = t('Your answer has been selected by the client and you earned @points points! The client may now get in touch with you for further support.', $params);
+      $message['body'][] = t('We remind you that you can monetize your points once you have reached a threshold of @threshold points.', $params);
+      $message['body'][] = t('Should you like to know more, just log into the platform now.');
+      $message['body'][] = '<table style="min-width:100%;" width="100%" border="0" cellpadding="0" cellspacing="0" class="emailButton">
+        <tbody>
+          <tr>
+            <td style="padding-top:0;padding-right:18px;padding-bottom:18px;padding-left:18px;" valign="top" align="center">
+              <table style="border-collapse:separate!important;border-radius:0px;background-color:rgb(0,159,227);" border="0" cellpadding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td style="font-family:Arial;font-size:16px;padding:15px;color:rgb(255, 255, 255);" valign="middle" align="center">
+                      <a href="' . t('@url', $params) . '&amp;pk_kwd=calltoaction" title="' .  t('Log in to eMindHub') . '" target="_blank" style="font-weight:bold!important;letter-spacing:normal;line-height:100%;text-align:center;text-decoration:none;color:#FFFFFF!important;">' . t('Log in to eMindHub') . ' </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>';
+      break;
+	  case 'notify_unrewarded_answer_author':
       $message['subject'] = t('Your answer has not been selected', $params);
       $message['body'] = array();
       $message['body'][] = '<h1 style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:22px;margin-bottom:20px;color:#333;line-height:150%;">' . t('Your answer has not been selected') . '</h1>';
@@ -856,6 +902,8 @@ function emh_points_mail($key, &$message, $params) {
           </tr>
         </tbody>
       </table>';
+      break;
+    default:
       break;
   }
 }

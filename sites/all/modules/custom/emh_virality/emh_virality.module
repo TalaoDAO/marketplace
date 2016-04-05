@@ -158,19 +158,8 @@ function emh_virality_block_info() {
     'status' => 1,
     'region' => 'content',
     'weight' => -100,
-    'visibility' => BLOCK_VISIBILITY_PHP,
-    'pages' => '<?php
-        global $user;
-
-        if (drupal_match_path(current_path(), \'user/*/invitations\')) {
-          $account = menu_get_object(\'user\');
-          if ($account->uid == $user->uid) {
-            return TRUE;
-          }
-        }
-
-        return FALSE;
-      ?>',
+    'visibility' => BLOCK_VISIBILITY_LISTED,
+    'pages' => "user/*/invitations\ninvitations",
     'cache' => DRUPAL_CACHE_PER_ROLE,
   );
 

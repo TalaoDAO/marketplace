@@ -198,4 +198,18 @@ function emh_configuration_update_7013() {
   module_enable(array('emh_answer'));
   user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('save draft'));
   user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('save comment draft'));
+  features_revert(array('ft_permissions' => array('user_permission')));
+}
+
+/**
+ * Change default webform parameters
+ */
+function emh_configuration_update_7014() {
+  variable_set('webform_default_from_address', 'contact@emindhub.com');
+  variable_set('webform_default_from_name', 'eMindHub');
+  variable_set('webform_default_subject', 'New answer: [node:title]');
+  variable_set('webform_email_html_capable', '1');
+  variable_set('webform_default_format', '1');
+  variable_set('webform_format_override', '1');
+  variable_set('webform_token_access', '0');
 }

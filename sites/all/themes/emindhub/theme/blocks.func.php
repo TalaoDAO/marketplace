@@ -43,8 +43,12 @@ function emindhub_preprocess_block(&$variables) {
 
   switch ($block_id) {
 
+    case 'menu-menu-top-anonymous':
+      $classes[] = 'col-sm-11 col-md-11';
+      break;
+
     case 'menu-menu-footer-menu':
-      $classes[] = 'col-sm-8 col-md-8';
+      $classes[] = 'col-sm-9 col-md-9';
       break;
 
     case 'menu-menu-networks':

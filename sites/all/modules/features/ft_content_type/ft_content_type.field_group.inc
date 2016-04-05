@@ -92,7 +92,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'background',
-    'weight' => '10',
+    'weight' => '12',
     'children' => array(),
     'format_type' => 'hidden',
     'format_settings' => array(
@@ -1955,7 +1955,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'title',
-    'weight' => '11',
+    'weight' => '13',
     'children' => array(),
     'format_type' => 'hidden',
     'format_settings' => array(

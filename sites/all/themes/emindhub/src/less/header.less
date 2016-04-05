@@ -267,23 +267,25 @@ header nav.navbar {
 			cursor: pointer;
 		}
 
-		.dropdown-menu {
-			border: 0;
-			border-radius: 0;
-			background-color: @brand-primary;
-			box-shadow: none;
-			width: 100%;
-			top: 46px !important;
-			padding-top: 21px;
-			padding-bottom: 0;
-			background-image: url("../images/topMenuDropdown_bg.png");
-			background-repeat: no-repeat;
-			background-position: top center;
+		.block-menu {
+			.dropdown-menu {
+				border: 0;
+				border-radius: 0;
+				background-color: @brand-primary;
+				box-shadow: none;
+				width: 100%;
+				top: 46px !important;
+				padding-top: 21px;
+				padding-bottom: 0;
+				background-image: url("../images/topMenuDropdown_bg.png");
+				background-repeat: no-repeat;
+				background-position: top center;
 
-			> li > a {
-				color: #fff;
-				.text-uppercase;
-				padding: 5px 20px;
+				> li > a {
+					color: #fff;
+					.text-uppercase;
+					padding: 5px 20px;
+				}
 			}
 		}
 	}
@@ -295,12 +297,7 @@ header nav.navbar {
  * Banner
  */
 header#page-header {
-	// #gradient > .vertical(@start-color: rgba(21,83,140,1); @end-color: rgba(22,88,146,1));
-	background-color: #114577;
-
-	> .container {
-		// background: transparent url("../images/grid_dark.png") repeat-y top center;
-	}
+	background-color: @totalBlue;
 
 	.region-header {
 		color: #fff;

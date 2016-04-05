@@ -1,8 +1,8 @@
 @api @watchdogi
-Feature: Create Question and answers
-  In order to test Question creation, and privacy of answers
-  As référent
-  I want to create a question, and watch answers
+Feature: Question for Référent
+  In order to test Question CRUD and answers privacy
+  As a Référent
+  I want to manage a Question, and watch answers
 
   Background: Create questions
 
@@ -19,19 +19,19 @@ Feature: Create Question and answers
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | référent1 | referent1@emindhub.com | référent | Paul          | Stanley         | 0612345678      | The Starchild     | Avengers     | referent1@emindhub.com | Amazon  | Other | Maintenance |
+    | référent1 | emindhub.test+referent1@gmail.com | référent | Paul          | Stanley         | 0612345678      | The Starchild     | Avengers     | emindhub.test+referent1@gmail.com | Amazon  | Other | Maintenance |
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | client1 | client1@emindhub.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | client1@emindhub.com | Google  | Freelancer | Maintenance |
-    | expert1 | expert1@emindhub.com | expert   | Iron             | Man             | 0712345670      | Chieur génial      | Avengers     | expert1@emindhub.com | Facebook  | Employee  | Energy        |
-    | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | 0712345671      | Modèle             | Avengers     | expert2@emindhub.com | Twitter   | Employee  | Other         |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | Man             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
+    | expert2 | emindhub.test+expert2@gmail.com | expert   | Klark            | Kent            | 0712345671      | Modèle             | Avengers     | emindhub.test+expert2@gmail.com | Twitter   | Employee  | Other         |
 
     Given I give "client1" 300 emh points
 
     Given "question1" content:
     | title        | field_domaine | og_group_ref | field_reward | author  | field_anonymous      | field_show_entreprise | field_use_my_entreprise |
-    | What about?  | Energy        | Avengers     | 100         | client1 | Display my full name | Display the name      | Display                 |
+    | What about?  | Energy        | Avengers     | 100          | client1 | Display my full name | Display the name      | Display                 |
 
     # Make référent1 as a Referent member of Avengers circle
     Given I am logged in as a user with the "administrator" role
@@ -50,8 +50,8 @@ Feature: Create Question and answers
     When I click "What about?" in the "What about?" row
     #Then I should see an "Answer visibility" radio form element
 
-    Given I enter "I'm the best superhero in da world." for "Public answer"
-    And I select the radio button "My answer will be visible by all experts"
+    Given I select the radio button "My answer will be visible by all experts"
+    And I enter "I'm the best superhero in da world." for "Public answer"
     And I press "Publish"
 
     # An expert responds privately to a question
@@ -61,8 +61,8 @@ Feature: Create Question and answers
 
     When I click "What about?" in the "What about?" row
     And I should see "Answer the question"
-    Given I enter "The truth is elsewhere." for "Private answer"
-    And I select the radio button "My answer will be visible only by the client"
+    Given I select the radio button "My answer will be visible only by the client"
+    And I enter "The truth is elsewhere." for "Private answer"
     And I press "Publish"
 
   Scenario: A référent can see the question
