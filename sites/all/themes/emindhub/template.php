@@ -81,11 +81,11 @@ function emindhub_beautiful_welcome_message() {
     $account = user_load($user->uid);
     $firstName = '';
     if (!empty($account->field_first_name[LANGUAGE_NONE])) {
-      $firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
+      $firstName = check_plain($account->field_first_name[LANGUAGE_NONE][0]['value']);
     }
     $lastName = '';
     if (!empty($account->field_last_name[LANGUAGE_NONE])) {
-      $lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
+      $lastName = check_plain($account->field_last_name[LANGUAGE_NONE][0]['value']);
     }
     return t('Welcome') . '&nbsp;<span>' . $firstName . '&nbsp;' . $lastName . '</span>';
   } else {
@@ -116,11 +116,11 @@ function emindhub_beautiful_user_name( $object, $link = FALSE ) {
 
   $firstName = '';
   if (!empty($account->field_first_name[LANGUAGE_NONE])) {
-    $firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
+    $firstName = check_plain($account->field_first_name[LANGUAGE_NONE][0]['value']);
   }
   $lastName = '';
   if (!empty($account->field_last_name[LANGUAGE_NONE])) {
-    $lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
+    $lastName = check_plain($account->field_last_name[LANGUAGE_NONE][0]['value']);
   }
   $userName = $account->name;
 
