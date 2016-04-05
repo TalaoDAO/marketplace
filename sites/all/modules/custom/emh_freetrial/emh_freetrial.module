@@ -100,7 +100,7 @@ function emh_freetrial_mail($key, &$message, $params) {
     case 'emh_freetrial_form_submit':
       $message['subject'] = t('[@site-name] New free trial request', array('@site-name' => variable_get('site_name', 'Drupal')), $options);
       $message['body'][] = t('Hello,');
-      $message['body'][] = t('A new free trial access has been requested by') . ' <strong>' . $params['firstname'] . ' ' . $params['lastname'] . '</strong>';
+      $message['body'][] = t('A new free trial access has been requested by') . ' <strong>' . check_plain($params['firstname']) . ' ' . check_plain($params['lastname']) . '</strong>';
       if (!empty($params['enterprise'])) $message['body'][] = t('Organisation') . ': <strong>' . check_plain($params['enterprise']) . '</strong>';
       if (!empty($params['position'])) $message['body'][] = t('Position') . ': <strong>' . check_plain($params['position']) . '</strong>';
       if (!empty($params['phone'])) $message['body'][] = t('Phone') . ': <strong>' . check_plain($params['phone']) . '</strong>';
