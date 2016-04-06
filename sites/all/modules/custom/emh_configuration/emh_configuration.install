@@ -244,6 +244,7 @@ function emh_configuration_update_7015() {
 
   // Change Requests & Circles paths.
   features_revert(array('ft_views' => array('views_view')));
+  features_revert(array('ft_blocks' => array('fe_block_boxes')));
   $path = array(
     'source' => 'my-selections',
     'alias' => 'requests/selections',
