@@ -59,14 +59,11 @@ $safe_link = rawurldecode($base_url . '/requests/all?type[challenge]=challenge')
     <?php //print $content ?>
 
     <?php if (user_access('create challenge content')) : ?>
-    <div>
-      <?php echo sprintf(t('%sChallenge%sRequest for service proposals to innovate or solve a problem%sCreate a challenge%s'), '<div class="type-picto"><img src="' . $base_url . '/' . drupal_get_path('theme', 'emindhub') . '/images/picto/picto_challenge.png" alt="" /></div><div class="type-info"><span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><a class="btn btn-business" href"' . url("node/add/challenge") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a></div>'); ?>
-    </div>
+    <?php echo sprintf(t('%sChallenge%sRequest for <strong>service proposals</strong> to innovate or solve a problem%sCreate a challenge%s'), '<div class="type-info"><span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><a class="btn btn-business" href="' . url("node/add/challenge") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a></div>'); ?>
 
     <?php else : ?>
-    <a href="<?php print $safe_link; ?>">
-      <?php echo sprintf(t('%sChallenge%sAnswer requests for service proposals%s'), '<div class="type-picto"><img src="' . $base_url . '/' . drupal_get_path('theme', 'emindhub') . '/images/picto/picto_challenge.png" alt="" /></div><div class="type-info"><span class="mobilize-type">', '</span><span class="mobilize-info">', '</span></div>'); ?>
-    </a>
+    <?php echo sprintf(t('%sChallenge%sAnswer requests for <strong>service proposals</strong>%sMore challenges%s'), '<div class="type-info"><span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><a class="btn btn-expert" href="' . $safe_link . '">', '&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></div>'); ?>
+
     <?php endif; ?>
 
   </span>

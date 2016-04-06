@@ -59,14 +59,11 @@ $safe_link = rawurldecode($base_url . '/requests/all?type[webform]=webform');
     <?php //print $content ?>
 
     <?php if (user_access('create webform content')) : ?>
-    <div>
-      <?php echo sprintf(t('%sSurvey%sCreate a survey to identify best experts profiles for a specific task or mission%sCreate a survey%s'), '<div class="type-picto"><img src="' . $base_url . '/' . drupal_get_path('theme', 'emindhub') . '/images/picto/picto_survey.png" alt="" /></div><div class="type-info"><span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><a class="btn btn-business" href"' . url("node/add/webform") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a></div>'); ?>
-    </div>
+    <?php echo sprintf(t('%sSurvey%sCreate a survey to <strong>identify best experts</strong> profiles for a specific task or mission%sCreate a survey%s'), '<div class="type-info"><span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><a class="btn btn-business" href="' . url("node/add/webform") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a></div>'); ?>
 
     <?php else : ?>
-    <a href="<?php print $safe_link; ?>">
-      <?php echo sprintf(t('%sSurvey%sAnswer surveys and promote your skills to get a mission%s'), '<div class="type-picto"><img src="' . $base_url . '/' . drupal_get_path('theme', 'emindhub') . '/images/picto/picto_survey.png" alt="" /></div><div class="type-info"><span class="mobilize-type">', '</span><span class="mobilize-info">', '</span></div>'); ?>
-    </a>
+    <?php echo sprintf(t('%sSurvey%sAnswer surveys and promote your skills to <strong>get a mission</strong>%sMore surveys%s'), '<div class="type-info"><span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><a class="btn btn-expert" href="' . $safe_link . '">', '&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></div>'); ?>
+
     <?php endif; ?>
 
   </span>

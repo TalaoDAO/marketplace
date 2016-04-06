@@ -59,15 +59,12 @@ $safe_link = rawurldecode($base_url . '/requests/all?type[question1]=question1')
     <?php //print $content ?>
 
     <?php if (user_access('create question1 content')) : ?>
-    <div>
-      <?php echo sprintf(t('%sQuestion%sAsk a question online and get multiple answers from experts%sCreate a question%s'), '<div class="type-picto"></div><div class="type-info"><span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><a class="btn btn-business" href"' . url("node/add/question1") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a></div>'); ?>
+    <?php echo sprintf(t('%sQuestion%sAsk a question and get <strong>multiple answers</strong> from experts%sCreate a question%s'), '<div class="type-info"><span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><a class="btn btn-business" href="' . url("node/add/question1") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a></div>'); ?>
       </span>
-    </div>
 
     <?php else : ?>
-    <a href="<?php print $safe_link; ?>">
-      <?php echo sprintf(t('%sQuestion%sAnswer questions and provide clients with ideas, advices, feedbacks, etc.%s'), '<div class="type-picto"></div><div class="type-info"><span class="mobilize-type">', '</span><span class="mobilize-info">', '</span></div>'); ?>
-    </a>
+    <?php echo sprintf(t('%sQuestion%sAnswer questions and <strong>provide clients</strong> with ideas, advices, feedbacks, etc.%sMore questions%s'), '<div class="type-info"><span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><a class="btn btn-expert" href="' . $safe_link . '">', '&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></div>'); ?>
+
     <?php endif; ?>
 
   </span>
