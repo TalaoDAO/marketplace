@@ -202,7 +202,7 @@ function emh_configuration_update_7013() {
 }
 
 /**
- * Change default webform parameters
+ * Change default webform parameters.
  */
 function emh_configuration_update_7014() {
   variable_set('webform_default_from_address', 'contact@emindhub.com');
@@ -212,4 +212,53 @@ function emh_configuration_update_7014() {
   variable_set('webform_default_format', '1');
   variable_set('webform_format_override', '1');
   variable_set('webform_token_access', '0');
+}
+
+/**
+ * Change top nav links.
+ */
+function emh_configuration_update_7015() {
+  // Change existing links
+  db_update('menu_links')
+    ->fields(array(
+      'link_title' => 'Requests',
+      'expanded' => '1',
+      'weight' => '-50',
+      'hidden' => '0',
+    ))
+    ->condition('mlid', '4970')
+    ->execute();
+  db_update('menu_links')
+    ->fields(array(
+      'link_title' => 'Network',
+      'expanded' => '1',
+      'weight' => '-49',
+      'hidden' => '0',
+    ))
+    ->condition('mlid', '7577')
+    ->execute();
+  db_delete('menu_links')
+    ->condition('mlid', '7708')
+    ->execute();
+  menu_rebuild();
+
+  // Change Requests & Circles paths.
+  features_revert(array('ft_views' => array('views_view')));
+  $path = array(
+    'source' => 'my-selections',
+    'alias' => 'requests/selections',
+  );
+  path_save($path);
+
+  $path = array(
+    'source' => 'my-requests',
+    'alias' => 'requests/manage',
+  );
+  path_save($path);
+
+  $path = array(
+    'source' => 'my-circles',
+    'alias' => 'circles',
+  );
+  path_save($path);
 }

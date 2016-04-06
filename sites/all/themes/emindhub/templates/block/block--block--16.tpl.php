@@ -44,6 +44,8 @@
  *
  * @ingroup themeable
  */
+global $base_url;
+$safe_link = rawurldecode($base_url . '/requests/all?type[webform]=webform');
 ?>
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
@@ -57,15 +59,11 @@
     <?php //print $content ?>
 
     <?php if (user_access('create webform content')) : ?>
-    <a href="<?php print url("node/add/webform"); ?>">
-      <?php echo sprintf(t('%sSurvey%sCreate a survey to identify best experts profiles for a specific task or mission%sCreate a survey%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
-    </a>
+    <?php echo sprintf(t('%sSurvey%sCreate a survey to <strong>identify best experts</strong> profiles for a specific task or mission%sCreate a survey%s'), '<div class="type-info"><span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><a class="btn btn-business" href="' . url("node/add/webform") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a></div>'); ?>
 
     <?php else : ?>
-    <?php global $base_url; $safe_link = rawurldecode($base_url . '/requests/all?type[webform]=webform'); ?>
-    <a href="<?php print $safe_link; ?>">
-      <?php echo sprintf(t('%sSurvey%sAnswer surveys and promote your skills to get a mission%sSee more surveys%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
-    </a>
+    <?php echo sprintf(t('%sSurvey%sAnswer surveys and promote your skills to <strong>get a mission</strong>%sMore surveys%s'), '<div class="type-info"><span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><a class="btn btn-expert" href="' . $safe_link . '">', '&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></div>'); ?>
+
     <?php endif; ?>
 
   </span>

@@ -58,14 +58,6 @@ aside#sidebar-second {
   }
 }
 
-#flashes {
-  @media (min-width: @screen-md-min) {
-    padding-right: 0;
-    padding-left: 0;
-  }
-}
-
-
 .nav-back {
   > * {
     .btn;
@@ -93,6 +85,14 @@ a.flag {
   }
 }
 
+#flashes {
+  margin-bottom: 15px;
+}
+@media (min-width: @screen-sm-min) {
+  #flashes {
+    margin-bottom: 0;
+  }
+}
 
 .section {
 

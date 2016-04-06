@@ -216,7 +216,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
-  /* Field: Field: Organisation / company */
+  /* Field: Field: Organisation */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';
@@ -369,7 +369,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_titre_metier']['hide_empty'] = TRUE;
-  /* Field: Field: Organisation / company */
+  /* Field: Field: Organisation */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';
@@ -793,11 +793,11 @@ function ft_views_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
-  $handler->display->display_options['path'] = 'my-circles';
+  $handler->display->display_options['path'] = 'circles';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'My circles';
-  $handler->display->display_options['menu']['weight'] = '0';
-  $handler->display->display_options['menu']['name'] = 'menu-burger-menu';
+  $handler->display->display_options['menu']['weight'] = '-50';
+  $handler->display->display_options['menu']['name'] = 'menu-top';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
   $export['my_circles'] = $view;
@@ -3436,6 +3436,11 @@ function ft_views_views_default_views() {
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'All requests';
   $handler->display->display_options['field_language'] = 'und';
+  $handler->display->display_options['defaults']['access'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'role';
+  $handler->display->display_options['access']['role'] = array(
+    4 => '4',
+  );
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '20';
@@ -3582,6 +3587,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['views_navigation_back'] = TRUE;
   $handler->display->display_options['views_navigation_title'] = TRUE;
   $handler->display->display_options['path'] = 'requests';
+  $handler->display->display_options['menu']['type'] = 'normal';
+  $handler->display->display_options['menu']['title'] = 'All requests';
+  $handler->display->display_options['menu']['weight'] = '-50';
+  $handler->display->display_options['menu']['name'] = 'menu-top';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
 
   /* Display: B - Last requests */
   $handler = $view->new_display('block', 'B - Last requests', 'block');
@@ -4190,10 +4201,10 @@ function ft_views_views_default_views() {
       ),
     ),
   );
-  $handler->display->display_options['path'] = 'my-selections';
+  $handler->display->display_options['path'] = 'requests/selections';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'My selections';
-  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['weight'] = '-48';
   $handler->display->display_options['menu']['name'] = 'menu-top';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
@@ -4230,7 +4241,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['label'] = 'Empty';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = 'You did not have submitted any request yet.';
+  $handler->display->display_options['empty']['area']['content'] = 'You have not yet published any request.';
   $handler->display->display_options['empty']['area']['format'] = 'full_html';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   /* Relationship: Content: Author */
@@ -4441,10 +4452,10 @@ function ft_views_views_default_views() {
   $handler->display->display_options['views_navigation_cycle'] = FALSE;
   $handler->display->display_options['views_navigation_back'] = TRUE;
   $handler->display->display_options['views_navigation_title'] = TRUE;
-  $handler->display->display_options['path'] = 'my-requests';
+  $handler->display->display_options['path'] = 'requests/manage';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'My requests';
-  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['weight'] = '-49';
   $handler->display->display_options['menu']['name'] = 'menu-top';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
@@ -4703,7 +4714,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['label'] = 'Empty';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = 'You have no published requests yet.';
+  $handler->display->display_options['empty']['area']['content'] = 'You have not yet published any request.';
   $handler->display->display_options['empty']['area']['format'] = 'full_html';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   /* Relationship: Content: Author */
@@ -5716,7 +5727,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
   $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
   $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
-  /* Field: Field: Organisation / company */
+  /* Field: Field: Organisation */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';

@@ -44,6 +44,8 @@
  *
  * @ingroup themeable
  */
+global $base_url;
+$safe_link = rawurldecode($base_url . '/requests/all?type[challenge]=challenge');
 ?>
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
@@ -57,15 +59,11 @@
     <?php //print $content ?>
 
     <?php if (user_access('create challenge content')) : ?>
-    <a href="<?php print url('node/add/challenge'); ?>">
-      <?php echo sprintf(t('%sChallenge%sRequest for service proposals to innovate or solve a problem%sStart a challenge%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
-    </a>
+    <?php echo sprintf(t('%sChallenge%sRequest for <strong>service proposals</strong> to innovate or solve a problem%sCreate a challenge%s'), '<div class="type-info"><span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><a class="btn btn-business" href="' . url("node/add/challenge") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a></div>'); ?>
 
     <?php else : ?>
-    <?php global $base_url; $safe_link = rawurldecode($base_url . '/requests/all?type[challenge]=challenge'); ?>
-    <a href="<?php print $safe_link; ?>">
-      <?php echo sprintf(t('%sChallenge%sAnswer requests for service proposals%sSee more challenges%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
-    </a>
+    <?php echo sprintf(t('%sChallenge%sAnswer requests for <strong>service proposals</strong>%sMore challenges%s'), '<div class="type-info"><span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><a class="btn btn-expert" href="' . $safe_link . '">', '&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></div>'); ?>
+
     <?php endif; ?>
 
   </span>

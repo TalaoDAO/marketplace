@@ -379,3 +379,16 @@ function emh_points_update_7109() {
     'execute emh_points_arrange_node_points'
   ));
 }
+
+/**
+ * Change My relationships path.
+ */
+function emh_points_update_7110() {
+  $view = views_get_view('my_relationships');
+  views_revert_view($view);
+  $path = array(
+    'source' => 'my-relationships',
+    'alias' => 'circles/relationships',
+  );
+  path_save($path);
+}
