@@ -212,8 +212,8 @@ function emh_points_validate_webform_threshold($element, &$form_state, $form) {
 function _emh_points_custom_private_circles($form_state, $form) {
   $private = TRUE;
   $circles = $form_state['values']['og_group_ref'][LANGUAGE_NONE];
-  foreach($circles as $delta => $circle) {
-    $loaded_circle = node_load($circle['target_id']);
+  foreach($circles as $delta => $circle) { 
+    $loaded_circle = node_load($circle['target_id']); // TODO : PERF ISSUE : use node_load_all instead
     if ($loaded_circle->group_access[LANGUAGE_NONE]['0']['value'] == TRUE) {
       // Public circle
       $private = FALSE;

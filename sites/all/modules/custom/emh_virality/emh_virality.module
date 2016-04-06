@@ -328,9 +328,14 @@ function emh_virality_invitation_form_submit($form, &$form_state) {
     ->fields('u', array('mail'))
     ->condition('mail', $valid_emails, 'IN');
 
+  // TODO:this may represents thousands (millions?) of email, some day... hope we'll get 25Go of RAM per PHP process
+  // to handle that...
   $user_emails = $query->execute()->fetchCol();
 
   // Retrieves the emails already invited
+  // TODO: same thing here...
+  // TODO: create temporary table, with index on that table, let MySQl check with joins which records should be removed
+  // this way no record is loaded into the PHP memory.
   $query = db_select('emh_invitation', 'i')
     ->fields('i', array('referral_mail'))
     ->condition('referral_mail', $valid_emails, 'IN');
@@ -344,6 +349,7 @@ function emh_virality_invitation_form_submit($form, &$form_state) {
 
   foreach ($valid_emails as $email) {
     if (in_array($email, $user_emails)) {
+      // SECURITY: check user is present on site ? should I know that?
       drupal_set_message(t('@email is already registered on eMindHub, the invitation hasn\'t been sent', array('@email' => $email)), 'warning');
       continue;
     }

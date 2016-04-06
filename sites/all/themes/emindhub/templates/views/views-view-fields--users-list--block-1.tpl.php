@@ -1,3 +1,4 @@
+<?php // FIXME: security: print instead of render, missing output filtering ?>
 <div class="row paddingU">
     <div class="col-md-4">
         <?php print $fields['picture']->content; ?>

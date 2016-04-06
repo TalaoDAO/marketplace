@@ -88,7 +88,7 @@ function emh_freetrial_form_submit($form, &$form_state) {
 
 /**
  * Implement hook_mail().
- *
+ * @deprecated? maybe, needs checks
  */
 function emh_freetrial_mail($key, &$message, $params) {
   global $user;

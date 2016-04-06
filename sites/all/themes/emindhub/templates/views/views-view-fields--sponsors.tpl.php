@@ -30,7 +30,7 @@
 // print render(field_view_field('node', $node, 'field_duration_of_the_mission'));
 ?>
 <div class="user col-sm-4">
-
+  <?php // FIXME: SECURITY: insecure code, no output filtering ?>
   <?php if (!empty($fields['field_employment_history']) || !empty($fields['field_sponsor_why']) || !empty($fields['field_partner_why'])) : ?>
   <button type="button" class="btn btn-popin" data-toggle="modal" data-target="#<?php print $fields['field_first_name']->raw; ?>">
   <?php endif; ?>

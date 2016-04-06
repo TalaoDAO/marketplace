@@ -34,13 +34,15 @@ $activity = field_get_items('user', $author, 'field_entreprise_description');
 
         <?php if (module_exists('emh_access')) : ?>
         <?php if ( emh_access_author_company( $node ) && ( $company ) ) : ?>
-        <p class="company"><strong><?php print $company->title; ?></strong></p>
+        <?php //note to themer, if you do not like check_plain, use render and theme hooks to ensure check_plain is already applied, and never use direct attribute access ?>
+        <p class="company"><strong><?php print check_plain($company->title); ?></strong></p>
         <?php endif; ?>
         <?php endif; ?>
 
         <?php if (!empty($field_use_my_entreprise[0]['value'])) : ?>
 
         <?php if ($field_use_my_entreprise[0]['value'] == 0) : ?>
+        <?php // TODO: security: no filtering here? ?>
         <p class="activity"><em><?php print $activity[0]['value']; ?></em></p>
         <?php endif; ?>
 
