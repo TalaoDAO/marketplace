@@ -731,6 +731,7 @@ function emh_points_notify_rewarded_answer_author($node, $user, $points) {
     '@title' => $node->title,
     '@answer_author' => $user->field_first_name[LANGUAGE_NONE][0]['value'],
     '@points' => $points,
+    '@threshold' => variable_get('emh_points_monetization_threshold', '1500'),
   );
   drupal_mail($module, $key, $mail, $language, $params);
 }
@@ -852,11 +853,12 @@ function emh_points_get_unrewarded_answers($nid) {
 function emh_points_mail($key, &$message, $params) {
   switch($key) {
     case 'notify_rewarded_answer_author':
-      $message['subject'] = t('You won @points points!', $params);
+      $message['subject'] = t('You have been rewarded!', $params);
       $message['body'] = array();
-      $message['body'][] = '<h1 style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:22px;margin-bottom:20px;color:#333;line-height:150%;">' . t('Your answer just has been rewarded') . '</h1>';
       $message['body'][] = t('Dear @answer_author,', $params);
-      $message['body'][] = t('Your answer just has been rewarded on request') . ' <strong><a href="' . t('@url', $params) . '&amp;pk_kwd=link" title="' .  t('@title', $params) . '" target="_blank" style="font-weight:bold!important;">' . t('@title', $params) . ' </a></strong> ' . t('and you won @points points!', $params);
+      $message['body'][] = t('Thank you for responding to the request') . ' <strong><a href="' . t('@url', $params) . '&amp;pk_kwd=link" title="' .  t('@title', $params) . '" target="_blank" style="font-weight:bold!important;">' . t('@title', $params) . ' </a></strong>';
+      $message['body'][] = t('Your answer has been selected by the client and you earned @points points! The client may now get in touch with you for further support.', $params);
+      $message['body'][] = t('We remind you that you can monetize your points once you have reached a threshold of @threshold points.', $params);
       $message['body'][] = t('Should you like to know more, just log into the platform now.');
       $message['body'][] = '<table style="min-width:100%;" width="100%" border="0" cellpadding="0" cellspacing="0" class="emailButton">
         <tbody>
@@ -876,13 +878,13 @@ function emh_points_mail($key, &$message, $params) {
         </tbody>
       </table>';
       break;
-	  case 'notify_unrewarded_answer_author':
-      $message['subject'] = t('Your answer has not been selected', $params);
+    case 'notify_unrewarded_answer_author':
+      $message['subject'] = t('Request @title is now closed', $params);
       $message['body'] = array();
-      $message['body'][] = '<h1 style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:22px;margin-bottom:20px;color:#333;line-height:150%;">' . t('Your answer has not been selected') . '</h1>';
       $message['body'][] = t('Dear @answer_author,', $params);
-      $message['body'][] = t('Your answer has not been selected on request') . ' <strong><a href="' . t('@url', $params) . '&amp;pk_kwd=link" title="' .  t('@title', $params) . '" target="_blank" style="font-weight:bold!important;">' . t('@title', $params) . ' </a></strong>';
-      $message['body'][] = t('Should you like to know more, just log into the platform now.');
+      $message['body'][] = t('Thank you for responding to the request') . ' <strong><a href="' . t('@url', $params) . '&amp;pk_kwd=link" title="' .  t('@title', $params) . '" target="_blank" style="font-weight:bold!important;">' . t('@title', $params) . ' </a></strong> ' . t('which is now closed.');
+      $message['body'][] = t('Your answer has not been selected by the client, but we encourage you to continue to answer requests matching your expertise, or to sponsor experts in your network.');
+      $message['body'][] = t('Should you like to see more requests, just log into the platform now.');
       $message['body'][] = '<table style="min-width:100%;" width="100%" border="0" cellpadding="0" cellspacing="0" class="emailButton">
         <tbody>
           <tr>
