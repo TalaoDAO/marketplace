@@ -452,16 +452,20 @@
 				filter:progid:DXImageTransform.Microsoft.Shadow(color=rgba(0, 0, 0, .2), Direction=NaN, Strength=5);
 			}
 
+			h3 {
+				font-weight: bold;
+				.text-uppercase;
+				margin-top: 0;
+				margin-bottom: .25em;
+			}
+
 			> span {
 				display: block;
-				&.mobilize-type {
-					font-weight: bold;
-					.text-uppercase;
-					font-size: 18px;
-					margin-bottom: .25em;
-				}
 				&.mobilize-info {
 					min-height: 44px;
+					.badge {
+						margin-top: 10px;
+					}
 				}
 			}
 			.btn {
@@ -479,6 +483,13 @@
 #block-block-14 .type-info:before { background-image: url("../images/picto/picto_question.png"); }
 #block-block-8 .type-info:before { background-image: url("../images/picto/picto_challenge.png"); }
 #block-block-16 .type-info:before { background-image: url("../images/picto/picto_survey.png"); }
+
+// Welcome
+#block-block-17 {
+	h1 {
+		font-size: 20px;
+	}
+}
 
 
 // Why use eMindHub ?
@@ -925,7 +936,6 @@
 	.text-right;
 	a {
 		.btn;
-		.btn-sm;
 		margin-bottom: 15px;
 	}
 }

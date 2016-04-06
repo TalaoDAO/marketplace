@@ -46,6 +46,7 @@
  */
 global $base_url;
 $safe_link = rawurldecode($base_url . '/requests/all?type[question1]=question1');
+$threshold = variable_get('emh_points_question1_threshold', '1000');
 ?>
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
@@ -59,11 +60,11 @@ $safe_link = rawurldecode($base_url . '/requests/all?type[question1]=question1')
     <?php //print $content ?>
 
     <?php if (user_access('create question1 content')) : ?>
-    <?php echo sprintf(t('%sQuestion%sAsk a question and get <strong>multiple answers</strong> from experts%sCreate a question%s'), '<div class="type-info"><span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><a class="btn btn-business" href="' . url("node/add/question1") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a></div>'); ?>
+    <?php echo sprintf(t('%sQuestion%sAsk a question and get %smultiple answers%s from experts%s %s points%sCreate a question%s'), '<div class="type-info"><h3>', '</h3><span class="mobilize-info">', '<strong>', '</strong>', '<br><span class="badge">', $threshold, '</span></span><a class="btn btn-business" href="' . url("node/add/question1") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a></div>'); ?>
       </span>
 
     <?php else : ?>
-    <?php echo sprintf(t('%sQuestion%sAnswer questions and <strong>provide clients</strong> with ideas, advices, feedbacks, etc.%sMore questions%s'), '<div class="type-info"><span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><a class="btn btn-expert" href="' . $safe_link . '">', '&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></div>'); ?>
+    <?php echo sprintf(t('%sQuestion%sAnswer questions and %sprovide clients%s with ideas, advices, feedbacks, etc.%sMore questions%s'), '<div class="type-info"><h3>', '</h3><span class="mobilize-info">', '<strong>', '</strong>', '</span><a class="btn btn-expert" href="' . $safe_link . '">', '&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></div>'); ?>
 
     <?php endif; ?>
 
