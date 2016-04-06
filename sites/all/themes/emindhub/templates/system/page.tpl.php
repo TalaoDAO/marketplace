@@ -87,7 +87,7 @@ global $base_url;
       <?php endif; ?>
 
         <?php if (!empty($page['burgermenu'])): ?>
-        <div class="burger-menu-btn-container pull-right" onclick="onClickBurgerMenuBtn();">
+        <div class="burger-menu-btn-container" onclick="onClickBurgerMenuBtn();">
           <button type="button" class="btn btn-default emh-blue">
             <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
           </button>
