@@ -48,7 +48,7 @@ function emindhub_preprocess_block(&$variables) {
       break;
 
     case 'menu-menu-top':
-      $classes[] = 'col-sm-5 col-md-5';
+      $classes[] = 'col-sm-6 col-md-6';
       break;
 
     case 'menu-menu-footer-menu':
@@ -64,7 +64,7 @@ function emindhub_preprocess_block(&$variables) {
       break;
 
     case 'system-user-menu':
-      $classes[] = 'col-sm-5 col-md-5';
+      $classes[] = 'col-sm-6 col-md-6';
       break;
 
     // User Login block

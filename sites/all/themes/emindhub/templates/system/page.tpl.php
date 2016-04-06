@@ -81,21 +81,23 @@ global $base_url;
     <div class="row">
 
       <?php if ( $logged_in ): ?>
-      <div class="col-md-2">
+      <div class="col-md-1">
       <?php else : ?>
       <div class="col-md-3">
       <?php endif; ?>
 
         <?php if (!empty($page['burgermenu'])): ?>
         <div class="burger-menu-btn-container pull-right" onclick="onClickBurgerMenuBtn();">
-          <?php print $openBurgerImg; ?>
+          <button type="button" class="btn btn-default emh-blue">
+            <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+          </button>
         </div>
         <?php endif; ?>
 
         <?php if ($logo): ?>
         <a class="logo navbar-btn" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
           <?php if ( $logged_in ): ?>
-          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/eMindHub_logo_ld.png" alt="<?php print $site_name; ?>" />
+          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/eMindHub_picto.png" alt="<?php print $site_name; ?>" />
           <?php else : ?>
           <img src="<?php print $logo; ?>" alt="<?php print $site_name; ?>" />
           <?php endif; ?>
@@ -105,7 +107,7 @@ global $base_url;
       </div> <!-- END .col -->
 
       <?php if ( $logged_in ): ?>
-      <div class="col-md-10">
+      <div class="col-md-11">
       <?php else : ?>
       <div class="col-md-9">
       <?php endif; ?>
