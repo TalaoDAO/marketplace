@@ -47,6 +47,10 @@ function emindhub_preprocess_block(&$variables) {
       $classes[] = 'col-sm-11 col-md-11';
       break;
 
+    case 'menu-menu-top':
+      $classes[] = 'col-sm-6 col-md-6';
+      break;
+
     case 'menu-menu-footer-menu':
       $classes[] = 'col-sm-9 col-md-9';
       break;
@@ -60,7 +64,7 @@ function emindhub_preprocess_block(&$variables) {
       break;
 
     case 'system-user-menu':
-      $classes[] = 'col-md-12';
+      $classes[] = 'col-sm-6 col-md-6';
       break;
 
     // User Login block
@@ -88,19 +92,19 @@ function emindhub_preprocess_block(&$variables) {
 
     // HP - Ask a question
     case 'block-14':
-      $classes[] = 'col-md-4';
+      $classes[] = 'col-xs-12 col-md-4';
       $classes[] = 'emh-block-grey';
       break;
 
     // HP - Start a challenge
     case 'block-8':
-      $classes[] = 'col-md-4';
+      $classes[] = 'col-xs-12 col-md-4';
       $classes[] = 'emh-block-grey';
       break;
 
     // HP - Create a survey
     case 'block-16':
-      $classes[] = 'col-md-4';
+      $classes[] = 'col-xs-12 col-md-4';
       $classes[] = 'emh-block-grey';
       break;
 

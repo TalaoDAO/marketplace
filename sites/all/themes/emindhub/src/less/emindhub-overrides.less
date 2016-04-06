@@ -38,9 +38,23 @@ h4, .h4 {
 }
 
 // Bootstrap navbar
+.nav > li > span.dropdown-toggle {
+	cursor: pointer;
+	line-height: 20px;
+	position: relative;
+	display: block;
+}
+.nav > li > a,
+.nav > li > span.dropdown-toggle {
+	padding: 15px 20px;
+}
+.nav-tabs > li > a {
+	padding: 10px 15px;
+}
 .navbar {
 	margin-bottom: 0;
 }
+
 
 .icon-prev,
 .icon-next {
@@ -168,6 +182,9 @@ input#autocomplete-deluxe-input {
 	.text-uppercase;
 	font-weight: 700;
 	margin-right: 5px;
+	&:last-child {
+		margin-right: 0;
+	}
 }
 .btn.disabled,
 .btn[disabled],
