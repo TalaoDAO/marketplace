@@ -86,3 +86,16 @@ function emh_user_update_7005() {
     $rules_config->delete();
   }
 }
+
+/**
+ * Change RoleSwitcher block region.
+ */
+function emh_user_update_7006() {
+  $module = 'roleswitcher';
+  $delta = 'switcher';
+  db_update('block')
+    ->condition('module', $module)
+    ->condition('delta', $delta)
+    ->fields(array('region' => 'navigation', 'weight' => '0'))
+    ->execute();
+}
