@@ -542,7 +542,7 @@ freetrial',
         'region' => 'navigation',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -46,
+        'weight' => -44,
       ),
       'seven' => array(
         'region' => '',
@@ -737,10 +737,10 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'topmenu',
+        'region' => 'navigation',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -48,
+        'weight' => -47,
       ),
       'seven' => array(
         'region' => '',
@@ -770,7 +770,7 @@ freetrial',
         'region' => 'navigation',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -47,
+        'weight' => -48,
       ),
       'seven' => array(
         'region' => '',
@@ -972,10 +972,10 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'topmenu',
+        'region' => 'navigation',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -47,
+        'weight' => -46,
       ),
       'seven' => array(
         'region' => '',

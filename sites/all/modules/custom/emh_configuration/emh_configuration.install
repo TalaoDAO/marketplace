@@ -217,57 +217,48 @@ function emh_configuration_update_7014() {
 /**
  * Change top nav links.
  */
-function emh_configuration_update_7017() {
-  // Create new links
-  db_insert('menu_links')
+function emh_configuration_update_7015() {
+  // Change existing links
+  db_update('menu_links')
     ->fields(array(
       'link_title' => 'Requests',
-      'has_children' => '1',
       'expanded' => '1',
-      'weight' => '-48',
-    ))
-    ->condition('mlid', '7383')
-    ->execute();
-  db_update('menu_links')
-    ->fields(array(
-      'link_title' => 'Manage my requests',
-      'has_children' => '1',
-      'expanded' => '1',
-      'weight' => '-48',
-    ))
-    ->condition('mlid', '7383')
-    ->execute();
-  db_update('menu_links')
-    ->fields(array(
-      'link_title' => 'Answers',
-      'weight' => '-47',
-    ))
-    ->condition('mlid', '5523')
-    ->execute();
-  db_update('menu_links')
-    ->fields(array(
-      'link_title' => 'My selections',
-      'plid' => '7383',
       'weight' => '-50',
+      'hidden' => '0',
     ))
-    ->condition('mlid', '7382')
+    ->condition('mlid', '4970')
     ->execute();
   db_update('menu_links')
     ->fields(array(
-      'link_title' => 'My circles',
-      'has_children' => '1',
+      'link_title' => 'Network',
       'expanded' => '1',
-      'weight' => '-46',
+      'weight' => '-49',
+      'hidden' => '0',
     ))
-    ->condition('mlid', '4971')
+    ->condition('mlid', '7577')
     ->execute();
-  db_update('menu_links')
-    ->fields(array(
-      'link_title' => 'My relationships',
-      'plid' => '4971',
-      'weight' => '-50',
-    ))
+  db_delete('menu_links')
     ->condition('mlid', '7708')
     ->execute();
   menu_rebuild();
+
+  // Change Requests & Circles paths.
+  features_revert(array('ft_views' => array('views_view')));
+  $path = array(
+    'source' => 'my-selections',
+    'alias' => 'requests/selections',
+  );
+  path_save($path);
+
+  $path = array(
+    'source' => 'my-requests',
+    'alias' => 'requests/manage',
+  );
+  path_save($path);
+
+  $path = array(
+    'source' => 'my-circles',
+    'alias' => 'circles',
+  );
+  path_save($path);
 }
