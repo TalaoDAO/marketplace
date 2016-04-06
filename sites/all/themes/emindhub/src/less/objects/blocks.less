@@ -28,7 +28,13 @@
 
 // Navigation principale - Connecté
 #block-menu-menu-top {
-	border-right: 1px solid @gray-lighter;
+	border-bottom: 1px solid @gray-lighter;
+}
+@media (min-width: @screen-sm-min) {
+	#block-menu-menu-top {
+		border-right: 1px solid @gray-lighter;
+		border-bottom: 0;
+	}
 }
 
 
@@ -42,6 +48,7 @@
 		> li > a,
 		> li > span {
 			color: @middleBlue;
+			cursor: pointer;
 		}
 		> li.open > span,
 		> li.open > span * {
@@ -95,7 +102,7 @@
 @media (min-width: @screen-md-min) {
 	.page-user.role-anonymous-user:not(.page-403) {
 		#block-menu-menu-top-anonymous {
-			margin-top: 50px;
+			// margin-top: 50px;
 		}
 	}
 }
@@ -410,6 +417,7 @@
 #block-block-14,
 #block-block-8,
 #block-block-16 {
+	margin-top: 20px;
 	.content {
 		display: block;
 		margin-top: 25px;
@@ -918,7 +926,15 @@
 	a {
 		.btn;
 		.btn-sm;
-		margin-top: 10px;
+		margin-bottom: 15px;
+	}
+}
+@media (min-width: @screen-sm-min) {
+	#block-roleswitcher-switcher {
+		a {
+			margin-top: 10px;
+			margin-bottom: 0;
+		}
 	}
 }
 body.role-expert {
