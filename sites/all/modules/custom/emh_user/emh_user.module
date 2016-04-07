@@ -20,7 +20,7 @@ function emh_user_views_api() {
 function emh_user_menu() {
 	$items = array();
 	$items['client/register'] = array(
-		'title' => 'Register as an client',
+		'title' => 'Register as a client',
 		'page callback' => 'drupal_get_form',
 		'page arguments' => array('user_register_form_client'),
 		'access arguments' => array('access content'),

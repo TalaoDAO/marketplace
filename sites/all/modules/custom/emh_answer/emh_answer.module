@@ -101,7 +101,7 @@ function emh_answer_mail($key, &$message, $params) {
       $message['subject'] = t('New answer to the request @title', $params);
       $message['body'] = array();
       $message['body'][] = t('Dear @author,', $params);
-      $message['body'][] = t('You received a new answer to the request') . ' <strong><a href="' . t('@url', $params) . '&amp;pk_kwd=link" title="' .  t('@title', $params) . '" target="_blank" style="font-weight:bold!important;">' . t('@title', $params) . ' </a></strong>';
+      $message['body'][] = t('You received a new answer to the request') . ' <strong><a href="' . t('@url', $params) . '&amp;pk_kwd=link" title="' .  t('@title', $params) . '" target="_blank" style="font-weight:bold!important;">' . t('@title', $params) . ' </a></strong>.';
       $message['body'][] = t('Just log into the platform to see this answer.');
       $message['body'][] = '<table style="min-width:100%;" width="100%" border="0" cellpadding="0" cellspacing="0" class="emailButton">
         <tbody>
