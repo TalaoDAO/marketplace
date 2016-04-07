@@ -40,7 +40,7 @@ Feature: Challenge
     And I am on the homepage
     Then I should see "Avengers" in the "What about?" row
 
-    When I go to "my-requests"
+    When I go to "requests/manage"
     Then I should see "What about?"
     And I should see "1000" in the "What about?" row
     And I should see "Avengers" in the "What about?" row

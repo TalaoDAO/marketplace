@@ -28,6 +28,15 @@ Feature: Survey and answers
     | title        | field_domaine | og_group_ref | field_reward | author  | field_anonymous      | field_show_entreprise | field_use_my_entreprise |
     | What about?  | Energy        | Avengers     | 1000         | client1 | Display my full name | Display the name      | Display                 |
 
+    # Make client1 as a Creator member of Avengers circle
+    Given I am logged in as a user with the "administrator" role
+    When I go to "content/avengers"
+    And I click "Group"
+    And I click "People"
+    And I click "edit" in the "client1" row
+    And I check the box "Creator member"
+    And I press "Update membership"
+
     # A client publish a survey.
     Given I am logged in as "client1"
     When I go to homepage
