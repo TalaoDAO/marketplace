@@ -12,14 +12,7 @@ function emh_request_enable() {
   emh_request_update_7001();
   emh_request_update_7002();
   emh_request_update_7103();
-
-  global $language;
-  $lang = $language->language;
-  $strings = variable_get("locale_custom_strings_$lang", array());
-  foreach (_emh_request_string_overrides() as $string => $override) {
-    $strings[''][$string] = $override;
-  }
-  variable_set("locale_custom_strings_$lang", $strings);
+  emh_request_enable_strings();
 
   variable_set('emh_request_send_notification_email_all_domains', 1);
 }
@@ -28,13 +21,7 @@ function emh_request_enable() {
  * Implements hook_disable().
  */
 function emh_request_disable() {
-  global $language;
-  $lang = $language->language;
-  $strings = variable_get("locale_custom_strings_$lang", array());
-  foreach (_emh_request_string_overrides() as $string => $override) {
-    unset($strings[''][$string]);
-  }
-  variable_set("locale_custom_strings_$lang", $strings);
+  emh_request_disable_strings();
 }
 
 /**
@@ -42,6 +29,26 @@ function emh_request_disable() {
  */
 function emh_request_uninstall() {
   variable_del('emh_request_send_notification_email_all_domains');
+}
+
+function emh_request_enable_strings() {
+  global $language;
+  $lang = $language->language;
+  $strings = variable_get("locale_custom_strings_$lang", array());
+  foreach (_emh_request_string_overrides() as $string => $override) {
+    $strings[''][$string] = $override;
+  }
+  variable_set("locale_custom_strings_$lang", $strings);
+}
+
+function emh_request_disable_strings() {
+  global $language;
+  $lang = $language->language;
+  $strings = variable_get("locale_custom_strings_$lang", array());
+  foreach (_emh_request_string_overrides() as $string => $override) {
+    unset($strings[''][$string]);
+  }
+  variable_set("locale_custom_strings_$lang", $strings);
 }
 
 /**
@@ -126,4 +133,12 @@ function emh_request_update_7106() {
   if ($rules_config = rules_config_load('rules_emh_request_send_webmaster_notification_email')) {
     $rules_config->delete();
   }
+}
+
+/**
+* Revert strings.
+*/
+function emh_request_update_7107() {
+  emh_request_disable_strings();
+  emh_request_enable_strings();
 }

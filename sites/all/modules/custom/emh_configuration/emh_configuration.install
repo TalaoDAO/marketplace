@@ -307,7 +307,7 @@ function emh_configuration_update_7017() {
  * Replace emh_survey for emh_mission.
  */
 function emh_configuration_update_7018() {
-  module_disable(array('emh_survey', 'emh_request', 'emh_points', 'emh_access', 'emh_user', 'emh_virality', 'ft_blocks'));
+  module_disable(array('emh_survey'));
   drupal_uninstall_modules(array('emh_survey'));
-  module_enable(array('emh_mission', 'emh_request', 'emh_points', 'emh_access', 'emh_user', 'emh_virality', 'ft_blocks'));
+  module_enable(array('emh_mission'));
 }
