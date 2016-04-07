@@ -123,3 +123,12 @@ function emh_circles_update_7004() {
     $rules_config->delete();
   }
 }
+
+/**
+* Revert circle rules.
+*/
+function emh_circles_update_7005() {
+  if ($rules_config = rules_config_load('rules_emh_circles_set_clients_as_creator_in_circles')) {
+    $rules_config->delete();
+  }
+}

@@ -36,11 +36,15 @@ function emh_circles_default_rules_configuration() {
     "PLUGIN" : "reaction rule",
     "WEIGHT" : "1",
     "OWNER" : "rules",
-    "TAGS" : [ "Circles", "EMH", "client" ],
+    "TAGS" : [ "Circles", "client", "EMH" ],
     "REQUIRES" : [ "rules", "og" ],
     "ON" : { "user_login" : [] },
     "IF" : [
-      { "user_has_role" : { "account" : [ "account" ], "roles" : { "value" : { "5" : "5" } } } }
+      { "user_has_role" : {
+          "account" : [ "account" ],
+          "roles" : { "value" : { "5" : "5", "10" : "10" } }
+        }
+      }
     ],
     "DO" : [
       { "entity_fetch" : {
