@@ -14,7 +14,7 @@ function emh_request_node_access($node, $op, $account) {
       case 'webform':
       case 'challenge':
         /*
-        $count = emh_request_count_answers($node);
+        $count = emh_request_count_answers($node->nid);
         if ($count > 0) {
           return NODE_ACCESS_DENY;
         }
@@ -47,7 +47,7 @@ function emh_request_preprocess_page(&$variables) {
   if ($arg0 == 'node' && empty($arg2)) {
     $node = node_load($arg1);
     $type = $node->type;
-    $count = emh_request_count_answers($node);
+    $count = emh_request_count_answers($node->nid);
     if (($count > 0) && ($node->uid == $uid)) $show_message = TRUE;
   }
 
@@ -96,7 +96,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
 
       // If node is published & there are some answers, only some updates are possible.
       // #575, 576
-      $count = emh_request_count_answers($form['#node']);
+      $count = emh_request_count_answers($form['nid']['#value']);
       if ($form['#node']->status && $count > 0) {
         // Prevent domain & circle update.
         $form['field_domaine']['#disabled'] = TRUE;
@@ -318,7 +318,9 @@ function emh_request_get_status($nid) {
 /**
  * Helper function to retrieve answers count.
  */
-function emh_request_count_answers($node) {
+function emh_request_count_answers($nid) {
+
+  $node = node_load($nid);
 
 	$count = 0;
   if (!empty($node)) {

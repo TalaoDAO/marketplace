@@ -221,45 +221,58 @@ function emh_configuration_update_7015() {
   // Change existing links
   db_update('menu_links')
     ->fields(array(
+      'link_path' => '<front>',
+      'link_title' => 'Home',
+      'weight' => '-50',
+    ))
+    ->condition('mlid', '7708')
+    ->execute();
+  db_update('menu_links')
+    ->fields(array(
       'link_title' => 'Requests',
       'expanded' => '1',
-      'weight' => '-50',
+      'weight' => '-49',
       'hidden' => '0',
     ))
     ->condition('mlid', '4970')
     ->execute();
   db_update('menu_links')
     ->fields(array(
+      'link_title' => 'Answers',
+      'weight' => '-48',
+    ))
+    ->condition('mlid', '5523')
+    ->execute();
+  db_update('menu_links')
+    ->fields(array(
       'link_title' => 'Network',
       'expanded' => '1',
-      'weight' => '-49',
+      'weight' => '-47',
       'hidden' => '0',
     ))
     ->condition('mlid', '7577')
     ->execute();
-  db_delete('menu_links')
-    ->condition('mlid', '7708')
-    ->execute();
+
   menu_rebuild();
 
   // Change Requests & Circles paths.
   features_revert(array('ft_views' => array('views_view')));
   features_revert(array('ft_blocks' => array('fe_block_boxes')));
   $path = array(
-    'source' => 'my-selections',
-    'alias' => 'requests/selections',
+    'source' => 'requests/selections',
+    'alias' => 'my-selections',
   );
   path_save($path);
 
   $path = array(
-    'source' => 'my-requests',
-    'alias' => 'requests/manage',
+    'source' => 'requests/manage',
+    'alias' => 'my-requests',
   );
   path_save($path);
 
   $path = array(
-    'source' => 'my-circles',
-    'alias' => 'circles',
+    'source' => 'circles',
+    'alias' => 'my-circles',
   );
   path_save($path);
 }
