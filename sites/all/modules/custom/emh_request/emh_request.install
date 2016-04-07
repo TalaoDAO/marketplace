@@ -21,7 +21,7 @@ function emh_request_enable() {
   }
   variable_set("locale_custom_strings_$lang", $strings);
 
-  variable_set('emh_request_send_notification_email_all_domains', 0);
+  variable_set('emh_request_send_notification_email_all_domains', 1);
 }
 
 /**
