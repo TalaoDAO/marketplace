@@ -13590,13 +13590,6 @@ html.js div.contextual-links-wrapper {
   }
 }
 @media (min-width: 992px) {
-  body.not-logged-in .logo img {
-    max-height: 80px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-}
-@media (min-width: 992px) {
   .region-navigation > * {
     padding: 0 !important;
   }
@@ -13624,15 +13617,14 @@ html.js div.contextual-links-wrapper {
   height: auto;
 }
 @media (min-width: 992px) {
-  .navbar .logo {
+  body.not-logged-in .logo {
     text-align: left;
   }
-}
-/* HEADER
- * Search
- */
-.navbar #block-search-form {
-  float: left;
+  body.not-logged-in .logo img {
+    max-height: 80px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
 }
 /* HEADER
  * Login
@@ -13702,13 +13694,8 @@ body.lang-fr .popover .hybridauth-widget-wrapper ul a[data-hybridauth-provider="
 /* HEADER
  * User menu
  */
-@media (min-width: 992px) {
-  #block-system-user-menu .navbar-emh-separator > li:nth-child(2):before {
-    content: "";
-  }
-  #block-system-user-menu .navbar-emh-separator > li:nth-child(2) > a {
-    padding-left: 0;
-  }
+#block-system-user-menu .badge {
+  font-size: .85em;
 }
 /* HEADER
  * Navigation
@@ -13720,13 +13707,16 @@ header nav.navbar {
 header nav.navbar .navbar-collapse.in {
   overflow: hidden !important;
 }
+header nav.navbar .nav > li.active > a,
 header nav.navbar .nav > li.active-trail > a,
+header nav.navbar .nav > li.active > span.dropdown-toggle,
 header nav.navbar .nav > li.active-trail > span.dropdown-toggle {
   color: #009fe3;
 }
 header nav.navbar .nav > li > a,
 header nav.navbar .nav > li > span.dropdown-toggle {
   text-align: left;
+  font-size: 1.1em;
 }
 header nav.navbar .nav > li > a,
 header nav.navbar .nav > li > span.dropdown-toggle {
@@ -13735,16 +13725,22 @@ header nav.navbar .nav > li > span.dropdown-toggle {
   padding-right: 20px;
 }
 header nav.navbar .nav .open > a,
+header nav.navbar .nav .open.active > a,
 header nav.navbar .nav .open.active-trail > a,
 header nav.navbar .nav .open > a:hover,
+header nav.navbar .nav .open.active > a:hover,
 header nav.navbar .nav .open.active-trail > a:hover,
 header nav.navbar .nav .open > a:focus,
+header nav.navbar .nav .open.active > a:focus,
 header nav.navbar .nav .open.active-trail > a:focus,
 header nav.navbar .nav .open > span.dropdown-toggle,
+header nav.navbar .nav .open.active > span.dropdown-toggle,
 header nav.navbar .nav .open.active-trail > span.dropdown-toggle,
 header nav.navbar .nav .open > span.dropdown-toggle:hover,
+header nav.navbar .nav .open.active > span.dropdown-toggle:hover,
 header nav.navbar .nav .open.active-trail > span.dropdown-toggle:hover,
 header nav.navbar .nav .open > span.dropdown-toggle:focus,
+header nav.navbar .nav .open.active > span.dropdown-toggle:focus,
 header nav.navbar .nav .open.active-trail > span.dropdown-toggle:focus {
   background-color: #009fe3;
   color: #FFF;
@@ -15209,23 +15205,28 @@ table th[class*="col-"] {
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
   filter: progid:DXImageTransform.Microsoft.Shadow(color=rgba(0, 0, 0, 0.2), Direction=NaN, Strength=5);
 }
+#block-block-14 .content .type-info h3,
+#block-block-8 .content .type-info h3,
+#block-block-16 .content .type-info h3 {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: .25em;
+}
 #block-block-14 .content .type-info > span,
 #block-block-8 .content .type-info > span,
 #block-block-16 .content .type-info > span {
   display: block;
 }
-#block-block-14 .content .type-info > span.mobilize-type,
-#block-block-8 .content .type-info > span.mobilize-type,
-#block-block-16 .content .type-info > span.mobilize-type {
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: 18px;
-  margin-bottom: .25em;
-}
 #block-block-14 .content .type-info > span.mobilize-info,
 #block-block-8 .content .type-info > span.mobilize-info,
 #block-block-16 .content .type-info > span.mobilize-info {
   min-height: 44px;
+}
+#block-block-14 .content .type-info > span.mobilize-info .badge,
+#block-block-8 .content .type-info > span.mobilize-info .badge,
+#block-block-16 .content .type-info > span.mobilize-info .badge {
+  margin-top: 10px;
 }
 #block-block-14 .content .type-info .btn,
 #block-block-8 .content .type-info .btn,
@@ -15245,6 +15246,9 @@ table th[class*="col-"] {
 }
 #block-block-16 .type-info:before {
   background-image: url("../images/picto/picto_survey.png");
+}
+#block-block-17 h1 {
+  font-size: 20px;
 }
 #block-block-20 .block-title,
 #block-block-21 .block-title,
@@ -15811,6 +15815,7 @@ table th[class*="col-"] {
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.42857143;
+  border-radius: 0;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -15818,10 +15823,6 @@ table th[class*="col-"] {
   text-transform: uppercase;
   font-weight: 700;
   margin-right: 5px;
-  padding: 5px 10px;
-  font-size: 12px;
-  line-height: 1.5;
-  border-radius: 0;
   margin-bottom: 15px;
 }
 #block-roleswitcher-switcher a:focus,
