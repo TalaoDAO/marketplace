@@ -101,9 +101,9 @@ function ft_content_type_node_info() {
       'help' => '',
     ),
     'webform' => array(
-      'name' => t('Survey'),
+      'name' => t('Mission'),
       'base' => 'node_content',
-      'description' => t('Create a survey to identify best experts profiles for a specific task or mission'),
+      'description' => t('Create a mission to identify best experts profiles for a specific task or mission'),
       'has_title' => '1',
       'title_label' => t('Title'),
       'help' => '',

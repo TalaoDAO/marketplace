@@ -1,10 +1,10 @@
 @api @watchdog
-Feature: Survey and answers
-  In order to test Survey creation, and privacy of answers
+Feature: Mission and answers
+  In order to test Mission creation, and privacy of answers
   As a Client and an Expert
-  I want to create a Survey, and watch answers
+  I want to create a Mission, and watch answers
 
-  Background: Create survey
+  Background: Create mission
 
     Given "circle" content:
     | title    | author  |
@@ -37,7 +37,7 @@ Feature: Survey and answers
     And I check the box "Creator member"
     And I press "Update membership"
 
-    # A client publish a survey.
+    # A client publish a mission.
     Given I am logged in as "client1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
@@ -48,9 +48,9 @@ Feature: Survey and answers
     And I press "Save your question"
     And I click "General infos" in the "secondary tabs" region
     And I press "Publish"
-    Then I should see the success message "Survey What about? has been published."
+    Then I should see the success message "Mission What about? has been published."
 
-    # An expert responds to the survey.
+    # An expert responds to the mission.
     Given I am logged in as "expert1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
@@ -64,7 +64,7 @@ Feature: Survey and answers
     And I press "Publish my answer"
     Then I should see "Thank you, your answer has been sent."
 
-    # Another expert responds to the survey.
+    # Another expert responds to the mission.
     Given I am logged in as "expert2"
     When I go to homepage
     And I click "What about?" in the "What about?" row
@@ -114,11 +114,11 @@ Feature: Survey and answers
     And I click "What about?" in the "What about?" row
     And I should not see "You have to read DC comics of course!" in the "answers" region
 
-  Scenario: The expert cannot respond twice to the same survey
+  Scenario: The expert cannot respond twice to the same mission
     Given I am logged in as "expert1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
-    Then I should not see "Answer the survey" in the "answers" region
+    Then I should not see "Answer the mission" in the "answers" region
 
   Scenario: The expert can edit its own answer
     Given I am logged in as "expert1"

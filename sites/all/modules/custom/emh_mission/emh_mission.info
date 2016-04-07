@@ -1,0 +1,7 @@
+name = EMH Mission
+package = EMH
+dependencies[] = webform
+dependencies[] = emh_access
+core = 7.x
+
+files[] = views/emh_mission_handler_field_submission_count.inc
