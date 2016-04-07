@@ -258,23 +258,23 @@ function emh_configuration_update_7015() {
   // Change Requests & Circles paths.
   features_revert(array('ft_views' => array('views_view')));
   features_revert(array('ft_blocks' => array('fe_block_boxes')));
-  $path = array(
-    'source' => 'requests/selections',
-    'alias' => 'my-selections',
-  );
-  path_save($path);
-
-  $path = array(
-    'source' => 'requests/manage',
-    'alias' => 'my-requests',
-  );
-  path_save($path);
-
-  $path = array(
-    'source' => 'circles',
-    'alias' => 'my-circles',
-  );
-  path_save($path);
+  // $path = array(
+  //   'source' => 'requests/selections',
+  //   'alias' => 'my-selections',
+  // );
+  // path_save($path);
+  //
+  // $path = array(
+  //   'source' => 'requests/manage',
+  //   'alias' => 'my-requests',
+  // );
+  // path_save($path);
+  //
+  // $path = array(
+  //   'source' => 'circles',
+  //   'alias' => 'my-circles',
+  // );
+  // path_save($path);
 }
 
 /**
@@ -286,11 +286,11 @@ function emh_configuration_update_7016() {
   drupal_uninstall_modules(array('autoassignrole', 'emh_freetrial'));
 
   // Create new alias for /freetrial
-  $path = array(
-    'source' => 'client/register',
-    'alias' => 'freetrial',
-  );
-  path_save($path);
+  // $path = array(
+  //   'source' => 'client/register',
+  //   'alias' => 'freetrial',
+  // );
+  // path_save($path);
 
   // Change block path view settings
   features_revert(array('ft_blocks' => array('fe_block_boxes')));
