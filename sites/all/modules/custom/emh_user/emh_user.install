@@ -70,3 +70,15 @@ function emh_user_update_7006() {
     ->fields(array('region' => 'navigation', 'weight' => '-45'))
     ->execute();
 }
+
+/**
+* Revert user rules.
+*/
+function emh_user_update_7007() {
+  if ($rules_config = rules_config_load('rules_emh_user_client_registration_add_role')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('rules_emh_user_expert_registration_add_role')) {
+    $rules_config->delete();
+  }
+}
