@@ -102,7 +102,7 @@ function emindhub_preprocess_block(&$variables) {
       $classes[] = 'emh-block-grey';
       break;
 
-    // HP - Create a survey
+    // HP - Create a mission
     case 'block-16':
       $classes[] = 'col-xs-12 col-md-4';
       $classes[] = 'emh-block-grey';
@@ -240,7 +240,7 @@ function emindhub_preprocess_block(&$variables) {
 
     // Tabs submenu
     case 'emh_submenu-submenu':
-    case 'emh_survey-survey_add_submenu':
+    case 'emh_mission-mission_add_submenu':
       $classes[] = 'emh-block-light';
       break;
 

@@ -58,7 +58,7 @@ function emh_request_preprocess_page(&$variables) {
         drupal_set_message(t('You cannot edit a question with one or more answers.'), 'warning');
         break;
       case 'webform':
-        drupal_set_message(t('You cannot edit a survey with one or more answers.'), 'warning');
+        drupal_set_message(t('You cannot edit a mission with one or more answers.'), 'warning');
         break;
       case 'challenge':
         drupal_set_message(t('You cannot edit a challenge with one or more answers.'), 'warning');

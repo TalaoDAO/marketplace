@@ -932,14 +932,14 @@ function ft_views_views_default_views() {
   $view->description = '';
   $view->tag = 'emh, answers';
   $view->base_table = 'webform_submissions';
-  $view->human_name = 'My answers - Surveys';
+  $view->human_name = 'My answers - Missions';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Surveys';
+  $handler->display->display_options['title'] = 'Missions';
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'none';
@@ -1090,7 +1090,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['label'] = 'Empty';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = 'You have not yet answered any survey.';
+  $handler->display->display_options['empty']['area']['content'] = 'You have not yet answered any mission.';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
   /* Relationship: Webform submissions: User */
   $handler->display->display_options['relationships']['uid']['id'] = 'uid';
@@ -1203,7 +1203,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['label'] = 'Empty';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = 'You have not yet submitted any survey.';
+  $handler->display->display_options['empty']['area']['content'] = 'You have not yet submitted any mission.';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
@@ -1242,7 +1242,7 @@ function ft_views_views_default_views() {
     8 => 0,
     9 => 0,
   );
-  $handler->display->display_options['block_description'] = 'My answers - Surveys - Business';
+  $handler->display->display_options['block_description'] = 'My answers - Missions - Business';
 
   /* Display: B - Expert */
   $handler = $view->new_display('block', 'B - Expert', 'block_expert');
@@ -1344,7 +1344,7 @@ function ft_views_views_default_views() {
     2 => array(),
     3 => array(),
   );
-  $handler->display->display_options['block_description'] = 'My answers - Surveys - Experts';
+  $handler->display->display_options['block_description'] = 'My answers - Missions - Experts';
   $export['my_responses_calls3'] = $view;
 
   $view = new view();

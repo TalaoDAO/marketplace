@@ -28,10 +28,10 @@ Feature: Create permissions for Référents
     When I go to "node/add"
     Then I should not see "Question" in the "content" region
 
-  Scenario: A référent cannot create a survey
+  Scenario: A référent cannot create a mission
     Given I am logged in as "référent1"
     When I go to "node/add"
-    Then I should not see "Survey" in the "content" region
+    Then I should not see "Mission" in the "content" region
 
   Scenario: A référent cannot create a challenge
     Given I am logged in as "référent1"

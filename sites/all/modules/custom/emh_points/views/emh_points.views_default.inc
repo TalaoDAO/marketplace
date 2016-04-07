@@ -1023,7 +1023,7 @@ function emh_points_views_default_views_alter(&$views) {
     $view->description = '';
     $view->tag = 'webform';
     $view->base_table = 'webform_submissions';
-    $view->human_name = 'Survey answers';
+    $view->human_name = 'Mission answers';
     $view->core = 7;
     $view->api_version = '3.0';
     $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -1098,7 +1098,7 @@ function emh_points_views_default_views_alter(&$views) {
     $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
     $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
     $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
-    $handler->display->display_options['empty']['area_text_custom']['content'] = 'There are no answers for this survey.';
+    $handler->display->display_options['empty']['area_text_custom']['content'] = 'There are no answers for this mission.';
     $handler->display->display_options['empty']['area_text_custom']['tokenize'] = TRUE;
     /* Relationship: Webform submissions: User */
     $handler->display->display_options['relationships']['uid']['id'] = 'uid';

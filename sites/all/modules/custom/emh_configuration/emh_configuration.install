@@ -302,3 +302,12 @@ function emh_configuration_update_7016() {
 function emh_configuration_update_7017() {
   variable_set('site_mail', 'contact@emindhub.com');
 }
+
+/**
+ * Replace emh_survey for emh_mission.
+ */
+function emh_configuration_update_7018() {
+  module_disable(array('emh_survey'));
+  drupal_uninstall_modules(array('emh_survey'));
+  module_enable(array('emh_mission'));
+}
