@@ -10981,26 +10981,26 @@ fieldset[disabled] .btn-popin.focus {
 }
 .btn-expert {
   color: #ffffff;
-  background-color: #e39000;
-  border-color: #9e6400;
+  background-color: #d59019;
+  border-color: #976612;
 }
 .btn-expert:focus,
 .btn-expert.focus {
   color: #ffffff;
-  background-color: #b07000;
-  border-color: #1f1300;
+  background-color: #a77114;
+  border-color: #251904;
 }
 .btn-expert:hover {
   color: #ffffff;
-  background-color: #b07000;
-  border-color: #613e00;
+  background-color: #a77114;
+  border-color: #61410b;
 }
 .btn-expert:active,
 .btn-expert.active,
 .open > .dropdown-toggle.btn-expert {
   color: #ffffff;
-  background-color: #b07000;
-  border-color: #613e00;
+  background-color: #a77114;
+  border-color: #61410b;
 }
 .btn-expert:active:hover,
 .btn-expert.active:hover,
@@ -11012,8 +11012,8 @@ fieldset[disabled] .btn-popin.focus {
 .btn-expert.active.focus,
 .open > .dropdown-toggle.btn-expert.focus {
   color: #ffffff;
-  background-color: #8c5900;
-  border-color: #1f1300;
+  background-color: #875c10;
+  border-color: #251904;
 }
 .btn-expert:active,
 .btn-expert.active,
@@ -11029,11 +11029,11 @@ fieldset[disabled] .btn-expert:focus,
 .btn-expert.disabled.focus,
 .btn-expert[disabled].focus,
 fieldset[disabled] .btn-expert.focus {
-  background-color: #e39000;
-  border-color: #9e6400;
+  background-color: #d59019;
+  border-color: #976612;
 }
 .btn-expert .badge {
-  color: #e39000;
+  color: #d59019;
   background-color: #ffffff;
 }
 .btn-client {
@@ -11553,7 +11553,7 @@ fieldset[disabled] .btn-gray.focus {
 }
 .emh-block-gold {
   color: #fff;
-  background-color: #e39000;
+  background-color: #d59019;
 }
 .emh-block-gold a {
   color: inherit;
@@ -14950,7 +14950,7 @@ table th[class*="col-"] {
   background-color: #009fe3;
 }
 #block-block-9 h3 {
-  background-color: #e39000;
+  background-color: #d59019;
 }
 /* HOMEPAGE
  * You are
@@ -14979,7 +14979,7 @@ table th[class*="col-"] {
   }
 }
 #block-block-11 a {
-  color: #e39000;
+  color: #d59019;
 }
 /* HOMEPAGE
  * Why?
@@ -15154,11 +15154,11 @@ table th[class*="col-"] {
   }
 }
 #block-block-12 .block-title .title-first {
-  background: #e39000 url("../images/picto/picto_people_yellow.png") no-repeat right center;
+  background: #d59019 url("../images/picto/picto_people_yellow.png") no-repeat right center;
   background-size: contain;
 }
 #block-block-12 .content > a > h3 {
-  color: #e39000;
+  color: #d59019;
 }
 @media (min-width: 992px) {
   #block-block-12 {
@@ -15934,26 +15934,26 @@ body.role-expert #block-roleswitcher-switcher a .badge {
 }
 body.role-business #block-roleswitcher-switcher a {
   color: #ffffff;
-  background-color: #e39000;
-  border-color: #9e6400;
+  background-color: #d59019;
+  border-color: #976612;
 }
 body.role-business #block-roleswitcher-switcher a:focus,
 body.role-business #block-roleswitcher-switcher a.focus {
   color: #ffffff;
-  background-color: #b07000;
-  border-color: #1f1300;
+  background-color: #a77114;
+  border-color: #251904;
 }
 body.role-business #block-roleswitcher-switcher a:hover {
   color: #ffffff;
-  background-color: #b07000;
-  border-color: #613e00;
+  background-color: #a77114;
+  border-color: #61410b;
 }
 body.role-business #block-roleswitcher-switcher a:active,
 body.role-business #block-roleswitcher-switcher a.active,
 .open > .dropdown-togglebody.role-business #block-roleswitcher-switcher a {
   color: #ffffff;
-  background-color: #b07000;
-  border-color: #613e00;
+  background-color: #a77114;
+  border-color: #61410b;
 }
 body.role-business #block-roleswitcher-switcher a:active:hover,
 body.role-business #block-roleswitcher-switcher a.active:hover,
@@ -15965,8 +15965,8 @@ body.role-business #block-roleswitcher-switcher a:active.focus,
 body.role-business #block-roleswitcher-switcher a.active.focus,
 .open > .dropdown-togglebody.role-business #block-roleswitcher-switcher a.focus {
   color: #ffffff;
-  background-color: #8c5900;
-  border-color: #1f1300;
+  background-color: #875c10;
+  border-color: #251904;
 }
 body.role-business #block-roleswitcher-switcher a:active,
 body.role-business #block-roleswitcher-switcher a.active,
@@ -15982,11 +15982,11 @@ fieldset[disabled] body.role-business #block-roleswitcher-switcher a:focus,
 body.role-business #block-roleswitcher-switcher a.disabled.focus,
 body.role-business #block-roleswitcher-switcher a[disabled].focus,
 fieldset[disabled] body.role-business #block-roleswitcher-switcher a.focus {
-  background-color: #e39000;
-  border-color: #9e6400;
+  background-color: #d59019;
+  border-color: #976612;
 }
 body.role-business #block-roleswitcher-switcher a .badge {
-  color: #e39000;
+  color: #d59019;
   background-color: #ffffff;
 }
 body.role-roleswitcher #block-menu-menu-top {
