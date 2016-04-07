@@ -60,10 +60,10 @@ $threshold = variable_get('emh_points_webform_threshold', '1000');
     <?php //print $content ?>
 
     <?php if (user_access('create webform content')) : ?>
-    <?php echo sprintf(t('%sMission%sCreate a mission to %sidentify best experts%s profiles for a specific task or mission%s %s points%sCreate a mission%s'), '<div class="type-info"><h3>', '</h3><span class="mobilize-info">', '<strong>', '</strong>', '<br><span class="badge">', $threshold, '</span></span><a class="btn btn-client" href="' . url("node/add/webform") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a></div>'); ?>
+    <?php echo sprintf(t('%sMission%sPost a mission statement and %sidentify best experts%s profiles through a questionnaire%s %s points%sCreate a mission%s'), '<div class="type-info"><h3>', '</h3><span class="mobilize-info">', '<strong>', '</strong>', '<br><span class="badge">', $threshold, '</span></span><a class="btn btn-client" href="' . url("node/add/webform") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a></div>'); ?>
 
     <?php else : ?>
-    <?php echo sprintf(t('%sMission%sAnswer missions and promote your skills to %sget a mission%s%sMore missions%s'), '<div class="type-info"><h3>', '</h3><span class="mobilize-info">', '<strong>', '</strong>', '</span><a class="btn btn-expert" href="' . $safe_link . '">', '&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></div>'); ?>
+    <?php echo sprintf(t('%sMission%sAnswer short questionnaires to promote your skills and %sfind new missions%s%sMore missions%s'), '<div class="type-info"><h3>', '</h3><span class="mobilize-info">', '<strong>', '</strong>', '</span><a class="btn btn-expert" href="' . $safe_link . '">', '&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></div>'); ?>
 
     <?php endif; ?>
 
