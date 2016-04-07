@@ -50,8 +50,7 @@ function ft_blocks_default_fe_block_settings() {
     'node_types' => array(),
     'pages' => '<front>
 expert/register
-business/register
-freetrial',
+client/register',
     'roles' => array(
       'anonymous user' => 1,
     ),

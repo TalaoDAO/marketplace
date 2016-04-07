@@ -60,7 +60,7 @@ $threshold = variable_get('emh_points_question1_threshold', '1000');
     <?php //print $content ?>
 
     <?php if (user_access('create question1 content')) : ?>
-    <?php echo sprintf(t('%sQuestion%sAsk a question and get %smultiple answers%s from experts%s %s points%sCreate a question%s'), '<div class="type-info"><h3>', '</h3><span class="mobilize-info">', '<strong>', '</strong>', '<br><span class="badge">', $threshold, '</span></span><a class="btn btn-business" href="' . url("node/add/question1") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a></div>'); ?>
+    <?php echo sprintf(t('%sQuestion%sAsk a question and get %smultiple answers%s from experts%s %s points%sCreate a question%s'), '<div class="type-info"><h3>', '</h3><span class="mobilize-info">', '<strong>', '</strong>', '<br><span class="badge">', $threshold, '</span></span><a class="btn btn-client" href="' . url("node/add/question1") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a></div>'); ?>
       </span>
 
     <?php else : ?>

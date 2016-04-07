@@ -60,7 +60,7 @@ $threshold = variable_get('emh_points_challenge_threshold', '1000');
     <?php //print $content ?>
 
     <?php if (user_access('create challenge content')) : ?>
-    <?php echo sprintf(t('%sChallenge%sRequest for %sservice proposals%s to innovate or solve a problem%s %s points%sCreate a challenge%s'), '<div class="type-info"><h3>', '</h3><span class="mobilize-info">', '<strong>', '</strong>', '<br><span class="badge">', $threshold, '</span></span><a class="btn btn-business" href="' . url("node/add/challenge") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a></div>'); ?>
+    <?php echo sprintf(t('%sChallenge%sRequest for %sservice proposals%s to innovate or solve a problem%s %s points%sCreate a challenge%s'), '<div class="type-info"><h3>', '</h3><span class="mobilize-info">', '<strong>', '</strong>', '<br><span class="badge">', $threshold, '</span></span><a class="btn btn-client" href="' . url("node/add/challenge") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a></div>'); ?>
 
     <?php else : ?>
     <?php echo sprintf(t('%sChallenge%sAnswer requests for %sservice proposals%sMore challenges%s'), '<div class="type-info"><h3>', '</h3><span class="mobilize-info">', '<strong>', '</strong></span><a class="btn btn-expert" href="' . $safe_link . '">', '&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></div>'); ?>

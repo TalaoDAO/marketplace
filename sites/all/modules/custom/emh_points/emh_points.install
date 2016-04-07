@@ -387,8 +387,8 @@ function emh_points_update_7110() {
   $view = views_get_view('my_relationships');
   views_revert_view($view);
   $path = array(
-    'source' => 'my-relationships',
-    'alias' => 'circles/relationships',
+    'source' => 'circles/relationships',
+    'alias' => 'my-relationships',
   );
   path_save($path);
 }

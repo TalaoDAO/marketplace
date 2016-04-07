@@ -54,7 +54,7 @@
   <?php print render($title_suffix); ?>
 
   <div class="content">
-    <p><a class="btn btn-submit" href="<?php print url('freetrial'); ?>"><?php print t('Register as a client'); ?></a></p>
+    <p><a class="btn btn-submit" href="<?php print url('client/register'); ?>"><?php print t('Register as a client'); ?></a></p>
     <p><a class="btn btn-submit" href="<?php print url('expert/register'); ?>"><?php print t('Register as an expert'); ?></a></p>
     <p><?php print t('Create your account in 1 minute !'); ?></p>
   </div>

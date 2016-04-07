@@ -260,29 +260,42 @@ function emindhub_form_search_block_form_alter(&$form, &$form_state, $form_id) {
 
 }
 
-
 /**
  * Implements hook_form_alter().
  */
-function emindhub_form_user_register_form_alter(&$form, &$form_state, $form_id) {
-
+function emindhub_form_user_register_form_client_alter(&$form, &$form_state, $form_id) {
   $form['emh_baseline'] = array(
     '#markup' => '<p class="emh-title-baseline">' . sprintf(t('Create your account %sfor free in no time%s'), '<strong>', '</strong>') . '</p>',
     '#weight' => '-1000', // First !
   );
+  // $form['emh_content'] = array(
+  //   '#markup' => '<p class="emh-title-baseline">' . t('You can directly login with your LinkedIn account or complete the form below to create your account.') . '</p>',
+  //   '#weight' => '-999',
+  // );
+  // Add class before & after fields
+  $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_last_name']['#suffix'] = '</div>';
+	// Reduce email description for better Bootstrap display (tooltip)
+  $form['account']['mail']['#description'] = t('All e-mails from the system will be sent to this address. The e-mail address will only be used if you wish to receive a new password or certain news or notifications by e-mail.');
+}
 
+/**
+ * Implements hook_form_alter().
+ */
+function emindhub_form_user_register_form_expert_alter(&$form, &$form_state, $form_id) {
+  $form['emh_baseline'] = array(
+    '#markup' => '<p class="emh-title-baseline">' . sprintf(t('Create your account %sfor free in no time%s'), '<strong>', '</strong>') . '</p>',
+    '#weight' => '-1000', // First !
+  );
   $form['emh_content'] = array(
     '#markup' => '<p class="emh-title-baseline">' . t('You can directly login with your LinkedIn account or complete the form below to create your account.') . '</p>',
     '#weight' => '-999',
   );
-
   // Add class before & after fields
   $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_last_name']['#suffix'] = '</div>';
-
 	// Reduce email description for better Bootstrap display (tooltip)
   $form['account']['mail']['#description'] = t('All e-mails from the system will be sent to this address. The e-mail address will only be used if you wish to receive a new password or certain news or notifications by e-mail.');
-
 }
 
 /**

@@ -28,6 +28,15 @@ Feature: Test points
     | title        | field_domaine | og_group_ref | field_reward | author  |
     | What about?  | Energy        | Avengers     | 100          | client1 |
 
+    # Make client1 as a Creator member of Avengers circle
+    Given I am logged in as a user with the "administrator" role
+    When I go to "content/avengers"
+    And I click "Group"
+    And I click "People"
+    And I click "edit" in the "client1" row
+    And I check the box "Creator member"
+    And I press "Update membership"
+
     Given I am logged in as "expert1"
     When I go to homepage
     When I click "What about?" in the "What about?" row
@@ -47,7 +56,7 @@ Feature: Test points
     Then I should have 100 points on "What about?" node
 
     Given I am logged in as "client1"
-    When I go to "homepage"
+    When I go to homepage
     And I click "What about?" in the "What about?" row
     And I click "Edit" in the "primary tabs" region
     Then I should see "Cost"
@@ -85,12 +94,8 @@ Feature: Test points
     Then I should see "70" in the "I'm the best superhero in da world." row
     And I should see "30" in the "You should definitely trust me." row
 
-    When I go to "/my-answers"
-    Then I should see "70" in the "I'm the best superhero in da world." row
-    And I should see "30" in the "You should definitely trust me." row
-
     Given I am logged in as "expert1"
-    When I go to "/my-answers"
+    When I go to "/my-responses"
     Then I should see "70" in the "What about?" row
 
     Given I am logged in as a user with the "administrator" role
@@ -114,11 +119,11 @@ Feature: Test points
     And I should not see the link "Klark Kent"
 
     # And from My relathionships too
-    When I go to "/my-relationships"
+    When I go to "/circles/relationships"
     Then I should not see the link "Iron Man"
     And I should not see the link "Klark Kent"
 
-    When I go to "homepage"
+    When I go to homepage
     And I click "What about?" in the "What about?" row
     And I click "Answers" in the "primary tabs" region
     And I check the box "edit-views-bulk-operations-0"
@@ -144,7 +149,7 @@ Feature: Test points
     And I should see the link "Klark KENT"
 
     # And from My relathionships too
-    When I go to "/my-relationships"
+    When I go to "/circles/relationships"
     Then I should see the link "Iron Man"
     And I should see the link "Klark Kent"
 

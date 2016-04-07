@@ -76,7 +76,7 @@ function emindhub_preprocess_block(&$variables) {
       // $classes[] = 'col-md-2 col-xs-3'; // TODO
       break;
 
-    // Registration block : expert/business
+    // Registration block : expert/client
     case 'block-2':
       $classes[] = 'col-xs-6 col-md-12 emh-block-dark';
       break;
@@ -142,7 +142,7 @@ function emindhub_preprocess_block(&$variables) {
 
     // HP - Business - Question
     case 'block-15':
-      $content = '<a href="' . url('freetrial') . '">' . $content . '</a>';
+      $content = '<a href="' . url('client/register') . '">' . $content . '</a>';
       break;
 
     // HP - Expert - Question
@@ -154,7 +154,7 @@ function emindhub_preprocess_block(&$variables) {
     case 'block-18':
       $classes[] = 'emh-block-light';
       $classes[] = 'emh-block-dark-title';
-      $content = '<a href="' . url('freetrial') . '">' . $content . '</a>';
+      $content = '<a href="' . url('client/register') . '">' . $content . '</a>';
       break;
 
     // HP - Expert - You are
@@ -167,7 +167,7 @@ function emindhub_preprocess_block(&$variables) {
     // HP - Business - Get a free trial
     case 'block-13':
       $classes[] = 'emh-block-light';
-      $content = '<a href="' . url('freetrial') . '">' . $content . '</a>';
+      $content = '<a href="' . url('client/register') . '">' . $content . '</a>';
       break;
 
     // HP - Expert - Sign up for free

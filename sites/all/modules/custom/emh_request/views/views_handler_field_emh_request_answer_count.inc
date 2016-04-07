@@ -29,8 +29,7 @@ class views_handler_field_emh_request_answer_count extends views_handler_field {
       return 0;
     }
 
-    $node = node_load($nid);
-    return emh_request_count_answers($node);
+    return emh_request_count_answers($nid);
   }
 
   /**

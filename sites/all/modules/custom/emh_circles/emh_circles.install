@@ -111,3 +111,15 @@ function emh_circles_update_7003() {
     $rules_config->delete();
   }
 }
+
+/**
+* Revert circle rules.
+*/
+function emh_circles_update_7004() {
+  if ($rules_config = rules_config_load('rules_emh_circles_set_clients_as_creator_in_circles')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('rules_emh_circles_add_users_in_all_experts_circle')) {
+    $rules_config->delete();
+  }
+}

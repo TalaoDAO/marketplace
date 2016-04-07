@@ -61,7 +61,7 @@
         <a id="signUp" type="a" class="user-menu sign-up" data-placement="bottom" data-html="true" data-template='<div class="popover signUp" role="tooltip"><div class="arrow"></div><div class="popover-content signUpContent"></div></div>'><?php print t('Register'); ?></a>
         <div id="signUpContent" style="display: none;">
           <h4><?php echo sprintf(t('Sign-in %sin 1 minute%s and start!'), '<span class="light-blue-text">', '</span>'); ?></h4>
-          <a href="<?php print url("freetrial"); ?>" class="btn btn-submit signin"><?php print t('As a client'); ?></a>
+          <a href="<?php print url("client/register"); ?>" class="btn btn-submit signin"><?php print t('As a client'); ?></a>
           <a href="<?php print url("expert/register"); ?>" class="btn btn-submit signin"><?php print t('As an expert'); ?></a>
         </div>
       </li>

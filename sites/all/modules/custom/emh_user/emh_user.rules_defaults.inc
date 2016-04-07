@@ -12,7 +12,7 @@ function emh_user_default_rules_configuration() {
         "PLUGIN" : "reaction rule",
         "WEIGHT" : "1",
         "OWNER" : "rules",
-        "TAGS" : [ "EMH" ],
+        "TAGS" : [ "EMH", "user", "expert" ],
         "REQUIRES" : [ "rules", "php", "emh_points" ],
         "ON" : { "user_registrationpassword_activated" : [], "user_login" : [] },
         "IF" : [
@@ -35,7 +35,7 @@ function emh_user_default_rules_configuration() {
         "PLUGIN" : "reaction rule",
         "WEIGHT" : "2",
         "OWNER" : "rules",
-        "TAGS" : [ "EMH" ],
+        "TAGS" : [ "EMH", "user", "expert" ],
         "REQUIRES" : [ "rules", "pcp", "php" ],
         "ON" : { "user_login" : [] },
         "IF" : [
@@ -61,7 +61,7 @@ function emh_user_default_rules_configuration() {
         "WEIGHT" : "2",
         "ACTIVE" : false,
         "OWNER" : "rules",
-        "TAGS" : [ "EMH" ],
+        "TAGS" : [ "EMH", "user", "client" ],
         "REQUIRES" : [ "rules", "pcp", "php" ],
         "ON" : { "user_login" : [] },
         "IF" : [
@@ -86,7 +86,7 @@ function emh_user_default_rules_configuration() {
     "PLUGIN" : "reaction rule",
     "WEIGHT" : "-10",
     "OWNER" : "rules",
-    "TAGS" : [ "EMH" ],
+    "TAGS" : [ "EMH", "user" ],
     "REQUIRES" : [ "rules", "user_registrationpassword", "hybridauth" ],
     "ON" : {
       "user_registrationpassword_activated" : [],
@@ -110,10 +110,46 @@ function emh_user_default_rules_configuration() {
     "PLUGIN" : "reaction rule",
     "WEIGHT" : "-10",
     "OWNER" : "rules",
-    "TAGS" : [ "EMH" ],
+    "TAGS" : [ "EMH", "user" ],
     "REQUIRES" : [ "rules" ],
     "ON" : { "user_logout" : [] },
     "DO" : [ { "redirect" : { "url" : "\u003Cfront\u003E" } } ]
+  }
+  }
+  ');
+
+  $rules['rules_emh_user_client_registration_add_role'] = entity_import('rules_config', '
+    { "rules_emh_user_client_registration_add_role" : {
+    "LABEL" : "Registration - Add role to client",
+    "PLUGIN" : "reaction rule",
+    "OWNER" : "rules",
+    "TAGS" : [ "EMH", "user", "client" ],
+    "REQUIRES" : [ "rules" ],
+    "ON" : { "user_insert" : [] },
+    "IF" : [
+      { "data_is" : { "data" : [ "site:current-page:url" ], "value" : "client\/register" } }
+    ],
+    "DO" : [
+      { "user_add_role" : { "account" : [ "account" ], "roles" : { "value" : { "5" : "5" } } } }
+    ]
+  }
+  }
+  ');
+
+  $rules['rules_emh_user_expert_registration_add_role'] = entity_import('rules_config', '
+    { "rules_emh_user_expert_registration_add_role" : {
+    "LABEL" : "Registration - Add role to expert",
+    "PLUGIN" : "reaction rule",
+    "OWNER" : "rules",
+    "TAGS" : [ "EMH", "user", "expert" ],
+    "REQUIRES" : [ "rules" ],
+    "ON" : { "user_insert" : [] },
+    "IF" : [
+      { "data_is" : { "data" : [ "site:current-page:url" ], "value" : "expert\/register" } }
+    ],
+    "DO" : [
+      { "user_add_role" : { "account" : [ "account" ], "roles" : { "value" : { "4" : "4" } } } }
+    ]
   }
   }
   ');

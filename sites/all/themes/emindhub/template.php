@@ -1,9 +1,5 @@
 <?php
 
-
-//require_once('templates/PHPDebug.php');
-require_once('templates/includes/string_list.php');
-
 require_once('theme/alter.inc');
 require_once('theme/blocks.func.php');
 require_once('theme/common.inc');
@@ -25,7 +21,7 @@ function emindhub_file($variables) {
 	element_set_attributes($element, array('id', 'name', 'size'));
 	_form_set_class($element, array('form-file'));
 
-	return sprintf('<input type="text" disabled data-fileinputtext="%s" class="file-return"><div class="file-upload"><span>%s</span><input' . drupal_attributes($element['#attributes']) . ' /></div>', $element['#id'], c_szChooseFile);
+	return sprintf('<input type="text" disabled data-fileinputtext="%s" class="file-return"><div class="file-upload"><span>%s</span><input' . drupal_attributes($element['#attributes']) . ' /></div>', $element['#id'], t('Choose a file'));
 }
 
 
