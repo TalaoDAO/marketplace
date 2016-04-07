@@ -9,6 +9,7 @@
  */
 function emh_mission_enable() {
   emh_mission_update_7001();
+  emh_mission_update_7002();
 }
 
 /**
