@@ -974,3 +974,26 @@ body.admin-menu {
 		.make-md-column(5);
 	}
 }
+
+// HybridAuth block
+#block-hybridauth-hybridauth {
+	.hybridauth-widget-wrapper {
+		.make-row();
+		margin: 0 !important;
+
+		background-color: @gray-lighter;
+		> * {
+			padding-top: 15px;
+			padding-bottom: 15px;
+		}
+		h3 {
+			.make-md-column(3);
+			margin: 0;
+			line-height: 32px;
+		}
+		.hybridauth-widget {
+			.make-md-column(9);
+			margin: 0;
+		}
+	}
+}
