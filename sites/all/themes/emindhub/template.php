@@ -412,7 +412,7 @@ function emindhub_beautiful_baseline() {
         $baseline = t('Ask a question online and get multiple answers from experts');
         break;
       case 'webform':
-        $baseline = t('Create a survey to identify best experts profiles for a specific task or mission');
+        $baseline = t('Post a mission statement and identify best experts profiles through a questionnaire');
         break;
       case 'challenge':
         $baseline = t('Request for service proposals to innovate or solve a problem');
