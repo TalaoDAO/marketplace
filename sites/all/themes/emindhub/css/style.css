@@ -15618,23 +15618,17 @@ table th[class*="col-"] {
   }
 }
 @media (min-width: 992px) {
-  .view-display-id-block_1 form #edit-status-wrapper,
   .view-display-id-page_2 form #edit-status-wrapper,
-  .view-display-id-block_1 form #edit-status-1-wrapper,
   .view-display-id-page_2 form #edit-status-1-wrapper {
     margin-left: 33.33333333%;
   }
 }
 @media (min-width: 992px) {
-  .view-display-id-block_1 form #edit-status-wrapper,
   .view-display-id-page_2 form #edit-status-wrapper,
-  .view-display-id-block_1 form #edit-status-1-wrapper,
   .view-display-id-page_2 form #edit-status-1-wrapper,
-  .view-display-id-block_1 form #edit-total-points-wrapper,
   .view-display-id-page_2 form #edit-total-points-wrapper {
     margin-top: 10px;
   }
-  .view-display-id-block_1 form .views-exposed-form .views-exposed-widgets > .views-submit-button,
   .view-display-id-page_2 form .views-exposed-form .views-exposed-widgets > .views-submit-button {
     margin-top: 34px;
   }
