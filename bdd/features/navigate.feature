@@ -6,6 +6,7 @@ Feature: Navigation
     Given I am on the homepage
     Then I should see "eMindHub"
 
+  @exclude
   Scenario: Log in
     Given I visit "/user"
     # fill the username and password input fields, and click submit
