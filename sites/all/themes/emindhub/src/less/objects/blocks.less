@@ -746,7 +746,7 @@
 	}
 }
 
-.view-display-id-block_1, // B - My requests
+// .view-display-id-block_1, // B - My requests
 .view-display-id-page_2 { // P - My requests
 	// Filtres de seconde ligne
 	form {
@@ -972,5 +972,28 @@ body.role-roleswitcher {
 body.admin-menu {
 	#block-system-user-menu {
 		.make-md-column(5);
+	}
+}
+
+// HybridAuth block
+#block-hybridauth-hybridauth {
+	.hybridauth-widget-wrapper {
+		.make-row();
+		margin: 0 !important;
+
+		background-color: @gray-lighter;
+		> * {
+			padding-top: 15px;
+			padding-bottom: 15px;
+		}
+		h3 {
+			.make-md-column(3);
+			margin: 0;
+			line-height: 32px;
+		}
+		.hybridauth-widget {
+			.make-md-column(9);
+			margin: 0;
+		}
 	}
 }
