@@ -311,3 +311,21 @@ function emh_configuration_update_7018() {
   drupal_uninstall_modules(array('emh_survey'));
   module_enable(array('emh_mission'));
 }
+
+/**
+* Update HybridAuth block.
+*/
+function emh_configuration_update_7019() {
+  db_update('block')
+    ->fields(array(
+      'title' => '<none>',
+      'status' => '1',
+      'visibility' => '1',
+      'region' => 'content',
+      'pages' => "expert/register",
+      'weight' => '-35',
+    ))
+    ->condition('module', 'hybridauth')
+    ->condition('delta', 'hybridauth')
+  ->execute();
+}
