@@ -51,6 +51,7 @@ function emh_user_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
   $form['account']['name']['#access'] = FALSE;
 
+  unset($form['account']['roles']);
   unset($form['account']['current_pass']);
   unset($form['account']['current_pass_required_values']);
   $form['#validate'] = array_diff($form['#validate'], array('user_validate_current_pass'));
