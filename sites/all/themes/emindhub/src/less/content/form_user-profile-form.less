@@ -1,85 +1,108 @@
 /* FORMS
- * Register
+ * Profile
  */
-#user-register-form-client,
-#user-register-form-expert {
-  .group-organisation {
-    margin-bottom: 0;
-    clear: both;
-  }
-  .form-item-legal-terms-of-use {
-    padding: 15px;
-    margin-bottom: 0;
-  }
-  #edit-submit {
-    .btn-primary !important;
-  }
-  .hybridauth-widget-wrapper {
-    .make-row();
-    margin: 0 !important;
+form#user-profile-form {
 
-    background-color: @gray-lighter;
-    > * {
-      padding-top: 15px;
-      padding-bottom: 15px;
-    }
-    h3 {
-      .make-md-column(3);
-      margin: 0;
-    }
-    .hybridauth-widget {
-      .make-md-column(9);
-    }
+  .link-field-subrow {
+    .form-group-2col;
   }
-}
 
-.form-type-password-confirm {
-  .help-tip {
-    .text-hide;
-    .hidden();
+  .imagefield-crop-widget {
+    /* Zen - max-width: 100% for img tags in normalize.css messes up ImageField Crop's
+     * preview and cropbox - we have to set max-width to none to fix it
+     * per https://drupal.org/node/1779494
+     */
+    img {
+      max-width:none;
+    }
+    .imagefield-crop-preview,
+    .imagefield-crop-cropbox {
+      float: left;
+      margin-right: 15px;
+    }
+    .jcrop-preview-wrapper {
+      .img-circle;
+      .center-block;
+    }
+    .file,
+    .file-upload > span {
+      .hidden();
+    }
+    .jcrop-holder {
+      background-color: transparent ! important;
+    }
   }
-}
 
-@media (max-width: @screen-md-min) {
-  .form-type-password-confirm {
-    margin: 0;
-  }
-  input.password-confirm,
-  input.password-field {
-    width: 100%;
-  }
-}
-@media (min-width: @screen-md-min) {
-  .form-type-password-confirm .row {
-    > .form-group {
-      &.password-parent {
-        padding-right: 7.5px;
+  #edit-field-skills-set {
+    @media (min-width: @screen-md-min) {
+      tbody td:nth-child(2) {
+        .make-row();
+        .field-name-field-skill2 {
+          .make-md-column(4);
+          padding-right: 0;
+          .form-item-inline-4-8;
+        }
+        .field-name-field-skill-autoeval {
+          .make-md-column(4);
+          padding-right: 0;
+          .form-item-inline-4-8;
+        }
+        .field-name-field-year-of-experiences {
+          .make-md-column(3);
+          padding: 0;
+          .form-item-inline-9-3;
+        }
       }
-      &.confirm-parent {
-        padding-left: 7.5px;
+      button.form-submit,
+      input.field-add-more-submit {
+        float: right;
+        margin: 0;
       }
     }
   }
-  .confirm-parent,
-  .password-parent {
-    width: auto;
-  }
-  input.password-confirm,
-  input.password-field {
-    width: 350px;
-    max-width: 100%;
-  }
-}
 
-// body.lang-fr {
-//   #user-register-form {
-//     .hybridauth-widget-wrapper {
-//       h3 {
-//         .text-hide;
-//         :before {
-//           content: "Ou connectez-vous avec LinkedIn...";
-//         }
-//       }
-//     }
-//   }
-// }
+  #edit-field-position-list {
+    @media (min-width: @screen-md-min) {
+      tbody td:nth-child(2) {
+        .make-row();
+        .field-name-field-position {
+          .make-md-column(4);
+          padding-right: 0;
+          .form-item-inline-4-8;
+        }
+        .field-name-field-entreprise {
+          .make-md-column(4);
+          padding-right: 0;
+          .form-item-inline-4-8;
+        }
+        .field-name-field-year-of-experiences {
+          .make-md-column(3);
+          padding: 0;
+          .form-item-inline-9-3;
+        }
+      }
+      button.form-submit,
+      input.field-add-more-submit {
+        float: right;
+        margin: 0;
+      }
+    }
+  }
+
+  #edit-field-known-specific {
+    @media (min-width: @screen-md-min) {
+      clear: both;
+      margin-left: 50%;
+      padding-left: 15px/2;
+    }
+  }
+
+  // Years of experience
+	.field-name-field-year-of-experiences {
+		.form-control {
+			.text-center;
+			max-width: 50px;
+		}
+	}
+
+}
