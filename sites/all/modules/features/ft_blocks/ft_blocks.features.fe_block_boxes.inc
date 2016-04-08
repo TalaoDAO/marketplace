@@ -145,7 +145,7 @@ function ft_blocks_default_fe_block_boxes() {
   $export['hp_request'] = $fe_block_boxes;
 
   $fe_block_boxes = new stdClass();
-  $fe_block_boxes->info = 'HP - Create a survey';
+  $fe_block_boxes->info = 'HP - Create a mission';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'hp_survey';
   $fe_block_boxes->body = '<p>Contenu géré dans le template.</p>

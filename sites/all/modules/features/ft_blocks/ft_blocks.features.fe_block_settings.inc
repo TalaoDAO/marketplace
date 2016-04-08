@@ -634,7 +634,7 @@ client/register',
         'weight' => -100,
       ),
     ),
-    'title' => 'Help_surveys',
+    'title' => 'Help_missions',
     'visibility' => 1,
   );
 

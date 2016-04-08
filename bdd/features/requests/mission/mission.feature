@@ -1,10 +1,10 @@
 @api @watchdog
-Feature: Survey
-  In order to test Survey creation
+Feature: Mission
+  In order to test Mission creation
   As a Client and an Expert
-  I want to create a Survey, and watch answers
+  I want to create a Mission, and watch answers
 
-  Background: Create survey
+  Background: Create mission
 
     Given "circle" content:
     | title    | author  |
@@ -35,7 +35,7 @@ Feature: Survey
     And I check the box "Creator member"
     And I press "Update membership"
 
-    # A client publish a survey.
+    # A client publish a mission.
     Given I am logged in as "client1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
@@ -46,9 +46,9 @@ Feature: Survey
     And I press "Save your question"
     And I click "General infos" in the "secondary tabs" region
     And I press "Publish"
-    Then I should see the success message "Survey What about? has been published."
+    Then I should see the success message "Mission What about? has been published."
 
-  Scenario: An author can see its own survey
+  Scenario: An author can see its own mission
     Given I am logged in as "client1"
     When I go to homepage
     Then I should see "Avengers" in the "What about?" row
@@ -58,18 +58,18 @@ Feature: Survey
     And I should see "1000" in the "What about?" row
     And I should see "Avengers" in the "What about?" row
 
-  Scenario: An author can edit its own survey
+  Scenario: An author can edit its own mission
     Given I am logged in as "client1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
     And I click "Edit" in the "primary tabs" region
-    Then I should see "Edit Survey What about?" in the "title" region
+    Then I should see "Edit Mission What about?" in the "title" region
 
-    Given I enter "This is my survey." for "Description"
+    Given I enter "This is my mission." for "Description"
     And I press "Save"
-    Then I should see the success message "Survey What about? has been updated."
+    Then I should see the success message "Mission What about? has been updated."
 
-  Scenario: An author cannot delete its own survey
+  Scenario: An author cannot delete its own mission
     Given I am logged in as "client1"
     When I go to homepage
     And I click "What about?" in the "What about?" row

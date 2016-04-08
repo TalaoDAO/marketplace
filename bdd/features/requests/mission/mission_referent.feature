@@ -1,10 +1,10 @@
 @api @watchdog
-Feature: Survey and answers for Référent
-  In order to test Survey CRUD and answers privacy
+Feature: Mission and answers for Référent
+  In order to test Mission CRUD and answers privacy
   As a Référent
-  I want to manage a Survey, and watch answers
+  I want to manage a Mission, and watch answers
 
-  Background: Create survey
+  Background: Create mission
 
     Given "circle" content:
     | title    | author  |
@@ -51,7 +51,7 @@ Feature: Survey and answers for Référent
     And I check the box "Creator member"
     And I press "Update membership"
 
-    # A client publish a survey.
+    # A client publish a mission.
     Given I am logged in as "client1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
@@ -62,9 +62,9 @@ Feature: Survey and answers for Référent
     And I press "Save your question"
     And I click "General infos" in the "secondary tabs" region
     And I press "Publish"
-    Then I should see the success message "Survey What about? has been published."
+    Then I should see the success message "Mission What about? has been published."
 
-    # An expert responds to the survey.
+    # An expert responds to the mission.
     Given I am logged in as "expert1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
@@ -78,7 +78,7 @@ Feature: Survey and answers for Référent
     And I press "Publish my answer"
     Then I should see "Thank you, your answer has been sent."
 
-    # Another expert responds to the survey.
+    # Another expert responds to the mission.
     Given I am logged in as "expert2"
     When I go to homepage
     And I click "What about?" in the "What about?" row
@@ -92,30 +92,30 @@ Feature: Survey and answers for Référent
     And I press "Publish my answer"
     Then I should see "Thank you, your answer has been sent."
 
-  Scenario: A référent can see the survey
+  Scenario: A référent can see the mission
     Given I am logged in as "référent1"
     When I go to homepage
     Then I should see "What about?" in the "What about?" row
 
-  Scenario: A référent can edit a survey
+  Scenario: A référent can edit a mission
     Given I am logged in as "référent1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
     And I click "Edit" in the "primary tabs" region
-    Then I should see "Edit Survey What about?" in the "title" region
+    Then I should see "Edit Mission What about?" in the "title" region
 
-    Given I enter "This is your survey." for "Description"
+    Given I enter "This is your mission." for "Description"
     And I press "Save"
-    Then I should see the success message "Survey What about? has been updated."
+    Then I should see the success message "Mission What about? has been updated."
 
-  Scenario: A référent cannot delete a survey
+  Scenario: A référent cannot delete a mission
     Given I am logged in as "référent1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
     And I click "Edit" in the "primary tabs" region
     Then I should not see "Delete" in the "actions" region
 
-  Scenario: A référent cannot respond to a survey
+  Scenario: A référent cannot respond to a mission
     Given I am logged in as "référent1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
