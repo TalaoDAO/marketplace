@@ -329,3 +329,10 @@ function emh_configuration_update_7019() {
     ->condition('delta', 'hybridauth')
   ->execute();
 }
+
+/**
+* Revert views.
+*/
+function emh_configuration_update_7020() {
+  features_revert(array('ft_views' => array('views_view')));
+}
