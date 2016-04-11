@@ -54,7 +54,7 @@ function emh_points_custom_form_emh_points_admin_form_alter(&$form, &$form_state
   );
   $form['emh_points_webform_threshold'] = array(
     '#type' => 'textfield',
-    '#title' => t('Points threshold for Survey'),
+    '#title' => t('Points threshold for Mission'),
     '#default_value' => variable_get('emh_points_webform_threshold', '500'),
     '#element_validate' => array('element_validate_integer_positive'),
   );

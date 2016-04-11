@@ -44,6 +44,9 @@
  *
  * @ingroup themeable
  */
+global $base_url;
+$safe_link = rawurldecode($base_url . '/requests/all?type[question1]=question1');
+$threshold = variable_get('emh_points_question1_threshold', '1000');
 ?>
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
@@ -57,16 +60,12 @@
     <?php //print $content ?>
 
     <?php if (user_access('create question1 content')) : ?>
-    <a href="<?php print url("node/add/question1"); ?>">
-      <?php echo sprintf(t('%sQuestion%sAsk a question online and get multiple answers from experts%sAsk a question%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
+    <?php echo sprintf(t('%sQuestion%sAsk a question and get %smultiple answers%s from experts%s %s points%sCreate a question%s'), '<div class="type-info"><h3>', '</h3><span class="mobilize-info">', '<strong>', '</strong>', '<br><span class="badge">', $threshold, '</span></span><a class="btn btn-client" href="' . url("node/add/question1") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a></div>'); ?>
       </span>
-    </a>
 
     <?php else : ?>
-    <?php global $base_url; $safe_link = rawurldecode($base_url . '/requests/all?type[question1]=question1'); ?>
-    <a href="<?php print $safe_link; ?>">
-      <?php echo sprintf(t('%sQuestion%sAnswer questions and provide clients with ideas, advices, feedbacks, etc.%sSee more questions%s'), '<span class="mobilize-type">', '</span><span class="mobilize-info">', '</span><span class="mobilize-call">', '</span>'); ?>
-    </a>
+    <?php echo sprintf(t('%sQuestion%sAnswer questions and %sprovide clients%s with ideas, advices, feedbacks, etc.%sMore questions%s'), '<div class="type-info"><h3>', '</h3><span class="mobilize-info">', '<strong>', '</strong>', '</span><a class="btn btn-expert" href="' . $safe_link . '">', '&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></div>'); ?>
+
     <?php endif; ?>
 
   </span>

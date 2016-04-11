@@ -50,8 +50,7 @@ function ft_blocks_default_fe_block_settings() {
     'node_types' => array(),
     'pages' => '<front>
 expert/register
-business/register
-freetrial',
+client/register',
     'roles' => array(
       'anonymous user' => 1,
     ),
@@ -539,10 +538,10 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'footer',
+        'region' => 'navigation',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -43,
+        'weight' => -44,
       ),
       'seven' => array(
         'region' => '',
@@ -635,7 +634,7 @@ freetrial',
         'weight' => -100,
       ),
     ),
-    'title' => 'Help_surveys',
+    'title' => 'Help_missions',
     'visibility' => 1,
   );
 
@@ -740,7 +739,7 @@ freetrial',
         'region' => 'navigation',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => 0,
+        'weight' => -47,
       ),
       'seven' => array(
         'region' => '',
@@ -770,7 +769,7 @@ freetrial',
         'region' => 'navigation',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => 0,
+        'weight' => -48,
       ),
       'seven' => array(
         'region' => '',
@@ -972,10 +971,10 @@ freetrial',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'topmenu',
+        'region' => 'navigation',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -40,
+        'weight' => -46,
       ),
       'seven' => array(
         'region' => '',
@@ -1005,7 +1004,7 @@ freetrial',
         'region' => 'topmenu',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -39,
+        'weight' => -46,
       ),
       'seven' => array(
         'region' => 'content',

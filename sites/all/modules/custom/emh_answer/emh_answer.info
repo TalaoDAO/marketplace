@@ -1,0 +1,5 @@
+name = EMH Answer
+description = Global functions for all answers : comment, webform submission.
+package = EMH
+dependencies[] = comment
+core = 7.x

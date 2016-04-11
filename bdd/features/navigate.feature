@@ -6,6 +6,7 @@ Feature: Navigation
     Given I am on the homepage
     Then I should see "eMindHub"
 
+  @exclude
   Scenario: Log in
     Given I visit "/user"
     # fill the username and password input fields, and click submit
@@ -18,6 +19,6 @@ Feature: Navigation
   Scenario: test ask menus
     Given I am logged in as a user with the "business" role
     When I go to homepage
-    Then I should see "Ask a question" in the "top" region
-    And I should see "Start a challenge" in the "top" region
-    And I should see "Create a survey" in the "top" region
+    Then I should see "Create a question" in the "top" region
+    And I should see "Create a challenge" in the "top" region
+    And I should see "Create a mission" in the "top" region

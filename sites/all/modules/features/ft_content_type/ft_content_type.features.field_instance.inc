@@ -2301,7 +2301,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 6,
+        'weight' => 5,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2381,7 +2381,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 9,
+        'weight' => 8,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2462,6 +2462,49 @@ function ft_content_type_field_default_field_instances() {
       ),
       'type' => 'date_popup',
       'weight' => 48,
+    ),
+  );
+
+  // Exported field_instance: 'node-question1-field_force_public_answer'.
+  $field_instances['node-question1-field_force_public_answer'] = array(
+    'bundle' => 'question1',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 11,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_force_public_answer',
+    'label' => 'Force public answer',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 56,
     ),
   );
 
@@ -2561,7 +2604,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 8,
+        'weight' => 7,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2646,7 +2689,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 7,
+        'weight' => 6,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2690,7 +2733,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 17,
+        'weight' => 10,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2741,7 +2784,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'og_ui',
         'settings' => array(),
         'type' => 'og_list_default',
-        'weight' => 16,
+        'weight' => 9,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -5542,6 +5585,7 @@ function ft_content_type_field_default_field_instances() {
   t('Field(s) of expertise');
   t('First Name');
   t('For example : Expert in electromechanical systems.');
+  t('Force public answer');
   t('Frequency of notifications');
   t('Group');
   t('Group content visibility');

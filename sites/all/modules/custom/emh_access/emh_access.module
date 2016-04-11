@@ -40,7 +40,8 @@ function emh_access_field_access($op, $field, $entity_type, $entity, $account) {
       global $user;
       $account = $user;
     }
-    if ($account->uid == $entity->uid) return TRUE;
+
+    if (isset($entity->uid) && ($account->uid == $entity->uid)) return TRUE;
     if (empty($node)) {
       $nid = arg(1);
       if (arg(0) == 'node' && !empty($nid)) $node = node_load($nid);
@@ -197,13 +198,15 @@ function emh_access_user_can_see_full_answer($nid, $entity = NULL, $account = NU
   // Organic Groups / EMH Circles
   // User1 is admin/referent of node's circle
   // TODO: add custom permissions for OG and Comments
-  $circleIDs = $node->og_group_ref[LANGUAGE_NONE]['0'];
-  if (!empty($circleIDs)) {
-    if (_emh_circles_check_user_is_adminmember_of_groups($account->uid, $circleIDs)) return TRUE;
-    if (_emh_circles_check_user_is_admin_of_groups($account->uid, $circleIDs)) return TRUE;
-    if (_emh_circles_check_user_is_referentmember_of_groups($account->uid, $circleIDs)) return TRUE;
-    foreach ($circleIDs as $gid) {
-      if (og_user_access('node', $gid, 'access all webform results')) return TRUE;
+  if (isset($node->og_group_ref)) {
+    $circleIDs = $node->og_group_ref[LANGUAGE_NONE]['0'];
+    if (!empty($circleIDs)) {
+      if (_emh_circles_check_user_is_adminmember_of_groups($account->uid, $circleIDs)) return TRUE;
+      if (_emh_circles_check_user_is_admin_of_groups($account->uid, $circleIDs)) return TRUE;
+      if (_emh_circles_check_user_is_referentmember_of_groups($account->uid, $circleIDs)) return TRUE;
+      foreach ($circleIDs as $gid) {
+        if (og_user_access('node', $gid, 'access all webform results')) return TRUE;
+      }
     }
   }
 

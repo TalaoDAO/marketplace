@@ -36,24 +36,26 @@ function emh_circles_default_rules_configuration() {
     "PLUGIN" : "reaction rule",
     "WEIGHT" : "1",
     "OWNER" : "rules",
-    "TAGS" : [ "Circles", "EMH" ],
-    "REQUIRES" : [ "rules", "og", "user_registrationpassword" ],
-    "ON" : { "user_update" : [], "user_registrationpassword_activated" : [] },
+    "TAGS" : [ "Circles", "client", "EMH" ],
+    "REQUIRES" : [ "rules", "og" ],
+    "ON" : { "user_login" : [] },
     "IF" : [
-      { "user_has_role" : { "account" : [ "account" ], "roles" : { "value" : { "5" : "5" } } } }
+      { "user_has_role" : {
+          "account" : [ "account" ],
+          "roles" : { "value" : { "5" : "5", "10" : "10" } }
+        }
+      }
     ],
     "DO" : [
-      { "LOOP" : {
-          "USING" : { "list" : [ "account:og-user-node" ] },
-          "ITEM" : { "list_item" : "Current list item" },
-          "DO" : [
-            { "og_grant_og_role" : {
-                "account" : [ "account" ],
-                "group" : [ "list-item" ],
-                "roles" : { "value" : { "Creator member" : "Creator member" } }
-              }
-            }
-          ]
+      { "entity_fetch" : {
+          "USING" : { "type" : "node", "id" : "314" },
+          "PROVIDE" : { "entity_fetched" : { "entity_fetched" : "Fetched entity" } }
+        }
+      },
+      { "og_grant_og_role" : {
+          "account" : [ "account" ],
+          "group" : [ "entity-fetched" ],
+          "roles" : { "value" : { "Creator member" : "Creator member" } }
         }
       }
     ]
@@ -65,22 +67,18 @@ function emh_circles_default_rules_configuration() {
     { "rules_emh_circles_add_users_in_all_experts_circle" : {
     "LABEL" : "Circles - Set all users as Member of All experts",
     "PLUGIN" : "reaction rule",
+    "WEIGHT" : "-10",
     "OWNER" : "rules",
-    "TAGS" : [ "EMH", "Circles" ],
-    "REQUIRES" : [ "rules", "og", "user_registrationpassword" ],
-    "ON" : {
-      "user_update" : [],
-      "user_registrationpassword_activated" : [],
-      "user_insert" : []
-    },
-    "IF" : [ { "NOT user_is_blocked" : { "account" : [ "account" ] } } ],
+    "TAGS" : [ "Circles", "EMH" ],
+    "REQUIRES" : [ "rules", "og" ],
+    "ON" : { "user_login" : [] },
     "DO" : [
       { "entity_fetch" : {
           "USING" : { "type" : "node", "id" : "314" },
-          "PROVIDE" : { "entity_fetched" : { "entity_fetched" : "Fetched entity" } }
+          "PROVIDE" : { "entity_fetched" : { "group_fetched" : "Fetched group" } }
         }
       },
-      { "og_subcribe_user" : { "user" : [ "account" ], "group" : [ "entity-fetched" ] } }
+      { "og_subcribe_user" : { "user" : [ "account" ], "group" : [ "group-fetched" ] } }
     ]
   }
   }

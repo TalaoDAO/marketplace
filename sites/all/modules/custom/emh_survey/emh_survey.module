@@ -91,18 +91,16 @@ function emh_survey_form_alter(&$form, &$form_state, $form_id) {
   }
 
   if (isset($form['#node']->nid)) {
-    $survey_ID = $form['#node']->nid;
+    $nid = $form['#node']->nid;
     switch ($form_id) {
-      case "webform_client_form_$survey_ID":
-        if (!empty($form['#is_draft']) || empty($form['#submission'])) $form['actions']['submit']['#value'] = t('Publish my answer');
+      case "webform_client_form_$nid":
+        if (!empty($form['#is_draft']) || empty($form['#submission'])) {
+          $form['actions']['submit']['#value'] = t('Publish my answer');
+        }
         break;
       default:
         break;
     }
-  }
-
-	if ((isset($form['#node']) && $form['#node']->type == 'webform')) {
-    $nid = $form['#node']->nid;
     if (emh_access_user_can_see_full_answer($nid) && !empty($form['submitted']) ) {
       foreach( $form['submitted'] as $key => $element ) {
         if (is_array($element) && !empty($element['#type']) && $element['#type'] == 'textarea') {

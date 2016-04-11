@@ -1,10 +1,10 @@
 @api @watchdog
-Feature: Create Survey and answers
-  In order to test Survey creation, and privacy of answers
-  As référent
-  I want to create a Survey, and watch answers
+Feature: Mission and answers for Référent
+  In order to test Mission CRUD and answers privacy
+  As a Référent
+  I want to manage a Mission, and watch answers
 
-  Background: Create survey
+  Background: Create mission
 
     Given "circle" content:
     | title    | author  |
@@ -19,13 +19,13 @@ Feature: Create Survey and answers
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | référent1 | referent1@emindhub.com | référent | Paul          | Stanley         | 0612345678      | The Starchild     | Avengers     | referent1@emindhub.com | Amazon  | Other | Maintenance |
+    | référent1 | emindhub.test+referent1@gmail.com | référent | Paul          | Stanley         | 0612345678      | The Starchild     | Avengers     | emindhub.test+referent1@gmail.com | Amazon  | Other | Maintenance |
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | client1 | client1@emindhub.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | client1@emindhub.com | Google  | Freelancer | Maintenance |
-    | expert1 | expert1@emindhub.com | expert   | Iron             | Man             | 0712345670      | Chieur génial      | Avengers     | expert1@emindhub.com | Facebook  | Employee  | Energy        |
-    | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | 0712345671      | Modèle             | Avengers     | expert2@emindhub.com | Twitter   | Employee  | Other         |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | Man             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
+    | expert2 | emindhub.test+expert2@gmail.com | expert   | Klark            | Kent            | 0712345671      | Modèle             | Avengers     | emindhub.test+expert2@gmail.com | Twitter   | Employee  | Other         |
 
     Given I give "client1" 1000 emh points
 
@@ -42,7 +42,16 @@ Feature: Create Survey and answers
     And I check the box "Referent member"
     And I press "Update membership"
 
-    # A client publish a survey.
+    # Make client1 as a Creator member of Avengers circle
+    Given I am logged in as a user with the "administrator" role
+    When I go to "content/avengers"
+    And I click "Group"
+    And I click "People"
+    And I click "edit" in the "client1" row
+    And I check the box "Creator member"
+    And I press "Update membership"
+
+    # A client publish a mission.
     Given I am logged in as "client1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
@@ -53,9 +62,9 @@ Feature: Create Survey and answers
     And I press "Save your question"
     And I click "General infos" in the "secondary tabs" region
     And I press "Publish"
-    Then I should see the success message "Survey What about? has been published."
+    Then I should see the success message "Mission What about? has been published."
 
-    # An expert responds to the survey.
+    # An expert responds to the mission.
     Given I am logged in as "expert1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
@@ -69,7 +78,7 @@ Feature: Create Survey and answers
     And I press "Publish my answer"
     Then I should see "Thank you, your answer has been sent."
 
-    # Another expert responds to the survey.
+    # Another expert responds to the mission.
     Given I am logged in as "expert2"
     When I go to homepage
     And I click "What about?" in the "What about?" row
@@ -83,30 +92,30 @@ Feature: Create Survey and answers
     And I press "Publish my answer"
     Then I should see "Thank you, your answer has been sent."
 
-  Scenario: A référent can see the survey
+  Scenario: A référent can see the mission
     Given I am logged in as "référent1"
     When I go to homepage
     Then I should see "What about?" in the "What about?" row
 
-  Scenario: A référent can edit a survey
+  Scenario: A référent can edit a mission
     Given I am logged in as "référent1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
     And I click "Edit" in the "primary tabs" region
-    Then I should see "Edit Survey What about?" in the "title" region
+    Then I should see "Edit Mission What about?" in the "title" region
 
-    Given I enter "This is your survey." for "Description"
+    Given I enter "This is your mission." for "Description"
     And I press "Save"
-    Then I should see the success message "Survey What about? has been updated."
+    Then I should see the success message "Mission What about? has been updated."
 
-  Scenario: A référent cannot delete a survey
+  Scenario: A référent cannot delete a mission
     Given I am logged in as "référent1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
     And I click "Edit" in the "primary tabs" region
     Then I should not see "Delete" in the "actions" region
 
-  Scenario: A référent cannot respond to a survey
+  Scenario: A référent cannot respond to a mission
     Given I am logged in as "référent1"
     When I go to homepage
     And I click "What about?" in the "What about?" row

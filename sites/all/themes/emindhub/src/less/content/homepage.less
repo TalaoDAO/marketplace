@@ -1,9 +1,5 @@
 body.front {
 
-  header#title {
-    padding-top: 0;
-  }
-
   // Hide page title
   h1.page-header {
     .hidden();
@@ -17,7 +13,6 @@ body.front {
 				}
       }
     }
-
     // Remove negative top margin
     .main-container {
       border-top: 0;
@@ -25,10 +20,8 @@ body.front {
         .hidden();
       }
     }
-
-    .main-container > .container > .row:first-child {
-      // padding-top: 20px;
-      padding-bottom: 20px;
+    .main-container > header {
+      background: @totalBlue;
     }
 
     @media (min-width: @screen-md-min) {
@@ -43,13 +36,6 @@ body.front {
     }
   }
 
-  &.logged-in {
-    .main-container > .container > .row:first-child {
-      padding-top: 20px;
-      padding-bottom: 20px;
-    }
-  }
-
   aside {
     margin-top: 0;
   }
@@ -57,9 +43,6 @@ body.front {
 }
 
 @media (min-width: @screen-md-min) {
-  body.front.not-logged-in {
-    padding-top: 113px;
-  }
   body.front.logged-in,
   body.front.logged-in.admin-menu {
     .main-container {

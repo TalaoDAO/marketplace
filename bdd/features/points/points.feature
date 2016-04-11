@@ -1,7 +1,7 @@
 @api @watchdog
 Feature: Test points
   In order to test emh points
-  As a client
+  As a Client
   I want to dispatch points on experts
 
   Background: points : create questions and answers
@@ -13,25 +13,29 @@ Feature: Test points
     Given "corporate" content:
     | title     | author  |
     | Google    | admin   |
-    | Apple     | admin   |
     | Facebook  | admin   |
     | Twitter   | admin   |
-    | Pinterest | admin   |
-    | Viadeo    | admin   |
-    | Linkedin  | admin   |
-    | Tumblr    | admin   |
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | client1 | client1@emindhub.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | client1@emindhub.com | Google  | Freelancer | Maintenance |
-    | expert1 | expert1@emindhub.com | expert   | Iron             | Man             | 0712345670      | Chieur génial      | Avengers     | expert1@emindhub.com | Facebook  | Employee  | Energy        |
-    | expert2 | expert2@emindhub.com | expert   | Klark            | Kent            | 0712345671      | Modèle             | Avengers     | expert2@emindhub.com | Twitter   | Employee  | Other         |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | Man             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
+    | expert2 | emindhub.test+expert2@gmail.com | expert   | Klark            | Kent            | 0712345671      | Modèle             | Avengers     | emindhub.test+expert2@gmail.com | Twitter   | Employee  | Other         |
 
     Given I give "client1" 500 emh points
 
     Given "question1" content:
     | title        | field_domaine | og_group_ref | field_reward | author  |
     | What about?  | Energy        | Avengers     | 100          | client1 |
+
+    # Make client1 as a Creator member of Avengers circle
+    Given I am logged in as a user with the "administrator" role
+    When I go to "content/avengers"
+    And I click "Group"
+    And I click "People"
+    And I click "edit" in the "client1" row
+    And I check the box "Creator member"
+    And I press "Update membership"
 
     Given I am logged in as "expert1"
     When I go to homepage
@@ -52,7 +56,7 @@ Feature: Test points
     Then I should have 100 points on "What about?" node
 
     Given I am logged in as "client1"
-    When I go to "homepage"
+    When I go to homepage
     And I click "What about?" in the "What about?" row
     And I click "Edit" in the "primary tabs" region
     Then I should see "Cost"
@@ -90,12 +94,8 @@ Feature: Test points
     Then I should see "70" in the "I'm the best superhero in da world." row
     And I should see "30" in the "You should definitely trust me." row
 
-    When I go to "/my-answers"
-    Then I should see "70" in the "I'm the best superhero in da world." row
-    And I should see "30" in the "You should definitely trust me." row
-
     Given I am logged in as "expert1"
-    When I go to "/my-answers"
+    When I go to "/my-responses"
     Then I should see "70" in the "What about?" row
 
     Given I am logged in as a user with the "administrator" role
@@ -119,11 +119,11 @@ Feature: Test points
     And I should not see the link "Klark Kent"
 
     # And from My relathionships too
-    When I go to "/my-relationships"
+    When I go to "/circles/relationships"
     Then I should not see the link "Iron Man"
     And I should not see the link "Klark Kent"
 
-    When I go to "homepage"
+    When I go to homepage
     And I click "What about?" in the "What about?" row
     And I click "Answers" in the "primary tabs" region
     And I check the box "edit-views-bulk-operations-0"
@@ -147,9 +147,9 @@ Feature: Test points
     # Author can now access expert profile from question's answer tab.
     And I should see the link "Iron MAN"
     And I should see the link "Klark KENT"
-    
+
     # And from My relathionships too
-    When I go to "/my-relationships"
+    When I go to "/circles/relationships"
     Then I should see the link "Iron Man"
     And I should see the link "Klark Kent"
 

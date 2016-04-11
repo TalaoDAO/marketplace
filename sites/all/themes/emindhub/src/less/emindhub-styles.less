@@ -9,7 +9,7 @@ img {
 
 
 .nav {
-	.text-uppercase;
+	// .text-uppercase;
 
 	> li > a,
 	> li > span.dropdown-toggle {
@@ -17,7 +17,7 @@ img {
 
 		&:hover,
 		&:focus {
-			text-decoration: underline;
+			// text-decoration: underline;
 			background-color: transparent;
 		}
 	}
@@ -197,8 +197,8 @@ img {
 	.button-variant(#FFF; @golden-base; @golden-dark);
 }
 
-// New button style : .btn-business
-.btn-business {
+// New button style : .btn-client
+.btn-client {
 	// .button-variant(#FFF; @golden-base; @golden-dark);
 	.btn-primary;
 }
@@ -210,9 +210,9 @@ img {
 
 // New button style : .btn-flash
 .btn-flash {
-	color: @emerald;
-	text-shadow: 0px 0px 2px rgba(0, 0, 0, 1);
-	background-position: left center;
+	.button-variant(#FFF; @emerald-base; @emerald-dark);
+	// text-shadow: 0px 0px 2px rgba(0, 0, 0, 1);
+	background-position: 10px 50%;
 	background-repeat: no-repeat;
 	white-space: normal;
 	.text-left;
@@ -220,17 +220,18 @@ img {
 	&.btn {
 		margin-right: 0;
 	}
-	&:hover {
-		color: @emerald-light;
-	}
 	@media (min-width: @screen-md-min) {
 		margin-top: 11px;
-		padding: 0;
 	}
 }
 .icon-community {
-	padding-left: 35px;
+	padding-left: 45px;
 	background-image: url("../images/picto/picto_community_small.png");
+}
+
+// New button style: btn-gray
+.btn-gray {
+	.button-variant(@darkerBlue; @gray-lighter; @gray-light2);
 }
 
 
@@ -245,7 +246,7 @@ img {
 		.text-uppercase;
 	}
 	.content {
-		border: 1px solid @softGrey;
+		border: 1px solid @gray-lighter;
 		padding: 15px;
 	}
 }
@@ -399,18 +400,8 @@ img {
 
 .emh-block-grey {
 	.content {
-		background-color: @softGrey;
-		border-bottom: 2px solid #FFF;
-
-		&:after {
-			position: absolute;
-			content: "";
-			left: 1em;
-			height: 0.08em;
-			width: 90%;
-			display: inline-block;
-			background: transparent linear-gradient(to right, rgba(255, 255, 255, 0.72) 0%, rgba(127, 127, 127, 0.72) 50%, rgba(255, 255, 255, 0.72) 100%) repeat scroll 0% 0%;
-		}
+		// background-color: @gray-lighter;
+		// border: 1px solid @gray-light2;
 	}
 }
 

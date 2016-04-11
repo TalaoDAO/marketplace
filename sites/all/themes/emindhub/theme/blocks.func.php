@@ -43,8 +43,16 @@ function emindhub_preprocess_block(&$variables) {
 
   switch ($block_id) {
 
+    case 'menu-menu-top-anonymous':
+      $classes[] = 'col-sm-11 col-md-11';
+      break;
+
+    case 'menu-menu-top':
+      $classes[] = 'col-sm-6 col-md-6';
+      break;
+
     case 'menu-menu-footer-menu':
-      $classes[] = 'col-sm-8 col-md-8';
+      $classes[] = 'col-sm-9 col-md-9';
       break;
 
     case 'menu-menu-networks':
@@ -56,7 +64,7 @@ function emindhub_preprocess_block(&$variables) {
       break;
 
     case 'system-user-menu':
-      $classes[] = 'col-md-12';
+      $classes[] = 'col-sm-6 col-md-6';
       break;
 
     // User Login block
@@ -68,7 +76,7 @@ function emindhub_preprocess_block(&$variables) {
       // $classes[] = 'col-md-2 col-xs-3'; // TODO
       break;
 
-    // Registration block : expert/business
+    // Registration block : expert/client
     case 'block-2':
       $classes[] = 'col-xs-6 col-md-12 emh-block-dark';
       break;
@@ -84,19 +92,19 @@ function emindhub_preprocess_block(&$variables) {
 
     // HP - Ask a question
     case 'block-14':
-      $classes[] = 'col-md-4';
+      $classes[] = 'col-xs-12 col-md-4';
       $classes[] = 'emh-block-grey';
       break;
 
     // HP - Start a challenge
     case 'block-8':
-      $classes[] = 'col-md-4';
+      $classes[] = 'col-xs-12 col-md-4';
       $classes[] = 'emh-block-grey';
       break;
 
-    // HP - Create a survey
+    // HP - Create a mission
     case 'block-16':
-      $classes[] = 'col-md-4';
+      $classes[] = 'col-xs-12 col-md-4';
       $classes[] = 'emh-block-grey';
       break;
 
@@ -134,7 +142,7 @@ function emindhub_preprocess_block(&$variables) {
 
     // HP - Business - Question
     case 'block-15':
-      $content = '<a href="' . url('freetrial') . '">' . $content . '</a>';
+      $content = '<a href="' . url('client/register') . '">' . $content . '</a>';
       break;
 
     // HP - Expert - Question
@@ -146,7 +154,7 @@ function emindhub_preprocess_block(&$variables) {
     case 'block-18':
       $classes[] = 'emh-block-light';
       $classes[] = 'emh-block-dark-title';
-      $content = '<a href="' . url('freetrial') . '">' . $content . '</a>';
+      $content = '<a href="' . url('client/register') . '">' . $content . '</a>';
       break;
 
     // HP - Expert - You are
@@ -159,7 +167,7 @@ function emindhub_preprocess_block(&$variables) {
     // HP - Business - Get a free trial
     case 'block-13':
       $classes[] = 'emh-block-light';
-      $content = '<a href="' . url('freetrial') . '">' . $content . '</a>';
+      $content = '<a href="' . url('client/register') . '">' . $content . '</a>';
       break;
 
     // HP - Expert - Sign up for free
@@ -232,7 +240,7 @@ function emindhub_preprocess_block(&$variables) {
 
     // Tabs submenu
     case 'emh_submenu-submenu':
-    case 'emh_survey-survey_add_submenu':
+    case 'emh_mission-mission_add_submenu':
       $classes[] = 'emh-block-light';
       break;
 

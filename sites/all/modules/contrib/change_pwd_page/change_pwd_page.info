@@ -3,9 +3,9 @@ description = Provides a separate page containing a form for the current user to
 core = 7.x
 package = User Management
 
-; Information added by Drupal.org packaging script on 2014-08-19
-version = "7.x-1.2"
+; Information added by Drupal.org packaging script on 2015-10-24
+version = "7.x-1.2+3-dev"
 core = "7.x"
 project = "change_pwd_page"
-datestamp = "1408447729"
+datestamp = "1445681340"
 

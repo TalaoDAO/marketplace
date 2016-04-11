@@ -190,3 +190,149 @@ function emh_configuration_update_7012() {
   user_role_grant_permissions(5, array('display EU Cookie Compliance popup')); // Business
   user_role_grant_permissions(7, array('display EU Cookie Compliance popup')); // Referent
 }
+
+/**
+ * Install module : EMH Answer.
+ */
+function emh_configuration_update_7013() {
+  module_enable(array('emh_answer'));
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('save draft'));
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('save comment draft'));
+  features_revert(array('ft_permissions' => array('user_permission')));
+}
+
+/**
+ * Change default webform parameters.
+ */
+function emh_configuration_update_7014() {
+  variable_set('webform_default_from_address', 'contact@emindhub.com');
+  variable_set('webform_default_from_name', 'eMindHub');
+  variable_set('webform_default_subject', 'New answer: [node:title]');
+  variable_set('webform_email_html_capable', '1');
+  variable_set('webform_default_format', '1');
+  variable_set('webform_format_override', '1');
+  variable_set('webform_token_access', '0');
+}
+
+/**
+ * Change top nav links.
+ */
+function emh_configuration_update_7015() {
+  // Change existing links
+  db_update('menu_links')
+    ->fields(array(
+      'link_path' => '<front>',
+      'link_title' => 'Home',
+      'weight' => '-50',
+    ))
+    ->condition('mlid', '7708')
+    ->execute();
+  db_update('menu_links')
+    ->fields(array(
+      'link_title' => 'Requests',
+      'expanded' => '1',
+      'weight' => '-49',
+      'hidden' => '0',
+    ))
+    ->condition('mlid', '4970')
+    ->execute();
+  db_update('menu_links')
+    ->fields(array(
+      'link_title' => 'Answers',
+      'weight' => '-48',
+    ))
+    ->condition('mlid', '5523')
+    ->execute();
+  db_update('menu_links')
+    ->fields(array(
+      'link_title' => 'Network',
+      'expanded' => '1',
+      'weight' => '-47',
+      'hidden' => '0',
+    ))
+    ->condition('mlid', '7577')
+    ->execute();
+
+  menu_rebuild();
+
+  // Change Requests & Circles paths.
+  features_revert(array('ft_views' => array('views_view')));
+  features_revert(array('ft_blocks' => array('fe_block_boxes')));
+  // $path = array(
+  //   'source' => 'requests/selections',
+  //   'alias' => 'my-selections',
+  // );
+  // path_save($path);
+  //
+  // $path = array(
+  //   'source' => 'requests/manage',
+  //   'alias' => 'my-requests',
+  // );
+  // path_save($path);
+  //
+  // $path = array(
+  //   'source' => 'circles',
+  //   'alias' => 'my-circles',
+  // );
+  // path_save($path);
+}
+
+/**
+ * Uninstall modules : autoassignrole, emh_freetrial + Register alias for former /freetrial URL.
+ */
+function emh_configuration_update_7016() {
+  // Uninstall modules
+  module_disable(array('autoassignrole', 'emh_freetrial'));
+  drupal_uninstall_modules(array('autoassignrole', 'emh_freetrial'));
+
+  // Create new alias for /freetrial
+  // $path = array(
+  //   'source' => 'client/register',
+  //   'alias' => 'freetrial',
+  // );
+  // path_save($path);
+
+  // Change block path view settings
+  features_revert(array('ft_blocks' => array('fe_block_boxes')));
+}
+
+/**
+ * Change default website email.
+ */
+function emh_configuration_update_7017() {
+  variable_set('site_mail', 'contact@emindhub.com');
+}
+
+/**
+ * Replace emh_survey for emh_mission.
+ */
+function emh_configuration_update_7018() {
+  module_disable(array('emh_survey'));
+  drupal_uninstall_modules(array('emh_survey'));
+  module_enable(array('emh_mission'));
+}
+
+/**
+* Update HybridAuth block.
+*/
+function emh_configuration_update_7019() {
+  db_update('block')
+    ->fields(array(
+      'title' => '<none>',
+      'status' => '1',
+      'visibility' => '1',
+      'region' => 'content',
+      'pages' => "expert/register",
+      'weight' => '-35',
+    ))
+    ->condition('module', 'hybridauth')
+    ->condition('delta', 'hybridauth')
+  ->execute();
+}
+
+/**
+* Revert views.
+*/
+function emh_configuration_update_7020() {
+  features_revert(array('ft_views' => array('views_view')));
+}
