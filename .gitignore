@@ -1,4 +1,4 @@
-sites/all/modules/debug
+www/sites/all/modules/debug
 
 #behat
 bdd/bin
@@ -7,16 +7,16 @@ bdd/composer.phar
 bdd/tmp
 
 # Ignore configuration files that may contain sensitive information.
-sites/*/settings*.php
-sites/*/local.settings*.php
+www/sites/*/settings*.php
+www/sites/*/local.settings*.php
 
 # Ignore paths that contain user-generated content.
-sites/*/files
-sites/*/private
+www/sites/*/files
+www/sites/*/private
 
 
 # Ignore gulp files
-sites/all/themes/emindhub/src/node_modules
+www/sites/all/themes/emindhub/src/node_modules
 *.map
 
 # Ignore IDE and OS-related files
