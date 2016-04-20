@@ -88,6 +88,9 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       // Actions : Save as draft + Publish / Save
       $form['actions']['draft']['#value'] = t('Save draft');
       $form['actions']['submit']['#value'] = t('Publish');
+      if ($form['type']['#value'] == 'webform' && !isset($form['#node']->nid)) {
+        $form['actions']['draft']['#value'] = t('Save draft and continue');
+      }
       // If nid not empty, we're in the edit page
       if ( !empty($form['nid']['#value']) && $form['#node']->status == NODE_PUBLISHED) {
         $form['actions']['draft']['#access'] = FALSE;
