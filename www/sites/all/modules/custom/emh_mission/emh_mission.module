@@ -101,7 +101,7 @@ function emh_mission_form_alter(&$form, &$form_state, $form_id) {
       default:
         break;
     }
-    if (emh_access_user_can_see_full_answer($nid) && !empty($form['submitted']) ) {
+    if (!emh_access_user_can_post_answer($nid) && !empty($form['submitted']) ) {
       foreach( $form['submitted'] as $key => $element ) {
         if (is_array($element) && !empty($element['#type']) && $element['#type'] == 'textarea') {
           $form['submitted'][$key]['#disabled'] = 'disabled';

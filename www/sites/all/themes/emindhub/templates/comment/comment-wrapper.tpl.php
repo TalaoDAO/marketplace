@@ -39,17 +39,17 @@
 <div id="comments" class="<?php print $classes; ?> row section emh-fieldgroup-blue-title"<?php print $attributes; ?>>
   <?php if ($content['comments'] && $node->type != 'forum'): ?>
     <?php print render($title_prefix); ?>
-    <h2 class="h3"><span><?php print emindhub_beautiful_comment_list_text( $node ); ?></span></h2>
+    <h2 class="h3"><span><?php print emindhub_beautiful_comment_list_text($node); ?></span></h2>
     <?php print render($title_suffix); ?>
   <?php endif; ?>
 
   <?php print render($content['comments']); ?>
 
-  <?php if (!emh_access_user_can_see_full_answer($node->nid)) : ?>
+  <?php if ((module_exists('emh_access') && emh_access_user_can_post_answer($node->nid)) : ?>
   <?php if (!empty($content['comment_form'])): ?>
     <?php $form = render($content['comment_form']); ?>
     <?php if (!empty($form)): ?>
-      <h2 class="h3"><span><?php print emindhub_beautiful_comment_add_text( $node ); ?></span></h2>
+      <h2 class="h3"><span><?php print emindhub_beautiful_comment_add_text($node); ?></span></h2>
       <div class="field-group-div">
         <?php print $form; ?>
       </div>

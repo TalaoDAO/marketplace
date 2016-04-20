@@ -214,6 +214,34 @@ function emh_access_user_can_see_full_answer($nid, $entity = NULL, $account = NU
 }
 
 /**
+ * Access control : Does a user can post an answer?
+ */
+function emh_access_user_can_post_answer($nid, $account = NULL) {
+  $node = node_load($nid);
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+
+  if (user_access("$node->type: comment on any $node->type content")) return TRUE;
+
+  switch ($node->type) {
+    case 'question1':
+    case 'challenge':
+      if (user_access('post comments')) return TRUE;
+      break;
+    case 'webform':
+      if (user_access('access own webform submissions')) return TRUE;
+      break;
+    default:
+    return FALSE;
+      break;
+  }
+
+  return FALSE;
+}
+
+/**
  * Access control : Does a user have access to full request?
  */
 function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
