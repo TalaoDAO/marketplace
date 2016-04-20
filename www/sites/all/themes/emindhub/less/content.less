@@ -58,24 +58,45 @@ aside#sidebar-second {
   }
 }
 
-.nav-back {
-  > * {
+a.flag {
+  .btn;
+  .btn-primary;
+}
+
+ul.links.list-inline {
+  li {
+    a {
+      .btn;
+      .btn-default;
+    }
+  }
+}
+#request-nav {
+  .make-row();
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+#nav-back,
+#nav-previous,
+#nav-next {
+  .make-xs-column(6);
+  .make-sm-column(3);
+  > a {
     .btn;
     .btn-default;
   }
 }
-.nav-previous,
-.nav-next {
-  > * {
-    .btn;
-    .btn-nav;
-  }
+#nav-previous {
+  .text-right;
 }
-
-
-a.flag {
-  .btn;
-  .btn-primary;
+#flag-selection {
+  .make-xs-column(6);
+  .make-sm-column(3);
+  .text-right;
+  a {
+    margin-right: 0;
+  }
 }
 
 

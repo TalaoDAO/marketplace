@@ -258,39 +258,15 @@ function emh_configuration_update_7015() {
   // Change Requests & Circles paths.
   features_revert(array('ft_views' => array('views_view')));
   features_revert(array('ft_blocks' => array('fe_block_boxes')));
-  // $path = array(
-  //   'source' => 'requests/selections',
-  //   'alias' => 'my-selections',
-  // );
-  // path_save($path);
-  //
-  // $path = array(
-  //   'source' => 'requests/manage',
-  //   'alias' => 'my-requests',
-  // );
-  // path_save($path);
-  //
-  // $path = array(
-  //   'source' => 'circles',
-  //   'alias' => 'my-circles',
-  // );
-  // path_save($path);
 }
 
 /**
- * Uninstall modules : autoassignrole, emh_freetrial + Register alias for former /freetrial URL.
+ * Uninstall module : emh_freetrial + Register alias for former /freetrial URL.
  */
 function emh_configuration_update_7016() {
   // Uninstall modules
-  module_disable(array('autoassignrole', 'emh_freetrial'));
-  drupal_uninstall_modules(array('autoassignrole', 'emh_freetrial'));
-
-  // Create new alias for /freetrial
-  // $path = array(
-  //   'source' => 'client/register',
-  //   'alias' => 'freetrial',
-  // );
-  // path_save($path);
+  module_disable(array('emh_freetrial'));
+  drupal_uninstall_modules(array('emh_freetrial'));
 
   // Change block path view settings
   features_revert(array('ft_blocks' => array('fe_block_boxes')));
@@ -335,4 +311,39 @@ function emh_configuration_update_7019() {
 */
 function emh_configuration_update_7020() {
   features_revert(array('ft_views' => array('views_view')));
+}
+
+/**
+* FIX Uninstall autoassignrole + FIX Activate ft_permissions + CHG permissions : Service links + CHG Service links parameters, Add to my selection flag.
+*/
+function emh_configuration_update_7021() {
+  // Uninstall module
+  module_enable(array('ft_permissions'));
+  features_revert(array('ft_permissions' => array('user_permission')));
+  module_disable(array('autoassignrole'));
+  drupal_uninstall_modules(array('autoassignrole'));
+
+  // Change permissions
+  user_role_grant_permissions(3, array('access service links'));
+  user_role_grant_permissions(4, array('access service links'));
+  user_role_grant_permissions(5, array('access service links'));
+  user_role_grant_permissions(6, array('access service links'));
+
+  // Change parameters
+  $value = array(
+    'blog' => 'blog',
+    'article' => '0',
+    'page' => '0',
+    'challenge' => '0',
+    'circle' => '0',
+    'webform' => '0',
+    'corporate' => '0',
+    'question1' => '0',
+    'user_alert' => '0',
+    'working_group' => '0',
+  );
+  variable_set('service_links_node_types', $value);
+  features_revert(array('ft_field_base' => array('flag')));
+  features_revert(array('ft_views' => array('views_view')));
+  menu_rebuild();
 }
