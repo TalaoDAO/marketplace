@@ -12,9 +12,9 @@ var debug        = require('gulp-debug');
 // var path         = require('path');
 
 
-var theme_path  = "../";
-var watch_files = [theme_path + 'src/less/**/*.less'];
-var src_less    = [theme_path + 'src/less/style.less'];
+var theme_path  = "./www/sites/all/themes/emindhub/";
+var watch_files = [theme_path + 'less/**/*.less'];
+var src_less    = [theme_path + 'less/style.less'];
 
 
 w = process.cwd();
@@ -25,7 +25,7 @@ gulp.task('less', function () {
     .pipe(debug({title: 'unicorn:'}))
     .pipe(less())
     .pipe(rename("style.css"))
-    .pipe(sourcemaps.write('.', { sourceRoot: '../src/less' }))
+    .pipe(sourcemaps.write('.', { sourceRoot: '../less' }))
     .pipe(gulp.dest(theme_path + './css'))
     .pipe(notify({message: 'Less compilation complete'}));
 });
