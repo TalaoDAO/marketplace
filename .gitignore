@@ -15,9 +15,10 @@ www/sites/*/files
 www/sites/*/private
 
 
-# Ignore gulp files
-www/sites/all/themes/emindhub/src/node_modules
+# Ignore NPM files
+/**/node_modules/
 *.map
+
 
 # Ignore IDE and OS-related files
 .buildpath
@@ -34,8 +35,7 @@ atlassian-ide-plugin.xml
 .htaccess
 
 
-# Ignore CasperJS tests node_modules
-tests_casperjs/node_modules/
+# Ignore CasperJS tests
 tests_casperjs/screenshots/
 tests_casperjs/failures/
 tests_casperjs/results/
