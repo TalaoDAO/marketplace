@@ -3821,10 +3821,10 @@ function ft_views_views_default_views() {
   $handler->display->display_options['views_navigation_back'] = TRUE;
   $handler->display->display_options['views_navigation_title'] = TRUE;
 
-  /* Display: P - My selections */
-  $handler = $view->new_display('page', 'P - My selections', 'page_1');
+  /* Display: P - My selection */
+  $handler = $view->new_display('page', 'P - My selection', 'page_1');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'My selections';
+  $handler->display->display_options['title'] = 'My selection';
   $handler->display->display_options['defaults']['access'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'flag my_selection';
@@ -4216,9 +4216,9 @@ function ft_views_views_default_views() {
       ),
     ),
   );
-  $handler->display->display_options['path'] = 'requests/selections';
+  $handler->display->display_options['path'] = 'requests/selection';
   $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'My selections';
+  $handler->display->display_options['menu']['title'] = 'My selection';
   $handler->display->display_options['menu']['weight'] = '-48';
   $handler->display->display_options['menu']['name'] = 'menu-top';
   $handler->display->display_options['menu']['context'] = 0;

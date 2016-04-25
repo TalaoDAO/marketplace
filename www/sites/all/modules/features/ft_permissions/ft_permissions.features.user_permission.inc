@@ -272,16 +272,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'rules',
   );
 
-  // Exported permission: 'access service links'.
-  $permissions['access service links'] = array(
-    'name' => 'access service links',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'service_links',
-  );
-
   // Exported permission: 'access site in maintenance mode'.
   $permissions['access site in maintenance mode'] = array(
     'name' => 'access site in maintenance mode',
@@ -405,15 +395,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'auditfiles',
-  );
-
-  // Exported permission: 'administer autoassignrole'.
-  $permissions['administer autoassignrole'] = array(
-    'name' => 'administer autoassignrole',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'autoassignrole',
   );
 
   // Exported permission: 'administer backup and migrate'.
@@ -2753,15 +2734,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'auto_entitylabel',
-  );
-
-  // Exported permission: 'use PHP for service visibility'.
-  $permissions['use PHP for service visibility'] = array(
-    'name' => 'use PHP for service visibility',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'service_links',
   );
 
   // Exported permission: 'use PHP for settings'.
