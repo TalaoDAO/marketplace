@@ -60,6 +60,17 @@ function emh_user_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
+ * Implements hook_form_alter().
+ */
+function emh_user_form_change_pwd_page_form_alter(&$form, &$form_state, $form_id) {
+  $form['#submit'][] = 'emh_user_form_change_pwd_page_form_submit';
+}
+
+function emh_user_form_change_pwd_page_form_submit($form, &$form_state) {
+  $form_state['redirect'] = 'user/' . $form['#account']->uid;
+}
+
+/**
  * Implements hook_preprocess_status_messages().
  */
 function emh_user_preprocess_status_messages(&$variables) {
