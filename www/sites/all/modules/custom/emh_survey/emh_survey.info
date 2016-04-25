@@ -1,4 +1,5 @@
 name = EMH Survey
+description = Deprecated.
 package = EMH
 dependencies[] = webform
 dependencies[] = emh_access
