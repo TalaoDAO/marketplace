@@ -141,7 +141,6 @@ function emh_mission_form_webform_node_form_alter(&$form, &$form_state, $form_id
   // Publication unactive unless there's 1 question added
   // Node in creation state = no nid
   if (!isset($form['#node']->nid)) {
-    $form['actions']['draft']['#value'] = t('Save draft and continue');
     $form['actions']['submit']['#disabled'] = TRUE;
     $form['actions']['draft']['#submit'][] = 'emh_mission_webform_form_submit';
   }
