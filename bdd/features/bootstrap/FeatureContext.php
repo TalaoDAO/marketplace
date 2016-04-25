@@ -27,7 +27,7 @@ class FeatureContext extends DrupalContext {
    * You can also pass arbitrary arguments to the
    * context constructor through behat.yml.
    */
-  public function __construct( $tempPath = '/bdd/tmp', $screenshotPath = '/screenshots', $htmlpagePath = '/behat_page.html' ) {
+  public function __construct( $tempPath = '/../bdd/tmp', $screenshotPath = '/screenshots', $htmlpagePath = '/behat_page.html' ) {
     $this->tempPath = $tempPath;
     $this->screenshotPath = $screenshotPath;
     $this->htmlPagePath = $htmlpagePath;
