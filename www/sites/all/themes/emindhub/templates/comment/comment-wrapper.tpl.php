@@ -45,7 +45,7 @@
 
   <?php print render($content['comments']); ?>
 
-  <?php if ((module_exists('emh_access') && emh_access_user_can_post_answer($node->nid)) : ?>
+  <?php if (module_exists('emh_access') && emh_access_user_can_post_answer($node->nid)) : ?>
   <?php if (!empty($content['comment_form'])): ?>
     <?php $form = render($content['comment_form']); ?>
     <?php if (!empty($form)): ?>
