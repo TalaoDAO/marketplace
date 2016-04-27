@@ -97,7 +97,7 @@ function ft_field_base_flag_default_flags() {
       1 => 'webform',
       2 => 'question1',
     ),
-    'flag_short' => 'Save to my selection',
+    'flag_short' => 'Add to my selection',
     'flag_long' => '',
     'flag_message' => '',
     'unflag_short' => 'Remove',
