@@ -347,3 +347,11 @@ function emh_configuration_update_7021() {
   features_revert(array('ft_views' => array('views_view')));
   menu_rebuild();
 }
+
+/**
+ * Create a "private" field on circles.
+ */
+function emh_configuration_update_7022() {
+  features_revert(array('ft_field_base' => array('field_base')));
+  features_revert(array('ft_content_type' => array('field_instance')));
+}
