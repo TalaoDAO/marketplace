@@ -149,7 +149,7 @@ function emh_configuration_update_7009() {
     }
   }
   node_types_rebuild();
-  menu_rebuild();
+  variable_set('menu_rebuild_needed', TRUE);
 }
 
 /**
@@ -253,7 +253,7 @@ function emh_configuration_update_7015() {
     ->condition('mlid', '7577')
     ->execute();
 
-  menu_rebuild();
+  variable_set('menu_rebuild_needed', TRUE);
 
   // Change Requests & Circles paths.
   features_revert(array('ft_views' => array('views_view')));
@@ -303,7 +303,7 @@ function emh_configuration_update_7019() {
     ))
     ->condition('module', 'hybridauth')
     ->condition('delta', 'hybridauth')
-  ->execute();
+    ->execute();
 }
 
 /**
@@ -345,5 +345,5 @@ function emh_configuration_update_7021() {
   variable_set('service_links_node_types', $value);
   features_revert(array('ft_field_base' => array('flag')));
   features_revert(array('ft_views' => array('views_view')));
-  menu_rebuild();
+  variable_set('menu_rebuild_needed', TRUE);
 }
