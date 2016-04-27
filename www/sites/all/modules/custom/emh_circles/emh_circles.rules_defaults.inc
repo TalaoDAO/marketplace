@@ -89,7 +89,7 @@ function emh_circles_default_rules_configuration() {
     "LABEL" : "Circles - Send email - Member subscribe (Pending)",
     "PLUGIN" : "reaction rule",
     "OWNER" : "rules",
-    "TAGS" : [ "Circles", "EMH" ],
+    "TAGS" : [ "Circles", "email", "EMH" ],
     "REQUIRES" : [ "rules", "og" ],
     "ON" : { "og_user_insert" : [] },
     "IF" : [
@@ -105,13 +105,14 @@ function emh_circles_default_rules_configuration() {
       { "mail" : {
           "to" : [ "account:mail" ],
           "subject" : "Your membership request for \u0027[group:title]\u0027",
-          "message" : "Dear [account:field-first-name] [account:field-last-name],\r\n\r\nYour membership to group \u0027[group:title]\u0027 located at [group:url] is pending approval."
+          "message" : "Dear [account:field-first-name] [account:field-last-name],\r\n\r\nYour membership to group \u003Cstrong\u003E[group:title]\u003C\/strong\u003E located at [group:url] is pending approval.",
+          "language" : [ "" ]
         }
       },
       { "mail" : {
           "to" : [ "group:author:mail" ],
-          "subject" : "[account:field-first-name] [account:field-last-name] membership request for [group:title]",
-          "message" : "Dear [group:author:field-first-name] [group:author:field-last-name],\r\n\r\n\u003Cstrong\u003E[account:field-first-name] [account:field-last-name]\u003C\/strong\u003E requests membership for circle \u003Cstrong\u003E[group:title]\u003C\/strong\u003E in [group:url]:\r\n\r\n\u003Cem\u003E[og_membership:og-membership-request]\u003C\/em\u003E",
+          "subject" : "[account:field-first-name] [account:field-last-name] membership request for \u0027[group:title]\u0027",
+          "message" : "Dear [group:author:field-first-name] [group:author:field-last-name],\r\n\r\n\u003Cstrong\u003E[account:field-first-name] [account:field-last-name]\u003C\/strong\u003E requests membership for circle \u003Cstrong\u003E[group:title]\u003C\/strong\u003E in [group:url].\r\n\r\n\u003Cspan style=\u0022font-style:italic;\u0022\u003E[og_membership:og-membership-request]\u003C\/span\u003E",
           "language" : [ "" ]
         }
       }
@@ -120,12 +121,12 @@ function emh_circles_default_rules_configuration() {
   }
   ');
 
-  $rules['rules_emh_circles_send_email_member_subscribe_active'] = entity_import('rules_config', '
-    { "rules_emh_circles_send_email_member_subscribe_active" : {
+  $rules['rules_emh_circles_send_email_membership_accepted'] = entity_import('rules_config', '
+    { "rules_emh_circles_send_email_membership_accepted" : {
     "LABEL" : "Circles - Send email - Member subscribe (Active)",
     "PLUGIN" : "reaction rule",
     "OWNER" : "rules",
-    "TAGS" : [ "Circles", "EMH" ],
+    "TAGS" : [ "Circles", "email", "EMH" ],
     "REQUIRES" : [ "rules", "og" ],
     "ON" : { "og_user_insert" : [] },
     "IF" : [
@@ -143,11 +144,34 @@ function emh_circles_default_rules_configuration() {
           "subject" : "Your membership request was approved for \u0027[group:title]\u0027\r\n",
           "message" : "Dear [account:field-first-name] [account:field-last-name],\r\n\r\nYou are now a member in the circle \u0027[group:title]\u0027 located at [group:url]"
         }
+      }
+    ]
+  }
+  }
+  ');
+
+  $rules['rules_emh_circles_circles_send_email_membership_refused'] = entity_import('rules_config', '
+    { "rules_emh_circles_circles_send_email_membership_refused" : {
+    "LABEL" : "Circles - Send email - Membership refused",
+    "PLUGIN" : "reaction rule",
+    "OWNER" : "rules",
+    "TAGS" : [ "Circles", "email", "EMH" ],
+    "REQUIRES" : [ "rules", "og" ],
+    "ON" : { "og_user_delete" : [] },
+    "IF" : [
+      { "data_is" : { "data" : [ "og-membership:state" ], "value" : "2" } },
+      { "entity_is_of_type" : { "entity" : [ "og-membership:group" ], "type" : "node" } }
+    ],
+    "DO" : [
+      { "variable_add" : {
+          "USING" : { "type" : "node", "value" : [ "og-membership:group" ] },
+          "PROVIDE" : { "variable_added" : { "group" : "Added variable" } }
+        }
       },
       { "mail" : {
-          "to" : [ "group:author:mail" ],
-          "subject" : "[account:name] joined [group:title]",
-          "message" : "Dear [group:author:field-first-name] [group:author:field-last-name],\r\n\r\n\u003Cstrong\u003E[account:field-first-name] [account:field-last-name]\u003C\/strong\u003E joined \u003Cstrong\u003E[group:title]\u003C\/strong\u003E in [group:url]",
+          "to" : [ "account:mail" ],
+          "subject" : "Your membership request has not been approved for \u0027[group:title]\u0027",
+          "message" : "Dear [account:field-first-name] [account:field-last-name],\r\n\r\nSorry, your membership request for \u003Cstrong\u003E[group:title]\u003C\/strong\u003E circle has been refused.",
           "language" : [ "" ]
         }
       }
