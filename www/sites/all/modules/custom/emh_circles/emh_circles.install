@@ -8,7 +8,17 @@
  * Implements hook_enable
  */
 function emh_circles_enable() {
+  emh_circles_enable_strings();
+}
 
+/**
+ * Implements hook_disable().
+ */
+function emh_circles_disable() {
+  emh_circles_disable_strings();
+}
+
+function emh_circles_enable_strings() {
   global $language;
   $lang = $language->language;
   $strings = variable_get("locale_custom_strings_$lang", array());
@@ -16,14 +26,9 @@ function emh_circles_enable() {
     $strings[''][$string] = $override;
   }
   variable_set("locale_custom_strings_$lang", $strings);
-
 }
 
-/**
- * Implements hook_disable().
- */
-function emh_circles_disable() {
-
+function emh_circles_disable_strings() {
   global $language;
   $lang = $language->language;
   $strings = variable_get("locale_custom_strings_$lang", array());
@@ -31,7 +36,6 @@ function emh_circles_disable() {
     unset($strings[''][$string]);
   }
   variable_set("locale_custom_strings_$lang", $strings);
-
 }
 
 /**
@@ -40,8 +44,13 @@ function emh_circles_disable() {
 function _emh_circles_string_overrides() {
 
   return array(
-    '%1\'s groups' => 'My circles',
+    "%1's groups" => "My circles",
     "Member's groups" => "Member's circles",
+    "Subscribe to group" => "Subscribe",
+    "Unsubscribe from group" => "Unsubscribe",
+    "Request group membership" => "Request membership",
+    "Are you sure you want to join the group %title?" => "Are you sure you want to join the circle %title?",
+    "Are you sure you want to unsubscribe from the group %title?" => "Are you sure you want to unsubscribe from the circle %title?",
   );
 
 }
@@ -131,4 +140,63 @@ function emh_circles_update_7005() {
   if ($rules_config = rules_config_load('rules_emh_circles_set_clients_as_creator_in_circles')) {
     $rules_config->delete();
   }
+}
+
+/**
+* CHG: Circles views, Menu links, All experts access, OG permissions for subscribing.
+*/
+function emh_circles_update_7006() {
+  // Revert views & rules
+  features_revert(array('ft_views' => array('views_view')));
+  features_revert(array('ft_rules' => array('rules_config')));
+
+  // All circles
+  db_update('menu_links')
+    ->fields(array(
+      'link_title' => 'All circles',
+    ))
+    ->condition('mlid', '9138')
+    ->execute();
+  // My circles
+  db_update('menu_links')
+    ->fields(array(
+      'plid' => '7577',
+    ))
+    ->condition('mlid', '9385')
+    ->execute();
+  // Delete Network roles
+  db_delete('menu_links_visibility_role')
+    ->condition('mlid', '7577')
+    ->execute();
+  variable_set('menu_rebuild_needed', TRUE);
+
+  // All experts circle access update
+  $node = node_load('314');
+  $node_wrapper = entity_metadata_wrapper('node', $node);
+  $node_wrapper->group_access->set(0);
+  $node_wrapper->save();
+
+  emh_circles_disable_strings();
+  emh_circles_enable_strings();
+  $group = 'node';
+  $bundle = 'circle';
+
+  // Change OG permissions
+  $group = 'node';
+  $bundle = 'circle';
+  $og_roles = array_flip(og_roles($group, $bundle)); // group, bundle
+
+  // Non-member role
+  $permissions = array(
+    'subscribe' => 1,
+    'subscribe without approval' => 0,
+  );
+  og_role_change_permissions($og_roles[OG_ANONYMOUS_ROLE], $permissions);
+
+  // Member role
+  $permissions = array(
+    'subscribe without approval' => 0,
+  );
+  og_role_change_permissions($og_roles[OG_AUTHENTICATED_ROLE], $permissions);
+
 }
