@@ -16,6 +16,14 @@ $drupal_hash_salt = '__SALT__';
 
 $base_url = '__PROTO__://__DOMAIN__';  // NO trailing slash!
 
+# File paths
+$conf['file_directory_path'] = 'sites/default/files';
+$conf['file_public_path'] = $conf['file_directory_path'];
+# www/sites/default/settings.php
+$conf['file_private_path'] = '__PRIVATE_PATH__';
+$conf['file_temporary_path'] = '__TMP_PATH__';
+$conf['file_directory_temp'] = $conf['file_temporary_path'];
+
 ini_set('session.gc_probability', 1);
 ini_set('session.gc_divisor', 100);
 ini_set('session.gc_maxlifetime', 200000);
