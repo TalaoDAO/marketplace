@@ -523,12 +523,20 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
     case 'node':
       $node = node_load($id_source);
       if (!user_access('execute emh_points_arrange_node_points')) {
-        if (empty($node) || ($user->uid != 1 && $user->uid != $node->uid)) {
-          drupal_access_denied();
-          drupal_exit();
-        }
-        drupal_set_title($node->title);
+        drupal_access_denied();
+        drupal_exit();
       }
+      if (empty($node) || ($user->uid != 1 && $user->uid != $node->uid)) {
+        drupal_access_denied();
+        drupal_exit();
+      }
+      // Private circle without points
+      if ($points == 0) {
+        // Just close the node and return it.
+        emh_points_close_node($id_source);
+        drupal_goto('node/' . $id_source);
+      }
+      drupal_set_title($node->title);
       break;
     default:
       drupal_access_denied();
