@@ -14,6 +14,30 @@ function emh_circles_views_api() {
   );
 }
 
+function emh_circles_reset_views() {
+  module_load_include('inc', 'emh_circles', 'views/emh_circles.views_default');
+  $default_views = emh_circles_views_default_views();
+  foreach($default_views as $name => $view) {
+    views_revert_view($view);
+  }
+}
+
+/**
+ * Implements hook_node_access().
+ */
+function emh_circles_node_access($node, $op, $account) {
+  if ($op == 'view') {
+    switch ($node->type) {
+      case 'circle':
+        if (user_is_anonymous()) return NODE_ACCESS_DENY;
+        break;
+      default:
+        break;
+    }
+  }
+  return NODE_ACCESS_IGNORE;
+}
+
 function _emh_circles_check_user_is_referentmember_of_groups($uid, $gids) {
   $roleID = db_select('og_role', 'og')
             ->condition('name', 'Referent member', '=')
