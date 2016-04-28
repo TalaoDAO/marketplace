@@ -178,8 +178,6 @@ function emh_circles_update_7006() {
 
   emh_circles_disable_strings();
   emh_circles_enable_strings();
-  $group = 'node';
-  $bundle = 'circle';
 
   // Change OG permissions
   $group = 'node';
