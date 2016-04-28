@@ -63,15 +63,11 @@ function emh_circles_preprocess_node(&$variables) {
 
         $variables['manager_uids'] = _emh_circles_get_managers_from_group($group);
         $variables['manager_uids'] = $variables['manager_uids']['group_managers'];
-        $first = TRUE;
         foreach ($variables['manager_uids'] as $i => $manager_id) {
           $variables['managers'][$i] = '';
           $account = user_load($manager_id);
+          $variables['managers'][$i] .= theme('user_picture', array('account' => $account));
           $variables['managers'][$i] .= theme('username', array('account' => $account));
-          if ($first) {
-            $variables['managers'][$i] .= theme('user_picture', array('account' => $account));
-            $first = FALSE;
-          }
         }
 
         break;
