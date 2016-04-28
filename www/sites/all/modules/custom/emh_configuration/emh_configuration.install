@@ -343,10 +343,11 @@ function emh_configuration_update_7021() {
     'working_group' => '0',
   );
   variable_set('service_links_node_types', $value);
+
   features_revert(array('ft_field_base' => array('flag')));
   features_revert(array('ft_views' => array('views_view')));
 
-  // My selection
+  // Change My selection
   db_delete('menu_links')
    ->condition('mlid', '9260')
    ->execute();
