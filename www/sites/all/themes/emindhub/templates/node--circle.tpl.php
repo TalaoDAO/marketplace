@@ -79,34 +79,77 @@
  *
  * @ingroup themeable
  */
+// $og_id = current($node->og_groups);
+// $group = og_context('node', $og_id);
+// $group = og_context();
+// echo '<pre>' . print_r($node, true) . '</pre>'; die;
+// echo '<pre>' . print_r($group, true) . '</pre>'; die;
+// echo '<pre>' . print_r(_emh_circles_get_managers_from_group($group), true) . '</pre>'; die;
 ?>
-<div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-  <?php print $user_picture; ?>
-
-  <?php print render($title_prefix); ?>
-	<?php if (!$page): ?>
-		<h2<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h2>
-	<?php endif; ?>
-	<?php print render($title_suffix); ?>
-
-  <?php if ($display_submitted): ?>
-    <div class="submitted">
-      <?php print $submitted; ?>
+<?php if ($teaser): ?>
+  <div class="row">
+    <div class="col-sm-1">
+      <?php if (!empty($content['field_circle_logo'])) : ?>
+        <?php print render($content['field_circle_logo']); ?>
+      <?php endif; ?>
     </div>
-  <?php endif; ?>
-
-  <div class="content"<?php print $content_attributes; ?>>
-    <?php
-      // We hide the comments and links now so that we can render them later.
-      hide($content['comments']);
-      hide($content['links']);
-      print render($content);
-    ?>
+    <div class="col-sm-11">
+      <?php print render($title_prefix); ?>
+        <h2<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h2>
+      <?php print render($title_suffix); ?>
+      <?php print $subscriber_count; ?>
+    </div>
   </div>
+  <?php if (!empty($content['body'])) : ?>
+    <?php print render($content['body']); ?>
+  <?php endif; ?>
+  <?php print $subscribe_link; ?>
 
-  <?php print render($content['links']); ?>
+  <hr />
+<?php else: ?>
+  <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-  <?php print render($content['comments']); ?>
+    <div class="content"<?php print $content_attributes; ?>>
 
-</div>
+      <div class="row section">
+        <div class="col-sm-1">
+          <?php if (!empty($content['field_circle_logo'])) : ?>
+            <?php print render($content['field_circle_logo']); ?>
+          <?php endif; ?>
+        </div>
+        <div class="col-sm-7">
+          <?php print $subscriber_count; ?>
+        </div>
+        <div class="col-sm-4">
+          <?php print $subscribe_link; ?>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-8">
+          <h3><?php print format_plural(count($manager_uids), 'Manager', 'Managers'); ?></h3>
+          <?php foreach ($managers as $manager_link): ?>
+          <?php print $manager_link; ?>
+          <?php endforeach; ?>
+        </div>
+        <?php if (!empty($content['body'])) : ?>
+        <div class="col-sm-4">
+            <?php print render($content['body']); ?>
+        </div>
+        <?php endif; ?>
+      </div>
+
+      <?php
+        // We hide the comments and links now so that we can render them later.
+        hide($content['comments']);
+        hide($content['links']);
+        // print render($content);
+      ?>
+    </div>
+
+    <?php //print render($content['links']); ?>
+    <?php //print render($content['comments']); ?>
+
+  </div>
+<?php endif; ?>

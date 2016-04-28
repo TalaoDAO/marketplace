@@ -237,6 +237,11 @@ function emindhub_preprocess_field(&$variables) {
 					$classes[] = '';
 					break;
 
+				// Circles fields
+				case 'field_circle_logo':
+					$classes[] = '';
+					break;
+
 				default:
 					$classes[] = 'col-sm-12';
           break;
