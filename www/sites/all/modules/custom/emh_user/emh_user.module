@@ -139,6 +139,7 @@ function emh_user_theme() {
  */
 function theme_emh_user_roleswitcher_list($variables) {
   $output = '';
+  $variables['attributes']['query']['destination'] = '<front>';
   $variables['attributes']['html'] = TRUE;
   foreach ($variables['roles'] as $rid => $name) {
     if ($name != 'roleswitcher') {
