@@ -525,6 +525,9 @@ function ft_content_type_strongarm() {
       'token' => array(
         'custom_settings' => FALSE,
       ),
+      'revision' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -535,7 +538,10 @@ function ft_content_type_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '2',
+          'weight' => '4',
+        ),
+        'metatags' => array(
+          'weight' => '6',
         ),
       ),
       'display' => array(
