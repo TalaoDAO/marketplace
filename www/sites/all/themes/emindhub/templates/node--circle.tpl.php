@@ -79,62 +79,63 @@
  *
  * @ingroup themeable
  */
-// $og_id = current($node->og_groups);
-// $group = og_context('node', $og_id);
-// $group = og_context();
-// echo '<pre>' . print_r($node, true) . '</pre>'; die;
-// echo '<pre>' . print_r($group, true) . '</pre>'; die;
-// echo '<pre>' . print_r(_emh_circles_get_managers_from_group($group), true) . '</pre>'; die;
 ?>
 
-<?php if ($teaser): ?>
-  <div class="row">
-    <div class="col-sm-1">
+<?php if ($teaser) : ?>
+  <div class="row section">
+    <div class="circle-logo" class="col-sm-1">
       <?php if (!empty($content['field_circle_logo'])) : ?>
         <?php print render($content['field_circle_logo']); ?>
       <?php endif; ?>
     </div>
     <div class="col-sm-11">
-      <?php print render($title_prefix); ?>
-        <h2<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h2>
-      <?php print render($title_suffix); ?>
-      <?php print $subscriber_count; ?>
+      <h2<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h2>
+      <div class="circle-count">
+        <?php print format_plural(og_extras_subscriber_count($node->nid), '@count member', '@count members'); ?>
+      </div>
+    </div>
+    <?php if (!empty($content['body'])) : ?>
+      <div class="circle-body col-sm-12">
+        <?php print render($content['body']); ?>
+      </div>
+    <?php endif; ?>
+    <div class="circle-subscribe col-sm-12">
+      <?php print og_extras_subscribe('node', $node); ?>
     </div>
   </div>
-  <?php if (!empty($content['body'])) : ?>
-    <?php print render($content['body']); ?>
-  <?php endif; ?>
-  <?php print $subscribe_link; ?>
-
-  <hr />
 <?php else: ?>
   <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
     <div class="content"<?php print $content_attributes; ?>>
 
       <div class="row section">
-        <div class="col-sm-1">
+        <div class="circle-logo" class="col-sm-1">
           <?php if (!empty($content['field_circle_logo'])) : ?>
             <?php print render($content['field_circle_logo']); ?>
           <?php endif; ?>
         </div>
-        <div class="col-sm-7">
+        <div class="circle-count" class="col-sm-7">
           <?php print $subscriber_count; ?>
         </div>
-        <div class="col-sm-4">
+        <div class="circle-subscribe" class="col-sm-4">
           <?php print $subscribe_link; ?>
         </div>
       </div>
 
       <div class="row">
-        <div class="col-sm-8">
+        <div class="circle-managers" class="col-sm-8">
           <h3><?php print format_plural(count($manager_uids), 'Manager', 'Managers'); ?></h3>
-          <?php foreach ($managers as $manager_link): ?>
-          <?php print $manager_link; ?>
-          <?php endforeach; ?>
+          <div class="row">
+            <?php foreach ($managers as $manager_link): ?>
+            <div class="col-sm-6">
+              <?php print $manager_link; ?>
+            </div>
+            <?php endforeach; ?>
+          </div>
         </div>
         <?php if (!empty($content['body'])) : ?>
-        <div class="col-sm-4">
+        <div class="circle-body" class="col-sm-4">
+          <h3><?php print t('About this circle'); ?></h3>
             <?php print render($content['body']); ?>
         </div>
         <?php endif; ?>
