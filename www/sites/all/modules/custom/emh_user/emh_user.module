@@ -178,6 +178,27 @@ function emh_user_forms($form_id, $args) {
   return $forms;
 }
 
+/*
+ * Implements hook_username_alter().
+ */
+function emh_user_username_alter(&$name, $account) {
+
+  $user = user_load($account->uid);
+
+  $items = field_get_items('user', $user, 'field_first_name');
+  $firstname = isset($items[0]['value']) ? check_plain(ucwords($items[0]['value'])) : '';
+  $items = field_get_items('user', $user, 'field_last_name');
+  $lastname = isset($items[0]['value']) ? check_plain(ucwords($items[0]['value'])) : '';
+
+  if (!empty($firstname) && !empty($lastname)) {
+    $name = $firstname . ' ' . $lastname;
+  } else {
+    $name = !empty($account->name) ? $account->name : variable_get('anonymous', t('Anonymous'));
+  }
+  return $name;
+
+}
+
 
 // HELPERS
 function _emh_user_form_user_profile_handler(&$form, &$form_state) {
