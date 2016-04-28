@@ -29,7 +29,7 @@ function emh_circles_node_access($node, $op, $account) {
   if ($op == 'view') {
     switch ($node->type) {
       case 'circle':
-        if (user_is_anonymous()) return NODE_ACCESS_DENY;
+        if (!og_is_member('node', $node->nid, 'user')) return NODE_ACCESS_DENY;
         break;
       default:
         break;
