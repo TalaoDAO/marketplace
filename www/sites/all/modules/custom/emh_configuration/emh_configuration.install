@@ -343,7 +343,7 @@ function emh_configuration_update_7021() {
     'working_group' => '0',
   );
   variable_set('service_links_node_types', $value);
-  
+
   features_revert(array('ft_field_base' => array('flag')));
   features_revert(array('ft_views' => array('views_view')));
 
@@ -357,28 +357,6 @@ function emh_configuration_update_7021() {
    ))
    ->condition('mlid', '9385')
    ->execute();
-
-  // Add Network roles
-  $values = array(
-    array(
-      'mlid' => '7577',
-      'rid' => 3,
-    ),
-    array(
-      'mlid' => '7577',
-      'rid' => 5,
-    ),
-    array(
-      'mlid' => '7577',
-      'rid' => 6,
-    ),
-  );
-  $query = db_insert('menu_links_visibility_role')
-    ->fields(array('mlid', 'rid'));
-  foreach ($values as $record) {
-    $query->values($record);
-  }
-  $query->execute();
 
   variable_set('menu_rebuild_needed', TRUE);
 }
