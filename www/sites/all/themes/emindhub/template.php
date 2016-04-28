@@ -265,6 +265,20 @@ function emindhub_preprocess_field(&$variables) {
   }
 }
 
+/**
+ * Implements theme_username().
+ */
+function emindhub_username($variables) {
+	global $user;
+  if (isset($variables['link_path']) && emh_access_user_can_see_full_user($user->uid, $variables['account']->uid)) {
+    $output = l($variables['name'] . $variables['extra'], $variables['link_path'], $variables['link_options']);
+  }
+  else {
+    $output = '<span' . drupal_attributes($variables['attributes_array']) . '>' . $variables['name'] . $variables['extra'] . '</span>';
+  }
+  return $output;
+}
+
 
 // TODO
 // function emindhub_preprocess_user_picture(&$variables) {
