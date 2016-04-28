@@ -100,7 +100,7 @@ function ft_field_base_flag_default_flags() {
     'flag_short' => 'Add to my selection',
     'flag_long' => '',
     'flag_message' => '',
-    'unflag_short' => 'Remove',
+    'unflag_short' => 'Remove from my selection',
     'unflag_long' => '',
     'unflag_message' => '',
     'unflag_denied_text' => '',
