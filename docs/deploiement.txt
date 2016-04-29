@@ -1,0 +1,99 @@
+# deployer la prod
+
+## 1 cloner la prod actuelle vers son clone (serveur soyou)
+
+La commande est à taper depuis le vps: 
+TODO: ça va changer
+
+    # transfert data vps vers soyou
+    deploy/deploy_soyou.sh prod #http://test.prod.www.emindhub.com/
+    # creation clone
+    deploy/soyou_clone.sh
+
+## 2 tester ce clone sur la preprod
+
+### Configuration
+
+Le fichier de configuration de l'envirronement ciblé est `deploy/preprod.emindhub.com`
+Veillez, dans l'idéal, à avoir une version concordante de ce fichier dans la branche git déployée.
+la branche git à déployer est définie dans ce fichier (entre autres).
+
+### Commande
+
+La preprod doit se monter sur le même serveur que le clone
+
+La commande est à taper depuis le vps:
+
+    cd /var/www/dev-emindhub-security
+    deploy/soyou_preprod.sh
+
+## 3 passer ce clone en prod
+
+### Configuration
+
+Le fichier de configuration de l'envirronement ciblé est `deploy/www.emindhub.com`
+Veillez, dans l'idéal, à avoir une version concordante de ce fichier dans la branche git déployée.
+la branche git à déployer est définie dans ce fichier (entre autres).
+
+Vérifiez aussi la présence des tags drush sur le serveur ciblé (soyou) au niveau du fichier `/root/.drush/emindhub.aliases.drushrc.php`
+
+### Commande
+
+La prod doit se monter sur le même serveur que le clone
+
+La commande est à taper depuis le vps:
+
+    cd /var/www/dev-emindhub-security
+    deploy/soyou_prod.sh
+
+# Certificats SSL / HTTPS
+
+## générer le certificat
+
+Il faut installer letsencrypt.
+
+Sur Soyoustart letsencrypt est dans `/home/yoann/letsencrypt/` (`/root` sur le VPS).
+
+Pour générer un certificat, nous n'utiliserons pas le plugin Apache:
+ * car il ne fonctionne qu'avec la version 2.4 (et pas 2.2)
+ * car il ne fonctionne pas très bien, en fait, et que l'on a ce qu'il faut dans templates/apache2 pour avoir l'équivalent
+
+Il faut cependant utiliser letsencrypt pour générer les certificats, et pour que cela fonctionne, il faut que le site existe d'abord en HTTP, publiquement accessible.
+
+Quand le site fonctionne en HTTP, on lance cette commande (sur le serveur syoustart):
+
+    # sur soyou pour la prod
+    /home/yoann/letsencrypt/letsencrypt-auto certonly --webroot -w /var/www/www.emindhub.com/www -d www.emindhub.com
+    # sur le vps pour piwik
+    /root/.local/share/letsencrypt/bin/letsencrypt certonly --webroot -w /var/www/piwik/ -d piwik.emindhub.com
+
+Celle-ci va créer un certificat et quelques autres fichiers dans le dossier `/etc/letsencrypt/live/www.emindhub.com`.
+
+## Générer le virtualhost Apache pour le SSL
+
+Pour piwik on fais le VH à la main. Pour la prod on va indiquer qu'on veut du SSL et nos programes vont générer:
+ * un virtualhost de redirection vers le https sur le port 80 pour ce domaine
+ * un virtualhost ssl avec les bonnes infos sur le port 443
+
+**Attention**, essayez de n'avoir qu'un seul site en HTTPS par serveur.
+
+Il faut éditer le fichier de conf du domaine: `deploy/www.emindhub.com.conf`.
+Dedans on s'assure que l'on a:
+
+    PORT=443
+    SSL=1
+
+On commit ce changement (si besoin, voir aussi la gestion des branches).
+Puis on lance la commande de redéploiement. Il n'est pas nécessaire de tout refaire (notamment, pas nécessaire de reprendr ela base clonée.
+Il faut au moins:
+
+ * refaire la conf Apache
+ * refaire les settings Drupal (changement de base_url)
+ *vider les caches
+
+## TODO: renew certificate
+
+ * regarder la cvommande pour renouveller un certificat.
+ * regarder la date de validité du certificat généré / peut-être ajouter une sonde de monitoring pour penser à la renouveller
+
+
