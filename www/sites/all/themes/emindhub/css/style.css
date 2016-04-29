@@ -17629,6 +17629,9 @@ form#webform-component-edit-form input#edit-extra-description {
 .circle-body {
   font-size: 1.1em;
 }
+.circle-body .col-sm-12 {
+  padding: 0;
+}
 .circle-subscribe {
   text-align: right;
 }
@@ -17809,6 +17812,19 @@ fieldset[disabled] .circle-subscribe a.unsubscribe.focus {
 .circle-subscribe a.unsubscribe .badge {
   color: transparent;
   background-color: #4c6172;
+}
+.view-circles h2 {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+.view-circles .circle-body {
+  margin-top: 15px;
+}
+.view-circles > * > * > .row {
+  margin-bottom: 15px;
+}
+.view-circles > * > * > .row:last-child {
+  margin-bottom: 0;
 }
 .view-domainlist span.statut:before {
   position: absolute;
