@@ -21,6 +21,31 @@ Un fichier `/root/.drush/emindhub.aliases.drushrc.php` avec quelque chose comme:
     );
 
 
+Pour tous les sites apaches qui utilisent un mot de passe, il faut **absolument** que le fichier `/var/www/.htpasswd` existe.
+
+Pour apache voici les modules actifs (shared):
+ * auth_basic_module
+ * authn_file_module
+ * authz_default_module
+ * authz_groupfile_module
+ * authz_host_module
+ * authz_user_module
+ * autoindex_module
+ * cgi_module
+ * deflate_module
+ * dir_module
+ * env_module
+ * expires_module
+ * headers_module
+ * mime_module
+ * negotiation_module
+ * php5_module
+ * reqtimeout_module
+ * rewrite_module
+ * setenvif_module
+ * ssl_module
+ * status_module
+
 # deployer la prod
 
 ## 1 cloner la prod actuelle vers son clone (serveur soyou)
