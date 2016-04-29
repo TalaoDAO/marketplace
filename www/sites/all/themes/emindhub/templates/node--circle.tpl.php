@@ -83,7 +83,7 @@
 
 <?php if ($teaser) : ?>
   <div class="row section">
-    <div class="circle-logo" class="col-sm-1">
+    <div class="circle-logo col-sm-1">
       <?php if (!empty($content['field_circle_logo'])) : ?>
         <?php print render($content['field_circle_logo']); ?>
       <?php endif; ?>
@@ -109,32 +109,34 @@
     <div class="content"<?php print $content_attributes; ?>>
 
       <div class="row section">
-        <div class="circle-logo" class="col-sm-1">
+        <div class="circle-logo col-sm-1">
           <?php if (!empty($content['field_circle_logo'])) : ?>
             <?php print render($content['field_circle_logo']); ?>
           <?php endif; ?>
         </div>
-        <div class="circle-count" class="col-sm-7">
+        <div class="circle-count col-sm-7">
           <?php print $subscriber_count; ?>
         </div>
-        <div class="circle-subscribe" class="col-sm-4">
+        <div class="circle-subscribe col-sm-4">
           <?php print $subscribe_link; ?>
         </div>
       </div>
 
       <div class="row">
-        <div class="circle-managers" class="col-sm-8">
+        <?php if (!empty($managers)) : ?>
+        <div class="circle-managers col-sm-8">
           <h3><?php print format_plural(count($manager_uids), 'Manager', 'Managers'); ?></h3>
           <div class="row">
-            <?php foreach ($managers as $manager_link): ?>
+            <?php foreach ($managers as $manager): ?>
             <div class="col-sm-6">
-              <?php print $manager_link; ?>
+              <?php print $manager; ?>
             </div>
             <?php endforeach; ?>
           </div>
         </div>
+        <?php endif; ?>
         <?php if (!empty($content['body'])) : ?>
-        <div class="circle-body" class="col-sm-4">
+        <div class="circle-body col-sm-4">
           <h3><?php print t('About this circle'); ?></h3>
             <?php print render($content['body']); ?>
         </div>
