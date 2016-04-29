@@ -411,9 +411,12 @@ function emindhub_beautiful_baseline() {
   $baseline = '';
   $type = '';
   $show_help = FALSE;
-
   if (arg(1) == 'add') {
     $type = arg(2);
+    $show_help = TRUE;
+  }
+  if (arg(0) == 'group' && arg(3) == 'subscribe') {
+    $type = arg(0) . '-' . arg(3);
     $show_help = TRUE;
   }
   // else if (arg(2) == 'edit') {
@@ -436,6 +439,9 @@ function emindhub_beautiful_baseline() {
       case 'challenge':
         $baseline = t('Request for service proposals to innovate or solve a problem');
         break;
+			case 'group-subscribe':
+				$baseline = t('Your membership request will be reviewed by the manager of the circle. Please put forward your request.');
+				break;
       default:
         $baseline = '';
         break;
