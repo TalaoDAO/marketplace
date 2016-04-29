@@ -1,14 +1,41 @@
+# pré-requis
+
+Un fichier `/root/.drush/emindhub.aliases.drushrc.php` avec quelque chose comme:
+
+    <?php
+    $aliases['prodv2'] = array(
+        'uri' => 'prod.www.emindhub.com/',
+        'root' => '/var/www/www.emindhub.com/www',
+    );
+    $aliases['preprod'] = array(
+        'uri' => 'preprod.emindhub.com',
+        'root' => '/var/www/preprod.emindhub.com/www',
+    );
+    $aliases['clone'] = array(
+        'uri' => 'clone.emindhub.com/',
+        'root' => '/var/www/clone.emindhub.com/www',
+    );
+    $aliases['dev'] = array(
+        'uri' => 'dev.emindhub.com',
+        'root' => '/var/www/dev.emindhub.com/www',
+    );
+
+
 # deployer la prod
 
 ## 1 cloner la prod actuelle vers son clone (serveur soyou)
 
-La commande est à taper depuis le vps: 
-TODO: ça va changer
+Le programme va se charger de faire une copie du code de prod dans un dossier `/var/ww/clone.emindhub.com`
+et installer ce qu'il faut pour que ce site fonctionne. Il sert ensuite de base aux autres créations de sites (preprod/dev/ mais aussi prod quand on fait des mises à jour)
 
-    # transfert data vps vers soyou
-    deploy/deploy_soyou.sh prod #http://test.prod.www.emindhub.com/
+La commande est à taper depuis le vps: 
+
     # creation clone
     deploy/soyou_clone.sh
+
+## 1-bis passer la prod en maintenance
+
+On peut le faire. C'est mieux.
 
 ## 2 tester ce clone sur la preprod
 
@@ -45,6 +72,10 @@ La commande est à taper depuis le vps:
 
     cd /var/www/dev-emindhub-security
     deploy/soyou_prod.sh
+
+## 3-bis enlever le mode maintenance
+
+Si vous l'aviez mis.
 
 # Certificats SSL / HTTPS
 
