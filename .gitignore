@@ -39,3 +39,6 @@ atlassian-ide-plugin.xml
 tests_casperjs/screenshots/
 tests_casperjs/failures/
 tests_casperjs/results/
+
+# this file is copied from deploy/ versions
+www/robots.txt
