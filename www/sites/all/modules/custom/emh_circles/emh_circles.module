@@ -99,10 +99,6 @@ function emh_circles_node_access($node, $op, $account) {
  */
 function _emh_circles_get_managers_from_group($group) {
   $group = entity_metadata_wrapper($group['group_type'], $group['gid']);
-  // If entity was an ID, get the object.
-  // $entity = $wrapper->value();
-  // $bundle = $wrapper->getBundle();
-  // $id = $wrapper->getIdentifier();
 
   $entity_type = $group->type();
   $entity_id = $group->getIdentifier();
