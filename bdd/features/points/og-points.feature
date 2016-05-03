@@ -51,8 +51,8 @@ Feature: Test points dispatch in OG
     When I go to "/groups"
     And I click "Avengers"
     And I click "Members"
-    Then I should see "client2"
-    And I should see "client3"
+    Then I should see "Charle Xavier"
+    And I should see "Tony Stark"
     #Then I should see the success message containing "has been added to the group"
 
     When I go to "/groups"
