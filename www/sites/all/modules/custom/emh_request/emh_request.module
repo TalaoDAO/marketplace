@@ -95,6 +95,27 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       if ( !empty($form['nid']['#value']) && $form['#node']->status == NODE_PUBLISHED) {
         $form['actions']['draft']['#access'] = FALSE;
         $form['actions']['submit']['#value'] = t('Save');
+
+        // If node is published on a private circle, we can close the request.
+        $nid = $form['nid']['#value'];
+        $status = emh_points_get_points_closed_status($nid);
+        $circles = $form['#node']->og_group_ref[LANGUAGE_NONE];
+        $private = TRUE;
+        foreach($circles as $delta => $circle) {
+          $loaded_circle = node_load($circle['target_id']); // TODO : PERF ISSUE : use node_load_all instead
+          if ($loaded_circle->field_private_circle[LANGUAGE_NONE]['0']['value'] === '0') {
+            // Public circle
+            $private = FALSE;
+            break;
+          }
+        }
+        if ($private && !$status) {
+          $form['actions']['close'] = array(
+            '#type' => 'submit',
+            '#value' => 'Close',
+            '#submit' => array('emh_request_close_node'),
+          );
+        }
       }
 
       // If node is published & there are some answers, only some updates are possible.
@@ -436,4 +457,13 @@ function emh_request_try_to_notify($node) {
   }
   // Webmaster copy
   // rules_invoke_event('emh_request_notify_webmaster_new_request', $node);
+}
+
+/**
+ * Close a node using the node submit button.
+ */
+function emh_request_close_node($form, &$form_state) {
+  $nid = $form['nid']['#value'];
+  emh_points_close_node($nid);
+  drupal_goto('node/' . $nid);
 }

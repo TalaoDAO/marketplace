@@ -73,6 +73,7 @@ features[field_base][] = field_photo
 features[field_base][] = field_position
 features[field_base][] = field_position_list
 features[field_base][] = field_private
+features[field_base][] = field_private_circle
 features[field_base][] = field_private_comment
 features[field_base][] = field_private_comment_body
 features[field_base][] = field_referent

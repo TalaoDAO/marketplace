@@ -144,10 +144,10 @@ function emh_points_validate_enough_points($element, &$form_state, $form) {
     // If not, is the not published ?
     if ($node->status) {
       // We cannot reduce the reward.
-      if ($node->field_reward[LANGUAGE_NONE]['0']['value'] > $element['value']['#value']) {
+      if (!empty($node->field_reward) && $node->field_reward[LANGUAGE_NONE]['0']['value'] > $element['value']['#value']) {
         // Reward is diminished, forbidden if published.
         form_error($element, t('You cannot reduce the number of points.'));
-      } elseif ($node->field_reward[LANGUAGE_NONE]['0']['value'] < $element['value']['#value']) {
+      } elseif (!empty($node->field_reward) && $node->field_reward[LANGUAGE_NONE]['0']['value'] < $element['value']['#value']) {
         $points = $element['value']['#value'] - $node->field_reward[LANGUAGE_NONE]['0']['value'];
       } else {
         // Egality, nothing to check.
@@ -214,7 +214,7 @@ function _emh_points_custom_private_circles($form_state, $form) {
   $circles = $form_state['values']['og_group_ref'][LANGUAGE_NONE];
   foreach($circles as $delta => $circle) { 
     $loaded_circle = node_load($circle['target_id']); // TODO : PERF ISSUE : use node_load_all instead
-    if ($loaded_circle->group_access[LANGUAGE_NONE]['0']['value'] == TRUE) {
+    if ($loaded_circle->field_private_circle[LANGUAGE_NONE]['0']['value'] === '0') {
       // Public circle
       $private = FALSE;
       break;
