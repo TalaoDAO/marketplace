@@ -16,7 +16,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'points_history';
   $view->description = '';
-  $view->tag = 'emh, points';
+  $view->tag = 'EMH, points';
   $view->base_table = 'users';
   $view->human_name = 'Points statement';
   $view->core = 7;
@@ -167,7 +167,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'my_relationships';
   $view->description = '';
-  $view->tag = 'emh, points';
+  $view->tag = 'EMH, points';
   $view->base_table = 'node';
   $view->human_name = 'My relationships';
   $view->core = 7;
@@ -328,7 +328,7 @@ function emh_points_views_default_views() {
   $handler->display->display_options['path'] = 'circles/relationships';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'My relationships';
-  $handler->display->display_options['menu']['weight'] = '-49';
+  $handler->display->display_options['menu']['weight'] = '-48';
   $handler->display->display_options['menu']['name'] = 'menu-top';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
@@ -338,7 +338,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'transaction_log';
   $view->description = '';
-  $view->tag = 'emh, points';
+  $view->tag = 'EMH, points';
   $view->base_table = 'emh_points_txn';
   $view->human_name = 'Transaction log';
   $view->core = 7;
@@ -537,7 +537,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'give_user_points';
   $view->description = '';
-  $view->tag = 'emh, points';
+  $view->tag = 'EMH, points';
   $view->base_table = 'users';
   $view->human_name = 'Give user points';
   $view->core = 7;
@@ -704,7 +704,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'og_points_repartition';
   $view->description = '';
-  $view->tag = 'emh, points';
+  $view->tag = 'EMH, points';
   $view->base_table = 'users';
   $view->human_name = 'OG Arrange Points';
   $view->core = 7;
@@ -715,8 +715,11 @@ function emh_points_views_default_views() {
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Distribute points';
   $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'access user profiles';
+  $handler->display->display_options['access']['type'] = 'role';
+  $handler->display->display_options['access']['role'] = array(
+    3 => '3',
+    6 => '6',
+  );
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -797,7 +800,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'answers';
   $view->description = '';
-  $view->tag = 'emh, points';
+  $view->tag = 'EMH, points';
   $view->base_table = 'comment';
   $view->human_name = 'Question / Challenge answers';
   $view->core = 7;
