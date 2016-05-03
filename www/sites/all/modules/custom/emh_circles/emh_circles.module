@@ -94,6 +94,14 @@ function emh_circles_node_access($node, $op, $account) {
   return NODE_ACCESS_IGNORE;
 }
 
+function emh_circles_get_membership_state($user) {
+  // $is_blocked = og_is_member($group_type, $gid, 'user', $account, array(OG_STATE_BLOCKED));
+  // $is_member = og_is_member($group_type, $gid, 'user', $account);
+  // define('OG_STATE_ACTIVE', 1);
+  // define('OG_STATE_PENDING', 2);
+  // define('OG_STATE_BLOCKED', 3);
+}
+
 /**
  * Get group managers from a group.
  */
