@@ -237,6 +237,11 @@ function emindhub_preprocess_field(&$variables) {
 					$classes[] = '';
 					break;
 
+				// Circles fields
+				case 'field_circle_logo':
+					$classes[] = '';
+					break;
+
 				default:
 					$classes[] = 'col-sm-12';
           break;
@@ -258,6 +263,20 @@ function emindhub_preprocess_field(&$variables) {
     $variables['item_attributes_array'][$delta]['class'] = $item_classes;
     $variables['item_attributes_array'][$delta]['class'][] = $delta % 2 ? 'even' : 'odd';
   }
+}
+
+/**
+ * Implements theme_username().
+ */
+function emindhub_username($variables) {
+	global $user;
+  if (isset($variables['link_path']) && emh_access_user_can_see_full_user($user->uid, $variables['account']->uid)) {
+    $output = l($variables['name'] . $variables['extra'], $variables['link_path'], $variables['link_options']);
+  }
+  else {
+    $output = '<span' . drupal_attributes($variables['attributes_array']) . '>' . $variables['name'] . $variables['extra'] . '</span>';
+  }
+  return $output;
 }
 
 
@@ -392,9 +411,12 @@ function emindhub_beautiful_baseline() {
   $baseline = '';
   $type = '';
   $show_help = FALSE;
-
   if (arg(1) == 'add') {
     $type = arg(2);
+    $show_help = TRUE;
+  }
+  if (arg(0) == 'group' && arg(3) == 'subscribe') {
+    $type = arg(0) . '-' . arg(3);
     $show_help = TRUE;
   }
   // else if (arg(2) == 'edit') {
@@ -417,6 +439,9 @@ function emindhub_beautiful_baseline() {
       case 'challenge':
         $baseline = t('Request for service proposals to innovate or solve a problem');
         break;
+			case 'group-subscribe':
+				$baseline = t('Your membership request will be reviewed by the manager of the circle. Please put forward your request.');
+				break;
       default:
         $baseline = '';
         break;

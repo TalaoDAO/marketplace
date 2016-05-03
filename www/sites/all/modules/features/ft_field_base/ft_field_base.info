@@ -39,6 +39,7 @@ features[field_base][] = field_alert_level
 features[field_base][] = field_anonymous
 features[field_base][] = field_autoref
 features[field_base][] = field_call_question
+features[field_base][] = field_circle_logo
 features[field_base][] = field_context_of_the_mission
 features[field_base][] = field_cv
 features[field_base][] = field_description

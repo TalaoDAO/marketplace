@@ -14,6 +14,136 @@ function emh_circles_views_api() {
   );
 }
 
+function emh_circles_reset_views() {
+  module_load_include('inc', 'emh_circles', 'views/emh_circles.views_default');
+  $default_views = emh_circles_views_default_views();
+  foreach($default_views as $name => $view) {
+    views_revert_view($view);
+  }
+}
+
+/**
+ * Implement hook_preprocess_HOOK().
+ */
+function emh_circles_preprocess_node(&$variables) {
+
+  if (isset($variables['node']->type)) {
+
+		switch ($variables['node']->type) {
+			case 'circle':
+        $group = og_context();
+
+        $variables['group_node_links'] = array();
+        $variables['gid'] = NULL;
+        $variables['group_type'] = NULL;
+        $variables['group_node'] = NULL;
+        $variables['created'] = NULL;
+        $variables['subscribe_link'] = NULL;
+        $variables['subscriber_count'] = NULL;
+        $variables['subscriber_link'] = NULL;
+        $variables['manager_uids'] = array();
+        $variables['managers'] = array();
+
+        if (empty($group)) {
+          return NULL;
+        }
+
+        $variables['group_node_links'] = og_extras_node_links();
+        $variables['gid'] = $group['gid'];
+        $variables['group_type'] = $group['group_type'];
+        $variables['group_node'] = node_load($group['gid']);
+
+        $variables['subscribe_link'] = og_extras_subscribe('node', $variables['group_node']);
+
+        $variables['created'] = format_date($variables['group_node']->created, 'custom', 'M d Y');
+
+        $variables['subscriber_count'] = og_extras_subscriber_count($variables['gid']);
+        $variables['subscriber_count'] = format_plural($variables['subscriber_count'], '@count member', '@count members');
+        // $variables['subscriber_link'] = l(format_plural($variables['subscriber_count'], '@count member', '@count members'), 'node/' . $variables['gid'] . '/members');
+
+        $variables['manager_uids'] = _emh_circles_get_managers_from_group($group);
+        $variables['manager_uids'] = $variables['manager_uids']['group_managers'];
+        foreach ($variables['manager_uids'] as $i => $manager_id) {
+          $variables['managers'][$i] = '';
+          $account = user_load($manager_id);
+          $variables['managers'][$i] .= theme('user_picture', array('account' => $account));
+          $variables['managers'][$i] .= theme('username', array('account' => $account));
+        }
+
+        break;
+
+      default:
+        break;
+    }
+  }
+}
+
+/**
+ * Implements hook_node_access().
+ */
+function emh_circles_node_access($node, $op, $account) {
+  if ($op == 'view') {
+    switch ($node->type) {
+      case 'circle':
+        if (user_is_anonymous()) return NODE_ACCESS_DENY;
+        break;
+      default:
+        break;
+    }
+  }
+  return NODE_ACCESS_IGNORE;
+}
+
+function emh_circles_get_membership_state($user) {
+  // $is_blocked = og_is_member($group_type, $gid, 'user', $account, array(OG_STATE_BLOCKED));
+  // $is_member = og_is_member($group_type, $gid, 'user', $account);
+  // define('OG_STATE_ACTIVE', 1);
+  // define('OG_STATE_PENDING', 2);
+  // define('OG_STATE_BLOCKED', 3);
+}
+
+/**
+ * Get group managers from a group.
+ */
+function _emh_circles_get_managers_from_group($group) {
+  $group = entity_metadata_wrapper($group['group_type'], $group['gid']);
+
+  $entity_type = $group->type();
+  $entity_id = $group->getIdentifier();
+
+  // Not a group.
+  if (!og_is_group($entity_type, $group)) {
+    return;
+  }
+
+  // Get the group roles.
+  $roles = og_roles($entity_type, $group->getBundle(), $entity_id);
+  $admin_rid = array_search(OG_ADMINISTRATOR_ROLE, $roles);
+
+  // Bail out if we can't figure out the admin role id.
+  if (!$admin_rid) {
+    return;
+  }
+
+  $admins = array();
+
+  // Get the group admins for the group.
+  $members = db_select('og_users_roles', 'our')
+    ->fields('our', array('uid'))
+    ->condition('our.gid', $entity_id)
+    ->condition('our.group_type', $entity_type)
+    ->condition('our.rid', $admin_rid)
+    ->execute()
+    ->fetchCol();
+
+  $admins = array_merge($admins, $members);
+
+  // Remove duplicate items.
+  $admins = array_keys(array_flip($admins));
+
+  return array('group_managers' => $admins);
+}
+
 function _emh_circles_check_user_is_referentmember_of_groups($uid, $gids) {
   $roleID = db_select('og_role', 'og')
             ->condition('name', 'Referent member', '=')
