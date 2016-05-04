@@ -58,7 +58,7 @@ Feature: Requests visibility for Référent
     And I click "edit" in the "Paul Stanley" row
     And I check the box "Referent member"
     And I press "Update membership"
-    Then I should see the success message "The membership has been updated."
+    Then I should see "The membership has been updated."
 
   Scenario: Referents can see the requests
     Given I am logged in as "référent1"
@@ -71,19 +71,19 @@ Feature: Requests visibility for Référent
   Scenario: A référent can only see full experts profiles from its circles
     Given I am logged in as "référent1"
 
-    When I go to "/users/expert2"
+    When I go to "/users/klark-kent"
     Then I should see "Klark Kent"
     And I should see "Modèle"
     And I should see "0712345671"
     And I should see "emindhub.test+expert2@gmail.com"
 
-    When I go to "/users/expert3"
+    When I go to "/users/bruce-banner"
     Then I should see "Bruce Banner"
     And I should see "Cogneur"
     And I should see "0712345672"
     And I should see "emindhub.test+expert3@gmail.com"
 
-    When I go to "/users/expert4"
+    When I go to "/users/scott-summers"
     Then I should see "Scott Summers"
     And I should not see "Bucheron"
     And I should not see "0712345673"

@@ -41,7 +41,7 @@ Feature: Question for Référent
     And I click "edit" in the "Paul Stanley" row
     And I check the box "Referent member"
     And I press "Update membership"
-    Then I should see the success message "The membership has been updated."
+    Then I should see "The membership has been updated."
 
     # An expert responds publicly to a question
     Given I am logged in as "expert1"
