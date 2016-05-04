@@ -31,19 +31,19 @@ Feature: Public circle and threshold limit
     # Make client1 as a Creator member of circles
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
-    And I click "Group"
+    And I click "Group" in the "primary tabs" region
     And I click "People"
     And I click "edit" in the "Captain America" row
     And I check the box "Creator member"
     And I press "Update membership"
     And I go to "content/x-men"
-    And I click "Group"
+    And I click "Group" in the "primary tabs" region
     And I click "People"
     And I click "edit" in the "Captain America" row
     And I check the box "Creator member"
     And I press "Update membership"
 
-  Scenario:
+  Scenario: Clients must allocate points to a content in public circle
     Given I am logged in as "client1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
@@ -52,7 +52,7 @@ Feature: Public circle and threshold limit
     And I press "Save"
     Then I should see the message "You should at least allocate 100 points."
 
-  Scenario:
+  Scenario: Clients do not have to allocate points to a content in private circle
     Given I am logged in as "client1"
     When I go to homepage
     And I click "Who about?" in the "Who about?" row
