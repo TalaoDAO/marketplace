@@ -103,7 +103,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
         $private = TRUE;
         foreach($circles as $delta => $circle) {
           $loaded_circle = node_load($circle['target_id']); // TODO : PERF ISSUE : use node_load_all instead
-          if ($loaded_circle->field_private_circle[LANGUAGE_NONE]['0']['value'] === '0') {
+          if ($loaded_circle->group_access[LANGUAGE_NONE]['0']['value'] === '0') {
             // Public circle
             $private = FALSE;
             break;
