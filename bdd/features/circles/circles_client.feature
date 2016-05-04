@@ -63,19 +63,19 @@ Feature: Requests visibility for Client
   Scenario: A client can only see selected experts full profiles from its circles
     Given I am logged in as "client2"
 
-    When I go to "/users/expert2"
+    When I go to "/users/klark-kent"
     Then I should see "Klark Kent"
     And I should not see "Modèle"
     And I should not see "0712345671"
     And I should not see "emindhub.test+expert2@gmail.com"
 
-    When I go to "/users/expert3"
+    When I go to "/users/bruce-banner"
     Then I should see "Bruce Banner"
     And I should not see "Cogneur"
     And I should not see "0712345672"
     And I should not see "emindhub.test+expert3@gmail.com"
 
-    When I go to "/users/expert4"
+    When I go to "/users/scott-summers"
     Then I should see "Scott Summers"
     And I should see "Bucheron"
     And I should see "0712345673"
