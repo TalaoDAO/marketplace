@@ -55,9 +55,10 @@ Feature: Requests visibility for Référent
     When I go to "content/avengers"
     And I click "Group"
     And I click "People"
-    And I click "edit" in the "référent1" row
+    And I click "edit" in the "Paul Stanley" row
     And I check the box "Referent member"
     And I press "Update membership"
+    Then I should see the success message "The membership has been updated."
 
   Scenario: Referents can see the requests
     Given I am logged in as "référent1"
