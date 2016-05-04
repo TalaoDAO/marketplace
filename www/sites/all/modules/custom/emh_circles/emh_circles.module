@@ -94,12 +94,40 @@ function emh_circles_node_access($node, $op, $account) {
   return NODE_ACCESS_IGNORE;
 }
 
-function emh_circles_get_membership_state($user) {
-  // $is_blocked = og_is_member($group_type, $gid, 'user', $account, array(OG_STATE_BLOCKED));
-  // $is_member = og_is_member($group_type, $gid, 'user', $account);
-  // define('OG_STATE_ACTIVE', 1);
-  // define('OG_STATE_PENDING', 2);
-  // define('OG_STATE_BLOCKED', 3);
+function emh_circles_get_membership_state($group, $account = NULL) {
+
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+
+  $og_states = array(
+    OG_STATE_ACTIVE,
+    OG_STATE_PENDING,
+    OG_STATE_BLOCKED
+  );
+
+  $state = '';
+  foreach ($og_states as $og_state) {
+    if (og_is_member('node', $group->nid, 'user', $user, array($og_state))) $state = $og_state;
+  }
+  if (!empty($state)) {
+    switch ($state) {
+      // Active
+      case '1':
+        break;
+      // Pending
+      case '2':
+        return t('Your request is pending.');
+        break;
+      // Blocked
+      case '3':
+        break;
+      default:
+        break;
+    }
+  }
+
 }
 
 /**
