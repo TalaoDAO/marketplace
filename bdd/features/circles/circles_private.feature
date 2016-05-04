@@ -7,9 +7,9 @@ Feature: Public circle and threshold limit
   Background: og visibility : Create circles
 
     Given "circle" content:
-    | title    | author  | field_private_circle |
-    | Avengers | admin   | Private              |
-    | X-Men    | admin   | Public               |
+    | title    | author  | group_access |
+    | Avengers | admin   | Private      |
+    | X-Men    | admin   | Public       |
 
     Given "corporate" content:
     | title     | author  |
@@ -33,17 +33,17 @@ Feature: Public circle and threshold limit
     When I go to "content/avengers"
     And I click "Group"
     And I click "People"
-    And I click "edit" in the "client1" row
-    And I check the box "Creator member"                                                                                                             
+    And I click "edit" in the "Captain America" row
+    And I check the box "Creator member"
     And I press "Update membership"
     And I go to "content/x-men"
     And I click "Group"
     And I click "People"
-    And I click "edit" in the "client1" row
-    And I check the box "Creator member"                                                                                                             
+    And I click "edit" in the "Captain America" row
+    And I check the box "Creator member"
     And I press "Update membership"
 
-  Scenario: 
+  Scenario:
     Given I am logged in as "client1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
@@ -52,7 +52,7 @@ Feature: Public circle and threshold limit
     And I press "Save"
     Then I should see the message "You should at least allocate 100 points."
 
-  Scenario: 
+  Scenario:
     Given I am logged in as "client1"
     When I go to homepage
     And I click "Who about?" in the "Who about?" row
