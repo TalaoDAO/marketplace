@@ -1973,54 +1973,6 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-circle-field_private_circle'.
-  $field_instances['node-circle-field_private_circle'] = array(
-    'bundle' => 'circle',
-    'default_value' => array(
-      0 => array(
-        'value' => 1,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 13,
-      ),
-      'full' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_private_circle',
-    'label' => 'Private circle',
-    'required' => 1,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_buttons',
-      'weight' => 42,
-    ),
-  );
-
   // Exported field_instance: 'node-circle-group_access'.
   $field_instances['node-circle-group_access'] = array(
     'bundle' => 'circle',
@@ -5759,7 +5711,6 @@ function ft_content_type_field_default_field_instances() {
   t('Photo');
   t('Position');
   t('Private answer');
-  t('Private circle');
   t('Profile title');
   t('Public answer');
   t('Request message');
