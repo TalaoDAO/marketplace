@@ -203,4 +203,5 @@ function emh_circles_update_7007() {
     ))
     ->condition('link_title', 'My circles')
     ->execute();
+  variable_set('menu_rebuild_needed', TRUE);
 }
