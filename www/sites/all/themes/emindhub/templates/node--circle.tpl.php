@@ -99,8 +99,8 @@
       </div>
     <?php endif; ?>
     <div class="circle-subscribe col-sm-12">
-      <?php if (!empty(emh_circles_get_membership_state($node))) : ?>
-        <em><?php print emh_circles_get_membership_state($node); ?></em>
+      <?php $state = emh_circles_get_membership_state($node); if (!empty($state)) : ?>
+        <em><?php print $state; ?></em>
       <?php endif; ?>
       <?php print og_extras_subscribe('node', $node); ?>
     </div>
@@ -120,8 +120,8 @@
           <?php print $subscriber_count; ?>
         </div>
         <div class="circle-subscribe col-sm-4">
-          <?php if (!empty(emh_circles_get_membership_state($node))) : ?>
-            <em><?php print emh_circles_get_membership_state($node); ?></em>
+          <?php $state = emh_circles_get_membership_state($node); if (!empty($state)) : ?>
+            <em><?php print $state; ?></em>
           <?php endif; ?>
           <?php print $subscribe_link; ?>
         </div>
