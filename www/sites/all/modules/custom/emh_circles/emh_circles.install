@@ -157,13 +157,6 @@ function emh_circles_update_7006() {
     ))
     ->condition('mlid', '9138')
     ->execute();
-  // My circles
-  db_update('menu_links')
-    ->fields(array(
-      'plid' => '7577',
-    ))
-    ->condition('mlid', '9385')
-    ->execute();
   // Delete Network roles
   db_delete('menu_links_visibility_role')
     ->condition('mlid', '7577')
@@ -197,4 +190,17 @@ function emh_circles_update_7006() {
   );
   og_role_change_permissions($og_roles[OG_AUTHENTICATED_ROLE], $permissions);
 
+}
+
+/**
+* CHG: Menu links.
+*/
+function emh_circles_update_7007() {
+  // My circles
+  db_update('menu_links')
+    ->fields(array(
+      'plid' => '7577',
+    ))
+    ->condition('link_title', 'My circles')
+    ->execute();
 }
