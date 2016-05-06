@@ -165,9 +165,13 @@ function emh_circles_update_7006() {
 
   // All experts circle access update
   $node = node_load('314');
+  print '1';
   $node_wrapper = entity_metadata_wrapper('node', $node);
+  print '2';
   $node_wrapper->group_access->set(0);
+  print '3';
   $node_wrapper->save();
+  print '4';
 
   emh_circles_disable_strings();
   emh_circles_enable_strings();
@@ -193,7 +197,7 @@ function emh_circles_update_7006() {
 }
 
 /**
-* CHG: Menu links.
+* CHG: Menu links & circle logo field.
 */
 function emh_circles_update_7007() {
   // My circles
@@ -204,4 +208,7 @@ function emh_circles_update_7007() {
     ->condition('link_title', 'My circles')
     ->execute();
   variable_set('menu_rebuild_needed', TRUE);
+
+  features_revert(array('ft_field_base' => array('field_base')));
+  features_revert(array('ft_content_type' => array('field_instance')));
 }
