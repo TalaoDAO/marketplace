@@ -54,6 +54,7 @@ features[field_base][] = field_entreprise_description
 features[field_base][] = field_expiration_date
 features[field_base][] = field_first_name
 features[field_base][] = field_force_public_answer
+features[field_base][] = field_free_circle
 features[field_base][] = field_general_information
 features[field_base][] = field_image
 features[field_base][] = field_interests
