@@ -392,3 +392,11 @@ function emh_points_update_7110() {
   );
   path_save($path);
 }
+
+/**
+ * ADD: Create a new field on for free question.
+ */
+function emh_points_update_7111() {
+  features_revert(array('ft_field_base' => array('field_base')));
+  features_revert(array('ft_content_type' => array('field_instance')));
+}
