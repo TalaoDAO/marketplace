@@ -25,6 +25,7 @@ function emindhub_process_format($element) {
 function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
   // echo '<pre>' . print_r($form_id, TRUE) . '</pre>';
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
   // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
 
 	if (!empty($form['actions'])) {
@@ -342,6 +343,9 @@ function emindhub_views_bulk_operations_form_alter(&$form, $form_state, $vbo_han
   // Only when we want it.
   $view = arg(2);
   if (!empty($view) && ($view == 'answers' || $view == 'results')) {
+		$nid = arg(1);
+		$node = node_load($nid);
+		if (!empty($node->field_reward) && $node->field_reward[LANGUAGE_NONE]['0']['value'] == '0') $form['select']['action::emh_points_arrange_node_points']['#value'] = t('Validate and close request');
     $form['select']['action::emh_points_arrange_node_points']['#attributes']['class'][] = 'btn-submit';
 		if (empty($vbo_handler->view->result)) {
 			$form['select']['#access'] = FALSE;
