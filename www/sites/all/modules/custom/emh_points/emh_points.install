@@ -381,7 +381,7 @@ function emh_points_update_7109() {
 }
 
 /**
- * Change My relationships path.
+ * CHG: My relationships path.
  */
 function emh_points_update_7110() {
   $view = views_get_view('my_relationships');
@@ -391,4 +391,11 @@ function emh_points_update_7110() {
     'alias' => 'my-relationships',
   );
   path_save($path);
+}
+
+/**
+ * CHG: Revert Views.
+ */
+function emh_points_update_7111() {
+  emh_points_reset_views();
 }
