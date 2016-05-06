@@ -143,9 +143,10 @@ function emh_circles_update_7005() {
 }
 
 /**
-* CHG: Circles views, Menu links, All experts access, OG permissions for subscribing.
+* CHG: Circles views, Menu links, OG permissions for subscribing.
 */
 function emh_circles_update_7006() {
+
   // Revert views & rules
   features_revert(array('ft_views' => array('views_view')));
   features_revert(array('ft_rules' => array('rules_config')));
@@ -162,12 +163,6 @@ function emh_circles_update_7006() {
     ->condition('mlid', '7577')
     ->execute();
   variable_set('menu_rebuild_needed', TRUE);
-
-  // All experts circle access update
-  $node = node_load('314');
-  $node_wrapper = entity_metadata_wrapper('node', $node);
-  $node_wrapper->group_access->set(0);
-  $node_wrapper->save();
 
   emh_circles_disable_strings();
   emh_circles_enable_strings();
@@ -193,7 +188,7 @@ function emh_circles_update_7006() {
 }
 
 /**
-* CHG: Menu links.
+* CHG: Menu links & circle logo field.
 */
 function emh_circles_update_7007() {
   // My circles
@@ -203,4 +198,8 @@ function emh_circles_update_7007() {
     ))
     ->condition('link_title', 'My circles')
     ->execute();
+  variable_set('menu_rebuild_needed', TRUE);
+
+  features_revert(array('ft_field_base' => array('field_base')));
+  features_revert(array('ft_content_type' => array('field_instance')));
 }
