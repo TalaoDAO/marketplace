@@ -538,10 +538,10 @@ function ft_content_type_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '4',
+          'weight' => '7',
         ),
         'metatags' => array(
-          'weight' => '6',
+          'weight' => '5',
         ),
       ),
       'display' => array(
