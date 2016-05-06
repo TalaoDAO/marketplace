@@ -18,6 +18,14 @@ function emh_circles_disable() {
   emh_circles_disable_strings();
 }
 
+function emh_circles_reset_views() {
+  module_load_include('inc', 'emh_circles', 'views/emh_circles.views_default');
+  $default_views = emh_circles_views_default_views();
+  foreach($default_views as $name => $view) {
+    views_revert_view($view);
+  }
+}
+
 function emh_circles_enable_strings() {
   global $language;
   $lang = $language->language;
@@ -202,4 +210,11 @@ function emh_circles_update_7007() {
 
   features_revert(array('ft_field_base' => array('field_base')));
   features_revert(array('ft_content_type' => array('field_instance')));
+}
+
+/**
+* CHG: Remove Reset button in Views.
+*/
+function emh_circles_update_7008() {
+  emh_points_reset_views();
 }
