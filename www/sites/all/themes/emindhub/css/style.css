@@ -11160,6 +11160,7 @@ fieldset[disabled] .btn-asphalt.focus {
   color: #ffffff;
   background-color: #1abc9c;
   border-color: #12806a;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
   background-position: 10px 50%;
   background-repeat: no-repeat;
   white-space: normal;
@@ -11228,6 +11229,10 @@ fieldset[disabled] .btn-flash.focus {
 .icon-community {
   padding-left: 45px;
   background-image: url("../images/picto/picto_community_small.png");
+}
+.icon-user {
+  padding-left: 35px;
+  background-image: url("../images/picto/picto_user_small.png");
 }
 .btn-gray {
   color: #4c6172;
