@@ -215,7 +215,13 @@ function emh_circles_update_7008() {
 * CHG: Revert circle rules.
 */
 function emh_circles_update_7009() {
+  if ($rules_config = rules_config_load('rules_emh_circles_send_email_membership_pending')) {
+    $rules_config->delete();
+  }
   if ($rules_config = rules_config_load('rules_emh_circles_send_email_membership_accepted')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('rules_emh_circles_send_email_membership_refused')) {
     $rules_config->delete();
   }
 }
