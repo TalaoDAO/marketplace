@@ -218,3 +218,12 @@ function emh_circles_update_7007() {
 function emh_circles_update_7008() {
   emh_points_reset_views();
 }
+
+/**
+* CHG: Revert circle rules.
+*/
+function emh_circles_update_7009() {
+  if ($rules_config = rules_config_load('rules_emh_circles_send_email_membership_accepted')) {
+    $rules_config->delete();
+  }
+}
