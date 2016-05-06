@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * @file
@@ -13,4 +13,12 @@ function emh_points_custom_update_7101() {
     ->fields(array('weight' => 1))
     ->condition('name', 'emh_points_custom')
     ->execute();
+}
+
+/**
+ * ADD: Create a new field on for free question.
+ */
+function emh_points_custom_update_7102() {
+  features_revert(array('ft_field_base' => array('field_base')));
+  features_revert(array('ft_content_type' => array('field_instance')));
 }
