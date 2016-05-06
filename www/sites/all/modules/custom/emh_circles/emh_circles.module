@@ -101,6 +101,13 @@ function emh_circles_node_access($node, $op, $account) {
 //   $form['actions']['submit']['#value'] = t('Ask to join');
 // }
 
+/**
+ * Implements hook_form_alter().
+ */
+function emh_circles_form_og_ui_confirm_unsubscribe_alter(&$form, &$form_state) {
+  $form['description']['#markup'] = '<p>' . t('Do you really want to leave this circle?') . '</p>';
+}
+
 function emh_circles_get_membership_state($group, $account = NULL) {
 
   if (empty($account)) {
