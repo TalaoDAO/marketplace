@@ -7,7 +7,7 @@ Feature: Public circle and threshold limit
   Background: og visibility : Create circles
 
     Given "circle" content:
-    | title    | author  | group_access |
+    | title    | author  | field_free_circle |
     | Avengers | admin   | Private      |
     | X-Men    | admin   | Public       |
 
@@ -43,7 +43,7 @@ Feature: Public circle and threshold limit
     And I check the box "Creator member"
     And I press "Update membership"
 
-  Scenario: Clients must allocate points to a content in public circle
+  Scenario: Clients must allocate points to a content in paying circle
     Given I am logged in as "client1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
@@ -52,7 +52,7 @@ Feature: Public circle and threshold limit
     And I press "Save"
     Then I should see the message "You should at least allocate 100 points."
 
-  Scenario: Clients do not have to allocate points to a content in private circle
+  Scenario: Clients do not have to allocate points to a content in free circle
     Given I am logged in as "client1"
     When I go to homepage
     And I click "Who about?" in the "Who about?" row
