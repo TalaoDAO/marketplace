@@ -86,8 +86,8 @@ function emh_user_update_7007() {
 /**
 * FIX CV field path.
 */
-// function emh_user_update_7008() {
-//   features_revert(array('ft_field_base' => array('field_base')));
-//   features_revert(array('ft_content_type' => array('field_instance')));
-//   drush_filefield_paths_ffp_update('user', 'user', field_cv);
-// }
+function emh_user_update_7008() {
+  features_revert(array('ft_field_base' => array('field_base')));
+  features_revert(array('ft_content_type' => array('field_instance')));
+  // drush_filefield_paths_ffp_update('user', 'user', field_cv);
+}
