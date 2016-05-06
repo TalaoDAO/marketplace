@@ -15507,11 +15507,6 @@ table th[class*="col-"] {
   .view-display-id-page_1 form #edit-total-points-wrapper {
     margin-top: 10px;
   }
-  .view-display-id-block form .views-exposed-form .views-exposed-widgets > .views-submit-button,
-  .view-display-id-page form .views-exposed-form .views-exposed-widgets > .views-submit-button,
-  .view-display-id-page_1 form .views-exposed-form .views-exposed-widgets > .views-submit-button {
-    margin-top: 34px;
-  }
 }
 @media (min-width: 992px) {
   .view-display-id-page_2 form #edit-status-wrapper,
