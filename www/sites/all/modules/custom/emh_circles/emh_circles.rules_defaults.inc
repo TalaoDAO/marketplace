@@ -131,7 +131,8 @@ function emh_circles_default_rules_configuration() {
     "ON" : { "og_user_insert" : [] },
     "IF" : [
       { "data_is" : { "data" : [ "og-membership:state" ], "value" : "1" } },
-      { "entity_is_of_type" : { "entity" : [ "og-membership:group" ], "type" : "node" } }
+      { "entity_is_of_type" : { "entity" : [ "og-membership:group" ], "type" : "node" } },
+      { "NOT data_is" : { "data" : [ "og-membership:group:nid" ], "value" : "314" } }
     ],
     "DO" : [
       { "variable_add" : {
