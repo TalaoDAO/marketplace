@@ -530,7 +530,7 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
         drupal_access_denied();
         drupal_exit();
       }
-      // Private circle without points
+      // Free circle without points
       if ($points == 0) {
         // Just close the node and return it.
         emh_points_close_node($id_source);
