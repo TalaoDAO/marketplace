@@ -97,14 +97,16 @@ function emh_circles_node_access($node, $op, $account) {
 /**
  * Implements hook_form_alter().
  */
-// function emh_circles_form_og_ui_confirm_subscribe_alter(&$form, &$form_state) {
-//   $form['actions']['submit']['#value'] = t('Ask to join');
-// }
+function emh_circles_form_og_ui_confirm_subscribe_alter(&$form, &$form_state) {
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
+  $form['actions']['submit']['#value'] = t('Ask to join');
+}
 
 /**
  * Implements hook_form_alter().
  */
 function emh_circles_form_og_ui_confirm_unsubscribe_alter(&$form, &$form_state) {
+  $form['actions']['submit']['#value'] = t('Yes');
   $form['description']['#markup'] = '<p>' . t('Do you really want to leave this circle?') . '</p>';
 }
 
