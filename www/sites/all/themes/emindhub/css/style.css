@@ -11218,9 +11218,6 @@ fieldset[disabled] .btn-flash.focus {
   color: #1abc9c;
   background-color: #ffffff;
 }
-.btn-flash.btn {
-  margin-right: 0;
-}
 @media (min-width: 992px) {
   .btn-flash {
     margin-top: 11px;
