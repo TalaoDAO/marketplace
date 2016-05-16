@@ -11160,6 +11160,7 @@ fieldset[disabled] .btn-asphalt.focus {
   color: #ffffff;
   background-color: #1abc9c;
   border-color: #12806a;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
   background-position: 10px 50%;
   background-repeat: no-repeat;
   white-space: normal;
@@ -11217,9 +11218,6 @@ fieldset[disabled] .btn-flash.focus {
   color: #1abc9c;
   background-color: #ffffff;
 }
-.btn-flash.btn {
-  margin-right: 0;
-}
 @media (min-width: 992px) {
   .btn-flash {
     margin-top: 11px;
@@ -11228,6 +11226,10 @@ fieldset[disabled] .btn-flash.focus {
 .icon-community {
   padding-left: 45px;
   background-image: url("../images/picto/picto_community_small.png");
+}
+.icon-user {
+  padding-left: 35px;
+  background-image: url("../images/picto/picto_user_small.png");
 }
 .btn-gray {
   color: #4c6172;
@@ -15501,11 +15503,6 @@ table th[class*="col-"] {
   .view-display-id-page form #edit-total-points-wrapper,
   .view-display-id-page_1 form #edit-total-points-wrapper {
     margin-top: 10px;
-  }
-  .view-display-id-block form .views-exposed-form .views-exposed-widgets > .views-submit-button,
-  .view-display-id-page form .views-exposed-form .views-exposed-widgets > .views-submit-button,
-  .view-display-id-page_1 form .views-exposed-form .views-exposed-widgets > .views-submit-button {
-    margin-top: 34px;
   }
 }
 @media (min-width: 992px) {

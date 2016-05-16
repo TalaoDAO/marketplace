@@ -55,7 +55,7 @@
     <div class="content">
       <?php print $content; ?>
     </div>
-    <a href="<?php print url('freetrial'); ?>" class="btn btn-primary calltoaction"><?php echo sprintf(t('Sign up %sas a client%s'), '<strong>', '</strong>'); ?></a>
+    <a href="<?php print url('client/register'); ?>" class="btn btn-primary calltoaction"><?php echo sprintf(t('Sign up %sas a client%s'), '<strong>', '</strong>'); ?></a>
   <?php endif;?>
 
 </section> <!-- /.block -->

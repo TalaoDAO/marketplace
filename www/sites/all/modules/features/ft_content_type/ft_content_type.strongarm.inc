@@ -538,7 +538,7 @@ function ft_content_type_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '4',
+          'weight' => '8',
         ),
         'metatags' => array(
           'weight' => '6',

@@ -171,8 +171,8 @@ function emh_points_validate_enough_points($element, &$form_state, $form) {
 }
 
 function emh_points_validate_challenge_threshold($element, &$form_state, $form) {
-  // Only validate the threshold if the chosen circle is public.
-  if (_emh_points_custom_private_circles($form_state, $form)) {
+  // Only validate the threshold if the chosen circle is paying.
+  if (_emh_points_custom_free_circle($form_state, $form)) {
     return;
   }
   $threshold = variable_get('emh_points_challenge_threshold', 100);
@@ -183,8 +183,8 @@ function emh_points_validate_challenge_threshold($element, &$form_state, $form) 
 }
 
 function emh_points_validate_question1_threshold($element, &$form_state, $form) {
-  // Only validate the threshold if the chosen circle is public.
-  if (_emh_points_custom_private_circles($form_state, $form)) {
+  // Only validate the threshold if the chosen circle is paying.
+  if (_emh_points_custom_free_circle($form_state, $form)) {
     return;
   }
   $threshold = variable_get('emh_points_question1_threshold', 100);
@@ -195,8 +195,8 @@ function emh_points_validate_question1_threshold($element, &$form_state, $form) 
 }
 
 function emh_points_validate_webform_threshold($element, &$form_state, $form) {
-  // Only validate the threshold if the chosen circle is public.
-  if (_emh_points_custom_private_circles($form_state, $form)) {
+  // Only validate the threshold if the chosen circle is paying.
+  if (_emh_points_custom_free_circle($form_state, $form)) {
     return;
   }
   $threshold = variable_get('emh_points_webform_threshold', 100);
@@ -209,18 +209,18 @@ function emh_points_validate_webform_threshold($element, &$form_state, $form) {
 /**
  * Helper function to validate circle privacy.
  */
-function _emh_points_custom_private_circles($form_state, $form) {
-  $private = TRUE;
+function _emh_points_custom_free_circle($form_state, $form) {
+  $free = TRUE;
   $circles = $form_state['values']['og_group_ref'][LANGUAGE_NONE];
-  foreach($circles as $delta => $circle) { 
+  foreach($circles as $delta => $circle) {
     $loaded_circle = node_load($circle['target_id']); // TODO : PERF ISSUE : use node_load_all instead
-    if ($loaded_circle->field_private_circle[LANGUAGE_NONE]['0']['value'] === '0') {
-      // Public circle
-      $private = FALSE;
+    if ($loaded_circle->field_free_circle[LANGUAGE_NONE]['0']['value'] === '0') {
+      // Paying circle
+      $free = FALSE;
       break;
     }
   }
-  return $private;
+  return $free;
 }
 
 /**
