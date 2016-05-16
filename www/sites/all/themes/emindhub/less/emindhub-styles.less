@@ -211,14 +211,14 @@ img {
 // New button style : .btn-flash
 .btn-flash {
 	.button-variant(#FFF; @emerald-base; @emerald-dark);
-	// text-shadow: 0px 0px 2px rgba(0, 0, 0, 1);
+	text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
 	background-position: 10px 50%;
 	background-repeat: no-repeat;
 	white-space: normal;
 	.text-left;
 
 	&.btn {
-		margin-right: 0;
+		// margin-right: 0;
 	}
 	@media (min-width: @screen-md-min) {
 		margin-top: 11px;
@@ -227,6 +227,10 @@ img {
 .icon-community {
 	padding-left: 45px;
 	background-image: url("../images/picto/picto_community_small.png");
+}
+.icon-user {
+	padding-left: 35px;
+	background-image: url("../images/picto/picto_user_small.png");
 }
 
 // New button style: btn-gray

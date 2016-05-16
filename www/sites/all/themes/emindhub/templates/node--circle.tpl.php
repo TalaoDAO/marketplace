@@ -80,7 +80,6 @@
  * @ingroup themeable
  */
 ?>
-
 <?php if ($teaser) : ?>
   <div class="row section">
     <div class="circle-logo col-sm-1">
@@ -100,6 +99,9 @@
       </div>
     <?php endif; ?>
     <div class="circle-subscribe col-sm-12">
+      <?php $state = emh_circles_get_membership_state($node); if (!empty($state)) : ?>
+        <em><?php print $state; ?></em>
+      <?php endif; ?>
       <?php print og_extras_subscribe('node', $node); ?>
     </div>
   </div>
@@ -118,6 +120,9 @@
           <?php print $subscriber_count; ?>
         </div>
         <div class="circle-subscribe col-sm-4">
+          <?php $state = emh_circles_get_membership_state($node); if (!empty($state)) : ?>
+            <em><?php print $state; ?></em>
+          <?php endif; ?>
           <?php print $subscribe_link; ?>
         </div>
       </div>

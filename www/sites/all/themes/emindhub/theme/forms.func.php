@@ -25,6 +25,7 @@ function emindhub_process_format($element) {
 function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
   // echo '<pre>' . print_r($form_id, TRUE) . '</pre>';
+  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
   // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
 
 	if (!empty($form['actions'])) {
@@ -334,14 +335,22 @@ function emindhub_form_comment_form_alter(&$form, &$form_state, $form_id) {
 
 }
 
-
 /**
  * Implements hook_form_alter().
  */
 function emindhub_views_bulk_operations_form_alter(&$form, $form_state, $vbo_handler) {
   // Only when we want it.
   $view = arg(2);
+	$nid = arg(1);
   if (!empty($view) && ($view == 'answers' || $view == 'results')) {
+
+		// Change distribution button label when the request is free
+		$node = node_load($nid);
+		if (!empty($node->field_reward) && $node->field_reward[LANGUAGE_NONE]['0']['value'] == '0') $form['select']['action::emh_points_arrange_node_points']['#value'] = t('Validate and close request');
+
+		$closed = emh_points_get_points_closed_status($nid);
+		if ($closed) $form['select']['#access'] = FALSE;
+
     $form['select']['action::emh_points_arrange_node_points']['#attributes']['class'][] = 'btn-submit';
 		if (empty($vbo_handler->view->result)) {
 			$form['select']['#access'] = FALSE;
@@ -349,14 +358,12 @@ function emindhub_views_bulk_operations_form_alter(&$form, $form_state, $vbo_han
   }
 }
 
-
 /**
  * Implements hook_form_alter().
  */
 function emindhub_form_emh_points_arrange_form_alter(&$form, &$form_state, $type_source) {
   $form['submit']['#attributes']['class'][] = 'btn-submit';
 }
-
 
 /**
  * Implements hook_form_alter().

@@ -1791,14 +1791,14 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 1,
+        'weight' => 0,
       ),
       'full' => array(
         'label' => 'hidden',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 1,
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'hidden',
@@ -1807,7 +1807,7 @@ function ft_content_type_field_default_field_instances() {
           'trim_length' => 600,
         ),
         'type' => 'text_summary_or_trimmed',
-        'weight' => 1,
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -1827,7 +1827,7 @@ function ft_content_type_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 1,
+      'weight' => 3,
     ),
   );
 
@@ -1840,22 +1840,21 @@ function ft_content_type_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'list',
         'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 2,
+        'type' => 'hidden',
+        'weight' => 4,
       ),
       'full' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 2,
+        'weight' => 3,
       ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 2,
+        'weight' => 3,
       ),
     ),
     'entity_type' => 'node',
@@ -1890,7 +1889,7 @@ function ft_content_type_field_default_field_instances() {
           'image_style' => '',
         ),
         'type' => 'image',
-        'weight' => 0,
+        'weight' => 2,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -1900,7 +1899,7 @@ function ft_content_type_field_default_field_instances() {
           'image_style' => '',
         ),
         'type' => 'image',
-        'weight' => 0,
+        'weight' => 2,
       ),
       'teaser' => array(
         'label' => 'hidden',
@@ -1910,12 +1909,12 @@ function ft_content_type_field_default_field_instances() {
           'image_style' => '',
         ),
         'type' => 'image',
-        'weight' => 0,
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'node',
     'field_name' => 'field_circle_logo',
-    'label' => 'Logo',
+    'label' => 'Circle logo',
     'required' => 0,
     'settings' => array(
       'alt_field' => 0,
@@ -1955,7 +1954,7 @@ function ft_content_type_field_default_field_instances() {
       'active' => 1,
       'module' => 'imagefield_crop',
       'settings' => array(
-        'collapsible' => 1,
+        'collapsible' => 2,
         'croparea' => '100x100',
         'custom_ratio' => '',
         'enforce_minimum' => 1,
@@ -1969,16 +1968,16 @@ function ft_content_type_field_default_field_instances() {
         'validate_resolution' => 0,
       ),
       'type' => 'imagefield_crop_widget',
-      'weight' => 2,
+      'weight' => 4,
     ),
   );
 
-  // Exported field_instance: 'node-circle-field_private_circle'.
-  $field_instances['node-circle-field_private_circle'] = array(
+  // Exported field_instance: 'node-circle-field_free_circle'.
+  $field_instances['node-circle-field_free_circle'] = array(
     'bundle' => 'circle',
     'default_value' => array(
       0 => array(
-        'value' => 1,
+        'value' => 0,
       ),
     ),
     'deleted' => 0,
@@ -1986,10 +1985,9 @@ function ft_content_type_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'list',
         'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 13,
+        'type' => 'hidden',
+        'weight' => 3,
       ),
       'full' => array(
         'label' => 'above',
@@ -2005,8 +2003,8 @@ function ft_content_type_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_private_circle',
-    'label' => 'Private circle',
+    'field_name' => 'field_free_circle',
+    'label' => 'Free circle',
     'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -2017,7 +2015,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 42,
+      'weight' => 2,
     ),
   );
 
@@ -2034,22 +2032,21 @@ function ft_content_type_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'list',
         'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 4,
+        'type' => 'hidden',
+        'weight' => 5,
       ),
       'full' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 3,
+        'weight' => 4,
       ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 3,
+        'weight' => 4,
       ),
     ),
     'entity_type' => 'node',
@@ -2075,7 +2072,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 7,
+      'weight' => 1,
     ),
     'widget_type' => 'options_select',
   );
@@ -2092,25 +2089,27 @@ function ft_content_type_field_default_field_instances() {
     'description' => 'Determine if this is an OG group.',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'module' => 'og_ui',
         'settings' => array(
           'field_name' => FALSE,
         ),
         'type' => 'og_group_subscribe',
-        'weight' => 3,
+        'weight' => 1,
       ),
       'full' => array(
-        'label' => 'above',
+        'label' => 'hidden',
+        'module' => 'i18n_field',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 4,
+        'type' => 'i18n_list_default',
+        'weight' => 1,
       ),
       'teaser' => array(
-        'label' => 'above',
+        'label' => 'hidden',
+        'module' => 'i18n_field',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 4,
+        'type' => 'i18n_list_default',
+        'weight' => 1,
       ),
     ),
     'display_label' => 1,
@@ -2141,7 +2140,7 @@ function ft_content_type_field_default_field_instances() {
         'og_hide' => TRUE,
       ),
       'type' => 'options_onoff',
-      'weight' => 3,
+      'weight' => 7,
     ),
   );
 
@@ -4364,6 +4363,7 @@ function ft_content_type_field_default_field_instances() {
         'file_name' => array(
           'options' => array(
             'pathauto' => 0,
+            'slashes' => 0,
             'transliterate' => 0,
           ),
           'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
@@ -4371,10 +4371,12 @@ function ft_content_type_field_default_field_instances() {
         'file_path' => array(
           'options' => array(
             'pathauto' => 0,
+            'slashes' => 0,
             'transliterate' => 0,
           ),
-          'value' => '',
+          'value' => 'CV',
         ),
+        'redirect' => FALSE,
         'retroactive_update' => 0,
       ),
       'filefield_paths_enabled' => 1,
@@ -4385,13 +4387,6 @@ function ft_content_type_field_default_field_instances() {
       'active' => 1,
       'module' => 'file',
       'settings' => array(
-        'allowed_schemes' => array(
-          0 => 'public',
-          1 => 'private',
-        ),
-        'allowed_types' => array(
-          0 => 'image',
-        ),
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
@@ -5713,6 +5708,7 @@ function ft_content_type_field_default_field_instances() {
   t('Body');
   t('CV');
   t('Choose circle of experts');
+  t('Circle logo');
   t('Comment');
   t('Context and objectives of the mission');
   t('Deadline');
@@ -5731,6 +5727,7 @@ function ft_content_type_field_default_field_instances() {
   t('First Name');
   t('For example : Expert in electromechanical systems.');
   t('Force public answer');
+  t('Free circle');
   t('Frequency of notifications');
   t('Group');
   t('Group content visibility');
@@ -5759,7 +5756,6 @@ function ft_content_type_field_default_field_instances() {
   t('Photo');
   t('Position');
   t('Private answer');
-  t('Private circle');
   t('Profile title');
   t('Public answer');
   t('Request message');

@@ -172,7 +172,7 @@ global $base_url;
 
         <div class="row">
 
-          <div class="col-md-9">
+          <div class="col-md-8">
 
             <?php if (!empty($page['title'])): ?>
             <?php print render($page['title']); ?>
@@ -190,10 +190,13 @@ global $base_url;
 
           </div>
 
-          <div id="flashes" class="col-md-3 text-right">
+          <div id="flashes" class="col-md-4 text-right">
 
-            <?php if ( $logged_in ): ?>
-            <a class="btn btn-flash icon-community" href="<?php print url('invitations'); ?>"><?php print t('Invite experts'); ?></a>
+            <?php if (user_access('invite experts')) : ?>
+              <a class="btn btn-flash icon-user" href="<?php print url('invitations'); ?>"><?php print t('Invite experts'); ?></a>
+            <?php endif; ?>
+            <?php if (user_has_role(3) || user_has_role(4) || user_has_role(6)) : ?>
+            <a class="btn btn-flash icon-community" href="<?php print url('circles'); ?>"><?php print t('Join circles'); ?></a>
             <?php endif; ?>
 
           </div>

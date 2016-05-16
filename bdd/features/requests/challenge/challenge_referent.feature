@@ -36,9 +36,10 @@ Feature: Challenge for Référent
     When I go to "content/avengers"
     And I click "Group"
     And I click "People"
-    And I click "edit" in the "référent1" row
+    And I click "edit" in the "Paul Stanley" row
     And I check the box "Referent member"
     And I press "Update membership"
+    Then I should see "The membership has been updated."
 
     # An expert can respond to the challenge
     Given I am logged in as "expert2"
