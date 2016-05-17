@@ -132,7 +132,7 @@ function emh_points_custom_form_views_form_answers_page_alter(&$form, &$form_sta
  */
 
 /**
- * Validation callback to ensure you have enough points to create a Question.
+ * Validation callback to ensure you have enough points to create a Request.
  */
 function emh_points_validate_enough_points($element, &$form_state, $form) {
   $points = 0;
@@ -141,7 +141,7 @@ function emh_points_validate_enough_points($element, &$form_state, $form) {
   if (!isset($node->nid) || isset($node->is_new)) {
     $points = $element['value']['#value'];
   } else {
-    // If not, is the not published ?
+    // If not, is the node published ?
     if ($node->status) {
       // We cannot reduce the reward.
       if (!empty($node->field_reward) && $node->field_reward[LANGUAGE_NONE]['0']['value'] > $element['value']['#value']) {
@@ -165,6 +165,7 @@ function emh_points_validate_enough_points($element, &$form_state, $form) {
     ->condition('p.entity_id', $user->uid);
   $query->addExpression('SUM(p.points)');
   $current_points = $query->execute()->fetchField();
+  if (empty($current_points)) $current_points = 0;
   if ($current_points < $points) {
     form_error($element, t('You don\'t have enough points (@count).', array('@count' => $current_points)));
   }
