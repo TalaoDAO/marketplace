@@ -266,8 +266,8 @@ class FeatureContext extends DrupalContext {
 
     global $base_url;
     $html_data = $this->getSession()->getDriver()->getContent();
-    file_put_contents($base_url . $this->tempPath . $this->htmlPagePath, $html_data);
-
+    file_put_contents(DRUPAL_ROOT. $this->tempPath . $this->htmlPagePath, $html_data);
+    echo 'Screenshot at : ' . $base_url . $this->tempPath . $this->htmlPagePath;
   }
 
  /**
