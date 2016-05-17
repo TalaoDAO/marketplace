@@ -8,6 +8,7 @@
  * Implements hook_enable
  */
 function emh_answer_enable() {
+  emh_answer_enable_strings();
   emh_answer_update_7001();
 }
 
@@ -20,4 +21,44 @@ function emh_answer_update_7001() {
   ->condition('type', 'module')
   ->condition('name', 'emh_answer')
   ->execute();
+}
+
+/**
+* Revert strings.
+*/
+function emh_answer_update_7002() {
+  emh_answer_disable_strings();
+  emh_answer_enable_strings();
+}
+
+function emh_answer_enable_strings() {
+  global $language;
+  $lang = $language->language;
+  $strings = variable_get("locale_custom_strings_$lang", array());
+  foreach (_emh_answer_string_overrides() as $string => $override) {
+    $strings[''][$string] = $override;
+  }
+  variable_set("locale_custom_strings_$lang", $strings);
+}
+
+function emh_answer_disable_strings() {
+  global $language;
+  $lang = $language->language;
+  $strings = variable_get("locale_custom_strings_$lang", array());
+  foreach (_emh_answer_string_overrides() as $string => $override) {
+    unset($strings[''][$string]);
+  }
+  variable_set("locale_custom_strings_$lang", $strings);
+}
+
+/**
+ * Provides string overrides.
+ */
+function _emh_answer_string_overrides() {
+  return array(
+    // Comment
+    'Edit comment %comment' => 'Edit answer',
+    'Your comment has been queued for review by site administrators and will be published after approval.' => 'Your answer has been saved as a draft.',
+    'Your comment has been posted.' => 'Your answer has been posted.',
+  );
 }

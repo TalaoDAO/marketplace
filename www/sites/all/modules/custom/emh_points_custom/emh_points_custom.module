@@ -79,18 +79,17 @@ function emh_points_custom_form_emh_points_admin_form_alter(&$form, &$form_state
 function emh_points_custom_views_bulk_operations_form_alter(&$form) {
   // Only when we want it.
   $nid = arg(1); $view = arg(2);
-  $has_points = emh_request_has_points($nid);
   if (!empty($view) && ($view == 'answers' || $view == 'results')) {
     $form['select']['#type'] = 'menu';
     $form['select']['#weight'] = 100;
     $form['baseline'] = array(
       '#markup' => '<p class="emh-title-baseline">' . t('Select best answer(s)') . '</p>',
     );
-    // echo '<pre>' . print_r($form, TRUE) . '</pre>';
   }
-  if (!$has_points) {
-    $form['select']['action::emh_points_arrange_node_points']['#access'] = FALSE;
-  }
+  // $has_points = emh_request_has_points($nid);
+  // if (!$has_points) {
+  //   $form['select']['action::emh_points_arrange_node_points']['#access'] = FALSE;
+  // }
 
 }
 
@@ -132,7 +131,7 @@ function emh_points_custom_form_views_form_answers_page_alter(&$form, &$form_sta
  */
 
 /**
- * Validation callback to ensure you have enough points to create a Question.
+ * Validation callback to ensure you have enough points to create a Request.
  */
 function emh_points_validate_enough_points($element, &$form_state, $form) {
   $points = 0;
@@ -141,7 +140,7 @@ function emh_points_validate_enough_points($element, &$form_state, $form) {
   if (!isset($node->nid) || isset($node->is_new)) {
     $points = $element['value']['#value'];
   } else {
-    // If not, is the not published ?
+    // If not, is the node published ?
     if ($node->status) {
       // We cannot reduce the reward.
       if (!empty($node->field_reward) && $node->field_reward[LANGUAGE_NONE]['0']['value'] > $element['value']['#value']) {
@@ -165,6 +164,7 @@ function emh_points_validate_enough_points($element, &$form_state, $form) {
     ->condition('p.entity_id', $user->uid);
   $query->addExpression('SUM(p.points)');
   $current_points = $query->execute()->fetchField();
+  if (empty($current_points)) $current_points = 0;
   if ($current_points < $points) {
     form_error($element, t('You don\'t have enough points (@count).', array('@count' => $current_points)));
   }
