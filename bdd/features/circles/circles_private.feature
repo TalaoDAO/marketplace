@@ -8,8 +8,8 @@ Feature: Public circle and threshold limit
 
     Given "circle" content:
     | title    | author  | field_free_circle |
-    | Avengers | admin   | Private      |
-    | X-Men    | admin   | Public       |
+    | Avengers | admin   | Free circle       |
+    | X-Men    | admin   | Paying circle     |
 
     Given "corporate" content:
     | title     | author  |
