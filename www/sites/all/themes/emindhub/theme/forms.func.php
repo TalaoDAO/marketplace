@@ -344,17 +344,14 @@ function emindhub_views_bulk_operations_form_alter(&$form, $form_state, $vbo_han
 	$nid = arg(1);
   if (!empty($view) && ($view == 'answers' || $view == 'results')) {
 
+		$form['select']['action::emh_points_arrange_node_points']['#attributes']['class'][] = 'btn-submit';
+
 		// Change distribution button label when the request is free
 		$node = node_load($nid);
 		if (!empty($node->field_reward) && $node->field_reward[LANGUAGE_NONE]['0']['value'] == '0') $form['select']['action::emh_points_arrange_node_points']['#value'] = t('Validate and close request');
 
 		$closed = emh_points_get_points_closed_status($nid);
-		if ($closed) $form['select']['#access'] = FALSE;
-
-    $form['select']['action::emh_points_arrange_node_points']['#attributes']['class'][] = 'btn-submit';
-		if (empty($vbo_handler->view->result)) {
-			$form['select']['#access'] = FALSE;
-		}
+		if ($closed || empty($vbo_handler->view->result)) $form['select']['#access'] = FALSE;
   }
 }
 

@@ -56,7 +56,7 @@ function emh_request_disable_strings() {
  */
 function _emh_request_string_overrides() {
   return array(
-    // Webform submission
+    // Webform
     'No Components, add a component below.' => 'No questions, add a question below.',
     'New component name' => 'New question',
     'This will immediately delete the %name component from the %webform webform. This cannot be undone.' => 'This will immediately delete the %name question from the %webform mission. This cannot be undone.',
@@ -68,10 +68,6 @@ function _emh_request_string_overrides() {
     'You have already submitted this form.' => 'You have already submitted this mission.',
     'Submission updated.' => 'Your answer has been updated.',
     'Submission saved. You may return to this form later and it will restore the current values.' => 'Your answer has been saved as draft. You may return to this mission later and it will restore your current answer.',
-
-    // Comment
-    'Edit comment %comment' => 'Edit answer',
-    'Your comment has been queued for review by site administrators and will be published after approval.' => 'Your answer has been saved as a draft.',
   );
 }
 
