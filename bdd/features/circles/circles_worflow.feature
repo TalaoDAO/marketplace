@@ -65,7 +65,7 @@ Feature: Circles workflow for Expert
 
     When I click "Request membership"
     And I fill in "Request message" with "I really want to join your band"
-    And I press "Join"
+    And I press "Ask to join"
     Then I should see "Your request is pending."
 
     Given I am logged in as "client4"
@@ -90,7 +90,7 @@ Feature: Circles workflow for Expert
 
     When I click "Request membership"
     And I fill in "Request message" with "Hey guys, please accept my request!"
-    And I press "Join"
+    And I press "Ask to join"
     Then I should see "Your request is pending."
 
     Given I am logged in as "client4"
