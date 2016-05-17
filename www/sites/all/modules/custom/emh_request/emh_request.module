@@ -28,51 +28,6 @@ function emh_request_node_access($node, $op, $account) {
 }
 
 /**
- * Implements hook_preprocess_page().
- */
-// #575
-/*
-function emh_request_preprocess_page(&$variables) {
-  global $user;
-  $uid = $user->uid;
-
-  $message = '';
-  $type = '';
-  $count = '';
-  $show_message = FALSE;
-
-  $arg0 = arg(0);
-  $arg1 = arg(1);
-  $arg2 = arg(2);
-  if ($arg0 == 'node' && empty($arg2)) {
-    $node = node_load($arg1);
-    $type = $node->type;
-    $count = emh_request_count_answers($node->nid);
-    if (($count > 0) && ($node->uid == $uid)) $show_message = TRUE;
-  }
-
-  if ($show_message) {
-    switch ($type) {
-
-      case 'question1':
-        drupal_set_message(t('You cannot edit a question with one or more answers.'), 'warning');
-        break;
-      case 'webform':
-        drupal_set_message(t('You cannot edit a mission with one or more answers.'), 'warning');
-        break;
-      case 'challenge':
-        drupal_set_message(t('You cannot edit a challenge with one or more answers.'), 'warning');
-        break;
-      default:
-        break;
-
-    }
-  }
-
-}
- */
-
-/**
  * Implements hook_form_alter().
  * node/add/type
  * node/$ID/edit
@@ -95,27 +50,6 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       if ( !empty($form['nid']['#value']) && $form['#node']->status == NODE_PUBLISHED) {
         $form['actions']['draft']['#access'] = FALSE;
         $form['actions']['submit']['#value'] = t('Save');
-
-        // If node is published on a paying circle, we can close the request.
-        // $nid = $form['nid']['#value'];
-        // $status = emh_points_get_points_closed_status($nid);
-        // $circles = $form['#node']->og_group_ref[LANGUAGE_NONE];
-        // $free = TRUE;
-        // foreach($circles as $delta => $circle) {
-        //   $loaded_circle = node_load($circle['target_id']); // TODO : PERF ISSUE : use node_load_all instead
-        //   if ($loaded_circle->field_free_circle[LANGUAGE_NONE]['0']['value'] === '0') {
-        //     // Paying circle
-        //     $free = FALSE;
-        //     break;
-        //   }
-        // }
-        // if ($free && !$status) {
-        //   $form['actions']['close'] = array(
-        //     '#type' => 'submit',
-        //     '#value' => 'Close',
-        //     '#submit' => array('emh_request_close_node'),
-        //   );
-        // }
       }
 
       // If node is published & there are some answers, only some updates are possible.
@@ -457,13 +391,4 @@ function emh_request_try_to_notify($node) {
   }
   // Webmaster copy
   // rules_invoke_event('emh_request_notify_webmaster_new_request', $node);
-}
-
-/**
- * Close a node using the node submit button.
- */
-function emh_request_close_node($form, &$form_state) {
-  $nid = $form['nid']['#value'];
-  emh_points_close_node($nid);
-  drupal_goto('node/' . $nid);
 }
