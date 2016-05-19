@@ -348,10 +348,14 @@ function emindhub_views_bulk_operations_form_alter(&$form, $form_state, $vbo_han
 
 		// Change distribution button label when the request is free
 		$node = node_load($nid);
-		if (!empty($node->field_reward) && $node->field_reward[LANGUAGE_NONE]['0']['value'] == '0') $form['select']['action::emh_points_arrange_node_points']['#value'] = t('Validate and close request');
+		if (!empty($node->field_reward) && $node->field_reward[LANGUAGE_NONE]['0']['value'] == '0') {
+			$form['select']['action::emh_points_arrange_node_points']['#value'] = t('Validate and close the request');
+		}
 
 		$closed = emh_points_get_points_closed_status($nid);
-		if ($closed || empty($vbo_handler->view->result)) $form['select']['#access'] = FALSE;
+		if ($closed || empty($vbo_handler->view->result)) {
+			$form['select']['#access'] = FALSE;
+		}
   }
 }
 

@@ -99,6 +99,18 @@ class FeatureContext extends DrupalContext {
   }
 
    /**
+   * @Given I remove :name :points emh points
+   */
+  public function assertRemoveUserPoints($name, $points) {
+    if (!isset($this->users[$name])) {
+      throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
+    }
+    $user = user_load($this->users[$name]->uid);
+    $context = array('points' => $points, 'log' => 'Behat remove points to user');
+    emh_points_remove_points($user, $context);
+  }
+
+   /**
    * @Then I should have :points points on :name user
    */
   public function assertUserPoints($points, $name) {
