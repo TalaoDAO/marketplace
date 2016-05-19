@@ -530,12 +530,6 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
         drupal_access_denied();
         drupal_exit();
       }
-      // Free circle without points
-      if ($points == 0) {
-        // Just close the node and return it.
-        emh_points_close_node($id_source);
-        drupal_goto('node/' . $id_source);
-      }
       drupal_set_title($node->title);
       break;
     default:
@@ -611,19 +605,29 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
       '#type' => 'textfield',
       '#title' => t('Points for @dest', array('@dest' => emh_points_format_entity($entity))),
       '#default_value' => $default_points,
-      '#element_validate' => array('element_validate_integer_positive'),
+      '#element_validate' => array('element_validate_integer'),
     );
+    // Free circle without points
+    if ($points == 0) {
+      // $form[$dest]['dest_' . $dest]['#access'] = FALSE;
+      $form[$dest]['dest_' . $dest]['#type'] = 'value';
+    }
   }
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Validate distribution'),
   );
   if ($type_source == 'node' && in_array($node->type, array('challenge', 'question1', 'webform'))) {
-    $form['submit']['#value'] = t('Validate distribution and close the request');
-    $form['baseline'] = array(
-      '#markup' => '<p class="emh-title-baseline">' . t('Distribute <strong>@count points</strong> to best experts', array('@count' => $points)) . '</p>',
-      '#weight' => -100,
-    );
+    // Free circle without points
+    if ($points == 0) {
+      $form['submit']['#value'] = t('Validate and close the request');
+    } else {
+      $form['submit']['#value'] = t('Validate distribution and close the request');
+      $form['baseline'] = array(
+        '#markup' => '<p class="emh-title-baseline">' . t('Distribute <strong>@count points</strong> to best experts', array('@count' => $points)) . '</p>',
+        '#weight' => -100,
+      );
+    }
   }
   return $form;
 }
@@ -710,8 +714,8 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
       emh_points_close_node($form_state['values']['id_source']);
       // And notify unrewarded answers
       $unrewarded_answers = emh_points_get_unrewarded_answers($form_state['values']['id_source']);
+      $node = node_load($form_state['values']['id_source']);
       foreach ($unrewarded_answers as $unrewarded_answer => $uid) {
-        $node = node_load($form_state['values']['id_source']);
         $author = user_load($uid);
         emh_points_notify_unrewarded_answer_author($node, $author);
       }
@@ -722,8 +726,18 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
       $form_state['redirect'] = '<front>';
       break;
   }
-  $points = $form_state['values']['points'];
-  drupal_set_message(t('All the points have been distributed.'));
+  if ($form_state['values']['type_source'] == 'node') {
+    $node = node_load($form_state['values']['id_source']);
+    $points = $form_state['values']['points'];
+    // Free circle without points
+    if ($points == 0) {
+      drupal_set_message(t('Request @title has been closed.', array('@title' => $node->title)));
+    } else {
+      drupal_set_message(t('Request @title has been closed. All the points have been distributed.', array('@title' => $node->title)));
+    }
+  } else {
+    drupal_set_message(t('All the points have been distributed.'));
+  }
 }
 
 /**
@@ -865,8 +879,12 @@ function emh_points_mail($key, &$message, $params) {
       $message['body'] = array();
       $message['body'][] = t('Dear @answer_author,', $params);
       $message['body'][] = t('Thank you for responding to the request') . ' <strong><a href="' . t('@url', $params) . '&amp;pk_kwd=link" title="' .  t('@title', $params) . '" target="_blank" style="font-weight:bold!important;">' . t('@title', $params) . ' </a></strong>.';
-      $message['body'][] = t('Your answer has been selected by the client and you earned @points points! The client may now get in touch with you for further support.', $params);
-      $message['body'][] = t('We remind you that you can monetize your points once you have reached a threshold of @threshold points.', $params);
+      if ($params['@points'] == 0) {
+        $message['body'][] = t('Your answer has been selected by the client ! The client may now get in touch with you for further support.', $params);
+      } else {
+        $message['body'][] = t('Your answer has been selected by the client and you earned @points points! The client may now get in touch with you for further support.', $params);
+        $message['body'][] = t('We remind you that you can monetize your points once you have reached a threshold of @threshold points.', $params);
+      }
       $message['body'][] = t('Should you like to know more, just log into the platform now.');
       $message['body'][] = '<table style="min-width:100%;" width="100%" border="0" cellpadding="0" cellspacing="0" class="emailButton">
         <tbody>
