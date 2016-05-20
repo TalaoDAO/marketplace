@@ -1,6 +1,6 @@
 @api @watchdog
-Feature: Free circle and threshold limit
-  In order to create a free content in a circle
+Feature: Free question
+  In order to create a free question in a circle
   As a client
   I do not need to have a minimum of points
 
@@ -25,8 +25,6 @@ Feature: Free circle and threshold limit
     | title        | field_domaine | og_group_ref | author  | field_anonymous      | field_show_entreprise | field_use_my_entreprise |
     | What about?  | Maintenance   | X-Men        | client1 | Display my full name | Display the name      | Display                 |
     | Who about?   | Maintenance   | Avengers     | client1 | Display my full name | Display the name      | Display                 |
-
-    Given I give "client1" 400 emh points
 
     # Make client1 as a Creator member of circles
     Given I am logged in as a user with the "administrator" role
@@ -53,8 +51,7 @@ Feature: Free circle and threshold limit
     Then I should see the message "You should at least allocate 100 points."
 
   Scenario: Client do not have to allocate points to a content in free circle
-    Given I remove "client1" 400 emh points
-    And I am logged in as "client1"
+    Given I am logged in as "client1"
     When I go to homepage
     And I click "Who about?" in the "Who about?" row
     And I click "Edit" in the "primary tabs" region
@@ -62,7 +59,7 @@ Feature: Free circle and threshold limit
     And I press "Save"
     Then I should see the success message "Question Who about? has been updated."
 
-    # Expert answers to free request
+    # Expert answers to free question
     Given I am logged in as "expert2"
     When I am on the homepage
     And I click "Who about?" in the "Who about?" row
@@ -74,17 +71,12 @@ Feature: Free circle and threshold limit
     When I go to homepage
     And I click "Who about?" in the "Who about?" row
     And I click "Answers" in the "primary tabs" region
-    And I check the box "edit-views-bulk-operations-0"
-    And I press "Validate and close the request"
-    And I press "edit-submit"
-    Then I should see the success message "Request Who about? has been closed."
-    And I should have "0" points on "Who about?" node
-    And I should have "0" points on "expert2" user
+    And I press "Close the request"
+    Then I should see "Closed"
 
     # The author cannot distribute twice.
     When I go to "/content/who-about"
-    Then I should see "Closed"
-    When I click "Answers" in the "primary tabs" region
-    Then I should not see "Validate and close the request"
+    And I click "Answers" in the "primary tabs" region
+    Then I should not see "Close the request"
     # Author can now access expert profile from question's answer tab.
     And I should see the link "Klark KENT"
