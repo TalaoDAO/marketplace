@@ -36,7 +36,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 		array(
 		  'cancel',
 			'close',
-		  'delete',
+			'delete',
 		  'preview_changes',
 		  'draft',
 		  'preview',
@@ -342,9 +342,8 @@ function emindhub_form_comment_form_alter(&$form, &$form_state, $form_id) {
  */
 function emindhub_views_bulk_operations_form_alter(&$form, $form_state, $vbo_handler) {
   // Only when we want it.
-  $view = arg(2);
-	$nid = arg(1);
-  if (!empty($view) && ($view == 'answers' || $view == 'results')) {
+  $view = arg(2); $nid = arg(1);
+	if (!empty($view) && ($view == 'answers' || $view == 'results')) {
 		$form['select']['action::emh_points_arrange_node_points']['#attributes']['class'][] = 'btn-submit';
   }
 }
