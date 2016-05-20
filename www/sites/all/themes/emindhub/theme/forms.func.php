@@ -35,7 +35,8 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 	  foreach (
 		array(
 		  'cancel',
-		  'delete',
+			'close',
+			'delete',
 		  'preview_changes',
 		  'draft',
 		  'preview',
@@ -51,6 +52,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 		// Bootstrap buttons group
 		$secondary_actions = array(
 		  'cancel'	=> array(),
+		  'close'	=> array(),
 		  'delete'	=> array(),
 		);
 		emindhub_beautiful_form_actions($form, $secondary_actions, 'secondary');
@@ -340,22 +342,9 @@ function emindhub_form_comment_form_alter(&$form, &$form_state, $form_id) {
  */
 function emindhub_views_bulk_operations_form_alter(&$form, $form_state, $vbo_handler) {
   // Only when we want it.
-  $view = arg(2);
-	$nid = arg(1);
-  if (!empty($view) && ($view == 'answers' || $view == 'results')) {
-
+  $view = arg(2); $nid = arg(1);
+	if (!empty($view) && ($view == 'answers' || $view == 'results')) {
 		$form['select']['action::emh_points_arrange_node_points']['#attributes']['class'][] = 'btn-submit';
-
-		// Change distribution button label when the request is free
-		$node = node_load($nid);
-		if (!empty($node->field_reward) && $node->field_reward[LANGUAGE_NONE]['0']['value'] == '0') {
-			$form['select']['action::emh_points_arrange_node_points']['#value'] = t('Validate and close the request');
-		}
-
-		$closed = emh_points_get_points_closed_status($nid);
-		if ($closed || empty($vbo_handler->view->result)) {
-			$form['select']['#access'] = FALSE;
-		}
   }
 }
 
