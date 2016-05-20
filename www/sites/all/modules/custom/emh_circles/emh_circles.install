@@ -207,9 +207,9 @@ function emh_circles_update_7007() {
 /**
 * CHG: Remove Reset button in Views.
 */
-function emh_circles_update_7008() {
-  emh_points_reset_views();
-}
+// function emh_circles_update_7008() {
+//   emh_circles_reset_views();
+// }
 
 /**
 * CHG: Revert circle rules.

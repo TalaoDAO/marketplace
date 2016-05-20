@@ -1017,34 +1017,6 @@ client/register',
     'visibility' => 0,
   );
 
-  $export['user_alert-user_alert'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'delta' => 'user_alert',
-    'i18n_block_language' => array(),
-    'i18n_mode' => 1,
-    'module' => 'user_alert',
-    'node_types' => array(),
-    'pages' => '',
-    'roles' => array(),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => 'content',
-        'status' => 1,
-        'theme' => 'emindhub',
-        'weight' => -48,
-      ),
-      'seven' => array(
-        'region' => 'help',
-        'status' => 1,
-        'theme' => 'seven',
-        'weight' => -42,
-      ),
-    ),
-    'title' => '',
-    'visibility' => 0,
-  );
-
   $export['views-01297140ea5ccce8d24f3c703da2aaa3'] = array(
     'cache' => -1,
     'custom' => 0,

@@ -16,7 +16,7 @@ function emh_points_custom_update_7101() {
 }
 
 /**
- * ADD: Create a new field on for free question.
+ * ADD: Create a new field for free requests.
  */
 function emh_points_custom_update_7102() {
   features_revert(array('ft_field_base' => array('field_base')));

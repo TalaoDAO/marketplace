@@ -360,3 +360,83 @@ function emh_configuration_update_7021() {
 
   variable_set('menu_rebuild_needed', TRUE);
 }
+
+/**
+ * CHG: Uninstall module user_alert + remove content types user_alert, working_group.
+ */
+function emh_configuration_update_7022() {
+  features_revert(array('ft_blocks' => array('fe_block_boxes')));
+  features_revert(array('ft_blocks' => array('fe_block_settings')));
+  features_revert(array('ft_content_type' => array('field_instance')));
+  features_revert(array('ft_content_type' => array('node')));
+  features_revert(array('ft_content_type' => array('variable')));
+  features_revert(array('ft_field_base' => array('field_base')));
+  features_revert(array('ft_permissions' => array('user_permission')));
+
+  module_disable(array('user_alert'));
+  drupal_uninstall_modules(array('user_alert'));
+
+  $types = array(
+    'user_alert',
+    'working_group',
+  );
+  foreach($types as $type) {
+    // First, delete nodes
+    $results = db_select('node', 'n')
+                ->fields('n', array('nid'))
+                ->condition('type', $type)
+                ->execute();
+    foreach ($results as $result) {
+      $nids[] = $result->nid;
+    }
+    if (!empty($nids)) {
+      node_delete_multiple($nids);
+      drupal_set_message(t('%count nodes has been deleted.', array('%count' => count($nids))));
+    }
+    // Then, delete content type
+    if (node_type_load($type)) {
+      node_type_delete($type);
+      variable_del('node_preview_' . $type);
+      drupal_set_message(t('%type content type has been deleted.', array('%type' => $type)));
+    }
+  }
+  node_types_rebuild();
+  variable_set('menu_rebuild_needed', TRUE);
+
+  // List of all machine names affected.
+  $bundles = array(
+    'user_alert',
+    'working_group',
+  );
+  $fields = array(
+    'field_alert_level',
+    'field_user_list',
+    'group_group',
+    'body',
+    'group_access',
+    'group_content_access',
+  );
+
+  // Iterate over the affected content types.
+  foreach ($bundles as $bundle) {
+    // Get the fields' info array for the given content type.
+    $field_instance = field_info_instances('node', $bundle);
+
+    // Iterate over the fields.
+    foreach ($fields as $field) {
+      // Get the the value/instance of the field.
+      $instance = $field_instance[$field];
+
+      // Delete the field instance.
+      // This will also delete the field automatically
+      // if the last instance/object of this field had been deleted.
+      field_delete_instance($instance);
+      drupal_set_message(t('%instance instance has been deleted.', array('%instance' => $instance)));
+
+      field_delete_field($field);
+      drupal_set_message(t('%field field has been deleted.', array('%field' => $field)));
+    }
+  }
+
+  field_purge_batch(100);
+}
