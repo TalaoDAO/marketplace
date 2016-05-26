@@ -397,5 +397,5 @@ function emh_points_update_7110() {
  * CHG: Revert Views.
  */
 function emh_points_update_7111() {
-  emh_points_reset_views();
+  // emh_points_reset_views();
 }

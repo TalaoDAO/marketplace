@@ -208,7 +208,7 @@ function emh_circles_update_7007() {
 * CHG: Remove Reset button in Views.
 */
 function emh_circles_update_7008() {
-  emh_points_reset_views();
+  // emh_points_reset_views();
 }
 
 /**
