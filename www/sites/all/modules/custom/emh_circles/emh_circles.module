@@ -98,7 +98,6 @@ function emh_circles_node_access($node, $op, $account) {
  * Implements hook_form_alter().
  */
 function emh_circles_form_og_ui_confirm_subscribe_alter(&$form, &$form_state) {
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
   $form['actions']['submit']['#value'] = t('Ask to join');
 }
 
