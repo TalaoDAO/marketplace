@@ -76,7 +76,7 @@ function emh_points_custom_form_emh_points_admin_form_alter(&$form, &$form_state
 /**
  * Implements hook_views_bulk_operations_form_alter().
  */
-function emh_points_custom_views_bulk_operations_form_alter(&$form) {
+function emh_points_custom_views_bulk_operations_form_alter(&$form, $form_state, $vbo_handler) {
   // Only when we want it.
   $nid = arg(1); $view = arg(2);
   if (!empty($view) && ($view == 'answers' || $view == 'results')) {
