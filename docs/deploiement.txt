@@ -1,5 +1,99 @@
 # pré-requis
 
+## conf mail (smtp)
+
+Autoriser l'utilisation du port 587 en sortie du serveur::
+
+    /etc/init.d/firewall.sh
+
+- trouver la bonne ligne et l'éditer::
+
+    REMOTE_TCP_SERVICES="22 25 80 443 587" # web browsing
+
+- relancer le firewall::
+
+    /etc/init.d/firewall.sh restart
+
+Lister la conf actuelle::
+
+    postconf -n
+        alias_database = hash:/etc/aliases
+        alias_maps = hash:/etc/aliases
+        append_dot_mydomain = no
+        biff = no
+        config_directory = /etc/postfix
+        inet_interfaces = all
+        inet_protocols = ipv4
+        mailbox_command = procmail -a "$EXTENSION"
+        mailbox_size_limit = 0
+        mydestination = www.emindhub.com, localhost.localdomain, localhost
+        mydomain = www.emindhub.com
+        myhostname = www.emindhub.com
+        mynetworks = 127.0.0.0/8
+        myorigin = /etc/mailname
+        readme_directory = no
+        recipient_delimiter = +
+        relayhost =
+        smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+        smtpd_banner = $myhostname ESMTP $mail_name (Debian/GNU)
+        smtpd_tls_cert_file = /etc/ssl/certs/ssl-cert-snakeoil.pem
+        smtpd_tls_key_file = /etc/ssl/private/ssl-cert-snakeoil.key
+        smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+        smtpd_use_tls = yes
+
+Edition de la conf en relay vers OVH::
+
+    postconf -e "mydestination = "
+    # smtp.emindhub.com est un alias DNS de ssl0.ovh.net
+    postconf -e "relayhost=[smtp.emindhub.com]:587"
+    postconf -e "smtp_sasl_auth_enable   = yes"
+    postconf -e "smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd"
+    postconf -e "smtp_sasl_security_options = noanonymous"
+
+On vérifie ces éditions::
+
+    postconf -n
+        alias_database = hash:/etc/aliases
+        alias_maps = hash:/etc/aliases
+        append_dot_mydomain = no
+        biff = no
+        config_directory = /etc/postfix
+        inet_interfaces = all
+        inet_protocols = ipv4
+        mailbox_command = procmail -a "$EXTENSION"
+        mailbox_size_limit = 0
+        mydestination =
+        mydomain = www.emindhub.com
+        myhostname = www.emindhub.com
+        mynetworks = 127.0.0.0/8
+        myorigin = /etc/mailname
+        readme_directory = no
+        recipient_delimiter = +
+        relayhost = [smtp.emindhub.com]:587
+        smtp_sasl_auth_enable = yes
+        smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+        smtp_sasl_security_options = noanonymous
+        smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+        smtpd_banner = $myhostname ESMTP $mail_name (Debian/GNU)
+        smtpd_tls_cert_file = /etc/ssl/certs/ssl-cert-snakeoil.pem
+        smtpd_tls_key_file = /etc/ssl/private/ssl-cert-snakeoil.key
+        smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+        smtpd_use_tls = yes
+
+On mets le bon user/password dans le fichier::
+
+    echo "[smtp.emindhub.com]:587 contact@emindhub.com:ICILEPASSWORD" > /etc/postfix/sasl_passwd
+
+On hash ce fichier::
+
+    postmap /etc/postfix/sasl_passwd
+
+On relance postfix::
+
+    service postfix restart && tail -f /var/log/mail.log
+
+## drush
+
 Un fichier `/root/.drush/emindhub.aliases.drushrc.php` avec quelque chose comme:
 
     <?php
