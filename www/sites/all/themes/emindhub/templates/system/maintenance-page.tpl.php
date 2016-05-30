@@ -14,22 +14,22 @@
   <![endif]-->
   <?php print $scripts; ?>
 </head>
-<body class="<?php print $classes; ?>" <?php print $attributes;?>>
+<body class="<?php print $classes; ?> html not-logged-in role-anonymous-user" <?php print $attributes;?>>
   <div id="skip-link">
     <a href="#main-content" class="element-invisible element-focusable"><?php print t('Skip to main content'); ?></a>
   </div>
   <header id="navbar" role="banner" class="navbar navbar-emh">
-
     <div class="container">
-
-      <?php if ($logo): ?>
-      <a class="logo navbar-btn" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
-        <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
-      </a>
-      <?php endif; ?>
-
+      <div class="row">
+        <div class="col-md-12">
+          <?php if ($logo): ?>
+          <a class="logo navbar-btn" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
+            <img src="<?php print $logo; ?>" alt="<?php print $site_name; ?>" />
+          </a>
+          <?php endif; ?>
+        </div> <!-- END .col -->
+      </div> <!-- END .row -->
     </div> <!-- END .container -->
-
   </header>
 
   <div id="trail" class="container-fluid">
