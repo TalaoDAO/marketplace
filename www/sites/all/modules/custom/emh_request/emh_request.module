@@ -6,6 +6,7 @@
 
 
 include_once 'emh_request.deprecated.inc';
+include_once 'emh_request.fields.inc';
 
 define('OPT_BEHAVIOR_SHOW', 'show');
 define('OPT_BEHAVIOR_HIDE', 'hide');
