@@ -1,0 +1,8 @@
+<?php
+/**
+ * @file
+ * Code of the eMindHub request feature.
+ */
+
+
+include_once 'emh_request.deprecated.inc';
