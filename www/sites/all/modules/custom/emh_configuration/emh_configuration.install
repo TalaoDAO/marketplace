@@ -360,3 +360,46 @@ function emh_configuration_update_7021() {
 
   variable_set('menu_rebuild_needed', TRUE);
 }
+
+/**
+ * CHG: Uninstall module user_alert + remove content types user_alert, working_group.
+ */
+function emh_configuration_update_7022() {
+  features_revert(array('ft_blocks' => array('fe_block_boxes')));
+  features_revert(array('ft_blocks' => array('fe_block_settings')));
+  features_revert(array('ft_content_type' => array('field_instance')));
+  features_revert(array('ft_content_type' => array('node')));
+  features_revert(array('ft_content_type' => array('variable')));
+  features_revert(array('ft_field_base' => array('field_base')));
+  features_revert(array('ft_permissions' => array('user_permission')));
+
+  module_disable(array('user_alert'));
+  drupal_uninstall_modules(array('user_alert'));
+
+  $types = array(
+    'user_alert',
+    'working_group',
+  );
+  foreach($types as $type) {
+    // First, delete nodes
+    $results = db_select('node', 'n')
+                ->fields('n', array('nid'))
+                ->condition('type', $type)
+                ->execute();
+    foreach ($results as $result) {
+      $nids[] = $result->nid;
+    }
+    if (!empty($nids)) {
+      node_delete_multiple($nids);
+      drupal_set_message(t('%count nodes has been deleted.', array('%count' => count($nids))));
+    }
+    // Then, delete content type
+    if (node_type_load($type)) {
+      node_type_delete($type);
+      variable_del('node_preview_' . $type);
+      drupal_set_message(t('%type content type has been deleted.', array('%type' => $type)));
+    }
+  }
+  node_types_rebuild();
+  variable_set('menu_rebuild_needed', TRUE);
+}
