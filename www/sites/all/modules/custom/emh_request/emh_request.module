@@ -9,6 +9,20 @@ include_once 'emh_request.deprecated.inc';
 
 
 /**
+ * Implements hook_hook_info().
+ */
+function emh_request_hook_info() {
+  $hooks = array(
+    'emh_request_option_info',
+    'emh_request_option_info_alter',
+    'emh_request_option_setting_form',
+  );
+
+  return array_fill_keys($hooks, array('group' => 'options'));
+}
+
+
+/**
  * Implements hook_node_info().
  */
 function emh_request_node_info() {
