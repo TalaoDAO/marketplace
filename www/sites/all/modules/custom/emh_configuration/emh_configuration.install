@@ -403,3 +403,10 @@ function emh_configuration_update_7022() {
   node_types_rebuild();
   variable_set('menu_rebuild_needed', TRUE);
 }
+
+/**
+ * ADD: new FAQ feature.
+ */
+function emh_configuration_update_7023() {
+  module_enable(array('emh_faq'));
+}
