@@ -7,6 +7,9 @@
 
 include_once 'emh_request.deprecated.inc';
 
+define('OPT_BEHAVIOR_SHOW', 'show');
+define('OPT_BEHAVIOR_HIDE', 'hide');
+
 
 /**
  * Implements hook_hook_info().
@@ -40,4 +43,35 @@ function emh_request_node_info() {
 
   drupal_alter('node_info', $content_types);
   return $content_types;
+}
+
+
+/**
+ * Provides all available options.
+ *
+ * @return array Options definitions
+ */
+function emh_request_get_options() {
+  $options = module_invoke_all('emh_request_option_info');
+  drupal_alter('emh_request_option_info', $options);
+
+  foreach ($options as &$option) {
+    $option += emh_request_default_option_info();
+  }
+
+  return $options;
+}
+
+
+/**
+ * Provides the option properties by default.
+ *
+ * @return array Option properties by default
+ */
+function emh_request_default_option_info() {
+  return array(
+    'cost' => 0,
+    'weight' => 0,
+    'behavior' => OPT_BEHAVIOR_HIDE,
+  );
 }
