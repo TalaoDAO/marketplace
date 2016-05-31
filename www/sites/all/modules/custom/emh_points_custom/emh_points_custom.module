@@ -76,20 +76,41 @@ function emh_points_custom_form_emh_points_admin_form_alter(&$form, &$form_state
 /**
  * Implements hook_views_bulk_operations_form_alter().
  */
-function emh_points_custom_views_bulk_operations_form_alter(&$form) {
+function emh_points_custom_views_bulk_operations_form_alter(&$form, $form_state, $vbo_handler) {
   // Only when we want it.
   $nid = arg(1); $view = arg(2);
   if (!empty($view) && ($view == 'answers' || $view == 'results')) {
     $form['select']['#type'] = 'menu';
     $form['select']['#weight'] = 100;
-    $form['baseline'] = array(
-      '#markup' => '<p class="emh-title-baseline">' . t('Select best answer(s)') . '</p>',
-    );
+
+    $has_points = emh_request_has_points($nid);
+    $closed = emh_points_get_points_closed_status($nid);
+
+    if ($has_points) {
+      $form['baseline'] = array(
+        '#markup' => '<p class="emh-title-baseline">' . t('Select best answer(s)') . '</p>',
+      );
+    }
+
+    // Free circle & opened request
+    if (!$has_points && !$closed) {
+      $form['actions']['#access'] = TRUE;
+      $form['actions']['submit']['#access'] = FALSE;
+      $form['nid']['#value'] = $nid;
+      $form['actions']['close'] = array(
+        '#type' => 'submit',
+        '#value' => 'Close the request',
+        '#submit' => array('emh_request_form_node_close'),
+      );
+    }
+
+    // Free circle & closed request
+    if (!$has_points || $closed || empty($vbo_handler->view->result)) {
+      $form['select']['#access'] = FALSE;
+      $form['views_bulk_operations']['#access'] = FALSE;
+    }
+
   }
-  // $has_points = emh_request_has_points($nid);
-  // if (!$has_points) {
-  //   $form['select']['action::emh_points_arrange_node_points']['#access'] = FALSE;
-  // }
 
 }
 
