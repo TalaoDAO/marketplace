@@ -1116,6 +1116,17 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'create request content'.
+  $permissions['create request content'] = array(
+    'name' => 'create request content',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'business' => 'business',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'create url aliases'.
   $permissions['create url aliases'] = array(
     'name' => 'create url aliases',
