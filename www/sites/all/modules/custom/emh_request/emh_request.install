@@ -6,16 +6,23 @@
 
 
 /**
-* Implements hook_enable
-*/
+ * Implements hook_install().
+ */
+function emh_request_install() {
+  variable_set('emh_request_send_notification_email_all_domains', 1);
+  variable_set('webform_node_request', true);
+}
+
+
+/**
+ * Implements hook_enable().
+ */
 function emh_request_enable() {
   emh_request_update_7001();
   emh_request_update_7002();
-  emh_request_update_7103();
   emh_request_enable_strings();
-
-  variable_set('emh_request_send_notification_email_all_domains', 1);
 }
+
 
 /**
  * Implements hook_disable().
@@ -24,12 +31,15 @@ function emh_request_disable() {
   emh_request_disable_strings();
 }
 
+
 /**
  * Implements hook_uninstall().
  */
 function emh_request_uninstall() {
   variable_del('emh_request_send_notification_email_all_domains');
+  variable_del('webform_node_request');
 }
+
 
 function emh_request_enable_strings() {
   global $language;
@@ -41,6 +51,7 @@ function emh_request_enable_strings() {
   variable_set("locale_custom_strings_$lang", $strings);
 }
 
+
 function emh_request_disable_strings() {
   global $language;
   $lang = $language->language;
@@ -50,6 +61,7 @@ function emh_request_disable_strings() {
   }
   variable_set("locale_custom_strings_$lang", $strings);
 }
+
 
 /**
  * Provides string overrides.
@@ -71,16 +83,18 @@ function _emh_request_string_overrides() {
   );
 }
 
+
 /**
  * Force module weight for hook_form_alter execution
  */
 function emh_request_update_7001() {
   db_update('system')
-  ->fields(array('weight' => 1))
-  ->condition('type', 'module')
-  ->condition('name', 'emh_request')
-  ->execute();
+    ->fields(array('weight' => 1))
+    ->condition('type', 'module')
+    ->condition('name', 'emh_request')
+    ->execute();
 }
+
 
 /**
  * Aliases survey creation path.
@@ -93,6 +107,7 @@ function emh_request_update_7002() {
   path_save($path);
 }
 
+
 /**
  * Add setting for request notification by domain
  */
@@ -100,9 +115,10 @@ function emh_request_update_7103() {
   variable_set('emh_request_send_notification_email_all_domains', 1);
 }
 
+
 /**
-* Revert request notification rules.
-*/
+ * Revert request notification rules.
+ */
 function emh_request_update_7104() {
   if ($rules_config = rules_config_load('rules_emh_request_send_notification_email')) {
     $rules_config->delete();
@@ -112,16 +128,18 @@ function emh_request_update_7104() {
   }
 }
 
+
 /**
-* Revert Views features.
-*/
+ * Revert Views features.
+ */
 function emh_request_update_7105() {
   features_revert(array('ft_views' => array('views_view')));
 }
 
+
 /**
-* Revert request notification rules.
-*/
+ * Revert request notification rules.
+ */
 function emh_request_update_7106() {
   if ($rules_config = rules_config_load('rules_emh_request_send_notification_email')) {
     $rules_config->delete();
@@ -131,24 +149,34 @@ function emh_request_update_7106() {
   }
 }
 
+
 /**
-* Revert strings.
-*/
+ * Revert strings.
+ */
 function emh_request_update_7107() {
   emh_request_disable_strings();
   emh_request_enable_strings();
 }
 
+
 /**
-* Revert Views features.
-*/
+ * Revert Views features.
+ */
 function emh_request_update_7108() {
   features_revert(array('ft_views' => array('views_view')));
 }
 
 /**
-* CHG : Revert Requests views features.
-*/
+ * CHG : Revert Requests views features.
+ */
 function emh_request_update_7109() {
   features_revert(array('ft_views' => array('views_view')));
+}
+
+
+/**
+ * Adds webform features on the request content type.
+ */
+function emh_request_update_7110() {
+  variable_set('webform_node_request', true);
 }

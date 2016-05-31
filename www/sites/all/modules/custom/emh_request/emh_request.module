@@ -6,3 +6,24 @@
 
 
 include_once 'emh_request.deprecated.inc';
+
+
+/**
+ * Implements hook_node_info().
+ */
+function emh_request_node_info() {
+  $content_types = array(
+    'request' => array(
+      'name' => t('Request'),
+      'base' => 'node_content',
+      'description' => 'Content type to address question(s) to the experts.',
+      //'help' => '(optional) Help information shown to the user when creating a node of this type.',
+      //'has_title' => '(optional) A Boolean indicating whether or not this node type has a title field.',
+      //'title_label' => '(optional) The label for the title field of this content type.',
+      'locked' => true,
+    ),
+  );
+
+  drupal_alter('node_info', $content_types);
+  return $content_types;
+}
