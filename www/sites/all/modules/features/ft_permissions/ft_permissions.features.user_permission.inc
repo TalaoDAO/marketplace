@@ -832,16 +832,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'path',
   );
 
-  // Exported permission: 'administer user alert'.
-  $permissions['administer user alert'] = array(
-    'name' => 'administer user alert',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'user_alert',
-  );
-
   // Exported permission: 'administer user field roles'.
   $permissions['administer user field roles'] = array(
     'name' => 'administer user field roles',
@@ -1136,16 +1126,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'path',
   );
 
-  // Exported permission: 'create user_alert content'.
-  $permissions['create user_alert content'] = array(
-    'name' => 'create user_alert content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: 'create views calc'.
   $permissions['create views calc'] = array(
     'name' => 'create views calc',
@@ -1161,16 +1141,6 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'create working_group content'.
-  $permissions['create working_group content'] = array(
-    'name' => 'create working_group content',
-    'roles' => array(
-      'administrator' => 'administrator',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1266,29 +1236,9 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'delete any user_alert content'.
-  $permissions['delete any user_alert content'] = array(
-    'name' => 'delete any user_alert content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: 'delete any webform content'.
   $permissions['delete any webform content'] = array(
     'name' => 'delete any webform content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'delete any working_group content'.
-  $permissions['delete any working_group content'] = array(
-    'name' => 'delete any working_group content',
     'roles' => array(
       'administrator' => 'administrator',
       'webmaster' => 'webmaster',
@@ -1376,16 +1326,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'delete own user_alert content'.
-  $permissions['delete own user_alert content'] = array(
-    'name' => 'delete own user_alert content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: 'delete own webform content'.
   $permissions['delete own webform content'] = array(
     'name' => 'delete own webform content',
@@ -1404,16 +1344,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
-  );
-
-  // Exported permission: 'delete own working_group content'.
-  $permissions['delete own working_group content'] = array(
-    'name' => 'delete own working_group content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'node',
   );
 
   // Exported permission: 'delete revisions'.
@@ -1578,32 +1508,12 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'edit any user_alert content'.
-  $permissions['edit any user_alert content'] = array(
-    'name' => 'edit any user_alert content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: 'edit any webform content'.
   $permissions['edit any webform content'] = array(
     'name' => 'edit any webform content',
     'roles' => array(
       'administrator' => 'administrator',
       'référent' => 'référent',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'edit any working_group content'.
-  $permissions['edit any working_group content'] = array(
-    'name' => 'edit any working_group content',
-    'roles' => array(
-      'administrator' => 'administrator',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1740,16 +1650,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'edit own user_alert content'.
-  $permissions['edit own user_alert content'] = array(
-    'name' => 'edit own user_alert content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: 'edit own webform content'.
   $permissions['edit own webform content'] = array(
     'name' => 'edit own webform content',
@@ -1771,16 +1671,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
-  );
-
-  // Exported permission: 'edit own working_group content'.
-  $permissions['edit own working_group content'] = array(
-    'name' => 'edit own working_group content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'node',
   );
 
   // Exported permission: 'edit terms in domaine'.
