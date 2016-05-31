@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Code for eMindHub Request feature.
+ * Deprecated code of the eMindHub request feature.
  */
 
 /**
