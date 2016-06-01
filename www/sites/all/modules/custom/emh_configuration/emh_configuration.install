@@ -408,5 +408,5 @@ function emh_configuration_update_7022() {
  * ADD: new FAQ feature.
  */
 function emh_configuration_update_7023() {
-  module_enable(array('emh_form', 'emh_faq'));
+  module_enable(array('emh_faq'));
 }
