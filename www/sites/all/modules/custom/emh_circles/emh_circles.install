@@ -225,3 +225,10 @@ function emh_circles_update_7009() {
     $rules_config->delete();
   }
 }
+
+/**
+* CHG: Remove All experts from /circles.
+*/
+function emh_circles_update_7010() {
+  emh_circles_reset_views();
+}
