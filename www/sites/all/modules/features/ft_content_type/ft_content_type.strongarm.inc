@@ -747,7 +747,8 @@ function ft_content_type_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'i18n_node_options_challenge';
   $strongarm->value = array(
-    0 => 'required',
+    0 => 'current',
+    1 => 'required',
   );
   $export['i18n_node_options_challenge'] = $strongarm;
 
@@ -777,7 +778,8 @@ function ft_content_type_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'i18n_node_options_question1';
   $strongarm->value = array(
-    0 => 'required',
+    0 => 'current',
+    1 => 'required',
   );
   $export['i18n_node_options_question1'] = $strongarm;
 
@@ -786,7 +788,8 @@ function ft_content_type_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'i18n_node_options_webform';
   $strongarm->value = array(
-    0 => 'required',
+    0 => 'current',
+    1 => 'required',
   );
   $export['i18n_node_options_webform'] = $strongarm;
 
