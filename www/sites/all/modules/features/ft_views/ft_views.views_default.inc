@@ -5408,6 +5408,17 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['uid']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['uid']['alter']['path'] = 'user/[uid]/edit';
   $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
+  /* Field: User: Active */
+  $handler->display->display_options['fields']['status']['id'] = 'status';
+  $handler->display->display_options['fields']['status']['table'] = 'users';
+  $handler->display->display_options['fields']['status']['field'] = 'status';
+  $handler->display->display_options['fields']['status']['not'] = 0;
+  /* Field: User: Created date */
+  $handler->display->display_options['fields']['created']['id'] = 'created';
+  $handler->display->display_options['fields']['created']['table'] = 'users';
+  $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['date_format'] = 'short_date';
+  $handler->display->display_options['fields']['created']['second_date_format'] = 'long';
   /* Sort criterion: User: Created date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'users';
