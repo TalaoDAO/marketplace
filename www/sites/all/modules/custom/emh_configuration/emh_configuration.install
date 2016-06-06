@@ -41,6 +41,13 @@ function emh_configuration_update_7003() {
 }
 
 /**
+ * update user_export_
+ */
+function emh_request_update_7109() {
+  features_revert(array('ft_views' => array('views_view')));
+}
+
+/**
  * Populate PCP fields parameters
  */
 function emh_configuration_update_7004() {
