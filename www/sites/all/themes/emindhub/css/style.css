@@ -15476,13 +15476,13 @@ table th[class*="col-"] {
   background-position: center center;
   background-repeat: no-repeat;
 }
-.view-query-list td.views-field-type.question1 a::before {
+.view-query-list td.views-field-type.question1 a:before {
   background-image: url("../images/picto/picto_question_small.png");
 }
-.view-query-list td.views-field-type.webform a::before {
+.view-query-list td.views-field-type.webform a:before {
   background-image: url("../images/picto/picto_survey_small.png");
 }
-.view-query-list td.views-field-type.challenge a::before {
+.view-query-list td.views-field-type.challenge a:before {
   background-image: url("../images/picto/picto_challenge_small.png");
 }
 @media (min-width: 992px) {
@@ -15503,6 +15503,11 @@ table th[class*="col-"] {
   .view-display-id-page form #edit-total-points-wrapper,
   .view-display-id-page_1 form #edit-total-points-wrapper {
     margin-top: 10px;
+  }
+  .view-display-id-block form .views-exposed-form .views-exposed-widgets > .views-submit-button,
+  .view-display-id-page form .views-exposed-form .views-exposed-widgets > .views-submit-button,
+  .view-display-id-page_1 form .views-exposed-form .views-exposed-widgets > .views-submit-button {
+    margin-top: 34px;
   }
 }
 @media (min-width: 992px) {
