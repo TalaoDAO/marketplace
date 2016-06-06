@@ -54,3 +54,10 @@ function _emh_faq_string_overrides() {
   );
 
 }
+
+/**
+ * CHG: revert FAQ views.
+ */
+function emh_faq_update_7001() {
+  emh_faq_reset_views();
+}
