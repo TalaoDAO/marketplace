@@ -11577,7 +11577,6 @@ fieldset[disabled] .btn-gray.focus {
   white-space: normal;
   font-weight: 700;
   font-size: 22px;
-  text-transform: uppercase;
   color: #4c6172;
   text-align: center;
   color: #fff;
@@ -12170,7 +12169,6 @@ h2,
 h2,
 .h2 {
   font-size: 22px;
-  text-transform: uppercase;
   color: #4c6172;
 }
 h3,
