@@ -412,8 +412,15 @@ function emh_configuration_update_7023() {
 }
 
 /**
- * update user_export_ view (add some new fields)
+ * CHG: update user_export_ view (add some new fields)
  */
 function emh_configuration_update_7024() {
   features_revert(array('ft_views' => array('views_view')));
-} 
+}
+
+/**
+ * ADD: new Landing page feature.
+ */
+function emh_configuration_update_7025() {
+  module_enable(array('emh_landing_page'));
+}
