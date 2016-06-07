@@ -1,0 +1,36 @@
+<?php
+/**
+* @file
+* Code for eMindHub Landing Page feature.
+*/
+
+
+/*
+ * Implements hook_forms().
+ */
+function emh_landing_page_forms($form_id, $args) {
+  $forms = array();
+  switch ($form_id) {
+    case 'user_register_form_landing_page':
+      $forms['user_register_form_landing_page'] = array (
+        'callback' => 'user_register_form',
+      );
+      break;
+    default:
+      break;
+  }
+  return $forms;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function emh_landing_page_form_alter(&$form, &$form_state, $form_id) {
+  switch ($form_id) {
+    case 'user_register_form_landing_page':
+      return $form;
+      break;
+    default:
+      break;
+  }
+}
