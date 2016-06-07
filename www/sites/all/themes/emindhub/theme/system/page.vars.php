@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * page.vars.php
+ * page.variables.php
  */
 
 /**
@@ -32,4 +32,11 @@ function emindhub_preprocess_page(&$variables) {
   }
 
   $variables['baseline'] = emindhub_beautiful_baseline();
+
+  // Landing pages
+  // echo '<pre>' . print_r($variables, true) . '</pre>';
+  // echo '<pre>' . print_r(arg(), true) . '</pre>';
+  if (isset($variables['node']) && !(arg(2) == 'edit')) {
+    $variables['theme_hook_suggestion'] = 'page__node_'.$variables['node']->type;
+  }
 }
