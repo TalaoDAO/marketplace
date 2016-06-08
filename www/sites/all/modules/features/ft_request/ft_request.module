@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the ft_request feature.
+ */
+
+include_once 'ft_request.features.inc';
