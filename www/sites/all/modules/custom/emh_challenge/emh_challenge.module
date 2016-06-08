@@ -11,10 +11,6 @@
  */
 function emh_challenge_form_challenge_node_form_alter(&$form, &$form_state, $form_id) {
 
-	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
-	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
-
-  $form['field_reward'][LANGUAGE_NONE][0]['value']['#title'] = t('Cost');
   $form['field_reward'][LANGUAGE_NONE][0]['value']['#description'] = t('A minimum of !value points is required only if you have selected circle <i>All experts</i> or <i>Sponsors</i>.', array('!value' => variable_get('emh_points_challenge_threshold', '1000')));
 
 	$form['field_document'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
