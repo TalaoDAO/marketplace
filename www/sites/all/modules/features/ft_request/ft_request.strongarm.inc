@@ -105,7 +105,7 @@ function ft_request_strongarm() {
       'display' => array(
         'webform' => array(
           'default' => array(
-            'weight' => '9',
+            'weight' => '15',
             'visible' => TRUE,
           ),
         ),
