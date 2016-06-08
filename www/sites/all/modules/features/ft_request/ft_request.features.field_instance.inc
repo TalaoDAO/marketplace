@@ -445,53 +445,6 @@ function ft_request_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-request-field_reward'.
-  $field_instances['node-request-field_reward'] = array(
-    'bundle' => 'request',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
-          'scale' => 0,
-          'thousand_separator' => ' ',
-        ),
-        'type' => 'number_integer',
-        'weight' => 6,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_reward',
-    'label' => 'Reward',
-    'required' => 1,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'max' => '',
-      'min' => 0,
-      'prefix' => '',
-      'suffix' => ' points',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'number',
-      'settings' => array(),
-      'type' => 'number',
-      'weight' => 15,
-    ),
-  );
-
   // Exported field_instance: 'node-request-field_show_entreprise'.
   $field_instances['node-request-field_show_entreprise'] = array(
     'bundle' => 'request',
@@ -742,7 +695,6 @@ function ft_request_field_default_field_instances() {
   t('Duration of the mission');
   t('Image');
   t('Options');
-  t('Reward');
   t('Tags');
   t('Your activity');
   t('Your name');
