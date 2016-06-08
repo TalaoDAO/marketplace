@@ -16,7 +16,7 @@ body.not-logged-in.node-type-landing-page {
   }
 
   header#navbar {
-    border-width: 0;
+    border-color: @totalBlue;
   }
   .navbar-emh {
     background-color: #FFF;
@@ -52,12 +52,8 @@ body.not-logged-in.node-type-landing-page {
   }
 
   .landing-one {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-color: transparent;
-    background-position: 0% 50%;
-    background-image: url("//uploads.strikinglycdn.com/static/backgrounds/blurred-bg/58.jpg");
-    
+    background-color: @totalBlue;
+
     padding-top: 80px;
     padding-bottom: 80px;
     color: #FFF;
@@ -92,6 +88,23 @@ body.not-logged-in.node-type-landing-page {
   }
   .form-mandatory {
     display: none;
+  }
+
+  .account.row {
+    .form-item-mail {
+      .make-md-column(4);
+    }
+    .form-item-pass {
+      .make-md-column(8);
+      .make-row();
+      padding: 0 0 0 5px;
+      > div {
+        .make-md-column(6);
+      }
+      .form-item-pass-pass2 {
+        padding-left: 0;
+      }
+    }
   }
 
 }
