@@ -44,19 +44,44 @@
  *
  * @ingroup themeable
  */
+global $base_url;
+$front_theme = path_to_theme();
+$front_theme = $base_url . '/' . $front_theme;
 ?>
-<section id="<?php print $block_html_id; ?>" class="alert alert-block alert-info" role="alert"<?php print $attributes; ?>>
+<section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-  <?php print render($title_prefix); ?>
-  <?php if ($title): ?>
-    <h2<?php print $title_attributes; ?>><span><?php print $title; ?></span></h2>
-  <?php endif;?>
-  <?php print render($title_suffix); ?>
+  <div class="container">
+  <div class="row">
+    <div class="col-md-6 text-right">
+      <!-- Button trigger modal -->
+      <button type="button" id="hp-video" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModal">
+        <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
+      </button>
 
-  <?php if ($content): ?>
-    <div class="content">
-      <?php print $content; ?>
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="<?php print t('Close'); ?>"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel"><?php print $title; ?></h4>
+            </div>
+            <div class="modal-body">
+              <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="https://www.youtube-nocookie.com/embed/VAXPojC8KLU?rel=0&amp;showinfo=0"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  <?php endif;?>
+
+    <div class="content col-md-6">
+      <h2<?php print $title_attributes; ?>><span><?php print t('2 minutes <br />to discover eMindHub'); ?></span></h2>
+      <?php //print $content; ?>
+    </div>
+
+  </div>
+  </div>
 
 </section> <!-- /.block -->
