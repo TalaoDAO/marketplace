@@ -16277,9 +16277,6 @@ form .form-radios label {
 form .form-radios .form-group {
   margin-bottom: 0;
 }
-body.front header#title {
-  display: none !important;
-}
 body.front.not-logged-in header#navbar.navbar-emh:after {
   display: none !important;
 }
@@ -16287,6 +16284,9 @@ body.front.not-logged-in .main-container {
   border-top: 0;
 }
 body.front.not-logged-in .main-container section#maincol {
+  display: none !important;
+}
+body.front.not-logged-in header#title {
   display: none !important;
 }
 @media (min-width: 992px) {
@@ -16298,6 +16298,9 @@ body.front.not-logged-in .main-container section#maincol {
     padding-left: 30px;
     padding-right: 0;
   }
+}
+body.front.logged-in h1.page-header {
+  display: none !important;
 }
 body.front aside {
   margin-top: 0;
