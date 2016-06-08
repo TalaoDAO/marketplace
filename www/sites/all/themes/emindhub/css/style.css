@@ -17841,7 +17841,7 @@ body.not-logged-in.node-type-landing-page h2 {
 body.not-logged-in.node-type-landing-page h1 {
   color: #FFF;
   margin-top: 0;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
   font-size: 54px;
 }
 body.not-logged-in.node-type-landing-page h2 {
@@ -17852,6 +17852,9 @@ body.not-logged-in.node-type-landing-page h3 {
 }
 body.not-logged-in.node-type-landing-page #maincol {
   padding-top: 0;
+}
+body.not-logged-in.node-type-landing-page #block-menu-menu-top-anonymous {
+  margin-top: 9px;
 }
 body.not-logged-in.node-type-landing-page .landing-one {
   background-repeat: no-repeat;
@@ -17872,6 +17875,23 @@ body.not-logged-in.node-type-landing-page .landing-four {
   background-color: transparent;
   background-position: 0% 50%;
   background-image: url("../images/type/landing-page/T45TQKBSGB.jpg");
+  text-align: center;
+}
+body.not-logged-in.node-type-landing-page form {
+  margin-top: 50px;
+}
+body.not-logged-in.node-type-landing-page form .form-control,
+body.not-logged-in.node-type-landing-page form .btn {
+  padding: 12px 24px;
+  font-size: 20px;
+  height: auto;
+}
+body.not-logged-in.node-type-landing-page form .btn-group {
+  float: none !important;
+  margin-top: 20px;
+}
+body.not-logged-in.node-type-landing-page .form-mandatory {
+  display: none;
 }
 .view-domainlist span.statut:before {
   position: absolute;

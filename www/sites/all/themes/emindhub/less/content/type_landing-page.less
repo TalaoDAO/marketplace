@@ -32,7 +32,7 @@ body.not-logged-in.node-type-landing-page {
   h1 {
     color: #FFF;
     margin-top: 0;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
     font-size: 54px;
   }
   h2 {
@@ -46,12 +46,18 @@ body.not-logged-in.node-type-landing-page {
     padding-top: 0;
   }
 
+  // Menu
+  #block-menu-menu-top-anonymous {
+    margin-top: 9px;
+  }
+
   .landing-one {
     background-repeat: no-repeat;
     background-size: cover;
     background-color: transparent;
     background-position: 0% 50%;
     background-image: url("//uploads.strikinglycdn.com/static/backgrounds/blurred-bg/58.jpg");
+    
     padding-top: 80px;
     padding-bottom: 80px;
     color: #FFF;
@@ -66,6 +72,26 @@ body.not-logged-in.node-type-landing-page {
     background-color: transparent;
     background-position: 0% 50%;
     background-image: url("../images/type/landing-page/T45TQKBSGB.jpg");
+
+    .text-center;
+  }
+
+  // Register form
+  form {
+    margin-top: 50px;
+    .form-control,
+    .btn {
+      padding: 12px 24px;
+      font-size: 20px;
+      height: auto;
+    }
+    .btn-group {
+      float: none !important;
+      margin-top: 20px;
+    }
+  }
+  .form-mandatory {
+    display: none;
   }
 
 }
