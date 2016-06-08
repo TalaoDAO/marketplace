@@ -1,10 +1,5 @@
 body.front {
 
-  // Hide page title
-  header#title {
-    .hidden();
-  }
-
   &.not-logged-in {
     header#navbar {
 			&.navbar-emh {
@@ -21,6 +16,11 @@ body.front {
       }
     }
 
+    // Hide page title
+    header#title {
+      .hidden();
+    }
+
     @media (min-width: @screen-md-min) {
       #sidebar-first {
         padding-left: 0;
@@ -30,6 +30,13 @@ body.front {
         padding-left: 30px;
         padding-right: 0;
       }
+    }
+  }
+
+  &.logged-in {
+    // Hide page title
+    h1.page-header {
+      .hidden();
     }
   }
 
