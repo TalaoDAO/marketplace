@@ -22,7 +22,7 @@ function ft_request_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 4,
+        'weight' => 7,
       ),
       'teaser' => array(
         'label' => 'hidden',
@@ -52,7 +52,7 @@ function ft_request_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 1,
+      'weight' => 7,
     ),
   );
 
@@ -68,7 +68,7 @@ function ft_request_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 5,
+        'weight' => 8,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -107,7 +107,7 @@ function ft_request_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_default',
-        'weight' => 11,
+        'weight' => 12,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -197,7 +197,7 @@ function ft_request_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 2,
+      'weight' => 1,
     ),
   );
 
@@ -213,7 +213,7 @@ function ft_request_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 8,
+        'weight' => 14,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -238,7 +238,7 @@ function ft_request_field_default_field_instances() {
         'size' => 30,
       ),
       'type' => 'text_textfield',
-      'weight' => 14,
+      'weight' => 13,
     ),
   );
 
@@ -254,7 +254,7 @@ function ft_request_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 8,
+        'weight' => 11,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -301,7 +301,7 @@ function ft_request_field_default_field_instances() {
           'show_remaining_days' => FALSE,
         ),
         'type' => 'date_default',
-        'weight' => 2,
+        'weight' => 3,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -334,7 +334,7 @@ function ft_request_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 3,
+      'weight' => 4,
     ),
   );
 
@@ -352,7 +352,7 @@ function ft_request_field_default_field_instances() {
           'image_style' => 'medium',
         ),
         'type' => 'image',
-        'weight' => 1,
+        'weight' => 2,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -404,7 +404,44 @@ function ft_request_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 5,
+      'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance: 'node-request-field_options'.
+  $field_instances['node-request-field_options'] = array(
+    'bundle' => 'request',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 5,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_options',
+    'label' => 'Options',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'emh_request',
+      'settings' => array(),
+      'type' => 'emh_option_selector_default',
+      'weight' => 6,
     ),
   );
 
@@ -425,7 +462,7 @@ function ft_request_field_default_field_instances() {
           'thousand_separator' => ' ',
         ),
         'type' => 'number_integer',
-        'weight' => 3,
+        'weight' => 6,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -451,7 +488,7 @@ function ft_request_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 13,
+      'weight' => 15,
     ),
   );
 
@@ -467,7 +504,7 @@ function ft_request_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 7,
+        'weight' => 9,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -513,7 +550,7 @@ function ft_request_field_default_field_instances() {
           'show_remaining_days' => FALSE,
         ),
         'type' => 'date_default',
-        'weight' => 7,
+        'weight' => 13,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -546,7 +583,7 @@ function ft_request_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 15,
+      'weight' => 14,
     ),
   );
 
@@ -591,7 +628,7 @@ function ft_request_field_default_field_instances() {
         'size' => 40,
       ),
       'type' => 'autocomplete_deluxe_taxonomy',
-      'weight' => 4,
+      'weight' => 2,
     ),
   );
 
@@ -607,7 +644,7 @@ function ft_request_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 6,
+        'weight' => 10,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -648,7 +685,7 @@ function ft_request_field_default_field_instances() {
         'module' => 'og_ui',
         'settings' => array(),
         'type' => 'og_list_default',
-        'weight' => 9,
+        'weight' => 4,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -689,7 +726,7 @@ function ft_request_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 6,
+      'weight' => 5,
     ),
   );
 
@@ -704,6 +741,7 @@ function ft_request_field_default_field_instances() {
   t('Domain(s)');
   t('Duration of the mission');
   t('Image');
+  t('Options');
   t('Reward');
   t('Tags');
   t('Your activity');

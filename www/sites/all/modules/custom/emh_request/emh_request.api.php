@@ -57,7 +57,7 @@ function hook_emh_request_option_info_alter(array &$options) {
  * @param array $settings Current settings
  * @return array
  */
-function hook_emh_request_option_setting_form($id, $properties, $settings = array()) {
+function hook_emh_request_option_setting_form($id, $properties, array $settings = array()) {
   if ($id == 'super_option') {
     return array(
       'super_setting' => array(
