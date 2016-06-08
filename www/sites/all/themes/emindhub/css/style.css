@@ -15931,39 +15931,22 @@ body.admin-menu #block-system-user-menu {
   padding-top: 25px;
   padding-bottom: 25px;
   margin-bottom: 25px;
-  background-color: #f2f2f2;
-  color: #494949;
+  border-bottom: 1px solid #f2f2f2;
   font-size: 1.2em;
   line-height: 1.5;
 }
 #block-block-22 button#hp-video {
-  width: 555px;
-  height: 311px;
+  width: 200px;
+  height: 122px;
   background-image: url('../images/content/block/eMindHub_video.png');
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+  font-size: 40px;
 }
 #block-block-22 h2 {
-  font-family: inherit;
-  font-weight: 500;
-  line-height: 1.1;
-  color: inherit;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  font-size: 36px;
-  white-space: normal;
-  font-weight: 700;
-}
-#block-block-22 h2 small,
-#block-block-22 h2 .small {
-  font-weight: normal;
-  line-height: 1;
-  color: #777777;
-}
-#block-block-22 h2 small,
-#block-block-22 h2 .small {
-  font-size: 65%;
+  line-height: 1.5;
+  margin: 28px 0;
 }
 .emh-field-reward {
   width: 110px;

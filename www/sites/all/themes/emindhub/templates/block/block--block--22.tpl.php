@@ -52,14 +52,15 @@ $front_theme = $base_url . '/' . $front_theme;
 
   <div class="container">
   <div class="row">
-    <div class="col-md-6 text-center">
+    <div class="col-md-6 text-right">
       <!-- Button trigger modal -->
       <button type="button" id="hp-video" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModal">
+        <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
       </button>
 
       <!-- Modal -->
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="<?php print t('Close'); ?>"><span aria-hidden="true">&times;</span></button>
@@ -75,15 +76,10 @@ $front_theme = $base_url . '/' . $front_theme;
       </div>
     </div>
 
-  <?php if ($title || $content): ?>
     <div class="content col-md-6">
-      <?php if ($title): ?>
-        <h2<?php print $title_attributes; ?>><span><?php print $title; ?></span></h2>
-      <?php endif;?>
-      <?php print $content; ?>
-      <a href="#"><?php print('Discover how we work'); ?></a>
+      <h2<?php print $title_attributes; ?>><span><?php print t('2 minutes <br />to discover eMindHub'); ?></span></h2>
+      <?php //print $content; ?>
     </div>
-  <?php endif;?>
 
   </div>
   </div>
