@@ -121,7 +121,7 @@ global $base_url;
                       <a href="#lp-three"><?php print t('eMindHub in 3 minutes'); ?></a>
                     </li>
                     <li class="leaf">
-                      <a href="#lp-four"><?php print t('Join eMindHub for free'); ?></a>
+                      <a href="#lp-join"><?php print t('Join eMindHub for free'); ?></a>
                     </li>
                   </ul>
                 </div>
@@ -168,7 +168,8 @@ global $base_url;
           <?php print $body['0']['value']; ?>
         <?php endif; ?>
 
-        <?php $register_block_header = drupal_get_form('user_register_form_landing_page'); print drupal_render($register_block_header); ?>
+        <a id="lp-join"></a>
+        <?php $register_block = drupal_get_form('user_register_form_landing_page'); print drupal_render($register_block); ?>
 
       </div>
     </div>
@@ -209,8 +210,7 @@ global $base_url;
 
     <div id="lp-four" class="landing-section landing-four">
       <div class="container">
-        <h2><?php print t('Join eMindHub for free'); ?></h2>
-        <?php $register_block_footer = drupal_get_form('user_register_form_landing_page'); print drupal_render($register_block_footer); ?>
+        <a class="btn btn-success btn-lg" href="#lp-join"><?php print t('Register now'); ?></a>
       </div>
     </div>
 
