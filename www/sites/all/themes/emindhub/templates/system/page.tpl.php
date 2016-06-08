@@ -142,21 +142,13 @@ global $base_url;
 
 </header>
 
-<?php if (!empty($page['header']) || !empty($page['header_right'])): ?>
+<?php if (!empty($page['header'])): ?>
 <header role="banner" id="page-header">
-  <div class="container">
+  <div class="container-fluid">
 
-    <?php if (!empty($page['header']) && !empty($page['header_right'])): ?>
     <div class="row">
       <?php print render($page['header']); ?>
-      <?php print render($page['header_right']); ?>
     </div>
-    <?php endif; ?>
-
-    <?php if ( (!empty($page['header']) && empty($page['header_right'])) || (empty($page['header']) && !empty($page['header_right'])) ): ?>
-      <?php print render($page['header']); ?>
-      <?php print render($page['header_right']); ?>
-    <?php endif; ?>
 
   </div>
 </header> <!-- /#page-header -->

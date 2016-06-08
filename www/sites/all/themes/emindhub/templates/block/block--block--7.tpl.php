@@ -48,7 +48,7 @@ global $base_url;
 ?>
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-  <div class="content">
+  <div class="content container">
     <div id="homepage-slider" class="carousel slide" data-ride="carousel">
 
       <ol class="carousel-indicators">

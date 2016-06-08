@@ -13570,42 +13570,7 @@ header nav.navbar .block-menu .dropdown-menu > li > a {
  * Banner
  */
 header#page-header {
-  background-color: #114577;
-}
-header#page-header .region-header {
-  color: #FFF;
-  font-size: 32px;
-  text-transform: uppercase;
-}
-header#page-header .region-header .block p {
-  margin: 0;
-}
-header#page-header .region-header-right {
-  color: #4C6172;
-  font-size: 14px;
-}
-header#page-header .region-header-right .block {
-  background: #F6F7F8;
-  box-shadow: 0px 0px 2px #000;
-  margin-bottom: 15px;
-}
-header#page-header .region-header-right .block:last-of-type {
-  margin-bottom: 0;
-}
-header#page-header .region-header-right .block p {
-  padding: 10px 20px;
-  margin: 0;
-}
-header#page-header .region-header-right .block p:first-of-type {
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 24px;
-  line-height: 25px;
-  padding: 15px 10px;
-  background: #FFF;
-}
-header#page-header .region-header-right .block a {
-  color: inherit;
+  background-color: #FFF;
 }
 body {
   background-color: #f2f2f2;
@@ -14747,8 +14712,14 @@ table th[class*="col-"] {
   font-weight: 700;
 }
 /* HOMEPAGE
- * Baseline
+ * Slider
  */
+#block-block-7 {
+  background: #114577;
+  color: #FFF;
+  font-size: 32px;
+  text-transform: uppercase;
+}
 #block-block-7 .content h2 {
   color: #80d9ff;
   font-weight: normal;
@@ -15956,6 +15927,27 @@ body.admin-menu #block-system-user-menu {
     width: 75%;
   }
 }
+#block-block-22 {
+  padding-top: 25px;
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #f2f2f2;
+  font-size: 1.2em;
+  line-height: 1.5;
+}
+#block-block-22 button#hp-video {
+  width: 200px;
+  height: 122px;
+  background-image: url('../images/content/block/eMindHub_video.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-size: 40px;
+}
+#block-block-22 h2 {
+  line-height: 1.5;
+  margin: 28px 0;
+}
 .emh-field-reward {
   width: 110px;
   text-align: right;
@@ -16282,7 +16274,7 @@ form .form-radios label {
 form .form-radios .form-group {
   margin-bottom: 0;
 }
-body.front h1.page-header {
+body.front header#title {
   display: none !important;
 }
 body.front.not-logged-in header#navbar.navbar-emh:after {
@@ -16293,9 +16285,6 @@ body.front.not-logged-in .main-container {
 }
 body.front.not-logged-in .main-container section#maincol {
   display: none !important;
-}
-body.front.not-logged-in .main-container > header {
-  background: #114577;
 }
 @media (min-width: 992px) {
   body.front.not-logged-in #sidebar-first {
