@@ -418,9 +418,15 @@ function emh_configuration_update_7024() {
   features_revert(array('ft_views' => array('views_view')));
 }
 
+ * ADD: video in Homepage.
+ */
+function emh_configuration_update_7025() {
+  features_revert(array('ft_blocks' => array('fe_block_boxes')));
+}
+
 /**
  * ADD: new Landing page feature.
  */
-function emh_configuration_update_7025() {
+function emh_configuration_update_7026() {
   module_enable(array('emh_landing_page'));
 }

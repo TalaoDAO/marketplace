@@ -372,6 +372,36 @@ client/register',
     'visibility' => 1,
   );
 
+  $export['block-hp_video'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'machine_name' => 'hp_video',
+    'module' => 'block',
+    'node_types' => array(),
+    'pages' => '<front>',
+    'roles' => array(
+      'anonymous user' => 1,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'header',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => -47,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => 'Discover eMindHub in 2 minutes',
+    'visibility' => 1,
+  );
+
   $export['block-hp_welcome'] = array(
     'cache' => -1,
     'custom' => 0,
@@ -389,7 +419,7 @@ client/register',
         'region' => 'title',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -45,
+        'weight' => -48,
       ),
       'seven' => array(
         'region' => '',
