@@ -4,7 +4,6 @@
 * Code for eMindHub Landing Page feature.
 */
 
-
 /*
  * Implements hook_forms().
  */
@@ -33,4 +32,55 @@ function emh_landing_page_form_alter(&$form, &$form_state, $form_id) {
     default:
       break;
   }
+}
+
+function emh_landing_page_form_user_register_form_landing_page_alter(&$form, &$form_state, $form_id) {
+
+  $form['field_first_name']['#prefix'] = '<div class="form-group-3col row">';
+  $form['field_first_name'][LANGUAGE_NONE][0]['value']['#title_display'] = 'invisible';
+  $form['field_first_name'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = $form['field_first_name'][LANGUAGE_NONE][0]['value']['#title'];
+
+  $form['field_last_name'][LANGUAGE_NONE][0]['value']['#title_display'] = 'invisible';
+  $form['field_last_name'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = $form['field_last_name'][LANGUAGE_NONE][0]['value']['#title'];
+
+  $form['account']['mail']['#title_display'] = 'invisible';
+  $form['account']['mail']['#attributes']['placeholder'] = $form['account']['mail']['#title'];
+  $form['account']['mail']['#description'] = '';
+  $form['account']['#suffix'] = '</div>';
+
+  $form['actions']['submit']['#value'] = t('Start now');
+  $form['actions']['submit']['#attributes']['class'][] = 'btn-success';
+  
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function emh_landing_page_block_info() {
+  $blocks = array();
+
+  $blocks['landing_page_register'] = array(
+    'info' => t('Landing page register form'),
+  );
+
+  return $blocks;
+}
+
+function emh_landing_page_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+  case 'landing_page_register':
+    $block['subject'] = t('Landing page register form');
+    $block['content'] = amh_landing_page_block_register_callback();
+  }
+
+  return $block;
+}
+
+
+function emh_landing_page_block_register_callback() {
+  $reg_form = drupal_get_form('user_register_form_landing_page');
+  $output = drupal_render($reg_form);
+  return $output;
 }
