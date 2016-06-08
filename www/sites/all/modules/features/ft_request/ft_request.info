@@ -33,7 +33,6 @@ features[field_instance][] = node-request-field_entreprise_description
 features[field_instance][] = node-request-field_expiration_date
 features[field_instance][] = node-request-field_image
 features[field_instance][] = node-request-field_options
-features[field_instance][] = node-request-field_reward
 features[field_instance][] = node-request-field_show_entreprise
 features[field_instance][] = node-request-field_start_date
 features[field_instance][] = node-request-field_tags
