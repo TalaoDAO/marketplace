@@ -84,6 +84,64 @@ function _emh_request_string_overrides() {
 }
 
 
+//----------------------------------------------------------------------
+//-- SCHEMAS
+//----------------------------------------------------------------------
+
+
+/**
+ * Implements hook_field_schema().
+ */
+function hook_field_schema($field) {
+  if ($field['type'] == 'emh_option_selector') {
+    return array(
+      'columns' => array(
+        'option' => array(
+          'description' => 'Machine name (ID) of the option',
+          'type' => 'varchar',
+          'length' => 64,
+          'not null' => true,
+        ),
+        'cost' => array(
+          'description' => 'Cost of the option (number of points)',
+          'type' => 'int',
+          'not null' => true,
+          'default' => 0,
+        ),
+        'settings' => array(
+          'description' => 'Settings of the option (serialized PHP array)',
+          'type' => 'text',
+          'not null' => false,
+        ),
+      ),
+    );
+  }
+//  else {
+//    return array(
+//      'columns' => array(
+//        'option' => array(
+//          'description' => 'Machine name (ID) of the option',
+//          'type' => 'varchar',
+//          'length' => 64,
+//          'not null' => true,
+//        ),
+//        'cost' => array(
+//          'description' => 'Cost of the option (number of points)',
+//          'type' => 'int',
+//          'not null' => true,
+//          'default' => 0,
+//        ),
+//      ),
+//    );
+//  }
+}
+
+
+//----------------------------------------------------------------------
+//-- UPDATES
+//----------------------------------------------------------------------
+
+
 /**
  * Force module weight for hook_form_alter execution
  */
