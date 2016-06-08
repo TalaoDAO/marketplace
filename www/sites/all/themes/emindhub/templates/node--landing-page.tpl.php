@@ -168,7 +168,7 @@ global $base_url;
           <?php print $body['0']['value']; ?>
         <?php endif; ?>
 
-        <?php $register_block = drupal_get_form('user_register_form'); print drupal_render($register_block); ?>
+        <?php $register_block_header = drupal_get_form('user_register_form_landing_page'); print drupal_render($register_block_header); ?>
 
       </div>
     </div>
@@ -209,7 +209,8 @@ global $base_url;
 
     <div id="lp-four" class="landing-section landing-four">
       <div class="container">
-        FORMULAIRE
+        <h2><?php print t('Join eMindHub for free'); ?></h2>
+        <?php $register_block_footer = drupal_get_form('user_register_form_landing_page'); print drupal_render($register_block_footer); ?>
       </div>
     </div>
 
