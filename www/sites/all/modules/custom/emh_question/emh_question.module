@@ -11,10 +11,6 @@
  */
 function emh_question_form_question1_node_form_alter(&$form, &$form_state, $form_id) {
 
-	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
-	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
-
-  $form['field_reward'][LANGUAGE_NONE][0]['value']['#title'] = t('Cost');
   $form['field_reward'][LANGUAGE_NONE][0]['value']['#description'] = t('A minimum of !value points is required only if you have selected circle <i>All experts</i> or <i>Sponsors</i>.', array('!value' => variable_get('emh_points_question1_threshold', '100')));
 }
 
