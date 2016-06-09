@@ -16081,6 +16081,13 @@ form {
 	 * Fields
 	 */
 }
+form > * > .form-item-title,
+form .field-group-fieldset,
+form .field-group-div {
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #f2f2f2;
+}
 form > * > .form-item-title > .form-group:last-child,
 form .field-group-fieldset > .form-group:last-child,
 form .field-group-div > .form-group:last-child,
@@ -16282,6 +16289,9 @@ body.front.not-logged-in .main-container section#maincol {
 body.front.not-logged-in .main-container > header {
   background: transparent none;
   color: inherit;
+}
+body.front.not-logged-in .main-container > header .alert {
+  margin-top: 20px;
 }
 body.front.not-logged-in aside {
   margin-top: 25px;
@@ -17866,6 +17876,7 @@ body.not-logged-in.node-type-landing-page .landing-one {
   padding-top: 80px;
   padding-bottom: 80px;
   color: #FFF;
+  text-align: center;
   font-size: 20px;
   line-height: 1.35em;
 }
@@ -17889,6 +17900,13 @@ body.not-logged-in.node-type-landing-page form .btn {
 body.not-logged-in.node-type-landing-page form .btn-group {
   float: none !important;
   margin-top: 20px;
+}
+body.not-logged-in.node-type-landing-page form > * > .form-item-title,
+body.not-logged-in.node-type-landing-page form .field-group-fieldset,
+body.not-logged-in.node-type-landing-page form .field-group-div {
+  padding: 0;
+  margin-bottom: 0;
+  background-color: transparent;
 }
 body.not-logged-in.node-type-landing-page .form-mandatory {
   display: none;
