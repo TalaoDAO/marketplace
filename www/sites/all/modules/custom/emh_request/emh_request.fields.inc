@@ -87,11 +87,10 @@ function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, 
       '#default_value' => isset($items[$id]),
     );
 
-    $cost = isset($item['cost']) ? $item['cost'] : $option['cost'];
-    if ($cost == 0) {
+    if ($option['cost'] == 0) {
       $cost = t('Free');
     } else {
-      $cost = t('!count points', array('!count' => $cost));
+      $cost = t('!count points', array('!count' => $option['cost']));
     }
 
     $element[$id]['cost'] = array(
@@ -170,7 +169,7 @@ function emh_request_restructure_option_selector_items($items) {
       $columns['settings'] = unserialize($columns['settings']);
     } else {
       $columns['settings'] = array();
-}
+    }
     $restructured[$columns['option']] = $columns;
   }
 
