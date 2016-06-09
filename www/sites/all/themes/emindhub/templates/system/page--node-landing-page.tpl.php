@@ -72,7 +72,6 @@
  *
  * @ingroup themeable
  */
-global $base_url;
 ?>
 
   <?php print render($page['content']); ?>
