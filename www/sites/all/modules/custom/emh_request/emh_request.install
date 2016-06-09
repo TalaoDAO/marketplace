@@ -238,3 +238,11 @@ function emh_request_update_7109() {
 function emh_request_update_7110() {
   variable_set('webform_node_request', true);
 }
+
+
+/**
+ * Enables the ft_request feature.
+ */
+function emh_request_update_7111() {
+  module_enable(['ft_request']);
+}
