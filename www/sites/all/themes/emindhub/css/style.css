@@ -15931,25 +15931,29 @@ body.admin-menu #block-system-user-menu {
   }
 }
 #block-block-22 {
+  background: transparent url("../images/content/block/eMindHub_video_background.png") no-repeat top center;
   padding-top: 25px;
   padding-bottom: 25px;
   border-bottom: 1px solid #f2f2f2;
   font-size: 1.2em;
   line-height: 1.5;
+  text-align: center;
 }
 #block-block-22 button#hp-video {
-  width: 200px;
-  height: 122px;
-  background-image: url('../images/content/block/eMindHub_video.png');
+  width: 380px;
+  max-width: 100%;
+  height: 253px;
+  background-image: url("../images/content/block/eMindHub_video_player.png");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  font-size: 50px;
+  font-size: 100px;
   color: #114577;
+  text-shadow: 1px 1px 10px rgba(255, 255, 255, 0.75);
 }
 #block-block-22 h2 {
   line-height: 1.5;
-  margin: 28px 0;
+  margin: 0 0 20px;
   color: #114577;
   text-transform: uppercase;
 }
