@@ -20,7 +20,7 @@ function ft_landing_page_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'How does it work?',
+    'label' => 'Zone 2',
     'weight' => '1',
     'children' => array(
       0 => 'field_landingpage_how_title',
@@ -28,7 +28,7 @@ function ft_landing_page_field_group_info() {
     ),
     'format_type' => 'div',
     'format_settings' => array(
-      'label' => 'How does it work?',
+      'label' => 'Zone 2',
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
@@ -54,7 +54,7 @@ function ft_landing_page_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Introduction',
+    'label' => 'Zone 1',
     'weight' => '0',
     'children' => array(
       0 => 'body',
@@ -62,17 +62,18 @@ function ft_landing_page_field_group_info() {
     ),
     'format_type' => 'div',
     'format_settings' => array(
-      'formatter' => 'open',
+      'label' => 'Zone 1',
       'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-landingpage-intro field-group-div',
         'description' => '',
-        'show_label' => 1,
+        'show_label' => '1',
         'label_element' => 'h3',
         'effect' => 'none',
         'speed' => 'fast',
-        'classes' => 'group-landingpage-intro field-group-div',
-        'required_fields' => 1,
-        'id' => '',
       ),
+      'formatter' => 'open',
     ),
   );
   $field_groups['group_landingpage_intro|node|landing_page|form'] = $field_group;
@@ -87,7 +88,7 @@ function ft_landing_page_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'eMindHub in 3 minutes',
+    'label' => 'Zone 3',
     'weight' => '2',
     'children' => array(
       0 => 'field_landingpage_media_title',
@@ -95,26 +96,27 @@ function ft_landing_page_field_group_info() {
     ),
     'format_type' => 'div',
     'format_settings' => array(
-      'formatter' => 'open',
+      'label' => 'Zone 3',
       'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-landingpage-media field-group-div',
         'description' => '',
-        'show_label' => 1,
+        'show_label' => '1',
         'label_element' => 'h3',
         'effect' => 'none',
         'speed' => 'fast',
-        'classes' => 'group-landingpage-media field-group-div',
-        'required_fields' => 1,
-        'id' => '',
       ),
+      'formatter' => 'open',
     ),
   );
   $field_groups['group_landingpage_media|node|landing_page|form'] = $field_group;
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('How does it work?');
-  t('Introduction');
-  t('eMindHub in 3 minutes');
+  t('Zone 1');
+  t('Zone 2');
+  t('Zone 3');
 
   return $field_groups;
 }
