@@ -90,8 +90,8 @@ function ft_landing_page_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-landing_page-field_landing_page_image'.
-  $field_instances['node-landing_page-field_landing_page_image'] = array(
+  // Exported field_instance: 'node-landing_page-field_landingpage_image'.
+  $field_instances['node-landing_page-field_landingpage_image'] = array(
     'bundle' => 'landing_page',
     'deleted' => 0,
     'description' => '',
@@ -118,7 +118,7 @@ function ft_landing_page_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_landing_page_image',
+    'field_name' => 'field_landingpage_image',
     'label' => 'Image',
     'required' => 0,
     'settings' => array(

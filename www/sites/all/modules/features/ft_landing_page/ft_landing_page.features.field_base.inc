@@ -10,13 +10,13 @@
 function ft_landing_page_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_landing_page_image'.
-  $field_bases['field_landing_page_image'] = array(
+  // Exported field_base: 'field_landingpage_image'.
+  $field_bases['field_landingpage_image'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_landing_page_image',
+    'field_name' => 'field_landingpage_image',
     'field_permissions' => array(
       'owner_field' => 'Comment',
       'type' => 0,
