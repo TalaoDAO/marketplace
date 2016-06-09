@@ -167,7 +167,7 @@ global $base_url;
         <div class="row">
 
           <?php if (!empty($content['field_landingpage_image'])) : ?>
-          <div class="col-md-2">
+          <div class="col-xs-12 col-md-2">
             <?php print render($content['field_landingpage_image']); ?>
           </div>
           <?php endif; ?>
@@ -176,7 +176,7 @@ global $base_url;
           <?php if (!$page): ?>
             <h2<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h2>
           <?php else : ?>
-          <div class="col-md-10">
+          <div class="col-xs-12 col-md-10">
             <h1<?php print $title_attributes; ?>><?php print $title; ?></h1>
           </div>
           <?php endif; ?>

@@ -17807,8 +17807,10 @@ fieldset[disabled] .circle-subscribe a.unsubscribe.focus {
 .view-circles > * > * > .row:last-child {
   margin-bottom: 0;
 }
-body.not-logged-in.node-type-landing-page {
-  padding-top: 70px;
+@media (min-width: 992px) {
+  body.not-logged-in.node-type-landing-page {
+    padding-top: 70px;
+  }
 }
 body.not-logged-in.node-type-landing-page .landing-section {
   padding-top: 50px;
@@ -17851,8 +17853,10 @@ body.not-logged-in.node-type-landing-page h3 {
 body.not-logged-in.node-type-landing-page #maincol {
   padding-top: 0;
 }
-body.not-logged-in.node-type-landing-page #block-menu-menu-top-anonymous {
-  margin-top: 9px;
+@media (min-width: 992px) {
+  body.not-logged-in.node-type-landing-page #block-menu-menu-top-anonymous {
+    margin-top: 9px;
+  }
 }
 body.not-logged-in.node-type-landing-page .landing-one {
   background-color: #114577;
@@ -17906,7 +17910,6 @@ body.not-logged-in.node-type-landing-page .account.row .form-item-pass {
   padding-right: 15px;
   margin-left: -15px;
   margin-right: -15px;
-  padding: 0 0 0 5px;
 }
 @media (min-width: 992px) {
   body.not-logged-in.node-type-landing-page .account.row .form-item-pass {
@@ -17926,8 +17929,13 @@ body.not-logged-in.node-type-landing-page .account.row .form-item-pass > div {
     width: 50%;
   }
 }
-body.not-logged-in.node-type-landing-page .account.row .form-item-pass .form-item-pass-pass2 {
-  padding-left: 0;
+@media (min-width: 992px) {
+  body.not-logged-in.node-type-landing-page .account.row .form-item-pass {
+    padding: 0 0 0 5px;
+  }
+  body.not-logged-in.node-type-landing-page .account.row .form-item-pass .form-item-pass-pass2 {
+    padding-left: 0;
+  }
 }
 .view-domainlist span.statut:before {
   position: absolute;

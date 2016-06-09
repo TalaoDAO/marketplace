@@ -1,5 +1,7 @@
 body.not-logged-in.node-type-landing-page {
-  padding-top: 70px;
+  @media (min-width: @screen-md-min) {
+    padding-top: 70px;
+  }
 
   .landing-section {
     padding-top: 50px;
@@ -47,8 +49,10 @@ body.not-logged-in.node-type-landing-page {
   }
 
   // Menu
-  #block-menu-menu-top-anonymous {
-    margin-top: 9px;
+  @media (min-width: @screen-md-min) {
+    #block-menu-menu-top-anonymous {
+      margin-top: 9px;
+    }
   }
 
   .landing-one {
@@ -97,12 +101,17 @@ body.not-logged-in.node-type-landing-page {
     .form-item-pass {
       .make-md-column(8);
       .make-row();
-      padding: 0 0 0 5px;
       > div {
         .make-md-column(6);
       }
-      .form-item-pass-pass2 {
-        padding-left: 0;
+    }
+
+    @media (min-width: @screen-md-min) {
+      .form-item-pass {
+        padding: 0 0 0 5px;
+        .form-item-pass-pass2 {
+          padding-left: 0;
+        }
       }
     }
   }
