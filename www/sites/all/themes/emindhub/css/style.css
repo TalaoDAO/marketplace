@@ -16070,6 +16070,11 @@ div.rating div a:hover {
   height: 100px;
   width: 100px;
 }
+.field-group-div {
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #f2f2f2;
+}
 .field-group-div:last-child {
   margin-bottom: 0;
 }
@@ -16346,6 +16351,11 @@ form#change-pwd-page-form .form-type-password-confirm div.confirm-parent {
     padding-right: 0;
     padding-left: 7.5px;
   }
+}
+form#change-pwd-page-form .form-group {
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #f2f2f2;
 }
 form#change-pwd-page-form .form-group:last-child {
   margin-bottom: 0;
