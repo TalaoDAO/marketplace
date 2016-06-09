@@ -92,7 +92,7 @@ function _emh_request_string_overrides() {
 /**
  * Implements hook_field_schema().
  */
-function hook_field_schema($field) {
+function emh_request_field_schema($field) {
   if ($field['type'] == 'emh_option_selector') {
     return array(
       'columns' => array(
@@ -245,4 +245,18 @@ function emh_request_update_7110() {
  */
 function emh_request_update_7111() {
   module_enable(['ft_request']);
+}
+
+
+/**
+ * Recreates the field_options field.
+ */
+function emh_request_update_7112() {
+  if ($instance = field_info_instance('node', 'field_options', 'request')) {
+    field_delete_instance($instance);
+  }
+  if (field_info_field('field_options')) {
+    field_delete_field('field_options');
+  }
+  features_revert(array('ft_request' => array('field_base', 'field_instance')));
 }
