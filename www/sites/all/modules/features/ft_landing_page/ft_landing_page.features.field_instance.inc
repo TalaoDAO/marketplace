@@ -90,6 +90,89 @@ function ft_landing_page_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-landing_page-field_landing_page_image'.
+  $field_instances['node-landing_page-field_landing_page_image'] = array(
+    'bundle' => 'landing_page',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 5,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_landing_page_image',
+    'label' => 'Image',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'entity_translation_sync' => FALSE,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'filefield_paths' => array(
+        'active_updating' => 0,
+        'file_name' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+        ),
+        'file_path' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => 'landingpage',
+        ),
+        'redirect' => FALSE,
+        'retroactive_update' => 0,
+      ),
+      'filefield_paths_enabled' => 1,
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '100x100',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'imagefield_crop',
+      'settings' => array(
+        'collapsible' => 2,
+        'croparea' => '100x100',
+        'custom_ratio' => '',
+        'enforce_minimum' => 1,
+        'enforce_ratio' => 1,
+        'gif_processing' => 'convert',
+        'preview_image_style' => 'thumbnail',
+        'preview_image_width' => 100,
+        'progress_indicator' => 'throbber',
+        'resolution' => '100x100',
+        'select_maximum_area' => 1,
+        'validate_resolution' => 0,
+      ),
+      'type' => 'imagefield_crop_widget',
+      'weight' => 47,
+    ),
+  );
+
   // Exported field_instance: 'node-landing_page-field_landingpage_how_text'.
   $field_instances['node-landing_page-field_landingpage_how_text'] = array(
     'bundle' => 'landing_page',
@@ -257,6 +340,7 @@ function ft_landing_page_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Comment');
+  t('Image');
   t('Zone 1 - Text');
   t('Zone 2 - Text');
   t('Zone 2 - Title');
