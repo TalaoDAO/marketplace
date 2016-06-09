@@ -68,14 +68,18 @@ function emh_request_setup_options_behaviors($form, &$form_state) {
  * @return array Options definitions
  */
 function emh_request_get_options() {
-  $options = module_invoke_all('emh_request_option_info');
-  drupal_alter('emh_request_option_info', $options);
+  $options = &drupal_static(__FUNCTION__);
 
-  foreach ($options as $id => &$option) {
-    if (strlen($id) > 64) {
-      throw new Exception(sprintf("The identifier given to an EMH request option can't be longer than 64 characters (found: %s).", $id));
+  if ($options === null) {
+    $options = module_invoke_all('emh_request_option_info');
+    drupal_alter('emh_request_option_info', $options);
+
+    foreach ($options as $id => &$option) {
+      if (strlen($id) > 64) {
+        throw new Exception(sprintf("The identifier given to an EMH request option can't be longer than 64 characters (found: %s).", $id));
+      }
+      $option += emh_request_default_option_info();
     }
-    $option += emh_request_default_option_info();
   }
 
   return $options;
