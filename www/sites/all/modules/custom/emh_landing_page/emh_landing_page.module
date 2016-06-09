@@ -55,10 +55,16 @@ function emh_landing_page_form_user_register_form_landing_page_alter(&$form, &$f
 
   $form['account']['pass']['#process'] = array('form_process_password_confirm', 'register_alter_password_confirm');
 
-  // Force Expert role
+  // Force Expert & Roleswitcher roles
   $form['account']['roles']['4'] = array(
     '#type' => 'checkbox',
     '#title' => 'expert',
+    '#default_value' => TRUE,
+    '#disabled' => TRUE,
+  );
+  $form['account']['roles']['10'] = array(
+    '#type' => 'checkbox',
+    '#title' => 'roleswitcher',
     '#default_value' => TRUE,
     '#disabled' => TRUE,
   );
