@@ -114,12 +114,20 @@ global $base_url;
 
                 <div class="content">
                   <ul class="menu nav nav-justified">
-                    <li class="first leaf">
-                      <a href="#lp-two"><?php print t('How does it work?'); ?></a>
-                    </li>
+                    <?php if (!empty($content['field_landingpage_how_title'])) : ?>
                     <li class="leaf">
-                      <a href="#lp-three"><?php print t('eMindHub in 3 minutes'); ?></a>
+                      <a href="#lp-two">
+                        <?php print $field_landingpage_how_title['0']['value']; ?>
+                      </a>
                     </li>
+                    <?php endif; ?>
+                    <?php if (!empty($content['field_landingpage_media_title'])) : ?>
+                    <li class="leaf">
+                      <a href="#lp-three">
+                        <?php print $field_landingpage_media_title['0']['value']; ?>
+                      </a>
+                    </li>
+                    <?php endif; ?>
                     <li class="leaf">
                       <a href="#lp-join"><?php print t('Join eMindHub for free'); ?></a>
                     </li>
@@ -156,13 +164,25 @@ global $base_url;
     <div id="lp-one" class="landing-section landing-one">
       <div class="container">
 
-        <?php print render($title_prefix); ?>
-        <?php if (!$page): ?>
-          <h2<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h2>
-        <?php else : ?>
-          <h1<?php print $title_attributes; ?>><?php print $title; ?></h1>
-        <?php endif; ?>
-        <?php print render($title_suffix); ?>
+        <div class="row">
+
+          <?php if (!empty($content['field_landingpage_image'])) : ?>
+          <div class="col-md-2">
+            <?php print render($content['field_landingpage_image']); ?>
+          </div>
+          <?php endif; ?>
+
+          <?php print render($title_prefix); ?>
+          <?php if (!$page): ?>
+            <h2<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h2>
+          <?php else : ?>
+          <div class="col-md-10">
+            <h1<?php print $title_attributes; ?>><?php print $title; ?></h1>
+          </div>
+          <?php endif; ?>
+          <?php print render($title_suffix); ?>
+
+        </div>
 
         <?php if (!empty($body)) : ?>
           <?php print $body['0']['value']; ?>
