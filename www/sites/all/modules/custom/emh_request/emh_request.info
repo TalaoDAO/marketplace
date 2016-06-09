@@ -3,6 +3,8 @@ description = Global functions for all requests : question, mission, challenge.
 package = EMH
 core = 7.x
 
+dependencies[] = ft_content_type
+
 files[] = views/views_handler_field_emh_comment_answer.inc
 files[] = views/views_handler_field_emh_webform_answer.inc
 files[] = views/views_handler_field_emh_request_status.inc
