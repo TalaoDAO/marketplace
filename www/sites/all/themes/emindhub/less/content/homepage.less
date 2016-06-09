@@ -1,5 +1,10 @@
 body.front {
 
+  // Hide page title
+  h1.page-header {
+    .hidden();
+  }
+
   &.not-logged-in {
     header#navbar {
 			&.navbar-emh {
@@ -14,11 +19,14 @@ body.front {
       section#maincol {
         .hidden();
       }
+      > header {
+        background: transparent none;
+        color: inherit;
+      }
     }
 
-    // Hide page title
-    header#title {
-      .hidden();
+    aside {
+      margin-top: 25px;
     }
 
     @media (min-width: @screen-md-min) {
@@ -34,14 +42,9 @@ body.front {
   }
 
   &.logged-in {
-    // Hide page title
-    h1.page-header {
-      .hidden();
+    aside {
+      margin-top: 0;
     }
-  }
-
-  aside {
-    margin-top: 0;
   }
 
 }
