@@ -128,7 +128,6 @@ function emh_request_field_widget_validate($element, &$form_state, $form) {
     if ($element[$id]['enabled']['#value']) {
       $items[$index] = array(
         'option'    => $id,
-        'cost'      => 0,
         'settings'  => null,
       );
 
@@ -178,5 +177,18 @@ function emh_request_restructure_option_selector_items($items) {
 
 
 //----------------------------------------------------------------------
-//-- FORMATTERS
+//-- STORAGE
 //----------------------------------------------------------------------
+
+
+/**
+ * Implements hook_field_presave().
+ */
+function emh_request_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  if ($field['type'] == 'emh_option_selector') {
+    $options = emh_request_get_options();
+    foreach ($items as $delta => $item) {
+      $items[$delta]['cost'] = $options[$item['option']]['cost'];
+    }
+  }
+}
