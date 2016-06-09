@@ -9,9 +9,6 @@ include_once 'emh_request.deprecated.inc';
 include_once 'emh_request.fields.inc';
 include_once 'emh_request.conditional_fields.inc';
 
-define('OPT_BEHAVIOR_SHOW', 'show');
-define('OPT_BEHAVIOR_HIDE', 'hide');
-
 
 /**
  * Implements hook_hook_info().
@@ -43,13 +40,11 @@ function emh_request_setup_options_behaviors($form, &$form_state) {
       $dependent = emh_request_get_form_element($form, $field_name);
       if ($dependent) {
         $dependent = $dependent[$dependent['#language']];
-        conditional_fields_attach_dependency($form, $dependee, $dependent, array(
-          'state' => 'visible',
-          'condition' => 'value',
-          'values_set' => CONDITIONAL_FIELDS_DEPENDENCY_VALUES_WIDGET,
-          'value' => $id,
-          'effect' => 'slide',
-        ));
+
+        $behavior = isset($option['behavior']) ? $option['behavior'] : array();
+        $behavior += emh_request_default_option_behavior($id);
+
+        conditional_fields_attach_dependency($form, $dependee, $dependent, $behavior);
       }
     }
   }
@@ -96,7 +91,25 @@ function emh_request_default_option_info() {
     'cost' => 0,
     'weight' => 0,
     'fields' => array(),
-    'behavior' => OPT_BEHAVIOR_HIDE,
+  );
+}
+
+
+/**
+ * Provides the properties of the options behavior by default.
+ *
+ * @param string $option_id
+ *  The identifier (machine name) of the option for which you want the default
+ *  properties
+ * @return array Behavior properties by default
+ */
+function emh_request_default_option_behavior($option_id) {
+  return array(
+    'state' => 'visible',
+    'condition' => 'value',
+    'values_set' => CONDITIONAL_FIELDS_DEPENDENCY_VALUES_WIDGET,
+    'value' => $option_id,
+    'effect' => 'slide',
   );
 }
 

@@ -15,10 +15,18 @@
  *  - label (required): a user-friendly label ;
  *  - description: a short explanation about the option ;
  *  - cost: a cost by default, 0 (then free) if not provided ;
- *  - weight: a weight for options ordering on the interface, 0 if not provided ;
+ *  - weight: a weight for options ordering, 0 if not provided ;
  *  - setting_form: a form callback to generate a setting form ;
- *  - fields: an array of field names related to the option ;
- *  - behavior: the behavior to add with the given fields, "show" or "hide".
+ *  - fields: an array of field names related to the option (on which the
+ *    behavior is applied) ;
+ *  - behavior: an array of properties defining the behavior to have with the
+ *    specified fields in function of the option state (checked or not).
+ *    The behavior by default is to hide the fields and show them only when the
+ *    option is checked (with a slide effect).
+ *
+ * @see conditional_fields_attach_dependency()
+ *  Read the documentation of the $options argument to know the available
+ *  properties for the options behaviors.
  *
  * @return array
  */
@@ -27,11 +35,14 @@ function hook_emh_request_option_info() {
     'super_option' => array(
       'label' => t('My super option'),
       'description' => t('This is an option which one I can make lots of super things!'),
-      'cost' => 200,        // 0 by default
-      'weight' => 100,      // 0 by default
+      'cost' => 200,    // 0 by default
+      'weight' => 100,  // 0 by default
       'setting_form' => 'my_module_super_option_setting_form',
       'fields' => ['field_super_option1', 'field_super_option2'],
-      'behavior' => 'show', // "show" by default
+      'behavior' => array(
+        'state' => '!visible',
+        'effect' => 'fade',
+      ),
     ),
   );
 }
