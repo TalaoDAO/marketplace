@@ -7,6 +7,7 @@
 
 include_once 'emh_request.deprecated.inc';
 include_once 'emh_request.fields.inc';
+include_once 'emh_request.conditional_fields.inc';
 
 define('OPT_BEHAVIOR_SHOW', 'show');
 define('OPT_BEHAVIOR_HIDE', 'hide');
@@ -27,6 +28,41 @@ function emh_request_hook_info() {
 
 
 /**
+ * After build callback which sets up options behaviors
+ * using conditional_fields features.
+ */
+function emh_request_setup_options_behaviors($form, &$form_state) {
+  $options = emh_request_get_options();
+  $need_cf_call = !in_array('conditional_fields_form_after_build', $form['#after_build']);
+
+  $dependee = emh_request_get_form_element($form, 'field_options');
+  $dependee = $dependee[$dependee['#language']];
+
+  foreach ($options as $id => $option) {
+    foreach ($option['fields'] as $field_name) {
+      $dependent = emh_request_get_form_element($form, $field_name);
+      if ($dependent) {
+        $dependent = $dependent[$dependent['#language']];
+        conditional_fields_attach_dependency($form, $dependee, $dependent, array(
+          'state' => 'visible',
+          'condition' => 'value',
+          'values_set' => CONDITIONAL_FIELDS_DEPENDENCY_VALUES_WIDGET,
+          'value' => $id,
+          'effect' => 'slide',
+        ));
+      }
+    }
+  }
+
+  if ($need_cf_call) {
+    $form = conditional_fields_form_after_build($form, $form_state);
+  }
+
+  return $form;
+}
+
+
+/**
  * Provides all available options.
  *
  * @return array Options definitions
@@ -35,8 +71,12 @@ function emh_request_get_options() {
   $options = module_invoke_all('emh_request_option_info');
   drupal_alter('emh_request_option_info', $options);
 
-  foreach ($options as &$option) {
-    $option += emh_request_default_option_info();
+    foreach ($options as $id => &$option) {
+      if (strlen($id) > 64) {
+        throw new Exception(sprintf("The identifier given to an EMH request option can't be longer than 64 characters (found: %s).", $id));
+      }
+      $option += emh_request_default_option_info();
+    }
   }
 
   return $options;
@@ -52,6 +92,27 @@ function emh_request_default_option_info() {
   return array(
     'cost' => 0,
     'weight' => 0,
+    'fields' => array(),
     'behavior' => OPT_BEHAVIOR_HIDE,
   );
+}
+
+
+/**
+ * Searches an element in a form structure and returns it if found.
+ *
+ * @param array $form The form (or just a piece of form)
+ * @param string $element_name The name of the element to search
+ * @return array|null
+ */
+function emh_request_get_form_element($form, $element_name) {
+  if (isset($form[$element_name])) {
+    return $form[$element_name];
+  } else {
+    foreach (element_children($form) as $child) {
+      if ($element = emh_request_get_form_element($form[$child], $element_name)) {
+        return $element;
+      }
+    }
+  }
 }
