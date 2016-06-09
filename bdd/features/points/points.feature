@@ -59,10 +59,10 @@ Feature: Test points
     When I go to homepage
     And I click "What about?" in the "What about?" row
     And I click "Edit" in the "primary tabs" region
-    Then I should see "Cost"
-    And the "Cost" field should contain "100"
+    Then I should see "Reward"
+    And the "Reward" field should contain "100"
 
-    When I enter "200" for "Cost"
+    When I enter "200" for "Reward"
     And I select "Display my full name" from "Your name"
     And I select "Display the name" from "Your organisation"
     And I select "Display" from "Your activity"
