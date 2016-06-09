@@ -42,7 +42,8 @@ function emh_circles_default_rules_configuration() {
     "IF" : [
       { "user_has_role" : {
           "account" : [ "account" ],
-          "roles" : { "value" : { "5" : "5", "10" : "10" } }
+          "roles" : { "value" : { "5" : "5", "10" : "10" } },
+          "operation" : "OR"
         }
       }
     ],
