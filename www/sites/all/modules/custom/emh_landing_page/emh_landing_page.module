@@ -48,14 +48,20 @@ function emh_landing_page_form_user_register_form_landing_page_alter(&$form, &$f
   $form['account']['mail']['#title_display'] = 'invisible';
   $form['account']['mail']['#attributes']['placeholder'] = $form['account']['mail']['#title'];
   $form['account']['mail']['#description'] = '';
-  $form['account']['pass']['#title_display'] = 'invisible';
-  $form['account']['pass']['#attributes']['placeholder'] = $form['account']['pass']['#title'];
   $form['account']['#suffix'] = '</div>';
 
   $form['actions']['submit']['#value'] = t('Start now');
   $form['actions']['submit']['#attributes']['class'][] = 'btn-success';
 
   $form['account']['pass']['#process'] = array('form_process_password_confirm', 'register_alter_password_confirm');
+
+  // Force Expert role
+  $form['account']['roles']['4'] = array(
+    '#type' => 'checkbox',
+    '#title' => 'expert',
+    '#default_value' => TRUE,
+    '#disabled' => TRUE,
+  );
 
   // echo '<pre>' . print_r($form, true) . '</pre>';
 
