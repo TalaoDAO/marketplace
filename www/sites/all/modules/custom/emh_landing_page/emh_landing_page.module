@@ -53,7 +53,7 @@ function emh_landing_page_form_user_register_form_landing_page_alter(&$form, &$f
   $form['actions']['submit']['#value'] = t('Start now');
   $form['actions']['submit']['#attributes']['class'][] = 'btn-success';
 
-  $form['account']['pass']['#process'] = array('form_process_password_confirm', 'register_alter_password_confirm');
+  $form['account']['pass']['#process'] = array('form_process_password_confirm', 'emh_landing_page_form_process_password_confirm');
 
   // Force Expert & Roleswitcher roles
   $form['account']['roles']['4'] = array(
@@ -76,7 +76,7 @@ function emh_landing_page_form_user_register_form_landing_page_alter(&$form, &$f
 /**
  * Alter password and confirm password fields to remove title and insert placeholder.
  */
-function register_alter_password_confirm($element) {
+function emh_landing_page_form_process_password_confirm($element) {
   $element['pass1']['#title_display'] = "invisible";
   $element['pass1']['#attributes']['placeholder'] = t("Password");
   $element['pass2']['#title_display'] = "invisible";
