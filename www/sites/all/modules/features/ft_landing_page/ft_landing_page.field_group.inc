@@ -58,7 +58,8 @@ function ft_landing_page_field_group_info() {
     'weight' => '0',
     'children' => array(
       0 => 'body',
-      1 => 'title',
+      1 => 'field_landing_page_image',
+      2 => 'title',
     ),
     'format_type' => 'div',
     'format_settings' => array(
