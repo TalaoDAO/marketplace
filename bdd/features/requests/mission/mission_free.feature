@@ -46,7 +46,7 @@ Feature: Free mission
     When I go to homepage
     And I click "What about?" in the "What about?" row
     And I click "Edit" in the "primary tabs" region
-    And I enter "0" for "Cost"
+    And I enter "0" for "Reward"
     And I press "Save"
     Then I should see the message "You should at least allocate 500 points."
 
@@ -55,7 +55,7 @@ Feature: Free mission
     When I go to homepage
     And I click "Who about?" in the "Who about?" row
     And I click "Edit" in the "primary tabs" region
-    And I enter "0" for "Cost"
+    And I enter "0" for "Reward"
     And I press "Save"
     Then I should see the success message "Mission Who about? has been updated."
 
