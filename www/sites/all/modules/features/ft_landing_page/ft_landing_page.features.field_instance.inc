@@ -70,7 +70,7 @@ function ft_landing_page_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'body',
-    'label' => 'Introduction - Text',
+    'label' => 'Zone 1 - Text',
     'required' => 0,
     'settings' => array(
       'display_summary' => 1,
@@ -113,7 +113,7 @@ function ft_landing_page_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_landingpage_how_text',
-    'label' => 'How does it work? - Text',
+    'label' => 'Zone 2 - Text',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -134,11 +134,7 @@ function ft_landing_page_field_default_field_instances() {
   // Exported field_instance: 'node-landing_page-field_landingpage_how_title'.
   $field_instances['node-landing_page-field_landingpage_how_title'] = array(
     'bundle' => 'landing_page',
-    'default_value' => array(
-      0 => array(
-        'value' => 'How does it work?',
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -158,7 +154,7 @@ function ft_landing_page_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_landingpage_how_title',
-    'label' => 'How does it work? - Title',
+    'label' => 'Zone 2 - Title',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -199,7 +195,7 @@ function ft_landing_page_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_landingpage_media_text',
-    'label' => 'eMindHub in 3 minutes - Text',
+    'label' => 'Zone 3 - Text',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -220,11 +216,7 @@ function ft_landing_page_field_default_field_instances() {
   // Exported field_instance: 'node-landing_page-field_landingpage_media_title'.
   $field_instances['node-landing_page-field_landingpage_media_title'] = array(
     'bundle' => 'landing_page',
-    'default_value' => array(
-      0 => array(
-        'value' => 'eMindHub in 3 minutes',
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -244,7 +236,7 @@ function ft_landing_page_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_landingpage_media_title',
-    'label' => 'eMindHub in 3 minutes - Title',
+    'label' => 'Zone 3 - Title',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -265,11 +257,11 @@ function ft_landing_page_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Comment');
-  t('How does it work? - Text');
-  t('How does it work? - Title');
-  t('Introduction - Text');
-  t('eMindHub in 3 minutes - Text');
-  t('eMindHub in 3 minutes - Title');
+  t('Zone 1 - Text');
+  t('Zone 2 - Text');
+  t('Zone 2 - Title');
+  t('Zone 3 - Text');
+  t('Zone 3 - Title');
 
   return $field_instances;
 }
