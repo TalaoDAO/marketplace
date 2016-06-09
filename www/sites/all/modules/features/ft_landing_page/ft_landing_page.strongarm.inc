@@ -105,11 +105,11 @@ function ft_landing_page_strongarm() {
       'display' => array(
         'language' => array(
           'default' => array(
-            'weight' => '8',
+            'weight' => '6',
             'visible' => FALSE,
           ),
           'teaser' => array(
-            'weight' => '1',
+            'weight' => '2',
             'visible' => FALSE,
           ),
         ),
