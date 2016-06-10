@@ -17890,6 +17890,7 @@ body.not-logged-in.node-type-landing-page #maincol {
 }
 body.not-logged-in.node-type-landing-page .landing-one {
   background: #114577 url("../images/banner/eMindHub_banner_04.jpg") no-repeat top center;
+  background-size: cover;
   color: #FFF;
   text-align: center;
   font-size: 20px;
@@ -17903,11 +17904,8 @@ body.not-logged-in.node-type-landing-page .landing-two {
   background: #f2f2f2 url("../images/banner/eMindHub_banner_06.png") no-repeat top center;
 }
 body.not-logged-in.node-type-landing-page .landing-four {
-  background-repeat: no-repeat;
+  background: transparent url("../images/banner/eMindHub_banner_04.jpg") no-repeat top center;
   background-size: cover;
-  background-color: transparent;
-  background-position: 0% 50%;
-  background-image: url("../images/banner/eMindHub_banner_04.jpg");
   text-align: center;
 }
 body.not-logged-in.node-type-landing-page form {
