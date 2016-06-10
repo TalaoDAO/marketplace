@@ -15931,7 +15931,7 @@ body.admin-menu #block-system-user-menu {
   }
 }
 #block-block-22 {
-  background: transparent url("../images/content/block/eMindHub_video_background.png") no-repeat top center;
+  background: transparent url("../images/banner/eMindHub_banner_05.png") no-repeat top center;
   padding-top: 25px;
   padding-bottom: 25px;
   border-bottom: 1px solid #f2f2f2;
@@ -17840,9 +17840,11 @@ fieldset[disabled] .circle-subscribe a.unsubscribe.focus {
   }
 }
 body.not-logged-in.node-type-landing-page .landing-section {
+  font-size: 15px;
+}
+body.not-logged-in.node-type-landing-page .landing-section .container {
   padding-top: 50px;
   padding-bottom: 50px;
-  font-size: 15px;
 }
 body.not-logged-in.node-type-landing-page #lp-three,
 body.not-logged-in.node-type-landing-page #lp-four {
@@ -17862,7 +17864,6 @@ body.not-logged-in.node-type-landing-page .navbar-emh:after {
 }
 body.not-logged-in.node-type-landing-page h1,
 body.not-logged-in.node-type-landing-page h2 {
-  text-align: center;
   font-weight: normal;
 }
 body.not-logged-in.node-type-landing-page h1 {
@@ -17870,8 +17871,10 @@ body.not-logged-in.node-type-landing-page h1 {
   margin-top: 0;
   margin-bottom: 50px;
   font-size: 54px;
+  text-align: left;
 }
 body.not-logged-in.node-type-landing-page h2 {
+  text-align: center;
   font-size: 36px;
 }
 body.not-logged-in.node-type-landing-page h3 {
@@ -17886,20 +17889,23 @@ body.not-logged-in.node-type-landing-page #maincol {
   }
 }
 body.not-logged-in.node-type-landing-page .landing-one {
-  background-color: #114577;
-  padding-top: 80px;
-  padding-bottom: 80px;
+  background: #114577 url("../images/banner/eMindHub_banner_04.jpg") no-repeat top center;
+  background-size: cover;
   color: #FFF;
   text-align: center;
   font-size: 20px;
   line-height: 1.35em;
 }
+body.not-logged-in.node-type-landing-page .landing-one .container {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+body.not-logged-in.node-type-landing-page .landing-two {
+  background: #f2f2f2 url("../images/banner/eMindHub_banner_06.png") no-repeat top center;
+}
 body.not-logged-in.node-type-landing-page .landing-four {
-  background-repeat: no-repeat;
+  background: transparent url("../images/banner/eMindHub_banner_04.jpg") no-repeat top center;
   background-size: cover;
-  background-color: transparent;
-  background-position: 0% 50%;
-  background-image: url("../images/type/landing-page/T45TQKBSGB.jpg");
   text-align: center;
 }
 body.not-logged-in.node-type-landing-page form {
@@ -17914,6 +17920,63 @@ body.not-logged-in.node-type-landing-page form .btn {
 body.not-logged-in.node-type-landing-page form .btn-group {
   float: none !important;
   margin-top: 20px;
+}
+body.not-logged-in.node-type-landing-page form button {
+  color: #ffffff;
+  background-color: #d59019;
+  border-color: #976612;
+}
+body.not-logged-in.node-type-landing-page form button:focus,
+body.not-logged-in.node-type-landing-page form button.focus {
+  color: #ffffff;
+  background-color: #a77114;
+  border-color: #251904;
+}
+body.not-logged-in.node-type-landing-page form button:hover {
+  color: #ffffff;
+  background-color: #a77114;
+  border-color: #61410b;
+}
+body.not-logged-in.node-type-landing-page form button:active,
+body.not-logged-in.node-type-landing-page form button.active,
+.open > .dropdown-togglebody.not-logged-in.node-type-landing-page form button {
+  color: #ffffff;
+  background-color: #a77114;
+  border-color: #61410b;
+}
+body.not-logged-in.node-type-landing-page form button:active:hover,
+body.not-logged-in.node-type-landing-page form button.active:hover,
+.open > .dropdown-togglebody.not-logged-in.node-type-landing-page form button:hover,
+body.not-logged-in.node-type-landing-page form button:active:focus,
+body.not-logged-in.node-type-landing-page form button.active:focus,
+.open > .dropdown-togglebody.not-logged-in.node-type-landing-page form button:focus,
+body.not-logged-in.node-type-landing-page form button:active.focus,
+body.not-logged-in.node-type-landing-page form button.active.focus,
+.open > .dropdown-togglebody.not-logged-in.node-type-landing-page form button.focus {
+  color: #ffffff;
+  background-color: #875c10;
+  border-color: #251904;
+}
+body.not-logged-in.node-type-landing-page form button:active,
+body.not-logged-in.node-type-landing-page form button.active,
+.open > .dropdown-togglebody.not-logged-in.node-type-landing-page form button {
+  background-image: none;
+}
+body.not-logged-in.node-type-landing-page form button.disabled:hover,
+body.not-logged-in.node-type-landing-page form button[disabled]:hover,
+fieldset[disabled] body.not-logged-in.node-type-landing-page form button:hover,
+body.not-logged-in.node-type-landing-page form button.disabled:focus,
+body.not-logged-in.node-type-landing-page form button[disabled]:focus,
+fieldset[disabled] body.not-logged-in.node-type-landing-page form button:focus,
+body.not-logged-in.node-type-landing-page form button.disabled.focus,
+body.not-logged-in.node-type-landing-page form button[disabled].focus,
+fieldset[disabled] body.not-logged-in.node-type-landing-page form button.focus {
+  background-color: #d59019;
+  border-color: #976612;
+}
+body.not-logged-in.node-type-landing-page form button .badge {
+  color: #d59019;
+  background-color: #ffffff;
 }
 body.not-logged-in.node-type-landing-page form > * > .form-item-title,
 body.not-logged-in.node-type-landing-page form .field-group-fieldset,
