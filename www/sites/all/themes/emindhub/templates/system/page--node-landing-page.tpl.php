@@ -74,7 +74,7 @@
  */
 ?>
 
-  <?php print render($page['content']); ?>
+<?php print render($page['content']); ?>
 
 <footer class="footer">
   <div class="container">

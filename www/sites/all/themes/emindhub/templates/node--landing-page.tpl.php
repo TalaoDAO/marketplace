@@ -188,7 +188,7 @@ global $base_url;
           <?php print $body['0']['value']; ?>
         <?php endif; ?>
 
-        <a id="lp-join"></a>
+        <span id="lp-join"></span>
         <?php $register_block = drupal_get_form('user_register_form_landing_page'); print drupal_render($register_block); ?>
 
       </div>
@@ -230,7 +230,7 @@ global $base_url;
 
     <div id="lp-four" class="landing-section landing-four">
       <div class="container">
-        <a class="btn btn-success btn-lg" href="#lp-join"><?php print t('Register now'); ?></a>
+        <a class="btn btn-expert btn-lg" href="#lp-join"><?php print t('Register now'); ?></a>
       </div>
     </div>
 
