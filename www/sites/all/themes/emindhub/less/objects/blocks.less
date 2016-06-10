@@ -125,9 +125,13 @@
 }
 
 /* HOMEPAGE
- * Baseline
+ * Slider
  */
 #block-block-7 {
+	background: @totalBlue;
+	color: #FFF;
+	font-size: 32px;
+	text-transform: uppercase;
 	.content {
 		h2 {
 			color: @cyan;
@@ -708,17 +712,17 @@
 			}
 		}
 		&.question1 {
-			a::before {
+			a:before {
 				background-image: url("../images/picto/picto_question_small.png");
 			}
 		}
 		&.webform {
-			a::before {
+			a:before {
 				background-image: url("../images/picto/picto_survey_small.png");
 			}
 		}
 		&.challenge {
-			a::before {
+			a:before {
 				background-image: url("../images/picto/picto_challenge_small.png");
 			}
 		}
@@ -738,6 +742,9 @@
 			#edit-status-1-wrapper,
 			#edit-total-points-wrapper {
 				margin-top: 10px;
+			}
+			.views-exposed-form .views-exposed-widgets > .views-submit-button {
+			  margin-top: 34px;
 			}
 		}
 	}
@@ -993,4 +1000,37 @@ body.admin-menu {
 			margin: 0;
 		}
 	}
+}
+
+// HP - Video
+#block-block-22 {
+	background: transparent url("../images/content/block/eMindHub_video_background.png") no-repeat top center;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	border-bottom: 1px solid @gray-lighter;
+	font-size: 1.2em;
+	line-height: 1.5;
+	.text-center;
+
+	button#hp-video {
+		width: 380px;
+		max-width: 100%;
+		height: 253px;
+		background-image: url("../images/content/block/eMindHub_video_player.png");
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: cover;
+
+		font-size: 100px;
+		color: @totalBlue;
+		text-shadow: 1px 1px 10px rgba(255, 255, 255, 0.75);
+	}
+
+	h2 {
+		line-height: 1.5;
+		margin: 0 0 20px;
+		color: @totalBlue;
+		.text-uppercase;
+	}
+
 }

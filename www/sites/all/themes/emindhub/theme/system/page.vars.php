@@ -32,4 +32,9 @@ function emindhub_preprocess_page(&$variables) {
   }
 
   $variables['baseline'] = emindhub_beautiful_baseline();
+
+  // Landing pages
+  if (isset($variables['node']) && !(arg(2) == 'edit')) {
+    $variables['theme_hook_suggestion'] = 'page__node_'.$variables['node']->type;
+  }
 }
