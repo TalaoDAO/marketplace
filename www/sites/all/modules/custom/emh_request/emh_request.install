@@ -138,3 +138,17 @@ function emh_request_update_7107() {
   emh_request_disable_strings();
   emh_request_enable_strings();
 }
+
+/**
+* Revert Views features.
+*/
+function emh_request_update_7108() {
+  features_revert(array('ft_views' => array('views_view')));
+}
+
+/**
+* CHG : Revert Requests views features.
+*/
+function emh_request_update_7109() {
+  features_revert(array('ft_views' => array('views_view')));
+}

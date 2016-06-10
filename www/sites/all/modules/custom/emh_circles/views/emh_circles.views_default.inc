@@ -440,6 +440,12 @@ function emh_circles_views_default_views() {
     'circle' => 'circle',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Content: Nid */
+  $handler->display->display_options['filters']['nid']['id'] = 'nid';
+  $handler->display->display_options['filters']['nid']['table'] = 'node';
+  $handler->display->display_options['filters']['nid']['field'] = 'nid';
+  $handler->display->display_options['filters']['nid']['operator'] = '!=';
+  $handler->display->display_options['filters']['nid']['value']['value'] = '314';
 
   /* Display: (P) All circles */
   $handler = $view->new_display('page', '(P) All circles', 'page');

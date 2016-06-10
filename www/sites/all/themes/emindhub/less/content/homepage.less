@@ -19,9 +19,17 @@ body.front {
       section#maincol {
         .hidden();
       }
+      > header {
+        background: transparent none;
+        color: inherit;
+        .alert {
+          margin-top: 20px;
+        }
+      }
     }
-    .main-container > header {
-      background: @totalBlue;
+
+    aside {
+      margin-top: 25px;
     }
 
     @media (min-width: @screen-md-min) {
@@ -36,8 +44,10 @@ body.front {
     }
   }
 
-  aside {
-    margin-top: 0;
+  &.logged-in {
+    aside {
+      margin-top: 0;
+    }
   }
 
 }

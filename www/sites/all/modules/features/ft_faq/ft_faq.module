@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the FT FAQ feature.
+ */
+
+include_once 'ft_faq.features.inc';
