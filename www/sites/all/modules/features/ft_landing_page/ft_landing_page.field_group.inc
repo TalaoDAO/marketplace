@@ -23,8 +23,8 @@ function ft_landing_page_field_group_info() {
     'label' => 'Zone 2',
     'weight' => '1',
     'children' => array(
-      0 => 'field_landingpage_how_title',
-      1 => 'field_landingpage_how_text',
+      0 => 'field_landingpage_how_text',
+      1 => 'field_landingpage_how_title',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -92,8 +92,8 @@ function ft_landing_page_field_group_info() {
     'label' => 'Zone 3',
     'weight' => '2',
     'children' => array(
-      0 => 'field_landingpage_media_title',
-      1 => 'field_landingpage_media_text',
+      0 => 'field_landingpage_media_text',
+      1 => 'field_landingpage_media_title',
     ),
     'format_type' => 'div',
     'format_settings' => array(
