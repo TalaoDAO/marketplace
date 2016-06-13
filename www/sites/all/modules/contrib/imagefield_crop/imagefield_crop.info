@@ -4,9 +4,9 @@ core = 7.x
 dependencies[] = image
 files[] = imagefield_crop.module
 
-; Information added by Drupal.org packaging script on 2015-10-31
-version = "7.x-2.0+28-dev"
+; Information added by Drupal.org packaging script on 2016-02-23
+version = "7.x-2.0+29-dev"
 core = "7.x"
 project = "imagefield_crop"
-datestamp = "1446329342"
+datestamp = "1456217343"
 
