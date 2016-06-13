@@ -30,6 +30,7 @@ features[field_instance][] = node-landing_page-field_landingpage_how_title
 features[field_instance][] = node-landing_page-field_landingpage_image
 features[field_instance][] = node-landing_page-field_landingpage_media_text
 features[field_instance][] = node-landing_page-field_landingpage_media_title
+features[field_instance][] = node-landing_page-title_field
 features[node][] = landing_page
 features[variable][] = comment_anonymous_landing_page
 features[variable][] = comment_default_mode_landing_page
