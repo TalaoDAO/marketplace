@@ -16256,6 +16256,33 @@ form .field-widget-imagefield-crop-widget .form-submit {
     width: 83.33333333%;
   }
 }
+form .imagefield-crop-widget {
+  /* Zen - max-width: 100% for img tags in normalize.css messes up ImageField Crop's
+		 * preview and cropbox - we have to set max-width to none to fix it
+		 * per https://drupal.org/node/1779494
+		 */
+}
+form .imagefield-crop-widget img {
+  max-width: none;
+}
+form .imagefield-crop-widget .imagefield-crop-preview,
+form .imagefield-crop-widget .imagefield-crop-cropbox {
+  float: left;
+  margin-right: 15px;
+}
+form .imagefield-crop-widget .jcrop-preview-wrapper {
+  border-radius: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+form .imagefield-crop-widget .file,
+form .imagefield-crop-widget .file-upload > span {
+  display: none !important;
+}
+form .imagefield-crop-widget .jcrop-holder {
+  background-color: transparent ! important;
+}
 form .form-mandatory {
   clear: both;
 }
@@ -16576,33 +16603,6 @@ form#user-profile-form .link-field-subrow > *:nth-child(2) {
     padding-right: 0;
     padding-left: 7.5px;
   }
-}
-form#user-profile-form .imagefield-crop-widget {
-  /* Zen - max-width: 100% for img tags in normalize.css messes up ImageField Crop's
-     * preview and cropbox - we have to set max-width to none to fix it
-     * per https://drupal.org/node/1779494
-     */
-}
-form#user-profile-form .imagefield-crop-widget img {
-  max-width: none;
-}
-form#user-profile-form .imagefield-crop-widget .imagefield-crop-preview,
-form#user-profile-form .imagefield-crop-widget .imagefield-crop-cropbox {
-  float: left;
-  margin-right: 15px;
-}
-form#user-profile-form .imagefield-crop-widget .jcrop-preview-wrapper {
-  border-radius: 50%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-form#user-profile-form .imagefield-crop-widget .file,
-form#user-profile-form .imagefield-crop-widget .file-upload > span {
-  display: none !important;
-}
-form#user-profile-form .imagefield-crop-widget .jcrop-holder {
-  background-color: transparent ! important;
 }
 @media (min-width: 992px) {
   form#user-profile-form #edit-field-skills-set tbody td:nth-child(2) {
