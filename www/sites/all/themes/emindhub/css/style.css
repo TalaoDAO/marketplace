@@ -17871,7 +17871,6 @@ body.not-logged-in.node-type-landing-page h1 {
   margin-top: 0;
   margin-bottom: 50px;
   font-size: 54px;
-  text-align: left;
 }
 body.not-logged-in.node-type-landing-page h2 {
   text-align: center;
@@ -17892,7 +17891,6 @@ body.not-logged-in.node-type-landing-page .landing-one {
   background: #114577 url("../images/banner/eMindHub_banner_04.jpg") no-repeat top center;
   background-size: cover;
   color: #FFF;
-  text-align: center;
   font-size: 20px;
   line-height: 1.35em;
 }
@@ -17910,6 +17908,7 @@ body.not-logged-in.node-type-landing-page .landing-four {
 }
 body.not-logged-in.node-type-landing-page form {
   margin-top: 50px;
+  text-align: center;
 }
 body.not-logged-in.node-type-landing-page form .form-control,
 body.not-logged-in.node-type-landing-page form .btn {
