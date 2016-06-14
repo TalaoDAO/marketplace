@@ -7,32 +7,6 @@ form#user-profile-form {
     .form-group-2col;
   }
 
-  .imagefield-crop-widget {
-    /* Zen - max-width: 100% for img tags in normalize.css messes up ImageField Crop's
-     * preview and cropbox - we have to set max-width to none to fix it
-     * per https://drupal.org/node/1779494
-     */
-    img {
-      max-width:none;
-    }
-    .imagefield-crop-preview,
-    .imagefield-crop-cropbox {
-      float: left;
-      margin-right: 15px;
-    }
-    .jcrop-preview-wrapper {
-      .img-circle;
-      .center-block;
-    }
-    .file,
-    .file-upload > span {
-      .hidden();
-    }
-    .jcrop-holder {
-      background-color: transparent ! important;
-    }
-  }
-
   #edit-field-skills-set {
     @media (min-width: @screen-md-min) {
       tbody td:nth-child(2) {
