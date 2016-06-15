@@ -63,8 +63,9 @@ function emh_faq_update_7001() {
 }
 
 /**
- * CHG: revert FAQ views.
+ * CHG: revert FAQ views & translation parameters.
  */
 function emh_faq_update_7002() {
   emh_faq_reset_views();
+  features_revert(array('ft_landing_page' => array('variable')));
 }
