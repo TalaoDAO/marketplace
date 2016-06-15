@@ -1,0 +1,5 @@
+name = EMH Landing Page
+description = Convert site visitors into sales or leads!
+package = EMH
+dependencies[] = ft_landing_page
+core = 7.x
