@@ -54,3 +54,10 @@ function _emh_landing_page_string_overrides() {
   );
 
 }
+
+/**
+ * CHG: Landing page translation parameters.
+ */
+function emh_landing_page_update_7001() {
+  features_revert(array('ft_landing_page' => array('variable')));
+}
