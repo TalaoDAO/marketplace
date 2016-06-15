@@ -45,6 +45,7 @@ function emh_request_emh_request_option_info() {
     'questionnaire' => array(
       'label' => t("Questionnaire"),
       'description' => t("Identify best experts profiles through a questionnaire"),
+      'after_build' => 'emh_request_questionnaire_after_build',
     ),
 //    'bounty' => array(
 //      'label' => t("Bounty"),

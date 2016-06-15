@@ -7,102 +7,25 @@
 /**
  * Implements hook_node_access().
  */
-function emh_request_node_access($node, $op, $account) {
-  if ($op == 'update') {
-    switch ($node->type) {
-      case 'question1':
-      case 'webform':
-      case 'challenge':
-        /*
-        $count = emh_request_count_answers($node->nid);
-        if ($count > 0) {
-          return NODE_ACCESS_DENY;
-        }
-         */
-        break;
-      default:
-        break;
-    }
-  }
-  return NODE_ACCESS_IGNORE;
-}
-
-/**
- * Implements hook_form_alter().
- * node/add/type
- * node/$ID/edit
- */
-function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
-
-  switch ($form['#node']->type) {
-
-    case 'question1':
-    case 'webform':
-    case 'challenge':
-
-      // Actions : Save as draft + Publish / Save
-      $form['actions']['draft']['#value'] = t('Save draft');
-      $form['actions']['submit']['#value'] = t('Publish');
-      if ($form['type']['#value'] == 'webform' && !isset($form['#node']->nid)) {
-        $form['actions']['draft']['#value'] = t('Save draft and continue');
-      }
-      // If nid not empty, we're in the edit page
-      if ( !empty($form['nid']['#value']) && $form['#node']->status == NODE_PUBLISHED) {
-        $form['actions']['draft']['#access'] = FALSE;
-        $form['actions']['submit']['#value'] = t('Save');
-
-        // If node is published on a free circle, we can close the request.
-        $nid = $form['nid']['#value'];
-        $status = emh_points_get_points_closed_status($nid);
-        $circles = $form['#node']->og_group_ref[LANGUAGE_NONE];
-        $free = TRUE;
-        foreach($circles as $delta => $circle) {
-          $loaded_circle = node_load($circle['target_id']); // TODO : PERF ISSUE : use node_load_all instead
-          if ($loaded_circle->field_free_circle[LANGUAGE_NONE]['0']['value'] === '0') {
-            // Paying circle
-            $free = FALSE;
-            break;
-          }
-        }
-        if ($free && !$status) {
-          $form['actions']['close'] = array(
-            '#type' => 'submit',
-            '#value' => 'Close the request',
-            '#submit' => array('emh_request_form_node_close'),
-          );
-        }
-      }
-
-      // If node is published & there are some answers, only some updates are possible.
-      // #575, 576
-      $count = emh_request_count_answers($form['nid']['#value']);
-      if ($form['#node']->status && $count > 0) {
-        // Prevent domain & circle update.
-        $form['field_domaine']['#disabled'] = TRUE;
-        $form['field_request_circle']['#disabled'] = TRUE;
-        $form['og_group_ref']['#disabled'] = TRUE;
-      }
-
-      // Hide node access
-      $form['group_content_access']['#access'] =  FALSE;
-
-      // Load only circles which user is member of
-      global $user;
-      $groups = og_get_groups_by_user($user, 'node');
-      $user_groups = array();
-      foreach ($groups as $group) {
-        $node = node_load($group);
-        $user_groups[$group] = $node->title;
-      }
-      $form['og_group_ref'][LANGUAGE_NONE]['#options'] = $user_groups;
-
-      break;
-
-    default:
-      break;
-  }
-
-}
+//function emh_request_node_access($node, $op, $account) {
+//  if ($op == 'update') {
+//    switch ($node->type) {
+//      case 'question1':
+//      case 'webform':
+//      case 'challenge':
+//        /*
+//        $count = emh_request_count_answers($node->nid);
+//        if ($count > 0) {
+//          return NODE_ACCESS_DENY;
+//        }
+//         */
+//        break;
+//      default:
+//        break;
+//    }
+//  }
+//  return NODE_ACCESS_IGNORE;
+//}
 
 /**
  * Close callback for the form above.
@@ -265,8 +188,7 @@ function emh_request_get_answer($entity, $type) {
  * Helper function to retrieve the list of request types.
  */
 function emh_request_get_types() {
-  $types = array( 'question1', 'webform', 'challenge' );
-  return $types;
+  return array('request', 'question1', 'webform', 'challenge');
 }
 
 /**
@@ -319,26 +241,26 @@ function emh_request_get_status($nid) {
 function emh_request_count_answers($nid) {
 
   $node = node_load($nid);
-
 	$count = 0;
+
   if (!empty($node)) {
-    switch($node->type) {
-    case 'webform':
-      include_once(drupal_get_path('module', 'webform') . '/includes/webform.submissions.inc');
-      $count = webform_get_submission_count($node->nid);
-      break;
-    case 'question1':
-    case 'challenge':
-      if (isset($node->comment_count)) $count = $node->comment_count;
-      break;
-    default:
-      // Nothing to do.
-      break;
+    switch ($node->type) {
+      case 'request':
+      case 'webform':
+        include_once(drupal_get_path('module', 'webform') . '/includes/webform.submissions.inc');
+        $count = webform_get_submission_count($node->nid);
+        break;
+
+      case 'question1':
+      case 'challenge':
+        if (isset($node->comment_count)) {
+          $count = $node->comment_count;
+        }
+        break;
     }
   }
 
 	return $count;
-
 }
 
 /**
@@ -346,7 +268,7 @@ function emh_request_count_answers($nid) {
  */
 function emh_request_has_points($nid) {
   $node = node_load($nid);
-  if (!empty($node) && !empty($node->emh_points)) return TRUE;
+  return (!empty($node) && !empty($node->emh_points));
 }
 
 /**

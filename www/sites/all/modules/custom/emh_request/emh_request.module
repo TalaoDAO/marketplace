@@ -25,6 +25,42 @@ function emh_request_hook_info() {
 
 
 /**
+ * Implements hook_node_presave().
+ */
+function emh_request_node_presave($node) {
+  if ($node->type !== 'request') {
+    return;
+  }
+
+  if (emh_request_has_option($node, 'questionnaire')) {
+    if ($node->status == 1 && (empty($node->webform) || empty($node->webform['components']))) {
+      // Unpublishes the node
+      $node->status = 0;
+      // Informs the user.
+      drupal_set_message(t('You choose the questionnaire option, then you can not publish your request without any question.'), 'warning');
+    }
+  }
+
+//  if (empty($node->nid)) {
+//    // All requests are webforms, then we have to automatically create the first
+//    // component on the basis of the node's title
+//    module_load_include('inc', 'webform', 'includes/webform.components');
+//
+//    $component = array(
+//      'type' => 'textarea',
+//      'name' => $node->title,
+//      'form_key' => 'question1',
+//      'required' => true,
+//    );
+//
+//    webform_component_defaults($component);
+//
+//    $node->webform['components'][] = $component;
+//  }
+}
+
+
+/**
  * After build callback which sets up options behaviors
  * using conditional_fields features.
  */
@@ -47,6 +83,17 @@ function emh_request_setup_options_behaviors($form, &$form_state) {
         conditional_fields_attach_dependency($form, $dependee, $dependent, $behavior);
       }
     }
+
+    // Calls potential after build callbacks provided with the option
+    if (isset($option['after_build'])) {
+      if (!is_array($option['after_build'])) {
+        call_user_func_array($option['after_build'], array(&$form, &$form_state));
+      } else {
+        foreach ($option['after_build'] as $after_build) {
+          call_user_func_array($after_build, array(&$form, &$form_state));
+        }
+      }
+    }
   }
 
   if ($need_cf_call) {
@@ -55,6 +102,527 @@ function emh_request_setup_options_behaviors($form, &$form_state) {
 
   return $form;
 }
+
+
+/**
+ * After build callback which sets up additional behaviors
+ * for the questionnaire option.
+ */
+function emh_request_questionnaire_after_build(&$form, &$form_state) {
+  if (empty($form['#node']->nid)) {
+    $element = emh_request_get_form_element($form, 'field_options');
+    $name = 'field_options[' . $element['#language'] . '][questionnaire][enabled]';
+
+    $form['actions']['submit']['#states'] = array(
+      'disabled' => array(
+        ':input[name="' . $name . '"]' => array('checked' => true),
+      ),
+    );
+  }
+}
+
+
+//----------------------------------------------------------------------
+//-- MENU
+//----------------------------------------------------------------------
+
+
+/**
+ * Implements hook_menu().
+ */
+function emh_request_menu() {
+  $items = array();
+
+  // General information
+  $items['node/%webform_menu/edit/general'] = array(
+    'title' => t('General infos'),
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => 0,
+  );
+
+  // Questions
+  $items['node/%webform_menu/edit/questions'] = array(
+    'title' => t('Questions'),
+    'page callback' => 'webform_components_page',
+    'page arguments' => array(1),
+    'access callback' => 'emh_request_components_access',
+    'access arguments' => array(1),
+    'file' => 'includes/webform.components.inc',
+    'file path' => drupal_get_path('module', 'webform'), // Useful outside of webform directory !
+    'type' => MENU_LOCAL_TASK,
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+    'weight' => 1,
+  );
+
+  return $items;
+}
+
+
+/**
+ * Implements hook_menu_alter().
+ */
+function emh_request_menu_alter(&$items) {
+  // Disables some webform accesses
+  $items['node/%webform_menu/webform']['access callback'] = '_emh_access_full_access';
+  $items['node/%webform_menu/webform']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform/components']['access callback'] = '_emh_access_full_access';
+  $items['node/%webform_menu/webform/components']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform/components/%webform_menu_component/clone']['access callback'] = '_emh_access_full_access';
+  $items['node/%webform_menu/webform/components/%webform_menu_component/clone']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform/conditionals']['access callback'] = '_emh_access_full_access';
+  $items['node/%webform_menu/webform/conditionals']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform/configure']['access callback'] = '_emh_access_full_access';
+  $items['node/%webform_menu/webform/configure']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform/emails']['access callback'] = '_emh_access_full_access';
+  $items['node/%webform_menu/webform/emails']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform-results']['access callback'] = '_emh_access_full_access';
+  $items['node/%webform_menu/webform-results']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform-results/analysis']['access callback'] = '_emh_access_full_access';
+  $items['node/%webform_menu/webform-results/analysis']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform-results/table']['access callback'] = '_emh_access_full_access';
+  $items['node/%webform_menu/webform-results/table']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform-results/download']['access callback'] = '_emh_access_full_access';
+  $items['node/%webform_menu/webform-results/download']['access arguments'] = array(1);
+}
+
+
+//----------------------------------------------------------------------
+//-- BLOCKS
+//----------------------------------------------------------------------
+
+
+/**
+ * Implements hook_block_info_alter().
+ */
+function emh_request_block_info_alter(&$blocks) {
+  $blocks['emh_submenu']['submenu']['visibility'] = BLOCK_VISIBILITY_PHP;
+  $blocks['emh_submenu']['submenu']['pages'] = <<<'PHP'
+if (drupal_match_path(current_path(), "node/*/edit\nnode/*/edit/*")) {
+  $node = menu_get_object();
+  if (!emh_request_has_option($node, 'questionnaire')) {
+    return false;
+  }
+}
+return true;
+PHP;
+}
+
+
+//----------------------------------------------------------------------
+//-- WEBFORMS
+//----------------------------------------------------------------------
+
+
+/**
+ * Access callback for the questions edition form.
+ */
+function emh_request_components_access($node, $account = null) {
+  if ($account === null) {
+    global $user;
+    $account = $user;
+  }
+
+  if ($node->type == 'request') {
+    if (webform_node_update_access($node, $account)) {
+      return ($account->uid == $node->uid) && emh_request_has_option($node, 'questionnaire');
+    } else {
+      return false;
+    }
+  }
+
+  return webform_node_update_access($node, $account);
+}
+
+
+/**
+ * Implements hook_webform_results_access().
+ */
+function emh_request_webform_results_access($node, $account) {
+  return emh_access_user_can_see_full_answer($node->nid);
+}
+
+
+/**
+ * Implements hook_webform_submission_access().
+ */
+function emh_request_webform_submission_access($node, $submission, $op = 'view', $account = NULL) {
+  switch ($op) {
+    case 'view':
+      return emh_access_user_can_see_full_answer($node->nid);
+  }
+}
+
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Alters each form allowing to answer to a request.
+ */
+function emh_request_form_alter(&$form, &$form_state, $form_id) {
+  if (!isset($form['#node']) || $form['#node']->type !== 'request') {
+    return;
+  }
+
+  if (isset($form['#node']->nid) && ($form_id == 'webform_client_form_' . $form['#node']->nid)) {
+    // Changes the submit button label for "Publish my answer"
+    if (!empty($form['#is_draft']) || empty($form['#submission'])) {
+      $form['actions']['submit']['#value'] = t('Publish my answer');
+    }
+
+    // Disables the form components if the user is not allowed to answer
+    if (!emh_access_user_can_post_answer($form['#node']->nid) && !empty($form['submitted'])) {
+      foreach ($form['submitted'] as $key => $element) {
+        if (is_array($element) && !empty($element['#type']) && $element['#type'] == 'textarea') {
+          $form['submitted'][$key]['#disabled'] = true;
+        }
+      }
+      $form['actions']['#access'] = false;
+    }
+
+    // Hides the uniq field label in the request is not a questionnaire
+    if (!emh_request_has_option($form['#node'], 'questionnaire') && !empty($form['submitted'])) {
+      foreach ($form['submitted'] as $key => $element) {
+        if (is_array($element) && !empty($element['#type']) && $element['#type'] == 'textarea') {
+          $form['submitted'][$key]['#title_display'] = 'invisible';
+        }
+      }
+    }
+  }
+}
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
+
+  if (in_array($form['#node']->type, emh_request_get_types())) {
+    // Sets action buttons labels
+    $form['actions']['draft']['#value'] = t('Save draft');
+    $form['actions']['submit']['#value'] = t('Publish');
+
+    // Treatments for generic requests
+    if ($form['#node']->type == 'request') {
+      $form['field_document'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
+      $form['field_image'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
+
+      // Publication unactive unless there's 1 question added
+      // Request creation in progress (= no nid)
+      if (empty($form['#node']->nid)) {
+        //$form['actions']['draft']['#value'] = t('Save draft and continue');
+        $form['actions']['draft']['#submit'][] = 'emh_request_form_node_form_continue';
+        //$form['actions']['submit']['#disabled'] = true;
+      }
+      // Request created & unpublished
+      elseif ($form['#node']->status == NODE_NOT_PUBLISHED) {
+        $form['actions']['submit']['#submit'][] = 'emh_request_form_node_form_submit';
+        // Without components
+        if (empty($form['#node']->webform['components'])) {
+          drupal_set_message(t('You cannot publish a request without any question, please add one or more questions.'), 'warning');
+          $form['actions']['publish']['#disabled'] = true;
+        }
+      }
+      // Request created & published
+      else {
+        $form['actions']['delete']['#access'] = false;
+      }
+    }
+
+    // If nid not empty, we're in the edit page
+    if (!empty($form['nid']['#value']) && $form['#node']->status == NODE_PUBLISHED) {
+      $form['actions']['draft']['#access'] = false;
+      $form['actions']['submit']['#value'] = t('Save');
+
+      // If node is published on a free circle, we can close the request.
+      $nid = $form['nid']['#value'];
+      $status = emh_points_get_points_closed_status($nid);
+      $circles = $form['#node']->og_group_ref[LANGUAGE_NONE];
+      $free = true;
+
+      foreach($circles as $delta => $circle) {
+        $loaded_circle = node_load($circle['target_id']); // TODO : PERF ISSUE : use node_load_all instead
+        if ($loaded_circle->field_free_circle[LANGUAGE_NONE]['0']['value'] === '0') {
+          // Paying circle
+          $free = false;
+          break;
+        }
+      }
+
+      if ($free && !$status) {
+        $form['actions']['close'] = array(
+          '#type' => 'submit',
+          '#value' => 'Close the request',
+          '#submit' => array('emh_request_form_node_close'),
+        );
+      }
+    }
+
+    // If node is published & there are some answers, only some updates are possible.
+    // #575, 576
+    $count = emh_request_count_answers($form['nid']['#value']);
+    if ($form['#node']->status && $count > 0) {
+      // Prevent domain & circle update.
+      $form['field_domaine']['#disabled'] = TRUE;
+      $form['field_request_circle']['#disabled'] = TRUE;
+      $form['og_group_ref']['#disabled'] = TRUE;
+    }
+
+    // Hide node access
+    $form['group_content_access']['#access'] = FALSE;
+
+    // Load only circles which user is member of
+    global $user;
+    $groups = og_get_groups_by_user($user, 'node');
+    $user_groups = array();
+    foreach ($groups as $group) {
+      $node = node_load($group);
+      $user_groups[$group] = $node->title;
+    }
+    $form['og_group_ref'][LANGUAGE_NONE]['#options'] = $user_groups;
+  }
+}
+
+
+/**
+ * Submit callback for the request edition form.
+ *
+ * Redirects the user to the components (questions) edition form
+ * if the request has the questionnaire option.
+ */
+function emh_request_form_node_form_continue($form, &$form_state) {
+  if (emh_request_has_option($form_state['node'], 'questionnaire')) {
+    $form_state['redirect'] = 'node/' . $form_state['nid'] . '/edit/questions';
+  }
+}
+
+
+/**
+ * Additionnal submit callback for the request edition form.
+ * Added to the "Submit" button.
+ */
+function emh_request_form_node_form_submit($form, &$form_state) {
+  // Only if the user clicked the "Publish" button
+  if ($form_state['triggering_element']['#value'] == $form['actions']['submit']['#value']) {
+    $form['#node']->status = NODE_PUBLISHED;
+
+    try {
+      node_save($form['#node']);
+
+      $msg_args = array(
+        '@type' => node_type_get_name($form['#node']),
+        '%title' => $form['#node']->title,
+      );
+
+      drupal_set_message(t('@type %title has been published.', $msg_args));
+
+      // Redirects to the request view
+      $form_state['redirect'] = 'node/' . $form['#node']->nid;
+    }
+    catch (Exception $e) {
+      drupal_set_message(t('The request could not be saved.'), 'error');
+    }
+  }
+}
+
+
+/**
+ * Implements hook_form_alter().
+ *
+ * node/add/webform
+ * node/$ID/edit
+ */
+function emh_request_form_webform_configure_form_alter(&$form, &$form_state, $form_id) {
+  // Alters only if the form concerns a request content type
+  if ($form['#node']->type !== 'request') {
+    return;
+  }
+
+  $form['advanced']['allow_draft']['#default_value'] = 1;
+  $form['#node']->webform['allow_draft'] = 1;
+}
+
+
+/**
+ * Implements hook_form_alter().
+ *
+ * node/$ID/webform
+ * node/$ID/webform/components
+ */
+function emh_request_form_webform_components_form_alter(&$form, &$form_state, $form_id) {
+  // Alters only if the form concerns a request content type
+  if ($form['#node']->type !== 'request') {
+    return;
+  }
+
+	// Hide unnecessary fields
+	foreach (array('type', 'required') as $field) {
+		$form['add'][$field]['#type'] = 'hidden';
+	}
+
+	$form['add']['name']['#size'] = '60';
+	$form['add']['type']['#default_value'] = 'textarea';
+
+	$form['actions']['submit']['#value'] = t('Save order of questions');
+
+  // Prepares action buttons
+  if ($form['#node']->status == NODE_NOT_PUBLISHED) {
+    $form['actions']['delete'] = array(
+      '#type' => 'submit',
+      '#value' => t('Delete'),
+      '#submit' => array('node_form_delete_submit'),
+    );
+    $form['actions']['draft'] = array(
+      '#type' => 'submit',
+      '#value' => t('Save draft'),
+      '#submit' => array('emh_request_webform_components_form_draft'),
+    );
+    $form['actions']['publish'] = array(
+      '#type' => 'submit',
+      '#value' => t('Publish'),
+      '#submit' => array('emh_request_webform_components_form_publish'),
+    );
+
+    if (empty($form['#node']->webform['components'])) {
+      drupal_set_message(t('You cannot publish a request without any question, please add one or more questions.'), 'warning');
+      $form['actions']['publish']['#disabled'] = true;
+    }
+  }
+  else {
+    $form['actions']['save'] = array(
+      '#type' => 'submit',
+      '#value' => t('Save'),
+      '#submit' => array('emh_request_webform_components_form_save'),
+    );
+  }
+}
+
+
+/**
+ * Additionnal submit callback for the webform components form.
+ * Added to the "Save" button.
+ */
+function emh_request_webform_components_form_save($form, &$form_state) {
+  // Only if the user clicked the "Publish" button
+  if ($form_state['triggering_element']['#value'] == $form['actions']['save']['#value']) {
+    try {
+      node_save($form['#node']);
+
+      $msg_args = array(
+        '@type' => node_type_get_name($form['#node']),
+        '%title' => $form['#node']->title,
+      );
+
+      // Redirects to the request view
+      $form_state['redirect'] = 'node/' . $form['#node']->nid . '/edit/questions';
+      drupal_set_message(t('@type %title has been updated.', $msg_args));
+    }
+    catch (Exception $e) {
+      drupal_set_message(t('The request could not be saved.'), 'error');
+    }
+  }
+}
+
+
+/**
+ * Additionnal submit callback for the webform components form.
+ * Added to the "Publish" button.
+ */
+function emh_request_webform_components_form_publish($form, &$form_state) {
+  // Only if the user clicked the "Publish" button
+  if ($form_state['triggering_element']['#value'] == $form['actions']['publish']['#value']) {
+    $form['#node']->status = NODE_PUBLISHED;
+
+    try {
+      node_save($form['#node']);
+
+      $msg_args = array(
+        '@type' => node_type_get_name($form['#node']),
+        '%title' => $form['#node']->title,
+      );
+
+      drupal_set_message(t('@type %title has been published.', $msg_args));
+
+      // Redirects to the request view
+      $form_state['redirect'] = 'node/' . $form['#node']->nid;
+    }
+    catch (Exception $e) {
+      drupal_set_message(t('The request could not be saved.'), 'error');
+    }
+  }
+}
+
+
+/**
+ * Additionnal submit callback for the webform components form.
+ * Added to the "Save draft" button.
+ */
+function emh_request_webform_components_form_draft($form, &$form_state) {
+  // Only if the user clicked the "Save draft" button
+  if ($form_state['triggering_element']['#value'] == $form['actions']['draft']['#value']) {
+    try {
+      node_save($form['#node']);
+
+      $msg_args = array(
+        '@type' => node_type_get_name($form['#node']),
+        '%title' => $form['#node']->title,
+      );
+
+      // Redirects to the request edit questions view
+      $form_state['redirect'] = 'node/' . $form['#node']->nid . '/edit/questions';
+      drupal_set_message(t('@type %title has been updated.', $msg_args));
+    }
+    catch (Exception $e) {
+      drupal_set_message(t('The request could not be saved.'), 'error');
+    }
+  }
+}
+
+
+/**
+ * Implements hook_form_alter().
+ * node/$ID/webform/components/$ID
+ */
+function emh_request_form_webform_component_edit_form_alter(&$form, &$form_state, $form_id) {
+	// Hide unnecessary fields
+  $fields = array(
+    'form_key',
+    'value',
+    'display',
+    'validation',
+    'position',
+  );
+
+	foreach ($fields as $field) {
+		$form[$field]['#access'] = false;
+	}
+
+	// Changes some labels and descriptions
+	$form['name']['#title'] = t("Your question");
+	$form['name']['#description'] = '';
+	$form['extra']['description']['#title'] = t("Description (additional information to clarify the meaning of your question)");
+	$form['extra']['description']['#description'] = '';
+  $form['actions']['submit']['#value'] = t('Save your question');
+	// Changes the description format (textarea is too big)
+	$form['extra']['description']['#type'] = 'textfield';
+	// We hide mandatory field BUT we don't forget to force it!
+	$form['validation']['required']['#default_value'] = 1;
+
+  $form['#submit'][] = 'emh_request_webform_component_edit_form_redirect';
+}
+
+
+/**
+ * Additionnal submit callback for the webform component edition form.
+ */
+function emh_request_webform_component_edit_form_redirect($form, &$form_state) {
+  $nid = $form_state['values']['nid'];
+  $form_state['redirect'] = 'node/' . $nid . '/edit/questions';
+}
+
+
+//----------------------------------------------------------------------
+//-- API
+//----------------------------------------------------------------------
 
 
 /**
@@ -111,6 +679,30 @@ function emh_request_default_option_behavior($option_id) {
     'value' => $option_id,
     'effect' => 'slide',
   );
+}
+
+
+/**
+ * Informs if the given request has the specified option.
+ *
+ * @param stdClass $request
+ *  The request node
+ * @param string $option_id
+ *  The identifier (machine name) of the option to check
+ * @return boolean
+ */
+function emh_request_has_option($request, $option_id) {
+  $request_options = field_get_items('node', $request, 'field_options');
+
+  if ($request_options) {
+    foreach ($request_options as $option) {
+      if ($option['option'] === $option_id) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 }
 
 
