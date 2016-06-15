@@ -100,14 +100,7 @@ function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, 
 
     $setting_form = module_invoke_all('emh_request_option_setting_form', $id, $option, $item['settings']);
     if ($setting_form) {
-      $element[$id]['settings'] = array(
-        '#type' => 'container',
-//        '#states' => array(
-//          'visible' => array(
-//            '' => array('checked' => true),
-//          )
-//        ),
-      ) + $setting_form;
+      $element[$id]['settings'] = array('#type' => 'container') + $setting_form;
     }
   }
 
