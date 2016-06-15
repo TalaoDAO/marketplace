@@ -129,10 +129,7 @@ function ft_faq_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'i18n_node_options_faq';
-  $strongarm->value = array(
-    0 => 'current',
-    1 => 'required',
-  );
+  $strongarm->value = array();
   $export['i18n_node_options_faq'] = $strongarm;
 
   $strongarm = new stdClass();
