@@ -1,0 +1,140 @@
+body.not-logged-in.node-type-landing-page {
+  @media (min-width: @screen-md-min) {
+    padding-top: 70px;
+  }
+
+  // .node-landing-page > .content {
+  //   position: relative;
+  // }
+  .landing-section {
+    font-size: 15px;
+    // position: relative;
+    .container {
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+  }
+  #lp-three,
+  #lp-four {
+    background-color: #FFF;
+  }
+
+  .logo img {
+    max-height: 50px;
+  }
+
+  header#navbar {
+    border-color: @totalBlue;
+  }
+  .navbar-emh {
+    background-color: #FFF;
+  }
+  .navbar-emh:after {
+    display: none
+  }
+
+  h1, h2 {
+    font-weight: normal;
+  }
+  h1 {
+    color: #FFF;
+    margin-top: 0;
+    margin-bottom: 50px;
+    font-size: 54px;
+  }
+  h2 {
+    .text-center;
+    font-size: 36px;
+  }
+  h3 {
+    font-size: 24px;
+  }
+
+  #maincol {
+    padding-top: 0;
+  }
+
+  // Menu
+  @media (min-width: @screen-md-min) {
+    #block-menu-menu-top-anonymous {
+      margin-top: 9px;
+    }
+  }
+
+  .landing-one {
+    background: @totalBlue url("../images/banner/eMindHub_banner_04.jpg") no-repeat top center;
+    background-size: cover;
+
+    color: #FFF;
+    font-size: 20px;
+    line-height: 1.35em;
+
+    .container {
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+  }
+
+  .landing-two {
+    background: @gray-lighter url("../images/banner/eMindHub_banner_06.png") no-repeat top center;
+  }
+
+  .landing-four {
+    background: transparent url("../images/banner/eMindHub_banner_04.jpg") no-repeat top center;
+    background-size: cover;
+
+    .text-center;
+  }
+
+  // Register form
+  form {
+    margin-top: 50px;
+    .text-center;
+    .form-control,
+    .btn {
+      padding: 12px 24px;
+      font-size: 20px;
+      height: auto;
+    }
+    .btn-group {
+      float: none !important;
+      margin-top: 20px;
+    }
+    button {
+      .btn-expert;
+    }
+    > * > .form-item-title,
+    .field-group-fieldset,
+    .field-group-div {
+      padding: 0;
+      margin-bottom: 0;
+      background-color: transparent;
+    }
+  }
+  .form-mandatory {
+    display: none;
+  }
+
+  .account.row {
+    .form-item-mail {
+      .make-md-column(4);
+    }
+    .form-item-pass {
+      .make-md-column(8);
+      .make-row();
+      > div {
+        .make-md-column(6);
+      }
+    }
+
+    @media (min-width: @screen-md-min) {
+      .form-item-pass {
+        padding: 0 0 0 5px;
+        .form-item-pass-pass2 {
+          padding-left: 0;
+        }
+      }
+    }
+  }
+
+}

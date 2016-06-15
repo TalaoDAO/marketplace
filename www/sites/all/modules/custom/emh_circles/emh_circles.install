@@ -232,3 +232,12 @@ function emh_circles_update_7009() {
 function emh_circles_update_7010() {
   emh_circles_reset_views();
 }
+
+/**
+* CHG: Revert circle creator member rules.
+*/
+function emh_circles_update_7011() {
+  if ($rules_config = rules_config_load('rules_emh_circles_set_clients_as_creator_in_circles')) {
+    $rules_config->delete();
+  }
+}
