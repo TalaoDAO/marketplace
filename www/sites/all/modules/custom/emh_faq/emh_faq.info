@@ -1,4 +1,5 @@
 name = EMH FAQ
+description = Listed questions and answers.
 package = EMH
 dependencies[] = ft_faq
 core = 7.x
