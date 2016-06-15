@@ -431,3 +431,11 @@ function emh_configuration_update_7025() {
 function emh_configuration_update_7026() {
   module_enable(array('emh_landing_page'));
 }
+
+/**
+ * CHG: translation setting.
+ */
+function emh_configuration_update_7027() {
+  variable_set('i18n_hide_translation_links', TRUE);
+  variable_set('i18n_node_default_language_none', '0');
+}
