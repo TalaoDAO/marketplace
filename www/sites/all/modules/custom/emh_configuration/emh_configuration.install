@@ -439,3 +439,10 @@ function emh_configuration_update_7027() {
   variable_set('i18n_hide_translation_links', TRUE);
   variable_set('i18n_node_default_language_none', '0');
 }
+
+/**
+ * CHG: News views for better translation support.
+ */
+function emh_configuration_update_7028() {
+  features_revert(array('ft_views' => array('views_view')));
+}
