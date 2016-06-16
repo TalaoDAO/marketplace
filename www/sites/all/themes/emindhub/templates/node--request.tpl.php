@@ -107,11 +107,11 @@
 
 		<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeNavigation.tpl.php'; ?>
 
-		<?php if (!empty($body[0]['value']) || !empty($content['field_document']) || !empty($content['field_image'])) : ?>
+		<?php if (!empty($body[0]['value']) || !empty($content['field_image']) || emh_request_has_option($node, 'files')) : ?>
 		<div class="row section">
 			<div class="col-sm-9">
 				<?php print $body[0]['value']; ?>
-				<?php if (!empty($content['field_document'])) : ?>
+				<?php if (emh_request_has_option($node, 'files') && !empty($content['field_document'])) : ?>
 				<?php print render($content['field_document']); ?></li>
 				<?php endif; ?>
 			</div>
@@ -162,13 +162,15 @@
 					</li>
 					<?php endif; ?>
 
-					<?php if (!empty($content['field_start_date'])) : ?>
-					<li><?php print render($content['field_start_date']); ?></li>
-					<?php endif; ?>
+          <?php if (emh_request_has_option($node, 'duration')): ?>
+            <?php if (!empty($content['field_start_date'])): ?>
+            <li><?php print render($content['field_start_date']); ?></li>
+            <?php endif; ?>
 
-					<?php if (!empty($content['field_duration_of_the_mission'])) : ?>
-					<li><?php print render($content['field_duration_of_the_mission']); ?></li>
-					<?php endif; ?>
+            <?php if (!empty($content['field_duration_of_the_mission'])): ?>
+            <li><?php print render($content['field_duration_of_the_mission']); ?></li>
+            <?php endif; ?>
+          <?php endif; ?>
 
 					<?php if (!empty($content['field_expiration_date'])) : ?>
 					<li><?php print render($content['field_expiration_date']); ?></li>
