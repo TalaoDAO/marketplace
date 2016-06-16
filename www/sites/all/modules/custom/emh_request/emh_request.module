@@ -192,19 +192,15 @@ function emh_request_menu_alter(&$items) {
 
 
 /**
- * Implements hook_block_info_alter().
+ * Implements hook_block_view_MODULE_DELTA_alter().
  */
-function emh_request_block_info_alter(&$blocks) {
-  $blocks['emh_submenu']['submenu']['visibility'] = BLOCK_VISIBILITY_PHP;
-  $blocks['emh_submenu']['submenu']['pages'] = <<<'PHP'
-if (drupal_match_path(current_path(), "node/*/edit\nnode/*/edit/*")) {
-  $node = menu_get_object();
-  if (!emh_request_has_option($node, 'questionnaire')) {
-    return false;
+function emh_request_block_view_emh_submenu_submenu_alter(&$data, $block) {
+  if (drupal_match_path(current_path(), "node/*/edit\nnode/*/edit/*")) {
+    $node = menu_get_object();
+    if (!emh_request_has_option($node, 'questionnaire')) {
+      unset($data);
+    }
   }
-}
-return true;
-PHP;
 }
 
 
