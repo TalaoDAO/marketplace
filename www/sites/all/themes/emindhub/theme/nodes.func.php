@@ -4,6 +4,7 @@ function emindhub_preprocess_node(&$variables, $hook) {
 	if (isset($variables['node']->type)) {
 
 		switch ($variables['node']->type) {
+      case 'request':
 			case 'question1':
 			case 'webform':
 			case 'challenge':
@@ -31,15 +32,26 @@ function emindhub_preprocess_node(&$variables, $hook) {
 				// Request status
 				$nid = arg(1);
 				$variables['request_status'] = '';
-				if ( (!empty($nid)) && module_exists('emh_request') ) $variables['request_status'] = emh_request_get_status($nid);
-				
-				break;
+				if (!empty($nid) && module_exists('emh_request')) {
+          $variables['request_status'] = emh_request_get_status($nid);
+        }
 
-			default:
+        if ($variables['node']->type == 'request') {
+          global $user;
+
+          module_load_include('inc', 'webform', 'includes/webform.submissions');
+
+          $variables['submissions'] = webform_get_submissions(array('nid' => $variables['node']->nid));
+          foreach ($variables['submissions'] as $submission) {
+            if ($submission->uid == $user->uid) {
+              $variables['user_submission'] = $submission;
+              break;
+            }
+          }
+        }
 				break;
 		}
 	}
-
 }
 
 function emindhub_node_view_alter( &$build ) {
