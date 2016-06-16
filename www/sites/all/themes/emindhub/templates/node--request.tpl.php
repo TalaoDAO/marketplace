@@ -197,14 +197,36 @@
 			// We hide the comments and links now so that we can render them later.
 			hide($content['comments']);
 			hide($content['links']);
-
-      // Prints the webform submission to the submitter
-      include_once drupal_get_path('module', 'webform') . '/includes/webform.submissions.inc';
-      global $user;
-      $submissions = webform_get_submissions(array('nid' => $nid, 'uid' => $user->uid));
 		?>
 
-		<?php if (empty($submissions) || (!empty($submissions['is_draft']))): ?>
+    <?php if (($node->uid == $user->uid) || !emh_request_has_option($node, 'private')): ?>
+    <div id="comments" class="row section emh-fieldgroup-blue-title">
+      <h2 class="h3"><span><?php print t('Answers') ?></span></h2>
+      <?php if (!empty($submissions)): ?>
+        <?php foreach ($submissions as $submission): ?>
+        <div class="comment clearfix row">
+          <?php
+            $render = webform_submission_render($node, $submission, null, 'html');
+            print drupal_render($render);
+          ?>
+          <?php if ($submission->uid == $user->uid): ?>
+          <ul class="links list-inline text-right">
+            <li class="edit_link">
+              <a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $submission->sid; ?>/edit"><?php print t('Edit'); ?></a>
+            </li>
+          </ul>
+          <?php endif; ?>
+        </div>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <div class="comment clearfix row">
+          <?php print t("No answer at this moment."); ?>
+        </div>
+      <?php endif; ?>
+    </div>
+    <?php endif; ?>
+
+		<?php if (empty($user_submission) || !empty($user_submission->is_draft)): ?>
 
       <?php if ($node->webform['status'] && !empty($node->webform['components'])): ?>
       <div id="comments" class="<?php print $classes; ?> row section emh-fieldgroup-blue-title"<?php print $attributes; ?>>
@@ -214,6 +236,12 @@
         </div>
       </div>
       <?php endif; ?>
+
+    <?php endif; ?>
+
+    <?php /*
+
+    Old code to display the current user submission.
 
 		<?php else: ?>
 
@@ -239,6 +267,8 @@
       <?php endforeach; ?>
 
 		<?php endif; ?>
+    */ ?>
+
 		<?php endif; ?>
 
 	</div>
