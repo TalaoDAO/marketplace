@@ -19,9 +19,6 @@ function emh_request_emh_request_option_info() {
         'field_use_my_entreprise',
         'field_entreprise_description',
       ),
-      'behavior' => array(
-        'state' => '!visible',
-      ),
     ),
 //    'description' => array(
 //      'label' => t("Description"),
