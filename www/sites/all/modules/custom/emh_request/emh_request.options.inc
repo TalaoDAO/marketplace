@@ -23,11 +23,11 @@ function emh_request_emh_request_option_info() {
         'state' => '!visible',
       ),
     ),
-    'description' => array(
-      'label' => t("Description"),
-      'description' => t("Add information to describe my request"),
-      'fields' => array('body'),
-    ),
+//    'description' => array(
+//      'label' => t("Description"),
+//      'description' => t("Add information to describe my request"),
+//      'fields' => array('body'),
+//    ),
     'duration' => array(
       'label' => t("Duration"),
       'description' => t("Add a duration of the mission and a desired starting date"),
