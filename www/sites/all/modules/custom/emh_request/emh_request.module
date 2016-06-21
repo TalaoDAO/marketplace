@@ -299,7 +299,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
 
     // Treatments for generic requests
     if ($form['#node']->type == 'request') {
-      $form['field_document'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
+      $form['field_request_documents'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
       $form['field_image'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
 
       // Publication unactive unless there's 1 question added

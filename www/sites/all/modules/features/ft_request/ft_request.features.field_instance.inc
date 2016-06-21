@@ -96,71 +96,6 @@ function ft_request_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-request-field_document'.
-  $field_instances['node-request-field_document'] = array(
-    'bundle' => 'request',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'file',
-        'settings' => array(),
-        'type' => 'file_default',
-        'weight' => 12,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_document',
-    'label' => 'Document',
-    'required' => 0,
-    'settings' => array(
-      'description_field' => 0,
-      'entity_translation_sync' => FALSE,
-      'file_directory' => '',
-      'file_extensions' => 'pdf xls xlsx doc docx ppt pptx odt ods odp',
-      'filefield_paths' => array(
-        'active_updating' => 0,
-        'file_name' => array(
-          'options' => array(
-            'pathauto' => 0,
-            'slashes' => 0,
-            'transliterate' => 0,
-          ),
-          'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
-        ),
-        'file_path' => array(
-          'options' => array(
-            'pathauto' => 0,
-            'slashes' => 0,
-            'transliterate' => 0,
-          ),
-          'value' => 'request_doc',
-        ),
-        'redirect' => FALSE,
-        'retroactive_update' => 0,
-      ),
-      'filefield_paths_enabled' => 1,
-      'max_filesize' => '',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'file',
-      'settings' => array(
-        'progress_indicator' => 'throbber',
-      ),
-      'type' => 'file_generic',
-      'weight' => 8,
-    ),
-  );
-
   // Exported field_instance: 'node-request-field_domaine'.
   $field_instances['node-request-field_domaine'] = array(
     'bundle' => 'request',
@@ -445,6 +380,71 @@ function ft_request_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-request-field_request_documents'.
+  $field_instances['node-request-field_request_documents'] = array(
+    'bundle' => 'request',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'file',
+        'settings' => array(),
+        'type' => 'file_default',
+        'weight' => 12,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_request_documents',
+    'label' => 'Documents',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 0,
+      'entity_translation_sync' => FALSE,
+      'file_directory' => '',
+      'file_extensions' => 'pdf xls xlsx doc docx ppt pptx odt ods odp',
+      'filefield_paths' => array(
+        'active_updating' => 0,
+        'file_name' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+        ),
+        'file_path' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => 'request_doc',
+        ),
+        'redirect' => FALSE,
+        'retroactive_update' => 0,
+      ),
+      'filefield_paths_enabled' => 1,
+      'max_filesize' => '10 MB',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'file',
+      'settings' => array(
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'file_generic',
+      'weight' => 8,
+    ),
+  );
+
   // Exported field_instance: 'node-request-field_show_entreprise'.
   $field_instances['node-request-field_show_entreprise'] = array(
     'bundle' => 'request',
@@ -690,7 +690,7 @@ function ft_request_field_default_field_instances() {
   t('Description');
   t('Description of the activity of organisation / company');
   t('Desired starting date');
-  t('Document');
+  t('Documents');
   t('Domain(s)');
   t('Duration of the mission');
   t('Image');

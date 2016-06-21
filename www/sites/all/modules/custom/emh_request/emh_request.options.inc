@@ -36,7 +36,7 @@ function emh_request_emh_request_option_info() {
       'label' => t("Upload files"),
       'description' => t("Add documents explaining my request"),
       'cost' => 200,
-      'fields' => array('field_document'),
+      'fields' => array('field_request_documents'),
     ),
     'private' => array(
       'label' => t("Private answers"),
