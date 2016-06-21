@@ -241,3 +241,38 @@ function emh_circles_update_7011() {
     $rules_config->delete();
   }
 }
+
+/**
+* CHG: OG permissions for new Request content type.
+*/
+function emh_circles_update_7012() {
+
+  // Change permissions
+  $group = 'node';
+  $bundle = 'circle';
+  $og_roles = array_flip(og_roles($group, $bundle)); // group, bundle
+
+  // Member role
+  $permissions = array(
+    'create request content' => 1,
+    'update own request content' => 1,
+    'update any request content' => 1,
+    'delete own request content' => 1,
+    'delete any request content' => 1,
+  );
+  og_role_change_permissions($og_roles[OG_ADMINISTRATOR_ROLE], $permissions);
+
+  // Creator role
+  $permissions = array(
+    'create request content' => 1,
+    'update own request content' => 1,
+  );
+  og_role_change_permissions($og_roles['Creator member'], $permissions);
+
+  // Referent role
+  $permissions = array(
+    'update any request content' => 1,
+  );
+  og_role_change_permissions($og_roles['Referent member'], $permissions);
+
+}
