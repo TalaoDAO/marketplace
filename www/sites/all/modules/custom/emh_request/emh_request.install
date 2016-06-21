@@ -20,6 +20,7 @@ function emh_request_install() {
 function emh_request_enable() {
   emh_request_update_7001();
   emh_request_update_7002();
+  emh_request_update_7113();
   emh_request_enable_strings();
 }
 
@@ -259,4 +260,36 @@ function emh_request_update_7112() {
     field_delete_field('field_options');
   }
   features_revert(array('ft_request' => array('field_base', 'field_instance')));
+}
+
+/**
+ * ADD: Request content type permissions.
+ */
+function emh_request_update_7113() {
+  // Administrator
+  user_role_grant_permissions(3, array(
+    'create request content',
+    'edit own request content',
+    'edit any request content',
+    'delete own request content',
+    'delete any request content'
+  ));
+  // Webmaster
+  user_role_grant_permissions(6, array(
+    'create request content',
+    'edit own request content',
+    'edit any request content',
+    'delete own request content',
+    'delete any request content'
+  ));
+  // Référent
+  user_role_grant_permissions(7, array(
+    'edit own request content',
+    'edit any request content'
+  ));
+  // Business
+  user_role_grant_permissions(5, array(
+    'create request content',
+    'edit own request content'
+  ));
 }
