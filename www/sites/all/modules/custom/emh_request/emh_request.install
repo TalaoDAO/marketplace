@@ -311,3 +311,23 @@ function emh_request_update_7115() {
   }
   features_revert(array('ft_request' => array('field_base', 'field_instance')));
 }
+
+/**
+ * Replaces fields related to anonymity by new ones for request nodes.
+ */
+function emh_request_update_7116() {
+  $fields = array(
+    'field_anonymous',
+    'field_show_entreprise',
+    'field_use_my_entreprise',
+    'field_entreprise_description',
+  );
+
+  foreach ($fields as $field) {
+    if ($instance = field_info_instance('node', $field, 'request')) {
+      field_delete_instance($instance);
+    }
+  }
+
+  features_revert(array('ft_request' => array('field_base', 'field_instance')));
+}

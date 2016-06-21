@@ -39,17 +39,8 @@ $activity = field_get_items('user', $author, 'field_entreprise_description');
         <?php endif; ?>
         <?php endif; ?>
 
-        <?php if (!empty($field_use_my_entreprise[0]['value'])) : ?>
-
-        <?php if ($field_use_my_entreprise[0]['value'] == 0) : ?>
-        <?php // TODO: security: no filtering here? ?>
-        <p class="activity"><em><?php print $activity[0]['value']; ?></em></p>
-        <?php endif; ?>
-
-        <?php if ($field_use_my_entreprise[0]['value'] == 2) : ?>
-        <p class="activity"><em><?php print render($content['field_entreprise_description']); ?></em></p>
-        <?php endif; ?>
-
+        <?php if (emh_request_has_option($node, 'anonymous') && !empty($content['field_activity'])): ?>
+        <p class="activity"><em><?php print render($content['field_activity']); ?></em></p>
         <?php endif; ?>
 
       </div>
