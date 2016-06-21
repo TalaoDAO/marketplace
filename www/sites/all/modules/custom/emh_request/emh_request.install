@@ -301,3 +301,13 @@ function emh_request_update_7113() {
 function emh_request_update_7114() {
   features_revert(array('ft_request' => array('variable')));
 }
+
+/**
+ * Replaces the document field by a new one for request nodes.
+ */
+function emh_request_update_7115() {
+  if ($instance = field_info_instance('node', 'field_document', 'request')) {
+    field_delete_instance($instance);
+  }
+  features_revert(array('ft_request' => array('field_base', 'field_instance')));
+}

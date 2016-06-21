@@ -111,8 +111,8 @@
 		<div class="row section">
 			<div class="col-sm-9">
 				<?php print $body[0]['value']; ?>
-				<?php if (emh_request_has_option($node, 'files') && !empty($content['field_document'])) : ?>
-				<?php print render($content['field_document']); ?></li>
+				<?php if (emh_request_has_option($node, 'files') && !empty($content['field_request_documents'])) : ?>
+				<?php print render($content['field_request_documents']); ?></li>
 				<?php endif; ?>
 			</div>
 			<?php if (!empty($content['field_image'])) : ?>
