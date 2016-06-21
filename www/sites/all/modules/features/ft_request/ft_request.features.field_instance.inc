@@ -52,23 +52,23 @@ function ft_request_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 7,
+      'weight' => 2,
     ),
   );
 
-  // Exported field_instance: 'node-request-field_anonymous'.
-  $field_instances['node-request-field_anonymous'] = array(
+  // Exported field_instance: 'node-request-field_activity'.
+  $field_instances['node-request-field_activity'] = array(
     'bundle' => 'request',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
-        'module' => 'list',
+        'label' => 'hidden',
+        'module' => 'text',
         'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 8,
+        'type' => 'text_default',
+        'weight' => 17,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -78,21 +78,22 @@ function ft_request_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_anonymous',
-    'label' => 'Your name',
-    'required' => 1,
+    'field_name' => 'field_activity',
+    'label' => 'You can precise your activity instead',
+    'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'options',
+      'module' => 'text',
       'settings' => array(
-        'apply_chosen' => '',
+        'size' => 60,
       ),
-      'type' => 'options_select',
-      'weight' => 9,
+      'type' => 'text_textfield',
+      'weight' => 18,
     ),
   );
 
@@ -132,7 +133,7 @@ function ft_request_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 1,
+      'weight' => 3,
     ),
   );
 
@@ -173,48 +174,7 @@ function ft_request_field_default_field_instances() {
         'size' => 30,
       ),
       'type' => 'text_textfield',
-      'weight' => 13,
-    ),
-  );
-
-  // Exported field_instance: 'node-request-field_entreprise_description'.
-  $field_instances['node-request-field_entreprise_description'] = array(
-    'bundle' => 'request',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 11,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_entreprise_description',
-    'label' => 'Description of the activity of organisation / company',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 5,
-      ),
-      'type' => 'text_textarea',
-      'weight' => 12,
+      'weight' => 14,
     ),
   );
 
@@ -269,7 +229,95 @@ function ft_request_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 4,
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'node-request-field_hide_name'.
+  $field_instances['node-request-field_hide_name'] = array(
+    'bundle' => 'request',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 15,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_hide_name',
+    'label' => 'Hide my name',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 16,
+    ),
+  );
+
+  // Exported field_instance: 'node-request-field_hide_organisation'.
+  $field_instances['node-request-field_hide_organisation'] = array(
+    'bundle' => 'request',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 16,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_hide_organisation',
+    'label' => 'Hide my organisation',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 17,
     ),
   );
 
@@ -339,7 +387,7 @@ function ft_request_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 3,
+      'weight' => 5,
     ),
   );
 
@@ -376,7 +424,7 @@ function ft_request_field_default_field_instances() {
       'module' => 'emh_request',
       'settings' => array(),
       'type' => 'emh_option_selector_default',
-      'weight' => 6,
+      'weight' => 8,
     ),
   );
 
@@ -441,47 +489,7 @@ function ft_request_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 8,
-    ),
-  );
-
-  // Exported field_instance: 'node-request-field_show_entreprise'.
-  $field_instances['node-request-field_show_entreprise'] = array(
-    'bundle' => 'request',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 9,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_show_entreprise',
-    'label' => 'Your organisation',
-    'required' => 1,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'apply_chosen' => '',
-      ),
-      'type' => 'options_select',
-      'weight' => 10,
+      'weight' => 9,
     ),
   );
 
@@ -536,7 +544,7 @@ function ft_request_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 14,
+      'weight' => 15,
     ),
   );
 
@@ -581,47 +589,7 @@ function ft_request_field_default_field_instances() {
         'size' => 40,
       ),
       'type' => 'autocomplete_deluxe_taxonomy',
-      'weight' => 2,
-    ),
-  );
-
-  // Exported field_instance: 'node-request-field_use_my_entreprise'.
-  $field_instances['node-request-field_use_my_entreprise'] = array(
-    'bundle' => 'request',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 10,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_use_my_entreprise',
-    'label' => 'Your activity',
-    'required' => 1,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'apply_chosen' => '',
-      ),
-      'type' => 'options_select',
-      'weight' => 11,
+      'weight' => 4,
     ),
   );
 
@@ -679,7 +647,7 @@ function ft_request_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 5,
+      'weight' => 7,
     ),
   );
 
@@ -688,17 +656,16 @@ function ft_request_field_default_field_instances() {
   t('Choose circle of experts');
   t('Deadline');
   t('Description');
-  t('Description of the activity of organisation / company');
   t('Desired starting date');
   t('Documents');
   t('Domain(s)');
   t('Duration of the mission');
+  t('Hide my name');
+  t('Hide my organisation');
   t('Image');
   t('Options');
   t('Tags');
-  t('Your activity');
-  t('Your name');
-  t('Your organisation');
+  t('You can precise your activity instead');
 
   return $field_instances;
 }
