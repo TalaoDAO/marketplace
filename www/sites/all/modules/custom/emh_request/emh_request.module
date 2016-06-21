@@ -196,8 +196,8 @@ function emh_request_menu_alter(&$items) {
  */
 function emh_request_block_view_emh_submenu_submenu_alter(&$data, $block) {
   if (drupal_match_path(current_path(), "node/*/edit\nnode/*/edit/*")) {
-    $node = menu_get_object();
-    if (!emh_request_has_option($node, 'questionnaire')) {
+    $node = menu_get_object('webform_menu');
+    if ($node && !emh_request_has_option($node, 'questionnaire')) {
       unset($data);
     }
   }
