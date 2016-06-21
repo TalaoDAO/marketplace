@@ -266,6 +266,7 @@ function emh_request_update_7112() {
  * ADD: Request content type permissions.
  */
 function emh_request_update_7113() {
+  features_revert(array('ft_permissions' => array('user_permission')));
   // Administrator
   user_role_grant_permissions(3, array(
     'create request content',
