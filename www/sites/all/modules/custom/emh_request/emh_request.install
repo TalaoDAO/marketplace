@@ -294,3 +294,10 @@ function emh_request_update_7113() {
     'edit own request content'
   ));
 }
+
+/**
+ * ADD: Translation support in content type.
+ */
+function emh_request_update_7114() {
+  features_revert(array('ft_request' => array('variable')));
+}
