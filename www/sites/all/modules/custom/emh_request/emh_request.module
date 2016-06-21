@@ -40,23 +40,22 @@ function emh_request_node_presave($node) {
       drupal_set_message(t('You choose the questionnaire option, then you can not publish your request without any question.'), 'warning');
     }
   }
+  elseif (empty($node->nid)) {
+    // All requests are webforms, then we have to automatically create the only
+    // component in the case of a non questionnaire request.
+    module_load_include('inc', 'webform', 'includes/webform.components');
 
-//  if (empty($node->nid)) {
-//    // All requests are webforms, then we have to automatically create the first
-//    // component on the basis of the node's title
-//    module_load_include('inc', 'webform', 'includes/webform.components');
-//
-//    $component = array(
-//      'type' => 'textarea',
-//      'name' => $node->title,
-//      'form_key' => 'question1',
-//      'required' => true,
-//    );
-//
-//    webform_component_defaults($component);
-//
-//    $node->webform['components'][] = $component;
-//  }
+    $component = array(
+      'type' => 'textarea',
+      'name' => $node->title,
+      'form_key' => 'request',
+      'required' => true,
+    );
+
+    webform_component_defaults($component);
+
+    $node->webform['components'][] = $component;
+  }
 }
 
 
