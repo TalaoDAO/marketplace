@@ -329,5 +329,5 @@ function emh_request_update_7116() {
     }
   }
 
-  features_revert(array('ft_request' => array('field_base', 'field_instance')));
+  features_revert(array('ft_request' => array('field_base', 'field_instance', 'variable')));
 }
