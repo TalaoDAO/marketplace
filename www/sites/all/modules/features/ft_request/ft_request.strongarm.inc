@@ -93,13 +93,16 @@ function ft_request_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'title' => array(
-          'weight' => '0',
+          'weight' => '1',
         ),
         'path' => array(
-          'weight' => '16',
+          'weight' => '19',
         ),
         'metatags' => array(
-          'weight' => '17',
+          'weight' => '20',
+        ),
+        'language' => array(
+          'weight' => '0',
         ),
       ),
       'display' => array(
