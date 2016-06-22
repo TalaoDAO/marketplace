@@ -298,6 +298,8 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
 
     // Treatments for generic requests
     if ($form['#node']->type == 'request') {
+      $form['#validate'][] = 'emh_request_form_node_form_validate';
+
       $form['field_request_documents'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
       $form['field_image'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
 
@@ -374,6 +376,36 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       $user_groups[$group] = $node->title;
     }
     $form['og_group_ref'][LANGUAGE_NONE]['#options'] = $user_groups;
+  }
+}
+
+
+/**
+ * Validation callback for the request edition form.
+ */
+function emh_request_form_node_form_validate($form, &$form_state) {
+  // Ensures if the anonymity option is selected that there's at least one of
+  // the three associated fields which is filled in.
+  if (emh_request_has_option($form_state['node'], 'anonymous')) {
+    $values = $form_state['values'];
+    $fields = array('field_hide_name', 'field_hide_organisation', 'field_activity');
+    $error  = true;
+
+    foreach ($fields as $field) {
+      $value = drupal_array_get_nested_value($values, array($field, $form[$field]['#language'], 0, 'value'));
+      if (!empty($value)) {
+        $error = false;
+        break;
+      }
+    }
+
+    if ($error) {
+      $message = t("You choosed the anonymity option, please fill in at least one of the three associated fields.");
+      foreach ($fields as $field) {
+        form_error(drupal_array_get_nested_value($form, array($field, $form[$field]['#language'])), $message);
+        $message = '';
+      }
+    }
   }
 }
 
