@@ -293,8 +293,8 @@ function emh_access_author_name($node) {
     // Check node options
     // 0|Display my full name
     // 1|Hide my full name
-    $anonymous_mode = field_get_items('node', $node, 'field_anonymous');
-    if ($anonymous_mode[0]['value'] == 0) {
+    $hide_name = field_get_items('node', $node, 'field_hide_name');
+    if ($hide_name[0]['value'] == 0) {
       return TRUE;
     }
   }
@@ -315,10 +315,10 @@ function emh_access_author_company($node) {
     return TRUE;
   } else {
     // Check node options
-    // 0|Display the name
-    // 1|Hide the name
-    $show_entreprise = field_get_items('node', $node, 'field_show_entreprise');
-    if ($show_entreprise[0]['value'] == 0) {
+    // 0|Display my organisation
+    // 1|Hide my organisation
+    $hide_organisation = field_get_items('node', $node, 'field_hide_organisation');
+    if ($hide_organisation[0]['value'] == 0) {
       return TRUE;
     }
   }

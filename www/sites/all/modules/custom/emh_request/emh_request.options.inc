@@ -15,10 +15,9 @@ function emh_request_emh_request_option_info() {
       'description' => t("Hide my name and/or my company"),
       'cost' => 300,
       'fields' => array(
-        'field_anonymous',
-        'field_show_entreprise',
-        'field_use_my_entreprise',
-        'field_entreprise_description',
+        'field_hide_name',
+        'field_hide_organisation',
+        'field_activity',
       ),
     ),
 //    'description' => array(
