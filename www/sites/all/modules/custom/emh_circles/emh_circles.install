@@ -55,6 +55,42 @@ function _emh_circles_string_overrides() {
 
 }
 
+
+//----------------------------------------------------------------------
+//-- SCHEMAS
+//----------------------------------------------------------------------
+
+
+/**
+ * Implements hook_field_schema().
+ */
+function emh_circles_field_schema($field) {
+  if ($field['type'] == 'emh_option_cost_modifier') {
+    return array(
+      'columns' => array(
+        'option' => array(
+          'description' => 'Machine name (ID) of the option',
+          'type' => 'varchar',
+          'length' => 64,
+          'not null' => true,
+        ),
+        'cost' => array(
+          'description' => 'Cost of the option (number of points)',
+          'type' => 'int',
+          'not null' => true,
+          'default' => 0,
+        ),
+      ),
+    );
+  }
+}
+
+
+//----------------------------------------------------------------------
+//-- UPDATES
+//----------------------------------------------------------------------
+
+
 /**
 * Add OG role in Circles : Referent member & Creator member.
 */

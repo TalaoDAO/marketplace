@@ -117,24 +117,6 @@ function emh_request_field_schema($field) {
       ),
     );
   }
-//  else {
-//    return array(
-//      'columns' => array(
-//        'option' => array(
-//          'description' => 'Machine name (ID) of the option',
-//          'type' => 'varchar',
-//          'length' => 64,
-//          'not null' => true,
-//        ),
-//        'cost' => array(
-//          'description' => 'Cost of the option (number of points)',
-//          'type' => 'int',
-//          'not null' => true,
-//          'default' => 0,
-//        ),
-//      ),
-//    );
-//  }
 }
 
 

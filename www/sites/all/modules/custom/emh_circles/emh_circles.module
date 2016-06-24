@@ -4,6 +4,10 @@
 * Code for eMindHub circles feature.
 */
 
+
+include_once 'emh_circles.fields.inc';
+
+
 /**
  * Implements hook_views_api().
  */
