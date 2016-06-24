@@ -3183,8 +3183,9 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['type_1']['field'] = 'type';
   $handler->display->display_options['filters']['type_1']['value'] = array(
     'challenge' => 'challenge',
-    'question1' => 'question1',
     'webform' => 'webform',
+    'question1' => 'question1',
+    'request' => 'request',
   );
   $handler->display->display_options['filters']['type_1']['group'] = 1;
   /* Filter criterion: Field: Domain(s) (field_domaine) (translated) */
@@ -3429,8 +3430,9 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['type_1']['field'] = 'type';
   $handler->display->display_options['filters']['type_1']['value'] = array(
     'challenge' => 'challenge',
-    'question1' => 'question1',
     'webform' => 'webform',
+    'question1' => 'question1',
+    'request' => 'request',
   );
   $handler->display->display_options['filters']['type_1']['group'] = 1;
   /* Filter criterion: Field: Domain(s) (field_domaine) (translated) */
@@ -3915,8 +3917,9 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'challenge' => 'challenge',
-    'question1' => 'question1',
     'webform' => 'webform',
+    'question1' => 'question1',
+    'request' => 'request',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Field: Domain(s) (field_domaine) (translated) */
@@ -4235,8 +4238,9 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['type_1']['field'] = 'type';
   $handler->display->display_options['filters']['type_1']['value'] = array(
     'challenge' => 'challenge',
-    'question1' => 'question1',
     'webform' => 'webform',
+    'question1' => 'question1',
+    'request' => 'request',
   );
   $handler->display->display_options['filters']['type_1']['group'] = 1;
   /* Filter criterion: User: Current */
@@ -4764,8 +4768,9 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'challenge' => 'challenge',
-    'question1' => 'question1',
     'webform' => 'webform',
+    'question1' => 'question1',
+    'request' => 'request',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
   $handler->display->display_options['filters']['type']['exposed'] = TRUE;
@@ -4782,8 +4787,7 @@ function ft_views_views_default_views() {
     5 => 0,
     6 => 0,
     7 => 0,
-    8 => 0,
-    9 => 0,
+    10 => 0,
   );
   $handler->display->display_options['filters']['type']['expose']['reduce'] = TRUE;
   /* Filter criterion: Content: Type */
