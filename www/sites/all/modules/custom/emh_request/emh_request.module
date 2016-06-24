@@ -389,7 +389,7 @@ function emh_request_form_node_form_validate($form, &$form_state) {
   // the three associated fields which is filled in.
   if (emh_request_has_option($form_state['node'], 'anonymous')) {
     $values = $form_state['values'];
-    $fields = array('field_hide_name', 'field_hide_organisation', 'field_activity');
+    $fields = array('field_hide_name', 'field_hide_organisation');
     $error  = true;
 
     foreach ($fields as $field) {
@@ -401,7 +401,7 @@ function emh_request_form_node_form_validate($form, &$form_state) {
     }
 
     if ($error) {
-      $message = t("You choosed the anonymity option, please fill in at least one of the three associated fields.");
+      $message = t("You choosed the anonymity option, please check at least one of the two possibilities: hide your name or your organisation.");
       foreach ($fields as $field) {
         form_error(drupal_array_get_nested_value($form, array($field, $form[$field]['#language'])), $message);
         $message = '';
