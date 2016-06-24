@@ -446,3 +446,10 @@ function emh_configuration_update_7027() {
 function emh_configuration_update_7028() {
   features_revert(array('ft_views' => array('views_view')));
 }
+
+/**
+ * CHG: Remove Legal terms of use from Features.
+ */
+function emh_configuration_update_7029() {
+  features_revert(array('ft_field_base' => array('field_base')));
+}
