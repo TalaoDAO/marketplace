@@ -60,8 +60,6 @@ function emh_request_field_widget_info() {
  */
 function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
   $options = emh_request_get_options();
-  uasort($options, 'drupal_sort_weight');
-
   $weight = 0;
   $items = emh_request_restructure_option_selector_items($items);
 
