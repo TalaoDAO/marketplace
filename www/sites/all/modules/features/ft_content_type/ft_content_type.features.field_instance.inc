@@ -3931,6 +3931,7 @@ function ft_content_type_field_default_field_instances() {
         'settings' => array(
           'format_handlers' => array(
             'address' => 'address',
+            'phone' => 'phone',
             'address-hide-postal-code' => 'address-hide-postal-code',
             'address-hide-street' => 'address-hide-street',
           ),
@@ -3968,6 +3969,7 @@ function ft_content_type_field_default_field_instances() {
         'default_country' => 'FR',
         'format_handlers' => array(
           'address' => 'address',
+          'phone' => 'phone',
           'address-optional' => 'address-optional',
           'address-hide-postal-code' => 0,
           'address-hide-street' => 0,
@@ -3975,6 +3977,12 @@ function ft_content_type_field_default_field_instances() {
           'organisation' => 0,
           'name-full' => 0,
           'name-oneline' => 0,
+        ),
+        'phone_number_fields' => array(
+          'extension' => 0,
+          'fax' => 0,
+          'mobile' => 'mobile',
+          'phone' => 'phone',
         ),
       ),
       'type' => 'addressfield_standard',
@@ -3992,7 +4000,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 24,
+        'weight' => 25,
       ),
     ),
     'entity_type' => 'user',
@@ -4036,7 +4044,7 @@ function ft_content_type_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 29,
+      'weight' => 19,
     ),
   );
 
@@ -4052,7 +4060,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 13,
+        'weight' => 121,
       ),
       'full' => array(
         'label' => 'above',
@@ -4077,7 +4085,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 24,
+      'weight' => 15,
     ),
   );
 
@@ -4093,7 +4101,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 17,
+        'weight' => 124,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4119,7 +4127,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 28,
+      'weight' => 18,
     ),
   );
 
@@ -4198,7 +4206,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 16,
+        'weight' => 17,
       ),
       'full' => array(
         'label' => 'above',
@@ -4284,7 +4292,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 11,
+        'weight' => 12,
       ),
     ),
     'entity_type' => 'user',
@@ -4302,7 +4310,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 6,
+      'weight' => 20,
     ),
   );
 
@@ -4321,7 +4329,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 23,
+        'weight' => 24,
       ),
     ),
     'entity_type' => 'user',
@@ -4339,7 +4347,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 8,
+      'weight' => 21,
     ),
   );
 
@@ -4358,7 +4366,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 22,
+        'weight' => 23,
       ),
     ),
     'entity_type' => 'user',
@@ -4376,7 +4384,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 5,
+      'weight' => 19,
     ),
   );
 
@@ -4391,7 +4399,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 14,
+        'weight' => 15,
       ),
       'full' => array(
         'label' => 'above',
@@ -4430,7 +4438,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 15,
+        'weight' => 16,
       ),
       'full' => array(
         'label' => 'above',
@@ -4470,7 +4478,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 18,
+        'weight' => 19,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4511,7 +4519,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 20,
+        'weight' => 21,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4589,7 +4597,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 1,
+      'weight' => 15,
     ),
   );
 
@@ -4642,7 +4650,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 13,
+        'weight' => 14,
       ),
       'full' => array(
         'label' => 'above',
@@ -4723,7 +4731,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 10,
+        'weight' => 11,
       ),
     ),
     'entity_type' => 'user',
@@ -4876,7 +4884,7 @@ function ft_content_type_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_view',
-        'weight' => 16,
+        'weight' => 123,
       ),
     ),
     'entity_type' => 'user',
@@ -4892,7 +4900,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 27,
+      'weight' => 17,
     ),
   );
 
@@ -4914,7 +4922,7 @@ function ft_content_type_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_view',
-        'weight' => 15,
+        'weight' => 122,
       ),
       'full' => array(
         'label' => 'above',
@@ -4943,7 +4951,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 26,
+      'weight' => 16,
     ),
   );
 
@@ -5004,7 +5012,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 17,
+        'weight' => 18,
       ),
       'full' => array(
         'label' => 'above',
@@ -5033,7 +5041,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 13,
+      'weight' => 15,
     ),
   );
 
@@ -5048,7 +5056,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 9,
+        'weight' => 10,
       ),
     ),
     'entity_type' => 'user',
@@ -5086,7 +5094,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 12,
+        'weight' => 13,
       ),
       'full' => array(
         'label' => 'above',
@@ -5110,7 +5118,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 11,
+      'weight' => 14,
     ),
   );
 
@@ -5123,10 +5131,9 @@ function ft_content_type_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'phone',
         'settings' => array(),
-        'type' => 'phone',
-        'weight' => 120,
+        'type' => 'hidden',
+        'weight' => 5,
       ),
       'full' => array(
         'label' => 'above',
@@ -5238,7 +5245,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 50,
       ),
       'type' => 'text_textfield',
-      'weight' => 23,
+      'weight' => 14,
     ),
   );
 
@@ -5293,7 +5300,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 21,
+        'weight' => 22,
       ),
       'full' => array(
         'label' => 'above',
@@ -5337,7 +5344,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'og',
       'settings' => array(),
       'type' => 'og_complex',
-      'weight' => 4,
+      'weight' => 18,
     ),
   );
 
