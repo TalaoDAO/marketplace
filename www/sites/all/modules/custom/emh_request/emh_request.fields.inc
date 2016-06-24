@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Declares new field types to manage request options.
+ * Declares a field type to select options during the request creation.
  */
 
 
@@ -19,15 +19,6 @@ function emh_request_field_info() {
       'default_formatter' => 'emh_option_selector_default',
       'no_ui' => true,
     ),
-//    'emh_option_cost_editor' => array(
-//      'label' => t("Options costs editor"),
-//      'description' => t("This field stores the options costs overwriting ones by default."),
-//      //'settings' => array(),
-//      //'instance_settings' => array(),
-//      'default_widget' => 'emh_option_cost_editor_default',
-//      'default_formatter' => 'emh_option_cost_editor_default',
-//      'no_ui' => true,
-//    ),
   );
 }
 
@@ -171,7 +162,7 @@ function emh_request_field_is_empty($item, $field) {
 
 
 /**
- * Restructures option_selector field items to make them more usable.
+ * Restructures emh_option_selector field items to make them more usable.
  */
 function emh_request_restructure_option_selector_items($items) {
   $restructured = array();
