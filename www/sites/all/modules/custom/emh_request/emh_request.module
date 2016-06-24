@@ -671,6 +671,8 @@ function emh_request_get_options() {
       }
       $option += emh_request_default_option_info();
     }
+
+    uasort($options, 'drupal_sort_weight');
   }
 
   return $options;
