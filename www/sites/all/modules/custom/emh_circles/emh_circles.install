@@ -312,3 +312,11 @@ function emh_circles_update_7012() {
   og_role_change_permissions($og_roles['Referent member'], $permissions);
 
 }
+
+/**
+ * ADD: new field to overwrite request options costs.
+ */
+function emh_circles_update_7013() {
+  features_revert(array('ft_field_base' => array('field_base')));
+  features_revert(array('ft_content_type' => array('field_instance', 'variable')));
+}
