@@ -6,8 +6,8 @@
 
 
 /**
-* Implements hook_enable
-*/
+ * Implements hook_enable
+ */
 function emh_user_enable() {
   emh_user_update_7001();
 }
@@ -24,8 +24,8 @@ function emh_user_update_7001() {
 }
 
 /**
-* Delete rules_welcome_message rule.
-*/
+ * Delete rules_welcome_message rule.
+ */
 function emh_user_update_7002() {
   features_revert(array('ft_rules' => array('rules_config')));
   if ($rules_config = rules_config_load('rules_welcome_message')) {
@@ -34,8 +34,8 @@ function emh_user_update_7002() {
 }
 
 /**
-* Delete rules_emh_user_activation_login_logout_hp_redirect rule.
-*/
+ * Delete rules_emh_user_activation_login_logout_hp_redirect rule.
+ */
 function emh_user_update_7003() {
   if ($rules_config = rules_config_load('rules_emh_user_activation_login_logout_hp_redirect')) {
     $rules_config->delete();
@@ -50,8 +50,8 @@ function emh_user_update_7004() {
 }
 
 /**
-* Revert rules_emh_user_activation_login_hp_redirect rule.
-*/
+ * Revert rules_emh_user_activation_login_hp_redirect rule.
+ */
 function emh_user_update_7005() {
   if ($rules_config = rules_config_load('rules_emh_user_activation_login_hp_redirect')) {
     $rules_config->delete();
@@ -72,8 +72,8 @@ function emh_user_update_7006() {
 }
 
 /**
-* Revert user rules.
-*/
+ * Revert user rules.
+ */
 function emh_user_update_7007() {
   if ($rules_config = rules_config_load('rules_emh_user_client_registration_add_role')) {
     $rules_config->delete();
@@ -84,10 +84,17 @@ function emh_user_update_7007() {
 }
 
 /**
-* FIX CV field path.
-*/
+ * FIX CV field path.
+ */
 function emh_user_update_7008() {
   features_revert(array('ft_field_base' => array('field_base')));
   features_revert(array('ft_content_type' => array('field_instance')));
   // drush_filefield_paths_ffp_update('user', 'user', field_cv);
+}
+
+/**
+ * ADD: international phone field.
+ */
+function emh_user_update_7009() {
+  module_enable(array('addressfield_phone'));
 }
