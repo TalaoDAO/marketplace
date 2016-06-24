@@ -331,3 +331,10 @@ function emh_request_update_7116() {
 
   features_revert(array('ft_request' => array('field_base', 'field_instance', 'variable')));
 }
+
+/**
+ * ADD : New content type in Request views.
+ */
+function emh_request_update_7117() {
+  features_revert(array('ft_views' => array('views_view')));
+}
