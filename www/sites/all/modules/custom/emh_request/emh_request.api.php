@@ -79,3 +79,18 @@ function hook_emh_request_option_setting_form($id, $properties, array $settings 
     );
   }
 }
+
+
+/**
+ * Allows to alter costs of options for the context of a specific request.
+ *
+ * @param array $costs
+ *  Costs of the selected options keyed by option identifier
+ * @param stdClass $request
+ *  The request node being saved
+ */
+function hook_emh_request_options_costs_alter(&$costs, $request) {
+  if (variable_get('discount_period', false)) {
+    $costs['super_option'] -= 200;
+  }
+}
