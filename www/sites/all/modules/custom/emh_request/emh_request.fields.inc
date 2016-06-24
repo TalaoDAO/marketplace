@@ -59,9 +59,10 @@ function emh_request_field_widget_info() {
  * Implements hook_field_widget_form().
  */
 function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
-  $options = emh_request_get_options();
-  $weight = 0;
-  $items = emh_request_restructure_option_selector_items($items);
+  $options  = emh_request_get_options();
+  $costs    = emh_request_get_options_costs($form['#entity']);
+  $items    = emh_request_restructure_option_selector_items($items);
+  $weight   = 0;
 
   $element += array(
     '#type' => 'fieldset',
@@ -85,12 +86,7 @@ function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, 
       '#default_value' => isset($items[$id]),
     );
 
-    if ($option['cost'] == 0) {
-      $cost = t('Free');
-    } else {
-      $cost = t('!count points', array('!count' => $option['cost']));
-    }
-
+    $cost = emh_request_format_cost($costs[$id]);
     $element[$id]['cost'] = array(
       '#type' => 'markup',
       '#markup' => '<span class="cost">' . $cost . '</span>',
@@ -173,13 +169,34 @@ function emh_request_restructure_option_selector_items($items) {
 
 
 /**
+ * Implements hook_field_load().
+ */
+//function emh_request_field_load($entity_type, $entities, $field, $instances, $langcode, &$items, $age) {
+//  if ($field['type'] == 'emh_option_selector') {
+//    foreach (array_keys($entities) as $entity_id) {
+//      foreach ($items[$entity_id] as $delta => &$item) {
+//        if (!empty($item['settings'])) {
+//          $item['settings'] = unserialize($item['settings']);
+//        } else {
+//          $item['settings'] = array();
+//        }
+//      }
+//    }
+//  }
+//}
+
+
+/**
  * Implements hook_field_presave().
  */
 function emh_request_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
   if ($field['type'] == 'emh_option_selector') {
-    $options = emh_request_get_options();
+    $costs = emh_request_get_options_costs($entity);
+
     foreach ($items as $delta => $item) {
-      $items[$delta]['cost'] = $options[$item['option']]['cost'];
+      if (isset($costs[$item['option']])) {
+        $items[$delta]['cost'] = $costs[$item['option']];
+      }
     }
   }
 }
