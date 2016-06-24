@@ -211,7 +211,8 @@
             $render = webform_submission_render($node, $submission, null, 'html');
             print drupal_render($render);
           ?>
-          <?php if ($submission->uid == $user->uid): ?>
+          
+          <?php if (webform_submission_access($node, $submission, 'edit')): ?>
           <ul class="links list-inline text-right">
             <li class="edit_link">
               <a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $submission->sid; ?>/edit"><?php print t('Edit'); ?></a>
@@ -239,37 +240,29 @@
       </div>
       <?php endif; ?>
 
-    <?php endif; ?>
-
-    <?php /*
-
-    Old code to display the current user submission.
-
 		<?php else: ?>
 
-      <?php foreach ($submissions as $submission) : ?>
       <div id="comments" class="row section emh-fieldgroup-blue-title">
-        <h2 class="h3"><span><?php print t('Your answer') ?></span></h2>
+        <h2 class="h3">
+          <span><?php print t('Your answer') ?></span>
+        </h2>
         <div class="comment clearfix row">
           <?php
-            $sid = $submission->sid;
-            $submission = webform_get_submission($node->nid, $sid);
-            $email = null;
-            $format = 'html';
-            $render = webform_submission_render($node, $submission, $email, $format);
+            $render = webform_submission_render($node, $user_submission, null, 'html');
             print drupal_render($render);
           ?>
+
+          <?php if (webform_submission_access($node, $user_submission, 'edit')): ?>
           <ul class="links list-inline text-right">
             <li class="edit_link">
-              <a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $sid; ?>/edit"><?php print t('Edit'); ?></a>
+              <a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $user_submission->sid; ?>/edit"><?php print t('Edit'); ?></a>
             </li>
           </ul>
+          <?php endif; ?>
         </div>
       </div>
-      <?php endforeach; ?>
 
 		<?php endif; ?>
-    */ ?>
 
 		<?php endif; ?>
 
