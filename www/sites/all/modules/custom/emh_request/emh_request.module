@@ -300,7 +300,8 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
     if ($form['#node']->type == 'request') {
       $form['#validate'][] = 'emh_request_form_node_form_validate';
 
-      $form['field_request_documents'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
+      // FIXME: la surcharge empêche l'affichage du multiupload
+      // $form['field_request_documents'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
       $form['field_image'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
 
       // Publication unactive unless there's 1 question added
