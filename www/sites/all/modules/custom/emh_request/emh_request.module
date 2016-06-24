@@ -18,6 +18,7 @@ function emh_request_hook_info() {
     'emh_request_option_info',
     'emh_request_option_info_alter',
     'emh_request_option_setting_form',
+    'emh_request_options_costs_alter',
   );
 
   return array_fill_keys($hooks, array('group' => 'options'));
@@ -671,6 +672,8 @@ function emh_request_get_options() {
       }
       $option += emh_request_default_option_info();
     }
+
+    uasort($options, 'drupal_sort_weight');
   }
 
   return $options;
@@ -735,6 +738,39 @@ function emh_request_has_option($request, $option_id) {
 
 
 /**
+ * Provides the default options costs.
+ *
+ * @return array
+ *  Costs keyed by option identifier
+ */
+function emh_request_get_default_options_costs() {
+  $costs = array();
+
+  foreach (emh_request_get_options() as $id => $option) {
+    $costs[$id] = $option['cost'];
+  }
+
+  return $costs;
+}
+
+
+/**
+ * Provides the options costs related to a specific request
+ * and potentially altered by other modules.
+ *
+ * @param stdClass $request
+ *  The request node
+ * @return array
+ *  Costs keyed by option identifier
+ */
+function emh_request_get_options_costs($request) {
+  $costs = emh_request_get_default_options_costs();
+  drupal_alter('emh_request_options_costs', $costs, $request);
+  return $costs;
+}
+
+
+/**
  * Searches an element in a form structure and returns it if found.
  *
  * @param array $form The form (or just a piece of form)
@@ -751,4 +787,18 @@ function emh_request_get_form_element($form, $element_name) {
       }
     }
   }
+}
+
+
+/**
+ * Formats an option cost as a friendly localized text.
+ *
+ * @param integer $cost
+ * @return string
+ */
+function emh_request_format_cost($cost) {
+  if ($cost == 0) {
+    return t("Free");
+  }
+  return t("!count points", array('!count' => $cost));
 }

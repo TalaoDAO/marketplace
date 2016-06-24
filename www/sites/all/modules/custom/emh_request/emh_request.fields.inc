@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Declares new field types to manage request options.
+ * Declares a field type to select options during the request creation.
  */
 
 
@@ -19,15 +19,6 @@ function emh_request_field_info() {
       'default_formatter' => 'emh_option_selector_default',
       'no_ui' => true,
     ),
-//    'emh_option_cost_editor' => array(
-//      'label' => t("Options costs editor"),
-//      'description' => t("This field stores the options costs overwriting ones by default."),
-//      //'settings' => array(),
-//      //'instance_settings' => array(),
-//      'default_widget' => 'emh_option_cost_editor_default',
-//      'default_formatter' => 'emh_option_cost_editor_default',
-//      'no_ui' => true,
-//    ),
   );
 }
 
@@ -59,25 +50,36 @@ function emh_request_field_widget_info() {
  * Implements hook_field_widget_form().
  */
 function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
-  $options = emh_request_get_options();
-  uasort($options, 'drupal_sort_weight');
-
-  $weight = 0;
-  $items = emh_request_restructure_option_selector_items($items);
+  $options  = emh_request_get_options();
+  $costs    = emh_request_get_options_costs($form['#entity']);
+  $items    = emh_request_restructure_option_selector_items($items);
+  $weight   = 0;
+  $total    = 0;
 
   $element += array(
     '#type' => 'fieldset',
     '#collapsible' => false,
     '#collapsed' => false,
-    '#element_validate' => array('emh_request_field_widget_validate'),
+    '#element_validate' => array('emh_request_field_widget_option_selector_validate'),
+    '#attached' => array(
+      'js' => array(drupal_get_path('module', 'emh_request') . '/js/options-costs.js'),
+    ),
   );
 
   foreach ($options as $id => $option) {
-    $item = isset($items[$id]) ? $items[$id] : array('settings' => array());
+    if (isset($items[$id])) {
+      $item = $items[$id];
+      $total += $costs[$id];
+    } else {
+      $item = array('settings' => array());
+    }
 
     $element[$id] = array(
       '#type' => 'container',
       '#weight' => $weight++,
+      '#attributes' => array(
+        'data-emh-option' => $id,
+      ),
     );
 
     $element[$id]['enabled'] = array(
@@ -87,15 +89,18 @@ function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, 
       '#default_value' => isset($items[$id]),
     );
 
-    if ($option['cost'] == 0) {
-      $cost = t('Free');
-    } else {
-      $cost = t('!count points', array('!count' => $option['cost']));
-    }
-
-    $element[$id]['cost'] = array(
+    $cost = emh_request_format_cost($costs[$id]);
+    $element[$id]['cost_markup'] = array(
       '#type' => 'markup',
       '#markup' => '<span class="cost">' . $cost . '</span>',
+    );
+
+    // We include the cost in the form with a hidden field,
+    // but it's only for Javascript (total cost calculation).
+    // Those values are ignored during the submission process.
+    $element[$id]['cost'] = array(
+      '#type' => 'hidden',
+      '#value' => $costs[$id],
     );
 
     $setting_form = module_invoke_all('emh_request_option_setting_form', $id, $option, $item['settings']);
@@ -103,6 +108,15 @@ function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, 
       $element[$id]['settings'] = array('#type' => 'container') + $setting_form;
     }
   }
+
+  $element['total_markup'] = array(
+    '#type' => 'markup',
+    '#markup' => '<div class="total-wrapper">'
+      . '<span class="total-label">' . t("Total:") . '</span> '
+      . '<span class="total">' . emh_request_format_cost($total) . '</span>'
+      . '</div>',
+    '#weight' => $weight++,
+  );
 
   // Adds an after build callback to the form to set up options behaviors
   $form['#after_build'][] = 'emh_request_setup_options_behaviors';
@@ -112,12 +126,12 @@ function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, 
 
 
 /**
- * Validation callback for the options field.
+ * Validation callback for the emh_option_selector_default widget.
  */
-function emh_request_field_widget_validate($element, &$form_state, $form) {
+function emh_request_field_widget_option_selector_validate($element, &$form_state, $form) {
   $items = array();
 
-  foreach (element_children($element, true) as $index => $id) {
+  foreach (array_keys(emh_request_get_options()) as $index => $id) {
     if ($element[$id]['enabled']['#value']) {
       $items[$index] = array(
         'option'    => $id,
@@ -141,7 +155,7 @@ function emh_request_field_widget_validate($element, &$form_state, $form) {
  * Implements hook_field_is_empty().
  *
  * At this point, items have already been processed
- * by emh_request_field_widget_validate().
+ * by emh_request_field_widget_option_selector_validate().
  * There is no longer empty items.
  * Then we just have to return false.
  */
@@ -151,7 +165,7 @@ function emh_request_field_is_empty($item, $field) {
 
 
 /**
- * Restructures option_selector field items to make them more usable.
+ * Restructures emh_option_selector field items to make them more usable.
  */
 function emh_request_restructure_option_selector_items($items) {
   $restructured = array();
@@ -175,13 +189,34 @@ function emh_request_restructure_option_selector_items($items) {
 
 
 /**
+ * Implements hook_field_load().
+ */
+//function emh_request_field_load($entity_type, $entities, $field, $instances, $langcode, &$items, $age) {
+//  if ($field['type'] == 'emh_option_selector') {
+//    foreach (array_keys($entities) as $entity_id) {
+//      foreach ($items[$entity_id] as $delta => &$item) {
+//        if (!empty($item['settings'])) {
+//          $item['settings'] = unserialize($item['settings']);
+//        } else {
+//          $item['settings'] = array();
+//        }
+//      }
+//    }
+//  }
+//}
+
+
+/**
  * Implements hook_field_presave().
  */
 function emh_request_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
   if ($field['type'] == 'emh_option_selector') {
-    $options = emh_request_get_options();
+    $costs = emh_request_get_options_costs($entity);
+
     foreach ($items as $delta => $item) {
-      $items[$delta]['cost'] = $options[$item['option']]['cost'];
+      if (isset($costs[$item['option']])) {
+        $items[$delta]['cost'] = $costs[$item['option']];
+      }
     }
   }
 }
