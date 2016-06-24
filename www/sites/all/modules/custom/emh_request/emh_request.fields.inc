@@ -77,6 +77,9 @@ function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, 
     $element[$id] = array(
       '#type' => 'container',
       '#weight' => $weight++,
+      '#attributes' => array(
+        'data-emh-option' => $id,
+      ),
     );
 
     $element[$id]['enabled'] = array(

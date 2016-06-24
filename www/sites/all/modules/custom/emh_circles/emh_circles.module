@@ -113,6 +113,55 @@ function emh_circles_form_og_ui_confirm_unsubscribe_alter(&$form, &$form_state) 
   $form['description']['#markup'] = '<p>' . t('Do you really want to leave this circle?') . '</p>';
 }
 
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function emh_circles_form_request_node_form_alter(&$form, &$form_state, $form_id) {
+  if (module_exists('emh_request')) {
+    global $user;
+
+    // Prepares data for Javascript
+    $settings = array(
+      'default' => array(),
+      'circles' => array(),
+    );
+
+    foreach (emh_request_get_options() as $id => $option) {
+      $settings['default'][$id] = $option['cost'];
+    }
+
+    $groups = og_get_groups_by_user($user, 'node');
+    $groups = node_load_multiple($groups);
+
+    foreach ($groups as $group) {
+      if ($group->type != 'circle') {
+        continue;
+      }
+
+      if ($costs = field_get_items('node', $group, 'field_options_costs')) {
+        $settings['circles'][$group->nid] = array();
+        foreach ($costs as $cost) {
+          $settings['circles'][$group->nid][$cost['option']] = $cost['cost'];
+        }
+      }
+    }
+
+    // Attaches script and data to the form
+    if (empty($form['#attached']['js'])) {
+      $form['#attached']['js'] = array();
+    }
+
+    $form['#attached']['js'] += array(
+      // Attaches JS script for the dynamic update of options costs
+      drupal_get_path('module', 'emh_circles') . '/js/options-costs.js' => array('type' => 'file'),
+      // Attaches settings
+      array('data' => array('circlesOptionsCosts' => $settings), 'type' => 'setting'),
+    );
+  }
+}
+
+
 function emh_circles_get_membership_state($group, $account = NULL) {
 
   if (empty($account)) {
