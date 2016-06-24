@@ -63,16 +63,25 @@ function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, 
   $costs    = emh_request_get_options_costs($form['#entity']);
   $items    = emh_request_restructure_option_selector_items($items);
   $weight   = 0;
+  $total    = 0;
 
   $element += array(
     '#type' => 'fieldset',
     '#collapsible' => false,
     '#collapsed' => false,
-    '#element_validate' => array('emh_request_field_widget_validate'),
+    '#element_validate' => array('emh_request_field_widget_option_selector_validate'),
+    '#attached' => array(
+      'js' => array(drupal_get_path('module', 'emh_request') . '/js/options-costs.js'),
+    ),
   );
 
   foreach ($options as $id => $option) {
-    $item = isset($items[$id]) ? $items[$id] : array('settings' => array());
+    if (isset($items[$id])) {
+      $item = $items[$id];
+      $total += $costs[$id];
+    } else {
+      $item = array('settings' => array());
+    }
 
     $element[$id] = array(
       '#type' => 'container',
@@ -87,9 +96,17 @@ function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, 
     );
 
     $cost = emh_request_format_cost($costs[$id]);
-    $element[$id]['cost'] = array(
+    $element[$id]['cost_markup'] = array(
       '#type' => 'markup',
       '#markup' => '<span class="cost">' . $cost . '</span>',
+    );
+
+    // We include the cost in the form with a hidden field,
+    // but it's only for Javascript (total cost calculation).
+    // Those values are ignored during the submission process.
+    $element[$id]['cost'] = array(
+      '#type' => 'hidden',
+      '#value' => $costs[$id],
     );
 
     $setting_form = module_invoke_all('emh_request_option_setting_form', $id, $option, $item['settings']);
@@ -97,6 +114,15 @@ function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, 
       $element[$id]['settings'] = array('#type' => 'container') + $setting_form;
     }
   }
+
+  $element['total_markup'] = array(
+    '#type' => 'markup',
+    '#markup' => '<div class="total-wrapper">'
+      . '<span class="total-label">' . t("Total:") . '</span> '
+      . '<span class="total">' . emh_request_format_cost($total) . '</span>'
+      . '</div>',
+    '#weight' => $weight++,
+  );
 
   // Adds an after build callback to the form to set up options behaviors
   $form['#after_build'][] = 'emh_request_setup_options_behaviors';
@@ -106,12 +132,12 @@ function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, 
 
 
 /**
- * Validation callback for the options field.
+ * Validation callback for the emh_option_selector_default widget.
  */
-function emh_request_field_widget_validate($element, &$form_state, $form) {
+function emh_request_field_widget_option_selector_validate($element, &$form_state, $form) {
   $items = array();
 
-  foreach (element_children($element, true) as $index => $id) {
+  foreach (array_keys(emh_request_get_options()) as $index => $id) {
     if ($element[$id]['enabled']['#value']) {
       $items[$index] = array(
         'option'    => $id,
@@ -135,7 +161,7 @@ function emh_request_field_widget_validate($element, &$form_state, $form) {
  * Implements hook_field_is_empty().
  *
  * At this point, items have already been processed
- * by emh_request_field_widget_validate().
+ * by emh_request_field_widget_option_selector_validate().
  * There is no longer empty items.
  * Then we just have to return false.
  */
