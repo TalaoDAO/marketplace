@@ -44,9 +44,17 @@
  *
  * @ingroup themeable
  */
-global $base_url;
+global $base_url, $language;
+$current_lang = $language->language;
 $front_theme = path_to_theme();
 $front_theme = $base_url . '/' . $front_theme;
+
+// Video
+if (!empty($current_lang) && $current_lang == 'fr') {
+  $video_url = 'https://www.youtube.com/embed/Vi2bkPyqyCs?&amp;hl=fr&amp;cc_lang_pref=fr&amp;cc_load_policy=1';
+} else {
+  $video_url = 'https://www.youtube.com/embed/VAXPojC8KLU';
+}
 ?>
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
@@ -74,7 +82,7 @@ $front_theme = $base_url . '/' . $front_theme;
           </div>
           <div class="modal-body">
             <div class="embed-responsive embed-responsive-16by9">
-              <iframe class="embed-responsive-item" src="https://www.youtube-nocookie.com/embed/VAXPojC8KLU?rel=0&amp;showinfo=0"></iframe>
+              <iframe class="embed-responsive-item" src="<?php print $video_url; ?>"></iframe>
             </div>
           </div>
         </div>
