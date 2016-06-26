@@ -108,8 +108,14 @@ function ft_request_strongarm() {
       'display' => array(
         'webform' => array(
           'default' => array(
-            'weight' => '15',
+            'weight' => '8',
             'visible' => TRUE,
+          ),
+        ),
+        'language' => array(
+          'default' => array(
+            'weight' => '9',
+            'visible' => FALSE,
           ),
         ),
       ),
