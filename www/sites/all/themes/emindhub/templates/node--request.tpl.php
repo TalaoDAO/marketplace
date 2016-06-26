@@ -79,11 +79,32 @@
  * @ingroup themeable
  */
 
- // Show $node field, with display parameters
- // echo '<pre>' . print_r($content['webform']['#node']->webform, TRUE) . '</pre>'; die;
- // Show $node field, with custom display parameters
- // print render(field_view_field('node', $node, 'field_duration_of_the_mission'));
+include_once drupal_get_path('module', 'webform') . '/includes/webform.submissions.inc';
+global $user;
+$submissions = webform_get_submissions(array('nid' => $nid));
+$user_submissions = webform_get_submissions(array('nid' => $nid, 'uid' => $user->uid));
+// Show $node field, with display parameters
+// echo '<pre>' . print_r($content['webform']['#node']->webform, TRUE) . '</pre>'; die;
+// Show $node field, with custom display parameters
+// print render(field_view_field('node', $node, 'field_duration_of_the_mission'));
 ?>
+
+<?php /*if (!empty($variables['flag_my_selection'])) : ?>
+<?php print $variables['flag_my_selection']['title']; ?>
+<?php endif;*/ ?>
+
+<?php /*if (!empty($variables['linkPrev'])) : ?>
+	<a href="<?php print base_path() . $variables['linkPrev']['href']; ?>" <?php print drupal_attributes($variables['linkPrev']['attributes']); ?>>
+		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <?php print $variables['linkPrev']['title']; ?>
+	</a>
+<?php endif; ?>
+
+<?php if (!empty($variables['linkNext'])) : ?>
+	<a href="<?php print base_path() . $variables['linkNext']['href']; ?>" <?php print drupal_attributes($variables['linkNext']['attributes']); ?>>
+		<?php print $variables['linkNext']['title']; ?> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+	</a>
+<?php endif;*/ ?>
+
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
 	<?php print render($title_prefix); ?>
@@ -105,95 +126,107 @@
 		</section>
 		<?php endif; ?>
 
-		<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/nodeNavigation.tpl.php'; ?>
+		<div class="row">
 
-		<?php if (!empty($body[0]['value']) || !empty($content['field_image']) || emh_request_has_option($node, 'files')) : ?>
-		<div class="row section">
-			<div class="col-sm-9">
-				<?php print $body[0]['value']; ?>
-				<?php if (emh_request_has_option($node, 'files') && !empty($content['field_request_documents'])) : ?>
-				<?php print render($content['field_request_documents']); ?></li>
+			<div class="col-sm-8">
+				
+				<?php if (!empty($content['body'])): ?>
+					<?php print render($content['body']); ?>
 				<?php endif; ?>
-			</div>
-			<?php if (!empty($content['field_image'])) : ?>
-			<?php // TODO : add default image ?>
-			<div class="col-sm-3 text-right">
-				<?php print render($content['field_image']); ?>
-			</div>
-			<?php endif; ?>
-		</div>
-		<?php endif; ?>
 
-		<div class="row section">
+				<?php if (emh_request_has_option($node, 'duration')): ?>
+		      <?php if (!empty($content['field_start_date'])): ?>
+		      	<?php print render($content['field_start_date']); ?>
+		      <?php endif; ?>
+
+		      <?php if (!empty($content['field_duration_of_the_mission'])): ?>
+		      	<?php print render($content['field_duration_of_the_mission']); ?>
+		      <?php endif; ?>
+		    <?php endif; ?>
+
+				<?php if (!empty($content['field_domaine'])) : ?>
+					<?php print render($content['field_domaine']); ?>
+				<?php endif; ?>
+
+				<?php if (emh_request_has_option($node, 'files') && !empty($content['field_request_documents'])) : ?>
+					<?php print render($content['field_request_documents']); ?>
+				<?php endif; ?>
+
+				<?php if ($node->uid == $user->uid): ?>
+				<?php //if (empty($user_submission) || !empty($user_submission->is_draft)): ?>
+
+		      <?php if ($node->webform['status'] && !empty($node->webform['components'])): ?>
+		      	<?php print render($content['webform']); ?>
+		      <?php endif; ?>
+
+					<?php if (!empty($user_submissions)): ?>
+		      	<?php foreach ($user_submissions as $user_submission): ?>
+			      	<?php
+			        $render = webform_submission_render($node, $user_submission, null, 'html');
+			        print drupal_render($render);
+			      	?>
+		      		<?php if (webform_submission_access($node, $user_submission, 'edit')): ?>
+		      			<a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $user_submission->sid; ?>/edit"><?php print t('Edit'); ?></a>
+		      		<?php endif; ?>
+						<?php endforeach; ?>
+					<?php endif; ?>
+
+				<?php //endif; ?>
+				<?php endif; ?>
+
+			</div>
 
 			<div class="col-sm-4">
-				<?php require_once drupal_get_path('theme', 'emindhub').'/templates/includes/userInformations.tpl.php'; ?>
+
+				<?php if (!empty($content['field_image'])) : ?>
+					<?php // TODO : add default image ?>
+					<?php print render($content['field_image']); ?>
+				<?php endif; ?>
+
+				<?php
+				$author = user_load( $node->uid );
+				$company = field_get_items('user', $author, 'field_entreprise');
+				$company = node_load($company[0]['target_id']);
+				$activity = field_get_items('user', $author, 'field_entreprise_description');
+				?>
+
+	      <?php if (module_exists('emh_access')) : ?>
+	        <?php if ( emh_access_author_name( $node ) ) : ?>
+	          <?php print emindhub_beautiful_author_picture( $node, 'img-circle center-block' ); ?>
+	        <?php endif; ?>
+	      <?php else : ?>
+	        <?php print $user_picture; ?>
+	      <?php endif; ?>
+
+        <?php if (module_exists('emh_user')) : ?>
+          <?php print emh_user_get_beautiful_author($node); ?>
+        <?php else : ?>
+          <?php print $name; ?>
+        <?php endif; ?>
+
+        <?php if (module_exists('emh_access')) : ?>
+          <?php if ( emh_access_author_company( $node ) && ( $company ) ) : ?>
+            <?php //note to themer, if you do not like check_plain, use render and theme hooks to ensure check_plain is already applied, and never use direct attribute access ?>
+            <?php print check_plain($company->title); ?>
+          <?php endif; ?>
+        <?php endif; ?>
+
+        <?php if (emh_request_has_option($node, 'anonymous') && !empty($content['field_activity'])): ?>
+          <?php print render($content['field_activity']); ?>
+        <?php endif; ?>
+
+				<?php if (!empty($elements['#node']->created)) : ?>
+					<?php print t('Publication date:'); ?>
+					<?php print format_date($elements['#node']->created, 'custom', 'm/d/Y'); ?>
+				<?php endif; ?>
+
+				<?php if (!empty($content['field_expiration_date'])) : ?>
+					<?php print render($content['field_expiration_date']); ?>
+				<?php endif; ?>
+
 			</div>
 
-			<?php if ( !empty($content['field_domaine']) || !empty($content['field_tags']) ) : ?>
-      <div class="col-sm-4">
-
-				<div class="row">
-			    <div class="col-sm-12">
-						<?php print render($content['field_domaine']); ?>
-						<?php print render($content['field_tags']); ?>
-					</div>
-				</div>
-
-      </div>
-			<?php endif; ?>
-
-			<div class="col-sm-4 meta">
-				<ul>
-					<?php if (!empty($content['field_autoref'])) : ?>
-					<li><?php print render($content['field_autoref']); ?></li>
-					<?php endif; ?>
-
-					<?php if (!empty($elements['#node']->created)) : ?>
-					<li>
-						<div class="field field-name-field-created-date field-type-datetime field-label-inline clearfix">
-							<div class="field-label"><?php print t('Publication date:'); ?></div>
-							<div class="field-items">
-								<div class="field-item even">
-									<?php print format_date($elements['#node']->created, 'custom', 'm/d/Y'); ?>
-								</div>
-							</div>
-						</div>
-					</li>
-					<?php endif; ?>
-
-          <?php if (emh_request_has_option($node, 'duration')): ?>
-            <?php if (!empty($content['field_start_date'])): ?>
-            <li><?php print render($content['field_start_date']); ?></li>
-            <?php endif; ?>
-
-            <?php if (!empty($content['field_duration_of_the_mission'])): ?>
-            <li><?php print render($content['field_duration_of_the_mission']); ?></li>
-            <?php endif; ?>
-          <?php endif; ?>
-
-					<?php if (!empty($content['field_expiration_date'])) : ?>
-					<li><?php print render($content['field_expiration_date']); ?></li>
-					<?php endif; ?>
-
-					<?php include_once(drupal_get_path('module', 'webform') . '/includes/webform.submissions.inc'); ?>
-					<li>
-						<div class="field field-name-field-submission field-type-serial field-label-inline clearfix">
-							<div class="field-label"><?php print t('Number of answers:'); ?></div>
-							<div class="field-items">
-								<div class="field-item even">
-									<?php print webform_get_submission_count($node->nid); ?>
-								</div>
-							</div>
-						</div>
-					</li>
-
-          <?php if (!empty($field_has_salary[0]['value']) && $field_has_salary[0]['value'] == 1) : ?>
-          <li><?php print render($content['field_has_salary']); ?></li>
-          <?php endif; ?>
-				</ul>
-      </div>
-	  </div>
+		</div>
 
 		<?php
 			// We hide the comments and links now so that we can render them later.
@@ -202,67 +235,21 @@
 		?>
 
     <?php if (($node->uid == $user->uid) || !emh_request_has_option($node, 'private')): ?>
-    <div id="comments" class="row section emh-fieldgroup-blue-title">
-      <h2 class="h3"><span><?php print t('Answers') ?></span></h2>
+    	<?php print t('Submissions') . '&nbsp;(' . webform_get_submission_count($node->nid) . ')'; ?>
       <?php if (!empty($submissions)): ?>
         <?php foreach ($submissions as $submission): ?>
-        <div class="comment clearfix row">
           <?php
             $render = webform_submission_render($node, $submission, null, 'html');
             print drupal_render($render);
           ?>
-          
           <?php if (webform_submission_access($node, $submission, 'edit')): ?>
-          <ul class="links list-inline text-right">
-            <li class="edit_link">
-              <a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $submission->sid; ?>/edit"><?php print t('Edit'); ?></a>
-            </li>
-          </ul>
+          	<a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $submission->sid; ?>/edit"><?php print t('Edit'); ?></a>
           <?php endif; ?>
-        </div>
         <?php endforeach; ?>
       <?php else: ?>
-        <div class="comment clearfix row">
-          <?php print t("No answer at this moment."); ?>
-        </div>
+      	<?php print t("No submission at this moment."); ?>
       <?php endif; ?>
-    </div>
     <?php endif; ?>
-
-		<?php if (empty($user_submission) || !empty($user_submission->is_draft)): ?>
-
-      <?php if ($node->webform['status'] && !empty($node->webform['components'])): ?>
-      <div id="comments" class="<?php print $classes; ?> row section emh-fieldgroup-blue-title"<?php print $attributes; ?>>
-        <h2 class="h3"><span><?php print t('Answer the mission') ?></span></h2>
-        <div class="field-group-div">
-          <?php print render($content['webform']); ?>
-        </div>
-      </div>
-      <?php endif; ?>
-
-		<?php else: ?>
-
-      <div id="comments" class="row section emh-fieldgroup-blue-title">
-        <h2 class="h3">
-          <span><?php print t('Your answer') ?></span>
-        </h2>
-        <div class="comment clearfix row">
-          <?php
-            $render = webform_submission_render($node, $user_submission, null, 'html');
-            print drupal_render($render);
-          ?>
-
-          <?php if (webform_submission_access($node, $user_submission, 'edit')): ?>
-          <ul class="links list-inline text-right">
-            <li class="edit_link">
-              <a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $user_submission->sid; ?>/edit"><?php print t('Edit'); ?></a>
-            </li>
-          </ul>
-          <?php endif; ?>
-        </div>
-      </div>
-
-		<?php endif; ?>
 
 		<?php endif; ?>
 
