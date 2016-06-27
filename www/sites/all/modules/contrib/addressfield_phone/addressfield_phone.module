@@ -1,0 +1,364 @@
+<?php
+
+/**
+ * @file
+ * Add additional phone fields to addressfield.
+ */
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function addressfield_phone_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'addressfield') {
+    return 'plugins/' . $plugin;
+  }
+}
+
+/**
+ * Implements hook_field_info_alter().
+ *
+ * Add phone related properties on addressfield.
+ */
+function addressfield_phone_field_info_alter(&$field_info) {
+  if (isset($field_info['addressfield'])) {
+    $field_info['addressfield']['property_callbacks'][] = 'addressfield_phone_property_info_callback';
+  }
+}
+
+/**
+ * Callback to alter the property info of addressfield.
+ */
+function addressfield_phone_property_info_callback(&$info, $entity_type, $field, $instance, $field_type) {
+  $name = $field['field_name'];
+  $property = &$info[$entity_type]['bundles'][$instance['bundle']]['properties'][$name];
+
+  $property['property info'] += addressfield_phone_data_property_info();
+}
+
+/**
+ * Defines additional properties of the addressfield data structure.
+ */
+function addressfield_phone_data_property_info($name = NULL) {
+  // Build an array of basic property information for the addressfield.
+  $properties = array(
+    'phone_number' => array(
+      'label' => t('Phone number'),
+    ),
+    'phone_number_extension' => array(
+      'label' => t('Phone extension'),
+    ),
+    'mobile_number' => array(
+      'label' => t('Mobile number'),
+    ),
+    'fax_number' => array(
+      'label' => t('Fax number'),
+    ),
+  );
+
+  // Add the default values for each of the address field phone properties.
+  foreach ($properties as $key => &$value) {
+    $value += array(
+      'description' => $name ? t('!label of field %name', array('!label' => $value['label'], '%name' => $name)) : '',
+      'type' => 'text',
+      'getter callback' => 'entity_property_verbatim_get',
+      'setter callback' => 'entity_property_verbatim_set',
+    );
+  }
+
+  return $properties;
+}
+
+/**
+ * Implements hook_field_attach_presave().
+ *
+ * Store additional address fields serialized in addressfield data column.
+ */
+function addressfield_phone_field_attach_presave($entity_type, $entity) {
+  $addressfields = addressfield_phone_addressfield_types();
+  foreach ($addressfields as $field_name) {
+    if (isset($entity->$field_name)) {
+      $field = field_info_field($field_name);
+      list($id, $vid, $bundle) = entity_extract_ids($entity_type, $entity);
+      $instance = field_info_instance($entity_type, $field_name, $bundle);
+      $default_fields = array_keys(addressfield_default_values($field, $instance));
+      $default_fields[] = 'element_key';
+      foreach ($entity->$field_name as $lang_code => $fields) {
+        foreach ($fields as $delta => $fieldset) {
+          $data = array();
+          foreach ($fieldset as $field_key => $field_value) {
+            // Compare fields with addressfield default fields and store any
+            // additional fields in data.
+            if (!in_array($field_key, $default_fields)){
+              // Store additional field value
+              $data[$field_key] = $field_value;
+            }
+          }
+          if (!empty($data)){
+            $entity->{$field_name}[$lang_code][$delta]['data'] = serialize($data);
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_field_attach_load().
+ *
+ * Load and set additional addressfield field values from serialized data
+ * column.
+ */
+function addressfield_phone_field_attach_load($entity_type, $entities, $age, $options){
+  $addressfields = addressfield_phone_addressfield_types();
+  $phone_elements = drupal_map_assoc(array(
+    'phone_number',
+    'phone_number_extension',
+    'mobile_number',
+    'fax_number',
+  ));
+
+  foreach ($entities as $entity) {
+    foreach ($addressfields as $field_name) {
+      if (empty($entity->{$field_name})) {
+        continue;
+      }
+
+      foreach ($entity->$field_name as $lang_code => $fields) {
+        foreach ($fields as $delta => $fieldset) {
+          // Fill default values for pre-addressfield_phone addresses to keep
+          // Commerce Order from duplicating address.
+          if (empty($fieldset['data'])) {
+            $fieldset['data'] = serialize(array_fill_keys($phone_elements, ''));
+          }
+
+          // Unserialize data, else skip if string
+          if (($data = unserialize($fieldset['data'])) && is_array($data)) {
+            // Store unserialized data values in additional fields
+            $phone_data = array_intersect_key($data, $phone_elements);
+            $entity->{$field_name}[$lang_code][$delta] = array_merge($fieldset, $phone_data);
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Returns an array of the field names of any addressfields.
+ */
+function addressfield_phone_addressfield_types() {
+  if (!isset($addressfields)) {
+    static $addressfields;
+    $result = db_query("SELECT field_name FROM {field_config} WHERE type = 'addressfield'");
+    $addressfields = array();
+    foreach($result as $row) {
+      $addressfields[] = $row->field_name;
+    }
+  }
+  return $addressfields;
+}
+
+/**
+ * Implements hook_token_info_alter().
+ *
+ * Adds in additional tokens for phone fields.
+ */
+function addressfield_phone_token_info_alter(&$data) {
+  $address_field = &$data['tokens']['address-field'];
+  $address_field['phone-number'] = array(
+    'name' => t('Phone number'),
+    'description' => t('The phone number value.'),
+  );
+  $address_field['phone-number-extension'] = array(
+    'name' => t('Phone number extension'),
+    'description' => t('The phone number extension value.'),
+  );
+  $address_field['mobile-number'] = array(
+    'name' => t('Mobile number'),
+    'description' => t('The mobile number value.'),
+  );
+  $address_field['fax-number'] = array(
+    'name' => t('Fax number'),
+    'description' => t('The fax number value.'),
+  );
+  return $data;
+}
+
+/**
+ * Implements hook_tokens().
+ *
+ * Replace phone tokens with actual values from an address field.
+ */
+function addressfield_phone_tokens($type, $tokens, $data = array(), $options = array()) {
+  if (isset($options['language'])) {
+    $language_code = $options['language']->language;
+  }
+  else {
+    $language_code = LANGUAGE_NONE;
+  }
+
+  $sanitize = !empty($options['sanitize']);
+
+  $replacements = array();
+
+  if ($type == 'address-field' && !empty($data['address-field'][$language_code]) && is_array($data['address-field'][$language_code])) {
+    $address = reset($data['address-field'][$language_code]);
+    foreach ($tokens as $name => $original) {
+      if ($name == 'phone-number' || $name == 'phone-number-extension' || $name == 'mobile-number' || $name == 'fax-number') {
+        // Token names are just the field properties with dashes, so we can skip
+        // having to do any sort of if/switching on them.
+        $property = str_replace('-', '_', $name);
+        $replacements[$original] = $sanitize ? check_plain($address[$property]) : $address[$property];
+      }
+    }
+  }
+
+  return $replacements;
+}
+
+function _addressfield_phone_render_address($format) {
+  $address = $format['#address'];
+  $format['phone_block'] = array();
+
+  if (!empty($address['phone_number'])) {
+    $format['phone_block']['phone_number'] = array(
+      '#theme_wrappers' => array('addressfield_phone_container'),
+      '#title' => t('Phone'),
+      '#type' => 'addressfield_container',
+      '#attributes' => array('class' => array('phone-number')),
+      '#tag' => 'div',
+      '#children' => check_plain($address['phone_number']),
+    );
+  }
+  if (!empty($address['phone_number_extension'])) {
+    $format['phone_block']['phone_number_extension'] = array(
+      '#theme_wrappers' => array('addressfield_phone_container'),
+      '#title' => t('Phone Extension'),
+      '#type' => 'addressfield_container',
+      '#size' => 10,
+      '#attributes' => array('class' => array('phone-extension')),
+      '#tag' => 'div',
+      '#children' => check_plain($address['phone_number_extension']),
+    );
+  }
+  if (!empty($address['mobile_number'])) {
+    $format['phone_block']['mobile_number'] = array(
+      '#theme_wrappers' => array('addressfield_phone_container'),
+      '#title' => t('Mobile Number'),
+      '#type' => 'addressfield_container',
+      '#size' => 15,
+      '#attributes' => array('class' => array('phone-number')),
+      '#tag' => 'div',
+      '#children' => check_plain($address['mobile_number']),
+    );
+  }
+  if (!empty($address['fax_number'])) {
+    $format['phone_block']['fax_number'] = array(
+      '#theme_wrappers' => array('addressfield_phone_container'),
+      '#title' => t('Fax Number'),
+      '#type' => 'addressfield_container',
+      '#size' => 15,
+      '#attributes' => array('class' => array('phone-number')),
+      '#tag' => 'div',
+      '#children' => check_plain($address['fax_number']),
+    );
+  }
+  if (!empty($format['phone_block'])) {
+    $format['phone_block'] += array(
+      '#type' => 'addressfield_container',
+      '#attributes' => array(
+        'class' => array('addressfield-phone-block'),
+      ),
+      '#weight' => 100,
+    );
+  }
+
+  return $format;
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function addressfield_phone_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'addressfield_phone') . '/views',
+  );
+}
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function addressfield_phone_field_widget_info_alter(&$widgets) {
+  $widgets['addressfield_standard']['settings']['phone_number_fields'] = array();
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function addressfield_phone_form_field_ui_field_edit_form_alter(&$form, $form_state, $form_id) {
+  // Do nothing in a locked field.
+  if (!isset($form['instance']) || !empty($form['#field']['locked'])) {
+    return;
+  }
+
+  if ($form['instance']['widget']['type']['#value'] == 'addressfield_standard') {
+    $entity_type = $form['instance']['entity_type']['#value'];
+    $field_name = $form['instance']['field_name']['#value'];
+    $bundle =  $form['instance']['bundle']['#value'];
+
+    $field = field_info_instance($entity_type, $field_name, $bundle);
+    $settings = $field['widget']['settings'];
+    $form['instance']['widget']['settings']['phone_number_fields'] = array(
+      '#type' => 'checkboxes',
+      '#title' => t('Available Phone Number Fields'),
+      '#description' => t('If no phone fields are selected, all phones fields will be available.'),
+      '#options' => _addressfield_phone_number_options_list(),
+      '#states' => array(
+        'visible' => array(// action to take.
+          ':input[name="instance[widget][settings][format_handlers][phone]"]' => array('checked' => TRUE),
+        ),
+      ),
+      '#default_value' => $settings['phone_number_fields'],
+    );
+  }
+}
+
+function _addressfield_phone_number_options_list() {
+  $types = array(
+    'phone' => 'Phone',
+    'extension' => 'Extension',
+    'mobile' => 'Mobile',
+    'fax' => 'Fax',
+  );
+  return $types;
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function addressfield_phone_theme() {
+  $hooks['addressfield_phone_container'] = array(
+    'render element' => 'element',
+  );
+  return $hooks;
+}
+
+/**
+ * Render a container for a set of address fields.
+ */
+function theme_addressfield_phone_container($variables) {
+  $element = $variables['element'];
+
+  $element['#children'] = trim($element['#children']);
+  if (strlen($element['#children']) > 0) {
+    $output = '<' . $element['#tag'] . drupal_attributes($element['#attributes']) . '>';
+    $output .= '<span class="addressfield-phone-label">' . $element['#title'] .': </span>' . $element['#children'] . '';
+    $output .= '</' . $element['#tag'] . ">";
+    return $output;
+  }
+  else {
+    return '';
+  }
+}
+

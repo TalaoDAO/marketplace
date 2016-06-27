@@ -9780,6 +9780,10 @@ form#user-profile-form .link-field-subrow:after,
 #user-register-form-expert .hybridauth-widget-wrapper:after,
 #user-register-form .hybridauth-widget-wrapper:before,
 #user-register-form .hybridauth-widget-wrapper:after,
+.page-user .profile-section .field-name-field-address .field-item:before,
+.page-user .profile-section .field-name-field-address .field-item:after,
+.page-user .profile-section .field-name-field-address .addressfield-phone-block:before,
+.page-user .profile-section .field-name-field-address .addressfield-phone-block:after,
 body.not-logged-in.node-type-landing-page .account.row .form-item-pass:before,
 body.not-logged-in.node-type-landing-page .account.row .form-item-pass:after,
 .page-messages #maincol:before,
@@ -9831,6 +9835,8 @@ form#user-profile-form .link-field-subrow:after,
 #user-register-form-client .hybridauth-widget-wrapper:after,
 #user-register-form-expert .hybridauth-widget-wrapper:after,
 #user-register-form .hybridauth-widget-wrapper:after,
+.page-user .profile-section .field-name-field-address .field-item:after,
+.page-user .profile-section .field-name-field-address .addressfield-phone-block:after,
 body.not-logged-in.node-type-landing-page .account.row .form-item-pass:after,
 .page-messages #maincol:after,
 .page-node-268 .node .content #services-top:after,
@@ -17318,15 +17324,53 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
   max-width: 110px !important;
   max-height: 110px !important;
 }
-.page-user .profile-section .field-name-field-address * {
-  display: inline-block;
+.page-user .profile-section .field-name-field-address .field-item {
+  margin-left: -15px;
+  margin-right: -15px;
 }
-.page-user .profile-section .field-name-field-address .locality-block:after {
-  clear: none;
-  display: none;
+.page-user .profile-section .field-name-field-address .field-item > * {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
-.page-user .profile-section .field-name-field-address span.country:before {
-  content: ", ";
+@media (min-width: 768px) {
+  .page-user .profile-section .field-name-field-address .field-item > * {
+    float: left;
+    width: 25%;
+  }
+}
+.page-user .profile-section .field-name-field-address .addressfield-phone-block {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+@media (min-width: 768px) {
+  .page-user .profile-section .field-name-field-address .addressfield-phone-block {
+    float: left;
+    width: 100%;
+  }
+}
+.page-user .profile-section .field-name-field-address .addressfield-phone-block .phone-number {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  .page-user .profile-section .field-name-field-address .addressfield-phone-block .phone-number {
+    float: left;
+    width: 25%;
+  }
+}
+@media (min-width: 768px) {
+  .page-user .profile-section .field-name-field-address .addressfield-phone-block {
+    margin: 0;
+    padding: 0;
+  }
 }
 .page-user .profile-section .field-name-field-link-to-my-blog {
   background-color: #EFF1F3;

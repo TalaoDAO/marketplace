@@ -123,7 +123,7 @@ function addressfield_format_address_generate(&$format, $address, $context = arr
       'class' => array('country'),
       'autocomplete' => 'country',
     ),
-    '#weight' => 100,
+    '#weight' => 90,
   );
 
   if (empty($format['locality_block']['postal_code']['#access'])) {
