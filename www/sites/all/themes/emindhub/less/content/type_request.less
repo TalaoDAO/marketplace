@@ -1,0 +1,172 @@
+body.node-type-request {
+  // Overrides
+  .main-container {
+    background-color: #33374a;
+  }
+  .main-container > header {
+    background-color: transparent;
+    background-image: none;
+  }
+  h1.page-header {
+    text-transform: none;
+    background-image: none;
+    font-weight: normal;
+    padding: 0;
+    line-height: 1.5;
+    margin: 15px 0;
+  }
+  #maincol {
+    padding-top: 0;
+  }
+  .field-label-inline .field-label {
+    font-weight: normal;
+  }
+
+  // Global
+  .section.request,
+  .section.user-submission {
+    background-color: #FFF;
+  }
+  .section {
+    .make-row();
+    margin-bottom: 0;
+  }
+  .field {
+    padding: 0 0 15px;
+  }
+
+  // New styles
+  .field-list-item {
+    .field-item {
+      display: inline-block;
+      &:after {
+        content: ",";
+      }
+      &:last-child {
+        &:after {
+          content: "";
+        }
+      }
+    }
+  }
+  .field-list-border {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px dotted #CECECE;
+    &:last-child {
+      padding-bottom: inherit;
+      margin-bottom: inherit;
+      border: 0;
+    }
+  }
+
+  // Elements
+  .field-name-body {
+    font-size: 1.2em;
+    .field-list-border;
+    p {
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .field-name-field-domaine {
+    .field-list-item;
+  }
+
+  .field-name-og-group-ref {
+    .field-list-item;
+    .field-list-border;
+  }
+
+  .field-name-field-image {
+    img {
+      .center-block;
+    }
+  }
+
+  // User cartouche
+  .user-cartouche {
+    clear: both;
+    border: 1px solid #e1e4e7;
+    padding: 15px;
+    margin-bottom: 15px;
+    .text-center;
+
+    > span {
+      display: block;
+      margin-bottom: 10px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .user-identity {
+      font-weight: bold;
+      .lastname {
+        text-transform: uppercase;
+      }
+    }
+
+    .user-organisation,
+    .user-activity {
+      font-style: italic;
+      color: #4e6374;
+    }
+  }
+
+
+  // User submission
+  .user-submission {
+    padding: 15px;
+    > div {
+      padding: 15px;
+    }
+    .draft {
+      background-color: #fff2cc;
+    }
+    .published {
+      background-color: #dcffcc;
+    }
+
+    h3 {
+      .h4;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    .user-submission-status {
+      .label;
+      .pull-right;
+      &.draft {
+        .label-warning;
+      }
+      &.published {
+        .label-success;
+      }
+    }
+  }
+
+  // Submissions
+  .submissions {
+    color: #FFF;
+    background-color: #33374a;
+
+    h2 {
+      color: #FFF;
+      background-color: #2e3243;
+      margin: 0;
+      padding: 15px;
+
+      .submission-count {
+        font-weight: normal;
+      }
+    }
+
+    .submissions-list {
+      padding: 15px;
+    }
+  }
+
+}

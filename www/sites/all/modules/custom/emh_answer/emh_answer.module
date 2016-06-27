@@ -125,3 +125,18 @@ function emh_answer_mail($key, &$message, $params) {
       break;
   }
 }
+
+
+function emh_answer_get_status($submission) {
+  $workflow = array();
+
+  if (!empty($submission->is_draft)) {
+    $workflow = array( 'status' => 'draft', 'label' => t('Draft') );
+  }
+  else {
+    $workflow = array( 'status' => 'published', 'label' => t('Published') );
+  }
+
+	return $workflow;
+
+}
