@@ -9782,6 +9782,8 @@ form#user-profile-form .link-field-subrow:after,
 #user-register-form .hybridauth-widget-wrapper:after,
 body.not-logged-in.node-type-landing-page .account.row .form-item-pass:before,
 body.not-logged-in.node-type-landing-page .account.row .form-item-pass:after,
+body.node-type-request .section:before,
+body.node-type-request .section:after,
 .page-messages #maincol:before,
 .page-messages #maincol:after,
 .page-node-268 .node .content #services-top:before,
@@ -9832,6 +9834,7 @@ form#user-profile-form .link-field-subrow:after,
 #user-register-form-expert .hybridauth-widget-wrapper:after,
 #user-register-form .hybridauth-widget-wrapper:after,
 body.not-logged-in.node-type-landing-page .account.row .form-item-pass:after,
+body.node-type-request .section:after,
 .page-messages #maincol:after,
 .page-node-268 .node .content #services-top:after,
 .page-node-268 .node .content #services-bottom:after {
@@ -18032,6 +18035,221 @@ body.not-logged-in.node-type-landing-page .account.row .form-item-pass > div {
   body.not-logged-in.node-type-landing-page .account.row .form-item-pass .form-item-pass-pass2 {
     padding-left: 0;
   }
+}
+body.node-type-request .main-container {
+  background-color: #33374a;
+}
+body.node-type-request .main-container > header {
+  background-color: transparent;
+  background-image: none;
+}
+body.node-type-request h1.page-header {
+  text-transform: none;
+  background-image: none;
+  font-weight: normal;
+  padding: 0;
+  line-height: 1.5;
+  margin: 15px 0;
+}
+body.node-type-request #maincol {
+  padding-top: 0;
+}
+body.node-type-request .field-label-inline .field-label {
+  font-weight: normal;
+}
+body.node-type-request .section.request,
+body.node-type-request .section.user-submission {
+  background-color: #FFF;
+}
+body.node-type-request .section {
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-bottom: 0;
+}
+body.node-type-request .field {
+  padding: 0 0 15px;
+}
+body.node-type-request .field-list-item .field-item {
+  display: inline-block;
+}
+body.node-type-request .field-list-item .field-item:after {
+  content: ",";
+}
+body.node-type-request .field-list-item .field-item:last-child:after {
+  content: "";
+}
+body.node-type-request .field-list-border {
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px dotted #CECECE;
+}
+body.node-type-request .field-list-border:last-child {
+  padding-bottom: inherit;
+  margin-bottom: inherit;
+  border: 0;
+}
+body.node-type-request .field-name-body {
+  font-size: 1.2em;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px dotted #CECECE;
+}
+body.node-type-request .field-name-body:last-child {
+  padding-bottom: inherit;
+  margin-bottom: inherit;
+  border: 0;
+}
+body.node-type-request .field-name-body p:last-child {
+  margin-bottom: 0;
+}
+body.node-type-request .field-name-field-domaine .field-item {
+  display: inline-block;
+}
+body.node-type-request .field-name-field-domaine .field-item:after {
+  content: ",";
+}
+body.node-type-request .field-name-field-domaine .field-item:last-child:after {
+  content: "";
+}
+body.node-type-request .field-name-og-group-ref {
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px dotted #CECECE;
+}
+body.node-type-request .field-name-og-group-ref .field-item {
+  display: inline-block;
+}
+body.node-type-request .field-name-og-group-ref .field-item:after {
+  content: ",";
+}
+body.node-type-request .field-name-og-group-ref .field-item:last-child:after {
+  content: "";
+}
+body.node-type-request .field-name-og-group-ref:last-child {
+  padding-bottom: inherit;
+  margin-bottom: inherit;
+  border: 0;
+}
+body.node-type-request .field-name-field-image img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+body.node-type-request .user-cartouche {
+  clear: both;
+  border: 1px solid #e1e4e7;
+  padding: 15px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+body.node-type-request .user-cartouche > span {
+  display: block;
+  margin-bottom: 10px;
+}
+body.node-type-request .user-cartouche > span:last-child {
+  margin-bottom: 0;
+}
+body.node-type-request .user-cartouche .user-identity {
+  font-weight: bold;
+}
+body.node-type-request .user-cartouche .user-identity .lastname {
+  text-transform: uppercase;
+}
+body.node-type-request .user-cartouche .user-organisation,
+body.node-type-request .user-cartouche .user-activity {
+  font-style: italic;
+  color: #4e6374;
+}
+body.node-type-request .user-submission {
+  padding: 15px;
+}
+body.node-type-request .user-submission > div {
+  padding: 15px;
+}
+body.node-type-request .user-submission .draft {
+  background-color: #fff2cc;
+}
+body.node-type-request .user-submission .published {
+  background-color: #dcffcc;
+}
+body.node-type-request .user-submission h3 {
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  white-space: normal;
+  font-size: 16px;
+  margin: 0;
+  font-weight: bold;
+}
+body.node-type-request .user-submission h3 small,
+body.node-type-request .user-submission h3 .small {
+  font-weight: normal;
+  line-height: 1;
+  color: #777777;
+}
+body.node-type-request .user-submission h3 small,
+body.node-type-request .user-submission h3 .small {
+  font-size: 75%;
+}
+body.node-type-request .user-submission .user-submission-status {
+  display: inline;
+  padding: .2em .6em .3em;
+  font-size: 75%;
+  font-weight: bold;
+  line-height: 1;
+  color: #ffffff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25em;
+  float: right !important;
+}
+abody.node-type-request .user-submission .user-submission-status:hover,
+abody.node-type-request .user-submission .user-submission-status:focus {
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+}
+body.node-type-request .user-submission .user-submission-status:empty {
+  display: none;
+}
+.btn body.node-type-request .user-submission .user-submission-status {
+  position: relative;
+  top: -1px;
+}
+body.node-type-request .user-submission .user-submission-status.draft {
+  background-color: #f0ad4e;
+}
+body.node-type-request .user-submission .user-submission-status.draft[href]:hover,
+body.node-type-request .user-submission .user-submission-status.draft[href]:focus {
+  background-color: #ec971f;
+}
+body.node-type-request .user-submission .user-submission-status.published {
+  background-color: #5cb85c;
+}
+body.node-type-request .user-submission .user-submission-status.published[href]:hover,
+body.node-type-request .user-submission .user-submission-status.published[href]:focus {
+  background-color: #449d44;
+}
+body.node-type-request .submissions {
+  color: #FFF;
+  background-color: #33374a;
+}
+body.node-type-request .submissions h2 {
+  color: #FFF;
+  background-color: #2e3243;
+  margin: 0;
+  padding: 15px;
+}
+body.node-type-request .submissions h2 .submission-count {
+  font-weight: normal;
+}
+body.node-type-request .submissions .submissions-list {
+  padding: 15px;
 }
 .view-domainlist span.statut:before {
   position: absolute;
