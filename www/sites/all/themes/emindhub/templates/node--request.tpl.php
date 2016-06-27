@@ -83,6 +83,7 @@ include_once drupal_get_path('module', 'webform') . '/includes/webform.submissio
 global $user;
 $submissions = webform_get_submissions(array('nid' => $nid));
 $user_submissions = webform_get_submissions(array('nid' => $nid, 'uid' => $user->uid));
+$submission_status = emh_answer_get_status($user_submission);
 // Show $node field, with display parameters
 // echo '<pre>' . print_r($content['webform']['#node']->webform, TRUE) . '</pre>'; die;
 // Show $node field, with custom display parameters
@@ -91,6 +92,12 @@ $user_submissions = webform_get_submissions(array('nid' => $nid, 'uid' => $user-
 
 <?php /*if (!empty($variables['flag_my_selection'])) : ?>
 <?php print $variables['flag_my_selection']['title']; ?>
+<?php endif;*/ ?>
+
+<?php //print webform_get_submission_count($node->nid); ?>
+
+<?php /*if (!empty($content['field_expiration_date'])) : ?>
+	<?php print render($content['field_expiration_date']); ?>
 <?php endif;*/ ?>
 
 <?php /*if (!empty($variables['linkPrev'])) : ?>
@@ -117,116 +124,68 @@ $user_submissions = webform_get_submissions(array('nid' => $nid, 'uid' => $user-
 
 		<?php if (emh_access_user_can_see_full_request()) : ?>
 
-		<?php if (module_exists('progress_tracker')) : ?>
-		<?php $progress_block = module_invoke('progress_tracker', 'block_view', 'progress_tracker'); ?>
-		<section id="block-progress-tracker-progress-tracker" class="block block-progress-tracker emh-block-blue-title clearfix">
-			<div class="content">
-				<?php print render($progress_block['content']); ?>
-			</div>
-		</section>
-		<?php endif; ?>
-
-		<div class="row">
+		<div class="section request">
 
 			<div class="col-sm-8">
-				
-				<?php if (!empty($content['body'])): ?>
-					<?php print render($content['body']); ?>
-				<?php endif; ?>
 
-				<?php if (emh_request_has_option($node, 'duration')): ?>
-		      <?php if (!empty($content['field_start_date'])): ?>
-		      	<?php print render($content['field_start_date']); ?>
-		      <?php endif; ?>
+				<?php print render($content['body']); ?>
 
-		      <?php if (!empty($content['field_duration_of_the_mission'])): ?>
-		      	<?php print render($content['field_duration_of_the_mission']); ?>
-		      <?php endif; ?>
+				<?php print render($content['field_domaine']); ?>
+
+				<?php print render($content['og_group_ref']); ?>
+
+				<?php if (emh_request_has_option($node, 'duration')) : ?>
+		      <?php print render($content['field_start_date']); ?>
+		      <?php print render($content['field_duration_of_the_mission']); ?>
 		    <?php endif; ?>
-
-				<?php if (!empty($content['field_domaine'])) : ?>
-					<?php print render($content['field_domaine']); ?>
-				<?php endif; ?>
 
 				<?php if (emh_request_has_option($node, 'files') && !empty($content['field_request_documents'])) : ?>
 					<?php print render($content['field_request_documents']); ?>
-				<?php endif; ?>
-
-				<?php if ($node->uid == $user->uid): ?>
-				<?php //if (empty($user_submission) || !empty($user_submission->is_draft)): ?>
-
-		      <?php if ($node->webform['status'] && !empty($node->webform['components'])): ?>
-		      	<?php print render($content['webform']); ?>
-		      <?php endif; ?>
-
-					<?php if (!empty($user_submissions)): ?>
-		      	<?php foreach ($user_submissions as $user_submission): ?>
-			      	<?php
-			        $render = webform_submission_render($node, $user_submission, null, 'html');
-			        print drupal_render($render);
-			      	?>
-		      		<?php if (webform_submission_access($node, $user_submission, 'edit')): ?>
-		      			<a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $user_submission->sid; ?>/edit"><?php print t('Edit'); ?></a>
-		      		<?php endif; ?>
-						<?php endforeach; ?>
-					<?php endif; ?>
-
-				<?php //endif; ?>
 				<?php endif; ?>
 
 			</div>
 
 			<div class="col-sm-4">
 
-				<?php if (!empty($content['field_image'])) : ?>
-					<?php // TODO : add default image ?>
-					<?php print render($content['field_image']); ?>
-				<?php endif; ?>
+				<?php print render($content['field_image']); ?>
 
-				<?php
-				$author = user_load( $node->uid );
-				$company = field_get_items('user', $author, 'field_entreprise');
-				$company = node_load($company[0]['target_id']);
-				$activity = field_get_items('user', $author, 'field_entreprise_description');
-				?>
-
-	      <?php if (module_exists('emh_access')) : ?>
-	        <?php if ( emh_access_author_name( $node ) ) : ?>
-	          <?php print emindhub_beautiful_author_picture( $node, 'img-circle center-block' ); ?>
-	        <?php endif; ?>
-	      <?php else : ?>
-	        <?php print $user_picture; ?>
-	      <?php endif; ?>
-
-        <?php if (module_exists('emh_user')) : ?>
-          <?php print emh_user_get_beautiful_author($node); ?>
-        <?php else : ?>
-          <?php print $name; ?>
-        <?php endif; ?>
-
-        <?php if (module_exists('emh_access')) : ?>
-          <?php if ( emh_access_author_company( $node ) && ( $company ) ) : ?>
-            <?php //note to themer, if you do not like check_plain, use render and theme hooks to ensure check_plain is already applied, and never use direct attribute access ?>
-            <?php print check_plain($company->title); ?>
-          <?php endif; ?>
-        <?php endif; ?>
-
-        <?php if (emh_request_has_option($node, 'anonymous') && !empty($content['field_activity'])): ?>
-          <?php print render($content['field_activity']); ?>
-        <?php endif; ?>
+				<div class="user-cartouche">
+					<?php print emindhub_beautiful_user_cartouche($node); ?>
+				</div>
 
 				<?php if (!empty($elements['#node']->created)) : ?>
 					<?php print t('Publication date:'); ?>
 					<?php print format_date($elements['#node']->created, 'custom', 'm/d/Y'); ?>
 				<?php endif; ?>
 
-				<?php if (!empty($content['field_expiration_date'])) : ?>
-					<?php print render($content['field_expiration_date']); ?>
-				<?php endif; ?>
-
 			</div>
 
 		</div>
+
+		<?php if ($node->uid !== $user->uid) : ?>
+			<div class="section user-submission">
+				<div class="col-sm-8 <?php print $submission_status['status']; ?>">
+					<h3>
+						<span><?php print t('Your submission'); ?></span>
+						<span class="user-submission-status <?php print $submission_status['status']; ?>"><?php print $submission_status['label']; ?></span>
+					</h3>
+
+					<?php if (empty($user_submission) || !empty($user_submission->is_draft)) : ?>
+			      <?php if ($node->webform['status'] && !empty($node->webform['components'])) : ?>
+			      	<?php print render($content['webform']); ?>
+			      <?php endif; ?>
+					<?php else : ?>
+						<?php
+							$render = webform_submission_render($node, $user_submission, null, 'html');
+							print drupal_render($render);
+						?>
+						<?php if (webform_submission_access($node, $user_submission, 'edit')) : ?>
+	          	<a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $user_submission->sid; ?>/edit"><?php print t('Edit'); ?></a>
+	          <?php endif; ?>
+					<?php endif; ?>
+				</div>
+			</div>
+		<?php endif; ?>
 
 		<?php
 			// We hide the comments and links now so that we can render them later.
@@ -234,21 +193,25 @@ $user_submissions = webform_get_submissions(array('nid' => $nid, 'uid' => $user-
 			hide($content['links']);
 		?>
 
-    <?php if (($node->uid == $user->uid) || !emh_request_has_option($node, 'private')): ?>
-    	<?php print t('Submissions') . '&nbsp;(' . webform_get_submission_count($node->nid) . ')'; ?>
-      <?php if (!empty($submissions)): ?>
-        <?php foreach ($submissions as $submission): ?>
-          <?php
-            $render = webform_submission_render($node, $submission, null, 'html');
-            print drupal_render($render);
-          ?>
-          <?php if (webform_submission_access($node, $submission, 'edit')): ?>
-          	<a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $submission->sid; ?>/edit"><?php print t('Edit'); ?></a>
-          <?php endif; ?>
-        <?php endforeach; ?>
-      <?php else: ?>
-      	<?php print t("No submission at this moment."); ?>
-      <?php endif; ?>
+    <?php if (($node->uid == $user->uid) || !emh_request_has_option($node, 'private')) : ?>
+			<div class="section submissions">
+	    	<h2><span class="submission-title"><?php print t('Submissions'); ?></span>&nbsp;<span class="submission-count">(<?php print webform_get_submission_count($node->nid); ?>)</span></h2>
+				<div class="submissions-list">
+		      <?php if (!empty($submissions)) : ?>
+		        <?php foreach ($submissions as $submission) : ?>
+		          <?php
+		            $render = webform_submission_render($node, $submission, null, 'html');
+		            print drupal_render($render);
+		          ?>
+		          <?php if (webform_submission_access($node, $submission, 'edit')) : ?>
+		          	<a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $submission->sid; ?>/edit"><?php print t('Edit'); ?></a>
+		          <?php endif; ?>
+		        <?php endforeach; ?>
+		      <?php else: ?>
+		      	<?php print t("No submission at this moment."); ?>
+		      <?php endif; ?>
+				</div>
+			</div>
     <?php endif; ?>
 
 		<?php endif; ?>
