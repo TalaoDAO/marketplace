@@ -558,3 +558,41 @@ function emindhub_preprocess_webform_email(&$variables) {
 function emindhub_preprocess_webform_number(&$variables) {
 	emindhub_add_aria_attributes($variables);
 }
+
+// TODO: add context, as 'author', etc.'
+function emindhub_beautiful_user_cartouche($node) {
+
+	$author = user_load( $node->uid );
+	$organisation = field_get_items('user', $author, 'field_entreprise');
+	$organisation = node_load($organisation[0]['target_id']);
+	// $activity = field_get_items('user', $author, 'field_entreprise_description');
+
+	// Portrait
+	print '<span class="user-portrait">';
+	if (module_exists('emh_access') && emh_access_author_name( $node )) {
+		print emindhub_beautiful_author_picture( $node, 'img-circle center-block' );
+	} else {
+		print $user_picture;
+	}
+	print '</span>';
+
+	// Firstname LASTNAME
+	print '<span class="user-identity">';
+	if (module_exists('emh_user')) {
+		print emh_user_get_beautiful_author($node);
+	} else {
+		print $name;
+	}
+	print '</span>';
+
+	// Organisation
+	if (module_exists('emh_access') && emh_access_author_company($node) && ($organisation)) {
+		// Note to themer, if you do not like check_plain, use render and theme hooks to ensure check_plain is already applied, and never use direct attribute access
+		print '<span class="user-organisation">' . check_plain($organisation->title) . '</span>';
+	}
+
+	// TODO
+	if (emh_request_has_option($node, 'anonymous') && !empty($content['field_activity'])) {
+		print '<span class="user-activity">' . render($content['field_activity']) . '</span>';
+	}
+}
