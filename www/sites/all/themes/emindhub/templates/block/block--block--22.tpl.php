@@ -59,18 +59,18 @@ $front_theme = $base_url . '/' . $front_theme;
       </div>
       <?php endif; ?>
       <div class="col-md-6 col-md-offset-3">
-        <button type="button" id="hp-video" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModal">
+        <button type="button" id="hp-video" class="btn btn-default btn-lg" data-toggle="modal" data-target="#videoModal">
           <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
         </button>
       </div>
     </div>
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="<?php print t('Close'); ?>"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel"><?php print $title; ?></h4>
+            <h4 class="modal-title" id="videoModalLabel"><?php print $title; ?></h4>
           </div>
           <div class="modal-body">
             <div class="embed-responsive embed-responsive-16by9">
