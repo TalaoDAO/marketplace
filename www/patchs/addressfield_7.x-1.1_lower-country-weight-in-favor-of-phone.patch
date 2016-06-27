@@ -1,0 +1,13 @@
+diff --git a/sites/all/modules/contrib/addressfield/plugins/format/address.inc b/sites/all/modules/contrib/addressfield/plugins/format/address.inc
+index 0523ffe..59a9fef 100644
+--- a/sites/all/modules/contrib/addressfield/plugins/format/address.inc
++++ b/sites/all/modules/contrib/addressfield/plugins/format/address.inc
+@@ -123,7 +123,7 @@ function addressfield_format_address_generate(&$format, $address, $context = arr
+       'class' => array('country'),
+       'autocomplete' => 'country',
+     ),
+-    '#weight' => 100,
++    '#weight' => 90,
+   );
+ 
+   if (empty($format['locality_block']['postal_code']['#access'])) {
