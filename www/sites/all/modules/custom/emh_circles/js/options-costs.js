@@ -8,19 +8,31 @@
 
 
         function selectCosts(circles) {
-          // We always start from the default costs, then we clone them
-          var costs = jQuery.extend(true, {}, settings.circlesOptionsCosts.default);
+          var costs = {};
 
+          // Returns an empty object if the array expected
+          // as parameter is not valid
+          if (!circles || circles.length == 0) {
+            return costs;
+          }
+
+          // Selects the highest cost (from circles) for each option
           for (var i = 0; i < circles.length; i++) {
             var circleId = Number(circles[i]);
             var circleCosts = settings.circlesOptionsCosts.circles[circleId];
 
-            for (var id in circleCosts) {
-              if (i > 0 && costs[id] < circleCosts[id]) {
-                costs[id] = Number(circleCosts[id]);
-              } else {
-                costs[id] = Number(circleCosts[id]);
+            for (var j in circleCosts) {
+              if (typeof costs[j] == 'undefined' || costs[j] < circleCosts[j]) {
+                costs[j] = Number(circleCosts[j]);
               }
+            }
+          }
+
+          // Completes the costs array with the default costs
+          // when there isn't yet a cost for an option
+          for (var k in settings.circlesOptionsCosts.default) {
+            if (typeof costs[k] == 'undefined') {
+              costs[k] = Number(settings.circlesOptionsCosts.default[k]);
             }
           }
 
