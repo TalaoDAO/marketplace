@@ -1,0 +1,322 @@
+<?php
+
+/**
+ * Implements hook_field_info().
+ */
+function rolereference_field_info() {
+  return array(
+    'rolereference' => array(
+      'label' => t('Role reference'),
+      'description' => t('This field stores the ID of a related role as an integer value.'),
+      'settings' => array('referenceable_roles' => array()),
+      'default_widget' => 'options_select',
+      'default_formatter' => 'rolereference_default',
+      'property_type' => 'integer',
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_schema().
+ */
+function rolereference_field_schema($field) {
+  $columns = array(
+    'rid' => array(
+      'type' => 'int',
+      'unsigned' => TRUE,
+      'not null' => FALSE,
+    ),
+  );
+  return array(
+    'columns' => $columns,
+    'indexes' => array('rid' => array('rid')),
+    'foreign keys' => array(
+      'rid' => array(
+        'table' => 'role',
+        'columns' => array('rid' => 'rid'),
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_settings_form().
+ */
+function rolereference_field_settings_form($field, $instance, $has_data) {
+  $settings = $field['settings'];
+
+  $form = array();
+  $role_options = array_map('check_plain', user_roles());
+  $form['referenceable_roles'] = array(
+    '#type'          => 'checkboxes',
+    '#title'         => t('Roles that can be referenced'),
+    '#description'   => t('Select roles that may be referenced by this field. All roles will be available if none are checked.'),
+    '#multiple'      => TRUE,
+    '#default_value' => is_array($settings['referenceable_roles']) ? $settings['referenceable_roles'] : array(),
+    '#options'       => $role_options,
+    '#disabled'      => $has_data,
+  );
+  return $form;
+}
+
+/**
+ * Implements hook_field_validate().
+ *
+ * Possible error codes:
+ * - 'invalid_rid': nid is not valid for the field
+ *   (not a valid role id, or the role is not referenceable).
+ */
+function rolereference_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
+  // Extract nids to check.
+  $ids = array();
+
+  // First check non-numeric rid's to avoid losing time with them.
+  foreach ($items as $delta => $item) {
+    if (is_array($item) && !empty($item['rid'])) {
+      if (is_numeric($item['rid'])) {
+        $ids[] = $item['rid'];
+      }
+      else {
+        $errors[$field['field_name']][$langcode][$delta][] = array(
+          'error' => 'invalid_rid',
+          'message' => t("%name: invalid input.",
+            array('%name' => $instance['label'])),
+        );
+      }
+    }
+  }
+  // Prevent performance hog if there are no ids to check.
+  if ($ids) {
+    $referenceable_roles = rolereference_potential_references($field['settings']['referenceable_roles'], $field['field_name']);
+
+    foreach ($items as $delta => $item) {
+      if (is_array($item)) {
+        if (!empty($item['rid']) && !isset($referenceable_roles[$item['rid']])) {
+          $errors[$field['field_name']][$langcode][$delta][] = array(
+            'error' => 'invalid_rid',
+            'message' => t("%name: this role can't be referenced.",
+              array('%name' => $instance['label'])),
+          );
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_field_prepare_view().
+ */
+function rolereference_field_prepare_view($entity_type, $entities, $field, $instances, $langcode, &$items) {
+  $referenceable_roles = rolereference_potential_references($field['settings']['referenceable_roles'], $field['field_name']);
+
+  // Extract nids to check.
+  $ids = array();
+  foreach ($items as $id => $entity_items) {
+    foreach ($entity_items as $delta => $item) {
+      if (is_array($item)) {
+        // Default to 'not accessible'.
+        $items[$id][$delta]['access'] = FALSE;
+        if (!empty($item['rid']) && is_numeric($item['rid'])) {
+          $ids[$item['rid']] = $item['rid'];
+        }
+      }
+    }
+  }
+
+  if ($ids) {
+    foreach ($items as $id => $entity_items) {
+      foreach ($entity_items as $delta => $item) {
+        if (is_array($item) && !empty($item['rid']) && isset($referenceable_roles[$item['rid']])) {
+          $items[$id][$delta]['role'] = $referenceable_roles[$item['rid']];
+          $items[$id][$delta]['access'] = TRUE;
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_field_is_empty().
+ */
+function rolereference_field_is_empty($item, $field) {
+  if (empty($item['rid']) && (string) $item['rid'] !== '0') {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function rolereference_field_formatter_info() {
+  $ret = array(
+    'rolereference_default' => array(
+      'label'       => t('Title'),
+      'description' => t('Display the title of the referenced role.'),
+      'field types' => array('rolereference'),
+    ),
+  );
+  return $ret;
+}
+
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function rolereference_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  switch ($display['type']) {
+    case 'rolereference_default':
+      foreach ($items as $delta => $item) {
+        $element[$delta] = array('#markup' => check_plain($item['role']));
+      }
+      break;
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_widget_info_alter().
+ */
+function rolereference_field_widget_info_alter(&$info) {
+  $info['options_select']['field types'][] = 'rolereference';
+  $info['options_buttons']['field types'][] = 'rolereference';
+}
+
+/**
+ * Implements hook_options_list().
+ */
+function rolereference_options_list($field) {
+  return rolereference_potential_references($field['settings']['referenceable_roles'], $field['field_name']);
+}
+
+
+/**
+ * Implements hook_views_api().
+ */
+function rolereference_views_api() {
+  return array(
+    'api' => '3.0',
+    'path' => drupal_get_path('module', 'rolereference') . '/includes',
+  );
+}
+
+
+/**
+ * Implements hook_field_views_data().
+ *
+ * In addition to the default field information we add the relationship for
+ * views to connect back to the role table.
+ */
+function rolereference_field_views_data($field) {
+  $data = field_views_field_default_views_data($field);
+
+  $storage = $field['storage']['details']['sql'];
+
+  foreach ($storage as $age => $table_data) {
+    $table = key($table_data);
+    $columns = current($table_data);
+    $id_column = $columns['rid'];
+    if (isset($data[$table])) {
+      $data[$table][$id_column]['relationship'] = array(
+        'base' => 'role',
+        'field' => $columns['rid'],
+        'base field' => 'rid',
+        'label' => $field['field_name'],
+      );
+    }
+  }
+
+  return $data;
+}
+
+/**
+ * Return a rid->name array of referenceable roles, based on the field settings.
+ *
+ * @param {array} $referenceable_roles
+ */
+function rolereference_potential_references($referenceable_roles, $field_name) {
+  $roles = &drupal_static('rolereference_' . $field_name, array());
+  $user_roles = user_roles();
+
+  if (empty($roles)) {
+    foreach ($user_roles as $rid => $role) {
+      if (!empty($referenceable_roles[$rid])) {
+        $roles[$rid] = $role;
+      }
+    }
+    if (empty($roles)) {
+      $roles = $user_roles;
+    }
+  }
+  return $roles;
+}
+
+/**
+ * Implements hook_content_migrate_field_alter().
+ */
+function rolereference_content_migrate_field_alter(&$field_value, $instance_value) {
+  switch ($instance_value['widget']['module']) {
+    case 'rolereference':
+      $field_value['settings']['referenceable_roles'] = $field_value['settings']['referenceable_types'];
+      unset($field_value['settings']['referenceable_types']);
+      break;
+  }
+}
+
+/**
+ * Implements hook_field_extract_info().
+ *
+ * This provides integration for the field_extract module,
+ * making it easy to get the value of a rolereference field.
+ *
+ *   Example: field_extract_value('node', $node, 'field_subscriber_role');
+ *
+ * @return $extractors
+ *   array: field_extract info for rolereference module.
+ */
+function rolereference_field_extract_info() {
+  $extractors = array(
+    'rolereference' => array(
+      'options' => array(
+        'key' => 'rid',
+      ),
+    ),
+  );
+  return $extractors;
+}
+
+/**
+ * Implements feeds_processor_targets_alter().
+ */
+function rolereference_feeds_processor_targets_alter(&$targets, $entity_type, $bundle_name) {
+  // Set up feeds mapper for rolereference fields.
+  foreach (field_info_instances($entity_type, $bundle_name) as $name => $instance) {
+    $info = field_info_field($name);
+    if ($info['type'] == 'rolereference') {
+      $targets[$name] = array(
+        'name' => check_plain($instance['label']),
+        'description' => t('Role reference field.'),
+        'callback' => 'rolereference_set_target',
+      );
+    }
+  }
+}
+
+/**
+ * Feeds callback to set mapping target.
+ */
+function rolereference_set_target($source, $entity, $target, array $values, $mapping) {
+  // Process rolereference field data.
+  $info = field_info_field($target);
+  if ($info['type'] == 'rolereference') {
+    foreach ($values as $rid) {
+      if (!empty($rid)) {
+        $entity->{$target}[$entity->language][] = array('rid' => $rid);
+      }
+    }
+  }
+}
