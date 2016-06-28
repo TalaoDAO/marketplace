@@ -41,15 +41,25 @@
 		}
 
 		.field-name-field-address {
-			* {
-				display: inline-block;
+			.field-item {
+				.make-row();
+				> * {
+					.make-sm-column(3);
+				}
 			}
-			.locality-block:after {
-				clear: none;
-				display: none;
+			.locality-block {
+
 			}
-			span.country:before {
-				content: ", ";
+			.addressfield-phone-block {
+				.make-sm-column(12);
+				.make-row();
+				.phone-number {
+					.make-sm-column(3);
+				}
+				@media (min-width: @screen-sm-min) {
+					margin: 0;
+					padding: 0;
+				}
 			}
 		}
 

@@ -62,3 +62,11 @@ function emh_landing_page_update_7001() {
   features_revert(array('ft_landing_page' => array('variable')));
   features_revert(array('ft_landing_page' => array('field_instance')));
 }
+
+/**
+ * ADD: new role field in Landing Page
+ */
+function emh_landing_page_update_7002() {
+  features_revert(array('ft_landing_page' => array('field_base')));
+  features_revert(array('ft_landing_page' => array('field_instance')));
+}
