@@ -446,3 +446,17 @@ function emh_configuration_update_7027() {
 function emh_configuration_update_7028() {
   features_revert(array('ft_views' => array('views_view')));
 }
+
+/**
+ * CHG: Revoke client & expert permissions on Blog entry & circle creation.
+ */
+function emh_configuration_update_7029() {
+  features_revert(array('ft_permissions' => array('user_permission')));
+}
+
+/**
+ * CHG: Remove Legal terms of use from Features.
+ */
+function emh_configuration_update_7030() {
+  features_revert(array('ft_field_base' => array('field_base')));
+}

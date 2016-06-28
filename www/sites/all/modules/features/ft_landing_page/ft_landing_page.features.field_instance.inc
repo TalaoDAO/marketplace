@@ -341,6 +341,46 @@ function ft_landing_page_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-landing_page-field_landingpage_role'.
+  $field_instances['node-landing_page-field_landingpage_role'] = array(
+    'bundle' => 'landing_page',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'rolereference',
+        'settings' => array(),
+        'type' => 'rolereference_default',
+        'weight' => 7,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_landingpage_role',
+    'label' => 'Role',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 3,
+    ),
+  );
+
   // Exported field_instance: 'node-landing_page-title_field'.
   $field_instances['node-landing_page-title_field'] = array(
     'bundle' => 'landing_page',
@@ -388,6 +428,7 @@ function ft_landing_page_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Comment');
   t('Image');
+  t('Role');
   t('Title');
   t('Zone 1 - Text');
   t('Zone 2 - Text');

@@ -59,9 +59,8 @@ function ft_content_type_field_group_info() {
     'label' => 'Contact',
     'weight' => '1',
     'children' => array(
-      0 => 'field_telephone',
-      1 => 'field_address',
-      2 => 'field_link_to_my_blog',
+      0 => 'field_address',
+      1 => 'field_link_to_my_blog',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -113,7 +112,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'My background',
-    'weight' => '6',
+    'weight' => '8',
     'children' => array(),
     'format_type' => 'hidden',
     'format_settings' => array(
@@ -509,7 +508,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Expert',
-    'weight' => '2',
+    'weight' => '16',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -606,17 +605,18 @@ function ft_content_type_field_group_info() {
     'weight' => '9',
     'children' => array(
       0 => 'og_user_node',
-      1 => 'field_is_sponsor',
-      2 => 'field_is_promoted',
-      3 => 'field_is_partner',
-      4 => 'field_mail',
-      5 => 'ckeditor',
-      6 => 'mimemail',
-      7 => 'timezone',
-      8 => 'contact',
-      9 => 'locale',
-      10 => 'group_expert',
-      11 => 'group_testimony',
+      1 => 'field_telephone',
+      2 => 'field_is_sponsor',
+      3 => 'field_is_promoted',
+      4 => 'field_is_partner',
+      5 => 'field_mail',
+      6 => 'ckeditor',
+      7 => 'mimemail',
+      8 => 'timezone',
+      9 => 'contact',
+      10 => 'locale',
+      11 => 'group_expert',
+      12 => 'group_testimony',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1287,11 +1287,10 @@ function ft_content_type_field_group_info() {
     'children' => array(
       0 => 'field_first_name',
       1 => 'field_entreprise',
-      2 => 'field_telephone',
-      3 => 'field_address',
-      4 => 'field_titre_metier',
-      5 => 'field_photo',
-      6 => 'field_mail',
+      2 => 'field_address',
+      3 => 'field_titre_metier',
+      4 => 'field_photo',
+      5 => 'field_mail',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1888,7 +1887,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'My testimony',
-    'weight' => '8',
+    'weight' => '9',
     'children' => array(
       0 => 'field_testimony',
     ),
@@ -1920,7 +1919,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Share your experience',
-    'weight' => '3',
+    'weight' => '17',
     'children' => array(
       0 => 'field_testimony',
       1 => 'field_partner_why',
