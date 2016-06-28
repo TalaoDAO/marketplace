@@ -39,8 +39,6 @@ function emh_circles_emh_request_options_costs_alter(&$costs, $node) {
           continue;
         }
 
-        $circle_costs = emh_circles_restructure_option_cost_modifier_items($circle_costs);
-
         foreach ($circle_costs as $cost) {
           if (!isset($overwriting[$cost['option']]) || ($overwriting[$cost['option']] < $cost['cost'])) {
             $overwriting[$cost['option']] = $cost['cost'];
