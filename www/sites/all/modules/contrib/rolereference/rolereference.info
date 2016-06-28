@@ -1,0 +1,17 @@
+name = Role Reference
+description = Defines a field type for referencing a role from a node.
+package = Fields
+core = 7.x
+dependencies[] = field
+dependencies[] = options
+
+; Views plugins
+files[] = includes/rolereference_views_plugin_argument_default_current_user.inc
+files[] = includes/rolereference_views_plugin_display.inc
+files[] = includes/rolereference_views_plugin_style.inc
+; Information added by Drupal.org packaging script on 2016-05-24
+version = "7.x-1.2"
+core = "7.x"
+project = "rolereference"
+datestamp = "1464082441"
+
