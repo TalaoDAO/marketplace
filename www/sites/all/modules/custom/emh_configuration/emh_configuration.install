@@ -460,3 +460,24 @@ function emh_configuration_update_7029() {
 function emh_configuration_update_7030() {
   features_revert(array('ft_field_base' => array('field_base')));
 }
+
+/**
+* CHG: Delete old question/challenge blocks.
+*/
+function emh_configuration_update_7031() {
+  $module = 'block';
+  $deltas = array('14', '16');
+  foreach ($deltas as $delta) {
+    db_delete('block')
+      ->condition('module', $module)
+      ->condition('delta', $delta)
+      ->execute();
+    db_delete('block_custom')
+      ->condition('bid', $delta)
+      ->execute();
+    db_delete('block_role')
+      ->condition('module', $module)
+      ->condition('delta', $delta)
+      ->execute();
+  }
+}

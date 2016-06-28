@@ -90,20 +90,8 @@ function emindhub_preprocess_block(&$variables) {
       $classes[] = 'col-xs-6 col-md-12 emh-block-gold';
       break;
 
-    // HP - Ask a question
-    case 'block-14':
-      $classes[] = 'col-xs-12 col-md-4';
-      $classes[] = 'emh-block-grey';
-      break;
-
-    // HP - Start a challenge
+    // HP - Create a request
     case 'block-8':
-      $classes[] = 'col-xs-12 col-md-4';
-      $classes[] = 'emh-block-grey';
-      break;
-
-    // HP - Create a mission
-    case 'block-16':
       $classes[] = 'col-xs-12 col-md-4';
       $classes[] = 'emh-block-grey';
       break;
