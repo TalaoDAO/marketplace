@@ -51,25 +51,29 @@ function emh_request_field_widget_info() {
  */
 function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
   $options  = emh_request_get_options();
-  $costs    = emh_request_get_options_costs($form['#entity']);
   $items    = emh_request_restructure_option_selector_items($items);
   $weight   = 0;
-  $total    = 0;
+  // Is the selection of options enabled?
+  $enabled  = empty($form['#entity']->nid) || ($form['#entity']->status == NODE_NOT_PUBLISHED);
+
+  if ($enabled) {
+    $costs = emh_request_get_options_costs($form['#entity']);
+    $total = 0;
+  }
 
   $element += array(
     '#type' => 'fieldset',
     '#collapsible' => false,
     '#collapsed' => false,
     '#element_validate' => array('emh_request_field_widget_option_selector_validate'),
-    '#attached' => array(
-      'js' => array(drupal_get_path('module', 'emh_request') . '/js/options-costs.js'),
-    ),
   );
 
   foreach ($options as $id => $option) {
     if (isset($items[$id])) {
       $item = $items[$id];
-      $total += $costs[$id];
+      if ($enabled) {
+        $total += $costs[$id];
+      }
     } else {
       $item = array('settings' => array());
     }
@@ -89,19 +93,23 @@ function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, 
       '#default_value' => isset($items[$id]),
     );
 
-    $cost = emh_request_format_cost($costs[$id]);
-    $element[$id]['cost_markup'] = array(
-      '#type' => 'markup',
-      '#markup' => '<span class="cost">' . $cost . '</span>',
-    );
+    // Displays the cost only if the field is enabled,
+    // otherwise this information is useless.
+    if ($enabled) {
+      $cost = emh_request_format_cost($costs[$id]);
+      $element[$id]['cost_markup'] = array(
+        '#type' => 'markup',
+        '#markup' => '<span class="cost">' . $cost . '</span>',
+      );
 
-    // We include the cost in the form with a hidden field,
-    // but it's only for Javascript (total cost calculation).
-    // Those values are ignored during the submission process.
-    $element[$id]['cost'] = array(
-      '#type' => 'hidden',
-      '#value' => $costs[$id],
-    );
+      // We include the cost in the form with a hidden field,
+      // but it's only for Javascript (total cost calculation).
+      // Those values are ignored during the submission process.
+      $element[$id]['cost'] = array(
+        '#type' => 'hidden',
+        '#value' => $costs[$id],
+      );
+    }
 
     $setting_form = module_invoke_all('emh_request_option_setting_form', $id, $option, $item['settings']);
     if ($setting_form) {
@@ -109,14 +117,23 @@ function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, 
     }
   }
 
-  $element['total_markup'] = array(
-    '#type' => 'markup',
-    '#markup' => '<div class="total-wrapper">'
-      . '<span class="total-label">' . t("Total:") . '</span> '
-      . '<span class="total">' . emh_request_format_cost($total) . '</span>'
-      . '</div>',
-    '#weight' => $weight++,
-  );
+  // Same as upper: displays the total cost only if the field is enabled,
+  // otherwise this information is useless.
+  if ($enabled) {
+    // Includes the script to dynamically calculate and update the total cost.
+    $element['#attached'] = array(
+      'js' => array(drupal_get_path('module', 'emh_request') . '/js/options-costs.js'),
+    );
+
+    $element['total_markup'] = array(
+      '#type' => 'markup',
+      '#markup' => '<div class="total-wrapper">'
+        . '<span class="total-label">' . t("Total:") . '</span> '
+        . '<span class="total">' . emh_request_format_cost($total) . '</span>'
+        . '</div>',
+      '#weight' => $weight++,
+    );
+  }
 
   // Adds an after build callback to the form to set up options behaviors
   $form['#after_build'][] = 'emh_request_setup_options_behaviors';
@@ -189,34 +206,42 @@ function emh_request_restructure_option_selector_items($items) {
 
 
 /**
- * Implements hook_field_load().
- */
-//function emh_request_field_load($entity_type, $entities, $field, $instances, $langcode, &$items, $age) {
-//  if ($field['type'] == 'emh_option_selector') {
-//    foreach (array_keys($entities) as $entity_id) {
-//      foreach ($items[$entity_id] as $delta => &$item) {
-//        if (!empty($item['settings'])) {
-//          $item['settings'] = unserialize($item['settings']);
-//        } else {
-//          $item['settings'] = array();
-//        }
-//      }
-//    }
-//  }
-//}
-
-
-/**
  * Implements hook_field_presave().
  */
 function emh_request_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
   if ($field['type'] == 'emh_option_selector') {
-    $costs = emh_request_get_options_costs($entity);
 
-    foreach ($items as $delta => $item) {
-      if (isset($costs[$item['option']])) {
-        $items[$delta]['cost'] = $costs[$item['option']];
+    if (empty($entity->nid) || $entity->original->status == NODE_NOT_PUBLISHED) {
+      $costs = emh_request_get_options_costs($entity);
+
+      foreach ($items as $delta => $item) {
+        if (isset($costs[$item['option']])) {
+          $items[$delta]['cost'] = $costs[$item['option']];
+        }
       }
     }
+    else {
+      // Adds a "flag" to the request to avoid options update.
+      // See emh_request_field_storage_pre_update().
+      $entity->skip_options_update = true;
+    }
+  }
+}
+
+
+/**
+ * Implements hook_field_storage_pre_update().
+ *
+ * Prevents to update options data if it's specified by the skip_options_update
+ * property of the request.
+ */
+function emh_request_field_storage_pre_update($entity_type, $entity, &$skip_fields) {
+  if (
+    $entity_type == 'node' &&
+    $entity->type == 'request' &&
+    !empty($entity->skip_options_update)
+  ) {
+    $field = field_info_field('field_options');
+    $skip_fields[$field['id']] = true;
   }
 }

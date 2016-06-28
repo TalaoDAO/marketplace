@@ -323,7 +323,23 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       }
       // Request created & published
       else {
+        // Prevents to delete the request
         $form['actions']['delete']['#access'] = false;
+        // Prevents to update some fields
+        $form['field_domaine']['#disabled'] = true;
+        $form['og_group_ref']['#disabled'] = true;
+        $form['field_options']['#disabled'] = true;
+      }
+    }
+    // Treatments for others
+    else {
+      // If node is published and there are some answers,
+      // only some updates are possible (#575, #576)
+      if ($form['#node']->status == NODE_PUBLISHED && emh_request_count_answers($form['nid']['#value'])) {
+        // Prevents domains & circles update
+        $form['field_domaine']['#disabled'] = true;
+        $form['og_group_ref']['#disabled'] = true;
+        $form['field_request_circle']['#disabled'] = true;
       }
     }
 
@@ -356,16 +372,6 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       }
     }
 
-    // If node is published & there are some answers, only some updates are possible.
-    // #575, 576
-    $count = emh_request_count_answers($form['nid']['#value']);
-    if ($form['#node']->status && $count > 0) {
-      // Prevent domain & circle update.
-      $form['field_domaine']['#disabled'] = TRUE;
-      $form['field_request_circle']['#disabled'] = TRUE;
-      $form['og_group_ref']['#disabled'] = TRUE;
-    }
-
     // Hide node access
     $form['group_content_access']['#access'] = FALSE;
 
@@ -386,10 +392,11 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
  * Validation callback for the request edition form.
  */
 function emh_request_form_node_form_validate($form, &$form_state) {
+  $values = $form_state['values'];
+
   // Ensures if the anonymity option is selected that there's at least one of
-  // the three associated fields which is filled in.
-  if (emh_request_has_option($form_state['node'], 'anonymous')) {
-    $values = $form_state['values'];
+  // the two possibilities which is checked
+  if (emh_request_form_values_has_option($values, 'anonymous', $form['field_options']['#language'])) {
     $fields = array('field_hide_name', 'field_hide_organisation');
     $error  = true;
 
@@ -727,6 +734,35 @@ function emh_request_has_option($request, $option_id) {
 
   if ($request_options) {
     foreach ($request_options as $option) {
+      if ($option['option'] === $option_id) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+
+/**
+ * Informs if the given form values contain the specified option.
+ *
+ * We assume that the options values has already been restructured by
+ * emh_request_restructure_option_selector_items().
+ *
+ * @param stdClass $values
+ *  Form submitted values ($form_state['values'])
+ * @param string $option_id
+ *  The identifier (machine name) of the option to check
+ * @param string field_lang
+ *  The options field language (LANGUAGE_NONE by default)
+ * @return boolean
+ */
+function emh_request_form_values_has_option($values, $option_id, $field_lang = LANGUAGE_NONE) {
+  $form_options = drupal_array_get_nested_value($values, array('field_options', $field_lang));
+
+  if ($form_options) {
+    foreach ($form_options as $option) {
       if ($option['option'] === $option_id) {
         return true;
       }
