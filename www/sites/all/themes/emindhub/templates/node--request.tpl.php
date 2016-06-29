@@ -165,11 +165,16 @@ $submission_status = emh_answer_get_status($user_submission);
 		<?php if ($node->uid !== $user->uid) : ?>
 			<div class="section user-submission">
 				<div class="col-sm-8 <?php if ($submission_status) print $submission_status['status']; ?>">
-					<h3>
-						<span><?php print t('Your submission'); ?></span>
-						<span class="user-submission-status <?php if ($submission_status) print $submission_status['status']; ?>"><?php if ($submission_status) print $submission_status['label']; ?></span>
-					</h3>
-
+					<div class="row user-submission-title">
+						<div class="col-sm-8">
+							<h3>
+								<span><?php print t('Your submission'); ?></span>
+							</h3>
+						</div>
+						<div class="col-sm-4">
+							<span class="user-submission-status <?php if ($submission_status) print $submission_status['status']; ?>"><?php if ($submission_status) print $submission_status['label']; ?></span>
+						</div>
+					</div>
 					<?php if (empty($user_submission) || !empty($user_submission->is_draft)) : ?>
 			      <?php if ($node->webform['status'] && !empty($node->webform['components'])) : ?>
 			      	<?php print render($content['webform']); ?>
@@ -208,7 +213,7 @@ $submission_status = emh_answer_get_status($user_submission);
 				<div class="submissions-list">
 		      <?php if (!empty($submissions)) : ?>
 		        <?php foreach ($submissions as $submission) : ?>
-							<?php if (!($node->uid == $user->uid && !empty($user_submission->is_draft))) : ?>
+							<?php if (!($node->uid == $user->uid && !empty($submission->is_draft))) : ?>
 			          <?php
 			            $render = webform_submission_render($node, $submission, null, 'html');
 			            print drupal_render($render);
