@@ -15442,47 +15442,6 @@ table th[class*="col-"] {
 .view-query-list td.views-field-type.challenge a:before {
   background-image: url("../images/picto/picto_challenge_small.png");
 }
-@media (min-width: 992px) {
-  .view-display-id-block form #edit-total-points-wrapper,
-  .view-display-id-page form #edit-total-points-wrapper,
-  .view-display-id-page_1 form #edit-total-points-wrapper {
-    margin-left: 33.33333333%;
-  }
-}
-@media (min-width: 992px) {
-  .view-display-id-block form #edit-status-wrapper,
-  .view-display-id-page form #edit-status-wrapper,
-  .view-display-id-page_1 form #edit-status-wrapper,
-  .view-display-id-block form #edit-status-1-wrapper,
-  .view-display-id-page form #edit-status-1-wrapper,
-  .view-display-id-page_1 form #edit-status-1-wrapper,
-  .view-display-id-block form #edit-total-points-wrapper,
-  .view-display-id-page form #edit-total-points-wrapper,
-  .view-display-id-page_1 form #edit-total-points-wrapper {
-    margin-top: 10px;
-  }
-  .view-display-id-block form .views-exposed-form .views-exposed-widgets > .views-submit-button,
-  .view-display-id-page form .views-exposed-form .views-exposed-widgets > .views-submit-button,
-  .view-display-id-page_1 form .views-exposed-form .views-exposed-widgets > .views-submit-button {
-    margin-top: 34px;
-  }
-}
-@media (min-width: 992px) {
-  .view-display-id-page_2 form #edit-status-wrapper,
-  .view-display-id-page_2 form #edit-status-1-wrapper {
-    margin-left: 33.33333333%;
-  }
-}
-@media (min-width: 992px) {
-  .view-display-id-page_2 form #edit-status-wrapper,
-  .view-display-id-page_2 form #edit-status-1-wrapper,
-  .view-display-id-page_2 form #edit-total-points-wrapper {
-    margin-top: 10px;
-  }
-  .view-display-id-page_2 form .views-exposed-form .views-exposed-widgets > .views-submit-button {
-    margin-top: 34px;
-  }
-}
 #block-progress-tracker-progress-tracker .block-title {
   margin-top: 0;
 }
@@ -15942,10 +15901,6 @@ body.admin-menu #block-system-user-menu {
   color: #114577;
   text-transform: uppercase;
 }
-.emh-field-reward {
-  width: 110px;
-  text-align: right;
-}
 .emh-field-answers {
   width: 70px;
   text-align: right;
@@ -15983,12 +15938,6 @@ body.admin-menu #block-system-user-menu {
 .view-my-responses-questions1 .views-field-nothing-1,
 .view-my-responses-challenges .views-field-nothing-1 {
   width: 200px;
-}
-.views-field-field-reward,
-.views-field-emh-points,
-.views-field-points {
-  width: 110px;
-  text-align: right;
 }
 .views-field-views-bulk-operations {
   width: 50px;
