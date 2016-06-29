@@ -167,13 +167,13 @@ $submission_status = emh_answer_get_status($user_submission);
 				<div class="col-sm-8 <?php if ($submission_status) print $submission_status['status']; ?>">
 					<div class="row user-submission-title">
 						<div class="col-sm-8">
-							<h3>
-								<span><?php print t('Your submission'); ?></span>
-							</h3>
+							<h3><span><?php print t('Your submission'); ?></span></h3>
 						</div>
-						<div class="col-sm-4">
-							<span class="user-submission-status <?php if ($submission_status) print $submission_status['status']; ?>"><?php if ($submission_status) print $submission_status['label']; ?></span>
-						</div>
+						<?php if ($submission_status) : ?>
+							<div class="col-sm-4">
+								<span class="user-submission-status <?php if ($submission_status) print $submission_status['status']; ?>"><?php if ($submission_status) print $submission_status['label']; ?></span>
+							</div>
+						<?php endif; ?>
 					</div>
 					<?php if (empty($user_submission) || !empty($user_submission->is_draft)) : ?>
 			      <?php if ($node->webform['status'] && !empty($node->webform['components'])) : ?>
