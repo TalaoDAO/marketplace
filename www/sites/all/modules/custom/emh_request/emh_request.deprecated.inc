@@ -27,14 +27,6 @@
 //  return NODE_ACCESS_IGNORE;
 //}
 
-/**
- * Close callback for the form above.
- */
-function emh_request_form_node_close(&$form, &$form_state) {
-  $nid = $form['nid']['#value'];
-  emh_points_close_node($nid);
-  drupal_goto('node/' . $nid);
-}
 
 /**
  * Implements hook_block_info().
