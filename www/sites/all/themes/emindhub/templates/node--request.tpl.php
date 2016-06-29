@@ -195,7 +195,16 @@ $submission_status = emh_answer_get_status($user_submission);
 
     <?php if (($node->uid == $user->uid) || !emh_request_has_option($node, 'private')) : ?>
 			<div class="section submissions">
-	    	<h2><span class="submission-title"><?php print t('Submissions'); ?></span>&nbsp;<span class="submission-count">(<?php print webform_get_submission_count($node->nid); ?>)</span></h2>
+				<div class="row submissions-title">
+					<div class="col-sm-8">
+			    	<h2><span class="submission-title"><?php print t('Submissions'); ?></span>&nbsp;<span class="submission-count">(<?php print webform_get_submission_count($node->nid); ?>)</span></h2>
+					</div>
+					<?php if (emh_request_has_option($node, 'private')) : ?>
+						<div class="col-sm-4 text-right submissions-private-info">
+							<span class="submission-private"><?php print t('Submissions are only visible by you.'); ?></span>
+						</div>
+					<?php endif; ?>
+				</div>
 				<div class="submissions-list">
 		      <?php if (!empty($submissions)) : ?>
 		        <?php foreach ($submissions as $submission) : ?>

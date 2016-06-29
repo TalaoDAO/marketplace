@@ -18215,6 +18215,12 @@ body.node-type-request:not(.page-node-edit) .user-submission h3 small,
 body.node-type-request:not(.page-node-edit) .user-submission h3 .small {
   font-size: 75%;
 }
+body.node-type-request:not(.page-node-edit) .user-submission .user-submission-option-private-info {
+  clear: both;
+  display: block;
+  font-style: italic;
+  margin: 10px 0;
+}
 body.node-type-request:not(.page-node-edit) .user-submission .user-submission-status {
   display: inline;
   padding: .2em .6em .3em;
@@ -18259,14 +18265,21 @@ body.node-type-request:not(.page-node-edit) .submissions {
   color: #FFF;
   background-color: #33374a;
 }
+body.node-type-request:not(.page-node-edit) .submissions .submissions-title {
+  background-color: #2e3243;
+  padding: 15px;
+}
 body.node-type-request:not(.page-node-edit) .submissions h2 {
   color: #FFF;
-  background-color: #2e3243;
   margin: 0;
-  padding: 15px;
+  padding: 0;
 }
 body.node-type-request:not(.page-node-edit) .submissions h2 .submission-count {
   font-weight: normal;
+}
+body.node-type-request:not(.page-node-edit) .submissions .submissions-private-info {
+  text-align: right;
+  font-style: italic;
 }
 body.node-type-request:not(.page-node-edit) .submissions .submissions-list {
   padding: 15px;
