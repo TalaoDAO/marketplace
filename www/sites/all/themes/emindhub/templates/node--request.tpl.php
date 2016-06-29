@@ -164,12 +164,17 @@ $submission_status = emh_answer_get_status($user_submission);
 
 		<?php if ($node->uid !== $user->uid) : ?>
 			<div class="section user-submission">
-				<div class="col-sm-8 <?php print $submission_status['status']; ?>">
-					<h3>
-						<span><?php print t('Your submission'); ?></span>
-						<span class="user-submission-status <?php print $submission_status['status']; ?>"><?php print $submission_status['label']; ?></span>
-					</h3>
-
+				<div class="col-sm-8 <?php if ($submission_status) print $submission_status['status']; ?>">
+					<div class="row user-submission-title">
+						<div class="col-sm-8">
+							<h3><span><?php print t('Your submission'); ?></span></h3>
+						</div>
+						<?php if ($submission_status) : ?>
+							<div class="col-sm-4">
+								<span class="user-submission-status <?php if ($submission_status) print $submission_status['status']; ?>"><?php if ($submission_status) print $submission_status['label']; ?></span>
+							</div>
+						<?php endif; ?>
+					</div>
 					<?php if (empty($user_submission) || !empty($user_submission->is_draft)) : ?>
 			      <?php if ($node->webform['status'] && !empty($node->webform['components'])) : ?>
 			      	<?php print render($content['webform']); ?>
@@ -195,17 +200,28 @@ $submission_status = emh_answer_get_status($user_submission);
 
     <?php if (($node->uid == $user->uid) || !emh_request_has_option($node, 'private')) : ?>
 			<div class="section submissions">
-	    	<h2><span class="submission-title"><?php print t('Submissions'); ?></span>&nbsp;<span class="submission-count">(<?php print webform_get_submission_count($node->nid); ?>)</span></h2>
+				<div class="row submissions-title">
+					<div class="col-sm-8">
+			    	<h2><span class="submission-title"><?php print t('Submissions'); ?></span>&nbsp;<span class="submission-count">(<?php print webform_get_submission_count($node->nid); ?>)</span></h2>
+					</div>
+					<?php if (emh_request_has_option($node, 'private')) : ?>
+						<div class="col-sm-4 text-right submissions-private-info">
+							<span class="submission-private"><?php print t('Submissions are only visible by you.'); ?></span>
+						</div>
+					<?php endif; ?>
+				</div>
 				<div class="submissions-list">
 		      <?php if (!empty($submissions)) : ?>
 		        <?php foreach ($submissions as $submission) : ?>
-		          <?php
-		            $render = webform_submission_render($node, $submission, null, 'html');
-		            print drupal_render($render);
-		          ?>
-		          <?php if (webform_submission_access($node, $submission, 'edit')) : ?>
-		          	<a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $submission->sid; ?>/edit"><?php print t('Edit'); ?></a>
-		          <?php endif; ?>
+							<?php if (!($node->uid == $user->uid && !empty($submission->is_draft))) : ?>
+			          <?php
+			            $render = webform_submission_render($node, $submission, null, 'html');
+			            print drupal_render($render);
+			          ?>
+			          <?php if (webform_submission_access($node, $submission, 'edit')) : ?>
+			          	<a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $submission->sid; ?>/edit"><?php print t('Edit'); ?></a>
+			          <?php endif; ?>
+							<?php endif; ?>
 		        <?php endforeach; ?>
 		      <?php else: ?>
 		      	<?php print t("No submission at this moment."); ?>
