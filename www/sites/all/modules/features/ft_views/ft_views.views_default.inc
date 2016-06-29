@@ -2665,10 +2665,6 @@ function ft_views_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Content: Reward */
-  $handler->display->display_options['fields']['field_reward']['id'] = 'field_reward';
-  $handler->display->display_options['fields']['field_reward']['table'] = 'field_data_field_reward';
-  $handler->display->display_options['fields']['field_reward']['field'] = 'field_reward';
   /* Field: Node: Total Answers */
   $handler->display->display_options['fields']['total_answers']['id'] = 'total_answers';
   $handler->display->display_options['fields']['total_answers']['table'] = 'node';
@@ -2994,10 +2990,6 @@ function ft_views_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Content: Reward */
-  $handler->display->display_options['fields']['field_reward']['id'] = 'field_reward';
-  $handler->display->display_options['fields']['field_reward']['table'] = 'field_data_field_reward';
-  $handler->display->display_options['fields']['field_reward']['field'] = 'field_reward';
   /* Field: Node: Total Answers */
   $handler->display->display_options['fields']['total_answers']['id'] = 'total_answers';
   $handler->display->display_options['fields']['total_answers']['table'] = 'node';
@@ -3949,10 +3941,6 @@ function ft_views_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Content: Reward */
-  $handler->display->display_options['fields']['field_reward']['id'] = 'field_reward';
-  $handler->display->display_options['fields']['field_reward']['table'] = 'field_data_field_reward';
-  $handler->display->display_options['fields']['field_reward']['field'] = 'field_reward';
   /* Field: Node: Total Answers */
   $handler->display->display_options['fields']['total_answers']['id'] = 'total_answers';
   $handler->display->display_options['fields']['total_answers']['table'] = 'node';
@@ -4381,10 +4369,6 @@ function ft_views_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Content: Reward */
-  $handler->display->display_options['fields']['field_reward']['id'] = 'field_reward';
-  $handler->display->display_options['fields']['field_reward']['table'] = 'field_data_field_reward';
-  $handler->display->display_options['fields']['field_reward']['field'] = 'field_reward';
   /* Field: Node: Total Answers */
   $handler->display->display_options['fields']['total_answers']['id'] = 'total_answers';
   $handler->display->display_options['fields']['total_answers']['table'] = 'node';
