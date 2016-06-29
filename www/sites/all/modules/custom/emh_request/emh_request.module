@@ -502,11 +502,6 @@ function emh_request_form_webform_components_form_alter(&$form, &$form_state, $f
 
   // Prepares action buttons
   if ($form['#node']->status == NODE_NOT_PUBLISHED) {
-    $form['actions']['delete'] = array(
-      '#type' => 'submit',
-      '#value' => t('Delete'),
-      '#submit' => array('node_form_delete_submit'),
-    );
     $form['actions']['draft'] = array(
       '#type' => 'submit',
       '#value' => t('Save draft'),
