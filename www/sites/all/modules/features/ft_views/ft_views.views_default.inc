@@ -2336,7 +2336,7 @@ function ft_views_views_default_views() {
   $view = new view();
   $view->name = 'query_list';
   $view->description = '';
-  $view->tag = 'emh';
+  $view->tag = 'emh, request';
   $view->base_table = 'node';
   $view->human_name = 'Requests';
   $view->core = 7;
@@ -2854,7 +2854,7 @@ function ft_views_views_default_views() {
   );
 
   /* Display: P - All requests */
-  $handler = $view->new_display('page', 'P - All requests', 'page');
+  $handler = $view->new_display('page', 'P - All requests', 'page_all_requests');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'All requests';
   $handler->display->display_options['field_language'] = 'und';
@@ -3120,8 +3120,7 @@ function ft_views_views_default_views() {
     ),
   );
   $handler->display->display_options['views_navigation'] = TRUE;
-  $handler->display->display_options['views_navigation_back'] = TRUE;
-  $handler->display->display_options['views_navigation_title'] = TRUE;
+  $handler->display->display_options['views_navigation_cycle'] = FALSE;
   $handler->display->display_options['path'] = 'requests';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'All requests';
@@ -3131,7 +3130,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
   /* Display: B - Last requests */
-  $handler = $view->new_display('block', 'B - Last requests', 'block');
+  $handler = $view->new_display('block', 'B - Last requests', 'block_last_requests');
   $handler->display->display_options['defaults']['use_more'] = FALSE;
   $handler->display->display_options['use_more'] = TRUE;
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
@@ -3354,11 +3353,11 @@ function ft_views_views_default_views() {
     ),
   );
   $handler->display->display_options['views_navigation'] = TRUE;
-  $handler->display->display_options['views_navigation_back'] = TRUE;
+  $handler->display->display_options['views_navigation_cycle'] = FALSE;
   $handler->display->display_options['views_navigation_title'] = TRUE;
 
   /* Display: P - My selection */
-  $handler = $view->new_display('page', 'P - My selection', 'page_1');
+  $handler = $view->new_display('page', 'P - My selection', 'page_selected_requests');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'My selection';
   $handler->display->display_options['defaults']['access'] = FALSE;
@@ -3778,6 +3777,8 @@ function ft_views_views_default_views() {
       ),
     ),
   );
+  $handler->display->display_options['views_navigation'] = TRUE;
+  $handler->display->display_options['views_navigation_cycle'] = FALSE;
   $handler->display->display_options['path'] = 'requests/selection';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'My selection';
@@ -3787,7 +3788,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
   /* Display: P - My requests */
-  $handler = $view->new_display('page', 'P - My requests', 'page_2');
+  $handler = $view->new_display('page', 'P - My requests', 'page_my_requests');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'My requests';
   $handler->display->display_options['defaults']['use_more'] = FALSE;
@@ -4081,8 +4082,6 @@ function ft_views_views_default_views() {
   );
   $handler->display->display_options['views_navigation'] = TRUE;
   $handler->display->display_options['views_navigation_cycle'] = FALSE;
-  $handler->display->display_options['views_navigation_back'] = TRUE;
-  $handler->display->display_options['views_navigation_title'] = TRUE;
   $handler->display->display_options['path'] = 'requests/manage';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'My requests';
@@ -4092,7 +4091,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
   /* Display: B - My requests */
-  $handler = $view->new_display('block', 'B - My requests', 'block_1');
+  $handler = $view->new_display('block', 'B - My requests', 'block_my_requests');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'My requests';
   $handler->display->display_options['defaults']['use_more'] = FALSE;
@@ -4472,8 +4471,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['uid_current']['value'] = '1';
   $handler->display->display_options['filters']['uid_current']['group'] = 1;
   $handler->display->display_options['views_navigation'] = TRUE;
-  $handler->display->display_options['views_navigation_back'] = TRUE;
-  $handler->display->display_options['views_navigation_title'] = TRUE;
+  $handler->display->display_options['views_navigation_cycle'] = FALSE;
   $export['query_list'] = $view;
 
   $view = new view();
