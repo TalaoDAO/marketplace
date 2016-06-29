@@ -18192,6 +18192,9 @@ body.node-type-request:not(.page-node-edit) .user-submission .draft {
 body.node-type-request:not(.page-node-edit) .user-submission .published {
   background-color: #dcffcc;
 }
+body.node-type-request:not(.page-node-edit) .user-submission .user-submission-title {
+  margin-bottom: 10px;
+}
 body.node-type-request:not(.page-node-edit) .user-submission h3 {
   font-family: inherit;
   font-weight: 500;
