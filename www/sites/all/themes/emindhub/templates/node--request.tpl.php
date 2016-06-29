@@ -164,10 +164,10 @@ $submission_status = emh_answer_get_status($user_submission);
 
 		<?php if ($node->uid !== $user->uid) : ?>
 			<div class="section user-submission">
-				<div class="col-sm-8 <?php print $submission_status['status']; ?>">
+				<div class="col-sm-8 <?php if ($submission_status) print $submission_status['status']; ?>">
 					<h3>
 						<span><?php print t('Your submission'); ?></span>
-						<span class="user-submission-status <?php print $submission_status['status']; ?>"><?php print $submission_status['label']; ?></span>
+						<span class="user-submission-status <?php if ($submission_status) print $submission_status['status']; ?>"><?php if ($submission_status) print $submission_status['label']; ?></span>
 					</h3>
 
 					<?php if (empty($user_submission) || !empty($user_submission->is_draft)) : ?>
