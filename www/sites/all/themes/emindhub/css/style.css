@@ -15953,10 +15953,6 @@ body.admin-menu #block-system-user-menu {
 .emh-field-status {
   width: 80px;
 }
-.views-field-type {
-  width: 20px;
-  text-align: center;
-}
 .views-field-created,
 .views-field-field-expiration-date,
 .views-field-changed,
