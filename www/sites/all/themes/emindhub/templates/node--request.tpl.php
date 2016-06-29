@@ -208,13 +208,15 @@ $submission_status = emh_answer_get_status($user_submission);
 				<div class="submissions-list">
 		      <?php if (!empty($submissions)) : ?>
 		        <?php foreach ($submissions as $submission) : ?>
-		          <?php
-		            $render = webform_submission_render($node, $submission, null, 'html');
-		            print drupal_render($render);
-		          ?>
-		          <?php if (webform_submission_access($node, $submission, 'edit')) : ?>
-		          	<a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $submission->sid; ?>/edit"><?php print t('Edit'); ?></a>
-		          <?php endif; ?>
+							<?php if (!($node->uid == $user->uid && !empty($user_submission->is_draft))) : ?>
+			          <?php
+			            $render = webform_submission_render($node, $submission, null, 'html');
+			            print drupal_render($render);
+			          ?>
+			          <?php if (webform_submission_access($node, $submission, 'edit')) : ?>
+			          	<a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $submission->sid; ?>/edit"><?php print t('Edit'); ?></a>
+			          <?php endif; ?>
+							<?php endif; ?>
 		        <?php endforeach; ?>
 		      <?php else: ?>
 		      	<?php print t("No submission at this moment."); ?>
