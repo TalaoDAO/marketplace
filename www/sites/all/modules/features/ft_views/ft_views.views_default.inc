@@ -2336,7 +2336,7 @@ function ft_views_views_default_views() {
   $view = new view();
   $view->name = 'query_list';
   $view->description = '';
-  $view->tag = 'emh';
+  $view->tag = 'emh, request';
   $view->base_table = 'node';
   $view->human_name = 'Requests';
   $view->core = 7;
@@ -2353,6 +2353,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['distinct'] = TRUE;
   $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
+  $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
   $handler->display->display_options['exposed_form']['options']['bef'] = array(
     'general' => array(
       'allow_secondary' => 0,
@@ -2364,61 +2365,10 @@ function ft_views_views_default_views() {
       'any_label' => NULL,
       'filter_rewrite_values' => NULL,
     ),
-    'type' => array(
-      'bef_format' => 'bef',
-      'more_options' => array(
-        'bef_select_all_none' => 0,
-        'bef_collapsible' => 0,
-        'is_secondary' => 0,
-        'any_label' => '',
-        'bef_filter_description' => '',
-        'tokens' => array(
-          'available' => array(
-            0 => 'global_types',
-            'secondary_label' => NULL,
-            'collapsible_label' => NULL,
-            'combine_rewrite' => NULL,
-            'reset_label' => NULL,
-            'bef_filter_description' => NULL,
-            'any_label' => NULL,
-            'filter_rewrite_values' => NULL,
-          ),
-          'secondary_label' => NULL,
-          'collapsible_label' => NULL,
-          'combine_rewrite' => NULL,
-          'reset_label' => NULL,
-          'bef_filter_description' => NULL,
-          'any_label' => NULL,
-          'filter_rewrite_values' => NULL,
-        ),
-        'rewrite' => array(
-          'filter_rewrite_values' => '',
-          'secondary_label' => NULL,
-          'collapsible_label' => NULL,
-          'combine_rewrite' => NULL,
-          'reset_label' => NULL,
-          'bef_filter_description' => NULL,
-          'any_label' => NULL,
-        ),
-        'secondary_label' => NULL,
-        'collapsible_label' => NULL,
-        'combine_rewrite' => NULL,
-        'reset_label' => NULL,
-        'filter_rewrite_values' => NULL,
-      ),
-      'secondary_label' => NULL,
-      'collapsible_label' => NULL,
-      'combine_rewrite' => NULL,
-      'reset_label' => NULL,
-      'bef_filter_description' => NULL,
-      'any_label' => NULL,
-      'filter_rewrite_values' => NULL,
-    ),
-    'field_domaine_tid_i18n_1' => array(
+    'field_domaine_tid_i18n' => array(
       'bef_format' => 'default',
       'more_options' => array(
         'bef_select_all_none' => 0,
-        'bef_select_all_none_nested' => 0,
         'bef_collapsible' => 0,
         'is_secondary' => 0,
         'any_label' => '',
@@ -2478,56 +2428,6 @@ function ft_views_views_default_views() {
           'available' => array(
             0 => 'global_types',
             1 => 'vocabulary',
-            'secondary_label' => NULL,
-            'collapsible_label' => NULL,
-            'combine_rewrite' => NULL,
-            'reset_label' => NULL,
-            'bef_filter_description' => NULL,
-            'any_label' => NULL,
-            'filter_rewrite_values' => NULL,
-          ),
-          'secondary_label' => NULL,
-          'collapsible_label' => NULL,
-          'combine_rewrite' => NULL,
-          'reset_label' => NULL,
-          'bef_filter_description' => NULL,
-          'any_label' => NULL,
-          'filter_rewrite_values' => NULL,
-        ),
-        'rewrite' => array(
-          'filter_rewrite_values' => '',
-          'secondary_label' => NULL,
-          'collapsible_label' => NULL,
-          'combine_rewrite' => NULL,
-          'reset_label' => NULL,
-          'bef_filter_description' => NULL,
-          'any_label' => NULL,
-        ),
-        'secondary_label' => NULL,
-        'collapsible_label' => NULL,
-        'combine_rewrite' => NULL,
-        'reset_label' => NULL,
-        'filter_rewrite_values' => NULL,
-      ),
-      'secondary_label' => NULL,
-      'collapsible_label' => NULL,
-      'combine_rewrite' => NULL,
-      'reset_label' => NULL,
-      'bef_filter_description' => NULL,
-      'any_label' => NULL,
-      'filter_rewrite_values' => NULL,
-    ),
-    'status_1' => array(
-      'bef_format' => 'default',
-      'more_options' => array(
-        'bef_select_all_none' => FALSE,
-        'bef_collapsible' => 0,
-        'is_secondary' => 0,
-        'any_label' => 'All',
-        'bef_filter_description' => '',
-        'tokens' => array(
-          'available' => array(
-            0 => 'global_types',
             'secondary_label' => NULL,
             'collapsible_label' => NULL,
             'combine_rewrite' => NULL,
@@ -2734,14 +2634,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['flag_content_rel']['required'] = 0;
   $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'my_selection';
-  /* Field: Content: Type */
-  $handler->display->display_options['fields']['type']['id'] = 'type';
-  $handler->display->display_options['fields']['type']['table'] = 'node';
-  $handler->display->display_options['fields']['type']['field'] = 'type';
-  $handler->display->display_options['fields']['type']['element_class'] = '[type]';
-  $handler->display->display_options['fields']['type']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['type']['link_to_node'] = TRUE;
-  $handler->display->display_options['fields']['type']['machine_name'] = TRUE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -2761,12 +2653,6 @@ function ft_views_views_default_views() {
     'link' => 0,
   );
   $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
-  /* Field: Content: Post date */
-  $handler->display->display_options['fields']['created']['id'] = 'created';
-  $handler->display->display_options['fields']['created']['table'] = 'node';
-  $handler->display->display_options['fields']['created']['field'] = 'created';
-  $handler->display->display_options['fields']['created']['date_format'] = 'short_date';
-  $handler->display->display_options['fields']['created']['second_date_format'] = 'privatemsg_current_day';
   /* Field: Content: Deadline */
   $handler->display->display_options['fields']['field_expiration_date']['id'] = 'field_expiration_date';
   $handler->display->display_options['fields']['field_expiration_date']['table'] = 'field_data_field_expiration_date';
@@ -2779,10 +2665,6 @@ function ft_views_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Content: Reward */
-  $handler->display->display_options['fields']['field_reward']['id'] = 'field_reward';
-  $handler->display->display_options['fields']['field_reward']['table'] = 'field_data_field_reward';
-  $handler->display->display_options['fields']['field_reward']['field'] = 'field_reward';
   /* Field: Node: Total Answers */
   $handler->display->display_options['fields']['total_answers']['id'] = 'total_answers';
   $handler->display->display_options['fields']['total_answers']['table'] = 'node';
@@ -2798,10 +2680,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Sort criterion: Content: Type */
-  $handler->display->display_options['sorts']['type']['id'] = 'type';
-  $handler->display->display_options['sorts']['type']['table'] = 'node';
-  $handler->display->display_options['sorts']['type']['field'] = 'type';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -2976,7 +2854,7 @@ function ft_views_views_default_views() {
   );
 
   /* Display: P - All requests */
-  $handler = $view->new_display('page', 'P - All requests', 'page');
+  $handler = $view->new_display('page', 'P - All requests', 'page_all_requests');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'All requests';
   $handler->display->display_options['field_language'] = 'und';
@@ -3081,14 +2959,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Type */
-  $handler->display->display_options['fields']['type']['id'] = 'type';
-  $handler->display->display_options['fields']['type']['table'] = 'node';
-  $handler->display->display_options['fields']['type']['field'] = 'type';
-  $handler->display->display_options['fields']['type']['element_class'] = '[type]';
-  $handler->display->display_options['fields']['type']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['type']['link_to_node'] = TRUE;
-  $handler->display->display_options['fields']['type']['machine_name'] = TRUE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -3108,12 +2978,6 @@ function ft_views_views_default_views() {
     'link' => 0,
   );
   $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
-  /* Field: Content: Post date */
-  $handler->display->display_options['fields']['created']['id'] = 'created';
-  $handler->display->display_options['fields']['created']['table'] = 'node';
-  $handler->display->display_options['fields']['created']['field'] = 'created';
-  $handler->display->display_options['fields']['created']['date_format'] = 'short_date';
-  $handler->display->display_options['fields']['created']['second_date_format'] = 'privatemsg_current_day';
   /* Field: Content: Deadline */
   $handler->display->display_options['fields']['field_expiration_date']['id'] = 'field_expiration_date';
   $handler->display->display_options['fields']['field_expiration_date']['table'] = 'field_data_field_expiration_date';
@@ -3126,10 +2990,6 @@ function ft_views_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Content: Reward */
-  $handler->display->display_options['fields']['field_reward']['id'] = 'field_reward';
-  $handler->display->display_options['fields']['field_reward']['table'] = 'field_data_field_reward';
-  $handler->display->display_options['fields']['field_reward']['field'] = 'field_reward';
   /* Field: Node: Total Answers */
   $handler->display->display_options['fields']['total_answers']['id'] = 'total_answers';
   $handler->display->display_options['fields']['total_answers']['table'] = 'node';
@@ -3160,7 +3020,6 @@ function ft_views_views_default_views() {
     'request' => 'request',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  $handler->display->display_options['filters']['type']['exposed'] = TRUE;
   $handler->display->display_options['filters']['type']['expose']['operator_id'] = 'type_op';
   $handler->display->display_options['filters']['type']['expose']['label'] = 'Type';
   $handler->display->display_options['filters']['type']['expose']['operator'] = 'type_op';
@@ -3260,19 +3119,8 @@ function ft_views_views_default_views() {
       ),
     ),
   );
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
-  $handler->display->display_options['filters']['type_1']['table'] = 'node';
-  $handler->display->display_options['filters']['type_1']['field'] = 'type';
-  $handler->display->display_options['filters']['type_1']['value'] = array(
-    'challenge' => 'challenge',
-    'webform' => 'webform',
-    'question1' => 'question1',
-    'request' => 'request',
-  );
   $handler->display->display_options['views_navigation'] = TRUE;
-  $handler->display->display_options['views_navigation_back'] = TRUE;
-  $handler->display->display_options['views_navigation_title'] = TRUE;
+  $handler->display->display_options['views_navigation_cycle'] = FALSE;
   $handler->display->display_options['path'] = 'requests';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'All requests';
@@ -3282,7 +3130,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
   /* Display: B - Last requests */
-  $handler = $view->new_display('block', 'B - Last requests', 'block');
+  $handler = $view->new_display('block', 'B - Last requests', 'block_last_requests');
   $handler->display->display_options['defaults']['use_more'] = FALSE;
   $handler->display->display_options['use_more'] = TRUE;
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
@@ -3405,7 +3253,6 @@ function ft_views_views_default_views() {
     'request' => 'request',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  $handler->display->display_options['filters']['type']['exposed'] = TRUE;
   $handler->display->display_options['filters']['type']['expose']['operator_id'] = 'type_op';
   $handler->display->display_options['filters']['type']['expose']['label'] = 'Type';
   $handler->display->display_options['filters']['type']['expose']['operator'] = 'type_op';
@@ -3505,22 +3352,12 @@ function ft_views_views_default_views() {
       ),
     ),
   );
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
-  $handler->display->display_options['filters']['type_1']['table'] = 'node';
-  $handler->display->display_options['filters']['type_1']['field'] = 'type';
-  $handler->display->display_options['filters']['type_1']['value'] = array(
-    'challenge' => 'challenge',
-    'webform' => 'webform',
-    'question1' => 'question1',
-    'request' => 'request',
-  );
   $handler->display->display_options['views_navigation'] = TRUE;
-  $handler->display->display_options['views_navigation_back'] = TRUE;
+  $handler->display->display_options['views_navigation_cycle'] = FALSE;
   $handler->display->display_options['views_navigation_title'] = TRUE;
 
   /* Display: P - My selection */
-  $handler = $view->new_display('page', 'P - My selection', 'page_1');
+  $handler = $view->new_display('page', 'P - My selection', 'page_selected_requests');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'My selection';
   $handler->display->display_options['defaults']['access'] = FALSE;
@@ -3528,60 +3365,11 @@ function ft_views_views_default_views() {
   $handler->display->display_options['access']['perm'] = 'flag my_selection';
   $handler->display->display_options['defaults']['exposed_form'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
+  $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
   $handler->display->display_options['exposed_form']['options']['bef'] = array(
     'general' => array(
       'allow_secondary' => 0,
       'secondary_label' => 'Advanced options',
-      'collapsible_label' => NULL,
-      'combine_rewrite' => NULL,
-      'reset_label' => NULL,
-      'bef_filter_description' => NULL,
-      'any_label' => NULL,
-      'filter_rewrite_values' => NULL,
-    ),
-    'type_1' => array(
-      'bef_format' => 'bef',
-      'more_options' => array(
-        'bef_select_all_none' => 0,
-        'bef_collapsible' => 0,
-        'is_secondary' => 0,
-        'any_label' => '',
-        'bef_filter_description' => '',
-        'tokens' => array(
-          'available' => array(
-            0 => 'global_types',
-            'secondary_label' => NULL,
-            'collapsible_label' => NULL,
-            'combine_rewrite' => NULL,
-            'reset_label' => NULL,
-            'bef_filter_description' => NULL,
-            'any_label' => NULL,
-            'filter_rewrite_values' => NULL,
-          ),
-          'secondary_label' => NULL,
-          'collapsible_label' => NULL,
-          'combine_rewrite' => NULL,
-          'reset_label' => NULL,
-          'bef_filter_description' => NULL,
-          'any_label' => NULL,
-          'filter_rewrite_values' => NULL,
-        ),
-        'rewrite' => array(
-          'filter_rewrite_values' => '',
-          'secondary_label' => NULL,
-          'collapsible_label' => NULL,
-          'combine_rewrite' => NULL,
-          'reset_label' => NULL,
-          'bef_filter_description' => NULL,
-          'any_label' => NULL,
-        ),
-        'secondary_label' => NULL,
-        'collapsible_label' => NULL,
-        'combine_rewrite' => NULL,
-        'reset_label' => NULL,
-        'filter_rewrite_values' => NULL,
-      ),
-      'secondary_label' => NULL,
       'collapsible_label' => NULL,
       'combine_rewrite' => NULL,
       'reset_label' => NULL,
@@ -3884,7 +3672,6 @@ function ft_views_views_default_views() {
     'request' => 'request',
   );
   $handler->display->display_options['filters']['type_1']['group'] = 1;
-  $handler->display->display_options['filters']['type_1']['exposed'] = TRUE;
   $handler->display->display_options['filters']['type_1']['expose']['operator_id'] = 'type_1_op';
   $handler->display->display_options['filters']['type_1']['expose']['label'] = 'Type';
   $handler->display->display_options['filters']['type_1']['expose']['operator'] = 'type_1_op';
@@ -3912,6 +3699,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['id'] = 'field_domaine_tid_i18n';
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['table'] = 'field_data_field_domaine';
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['field'] = 'field_domaine_tid_i18n';
+  $handler->display->display_options['filters']['field_domaine_tid_i18n']['group'] = 1;
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['expose']['operator_id'] = 'field_domaine_tid_i18n_op';
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['expose']['label'] = 'Domain(s)';
@@ -3936,6 +3724,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['field_tags_tid_i18n']['id'] = 'field_tags_tid_i18n';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['table'] = 'field_data_field_tags';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['field'] = 'field_tags_tid_i18n';
+  $handler->display->display_options['filters']['field_tags_tid_i18n']['group'] = 1;
   $handler->display->display_options['filters']['field_tags_tid_i18n']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_tags_tid_i18n']['expose']['operator_id'] = 'field_tags_tid_i18n_op';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['expose']['label'] = 'Tags';
@@ -3959,6 +3748,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['total_points']['id'] = 'total_points';
   $handler->display->display_options['filters']['total_points']['table'] = 'emh_points_total';
   $handler->display->display_options['filters']['total_points']['field'] = 'total_points';
+  $handler->display->display_options['filters']['total_points']['group'] = 1;
   $handler->display->display_options['filters']['total_points']['exposed'] = TRUE;
   $handler->display->display_options['filters']['total_points']['expose']['operator_id'] = 'total_points_op';
   $handler->display->display_options['filters']['total_points']['expose']['label'] = 'Total Points';
@@ -3987,16 +3777,8 @@ function ft_views_views_default_views() {
       ),
     ),
   );
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'challenge' => 'challenge',
-    'webform' => 'webform',
-    'question1' => 'question1',
-    'request' => 'request',
-  );
+  $handler->display->display_options['views_navigation'] = TRUE;
+  $handler->display->display_options['views_navigation_cycle'] = FALSE;
   $handler->display->display_options['path'] = 'requests/selection';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'My selection';
@@ -4006,7 +3788,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
   /* Display: P - My requests */
-  $handler = $view->new_display('page', 'P - My requests', 'page_2');
+  $handler = $view->new_display('page', 'P - My requests', 'page_my_requests');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'My requests';
   $handler->display->display_options['defaults']['use_more'] = FALSE;
@@ -4129,14 +3911,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Type */
-  $handler->display->display_options['fields']['type']['id'] = 'type';
-  $handler->display->display_options['fields']['type']['table'] = 'node';
-  $handler->display->display_options['fields']['type']['field'] = 'type';
-  $handler->display->display_options['fields']['type']['element_class'] = '[type]';
-  $handler->display->display_options['fields']['type']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['type']['link_to_node'] = TRUE;
-  $handler->display->display_options['fields']['type']['machine_name'] = TRUE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -4156,12 +3930,6 @@ function ft_views_views_default_views() {
     'link' => 0,
   );
   $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
-  /* Field: Content: Post date */
-  $handler->display->display_options['fields']['created']['id'] = 'created';
-  $handler->display->display_options['fields']['created']['table'] = 'node';
-  $handler->display->display_options['fields']['created']['field'] = 'created';
-  $handler->display->display_options['fields']['created']['date_format'] = 'short_date';
-  $handler->display->display_options['fields']['created']['second_date_format'] = 'privatemsg_current_day';
   /* Field: Content: Deadline */
   $handler->display->display_options['fields']['field_expiration_date']['id'] = 'field_expiration_date';
   $handler->display->display_options['fields']['field_expiration_date']['table'] = 'field_data_field_expiration_date';
@@ -4174,10 +3942,6 @@ function ft_views_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Content: Reward */
-  $handler->display->display_options['fields']['field_reward']['id'] = 'field_reward';
-  $handler->display->display_options['fields']['field_reward']['table'] = 'field_data_field_reward';
-  $handler->display->display_options['fields']['field_reward']['field'] = 'field_reward';
   /* Field: Node: Total Answers */
   $handler->display->display_options['fields']['total_answers']['id'] = 'total_answers';
   $handler->display->display_options['fields']['total_answers']['table'] = 'node';
@@ -4189,10 +3953,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['request_status']['field'] = 'request_status';
   $handler->display->display_options['fields']['request_status']['label'] = 'Status';
   $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Sort criterion: Content: Type */
-  $handler->display->display_options['sorts']['type']['id'] = 'type';
-  $handler->display->display_options['sorts']['type']['table'] = 'node';
-  $handler->display->display_options['sorts']['type']['field'] = 'type';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -4211,7 +3971,6 @@ function ft_views_views_default_views() {
     'request' => 'request',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  $handler->display->display_options['filters']['type']['exposed'] = TRUE;
   $handler->display->display_options['filters']['type']['expose']['operator_id'] = 'type_op';
   $handler->display->display_options['filters']['type']['expose']['label'] = 'Type';
   $handler->display->display_options['filters']['type']['expose']['operator'] = 'type_op';
@@ -4321,20 +4080,8 @@ function ft_views_views_default_views() {
     8 => 0,
     9 => 0,
   );
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
-  $handler->display->display_options['filters']['type_1']['table'] = 'node';
-  $handler->display->display_options['filters']['type_1']['field'] = 'type';
-  $handler->display->display_options['filters']['type_1']['value'] = array(
-    'challenge' => 'challenge',
-    'webform' => 'webform',
-    'question1' => 'question1',
-    'request' => 'request',
-  );
   $handler->display->display_options['views_navigation'] = TRUE;
   $handler->display->display_options['views_navigation_cycle'] = FALSE;
-  $handler->display->display_options['views_navigation_back'] = TRUE;
-  $handler->display->display_options['views_navigation_title'] = TRUE;
   $handler->display->display_options['path'] = 'requests/manage';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'My requests';
@@ -4344,7 +4091,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
   /* Display: B - My requests */
-  $handler = $view->new_display('block', 'B - My requests', 'block_1');
+  $handler = $view->new_display('block', 'B - My requests', 'block_my_requests');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'My requests';
   $handler->display->display_options['defaults']['use_more'] = FALSE;
@@ -4362,60 +4109,11 @@ function ft_views_views_default_views() {
   $handler->display->display_options['query']['options']['distinct'] = TRUE;
   $handler->display->display_options['defaults']['exposed_form'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
+  $handler->display->display_options['exposed_form']['options']['reset_button'] = TRUE;
   $handler->display->display_options['exposed_form']['options']['bef'] = array(
     'general' => array(
       'allow_secondary' => 0,
       'secondary_label' => 'Advanced options',
-      'collapsible_label' => NULL,
-      'combine_rewrite' => NULL,
-      'reset_label' => NULL,
-      'bef_filter_description' => NULL,
-      'any_label' => NULL,
-      'filter_rewrite_values' => NULL,
-    ),
-    'type' => array(
-      'bef_format' => 'bef',
-      'more_options' => array(
-        'bef_select_all_none' => 0,
-        'bef_collapsible' => 0,
-        'is_secondary' => 0,
-        'any_label' => '',
-        'bef_filter_description' => '',
-        'tokens' => array(
-          'available' => array(
-            0 => 'global_types',
-            'secondary_label' => NULL,
-            'collapsible_label' => NULL,
-            'combine_rewrite' => NULL,
-            'reset_label' => NULL,
-            'bef_filter_description' => NULL,
-            'any_label' => NULL,
-            'filter_rewrite_values' => NULL,
-          ),
-          'secondary_label' => NULL,
-          'collapsible_label' => NULL,
-          'combine_rewrite' => NULL,
-          'reset_label' => NULL,
-          'bef_filter_description' => NULL,
-          'any_label' => NULL,
-          'filter_rewrite_values' => NULL,
-        ),
-        'rewrite' => array(
-          'filter_rewrite_values' => '',
-          'secondary_label' => NULL,
-          'collapsible_label' => NULL,
-          'combine_rewrite' => NULL,
-          'reset_label' => NULL,
-          'bef_filter_description' => NULL,
-          'any_label' => NULL,
-        ),
-        'secondary_label' => NULL,
-        'collapsible_label' => NULL,
-        'combine_rewrite' => NULL,
-        'reset_label' => NULL,
-        'filter_rewrite_values' => NULL,
-      ),
-      'secondary_label' => NULL,
       'collapsible_label' => NULL,
       'combine_rewrite' => NULL,
       'reset_label' => NULL,
@@ -4487,56 +4185,6 @@ function ft_views_views_default_views() {
           'available' => array(
             0 => 'global_types',
             1 => 'vocabulary',
-            'secondary_label' => NULL,
-            'collapsible_label' => NULL,
-            'combine_rewrite' => NULL,
-            'reset_label' => NULL,
-            'bef_filter_description' => NULL,
-            'any_label' => NULL,
-            'filter_rewrite_values' => NULL,
-          ),
-          'secondary_label' => NULL,
-          'collapsible_label' => NULL,
-          'combine_rewrite' => NULL,
-          'reset_label' => NULL,
-          'bef_filter_description' => NULL,
-          'any_label' => NULL,
-          'filter_rewrite_values' => NULL,
-        ),
-        'rewrite' => array(
-          'filter_rewrite_values' => '',
-          'secondary_label' => NULL,
-          'collapsible_label' => NULL,
-          'combine_rewrite' => NULL,
-          'reset_label' => NULL,
-          'bef_filter_description' => NULL,
-          'any_label' => NULL,
-        ),
-        'secondary_label' => NULL,
-        'collapsible_label' => NULL,
-        'combine_rewrite' => NULL,
-        'reset_label' => NULL,
-        'filter_rewrite_values' => NULL,
-      ),
-      'secondary_label' => NULL,
-      'collapsible_label' => NULL,
-      'combine_rewrite' => NULL,
-      'reset_label' => NULL,
-      'bef_filter_description' => NULL,
-      'any_label' => NULL,
-      'filter_rewrite_values' => NULL,
-    ),
-    'status' => array(
-      'bef_format' => 'default',
-      'more_options' => array(
-        'bef_select_all_none' => FALSE,
-        'bef_collapsible' => 0,
-        'is_secondary' => 0,
-        'any_label' => 'All',
-        'bef_filter_description' => '',
-        'tokens' => array(
-          'available' => array(
-            0 => 'global_types',
             'secondary_label' => NULL,
             'collapsible_label' => NULL,
             'combine_rewrite' => NULL,
@@ -4689,14 +4337,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Type */
-  $handler->display->display_options['fields']['type']['id'] = 'type';
-  $handler->display->display_options['fields']['type']['table'] = 'node';
-  $handler->display->display_options['fields']['type']['field'] = 'type';
-  $handler->display->display_options['fields']['type']['element_class'] = '[type]';
-  $handler->display->display_options['fields']['type']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['type']['link_to_node'] = TRUE;
-  $handler->display->display_options['fields']['type']['machine_name'] = TRUE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -4716,12 +4356,6 @@ function ft_views_views_default_views() {
     'link' => 0,
   );
   $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
-  /* Field: Content: Post date */
-  $handler->display->display_options['fields']['created']['id'] = 'created';
-  $handler->display->display_options['fields']['created']['table'] = 'node';
-  $handler->display->display_options['fields']['created']['field'] = 'created';
-  $handler->display->display_options['fields']['created']['date_format'] = 'short_date';
-  $handler->display->display_options['fields']['created']['second_date_format'] = 'privatemsg_current_day';
   /* Field: Content: Deadline */
   $handler->display->display_options['fields']['field_expiration_date']['id'] = 'field_expiration_date';
   $handler->display->display_options['fields']['field_expiration_date']['table'] = 'field_data_field_expiration_date';
@@ -4734,10 +4368,6 @@ function ft_views_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Content: Reward */
-  $handler->display->display_options['fields']['field_reward']['id'] = 'field_reward';
-  $handler->display->display_options['fields']['field_reward']['table'] = 'field_data_field_reward';
-  $handler->display->display_options['fields']['field_reward']['field'] = 'field_reward';
   /* Field: Node: Total Answers */
   $handler->display->display_options['fields']['total_answers']['id'] = 'total_answers';
   $handler->display->display_options['fields']['total_answers']['table'] = 'node';
@@ -4768,7 +4398,6 @@ function ft_views_views_default_views() {
     'request' => 'request',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  $handler->display->display_options['filters']['type']['exposed'] = TRUE;
   $handler->display->display_options['filters']['type']['expose']['operator_id'] = 'type_op';
   $handler->display->display_options['filters']['type']['expose']['label'] = 'Type';
   $handler->display->display_options['filters']['type']['expose']['operator'] = 'type_op';
@@ -4841,19 +4470,8 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['uid_current']['relationship'] = 'uid';
   $handler->display->display_options['filters']['uid_current']['value'] = '1';
   $handler->display->display_options['filters']['uid_current']['group'] = 1;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
-  $handler->display->display_options['filters']['type_1']['table'] = 'node';
-  $handler->display->display_options['filters']['type_1']['field'] = 'type';
-  $handler->display->display_options['filters']['type_1']['value'] = array(
-    'challenge' => 'challenge',
-    'webform' => 'webform',
-    'question1' => 'question1',
-    'request' => 'request',
-  );
   $handler->display->display_options['views_navigation'] = TRUE;
-  $handler->display->display_options['views_navigation_back'] = TRUE;
-  $handler->display->display_options['views_navigation_title'] = TRUE;
+  $handler->display->display_options['views_navigation_cycle'] = FALSE;
   $export['query_list'] = $view;
 
   $view = new view();
