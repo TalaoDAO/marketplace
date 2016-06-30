@@ -82,7 +82,10 @@
 include_once drupal_get_path('module', 'webform') . '/includes/webform.submissions.inc';
 global $user;
 $submissions = webform_get_submissions(array('nid' => $nid));
-$user_submissions = webform_get_submissions(array('nid' => $nid, 'uid' => $user->uid));
+if ($user_submission) {
+	$submission_status = emh_answer_get_status($user_submission);
+}
+
 // Show $node field, with display parameters
 // echo '<pre>' . print_r($content['webform']['#node']->webform, TRUE) . '</pre>'; die;
 // Show $node field, with custom display parameters
@@ -162,36 +165,33 @@ $user_submissions = webform_get_submissions(array('nid' => $nid, 'uid' => $user-
 		</div>
 
 		<?php if ($node->uid !== $user->uid) : ?>
-			<?php foreach ($user_submissions as $user_submission) : ?>
-				<?php $submission_status = emh_answer_get_status($user_submission); ?>
-				<div class="section user-submission">
-					<div class="col-sm-8 <?php if ($submission_status) print $submission_status['status']; ?>">
-						<div class="row user-submission-title">
-							<div class="col-sm-8">
-								<h3><span><?php print t('Your submission'); ?></span></h3>
-							</div>
-							<?php if ($submission_status) : ?>
-								<div class="col-sm-4">
-									<span class="user-submission-status <?php if ($submission_status) print $submission_status['status']; ?>"><?php if ($submission_status) print $submission_status['label']; ?></span>
-								</div>
-							<?php endif; ?>
+			<div class="section user-submission">
+				<div class="col-sm-8 <?php if ($submission_status) print $submission_status['status']; ?>">
+					<div class="row user-submission-title">
+						<div class="col-sm-8">
+							<h3><span><?php print t('Your submission'); ?></span></h3>
 						</div>
-						<?php if (empty($user_submission) || !empty($user_submission->is_draft)) : ?>
-				      <?php if ($node->webform['status'] && !empty($node->webform['components'])) : ?>
-				      	<?php print render($content['webform']); ?>
-				      <?php endif; ?>
-						<?php else : ?>
-							<?php
-								$render = webform_submission_render($node, $user_submission, null, 'html');
-								print drupal_render($render);
-							?>
-							<?php if (webform_submission_access($node, $user_submission, 'edit')) : ?>
-		          	<a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $user_submission->sid; ?>/edit"><?php print t('Edit'); ?></a>
-		          <?php endif; ?>
+						<?php if ($submission_status) : ?>
+							<div class="col-sm-4">
+								<span class="user-submission-status <?php if ($submission_status) print $submission_status['status']; ?>"><?php if ($submission_status) print $submission_status['label']; ?></span>
+							</div>
 						<?php endif; ?>
 					</div>
+					<?php if (empty($user_submission) || !empty($user_submission->is_draft)) : ?>
+			      <?php if ($node->webform['status'] && !empty($node->webform['components'])) : ?>
+			      	<?php print render($content['webform']); ?>
+			      <?php endif; ?>
+					<?php else : ?>
+						<?php
+							$render = webform_submission_render($node, $user_submission, null, 'html');
+							print drupal_render($render);
+						?>
+						<?php if (webform_submission_access($node, $user_submission, 'edit')) : ?>
+	          	<a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $user_submission->sid; ?>/edit"><?php print t('Edit'); ?></a>
+	          <?php endif; ?>
+					<?php endif; ?>
 				</div>
-			<?php endforeach; ?>
+			</div>
 		<?php endif; ?>
 
 		<?php
