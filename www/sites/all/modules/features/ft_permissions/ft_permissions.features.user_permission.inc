@@ -1047,7 +1047,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'create blog content',
     'roles' => array(
       'administrator' => 'administrator',
-      'expert' => 'expert',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1069,7 +1068,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'create circle content',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1567,7 +1565,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit own blog content',
     'roles' => array(
       'administrator' => 'administrator',
-      'expert' => 'expert',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
@@ -1590,7 +1587,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit own circle content',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',

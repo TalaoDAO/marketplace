@@ -120,8 +120,8 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $form['field_address'][LANGUAGE_NONE][0]['locality_block']['postal_code']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_address'][LANGUAGE_NONE][0]['locality_block']['locality']['#suffix'] = '</div>';
 
-  $form['field_telephone']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_link_to_my_blog']['#suffix'] = '</div>';
+  $form['field_address'][LANGUAGE_NONE][0]['phone_block']['phone_number']['#prefix'] = '<div class="form-group-2col row">';
+  $form['field_address'][LANGUAGE_NONE][0]['phone_block']['mobile_number']['#suffix'] = '</div>';
 
   // Organisation
   $form['field_position']['#prefix'] = '<div class="form-group-2col row">';
