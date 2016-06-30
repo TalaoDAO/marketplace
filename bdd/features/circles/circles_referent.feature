@@ -60,6 +60,31 @@ Feature: Requests visibility for Référent
     And I press "Update membership"
     Then I should see "The membership has been updated."
 
+    Given I am logged in as "expert1"
+    And I click "Edit account"
+    And I fill in "field_address[und][0][phone_number]" with "0712345670"
+    And I press "Save"
+
+    Given I am logged in as "expert2"
+    And I click "Edit account"
+    And I fill in "field_address[und][0][phone_number]" with "0712345671"
+    And I press "Save"
+
+    Given I am logged in as "expert3"
+    And I click "Edit account"
+    And I fill in "field_address[und][0][phone_number]" with "0712345672"
+    And I press "Save"
+
+    Given I am logged in as "expert4"
+    And I click "Edit account"
+    And I fill in "field_address[und][0][phone_number]" with "0712345673"
+    And I press "Save"
+
+    Given I am logged in as "référent1"
+    And I click "Edit account"
+    And I fill in "field_address[und][0][phone_number]" with "0612345678"
+    And I press "Save"
+
   Scenario: Referents can see the requests
     Given I am logged in as "référent1"
     When I go to homepage
