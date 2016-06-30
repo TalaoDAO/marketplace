@@ -216,7 +216,6 @@ function emindhub_preprocess_field(&$variables) {
 				case 'field_titre_metier':
 				case 'field_entreprise':
 				case 'field_address':
-				case 'field_telephone':
 				case 'field_mail':
 					$user = user_load(arg(1));
 					$field = field_get_items('user', $user, 'field_photo');

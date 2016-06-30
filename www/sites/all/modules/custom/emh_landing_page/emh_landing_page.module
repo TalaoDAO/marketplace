@@ -55,21 +55,29 @@ function emh_landing_page_form_user_register_form_landing_page_alter(&$form, &$f
 
   $form['account']['pass']['#process'] = array('form_process_password_confirm', 'emh_landing_page_form_process_password_confirm');
 
-  // Force Expert & Roleswitcher roles
-  $form['account']['roles']['4'] = array(
-    '#type' => 'checkbox',
-    '#title' => 'expert',
-    '#default_value' => TRUE,
-    '#disabled' => TRUE,
-  );
+  // Get role defined in field_landingpage_role
+  if (module_exists('rolereference')) {
+    $nid = arg(1);
+    $node = node_load($nid);
+    $role = $node->field_landingpage_role[LANGUAGE_NONE][0]['role'];
+    $role_id = $node->field_landingpage_role[LANGUAGE_NONE][0]['rid'];
+    if (!empty($node->field_landingpage_role)) {
+      $form['account']['roles'][$role_id] = array(
+        '#type' => 'checkbox',
+        '#title' => $role,
+        '#default_value' => TRUE,
+        '#disabled' => TRUE,
+      );
+    }
+  }
+
+  // Force Roleswitcher roles
   $form['account']['roles']['10'] = array(
     '#type' => 'checkbox',
     '#title' => 'roleswitcher',
     '#default_value' => TRUE,
     '#disabled' => TRUE,
   );
-
-  // echo '<pre>' . print_r($form, true) . '</pre>';
 
 }
 
