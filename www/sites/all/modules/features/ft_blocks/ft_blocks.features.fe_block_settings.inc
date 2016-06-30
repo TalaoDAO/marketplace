@@ -102,6 +102,36 @@ client/register',
     'visibility' => 1,
   );
 
+  $export['block-hp_challenge'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'i18n_block_language' => array(),
+    'i18n_mode' => 1,
+    'machine_name' => 'hp_challenge',
+    'module' => 'block',
+    'node_types' => array(),
+    'pages' => '<front>',
+    'roles' => array(
+      'authenticated user' => 2,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'top',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => -47,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '<none>',
+    'visibility' => 1,
+  );
+
   $export['block-hp_expertise'] = array(
     'cache' => -1,
     'custom' => 0,
@@ -1230,10 +1260,10 @@ client/register',
     'visibility' => 0,
   );
 
-  $export['views-query_list-block'] = array(
+  $export['views-query_list-block_last_requests'] = array(
     'cache' => -1,
     'custom' => 0,
-    'delta' => 'query_list-block',
+    'delta' => 'query_list-block_last_requests',
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
     'module' => 'views',
@@ -1269,10 +1299,10 @@ fr/node/323',
     'visibility' => 1,
   );
 
-  $export['views-query_list-block_1'] = array(
+  $export['views-query_list-block_my_requests'] = array(
     'cache' => -1,
     'custom' => 0,
-    'delta' => 'query_list-block_1',
+    'delta' => 'query_list-block_my_requests',
     'i18n_block_language' => array(),
     'i18n_mode' => 0,
     'module' => 'views',
