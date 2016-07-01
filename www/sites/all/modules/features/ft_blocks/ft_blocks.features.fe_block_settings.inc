@@ -102,36 +102,6 @@ client/register',
     'visibility' => 1,
   );
 
-  $export['block-hp_challenge'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'i18n_block_language' => array(),
-    'i18n_mode' => 1,
-    'machine_name' => 'hp_challenge',
-    'module' => 'block',
-    'node_types' => array(),
-    'pages' => '<front>',
-    'roles' => array(
-      'authenticated user' => 2,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => 'top',
-        'status' => 1,
-        'theme' => 'emindhub',
-        'weight' => -47,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '<none>',
-    'visibility' => 1,
-  );
-
   $export['block-hp_expertise'] = array(
     'cache' => -1,
     'custom' => 0,
