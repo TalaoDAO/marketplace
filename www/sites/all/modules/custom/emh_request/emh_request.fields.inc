@@ -90,7 +90,14 @@ function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, 
       '#type' => 'checkbox',
       '#title' => filter_xss($option['label']),
       '#description' => filter_xss($option['description']),
-      '#default_value' => isset($items[$id]),
+      // We can't be satisfied with the only values 0 or 1 because of
+      // conditional_fields validation. We have to set the #return_value
+      // property with the option identifier to make work this validation.
+      '#return_value' => $id,
+      '#default_value' => isset($items[$id]) ? $id : 0,
+      // We have to be sure that it's the first element because of
+      // conditional_fields validation. Then we set its weight to -1.
+      '#weight' => -1,
     );
 
     // Displays the cost only if the field is enabled,
@@ -108,6 +115,7 @@ function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, 
       $element[$id]['cost'] = array(
         '#type' => 'hidden',
         '#value' => $costs[$id],
+        '#tree' => false,
       );
     }
 
