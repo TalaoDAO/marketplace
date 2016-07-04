@@ -14282,23 +14282,6 @@ fieldset[disabled] #nav-next > a.focus {
 .section .field-name-body {
   font-size: 16px;
 }
-.section .field-type-taxonomy-term-reference .field-items .field-item {
-  display: inline-block;
-  margin-right: 10px;
-  background-color: #fff;
-  font-style: italic;
-  padding: 7px 15px;
-  text-align: left;
-  margin-bottom: 5px;
-}
-.section .field-type-taxonomy-term-reference a {
-  display: inline-block;
-  margin-right: 10px;
-  background-color: #fff;
-  font-style: italic;
-  padding: 7px 15px;
-  text-align: left;
-}
 .section .meta li * {
   display: inline-block;
 }
@@ -18081,6 +18064,11 @@ body.node-type-request:not(.page-node-edit) .section.request,
 body.node-type-request:not(.page-node-edit) .section.user-submission {
   background-color: #FFF;
 }
+body.node-type-request:not(.page-node-edit) .section.request a,
+body.node-type-request:not(.page-node-edit) .section.user-submission a {
+  color: #104476;
+  text-decoration: underline;
+}
 body.node-type-request:not(.page-node-edit) .section {
   margin-left: -15px;
   margin-right: -15px;
@@ -18088,6 +18076,30 @@ body.node-type-request:not(.page-node-edit) .section {
 }
 body.node-type-request:not(.page-node-edit) .field {
   padding: 0 0 15px;
+}
+body.node-type-request:not(.page-node-edit) .request-left {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  body.node-type-request:not(.page-node-edit) .request-left {
+    float: left;
+    width: 66.66666667%;
+  }
+}
+body.node-type-request:not(.page-node-edit) .request-right {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  body.node-type-request:not(.page-node-edit) .request-right {
+    float: left;
+    width: 33.33333333%;
+  }
 }
 body.node-type-request:not(.page-node-edit) .field-list-item .field-item {
   display: inline-block;
@@ -18110,6 +18122,7 @@ body.node-type-request:not(.page-node-edit) .field-list-border:last-child {
 }
 body.node-type-request:not(.page-node-edit) .field-name-body {
   font-size: 1.2em;
+  line-height: 1.5;
   padding-bottom: 15px;
   margin-bottom: 15px;
   border-bottom: 1px dotted #CECECE;
