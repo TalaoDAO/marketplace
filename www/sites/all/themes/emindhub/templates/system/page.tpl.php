@@ -164,8 +164,6 @@ global $base_url;
 
         <div class="row">
 
-          <?php //echo '<pre>' . print_r($variables, true) . '</pre>'; ?>
-
           <div class="col-md-8">
 
             <?php print render($title_prefix); ?>
