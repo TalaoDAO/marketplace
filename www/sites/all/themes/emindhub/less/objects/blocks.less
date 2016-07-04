@@ -687,71 +687,21 @@
 }
 
 // Timeline
-#block-progress-tracker-progress-tracker {
-	.block-title {
-		margin-top: 0;
-	}
-	#progress-tracker-wrapper {
-		.make-row;
-		margin: 0;
-
-		.pt-status {
-			.emh-status-block;
-			.make-md-column(3);
+#block-emh-request-timeline-timeline {
+	.content {
+		.make-row();
+		.created {
+			.make-md-column(2);
+			.text-right;
+		}
+		.progress {
+			.make-md-column(8);
 			padding: 0;
 		}
-		.pt-steps {
-			.make-md-column(9);
-			padding: 0;
-
-			ul.progress-tracker {
-				.make-row();
-				padding: 0;
-				margin: 0 0 15px;
-
-				li {
-					.make-md-column(6);
-					.text-center;
-					.text-uppercase;
-
-			    list-style: outside none none;
-			    margin: 0px;
-			    padding: 6px 12px;
-
-			    font-weight: 700;
-			    color: #FFF;
-			    background-color: @gray-light2;
-				}
-			}
+		.deadline {
+			.make-md-column(2);
 		}
 	}
-
-	@media (min-width: @screen-md-min) {
-		#progress-tracker-wrapper {
-			.pt-status {
-				span {
-					border-right: 4px solid #FFF;
-				}
-			}
-			.pt-steps {
-				ul.progress-tracker {
-					li {
-						&.first {
-							border-top-left-radius: @border-radius-base;
-							border-bottom-left-radius: @border-radius-base;
-							border-right: 2px solid #FFF;
-						}
-						&.last {
-							border-top-right-radius: @border-radius-base;
-							border-bottom-right-radius: @border-radius-base;
-							border-left: 2px solid #FFF;
-						}
-					}
-				}
-			}
-		}
-	}
-
 }
 
 

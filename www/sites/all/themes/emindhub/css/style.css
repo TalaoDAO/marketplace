@@ -9762,10 +9762,8 @@ button.close {
 #block-block-12 .content:after,
 #block-views-news-thread-block .content .item:before,
 #block-views-news-thread-block .content .item:after,
-#block-progress-tracker-progress-tracker #progress-tracker-wrapper:before,
-#block-progress-tracker-progress-tracker #progress-tracker-wrapper:after,
-#block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker:before,
-#block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker:after,
+#block-emh-request-timeline-timeline .content:before,
+#block-emh-request-timeline-timeline .content:after,
 #block-hybridauth-hybridauth .hybridauth-widget-wrapper:before,
 #block-hybridauth-hybridauth .hybridauth-widget-wrapper:after,
 form#change-pwd-page-form .form-type-password-confirm:before,
@@ -9828,8 +9826,7 @@ body.node-type-request:not(.page-node-edit) .section:after,
 #block-block-13 .content:after,
 #block-block-12 .content:after,
 #block-views-news-thread-block .content .item:after,
-#block-progress-tracker-progress-tracker #progress-tracker-wrapper:after,
-#block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker:after,
+#block-emh-request-timeline-timeline .content:after,
 #block-hybridauth-hybridauth .hybridauth-widget-wrapper:after,
 form#change-pwd-page-form .form-type-password-confirm:after,
 form#emh-points-arrange-form fieldset .panel-body:after,
@@ -10400,6 +10397,13 @@ div.form-item div.password-suggestions {
 }
 div.password-suggestions ul {
   margin-bottom: 0;
+}
+.progress {
+  background-color: #2e3243;
+}
+.progress-bar {
+  font-size: inherit;
+  font-weight: bold;
 }
 .progress-wrapper .progress {
   margin-bottom: 10px;
@@ -12215,6 +12219,14 @@ header#title .emh-title-baseline {
   background-color: #33374a;
 }
 .progress-striped .progress-bar-asphalt {
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+}
+.progress-bar-inactive {
+  background-color: #777777;
+}
+.progress-striped .progress-bar-inactive {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
@@ -15525,82 +15537,46 @@ table th[class*="col-"] {
 .view-query-list table > tbody > tr > td {
   vertical-align: middle;
 }
-#block-progress-tracker-progress-tracker .block-title {
-  margin-top: 0;
-}
-#block-progress-tracker-progress-tracker #progress-tracker-wrapper {
+#block-emh-request-timeline-timeline .content {
   margin-left: -15px;
   margin-right: -15px;
-  margin: 0;
 }
-#block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-status {
+#block-emh-request-timeline-timeline .content .created {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: right;
+}
+@media (min-width: 992px) {
+  #block-emh-request-timeline-timeline .content .created {
+    float: left;
+    width: 16.66666667%;
+  }
+}
+#block-emh-request-timeline-timeline .content .progress {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
   padding: 0;
 }
-#block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-status span {
-  padding: 6px 12px;
-}
 @media (min-width: 992px) {
-  #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-status {
+  #block-emh-request-timeline-timeline .content .progress {
     float: left;
-    width: 25%;
+    width: 66.66666667%;
   }
 }
-#block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps {
+#block-emh-request-timeline-timeline .content .deadline {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
-  padding: 0;
 }
 @media (min-width: 992px) {
-  #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps {
+  #block-emh-request-timeline-timeline .content .deadline {
     float: left;
-    width: 75%;
-  }
-}
-#block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker {
-  margin-left: -15px;
-  margin-right: -15px;
-  padding: 0;
-  margin: 0 0 15px;
-}
-#block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker li {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-  text-align: center;
-  text-transform: uppercase;
-  list-style: outside none none;
-  margin: 0px;
-  padding: 6px 12px;
-  font-weight: 700;
-  color: #FFF;
-  background-color: #b5b5b5;
-}
-@media (min-width: 992px) {
-  #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker li {
-    float: left;
-    width: 50%;
-  }
-}
-@media (min-width: 992px) {
-  #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-status span {
-    border-right: 4px solid #FFF;
-  }
-  #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker li.first {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-right: 2px solid #FFF;
-  }
-  #block-progress-tracker-progress-tracker #progress-tracker-wrapper .pt-steps ul.progress-tracker li.last {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-left: 2px solid #FFF;
+    width: 16.66666667%;
   }
 }
 #block-views-sponsors-partners-block .user,

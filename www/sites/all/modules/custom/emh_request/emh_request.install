@@ -349,4 +349,9 @@ function emh_request_update_7118() {
  */
 function emh_request_update_7119() {
   module_enable(['emh_request_timeline']);
+  features_revert(array(
+    'ft_request' => array(
+      'fe_block_settings',
+    ),
+  ));
 }
