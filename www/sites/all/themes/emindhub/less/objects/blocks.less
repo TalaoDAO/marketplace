@@ -675,53 +675,14 @@
 
 
 // Last requests
+#block-views-query-list-block-last-requests,
+#block-views-query-list-block-my-requests {
+	.emh-block-blue-title;
+}
 .view-query-list {
-	.block-title {
-		margin-top: 0;
-	}
-	// Filtres
-	form {
-		.form-group {
-			margin-bottom: 0;
-		}
-		#edit-field-domaine-tid-i18n-wrapper,
-		#edit-field-tags-tid-i18n-wrapper {
-			.make-md-column(3);
-		}
-	}
-	// Contenu
 	table > thead > tr > th,
 	table > tbody > tr > td {
 		vertical-align: middle;
-	}
-	td.views-field-type {
-		a {
-			.text-hide;
-			&:before {
-				content: "";
-				width: 20px;
-				height: 20px;
-				display: inline-block;
-				background-color: transparent;
-				background-position: center center;
-				background-repeat: no-repeat;
-			}
-		}
-		&.question1 {
-			a:before {
-				background-image: url("../images/picto/picto_question_small.png");
-			}
-		}
-		&.webform {
-			a:before {
-				background-image: url("../images/picto/picto_survey_small.png");
-			}
-		}
-		&.challenge {
-			a:before {
-				background-image: url("../images/picto/picto_challenge_small.png");
-			}
-		}
 	}
 }
 
