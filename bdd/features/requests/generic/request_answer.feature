@@ -1,4 +1,4 @@
-@exclude @api @watchdog
+@api @watchdog
 Feature: Request and answers
   In order to test Request creation, and privacy of answers
   As a Client and an Expert
@@ -41,13 +41,11 @@ Feature: Request and answers
     Given I am logged in as "expert1"
     When I go to homepage
     And I click "How to become a superhero?" in the "How to become a superhero?" row
-    And I fill in "How to become a superhero?" with "Everybody can be, trust me."
+    And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
     # Draft answer
     And I press "Save Draft"
     Then I should see the message "Your answer has been saved as draft."
     # Published answer
-    When I click "Edit" in the "answer" region
-    And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
     And I press "Publish my answer"
     Then I should see "Thank you, your answer has been sent."
 
@@ -55,13 +53,11 @@ Feature: Request and answers
     Given I am logged in as "expert2"
     When I go to homepage
     And I click "How to become a superhero?" in the "How to become a superhero?" row
-    And I fill in "How to become a superhero?" with "You have to read DC comics."
+    And I fill in "How to become a superhero?" with "You have to read DC comics of course!"
     # Draft answer
     And I press "Save Draft"
     Then I should see the message "Your answer has been saved as draft."
     # Published answer
-    When I click "Edit" in the "answer" region
-    And I fill in "How to become a superhero?" with "You have to read DC comics of course!"
     And I press "Publish my answer"
     Then I should see "Thank you, your answer has been sent."
 
@@ -69,8 +65,8 @@ Feature: Request and answers
     Given I am logged in as "expert2"
     When I go to homepage
     And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should see "Your answer" in the "answers" region
-    And I should see "You have to read DC comics of course!" in the "answers" region
+    Then I should see "Your submission" in the "submission" region
+    And I should see "You have to read DC comics of course!" in the "submissions" region
 
   Scenario: The author can see the published answers
     Given I am logged in as "client1"
@@ -84,17 +80,18 @@ Feature: Request and answers
     When I click "How to become a superhero?" in the "How to become a superhero?" row
     #Then I should not see an "Answer" textarea form element
 
-    When I click "Answers" in the "primary tabs" region
-    Then I should see "Select best answer(s)"
+    #When I click "Answers" in the "primary tabs" region
+    #Then I should see "Select best answer(s)"
     And I should see "Iron Man"
     And I should see "Everybody can be, trust me, I'm the best we known."
     And I should see "Klark Kent"
     And I should see "You have to read DC comics of course!"
 
-    When I click "Everybody can be, trust me, I'm the best we known."
-    Then I should see "How to become a superhero?"
-    And I should see "Everybody can be, trust me, I'm the best we known."
+    #When I click "Everybody can be, trust me, I'm the best we known."
+    #Then I should see "How to become a superhero?"
+    #And I should see "Everybody can be, trust me, I'm the best we known."
 
+  @exclude
   Scenario: The author cannot see the draft answers
     Given I am logged in as "client1"
     When I go to "my-responses"
@@ -118,18 +115,21 @@ Feature: Request and answers
     Then I should see "How to become a superhero?"
     And I should see "Everybody can be, trust me, I'm the best we known."
 
+  @exclude
   Scenario: Another expert cannot see the answer
     Given I am logged in as "expert1"
     When I go to homepage
     And I click "How to become a superhero?" in the "How to become a superhero?" row
     And I should not see "You have to read DC comics of course!" in the "answers" region
 
+  @exclude
   Scenario: The expert cannot respond twice to the same request
     Given I am logged in as "expert1"
     When I go to homepage
     And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should not see "Answer the request" in the "answers" region
 
+  @exclude
   Scenario: The expert can edit its own answer
     Given I am logged in as "expert1"
     When I go to homepage
@@ -138,7 +138,8 @@ Feature: Request and answers
     And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we know."
     And I press "Save"
     Then I should see the success message "Your answer has been updated."
-
+  
+  @exclude
   Scenario: The author cannot edit an answer
     Given I am logged in as "client1"
     When I go to homepage
