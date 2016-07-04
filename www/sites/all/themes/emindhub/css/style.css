@@ -11300,6 +11300,65 @@ fieldset[disabled] .btn-gray.focus {
   color: #f2f2f2;
   background-color: #4c6172;
 }
+.btn-submission {
+  color: #ffffff;
+  background-color: transparent;
+  border-color: transparent;
+  font-weight: bold;
+  font-size: 1.25em;
+}
+.btn-submission:focus,
+.btn-submission.focus {
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0);
+}
+.btn-submission:hover {
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0);
+}
+.btn-submission:active,
+.btn-submission.active,
+.open > .dropdown-toggle.btn-submission {
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0);
+}
+.btn-submission:active:hover,
+.btn-submission.active:hover,
+.open > .dropdown-toggle.btn-submission:hover,
+.btn-submission:active:focus,
+.btn-submission.active:focus,
+.open > .dropdown-toggle.btn-submission:focus,
+.btn-submission:active.focus,
+.btn-submission.active.focus,
+.open > .dropdown-toggle.btn-submission.focus {
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0);
+}
+.btn-submission:active,
+.btn-submission.active,
+.open > .dropdown-toggle.btn-submission {
+  background-image: none;
+}
+.btn-submission.disabled:hover,
+.btn-submission[disabled]:hover,
+fieldset[disabled] .btn-submission:hover,
+.btn-submission.disabled:focus,
+.btn-submission[disabled]:focus,
+fieldset[disabled] .btn-submission:focus,
+.btn-submission.disabled.focus,
+.btn-submission[disabled].focus,
+fieldset[disabled] .btn-submission.focus {
+  background-color: transparent;
+  border-color: transparent;
+}
+.btn-submission .badge {
+  color: transparent;
+  background-color: #ffffff;
+}
 .emh-block-normal {
   margin-bottom: 15px;
 }
@@ -13583,6 +13642,12 @@ header#page-header {
 body {
   background-color: #f2f2f2;
 }
+.region-title-left,
+.title-left,
+.region-title-right,
+.title-right {
+  margin: 15px 0;
+}
 h1.page-header {
   text-transform: uppercase;
   font-size: 24px;
@@ -14145,7 +14210,20 @@ fieldset[disabled] #nav-next > a.focus {
 .node-webform .form-textarea-wrapper.resizable-textarea {
   max-width: 100%;
 }
-#title-right {
+.title-left {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  .title-left {
+    float: left;
+    width: 66.66666667%;
+  }
+}
+.region-title-right,
+.title-right {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
@@ -14154,13 +14232,15 @@ fieldset[disabled] #nav-next > a.focus {
   text-align: right;
 }
 @media (min-width: 992px) {
-  #title-right {
+  .region-title-right,
+  .title-right {
     float: left;
     width: 33.33333333%;
   }
 }
 @media (min-width: 768px) {
-  #title-right {
+  .region-title-right,
+  .title-right {
     margin-bottom: 0;
   }
 }
@@ -18012,8 +18092,8 @@ body.node-type-request:not(.page-node-edit) h1.page-header {
   background-image: none;
   font-weight: normal;
   padding: 0;
+  margin: 0;
   line-height: 1.5;
-  margin: 15px 0;
 }
 body.node-type-request:not(.page-node-edit) #maincol {
   padding-top: 0;
