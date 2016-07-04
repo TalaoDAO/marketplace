@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * Implements hook_block_info().
+ */
+function emh_request_flag_save_block_info() {
+  $blocks = array();
+
+  $blocks['flag_save'] = array(
+    'info' => t("Request - Save flag"),
+    'cache' => DRUPAL_CACHE_PER_ROLE,
+    'weight' => 0,
+    'status' => 1,
+    'region' => 'title_right',
+    'node_types' => array(
+      0 => 'request',
+    ),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function emh_request_flag_save_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'flag_save':
+      $nid = arg(1);
+      $value = flag_create_link('my_selection', $nid);
+
+      $block = array(
+        'subject' => '<none>',
+        'content' => array(
+          'text' => array(
+            '#theme' => 'html_tag',
+            '#tag' => 'p',
+            '#value' => $value,
+          ),
+        ),
+      );
+      break;
+  }
+
+  return $block;
+}
