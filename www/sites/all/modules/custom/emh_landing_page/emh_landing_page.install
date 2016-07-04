@@ -67,6 +67,7 @@ function emh_landing_page_update_7001() {
  * ADD: new role field in Landing Page
  */
 function emh_landing_page_update_7002() {
+  module_enable(array('rolereference'));
   features_revert(array('ft_landing_page' => array('field_base')));
   features_revert(array('ft_landing_page' => array('field_instance')));
 }
