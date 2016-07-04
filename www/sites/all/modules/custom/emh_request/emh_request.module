@@ -42,10 +42,11 @@ function emh_request_node_presave($node) {
     }
   }
   elseif (
-    $node->status == NODE_PUBLISHED
-    && isset($node->original) 
+    ($node->status == NODE_PUBLISHED
+    && isset($node->original)
     && isset($node->original->status)
-    && $node->original->status == NODE_NOT_PUBLISHED
+    && $node->original->status == NODE_NOT_PUBLISHED)
+    || (empty($node->nid))
   ) {
     // All requests are webforms, then we have to automatically create the
     // only component in the case of a non questionnaire request.
