@@ -168,15 +168,15 @@ global $base_url;
 
           <div class="col-md-8">
 
-            <?php if (!empty($page['title'])): ?>
-              <?php print render($page['title']); ?>
-            <?php endif; ?>
-
             <?php print render($title_prefix); ?>
             <?php if (!empty($title)): ?>
               <h1 class="page-header"><?php print $title; ?></h1>
             <?php endif; ?>
             <?php print render($title_suffix); ?>
+
+            <?php if (!empty($page['title'])): ?>
+              <?php print render($page['title']); ?>
+            <?php endif; ?>
 
             <?php if (!empty($baseline)) : ?>
               <p class="emh-title-baseline"><?php print $baseline; ?></p>
@@ -184,13 +184,16 @@ global $base_url;
 
           </div>
 
-          <div id="flashes" class="col-md-4 text-right">
+          <div id="title-right">
 
             <?php print flag_create_link('my_selection', $node->nid); ?>
+
+            <?php print emindhub_request_count_submissions($node->nid); ?>
 
             <?php if (user_access('invite experts')) : ?>
               <a class="btn btn-flash icon-user" href="<?php print url('invitations'); ?>"><?php print t('Invite experts'); ?></a>
             <?php endif; ?>
+
             <?php if (user_has_role(3) || user_has_role(4) || user_has_role(6)) : ?>
               <a class="btn btn-flash icon-community" href="<?php print url('circles'); ?>"><?php print t('Join circles'); ?></a>
             <?php endif; ?>
