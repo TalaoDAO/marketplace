@@ -8,7 +8,7 @@ function emh_request_timeline_theme() {
     'timeline' => array(
       'template' => 'timeline',
       'variables' => array(
-        'status' => null,
+        'class' => null,
         'created' => null,
         'deadline' => null,
         'progression' => null,
@@ -64,6 +64,7 @@ function emh_request_timeline_get_timeline() {
   $nid = arg(1);
   $request = node_load($nid);
   $status = emh_request_get_status($request->nid);
+  $status = $status['status'];
 
   $now = time();
   $now = format_date($now, 'custom', 'Y/m/d');
@@ -82,6 +83,9 @@ function emh_request_timeline_get_timeline() {
   $intervalDeadline = $intervalDeadline->format('%a days');
   $intervalLeft = $nowDate->diff($deadlineDate);
   $intervalLeft = $intervalLeft->format('%a days left');
+
+  // Closed status
+  if ($status == 'closed') $intervalLeft = t('Closed');
 
   $progression = round((($intervalNow / $intervalDeadline)*100), 0);
 
@@ -102,12 +106,12 @@ function _timeline() {
   $output = '';
   $timeline = emh_request_timeline_get_timeline();
 
-  $status = $timeline['status']['status'];
+  $left = $timeline['left'];
   if ($status == 'open') {
-    $class = 'success';
   }
   else if ($status == 'closed') {
     $class = 'inactive';
+    $left = t('Closed');
   }
   else if ($status == 'soon') {
     $class = 'warning';
@@ -116,11 +120,11 @@ function _timeline() {
   return theme(
     'timeline',
     array(
-      'status' => $class,
+      'class' => $status,
       'created' => $timeline['created'],
       'deadline' => $timeline['deadline'],
       'progression' => $timeline['progression'],
-      'left' => $timeline['left'],
+      'left' => $left,
     )
   );
 }
