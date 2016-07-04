@@ -595,16 +595,3 @@ function emindhub_beautiful_user_cartouche($node) {
 		print '<span class="user-activity">' . render($content['field_activity']) . '</span>';
 	}
 }
-
-function emindhub_request_count_submissions($nid) {
-	$submissions_count = emh_request_count_answers($nid);
-	$output = '<a href="#request-submissions" class="btn btn-link icon-submission">';
-	if ($submissions_count == 0) {
-		$output .= t('No submission');
-	}
-	else {
-		$output .= format_plural($submissions_count, '1 submission', '@count submissions');
-	}
-	$output .= '</a>';
-	return $output;
-}
