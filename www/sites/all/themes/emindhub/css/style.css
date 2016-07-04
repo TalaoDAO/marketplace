@@ -12411,8 +12411,6 @@ input#autocomplete-deluxe-input {
   padding: 15px;
 }
 .btn {
-  text-transform: uppercase;
-  font-weight: 700;
   margin-right: 5px;
 }
 .btn:last-child {
@@ -12935,8 +12933,6 @@ textarea.chosen-container-multi .chosen-choices {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  text-transform: uppercase;
-  font-weight: 700;
   margin-right: 5px;
 }
 #sliding-popup .popup-content #popup-buttons button:focus,
@@ -13217,8 +13213,6 @@ html.js div.contextual-links-wrapper {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  text-transform: uppercase;
-  font-weight: 700;
   margin-right: 5px;
 }
 .btn-group a:focus,
@@ -13678,8 +13672,6 @@ a.flag {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  text-transform: uppercase;
-  font-weight: 700;
   margin-right: 5px;
   color: #ffffff;
   background-color: #009fe3;
@@ -13797,8 +13789,6 @@ ul.links.list-inline li a {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  text-transform: uppercase;
-  font-weight: 700;
   margin-right: 5px;
   color: #4c6172;
   background-color: transparent;
@@ -13943,8 +13933,6 @@ ul.links.list-inline li a .badge {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  text-transform: uppercase;
-  font-weight: 700;
   margin-right: 5px;
   color: #4c6172;
   background-color: transparent;
@@ -14157,11 +14145,22 @@ fieldset[disabled] #nav-next > a.focus {
 .node-webform .form-textarea-wrapper.resizable-textarea {
   max-width: 100%;
 }
-#flashes {
+#title-right {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
   margin-bottom: 15px;
+  text-align: right;
+}
+@media (min-width: 992px) {
+  #title-right {
+    float: left;
+    width: 33.33333333%;
+  }
 }
 @media (min-width: 768px) {
-  #flashes {
+  #title-right {
     margin-bottom: 0;
   }
 }
@@ -15634,8 +15633,6 @@ table th[class*="col-"] {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  text-transform: uppercase;
-  font-weight: 700;
   margin-right: 5px;
   margin-bottom: 15px;
 }
@@ -17634,8 +17631,6 @@ form#webform-component-edit-form input#edit-extra-description {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  text-transform: uppercase;
-  font-weight: 700;
   margin-right: 5px;
 }
 .circle-subscribe a:focus,
@@ -18448,8 +18443,6 @@ table#webform-components .webform-component-delete a {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  text-transform: uppercase;
-  font-weight: 700;
   margin-right: 5px;
 }
 table#webform-components .webform-component-edit a:focus,
