@@ -2,6 +2,14 @@ body {
   background-color: @lightGrey;
 }
 
+// Header
+.region-title-left,
+.title-left,
+.region-title-right,
+.title-right {
+  margin: 15px 0;
+}
+
 h1.page-header {
   .emh-title-main;
 }
@@ -106,11 +114,15 @@ ul.links.list-inline {
   }
 }
 
-#flashes {
-  margin-bottom: 15px;
+.title-left {
+  .make-md-column(8);
 }
-@media (min-width: @screen-sm-min) {
-  #flashes {
+.region-title-right,
+.title-right {
+  .make-md-column(4);
+  margin-bottom: 15px;
+  .text-right;
+  @media (min-width: @screen-sm-min) {
     margin-bottom: 0;
   }
 }
