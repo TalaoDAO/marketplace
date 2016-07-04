@@ -104,5 +104,37 @@ function ft_request_default_fe_block_settings() {
     'visibility' => 0,
   );
 
+  $export['emh_request_timeline-timeline'] = array(
+    'cache' => 1,
+    'custom' => 0,
+    'delta' => 'timeline',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'module' => 'emh_request_timeline',
+    'node_types' => array(
+      0 => 'request',
+    ),
+    'pages' => '',
+    'roles' => array(
+      'authenticated user' => 2,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'title',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
   return $export;
 }
