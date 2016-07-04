@@ -14282,23 +14282,6 @@ fieldset[disabled] #nav-next > a.focus {
 .section .field-name-body {
   font-size: 16px;
 }
-.section .field-type-taxonomy-term-reference .field-items .field-item {
-  display: inline-block;
-  margin-right: 10px;
-  background-color: #fff;
-  font-style: italic;
-  padding: 7px 15px;
-  text-align: left;
-  margin-bottom: 5px;
-}
-.section .field-type-taxonomy-term-reference a {
-  display: inline-block;
-  margin-right: 10px;
-  background-color: #fff;
-  font-style: italic;
-  padding: 7px 15px;
-  text-align: left;
-}
 .section .meta li * {
   display: inline-block;
 }
@@ -18080,6 +18063,11 @@ body.node-type-request:not(.page-node-edit) .field-label-inline .field-label {
 body.node-type-request:not(.page-node-edit) .section.request,
 body.node-type-request:not(.page-node-edit) .section.user-submission {
   background-color: #FFF;
+}
+body.node-type-request:not(.page-node-edit) .section.request a,
+body.node-type-request:not(.page-node-edit) .section.user-submission a {
+  color: #104476;
+  text-decoration: underline;
 }
 body.node-type-request:not(.page-node-edit) .section {
   margin-left: -15px;
