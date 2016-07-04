@@ -72,15 +72,15 @@ function _emh_request_string_overrides() {
     // Webform
     'No Components, add a component below.' => 'No questions, add a question below.',
     'New component name' => 'New question',
-    'This will immediately delete the %name component from the %webform webform. This cannot be undone.' => 'This will immediately delete the %name question from the %webform mission. This cannot be undone.',
-    'Submissions for %user' => 'Answers',
+    'This will immediately delete the %name component from the %webform webform. This cannot be undone.' => 'This will immediately delete the %name question from the %webform request. This cannot be undone.',
+    'Submissions for %user' => 'Submissions',
     'Edit component: @name' => 'Edit question @name',
     'New component %name added.' => 'New question %name added.',
     'The component positions and required values have been updated.' => 'Your questions have been updated.',
-    'Submissions for this form are closed.' => 'Answers for this mission are closed.',
-    'You have already submitted this form.' => 'You have already submitted this mission.',
-    'Submission updated.' => 'Your answer has been updated.',
-    'Submission saved. You may return to this form later and it will restore the current values.' => 'Your answer has been saved as draft. You may return to this mission later and it will restore your current answer.',
+    'Submissions for this form are closed.' => 'Submissions for this request are closed.',
+    'You have already submitted this form.' => 'You have already submitted this request.',
+    'Submission updated.' => 'Your submission has been updated.',
+    'Submission saved. You may return to this form later and it will restore the current values.' => 'Your submission has been saved as draft. You may return to this request later and it will restore your current submission.',
   );
 }
 
