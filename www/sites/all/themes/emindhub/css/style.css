@@ -18077,6 +18077,30 @@ body.node-type-request:not(.page-node-edit) .section {
 body.node-type-request:not(.page-node-edit) .field {
   padding: 0 0 15px;
 }
+body.node-type-request:not(.page-node-edit) .request-left {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  body.node-type-request:not(.page-node-edit) .request-left {
+    float: left;
+    width: 66.66666667%;
+  }
+}
+body.node-type-request:not(.page-node-edit) .request-right {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  body.node-type-request:not(.page-node-edit) .request-right {
+    float: left;
+    width: 33.33333333%;
+  }
+}
 body.node-type-request:not(.page-node-edit) .field-list-item .field-item {
   display: inline-block;
 }
@@ -18098,6 +18122,7 @@ body.node-type-request:not(.page-node-edit) .field-list-border:last-child {
 }
 body.node-type-request:not(.page-node-edit) .field-name-body {
   font-size: 1.2em;
+  line-height: 1.5;
   padding-bottom: 15px;
   margin-bottom: 15px;
   border-bottom: 1px dotted #CECECE;
