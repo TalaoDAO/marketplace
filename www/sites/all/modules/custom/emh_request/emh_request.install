@@ -326,5 +326,20 @@ function emh_request_update_7117() {
  */
 function emh_request_update_7118() {
   module_enable(array('emh_request_flag_save', 'emh_request_submission'));
-  features_revert(array('ft_blocks' => array('fe_block_settings')));
+  features_revert(array(
+    'ft_blocks' => array(
+      'fe_block_settings',
+    ),
+    'ft_field_base' => array(
+      'flag',
+    ),
+    'ft_permissions' => array(
+      'user_permission',
+    ),
+    'ft_request' => array(
+      'fe_block_settings',
+      'flag',
+      'user_permission',
+    ),
+  ));
 }
