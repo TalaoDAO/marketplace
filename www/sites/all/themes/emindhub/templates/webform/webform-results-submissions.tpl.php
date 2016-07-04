@@ -22,12 +22,12 @@
   <?php print theme('webform_results_per_page', array('total_count' => $total_count, 'pager_count' => $pager_count)); ?>
   <?php print render($table); ?>
 <?php else: ?>
-  <?php print t('There are no answers for this mission. <a href="!url">View this mission</a>.', array('!url' => url('node/' . $node->nid))); ?>
+  <?php print t('There are no answers for this request. <a href="!url">View this request</a>.', array('!url' => url('node/' . $node->nid))); ?>
 <?php endif; ?>
 
 
 <?php if ($is_submissions): ?>
-  <?php print theme('links', array('links' => array('webform' => array('title' => t('Go back to the mission'), 'href' => 'node/' . $node->nid)))); ?>
+  <?php print theme('links', array('links' => array('webform' => array('title' => t('Go back to the request'), 'href' => 'node/' . $node->nid)))); ?>
 <?php endif; ?>
 
 <?php if ($pager_count): ?>
