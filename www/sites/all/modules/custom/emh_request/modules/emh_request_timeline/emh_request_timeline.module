@@ -44,7 +44,7 @@ function emh_request_timeline_block_view($delta) {
     case 'timeline':
       $block = array(
         'subject' => '<none>',
-        'content' => _timeline(),
+        'content' => _emh_request_timeline_view(),
       );
       break;
   }
@@ -102,7 +102,7 @@ function emh_request_timeline_get_timeline() {
 
 }
 
-function _timeline() {
+function _emh_request_timeline_view() {
   $output = '';
   $timeline = emh_request_timeline_get_timeline();
 
