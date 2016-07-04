@@ -106,8 +106,6 @@ function _timeline() {
   $output = '';
   $timeline = emh_request_timeline_get_timeline();
 
-  $left = $timeline['left'];
-
   $status = $timeline['status'];
   if ($status == 'open') {
     $class = 'success';
@@ -126,7 +124,7 @@ function _timeline() {
       'created' => $timeline['created'],
       'deadline' => $timeline['deadline'],
       'progression' => $timeline['progression'],
-      'left' => $left,
+      'left' => $timeline['left'],
     )
   );
 }
