@@ -1230,10 +1230,10 @@ client/register',
     'visibility' => 0,
   );
 
-  $export['views-query_list-block'] = array(
+  $export['views-query_list-block_last_requests'] = array(
     'cache' => -1,
     'custom' => 0,
-    'delta' => 'query_list-block',
+    'delta' => 'query_list-block_last_requests',
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
     'module' => 'views',
@@ -1269,10 +1269,10 @@ fr/node/323',
     'visibility' => 1,
   );
 
-  $export['views-query_list-block_1'] = array(
+  $export['views-query_list-block_my_requests'] = array(
     'cache' => -1,
     'custom' => 0,
-    'delta' => 'query_list-block_1',
+    'delta' => 'query_list-block_my_requests',
     'i18n_block_language' => array(),
     'i18n_mode' => 0,
     'module' => 'views',
