@@ -49,30 +49,6 @@ function emh_request_block_info() {
 
   }
 
-  $blocks['request_save'] = array(
-    'info' => t("Request - Save flag"),
-    'cache' => DRUPAL_CACHE_PER_ROLE,
-    'weight' => 0,
-    'status' => 1,
-    'region' => 'title_right',
-    'visibility' => BLOCK_VISIBILITY_LISTED,
-    'node_types' => array(
-      0 => 'request',
-    ),
-  );
-
-  $blocks['request_submission_count'] = array(
-    'info' => t("Request - Submission count"),
-    'cache' => DRUPAL_CACHE_PER_ROLE,
-    'weight' => 1,
-    'status' => 1,
-    'region' => 'title_right',
-    'visibility' => BLOCK_VISIBILITY_LISTED,
-    'node_types' => array(
-      0 => 'request',
-    ),
-  );
-
   return $blocks;
 }
 
@@ -100,48 +76,6 @@ function emh_request_block_view($delta = '') {
         break;
     }
 
-  }
-
-  switch ($delta) {
-    case 'request_save':
-      $nid = arg(1);
-      $value = flag_create_link('my_selection', $nid);
-
-      $block = array(
-        'subject' => '<none>',
-        'content' => array(
-          'text' => array(
-            '#theme' => 'html_tag',
-            '#tag' => 'p',
-            '#value' => $value,
-          ),
-        ),
-      );
-      break;
-
-    case 'request_submission_count':
-      $nid = arg(1);
-      $submissions_count = emh_request_count_answers($nid);
-      $value = '<a href="#request-submissions" class="btn btn-submission">';
-      if ($submissions_count == 0) {
-        $value .= t('No submission');
-      }
-      else {
-        $value .= format_plural($submissions_count, '1 submission', '@count submissions');
-      }
-      $value .= '</a>';
-
-      $block = array(
-        'subject' => '<none>',
-        'content' => array(
-          'text' => array(
-            '#theme' => 'html_tag',
-            '#tag' => 'p',
-            '#value' => $value,
-          ),
-        ),
-      );
-      break;
   }
 
   return $block;
