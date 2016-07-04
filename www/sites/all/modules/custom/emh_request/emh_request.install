@@ -343,3 +343,15 @@ function emh_request_update_7118() {
     ),
   ));
 }
+
+/**
+ * ADD: Enable Timeline submodule.
+ */
+function emh_request_update_7119() {
+  module_enable(['emh_request_timeline']);
+  features_revert(array(
+    'ft_request' => array(
+      'fe_block_settings',
+    ),
+  ));
+}
