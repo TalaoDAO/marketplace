@@ -25,11 +25,11 @@
   <?php if ($confirmation_message): ?>
     <?php print $confirmation_message ?>
   <?php else: ?>
-    <p><?php print t('Thank you, your answer has been sent.'); ?></p>
+    <p><?php print t('Thank you, your submission has been sent.'); ?></p>
     <p>&nbsp;</p>
   <?php endif; ?>
 </div>
 
 <div class="links">
-  <a href="<?php print $url; ?>" class="btn btn-default"><?php print t('See my answer') ?></a>
+  <a href="<?php print $url; ?>" class="btn btn-default"><?php print t('See my submission') ?></a>
 </div>

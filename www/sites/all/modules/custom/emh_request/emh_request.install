@@ -355,3 +355,11 @@ function emh_request_update_7119() {
     ),
   ));
 }
+
+/**
+ * CHG: Request strings.
+ */
+function emh_request_update_7120() {
+  emh_request_disable();
+  emh_request_enable();
+}
