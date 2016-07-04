@@ -288,7 +288,7 @@ function emh_request_form_alter(&$form, &$form_state, $form_id) {
   if (isset($form['#node']->nid) && ($form_id == 'webform_client_form_' . $form['#node']->nid)) {
     // Changes the submit button label for "Publish my answer"
     if (!empty($form['#is_draft']) || empty($form['#submission'])) {
-      $form['actions']['submit']['#value'] = t('Publish my answer');
+      $form['actions']['submit']['#value'] = t('Publish');
     }
 
     // Disables the form components if the user is not allowed to answer
