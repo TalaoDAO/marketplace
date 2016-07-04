@@ -79,7 +79,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
   // Hide "Show row weights" for regular users
   global $user;
-  
+
   if (!(in_array('webmaster', $user->roles) || in_array('administrator', $user->roles) )) {
     if (empty($form['#attached']['js'])) {
       $form['#attached']['js'] = array();
