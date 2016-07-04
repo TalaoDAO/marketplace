@@ -61,6 +61,14 @@ function ft_request_submissions_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['row_clickable'] = 1;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
+    'action::emh_points_arrange_node_points' => array(
+      'selected' => 1,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+  );
   /* Field: Webform submissions: EMH Author */
   $handler->display->display_options['fields']['emh_author']['id'] = 'emh_author';
   $handler->display->display_options['fields']['emh_author']['table'] = 'webform_submissions';
