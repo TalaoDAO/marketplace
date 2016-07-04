@@ -481,3 +481,10 @@ function emh_configuration_update_7031() {
       ->execute();
   }
 }
+
+/**
+ * Install new feature for Request submissions.
+ */
+function emh_configuration_update_7032() {
+  module_enable(array('ft_request_submissions'));
+}
