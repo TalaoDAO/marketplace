@@ -3359,7 +3359,7 @@ function ft_views_views_default_views() {
   /* Display: P - My selection */
   $handler = $view->new_display('page', 'P - My selection', 'page_selected_requests');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'My selection';
+  $handler->display->display_options['title'] = 'Saved requests';
   $handler->display->display_options['defaults']['access'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'flag my_selection';
@@ -3781,7 +3781,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['views_navigation_cycle'] = FALSE;
   $handler->display->display_options['path'] = 'requests/selection';
   $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'My selection';
+  $handler->display->display_options['menu']['title'] = 'Saved requests';
   $handler->display->display_options['menu']['weight'] = '-48';
   $handler->display->display_options['menu']['name'] = 'menu-top';
   $handler->display->display_options['menu']['context'] = 0;
@@ -4101,6 +4101,8 @@ function ft_views_views_default_views() {
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['defaults']['use_more_text'] = FALSE;
   $handler->display->display_options['use_more_text'] = 'All my requests';
+  $handler->display->display_options['defaults']['link_display'] = FALSE;
+  $handler->display->display_options['link_display'] = 'page_my_requests';
   $handler->display->display_options['field_language'] = 'und';
   $handler->display->display_options['field_language_add_to_query'] = 0;
   $handler->display->display_options['defaults']['query'] = FALSE;

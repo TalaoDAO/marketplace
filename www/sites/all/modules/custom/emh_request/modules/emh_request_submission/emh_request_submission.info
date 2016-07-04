@@ -1,0 +1,6 @@
+name = EMH Request Submission
+description = Global functions for request submissions.
+package = EMH
+core = 7.x
+
+dependencies[] = emh_request

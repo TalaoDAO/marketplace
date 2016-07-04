@@ -320,3 +320,26 @@ function emh_request_update_7116() {
 function emh_request_update_7117() {
   features_revert(array('ft_views' => array('views_view')));
 }
+
+/**
+ * ADD: Enable Save flag & submission submodules.
+ */
+function emh_request_update_7118() {
+  module_enable(array('emh_request_flag_save', 'emh_request_submission'));
+  features_revert(array(
+    'ft_blocks' => array(
+      'fe_block_settings',
+    ),
+    'ft_field_base' => array(
+      'flag',
+    ),
+    'ft_permissions' => array(
+      'user_permission',
+    ),
+    'ft_request' => array(
+      'fe_block_settings',
+      'flag',
+      'user_permission',
+    ),
+  ));
+}
