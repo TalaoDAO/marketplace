@@ -118,14 +118,26 @@ function emh_request_setup_options_behaviors($form, &$form_state) {
  * for the questionnaire option.
  */
 function emh_request_questionnaire_after_build(&$form, &$form_state) {
-  $element = emh_request_get_form_element($form, 'field_options');
-  $name = 'field_options[' . $element['#language'] . '][questionnaire][enabled]';
+  if ($form_state['node']->status == NODE_NOT_PUBLISHED) {
+    $element = emh_request_get_form_element($form, 'field_options');
+    $name = 'field_options[' . $element['#language'] . '][questionnaire][enabled]';
 
-  $form['actions']['submit']['#states'] = array(
-    'disabled' => array(
-      ':input[name="' . $name . '"]' => array('checked' => true),
-    ),
-  );
+    $form['actions']['submit']['#states'] = array(
+      'disabled' => array(
+        ':input[name="' . $name . '"]' => array('checked' => true),
+      ),
+    );
+
+    // Attaches the script to dynamically change the label of the draft button
+    // in function of the state of the questionnaire option
+    if (empty($form['#attached']['js'])) {
+      $form['#attached']['js'] = array();
+    }
+
+    $form['#attached']['js'] += array(
+      drupal_get_path('module', 'emh_request') . '/js/questionnaire-option.js' => array('type' => 'file'),
+    );
+  }
 }
 
 
@@ -332,8 +344,11 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
         array_unshift($form['actions']['submit']['#submit'], 'emh_request_node_form_publish');
         // Disables the publication if the request has the questionnaire option
         // but no associated question
-        if (emh_request_has_option($form['#node'], 'questionnaire') && empty($form['#node']->webform['components'])) {
-          drupal_set_message(t('You choosed the questionnaire option, please add one or more questions to allow the publication.'), 'warning');
+        if (emh_request_has_option($form['#node'], 'questionnaire')) {
+          $form['actions']['draft']['#value'] = t('Save and continue');
+          if (empty($form['#node']->webform['components'])) {
+            drupal_set_message(t('You choosed the questionnaire option, please add one or more questions to allow the publication.'), 'warning');
+          }
         }
       }
       // Request created & published
