@@ -128,7 +128,7 @@ if ($user_submission) {
 
 		<div class="section request">
 
-			<div class="col-sm-8">
+			<div class="request-left">
 
 				<?php print render($content['body']); ?>
 
@@ -147,7 +147,7 @@ if ($user_submission) {
 
 			</div>
 
-			<div class="col-sm-4">
+			<div class="request-right">
 
 				<?php print render($content['field_image']); ?>
 
