@@ -1,0 +1,176 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function emh_request_timeline_theme() {
+  return array(
+    'emh_request_timeline' => array(
+      'template' => 'timeline',
+      'variables' => array('steps' => null),
+    ),
+    'emh_request_timeline_item' => array(
+      'template' => 'timeline-item',
+      'variables' => array('step_text' => null),
+    ),
+  );
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function emh_request_timeline_block_info() {
+  $blocks['emh_request_timeline'] = array(
+    'info' => t('Progress Tracker'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_configure().
+ */
+function emh_request_timeline_block_configure($delta) {
+  if ($delta == 'emh_request_timeline') {
+    $form['steps'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Progress tracker steps'),
+      '#default_value' => variable_get('emh_request_timeline_steps', ''),
+      '#description' => t('Enter progress bar steps as "url|step text" e . g <br>cart/checkout|Step 1 Billing & Payment<br>cart/review|Step 2 Review Order<br>cart/confirm|Step 3 Order Confirmation'),
+    );
+    $form['layout'] = array(
+      '#type' => 'radios',
+      '#title' => t('Progress Tracker Layout'),
+      '#default_value' => variable_get('emh_request_timeline_layout', 'horizontal'),
+      '#description' => t('Select horizontal or vertical layout for progress tracker . '),
+      '#options' => array(
+        'horizontal' => t('Horizontal'),
+        'vertical' => t('Vertical'),
+      ),
+    );
+    return $form;
+  }
+}
+
+/**
+ * Implements hook_block_save().
+ */
+function emh_request_timeline_block_save($delta, $edit) {
+  if ($delta == 'emh_request_timeline') {
+    variable_set('emh_request_timeline_steps', $edit['steps']);
+    variable_set('emh_request_timeline_layout', $edit['layout']);
+  }
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function emh_request_timeline_block_view($delta) {
+  switch ($delta) {
+    case 'emh_request_timeline':
+    $block = array(
+      'subject' => t('Progress Tracker'),
+      'content' => emh_request_get_timeline($node),
+    );
+    break;
+  }
+  return $block;
+}
+
+/**
+ * Get Submission status & timeline.
+ *
+ * @param stdClass $request
+ *  The request node
+ * @return array
+ */
+function emh_request_timeline_get_timeline($request) {
+
+  $timeline = array();
+
+  $status = emh_request_get_status($request->nid);
+  $now = time();
+  $now = format_date($now, 'custom', 'Y-m-d h:m:s');
+  $created = format_date($request->created, 'custom', 'Y-m-d h:m:s');
+  $deadline = $request->field_expiration_date[LANGUAGE_NONE][0]['value'];
+
+  print $now - $created;
+
+  // $datetime1 = date_create('2009-10-11');
+  // $datetime2 = date_create('2009-10-13');
+  // $interval = $now->diff($deadline);
+  // echo $interval->format('%R%a days');
+  $interval = date_diff($now, $deadline);
+  // echo $interval->format('%R%a days');
+  echo $interval;
+
+  $progression = ( ( ($now - $created) / ($deadline - $created) ));
+  $progression = round($progression, 0);
+
+  $timeline = array(
+    'status' => $status,
+    'now' => $now,
+    'created' => $created,
+    'deadline' => $deadline,
+    'progression' => $progression,
+  );
+
+  echo '<pre>' . print_r($timeline, true) . '</pre>';
+
+  return $timeline;
+
+}
+
+// function _emh_request_timeline_field() {
+//   $steps = variable_get('emh_request_timeline_steps', '');
+//   $output = '';
+//   if ($steps) {
+//     $steps = explode(chr(13), $steps);
+//
+//     $items = array();
+//     $cur_url = arg();
+//     if (arg(0) == 'node' && is_numeric(arg(1))) {
+//       $nid = arg(1);
+//       if ($nid) {
+//         $node = node_load($nid);
+//       } else return '';
+//     } else return '';
+//     $wrapper = entity_metadata_wrapper('node', $node);
+//     $future = false;
+//     $last_date = 0;
+//
+//     if (is_array($steps) && count($steps) > 0) {
+//       foreach ($steps as $step_number => $step) {
+//         $step_arr = explode('|', $step);
+//         $field_name = trim($step_arr[0]);
+//         $field_value = $wrapper->$field_name->value();
+//         if (! empty($node->$field_name) ) {
+//           if ($last_date == 0)
+//             $period = format_date($field_value, 'custom', 'm/d/Y');
+//           else
+//             $period = format_date($field_value, 'custom', 'm/d/Y') . ' (' . floor( ($field_value - $last_date)/(60*60*24) ) . ' ' . t('days') . ')';
+//         } else $period = t("No limit");
+//         $last_date = $field_value;
+//         $selected_class = array();
+//         if (intval($field_value) > time()) {
+//           if (!$future) {
+//             $selected_class[] = 'selected';
+//             $future = true;
+//             $delta = floor( (intval($field_value - time())/(60*60*24)) );
+//             $period = format_date($field_value, 'custom', 'm/d/Y') . ' (' . $delta . ' ' . t('days remaining') . ')';
+//           }
+//         }
+//         $items[] = array(
+//           'data' => theme('emh_request_timeline_item', array('step_text' => $step_arr[1] . ' - ' . $period)),
+//           'class' => $selected_class,
+//         );
+//       }
+//
+//       if (count($items)) {
+//         $output = theme('item_list', array('items' => $items, 'title' => null, 'type' => 'ul', 'attributes' => array('class' => array('timeline ' . variable_get('emh_request_timeline_layout', 'horizontal')))));
+//       }
+//     }
+//   }
+//   return theme('emh_request_timeline', array('steps' => $output));
+// }

@@ -343,3 +343,10 @@ function emh_request_update_7118() {
     ),
   ));
 }
+
+/**
+ * ADD: Enable Timeline submodule.
+ */
+function emh_request_update_7119() {
+  module_enable(['emh_request_timeline']);
+}
