@@ -51,7 +51,7 @@ Feature: Request
     And I click "Edit" in the "primary tabs" region
     Then I should see "Edit Request How to become a superhero?" in the "title" region
 
-    Given I enter "This is my request." for "Description"
+    Given I enter "This is my request." for "Describe your request"
     And I press "Save"
     Then I should see the success message "Request How to become a superhero? has been updated."
 
