@@ -3,13 +3,6 @@ body.node-type-request {
   .main-container > header {
     background: #33374a;
   }
-}
-
-body.page-node-add-request,
-body.node-type-request.page-node-edit {
-  .main-container > header {
-    background-image: none;
-  }
   h1.page-header {
     text-transform: none;
     background-image: none;
@@ -17,6 +10,13 @@ body.node-type-request.page-node-edit {
     padding: 0;
     margin: 0;
     line-height: 1.5;
+  }
+}
+
+body.page-node-add-request,
+body.node-type-request.page-node-edit {
+  .main-container > header {
+    background-image: none;
   }
   form {
     h2 {
@@ -303,6 +303,7 @@ body.node-type-request:not(.page-node-edit) {
     .submissions-title {
       background-color: #2e3243;
       padding: 15px;
+      margin: 0 0 20px;
     }
     h2 {
       color: #FFF;
@@ -319,7 +320,58 @@ body.node-type-request:not(.page-node-edit) {
     }
 
     .submissions-list {
+      // padding: 15px;
+    }
+  }
+  form#views-form-request-submissions-block-request-submissions {
+    fieldset {
+      border: 0;
+      background-color: transparent;
+      box-shadow: none;
+    }
+    fieldset#edit-select {
+      legend {
+        .hide();
+      }
+      .panel-body {
+        padding: 0;
+      }
+      button {
+        .btn-primary;
+      }
+    }
+    .row {
+      margin: 0;
+    }
+    .col {
+      .make-row();
+      margin: 0;
+
+      background-color: #FFF;
+      border: 1px solid #d9d9d9;
       padding: 15px;
+      color: @text-color;
+
+      .views-field-views-bulk-operations {
+        .make-md-column(1);
+      }
+      .views-field-emh-author {
+        .make-md-column(2);
+        .text-center;
+      }
+      .views-field-emh-answer,
+      .views-field-view-submission {
+        .make-md-column(9);
+      }
+      .views-field-view-submission {
+        .make-md-column-offset(3);
+        .text-right;
+      }
+
+      .submission-date {
+        font-size: .9em;
+        color: #445766;
+      }
     }
   }
 
