@@ -78,6 +78,7 @@ Feature: Request and submissions
     And I should not see "Klark Kent"
     And I should not see "You have to read DC comics of course!"
 
+  @exclude
   Scenario: The expert cannot respond twice to the same request
     Given I am logged in as "expert1"
     When I go to homepage
