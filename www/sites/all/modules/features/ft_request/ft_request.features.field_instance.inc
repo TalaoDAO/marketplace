@@ -160,7 +160,7 @@ function ft_request_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_duration_of_the_mission',
     'label' => 'Duration of the mission',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'text_processing' => 0,
@@ -445,7 +445,7 @@ function ft_request_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_request_documents',
     'label' => 'Documents',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'description_field' => 0,
       'entity_translation_sync' => FALSE,
