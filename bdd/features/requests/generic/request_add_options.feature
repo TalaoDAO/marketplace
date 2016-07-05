@@ -1,8 +1,8 @@
 @api @watchdog
 Feature: Request
-  In order to test Request creation
-  As a Client and an Expert
-  I want to create a Request, and watch answers
+  In order to test Request creation with options
+  As a Client
+  I want to create a Request, and add options
 
   Background: Create request
 
@@ -18,9 +18,6 @@ Feature: Request
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
     | client1 | emindhub.test+client1@gmail.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | Man             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
-
-    #Given I give "client1" 1000 emh points
 
     Given "request" content:
     | title                       | field_domaine | og_group_ref | author  | status |
@@ -35,7 +32,7 @@ Feature: Request
     And I check the box "Creator member"
     And I press "Update membership"
 
-  Scenario: An author can see and edit its own request
+  Scenario: An author can add an option on a draft request and come back to test it's readonly after publish
     Given I am logged in as "client1"
     When I go to homepage
     Then I should see "Avengers" in the "How to become a superhero?" row
@@ -56,6 +53,7 @@ Feature: Request
     Then I check the box "Duration" 
     And the "Duration" checkbox should be checked
 
+  Scenario: An author can add an option on a new request 
     When I go to "node/add/request"
     And I fill in "Title" with "How to defeat a superhero?"
     And I select "Energy" from "Domain(s)"
