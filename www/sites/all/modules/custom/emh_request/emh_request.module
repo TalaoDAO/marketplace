@@ -110,6 +110,10 @@ function emh_request_node_update($node) {
  * Implements hook_node_validate().
  */
 function emh_request_node_validate($node, $form, &$form_state) {
+  if ($node->type !== 'request') {
+    return;
+  }
+
   $values = $form_state['values'];
 
   // Ensures if the anonymity option is selected that there's at least one of
