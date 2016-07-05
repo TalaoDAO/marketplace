@@ -51,10 +51,12 @@ body.node-type-request:not(.page-node-edit) {
   .field-list-item {
     .field-item {
       display: inline-block;
+      margin-right: 5px;
       &:after {
         content: ",";
       }
       &:last-child {
+        margin-right: 0;
         &:after {
           content: "";
         }
@@ -74,10 +76,13 @@ body.node-type-request:not(.page-node-edit) {
 
 
   // Elements
+  .field {
+    .field-list-border;
+  }
+
   .field-name-body {
     font-size: 1.2em;
     line-height: 1.5;
-    .field-list-border;
     p {
       &:last-child {
         margin-bottom: 0;
@@ -91,7 +96,15 @@ body.node-type-request:not(.page-node-edit) {
 
   .field-name-og-group-ref {
     .field-list-item;
-    .field-list-border;
+  }
+
+  .field-name-field-request-documents {
+    .field-item {
+      margin-bottom: 10px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
 
   .field-name-field-image {
