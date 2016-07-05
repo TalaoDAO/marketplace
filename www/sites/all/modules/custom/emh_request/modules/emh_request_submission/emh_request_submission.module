@@ -41,13 +41,7 @@ function emh_request_submission_block_view($delta = '') {
 
       $block = array(
         'subject' => '<none>',
-        'content' => array(
-          'text' => array(
-            '#theme' => 'html_tag',
-            '#tag' => 'p',
-            '#value' => $value,
-          ),
-        ),
+        'content' => $value,
       );
       break;
   }
