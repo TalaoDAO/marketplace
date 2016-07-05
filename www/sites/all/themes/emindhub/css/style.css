@@ -10400,13 +10400,17 @@ div.password-suggestions ul {
 }
 .progress {
   background-color: #2e3243;
-}
-.progress-bar {
   font-size: inherit;
   font-weight: bold;
 }
 .progress-wrapper .progress {
   margin-bottom: 10px;
+}
+.progress .timeleft {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center;
 }
 .pagination ul > li > a.progress-disabled {
   float: left;

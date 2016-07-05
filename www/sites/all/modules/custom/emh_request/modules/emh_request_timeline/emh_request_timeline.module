@@ -119,7 +119,7 @@ function _emh_request_timeline_view() {
   if ($timeline['soon'] === TRUE) {
     $class = 'warning';
   }
-
+  
   return theme(
     'timeline',
     array(
