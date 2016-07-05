@@ -371,3 +371,11 @@ function emh_request_update_7120() {
 function emh_request_update_7121() {
   features_revert(array('ft_request' => array('field_instance')));
 }
+
+
+/**
+ * CHG: Update fields display configuration for the new view mode (summary).
+ */
+function emh_request_update_7122() {
+  features_revert(array('ft_request' => array('field_instance', 'variable')));
+}

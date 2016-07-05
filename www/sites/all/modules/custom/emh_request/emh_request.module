@@ -31,6 +31,17 @@ function emh_request_hook_info() {
 
 
 /**
+ * Implements hook_entity_info_alter().
+ */
+function emh_request_entity_info_alter(&$entity_info) {
+  $entity_info['node']['view modes']['summary'] = array(
+    'label' => t("Summary"),
+    'custom settings' => false,
+  );
+}
+
+
+/**
  * Implements hook_node_presave().
  */
 function emh_request_node_presave($node) {
@@ -278,6 +289,16 @@ function emh_request_menu() {
     'weight' => 1,
   );
 
+  // Publication page (confirmation)
+  $items['node/%webform_menu/publish'] = array(
+    'title' => t('Validation before publication'),
+    'page callback' => 'emh_request_publication_page',
+    'page arguments' => array(1),
+    'access callback' => 'emh_request_publication_access',
+    'access arguments' => array(1),
+    'type' => MENU_CALLBACK,
+  );
+
   return $items;
 }
 
@@ -373,9 +394,199 @@ function emh_request_webform_submission_access($node, $submission, $op = 'view',
 }
 
 
+/**
+ * Access callback for the publication page.
+ */
+function emh_request_publication_access($request, $account = null) {
+  if ($account === null) {
+    global $user;
+    $account = $user;
+  }
+
+  if (
+    $request->type == 'request' &&
+    node_access('update', $request, $account) &&
+    $request->status == NODE_NOT_PUBLISHED
+  ) {
+    // Access allowed except if the request is a questionnaire
+    // and that no question has been created
+    return !(emh_request_has_option($request, 'questionnaire') && empty($request->webform['components']));
+  }
+
+  return false;
+}
+
+
+//----------------------------------------------------------------------
+//-- PAGES
+//----------------------------------------------------------------------
+
+
+function emh_request_publication_page($request) {
+  $page = array();
+
+  $page['notice_information'] = array(
+    '#theme' => 'html_tag',
+    '#tag' => 'p',
+    '#value' => t("You are about to publish your request, please check the information."),
+  );
+
+  $page['node'] = node_view($request, 'summary');
+
+  if ($options = field_get_items('node', $request, 'field_options')) {
+    $page['notice_options'] = array(
+      '#theme' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => t("Please check your options before being debited."),
+    );
+
+    $rows = array();
+    $total = 0;
+
+    $info = emh_request_get_options();
+    $costs = emh_request_get_options_costs($request);
+
+    foreach ($options as $option) {
+      $id = $option['option'];
+      $rows[] = array($info[$id]['label'], $costs[$id]);
+      $total += (int) $costs[$id];
+    }
+
+    $page['options'] = array(
+      '#theme' => 'table',
+      '#header' => array(t("Option"), t("Cost")),
+      '#rows' => $rows,
+    );
+
+    $page['total'] = array(
+      '#markup' => '<span class="total-label">' . t("Total:") . '</span> '
+        . '<span class="total">' . emh_request_format_cost($total) . '</span>',
+      '#prefix' => '<div class="total-wrapper">',
+      '#suffix' => '</div>',
+    );
+  }
+
+  $page['form'] = drupal_get_form('emh_request_publication_form', $request);
+
+  return $page;
+}
+
+
 //----------------------------------------------------------------------
 //-- FORMS
 //----------------------------------------------------------------------
+
+
+/**
+ * Builds the form to confirm the request publication.
+ */
+function emh_request_publication_form($form, &$form_state, $request) {
+  $form_state['request'] = $request;
+
+  $options = field_get_items('node', $request, 'field_options');
+
+  if ($options) {
+    $options = emh_request_restructure_option_selector_items($options);
+    $costs = emh_request_get_options_costs($request);
+
+    foreach (array_keys($costs) as $id) {
+      if (!isset($options[$id])) {
+        unset($costs[$id]);
+      }
+    }
+
+    $form['costs'] = array(
+      '#type' => 'value',
+      '#value' => $costs,
+    );
+  }
+
+  // Prepares cancel link
+  if (isset($_GET['destination'])) {
+    $options = drupal_parse_url(urldecode($_GET['destination']));
+  } else {
+    $options = array('path' => 'node/' . $request->nid . '/edit');
+  }
+
+  $form['actions'] = array(
+    '#type' => 'actions',
+    '#tree' => false,
+    'cancel' => array(
+      '#type' => 'link',
+      '#title' => t("Cancel"),
+      '#href' => $options['path'],
+      '#options' => $options,
+    ),
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => t("Publish"),
+    ),
+  );
+
+  return $form;
+}
+
+
+/**
+ * Submit callback for the publication form.
+ */
+function emh_request_publication_form_validate($form, &$form_state) {
+  $values = $form_state['values'];
+
+  if (isset($values['costs'])) {
+    global $user;
+
+    $total = 0;
+    foreach ($values['costs'] as $cost) {
+      $total += (int) $cost;
+    }
+
+    if (!isset($user->emh_points)) {
+      emh_points_entity_load_single($user, 'user');
+    }
+
+    if ($user->emh_points < $total) {
+      form_error($form, t("You have not enough points to publish your request."));
+    }
+  }
+}
+
+
+/**
+ * Submit callback for the publication form.
+ */
+function emh_request_publication_form_submit($form, &$form_state) {
+  $request = $form_state['request'];
+  $values = $form_state['values'];
+
+  try {
+    if (isset($values['costs'])) {
+      $field_lang = field_language('node', $request, 'field_options');
+
+      foreach (field_get_items('node', $request, 'field_options') as $delta => $option) {
+        $cost = (int) $values['costs'][$option['option']];
+        $request->field_options[$field_lang][$delta]['cost'] = $cost;
+      }
+    }
+
+    $request->skip_costs_calculation = true;
+    $request->status = NODE_PUBLISHED;
+    node_save($request);
+
+    drupal_set_message(t("@type %title has been published.", array(
+      '@type' => node_type_get_name($request),
+      '%title' => $request->title,
+    )));
+  }
+  catch (\Exception $e) {
+    drupal_set_message(t("@type %title could not be published.", array(
+      '@type' => node_type_get_name($request),
+      '%title' => $request->title,
+    )), 'error');
+  }
+
+  $form_state['redirect'] = 'node/' . $request->nid;
+}
 
 
 /**
@@ -437,14 +648,18 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       // $form['field_request_documents'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
       $form['field_image'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
 
-
       // Request being created or already created & unpublished
       if (empty($form['#node']->nid) || $form['#node']->status == NODE_NOT_PUBLISHED) {
-        // Adds a submit callback to redirect on questions page if needed
+        // Removes the save_draft validation callback
+        foreach ($form['#validate'] as $index => $callback) {
+          if ($callback == 'save_draft_validate') {
+            unset($form['#validate'][$index]);
+          }
+        }
+        // Adds a submit callback to redirect on the questions page if needed
         $form['actions']['draft']['#submit'][] = 'emh_request_node_form_continue';
-        // Adds a submit callback to publish the node
-        // (before the callback which save the node)
-        array_unshift($form['actions']['submit']['#submit'], 'emh_request_node_form_publish');
+        // Adds a submit callback to redirect on the publication page
+        $form['actions']['submit']['#submit'][] = 'emh_request_node_form_publish';
         // Disables the publication if the request has the questionnaire option
         // but no associated question
         if (emh_request_has_option($form['#node'], 'questionnaire')) {
@@ -540,10 +755,10 @@ function emh_request_node_form_continue($form, &$form_state) {
 /**
  * Submit callback for the submit button of the request edition form.
  *
- * Just changes the status to published.
+ * Redirects the user to the publication page.
  */
 function emh_request_node_form_publish($form, &$form_state) {
-  $form_state['values']['status'] = NODE_PUBLISHED;
+  $form_state['redirect'] = 'node/' . $form_state['nid'] . '/publish';
 }
 
 
@@ -658,29 +873,11 @@ function emh_request_webform_components_form_save($form, &$form_state) {
 
 /**
  * Submit callback for the publish button of the webform components form.
+ *
+ * Redirects the user to the publication page.
  */
 function emh_request_webform_components_form_publish($form, &$form_state) {
-  // Only if the user clicked the "Publish" button
-  if ($form_state['triggering_element']['#value'] == $form['actions']['publish']['#value']) {
-    $form['#node']->status = NODE_PUBLISHED;
-
-    try {
-      node_save($form['#node']);
-
-      $msg_args = array(
-        '@type' => node_type_get_name($form['#node']),
-        '%title' => $form['#node']->title,
-      );
-
-      drupal_set_message(t('@type %title has been published.', $msg_args));
-
-      // Redirects to the request view
-      $form_state['redirect'] = 'node/' . $form['#node']->nid;
-    }
-    catch (Exception $e) {
-      drupal_set_message(t('The request could not be saved.'), 'error');
-    }
-  }
+  $form_state['redirect'] = 'node/' . $form['#node']->nid . '/publish';
 }
 
 
@@ -896,9 +1093,21 @@ function emh_request_get_default_options_costs() {
  *  Costs keyed by option identifier
  */
 function emh_request_get_options_costs($request) {
-  $costs = emh_request_get_default_options_costs();
-  drupal_alter('emh_request_options_costs', $costs, $request);
-  return $costs;
+  $static_costs = &drupal_static(__FUNCTION__, array());
+  $nid = empty($request->nid) ? false : $request->nid;
+
+  if ($nid === false || !isset($static_costs[$nid])) {
+    $costs = emh_request_get_default_options_costs();
+    drupal_alter('emh_request_options_costs', $costs, $request);
+
+    if ($nid === false) {
+      return $costs;
+    } else {
+      $static_costs[$nid] = $costs;
+    }
+  }
+
+  return $static_costs[$nid];
 }
 
 
@@ -932,7 +1141,7 @@ function emh_request_format_cost($cost) {
   if ($cost == 0) {
     return t("Free");
   }
-  return t("!count points", array('!count' => $cost));
+  return t("!amount points", array('!amount' => $cost));
 }
 
 
