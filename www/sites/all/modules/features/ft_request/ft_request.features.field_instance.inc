@@ -119,7 +119,7 @@ function ft_request_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_domaine',
-    'label' => 'Domain(s)',
+    'label' => 'Domains',
     'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -144,7 +144,7 @@ function ft_request_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
+        'label' => 'inline',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
@@ -494,7 +494,7 @@ function ft_request_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
+        'label' => 'inline',
         'module' => 'date',
         'settings' => array(
           'format_type' => 'short_date',
@@ -596,9 +596,11 @@ function ft_request_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'inline',
-        'module' => 'og_ui',
-        'settings' => array(),
-        'type' => 'og_list_default',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
         'weight' => 2,
       ),
       'teaser' => array(
@@ -610,7 +612,7 @@ function ft_request_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'og_group_ref',
-    'label' => 'Choose circle of experts',
+    'label' => 'Circles',
     'required' => 1,
     'settings' => array(
       'behaviors' => array(
@@ -646,12 +648,12 @@ function ft_request_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Choose circle of experts');
+  t('Circles');
   t('Deadline');
   t('Description');
   t('Desired starting date');
   t('Documents');
-  t('Domain(s)');
+  t('Domains');
   t('Duration of the mission');
   t('Hide my name');
   t('Hide my organisation');
