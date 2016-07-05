@@ -194,40 +194,6 @@ if ($user_submission) {
 				</div>
 			<?php endif; ?>
 
-			<?php //echo views_embed_view('request_submissions', 'block_request_submissions'); ?>
-
-			<?php /* if (($node->uid == $user->uid) || !emh_request_has_option($node, 'private')) : ?>
-			  <div class="section submissions">
-			    <div class="row submissions-title">
-			      <div class="col-sm-8">
-			        <h2><span class="submission-title"><?php print t('Submissions'); ?></span>&nbsp;<span class="submission-count">(<?php print webform_get_submission_count($node->nid); ?>)</span></h2>
-			      </div>
-			      <?php if (emh_request_has_option($node, 'private')) : ?>
-			        <div class="col-sm-4 text-right submissions-private-info">
-			          <span class="submission-private"><?php print t('Submissions are only visible by you.'); ?></span>
-			        </div>
-			      <?php endif; ?>
-			    </div>
-			    <div class="submissions-list">
-			      <?php if (!empty($submissions)) : ?>
-			        <?php foreach ($submissions as $submission) : ?>
-			          <?php if (!($node->uid == $user->uid && !empty($submission->is_draft))) : ?>
-			            <?php
-			              $render = webform_submission_render($node, $submission, null, 'html');
-			              print drupal_render($render);
-			            ?>
-			            <?php if (webform_submission_access($node, $submission, 'edit')) : ?>
-			              <a href="<?php print base_path(); ?>node/<?php print $node->nid; ?>/submission/<?php print $submission->sid; ?>/edit"><?php print t('Edit'); ?></a>
-			            <?php endif; ?>
-			          <?php endif; ?>
-			        <?php endforeach; ?>
-			      <?php else: ?>
-			        <?php print t("No submission at this moment."); ?>
-			      <?php endif; ?>
-			    </div>
-			  </div>
-			<?php endif; */ ?>
-
 			<?php
 				// We hide the comments and links now so that we can render them later.
 				hide($content['comments']);

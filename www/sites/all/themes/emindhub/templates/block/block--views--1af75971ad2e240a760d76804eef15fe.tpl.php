@@ -47,6 +47,7 @@
 $nid = arg(1);
 $node = node_load($nid);
 ?>
+<?php // if (($node->uid == $user->uid) || !emh_request_has_option($node, 'private')) : ?>
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix section submissions"<?php print $attributes; ?>>
 
   <?php print render($title_prefix); ?>
@@ -71,3 +72,4 @@ $node = node_load($nid);
   <?php endif;?>
 
 </section> <!-- /.block -->
+<?php //endif; ?>
