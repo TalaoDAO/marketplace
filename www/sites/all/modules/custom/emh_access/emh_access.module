@@ -199,14 +199,25 @@ function emh_access_user_can_see_full_answer($nid, $entity = NULL, $account = NU
   // Organic Groups / EMH Circles
   // User1 is admin/referent of node's circle
   // TODO: add custom permissions for OG and Comments
-  if (isset($node->og_group_ref)) {
-    $circleIDs = $node->og_group_ref[LANGUAGE_NONE]['0'];
-    if (!empty($circleIDs)) {
-      if (_emh_circles_check_user_is_adminmember_of_groups($account->uid, $circleIDs)) return TRUE;
-      if (_emh_circles_check_user_is_admin_of_groups($account->uid, $circleIDs)) return TRUE;
-      if (_emh_circles_check_user_is_referentmember_of_groups($account->uid, $circleIDs)) return TRUE;
-      foreach ($circleIDs as $gid) {
-        if (og_user_access('node', $gid, 'access all webform results')) return TRUE;
+  if (isset($node->og_group_ref) && ($circle_items = field_get_items('node', $node, 'og_group_ref'))) {
+    $circles = array();
+
+    foreach ($circle_items as $delta => $item) {
+      $circles[] = $item['target_id'];
+    }
+
+    if (_emh_circles_check_user_is_adminmember_of_groups($account->uid, $circles)) {
+      return TRUE;
+    }
+    if (_emh_circles_check_user_is_admin_of_groups($account->uid, $circles)) {
+      return TRUE;
+    }
+    if (_emh_circles_check_user_is_referentmember_of_groups($account->uid, $circles)) {
+      return TRUE;
+    }
+    foreach ($circles as $gid) {
+      if (og_user_access('node', $gid, 'access all webform results')) {
+        return TRUE;
       }
     }
   }
@@ -263,11 +274,22 @@ function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
   // Organic Groups / EMH Circles
   // User1 is admin/referent of node's circle
   if (module_exists('og') && module_exists('emh_circles')) {
-    $circleIDs = $node->og_group_ref[LANGUAGE_NONE]['0'];
-    if (!empty($circleIDs)) {
-      if (_emh_circles_check_user_is_adminmember_of_groups($account->uid, $circleIDs)) return TRUE;
-      if (_emh_circles_check_user_is_admin_of_groups($account->uid, $circleIDs)) return TRUE;
-      if (_emh_circles_check_user_is_referentmember_of_groups($account->uid, $circleIDs)) return TRUE;
+    if (isset($node->og_group_ref) && ($circle_items = field_get_items('node', $node, 'og_group_ref'))) {
+      $circles = array();
+
+      foreach ($circle_items as $delta => $item) {
+        $circles[] = $item['target_id'];
+      }
+
+      if (_emh_circles_check_user_is_adminmember_of_groups($account->uid, $circles)) {
+        return TRUE;
+      }
+      if (_emh_circles_check_user_is_admin_of_groups($account->uid, $circles)) {
+        return TRUE;
+      }
+      if (_emh_circles_check_user_is_referentmember_of_groups($account->uid, $circles)) {
+        return TRUE;
+      }
     }
   }
 
