@@ -59,8 +59,6 @@ Feature: Request
     When I go to "node/add/request"
     And I fill in "Title" with "How to defeat a superhero?"
     And I select "Energy" from "Domain(s)"
-    #All expert = 314 is the only one we are sure about
-    #And I fill in "Choose circle of experts" with "314"
     And I select "Avengers" from "Choose circle of experts" 
     And I check the box "Duration"
     Then I should see "Duration of the mission"
