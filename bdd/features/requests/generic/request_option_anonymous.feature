@@ -22,8 +22,8 @@ Feature: Request and submissions
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | Man             | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
 
     Given "request" content:
-    | title                       | field_domaine | og_group_ref | author  | field_expiration_date  |
-    | How to become a superhero?  | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    |
+    | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
+    | How to become a superhero?  | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    | 0       |
 
     # Make client1 as a Creator member of Avengers circle
     Given I am logged in as a user with the "administrator" role
@@ -41,7 +41,7 @@ Feature: Request and submissions
     And I click "Edit" in the "primary tabs" region
     Given I check "Anonymous"
     And I check "Hide my name"
-    And I press "Save"
+    And I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been updated."
 
     Given I am logged in as "expert1"
@@ -57,7 +57,7 @@ Feature: Request and submissions
     And I click "Edit" in the "primary tabs" region
     Given I check "Anonymous"
     And I check "Hide my organisation"
-    And I press "Save"
+    And I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been updated."
 
     Given I am logged in as "expert1"
@@ -74,7 +74,7 @@ Feature: Request and submissions
     And I check "Hide my name"
     And I check "Hide my organisation"
     And I enter "ALMIGHTY GOD" for "You can precise your activity instead"
-    And I press "Save"
+    And I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been updated."
 
     Given I am logged in as "expert1"
