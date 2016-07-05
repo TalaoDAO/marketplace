@@ -960,9 +960,9 @@ function emh_request_purchase_options($request) {
 }
 
 /**
- * Helper function to retrieve a submission, depending on the status.
+ * Helper function to render a submission.
  */
-function emh_request_get_submission($submission) {
+function emh_request_render_submission($submission) {
   $output = '';
 
   foreach ($submission->data as $submission) {
