@@ -22,11 +22,11 @@ Feature: Request
     | client1 | emindhub.test+client1@gmail.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers, LeagueOfJustice, GuardianOfGalaxy     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | Man             | 0712345670      | Chieur génial      | Avengers, LeagueOfJustice, GuardianOfGalaxy     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
 
-    #Given I give "client1" 1000 emh points
+    Given I give "client1" 10000 emh points
 
     Given "request" content:
-    | title                       | field_domaine | og_group_ref | author  | status |
-    | How to become a superhero?  | Energy        |              | client1 | 0      |
+    | title                       | field_domaine | og_group_ref | author  | status | field_expiration_date |
+    | How to become a superhero?  | Energy        |              | client1 | 0      | 2017-02-08 17:45:00   |
 
 
     Given I am logged in as a user with the "administrator" role
@@ -79,10 +79,14 @@ Feature: Request
     And I should see "200 points" in the "#edit-field-options-und-duration" element
 
     When I select "Avengers" from "Circles"
+    And I press "Save draft"
+    And I click "Edit" in the "primary tabs" region
     Then I should see "1000 points" in the "#edit-field-options-und-questionnaire" element
     And I should see "1000 points" in the "#edit-field-options-und-duration" element
 
     When I additionally select "LeagueOfJustice" from "Circles"
+    And I press "Save draft"
+    And I click "Edit" in the "primary tabs" region
     Then I should see "1000 points" in the "#edit-field-options-und-questionnaire" element
     And I should see "1300 points" in the "#edit-field-options-und-duration" element
 
