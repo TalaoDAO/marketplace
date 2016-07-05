@@ -30,60 +30,10 @@ function ft_request_views_default_views() {
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
-  $handler->display->display_options['style_plugin'] = 'views_bootstrap_table_plugin_style';
-  $handler->display->display_options['style_options']['columns'] = array(
-    'views_bulk_operations' => 'views_bulk_operations',
-    'emh_author' => 'emh_author',
-    'completed' => 'completed',
-    'emh_answer' => 'emh_answer',
-    'view_submission' => 'view_submission',
-    'edit_submission' => 'edit_submission',
-  );
-  $handler->display->display_options['style_options']['default'] = 'completed';
-  $handler->display->display_options['style_options']['info'] = array(
-    'views_bulk_operations' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 1,
-    ),
-    'emh_author' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'completed' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'emh_answer' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'view_submission' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 1,
-    ),
-    'edit_submission' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 1,
-    ),
-  );
-  $handler->display->display_options['style_options']['bootstrap_styles'] = array(
-    'striped' => 0,
-    'bordered' => 0,
-    'hover' => 0,
-    'condensed' => 0,
-  );
+  $handler->display->display_options['style_plugin'] = 'views_bootstrap_grid_plugin_style';
+  $handler->display->display_options['style_options']['columns'] = '1';
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['hide_empty'] = TRUE;
   /* Relationship: Webform submissions: User */
   $handler->display->display_options['relationships']['uid']['id'] = 'uid';
   $handler->display->display_options['relationships']['uid']['table'] = 'webform_submissions';
@@ -97,7 +47,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['views_bulk_operations']['hide_empty'] = TRUE;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '0';
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['row_clickable'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['row_clickable'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
@@ -112,13 +62,14 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['emh_author']['id'] = 'emh_author';
   $handler->display->display_options['fields']['emh_author']['table'] = 'webform_submissions';
   $handler->display->display_options['fields']['emh_author']['field'] = 'emh_author';
-  $handler->display->display_options['fields']['emh_author']['label'] = 'Author';
+  $handler->display->display_options['fields']['emh_author']['label'] = '';
   $handler->display->display_options['fields']['emh_author']['element_label_colon'] = FALSE;
   /* Field: Webform submissions: Completed */
   $handler->display->display_options['fields']['completed']['id'] = 'completed';
   $handler->display->display_options['fields']['completed']['table'] = 'webform_submissions';
   $handler->display->display_options['fields']['completed']['field'] = 'completed';
-  $handler->display->display_options['fields']['completed']['label'] = 'Date';
+  $handler->display->display_options['fields']['completed']['label'] = '';
+  $handler->display->display_options['fields']['completed']['exclude'] = TRUE;
   $handler->display->display_options['fields']['completed']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['completed']['date_format'] = 'time ago';
   $handler->display->display_options['fields']['completed']['second_date_format'] = 'long';
@@ -126,6 +77,9 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['emh_answer']['id'] = 'emh_answer';
   $handler->display->display_options['fields']['emh_answer']['table'] = 'webform_submissions';
   $handler->display->display_options['fields']['emh_answer']['field'] = 'emh_answer';
+  $handler->display->display_options['fields']['emh_answer']['label'] = '';
+  $handler->display->display_options['fields']['emh_answer']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['emh_answer']['alter']['text'] = '<span class="submission-date">[completed]&nbsp;–&nbsp;</span>[emh_answer]';
   $handler->display->display_options['fields']['emh_answer']['element_label_colon'] = FALSE;
   /* Field: Webform submissions: View link */
   $handler->display->display_options['fields']['view_submission']['id'] = 'view_submission';
@@ -133,12 +87,6 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['view_submission']['field'] = 'view_submission';
   $handler->display->display_options['fields']['view_submission']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['view_submission']['access_check'] = 1;
-  /* Field: Webform submissions: Edit link */
-  $handler->display->display_options['fields']['edit_submission']['id'] = 'edit_submission';
-  $handler->display->display_options['fields']['edit_submission']['table'] = 'webform_submissions';
-  $handler->display->display_options['fields']['edit_submission']['field'] = 'edit_submission';
-  $handler->display->display_options['fields']['edit_submission']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['edit_submission']['access_check'] = 1;
   /* Sort criterion: Webform submissions: Completed */
   $handler->display->display_options['sorts']['completed']['id'] = 'completed';
   $handler->display->display_options['sorts']['completed']['table'] = 'webform_submissions';
@@ -147,8 +95,8 @@ function ft_request_views_default_views() {
   $handler->display->display_options['arguments']['nid']['id'] = 'nid';
   $handler->display->display_options['arguments']['nid']['table'] = 'webform_submissions';
   $handler->display->display_options['arguments']['nid']['field'] = 'nid';
-  $handler->display->display_options['arguments']['nid']['default_action'] = 'empty';
-  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['nid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'node';
   $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
@@ -159,6 +107,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['is_draft']['value'] = array(
     0 => '0',
   );
+  $handler->display->display_options['filters']['is_draft']['group'] = 1;
 
   /* Display: (B) Request submissions */
   $handler = $view->new_display('block', '(B) Request submissions', 'block_request_submissions');

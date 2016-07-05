@@ -19,8 +19,11 @@ function ft_request_default_fe_block_settings() {
     'i18n_block_language' => array(),
     'i18n_mode' => 0,
     'module' => 'emh_request',
-    'node_types' => array(),
-    'pages' => 'node/add/request',
+    'node_types' => array(
+      0 => 'request',
+    ),
+    'pages' => 'node/add/request
+node/*/edit',
     'roles' => array(),
     'themes' => array(
       'emindhub' => array(
@@ -143,9 +146,14 @@ function ft_request_default_fe_block_settings() {
     'i18n_block_language' => array(),
     'i18n_mode' => 0,
     'module' => 'views',
-    'node_types' => array(),
-    'pages' => '',
-    'roles' => array(),
+    'node_types' => array(
+      0 => 'request',
+    ),
+    'pages' => 'node/add/request
+node/*/edit',
+    'roles' => array(
+      'authenticated user' => 2,
+    ),
     'themes' => array(
       'emindhub' => array(
         'region' => 'content',
