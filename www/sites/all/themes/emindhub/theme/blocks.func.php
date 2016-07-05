@@ -92,7 +92,6 @@ function emindhub_preprocess_block(&$variables) {
 
     // HP - Create a request
     case 'block-8':
-      $classes[] = 'col-xs-12 col-md-4';
       $classes[] = 'emh-block-grey';
       break;
 

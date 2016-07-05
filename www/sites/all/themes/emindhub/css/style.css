@@ -11256,11 +11256,6 @@ fieldset[disabled] .btn-flash.focus {
   color: #1abc9c;
   background-color: #ffffff;
 }
-@media (min-width: 992px) {
-  .btn-flash {
-    margin-top: 11px;
-  }
-}
 .icon-community {
   padding-left: 45px;
   background-image: url("../images/picto/picto_community_small.png");
