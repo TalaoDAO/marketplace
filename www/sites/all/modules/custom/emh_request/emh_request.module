@@ -944,13 +944,17 @@ function emh_request_format_cost($cost) {
  *  The request node
  */
 function emh_request_purchase_options($request) {
-  global $user;
-
   $total = 0;
-  foreach (field_get_items('node', $request, 'field_options') as $option) {
-    $total += (int) $option['cost'];
+
+  if ($options = field_get_items('node', $request, 'field_options')) {
+    foreach ($options as $option) {
+      $total += (int) $option['cost'];
+    }
   }
 
-  $emindhub = user_load(1);
-  emh_points_move_points($user, $emindhub, $total);
+  if ($total > 0) {
+    global $user;
+    $emindhub = user_load(1);
+    emh_points_move_points($user, $emindhub, $total);
+  }
 }
