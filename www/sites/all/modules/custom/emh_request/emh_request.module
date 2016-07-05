@@ -501,12 +501,21 @@ function emh_request_publication_form($form, &$form_state, $request) {
     );
   }
 
+  // Prepares cancel link
+  if (isset($_GET['destination'])) {
+    $options = drupal_parse_url(urldecode($_GET['destination']));
+  } else {
+    $options = array('path' => 'node/' . $request->nid . '/edit');
+  }
+
   $form['actions'] = array(
     '#type' => 'actions',
     '#tree' => false,
     'cancel' => array(
-      '#type' => 'submit',
-      '#value' => t("Cancel"),
+      '#type' => 'link',
+      '#title' => t("Cancel"),
+      '#href' => $options['path'],
+      '#options' => $options,
     ),
     'submit' => array(
       '#type' => 'submit',
@@ -549,24 +558,15 @@ function emh_request_publication_form_validate($form, &$form_state) {
 function emh_request_publication_form_submit($form, &$form_state) {
   $request = $form_state['request'];
   $values = $form_state['values'];
-  $transaction = null;
 
   try {
-    $transaction = db_transaction();
-
     if (isset($values['costs'])) {
-      $total = 0;
       $field_lang = field_language('node', $request, 'field_options');
 
       foreach (field_get_items('node', $request, 'field_options') as $delta => $option) {
         $cost = (int) $values['costs'][$option['option']];
         $request->field_options[$field_lang][$delta]['cost'] = $cost;
-        $total += $cost;
       }
-
-      global $user;
-      $emindhub = user_load(1);
-      emh_points_move_points($user, $emindhub, $total);
     }
 
     $request->skip_costs_calculation = true;
@@ -577,25 +577,12 @@ function emh_request_publication_form_submit($form, &$form_state) {
       '@type' => node_type_get_name($request),
       '%title' => $request->title,
     )));
-
-    unset($transaction);
   }
   catch (\Exception $e) {
-    if ($transaction) {
-      try {
-        $transaction->rollback();
-      }
-      catch (\Exception $e2) {
-        watchdog_exception('emh_request', $e2);
-      }
-
-      drupal_set_message(t("@type %title could not be published.", array(
-        '@type' => node_type_get_name($request),
-        '%title' => $request->title,
-      )), 'error');
-
-      watchdog_exception('emh_request', $e);
-    }
+    drupal_set_message(t("@type %title could not be published.", array(
+      '@type' => node_type_get_name($request),
+      '%title' => $request->title,
+    )), 'error');
   }
 
   $form_state['redirect'] = 'node/' . $request->nid;
@@ -661,9 +648,14 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       // $form['field_request_documents'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
       $form['field_image'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
 
-
       // Request being created or already created & unpublished
       if (empty($form['#node']->nid) || $form['#node']->status == NODE_NOT_PUBLISHED) {
+        // Removes the save_draft validation callback
+        foreach ($form['#validate'] as $index => $callback) {
+          if ($callback == 'save_draft_validate') {
+            unset($form['#validate'][$index]);
+          }
+        }
         // Adds a submit callback to redirect on the questions page if needed
         $form['actions']['draft']['#submit'][] = 'emh_request_node_form_continue';
         // Adds a submit callback to redirect on the publication page
