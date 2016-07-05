@@ -33,7 +33,7 @@ class views_handler_field_emh_webform_answer extends views_handler_field {
     $submissions = webform_get_submissions(array('sid' => $sid));
     $nid = $submissions[$sid]->nid;
     $submission = webform_get_submission($nid, $sid);
-    return emh_request_get_submission($submission);
+    return emh_request_render_submission($submission);
   }
 
   /**
