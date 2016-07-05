@@ -122,7 +122,7 @@ function _emh_request_timeline_view() {
 
   $nid = arg(1);
   $request = node_load($nid);
-  if ($request->status == NODE_PUBLISHED) {
+  if ($request->status == NODE_PUBLISHED && arg(2) == NULL) {
     return theme(
       'timeline',
       array(
