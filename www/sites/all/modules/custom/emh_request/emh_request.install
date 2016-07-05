@@ -379,3 +379,11 @@ function emh_request_update_7121() {
 function emh_request_update_7122() {
   features_revert(array('ft_request' => array('field_instance', 'variable')));
 }
+
+
+/**
+ * CHG: New field for request questions edition.
+ */
+function emh_request_update_7123() {
+  features_revert(array('ft_request' => array('field_base', 'field_instance', 'variable')));
+}
