@@ -143,13 +143,9 @@ function ft_request_default_fe_block_settings() {
     'i18n_block_language' => array(),
     'i18n_mode' => 0,
     'module' => 'views',
-    'node_types' => array(
-      0 => 'request',
-    ),
+    'node_types' => array(),
     'pages' => '',
-    'roles' => array(
-      'authenticated user' => 2,
-    ),
+    'roles' => array(),
     'themes' => array(
       'emindhub' => array(
         'region' => 'content',
@@ -164,7 +160,7 @@ function ft_request_default_fe_block_settings() {
         'weight' => 0,
       ),
     ),
-    'title' => '',
+    'title' => 'Submissions',
     'visibility' => 0,
   );
 
