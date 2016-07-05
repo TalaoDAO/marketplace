@@ -231,7 +231,7 @@ function emh_request_get_status($nid) {
  * Helper function to retrieve answers count.
  */
 function emh_request_count_answers($node) {
-  if (ctype_digit($node)) {
+  if (is_numeric($node)) {
     $node = node_load($node);
   }
 

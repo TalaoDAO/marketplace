@@ -403,7 +403,11 @@ function emh_request_publication_access($request, $account = null) {
     $account = $user;
   }
 
-  if (node_access('update', $request, $account) && $request->status == NODE_NOT_PUBLISHED) {
+  if (
+    $request->type == 'request' &&
+    node_access('update', $request, $account) &&
+    $request->status == NODE_NOT_PUBLISHED
+  ) {
     // Access allowed except if the request is a questionnaire
     // and that no question has been created
     return !(emh_request_has_option($request, 'questionnaire') && empty($request->webform['components']));
@@ -521,17 +525,19 @@ function emh_request_publication_form_validate($form, &$form_state) {
   $values = $form_state['values'];
 
   if (isset($values['costs'])) {
+    global $user;
+
     $total = 0;
     foreach ($values['costs'] as $cost) {
       $total += (int) $cost;
     }
 
-    global $user;
     if (!isset($user->emh_points)) {
       emh_points_entity_load_single($user, 'user');
     }
+
     if ($user->emh_points < $total) {
-      form_error($form, t("You haven't enough points to publish your request."));
+      form_error($form, t("You have not enough points to publish your request."));
     }
   }
 }
