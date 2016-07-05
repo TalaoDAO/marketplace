@@ -12,7 +12,7 @@ function emh_request_emh_request_option_info() {
   return array(
     'anonymous' => array(
       'label' => t("Anonymous"),
-      'description' => t("Hide my name and/or my company"),
+      'description' => t("Hide your name and/or your company"),
       'cost' => 300,
       'fields' => array(
         'field_hide_name',
@@ -27,24 +27,24 @@ function emh_request_emh_request_option_info() {
 //    ),
     'duration' => array(
       'label' => t("Duration"),
-      'description' => t("Add a duration of the mission and a desired starting date"),
+      'description' => t("Add duration of the mission and desired starting date"),
       'cost' => 200,
       'fields' => array('field_duration_of_the_mission', 'field_start_date'),
     ),
     'files' => array(
       'label' => t("Upload files"),
-      'description' => t("Add documents explaining my request"),
+      'description' => t("Add any images or documents that might be helpful in explaining your request brief here"),
       'cost' => 200,
       'fields' => array('field_request_documents'),
     ),
     'private' => array(
-      'label' => t("Private answers"),
-      'description' => t("Answers are only visible by me"),
+      'label' => t("Private submissions"),
+      'description' => t("Submissions are visible only by you"),
       'cost' => 300,
     ),
     'questionnaire' => array(
       'label' => t("Questionnaire"),
-      'description' => t("Identify best experts profiles through a questionnaire"),
+      'description' => t("Identify best answers through a questionnaire"),
       'cost' => 500,
       'after_build' => 'emh_request_questionnaire_after_build',
     ),
