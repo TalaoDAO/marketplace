@@ -28,21 +28,17 @@ function emh_request_flag_save_block_view($delta = '') {
 
   switch ($delta) {
     case 'flag_save':
-      $nid = arg(1);
-      $value = flag_create_link('my_selection', $nid);
-
       $block = array(
         'subject' => '<none>',
-        'content' => array(
-          'text' => array(
-            '#theme' => 'html_tag',
-            '#tag' => 'p',
-            '#value' => $value,
-          ),
-        ),
+        'content' => _emh_request_flag_save_view(),
       );
       break;
   }
 
   return $block;
+}
+
+function _emh_request_flag_save_view() {
+  $nid = arg(1);
+  return flag_create_link('my_selection', $nid);
 }
