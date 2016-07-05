@@ -98,4 +98,5 @@ Feature: Request
 
     Then I should see "Request How to become a superhero? has been updated."
     And I should see "1 month"
-
+    #TODO : fill the questionnaire when it's ready to use
+    And I should have "8700" points on "client1" user
