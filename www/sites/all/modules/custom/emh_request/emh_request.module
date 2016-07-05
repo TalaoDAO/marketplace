@@ -34,19 +34,19 @@ function emh_request_node_presave($node) {
   }
 
   if (emh_request_has_option($node, 'questionnaire')) {
-    if ($node->status == 1 && (empty($node->webform) || empty($node->webform['components']))) {
+    if (
+      ($node->status == NODE_PUBLISHED) &&
+      (empty($node->webform) || empty($node->webform['components']))
+    ) {
       // Unpublishes the node
-      $node->status = 0;
+      $node->status = NODE_NOT_PUBLISHED;
       // Informs the user.
       drupal_set_message(t("You choosed the questionnaire option then you can't publish your request without any question."), 'error');
     }
   }
   elseif (
-    ($node->status == NODE_PUBLISHED
-    && isset($node->original)
-    && isset($node->original->status)
-    && $node->original->status == NODE_NOT_PUBLISHED)
-    || (empty($node->nid))
+    ($node->status == NODE_PUBLISHED) &&
+    ($node->is_new || $node->original->status == NODE_NOT_PUBLISHED)
   ) {
     // All requests are webforms, then we have to automatically create the
     // only component in the case of a non questionnaire request.
