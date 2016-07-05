@@ -89,6 +89,9 @@ function ft_request_strongarm() {
       'revision' => array(
         'custom_settings' => FALSE,
       ),
+      'summary' => array(
+        'custom_settings' => TRUE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -111,10 +114,18 @@ function ft_request_strongarm() {
             'weight' => '8',
             'visible' => TRUE,
           ),
+          'summary' => array(
+            'weight' => '10',
+            'visible' => FALSE,
+          ),
         ),
         'language' => array(
           'default' => array(
             'weight' => '9',
+            'visible' => FALSE,
+          ),
+          'summary' => array(
+            'weight' => '11',
             'visible' => FALSE,
           ),
         ),
