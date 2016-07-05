@@ -4,6 +4,8 @@ package = EMH
 core = 7.x
 
 dependencies[] = conditional_fields
+dependencies[] = emh_points
+dependencies[] = save_draft
 dependencies[] = webform
 
 files[] = views/views_handler_field_emh_comment_answer.inc
