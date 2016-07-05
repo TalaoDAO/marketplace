@@ -218,6 +218,12 @@ function emh_request_restructure_option_selector_items($items) {
  */
 function emh_request_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
   if ($field['type'] == 'emh_option_selector') {
+    // If the request has the skip_costs_calculation property setted to true,
+    // we skip this step, assuming that items are already populated with costs
+    // and that they must be saved.
+    if (!empty($entity->skip_costs_calculation)) {
+      return;
+    }
 
     if (empty($entity->nid) || $entity->original->status == NODE_NOT_PUBLISHED) {
       $costs = emh_request_get_options_costs($entity);

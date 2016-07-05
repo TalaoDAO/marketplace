@@ -392,7 +392,7 @@ function emh_points_entity_load_single($entity, $type) {
   $query->addExpression('SUM(p.points)');
   $points = $query->execute()->fetchField();
   if (!empty($points)) {
-    $entity->emh_points = $points;
+    $entity->emh_points = (int) $points;
   } else {
     $entity->emh_points = 0;
   }
