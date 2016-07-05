@@ -73,7 +73,7 @@ Feature: Request and submissions
     Given I check "Anonymous"
     And I check "Hide my name"
     And I check "Hide my organisation"
-    And I fill "Activity" with "ALMIGHTY GOD"
+    And I enter "ALMIGHTY GOD" for "You can precise your activity instead"
     And I press "Save"
     Then I should see the success message "Request How to become a superhero? has been updated."
 
