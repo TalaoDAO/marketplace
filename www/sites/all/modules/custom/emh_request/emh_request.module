@@ -25,6 +25,11 @@ function emh_request_hook_info() {
 }
 
 
+//----------------------------------------------------------------------
+//-- NODE
+//----------------------------------------------------------------------
+
+
 /**
  * Implements hook_node_presave().
  */
@@ -69,6 +74,100 @@ function emh_request_node_presave($node) {
     $node->webform['components']['request'] = $component;
   }
 }
+
+
+/**
+ * Implements hook_node_insert().
+ */
+function emh_request_node_insert($node) {
+  if ($node->type !== 'request') {
+    return;
+  }
+
+  if ($node->status == NODE_PUBLISHED) {
+    emh_request_purchase_options($node);
+    emh_request_try_to_notify($node);
+  }
+}
+
+
+/**
+ * Implements hook_node_update().
+ */
+function emh_request_node_update($node) {
+  if ($node->type !== 'request') {
+    return;
+  }
+
+  if ($node->status == NODE_PUBLISHED && $node->original->status == NODE_NOT_PUBLISHED) {
+    emh_request_purchase_options($node);
+    emh_request_try_to_notify($node);
+  }
+}
+
+
+/**
+ * Implements hook_node_validate().
+ */
+function emh_request_node_validate($node, $form, &$form_state) {
+  $values = $form_state['values'];
+
+  // Ensures if the anonymity option is selected that there's at least one of
+  // the two possibilities which is checked
+  if (emh_request_has_option($node, 'anonymous')) {
+    $fields = array('field_hide_name', 'field_hide_organisation');
+    $error  = true;
+
+    foreach ($fields as $field) {
+      $value = drupal_array_get_nested_value($values, array($field, $form[$field]['#language'], 0, 'value'));
+      if (!empty($value)) {
+        $error = false;
+        break;
+      }
+    }
+
+    if ($error) {
+      $message = t("You choosed the anonymity option, please check at least one of the two possibilities: hide your name or your organisation.");
+      foreach ($fields as $field) {
+        form_error(drupal_array_get_nested_value($form, array($field, $form[$field]['#language'])), $message);
+        $message = '';
+      }
+    }
+  }
+
+  // Loads the original node
+  if (!empty($node->nid) && !isset($node->original)) {
+    $node->original = entity_load_unchanged('node', $node->nid);
+  }
+
+  if (
+    ($form_state['triggering_element']['#id'] == $form['actions']['submit']['#id']) &&
+    (empty($node->nid) || $node->original->status == NODE_NOT_PUBLISHED) &&
+    ($options = field_get_items('node', $node, 'field_options'))
+  ) {
+    global $user;
+
+    $total = 0;
+    $costs = emh_request_get_options_costs($node);
+
+    foreach ($options as $option) {
+      $total += (int) $costs[$option['option']];
+    }
+
+    if (!isset($user->emh_points)) {
+      emh_points_entity_load_single($user, 'user');
+    }
+
+    if ($user->emh_points < $total) {
+      form_error($form, t("You have not enough points to publish your request."));
+    }
+  }
+}
+
+
+//----------------------------------------------------------------------
+//-- AFTER BUILD CALLBACKS
+//----------------------------------------------------------------------
 
 
 /**
@@ -330,8 +429,6 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
 
     // Treatments for generic requests
     if ($form['#node']->type == 'request') {
-      $form['#validate'][] = 'emh_request_node_form_validate';
-
       // FIXME: la surcharge empêche l'affichage du multiupload
       // $form['field_request_documents'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
       $form['field_image'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
@@ -421,38 +518,6 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
 
 
 /**
- * Validation callback for the request edition form.
- */
-function emh_request_node_form_validate($form, &$form_state) {
-  $values = $form_state['values'];
-  $field_lang = $form['field_options']['#language'];
-
-  // Ensures if the anonymity option is selected that there's at least one of
-  // the two possibilities which is checked
-  if (emh_request_form_values_has_option($values, 'anonymous', $field_lang)) {
-    $fields = array('field_hide_name', 'field_hide_organisation');
-    $error  = true;
-
-    foreach ($fields as $field) {
-      $value = drupal_array_get_nested_value($values, array($field, $form[$field]['#language'], 0, 'value'));
-      if (!empty($value)) {
-        $error = false;
-        break;
-      }
-    }
-
-    if ($error) {
-      $message = t("You choosed the anonymity option, please check at least one of the two possibilities: hide your name or your organisation.");
-      foreach ($fields as $field) {
-        form_error(drupal_array_get_nested_value($form, array($field, $form[$field]['#language'])), $message);
-        $message = '';
-      }
-    }
-  }
-}
-
-
-/**
  * Submit callback for the draft button of the request edition form.
  *
  * Redirects the user to the components (questions) edition form
@@ -474,7 +539,7 @@ function emh_request_node_form_continue($form, &$form_state) {
  * Just changes the status to published.
  */
 function emh_request_node_form_publish($form, &$form_state) {
-  $form_state['node']->status = NODE_PUBLISHED;
+  $form_state['values']['status'] = NODE_PUBLISHED;
 }
 
 
@@ -864,4 +929,24 @@ function emh_request_format_cost($cost) {
     return t("Free");
   }
   return t("!count points", array('!count' => $cost));
+}
+
+
+/**
+ * Spends the current user's points for the purchase
+ * of the given request's options.
+ *
+ * @param stdClass $request
+ *  The request node
+ */
+function emh_request_purchase_options($request) {
+  global $user;
+
+  $total = 0;
+  foreach (field_get_items('node', $request, 'field_options') as $option) {
+    $total += (int) $option['cost'];
+  }
+
+  $emindhub = user_load(1);
+  emh_points_move_points($user, $emindhub, $total);
 }
