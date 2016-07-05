@@ -1,8 +1,8 @@
 @api @watchdog
 Feature: Request and submissions
-  In order to test Request creation, and privacy of submissions
+  In order to test Request submissions
   As a Client and an Expert
-  I want to create a Request, and watch submissions
+  I want to create submissions, and watch submissions
 
   Background: Create request
 
