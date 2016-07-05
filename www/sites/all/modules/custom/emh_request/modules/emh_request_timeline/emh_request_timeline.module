@@ -120,14 +120,19 @@ function _emh_request_timeline_view() {
     $class = 'warning';
   }
 
-  return theme(
-    'timeline',
-    array(
-      'class' => $class,
-      'created' => $timeline['created'],
-      'deadline' => $timeline['deadline'],
-      'progression' => $timeline['progression'],
-      'left' => $timeline['left'],
-    )
-  );
+  $nid = arg(1);
+  $request = node_load($nid);
+  if ($request->status == NODE_PUBLISHED) {
+    return theme(
+      'timeline',
+      array(
+        'class' => $class,
+        'created' => $timeline['created'],
+        'deadline' => $timeline['deadline'],
+        'progression' => $timeline['progression'],
+        'left' => $timeline['left'],
+      )
+    );
+  }
+  
 }
