@@ -263,23 +263,6 @@ function emh_request_has_points($nid) {
   return (!empty($node) && !empty($node->emh_points));
 }
 
-/**
- * Implements hook_node_insert().
- */
-function emh_request_node_insert($node) {
-  if ($node->status == NODE_PUBLISHED) {
-    emh_request_try_to_notify($node);
-  }
-}
-
-/**
- * Implements hook_node_update().
- */
-function emh_request_node_update($node) {
-  if ($node->status == NODE_PUBLISHED && $node->original->status == NODE_NOT_PUBLISHED) {
-    emh_request_try_to_notify($node);
-  }
-}
 
 /**
  * Helper function to notify people.
