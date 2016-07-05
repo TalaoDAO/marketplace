@@ -112,13 +112,13 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['emh_author']['id'] = 'emh_author';
   $handler->display->display_options['fields']['emh_author']['table'] = 'webform_submissions';
   $handler->display->display_options['fields']['emh_author']['field'] = 'emh_author';
-  $handler->display->display_options['fields']['emh_author']['label'] = '';
+  $handler->display->display_options['fields']['emh_author']['label'] = 'Author';
   $handler->display->display_options['fields']['emh_author']['element_label_colon'] = FALSE;
   /* Field: Webform submissions: Completed */
   $handler->display->display_options['fields']['completed']['id'] = 'completed';
   $handler->display->display_options['fields']['completed']['table'] = 'webform_submissions';
   $handler->display->display_options['fields']['completed']['field'] = 'completed';
-  $handler->display->display_options['fields']['completed']['label'] = '';
+  $handler->display->display_options['fields']['completed']['label'] = 'Date';
   $handler->display->display_options['fields']['completed']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['completed']['date_format'] = 'time ago';
   $handler->display->display_options['fields']['completed']['second_date_format'] = 'long';
@@ -126,7 +126,6 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['emh_answer']['id'] = 'emh_answer';
   $handler->display->display_options['fields']['emh_answer']['table'] = 'webform_submissions';
   $handler->display->display_options['fields']['emh_answer']['field'] = 'emh_answer';
-  $handler->display->display_options['fields']['emh_answer']['label'] = '';
   $handler->display->display_options['fields']['emh_answer']['element_label_colon'] = FALSE;
   /* Field: Webform submissions: View link */
   $handler->display->display_options['fields']['view_submission']['id'] = 'view_submission';
@@ -148,7 +147,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['arguments']['nid']['id'] = 'nid';
   $handler->display->display_options['arguments']['nid']['table'] = 'webform_submissions';
   $handler->display->display_options['arguments']['nid']['field'] = 'nid';
-  $handler->display->display_options['arguments']['nid']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['nid']['default_action'] = 'empty';
   $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'fixed';
   $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
@@ -163,6 +162,7 @@ function ft_request_views_default_views() {
 
   /* Display: (B) Request submissions */
   $handler = $view->new_display('block', '(B) Request submissions', 'block_request_submissions');
+  $handler->display->display_options['block_description'] = 'Submissions';
   $export['request_submissions'] = $view;
 
   return $export;

@@ -18016,18 +18016,18 @@ body.page-node-add-request .main-container > header,
 body.node-type-request .main-container > header {
   background: #33374a;
 }
-body.page-node-add-request .main-container > header,
-body.node-type-request.page-node-edit .main-container > header {
-  background-image: none;
-}
 body.page-node-add-request h1.page-header,
-body.node-type-request.page-node-edit h1.page-header {
+body.node-type-request h1.page-header {
   text-transform: none;
   background-image: none;
   font-weight: normal;
   padding: 0;
   margin: 0;
   line-height: 1.5;
+}
+body.page-node-add-request .main-container > header,
+body.node-type-request.page-node-edit .main-container > header {
+  background-image: none;
 }
 body.page-node-add-request form h2,
 body.node-type-request.page-node-edit form h2 {
