@@ -27,7 +27,7 @@ function ft_request_default_fe_block_settings() {
         'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -100,
+        'weight' => -49,
       ),
       'seven' => array(
         'region' => '',
@@ -133,6 +133,38 @@ function ft_request_default_fe_block_settings() {
       ),
     ),
     'title' => '<none>',
+    'visibility' => 0,
+  );
+
+  $export['views-1af75971ad2e240a760d76804eef15fe'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => '1af75971ad2e240a760d76804eef15fe',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'module' => 'views',
+    'node_types' => array(
+      0 => 'request',
+    ),
+    'pages' => '',
+    'roles' => array(
+      'authenticated user' => 2,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'content',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
     'visibility' => 0,
   );
 
