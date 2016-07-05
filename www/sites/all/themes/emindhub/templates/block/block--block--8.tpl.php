@@ -59,10 +59,10 @@ $safe_link = rawurldecode($base_url . '/requests/all?type[request]=request');
     <?php //print $content ?>
 
     <?php if (user_access('create request content')) : ?>
-    <?php echo sprintf(t('%sRequest%sRequest for %sservice proposals%s to innovate or solve a problem%sCreate a request%s'), '<div class="type-info"><h3>', '</h3><span class="mobilize-info">', '<strong>', '</strong>', '</span><a class="btn btn-client" href="' . url("node/add/request") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a></div>'); ?>
+    <?php echo sprintf(t('%sCreate a request%s'), '<a class="btn btn-client" href="' . url("node/add/request") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a>'); ?>
 
     <?php else : ?>
-    <?php echo sprintf(t('%sRequest%sAnswer requests%sMore requests%s'), '<div class="type-info"><h3>', '</h3><span class="mobilize-info">', '</span><a class="btn btn-expert" href="' . $safe_link . '">', '&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></div>'); ?>
+    <?php echo sprintf(t('%sBrowse requests%s'), '<a class="btn btn-expert" href="' . $safe_link . '">', '&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>'); ?>
 
     <?php endif; ?>
 
