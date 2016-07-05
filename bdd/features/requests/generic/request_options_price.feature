@@ -73,16 +73,18 @@ Feature: Request
     #Then I should see "Avengers" in the "How to become a superhero?" row
     And I click "How to become a superhero?" in the "How to become a superhero?" row
     When I click "Edit" in the "primary tabs" region
-    Then I should see "500 points" in the "Questionnaire" row
-    And I should see "200 points" in the "Duration" row
+    #Then I should see "500 points" in the "Questionnaire" row
+    Then I should see "500 points" in the "#edit-field-options-und-questionnaire" element
+    #And I should see "200 points" in the "Duration" row
+    And I should see "200 points" in the "#edit-field-options-und-duration" element
 
-    When I select "Avengers" from "Choose circle of experts"
-    Then I should see "1000 points" in the "Questionnaire" row
-    And I should see "1000 points" in the "Duration" row
+    When I select "Avengers" from "Circles"
+    Then I should see "1000 points" in the "#edit-field-options-und-questionnaire" element
+    And I should see "1000 points" in the "#edit-field-options-und-duration" element
 
-    When I additionally select "LeagueOfJustice" from "Choose circle of experts"
-    Then I should see "1000 points" in the "Questionnaire" row
-    And I should see "1300 points" in the "Duration" row
+    When I additionally select "LeagueOfJustice" from "Circles"
+    Then I should see "1000 points" in the "#edit-field-options-und-questionnaire" element
+    And I should see "1300 points" in the "#edit-field-options-und-duration" element
 
     And I check the box "Duration"
     Then I should see "Duration of the mission"
