@@ -95,6 +95,8 @@ function emh_request_node_insert($node) {
     return;
   }
 
+  emh_request_node_replace($node);
+
   if ($node->status == NODE_PUBLISHED) {
     emh_request_purchase_options($node);
     emh_request_try_to_notify($node);
@@ -109,6 +111,8 @@ function emh_request_node_update($node) {
   if ($node->type !== 'request') {
     return;
   }
+
+  emh_request_node_replace($node);
 
   if ($node->status == NODE_PUBLISHED && $node->original->status == NODE_NOT_PUBLISHED) {
     emh_request_purchase_options($node);
@@ -176,6 +180,38 @@ function emh_request_node_validate($node, $form, &$form_state) {
     if ($user->emh_points < $total) {
       form_error($form, t("You have not enough points to publish your request."));
     }
+  }
+}
+
+function emh_request_node_replace($node) {
+  if ($node->type !== 'request') {
+    return;
+  }
+
+  $questions = field_get_items('node', $node, 'field_request_questions');
+  $components = $node->webform['components'];
+  foreach( $components as $comp )
+    webform_component_delete($node, $comp);
+  $components = array();
+  $i = 1;
+  foreach ($questions as $question) {
+    $lib = $question['value'];
+    $component = array(
+       'nid' => $node->nid,
+       'name' => $lib,
+       'form_key' => preg_replace('@[^a-z0-9-]+@','-', strtolower($lib)),
+       'type' => 'textfield',
+       'mandatory' => 1,
+       'weight' => $i,
+       'pid' => 0,
+       'cid' => $i,
+       'extra' => array(
+           'title_display' => 'inline',
+           'private' => 0,
+       ),
+    );
+    $i=$i+1;
+    webform_component_insert($component);
   }
 }
 
@@ -1167,6 +1203,7 @@ function emh_request_purchase_options($request) {
     emh_points_move_points($user, $emindhub, $total);
   }
 }
+
 
 /**
  * Helper function to render a submission.
