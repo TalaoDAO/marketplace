@@ -60,8 +60,9 @@ Feature: Request and submissions
     Given I am logged in as "expert2"
     When I go to homepage
     And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should see "You have to read DC comics of course!" in the "submission" region
+    Then I should see "You have to read DC comics of course!" in the "user_submission" region
 
+  @exclude
   Scenario: The author can see the published submissions but not the draft ones
     Given I am logged in as "client1"
     When I go to "my-responses"
@@ -81,17 +82,18 @@ Feature: Request and submissions
     Given I am logged in as "expert1"
     When I go to homepage
     And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should not see "Publish" in the "submission" region
+    #Then I should not see "Publish" in the "user_submission_form" region
 
   Scenario: The expert can edit its own submission
     Given I am logged in as "expert1"
     When I go to homepage
     And I click "How to become a superhero?" in the "How to become a superhero?" row
-    And I click "Edit" in the "submission" region
+    And I click "Edit" in the "user_submission" region
     And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we know."
     And I press "Save"
     Then I should see the success message "Your submission has been updated."
 
+  @exclude
   Scenario: The author cannot edit an submission
     Given I am logged in as "client1"
     When I go to homepage
@@ -102,9 +104,10 @@ Feature: Request and submissions
     Given I am logged in as "expert2"
     When I go to homepage
     And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should not see the link "delete" in the "submission" region
+    Then I should not see the link "delete" in the "user_submission" region
     And I should not see the link "delete" in the "submissions" region
 
+  @exclude
   Scenario: The author cannot delete an submission
     Given I am logged in as "client1"
     When I go to homepage
