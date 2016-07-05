@@ -2,7 +2,7 @@
 Feature: Request
   In order to test Request creation
   As a Client and an Expert
-  I want to create a Request, and watch answers
+  I want to create a Request, and watch submissions
 
   Background: Create request
 
@@ -16,15 +16,13 @@ Feature: Request
     | Facebook  | admin   |
 
     Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | Man             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
-
-    #Given I give "client1" 1000 emh points
+    | name    | mail                 | roles    | field_first_name | field_last_name | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | America         | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | Man             | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
 
     Given "request" content:
-    | title        | field_domaine | og_group_ref | author  |
-    | How to become a superhero?  | Energy        | Avengers     | client1 |
+    | title                       | field_domaine | og_group_ref | author  | field_expiration_date  |
+    | How to become a superhero?  | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    |
 
     # Make client1 as a Creator member of Avengers circle
     Given I am logged in as a user with the "administrator" role
@@ -63,9 +61,3 @@ Feature: Request
     And I click "How to become a superhero?" in the "How to become a superhero?" row
     And I click "Edit" in the "primary tabs" region
     Then I should not see "Delete" in the "actions" region
-
-  Scenario: Experts cannot see Answers tab
-    Given I am logged in as "expert1"
-    When I go to homepage
-    When I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should not see the link "Answers" in the "header" region
