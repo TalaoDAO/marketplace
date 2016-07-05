@@ -88,6 +88,8 @@ function emh_request_timeline_get_timeline() {
   if ($status == 'closed') $intervalLeft = t('Closed');
 
   $progression = round((($intervalNow / $intervalDeadline)*100), 0);
+  $soon = FALSE;
+  if ($progression >= 90) $soon = TRUE;
 
   $timeline = array(
     'status' => $status,
@@ -96,6 +98,7 @@ function emh_request_timeline_get_timeline() {
     'deadline' => $deadline,
     'progression' => $progression,
     'left' => $intervalLeft,
+    'soon' => $soon,
   );
 
   return $timeline;
@@ -113,7 +116,7 @@ function _emh_request_timeline_view() {
   else if ($status == 'closed') {
     $class = 'inactive';
   }
-  else if ($status == 'soon') {
+  if ($timeline['soon'] === TRUE) {
     $class = 'warning';
   }
 
