@@ -958,3 +958,24 @@ function emh_request_purchase_options($request) {
     emh_points_move_points($user, $emindhub, $total);
   }
 }
+
+/**
+ * Helper function to render a submission.
+ */
+function emh_request_render_submission($submission) {
+  $output = '';
+
+  foreach ($submission->data as $submission) {
+    $output .= $submission[0] . '&nbsp;';
+  }
+
+  return strip_tags(views_trim_text(
+    array(
+      'max_length' => 300,
+      'word_boundary' => TRUE,
+      'ellipsis' => TRUE,
+      'html' => TRUE,
+    ),
+    $output
+  ));
+}
