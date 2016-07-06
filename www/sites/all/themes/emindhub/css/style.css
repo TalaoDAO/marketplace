@@ -15946,6 +15946,9 @@ body.admin-menu #block-system-user-menu {
 .views-field-is-draft {
   width: 100px;
 }
+.views-field-language {
+  width: 100px;
+}
 .views-field-og-group-ref {
   width: 100px;
 }
