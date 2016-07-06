@@ -834,7 +834,7 @@ function ft_request_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'title_field',
-    'label' => 'Request name',
+    'label' => 'Request title or question',
     'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -870,7 +870,7 @@ function ft_request_field_default_field_instances() {
   t('Image');
   t('Options');
   t('Questions');
-  t('Request name');
+  t('Request title or question');
   t('Tags');
   t('You can precise your activity instead');
 
