@@ -18281,29 +18281,24 @@ body.node-type-request:not(.page-node-edit) .field-name-body {
 body.node-type-request:not(.page-node-edit) .field-name-body p:last-child {
   margin-bottom: 0;
 }
-body.node-type-request:not(.page-node-edit) .field-name-field-domaine .field-item {
-  display: inline-block;
-  margin-right: 5px;
-}
-body.node-type-request:not(.page-node-edit) .field-name-field-domaine .field-item:after {
-  content: ",";
-}
-body.node-type-request:not(.page-node-edit) .field-name-field-domaine .field-item:last-child {
-  margin-right: 0;
-}
-body.node-type-request:not(.page-node-edit) .field-name-field-domaine .field-item:last-child:after {
-  content: "";
-}
+body.node-type-request:not(.page-node-edit) .field-name-field-domaine .field-item,
+body.node-type-request:not(.page-node-edit) .field-name-field-tags .field-item,
 body.node-type-request:not(.page-node-edit) .field-name-og-group-ref .field-item {
   display: inline-block;
   margin-right: 5px;
 }
+body.node-type-request:not(.page-node-edit) .field-name-field-domaine .field-item:after,
+body.node-type-request:not(.page-node-edit) .field-name-field-tags .field-item:after,
 body.node-type-request:not(.page-node-edit) .field-name-og-group-ref .field-item:after {
   content: ",";
 }
+body.node-type-request:not(.page-node-edit) .field-name-field-domaine .field-item:last-child,
+body.node-type-request:not(.page-node-edit) .field-name-field-tags .field-item:last-child,
 body.node-type-request:not(.page-node-edit) .field-name-og-group-ref .field-item:last-child {
   margin-right: 0;
 }
+body.node-type-request:not(.page-node-edit) .field-name-field-domaine .field-item:last-child:after,
+body.node-type-request:not(.page-node-edit) .field-name-field-tags .field-item:last-child:after,
 body.node-type-request:not(.page-node-edit) .field-name-og-group-ref .field-item:last-child:after {
   content: "";
 }

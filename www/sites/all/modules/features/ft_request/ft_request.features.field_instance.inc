@@ -74,7 +74,7 @@ function ft_request_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 14,
+        'weight' => 15,
       ),
       'summary' => array(
         'label' => 'hidden',
@@ -173,7 +173,7 @@ function ft_request_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 5,
+        'weight' => 6,
       ),
       'summary' => array(
         'label' => 'inline',
@@ -223,7 +223,7 @@ function ft_request_field_default_field_instances() {
           'interval_display' => 'raw time span',
         ),
         'type' => 'format_interval',
-        'weight' => 3,
+        'weight' => 4,
       ),
       'summary' => array(
         'label' => 'inline',
@@ -290,7 +290,7 @@ function ft_request_field_default_field_instances() {
         'label' => 'inline',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 12,
+        'weight' => 13,
       ),
       'summary' => array(
         'label' => 'inline',
@@ -339,7 +339,7 @@ function ft_request_field_default_field_instances() {
         'label' => 'inline',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 13,
+        'weight' => 14,
       ),
       'summary' => array(
         'label' => 'inline',
@@ -387,7 +387,7 @@ function ft_request_field_default_field_instances() {
           'image_style' => 'medium',
         ),
         'type' => 'image',
-        'weight' => 7,
+        'weight' => 8,
       ),
       'summary' => array(
         'label' => 'hidden',
@@ -464,7 +464,7 @@ function ft_request_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 10,
+        'weight' => 12,
       ),
       'summary' => array(
         'label' => 'above',
@@ -507,7 +507,7 @@ function ft_request_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_default',
-        'weight' => 6,
+        'weight' => 7,
       ),
       'summary' => array(
         'label' => 'hidden',
@@ -586,7 +586,7 @@ function ft_request_field_default_field_instances() {
           'show_remaining_days' => FALSE,
         ),
         'type' => 'date_default',
-        'weight' => 4,
+        'weight' => 5,
       ),
       'summary' => array(
         'label' => 'inline',
@@ -646,9 +646,10 @@ function ft_request_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'inline',
+        'module' => 'taxonomy',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 11,
+        'type' => 'taxonomy_term_reference_plain',
+        'weight' => 2,
       ),
       'summary' => array(
         'label' => 'inline',
@@ -703,7 +704,7 @@ function ft_request_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 2,
+        'weight' => 3,
       ),
       'summary' => array(
         'label' => 'inline',
@@ -768,7 +769,7 @@ function ft_request_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 15,
+        'weight' => 16,
       ),
       'summary' => array(
         'label' => 'hidden',

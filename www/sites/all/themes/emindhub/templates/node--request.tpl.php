@@ -134,6 +134,8 @@ if ($user_submission) {
 
 					<?php print render($content['field_domaine']); ?>
 
+					<?php print render($content['field_tags']); ?>
+
 					<?php print render($content['og_group_ref']); ?>
 
 					<?php if (emh_request_has_option($node, 'duration')) : ?>
