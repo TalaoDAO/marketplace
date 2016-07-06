@@ -16010,6 +16010,7 @@ div.rating div a:hover {
 }
 .user-cartouche a {
   color: #104476;
+  text-decoration: underline;
 }
 .user-cartouche > span {
   display: block;
@@ -16021,13 +16022,133 @@ div.rating div a:hover {
 .user-cartouche .user-identity {
   font-weight: bold;
 }
-.user-cartouche .user-identity .lastname {
-  text-transform: uppercase;
-}
 .user-cartouche .user-organisation,
 .user-cartouche .user-activity {
   font-style: italic;
   color: #4e6374;
+}
+.user-cartouche .user-buy-access {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin-right: 5px;
+  color: #ffffff;
+  background-color: #1abc9c;
+  border-color: #12806a;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+  background-position: 10px 50%;
+  background-repeat: no-repeat;
+  white-space: normal;
+  text-align: left;
+  text-decoration: none;
+}
+.user-cartouche .user-buy-access:focus,
+.user-cartouche .user-buy-access:active:focus,
+.user-cartouche .user-buy-access.active:focus,
+.user-cartouche .user-buy-access.focus,
+.user-cartouche .user-buy-access:active.focus,
+.user-cartouche .user-buy-access.active.focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.user-cartouche .user-buy-access:hover,
+.user-cartouche .user-buy-access:focus,
+.user-cartouche .user-buy-access.focus {
+  color: #4c6172;
+  text-decoration: none;
+}
+.user-cartouche .user-buy-access:active,
+.user-cartouche .user-buy-access.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.user-cartouche .user-buy-access.disabled,
+.user-cartouche .user-buy-access[disabled],
+fieldset[disabled] .user-cartouche .user-buy-access {
+  cursor: not-allowed;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+a.user-cartouche .user-buy-access.disabled,
+fieldset[disabled] a.user-cartouche .user-buy-access {
+  pointer-events: none;
+}
+.user-cartouche .user-buy-access:last-child {
+  margin-right: 0;
+}
+.user-cartouche .user-buy-access:focus,
+.user-cartouche .user-buy-access.focus {
+  color: #ffffff;
+  background-color: #148f77;
+  border-color: #02100d;
+}
+.user-cartouche .user-buy-access:hover {
+  color: #ffffff;
+  background-color: #148f77;
+  border-color: #0a4a3d;
+}
+.user-cartouche .user-buy-access:active,
+.user-cartouche .user-buy-access.active,
+.open > .dropdown-toggle.user-cartouche .user-buy-access {
+  color: #ffffff;
+  background-color: #148f77;
+  border-color: #0a4a3d;
+}
+.user-cartouche .user-buy-access:active:hover,
+.user-cartouche .user-buy-access.active:hover,
+.open > .dropdown-toggle.user-cartouche .user-buy-access:hover,
+.user-cartouche .user-buy-access:active:focus,
+.user-cartouche .user-buy-access.active:focus,
+.open > .dropdown-toggle.user-cartouche .user-buy-access:focus,
+.user-cartouche .user-buy-access:active.focus,
+.user-cartouche .user-buy-access.active.focus,
+.open > .dropdown-toggle.user-cartouche .user-buy-access.focus {
+  color: #ffffff;
+  background-color: #0f705d;
+  border-color: #02100d;
+}
+.user-cartouche .user-buy-access:active,
+.user-cartouche .user-buy-access.active,
+.open > .dropdown-toggle.user-cartouche .user-buy-access {
+  background-image: none;
+}
+.user-cartouche .user-buy-access.disabled:hover,
+.user-cartouche .user-buy-access[disabled]:hover,
+fieldset[disabled] .user-cartouche .user-buy-access:hover,
+.user-cartouche .user-buy-access.disabled:focus,
+.user-cartouche .user-buy-access[disabled]:focus,
+fieldset[disabled] .user-cartouche .user-buy-access:focus,
+.user-cartouche .user-buy-access.disabled.focus,
+.user-cartouche .user-buy-access[disabled].focus,
+fieldset[disabled] .user-cartouche .user-buy-access.focus {
+  background-color: #1abc9c;
+  border-color: #12806a;
+}
+.user-cartouche .user-buy-access .badge {
+  color: #1abc9c;
+  background-color: #ffffff;
 }
 .field-group-div {
   padding: 15px;
@@ -18225,11 +18346,6 @@ body.node-type-request:not(.page-node-edit) .field-label-inline .field-label {
 body.node-type-request:not(.page-node-edit) .section.request,
 body.node-type-request:not(.page-node-edit) .section.user-submission {
   background-color: #FFF;
-}
-body.node-type-request:not(.page-node-edit) .section.request a,
-body.node-type-request:not(.page-node-edit) .section.user-submission a {
-  color: #104476;
-  text-decoration: underline;
 }
 body.node-type-request:not(.page-node-edit) .section {
   margin-left: -15px;
