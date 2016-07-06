@@ -42,6 +42,8 @@ Feature: Request and submissions
     And I click "Edit" in the "primary tabs" region
     Given I check "Private"
     And I press "Publish"
+    #Skip validation page
+    And I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been updated."
 
     # An expert responds to the request.

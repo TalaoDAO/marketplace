@@ -42,6 +42,8 @@ Feature: Request and submissions
     Given I check "Anonymous"
     And I check "Hide my name"
     And I press "Publish"
+    #Skip validation page
+    And I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been updated."
 
     Given I am logged in as "expert1"
@@ -57,6 +59,8 @@ Feature: Request and submissions
     And I click "Edit" in the "primary tabs" region
     Given I check "Anonymous"
     And I check "Hide my organisation"
+    And I press "Publish"
+    #Skip validation page
     And I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been updated."
 
@@ -74,6 +78,8 @@ Feature: Request and submissions
     And I check "Hide my name"
     And I check "Hide my organisation"
     And I enter "ALMIGHTY GOD" for "You can precise your activity instead"
+    And I press "Publish"
+    #Skip validation page
     And I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been updated."
 
