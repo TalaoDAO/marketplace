@@ -1677,7 +1677,8 @@ function ft_content_type_field_group_info() {
       0 => 'field_domaine',
       1 => 'field_skills_set',
       2 => 'field_employment_history',
-      3 => 'field_position_list',
+      3 => 'field_cv',
+      4 => 'field_position_list',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1887,7 +1888,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'My testimony',
-    'weight' => '9',
+    'weight' => '10',
     'children' => array(
       0 => 'field_testimony',
     ),
