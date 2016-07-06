@@ -103,6 +103,7 @@ Feature: Request
 
     Then I should see "Request How to become a superhero? has been updated."
     And I should see "1 month"
+    And I press "Publish"
     And I should have "7700" points on "client1" user
 
     # An expert responds to the request.
