@@ -324,14 +324,13 @@ function emh_access_author_name($node) {
   return FALSE;
 }
 
-function emh_access_author_company($node) {
+function emh_access_user_organisation($node) {
 
   global $user;
   if ($user->uid == 1) {
     // Admin ( = eMindHub) has every right.
     return TRUE;
   }
-
 
   if (!emh_request_has_option($node, 'anonymous')) {
     return TRUE;

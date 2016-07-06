@@ -559,39 +559,50 @@ function emindhub_preprocess_webform_number(&$variables) {
 }
 
 // TODO: add context, as 'author', etc.'
-function emindhub_beautiful_user_cartouche($node) {
+function emindhub_beautiful_user_cartouche($uid2) {
+  global $user;
+  $uid1 = $user->uid;
+  $u2_account = user_load($uid2);
 
-	$author = user_load( $node->uid );
-	$organisation = field_get_items('user', $author, 'field_entreprise');
-	$organisation = node_load($organisation[0]['target_id']);
-	// $activity = field_get_items('user', $author, 'field_entreprise_description');
+	$node = menu_get_object();
 
 	// Portrait
+	$photo_uri = '';
+	$photo_uri = field_get_items('user', $u2_account, 'field_photo');
 	print '<span class="user-portrait">';
-	if (module_exists('emh_access') && emh_access_author_name( $node )) {
-		print emindhub_beautiful_author_picture( $node, 'img-circle center-block' );
+	if (module_exists('emh_access') && emh_access_user_can_see_full_user($uid1, $uid2) && !empty($photo_uri)) {
+		print '<a href="' . url('user/' . $user2->uid) . '"><img src="' . image_style_url('thumbnail', $photo_uri[0]['uri']) . '" width="100" height="100" class="img-circle center-block" /></a>';
 	} else {
-		print $user_picture;
+		// print $user_picture;
+		print '<div class="user-badge img-circle center-block"></div>';
 	}
 	print '</span>';
+
 
 	// Firstname LASTNAME
-	print '<span class="user-identity">';
-	if (module_exists('emh_user')) {
-		print emh_user_get_beautiful_author($node);
-	} else {
-		print $name;
+	if (module_exists('emh_access') && emh_access_user_can_see_full_user($uid1, $uid2)) {
+		print '<span class="user-identity"><a href="' . url('user/' . $user2->uid) . '">' . format_username($u2_account) . '</span></a>';
+  }
+	else {
+		print '<span class="user-identity">' . format_username($u2_account) . '</span>';
 	}
-	print '</span>';
 
 	// Organisation
-	if (module_exists('emh_access') && emh_access_author_company($node) && ($organisation)) {
-		// Note to themer, if you do not like check_plain, use render and theme hooks to ensure check_plain is already applied, and never use direct attribute access
-		print '<span class="user-organisation">' . check_plain($organisation->title) . '</span>';
-	}
+	// $organisation = field_get_items('user', $u2_account, 'field_entreprise');
+	// $organisation = node_load($organisation[0]['target_id']);
+	// if (module_exists('emh_access') && emh_access_user_organisation($node) && !empty($organisation)) {
+	// 	// Note to themer, if you do not like check_plain, use render and theme hooks to ensure check_plain is already applied, and never use direct attribute access
+	// 	print '<span class="user-organisation">' . check_plain($organisation->title) . '</span>';
+	// }
 
-	// TODO
+	// $activity = field_get_items('user', $author, 'field_entreprise_description');
 	if (emh_request_has_option($node, 'anonymous') && !empty($content['field_activity'])) {
 		print '<span class="user-activity">' . render($content['field_activity']) . '</span>';
 	}
+
+	// Buy profile access
+	if (module_exists('emh_access') && !emh_access_user_can_see_full_user($uid1, $uid2)) {
+		print '<a href="' . url("user/$uid2/purchase") . '" class="user-buy-access">' . t('Access profile for 50 credits') . '</a>';
+	}
+
 }

@@ -154,7 +154,7 @@ if ($user_submission) {
 					<?php print render($content['field_image']); ?>
 
 					<div class="user-cartouche">
-						<?php print emindhub_beautiful_user_cartouche($node); ?>
+						<?php print emindhub_beautiful_user_cartouche($node->uid); ?>
 					</div>
 
 					<?php if (!empty($elements['#node']->created)) : ?>
