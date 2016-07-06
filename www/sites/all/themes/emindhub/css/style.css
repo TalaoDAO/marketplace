@@ -15998,7 +15998,7 @@ div.rating div a:hover {
   background-position: 0 -42px;
   /* RTL */
 }
-.user-badge {
+.user-badge img {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -16007,6 +16007,27 @@ div.rating div a:hover {
   text-align: center;
   height: 100px;
   width: 100px;
+}
+.user-cartouche a {
+  color: #104476;
+}
+.user-cartouche > span {
+  display: block;
+  margin-bottom: 10px;
+}
+.user-cartouche > span:last-child {
+  margin-bottom: 0;
+}
+.user-cartouche .user-identity {
+  font-weight: bold;
+}
+.user-cartouche .user-identity .lastname {
+  text-transform: uppercase;
+}
+.user-cartouche .user-organisation,
+.user-cartouche .user-activity {
+  font-style: italic;
+  color: #4e6374;
 }
 .field-group-div {
   padding: 15px;
@@ -17582,27 +17603,6 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
 }
 .page-user:not(.page-403) h1.page-header {
   display: none !important;
-}
-.user-cartouche a {
-  color: #104476;
-}
-.user-cartouche > span {
-  display: block;
-  margin-bottom: 10px;
-}
-.user-cartouche > span:last-child {
-  margin-bottom: 0;
-}
-.user-cartouche .user-identity {
-  font-weight: bold;
-}
-.user-cartouche .user-identity .lastname {
-  text-transform: uppercase;
-}
-.user-cartouche .user-organisation,
-.user-cartouche .user-activity {
-  font-style: italic;
-  color: #4e6374;
 }
 form#webform-node-form #edit-field-expiration-date .form-type-textfield > label {
   font: 0/0 a;
