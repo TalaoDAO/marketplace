@@ -8,6 +8,7 @@
 include_once 'emh_request.deprecated.inc';
 include_once 'emh_request.fields.inc';
 include_once 'emh_request.conditional_fields.inc';
+include_once 'emh_request.admin.inc';
 
 
 /**
@@ -22,6 +23,80 @@ function emh_request_hook_info() {
   );
 
   return array_fill_keys($hooks, array('group' => 'options'));
+}
+
+
+//----------------------------------------------------------------------
+//-- MENU
+//----------------------------------------------------------------------
+
+
+/**
+ * Implements hook_menu().
+ */
+function emh_request_menu() {
+  $items = array();
+
+  // General information
+//  $items['node/%webform_menu/edit/general'] = array(
+//    'title' => t('General infos'),
+//    'type' => MENU_DEFAULT_LOCAL_TASK,
+//    'weight' => 0,
+//  );
+
+  // Questions
+//  $items['node/%webform_menu/edit/questions'] = array(
+//    'title' => t('Questions'),
+//    'page callback' => 'webform_components_page',
+//    'page arguments' => array(1),
+//    'access callback' => 'emh_request_components_access',
+//    'access arguments' => array(1),
+//    'file' => 'includes/webform.components.inc',
+//    'file path' => drupal_get_path('module', 'webform'), // Useful outside of webform directory !
+//    'type' => MENU_LOCAL_TASK,
+//    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+//    'weight' => 1,
+//  );
+
+  // Publication page (confirmation)
+  $items['node/%webform_menu/publish'] = array(
+    'title' => t('Validation before publication'),
+    'page callback' => 'emh_request_publication_page',
+    'page arguments' => array(1),
+    'access callback' => 'emh_request_publication_access',
+    'access arguments' => array(1),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+
+/**
+ * Implements hook_menu_alter().
+ */
+function emh_request_menu_alter(&$items) {
+  // Disables some webform accesses
+  $items['node/%webform_menu/webform']['access callback'] = '_emh_access_full_access';
+  $items['node/%webform_menu/webform']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform/components']['access callback'] = '_emh_access_full_access';
+  $items['node/%webform_menu/webform/components']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform/components/%webform_menu_component/clone']['access callback'] = '_emh_access_full_access';
+  $items['node/%webform_menu/webform/components/%webform_menu_component/clone']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform/conditionals']['access callback'] = '_emh_access_full_access';
+  $items['node/%webform_menu/webform/conditionals']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform/configure']['access callback'] = '_emh_access_full_access';
+  $items['node/%webform_menu/webform/configure']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform/emails']['access callback'] = '_emh_access_full_access';
+  $items['node/%webform_menu/webform/emails']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform-results']['access callback'] = '_emh_access_full_access';
+  $items['node/%webform_menu/webform-results']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform-results/analysis']['access callback'] = '_emh_access_full_access';
+  $items['node/%webform_menu/webform-results/analysis']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform-results/table']['access callback'] = '_emh_access_full_access';
+  $items['node/%webform_menu/webform-results/table']['access arguments'] = array(1);
+  $items['node/%webform_menu/webform-results/download']['access callback'] = '_emh_access_full_access';
+  $items['node/%webform_menu/webform-results/download']['access arguments'] = array(1);
 }
 
 
@@ -271,80 +346,6 @@ function emh_request_setup_options_behaviors($form, &$form_state) {
 //    );
 //  }
 //}
-
-
-//----------------------------------------------------------------------
-//-- MENU
-//----------------------------------------------------------------------
-
-
-/**
- * Implements hook_menu().
- */
-function emh_request_menu() {
-  $items = array();
-
-  // General information
-//  $items['node/%webform_menu/edit/general'] = array(
-//    'title' => t('General infos'),
-//    'type' => MENU_DEFAULT_LOCAL_TASK,
-//    'weight' => 0,
-//  );
-
-  // Questions
-//  $items['node/%webform_menu/edit/questions'] = array(
-//    'title' => t('Questions'),
-//    'page callback' => 'webform_components_page',
-//    'page arguments' => array(1),
-//    'access callback' => 'emh_request_components_access',
-//    'access arguments' => array(1),
-//    'file' => 'includes/webform.components.inc',
-//    'file path' => drupal_get_path('module', 'webform'), // Useful outside of webform directory !
-//    'type' => MENU_LOCAL_TASK,
-//    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
-//    'weight' => 1,
-//  );
-
-  // Publication page (confirmation)
-  $items['node/%webform_menu/publish'] = array(
-    'title' => t('Validation before publication'),
-    'page callback' => 'emh_request_publication_page',
-    'page arguments' => array(1),
-    'access callback' => 'emh_request_publication_access',
-    'access arguments' => array(1),
-    'type' => MENU_CALLBACK,
-  );
-
-  return $items;
-}
-
-
-/**
- * Implements hook_menu_alter().
- */
-function emh_request_menu_alter(&$items) {
-  // Disables some webform accesses
-  $items['node/%webform_menu/webform']['access callback'] = '_emh_access_full_access';
-  $items['node/%webform_menu/webform']['access arguments'] = array(1);
-  $items['node/%webform_menu/webform/components']['access callback'] = '_emh_access_full_access';
-  $items['node/%webform_menu/webform/components']['access arguments'] = array(1);
-  $items['node/%webform_menu/webform/components/%webform_menu_component/clone']['access callback'] = '_emh_access_full_access';
-  $items['node/%webform_menu/webform/components/%webform_menu_component/clone']['access arguments'] = array(1);
-  $items['node/%webform_menu/webform/conditionals']['access callback'] = '_emh_access_full_access';
-  $items['node/%webform_menu/webform/conditionals']['access arguments'] = array(1);
-  $items['node/%webform_menu/webform/configure']['access callback'] = '_emh_access_full_access';
-  $items['node/%webform_menu/webform/configure']['access arguments'] = array(1);
-  $items['node/%webform_menu/webform/emails']['access callback'] = '_emh_access_full_access';
-  $items['node/%webform_menu/webform/emails']['access arguments'] = array(1);
-  $items['node/%webform_menu/webform-results']['access callback'] = '_emh_access_full_access';
-  $items['node/%webform_menu/webform-results']['access arguments'] = array(1);
-  $items['node/%webform_menu/webform-results/analysis']['access callback'] = '_emh_access_full_access';
-  $items['node/%webform_menu/webform-results/analysis']['access arguments'] = array(1);
-  $items['node/%webform_menu/webform-results/table']['access callback'] = '_emh_access_full_access';
-  $items['node/%webform_menu/webform-results/table']['access arguments'] = array(1);
-  $items['node/%webform_menu/webform-results/download']['access callback'] = '_emh_access_full_access';
-  $items['node/%webform_menu/webform-results/download']['access arguments'] = array(1);
-}
 
 
 //----------------------------------------------------------------------
@@ -1001,11 +1002,18 @@ function emh_request_get_options() {
     $options = module_invoke_all('emh_request_option_info');
     drupal_alter('emh_request_option_info', $options);
 
+    $costs = variable_get('emh_options_costs', array());
+
     foreach ($options as $id => &$option) {
       if (strlen($id) > 64) {
         throw new Exception(sprintf("The identifier given to an EMH request option can't be longer than 64 characters (found: %s).", $id));
       }
+
       $option += emh_request_default_option_info();
+
+      if (isset($costs[$id])) {
+        $option['cost'] = (int) $costs[$id];
+      }
     }
 
     uasort($options, 'drupal_sort_weight');
@@ -1128,6 +1136,8 @@ function emh_request_get_default_options_costs() {
  *  Costs keyed by option identifier
  */
 function emh_request_get_options_costs($request) {
+  // Stores calculated costs in a static cache to avoid to calculate them
+  // each time the function is called.
   $static_costs = &drupal_static(__FUNCTION__, array());
   $nid = empty($request->nid) ? false : $request->nid;
 

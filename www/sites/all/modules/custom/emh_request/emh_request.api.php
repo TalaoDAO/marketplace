@@ -14,7 +14,9 @@
  * Available option properties:
  *  - label (required): a user-friendly label ;
  *  - description: a short explanation about the option ;
- *  - cost: a cost by default, 0 (then free) if not provided ;
+ *  - cost: an initial and default cost, 0 (then free) if not provided.
+ *    Notice: if another amount is defined in the emh_options_costs variable for
+ *    the current option, il will overwrite the initial cost ;
  *  - weight: a weight for options ordering, 0 if not provided ;
  *  - setting_form: a form callback to generate a setting form ;
  *  - fields: an array of field names related to the option (on which the
