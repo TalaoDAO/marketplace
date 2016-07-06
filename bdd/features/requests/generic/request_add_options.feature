@@ -38,8 +38,8 @@ Feature: Request
     Given I am logged in as "client1"
     When I go to homepage
     Then I should see "Avengers" in the "How to become a superhero?" row
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
-    When I click "Edit" in the "primary tabs" region 
+    When I click "How to become a superhero?" in the "How to become a superhero?" row
+    Then I click "Edit" in the "primary tabs" region 
     And I check the box "Duration"
     Then I should see "Duration of the mission"
     And I should see "Desired starting date"
@@ -50,8 +50,8 @@ Feature: Request
     Then I should see "Request How to become a superhero? has been published."
     And I should see "1 month"
 
-    Then I click "Edit" in the "primary tabs" region
-    And the "Duration" checkbox should be checked
+    When I click "Edit" in the "primary tabs" region
+    Then the "Duration" checkbox should be checked
     #TODO : Not the best way to test, but right now, no "readonly" test exists
     Then I check the box "Duration" 
     And the "Duration" checkbox should be checked
