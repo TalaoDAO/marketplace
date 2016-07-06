@@ -15920,9 +15920,7 @@ body.admin-menu #block-system-user-menu {
 .emh-field-status span {
   padding: 3px 6px;
 }
-.views-field-field-expiration-date,
-.views-field-changed,
-.views-field-submitted {
+.views-field-field-expiration-date {
   text-align: center;
   width: 130px;
 }
@@ -15942,6 +15940,7 @@ body.admin-menu #block-system-user-menu {
 .views-field-request-status span {
   padding: 3px 6px;
 }
+<<<<<<< HEAD
 .views-field-status,
 .views-field-is-draft {
   width: 100px;
@@ -15949,6 +15948,8 @@ body.admin-menu #block-system-user-menu {
 .views-field-language {
   width: 100px;
 }
+=======
+>>>>>>> feature/genericRequestSubmissionsAllViews
 .views-field-og-group-ref {
   width: 100px;
 }
@@ -15960,10 +15961,14 @@ body.admin-menu #block-system-user-menu {
 .views-field-emh-author {
   width: 200px;
 }
-.view-my-responses-questions1 .views-field-emh-answer,
-.view-my-responses-calls3 .views-field-emh-answer,
-.view-my-responses-challenges .views-field-emh-answer {
-  width: 350px;
+.views-field-emh-answer {
+  width: 500px;
+}
+.views-field-is-draft {
+  width: 100px;
+}
+.views-field-view-submission {
+  width: 100px;
 }
 div.fivestar-widget-static .star {
   width: 21px;
