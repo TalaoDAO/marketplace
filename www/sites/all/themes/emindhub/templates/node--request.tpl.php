@@ -82,37 +82,10 @@
 include_once drupal_get_path('module', 'webform') . '/includes/webform.submissions.inc';
 global $user;
 $submissions = webform_get_submissions(array('nid' => $nid));
-if ($user_submission) {
+if (!empty($user_submission)) {
 	$submission_status = emh_answer_get_status($user_submission);
 }
-
-// Show $node field, with display parameters
-// echo '<pre>' . print_r($content['webform']['#node']->webform, TRUE) . '</pre>'; die;
-// Show $node field, with custom display parameters
-// print render(field_view_field('node', $node, 'field_duration_of_the_mission'));
 ?>
-
-<?php /*if (!empty($variables['flag_my_selection'])) : ?>
-<?php print $variables['flag_my_selection']['title']; ?>
-<?php endif;*/ ?>
-
-<?php //print webform_get_submission_count($node->nid); ?>
-
-<?php /*if (!empty($content['field_expiration_date'])) : ?>
-	<?php print render($content['field_expiration_date']); ?>
-<?php endif;*/ ?>
-
-<?php /*if (!empty($variables['linkPrev'])) : ?>
-	<a href="<?php print base_path() . $variables['linkPrev']['href']; ?>" <?php print drupal_attributes($variables['linkPrev']['attributes']); ?>>
-		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <?php print $variables['linkPrev']['title']; ?>
-	</a>
-<?php endif; ?>
-
-<?php if (!empty($variables['linkNext'])) : ?>
-	<a href="<?php print base_path() . $variables['linkNext']['href']; ?>" <?php print drupal_attributes($variables['linkNext']['attributes']); ?>>
-		<?php print $variables['linkNext']['title']; ?> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-	</a>
-<?php endif;*/ ?>
 
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
@@ -145,6 +118,17 @@ if ($user_submission) {
 
 					<?php if (emh_request_has_option($node, 'files') && !empty($content['field_request_documents'])) : ?>
 						<?php print render($content['field_request_documents']); ?>
+					<?php endif; ?>
+
+					<?php if ($node->uid == $user->uid && emh_request_has_option($node, 'questionnaire') && !empty($node->webform['components'])) : $i = 0; ?>
+						<div class="field field-questionnaire clearfix col-sm-12">
+							<h4><?php print t('Questionnaire'); ?></h4>
+							<ul class="request-questionnaire">
+							<?php foreach ($node->webform['components'] as $question) : $i++; ?>
+								<li class="requestion-question-<?php print $i; ?>"><span class="request-question-numerotation"><?php print $i; ?>.</span>&nbsp;<?php print $question['name']; ?></li>
+							<?php endforeach; ?>
+						</ul>
+					</div>
 					<?php endif; ?>
 
 				</div>
