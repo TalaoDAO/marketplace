@@ -464,7 +464,7 @@ function emh_request_publication_page($request) {
 
     foreach ($options as $option) {
       $id = $option['option'];
-      $rows[] = array($info[$id]['label'], $costs[$id]);
+      $rows[] = array($info[$id]['label'], emh_request_format_cost($costs[$id]));
       $total += (int) $costs[$id];
     }
 
