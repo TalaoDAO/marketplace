@@ -43,6 +43,8 @@ Feature: Request and submissions
     And I enter "6 months" for "Duration of the mission"
     And I enter "2017-09-01 00:00:00" for "Desired starting date"
     And I press "Publish"
+    #Skip validation page
+    And I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been updated."
 
   Scenario: The author can see Duration option infos
