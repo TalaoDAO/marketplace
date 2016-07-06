@@ -10,20 +10,16 @@
         function selectCosts(circles) {
           var costs = {};
 
-          // Returns an empty object if the array expected
-          // as parameter is not valid
-          if (!circles || circles.length == 0) {
-            return costs;
-          }
+          if ($.isArray(circles) && circles.length > 0) {
+            // Selects the highest cost (from circles) for each option
+            for (var i = 0; i < circles.length; i++) {
+              var circleId = Number(circles[i]);
+              var circleCosts = settings.circlesOptionsCosts.circles[circleId];
 
-          // Selects the highest cost (from circles) for each option
-          for (var i = 0; i < circles.length; i++) {
-            var circleId = Number(circles[i]);
-            var circleCosts = settings.circlesOptionsCosts.circles[circleId];
-
-            for (var j in circleCosts) {
-              if (typeof costs[j] == 'undefined' || costs[j] < circleCosts[j]) {
-                costs[j] = Number(circleCosts[j]);
+              for (var j in circleCosts) {
+                if (typeof costs[j] == 'undefined' || costs[j] < circleCosts[j]) {
+                  costs[j] = Number(circleCosts[j]);
+                }
               }
             }
           }
