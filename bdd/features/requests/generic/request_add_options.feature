@@ -20,8 +20,10 @@ Feature: Request
     | client1 | emindhub.test+client1@gmail.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
 
     Given "request" content:
-    | title                       | field_domaine | og_group_ref | author  | status |
-    | How to become a superhero?  | Energy        | Avengers     | client1 | 0      |
+    | title                       | field_domaine | og_group_ref | author  | status | field_expiration_date |
+    | How to become a superhero?  | Energy        | Avengers     | client1 | 0      | 2017-02-08 17:45:00   |
+
+    Given I give "client1" 10000 emh points
 
     # Make client1 as a Creator member of Avengers circle
     Given I am logged in as a user with the "administrator" role
@@ -43,8 +45,9 @@ Feature: Request
     And I should see "Desired starting date"
     Then I fill in "Duration of the mission" with "1 month"
     And I press "Publish"
+    And I press "Publish"
 
-    Then I should see "Request How to become a superhero? has been updated."
+    Then I should see "Request How to become a superhero? has been published."
     And I should see "1 month"
 
     Then I click "Edit" in the "primary tabs" region
@@ -54,10 +57,11 @@ Feature: Request
     And the "Duration" checkbox should be checked
 
   Scenario: An author can add an option on a new request 
+    Given I am logged in as "client1"   
     When I go to "node/add/request"
-    And I fill in "Title" with "How to defeat a superhero?"
-    And I select "Energy" from "Domain(s)"
-    And I select "Avengers" from "Choose circle of experts" 
+    And I fill in "Request title or question" with "How to defeat a superhero?"
+    And I select "Energy" from "Fields of expertise"
+    And I select "Avengers" from "Circles" 
     And I check the box "Duration"
     Then I should see "Duration of the mission"
     And I should see "Desired starting date"
