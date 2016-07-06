@@ -153,9 +153,7 @@ if ($user_submission) {
 
 					<?php print render($content['field_image']); ?>
 
-					<div class="user-cartouche">
-						<?php print emindhub_beautiful_user_cartouche($node->uid); ?>
-					</div>
+					<?php print emh_user_cartouche_view($node->uid); ?>
 
 					<?php if (!empty($elements['#node']->created)) : ?>
 						<?php print t('Publication date:'); ?>

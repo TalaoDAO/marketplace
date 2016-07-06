@@ -17583,6 +17583,27 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
 .page-user:not(.page-403) h1.page-header {
   display: none !important;
 }
+.user-cartouche a {
+  color: #104476;
+}
+.user-cartouche > span {
+  display: block;
+  margin-bottom: 10px;
+}
+.user-cartouche > span:last-child {
+  margin-bottom: 0;
+}
+.user-cartouche .user-identity {
+  font-weight: bold;
+}
+.user-cartouche .user-identity .lastname {
+  text-transform: uppercase;
+}
+.user-cartouche .user-organisation,
+.user-cartouche .user-activity {
+  font-style: italic;
+  color: #4e6374;
+}
 form#webform-node-form #edit-field-expiration-date .form-type-textfield > label {
   font: 0/0 a;
   color: transparent;
@@ -18314,30 +18335,12 @@ body.node-type-request:not(.page-node-edit) .field-name-field-image img {
   margin-left: auto;
   margin-right: auto;
 }
-body.node-type-request:not(.page-node-edit) .user-cartouche {
+body.node-type-request:not(.page-node-edit) .section.request .user-cartouche {
   clear: both;
   border: 1px solid #e1e4e7;
   padding: 15px;
   margin-bottom: 15px;
   text-align: center;
-}
-body.node-type-request:not(.page-node-edit) .user-cartouche > span {
-  display: block;
-  margin-bottom: 10px;
-}
-body.node-type-request:not(.page-node-edit) .user-cartouche > span:last-child {
-  margin-bottom: 0;
-}
-body.node-type-request:not(.page-node-edit) .user-cartouche .user-identity {
-  font-weight: bold;
-}
-body.node-type-request:not(.page-node-edit) .user-cartouche .user-identity .lastname {
-  text-transform: uppercase;
-}
-body.node-type-request:not(.page-node-edit) .user-cartouche .user-organisation,
-body.node-type-request:not(.page-node-edit) .user-cartouche .user-activity {
-  font-style: italic;
-  color: #4e6374;
 }
 body.node-type-request:not(.page-node-edit) .user-submission {
   padding: 15px;
