@@ -18647,6 +18647,24 @@ body.node-type-request:not(.page-node-edit) .section.request .user-cartouche {
   margin-bottom: 15px;
   text-align: center;
 }
+body.node-type-request:not(.page-node-edit) .field-questionnaire h4 {
+  font-weight: bold;
+  margin-top: 0;
+}
+body.node-type-request:not(.page-node-edit) .field-questionnaire .request-questionnaire {
+  list-style: none;
+  padding: 0;
+}
+body.node-type-request:not(.page-node-edit) .field-questionnaire .request-questionnaire li {
+  padding: 10px 15px;
+  background-color: #f2f2f2;
+  margin-bottom: 10px;
+}
+body.node-type-request:not(.page-node-edit) .field-questionnaire .request-questionnaire li span {
+  margin-right: 5px;
+  color: #009fe3;
+  font-weight: bold;
+}
 body.node-type-request:not(.page-node-edit) .user-submission {
   padding: 15px;
 }
