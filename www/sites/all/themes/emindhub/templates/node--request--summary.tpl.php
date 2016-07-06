@@ -121,6 +121,10 @@
           <?php print t("My activity:"); ?>
 					<?php print render($content['field_activity']); ?>
 				<?php endif; ?>
+
+        <?php if (emh_request_has_option($node, 'questionnaire')): ?>
+					<?php print render($content['field_request_questions']); ?>
+				<?php endif; ?>
 			</div>
 
 			<div class="request-right">
