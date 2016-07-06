@@ -72,15 +72,15 @@ function _emh_request_string_overrides() {
     // Webform
     'No Components, add a component below.' => 'No questions, add a question below.',
     'New component name' => 'New question',
-    'This will immediately delete the %name component from the %webform webform. This cannot be undone.' => 'This will immediately delete the %name question from the %webform mission. This cannot be undone.',
-    'Submissions for %user' => 'Answers',
+    'This will immediately delete the %name component from the %webform webform. This cannot be undone.' => 'This will immediately delete the %name question from the %webform request. This cannot be undone.',
+    'Submissions for %user' => 'Submissions',
     'Edit component: @name' => 'Edit question @name',
     'New component %name added.' => 'New question %name added.',
     'The component positions and required values have been updated.' => 'Your questions have been updated.',
-    'Submissions for this form are closed.' => 'Answers for this mission are closed.',
-    'You have already submitted this form.' => 'You have already submitted this mission.',
-    'Submission updated.' => 'Your answer has been updated.',
-    'Submission saved. You may return to this form later and it will restore the current values.' => 'Your answer has been saved as draft. You may return to this mission later and it will restore your current answer.',
+    'Submissions for this form are closed.' => 'Submissions for this request are closed.',
+    'You have already submitted this form.' => 'You have already submitted this request.',
+    'Submission updated.' => 'Your submission has been updated.',
+    'Submission saved. You may return to this form later and it will restore the current values.' => 'Your submission has been saved as draft. You may return to this request later and it will restore your current submission.',
   );
 }
 
@@ -319,4 +319,71 @@ function emh_request_update_7116() {
  */
 function emh_request_update_7117() {
   features_revert(array('ft_views' => array('views_view')));
+}
+
+/**
+ * ADD: Enable Save flag & submission submodules.
+ */
+function emh_request_update_7118() {
+  module_enable(array('emh_request_flag_save', 'emh_request_submission'));
+  features_revert(array(
+    'ft_blocks' => array(
+      'fe_block_settings',
+    ),
+    'ft_field_base' => array(
+      'flag',
+    ),
+    'ft_permissions' => array(
+      'user_permission',
+    ),
+    'ft_request' => array(
+      'fe_block_settings',
+      'flag',
+      'user_permission',
+    ),
+  ));
+}
+
+/**
+ * ADD: Enable Timeline submodule.
+ */
+function emh_request_update_7119() {
+  module_enable(['emh_request_timeline']);
+  features_revert(array(
+    'ft_request' => array(
+      'fe_block_settings',
+    ),
+  ));
+}
+
+/**
+ * CHG: Request strings.
+ */
+function emh_request_update_7120() {
+  emh_request_disable();
+  emh_request_enable();
+}
+
+
+/**
+ * CHG: Set some fields as required.
+ */
+function emh_request_update_7121() {
+  features_revert(array('ft_request' => array('field_instance')));
+}
+
+
+/**
+ * CHG: Update fields display configuration for the new view mode (summary).
+ */
+function emh_request_update_7122() {
+  features_revert(array('ft_request' => array('field_instance', 'variable')));
+}
+
+
+/**
+ * CHG: New field for request questions edition.
+ */
+function emh_request_update_7123() {
+  features_revert(array('ft_request' => array('field_base', 'field_instance', 'variable')));
 }

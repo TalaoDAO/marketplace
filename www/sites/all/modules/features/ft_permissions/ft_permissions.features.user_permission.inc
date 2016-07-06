@@ -2169,17 +2169,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'flag',
   );
 
-  // Exported permission: 'flag my_selection'.
-  $permissions['flag my_selection'] = array(
-    'name' => 'flag my_selection',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'expert' => 'expert',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'flag',
-  );
-
   // Exported permission: 'flush caches'.
   $permissions['flush caches'] = array(
     'name' => 'flush caches',
@@ -2597,17 +2586,6 @@ function ft_permissions_user_default_permissions() {
   $permissions['unflag my_contacts'] = array(
     'name' => 'unflag my_contacts',
     'roles' => array(
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'flag',
-  );
-
-  // Exported permission: 'unflag my_selection'.
-  $permissions['unflag my_selection'] = array(
-    'name' => 'unflag my_selection',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'expert' => 'expert',
       'webmaster' => 'webmaster',
     ),
     'module' => 'flag',
