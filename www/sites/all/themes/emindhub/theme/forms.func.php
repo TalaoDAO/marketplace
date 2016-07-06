@@ -487,10 +487,10 @@ function emindhub_form_request_node_form_alter(&$form, &$form_state, $form_id) {
   $form['body']['#suffix'] = '</div>';
 
 	$form['field_domaine']['#prefix'] = '<div class="section step2"><h2>' . t('Tell us more about your request:') . '</h2>';
-	$form['field_domaine'][LANGUAGE_NONE]['#title'] = t('Domains of expertise');
+	$form['field_domaine'][LANGUAGE_NONE]['#title'] = t('Fields of expertise');
   $form['language']['#suffix'] = '</div>';
 
-	$form['og_group_ref']['#prefix'] = '<div class="section step3"><h2>' . t('Which circle of experts do you want to sollicitate?') . '</h2>';
+	$form['og_group_ref']['#prefix'] = '<div class="section step3"><h2>' . t('Select circle(s) of experts you want to address your request') . '</h2>';
   $form['og_group_ref']['#suffix'] = '</div>';
 
 	$form['field_options']['#prefix'] = '<div class="section step4"><h2>' . t('Add options and get the most from your request!') . '</h2>';
