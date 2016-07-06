@@ -1,8 +1,8 @@
 @api @watchdog
-Feature: Request
-  In order to test Request creation
+Feature: Request Option Price
+  In order to test Request with different prices in circles
   As a Client and an Expert
-  I want to create a Request, and watch answers
+  I want to create a Request with the paying options with different prices depending on circles
 
   Background: Create request
 
@@ -67,10 +67,9 @@ Feature: Request
 
 
 
-  Scenario: An author can see and edit its own request
+  Scenario: An author can create a request with a questionnaire and duration with changing prices
     Given I am logged in as "client1"
     When I go to homepage
-    #Then I should see "Avengers" in the "How to become a superhero?" row
     And I click "How to become a superhero?" in the "How to become a superhero?" row
     When I click "Edit" in the "primary tabs" region
     #Then I should see "500 points" in the "Questionnaire" row
@@ -94,9 +93,20 @@ Feature: Request
     Then I should see "Duration of the mission"
     And I should see "Desired starting date"
     Then I fill in "Duration of the mission" with "1 month"
+
+    And I check the box "Questionnaire"
+    Then I should see "Questions"
+    And I fill in "edit-field-request-questions-und-0-value" with "My little questionnaire"
+
     And I press "Publish"
 
     Then I should see "Request How to become a superhero? has been updated."
     And I should see "1 month"
-    #TODO : fill the questionnaire when it's ready to use
-    And I should have "8700" points on "client1" user
+    And I press "Publish"
+    And I should have "7700" points on "client1" user
+
+    # An expert responds to the request.
+    Given I am logged in as "expert1"
+    When I go to homepage
+    And I click "How to become a superhero?" in the "How to become a superhero?" row
+    And I should see "My little questionnaire"
