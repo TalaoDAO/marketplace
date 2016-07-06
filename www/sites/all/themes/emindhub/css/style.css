@@ -15940,16 +15940,9 @@ body.admin-menu #block-system-user-menu {
 .views-field-request-status span {
   padding: 3px 6px;
 }
-<<<<<<< HEAD
-.views-field-status,
-.views-field-is-draft {
-  width: 100px;
-}
 .views-field-language {
   width: 100px;
 }
-=======
->>>>>>> feature/genericRequestSubmissionsAllViews
 .views-field-og-group-ref {
   width: 100px;
 }
