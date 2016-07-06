@@ -172,5 +172,68 @@ node/*/edit',
     'visibility' => 0,
   );
 
+  $export['views-4cc2e6c5a5324cf60e8def980ae0c739'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => '4cc2e6c5a5324cf60e8def980ae0c739',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => 'node/300',
+    'roles' => array(
+      'administrator' => 3,
+      'business' => 5,
+      'webmaster' => 6,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'content',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '<none>',
+    'visibility' => 1,
+  );
+
+  $export['views-a7fd93ee91d8d011bb602135eb9b0ab1'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => 'a7fd93ee91d8d011bb602135eb9b0ab1',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => 'node/300',
+    'roles' => array(
+      'expert' => 4,
+      'référent' => 7,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'content',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '<none>',
+    'visibility' => 1,
+  );
+
   return $export;
 }
