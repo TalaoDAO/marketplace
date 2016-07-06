@@ -18,7 +18,7 @@
 <div class="row section webform-submission-navigation">
 
   <div class="col-sm-3 nav-back">
-    <?php print l('<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> ' . t('Back to <em class="placeholder">Answers</em>'), 'node/' . $node->nid . '/results', array('html' => TRUE)); ?>
+    <a href="<?php print url('node/' . $node->nid); ?>#request-submissions"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Back to <em class="placeholder">Answers</em></a>
   </div>
 
   <div class="col-sm-3 col-sm-offset-3 col-xs-6 nav-previous text-right">
