@@ -90,7 +90,7 @@ function emh_circles_field_widget_option_cost_modifier_validate($element, &$form
   foreach (element_children($element, true) as $index => $id) {
     $cost = trim($element[$id]['#value']);
 
-    if (!empty($cost)) {
+    if (strlen($cost) > 0) {
       if (ctype_digit($cost)) {
         $items[$index] = array('option' => $id, 'cost' => (int) $cost);
       } else {
