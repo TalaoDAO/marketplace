@@ -328,18 +328,25 @@ body.node-type-request:not(.page-node-edit) {
       color: @text-color;
 
       .views-field-views-bulk-operations {
-        .make-md-column(1);
+        position: absolute;
+        z-index: 100;
       }
+      
       .views-field-emh-author {
         .make-md-column(2);
         .text-center;
+        .user-badge img {
+          width: 50px;
+          height: 50px;
+        }
       }
+
       .views-field-emh-answer,
       .views-field-view-submission {
-        .make-md-column(9);
+        .make-md-column(10);
       }
+
       .views-field-view-submission {
-        .make-md-column-offset(3);
         .text-right;
       }
 
