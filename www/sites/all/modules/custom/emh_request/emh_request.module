@@ -966,6 +966,31 @@ function emh_request_node_form_close($form, &$form_state) {
 //}
 
 
+/**
+ * Implements hook_form_FORM_ID_alter().
+ * Adds fields for options costs in the points administation form.
+ */
+function emh_request_form_emh_points_admin_form_alter(&$form, &$form_state, $form_id) {
+  $options = emh_request_get_options();
+
+  $form['emh_options_costs'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Options costs by default'),
+    '#collapsible' => true,
+    '#collapsed' => false,
+    '#tree' => true,
+  );
+
+  foreach ($options as $id => $option) {
+    $form['emh_options_costs'][$id] = array(
+      '#type' => 'textfield',
+      '#title' => $option['label'],
+      '#default_value' => $option['cost'],
+    );
+  }
+}
+
+
 //----------------------------------------------------------------------
 //-- WEBFORM
 //----------------------------------------------------------------------
@@ -1001,11 +1026,18 @@ function emh_request_get_options() {
     $options = module_invoke_all('emh_request_option_info');
     drupal_alter('emh_request_option_info', $options);
 
+    $costs = variable_get('emh_options_costs', array());
+
     foreach ($options as $id => &$option) {
       if (strlen($id) > 64) {
         throw new Exception(sprintf("The identifier given to an EMH request option can't be longer than 64 characters (found: %s).", $id));
       }
+
       $option += emh_request_default_option_info();
+
+      if (isset($costs[$id])) {
+        $option['cost'] = (int) $costs[$id];
+      }
     }
 
     uasort($options, 'drupal_sort_weight');
@@ -1128,6 +1160,8 @@ function emh_request_get_default_options_costs() {
  *  Costs keyed by option identifier
  */
 function emh_request_get_options_costs($request) {
+  // Stores calculated costs in a static cache to avoid to calculate them
+  // each time the function is called.
   $static_costs = &drupal_static(__FUNCTION__, array());
   $nid = empty($request->nid) ? false : $request->nid;
 
