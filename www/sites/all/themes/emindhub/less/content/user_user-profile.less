@@ -186,3 +186,30 @@
 		}
 	}
 }
+
+// User cartouche
+.user-cartouche {
+	a {
+		color: #104476;
+	}
+	> span {
+		display: block;
+		margin-bottom: 10px;
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	.user-identity {
+		font-weight: bold;
+		.lastname {
+			text-transform: uppercase;
+		}
+	}
+
+	.user-organisation,
+	.user-activity {
+		font-style: italic;
+		color: #4e6374;
+	}
+}
