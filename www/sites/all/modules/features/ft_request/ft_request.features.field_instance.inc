@@ -24,6 +24,13 @@ function ft_request_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 0,
       ),
+      'summary' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
       'teaser' => array(
         'label' => 'hidden',
         'module' => 'text',
@@ -36,7 +43,7 @@ function ft_request_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'body',
-    'label' => 'Description',
+    'label' => 'Describe your request',
     'required' => 0,
     'settings' => array(
       'display_summary' => 0,
@@ -52,7 +59,7 @@ function ft_request_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 2,
+      'weight' => 1,
     ),
   );
 
@@ -68,6 +75,17 @@ function ft_request_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 14,
+      ),
+      'summary' => array(
+        'label' => 'hidden',
+        'module' => 'title',
+        'settings' => array(
+          'title_class' => '',
+          'title_link' => '',
+          'title_style' => '',
+        ),
+        'type' => 'title_linked',
+        'weight' => 9,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -92,7 +110,7 @@ function ft_request_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 18,
+      'weight' => 15,
     ),
   );
 
@@ -110,6 +128,13 @@ function ft_request_field_default_field_instances() {
         'type' => 'taxonomy_term_reference_plain',
         'weight' => 1,
       ),
+      'summary' => array(
+        'label' => 'inline',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_plain',
+        'weight' => 2,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -119,7 +144,7 @@ function ft_request_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_domaine',
-    'label' => 'Domain(s)',
+    'label' => 'Domains',
     'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -132,7 +157,7 @@ function ft_request_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 3,
+      'weight' => 2,
     ),
   );
 
@@ -144,11 +169,18 @@ function ft_request_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
+        'label' => 'inline',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 5,
+      ),
+      'summary' => array(
+        'label' => 'inline',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 6,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -160,7 +192,7 @@ function ft_request_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_duration_of_the_mission',
     'label' => 'Duration of the mission',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'text_processing' => 0,
@@ -173,7 +205,7 @@ function ft_request_field_default_field_instances() {
         'size' => 30,
       ),
       'type' => 'text_textfield',
-      'weight' => 14,
+      'weight' => 11,
     ),
   );
 
@@ -184,6 +216,16 @@ function ft_request_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
+        'label' => 'hidden',
+        'module' => 'date',
+        'settings' => array(
+          'interval' => 4,
+          'interval_display' => 'raw time span',
+        ),
+        'type' => 'format_interval',
+        'weight' => 3,
+      ),
+      'summary' => array(
         'label' => 'inline',
         'module' => 'date',
         'settings' => array(
@@ -192,10 +234,10 @@ function ft_request_field_default_field_instances() {
           'multiple_from' => '',
           'multiple_number' => '',
           'multiple_to' => '',
-          'show_remaining_days' => FALSE,
+          'show_remaining_days' => 0,
         ),
         'type' => 'date_default',
-        'weight' => 3,
+        'weight' => 4,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -207,11 +249,11 @@ function ft_request_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_expiration_date',
     'label' => 'Deadline',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
-      'default_value' => 'now',
+      'default_value' => 'strtotime',
       'default_value2' => 'same',
-      'default_value_code' => '',
+      'default_value_code' => '+1 day',
       'default_value_code2' => '',
       'entity_translation_sync' => FALSE,
       'user_register_form' => FALSE,
@@ -224,11 +266,12 @@ function ft_request_field_default_field_instances() {
         'input_format' => 'm/d/Y - H:i:s',
         'input_format_custom' => '',
         'label_position' => 'none',
+        'no_fieldset' => 0,
         'text_parts' => array(),
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 6,
+      'weight' => 4,
     ),
   );
 
@@ -248,6 +291,12 @@ function ft_request_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 12,
+      ),
+      'summary' => array(
+        'label' => 'inline',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 15,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -271,7 +320,7 @@ function ft_request_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 16,
+      'weight' => 13,
     ),
   );
 
@@ -291,6 +340,12 @@ function ft_request_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 13,
+      ),
+      'summary' => array(
+        'label' => 'inline',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 16,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -314,7 +369,7 @@ function ft_request_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 17,
+      'weight' => 14,
     ),
   );
 
@@ -333,6 +388,16 @@ function ft_request_field_default_field_instances() {
         ),
         'type' => 'image',
         'weight' => 7,
+      ),
+      'summary' => array(
+        'label' => 'hidden',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => 'medium',
+        ),
+        'type' => 'image',
+        'weight' => 8,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -401,6 +466,12 @@ function ft_request_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 10,
       ),
+      'summary' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 14,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -438,6 +509,13 @@ function ft_request_field_default_field_instances() {
         'type' => 'file_default',
         'weight' => 6,
       ),
+      'summary' => array(
+        'label' => 'hidden',
+        'module' => 'file',
+        'settings' => array(),
+        'type' => 'file_default',
+        'weight' => 7,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -448,7 +526,7 @@ function ft_request_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_request_documents',
     'label' => 'Documents',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'description_field' => 0,
       'entity_translation_sync' => FALSE,
@@ -486,6 +564,53 @@ function ft_request_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
+      'weight' => 10,
+    ),
+  );
+
+  // Exported field_instance: 'node-request-field_request_questions'.
+  $field_instances['node-request-field_request_questions'] = array(
+    'bundle' => 'request',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 16,
+      ),
+      'summary' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 11,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_request_questions',
+    'label' => 'Questions',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 100,
+      ),
+      'type' => 'text_textfield',
       'weight' => 9,
     ),
   );
@@ -497,7 +622,7 @@ function ft_request_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
+        'label' => 'inline',
         'module' => 'date',
         'settings' => array(
           'format_type' => 'short_date',
@@ -509,6 +634,20 @@ function ft_request_field_default_field_instances() {
         ),
         'type' => 'date_default',
         'weight' => 4,
+      ),
+      'summary' => array(
+        'label' => 'inline',
+        'module' => 'date',
+        'settings' => array(
+          'format_type' => 'short_date',
+          'fromto' => 'both',
+          'multiple_from' => '',
+          'multiple_number' => '',
+          'multiple_to' => '',
+          'show_remaining_days' => FALSE,
+        ),
+        'type' => 'date_default',
+        'weight' => 5,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -541,7 +680,7 @@ function ft_request_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 15,
+      'weight' => 12,
     ),
   );
 
@@ -557,6 +696,13 @@ function ft_request_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 11,
+      ),
+      'summary' => array(
+        'label' => 'inline',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_plain',
+        'weight' => 10,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -585,7 +731,7 @@ function ft_request_field_default_field_instances() {
         'size' => 40,
       ),
       'type' => 'autocomplete_deluxe_taxonomy',
-      'weight' => 4,
+      'weight' => 3,
     ),
   );
 
@@ -599,10 +745,21 @@ function ft_request_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'inline',
-        'module' => 'og_ui',
-        'settings' => array(),
-        'type' => 'og_list_default',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
         'weight' => 2,
+      ),
+      'summary' => array(
+        'label' => 'inline',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 3,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -613,7 +770,7 @@ function ft_request_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'og_group_ref',
-    'label' => 'Choose circle of experts',
+    'label' => 'Circles',
     'required' => 1,
     'settings' => array(
       'behaviors' => array(
@@ -647,19 +804,72 @@ function ft_request_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-request-title_field'.
+  $field_instances['node-request-title_field'] = array(
+    'bundle' => 'request',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 15,
+      ),
+      'summary' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'title_field',
+    'label' => 'Request name',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => 0,
+        'page' => 0,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 0,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
-  t('Choose circle of experts');
+  t('Circles');
   t('Deadline');
-  t('Description');
+  t('Describe your request');
   t('Desired starting date');
   t('Documents');
-  t('Domain(s)');
+  t('Domains');
   t('Duration of the mission');
   t('Hide my name');
   t('Hide my organisation');
   t('Image');
   t('Options');
+  t('Questions');
+  t('Request name');
   t('Tags');
   t('You can precise your activity instead');
 

@@ -193,13 +193,11 @@ img {
 
 // New button style : .btn-expert
 .btn-expert {
-	// .button-variant(#FFF; @emerald-base; @emerald-dark);
 	.button-variant(#FFF; @golden-base; @golden-dark);
 }
 
 // New button style : .btn-client
 .btn-client {
-	// .button-variant(#FFF; @golden-base; @golden-dark);
 	.btn-primary;
 }
 
@@ -216,13 +214,6 @@ img {
 	background-repeat: no-repeat;
 	white-space: normal;
 	.text-left;
-
-	&.btn {
-		// margin-right: 0;
-	}
-	@media (min-width: @screen-md-min) {
-		margin-top: 11px;
-	}
 }
 .icon-community {
 	padding-left: 45px;
@@ -236,6 +227,12 @@ img {
 // New button style: btn-gray
 .btn-gray {
 	.button-variant(@darkerBlue; @gray-lighter; @gray-light2);
+}
+
+.btn-submission {
+	.button-variant(#FFF; transparent; transparent);
+	font-weight: bold;
+	font-size: 1.25em;
 }
 
 
@@ -754,7 +751,7 @@ header#title {
 	.text-uppercase;
 	font-weight: 700;
 	color: #FFF;
-	
+
 	&.draft {
 		background-color: @btn-warning-border;
 	}
@@ -772,4 +769,7 @@ header#title {
 // Progress-bar
 .progress-bar-asphalt {
   .progress-bar-variant(@asphalt-base);
+}
+.progress-bar-inactive {
+  .progress-bar-variant(@gray-light);
 }

@@ -90,7 +90,14 @@ function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, 
       '#type' => 'checkbox',
       '#title' => filter_xss($option['label']),
       '#description' => filter_xss($option['description']),
-      '#default_value' => isset($items[$id]),
+      // We can't be satisfied with the only values 0 or 1 because of
+      // conditional_fields validation. We have to set the #return_value
+      // property with the option identifier to make work this validation.
+      '#return_value' => $id,
+      '#default_value' => isset($items[$id]) ? $id : 0,
+      // We have to be sure that it's the first element because of
+      // conditional_fields validation. Then we set its weight to -1.
+      '#weight' => -1,
     );
 
     // Displays the cost only if the field is enabled,
@@ -108,6 +115,7 @@ function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, 
       $element[$id]['cost'] = array(
         '#type' => 'hidden',
         '#value' => $costs[$id],
+        '#tree' => false,
       );
     }
 
@@ -210,6 +218,12 @@ function emh_request_restructure_option_selector_items($items) {
  */
 function emh_request_field_presave($entity_type, $entity, $field, $instance, $langcode, &$items) {
   if ($field['type'] == 'emh_option_selector') {
+    // If the request has the skip_costs_calculation property setted to true,
+    // we skip this step, assuming that items are already populated with costs
+    // and that they must be saved.
+    if (!empty($entity->skip_costs_calculation)) {
+      return;
+    }
 
     if (empty($entity->nid) || $entity->original->status == NODE_NOT_PUBLISHED) {
       $costs = emh_request_get_options_costs($entity);

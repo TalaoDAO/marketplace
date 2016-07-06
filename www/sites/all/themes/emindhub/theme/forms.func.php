@@ -79,7 +79,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
   // Hide "Show row weights" for regular users
   global $user;
-  
+
   if (!(in_array('webmaster', $user->roles) || in_array('administrator', $user->roles) )) {
     if (empty($form['#attached']['js'])) {
       $form['#attached']['js'] = array();
@@ -380,7 +380,7 @@ function emindhub_form_change_pwd_page_form_alter(&$form, &$form_state, $form_id
 /**
  * Implements hook_form_alter().
  * node/add/webform
- * node/$ID/edit
+ * node/%/edit
  */
 function emindhub_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
 
@@ -431,7 +431,7 @@ function emindhub_form_webform_components_form_alter(&$form, &$form_state, $form
 /**
  * Implements hook_form_alter().
  * node/add/challenge
- * node/$ID/edit
+ * node/%/edit
  */
 function emindhub_form_challenge_node_form_alter(&$form, &$form_state, $form_id) {
 
@@ -457,7 +457,7 @@ function emindhub_form_challenge_node_form_alter(&$form, &$form_state, $form_id)
 /**
  * Implements hook_form_alter().
  * node/add/question1
- * node/$ID/edit
+ * node/%/edit
  */
 function emindhub_form_question1_node_form_alter(&$form, &$form_state, $form_id) {
 
@@ -473,5 +473,46 @@ function emindhub_form_question1_node_form_alter(&$form, &$form_state, $form_id)
 
   $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
   $form['field_reward']['#suffix'] = '</div>';
+
+}
+
+/**
+ * Implements hook_form_alter().
+ * node/add/request
+ * node/%/edit
+ */
+function emindhub_form_request_node_form_alter(&$form, &$form_state, $form_id) {
+
+	$form['title_field']['#prefix'] = '<div class="section step1"><h2>' . t('What is your request about?') . '</h2>';
+  $form['body']['#suffix'] = '</div>';
+
+	$form['field_domaine']['#prefix'] = '<div class="section step2"><h2>' . t('Tell us more about your request:') . '</h2>';
+	$form['field_domaine'][LANGUAGE_NONE]['#title'] = t('Domains of expertise');
+  $form['language']['#suffix'] = '</div>';
+
+	$form['og_group_ref']['#prefix'] = '<div class="section step3"><h2>' . t('Which circle of experts do you want to sollicitate?') . '</h2>';
+  $form['og_group_ref']['#suffix'] = '</div>';
+
+	$form['field_options']['#prefix'] = '<div class="section step4"><h2>' . t('Add options and get the most from your request!') . '</h2>';
+	$form['field_options'][LANGUAGE_NONE]['#type'] = 'div';
+  $form['field_options']['#suffix'] = '</div>';
+
+  $form['field_options'][LANGUAGE_NONE]['questionnaire']['enabled']['#suffix'] = '<div class="form-item-description">' . $form['field_options'][LANGUAGE_NONE]['questionnaire']['enabled']['#description'] . '</div>';
+	$form['field_options'][LANGUAGE_NONE]['questionnaire']['enabled']['#description'] = '';
+
+  $form['field_options'][LANGUAGE_NONE]['private']['enabled']['#suffix'] = '<div class="form-item-description">' . $form['field_options'][LANGUAGE_NONE]['private']['enabled']['#description'] . '</div>';
+	$form['field_options'][LANGUAGE_NONE]['private']['enabled']['#description'] = '';
+
+  $form['field_options'][LANGUAGE_NONE]['files']['enabled']['#suffix'] = '<div class="form-item-description">' . $form['field_options'][LANGUAGE_NONE]['files']['enabled']['#description'] . '</div>';
+	$form['field_options'][LANGUAGE_NONE]['files']['enabled']['#description'] = '';
+
+  $form['field_options'][LANGUAGE_NONE]['duration']['enabled']['#suffix'] = '<div class="form-item-description">' . $form['field_options'][LANGUAGE_NONE]['duration']['enabled']['#description'] . '</div>';
+	$form['field_options'][LANGUAGE_NONE]['duration']['enabled']['#description'] = '';
+
+  $form['field_options'][LANGUAGE_NONE]['anonymous']['enabled']['#suffix'] = '<div class="form-item-description">' . $form['field_options'][LANGUAGE_NONE]['anonymous']['enabled']['#description'] . '</div>';
+	$form['field_options'][LANGUAGE_NONE]['anonymous']['enabled']['#description'] = '';
+
+	$form['field_hide_name']['#prefix'] = '<div class="request-option-anonymous">';
+  $form['field_hide_organisation']['#suffix'] = '</div>';
 
 }

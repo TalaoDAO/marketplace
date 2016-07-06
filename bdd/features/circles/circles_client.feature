@@ -45,6 +45,11 @@ Feature: Requests visibility for Client
     | title         | field_domaine  | og_group_ref    | field_reward | author  |
     | Fight Thanos  | Drones         | Avengers, X-Men | 100          | client1 |
 
+    Given I am logged in as "expert4"
+    And I click "Edit account"
+    And I fill in "field_address[und][0][phone_number]" with "0712345673"
+    And I press "Save"
+
   Scenario: Clients can see the requests
     Given I am logged in as "client1"
     When I go to homepage

@@ -2,6 +2,14 @@ body {
   background-color: @lightGrey;
 }
 
+// Header
+.region-title-left,
+.title-left,
+.region-title-right,
+.title-right {
+  margin: 15px 0;
+}
+
 h1.page-header {
   .emh-title-main;
 }
@@ -106,11 +114,15 @@ ul.links.list-inline {
   }
 }
 
-#flashes {
-  margin-bottom: 15px;
+.title-left {
+  .make-md-column(8);
 }
-@media (min-width: @screen-sm-min) {
-  #flashes {
+.region-title-right,
+.title-right {
+  .make-md-column(4);
+  margin-bottom: 15px;
+  .text-right;
+  @media (min-width: @screen-sm-min) {
     margin-bottom: 0;
   }
 }
@@ -141,20 +153,6 @@ ul.links.list-inline {
 			margin-bottom: 5px;
 		}
 	}
-
-  .field-name-body {
-    font-size: 16px;
-  }
-
-  .field-type-taxonomy-term-reference {
-    .field-items .field-item {
-      .emh-badge-term;
-      margin-bottom: 5px;
-    }
-    a {
-      .emh-badge-term;
-    }
-  }
 
   .meta {
     li * {

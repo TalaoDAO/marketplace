@@ -89,20 +89,23 @@ function ft_request_strongarm() {
       'revision' => array(
         'custom_settings' => FALSE,
       ),
+      'summary' => array(
+        'custom_settings' => TRUE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
         'title' => array(
-          'weight' => '1',
+          'weight' => '0',
         ),
         'path' => array(
-          'weight' => '19',
+          'weight' => '16',
         ),
         'metatags' => array(
-          'weight' => '20',
+          'weight' => '17',
         ),
         'language' => array(
-          'weight' => '0',
+          'weight' => '6',
         ),
       ),
       'display' => array(
@@ -111,10 +114,18 @@ function ft_request_strongarm() {
             'weight' => '8',
             'visible' => TRUE,
           ),
+          'summary' => array(
+            'weight' => '12',
+            'visible' => FALSE,
+          ),
         ),
         'language' => array(
           'default' => array(
             'weight' => '9',
+            'visible' => FALSE,
+          ),
+          'summary' => array(
+            'weight' => '13',
             'visible' => FALSE,
           ),
         ),
@@ -168,8 +179,7 @@ function ft_request_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'node_options_request';
   $strongarm->value = array(
-    0 => 'status',
-    1 => 'revision',
+    0 => 'revision',
   );
   $export['node_options_request'] = $strongarm;
 

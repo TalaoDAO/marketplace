@@ -29,7 +29,7 @@
           if (Number(cost) == 0) {
             return Drupal.t("Free");
           }
-          return Drupal.t("!count points", { '!count': cost });
+          return Drupal.t("!amount points", { '!amount': cost });
         }
 
 

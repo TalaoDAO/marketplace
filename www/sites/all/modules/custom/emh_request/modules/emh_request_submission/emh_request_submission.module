@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * Implements hook_block_info().
+ */
+function emh_request_submission_block_info() {
+  $blocks = array();
+
+  $blocks['submission_count'] = array(
+    'info' => t("Request - Submission count"),
+    'cache' => DRUPAL_CACHE_PER_ROLE,
+    'weight' => 1,
+    'status' => 1,
+    'region' => 'title_right',
+    'node_types' => array(
+      0 => 'request',
+    ),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function emh_request_submission_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'submission_count':
+      $nid = arg(1);
+      $node = node_load($nid);
+      if ($node->status == NODE_PUBLISHED && arg(2) == NULL) {
+        $submissions_count = emh_request_count_answers($nid);
+        $value = '<a href="#request-submissions" class="btn btn-submission">';
+        if ($submissions_count == 0) {
+          $value .= t('No submission');
+        }
+        else {
+          $value .= format_plural($submissions_count, '1 submission', '@count submissions');
+        }
+        $value .= '</a>';
+      }
+      else {
+        $value = '';
+      }
+
+      $block = array(
+        'subject' => '<none>',
+        'content' => $value,
+      );
+      break;
+  }
+
+  return $block;
+}

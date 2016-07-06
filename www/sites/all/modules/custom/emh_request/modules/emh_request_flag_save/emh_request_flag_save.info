@@ -1,0 +1,6 @@
+name = EMH Request Save Flag
+description = Save flag features.
+package = EMH
+core = 7.x
+
+dependencies[] = emh_request

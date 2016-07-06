@@ -1,9 +1,13 @@
 <?php
 
 function emindhub_preprocess_node(&$variables, $hook) {
-	if (isset($variables['node']->type)) {
+  $node = $variables['node'];
 
-		switch ($variables['node']->type) {
+	if (isset($node->type)) {
+    // Adds a theme hook suggestion for the view mode
+    $variables['theme_hook_suggestions'][] = 'node__' . $node->type . '__' . $variables['view_mode'];
+
+		switch ($node->type) {
       case 'request':
 			case 'question1':
 			case 'webform':
@@ -36,19 +40,31 @@ function emindhub_preprocess_node(&$variables, $hook) {
           $variables['request_status'] = emh_request_get_status($nid);
         }
 
-        if ($variables['node']->type == 'request') {
+        if ($node->type == 'request') {
           global $user;
 
           module_load_include('inc', 'webform', 'includes/webform.submissions');
 
-          $variables['submissions'] = webform_get_submissions(array('nid' => $variables['node']->nid));
+          $variables['submissions'] = webform_get_submissions(array('nid' => $node->nid));
           foreach ($variables['submissions'] as $submission) {
             if ($submission->uid == $user->uid) {
               $variables['user_submission'] = $submission;
               break;
             }
           }
+
+          $variables['hidden_name'] = false;
+          if ($hide_name = field_get_items('node', $node, 'field_hide_name')) {
+            $variables['hidden_name'] = ($hide_name[0]['value'] == 0);
+          }
+
+          $variables['hidden_organisation'] = false;
+          if ($hide_organisation = field_get_items('node', $node, 'field_hide_organisation')) {
+            $variables['hidden_organisation'] = ($hide_organisation[0]['value'] == 0);
+          }
         }
+
+
 				break;
 		}
 	}

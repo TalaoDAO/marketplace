@@ -92,7 +92,6 @@ function emindhub_preprocess_block(&$variables) {
 
     // HP - Create a request
     case 'block-8':
-      $classes[] = 'col-xs-12 col-md-4';
       $classes[] = 'emh-block-grey';
       break;
 
@@ -178,12 +177,6 @@ function emindhub_preprocess_block(&$variables) {
       $classes[] = 'emh-block-slider';
       break;
 
-    // Query list
-    case 'views-query_list-block':
-    case 'views-query_list-block_1':
-      $classes[] = 'emh-block-blue-title';
-      break;
-
     // News
     case 'views-news_thread-block':
       $classes[] = 'emh-block-dark';
@@ -201,7 +194,7 @@ function emindhub_preprocess_block(&$variables) {
     //   $classes[] = 'emh-block-dark';
     //   break;
 
-    // More about us ?
+    // More about us?
     case 'formblock-contact_site':
       $classes[] = 'emh-block-dark-title';
       break;

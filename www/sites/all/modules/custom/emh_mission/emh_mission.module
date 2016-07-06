@@ -4,44 +4,6 @@
  * Code for eMindHub mission feature.
  */
 
-function emh_mission_node_insert($node) {
-  emh_mission_node_replace($node);
-}
-
-function emh_mission_node_update($node) {
-  emh_mission_node_replace($node);
-}
-
-function emh_mission_node_replace($node) {
-  if ($node->type == 'webform') {
-    $questions = field_get_items('node', $node, 'field_questions');
-    $components = $node->webform['components'];
-    foreach( $components as $comp ) 
-      webform_component_delete($node, $comp);
-    $components = array();
-    $i = 1;
-    foreach ($questions as $question) {
-      $lib = $question['value'];
-      $component = array(
-         'nid' => $node->nid,
-         'name' => $lib,
-         'form_key' => preg_replace('@[^a-z0-9-]+@','-', strtolower($lib)),
-         'type' => 'textfield',
-         'mandatory' => 1,
-         'weight' => $i,
-         'pid' => 0,
-         'cid' => $i,
-         'extra' => array(
-             'title_display' => 'inline',
-             'private' => 0,
-         ),
-      );
-      $i=$i+1;
-      webform_component_insert($component);
-    } 
-  }
-}
-
 /**
  * Implements hook_webform_results_access().
  */
@@ -357,18 +319,6 @@ function emh_mission_webform_component_edit_form_redirect($form, &$form_state) {
 //  $form_state['redirect'] = 'node/' . $nid . '/edit/questions';
 }
 
-
-/**
- * Implements hook_webform_node_defaults_alter().
- */
-function emh_mission_webform_node_defaults_alter(&$defaults) {
-  $defaults['allow_draft'] = 1;
-  $defaults['enforce_limit'] = 'yes';
-  $defaults['progressbar_bar'] = 0;
-  $defaults['submit_limit'] = 1;
-  $defaults['submit_interval'] = -1;
-  $defaults['submit_notice'] = 0;
-}
 
 /**
  * Implements hook_views_api().

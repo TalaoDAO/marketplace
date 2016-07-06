@@ -1,0 +1,137 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function emh_request_timeline_theme() {
+  return array(
+    'timeline' => array(
+      'template' => 'timeline',
+      'variables' => array(
+        'class' => null,
+        'created' => null,
+        'deadline' => null,
+        'progression' => null,
+        'left' => null,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function emh_request_timeline_block_info() {
+  $blocks['timeline'] = array(
+    'info' => t("Request - Timeline"),
+    'cache' => DRUPAL_CACHE_PER_ROLE,
+    'weight' => 1,
+    'status' => 1,
+    'region' => 'title',
+    'node_types' => array(
+      0 => 'request',
+    ),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function emh_request_timeline_block_view($delta) {
+  switch ($delta) {
+    case 'timeline':
+      $block = array(
+        'subject' => '<none>',
+        'content' => _emh_request_timeline_view(),
+      );
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Get Submission status & timeline.
+ *
+ * @param stdClass $request
+ *  The request node
+ * @return array
+ */
+function emh_request_timeline_get_timeline() {
+
+  $timeline = array();
+  $nid = arg(1);
+  $request = node_load($nid);
+  $status = emh_request_get_status($request->nid);
+  $status = $status['status'];
+
+  $now = time();
+  $now = format_date($now, 'custom', 'Y/m/d');
+  $nowDate = new DateTime($now);
+
+  $created = format_date($request->created, 'custom', 'Y/m/d');
+  $createdDate = new DateTime($created);
+
+  $deadline = $request->field_expiration_date[LANGUAGE_NONE][0]['value'];
+  $deadlineDate = new DateTime($deadline);
+  $deadline = $deadlineDate->format('Y/m/d');
+
+  $intervalNow = $createdDate->diff($nowDate);
+  $intervalNow = $intervalNow->format('%a days');
+  $intervalDeadline = $createdDate->diff($deadlineDate);
+  $intervalDeadline = $intervalDeadline->format('%a days');
+  $intervalLeft = $nowDate->diff($deadlineDate);
+  $intervalLeft = $intervalLeft->format('%a days left');
+
+  // Closed status
+  if ($status == 'closed') $intervalLeft = t('Closed');
+
+  $progression = round((($intervalNow / $intervalDeadline)*100), 0);
+  $soon = FALSE;
+  if ($progression >= 90) $soon = TRUE;
+
+  $timeline = array(
+    'status' => $status,
+    'now' => $now,
+    'created' => $created,
+    'deadline' => $deadline,
+    'progression' => $progression,
+    'left' => $intervalLeft,
+    'soon' => $soon,
+  );
+
+  return $timeline;
+
+}
+
+function _emh_request_timeline_view() {
+  $output = '';
+  $timeline = emh_request_timeline_get_timeline();
+
+  $status = $timeline['status'];
+  if ($status == 'open') {
+    $class = 'success';
+  }
+  else if ($status == 'closed') {
+    $class = 'inactive';
+  }
+  if ($timeline['soon'] === TRUE) {
+    $class = 'warning';
+  }
+
+  $nid = arg(1);
+  $request = node_load($nid);
+  if ($request->status == NODE_PUBLISHED && arg(2) == NULL) {
+    return theme(
+      'timeline',
+      array(
+        'class' => $class,
+        'created' => $timeline['created'],
+        'deadline' => $timeline['deadline'],
+        'progression' => $timeline['progression'],
+        'left' => $timeline['left'],
+      )
+    );
+  }
+}
