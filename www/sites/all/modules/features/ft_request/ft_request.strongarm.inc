@@ -99,10 +99,10 @@ function ft_request_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '15',
+          'weight' => '16',
         ),
         'metatags' => array(
-          'weight' => '16',
+          'weight' => '17',
         ),
         'language' => array(
           'weight' => '6',
@@ -115,7 +115,7 @@ function ft_request_strongarm() {
             'visible' => TRUE,
           ),
           'summary' => array(
-            'weight' => '10',
+            'weight' => '12',
             'visible' => FALSE,
           ),
         ),
@@ -125,7 +125,7 @@ function ft_request_strongarm() {
             'visible' => FALSE,
           ),
           'summary' => array(
-            'weight' => '11',
+            'weight' => '13',
             'visible' => FALSE,
           ),
         ),

@@ -4,7 +4,6 @@
  * Code for eMindHub mission feature.
  */
 
-
 /**
  * Implements hook_webform_results_access().
  */
@@ -316,22 +315,10 @@ function emh_mission_form_webform_component_edit_form_alter(&$form, &$form_state
  * Additionnal submit callback for the webform component edition form.
  */
 function emh_mission_webform_component_edit_form_redirect($form, &$form_state) {
-  $nid = $form_state['values']['nid'];
-  $form_state['redirect'] = 'node/' . $nid . '/edit/questions';
+//  $nid = $form_state['values']['nid'];
+//  $form_state['redirect'] = 'node/' . $nid . '/edit/questions';
 }
 
-
-/**
- * Implements hook_webform_node_defaults_alter().
- */
-function emh_mission_webform_node_defaults_alter(&$defaults) {
-  $defaults['allow_draft'] = 1;
-  $defaults['enforce_limit'] = 'yes';
-  $defaults['progressbar_bar'] = 0;
-  $defaults['submit_limit'] = 1;
-  $defaults['submit_interval'] = -1;
-  $defaults['submit_notice'] = 0;
-}
 
 /**
  * Implements hook_views_api().

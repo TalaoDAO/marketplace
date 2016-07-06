@@ -46,7 +46,8 @@ function emh_request_emh_request_option_info() {
       'label' => t("Questionnaire"),
       'description' => t("Identify best answers through a questionnaire"),
       'cost' => 500,
-      'after_build' => 'emh_request_questionnaire_after_build',
+      'fields' => array('field_request_questions'),
+      //'after_build' => 'emh_request_questionnaire_after_build',
     ),
 //    'bounty' => array(
 //      'label' => t("Bounty"),
