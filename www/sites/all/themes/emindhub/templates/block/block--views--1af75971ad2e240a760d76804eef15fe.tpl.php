@@ -55,7 +55,7 @@ $node = menu_get_object();
       <div class="col-sm-8">
         <h2<?php print $title_attributes; ?>><span class="submission-title"><?php print $title; ?></span>&nbsp;<span class="submission-count">(<?php print webform_get_submission_count($node->nid); ?>)</span></h2>
       </div>
-      <?php if (emh_request_has_option($node, 'private')) : ?>
+      <?php if ($node->uid == $user->uid && emh_request_has_option($node, 'private')) : ?>
         <div class="col-sm-4 text-right submissions-private-info">
           <span class="submission-private"><?php print t('Submissions are only visible by you.'); ?></span>
         </div>
