@@ -786,7 +786,7 @@ function ft_request_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'title_field',
-    'label' => 'Request name',
+    'label' => 'Request title or question',
     'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -821,7 +821,8 @@ function ft_request_field_default_field_instances() {
   t('Hide my organisation');
   t('Image');
   t('Options');
-  t('Request name');
+  t('Questions');
+  t('Request title or question');
   t('Tags');
   t('You can precise your activity instead');
 
