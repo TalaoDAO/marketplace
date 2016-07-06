@@ -310,19 +310,21 @@ function emh_user_forms($form_id, $args) {
  */
 function emh_user_username_alter(&$name, $account) {
 
-  $user = user_load($account->uid);
+  global $user;
+  $user1 = user_load($user->uid);
+  $user2 = user_load($account->uid);
 
-  $items = field_get_items('user', $user, 'field_first_name');
+  $items = ''; $firstname = ''; $lastname = '';
+  $items = field_get_items('user', $user2, 'field_first_name');
   $firstname = isset($items[0]['value']) ? check_plain(ucwords($items[0]['value'])) : '';
-  $items = field_get_items('user', $user, 'field_last_name');
-  $lastname = isset($items[0]['value']) ? check_plain(ucwords($items[0]['value'])) : '';
 
-  if (!empty($firstname) && !empty($lastname)) {
-    $name = $firstname . ' ' . $lastname;
-  } else {
-    $name = !empty($account->name) ? $account->name : variable_get('anonymous', t('Anonymous'));
+  if (module_exists('emh_access') && emh_access_user_can_see_full_user($user1->uid, $user2->uid)) {
+    $items = field_get_items('user', $user2, 'field_last_name');
+    $lastname = isset($items[0]['value']) ? check_plain(ucwords($items[0]['value'])) : '';
   }
-  return $name;
+
+  $name = !empty($firstname) ? $firstname : $account->name;
+  $name .= !empty($lastname) ? '&nbsp;' . strtoupper($lastname) : '';
 
 }
 
