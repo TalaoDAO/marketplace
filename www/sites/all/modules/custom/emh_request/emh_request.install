@@ -80,7 +80,7 @@ function _emh_request_string_overrides() {
     'Submissions for this form are closed.' => 'Submissions for this request are closed.',
     'You have already submitted this form.' => 'You have already submitted this request.',
     'Submission updated.' => 'Your submission has been updated.',
-    'Submission saved. You may return to this form later and it will restore the current values.' => 'Your submission has been saved as draft. You may return to this request later and it will restore your current submission.',
+    'Submission saved. You may return to this form later and it will restore the current values.' => 'Your submission has been saved as draft. You can modify or publish this submission anytime.',
   );
 }
 
@@ -390,11 +390,9 @@ function emh_request_update_7123() {
 
 
 /**
- * ADD: VBO Purchase profile permissions.
+ * CHG: Request strings.
  */
 function emh_request_update_7124() {
-  // Authentificated user
-  user_role_grant_permissions(2, array(
-    'execute emh_user_profile_purchase_action',
-  ));
+  emh_request_disable();
+  emh_request_enable();
 }
