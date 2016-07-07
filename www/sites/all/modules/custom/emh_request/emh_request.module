@@ -643,7 +643,7 @@ function emh_request_form_alter(&$form, &$form_state, $form_id) {
 
     // Show specific message for Private option
     if (emh_request_has_option($form['#node'], 'private') && !empty($form['submitted'])) {
-      $form['actions']['#prefix'] = '<div class="user-submission-option-private-info">' . t('Your submission will be only visible by the author of this request.') . '</div>';
+      $form['actions']['#prefix'] = '<div class="user-submission-option-private-info">' . t('Your submission will only be visible by the request\'s author.') . '</div>';
     }
   }
 }
