@@ -122,8 +122,10 @@ body.node-type-request.page-node-edit {
     .input-group:not(.file-widget) {
       max-width: 100%;
     }
-    .form-required {
-      .hide();
+    #field-request-questions-values {
+      label {
+        .hide();
+      }
     }
     .field-add-more-submit {
       .btn-info;
@@ -244,6 +246,28 @@ body.node-type-request:not(.page-node-edit) {
     }
   }
 
+  // Questionnaire
+  .field-questionnaire {
+    h4 {
+      font-weight: bold;
+      margin-top: 0;
+    }
+    .request-questionnaire {
+      list-style: none;
+      padding: 0;
+      li {
+        padding: 10px 15px;
+        background-color: @gray-lighter;
+        margin-bottom: 10px;
+        span {
+          margin-right: 5px;
+          color :@brand-primary;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
   // User submission
   .user-submission {
     padding: 15px;
@@ -307,10 +331,6 @@ body.node-type-request:not(.page-node-edit) {
     .submissions-private-info {
       .text-right;
       font-style: italic;
-    }
-
-    .submissions-list {
-      // padding: 15px;
     }
   }
   form#views-form-request-submissions-block-request-submissions {
