@@ -123,20 +123,23 @@ if (!empty($user_submission)) {
 					<?php if ($node->uid == $user->uid) : ?>
 						<?php if (emh_request_has_option($node, 'questionnaire')) : ?>
 							<?php
-							$draft_questions = field_get_items('node', $node, 'field_request_questions');
-							$published_questions = $node->webform['components'];
-							if ($published_questions || $draft_questions) : ?>
-								<?php $i = 0;
-								$questions = $published_questions ? $published_questions : $draft_questions;
-								?>
+                $questions = ($node->status == NODE_PUBLISHED)
+                  ? $node->webform['components']
+                  : field_get_items('node', $node, 'field_request_questions');
+
+                if ($questions):
+                  $i = 0;
+              ?>
 								<div class="field field-questionnaire clearfix col-sm-12">
 									<h4><?php print t('Questionnaire'); ?></h4>
 									<ul class="request-questionnaire">
-									<?php foreach ($questions as $question) : $i++; $question = isset($question['name']) ? $question['name'] : $question['value']; ?>
-										<li class="requestion-question-<?php print $i; ?>"><span class="request-question-numerotation"><?php print $i; ?>.</span>&nbsp;<?php print $question; ?></li>
+									<?php foreach ($questions as $question): $i++; $question = isset($question['name']) ? $question['name'] : $question['value']; ?>
+										<li class="requestion-question-<?php print $i; ?>">
+                      <span class="request-question-numerotation"><?php print $i; ?>.</span>&nbsp;<?php print $question; ?>
+                    </li>
 									<?php endforeach; ?>
-								</ul>
-							</div>
+                  </ul>
+                </div>
 							<?php endif; ?>
 						<?php endif; ?>
 					<?php endif; ?>
