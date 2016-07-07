@@ -188,6 +188,10 @@ global $base_url;
 
         </div>
 
+        <?php if (!empty($page['title_bottom'])): ?>
+          <?php print render($page['title_bottom']); ?>
+        <?php endif; ?>
+
         <?php print $messages; ?>
 
         <?php $primary_tabs = emh_submenu_menu_tabs_primary($tabs);
