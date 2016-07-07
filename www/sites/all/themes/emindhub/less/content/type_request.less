@@ -359,7 +359,7 @@ body.node-type-request:not(.page-node-edit) {
       }
     }
     .row {
-      margin: 0;
+      margin: 0 0 15px;
     }
     .col {
       .make-row();
@@ -369,7 +369,6 @@ body.node-type-request:not(.page-node-edit) {
       border: 1px solid #d9d9d9;
       padding: 15px;
       color: @text-color;
-      margin-bottom: 15px;
 
       &:last-child {
         margin-bottom: 0;
@@ -396,6 +395,15 @@ body.node-type-request:not(.page-node-edit) {
       .submission-date {
         font-size: .9em;
         color: #445766;
+      }
+    }
+
+    // VBO confirmation form
+    &.confirmation {
+      > div {
+        background: #FFF;
+        color: #333;
+        padding: 15px;
       }
     }
   }

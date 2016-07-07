@@ -18497,7 +18497,7 @@ body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-
   background-color: #ffffff;
 }
 body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-block-request-submissions .row {
-  margin: 0;
+  margin: 0 0 15px;
 }
 body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-block-request-submissions .col {
   margin-left: -15px;
@@ -18507,7 +18507,6 @@ body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-
   border: 1px solid #d9d9d9;
   padding: 15px;
   color: #333333;
-  margin-bottom: 15px;
 }
 body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-block-request-submissions .col:last-child {
   margin-bottom: 0;
@@ -18548,6 +18547,11 @@ body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-
 body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-block-request-submissions .col .submission-date {
   font-size: .9em;
   color: #445766;
+}
+body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-block-request-submissions.confirmation > div {
+  background: #FFF;
+  color: #333;
+  padding: 15px;
 }
 .view-domainlist span.statut:before {
   position: absolute;
