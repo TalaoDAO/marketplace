@@ -470,7 +470,7 @@ function emh_request_publication_page($request) {
 
     $page['options'] = array(
       '#theme' => 'table',
-      '#header' => array(t("Option"), t("Cost")),
+      '#header' => array(t("Option(s)"), t("Cost")),
       '#rows' => $rows,
     );
 
