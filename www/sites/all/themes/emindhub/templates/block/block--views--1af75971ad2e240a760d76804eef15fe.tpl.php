@@ -46,7 +46,7 @@
  */
 $node = menu_get_object();
 ?>
-<?php //TODO: if (($node->uid == $user->uid) || !emh_request_has_option($node, 'private')) : ?>
+<?php if (($node->uid == $user->uid) || !emh_request_has_option($node, 'private')) : ?>
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix section submissions"<?php print $attributes; ?>>
   <span id="request-submissions"></span>
   <?php print render($title_prefix); ?>
@@ -71,4 +71,4 @@ $node = menu_get_object();
   <?php endif;?>
 
 </section> <!-- /.block -->
-<?php //endif; ?>
+<?php endif; ?>
