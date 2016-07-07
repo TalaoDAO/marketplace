@@ -26,6 +26,8 @@ Feature: Request and submissions
     | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
     | How to become a superhero?  | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    | 0       |
 
+    Given I give "client1" 10000 emh points 
+
     # Make client1 as a Creator member of Avengers circle
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
@@ -42,7 +44,9 @@ Feature: Request and submissions
     And I click "Edit" in the "primary tabs" region
     Given I check "Private"
     And I press "Publish"
-    Then I should see the success message "Request How to become a superhero? has been updated."
+    #Skip validation page
+    And I press "Publish"
+    Then I should see the success message "Request How to become a superhero? has been published."
 
     # An expert responds to the request.
     Given I am logged in as "expert1"
@@ -50,9 +54,9 @@ Feature: Request and submissions
     And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "Your submission will be only visible by the author of this request."
 
-    Given I enter in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
+    Given I enter "Everybody can be, trust me, I'm the best we known." for "How to become a superhero?"
     When I press "Publish"
-    Then I should see "Thank you, your submission has been sent."
+    Then I should see "Your submission has been published."
 
   Scenario: An expert can see its own submission
     Given I am logged in as "expert1"

@@ -45,6 +45,8 @@ Feature: Request and submissions
     Then I should see the message "Your submission has been saved as draft."
     # Published submission
     And I press "Publish"
+    #Skip validation page
+    And I press "Publish"
     Then I should see "Thank you, your submission has been sent."
 
     # Another expert responds to the request (draft).

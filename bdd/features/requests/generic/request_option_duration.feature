@@ -25,6 +25,8 @@ Feature: Request and submissions
     | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
     | How to become a superhero?  | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    | 0       |
 
+    Given I give "client1" 10000 emh points 
+
     # Make client1 as a Creator member of Avengers circle
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
@@ -41,20 +43,22 @@ Feature: Request and submissions
     And I click "Edit" in the "primary tabs" region
     Given I check "Duration"
     And I enter "6 months" for "Duration of the mission"
-    And I enter "2017-09-01 00:00:00" for "Desired starting date"
+    And I enter "07/06/2017" for "Date"
     And I press "Publish"
-    Then I should see the success message "Request How to become a superhero? has been updated."
+    #Skip validation page
+    And I press "Publish"
+    Then I should see the success message "Request How to become a superhero? has been published."
 
   Scenario: The author can see Duration option infos
     Given I am logged in as "client1"
     When I go to homepage
     And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "6 months"
-    And I should see "01/09/2017"
+    And I should see "2017/07/06"
 
   Scenario: An expert can see Duration option infos
     Given I am logged in as "expert1"
     When I go to homepage
     And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "6 months"
-    And I should see "01/09/2017"
+    And I should see "2017/07/06"
