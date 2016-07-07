@@ -100,7 +100,7 @@ Feature: Request Option Price
       And I fill in "edit-field-request-questions-und-0-value" with "My little questionnaire"
 
     # Validation page
-    Given I press "Publish"
+    Given I press "Continue"
     Then I should see "Request How to become a superhero? has been updated."
       And I should see "1 month"
 

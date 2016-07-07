@@ -39,28 +39,11 @@
   }
 }
 
-body.page-node-add-request,
-body.node-type-request {
-  .main-container > header {
-    background: @asphalt-base;
-  }
-  h1.page-header {
-    text-transform: none;
-    background-image: none;
-    font-weight: normal;
-    padding: 0;
-    margin: 0;
-    line-height: 1.5;
-  }
-}
-
 // node/add/request
 // node/%/edit
 body.page-node-add-request,
 body.node-type-request.page-node-edit {
-  .main-container > header {
-    background-image: none;
-  }
+
   form {
     h2 {
       border: 0;
@@ -149,14 +132,11 @@ body.node-type-request.page-node-edit {
     .input-group:not(.file-widget) {
       max-width: 100%;
     }
-    #field-request-questions-values {
-      label {
-        .hide();
-      }
+    table tbody label {
+      .hide();
     }
     .field-add-more-submit {
       .btn-info;
-      .pull-right;
     }
   }
 }
@@ -267,6 +247,10 @@ body.node-type-request:not(.page-node-edit) {
       padding: 15px;
       margin-bottom: 15px;
       .text-center;
+      .user-badge img {
+        width: 100px;
+        height: 100px;
+      }
     }
   }
 
@@ -375,7 +359,7 @@ body.node-type-request:not(.page-node-edit) {
       }
     }
     .row {
-      margin: 0;
+      margin: 0 0 15px;
     }
     .col {
       .make-row();
@@ -385,7 +369,6 @@ body.node-type-request:not(.page-node-edit) {
       border: 1px solid #d9d9d9;
       padding: 15px;
       color: @text-color;
-      margin-bottom: 15px;
 
       &:last-child {
         margin-bottom: 0;
@@ -398,11 +381,6 @@ body.node-type-request:not(.page-node-edit) {
 
       .views-field-emh-author {
         .make-md-column(2);
-        .text-center;
-        .user-badge img {
-          width: 50px;
-          height: 50px;
-        }
       }
 
       .views-field-emh-answer,
@@ -417,6 +395,15 @@ body.node-type-request:not(.page-node-edit) {
       .submission-date {
         font-size: .9em;
         color: #445766;
+      }
+    }
+
+    // VBO confirmation form
+    &.confirmation {
+      > div {
+        background: #FFF;
+        color: #333;
+        padding: 15px;
       }
     }
   }
