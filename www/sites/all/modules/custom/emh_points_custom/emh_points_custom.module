@@ -64,13 +64,12 @@ function emh_points_custom_form_emh_points_admin_form_alter(&$form, &$form_state
     '#default_value' => variable_get('emh_points_monetization_threshold', '1500'),
     '#element_validate' => array('element_validate_integer_positive'),
   );
-
-  $form['emh_points_contact_price'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Points to buy a contact'),
-    '#default_value' => variable_get('emh_points_contact_price', '100'),
-    '#element_validate' => array('element_validate_integer_positive'),
-  );
+//  $form['emh_points_contact_price'] = array(
+//    '#type' => 'textfield',
+//    '#title' => t('Points to buy a contact'),
+//    '#default_value' => variable_get('emh_points_contact_price', '100'),
+//    '#element_validate' => array('element_validate_integer_positive'),
+//  );
 }
 
 /**

@@ -4,6 +4,10 @@
  * Code for eMindHub Profiles feature.
  */
 
+
+include_once 'emh_user.admin.inc';
+
+
 /**
  * Implements hook_views_api().
  */
