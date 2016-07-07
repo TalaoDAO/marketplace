@@ -399,3 +399,15 @@ function emh_points_update_7110() {
 function emh_points_update_7111() {
   emh_points_reset_views();
 }
+
+/**
+ * CHG: Disable old contact flag rules.
+ */
+function emh_points_update_7112() {
+  if ($rules_config = rules_config_load('rules_contact_buy')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('rules_contact_impossible')) {
+    $rules_config->delete();
+  }
+}

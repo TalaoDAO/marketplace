@@ -43,7 +43,7 @@ Feature: Request and submissions
       And I click "Edit" in the "primary tabs" region
       And I check "Anonymous"
       And I check "Hide my name"
-      And I press "Publish"
+      And I press "Continue"
     # Validation page
       And I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been published."
@@ -61,7 +61,7 @@ Feature: Request and submissions
       And I click "Edit" in the "primary tabs" region
       And I check "Anonymous"
       And I check "Hide my organisation"
-      And I press "Publish"
+      And I press "Continue"
     # Validation page
       And I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been published."
@@ -80,7 +80,7 @@ Feature: Request and submissions
       And I check "Hide my name"
       And I check "Hide my organisation"
       And I enter "ALMIGHTY GOD" for "We suggest you give at least some information about your activity"
-      And I press "Publish"
+      And I press "Continue"
     # Validation page
       And I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been published."

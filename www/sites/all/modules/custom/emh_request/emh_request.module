@@ -439,10 +439,17 @@ function emh_request_publication_page($request) {
     drupal_set_message(t("This request is already published."), 'warning');
     drupal_goto('node/' . $request->nid);
   }
-
+  
   $page = array();
 
-  drupal_set_message(t("You're about to publish your request, please check the information below:"), 'warning');
+  $page['message'] = array(
+    '#theme' => 'html_tag',
+    '#tag' => 'p',
+    '#value' => t("You're about to publish your request, please check the information below:"),
+    '#attributes' => array(
+      'class' => 'alert alert-block alert-warning',
+    ),
+  );
 
   $page['node'] = node_view($request, 'summary');
 
@@ -450,7 +457,7 @@ function emh_request_publication_page($request) {
     $page['notice_options'] = array(
       '#theme' => 'html_tag',
       '#tag' => 'p',
-      '#value' => t("Please check the chosen options and validate your request:"),
+      '#value' => t("Please check chosen options and validate your request:"),
       '#attributes' => array(
         'class' => 'alert alert-block alert-warning',
       ),
@@ -470,7 +477,7 @@ function emh_request_publication_page($request) {
 
     $page['options'] = array(
       '#theme' => 'table',
-      '#header' => array(t("Option"), t("Cost")),
+      '#header' => array(t("Option(s)"), t("Cost")),
       '#rows' => $rows,
     );
 

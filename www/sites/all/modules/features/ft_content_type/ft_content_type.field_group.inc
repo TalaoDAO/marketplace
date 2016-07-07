@@ -1285,12 +1285,11 @@ function ft_content_type_field_group_info() {
     'label' => 'Profile',
     'weight' => '0',
     'children' => array(
-      0 => 'field_first_name',
-      1 => 'field_entreprise',
-      2 => 'field_address',
-      3 => 'field_titre_metier',
-      4 => 'field_photo',
-      5 => 'field_mail',
+      0 => 'field_entreprise',
+      1 => 'field_address',
+      2 => 'field_titre_metier',
+      3 => 'field_photo',
+      4 => 'field_mail',
     ),
     'format_type' => 'div',
     'format_settings' => array(
