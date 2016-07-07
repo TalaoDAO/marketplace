@@ -9786,18 +9786,18 @@ form#user-profile-form .link-field-subrow:after,
 .page-user .profile-section .field-name-field-address .addressfield-phone-block:after,
 body.not-logged-in.node-type-landing-page .account.row .form-item-pass:before,
 body.not-logged-in.node-type-landing-page .account.row .form-item-pass:after,
+.total-wrapper:before,
+.total-wrapper:after,
 body.page-node-add-request #edit-field-options > .form-group:before,
 body.page-node-add-request #edit-field-options > .form-group:after,
 body.node-type-request.page-node-edit #edit-field-options > .form-group:before,
 body.node-type-request.page-node-edit #edit-field-options > .form-group:after,
-body.page-node-add-request #edit-field-options .total-wrapper:before,
-body.page-node-add-request #edit-field-options .total-wrapper:after,
-body.node-type-request.page-node-edit #edit-field-options .total-wrapper:before,
-body.node-type-request.page-node-edit #edit-field-options .total-wrapper:after,
 body.page-node-add-request .request-option-anonymous:before,
 body.page-node-add-request .request-option-anonymous:after,
 body.node-type-request.page-node-edit .request-option-anonymous:before,
 body.node-type-request.page-node-edit .request-option-anonymous:after,
+body.page-node-publish .section:before,
+body.page-node-publish .section:after,
 body.node-type-request:not(.page-node-edit) .section:before,
 body.node-type-request:not(.page-node-edit) .section:after,
 body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-block-request-submissions .col:before,
@@ -9854,12 +9854,12 @@ form#user-profile-form .link-field-subrow:after,
 .page-user .profile-section .field-name-field-address .field-item:after,
 .page-user .profile-section .field-name-field-address .addressfield-phone-block:after,
 body.not-logged-in.node-type-landing-page .account.row .form-item-pass:after,
+.total-wrapper:after,
 body.page-node-add-request #edit-field-options > .form-group:after,
 body.node-type-request.page-node-edit #edit-field-options > .form-group:after,
-body.page-node-add-request #edit-field-options .total-wrapper:after,
-body.node-type-request.page-node-edit #edit-field-options .total-wrapper:after,
 body.page-node-add-request .request-option-anonymous:after,
 body.node-type-request.page-node-edit .request-option-anonymous:after,
+body.page-node-publish .section:after,
 body.node-type-request:not(.page-node-edit) .section:after,
 body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-block-request-submissions .col:after,
 .page-messages #maincol:after,
@@ -18231,6 +18231,62 @@ body.not-logged-in.node-type-landing-page .account.row .form-item-pass > div {
     padding-left: 0;
   }
 }
+.field-list-item .field-item {
+  display: inline-block;
+  margin-right: 5px;
+}
+.field-list-item .field-item:after {
+  content: ",";
+}
+.field-list-item .field-item:last-child {
+  margin-right: 0;
+}
+.field-list-item .field-item:last-child:after {
+  content: "";
+}
+.field-list-border {
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px dotted #CECECE;
+}
+.field-list-border:last-child {
+  padding-bottom: inherit;
+  margin-bottom: inherit;
+  border: 0;
+}
+.total-wrapper {
+  margin-left: -15px;
+  margin-right: -15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-align: right;
+  font-weight: bold;
+}
+.total-wrapper .total-label {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  .total-wrapper .total-label {
+    float: left;
+    width: 83.33333333%;
+  }
+}
+.total-wrapper .total {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: #1abc9c;
+}
+@media (min-width: 992px) {
+  .total-wrapper .total {
+    float: left;
+    width: 16.66666667%;
+  }
+}
 body.page-node-add-request .main-container > header,
 body.node-type-request .main-container > header {
   background: #33374a;
@@ -18365,44 +18421,6 @@ body.node-type-request.page-node-edit #edit-field-options > .form-group > .cost 
     width: 16.66666667%;
   }
 }
-body.page-node-add-request #edit-field-options .total-wrapper,
-body.node-type-request.page-node-edit #edit-field-options .total-wrapper {
-  margin-left: -15px;
-  margin-right: -15px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  text-align: right;
-  font-weight: bold;
-}
-body.page-node-add-request #edit-field-options .total-wrapper .total-label,
-body.node-type-request.page-node-edit #edit-field-options .total-wrapper .total-label {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 992px) {
-  body.page-node-add-request #edit-field-options .total-wrapper .total-label,
-  body.node-type-request.page-node-edit #edit-field-options .total-wrapper .total-label {
-    float: left;
-    width: 83.33333333%;
-  }
-}
-body.page-node-add-request #edit-field-options .total-wrapper .total,
-body.node-type-request.page-node-edit #edit-field-options .total-wrapper .total {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-  color: #1abc9c;
-}
-@media (min-width: 992px) {
-  body.page-node-add-request #edit-field-options .total-wrapper .total,
-  body.node-type-request.page-node-edit #edit-field-options .total-wrapper .total {
-    float: left;
-    width: 16.66666667%;
-  }
-}
 body.page-node-add-request .request-option-anonymous,
 body.node-type-request.page-node-edit .request-option-anonymous {
   margin-left: -15px;
@@ -18520,6 +18538,128 @@ body.node-type-request.page-node-edit #edit-field-request-questions .field-add-m
   color: #01bdeb;
   background-color: #ffffff;
 }
+body.page-node-publish .section {
+  background-color: transparent;
+  padding: 0;
+  margin-bottom: 50px;
+}
+body.page-node-publish .node-request.node-unpublished {
+  margin-bottom: 15px;
+}
+body.page-node-publish table thead tr th:last-child,
+body.page-node-publish table tbody tr td:last-child {
+  text-align: right;
+}
+body.page-node-publish form#emh-request-publication-form {
+  margin-top: 15px;
+}
+body.page-node-publish .field-label-inline .field-label,
+body.node-type-request.page-node-edit .field-label-inline .field-label {
+  font-weight: normal;
+}
+body.page-node-publish .section,
+body.node-type-request:not(.page-node-edit) .section {
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-bottom: 0;
+}
+body.page-node-publish .request-left,
+body.node-type-request:not(.page-node-edit) .request-left {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  body.page-node-publish .request-left,
+  body.node-type-request:not(.page-node-edit) .request-left {
+    float: left;
+    width: 66.66666667%;
+  }
+}
+body.page-node-publish .request-right,
+body.node-type-request:not(.page-node-edit) .request-right {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  body.page-node-publish .request-right,
+  body.node-type-request:not(.page-node-edit) .request-right {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+body.page-node-publish .field,
+body.node-type-request:not(.page-node-edit) .field {
+  padding: 0 0 15px;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px dotted #CECECE;
+}
+body.page-node-publish .field:last-child,
+body.node-type-request:not(.page-node-edit) .field:last-child {
+  padding-bottom: inherit;
+  margin-bottom: inherit;
+  border: 0;
+}
+body.page-node-publish .field-name-body,
+body.node-type-request:not(.page-node-edit) .field-name-body {
+  font-size: 1.2em;
+  line-height: 1.5;
+}
+body.page-node-publish .field-name-body p:last-child,
+body.node-type-request:not(.page-node-edit) .field-name-body p:last-child {
+  margin-bottom: 0;
+}
+body.page-node-publish .field-name-field-domaine .field-item,
+body.node-type-request:not(.page-node-edit) .field-name-field-domaine .field-item,
+body.page-node-publish .field-name-field-tags .field-item,
+body.node-type-request:not(.page-node-edit) .field-name-field-tags .field-item,
+body.page-node-publish .field-name-og-group-ref .field-item,
+body.node-type-request:not(.page-node-edit) .field-name-og-group-ref .field-item {
+  display: inline-block;
+  margin-right: 5px;
+}
+body.page-node-publish .field-name-field-domaine .field-item:after,
+body.node-type-request:not(.page-node-edit) .field-name-field-domaine .field-item:after,
+body.page-node-publish .field-name-field-tags .field-item:after,
+body.node-type-request:not(.page-node-edit) .field-name-field-tags .field-item:after,
+body.page-node-publish .field-name-og-group-ref .field-item:after,
+body.node-type-request:not(.page-node-edit) .field-name-og-group-ref .field-item:after {
+  content: ",";
+}
+body.page-node-publish .field-name-field-domaine .field-item:last-child,
+body.node-type-request:not(.page-node-edit) .field-name-field-domaine .field-item:last-child,
+body.page-node-publish .field-name-field-tags .field-item:last-child,
+body.node-type-request:not(.page-node-edit) .field-name-field-tags .field-item:last-child,
+body.page-node-publish .field-name-og-group-ref .field-item:last-child,
+body.node-type-request:not(.page-node-edit) .field-name-og-group-ref .field-item:last-child {
+  margin-right: 0;
+}
+body.page-node-publish .field-name-field-domaine .field-item:last-child:after,
+body.node-type-request:not(.page-node-edit) .field-name-field-domaine .field-item:last-child:after,
+body.page-node-publish .field-name-field-tags .field-item:last-child:after,
+body.node-type-request:not(.page-node-edit) .field-name-field-tags .field-item:last-child:after,
+body.page-node-publish .field-name-og-group-ref .field-item:last-child:after,
+body.node-type-request:not(.page-node-edit) .field-name-og-group-ref .field-item:last-child:after {
+  content: "";
+}
+body.page-node-publish .field-name-field-request-documents .field-item,
+body.node-type-request:not(.page-node-edit) .field-name-field-request-documents .field-item {
+  margin-bottom: 10px;
+}
+body.page-node-publish .field-name-field-request-documents .field-item:last-child,
+body.node-type-request:not(.page-node-edit) .field-name-field-request-documents .field-item:last-child {
+  margin-bottom: 0;
+}
+body.page-node-publish .field-name-field-image img,
+body.node-type-request:not(.page-node-edit) .field-name-field-image img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 body.node-type-request:not(.page-node-edit) .main-container {
   background-color: #33374a;
 }
@@ -18529,116 +18669,9 @@ body.node-type-request:not(.page-node-edit) .main-container > header {
 body.node-type-request:not(.page-node-edit) #maincol {
   padding-top: 0;
 }
-body.node-type-request:not(.page-node-edit) .field-label-inline .field-label {
-  font-weight: normal;
-}
 body.node-type-request:not(.page-node-edit) .section.request,
 body.node-type-request:not(.page-node-edit) .section.user-submission {
   background-color: #FFF;
-}
-body.node-type-request:not(.page-node-edit) .section {
-  margin-left: -15px;
-  margin-right: -15px;
-  margin-bottom: 0;
-}
-body.node-type-request:not(.page-node-edit) .field {
-  padding: 0 0 15px;
-}
-body.node-type-request:not(.page-node-edit) .request-left {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 992px) {
-  body.node-type-request:not(.page-node-edit) .request-left {
-    float: left;
-    width: 66.66666667%;
-  }
-}
-body.node-type-request:not(.page-node-edit) .request-right {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 992px) {
-  body.node-type-request:not(.page-node-edit) .request-right {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-body.node-type-request:not(.page-node-edit) .field-list-item .field-item {
-  display: inline-block;
-  margin-right: 5px;
-}
-body.node-type-request:not(.page-node-edit) .field-list-item .field-item:after {
-  content: ",";
-}
-body.node-type-request:not(.page-node-edit) .field-list-item .field-item:last-child {
-  margin-right: 0;
-}
-body.node-type-request:not(.page-node-edit) .field-list-item .field-item:last-child:after {
-  content: "";
-}
-body.node-type-request:not(.page-node-edit) .field-list-border {
-  padding-bottom: 15px;
-  margin-bottom: 15px;
-  border-bottom: 1px dotted #CECECE;
-}
-body.node-type-request:not(.page-node-edit) .field-list-border:last-child {
-  padding-bottom: inherit;
-  margin-bottom: inherit;
-  border: 0;
-}
-body.node-type-request:not(.page-node-edit) .field {
-  padding-bottom: 15px;
-  margin-bottom: 15px;
-  border-bottom: 1px dotted #CECECE;
-}
-body.node-type-request:not(.page-node-edit) .field:last-child {
-  padding-bottom: inherit;
-  margin-bottom: inherit;
-  border: 0;
-}
-body.node-type-request:not(.page-node-edit) .field-name-body {
-  font-size: 1.2em;
-  line-height: 1.5;
-}
-body.node-type-request:not(.page-node-edit) .field-name-body p:last-child {
-  margin-bottom: 0;
-}
-body.node-type-request:not(.page-node-edit) .field-name-field-domaine .field-item,
-body.node-type-request:not(.page-node-edit) .field-name-field-tags .field-item,
-body.node-type-request:not(.page-node-edit) .field-name-og-group-ref .field-item {
-  display: inline-block;
-  margin-right: 5px;
-}
-body.node-type-request:not(.page-node-edit) .field-name-field-domaine .field-item:after,
-body.node-type-request:not(.page-node-edit) .field-name-field-tags .field-item:after,
-body.node-type-request:not(.page-node-edit) .field-name-og-group-ref .field-item:after {
-  content: ",";
-}
-body.node-type-request:not(.page-node-edit) .field-name-field-domaine .field-item:last-child,
-body.node-type-request:not(.page-node-edit) .field-name-field-tags .field-item:last-child,
-body.node-type-request:not(.page-node-edit) .field-name-og-group-ref .field-item:last-child {
-  margin-right: 0;
-}
-body.node-type-request:not(.page-node-edit) .field-name-field-domaine .field-item:last-child:after,
-body.node-type-request:not(.page-node-edit) .field-name-field-tags .field-item:last-child:after,
-body.node-type-request:not(.page-node-edit) .field-name-og-group-ref .field-item:last-child:after {
-  content: "";
-}
-body.node-type-request:not(.page-node-edit) .field-name-field-request-documents .field-item {
-  margin-bottom: 10px;
-}
-body.node-type-request:not(.page-node-edit) .field-name-field-request-documents .field-item:last-child {
-  margin-bottom: 0;
-}
-body.node-type-request:not(.page-node-edit) .field-name-field-image img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
 }
 body.node-type-request:not(.page-node-edit) .section.request .user-cartouche {
   clear: both;
