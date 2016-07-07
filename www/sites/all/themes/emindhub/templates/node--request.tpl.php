@@ -120,15 +120,25 @@ if (!empty($user_submission)) {
 						<?php print render($content['field_request_documents']); ?>
 					<?php endif; ?>
 
-					<?php if ($node->uid == $user->uid && emh_request_has_option($node, 'questionnaire') && !empty($node->webform['components'])) : $i = 0; ?>
-						<div class="field field-questionnaire clearfix col-sm-12">
-							<h4><?php print t('Questionnaire'); ?></h4>
-							<ul class="request-questionnaire">
-							<?php foreach ($node->webform['components'] as $question) : $i++; ?>
-								<li class="requestion-question-<?php print $i; ?>"><span class="request-question-numerotation"><?php print $i; ?>.</span>&nbsp;<?php print $question['name']; ?></li>
-							<?php endforeach; ?>
-						</ul>
-					</div>
+					<?php if ($node->uid == $user->uid) : ?>
+						<?php if (emh_request_has_option($node, 'questionnaire')) : ?>
+							<?php
+							$draft_questions = field_get_items('node', $node, 'field_request_questions');
+							$published_questions = $node->webform['components'];
+							if ($published_questions || $draft_questions) : ?>
+								<?php $i = 0;
+								$questions = $published_questions ? $published_questions : $draft_questions;
+								?>
+								<div class="field field-questionnaire clearfix col-sm-12">
+									<h4><?php print t('Questionnaire'); ?></h4>
+									<ul class="request-questionnaire">
+									<?php foreach ($questions as $question) : $i++; $question = isset($question['name']) ? $question['name'] : $question['value']; ?>
+										<li class="requestion-question-<?php print $i; ?>"><span class="request-question-numerotation"><?php print $i; ?>.</span>&nbsp;<?php print $question; ?></li>
+									<?php endforeach; ?>
+								</ul>
+							</div>
+							<?php endif; ?>
+						<?php endif; ?>
 					<?php endif; ?>
 
 				</div>
