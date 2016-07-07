@@ -173,7 +173,7 @@ function ft_request_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 6,
+        'weight' => 7,
       ),
       'summary' => array(
         'label' => 'inline',
@@ -387,7 +387,7 @@ function ft_request_field_default_field_instances() {
           'image_style' => 'medium',
         ),
         'type' => 'image',
-        'weight' => 8,
+        'weight' => 9,
       ),
       'summary' => array(
         'label' => 'hidden',
@@ -507,7 +507,7 @@ function ft_request_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_default',
-        'weight' => 7,
+        'weight' => 8,
       ),
       'summary' => array(
         'label' => 'hidden',
@@ -576,10 +576,11 @@ function ft_request_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
+        'module' => 'text',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 16,
+        'type' => 'text_default',
+        'weight' => 5,
       ),
       'summary' => array(
         'label' => 'above',
@@ -633,7 +634,7 @@ function ft_request_field_default_field_instances() {
           'show_remaining_days' => FALSE,
         ),
         'type' => 'date_default',
-        'weight' => 5,
+        'weight' => 6,
       ),
       'summary' => array(
         'label' => 'inline',
