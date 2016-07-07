@@ -43,7 +43,7 @@ Feature: Request and submissions
     And I click "How to become a superhero?" in the "How to become a superhero?" row
     And I click "Edit" in the "primary tabs" region
     Given I check "Private"
-    And I press "Publish"
+    And I press "Continue"
     # Validation page
     And I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been published."

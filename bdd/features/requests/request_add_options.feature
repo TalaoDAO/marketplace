@@ -46,7 +46,7 @@ Feature: Request
       And I should see "Desired starting date"
       And I fill in "Duration of the mission" with "1 month"
 
-    When I press "Publish"
+    When I press "Continue"
     # Validation page
       And I press "Publish"
     Then I should see "Request How to become a superhero? has been published."
@@ -70,6 +70,6 @@ Feature: Request
       And I should see "Desired starting date"
 
     When I fill in "Duration of the mission" with "1 week"
-      And I press "Publish"
+      And I press "Continue"
     Then I should see "Request How to defeat a superhero? has been created."
       And I should see "1 week"

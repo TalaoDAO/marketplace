@@ -102,6 +102,7 @@ Feature: Request and submissions
     And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should not see the link "edit" in the "submissions" region
 
+  @exclude
   Scenario: The expert cannot delete its own submission
     Given I am logged in as "expert2"
     When I go to homepage
