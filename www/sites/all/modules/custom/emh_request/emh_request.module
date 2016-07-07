@@ -420,13 +420,7 @@ function emh_request_publication_access($request, $account = null) {
     $account = $user;
   }
 
-  if (
-    $request->type == 'request' &&
-    node_access('update', $request, $account) &&
-    $request->status == NODE_NOT_PUBLISHED
-  ) {
-    // Access allowed except if the request is a questionnaire
-    // and that no question has been created
+  if ($request->type == 'request' && node_access('update', $request, $account)) {
     return true;
   }
 
@@ -440,6 +434,12 @@ function emh_request_publication_access($request, $account = null) {
 
 
 function emh_request_publication_page($request) {
+  // Redirects if the request is already published.
+  if ($request->status == NODE_PUBLISHED) {
+    drupal_set_message(t("This request is already published."), 'warning');
+    drupal_goto('node/' . $request->nid);
+  }
+
   $page = array();
 
   $page['notice_information'] = array(
