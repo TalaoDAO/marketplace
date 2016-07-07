@@ -387,3 +387,14 @@ function emh_request_update_7122() {
 function emh_request_update_7123() {
   features_revert(array('ft_request' => array('field_base', 'field_instance', 'variable')));
 }
+
+
+/**
+ * ADD: VBO Purchase profile permissions.
+ */
+function emh_request_update_7124() {
+  // Authentificated user
+  user_role_grant_permissions(2, array(
+    'execute emh_user_profile_purchase_action',
+  ));
+}
