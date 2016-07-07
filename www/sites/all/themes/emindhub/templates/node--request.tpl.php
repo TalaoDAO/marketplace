@@ -153,7 +153,7 @@ if ($user_submission) {
 
 					<?php print render($content['field_image']); ?>
 
-					<?php print emh_user_cartouche_view($node->uid); ?>
+					<?php print emh_user_cartouche_view($node->uid, 'author'); ?>
 
 					<?php if (!empty($elements['#node']->created)) : ?>
 						<?php print t('Publication date:'); ?>
