@@ -30,7 +30,7 @@ node/*/edit',
         'region' => 'sidebar_second',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -49,
+        'weight' => -47,
       ),
       'seven' => array(
         'region' => '',
@@ -62,7 +62,7 @@ node/*/edit',
         'region' => 'title_right',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => 0,
+        'weight' => -47,
       ),
       'seven' => array(
         'region' => '',
@@ -91,10 +91,10 @@ node/*/edit',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'title_right',
+        'region' => 'title_bottom',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => 1,
+        'weight' => -46,
       ),
       'seven' => array(
         'region' => '',
@@ -123,10 +123,10 @@ node/*/edit',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'title',
+        'region' => 'title_bottom',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => 0,
+        'weight' => -47,
       ),
       'seven' => array(
         'region' => '',

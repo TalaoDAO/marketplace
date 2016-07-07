@@ -9,6 +9,10 @@ body {
 .title-right {
   margin: 15px 0;
 }
+.region-title-bottom {
+	.make-row();
+  margin-bottom: 15px;
+}
 
 h1.page-header {
   .emh-title-main;
@@ -68,7 +72,7 @@ aside#sidebar-second {
 
 a.flag {
   .btn;
-  .btn-primary;
+  .btn-flag;
 }
 
 ul.links.list-inline {
@@ -122,9 +126,6 @@ ul.links.list-inline {
   .make-md-column(4);
   margin-bottom: 15px;
   .text-right;
-  @media (min-width: @screen-sm-min) {
-    margin-bottom: 0;
-  }
 }
 
 .section {
