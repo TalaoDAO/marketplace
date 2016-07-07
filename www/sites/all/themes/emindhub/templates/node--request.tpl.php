@@ -79,13 +79,6 @@
  * @ingroup themeable
  */
 
-include_once drupal_get_path('module', 'webform') . '/includes/webform.submissions.inc';
-global $user;
-$submissions = webform_get_submissions(array('nid' => $nid));
-if ($user_submission) {
-	$submission_status = emh_answer_get_status($user_submission);
-}
-
 // Show $node field, with display parameters
 // echo '<pre>' . print_r($content['webform']['#node']->webform, TRUE) . '</pre>'; die;
 // Show $node field, with custom display parameters
@@ -166,14 +159,16 @@ if ($user_submission) {
 
 			<?php if ($node->uid !== $user->uid) : ?>
 				<div class="section user-submission">
-					<div class="col-sm-8 <?php if ($submission_status) print $submission_status['status']; ?>">
+					<div class="col-sm-8 <?php if (!empty($submission_status)) print $submission_status['status']; ?>">
 						<div class="row user-submission-title">
 							<div class="col-sm-8">
 								<h3><span><?php print t('Your submission'); ?></span></h3>
 							</div>
-							<?php if ($submission_status) : ?>
+							<?php if (!empty($submission_status)): ?>
 								<div class="col-sm-4">
-									<span class="user-submission-status <?php if ($submission_status) print $submission_status['status']; ?>"><?php if ($submission_status) print $submission_status['label']; ?></span>
+									<span class="user-submission-status <?php print $submission_status['status']; ?>">
+                    <?php print $submission_status['label']; ?>
+                  </span>
 								</div>
 							<?php endif; ?>
 						</div>
