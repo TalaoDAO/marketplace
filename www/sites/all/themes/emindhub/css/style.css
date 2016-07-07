@@ -18447,8 +18447,8 @@ body.page-node-add-request #edit-field-request-questions .input-group:not(.file-
 body.node-type-request.page-node-edit #edit-field-request-questions .input-group:not(.file-widget) {
   max-width: 100%;
 }
-body.page-node-add-request #edit-field-request-questions #field-request-questions-values tbody label,
-body.node-type-request.page-node-edit #edit-field-request-questions #field-request-questions-values tbody label {
+body.page-node-add-request #edit-field-request-questions table tbody label,
+body.node-type-request.page-node-edit #edit-field-request-questions table tbody label {
   display: none !important;
 }
 body.page-node-add-request #edit-field-request-questions .field-add-more-submit,
