@@ -125,47 +125,68 @@ function emh_user_profile_purchase_form_validate($form, &$form_state) {
  */
 function emh_user_profile_purchase_form_submit($form, &$form_state) {
   $account = $form_state['account'];
-  $transaction = null;
 
   try {
-    $transaction = db_transaction();
-
-    global $user;
-
-    // Spends user's points
-    $emindhub = user_load(1);
-    $amount = (int) variable_get('emh_user_profile_purchase_amount', 50);
-    emh_points_move_points($user, $emindhub, $amount);
-
-    // Flags the account to add it in the user's relationships
-    $flag = flag_get_flag('my_contacts');
-    $flag->flag('flag', $account->uid, $user, true);
+    emh_user_purchase_profile($account);
 
     drupal_set_message(t("You can now consult the !user's profile.", array(
       '!user' => emh_user_get_beautiful_firstname($account),
     )));
-
-    unset($transaction);
   }
   catch (\Exception $e) {
-    if ($transaction) {
-      try {
-        $transaction->rollback();
-      }
-      catch (\Exception $e2) {
-        watchdog_exception('emh_user', $e2);
-      }
-
-      drupal_set_message(t("!user's profile could not be purchased.", array(
-        '!user' => emh_user_get_beautiful_firstname($account),
-      )), 'error');
-
-      watchdog_exception('emh_user', $e);
-    }
+    drupal_set_message(t("!user's profile could not be purchased.", array(
+      '!user' => emh_user_get_beautiful_firstname($account),
+    )), 'error');
   }
 
   if (!isset($_GET['destination'])) {
     $form_state['redirect'] = 'user/' . $account->uid;
+  }
+}
+
+
+/**
+ * Implements hook_action_info().
+ */
+function emh_user_action_info() {
+  $actions = array();
+
+  $actions['emh_user_profile_purchase_action'] = array(
+    'type' => 'entity',
+    'label' => t('Purchase profiles'),
+    'configurable' => false,
+    'triggers' => array(),
+    'permissions' => array('access user profiles'),
+    'aggregate' => true,
+    'behavior' => array('emh'),
+  );
+
+  return $actions;
+}
+
+
+/**
+ * Action to purchase a profil.
+ */
+function emh_user_profile_purchase_action($entities, $context) {
+  global $user;
+
+  foreach ($entities as $entity) {
+    if (empty($entity->uid) || $entity->uid == 1) {
+      continue;
+    }
+
+    try {
+      if (emh_access_user_can_see_full_user($user->uid, $entity->uid)) {
+        continue;
+      }
+      emh_user_purchase_profile($entity->uid);
+    }
+    catch (\Exception $e) {
+      drupal_set_message(t("!user's profile could not be purchased.", array(
+        '!user' => emh_user_get_beautiful_firstname($entity->uid),
+      )), 'error');
+    }
   }
 }
 
@@ -495,4 +516,45 @@ function emh_user_cartouche_view($uid) {
     return '<div class="user-cartouche">' . $cartouche . '</div>';
   }
 
+}
+
+/**
+ * Purchases an user profile for the current user.
+ *
+ * @param stdClass|integer $account
+ *  Either an user object or a uid
+ */
+function emh_user_purchase_profile($account) {
+  try {
+    $transaction = db_transaction();
+
+    global $user;
+
+    if (is_numeric($account)) {
+      $account = user_load($account);
+    }
+
+    // Spends user's points
+    $amount = (int) variable_get('emh_user_profile_purchase_amount', 50);
+    emh_points_move_points($user, $account, $amount);
+
+    // Flags the account to add it in the user's relationships
+    $flag = flag_get_flag('my_contacts');
+    $flag->flag('flag', $account->uid, $user, true);
+
+    unset($transaction);
+  }
+  catch (\Exception $e) {
+    if ($transaction) {
+      try {
+        $transaction->rollback();
+      }
+      catch (\Exception $e2) {
+        watchdog_exception('emh_user', $e2);
+      }
+
+      watchdog_exception('emh_user', $e);
+      throw $e;
+    }
+  }
 }
