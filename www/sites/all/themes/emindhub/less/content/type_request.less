@@ -326,12 +326,17 @@ body.node-type-request:not(.page-node-edit) {
       border: 1px solid #d9d9d9;
       padding: 15px;
       color: @text-color;
+      margin-bottom: 15px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
 
       .views-field-views-bulk-operations {
         position: absolute;
         z-index: 100;
       }
-      
+
       .views-field-emh-author {
         .make-md-column(2);
         .text-center;
