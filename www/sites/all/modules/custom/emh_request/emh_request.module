@@ -656,7 +656,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
   if (in_array($form['#node']->type, emh_request_get_types())) {
     // Sets action buttons labels
     $form['actions']['draft']['#value'] = t('Save draft');
-    $form['actions']['submit']['#value'] = t('Publish');
+    $form['actions']['submit']['#value'] = t('Continue');
 
     // Treatments for generic requests
     if ($form['#node']->type == 'request') {
