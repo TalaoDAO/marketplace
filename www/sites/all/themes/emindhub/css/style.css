@@ -16095,8 +16095,11 @@ div.rating div a:hover {
   border-radius: 50%;
   background: #FFF;
   text-align: center;
-  height: 100px;
-  width: 100px;
+  height: 50px;
+  width: 50px;
+}
+.user-cartouche {
+  text-align: center;
 }
 .user-cartouche a {
   color: #104476;
@@ -18679,6 +18682,10 @@ body.node-type-request:not(.page-node-edit) .section.request .user-cartouche {
   margin-bottom: 15px;
   text-align: center;
 }
+body.node-type-request:not(.page-node-edit) .section.request .user-cartouche .user-badge img {
+  width: 100px;
+  height: 100px;
+}
 body.node-type-request:not(.page-node-edit) .field-questionnaire h4 {
   font-weight: bold;
   margin-top: 0;
@@ -18895,17 +18902,12 @@ body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
-  text-align: center;
 }
 @media (min-width: 992px) {
   body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-block-request-submissions .col .views-field-emh-author {
     float: left;
     width: 16.66666667%;
   }
-}
-body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-block-request-submissions .col .views-field-emh-author .user-badge img {
-  width: 50px;
-  height: 50px;
 }
 body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-block-request-submissions .col .views-field-emh-answer,
 body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-block-request-submissions .col .views-field-view-submission {
