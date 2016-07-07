@@ -76,14 +76,14 @@ function emh_request_timeline_get_timeline($request) {
   $deadlineDate = new DateTime($deadline[0]['value']);
 
   $intervalNow = $createdDate->diff($nowDate);
-  $intervalNow = $intervalNow->format('%a days');
+  $intervalNow = $intervalNow->format('%a day(s)');
 
   $intervalDeadline = $createdDate->diff($deadlineDate);
-  $intervalDeadline = $intervalDeadline->format('%a days');
+  $intervalDeadline = $intervalDeadline->format('%a day(s)');
 
   if ($status != 'closed') {
     $intervalLeft = $nowDate->diff($deadlineDate);
-    $intervalLeft = $intervalLeft->format('%a days left');
+    $intervalLeft = $intervalLeft->format('%a day(s) left');
   } else {
     $intervalLeft = t('Closed');
   }
