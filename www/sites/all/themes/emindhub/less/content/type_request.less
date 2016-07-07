@@ -1,7 +1,7 @@
 body.page-node-add-request,
 body.node-type-request {
   .main-container > header {
-    background: #33374a;
+    background: @asphalt-base;
   }
   h1.page-header {
     text-transform: none;
@@ -13,6 +13,8 @@ body.node-type-request {
   }
 }
 
+// node/add/request
+// node/%/edit
 body.page-node-add-request,
 body.node-type-request.page-node-edit {
   .main-container > header {
@@ -115,12 +117,25 @@ body.node-type-request.page-node-edit {
       clear: none;
     }
   }
+  #edit-field-request-questions {
+    .form-control:not(textarea),
+    .input-group:not(.file-widget) {
+      max-width: 100%;
+    }
+    .form-required {
+      .hide();
+    }
+    .field-add-more-submit {
+      .btn-info;
+      .pull-right;
+    }
+  }
 }
 
 body.node-type-request:not(.page-node-edit) {
   // Overrides
   .main-container {
-    background-color: #33374a;
+    background-color: @asphalt-base;
   }
   .main-container > header {
     background-image: none;
@@ -273,7 +288,7 @@ body.node-type-request:not(.page-node-edit) {
   // Submissions
   .submissions {
     color: #FFF;
-    background-color: #33374a;
+    background-color: @asphalt-base;
 
     .submissions-title {
       background-color: #2e3243;
@@ -326,12 +341,17 @@ body.node-type-request:not(.page-node-edit) {
       border: 1px solid #d9d9d9;
       padding: 15px;
       color: @text-color;
+      margin-bottom: 15px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
 
       .views-field-views-bulk-operations {
         position: absolute;
         z-index: 100;
       }
-      
+
       .views-field-emh-author {
         .make-md-column(2);
         .text-center;

@@ -476,7 +476,8 @@ function emh_user_cartouche_view($uid) {
 	// Photo
 	$photo_uri = field_get_items('user', $u2_account, 'field_photo');
 	if ((module_exists('emh_access') && emh_access_user_can_see_full_user($uid1, $uid2))) {
-		$cartouche .= '<span class="user-badge"><a href="' . url('user/' . $user2->uid) . '">' . render(field_view_field('user', $u2_account, 'field_photo', array('label'=>'hidden'))) . '</a></span>';
+    $photo = field_view_field('user', $u2_account, 'field_photo', array('label'=>'hidden'));
+		$cartouche .= '<span class="user-badge"><a href="' . url('user/' . $uid2) . '">' . render($photo) . '</a></span>';
 	} else {
 		$cartouche .= '<span class="user-badge"><img src="' . image_style_url('thumbnail', $photo_uri[0]['uri']) . '" class="img-circle center-block" /></span>';
 	}
@@ -484,7 +485,7 @@ function emh_user_cartouche_view($uid) {
 	// Identity
   if ($node->field_hide_name[LANGUAGE_NONE][0]['value'] == false) {
     if ((module_exists('emh_access') && emh_access_user_can_see_full_user($uid1, $uid2))) {
-  		$cartouche .= '<span class="user-identity"><a href="' . url('user/' . $user2->uid) . '">' . format_username($u2_account) . '</span></a>';
+  		$cartouche .= '<span class="user-identity"><a href="' . url('user/' . $uid2) . '">' . format_username($u2_account) . '</span></a>';
     }
   	else {
   		$cartouche .= '<span class="user-identity">' . format_username($u2_account) . '</span>';
@@ -494,13 +495,15 @@ function emh_user_cartouche_view($uid) {
 	// Organisation
 	$organisation = field_get_items('user', $u2_account, 'field_entreprise');
 	if ((module_exists('emh_access') && emh_access_user_organisation($node)) && !empty($organisation) && $node->field_hide_organisation[LANGUAGE_NONE][0]['value'] == false) {
-		$cartouche .= '<span class="user-organisation">' . render(field_view_field('user', $u2_account, 'field_entreprise', array('label'=>'hidden'))) . '</span>';
+    $organisation = field_view_field('user', $u2_account, 'field_entreprise', array('label'=>'hidden'));
+		$cartouche .= '<span class="user-organisation">' . render($organisation) . '</span>';
 	}
 
   // Activity
 	$activity = field_get_items('node', $node, 'field_activity');
 	if (emh_request_has_option($node, 'anonymous') && !empty($activity)) {
-		$cartouche .= '<span class="user-activity">' . render(field_view_field('node', $node, 'field_activity', array('label'=>'hidden'))) . '</span>';
+    $activity = field_view_field('node', $node, 'field_activity', array('label'=>'hidden'));
+		$cartouche .= '<span class="user-activity">' . render($activity) . '</span>';
 	}
 
 	// Buy profile access
@@ -509,7 +512,7 @@ function emh_user_cartouche_view($uid) {
 	}
 
   if ($uid1 === $uid2) {
-    $cartouche .= '<span class="user-self"><a href="' . url('user/' . $user2->uid) . '">' . t('It\'s you :)') . '</a></span>';
+    $cartouche .= '<span class="user-self"><a href="' . url('user/' . $uid2) . '">' . t('It\'s you :)') . '</a></span>';
   }
 
   if ($cartouche) {

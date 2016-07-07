@@ -96,7 +96,7 @@ function ft_request_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_activity',
-    'label' => 'You can precise your activity instead',
+    'label' => 'We suggest you give at least some information about your activity',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -872,7 +872,7 @@ function ft_request_field_default_field_instances() {
   t('Questions');
   t('Request title or question');
   t('Tags');
-  t('You can precise your activity instead');
+  t('We suggest you give at least some information about your activity');
 
   return $field_instances;
 }

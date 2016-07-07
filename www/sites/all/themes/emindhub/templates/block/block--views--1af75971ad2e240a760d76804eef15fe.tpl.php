@@ -57,7 +57,7 @@ $node = menu_get_object();
       </div>
       <?php if ($node->uid == $user->uid && emh_request_has_option($node, 'private')) : ?>
         <div class="col-sm-4 text-right submissions-private-info">
-          <span class="submission-private"><?php print t('Submissions are only visible by you.'); ?></span>
+          <span class="submission-private"><?php print t('Submissions to your request are only visible by you.'); ?></span>
         </div>
       <?php endif; ?>
     </div>

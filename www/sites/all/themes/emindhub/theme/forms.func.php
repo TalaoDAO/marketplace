@@ -499,6 +499,7 @@ function emindhub_form_request_node_form_alter(&$form, &$form_state, $form_id) {
 
   $form['field_options'][LANGUAGE_NONE]['questionnaire']['enabled']['#suffix'] = '<div class="form-item-description">' . $form['field_options'][LANGUAGE_NONE]['questionnaire']['enabled']['#description'] . '</div>';
 	$form['field_options'][LANGUAGE_NONE]['questionnaire']['enabled']['#description'] = '';
+	$form['field_request_questions'][LANGUAGE_NONE]['add_more']['#value'] = t('Add another question');
 
   $form['field_options'][LANGUAGE_NONE]['private']['enabled']['#suffix'] = '<div class="form-item-description">' . $form['field_options'][LANGUAGE_NONE]['private']['enabled']['#description'] . '</div>';
 	$form['field_options'][LANGUAGE_NONE]['private']['enabled']['#description'] = '';

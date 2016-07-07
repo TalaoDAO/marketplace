@@ -9748,6 +9748,8 @@ button.close {
 .form-actions:after,
 .form-actions:before,
 .form-actions:after,
+.region-title-bottom:before,
+.region-title-bottom:after,
 #request-nav:before,
 #request-nav:after,
 #block-block-18 .content:before,
@@ -9833,6 +9835,7 @@ body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-
 .bef-select-as-checkboxes .bef-checkboxes:after,
 .form-actions:after,
 .form-actions:after,
+.region-title-bottom:after,
 #request-nav:after,
 #block-block-18 .content:after,
 #block-block-13 .block-title > span:after,
@@ -11322,6 +11325,63 @@ fieldset[disabled] .btn-gray.focus {
 .btn-gray .badge {
   color: #f2f2f2;
   background-color: #4c6172;
+}
+.btn-flag {
+  color: #171921;
+  background-color: #a8adc3;
+  border-color: #33374a;
+}
+.btn-flag:focus,
+.btn-flag.focus {
+  color: #171921;
+  background-color: #8a90ae;
+  border-color: #000000;
+}
+.btn-flag:hover {
+  color: #171921;
+  background-color: #8a90ae;
+  border-color: #1a1c26;
+}
+.btn-flag:active,
+.btn-flag.active,
+.open > .dropdown-toggle.btn-flag {
+  color: #171921;
+  background-color: #8a90ae;
+  border-color: #1a1c26;
+}
+.btn-flag:active:hover,
+.btn-flag.active:hover,
+.open > .dropdown-toggle.btn-flag:hover,
+.btn-flag:active:focus,
+.btn-flag.active:focus,
+.open > .dropdown-toggle.btn-flag:focus,
+.btn-flag:active.focus,
+.btn-flag.active.focus,
+.open > .dropdown-toggle.btn-flag.focus {
+  color: #171921;
+  background-color: #757ca0;
+  border-color: #000000;
+}
+.btn-flag:active,
+.btn-flag.active,
+.open > .dropdown-toggle.btn-flag {
+  background-image: none;
+}
+.btn-flag.disabled:hover,
+.btn-flag[disabled]:hover,
+fieldset[disabled] .btn-flag:hover,
+.btn-flag.disabled:focus,
+.btn-flag[disabled]:focus,
+fieldset[disabled] .btn-flag:focus,
+.btn-flag.disabled.focus,
+.btn-flag[disabled].focus,
+fieldset[disabled] .btn-flag.focus {
+  background-color: #a8adc3;
+  border-color: #33374a;
+}
+.btn-flag .badge {
+  color: #a8adc3;
+  background-color: #171921;
 }
 .btn-submission {
   color: #ffffff;
@@ -13679,6 +13739,11 @@ body {
 .title-right {
   margin: 15px 0;
 }
+.region-title-bottom {
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-bottom: 15px;
+}
 h1.page-header {
   text-transform: uppercase;
   font-size: 24px;
@@ -13769,9 +13834,9 @@ a.flag {
   -ms-user-select: none;
   user-select: none;
   margin-right: 5px;
-  color: #ffffff;
-  background-color: #009fe3;
-  border-color: #008dca;
+  color: #171921;
+  background-color: #a8adc3;
+  border-color: #33374a;
 }
 a.flag:focus,
 a.flag:active:focus,
@@ -13816,21 +13881,21 @@ a.flag:last-child {
 }
 a.flag:focus,
 a.flag.focus {
-  color: #ffffff;
-  background-color: #007bb0;
-  border-color: #00344a;
+  color: #171921;
+  background-color: #8a90ae;
+  border-color: #000000;
 }
 a.flag:hover {
-  color: #ffffff;
-  background-color: #007bb0;
-  border-color: #00628c;
+  color: #171921;
+  background-color: #8a90ae;
+  border-color: #1a1c26;
 }
 a.flag:active,
 a.flag.active,
 .open > .dropdown-togglea.flag {
-  color: #ffffff;
-  background-color: #007bb0;
-  border-color: #00628c;
+  color: #171921;
+  background-color: #8a90ae;
+  border-color: #1a1c26;
 }
 a.flag:active:hover,
 a.flag.active:hover,
@@ -13841,9 +13906,9 @@ a.flag.active:focus,
 a.flag:active.focus,
 a.flag.active.focus,
 .open > .dropdown-togglea.flag.focus {
-  color: #ffffff;
-  background-color: #00628c;
-  border-color: #00344a;
+  color: #171921;
+  background-color: #757ca0;
+  border-color: #000000;
 }
 a.flag:active,
 a.flag.active,
@@ -13859,12 +13924,12 @@ fieldset[disabled] a.flag:focus,
 a.flag.disabled.focus,
 a.flag[disabled].focus,
 fieldset[disabled] a.flag.focus {
-  background-color: #009fe3;
-  border-color: #008dca;
+  background-color: #a8adc3;
+  border-color: #33374a;
 }
 a.flag .badge {
-  color: #009fe3;
-  background-color: #ffffff;
+  color: #a8adc3;
+  background-color: #171921;
 }
 ul.links.list-inline li a {
   display: inline-block;
@@ -14267,12 +14332,6 @@ fieldset[disabled] #nav-next > a.focus {
   .title-right {
     float: left;
     width: 33.33333333%;
-  }
-}
-@media (min-width: 768px) {
-  .region-title-right,
-  .title-right {
-    margin-bottom: 0;
   }
 }
 .section {
@@ -15493,6 +15552,18 @@ table th[class*="col-"] {
 .view-query-list table > tbody > tr > td {
   vertical-align: middle;
 }
+#block-emh-request-timeline-timeline {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  #block-emh-request-timeline-timeline {
+    float: left;
+    width: 66.66666667%;
+  }
+}
 #block-emh-request-timeline-timeline .content {
   margin-left: -15px;
   margin-right: -15px;
@@ -15503,6 +15574,7 @@ table th[class*="col-"] {
   padding-left: 15px;
   padding-right: 15px;
   text-align: right;
+  line-height: 39px;
 }
 @media (min-width: 992px) {
   #block-emh-request-timeline-timeline .content .created {
@@ -15516,6 +15588,8 @@ table th[class*="col-"] {
   padding-left: 15px;
   padding-right: 15px;
   padding: 0;
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 @media (min-width: 992px) {
   #block-emh-request-timeline-timeline .content .progress {
@@ -15528,6 +15602,7 @@ table th[class*="col-"] {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
+  line-height: 39px;
 }
 @media (min-width: 992px) {
   #block-emh-request-timeline-timeline .content .deadline {
@@ -15908,6 +15983,22 @@ body.admin-menu #block-system-user-menu {
   margin: 0 0 20px;
   color: #114577;
   text-transform: uppercase;
+}
+#block-emh-request-flag-save-flag-save {
+  line-height: 36px;
+}
+#block-emh-request-submission-submission-count {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: right;
+}
+@media (min-width: 992px) {
+  #block-emh-request-submission-submission-count {
+    float: left;
+    width: 33.33333333%;
+  }
 }
 .emh-field-answers {
   width: 70px;
@@ -18332,6 +18423,103 @@ body.node-type-request.page-node-edit .request-option-anonymous > .form-group {
     width: 25%;
   }
 }
+body.page-node-add-request #edit-field-request-questions .form-control:not(textarea),
+body.node-type-request.page-node-edit #edit-field-request-questions .form-control:not(textarea),
+body.page-node-add-request #edit-field-request-questions .input-group:not(.file-widget),
+body.node-type-request.page-node-edit #edit-field-request-questions .input-group:not(.file-widget) {
+  max-width: 100%;
+}
+body.page-node-add-request #edit-field-request-questions .form-required,
+body.node-type-request.page-node-edit #edit-field-request-questions .form-required {
+  display: none !important;
+}
+body.page-node-add-request #edit-field-request-questions .field-add-more-submit,
+body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit {
+  color: #ffffff;
+  background-color: #01bdeb;
+  border-color: #01a9d2;
+  float: right !important;
+}
+body.page-node-add-request #edit-field-request-questions .field-add-more-submit:focus,
+body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit:focus,
+body.page-node-add-request #edit-field-request-questions .field-add-more-submit.focus,
+body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit.focus {
+  color: #ffffff;
+  background-color: #0194b8;
+  border-color: #004253;
+}
+body.page-node-add-request #edit-field-request-questions .field-add-more-submit:hover,
+body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit:hover {
+  color: #ffffff;
+  background-color: #0194b8;
+  border-color: #017895;
+}
+body.page-node-add-request #edit-field-request-questions .field-add-more-submit:active,
+body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit:active,
+body.page-node-add-request #edit-field-request-questions .field-add-more-submit.active,
+body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit.active,
+.open > .dropdown-togglebody.page-node-add-request #edit-field-request-questions .field-add-more-submit,
+.open > .dropdown-togglebody.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit {
+  color: #ffffff;
+  background-color: #0194b8;
+  border-color: #017895;
+}
+body.page-node-add-request #edit-field-request-questions .field-add-more-submit:active:hover,
+body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit:active:hover,
+body.page-node-add-request #edit-field-request-questions .field-add-more-submit.active:hover,
+body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit.active:hover,
+.open > .dropdown-togglebody.page-node-add-request #edit-field-request-questions .field-add-more-submit:hover,
+.open > .dropdown-togglebody.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit:hover,
+body.page-node-add-request #edit-field-request-questions .field-add-more-submit:active:focus,
+body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit:active:focus,
+body.page-node-add-request #edit-field-request-questions .field-add-more-submit.active:focus,
+body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit.active:focus,
+.open > .dropdown-togglebody.page-node-add-request #edit-field-request-questions .field-add-more-submit:focus,
+.open > .dropdown-togglebody.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit:focus,
+body.page-node-add-request #edit-field-request-questions .field-add-more-submit:active.focus,
+body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit:active.focus,
+body.page-node-add-request #edit-field-request-questions .field-add-more-submit.active.focus,
+body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit.active.focus,
+.open > .dropdown-togglebody.page-node-add-request #edit-field-request-questions .field-add-more-submit.focus,
+.open > .dropdown-togglebody.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit.focus {
+  color: #ffffff;
+  background-color: #017895;
+  border-color: #004253;
+}
+body.page-node-add-request #edit-field-request-questions .field-add-more-submit:active,
+body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit:active,
+body.page-node-add-request #edit-field-request-questions .field-add-more-submit.active,
+body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit.active,
+.open > .dropdown-togglebody.page-node-add-request #edit-field-request-questions .field-add-more-submit,
+.open > .dropdown-togglebody.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit {
+  background-image: none;
+}
+body.page-node-add-request #edit-field-request-questions .field-add-more-submit.disabled:hover,
+body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit.disabled:hover,
+body.page-node-add-request #edit-field-request-questions .field-add-more-submit[disabled]:hover,
+body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit[disabled]:hover,
+fieldset[disabled] body.page-node-add-request #edit-field-request-questions .field-add-more-submit:hover,
+fieldset[disabled] body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit:hover,
+body.page-node-add-request #edit-field-request-questions .field-add-more-submit.disabled:focus,
+body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit.disabled:focus,
+body.page-node-add-request #edit-field-request-questions .field-add-more-submit[disabled]:focus,
+body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit[disabled]:focus,
+fieldset[disabled] body.page-node-add-request #edit-field-request-questions .field-add-more-submit:focus,
+fieldset[disabled] body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit:focus,
+body.page-node-add-request #edit-field-request-questions .field-add-more-submit.disabled.focus,
+body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit.disabled.focus,
+body.page-node-add-request #edit-field-request-questions .field-add-more-submit[disabled].focus,
+body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit[disabled].focus,
+fieldset[disabled] body.page-node-add-request #edit-field-request-questions .field-add-more-submit.focus,
+fieldset[disabled] body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit.focus {
+  background-color: #01bdeb;
+  border-color: #01a9d2;
+}
+body.page-node-add-request #edit-field-request-questions .field-add-more-submit .badge,
+body.node-type-request.page-node-edit #edit-field-request-questions .field-add-more-submit .badge {
+  color: #01bdeb;
+  background-color: #ffffff;
+}
 body.node-type-request:not(.page-node-edit) .main-container {
   background-color: #33374a;
 }
@@ -18643,6 +18831,10 @@ body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-
   border: 1px solid #d9d9d9;
   padding: 15px;
   color: #333333;
+  margin-bottom: 15px;
+}
+body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-block-request-submissions .col:last-child {
+  margin-bottom: 0;
 }
 body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-block-request-submissions .col .views-field-views-bulk-operations {
   position: absolute;
