@@ -1581,9 +1581,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['type']['table'] = 'node';
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
-    'challenge' => 'challenge',
-    'webform' => 'webform',
-    'question1' => 'question1',
     'request' => 'request',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
@@ -1814,9 +1811,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['type']['table'] = 'node';
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
-    'challenge' => 'challenge',
-    'webform' => 'webform',
-    'question1' => 'question1',
     'request' => 'request',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
@@ -2532,9 +2526,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['type']['table'] = 'node';
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
-    'challenge' => 'challenge',
-    'webform' => 'webform',
-    'question1' => 'question1',
     'request' => 'request',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
@@ -2961,9 +2952,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['type']['table'] = 'node';
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
-    'challenge' => 'challenge',
-    'webform' => 'webform',
-    'question1' => 'question1',
     'request' => 'request',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;

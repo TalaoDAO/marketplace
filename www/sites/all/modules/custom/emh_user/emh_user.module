@@ -37,7 +37,7 @@ function emh_user_menu() {
 		'access arguments' => array('access content'),
 	);
   $items['user/%user/purchase'] = array(
-		'title' => 'Purchase a profile',
+		'title' => 'Access profile',
 		'page callback' => 'drupal_get_form',
     'page arguments' => array('emh_user_profile_purchase_form', 1),
     'access callback' => 'user_view_access',
@@ -125,7 +125,7 @@ function emh_user_profile_purchase_form($form, &$form_state, $account) {
 
   $form['confirmation'] = array(
     '#type' => 'item',
-    '#markup' => t("Purchase the !user's profile for !amount points ?", array(
+    '#markup' => t("Access !user's profile for !amount points?", array(
       '!user' => emh_user_get_beautiful_firstname($account),
       '!amount' => $amount,
     )),
@@ -142,7 +142,7 @@ function emh_user_profile_purchase_form($form, &$form_state, $account) {
     ),
     'submit' => array(
       '#type' => 'submit',
-      '#value' => t("Purchase"),
+      '#value' => t("Access profile"),
     ),
   );
 
@@ -159,7 +159,7 @@ function emh_user_profile_purchase_form_validate($form, &$form_state) {
     emh_points_entity_load_single($user, 'user');
   }
   if ($user->emh_points < (int) variable_get('emh_user_profile_purchase_amount', 50)) {
-    form_error($form, t("You don't have enough points to purchase the !user's profile.", array(
+    form_error($form, t("You don't have enough points to access !user's profile.", array(
       '!user' => emh_user_get_beautiful_firstname($form_state['account']),
     )));
   }
@@ -199,7 +199,7 @@ function emh_user_action_info() {
 
   $actions['emh_user_profile_purchase_action'] = array(
     'type' => 'entity',
-    'label' => t('Purchase profiles'),
+    'label' => t('Access profiles'),
     'configurable' => false,
     'triggers' => array(),
     'permissions' => array('access user profiles'),
