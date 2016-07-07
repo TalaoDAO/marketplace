@@ -39,6 +39,7 @@ function emh_request_flag_save_block_view($delta = '') {
 }
 
 function _emh_request_flag_save_view() {
-  $nid = arg(1);
-  return flag_create_link('my_selection', $nid);
+  if ($node = menu_get_object()) {
+    return flag_create_link('my_selection', $node->nid);
+  }
 }
