@@ -450,7 +450,7 @@ function emh_request_publication_page($request) {
     $page['notice_options'] = array(
       '#theme' => 'html_tag',
       '#tag' => 'p',
-      '#value' => t("Please check the chosen options and validate your request:"),
+      '#value' => t("Please check chosen options and validate your request:"),
       '#attributes' => array(
         'class' => 'alert alert-block alert-warning',
       ),
