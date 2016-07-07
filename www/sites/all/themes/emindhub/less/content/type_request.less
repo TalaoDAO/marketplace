@@ -13,6 +13,8 @@ body.node-type-request {
   }
 }
 
+// node/add/request
+// node/%/edit
 body.page-node-add-request,
 body.node-type-request.page-node-edit {
   .main-container > header {
@@ -113,6 +115,19 @@ body.node-type-request.page-node-edit {
     > .form-group {
       .make-md-column(3);
       clear: none;
+    }
+  }
+  #edit-field-request-questions {
+    .form-control:not(textarea),
+    .input-group:not(.file-widget) {
+      max-width: 100%;
+    }
+    .form-required {
+      .hide();
+    }
+    .field-add-more-submit {
+      .btn-info;
+      .pull-right;
     }
   }
 }
