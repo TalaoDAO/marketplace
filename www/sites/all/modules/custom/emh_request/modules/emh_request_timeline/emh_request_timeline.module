@@ -28,6 +28,8 @@ function emh_request_timeline_block_info() {
     'weight' => 1,
     'status' => 1,
     'region' => 'title',
+    'visibility' => BLOCK_VISIBILITY_LISTED,
+    'pages' => 'node/*',
     'node_types' => array(
       0 => 'request',
     ),
@@ -58,80 +60,74 @@ function emh_request_timeline_block_view($delta) {
  *  The request node
  * @return array
  */
-function emh_request_timeline_get_timeline() {
-
+function emh_request_timeline_get_timeline($request) {
   $timeline = array();
-  $nid = arg(1);
-  $request = node_load($nid);
+
   $status = emh_request_get_status($request->nid);
   $status = $status['status'];
 
-  $now = time();
-  $now = format_date($now, 'custom', 'Y/m/d');
+  $now = date('Y/m/d');
   $nowDate = new DateTime($now);
 
-  $created = format_date($request->created, 'custom', 'Y/m/d');
+  $created = date('Y/m/d', $request->created);
   $createdDate = new DateTime($created);
 
-  $deadline = $request->field_expiration_date[LANGUAGE_NONE][0]['value'];
-  $deadlineDate = new DateTime($deadline);
-  $deadline = $deadlineDate->format('Y/m/d');
+  $deadline = field_get_items('node', $request, 'field_expiration_date');
+  $deadlineDate = new DateTime($deadline[0]['value']);
 
   $intervalNow = $createdDate->diff($nowDate);
   $intervalNow = $intervalNow->format('%a days');
+
   $intervalDeadline = $createdDate->diff($deadlineDate);
   $intervalDeadline = $intervalDeadline->format('%a days');
-  $intervalLeft = $nowDate->diff($deadlineDate);
-  $intervalLeft = $intervalLeft->format('%a days left');
 
-  // Closed status
-  if ($status == 'closed') $intervalLeft = t('Closed');
+  if ($status != 'closed') {
+    $intervalLeft = $nowDate->diff($deadlineDate);
+    $intervalLeft = $intervalLeft->format('%a days left');
+  } else {
+    $intervalLeft = t('Closed');
+  }
 
-  $progression = round((($intervalNow / $intervalDeadline)*100), 0);
-  $soon = FALSE;
-  if ($progression >= 90) $soon = TRUE;
+  $progression = round(($intervalNow / $intervalDeadline) * 100);
 
   $timeline = array(
     'status' => $status,
     'now' => $now,
     'created' => $created,
-    'deadline' => $deadline,
+    'deadline' => $deadlineDate->format('Y/m/d'),
     'progression' => $progression,
     'left' => $intervalLeft,
-    'soon' => $soon,
+    'soon' => ($progression >= 90),
   );
 
   return $timeline;
-
 }
 
 function _emh_request_timeline_view() {
-  $output = '';
-  $timeline = emh_request_timeline_get_timeline();
+  $request = menu_get_object();
 
-  $status = $timeline['status'];
-  if ($status == 'open') {
+  if (!$request || $request->status == NODE_NOT_PUBLISHED) {
+    return;
+  }
+
+  $timeline = emh_request_timeline_get_timeline($request);
+
+  if ($timeline['status'] == 'open') {
     $class = 'success';
   }
-  else if ($status == 'closed') {
+  elseif ($timeline['status'] == 'closed') {
     $class = 'inactive';
   }
+
   if ($timeline['soon'] === TRUE) {
     $class = 'warning';
   }
 
-  $nid = arg(1);
-  $request = node_load($nid);
-  if ($request->status == NODE_PUBLISHED && arg(2) == NULL) {
-    return theme(
-      'timeline',
-      array(
-        'class' => $class,
-        'created' => $timeline['created'],
-        'deadline' => $timeline['deadline'],
-        'progression' => $timeline['progression'],
-        'left' => $timeline['left'],
-      )
-    );
-  }
+  return theme('timeline', array(
+    'class' => $class,
+    'created' => $timeline['created'],
+    'deadline' => $timeline['deadline'],
+    'progression' => $timeline['progression'],
+    'left' => $timeline['left'],
+  ));
 }

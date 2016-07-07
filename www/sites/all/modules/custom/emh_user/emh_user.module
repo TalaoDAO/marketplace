@@ -65,63 +65,39 @@ function emh_user_menu_alter(&$items) {
 function emh_user_field_access($op, $field, $entity_type, $entity, $account) {
 
   if ($op == 'view') {
+    if (empty($entity)) {
+      return TRUE;
+    }
 
-    if (empty($entity)) return TRUE;
     if (empty($account)) {
       global $user;
       $account = $user;
     }
 
-    if (isset($entity->uid) && ($account->uid == $entity->uid)) return TRUE;
-    if (empty($node)) {
-      $nid = arg(1);
-      if (arg(0) == 'node' && !empty($nid)) $node = node_load($nid);
+    if (isset($entity->uid) && ($account->uid == $entity->uid)) {
+      return TRUE;
     }
 
     switch ($entity_type) {
-
       case 'user':
         switch($field['field_name']) {
           // We can always access few fields.
           case 'field_first_name':
-            return TRUE;
-            break;
           case 'field_last_name':
-            return TRUE;
-            break;
           case 'field_photo':
-            return TRUE;
-            break;
           case 'field_titre_metier':
-            return TRUE;
-            break;
           case 'field_employment_history':
-            return TRUE;
-            break;
           case 'field_entreprise':
-            return TRUE;
-            break;
           case 'field_sponsor_why':
-            return TRUE;
-            break;
           case 'field_partner_why':
             return TRUE;
-            break;
           default:
             return emh_access_user_can_see_full_user($account->uid, $entity->uid);
-            break;
         }
-        break;
-
-      default:
-        return TRUE;
-        break;
     }
-
   }
 
   return TRUE;
-
 }
 
 
