@@ -554,7 +554,7 @@ function emh_user_cartouche_view($uid, $context = NULL) {
 
 	// Buy profile access
 	if (!emh_access_user_can_see_full_user($uid1, $uid2) && !($context == 'author')) {
-		$cartouche .= '<a href="' . url("user/$uid2/purchase") . '" class="user-buy-access">' . t('Access profile for 50 credits') . '</a>';
+		$cartouche .= '<a href="' . url("user/$uid2/purchase") . '?destination=node/' . $node->nid . '" class="user-buy-access">' . t('Access profile for 50 credits') . '</a>';
 	}
 
   // Self cartouche
