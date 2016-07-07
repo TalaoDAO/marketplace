@@ -129,11 +129,6 @@
 
 			<div class="request-right">
 				<?php print render($content['field_image']); ?>
-
-				<?php if (!empty($elements['#node']->created)) : ?>
-					<?php print t('Publication date:'); ?>
-					<?php print format_date($elements['#node']->created, 'short_date'); ?>
-				<?php endif; ?>
 			</div>
 
 		</div>

@@ -442,11 +442,7 @@ function emh_request_publication_access($request, $account = null) {
 function emh_request_publication_page($request) {
   $page = array();
 
-  $page['notice_information'] = array(
-    '#theme' => 'html_tag',
-    '#tag' => 'p',
-    '#value' => t("You are about to publish your request, please check the information."),
-  );
+  drupal_set_message(t("You're about to publish your request, please check the information below:"), 'warning');
 
   $page['node'] = node_view($request, 'summary');
 
@@ -454,7 +450,10 @@ function emh_request_publication_page($request) {
     $page['notice_options'] = array(
       '#theme' => 'html_tag',
       '#tag' => 'p',
-      '#value' => t("Please check your options before being debited."),
+      '#value' => t("Please check the chosen options and validate your request:"),
+      '#attributes' => array(
+        'class' => 'alert alert-block alert-warning',
+      ),
     );
 
     $rows = array();
@@ -530,7 +529,7 @@ function emh_request_publication_form($form, &$form_state, $request) {
     '#tree' => false,
     'cancel' => array(
       '#type' => 'link',
-      '#title' => t("Cancel"),
+      '#title' => t("Previous"),
       '#href' => $options['path'],
       '#options' => $options,
     ),
