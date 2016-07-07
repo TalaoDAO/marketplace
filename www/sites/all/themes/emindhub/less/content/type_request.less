@@ -136,10 +136,6 @@ body.node-type-request:not(.page-node-edit) {
   .section.request,
   .section.user-submission {
     background-color: #FFF;
-    a {
-      color: @deepBlue;
-      text-decoration: underline;
-    }
   }
   .section {
     .make-row();
@@ -221,36 +217,17 @@ body.node-type-request:not(.page-node-edit) {
     }
   }
 
-  // User cartouche
-  .user-cartouche {
-    clear: both;
-    border: 1px solid #e1e4e7;
-    padding: 15px;
-    margin-bottom: 15px;
-    .text-center;
-
-    > span {
-      display: block;
-      margin-bottom: 10px;
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-
-    .user-identity {
-      font-weight: bold;
-      .lastname {
-        text-transform: uppercase;
-      }
-    }
-
-    .user-organisation,
-    .user-activity {
-      font-style: italic;
-      color: #4e6374;
+  // Request
+  .section.request {
+    // User cartouche
+    .user-cartouche {
+      clear: both;
+      border: 1px solid #e1e4e7;
+      padding: 15px;
+      margin-bottom: 15px;
+      .text-center;
     }
   }
-
 
   // User submission
   .user-submission {
@@ -351,18 +328,25 @@ body.node-type-request:not(.page-node-edit) {
       color: @text-color;
 
       .views-field-views-bulk-operations {
-        .make-md-column(1);
+        position: absolute;
+        z-index: 100;
       }
+      
       .views-field-emh-author {
         .make-md-column(2);
         .text-center;
+        .user-badge img {
+          width: 50px;
+          height: 50px;
+        }
       }
+
       .views-field-emh-answer,
       .views-field-view-submission {
-        .make-md-column(9);
+        .make-md-column(10);
       }
+
       .views-field-view-submission {
-        .make-md-column-offset(3);
         .text-right;
       }
 

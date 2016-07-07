@@ -38,7 +38,7 @@ class views_handler_field_emh_webform_author extends views_handler_field {
 
     module_load_include('inc', 'webform', 'includes/webform.submissions');
     $entity = webform_get_submission($nid, $sid);
-    return emh_user_get_beautiful_profile_link($entity->uid);
+    return emh_user_cartouche_view($entity->uid);
   }
 
   /**
