@@ -157,7 +157,7 @@ if ($user_submission) {
 
 					<?php if (!empty($elements['#node']->created)) : ?>
 						<?php print t('Publication date:'); ?>
-						<?php print format_date($elements['#node']->created, 'custom', 'm/d/Y'); ?>
+						<?php print format_date($elements['#node']->created, 'short_date'); ?>
 					<?php endif; ?>
 
 				</div>
