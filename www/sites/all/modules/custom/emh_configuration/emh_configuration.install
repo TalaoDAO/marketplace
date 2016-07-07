@@ -481,3 +481,15 @@ function emh_configuration_update_7031() {
       ->execute();
   }
 }
+
+/*
+ * CHG: Update short date format.
+ */
+function emh_configuration_update_7032() {
+   db_update('date_formats')
+      ->fields(array(
+        'format' => 'Y/m/d',
+     )
+    ->condition('dfid', '60')
+    ->execute();
+}
