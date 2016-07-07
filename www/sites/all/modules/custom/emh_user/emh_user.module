@@ -37,7 +37,7 @@ function emh_user_menu() {
 		'access arguments' => array('access content'),
 	);
   $items['user/%user/purchase'] = array(
-		'title' => 'Access profile',
+		'title' => 'Buy profile access',
 		'page callback' => 'drupal_get_form',
     'page arguments' => array('emh_user_profile_purchase_form', 1),
     'access callback' => 'user_view_access',
