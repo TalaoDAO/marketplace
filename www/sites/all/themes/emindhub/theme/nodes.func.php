@@ -34,11 +34,7 @@ function emindhub_preprocess_node(&$variables, $hook) {
 				}
 
 				// Request status
-				$nid = arg(1);
-				$variables['request_status'] = '';
-				if (!empty($nid) && module_exists('emh_request')) {
-          $variables['request_status'] = emh_request_get_status($nid);
-        }
+        $variables['request_status'] = emh_request_get_status($node->nid);
 
         if ($node->type == 'request') {
           global $user;
@@ -49,6 +45,7 @@ function emindhub_preprocess_node(&$variables, $hook) {
           foreach ($variables['submissions'] as $submission) {
             if ($submission->uid == $user->uid) {
               $variables['user_submission'] = $submission;
+              $variables['submission_status'] = emh_answer_get_status($submission);
               break;
             }
           }
@@ -63,7 +60,6 @@ function emindhub_preprocess_node(&$variables, $hook) {
             $variables['hidden_organisation'] = ($hide_organisation[0]['value'] == 0);
           }
         }
-
 
 				break;
 		}

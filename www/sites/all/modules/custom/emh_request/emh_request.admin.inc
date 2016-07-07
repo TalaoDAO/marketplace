@@ -1,8 +1,9 @@
 <?php
 /**
  * @file
- * Elements related to the adminstration of the module.
+ * Elements related to the administration of the module.
  */
+
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -17,6 +18,7 @@ function emh_request_form_emh_points_admin_form_alter(&$form, &$form_state, $for
     '#description' => t('Leave a field empty to restablish the initial cost.'),
     '#collapsible' => true,
     '#collapsed' => false,
+    '#weight' => 500,
     '#tree' => true,
   );
 
@@ -41,7 +43,7 @@ function emh_request_form_emh_points_admin_form_validate($form, &$form_state) {
 
     if (strlen($cost) > 0) {
       if (!ctype_digit($cost)) {
-        form_error($form['emh_options_costs'][$id], t("The option's cost must be an integer."));
+        form_error($form['emh_options_costs'][$id], t("The option's cost must be a positive integer."));
       }
     }
     else {

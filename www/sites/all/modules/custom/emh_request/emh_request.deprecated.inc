@@ -187,17 +187,14 @@ function emh_request_get_types() {
  * Helper function to retrieve the status of a request.
  * draft / open / selection / closed
  */
-function emh_request_get_status($nid) {
-
-  if (empty($nid)) {
-    $arg0 = arg(0);
-    $arg1 = arg(1);
-    $arg2 = arg(2);
-    if ($arg0 == 'node' && empty($arg2)) {
-      $node = node_load($arg1);
-    }
+function emh_request_get_status($node = null) {
+  if ($node === null) {
+    $node = menu_get_object();
   }
-  $node = node_load($nid);
+  elseif (is_numeric($node)) {
+    $node = node_load($node);
+  }
+
   $workflow = array();
   $today = '';
   $deadline = '';
@@ -206,15 +203,15 @@ function emh_request_get_status($nid) {
     $workflow = array( 'status' => 'draft', 'label' => t('Draft') );
   }
   else {
-    if (!emh_points_get_points_closed_status($nid)) {
+    if (!emh_points_get_points_closed_status($node->nid)) {
       $today = date('Y-m-d H:i:s');
-      $items = field_get_items('node',$node,'field_expiration_date');
+      $items = field_get_items('node', $node, 'field_expiration_date');
       $deadline = isset($items[0]['value']) ? $items[0]['value'] : '';
       $deadline = date('Y-m-d H:i:s', strtotime("$deadline +1 day"));
+
       if ($today < $deadline) {
         $workflow = array( 'status' => 'open', 'label' => t('Open') );
-      }
-      else {
+      } else {
         $workflow = array( 'status' => 'selection', 'label' => t('Selection') );
       }
     }
@@ -224,7 +221,6 @@ function emh_request_get_status($nid) {
   }
 
 	return $workflow;
-
 }
 
 /**

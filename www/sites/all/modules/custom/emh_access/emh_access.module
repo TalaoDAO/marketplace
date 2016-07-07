@@ -89,7 +89,7 @@ function emh_access_user_can_see_full_user($uid, $uid2) {
 
   // Organic Groups / EMH Circles
   // User1 is admin/referent of one of User2 circles
-  if (module_exists('og') && module_exists('emh_circles')) {
+  if (!empty($u2_circlesIDs)) {
     if (_emh_circles_check_user_is_adminmember_of_groups($uid, $u2_circlesIDs)) return TRUE;
     if (_emh_circles_check_user_is_admin_of_groups($uid, $u2_circlesIDs)) return TRUE;
     if (_emh_circles_check_user_is_referentmember_of_groups($uid, $u2_circlesIDs)) return TRUE;
@@ -179,20 +179,23 @@ function emh_access_user_can_see_full_answer($nid, $entity = NULL, $account = NU
         $circles[] = $item['target_id'];
       }
 
-      if (_emh_circles_check_user_is_adminmember_of_groups($account->uid, $circles)) {
-        return TRUE;
-      }
-      if (_emh_circles_check_user_is_admin_of_groups($account->uid, $circles)) {
-        return TRUE;
-      }
-      if (_emh_circles_check_user_is_referentmember_of_groups($account->uid, $circles)) {
-        return TRUE;
-      }
-      foreach ($circles as $gid) {
-        if (og_user_access('node', $gid, 'access all webform results')) {
+      if (!empty($circles)) {
+        if (_emh_circles_check_user_is_adminmember_of_groups($account->uid, $circles)) {
           return TRUE;
         }
+        if (_emh_circles_check_user_is_admin_of_groups($account->uid, $circles)) {
+          return TRUE;
+        }
+        if (_emh_circles_check_user_is_referentmember_of_groups($account->uid, $circles)) {
+          return TRUE;
+        }
+        foreach ($circles as $gid) {
+          if (og_user_access('node', $gid, 'access all webform results')) {
+            return TRUE;
+          }
+        }
       }
+
     }
 
     return FALSE;
@@ -258,14 +261,16 @@ function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
         $circles[] = $item['target_id'];
       }
 
-      if (_emh_circles_check_user_is_adminmember_of_groups($account->uid, $circles)) {
-        return TRUE;
-      }
-      if (_emh_circles_check_user_is_admin_of_groups($account->uid, $circles)) {
-        return TRUE;
-      }
-      if (_emh_circles_check_user_is_referentmember_of_groups($account->uid, $circles)) {
-        return TRUE;
+      if (!empty($circles)) {
+        if (_emh_circles_check_user_is_adminmember_of_groups($account->uid, $circles)) {
+          return TRUE;
+        }
+        if (_emh_circles_check_user_is_admin_of_groups($account->uid, $circles)) {
+          return TRUE;
+        }
+        if (_emh_circles_check_user_is_referentmember_of_groups($account->uid, $circles)) {
+          return TRUE;
+        }
       }
     }
   }
