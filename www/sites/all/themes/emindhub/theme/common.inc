@@ -38,6 +38,7 @@ function _emindhub_colorize_button($text) {
       // t('Confirm'),
       // t('Submit'),
       // t('Search'),
+      t('Continue'),
       t('E-mail new password'),
       t('Join'),
       t('Log in'),
