@@ -15,6 +15,8 @@ function emh_configuration_enable() {
   emh_configuration_update_7004();
   emh_configuration_update_7005();
   emh_configuration_update_7006();
+
+  variable_set('date_format_short_date', 'Y/m/d'); 
 }
 
 /**
