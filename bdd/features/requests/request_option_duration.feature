@@ -44,7 +44,7 @@ Feature: Request and submissions
     Given I check "Duration"
     And I enter "6 months" for "Duration of the mission"
     And I enter "07/06/2017" for "Date"
-    And I press "Publish"
+    And I press "Continue"
     # Validation page
     And I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been published."

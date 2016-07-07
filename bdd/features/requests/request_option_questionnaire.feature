@@ -47,7 +47,7 @@ Feature: Request Option Questionnaire
     And I check the box "Questionnaire"
     Then I should see "Questions"
     And I fill in "edit-field-request-questions-und-0-value" with "My little questionnaire"
-    And I press "Publish"
+    And I press "Continue"
     Then I should see "Request How to become a superhero? has been updated."
     # Validation page
     And I press "Publish"
