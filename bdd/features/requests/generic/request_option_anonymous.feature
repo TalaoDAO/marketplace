@@ -11,19 +11,21 @@ Feature: Request and submissions
     | Avengers | admin   |
 
     Given "corporate" content:
-    | title     | author  |
-    | Google    | admin   |
-    | Facebook  | admin   |
-    | Twitter   | admin   |
+    | title      | author  |
+    | GoogleCorp | admin   |
+    | Facebook   | admin   |
+    | Twitter    | admin   |
 
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | America         | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | Man             | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | America         | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | GoogleCorp  | Freelancer | Maintenance |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | Man             | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Facebook    | Employee  | Energy        |
 
     Given "request" content:
     | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
     | How to become a superhero?  | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    | 0       |
+
+    Given I give "client1" 10000 emh points 
 
     # Make client1 as a Creator member of Avengers circle
     Given I am logged in as a user with the "administrator" role
@@ -42,7 +44,9 @@ Feature: Request and submissions
     Given I check "Anonymous"
     And I check "Hide my name"
     And I press "Publish"
-    Then I should see the success message "Request How to become a superhero? has been updated."
+    #Skip validation page
+    And I press "Publish"
+    Then I should see the success message "Request How to become a superhero? has been published."
 
     Given I am logged in as "expert1"
     And I go to homepage
@@ -58,12 +62,14 @@ Feature: Request and submissions
     Given I check "Anonymous"
     And I check "Hide my organisation"
     And I press "Publish"
-    Then I should see the success message "Request How to become a superhero? has been updated."
+    #Skip validation page
+    And I press "Publish"
+    Then I should see the success message "Request How to become a superhero? has been published."
 
     Given I am logged in as "expert1"
     And I go to homepage
     And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should not see "Google"
+    Then I should not see "GoogleCorp"
 
   Scenario: The author choose to hide its name & organisation and show its activity
     Given I am logged in as "client1"
@@ -75,11 +81,13 @@ Feature: Request and submissions
     And I check "Hide my organisation"
     And I enter "ALMIGHTY GOD" for "You can precise your activity instead"
     And I press "Publish"
-    Then I should see the success message "Request How to become a superhero? has been updated."
+    #Skip validation page
+    And I press "Publish"
+    Then I should see the success message "Request How to become a superhero? has been published."
 
     Given I am logged in as "expert1"
     And I go to homepage
     And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should not see "Captain America"
-    Then I should not see "Google"
+    Then I should not see "GoogleCorp"
     Then I should see "ALMIGHTY GOD"
