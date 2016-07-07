@@ -79,6 +79,6 @@ Feature: Request and submissions
     Then I should see "2" in the "How to become a superhero?" row
 
     When I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should see "Submissions are only visible by you."
+    Then I should see "Submissions to your request are only visible by you."
     And I should see "Iron MAN"
     And I should see "Everybody can be, trust me, I'm the best we known."

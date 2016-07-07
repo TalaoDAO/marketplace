@@ -34,7 +34,7 @@ Feature: Request Option Price
       And I press "Save"
     #Then
 
-    When I go to "content/leagueofjustice"
+    When I go to "content/league-justice"
       And I click "Edit"
       And I fill in "Questionnaire" with "700"
       And I fill in "Duration" with "1300"
@@ -50,7 +50,7 @@ Feature: Request Option Price
       And I press "Update membership"
     Then I should see "Creator member" in the "Captain AMERICA" row
 
-    When I go to "content/leagueofjustice"
+    When I go to "content/league-justice"
       And I click "Group"
       And I click "People"
       And I click "edit" in the "Captain AMERICA" row
@@ -58,7 +58,7 @@ Feature: Request Option Price
       And I press "Update membership"
     Then I should see "Creator member" in the "Captain AMERICA" row
 
-    When I go to "content/guardiansofgalaxy"
+    When I go to "content/guardians-galaxy"
       And I click "Group"
       And I click "People"
       And I click "edit" in the "Captain AMERICA" row
