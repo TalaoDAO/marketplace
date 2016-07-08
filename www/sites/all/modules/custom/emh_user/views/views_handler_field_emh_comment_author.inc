@@ -19,7 +19,7 @@ class views_handler_field_emh_comment_author extends views_handler_field {
   }
 
   /**
-   * Renders our field, displays the number of points of the comment.
+   * Renders our field, displays the author of the comment.
    */
   function render($values) {
     if (isset($values->{$this->aliases['cid']})) {

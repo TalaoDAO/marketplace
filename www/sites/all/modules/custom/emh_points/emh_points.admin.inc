@@ -9,13 +9,18 @@
  */
 function emh_points_admin_form() {
   $form = array();
+
   $form['emh_points_expiration'] = array(
     '#title' => t('Points expiration default time'),
     '#type' => 'textfield',
     '#description' => t('Default expiration of the point, expressed in PHP strtotime string, see !link', array('!link' => l('this link', 'http://php.net/manual/fr/datetime.formats.relative.php'))),
     '#default_value'=> variable_get('emh_points_expiration', '+ 1 year'),
   );
-  return system_settings_form($form);
+
+  $form = system_settings_form($form);
+  $form['actions']['#weight'] = 1000;
+
+  return $form;
 }
 
 /**

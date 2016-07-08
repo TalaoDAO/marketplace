@@ -45,8 +45,7 @@
  * @ingroup themeable
  */
 global $base_url;
-$safe_link = rawurldecode($base_url . '/requests/all?type[challenge]=challenge');
-$threshold = variable_get('emh_points_challenge_threshold', '1000');
+$safe_link = rawurldecode($base_url . '/requests/all?type[request]=request');
 ?>
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
@@ -59,12 +58,18 @@ $threshold = variable_get('emh_points_challenge_threshold', '1000');
   <div class="content">
     <?php //print $content ?>
 
-    <?php if (user_access('create challenge content')) : ?>
-    <?php echo sprintf(t('%sChallenge%sRequest for %sservice proposals%s to innovate or solve a problem%s %s points%sCreate a challenge%s'), '<div class="type-info"><h3>', '</h3><span class="mobilize-info">', '<strong>', '</strong>', '<br><span class="badge">', $threshold, '</span></span><a class="btn btn-client" href="' . url("node/add/challenge") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a></div>'); ?>
-
+    <?php if (user_access('create request content')) : ?>
+      <?php echo sprintf(t('%sCreate a request%s'), '<a class="btn btn-client" href="' . url("node/add/request") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a>'); ?>
     <?php else : ?>
-    <?php echo sprintf(t('%sChallenge%sAnswer requests for %sservice proposals%sMore challenges%s'), '<div class="type-info"><h3>', '</h3><span class="mobilize-info">', '<strong>', '</strong></span><a class="btn btn-expert" href="' . $safe_link . '">', '&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></div>'); ?>
+      <?php echo sprintf(t('%sBrowse requests%s'), '<a class="btn btn-expert" href="' . $safe_link . '">', '&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>'); ?>
+    <?php endif; ?>
 
+    <?php if (user_access('invite experts')) : ?>
+      <a class="btn btn-flash icon-user" href="<?php print url('invitations'); ?>"><?php print t('Invite experts'); ?></a>
+    <?php endif; ?>
+
+    <?php if (user_has_role(3) || user_has_role(4) || user_has_role(6)) : ?>
+      <a class="btn btn-flash icon-community" href="<?php print url('circles'); ?>"><?php print t('Join circles'); ?></a>
     <?php endif; ?>
 
   </span>

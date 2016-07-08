@@ -90,21 +90,8 @@ function emindhub_preprocess_block(&$variables) {
       $classes[] = 'col-xs-6 col-md-12 emh-block-gold';
       break;
 
-    // HP - Ask a question
-    case 'block-14':
-      $classes[] = 'col-xs-12 col-md-4';
-      $classes[] = 'emh-block-grey';
-      break;
-
-    // HP - Start a challenge
+    // HP - Create a request
     case 'block-8':
-      $classes[] = 'col-xs-12 col-md-4';
-      $classes[] = 'emh-block-grey';
-      break;
-
-    // HP - Create a mission
-    case 'block-16':
-      $classes[] = 'col-xs-12 col-md-4';
       $classes[] = 'emh-block-grey';
       break;
 
@@ -190,12 +177,6 @@ function emindhub_preprocess_block(&$variables) {
       $classes[] = 'emh-block-slider';
       break;
 
-    // Query list
-    case 'views-query_list-block':
-    case 'views-query_list-block_1':
-      $classes[] = 'emh-block-blue-title';
-      break;
-
     // News
     case 'views-news_thread-block':
       $classes[] = 'emh-block-dark';
@@ -213,7 +194,7 @@ function emindhub_preprocess_block(&$variables) {
     //   $classes[] = 'emh-block-dark';
     //   break;
 
-    // More about us ?
+    // More about us?
     case 'formblock-contact_site':
       $classes[] = 'emh-block-dark-title';
       break;

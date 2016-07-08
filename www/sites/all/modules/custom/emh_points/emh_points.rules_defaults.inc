@@ -15,6 +15,7 @@ function emh_points_default_rules_configuration() {
   $items['rules_contact_buy'] = entity_import('rules_config', '{ "rules_contact_buy" : {
       "LABEL" : "Contact buy",
       "PLUGIN" : "reaction rule",
+      "ACTIVE" : false,
       "OWNER" : "rules",
       "REQUIRES" : [ "php", "emh_points", "rules", "flag" ],
       "ON" : { "flag_flagged_my_contacts" : [] },
@@ -50,6 +51,7 @@ function emh_points_default_rules_configuration() {
   $items['rules_contact_impossible'] = entity_import('rules_config', '{ "rules_contact_impossible" : {
       "LABEL" : "Contact impossible",
       "PLUGIN" : "reaction rule",
+      "ACTIVE" : false,
       "OWNER" : "rules",
       "REQUIRES" : [ "php", "emh_points", "flag", "rules" ],
       "ON" : { "flag_flagged_my_contacts" : [] },
