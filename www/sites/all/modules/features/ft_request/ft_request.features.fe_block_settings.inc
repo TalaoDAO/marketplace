@@ -168,7 +168,7 @@ node/*/edit',
         'weight' => 0,
       ),
     ),
-    'title' => 'Submissions',
+    'title' => 'Submission(s)',
     'visibility' => 0,
   );
 

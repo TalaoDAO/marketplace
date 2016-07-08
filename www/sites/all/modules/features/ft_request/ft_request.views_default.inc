@@ -118,7 +118,9 @@ function ft_request_views_default_views() {
 
   /* Display: (B) Request submissions */
   $handler = $view->new_display('block', '(B) Request submissions', 'block_request_submissions');
-  $handler->display->display_options['block_description'] = 'Submissions';
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Submission(s)';
+  $handler->display->display_options['block_description'] = 'Submission(s)';
 
   /* Display: (B) Submissions to my requests */
   $handler = $view->new_display('block', '(B) Submissions to my requests', 'block_my_requests_submissions');
