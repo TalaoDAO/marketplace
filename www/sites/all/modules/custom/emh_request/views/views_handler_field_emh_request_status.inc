@@ -30,7 +30,7 @@ class views_handler_field_emh_request_status extends views_handler_field {
     }
 
     $status = emh_request_get_status($nid);
-    return $status['label'];
+    return '<span class="emh-status ' . $status['status'] . '">' . $status['label'] . '</span>';
   }
 
   /**

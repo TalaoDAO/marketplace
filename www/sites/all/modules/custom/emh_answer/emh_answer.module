@@ -49,14 +49,19 @@ function emh_answer_form_alter(&$form, &$form_state, $form_id) {
     $request_ID = $form['#node']->nid;
     switch ($form_id) {
       case "webform_client_form_$request_ID":
+        // Draft to published
         if (!empty($form['#is_draft']) || empty($form['#submission'])) {
           $form['#submit'][] = '_emh_answer_form_submit';
         }
+        // Published again
+        if (empty($form['#is_draft']) || !empty($form['#submission'])) {
+          $form['#submit'][] = '_emh_answer_form_submit_again';
+        }
         break;
-      case 'comment_node_question1_form':
-      case 'comment_node_challenge_form':
-        $form['#submit'][] = '_emh_answer_form_submit';
-        break;
+      // case 'comment_node_question1_form':
+      // case 'comment_node_challenge_form':
+      //   $form['#submit'][] = '_emh_answer_form_submit';
+      //   break;
       default:
         break;
     }
@@ -72,12 +77,13 @@ function _emh_answer_form_submit($form, &$form_state) {
   $mail = $author->mail;
   $language = language_default();
   switch ($node->type) {
-    case 'question1':
-    case 'challenge':
-      $url = url('node/' . $node->nid . '/answers?pk_campaign=new_answer_' . $node->type . '_' . $node->nid, array('absolute' => TRUE));
-      break;
+    // case 'question1':
+    // case 'challenge':
+    //   $url = url('node/' . $node->nid . '/answers?pk_campaign=new_answer_' . $node->type . '_' . $node->nid, array('absolute' => TRUE));
+    //   break;
 
     case 'webform':
+    case 'request':
       $url = url('node/' . $node->nid . '/results?pk_campaign=new_answer_' . $node->type . '_' . $node->nid, array('absolute' => TRUE));
       break;
     default:
@@ -89,7 +95,15 @@ function _emh_answer_form_submit($form, &$form_state) {
     '@author' => $author->field_first_name[LANGUAGE_NONE][0]['value'],
   );
 
-  drupal_mail($module, $key, $mail, $language, $params);
+  // TEMPORARY
+  // drupal_mail($module, $key, $mail, $language, $params);
+  drupal_set_message(t('Your submission has been published.'));
+  $form_state['redirect'] = 'node/' . $node->nid;
+}
+
+function _emh_answer_form_submit_again($form, &$form_state) {
+  $node = $form['#node'];
+  $form_state['redirect'] = 'node/' . $node->nid;
 }
 
 /**
@@ -124,4 +138,21 @@ function emh_answer_mail($key, &$message, $params) {
     default:
       break;
   }
+}
+
+
+function emh_answer_get_status($submission) {
+  $workflow = array();
+
+  if (!empty($submission)) {
+    if (!empty($submission->is_draft)) {
+      $workflow = array( 'status' => 'draft', 'label' => t('Draft') );
+    }
+    else {
+      $workflow = array( 'status' => 'published', 'label' => t('Published') );
+    }
+  }
+
+	return $workflow;
+
 }

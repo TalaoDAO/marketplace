@@ -1292,6 +1292,27 @@ function ft_field_base_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
+  // Exported field_base: 'field_options_costs'.
+  $field_bases['field_options_costs'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_options_costs',
+    'field_permissions' => array(
+      'owner_field' => 'Comment',
+      'type' => 0,
+    ),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'emh_circles',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'emh_option_cost_modifier',
+  );
+
   // Exported field_base: 'field_other_areas'.
   $field_bases['field_other_areas'] = array(
     'active' => 1,

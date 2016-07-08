@@ -1,7 +1,12 @@
 name = EMH Request
-description = Global functions for all requests : question, mission, challenge.
+description = Global functions for all requests: question, mission, challenge.
 package = EMH
 core = 7.x
+
+dependencies[] = conditional_fields
+dependencies[] = emh_points
+dependencies[] = save_draft
+dependencies[] = webform
 
 files[] = views/views_handler_field_emh_comment_answer.inc
 files[] = views/views_handler_field_emh_webform_answer.inc
