@@ -175,7 +175,7 @@ function emh_user_profile_purchase_form_submit($form, &$form_state) {
   try {
     emh_user_purchase_profile($account);
 
-    drupal_set_message(t("You can now consult the !user's profile.", array(
+    drupal_set_message(t("You can now access !user's profile.", array(
       '!user' => emh_user_get_beautiful_firstname($account),
     )));
   }
