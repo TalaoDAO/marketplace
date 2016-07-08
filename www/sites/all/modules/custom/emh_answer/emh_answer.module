@@ -82,7 +82,7 @@ function _emh_answer_form_submit($form, &$form_state) {
     //   $url = url('node/' . $node->nid . '/answers?pk_campaign=new_answer_' . $node->type . '_' . $node->nid, array('absolute' => TRUE));
     //   break;
 
-    case 'webform':
+    // case 'webform':
     case 'request':
       $url = url('node/' . $node->nid . '/results?pk_campaign=new_answer_' . $node->type . '_' . $node->nid, array('absolute' => TRUE));
       break;
@@ -95,8 +95,7 @@ function _emh_answer_form_submit($form, &$form_state) {
     '@author' => $author->field_first_name[LANGUAGE_NONE][0]['value'],
   );
 
-  // TEMPORARY
-  // drupal_mail($module, $key, $mail, $language, $params);
+  drupal_mail($module, $key, $mail, $language, $params);
   drupal_set_message(t('Your submission has been published.'));
   $form_state['redirect'] = 'node/' . $node->nid;
 }
