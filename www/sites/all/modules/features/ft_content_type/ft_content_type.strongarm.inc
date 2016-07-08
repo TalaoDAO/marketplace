@@ -489,10 +489,10 @@ function ft_content_type_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '8',
+          'weight' => '9',
         ),
         'metatags' => array(
-          'weight' => '6',
+          'weight' => '7',
         ),
       ),
       'display' => array(

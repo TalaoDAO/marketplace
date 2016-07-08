@@ -38,6 +38,9 @@ Feature: Test points
     And I press "Update membership"
 
     Given I am logged in as "expert1"
+    And I click "Edit account"
+    And I fill in "field_address[und][0][phone_number]" with "0712345670"
+    And I press "Save"
     When I go to homepage
     When I click "What about?" in the "What about?" row
     Then I enter "I'm the best superhero in da world." for "Public answer"

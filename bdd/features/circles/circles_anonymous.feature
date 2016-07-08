@@ -4,7 +4,7 @@ Feature: Requests visibility for Anonymous
   As an anonymous
   I want to check if I see the right datas
 
-  Background: og visibility : Create questions and answers
+  Background: og visibility : Create requests
 
     Given "circle" content:
     | title    | author  |
@@ -18,21 +18,15 @@ Feature: Requests visibility for Anonymous
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
-    | client2 | emindhub.test+client2@gmail.com | business | Charle           | Xavier          |                 |                    | X-Men        | emindhub.test+client2@gmail.com | Apple   | Freelancer | Engines     |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
+    | client2 | emindhub.test+client2@gmail.com | business | Charle           | XAVIER          |                 |                    | X-Men        | emindhub.test+client2@gmail.com | Apple   | Freelancer | Engines     |
 
-    Given I give "client1" 400 emh points
-    Given I give "client2" 100 emh points
-
-    Given "question1" content:
-    | title         | field_domaine  | og_group_ref   | field_reward | author  |
-    | Fight Magneto | Energy         | X-Men          | 100          | client2 |
-    | Fight Ultron  | Energy, Drones | Avengers       | 100          | client1 |
-    | Fight Hydra   | Drones         | Avengers       | 100          | client1 |
-
-    Given "challenge" content:
-    | title         | field_domaine  | og_group_ref    | field_reward | author  |
-    | Fight Thanos  | Drones         | Avengers, X-Men | 100          | client1 |
+    Given "request" content:
+    | title         | field_domaine  | og_group_ref    | author  | field_expiration_date  | status  |
+    | Fight Magneto | Energy         | X-Men           | client2 | 2017-02-08 17:45:00    | 1       |
+    | Fight Ultron  | Energy, Drones | Avengers        | client1 | 2017-02-08 17:45:00    | 1       |
+    | Fight Hydra   | Drones         | Avengers        | client1 | 2017-02-08 17:45:00    | 1       |
+    | Fight Thanos  | Drones         | Avengers, X-Men | client1 | 2017-02-08 17:45:00    | 1       |
 
   Scenario: Anonymous cannot see the requests
     Given I am not logged in

@@ -22,14 +22,14 @@
  */
 global $base_url;
 $author = user_load($node->uid);
-$node_link = $base_url . '/user/login?destination=node/' . $node->nid . '?pk_campaign=new_answer_mission_' . $node->nid . '&amp;pk_kwd=link';
-$node_calltoaction = $base_url . '/user/login?destination=node/' . $node->nid . '?pk_campaign=new_answer_mission_' . $node->nid . '&amp;pk_kwd=calltoaction';
+$node_link = $base_url . '/user/login?destination=node/' . $node->nid . '?pk_campaign=new_submission_request_' . $node->nid . '&amp;pk_kwd=link';
+$node_calltoaction = $base_url . '/user/login?destination=node/' . $node->nid . '?pk_campaign=new_submission_request_' . $node->nid . '&amp;pk_kwd=calltoaction';
 ?>
 
-<h1 style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:22px;margin-bottom:20px;color:#333;line-height:150%;"><?php print t('A new answer just came up on your request'); ?></h1>
+<h1 style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:22px;margin-bottom:20px;color:#333;line-height:150%;"><?php print t('A new submission just came up on your request'); ?></h1>
 <div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:16px;margin-bottom:20px;color:#333;line-height:150%;">
   <p><?php print t('Dear'); ?> <?php print $author->field_first_name; ?>,</p>
-  <p><?php print t('A new answer has been published on your request'); ?> <strong><a title="<?php print $node->title; ?>" href="<?php print $node_link; ?>" target="_blank" style="font-weight:bold!important;"><?php print $node->title; ?></a></strong>.</p>
+  <p><?php print t('A new submission has been published on your request'); ?> <strong><a title="<?php print $node->title; ?>" href="<?php print $node_link; ?>" target="_blank" style="font-weight:bold!important;"><?php print $node->title; ?></a></strong>.</p>
   <p><?php print t('Should you like to know more, just log into the platform now.'); ?></p>
 </div>
 <table style="min-width:100%;" width="100%" border="0" cellpadding="0" cellspacing="0" class="emailButton">

@@ -44,30 +44,31 @@
  *
  * @ingroup themeable
  */
-global $base_url;
-$safe_link = rawurldecode($base_url . '/requests/all?type[question1]=question1');
-$threshold = variable_get('emh_points_question1_threshold', '1000');
+$node = menu_get_object();
 ?>
-<section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
-
+<?php if (($node->uid == $user->uid) || !emh_request_has_option($node, 'private')) : ?>
+<section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix section submissions"<?php print $attributes; ?>>
+  <span id="request-submissions"></span>
   <?php print render($title_prefix); ?>
   <?php if ($title): ?>
-    <h2<?php print $title_attributes; ?>><span><?php print $title; ?></span></h2>
+    <div class="row submissions-title">
+      <div class="col-sm-8">
+        <h2<?php print $title_attributes; ?>><span class="submission-title"><?php print $title; ?></span>&nbsp;<span class="submission-count">(<?php print webform_get_submission_count($node->nid); ?>)</span></h2>
+      </div>
+      <?php if ($node->uid == $user->uid && emh_request_has_option($node, 'private')) : ?>
+        <div class="col-sm-4 text-right submissions-private-info">
+          <span class="submission-private"><?php print t('Submissions to your request are only visible by you.'); ?></span>
+        </div>
+      <?php endif; ?>
+    </div>
   <?php endif;?>
   <?php print render($title_suffix); ?>
 
-  <div class="content">
-    <?php //print $content ?>
-
-    <?php if (user_access('create question1 content')) : ?>
-    <?php echo sprintf(t('%sQuestion%sAsk a question and get %smultiple answers%s from experts%s %s points%sCreate a question%s'), '<div class="type-info"><h3>', '</h3><span class="mobilize-info">', '<strong>', '</strong>', '<br><span class="badge">', $threshold, '</span></span><a class="btn btn-client" href="' . url("node/add/question1") . '"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;', '</a></div>'); ?>
-      </span>
-
-    <?php else : ?>
-    <?php echo sprintf(t('%sQuestion%sAnswer questions and %sprovide clients%s with ideas, advices, feedbacks, etc.%sMore questions%s'), '<div class="type-info"><h3>', '</h3><span class="mobilize-info">', '<strong>', '</strong>', '</span><a class="btn btn-expert" href="' . $safe_link . '">', '&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></div>'); ?>
-
-    <?php endif; ?>
-
-  </span>
+  <?php if ($content): ?>
+    <div class="content submissions-list">
+      <?php print $content; ?>
+    </div>
+  <?php endif;?>
 
 </section> <!-- /.block -->
+<?php endif; ?>

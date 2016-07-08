@@ -6,16 +6,24 @@
 
 
 /**
-* Implements hook_enable
-*/
+ * Implements hook_install().
+ */
+function emh_request_install() {
+  variable_set('emh_request_send_notification_email_all_domains', 1);
+  variable_set('webform_node_request', true);
+}
+
+
+/**
+ * Implements hook_enable().
+ */
 function emh_request_enable() {
   emh_request_update_7001();
   emh_request_update_7002();
-  emh_request_update_7103();
+  emh_request_update_7113();
   emh_request_enable_strings();
-
-  variable_set('emh_request_send_notification_email_all_domains', 1);
 }
+
 
 /**
  * Implements hook_disable().
@@ -24,12 +32,15 @@ function emh_request_disable() {
   emh_request_disable_strings();
 }
 
+
 /**
  * Implements hook_uninstall().
  */
 function emh_request_uninstall() {
   variable_del('emh_request_send_notification_email_all_domains');
+  variable_del('webform_node_request');
 }
+
 
 function emh_request_enable_strings() {
   global $language;
@@ -41,6 +52,7 @@ function emh_request_enable_strings() {
   variable_set("locale_custom_strings_$lang", $strings);
 }
 
+
 function emh_request_disable_strings() {
   global $language;
   $lang = $language->language;
@@ -51,6 +63,7 @@ function emh_request_disable_strings() {
   variable_set("locale_custom_strings_$lang", $strings);
 }
 
+
 /**
  * Provides string overrides.
  */
@@ -59,28 +72,70 @@ function _emh_request_string_overrides() {
     // Webform
     'No Components, add a component below.' => 'No questions, add a question below.',
     'New component name' => 'New question',
-    'This will immediately delete the %name component from the %webform webform. This cannot be undone.' => 'This will immediately delete the %name question from the %webform mission. This cannot be undone.',
-    'Submissions for %user' => 'Answers',
+    'This will immediately delete the %name component from the %webform webform. This cannot be undone.' => 'This will immediately delete the %name question from the %webform request. This cannot be undone.',
+    'Submissions for %user' => 'Submissions',
     'Edit component: @name' => 'Edit question @name',
     'New component %name added.' => 'New question %name added.',
     'The component positions and required values have been updated.' => 'Your questions have been updated.',
-    'Submissions for this form are closed.' => 'Answers for this mission are closed.',
-    'You have already submitted this form.' => 'You have already submitted this mission.',
-    'Submission updated.' => 'Your answer has been updated.',
-    'Submission saved. You may return to this form later and it will restore the current values.' => 'Your answer has been saved as draft. You may return to this mission later and it will restore your current answer.',
+    'Submissions for this form are closed.' => 'Submissions for this request are closed.',
+    'You have already submitted this form.' => 'You have already submitted this request.',
+    'Submission updated.' => 'Your submission has been updated.',
+    'Submission saved. You may return to this form later and it will restore the current values.' => 'Your submission has been saved as draft. You can modify or publish this submission anytime.',
   );
 }
+
+
+//----------------------------------------------------------------------
+//-- SCHEMAS
+//----------------------------------------------------------------------
+
+
+/**
+ * Implements hook_field_schema().
+ */
+function emh_request_field_schema($field) {
+  if ($field['type'] == 'emh_option_selector') {
+    return array(
+      'columns' => array(
+        'option' => array(
+          'description' => 'Machine name (ID) of the option',
+          'type' => 'varchar',
+          'length' => 64,
+          'not null' => true,
+        ),
+        'cost' => array(
+          'description' => 'Cost of the option (number of points)',
+          'type' => 'int',
+          'not null' => true,
+          'default' => 0,
+        ),
+        'settings' => array(
+          'description' => 'Settings of the option (serialized PHP array)',
+          'type' => 'text',
+          'not null' => false,
+        ),
+      ),
+    );
+  }
+}
+
+
+//----------------------------------------------------------------------
+//-- UPDATES
+//----------------------------------------------------------------------
+
 
 /**
  * Force module weight for hook_form_alter execution
  */
 function emh_request_update_7001() {
   db_update('system')
-  ->fields(array('weight' => 1))
-  ->condition('type', 'module')
-  ->condition('name', 'emh_request')
-  ->execute();
+    ->fields(array('weight' => 1))
+    ->condition('type', 'module')
+    ->condition('name', 'emh_request')
+    ->execute();
 }
+
 
 /**
  * Aliases survey creation path.
@@ -93,6 +148,7 @@ function emh_request_update_7002() {
   path_save($path);
 }
 
+
 /**
  * Add setting for request notification by domain
  */
@@ -100,9 +156,10 @@ function emh_request_update_7103() {
   variable_set('emh_request_send_notification_email_all_domains', 1);
 }
 
+
 /**
-* Revert request notification rules.
-*/
+ * Revert request notification rules.
+ */
 function emh_request_update_7104() {
   if ($rules_config = rules_config_load('rules_emh_request_send_notification_email')) {
     $rules_config->delete();
@@ -112,16 +169,18 @@ function emh_request_update_7104() {
   }
 }
 
+
 /**
-* Revert Views features.
-*/
+ * Revert Views features.
+ */
 function emh_request_update_7105() {
   features_revert(array('ft_views' => array('views_view')));
 }
 
+
 /**
-* Revert request notification rules.
-*/
+ * Revert request notification rules.
+ */
 function emh_request_update_7106() {
   if ($rules_config = rules_config_load('rules_emh_request_send_notification_email')) {
     $rules_config->delete();
@@ -131,24 +190,209 @@ function emh_request_update_7106() {
   }
 }
 
+
 /**
-* Revert strings.
-*/
+ * Revert strings.
+ */
 function emh_request_update_7107() {
   emh_request_disable_strings();
   emh_request_enable_strings();
 }
 
+
 /**
-* Revert Views features.
-*/
+ * Revert Views features.
+ */
 function emh_request_update_7108() {
   features_revert(array('ft_views' => array('views_view')));
 }
 
 /**
-* CHG : Revert Requests views features.
-*/
+ * CHG : Revert Requests views features.
+ */
 function emh_request_update_7109() {
   features_revert(array('ft_views' => array('views_view')));
+}
+
+
+/**
+ * Adds webform features on the request content type.
+ */
+function emh_request_update_7110() {
+  variable_set('webform_node_request', true);
+}
+
+
+/**
+ * Enables the ft_request feature.
+ */
+function emh_request_update_7111() {
+  module_enable(['ft_request']);
+}
+
+
+/**
+ * Recreates the field_options field.
+ */
+function emh_request_update_7112() {
+  if ($instance = field_info_instance('node', 'field_options', 'request')) {
+    field_delete_instance($instance);
+  }
+  if (field_info_field('field_options')) {
+    field_delete_field('field_options');
+  }
+  features_revert(array('ft_request' => array('field_base', 'field_instance')));
+}
+
+/**
+ * ADD: Request content type permissions.
+ */
+function emh_request_update_7113() {
+  features_revert(array('ft_permissions' => array('user_permission')));
+  // Administrator
+  user_role_grant_permissions(3, array(
+    'create request content',
+    'edit own request content',
+    'edit any request content',
+    'delete own request content',
+    'delete any request content'
+  ));
+  // Webmaster
+  user_role_grant_permissions(6, array(
+    'create request content',
+    'edit own request content',
+    'edit any request content',
+    'delete own request content',
+    'delete any request content'
+  ));
+  // Référent
+  user_role_grant_permissions(7, array(
+    'edit own request content',
+    'edit any request content'
+  ));
+  // Business
+  user_role_grant_permissions(5, array(
+    'create request content',
+    'edit own request content'
+  ));
+}
+
+/**
+ * ADD: Translation support in content type.
+ */
+function emh_request_update_7114() {
+  features_revert(array('ft_request' => array('variable')));
+}
+
+/**
+ * Replaces the document field by a new one for request nodes.
+ */
+function emh_request_update_7115() {
+  if ($instance = field_info_instance('node', 'field_document', 'request')) {
+    field_delete_instance($instance);
+  }
+  features_revert(array('ft_request' => array('field_base', 'field_instance')));
+}
+
+/**
+ * Replaces fields related to anonymity by new ones for request nodes.
+ */
+function emh_request_update_7116() {
+  $fields = array(
+    'field_anonymous',
+    'field_show_entreprise',
+    'field_use_my_entreprise',
+    'field_entreprise_description',
+  );
+
+  foreach ($fields as $field) {
+    if ($instance = field_info_instance('node', $field, 'request')) {
+      field_delete_instance($instance);
+    }
+  }
+
+  features_revert(array('ft_request' => array('field_base', 'field_instance', 'variable')));
+}
+
+/**
+ * ADD : New content type in Request views.
+ */
+function emh_request_update_7117() {
+  features_revert(array('ft_views' => array('views_view')));
+}
+
+/**
+ * ADD: Enable Save flag & submission submodules.
+ */
+function emh_request_update_7118() {
+  module_enable(array('emh_request_flag_save', 'emh_request_submission'));
+  features_revert(array(
+    'ft_blocks' => array(
+      'fe_block_settings',
+    ),
+    'ft_field_base' => array(
+      'flag',
+    ),
+    'ft_permissions' => array(
+      'user_permission',
+    ),
+    'ft_request' => array(
+      'fe_block_settings',
+      'flag',
+      'user_permission',
+    ),
+  ));
+}
+
+/**
+ * ADD: Enable Timeline submodule.
+ */
+function emh_request_update_7119() {
+  module_enable(['emh_request_timeline']);
+  features_revert(array(
+    'ft_request' => array(
+      'fe_block_settings',
+    ),
+  ));
+}
+
+/**
+ * CHG: Request strings.
+ */
+function emh_request_update_7120() {
+  emh_request_disable();
+  emh_request_enable();
+}
+
+
+/**
+ * CHG: Set some fields as required.
+ */
+function emh_request_update_7121() {
+  features_revert(array('ft_request' => array('field_instance')));
+}
+
+
+/**
+ * CHG: Update fields display configuration for the new view mode (summary).
+ */
+function emh_request_update_7122() {
+  features_revert(array('ft_request' => array('field_instance', 'variable')));
+}
+
+
+/**
+ * CHG: New field for request questions edition.
+ */
+function emh_request_update_7123() {
+  features_revert(array('ft_request' => array('field_base', 'field_instance', 'variable')));
+}
+
+
+/**
+ * CHG: Request strings.
+ */
+function emh_request_update_7124() {
+  emh_request_disable();
+  emh_request_enable();
 }

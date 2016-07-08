@@ -1985,6 +1985,50 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-circle-field_options_costs'.
+  $field_instances['node-circle-field_options_costs'] = array(
+    'bundle' => 'circle',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => NULL,
+        'settings' => array(),
+        'type' => 'emh_option_cost_modifier_default',
+        'weight' => 6,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_options_costs',
+    'label' => 'Surcharge des coûts d\'option',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'emh_circles',
+      'settings' => array(),
+      'type' => 'emh_option_cost_modifier_default',
+      'weight' => 6,
+    ),
+  );
+
   // Exported field_instance: 'node-circle-group_access'.
   $field_instances['node-circle-group_access'] = array(
     'bundle' => 'circle',
@@ -2106,7 +2150,7 @@ function ft_content_type_field_default_field_instances() {
         'og_hide' => TRUE,
       ),
       'type' => 'options_onoff',
-      'weight' => 7,
+      'weight' => 8,
     ),
   );
 
@@ -3997,10 +4041,11 @@ function ft_content_type_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inline',
+        'module' => 'file',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 25,
+        'type' => 'file_default',
+        'weight' => 125,
       ),
     ),
     'entity_type' => 'user',
@@ -4206,7 +4251,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 17,
+        'weight' => 18,
       ),
       'full' => array(
         'label' => 'above',
@@ -4244,9 +4289,8 @@ function ft_content_type_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'text',
         'settings' => array(),
-        'type' => 'text_default',
+        'type' => 'hidden',
         'weight' => 116,
       ),
       'full' => array(
@@ -4292,7 +4336,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 12,
+        'weight' => 13,
       ),
     ),
     'entity_type' => 'user',
@@ -4329,7 +4373,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 24,
+        'weight' => 25,
       ),
     ),
     'entity_type' => 'user',
@@ -4366,7 +4410,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 23,
+        'weight' => 24,
       ),
     ),
     'entity_type' => 'user',
@@ -4399,7 +4443,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 15,
+        'weight' => 16,
       ),
       'full' => array(
         'label' => 'above',
@@ -4438,7 +4482,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 16,
+        'weight' => 17,
       ),
       'full' => array(
         'label' => 'above',
@@ -4478,7 +4522,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 19,
+        'weight' => 21,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4519,7 +4563,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 21,
+        'weight' => 22,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4650,7 +4694,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 14,
+        'weight' => 15,
       ),
       'full' => array(
         'label' => 'above',
@@ -4731,7 +4775,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 11,
+        'weight' => 12,
       ),
     ),
     'entity_type' => 'user',
@@ -5012,7 +5056,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 18,
+        'weight' => 19,
       ),
       'full' => array(
         'label' => 'above',
@@ -5056,7 +5100,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 10,
+        'weight' => 11,
       ),
     ),
     'entity_type' => 'user',
@@ -5094,7 +5138,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 13,
+        'weight' => 14,
       ),
       'full' => array(
         'label' => 'above',
@@ -5133,7 +5177,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 5,
+        'weight' => 6,
       ),
       'full' => array(
         'label' => 'above',
@@ -5261,7 +5305,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'i18n_field',
         'settings' => array(),
         'type' => 'i18n_list_default',
-        'weight' => 7,
+        'weight' => 6,
       ),
       'full' => array(
         'label' => 'above',
@@ -5300,7 +5344,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 22,
+        'weight' => 23,
       ),
       'full' => array(
         'label' => 'above',
@@ -5419,6 +5463,7 @@ function ft_content_type_field_default_field_instances() {
   t('Specify your needs');
   t('Sponsorship');
   t('State');
+  t('Surcharge des coûts d\'option');
   t('Tag(s)');
   t('Tags');
   t('Testimony');

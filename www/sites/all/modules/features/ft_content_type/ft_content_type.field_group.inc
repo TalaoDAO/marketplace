@@ -1285,12 +1285,11 @@ function ft_content_type_field_group_info() {
     'label' => 'Profile',
     'weight' => '0',
     'children' => array(
-      0 => 'field_first_name',
-      1 => 'field_entreprise',
-      2 => 'field_address',
-      3 => 'field_titre_metier',
-      4 => 'field_photo',
-      5 => 'field_mail',
+      0 => 'field_entreprise',
+      1 => 'field_address',
+      2 => 'field_titre_metier',
+      3 => 'field_photo',
+      4 => 'field_mail',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1677,7 +1676,8 @@ function ft_content_type_field_group_info() {
       0 => 'field_domaine',
       1 => 'field_skills_set',
       2 => 'field_employment_history',
-      3 => 'field_position_list',
+      3 => 'field_cv',
+      4 => 'field_position_list',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1887,7 +1887,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'My testimony',
-    'weight' => '9',
+    'weight' => '10',
     'children' => array(
       0 => 'field_testimony',
     ),

@@ -1,27 +1,16 @@
-.emh-field-reward {
-  width: 110px;
-  .text-right;
-}
 .emh-field-answers {
   width: 70px;
   .text-right;
 }
 .emh-field-status {
   width: 80px;
+	span {
+		padding: 3px 6px;
+	}
 }
 
-
-// Types
-.views-field-type {
-  width: 20px;
-  .text-center;
-}
-
-// Dates
-.views-field-created,
-.views-field-field-expiration-date,
-.views-field-changed,
-.views-field-submitted {
+// Date
+.views-field-field-expiration-date {
   .text-center;
   width: 130px;
 }
@@ -36,7 +25,7 @@
   width: 100px;
 }
 
-// Answers
+// Submissions count
 .views-field-total-answers {
   .emh-field-answers;
 }
@@ -46,9 +35,8 @@
   .emh-field-status;
 }
 
-// Answer status
-.views-field-status,
-.views-field-is-draft {
+// Language
+.views-field-language {
   width: 100px;
 }
 
@@ -64,37 +52,22 @@
   width: 200px;
 }
 
-// Reward / Points
-.views-field-field-reward,
-.views-field-emh-points,
-.views-field-points {
-  .emh-field-reward;
-}
-
-// VBO
-.views-field-views-bulk-operations {
-  width: 50px;
-  .text-center;
-  .form-group {
-    margin-bottom: 0;
-    input {
-      position: relative !important;
-      margin-top: 0 !important;
-    }
-  }
-}
-
-// Author answer
+// Submission answer
 .views-field-emh-author {
   width: 200px;
 }
 
-// Answer
-.view-my-responses-questions1, // Questions
-.view-my-responses-calls3, // Surveys
-.view-my-responses-challenges // Challenges
-{
-  .views-field-emh-answer {
-    width: 350px;
-  }
+// Submission
+.views-field-emh-answer {
+  width: 500px;
+}
+
+// Submission status
+.views-field-is-draft {
+  width: 100px;
+}
+
+// Submission actions
+.views-field-view-submission {
+  width: 100px;
 }
