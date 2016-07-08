@@ -20,19 +20,19 @@ Feature: Circles workflow for Expert
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | client4 | emindhub.test+client4@gmail.com | business | Star             | Lord            |                 |                    | Guardians of the Galaxy        | emindhub.test+client4@gmail.com | Tumblr  | Freelancer | Drones      |
+    | client4 | emindhub.test+client4@gmail.com | business | Star             | LORD            |                 |                    | Guardians of the Galaxy        | emindhub.test+client4@gmail.com | Tumblr  | Freelancer | Drones      |
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise   | field_working_status | field_domaine |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | Man             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
-    | expert4 | emindhub.test+expert4@gmail.com | expert   | Scott            | Summers         | 0712345673      | Bucheron           | X-Men        | emindhub.test+expert4@gmail.com | Viadeo    | Employee  | Helicopters   |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
+    | expert4 | emindhub.test+expert4@gmail.com | expert   | Scott            | SUMMERS         | 0712345673      | Bucheron           | X-Men        | emindhub.test+expert4@gmail.com | Viadeo    | Employee  | Helicopters   |
 
-    # Make client4 as a Manager of Guardians of the Galaxy circle
+    # Make client4 as a MANager of Guardians of the Galaxy circle
     Given I am logged in as a user with the "administrator" role
     When I go to "content/guardians-galaxy"
     And I click "Group" in the "primary tabs" region
     And I click "People"
-    And I click "edit" in the "Star Lord" row
+    And I click "edit" in the "Star LORD" row
     And I check the box "administrator member"
     And I press "Update membership"
     Then I should see "The membership has been updated."
@@ -72,9 +72,9 @@ Feature: Circles workflow for Expert
     When I go to "content/guardians-galaxy"
     And I click "Group" in the "primary tabs" region
     And I click "People"
-    Then I should see "Pending" in the "Iron Man" row
+    Then I should see "Pending" in the "Iron MAN" row
 
-    When I click "edit" in the "Iron Man" row
+    When I click "edit" in the "Iron MAN" row
     And I select "Active" from "Status"
     And I press "Update membership"
     Then I should see "The membership has been updated."
@@ -97,9 +97,9 @@ Feature: Circles workflow for Expert
     When I go to "content/guardians-galaxy"
     And I click "Group" in the "primary tabs" region
     And I click "People"
-    Then I should see "Pending" in the "Scott Summers" row
+    Then I should see "Pending" in the "Scott SUMMERS" row
 
-    When I click "remove" in the "Scott Summers" row
+    When I click "remove" in the "Scott SUMMERS" row
     And I press "Remove"
     Then I should see "The membership was removed."
 
