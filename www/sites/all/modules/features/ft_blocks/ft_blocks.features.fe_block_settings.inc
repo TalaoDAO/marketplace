@@ -102,36 +102,6 @@ client/register',
     'visibility' => 1,
   );
 
-  $export['block-hp_challenge'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'i18n_block_language' => array(),
-    'i18n_mode' => 1,
-    'machine_name' => 'hp_challenge',
-    'module' => 'block',
-    'node_types' => array(),
-    'pages' => '<front>',
-    'roles' => array(
-      'authenticated user' => 2,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => 'top',
-        'status' => 1,
-        'theme' => 'emindhub',
-        'weight' => -47,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '<none>',
-    'visibility' => 1,
-  );
-
   $export['block-hp_expertise'] = array(
     'cache' => -1,
     'custom' => 0,
@@ -282,36 +252,6 @@ client/register',
     'visibility' => 1,
   );
 
-  $export['block-hp_question'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'i18n_block_language' => array(),
-    'i18n_mode' => 1,
-    'machine_name' => 'hp_question',
-    'module' => 'block',
-    'node_types' => array(),
-    'pages' => '<front>',
-    'roles' => array(
-      'authenticated user' => 2,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => 'top',
-        'status' => 1,
-        'theme' => 'emindhub',
-        'weight' => -48,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '<none>',
-    'visibility' => 1,
-  );
-
   $export['block-hp_request'] = array(
     'cache' => -1,
     'custom' => 0,
@@ -327,36 +267,6 @@ client/register',
     'themes' => array(
       'emindhub' => array(
         'region' => 'sidebar_first',
-        'status' => 1,
-        'theme' => 'emindhub',
-        'weight' => -48,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '<none>',
-    'visibility' => 1,
-  );
-
-  $export['block-hp_survey'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'i18n_block_language' => array(),
-    'i18n_mode' => 1,
-    'machine_name' => 'hp_survey',
-    'module' => 'block',
-    'node_types' => array(),
-    'pages' => '<front>',
-    'roles' => array(
-      'authenticated user' => 2,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => 'top',
         'status' => 1,
         'theme' => 'emindhub',
         'weight' => -48,
@@ -1047,99 +957,6 @@ client/register',
     'visibility' => 0,
   );
 
-  $export['views-01297140ea5ccce8d24f3c703da2aaa3'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'delta' => '01297140ea5ccce8d24f3c703da2aaa3',
-    'i18n_block_language' => array(),
-    'i18n_mode' => 0,
-    'module' => 'views',
-    'node_types' => array(),
-    'pages' => 'node/300',
-    'roles' => array(
-      'expert' => 4,
-      'référent' => 7,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => 'content',
-        'status' => 1,
-        'theme' => 'emindhub',
-        'weight' => -38,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '',
-    'visibility' => 1,
-  );
-
-  $export['views-7d0e01b6bec26eb141930d321747febd'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'delta' => '7d0e01b6bec26eb141930d321747febd',
-    'i18n_block_language' => array(),
-    'i18n_mode' => 0,
-    'module' => 'views',
-    'node_types' => array(),
-    'pages' => 'node/300',
-    'roles' => array(
-      'expert' => 4,
-      'référent' => 7,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => 'content',
-        'status' => 1,
-        'theme' => 'emindhub',
-        'weight' => -40,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '',
-    'visibility' => 1,
-  );
-
-  $export['views-d5d704bbc8904420c5b32361a0446d81'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'delta' => 'd5d704bbc8904420c5b32361a0446d81',
-    'i18n_block_language' => array(),
-    'i18n_mode' => 0,
-    'module' => 'views',
-    'node_types' => array(),
-    'pages' => 'node/300',
-    'roles' => array(
-      'expert' => 4,
-      'référent' => 7,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => 'content',
-        'status' => 1,
-        'theme' => 'emindhub',
-        'weight' => -36,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '',
-    'visibility' => 1,
-  );
-
   $export['views-entreprise_list-block'] = array(
     'cache' => -1,
     'custom' => 0,
@@ -1165,102 +982,6 @@ client/register',
       ),
     ),
     'title' => 'Scope of services in aerospace',
-    'visibility' => 1,
-  );
-
-  $export['views-my_responses_calls3-block'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'delta' => 'my_responses_calls3-block',
-    'i18n_block_language' => array(),
-    'i18n_mode' => 0,
-    'module' => 'views',
-    'node_types' => array(),
-    'pages' => 'node/300',
-    'roles' => array(
-      'administrator' => 3,
-      'business' => 5,
-      'webmaster' => 6,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => 'content',
-        'status' => 1,
-        'theme' => 'emindhub',
-        'weight' => -39,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '',
-    'visibility' => 1,
-  );
-
-  $export['views-my_responses_challenges-block'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'delta' => 'my_responses_challenges-block',
-    'i18n_block_language' => array(),
-    'i18n_mode' => 0,
-    'module' => 'views',
-    'node_types' => array(),
-    'pages' => 'node/300',
-    'roles' => array(
-      'administrator' => 3,
-      'business' => 5,
-      'webmaster' => 6,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => 'content',
-        'status' => 1,
-        'theme' => 'emindhub',
-        'weight' => -37,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '',
-    'visibility' => 1,
-  );
-
-  $export['views-my_responses_questions1-block'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'delta' => 'my_responses_questions1-block',
-    'i18n_block_language' => array(),
-    'i18n_mode' => 0,
-    'module' => 'views',
-    'node_types' => array(),
-    'pages' => 'node/300',
-    'roles' => array(
-      'administrator' => 3,
-      'business' => 5,
-      'webmaster' => 6,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => 'content',
-        'status' => 1,
-        'theme' => 'emindhub',
-        'weight' => -41,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '',
     'visibility' => 1,
   );
 
@@ -1320,10 +1041,10 @@ client/register',
     'visibility' => 0,
   );
 
-  $export['views-query_list-block'] = array(
+  $export['views-query_list-block_last_requests'] = array(
     'cache' => -1,
     'custom' => 0,
-    'delta' => 'query_list-block',
+    'delta' => 'query_list-block_last_requests',
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
     'module' => 'views',
@@ -1359,10 +1080,10 @@ fr/node/323',
     'visibility' => 1,
   );
 
-  $export['views-query_list-block_1'] = array(
+  $export['views-query_list-block_my_requests'] = array(
     'cache' => -1,
     'custom' => 0,
-    'delta' => 'query_list-block_1',
+    'delta' => 'query_list-block_my_requests',
     'i18n_block_language' => array(),
     'i18n_mode' => 0,
     'module' => 'views',

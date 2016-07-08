@@ -7,6 +7,7 @@ class views_handler_field_emh_webform_author extends views_handler_field {
    */
   function construct() {
     parent::construct();
+    $this->additional_fields['nid'] = 'nid';
     $this->additional_fields['sid'] = 'sid';
   }
 
@@ -19,9 +20,15 @@ class views_handler_field_emh_webform_author extends views_handler_field {
   }
 
   /**
-   * Renders our field, displays the number of points of the comment.
+   * Renders our field, displays the author of the submission.
    */
   function render($values) {
+    if (isset($values->{$this->aliases['nid']})) {
+      $nid = $values->{$this->aliases['nid']};
+    }
+    else {
+      return 0;
+    }
     if (isset($values->{$this->aliases['sid']})) {
       $sid = $values->{$this->aliases['sid']};
     }
@@ -30,9 +37,8 @@ class views_handler_field_emh_webform_author extends views_handler_field {
     }
 
     module_load_include('inc', 'webform', 'includes/webform.submissions');
-    $nid = arg(1);
     $entity = webform_get_submission($nid, $sid);
-    return emh_user_get_beautiful_profile_link($entity->uid);
+    return emh_user_cartouche_view($entity->uid);
   }
 
   /**

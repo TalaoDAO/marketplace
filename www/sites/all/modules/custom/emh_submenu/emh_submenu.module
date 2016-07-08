@@ -36,10 +36,10 @@ function emh_submenu_block_view($delta = '') {
 
       $menu = '<ul class="tabs--secondary nav-subtabs">'
                 . render($submenu)
-              .'</ul>';
+              . '</ul>';
 
       $block = array(
-        'title' => '<none>',
+        'subject' => '<none>',
         'content' => $menu,
       );
       break;
@@ -49,8 +49,9 @@ function emh_submenu_block_view($delta = '') {
 }
 
 function emh_submenu_menu_tabs_primary($tabs) {
-
-  if (count($tabs['#primary']) <= '1') return '';
-  else return $tabs['#primary'];
-
+  if (count($tabs['#primary']) <= 1) {
+    return '';
+  } else {
+    return $tabs['#primary'];
+  }
 }

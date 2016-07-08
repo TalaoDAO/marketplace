@@ -18,12 +18,12 @@
 <div class="row section webform-submission-navigation">
 
   <div class="col-sm-3 nav-back">
-    <?php print l('<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> ' . t('Back to <em class="placeholder">Answers</em>'), 'node/' . $node->nid . '/results', array('html' => TRUE)); ?>
+    <a href="<?php print url('node/' . $node->nid); ?>#request-submissions"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Back to <em class="placeholder">Answers</em></a>
   </div>
 
   <div class="col-sm-3 col-sm-offset-3 col-xs-6 nav-previous text-right">
   <?php if ($previous): ?>
-    <?php print l('<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> ' . t('Previous answer'), $previous_url, array('attributes' => array('class' => array('webform-submission-previous')), 'html' => TRUE, 'query' => ($mode == 'form' ? array('destination' => $previous_url) : NULL))); ?>
+    <?php print l('<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> ' . t('Previous submission'), $previous_url, array('attributes' => array('class' => array('webform-submission-previous')), 'html' => TRUE, 'query' => ($mode == 'form' ? array('destination' => $previous_url) : NULL))); ?>
   <?php else: ?>
 
   <?php endif; ?>
@@ -31,7 +31,7 @@
 
   <div class="col-sm-3 col-xs-6 nav-next pull-right">
   <?php if ($next): ?>
-    <?php print l(t('Next answer') . ' <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>', $next_url, array('attributes' => array('class' => array('webform-submission-next')), 'html' => TRUE, 'query' => ($mode == 'form' ? array('destination' => $next_url) : NULL))); ?>
+    <?php print l(t('Next submission') . ' <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>', $next_url, array('attributes' => array('class' => array('webform-submission-next')), 'html' => TRUE, 'query' => ($mode == 'form' ? array('destination' => $next_url) : NULL))); ?>
   <?php else: ?>
 
   <?php endif; ?>

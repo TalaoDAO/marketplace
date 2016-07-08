@@ -24,7 +24,7 @@ function emindhub_form_element(&$variables) {
   }
 
   // Check for errors and set correct error class.
-  if (isset($element['#parents']) && form_get_error($element)) {
+  if (isset($element['#parents']) && (form_get_error($element) !== null)) {
     $attributes['class'][] = 'error';
   }
 

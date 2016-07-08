@@ -38,15 +38,6 @@ function ft_blocks_default_fe_block_boxes() {
   $export['hp_baseline'] = $fe_block_boxes;
 
   $fe_block_boxes = new stdClass();
-  $fe_block_boxes->info = 'HP - Start a challenge';
-  $fe_block_boxes->format = 'full_html';
-  $fe_block_boxes->machine_name = 'hp_challenge';
-  $fe_block_boxes->body = '<p>Contenu géré dans le template.</p>
-';
-
-  $export['hp_challenge'] = $fe_block_boxes;
-
-  $fe_block_boxes = new stdClass();
   $fe_block_boxes->info = 'HP - Expert - Do you have an expertise?';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'hp_expertise';
@@ -119,15 +110,6 @@ function ft_blocks_default_fe_block_boxes() {
   $export['hp_mobilize'] = $fe_block_boxes;
 
   $fe_block_boxes = new stdClass();
-  $fe_block_boxes->info = 'HP - Ask a question';
-  $fe_block_boxes->format = 'full_html';
-  $fe_block_boxes->machine_name = 'hp_question';
-  $fe_block_boxes->body = '<p>Contenu géré dans le template.</p>
-';
-
-  $export['hp_question'] = $fe_block_boxes;
-
-  $fe_block_boxes = new stdClass();
   $fe_block_boxes->info = 'HP - Business - Is your company looking for expertise?';
   $fe_block_boxes->format = 'full_html';
   $fe_block_boxes->machine_name = 'hp_request';
@@ -143,15 +125,6 @@ function ft_blocks_default_fe_block_boxes() {
 ';
 
   $export['hp_request'] = $fe_block_boxes;
-
-  $fe_block_boxes = new stdClass();
-  $fe_block_boxes->info = 'HP - Create a mission';
-  $fe_block_boxes->format = 'full_html';
-  $fe_block_boxes->machine_name = 'hp_survey';
-  $fe_block_boxes->body = '<p>Contenu géré dans le template.</p>
-';
-
-  $export['hp_survey'] = $fe_block_boxes;
 
   $fe_block_boxes = new stdClass();
   $fe_block_boxes->info = 'HP - Video';

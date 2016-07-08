@@ -100,3 +100,13 @@ function emh_user_update_7009() {
   features_revert(array('ft_content_type' => array('field_instance', 'field_group')));
   features_revert(array('ft_field_base' => array('field_base')));
 }
+
+/**
+ * ADD: VBO Purchase profile permissions.
+ */
+function emh_points_update_7010() {
+  // Authentificated user
+  user_role_grant_permissions(2, array(
+    'execute emh_user_profile_purchase_action',
+  ));
+}

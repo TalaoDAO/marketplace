@@ -48,37 +48,6 @@ function emh_access_field_access($op, $field, $entity_type, $entity, $account) {
     }
 
     switch ($entity_type) {
-
-      case 'user':
-        switch($field['field_name']) {
-          // We can always access few fields.
-          case 'field_first_name':
-            return TRUE;
-            break;
-          case 'field_last_name':
-            return TRUE;
-            break;
-          case 'field_photo':
-            return TRUE;
-            break;
-          case 'field_titre_metier':
-            return TRUE;
-            break;
-          case 'field_employment_history':
-            return TRUE;
-            break;
-          case 'field_sponsor_why':
-            return TRUE;
-            break;
-          case 'field_partner_why':
-            return TRUE;
-            break;
-          default:
-            return emh_access_user_can_see_full_user($account->uid, $entity->uid);
-            break;
-        }
-        break;
-
       case 'comment':
         switch($field['field_name']) {
           case 'comment_body':
@@ -120,7 +89,7 @@ function emh_access_user_can_see_full_user($uid, $uid2) {
 
   // Organic Groups / EMH Circles
   // User1 is admin/referent of one of User2 circles
-  if (module_exists('og') && module_exists('emh_circles')) {
+  if (!empty($u2_circlesIDs)) {
     if (_emh_circles_check_user_is_adminmember_of_groups($uid, $u2_circlesIDs)) return TRUE;
     if (_emh_circles_check_user_is_admin_of_groups($uid, $u2_circlesIDs)) return TRUE;
     if (_emh_circles_check_user_is_referentmember_of_groups($uid, $u2_circlesIDs)) return TRUE;
@@ -181,37 +150,59 @@ function emh_access_user_can_see_full_user($uid, $uid2) {
  * Access control : Does a user have access to another user answer?
  */
 function emh_access_user_can_see_full_answer($nid, $entity = NULL, $account = NULL) {
+
   $node = node_load($nid);
+
   if (empty($account)) {
     global $user;
     $account = $user;
   }
 
-  if (user_access('access EMH answers')) return TRUE;
+  if (emh_request_has_option($node, 'private')) {
 
-  // Node author and answer author have every right.
-  if ($node->uid == $account->uid) return TRUE;
-  if (!empty($entity) && ($entity->uid == $account->uid)) return TRUE;
+    if (user_access('access EMH answers')) return TRUE;
 
-  if (user_access('administer comments')) return TRUE;
-  if (user_access('access all webform results')) return TRUE;
+    // Node author and answer author have every right.
+    if ($node->uid == $account->uid) return TRUE;
+    if (!empty($entity) && ($entity->uid == $account->uid)) return TRUE;
 
-  // Organic Groups / EMH Circles
-  // User1 is admin/referent of node's circle
-  // TODO: add custom permissions for OG and Comments
-  if (isset($node->og_group_ref)) {
-    $circleIDs = $node->og_group_ref[LANGUAGE_NONE]['0'];
-    if (!empty($circleIDs)) {
-      if (_emh_circles_check_user_is_adminmember_of_groups($account->uid, $circleIDs)) return TRUE;
-      if (_emh_circles_check_user_is_admin_of_groups($account->uid, $circleIDs)) return TRUE;
-      if (_emh_circles_check_user_is_referentmember_of_groups($account->uid, $circleIDs)) return TRUE;
-      foreach ($circleIDs as $gid) {
-        if (og_user_access('node', $gid, 'access all webform results')) return TRUE;
+    if (user_access('administer comments')) return TRUE;
+    if (user_access('access all webform results')) return TRUE;
+
+    // Organic Groups / EMH Circles
+    // User1 is admin/referent of node's circle
+    // TODO: add custom permissions for OG and Comments
+    if (isset($node->og_group_ref) && ($circle_items = field_get_items('node', $node, 'og_group_ref'))) {
+      $circles = array();
+
+      foreach ($circle_items as $delta => $item) {
+        $circles[] = $item['target_id'];
       }
+
+      if (!empty($circles)) {
+        if (_emh_circles_check_user_is_adminmember_of_groups($account->uid, $circles)) {
+          return TRUE;
+        }
+        if (_emh_circles_check_user_is_admin_of_groups($account->uid, $circles)) {
+          return TRUE;
+        }
+        if (_emh_circles_check_user_is_referentmember_of_groups($account->uid, $circles)) {
+          return TRUE;
+        }
+        foreach ($circles as $gid) {
+          if (og_user_access('node', $gid, 'access all webform results')) {
+            return TRUE;
+          }
+        }
+      }
+
     }
+
+    return FALSE;
+
   }
 
-  return FALSE;
+  return TRUE;
 }
 
 /**
@@ -219,24 +210,23 @@ function emh_access_user_can_see_full_answer($nid, $entity = NULL, $account = NU
  */
 function emh_access_user_can_post_answer($nid, $account = NULL) {
   $node = node_load($nid);
+
   if (empty($account)) {
     global $user;
     $account = $user;
   }
 
-  if (user_access("$node->type: comment on any $node->type content")) return TRUE;
+  if (user_access("$node->type: comment on any $node->type content")) {
+    return TRUE;
+  }
 
   switch ($node->type) {
     case 'question1':
     case 'challenge':
-      if (user_access('post comments')) return TRUE;
-      break;
+      return user_access('post comments');
     case 'webform':
-      if (user_access('access own webform submissions')) return TRUE;
-      break;
-    default:
-    return FALSE;
-      break;
+    case 'request':
+      return user_access('access own webform submissions');
   }
 
   return FALSE;
@@ -250,6 +240,7 @@ function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
     global $user;
     $account = $user;
   }
+
   if (empty($node)) {
     $nid = arg(1);
     $node = node_load($nid);
@@ -263,11 +254,24 @@ function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
   // Organic Groups / EMH Circles
   // User1 is admin/referent of node's circle
   if (module_exists('og') && module_exists('emh_circles')) {
-    $circleIDs = $node->og_group_ref[LANGUAGE_NONE]['0'];
-    if (!empty($circleIDs)) {
-      if (_emh_circles_check_user_is_adminmember_of_groups($account->uid, $circleIDs)) return TRUE;
-      if (_emh_circles_check_user_is_admin_of_groups($account->uid, $circleIDs)) return TRUE;
-      if (_emh_circles_check_user_is_referentmember_of_groups($account->uid, $circleIDs)) return TRUE;
+    if (isset($node->og_group_ref) && ($circle_items = field_get_items('node', $node, 'og_group_ref'))) {
+      $circles = array();
+
+      foreach ($circle_items as $delta => $item) {
+        $circles[] = $item['target_id'];
+      }
+
+      if (!empty($circles)) {
+        if (_emh_circles_check_user_is_adminmember_of_groups($account->uid, $circles)) {
+          return TRUE;
+        }
+        if (_emh_circles_check_user_is_admin_of_groups($account->uid, $circles)) {
+          return TRUE;
+        }
+        if (_emh_circles_check_user_is_referentmember_of_groups($account->uid, $circles)) {
+          return TRUE;
+        }
+      }
     }
   }
 
@@ -287,17 +291,22 @@ function emh_access_author_name($node) {
     return TRUE;
   }
 
-  // Check node options
-  // 0|Display my full name
-  // 1|Hide my full name
-  $anonymous_mode = field_get_items('node', $node, 'field_anonymous');
-  if ($anonymous_mode[0]['value'] == 0) {
+  if (!emh_request_has_option($node, 'anonymous')) {
     return TRUE;
+  } else {
+    // Check node options
+    // 0|Display my full name
+    // 1|Hide my full name
+    $hide_name = field_get_items('node', $node, 'field_hide_name');
+    if ($hide_name[0]['value'] == 0) {
+      return TRUE;
+    }
   }
 
+  return FALSE;
 }
 
-function emh_access_author_company($node) {
+function emh_access_user_organisation($node) {
 
   global $user;
   if ($user->uid == 1) {
@@ -305,14 +314,19 @@ function emh_access_author_company($node) {
     return TRUE;
   }
 
-  // Check node options
-  // 0|Display the name
-  // 1|Hide the name
-  $show_entreprise = field_get_items('node', $node, 'field_show_entreprise');
-  if ($show_entreprise[0]['value'] == 0) {
+  if (!emh_request_has_option($node, 'anonymous')) {
     return TRUE;
+  } else {
+    // Check node options
+    // 0|Display my organisation
+    // 1|Hide my organisation
+    $hide_organisation = field_get_items('node', $node, 'field_hide_organisation');
+    if ($hide_organisation[0]['value'] == 0) {
+      return TRUE;
+    }
   }
 
+  return FALSE;
 }
 
 

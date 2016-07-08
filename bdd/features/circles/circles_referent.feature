@@ -23,42 +23,61 @@ Feature: Requests visibility for Référent
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | référent1 | emindhub.test+referent1@gmail.com | référent | Paul          | Stanley         | 0612345678      | The Starchild     | Avengers     | emindhub.test+referent1@gmail.com | Amazon  | Other | Maintenance |
+    | référent1 | emindhub.test+referent1@gmail.com | référent | Paul          | STANLEY         | 0612345678      | The Starchild     | Avengers     | emindhub.test+referent1@gmail.com | Amazon  | Other | Maintenance |
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
-    | client2 | emindhub.test+client2@gmail.com | business | Charle           | Xavier          |                 |                    | X-Men        | emindhub.test+client2@gmail.com | Apple   | Freelancer | Engines     |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
+    | client2 | emindhub.test+client2@gmail.com | business | Charle           | XAVIER          |                 |                    | X-Men        | emindhub.test+client2@gmail.com | Apple   | Freelancer | Engines     |
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise   | field_working_status | field_domaine |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | Man             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
-    | expert2 | emindhub.test+expert2@gmail.com | expert   | Klark            | Kent            | 0712345671      | Modèle             | Avengers     | emindhub.test+expert2@gmail.com | Twitter   | Employee  | Other         |
-    | expert3 | emindhub.test+expert3@gmail.com | expert   | Bruce            | Banner          | 0712345672      | Cogneur            | Avengers     | emindhub.test+expert3@gmail.com | Pinterest | Employee  | Drones        |
-    | expert4 | emindhub.test+expert4@gmail.com | expert   | Scott            | Summers         | 0712345673      | Bucheron           | X-Men        | emindhub.test+expert4@gmail.com | Viadeo    | Employee  | Helicopters   |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
+    | expert2 | emindhub.test+expert2@gmail.com | expert   | Klark            | KENT            | 0712345671      | Modèle             | Avengers     | emindhub.test+expert2@gmail.com | Twitter   | Employee  | Other         |
+    | expert3 | emindhub.test+expert3@gmail.com | expert   | Bruce            | BANNER          | 0712345672      | Cogneur            | Avengers     | emindhub.test+expert3@gmail.com | Pinterest | Employee  | Drones        |
+    | expert4 | emindhub.test+expert4@gmail.com | expert   | Scott            | SUMMERS         | 0712345673      | Bucheron           | X-Men        | emindhub.test+expert4@gmail.com | Viadeo    | Employee  | Helicopters   |
 
-    Given I give "client1" 400 emh points
-    Given I give "client2" 100 emh points
-
-    Given "question1" content:
-    | title         | field_domaine  | og_group_ref   | field_reward | author  |
-    | Fight Magneto | Energy         | X-Men          | 100          | client2 |
-    | Fight Ultron  | Energy, Drones | Avengers       | 100          | client1 |
-    | Fight Hydra   | Drones         | Avengers       | 100          | client1 |
-
-    Given "challenge" content:
-    | title         | field_domaine  | og_group_ref    | field_reward | author  |
-    | Fight Thanos  | Drones         | Avengers, X-Men | 100          | client1 |
+    Given "request" content:
+    | title         | field_domaine  | og_group_ref    | author  | field_expiration_date  | status  |
+    | Fight Magneto | Energy         | X-Men           | client2 | 2017-02-08 17:45:00    | 1       |
+    | Fight Ultron  | Energy, Drones | Avengers        | client1 | 2017-02-08 17:45:00    | 1       |
+    | Fight Hydra   | Drones         | Avengers        | client1 | 2017-02-08 17:45:00    | 1       |
+    | Fight Thanos  | Drones         | Avengers, X-Men | client1 | 2017-02-08 17:45:00    | 1       |
 
     # Make référent1 as a Referent member of Avengers circle
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
     And I click "Group"
     And I click "People"
-    And I click "edit" in the "Paul Stanley" row
+    And I click "edit" in the "Paul STANLEY" row
     And I check the box "Referent member"
     And I press "Update membership"
     Then I should see "The membership has been updated."
+
+    Given I am logged in as "expert1"
+    And I click "Edit account"
+    And I fill in "field_address[und][0][phone_number]" with "0712345670"
+    And I press "Save"
+
+    Given I am logged in as "expert2"
+    And I click "Edit account"
+    And I fill in "field_address[und][0][phone_number]" with "0712345671"
+    And I press "Save"
+
+    Given I am logged in as "expert3"
+    And I click "Edit account"
+    And I fill in "field_address[und][0][phone_number]" with "0712345672"
+    And I press "Save"
+
+    Given I am logged in as "expert4"
+    And I click "Edit account"
+    And I fill in "field_address[und][0][phone_number]" with "0712345673"
+    And I press "Save"
+
+    Given I am logged in as "référent1"
+    And I click "Edit account"
+    And I fill in "field_address[und][0][phone_number]" with "0612345678"
+    And I press "Save"
 
   Scenario: Referents can see the requests
     Given I am logged in as "référent1"
@@ -72,19 +91,19 @@ Feature: Requests visibility for Référent
     Given I am logged in as "référent1"
 
     When I go to "/users/klark-kent"
-    Then I should see "Klark Kent"
+    Then I should see "Klark KENT"
     And I should see "Modèle"
     And I should see "0712345671"
     And I should see "emindhub.test+expert2@gmail.com"
 
     When I go to "/users/bruce-banner"
-    Then I should see "Bruce Banner"
+    Then I should see "Bruce BANNER"
     And I should see "Cogneur"
     And I should see "0712345672"
     And I should see "emindhub.test+expert3@gmail.com"
 
     When I go to "/users/scott-summers"
-    Then I should see "Scott Summers"
+    Then I should see "Scott SUMMERS"
     And I should not see "Bucheron"
     And I should not see "0712345673"
     And I should not see "emindhub.test+expert4@gmail.com"

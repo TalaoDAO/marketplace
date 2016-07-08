@@ -1,8 +1,44 @@
 .user-badge {
-  .center-block;
-  .img-circle;
-  background: #FFF;
-  text-align: center;
-  height: 100px;
-  width: 100px;
+  img {
+    .center-block;
+    .img-circle;
+    background: #FFF;
+    text-align: center;
+    height: 50px;
+    width: 50px;
+  }
+}
+
+// User cartouche
+.user-cartouche {
+  .text-center;
+  a {
+    color: @deepBlue;
+    text-decoration: underline;
+  }
+
+	> span {
+		display: block;
+		margin-bottom: 10px;
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	.user-identity {
+		font-weight: bold;
+	}
+
+	.user-organisation,
+	.user-activity {
+		font-style: italic;
+		color: #4e6374;
+	}
+
+  .user-buy-access {
+    .btn;
+    .btn-xs;
+    .btn-flash;
+    text-decoration: none;
+  }
 }
