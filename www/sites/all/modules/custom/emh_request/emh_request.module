@@ -439,7 +439,7 @@ function emh_request_publication_page($request) {
     drupal_set_message(t("This request is already published."), 'warning');
     drupal_goto('node/' . $request->nid);
   }
-  
+
   $page = array();
 
   $page['message'] = array(

@@ -1,8 +1,15 @@
 name = EMH Configuration
 description = Global configuration.
 package = EMH
-dependencies[] = autologout
-dependencies[] = pcp
+
 dependencies[] = emh_pcp_special
+dependencies[] = eu_cookie_compliance
+dependencies[] = hybridauth
+dependencies[] = i18n
+dependencies[] = i18n_node
 dependencies[] = language_access
+dependencies[] = pcp
+dependencies[] = service_links
+dependencies[] = webform
+
 core = 7.x
