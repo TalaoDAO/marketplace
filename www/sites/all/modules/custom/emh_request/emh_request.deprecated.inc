@@ -313,14 +313,12 @@ function emh_request_try_to_notify($node) {
       if ($multidomains_option == TRUE) {
         // Notify every expert within the Organic Group
         rules_invoke_event('emh_request_notify_new_request', $node, $user);
-        // emh_request_notify_new_request($node, $user);
         continue;
       } else {
         foreach($user->field_domaine[LANGUAGE_NONE] as $delta => $term) {
           // If right domain && notification authorized.
           if (in_array($term['tid'], $domains)) {
             rules_invoke_event('emh_request_notify_new_request', $node, $user);
-            // emh_request_notify_new_request($node, $user);
             continue;
           }
         }
@@ -329,36 +327,4 @@ function emh_request_try_to_notify($node) {
   }
   // Webmaster copy
   // rules_invoke_event('emh_request_notify_webmaster_new_request', $node);
-}
-
-// function emh_request_notify_new_request($node, $user) {
-//   $node = $form['#node'];
-//   $module = 'emh_answer';
-//   $key = 'notify_request_new_request';
-//   $mail = $user->mail;
-//   $language = language_default();
-//   $url = url('node/' . $node->nid . '/results?pk_campaign=new_answer_' . $node->type . '_' . $node->nid, array('absolute' => TRUE));
-//   $params = array(
-//     '@url'    => $url,
-//     '@title'  => $node->title,
-//     '@user'   => $user->field_first_name[LANGUAGE_NONE][0]['value'],
-//   );
-//
-//   drupal_mail($module, $key, $mail, $language, $params);
-// }
-
-/**
- * Implements hook_mail().
- */
-function emh_request_mail($key, &$message, $params) {
-  switch($key) {
-    case 'notify_request_new_request':
-      $message['subject'] = t('New request: @title', $params);
-      $message['body'] = array();
-      $message['body'][] = t('Dear @user,', $params);
-      $message['body'][] = t('A new request just came up on eMindHub');
-      break;
-    default:
-      break;
-  }
 }
