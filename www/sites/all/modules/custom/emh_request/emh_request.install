@@ -396,3 +396,16 @@ function emh_request_update_7124() {
   emh_request_disable();
   emh_request_enable();
 }
+
+
+/**
+ * ADD: Request content type to notification rules.
+ */
+function emh_request_update_7125() {
+  if ($rules_config = rules_config_load('rules_emh_request_send_notification_email')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('rules_emh_request_send_webmaster_notification_email')) {
+    $rules_config->delete();
+  }
+}

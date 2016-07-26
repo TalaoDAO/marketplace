@@ -26,7 +26,8 @@ function emh_request_default_rules_configuration() {
             "type" : { "value" : {
                 "challenge" : "challenge",
                 "question1" : "question1",
-                "webform" : "webform"
+                "webform" : "webform",
+                "request" : "request"
               }
             }
           }
@@ -62,7 +63,8 @@ function emh_request_default_rules_configuration() {
           "type" : { "value" : {
               "challenge" : "challenge",
               "question1" : "question1",
-              "webform" : "webform"
+              "webform" : "webform",
+              "request" : "request"
             }
           }
         }
