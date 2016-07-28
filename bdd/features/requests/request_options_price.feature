@@ -22,7 +22,7 @@ Feature: Request Option Price
     | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers, League Of Justice, Guardians Of The Galaxy     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers, League Of Justice, Guardians Of The Galaxy     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
 
-    Given I give "client1" 10000 emh points
+    Given I give "client1" 10000 emh credits
 
     Given I am logged in as a user with the "administrator" role
 
@@ -75,20 +75,20 @@ Feature: Request Option Price
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     When I click "Edit" in the "primary tabs" region
-    Then I should see "500 points" in the "#edit-field-options-und-questionnaire" element
-      And I should see "200 points" in the "#edit-field-options-und-duration" element
+    Then I should see "500 credits" in the "#edit-field-options-und-questionnaire" element
+      And I should see "200 credits" in the "#edit-field-options-und-duration" element
 
     When I select "Avengers" from "Circles"
       And I press "Save draft"
       And I click "Edit" in the "primary tabs" region
-    Then I should see "1000 points" in the "#edit-field-options-und-questionnaire" element
-      And I should see "1000 points" in the "#edit-field-options-und-duration" element
+    Then I should see "1000 credits" in the "#edit-field-options-und-questionnaire" element
+      And I should see "1000 credits" in the "#edit-field-options-und-duration" element
 
     When I additionally select "League Of Justice" from "Circles"
       And I press "Save draft"
       And I click "Edit" in the "primary tabs" region
-    Then I should see "1000 points" in the "#edit-field-options-und-questionnaire" element
-      And I should see "1300 points" in the "#edit-field-options-und-duration" element
+    Then I should see "1000 credits" in the "#edit-field-options-und-questionnaire" element
+      And I should see "1300 credits" in the "#edit-field-options-und-duration" element
 
     Given I check the box "Duration"
     Then I should see "Duration of the mission"
@@ -105,7 +105,7 @@ Feature: Request Option Price
       And I should see "1 month"
 
     Given I press "Publish"
-    Then I should have "7700" points on "client1" user
+    Then I should have "7700" credits on "client1" user
 
     # An expert responds to the request.
     Given I am logged in as "expert1"
