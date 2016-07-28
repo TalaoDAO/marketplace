@@ -2,7 +2,7 @@
 
 /**
  * @file
- * EMH Points Views integration.
+ * EMH Credits Views integration.
  */
 
 /**
@@ -12,18 +12,18 @@
 function emh_points_views_data() {
   $data = array();
   // We declare the tables.
-  $data['emh_points']['table']['group'] = t('Points');
+  $data['emh_points']['table']['group'] = t('Credits');
   $data['emh_points']['table']['base'] = array(
     'field' => 'pid',
-    'title' => t('Points'),
+    'title' => t('Credits'),
     'defaults' => array(
       'field' => 'points',
     ),
   );
-  $data['emh_points_txn']['table']['group'] = t('Points Transaction');
+  $data['emh_points_txn']['table']['group'] = t('Credits Transaction');
   $data['emh_points_txn']['table']['base'] = array(
     'field' => 'txn_id',
-    'title' => t('Points Transactions'),
+    'title' => t('Credits Transactions'),
     'defaults' => array(
       'field' => 'description',
     ),
@@ -46,7 +46,7 @@ function emh_points_views_data() {
       'extra' => array(array('field' => 'dest_type', 'value' => 'node', 'operator' => '=')),
     ),
   );
-  $data['emh_points_total']['table']['group'] = t('Points');
+  $data['emh_points_total']['table']['group'] = t('Credits');
   $data['emh_points_total']['table']['join'] = array(
     'users' => array(
       'left_table' => 'users',
@@ -63,7 +63,7 @@ function emh_points_views_data() {
       'extra' => array(array('field' => 'entity_type', 'value' => 'node', 'operator' => '=')),
     ),
   );
-  $data['emh_points_answers']['table']['group'] = t('Points');
+  $data['emh_points_answers']['table']['group'] = t('Credits');
   $data['emh_points_answers']['table']['join'] = array(
     'comment' => array(
       'left_table' => 'comment',
@@ -108,7 +108,7 @@ function emh_points_views_data() {
     ),
   );
   $data['emh_points']['max_points'] = array(
-    'title' => 'Max points',
+    'title' => 'Max credits',
     'field' => array(
       'handler' => 'views_handler_field_numeric',
       'click sortable' => TRUE,
@@ -121,7 +121,7 @@ function emh_points_views_data() {
     ),
   );
   $data['emh_points']['points'] = array(
-    'title' => 'Points',
+    'title' => 'Credits',
     'field' => array(
       'handler' => 'views_handler_field_numeric',
       'click sortable' => TRUE,
@@ -210,7 +210,7 @@ function emh_points_views_data() {
       'handler' => 'views_handler_relationship',
       'base' => 'users',
       'field' => 'uid',
-      'label' => t('author of the point transaction'),
+      'label' => t('author of the credit transaction'),
     ),
     'filter' => array(
       'handler' => 'views_handler_filter_user_name',
@@ -275,7 +275,7 @@ function emh_points_views_data() {
     ),
   );
   $data['emh_points_txn']['points'] = array(
-    'title' => 'Points',
+    'title' => 'Credits',
     'field' => array(
       'handler' => 'views_handler_field_numeric',
       'click sortable' => TRUE,
@@ -372,7 +372,7 @@ function emh_points_views_data() {
     ),
   );
   $data['emh_points_total']['total_points'] = array(
-    'title' => 'Total Points',
+    'title' => 'Total Credits',
     'field' => array(
       'handler' => 'views_handler_field_numeric',
       'click sortable' => TRUE,
@@ -385,7 +385,7 @@ function emh_points_views_data() {
     ),
   );
   $data['emh_points_answers']['points'] = array(
-    'title' => 'Answer Points',
+    'title' => 'Answer Credits',
     'field' => array(
       'handler' => 'views_handler_field_numeric',
       'click sortable' => TRUE,
@@ -399,7 +399,7 @@ function emh_points_views_data() {
   );
   // Double join on TXN.
   $data['emh_points_txn_source'] = $data['emh_points_txn'];
-  $data['emh_points_txn_source']['table']['group'] = t('Points Transaction (source)');
+  $data['emh_points_txn_source']['table']['group'] = t('Credits Transaction (source)');
   $data['emh_points_txn_source']['table']['join']['users']['field'] = 'source_id';
   $data['emh_points_txn_source']['table']['join']['users']['extra'][0]['field'] = 'source_type';
   $data['emh_points_txn_source']['table']['join']['node']['field'] = 'source_id';
@@ -408,7 +408,7 @@ function emh_points_views_data() {
   unset($data['emh_points_txn_source']['source_id']);
   unset($data['emh_points_txn_source']['table']['base']);
   $data['emh_points_txn_dest'] = $data['emh_points_txn'];
-  $data['emh_points_txn_dest']['table']['group'] = t('Points Transaction (destination)');
+  $data['emh_points_txn_dest']['table']['group'] = t('Credits Transaction (destination)');
   $data['emh_points_txn_dest']['table']['join']['users']['field'] = 'dest_id';
   $data['emh_points_txn_dest']['table']['join']['users']['extra'][0]['field'] = 'dest_type';
   $data['emh_points_txn_dest']['table']['join']['node']['field'] = 'dest_id';

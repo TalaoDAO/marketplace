@@ -1,19 +1,19 @@
 <?php
 
 /**
- * Administration screens for EMH Point management module.
+ * Administration screens for EMH Credit management module.
  */
 
 /**
- * Admin form for EMH Point management settings.
+ * Admin form for EMH Credit management settings.
  */
 function emh_points_admin_form() {
   $form = array();
 
   $form['emh_points_expiration'] = array(
-    '#title' => t('Points expiration default time'),
+    '#title' => t('Credits expiration default time'),
     '#type' => 'textfield',
-    '#description' => t('Default expiration of the point, expressed in PHP strtotime string, see !link', array('!link' => l('this link', 'http://php.net/manual/fr/datetime.formats.relative.php'))),
+    '#description' => t('Default expiration of the credit, expressed in PHP strtotime string, see !link', array('!link' => l('this link', 'http://php.net/manual/fr/datetime.formats.relative.php'))),
     '#default_value'=> variable_get('emh_points_expiration', '+ 1 year'),
   );
 
@@ -24,7 +24,7 @@ function emh_points_admin_form() {
 }
 
 /**
- * Main point management form
+ * Main credit management form
  */
 function emh_points_manage_form() {
   $entities = entity_get_info(NULL);
@@ -47,7 +47,7 @@ function emh_points_manage_form() {
 }
 
 /**
- * Point management form for users.
+ * Credit management form for users.
  */
 function emh_points_manage_users_form() {
   $options = array();
@@ -68,7 +68,7 @@ function emh_points_manage_users_form() {
     '#options' => $options,
   );
   $form['points'] = array(
-    '#title' => t('Points'),
+    '#title' => t('Credits'),
     '#type' => 'textfield',
     '#default_value' => '100',
   );
@@ -95,7 +95,7 @@ function emh_points_manage_users_form() {
 function emh_points_manage_users_form_validate($form, $form_state) {
   $values = $form_state['values'];
   if (!is_numeric($values['points']) || (int)$values['points'] <= 0) {
-    form_set_error('points', t('Points should be a positive integer'));
+    form_set_error('points', t('Credits should be a positive integer'));
   }
 }
 
@@ -151,7 +151,7 @@ function emh_points_manage_users_form_submit($form, $form_state) {
 }
 
 /**
- * Integrity check for points.
+ * Integrity check for credits.
  */
 function emh_points_integrity_check() {
   // Global total
@@ -162,9 +162,9 @@ function emh_points_integrity_check() {
   $query->addExpression('SUM(p.total_points)');
   $sum_total = $query->execute()->fetchField();
   if ($sum_points != $sum_total) {
-    drupal_set_message(t('Totals are not equal : @count1 points and @count2 total points', array('@count1' => $sum_points, '@count2' => $sum_total)), 'error');
+    drupal_set_message(t('Totals are not equal : @count1 credits and @count2 total credits', array('@count1' => $sum_points, '@count2' => $sum_total)), 'error');
   } else {
     drupal_set_message(t('Everything checks out !'));
   }
-  drupal_goto('admin/emindhub/points');
+  drupal_goto('admin/emindhub/credits');
 }

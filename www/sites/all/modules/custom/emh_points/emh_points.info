@@ -1,5 +1,5 @@
-name = EMH Points
-description = Points Managements for EMH website
+name = EMH Credits
+description = Credits Managements for EMH website
 package = EMH
 core = 7.x
 
