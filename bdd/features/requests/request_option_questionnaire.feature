@@ -36,6 +36,10 @@ Feature: Request Option Questionnaire
       And I press "Update membership"
     Then I should see "Creator member" in the "Captain AMERICA" row
 
+    When I go to "admin/emindhub/points"
+    Then I fill in "Questionnaire" with "500"
+      And I press "Save configuration"
+
   Scenario: An author can create a request with a questionnaire
     Given I am logged in as "client1"
     When I go to homepage

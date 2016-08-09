@@ -24,16 +24,16 @@ Feature: Test points
 
     Given I give "client1" 500 emh points
 
-    Given "question1" content:
-    | title        | field_domaine | og_group_ref | field_reward | author  |
-    | What about?  | Energy        | Avengers     | 100          | client1 |
+    Given "request" content:
+    | title        | field_domaine | og_group_ref | field_reward | author  | status |
+    | What about?  | Energy        | Avengers     | 100          | client1 | 1      |
 
     # Make client1 as a Creator member of Avengers circle
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
     And I click "Group"
     And I click "People"
-    And I click "edit" in the "Captain America" row
+    And I click "edit" in the "Captain AMERICA" row
     And I check the box "Creator member"
     And I press "Update membership"
 
@@ -43,36 +43,34 @@ Feature: Test points
     And I press "Save"
     When I go to homepage
     When I click "What about?" in the "What about?" row
-    Then I enter "I'm the best superhero in da world." for "Public answer"
-    And I select the radio button "My answer will be visible by all experts"
+    Then I fill in "What about?" with "I'm the best superhero in da world."
     And I press "Publish"
 
     Given I am logged in as "expert2"
     When I go to homepage
     When I click "What about?" in the "What about?" row
-    Then I enter "You should definitely trust me." for "Public answer"
-    And I select the radio button "My answer will be visible by all experts"
+    Then I fill in "What about?" with "You should definitely trust me." 
     And I press "Publish"
 
   Scenario: points: Edit already published question
     Given I am logged in as "expert2"
-    Then I should have 100 points on "What about?" node
+    Then I should have 0 points on "What about?" node
 
     Given I am logged in as "client1"
     When I go to homepage
     And I click "What about?" in the "What about?" row
     And I click "Edit" in the "primary tabs" region
-    Then I should see "Reward"
-    And the "Reward" field should contain "100"
+    #Then I should see "Reward"
+    #And the "Reward" field should contain "100"
 
-    When I enter "200" for "Reward"
-    And I select "Display my full name" from "Your name"
-    And I select "Display the name" from "Your organisation"
-    And I select "Display" from "Your activity"
+    #When I enter "200" for "Reward"
+    #And I select "Display my full name" from "Your name"
+    #And I select "Display the name" from "Your organisation"
+    #And I select "Display" from "Your activity"
     And I press "Save"
     #And I break
-    Then I should have 200 points on "What about?" node
-    And I should have 300 points on "client1" user
+    #Then I should have 200 points on "What about?" node
+    #And I should have 300 points on "client1" user
 
   @exclude
   Scenario: points: Manual distribute
@@ -110,7 +108,7 @@ Feature: Test points
   #@exclude
   Scenario: points : VBO distribute
     Given I am logged in as "expert2"
-    Then I should have 100 points on "What about?" node
+    Then I should have 0 points on "What about?" node
 
     Given I am logged in as "client1"
     When I go to "/my-responses"
