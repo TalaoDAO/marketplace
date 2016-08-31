@@ -18225,11 +18225,6 @@ body.node-type-request:not(.page-node-edit) .field:last-child {
   margin-bottom: inherit;
   border: 0;
 }
-body.page-node-publish .field-name-body,
-body.node-type-request:not(.page-node-edit) .field-name-body {
-  font-size: 1.2em;
-  line-height: 1.5;
-}
 body.page-node-publish .field-name-body p:last-child,
 body.node-type-request:not(.page-node-edit) .field-name-body p:last-child {
   margin-bottom: 0;
