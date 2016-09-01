@@ -53,9 +53,37 @@ function emh_user_menu() {
  */
 function emh_user_menu_alter(&$items) {
   unset($items['user/register']);
+  $items['user/%user']['access callback'] = 'emh_user_view_access';
+  $items['user/%user']['access arguments'] = array(1);
   $items['user/%user/hybridauth']['access callback'] = FALSE;
   $items['user/%user/edit']['title'] = t('Edit account');
   $items['user/%user/change-password']['title'] = t('Change password');
+}
+
+/**
+ * User view access callback.
+ *
+ * @param $account
+ *   Can either be a full user object or a $uid.
+ */
+function emh_user_view_access($account) {
+  $uid = is_object($account) ? $account->uid : (int) $account;
+
+  // Never allow access to view the anonymous user account.
+  if ($uid) {
+    // Admins can view all, users can view own profiles at all times.
+    if ($GLOBALS['user']->uid == $uid || user_access('administer users')) {
+      return TRUE;
+    }
+    elseif (user_access('access user profiles')) {
+      // At this point, load the complete account object.
+      if (!is_object($account)) {
+        $account = user_load($uid);
+      }
+      return (is_object($account) && $account->status && emh_access_user_can_see_full_user($GLOBALS['user']->uid, $account->uid));
+    }
+  }
+  return FALSE;
 }
 
 
@@ -83,8 +111,8 @@ function emh_user_field_access($op, $field, $entity_type, $entity, $account) {
         switch($field['field_name']) {
           // We can always access few fields.
           case 'field_first_name':
-          case 'field_last_name':
-          case 'field_photo':
+          // case 'field_last_name':
+          // case 'field_photo':
           case 'field_titre_metier':
           case 'field_employment_history':
           case 'field_entreprise':
@@ -377,21 +405,7 @@ function emh_user_forms($form_id, $args) {
  */
 function emh_user_username_alter(&$name, $account) {
 
-  global $user;
-  $user1 = user_load($user->uid);
-  $user2 = user_load($account->uid);
-
-  $items = ''; $firstname = ''; $lastname = '';
-  $items = field_get_items('user', $user2, 'field_first_name');
-  $firstname = isset($items[0]['value']) ? check_plain(ucwords($items[0]['value'])) : '';
-
-  if (module_exists('emh_access') && emh_access_user_can_see_full_user($user1->uid, $user2->uid)) {
-    $items = field_get_items('user', $user2, 'field_last_name');
-    $lastname = isset($items[0]['value']) ? check_plain(ucwords($items[0]['value'])) : '';
-  }
-
-  $name = !empty($firstname) ? $firstname : $account->name;
-  $name .= !empty($lastname) ? ' ' . strtoupper($lastname) : '';
+  $name = emh_user_get_beautiful_realname($account);
 
 }
 
@@ -413,24 +427,26 @@ function emh_user_redirect_submit($form, &$form_state) {
 /**
  * Helper function to get user realname instead of username.
  */
-function emh_user_get_beautiful_realname($uid) {
-  $account = user_load($uid);
-  $firstName = '';
-  if (!empty($account->field_first_name[LANGUAGE_NONE])) {
-    $firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
-    $firstName = check_plain(ucwords($firstName));
+function emh_user_get_beautiful_realname($account) {
+
+  global $user;
+  $user1 = user_load($user->uid);
+  $user2 = user_load($account->uid);
+
+  $name = ''; $items = ''; $firstname = ''; $lastname = '';
+  $items = field_get_items('user', $user2, 'field_first_name');
+  $firstname = isset($items[0]['value']) ? check_plain(ucwords($items[0]['value'])) : '';
+
+  if (module_exists('emh_access') && emh_access_user_can_see_full_user($user1->uid, $user2->uid)) {
+    $items = field_get_items('user', $user2, 'field_last_name');
+    $lastname = isset($items[0]['value']) ? check_plain(ucwords($items[0]['value'])) : '';
   }
-  $lastName = '';
-  if (!empty($account->field_last_name[LANGUAGE_NONE])) {
-    $lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
-    $lastName = check_plain(strtoupper($lastName));
-  }
-  if (!empty($firstName) && !empty($lastName)) {
-    return '<span class="author firstname">' . $firstName  . '</span>'. ' ' . '<span class="author lastname">' . $lastName . '</span>';
-  }
-  else {
-    return check_plain($account->name);
-  }
+
+  $name = !empty($firstname) ? $firstname : $account->name;
+  $name .= !empty($lastname) ? ' ' . strtoupper($lastname) : '';
+
+  return $name;
+
 }
 
 /**
@@ -456,6 +472,7 @@ function emh_user_get_beautiful_firstname($account) {
 
 /**
  * Helper function to check if current user has access to other user's realname.
+ * TODO: remove this useless function!
  */
 function emh_user_get_beautiful_author($node) {
   if (empty($node)) {
@@ -471,6 +488,7 @@ function emh_user_get_beautiful_author($node) {
 
 /**
  * Helper function to check access to user profile url.
+ * TODO: remove this useless function!
  */
 function emh_user_get_beautiful_profile_link($uid) {
   global $user;

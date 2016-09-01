@@ -1,8 +1,10 @@
 name = EMH Access
 package = EMH
+core = 7.x
+
+; Dependencies
 dependencies[] = emh_circles
 dependencies[] = emh_points
 dependencies[] = flag
 dependencies[] = og
 dependencies[] = customerror
-core = 7.x
