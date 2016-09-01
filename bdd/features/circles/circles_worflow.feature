@@ -72,9 +72,9 @@ Feature: Circles workflow for Expert
     When I go to "content/guardians-galaxy"
     And I click "Group" in the "primary tabs" region
     And I click "People"
-    Then I should see "Pending" in the "Iron MAN" row
+    Then I should see "Pending" in the "Iron" row
 
-    When I click "edit" in the "Iron MAN" row
+    When I click "edit" in the "Iron" row
     And I select "Active" from "Status"
     And I press "Update membership"
     Then I should see "The membership has been updated."
@@ -97,9 +97,9 @@ Feature: Circles workflow for Expert
     When I go to "content/guardians-galaxy"
     And I click "Group" in the "primary tabs" region
     And I click "People"
-    Then I should see "Pending" in the "Scott SUMMERS" row
+    Then I should see "Pending" in the "Scott" row
 
-    When I click "remove" in the "Scott SUMMERS" row
+    When I click "remove" in the "Scott" row
     And I press "Remove"
     Then I should see "The membership was removed."
 

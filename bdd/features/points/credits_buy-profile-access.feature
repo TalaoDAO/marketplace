@@ -26,7 +26,7 @@ Feature: Buy profile access
     Given I give "client1" 1000 emh points
     Given I give "expert1" 500 emh points
 
-    # Make client1 as a Creator member of Avengers circle
+    # Make client1 as a Creator member of All experts circle
     Given I am logged in as a user with the "administrator" role
     When I go to "content/all-experts"
       And I click "Group"
