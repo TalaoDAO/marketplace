@@ -24,7 +24,7 @@ Feature: Create permissions for Clients
     When I go to "content/avengers"
     And I click "Group"
     And I click "People"
-    And I click "edit" in the "Captain America" row
+    And I click "edit" in the "Captain AMERICA" row
     And I check the box "Creator member"
     And I press "Update membership"
 
