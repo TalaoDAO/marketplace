@@ -82,8 +82,16 @@ function emh_request_timeline_get_timeline($request) {
   $intervalDeadline = $intervalDeadline->format('%a day(s)');
 
   if ($status != 'closed') {
-    $intervalLeft = $nowDate->diff($deadlineDate);
-    $intervalLeft = $intervalLeft->format('%a day(s) left');
+    if ($nowDate < $deadlineDate) {
+      $intervalLeft = $nowDate->diff($deadlineDate);
+      $intervalLeft = $intervalLeft->format('%a day(s) left');
+    }
+    else if ($nowDate == $deadlineDate) {
+      $intervalLeft = 'Last chance to answer!';
+    }
+    else {
+      $intervalLeft = 'Request expired';
+    }
   } else {
     $intervalLeft = t('Closed');
   }
