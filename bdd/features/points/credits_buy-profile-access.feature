@@ -17,7 +17,7 @@ Feature: Buy profile access
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | Chieur génial      | All experts     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
 
     # Just in case...
-    Given I run drush "vset" "--yes emh_request_send_notification_email_all_domains FALSE"
+    #Given I run drush "vset" "--yes emh_request_send_notification_email_all_domains FALSE"
 
     Given "request" content:
     | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
@@ -31,9 +31,19 @@ Feature: Buy profile access
     When I go to "content/all-experts"
       And I click "Group"
       And I click "People"
+      And I click "Member since"
+      # Twice for correct order
+      And I click "Member since"
       And I click "edit" in the "Captain AMERICA" row
       And I check the box "Creator member"
       And I press "Update membership"
+      # Again...
+      And I go to "content/all-experts"
+      And I click "Group"
+      And I click "People"
+      And I click "Member since"
+      # Twice for correct order
+      And I click "Member since"
     Then I should see "Creator member" in the "Captain AMERICA" row
 
     # An expert responds to the request.
@@ -49,12 +59,12 @@ Feature: Buy profile access
     When I go to "content/how-become-superhero"
     Then I should see "Iron" in the "submissions" region
       And I should not see "MAN" in the "submissions" region
-      And I should see "Buy profile access for 50pts" in the "submissions" region
+      And I should see "Access profile for 50 credits" in the "submissions" region
 
-    When I click "Buy profile access for 50pts" in the "submissions" region
+    When I click "Access profile for 50 credits" in the "submissions" region
     Then I should see "Buy profile access"
 
-    When I click "Access profile"
+    When I press "Access profile"
     Then I should see "Iron MAN" in the "submissions" region
       And I should have "950" points on "client1" user
       And I should have "550" points on "expert1" user
@@ -68,12 +78,12 @@ Feature: Buy profile access
     When I go to "content/how-become-superhero"
     Then I should see "Captain" in the "request_right" region
       And I should not see "AMERICA" in the "request_right" region
-      And I should see "Buy profile access for 50pts" in the "request_right" region
+      And I should see "Access profile for 50 credits" in the "request_right" region
 
-    When I click "Buy profile access for 50pts" in the "request_right" region
+    When I click "Access profile for 50 credits" in the "request_right" region
     Then I should see ""
 
-    When I click "Access profile"
+    When I press "Access profile"
     Then I should see ""
       And I should have "450" points on "expert1" user
       And I should have "1050" points on "client1" user

@@ -30,11 +30,11 @@ Feature: Circles workflow for Expert
     # Make client4 as a MANager of Guardians of the Galaxy circle
     Given I am logged in as a user with the "administrator" role
     When I go to "content/guardians-galaxy"
-    And I click "Group" in the "primary tabs" region
-    And I click "People"
-    And I click "edit" in the "Star LORD" row
-    And I check the box "administrator member"
-    And I press "Update membership"
+      And I click "Group" in the "primary tabs" region
+      And I click "People"
+      And I click "edit" in the "Star LORD" row
+      And I check the box "administrator member"
+      And I press "Update membership"
     Then I should see "The membership has been updated."
 
   Scenario: Experts can access to its own circles
