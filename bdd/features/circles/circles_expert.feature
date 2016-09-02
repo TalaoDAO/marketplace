@@ -31,7 +31,7 @@ Feature: Requests visibility for Expert
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise   | field_working_status |
-    | expert5 | emindhub.test+expert5@gmail.com | expert   | Jean             | Grey            | 0712345674      | Boulanger          | X-Men        | emindhub.test+expert5@gmail.com | Linkedin  | Employee  |
+    | expert5 | emindhub.test+expert5@gmail.com | expert   | Jean             | GREY            | 0712345674      | Boulanger          | X-Men        | emindhub.test+expert5@gmail.com | Linkedin  | Employee  |
 
     Given "request" content:
     | title         | field_domaine  | og_group_ref    | author  | field_expiration_date  | status  |
