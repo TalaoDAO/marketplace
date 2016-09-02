@@ -149,7 +149,7 @@ function emh_user_profile_purchase_form($form, &$form_state, $account) {
     $options = array('path' => '<front>');
   }
 
-  $amount = (int) variable_get('emh_user_profile_purchase_amount', 50);
+  $amount = (int) variable_get('emh_user_profile_purchase_amount', 100);
 
   $form['confirmation'] = array(
     '#type' => 'item',
@@ -186,7 +186,7 @@ function emh_user_profile_purchase_form_validate($form, &$form_state) {
   if (!isset($user->emh_points)) {
     emh_points_entity_load_single($user, 'user');
   }
-  if ($user->emh_points < (int) variable_get('emh_user_profile_purchase_amount', 50)) {
+  if ($user->emh_points < (int) variable_get('emh_user_profile_purchase_amount', 100)) {
     form_error($form, t("You don't have enough points to access !user's profile.", array(
       '!user' => emh_user_get_beautiful_firstname($form_state['account']),
     )));
@@ -611,7 +611,7 @@ function emh_user_purchase_profile($account) {
     }
 
     // Spends user's points
-    $amount = (int) variable_get('emh_user_profile_purchase_amount', 50);
+    $amount = (int) variable_get('emh_user_profile_purchase_amount', 100);
     emh_points_move_points($user, $account, $amount);
 
     // Flags the account to add it in the user's relationships
