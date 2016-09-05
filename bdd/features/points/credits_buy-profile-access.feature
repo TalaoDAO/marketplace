@@ -43,7 +43,10 @@ Feature: Buy profile access
       And I click "Member since"
     Then I should see "Creator member" in the "Captain AMERICA" row
 
-    Given I run drush "emh_user_profile_purchase_amount" "50"
+    Given I am logged in as a user with the "administrator" role
+    When I go to "admin/emindhub/points"
+    Then I fill in "Cost of profile purchase" with "50"
+    And I press "Save configuration"
 
     # An expert responds to the request.
     Given I am logged in as "expert1"
@@ -52,8 +55,6 @@ Feature: Buy profile access
       And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
       And I press "Publish"
     Then I should see the message "Your submission has been published."
-
-    #Given the credit system is enabled
 
   Scenario: An author can buy a profile
     Given I am logged in as "client1"

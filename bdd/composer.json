@@ -1,6 +1,5 @@
 {
   "require": {
-    "drush/drush": "7.*",
     "drupal/drupal-extension": "~3.0",
     "phpunit/php-code-coverage": "^2.2",
     "phpunit/phpcov": "*",
