@@ -36,25 +36,29 @@ Feature: Request Option Questionnaire
       And I press "Update membership"
     Then I should see "Creator member" in the "Captain AMERICA" row
 
+    When I go to "admin/emindhub/points"
+    Then I fill in "Questionnaire" with "500"
+      And I press "Save configuration"
+
   Scenario: An author can create a request with a questionnaire
     Given I am logged in as "client1"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
     When I click "Edit" in the "primary tabs" region
     Then I should see "500 points" in the "#edit-field-options-und-questionnaire" element
 
     When I select "Avengers" from "Circles"
-    And I check the box "Questionnaire"
+      And I check the box "Questionnaire"
     Then I should see "Questions"
-    And I fill in "edit-field-request-questions-und-0-value" with "My little questionnaire"
-    And I press "Continue"
+      And I fill in "edit-field-request-questions-und-0-value" with "My little questionnaire"
+      And I press "Continue"
     Then I should see "Request How to become a superhero? has been updated."
     # Validation page
-    And I press "Publish"
-    And I should have "9500" points on "client1" user
+      And I press "Publish"
+      And I should have "9500" points on "client1" user
 
     # An expert responds to the request.
     Given I am logged in as "expert1"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
-    And I should see "My little questionnaire"
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I should see "My little questionnaire"

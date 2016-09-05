@@ -40,18 +40,18 @@ Feature: Request and submissions
     # Activate option
     Given I am logged in as "client1"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
-    And I click "Edit" in the "primary tabs" region
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "Edit" in the "primary tabs" region
     Given I check "Private"
-    And I press "Continue"
+      And I press "Continue"
     # Validation page
-    And I press "Publish"
+      And I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been published."
 
     # An expert responds to the request.
     Given I am logged in as "expert1"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "Your submission will only be visible by the request's author."
 
     Given I enter "Everybody can be, trust me, I'm the best we known." for "How to become a superhero?"
@@ -61,13 +61,13 @@ Feature: Request and submissions
   Scenario: An expert can see its own submission
     Given I am logged in as "expert1"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "Everybody can be, trust me, I'm the best we known." in the "user_submission" region
 
   Scenario: An expert cannot see other published submissions
     Given I am logged in as "expert2"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should not see "Everybody can be, trust me, I'm the best we known."
 
   Scenario: The author can see the published submissions
@@ -80,5 +80,5 @@ Feature: Request and submissions
 
     When I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "Submissions to your request are only visible by you."
-    And I should see "Iron MAN"
-    And I should see "Everybody can be, trust me, I'm the best we known."
+      And I should see "Iron MAN"
+      And I should see "Everybody can be, trust me, I'm the best we known."

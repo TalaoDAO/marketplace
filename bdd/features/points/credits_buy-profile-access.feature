@@ -16,25 +16,37 @@ Feature: Buy profile access
     | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | Chef de groupe     | All experts     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | Chieur génial      | All experts     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
 
-    # Just in case...
-    Given I run drush "vset" "--yes emh_request_send_notification_email_all_domains FALSE"
-
     Given "request" content:
     | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
     | How to become a superhero?  | Energy        | All experts     | client1 | 2017-02-08 17:45:00    | 1       |
 
     Given I give "client1" 1000 emh points
-    Given I give "expert1" 500 emh points
+    Given I give "expert1" 1000 emh points
 
-    # Make client1 as a Creator member of Avengers circle
+    # Make client1 as a Creator member of All experts circle
     Given I am logged in as a user with the "administrator" role
     When I go to "content/all-experts"
       And I click "Group"
       And I click "People"
+      And I click "Member since"
+      # Twice for correct order
+      And I click "Member since"
       And I click "edit" in the "Captain AMERICA" row
       And I check the box "Creator member"
       And I press "Update membership"
+      # Again...
+      And I go to "content/all-experts"
+      And I click "Group"
+      And I click "People"
+      And I click "Member since"
+      # Twice for correct order
+      And I click "Member since"
     Then I should see "Creator member" in the "Captain AMERICA" row
+
+    Given I am logged in as a user with the "administrator" role
+    When I go to "admin/emindhub/points"
+    Then I fill in "Cost of profile purchase" with "50"
+      And I press "Save configuration"
 
     # An expert responds to the request.
     Given I am logged in as "expert1"
@@ -49,15 +61,13 @@ Feature: Buy profile access
     When I go to "content/how-become-superhero"
     Then I should see "Iron" in the "submissions" region
       And I should not see "MAN" in the "submissions" region
-      And I should see "Buy profile access for 50pts" in the "submissions" region
+      And I should see "Access profile for 50 credits" in the "submissions" region
 
-    When I click "Buy profile access for 50pts" in the "submissions" region
-    Then I should see "Buy profile access"
-
-    When I click "Access profile"
+    When I click "Access profile for 50 credits" in the "submissions" region
+      And I press "Access profile"
     Then I should see "Iron MAN" in the "submissions" region
       And I should have "950" points on "client1" user
-      And I should have "550" points on "expert1" user
+      And I should have "1050" points on "expert1" user
 
     When I go to "circles/relationships"
     Then I should see "Iron MAN"
@@ -68,15 +78,15 @@ Feature: Buy profile access
     When I go to "content/how-become-superhero"
     Then I should see "Captain" in the "request_right" region
       And I should not see "AMERICA" in the "request_right" region
-      And I should see "Buy profile access for 50pts" in the "request_right" region
+      And I should see "Access profile for 50 credits" in the "request_right" region
 
-    When I click "Buy profile access for 50pts" in the "request_right" region
+    When I click "Access profile for 50 credits" in the "request_right" region
     Then I should see ""
 
-    When I click "Access profile"
+    When I press "Access profile"
     Then I should see ""
-      And I should have "450" points on "expert1" user
       And I should have "1050" points on "client1" user
+      And I should have "950" points on "expert1" user
 
     When I go to "content/how-become-superhero"
     Then I should see "Captain AMERICA" in the "request_right" region

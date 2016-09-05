@@ -40,8 +40,8 @@ Feature: Request
     Then I should see "Avengers" in the "How to become a superhero?" row
 
     When I click "How to become a superhero?" in the "How to become a superhero?" row
-    And I click "Edit" in the "primary tabs" region
-    And I check the box "Duration"
+      And I click "Edit" in the "primary tabs" region
+      And I check the box "Duration"
     Then I should see "Duration of the mission"
       And I should see "Desired starting date"
       And I fill in "Duration of the mission" with "1 month"
