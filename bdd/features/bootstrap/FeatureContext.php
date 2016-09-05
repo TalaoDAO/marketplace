@@ -43,7 +43,7 @@ class FeatureContext extends DrupalContext {
   /**
    * @Given /^(?:|I )am logged in as the admin$/
    */
-  public function iAmLoggedInAsTheAdmin()    {
+  public function iAmLoggedInAsTheAdmin() {
     // Check if logged in.
     if ($this->loggedIn()) {
       $this->logout();
@@ -66,7 +66,7 @@ class FeatureContext extends DrupalContext {
   /**
    * @Given /^(?:|I )am logged in as the client$/
    */
-  public function iAmLoggedInAsTheClient()    {
+  public function iAmLoggedInAsTheClient() {
     // Check if logged in.
     if ($this->loggedIn()) {
       $this->logout();
@@ -86,7 +86,7 @@ class FeatureContext extends DrupalContext {
     }
   }
 
-   /**
+  /**
    * @Given I give :name :points emh points
    */
   public function assertGiveUserPoints($name, $points) {
@@ -98,7 +98,7 @@ class FeatureContext extends DrupalContext {
     emh_points_give_points($user, $context);
   }
 
-   /**
+  /**
    * @Given I remove :name :points emh points
    */
   public function assertRemoveUserPoints($name, $points) {
@@ -110,7 +110,7 @@ class FeatureContext extends DrupalContext {
     emh_points_remove_points($user, $context);
   }
 
-   /**
+  /**
    * @Then I should have :points points on :name user
    */
   public function assertUserPoints($points, $name) {
@@ -123,7 +123,7 @@ class FeatureContext extends DrupalContext {
     }
   }
 
-   /**
+  /**
    * @Then I should have :points points on :title node
    */
   public function assertNodePoints($points, $title) {
@@ -141,7 +141,7 @@ class FeatureContext extends DrupalContext {
     }
   }
 
-   /**
+  /**
    * @Then user :name transfers :points points on :title node
    */
   public function userTransfertNodePoints($name, $points, $title) {
@@ -161,7 +161,7 @@ class FeatureContext extends DrupalContext {
     emh_points_move_points($user, $node, (int) $points);
   }
 
-   /**
+  /**
    * @Then node :title transfers :points points on :name user
    */
   public function nodeTransfertUserPoints($title, $points, $name) {
@@ -180,7 +180,6 @@ class FeatureContext extends DrupalContext {
     $user = user_load($this->users[$name]->uid);
     emh_points_move_points($node, $user, (int) $points);
   }
-
 
   /**
    * Checks, that form element with specified label is visible on page.
@@ -202,6 +201,7 @@ class FeatureContext extends DrupalContext {
     }
     throw new \Behat\Mink\Exception\ElementNotFoundException($this->getSession(), 'form item', 'label', $label);
   }
+
   /**
    * Checks, that form element with specified label and type is visible on page.
    *
@@ -222,6 +222,7 @@ class FeatureContext extends DrupalContext {
     }
     throw new \Behat\Mink\Exception\ElementNotFoundException($this->getSession(), $type . ' form item', 'label', $label);
   }
+
   /**
    * Checks, that element with specified CSS is not visible on page.
    *
@@ -238,6 +239,7 @@ class FeatureContext extends DrupalContext {
       }
     }
   }
+
   /**
    * Checks, that form element with specified label and type is not visible on page.
    *
@@ -264,8 +266,7 @@ class FeatureContext extends DrupalContext {
    *
    * @Given /^(?:|I )wait (\d+) seconds$/
    */
-  public function waitSeconds($seconds)
-  {
+  public function waitSeconds($seconds) {
     sleep($seconds);
   }
 
@@ -282,14 +283,13 @@ class FeatureContext extends DrupalContext {
     echo 'Screenshot at : ' . $base_url . $this->tempPath . $this->htmlPagePath;
   }
 
- /**
+  /**
    * Take screen-shot when step fails.
    *
    * @AfterStep
    * @param AfterStepScope $scope
    */
-  public function takeScreenshotAfterFailedStep(AfterStepScope $scope)
-  {
+  public function takeScreenshotAfterFailedStep(AfterStepScope $scope) {
     // come from : https://github.com/Behat/Behat/issues/649
     // and from : https://gist.github.com/fbrnc/4550079
 
@@ -310,4 +310,37 @@ class FeatureContext extends DrupalContext {
       echo 'Screenshot error at : ' . $base_url . $this->tempPath . $this->screenshotPath . '/' . $filename;
     }
   }
+
+  /**
+   * @Given /^the credit system is enabled$/
+   */
+  // public function theCreditSystemIsEnabled() {
+  //   // Store the original system to restore after the scenario.
+  //   $this->originalCreditSystem = variable_get('emh_user_profile_purchase_amount');
+  //   // Set the test system.
+  //   variable_set('emh_user_profile_purchase_amount', 50);
+  // }
+
+  /**
+   * @BeforeSuite
+   */
+  // public static function prepare($scope) {
+  //   variable_set('emh_user_profile_purchase_amount', 50);
+  // }
+
+  /**
+   * @BeforeSuite
+   */
+  // public static function setup($scope) {
+  //   $this->originalCreditSystem = variable_get('emh_user_profile_purchase_amount');
+  //   variable_set('emh_user_profile_purchase_amount', '50');
+  // }
+  //
+  // /**
+  //  * @AfterSuite
+  //  */
+  // public static function teardown($scope) {
+  //   variable_set('emh_user_profile_purchase_amount', $this->originalCreditSystem);
+  // }
+
 }
