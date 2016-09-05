@@ -65,19 +65,19 @@ Feature: Test points
 
     Given I am logged in as "client1"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
-    And I click "Edit" in the "primary tabs" region
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "Edit" in the "primary tabs" region
     Then I should see "Reward"
-    And the "Reward" field should contain "100"
+      And the "Reward" field should contain "100"
 
     When I enter "200" for "Reward"
-    And I select "Display my full name" from "Your name"
-    And I select "Display the name" from "Your organisation"
-    And I select "Display" from "Your activity"
-    And I press "Save"
-    #And I break
+      And I select "Display my full name" from "Your name"
+      And I select "Display the name" from "Your organisation"
+      And I select "Display" from "Your activity"
+      And I press "Save"
+      #And I break
     Then I should have 200 points on "How to become a superhero?" node
-    And I should have 300 points on "client1" user
+      And I should have 300 points on "client1" user
 
   @exclude
   Scenario: points: Manual distribute
@@ -90,17 +90,17 @@ Feature: Test points
 
     When I go to "/my-responses"
     Then I should see "Iron Man"
-    And I should see "Klark Kent"
+      And I should see "Klark Kent"
 
     When node "How to become a superhero?" transfers 70 points on "expert1" user
-    And node "How to become a superhero?" transfers 30 points on "expert2" user
+      And node "How to become a superhero?" transfers 30 points on "expert2" user
     Then I should have 0 points on "How to become a superhero?" node
-    And I should have 70 points on "expert1" user
-    And I should have 30 points on "expert2" user
+      And I should have 70 points on "expert1" user
+      And I should have 30 points on "expert2" user
 
     When I go to "/my-responses"
     Then I should see "70" in the "I'm the best superhero in da world." row
-    And I should see "30" in the "You should definitely trust me." row
+      And I should see "30" in the "You should definitely trust me." row
 
     Given I am logged in as "expert1"
     When I go to "/my-responses"
@@ -109,8 +109,8 @@ Feature: Test points
     Given I am logged in as a user with the "administrator" role
     When I go to "admin/emindhub/points/transaction-log"
     Then I should see "Move points from Captain America to question1 How to become a superhero?."
-    And I should see "Move points from question1 How to become a superhero? to Iron Man. "
-    And I should see "Move points from question1 How to become a superhero? to Klark Kent. "
+      And I should see "Move points from question1 How to become a superhero? to Iron Man. "
+      And I should see "Move points from question1 How to become a superhero? to Klark Kent. "
 
   @exclude
   Scenario: points : VBO distribute

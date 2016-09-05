@@ -64,19 +64,19 @@ Feature: Circles workflow for Expert
     Then I should see "Request membership"
 
     When I click "Request membership"
-    And I fill in "Request message" with "I really want to join your band"
-    And I press "Ask to join"
+      And I fill in "Request message" with "I really want to join your band"
+      And I press "Ask to join"
     Then I should see "Your request is pending."
 
     Given I am logged in as "client4"
     When I go to "content/guardians-galaxy"
-    And I click "Group" in the "primary tabs" region
-    And I click "People"
+      And I click "Group" in the "primary tabs" region
+      And I click "People"
     Then I should see "Pending" in the "Iron" row
 
     When I click "edit" in the "Iron" row
-    And I select "Active" from "Status"
-    And I press "Update membership"
+      And I select "Active" from "Status"
+      And I press "Update membership"
     Then I should see "The membership has been updated."
 
     Given I am logged in as "expert1"
@@ -89,18 +89,18 @@ Feature: Circles workflow for Expert
     Then I should see "Request membership"
 
     When I click "Request membership"
-    And I fill in "Request message" with "Hey guys, please accept my request!"
-    And I press "Ask to join"
+      And I fill in "Request message" with "Hey guys, please accept my request!"
+      And I press "Ask to join"
     Then I should see "Your request is pending."
 
     Given I am logged in as "client4"
     When I go to "content/guardians-galaxy"
-    And I click "Group" in the "primary tabs" region
-    And I click "People"
+      And I click "Group" in the "primary tabs" region
+      And I click "People"
     Then I should see "Pending" in the "Scott" row
 
     When I click "remove" in the "Scott" row
-    And I press "Remove"
+      And I press "Remove"
     Then I should see "The membership was removed."
 
     Given I am logged in as "expert4"

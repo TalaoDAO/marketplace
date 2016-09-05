@@ -32,7 +32,7 @@ Feature: Test points dispatch in OG
     Given user "client1" transfers 200 points on "Avengers" node
     Given I am logged in as "client1"
     Then I should see "100 points"
-    And I should have "100" points on "client1" user
+      And I should have "100" points on "client1" user
 
     When I go to "/groups"
     Then I should see "Avengers"
@@ -41,36 +41,36 @@ Feature: Test points dispatch in OG
     #Then I should see "You are the group manager"
 
     When I click "Group"
-    And I click "Add people"
-    And I fill in "User name" with "client2"
-    And I press "Add users"
+      And I click "Add people"
+      And I fill in "User name" with "client2"
+      And I press "Add users"
     #Then I should see the success message containing "has been added to the group"
-    And I fill in "User name" with "client3"
-    And I press "Add users"
+      And I fill in "User name" with "client3"
+      And I press "Add users"
 
     When I go to "/groups"
-    And I click "Avengers"
-    And I click "Members"
+      And I click "Avengers"
+      And I click "Members"
     Then I should see "Charle Xavier"
-    And I should see "Tony Stark"
+      And I should see "Tony Stark"
     #Then I should see the success message containing "has been added to the group"
 
     When I go to "/groups"
-    And I click "Avengers"
-    And I click "Distribute points"
+      And I click "Avengers"
+      And I click "Distribute points"
     Then I should see "Operations"
 
     When I check the box "edit-views-bulk-operations-1"
-    And I check the box "edit-views-bulk-operations-2"
-    And I press "Distribute group points to these entities"
+      And I check the box "edit-views-bulk-operations-2"
+      And I press "Distribute group points to these entities"
     Then I should see "Points"
 
     When I fill in "Points" with "100"
-    And I press "Next"
-    And I fill in "Points for Charle Xavier" with "60"
-    And I fill in "Points for Tony Stark" with "40"
-    And I press "edit-submit"
+      And I press "Next"
+      And I fill in "Points for Charle Xavier" with "60"
+      And I fill in "Points for Tony Stark" with "40"
+      And I press "edit-submit"
     Then I should see the success message "All the points have been distributed"
-    And I should have 100 points on "Avengers" node
-    And I should have "60" points on "client2" user
-    And I should have "40" points on "client3" user
+      And I should have 100 points on "Avengers" node
+      And I should have "60" points on "client2" user
+      And I should have "40" points on "client3" user
