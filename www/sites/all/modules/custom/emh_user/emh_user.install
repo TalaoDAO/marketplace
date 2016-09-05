@@ -110,10 +110,3 @@ function emh_user_update_7010() {
     'execute emh_user_profile_purchase_action',
   ));
 }
-
-/**
- * CHG: Purchase profile credit amount.
- */
-function emh_user_update_7011() {
-  variable_set('emh_user_profile_purchase_amount', 100);
-}
