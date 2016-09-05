@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Installation hooks for Points Management.
+ * Installation hooks for Credits Management.
  */
 
 /**
@@ -11,10 +11,10 @@
 function emh_points_schema() {
   $schema = array();
   $schema['emh_points'] = array(
-    'description' => 'Holds the points',
+    'description' => 'Holds the credits',
     'fields' => array(
       'pid' => array(
-        'description' => 'Points ID',
+        'description' => 'Credits ID',
         'type' => 'serial',
         'not null' => TRUE,
       ),
@@ -39,13 +39,13 @@ function emh_points_schema() {
         'description' => 'The entity bundle to which this data belongs',
       ),
       'points' => array(
-        'description' => 'Current Points',
+        'description' => 'Current Credits',
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
       ),
       'max_points' => array(
-        'description' => 'Out of a maximum points',
+        'description' => 'Out of a maximum credits',
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
@@ -71,7 +71,7 @@ function emh_points_schema() {
   );
 
   $schema['emh_points_total'] = array(
-    'description' => 'Points aggregation',
+    'description' => 'Credits aggregation',
     'fields' => array(
       'entity_id' => array(
         'type' => 'int',
@@ -87,7 +87,7 @@ function emh_points_schema() {
         'description' => 'The entity type this data is attached to',
       ),
       'total_points' => array(
-        'description' => 'Total Points',
+        'description' => 'Total Credits',
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
@@ -97,7 +97,7 @@ function emh_points_schema() {
   );
 
   $schema['emh_points_txn'] = array(
-    'description' => 'Points Transactions',
+    'description' => 'Credits Transactions',
     'fields' => array(
       'txn_id' => array(
         'description' => 'Transaction ID',
@@ -111,7 +111,7 @@ function emh_points_schema() {
         'default' => 0,
       ),
       'points' => array(
-        'description' => 'Points',
+        'description' => 'Credits',
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
@@ -162,7 +162,7 @@ function emh_points_schema() {
     )
   );
   $schema['emh_points_answers'] = array(
-    'description' => 'holds answer points',
+    'description' => 'holds answer credits',
     'fields' => array(
       'nid' => array(
         'type' => 'int',
@@ -183,7 +183,7 @@ function emh_points_schema() {
         'default' => 0,
       ),
       'points' => array(
-        'description' => 'Points',
+        'description' => 'Credits',
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
@@ -206,12 +206,12 @@ function emh_points_enable() {
 }
 
 /**
- * Add the new total points table.
+ * Add the new total credits table.
  */
 function emh_points_update_7101() {
   if (!db_table_exists('emh_points_total')) {
     $table = array(
-      'description' => 'Points aggregation',
+      'description' => 'Credits aggregation',
       'fields' => array(
         'entity_id' => array(
           'type' => 'int',
@@ -227,7 +227,7 @@ function emh_points_update_7101() {
           'description' => 'The entity type this data is attached to',
         ),
         'total_points' => array(
-          'description' => 'Total Points',
+          'description' => 'Total Credits',
           'type' => 'int',
           'not null' => TRUE,
           'default' => 0,
@@ -278,7 +278,7 @@ function emh_points_update_7104() {
 function emh_points_update_7105() {
   if (!db_table_exists('emh_points_answers')) {
     $table = array(
-      'description' => 'holds answer points',
+      'description' => 'holds answer credits',
       'fields' => array(
         'nid' => array(
           'type' => 'int',
@@ -299,7 +299,7 @@ function emh_points_update_7105() {
           'default' => 0,
         ),
         'points' => array(
-          'description' => 'Points',
+          'description' => 'Credits',
           'type' => 'int',
           'not null' => TRUE,
           'default' => 0,
@@ -319,12 +319,12 @@ function emh_points_update_7105() {
 }
 
 /**
- * Extend access to Use points to authentificated users + Administer points / View other points history to webmasters.
+ * Extend access to Use credits to authentificated users + Administer credits / View other credits history to webmasters.
  */
 function emh_points_update_7106() {
-  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('use points'));
-  user_role_grant_permissions(3, array('administer points', 'view others points history')); // Administrator role
-  user_role_grant_permissions(6, array('administer points', 'view others points history')); // Webmaster role
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('use credits'));
+  user_role_grant_permissions(3, array('administer credits', 'view others credits history')); // Administrator role
+  user_role_grant_permissions(6, array('administer credits', 'view others credits history')); // Webmaster role
 }
 
 /**
@@ -346,7 +346,7 @@ function emh_points_update_7108() {
 }
 
 /**
- * Add permissions : points for référent.
+ * Add permissions : credits for référent.
  */
 function emh_points_update_7109() {
   // Administrator role

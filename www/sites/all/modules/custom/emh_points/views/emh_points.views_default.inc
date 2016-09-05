@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Default Views for points management.
+ * Default Views for credits management.
  */
 
 /**
@@ -12,48 +12,48 @@
 function emh_points_views_default_views() {
   $views = array();
 
-  // Points statement
+  // Credits statement
   $view = new view();
   $view->name = 'points_history';
   $view->description = '';
-  $view->tag = 'EMH, points';
+  $view->tag = 'EMH, credits';
   $view->base_table = 'users';
-  $view->human_name = 'Points statement';
+  $view->human_name = 'Credits statement';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Points statement';
+  $handler->display->display_options['title'] = 'Credits statement';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'use points';
+  $handler->display->display_options['access']['perm'] = 'use credits';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '30';
   $handler->display->display_options['style_plugin'] = 'table';
-  /* Field: Points Transaction (source): Timestamp */
+  /* Field: Credits Transaction (source): Timestamp */
   $handler->display->display_options['fields']['time_stamp']['id'] = 'time_stamp';
   $handler->display->display_options['fields']['time_stamp']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['fields']['time_stamp']['field'] = 'time_stamp';
   $handler->display->display_options['fields']['time_stamp']['date_format'] = 'short';
   $handler->display->display_options['fields']['time_stamp']['second_date_format'] = 'privatemsg_current_day';
-  /* Field: Points Transaction (source): Operation */
+  /* Field: Credits Transaction (source): Operation */
   $handler->display->display_options['fields']['operation']['id'] = 'operation';
   $handler->display->display_options['fields']['operation']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['fields']['operation']['field'] = 'operation';
-  /* Field: Points Transaction (source): Points */
+  /* Field: Credits Transaction (source): Credits */
   $handler->display->display_options['fields']['points']['id'] = 'points';
   $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['fields']['points']['field'] = 'points';
-  /* Field: Points Transaction (source): Description of the transaction */
+  /* Field: Credits Transaction (source): Description of the transaction */
   $handler->display->display_options['fields']['description']['id'] = 'description';
   $handler->display->display_options['fields']['description']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['fields']['description']['field'] = 'description';
-  /* Sort criterion: Points Transaction (source): Timestamp */
+  /* Sort criterion: Credits Transaction (source): Timestamp */
   $handler->display->display_options['sorts']['time_stamp']['id'] = 'time_stamp';
   $handler->display->display_options['sorts']['time_stamp']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['sorts']['time_stamp']['field'] = 'time_stamp';
@@ -79,22 +79,22 @@ function emh_points_views_default_views() {
   $handler->display->display_options['footer']['view']['view_to_insert'] = 'points_history:page_1';
   $handler->display->display_options['footer']['view']['inherit_arguments'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Points Transaction (source): Timestamp */
+  /* Field: Credits Transaction (source): Timestamp */
   $handler->display->display_options['fields']['time_stamp']['id'] = 'time_stamp';
   $handler->display->display_options['fields']['time_stamp']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['fields']['time_stamp']['field'] = 'time_stamp';
   $handler->display->display_options['fields']['time_stamp']['date_format'] = 'short';
   $handler->display->display_options['fields']['time_stamp']['second_date_format'] = 'privatemsg_current_day';
-  /* Field: Points Transaction (source): Operation */
+  /* Field: Credits Transaction (source): Operation */
   $handler->display->display_options['fields']['operation']['id'] = 'operation';
   $handler->display->display_options['fields']['operation']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['fields']['operation']['field'] = 'operation';
-  /* Field: Points Transaction (source): Points */
+  /* Field: Credits Transaction (source): Credits */
   $handler->display->display_options['fields']['points']['id'] = 'points';
   $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['fields']['points']['field'] = 'points';
   $handler->display->display_options['fields']['points']['prefix'] = '-';
-  /* Field: Points Transaction (source): Description of the transaction */
+  /* Field: Credits Transaction (source): Description of the transaction */
   $handler->display->display_options['fields']['description']['id'] = 'description';
   $handler->display->display_options['fields']['description']['table'] = 'emh_points_txn_source';
   $handler->display->display_options['fields']['description']['field'] = 'description';
@@ -118,32 +118,32 @@ function emh_points_views_default_views() {
   $handler = $view->new_display('block', 'Block', 'block');
   $handler->display->display_options['defaults']['access'] = FALSE;
   $handler->display->display_options['access']['type'] = 'none';
-  $handler->display->display_options['block_description'] = 'Points statement';
+  $handler->display->display_options['block_description'] = 'Credits statement';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Points Transaction (destination): Timestamp */
+  /* Field: Credits Transaction (destination): Timestamp */
   $handler->display->display_options['fields']['time_stamp']['id'] = 'time_stamp';
   $handler->display->display_options['fields']['time_stamp']['table'] = 'emh_points_txn_dest';
   $handler->display->display_options['fields']['time_stamp']['field'] = 'time_stamp';
   $handler->display->display_options['fields']['time_stamp']['date_format'] = 'short';
   $handler->display->display_options['fields']['time_stamp']['second_date_format'] = 'privatemsg_current_day';
-  /* Field: Points Transaction (destination): Operation */
+  /* Field: Credits Transaction (destination): Operation */
   $handler->display->display_options['fields']['operation']['id'] = 'operation';
   $handler->display->display_options['fields']['operation']['table'] = 'emh_points_txn_dest';
   $handler->display->display_options['fields']['operation']['field'] = 'operation';
-  /* Field: Points Transaction (destination): Points */
+  /* Field: Credits Transaction (destination): Credits */
   $handler->display->display_options['fields']['points']['id'] = 'points';
   $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn_dest';
   $handler->display->display_options['fields']['points']['field'] = 'points';
   $handler->display->display_options['fields']['points']['prefix'] = '+';
-  /* Field: Points Transaction (destination): Description of the transaction */
+  /* Field: Credits Transaction (destination): Description of the transaction */
   $handler->display->display_options['fields']['description']['id'] = 'description';
   $handler->display->display_options['fields']['description']['table'] = 'emh_points_txn_dest';
   $handler->display->display_options['fields']['description']['field'] = 'description';
   $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Sort criterion: Points Transaction (destination): Timestamp */
+  /* Sort criterion: Credits Transaction (destination): Timestamp */
   $handler->display->display_options['sorts']['time_stamp']['id'] = 'time_stamp';
   $handler->display->display_options['sorts']['time_stamp']['table'] = 'emh_points_txn_dest';
   $handler->display->display_options['sorts']['time_stamp']['field'] = 'time_stamp';
@@ -167,7 +167,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'transaction_log';
   $view->description = '';
-  $view->tag = 'EMH, points';
+  $view->tag = 'EMH, credits';
   $view->base_table = 'emh_points_txn';
   $view->human_name = 'Transaction log';
   $view->core = 7;
@@ -179,7 +179,7 @@ function emh_points_views_default_views() {
   $handler->display->display_options['title'] = 'Transaction log';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'administer points';
+  $handler->display->display_options['access']['perm'] = 'administer credits';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -264,50 +264,50 @@ function emh_points_views_default_views() {
       'empty_column' => 0,
     ),
   );
-  /* Field: Points Transaction: Transaction ID */
+  /* Field: Credits Transaction: Transaction ID */
   $handler->display->display_options['fields']['txn_id']['id'] = 'txn_id';
   $handler->display->display_options['fields']['txn_id']['table'] = 'emh_points_txn';
   $handler->display->display_options['fields']['txn_id']['field'] = 'txn_id';
-  /* Field: Points Transaction: Timestamp */
+  /* Field: Credits Transaction: Timestamp */
   $handler->display->display_options['fields']['time_stamp']['id'] = 'time_stamp';
   $handler->display->display_options['fields']['time_stamp']['table'] = 'emh_points_txn';
   $handler->display->display_options['fields']['time_stamp']['field'] = 'time_stamp';
   $handler->display->display_options['fields']['time_stamp']['date_format'] = 'short';
   $handler->display->display_options['fields']['time_stamp']['second_date_format'] = 'privatemsg_current_day';
-  /* Field: Points Transaction: Operation */
+  /* Field: Credits Transaction: Operation */
   $handler->display->display_options['fields']['operation']['id'] = 'operation';
   $handler->display->display_options['fields']['operation']['table'] = 'emh_points_txn';
   $handler->display->display_options['fields']['operation']['field'] = 'operation';
-  /* Field: Points Transaction: Source type */
+  /* Field: Credits Transaction: Source type */
   $handler->display->display_options['fields']['source_type']['id'] = 'source_type';
   $handler->display->display_options['fields']['source_type']['table'] = 'emh_points_txn';
   $handler->display->display_options['fields']['source_type']['field'] = 'source_type';
-  /* Field: Points Transaction: Source ID */
+  /* Field: Credits Transaction: Source ID */
   $handler->display->display_options['fields']['source_id']['id'] = 'source_id';
   $handler->display->display_options['fields']['source_id']['table'] = 'emh_points_txn';
   $handler->display->display_options['fields']['source_id']['field'] = 'source_id';
-  /* Field: Points Transaction: Destination type */
+  /* Field: Credits Transaction: Destination type */
   $handler->display->display_options['fields']['dest_type']['id'] = 'dest_type';
   $handler->display->display_options['fields']['dest_type']['table'] = 'emh_points_txn';
   $handler->display->display_options['fields']['dest_type']['field'] = 'dest_type';
-  /* Field: Points Transaction: Destination ID */
+  /* Field: Credits Transaction: Destination ID */
   $handler->display->display_options['fields']['dest_id']['id'] = 'dest_id';
   $handler->display->display_options['fields']['dest_id']['table'] = 'emh_points_txn';
   $handler->display->display_options['fields']['dest_id']['field'] = 'dest_id';
-  /* Field: Points Transaction: Points */
+  /* Field: Credits Transaction: Credits */
   $handler->display->display_options['fields']['points']['id'] = 'points';
   $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn';
   $handler->display->display_options['fields']['points']['field'] = 'points';
-  /* Field: Points Transaction: Description of the transaction */
+  /* Field: Credits Transaction: Description of the transaction */
   $handler->display->display_options['fields']['description']['id'] = 'description';
   $handler->display->display_options['fields']['description']['table'] = 'emh_points_txn';
   $handler->display->display_options['fields']['description']['field'] = 'description';
-  /* Sort criterion: Points Transaction: Timestamp */
+  /* Sort criterion: Credits Transaction: Timestamp */
   $handler->display->display_options['sorts']['time_stamp']['id'] = 'time_stamp';
   $handler->display->display_options['sorts']['time_stamp']['table'] = 'emh_points_txn';
   $handler->display->display_options['sorts']['time_stamp']['field'] = 'time_stamp';
   $handler->display->display_options['sorts']['time_stamp']['order'] = 'DESC';
-  /* Filter criterion: Points Transaction: Source type */
+  /* Filter criterion: Credits Transaction: Source type */
   $handler->display->display_options['filters']['source_type']['id'] = 'source_type';
   $handler->display->display_options['filters']['source_type']['table'] = 'emh_points_txn';
   $handler->display->display_options['filters']['source_type']['field'] = 'source_type';
@@ -317,7 +317,7 @@ function emh_points_views_default_views() {
   $handler->display->display_options['filters']['source_type']['expose']['label'] = 'Source type';
   $handler->display->display_options['filters']['source_type']['expose']['operator'] = 'source_type_op';
   $handler->display->display_options['filters']['source_type']['expose']['identifier'] = 'source_type';
-  /* Filter criterion: Points Transaction: Destination type */
+  /* Filter criterion: Credits Transaction: Destination type */
   $handler->display->display_options['filters']['dest_type']['id'] = 'dest_type';
   $handler->display->display_options['filters']['dest_type']['table'] = 'emh_points_txn';
   $handler->display->display_options['filters']['dest_type']['field'] = 'dest_type';
@@ -327,7 +327,7 @@ function emh_points_views_default_views() {
   $handler->display->display_options['filters']['dest_type']['expose']['label'] = 'Destination type';
   $handler->display->display_options['filters']['dest_type']['expose']['operator'] = 'dest_type_op';
   $handler->display->display_options['filters']['dest_type']['expose']['identifier'] = 'dest_type';
-  /* Filter criterion: Points Transaction: Timestamp */
+  /* Filter criterion: Credits Transaction: Timestamp */
   $handler->display->display_options['filters']['time_stamp']['id'] = 'time_stamp';
   $handler->display->display_options['filters']['time_stamp']['table'] = 'emh_points_txn';
   $handler->display->display_options['filters']['time_stamp']['field'] = 'time_stamp';
@@ -366,19 +366,19 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'give_user_points';
   $view->description = '';
-  $view->tag = 'EMH, points';
+  $view->tag = 'EMH, credits';
   $view->base_table = 'users';
-  $view->human_name = 'Give user points';
+  $view->human_name = 'Give user credits';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Give user points';
+  $handler->display->display_options['title'] = 'Give user credits';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'administer points';
+  $handler->display->display_options['access']['perm'] = 'administer credits';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -452,7 +452,7 @@ function emh_points_views_default_views() {
       'postpone_processing' => 0,
       'skip_confirmation' => 1,
       'override_label' => 1,
-      'label' => 'Give points',
+      'label' => 'Give credits',
     ),
   );
   /* Field: User: Uid */
@@ -483,7 +483,7 @@ function emh_points_views_default_views() {
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Full name';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '[field_first_name] [field_last_name]';
-  /* Field: Points: Total Points */
+  /* Field: Credits: Total Credits */
   $handler->display->display_options['fields']['total_points']['id'] = 'total_points';
   $handler->display->display_options['fields']['total_points']['table'] = 'emh_points_total';
   $handler->display->display_options['fields']['total_points']['field'] = 'total_points';
@@ -521,9 +521,9 @@ function emh_points_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'admin/emindhub/points/give-user-points';
+  $handler->display->display_options['path'] = 'admin/emindhub/credits/give-user-credits';
   $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Give user points';
+  $handler->display->display_options['menu']['title'] = 'Give user credits';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
@@ -533,16 +533,16 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'og_points_repartition';
   $view->description = '';
-  $view->tag = 'EMH, points';
+  $view->tag = 'EMH, credits';
   $view->base_table = 'users';
-  $view->human_name = 'OG Arrange Points';
+  $view->human_name = 'OG Arrange Credits';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Distribute points';
+  $handler->display->display_options['title'] = 'Distribute credits';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'role';
   $handler->display->display_options['access']['role'] = array(
@@ -592,7 +592,7 @@ function emh_points_views_default_views() {
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = 'Full name';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '[field_first_name] [field_last_name]';
-  /* Field: Points: Total Points */
+  /* Field: Credits: Total Credits */
   $handler->display->display_options['fields']['total_points']['id'] = 'total_points';
   $handler->display->display_options['fields']['total_points']['table'] = 'emh_points_total';
   $handler->display->display_options['fields']['total_points']['field'] = 'total_points';
@@ -617,9 +617,9 @@ function emh_points_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'node/%/points-repartition';
+  $handler->display->display_options['path'] = 'node/%/credits-repartition';
   $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Distribute points';
+  $handler->display->display_options['menu']['title'] = 'Distribute credits';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
@@ -629,7 +629,7 @@ function emh_points_views_default_views() {
   $view = new view();
   $view->name = 'answers';
   $view->description = '';
-  $view->tag = 'EMH, points';
+  $view->tag = 'EMH, credits';
   $view->base_table = 'comment';
   $view->human_name = 'Question / Challenge answers';
   $view->core = 7;
@@ -775,7 +775,7 @@ function emh_points_views_default_views() {
       'selected' => 1,
       'skip_confirmation' => 1,
       'override_label' => 1,
-      'label' => 'Distribute points',
+      'label' => 'Distribute credits',
     ),
   );
   /* Field: Comment: Post date */
@@ -951,7 +951,7 @@ function emh_points_views_default_views_alter(&$views) {
         'selected' => 1,
         'skip_confirmation' => 1,
         'override_label' => 1,
-        'label' => 'Distribute points',
+        'label' => 'Distribute credits',
       ),
     );
     /* Field: Webform submissions: Submitted */

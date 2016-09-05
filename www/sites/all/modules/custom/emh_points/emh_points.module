@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Points managements for EMH website.
+ * Credits managements for EMH website.
  */
 
 
@@ -16,9 +16,9 @@ define('POINTS_TRANSFERT', 'transfert');
  */
 function emh_points_permission() {
   return array(
-    'administer points' => array('title' => t('Administer Points')),
-    'use points' => array('title' => t('Use Points')),
-    'view others points history' => array('title' => t('View others points history')),
+    'administer credits' => array('title' => t('Administer Credits')),
+    'use credits' => array('title' => t('Use Credits')),
+    'view others credits history' => array('title' => t('View others credits history')),
   );
 }
 
@@ -28,47 +28,47 @@ function emh_points_permission() {
  */
 function emh_points_menu() {
   $items = array();
-  $items['admin/emindhub/points'] = array(
-    'title' => 'Points',
+  $items['admin/emindhub/credits'] = array(
+    'title' => 'Credits',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('emh_points_admin_form'),
-    'access arguments' => array('administer points'),
+    'access arguments' => array('administer credits'),
     'file' => 'emh_points.admin.inc',
   );
-  $items['admin/emindhub/points/integrity'] = array(
+  $items['admin/emindhub/credits/integrity'] = array(
     'title' => 'Integrity',
     'page callback' => 'emh_points_integrity_check',
-    'access arguments' => array('administer points'),
+    'access arguments' => array('administer credits'),
     'file' => 'emh_points.admin.inc',
     'type' => MENU_LOCAL_ACTION,
   );
-  $items['admin/emindhub/points/user_add_points'] = array(
-    'title' => 'Manage Points for Users',
+  $items['admin/emindhub/credits/user_add_credits'] = array(
+    'title' => 'Manage Credits for Users',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('emh_points_manage_users_form'),
-    'access arguments' => array('administer points'),
+    'access arguments' => array('administer credits'),
     'file' => 'emh_points.admin.inc',
     'type' => MENU_LOCAL_ACTION,
   );
   $items['arrange/%/%/%/%/%'] = array(
-    'title' => 'Validate selection and distribute points',
+    'title' => 'Validate selection and distribute credits',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('emh_points_arrange_form', 1, 2, 3, 4, 5),
-    'access arguments' => array('use points'),
+    'access arguments' => array('use credits'),
   );
 
-  // Route for the points history of the current user
-  $items['points'] = array(
-    'title' => 'Points',
+  // Route for the credits history of the current user
+  $items['credits'] = array(
+    'title' => 'Credits',
     'page callback' => 'emh_points_show_user_history',
     'access callback' => 'emh_points_user_history_access',
     'menu_name' => 'user-menu',
     'type' => MENU_NORMAL_ITEM,
   );
 
-  // Route for the points history of a specific user
-  $items['user/%user/points'] = array(
-    'title' => 'Points',
+  // Route for the credits history of a specific user
+  $items['user/%user/credits'] = array(
+    'title' => 'Credits',
     'page callback' => 'emh_points_show_user_history',
     'page arguments' => array(1),
     'access callback' => 'emh_points_user_history_access',
@@ -108,16 +108,16 @@ function emh_points_module_implements_alter(&$implementations, $hook) {
  * Implements hook_menu_local_tasks_alter().
  */
 function emh_points_menu_local_tasks_alter(&$data, $router_item, $root_path) {
-  // Changes the href of the points history tab
-  // if it goes to the current user's points history.
+  // Changes the href of the credits history tab
+  // if it goes to the current user's credits history.
   if (strpos($root_path, 'user/%') === 0) {
     global $user;
     $account = menu_get_object('user');
 
     if ($user->uid == $account->uid) {
       foreach ($data['tabs'][0]['output'] as &$tab) {
-        if ($tab['#link']['path'] == 'user/%/points') {
-          $tab['#link']['href'] = 'points';
+        if ($tab['#link']['path'] == 'user/%/credits') {
+          $tab['#link']['href'] = 'credits';
           break;
         }
       }
@@ -126,23 +126,23 @@ function emh_points_menu_local_tasks_alter(&$data, $router_item, $root_path) {
 }
 
 /**
- * Access callback for the points history page.
+ * Access callback for the credits history page.
  */
 function emh_points_user_history_access($account = NULL) {
   global $user;
 
-  // If the user tries to access its own points history (/points)
+  // If the user tries to access its own credits history (/credits)
   if ($account == NULL) {
-    if (user_access('use points')) {
+    if (user_access('use credits')) {
       return TRUE;
     }
   }
-  // If the user tries to access the points history of a specific user (/user/%/points)
+  // If the user tries to access the credits history of a specific user (/user/%/credits)
   else {
     if ($account->uid == $user->uid) {
       return TRUE;
     }
-    if (user_access('view others points history')) {
+    if (user_access('view others credits history')) {
       return TRUE;
     }
   }
@@ -163,10 +163,10 @@ function emh_points_views_api() {
 
 /**
  * Implements hook_cron().
- * Points expiration & expiration warning.
+ * Credits expiration & expiration warning.
  */
 function emh_points_cron() {
-  // Points expiration.
+  // Credits expiration.
   $query = db_select('emh_points', 'p')
     ->fields('p', array('pid', 'points', 'entity_id', 'entity_type'))
     ->condition('p.points', 0, '>')
@@ -174,7 +174,7 @@ function emh_points_cron() {
     ->orderBy('p.expiration_date', 'ASC')
     ->execute();
   foreach($query as $row) {
-    // Expire points.
+    // Expire credits.
     db_merge('emh_points')
       ->key(array('pid' => $row->pid))
       ->fields(array(
@@ -188,7 +188,7 @@ function emh_points_cron() {
         'uid' => 1,
         'points'=> (int)$row->points,
         'time_stamp' => REQUEST_TIME,
-        'description' => t('Points expiration'),
+        'description' => t('Credits expiration'),
         'source_type' => 'user',
         'source_id' => 1,
         'dest_type' => $row->entity_type,
@@ -221,7 +221,7 @@ function emh_points_user_delete($user) {
 }
 
 /**
- * Helper callback for points deletion.
+ * Helper callback for credits deletion.
  */
 function emh_points_entity_points_delete($id, $type) {
   db_delete('emh_points')
@@ -243,26 +243,26 @@ function emh_points_entity_points_delete($id, $type) {
 }
 
 /**
- * Add points to an entity.
+ * Add credits to an entity.
  */
 function emh_points_add_points($entity, $points) {
-  // To add point, there are almost no functional checks.
+  // To add credit, there are almost no functional checks.
   if (!is_numeric($points) || (int)$points < 0) {
-    drupal_set_message(t('You should only add a positive number of points.'));
+    drupal_set_message(t('You should only add a positive number of credits.'));
     return;
   }
   if (empty($entity)) {
-    drupal_set_message(t('You should only add points to a valid entity'));
+    drupal_set_message(t('You should only add credits to a valid entity'));
     return;
   }
-  // Add points.
+  // Add credits.
   db_insert('emh_points')
     ->fields(array(
       'entity_id' => $entity->id,
       'entity_type'=> $entity->type,
       'bundle' => $entity->bundle,
       'points' => $points,
-      // At the creation, max points = points.
+      // At the creation, max credits = credits.
       'max_points' => $points,
       'last_update' => REQUEST_TIME,
       'expiration_date' => strtotime(variable_get('emh_points_expiration', '+ 1 year')),
@@ -299,15 +299,15 @@ function emh_points_add_points($entity, $points) {
 }
 
 /**
- * Remove points from an entity.
+ * Remove credits from an entity.
  */
 function emh_points_delete_points($entity, $points) {
   // Functional validation.
   if (!is_numeric($points) || (int)$points < 0) {
-    drupal_set_message(t('You should only remove a positive number of points.'));
+    drupal_set_message(t('You should only remove a positive number of credits.'));
     return;
   }
-  // Does the entity have enough points ?
+  // Does the entity have enough credits ?
   $current_points = 0;
   $query = db_select('emh_points', 'p')
     ->condition('p.entity_type', $entity->type)
@@ -315,9 +315,9 @@ function emh_points_delete_points($entity, $points) {
   $query->addExpression('SUM(p.points)');
   $current_points = $query->execute()->fetchField();
   if ($current_points < (int)$points) {
-    drupal_set_message(t('It\'s impossible to remove those many points (only @points left).', array('@points' => $current_points)));
+    drupal_set_message(t('It\'s impossible to remove those many credits (only @points left).', array('@points' => $current_points)));
   }
-  // Functional algorithm, remove points that will expire first.
+  // Functional algorithm, remove credits that will expire first.
   $to_be_removed = (int)$points;
   $query = db_select('emh_points', 'p')
     ->fields('p', array('pid', 'points'))
@@ -361,14 +361,14 @@ function emh_points_delete_points($entity, $points) {
  * Implements hook_entity_load().
  */
 function emh_points_entity_load($entities, $type) {
-  // Eventually add total points for this entity.
+  // Eventually add total credits for this entity.
   foreach($entities as $entity) {
     emh_points_entity_load_single($entity, $type);
   }
 }
 
 /**
- * Helper callback to load points on a single entity.
+ * Helper callback to load credits on a single entity.
  */
 function emh_points_entity_load_single($entity, $type) {
   switch($type) {
@@ -475,16 +475,16 @@ function emh_points_format_entity($entity) {
 }
 
 /**
- * Main moving points action.
+ * Main moving credits action.
  */
 function emh_points_move_points($source, $destination, $points) {
   $emh_source = emh_points_build_entity_for_points($source);
   $emh_destination = emh_points_build_entity_for_points($destination);
-  // Remove points from source.
+  // Remove credits from source.
   emh_points_delete_points($emh_source, $points);
-  // Add points to destination.
+  // Add credits to destination.
   emh_points_add_points($emh_destination, $points);
-  $log = t('Move points from !source to !destination.', array('!source' => emh_points_format_entity($source), '!destination' => emh_points_format_entity($destination)));
+  $log = t('Move credits from !source to !destination.', array('!source' => emh_points_format_entity($source), '!destination' => emh_points_format_entity($destination)));
 
   // Compute transaction.
   global $user;
@@ -530,7 +530,7 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
         drupal_access_denied();
         drupal_exit();
       }
-      // Free circle without points
+      // Free circle without credits
       if ($points == 0) {
         // Just close the node and return it.
         emh_points_close_node($id_source);
@@ -543,7 +543,7 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
       drupal_exit();
       break;
   }
-  // @TODO : verify that users/nodes have enough points.
+  // @TODO : verify that users/nodes have enough credits.
   $form = array();
   $dests = explode(',', $dests);
   $default_points = floor($points / count($dests));
@@ -609,11 +609,11 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
     if ($dest === end($dests)) $default_points = $points - ($default_points * (count($dests)-1));
     $form[$dest]['dest_' . $dest] = array(
       '#type' => 'textfield',
-      '#title' => t('Points for @dest', array('@dest' => emh_points_format_entity($entity))),
+      '#title' => t('Credits for @dest', array('@dest' => emh_points_format_entity($entity))),
       '#default_value' => $default_points,
       '#element_validate' => array('element_validate_integer_positive'),
     );
-    // Free circle without points
+    // Free circle without credits
     if ($points == 0) {
       // $form[$dest]['dest_' . $dest]['#access'] = FALSE;
       $form[$dest]['dest_' . $dest]['#type'] = 'value';
@@ -624,13 +624,13 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
     '#value' => t('Validate distribution'),
   );
   if ($type_source == 'node' && in_array($node->type, array('challenge', 'question1', 'webform'))) {
-    // Free circle without points
+    // Free circle without credits
     if ($points == 0) {
       $form['submit']['#value'] = t('Close the request');
     } else {
       $form['submit']['#value'] = t('Validate distribution and close the request');
       $form['baseline'] = array(
-        '#markup' => '<p class="emh-title-baseline">' . t('Distribute <strong>@count points</strong> to best experts', array('@count' => $points)) . '</p>',
+        '#markup' => '<p class="emh-title-baseline">' . t('Distribute <strong>@count credits</strong> to best experts', array('@count' => $points)) . '</p>',
         '#weight' => -100,
       );
     }
@@ -652,10 +652,10 @@ function emh_points_arrange_form_validate(&$form, &$form_state) {
     }
   }
   if ($points > $total) {
-    form_set_error(implode('][', $elements), t('You should assign all the @points points!', array('@points' => $points)));
+    form_set_error(implode('][', $elements), t('You should assign all the @points credits!', array('@points' => $points)));
   }
   if ($points < $total) {
-    form_set_error(implode('][', $elements), t('Please distribute no more and no less than @points points.', array('@points' => $points)));
+    form_set_error(implode('][', $elements), t('Please distribute no more and no less than @points credits.', array('@points' => $points)));
   }
 }
 
@@ -684,7 +684,7 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
       case 'comment':
         $comment = comment_load($id);
         $dest = user_load($comment->uid);
-        // Historise comment points.
+        // Historise comment credits.
         db_insert('emh_points_answers')
           ->fields(array(
             'nid' => $comment->nid,
@@ -699,7 +699,7 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
         module_load_include('inc', 'webform', 'includes/webform.submissions');
         $entity = webform_get_submission($form_state['values']['id_source'], $id);
         $dest = user_load($entity->uid);
-        // Historise submission points.
+        // Historise submission credits.
         db_insert('emh_points_answers')
           ->fields(array(
             'nid' => $entity->nid,
@@ -716,7 +716,7 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
   }
   switch($form_state['values']['type_source']) {
     case 'node':
-      // Points have been distributed, we should close the request.
+      // Credits have been distributed, we should close the request.
       emh_points_close_node($form_state['values']['id_source']);
       // And notify unrewarded answers
       $unrewarded_answers = emh_points_get_unrewarded_answers($form_state['values']['id_source']);
@@ -735,14 +735,14 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
   if ($form_state['values']['type_source'] == 'node') {
     $node = node_load($form_state['values']['id_source']);
     $points = $form_state['values']['points'];
-    // Free circle without points
+    // Free circle without credits
     if ($points == 0) {
       drupal_set_message(t('Request @title has been closed.', array('@title' => $node->title)));
     } else {
-      drupal_set_message(t('Request @title has been closed. All the points have been distributed.', array('@title' => $node->title)));
+      drupal_set_message(t('Request @title has been closed. All the credits have been distributed.', array('@title' => $node->title)));
     }
   } else {
-    drupal_set_message(t('All the points have been distributed.'));
+    drupal_set_message(t('All the credits have been distributed.'));
   }
 }
 
@@ -888,8 +888,8 @@ function emh_points_mail($key, &$message, $params) {
       if ($params['@points'] == 0) {
         $message['body'][] = t('Your answer has been selected by the client ! The client may now get in touch with you for further support.', $params);
       } else {
-        $message['body'][] = t('Your answer has been selected by the client and you earned @points points! The client may now get in touch with you for further support.', $params);
-        $message['body'][] = t('We remind you that you can monetize your points once you have reached a threshold of @threshold points.', $params);
+        $message['body'][] = t('Your answer has been selected by the client and you earned @points credits! The client may now get in touch with you for further support.', $params);
+        $message['body'][] = t('We remind you that you can monetize your credits once you have reached a threshold of @threshold credits.', $params);
       }
       $message['body'][] = t('Should you like to know more, just log into the platform now.');
       $message['body'][] = '<table style="min-width:100%;" width="100%" border="0" cellpadding="0" cellspacing="0" class="emailButton">
@@ -948,52 +948,52 @@ function emh_points_action_info() {
   $actions = array();
   $actions['emh_points_give_points'] = array(
     'type' => 'entity',
-    'label' => t('Give points to entities'),
+    'label' => t('Give credits to entities'),
     'configurable' => TRUE,
     'triggers' => array(),
-    'permissions' => array('administer points'),
+    'permissions' => array('administer credits'),
     'behavior' => array('emh'),
   );
   $actions['emh_points_remove_points'] = array(
     'type' => 'entity',
-    'label' => t('Remove points from entities'),
+    'label' => t('Remove credits from entities'),
     'configurable' => TRUE,
     'triggers' => array(),
-    'permissions' => array('administer points'),
+    'permissions' => array('administer credits'),
     'behavior' => array('emh'),
   );
   $actions['emh_points_transfert_points'] = array(
     'type' => 'entity',
-    'label' => t('Transfer some of my points to these entities'),
+    'label' => t('Transfer some of my credits to these entities'),
     'configurable' => TRUE,
     'triggers' => array(),
-    'permissions' => array('use points'),
+    'permissions' => array('use credits'),
     'behavior' => array('emh'),
   );
   $actions['emh_points_arrange_points'] = array(
     'type' => 'entity',
-    'label' => t('Distribute some of my points to these entities'),
+    'label' => t('Distribute some of my credits to these entities'),
     'configurable' => TRUE,
     'triggers' => array(),
-    'permissions' => array('use points'),
+    'permissions' => array('use credits'),
     'aggregate' => TRUE,
     'behavior' => array('emh'),
   );
   $actions['emh_points_arrange_group_points'] = array(
     'type' => 'user',
-    'label' => t('Distribute group points to these entities'),
+    'label' => t('Distribute group credits to these entities'),
     'configurable' => TRUE,
     'triggers' => array(),
-    'permissions' => array('use points'),
+    'permissions' => array('use credits'),
     'aggregate' => TRUE,
     'behavior' => array('emh'),
   );
   $actions['emh_points_arrange_node_points'] = array(
     'type' => 'entity',
-    'label' => t('Distribute node points to these entities'),
+    'label' => t('Distribute node credits to these entities'),
     'configurable' => FALSE,
     'triggers' => array(),
-    'permissions' => array('use points'),
+    'permissions' => array('use credits'),
     'aggregate' => TRUE,
     'behavior' => array('emh'),
   );
@@ -1005,7 +1005,7 @@ function emh_points_action_info() {
 //
 
 /**
- * Give points to an entity.
+ * Give credits to an entity.
  */
 function emh_points_give_points(&$entity, $context) {
   $emh_entity = emh_points_build_entity_for_points($entity);
@@ -1030,7 +1030,7 @@ function emh_points_give_points(&$entity, $context) {
 }
 
 /**
- * Remove points from an entity.
+ * Remove credits from an entity.
  */
 function emh_points_remove_points(&$entity, $context) {
   $emh_entity = emh_points_build_entity_for_points($entity);
@@ -1055,7 +1055,7 @@ function emh_points_remove_points(&$entity, $context) {
 }
 
 /**
- * Transfert points to an entity.
+ * Transfert credits to an entity.
  */
 function emh_points_transfert_points(&$entity, $context) {
   global $user;
@@ -1064,7 +1064,7 @@ function emh_points_transfert_points(&$entity, $context) {
 }
 
 /**
- * Arrange points between users.
+ * Arrange credits between users.
  */
 function emh_points_arrange_points(&$entities, $context) {
   $points = $context['points'];
@@ -1089,7 +1089,7 @@ function emh_points_arrange_points(&$entities, $context) {
 }
 
 /**
- * Arrange group points between users.
+ * Arrange group credits between users.
  */
 function emh_points_arrange_group_points(&$entities, $context) {
   $points = $context['points'];
@@ -1105,7 +1105,7 @@ function emh_points_arrange_group_points(&$entities, $context) {
 }
 
 /**
- * Arrange node points between users.
+ * Arrange node credits between users.
  */
 function emh_points_arrange_node_points(&$entities, $context) {
   $node = arg(1);
@@ -1131,13 +1131,13 @@ function emh_points_arrange_node_points(&$entities, $context) {
 //
 
 /**
- * Configuration form for giving points.
+ * Configuration form for giving credits.
  */
 function emh_points_give_points_form($settings, &$form_state) {
   $form = array();
   $form['points'] = array(
     '#type' => 'textfield',
-    '#title' => t('Points'),
+    '#title' => t('Credits'),
     '#required' => TRUE,
     '#default_value' => '100',
     '#element_validate' => array('element_validate_integer_positive'),
@@ -1161,13 +1161,13 @@ function emh_points_give_points_submit($form, &$form_state) {
 }
 
 /**
- * Configuration form for removing points.
+ * Configuration form for removing credits.
  */
 function emh_points_remove_points_form($settings, &$form_state) {
   $form = array();
   $form['points'] = array(
     '#type' => 'textfield',
-    '#title' => t('Points'),
+    '#title' => t('Credits'),
     '#required' => TRUE,
     '#default_value' => '100',
     '#element_validate' => array('element_validate_integer_positive'),
@@ -1191,13 +1191,13 @@ function emh_points_remove_points_submit($form, &$form_state) {
 }
 
 /**
- * Configuration form for transfering points.
+ * Configuration form for transfering credits.
  */
 function emh_points_transfert_points_form($settings, &$form_state) {
   $form = array();
   $form['points'] = array(
     '#type' => 'textfield',
-    '#title' => t('Points'),
+    '#title' => t('Credits'),
     '#required' => TRUE,
     '#default_value' => '100',
     '#element_validate' => array('element_validate_integer_positive'),
@@ -1215,13 +1215,13 @@ function emh_points_transfert_points_submit($form, &$form_state) {
 }
 
 /**
- * Configuration for arranging points.
+ * Configuration for arranging credits.
  */
 function emh_points_arrange_points_form($settings, &$form_state) {
   $form = array();
   $form['points'] = array(
     '#type' => 'textfield',
-    '#title' => t('Points'),
+    '#title' => t('Credits'),
     '#required' => TRUE,
     '#default_value' => '100',
     '#element_validate' => array('element_validate_integer_positive'),
@@ -1239,7 +1239,7 @@ function emh_points_arrange_points_submit($form, &$form_state) {
 }
 
 /**
- * Configuration for arranging points.
+ * Configuration for arranging credits.
  */
 function emh_points_arrange_group_points_form($settings, &$form_state) {
   $group = arg(1);
@@ -1247,7 +1247,7 @@ function emh_points_arrange_group_points_form($settings, &$form_state) {
   $form = array();
   $form['points'] = array(
     '#type' => 'textfield',
-    '#title' => t('Points'),
+    '#title' => t('Credits'),
     '#required' => TRUE,
     '#default_value' => $group->emh_points,
     '#element_validate' => array('element_validate_integer_positive', 'emh_points_validate_group_points'),
@@ -1263,7 +1263,7 @@ function emh_points_validate_group_points($element, &$form_state, $form) {
   $group = arg(1);
   $group = node_load($group);
   if ((int)$points > (int)$group->emh_points) {
-    form_error($element, t('You don\'t have enough points (@points).', array('@points' => $group->emh_points)));
+    form_error($element, t('You don\'t have enough credits (@points).', array('@points' => $group->emh_points)));
   }
 }
 
@@ -1278,17 +1278,17 @@ function emh_points_arrange_group_points_submit($form, &$form_state) {
 
 
 /**
- * Show user points history.
+ * Show user credits history.
  * @param stdClass $account An user object: the current user is considered if no one is provided
  * @return array Page render array
  *
- * @todo Display a message if we try to view the points history of an user which doesn't use points
+ * @todo Display a message if we try to view the credits history of an user which doesn't use credits
  */
 function emh_points_show_user_history($account = NULL) {
   global $user;
 
-  if (current_path() == 'points') {
-    menu_set_active_item('user/' . $user->uid . '/points');
+  if (current_path() == 'credits') {
+    menu_set_active_item('user/' . $user->uid . '/credits');
   }
 
   if ($account == NULL) {
@@ -1316,7 +1316,7 @@ function emh_points_show_user_history($account = NULL) {
 
   $rows = array();
   foreach ($transactions as $transaction) {
-    // Prepares points amount display
+    // Prepares credits amount display
     $points = ($transaction->source_type == 'user' && $transaction->source_id == $account->uid) ? '- ' : '+ ';
     $points .= $transaction->points;
 
@@ -1333,14 +1333,14 @@ function emh_points_show_user_history($account = NULL) {
   $build['title'] = array(
     '#theme' => 'html_tag',
     '#tag' => 'h2',
-    '#value' => t('Points statement'),
+    '#value' => t('Credits statement'),
   );
 
   $build['table'] = array(
     '#theme' => 'table',
-    '#header' => array(t('Type'), '', t('Date'), t('Points')),
+    '#header' => array(t('Type'), '', t('Date'), t('Credits')),
     '#rows' => $rows,
-    '#empty' => t('No points transaction.'),
+    '#empty' => t('No credits transaction.'),
   );
 
   $build['pager'] = array(

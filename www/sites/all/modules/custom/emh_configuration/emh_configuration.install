@@ -488,10 +488,49 @@ function emh_configuration_update_7031() {
  * CHG: Update short date format.
  */
 function emh_configuration_update_7032() {
-   db_update('date_formats')
-      ->fields(array(
-        'format' => 'Y/m/d',
-     ))
-    ->condition('dfid', '60')
-    ->execute();
+ db_update('date_formats')
+    ->fields(array(
+      'format' => 'Y/m/d',
+   ))
+  ->condition('dfid', '60')
+  ->execute();
+}
+
+/**
+ * CHG: Renaming 'point' with 'credit' everywhere.
+ */
+function emh_configuration_update_7033() {
+  // Permissions
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('use credits'));
+  user_role_grant_permissions(3, array('administer credits', 'view others credits history')); // Administrator role
+  user_role_grant_permissions(6, array('administer credits', 'view others credits history')); // Webmaster role
+
+  // Rules
+  if ($rules_config = rules_config_load('rules_contact_impossible')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('rules_transfert_points_for_content')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('rules_transfert_points_for_content')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('emh_points_transfert_points_for_published_content')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('emh_points_transfert_points_for_updated_content')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('rules_emh_request_send_notification_email')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('rules_emh_request_send_webmaster_notification_email')) {
+    $rules_config->delete();
+  }
+  if ($rules_config = rules_config_load('rules_emh_user_show_expert_login_message')) {
+    $rules_config->delete();
+  }
+
+  // Features
+  features_revert(array('ft_content_type' => array('field_instance')));
 }
