@@ -86,11 +86,11 @@ function emh_request_timeline_get_timeline($request) {
       $intervalLeft = $nowDate->diff($deadlineDate);
       $intervalLeft = $intervalLeft->format('%a day(s) left');
     }
-    else if ($nowDate == $deadlineDate) {
+    elseif ($nowDate == $deadlineDate) {
       $intervalLeft = 'Last chance to answer!';
     }
     else {
-      $intervalLeft = 'Request expired';
+      $intervalLeft = 'Expired';
     }
   } else {
     $intervalLeft = t('Closed');
@@ -105,7 +105,7 @@ function emh_request_timeline_get_timeline($request) {
     'deadline' => $deadlineDate->format('Y/m/d'),
     'progression' => $progression,
     'left' => $intervalLeft,
-    'soon' => ($progression >= 90),
+    'soon' => ($progression >= 90 || $nowDate == $deadlineDate),
   );
 
   return $timeline;
@@ -121,14 +121,14 @@ function _emh_request_timeline_view() {
   $timeline = emh_request_timeline_get_timeline($request);
 
   if ($timeline['status'] == 'open') {
-    $class = 'success';
+    if ($timeline['soon'] === TRUE) {
+      $class = 'warning';
+    } else {
+      $class = 'success';
+    }
   }
-  elseif ($timeline['status'] == 'closed') {
+  else {
     $class = 'inactive';
-  }
-
-  if ($timeline['soon'] === TRUE) {
-    $class = 'warning';
   }
 
   return theme('timeline', array(
