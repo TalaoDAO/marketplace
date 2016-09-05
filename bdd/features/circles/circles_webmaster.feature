@@ -32,6 +32,6 @@ Feature: Requests visibility for Webmaster
     Given I am logged in as a user with the "webmaster" role
     When I go to homepage
     Then I should see "Fight Magneto"
-    And I should see "Fight Ultron"
-    And I should see "Fight Hydra"
-    And I should see "Fight Thanos"
+      And I should see "Fight Ultron"
+      And I should see "Fight Hydra"
+      And I should see "Fight Thanos"

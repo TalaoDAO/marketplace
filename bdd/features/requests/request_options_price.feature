@@ -29,7 +29,7 @@ Feature: Request Option Price
     When I go to "admin/emindhub/points"
     Then I fill in "Questionnaire" with "500"
       And I fill in "Duration" with "200"
-    And I press "Save configuration"
+      And I press "Save configuration"
 
     # Set price for options
     When I go to "content/avengers"

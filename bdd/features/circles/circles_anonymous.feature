@@ -32,9 +32,9 @@ Feature: Requests visibility for Anonymous
     Given I am not logged in
     When I go to homepage
     Then I should not see "Fight Magneto"
-    And I should not see "Fight Ultron"
-    And I should not see "Fight Hydra"
-    And I should not see "Fight Thanos"
+      And I should not see "Fight Ultron"
+      And I should not see "Fight Hydra"
+      And I should not see "Fight Thanos"
 
     When I go to "/content/fight-magneto"
     Then I should not see "Fight Magneto"
@@ -47,6 +47,6 @@ Feature: Requests visibility for Anonymous
 
     When I go to "/node"
     Then I should not see "Fight Magneto"
-    And I should not see "Fight Ultron"
-    And I should not see "Fight Hydra"
-    And I should not see "Fight Thanos"
+      And I should not see "Fight Ultron"
+      And I should not see "Fight Hydra"
+      And I should not see "Fight Thanos"

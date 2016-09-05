@@ -46,7 +46,7 @@ Feature: Buy profile access
     Given I am logged in as a user with the "administrator" role
     When I go to "admin/emindhub/points"
     Then I fill in "Cost of profile purchase" with "50"
-    And I press "Save configuration"
+      And I press "Save configuration"
 
     # An expert responds to the request.
     Given I am logged in as "expert1"

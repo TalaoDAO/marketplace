@@ -39,26 +39,26 @@ Feature: Request and submissions
     # Activate option
     Given I am logged in as "client1"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
-    And I click "Edit" in the "primary tabs" region
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "Edit" in the "primary tabs" region
     Given I check "Duration"
-    And I enter "6 months" for "Duration of the mission"
-    And I enter "07/06/2017" for "Date"
-    And I press "Continue"
+      And I enter "6 months" for "Duration of the mission"
+      And I enter "07/06/2017" for "Date"
+      And I press "Continue"
     # Validation page
-    And I press "Publish"
+      And I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been published."
 
   Scenario: The author can see Duration option infos
     Given I am logged in as "client1"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "6 months"
-    And I should see "2017/07/06"
+      And I should see "2017/07/06"
 
   Scenario: An expert can see Duration option infos
     Given I am logged in as "expert1"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "6 months"
-    And I should see "2017/07/06"
+      And I should see "2017/07/06"
