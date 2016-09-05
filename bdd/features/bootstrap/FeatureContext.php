@@ -87,31 +87,31 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-   * @Given I give :name :points emh points
+   * @Given I give :name :points emh credits
    */
   public function assertGiveUserPoints($name, $points) {
     if (!isset($this->users[$name])) {
       throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
     }
     $user = user_load($this->users[$name]->uid);
-    $context = array('points' => $points, 'log' => 'Behat add points to user');
+    $context = array('points' => $points, 'log' => 'Behat add credits to user');
     emh_points_give_points($user, $context);
   }
 
   /**
-   * @Given I remove :name :points emh points
+   * @Given I remove :name :points emh credits
    */
   public function assertRemoveUserPoints($name, $points) {
     if (!isset($this->users[$name])) {
       throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
     }
     $user = user_load($this->users[$name]->uid);
-    $context = array('points' => $points, 'log' => 'Behat remove points to user');
+    $context = array('points' => $points, 'log' => 'Behat remove credits to user');
     emh_points_remove_points($user, $context);
   }
 
   /**
-   * @Then I should have :points points on :name user
+   * @Then I should have :points credits on :name user
    */
   public function assertUserPoints($points, $name) {
     if (!isset($this->users[$name])) {
@@ -119,12 +119,12 @@ class FeatureContext extends DrupalContext {
     }
     $user = user_load($this->users[$name]->uid, TRUE);
     if (! ($user->emh_points == (int) $points) ) {
-      throw new \Exception(sprintf('The user with "%s" title should have %s points instead of %s.', $name, $points, $user->emh_points));
+      throw new \Exception(sprintf('The user with "%s" title should have %s credits instead of %s.', $name, $points, $user->emh_points));
     }
   }
 
   /**
-   * @Then I should have :points points on :title node
+   * @Then I should have :points credits on :title node
    */
   public function assertNodePoints($points, $title) {
     $fnode = NULL;
@@ -137,12 +137,12 @@ class FeatureContext extends DrupalContext {
     entity_get_controller('node')->resetCache(array($fnode->nid)); // temporary, should be cleaned by VBO
     $node = node_load($fnode->nid);
     if (! ($node->emh_points == (int) $points) ) {
-      throw new \Exception(sprintf('The node with "%s" title should have %s points instead of %s.', $title, $points, $node->emh_points));
+      throw new \Exception(sprintf('The node with "%s" title should have %s credits instead of %s.', $title, $points, $node->emh_points));
     }
   }
 
   /**
-   * @Then user :name transfers :points points on :title node
+   * @Then user :name transfers :points credits on :title node
    */
   public function userTransfertNodePoints($name, $points, $title) {
     $fnode = NULL;
@@ -162,7 +162,7 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-   * @Then node :title transfers :points points on :name user
+   * @Then node :title transfers :points credits on :name user
    */
   public function nodeTransfertUserPoints($title, $points, $name) {
     $fnode = NULL;

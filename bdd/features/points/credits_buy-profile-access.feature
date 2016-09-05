@@ -12,16 +12,19 @@ Feature: Buy profile access
     | Facebook  | admin   |
 
     Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | Chef de groupe     | All experts     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | Chieur génial      | All experts     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail                      | field_entreprise  | field_working_status  | field_domaine |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | All experts  | emindhub.test+client1@gmail.com | Google            | Freelancer            | Maintenance   |
+
+    Given users:
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail                      | field_entreprise   | field_working_status | field_domaine |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | All experts  | emindhub.test+expert1@gmail.com | Facebook           | Employee             | Energy        |
 
     Given "request" content:
-    | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
+    | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
     | How to become a superhero?  | Energy        | All experts     | client1 | 2017-02-08 17:45:00    | 1       |
 
-    Given I give "client1" 1000 emh points
-    Given I give "expert1" 1000 emh points
+    Given I give "client1" 1000 emh credits
+    Given I give "expert1" 1000 emh credits
 
     # Make client1 as a Creator member of All experts circle
     Given I am logged in as a user with the "administrator" role
@@ -44,7 +47,7 @@ Feature: Buy profile access
     Then I should see "Creator member" in the "Captain AMERICA" row
 
     Given I am logged in as a user with the "administrator" role
-    When I go to "admin/emindhub/points"
+    When I go to "admin/emindhub/credits"
     Then I fill in "Cost of profile purchase" with "50"
       And I press "Save configuration"
 
@@ -66,8 +69,8 @@ Feature: Buy profile access
     When I click "Access profile for 50 credits" in the "submissions" region
       And I press "Access profile"
     Then I should see "Iron MAN" in the "submissions" region
-      And I should have "950" points on "client1" user
-      And I should have "1050" points on "expert1" user
+      And I should have "950" credits on "client1" user
+      And I should have "1050" credits on "expert1" user
 
     When I go to "circles/relationships"
     Then I should see "Iron MAN"
@@ -85,8 +88,8 @@ Feature: Buy profile access
 
     When I press "Access profile"
     Then I should see ""
-      And I should have "1050" points on "client1" user
-      And I should have "950" points on "expert1" user
+      And I should have "1050" credits on "client1" user
+      And I should have "950" credits on "expert1" user
 
     When I go to "content/how-become-superhero"
     Then I should see "Captain AMERICA" in the "request_right" region

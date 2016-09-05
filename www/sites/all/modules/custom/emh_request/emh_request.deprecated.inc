@@ -254,7 +254,7 @@ function emh_request_count_answers($node) {
 }
 
 /**
- * Helper function to check if node has points.
+ * Helper function to check if node has credits.
  */
 function emh_request_has_points($nid) {
   $node = node_load($nid);

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Specific configuration of points for eMindHub.
+ * Specific configuration of credits for eMindHub.
  */
 
 /*
@@ -42,31 +42,31 @@ function emh_points_custom_form_emh_points_admin_form_alter(&$form, &$form_state
   // Addition of the 3 global thresholds.
   $form['emh_points_challenge_threshold'] = array(
     '#type' => 'textfield',
-    '#title' => t('Points threshold for Challenge'),
+    '#title' => t('Credits threshold for Challenge'),
     '#default_value' => variable_get('emh_points_challenge_threshold', '1000'),
     '#element_validate' => array('element_validate_integer_positive'),
   );
   $form['emh_points_question1_threshold'] = array(
     '#type' => 'textfield',
-    '#title' => t('Points threshold for Question'),
+    '#title' => t('Credits threshold for Question'),
     '#default_value' => variable_get('emh_points_question1_threshold', '100'),
     '#element_validate' => array('element_validate_integer_positive'),
   );
   $form['emh_points_webform_threshold'] = array(
     '#type' => 'textfield',
-    '#title' => t('Points threshold for Mission'),
+    '#title' => t('Credits threshold for Mission'),
     '#default_value' => variable_get('emh_points_webform_threshold', '500'),
     '#element_validate' => array('element_validate_integer_positive'),
   );
   $form['emh_points_monetization_threshold'] = array(
     '#type' => 'textfield',
-    '#title' => t('Points threshold for Monetizatoin'),
+    '#title' => t('Credits threshold for Monetizatoin'),
     '#default_value' => variable_get('emh_points_monetization_threshold', '1500'),
     '#element_validate' => array('element_validate_integer_positive'),
   );
 //  $form['emh_points_contact_price'] = array(
 //    '#type' => 'textfield',
-//    '#title' => t('Points to buy a contact'),
+//    '#title' => t('Credits to buy a contact'),
 //    '#default_value' => variable_get('emh_points_contact_price', '100'),
 //    '#element_validate' => array('element_validate_integer_positive'),
 //  );
@@ -151,7 +151,7 @@ function emh_points_custom_form_views_form_answers_page_alter(&$form, &$form_sta
  */
 
 /**
- * Validation callback to ensure you have enough points to create a Request.
+ * Validation callback to ensure you have enough credits to create a Request.
  */
 function emh_points_validate_enough_points($element, &$form_state, $form) {
   $points = 0;
@@ -165,7 +165,7 @@ function emh_points_validate_enough_points($element, &$form_state, $form) {
       // We cannot reduce the reward.
       if (!empty($node->field_reward) && $node->field_reward[LANGUAGE_NONE]['0']['value'] > $element['value']['#value']) {
         // Reward is diminished, forbidden if published.
-        form_error($element, t('You cannot reduce the number of points.'));
+        form_error($element, t('You cannot reduce the number of credits.'));
       } elseif (!empty($node->field_reward) && $node->field_reward[LANGUAGE_NONE]['0']['value'] < $element['value']['#value']) {
         $points = $element['value']['#value'] - $node->field_reward[LANGUAGE_NONE]['0']['value'];
       } else {
@@ -186,7 +186,7 @@ function emh_points_validate_enough_points($element, &$form_state, $form) {
   $current_points = $query->execute()->fetchField();
   if (empty($current_points)) $current_points = 0;
   if ($current_points < $points) {
-    form_error($element, t('You don\'t have enough points (@count).', array('@count' => $current_points)));
+    form_error($element, t('You don\'t have enough credits (@count).', array('@count' => $current_points)));
   }
 }
 
@@ -198,7 +198,7 @@ function emh_points_validate_challenge_threshold($element, &$form_state, $form) 
   $threshold = variable_get('emh_points_challenge_threshold', 100);
   $points = $element['value']['#value'];
   if ($points < $threshold) {
-    form_error($element, t('You should at least allocate @count points.', array('@count' => $threshold)));
+    form_error($element, t('You should at least allocate @count credits.', array('@count' => $threshold)));
   }
 }
 
@@ -210,7 +210,7 @@ function emh_points_validate_question1_threshold($element, &$form_state, $form) 
   $threshold = variable_get('emh_points_question1_threshold', 100);
   $points = $element['value']['#value'];
   if ($points < $threshold) {
-    form_error($element, t('You should at least allocate @count points.', array('@count' => $threshold)));
+    form_error($element, t('You should at least allocate @count credits.', array('@count' => $threshold)));
   }
 }
 
@@ -222,7 +222,7 @@ function emh_points_validate_webform_threshold($element, &$form_state, $form) {
   $threshold = variable_get('emh_points_webform_threshold', 100);
   $points = $element['value']['#value'];
   if ($points < $threshold) {
-    form_error($element, t('You should at least allocate @count points.', array('@count' => $threshold)));
+    form_error($element, t('You should at least allocate @count credits.', array('@count' => $threshold)));
   }
 }
 

@@ -20,7 +20,7 @@ function emh_user_default_rules_configuration() {
         ],
         "DO" : [
           { "drupal_message" : {
-            "message" : "You can earn points by responding to client requests or sponsoring suitable experts who might be interested in responding to client requests. You can therefore monetize your points once you have reached a threshold of at least \u003C?php print variable_get(\u0027emh_points_monetization_threshold\u0027, \u00271500\u0027); ?\u003E points.",
+            "message" : "You can earn credits by responding to client requests or sponsoring suitable experts who might be interested in responding to client requests. You can therefore monetize your credits once you have reached a threshold of at least \u003C?php print variable_get(\u0027emh_points_monetization_threshold\u0027, \u00271500\u0027); ?\u003E credits.",
             "type" : "info",
             "repeat" : "0"
           } }

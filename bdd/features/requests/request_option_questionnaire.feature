@@ -20,7 +20,7 @@ Feature: Request Option Questionnaire
     | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers, LeagueOfJustice, GuardianOfGalaxy     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers, LeagueOfJustice, GuardianOfGalaxy     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
 
-    Given I give "client1" 10000 emh points
+    Given I give "client1" 10000 emh credits
 
     Given "request" content:
     | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
@@ -36,7 +36,7 @@ Feature: Request Option Questionnaire
       And I press "Update membership"
     Then I should see "Creator member" in the "Captain AMERICA" row
 
-    When I go to "admin/emindhub/points"
+    When I go to "admin/emindhub/credits"
     Then I fill in "Questionnaire" with "500"
       And I press "Save configuration"
 
@@ -45,7 +45,7 @@ Feature: Request Option Questionnaire
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     When I click "Edit" in the "primary tabs" region
-    Then I should see "500 points" in the "#edit-field-options-und-questionnaire" element
+    Then I should see "500 credits" in the "#edit-field-options-und-questionnaire" element
 
     When I select "Avengers" from "Circles"
       And I check the box "Questionnaire"
@@ -55,7 +55,7 @@ Feature: Request Option Questionnaire
     Then I should see "Request How to become a superhero? has been updated."
     # Validation page
       And I press "Publish"
-      And I should have "9500" points on "client1" user
+      And I should have "9500" credits on "client1" user
 
     # An expert responds to the request.
     Given I am logged in as "expert1"

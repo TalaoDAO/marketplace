@@ -265,7 +265,7 @@ function emh_request_node_validate($node, $form, &$form_state) {
     }
 
     if ($user->emh_points < $total) {
-      form_error($form, t("You have not enough points to publish your request."));
+      form_error($form, t("You have not enough credits to publish your request."));
     }
   }
 }
@@ -569,7 +569,7 @@ function emh_request_publication_form_validate($form, &$form_state) {
     }
 
     if ($user->emh_points < $total) {
-      form_error($form, t("You have not enough points to publish your request."));
+      form_error($form, t("You have not enough credits to publish your request."));
     }
   }
 }
@@ -1192,12 +1192,12 @@ function emh_request_format_cost($cost) {
   if ($cost == 0) {
     return t("Free");
   }
-  return t("!amount points", array('!amount' => $cost));
+  return t("!amount credits", array('!amount' => $cost));
 }
 
 
 /**
- * Spends the current user's points for the purchase
+ * Spends the current user's credits for the purchase
  * of the given request's options.
  *
  * @param stdClass $request

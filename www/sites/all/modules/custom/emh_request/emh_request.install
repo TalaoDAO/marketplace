@@ -104,7 +104,7 @@ function emh_request_field_schema($field) {
           'not null' => true,
         ),
         'cost' => array(
-          'description' => 'Cost of the option (number of points)',
+          'description' => 'Cost of the option (number of credits)',
           'type' => 'int',
           'not null' => true,
           'default' => 0,
@@ -380,14 +380,12 @@ function emh_request_update_7122() {
   features_revert(array('ft_request' => array('field_instance', 'variable')));
 }
 
-
 /**
  * CHG: New field for request questions edition.
  */
 function emh_request_update_7123() {
   features_revert(array('ft_request' => array('field_base', 'field_instance', 'variable')));
 }
-
 
 /**
  * CHG: Request strings.
@@ -396,7 +394,6 @@ function emh_request_update_7124() {
   emh_request_disable();
   emh_request_enable();
 }
-
 
 /**
  * ADD: Request content type to notification rules.
