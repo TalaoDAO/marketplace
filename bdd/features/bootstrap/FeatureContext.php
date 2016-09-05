@@ -311,36 +311,4 @@ class FeatureContext extends DrupalContext {
     }
   }
 
-  /**
-   * @Given /^the credit system is enabled$/
-   */
-  // public function theCreditSystemIsEnabled() {
-  //   // Store the original system to restore after the scenario.
-  //   $this->originalCreditSystem = variable_get('emh_user_profile_purchase_amount');
-  //   // Set the test system.
-  //   variable_set('emh_user_profile_purchase_amount', 50);
-  // }
-
-  /**
-   * @BeforeSuite
-   */
-  // public static function prepare($scope) {
-  //   variable_set('emh_user_profile_purchase_amount', 50);
-  // }
-
-  /**
-   * @BeforeSuite
-   */
-  // public static function setup($scope) {
-  //   $this->originalCreditSystem = variable_get('emh_user_profile_purchase_amount');
-  //   variable_set('emh_user_profile_purchase_amount', '50');
-  // }
-  //
-  // /**
-  //  * @AfterSuite
-  //  */
-  // public static function teardown($scope) {
-  //   variable_set('emh_user_profile_purchase_amount', $this->originalCreditSystem);
-  // }
-
 }
