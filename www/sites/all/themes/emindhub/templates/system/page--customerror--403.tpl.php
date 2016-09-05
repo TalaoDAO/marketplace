@@ -81,21 +81,23 @@ global $base_url;
     <div class="row">
 
       <?php if ( $logged_in ): ?>
-      <div class="col-sm-2 col-xs-12">
+      <div class="col-md-1">
       <?php else : ?>
-      <div class="col-sm-3 col-xs-12">
+      <div class="col-md-3">
       <?php endif; ?>
 
         <?php if (!empty($page['burgermenu'])): ?>
-        <div class="burger-menu-btn-container pull-right" onclick="onClickBurgerMenuBtn();">
-          <?php print $openBurgerImg; ?>
+        <div class="burger-menu-btn-container" onclick="onClickBurgerMenuBtn();">
+          <button type="button" class="btn btn-default emh-blue">
+            <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+          </button>
         </div>
         <?php endif; ?>
 
         <?php if ($logo): ?>
         <a class="logo navbar-btn" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
           <?php if ( $logged_in ): ?>
-          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/eMindHub_logo_ld.png" alt="<?php print $site_name; ?>" />
+          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/eMindHub_picto.png" alt="<?php print $site_name; ?>" />
           <?php else : ?>
           <img src="<?php print $logo; ?>" alt="<?php print $site_name; ?>" />
           <?php endif; ?>
@@ -105,9 +107,9 @@ global $base_url;
       </div> <!-- END .col -->
 
       <?php if ( $logged_in ): ?>
-      <div class="col-sm-10 col-xs-12">
+      <div class="col-md-11">
       <?php else : ?>
-      <div class="col-sm-9 col-xs-12">
+      <div class="col-md-9">
       <?php endif; ?>
 
         <nav class="navbar">
@@ -140,21 +142,13 @@ global $base_url;
 
 </header>
 
-<?php if (!empty($page['header']) || !empty($page['header_right'])): ?>
+<?php if (!empty($page['header'])): ?>
 <header role="banner" id="page-header">
-  <div class="container">
+  <div class="container-fluid">
 
-    <?php if (!empty($page['header']) && !empty($page['header_right'])): ?>
     <div class="row">
       <?php print render($page['header']); ?>
-      <?php print render($page['header_right']); ?>
     </div>
-    <?php endif; ?>
-
-    <?php if ( (!empty($page['header']) && empty($page['header_right'])) || (empty($page['header']) && !empty($page['header_right'])) ): ?>
-      <?php print render($page['header']); ?>
-      <?php print render($page['header_right']); ?>
-    <?php endif; ?>
 
   </div>
 </header> <!-- /#page-header -->
@@ -170,21 +164,23 @@ global $base_url;
 
         <div class="row">
 
-          <div class="col-sm-8 col-md-9">
-
-            <?php if (!empty($page['title'])): ?>
-            <?php print render($page['title']); ?>
-            <?php endif; ?>
-
-            <?php if (!empty($page['highlighted'])): ?>
-            <div class="highlighted jumbotron"><?php print render($page['highlighted']); ?></div>
-            <?php endif; ?>
+          <div class="title-left">
 
             <?php print render($title_prefix); ?>
             <?php //if (!empty($title)): ?>
-            <h1 class="page-header"><?php //print $title; ?><?php print t('Log in'); ?></h1>
+              <h1 class="page-header">
+                <?php if ($logged_in): ?>
+                  <?php print $title; ?>
+                <?php else : ?>
+                  <?php print t('Log in'); ?>
+                <?php endif; ?>
+              </h1>
             <?php //endif; ?>
             <?php print render($title_suffix); ?>
+
+            <?php if (!empty($page['title'])): ?>
+              <?php print render($page['title']); ?>
+            <?php endif; ?>
 
             <?php if (!empty($baseline)) : ?>
               <p class="emh-title-baseline"><?php print $baseline; ?></p>
@@ -192,20 +188,20 @@ global $base_url;
 
           </div>
 
-          <div id="flashes" class="col-sm-4 col-md-3">
-
-            <?php if ( $logged_in ): ?>
-            <a class="btn btn-flash icon-community" href="<?php print url('invitations'); ?>"><?php print t('Invite experts and earn points!'); ?></a>
-            <?php endif; ?>
-
-          </div>
+          <?php if (!empty($page['title_right'])): ?>
+            <?php print render($page['title_right']); ?>
+          <?php endif; ?>
 
         </div>
+
+        <?php if (!empty($page['title_bottom'])): ?>
+          <?php print render($page['title_bottom']); ?>
+        <?php endif; ?>
 
         <?php print $messages; ?>
 
         <?php $primary_tabs = emh_submenu_menu_tabs_primary($tabs);
-        if (!empty($primary_tabs)): ?>
+        if (!empty($primary_tabs)) : ?>
           <ul class="tabs--primary nav nav-tabs">
             <?php print render($primary_tabs); ?>
           </ul>
@@ -217,6 +213,12 @@ global $base_url;
 
     <div class="container">
 
+      <?php if (!empty($page['highlighted'])): ?>
+      <div class="highlighted jumbotron">
+          <?php print render($page['highlighted']); ?>
+      </div>
+      <?php endif; ?>
+
       <?php if (!empty($page['top'])): ?>
       <?php print render($page['top']); ?>
       <?php endif; ?>
@@ -224,7 +226,11 @@ global $base_url;
       <div class="row">
 
         <?php if (!empty($page['sidebar_first'])) : ?>
-        <aside id="sidebar-first" class="col-sm-2" role="complementary">
+        <?php if ($is_front) : ?>
+        <aside id="sidebar-first" class="col-md-5 col-md-offset-1" role="complementary">
+        <?php else : ?>
+        <aside id="sidebar-first" class="col-md-2" role="complementary">
+        <?php endif; ?>
           <?php print render($page['sidebar_first']); ?>
         </aside>  <!-- /#sidebar-first -->
         <?php endif; ?>
@@ -235,18 +241,24 @@ global $base_url;
             <ul class="action-links"><?php print render($action_links); ?></ul>
           <?php endif; ?>
 
-          <?php //print render($page['content']); ?>
-
-          <?php
-          $elements = drupal_get_form("user_login");
-          $form = drupal_render($elements);
-          echo $form;
-          ?>
+          <?php if ($logged_in): ?>
+            <?php print render($page['content']); ?>
+          <?php else : ?>
+            <?php
+            $elements = drupal_get_form("user_login");
+            $form = drupal_render($elements);
+            echo $form;
+            ?>
+          <?php endif; ?>
 
         </section>
 
         <?php if (!empty($page['sidebar_second']) || !empty($page['help'])): ?>
-        <aside id="sidebar-second" class="col-sm-3" role="complementary">
+        <?php if ($is_front) : ?>
+        <aside id="sidebar-second" class="col-md-5" role="complementary">
+        <?php else : ?>
+        <aside id="sidebar-second" class="col-md-3" role="complementary">
+        <?php endif; ?>
           <?php if (!empty($page['help'])): ?>
             <?php print render($page['help']); ?>
           <?php endif; ?>

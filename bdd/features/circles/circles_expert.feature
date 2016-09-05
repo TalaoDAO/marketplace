@@ -31,7 +31,7 @@ Feature: Requests visibility for Expert
 
     Given users:
     | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise   | field_working_status |
-    | expert5 | emindhub.test+expert5@gmail.com | expert   | Jean             | Grey            | 0712345674      | Boulanger          | X-Men        | emindhub.test+expert5@gmail.com | Linkedin  | Employee  |
+    | expert5 | emindhub.test+expert5@gmail.com | expert   | Jean             | GREY            | 0712345674      | Boulanger          | X-Men        | emindhub.test+expert5@gmail.com | Linkedin  | Employee  |
 
     Given "request" content:
     | title         | field_domaine  | og_group_ref    | author  | field_expiration_date  | status  |
@@ -44,16 +44,16 @@ Feature: Requests visibility for Expert
     Given I am logged in as "expert1"
     When I go to homepage
     Then I should not see "Fight Magneto"
-    And I should see "Fight Ultron"
-    And I should see "Fight Hydra"
-    And I should see "Fight Thanos"
+      And I should see "Fight Ultron"
+      And I should see "Fight Hydra"
+      And I should see "Fight Thanos"
 
     Given I am logged in as "expert4"
     When I go to homepage
     Then I should see "Fight Magneto"
-    And I should not see "Fight Ultron"
-    And I should not see "Fight Hydra"
-    And I should see "Fight Thanos"
+      And I should not see "Fight Ultron"
+      And I should not see "Fight Hydra"
+      And I should see "Fight Thanos"
 
   Scenario: Check profile completion and request visibility
     Given I am logged in as "expert5"
@@ -63,9 +63,9 @@ Feature: Requests visibility for Expert
 
     When I go to "/content/fight-magneto"
     Then I should see "Please complete the following information to access client requests"
-    And I should not see "Your submission"
+      And I should not see "Your submission"
 
     When I enter "86" for "Field(s) of expertise"
-    And I press "Update your profile"
+      And I press "Update your profile"
     Then I should see the success message containing "You have now access to client requests."
-    And I should see "Your submission"
+      And I should see "Your submission"
