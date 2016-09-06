@@ -21,7 +21,21 @@ class menu_token_entity_context implements menu_token_handler {
     $entity_type = $options['_type'];
     $entity_info = entity_get_info($entity_type);
 
-    $path_components = explode('/', $entity_info['path']);
+    // As the $entity object is not available in $options, we can't use uri_callback method.
+    // Thus directly look for path in the entity info.
+    if (isset($entity_info['path'])) {
+      $path = $entity_info['path'];
+    }
+    // Or look for a default path.
+    elseif (isset($entity_info['default path'])) {
+      $path = $entity_info['default path'];
+    }
+    // No path available so far, so exit with NULL.
+    else {
+      return NULL;
+    }
+
+    $path_components = explode('/', $path);
     foreach ($path_components as $position => $component) {
       // If this is a menu argument, then use the current position to find
       // the entity id.

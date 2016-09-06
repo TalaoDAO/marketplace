@@ -11,12 +11,11 @@ define('RULES_FORMS_ADMIN_PATH', 'admin/config/workflow/rules/forms');
  * Implements hook_help().
  */
 function rules_forms_help($path, $arg) {
-	switch ($path) {
+  switch ($path) {
     case 'admin/help#rules_forms':
-      return '<p>' . t('Rules Forms Support provides Rules events, conditions, and actions for any form '.
-                       'built with the Drupal form API. To activate events for a form you must first '.
-                       'visit <a href="!admin">Rules Forms settings</a> and enable activation messages.',
-                       array('!admin' => url(RULES_FORMS_ADMIN_PATH))) . '</p>';
+      return '<p>' . t('Rules Forms Support provides Rules events, conditions, and actions for any form built with the Drupal form API. To activate events for a form you must first visit <a href="!admin">Rules Forms settings</a> and enable activation messages.',
+        array('!admin' => url(RULES_FORMS_ADMIN_PATH))) . '</p>';
+
     case RULES_FORMS_ADMIN_PATH:
       return '<p>' . t('Settings and overview of form events and active elements.') . '</p>';
   }
@@ -44,8 +43,8 @@ function rules_forms_permission() {
 function rules_forms_menu() {
   $items = array();
   $items[RULES_FORMS_ADMIN_PATH] = array(
-    'title' => 'Form events',
-    'description' => 'Configure Rules Forms events.',
+    'title' => 'Forms Support',
+    'description' => 'Manage Rules Forms events, forms, and form element information.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('rules_forms_admin_events'),
     'access arguments' => array('administer rules forms'),
@@ -68,18 +67,20 @@ function rules_forms_menu() {
  * Implements hook_form_alter().
  */
 function rules_forms_form_alter(&$form, &$form_state, $form_id) {
-  $form_events = variable_get('rules_forms_event_info', array());
+  $form_info = rules_forms_get_form_info($form_id);
 
-  if (isset($form_events[$form_id])) {
+  if ($form_info !== FALSE) {
     // Set elements for form events.
-    rules_forms_invoke_event('form_built', $form, $form_state, $form_id);
+    $entity_type = isset($form_state['entity_type']) ? $form_state['entity_type'] : NULL;
+    $entity = isset($entity_type) ? $form_state[$entity_type] : NULL;
+    rules_forms_event_build($form, $form_state, $form_id, $entity, $entity_type);
     $form['#validate'][] = 'rules_forms_event_validate';
     $form['#submit'][] = 'rules_forms_event_submit';
     $form['#after_build'][] = 'rules_forms_after_build';
 
     // Add button level validation and submission handling.
-    if ($form_events[$form_id]['buttons'] && isset($form_events[$form_id]['submit'])) {
-      foreach ($form_events[$form_id]['submit'] as $element_id => $label) {
+    if ($form_info['buttons'] && isset($form_info['submit'])) {
+      foreach ($form_info['submit'] as $element_id => $label) {
         $element = &_rules_forms_get_element($form, $element_id);
         $element['#rules_forms_element_id'] = $element_id;
         $element['#validate'][] = 'rules_forms_event_button_validate';
@@ -90,19 +91,50 @@ function rules_forms_form_alter(&$form, &$form_state, $form_id) {
   elseif (!empty($_SESSION['rules_forms_message'])) {
     // Display form ID message if enabled for this session.
     $uri = drupal_get_destination();
-    $link = l($form_id, RULES_FORMS_ADMIN_PATH . '/' . $form_id . '/activate/'. urlencode(trim($uri['destination'], '/')));
-    $msg = t('Activate events for ');
-    drupal_set_message($msg . $link, 'status', FALSE);
+    $link = l($form_id, RULES_FORMS_ADMIN_PATH . '/' . $form_id . '/activate/' . urlencode(trim($uri['destination'], '/')));
+    $msg = t('Activate events for');
+    drupal_set_message($msg . ' ' . $link, 'status', FALSE);
   }
 }
 
 /**
- * Validation handler to invoke "form validate" events
+ * Form build handler. Stores form values and invokes the event.
+ */
+function rules_forms_event_build(&$form, &$form_state, $form_id, $entity, $entity_type) {
+  // Save form element values for use in conditions.
+  $_SESSION['rules_forms_form_values'][$form_id] = array();
+  $form_info = rules_forms_get_form_info($form_id);
+  if (isset($form_info['elements'])) {
+
+    $form_values = array();
+    foreach ($form_info['elements'] as $element_id => $info) {
+      $element = &_rules_forms_get_element($form, $element_id);
+      if (isset($element['#value'])) {
+        $form_values[$element_id] = $element['#value'];
+      }
+      elseif (isset($element['#default_value'])) {
+        $form_values[$element_id] = $element['#default_value'];
+      }
+      else {
+        $form_values[$element_id] = NULL;
+      }
+    }
+
+    $_SESSION['rules_forms_form_values'][$form_id] = $form_values;
+  }
+  // Invoke the form_built event.
+  rules_forms_invoke_event('form_built', $form, $form_state, $form_id, $entity, $entity_type);
+}
+
+/**
+ * Validation handler to invoke "form validate" events.
  *
  * @see rules_forms_form_alter()
  */
 function rules_forms_event_validate(&$form, &$form_state) {
-  rules_forms_invoke_event('form_validate', $form, $form_state);
+  $entity_type = isset($form_state['entity_type']) ? $form_state['entity_type'] : NULL;
+  $entity = isset($entity_type) ? $form_state[$entity_type] : NULL;
+  rules_forms_invoke_event('form_validate', $form, $form_state, $entity, $entity_type);
 }
 
 /**
@@ -110,40 +142,47 @@ function rules_forms_event_validate(&$form, &$form_state) {
  *
  * @see rules_forms_form_alter()
  */
-function rules_forms_event_button_validate(&$form, &$form_state) {;
-  if (isset($form_state['clicked_button'])) {
-    $form_events = variable_get('rules_forms_event_info', array());
+function rules_forms_event_button_validate(&$form, &$form_state) {
+  if (isset($form_state['triggering_element'])) {
     $form_id = $form['form_id']['#value'];
-    $button = $form_state['clicked_button'];
-    if (isset($button['#rules_forms_element_id']) && isset($form_events[$form_id]['submit'][$button['#rules_forms_element_id']])) {
-      rules_forms_invoke_event('button_'. str_replace(':', '_', $button['#rules_forms_element_id']) .'_validate', $form, $form_state, $form_id);
+    $form_info = rules_forms_get_form_info($form_id);
+    $button = $form_state['triggering_element'];
+    if (isset($button['#rules_forms_element_id']) && isset($form_info['submit'][$button['#rules_forms_element_id']])) {
+      $entity_type = isset($form_state['entity_type']) ? $form_state['entity_type'] : NULL;
+      $entity = isset($entity_type) ? $form_state[$entity_type] : NULL;
+      rules_forms_invoke_event('button_' . str_replace(':', '_', $button['#rules_forms_element_id']) . '_validate', $form, $form_state, $form_id, $entity, $entity_type);
     }
   }
 }
 
 /**
- * Submit handler to invoke "form submitted" events
+ * Submit handler to invoke "form submitted" events.
  *
  * @see rules_forms_form_alter()
  */
 function rules_forms_event_submit(&$form, &$form_state) {
-  rules_forms_invoke_event('form_submit', $form, $form_state);
+  $entity_type = isset($form_state['entity_type']) ? $form_state['entity_type'] : NULL;
+  $entity = isset($entity_type) ? $form_state[$entity_type] : NULL;
+  rules_forms_invoke_event('form_submit', $form, $form_state, $entity, $entity_type);
 }
 
 /**
  * Submit handler for button level submissions.
+ *
  * This function is used to determine which button was clicked and pass that
  * information in the rules event.
  *
  * @see rules_forms_form_alter()
  */
 function rules_forms_event_button_submit(&$form, &$form_state) {
-  if (isset($form_state['clicked_button'])) {
-    $form_events = variable_get('rules_forms_event_info', array());
+  if (isset($form_state['triggering_element'])) {
     $form_id = $form['form_id']['#value'];
-    $button = $form_state['clicked_button'];
-    if (isset($button['#rules_forms_element_id']) && isset($form_events[$form_id]['submit'][$button['#rules_forms_element_id']])) {
-      rules_forms_invoke_event('button_'. str_replace(':', '_', $button['#rules_forms_element_id']) .'_submit', $form, $form_state, $form_id);
+    $form_info = rules_forms_get_form_info($form_id);
+    $button = $form_state['triggering_element'];
+    if (isset($button['#rules_forms_element_id']) && isset($form_info['submit'][$button['#rules_forms_element_id']])) {
+      $entity_type = isset($form_state['entity_type']) ? $form_state['entity_type'] : NULL;
+      $entity = isset($entity_type) ? $form_state[$entity_type] : NULL;
+      rules_forms_invoke_event('button_' . str_replace(':', '_', $button['#rules_forms_element_id']) . '_submit', $form, $form_state, $form_id, $entity, $entity_type);
     }
   }
 }
@@ -157,7 +196,7 @@ function rules_forms_event_button_submit(&$form, &$form_state) {
  *   - form_validate
  *   - form_submit
  *   - button_ELEMENT_ID_validate
- *   - button_ELEMENT_ID_submit
+ *   - button_ELEMENT_ID_submit.
  * @param array $form
  *   A reference to the form array for which the event is being invoked.
  * @param array $form_state
@@ -170,46 +209,32 @@ function rules_forms_event_button_submit(&$form, &$form_state) {
  * @see rules_forms_event_submit()
  * @see rules_forms_form_alter()
  */
-function rules_forms_invoke_event($event_type, &$form, &$form_state, $form_id = NULL) {
+function rules_forms_invoke_event($event_type, &$form, &$form_state, $form_id = NULL, $entity = NULL, $entity_type = NULL) {
   global $user;
   if (empty($form_id)) {
     $form_id = $form['form_id']['#value'];
   }
 
-  // Prepare form data to be passed by reference as ArrayObjects.
-  $form_data = new ArrayObject((array)$form);
-  $form_state_data = new ArrayObject((array)$form_state);
-
   // Create an array of form element IDs to be passed as arguments.
   $elements = array();
-  $form_events = variable_get('rules_forms_event_info', array());
-  foreach ($form_events[$form_id]['elements'] as $element_id => $info) {
-    $elements[$element_id] = $element_id;
-
-    // Save values if the form is being built. These values can be used in conditions
-    // to determine whether a field has changed during validation.
-    if ($event_type == 'form_built') {
-      $element = &_rules_forms_get_element($form, $element_id);
-      if (isset($element['#value'])) {
-        $_SESSION['rules_forms_form_'. $form_id .'_values'][$element_id] = $element['#value'];
-      }
-      elseif (isset($element['#default_value'])) {
-        $_SESSION['rules_forms_form_'. $form_id .'_values'][$element_id] = $element['#default_value'];
-      }
-      else {
-        $_SESSION['rules_forms_form_'. $form_id .'_values'][$element_id] = NULL;
-      }
-    }
+  if ($element_ids = rules_forms_get_element_ids($form_id)) {
+    $elements = array_combine($element_ids, $element_ids);
   }
 
+  // Prepare form data to be passed by reference as ArrayObjects.
+  $form_data = new ArrayObject((array) $form);
+  $form_state_data = new ArrayObject((array) $form_state);
+
   // Forms are passed by reference via the ArrayObject class.
-  // Element IDs for the form are appended and passed as arguments. This allows us to
-  // use a select list in rules for selecting form elements rather than entering an element ID.
+  // Element IDs for the form are appended and passed as arguments.
+  // This allows us to use a select list in rules for selecting
+  // form elements rather than entering an element ID.
   $args = array(
-    'rules_forms_' . $form_id . '_' . $event_type,
+    "rules_forms_{$form_id}_{$event_type}",
     $form_data,
     $form_state_data,
     $form_id,
+    entity_metadata_wrapper($entity_type, $entity),
     $user,
   ) + $elements;
 
@@ -218,38 +243,43 @@ function rules_forms_invoke_event($event_type, &$form, &$form_state, $form_id = 
   // Repopulate form arrays to update the form.
   $form = (array) $form_data;
   $form_state = (array) $form_state_data;
+
+  // If a submit event has been invoked (form or button level) unset
+  // the form values session variable.
+  if (strpos($event_type, 'submit', strlen($event_type) - 7) !== FALSE) {
+    unset($_SESSION['rules_forms_form_values'][$form_id]);
+  }
 }
 
 /**
  * Add element IDs on the form if the setting is enabled.
  */
 function rules_forms_after_build($form, &$form_state) {
-  $form_events = variable_get('rules_forms_event_info', array());
   $form_id = $form['form_id']['#value'];
+  $form_info = rules_forms_get_form_info($form_id);
 
   // Set elements for form events if necessary.
   // Ensure that the form ID matches an activated form's form ID to prevent
   // improper Rules events from being loaded in hook_rules_event_info().
-  if (isset($form_events[$form_id]) && ((isset($form_events[$form_id]['reset']) && $form_events[$form_id]['reset'])
-      || (!isset($form_events[$form_id]['elements']) || empty($form_events[$form_id]['elements'])))) {
+  if ($form_info !== FALSE && ((isset($form_info['reset']) && $form_info['reset'])
+      || (!isset($form_info['elements']) || empty($form_info['elements'])))) {
 
-    if (!empty($form_events[$form_id]['reset'])) {
-      $form_events[$form_id]['reset'] = FALSE;
+    if (!empty($form_info['reset'])) {
+      $form_info['reset'] = FALSE;
     }
 
-    $form_events[$form_id]['elements'] = array();
-    $form_events[$form_id]['validate'] = array();
-    $form_events[$form_id]['submit'] = array();
+    $form_info['elements'] = array();
+    $form_info['validate'] = array();
+    $form_info['submit'] = array();
 
-    rules_forms_build_elements($form, $form_events[$form_id]);
-    variable_set('rules_forms_event_info', $form_events);
-    rules_clear_cache();
-    drupal_set_message(t('Form elements for %form have been built.', array('%form' => $form_events[$form_id]['label'])));
+    rules_forms_build_elements($form, $form_info);
+    rules_forms_save_form_info($form_id, $form_info);
+    drupal_set_message(t('Form elements for %form have been built.', array('%form' => $form_info['label'])));
   }
 
   // Add element information for reference by users.
   if (!empty($_SESSION['rules_forms_element_info'])) {
-    rules_forms_add_popups($form, $form_events[$form_id]['elements']);
+    rules_forms_add_popups($form, $form_info['elements']);
     drupal_add_css(drupal_get_path('module', 'rules_forms') . '/rules_forms.css');
   }
   return $form;
@@ -270,23 +300,27 @@ function rules_forms_after_build($form, &$form_state) {
  */
 function rules_forms_build_elements($form, &$form_info, $parent = '') {
   foreach (element_children($form) as $key) {
-    // Only save element that have a title or value and are not hidden or tokens.
+    // Only save element that have title or value and are not hidden or tokens.
     if (isset($form[$key]['#type'])) {
       if ((isset($form[$key]['#title']) && !in_array($form[$key]['#type'], array('hidden', 'token')))
           || $form[$key]['#type'] == 'submit' || $form[$key]['#type'] == 'button') {
-        $element_id = $form[$key]['#type'] .':'. $parent . $key;
+        $element_id = $form[$key]['#type'] . ':' . $parent . $key;
 
+        $element_key = isset($form[$key]['#title']) ? ucfirst($form[$key]['#title']) : $key;
         $form_info['elements'][$element_id] = array(
           'type' => $form[$key]['#type'],
-          'label' => $form[$key]['#type'] == 'submit' || $form[$key]['#type'] == 'button'
-            ? $form[$key]['#value'] : ucfirst($form[$key]['#title']),
+          'label' => ($form[$key]['#type'] == 'submit' || $form[$key]['#type'] == 'button') ? $form[$key]['#value'] : $element_key,
         );
 
-        // If this is a submit element, add it for use in adding button level validation and submission handlers.
+        // If this is a submit element, add it for use in adding button level
+        // validation and submission handlers.
         if ($form_info['buttons'] && ($form[$key]['#type'] == 'submit' || $form[$key]['#type'] == 'button')) {
           if (isset($form[$key]['#submit'])) {
             $form_info['submit'][$element_id] = isset($form[$key]['#value']) ? $form[$key]['#value'] : $key;
           }
+        }
+        if (isset($form[$key]['#options'])) {
+          $form_info['elements'][$element_id]['options'] = $form[$key]['#options'];
         }
       }
     }
@@ -297,7 +331,8 @@ function rules_forms_build_elements($form, &$form_info, $parent = '') {
 
 /**
  * Create element information popups for each element of a form.
- * This functions is only called if the current session has the setting enabled.
+ *
+ * This function is only called if the current session has the setting enabled.
  *
  * @param array $form
  *   The form currently being viewed.
@@ -334,12 +369,14 @@ function rules_forms_add_popups(&$form, $elements) {
                             '<table width="100%" border="0" cellpadding="2" class="rules-forms-inspection">' .
                             '<thead><tr><th>Attribute</th><th>Value</th></tr></thead>';
 
-    // Each value calls the display function which will recursively print attribute information.
+    // Each value calls the display function which will recursively print
+    // attribute information.
     $line = 'odd';
+    $reject_elements = array('#node', '#entity');
     foreach ($element as $key => $value) {
-      if ($key !== $attribute && element_property($key)) {
+      if ($key !== $attribute && element_property($key) && !in_array($key, $reject_elements)) {
         // Print the attribute type and value table cells.
-        $element[$attribute] .= '<tr class="'. $line .'"><td class="rules-forms-element-type">' .
+        $element[$attribute] .= '<tr class="' . $line . '"><td class="rules-forms-element-type">' .
           ucfirst(str_replace(array('#', '_'), array('', ' '), $key)) . ':</td><td class="rules-forms-element-value">';
 
         // Compile the attribute value.
@@ -354,6 +391,7 @@ function rules_forms_add_popups(&$form, $elements) {
 
 /**
  * Prints element array information either directly or in unordered lists.
+ *
  * Array values are processed recursively until 3 arrays have been reached.
  *
  * @param string $element
@@ -368,7 +406,10 @@ function rules_forms_add_popups(&$form, $elements) {
  *   to demonstrate the structure of an array to the user.
  */
 function _rules_forms_display_info(&$element, $data, $level = 1, $delta = NULL) {
-  if (is_array($data) && $level != 3) {
+  if (is_object($data)) {
+    $data = (array) $data;
+  }
+  elseif (is_array($data) && $level != 3) {
     $element .= $delta;
     $element .= '<ul>';
     // Recursive calls on array values up until the third array.
@@ -426,3 +467,124 @@ function &_rules_forms_get_element(&$form, $element_id) {
   return $element;
 }
 
+/**
+ * Returns an array of references to a form's elements, keyed by element IDs.
+ *
+ * @param array $form
+ *   The form whose elements to return.
+ *
+ * @return array
+ *   An array of references to form elements keyed by Rules Forms element IDs.
+ */
+function &_rules_forms_get_elements(&$form) {
+  $elements = array();
+  if ($element_info = rules_forms_get_element_info($form)) {
+    $elements = array();
+    foreach ($element_info as $element_id => $info) {
+      $elements[$element_id] = &_rules_forms_get_element($form, $element_id);
+    }
+    return $elements;
+  }
+  return $elements;
+}
+
+/**
+ * Returns form information.
+ *
+ * @param string|array $form_id
+ *   An optional form ID or $form array from which the form ID can be retrieved.
+ *
+ * @return array|false
+ *   An array of forms and their information keyed by form IDs. Or,
+ *   if a form ID is specified then that form's information is returned.
+ *   Returns boolean FALSE if a form array without the form ID was passed.
+ */
+function rules_forms_get_form_info($form_id = NULL) {
+  $form_info = variable_get('rules_forms_form_info', array());
+  if ($form_id === NULL) {
+    return $form_info;
+  }
+
+  // Allow the passage of a $form array.
+  if (!is_string($form_id)) {
+    if (isset($form_id['form_id'])) {
+      $form_id = $form_id['form_id']['#value'];
+    }
+    else {
+      return FALSE;
+    }
+  }
+  return isset($form_info[$form_id]) ? $form_info[$form_id] : FALSE;
+}
+
+/**
+ * Saves form information.
+ *
+ * @param string $form_id
+ *   The form ID of the form whose information is being saved.
+ * @param array $form_info
+ *   The form information to store.
+ * @param bool $rebuild_cache
+ *   A boolean value indicating whether the Rules cache should be reset
+ *   upon saving. This defaults to TRUE.
+ */
+function rules_forms_save_form_info($form_id, $form_info, $rebuild_cache = TRUE) {
+  $event_info = variable_get('rules_forms_form_info', array());
+  $event_info[$form_id] = $form_info;
+  variable_set('rules_forms_form_info', $event_info);
+
+  if ($rebuild_cache) {
+    rules_clear_cache();
+  }
+}
+
+/**
+ * Returns element information of a specific form.
+ *
+ * @param string $form_id
+ *   The form ID of the form whose element information to return.
+ *
+ * @return array|false
+ *   An array of element information for the form, keyed by element IDs.
+ *   Boolean FALSE if no form info was found.
+ */
+function rules_forms_get_element_info($form_id) {
+  if ($form_info = rules_forms_get_form_info($form_id)) {
+    return isset($form_info['elements']) ? $form_info['elements'] : FALSE;
+  }
+  return FALSE;
+}
+
+/**
+ * Returns all element IDs for a form.
+ *
+ * @param string $form_id
+ *   The form ID of the form whose element IDs to return.
+ *
+ * @return array|false
+ *   An array of element IDs for the form, or FALSE if no elements were found.
+ */
+function rules_forms_get_element_ids($form_id) {
+  if ($elements = rules_forms_get_element_info($form_id)) {
+    return array_keys($elements);
+  }
+  return FALSE;
+}
+
+/**
+ * Activate events for a form.
+ */
+function rules_forms_activate_form($form_id, $form_info) {
+  rules_forms_save_form_info($form_id, $form_info, FALSE);
+}
+
+/**
+ * Deactivate events for a form.
+ */
+function rules_forms_deactivate_form($form_id) {
+  $form_info = rules_forms_get_form_info();
+  if (isset($form_info[$form_id])) {
+    unset($form_info[$form_id]);
+  }
+  variable_set('rules_forms_form_info', $form_info);
+}

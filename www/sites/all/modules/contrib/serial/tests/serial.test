@@ -1,0 +1,128 @@
+<?php
+/**
+ * @file
+ * Test Serial functionality.
+ */
+
+/**
+ * Class SerialTestCase.
+ */
+class SerialTestCase extends DrupalWebTestCase {
+
+  const CONTENT_TYPE = 'serial_test_content_type';
+
+  /**
+   * @var \SerialFields
+   */
+  private $fields;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Serial Field',
+      'group' => 'Field',
+      'description' => 'Testing serial field functionality.',
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setUp() {
+    parent::setUp('serial', 'comment');
+
+    $this->drupalCreateContentType(array('type' => static::CONTENT_TYPE));
+
+    $this->fields = new SerialFields(array(
+      'serial' => array(
+        'type' => SERIAL_FIELD_TYPE,
+        'label' => 'Serial',
+        'settings' => array(),
+      ),
+    ));
+
+    $this->fields
+      ->create()
+      // Attach serial field to content type and comments form.
+      ->attach('node', static::CONTENT_TYPE)
+      ->attach('comment', 'comment_node_' . static::CONTENT_TYPE);
+
+    // Grant all known permissions for user.
+    $this->drupalLogin($this->drupalCreateUser(array_keys(module_invoke_all('permission'))));
+  }
+
+  /**
+   * Create N nodes and attach N comments for the last.
+   *
+   * @param int $nodes
+   *   Number of nodes for creation.
+   * @param int $comments
+   *   Number of comments for creation.
+   */
+  public function testSerial($nodes = 15, $comments = 6) {
+    for ($i = 0; $i < $nodes; $i++) {
+      // Open form for add new node.
+      $this->visit('node/add/' . str_replace('_', '-', static::CONTENT_TYPE));
+      // Submit new node with filled title.
+      $this->drupalPost(NULL, array('title' => "Node $i"), t('Save'));
+    }
+
+    // Go to editing of the last created node.
+    $this->visit("node/$nodes/edit");
+    // Check that last created node number equal to serial ID.
+    $this->assertSerialField($nodes);
+    // Go to viewing of the last created node.
+    $this->visit("node/$nodes");
+
+    // Post comments for last created node.
+    for ($i = 0; $i < $comments; $i++) {
+      $this->drupalPost(NULL, array(self::fieldName('comment_body') => "Comment $i"), t('Save'));
+    }
+
+    // Go to editing of the last created comment.
+    $this->visit("comment/$comments/edit");
+    // Ensure the last-posted comment number equal to serial ID.
+    $this->assertSerialField($comments);
+  }
+
+  /**
+   * Assert number with value of the serial field on the page.
+   *
+   * @param int $number
+   *   The number for verification.
+   */
+  private function assertSerialField($number) {
+    $this->assertFieldByXPath($this->constructFieldXpath('name', self::fieldName('serial')), $number);
+  }
+
+  /**
+   * Visit path and assert response code.
+   *
+   * @param string $path
+   *   Path to visit.
+   * @param int $code
+   *   Expected response code.
+   */
+  private function visit($path, $code = 200) {
+    $this->drupalGet($path);
+    $this->assertResponse($code);
+  }
+
+  /**
+   * Convert Drupal field name into HTML.
+   *
+   * @param string $name
+   *   Drupal field name.
+   * @param string $column
+   *   Field column.
+   *
+   * @return string
+   *   HTML input name.
+   */
+  private static function fieldName($name, $column = 'value') {
+    return $name . '[' . LANGUAGE_NONE . '][0][' . $column . ']';
+  }
+
+}

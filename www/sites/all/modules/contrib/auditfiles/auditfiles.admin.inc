@@ -115,7 +115,7 @@ function auditfiles_admin_settings($form, &$form_state) {
   $form['auditfiles_report_options']['auditfiles_report_options_maximum_records'] = array(
     '#type' => 'textfield',
     '#title' => t('Maximum records'),
-    '#default_value' => variable_get('auditfiles_report_options_maximum_records', 0),
+    '#default_value' => variable_get('auditfiles_report_options_maximum_records', 250),
     '#size' => 10,
     '#description' => t('Enter an integer representing the maximum number of
       records to return for each report.<br />
@@ -129,7 +129,7 @@ function auditfiles_admin_settings($form, &$form_state) {
   $form['auditfiles_report_options']['auditfiles_report_options_batch_size'] = array(
     '#type' => 'textfield',
     '#title' => t('Batch size'),
-    '#default_value' => variable_get('auditfiles_report_options_batch_size', 0),
+    '#default_value' => variable_get('auditfiles_report_options_batch_size', 1000),
     '#size' => 10,
     '#description' => t('If you have a lot of files (100,000+), it will take an
       exponentially longer amount of time and memory to retrieve file data the
