@@ -2,11 +2,15 @@
  |||||||||||||||||||||||||||||| RULES FORMS ||||||||||||||||||||||||||||||
  -------------------------------------------------------------------------
 
- maintained by Jordan Halterman <jordan.halterman@gmail.com>
- http://drupal.org/project/rules_forms
+ maintained by Felipe Caminada <caminadaf@gmail.com>
+ Supported by CI&T
 
- Thanks to klausi and fago for original development and maintainance of
+ Thanks to klausi and fago for original development and maintenance of
  the earlier version of Rules Forms, which was included with Rules 1.
+
+ Also a very special thanks to Jordan Halterman for maintaining this project
+ for a very long time and developing the 2.0 version.
+
 
  Installation
  ------------

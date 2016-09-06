@@ -1,7 +1,8 @@
 name = Fancy File Delete
-description = Delete Multiple Files Based off FID or orphaned / unamaged files
+description = Delete Multiple Files Based off FID or orphaned / unmanaged files
 core = 7.x
 package = Administration
+configure = admin/config/content/fancy_file_delete
 
 dependencies[] = block
 dependencies[] = entity
@@ -18,9 +19,9 @@ files[] = views/inc/FancyFileDeleteUnmanagedDirectoryFilter.inc
 
 configure = admin/config/content/fancy_file_delete
 
-; Information added by Drupal.org packaging script on 2015-12-18
-version = "7.x-1.0-beta9"
+; Information added by Drupal.org packaging script on 2016-05-30
+version = "7.x-1.0-beta10"
 core = "7.x"
 project = "fancy_file_delete"
-datestamp = "1450460340"
+datestamp = "1464620940"
 
