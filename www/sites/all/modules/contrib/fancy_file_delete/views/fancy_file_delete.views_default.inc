@@ -6,6 +6,9 @@
  */
 
 function fancy_file_delete_views_default_views() {
+  // Add in format to prevent errors
+  $format = variable_get('fancy_file_delete_format', 'full_html');
+
   $view = new view();
   $view->name = 'fancy_file_list';
   $view->description = '';
@@ -72,7 +75,7 @@ function fancy_file_delete_views_default_views() {
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
   $handler->display->display_options['empty']['area']['content'] = '<h3>There be no files in your system!</h3>';
-  $handler->display->display_options['empty']['area']['format'] = 'full_html';
+  $handler->display->display_options['empty']['area']['format'] = $format;
   /* Relationship: File Usage: Content */
   $handler->display->display_options['relationships']['file_to_node']['id'] = 'file_to_node';
   $handler->display->display_options['relationships']['file_to_node']['table'] = 'file_usage';
@@ -147,7 +150,7 @@ function fancy_file_delete_views_default_views() {
   $handler->display->display_options['header']['area']['empty'] = TRUE;
   $handler->display->display_options['header']['area']['content'] = '<h2>Warning, this will delete all files that have been orphaned.</h2>
   <h5><em>Orphaned = not attached the node table and file_usage table usually as a result from old deleted nodes</em>  <strong>There is no turning back once you delete these files!</strong></h5>';
-  $handler->display->display_options['header']['area']['format'] = 'full_html';
+  $handler->display->display_options['header']['area']['format'] = $format;
   $handler->display->display_options['defaults']['empty'] = FALSE;
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
@@ -155,7 +158,7 @@ function fancy_file_delete_views_default_views() {
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
   $handler->display->display_options['empty']['area']['content'] = '<h3>There be no orphaned files in your system!</h3>';
-  $handler->display->display_options['empty']['area']['format'] = 'full_html';
+  $handler->display->display_options['empty']['area']['format'] = $format;
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Bulk operations: File */
@@ -266,14 +269,14 @@ function fancy_file_delete_views_default_views() {
   $handler->display->display_options['header']['area']['empty'] = TRUE;
   $handler->display->display_options['header']['area']['content'] = '<h2>Warning, this will delete all files that are unmanaged</h2>
     <h5><em>Unmanaged = ones that are in the files directory with no record on the file_managed table </em><strong>There is no turning back once you hit submit!</strong></h5>';
-  $handler->display->display_options['header']['area']['format'] = 'full_html';
+  $handler->display->display_options['header']['area']['format'] = $format;
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
   $handler->display->display_options['empty']['area']['content'] = 'No Unmanaged Files!';
-  $handler->display->display_options['empty']['area']['format'] = 'full_html';
+  $handler->display->display_options['empty']['area']['format'] = $format;
   /* Field: Bulk operations: Unmanaged Files */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'unmanaged_files';

@@ -1,11 +1,18 @@
 <?php
+/**
+ * @file
+ * Stores tests related to Rules Form.
+ */
 
-class RulesFormsTestCase extends DrupalWebTestCase {
+/**
+ * Class that tests Rules Forms.
+ */
+class RulesFormsInterfaceTestCase extends DrupalWebTestCase {
 
   /**
    * Provides a user with permissions to administer rules forms.
    */
-  protected $privileged_user;
+  protected $user;
 
   /**
    * Defines test information.
@@ -14,7 +21,7 @@ class RulesFormsTestCase extends DrupalWebTestCase {
     return array(
       'name' => 'Form activation and interface',
       'description' => 'Tests the administrative interface and form event activation process.',
-      'group' => 'Rules forms',
+      'group' => 'Rules Forms',
     );
   }
 
@@ -23,14 +30,14 @@ class RulesFormsTestCase extends DrupalWebTestCase {
    */
   public function setUp() {
     parent::setUp('rules_forms', 'rules');
-    $this->privileged_user = $this->drupalCreateUser(array(
+    $this->user = $this->drupalCreateUser(array(
       'administer nodes',
       'access content',
       'create article content',
       'administer rules forms rules',
       'administer rules forms',
     ));
-    $this->drupalLogin($this->privileged_user);
+    $this->drupalLogin($this->user);
   }
 
   /**
@@ -59,7 +66,7 @@ class RulesFormsTestCase extends DrupalWebTestCase {
     $edit = array();
     $edit['form_id_label'] = 'Article node form';
     $this->drupalPost('admin/config/workflow/rules/forms/article_node_form/activate/node%25252Fadd%25252Farticle', $edit, t('Activate'));
-    $this->assertText('article_node_form '. t('has been activated.'));
+    $this->assertText('article_node_form ' . t('has been activated.'));
 
     // Ensure that the newly activated form is shown in administration.
     $this->drupalGet(RULES_FORMS_ADMIN_PATH);
@@ -95,27 +102,36 @@ class RulesFormsTestCase extends DrupalWebTestCase {
  * Base class for testing Rules Forms rules.
  */
 class RulesFormsRulesTestCase extends DrupalWebTestCase {
-  
+
   /**
    * Provides a user with permissions to administer rules forms.
    */
-  protected $privileged_user;
+  protected $user;
 
   /**
    * A test form for passing as an argument in events.
    */
-  protected static $_form = array(
-    '#id' => 'article_node_form',
+  protected static $form = array(
+    'form_id' => array(
+      '#type' => 'value',
+      '#value' => 'test_form',
+    ),
     'title' => array(
       '#type' => 'textfield',
       '#title' => 'test title',
       '#default_value' => 'tset',
     ),
-    'body' => array(LANGUAGE_NONE => array(array(
-      '#type' => 'textarea',
-      '#title' => 'test body',
-      '#default_value' => 'tset body',
-    ))),
+    'body' => array(
+      LANGUAGE_NONE => array(
+        array(
+          'value' => array(
+            '#type' => 'textarea',
+            '#title' => 'test body',
+            '#default_value' => 'tset',
+          ),
+        ),
+      ),
+    ),
     'fieldset' => array(
       '#type' => 'fieldset',
       '#title' => 'test fieldset',
@@ -123,11 +139,15 @@ class RulesFormsRulesTestCase extends DrupalWebTestCase {
         '#type' => 'select',
         '#title' => 'tset select',
         '#options' => array('first' => 'option1', 'second' => 'option2'),
+        '#value' => 'tset',
+        '#default_value' => 'test',
       ),
       'checkboxes' => array(
         '#type' => 'checkboxes',
         '#title' => 'test checkboxes',
         '#options' => array('frist' => '1option', 'sceond' => '2option'),
+        '#value' => 'tset',
+        '#default_value' => 'test',
       ),
     ),
   );
@@ -135,38 +155,58 @@ class RulesFormsRulesTestCase extends DrupalWebTestCase {
   /**
    * A test form state array for passing as an argument in events.
    */
-  protected static $_form_state = array(
+  protected static $formState = array(
     'values' => array(
       'title' => 'tset',
-      'body' => 'tset body',
+      'body' => 'tset',
     ),
   );
 
   /**
    * Defines a form ID for a form whose events are activated in tests.
    */
-  protected static $_form_id = 'article_node_form';
+  protected static $formId = 'test_form';
+
+  /**
+   * Defines testable settings for the rules_forms_form_info variable.
+   */
+  protected static $formInfo = array(
+    'test_form' => array(
+      'label' => 'Test form',
+      'elements' => array(
+        'textfield:title' => array('type' => 'textfield', 'label' => 'Title'),
+        'textarea:body:und:0:value' => array('type' => 'textarea', 'label' => 'Body'),
+        'select:fieldset:select' => array('type' => 'select', 'label' => 'Select'),
+        'checkboxes:fieldset:checkboxes' => array('type' => 'checkboxes', 'label' => 'Checkboxes'),
+      ),
+      'path' => 'node/add/article',
+      'buttons' => FALSE,
+      'validate' => array(),
+      'submit' => array(),
+      'reset' => FALSE,
+    ),
+  );
 
   /**
    * Sets up the test.
    */
   public function setUp() {
     parent::setUp('rules_forms', 'rules');
-    $this->privileged_user = $this->drupalCreateUser(array(
-        'administer nodes',
-        'access content',
-        'create article content',
-        'administer rules forms rules',
-        'administer rules forms',
-        'administer site configuration',
+    $this->user = $this->drupalCreateUser(array(
+      'administer nodes',
+      'access content',
+      'create article content',
+      'administer rules forms rules',
+      'administer rules forms',
+      'administer site configuration',
     ));
-    $this->drupalLogin($this->privileged_user);
+    $this->drupalLogin($this->user);
   }
-  
+
   /**
    * Enables form events for the node add form via the interface.
    */
-  protected function _enableNodeForm() {
+  protected function enableNodeForm() {
     $this->drupalGet(RULES_FORMS_ADMIN_PATH);
     $edit = array();
     $edit['enable_form_activation_message'] = 1;
@@ -191,18 +231,18 @@ class RulesFormsEventsTestCase extends RulesFormsRulesTestCase {
    */
   public static function getInfo() {
     return array(
-      'name' => 'Rules forms events',
-      'description' => 'Tests Rules forms events.',
-      'group' => 'Rules forms',
+      'name' => 'Rules Forms events',
+      'description' => 'Tests Rules Forms events.',
+      'group' => 'Rules Forms',
     );
   }
-  
+
   /**
    * Enables modules and logs in the privileged user.
    */
   public function setUp() {
     parent::setUp();
-    $this->_enableNodeForm();
+    $this->enableNodeForm();
   }
 
   /**
@@ -223,8 +263,8 @@ class RulesFormsEventsTestCase extends RulesFormsRulesTestCase {
    * Tests the form validate event.
    */
   public function testFormValidate() {
-    // We use the site information page to perform form validation since the node
-    // edit form uses button level validation.
+    // We use the site information page to perform form validation since
+    // the node edit form uses button level validation.
     $edit = array();
     $edit['form_id_label'] = 'Article node form';
     $edit['button_validate_submit'] = 1;
@@ -302,9 +342,9 @@ class RulesFormsConditionsTestCase extends RulesFormsRulesTestCase {
    */
   public static function getInfo() {
     return array(
-      'name' => 'Rules forms conditions',
-      'description' => 'Tests Rules forms condition callbacks.',
-      'group' => 'Rules forms',
+      'name' => 'Rules Forms conditions',
+      'description' => 'Tests Rules Forms condition callbacks.',
+      'group' => 'Rules Forms',
     );
   }
 
@@ -321,27 +361,47 @@ class RulesFormsConditionsTestCase extends RulesFormsRulesTestCase {
   public function testElementValueCondition() {
     // Test the condition with a regular value in the field.
     $form = array();
-    $test_form['test'] = array('#type' => 'textfield', '#value' => 'tset', '#default_value' => 'tset');
+    $test_form['test'] = array(
+      '#type' => 'textfield',
+      '#value' => 'tset',
+      '#default_value' => 'tset',
+    );
     $form = new ArrayObject($test_form);
     $form_state = new ArrayObject(array());
 
     // Test with a correctly matching field value.
-    $condition1 = rules_condition('rules_forms_element_value', array('element' => 'textfield:test', 'value' => 'tset', 'regex' => 0));
+    $condition1 = rules_condition('rules_forms_element_value', array(
+      'element' => 'textfield:test',
+      'value' => 'tset',
+      'regex' => 0,
+    ));
     $result1 = $condition1->executeByArgs(array('form' => $form, 'form_state' => $form_state));
     $this->assertTrue($result1, t('Element values are equal.'));
 
     // Test with an incorrectly matching field value.
-    $condition2 = rules_condition('rules_forms_element_value', array('element' => 'textfield:test', 'value' => 'test', 'regex' => 0));
+    $condition2 = rules_condition('rules_forms_element_value', array(
+      'element' => 'textfield:test',
+      'value' => 'test',
+      'regex' => 0,
+    ));
     $result2 = $condition2->executeByArgs(array('form' => $form, 'form_state' => $form_state));
     $this->assertFalse($result2, t('Element values are not equal.'));
 
     // Test with a correctly matching regular expression.
-    $condition3 = rules_condition('rules_forms_element_value', array('element' => 'textfield:test', 'value' => '/se/', 'regex' => 1));
+    $condition3 = rules_condition('rules_forms_element_value', array(
+      'element' => 'textfield:test',
+      'value' => '/se/',
+      'regex' => 1,
+    ));
     $result3 = $condition3->executeByArgs(array('form' => $form, 'form_state' => $form_state));
     $this->assertTrue($result3, t('Regular expression evaluation: value is equal.'));
 
     // Test with a correctly matching regular expression.
-    $condition4 = rules_condition('rules_forms_element_value', array('element' => 'textfield:test', 'value' => '/es/', 'regex' => 1));
+    $condition4 = rules_condition('rules_forms_element_value', array(
+      'element' => 'textfield:test',
+      'value' => '/es/',
+      'regex' => 1,
+    ));
     $result4 = $condition4->executeByArgs(array('form' => $form, 'form_state' => $form_state));
     $this->assertFalse($result4, t('Regular expression evaluation: value is not equal.'));
 
@@ -350,24 +410,95 @@ class RulesFormsConditionsTestCase extends RulesFormsRulesTestCase {
     $form = new ArrayObject($test_form);
 
     // Test with a correctly matching default field value.
-    $condition5 = rules_condition('rules_forms_element_value', array('element' => 'textfield:test', 'value' => 'tset', 'regex' => 0));
+    $condition5 = rules_condition('rules_forms_element_value', array(
+      'element' => 'textfield:test',
+      'value' => 'tset',
+      'regex' => 0,
+    ));
     $result5 = $condition5->executeByArgs(array('form' => $form, 'form_state' => $form_state));
     $this->assertTrue($result5, t('Element values are equal.'));
 
     // Test with an incorrectly matching default field value.
-    $condition6 = rules_condition('rules_forms_element_value', array('element' => 'textfield:test', 'value' => 'test', 'regex' => 0));
+    $condition6 = rules_condition('rules_forms_element_value', array(
+      'element' => 'textfield:test',
+      'value' => 'test',
+      'regex' => 0,
+    ));
     $result6 = $condition6->executeByArgs(array('form' => $form, 'form_state' => $form_state));
     $this->assertFalse($result6, t('Element values are not equal.'));
 
     // Test with a correctly matching regular expression default value.
-    $condition7 = rules_condition('rules_forms_element_value', array('element' => 'textfield:test', 'value' => '/se/', 'regex' => 1));
+    $condition7 = rules_condition('rules_forms_element_value', array(
+      'element' => 'textfield:test',
+      'value' => '/se/',
+      'regex' => 1,
+    ));
     $result7 = $condition7->executeByArgs(array('form' => $form, 'form_state' => $form_state));
     $this->assertTrue($result7, t('Regular expression evaluation: value is equal.'));
 
     // Test with a correctly matching regular expression.
-    $condition8 = rules_condition('rules_forms_element_value', array('element' => 'textfield:test', 'value' => '/es/', 'regex' => 1));
+    $condition8 = rules_condition('rules_forms_element_value', array(
+      'element' => 'textfield:test',
+      'value' => '/es/',
+      'regex' => 1,
+    ));
     $result8 = $condition8->executeByArgs(array('form' => $form, 'form_state' => $form_state));
     $this->assertFalse($result8, t('Regular expression evaluation: value is not equal.'));
+  }
+
+  /**
+   * Tests callback for Condition: Element value has changed.
+   */
+  public function testElementValueChangedCondition() {
+    $form = self::$form;
+    $form_state = self::$formState;
+
+    // rules_forms_event_build will set session variables.
+    variable_set('rules_forms_form_info', self::$formInfo);
+    rules_forms_event_build($form, $form_state, self::$formId);
+
+    // Execute condition without changing the value.
+    $form_state['values']['title'] = 'tset';
+    $condition1 = rules_condition('rules_forms_element_changed', array('element' => 'textfield:title'));
+    $result1 = $condition1->executeByArgs(array('form' => $form, 'form_state' => $form_state));
+    $this->assertFalse($result1, 'Form value has not changed.');
+
+    // Execute condition with changing the value.
+    $form_state['values']['title'] = 'test';
+    $condition2 = rules_condition('rules_forms_element_changed', array('element' => 'textfield:title'));
+    $result2 = $condition2->executeByArgs(array('form' => $form, 'form_state' => $form_state));
+    $this->assertTrue($result2, 'Form value has changed.');
+  }
+
+  /**
+   * Tests callback for Condition: Form button was clicked.
+   */
+  public function testFormButtonClickedCondition() {
+    $form = self::$form;
+    $form_state = self::$formState;
+
+    $form['test_submit'] = array(
+      '#name' => 'test_submit',
+      '#type' => 'submit',
+      '#value' => 'Submit',
+      '#submit' => 'rules_forms_test_submit',
+    );
+
+    // Test for condition not met.
+    $form_state['triggering_element'] = array(
+      '#name' => 'test_button',
+      '#type' => 'button',
+      '#value' => 'Test',
+    );
+    $condition1 = rules_condition('rules_forms_button_clicked', array('element' => 'submit:test_submit'));
+    $result1 = $condition1->executeByArgs(array('form' => $form, 'form_state' => $form_state));
+    $this->assertFalse($result1, 'Clicked button condition not met.');
+
+    // Test for condition met.
+    $form_state['triggering_element'] = $form['test_submit'];
+    $condition2 = rules_condition('rules_forms_button_clicked', array('element' => 'submit:test_submit'));
+    $result2 = $condition2->executeByArgs(array('form' => $form, 'form_state' => $form_state));
+    $this->assertTrue($result2, 'Clicked button condition met.');
   }
 
 }
@@ -382,9 +513,9 @@ class RulesFormsActionsTestCase extends RulesFormsRulesTestCase {
    */
   public static function getInfo() {
     return array(
-      'name' => 'Rules forms actions',
-      'description' => 'Tests Rules forms action callbacks.',
-      'group' => 'Rules forms',
+      'name' => 'Rules Forms actions',
+      'description' => 'Tests Rules Forms action callbacks.',
+      'group' => 'Rules Forms',
     );
   }
 
@@ -412,7 +543,7 @@ class RulesFormsActionsTestCase extends RulesFormsRulesTestCase {
    */
   public function testSetDescriptionAction() {
     $form = array();
-    $form['test'] = array('#type' => 'textfield', '#description' => 'tset');
+    $form['test'] = array('#type' => 'textfield', '#description' => t('tset'));
     $form = new ArrayObject($form);
     $action = rules_action('rules_forms_set_description', array('element' => 'textfield:test', 'description' => 'test'));
     $action->executeByArgs(array('form' => $form));
@@ -462,7 +593,7 @@ class RulesFormsActionsTestCase extends RulesFormsRulesTestCase {
     $form = array();
     $form['test'] = array('#type' => 'textfield', '#options' => array('first' => 'tset'));
     $form = new ArrayObject($form);
-    $action = rules_action('rules_forms_set_options', array('element' => 'textfield:test', 'options' => 'first|test'. "\r\n" .'second|tset'));
+    $action = rules_action('rules_forms_set_options', array('element' => 'textfield:test', 'options' => 'first|test' . "\r\n" . 'second|tset'));
     $action->executeByArgs(array('form' => $form));
     $this->assertEqual($form['test']['#options'], array('first' => 'test', 'second' => 'tset'));
   }
@@ -502,7 +633,11 @@ class RulesFormsActionsTestCase extends RulesFormsRulesTestCase {
       '#suffix' => 'test',
     );
     $form = new ArrayObject($form);
-    $action = rules_action('rules_forms_set_prefix_suffix', array('element' => 'textfield:test', 'prefix' => '<div id="test">', 'suffix' => '</div>'));
+    $action = rules_action('rules_forms_set_prefix_suffix', array(
+      'element' => 'textfield:test',
+      'prefix' => '<div id="test">',
+      'suffix' => '</div>',
+    ));
     $action->executeByArgs(array('form' => $form));
     $this->assertEqual($form['test']['#prefix'], '<div id="test">');
     $this->assertEqual($form['test']['#suffix'], '</div>');
@@ -521,8 +656,8 @@ class RulesFormsAPITestCase extends RulesFormsRulesTestCase {
   public static function getInfo() {
     return array(
       'name' => 'API functions',
-      'description' => 'Tests Rules forms API functions.',
-      'group' => 'Rules forms',
+      'description' => 'Tests Rules Forms API functions.',
+      'group' => 'Rules Forms',
     );
   }
 
@@ -530,6 +665,7 @@ class RulesFormsAPITestCase extends RulesFormsRulesTestCase {
    * Enables modules and logs in the privileged user.
    */
   public function setUp() {
+    variable_set('rules_forms_form_info', self::$formInfo);
     parent::setUp();
   }
 
@@ -538,14 +674,168 @@ class RulesFormsAPITestCase extends RulesFormsRulesTestCase {
    */
   public function testGetElement() {
     // Test retrieving the element.
-    $form = self::$_form;
+    $form = self::$form;
     $element_id = 'select:fieldset:select';
     $element = &_rules_forms_get_element($form, $element_id);
-    $this->assertEqual($element, array('#type' => 'select', '#title' => 'tset select', '#options' => array('first' => 'option1', 'second' => 'option2')));
+    $this->assertEqual($element, array(
+      '#type' => 'select',
+      '#title' => 'tset select',
+      '#options' => array('first' => t('option1'), 'second' => t('option2')),
+      '#value' => 'tset',
+      '#default_value' => 'test',
+    ));
 
     // Test the reference.
     $element['#title'] = 'test select';
     $this->assertEqual($form['fieldset']['select']['#title'], 'test select');
+  }
+
+  /**
+   * Tests _rules_forms_get_elements().
+   */
+  public function testGetElements() {
+    variable_set('rules_forms_form_info', self::$formInfo);
+    $form = self::$form;
+    $elements = &_rules_forms_get_elements($form);
+    foreach ($elements as &$element) {
+      $element['test'] = 'test';
+    }
+    // Ensure that references are preserved by _rules_forms_get_elements().
+    $message = 'Ensure the reference to $form is preserved.';
+    $this->assertTrue(isset($form['title']['test']) && $form['title']['test'] == 'test', $message);
+    $this->assertTrue(isset($form['body'][LANGUAGE_NONE][0]['value']['test']) && $form['body'][LANGUAGE_NONE][0]['value']['test'] == 'test', $message);
+    $this->assertTrue(isset($form['fieldset']['select']['test']) && $form['fieldset']['select']['test'] == 'test', $message);
+    $this->assertTrue(isset($form['fieldset']['checkboxes']['test']) && $form['fieldset']['checkboxes']['test'] == 'test', $message);
+
+    $form = array('form_id' => array('#value' => 'test'));
+    $array = &_rules_forms_get_elements($form);
+    $this->assertTrue(empty($array));
+  }
+
+  /**
+   * Tests rules_forms_get_form_info().
+   */
+  public function testGetFormInfo() {
+    variable_set('rules_forms_form_info', self::$formInfo);
+    // Test getting all form info.
+    $info = rules_forms_get_form_info();
+    $this->assertEqual($info, self::$formInfo);
+
+    // Test getting info by form ID.
+    $form_id = key(self::$formInfo);
+    $form_info = rules_forms_get_form_info($form_id);
+    $this->assertEqual($form_info, self::$formInfo[$form_id]);
+
+    // Test getting info by $form array.
+    $form_info = rules_forms_get_form_info(self::$form);
+    $this->assertEqual($form_info, self::$formInfo[self::$form['form_id']['#value']]);
+  }
+
+  /**
+   * Tests rules_forms_save_form_info().
+   */
+  public function testSaveFormInfo() {
+    variable_set('rules_forms_form_info', self::$formInfo);
+    $form_info = self::$formInfo;
+
+    $form_info['label'] = 'save test';
+    rules_forms_save_form_info(self::$formId, $form_info);
+
+    $result = variable_get('rules_forms_form_info', array());
+    $this->assertTrue($result[self::$formId]['label'] == 'save test');
+  }
+
+  /**
+   * Tests rules_forms_get_element_info().
+   */
+  public function testGetElementInfo() {
+    variable_set('rules_forms_form_info', self::$formInfo);
+    $element_info = rules_forms_get_element_info(self::$formId);
+    $this->assertEqual($element_info, self::$formInfo[self::$formId]['elements']);
+  }
+
+  /**
+   * Tests rules_forms_get_element_ids().
+   */
+  public function testGetElementIds() {
+    variable_set('rules_forms_form_info', self::$formInfo);
+    $element_ids = rules_forms_get_element_ids(self::$formId);
+    $this->assertEqual($element_ids, array_keys(self::$formInfo[self::$formId]['elements']));
+  }
+
+  /**
+   * Tests rules_forms_activate_form().
+   */
+  public function testActivateForm() {
+    variable_set('rules_forms_form_info', self::$formInfo);
+    $form_id = 'activate_test';
+    $form_info = array(
+      'label' => 'Activate test',
+      'elements' => array(),
+      'buttons' => FALSE,
+    );
+    rules_forms_activate_form($form_id, $form_info);
+    $info = variable_get('rules_forms_form_info', array());
+    $this->assertEqual($info[$form_id], $form_info, 'Ensure the form was activated.');
+  }
+
+  /**
+   * Tests rules_forms_deactivate_form().
+   */
+  public function testDeactivateForm() {
+    $this->testActivateForm();
+    $info = variable_get('rules_forms_form_info', array());
+    $this->assertTrue(isset($info['activate_test']), 'Ensure the form was activated.');
+    rules_forms_deactivate_form('activate_test');
+    $new_info = variable_get('rules_forms_form_info', array());
+    $this->assertTrue(!isset($new_info['activate_test']), 'Ensure the form was deactivated.');
+  }
+
+  /**
+   * Tests rules_forms_event_build().
+   */
+  public function testEventBuild() {
+    variable_set('rules_forms_form_info', self::$formInfo);
+    $form_id = self::$form['form_id']['#value'];
+    rules_forms_event_build(self::$form, self::$formState, $form_id);
+    foreach (self::$formInfo[$form_id]['elements'] as $element_id => $info) {
+      $this->assertTrue(isset($_SESSION['rules_forms_form_values'][$form_id][$element_id]), 'Ensure the session variable was set for the element.');
+      // Values should always be set to 'tset' regardless if it came from
+      // #value or #default_value.
+      $this->assertTrue($_SESSION['rules_forms_form_values'][$form_id][$element_id] == 'tset');
+    }
+  }
+
+  /**
+   * Tests rules_forms_event_submit().
+   */
+  public function testEventSubmit() {
+    variable_set('rules_forms_form_info', self::$formInfo);
+    // Ensure that the session variables are unset for the form.
+    $form_id = self::$form['form_id']['#value'];
+    $_SESSION['rules_forms_form_values'][$form_id] = array('textfield:title' => 'tset', 'textarea:body:und:0:value' => 'tset');
+    rules_forms_event_submit(self::$form, self::$formState);
+    $this->assertFalse(isset($_SESSION['rules_forms_form_values'][$form_id]), 'Ensure the session variable is unset.');
+  }
+
+  /**
+   * Tests rules_forms_event_button_submit().
+   */
+  public function testEventButtonSubmit() {
+    // Add the button to the $form_info array.
+    $form_info = self::$formInfo;
+    $form_info[self::$formId]['submit']['fieldset:button:test'] = array();
+    variable_set('rules_forms_form_info', $form_info);
+
+    // Indicate that this button was clicked.
+    $form_id = self::$form['form_id']['#value'];
+    $form_state = self::$formState;
+    $form_state['triggering_element'] = array('#rules_forms_element_id' => 'fieldset:button:test');
+
+    // Ensure that the session variables are unset for the form.
+    $_SESSION['rules_forms_form_values'][$form_id] = array('textfield:title' => 'tset', 'textarea:body:und:0:value' => 'tset');
+    rules_forms_event_button_submit(self::$form, $form_state);
+    $this->assertFalse(isset($_SESSION['rules_forms_form_values'][$form_id]), 'Ensure the session variable is unset.');
   }
 
 }

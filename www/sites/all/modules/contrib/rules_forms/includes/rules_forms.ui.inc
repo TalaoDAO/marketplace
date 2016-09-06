@@ -5,6 +5,9 @@
  * Defines data type classes for forms and form elements.
  */
 
+/**
+ * Extends data to be used by Rules.
+ */
 abstract class RulesFormsDataUI extends RulesDataUI implements RulesDataDirectInputFormInterface {
 
   /**
@@ -13,16 +16,16 @@ abstract class RulesFormsDataUI extends RulesDataUI implements RulesDataDirectIn
   public static function getDefaultMode() {
     return 'input';
   }
-  
+
   /**
    * Provides the default form.
    */
   public static function defaultForm($name, $info, $settings, $title, $type = 'select') {
     $form[$name] = array(
-        '#type' => $type,
-        '#title' => $title,
-        '#default_value' => isset($settings[$name]) ? $settings[$name] : NULL,
-        '#required' => empty($info['optional']),
+      '#type' => $type,
+      '#title' => $title,
+      '#default_value' => isset($settings[$name]) ? $settings[$name] : NULL,
+      '#required' => empty($info['optional']),
     );
     return $form;
   }
@@ -46,23 +49,90 @@ class RulesFormsDataElement extends RulesFormsDataUI {
 
   /**
    * An array of attributes and the form element types to which they apply.
+   *
    * This array is used to filter the form element options available during
    * specific attribute setting actions.
    */
-  private static $_attributes = array(
+  private static $attributes = array(
     'access' => 'all',
-    'changed' => array('textfield', 'textarea', 'checkbox', 'checkboxes', 'radio', 'radios', 'select'),
-    'clicked' => array('button', 'submit'), // For Condition: button was clicked.
-    'disabled' => array('textfield', 'textarea', 'checkbox', 'checkboxes', 'radio', 'radios', 'select', 'button', 'submit'),
-    'default' => array('textfield', 'textarea', 'checkbox', 'checkboxes', 'radio', 'radios', 'select'),
-    'description' => array('textfield', 'textarea', 'checkbox', 'checkboxes', 'radio', 'radios', 'select', 'item'),
-    'error' => 'all', // Allows an error to be set on any form element.
+    'changed' => array(
+      'textfield',
+      'textarea',
+      'checkbox',
+      'checkboxes',
+      'password',
+      'radio',
+      'radios',
+      'select',
+    ),
+    'clicked' => array('button', 'submit'),
+    'disabled' => array(
+      'textfield',
+      'textarea',
+      'checkbox',
+      'checkboxes',
+      'password',
+      'radio',
+      'radios',
+      'select',
+      'button',
+      'submit',
+    ),
+    'default' => array(
+      'textfield',
+      'textarea',
+      'checkbox',
+      'checkboxes',
+      'radio',
+      'radios',
+      'select',
+    ),
+    'description' => array(
+      'textfield',
+      'textarea',
+      'checkbox',
+      'checkboxes',
+      'password',
+      'radio',
+      'radios',
+      'select',
+      'item',
+    ),
+    'error' => 'all',
     'options' => array('select', 'checkboxes'),
-    'required' => array('textfield', 'textarea', 'checkbox', 'checkboxes', 'radio', 'radios', 'select'),
-    'suffix' => 'all', // Note: This applies to prefix/suffix action.
-    'title' => array('textfield', 'textarea', 'checkbox', 'checkboxes', 'radio', 'radios', 'select', 'item'),
+    'required' => array(
+      'textfield',
+      'textarea',
+      'checkbox',
+      'checkboxes',
+      'password',
+      'radio',
+      'radios',
+      'select',
+    ),
+    'suffix' => 'all',
+    'title' => array(
+      'textfield',
+      'textarea',
+      'checkbox',
+      'checkboxes',
+      'password',
+      'radio',
+      'radios',
+      'select',
+      'item',
+    ),
     'weight' => 'all',
-    'value' => array('textfield', 'textarea', 'checkbox', 'checkboxes', 'radio', 'radios', 'select'),
+    'value' => array(
+      'textfield',
+      'textarea',
+      'checkbox',
+      'checkboxes',
+      'password',
+      'radio',
+      'radios',
+      'select',
+    ),
   );
 
   /**
@@ -72,19 +142,23 @@ class RulesFormsDataElement extends RulesFormsDataUI {
     $options = array();
 
     // Get the type of attribute being set from the end of the element name.
-    // The action name should directly correspond with the attribute it sets for this reason.
+    // The action name should directly correspond with the attribute it sets
+    // for this reason.
     $element_name = $element->getElementName();
-    $attribute = array_pop(explode('_', $element_name));
+    $attributes = explode('_', $element_name);
+    $attribute = array_pop($attributes);
 
-    // Loop through each variable and retrieve the options that apply to this field type.
+    // Loop through each variable and retrieve the options that apply to
+    // this field type.
     foreach ($element->availableVariables() as $key => $value) {
 
       // Populate the options list with only form elements.
       if (!in_array($key, array('site', 'form', 'form_state', 'form_id', 'user'))) {
         $type = substr($key, 0, strpos($key, ':'));
-        // Filter the elements by determining whether this attribute can be applied to them.
-        if (isset(self::$_attributes[$attribute])
-            && (self::$_attributes[$attribute] == 'all' || in_array($type, self::$_attributes[$attribute]))) {
+        // Filter the elements by determining whether this attribute
+        // can be applied to them.
+        if (isset(self::$attributes[$attribute])
+            && (self::$attributes[$attribute] == 'all' || in_array($type, self::$attributes[$attribute]))) {
           if (!isset($options[$type])) {
             $options[$type] = array();
           }
@@ -112,7 +186,7 @@ class RulesFormsDataValue extends RulesFormsDataUI {
     $form = parent::defaultForm($name, $info, $settings, 'Value');
     if (!empty($element->settings['element'])) {
       $type = substr($element->settings['element'], 0, strpos($element->settings['element'], ':'));
-      if ($type == 'checkboxes' || $type == 'radios' || $type == 'select') {
+      if (in_array($type, array('checkboxes', 'radios', 'select', 'textfield'))) {
         $form[$name]['#type'] = 'textarea';
         $form[$name]['#title'] = 'Value(s)';
       }
@@ -124,4 +198,3 @@ class RulesFormsDataValue extends RulesFormsDataUI {
   }
 
 }
-

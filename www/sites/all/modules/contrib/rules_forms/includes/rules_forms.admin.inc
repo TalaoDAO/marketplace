@@ -19,17 +19,13 @@ function rules_forms_admin_events($form, &$form_state) {
     '#type' => 'checkbox',
     '#title' => t('Enable event activation messages on forms'),
     '#default_value' => isset($_SESSION['rules_forms_message']) ? $_SESSION['rules_forms_message'] : FALSE,
-    '#description' => t('If checked, there will be a message on each form containing a link to activate events '.
-                        'for the form. Only visible for your currently logged in user account.'),
+    '#description' => t('If checked, there will be a message on each form containing a link to activate events for the form. Only visible for your currently logged in user account.'),
   );
   $form['general_settings']['enable_form_element_info'] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable form element inspection tool'),
     '#default_value' => isset($_SESSION['rules_forms_element_info']) ? $_SESSION['rules_forms_element_info'] : FALSE,
-    '#description' => t('If checked, the information about each form element will be displayed in popups on '.
-                        'active forms. This tool can be used to inspect existing attributes of form elements '.
-                        'for determining what actions to take in your rules. Only visible for your currently '.
-                        'logged in user account.'),
+    '#description' => t('If checked, the information about each form element will be displayed in popups on active forms. This tool can be used to inspect existing attributes of form elements for determining what actions to take in your rules. Only visible for your currently logged in user account.'),
   );
   $form['general_settings']['settings_submit'] = array(
     '#type' => 'submit',
@@ -37,10 +33,10 @@ function rules_forms_admin_events($form, &$form_state) {
     '#submit' => array('rules_forms_settings_submit'),
   );
 
-  $form_events = variable_get('rules_forms_event_info', array());
-  if (!empty($form_events)) {
+  $form_info = rules_forms_get_form_info();
+  if (!empty($form_info)) {
     $options = array();
-    foreach ($form_events as $form_id => $info) {
+    foreach ($form_info as $form_id => $info) {
       $options[$form_id] = $info['label'];
     }
     $form['active_forms'] = array(
@@ -65,8 +61,7 @@ function rules_forms_admin_events($form, &$form_state) {
       '#title' => t('Form elements'),
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
-      '#description' => t('Rules Forms Support stores information about the elements native to active '.
-                          'forms. To rebuild the stored information about a form, select a form the select list below.'),
+      '#description' => t('Rules Forms Support stores information about the elements native to active forms. To rebuild the stored information about a form, select a form the select list below.'),
     );
     $form['form_elements']['reset_form'] = array(
       '#type' => 'select',
@@ -80,8 +75,7 @@ function rules_forms_admin_events($form, &$form_state) {
     );
   }
   else {
-    drupal_set_message(t('To begin create form rules, enable the event activation messages below and navigate '.
-                         'to the form you would like to activate events on.'), 'status', FALSE);
+    drupal_set_message(t('To begin create form rules, enable the event activation messages below and navigate to the form you would like to activate events on.'), 'status', FALSE);
   }
   return $form;
 }
@@ -100,12 +94,9 @@ function rules_forms_settings_submit($form_id, $form_state) {
  */
 function rules_forms_events_deactivate_submit($form_id, $form_state) {
   $deactivate_events = array_filter($form_state['values']['form_events']);
-  $form_events = variable_get('rules_forms_event_info', array());
   foreach ($deactivate_events as $key => $value) {
-    unset($form_events[$key]);
+    rules_forms_deactivate_form($key);
   }
-  variable_set('rules_forms_event_info', $form_events);
-  rules_clear_cache();
   drupal_set_message(t('The event settings have been saved.'));
 }
 
@@ -113,37 +104,38 @@ function rules_forms_events_deactivate_submit($form_id, $form_state) {
  * Submit handler to rebuild form elements.
  */
 function rules_forms_elements_rebuild($form_id, $form_state) {
-  $form_events = variable_get('rules_forms_event_info');
-  $form_events[$form_state['values']['reset_form']]['reset'] = TRUE;
-  variable_set('rules_forms_event_info', $form_events);
+  $form_info = rules_forms_get_form_info($form_state['values']['reset_form']);
+  $form_info['reset'] = TRUE;
+  rules_forms_save_form_info($form_state['values']['reset_form'], $form_info);
   drupal_set_message(t('Please revisit %form so Rules forms Support can re-evaluate element information.',
-      array('%form' => $form_events[$form_state['values']['reset_form']]['label'])));
-  if (isset($form_events[$form_state['values']['reset_form']]['path'])
-      && drupal_lookup_path($form_events[$form_state['values']['reset_form']]['path']) !== FALSE) {
-    drupal_goto($form_events[$form_state['values']['reset_form']]['path']);
+      array('%form' => $form_info['label'])));
+  if (isset($form_info['path'])
+      && drupal_lookup_path($form_info['path']) !== FALSE) {
+    drupal_goto($form_info['path']);
   }
 }
 
 /**
  * Activation page for a form ID.
- * @param $form_id_activate
+ *
+ * @param string $form_id_activate
  *   The form ID of the form to be activated.
- * @param $form_page
- *   The encoded URI of the page on which the form was activated. This is used for
- *   redirecting the user back to that page once activation is completed.
+ * @param array $form_page
+ *   The encoded URI of the page on which the form was activated. This is used
+ *   for redirecting the user back to that page once activation is completed.
  */
 function rules_forms_activate($form_id_activate, $form_page) {
-  $form_events = variable_get('rules_forms_event_info', array());
-  if (isset($form_events[$form_id_activate])) {
+  $form_info = rules_forms_get_form_info();
+  if (isset($form_info[$form_id_activate])) {
     return t('Events for %form_id have already been activated.', array('%form_id' => $form_id_activate));
   }
-  return drupal_get_form('rules_forms_activate_form', $form_id_activate, $form_page);
+  return drupal_get_form('rules_forms_activate_confirm_form', $form_id_activate, $form_page);
 }
 
 /**
  * Confirmation form to activate events on a form.
  */
-function rules_forms_activate_form($form, &$form_state, $form_id_activate, $form_page) {
+function rules_forms_activate_confirm_form($form, &$form_state, $form_id_activate, $form_page) {
   $default_form_label = drupal_ucfirst(str_replace('_', ' ', $form_id_activate));
   $form = array();
   $form['form_id_label'] = array(
@@ -157,8 +149,7 @@ function rules_forms_activate_form($form, &$form_state, $form_id_activate, $form
     '#type' => 'checkbox',
     '#title' => t('Enable button level validate/submit events'),
     '#default_value' => FALSE,
-    '#description' => t('Select this option to activate validate and submit events for cases where '.
-                        'general form validate and submit events are not properly invoked.'),
+    '#description' => t('Select this option to activate validate and submit events for cases where general form validate and submit events are not properly invoked.'),
   );
   $form_state['form_id_activate'] = $form_id_activate;
   $form_state['form_page'] = $form_page;
@@ -174,19 +165,17 @@ function rules_forms_activate_form($form, &$form_state, $form_id_activate, $form
 /**
  * Submit handler for activation of a form.
  */
-function rules_forms_activate_form_submit($form, &$form_state) {
+function rules_forms_activate_confirm_form_submit($form, &$form_state) {
   $path = urldecode($form_state['form_page']);
-  $form_events = variable_get('rules_forms_event_info', array());
-  $form_events[$form_state['form_id_activate']] = array(
+  $form_info = array(
     'label' => $form_state['values']['form_id_label'],
     'elements' => array(),
     'path' => $path,
     'buttons' => $form_state['values']['button_validate_submit'] == TRUE,
   );
 
-  // Save the form information and force Rules to rebuild its cache.
-  variable_set('rules_forms_event_info', $form_events);
-  rules_clear_cache();
+  // Save the form information but prevent cache rebuild until the form visited.
+  rules_forms_activate_form($form_state['form_id_activate'], $form_info);
   drupal_set_message(t("%form has been activated.", array('%form' => $form_state['form_id_activate'])));
 
   // Redirect the user back to the form that was activated.

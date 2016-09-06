@@ -22,7 +22,16 @@ class FancyFileDeleteOrphanFileFilter extends views_handler_filter {
   function query() {
     $this->ensure_my_table();
 
-    $query = db_query("SELECT fm.* FROM file_managed AS fm LEFT OUTER JOIN file_usage AS fu ON (fm.fid = fu.fid) LEFT OUTER JOIN node AS n ON (fu.id = n.nid) WHERE fu.type = 'node' AND n.nid IS NULL");
+    // Check to see if field collection is present to prevent deletion.
+    // Of files attached in them, else grab oprhans normally.
+    // @see https://www.drupal.org/node/2721831 for issue.
+    if (module_exists('field_collection')) {
+      $query = db_query("SELECT fm.fid, fm.filename, fm.uri, fu.count FROM {file_managed} fm LEFT OUTER JOIN {file_usage} fu ON (fm.fid = fu.fid) LEFT OUTER JOIN node n ON fu.id = n.nid LEFT OUTER JOIN {field_collection_item} fci ON fu.id = fci.item_id WHERE nid IS NULL AND fci.item_id IS NULL AND fu.id != fu.fid;");
+    }
+    else {
+      $query = db_query("SELECT fm.* FROM {file_managed} fm LEFT OUTER JOIN {file_usage} fu ON (fm.fid = fu.fid) LEFT OUTER JOIN node n ON (fu.id = n.nid) WHERE n.nid IS NULL");
+    }
+
     // Check to see total.
     $total = $query->rowCount();
 

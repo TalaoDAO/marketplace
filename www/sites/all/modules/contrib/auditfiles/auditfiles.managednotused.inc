@@ -58,7 +58,7 @@ function auditfiles_managed_not_used_form(array $form, array &$form_state) {
 
   // Define the form.
   // Setup the record count and related messages.
-  $maximum_records = variable_get('auditfiles_report_options_maximum_records', 0);
+  $maximum_records = variable_get('auditfiles_report_options_maximum_records', 250);
   if (!empty($rows)) {
     if ($maximum_records > 0) {
       $file_count_message = 'Found at least @count files in the file_managed table that are not in the file_usage table.';
@@ -73,7 +73,7 @@ function auditfiles_managed_not_used_form(array $form, array &$form_state) {
     );
   }
   else {
-    $form_count = 'Found no files in the file_managed table that are not in the file_usage table.';
+    $form_count = t('Found no files in the file_managed table that are not in the file_usage table.');
   }
 
   // Add the button to reset the record selection.
@@ -176,7 +176,7 @@ function auditfiles_managed_not_used_form_submit($form, &$form_state) {
  */
 
 /**
- * Adds vaules to a batch definition that are common to all batches in the file.
+ * Adds values to a batch definition that are common to all batches in the file.
  *
  * @return array
  *   The beginning of the batch definition.
@@ -267,7 +267,7 @@ function _auditfiles_managed_not_used_batch_display_get_files(array &$context) {
     $context['sandbox']['current_file'] = 0;
     $query = 'SELECT COUNT(DISTINCT fid) FROM {file_managed} WHERE fid NOT IN (SELECT fid FROM {file_usage})';
     $record_count = db_query($query)->fetchField();
-    $batch_size = variable_get('auditfiles_report_options_batch_size', 0);
+    $batch_size = variable_get('auditfiles_report_options_batch_size', 1000);
     if ($batch_size > 0 && $record_count > $batch_size) {
       $context['sandbox']['max'] = $batch_size;
     }
@@ -381,7 +381,7 @@ function _auditfiles_managed_not_used_batch_display_process_files($date_format, 
  */
 
 /**
- * Presents a confimation form to verify the user wants to complete the action.
+ * Presents a confirmation form to verify the user wants to complete the action.
  *
  * @param array $form
  *   The form definition.
@@ -540,9 +540,9 @@ function _auditfiles_managed_not_used_get_file_list() {
   // file_usage table.
   $query = 'SELECT fid FROM {file_managed} WHERE fid NOT IN (SELECT fid FROM {file_usage})';
 
-  // If record limition has been configured, only use those records within that
+  // If record limit has been configured, only use those records within that
   // specification.
-  $maximum_records = variable_get('auditfiles_report_options_maximum_records', 0);
+  $maximum_records = variable_get('auditfiles_report_options_maximum_records', 250);
   if ($maximum_records > 0) {
     $query .= ' LIMIT ' . $maximum_records;
   }
