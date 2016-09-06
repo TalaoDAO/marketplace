@@ -57,7 +57,7 @@ function auditfiles_used_not_managed_form(array $form, array &$form_state) {
 
   // Define the form.
   // Setup the record count and related messages.
-  $maximum_records = variable_get('auditfiles_report_options_maximum_records', 0);
+  $maximum_records = variable_get('auditfiles_report_options_maximum_records', 250);
   if (!empty($rows)) {
     if ($maximum_records > 0) {
       $file_count_message = 'Found at least @count files in the file_usage table that are not in the file_managed table.';
@@ -264,7 +264,7 @@ function _auditfiles_used_not_managed_batch_display_get_files(array &$context) {
     $context['sandbox']['current_file'] = 0;
     $query = 'SELECT COUNT(DISTINCT fid) FROM {file_usage} fu WHERE fid NOT IN (SELECT fid FROM {file_managed})';
     $record_count = db_query($query)->fetchField();
-    $batch_size = variable_get('auditfiles_report_options_batch_size', 0);
+    $batch_size = variable_get('auditfiles_report_options_batch_size', 1000);
     if ($batch_size > 0 && $record_count > $batch_size) {
       $context['sandbox']['max'] = $batch_size;
     }
@@ -529,7 +529,7 @@ function _auditfiles_used_not_managed_get_file_list() {
 
   // If record limition has been configured, only use those records within that
   // specification.
-  $maximum_records = variable_get('auditfiles_report_options_maximum_records', 0);
+  $maximum_records = variable_get('auditfiles_report_options_maximum_records', 250);
   if ($maximum_records > 0) {
     $query .= ' LIMIT ' . $maximum_records;
   }

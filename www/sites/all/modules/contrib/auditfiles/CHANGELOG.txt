@@ -1,3 +1,56 @@
+2 February 2016 (oadaeh)
+---------------
+* auditfiles.mergefilereferences.inc
+  - Update file fields for files when merging files
+    (https://www.drupal.org/node/2651158).
+* auditfiles.notindatabase.inc
+  - Check for the file before inserting it into the database
+    (https://www.drupal.org/node/2652386).
+  - Work with symbolic links, as well as normal file paths
+    (https://www.drupal.org/node/2654610).
+* auditfiles.referencednotused.inc
+  - Check for the file before inserting it into the database
+    (https://www.drupal.org/node/2652426).
+  - Fix bugs that affect the number of records loaded
+    (https://www.drupal.org/node/2654604).
+
+9 January 2016 (oadaeh)
+--------------
+* auditfiles.admin.inc, auditfiles.managednotused.inc,
+  auditfiles.mergefilereferences.inc, auditfiles.notindatabase.inc,
+  auditfiles.notonserver.inc, auditfiles.referencednotused.inc,
+  auditfiles.usednotmanaged.inc, auditfiles.usednotreferenced.inc
+  - Changed the default of the auditfiles_report_options_maximum_records
+    variable from 0 to 250, and changed the default of the
+    auditfiles_report_options_batch_size variable from 0 to 1000.
+* INSTALL.txt, README.txt, auditfiles.managednotused.inc,
+  auditfiles.mergefilereferences.inc
+  - Apply patches supplied from Kristen Pol (https://www.drupal.org/user/8389)
+    to fix misc. typos, etc. in d.o issues https://www.drupal.org/node/2645752,
+    https://www.drupal.org/node/2645776, https://www.drupal.org/node/2645786,
+    and https://www.drupal.org/node/2645788.
+
+6 January 2016 (oadaeh)
+--------------
+* auditfiles.mergefilereferences.inc:
+  - Fix incorrectly named variable, patched by @Patrick Storey
+    (https://www.drupal.org/user/2884223) in
+    https://www.drupal.org/node/2645618.
+
+4 December 2015 (oadaeh)
+---------------
+* auditfiles.admin.inc, auditfiles.managednotused.inc,
+  auditfiles.mergefilereferences.inc, auditfiles.module,
+  auditfiles.notindatabase.inc, auditfiles.referencednotused.inc
+  - Code Sniffer clean up.
+
+25 November 2015 (oadaeh)
+----------------
+* auditfiles.managednotused.inc, auditfiles.notonserver.inc,
+  auditfiles.referencednotused.inc, auditfiles.usednotmanaged.inc,
+  auditfiles.usednotreferenced.inc
+  - Misc. bug fixing and code clean up.
+
 24 November 2015 (oadaeh)
 ----------------
 * auditfiles.notindatabase.inc, auditfiles.notonserver.inc,

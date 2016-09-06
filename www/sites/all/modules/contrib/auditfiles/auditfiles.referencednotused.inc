@@ -57,7 +57,7 @@ function auditfiles_referenced_not_used_form(array $form, array &$form_state) {
 
   // Define the form.
   // Setup the record count and related messages.
-  $maximum_records = variable_get('auditfiles_report_options_maximum_records', 0);
+  $maximum_records = variable_get('auditfiles_report_options_maximum_records', 250);
   if (!empty($rows)) {
     if ($maximum_records > 0) {
       $file_count_message = 'Found at least @count files referenced in content that are not in the file_usage table.';
@@ -140,7 +140,7 @@ function auditfiles_referenced_not_used_form_submit($form, &$form_state) {
     // Check which operation was performed and start the batch process.
     if ($form_state['values']['op'] == t('Load all files')) {
       // Clear the variable, so subsequent pages will load the correct data.
-      variable_del('auditfiles_files_to_display');
+      variable_del('auditfiles_referenced_not_used_files_to_display');
       // Prepare and set the batch.
       batch_set(_auditfiles_referenced_not_used_batch_display_create_batch());
     }
@@ -148,7 +148,7 @@ function auditfiles_referenced_not_used_form_submit($form, &$form_state) {
       // Reset all the variables for this report, so subsequent pages loads will
       // load and use the correct data.
       db_delete('variable')
-        ->condition('name', 'auditfiles_referenced_not_used_%', 'LIKE')
+        ->condition('name', 'auditfiles_referenced_not_used%', 'LIKE')
         ->execute();
       cache_clear_all('variables', 'cache_bootstrap');
     }
@@ -208,7 +208,7 @@ function _auditfiles_referenced_not_used_batch_finish_batch($success, $results, 
   if ($success) {
     if (!empty($results['files_to_display'])) {
       // Save the gathered data for display.
-      variable_set('auditfiles_files_to_display', $results['files_to_display']);
+      variable_set('auditfiles_referenced_not_used_files_to_display', $results['files_to_display']);
     }
   }
   else {
@@ -300,8 +300,8 @@ function _auditfiles_referenced_not_used_batch_display_get_files(array $file_fie
     $context['sandbox']['current_id'] = 0;
 
     // Set the number of records to operate on for this batch process.
-    $context['sandbox']['max'] = 0;
-    $batch_size = variable_get('auditfiles_report_options_batch_size', 0);
+    $context['sandbox']['max'] = 1;
+    $batch_size = variable_get('auditfiles_report_options_batch_size', 1000);
     if ($batch_size > 0) {
       $context['sandbox']['max'] = $batch_size;
     }
@@ -313,15 +313,13 @@ function _auditfiles_referenced_not_used_batch_display_get_files(array $file_fie
     if (!empty($file_fields)) {
       $context['sandbox']['file_fields'] = $file_fields;
       $file_field = array_shift($context['sandbox']['file_fields']);
-      if (!empty($file_field)) {
-        // Get the database table name for the field.
-        $context['sandbox']['table'] = key($file_field['storage']['details']['sql']['FIELD_LOAD_CURRENT']);
-        // Get the column name in the database table for the field.
-        $context['sandbox']['column'] = $file_field['storage']['details']['sql']['FIELD_LOAD_CURRENT'][$context['sandbox']['table']]['fid'];
-      }
+      // Get the database table name for the field.
+      $context['sandbox']['table'] = key($file_field['storage']['details']['sql']['FIELD_LOAD_CURRENT']);
+      // Get the column name in the database table for the field.
+      $context['sandbox']['column'] = $file_field['storage']['details']['sql']['FIELD_LOAD_CURRENT'][$context['sandbox']['table']]['fid'];
     }
   }
-  if (empty($context['results']['file_list'])) {
+  if (!isset($context['results']['file_list'])) {
     $context['results']['file_list'] = array();
   }
 
@@ -344,16 +342,10 @@ function _auditfiles_referenced_not_used_batch_display_get_files(array $file_fie
     }
     else {
       $file_field = array_shift($context['sandbox']['file_fields']);
-      if (empty($file_field)) {
-        // There are no more fields to process, so set the exit condition.
-        $context['sandbox']['progress'] = $context['sandbox']['max'];
-      }
-      else {
-        // Get the database table name for the field.
-        $context['sandbox']['table'] = key($file_field['storage']['details']['sql']['FIELD_LOAD_CURRENT']);
-        // Get the column name in the database table for the field.
-        $context['sandbox']['column'] = $file_field['storage']['details']['sql']['FIELD_LOAD_CURRENT'][$context['sandbox']['table']]['fid'];
-      }
+      // Get the database table name for the field.
+      $context['sandbox']['table'] = key($file_field['storage']['details']['sql']['FIELD_LOAD_CURRENT']);
+      // Get the column name in the database table for the field.
+      $context['sandbox']['column'] = $file_field['storage']['details']['sql']['FIELD_LOAD_CURRENT'][$context['sandbox']['table']]['fid'];
     }
   }
   else {
@@ -366,6 +358,14 @@ function _auditfiles_referenced_not_used_batch_display_get_files(array $file_fie
         'entity_id' => $result->entity_id,
         'file_id' => $result->{$context['sandbox']['column']},
       );
+
+      if ($context['sandbox']['max'] > 1
+        && count($context['results']['file_list']) >= $context['sandbox']['max']) {
+        // The maximum number of records has been reached, so set the exit
+        // condition.
+        $context['sandbox']['progress'] = $context['sandbox']['max'];
+        break;
+      }
     }
 
     // Update the progress information.
@@ -618,14 +618,44 @@ function _auditfiles_referenced_not_used_batch_add_process_file($reference_id) {
     'id' => $reference_id_parts[2],
     'count' => 1,
   );
-  db_insert('file_usage')
-    ->fields($data)
-    ->execute();
 
-  // Remove the files from the list of files to display.
-  $rows = variable_get('auditfiles_referenced_not_used_files_to_display', array());
-  unset($rows[$reference_id]);
-  variable_set('auditfiles_referenced_not_used_files_to_display', $rows);
+  // Make sure the file is not already in the database.
+  $query = 'SELECT fid FROM file_usage
+    WHERE fid = :fid AND module = :module AND type = :type AND id = :id';
+  $existing_file = db_query(
+    $query,
+    array(
+      ':fid' => $data['fid'],
+      ':module' => $data['module'],
+      ':type' => $data['type'],
+      ':id' => $data['id'],
+    )
+  )->fetchAll();
+  if (empty($existing_file)) {
+    // The file is not already in the database, so add it.
+    db_insert('file_usage')
+      ->fields($data)
+      ->execute();
+
+    // Remove the files from the list of files to display.
+    $rows = variable_get('auditfiles_referenced_not_used_files_to_display', array());
+    unset($rows[$reference_id]);
+    variable_set('auditfiles_referenced_not_used_files_to_display', $rows);
+  }
+  else {
+    drupal_set_message(
+      t(
+        'The file is already in the file_usage table (file id: "@fid", module: "@module", type: "@type", entity id: "@id").',
+        array(
+          '@fid' => $data['fid'],
+          '@module' => $data['module'],
+          '@type' => $data['type'],
+          '@id' => $data['id'],
+        )
+      ),
+      'error'
+    );
+  }
 }
 
 /**
@@ -742,7 +772,7 @@ function _auditfiles_referenced_not_used_get_file_list() {
 
       // If record limition has been configured, only use those records within
       // that specification.
-      $maximum_records = variable_get('auditfiles_report_options_maximum_records', 0);
+      $maximum_records = variable_get('auditfiles_report_options_maximum_records', 250);
       if ($maximum_records > 0) {
         $query .= ' LIMIT ' . $maximum_records;
       }

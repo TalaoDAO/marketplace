@@ -12,6 +12,10 @@ function fancy_file_delete_uninstall() {
   if (db_table_exists('unmanaged_files')) {
     db_drop_table('unmanaged_files');
   }
+
+  // Remove variables.
+  variable_del('fancy_file_delete_unmanaged_chosen_dirs');
+  variable_del('fancy_file_delete_format');
 }
 
 /**
@@ -47,6 +51,18 @@ function fancy_file_delete_schema() {
  * Implements hook_enable().
  */
 function fancy_file_delete_enable() {
+  // Find the full_html format or use another
+  $result = db_select('filter_format', 'f')->fields('f', array(
+    'format',
+  ))
+  ->condition('name', '%' . db_like('html') . '%', 'LIKE')
+  ->execute()
+  ->fetchCol();
+
+  // Apply html variable.
+  $format = isset($result[0]) ? $result[0] : 'full_html';
+  variable_set('fancy_file_delete_format', $format);
+
   // So the hook_menu items in views shows up.
   drupal_flush_all_caches();
 }
