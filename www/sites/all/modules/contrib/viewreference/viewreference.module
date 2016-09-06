@@ -120,7 +120,7 @@ function viewreference_field_settings_form($field, $instance, $has_data) {
     '#description' => t('Select the Views that can be referenced. If no Views are selected here, and tags are not entered below, then all the Views will be available.'),
     '#multiple' => TRUE,
     '#default_value' => is_array($settings['referenceable_views']) ? $settings['referenceable_views'] : array(),
-    '#options' => viewreference_get_views($settings['append_id'], $settings['skip_default']),
+    '#options' => viewreference_get_views($settings['append_id']), // This call doesn't supply $settings, so they aren't filtered.
   );
   $form['referenceable_tags'] = array(
     '#type' => 'fieldset',
@@ -162,7 +162,9 @@ function viewreference_field_settings_form($field, $instance, $has_data) {
     '#type' => 'checkbox',
     '#title' => t('Allow PHP code.'),
     '#default_value' => isset($settings['arguments']['php_arguments']) ? $settings['arguments']['php_arguments'] : 0,
-    '#description' => t('Users can insert PHP code to generate the list of arguments. e.g: <em>term_1/&lt;?php print "term_x/term_y"; ?&gt;/term_2</em>'),
+    '#description' => t('Users can insert PHP code to generate the list of arguments. e.g: <em>term_1/&lt;?php print "term_x/term_y"; ?&gt;/term_2</em>') .
+      '<br />' . t('Note: The users must have the <em>use PHP for settings</em> permission.'),
+    '#disabled' => !user_access('use PHP for settings'),
   );
   $form['arguments']['delimiter'] = array(
     '#type' => 'textfield',
@@ -204,6 +206,16 @@ function viewreference_field_settings_form($field, $instance, $has_data) {
     '#title' => t('Do not output view if no rows are detected'),
     '#default_value' => isset($settings['skip_empty']) ? $settings['skip_empty'] : 0,
   );
+  $form['skip_disabled'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Do not allow selection of disabled views'),
+    '#default_value' => isset($settings['skip_disabled']) ? $settings['skip_disabled'] : 0,
+  );
+  $form['sort_views'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Sort the views by title'),
+    '#default_value' => isset($settings['sort_views']) ? $settings['sort_views'] : 1,
+  );
   return $form;
 
 }
@@ -212,7 +224,7 @@ function viewreference_field_settings_form($field, $instance, $has_data) {
  * Implements hook_field_validate().
  */
 function viewreference_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
-  $views = viewreference_get_views($field['settings']['append_id'], $field['settings']['skip_default'], $field['settings']);
+  $views = viewreference_get_views($field['settings']['append_id'], $field['settings']);
   foreach ($items as $delta => $item) {
     if (is_array($item)) {
       if (!empty($item['view_id'])) {
@@ -304,9 +316,11 @@ function viewreference_autocomplete_value($element, $input = FALSE, $form_state)
     $field_key = $element['#columns'][0];
     $args_key = $element['#columns'][1];
     if (!empty($element['#default_value'][$field_key])) {
-      $field_name = $element['#parents'][0];
+      $field_name = $element['#field_name'];
       $field = field_info_field($field_name);
-      $views = viewreference_get_views(TRUE, $field['settings']['skip_default'], array('referenceable_views' => array($element['#default_value'][$field_key])));
+      $settings = $field['settings'];
+      $settings['referenceable_views'] = array($element['#default_value'][$field_key]);
+      $views = viewreference_get_views(TRUE, $settings);
       $value = $views[$element['#default_value'][$field_key]];
       return array($field_key => $value, $args_key => $element['#default_value'][$args_key]);
     }
@@ -318,8 +332,7 @@ function viewreference_autocomplete_value($element, $input = FALSE, $form_state)
  * Validation callback for a viewreference_autocomplete element.
  */
 function viewreference_autocomplete_validate($element, &$form_state, $form) {
-  $field = $form_state['field'][$element['#field_name']][$element['#language']]['field'];
-  $field_key = $element['#columns'][0];
+  $field = field_widget_field($element, $form_state);
   $value = $element['#value'];
   $new_value = NULL;
 
@@ -335,7 +348,7 @@ function viewreference_autocomplete_validate($element, &$form_state, $form) {
     preg_match($regex, $value, $matches);
     if (!empty($matches)) {
       $new_value = $matches[3] . ':' . $matches[5];
-      $allowed = viewreference_get_views(FALSE, $field['settings']['skip_default'], $field['settings']);
+      $allowed = viewreference_get_views(FALSE, $field['settings']);
       if (!isset($allowed[$new_value])) {
         form_error(
           $element,
@@ -399,7 +412,7 @@ function viewreference_autocomplete($bundle_name, $field_name, $string = '') {
 
   $field = field_info_field($field_name);
   $settings = $field['settings'];
-  $matches = viewreference_get_views($settings['append_id'], $settings['skip_default'], $settings, FALSE, $string, FALSE, TRUE);
+  $matches = viewreference_get_views($settings['append_id'], $settings, FALSE, $string, FALSE, TRUE);
   drupal_json_output($matches);
 }
 
@@ -407,7 +420,7 @@ function viewreference_autocomplete($bundle_name, $field_name, $string = '') {
  * Implements hook_options_list().
  */
 function viewreference_options_list($field) {
-  $references = viewreference_get_views($field['settings']['append_id'], $field['settings']['skip_default'], $field['settings']);
+  $references = viewreference_get_views($field['settings']['append_id'], $field['settings']);
   $options = array();
   foreach ($references as $key => $value) {
     $options[$key] = $value['rendered'];
@@ -463,18 +476,23 @@ function viewreference_get_view($element, $params = array()) {
     }
     if ($view['view'] && $view['view']->access($view['display'])) {
       // Save $_GET['q'] so it can be restored before returning from this function.
-      $q = $_GET['q'];
+      //$q = $_GET['q'];
       if (empty($view['embed']) && (in_array('embed', $params) || !empty($element['field']['settings']['skip_empty']))) {
         $view['args'] = viewreference_get_element_args($element);
-        if (!empty($view['args'])) {
-          $_GET['q'] .= '/' . implode('/', $view['args']);
-        }
+        //if (!empty($view['args'])) {
+        //  $_GET['q'] .= '/' . implode('/', $view['args']);
+        //}
         $view['embed'] = $view['view']->preview($view['display'], $view['args']);
+        // If the view is empty and the viewreference field is configured with
+        // "skip empty views" enabled, skip outputting the view.
         if (!empty($element['field']['settings']['skip_empty']) && empty($view['view']->result)) {
+          // Restore $_GET['q'] before skipping the view.
+          //$_GET['q'] = $q;
           return FALSE;
         }
       }
       if ((in_array('title', $params) && empty($view['title'])) || (in_array('link', $params) && empty($view['link']))) {
+        $view['display_key'] = $view['display'];
         $view['title'] = theme('viewreference_display_title', $view);
         if (in_array('link', $params) && empty($view['link'])) {
           $disabled = isset($view['view']->disabled) ? $view['view']->disabled:  FALSE;
@@ -504,7 +522,7 @@ function viewreference_get_view($element, $params = array()) {
         }
       }
 
-      $_GET['q'] = $q;
+      //$_GET['q'] = $q;
       return $view;
     }
   }
@@ -580,26 +598,39 @@ function theme_viewreference_formatter_path($variables) {
 /**
  * Get an array of views.
  *
- * @param $append_id
+ * @param bool $append_id
  *   Whether to append the id to the returned display names.
- * @param $skip_default
- *   Whether to omit default/master displays.
- * @param $settings
- *   If applying filters, the settings of the field.
- * @param $full
+ * @param array $settings
+ *   The settings of the field.
+ * @param bool $full
  *   If TRUE will return all the data, rather than just the title.
- * @param $string
+ * @param string $string
  *   String to match against the title to filter results by.
- * @param $exact_string
+ * @param bool $exact_string
  *   If TRUE the $string parameter must match exactly.
- * @param $long_key
+ * @param bool $long_key
  *   If TRUE will key array by the title and ID, not just the ID.
  *
- * @return
- *   The array of views.
+ * @return mixed[]
+ *   The array of views. The array value type depends on the parameters.
  */
-function viewreference_get_views($append_id = FALSE, $skip_default = TRUE, $settings = NULL, $full = FALSE, $string = '', $exact_string = FALSE, $long_key = FALSE) {
-  $views = array();
+function viewreference_get_views($append_id = FALSE, $settings = NULL, $full = FALSE, $string = '', $exact_string = FALSE, $long_key = FALSE) {
+  /** @var views_display[] $views_displays */
+  $views_displays = _viewreference_get_applicable_views_displays($settings);
+  return _viewreference_extract_views_displays($settings, $views_displays, $append_id, $full, $string, $exact_string, $long_key);
+}
+
+/**
+ * @param array $settings
+ *   If applying filters, the settings of the field.
+ *
+ * @return array[]
+ *   An array where the keys are views machine names, and each value is an array
+ *   of the format array($view, $applicable_displays), where the first element
+ *   is a view, and the second element is an array of views displays.
+ */
+function _viewreference_get_applicable_views_displays($settings) {
+
   $loaded_views = views_get_all_views();
 
   // Prepare filters.
@@ -613,7 +644,13 @@ function viewreference_get_views($append_id = FALSE, $skip_default = TRUE, $sett
     $filters['deny_tags'] = array_map('trim', explode(',', $settings['referenceable_tags']['deny']));
   }
 
+  $applicable_views_displays = array();
   foreach ((array)$loaded_views as $view_name => $view) {
+
+    // Limit views to active views
+    if (!empty($settings['skip_disabled']) && $view->disabled) {
+      continue;
+    }
 
     // Prepare this view's tags.
     $tags = array_map('trim', explode(',', $view->tag));
@@ -640,43 +677,100 @@ function viewreference_get_views($append_id = FALSE, $skip_default = TRUE, $sett
       }
     }
 
+    // Skip the entire view, if there is a deny tag.
+    if ($has_deny_tag) {
+      continue;
+    }
+
+    $allow_all = $has_allow_tag
+      || (empty($filters['ids']) && empty($filters['allow_tags']));
+
+    $applicable_displays = array();
     foreach ((array)$view->display as $display_key => $display) {
       // Skip this one if it's a 'default' view and we're skipping defaults.
-      if ($display_key != 'default' || !$skip_default) {
-        $id = $view_name . ':' . $display_key;
+      if ($display_key === 'default' && $settings['skip_default']) {
+        continue;
+      }
 
-        // Skip this one if it's not 'allowed'.
-        if (
-             (
-               (!empty($filters['ids']) && in_array($id, $filters['ids'])) || $has_allow_tag || (empty($filters['ids']) && empty($filters['allow_tags']))
-             )
-             && !$has_deny_tag
-           ) {
-          // Get display title.
-          $theme_vars = array(
-            'view' => $view,
-            'view_name' => $view_name,
-            'display_key' => $display_key,
-            'append_id' => $append_id,
-          );
-          $display_title = theme('viewreference_display_title', $theme_vars);
-          // Determine whether and what to return.
-          $key = $long_key ? $display_title . ($append_id ? '' : ' [' . $id . ']') : $id;
-          if ($string) {
-            if (!$exact_string && (stripos($display_title, $string) !== FALSE || stripos($key, $string) !== FALSE)) {
-              $views[$key] = $full ? $display : $display_title;
-            }
-            elseif ($display_title == $string) {
-              $views[$key] = $full ? $display : $display_title;
-            }
-          }
-          else {
-            $views[$key] = $full ? $display : $display_title;
-          }
+      if ($allow_all) {
+        $applicable_displays[$display_key] = $display;
+        continue;
+      }
+
+      // Skip this one if it's not 'allowed'.
+      $id = $view_name . ':' . $display_key;
+      if (!empty($filters['ids']) && in_array($id, $filters['ids'])) {
+        $applicable_displays[$display_key] = $display;
+      }
+    }
+
+    if (!empty($applicable_displays)) {
+      $applicable_views_displays[$view_name] = array($view, $applicable_displays);
+    }
+  }
+
+  return $applicable_views_displays;
+}
+
+/**
+ * Get an array of views.
+ *
+ * @param array $settings
+ *   The settings of the field.
+ * @param views_display[] $views_displays
+ * @param bool $append_id
+ *   Whether to append the id to the returned display names.
+ * @param bool $full
+ *   If TRUE will return all the data, rather than just the title.
+ * @param string $string
+ *   String to match against the title to filter results by.
+ * @param bool $exact_string
+ *   If TRUE the $string parameter must match exactly.
+ * @param bool $long_key
+ *   If TRUE will key array by the title and ID, not just the ID.
+ *
+ * @return mixed[]
+ *   The array of views.
+ */
+function _viewreference_extract_views_displays($settings, $views_displays, $append_id = FALSE, $full = FALSE, $string = '', $exact_string = FALSE, $long_key = FALSE) {
+
+  $views = array();
+  foreach ($views_displays as $view_name => $view_and_displays) {
+    list($view, $view_displays) = $view_and_displays;
+
+    /** @var views_display $display */
+    foreach ($view_displays as $display_key => $display) {
+      $id = $view_name . ':' . $display_key;
+
+      // Get display title.
+      $theme_vars = array(
+        'view' => $view,
+        'view_name' => $view_name,
+        'display_key' => $display_key,
+        'append_id' => $append_id,
+      );
+      $display_title = theme('viewreference_display_title', $theme_vars);
+      // Determine whether and what to return.
+      $key = $long_key ? $display_title . ($append_id ? '' : ' [' . $id . ']') : $id;
+      if ($string) {
+        if (!$exact_string && (stripos($display_title, $string) !== FALSE || stripos($key, $string) !== FALSE)) {
+          $views[$key] = $full ? $display : $display_title;
         }
+        elseif ($display_title == $string) {
+          $views[$key] = $full ? $display : $display_title;
+        }
+      }
+      else {
+        $views[$key] = $full ? $display : $display_title;
       }
     }
   }
+
+  if (!empty($settings['sort_views']))
+  {
+    asort($views);
+  }
+
   return $views;
 }
 
@@ -684,7 +778,7 @@ function viewreference_get_views($append_id = FALSE, $skip_default = TRUE, $sett
  * Theme the display title for this view display.
  *
  * @param $variables
-    An array of arguments that will be extracted to the following variables:
+An array of arguments that will be extracted to the following variables:
  *    $view - The view object.
  *    $view_name - The name of the view.
  *    $display_key - The name of the display to use.
@@ -694,19 +788,23 @@ function viewreference_get_views($append_id = FALSE, $skip_default = TRUE, $sett
  */
 function theme_viewreference_display_title($variables) {
   // Get variables passed to theme function.
-  extract($variables);
 
-  $view->set_display($display_key);
-  $display_title = $view->get_title();
+  $variables['view']->set_display($variables['display_key']);
+  $display_title = $variables['view']->display_handler->options['title'];
 
   if (!$display_title) {
     // No title, we have to construct a title.
-    $display_title = ucfirst($view_name) . ' ' . strtolower($view->display[$display_key]->display_title);
+    $display_title = ucfirst($variables['view_name']) . ' ' .
+      strtolower($variables['view']->display[$variables['display_key']]->display_title);
   }
 
-  if ($append_id) {
+  if (isset($variables['view']->display[$variables['display_key']]->display_title)) {
+    $display_title .= ' - ' . $variables['view']->display[$variables['display_key']]->display_title;
+  }
+
+  if ($variables['append_id']) {
     // Append ID for disambiguation in forms (views displays can have the same title).
-    $display_title .= ' [' . $view_name . ':' . $display_key . ']';
+    $display_title .= ' [' . $variables['view_name'] . ':' . $variables['display_key'] . ']';
   }
 
   return $display_title;
@@ -725,10 +823,16 @@ function viewreference_get_element_args($element) {
   $arguments = '';
   $args = array();
   if ($php_arguments) {
-    $variables = array(
-      $element['entity_type'] => $element['entity'],
-    );
-    $arguments = viewreference_eval($string, $variables);
+    $last_edit_user = user_load($element['entity']->revision_uid);
+    if (user_access('use PHP for settings', $last_edit_user)) {
+      $variables = array(
+        $element['entity_type'] => $element['entity'],
+      );
+      $arguments = viewreference_eval($string, $variables);
+    }
+    else {
+      $arguments = $string;
+    }
   }
   elseif ($dsv_arguments) {
     $arguments = $string;
@@ -736,7 +840,7 @@ function viewreference_get_element_args($element) {
   if ($arguments) {
     $args = explode($delimiter, $arguments);
     foreach ($args as $k => $v) {
-      $args[$k] = trim($v);
+      $args[$k] = check_plain(trim($v));
     }
   }
   // Allow modules to easily supply their own views arguments.
@@ -810,13 +914,13 @@ function viewreference_field_widget_info() {
 function viewreference_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
   switch ($instance['widget']['type']) {
     case 'viewreference_select':
-      $element = array(
+      $element += array(
         '#type' => 'viewreference_select',
         '#default_value' => isset($items[$delta]) ? $items[$delta] : NULL,
       );
       break;
     case 'viewreference_autocomplete':
-      $element = array(
+      $element += array(
         '#type' => 'viewreference_autocomplete',
         '#default_value' => isset($items[$delta]) ? $items[$delta] : NULL,
         '#value_callback' => 'viewreference_autocomplete_value',
@@ -853,14 +957,13 @@ function viewreference_element_info() {
  * @see viewreference_element_info().
  */
 function viewreference_select_process($element, $form_state, $form) {
-  $field_name = $element['#parents'][0];
-  $language = $element['#parents'][1];
-  $field = $form_state['field'][$field_name];
-  $instance = $field[$language]['instance'];
-  $bundle = $instance['bundle'];
-  $settings = $field[$language]['field']['settings'];
+  $field_name = $element['#field_name'];
+  $language = $element['#language'];
+  $field = field_widget_field($element, $form_state);
+  $instance = field_widget_instance($element, $form_state);
+  $settings = $field['settings'];
 
-  $options = viewreference_get_views($settings['append_id'], $settings['skip_default'], $settings);
+  $options = _viewreference_select_widget_options($settings);
   if (!$instance['required']) {
     $options = array(0 => '<'. t('none') .'>') + $options;
   }
@@ -873,7 +976,7 @@ function viewreference_select_process($element, $form_state, $form) {
     '#field_name' => $field_name,
     '#delta' => $element['#delta'],
     '#columns' => $element['#columns'],
-    '#title' => $instance['label'],
+    '#title' => $element['#title'],
     '#required' => $instance['required'],
     '#description' => isset($instance['description']) ? $instance['description'] : NULL,
   );
@@ -889,12 +992,37 @@ function viewreference_select_process($element, $form_state, $form) {
       '#language' => $language,
       '#delta' => $element['#delta'],
       '#columns' => $element['#columns'],
-      //'#required' => $element['#required'],
-      //'#description' => isset($element['#description']) ? $element['#description'] : NULL,
     );
   }
 
   return $element;
+}
+
+/**
+ * @return array[]
+ */
+function _viewreference_select_widget_options($settings) {
+  $options = array();
+  foreach (_viewreference_get_applicable_views_displays($settings) as $view_key => $view_and_displays) {
+    list($view, $view_displays) = $view_and_displays;
+    $view_optgroup_key = $view_key;
+    $view_title = $view->get_title();
+    if (!empty($view_title)) {
+      $view_optgroup_key .= ' (' . $view_title . ')';
+    }
+    foreach ($view_displays as $display_key => $display) {
+      $option_key = $view_key . ':' . $display_key;
+      $option_title = $display_key;
+      if (!empty($display->display_title)) {
+        $option_title .= ' (' . $display->display_title . ')';
+      }
+      $options[$view_optgroup_key][$option_key] = $option_title;
+    }
+    ksort($options[$view_optgroup_key]);
+  }
+  ksort($options);
+
+  return $options;
 }
 
 /**
@@ -903,12 +1031,14 @@ function viewreference_select_process($element, $form_state, $form) {
  * @see viewreference_element_info().
  */
 function viewreference_autocomplete_process($element, $form_state, $form) {
-  $field_name = $element['#parents'][0];
-  $language = $element['#parents'][1];
-  $field = $form_state['field'][$field_name];
-  $instance = $field[$language]['instance'];
+  $field_parents = $element['#field_parents'];
+  $field_name = $element['#field_name'];
+  $language = $element['#language'];
+  $field_state = field_form_get_state($field_parents, $field_name, $language, $form_state);
+  $field = $field_state['field'];
+  $instance = $field_state['instance'];
   $bundle = $instance['bundle'];
-  $settings = $field[$language]['field']['settings'];
+  $settings = $field['settings'];
 
   $element[$element['#columns'][0]] = array(
     '#type' => 'textfield',
@@ -919,7 +1049,7 @@ function viewreference_autocomplete_process($element, $form_state, $form) {
     '#language' => $language,
     '#delta' => $element['#delta'],
     '#columns' => $element['#columns'],
-    '#title' => $instance['label'],
+    '#title' => $element['#title'],
     '#required' => $element['#required'],
     '#description' => isset($element['#description']) ? $element['#description'] : '',
   );
@@ -940,16 +1070,5 @@ function viewreference_autocomplete_process($element, $form_state, $form) {
   return $element;
 }
 
-/*
 
-  Views field exposure code from D6.  Don't know where to put this.'
-  Used to be in viewreference_field_settings() when $op was 'views data'.
 
-      $data = content_views_field_views_data($field);
-      $db_info = content_database_info($field);
-      $table_alias = content_views_tablename($field);
-      // Swap the filter handler to the 'in' operator.
-      $data[$table_alias][$field['field_name'] . '_view_id']['filter']['handler'] = 'views_handler_filter_many_to_one_content';
-      return $data;
-
-*/

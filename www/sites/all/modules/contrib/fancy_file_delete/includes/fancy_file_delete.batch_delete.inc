@@ -9,15 +9,20 @@
 /**
  * Batch function.
  */
-function fancy_file_delete_batch($fid, $force, &$context) {
+function fancy_file_delete_batch_delete($fid, $force, &$context) {
   // Update our progress information.
   if (!isset($context['sandbox']['progress'])) {
     $context['sandbox']['progress'] = 0;
   }
   $context['sandbox']['progress']++;
 
+  // Remove line endings to prevent fail and convert to integer.
+  // @see https://www.drupal.org/node/2719619 for related issue.
+  $fid = str_replace(array("\r", "\n"), '', $fid);
+  $fid = (int) $fid;
+
   // Manual / Orphan Delete.
-  if (is_numeric($fid)) {
+  if ($fid) {
     $file = file_load($fid);
 
     if ($file) {
@@ -33,7 +38,7 @@ function fancy_file_delete_batch($fid, $force, &$context) {
     }
   }
   // Delete unmanaged.
-  else {
+  elseif ($fid != 0) {
     db_delete('unmanaged_files')
     ->condition('path', $fid)
     ->execute();
@@ -47,7 +52,7 @@ function fancy_file_delete_batch($fid, $force, &$context) {
 /**
  * Batch finished.
  */
-function fancy_file_delete_batch_finished($success, $results, $operations) {
+function fancy_file_delete_batch_delete_finished($success, $results, $operations) {
   if ($success) {
     // Reset the cache
     entity_get_controller('file')->resetCache();

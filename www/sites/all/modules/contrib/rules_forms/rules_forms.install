@@ -9,22 +9,24 @@
  * Implements hook_install().
  */
 function rules_forms_install() {
+  $t = get_t();
   // Set the modules' weight to 20, because we want it to be the last one using
   // hook_form_alter().
-  db_query("UPDATE {system} SET weight = 20 WHERE name = 'rules_forms'");
+  db_update('system')
+    ->fields(array('weight' => 20))
+    ->condition('name', 'rules_forms')
+    ->execute();
 
   // Notify the user of configuration requirements for Rules Forms.
-  drupal_set_message(st('You may now <a href="!rules_forms_settings">enable Rules Forms rules</a> '.
-                        'for individual forms. For more information please consult the documentation '.
-                        'in README.txt in your Rules forms support module folder.',
-                        array('!rules_forms_settings' => url(RULES_FORMS_ADMIN_PATH))), 'status');
+  drupal_set_message($t('You may now <a href="!rules_forms_settings">enable Rules Forms rules</a> for individual forms. For more information please consult the documentation in README.txt in your Rules forms support module folder.',
+    array('!rules_forms_settings' => url(RULES_FORMS_ADMIN_PATH))), 'status');
 }
 
 /**
  * Implements hook_uninstall().
  */
 function rules_forms_uninstall() {
-  variable_del('rules_forms_event_info');
+  variable_del('rules_forms_form_info');
 }
 
 /**
@@ -35,9 +37,11 @@ function rules_forms_update_7101() {
 }
 
 /**
- * See http://drupal.org/node/1447328#comment-5640172
- * Unset rules_forms_event_info array values with empty keys to
- * cleanse the settings array of bad form information.
+ * Unset rules_forms_event_info array values with empty keys.
+ *
+ * To cleanse the settings array of bad form information.
+ *
+ * @see http://drupal.org/node/1447328#comment-5640172
  */
 function rules_forms_update_7102() {
   $event_info = variable_get('rules_forms_event_info', array());
@@ -48,4 +52,13 @@ function rules_forms_update_7102() {
     }
   }
   variable_set('rules_forms_event_info', $event_info);
+}
+
+/**
+ * Change Rules Forms settings variable name.
+ */
+function rules_forms_update_7103() {
+  $form_info = variable_get('rules_forms_event_info', array());
+  variable_set('rules_forms_form_info', $form_info);
+  variable_del('rules_forms_event_info');
 }

@@ -1,7 +1,5 @@
 <?php
 
-
-
 /**
  * Implements hook_menu_link_alter().
  *
@@ -41,13 +39,48 @@ function menu_item_visibility_translated_menu_link_alter(&$item, $map) {
 }
 
 /**
+ * Implements hook_module_implements_alter().
+ */
+function menu_item_visibility_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'translated_menu_link_alter') {
+    // Move menu_item_visibility_translated_menu_link_alter() to the end of the
+    // list. This is mainly to deal with menu_token resetting the menu item
+    // access back to what is returned by menu_get_item().
+    $group = $implementations['menu_item_visibility'];
+    unset($implementations['menu_item_visibility']);
+    $implementations['menu_item_visibility'] = $group;
+  }
+}
+
+/**
  * Load all visibility data for a menu link.
  */
-function menu_item_visibility_load($mlid) {
-  $visibility = array();
+function menu_item_visibility_load($mlid, $reset = FALSE) {
+  // Use the advanced drupal_static() pattern, since this is called very often.
+  static $drupal_static_fast;
+
+  if (!isset($drupal_static_fast)) {
+    $drupal_static_fast['visibilities'] = &drupal_static(__FUNCTION__);
+  }
+
+  $visibilities = &$drupal_static_fast['visibilities'];
+
+  // If we haven't stored them all in the static build them from the database.
+  if (!isset($visibilities) || $reset) {
+    // Select all menu link ids and their role ids.
+    $result = db_select('menu_links_visibility_role', 'r')
+      ->fields('r')
+      ->execute()
+      ->fetchAll(PDO::FETCH_ASSOC);
+
+    $visibilities = array();
+    foreach ($result as $record) {
+      $visibilities[$record['mlid']][] = $record['rid'];
+    }
+  }
+  $visibility['roles'] = !empty($visibilities[$mlid]) ? $visibilities[$mlid] : array();
   if (!empty($mlid)) {
-    $visibility['roles'] = db_query("SELECT rid FROM {menu_links_visibility_role} WHERE mlid = :mlid", array(':mlid' => $mlid))->fetchCol();
-    module_invoke_all('menu_item_visibility_load', $visibility, $mlid);
+    drupal_alter('menu_item_visibility_load', $visibility, $mlid);
   }
   return $visibility;
 }
@@ -72,10 +105,14 @@ function menu_item_visibility_menu_link_insert($link) {
  * Disabled as a hook until http://drupal.org/node/1013856 is fixed.
  */
 function _menu_item_visibility_menu_link_update($link) {
-  db_delete('menu_links_visibility_role')
-    ->condition('mlid', $link['mlid'])
-    ->execute();
-
+  // http://drupal.org/node/1369480
+  // Only delete the roles if the $link object contains actual role information
+  // otherwise role information will be lost when moving menu items.
+  if (isset($link['roles'])) {
+    db_delete('menu_links_visibility_role')
+      ->condition('mlid', $link['mlid'])
+      ->execute();
+  }
   menu_item_visibility_menu_link_insert($link);
 }
 
@@ -115,7 +152,7 @@ function menu_item_visibility_form_menu_edit_item_alter(&$form, &$form_state) {
     ),
   );
 
-  $visibility = menu_item_visibility_load($form['mlid']['#value']);
+  $visibility = menu_item_visibility_load($form['mlid']['#value'], TRUE);
 
   // Per-role visibility.
   $form['visibility']['role'] = array(

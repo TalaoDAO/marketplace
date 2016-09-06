@@ -2,7 +2,7 @@ CONTENTS
 --------
  * Introduction
  * Reports
- * Buttons on Reports
+ * Buttons on the Reports
  * Limiting Features Explained
  * Troubleshooting
  * Maintainers
@@ -29,6 +29,7 @@ Audit Files (admin/reports/auditfiles).
 
 REPORTS
 -------
+
 Not in database
 ---------------
 This report lists the files that are on the server, but that are not in the
@@ -37,8 +38,8 @@ been deleted, they may be the result of a module not tidying up after itself,
 or they may be the result of uploading files outside of Drupal (e.g., via FTP).
 
 From this report you can mark files for deletion. Be careful with the delete
-feature - the deletion is permanent - be sure the file is no longer needed
-before erasing it!
+feature on any report - the deletion is permanent - be sure the file is no
+longer needed before erasing it!
 
 You can also add one or more files to the file_managed table from this report.
 
@@ -83,7 +84,7 @@ Referenced not used
 Listed here are the file references in file fields attached to entities which do
 not have a corresponding listing in the file_usage table.
 
-What is listed in this report is the data of references themselves.  This can be
+What is listed in this report is the data of references themselves. This can be
 used to determine what needs to happen with the reference.
 
 References listed here can either be deleted from the database or added to the
@@ -100,8 +101,8 @@ system.
 BUTTONS ON THE REPORTS
 ----------------------
 At the tops of the reports, there might be one or more of the following buttons,
-depending on how you have configured the module: Load all files and Reset file
-selection.
+depending on how you have configured the module: "Load all files" and "Reset
+file list".
 
 Load all files
 --------------
@@ -117,8 +118,8 @@ records and any saved records will be reset and the first page of the report
 will be loaded anew.
 
 At the bottoms of the reports, there will be one or both of the following
-buttons, depending on the report: Add selected... and Delete selected... (the
-text on these buttons is different on the various reports).
+buttons, depending on the report: "Add selected..." and "Delete selected..."
+(the text on these buttons is different on the various reports).
 
 Add selected...
 ---------------
@@ -146,7 +147,7 @@ options" fieldset.
 
 There are four possible combinations of these settings, one of which is invalid:
  1) Both set to zero: With these settings, all records are loaded and displayed.
- 2) "Maximum records" set to some positive integer grater than zero and "Batch
+ 2) "Maximum records" set to some positive integer greater than zero and "Batch
     size" set to zero: With this combination, only the number of records in
     "Maximum records" will be initially loaded and displayed. At the top of the
     report page, there will be a button labeled "Load all records," with which
@@ -155,10 +156,10 @@ There are four possible combinations of these settings, one of which is invalid:
     but don't time out or exceed the memory limit, as it will allow a quicker
     initial load.
  3) "Maximum records" set to zero and "Batch size" set to some positive integer
-    grater than zero: This combination is invalid, because if "Maximum records"
-    set to zero, it does not matter what "Batch size" set to, because the
+    greater than zero: This combination is invalid, because if "Maximum records"
+    is set to zero, it does not matter what "Batch size" is set to, because the
     records will never be loaded via the Batch API.
- 4) Both set to some positive integer grater than zero: Sometimes, setting
+ 4) Both set to some positive integer greater than zero: Sometimes, setting
     "Maximum records" and batch loading all the records isn't enough, and a
     report may still time out or exhaust the available memory. If that is the
     case, entering a positive integer in the "Batch size" setting will limit the
@@ -183,7 +184,7 @@ You receive the following error messages:
 Set the "Maximum records" and "Batch size" settings on the Audit Files
 administrative settings configuration page (admin/config/system/auditfiles), and
 then use the "Load all records" button on the report that is producing the
-error. See the Limiting Features Explained section above for more information.
+error. See the "Limiting Features Explained" section above for more information.
 
 You receive the following error messages:
  * Fatal error: Maximum execution time of [some number] seconds exceeded in

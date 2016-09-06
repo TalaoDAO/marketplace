@@ -4,9 +4,9 @@ core = 7.x
 dependencies[] = menu
 conflicts[] = menu_per_role
 
-; Information added by drupal.org packaging script on 2011-06-30
-version = "7.x-1.0-beta1"
+; Information added by Drupal.org packaging script on 2016-08-29
+version = "7.x-1.0-beta2"
 core = "7.x"
 project = "menu_item_visibility"
-datestamp = "1309462619"
+datestamp = "1472450044"
 

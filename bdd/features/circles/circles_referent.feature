@@ -53,17 +53,17 @@ Feature: Requests visibility for Référent
     Then I should see "The membership has been updated."
 
     Given I am logged in as "expert1"
-    When I click "Edit account"
+    When I click "Edit my account"
       And I fill in "field_address[und][0][phone_number]" with "0712345670"
       And I press "Save"
 
     Given I am logged in as "expert4"
-    When I click "Edit account"
+    When I click "Edit my account"
       And I fill in "field_address[und][0][phone_number]" with "0712345673"
       And I press "Save"
 
     Given I am logged in as "référent1"
-    When I click "Edit account"
+    When I click "Edit my account"
       And I fill in "field_address[und][0][phone_number]" with "0612345678"
       And I press "Save"
 
