@@ -4,9 +4,9 @@ core = 7.x
 package = User Interface
 
 
-; Information added by Drupal.org packaging script on 2015-04-20
-version = "7.x-1.1"
+; Information added by Drupal.org packaging script on 2016-05-10
+version = "7.x-1.2"
 core = "7.x"
 project = "advancedform"
-datestamp = "1429501386"
+datestamp = "1462859660"
 

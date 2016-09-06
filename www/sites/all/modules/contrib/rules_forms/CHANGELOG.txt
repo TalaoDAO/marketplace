@@ -1,5 +1,29 @@
 -------------
- 7.x-1.0-dev
+ 7.x-1.0
+-------------
+- #1721802 by caminadaf: Element changed does not work?
+- #2023689 by caminadaf: Password field values
+- #2690245 by caminadaf: Coding Standard fixes
+- #2601280 by caminadaf: Give a list of autopopulated options for select fields
+- #2611678 by caminadaf: Enable the "Form element has value" condition to check the form_state
+- #1542280 by caminadaf: "Recoverable fatal error" while using rules forms
+- #2382307 patch by Rory: Form element inspection tool does not display
+- #2558807 by caminadaf: Element changed condition does not check new values
+- #2022315 patch by heddn: Passed by reference in RulesFormsDataElement::inputForm
+- #2230059 patch by BrockBoland: rules_forms_event_button_validate() function ends with semicolon
+- #2090631 patch by doooug: module files have excessive file permissions
+- #1931496 patch by othermachines: Imprecise check for multiple values in action
+  "Set the default value"
+- #1448064 by caminadaf: Expose the entity to be used by actions and conditions, if entity form
+- #1451560 by jordojuice: Hide regular expression option when it doesn't make sense for
+  the field type in Condition: Form element has value.
+- #1451302 by jordojuice: Change use of $_SESSION variables to use only a single array.
+- #1451314 by jordojuice: Add API functions for handling Rules Forms internal form
+  information. Also adds tests for all new API functions.
+- #1452958 by jordojuice: Change menu item to be labeled Forms Support.
+
+-------------
+ 7.x-1.0-rc2
 -------------
 - #1429988 by jordojuice: Add conditionals due to the fact that rules may break in
   the event that form elements are limited due to a more restricted user role.
@@ -10,6 +34,8 @@
   and button elements.
 - #1255348 by jordojuice: Add Condition: Form button was clicked.
 - #1429960 by jordojuice: Add tests for Rules forms support events.
+- #1447328 by jordojuice: Fixed major bug in evaluating form elements which caused
+  user-side error messages.
 
 -------------
  7.x-1.0-rc1
