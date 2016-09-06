@@ -56,23 +56,20 @@ Feature: Circles workflow for Expert
     Then I should see "Guardians of the Galaxy"
 
     When I go to "content/guardians-galaxy"
-    Then I should see "Request membership"
+    Then I should see "Subscribe"
 
   Scenario: Experts can request membership to public circles and be activated by the circle manager
     Given I am logged in as "expert1"
     When I go to "content/guardians-galaxy"
-    Then I should see "Request membership"
+    Then I should see "Subscribe"
 
-    When I click "Request membership"
-      And I fill in "Request message" with "I really want to join your band"
+    When I click "Subscribe"
       And I press "Ask to join"
-    Then I should see "Your request is pending."
 
     Given I am logged in as "client4"
     When I go to "content/guardians-galaxy"
       And I click "Group" in the "primary tabs" region
       And I click "People"
-    Then I should see "Pending" in the "Iron" row
 
     When I click "edit" in the "Iron" row
       And I select "Active" from "Status"
@@ -81,23 +78,21 @@ Feature: Circles workflow for Expert
 
     Given I am logged in as "expert1"
     When I go to "content/guardians-galaxy"
-    Then I should not see "Your request is pending."
+    Then I should see "3 members"
 
   Scenario: Experts can request membership to public circles and be refused by the circle manager
     Given I am logged in as "expert4"
     When I go to "content/guardians-galaxy"
-    Then I should see "Request membership"
+    Then I should see "Subscribe"
 
-    When I click "Request membership"
-      And I fill in "Request message" with "Hey guys, please accept my request!"
+    When I click "Subscribe"
       And I press "Ask to join"
-    Then I should see "Your request is pending."
+    Then I should see "Please complete the following information to access client requests"
 
     Given I am logged in as "client4"
     When I go to "content/guardians-galaxy"
       And I click "Group" in the "primary tabs" region
       And I click "People"
-    Then I should see "Pending" in the "Scott" row
 
     When I click "remove" in the "Scott" row
       And I press "Remove"
@@ -105,4 +100,4 @@ Feature: Circles workflow for Expert
 
     Given I am logged in as "expert4"
     When I go to "content/guardians-galaxy"
-    Then I should see "Request membership"
+    Then I should see "Subscribe"
