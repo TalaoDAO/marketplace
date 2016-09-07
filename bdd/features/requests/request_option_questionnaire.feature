@@ -7,25 +7,28 @@ Feature: Request Option Questionnaire
   Background: Create request
 
     Given "circle" content:
-    | title            | author  |
-    | Avengers         | admin   |
+    | title                   | author  |
+    | Avengers                | admin   |
+    | League Of Justice       | admin   |
+    | Guardians Of The Galaxy | admin   |
 
     Given "corporate" content:
-    | title     | author  |
-    | Google    | admin   |
-    | Facebook  | admin   |
+    | title                 | author  |
+    | Marvel Studios        | admin   |
 
     Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers, LeagueOfJustice, GuardianOfGalaxy     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers, LeagueOfJustice, GuardianOfGalaxy     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers, League Of Justice, Guardian Of Galaxy     | emindhub.test+client1@gmail.com | Marvel Studios     | Freelancer | Maintenance |
+
+    Given users:
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers, League Of Justice, Guardian Of Galaxy     | emindhub.test+expert1@gmail.com | Marvel Studios     | Employee  | Energy        |
 
     Given I give "client1" 10000 emh credits
 
     Given "request" content:
     | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
     | How to become a superhero?  | Energy        |              | client1 | 2017-02-08 17:45:00    | 0       |
-
 
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
