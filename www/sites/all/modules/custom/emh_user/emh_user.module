@@ -561,7 +561,7 @@ function emh_user_cartouche_view($uid, $context = NULL) {
   $lastname = isset($lastname[0]['value']) ? check_plain(ucwords($lastname[0]['value'])) : '';
 
   if ($context == 'author' && !(emh_request_has_option($node, 'anonymous') && $node->field_hide_name[LANGUAGE_NONE][0]['value'] == true)) {
-    $identity = $firstname . ' ' . $lastname;
+    $identity = $firstname . ' ' . strtoupper($lastname);
   }
   else {
     $identity = format_username($u2_account);
