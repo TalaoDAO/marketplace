@@ -13,14 +13,16 @@ Feature: Request Option Price
     | Guardians Of The Galaxy | admin   |
 
     Given "corporate" content:
-    | title     | author  |
-    | Google    | admin   |
-    | Facebook  | admin   |
+    | title                 | author  |
+    | Marvel Studios        | admin   |
 
     Given users:
-    | name    | mail                            | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers, League Of Justice, Guardians Of The Galaxy     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers, League Of Justice, Guardians Of The Galaxy     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers, League Of Justice, Guardians Of The Galaxy     | emindhub.test+client1@gmail.com | Marvel Studios     | Freelancer | Maintenance |
+
+    Given users:
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers, League Of Justice, Guardians Of The Galaxy     | emindhub.test+expert1@gmail.com | Marvel Studios     | Employee             | Energy        |
 
     Given I give "client1" 10000 emh credits
 
@@ -37,14 +39,12 @@ Feature: Request Option Price
       And I fill in "Questionnaire" with "1000"
       And I fill in "Duration" with "1000"
       And I press "Save"
-    #Then
 
     When I go to "content/league-justice"
       And I click "Edit"
       And I fill in "Questionnaire" with "700"
       And I fill in "Duration" with "1300"
       And I press "Save"
-    #Then
 
     # Make client1 as a Creator member of circles
     When I go to "content/avengers"

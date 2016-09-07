@@ -11,17 +11,16 @@ Feature: Test credits dispatch in OG
     | X-Men    | admin   |
 
     Given "corporate" content:
-    | title     | author  |
-    | Google    | admin   |
-    | Apple     | admin   |
-    | Tumblr    | admin   |
+    | title                 | author  |
+    | Marvel Studios        | admin   |
+    | Marvel Entertainment  | admin   |
 
     #client1 is webmaster to gain access to tabs until links are added
     Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | client1 | emindhub.test+client1@gmail.com | business, webmaster | Captain          | America         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
-    | client2 | emindhub.test+client2@gmail.com | business | Charle           | XAVIER          |                 |                    | X-Men        | emindhub.test+client2@gmail.com | Apple   | Freelancer | Engines     |
-    | client3 | emindhub.test+client3@gmail.com | business | Tony             | STARK           |                 |                    | X-Men        | emindhub.test+client3@gmail.com | Tumblr  | Freelancer | Drones      |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
+    | client1 | emindhub.test+client1@gmail.com | business, webmaster | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance |
+    | client2 | emindhub.test+client2@gmail.com | business | Charle           | XAVIER          |                 |                    | X-Men        | emindhub.test+client2@gmail.com | Marvel Entertainment | Freelancer           | Engines     |
+    | client3 | emindhub.test+client3@gmail.com | business | Tony             | STARK           |                 |                    | X-Men        | emindhub.test+client3@gmail.com | Marvel Entertainment | Freelancer | Drones      |
 
     Given "circle" content:
     | title    | author  |
