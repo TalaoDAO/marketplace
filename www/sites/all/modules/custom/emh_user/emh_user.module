@@ -535,7 +535,7 @@ function emh_user_cartouche_view($uid, $context = NULL) {
 
 	$node = menu_get_object();
 
-  $cartouche = ''; $photo_uri = ''; $organisation = ''; $activity = '';
+  $cartouche = ''; $photo_uri = ''; $identity = ''; $organisation = ''; $activity = '';
 
 	// Photo
   if (emh_access_user_can_see_full_user($uid1, $uid2)) {
@@ -555,23 +555,39 @@ function emh_user_cartouche_view($uid, $context = NULL) {
   }
 
 	// Identity
-  if (!(($context == 'author') && emh_request_has_option($node, 'anonymous') && $node->field_hide_name[LANGUAGE_NONE][0]['value'] == true)) {
-    if (emh_access_user_can_see_full_user($uid1, $uid2)) {
-  		$cartouche .= '<span class="user-identity"><a href="' . url('user/' . $uid2) . '">' . format_username($u2_account) . '</span></a>';
+  $firstname = field_get_items('user', $u2_account, 'field_first_name');
+  $firstname = isset($firstname[0]['value']) ? check_plain(ucwords($firstname[0]['value'])) : '';
+  $lastname = field_get_items('user', $u2_account, 'field_last_name');
+  $lastname = isset($lastname[0]['value']) ? check_plain(ucwords($lastname[0]['value'])) : '';
+
+  if ($context == 'author' && !(emh_request_has_option($node, 'anonymous') && $node->field_hide_name[LANGUAGE_NONE][0]['value'] == true)) {
+    $identity = $firstname . ' ' . $lastname;
+  }
+  else {
+    $identity = format_username($u2_account);
+    if (emh_request_has_option($node, 'anonymous') && $node->field_hide_name[LANGUAGE_NONE][0]['value'] == true) {
+      $identity = t('Anonymous');
     }
-  	else {
-  		$cartouche .= '<span class="user-identity">' . format_username($u2_account) . '</span>';
-  	}
   }
+  if (emh_access_user_can_see_full_user($uid1, $uid2) && !(emh_request_has_option($node, 'anonymous') && $node->field_hide_name[LANGUAGE_NONE][0]['value'] == true)) {
+    $identity = '<a href="' . url('user/' . $uid2) . '">' . $identity . '</a>';
+  }
+  $cartouche .= '<span class="user-identity">' . $identity . '</a>';
 
-	// Author organisation
+	// Organisation
 	$organisation = field_get_items('user', $u2_account, 'field_entreprise');
-  if (($context == 'author') && emh_request_has_option($node, 'anonymous') && ($node->field_hide_organisation[LANGUAGE_NONE][0]['value'] == false) && !empty($organisation)) {
+  if (!empty($organisation)) {
     $organisation = field_view_field('user', $u2_account, 'field_entreprise', array('label'=>'hidden'));
-		$cartouche .= '<span class="user-organisation">' . render($organisation) . '</span>';
+    if (
+          ($context == 'author' && !(emh_request_has_option($node, 'anonymous')))
+      ||  ($context == 'author' && (emh_request_has_option($node, 'anonymous') && ($node->field_hide_organisation[LANGUAGE_NONE][0]['value'] == false)))
+      ||  ($context != 'author' && (emh_access_user_can_see_full_user($uid1, $uid2)))
+    ) {
+      $cartouche .= '<span class="user-organisation">' . render($organisation) . '</span>';
+    }
   }
 
-  // Author activity
+  // Activity
 	$activity = field_get_items('node', $node, 'field_activity');
 	if (($context == 'author') && emh_request_has_option($node, 'anonymous') && !empty($activity)) {
     $activity = field_view_field('node', $node, 'field_activity', array('label'=>'hidden'));
