@@ -755,7 +755,7 @@ function emh_points_notify_rewarded_answer_author($node, $user, $points) {
   $mail = $user->mail;
   $language = language_default();
   $params = array(
-    '@url' => url('points?pk_campaign=request_rewarded_' . $node->type . '_' . $node->nid, array('absolute' => TRUE)),
+    '@url' => url('credits?pk_campaign=request_rewarded_' . $node->type . '_' . $node->nid, array('absolute' => TRUE)),
     '@title' => $node->title,
     '@answer_author' => $user->field_first_name[LANGUAGE_NONE][0]['value'],
     '@points' => $points,
