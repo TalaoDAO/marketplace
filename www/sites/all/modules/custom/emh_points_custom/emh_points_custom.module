@@ -60,7 +60,7 @@ function emh_points_custom_form_emh_points_admin_form_alter(&$form, &$form_state
   );
   $form['emh_points_monetization_threshold'] = array(
     '#type' => 'textfield',
-    '#title' => t('Credits threshold for Monetizatoin'),
+    '#title' => t('Credits threshold for Monetization'),
     '#default_value' => variable_get('emh_points_monetization_threshold', '1500'),
     '#element_validate' => array('element_validate_integer_positive'),
   );
