@@ -1,0 +1,6 @@
+name = EMH User Profile Purchase
+description = Allow user profile purchasing.
+package = EMH
+core = 7.x
+
+dependencies[] = emh_user

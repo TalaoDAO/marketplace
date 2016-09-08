@@ -1,0 +1,255 @@
+<?php
+
+
+include_once 'emh_user_profile_purchase.admin.inc';
+
+
+/**
+ * Implements hook_menu().
+ */
+function emh_user_profile_purchase_menu() {
+	$items = array();
+
+  $items['user/%user/purchase'] = array(
+		'title' => 'Buy profile access',
+		'page callback' => 'drupal_get_form',
+    'page arguments' => array('emh_user_profile_purchase_form', 1),
+    'access callback' => 'user_view_access',
+    'access arguments' => array(1),
+    'type' => MENU_CALLBACK,
+	);
+
+  return $items;
+}
+
+/**
+ * Builds the profile purchase form.
+ */
+function emh_user_profile_purchase_form($form, &$form_state, $account) {
+  global $user;
+
+  // Checks if the account hasn't already been purchased.
+  if (emh_access_user_can_see_full_user($user->uid, $account->uid)) {
+    drupal_set_message(t("You have already access to this profile."), 'warning');
+    drupal_goto('user/' . $account->uid);
+  }
+
+  $form_state['account'] = $account;
+
+  if (isset($_GET['destination'])) {
+    $options = drupal_parse_url(urldecode($_GET['destination']));
+  } else {
+    $options = array('path' => '<front>');
+  }
+
+  $amount = (int) variable_get('emh_user_profile_purchase_amount', 100);
+
+  $form['confirmation'] = array(
+    '#type' => 'item',
+    '#markup' => t("Access !user's profile for !amount credits?", array(
+      '!user' => format_username($account),
+      '!amount' => $amount,
+    )),
+  );
+
+  $form['actions'] = array(
+    '#type' => 'actions',
+    '#tree' => false,
+    'cancel' => array(
+      '#type' => 'link',
+      '#title' => t("Cancel"),
+      '#href' => $options['path'],
+      '#options' => $options,
+    ),
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => t("Access profile"),
+    ),
+  );
+
+  return $form;
+}
+
+
+/**
+ * Submit callback for the profile purchase form.
+ */
+function emh_user_profile_purchase_form_submit($form, &$form_state) {
+  $account = $form_state['account'];
+
+  try {
+    emh_user_purchase_profile($account);
+
+    drupal_set_message(t("You can now access !user's profile.", array(
+      '!user' => format_username($account),
+    )));
+  }
+  catch (\Exception $e) {
+    drupal_set_message(t("!user's profile could not be purchased.", array(
+      '!user' => format_username($account),
+    )), 'error');
+  }
+
+  if (!isset($_GET['destination'])) {
+    $form_state['redirect'] = 'user/' . $account->uid;
+  }
+}
+
+
+/**
+ * Validation callback for the profile purchase form.
+ */
+function emh_user_profile_purchase_form_validate($form, &$form_state) {
+  global $user;
+  if (!isset($user->emh_points)) {
+    emh_points_entity_load_single($user, 'user');
+  }
+  if ($user->emh_points < (int) variable_get('emh_user_profile_purchase_amount', 100)) {
+    form_error($form, t("You don't have enough credits to access !user's profile.", array(
+      '!user' => format_username($form_state['account']),
+    )));
+  }
+}
+
+
+/**
+ * Implements hook_action_info().
+ */
+function emh_user_profile_purchase_action_info() {
+  $actions = array();
+
+  $actions['emh_user_profile_purchase_action'] = array(
+    'type' => 'entity',
+    'label' => t('Access profiles'),
+    'configurable' => false,
+    'triggers' => array(),
+    'permissions' => array('access user profiles'),
+    'aggregate' => true,
+    'behavior' => array('emh'),
+  );
+
+  return $actions;
+}
+
+
+/**
+ * Action to purchase a profil.
+ */
+function emh_user_profile_purchase_action($entities, $context) {
+  global $user;
+
+  foreach ($entities as $entity) {
+    if (empty($entity->uid) || $entity->uid == 1) {
+      continue;
+    }
+
+    try {
+      if (emh_access_user_can_see_full_user($user->uid, $entity->uid)) {
+        continue;
+      }
+      emh_user_purchase_profile($entity->uid);
+    }
+    catch (\Exception $e) {
+      drupal_set_message(t("!user's profile could not be purchased.", array(
+        '!user' => format_username($entity->uid),
+      )), 'error');
+    }
+  }
+}
+
+
+/**
+ * Purchases an user profile for the current user.
+ *
+ * @param stdClass|integer $account
+ *  Either an user object or a uid
+ */
+function emh_user_purchase_profile($account) {
+  try {
+    $transaction = db_transaction();
+
+    global $user;
+
+    if (is_numeric($account)) {
+      $account = user_load($account);
+    }
+
+    // Spends user's credits
+    $amount = (int) variable_get('emh_user_profile_purchase_amount', 100);
+    emh_points_move_points($user, $account, $amount);
+
+    // Flags the account to add it in the user's relationships
+    $flag = flag_get_flag('my_contacts');
+    $flag->flag('flag', $account->uid, $user, true);
+
+		// Notify user its profile has been purchased
+		emh_user_purchase_profile_notify_user($account, $amount);
+
+    unset($transaction);
+  }
+  catch (\Exception $e) {
+    if ($transaction) {
+      try {
+        $transaction->rollback();
+      }
+      catch (\Exception $e2) {
+        watchdog_exception('emh_user_profile_purchase', $e2);
+      }
+
+      watchdog_exception('emh_user_profile_purchase', $e);
+      throw $e;
+    }
+  }
+}
+
+/**
+ * Send email to user's profile purchased.
+ */
+function emh_user_purchase_profile_notify_user($user, $credits) {
+  $module = 'emh_user_purchase_profile';
+  $key = 'notify_user';
+  $mail = $user->mail;
+  $language = language_default();
+  $params = array(
+    '@url' => url('credits?pk_campaign=profile_purchased_' . $user->uid),
+    '@user_firstname' => $user->field_first_name[LANGUAGE_NONE][0]['value'],
+    '@credits' => $credits,
+    '@threshold' => variable_get('emh_points_monetization_threshold', '1500'),
+  );
+  drupal_mail($module, $key, $mail, $language, $params);
+}
+
+/**
+ * Implements hook_mail().
+ */
+function emh_user_purchase_profile_mail($key, &$message, $params) {
+  switch($key) {
+    case 'notify_user':
+      $message['subject'] = t('You have been rewarded!', $params);
+      $message['body'] = array();
+      $message['body'][] = t('Dear @user_firstname,', $params);
+      $message['body'][] = t('Your answer has been selected by the client and you earned @credits credits! The client may now get in touch with you for further support.', $params);
+      $message['body'][] = t('We remind you that you can monetize your credits once you have reached a threshold of @threshold credits.', $params);
+      $message['body'][] = t('Should you like to know more, just log into the platform now.');
+      $message['body'][] = '<table style="min-width:100%;" width="100%" border="0" cellpadding="0" cellspacing="0" class="emailButton">
+        <tbody>
+          <tr>
+            <td style="padding-top:0;padding-right:18px;padding-bottom:18px;padding-left:18px;" valign="top" align="center">
+              <table style="border-collapse:separate!important;border-radius:0px;background-color:rgb(0,159,227);" border="0" cellpadding="0" cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td style="font-family:Arial;font-size:16px;padding:15px;color:rgb(255, 255, 255);" valign="middle" align="center">
+                      <a href="' . t('@url', $params) . '&amp;pk_kwd=calltoaction" title="' .  t('Log in to eMindHub') . '" target="_blank" style="font-weight:bold!important;letter-spacing:normal;line-height:100%;text-align:center;text-decoration:none;color:#FFFFFF!important;">' . t('Log in to eMindHub') . ' </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>';
+      break;
+    default:
+      break;
+  }
+}
