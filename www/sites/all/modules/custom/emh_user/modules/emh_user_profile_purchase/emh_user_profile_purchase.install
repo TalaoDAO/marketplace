@@ -8,13 +8,14 @@
 /**
  * Implements hook_install().
  */
-function emh_user_profile_purchase_install() {
+function emh_user_profile_purchase_enable() {
   variable_set('emh_user_profile_purchase_amount', 100);
 }
 
 /**
- * CHG: Profile purchasing amount for 100 credits.
+ * ADD: VBO Purchase profile permissions.
  */
 function emh_user_profile_purchase_update_7101() {
-  variable_set('emh_user_profile_purchase_amount', 100);
+  // Authentificated user
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('execute emh_user_profile_purchase_action'));
 }
