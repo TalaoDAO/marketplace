@@ -225,10 +225,10 @@ function emh_user_purchase_profile_notify_user($user, $credits) {
 function emh_user_purchase_profile_mail($key, &$message, $params) {
   switch($key) {
     case 'notify_user':
-      $message['subject'] = t('You have been rewarded!', $params);
+      $message['subject'] = t('Your profile has been selected!', $params);
       $message['body'] = array();
       $message['body'][] = t('Dear @user_firstname,', $params);
-      $message['body'][] = t('Your answer has been selected by the client and you earned @credits credits! The client may now get in touch with you for further support.', $params);
+      $message['body'][] = t('Your profile has been selected by a requestor and you earned @credits credits! The requestor may now get in touch with you for further support.', $params);
       $message['body'][] = t('We remind you that you can monetize your credits once you have reached a threshold of @threshold credits.', $params);
       $message['body'][] = t('Should you like to know more, just log into the platform now.');
       $message['body'][] = '<table style="min-width:100%;" width="100%" border="0" cellpadding="0" cellspacing="0" class="emailButton">
