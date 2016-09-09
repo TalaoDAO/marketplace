@@ -58,6 +58,10 @@ Feature: Buy profile access
       And I press "Publish"
     Then I should see the message "Your submission has been published."
 
+    When I click "Edit account"
+      And I fill in "field_address[und][0][phone_number]" with "0712345670"
+      And I press "Save"
+
   Scenario: An author can buy a profile
     Given I am logged in as "client1"
     When I go to "content/how-become-superhero"
@@ -73,6 +77,12 @@ Feature: Buy profile access
 
     When I go to "circles/relationships"
     Then I should see "Iron MAN"
+
+    When I click "Iron MAN"
+    Then I should see "Iron MAN"
+      And I should see "Chieur génial"
+      And I should see "0712345670"
+      And I should see "emindhub.test+expert1@gmail.com"
 
   @exclude
   Scenario: An expert can buy an author profile

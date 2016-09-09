@@ -110,3 +110,10 @@ function emh_user_update_7010() {
     'execute emh_user_profile_purchase_action',
   ));
 }
+
+/**
+ * ADD: Enable Profile purchase submodule.
+ */
+function emh_user_update_7011() {
+  module_enable(['emh_user_profile_purchase']);
+}

@@ -1,0 +1,20 @@
+<?php
+/**
+ * @file
+ * Installation hooks for the emh_user_profile_purchase module.
+ */
+
+
+/**
+ * Implements hook_install().
+ */
+function emh_user_profile_purchase_install() {
+  variable_set('emh_user_profile_purchase_amount', 100);
+}
+
+/**
+ * CHG: Profile purchasing amount for 100 credits.
+ */
+function emh_user_profile_purchase_update_7101() {
+  variable_set('emh_user_profile_purchase_amount', 100);
+}
