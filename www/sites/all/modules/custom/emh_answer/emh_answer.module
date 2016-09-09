@@ -49,7 +49,8 @@ function emh_answer_form_alter(&$form, &$form_state, $form_id) {
     $request_ID = $form['#node']->nid;
     switch ($form_id) {
       case "webform_client_form_$request_ID":
-        // Draft to published
+
+        // Draft to ...
         if (!empty($form['#is_draft']) || empty($form['#submission'])) {
           $form['#submit'][] = '_emh_answer_form_submit';
         }
@@ -58,10 +59,6 @@ function emh_answer_form_alter(&$form, &$form_state, $form_id) {
           $form['#submit'][] = '_emh_answer_form_submit_again';
         }
         break;
-      // case 'comment_node_question1_form':
-      // case 'comment_node_challenge_form':
-      //   $form['#submit'][] = '_emh_answer_form_submit';
-      //   break;
       default:
         break;
     }
@@ -70,25 +67,35 @@ function emh_answer_form_alter(&$form, &$form_state, $form_id) {
 }
 
 function _emh_answer_form_submit($form, &$form_state) {
+
   $node = $form['#node'];
+
+  // Check if this form is sending an email.
+  $is_draft = (int) !empty($form_state['save_draft']);
+  if (!$is_draft) {
+    emh_answer_submission_send_mail($node);
+    drupal_set_message(t('Your submission has been published.'));
+  }
+
+  $form_state['redirect'] = 'node/' . $node->nid;
+
+}
+
+function _emh_answer_form_submit_again($form, &$form_state) {
+
+  $node = $form['#node'];
+  $form_state['redirect'] = 'node/' . $node->nid;
+
+}
+
+function emh_answer_submission_send_mail($node) {
+
   $author = user_load($node->uid);
   $module = 'emh_answer';
   $key = 'notify_request_author_new_answer';
   $mail = $author->mail;
   $language = language_default();
-  switch ($node->type) {
-    // case 'question1':
-    // case 'challenge':
-    //   $url = url('node/' . $node->nid . '/answers?pk_campaign=new_answer_' . $node->type . '_' . $node->nid, array('absolute' => TRUE));
-    //   break;
-
-    // case 'webform':
-    case 'request':
-      $url = url('node/' . $node->nid . '/results?pk_campaign=new_answer_' . $node->type . '_' . $node->nid, array('absolute' => TRUE));
-      break;
-    default:
-      break;
-  }
+  $url = url('node/' . $node->nid . '/results?pk_campaign=new_answer_request_' . $node->nid, array('absolute' => TRUE));
   $params = array(
     '@url' => $url,
     '@title' => $node->title,
@@ -96,13 +103,7 @@ function _emh_answer_form_submit($form, &$form_state) {
   );
 
   drupal_mail($module, $key, $mail, $language, $params);
-  drupal_set_message(t('Your submission has been published.'));
-  $form_state['redirect'] = 'node/' . $node->nid;
-}
 
-function _emh_answer_form_submit_again($form, &$form_state) {
-  $node = $form['#node'];
-  $form_state['redirect'] = 'node/' . $node->nid;
 }
 
 /**
@@ -114,7 +115,7 @@ function emh_answer_mail($key, &$message, $params) {
       $message['subject'] = t('New answer to the request @title', $params);
       $message['body'] = array();
       $message['body'][] = t('Dear @author,', $params);
-      $message['body'][] = t('You received a new answer to the request') . ' <strong><a href="' . t('@url', $params) . '&amp;pk_kwd=link" title="' .  t('@title', $params) . '" target="_blank" style="font-weight:bold!important;">' . t('@title', $params) . ' </a></strong>.';
+      $message['body'][] = t('You received a new answer to the request') . ' <strong><a href="' . t('@url', $params) . '&amp;pk_kwd=link" title="' .  t('@title', $params) . '" target="_blank" style="font-weight:bold!important;">' . t('@title', $params) . '</a></strong>.';
       $message['body'][] = t('Just log into the platform to see this answer.');
       $message['body'][] = '<table style="min-width:100%;" width="100%" border="0" cellpadding="0" cellspacing="0" class="emailButton">
         <tbody>
