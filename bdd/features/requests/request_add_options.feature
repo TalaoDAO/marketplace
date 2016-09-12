@@ -11,19 +11,18 @@ Feature: Request
     | Avengers | admin   |
 
     Given "corporate" content:
-    | title     | author  |
-    | Google    | admin   |
-    | Facebook  | admin   |
+    | title                 | author  |
+    | Marvel Studios        | admin   |
 
     Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance |
 
     Given "request" content:
     | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
     | How to become a superhero?  | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    | 0       |
 
-    Given I give "client1" 10000 emh points
+    Given I give "client1" 10000 emh credits
 
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
@@ -40,8 +39,8 @@ Feature: Request
     Then I should see "Avengers" in the "How to become a superhero?" row
 
     When I click "How to become a superhero?" in the "How to become a superhero?" row
-    And I click "Edit" in the "primary tabs" region
-    And I check the box "Duration"
+      And I click "Edit" in the "primary tabs" region
+      And I check the box "Duration"
     Then I should see "Duration of the mission"
       And I should see "Desired starting date"
       And I fill in "Duration of the mission" with "1 month"

@@ -11,21 +11,21 @@
 function emh_points_rules_event_info() {
   $events = array();
   $events['emh_points_points_will_expire'] = array(
-    'label' => t('Points will expire in month'),
+    'label' => t('Credits will expire in month'),
     'module' => 'emh_points',
-    'group' => t('Points'),
+    'group' => t('Credits'),
     'variables' => array(
-      'points' => array('type' => 'integer', 'label' => t('Number of points that will expire')),
-      'owner' => array('type' => 'user', 'label' => t('Owner of the points')),
+      'points' => array('type' => 'integer', 'label' => t('Number of credits that will expire')),
+      'owner' => array('type' => 'user', 'label' => t('Owner of the credits')),
     ),
   );
   $events['emh_points_new_points'] = array(
-    'label' => t('Points are added'),
+    'label' => t('Credits are added'),
     'module' => 'emh_points',
-    'group' => t('Points'),
+    'group' => t('Credits'),
     'variables' => array(
-      'points' => array('type' => 'integer', 'label' => t('Number of points that have been transfered')),
-      'owner' => array('type' => 'user', 'label' => t('Owner of the points')),
+      'points' => array('type' => 'integer', 'label' => t('Number of credits that have been transfered')),
+      'owner' => array('type' => 'user', 'label' => t('Owner of the credits')),
     ),
   );
   return $events;
@@ -38,12 +38,12 @@ function emh_points_rules_event_info() {
 function emh_points_rules_condition_info() {
   $conditions = array();
   $conditions['emh_points_user_has_enough_points'] = array(
-    'label' => t('User has enough points'),
+    'label' => t('User has enough credits'),
     'module' => 'emh_points',
-    'group' => t('Points'),
+    'group' => t('Credits'),
     'parameter' => array(
-      'owner' => array('type' => 'user', 'label' => t('Owner of the points')),
-      'points' => array('type' => 'integer', 'label' => t('Number of points to validate')),
+      'owner' => array('type' => 'user', 'label' => t('Owner of the credits')),
+      'points' => array('type' => 'integer', 'label' => t('Number of credits to validate')),
     ),
   );
   return $conditions;
@@ -69,13 +69,13 @@ function emh_points_user_has_enough_points($user, $points) {
 function emh_points_rules_action_info() {
   $actions = array();
   $actions['move_points'] = array(
-    'label' => t('Move points'),
-    'group' => t('Points'),
+    'label' => t('Move credits'),
+    'group' => t('Credits'),
     'base' => 'emh_points_move_points',
     'parameter' => array(
       'source' => array('label' => t('Source'), 'type' => 'entity'),
       'destination' => array('label' => t('Destination'), 'type' => 'entity'),
-      'points' => array('label' => t('Number of points to move'), 'type' => 'integer'),
+      'points' => array('label' => t('Number of credits to move'), 'type' => 'integer'),
     ),
   );
   return $actions;

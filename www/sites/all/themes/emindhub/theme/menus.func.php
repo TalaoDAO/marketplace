@@ -40,7 +40,7 @@ function emindhub_menu_link__user_menu(&$vars) {
   $element = &$vars['element'];
 
   if (module_exists('emh_points')) {
-    if ($element['#href'] == 'points') {
+    if ($element['#href'] == 'credits') {
       global $user;
 
       // Loads the whole user data
@@ -48,7 +48,7 @@ function emindhub_menu_link__user_menu(&$vars) {
         $user = user_load($user->uid);
       }
 
-      $element['#title'] = '<span class="badge">' . t('@amount points', array('@amount' => $user->emh_points)) . '</span>';
+      $element['#title'] = '<span class="badge">' . t('@amount credits', array('@amount' => $user->emh_points)) . '</span>';
       $element['#localized_options']['html'] = TRUE;
     }
   }

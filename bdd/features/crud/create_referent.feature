@@ -11,29 +11,24 @@ Feature: Create permissions for Référents
     | Avengers | admin   |
 
     Given "corporate" content:
-    | title     | author  |
-    | Amazon    | admin   |
+    | title                 | author  |
+    | Marvel Studios        | admin   |
 
     Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | référent1 | emindhub.test+referent1@gmail.com | référent | Paul          | Stanley         | 0612345678      | The Starchild     | Avengers     | emindhub.test+referent1@gmail.com | Amazon  | Other | Maintenance |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
+    | référent1 | emindhub.test+referent1@gmail.com | référent | Nick             | FURY            | 0612345678      | Skydiving          | Avengers     | emindhub.test+referent1@gmail.com | Marvel Studios       | Other | Maintenance |
 
-    # FIXME: Force user profile update for OG role addition
-    Given I am logged in as "référent1"
-    And I click "Edit account"
-    And I press "Save"
+    # Make référent1 as a Referent member of Avengers circle
+    Given I am logged in as a user with the "administrator" role
+    When I go to "content/avengers"
+      And I click "Group"
+      And I click "People"
+      And I click "edit" in the "Nick FURY" row
+      And I check the box "Referent member"
+      And I press "Update membership"
+    Then I should see "The membership has been updated."
 
-  Scenario: A référent cannot create a question
-    Given I am logged in as "référent1"
-    When I go to "node/add"
-    Then I should not see "Question" in the "content" region
-
-  Scenario: A référent cannot create a mission
-    Given I am logged in as "référent1"
-    When I go to "node/add"
-    Then I should not see "Mission" in the "content" region
-
-  Scenario: A référent cannot create a challenge
+  Scenario: A référent cannot create a request
     Given I am logged in as "référent1"
     When I go to "node/add"
-    Then I should not see "Challenge" in the "content" region
+    Then I should not see "Request" in the "content" region

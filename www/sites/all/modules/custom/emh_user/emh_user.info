@@ -3,6 +3,7 @@ description = Global functions for all users.
 package = EMH
 core = 7.x
 
+; Dependencies
 dependencies[] = emh_access
 dependencies[] = emh_points
 dependencies[] = flag

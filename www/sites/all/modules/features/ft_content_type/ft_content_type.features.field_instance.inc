@@ -1496,7 +1496,7 @@ function ft_content_type_field_default_field_instances() {
       'max' => '',
       'min' => '',
       'prefix' => '',
-      'suffix' => ' points',
+      'suffix' => ' credits',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -2734,7 +2734,7 @@ function ft_content_type_field_default_field_instances() {
       'max' => '',
       'min' => 0,
       'prefix' => '',
-      'suffix' => ' points',
+      'suffix' => ' credits',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -3493,7 +3493,7 @@ function ft_content_type_field_default_field_instances() {
       'max' => '',
       'min' => '',
       'prefix' => '',
-      'suffix' => ' points',
+      'suffix' => ' credits',
       'user_register_form' => FALSE,
     ),
     'widget' => array(

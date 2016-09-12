@@ -3,6 +3,9 @@ description = Global configuration.
 package = EMH
 
 dependencies[] = emh_pcp_special
+dependencies[] = emh_points
+dependencies[] = emh_request
+dependencies[] = emh_user
 dependencies[] = hybridauth
 dependencies[] = i18n
 dependencies[] = i18n_node

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Implement default Rules associated to Points
+ * Implement default Rules associated to Credits
  */
 
 /**
@@ -74,7 +74,7 @@ function emh_points_default_rules_configuration() {
           }
         },
         { "drupal_message" : {
-            "message" : "You don\u0027t have enough points. You need \u003C?php echo variable_get(\u0027emh_points_contact_price\u0027, \u0027100\u0027) ?\u003E points.",
+            "message" : "You don\u0027t have enough credits. You need \u003C?php echo variable_get(\u0027emh_points_contact_price\u0027, \u0027100\u0027) ?\u003E credits.",
             "type" : "error"
           }
         }
@@ -82,9 +82,9 @@ function emh_points_default_rules_configuration() {
     }
   }');
 
-  // Donne les points si tu publies le contenu dès sa création
+  // Donne les credits si tu publies le contenu dès sa création
   $items['rules_transfert_points_for_content'] = entity_import('rules_config', '{ "rules_transfert_points_for_content" : {
-      "LABEL" : "Transfert points for content",
+      "LABEL" : "Transfert credits for content",
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "REQUIRES" : [ "emh_points", "rules" ],
@@ -108,9 +108,9 @@ function emh_points_default_rules_configuration() {
     }
   }');
 
-  // Donne des points si tu édites un contenu et le publie alors qu'il était brouillon
+  // Donne des credits si tu édites un contenu et le publie alors qu'il était brouillon
   $items['emh_points_transfert_points_for_published_content'] = entity_import('rules_config', '{ "emh_points_transfert_points_for_published_content" : {
-      "LABEL" : "Transfert points for published content",
+      "LABEL" : "Transfert credits for published content",
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "REQUIRES" : [ "rules", "emh_points" ],
@@ -136,7 +136,7 @@ function emh_points_default_rules_configuration() {
   }');
 
   $items['emh_points_transfert_points_for_updated_content'] = entity_import('rules_config', '{ "emh_points_transfert_points_for_updated_content" : {
-      "LABEL" : "Transfert points for updated content",
+      "LABEL" : "Transfert credits for updated content",
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
       "REQUIRES" : [ "rules", "emh_points" ],

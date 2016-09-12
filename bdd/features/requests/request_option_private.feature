@@ -11,22 +11,23 @@ Feature: Request and submissions
     | Avengers | admin   |
 
     Given "corporate" content:
-    | title     | author  |
-    | Google    | admin   |
-    | Facebook  | admin   |
-    | Twitter   | admin   |
+    | title                 | author  |
+    | Marvel Studios        | admin   |
 
     Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
-    | expert2 | emindhub.test+expert2@gmail.com | expert   | Klark            | KENT            | Modèle             | Avengers     | emindhub.test+expert2@gmail.com | Twitter   | Employee  | Other         |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance |
+
+    Given users:
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios     | Employee             | Energy        |
+    | expert2 | emindhub.test+expert2@gmail.com | expert   | Klark            | KENT            | 0712345671      | Modèle             | Avengers     | emindhub.test+expert2@gmail.com | Marvel Studios     | Employee             | Other         |
 
     Given "request" content:
     | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
     | How to become a superhero?  | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    | 0       |
 
-    Given I give "client1" 10000 emh points
+    Given I give "client1" 10000 emh credits
 
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
@@ -40,18 +41,18 @@ Feature: Request and submissions
     # Activate option
     Given I am logged in as "client1"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
-    And I click "Edit" in the "primary tabs" region
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "Edit" in the "primary tabs" region
     Given I check "Private"
-    And I press "Continue"
+      And I press "Continue"
     # Validation page
-    And I press "Publish"
+      And I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been published."
 
     # An expert responds to the request.
     Given I am logged in as "expert1"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "Your submission will only be visible by the request's author."
 
     Given I enter "Everybody can be, trust me, I'm the best we known." for "How to become a superhero?"
@@ -61,13 +62,13 @@ Feature: Request and submissions
   Scenario: An expert can see its own submission
     Given I am logged in as "expert1"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "Everybody can be, trust me, I'm the best we known." in the "user_submission" region
 
   Scenario: An expert cannot see other published submissions
     Given I am logged in as "expert2"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should not see "Everybody can be, trust me, I'm the best we known."
 
   Scenario: The author can see the published submissions
@@ -80,5 +81,5 @@ Feature: Request and submissions
 
     When I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "Submissions to your request are only visible by you."
-    And I should see "Iron MAN"
-    And I should see "Everybody can be, trust me, I'm the best we known."
+      And I should see "Iron MAN"
+      And I should see "Everybody can be, trust me, I'm the best we known."

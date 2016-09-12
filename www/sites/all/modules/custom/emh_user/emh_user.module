@@ -5,9 +5,6 @@
  */
 
 
-include_once 'emh_user.admin.inc';
-
-
 /**
  * Implements hook_views_api().
  */
@@ -36,14 +33,6 @@ function emh_user_menu() {
 		'page arguments' => array('user_register_form_expert'),
 		'access arguments' => array('access content'),
 	);
-  $items['user/%user/purchase'] = array(
-		'title' => 'Buy profile access',
-		'page callback' => 'drupal_get_form',
-    'page arguments' => array('emh_user_profile_purchase_form', 1),
-    'access callback' => 'user_view_access',
-    'access arguments' => array(1),
-    'type' => MENU_CALLBACK,
-	);
 
   return $items;
 }
@@ -53,9 +42,37 @@ function emh_user_menu() {
  */
 function emh_user_menu_alter(&$items) {
   unset($items['user/register']);
+  $items['user/%user']['access callback'] = 'emh_user_view_access';
+  $items['user/%user']['access arguments'] = array(1);
   $items['user/%user/hybridauth']['access callback'] = FALSE;
   $items['user/%user/edit']['title'] = t('Edit account');
   $items['user/%user/change-password']['title'] = t('Change password');
+}
+
+/**
+ * User view access callback.
+ *
+ * @param $account
+ *   Can either be a full user object or a $uid.
+ */
+function emh_user_view_access($account) {
+  $uid = is_object($account) ? $account->uid : (int) $account;
+
+  // Never allow access to view the anonymous user account.
+  if ($uid) {
+    // Admins can view all, users can view own profiles at all times.
+    if ($GLOBALS['user']->uid == $uid || user_access('administer users')) {
+      return TRUE;
+    }
+    elseif (user_access('access user profiles')) {
+      // At this point, load the complete account object.
+      if (!is_object($account)) {
+        $account = user_load($uid);
+      }
+      return (is_object($account) && $account->status && emh_access_user_can_see_full_user($GLOBALS['user']->uid, $account->uid));
+    }
+  }
+  return FALSE;
 }
 
 
@@ -83,8 +100,8 @@ function emh_user_field_access($op, $field, $entity_type, $entity, $account) {
         switch($field['field_name']) {
           // We can always access few fields.
           case 'field_first_name':
-          case 'field_last_name':
-          case 'field_photo':
+          // case 'field_last_name':
+          // case 'field_photo':
           case 'field_titre_metier':
           case 'field_employment_history':
           case 'field_entreprise':
@@ -98,142 +115,6 @@ function emh_user_field_access($op, $field, $entity_type, $entity, $account) {
   }
 
   return TRUE;
-}
-
-
-/**
- * Builds the profile purchase form.
- */
-function emh_user_profile_purchase_form($form, &$form_state, $account) {
-  global $user;
-
-  // Checks if the account hasn't already been purchased.
-  if (emh_access_user_can_see_full_user($user->uid, $account->uid)) {
-    drupal_set_message(t("You have already access to this profile."), 'warning');
-    drupal_goto('user/' . $account->uid);
-  }
-
-  $form_state['account'] = $account;
-
-  if (isset($_GET['destination'])) {
-    $options = drupal_parse_url(urldecode($_GET['destination']));
-  } else {
-    $options = array('path' => '<front>');
-  }
-
-  $amount = (int) variable_get('emh_user_profile_purchase_amount', 50);
-
-  $form['confirmation'] = array(
-    '#type' => 'item',
-    '#markup' => t("Access !user's profile for !amount points?", array(
-      '!user' => emh_user_get_beautiful_firstname($account),
-      '!amount' => $amount,
-    )),
-  );
-
-  $form['actions'] = array(
-    '#type' => 'actions',
-    '#tree' => false,
-    'cancel' => array(
-      '#type' => 'link',
-      '#title' => t("Cancel"),
-      '#href' => $options['path'],
-      '#options' => $options,
-    ),
-    'submit' => array(
-      '#type' => 'submit',
-      '#value' => t("Access profile"),
-    ),
-  );
-
-  return $form;
-}
-
-
-/**
- * Validation callback for the profile purchase form.
- */
-function emh_user_profile_purchase_form_validate($form, &$form_state) {
-  global $user;
-  if (!isset($user->emh_points)) {
-    emh_points_entity_load_single($user, 'user');
-  }
-  if ($user->emh_points < (int) variable_get('emh_user_profile_purchase_amount', 50)) {
-    form_error($form, t("You don't have enough points to access !user's profile.", array(
-      '!user' => emh_user_get_beautiful_firstname($form_state['account']),
-    )));
-  }
-}
-
-
-/**
- * Submit callback for the profile purchase form.
- */
-function emh_user_profile_purchase_form_submit($form, &$form_state) {
-  $account = $form_state['account'];
-
-  try {
-    emh_user_purchase_profile($account);
-
-    drupal_set_message(t("You can now access !user's profile.", array(
-      '!user' => emh_user_get_beautiful_firstname($account),
-    )));
-  }
-  catch (\Exception $e) {
-    drupal_set_message(t("!user's profile could not be purchased.", array(
-      '!user' => emh_user_get_beautiful_firstname($account),
-    )), 'error');
-  }
-
-  if (!isset($_GET['destination'])) {
-    $form_state['redirect'] = 'user/' . $account->uid;
-  }
-}
-
-
-/**
- * Implements hook_action_info().
- */
-function emh_user_action_info() {
-  $actions = array();
-
-  $actions['emh_user_profile_purchase_action'] = array(
-    'type' => 'entity',
-    'label' => t('Access profiles'),
-    'configurable' => false,
-    'triggers' => array(),
-    'permissions' => array('access user profiles'),
-    'aggregate' => true,
-    'behavior' => array('emh'),
-  );
-
-  return $actions;
-}
-
-
-/**
- * Action to purchase a profil.
- */
-function emh_user_profile_purchase_action($entities, $context) {
-  global $user;
-
-  foreach ($entities as $entity) {
-    if (empty($entity->uid) || $entity->uid == 1) {
-      continue;
-    }
-
-    try {
-      if (emh_access_user_can_see_full_user($user->uid, $entity->uid)) {
-        continue;
-      }
-      emh_user_purchase_profile($entity->uid);
-    }
-    catch (\Exception $e) {
-      drupal_set_message(t("!user's profile could not be purchased.", array(
-        '!user' => emh_user_get_beautiful_firstname($entity->uid),
-      )), 'error');
-    }
-  }
 }
 
 
@@ -377,21 +258,7 @@ function emh_user_forms($form_id, $args) {
  */
 function emh_user_username_alter(&$name, $account) {
 
-  global $user;
-  $user1 = user_load($user->uid);
-  $user2 = user_load($account->uid);
-
-  $items = ''; $firstname = ''; $lastname = '';
-  $items = field_get_items('user', $user2, 'field_first_name');
-  $firstname = isset($items[0]['value']) ? check_plain(ucwords($items[0]['value'])) : '';
-
-  if (module_exists('emh_access') && emh_access_user_can_see_full_user($user1->uid, $user2->uid)) {
-    $items = field_get_items('user', $user2, 'field_last_name');
-    $lastname = isset($items[0]['value']) ? check_plain(ucwords($items[0]['value'])) : '';
-  }
-
-  $name = !empty($firstname) ? $firstname : $account->name;
-  $name .= !empty($lastname) ? ' ' . strtoupper($lastname) : '';
+  $name = emh_user_get_beautiful_realname($account);
 
 }
 
@@ -413,24 +280,26 @@ function emh_user_redirect_submit($form, &$form_state) {
 /**
  * Helper function to get user realname instead of username.
  */
-function emh_user_get_beautiful_realname($uid) {
-  $account = user_load($uid);
-  $firstName = '';
-  if (!empty($account->field_first_name[LANGUAGE_NONE])) {
-    $firstName = $account->field_first_name[LANGUAGE_NONE][0]['value'];
-    $firstName = check_plain(ucwords($firstName));
+function emh_user_get_beautiful_realname($account) {
+
+  global $user;
+  $user1 = user_load($user->uid);
+  $user2 = user_load($account->uid);
+
+  $name = ''; $items = ''; $firstname = ''; $lastname = '';
+  $items = field_get_items('user', $user2, 'field_first_name');
+  $firstname = isset($items[0]['value']) ? check_plain(ucwords($items[0]['value'])) : '';
+
+  if (module_exists('emh_access') && emh_access_user_can_see_full_user($user1->uid, $user2->uid)) {
+    $items = field_get_items('user', $user2, 'field_last_name');
+    $lastname = isset($items[0]['value']) ? check_plain(ucwords($items[0]['value'])) : '';
   }
-  $lastName = '';
-  if (!empty($account->field_last_name[LANGUAGE_NONE])) {
-    $lastName = $account->field_last_name[LANGUAGE_NONE][0]['value'];
-    $lastName = check_plain(strtoupper($lastName));
-  }
-  if (!empty($firstName) && !empty($lastName)) {
-    return '<span class="author firstname">' . $firstName  . '</span>'. ' ' . '<span class="author lastname">' . $lastName . '</span>';
-  }
-  else {
-    return check_plain($account->name);
-  }
+
+  $name = !empty($firstname) ? $firstname : $account->name;
+  $name .= !empty($lastname) ? ' ' . strtoupper($lastname) : '';
+
+  return $name;
+
 }
 
 /**
@@ -456,6 +325,7 @@ function emh_user_get_beautiful_firstname($account) {
 
 /**
  * Helper function to check if current user has access to other user's realname.
+ * TODO: remove this useless function!
  */
 function emh_user_get_beautiful_author($node) {
   if (empty($node)) {
@@ -471,6 +341,7 @@ function emh_user_get_beautiful_author($node) {
 
 /**
  * Helper function to check access to user profile url.
+ * TODO: remove this useless function!
  */
 function emh_user_get_beautiful_profile_link($uid) {
   global $user;
@@ -517,7 +388,7 @@ function emh_user_cartouche_view($uid, $context = NULL) {
 
 	$node = menu_get_object();
 
-  $cartouche = ''; $photo_uri = ''; $organisation = ''; $activity = '';
+  $cartouche = ''; $photo_uri = ''; $identity = ''; $organisation = ''; $activity = '';
 
 	// Photo
   if (emh_access_user_can_see_full_user($uid1, $uid2)) {
@@ -537,23 +408,40 @@ function emh_user_cartouche_view($uid, $context = NULL) {
   }
 
 	// Identity
-  if (!(($context == 'author') && emh_request_has_option($node, 'anonymous') && $node->field_hide_name[LANGUAGE_NONE][0]['value'] == true)) {
-    if (emh_access_user_can_see_full_user($uid1, $uid2)) {
-  		$cartouche .= '<span class="user-identity"><a href="' . url('user/' . $uid2) . '">' . format_username($u2_account) . '</span></a>';
-    }
-  	else {
-  		$cartouche .= '<span class="user-identity">' . format_username($u2_account) . '</span>';
-  	}
-  }
+  $firstname = field_get_items('user', $u2_account, 'field_first_name');
+  $firstname = isset($firstname[0]['value']) ? check_plain(ucwords($firstname[0]['value'])) : '';
+  $lastname = field_get_items('user', $u2_account, 'field_last_name');
+  $lastname = isset($lastname[0]['value']) ? check_plain(ucwords($lastname[0]['value'])) : '';
 
-	// Author organisation
+  if ($context == 'author' && !(emh_request_has_option($node, 'anonymous') && $node->field_hide_name[LANGUAGE_NONE][0]['value'] == true)) {
+    $identity = $firstname . ' ' . strtoupper($lastname);
+  }
+  elseif ($context == 'author' && emh_request_has_option($node, 'anonymous') && $node->field_hide_name[LANGUAGE_NONE][0]['value'] == true) {
+    $identity = t('Anonymous');
+  }
+  else {
+    $identity = format_username($u2_account);
+  }
+  // Profile link
+  if (emh_access_user_can_see_full_user($uid1, $uid2) && !(emh_request_has_option($node, 'anonymous') && $node->field_hide_name[LANGUAGE_NONE][0]['value'] == true)) {
+    $identity = '<a href="' . url('user/' . $uid2) . '">' . $identity . '</a>';
+  }
+  $cartouche .= '<span class="user-identity">' . $identity . '</a>';
+
+	// Organisation
 	$organisation = field_get_items('user', $u2_account, 'field_entreprise');
-  if (($context == 'author') && emh_request_has_option($node, 'anonymous') && ($node->field_hide_organisation[LANGUAGE_NONE][0]['value'] == false) && !empty($organisation)) {
+  if (!empty($organisation)) {
     $organisation = field_view_field('user', $u2_account, 'field_entreprise', array('label'=>'hidden'));
-		$cartouche .= '<span class="user-organisation">' . render($organisation) . '</span>';
+    if (
+          ($context == 'author' && !(emh_request_has_option($node, 'anonymous')))
+      ||  ($context == 'author' && (emh_request_has_option($node, 'anonymous') && ($node->field_hide_organisation[LANGUAGE_NONE][0]['value'] == false)))
+      ||  ($context != 'author' && (emh_access_user_can_see_full_user($uid1, $uid2)))
+    ) {
+      $cartouche .= '<span class="user-organisation">' . render($organisation) . '</span>';
+    }
   }
 
-  // Author activity
+  // Activity
 	$activity = field_get_items('node', $node, 'field_activity');
 	if (($context == 'author') && emh_request_has_option($node, 'anonymous') && !empty($activity)) {
     $activity = field_view_field('node', $node, 'field_activity', array('label'=>'hidden'));
@@ -561,8 +449,9 @@ function emh_user_cartouche_view($uid, $context = NULL) {
 	}
 
 	// Buy profile access
-	if (!emh_access_user_can_see_full_user($uid1, $uid2) && !($context == 'author')) {
-		$cartouche .= '<a href="' . url("user/$uid2/purchase") . '?destination=node/' . $node->nid . '" class="user-buy-access">' . t('Access profile for 50 credits') . '</a>';
+	if (module_exists('emh_user_profile_purchase') && !emh_access_user_can_see_full_user($uid1, $uid2) && !($context == 'author')) {
+    $amount = (int) variable_get('emh_user_profile_purchase_amount', 100);
+		$cartouche .= '<a href="' . url("user/$uid2/purchase") . '?destination=node/' . $node->nid . '" class="user-buy-access">' . t('Access profile for ' . $amount . ' credits') . '</a>';
 	}
 
   // Self cartouche
@@ -574,45 +463,4 @@ function emh_user_cartouche_view($uid, $context = NULL) {
     return '<div class="user-cartouche">' . $cartouche . '</div>';
   }
 
-}
-
-/**
- * Purchases an user profile for the current user.
- *
- * @param stdClass|integer $account
- *  Either an user object or a uid
- */
-function emh_user_purchase_profile($account) {
-  try {
-    $transaction = db_transaction();
-
-    global $user;
-
-    if (is_numeric($account)) {
-      $account = user_load($account);
-    }
-
-    // Spends user's points
-    $amount = (int) variable_get('emh_user_profile_purchase_amount', 50);
-    emh_points_move_points($user, $account, $amount);
-
-    // Flags the account to add it in the user's relationships
-    $flag = flag_get_flag('my_contacts');
-    $flag->flag('flag', $account->uid, $user, true);
-
-    unset($transaction);
-  }
-  catch (\Exception $e) {
-    if ($transaction) {
-      try {
-        $transaction->rollback();
-      }
-      catch (\Exception $e2) {
-        watchdog_exception('emh_user', $e2);
-      }
-
-      watchdog_exception('emh_user', $e);
-      throw $e;
-    }
-  }
 }

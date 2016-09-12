@@ -11,16 +11,17 @@ Feature: Request and submissions
     | Avengers | admin   |
 
     Given "corporate" content:
-    | title     | author  |
-    | Google    | admin   |
-    | Facebook  | admin   |
-    | Twitter   | admin   |
+    | title                 | author  |
+    | Marvel Studios        | admin   |
 
     Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Facebook  | Employee  | Energy        |
-    | expert2 | emindhub.test+expert2@gmail.com | expert   | Klark            | KENT            | Modèle             | Avengers     | emindhub.test+expert2@gmail.com | Twitter   | Employee  | Other         |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance |
+
+    Given users:
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios     | Employee             | Energy        |
+    | expert2 | emindhub.test+expert2@gmail.com | expert   | Klark            | KENT            | 0712345671      | Modèle             | Avengers     | emindhub.test+expert2@gmail.com | Marvel Studios     | Employee             | Other         |
 
     Given "request" content:
     | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
@@ -75,44 +76,44 @@ Feature: Request and submissions
 
     When I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "Iron MAN"
-    And I should see "Everybody can be, trust me, I'm the best we known."
-    And I should not see "Klark KENT"
-    And I should not see "You have to read DC comics of course!"
+      And I should see "Everybody can be, trust me, I'm the best we known."
+      And I should not see "Klark KENT"
+      And I should not see "You have to read DC comics of course!"
 
   @exclude
   Scenario: The expert cannot respond twice to the same request
     Given I am logged in as "expert1"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
     #Then I should not see "Publish" in the "user_submission_form" region
 
   Scenario: The expert can edit its own submission
     Given I am logged in as "expert1"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
-    And I click "Edit" in the "user_submission" region
-    And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we know."
-    And I press "Save"
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "Edit" in the "user_submission" region
+      And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we know."
+      And I press "Save"
     Then I should see the success message "Your submission has been updated."
 
   @exclude
   Scenario: The author cannot edit an submission
     Given I am logged in as "client1"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should not see the link "edit" in the "submissions" region
 
   @exclude
   Scenario: The expert cannot delete its own submission
     Given I am logged in as "expert2"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should not see the link "delete" in the "user_submission" region
-    And I should not see the link "delete" in the "submissions" region
+      And I should not see the link "delete" in the "submissions" region
 
   @exclude
   Scenario: The author cannot delete an submission
     Given I am logged in as "client1"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should not see the link "delete" in the "submissions" region
