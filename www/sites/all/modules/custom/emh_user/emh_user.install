@@ -102,11 +102,8 @@ function emh_user_update_7009() {
 }
 
 /**
- * ADD: VBO Purchase profile permissions.
+ * ADD: Enable Profile purchase submodule.
  */
-function emh_points_update_7010() {
-  // Authentificated user
-  user_role_grant_permissions(2, array(
-    'execute emh_user_profile_purchase_action',
-  ));
+function emh_user_update_7010() {
+  module_enable(array('emh_user_profile_purchase'));
 }

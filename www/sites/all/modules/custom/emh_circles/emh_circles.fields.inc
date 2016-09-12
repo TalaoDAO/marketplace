@@ -67,7 +67,7 @@ function emh_circles_field_widget_form(&$form, &$form_state, $field, $instance, 
   foreach ($options as $id => $option) {
     $default_cost = ($option['cost'] === 0)
       ? t("Cost by default: free")
-      : t("Cost by default: !amount points", array('!amount' => $option['cost']));
+      : t("Cost by default: !amount credits", array('!amount' => $option['cost']));
 
     $element[$id] = array(
       '#type' => 'textfield',

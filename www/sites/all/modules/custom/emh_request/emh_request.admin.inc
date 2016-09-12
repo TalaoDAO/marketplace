@@ -7,7 +7,7 @@
 
 /**
  * Implements hook_form_FORM_ID_alter().
- * Adds fields for options costs in the points administration form.
+ * Adds fields for options costs in the credits administration form.
  */
 function emh_request_form_emh_points_admin_form_alter(&$form, &$form_state, $form_id) {
   $options = emh_request_get_options();
@@ -35,7 +35,7 @@ function emh_request_form_emh_points_admin_form_alter(&$form, &$form_state, $for
 
 
 /**
- * Validation callback for the points administration form.
+ * Validation callback for the credits administration form.
  */
 function emh_request_form_emh_points_admin_form_validate($form, &$form_state) {
   foreach ($form_state['values']['emh_options_costs'] as $id => $cost) {

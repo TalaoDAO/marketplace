@@ -25,9 +25,6 @@ function emindhub_file($variables) {
 }
 
 
-/*
- * USEFUL FUNCTIONS
- */
 function getImgSrc($fileName) {
 	return sprintf('%s/images/%s', base_path().path_to_theme(), $fileName);
 }
@@ -67,7 +64,6 @@ function customDSM($input, $name = NULL, $type = 'status') {
   $export = kprint_r($input, TRUE, $name);
   drupal_set_message($export, $type);
 }
-
 
 // YBA : hide env indicator switcher
 function emindhub_environment_indicator_switches($variables) {
@@ -327,7 +323,6 @@ function emindhub_username($variables) {
 //     }
 //   // }
 // }
-
 
 function emindhub_author_has_picture( $node ) {
 

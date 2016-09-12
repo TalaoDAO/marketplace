@@ -12,14 +12,14 @@ Feature: Requests visibility for Anonymous
     | X-Men    | admin   |
 
     Given "corporate" content:
-    | title     | author  |
-    | Google    | admin   |
-    | Apple     | admin   |
+    | title                 | author  |
+    | Marvel Studios        | admin   |
+    | Marvel Entertainment  | admin   |
 
     Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Google  | Freelancer | Maintenance |
-    | client2 | emindhub.test+client2@gmail.com | business | Charle           | XAVIER          |                 |                    | X-Men        | emindhub.test+client2@gmail.com | Apple   | Freelancer | Engines     |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance |
+    | client2 | emindhub.test+client2@gmail.com | business | Charle           | XAVIER          |                 |                    | X-Men        | emindhub.test+client2@gmail.com | Marvel Entertainment | Freelancer           | Engines     |
 
     Given "request" content:
     | title         | field_domaine  | og_group_ref    | author  | field_expiration_date  | status  |
@@ -32,9 +32,9 @@ Feature: Requests visibility for Anonymous
     Given I am not logged in
     When I go to homepage
     Then I should not see "Fight Magneto"
-    And I should not see "Fight Ultron"
-    And I should not see "Fight Hydra"
-    And I should not see "Fight Thanos"
+      And I should not see "Fight Ultron"
+      And I should not see "Fight Hydra"
+      And I should not see "Fight Thanos"
 
     When I go to "/content/fight-magneto"
     Then I should not see "Fight Magneto"
@@ -47,6 +47,6 @@ Feature: Requests visibility for Anonymous
 
     When I go to "/node"
     Then I should not see "Fight Magneto"
-    And I should not see "Fight Ultron"
-    And I should not see "Fight Hydra"
-    And I should not see "Fight Thanos"
+      And I should not see "Fight Ultron"
+      And I should not see "Fight Hydra"
+      And I should not see "Fight Thanos"

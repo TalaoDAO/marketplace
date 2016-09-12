@@ -29,7 +29,7 @@
           if (Number(cost) == 0) {
             return Drupal.t("Free");
           }
-          return Drupal.t("!amount points", { '!amount': cost });
+          return Drupal.t("!amount credits", { '!amount': cost });
         }
 
 
@@ -48,4 +48,3 @@
     };
 
 }(jQuery));
-

@@ -75,7 +75,7 @@ function emh_circles_field_schema($field) {
           'not null' => true,
         ),
         'cost' => array(
-          'description' => 'Cost of the option (number of points)',
+          'description' => 'Cost of the option (number of credits)',
           'type' => 'int',
           'not null' => true,
           'default' => 0,

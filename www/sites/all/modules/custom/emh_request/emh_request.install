@@ -78,7 +78,7 @@ function _emh_request_string_overrides() {
     'New component %name added.' => 'New question %name added.',
     'The component positions and required values have been updated.' => 'Your questions have been updated.',
     'Submissions for this form are closed.' => 'Submissions for this request are closed.',
-    'You have already submitted this form.' => 'You have already submitted this request.',
+    'You have already submitted this form.' => '',
     'Submission updated.' => 'Your submission has been updated.',
     'Submission saved. You may return to this form later and it will restore the current values.' => 'Your submission has been saved as draft. You can modify or publish this submission anytime.',
   );
@@ -104,7 +104,7 @@ function emh_request_field_schema($field) {
           'not null' => true,
         ),
         'cost' => array(
-          'description' => 'Cost of the option (number of points)',
+          'description' => 'Cost of the option (number of credits)',
           'type' => 'int',
           'not null' => true,
           'default' => 0,
@@ -380,14 +380,12 @@ function emh_request_update_7122() {
   features_revert(array('ft_request' => array('field_instance', 'variable')));
 }
 
-
 /**
  * CHG: New field for request questions edition.
  */
 function emh_request_update_7123() {
   features_revert(array('ft_request' => array('field_base', 'field_instance', 'variable')));
 }
-
 
 /**
  * CHG: Request strings.
@@ -396,7 +394,6 @@ function emh_request_update_7124() {
   emh_request_disable();
   emh_request_enable();
 }
-
 
 /**
  * ADD: Request content type to notification rules.
@@ -408,4 +405,12 @@ function emh_request_update_7125() {
   if ($rules_config = rules_config_load('rules_emh_request_send_webmaster_notification_email')) {
     $rules_config->delete();
   }
+}
+
+/**
+ * Revert strings.
+ */
+function emh_request_update_7126() {
+  emh_request_disable_strings();
+  emh_request_enable_strings();
 }

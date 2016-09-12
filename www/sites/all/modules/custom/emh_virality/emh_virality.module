@@ -182,11 +182,11 @@ function emh_virality_block_view($delta = '') {
       $reward = _emh_virality_get_invitation_reward();
 
       if ($reward > 0) {
-        $text = 'You can earn points by inviting <b>experts</b> in your network to join eMindHub. You will get a reward (50 points per expert) the first time each new expert you sponsored is selected by a client for his contribution (i.e. response to a question, a mission or a challenge).<br />'
-                . 'We remind you that you can monetize your points once you have reached a threshold of at least 1500 points.';
+        $text = 'You can earn credits by inviting <b>experts</b> in your network to join eMindHub. You will get a reward (50 credits per expert) the first time each new expert you sponsored is selected by a client for his contribution (i.e. response to a question, a mission or a challenge).<br />'
+                . 'We remind you that you can monetize your credits once you have reached a threshold of at least 1500 credits.';
 
         $block = array(
-          'subject' => t('Invite experts and earn points!'),
+          'subject' => t('Invite experts and earn credits!'),
           'content' => array(
             'text' => array(
               '#theme' => 'html_tag',
@@ -218,7 +218,7 @@ function emh_virality_block_view($delta = '') {
  * @see emh_points_move_points()
  */
 function emh_virality_move_points_after($transaction, $source, $destination) {
-  // If some points moved from node to user
+  // If some credits moved from node to user
   if ($transaction['source_type'] == 'node' && $transaction['dest_type'] == 'user') {
     $query = db_select('emh_invitation', 'i')
       ->fields('i', array('invitation_id'))
