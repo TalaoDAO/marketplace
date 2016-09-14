@@ -101,7 +101,7 @@ function emh_user_field_access($op, $field, $entity_type, $entity, $account) {
           // We can always access few fields.
           case 'field_first_name':
           // case 'field_last_name':
-          // case 'field_photo':
+          case 'field_photo':
           case 'field_titre_metier':
           case 'field_employment_history':
           case 'field_entreprise':
