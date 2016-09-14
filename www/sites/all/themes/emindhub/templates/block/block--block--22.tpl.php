@@ -13,12 +13,19 @@ $front_theme = $base_url . '/' . $front_theme;
         <img alt="<?php print t('Services to communities'); ?>" class="center-block" src="<?php print $front_theme; ?>/images/content/block/eMindHub_Services-to_communities.jpg" />
       </div>
 
-      <div class="text">
-        <ol>
-          <li><?php print t('Post your request, it\'s <strong>free</strong>'); ?></li>
-          <li><?php print t('Add options to <strong>get the most from your request</strong> and <strong>ensure confidentiality</strong>'); ?></li>
-          <li><?php print t('<strong>Access expert profiles</strong> on the basis of the <strong>quality</strong> of their responses'); ?></li>
-        </ol>
+      <div class="steps">
+        <p class="step">
+          <span class="numbering"><span>1</span></span>
+          <span class="text"><?php print t('Post your <strong>request</strong>, it\'s <strong>free</strong>'); ?></span>
+        </p>
+        <p class="step">
+          <span class="numbering"><span>2</span></span>
+          <span class="text"><?php print t('Add <strong>options</strong> to get the <strong>most</strong> from your request and ensure <strong>confidentiality</strong>'); ?></span>
+        </p>
+        <p class="step">
+          <span class="numbering"><span>3</span></span>
+          <span class="text"><?php print t('<strong>Access expert profiles</strong> on the basis of the <strong>quality</strong> of their responses'); ?></span>
+        </p>
       </div>
 
     </div>
