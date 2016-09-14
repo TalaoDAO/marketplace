@@ -9750,6 +9750,8 @@ button.close {
 .form-actions:after,
 .region-title-bottom:before,
 .region-title-bottom:after,
+#block-block-7 .content #highlight:before,
+#block-block-7 .content #highlight:after,
 #block-block-18 .content:before,
 #block-block-18 .content:after,
 #block-block-13 .block-title > span:before,
@@ -9834,6 +9836,7 @@ body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-
 .form-actions:after,
 .form-actions:after,
 .region-title-bottom:after,
+#block-block-7 .content #highlight:after,
 #block-block-18 .content:after,
 #block-block-13 .block-title > span:after,
 #block-block-12 .block-title > span:after,
@@ -14522,7 +14525,7 @@ table th[class*="col-"] {
   font-weight: 700;
 }
 /* HOMEPAGE
- * Slider
+ * Highlight
  */
 #block-block-7 {
   background: #114577;
@@ -14536,41 +14539,294 @@ table th[class*="col-"] {
   line-height: 1.5;
   font-size: 26px;
   text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.75);
+  margin: 0;
+  padding: 20px 0;
 }
 #block-block-7 .content h2 strong {
   font-weight: bold;
   display: block;
   color: #FFF;
 }
-#block-block-7 .content .carousel-indicators {
-  bottom: 0;
+@media (min-width: 992px) {
+  #block-block-7 .content h2 {
+    margin: 0;
+    padding: 60px 0;
+  }
 }
-#block-block-7 .content .carousel-inner .item {
-  min-height: 239px;
-}
-#block-block-7 .content .carousel-inner .item:first-child {
-  background: transparent url("../images/banner/eMindHub_banner_01.jpg") no-repeat center center;
-}
-#block-block-7 .content .carousel-inner .item:last-child {
+#block-block-7 .content #highlight {
+  margin-left: -15px;
+  margin-right: -15px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
   background: transparent url("../images/banner/eMindHub_banner_02.jpg") no-repeat center center;
 }
-#block-block-7 .content .carousel-caption {
-  text-align: left;
-  left: 10%;
+@media (min-width: 992px) {
+  #block-block-7 .content #highlight {
+    min-height: 239px;
+  }
 }
-#block-block-7 .content .carousel-control.left {
+#block-block-7 .content #highlight .caption {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  #block-block-7 .content #highlight .caption {
+    float: left;
+    width: 66.66666667%;
+  }
+}
+#block-block-7 .content #highlight .video {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  #block-block-7 .content #highlight .video {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+#block-block-7 .content #highlight .caption,
+#block-block-7 .content #highlight .video {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 1200px) {
+  #block-block-7 .content #highlight .caption,
+  #block-block-7 .content #highlight .video {
+    float: left;
+    width: 50%;
+  }
+}
+#block-block-7 .content #highlight .gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 10%;
+  opacity: 1;
+  filter: alpha(opacity=100);
+  font-size: 20px;
+  color: #ffffff;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  width: 50%;
+}
+#block-block-7 .content #highlight .gradient.left {
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
+  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
+}
+#block-block-7 .content #highlight .gradient.right {
+  left: auto;
+  right: 0;
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
+  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
+}
+#block-block-7 .content #highlight .gradient:hover,
+#block-block-7 .content #highlight .gradient:focus {
+  outline: 0;
+  color: #ffffff;
+  text-decoration: none;
+  opacity: 0.9;
+  filter: alpha(opacity=90);
+}
+#block-block-7 .content #highlight .gradient .icon-prev,
+#block-block-7 .content #highlight .gradient .icon-next,
+#block-block-7 .content #highlight .gradient .glyphicon-chevron-left,
+#block-block-7 .content #highlight .gradient .glyphicon-chevron-right {
+  position: absolute;
+  top: 50%;
+  margin-top: -10px;
+  z-index: 5;
+  display: inline-block;
+}
+#block-block-7 .content #highlight .gradient .icon-prev,
+#block-block-7 .content #highlight .gradient .glyphicon-chevron-left {
+  left: 50%;
+  margin-left: -10px;
+}
+#block-block-7 .content #highlight .gradient .icon-next,
+#block-block-7 .content #highlight .gradient .glyphicon-chevron-right {
+  right: 50%;
+  margin-right: -10px;
+}
+#block-block-7 .content #highlight .gradient .icon-prev,
+#block-block-7 .content #highlight .gradient .icon-next {
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+  font-family: serif;
+}
+#block-block-7 .content #highlight .gradient .icon-prev:before {
+  content: '\2039';
+}
+#block-block-7 .content #highlight .gradient .icon-next:before {
+  content: '\203a';
+}
+#block-block-7 .content #highlight .gradient.left {
   background-image: -webkit-linear-gradient(left, #114577 0%, rgba(17, 69, 119, 0.0001) 100%);
   background-image: -o-linear-gradient(left, #114577 0%, rgba(17, 69, 119, 0.0001) 100%);
   background-image: linear-gradient(to right, #114577 0%, rgba(17, 69, 119, 0.0001) 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff114577', endColorstr='#00114577', GradientType=1);
 }
-#block-block-7 .content .carousel-control.right {
+#block-block-7 .content #highlight .gradient.right {
   background-image: -webkit-linear-gradient(left, rgba(17, 69, 119, 0.0001) 0%, #114577 100%);
   background-image: -o-linear-gradient(left, rgba(17, 69, 119, 0.0001) 0%, #114577 100%);
   background-image: linear-gradient(to right, rgba(17, 69, 119, 0.0001) 0%, #114577 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00114577', endColorstr='#ff114577', GradientType=1);
+}
+#block-block-7 .content .video {
+  text-align: center;
+}
+#block-block-7 .content .video button#hp-video {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin-right: 5px;
+  color: #4c6172;
+  background-color: transparent;
+  border-color: #f2f2f2;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 0;
+  width: 175px;
+  max-width: 100%;
+  height: 117px;
+  margin: 20px 0;
+  background-image: url("../images/content/block/eMindHub_video_player.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-size: 50px;
+  color: #114577;
+  text-shadow: 1px 1px 10px rgba(255, 255, 255, 0.75);
+}
+#block-block-7 .content .video button#hp-video:focus,
+#block-block-7 .content .video button#hp-video:active:focus,
+#block-block-7 .content .video button#hp-video.active:focus,
+#block-block-7 .content .video button#hp-video.focus,
+#block-block-7 .content .video button#hp-video:active.focus,
+#block-block-7 .content .video button#hp-video.active.focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+#block-block-7 .content .video button#hp-video:hover,
+#block-block-7 .content .video button#hp-video:focus,
+#block-block-7 .content .video button#hp-video.focus {
+  color: #4c6172;
+  text-decoration: none;
+}
+#block-block-7 .content .video button#hp-video:active,
+#block-block-7 .content .video button#hp-video.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+#block-block-7 .content .video button#hp-video.disabled,
+#block-block-7 .content .video button#hp-video[disabled],
+fieldset[disabled] #block-block-7 .content .video button#hp-video {
+  cursor: not-allowed;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+a#block-block-7 .content .video button#hp-video.disabled,
+fieldset[disabled] a#block-block-7 .content .video button#hp-video {
+  pointer-events: none;
+}
+#block-block-7 .content .video button#hp-video:last-child {
+  margin-right: 0;
+}
+#block-block-7 .content .video button#hp-video:focus,
+#block-block-7 .content .video button#hp-video.focus {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: #b3b3b3;
+}
+#block-block-7 .content .video button#hp-video:hover {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: #d4d4d4;
+}
+#block-block-7 .content .video button#hp-video:active,
+#block-block-7 .content .video button#hp-video.active,
+.open > .dropdown-toggle#block-block-7 .content .video button#hp-video {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: #d4d4d4;
+}
+#block-block-7 .content .video button#hp-video:active:hover,
+#block-block-7 .content .video button#hp-video.active:hover,
+.open > .dropdown-toggle#block-block-7 .content .video button#hp-video:hover,
+#block-block-7 .content .video button#hp-video:active:focus,
+#block-block-7 .content .video button#hp-video.active:focus,
+.open > .dropdown-toggle#block-block-7 .content .video button#hp-video:focus,
+#block-block-7 .content .video button#hp-video:active.focus,
+#block-block-7 .content .video button#hp-video.active.focus,
+.open > .dropdown-toggle#block-block-7 .content .video button#hp-video.focus {
+  color: #4c6172;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: #b3b3b3;
+}
+#block-block-7 .content .video button#hp-video:active,
+#block-block-7 .content .video button#hp-video.active,
+.open > .dropdown-toggle#block-block-7 .content .video button#hp-video {
+  background-image: none;
+}
+#block-block-7 .content .video button#hp-video.disabled:hover,
+#block-block-7 .content .video button#hp-video[disabled]:hover,
+fieldset[disabled] #block-block-7 .content .video button#hp-video:hover,
+#block-block-7 .content .video button#hp-video.disabled:focus,
+#block-block-7 .content .video button#hp-video[disabled]:focus,
+fieldset[disabled] #block-block-7 .content .video button#hp-video:focus,
+#block-block-7 .content .video button#hp-video.disabled.focus,
+#block-block-7 .content .video button#hp-video[disabled].focus,
+fieldset[disabled] #block-block-7 .content .video button#hp-video.focus {
+  background-color: transparent;
+  border-color: #f2f2f2;
+}
+#block-block-7 .content .video button#hp-video .badge {
+  color: transparent;
+  background-color: #4c6172;
+}
+@media (min-width: 992px) {
+  #block-block-7 .content .video button#hp-video {
+    margin: 60px 0;
+  }
 }
 /* HOMEPAGE
  * Question
@@ -15607,18 +15863,6 @@ body.admin-menu #block-system-user-menu {
   font-size: 1.2em;
   line-height: 1.5;
   text-align: center;
-}
-#block-block-22 button#hp-video {
-  width: 380px;
-  max-width: 100%;
-  height: 253px;
-  background-image: url("../images/content/block/eMindHub_video_player.png");
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  font-size: 100px;
-  color: #114577;
-  text-shadow: 1px 1px 10px rgba(255, 255, 255, 0.75);
 }
 #block-block-22 h2 {
   line-height: 1.5;
