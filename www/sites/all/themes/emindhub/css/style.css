@@ -15857,18 +15857,34 @@ body.admin-menu #block-system-user-menu {
 }
 #block-block-22 {
   background: transparent url("../images/banner/eMindHub_banner_05.png") no-repeat top center;
-  padding-top: 25px;
   padding-bottom: 25px;
   border-bottom: 1px solid #f2f2f2;
-  font-size: 1.2em;
-  line-height: 1.5;
-  text-align: center;
 }
-#block-block-22 h2 {
-  line-height: 1.5;
-  margin: 0 0 20px;
-  color: #114577;
-  text-transform: uppercase;
+#block-block-22 .image,
+#block-block-22 .text {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  #block-block-22 .image,
+  #block-block-22 .text {
+    float: left;
+    width: 50%;
+  }
+}
+#block-block-22 .text {
+  font-size: 26px;
+  line-height: 1.3;
+  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.25);
+  padding-top: 25px;
+}
+#block-block-22 .text ol {
+  list-style: none;
+}
+#block-block-22 .text li {
+  margin-bottom: 25px;
 }
 #block-emh-request-flag-save-flag-save {
   line-height: 36px;
