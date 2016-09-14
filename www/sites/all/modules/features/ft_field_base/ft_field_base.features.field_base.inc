@@ -1404,7 +1404,7 @@ function ft_field_base_field_default_field_bases() {
     'locked' => 0,
     'module' => 'imagefield_crop',
     'settings' => array(
-      'default_image' => 0,
+      'default_image' => 507,
       'entity_translation_sync' => array(
         0 => 'fid',
       ),
@@ -1417,8 +1417,7 @@ function ft_field_base_field_default_field_bases() {
         5 => 0,
         6 => 0,
         7 => 0,
-        8 => 0,
-        9 => 0,
+        10 => 0,
       ),
     ),
     'translatable' => 0,
