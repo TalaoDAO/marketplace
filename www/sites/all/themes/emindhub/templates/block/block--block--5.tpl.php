@@ -58,15 +58,15 @@ $current_lang = $language->language;
   <?php endif;?>
   <?php print render($title_suffix); ?>
 
-  <?php if ($content): ?>
+  <?php //if ($content): ?>
     <div class="content">
       <?php //print $content; ?>
       <p>
         <a class="colorbox" href="<?php print $front_theme; ?>/images/content/block/eMindHub_Benefits_<?php print $current_lang; ?>.png">
-        <img alt="Benefits" class="center-block" src="<?php print $front_theme; ?>/images/content/block/eMindHub_Benefits_ld_<?php print $current_lang; ?>.png" /><br />
+          <img alt="<?php print t('Benefits'); ?>" class="center-block" src="<?php print $front_theme; ?>/images/content/block/eMindHub_Benefits_ld_<?php print $current_lang; ?>.png" /><br />
         <?php print t('Click to zoom'); ?></a>
       </p>
     </div>
-  <?php endif;?>
+  <?php //endif;?>
 
 </section> <!-- /.block -->
