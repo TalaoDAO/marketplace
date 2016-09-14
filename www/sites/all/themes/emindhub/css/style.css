@@ -9768,6 +9768,8 @@ button.close {
 #block-emh-request-timeline-timeline .content:after,
 #block-hybridauth-hybridauth .hybridauth-widget-wrapper:before,
 #block-hybridauth-hybridauth .hybridauth-widget-wrapper:after,
+#block-block-22 .steps .step:before,
+#block-block-22 .steps .step:after,
 form#change-pwd-page-form .form-type-password-confirm:before,
 form#change-pwd-page-form .form-type-password-confirm:after,
 form#emh-points-arrange-form fieldset .panel-body:before,
@@ -9845,6 +9847,7 @@ body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-
 #block-views-news-thread-block .content .item:after,
 #block-emh-request-timeline-timeline .content:after,
 #block-hybridauth-hybridauth .hybridauth-widget-wrapper:after,
+#block-block-22 .steps .step:after,
 form#change-pwd-page-form .form-type-password-confirm:after,
 form#emh-points-arrange-form fieldset .panel-body:after,
 form#user-profile-form .link-field-subrow:after,
@@ -14559,11 +14562,11 @@ table th[class*="col-"] {
   position: relative;
   overflow: hidden;
   width: 100%;
-  background: transparent url("../images/banner/eMindHub_banner_02.jpg") no-repeat center center;
 }
 @media (min-width: 992px) {
   #block-block-7 .content #highlight {
     min-height: 239px;
+    background: transparent url("../images/banner/eMindHub_banner_02.jpg") no-repeat center center;
   }
 }
 #block-block-7 .content #highlight .caption {
@@ -15856,35 +15859,89 @@ body.admin-menu #block-system-user-menu {
   }
 }
 #block-block-22 {
-  background: transparent url("../images/banner/eMindHub_banner_05.png") no-repeat top center;
+  padding-top: 25px;
   padding-bottom: 25px;
   border-bottom: 1px solid #f2f2f2;
 }
-#block-block-22 .image,
-#block-block-22 .text {
+#block-block-22 .image {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 992px) {
-  #block-block-22 .image,
-  #block-block-22 .text {
+  #block-block-22 .image {
     float: left;
     width: 50%;
   }
 }
-#block-block-22 .text {
+#block-block-22 .steps {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
   font-size: 26px;
   line-height: 1.3;
-  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.25);
   padding-top: 25px;
 }
-#block-block-22 .text ol {
-  list-style: none;
+@media (min-width: 992px) {
+  #block-block-22 .steps {
+    float: left;
+    width: 50%;
+  }
 }
-#block-block-22 .text li {
-  margin-bottom: 25px;
+#block-block-22 .steps .step {
+  margin-left: -15px;
+  margin-right: -15px;
+  padding-top: 25px;
+  border-bottom: 1px solid #f2f2f2;
+}
+#block-block-22 .steps .step span.numbering {
+  float: left;
+  width: 25%;
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  #block-block-22 .steps .step span.numbering {
+    float: left;
+    width: 16.66666667%;
+  }
+}
+#block-block-22 .steps .step span.numbering span {
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+  line-height: 50px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: #f2f2f2;
+  color: #333;
+}
+#block-block-22 .steps .step span.text {
+  float: left;
+  width: 75%;
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 25px;
+}
+@media (min-width: 768px) {
+  #block-block-22 .steps .step span.text {
+    float: left;
+    width: 83.33333333%;
+  }
+}
+#block-block-22 .steps .step span.text strong {
+  color: #009de0;
+}
+#block-block-22 .steps .step:last-child {
+  border: 0;
 }
 #block-emh-request-flag-save-flag-save {
   line-height: 36px;
