@@ -89,9 +89,9 @@
     </div>
     <div class="col-sm-11">
       <h2<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h2>
-      <div class="circle-count">
-        <?php print format_plural(og_extras_subscriber_count($node->nid), '@count member', '@count members'); ?>
-      </div>
+      <!-- <div class="circle-count"> -->
+        <?php //print format_plural(og_extras_subscriber_count($node->nid), '@count member', '@count members'); ?>
+      <!-- </div> -->
     </div>
     <?php if (!empty($content['body'])) : ?>
       <div class="circle-body col-sm-12">
