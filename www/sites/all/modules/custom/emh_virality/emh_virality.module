@@ -182,8 +182,8 @@ function emh_virality_block_view($delta = '') {
       $reward = _emh_virality_get_invitation_reward();
 
       if ($reward > 0) {
-        $text = 'You can earn credits by inviting <b>experts</b> in your network to join eMindHub. You will get a reward (50 credits per expert) the first time each new expert you sponsored is selected by a client for his contribution (i.e. response to a question, a mission or a challenge).<br />'
-                . 'We remind you that you can monetize your credits once you have reached a threshold of at least 1500 credits.';
+        $text = 'You can earn credits by inviting <b>experts</b> in your network to join eMindHub and answer clients requests. You will get a reward (' . variable_get('emh_virality_expert_invitation_reward', 50) . ' credits per expert) the first time each the new expert you sponsored is selected by a client for the quality of his contribution.<br />'
+                . 'We remind you that you can monetize your credits once you have reached a threshold of at least ' . variable_get('emh_points_monetization_threshold', '1500') . ' credits.';
 
         $block = array(
           'subject' => t('Invite experts and earn credits!'),
