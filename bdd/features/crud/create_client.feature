@@ -24,6 +24,7 @@ Feature: Create permissions for Clients
       And I click "Group"
       And I click "People"
       And I click "edit" in the "Captain AMERICA" row
+      And I select "Active" from "Status"
       And I check the box "Creator member"
       And I press "Update membership"
 
