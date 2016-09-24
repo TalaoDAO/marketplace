@@ -33,9 +33,14 @@ Feature: Request and submissions
       And I click "Group"
       And I click "People"
       And I click "edit" in the "Captain AMERICA" row
+      And I select "Active" from "Status"
       And I check the box "Creator member"
       And I press "Update membership"
     Then I should see "Creator member" in the "Captain AMERICA" row
+      And I click "edit" in the "Iron MAN" row
+      And I select "Active" from "Status"
+      And I press "Update membership"
+    Then I should see "The membership has been updated."
 
   Scenario: The author choose to hide its name
     Given I am logged in as "client1"
