@@ -51,25 +51,40 @@ Feature: Request Option Price
       And I click "Group"
       And I click "People"
       And I click "edit" in the "Captain AMERICA" row
+      And I select "Active" from "Status"
       And I check the box "Creator member"
       And I press "Update membership"
     Then I should see "Creator member" in the "Captain AMERICA" row
+      And I click "edit" in the "Iron MAN" row
+      And I select "Active" from "Status"
+      And I press "Update membership"
+    Then I should see "The membership has been updated."
 
     When I go to "content/league-justice"
       And I click "Group"
       And I click "People"
       And I click "edit" in the "Captain AMERICA" row
+      And I select "Active" from "Status"
       And I check the box "Creator member"
       And I press "Update membership"
     Then I should see "Creator member" in the "Captain AMERICA" row
+      And I click "edit" in the "Iron MAN" row
+      And I select "Active" from "Status"
+      And I press "Update membership"
+    Then I should see "The membership has been updated."
 
     When I go to "content/guardians-galaxy"
       And I click "Group"
       And I click "People"
       And I click "edit" in the "Captain AMERICA" row
+      And I select "Active" from "Status"
       And I check the box "Creator member"
       And I press "Update membership"
     Then I should see "Creator member" in the "Captain AMERICA" row
+      And I click "edit" in the "Iron MAN" row
+      And I select "Active" from "Status"
+      And I press "Update membership"
+    Then I should see "The membership has been updated."
 
   Scenario: An author can create a request with a questionnaire and duration with changing prices
     Given "request" content:
