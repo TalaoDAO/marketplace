@@ -73,6 +73,7 @@ function mail_logger_overview() {
   $result = $query->execute();
 
   foreach ($result as $mail_logger) {
+    $subject = (empty($mail_logger->subject) ? t('Missing subject') : $mail_logger->subject);
     $table['rows'][] = array('data' =>
       array(
         // Cells
@@ -81,7 +82,7 @@ function mail_logger_overview() {
         $mail_logger->language,
         $mail_logger->mailto,
         $mail_logger->mailfrom,
-        l(truncate_utf8($mail_logger->subject, 56, TRUE, TRUE), 'admin/reports/mail-logger/mail/' . $mail_logger->mlid),
+        l(truncate_utf8($subject, 56, TRUE, TRUE), 'admin/reports/mail-logger/mail/' . $mail_logger->mlid),
         $mail_logger->ipaddr,
         ),
       );
@@ -221,11 +222,11 @@ function mail_logger_form_overview_validate($form, &$form_state) {
   }
 
   $from_date = strtotime($form_state['values']['from_date']['year']
-    . $form_state['values']['from_date']['month']
-    . $form_state['values']['from_date']['day']);
+    . '-' . str_pad($form_state['values']['from_date']['month'], 2, '0', STR_PAD_LEFT)
+    . '-' . str_pad($form_state['values']['from_date']['day'], 2, '0', STR_PAD_LEFT));
   $to_date = strtotime($form_state['values']['to_date']['year']
-    . $form_state['values']['to_date']['month']
-    . $form_state['values']['to_date']['day']);
+    . '-' . str_pad($form_state['values']['to_date']['month'], 2, '0', STR_PAD_LEFT)
+    . '-' . str_pad($form_state['values']['to_date']['day'], 2, '0', STR_PAD_LEFT));
   if ($to_date < $from_date) {
     form_set_error('to_date', 'The To Date must be after the From Date.');
   }
