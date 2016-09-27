@@ -152,6 +152,7 @@ function emh_access_user_can_see_full_user($uid = FALSE, $uid2) {
 function emh_access_user_can_see_full_answer($nid, $sid = NULL, $account = NULL) {
 
   $node = node_load($nid);
+  module_load_include('inc', 'webform', 'includes/webform.submissions');
   $submission = webform_get_submission($nid, $sid);
 
   if (empty($account)) {
