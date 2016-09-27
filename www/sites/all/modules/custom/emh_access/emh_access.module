@@ -54,7 +54,7 @@ function emh_access_field_access($op, $field, $entity_type, $entity, $account) {
             return TRUE;
             break;
           default:
-            return emh_access_user_can_see_full_answer($node->nid, $entity, $account);
+            return emh_access_user_can_see_full_answer($node->nid, $entity->cid, $account);
             break;
         }
         break;
@@ -149,60 +149,56 @@ function emh_access_user_can_see_full_user($uid = FALSE, $uid2) {
 /**
  * Access control : Does a user have access to another user answer?
  */
-function emh_access_user_can_see_full_answer($nid, $entity = NULL, $account = NULL) {
+function emh_access_user_can_see_full_answer($nid, $sid = NULL, $account = NULL) {
 
   $node = node_load($nid);
+  $submission = webform_get_submission($nid, $sid);
 
   if (empty($account)) {
     global $user;
     $account = $user;
   }
 
-  if (emh_request_has_option($node, 'private')) {
+  if (user_access('access EMH answers')) return TRUE;
 
-    if (user_access('access EMH answers')) return TRUE;
+  // Node author and answer author have every right.
+  if ($node->uid === $account->uid) return TRUE;
+  if (!empty($sid) && ($submission->uid === $account->uid)) return TRUE;
 
-    // Node author and answer author have every right.
-    if ($node->uid == $account->uid) return TRUE;
-    if (!empty($entity) && ($entity->uid == $account->uid)) return TRUE;
+  if (user_access('administer comments')) return TRUE;
+  if (user_access('access all webform results')) return TRUE;
 
-    if (user_access('administer comments')) return TRUE;
-    if (user_access('access all webform results')) return TRUE;
+  // Organic Groups / EMH Circles
+  // User1 is admin/referent of node's circle
+  // TODO: add custom permissions for OG and Comments
+  if (isset($node->og_group_ref) && ($circle_items = field_get_items('node', $node, 'og_group_ref'))) {
+    $circles = array();
 
-    // Organic Groups / EMH Circles
-    // User1 is admin/referent of node's circle
-    // TODO: add custom permissions for OG and Comments
-    if (isset($node->og_group_ref) && ($circle_items = field_get_items('node', $node, 'og_group_ref'))) {
-      $circles = array();
-
-      foreach ($circle_items as $delta => $item) {
-        $circles[] = $item['target_id'];
-      }
-
-      if (!empty($circles)) {
-        if (_emh_circles_check_user_is_adminmember_of_groups($account->uid, $circles)) {
-          return TRUE;
-        }
-        if (_emh_circles_check_user_is_admin_of_groups($account->uid, $circles)) {
-          return TRUE;
-        }
-        if (_emh_circles_check_user_is_referentmember_of_groups($account->uid, $circles)) {
-          return TRUE;
-        }
-        foreach ($circles as $gid) {
-          if (og_user_access('node', $gid, 'access all webform results')) {
-            return TRUE;
-          }
-        }
-      }
-
+    foreach ($circle_items as $delta => $item) {
+      $circles[] = $item['target_id'];
     }
 
-    return FALSE;
+    if (!empty($circles)) {
+      if (_emh_circles_check_user_is_adminmember_of_groups($account->uid, $circles)) {
+        return TRUE;
+      }
+      if (_emh_circles_check_user_is_admin_of_groups($account->uid, $circles)) {
+        return TRUE;
+      }
+      if (_emh_circles_check_user_is_referentmember_of_groups($account->uid, $circles)) {
+        return TRUE;
+      }
+      foreach ($circles as $gid) {
+        if (og_user_access('node', $gid, 'access all webform results')) {
+          return TRUE;
+        }
+      }
+    }
 
   }
 
-  return TRUE;
+  return FALSE;
+
 }
 
 /**
