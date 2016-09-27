@@ -68,8 +68,12 @@ Feature: Buy profile access
     Then I should see "Iron" in the "submissions" region
       And I should not see "MAN" in the "submissions" region
       And I should see "Access profile for 50 credits" in the "submissions" region
+    When I click "view" in the "submissions" region
+    Then I should see "Iron"
+      And I should not see "MAN"
 
-    When I click "Access profile for 50 credits" in the "submissions" region
+    When I go to "content/how-become-superhero"
+      And I click "Access profile for 50 credits" in the "submissions" region
       And I press "Access profile"
     Then I should see "Iron MAN" in the "submissions" region
       And I should have "950" credits on "client1" user
