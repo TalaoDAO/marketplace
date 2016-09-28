@@ -65,6 +65,14 @@ Feature: Request and submissions
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "You have to read DC comics of course!" in the "user_submission" region
 
+  Scenario: An expert of the same circle can see the published submission
+    Given I am logged in as "expert1"
+    When I go to homepage
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+    Then I should see "Everybody can be, trust me, I'm the best we known." in the "submissions" region
+    When I click "view" in the "submissions" region
+    Then I should see "Everybody can be, trust me, I'm the best we known."
+
   Scenario: The author can see the published submissions but not the draft ones
     Given I am logged in as "client1"
     When I go to "my-responses"
@@ -79,6 +87,8 @@ Feature: Request and submissions
       And I should see "Everybody can be, trust me, I'm the best we known."
       And I should not see "Klark KENT"
       And I should not see "You have to read DC comics of course!"
+    When I click "view" in the "submissions" region
+    Then I should see "Everybody can be, trust me, I'm the best we known."
 
   @exclude
   Scenario: The expert cannot respond twice to the same request
