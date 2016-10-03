@@ -32,7 +32,24 @@ Feature: Circles workflow for Expert
       And I click "Group" in the "primary tabs" region
       And I click "People"
       And I click "edit" in the "Star LORD" row
+      And I select "Active" from "Status"
       And I check the box "administrator member"
+      And I press "Update membership"
+    Then I should see "The membership has been updated."
+
+    When I go to "content/avengers"
+      And I click "Group" in the "primary tabs" region
+      And I click "People"
+      And I click "edit" in the "Iron MAN" row
+      And I select "Active" from "Status"
+      And I press "Update membership"
+    Then I should see "The membership has been updated."
+
+    When I go to "content/x-men"
+      And I click "Group" in the "primary tabs" region
+      And I click "People"
+      And I click "edit" in the "Scott SUMMERS" row
+      And I select "Active" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 

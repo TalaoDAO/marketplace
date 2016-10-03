@@ -267,7 +267,7 @@ function advancedform_add_css_and_js(&$form) {
   // as it "doesn't exist".
   // If we pretend the library is external, we may get away with it.
   $form['#attached']['js'][] = drupal_get_path('module', 'advancedform') . '/advancedform.js';
-  $form['#attached']['css'][url('advancedform_css/' . $form['#id'])] = array('type' => 'external');
+  $form['#attached']['css'][url('advancedform_css/' . $form['#id'])] = array('type' => 'external', 'preprocess' => FALSE);
   // Permission check, whether to show the toggle
   // (Remember, this is client-side only, so still not secure.)
   $form['#attached']['js'][] = array(

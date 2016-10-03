@@ -34,7 +34,16 @@ Feature: Buy profile access
       # Twice for correct order
       And I click "Member since"
       And I click "edit" in the "Captain AMERICA" row
+      And I select "Active" from "Status"
       And I check the box "Creator member"
+      And I press "Update membership"
+    When I go to "content/all-experts"
+      And I click "Group"
+      And I click "People"
+      And I click "Member since"
+      And I click "Member since"
+      And I click "edit" in the "Iron MAN" row
+      And I select "Active" from "Status"
       And I press "Update membership"
       # Again...
       And I go to "content/all-experts"
@@ -58,7 +67,7 @@ Feature: Buy profile access
       And I press "Publish"
     Then I should see the message "Your submission has been published."
 
-    When I click "Edit account"
+    When I click "Edit my account"
       And I fill in "field_address[und][0][phone_number]" with "0712345670"
       And I press "Save"
 
