@@ -180,11 +180,11 @@ function emindhub_form_process_password_confirm($element) {
  */
 function emindhub_form_emh_pcp_special_get_empty_fields_form_alter(&$form, &$form_state, $form_id) {
 
-	$form['field_entreprise']['#prefix'] = '<div class="form-group-3col row">';
+	$form['field_entreprise']['#prefix'] = '<div class="form-group-4col row">';
 	$form['field_entreprise']['#weight'] = '1';
 	$form['field_working_status']['#weight'] = '2';
 	$form['field_domaine']['#weight'] = '3';
-	$form['field_domaine']['#suffix'] = '</div>';
+	$form['field_address']['#suffix'] = '</div>';
 
 	$form['actions']['#weight'] = '100';
 	$form['actions']['submit']['#attributes']['class'][] = 'btn-asphalt';

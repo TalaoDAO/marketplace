@@ -9738,6 +9738,8 @@ button.close {
 .form-group-2col:after,
 .form-group-3col:before,
 .form-group-3col:after,
+.form-group-4col:before,
+.form-group-4col:after,
 .views-exposed-form .views-exposed-widgets:before,
 .views-exposed-form .views-exposed-widgets:after,
 .bef-select-as-checkboxes:before,
@@ -9832,6 +9834,7 @@ body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-
 .form-group-col:after,
 .form-group-2col:after,
 .form-group-3col:after,
+.form-group-4col:after,
 .views-exposed-form .views-exposed-widgets:after,
 .bef-select-as-checkboxes:after,
 .bef-select-as-checkboxes .bef-checkboxes:after,
@@ -11922,6 +11925,52 @@ header#title .emh-title-baseline {
     padding-left: 0;
   }
   .form-group-3col > *:nth-child(3) {
+    padding-right: 0;
+    padding-left: 7.5px;
+  }
+}
+.form-group-4col {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+.form-group-4col > * .form-group {
+  margin-bottom: 0;
+}
+@media (min-width: 992px) {
+  .form-group-4col {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .form-group-4col > * .form-group {
+    margin-bottom: 0;
+  }
+}
+.form-group-4col > div {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  .form-group-4col > div {
+    float: left;
+    width: 25%;
+  }
+}
+@media (min-width: 992px) {
+  .form-group-4col > *:nth-child(1) {
+    padding-right: 7.5px;
+    padding-left: 0;
+  }
+  .form-group-4col > *:nth-child(2) {
+    padding-right: 7.5px;
+    padding-left: 7.5px;
+  }
+  .form-group-4col > *:nth-child(3) {
+    padding-right: 7.5px;
+    padding-left: 7.5px;
+  }
+  .form-group-4col > *:nth-child(4) {
     padding-right: 0;
     padding-left: 7.5px;
   }

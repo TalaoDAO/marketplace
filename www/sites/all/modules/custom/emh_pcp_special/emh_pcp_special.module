@@ -9,6 +9,7 @@ function emh_pcp_special_list_special_fields() {
     'field_entreprise',
     'field_working_status',
     'field_domaine',
+    'field_address',
   );
   return $required_fields;
 }
@@ -26,6 +27,31 @@ function emh_pcp_special_get_empty_fields_form($form, &$form_state) {
       $form[$required_field] = $attach_form[$required_field];
     }
   }
+
+  $elements = $form['field_address'][LANGUAGE_NONE][0];
+
+  $elements['#type'] = 'div';
+
+  $elements['street_block']['thoroughfare']['#required'] = FALSE;
+  $elements['street_block']['thoroughfare']['#access'] = FALSE;
+  $elements['street_block']['premise']['#required'] = FALSE;
+  $elements['street_block']['premise']['#access'] = FALSE;
+
+  $elements['locality_block']['postal_code']['#required'] = FALSE;
+  $elements['locality_block']['postal_code']['#access'] = FALSE;
+  $elements['locality_block']['dependent_locality']['#required'] = FALSE;
+  $elements['locality_block']['dependent_locality']['#access'] = FALSE;
+  $elements['locality_block']['locality']['#required'] = FALSE;
+  $elements['locality_block']['locality']['#access'] = FALSE;
+  $elements['locality_block']['administrative_area']['#required'] = FALSE;
+  $elements['locality_block']['administrative_area']['#access'] = FALSE;
+
+  $elements['phone_block']['phone_number']['#required'] = FALSE;
+  $elements['phone_block']['phone_number']['#access'] = FALSE;
+  $elements['phone_block']['mobile_number']['#required'] = FALSE;
+  $elements['phone_block']['mobile_number']['#access'] = FALSE;
+
+  $form['field_address'][LANGUAGE_NONE][0] = $elements;
 
   $form['actions']['submit'] = array(
     '#type' => 'submit',
