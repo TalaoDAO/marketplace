@@ -1146,7 +1146,7 @@ function ft_content_type_field_default_field_instances() {
     'widget' => array(
       'module' => 'serial',
       'settings' => array(),
-      'type' => 'serial',
+      'type' => 'serial_widget_default',
       'weight' => 9,
     ),
   );
@@ -3102,7 +3102,7 @@ function ft_content_type_field_default_field_instances() {
       'active' => 0,
       'module' => 'serial',
       'settings' => array(),
-      'type' => 'serial',
+      'type' => 'serial_widget_default',
       'weight' => 9,
     ),
   );
