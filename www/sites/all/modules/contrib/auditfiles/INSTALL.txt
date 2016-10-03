@@ -48,7 +48,7 @@ CONFIGURATION
      that you do not want to taken into consideration when generating the
      various reports. These fields allow the site administrator the ability to
      exclude those items. In each field, enter in the list of respective items
-     to exclude. Separate each exclusion with a  semi-colon. These are the three
+     to exclude. Separate each exclusion with a semi-colon. These are the three
      fields:
      * Exclude these files: List in here all specific files to be excluded from
        the reports. By default, only .htaccess is excluded.
@@ -75,11 +75,11 @@ CONFIGURATION
      * Maximum records: This is the maximum number of records to load for each
        report. If any report is timing out, set this to some positive integer to
        limit the number of records that are loaded.
-       See the Limiting Features Explained section in the README.txt file for
+       See the "Limiting Features Explained" section in the README.txt file for
        more information. Set this to 0 for no limit.
      * Batch size: This the maximum number of records to load for each report
        using Drupal's Batch API. Because Drupal's Batch API resets the HTTP
        request during the process, a much larger number can be used here to load
        more records on a report.
-       See the Limiting Features Explained section in the README.txt file for
+       See the "Limiting Features Explained" section in the README.txt file for
        more information. Set this to 0 for no limit.

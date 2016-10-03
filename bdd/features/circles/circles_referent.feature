@@ -43,22 +43,45 @@ Feature: Requests visibility for Référent
       And I click "Group"
       And I click "People"
       And I click "edit" in the "Nick FURY" row
+      And I select "Active" from "Status"
       And I check the box "Referent member"
+      And I press "Update membership"
+    Then I should see "The membership has been updated."
+      And I click "edit" in the "Captain AMERICA" row
+      And I select "Active" from "Status"
+      And I check the box "administrator member"
+      And I press "Update membership"
+    Then I should see "The membership has been updated."
+      And I click "edit" in the "Iron MAN" row
+      And I select "Active" from "Status"
+      And I press "Update membership"
+    Then I should see "The membership has been updated."
+
+    When I go to "content/x-men"
+      And I click "Group" in the "primary tabs" region
+      And I click "People"
+      And I click "edit" in the "Charle XAVIER" row
+      And I select "Active" from "Status"
+      And I check the box "administrator member"
+      And I press "Update membership"
+    Then I should see "The membership has been updated."
+      And I click "edit" in the "Scott SUMMERS" row
+      And I select "Active" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
     Given I am logged in as "expert1"
-    When I click "Edit account"
+    When I click "Edit my account"
       And I fill in "field_address[und][0][phone_number]" with "0712345670"
       And I press "Save"
 
     Given I am logged in as "expert4"
-    When I click "Edit account"
+    When I click "Edit my account"
       And I fill in "field_address[und][0][phone_number]" with "0712345673"
       And I press "Save"
 
     Given I am logged in as "référent1"
-    When I click "Edit account"
+    When I click "Edit my account"
       And I fill in "field_address[und][0][phone_number]" with "0612345678"
       And I press "Save"
 
