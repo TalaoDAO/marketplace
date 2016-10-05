@@ -24,7 +24,7 @@ function emindhub_process_format($element) {
  */
 function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
-  // echo '<pre>' . print_r($form_id, TRUE) . '</pre>';
+  echo '<pre>' . print_r($form_id, TRUE) . '</pre>';
   // echo '<pre>' . print_r($form, TRUE) . '</pre>';
   // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
 
@@ -89,6 +89,20 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
   	  drupal_get_path('theme', 'emindhub') . '/js/disable_show_row_weights.js',
   	);
   }
+
+  if (isset($form['#node']->nid) && ($form_id == 'webform_client_form_' . $form['#node']->nid)) {
+		$form['field_address'][LANGUAGE_NONE][0]['phone_block']['phone_number']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_address'][LANGUAGE_NONE][0]['phone_block']['mobile_number']['#suffix'] = '</div>';
+
+		$form['field_address']['#prefix'] = '<fieldset>';
+    $form['field_address']['#prefix'] .= '<legend>' . t('Your profile') . '</legend>';
+    $form['field_address']['#prefix'] .= '<p>' . t('Merci de renseigner ces informations afin que le demandeur puisse acheter votre profil. Vous n’aurez à fournir ces renseignements qu’une seule fois.') . '</p>';
+    $form['field_cv']['#suffix'] = '</fieldset>';
+
+    $form['field_position']['#weight'] = '16';
+    $form['field_skills_set']['#weight'] = '19';
+    $form['field_cv']['#weight'] = '20';
+	}
 
   // echo '<pre>' . print_r($form, TRUE) . '</pre>';
 
