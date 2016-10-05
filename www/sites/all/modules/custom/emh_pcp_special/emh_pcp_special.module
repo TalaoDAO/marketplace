@@ -22,7 +22,8 @@ function emh_pcp_special_get_empty_fields_form($form, &$form_state) {
 
   $required_fields = emh_pcp_special_list_special_fields();
   foreach ($required_fields as $required_field) {
-    if (field_access('edit', $required_field, 'user')) {
+    $field = field_get_items('user', $account, $required_field);
+    if (field_access('edit', $required_field, 'user') && !empty($field)) {
       field_attach_form('user', $account, $attach_form, $form_state, NULL, array('field_name' => $required_field));
       $form[$required_field] = $attach_form[$required_field];
     }
@@ -46,8 +47,8 @@ function emh_pcp_special_get_empty_fields_form($form, &$form_state) {
   $elements['locality_block']['administrative_area']['#required'] = FALSE;
   $elements['locality_block']['administrative_area']['#access'] = FALSE;
 
-  $elements['phone_block']['phone_number']['#required'] = FALSE;
-  $elements['phone_block']['phone_number']['#access'] = FALSE;
+  $elements['phone_block']['phone_number']['phone_number']['#required'] = FALSE;
+  $elements['phone_block']['phone_number']['phone_number']['#access'] = FALSE;
   $elements['phone_block']['mobile_number']['#required'] = FALSE;
   $elements['phone_block']['mobile_number']['#access'] = FALSE;
 
