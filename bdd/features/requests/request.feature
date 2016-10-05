@@ -6,46 +6,52 @@ Feature: Request
 
   Background: Create request
 
-    Given "circle" content:
-    | title    | author  |
-    | Avengers | admin   |
-
     Given "corporate" content:
     | title                 | author  |
     | Marvel Studios        | admin   |
 
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | All experts  | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance |
 
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios     | Employee             | Energy        |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | All experts  | emindhub.test+expert1@gmail.com | Marvel Studios     | Employee             | Energy        |
 
     Given "request" content:
-    | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
-    | How to become a superhero?  | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    | 1       |
+    | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
+    | How to become a superhero?  | Energy        | All experts     | client1 | 2017-02-08 17:45:00    | 1       |
 
-    # Make client1 as a Creator member of Avengers circle
+    # Make client1 as a Creator member of All experts circle
     Given I am logged in as a user with the "administrator" role
-    When I go to "content/avengers"
+    When I go to "content/all-experts"
       And I click "Group"
       And I click "People"
+      And I click "Member since"
+      # Twice for correct order
+      And I click "Member since"
       And I click "edit" in the "Captain AMERICA" row
       And I check the box "Creator member"
       And I press "Update membership"
+      # Again...
+      And I go to "content/all-experts"
+      And I click "Group"
+      And I click "People"
+      And I click "Member since"
+      # Twice for correct order
+      And I click "Member since"
     Then I should see "Creator member" in the "Captain AMERICA" row
 
   Scenario: An author can see its own request
     Given I am logged in as "client1"
     When I go to homepage
-    Then I should see "Avengers" in the "How to become a superhero?" row
+    Then I should see "All experts" in the "How to become a superhero?" row
 
   Scenario: An author can see its own request in My requests
     Given I am logged in as "client1"
     When I go to "requests/manage"
     Then I should see "How to become a superhero?"
-      And I should see "Avengers" in the "How to become a superhero?" row
+      And I should see "All experts" in the "How to become a superhero?" row
 
   Scenario: An author can edit its own request
     Given I am logged in as "client1"
@@ -69,5 +75,6 @@ Feature: Request
     Given I am logged in as "expert1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should see "Captain AMERICA" in the "request_right" region
+    Then I should see "Captain" in the "request_right" region
+      And I should not see "AMERICA" in the "request_right" region
       And I should see "Marvel Studios" in the "request_right" region
