@@ -24,7 +24,7 @@ function emindhub_process_format($element) {
  */
 function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
-  echo '<pre>' . print_r($form_id, TRUE) . '</pre>';
+  // echo '<pre>' . print_r($form_id, TRUE) . '</pre>';
   // echo '<pre>' . print_r($form, TRUE) . '</pre>';
   // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
 
