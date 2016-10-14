@@ -261,6 +261,17 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
+   * @Given /^I follow meta refresh$/
+   */
+  public function iFollowMetaRefresh() {
+    while ($refresh = $this->getSession()->getPage()->find('css', 'meta[http-equiv="Refresh"]')) {
+      $content = $refresh->getAttribute('content');
+      $url = str_replace('0; URL=', '', $content);
+      $this->getSession()->visit($url);
+    }
+  }
+
+  /**
    * @param int $seconds
    *   Amount of seconds when nothing to happens.
    *
