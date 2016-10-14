@@ -1,0 +1,220 @@
+<?php
+/**
+ * @file
+ * Code for eMindHub Profile Complete feature.
+ */
+
+
+/**
+ * Get all the profile fields that have been tagged.
+ * If an $fiid is passed in, only the data for that field will be returned.
+ *
+ * @param $fiid
+ *   (optional) NULL The field instance id of the field data should be returned for. If null, all fields
+ *   are returned.
+ * @param $entity_type
+ *   (optional) NULL The type of entity to return fields for.
+ * @param $bundle
+ *   (optional) NULL The bundle to return fields for.
+ * @param $fields
+ *   EMH Fields to get.
+ *
+ * @return
+ *   field identifier (entity_type:bundle:field_name) and name(s).
+ *
+ * @see function pcp_get_tagged_profile_fields()
+ */
+function emh_profile_complete_get_profile_fields($entity_type = NULL, $bundle = NULL, $field_name = NULL, $fields) {
+  // $enabled_fields = variable_get('pcp_enabled_fields', array());
+  $enabled_fields = array();
+
+  foreach ($fields as $field) {
+    $enabled_fields["$entity_type:$bundle:$field"] = "$entity_type:$bundle:$field";
+  }
+  if (empty($enabled_fields)) {
+    return array();
+  }
+
+  $query = db_select('field_config_instance', 'fci');
+  $query->addField('fci', 'field_name', 'field_name');
+  $query->condition('fci.deleted', 0);
+
+  $or = db_or();
+  foreach ($enabled_fields as $enabled_field_identifier) {
+    $enabled_field_name_elements = explode(':', $enabled_field_identifier);
+    if (count($enabled_field_name_elements) > 2) {
+      $or->condition('fci.field_name', $enabled_field_name_elements[2]);
+    }
+  }
+  $query->condition($or);
+
+  if (isset($entity_type)) {
+    $query->condition('entity_type', $entity_type);
+  }
+
+  if (isset($bundle)) {
+    $query->condition('bundle', $bundle);
+  }
+
+  if (isset($field_name)) {
+    $query->condition('field_name', $field_name);
+  }
+
+  $result = $query->execute();
+
+  $fields = array();
+  foreach ($result as $row) {
+    $fields[$entity_type . ':' . $bundle . ':' . $row->field_name] = $row->field_name;
+  }
+
+  return $fields;
+}
+
+/**
+ * Get the profile complete percentage data for a given user.
+ *
+ * @param $user
+ *   User object
+ * @param $profile_fields
+ *   Fields to calculate percentage on.
+ *
+ * @return
+ *   Data array.
+ *
+ * @see function pcp_get_complete_percentage_data()
+ */
+function emh_profile_complete_get_complete_percentage_data($entity_type, $bundle, $user, $profile_fields) {
+
+  // $entity_fields = field_info_instances($entity_type, $bundle);
+
+  // Determine which fields have been tagged for evaluation.
+  // $profile_fields = pcp_get_tagged_profile_fields($entity_type, $bundle, NULL);
+  // $additional_fields = pcp_get_additional_tagged_fields(NULL, $entity_type, $bundle);
+  // $fields = $profile_fields + $additional_fields;
+  // EMH : load our own fields
+  $fields = emh_profile_complete_get_profile_fields($entity_type, $bundle, NULL, $profile_fields);
+
+  // Restrict profile completeness for fields the user don't have access to.
+  // Access rules are provided by user role field module.
+  if (module_exists('user_role_field')) {
+    $user_roles = array_keys($user->roles);
+    $fields = _pcp_check_user_field_access($fields, $user_roles);
+  }
+
+  // We need to define these values here in case $data is returned early.
+  $data = array();
+  $data['entity_type'] = $entity_type;
+  $data['bundle'] = $bundle;
+  $data['uid'] = $user->uid;
+
+  // If no fields have been tagged, indicate that the profile is complete.
+  if (!$fields) {
+    $data['current_percent'] = 100;
+    $data['incomplete'] = 0;
+    return $data;
+  }
+
+  // Gather all profile values for this user.
+  // $user_profile_values = pcp_get_user_profile_values($user->uid, $entity_type, $bundle);
+  // $user_additional_values = pcp_get_user_additional_values($user->uid, $entity_type, $bundle);
+  // $user_values = $user_profile_values + $user_additional_values;
+
+  // Enumerate empty fields by comparing tagged fields to user profile values.
+  // $empty_fields = array();
+  // foreach ($fields as $field_name) {
+  //   if (empty($user_values[$field_name])) {
+  //     $empty_fields[$field_name] = $field_name;
+  //   }
+  // }
+
+  // EMH : use our custom function
+  $empty_fields = _emh_profile_complete_get_empty_fields($entity_type, $bundle, $user, $fields);
+
+  // If there is one empty field or more.
+  // if ($empty_fields) {
+  //   $profile_fields_order_value = variable_get('pcp_fields_order', '0');
+  //
+  //   // Pick up a random field, we won't use shuffle because it
+  //   // re-indexes the array keys
+  //   if ($profile_fields_order_value == 0) {
+  //     $field_name = array_rand($empty_fields);
+  //   }
+  //   else {
+  //     // Assign any higher value.
+  //     $old_field_instance_weight = '999';
+  //     foreach ($empty_fields as $key => $user_field_name) {
+  //       $field_instance = field_info_instance('user', $user_field_name, 'user');
+  //       $field_instance_weight = $field_instance['widget']['weight'];
+  //       if ($field_instance_weight < $old_field_instance_weight) {
+  //         $field_name = $user_field_name;
+  //         $old_field_instance_weight = $field_instance_weight;
+  //       }
+  //     }
+  //   }
+  //
+  //   if ($field_name == 'user_picture') {
+  //     $field = array(
+  //       'fiid' => 'user_picture',
+  //       'title' => 'User Picture',
+  //       'name' => 'picture_upload',
+  //     );
+  //     $field_title = t($field['title']);
+  //   }
+  //   else {
+  //     $field_title = $entity_fields[$field_name]['label'];
+  //     if (module_exists('i18n_field') && !empty($field_title)) {
+  //       $field_title = i18n_field_translate_property($entity_fields[$field_name], 'label');
+  //     }
+  //   }
+  //
+  //   $data['nextfield_title'] = $field_title;
+  //   $data['nextfield_name'] = $field_name;
+  // }
+
+  $fields_count = count($fields);
+  $empty_fields_count = count($empty_fields);
+
+  $completed_fields = $fields_count - $empty_fields_count;
+  $current_percent = number_format(($completed_fields / $fields_count), 2) * 100;
+  $next_percent = number_format((($completed_fields + 1) / $fields_count), 2) * 100;
+
+  $data['completed']  = $completed_fields;
+  $data['incomplete'] = $empty_fields_count;
+  $data['total'] = $fields_count;
+
+  $data['current_percent'] = $current_percent;
+  $data['next_percent'] = $next_percent;
+
+  return $data;
+}
+
+/**
+ * Get all the profile fields that have not been filled.
+ *
+ * @param $entity_type
+ *   The type of entity to return fields for.
+ * @param $bundle
+ *   The bundle to return fields for.
+ * @param $user
+ *   User object
+ * @param $fields
+ *   Fields to check.
+ *
+ * @return
+ *   Fields array.
+ */
+function _emh_profile_complete_get_empty_fields($entity_type, $bundle, $user, $fields) {
+  // Gather all profile values for this user.
+  $user_profile_values = pcp_get_user_profile_values($user->uid, $entity_type, $bundle);
+  $user_additional_values = pcp_get_user_additional_values($user->uid, $entity_type, $bundle);
+  $user_values = $user_profile_values + $user_additional_values;
+
+  // Enumerate empty fields by comparing tagged fields to user profile values.
+  $empty_fields = array();
+  foreach ($fields as $field_name) {
+    if (empty($user_values[$field_name])) {
+      $empty_fields[$field_name] = $field_name;
+    }
+  }
+  return $empty_fields;
+}
