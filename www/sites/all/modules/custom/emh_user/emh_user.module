@@ -128,10 +128,20 @@ function emh_user_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   unset($form['account']['roles']);
   unset($form['account']['current_pass']);
   unset($form['account']['current_pass_required_values']);
+
   $form['#validate'] = array_diff($form['#validate'], array('user_validate_current_pass'));
-  $form['#submit'][] = '_emh_user_form_user_profile_handler';
+  $form['#submit'][] = 'emh_user_form_user_profile_form_submit';
 
 }
+
+function emh_user_form_user_profile_form_submit(&$form, &$form_state) {
+  $path = $_SERVER['HTTP_REFERER'];
+  if (isset($_GET['current'])) {
+    $path = $_GET['current'];
+  }
+  $form_state['redirect'] = $path;
+}
+
 
 /**
  * Implements hook_form_alter().
@@ -264,15 +274,6 @@ function emh_user_username_alter(&$name, $account) {
 
 
 // HELPERS
-function _emh_user_form_user_profile_handler(&$form, &$form_state) {
-  $path = $_SERVER['HTTP_REFERER'];
-  if (isset($_GET['current'])) {            //if (isset($_GET['destination'])) {
-    $path = $_GET['current'];             // $path = $_GET['destination'];
-  }                                               // }
-  // echo $path;
-  $form_state['redirect'] = $path;
-}
-
 function emh_user_redirect_submit($form, &$form_state) {
   $form_state['redirect'] = url('<front>', array('absolute'=> true, 'language' =>  (object)array('language' =>  FALSE)));
 }
