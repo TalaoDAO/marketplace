@@ -83,6 +83,9 @@ function emh_profile_complete_expert_form($form, &$form_state, $fields) {
 
     if (field_access('edit', $field, 'user')) {
 
+      field_attach_form('user', $account, $attach_form, $form_state, NULL, array('field_name' => $field));
+      $form[$field] = $attach_form[$field];
+
       switch ($field) {
         case 'field_address':
             $elements = $form['field_address'][LANGUAGE_NONE][0];
@@ -109,9 +112,6 @@ function emh_profile_complete_expert_form($form, &$form_state, $fields) {
         default:
           break;
       }
-
-      field_attach_form('user', $account, $attach_form, $form_state, NULL, array('field_name' => $field));
-      $form[$field] = $attach_form[$field];
 
     }
   }
