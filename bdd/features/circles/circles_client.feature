@@ -33,7 +33,7 @@ Feature: Requests visibility for Client
     | Fight Hydra   | Drones         | Avengers        | client1 | 2017-02-08 17:45:00    | 1       |
     | Fight Thanos  | Drones         | Avengers, X-Men | client1 | 2017-02-08 17:45:00    | 1       |
 
-    # Make client4 as a MANager of Guardians of the Galaxy circle
+    # Make client4 as a manager of Guardians of the Galaxy circle
     Given I am logged in as a user with the "administrator" role
 
     When I go to "content/avengers"
