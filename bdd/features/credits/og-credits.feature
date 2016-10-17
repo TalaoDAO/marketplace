@@ -33,7 +33,7 @@ Feature: Test credits dispatch in OG
     Then I should see "100 credits"
       And I should have "100" credits on "client1" user
 
-    When I go to "/groups"
+    When I go to "groups"
     Then I should see "Avengers"
 
     When I click "Avengers"
@@ -47,14 +47,14 @@ Feature: Test credits dispatch in OG
       And I fill in "User name" with "client3"
       And I press "Add users"
 
-    When I go to "/groups"
+    When I go to "groups"
       And I click "Avengers"
       And I click "Members"
     Then I should see "Charle XAVIER"
       And I should see "Tony STARK"
     #Then I should see the success message containing "has been added to the group"
 
-    When I go to "/groups"
+    When I go to "groups"
       And I click "Avengers"
       And I click "Distribute credits"
     Then I should see "Operations"

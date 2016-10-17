@@ -36,16 +36,16 @@ Feature: Requests visibility for Anonymous
       And I should not see "Fight Hydra"
       And I should not see "Fight Thanos"
 
-    When I go to "/content/fight-magneto"
+    When I go to "content/fight-magneto"
     Then I should not see "Fight Magneto"
 
-    When I go to "/content/fight-hydra"
+    When I go to "content/fight-hydra"
     Then I should not see "Fight Hydra"
 
-    When I go to "/content/fight-thanos"
+    When I go to "content/fight-thanos"
     Then I should not see "Fight Thanos"
 
-    When I go to "/node"
+    When I go to "node"
     Then I should not see "Fight Magneto"
       And I should not see "Fight Ultron"
       And I should not see "Fight Hydra"
