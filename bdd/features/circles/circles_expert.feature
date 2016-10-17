@@ -91,7 +91,7 @@ Feature: Requests visibility for Expert
     When I go to homepage
     Then I should see "Please complete the following information to access client requests"
 
-    When I go to "/content/fight-magneto"
+    When I go to "content/fight-magneto"
     Then I should see "Please complete the following information to access client requests"
       And I should not see "Your submission"
 

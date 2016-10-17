@@ -55,7 +55,7 @@ Feature: Circles workflow for Expert
 
   Scenario: Experts can access to its own circles
     Given I am logged in as "expert1"
-    When I go to "/circles"
+    When I go to "circles"
     Then I should see "Avengers"
 
     When I go to "content/avengers"
@@ -63,12 +63,12 @@ Feature: Circles workflow for Expert
 
   Scenario: Experts cannot access to private circles
     Given I am logged in as "expert4"
-    When I go to "/circles"
+    When I go to "circles"
     Then I should not see "Avengers"
 
   Scenario: Experts can access to public circles
     Given I am logged in as "expert1"
-    When I go to "/circles"
+    When I go to "circles"
     Then I should see "Guardians of the Galaxy"
 
     When I go to "content/guardians-galaxy"
