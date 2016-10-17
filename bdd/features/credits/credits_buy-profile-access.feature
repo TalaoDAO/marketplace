@@ -11,12 +11,12 @@ Feature: Buy profile access
     | Marvel Studios        | admin   |
 
     Given users:
-    | name    | mail                            | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | All experts     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | All experts     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance   | US                    |
 
     Given users:
-    | name    | mail                            | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | All experts     | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy        |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | All experts     | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy        | US                    |
 
     Given "request" content:
     | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
@@ -67,19 +67,15 @@ Feature: Buy profile access
       And I press "Publish"
     Then I should see the message "Your submission has been published."
 
-    When I click "Edit my account"
-      And I fill in "field_address[und][0][phone_number]" with "0712345670"
-      And I press "Save"
-
   Scenario: An author can buy a profile
     Given I am logged in as "client1"
     When I go to "content/how-become-superhero"
     Then I should see "Iron" in the "submissions" region
-      And I should not see "MAN" in the "submissions" region
+      And I should not see "Iron MAN" in the "submissions" region
       And I should see "Access profile for 50 credits" in the "submissions" region
     When I click "view" in the "submissions" region
     Then I should see "Iron"
-      And I should not see "MAN"
+      And I should not see "Iron MAN"
 
     When I go to "content/how-become-superhero"
       And I click "Access profile for 50 credits" in the "submissions" region
@@ -102,7 +98,7 @@ Feature: Buy profile access
     Given I am logged in as "expert1"
     When I go to "content/how-become-superhero"
     Then I should see "Captain" in the "request_right" region
-      And I should not see "AMERICA" in the "request_right" region
+      And I should not see "Captain AMERICA" in the "request_right" region
       And I should see "Access profile for 50 credits" in the "request_right" region
 
     When I click "Access profile for 50 credits" in the "request_right" region
