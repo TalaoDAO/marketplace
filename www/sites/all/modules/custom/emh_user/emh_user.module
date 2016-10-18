@@ -130,11 +130,11 @@ function emh_user_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   unset($form['account']['current_pass_required_values']);
 
   $form['#validate'] = array_diff($form['#validate'], array('user_validate_current_pass'));
-  $form['#submit'][] = 'emh_user_form_user_profile_form_submit';
+  $form['#submit'][] = '_emh_user_form_user_profile_handler';
 
 }
 
-function emh_user_form_user_profile_form_submit(&$form, &$form_state) {
+function _emh_user_form_user_profile_handler(&$form, &$form_state) {
   $path = $_SERVER['HTTP_REFERER'];
   if (isset($_GET['current'])) {
     $path = $_GET['current'];
@@ -390,8 +390,15 @@ function emh_user_cartouche_view($uid, $context = NULL) {
 	$node = menu_get_object();
 
   $cartouche = ''; $photo_uri = ''; $identity = ''; $organisation = ''; $activity = '';
+	// Identity
+  if ($context == 'author' && emh_request_has_option($node, 'anonymous') && $node->field_hide_name[LANGUAGE_NONE][0]['value'] == true) {
+    $identity = t('Anonymous');
+  }
+  else {
+    $identity = format_username($u2_account);
+  }
 
-	// Photo
+  // Photo
   if (emh_access_user_can_see_full_user($uid1, $uid2)) {
   	$photo_uri = field_get_items('user', $u2_account, 'field_photo');
     $photo = field_view_field('user', $u2_account, 'field_photo', array('label'=>'hidden'));
@@ -403,17 +410,14 @@ function emh_user_cartouche_view($uid, $context = NULL) {
       $photo = file_load($photo_fid);
       $photo = array(
         'path' => $photo->uri,
+        'alt' => $identity,
+        'title' => '',
+        'width' => '110px',
+        'height' => '110px',
+        'attributes' => array(),
       );
       $cartouche .= '<span class="user-badge">' . theme_image($photo) . '</span>';
     }
-  }
-
-	// Identity
-  if ($context == 'author' && emh_request_has_option($node, 'anonymous') && $node->field_hide_name[LANGUAGE_NONE][0]['value'] == true) {
-    $identity = t('Anonymous');
-  }
-  else {
-    $identity = format_username($u2_account);
   }
 
   // Profile link
