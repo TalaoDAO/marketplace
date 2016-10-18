@@ -548,7 +548,5 @@ function emh_configuration_update_7034() {
  * ADD: New module for better Admin views.
  */
 function emh_configuration_update_7035() {
-  // Avoiding Fatal error
-  views_invalidate_cache();
   module_enable(array('admin_views'));
 }
