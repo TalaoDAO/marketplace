@@ -91,17 +91,17 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
   }
 
   if (isset($form['#node']->nid) && ($form_id == 'webform_client_form_' . $form['#node']->nid)) {
-		$form['field_address'][LANGUAGE_NONE][0]['phone_block']['phone_number']['#prefix'] = '<div class="form-group-2col row">';
-	  $form['field_address'][LANGUAGE_NONE][0]['phone_block']['mobile_number']['#suffix'] = '</div>';
+		// $form['field_address'][LANGUAGE_NONE][0]['phone_block']['phone_number']['#prefix'] = '<div class="form-group-2col row">';
+	  // $form['field_address'][LANGUAGE_NONE][0]['phone_block']['mobile_number']['#suffix'] = '</div>';
 
-		$form['field_address']['#prefix'] = '<fieldset>';
-    $form['field_address']['#prefix'] .= '<legend>' . t('Your profile') . '</legend>';
-    $form['field_address']['#prefix'] .= '<p>' . t('Merci de renseigner ces informations afin que le demandeur puisse acheter votre profil. Vous n’aurez à fournir ces renseignements qu’une seule fois.') . '</p>';
-    $form['field_cv']['#suffix'] = '</fieldset>';
-
-    $form['field_position']['#weight'] = '16';
-    $form['field_skills_set']['#weight'] = '19';
-    $form['field_cv']['#weight'] = '20';
+		// $form['field_address']['#prefix'] = '<fieldset>';
+    // $form['field_address']['#prefix'] .= '<legend>' . t('Your profile') . '</legend>';
+    // $form['field_address']['#prefix'] .= '<p>' . t('Merci de renseigner ces informations afin que le demandeur puisse acheter votre profil. Vous n’aurez à fournir ces renseignements qu’une seule fois.') . '</p>';
+    // $form['field_cv']['#suffix'] = '</fieldset>';
+		//
+    // $form['field_position']['#weight'] = '16';
+    // $form['field_skills_set']['#weight'] = '19';
+    // $form['field_cv']['#weight'] = '20';
 	}
 
   // echo '<pre>' . print_r($form, TRUE) . '</pre>';
@@ -114,6 +114,9 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
  */
 function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
+	// global $user;
+	// $fields = field_info_instances('user', 'user');
+
   // echo '<pre>' . print_r($form, TRUE) . '</pre>';
 
   $element_info = element_info('password_confirm');
@@ -122,53 +125,72 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $form['account']['pass']['#process'] = $process;
 
   // Add class to fieldset
-  // $form['#groups']['group_complement']->format_settings['instance_settings']['classes'] .= ' form-group-2col';
+  $form['#groups']['group_complement']->format_settings['instance_settings']['classes'] .= ' form-group-2col';
 
   // Profile
-  $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_last_name']['#suffix'] = '</div>';
+	if ($form['field_first_name'] && $form['field_last_name']) {
+		$form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_last_name']['#suffix'] = '</div>';
+	}
 
 	// Reduce email description for better Bootstrap display (tooltip)
   $form['account']['mail']['#description'] = t('All e-mails from the system will be sent to this address. The e-mail address will only be used if you wish to receive a new password or certain news or notifications by e-mail.');
 
   // Contact
   $form['field_address'][LANGUAGE_NONE][0]['#type'] = 'div';
-  $form['field_address'][LANGUAGE_NONE][0]['street_block']['thoroughfare']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_address'][LANGUAGE_NONE][0]['street_block']['premise']['#suffix'] = '</div>';
 
-  $form['field_address'][LANGUAGE_NONE][0]['locality_block']['postal_code']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_address'][LANGUAGE_NONE][0]['locality_block']['locality']['#suffix'] = '</div>';
+	if ($form['field_address'][LANGUAGE_NONE][0]['street_block']['thoroughfare'] && $form['field_address'][LANGUAGE_NONE][0]['street_block']['premise']) {
+	  $form['field_address'][LANGUAGE_NONE][0]['street_block']['thoroughfare']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_address'][LANGUAGE_NONE][0]['street_block']['premise']['#suffix'] = '</div>';
+	}
 
-  $form['field_address'][LANGUAGE_NONE][0]['phone_block']['phone_number']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_address'][LANGUAGE_NONE][0]['phone_block']['mobile_number']['#suffix'] = '</div>';
+	if ($form['field_address'][LANGUAGE_NONE][0]['locality_block']['postal_code'] && $form['field_address'][LANGUAGE_NONE][0]['locality_block']['locality']) {
+	  $form['field_address'][LANGUAGE_NONE][0]['locality_block']['postal_code']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_address'][LANGUAGE_NONE][0]['locality_block']['locality']['#suffix'] = '</div>';
+	}
+
+	if ($form['field_address'][LANGUAGE_NONE][0]['phone_block']['phone_number'] && $form['field_address'][LANGUAGE_NONE][0]['phone_block']['mobile_number']) {
+	  $form['field_address'][LANGUAGE_NONE][0]['phone_block']['phone_number']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_address'][LANGUAGE_NONE][0]['phone_block']['mobile_number']['#suffix'] = '</div>';
+	}
 
   // Organisation
-  $form['field_position']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_working_status']['#suffix'] = '</div>';
+	if ($form['field_position'] && $form['field_working_status']) {
+	  $form['field_position']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_working_status']['#suffix'] = '</div>';
+	}
 
   // Needs
-  $form['field_needs_for_expertise']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_needs_for_expertise'][LANGUAGE_NONE]['#title'] = $form['field_needs_for_expertise'][LANGUAGE_NONE]['#title'] . ' ' . t('(choose one or several fields)');
-  $form['field_specific_skills3'][LANGUAGE_NONE]['#title'] = $form['field_specific_skills3'][LANGUAGE_NONE]['#title'] . ' ' . t('(using keywords or tags)');
-  $form['field_specific_skills3']['#suffix'] = '</div>';
+	if ($form['field_needs_for_expertise'] && $form['field_specific_skills3']) {
+	  $form['field_needs_for_expertise']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_specific_skills3']['#suffix'] = '</div>';
+	}
+	$form['field_needs_for_expertise'][LANGUAGE_NONE]['#title'] = $form['field_needs_for_expertise'][LANGUAGE_NONE]['#title'] . ' ' . t('(choose one or several fields)');
+	$form['field_specific_skills3'][LANGUAGE_NONE]['#title'] = $form['field_specific_skills3'][LANGUAGE_NONE]['#title'] . ' ' . t('(using keywords or tags)');
 
   // Skills & background
-  $form['field_titre_metier']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_domaine']['#suffix'] = '</div>';
+	if ($form['field_titre_metier'] && $form['field_domaine']) {
+	  $form['field_titre_metier']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_domaine']['#suffix'] = '</div>';
+	}
 
   // Sponsorship
-  $form['field_sponsorship']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_sponsor1']['#suffix'] = '</div>';
+	if ($form['field_sponsorship'] && $form['field_sponsor1']) {
+	  $form['field_sponsorship']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_sponsor1']['#suffix'] = '</div>';
+	}
 
   // Complement
-  $form['field_notification_frequency']['#prefix'] = '<div class="form-group-2col row">';
+	if ($form['field_notification_frequency'] && $form['field_known_specific']) {
+	  $form['field_notification_frequency']['#prefix'] = '<div class="form-group-2col row">';
+		$form['field_known_specific']['#suffix'] = '</div>';
+	}
 	if (user_access('create question1 content') || user_access('create webform content') || user_access('create challenge content')) {
 		$form['field_notification_frequency'][LANGUAGE_NONE]['#description'] = t('How often do you want to receive eMindHub\'s notifications about new answers to your requests ?');
 	}
 	if (user_access('question1: comment on any question1 content') || user_access('edit own webform submissions') || user_access('challenge: comment on any challenge content')) {
 		$form['field_notification_frequency'][LANGUAGE_NONE]['#description'] = t('How often do you want to receive eMindHub\'s notifications about new requests ?');
 	}
-  $form['field_known_specific']['#suffix'] = '</div>';
 
   $form['actions']['submit']['#attributes']['class'][] = 'btn-primary';
 
@@ -292,8 +314,10 @@ function emindhub_form_user_register_form_client_alter(&$form, &$form_state, $fo
   //   '#weight' => '-999',
   // );
   // Add class before & after fields
-  $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_last_name']['#suffix'] = '</div>';
+	if ($form['field_first_name'] && $form['field_last_name']) {
+	  $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_last_name']['#suffix'] = '</div>';
+	}
 	// Reduce email description for better Bootstrap display (tooltip)
   $form['account']['mail']['#description'] = t('All e-mails from the system will be sent to this address. The e-mail address will only be used if you wish to receive a new password or certain news or notifications by e-mail.');
 }
@@ -311,8 +335,10 @@ function emindhub_form_user_register_form_expert_alter(&$form, &$form_state, $fo
     '#weight' => '-999',
   );
   // Add class before & after fields
-  $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_last_name']['#suffix'] = '</div>';
+	if ($form['field_first_name'] && $form['field_last_name']) {
+	  $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_last_name']['#suffix'] = '</div>';
+	}
 	// Reduce email description for better Bootstrap display (tooltip)
   $form['account']['mail']['#description'] = t('All e-mails from the system will be sent to this address. The e-mail address will only be used if you wish to receive a new password or certain news or notifications by e-mail.');
 }
@@ -396,20 +422,30 @@ function emindhub_form_change_pwd_page_form_alter(&$form, &$form_state, $form_id
 function emindhub_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
 
 	// Add class before & after fields
-  $form['field_duration_of_the_mission']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_start_date']['#suffix'] = '</div>';
+	if ($form['field_duration_of_the_mission'] && $form['field_start_date']) {
+	  $form['field_duration_of_the_mission']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_start_date']['#suffix'] = '</div>';
+	}
 
-  $form['field_document']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_image']['#suffix'] = '</div>';
+	if ($form['field_document'] && $form['field_image']) {
+	  $form['field_document']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_image']['#suffix'] = '</div>';
+	}
 
-  $form['field_domaine']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_tags']['#suffix'] = '</div>';
+	if ($form['field_domaine'] && $form['field_tags']) {
+	  $form['field_domaine']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_tags']['#suffix'] = '</div>';
+	}
 
-  $form['field_anonymous']['#prefix'] = '<div class="form-group-3col row">';
-  $form['field_use_my_entreprise']['#suffix'] = '</div>';
+	if ($form['field_anonymous'] && $form['field_use_my_entreprise']) {
+	  $form['field_anonymous']['#prefix'] = '<div class="form-group-3col row">';
+	  $form['field_use_my_entreprise']['#suffix'] = '</div>';
+	}
 
-  $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_reward']['#suffix'] = '</div>';
+	if ($form['field_expiration_date'] && $form['field_reward']) {
+	  $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_reward']['#suffix'] = '</div>';
+	}
 
 	// $webform = $form['#node'];
   // if (!empty($webform->nid)) {
@@ -446,21 +482,26 @@ function emindhub_form_webform_components_form_alter(&$form, &$form_state, $form
  */
 function emindhub_form_challenge_node_form_alter(&$form, &$form_state, $form_id) {
 
-	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
-	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
-
 	// Add class before & after fields
-  $form['field_document']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_image']['#suffix'] = '</div>';
+	if ($form['field_document'] && $form['field_image']) {
+	  $form['field_document']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_image']['#suffix'] = '</div>';
+	}
 
-  $form['field_domaine']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_tags']['#suffix'] = '</div>';
+	if ($form['field_domaine'] && $form['field_tags']) {
+	  $form['field_domaine']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_tags']['#suffix'] = '</div>';
+	}
 
-  $form['field_anonymous']['#prefix'] = '<div class="form-group-3col row">';
-  $form['field_use_my_entreprise']['#suffix'] = '</div>';
+	if ($form['field_anonymous'] && $form['field_use_my_entreprise']) {
+	  $form['field_anonymous']['#prefix'] = '<div class="form-group-3col row">';
+	  $form['field_use_my_entreprise']['#suffix'] = '</div>';
+	}
 
-  $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_reward']['#suffix'] = '</div>';
+	if ($form['field_expiration_date'] && $form['field_reward']) {
+	  $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_reward']['#suffix'] = '</div>';
+	}
 
 }
 
@@ -472,18 +513,21 @@ function emindhub_form_challenge_node_form_alter(&$form, &$form_state, $form_id)
  */
 function emindhub_form_question1_node_form_alter(&$form, &$form_state, $form_id) {
 
-	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
-	// echo '<pre>' . print_r($form_state, TRUE) . '</pre>';
-
 	// Add class before & after fields
-  $form['field_domaine']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_tags']['#suffix'] = '</div>';
+	if ($form['field_domaine'] && $form['field_tags']) {
+		$form['field_domaine']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_tags']['#suffix'] = '</div>';
+	}
 
-  $form['field_anonymous']['#prefix'] = '<div class="form-group-3col row">';
-  $form['field_use_my_entreprise']['#suffix'] = '</div>';
+	if ($form['field_anonymous'] && $form['field_use_my_entreprise']) {
+		$form['field_anonymous']['#prefix'] = '<div class="form-group-3col row">';
+	  $form['field_use_my_entreprise']['#suffix'] = '</div>';
+	}
 
-  $form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
-  $form['field_reward']['#suffix'] = '</div>';
+	if ($form['field_expiration_date'] && $form['field_reward']) {
+		$form['field_expiration_date']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_reward']['#suffix'] = '</div>';
+	}
 
 }
 
@@ -494,12 +538,16 @@ function emindhub_form_question1_node_form_alter(&$form, &$form_state, $form_id)
  */
 function emindhub_form_request_node_form_alter(&$form, &$form_state, $form_id) {
 
-	$form['title_field']['#prefix'] = '<div class="section step1"><h2>' . t('What is your request about?') . '</h2>';
-  $form['body']['#suffix'] = '</div>';
+	if ($form['title_field'] && $form['body']) {
+		$form['title_field']['#prefix'] = '<div class="section step1"><h2>' . t('What is your request about?') . '</h2>';
+	  $form['body']['#suffix'] = '</div>';
+	}
 
-	$form['field_domaine']['#prefix'] = '<div class="section step2"><h2>' . t('Tell us more about your request:') . '</h2>';
+	if ($form['field_domaine'] && $form['language']) {
+		$form['field_domaine']['#prefix'] = '<div class="section step2"><h2>' . t('Tell us more about your request:') . '</h2>';
+	  $form['language']['#suffix'] = '</div>';
+	}
 	$form['field_domaine'][LANGUAGE_NONE]['#title'] = t('Fields of expertise');
-  $form['language']['#suffix'] = '</div>';
 
 	$form['og_group_ref']['#prefix'] = '<div class="section step3"><h2>' . t('Select circle(s) of experts you want to address your request') . '</h2>';
   $form['og_group_ref']['#suffix'] = '</div>';
@@ -524,7 +572,9 @@ function emindhub_form_request_node_form_alter(&$form, &$form_state, $form_id) {
   $form['field_options'][LANGUAGE_NONE]['anonymous']['enabled']['#suffix'] = '<div class="form-item-description">' . $form['field_options'][LANGUAGE_NONE]['anonymous']['enabled']['#description'] . '</div>';
 	$form['field_options'][LANGUAGE_NONE]['anonymous']['enabled']['#description'] = '';
 
-	$form['field_hide_name']['#prefix'] = '<div class="request-option-anonymous">';
-  $form['field_hide_organisation']['#suffix'] = '</div>';
+	if ($form['field_hide_name'] && $form['field_hide_organisation']) {
+		$form['field_hide_name']['#prefix'] = '<div class="request-option-anonymous">';
+	  $form['field_hide_organisation']['#suffix'] = '</div>';
+	}
 
 }
