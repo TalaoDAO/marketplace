@@ -108,7 +108,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 				$first = TRUE;
 				$fields[$field]['first'] = TRUE;
 				$form[$field]['#prefix'] = '<fieldset>';
-				$form[$field]['#prefix'] .= '<legend>' . t('Your profile') . '</legend>';
+				$form[$field]['#prefix'] .= '<legend>' . t('Complete our profile') . '</legend>';
 				$form[$field]['#prefix'] .= '<p>' . t('Please fill in the information below to publish your request. This information is required only once and will enable the requester to access your profile.') . '</p>';
 			}
 		}
