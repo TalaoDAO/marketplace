@@ -281,8 +281,8 @@ function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
     }
   }
 
-  if (module_exists('emh_profile_complete_expert')) {
-    $fields = emh_profile_complete_expert_set_fields();
+  if (module_exists('emh_profile_complete_request')) {
+    $fields = emh_profile_complete_request_set_fields();
     $fields = _emh_profile_complete_get_empty_fields('user', 'user', $user, $fields);
     $userPercent = emh_profile_complete_get_complete_percentage_data('user', 'user', $account, $fields);
     if ($userPercent['current_percent'] == '100') return TRUE;
