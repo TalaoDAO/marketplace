@@ -80,7 +80,7 @@ Feature: Requests visibility for Référent
 
   Scenario: A référent can see experts' full profiles from its circles
     Given I am logged in as "référent1"
-    When I go to "users/iron-man"
+    When I go to "users/iron"
     Then I should see "Iron MAN"
       And I should see "Chieur génial"
       And I should see "0712345670"
@@ -88,5 +88,5 @@ Feature: Requests visibility for Référent
 
   Scenario: A référent cannot see experts' full profiles outside of its circles
     Given I am logged in as "référent1"
-    When I am on "/users/scott-summers"
+    When I go to "users/scott"
     Then I should get a "403" HTTP response

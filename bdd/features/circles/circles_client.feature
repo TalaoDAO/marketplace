@@ -62,6 +62,7 @@ Feature: Requests visibility for Client
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
+  @exclude
   Scenario: Clients can see the requests
     Given I am logged in as "client1"
     When I go to homepage
@@ -79,14 +80,14 @@ Feature: Requests visibility for Client
 
   Scenario: A client can see experts' full profiles from its circles
     Given I am logged in as "client1"
-    When I go to "users/iron-man"
+    When I go to "users/iron"
     Then I should see "Iron MAN"
       And I should see "Chieur génial"
       And I should see "0712345670"
       And I should see "emindhub.test+expert1@gmail.com"
 
     Given I am logged in as "client2"
-    When I go to "users/scott-summers"
+    When I go to "users/scott"
     Then I should see "Scott SUMMERS"
       And I should see "Bucheron"
       And I should see "0712345673"
@@ -94,9 +95,9 @@ Feature: Requests visibility for Client
 
   Scenario: A client cannot see experts' full profiles outside of its circles
     Given I am logged in as "client1"
-    When I am on "/users/scott-summers"
+    When I go to "users/scott"
     Then I should get a "403" HTTP response
 
     Given I am logged in as "client2"
-    When I am on "/users/iron-man"
+    When I go to "users/iron"
     Then I should get a "403" HTTP response
