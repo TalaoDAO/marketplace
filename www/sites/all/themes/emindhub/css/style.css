@@ -14138,7 +14138,7 @@ ul.links.list-inline li a .badge {
 .section.emh-fieldgroup-blue-title {
   padding-top: 0;
 }
-.section .form-group {
+.section .form-group:last-child {
   margin-bottom: 0;
 }
 .section > .field,
@@ -16663,7 +16663,7 @@ form#emh-profile-complete-request-form > div > div {
 @media (min-width: 992px) {
   form#emh-profile-complete-request-form > div > div {
     float: left;
-    width: 25%;
+    width: 33.33333333%;
   }
 }
 form#emh-profile-complete-request-form > div > div.btn-group {
@@ -18851,46 +18851,11 @@ body.node-type-request:not(.page-node-edit) .user-submission .user-submission-st
 body.node-type-request:not(.page-node-edit) .user-submission .user-submission-status.published[href]:focus {
   background-color: #449d44;
 }
-@media (min-width: 992px) {
-  body.node-type-request:not(.page-node-edit) .user-submission form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-left: 0;
-  }
-  body.node-type-request:not(.page-node-edit) .user-submission form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-left: 0;
-  }
-  body.node-type-request:not(.page-node-edit) .user-submission form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-left: 0;
-  }
-}
-@media (min-width: 992px) and (min-width: 992px) {
-  body.node-type-request:not(.page-node-edit) .user-submission form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill2 {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-@media (min-width: 992px) and (min-width: 992px) {
-  body.node-type-request:not(.page-node-edit) .user-submission form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-skill-autoeval {
-    float: left;
-    width: 25%;
-  }
-}
-@media (min-width: 992px) and (min-width: 992px) {
-  body.node-type-request:not(.page-node-edit) .user-submission form #edit-field-skills-set tbody td:nth-child(2) .field-name-field-year-of-experiences {
-    float: left;
-    width: 25%;
-  }
+body.node-type-request:not(.page-node-edit) .user-submission form fieldset {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #1abc9c;
+  color: #FFF;
 }
 body.node-type-request:not(.page-node-edit) .submissions {
   color: #FFF;
