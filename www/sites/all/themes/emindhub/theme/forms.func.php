@@ -205,7 +205,7 @@ function emindhub_form_process_password_confirm($element) {
 /**
  * Implements hook_form_alter().
  */
-function emindhub_form_emh_profile_complete_expert_form_alter(&$form, &$form_state, $form_id) {
+function emindhub_form_emh_profile_complete_request_form_alter(&$form, &$form_state, $form_id) {
 
 	$form['field_entreprise']['#weight'] = '1';
 	$form['field_working_status']['#weight'] = '2';
