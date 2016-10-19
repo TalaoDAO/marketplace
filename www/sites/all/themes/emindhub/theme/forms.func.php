@@ -91,6 +91,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
   }
 
   if (isset($form['#node']->nid) && ($form_id == 'webform_client_form_' . $form['#node']->nid)) {
+		// echo '<pre>' . print_r($form['field_address'], TRUE) . '</pre>';
 		// $form['field_address'][LANGUAGE_NONE][0]['phone_block']['phone_number']['#prefix'] = '<div class="form-group-2col row">';
 	  // $form['field_address'][LANGUAGE_NONE][0]['phone_block']['mobile_number']['#suffix'] = '</div>';
 
@@ -113,11 +114,6 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
  * Implements hook_form_alter().
  */
 function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
-
-	// global $user;
-	// $fields = field_info_instances('user', 'user');
-
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
 
   $element_info = element_info('password_confirm');
   $process = $element_info['#process'];
@@ -142,11 +138,6 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 	if ($form['field_address'][LANGUAGE_NONE][0]['street_block']['thoroughfare'] && $form['field_address'][LANGUAGE_NONE][0]['street_block']['premise']) {
 	  $form['field_address'][LANGUAGE_NONE][0]['street_block']['thoroughfare']['#prefix'] = '<div class="form-group-2col row">';
 	  $form['field_address'][LANGUAGE_NONE][0]['street_block']['premise']['#suffix'] = '</div>';
-	}
-
-	if ($form['field_address'][LANGUAGE_NONE][0]['locality_block']['postal_code'] && $form['field_address'][LANGUAGE_NONE][0]['locality_block']['locality']) {
-	  $form['field_address'][LANGUAGE_NONE][0]['locality_block']['postal_code']['#prefix'] = '<div class="form-group-2col row">';
-	  $form['field_address'][LANGUAGE_NONE][0]['locality_block']['locality']['#suffix'] = '</div>';
 	}
 
 	if ($form['field_address'][LANGUAGE_NONE][0]['phone_block']['phone_number'] && $form['field_address'][LANGUAGE_NONE][0]['phone_block']['mobile_number']) {
