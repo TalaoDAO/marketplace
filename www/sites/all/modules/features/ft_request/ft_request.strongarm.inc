@@ -99,13 +99,13 @@ function ft_request_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '16',
-        ),
-        'metatags' => array(
           'weight' => '17',
         ),
+        'metatags' => array(
+          'weight' => '18',
+        ),
         'language' => array(
-          'weight' => '6',
+          'weight' => '7',
         ),
       ),
       'display' => array(
