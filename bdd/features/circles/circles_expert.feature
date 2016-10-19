@@ -84,18 +84,3 @@ Feature: Requests visibility for Expert
       And I should not see "Fight Ultron"
       And I should not see "Fight Hydra"
       And I should see "Fight Thanos"
-
-  Scenario: Check profile completion and request visibility
-    Given I am logged in as "expert5"
-
-    When I go to homepage
-    Then I should see "Please complete the following information to access client requests"
-
-    When I go to "content/fight-magneto"
-    Then I should see "Please complete the following information to access client requests"
-      And I should not see "Your submission"
-
-    When I enter "86" for "Field(s) of expertise"
-      And I press "Update your profile"
-    Then I should see the success message containing "You have now access to client requests."
-      And I should see "Your submission"
