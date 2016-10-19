@@ -1,0 +1,6 @@
+name = EMH Profile Complete - Request
+description = Get complete expert profiles before request access.
+core = 7.x
+package = EMH
+
+dependencies[] = emh_profile_complete

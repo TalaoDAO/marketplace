@@ -8,17 +8,17 @@
 /**
 * Implements hook_enable().
 */
-function emh_profile_complete_expert_enable() {
-  emh_profile_complete_expert_update_7001();
+function emh_profile_complete_request_enable() {
+  emh_profile_complete_request_update_7001();
 }
 
 /**
  * ADD: Parameters for EMH Profile Complete Expert block.
  */
-function emh_profile_complete_expert_update_7001() {
+function emh_profile_complete_request_update_7001() {
   $role = user_role_load_by_name('expert');
   $query = db_insert('block_role')
           ->fields(array('rid', 'module', 'delta'))
-          ->values(array('rid' => $role->rid, 'module' => 'emh_profile_complete_expert', 'delta' => 'emh_profile_complete_expert'))
+          ->values(array('rid' => $role->rid, 'module' => 'emh_profile_complete_request', 'delta' => 'emh_profile_complete_request'))
           ->execute();
 }
