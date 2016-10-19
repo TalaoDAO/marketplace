@@ -1113,18 +1113,17 @@ function ft_views_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'views_bootstrap_table_plugin_style';
   $handler->display->display_options['style_options']['columns'] = array(
-    'type' => 'type',
+    'field_request_type' => 'field_request_type',
     'title' => 'title',
+    'language' => 'language',
     'og_group_ref' => 'og_group_ref',
-    'created' => 'created',
     'field_expiration_date' => 'field_expiration_date',
-    'field_reward' => 'field_reward',
     'total_answers' => 'total_answers',
     'request_status' => 'request_status',
   );
-  $handler->display->display_options['style_options']['default'] = 'created';
+  $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
-    'type' => array(
+    'field_request_type' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -1138,26 +1137,19 @@ function ft_views_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'og_group_ref' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'created' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'desc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_expiration_date' => array(
+    'language' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
-    'field_reward' => array(
+    'og_group_ref' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_expiration_date' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -1201,6 +1193,11 @@ function ft_views_views_default_views() {
   $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['flag_content_rel']['required'] = 0;
   $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'my_selection';
+  /* Field: Content: Request type */
+  $handler->display->display_options['fields']['field_request_type']['id'] = 'field_request_type';
+  $handler->display->display_options['fields']['field_request_type']['table'] = 'field_data_field_request_type';
+  $handler->display->display_options['fields']['field_request_type']['field'] = 'field_request_type';
+  $handler->display->display_options['fields']['field_request_type']['label'] = 'Type';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -1439,19 +1436,17 @@ function ft_views_views_default_views() {
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'views_bootstrap_table_plugin_style';
   $handler->display->display_options['style_options']['columns'] = array(
-    'type' => 'type',
+    'field_request_type' => 'field_request_type',
     'title' => 'title',
     'language' => 'language',
     'og_group_ref' => 'og_group_ref',
-    'created' => 'created',
     'field_expiration_date' => 'field_expiration_date',
-    'field_reward' => 'field_reward',
     'total_answers' => 'total_answers',
     'request_status' => 'request_status',
   );
-  $handler->display->display_options['style_options']['default'] = 'created';
+  $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
-    'type' => array(
+    'field_request_type' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -1477,21 +1472,7 @@ function ft_views_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'created' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'desc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
     'field_expiration_date' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_reward' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -1526,6 +1507,11 @@ function ft_views_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Request type */
+  $handler->display->display_options['fields']['field_request_type']['id'] = 'field_request_type';
+  $handler->display->display_options['fields']['field_request_type']['table'] = 'field_data_field_request_type';
+  $handler->display->display_options['fields']['field_request_type']['field'] = 'field_request_type';
+  $handler->display->display_options['fields']['field_request_type']['label'] = 'Type';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -1708,89 +1694,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '25';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'views_bootstrap_table_plugin_style';
-  $handler->display->display_options['style_options']['columns'] = array(
-    'type' => 'type',
-    'title' => 'title',
-    'language' => 'language',
-    'og_group_ref' => 'og_group_ref',
-    'created' => 'created',
-    'field_expiration_date' => 'field_expiration_date',
-    'field_reward' => 'field_reward',
-    'total_answers' => 'total_answers',
-    'request_status' => 'request_status',
-  );
-  $handler->display->display_options['style_options']['default'] = 'created';
-  $handler->display->display_options['style_options']['info'] = array(
-    'type' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'title' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'language' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'og_group_ref' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'created' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'desc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_expiration_date' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_reward' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'total_answers' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'request_status' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-  );
-  $handler->display->display_options['style_options']['sticky'] = TRUE;
-  $handler->display->display_options['style_options']['bootstrap_styles'] = array(
-    'striped' => 0,
-    'bordered' => 0,
-    'hover' => 0,
-    'condensed' => 0,
-  );
-  $handler->display->display_options['defaults']['style_options'] = FALSE;
-  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   /* Relationship: Content: Author */
   $handler->display->display_options['relationships']['uid']['id'] = 'uid';
@@ -2124,19 +2027,17 @@ function ft_views_views_default_views() {
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'views_bootstrap_table_plugin_style';
   $handler->display->display_options['style_options']['columns'] = array(
-    'type' => 'type',
+    'field_request_type' => 'field_request_type',
     'title' => 'title',
     'language' => 'language',
     'og_group_ref' => 'og_group_ref',
-    'created' => 'created',
     'field_expiration_date' => 'field_expiration_date',
-    'field_reward' => 'field_reward',
     'total_answers' => 'total_answers',
     'request_status' => 'request_status',
   );
-  $handler->display->display_options['style_options']['default'] = 'created';
+  $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
-    'type' => array(
+    'field_request_type' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -2162,21 +2063,7 @@ function ft_views_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'created' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'desc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
     'field_expiration_date' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_reward' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -2376,19 +2263,17 @@ function ft_views_views_default_views() {
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'views_bootstrap_table_plugin_style';
   $handler->display->display_options['style_options']['columns'] = array(
-    'type' => 'type',
+    'field_request_type' => 'field_request_type',
     'title' => 'title',
     'language' => 'language',
     'og_group_ref' => 'og_group_ref',
-    'created' => 'created',
     'field_expiration_date' => 'field_expiration_date',
-    'field_reward' => 'field_reward',
     'total_answers' => 'total_answers',
     'request_status' => 'request_status',
   );
-  $handler->display->display_options['style_options']['default'] = 'created';
+  $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
-    'type' => array(
+    'field_request_type' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -2414,21 +2299,7 @@ function ft_views_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'created' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'desc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
     'field_expiration_date' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_reward' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -2472,6 +2343,11 @@ function ft_views_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Request type */
+  $handler->display->display_options['fields']['field_request_type']['id'] = 'field_request_type';
+  $handler->display->display_options['fields']['field_request_type']['table'] = 'field_data_field_request_type';
+  $handler->display->display_options['fields']['field_request_type']['field'] = 'field_request_type';
+  $handler->display->display_options['fields']['field_request_type']['label'] = 'Type';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -2801,19 +2677,17 @@ function ft_views_views_default_views() {
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'views_bootstrap_table_plugin_style';
   $handler->display->display_options['style_options']['columns'] = array(
-    'type' => 'type',
+    'field_request_type' => 'field_request_type',
     'title' => 'title',
     'language' => 'language',
     'og_group_ref' => 'og_group_ref',
-    'created' => 'created',
     'field_expiration_date' => 'field_expiration_date',
-    'field_reward' => 'field_reward',
     'total_answers' => 'total_answers',
     'request_status' => 'request_status',
   );
-  $handler->display->display_options['style_options']['default'] = 'created';
+  $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
-    'type' => array(
+    'field_request_type' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -2839,21 +2713,7 @@ function ft_views_views_default_views() {
       'separator' => '',
       'empty_column' => 0,
     ),
-    'created' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'desc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
     'field_expiration_date' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'field_reward' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -2897,6 +2757,11 @@ function ft_views_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Request type */
+  $handler->display->display_options['fields']['field_request_type']['id'] = 'field_request_type';
+  $handler->display->display_options['fields']['field_request_type']['table'] = 'field_data_field_request_type';
+  $handler->display->display_options['fields']['field_request_type']['field'] = 'field_request_type';
+  $handler->display->display_options['fields']['field_request_type']['label'] = 'Type';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
