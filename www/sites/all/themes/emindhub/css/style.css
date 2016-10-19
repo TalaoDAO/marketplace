@@ -18491,10 +18491,6 @@ body.page-node-publish table tbody tr td:last-child {
 body.page-node-publish form#emh-request-publication-form {
   margin-top: 15px;
 }
-body.page-node-publish .field-label-inline .field-label,
-body.node-type-request.page-node-edit .field-label-inline .field-label {
-  font-weight: normal;
-}
 body.page-node-publish .section,
 body.node-type-request:not(.page-node-edit) .section {
   margin-left: -15px;
