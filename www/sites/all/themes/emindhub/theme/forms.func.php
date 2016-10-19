@@ -43,9 +43,9 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 		  'submit',
 			'save',
 		  'publish',
-		) as $action ) {
-			if (!empty($form['actions'][$action])) {
-				$form['actions'][$action]['#weight'] = $i++;
+		) as $field) {
+			if (!empty($form['actions'][$field])) {
+				$form['actions'][$field]['#weight'] = $i++;
 			}
 		}
 
@@ -80,7 +80,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
   // Hide "Show row weights" for regular users
   global $user;
 
-  if (!(in_array('webmaster', $user->roles) || in_array('administrator', $user->roles) )) {
+  if (!(in_array('webmaster', $user->roles) || in_array('administrator', $user->roles))) {
     if (empty($form['#attached']['js'])) {
       $form['#attached']['js'] = array();
     }
@@ -91,21 +91,42 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
   }
 
   if (isset($form['#node']->nid) && ($form_id == 'webform_client_form_' . $form['#node']->nid)) {
-		// echo '<pre>' . print_r($form['field_address'], TRUE) . '</pre>';
-		// $form['field_address'][LANGUAGE_NONE][0]['phone_block']['phone_number']['#prefix'] = '<div class="form-group-2col row">';
-	  // $form['field_address'][LANGUAGE_NONE][0]['phone_block']['mobile_number']['#suffix'] = '</div>';
 
-		// $form['field_address']['#prefix'] = '<fieldset>';
-    // $form['field_address']['#prefix'] .= '<legend>' . t('Your profile') . '</legend>';
-    // $form['field_address']['#prefix'] .= '<p>' . t('Merci de renseigner ces informations afin que le demandeur puisse acheter votre profil. Vous n’aurez à fournir ces renseignements qu’une seule fois.') . '</p>';
-    // $form['field_cv']['#suffix'] = '</fieldset>';
-		//
-    // $form['field_position']['#weight'] = '16';
-    // $form['field_skills_set']['#weight'] = '19';
-    // $form['field_cv']['#weight'] = '20';
+		global $user;
+		$account = user_load($user->uid);
+
+		$fields = emh_profile_complete_submission_set_fields();
+		$fields = _emh_profile_complete_get_empty_fields('user', 'user', $user, $fields);
+
+		$first = FALSE; $last = FALSE;
+		foreach($fields as $field => $value) {
+			$fields[$field] = array(
+				'first' => FALSE,
+				'last' => FALSE,
+			);
+			if (!$first) {
+				$first = TRUE;
+				$fields[$field]['first'] = TRUE;
+				$form[$field]['#prefix'] = '<fieldset>';
+				$form[$field]['#prefix'] .= '<legend>' . t('Your profile') . '</legend>';
+				$form[$field]['#prefix'] .= '<p>' . t('Please fill in the information below to publish your request. This information is required only once and will enable the requester to access your profile.') . '</p>';
+			}
+		}
+		$fields = array_reverse($fields);
+		foreach($fields as $field => $value) {
+			if (!$last) {
+				$last = TRUE;
+				$fields[$field]['last'] = TRUE;
+				$form[$field]['#suffix'] = '</fieldset>';
+			}
+		}
+		$fields = array_reverse($fields);
+
+		$form['field_position']['#weight'] = '16';
+		$form['field_skills_set']['#weight'] = '19';
+		$form['field_cv']['#weight'] = '20';
+
 	}
-
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
 
 }
 
@@ -299,7 +320,7 @@ function emindhub_form_user_register_form_client_alter(&$form, &$form_state, $fo
   $form['emh_baseline'] = array(
     '#markup' => '<p class="emh-title-baseline">' . sprintf(t('Create your account %sfor free in no time%s'), '<strong>', '</strong>') . '</p>',
     '#weight' => '-1000', // First !
-  );
+	);
   // $form['emh_content'] = array(
   //   '#markup' => '<p class="emh-title-baseline">' . t('You can directly login with your LinkedIn account or complete the form below to create your account.') . '</p>',
   //   '#weight' => '-999',
@@ -320,11 +341,11 @@ function emindhub_form_user_register_form_expert_alter(&$form, &$form_state, $fo
   $form['emh_baseline'] = array(
     '#markup' => '<p class="emh-title-baseline">' . sprintf(t('Create your account %sfor free in no time%s'), '<strong>', '</strong>') . '</p>',
     '#weight' => '-1000', // First !
-  );
+	);
   $form['emh_content'] = array(
     '#markup' => '<p class="emh-title-baseline">' . t('You can directly login with your LinkedIn account or complete the form below to create your account.') . '</p>',
     '#weight' => '-999',
-  );
+	);
   // Add class before & after fields
 	if ($form['field_first_name'] && $form['field_last_name']) {
 	  $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
