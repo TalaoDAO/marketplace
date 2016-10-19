@@ -37,7 +37,7 @@ Feature: Fill Expert profile fields
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
-  Scenario: An expert without certain profile fields filled can access request by filling form
+  Scenario: An expert without certain profile fields filled can access request by filling a form
     Given I am logged in as "expert1"
     When I go to homepage
     Then I should see "Please complete the following information to access client requests"
@@ -48,7 +48,7 @@ Feature: Fill Expert profile fields
     When I fill in "Organisation / company" with "Marvel Studios"
       And I select "Employee" from "Working status"
       And I select "Energy" from "Field(s) of expertise"
-      And I select "United States" from "Country"
+      #And I select "United States" from "Country"
     Then I press "Update your profile"
       And I press "Update your profile"
       And I should see the message "Your profile has been updated. You have now access to client requests."
@@ -61,8 +61,8 @@ Feature: Fill Expert profile fields
       And I check the box "edit-views-bulk-operations-0"
       And I select "Change value" from "operation"
       And I press "Execute"
-      And I check the box "bundle_user[show_value][field_address]"
-      And I select "United States" from "Country"
+      And I check the box "bundle_user[show_value][field_entreprise]"
+      I fill in "Organisation / company" with "Marvel Studios"
       And I press "Next"
       And I press "Next"
       And I follow meta refresh
@@ -70,16 +70,15 @@ Feature: Fill Expert profile fields
 
     Given I am logged in as "expert1"
     When I click "View my profile"
-    Then I should see "United States"
+    Then I should see "Marvel Studios"
 
     When I go to homepage
     Then I should see "Please complete the following information to access client requests"
-      And I should not see "Country"
-    When I fill in "Organisation / company" with "Marvel Studios"
-      And I select "Employee" from "Working status"
+      And I should not see "Organisation / company"
+    When I select "Employee" from "Working status"
       And I select "Energy" from "Field(s) of expertise"
     Then I press "Update your profile"
       And I should see the message "Your profile has been updated. You have now access to client requests."
 
     When I click "View my profile"
-    Then I should see "United States"
+    Then I should see "Marvel Studios"
