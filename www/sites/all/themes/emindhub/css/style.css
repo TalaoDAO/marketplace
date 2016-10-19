@@ -18380,8 +18380,12 @@ body.node-type-request.page-node-edit .request-option-anonymous > .form-group {
     width: 25%;
   }
 }
+body.page-node-add-request #edit-title-field .form-control:not(textarea),
+body.node-type-request.page-node-edit #edit-title-field .form-control:not(textarea),
 body.page-node-add-request #edit-field-request-questions .form-control:not(textarea),
 body.node-type-request.page-node-edit #edit-field-request-questions .form-control:not(textarea),
+body.page-node-add-request #edit-title-field .input-group:not(.file-widget),
+body.node-type-request.page-node-edit #edit-title-field .input-group:not(.file-widget),
 body.page-node-add-request #edit-field-request-questions .input-group:not(.file-widget),
 body.node-type-request.page-node-edit #edit-field-request-questions .input-group:not(.file-widget) {
   max-width: 100%;
