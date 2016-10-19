@@ -543,10 +543,3 @@ function emh_configuration_update_7034() {
   drupal_uninstall_modules(array('emh_pcp_special'));
   module_enable(array('emh_profile_complete', 'emh_profile_complete_request', 'emh_profile_complete_submission'));
 }
-
-/**
- * ADD: New module for better Admin views.
- */
-function emh_configuration_update_7035() {
-  module_enable(array('admin_views'));
-}
