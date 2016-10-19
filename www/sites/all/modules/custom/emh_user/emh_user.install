@@ -107,10 +107,3 @@ function emh_user_update_7009() {
 function emh_user_update_7010() {
   module_enable(array('emh_user_profile_purchase'));
 }
-
-/**
- * CHG: address field parameters.
- */
-function emh_user_update_7011() {
-  features_revert(array('ft_content_type' => array('field_instance')));
-}
