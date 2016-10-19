@@ -8,7 +8,7 @@ function emh_profile_complete_submission_set_fields() {
   $fields = array(
     // 'field_address', // Phones
     'field_position',
-    'field_skills_set',
+    // 'field_skills_set',
     'field_cv',
   );
   return $fields;
@@ -38,163 +38,13 @@ function emh_profile_complete_submission_form_alter(&$form, &$form_state, $form_
         field_attach_form('user', $account, $attach_form, $form_state, NULL, array('field_name' => $field));
         $form[$field] = $attach_form[$field];
 
-        // switch ($field) {
-        //   case 'field_address':
-        //       $elements = $form['field_address'][LANGUAGE_NONE][0];
-        //       $elements['#type'] = 'div';
-        //       $elements['street_block']['thoroughfare']['#required'] = FALSE;
-        //       $elements['street_block']['thoroughfare']['#access'] = FALSE;
-        //       $elements['street_block']['premise']['#required'] = FALSE;
-        //       $elements['street_block']['premise']['#access'] = FALSE;
-        //       $elements['locality_block']['postal_code']['#required'] = FALSE;
-        //       $elements['locality_block']['postal_code']['#access'] = FALSE;
-        //       $elements['locality_block']['dependent_locality']['#required'] = FALSE;
-        //       $elements['locality_block']['dependent_locality']['#access'] = FALSE;
-        //       $elements['locality_block']['locality']['#required'] = FALSE;
-        //       $elements['locality_block']['locality']['#access'] = FALSE;
-        //       $elements['locality_block']['administrative_area']['#required'] = FALSE;
-        //       $elements['locality_block']['administrative_area']['#access'] = FALSE;
-        //       $elements['country']['#access'] = FALSE;
-        //       $elements['country']['#access'] = FALSE;
-        //       $elements['phone_block']['phone_number']['phone_number']['#required'] = TRUE;
-        //       $elements['phone_block']['phone_number']['phone_number']['#access'] = TRUE;
-        //       $elements['phone_block']['mobile_number']['#required'] = TRUE;
-        //       $elements['phone_block']['mobile_number']['#access'] = TRUE;
-        //       $form['field_address'][LANGUAGE_NONE][0] = $elements;
-        //     break;
-        //
-        //   default:
-        //     break;
-        // }
-
       }
     }
 
-    // $form['actions']['submit'] = array(
-    //   '#type' => 'submit',
-    //   '#value' => t('Update your profile'),
-    //   '#weight' => '100',
-    // );
+    $form['#submit'][] = 'emh_profile_complete_submission_form_submit';
 
-    // Field collections
-    // if ($items = field_get_items('user', $account, 'field_skills_set')) {
-    //
-    //   //loop through to get the ids so we can take
-    //   //advantage of field_collection_item_load_multiple for
-    //   //greater efficiency
-    //   $field_collection_item_ids = array();
-    //   foreach ($items as $item) {
-    //     $field_collection_item_ids[] = $item['value'];
-    //   }
-    //
-    //   if ($field_collection_items = field_collection_item_load_multiple($field_collection_item_ids)) {
-    //     foreach ($field_collection_items as $subitem) {
-    //       echo '<pre>' . print_r($subitem, true) . '</pre>';
-    //       //now we load the items within the field collection
-    //       if ($items = field_get_items('field_collection_item', $subitem, 'field_skills_set')) {
-    //
-    //         //And you can then repeat to go deeper and deeper
-    //         //e.g. a field collection item within a field collection
-    //         //for instance to get the urls within your faculty members
-    //         //item. Best to break this into functions or a class
-    //         //to keep your code readable and not have so many nested
-    //         //if statements and for loops
-    //
-    //       }
-    //
-    //     }
-    //   }
-    //
-    // }
-
-    // $form['field_skills_set'][LANGUAGE_NONE][0]['field_skill2']['#required'] = TRUE;
-    // $form['field_skills_set'][LANGUAGE_NONE][0]['field_skill_autoeval']['#required'] = TRUE;
-    // $form['field_skills_set'][LANGUAGE_NONE][0]['field_year_of_experiences']['#required'] = TRUE;
-    //
-    // $elements = $form['field_address'][LANGUAGE_NONE][0];
-    //
-    // $elements['#type'] = 'div';
-    //
-    // $elements['street_block']['thoroughfare']['#required'] = FALSE;
-    // $elements['street_block']['thoroughfare']['#access'] = FALSE;
-    // $elements['street_block']['premise']['#required'] = FALSE;
-    // $elements['street_block']['premise']['#access'] = FALSE;
-    //
-    // $elements['locality_block']['postal_code']['#required'] = FALSE;
-    // $elements['locality_block']['postal_code']['#access'] = FALSE;
-    // $elements['locality_block']['dependent_locality']['#required'] = FALSE;
-    // $elements['locality_block']['dependent_locality']['#access'] = FALSE;
-    // $elements['locality_block']['locality']['#required'] = FALSE;
-    // $elements['locality_block']['locality']['#access'] = FALSE;
-    // $elements['locality_block']['administrative_area']['#required'] = FALSE;
-    // $elements['locality_block']['administrative_area']['#access'] = FALSE;
-    //
-    // $elements['country']['#required'] = FALSE;
-    // $elements['country']['#access'] = FALSE;
-    //
-    // $elements['phone_block']['phone_number']['phone_number']['#required'] = TRUE;
-    // $elements['phone_block']['mobile_number']['#required'] = TRUE;
-    //
-    // $form['field_address'][LANGUAGE_NONE][0] = $elements;
-
-    // echo '<pre>' . print_r($form['field_skills_set'][LANGUAGE_NONE][0], true) . '</pre>';
   }
 }
-
-// function emh_profile_complete_submission_form($form, &$form_state, $fields) {
-//
-//   global $user;
-//   $account = user_load($user->uid);
-//   $attach_form = array();
-//
-//   $fields = _emh_profile_complete_get_empty_fields('user', 'user', $user, $fields);
-//
-//   foreach ($fields as $field) {
-//
-//     if (field_access('edit', $field, 'user')) {
-//
-//       field_attach_form('user', $account, $attach_form, $form_state, NULL, array('field_name' => $field));
-//       $form[$field] = $attach_form[$field];
-//
-//       switch ($field) {
-//         case 'field_address':
-//             $elements = $form['field_address'][LANGUAGE_NONE][0];
-//             $elements['#type'] = 'div';
-//             $elements['street_block']['thoroughfare']['#required'] = FALSE;
-//             $elements['street_block']['thoroughfare']['#access'] = FALSE;
-//             $elements['street_block']['premise']['#required'] = FALSE;
-//             $elements['street_block']['premise']['#access'] = FALSE;
-//             $elements['locality_block']['postal_code']['#required'] = FALSE;
-//             $elements['locality_block']['postal_code']['#access'] = FALSE;
-//             $elements['locality_block']['dependent_locality']['#required'] = FALSE;
-//             $elements['locality_block']['dependent_locality']['#access'] = FALSE;
-//             $elements['locality_block']['locality']['#required'] = FALSE;
-//             $elements['locality_block']['locality']['#access'] = FALSE;
-//             $elements['locality_block']['administrative_area']['#required'] = FALSE;
-//             $elements['locality_block']['administrative_area']['#access'] = FALSE;
-//             $elements['phone_block']['phone_number']['phone_number']['#required'] = FALSE;
-//             $elements['phone_block']['phone_number']['phone_number']['#access'] = FALSE;
-//             $elements['phone_block']['mobile_number']['#required'] = FALSE;
-//             $elements['phone_block']['mobile_number']['#access'] = FALSE;
-//             $form['field_address'][LANGUAGE_NONE][0] = $elements;
-//           break;
-//
-//         default:
-//           break;
-//       }
-//
-//     }
-//   }
-//
-//   $form['actions']['submit'] = array(
-//     '#type' => 'submit',
-//     '#value' => t('Update your profile'),
-//     '#weight' => '100',
-//   );
-//
-//   return $form;
-//
-// }
 
 function emh_profile_complete_submission_form_submit($form, &$form_state) {
 
@@ -202,12 +52,11 @@ function emh_profile_complete_submission_form_submit($form, &$form_state) {
   $account = user_load($user->uid);
   $edit = array();
 
-  $fields = $form_state['build_info']['args'][0];
+  $fields = emh_profile_complete_submission_set_fields();
   $fields = _emh_profile_complete_get_empty_fields('user', 'user', $user, $fields);
 
   foreach ($fields as $field) {
-    $field_name = $field;
-    $edit[$field_name] = $form_state['values'][$field_name];
+    $edit[$field] = $form_state['values'][$field];
   }
 
   $edit = array_merge( $edit, array(
@@ -217,6 +66,6 @@ function emh_profile_complete_submission_form_submit($form, &$form_state) {
 
   user_save($account, $edit);
 
-  // drupal_set_message(t('Your profile has been updated. You have now access to client requests.'));
+  drupal_set_message(t('Your profile has been updated.'));
 
 }
