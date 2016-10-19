@@ -214,6 +214,11 @@ function _emh_profile_complete_get_empty_fields($entity_type, $bundle, $user, $f
   foreach ($fields as $field_name) {
     if (empty($user_values[$field_name])) {
       $empty_fields[$field_name] = $field_name;
+      // foreach ($field_name as $subfield_name) {
+      //   if (empty($user_values[$field_name][LANGUAGE_NONE][0][$subfield_name])) {
+      //     $empty_fields[$field_name][] = $subfield_name;
+      //   }
+      // }
     }
   }
   return $empty_fields;
