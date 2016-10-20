@@ -1,10 +1,19 @@
-.circle-body {
-  font-size: 1.1em;
-  .col-sm-12 {
-    padding: 0;
-  }
+.circle-logo {
+  .make-sm-column(1);
 }
+
+.circle-title {
+  .make-sm-column(11);
+}
+
+.circle-body {
+  .make-sm-column(12);
+  padding: 0;
+  font-size: 1.1em;
+}
+
 .circle-subscribe {
+  .make-sm-column(12);
   .text-right;
   a {
     .btn;
@@ -16,6 +25,29 @@
     }
   }
 }
+
+.circle-count {
+  .make-sm-column(7);
+}
+
+.circle-managers {
+  .make-sm-column(8);
+  .circle-manager {
+    .make-sm-column(6);
+  }
+}
+
+// Node
+.node-circle {
+  .circle-subscribe {
+    .make-sm-column(4);
+  }
+  .circle-body {
+    .make-sm-column(4);
+  }
+}
+
+// Views
 .view-circles {
   h2 {
     margin-top: 10px;
