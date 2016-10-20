@@ -55,3 +55,45 @@ function emh_request_submission_block_view($delta = '') {
 
   return $block;
 }
+
+/**
+ * Return a count of the total number of submissions for a user.
+ *
+ * @param $uid
+ *   The user ID to filter the submissions by.
+ * @param $is_draft
+ *   Optional; NULL for all, truthy for drafts only, falsy for completed only.
+ *   The default is completed submissions only.
+ * @return
+ *   An integer value of the number of submissions.
+ */
+function emh_request_submission_get_user_submission_count($uid, $is_draft = 0) {
+  $counts = &drupal_static(__FUNCTION__);
+
+  if (!isset($counts[$uid])) {
+    if (!isset($uid)) {
+      global $user;
+      $uid = $user->uid;
+    }
+    $query = db_select('webform_submissions', 'ws')
+      ->addTag('emh_request_submission_get_user_submission_count')
+      ->condition('ws.uid', $uid);
+    if ($uid === 0) {
+      $submissions = isset($_SESSION['webform_submission']) ? $_SESSION['webform_submission'] : NULL;
+      if ($submissions) {
+        $query->condition('ws.sid', $submissions, 'IN');
+      }
+      else {
+        // Intentionally never match anything if the anonymous user has no
+        // submissions.
+        $query->condition('ws.sid', 0);
+      }
+    }
+    if (isset($is_draft)) {
+      $query->condition('ws.is_draft', $is_draft);
+    }
+
+    $counts[$uid] = $query->countQuery()->execute()->fetchField();
+  }
+  return $counts[$uid];
+}
