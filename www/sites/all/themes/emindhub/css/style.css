@@ -9782,6 +9782,8 @@ form#user-profile-form .link-field-subrow:after,
 #user-register-form-expert .hybridauth-widget-wrapper:after,
 #user-register-form .hybridauth-widget-wrapper:before,
 #user-register-form .hybridauth-widget-wrapper:after,
+.page-user .profile-section:before,
+.page-user .profile-section:after,
 .page-user .profile-section .field-name-field-address .field-item:before,
 .page-user .profile-section .field-name-field-address .field-item:after,
 .page-user .profile-section .field-name-field-address .addressfield-phone-block:before,
@@ -9854,6 +9856,7 @@ form#user-profile-form .link-field-subrow:after,
 #user-register-form-client .hybridauth-widget-wrapper:after,
 #user-register-form-expert .hybridauth-widget-wrapper:after,
 #user-register-form .hybridauth-widget-wrapper:after,
+.page-user .profile-section:after,
 .page-user .profile-section .field-name-field-address .field-item:after,
 .page-user .profile-section .field-name-field-address .addressfield-phone-block:after,
 body.not-logged-in.node-type-landing-page .account.row .form-item-pass:after,
@@ -16057,12 +16060,27 @@ div.rating div a:hover {
   height: 50px;
   width: 50px;
 }
+.cartouche-identity,
+.cartouche-activity {
+  padding: 5px;
+  color: #4e6374;
+}
+.cartouche-activity {
+  background-color: #f6f7f8;
+  border-top: 1px solid #e1e4e7;
+}
+.cartouche-activity .user-submission-count {
+  display: inline-block;
+  height: 16px;
+  line-height: 16px;
+  padding-left: 21px;
+  background: transparent url("../images/icons/icon_submission.png") no-repeat left center;
+}
 .user-cartouche {
-  text-align: center;
+  border: 1px solid #e1e4e7;
 }
 .user-cartouche a {
   color: #104476;
-  text-decoration: underline;
 }
 .user-cartouche > span {
   display: block;
@@ -16071,13 +16089,24 @@ div.rating div a:hover {
 .user-cartouche > span:last-child {
   margin-bottom: 0;
 }
+.user-cartouche .user-identity,
+.user-cartouche .user-organisation,
+.user-cartouche .user-activity {
+  display: block;
+  padding-top: 5px;
+}
+.user-cartouche .user-identity .field,
+.user-cartouche .user-organisation .field,
+.user-cartouche .user-activity .field {
+  margin: 0;
+  padding: 0 !important;
+}
 .user-cartouche .user-identity {
   font-weight: bold;
 }
 .user-cartouche .user-organisation,
 .user-cartouche .user-activity {
   font-style: italic;
-  color: #4e6374;
 }
 .user-cartouche .user-buy-access {
   display: inline-block;
@@ -17372,9 +17401,36 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
     max-width: 100%;
   }
 }
+.page-user .user-cartouche .cartouche-identity,
+.page-user .user-cartouche .cartouche-activity {
+  padding: 15px;
+}
+.page-user .user-cartouche .user-identity,
+.page-user .user-cartouche .user-organisation,
+.page-user .user-cartouche .user-activity {
+  padding-top: 10px;
+}
+.page-user .user-cartouche .user-badge img {
+  width: 100px;
+  height: 100px;
+}
 .page-user .profile-section {
+  margin-left: -15px;
+  margin-right: -15px;
   margin-bottom: 15px;
   background-color: #F6F7F8;
+}
+.page-user .profile-section > .field {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  .page-user .profile-section > .field {
+    float: left;
+    width: 100%;
+  }
 }
 .page-user .profile-section h2 {
   position: relative;
@@ -17424,12 +17480,17 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
 .page-user .profile-section .field-collection-container > .field > .field-items > .field-item {
   margin-bottom: 5px;
 }
-.page-user .profile-section.group-profile {
-  padding-top: 15px;
+.page-user .profile-section .field-name-field-photo {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
-.page-user .profile-section.group-profile .h3,
-.page-user .profile-section.group-profile .h4 {
-  margin: 0;
+@media (min-width: 768px) {
+  .page-user .profile-section .field-name-field-photo {
+    float: left;
+    width: 16.66666667%;
+  }
 }
 .page-user .profile-section .field-name-field-photo img {
   border-radius: 50%;
@@ -17438,6 +17499,28 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
   margin-right: auto;
   max-width: 100px !important;
   max-height: 100px !important;
+}
+.page-user .profile-section .field-name-field-first-name,
+.page-user .profile-section .field-name-field-last-name,
+.page-user .profile-section .field-name-field-titre-metier,
+.page-user .profile-section .field-name-field-entreprise,
+.page-user .profile-section .field-name-field-address,
+.page-user .profile-section .field-name-field-mail {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  .page-user .profile-section .field-name-field-first-name,
+  .page-user .profile-section .field-name-field-last-name,
+  .page-user .profile-section .field-name-field-titre-metier,
+  .page-user .profile-section .field-name-field-entreprise,
+  .page-user .profile-section .field-name-field-address,
+  .page-user .profile-section .field-name-field-mail {
+    float: left;
+    width: 83.33333333%;
+  }
 }
 .page-user .profile-section .field-name-field-address .field-item {
   margin-left: -15px;
@@ -17536,17 +17619,6 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
   text-align: left;
 }
 @media (min-width: 768px) {
-  .page-user .profile-section {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-left: -15px;
-    margin-right: -15px;
-    padding: 0;
-    margin-left: 0;
-    margin-right: 0;
-  }
   .page-user .profile-section .field-name-name {
     clear: both;
   }
@@ -17613,12 +17685,6 @@ fieldset[disabled] #user-register-form #edit-submit.focus {
     min-height: 1px;
     padding-left: 15px;
     padding-right: 15px;
-  }
-}
-@media (min-width: 768px) and (min-width: 768px) {
-  .page-user .profile-section {
-    float: left;
-    width: 100%;
   }
 }
 @media (min-width: 768px) and (min-width: 768px) {
@@ -17790,14 +17856,56 @@ form#webform-components-form input#edit-extra-description,
 form#webform-component-edit-form input#edit-extra-description {
   max-width: 100%;
 }
+.circle-logo {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  .circle-logo {
+    float: left;
+    width: 8.33333333%;
+  }
+}
+.circle-title {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  .circle-title {
+    float: left;
+    width: 91.66666667%;
+  }
+}
 .circle-body {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding: 0;
   font-size: 1.1em;
 }
-.circle-body .col-sm-12 {
-  padding: 0;
+@media (min-width: 768px) {
+  .circle-body {
+    float: left;
+    width: 100%;
+  }
 }
 .circle-subscribe {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
   text-align: right;
+}
+@media (min-width: 768px) {
+  .circle-subscribe {
+    float: left;
+    width: 100%;
+  }
 }
 .circle-subscribe a {
   display: inline-block;
@@ -17974,6 +18082,66 @@ fieldset[disabled] .circle-subscribe a.unsubscribe.focus {
 .circle-subscribe a.unsubscribe .badge {
   color: transparent;
   background-color: #4c6172;
+}
+.circle-count {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  .circle-count {
+    float: left;
+    width: 58.33333333%;
+  }
+}
+.circle-managers {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  .circle-managers {
+    float: left;
+    width: 66.66666667%;
+  }
+}
+.circle-managers .circle-manager {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  .circle-managers .circle-manager {
+    float: left;
+    width: 50%;
+  }
+}
+.node-circle .circle-subscribe {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  .node-circle .circle-subscribe {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+.node-circle .circle-body {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 768px) {
+  .node-circle .circle-body {
+    float: left;
+    width: 33.33333333%;
+  }
 }
 .view-circles h2 {
   margin-top: 10px;
@@ -18608,10 +18776,17 @@ body.node-type-request:not(.page-node-edit) .section.user-submission {
 }
 body.node-type-request:not(.page-node-edit) .section.request .user-cartouche {
   clear: both;
-  border: 1px solid #e1e4e7;
-  padding: 15px;
   margin-bottom: 15px;
   text-align: center;
+}
+body.node-type-request:not(.page-node-edit) .section.request .user-cartouche .cartouche-identity,
+body.node-type-request:not(.page-node-edit) .section.request .user-cartouche .cartouche-activity {
+  padding: 15px;
+}
+body.node-type-request:not(.page-node-edit) .section.request .user-cartouche .user-identity,
+body.node-type-request:not(.page-node-edit) .section.request .user-cartouche .user-organisation,
+body.node-type-request:not(.page-node-edit) .section.request .user-cartouche .user-activity {
+  padding-top: 10px;
 }
 body.node-type-request:not(.page-node-edit) .section.request .user-cartouche .user-badge img {
   width: 100px;
@@ -18722,6 +18897,9 @@ body.node-type-request:not(.page-node-edit) .user-submission .user-submission-st
 body.node-type-request:not(.page-node-edit) .submissions {
   color: #FFF;
   background-color: #33374a;
+}
+body.node-type-request:not(.page-node-edit) .submissions .user-cartouche {
+  text-align: center;
 }
 body.node-type-request:not(.page-node-edit) .submissions .submissions-title {
   background-color: #2e3243;
@@ -18836,7 +19014,7 @@ body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-
 @media (min-width: 992px) {
   body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-block-request-submissions .col .views-field-emh-author {
     float: left;
-    width: 16.66666667%;
+    width: 25%;
   }
 }
 body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-block-request-submissions .col .views-field-emh-answer,
@@ -18850,7 +19028,7 @@ body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-
   body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-block-request-submissions .col .views-field-emh-answer,
   body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-block-request-submissions .col .views-field-view-submission {
     float: left;
-    width: 83.33333333%;
+    width: 75%;
   }
 }
 body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-block-request-submissions .col .views-field-view-submission {
@@ -18858,7 +19036,7 @@ body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-
 }
 @media (min-width: 768px) {
   body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-block-request-submissions .col .views-field-view-submission {
-    margin-left: 16.66666667%;
+    margin-left: 25%;
   }
 }
 body.node-type-request:not(.page-node-edit) form#views-form-request-submissions-block-request-submissions .col .submission-date {
