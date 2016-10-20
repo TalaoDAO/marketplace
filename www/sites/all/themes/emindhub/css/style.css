@@ -16062,7 +16062,6 @@ div.rating div a:hover {
 }
 .user-cartouche a {
   color: #104476;
-  text-decoration: underline;
 }
 .user-cartouche > span {
   display: block;
@@ -16071,13 +16070,40 @@ div.rating div a:hover {
 .user-cartouche > span:last-child {
   margin-bottom: 0;
 }
+.user-cartouche .cartouche-identity,
+.user-cartouche .cartouche-activity {
+  padding: 5px;
+  color: #4e6374;
+}
+.user-cartouche .cartouche-activity {
+  background-color: #f6f7f8;
+  border-top: 1px solid #e1e4e7;
+}
+.user-cartouche .user-identity,
+.user-cartouche .user-organisation,
+.user-cartouche .user-activity {
+  display: block;
+  padding-top: 5px;
+}
+.user-cartouche .user-identity .field,
+.user-cartouche .user-organisation .field,
+.user-cartouche .user-activity .field {
+  margin: 0;
+  padding: 0 !important;
+}
 .user-cartouche .user-identity {
   font-weight: bold;
 }
 .user-cartouche .user-organisation,
 .user-cartouche .user-activity {
   font-style: italic;
-  color: #4e6374;
+}
+.user-cartouche .user-submission-count {
+  display: inline-block;
+  height: 16px;
+  line-height: 16px;
+  padding-left: 21px;
+  background: transparent url("../images/icons/icon_submission.png") no-repeat left center;
 }
 .user-cartouche .user-buy-access {
   display: inline-block;
@@ -18609,9 +18635,17 @@ body.node-type-request:not(.page-node-edit) .section.user-submission {
 body.node-type-request:not(.page-node-edit) .section.request .user-cartouche {
   clear: both;
   border: 1px solid #e1e4e7;
-  padding: 15px;
   margin-bottom: 15px;
   text-align: center;
+}
+body.node-type-request:not(.page-node-edit) .section.request .user-cartouche .cartouche-identity,
+body.node-type-request:not(.page-node-edit) .section.request .user-cartouche .cartouche-activity {
+  padding: 15px;
+}
+body.node-type-request:not(.page-node-edit) .section.request .user-cartouche .user-identity,
+body.node-type-request:not(.page-node-edit) .section.request .user-cartouche .user-organisation,
+body.node-type-request:not(.page-node-edit) .section.request .user-cartouche .user-activity {
+  padding-top: 10px;
 }
 body.node-type-request:not(.page-node-edit) .section.request .user-cartouche .user-badge img {
   width: 100px;
