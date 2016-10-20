@@ -109,16 +109,19 @@
 					<?php print render($content['field_request_documents']); ?>
 				<?php endif; ?>
 
-        <?php if (emh_request_has_option($node, 'anonymous')): ?>
-          <?php if ($hidden_name): ?>
-          <?php print t("My name will be hidden"); ?>
-          <?php endif; ?>
+				<?php if (emh_request_has_option($node, 'anonymous')): ?>
+					<?php if ($hidden_name): ?>
+						<div class="field field-name-field-hide-organisation clearfix">
+							<i><?php print t("My name will be hidden."); ?></i>
+						</div>
+					<?php endif; ?>
 
-          <?php if ($hidden_organisation): ?>
-          <?php print t("My organisation will be hidden"); ?>
-          <?php endif; ?>
+					<?php if ($hidden_organisation): ?>
+						<div class="field field-name-field-hide-name clearfix">
+							<i><?php print t("My organisation will be hidden."); ?></i>
+						</div>
+					<?php endif; ?>
 
-          <?php print t("My activity:"); ?>
 					<?php print render($content['field_activity']); ?>
 				<?php endif; ?>
 
