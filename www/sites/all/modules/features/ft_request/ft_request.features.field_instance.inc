@@ -625,9 +625,9 @@ function ft_request_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'list',
+        'module' => 'i18n_taxonomy',
         'settings' => array(),
-        'type' => 'list_default',
+        'type' => 'i18n_taxonomy_term_reference_link',
         'weight' => 17,
       ),
       'summary' => array(
@@ -655,7 +655,7 @@ function ft_request_field_default_field_instances() {
       'active' => 1,
       'module' => 'options',
       'settings' => array(
-        'apply_chosen' => 0,
+        'apply_chosen' => '',
       ),
       'type' => 'options_select',
       'weight' => 0,
@@ -903,6 +903,76 @@ function ft_request_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'taxonomy_term-request_type-field_label'.
+  $field_instances['taxonomy_term-request_type-field_label'] = array(
+    'bundle' => 'request_type',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_label',
+    'label' => 'Label',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'taxonomy_term-request_type-field_prepopulate'.
+  $field_instances['taxonomy_term-request_type-field_prepopulate'] = array(
+    'bundle' => 'request_type',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_prepopulate',
+    'label' => 'Prepopulate',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 128,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 3,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('Circles');
@@ -915,7 +985,9 @@ function ft_request_field_default_field_instances() {
   t('Hide my name');
   t('Hide my organisation');
   t('Image');
+  t('Label');
   t('Options');
+  t('Prepopulate');
   t('Questions');
   t('Request title or question');
   t('Request type');
