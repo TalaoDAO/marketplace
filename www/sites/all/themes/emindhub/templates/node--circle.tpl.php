@@ -82,23 +82,23 @@
 ?>
 <?php if ($teaser) : ?>
   <div class="row section">
-    <div class="circle-logo col-sm-1">
+    <div class="circle-logo">
       <?php if (!empty($content['field_circle_logo'])) : ?>
         <?php print render($content['field_circle_logo']); ?>
       <?php endif; ?>
     </div>
-    <div class="col-sm-11">
+    <div class="circle-title">
       <h2<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h2>
       <!-- <div class="circle-count"> -->
         <?php //print format_plural(og_extras_subscriber_count($node->nid), '@count member', '@count members'); ?>
       <!-- </div> -->
     </div>
     <?php if (!empty($content['body'])) : ?>
-      <div class="circle-body col-sm-12">
+      <div class="circle-body">
         <?php print render($content['body']); ?>
       </div>
     <?php endif; ?>
-    <div class="circle-subscribe col-sm-12">
+    <div class="circle-subscribe">
       <?php $state = emh_circles_get_membership_state($node); if (!empty($state)) : ?>
         <em><?php print $state; ?></em>
       <?php endif; ?>
@@ -111,15 +111,15 @@
     <div class="content"<?php print $content_attributes; ?>>
 
       <div class="row section">
-        <div class="circle-logo col-sm-1">
+        <div class="circle-logo">
           <?php if (!empty($content['field_circle_logo'])) : ?>
             <?php print render($content['field_circle_logo']); ?>
           <?php endif; ?>
         </div>
-        <div class="circle-count col-sm-7">
+        <div class="circle-count">
           <?php print $subscriber_count; ?>
         </div>
-        <div class="circle-subscribe col-sm-4">
+        <div class="circle-subscribe">
           <?php $state = emh_circles_get_membership_state($node); if (!empty($state)) : ?>
             <em><?php print $state; ?></em>
           <?php endif; ?>
@@ -129,11 +129,11 @@
 
       <div class="row">
         <?php if (!empty($managers)) : ?>
-        <div class="circle-managers col-sm-8">
+        <div class="circle-managers">
           <h3><?php print format_plural(count($manager_uids), 'Manager', 'Managers'); ?></h3>
           <div class="row">
             <?php foreach ($managers as $manager): ?>
-            <div class="col-sm-6">
+            <div class="circle-manager">
               <?php print $manager; ?>
             </div>
             <?php endforeach; ?>
@@ -141,7 +141,7 @@
         </div>
         <?php endif; ?>
         <?php if (!empty($content['body'])) : ?>
-        <div class="circle-body col-sm-4">
+        <div class="circle-body">
           <h3><?php print t('About this circle'); ?></h3>
             <?php print render($content['body']); ?>
         </div>
