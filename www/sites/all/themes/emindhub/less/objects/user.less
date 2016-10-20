@@ -10,8 +10,26 @@
 }
 
 // User cartouche
+.cartouche-identity,
+.cartouche-activity {
+  padding: 5px;
+  color: #4e6374;
+}
+
+.cartouche-activity {
+  background-color: #f6f7f8;
+  border-top: 1px solid #e1e4e7;
+
+  .user-submission-count {
+    display: inline-block;
+    height: 16px;
+    line-height: 16px;
+    padding-left: 21px;
+    background: transparent url("../images/icons/icon_submission.png") no-repeat left center;
+  }
+}
 .user-cartouche {
-  .text-center;
+  border: 1px solid #e1e4e7;
   a {
     color: @deepBlue;
   }
@@ -23,17 +41,6 @@
 			margin-bottom: 0;
 		}
 	}
-
-  .cartouche-identity,
-  .cartouche-activity {
-    padding: 5px;
-    color: #4e6374;
-  }
-
-  .cartouche-activity {
-    background-color: #f6f7f8;
-    border-top: 1px solid #e1e4e7;
-  }
 
 	.user-identity,
   .user-organisation,
@@ -55,14 +62,6 @@
 	.user-activity {
 		font-style: italic;
 	}
-
-  .user-submission-count {
-    display: inline-block;
-    height: 16px;
-    line-height: 16px;
-    padding-left: 21px;
-    background: transparent url("../images/icons/icon_submission.png") no-repeat left center;
-  }
 
   .user-buy-access {
     .btn;
