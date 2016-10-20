@@ -74,12 +74,17 @@ Feature: Request and submissions
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "You have to read DC comics of course!" in the "user_submission" region
+      And I should see "1" in the "submissions_list" region
 
   Scenario: An expert of the same circle can see the published submission
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+    Then I should see "1" in the "How to become a superhero?" row
+
+    When I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "Everybody can be, trust me, I'm the best we known." in the "submissions" region
+      And I should see "1" in the "submissions_list" region
+
     When I click "view" in the "submissions" region
     Then I should see "Everybody can be, trust me, I'm the best we known."
 
@@ -93,10 +98,12 @@ Feature: Request and submissions
     Then I should see "1" in the "How to become a superhero?" row
 
     When I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should see "Iron MAN"
-      And I should see "Everybody can be, trust me, I'm the best we known."
-      And I should not see "Klark KENT"
-      And I should not see "You have to read DC comics of course!"
+    Then I should see "Iron MAN" in the "submissions" region
+      And I should see "Everybody can be, trust me, I'm the best we known." in the "submissions" region
+      And I should see "1" in the "submissions_list" region
+      And I should not see "Klark KENT" in the "submissions" region
+      And I should not see "You have to read DC comics of course!" in the "submissions" region
+      
     When I click "view" in the "submissions" region
     Then I should see "Everybody can be, trust me, I'm the best we known."
 

@@ -60,21 +60,22 @@ function emh_request_submission_block_view($delta = '') {
  * Return a count of the total number of submissions for a user.
  *
  * @param $uid
- *   The user ID to filter the submissions by.
+ *   Optional; NULL for current user. The user ID to filter the submissions by.
  * @param $is_draft
  *   Optional; NULL for all, truthy for drafts only, falsy for completed only.
  *   The default is completed submissions only.
  * @return
  *   An integer value of the number of submissions.
  */
-function emh_request_submission_get_user_submission_count($uid, $is_draft = 0) {
+function emh_request_submission_get_user_submission_count($uid = NULL, $is_draft = 0) {
+  if (!isset($uid)) {
+    global $user;
+    $uid = $user->uid;
+  }
+  
   $counts = &drupal_static(__FUNCTION__);
 
   if (!isset($counts[$uid])) {
-    if (!isset($uid)) {
-      global $user;
-      $uid = $user->uid;
-    }
     $query = db_select('webform_submissions', 'ws')
       ->addTag('emh_request_submission_get_user_submission_count')
       ->condition('ws.uid', $uid);

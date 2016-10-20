@@ -447,14 +447,9 @@ function emh_user_cartouche_view($uid, $context = NULL) {
 		$cartouche_identity .= '<a href="' . url("user/$uid2/purchase") . '?destination=node/' . $node->nid . '" class="user-buy-access">' . t('Access profile for ' . $amount . ' credits') . '</a>';
 	}
 
-  // Self cartouche
-  // if ($uid1 === $uid2) {
-  //   $cartouche_identity .= '<span class="user-self">~ ' . t('It\'s you!') . ' ~</span>';
-  // }
-
   // Submissions count
-  if ($context !== 'author' && emh_access_user_can_see_full_user($uid1, $uid2)) {
-    $submission_count = emh_request_submission_get_user_submission_count();
+  if ($context !== 'author') {
+    $submission_count = emh_request_submission_get_user_submission_count($uid);
     $cartouche_activity .= '<span class="user-submission-count">' . $submission_count . '</span>';
   }
 
