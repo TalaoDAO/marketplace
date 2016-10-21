@@ -17,18 +17,18 @@ Feature: Requests visibility for Référent
     | Marvel Entertainment  | admin   |
 
     Given users:
-    | name      | mail                              | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | référent1 | emindhub.test+referent1@gmail.com | référent | Nick             | FURY            | 0612345678      | Skydiving          | Avengers     | emindhub.test+referent1@gmail.com | Marvel Studios       | Other | Maintenance |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                        | field_entreprise     | field_working_status | field_domaine | field_address:country |
+    | référent1 | emindhub.test+referent1@gmail.com | référent | Nick             | FURY            | 0612345678      | Skydiving          | Avengers     | emindhub.test+referent1@gmail.com | Marvel Studios       | Other                | Maintenance   | US                    |
 
     Given users:
-    | name    | mail                            | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance |
-    | client2 | emindhub.test+client2@gmail.com | business | Charle           | XAVIER          |                 |                    | X-Men        | emindhub.test+client2@gmail.com | Marvel Entertainment | Freelancer           | Engines     |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA           | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance   | US                    |
+    | client2 | emindhub.test+client2@gmail.com | business | Charle           | XAVIER          |                 |                    | X-Men        | emindhub.test+client2@gmail.com | Marvel Entertainment | Freelancer           | Engines       | US                    |
 
     Given users:
-    | name    | mail                            | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail                      | field_entreprise   | field_working_status | field_domaine |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios     | Employee             | Energy        |
-    | expert4 | emindhub.test+expert4@gmail.com | expert   | Scott            | SUMMERS         | 0712345673      | Bucheron           | X-Men        | emindhub.test+expert4@gmail.com | Marvel Entertainment | Employee  | Helicopters   |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy        | US                    |
+    | expert4 | emindhub.test+expert4@gmail.com | expert   | Scott            | SUMMERS         | 0712345673      | Bucheron           | X-Men        | emindhub.test+expert4@gmail.com | Marvel Entertainment | Employee             | Helicopters   | US                    |
 
     Given "request" content:
     | title         | field_domaine  | og_group_ref    | author  | field_expiration_date  | status  |
@@ -70,21 +70,6 @@ Feature: Requests visibility for Référent
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
-    Given I am logged in as "expert1"
-    When I click "Edit my account"
-      And I fill in "field_address[und][0][phone_number]" with "0712345670"
-      And I press "Save"
-
-    Given I am logged in as "expert4"
-    When I click "Edit my account"
-      And I fill in "field_address[und][0][phone_number]" with "0712345673"
-      And I press "Save"
-
-    Given I am logged in as "référent1"
-    When I click "Edit my account"
-      And I fill in "field_address[und][0][phone_number]" with "0612345678"
-      And I press "Save"
-
   Scenario: A référent can see the requests from its circles
     Given I am logged in as "référent1"
     When I go to homepage
@@ -95,7 +80,7 @@ Feature: Requests visibility for Référent
 
   Scenario: A référent can see experts' full profiles from its circles
     Given I am logged in as "référent1"
-    When I go to "/users/iron-man"
+    When I go to "users/iron"
     Then I should see "Iron MAN"
       And I should see "Chieur génial"
       And I should see "0712345670"
@@ -103,5 +88,5 @@ Feature: Requests visibility for Référent
 
   Scenario: A référent cannot see experts' full profiles outside of its circles
     Given I am logged in as "référent1"
-    When I am on "/users/scott-summers"
+    When I go to "users/scott"
     Then I should get a "403" HTTP response

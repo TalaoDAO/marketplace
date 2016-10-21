@@ -18,15 +18,15 @@ Feature: Circles workflow for Expert
     | Marvel Entertainment  | admin   |
 
     Given users:
-    | name    | mail                 | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail           | field_entreprise  | field_working_status  | field_domaine |
-    | client4 | emindhub.test+client4@gmail.com | business | Star             | LORD            |                 |                    | Guardians of the Galaxy        | emindhub.test+client4@gmail.com | Tumblr  | Freelancer | Drones      |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise   | field_working_status | field_domaine | field_address:country |
+    | client4 | emindhub.test+client4@gmail.com | business | Star             | LORD            |                 |                    | Guardians of the Galaxy        | emindhub.test+client4@gmail.com | Tumblr  | Freelancer | Drones      | US                 |
 
     Given users:
-    | name    | mail                            | roles    | field_first_name | field_last_name | field_telephone | field_other_areas  | og_user_node | field_mail                      | field_entreprise   | field_working_status | field_domaine |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios     | Employee             | Energy        |
-    | expert4 | emindhub.test+expert4@gmail.com | expert   | Scott            | SUMMERS         | 0712345673      | Bucheron           | X-Men        | emindhub.test+expert4@gmail.com | Marvel Entertainment | Employee  | Helicopters   |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise   | field_working_status | field_domaine | field_address:country |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios     | Employee             | Energy        | US                  |
+    | expert4 | emindhub.test+expert4@gmail.com | expert   | Scott            | SUMMERS         | 0712345673      | Bucheron           | X-Men        | emindhub.test+expert4@gmail.com | Marvel Entertainment | Employee  | Helicopters   | US                 |
 
-    # Make client4 as a MANager of Guardians of the Galaxy circle
+    # Make client4 as a manager of Guardians of the Galaxy circle
     Given I am logged in as a user with the "administrator" role
     When I go to "content/guardians-galaxy"
       And I click "Group" in the "primary tabs" region
@@ -55,7 +55,7 @@ Feature: Circles workflow for Expert
 
   Scenario: Experts can access to its own circles
     Given I am logged in as "expert1"
-    When I go to "/circles"
+    When I go to "circles"
     Then I should see "Avengers"
 
     When I go to "content/avengers"
@@ -63,12 +63,12 @@ Feature: Circles workflow for Expert
 
   Scenario: Experts cannot access to private circles
     Given I am logged in as "expert4"
-    When I go to "/circles"
+    When I go to "circles"
     Then I should not see "Avengers"
 
   Scenario: Experts can access to public circles
     Given I am logged in as "expert1"
-    When I go to "/circles"
+    When I go to "circles"
     Then I should see "Guardians of the Galaxy"
 
     When I go to "content/guardians-galaxy"
