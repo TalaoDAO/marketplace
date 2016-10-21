@@ -4010,7 +4010,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'addressfield',
       'settings' => array(
         'available_countries' => array(),
-        'default_country' => 'FR',
+        'default_country' => '',
         'format_handlers' => array(
           'address' => 'address',
           'phone' => 'phone',
@@ -4893,10 +4893,10 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'user',
     'field_name' => 'field_position',
     'label' => 'Position',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'user_register_form' => 0,
+      'user_register_form' => 1,
     ),
     'widget' => array(
       'active' => 0,
@@ -4985,10 +4985,10 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'user',
     'field_name' => 'field_skills_set',
     'label' => 'Specific skill(s)',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'user_register_form' => 0,
+      'user_register_form' => 1,
     ),
     'widget' => array(
       'active' => 0,

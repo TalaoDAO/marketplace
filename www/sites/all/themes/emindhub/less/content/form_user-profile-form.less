@@ -1,6 +1,32 @@
 /* FORMS
  * Profile
  */
+
+#edit-field-skills-set {
+  @media (min-width: @screen-md-min) {
+    tbody td:nth-child(2) {
+      .make-row();
+      .field-name-field-skill2 {
+        .make-md-column(4);
+        padding-right: 0;
+      }
+      .field-name-field-skill-autoeval {
+        .make-md-column(4);
+        padding-right: 0;
+      }
+      .field-name-field-year-of-experiences {
+        .make-md-column(3);
+        padding: 0;
+      }
+    }
+    button.form-submit,
+    input.field-add-more-submit {
+      float: right;
+      margin: 0;
+    }
+  }
+}
+
 form#user-profile-form {
 
   .link-field-subrow {
@@ -10,27 +36,15 @@ form#user-profile-form {
   #edit-field-skills-set {
     @media (min-width: @screen-md-min) {
       tbody td:nth-child(2) {
-        .make-row();
         .field-name-field-skill2 {
-          .make-md-column(4);
-          padding-right: 0;
           .form-item-inline-4-8;
         }
         .field-name-field-skill-autoeval {
-          .make-md-column(4);
-          padding-right: 0;
           .form-item-inline-4-8;
         }
         .field-name-field-year-of-experiences {
-          .make-md-column(3);
-          padding: 0;
           .form-item-inline-9-3;
         }
-      }
-      button.form-submit,
-      input.field-add-more-submit {
-        float: right;
-        margin: 0;
       }
     }
   }

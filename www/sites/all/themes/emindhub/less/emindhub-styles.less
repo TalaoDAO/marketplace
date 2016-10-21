@@ -529,6 +529,7 @@ header#title {
 }
 .form-group-3col {
 	.form-group-col;
+
 		> *:nth-child(1) {
 			.make-md-column(4);
 		}
@@ -548,6 +549,31 @@ header#title {
 			padding-left: 0;
 		}
 		> *:nth-child(3) {
+			padding-right: 0;
+			padding-left: 7.5px;
+		}
+	}
+}
+.form-group-4col {
+	.form-group-col;
+
+		> div {
+			.make-md-column(3);
+		}
+	@media (min-width: @screen-md-min) {
+		> *:nth-child(1) {
+			padding-right: 7.5px;
+			padding-left: 0;
+		}
+		> *:nth-child(2) {
+			padding-right: 7.5px;
+			padding-left: 7.5px;
+		}
+		> *:nth-child(3) {
+			padding-right: 7.5px;
+			padding-left: 7.5px;
+		}
+		> *:nth-child(4) {
 			padding-right: 0;
 			padding-left: 7.5px;
 		}
