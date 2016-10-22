@@ -17,6 +17,7 @@ www/sites/*/private
 
 # Ignore NPM files
 /**/node_modules/
+/**/vendor/
 *.map
 
 
