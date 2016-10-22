@@ -1,3 +1,5 @@
+// Called by all/modules/features/ft_wysiwyg/ft_wysiwyg.features.ckeditor_profile.inc
+
 /*
 Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
