@@ -81,6 +81,7 @@ Feature: Buy profile access
       And I click "Access profile for 50 credits" in the "submissions" region
       And I press "Access profile"
     Then I should see "Iron MAN" in the "submissions" region
+      And I should see "1" in the "user_purchased_count" region
       And I should have "950" credits on "client1" user
       And I should have "1050" credits on "expert1" user
 

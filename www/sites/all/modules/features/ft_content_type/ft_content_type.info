@@ -226,6 +226,7 @@ features[field_instance][] = user-user-field_partner_why
 features[field_instance][] = user-user-field_photo
 features[field_instance][] = user-user-field_position
 features[field_instance][] = user-user-field_position_list
+features[field_instance][] = user-user-field_profile_purchased
 features[field_instance][] = user-user-field_skills_set
 features[field_instance][] = user-user-field_specific_skills3
 features[field_instance][] = user-user-field_sponsor1

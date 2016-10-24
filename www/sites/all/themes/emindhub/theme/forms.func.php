@@ -141,9 +141,6 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $process[] = 'emindhub_form_process_password_confirm';
   $form['account']['pass']['#process'] = $process;
 
-  // Add class to fieldset
-  $form['#groups']['group_complement']->format_settings['instance_settings']['classes'] .= ' form-group-2col';
-
   // Profile
 	if ($form['field_first_name'] && $form['field_last_name']) {
 		$form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
@@ -194,7 +191,7 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
   // Complement
 	if ($form['field_notification_frequency'] && $form['field_known_specific']) {
-	  $form['field_notification_frequency']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_notification_frequency']['#prefix'] = '<div class="form-group-3col row">';
 		$form['field_known_specific']['#suffix'] = '</div>';
 	}
 	if (user_access('create question1 content') || user_access('create webform content') || user_access('create challenge content')) {
