@@ -466,10 +466,16 @@ function emh_user_cartouche_view($uid, $context = NULL) {
 	}
 
   // Submissions count
-  if ($context !== 'author') {
+  if (module_exists('emh_request_submission') && $context !== 'author') {
     $submission_count = emh_request_submission_get_user_submission_count($uid);
-    $cartouche_activity .= '<span class="user-submission-count" title="' . $submission_count . ' ' . t('published submission(s)') . '">' . $submission_count . '</span>';
+    $cartouche_activity .= '<span class="user-submission-count" title="' . t('!count published submission(s)', array('!count' => $submission_count)) . '">' . $submission_count . '</span>';
   }
+
+  // Profile purchased count
+	if (module_exists('emh_user_profile_purchase') && !($context == 'author')) {
+    $purchased_count = emh_user_profile_purchase_get_count($u2_account);
+		$cartouche_activity .= '<span class="user-purchased-count" title="' . t('Profile purchased !count times', array('!count' => $purchased_count)) . '">' . render($purchased_count) . '</span>';
+	}
 
   if (!empty($cartouche_identity) || !empty($cartouche_activity)) {
     $cartouche .= '<div class="user-cartouche">';

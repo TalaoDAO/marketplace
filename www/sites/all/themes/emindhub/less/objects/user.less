@@ -20,12 +20,26 @@
   background-color: #f6f7f8;
   border-top: 1px solid #e1e4e7;
 
-  .user-submission-count {
+  span {
+    margin-right: 10px;
     display: inline-block;
     height: 16px;
     line-height: 16px;
     padding-left: 21px;
-    background: transparent url("../images/icons/icon_submission.png") no-repeat left center;
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .user-submission-count {
+    background-image: url("../images/icons/icon_submission.png");
+  }
+  .user-purchased-count {
+    background-image: url("../images/icons/icon_view.png");
   }
 }
 .user-cartouche {
