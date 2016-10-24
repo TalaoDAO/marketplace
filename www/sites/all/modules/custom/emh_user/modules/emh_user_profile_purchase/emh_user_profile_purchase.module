@@ -78,7 +78,7 @@ function emh_user_profile_purchase_form_submit($form, &$form_state) {
   $account = $form_state['account'];
 
   try {
-    emh_user_purchase_profile($account);
+    emh_user_profile_purchase($account);
 
     drupal_set_message(t("You can now access !user's profile.", array(
       '!user' => format_username($account),
@@ -147,7 +147,7 @@ function emh_user_profile_purchase_action($entities, $context) {
       if (emh_access_user_can_see_full_user($user->uid, $entity->uid)) {
         continue;
       }
-      emh_user_purchase_profile($entity->uid);
+      emh_user_profile_purchase($entity->uid);
     }
     catch (\Exception $e) {
       drupal_set_message(t("!user's profile could not be purchased.", array(
@@ -164,7 +164,7 @@ function emh_user_profile_purchase_action($entities, $context) {
  * @param stdClass|integer $account
  *  Either an user object or a uid
  */
-function emh_user_purchase_profile($account) {
+function emh_user_profile_purchase($account) {
   try {
     $transaction = db_transaction();
 
@@ -182,8 +182,11 @@ function emh_user_purchase_profile($account) {
     $flag = flag_get_flag('my_contacts');
     $flag->flag('flag', $account->uid, $user, true);
 
+		// Increment profile counter
+		emh_user_profile_purchase_increment_counter($account);
+
 		// Notify user its profile has been purchased
-		emh_user_purchase_profile_notify_user($account, $amount);
+		emh_user_profile_purchase_notify_user($account, $amount);
 
     unset($transaction);
   }
@@ -205,8 +208,8 @@ function emh_user_purchase_profile($account) {
 /**
  * Send email to user's profile purchased.
  */
-function emh_user_purchase_profile_notify_user($user, $credits) {
-  $module = 'emh_user_purchase_profile';
+function emh_user_profile_purchase_notify_user($user, $credits) {
+  $module = 'emh_user_profile_purchase';
   $key = 'notify_user';
   $mail = $user->mail;
   $language = language_default();
@@ -222,7 +225,7 @@ function emh_user_purchase_profile_notify_user($user, $credits) {
 /**
  * Implements hook_mail().
  */
-function emh_user_purchase_profile_mail($key, &$message, $params) {
+function emh_user_profile_purchase_mail($key, &$message, $params) {
   switch($key) {
     case 'notify_user':
       $message['subject'] = t('Your profile has been selected!', $params);
@@ -252,4 +255,14 @@ function emh_user_purchase_profile_mail($key, &$message, $params) {
     default:
       break;
   }
+}
+
+/**
+ * Increment custom field of user's profile purchased.
+ */
+function emh_user_profile_purchase_increment_counter($account) {
+	$user_wrapper = entity_metadata_wrapper('user', $account);
+  $var = $user_wrapper->field_profile_purchased->value() + 1;
+  $user_wrapper->field_profile_purchased->set($var);
+  $user_wrapper->save();
 }
