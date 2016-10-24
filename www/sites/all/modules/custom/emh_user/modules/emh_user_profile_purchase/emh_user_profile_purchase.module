@@ -266,3 +266,9 @@ function emh_user_profile_purchase_increment_counter($account) {
   $user_wrapper->field_profile_purchased->set($var);
   $user_wrapper->save();
 }
+
+function emh_user_profile_purchase_get_count($account) {
+  $purchased_count = field_view_field('user', $account, 'field_profile_purchased', array('label'=>'hidden'));
+  $purchased_count = !empty($purchased_count) ? $purchased_count : '0';
+  return $purchased_count;
+}
