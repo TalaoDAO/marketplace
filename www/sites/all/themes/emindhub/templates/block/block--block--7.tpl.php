@@ -45,18 +45,29 @@ if (!empty($current_lang) && $current_lang == 'fr') {
   <div class="emhlive-dots"></div>
 
   <div class="emhlive-slider">
-    <article class="emhlive-item">
-      1
-    </article>
-    <article class="emhlive-item">
-      2
-    </article>
-    <article class="emhlive-item">
-      3
-    </article>
-    <article class="emhlive-item">
-      4
-    </article>
+    <?php $fakeItems = 4; while($fakeItems--): ?>
+      <article class="emhlive-item emhlive-news">
+
+        <div class="emhlive-item-title">
+          Titre de la publication
+        </div>
+
+        <div>
+          <span class="emhlive-item-meta emhlive-item-date">25 oct. 2016</span>
+          <span class="emhlive-item-meta emhlive-item-category"><a href="#">category</a></span>
+        </div>
+
+        <div class="emhlive-item-picture">
+          <img src="https://dummyimage.com/128/000/fff.jpg" alt="" />
+        </div>
+
+        <div class="emhlive-item-text">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          <a href="#" class="emhlive-item-link">Sed do eiusmod tempor</a>
+        </div>
+
+      </article>
+    <?php endwhile; ?>
   </div>
 
 <script type="text/javascript">
