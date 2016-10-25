@@ -47,6 +47,10 @@ if (!empty($current_lang) && $current_lang == 'fr') {
 
 <section class="emhlive container">
 
+  <div class="emhlive-title">
+    <?php print t('EMH live'); ?>
+  </div>
+
   <div class="emhlive-arrows"></div>
   <div class="emhlive-dots"></div>
 
