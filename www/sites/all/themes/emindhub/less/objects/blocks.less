@@ -138,6 +138,7 @@
 .select-persona {
 	color: #fff;
 	text-align: center;
+	padding-bottom: 200px;
 
 	.button {
 		display: inline-block;
@@ -159,6 +160,55 @@
 			}
 		}
 	}
+}
+
+/**
+ * Homepage EMH Live news slider
+ */
+.emhlive {
+	margin-top: -180px;
+
+	&-dots {
+		color: white;
+		text-align: center;
+		ul, li {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+		}
+		li {
+			display: inline-block;
+			+ li {
+				margin-left: 3px;
+			}
+		}
+		button {
+			width: 8px;
+			height: 8px;
+			border: 1.1px solid currentColor;
+			border-radius: 50%;
+			background-color: transparent;
+			padding: 0;
+			font-size: 0;
+			text-indent: -9999px;
+		}
+		.slick-active > button {
+			background-color: currentColor;
+		}
+	}
+
+	&-item {
+		padding: 10px 20px 4px 20px;
+	}
+}
+.emhlive-news {
+	color: #fff;
+	// background-color: @color-secondary;
+	#gradient > .horizontal(@start-color: @color-secondary; @end-color: darken(@color-secondary, 1%));
+
+}
+.emhlive-item-title {
+	font-size: 20px;
 }
 
 /* HOMEPAGE
