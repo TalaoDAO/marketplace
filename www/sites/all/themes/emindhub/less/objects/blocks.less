@@ -124,6 +124,43 @@
 	}
 }
 
+/**
+ * Homepage Persona chooser
+ */
+.select-persona-wrapper {
+	#gradient > .horizontal(@start-color: darken(@color-primary, 15%); @end-color: darken(@color-secondary, 15%); 50%; 50%);
+	/**
+	 * @TODO
+	 * Mettre les bonnes images de fond par dessus les couleurs
+	 */
+}
+
+.select-persona {
+	color: #fff;
+	text-align: center;
+
+	.button {
+		display: inline-block;
+		color: #fff;
+		min-width: 210px;
+		width: auto;
+		border-radius: 5px;
+		padding: 10px 5px;
+	}
+	.persona- {
+		&customer {
+			.button {
+				background-color: @color-primary;
+			}
+		}
+		&expert {
+			.button {
+				background-color: @color-secondary;
+			}
+		}
+	}
+}
+
 /* HOMEPAGE
  * Highlight
  */
