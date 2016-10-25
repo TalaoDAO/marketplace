@@ -1,0 +1,26 @@
+{
+  "env": {
+    "es6": true,
+    "mocha": true,
+    "jquery": true
+  },
+
+  "globals": {
+    "_": true,
+    "fetch": true,
+    "ga": true
+  },
+
+  "parserOptions": {
+    "sourceType": "module"
+  },
+
+  "extends": "standard",
+
+  "rules": {
+    "semi": ["error", "always"],
+    "no-multi-spaces": ["error", { "exceptions": { "VariableDeclarator": true, "ImportDeclaration": true } }],
+    "promise/param-names": 0,
+    "indent": ["error", 4]
+  }
+}
