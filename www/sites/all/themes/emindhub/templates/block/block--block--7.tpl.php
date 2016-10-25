@@ -39,6 +39,47 @@ if (!empty($current_lang) && $current_lang == 'fr') {
 
 </section><!-- /.select-persona-wrapper -->
 
+<section class="emhlive container">
+
+  <div class="emhlive-arrows"></div>
+  <div class="emhlive-dots"></div>
+
+  <div class="emhlive-slider">
+    <article class="emhlive-item">
+      1
+    </article>
+    <article class="emhlive-item">
+      2
+    </article>
+    <article class="emhlive-item">
+      3
+    </article>
+    <article class="emhlive-item">
+      4
+    </article>
+  </div>
+
+<script type="text/javascript">
+  /**
+   * https://github.com/kenwheeler/slick/
+   */
+  jQuery('.emhlive-slider').slick({
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    appendArrows: '.emhlive-arrows',
+    dots: true,
+    appendDots: '.emhlive-dots'
+  });
+
+  /**
+   * @TODO
+   * Externaliser ce script dans un fichier externe
+   */
+</script>
+
+</section>
+
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
   <div class="content container">
