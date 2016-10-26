@@ -5,7 +5,7 @@
   </div>
 
   <div class="emhlive-arrows"></div>
-  <div class="emhlive-dots"></div>
+  <div class="emhlive-dots above"></div>
 
   <div class="emhlive-slider">
 
@@ -46,6 +46,8 @@
 
   </div>
 
+  <div class="emhlive-dots below"></div>
+
   <script type="text/javascript">
     /**
      * https://github.com/kenwheeler/slick/
@@ -56,11 +58,20 @@
       slidesToScroll: 1,
       appendArrows: '.emhlive-arrows',
       dots: true,
-      appendDots: '.emhlive-dots',
-      responsive: [
-        { breakpoint: 992, settings: { slidesToShow: 2 } },
-        { breakpoint: 600, settings: { slidesToShow: 1 } }
-      ]
+      appendDots: '.emhlive-dots.above',
+      responsive: [{
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 2,
+          appendDots: '.emhlive-dots.below',
+        }
+      }, {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          appendDots: '.emhlive-dots.below',
+        }
+      }]
     });
 
     /**
