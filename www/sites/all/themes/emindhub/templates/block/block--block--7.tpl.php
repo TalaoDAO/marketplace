@@ -25,7 +25,7 @@ if (!empty($current_lang) && $current_lang == 'fr') {
       <?php print t('Your projects deserve the best expertise.'); ?>
     </div>
 
-    <div class="row">
+    <div class="row select-persona-buttons">
 
       <div class="persona-customer col-md-6">
         <a class="button" href="#"><?php print t('You are a customer?'); ?></a>
