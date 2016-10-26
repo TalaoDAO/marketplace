@@ -178,13 +178,55 @@
 	font-size: 13px;
 }
 
+.emhlive-title {
+	text-align: center;
+	color: white;
+	font-size: 20px;
+}
+
+.emhlive-arrows {
+	position: relative;
+	margin: 0 auto;
+	width: 250px;
+	color: white;
+	.slick-arrow {
+		position: absolute;
+		bottom: 0;
+		background-color: transparent;
+		border-width: 1px;
+		border-color: transparent;
+		border-style: solid;
+		width: 20px;
+		height: 20px;
+		border-top-color: currentColor;
+		border-left-color: currentColor;
+		overflow: hidden;
+		text-indent: -9999px;
+		outline: 0;
+		&:active {
+			color: @color-tertiary;
+		}
+	}
+	.slick-prev {
+		transform: rotate(-45deg);
+		left: 0;
+	}
+	.slick-next {
+		transform: rotate(135deg);
+		right: 0;
+	}
+}
+
 .emhlive-dots {
 	color: white;
 	text-align: center;
+	margin: 8px 0 17px;
 	ul, li {
 		list-style-type: none;
 		margin: 0;
 		padding: 0;
+		height: 8px;
+		vertical-align: top;
 	}
 	li {
 		display: inline-block;
@@ -193,6 +235,7 @@
 		}
 	}
 	button {
+		display: block;
 		width: 8px;
 		height: 8px;
 		border: 1.1px solid currentColor;
@@ -201,10 +244,15 @@
 		padding: 0;
 		font-size: 0;
 		text-indent: -9999px;
+		vertical-align: top;
 	}
 	.slick-active > button {
 		background-color: currentColor;
 	}
+}
+
+.emhlive-slider {
+	margin-top: 10px;
 }
 
 .emhlive-item {
