@@ -37,7 +37,4 @@ function emindhub_preprocess_page(&$variables) {
   if (isset($variables['node']) && !(arg(2) == 'edit')) {
     $variables['theme_hook_suggestion'] = 'page__node_'.$variables['node']->type;
   }
-
-  drupal_add_js('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js', 'external');
-  drupal_add_css('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css', 'external');
 }
