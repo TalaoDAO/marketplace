@@ -12,6 +12,9 @@ if (!empty($current_lang) && $current_lang == 'fr') {
 }
 ?>
 
+
+
+
 <section class="select-persona-wrapper">
 
   <div class="select-persona container">
@@ -38,6 +41,9 @@ if (!empty($current_lang) && $current_lang == 'fr') {
   </div>
 
 </section><!-- /.select-persona-wrapper -->
+
+
+
 
 <section class="emhlive container">
 
@@ -89,7 +95,12 @@ if (!empty($current_lang) && $current_lang == 'fr') {
    */
 </script>
 
-</section>
+</section><!-- /.emhlive -->
+
+
+
+
+
 
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
