@@ -1,7 +1,7 @@
 <?php
 
 function emindhub_preprocess_html(&$variables) {
-	drupal_add_css('https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' , array('type' => 'external'));
+	drupal_add_css('https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i' , array('type' => 'external'));
 
   global $user;
   foreach ( $user->roles as $role_id => $role ) {
