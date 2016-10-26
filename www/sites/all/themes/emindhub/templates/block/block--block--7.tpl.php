@@ -103,7 +103,11 @@ if (!empty($current_lang) && $current_lang == 'fr') {
     slidesToScroll: 1,
     appendArrows: '.emhlive-arrows',
     dots: true,
-    appendDots: '.emhlive-dots'
+    appendDots: '.emhlive-dots',
+    responsive: [
+      { breakpoint: 992, settings: { slidesToShow: 2 } },
+      { breakpoint: 600, settings: { slidesToShow: 1 } }
+    ]
   });
 
   /**
