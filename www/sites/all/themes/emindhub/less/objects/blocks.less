@@ -176,66 +176,66 @@
 .emhlive {
 	margin-top: -180px;
 	font-size: 13px;
+}
 
-	&-dots {
-		color: white;
-		text-align: center;
-		ul, li {
-			list-style-type: none;
-			margin: 0;
-			padding: 0;
-		}
-		li {
-			display: inline-block;
-			+ li {
-				margin-left: 3px;
-			}
-		}
-		button {
-			width: 8px;
-			height: 8px;
-			border: 1.1px solid currentColor;
-			border-radius: 50%;
-			background-color: transparent;
-			padding: 0;
-			font-size: 0;
-			text-indent: -9999px;
-		}
-		.slick-active > button {
-			background-color: currentColor;
+.emhlive-dots {
+	color: white;
+	text-align: center;
+	ul, li {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+	li {
+		display: inline-block;
+		+ li {
+			margin-left: 3px;
 		}
 	}
+	button {
+		width: 8px;
+		height: 8px;
+		border: 1.1px solid currentColor;
+		border-radius: 50%;
+		background-color: transparent;
+		padding: 0;
+		font-size: 0;
+		text-indent: -9999px;
+	}
+	.slick-active > button {
+		background-color: currentColor;
+	}
+}
 
-	&-item {
-		padding: 20px 35px 5px 35px;
-		height: 230px;
-		border: 1px solid @color-primary;
+.emhlive-item {
+	padding: 20px 35px 5px 35px;
+	height: 230px;
+	border: 1px solid @color-primary;
 
-		&-title {
-			font-size: 20px;
-			line-height: 1.5;
-		}
+	&-title {
+		font-size: 20px;
+		line-height: 1.5;
+	}
 
-		&-date,
-		&-category {
-			font-weight: bold;
-		}
+	&-date,
+	&-category {
+		font-weight: bold;
+	}
 
-		&-text {
-			margin-top: 10px;
-			line-height: 18px;
-			height: calc(5 * 18px);
-			overflow: hidden;
-		}
+	&-text {
+		margin-top: 10px;
+		line-height: 18px;
+		height: calc(5 * 18px);
+		overflow: hidden;
+	}
 
-		&-read-more {
-			display: block;
-			text-overflow: ellipsis;
-			line-height: 1.385;
-			height: calc(1 * 18px);
-			white-space: nowrap;
-			text-decoration: underline;
-		}
+	&-read-more {
+		display: block;
+		text-overflow: ellipsis;
+		line-height: 1.385;
+		height: calc(1 * 18px);
+		white-space: nowrap;
+		text-decoration: underline;
 	}
 }
 
