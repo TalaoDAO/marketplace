@@ -3,6 +3,9 @@
 function emindhub_preprocess_html(&$variables) {
 	drupal_add_css('https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i' , array('type' => 'external'));
 
+  drupal_add_js('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js', 'external');
+  drupal_add_css('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css', 'external');
+
   global $user;
   foreach ( $user->roles as $role_id => $role ) {
     // $variables['classes_array'][] = 'role-id-' . $role_id;
