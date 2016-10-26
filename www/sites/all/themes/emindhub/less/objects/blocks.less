@@ -139,28 +139,58 @@
 	 */
 }
 
+@emhlive-overlap: 160px;
+
 .select-persona {
 	color: #fff;
 	text-align: center;
-	padding-bottom: 200px;
+	padding-bottom: calc(@emhlive-overlap + 85px);
+
+	&-title {
+		font-size: 65px;
+		line-height: 1;
+		font-weight: 200;
+		margin-top: 100px;
+	}
+
+	&-subtitle {
+		font-size: 22px;
+	}
+
+	&-buttons {
+		margin-top: 70px;
+		p {
+			margin-top: 10px;
+		}
+	}
 
 	.button {
 		display: inline-block;
+		text-transform: uppercase;
 		color: #fff;
 		min-width: 210px;
 		width: auto;
 		border-radius: 5px;
-		padding: 10px 5px;
+		padding: 17px 5px;
+		font-size: 13px;
+		text-decoration: none;
 	}
-	.persona- {
-		&customer {
-			.button {
-				background-color: @color-primary;
+}
+
+.persona- {
+	&customer {
+		.button {
+			background-color: @color-primary;
+			&:hover {
+				background-color: lighten(@color-primary, 5%);
 			}
 		}
-		&expert {
-			.button {
-				background-color: @color-secondary;
+	}
+	&expert {
+		.button {
+			background-color: @color-secondary;
+			&:hover {
+				background-color: lighten(@color-secondary, 5%);
 			}
 		}
 	}
@@ -174,7 +204,7 @@
  * Homepage EMH Live news slider
  */
 .emhlive {
-	margin-top: -160px;
+	margin-top: calc(-1 * @emhlive-overlap);
 	font-size: 13px;
 }
 
