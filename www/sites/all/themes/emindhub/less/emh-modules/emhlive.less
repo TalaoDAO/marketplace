@@ -17,6 +17,9 @@
 	margin: 0 auto;
 	width: 250px;
 	color: white;
+	@media (max-width: @screen-md-min) {
+		display: none;
+	}
 	.slick-arrow {
 		position: absolute;
 		bottom: 0;
@@ -73,9 +76,20 @@
 		font-size: 0;
 		text-indent: -9999px;
 		vertical-align: top;
+		outline: none;
 	}
 	.slick-active > button {
 		background-color: currentColor;
+	}
+
+	&.below {
+		button {
+			background-color: currentColor;
+			color: @color-tertiary-alt;
+		}
+		.slick-active > button {
+			color: @color-primary;
+		}
 	}
 }
 
