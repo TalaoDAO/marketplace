@@ -55,29 +55,42 @@ if (!empty($current_lang) && $current_lang == 'fr') {
   <div class="emhlive-dots"></div>
 
   <div class="emhlive-slider">
-    <?php $fakeItems = 4; while($fakeItems--): ?>
-      <article class="emhlive-item emhlive-news">
+
+    <?php
+    /**
+     * @TODO
+     * La variabe $itemClass et la boucle while sont temporaire
+     * en attendant que l'ensemble soit dynamisé.
+     */
+      $itemClass = [
+        'emhlive-style-default',
+        'emhlive-style-alpha',
+        'emhlive-style-beta'
+      ];
+      $fakeItems = 5;
+    ?>
+
+    <?php while($fakeItems--): ?>
+      <article class="emhlive-item <?php print $itemClass[(5 - $fakeItems) % 3]; ?>">
 
         <div class="emhlive-item-title">
-          Titre de la publication
+          Titre de la publication <?php echo (5 - $fakeItems); ?>
         </div>
 
         <div>
           <span class="emhlive-item-meta emhlive-item-date">25 oct. 2016</span>
-          <span class="emhlive-item-meta emhlive-item-category"><a href="#">category</a></span>
-        </div>
-
-        <div class="emhlive-item-picture">
-          <img src="https://dummyimage.com/128/000/fff.jpg" alt="" />
+          |
+          <span class="emhlive-item-meta emhlive-item-category"><a href="#">Category</a></span>
         </div>
 
         <div class="emhlive-item-text">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          <a href="#" class="emhlive-item-link">Sed do eiusmod tempor</a>
         </div>
+        <a href="#" class="emhlive-item-read-more"><?php print t('Read more'); ?></a>
 
       </article>
     <?php endwhile; ?>
+
   </div>
 
 <script type="text/javascript">
