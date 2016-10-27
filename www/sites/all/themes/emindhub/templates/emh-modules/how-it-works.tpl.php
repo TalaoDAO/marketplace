@@ -14,7 +14,7 @@
   <!-- CUSTOMER-->
   <div class="hiw-customer">
 
-    <div class="hiw-step">
+    <div class="hiw-step hiw-step-1">
 
       <div class="hiw-step-title">
         <strong>1</strong> - <?php print t('CHANGEME Je choisis un type de service et une communauté d\'experts'); ?>
@@ -59,25 +59,37 @@
       </ul>
     </div>
 
-    <div class="hiw-step">
-      <div class="hiw-step-title">
-        <strong>2</strong> - <?php print t('CHANGEME Je consulte les réponses à mon besoin'); ?>
+    <div class="hiw-steps-group">
+
+      <div class="hiw-step hiw-step-2">
+        <div class="hiw-step-title">
+          <strong>2</strong> - <?php print t('CHANGEME Je consulte les réponses à mon besoin'); ?>
+        </div>
+
+        <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/responses.svg" alt="" />
       </div>
 
-      <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/responses.svg" alt="" />
-    </div>
+      <div class="hiw-step hiw-step-3">
+        <div class="hiw-step-title">
+          <strong>3</strong> - <?php print t('CHANGEME J\'accède au profil des experts et j\'achète leur contenu'); ?>
+        </div>
 
-    <div class="hiw-step">
-      <div class="hiw-step-title">
-        <strong>3</strong> - <?php print t('CHANGEME J\'accède au profil des experts et j\'achète leur contenu'); ?>
+        <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/community.svg" alt="" />
       </div>
 
-      <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/community.svg" alt="" />
     </div>
 
-    <a href="#"><?php print t('CHANGEME Voir le schéma complet') ?></a>
+    <div class="hiw-actions">
 
-    <a class="button" href="#"><?php print t('CHANGEME Poster une demande'); ?></a>
+      <div class="hiw-action">
+        <a class="view-full" href="#"><?php print t('CHANGEME Voir le schéma complet'); ?></a>
+      </div>
+
+      <div class="hiw-action">
+        <a class="emh-button solid" href="#"><?php print t('CHANGEME Poster une demande'); ?></a>
+      </div>
+
+    </div>
 
 
   </div>
@@ -122,9 +134,17 @@
       <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/sponsorship.svg" alt="" />
     </div>
 
-    <a href="#"><?php print t('CHANGEME Voir le schéma complet') ?></a>
+    <div class="hiw-actions">
 
-    <a class="button" href="#"><?php print t('CHANGEME Poster une demande'); ?></a>
+      <div class="hiw-action">
+        <a class="view-full" href="#"><?php print t('CHANGEME Voir le schéma complet'); ?></a>
+      </div>
+
+      <div class="hiw-action">
+        <a class="emh-button solid" href="#"><?php print t('CHANGEME Poster une demande'); ?></a>
+      </div>
+
+    </div>
 
   </div>
 
