@@ -7,8 +7,8 @@
   </div>
 
   <ul class="hiw-tabs">
-    <li><button type="button" name="button" class="hiw-tab"><?php print t('You are a customer'); ?></button></li>
-    <li><button type="button" name="button" class="hiw-tab"><?php print t('You are an expert'); ?></button></li>
+    <li><button type="button" name="button" class="hiw-tab active emh-button customer"><?php print t('You are a customer'); ?></button></li>
+    <li><button type="button" name="button" class="hiw-tab emh-button expert"><?php print t('You are an expert'); ?></button></li>
   </ul>
 
   <!-- CUSTOMER-->
