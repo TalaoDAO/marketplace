@@ -85,6 +85,47 @@
 
   <!-- EXPERT-->
   <div class="hiw-expert">
+    <div class="hiw-step">
+      <div class="hiw-step-title">
+        <?php print t('CHANGEME Je consulte les demandes publiques ou liées à ma communauté'); ?>
+      </div>
+
+      <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/requests.svg" alt="" />
+    </div>
+
+
+    <div class="hiw-step">
+      <div class="hiw-step-title">
+        <?php print t('CHANGEME Je réponds à une demande'); ?>
+      </div>
+
+      <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/responses-exp.svg" alt="" />
+    </div>
+
+    <div class="hiw-step">
+      <div class="hiw-step-title">
+        <?php print t('CHANGEME Je parraine un expert'); ?>
+      </div>
+
+      <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/sponsorship.svg" alt="" />
+    </div>
+
+    <div class="hiw-step">
+      <dl class="hiw-step-title">
+        <dt><strong>1</strong> - <?php print t('CHANGEME Je développe ma notoriété'); ?></dt>
+        <dt><strong>2</strong> - <?php print t('CHANGEME J\'optient de nouvelles missions'); ?></dt>
+        <dt><strong>2</strong> - <?php print t('CHANGEME Je gagne des crédits lorsque :'); ?></dt>
+        <dd><?php print t('CHANGEME mon profil est consulté'); ?></dd>
+        <dd><?php print t('CHANGEME mes parrainages sont acceptés'); ?></dd>
+      </dl>
+
+      <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/sponsorship.svg" alt="" />
+    </div>
+
+    <a href="#"><?php print t('CHANGEME Voir le schéma complet') ?></a>
+
+    <a class="button" href="#"><?php print t('CHANGEME Poster une demande'); ?></a>
 
   </div>
+
 </section>
