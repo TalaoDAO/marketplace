@@ -621,12 +621,11 @@ function emh_request_form_alter(&$form, &$form_state, $form_id) {
     return;
   }
 
-
   if (isset($_REQUEST['edit'])) {
     //example of working URL :
     //node/add/request?edit[field_options][und][questionnaire][enabled]=&edit[field_request_questions][und][0][value]=TEST&edit[field_request_questions][und][1][value]=TOST&edit[field_request_type][und]=Survey
-    $form['#after_build'][] = 'prepopulate_after_build';
-    multivaluefield_create_empty_slots($form, $form_state, $form_id,'field_request_questions' ,3);
+    $form['#after_build'][] = 'emh_request_prepopulate_after_build';
+    _emh_request_multivaluefield_create_empty_slots($form, $form_state, $form_id,'field_request_questions' ,3);
   }
 
   if (isset($form['#node']->nid) && ($form_id == 'webform_client_form_' . $form['#node']->nid)) {
