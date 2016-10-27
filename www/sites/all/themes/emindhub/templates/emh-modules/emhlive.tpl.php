@@ -62,14 +62,14 @@
       responsive: [{
         breakpoint: 992,
         settings: {
-          slidesToShow: 2,
-          appendDots: '.emhlive-dots.below',
+          slidesToShow: 2
+          // appendDots: '.emhlive-dots.below',
         }
       }, {
         breakpoint: 600,
         settings: {
           slidesToShow: 1,
-          appendDots: '.emhlive-dots.below',
+          appendDots: '.emhlive-dots.below'
         }
       }]
     });
