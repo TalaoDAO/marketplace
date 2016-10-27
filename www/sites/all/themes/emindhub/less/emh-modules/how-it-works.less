@@ -12,6 +12,9 @@
         display: inline-block;
         + li {
             margin-left: 40px;
+            @media (max-width: @screen-sm-max) {
+                margin-left: 10px;
+            }
         }
     }
 }
@@ -19,6 +22,11 @@
 .hiw-tab {
     min-width: 220px;
     position: relative;
+
+    @media (max-width: @screen-sm-max) {
+        min-width: 150px;
+        padding: 10px 5px;
+    }
 
     &.expert {
         color: @color-secondary;
