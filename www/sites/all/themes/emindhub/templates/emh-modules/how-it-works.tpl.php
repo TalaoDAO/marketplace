@@ -1,4 +1,4 @@
-<section class="how-it-works hiw container">
+<section class="emh-module how-it-works hiw container">
   <div class="emh-title">
     <?php print t('CHANGEME Comment ça marche ?'); ?>
   </div>
