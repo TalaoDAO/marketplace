@@ -1,4 +1,4 @@
-<section class="emhlive container">
+<section class="emh-module emhlive container">
 
   <div class="emhlive-title">
     <?php print t('EMH live'); ?>
