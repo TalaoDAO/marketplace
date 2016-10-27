@@ -1,12 +1,13 @@
 /**
  * Homepage EMH Live news slider
  */
-.emhlive {
-	margin-top: calc(-1 * @emhlive-overlap);
-	@media (max-width: @screen-xs-max) {
-		margin-top: calc(-1 * @emhlive-mobile-overlap);
+.emh-module {
+	&.emhlive {
+		margin-top: calc(-1 * @emhlive-overlap);
+		@media (max-width: @screen-xs-max) {
+			margin-top: calc(-1 * @emhlive-mobile-overlap);
+		}
 	}
-	font-size: 13px;
 }
 
 .emhlive-title {
