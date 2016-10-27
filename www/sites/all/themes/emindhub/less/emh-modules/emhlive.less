@@ -3,6 +3,9 @@
  */
 .emhlive {
 	margin-top: calc(-1 * @emhlive-overlap);
+	@media (max-width: @screen-xs-max) {
+		margin-top: calc(-1 * @emhlive-mobile-overlap);
+	}
 	font-size: 13px;
 }
 
@@ -17,7 +20,7 @@
 	margin: 0 auto;
 	width: 250px;
 	color: white;
-	@media (max-width: @screen-md-min) {
+	@media (max-width: @screen-xs-max) {
 		display: none;
 	}
 	.slick-arrow {
