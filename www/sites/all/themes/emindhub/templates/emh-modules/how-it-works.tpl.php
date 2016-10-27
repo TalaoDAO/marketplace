@@ -24,7 +24,7 @@
         <li class="hiw-service">
           <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/ico-faq.svg" alt="" />
           <div class="label">FAQ</div>
-          <div class="legend"><?php print t('CHANGEME Poser une question à la commnauté des experts'); ?></div>
+          <div class="legend"><?php print t('CHANGEME Poser une question à des experts'); ?></div>
         </li>
         <li class="hiw-service">
           <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/ico-doc.svg" alt="" />
