@@ -10,6 +10,7 @@
 }
 
 @emhlive-overlap: 160px;
+@emhlive-mobile-overlap: 80px;
 
 .select-persona {
 	color: #fff;
@@ -29,6 +30,7 @@
 
 	&-buttons {
 		margin-top: 70px;
+		font-size: 13px;
 		p {
 			margin-top: 10px;
 		}
@@ -42,8 +44,31 @@
 		width: auto;
 		border-radius: 5px;
 		padding: 17px 5px;
-		font-size: 13px;
 		text-decoration: none;
+	}
+}
+
+@media (max-width: @screen-xs-max) {
+	.select-persona {
+		padding-bottom: calc(@emhlive-mobile-overlap + 35px);
+		&-title {
+			font-size: 25px;
+		}
+		&-subtitle {
+			display: none;
+		}
+		&-buttons {
+			white-space: nowrap;
+			margin-top: 20px;
+			font-size: 11px;
+			p {
+				display: none;
+			}
+		}
+		.button {
+			min-width: 130px;
+			padding: 8px 5px;
+		}
 	}
 }
 
