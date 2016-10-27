@@ -1,4 +1,4 @@
-<section class="select-persona-wrapper">
+<section class="emh-module select-persona-wrapper">
 
   <div class="select-persona container">
     <div class="select-persona-title">
