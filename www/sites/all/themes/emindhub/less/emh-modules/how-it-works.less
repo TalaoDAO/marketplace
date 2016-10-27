@@ -57,8 +57,27 @@
 }
 
 .hiw-step-title {
+    color: @color-tertiary;
     text-align: center;
     font-size: 20px;
+}
+
+.hiw-customer {
+    text-align: center;
+    .hiw-steps-group {
+        .hiw-step-picture {
+            width: 230px;
+            display: block;
+            margin: 10px auto;
+        }
+        .hiw-step {
+            display: inline-block;
+            width: 400px;
+            + .hiw-step {
+                margin-left: 40px;
+            }
+        }
+    }
 }
 
 .hiw-services {
@@ -175,5 +194,15 @@
             top: 50%;
 
         }
+    }
+}
+
+.hiw-actions {
+    text-align: center;
+    .hiw-action {
+        margin-top: 40px;
+    }
+    a:not(.emh-button) {
+        text-decoration: underline;
     }
 }
