@@ -10,12 +10,12 @@
 
     <div class="row select-persona-buttons">
 
-      <div class="persona-customer col-md-6">
+      <div class="persona-customer col-xs-6">
         <a class="button" href="#"><?php print t('You are a customer?'); ?></a>
         <p><?php print t('Découvrez comment nullam quis<br>lacinia augue. Curabitur'); ?></p>
       </div>
 
-      <div class="persona-expert col-md-6">
+      <div class="persona-expert col-xs-6">
         <a class="button" href="#"><?php print t('You are an expert?'); ?></a>
         <p><?php print t('Découvrez comment nullam quis<br>lacinia augue. Curabitur'); ?></p>
       </div>
