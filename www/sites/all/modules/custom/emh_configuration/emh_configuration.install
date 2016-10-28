@@ -36,10 +36,10 @@ function emh_configuration_update_7002() {
 }
 
 /**
- * Install modules : Autologout, PCP, EMH PCP Special
+ * Install modules : Autologout, PCP
  */
 function emh_configuration_update_7003() {
-  module_enable(array('autologout', 'pcp', 'emh_pcp_special'));
+  module_enable(array('autologout', 'pcp'));
 }
 
 /**
