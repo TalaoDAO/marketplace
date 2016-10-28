@@ -92,8 +92,10 @@
         .hiw-step {
             display: inline-block;
             width: 400px;
-            + .hiw-step {
-                margin-left: 40px;
+            @media (min-width: @screen-md-min) {
+                + .hiw-step {
+                    margin-left: 40px;
+                }
             }
         }
     }
