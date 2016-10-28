@@ -68,6 +68,9 @@
             left: 0;
             top: 50%;
             transform: translate(-150%, -50%) rotate(-45deg);
+            @media (min-width: @screen-lg-min) {
+                transform: translate(-200%, -50%) rotate(-45deg);
+            }
         }
     }
 }
@@ -246,6 +249,37 @@
         }
         @media (min-width: @screen-lg-min) {
             flex: 0 0 320px;
+        }
+    }
+
+    .hiw-step-4 {
+        dl {
+            text-align: left;
+        }
+        dt {
+            font-weight: normal;
+            line-height: 1.2;
+            margin-bottom: 15px;
+        }
+        dd {
+            line-height: 1.2;
+            margin-bottom: 15px;
+            padding-left: 45px;
+            position: relative;
+            &:before {
+                position: absolute;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                display: block;
+                vertical-align: middle;
+                margin-right: 5px;
+                content: '';
+                width: 40px;
+                height: 40px;
+                background: url('../images/credit.svg') center center no-repeat;
+                background-size: contain;
+            }
         }
     }
 }
