@@ -52,51 +52,6 @@
 	}
 }
 
-.emhlive-dots {
-	color: white;
-	text-align: center;
-	margin: 8px 0 17px;
-	ul, li {
-		list-style-type: none;
-		margin: 0;
-		padding: 0;
-		height: 8px;
-		vertical-align: top;
-	}
-	li {
-		display: inline-block;
-		+ li {
-			margin-left: 3px;
-		}
-	}
-	button {
-		display: block;
-		width: 8px;
-		height: 8px;
-		border: 1.1px solid currentColor;
-		border-radius: 50%;
-		background-color: transparent;
-		padding: 0;
-		font-size: 0;
-		text-indent: -9999px;
-		vertical-align: top;
-		outline: none;
-	}
-	.slick-active > button {
-		background-color: currentColor;
-	}
-
-	&.below {
-		button {
-			background-color: currentColor;
-			color: @color-tertiary-alt;
-		}
-		.slick-active > button {
-			color: @color-primary;
-		}
-	}
-}
-
 .emhlive-slider {
 	margin-top: 10px;
 }

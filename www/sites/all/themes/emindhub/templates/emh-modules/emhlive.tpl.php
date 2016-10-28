@@ -5,7 +5,7 @@
   </div>
 
   <div class="emhlive-arrows"></div>
-  <div class="emhlive-dots above"></div>
+  <div class="emh-dots above"></div>
 
   <div class="emhlive-slider">
 
@@ -46,7 +46,7 @@
 
   </div>
 
-  <div class="emhlive-dots below"></div>
+  <div class="emh-dots emh-dots-alt below"></div>
 
   <script type="text/javascript">
     /**
@@ -58,7 +58,7 @@
       slidesToScroll: 1,
       appendArrows: '.emhlive-arrows',
       dots: true,
-      appendDots: '.emhlive-dots.above',
+      appendDots: '.emhlive .emh-dots.above',
       responsive: [{
         breakpoint: 992,
         settings: {
@@ -69,7 +69,7 @@
         breakpoint: 600,
         settings: {
           slidesToShow: 1,
-          appendDots: '.emhlive-dots.below'
+          appendDots: '.emhlive .emh-dots.below'
         }
       }]
     });
