@@ -1,0 +1,7 @@
+name = EMH Profile Complete
+description = Profile Complete - Global functions
+core = 7.x
+package = EMH
+
+; Dependencies
+dependencies[] = pcp

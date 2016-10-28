@@ -1,6 +1,31 @@
 .page-user {
 
+	.user-cartouche {
+
+		.cartouche-identity,
+		.cartouche-activity {
+			padding: 15px;
+		}
+
+		.user-identity,
+		.user-organisation,
+		.user-activity {
+			padding-top: 10px;
+		}
+
+		.user-badge img {
+			width: 100px;
+			height: 100px;
+		}
+	}
+
 	.profile-section {
+
+		.make-row();
+
+		> .field {
+			.make-sm-column(12);
+		}
 
 		margin-bottom: 15px;
 		background-color: #F6F7F8;
@@ -24,20 +49,30 @@
 			}
 		}
 
-		&.group-profile {
-			padding-top: 15px;
-			.h3, .h4 {
-				margin: 0;
-			}
-		}
+		// &.group-profile {
+		// 	padding-top: 15px;
+		// 	.h3, .h4 {
+		// 		margin: 0;
+		// 	}
+		// }
 
 		.field-name-field-photo {
+			.make-sm-column(2);
 			img {
 				.img-circle;
 				.center-block;
 				max-width: 100px !important; // jquery.Jcrop.js
 				max-height: 100px !important; // jquery.Jcrop.js
 			}
+		}
+
+		.field-name-field-first-name,
+		.field-name-field-last-name,
+		.field-name-field-titre-metier,
+		.field-name-field-entreprise,
+		.field-name-field-address,
+		.field-name-field-mail {
+			.make-sm-column(10);
 		}
 
 		.field-name-field-address {
@@ -106,12 +141,6 @@
 		}
 
 		@media (min-width: @screen-sm-min) {
-
-			.make-sm-column(12);
-			.make-row();
-			padding: 0;
-			margin-left: 0;
-			margin-right: 0;
 
 			.field-name-name {
 				clear: both;

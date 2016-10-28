@@ -1,0 +1,71 @@
+<?php
+/**
+ * @file
+ * Code for eMindHub Profile Complete feature for Submissions.
+ */
+
+function emh_profile_complete_submission_set_fields() {
+  $fields = array(
+    // 'field_address', // Phones
+    'field_position',
+    // 'field_skills_set',
+    'field_cv',
+  );
+  return $fields;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function emh_profile_complete_submission_form_alter(&$form, &$form_state, $form_id) {
+  if (!isset($form['#node']) || $form['#node']->type !== 'request') {
+    return;
+  }
+
+  if (isset($form['#node']->nid) && ($form_id == 'webform_client_form_' . $form['#node']->nid)) {
+
+    global $user;
+    $account = user_load($user->uid);
+    $attach_form = array();
+
+    $fields = emh_profile_complete_submission_set_fields();
+    $fields = _emh_profile_complete_get_empty_fields('user', 'user', $user, $fields);
+
+    foreach ($fields as $field) {
+
+      if (field_access('edit', $field, 'user')) {
+
+        field_attach_form('user', $account, $attach_form, $form_state, NULL, array('field_name' => $field));
+        $form[$field] = $attach_form[$field];
+
+      }
+    }
+
+    $form['#submit'][] = 'emh_profile_complete_submission_form_submit';
+
+  }
+}
+
+function emh_profile_complete_submission_form_submit($form, &$form_state) {
+
+  global $user;
+  $account = user_load($user->uid);
+  $edit = array();
+
+  $fields = emh_profile_complete_submission_set_fields();
+  $fields = _emh_profile_complete_get_empty_fields('user', 'user', $user, $fields);
+
+  foreach ($fields as $field) {
+    $edit[$field] = $form_state['values'][$field];
+  }
+
+  $edit = array_merge( $edit, array(
+    'status' => 1,
+    'access' => REQUEST_TIME,
+  ) );
+
+  user_save($account, $edit);
+
+  drupal_set_message(t('Your profile has been updated.'));
+
+}

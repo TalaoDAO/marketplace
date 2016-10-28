@@ -142,7 +142,9 @@ ul.links.list-inline {
   }
 
 	.form-group {
-		margin-bottom: 0;
+    &:last-child {
+      margin-bottom: 0;
+    }
 	}
 
 	> .field,
@@ -161,7 +163,6 @@ ul.links.list-inline {
 
 }
 
-
 .view-header {
 	p {
     margin-bottom: 15px;
@@ -170,7 +171,6 @@ ul.links.list-inline {
     }
   }
 }
-
 
 .content .node .links {
   li.fr a,

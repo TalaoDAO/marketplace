@@ -107,3 +107,27 @@ function emh_user_update_7009() {
 function emh_user_update_7010() {
   module_enable(array('emh_user_profile_purchase'));
 }
+
+/**
+ * CHG: Remove fields' groups in user display mode.
+ */
+function emh_user_update_7011() {
+  $entity_type = 'user';
+  $bundle_name = 'user';
+  $mode = 'default';
+  $groups = array(
+    'group_public_profile',
+    'group_organisation',
+    'group_needs',
+    'group_skills',
+    'group_interests',
+    'group_background',
+    'group_testimony',
+  );
+  foreach ($groups as $group) {
+    if ($group = field_group_load_field_group($group, $entity_type, $bundle_name, $mode)) {
+      ctools_include('export');
+      field_group_group_export_delete($group, FALSE);
+    }
+  }
+}

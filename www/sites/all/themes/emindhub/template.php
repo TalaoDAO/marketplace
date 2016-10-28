@@ -203,25 +203,6 @@ function emindhub_preprocess_field(&$variables) {
     //   break;
     case 'full':
       switch ($name) {
-        case 'field_photo':
-          $classes[] = 'col-sm-2';
-          break;
-
-				case 'field_first_name':
-				case 'field_last_name':
-				case 'field_titre_metier':
-				case 'field_entreprise':
-				case 'field_address':
-				case 'field_mail':
-					$user = user_load(arg(1));
-					$field = field_get_items('user', $user, 'field_photo');
-					if ($field) {
-						$classes[] = 'col-sm-10';
-					} else {
-						$classes[] = 'col-sm-12';
-					}
-					break;
-
 				// Requests fields
 				case 'field_autoref':
 				case 'field_start_date':
@@ -232,13 +213,8 @@ function emindhub_preprocess_field(&$variables) {
 					$classes[] = '';
 					break;
 
-				// Circles fields
-				case 'field_circle_logo':
-					$classes[] = '';
-					break;
-
 				default:
-					$classes[] = 'col-sm-12';
+					// $classes[] = 'col-sm-12';
           break;
 
       }
