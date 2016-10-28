@@ -3639,89 +3639,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'views_data_export_csv';
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: User: Name */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'users';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['label'] = '';
-  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
-  /* Field: User: First Name */
-  $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
-  $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
-  $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
-  /* Field: User: Last Name */
-  $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
-  $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
-  $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
-  /* Field: User: E-mail */
-  $handler->display->display_options['fields']['mail']['id'] = 'mail';
-  $handler->display->display_options['fields']['mail']['table'] = 'users';
-  $handler->display->display_options['fields']['mail']['field'] = 'mail';
-  /* Field: User: Created date */
-  $handler->display->display_options['fields']['created']['id'] = 'created';
-  $handler->display->display_options['fields']['created']['table'] = 'users';
-  $handler->display->display_options['fields']['created']['field'] = 'created';
-  $handler->display->display_options['fields']['created']['date_format'] = 'short_date';
-  $handler->display->display_options['fields']['created']['second_date_format'] = 'long';
-  /* Field: Field: Domain(s) */
-  $handler->display->display_options['fields']['field_domaine']['id'] = 'field_domaine';
-  $handler->display->display_options['fields']['field_domaine']['table'] = 'field_data_field_domaine';
-  $handler->display->display_options['fields']['field_domaine']['field'] = 'field_domaine';
-  /* Field: Field: Organisation */
-  $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
-  $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
-  $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';
-  /* Field: Field: Position */
-  $handler->display->display_options['fields']['field_position']['id'] = 'field_position';
-  $handler->display->display_options['fields']['field_position']['table'] = 'field_data_field_position';
-  $handler->display->display_options['fields']['field_position']['field'] = 'field_position';
-  /* Field: User: Address - Country */
-  $handler->display->display_options['fields']['field_address_country']['id'] = 'field_address_country';
-  $handler->display->display_options['fields']['field_address_country']['table'] = 'field_data_field_address';
-  $handler->display->display_options['fields']['field_address_country']['field'] = 'field_address_country';
-  /* Field: User: How did you hear about us? */
-  $handler->display->display_options['fields']['field_known_how']['id'] = 'field_known_how';
-  $handler->display->display_options['fields']['field_known_how']['table'] = 'field_data_field_known_how';
-  $handler->display->display_options['fields']['field_known_how']['field'] = 'field_known_how';
-  /* Field: User: Name of my sponsor */
-  $handler->display->display_options['fields']['field_sponsor1']['id'] = 'field_sponsor1';
-  $handler->display->display_options['fields']['field_sponsor1']['table'] = 'field_data_field_sponsor1';
-  $handler->display->display_options['fields']['field_sponsor1']['field'] = 'field_sponsor1';
-  /* Field: User: Working status */
-  $handler->display->display_options['fields']['field_working_status']['id'] = 'field_working_status';
-  $handler->display->display_options['fields']['field_working_status']['table'] = 'field_data_field_working_status';
-  $handler->display->display_options['fields']['field_working_status']['field'] = 'field_working_status';
-  /* Field: User: Last access */
-  $handler->display->display_options['fields']['access']['id'] = 'access';
-  $handler->display->display_options['fields']['access']['table'] = 'users';
-  $handler->display->display_options['fields']['access']['field'] = 'access';
-  $handler->display->display_options['fields']['access']['date_format'] = 'long';
-  $handler->display->display_options['fields']['access']['second_date_format'] = 'long';
-  /* Field: User: Last login */
-  $handler->display->display_options['fields']['login']['id'] = 'login';
-  $handler->display->display_options['fields']['login']['table'] = 'users';
-  $handler->display->display_options['fields']['login']['field'] = 'login';
-  $handler->display->display_options['fields']['login']['date_format'] = 'long';
-  $handler->display->display_options['fields']['login']['second_date_format'] = 'long';
-  /* Field: Field: Domain(s) */
-  $handler->display->display_options['fields']['field_domaine_1']['id'] = 'field_domaine_1';
-  $handler->display->display_options['fields']['field_domaine_1']['table'] = 'field_data_field_domaine';
-  $handler->display->display_options['fields']['field_domaine_1']['field'] = 'field_domaine';
-  $handler->display->display_options['fields']['field_domaine_1']['delta_offset'] = '0';
-  /* Field: User: Describe your work experience */
-  $handler->display->display_options['fields']['field_employment_history']['id'] = 'field_employment_history';
-  $handler->display->display_options['fields']['field_employment_history']['table'] = 'field_data_field_employment_history';
-  $handler->display->display_options['fields']['field_employment_history']['field'] = 'field_employment_history';
-  /* Field: User: Profile Completeness */
-  $handler->display->display_options['fields']['profile_completeness']['id'] = 'profile_completeness';
-  $handler->display->display_options['fields']['profile_completeness']['table'] = 'users';
-  $handler->display->display_options['fields']['profile_completeness']['field'] = 'profile_completeness';
-  /* Field: User: Webform submission count */
-  $handler->display->display_options['fields']['webform_submission_count_user']['id'] = 'webform_submission_count_user';
-  $handler->display->display_options['fields']['webform_submission_count_user']['table'] = 'users';
-  $handler->display->display_options['fields']['webform_submission_count_user']['field'] = 'webform_submission_count_user';
   $handler->display->display_options['path'] = 'user_export.csv';
 
   /* Display: Photo check */
@@ -3950,7 +3867,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
   $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
   $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
-  /* Field: Field: Organisation / company */
+  /* Field: Field: Organisation */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';
@@ -4028,6 +3945,13 @@ function ft_views_views_default_views() {
         ),
       ),
     ),
+    'action::views_bulk_operations_user_roles_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
     'action::system_send_email_action' => array(
       'selected' => 1,
       'postpone_processing' => 0,
@@ -4087,8 +4011,10 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['rid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['rid']['expose']['operator_id'] = 'rid_op';
   $handler->display->display_options['filters']['rid']['expose']['label'] = 'Roles';
+  $handler->display->display_options['filters']['rid']['expose']['use_operator'] = TRUE;
   $handler->display->display_options['filters']['rid']['expose']['operator'] = 'rid_op';
   $handler->display->display_options['filters']['rid']['expose']['identifier'] = 'rid';
+  $handler->display->display_options['filters']['rid']['expose']['multiple'] = TRUE;
   $handler->display->display_options['filters']['rid']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
