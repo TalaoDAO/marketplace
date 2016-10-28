@@ -50,12 +50,14 @@ function scheduler_uninstall() {
   // Keep variables in alphabetic order for easier maintenance and patching.
   $variables = array(
     'scheduler_allow_date_only',
+    'scheduler_cache_clear_all',
     'scheduler_date_format',
     'scheduler_date_only_format',
     'scheduler_default_time',
     'scheduler_extra_info',
     'scheduler_date_popup_minute_increment',
     'scheduler_field_type',
+    'scheduler_lightweight_access_key',
     'scheduler_lightweight_log',
     'scheduler_time_only_format',
   );
@@ -104,16 +106,21 @@ function scheduler_update_7100() {
 
   // Grant these roles the 'view scheduled content' permission.
   if ($roles_to_update = $query->execute()->fetchCol()) {
-    $query = db_insert('role_permission');
-    $query->fields(array('rid', 'permission', 'module'));
     foreach ($roles_to_update as $rid ) {
-      $query->values(array(
+      // Use db_merge not db_insert in case the role already has the permission.
+      $query = db_merge('role_permission');
+      $query->key(array(
         'rid' => $rid,
         'permission' => 'view scheduled content',
         'module' => 'scheduler',
       ));
+      $query->fields(array(
+        'rid' => $rid,
+        'permission' => 'view scheduled content',
+        'module' => 'scheduler',
+      ));
+      $query->execute();
     }
-    $query->execute();
   }
 
   return format_plural(sizeof($roles_to_update), '1 role updated with view scheduled content permission.', '@count roles updated with view scheduled content permission.');
@@ -139,4 +146,44 @@ function scheduler_update_7101() {
     db_delete('scheduler')->condition('nid', $nids_to_delete, 'IN')->execute();
   }
   return format_plural(sizeof($nids_to_delete), '1 obsolete row deleted from scheduler table.', '@count obsolete rows deleted from scheduler table.');
+}
+
+/**
+ * Function scheduler_update_7102() removed and replaced by 7103.
+ * @see http://www.drupal.org/node/2706119
+ */
+
+/**
+ * Update role_permission table with clean machine name.
+ */
+function scheduler_update_7103() {
+  // Change all values of 'schedule (un)publishing of nodes' to the cleaner
+  // 'schedule publishing of nodes'
+  // @see http://www.drupal.org/node/2538002
+
+  // Updates done in two stages to avoid integrity constraint violation. First
+  // select all role ids which already have the new permission value.
+  $query = db_select('role_permission', 'rp')
+    ->fields('rp', array('rid', 'permission'))
+    ->condition('permission', 'schedule publishing of nodes');
+
+  // Delete the rows for these roles which also have the old permission value,
+  // as these are no longer needed and should not be updated to the new value.
+  $rows_deleted = 0;
+  if ($rows_to_delete = $query->execute()->fetchCol()) {
+    $rows_deleted = db_delete('role_permission')
+      ->condition('rid', $rows_to_delete, 'IN')
+      ->condition('permission', 'schedule (un)publishing of nodes', '=')
+      ->execute();
+  }
+
+  // Now update any other rows which still have the old permission value.
+  $rows_updated = db_update('role_permission')
+    ->fields(array('permission' => 'schedule publishing of nodes'))
+    ->condition('permission', 'schedule (un)publishing of nodes', '=')
+    ->execute();
+
+  return format_plural($rows_updated, '1 row updated', '@count rows updated')
+    . ', ' . format_plural($rows_deleted, '1 row deleted', '@count rows deleted')
+    . ' ' . t('in role_permission table');
 }

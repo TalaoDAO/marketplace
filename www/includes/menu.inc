@@ -2419,7 +2419,7 @@ function menu_set_active_trail($new_trail = NULL) {
           // argument placeholders (%). Such links are not contained in regular
           // menu trees, and have only been loaded for the additional
           // translation that happens here, so as to be able to display them in
-          // the breadcumb for the current page.
+          // the breadcrumb for the current page.
           // @see _menu_tree_check_access()
           // @see _menu_link_translate()
           if (strpos($link['href'], '%') !== FALSE) {
@@ -2925,6 +2925,7 @@ function _menu_navigation_links_rebuild($menu) {
       }
     }
   }
+  $paths = array_keys($menu);
   // Updated and customized items whose router paths are gone need new ones.
   $result = db_select('menu_links', NULL, array('fetch' => PDO::FETCH_ASSOC))
     ->fields('menu_links', array(
@@ -2936,16 +2937,13 @@ function _menu_navigation_links_rebuild($menu) {
     ->condition(db_or()
       ->condition('updated', 1)
       ->condition(db_and()
+        ->condition('router_path', $paths, 'NOT IN')
         ->condition('external', 0)
         ->condition('customized', 1)
       )
     )
     ->execute();
   foreach ($result as $item) {
-    // As $menu may be huge and hit PDO limits we filter out paths in PHPland rather than in DB.
-    if (!$item['updated'] && array_key_exists($item['router_path'], $menu)) {
-      continue;
-    }
     $router_path = _menu_find_router_path($item['link_path']);
     if (!empty($router_path) && ($router_path != $item['router_path'] || $item['updated'])) {
       // If the router path and the link path matches, it's surely a working
@@ -2963,6 +2961,7 @@ function _menu_navigation_links_rebuild($menu) {
   // Find any item whose router path does not exist any more.
   $result = db_select('menu_links')
     ->fields('menu_links')
+    ->condition('router_path', $paths, 'NOT IN')
     ->condition('external', 0)
     ->condition('updated', 0)
     ->condition('customized', 0)
@@ -2971,10 +2970,6 @@ function _menu_navigation_links_rebuild($menu) {
   // Remove all such items. Starting from those with the greatest depth will
   // minimize the amount of re-parenting done by menu_link_delete().
   foreach ($result as $item) {
-    // As $menu may be huge and hit PDO limits we filter out paths in PHPland rather than in DB.
-    if (array_key_exists($item->router_path, $menu)) {
-      continue;
-    }
     _menu_delete_item($item, TRUE);
   }
 }
