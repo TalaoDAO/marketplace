@@ -1,4 +1,7 @@
 
+.expertise-slider {
+    margin-top: 50px;
+}
 .expertise-slider-item {
     text-align: center;
     background-color: transparent;
@@ -15,6 +18,9 @@
     flex-direction: column;
 
     height: 500px;
+    @media (min-width: @screen-lg-min) {
+        height: 600px;
+    }
 
     > .background {
         position: absolute;
@@ -35,6 +41,11 @@
         height: 140px;
     }
 
+    .domain {
+        font-size: 30px;
+        text-transform: uppercase;
+    }
+
     .subdomains {
         transition: height ease 250ms 250ms;
         height: 1px;
@@ -42,6 +53,13 @@
         margin: 0;
         padding: 0;
         list-style-type: none;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 1.6;
+    }
+
+    .emh-button {
+        color: white;
     }
 
 
