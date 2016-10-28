@@ -1146,7 +1146,7 @@ function ft_content_type_field_default_field_instances() {
     'widget' => array(
       'module' => 'serial',
       'settings' => array(),
-      'type' => 'serial',
+      'type' => 'serial_widget_default',
       'weight' => 9,
     ),
   );
@@ -3102,7 +3102,7 @@ function ft_content_type_field_default_field_instances() {
       'active' => 0,
       'module' => 'serial',
       'settings' => array(),
-      'type' => 'serial',
+      'type' => 'serial_widget_default',
       'weight' => 9,
     ),
   );
@@ -4010,7 +4010,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'addressfield',
       'settings' => array(
         'available_countries' => array(),
-        'default_country' => 'FR',
+        'default_country' => '',
         'format_handlers' => array(
           'address' => 'address',
           'phone' => 'phone',
@@ -4354,7 +4354,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 20,
+      'weight' => 11,
     ),
   );
 
@@ -4391,7 +4391,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 21,
+      'weight' => 12,
     ),
   );
 
@@ -4428,7 +4428,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 19,
+      'weight' => 10,
     ),
   );
 
@@ -4641,7 +4641,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 15,
+      'weight' => 5,
     ),
   );
 
@@ -4893,10 +4893,10 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'user',
     'field_name' => 'field_position',
     'label' => 'Position',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'user_register_form' => 0,
+      'user_register_form' => 1,
     ),
     'widget' => array(
       'active' => 0,
@@ -4948,6 +4948,47 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_profile_purchased'.
+  $field_instances['user-user-field_profile_purchased'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => 0,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 126,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_profile_purchased',
+    'label' => 'Profile purchased',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 13,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_skills_set'.
   $field_instances['user-user-field_skills_set'] = array(
     'bundle' => 'user',
@@ -4985,10 +5026,10 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'user',
     'field_name' => 'field_skills_set',
     'label' => 'Specific skill(s)',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'user_register_form' => 0,
+      'user_register_form' => 1,
     ),
     'widget' => array(
       'active' => 0,
@@ -5204,7 +5245,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'phone',
       'settings' => array(),
       'type' => 'phone_textfield',
-      'weight' => 13,
+      'weight' => 2,
     ),
   );
 
@@ -5388,7 +5429,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'og',
       'settings' => array(),
       'type' => 'og_complex',
-      'weight' => 18,
+      'weight' => 8,
     ),
   );
 
@@ -5452,6 +5493,7 @@ function ft_content_type_field_default_field_instances() {
   t('Photo');
   t('Position');
   t('Private answer');
+  t('Profile purchased');
   t('Profile title');
   t('Public answer');
   t('Request message');

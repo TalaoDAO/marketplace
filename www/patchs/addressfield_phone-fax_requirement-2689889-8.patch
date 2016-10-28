@@ -1,0 +1,13 @@
+diff --git a/plugins/format/phone.inc b/plugins/format/phone.inc
+index 7b463fe..dd4d1de 100644
+--- a/plugins/format/phone.inc
++++ b/plugins/format/phone.inc
+@@ -66,7 +66,7 @@ function addressfield_format_phone_generate(&$format, $address, $context = array
+         '#default_value' => isset($address['mobile_number']) ? $address['mobile_number'] : '',
+       );
+     }
+-    if (!$settings || $settings['fax']) {
++    if (!$settings || isset($settings['fax'])) {
+       $format['phone_block']['fax_number'] = array(
+         '#title' => t('Fax Number'),
+         '#size' => 15,

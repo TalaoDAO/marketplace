@@ -10,5 +10,4 @@ dependencies[] = og
 dependencies[] = rules
 dependencies[] = user_registrationpassword
 features[features_api][] = api:2
-features[rules_config][] = rules_on_hybridauth_register
 project path = sites/all/modules/features

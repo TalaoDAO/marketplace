@@ -127,11 +127,14 @@ body.node-type-request.page-node-edit {
       clear: none;
     }
   }
+  #edit-title-field,
   #edit-field-request-questions {
     .form-control:not(textarea),
     .input-group:not(.file-widget) {
       max-width: 100%;
     }
+  }
+  #edit-field-request-questions {
     table tbody label {
       .hide();
     }
@@ -160,13 +163,6 @@ body.page-node-publish {
 
   form#emh-request-publication-form {
     margin-top: 15px;
-  }
-}
-
-body.page-node-publish,
-body.node-type-request.page-node-edit {
-  .field-label-inline .field-label {
-    font-weight: normal;
   }
 }
 
@@ -241,10 +237,20 @@ body.node-type-request:not(.page-node-edit) {
     // User cartouche
     .user-cartouche {
       clear: both;
-      border: 1px solid #e1e4e7;
-      padding: 15px;
       margin-bottom: 15px;
       .text-center;
+
+      .cartouche-identity,
+      .cartouche-activity {
+        padding: 15px;
+      }
+
+      .user-identity,
+      .user-organisation,
+    	.user-activity {
+    		padding-top: 10px;
+    	}
+
       .user-badge img {
         width: 100px;
         height: 100px;
@@ -313,12 +319,43 @@ body.node-type-request:not(.page-node-edit) {
         .label-success;
       }
     }
+
+    form {
+      // #edit-field-skills-set {
+      //   @media (min-width: @screen-md-min) {
+      //     tbody td:nth-child(2) {
+      //       .field-name-field-skill2 {
+      //         .make-md-column(4);
+      //         padding-left: 0;
+      //       }
+      //       .field-name-field-skill-autoeval {
+      //         .make-md-column(3);
+      //         padding-left: 0;
+      //       }
+      //       .field-name-field-year-of-experiences {
+      //         .make-md-column(3);
+      //         padding-left: 0;
+      //       }
+      //     }
+      //   }
+      // }
+      fieldset {
+        margin: 15px 0;
+        padding: 15px;
+        background-color: @emerald-base;
+        color: #FFF;
+      }
+    }
   }
 
   // Submissions
   .submissions {
     color: #FFF;
     background-color: @asphalt-base;
+
+    .user-cartouche {
+      .text-center;
+    }
 
     .submissions-title {
       background-color: #2e3243;
@@ -339,6 +376,7 @@ body.node-type-request:not(.page-node-edit) {
       font-style: italic;
     }
   }
+
   form#views-form-request-submissions-block-request-submissions {
     fieldset {
       border: 0;
@@ -378,17 +416,17 @@ body.node-type-request:not(.page-node-edit) {
       }
 
       .views-field-emh-author {
-        .make-md-column(2);
+        .make-md-column(3);
       }
 
       .views-field-emh-answer,
       .views-field-view-submission {
-        .make-md-column(10);
+        .make-md-column(9);
       }
 
       .views-field-view-submission {
         .text-right;
-        .make-sm-column-offset(2);
+        .make-sm-column-offset(3);
       }
 
       .submission-date {

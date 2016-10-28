@@ -101,6 +101,9 @@ class MetatagCoreLocaleTest extends MetatagTestHelper {
     $this->assertNotEqual($lid, 0, 'Found the locales_source string for the description tag.');
     $this->saveTranslationString($lid, $context, $langcode, $desc_source, $desc_target);
 
+    // Clear the metatag_get_info() cache since translated strings have changed.
+    metatag_config_cache_clear();
+
     // Load the French node form again.
     $this->drupalGet('fr/node/add/' . $content_type_path);
     $this->assertResponse(200);
@@ -118,6 +121,27 @@ class MetatagCoreLocaleTest extends MetatagTestHelper {
     // Need to trim() the xpath results because Field API adds a space after
     // every field's label.
     $this->assertEqual(trim((string)$xpath[0]), $desc_target);
+  }
+
+  /**
+   * Verify language meta tags don't output LANGUAGE_NONE / 'und'.
+   */
+  function testLanguageNone() {
+    // Set the global node defaults to set "content-language" to the node's
+    // language.
+    $config = metatag_config_load('node');
+    $config->config['content-language']['value'] = '[node:language]';
+    metatag_config_save($config);
+
+    // Create a test node.
+    $node = $this->drupalCreateNode();
+    $this->assertEqual($node->language, LANGUAGE_NONE);
+
+    // Load the node page, confirm that the "content-language" meta tag is not
+    // output.
+    $this->drupalGet('node/' . $node->nid);
+    $xpath = $this->xpath("//meta[@http-equiv='content-language']");
+    $this->assertEqual(count($xpath), 0, 'The content-language meta tag was not found.');
   }
 
   // @todo Make sure the meta tag fields are displayed in the correct locale.

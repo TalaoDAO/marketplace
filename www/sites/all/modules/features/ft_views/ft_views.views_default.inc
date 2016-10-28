@@ -1387,7 +1387,7 @@ function ft_views_views_default_views() {
   );
   $handler->display->display_options['filters']['field_domaine_tid_i18n_1']['type'] = 'select';
   $handler->display->display_options['filters']['field_domaine_tid_i18n_1']['vocabulary'] = 'domaine';
-  /* Filter criterion: Points: Total Points */
+  /* Filter criterion: Credits: Total Credits */
   $handler->display->display_options['filters']['total_points']['id'] = 'total_points';
   $handler->display->display_options['filters']['total_points']['table'] = 'emh_points_total';
   $handler->display->display_options['filters']['total_points']['field'] = 'total_points';
@@ -1432,7 +1432,7 @@ function ft_views_views_default_views() {
   );
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '20';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '25';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
@@ -1650,7 +1650,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['field_tags_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['vocabulary'] = 'tags';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['error_message'] = FALSE;
-  /* Filter criterion: Points: Total Points */
+  /* Filter criterion: Credits: Total Credits */
   $handler->display->display_options['filters']['total_points']['id'] = 'total_points';
   $handler->display->display_options['filters']['total_points']['table'] = 'emh_points_total';
   $handler->display->display_options['filters']['total_points']['field'] = 'total_points';
@@ -1706,7 +1706,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['field_language_add_to_query'] = 0;
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '25';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'views_bootstrap_table_plugin_style';
@@ -1880,7 +1880,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['field_tags_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['vocabulary'] = 'tags';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['error_message'] = FALSE;
-  /* Filter criterion: Points: Total Points */
+  /* Filter criterion: Credits: Total Credits */
   $handler->display->display_options['filters']['total_points']['id'] = 'total_points';
   $handler->display->display_options['filters']['total_points']['table'] = 'emh_points_total';
   $handler->display->display_options['filters']['total_points']['field'] = 'total_points';
@@ -2117,7 +2117,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['exposed_form']['options']['text_input_required_format'] = 'filtered_html';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '20';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '25';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
@@ -2305,7 +2305,7 @@ function ft_views_views_default_views() {
   );
   $handler->display->display_options['filters']['field_tags_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['vocabulary'] = 'tags';
-  /* Filter criterion: Points: Total Points */
+  /* Filter criterion: Credits: Total Credits */
   $handler->display->display_options['filters']['total_points']['id'] = 'total_points';
   $handler->display->display_options['filters']['total_points']['table'] = 'emh_points_total';
   $handler->display->display_options['filters']['total_points']['field'] = 'total_points';
@@ -2369,7 +2369,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['query']['options']['distinct'] = TRUE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '20';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '25';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
@@ -2796,7 +2796,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['exposed_form']['options']['text_input_required_format'] = 'filtered_html';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '25';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'views_bootstrap_table_plugin_style';
@@ -3867,7 +3867,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
   $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
   $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
-  /* Field: Field: Organisation / company */
+  /* Field: Field: Organisation */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';
@@ -3945,6 +3945,13 @@ function ft_views_views_default_views() {
         ),
       ),
     ),
+    'action::views_bulk_operations_user_roles_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
     'action::system_send_email_action' => array(
       'selected' => 1,
       'postpone_processing' => 0,
@@ -4004,8 +4011,10 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['rid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['rid']['expose']['operator_id'] = 'rid_op';
   $handler->display->display_options['filters']['rid']['expose']['label'] = 'Roles';
+  $handler->display->display_options['filters']['rid']['expose']['use_operator'] = TRUE;
   $handler->display->display_options['filters']['rid']['expose']['operator'] = 'rid_op';
   $handler->display->display_options['filters']['rid']['expose']['identifier'] = 'rid';
+  $handler->display->display_options['filters']['rid']['expose']['multiple'] = TRUE;
   $handler->display->display_options['filters']['rid']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
