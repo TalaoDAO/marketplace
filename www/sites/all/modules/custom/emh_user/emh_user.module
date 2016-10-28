@@ -125,13 +125,35 @@ function emh_user_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
   $form['account']['name']['#access'] = FALSE;
 
+  $form['field_address'][LANGUAGE_NONE][0]['street_block']['thoroughfare']['#required'] = FALSE;
+  $form['field_address'][LANGUAGE_NONE][0]['street_block']['premise']['#required'] = FALSE;
+
+  $form['field_address'][LANGUAGE_NONE][0]['locality_block']['dependent_locality']['#required'] = FALSE;
+  $form['field_address'][LANGUAGE_NONE][0]['locality_block']['locality']['#required'] = FALSE;
+  $form['field_address'][LANGUAGE_NONE][0]['locality_block']['administrative_area']['#required'] = FALSE;
+  $form['field_address'][LANGUAGE_NONE][0]['locality_block']['postal_code']['#required'] = FALSE;
+
+  $form['field_address'][LANGUAGE_NONE][0]['country']['#required'] = TRUE;
+
+  $form['field_address'][LANGUAGE_NONE][0]['phone_block']['phone_number']['#required'] = FALSE;
+  $form['field_address'][LANGUAGE_NONE][0]['phone_block']['mobile_number']['#required'] = FALSE;
+
   unset($form['account']['roles']);
   unset($form['account']['current_pass']);
   unset($form['account']['current_pass_required_values']);
   $form['#validate'] = array_diff($form['#validate'], array('user_validate_current_pass'));
-  $form['#submit'][] = '_emh_user_form_user_profile_handler';
+  $form['#submit'][] = 'emh_user_form_user_profile_submit';
 
 }
+
+function emh_user_form_user_profile_submit(&$form, &$form_state) {
+  $path = $_SERVER['HTTP_REFERER'];
+  if (isset($_GET['current'])) {
+    $path = $_GET['current'];
+  }
+  $form_state['redirect'] = $path;
+}
+
 
 /**
  * Implements hook_form_alter().
@@ -264,15 +286,6 @@ function emh_user_username_alter(&$name, $account) {
 
 
 // HELPERS
-function _emh_user_form_user_profile_handler(&$form, &$form_state) {
-  $path = $_SERVER['HTTP_REFERER'];
-  if (isset($_GET['current'])) {            //if (isset($_GET['destination'])) {
-    $path = $_GET['current'];             // $path = $_GET['destination'];
-  }                                               // }
-  // echo $path;
-  $form_state['redirect'] = $path;
-}
-
 function emh_user_redirect_submit($form, &$form_state) {
   $form_state['redirect'] = url('<front>', array('absolute'=> true, 'language' =>  (object)array('language' =>  FALSE)));
 }
@@ -388,24 +401,7 @@ function emh_user_cartouche_view($uid, $context = NULL) {
 
 	$node = menu_get_object();
 
-  $cartouche = ''; $photo_uri = ''; $identity = ''; $organisation = ''; $activity = '';
-
-	// Photo
-  if (emh_access_user_can_see_full_user($uid1, $uid2)) {
-  	$photo_uri = field_get_items('user', $u2_account, 'field_photo');
-    $photo = field_view_field('user', $u2_account, 'field_photo', array('label'=>'hidden'));
-    $cartouche .= '<span class="user-badge"><a href="' . url('user/' . $uid2) . '">' . render($photo) . '</a></span>';
-  } else {
-    $instance = field_info_instance('user', 'field_photo', 'user');
-    if ( !empty($instance) && isset($instance['settings']['default_image']) && $instance['settings']['default_image'] > 0 ) {
-      $photo_fid = $instance['settings']['default_image'];
-      $photo = file_load($photo_fid);
-      $photo = array(
-        'path' => $photo->uri,
-      );
-      $cartouche .= '<span class="user-badge">' . theme_image($photo) . '</span>';
-    }
-  }
+  $cartouche = ''; $cartouche_identity = ''; $cartouche_activity = ''; $photo_uri = ''; $identity = ''; $organisation = ''; $activity = '';
 
 	// Identity
   if ($context == 'author' && emh_request_has_option($node, 'anonymous') && $node->field_hide_name[LANGUAGE_NONE][0]['value'] == true) {
@@ -415,11 +411,33 @@ function emh_user_cartouche_view($uid, $context = NULL) {
     $identity = format_username($u2_account);
   }
 
+  // Photo
+  if (emh_access_user_can_see_full_user($uid1, $uid2)) {
+  	$photo_uri = field_get_items('user', $u2_account, 'field_photo');
+    $photo = field_view_field('user', $u2_account, 'field_photo', array('label'=>'hidden'));
+    $cartouche_identity .= '<span class="user-badge"><a href="' . url('user/' . $uid2) . '">' . render($photo) . '</a></span>';
+  } else {
+    $instance = field_info_instance('user', 'field_photo', 'user');
+    if ( !empty($instance) && isset($instance['settings']['default_image']) && $instance['settings']['default_image'] > 0 ) {
+      $photo_fid = $instance['settings']['default_image'];
+      $photo = file_load($photo_fid);
+      $photo = array(
+        'path' => $photo->uri,
+        'alt' => $identity,
+        'title' => '',
+        'width' => '110px',
+        'height' => '110px',
+        'attributes' => array(),
+      );
+      $cartouche_identity .= '<span class="user-badge">' . theme_image($photo) . '</span>';
+    }
+  }
+
   // Profile link
   if (emh_access_user_can_see_full_user($uid1, $uid2) && !(emh_request_has_option($node, 'anonymous') && $node->field_hide_name[LANGUAGE_NONE][0]['value'] == true)) {
     $identity = '<a href="' . url('user/' . $uid2) . '">' . $identity . '</a>';
   }
-  $cartouche .= '<span class="user-identity">' . $identity . '</a>';
+  $cartouche_identity .= '<span class="user-identity">' . $identity . '</span>';
 
   // Organisation
 	$organisation = field_get_items('user', $u2_account, 'field_entreprise');
@@ -430,7 +448,7 @@ function emh_user_cartouche_view($uid, $context = NULL) {
       ||  ($context == 'author' && (emh_request_has_option($node, 'anonymous') && ($node->field_hide_organisation[LANGUAGE_NONE][0]['value'] == false)))
       ||  ($context != 'author' && (emh_access_user_can_see_full_user($uid1, $uid2)))
     ) {
-      $cartouche .= '<span class="user-organisation">' . render($organisation) . '</span>';
+      $cartouche_identity .= '<span class="user-organisation">' . render($organisation) . '</span>';
     }
   }
 
@@ -438,22 +456,34 @@ function emh_user_cartouche_view($uid, $context = NULL) {
 	$activity = field_get_items('node', $node, 'field_activity');
 	if (($context == 'author') && emh_request_has_option($node, 'anonymous') && !empty($activity)) {
     $activity = field_view_field('node', $node, 'field_activity', array('label'=>'hidden'));
-		$cartouche .= '<span class="user-activity">' . render($activity) . '</span>';
+		$cartouche_identity .= '<span class="user-activity">' . render($activity) . '</span>';
 	}
 
 	// Buy profile access
 	if (module_exists('emh_user_profile_purchase') && !emh_access_user_can_see_full_user($uid1, $uid2) && !($context == 'author')) {
     $amount = (int) variable_get('emh_user_profile_purchase_amount', 100);
-		$cartouche .= '<a href="' . url("user/$uid2/purchase") . '?destination=node/' . $node->nid . '" class="user-buy-access">' . t('Access profile for ' . $amount . ' credits') . '</a>';
+		$cartouche_identity .= '<a href="' . url("user/$uid2/purchase") . '?destination=node/' . $node->nid . '" class="user-buy-access">' . t('Access profile for ' . $amount . ' credits') . '</a>';
 	}
 
-  // Self cartouche
-  // if ($uid1 === $uid2) {
-  //   $cartouche .= '<span class="user-self"><a href="' . url('user/' . $uid2) . '">' . t('It\'s you :)') . '</a></span>';
-  // }
-
-  if ($cartouche) {
-    return '<div class="user-cartouche">' . $cartouche . '</div>';
+  // Submissions count
+  if (module_exists('emh_request_submission') && $context !== 'author') {
+    $submission_count = emh_request_submission_get_user_submission_count($uid);
+    $cartouche_activity .= '<span class="user-submission-count" title="' . t('!count published submission(s)', array('!count' => $submission_count)) . '">' . $submission_count . '</span>';
   }
+
+  // Profile purchased count
+	if (module_exists('emh_user_profile_purchase') && !($context == 'author')) {
+    $purchased_count = emh_user_profile_purchase_get_count($u2_account);
+		$cartouche_activity .= '<span class="user-purchased-count" title="' . t('Profile purchased !count times', array('!count' => $purchased_count)) . '">' . render($purchased_count) . '</span>';
+	}
+
+  if (!empty($cartouche_identity) || !empty($cartouche_activity)) {
+    $cartouche .= '<div class="user-cartouche">';
+    if ($cartouche_identity) $cartouche .= '<div class="cartouche-identity">' . $cartouche_identity . '</div>';
+    if ($cartouche_activity) $cartouche .= '<div class="cartouche-activity">' . $cartouche_activity . '</div>';
+    $cartouche .= '</div>';
+  }
+
+  return $cartouche;
 
 }

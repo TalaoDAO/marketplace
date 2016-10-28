@@ -65,10 +65,10 @@ function fancy_file_delete_manual_submit($form, &$form_state) {
   $force = ($form_state['values']['force']) ? TRUE : FALSE;
   $fids = explode("\n", $form_state['values']['delete_textarea']);
   foreach ($fids as $fid) {
-    $operations[] = array('fancy_file_delete_batch', array($fid, $force));
+    $operations[] = array('fancy_file_delete_batch_delete', array($fid, $force));
   }
   // Send to batch.
-  _fancy_file_delete_batch_run($operations);
+  _fancy_file_delete_batch_delete_run($operations);
 }
 
 /**
@@ -77,12 +77,12 @@ function fancy_file_delete_manual_submit($form, &$form_state) {
  * @param  object $operations
  *   The operations array from each submit handler.
  */
-function _fancy_file_delete_batch_run($operations) {
+function _fancy_file_delete_batch_delete_run($operations) {
   $batch = array(
     'title' => t('Fun Stuff is Happening...'),
     'operations' => $operations,
-    'finished' => 'fancy_file_delete_batch_finished',
-    'file' => drupal_get_path('module', 'fancy_file_delete') . '/includes/fancy_file_delete.batch.inc',
+    'finished' => 'fancy_file_delete_batch_delete_finished',
+    'file' => drupal_get_path('module', 'fancy_file_delete') . '/includes/fancy_file_delete.batch_delete.inc',
   );
 
   batch_set($batch);

@@ -126,11 +126,11 @@ function fancy_file_delete_files(&$entity, $context) {
   $operations = array();
   foreach ($entity as $key => $value) {
     if ($key == 'fid' || $key == 'path') {
-      $operations[] = array('fancy_file_delete_batch', array($value, FALSE));
+      $operations[] = array('fancy_file_delete_batch_delete', array($value, FALSE));
     }
   }
   // Send to batch.
-   _fancy_file_delete_batch_run($operations);
+   _fancy_file_delete_batch_delete_run($operations);
 }
 
 /**
@@ -142,11 +142,11 @@ function fancy_file_delete_files_force(&$entity, $context) {
   $operations = array();
   foreach ($entity as $key => $value) {
     if ($key == 'fid') {
-      $operations[] = array('fancy_file_delete_batch', array($value, TRUE));
+      $operations[] = array('fancy_file_delete_batch_delete', array($value, TRUE));
     }
   }
   // Send to batch.
-   _fancy_file_delete_batch_run($operations);
+   _fancy_file_delete_batch_delete_run($operations);
 }
 
 /**
@@ -169,35 +169,64 @@ function fancy_file_delete_unmanaged_update_view() {
 
   // Go through and add this to the batch.
   if (count($files) > 0) {
-
     // I changed this to use array chunk & db_query for performance
     // see issue: https://www.drupal.org/node/2637028
     $files_chunk = array_chunk($files, (count($files) / 4), TRUE);
     foreach ($files_chunk as $filez) {
       $query = "SELECT 'path' FROM {unmanaged_files} WHERE 'path' IN (:files)";
-      $umsplit[] = db_query($query, array(':files' => $filez))->fetchAll();
-    }
-    $um = array();
-    foreach ($umsplit as $trill) {
-      $um = $um + $trill;
-    }
-
-    // Go in and check it and set it as an array to check.
-    $um_check = array();
-    foreach ($um as $res) {
-      $um_check[] = $res->path;
-    }
-    // Again check the difference, only want ones not in the table.
-    $um_final = array_diff($files, $um_check);
-
-    if (count($um_final) > 0) {
-      $insert_unmanaged = db_insert('unmanaged_files')->fields(array('path'));
-      foreach ($um_final as $key => $value) {
-        $insert_unmanaged->values(array(
-          'path' => $value,
-        ));
+      $result = db_query($query, array(':files' => $filez))->fetchAll();
+      // Check if this is a first run.
+      if (count($result) == 0) {
+        $new = TRUE;
       }
-      $insert_unmanaged->execute();
+      else {
+        $umsplit[] = $result;
+        $new = FALSE;
+      }
+    }
+
+    // Insert if new.
+    if ($new) {
+      foreach ($files_chunk as $chunk) {
+        foreach ($chunk as $fpath) {
+          $new_files[] = $fpath;
+        }
+      }
+      if (isset($new_files)) {
+        $insert_unmanaged = db_insert('unmanaged_files')->fields(array('path'));
+        // Insert records
+        foreach ($new_files as $key => $value) {
+          $insert_unmanaged->values(array(
+            'path' => $value,
+          ));
+        }
+        $insert_unmanaged->execute();
+      }
+    }
+    else {
+      $um = array();
+      foreach ($umsplit as $trill) {
+        $um = $um + $trill;
+      }
+
+      // Go in and check it and set it as an array to check.
+      $um_check = array();
+      foreach ($um as $res) {
+        $um_check[] = $res->path;
+      }
+      // Again check the difference, only want ones not in the table.
+      $um_final = array_diff($files, $um_check);
+
+      if (count($um_final) > 0) {
+        $insert_unmanaged = db_insert('unmanaged_files')->fields(array('path'));
+        // Insert records
+        foreach ($um_final as $key => $value) {
+          $insert_unmanaged->values(array(
+            'path' => $value,
+          ));
+        }
+        $insert_unmanaged->execute();
+      }
     }
   }
 }

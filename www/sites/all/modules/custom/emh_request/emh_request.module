@@ -614,8 +614,6 @@ function emh_request_publication_form_submit($form, &$form_state) {
 
 /**
  * Implements hook_form_alter().
- *
- * Alters each form allowing to answer to a request.
  */
 function emh_request_form_alter(&$form, &$form_state, $form_id) {
   if (!isset($form['#node']) || $form['#node']->type !== 'request') {
@@ -638,7 +636,7 @@ function emh_request_form_alter(&$form, &$form_state, $form_id) {
       $form['actions']['#access'] = false;
     }
 
-    // Hides the uniq field label in the request is not a questionnaire
+    // Hides the uniq field label in the request if not a questionnaire
     if (!emh_request_has_option($form['#node'], 'questionnaire') && !empty($form['submitted'])) {
       foreach ($form['submitted'] as $key => $element) {
         if (is_array($element) && !empty($element['#type']) && $element['#type'] == 'textarea') {
@@ -661,6 +659,7 @@ function emh_request_form_alter(&$form, &$form_state, $form_id) {
 function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
 
   if (in_array($form['#node']->type, emh_request_get_types())) {
+
     // Sets action buttons labels
     $form['actions']['draft']['#value'] = t('Save draft');
     $form['actions']['submit']['#value'] = t('Continue');
@@ -680,17 +679,17 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
           }
         }
         // Adds a submit callback to redirect on the questions page if needed
-//        $form['actions']['draft']['#submit'][] = 'emh_request_node_form_continue';
+        // $form['actions']['draft']['#submit'][] = 'emh_request_node_form_continue';
         // Adds a submit callback to redirect on the publication page
         $form['actions']['submit']['#submit'][] = 'emh_request_node_form_publish';
         // Disables the publication if the request has the questionnaire option
         // but no associated question
-//        if (emh_request_has_option($form['#node'], 'questionnaire')) {
-//          $form['actions']['draft']['#value'] = t('Save and continue');
-//          if (empty($form['#node']->webform['components'])) {
-//            drupal_set_message(t('You choosed the questionnaire option, please add one or more questions to allow the publication.'), 'warning');
-//          }
-//        }
+        // if (emh_request_has_option($form['#node'], 'questionnaire')) {
+        //   $form['actions']['draft']['#value'] = t('Save and continue');
+        //   if (empty($form['#node']->webform['components'])) {
+        //     drupal_set_message(t('You choosed the questionnaire option, please add one or more questions to allow the publication.'), 'warning');
+        //   }
+        // }
       }
       // Request created & published
       else {

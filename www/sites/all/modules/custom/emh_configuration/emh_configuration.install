@@ -36,10 +36,10 @@ function emh_configuration_update_7002() {
 }
 
 /**
- * Install modules : Autologout, PCP, EMH PCP Special
+ * Install modules : Autologout, PCP
  */
 function emh_configuration_update_7003() {
-  module_enable(array('autologout', 'pcp', 'emh_pcp_special'));
+  module_enable(array('autologout', 'pcp'));
 }
 
 /**
@@ -533,4 +533,17 @@ function emh_configuration_update_7033() {
 
   // Features
   features_revert(array('ft_content_type' => array('field_instance')));
+}
+
+/**
+ * CHG: Replace emh_pcp_special for emh_profile_complete and sub-modules.
+ */
+function emh_configuration_update_7034() {
+  module_disable(array('emh_pcp_special'));
+  drupal_uninstall_modules(array('emh_pcp_special'));
+  module_enable(array('emh_profile_complete', 'emh_profile_complete_request', 'emh_profile_complete_submission'));
+  features_revert(array(
+    'ft_content_type' => array('field_instance'),
+    'ft_field_base' => array('field_base')
+  ));
 }

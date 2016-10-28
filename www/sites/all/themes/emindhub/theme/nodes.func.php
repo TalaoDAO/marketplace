@@ -52,12 +52,12 @@ function emindhub_preprocess_node(&$variables, $hook) {
 
           $variables['hidden_name'] = false;
           if ($hide_name = field_get_items('node', $node, 'field_hide_name')) {
-            $variables['hidden_name'] = ($hide_name[0]['value'] == 0);
+            $variables['hidden_name'] = $hide_name[0]['value'];
           }
 
           $variables['hidden_organisation'] = false;
           if ($hide_organisation = field_get_items('node', $node, 'field_hide_organisation')) {
-            $variables['hidden_organisation'] = ($hide_organisation[0]['value'] == 0);
+            $variables['hidden_organisation'] = $hide_organisation[0]['value'];
           }
         }
 

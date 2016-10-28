@@ -1459,8 +1459,7 @@ function ft_field_base_field_default_field_bases() {
         5 => 0,
         6 => 0,
         7 => 0,
-        8 => 0,
-        9 => 0,
+        10 => 0,
       ),
     ),
     'translatable' => 0,
@@ -1586,6 +1585,37 @@ function ft_field_base_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'text_long',
+  );
+
+  // Exported field_base: 'field_profile_purchased'.
+  $field_bases['field_profile_purchased'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_profile_purchased',
+    'field_permissions' => array(
+      'owner_field' => 'Comment',
+      'type' => 0,
+    ),
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 2,
+        3 => 0,
+        4 => 0,
+        5 => 0,
+        6 => 0,
+        7 => 0,
+        10 => 0,
+      ),
+    ),
+    'translatable' => 0,
+    'type' => 'number_integer',
   );
 
   // Exported field_base: 'field_referent'.
@@ -1807,8 +1837,7 @@ function ft_field_base_field_default_field_bases() {
         5 => 0,
         6 => 0,
         7 => 0,
-        8 => 8,
-        9 => 0,
+        10 => 0,
       ),
     ),
     'translatable' => 0,
