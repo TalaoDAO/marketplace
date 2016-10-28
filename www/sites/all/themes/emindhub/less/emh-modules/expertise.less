@@ -1,0 +1,54 @@
+
+.expertise-slider-item {
+    text-align: center;
+    background-color: transparent;
+    transition: background-color ease 250ms;
+    color: white;
+    position: relative;
+
+    &.expertise-slider-item {
+        display: flex;
+    }
+
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    height: 500px;
+
+    > .background {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        z-index: -1;
+    }
+
+
+    > .picture {
+        display: block;
+        width: 140px;
+        height: 140px;
+    }
+
+    .subdomains {
+        transition: height ease 250ms 250ms;
+        height: 1px;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+
+    &:hover {
+        background-color: @color-secondary;
+        .subdomains {
+            height: 200px;
+        }
+    }
+}
