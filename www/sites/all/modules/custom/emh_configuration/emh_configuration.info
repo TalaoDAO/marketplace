@@ -2,7 +2,6 @@ name = EMH Configuration
 description = Global configuration.
 package = EMH
 
-dependencies[] = emh_pcp_special
 dependencies[] = emh_points
 dependencies[] = emh_request
 dependencies[] = emh_user
