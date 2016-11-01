@@ -1,5 +1,5 @@
 @api @watchdog
-Feature: Request
+Feature: Request Prepopulate
   In order to test Request creation
   As a Client and an Expert
   I want to create a Request, and watch submissions
@@ -17,14 +17,6 @@ Feature: Request
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country |
     | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers  | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance   | US                    |
-
-    Given users:
-    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers  | emindhub.test+expert1@gmail.com | Marvel Studios     | Employee             | Energy          | US                    |
-
-#    Given "request" content:
-#    | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
-#    | How to become a superhero?  | Energy        | All experts     | client1 | 2017-02-08 17:45:00    | 1       |
 
     Given I give "client1" 10000 emh credits
 
@@ -48,20 +40,20 @@ Feature: Request
       # Twice for correct order
       And I click "Member since"
     Then I should see "Creator member" in the "Captain AMERICA" row
-      And I click "edit" in the "Iron MAN" row
-      And I select "Active" from "Status"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
 
-  Scenario: An author can see its own request
+  Scenario: An author can create prepopulated request
     Given I am logged in as "client1"
-    When I go to "/node/add/request?edit[field_options][und][questionnaire][enabled]=&edit[field_options][und][private][enabled]=&edit[field_options][und][questionnaire][enabled]=&edit[field_request_questions][und]['0'][value]=How to become a superhero%3F&edit[field_request_type][und]=Expert"
-      Then the "Questionnaire" checkbox should be checked
+    When I go to "node/add/request"
+      And I select "720" from "field_request_type[und]"
+      And I click "Activate these options" in the "request_type_expert" region
+    Then the "edit-field-request-type-und-720" checkbox should be checked
       And the "Private submissions" checkbox should be checked
-    #TODO : Should work, but dont ...
-    #And I should see "How to become a superhero?" 
-    #And the "Questions" element should contain "How to become a superhero?"
-    #And the "Questions" element should contain "How to become a superhero?"
+      And the "Questionnaire" checkbox should be checked
+      And the "field_request_questions[und][0][value]" field should contain "How to become a superhero?"
+      And I should see "100 credits" in the "#edit-field-options-und-private" element
+      And I should see "300 credits" in the "#edit-field-options-und-questionnaire" element
+      #FIXME
+      #And I should see "400 credits" in the ".total-wrapper" element
     When I select "Avengers" from "Circles"
       And I fill in "Request title or question" with "How to defeat a superhero?"
       And I select "Energy" from "Fields of expertise"
@@ -69,3 +61,4 @@ Feature: Request
       And I press "Publish"
     Then I should see "How to defeat a superhero? has been published"
       And I should see "How to become a superhero?"
+      And I should have 9600 credits on "client1" user
