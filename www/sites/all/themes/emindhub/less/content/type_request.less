@@ -46,27 +46,7 @@ body.node-type-request.page-node-edit {
 
   form {
     h2 {
-      border: 0;
-      text-transform: none;
-      font-size: 1.3em;
-      font-weight: bold;
-      padding: 0;
-      margin: 0;
-      line-height: 25px;
-      &:before {
-        content: "";
-        position: absolute;
-        left: -40px;
-        display: block;
-        width: 25px;
-        height: 25px;
-        border: 3px solid @brand-primary;
-        border-radius: 50%;
-        color: @brand-primary;
-        font-size: 12px;
-        .text-center;
-        line-height: 18px;
-      }
+      .emh-form-h2;
     }
   }
   .section {
@@ -88,6 +68,9 @@ body.node-type-request.page-node-edit {
     }
     &.step4 h2:before {
       content: "4";
+    }
+    &.step5 h2:before {
+      content: "5";
     }
   }
   .form-group {
@@ -127,6 +110,76 @@ body.node-type-request.page-node-edit {
       clear: none;
     }
   }
+
+  #edit-field-request-type-und {
+    .request-type {
+      margin-bottom: 15px;
+
+      > .form-type-radio {
+        .btn; .btn-default;
+        display: block;
+        white-space: normal;
+        margin: 0;
+
+        padding: 15px;
+        min-height: 60px;
+        .text-left;
+      }
+
+      input {
+        margin-top: 10px;
+      }
+
+      label {
+        .make-row();
+        width: 100%;
+        padding-left: 40px;
+        .text-left;
+
+        .term-image {
+          .make-md-column(1);
+        }
+
+        .term-name {
+          .make-md-column(11);
+          .h3;
+          margin-top: 0;
+          margin-bottom: 5px;
+        }
+
+        .term-description {
+          .make-md-column(11);
+          p {
+            margin: 0;
+          }
+        }
+      }
+    }
+
+    .panel {
+      border-top: 0;
+      border-color: @gray-lighter;
+      background-color: @gray-lighter;
+
+      .panel-body {
+        .make-row();
+        margin: 0;
+
+        .type-infos {
+          .make-md-column(9);
+        }
+        .type-switch {
+          .make-md-column(3);
+          .text-center;
+        }
+      }
+
+      a {
+        .btn; .btn-primary;
+      }
+    }
+  }
+
   #edit-title-field,
   #edit-field-request-questions {
     .form-control:not(textarea),
@@ -134,6 +187,7 @@ body.node-type-request.page-node-edit {
       max-width: 100%;
     }
   }
+
   #edit-field-request-questions {
     table tbody label {
       .hide();
