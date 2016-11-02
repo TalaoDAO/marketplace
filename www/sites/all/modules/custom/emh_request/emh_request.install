@@ -414,10 +414,3 @@ function emh_request_update_7126() {
   emh_request_disable_strings();
   emh_request_enable_strings();
 }
-
-/**
- * ADD: Enable Prepopulate submodule.
- */
-function emh_request_update_7127() {
-  module_enable(['emh_request_prepopulate']);
-}
