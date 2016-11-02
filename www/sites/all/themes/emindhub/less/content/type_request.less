@@ -80,6 +80,29 @@ body.node-type-request.page-node-edit {
         margin-bottom: 0;
       }
     }
+    .step5 {
+      .panel {
+        clear: both;
+        background-color: @gray-lighter;
+
+        .panel-body {
+          .make-row();
+          margin: 0;
+
+          .type-infos {
+            .make-md-column(9);
+          }
+          .type-switch {
+            .make-md-column(3);
+            .text-center;
+          }
+        }
+
+        a {
+          .btn; .btn-primary;
+        }
+      }
+    }
     #edit-field-options {
       > .form-group {
         .make-row();
@@ -111,7 +134,13 @@ body.node-type-request.page-node-edit {
       }
     }
 
-    #edit-field-request-type-und {
+    #edit-field-request-type {
+      .form-radios {
+        .make-row();
+        > div {
+          .make-md-column(3);
+        }
+      }
       .request-type {
         margin-bottom: 15px;
 
@@ -127,55 +156,34 @@ body.node-type-request.page-node-edit {
         }
 
         input {
-          margin-top: 10px;
+          // margin-top: 10px;
+          display: none;
         }
 
         label {
           .make-row();
           width: 100%;
-          padding-left: 40px;
-          .text-left;
+          // padding-left: 40px;
+          // .text-left;
+          .text-center;
 
           .term-image {
-            .make-md-column(1);
+            .make-md-column(12);
           }
 
           .term-name {
-            .make-md-column(11);
+            .make-md-column(12);
             .h3;
-            margin-top: 0;
+            margin-top: 10px;
             margin-bottom: 5px;
           }
 
           .term-description {
-            .make-md-column(11);
+            .make-md-column(12);
             p {
               margin: 0;
             }
           }
-        }
-      }
-
-      .panel {
-        border-top: 0;
-        border-color: @gray-lighter;
-        background-color: @gray-lighter;
-
-        .panel-body {
-          .make-row();
-          margin: 0;
-
-          .type-infos {
-            .make-md-column(9);
-          }
-          .type-switch {
-            .make-md-column(3);
-            .text-center;
-          }
-        }
-
-        a {
-          .btn; .btn-primary;
         }
       }
     }
