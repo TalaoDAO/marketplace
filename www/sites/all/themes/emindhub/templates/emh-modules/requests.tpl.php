@@ -38,6 +38,19 @@
             </div>
             <a href="#" class="read-more"><?php print t('Read more'); ?></a>
 
+            <div class="social-links">
+              <a class="social-network" href="#"><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/facebook.svg" alt="" /></a>
+              <a class="social-network" href="#"><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/twitter.svg" alt="" /></a>
+              <a class="social-network" href="#"><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/linkedin.svg" alt="" /></a>
+              <a class="author-link"    href="#">
+                <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/community.svg" class="author-icon" alt="" />
+                Lorem ipsum dolor
+              </a>
+            </div>
+
+
+
+
           </article>
         </div>
       <?php endwhile; ?>
