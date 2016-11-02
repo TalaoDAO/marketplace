@@ -187,7 +187,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['name_i18n_1']['field'] = 'name_i18n';
   $handler->display->display_options['fields']['name_i18n_1']['label'] = '';
   $handler->display->display_options['fields']['name_i18n_1']['element_label_colon'] = FALSE;
-  /* Field: Entity translation: Nom: translated */
+  /* Field: Entity translation: Name: translated */
   $handler->display->display_options['fields']['name_field_et']['id'] = 'name_field_et';
   $handler->display->display_options['fields']['name_field_et']['table'] = 'field_data_name_field';
   $handler->display->display_options['fields']['name_field_et']['field'] = 'name_field_et';
@@ -1736,7 +1736,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
   $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
   $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
-  /* Field: Field: Organisation / company */
+  /* Field: Field: Organisation */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';
