@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Module for testing the Queue Mail module.
+ */
+
+/**
+ * Implements hook_mail().
+ */
+function queue_mail_test_mail($key, &$message, $params) {
+  switch ($key) {
+    default:
+      $message['body'][] = $params['content'];
+      break;
+  }
+}
+
+/**
+ * Implements hook_mail_alter().
+ */
+function queue_mail_test_mail_alter(&$message) {
+  switch ($message['id']) {
+    case 'queue_mail_test_stopped':
+      // Prevent this email from being sent.
+      $message['send'] = FALSE;
+      break;
+  }
+}
