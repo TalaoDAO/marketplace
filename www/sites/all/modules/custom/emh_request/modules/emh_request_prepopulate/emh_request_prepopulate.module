@@ -8,6 +8,16 @@ function emh_request_prepopulate_form_alter(&$form, &$form_state, $form_id) {
     return;
   }
 
+  // TODO
+  // Request being created or already created & unpublished
+  // if (empty($form['#node']->nid) || $form['#node']->status == NODE_NOT_PUBLISHED) {
+  //   $form['actions']['switch'] = array(
+  //     '#type' => 'submit',
+  //     '#value' => t('Activate these options'),
+  //     '#submit' => array('emh_request_prepopulate_form_node_switch'),
+  //   );
+  // }
+
   if (isset($_REQUEST['edit'])) {
     // URL example:
     // edit[field_options][und][questionnaire][enabled]=&edit[field_options][und][private][enabled]=&edit[field_options][und][questionnaire][enabled]=&edit[field_request_questions][und][%270%27][value]=How%20to%20become%20a%20superhero%3F
@@ -15,6 +25,44 @@ function emh_request_prepopulate_form_alter(&$form, &$form_state, $form_id) {
     _emh_request_prepopulate_create_field_multiple_value($form, $form_state, $form_id, 'field_request_questions', 3);
   }
 }
+
+/**
+ * Submit callback for the switch button of the request edition form.
+ *
+ * Redirects the user to the creation page with prepopulated fields.
+ */
+// function emh_request_prepopulate_form_node_switch($form, &$form_state) {
+//   // Only if the user clicked the "Switch" button
+//   if ($form_state['triggering_element']['#value'] == $form['actions']['switch']['#value']) {
+//     try {
+//
+//
+//       node_save($form['#node']);
+//
+//       $msg_args = array(
+//         '@type' => node_type_get_name($form['#node']),
+//         '%title' => $form['#node']->title,
+//       );
+//
+//       // Redirects to the request edit view
+//       // $term = taxonomy_term_load($tid);
+//       // $term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
+//       // $term_name = $term_wrapper->language($language->language)->name_field->value();
+//       // $term_safe_name = preg_replace('/[^A-Za-z0-9\-]/', '', strtolower($term_name));
+//       // $term_prepopulate = $term_wrapper->language($language->language)->field_prepopulate_help->value();
+//       // $term_path = $base_url . '/node/add/request?' . $term_wrapper->language($language->language)->field_prepopulate->value() . '&edit[field_request_type][und][' . $term->tid . '][' . $term->tid . ']=' . $term->tid;
+//
+//       $node_wrapper = entity_metadata_wrapper('node', $node);
+//       $node_wrapper->field_request_type->set('sepp@example.com');
+//
+//       $form_state['redirect'] = 'node/' . $form['#node']->nid . '/edit' . $form['actions']['switch']['#path'];
+//       drupal_set_message(t('@type %title has been updated.', $msg_args));
+//     }
+//     catch (Exception $e) {
+//       drupal_set_message(t('The request could not be saved.'), 'error');
+//     }
+//   }
+// }
 
 /**
  * An #after_build function to set the values prepopulated in the request.

@@ -23,8 +23,8 @@ Feature: Request and submissions
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios     | Employee             | Energy        |
 
     Given "request" content:
-    | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  | field_request_type |
-    | How to become a superhero?  | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    | 0       | Other              |
+    | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
+    | How to become a superhero?  | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    | 0       |
 
     Given I give "client1" 10000 emh credits
 
@@ -47,6 +47,7 @@ Feature: Request and submissions
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "primary tabs" region
+      And I select "770" from "field_request_type[und]"
       And I check "Anonymous"
       And I check "Hide my name"
       And I press "Continue"
@@ -67,6 +68,7 @@ Feature: Request and submissions
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "primary tabs" region
+      And I select "770" from "field_request_type[und]"
       And I check "Anonymous"
       And I check "Hide my organisation"
       And I press "Continue"
@@ -86,6 +88,7 @@ Feature: Request and submissions
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "primary tabs" region
+      And I select "770" from "field_request_type[und]"
       And I check "Anonymous"
       And I check "Hide my name"
       And I check "Hide my organisation"
