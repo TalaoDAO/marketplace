@@ -182,22 +182,6 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-     * @When /^I check the "([^"]*)" radio button$/
-     */
-    public function iCheckTheRadioButton($labelText) {
-      $page = $this->getSession()->getPage();
-      $radioButton = $page->find('named', ['radio', $labelText]);
-      if ($radioButton) {
-        $select = $radioButton->getAttribute('name');
-        $option = $radioButton->getAttribute('value');
-        $page->selectFieldOption($select, $option);
-        return;
-      }
-
-      throw new \Exception("Radio button with label {$labelText} not found");
-    }
-
-  /**
    * Checks, that form element with specified label is visible on page.
    *
    * @Then /^(?:|I )should see an? "(?P<label>[^"]*)" form element$/
