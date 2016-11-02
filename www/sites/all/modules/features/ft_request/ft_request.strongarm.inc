@@ -111,7 +111,7 @@ function ft_request_strongarm() {
       'display' => array(
         'webform' => array(
           'default' => array(
-            'weight' => '10',
+            'weight' => '11',
             'visible' => TRUE,
           ),
           'summary' => array(
@@ -121,7 +121,7 @@ function ft_request_strongarm() {
         ),
         'language' => array(
           'default' => array(
-            'weight' => '11',
+            'weight' => '12',
             'visible' => FALSE,
           ),
           'summary' => array(
