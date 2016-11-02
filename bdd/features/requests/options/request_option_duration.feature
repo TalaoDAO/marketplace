@@ -23,8 +23,8 @@ Feature: Request and submissions
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios     | Employee             | Energy        |
 
     Given "request" content:
-    | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
-    | How to become a superhero?  | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    | 0       |
+    | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  | field_request_type |
+    | How to become a superhero?  | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    | 0       | Other              |
 
     Given I give "client1" 10000 emh credits
 

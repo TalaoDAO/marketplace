@@ -27,8 +27,8 @@ Feature: Request Option Questionnaire
     Given I give "client1" 10000 emh credits
 
     Given "request" content:
-    | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
-    | How to become a superhero?  | Energy        |              | client1 | 2017-02-08 17:45:00    | 0       |
+    | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  | field_request_type |
+    | How to become a superhero?  | Energy        |              | client1 | 2017-02-08 17:45:00    | 0       | Other              |
 
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
@@ -44,16 +44,12 @@ Feature: Request Option Questionnaire
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
-    When I go to "admin/emindhub/credits"
-    Then I fill in "Questionnaire" with "500"
-      And I press "Save configuration"
-
   Scenario: An author can create a request with a questionnaire
     Given I am logged in as "client1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     When I click "Edit" in the "primary tabs" region
-    Then I should see "500 credits" in the "#edit-field-options-und-questionnaire" element
+    Then I should see "300 credits" in the "#edit-field-options-und-questionnaire" element
 
     When I select "Avengers" from "Circles"
       And I check the box "Questionnaire"
@@ -63,7 +59,7 @@ Feature: Request Option Questionnaire
     Then I should see "Request How to become a superhero? has been updated."
     # Validation page
       And I press "Publish"
-      And I should have "9500" credits on "client1" user
+      And I should have "9700" credits on "client1" user
 
     # An expert responds to the request.
     Given I am logged in as "expert1"
