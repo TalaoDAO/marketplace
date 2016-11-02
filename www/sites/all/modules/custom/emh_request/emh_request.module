@@ -1239,3 +1239,20 @@ function emh_request_render_submission($submission) {
     $output
   ));
 }
+
+/**
+ * Helper function to retrieve the type of a request.
+ */
+function emh_request_get_type($node = null) {
+  if ($node === null) {
+    $node = menu_get_object();
+  }
+  elseif (is_numeric($node)) {
+    $node = node_load($node);
+  }
+
+  $node_wrapper = entity_metadata_wrapper('node', $node);
+  $type = $node_wrapper->field_request_type->value();
+
+	return $type;
+}

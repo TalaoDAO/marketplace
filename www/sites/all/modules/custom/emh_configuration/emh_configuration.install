@@ -549,7 +549,7 @@ function emh_configuration_update_7034() {
 }
 
 /**
- * ADD: Enable Prepopulate submodule & revert features.
+ * ADD: Revert features for request type.
  */
 function emh_request_update_7127() {
   features_revert(array(
@@ -564,5 +564,11 @@ function emh_request_update_7127() {
       'views_view',
     )
   ));
-  module_enable(['emh_request_prepopulate']);
 }
+
+/**
+ * ADD: Enable EMH Request Prepopulate.
+ */
+// function emh_request_update_7127() {
+//   module_enable(['emh_request_prepopulate']);
+// }
