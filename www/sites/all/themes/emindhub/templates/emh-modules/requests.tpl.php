@@ -46,6 +46,18 @@
 
   <div class="emh-dots emh-dots-alt"></div>
 
+  <div class="emh-actions">
+
+    <div class="emh-action">
+      <a class="emh-button solid" href="#"><?php print t('CHANGEME Poster une demande'); ?></a>
+    </div>
+
+    <div class="emh-action">
+      <a class="emh-button solid-alt" href="#"><?php print t('CHANGEME Proposer une expertise'); ?></a>
+    </div>
+
+  </div>
+
   <script type="text/javascript">
     /**
      * https://github.com/kenwheeler/slick/
