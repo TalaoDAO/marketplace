@@ -29,8 +29,7 @@ Feature: Request Option Price
     Given I am logged in as a user with the "administrator" role
 
     When I go to "admin/emindhub/credits"
-    Then I fill in "Questionnaire" with "500"
-      And I fill in "Duration" with "200"
+    Then I fill in "Duration" with "200"
       And I press "Save configuration"
 
     # Set price for options
@@ -88,8 +87,8 @@ Feature: Request Option Price
 
   Scenario: An author can create a request with a questionnaire and duration with changing prices
     Given "request" content:
-    | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
-    | How to become a superhero?  | Energy        |              | client1 | 2017-02-08 17:45:00    | 0       |
+    | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  | field_request_type |
+    | How to become a superhero?  | Energy        |              | client1 | 2017-02-08 17:45:00    | 0       | Other              |
 
     Given I am logged in as "client1"
     When I go to homepage

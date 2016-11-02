@@ -15,8 +15,8 @@ Feature: Request Prepopulate
     | Marvel Studios        | admin   |
 
     Given users:
-    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers  | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance   | US                    |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance |
 
     Given I give "client1" 10000 emh credits
 
@@ -44,9 +44,9 @@ Feature: Request Prepopulate
   Scenario: An author can create prepopulated request
     Given I am logged in as "client1"
     When I go to "node/add/request"
-      And I select "720" from "field_request_type[und]"
+      And I select "770" from "field_request_type[und]"
       And I click "Activate these options" in the "request_type_expert" region
-    Then the "edit-field-request-type-und-720" checkbox should be checked
+    Then the "edit-field-request-type-und-770" checkbox should be checked
       And the "Private submissions" checkbox should be checked
       And the "Questionnaire" checkbox should be checked
       And the "field_request_questions[und][0][value]" field should contain "How to become a superhero?"

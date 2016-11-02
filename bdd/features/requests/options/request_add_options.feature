@@ -19,8 +19,8 @@ Feature: Request
     | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance |
 
     Given "request" content:
-    | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
-    | How to become a superhero?  | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    | 0       |
+    | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  | field_request_type |
+    | How to become a superhero?  | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    | 0       | Other              |
 
     Given I give "client1" 10000 emh credits
 
