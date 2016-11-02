@@ -41,6 +41,7 @@ Feature: Request Prepopulate
       And I click "Member since"
     Then I should see "Creator member" in the "Captain AMERICA" row
 
+  @exclude
   Scenario: An author can create prepopulated request
     Given I am logged in as "client1"
     When I go to "node/add/request"
@@ -52,8 +53,7 @@ Feature: Request Prepopulate
       And the "field_request_questions[und][0][value]" field should contain "How to become a superhero?"
       And I should see "100 credits" in the "#edit-field-options-und-private" element
       And I should see "300 credits" in the "#edit-field-options-und-questionnaire" element
-      #FIXME
-      #And I should see "400 credits" in the ".total-wrapper" element
+      And I should see "400 credits" in the ".total-wrapper" element
     When I select "Avengers" from "Circles"
       And I fill in "Request title or question" with "How to defeat a superhero?"
       And I select "Energy" from "Fields of expertise"
