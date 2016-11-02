@@ -547,3 +547,22 @@ function emh_configuration_update_7034() {
     'ft_field_base' => array('field_base')
   ));
 }
+
+/**
+ * ADD: Enable Prepopulate submodule & revert features.
+ */
+function emh_request_update_7127() {
+  features_revert(array(
+    'ft_blocks' => array('fe_block_settings'),
+    'ft_content_type' => array('field_instance'),
+    'ft_views' => array('views_view'),
+    'ft_request' => array(
+      'fe_block_settings',
+      'field_base',
+      'field_instance',
+      'variable',
+      'views_view',
+    )
+  ));
+  module_enable(['emh_request_prepopulate']);
+}
