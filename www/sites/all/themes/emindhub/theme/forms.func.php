@@ -609,11 +609,7 @@ function emindhub_form_request_node_form_field_request_type($element, &$form_sta
     // Load the term.
     $term = taxonomy_term_load($tid);
 
-		// $term_wrapper = entity_metadata_wrapper('taxonomy_term', $term, array($language));
 		$term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
-		// $term_wrapper->language($language->language)->language($wrapper_language);
-
-		// echo '<pre>' . print_r($term_wrapper->language($language->language)->description_field->value(), true) . '</pre>';
 		$term_name = $term_wrapper->language($language->language)->name_field->value();
 		$term_safe_name = preg_replace('/[^A-Za-z0-9\-]/', '', strtolower($term_name));
 		$term_prepopulate = $term_wrapper->language($language->language)->field_prepopulate_help->value();
@@ -622,11 +618,9 @@ function emindhub_form_request_node_form_field_request_type($element, &$form_sta
 		$term_description = $term_wrapper->language($language->language)->description_field->value->value(array('sanitize' => TRUE));
 
 		// Update the radio item so the button shows then the rendered term.
-			$element[$tid] = array(
-
+		$element[$tid] = array(
 			// Wrap the new item for styling.
 			'#prefix' => '<div class="request-type type-' . $term_safe_name . '">',
-
 			// Make sure to use the initial key so FAPI saves the values correctly.
 			$tid => $field_request_type_item,
 		);
