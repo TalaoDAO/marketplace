@@ -27,8 +27,8 @@ Feature: Request Option Questionnaire
     Given I give "client1" 10000 emh credits
 
     Given "request" content:
-    | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  | field_request_type |
-    | How to become a superhero?  | Energy        |              | client1 | 2017-02-08 17:45:00    | 0       | Other              |
+    | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
+    | How to become a superhero?  | Energy        |              | client1 | 2017-02-08 17:45:00    | 0       |
 
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
@@ -49,6 +49,7 @@ Feature: Request Option Questionnaire
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     When I click "Edit" in the "primary tabs" region
+      And I select "770" from "field_request_type[und]"
     Then I should see "300 credits" in the "#edit-field-options-und-questionnaire" element
 
     When I select "Avengers" from "Circles"

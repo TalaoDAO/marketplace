@@ -548,11 +548,9 @@ function emindhub_form_question1_node_form_alter(&$form, &$form_state, $form_id)
 function emindhub_form_request_node_form_alter(&$form, &$form_state, $form_id) {
 	if ($form['field_request_type']) {
 		$form['field_request_type']['#prefix'] = '<div class="section step1"><h2>' . t('What do you want to do?') . '</h2>';
-		$form['field_request_type'][LANGUAGE_NONE]['#after_build'][] = 'emindhub_form_request_node_form_field_request_type';
+		$form['field_request_type'][LANGUAGE_NONE]['#after_build'][] = 'emindhub_form_request_node_form_field_request_type_after_build';
 		$form['field_request_type']['#suffix'] = '</div>';
 	}
-
-	// echo '<pre>' . print_r($form['field_request_type'][LANGUAGE_NONE]['#options'], true) . '</pre>'; die;
 
 	if ($form['title_field'] && $form['body']) {
 		$form['title_field']['#prefix'] = '<div class="section step2"><h2>' . t('What is your request about?') . '</h2>';
@@ -569,9 +567,10 @@ function emindhub_form_request_node_form_alter(&$form, &$form_state, $form_id) {
   $form['og_group_ref']['#suffix'] = '</div>';
 
 	$form['field_options']['#prefix'] = '<div class="section step5"><h2>' . t('Add options and get the most from your request!') . '</h2>';
-	if ($form['field_request_type']) {
-		$form['field_options']['#prefix'] .= emindhub_get_request_types_help($form['field_request_type'][LANGUAGE_NONE]['#options']);
-	}
+	// TODO
+	// if ($form['field_request_type']) {
+	// 	$form['field_options']['#prefix'] .= emindhub_form_request_node_form_field_options_help($form['field_request_type'][LANGUAGE_NONE]['#options'], $form);
+	// }
 	$form['field_options'][LANGUAGE_NONE]['#type'] = 'div';
   $form['field_options']['#suffix'] = '</div>';
 
@@ -602,7 +601,7 @@ function emindhub_form_request_node_form_alter(&$form, &$form_state, $form_id) {
  *
  * Inspired by http://e9p.net/altering-individual-radio-or-checkbox-items-drupal-7-fapi
  */
-function emindhub_form_request_node_form_field_request_type($element, &$form_state) {
+function emindhub_form_request_node_form_field_request_type_after_build($element, &$form_state) {
 	global $base_url, $language;
 
   // Each renderable radio element.
@@ -634,7 +633,7 @@ function emindhub_form_request_node_form_field_request_type($element, &$form_sta
 			$element[$tid][$tid]['#attributes']['data-target'] = '.request-type-' . $term_safe_name;
 		}
 
-		$element[$tid][$tid]['#title'] = '<span class="term-image"><img src="' . $base_url . '/' . drupal_get_path('theme', 'emindhub') . '/images/icons/icon_request-type_' . $term_safe_name . '.png" width="50" height="50" alt="' . $term_name . '"></span>';
+		$element[$tid][$tid]['#title'] = '<span class="term-image">' . emindhub_get_request_type_image($term_name) . '</span>';
 		$element[$tid][$tid]['#title'] .= '<span class="term-name">' . $term_name . '</span>';
 		if (!empty($term_description)) {
 			$element[$tid][$tid]['#title'] .= '<span class="term-description">' . $term_description . '</span>';
@@ -645,18 +644,29 @@ function emindhub_form_request_node_form_field_request_type($element, &$form_sta
   return $element;
 }
 
-function emindhub_get_request_types_help(array $types) {
+// TODO
+function emindhub_form_request_node_form_field_options_help(array $types, $form) {
 	global $base_url, $language;
-	foreach ($types as $type => $value) {
-		$term = taxonomy_term_load($type);
+	foreach ($types as $tid => $value) {
+		$term = taxonomy_term_load($tid);
 		$term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
 		$term_name = $term_wrapper->language($language->language)->name_field->value();
 		$term_safe_name = preg_replace('/[^A-Za-z0-9\-]/', '', strtolower($term_name));
 		$term_prepopulate = $term_wrapper->language($language->language)->field_prepopulate_help->value();
 		$term_prepopulate_help = field_view_field('taxonomy_term', $term, 'field_prepopulate_help', array('label'=>'hidden'));
 		$term_path = $base_url . '/node/add/request?' . $term_wrapper->language($language->language)->field_prepopulate->value() . '&edit[field_request_type][und][' . $term->tid . '][' . $term->tid . ']=' . $term->tid;
+		// $term_path = $term_wrapper->language($language->language)->field_prepopulate->value() . '&edit[field_request_type][und][' . $term->tid . '][' . $term->tid . ']=' . $term->tid;
 
 		if (!empty($term_prepopulate)) {
+			// if(!empty($form['actions'])) {
+		  //   foreach($form['actions'] as $name => $button) {
+		  //     // SWITCH BUTTON
+		  //     if($name == 'switch') {
+		  //       $form["$name"] = $button;
+		  //       $form["$name"]['#path'] = $term_path;
+		  //     }
+		  //   }
+		  // }
 			return '<div class="collapse request-type-' . $term_safe_name . '">
 																						<div class="panel panel-default">
 																							<div class="panel-body">
@@ -672,4 +682,10 @@ function emindhub_get_request_types_help(array $types) {
 																					</div>';
 		}
 	}
+}
+
+function emindhub_get_request_type_image($term_name) {
+	global $base_url;
+	$term_safe_name = preg_replace('/[^A-Za-z0-9\-]/', '', strtolower($term_name));
+	return '<img src="' . $base_url . '/' . drupal_get_path('theme', 'emindhub') . '/images/icons/icon_request-type_' . $term_safe_name . '.png" width="50" height="50" alt="' . $term_name . '">';
 }
