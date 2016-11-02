@@ -598,7 +598,7 @@ function emindhub_form_request_node_form_alter(&$form, &$form_state, $form_id) {
  * Inspired by http://e9p.net/altering-individual-radio-or-checkbox-items-drupal-7-fapi
  */
 function emindhub_form_request_node_form_field_request_type($element, &$form_state) {
-	global $base_url;
+	global $base_url, $language;
 
   // Each renderable radio element.
   foreach (element_children($element) as $tid) {
@@ -609,13 +609,17 @@ function emindhub_form_request_node_form_field_request_type($element, &$form_sta
     // Load the term.
     $term = taxonomy_term_load($tid);
 
+		// $term_wrapper = entity_metadata_wrapper('taxonomy_term', $term, array($language));
 		$term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
-		$term_name = $term_wrapper->name->value();
+		// $term_wrapper->language($language->language)->language($wrapper_language);
+
+		// echo '<pre>' . print_r($term_wrapper->language($language->language)->description_field->value(), true) . '</pre>';
+		$term_name = $term_wrapper->language($language->language)->name_field->value();
 		$term_safe_name = preg_replace('/[^A-Za-z0-9\-]/', '', strtolower($term_name));
-		$term_prepopulate = $term_wrapper->field_prepopulate_help->value();
+		$term_prepopulate = $term_wrapper->language($language->language)->field_prepopulate_help->value();
 		$term_prepopulate_help = field_view_field('taxonomy_term', $term, 'field_prepopulate_help', array('label'=>'hidden'));
-		$term_path = $base_url . '/node/add/request?' . $term_wrapper->field_prepopulate->value() . '&edit[field_request_type][und][' . $term->tid . '][' . $term->tid . ']=' . $term->tid;
-		$term_description = $term_wrapper->description->value();
+		$term_path = $base_url . '/node/add/request?' . $term_wrapper->language($language->language)->field_prepopulate->value() . '&edit[field_request_type][und][' . $term->tid . '][' . $term->tid . ']=' . $term->tid;
+		$term_description = $term_wrapper->language($language->language)->description_field->value->value(array('sanitize' => TRUE));
 
 		// Update the radio item so the button shows then the rendered term.
 			$element[$tid] = array(
