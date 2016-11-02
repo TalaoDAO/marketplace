@@ -38,7 +38,10 @@
         display: inline-block;
         font-size: 13px;
         font-weight: 600;
-        padding: 17px 10px;
+        padding: 17px 20px;
+        @media (max-width: @screen-sm-max) {
+            padding: 12px 10px;
+        }
         text-transform: uppercase;
         text-decoration: none;
         &:hover {
@@ -48,6 +51,11 @@
         &.solid {
             border: none;
             background-color: @color-primary;
+            color: white;
+        }
+        &.solid-alt {
+            border: none;
+            background-color: @color-secondary;
             color: white;
         }
     }
@@ -101,8 +109,14 @@
 }
 
 .emh-actions {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+
     .emh-action {
-        margin-top: 40px;
+        margin: 15px;
+
     }
 }
