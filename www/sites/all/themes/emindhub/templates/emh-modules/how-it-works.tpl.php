@@ -7,12 +7,12 @@
   </div>
 
   <ul class="hiw-tabs">
-    <li><button type="button" name="button" class="hiw-tab active emh-button customer"><?php print t('You are a customer'); ?></button></li>
-    <li><button type="button" name="button" class="hiw-tab emh-button expert"><?php print t('You are an expert'); ?></button></li>
+    <li><button type="button" name="button" data-tab="hiw-customer" class="hiw-tab emh-button customer"><?php print t('You are a customer'); ?></button></li>
+    <li><button type="button" name="button" data-tab="hiw-expert" class="hiw-tab emh-button expert"><?php print t('You are an expert'); ?></button></li>
   </ul>
 
   <!-- CUSTOMER-->
-  <div class="hiw-customer">
+  <div class="hiw-tab hiw-customer">
 
     <div class="hiw-step hiw-step-1">
 
@@ -94,7 +94,7 @@
 
 
   <!-- EXPERT-->
-  <div class="hiw-expert">
+  <div class="hiw-tab hiw-expert">
     <div class="hiw-steps">
       <div class="hiw-step hiw-step-1">
         <div class="hiw-step-title">
@@ -147,5 +147,20 @@
     </div>
 
   </div>
+
+  <script type="text/javascript">
+    Drupal.behaviors.offCanvasMenu = {
+      attach: function (context, settings) {
+        jQuery('.hiw-tabs', context).once().on('click', 'button', function (e) {
+          var $this = jQuery(this);
+          jQuery('.' + $this.data('tab')).show().siblings('.hiw-tab').hide();
+          jQuery('.hiw-tabs .active').removeClass('active');
+          $this.addClass('active');
+        });
+
+        jQuery('.hiw-tabs', context).find('button').first().trigger('click');
+      }
+    };
+  </script>
 
 </section>
