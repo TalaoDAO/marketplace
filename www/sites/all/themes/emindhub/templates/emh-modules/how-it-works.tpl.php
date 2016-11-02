@@ -79,13 +79,11 @@
 
     </div>
 
-    <div class="hiw-actions">
+    <a class="hiw-view-full" href="#"><?php print t('CHANGEME Voir le schéma complet'); ?></a>
 
-      <div class="hiw-action">
-        <a class="view-full" href="#"><?php print t('CHANGEME Voir le schéma complet'); ?></a>
-      </div>
+    <div class="emh-actions">
 
-      <div class="hiw-action">
+      <div class="emh-action">
         <a class="emh-button solid" href="#"><?php print t('CHANGEME Poster une demande'); ?></a>
       </div>
 
@@ -138,13 +136,11 @@
       </div>
     </div>
 
-    <div class="hiw-actions">
+    <a class="hiw-view-full" href="#"><?php print t('CHANGEME Voir le schéma complet'); ?></a>
 
-      <div class="hiw-action">
-        <a class="view-full" href="#"><?php print t('CHANGEME Voir le schéma complet'); ?></a>
-      </div>
+    <div class="emh-actions">
 
-      <div class="hiw-action">
+      <div class="emh-action">
         <a class="emh-button solid" href="#"><?php print t('CHANGEME Poster une demande'); ?></a>
       </div>
 
