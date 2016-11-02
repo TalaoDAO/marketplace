@@ -14,6 +14,14 @@
         'requests-style-alpha',
         'requests-style-beta'
       ];
+
+      $itemCaterory = [
+        'request-type-call',
+        'request-type-cv',
+        'request-type-doc',
+        'request-type-faq',
+        'request-type-missions'
+      ];
       $fakeItems = 6;
     ?>
 
@@ -21,16 +29,22 @@
     <div class="row">
       <?php while($fakeItems--): ?>
         <div class="requests-item-wrapper col-xs-12 col-sm-6 col-md-4">
-          <article class="requests-item <?php print $itemClass[(6 - $fakeItems) % 3]; ?>">
+          <article class="requests-item <?php print $itemClass[(6 - $fakeItems) % 3]; ?>  <?php print $itemCaterory[(6 - $fakeItems) % 5]; ?>">
 
-            <div class="title">
-              Titre de la publication <?php echo (6 - $fakeItems); ?>
-            </div>
+            <div class="request-item-head">
 
-            <div>
-              <span class="meta date">keyword</span>
-              |
-              <span class="meta category"><a href="#">keyword</a></span>
+              <div class="request-item-icon">
+                Doc
+              </div>
+
+              <div class="title">
+                Titre de la publication <?php echo (6 - $fakeItems); ?>
+
+                <div class="metas">
+                  <span class="meta date">keyword</span> | <span class="meta category"><a href="#">keyword</a></span>
+                </div>
+              </div>
+
             </div>
 
             <div class="text">
