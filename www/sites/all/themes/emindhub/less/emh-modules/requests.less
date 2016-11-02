@@ -7,8 +7,67 @@
 
 .requests-item {
     overflow: hidden;
-    height: 200px;
-    border: 1px solid @color-primary;
-    padding: 15px 30px;
     margin-top: 20px;
+	padding: 20px 35px 15px 35px;
+	// height: 255px;
+	border: 1px solid @color-primary-alt;
+	&:hover {
+		border-color: @color-primary;
+
+	}
+
+	.title {
+		font-size: 20px;
+		line-height: 1.5;
+	}
+
+	.date,
+	.category {
+		font-weight: bold;
+	}
+
+	.text {
+		margin-top: 10px;
+		line-height: 18px;
+		height: calc(5 * 18px);
+		overflow: hidden;
+		color: @color-tertiary-alt;
+	}
+
+	.read-more {
+		display: block;
+		text-overflow: ellipsis;
+		line-height: 1.385;
+		height: calc(1 * 18px);
+		white-space: nowrap;
+		text-decoration: underline;
+	}
+
+	.social-links {
+		margin-top: 20px;
+		display: flex;
+	}
+
+	.social-network {
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		> img {
+			display: inline-block;
+		}
+		+ .social-network {
+			margin-left: 5px;
+		}
+	}
+
+	.author-link {
+		margin-left: auto;
+		text-decoration: none;
+		color: @color-tertiary;
+		font-weight: bold;
+	}
+
+	.author-icon {
+		width: 35px;
+	}
 }
