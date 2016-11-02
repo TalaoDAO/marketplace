@@ -610,29 +610,32 @@ function emindhub_form_request_node_form_field_request_type($element, &$form_sta
     $term = taxonomy_term_load($tid);
 
 		$term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
-		$term_name = preg_replace('/[^A-Za-z0-9\-]/', '', strtolower($term_wrapper->name->value()));
-		$prepopulate_help = field_view_field('taxonomy_term', $term, 'field_prepopulate_help', array('label'=>'hidden'));
+		$term_name = $term_wrapper->name->value();
+		$term_safe_name = preg_replace('/[^A-Za-z0-9\-]/', '', strtolower($term_name));
+		$term_prepopulate = $term_wrapper->field_prepopulate_help->value();
+		$term_prepopulate_help = field_view_field('taxonomy_term', $term, 'field_prepopulate_help', array('label'=>'hidden'));
 		$term_path = $base_url . '/node/add/request?' . $term_wrapper->field_prepopulate->value() . '&edit[field_request_type][und][' . $term->tid . '][' . $term->tid . ']=' . $term->tid;
+		$term_description = $term_wrapper->description->value();
 
 		// Update the radio item so the button shows then the rendered term.
 			$element[$tid] = array(
 
 			// Wrap the new item for styling.
-			'#prefix' => '<div class="request-type type-' . $term_name . '">',
+			'#prefix' => '<div class="request-type type-' . $term_safe_name . '">',
 
 			// Make sure to use the initial key so FAPI saves the values correctly.
 			$tid => $field_request_type_item,
 		);
 
-		if (!empty($term_wrapper->field_prepopulate_help->value())) {
+		if (!empty($term_prepopulate)) {
 			$element[$tid][$tid]['#attributes']['data-toggle'] = 'collapse';
-			$element[$tid][$tid]['#attributes']['data-target'] = '.request-type-' . $term_name;
-			$element[$tid][$tid]['#suffix'] = '<div class="collapse request-type-' . $term_name . '">
+			$element[$tid][$tid]['#attributes']['data-target'] = '.request-type-' . $term_safe_name;
+			$element[$tid][$tid]['#suffix'] = '<div class="collapse request-type-' . $term_safe_name . '">
 																						<div class="panel panel-default">
 																							<div class="panel-body">
 																							<div class="type-infos">
 																									<p>' . t('To get the <strong>best of your request</strong>, we recommend you to activate these options:') . '</p>
-																									' . render($prepopulate_help) . '
+																									' . render($term_prepopulate_help) . '
 																								</div>
 																								<div class="type-switch">
 																									<p><a href="' . $term_path . '">' . t('Activate these options') . '</a></p>
@@ -645,10 +648,10 @@ function emindhub_form_request_node_form_field_request_type($element, &$form_sta
 			$element[$tid][$tid]['#suffix'] = '</div>';
 		}
 
-		$element[$tid][$tid]['#title'] = '<span class="term-image"><img src="' . $base_url . '/' . drupal_get_path('theme', 'emindhub') . '/images/icons/icon_request-type_' . $term_name . '.png" width="50" height="50" alt="' . $term_wrapper->name->value() . '"></span>';
-		$element[$tid][$tid]['#title'] .= '<span class="term-name">' . $term_wrapper->name->value() . '</span>';
-		if (!empty($term_wrapper->description->value())) {
-			$element[$tid][$tid]['#title'] .= '<span class="term-description">' . $term_wrapper->description->value() . '</span>';
+		$element[$tid][$tid]['#title'] = '<span class="term-image"><img src="' . $base_url . '/' . drupal_get_path('theme', 'emindhub') . '/images/icons/icon_request-type_' . $term_safe_name . '.png" width="50" height="50" alt="' . $term_name . '"></span>';
+		$element[$tid][$tid]['#title'] .= '<span class="term-name">' . $term_name . '</span>';
+		if (!empty($term_description)) {
+			$element[$tid][$tid]['#title'] .= '<span class="term-description">' . $term_description . '</span>';
 		}
   }
 
