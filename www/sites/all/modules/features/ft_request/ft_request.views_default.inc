@@ -669,12 +669,11 @@ function ft_request_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Choose a request type */
-  $handler->display->display_options['fields']['field_request_type']['id'] = 'field_request_type';
-  $handler->display->display_options['fields']['field_request_type']['table'] = 'field_data_field_request_type';
-  $handler->display->display_options['fields']['field_request_type']['field'] = 'field_request_type';
-  $handler->display->display_options['fields']['field_request_type']['label'] = 'Type';
-  $handler->display->display_options['fields']['field_request_type']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Node: Request type */
+  $handler->display->display_options['fields']['request_type']['id'] = 'request_type';
+  $handler->display->display_options['fields']['request_type']['table'] = 'node';
+  $handler->display->display_options['fields']['request_type']['field'] = 'request_type';
+  $handler->display->display_options['fields']['request_type']['label'] = 'Type';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -770,7 +769,6 @@ function ft_request_views_default_views() {
     7 => 0,
     10 => 0,
   );
-  $handler->display->display_options['filters']['field_request_type_tid_i18n']['expose']['reduce'] = TRUE;
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['group_info']['label'] = 'Choose a request type (field_request_type) (translated)';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['group_info']['identifier'] = 'field_request_type_tid_i18n';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['group_info']['remember'] = FALSE;
@@ -782,6 +780,40 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['reduce_duplicates'] = TRUE;
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['vocabulary'] = 'request_type';
+  $handler->display->display_options['filters']['field_request_type_tid_i18n']['hierarchy'] = 1;
+  /* Filter criterion: Credits: Total Credits */
+  $handler->display->display_options['filters']['total_points']['id'] = 'total_points';
+  $handler->display->display_options['filters']['total_points']['table'] = 'emh_points_total';
+  $handler->display->display_options['filters']['total_points']['field'] = 'total_points';
+  $handler->display->display_options['filters']['total_points']['group'] = 1;
+  $handler->display->display_options['filters']['total_points']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['total_points']['expose']['operator_id'] = 'total_points_op';
+  $handler->display->display_options['filters']['total_points']['expose']['label'] = 'Total Points';
+  $handler->display->display_options['filters']['total_points']['expose']['operator'] = 'total_points_op';
+  $handler->display->display_options['filters']['total_points']['expose']['identifier'] = 'total_points';
+  $handler->display->display_options['filters']['total_points']['is_grouped'] = TRUE;
+  $handler->display->display_options['filters']['total_points']['group_info']['label'] = 'Status';
+  $handler->display->display_options['filters']['total_points']['group_info']['identifier'] = 'total_points';
+  $handler->display->display_options['filters']['total_points']['group_info']['group_items'] = array(
+    1 => array(
+      'title' => 'Open',
+      'operator' => '!=',
+      'value' => array(
+        'value' => '0',
+        'min' => '',
+        'max' => '',
+      ),
+    ),
+    2 => array(
+      'title' => 'Closed',
+      'operator' => '=',
+      'value' => array(
+        'value' => '0',
+        'min' => '',
+        'max' => '',
+      ),
+    ),
+  );
   /* Filter criterion: Field: Domain(s) (field_domaine) (translated) */
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['id'] = 'field_domaine_tid_i18n';
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['table'] = 'field_data_field_domaine';
@@ -832,39 +864,6 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['field_tags_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['vocabulary'] = 'tags';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['error_message'] = FALSE;
-  /* Filter criterion: Credits: Total Credits */
-  $handler->display->display_options['filters']['total_points']['id'] = 'total_points';
-  $handler->display->display_options['filters']['total_points']['table'] = 'emh_points_total';
-  $handler->display->display_options['filters']['total_points']['field'] = 'total_points';
-  $handler->display->display_options['filters']['total_points']['group'] = 1;
-  $handler->display->display_options['filters']['total_points']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['total_points']['expose']['operator_id'] = 'total_points_op';
-  $handler->display->display_options['filters']['total_points']['expose']['label'] = 'Total Points';
-  $handler->display->display_options['filters']['total_points']['expose']['operator'] = 'total_points_op';
-  $handler->display->display_options['filters']['total_points']['expose']['identifier'] = 'total_points';
-  $handler->display->display_options['filters']['total_points']['is_grouped'] = TRUE;
-  $handler->display->display_options['filters']['total_points']['group_info']['label'] = 'Status';
-  $handler->display->display_options['filters']['total_points']['group_info']['identifier'] = 'total_points';
-  $handler->display->display_options['filters']['total_points']['group_info']['group_items'] = array(
-    1 => array(
-      'title' => 'Open',
-      'operator' => '!=',
-      'value' => array(
-        'value' => '0',
-        'min' => '',
-        'max' => '',
-      ),
-    ),
-    2 => array(
-      'title' => 'Closed',
-      'operator' => '=',
-      'value' => array(
-        'value' => '0',
-        'min' => '',
-        'max' => '',
-      ),
-    ),
-  );
   $handler->display->display_options['views_navigation'] = TRUE;
   $handler->display->display_options['views_navigation_cycle'] = FALSE;
   $handler->display->display_options['path'] = 'requests';
@@ -896,6 +895,53 @@ function ft_request_views_default_views() {
   $handler->display->display_options['relationships']['uid']['table'] = 'node';
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Node: Request type */
+  $handler->display->display_options['fields']['request_type']['id'] = 'request_type';
+  $handler->display->display_options['fields']['request_type']['table'] = 'node';
+  $handler->display->display_options['fields']['request_type']['field'] = 'request_type';
+  $handler->display->display_options['fields']['request_type']['label'] = 'Type';
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  /* Field: Content: Language */
+  $handler->display->display_options['fields']['language']['id'] = 'language';
+  $handler->display->display_options['fields']['language']['table'] = 'node';
+  $handler->display->display_options['fields']['language']['field'] = 'language';
+  /* Field: Content: Choose circle of experts */
+  $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
+  $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
+  $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
+  $handler->display->display_options['fields']['og_group_ref']['label'] = 'Circle(s)';
+  $handler->display->display_options['fields']['og_group_ref']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
+  /* Field: Content: Deadline */
+  $handler->display->display_options['fields']['field_expiration_date']['id'] = 'field_expiration_date';
+  $handler->display->display_options['fields']['field_expiration_date']['table'] = 'field_data_field_expiration_date';
+  $handler->display->display_options['fields']['field_expiration_date']['field'] = 'field_expiration_date';
+  $handler->display->display_options['fields']['field_expiration_date']['label'] = 'Expiration Date';
+  $handler->display->display_options['fields']['field_expiration_date']['settings'] = array(
+    'format_type' => 'short_date',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Node: Total Answers */
+  $handler->display->display_options['fields']['total_answers']['id'] = 'total_answers';
+  $handler->display->display_options['fields']['total_answers']['table'] = 'node';
+  $handler->display->display_options['fields']['total_answers']['field'] = 'total_answers';
+  $handler->display->display_options['fields']['total_answers']['label'] = 'Answers';
+  /* Field: Node: Request status */
+  $handler->display->display_options['fields']['request_status']['id'] = 'request_status';
+  $handler->display->display_options['fields']['request_status']['table'] = 'node';
+  $handler->display->display_options['fields']['request_status']['field'] = 'request_status';
+  $handler->display->display_options['fields']['request_status']['label'] = 'Status';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
@@ -950,10 +996,43 @@ function ft_request_views_default_views() {
     7 => 0,
     10 => 0,
   );
-  $handler->display->display_options['filters']['field_request_type_tid_i18n']['expose']['reduce'] = TRUE;
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['reduce_duplicates'] = TRUE;
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['vocabulary'] = 'request_type';
+  $handler->display->display_options['filters']['field_request_type_tid_i18n']['hierarchy'] = 1;
+  /* Filter criterion: Credits: Total Credits */
+  $handler->display->display_options['filters']['total_points']['id'] = 'total_points';
+  $handler->display->display_options['filters']['total_points']['table'] = 'emh_points_total';
+  $handler->display->display_options['filters']['total_points']['field'] = 'total_points';
+  $handler->display->display_options['filters']['total_points']['group'] = 1;
+  $handler->display->display_options['filters']['total_points']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['total_points']['expose']['operator_id'] = 'total_points_op';
+  $handler->display->display_options['filters']['total_points']['expose']['label'] = 'Total Points';
+  $handler->display->display_options['filters']['total_points']['expose']['operator'] = 'total_points_op';
+  $handler->display->display_options['filters']['total_points']['expose']['identifier'] = 'total_points';
+  $handler->display->display_options['filters']['total_points']['is_grouped'] = TRUE;
+  $handler->display->display_options['filters']['total_points']['group_info']['label'] = 'Status';
+  $handler->display->display_options['filters']['total_points']['group_info']['identifier'] = 'total_points';
+  $handler->display->display_options['filters']['total_points']['group_info']['group_items'] = array(
+    1 => array(
+      'title' => 'Open',
+      'operator' => '!=',
+      'value' => array(
+        'value' => '0',
+        'min' => '',
+        'max' => '',
+      ),
+    ),
+    2 => array(
+      'title' => 'Closed',
+      'operator' => '=',
+      'value' => array(
+        'value' => '0',
+        'min' => '',
+        'max' => '',
+      ),
+    ),
+  );
   /* Filter criterion: Field: Domain(s) (field_domaine) (translated) */
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['id'] = 'field_domaine_tid_i18n';
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['table'] = 'field_data_field_domaine';
@@ -1004,39 +1083,6 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['field_tags_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['vocabulary'] = 'tags';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['error_message'] = FALSE;
-  /* Filter criterion: Credits: Total Credits */
-  $handler->display->display_options['filters']['total_points']['id'] = 'total_points';
-  $handler->display->display_options['filters']['total_points']['table'] = 'emh_points_total';
-  $handler->display->display_options['filters']['total_points']['field'] = 'total_points';
-  $handler->display->display_options['filters']['total_points']['group'] = 1;
-  $handler->display->display_options['filters']['total_points']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['total_points']['expose']['operator_id'] = 'total_points_op';
-  $handler->display->display_options['filters']['total_points']['expose']['label'] = 'Total Points';
-  $handler->display->display_options['filters']['total_points']['expose']['operator'] = 'total_points_op';
-  $handler->display->display_options['filters']['total_points']['expose']['identifier'] = 'total_points';
-  $handler->display->display_options['filters']['total_points']['is_grouped'] = TRUE;
-  $handler->display->display_options['filters']['total_points']['group_info']['label'] = 'Status';
-  $handler->display->display_options['filters']['total_points']['group_info']['identifier'] = 'total_points';
-  $handler->display->display_options['filters']['total_points']['group_info']['group_items'] = array(
-    1 => array(
-      'title' => 'Open',
-      'operator' => '!=',
-      'value' => array(
-        'value' => '0',
-        'min' => '',
-        'max' => '',
-      ),
-    ),
-    2 => array(
-      'title' => 'Closed',
-      'operator' => '=',
-      'value' => array(
-        'value' => '0',
-        'min' => '',
-        'max' => '',
-      ),
-    ),
-  );
   $handler->display->display_options['views_navigation'] = TRUE;
   $handler->display->display_options['views_navigation_cycle'] = FALSE;
   $handler->display->display_options['views_navigation_title'] = TRUE;
@@ -1321,6 +1367,53 @@ function ft_request_views_default_views() {
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
   $handler->display->display_options['empty']['area']['content'] = 'You did not have select any request yet.';
   $handler->display->display_options['empty']['area']['format'] = 'full_html';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Node: Request type */
+  $handler->display->display_options['fields']['request_type']['id'] = 'request_type';
+  $handler->display->display_options['fields']['request_type']['table'] = 'node';
+  $handler->display->display_options['fields']['request_type']['field'] = 'request_type';
+  $handler->display->display_options['fields']['request_type']['label'] = 'Type';
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  /* Field: Content: Language */
+  $handler->display->display_options['fields']['language']['id'] = 'language';
+  $handler->display->display_options['fields']['language']['table'] = 'node';
+  $handler->display->display_options['fields']['language']['field'] = 'language';
+  /* Field: Content: Choose circle of experts */
+  $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
+  $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
+  $handler->display->display_options['fields']['og_group_ref']['field'] = 'og_group_ref';
+  $handler->display->display_options['fields']['og_group_ref']['label'] = 'Circle(s)';
+  $handler->display->display_options['fields']['og_group_ref']['settings'] = array(
+    'link' => 0,
+  );
+  $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
+  /* Field: Content: Deadline */
+  $handler->display->display_options['fields']['field_expiration_date']['id'] = 'field_expiration_date';
+  $handler->display->display_options['fields']['field_expiration_date']['table'] = 'field_data_field_expiration_date';
+  $handler->display->display_options['fields']['field_expiration_date']['field'] = 'field_expiration_date';
+  $handler->display->display_options['fields']['field_expiration_date']['label'] = 'Expiration Date';
+  $handler->display->display_options['fields']['field_expiration_date']['settings'] = array(
+    'format_type' => 'short_date',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Node: Total Answers */
+  $handler->display->display_options['fields']['total_answers']['id'] = 'total_answers';
+  $handler->display->display_options['fields']['total_answers']['table'] = 'node';
+  $handler->display->display_options['fields']['total_answers']['field'] = 'total_answers';
+  $handler->display->display_options['fields']['total_answers']['label'] = 'Answers';
+  /* Field: Node: Request status */
+  $handler->display->display_options['fields']['request_status']['id'] = 'request_status';
+  $handler->display->display_options['fields']['request_status']['table'] = 'node';
+  $handler->display->display_options['fields']['request_status']['field'] = 'request_status';
+  $handler->display->display_options['fields']['request_status']['label'] = 'Status';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
@@ -1335,9 +1428,6 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['type_1']['table'] = 'node';
   $handler->display->display_options['filters']['type_1']['field'] = 'type';
   $handler->display->display_options['filters']['type_1']['value'] = array(
-    'challenge' => 'challenge',
-    'webform' => 'webform',
-    'question1' => 'question1',
     'request' => 'request',
   );
   $handler->display->display_options['filters']['type_1']['group'] = 1;
@@ -1385,10 +1475,43 @@ function ft_request_views_default_views() {
     7 => 0,
     10 => 0,
   );
-  $handler->display->display_options['filters']['field_request_type_tid_i18n']['expose']['reduce'] = TRUE;
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['reduce_duplicates'] = TRUE;
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['vocabulary'] = 'request_type';
+  $handler->display->display_options['filters']['field_request_type_tid_i18n']['hierarchy'] = 1;
+  /* Filter criterion: Credits: Total Credits */
+  $handler->display->display_options['filters']['total_points']['id'] = 'total_points';
+  $handler->display->display_options['filters']['total_points']['table'] = 'emh_points_total';
+  $handler->display->display_options['filters']['total_points']['field'] = 'total_points';
+  $handler->display->display_options['filters']['total_points']['group'] = 1;
+  $handler->display->display_options['filters']['total_points']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['total_points']['expose']['operator_id'] = 'total_points_op';
+  $handler->display->display_options['filters']['total_points']['expose']['label'] = 'Total Points';
+  $handler->display->display_options['filters']['total_points']['expose']['operator'] = 'total_points_op';
+  $handler->display->display_options['filters']['total_points']['expose']['identifier'] = 'total_points';
+  $handler->display->display_options['filters']['total_points']['is_grouped'] = TRUE;
+  $handler->display->display_options['filters']['total_points']['group_info']['label'] = 'Status';
+  $handler->display->display_options['filters']['total_points']['group_info']['identifier'] = 'total_points';
+  $handler->display->display_options['filters']['total_points']['group_info']['group_items'] = array(
+    1 => array(
+      'title' => 'Open',
+      'operator' => '!=',
+      'value' => array(
+        'value' => '0',
+        'min' => '',
+        'max' => '',
+      ),
+    ),
+    2 => array(
+      'title' => 'Closed',
+      'operator' => '=',
+      'value' => array(
+        'value' => '0',
+        'min' => '',
+        'max' => '',
+      ),
+    ),
+  );
   /* Filter criterion: Field: Domain(s) (field_domaine) (translated) */
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['id'] = 'field_domaine_tid_i18n';
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['table'] = 'field_data_field_domaine';
@@ -1438,39 +1561,6 @@ function ft_request_views_default_views() {
   );
   $handler->display->display_options['filters']['field_tags_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['vocabulary'] = 'tags';
-  /* Filter criterion: Credits: Total Credits */
-  $handler->display->display_options['filters']['total_points']['id'] = 'total_points';
-  $handler->display->display_options['filters']['total_points']['table'] = 'emh_points_total';
-  $handler->display->display_options['filters']['total_points']['field'] = 'total_points';
-  $handler->display->display_options['filters']['total_points']['group'] = 1;
-  $handler->display->display_options['filters']['total_points']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['total_points']['expose']['operator_id'] = 'total_points_op';
-  $handler->display->display_options['filters']['total_points']['expose']['label'] = 'Total Points';
-  $handler->display->display_options['filters']['total_points']['expose']['operator'] = 'total_points_op';
-  $handler->display->display_options['filters']['total_points']['expose']['identifier'] = 'total_points';
-  $handler->display->display_options['filters']['total_points']['is_grouped'] = TRUE;
-  $handler->display->display_options['filters']['total_points']['group_info']['label'] = 'Status';
-  $handler->display->display_options['filters']['total_points']['group_info']['identifier'] = 'total_points';
-  $handler->display->display_options['filters']['total_points']['group_info']['group_items'] = array(
-    1 => array(
-      'title' => 'Open',
-      'operator' => '!=',
-      'value' => array(
-        'value' => '0',
-        'min' => '',
-        'max' => '',
-      ),
-    ),
-    2 => array(
-      'title' => 'Closed',
-      'operator' => '=',
-      'value' => array(
-        'value' => '0',
-        'min' => '',
-        'max' => '',
-      ),
-    ),
-  );
   $handler->display->display_options['views_navigation'] = TRUE;
   $handler->display->display_options['views_navigation_cycle'] = FALSE;
   $handler->display->display_options['path'] = 'requests/selection';
@@ -1589,12 +1679,11 @@ function ft_request_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Choose a request type */
-  $handler->display->display_options['fields']['field_request_type']['id'] = 'field_request_type';
-  $handler->display->display_options['fields']['field_request_type']['table'] = 'field_data_field_request_type';
-  $handler->display->display_options['fields']['field_request_type']['field'] = 'field_request_type';
-  $handler->display->display_options['fields']['field_request_type']['label'] = 'Type';
-  $handler->display->display_options['fields']['field_request_type']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Node: Request type */
+  $handler->display->display_options['fields']['request_type']['id'] = 'request_type';
+  $handler->display->display_options['fields']['request_type']['table'] = 'node';
+  $handler->display->display_options['fields']['request_type']['field'] = 'request_type';
+  $handler->display->display_options['fields']['request_type']['label'] = 'Type';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -1711,10 +1800,31 @@ function ft_request_views_default_views() {
     7 => 0,
     10 => 0,
   );
-  $handler->display->display_options['filters']['field_request_type_tid_i18n']['expose']['reduce'] = TRUE;
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['reduce_duplicates'] = TRUE;
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['vocabulary'] = 'request_type';
+  $handler->display->display_options['filters']['field_request_type_tid_i18n']['hierarchy'] = 1;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status_1']['id'] = 'status_1';
+  $handler->display->display_options['filters']['status_1']['table'] = 'node';
+  $handler->display->display_options['filters']['status_1']['field'] = 'status';
+  $handler->display->display_options['filters']['status_1']['value'] = 'All';
+  $handler->display->display_options['filters']['status_1']['group'] = 1;
+  $handler->display->display_options['filters']['status_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['status_1']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['status_1']['expose']['label'] = 'Published';
+  $handler->display->display_options['filters']['status_1']['expose']['operator'] = 'status_1_op';
+  $handler->display->display_options['filters']['status_1']['expose']['identifier'] = 'status_1';
+  $handler->display->display_options['filters']['status_1']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    10 => 0,
+  );
   /* Filter criterion: Field: Domain(s) (field_domaine) (translated) */
   $handler->display->display_options['filters']['field_domaine_tid_i18n_1']['id'] = 'field_domaine_tid_i18n_1';
   $handler->display->display_options['filters']['field_domaine_tid_i18n_1']['table'] = 'field_data_field_domaine';
@@ -1764,28 +1874,6 @@ function ft_request_views_default_views() {
   );
   $handler->display->display_options['filters']['field_tags_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['vocabulary'] = 'tags';
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status_1']['id'] = 'status_1';
-  $handler->display->display_options['filters']['status_1']['table'] = 'node';
-  $handler->display->display_options['filters']['status_1']['field'] = 'status';
-  $handler->display->display_options['filters']['status_1']['value'] = 'All';
-  $handler->display->display_options['filters']['status_1']['group'] = 1;
-  $handler->display->display_options['filters']['status_1']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['status_1']['expose']['operator_id'] = '';
-  $handler->display->display_options['filters']['status_1']['expose']['label'] = 'Published';
-  $handler->display->display_options['filters']['status_1']['expose']['operator'] = 'status_1_op';
-  $handler->display->display_options['filters']['status_1']['expose']['identifier'] = 'status_1';
-  $handler->display->display_options['filters']['status_1']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    4 => 0,
-    5 => 0,
-    6 => 0,
-    7 => 0,
-    8 => 0,
-    9 => 0,
-  );
   $handler->display->display_options['views_navigation'] = TRUE;
   $handler->display->display_options['views_navigation_cycle'] = FALSE;
   $handler->display->display_options['path'] = 'requests/manage';
@@ -2029,12 +2117,11 @@ function ft_request_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Choose a request type */
-  $handler->display->display_options['fields']['field_request_type']['id'] = 'field_request_type';
-  $handler->display->display_options['fields']['field_request_type']['table'] = 'field_data_field_request_type';
-  $handler->display->display_options['fields']['field_request_type']['field'] = 'field_request_type';
-  $handler->display->display_options['fields']['field_request_type']['label'] = 'Type';
-  $handler->display->display_options['fields']['field_request_type']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Node: Request type */
+  $handler->display->display_options['fields']['request_type']['id'] = 'request_type';
+  $handler->display->display_options['fields']['request_type']['table'] = 'node';
+  $handler->display->display_options['fields']['request_type']['field'] = 'request_type';
+  $handler->display->display_options['fields']['request_type']['label'] = 'Type';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -2078,13 +2165,6 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['request_status']['label'] = 'Status';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: User: Active */
-  $handler->display->display_options['filters']['status_1']['id'] = 'status_1';
-  $handler->display->display_options['filters']['status_1']['table'] = 'users';
-  $handler->display->display_options['filters']['status_1']['field'] = 'status';
-  $handler->display->display_options['filters']['status_1']['relationship'] = 'uid';
-  $handler->display->display_options['filters']['status_1']['value'] = '1';
-  $handler->display->display_options['filters']['status_1']['group'] = 1;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'node';
@@ -2109,6 +2189,13 @@ function ft_request_views_default_views() {
     10 => 0,
   );
   $handler->display->display_options['filters']['type']['expose']['reduce'] = TRUE;
+  /* Filter criterion: User: Current */
+  $handler->display->display_options['filters']['uid_current']['id'] = 'uid_current';
+  $handler->display->display_options['filters']['uid_current']['table'] = 'users';
+  $handler->display->display_options['filters']['uid_current']['field'] = 'uid_current';
+  $handler->display->display_options['filters']['uid_current']['relationship'] = 'uid';
+  $handler->display->display_options['filters']['uid_current']['value'] = '1';
+  $handler->display->display_options['filters']['uid_current']['group'] = 1;
   /* Filter criterion: Content: Choose a request type (field_request_type) (translated) */
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['id'] = 'field_request_type_tid_i18n';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['table'] = 'field_data_field_request_type';
@@ -2130,10 +2217,31 @@ function ft_request_views_default_views() {
     7 => 0,
     10 => 0,
   );
-  $handler->display->display_options['filters']['field_request_type_tid_i18n']['expose']['reduce'] = TRUE;
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['reduce_duplicates'] = TRUE;
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['vocabulary'] = 'request_type';
+  $handler->display->display_options['filters']['field_request_type_tid_i18n']['hierarchy'] = 1;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 'All';
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['status']['expose']['label'] = 'Published';
+  $handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+  $handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+  $handler->display->display_options['filters']['status']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    10 => 0,
+  );
   /* Filter criterion: Field: Domain(s) (field_domaine) (translated) */
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['id'] = 'field_domaine_tid_i18n';
   $handler->display->display_options['filters']['field_domaine_tid_i18n']['table'] = 'field_data_field_domaine';
@@ -2183,13 +2291,6 @@ function ft_request_views_default_views() {
   );
   $handler->display->display_options['filters']['field_tags_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['vocabulary'] = 'tags';
-  /* Filter criterion: User: Current */
-  $handler->display->display_options['filters']['uid_current']['id'] = 'uid_current';
-  $handler->display->display_options['filters']['uid_current']['table'] = 'users';
-  $handler->display->display_options['filters']['uid_current']['field'] = 'uid_current';
-  $handler->display->display_options['filters']['uid_current']['relationship'] = 'uid';
-  $handler->display->display_options['filters']['uid_current']['value'] = '1';
-  $handler->display->display_options['filters']['uid_current']['group'] = 1;
   $handler->display->display_options['views_navigation'] = TRUE;
   $handler->display->display_options['views_navigation_cycle'] = FALSE;
   $export['query_list'] = $view;
