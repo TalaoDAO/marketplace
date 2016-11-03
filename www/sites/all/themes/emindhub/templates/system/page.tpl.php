@@ -169,12 +169,7 @@ global $base_url;
             <?php print render($title_prefix); ?>
             <?php if (!empty($title)): ?>
               <div class="title">
-                <?php if (!empty(emh_request_get_request_type_image($node, 25)) || !empty(emh_request_get_request_type_name($node))) : ?>
-                  <div class="request-type-infos">
-                    <?php print emh_request_get_request_type_image($node, 25); ?>
-                    <?php print emh_request_get_request_type_name($node); ?>
-                  </div>
-                <?php endif; ?>
+                <?php emindhub_show_request_type(); ?>
                 <h1 class="page-header"><?php print $title; ?></h1>
               </div>
             <?php endif; ?>
