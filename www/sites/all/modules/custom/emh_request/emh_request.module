@@ -1261,16 +1261,21 @@ function emh_request_get_request_type($node = null) {
 	return $term;
 }
 
-function emh_request_get_request_type_image($node = null, $size = 25) {
+function emh_request_get_type_image($term, $size = 25) {
 	global $base_url, $language;
-
-	$term = emh_request_get_request_type($node);
-  if (empty($term)) return;
 
 	$term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
 	$term_name = $term_wrapper->language($language->language)->name_field->value();
 	$term_safe_name = preg_replace('/[^A-Za-z0-9\-]/', '', strtolower($term_name));
 	return '<img src="' . $base_url . '/' . drupal_get_path('module', 'emh_request') . '/images/icon_request-type_' . $term_safe_name . '.png" width="' . $size . '" height="' . $size . '" alt="' . $term_name . '">';
+}
+
+function emh_request_get_request_type_image($node = null, $size = 25) {
+
+	$term = emh_request_get_request_type($node);
+  if (empty($term)) return;
+
+  return emh_request_get_type_image($term, $size);
 }
 
 function emh_request_get_request_type_name($node = null) {
