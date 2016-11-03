@@ -32,22 +32,29 @@
         bottom: 0;
         right: 0;
         list-style-type: none;
-        padding: 0;
+        padding: 10px;
         margin: 0;
         text-align: right;
         li, img {
             display: inline-block;
-            vertical-align: bottom;
+            vertical-align: middle;
+        }
+        li + li {
+            margin-left: 20px;
         }
     }
 
     @media (max-width: @screen-xs-max) {
-        padding: 35px 20px 40px 20px;
+        padding: 35px 20px 60px 20px;
         .title {
             font-size: 30px;
         }
         .subtitle {
             font-size: 15px;
+        }
+        .sponsors {
+            left: 0;
+            text-align: center;
         }
     }
 }
