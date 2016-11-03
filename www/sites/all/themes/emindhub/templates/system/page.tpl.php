@@ -169,12 +169,15 @@ global $base_url;
             <?php print render($title_prefix); ?>
             <?php if (!empty($title)): ?>
               <div class="title">
-                <?php if (!empty(emh_request_get_request_type_image($node, 25)) || !empty(emh_request_get_request_type_name($node))) : ?>
+                <?php if (!empty($node)) :
+                       $type_image = emh_request_get_request_type_image($node, 25);
+                       $type_name = emh_request_get_request_type_name($node);
+                       if (!empty($type_image) || !empty($type_name)) : ?>
                   <div class="request-type-infos">
-                    <?php print emh_request_get_request_type_image($node, 25); ?>
-                    <?php print emh_request_get_request_type_name($node); ?>
+                    <?php print $type_image; ?>
+                    <?php print $type_name; ?>
                   </div>
-                <?php endif; ?>
+                <?php endif; endif; ?>
                 <h1 class="page-header"><?php print $title; ?></h1>
               </div>
             <?php endif; ?>
