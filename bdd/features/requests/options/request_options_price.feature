@@ -29,8 +29,7 @@ Feature: Request Option Price
     Given I am logged in as a user with the "administrator" role
 
     When I go to "admin/emindhub/credits"
-    Then I fill in "Questionnaire" with "500"
-      And I fill in "Duration" with "200"
+    Then I fill in "Duration" with "200"
       And I press "Save configuration"
 
     # Set price for options
@@ -95,10 +94,11 @@ Feature: Request Option Price
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     When I click "Edit" in the "primary tabs" region
-    Then I should see "500 credits" in the "#edit-field-options-und-questionnaire" element
+    Then I should see "300 credits" in the "#edit-field-options-und-questionnaire" element
       And I should see "200 credits" in the "#edit-field-options-und-duration" element
 
     When I select "Avengers" from "Circles"
+      And I select "770" from "field_request_type[und]"
       And I press "Save draft"
       And I click "Edit" in the "primary tabs" region
     Then I should see "1000 credits" in the "#edit-field-options-und-questionnaire" element
