@@ -44,8 +44,9 @@
             updateTotalCost();
           });
         }
+
         updateTotalCost();
-      },
+      }
     };
 
 }(jQuery));
