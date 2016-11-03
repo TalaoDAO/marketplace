@@ -633,7 +633,7 @@ function emindhub_form_request_node_form_field_request_type_after_build($element
 			$element[$tid][$tid]['#attributes']['data-target'] = '.request-type-' . $term_safe_name;
 		}
 
-		$element[$tid][$tid]['#title'] = '<span class="term-image">' . emindhub_get_request_type_image($term_name) . '</span>';
+		$element[$tid][$tid]['#title'] = '<span class="term-image">' . emh_request_get_request_type_image($term_name) . '</span>';
 		$element[$tid][$tid]['#title'] .= '<span class="term-name">' . $term_name . '</span>';
 		if (!empty($term_description)) {
 			$element[$tid][$tid]['#title'] .= '<span class="term-description">' . $term_description . '</span>';
@@ -682,10 +682,4 @@ function emindhub_form_request_node_form_field_options_help(array $types, $form)
 																					</div>';
 		}
 	}
-}
-
-function emindhub_get_request_type_image($term_name) {
-	global $base_url;
-	$term_safe_name = preg_replace('/[^A-Za-z0-9\-]/', '', strtolower($term_name));
-	return '<img src="' . $base_url . '/' . drupal_get_path('theme', 'emindhub') . '/images/icons/icon_request-type_' . $term_safe_name . '.png" width="50" height="50" alt="' . $term_name . '">';
 }
