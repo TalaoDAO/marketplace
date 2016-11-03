@@ -528,3 +528,17 @@ function emindhub_preprocess_webform_email(&$variables) {
 function emindhub_preprocess_webform_number(&$variables) {
 	emindhub_add_aria_attributes($variables);
 }
+
+function emindhub_show_request_type($node = null) {
+	if ($node === null) {
+		$node = menu_get_object();
+	}
+	elseif (is_numeric($node)) {
+		$node = node_load($node);
+	}
+
+	if (empty($node)) return;
+
+	$request_type = field_get_items('node', $node, 'field_request_type');
+	if ($request_type) print emh_request_get_request_type_image($node, 25) . emh_request_get_request_type_name($node);
+}
