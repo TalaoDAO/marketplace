@@ -12,7 +12,7 @@
   </ul>
 
   <!-- CUSTOMER-->
-  <div class="hiw-tab hiw-customer">
+  <div class="hiw-tab-content hiw-customer">
 
     <div class="hiw-step hiw-step-1">
 
@@ -94,7 +94,7 @@
 
 
   <!-- EXPERT-->
-  <div class="hiw-tab hiw-expert">
+  <div class="hiw-tab-content hiw-expert">
     <div class="hiw-steps">
       <div class="hiw-step hiw-step-1">
         <div class="hiw-step-title">
@@ -153,7 +153,7 @@
       attach: function (context, settings) {
         jQuery('.hiw-tabs', context).once().on('click', 'button', function (e) {
           var $this = jQuery(this);
-          jQuery('.' + $this.data('tab')).show().siblings('.hiw-tab').hide();
+          jQuery('.' + $this.data('tab')).removeClass('hiw-hidden').siblings('.hiw-tab-content').addClass('hiw-hidden');
           jQuery('.hiw-tabs .active').removeClass('active');
           $this.addClass('active');
         });
