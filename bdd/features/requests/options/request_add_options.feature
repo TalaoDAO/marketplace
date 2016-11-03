@@ -25,7 +25,6 @@ Feature: Request
     Given I give "client1" 10000 emh credits
 
     Given I am logged in as a user with the "administrator" role
-    Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
       And I click "Group"
       And I click "People"
