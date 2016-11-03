@@ -737,6 +737,56 @@ function ft_request_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-request-group_content_access'.
+  $field_instances['node-request-group_content_access'] = array(
+    'bundle' => 'request',
+    'default_value' => array(
+      0 => array(
+        'value' => 2,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 17,
+      ),
+      'summary' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'group_content_access',
+    'label' => 'Group content visibility',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 19,
+    ),
+  );
+
   // Exported field_instance: 'node-request-og_group_ref'.
   $field_instances['node-request-og_group_ref'] = array(
     'bundle' => 'request',
@@ -866,6 +916,7 @@ function ft_request_field_default_field_instances() {
   t('Documents');
   t('Domains');
   t('Duration of the mission');
+  t('Group content visibility');
   t('Hide my name');
   t('Hide my organisation');
   t('Image');
