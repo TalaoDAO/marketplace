@@ -168,7 +168,15 @@ global $base_url;
 
             <?php print render($title_prefix); ?>
             <?php if (!empty($title)): ?>
-              <h1 class="page-header"><?php print $title; ?></h1>
+              <div class="title">
+                <?php if (!empty(emh_request_get_request_type_image($node, 25)) || !empty(emh_request_get_request_type_name($node))) : ?>
+                  <div class="request-type-infos">
+                    <?php print emh_request_get_request_type_image($node, 25); ?>
+                    <?php print emh_request_get_request_type_name($node); ?>
+                  </div>
+                <?php endif; ?>
+                <h1 class="page-header"><?php print $title; ?></h1>
+              </div>
             <?php endif; ?>
             <?php print render($title_suffix); ?>
 
