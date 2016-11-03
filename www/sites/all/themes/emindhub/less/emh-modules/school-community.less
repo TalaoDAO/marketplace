@@ -1,0 +1,53 @@
+.emh-module.school-community {
+    margin-top: 50px;
+    color: white;
+    padding: 50px 20px 45px 20px;
+    position: relative;
+    text-align: center;
+
+    background-color: #333;
+    background-image: url("http://i.imgur.com/1iXjvIB.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+
+    .title {
+        font-weight: 200;
+        font-size: 40px;
+        line-height: 1;
+    }
+
+    .subtitle {
+        font-size: 20px;
+        max-width: 600px;
+        margin: 20px auto;
+    }
+
+    .emh-actions {
+        margin-top: 20px;
+    }
+
+    .sponsors {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        text-align: right;
+        li, img {
+            display: inline-block;
+            vertical-align: bottom;
+        }
+    }
+
+    @media (max-width: @screen-xs-max) {
+        padding: 35px 20px 40px 20px;
+        .title {
+            font-size: 30px;
+        }
+        .subtitle {
+            font-size: 15px;
+        }
+    }
+}
