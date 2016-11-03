@@ -85,6 +85,18 @@
     font-size: 20px;
 }
 
+.hiw-tab-content {
+    transition: all 250ms ease;
+    opacity: 1;
+    overflow: hidden;
+
+    &.hiw-hidden {
+        transform: translateY(10%);
+        opacity: 0;
+        height: 0;
+    }
+}
+
 .hiw-customer {
     text-align: center;
     .hiw-steps-group {
@@ -229,6 +241,7 @@
     text-align: center;
 
     .hiw-steps {
+        margin-top: 50px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -301,4 +314,7 @@
 
 .hiw-view-full {
     text-decoration: underline;
+    margin-top: 40px;
+    display: block;
+    text-align: center;
 }
