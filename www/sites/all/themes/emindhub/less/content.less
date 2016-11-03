@@ -124,7 +124,11 @@ ul.links.list-inline {
 
     .request-type-infos {
       .make-md-column(1);
-      .text-center;
+      > * {
+        display: block;
+        margin: 0 auto;
+        .text-center;
+      }
       @media (min-width: @screen-md-min) {
         min-width: 80px;
       }

@@ -633,7 +633,7 @@ function emindhub_form_request_node_form_field_request_type_after_build($element
 			$element[$tid][$tid]['#attributes']['data-target'] = '.request-type-' . $term_safe_name;
 		}
 
-		$element[$tid][$tid]['#title'] = '<span class="term-image">' . emh_request_get_request_type_image($term_name) . '</span>';
+		$element[$tid][$tid]['#title'] = '<span class="term-image">' . emh_request_get_type_image($term, 50) . '</span>';
 		$element[$tid][$tid]['#title'] .= '<span class="term-name">' . $term_name . '</span>';
 		if (!empty($term_description)) {
 			$element[$tid][$tid]['#title'] .= '<span class="term-description">' . $term_description . '</span>';
