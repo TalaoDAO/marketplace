@@ -71,6 +71,7 @@ features[field_instance][] = node-request-field_request_questions
 features[field_instance][] = node-request-field_request_type
 features[field_instance][] = node-request-field_start_date
 features[field_instance][] = node-request-field_tags
+features[field_instance][] = node-request-group_content_access
 features[field_instance][] = node-request-og_group_ref
 features[field_instance][] = node-request-title_field
 features[field_instance][] = taxonomy_term-request_type-description_field
