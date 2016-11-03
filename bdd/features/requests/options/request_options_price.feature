@@ -98,6 +98,7 @@ Feature: Request Option Price
       And I should see "200 credits" in the "#edit-field-options-und-duration" element
 
     When I select "Avengers" from "Circles"
+      And I select "770" from "field_request_type[und]"
       And I press "Save draft"
       And I click "Edit" in the "primary tabs" region
     Then I should see "1000 credits" in the "#edit-field-options-und-questionnaire" element
