@@ -29,13 +29,7 @@ class views_handler_field_emh_request_type extends views_handler_field {
       return 0;
     }
 
-    $node = node_load($nid);
-    $type = emh_request_get_type($node);
-    $term = taxonomy_term_load($tid);
-    $term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
-    $term_name = $term_wrapper->language($language->language)->name_field->value();
-
-    return emindhub_get_request_type_image($term_name);
+    return emh_request_get_request_type_image($nid, 25) . emh_request_get_request_type_name($nid);
   }
 
   /**
