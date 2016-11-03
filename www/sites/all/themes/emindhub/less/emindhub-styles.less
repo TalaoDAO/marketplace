@@ -61,8 +61,6 @@ img {
     text-decoration: none;
     color: #009FE3;
     background-color: #FFF;
-    // border: 1px solid #DDD;
-    // margin-left: -1px;
 
 		display: block;
 		float: none;
@@ -797,9 +795,8 @@ header#title {
 	line-height: 25px;
 	&:before {
 		content: "";
-		position: absolute;
-		left: -40px;
-		display: block;
+		display: inline-block;
+		margin-right: 15px;
 		width: 25px;
 		height: 25px;
 		border: 3px solid @brand-primary;
@@ -808,5 +805,12 @@ header#title {
 		font-size: 12px;
 		.text-center;
 		line-height: 18px;
+
+		position: absolute;
+		left: -40px;
+		@media (max-width: @screen-lg-min) {
+			position: relative;
+			left: auto;
+		}
 	}
 }
