@@ -572,3 +572,11 @@ function emh_request_update_7127() {
 // function emh_request_update_7127() {
 //   module_enable(['emh_request_prepopulate']);
 // }
+
+/**
+ * Activate queue_ui module
+ */
+function emh_configuration_update_7035() [
+   module_enable(['queue_ui']);
+}
+
