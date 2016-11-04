@@ -1,0 +1,93 @@
+/**
+ * Homepage Persona chooser
+ */
+.select-persona-wrapper {
+	#gradient > .horizontal(@start-color: darken(@color-primary, 15%); @end-color: darken(@color-secondary, 15%); 50%; 50%);
+	/**
+	 * @TODO
+	 * Mettre les bonnes images de fond par dessus les couleurs
+	 */
+}
+
+@emhlive-overlap: 160px;
+@emhlive-mobile-overlap: 80px;
+
+.select-persona {
+	color: #fff;
+	text-align: center;
+	padding-bottom: calc(@emhlive-overlap + 85px);
+
+	&-title {
+		font-size: 65px;
+		line-height: 1;
+		font-weight: 200;
+		margin-top: 100px;
+	}
+
+	&-subtitle {
+		font-size: 22px;
+	}
+
+	&-buttons {
+		margin-top: 70px;
+		font-size: 13px;
+		font-weight: 600;
+		p {
+			margin-top: 10px;
+		}
+	}
+
+	.button {
+		display: inline-block;
+		text-transform: uppercase;
+		color: #fff;
+		min-width: 210px;
+		width: auto;
+		border-radius: 5px;
+		padding: 17px 5px;
+		text-decoration: none;
+	}
+}
+
+@media (max-width: @screen-xs-max) {
+	.select-persona {
+		padding-bottom: calc(@emhlive-mobile-overlap + 35px);
+		&-title {
+			font-size: 25px;
+		}
+		&-subtitle {
+			display: none;
+		}
+		&-buttons {
+			white-space: nowrap;
+			margin-top: 20px;
+			font-size: 10px;
+			p {
+				display: none;
+			}
+		}
+		.button {
+			min-width: 130px;
+			padding: 8px 5px;
+		}
+	}
+}
+
+.persona- {
+	&customer {
+		.button {
+			background-color: @color-primary;
+			&:hover {
+				background-color: lighten(@color-primary, 5%);
+			}
+		}
+	}
+	&expert {
+		.button {
+			background-color: @color-secondary;
+			&:hover {
+				background-color: lighten(@color-secondary, 5%);
+			}
+		}
+	}
+}

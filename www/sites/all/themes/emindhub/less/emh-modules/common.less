@@ -1,0 +1,125 @@
+.emh {
+    &-module {
+        font-size: 13px;
+        font-family: 'Open Sans', @font-family-sans-serif;
+    }
+
+    &-module + &-module {
+        margin-top: 50px;
+    }
+
+    &-title,
+    &-subtitle {
+        color: @color-tertiary;
+        text-align: center;
+    }
+
+    &-title {
+        font-size: 50px;
+        font-weight: 200;
+        @media (max-width: @screen-sm-max) {
+            font-size: 25px;
+        }
+    }
+
+    &-subtitle {
+        font-size: 20px;
+        font-weight: normal;
+        @media (max-width: @screen-sm-max) {
+            font-size: 2=15px;
+        }
+    }
+
+    &-button {
+        color: @color-primary;
+        background-color: transparent;
+        border: 1px solid currentColor;
+        border-radius: 5px;
+        display: inline-block;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 17px 20px;
+        @media (max-width: @screen-sm-max) {
+            padding: 12px 10px;
+        }
+        @media (max-width: @screen-xs-max) {
+            font-weight: normal;
+        }
+        text-transform: uppercase;
+        text-decoration: none;
+        &:hover {
+            text-decoration: none;
+        }
+
+        &.solid {
+            border: none;
+            background-color: @color-primary;
+            color: white;
+        }
+        &.solid-alt {
+            border: none;
+            background-color: @color-secondary;
+            color: white;
+        }
+    }
+}
+
+
+
+.emh-dots {
+	color: white;
+	text-align: center;
+	margin: 8px 0 17px;
+	ul, li {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		height: 8px;
+		vertical-align: top;
+	}
+	li {
+		display: inline-block;
+		+ li {
+			margin-left: 3px;
+		}
+	}
+	button {
+		display: block;
+		width: 8px;
+		height: 8px;
+		border: 1.1px solid currentColor;
+		border-radius: 50%;
+		background-color: transparent;
+		padding: 0;
+		font-size: 0;
+		text-indent: -9999px;
+		vertical-align: top;
+		outline: none;
+	}
+	.slick-active > button {
+		background-color: currentColor;
+	}
+
+	&-alt {
+		button {
+			background-color: currentColor;
+			color: @color-tertiary-alt;
+		}
+		.slick-active > button {
+			color: @color-primary;
+		}
+	}
+}
+
+.emh-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+
+    .emh-action {
+        margin: 15px;
+
+    }
+}
