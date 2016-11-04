@@ -560,7 +560,7 @@ function emh_configuration_update_7035() {
 /**
  * Activate queue_ui module
  */
-function emh_configuration_update_7036() [
+function emh_configuration_update_7036() {
   module_enable(['queue_ui']);
 }
 
