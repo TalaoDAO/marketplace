@@ -234,59 +234,6 @@
 }
 
 
-// News
-#block-views-news-thread-block {
-	.content {
-		.item {
-			.make-row();
-			> * {
-				.make-md-column(8);
-			}
-			> a {
-				.make-md-column(4);
-			}
-		}
-		h3 {
-			margin: 0;
-			.text-uppercase;
-			font-weight: bold;
-			font-size: 22px;
-			a {
-				color: #FFF;
-			}
-		}
-		.field-date {
-			color: @cyan;
-		}
-		.field-content {
-			padding-bottom: 45px;
-			position: relative;
-			.views-more-link {
-				.emh-more-link;
-			}
-		}
-	}
-	.carousel-control {
-	  &.left {
-			#gradient > .horizontal(@start-color: rgba(68,87,102,.5); @end-color: rgba(68,87,102,.0001));
-	  }
-	  &.right {
-			#gradient > .horizontal(@start-color: rgba(68,87,102,.0001); @end-color: rgba(68,87,102,.5));
-	  }
-	}
-
-	@media (min-width: @screen-md-min) {
-		.content {
-			.item {
-				> a {
-					width: 292px !important;
-				}
-			}
-		}
-	}
-}
-
-
 // Last requests
 #block-views-query-list-block-last-requests,
 #block-views-query-list-block-my-requests {
