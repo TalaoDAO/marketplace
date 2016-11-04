@@ -38,7 +38,7 @@ function ft_blog_default_fe_block_settings() {
         'weight' => 0,
       ),
     ),
-    'title' => '<none>',
+    'title' => '',
     'visibility' => 1,
   );
 
@@ -66,7 +66,7 @@ function ft_blog_default_fe_block_settings() {
         'weight' => 0,
       ),
     ),
-    'title' => '<none>',
+    'title' => '',
     'visibility' => 1,
   );
 
