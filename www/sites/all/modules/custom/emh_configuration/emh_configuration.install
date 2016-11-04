@@ -547,3 +547,11 @@ function emh_configuration_update_7034() {
     'ft_field_base' => array('field_base')
   ));
 }
+
+/**
+ * Activate queue_ui module
+ */
+function emh_configuration_update_7035() [
+   module_enable(['queue_ui']);
+}
+
