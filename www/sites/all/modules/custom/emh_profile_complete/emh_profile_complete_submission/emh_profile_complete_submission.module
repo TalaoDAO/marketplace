@@ -32,8 +32,7 @@ function emh_profile_complete_submission_form_alter(&$form, &$form_state, $form_
     $fields = _emh_profile_complete_get_empty_fields('user', 'user', $user, $fields);
 
     foreach ($fields as $field) {
-
-      if (field_access('edit', $field, 'user')) {
+      if (field_access('edit', field_info_field($field), 'user')) {
 
         field_attach_form('user', $account, $attach_form, $form_state, NULL, array('field_name' => $field));
         $form[$field] = $attach_form[$field];
