@@ -282,15 +282,6 @@ function emh_configuration_update_7017() {
 }
 
 /**
- * Replace emh_survey for emh_mission.
- */
-function emh_configuration_update_7018() {
-  module_disable(array('emh_survey'));
-  drupal_uninstall_modules(array('emh_survey'));
-  module_enable(array('emh_mission'));
-}
-
-/**
 * Update HybridAuth block.
 */
 function emh_configuration_update_7019() {
@@ -551,7 +542,7 @@ function emh_configuration_update_7034() {
 /**
  * ADD: Revert features for request type.
  */
-function emh_request_update_7127() {
+function emh_configuration_update_7035() {
   features_revert(array(
     'ft_blocks' => array('fe_block_settings'),
     'ft_content_type' => array('field_instance'),
@@ -567,16 +558,16 @@ function emh_request_update_7127() {
 }
 
 /**
- * ADD: Enable EMH Request Prepopulate.
- */
-// function emh_request_update_7127() {
-//   module_enable(['emh_request_prepopulate']);
-// }
-
-/**
  * Activate queue_ui module
  */
 function emh_configuration_update_7036() [
-   module_enable(['queue_ui']);
+  module_enable(['queue_ui']);
 }
 
+/**
+ * CHG: remove for good old request types!
+ */
+function emh_configuration_update_7037() {
+  module_disable(array('emh_question', 'emh_challenge', 'emh_mission'));
+  drupal_uninstall_modules(array('emh_question', 'emh_challenge', 'emh_mission'));
+}
