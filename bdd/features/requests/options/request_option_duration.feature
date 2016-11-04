@@ -47,6 +47,7 @@ Feature: Request and submissions
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "primary tabs" region
+      And I select "770" from "field_request_type[und]"
     Given I check "Duration"
       And I enter "6 months" for "Duration of the mission"
       And I enter "07/06/2017" for "Date"
