@@ -136,7 +136,7 @@ function entityreference_prepopulate_field_attach_form($entity_type, $entity, &$
  * Implements hook_field_access().
  */
 function entityreference_prepopulate_field_access($op, $field, $entity_type, $entity, $account) {
-  if ($op != 'edit' || (!empty($field['type']) && $field['type'] != 'entityreference')) {
+  if ($op != 'edit' || $field['type'] != 'entityreference') {
     return;
   }
 
