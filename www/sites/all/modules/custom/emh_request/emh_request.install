@@ -414,3 +414,11 @@ function emh_request_update_7126() {
   emh_request_disable_strings();
   emh_request_enable_strings();
 }
+
+/**
+ * Revert strings.
+ */
+function emh_request_update_7127() {
+  emh_request_disable_strings();
+  emh_request_enable_strings();
+}
