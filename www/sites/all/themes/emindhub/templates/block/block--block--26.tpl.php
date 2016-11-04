@@ -39,4 +39,6 @@
   // include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/school-community.tpl.php');
   // include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/publications.tpl.php');
   // include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/references.tpl.php');
+  include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/customer-emh-expert.tpl.php');
+  include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/faq.tpl.php');
 ?>
