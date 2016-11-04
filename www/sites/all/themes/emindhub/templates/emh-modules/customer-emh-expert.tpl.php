@@ -5,10 +5,10 @@
             <?php print t('Customers') ?>
         </div>
         <ul class="cee-items">
-            <li>azerty</li>
-            <li>qsdfgh sdg fdsth</li>
-            <li>wxcvbn</li>
-            <li>mlkjhg</li>
+            <li><?php print t('changeme'); ?></li>
+            <li><?php print t('changeme'); ?></li>
+            <li><?php print t('changeme'); ?></li>
+            <li><?php print t('changeme'); ?></li>
         </ul>
     </div>
 
@@ -18,9 +18,9 @@
             <img class="vertical"   src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/logo-v.svg" alt="eMindHub" />
         </div>
         <ul class="cee-items">
-            <li>azerty</li>
-            <li>qsdfgh</li>
-            <li>wxcvbn</li>
+            <li><?php print t('changeme'); ?></li>
+            <li><?php print t('changeme'); ?></li>
+            <li><?php print t('changeme'); ?></li>
         </ul>
     </div>
 
@@ -29,9 +29,9 @@
             <?php print t('Experts') ?>
         </div>
         <ul class="cee-items">
-            <li>azerty</li>
-            <li>qsdf gh</li>
-            <li>wxcvbn</li>
+            <li><?php print t('changeme'); ?></li>
+            <li><?php print t('changeme'); ?></li>
+            <li><?php print t('changeme'); ?></li>
         </ul>
     </div>
 
