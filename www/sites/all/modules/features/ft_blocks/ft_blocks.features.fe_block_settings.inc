@@ -493,8 +493,8 @@ function ft_blocks_default_fe_block_settings() {
     'roles' => array(),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'sidebar_second',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
         'weight' => -41,
       ),
@@ -507,6 +507,62 @@ function ft_blocks_default_fe_block_settings() {
     ),
     'title' => '',
     'visibility' => 0,
+  );
+
+  $export['views-sponsors-partners_block'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => 'sponsors-partners_block',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 1,
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => 'node/267',
+    'roles' => array(),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'emindhub',
+        'weight' => -43,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => 'Partners',
+    'visibility' => 1,
+  );
+
+  $export['views-sponsors-sponsors_block'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => 'sponsors-sponsors_block',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 1,
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => 'node/267',
+    'roles' => array(),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'emindhub',
+        'weight' => -42,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => 'Sponsors',
+    'visibility' => 1,
   );
 
   $export['views-users_list-block_2'] = array(
