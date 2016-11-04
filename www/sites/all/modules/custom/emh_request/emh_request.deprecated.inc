@@ -5,30 +5,6 @@
  */
 
 /**
- * Implements hook_node_access().
- */
-//function emh_request_node_access($node, $op, $account) {
-//  if ($op == 'update') {
-//    switch ($node->type) {
-//      case 'question1':
-//      case 'webform':
-//      case 'challenge':
-//        /*
-//        $count = emh_request_count_answers($node->nid);
-//        if ($count > 0) {
-//          return NODE_ACCESS_DENY;
-//        }
-//         */
-//        break;
-//      default:
-//        break;
-//    }
-//  }
-//  return NODE_ACCESS_IGNORE;
-//}
-
-
-/**
  * Implements hook_block_info().
  */
 function emh_request_block_info() {
@@ -124,7 +100,6 @@ function emh_request_block_save($delta = '', $edit = array()) {
   }
 }
 
-
 /**
  * Implements hook_views_api().
  */
@@ -134,7 +109,6 @@ function emh_request_views_api() {
     'path' => drupal_get_path('module', 'emh_request') . '/views',
   );
 }
-
 
 /**
  * Helper function to retrieve an answer, depending on the status.
@@ -260,7 +234,6 @@ function emh_request_has_points($nid) {
   $node = node_load($nid);
   return (!empty($node) && !empty($node->emh_points));
 }
-
 
 /**
  * Helper function to notify people.
