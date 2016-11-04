@@ -83,7 +83,7 @@ function emh_profile_complete_request_form($form, &$form_state, $fields) {
 
   foreach ($fields as $field) {
 
-    if (field_access('edit', $field, 'user')) {
+    if (field_access('edit', field_info_field($field), 'user')) {
 
       field_attach_form('user', $account, $attach_form, $form_state, NULL, array('field_name' => $field));
       $form[$field] = $attach_form[$field];
