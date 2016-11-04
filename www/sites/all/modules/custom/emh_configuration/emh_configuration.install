@@ -549,7 +549,6 @@ function emh_configuration_update_7034() {
 }
 
 /**
-<<<<<<< HEAD
  * ADD: Revert features for request type.
  */
 function emh_request_update_7127() {
