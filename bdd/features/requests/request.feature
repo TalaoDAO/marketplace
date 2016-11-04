@@ -63,6 +63,7 @@ Feature: Request
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "primary tabs" region
+      And I select "770" from "field_request_type[und]"
     Then I should see "Edit Request How to become a superhero?" in the "title" region
 
     Given I enter "This is my request." for "Describe your request"
