@@ -12,38 +12,6 @@ function ft_blocks_default_fe_block_settings() {
 
   $export['version'] = '2.0';
 
-  $export['block-home_register'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'i18n_block_language' => array(),
-    'i18n_mode' => 1,
-    'machine_name' => 'home_register',
-    'module' => 'block',
-    'node_types' => array(),
-    'pages' => '<front>
-expert/register
-client/register',
-    'roles' => array(
-      'anonymous user' => 1,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => 'sidebar_second',
-        'status' => 1,
-        'theme' => 'emindhub',
-        'weight' => -42,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => 'Registration',
-    'visibility' => 0,
-  );
-
   $export['block-hp_welcome'] = array(
     'cache' => -1,
     'custom' => 0,
@@ -61,7 +29,7 @@ client/register',
         'region' => 'title',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -47,
+        'weight' => -46,
       ),
       'seven' => array(
         'region' => '',
@@ -121,7 +89,7 @@ client/register',
         'region' => '',
         'status' => 0,
         'theme' => 'emindhub',
-        'weight' => -47,
+        'weight' => -46,
       ),
       'seven' => array(
         'region' => '',
@@ -207,7 +175,7 @@ client/register',
         'region' => 'navigation',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -47,
+        'weight' => -46,
       ),
       'seven' => array(
         'region' => '',
@@ -237,7 +205,7 @@ client/register',
         'region' => 'navigation',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -47,
+        'weight' => -46,
       ),
       'seven' => array(
         'region' => '',
@@ -297,7 +265,7 @@ client/register',
         'region' => '',
         'status' => 0,
         'theme' => 'emindhub',
-        'weight' => -47,
+        'weight' => -46,
       ),
       'seven' => array(
         'region' => '',
@@ -510,34 +478,6 @@ client/register',
       ),
     ),
     'title' => 'Scope of services in aerospace',
-    'visibility' => 1,
-  );
-
-  $export['views-news_thread-block'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'delta' => 'news_thread-block',
-    'i18n_block_language' => array(),
-    'i18n_mode' => 1,
-    'module' => 'views',
-    'node_types' => array(),
-    'pages' => '<front>',
-    'roles' => array(),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => 'bottom',
-        'status' => 1,
-        'theme' => 'emindhub',
-        'weight' => -42,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '<none>',
     'visibility' => 1,
   );
 
