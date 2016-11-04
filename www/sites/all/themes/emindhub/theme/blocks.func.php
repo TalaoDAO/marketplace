@@ -76,48 +76,9 @@ function emindhub_preprocess_block(&$variables) {
       // $classes[] = 'col-md-2 col-xs-3'; // TODO
       break;
 
-    // Registration block : expert/client
-    case 'block-2':
-      $classes[] = 'col-xs-6 col-md-12 emh-block-dark';
-      break;
-
-    case 'block-5':
-      $classes[] = 'col-xs-6 col-md-12';
-      break;
-
-    // eMindHub is looking for experts
-    case 'block-6':
-      $classes[] = 'col-xs-6 col-md-12 emh-block-gold';
-      break;
-
     // HP - Create a request
     case 'block-8':
       $classes[] = 'emh-block-grey';
-      break;
-
-    // HP - About experts
-    case 'block-10':
-      $classes[] = 'col-md-12';
-      $classes[] = 'emh-block-dark-title';
-      $content = '';
-      break;
-
-    // HP - Rapidity
-    case 'block-20':
-      $classes[] = 'col-md-4';
-      $classes[] = 'emh-block-blue';
-      break;
-
-    // HP - Security
-    case 'block-21':
-      $classes[] = 'col-md-4';
-      $classes[] = 'emh-block-blue';
-      break;
-
-    // HP - Quality
-    case 'block-19':
-      $classes[] = 'col-md-4';
-      $classes[] = 'emh-block-blue';
       break;
 
     // HP - Welcome
@@ -125,42 +86,6 @@ function emindhub_preprocess_block(&$variables) {
       $classes[] = 'col-md-8';
       $classes[] = 'emh-block-blue-main-title';
       $content = '';
-      break;
-
-    // HP - Business - Question
-    case 'block-15':
-      $content = '<a href="' . url('client/register') . '">' . $content . '</a>';
-      break;
-
-    // HP - Expert - Question
-    case 'block-9':
-      $content = '<a href="' . url('expert/register') . '">' . $content . '</a>';
-      break;
-
-    // HP - Business - You are
-    case 'block-18':
-      $classes[] = 'emh-block-light';
-      $classes[] = 'emh-block-dark-title';
-      $content = '<a href="' . url('client/register') . '">' . $content . '</a>';
-      break;
-
-    // HP - Expert - You are
-    case 'block-11':
-      $classes[] = 'emh-block-light';
-      $classes[] = 'emh-block-dark-title';
-      $content = '<a href="' . url('expert/register') . '">' . $content . '</a>';
-      break;
-
-    // HP - Business - Get a free trial
-    case 'block-13':
-      $classes[] = 'emh-block-light';
-      $content = '<a href="' . url('client/register') . '">' . $content . '</a>';
-      break;
-
-    // HP - Expert - Sign up for free
-    case 'block-12':
-      $classes[] = 'emh-block-light';
-      $content = '<a href="' . url('expert/register') . '">' . $content . '</a>';
       break;
 
     // They use
