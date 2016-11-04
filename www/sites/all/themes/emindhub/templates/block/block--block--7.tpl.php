@@ -21,6 +21,7 @@ if (!empty($current_lang) && $current_lang == 'fr') {
   include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/school-community.tpl.php');
   include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/publications.tpl.php');
   include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/references.tpl.php');
+  include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/customer-emh-expert.tpl.php');
 ?>
 
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
