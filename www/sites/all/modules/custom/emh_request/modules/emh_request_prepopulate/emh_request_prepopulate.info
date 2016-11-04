@@ -1,0 +1,6 @@
+name = EMH Request Prepopulate
+description = Prepopulate request creation.
+package = EMH
+core = 7.x
+
+dependencies[] = emh_request

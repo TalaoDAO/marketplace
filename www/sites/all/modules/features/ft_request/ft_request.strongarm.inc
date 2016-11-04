@@ -99,19 +99,19 @@ function ft_request_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '16',
-        ),
-        'metatags' => array(
           'weight' => '17',
         ),
+        'metatags' => array(
+          'weight' => '18',
+        ),
         'language' => array(
-          'weight' => '6',
+          'weight' => '7',
         ),
       ),
       'display' => array(
         'webform' => array(
           'default' => array(
-            'weight' => '10',
+            'weight' => '11',
             'visible' => TRUE,
           ),
           'summary' => array(
@@ -121,7 +121,7 @@ function ft_request_strongarm() {
         ),
         'language' => array(
           'default' => array(
-            'weight' => '11',
+            'weight' => '12',
             'visible' => FALSE,
           ),
           'summary' => array(
