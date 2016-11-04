@@ -2416,6 +2416,7 @@ function ft_field_base_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'group_content_access',
     'field_permissions' => array(
+      'owner_field' => 'Comment',
       'type' => 0,
     ),
     'indexes' => array(

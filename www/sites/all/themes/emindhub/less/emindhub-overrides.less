@@ -234,18 +234,21 @@ body.page-node-edit {
 
 		> * {
 			.make-md-column(3);
+			@media (min-width: @screen-md-min) {
+		    width: 20%;
+		  }	
 			padding: 0 15px; // views.css
 			.form-group {
 				margin-bottom: 0;
 			}
 		}
-		> #edit-type-wrapper,
-    > #edit-type-1-wrapper {
-			.make-md-column(4);
-			.bef-select-as-checkboxes .bef-checkboxes {
-		    width: 100%;
-			}
-		}
+		// > #edit-type-wrapper,
+    // > #edit-type-1-wrapper {
+		// 	.make-md-column(4);
+		// 	.bef-select-as-checkboxes .bef-checkboxes {
+		//     width: 100%;
+		// 	}
+		// }
 		> .views-submit-button,
 		> .views-reset-button {
 			.make-md-column(1);
