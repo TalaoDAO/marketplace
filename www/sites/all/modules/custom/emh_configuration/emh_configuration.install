@@ -558,16 +558,17 @@ function emh_configuration_update_7035() {
 }
 
 /**
- * CHG: remove for good old request types!
- */
-function emh_configuration_update_7036() {
-  module_disable(array('emh_question', 'emh_challenge', 'emh_mission'));
-  drupal_uninstall_modules(array('emh_question', 'emh_challenge', 'emh_mission'));
-}
-
-/**
  * ADD: Enable EMH Request Prepopulate.
  */
 // function emh_request_update_7127() {
 //   module_enable(['emh_request_prepopulate']);
 // }
+
+
+/**
+ * CHG: remove for good old request types!
+ */
+function emh_configuration_update_7037() {
+  module_disable(array('emh_question', 'emh_challenge', 'emh_mission'));
+  drupal_uninstall_modules(array('emh_question', 'emh_challenge', 'emh_mission'));
+}
