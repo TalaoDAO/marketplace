@@ -11,6 +11,18 @@ if (!empty($current_lang) && $current_lang == 'fr') {
   $video_url = 'https://www.youtube.com/embed/VAXPojC8KLU';
 }
 ?>
+
+<?php
+  include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/persona.tpl.php');
+  include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/emhlive.tpl.php');
+  include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/how-it-works.tpl.php');
+  include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/expertise.tpl.php');
+  include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/requests.tpl.php');
+  include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/school-community.tpl.php');
+  include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/publications.tpl.php');
+  include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/references.tpl.php');
+?>
+
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
   <div class="content container">
