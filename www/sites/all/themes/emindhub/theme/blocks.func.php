@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Implements hook_preprocess_block()
  */
@@ -72,10 +71,6 @@ function emindhub_preprocess_block(&$variables) {
       $classes[] = 'col-md-4 col-md-offset-8';
       break;
 
-    case 'block-bootstrap-languages':
-      // $classes[] = 'col-md-2 col-xs-3'; // TODO
-      break;
-
     // HP - Create a request
     case 'block-8':
       $classes[] = 'emh-block-grey';
@@ -102,31 +97,9 @@ function emindhub_preprocess_block(&$variables) {
       $classes[] = 'emh-block-slider';
       break;
 
-    // News
-    case 'views-news_thread-block':
-      $classes[] = 'emh-block-dark';
-      $classes[] = 'emh-block-slider';
-      if (user_is_logged_in()) :
-        $classes[] = 'emh-block-blue-title';
-      else :
-        $classes[] = 'emh-block-dark-title';
-      endif;
-      break;
-
-    // News (1 items)
-    // case 'views-news_thread-block_2':
-    //   $classes[] = 'emh-block-blue-title';
-    //   $classes[] = 'emh-block-dark';
-    //   break;
-
     // More about us?
     case 'formblock-contact_site':
       $classes[] = 'emh-block-dark-title';
-      break;
-
-    // Main content
-    case 'system-main':
-      // $classes[] = 'emh-block-dark-title';
       break;
 
     // Burger menu > Shortcuts
@@ -163,7 +136,4 @@ function emindhub_preprocess_block(&$variables) {
     default:
       break;
   }
-
-  // echo '<pre>' . print_r($variables['block'], TRUE) . '</pre>';
-
 }
