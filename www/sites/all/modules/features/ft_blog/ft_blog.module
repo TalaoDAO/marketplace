@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the FT Blog feature.
+ */
+
+include_once 'ft_blog.features.inc';
