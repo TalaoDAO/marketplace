@@ -2,7 +2,7 @@
 
   <?php print render($title_prefix); ?>
   <?php if ($title): ?>
-    <div class="emhlive-title">
+    <div class="emh-title">
       <?php print $title; ?>
     </div>
     <!-- <h2<?php print $title_attributes; ?>><span><?php print $title; ?></span></h2> -->
@@ -19,11 +19,11 @@
 
     <div class="emh-dots emh-dots-alt"></div>
 
-    <!-- <div class="emh-actions">
+    <div class="emh-actions">
       <div class="emh-action">
         <a class="emh-button" href="#"><?php print t('CHANGEME Toutes les publications'); ?></a>
       </div>
-    </div> -->
+    </div>
 
     <script type="text/javascript">
     /**
