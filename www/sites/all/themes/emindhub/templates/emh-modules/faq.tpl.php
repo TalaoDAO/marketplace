@@ -30,6 +30,14 @@
     </div>
 
 
+    <div class="emh-actions">
+
+      <div class="emh-action">
+        <?php print t('CHANGEME Vous êtes expert en aéronautique ? Répondez aux demandes et gagnez des crédits'); ?> <a class="emh-button solid-alt" href="#"><?php print t('CHANGEME Proposer une expertise'); ?></a>
+      </div>
+
+    </div>
+
     <script type="text/javascript">
         Drupal.behaviors.faq = {
             attach: function (context, settings) {
