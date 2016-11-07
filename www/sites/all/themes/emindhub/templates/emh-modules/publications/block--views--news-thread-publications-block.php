@@ -19,11 +19,11 @@
 
     <div class="emh-dots emh-dots-alt"></div>
 
-    <div class="emh-actions">
+    <!-- <div class="emh-actions">
       <div class="emh-action">
         <a class="emh-button" href="#"><?php print t('CHANGEME Toutes les publications'); ?></a>
       </div>
-    </div>
+    </div> -->
 
     <script type="text/javascript">
     /**
