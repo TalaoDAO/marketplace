@@ -155,25 +155,27 @@
 
     </div>
 
-    <?php
-    global $base_url, $language;
-    $current_lang = $language->language;
-    $front_theme = path_to_theme();
-    $front_theme = $base_url . '/' . $front_theme;
+    <?php if (!$block_html_id) : ?>
+      <?php
+      global $base_url, $language;
+      $current_lang = $language->language;
+      $front_theme = path_to_theme();
+      $front_theme = $base_url . '/' . $front_theme;
 
-    // Video
-    if (!empty($current_lang) && $current_lang == 'fr') {
-      $video_url = 'https://www.youtube.com/embed/Vi2bkPyqyCs?&amp;hl=fr&amp;cc_lang_pref=fr&amp;cc_load_policy=1';
-    } else {
-      $video_url = 'https://www.youtube.com/embed/VAXPojC8KLU';
-    }
-    ?>
-    <div class="emh-module hiw-video container">
-      <h3><?php print t('CHANGEME Tout comprendre en vidéo'); ?></h3>
-      <div class="embed-responsive embed-responsive-16by9">
-       <iframe class="embed-responsive-item" src="<?php print $video_url; ?>"></iframe>
-    </div>
-    </div>
+      // Video
+      if (!empty($current_lang) && $current_lang == 'fr') {
+        $video_url = 'https://www.youtube.com/embed/Vi2bkPyqyCs?&amp;hl=fr&amp;cc_lang_pref=fr&amp;cc_load_policy=1';
+      } else {
+        $video_url = 'https://www.youtube.com/embed/VAXPojC8KLU';
+      }
+      ?>
+      <div class="emh-module hiw-video container">
+        <h3><?php print t('CHANGEME Tout comprendre en vidéo'); ?></h3>
+        <div class="embed-responsive embed-responsive-16by9">
+         <iframe class="embed-responsive-item" src="<?php print $video_url; ?>"></iframe>
+      </div>
+      </div>
+    <?php endif; ?>
 
   </div>
 
