@@ -1,0 +1,58 @@
+.who-we-are {
+
+    background-image: url("../images/logo/circles.svg");
+    background-position: right center;
+    background-size: 500px;
+    background-repeat: no-repeat;
+
+    &-text {
+        font-size: 15px;
+        color: @color-tertiary;
+        max-width: 570px;
+        margin: 0 auto;
+        text-align: justify;
+
+        .subtitle {
+            font-size: 20px;
+            font-weight: normal;
+            text-align: center;
+
+            margin-left: ~"calc((" @screen-lg - 15px ~" - 100%) / -2)";
+            margin-right: ~"calc((" @screen-lg - 15px ~" - 100%) / -2)";
+            margin-bottom: 50px;
+
+            @media (max-width: @screen-md-max) {
+                margin-left: ~"calc((" @screen-md - 15px ~" - 100%) / -2)";
+                margin-right: ~"calc((" @screen-md - 15px ~" - 100%) / -2)";
+            }
+            @media (max-width: @screen-sm-max) {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    }
+
+    position: relative;
+    min-height: 250px;
+    &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 246px;
+        height: 246px;
+        @media (max-width: @screen-md-max) {
+            width: ~"calc(246px * 2/3)";
+            height: ~"calc(246px * 2/3)";
+        }
+        @media (max-width: @screen-sm-max) {
+            content: none;
+        }
+        background-image: url("../images/logo/eMindHub_logo_baseline.png");
+        background-position: center center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+}
