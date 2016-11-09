@@ -1,0 +1,37 @@
+.person-list {
+    list-style-type: none;
+    padding: 0;
+    margin-left: -10px;
+    margin-top: -10px;
+}
+
+.person-wrapper {
+    padding: 10px;
+}
+
+.person {
+    border: 1px solid @color-primary;
+    padding: 15px;
+
+    background-image: url('../images/logo/circles.svg');
+    background-repeat: no-repeat;
+    background-position: 110% center;
+    background-size: 150px;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    font-weight: bold;
+    color: @color-tertiary;
+    line-height: 22px;
+
+    .picture {
+        margin-right: 15px;
+        flex: 0 0 100px;
+    }
+
+    .content {
+        min-height: 88px;
+    }
+}
