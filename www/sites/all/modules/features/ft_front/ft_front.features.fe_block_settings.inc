@@ -149,7 +149,7 @@ function ft_front_default_fe_block_settings() {
         'region' => 'bottom',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -42,
+        'weight' => -40,
       ),
       'seven' => array(
         'region' => '',
