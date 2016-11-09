@@ -701,11 +701,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
   $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['label'] = '';
-  $handler->display->display_options['fields']['field_image']['element_type'] = '0';
-  $handler->display->display_options['fields']['field_image']['element_label_type'] = '0';
   $handler->display->display_options['fields']['field_image']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_image']['element_wrapper_type'] = 'div';
-  $handler->display->display_options['fields']['field_image']['element_wrapper_class'] = 'picture';
   $handler->display->display_options['fields']['field_image']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_image']['click_sort_column'] = 'fid';
   $handler->display->display_options['fields']['field_image']['settings'] = array(
@@ -719,11 +715,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title_field_et']['label'] = '';
   $handler->display->display_options['fields']['title_field_et']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['title_field_et']['alter']['path'] = '[path]';
-  $handler->display->display_options['fields']['title_field_et']['element_type'] = '0';
-  $handler->display->display_options['fields']['title_field_et']['element_label_type'] = '0';
   $handler->display->display_options['fields']['title_field_et']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['title_field_et']['element_wrapper_type'] = 'div';
-  $handler->display->display_options['fields']['title_field_et']['element_wrapper_class'] = 'title';
   $handler->display->display_options['fields']['title_field_et']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['title_field_et']['settings'] = array(
     'title_style' => 'h3',
@@ -735,11 +727,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['created']['table'] = 'node';
   $handler->display->display_options['fields']['created']['field'] = 'created';
   $handler->display->display_options['fields']['created']['label'] = '';
-  $handler->display->display_options['fields']['created']['element_type'] = '0';
-  $handler->display->display_options['fields']['created']['element_label_type'] = '0';
   $handler->display->display_options['fields']['created']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['created']['element_wrapper_type'] = 'span';
-  $handler->display->display_options['fields']['created']['element_wrapper_class'] = 'meta date';
   $handler->display->display_options['fields']['created']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['created']['date_format'] = 'custom';
   $handler->display->display_options['fields']['created']['custom_date_format'] = 'd M';
@@ -749,11 +737,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_domaine']['table'] = 'field_data_field_domaine';
   $handler->display->display_options['fields']['field_domaine']['field'] = 'field_domaine';
   $handler->display->display_options['fields']['field_domaine']['label'] = '';
-  $handler->display->display_options['fields']['field_domaine']['element_type'] = '0';
-  $handler->display->display_options['fields']['field_domaine']['element_label_type'] = '0';
   $handler->display->display_options['fields']['field_domaine']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_domaine']['element_wrapper_type'] = 'span';
-  $handler->display->display_options['fields']['field_domaine']['element_wrapper_class'] = 'meta category';
   $handler->display->display_options['fields']['field_domaine']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_domaine']['delta_offset'] = '0';
   /* Field: Content: Body */
@@ -761,21 +745,19 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['body']['table'] = 'field_data_body';
   $handler->display->display_options['fields']['body']['field'] = 'body';
   $handler->display->display_options['fields']['body']['label'] = '';
-  $handler->display->display_options['fields']['body']['alter']['max_length'] = '300';
+  $handler->display->display_options['fields']['body']['alter']['max_length'] = '125';
   $handler->display->display_options['fields']['body']['alter']['more_link'] = TRUE;
   $handler->display->display_options['fields']['body']['alter']['more_link_text'] = 'Read more';
   $handler->display->display_options['fields']['body']['alter']['more_link_path'] = '[path]';
   $handler->display->display_options['fields']['body']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['body']['alter']['trim'] = TRUE;
-  $handler->display->display_options['fields']['body']['element_type'] = '0';
-  $handler->display->display_options['fields']['body']['element_label_type'] = '0';
   $handler->display->display_options['fields']['body']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['body']['element_wrapper_type'] = 'div';
-  $handler->display->display_options['fields']['body']['element_wrapper_class'] = 'text';
+  $handler->display->display_options['fields']['body']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['body']['type'] = 'text_plain';
   $handler->display->display_options['fields']['body']['settings'] = array(
     'trim_length' => '300',
   );
+  $handler->display->display_options['block_description'] = 'Publications';
 
   /* Display: (B) Live Publications */
   $handler = $view->new_display('block', '(B) Live Publications', 'publications_block_live');
@@ -793,7 +775,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['style_options']['row_class'] = 'emhlive-item';
   $handler->display->display_options['style_options']['default_row_class'] = FALSE;
   $handler->display->display_options['style_options']['row_class_special'] = FALSE;
   $handler->display->display_options['defaults']['style_options'] = FALSE;
@@ -828,11 +809,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title_field_et']['label'] = '';
   $handler->display->display_options['fields']['title_field_et']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['title_field_et']['alter']['path'] = '[path]';
-  $handler->display->display_options['fields']['title_field_et']['element_type'] = '0';
-  $handler->display->display_options['fields']['title_field_et']['element_label_type'] = '0';
   $handler->display->display_options['fields']['title_field_et']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['title_field_et']['element_wrapper_type'] = 'div';
-  $handler->display->display_options['fields']['title_field_et']['element_wrapper_class'] = 'emhlive-item-title';
   $handler->display->display_options['fields']['title_field_et']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['title_field_et']['settings'] = array(
     'title_style' => 'h3',
@@ -844,11 +821,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['created']['table'] = 'node';
   $handler->display->display_options['fields']['created']['field'] = 'created';
   $handler->display->display_options['fields']['created']['label'] = '';
-  $handler->display->display_options['fields']['created']['element_type'] = '0';
-  $handler->display->display_options['fields']['created']['element_label_type'] = '0';
   $handler->display->display_options['fields']['created']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['created']['element_wrapper_type'] = 'span';
-  $handler->display->display_options['fields']['created']['element_wrapper_class'] = 'emhlive-item-meta emhlive-item-date';
   $handler->display->display_options['fields']['created']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['created']['date_format'] = 'custom';
   $handler->display->display_options['fields']['created']['custom_date_format'] = 'd M. Y';
@@ -858,11 +831,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_domaine']['table'] = 'field_data_field_domaine';
   $handler->display->display_options['fields']['field_domaine']['field'] = 'field_domaine';
   $handler->display->display_options['fields']['field_domaine']['label'] = '';
-  $handler->display->display_options['fields']['field_domaine']['element_type'] = '0';
-  $handler->display->display_options['fields']['field_domaine']['element_label_type'] = '0';
   $handler->display->display_options['fields']['field_domaine']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_domaine']['element_wrapper_type'] = 'span';
-  $handler->display->display_options['fields']['field_domaine']['element_wrapper_class'] = 'emhlive-item-meta emhlive-item-category';
   $handler->display->display_options['fields']['field_domaine']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_domaine']['delta_offset'] = '0';
   /* Field: Content: Body */
@@ -876,11 +845,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['body']['alter']['more_link_path'] = '[path]';
   $handler->display->display_options['fields']['body']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['body']['alter']['trim'] = TRUE;
-  $handler->display->display_options['fields']['body']['element_type'] = '0';
-  $handler->display->display_options['fields']['body']['element_label_type'] = '0';
   $handler->display->display_options['fields']['body']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['body']['element_wrapper_type'] = 'div';
-  $handler->display->display_options['fields']['body']['element_wrapper_class'] = 'emhlive-item-text';
   $handler->display->display_options['fields']['body']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['body']['type'] = 'text_plain';
   $handler->display->display_options['fields']['body']['settings'] = array(
@@ -1887,7 +1852,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
   $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
   $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
-  /* Field: Field: Organisation / company */
+  /* Field: Field: Organisation */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';
