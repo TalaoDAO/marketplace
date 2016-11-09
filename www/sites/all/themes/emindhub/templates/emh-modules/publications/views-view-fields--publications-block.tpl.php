@@ -29,3 +29,7 @@
   </div>
   <?php endif; ?>
 </div>
+
+<?php if (!empty($fields['nothing']->content)): ?>
+  <a href="<?php print $fields['nothing']->content; ?>" class="emh-read-more"><?php print t('Read more'); ?></a>
+<?php endif; ?>
