@@ -26,10 +26,10 @@ function ft_blog_default_fe_block_settings() {
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'header',
+        'region' => 'top',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -49,
+        'weight' => -41,
       ),
       'seven' => array(
         'region' => '',
@@ -57,7 +57,7 @@ function ft_blog_default_fe_block_settings() {
         'region' => 'bottom',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -49,
+        'weight' => -42,
       ),
       'seven' => array(
         'region' => '',
