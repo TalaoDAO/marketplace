@@ -208,16 +208,18 @@ global $base_url;
 
     </header>
 
+    <?php if (!empty($page['top'])): ?>
+      <div class="container-fluid">
+        <?php print render($page['top']); ?>
+      </div>
+    <?php endif; ?>
+
     <div class="container">
 
       <?php if (!empty($page['highlighted'])): ?>
       <div class="highlighted jumbotron">
           <?php print render($page['highlighted']); ?>
       </div>
-      <?php endif; ?>
-
-      <?php if (!empty($page['top'])): ?>
-      <?php print render($page['top']); ?>
       <?php endif; ?>
 
       <div class="row">
