@@ -85,8 +85,6 @@
 
     </div>
 
-    <a class="hiw-view-full" href="#"><?php print t('CHANGEME Voir le schéma complet'); ?></a>
-
     <div class="emh-actions">
 
       <div class="emh-action">
@@ -141,8 +139,6 @@
 
       </div>
     </div>
-
-    <a class="hiw-view-full" href="#"><?php print t('CHANGEME Voir le schéma complet'); ?></a>
 
     <div class="emh-actions">
 
