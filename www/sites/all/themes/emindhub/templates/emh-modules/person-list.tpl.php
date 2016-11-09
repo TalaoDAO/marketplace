@@ -5,7 +5,7 @@
 
 
         <li class="person-wrapper col-xs-12 col-sm-6 col-md-4 col-lg-3">
-            <div class="person">
+            <div class="person <?php print $fakeItems%2?'person-alt':''; ?>">
 
                 <div class="picture">
                     <img src="https://dummyimage.com/100/000/fff.jpg" alt="" />
