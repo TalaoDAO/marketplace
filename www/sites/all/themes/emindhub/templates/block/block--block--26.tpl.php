@@ -10,7 +10,7 @@
     <?php endif;?>
 
     <div class="select-persona-subtitle">
-      <?php print t('The 1st smart professional network in aerospace.'); ?>
+      <?php print t('The 1st Smart Professional Network in aerospace.'); ?>
     </div>
 
     <div class="row select-persona-buttons">
