@@ -29,7 +29,7 @@ function ft_front_default_fe_block_settings() {
         'region' => 'bottom',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -50,
+        'weight' => -42,
       ),
       'seven' => array(
         'region' => '',
@@ -56,10 +56,10 @@ function ft_front_default_fe_block_settings() {
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'header',
+        'region' => 'top',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -47,
+        'weight' => -39,
       ),
       'seven' => array(
         'region' => '',
@@ -86,10 +86,10 @@ function ft_front_default_fe_block_settings() {
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'header',
+        'region' => 'top',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -48,
+        'weight' => -40,
       ),
       'seven' => array(
         'region' => '',
@@ -116,10 +116,10 @@ function ft_front_default_fe_block_settings() {
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'header',
+        'region' => 'top',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -50,
+        'weight' => -42,
       ),
       'seven' => array(
         'region' => '',
@@ -149,7 +149,7 @@ function ft_front_default_fe_block_settings() {
         'region' => 'bottom',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -48,
+        'weight' => -42,
       ),
       'seven' => array(
         'region' => '',

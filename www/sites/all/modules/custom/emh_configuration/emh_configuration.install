@@ -602,3 +602,19 @@ function emh_configuration_update_7038() {
   ));
   module_enable(array('ft_front', 'ft_blog'));
 }
+
+/**
+ * CHG: publish nodes & translations.
+ */
+function emh_configuration_update_7039() {
+  $nids = array('267', '268', '303');
+  $nodes = node_load_multiple($nids);
+  foreach ($nodes as $node) {
+    $node->status = 1;
+    $node->translations->data['en']['status'] = $node->status;
+    $node->translations->data['en']['language'] = 'en';
+    $node->translations->data['fr']['status'] = $node->status;
+    $node->translations->data['fr']['language'] = 'fr';
+    node_save($node);
+  }
+}
