@@ -13,8 +13,8 @@
   </div>
 
   <ul class="hiw-tabs">
-    <li><button type="button" name="button" data-tab="hiw-customer" class="hiw-tab emh-button customer"><?php print t('You are a customer'); ?></button></li>
-    <li><button type="button" name="button" data-tab="hiw-expert" class="hiw-tab emh-button expert"><?php print t('You are an expert'); ?></button></li>
+    <li><button type="button" name="button" data-tab="hiw-customer" class="hiw-tab emh-button customer"><?php print t('You need expertise'); ?></button></li>
+    <li><button type="button" name="button" data-tab="hiw-expert" class="hiw-tab emh-button expert"><?php print t('You have expertise'); ?></button></li>
   </ul>
 
   <!-- CUSTOMER-->
@@ -30,37 +30,37 @@
         <li class="hiw-service">
           <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/ico-faq.svg" alt="" />
           <div class="label">FAQ</div>
-          <div class="legend"><?php print t('CHANGEME Poser une question à des experts'); ?></div>
+          <div class="legend"><?php print t('Consult a list of questions and answers to recurring and common themes'); ?></div>
         </li>
         <li class="hiw-service">
           <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/ico-doc.svg" alt="" />
           <div class="label">Doc</div>
-          <div class="legend"><?php print t('CHANGEME Poser une question à la commnauté des experts'); ?></div>
+          <div class="legend"><?php print t('Request a community of experts to find a specific document'); ?></div>
         </li>
         <li class="hiw-service">
           <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/ico-qa.svg" alt="" />
           <div class="label">Q/A</div>
-          <div class="legend"><?php print t('CHANGEME Poser une question à la commnauté des experts'); ?></div>
+          <div class="legend"><?php print t('Ask a question to a community of experts'); ?></div>
         </li>
         <li class="hiw-service">
           <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/ico-call.svg" alt="" />
           <div class="label">Call</div>
-          <div class="legend"><?php print t('CHANGEME Poser une question à la commnauté des experts'); ?></div>
+          <div class="legend"><?php print t('Request a telephone appointment with an expert'); ?></div>
         </li>
         <li class="hiw-service">
           <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/ico-survey.svg" alt="" />
           <div class="label">Survey</div>
-          <div class="legend"><?php print t('CHANGEME Poser une question à la commnauté des experts'); ?></div>
+          <div class="legend"><?php print t('Put out a survey to a community of experts'); ?></div>
         </li>
         <li class="hiw-service">
           <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/ico-missions.svg" alt="" />
           <div class="label">Missions</div>
-          <div class="legend"><?php print t('CHANGEME Poser une question à la commnauté des experts'); ?></div>
+          <div class="legend"><?php print t('Search for an expert for a mission or project'); ?></div>
         </li>
         <li class="hiw-service">
           <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/ico-cv.svg" alt="" />
           <div class="label">CV</div>
-          <div class="legend"><?php print t('CHANGEME Poser une question à la commnauté des experts'); ?></div>
+          <div class="legend"><?php print t('Call on a community of experts to find qualified candidates for recruitment'); ?></div>
         </li>
       </ul>
     </div>
@@ -131,7 +131,7 @@
       <div class="hiw-step hiw-step-4 arrowed">
         <dl class="hiw-step-title">
           <dt><strong>1</strong> - <?php print t('CHANGEME Je développe ma notoriété'); ?></dt>
-          <dt><strong>2</strong> - <?php print t('CHANGEME J\'optient de nouvelles missions'); ?></dt>
+          <dt><strong>2</strong> - <?php print t('CHANGEME J\'optiens de nouvelles missions'); ?></dt>
           <dt><strong>2</strong> - <?php print t('CHANGEME Je gagne des crédits lorsque :'); ?></dt>
           <dd><?php print t('CHANGEME mon profil est consulté'); ?></dd>
           <dd><?php print t('CHANGEME mes parrainages sont acceptés'); ?></dd>
