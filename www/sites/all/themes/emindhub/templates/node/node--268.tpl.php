@@ -20,6 +20,7 @@
       hide($content['comments']);
       hide($content['links']);
       print render($content);
+      include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/customer-emh-expert.tpl.php');
       include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/how-it-works.tpl.php');
     ?>
   </div>
