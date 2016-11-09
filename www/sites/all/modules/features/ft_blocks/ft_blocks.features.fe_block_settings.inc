@@ -230,8 +230,8 @@ function ft_blocks_default_fe_block_settings() {
     'roles' => array(),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'sidebar_first',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
         'weight' => -43,
       ),
