@@ -5,24 +5,24 @@
     <?php if ($title): ?>
     <div class="select-persona-title">
       <!-- <h2<?php print $title_attributes; ?>><span><?php print $title; ?></span></h2> -->
-      <?php print t('The best aviation experts answer your questions.'); ?>
+      <?php print t('The best experts in aerospace responding to your requests.'); ?>
     </div>
     <?php endif;?>
 
     <div class="select-persona-subtitle">
-      <?php print t('Your projects deserve the best expertise.'); ?>
+      <?php print t('The 1st smart professional network in aerospace.'); ?>
     </div>
 
     <div class="row select-persona-buttons">
 
       <div class="persona-customer col-xs-6">
-        <a class="button" href="#"><?php print t('You are a customer?'); ?></a>
-        <p><?php print t('Découvrez comment nullam quis<br>lacinia augue. Curabitur'); ?></p>
+        <a class="button" href="#"><?php print t('CHANGEME Vous êtes client ?'); ?></a>
+        <p><?php print t('Get quick access to the best experts'); ?></p>
       </div>
 
       <div class="persona-expert col-xs-6">
-        <a class="button" href="#"><?php print t('You are an expert?'); ?></a>
-        <p><?php print t('Découvrez comment nullam quis<br>lacinia augue. Curabitur'); ?></p>
+        <a class="button" href="#"><?php print t('CHANGEME Vous êtes expert ?'); ?></a>
+        <p><?php print t('Respond to requests matching your expertise'); ?></p>
       </div>
 
     </div>
