@@ -61,8 +61,10 @@
 </section>
 
 <?php
+  include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/who-we-are.tpl.php');
   // include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/persona.tpl.php');
   // include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/emhlive.tpl.php');
+  include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/person-list.tpl.php');
   // include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/how-it-works.tpl.php');
   // include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/expertise.tpl.php');
   include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/requests.tpl.php');
@@ -70,4 +72,7 @@
   // include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/publications.tpl.php');
   // include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/references.tpl.php');
   include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/customer-emh-expert.tpl.php');
+  include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/publication-detail.tpl.php');
+  include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/faq.tpl.php');
+  include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/expertise-full.tpl.php');
 ?>

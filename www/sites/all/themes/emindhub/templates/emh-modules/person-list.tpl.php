@@ -4,7 +4,7 @@
         <?php $fakeItems = 5; while($fakeItems--): ?>
 
 
-        <li class="person-wrapper col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <li class="person-wrapper">
             <div class="person <?php print $fakeItems%2?'person-alt':''; ?>">
 
                 <div class="picture">
