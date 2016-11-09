@@ -35,7 +35,7 @@
                     </div>
                 </div>
 
-                <a href="#" class="read-more"><?php print t('Read more'); ?></a>
+                <a href="#" class="emh-read-more"><?php print t('Read more'); ?></a>
             </article>
         </div>
 
