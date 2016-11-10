@@ -568,8 +568,19 @@ function emh_configuration_update_7036() {
  * CHG: remove for good old request types!
  */
 function emh_configuration_update_7037() {
+  // Uninstall old custom modules
   module_disable(array('emh_question', 'emh_challenge', 'emh_mission'));
   drupal_uninstall_modules(array('emh_question', 'emh_challenge', 'emh_mission'));
+  features_revert(array('ft_permissions' => array('user_permission')));
+
+  // Reload EMH Request strings
   emh_request_disable_strings();
   emh_request_enable_strings();
+}
+
+/**
+ * ADD: Public request content type.
+ */
+function emh_configuration_update_7038() {
+  module_enable(array('ft_public_request'));
 }
