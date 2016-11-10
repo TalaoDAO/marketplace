@@ -26,6 +26,7 @@ features[field_instance][] = node-blog-field_domaine
 features[field_instance][] = node-blog-field_image
 features[field_instance][] = node-blog-og_group_ref
 features[field_instance][] = node-blog-title_field
+features[image][] = publication_full
 features[user_permission][] = create blog content
 features[user_permission][] = delete any blog content
 features[user_permission][] = delete own blog content

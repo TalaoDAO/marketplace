@@ -51,7 +51,7 @@ function ft_blog_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 2,
+      'weight' => 1,
     ),
   );
 
@@ -63,10 +63,10 @@ function ft_blog_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'inline',
-        'module' => 'taxonomy',
+        'label' => 'hidden',
+        'module' => 'i18n_taxonomy',
         'settings' => array(),
-        'type' => 'taxonomy_term_reference_plain',
+        'type' => 'i18n_taxonomy_term_reference_link',
         'weight' => 2,
       ),
       'teaser' => array(
@@ -100,14 +100,14 @@ function ft_blog_field_default_field_instances() {
   $field_instances['node-blog-field_image'] = array(
     'bundle' => 'blog',
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Format minimum : 790px (largeur) x 500px (hauteur)',
     'display' => array(
       'default' => array(
         'label' => 'hidden',
         'module' => 'image',
         'settings' => array(
           'image_link' => '',
-          'image_style' => 'large',
+          'image_style' => 'publication_full',
         ),
         'type' => 'image',
         'weight' => 0,
@@ -138,6 +138,7 @@ function ft_blog_field_default_field_instances() {
         'file_name' => array(
           'options' => array(
             'pathauto' => 0,
+            'slashes' => 0,
             'transliterate' => 0,
           ),
           'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
@@ -145,16 +146,18 @@ function ft_blog_field_default_field_instances() {
         'file_path' => array(
           'options' => array(
             'pathauto' => 0,
+            'slashes' => 0,
             'transliterate' => 0,
           ),
           'value' => 'blog',
         ),
-        'retroactive_update' => 1,
+        'redirect' => FALSE,
+        'retroactive_update' => 0,
       ),
       'filefield_paths_enabled' => 1,
       'max_filesize' => '',
       'max_resolution' => '',
-      'min_resolution' => '',
+      'min_resolution' => '790x500',
       'title_field' => 0,
       'user_register_form' => FALSE,
     ),
@@ -166,7 +169,7 @@ function ft_blog_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
@@ -231,7 +234,7 @@ function ft_blog_field_default_field_instances() {
       'module' => 'og',
       'settings' => array(),
       'type' => 'og_complex',
-      'weight' => 5,
+      'weight' => 6,
     ),
   );
 
@@ -275,7 +278,7 @@ function ft_blog_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => -5,
+      'weight' => 0,
     ),
   );
 
@@ -283,6 +286,7 @@ function ft_blog_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Body');
   t('Domain(s)');
+  t('Format minimum : 790px (largeur) x 500px (hauteur)');
   t('Groups audience');
   t('Image');
   t('Title');
