@@ -10,6 +10,10 @@
         <li class="testimonial-slider-item">
             <div class="content">
 
+                <div class="logo">
+                    <img src="https://dummyimage.com/200x100/000/fff.jpg" alt="" />
+                </div>
+
                 <div class="person"><!-- identique à ceux du module person-list -->
                     <div class="picture"><img src="https://dummyimage.com/100/000/fff.jpg" alt="" /></div>
                     <div class="content">
@@ -29,6 +33,10 @@
         <li class="testimonial-slider-item">
             <div class="content">
 
+                <div class="logo">
+                    <img src="https://dummyimage.com/200x100/000/fff.jpg" alt="" />
+                </div>
+
                 <div class="person"><!-- identique à ceux du module person-list -->
                     <div class="picture"><img src="https://dummyimage.com/100/000/fff.jpg" alt="" /></div>
                     <div class="content">
@@ -47,6 +55,10 @@
 
         <li class="testimonial-slider-item">
             <div class="content">
+
+                <div class="logo">
+                    <img src="https://dummyimage.com/200x100/000/fff.jpg" alt="" />
+                </div>
 
                 <div class="person"><!-- identique à ceux du module person-list -->
                     <div class="picture"><img src="https://dummyimage.com/100/000/fff.jpg" alt="" /></div>
