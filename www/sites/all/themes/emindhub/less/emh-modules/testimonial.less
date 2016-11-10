@@ -6,6 +6,15 @@
     @media (max-width: @screen-sm-max) {
         display: block;
     }
+
+    &-alt {
+        .testimonial-tabs {
+            color: @color-secondary;
+        }
+        .person {
+            border-color: @color-secondary;
+        }
+    }
 }
 
 .testimonial-tabs,
@@ -21,10 +30,10 @@
     height: 150px;
     margin-right: 40px;
     padding: 20px 0;
-    border-right: 1px solid @color-secondary;
+    border-right: 1px solid currentColor;
 
     text-align: center;
-    color: @color-secondary;
+    color: @color-primary;
     font-size: 20px;
 
     @media (max-width: @screen-sm-max) {
