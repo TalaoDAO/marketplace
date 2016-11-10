@@ -620,8 +620,8 @@ client/register',
     'roles' => array(),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'sidebar_first',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
         'weight' => -43,
       ),
