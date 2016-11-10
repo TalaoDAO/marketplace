@@ -86,8 +86,9 @@ function emh_points_default_rules_configuration() {
   $items['rules_transfert_points_for_content'] = entity_import('rules_config', '{ "rules_transfert_points_for_content" : {
       "LABEL" : "Transfert credits for content",
       "PLUGIN" : "reaction rule",
+      "ACTIVE" : false,
       "OWNER" : "rules",
-      "REQUIRES" : [ "emh_points", "rules" ],
+      "REQUIRES" : [ "rules", "emh_points" ],
       "ON" : {
         "node_insert--question1" : { "bundle" : "question1" },
         "node_insert--challenge" : { "bundle" : "challenge" },
@@ -112,6 +113,7 @@ function emh_points_default_rules_configuration() {
   $items['emh_points_transfert_points_for_published_content'] = entity_import('rules_config', '{ "emh_points_transfert_points_for_published_content" : {
       "LABEL" : "Transfert credits for published content",
       "PLUGIN" : "reaction rule",
+      "ACTIVE" : false,
       "OWNER" : "rules",
       "REQUIRES" : [ "rules", "emh_points" ],
       "ON" : {
@@ -138,6 +140,7 @@ function emh_points_default_rules_configuration() {
   $items['emh_points_transfert_points_for_updated_content'] = entity_import('rules_config', '{ "emh_points_transfert_points_for_updated_content" : {
       "LABEL" : "Transfert credits for updated content",
       "PLUGIN" : "reaction rule",
+      "ACTIVE" : false,
       "OWNER" : "rules",
       "REQUIRES" : [ "rules", "emh_points" ],
       "ON" : {
@@ -151,25 +154,28 @@ function emh_points_default_rules_configuration() {
         { "entity_has_field" : { "entity" : [ "node-unchanged" ], "field" : "field_reward" } },
         { "entity_has_field" : { "entity" : [ "node" ], "field" : "field_reward" } },
         { "data_is" : {
-          "data" : [ "node-unchanged:field-reward" ],
-          "op" : "\u003C",
-          "value" : [ "node:field-reward" ]
-        }}
+            "data" : [ "node-unchanged:field-reward" ],
+            "op" : "\u003C",
+            "value" : [ "node:field-reward" ]
+          }
+        }
       ],
       "DO" : [
         { "data_calc" : {
-          "USING" : {
-            "input_1" : [ "node:field-reward" ],
-            "op" : "-",
-            "input_2" : [ "node-unchanged:field-reward" ]
-          },
-          "PROVIDE" : { "result" : { "amount" : "New amount" } }
-        }},
+            "USING" : {
+              "input_1" : [ "node:field-reward" ],
+              "op" : "-",
+              "input_2" : [ "node-unchanged:field-reward" ]
+            },
+            "PROVIDE" : { "result" : { "amount" : "New amount" } }
+          }
+        },
         { "move_points" : {
-          "source" : [ "node:author" ],
-          "destination" : [ "node" ],
-          "points" : [ "amount" ]
-        }}
+            "source" : [ "node:author" ],
+            "destination" : [ "node" ],
+            "points" : [ "amount" ]
+          }
+        }
       ]
     }
   }');
