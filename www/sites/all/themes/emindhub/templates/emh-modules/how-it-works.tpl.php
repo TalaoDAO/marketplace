@@ -150,7 +150,7 @@
     <div class="emh-actions">
 
       <div class="emh-action">
-        <a class="emh-button solid" href="#"><?php print t('CHANGEME Poster une demande'); ?></a>
+        <a class="emh-button solid-alt" href="#"><?php print t('CHANGEME Poster une demande'); ?></a>
       </div>
 
     </div>
