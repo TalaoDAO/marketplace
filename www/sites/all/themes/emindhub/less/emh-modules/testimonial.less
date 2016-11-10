@@ -1,0 +1,121 @@
+.testimonial {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    @media (max-width: @screen-sm-max) {
+        display: block;
+    }
+
+    &-alt {
+        .testimonial-tabs {
+            color: @color-secondary;
+        }
+        .person {
+            border-color: @color-secondary;
+        }
+    }
+}
+
+.testimonial-tabs,
+.testimonial-slider {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+.testimonial-tabs {
+    flex: 0 0 200px;
+    height: 150px;
+    margin-right: 40px;
+    padding: 20px 0;
+    border-right: 1px solid currentColor;
+
+    text-align: center;
+    color: @color-primary;
+    font-size: 20px;
+
+    @media (max-width: @screen-sm-max) {
+        position: absolute;
+        left: 0;
+        width: 150px;
+        font-size: 15px;
+        z-index: 1;
+    }
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    > li {
+        cursor: pointer;
+        position: relative;
+        &.active {
+            &:after {
+                content: '';
+                display: block;
+                width: 20px;
+                height: 20px;
+                border: 1px solid currentColor;
+                background-color: white;
+                border-width: 1px 1px 0 0;
+                transform: rotate(45deg);
+                position: absolute;
+                right: -11px;
+                top: 2px;
+            }
+        }
+    }
+}
+
+.testimonial-slider {
+    flex: 1 1 auto;
+}
+
+.testimonial-slider-item > .content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    > .logo {
+        display: none;
+        padding-left: 200px;
+        height: 150px;
+    }
+
+    > .person {
+        flex: 0 0 300px;
+        margin-right: 20px;
+    }
+
+    > blockquote {
+        flex: 1 1 auto;
+        margin: 0;
+        padding: 0;
+        border: none;
+        font-size: 13px;
+        font-style: italic;
+        color: @color-tertiary;
+    }
+
+    @media (max-width: @screen-sm-max) {
+        display: block;
+
+        > .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        > .person {
+            margin-top: 20px;
+            margin-right: 0;
+        }
+
+        > blockquote {
+            margin-top: 20px;
+            height: 150px;
+        }
+    }
+}
