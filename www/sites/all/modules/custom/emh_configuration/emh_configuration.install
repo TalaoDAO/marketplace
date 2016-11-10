@@ -576,6 +576,19 @@ function emh_configuration_update_7037() {
   // Reload EMH Request strings
   emh_request_disable_strings();
   emh_request_enable_strings();
+
+  // Desactivate old rules
+  $rules = array(
+    'rules_transfert_points_for_content',
+    'emh_points_transfert_points_for_published_content',
+    'emh_points_transfert_points_for_updated_content',
+    'rules_emh_request_send_notification_email',
+  );
+  foreach ($rules as $rule) {
+    if ($rules_config = rules_config_load($rule)) {
+      $rules_config->delete();
+    }
+  }
 }
 
 /**
