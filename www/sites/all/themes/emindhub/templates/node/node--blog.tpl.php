@@ -12,6 +12,7 @@
         <?php endif; ?>
         <?php print render($title_suffix); ?>
 
+        <?php if (!empty($content['field_domaine']) || !empty($elements['#node']->created)) : ?>
         <div class="publication-meta">
             <?php print render($content['field_domaine']); ?>
             <?php if (!empty($elements['#node']->created)) : ?>
@@ -19,14 +20,19 @@
   					<?php endif; ?>
             <?php //print render($content['links']); ?>
         </div>
+        <?php endif; ?>
 
+        <?php if (!empty($content['field_image'])) : ?>
         <div class="publication-picture mobile">
             <?php print render($content['field_image']); ?>
         </div>
+        <?php endif; ?>
 
+        <?php if (!empty($content['body'])) : ?>
         <div class="publication-text">
             <?php print render($content['body']); ?>
         </div>
+        <?php endif; ?>
 
         <ul class="publication-navigation">
             <li class="previous"><a href="#"><?php print t('Previous') ?></a></li>
@@ -36,6 +42,7 @@
 
     </article>
 
+    <?php if (!empty($content['field_image'])) : ?>
     <aside class="publication-aside"><!-- hide full <aside> if empty -->
         <div class="publication-picture desktop">
           <?php print render($content['field_image']); ?>
@@ -45,6 +52,7 @@
         -->
         <?php //print $user_picture; ?>
     </aside>
+    <?php endif; ?>
 
     <?php //print render($content['comments']); ?>
 
