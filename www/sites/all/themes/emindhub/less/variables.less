@@ -33,7 +33,8 @@
 
 // @golden-base:            #c89234;
 // @golden-base:            #e39000;
-@golden-base:            #d59019;
+// @golden-base:            #d59019;
+@golden-base:            @orange;
 @golden-darker:          darken(@golden-base, 20%);
 @golden-dark:            darken(@golden-base, 13.5%);
 @golden-light:           lighten(@golden-base, 46.7%);
@@ -64,11 +65,11 @@
 @cello:                  #485666;
 @mischka:                #919aa3;
 @pattens-blue:           #D9E5F0;
-@deep-sky-blue:          #009fe3;
+@deep-sky-blue:          @brand-primary;
 @orange:                 #fda000;
 @white-smoke:            #ECEEEF;
 
-@color-primary:          @deep-sky-blue;
+@color-primary:          @brand-primary;
 @color-primary-alt:      @pattens-blue;
 
 @color-secondary:        @orange;
@@ -77,6 +78,11 @@
 @color-tertiary-alt:     @mischka;
 
 @publication-bg:        @white-smoke;
+
+
+//== Scaffolding
+@text-color:            @cello;
+
 
 //== Typography
 @font-family-sans-serif:  "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -92,12 +98,13 @@
 @border-radius-large:       @border-radius-base; //6px
 @border-radius-small:       @border-radius-base; //3px
 
+
 //== Buttons
-@btn-default-color:              @darkerBlue;
+@btn-default-color:              #fff;
 @btn-default-bg:                 transparent;
 @btn-default-border:             @gray-lighter;
 
-@btn-primary-border:             darken(@brand-primary, 5%);
+@btn-primary-border:             @brand-primary;
 
 @btn-danger-color:               @brand-danger;
 @btn-danger-bg:                  #fff;
@@ -105,7 +112,11 @@
 
 @btn-submit-color:               #fff;
 @btn-submit-bg:                  @brand-primary;
-@btn-submit-border:              darken(@btn-submit-bg, 5%);
+@btn-submit-border:              @btn-submit-bg;
+
+@btn-border-radius-base:         5px;
+@btn-border-radius-large:        6px;
+@btn-border-radius-small:        3px;
 
 @btn-nav-color:                  @text-color;
 @btn-nav-bg:                     transparent;
@@ -117,8 +128,12 @@
 
 
 //== Forms
-@input-bg:                       @gray-very-lighter;
-@input-border:                   #b2bbc2;
+@input-bg:                       #fff;
+@input-border:                   @cello;
+@input-border-radius:            5px;
+@input-border-radius-large:      6px;
+@input-border-radius-small:      3px;
+@input-border-focus:             @brand-primary;
 @input-group-addon-bg:           @input-border;
 
 
@@ -143,7 +158,9 @@
 
 
 //== Popovers
-@popover-bg:                          @darkBlue;
+@popover-border-color:                @brand-primary;
+@popover-fallback-border-color:       @popover-border-color;
+@popover-title-bg:                    @popover-bg;
 
 
 //== Breadcrumbs
