@@ -114,7 +114,7 @@ function ft_blocks_default_fe_block_settings() {
     'roles' => array(),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'footer',
+        'region' => 'footer_top',
         'status' => 1,
         'theme' => 'emindhub',
         'weight' => -42,
@@ -142,7 +142,7 @@ function ft_blocks_default_fe_block_settings() {
     'roles' => array(),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'footer',
+        'region' => 'footer_top',
         'status' => 1,
         'theme' => 'emindhub',
         'weight' => -42,
