@@ -10,9 +10,17 @@
   }
 }
 
-.popover {
+.popover,
+.signUpContent,
+.signInContent {
   .emh-module;
   .text-center;
+
+  h3 {
+    padding: 30px 30px 15px;
+    font-size: 23px;
+    margin: 0;
+  }
 
   h4 {
     margin-top: 0;
@@ -34,35 +42,41 @@
   }
 
   .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
   }
 
-  &.signUp {
-    span {
-      display: block;
+  .form-control {
+    margin: 0 auto;
+  }
+}
 
-      &.separator {
-        margin: 10px 0;
-      }
-    }
-    a,
-    button {
-      .btn;
-      min-width: 170px;
-    }
-    a {
-      &.signin-client {
-        .btn-client;
-      }
-      &.signin-expert {
-        .btn-expert;
-      }
+.signUp,
+.signUpContent {
+  span {
+    display: block;
+
+    &.separator {
+      margin: 10px 0;
     }
   }
-  &.signIn {
-    button {
-      .btn;
-      min-width: 170px;
+  a,
+  button {
+    .btn;
+    min-width: 170px;
+  }
+  a {
+    &.signin-client {
+      .btn-client;
     }
+    &.signin-expert {
+      .btn-expert;
+    }
+  }
+}
+.signIn,
+.signInContent {
+  button {
+    .btn;
+    min-width: 170px;
   }
 }
