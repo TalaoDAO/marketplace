@@ -23,32 +23,35 @@ body.admin-menu {
     padding-top: 15px + 29px;
   }
 }
-
-.footer {
-  margin-top: 0;
-  nav {
-    a {
-      font-weight: bold;
-      color: #4C6172;
-    }
-  }
+.burger-menu-btn-container {
+	position: absolute;
+	margin-left: -50px;
+	margin-top: 8px;
 }
 
-.region-footer {
-  #block-menu-menu-footer-menu,
-  #block-menu-menu-networks {
-    .nav {
-      > li {
-        a {
-          font-weight: 700;
-          font-size: 14px;
+.footer {
+  .emh-module;
+  background-color: @brand-primary;
+  color: #fff;
+  padding-top: 30px;
+  padding-bottom: 30px;
 
-          &#link-LinkedIn {
-            padding-left: 35px;
-            background: transparent url("../images/linkedinMini.png") no-repeat center left;
-          }
-        }
-      }
-    }
+  a,
+  .nav > li > a {
+    color: #fff;
+  }
+
+  hr {
+    border-color: @sky-blue;
+  }
+
+  .footer-logo {
+    font-size: 10px;
+    font-weight: 600;
+    .text-uppercase;
+  }
+  .footer-credits {
+    .text-center;
+    color: @cloud;
   }
 }
