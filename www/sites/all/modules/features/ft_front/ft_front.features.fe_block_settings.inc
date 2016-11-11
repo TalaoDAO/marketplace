@@ -162,5 +162,35 @@ function ft_front_default_fe_block_settings() {
     'visibility' => 1,
   );
 
+  $export['block-emh_login_connexion'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'i18n_block_language' => array(),
+    'i18n_mode' => 1,
+    'machine_name' => 'emh_login_connexion',
+    'module' => 'block',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(
+      'anonymous user' => 1,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'footer',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '<none>',
+    'visibility' => 0,
+  );
+
   return $export;
 }
