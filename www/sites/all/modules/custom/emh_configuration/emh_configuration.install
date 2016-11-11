@@ -592,6 +592,13 @@ function emh_configuration_update_7037() {
 }
 
 /**
+ * ADD: Public request content type.
+ */
+function emh_configuration_update_7038() {
+  module_enable(array('ft_public_request'));
+}
+
+/**
  * ADD: New Front.
  */
 function emh_configuration_update_7039() {
