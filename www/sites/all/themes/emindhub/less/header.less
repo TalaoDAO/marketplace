@@ -148,6 +148,7 @@ header nav.navbar {
 		cursor: pointer;
 		// padding-left: 20px;
 		// padding-right: 20px;
+		padding: 15px;
 	}
 	.nav {
 		.open,
@@ -188,6 +189,7 @@ header#page-header {
 	background-color: #FFF;
 }
 
+
 #block-user-login {
 	.make-md-column(4);
 }
@@ -202,8 +204,25 @@ header#page-header {
 #block-bootstrap-languages-language {
 	.make-xs-column(12);
 	.make-md-column(1);
-	.make-md-column-offset(11);
 	.nav {
 		float: right;
+	}
+}
+body.not-logged-in {
+	#block-bootstrap-languages-language {
+		.make-md-column-offset(11);
+	}
+}
+body.logged-in {
+	#block-bootstrap-languages-language {
+		.make-md-column-push(11);
+	}
+	#block-menu-menu-top {
+		.make-sm-column(6);
+		.make-md-column-pull(1);
+	}
+	#block-system-user-menu {
+		.make-sm-column(6);
+		.make-md-column-pull(1);
 	}
 }

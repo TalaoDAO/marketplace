@@ -42,16 +42,8 @@ function emindhub_preprocess_block(&$variables) {
 
   switch ($block_id) {
 
-    case 'menu-menu-top':
-      $classes[] = 'col-sm-6 col-md-6';
-      break;
-
     case 'search-form':
       $classes[] = 'col-md-4 col-md-offset-1';
-      break;
-
-    case 'system-user-menu':
-      $classes[] = 'col-sm-6 col-md-6';
       break;
 
     // HP - Create a request
