@@ -5,20 +5,23 @@
   <?php print render($title_prefix); ?>
   <?php if ($title): ?>
     <div class="emh-title">
-      <?php print t('CHANGEME Ils nous ont fait confiance'); ?>
+      <?php print t('Trust in our expertise'); ?>
     </div>
   <?php endif;?>
   <?php print render($title_suffix); ?>
   <div class="emh-subtitle">
-    <?php print t('CHANGEME Rejoignez les entreprises qui utilisent l\'expertise eMindHub'); ?>
+    <?php print t('Join the companies benefiting from the expertise of eMindHub'); ?>
   </div>
 
   <ul class="references-list">
-      <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/references-baas.png" alt="BAAS" /></li>
-      <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/references-planindustries.png" alt="Plan Industries" /></li>
-      <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/references-thalesaleniaspace.png" alt="Thales Alenia Space" /></li>
-      <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/references-snecma.png" alt="Snecma" /></li>
-      <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/references-airbus.png" alt="Airbus Defence & Space" /></li>
+      <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/emindhub_reference_Air-Corsica.png" alt="Air Corsica" /></li>
+      <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/emindhub_reference_Akka-Technologies.png" alt="Akka Technologies" /></li>
+      <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/emindhub_reference_Apave_Aeroservices.png" alt="Apave Aeroservices" /></li>
+      <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/emindhub_reference_Assystem.png" alt="Assystem" /></li>
+      <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/emindhub_reference_Dassault-Falcon.png" alt="Dassault Falcon" /></li>
+      <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/emindhub_reference_Ingeliance.png" alt="Ingéliance" /></li>
+      <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/emindhub_reference_Thales.png" alt="Thales" /></li>
+      <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/emindhub_reference_Theano-Advisor.png" alt="Théano Advisor" /></li>
   </ul>
 
   <div class="emh-dots emh-dots-alt"></div>
