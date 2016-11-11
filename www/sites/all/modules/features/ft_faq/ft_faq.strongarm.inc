@@ -86,20 +86,23 @@ function ft_faq_strongarm() {
       'revision' => array(
         'custom_settings' => FALSE,
       ),
+      'summary' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
         'language' => array(
-          'weight' => '1',
+          'weight' => '3',
         ),
         'metatags' => array(
-          'weight' => '4',
+          'weight' => '5',
         ),
         'title' => array(
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '3',
+          'weight' => '4',
         ),
       ),
       'display' => array(
