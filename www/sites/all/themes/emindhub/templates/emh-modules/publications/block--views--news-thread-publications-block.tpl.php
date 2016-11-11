@@ -10,7 +10,7 @@
   <?php print render($title_suffix); ?>
 
   <div class="emh-subtitle">
-    <?php print t('CHANGEME Consultez les derniers articles de la base de connaissances'); ?>
+    <?php print t('Access the latest articles in the eMindHub knowledge base'); ?>
   </div>
 
   <?php if ($content): ?>
@@ -21,7 +21,7 @@
 
     <div class="emh-actions">
       <div class="emh-action">
-        <a class="emh-button" href="#"><?php print t('CHANGEME Toutes les publications'); ?></a>
+        <a class="emh-button" href="<?php print url('news'); ?>"><?php print t('All publications'); ?></a>
       </div>
     </div>
 
