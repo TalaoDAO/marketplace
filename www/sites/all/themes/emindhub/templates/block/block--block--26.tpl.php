@@ -16,12 +16,12 @@
     <div class="row select-persona-buttons">
 
       <div class="persona-customer col-xs-6">
-        <a class="button" href="#"><?php print t('CHANGEME Vous êtes client ?'); ?></a>
+        <a class="button" href="#"><?php print t('You\'re a client'); ?></a>
         <p><?php print t('Get quick access to the best experts'); ?></p>
       </div>
 
       <div class="persona-expert col-xs-6">
-        <a class="button" href="#"><?php print t('CHANGEME Vous êtes expert ?'); ?></a>
+        <a class="button" href="#"><?php print t('You\'re an expert'); ?></a>
         <p><?php print t('Respond to requests matching your expertise'); ?></p>
       </div>
 

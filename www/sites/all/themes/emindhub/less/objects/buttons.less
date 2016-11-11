@@ -1,0 +1,80 @@
+.btn {
+	padding: 17px 30px;
+	font-size: 13px;
+	font-weight: 600;
+	.text-uppercase;
+	margin-right: 5px;
+	&:last-child {
+		margin-right: 0;
+	}
+}
+.btn.disabled,
+.btn[disabled],
+fieldset[disabled] .btn {
+	.btn-default;
+}
+
+// New button style : .btn-submit
+.btn-submit {
+	.button-variant(@btn-submit-color; @btn-submit-bg; @btn-submit-border);
+}
+
+// New button style : .btn-nav
+.btn-nav {
+	.button-variant(@btn-nav-color; @btn-nav-bg; @btn-nav-border);
+}
+
+// New button style : .btn-popin
+.btn-popin {
+	.button-variant(@btn-popin-color; @btn-popin-bg; @btn-popin-border);
+}
+
+// New button style : .btn-expert
+.btn-expert {
+	.button-variant(#FFF; @golden-base; @golden-base);
+	text-transform: uppercase;
+}
+
+// New button style : .btn-client
+.btn-client {
+	.button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
+	text-transform: uppercase;
+}
+
+// New button style : .btn-asphalt
+.btn-asphalt {
+	.button-variant(#FFF; @asphalt-base; @asphalt-dark);
+}
+
+// New button style : .btn-flash
+.btn-flash {
+	.button-variant(#FFF; @emerald-base; @emerald-dark);
+	text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+	background-position: 10px 50%;
+	background-repeat: no-repeat;
+	white-space: normal;
+}
+.icon-community {
+	padding-left: 45px;
+	background-image: url("../images/picto/picto_community_small.png");
+}
+.icon-user {
+	padding-left: 35px;
+	background-image: url("../images/picto/picto_user_small.png");
+}
+
+// New button style: btn-gray
+.btn-gray {
+	.button-variant(@darkerBlue; @gray-lighter; @gray-light2);
+}
+
+// New button style: btn-gray
+.btn-flag {
+	.button-variant(@asphalt-dark; @asphalt-light; @asphalt-base);
+}
+
+.btn-submission {
+	.button-variant(#FFF; transparent; transparent);
+	font-weight: bold;
+	font-size: 1.25em;
+}
