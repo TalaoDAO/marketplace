@@ -76,8 +76,8 @@ function emindhub_menu_tree__menu_top_anonymous(&$variables) {
 //   return '<ul class="menu nav navbar-emh-burger">' . $variables['tree'] . '</ul>';
 // }
 function emindhub_menu_tree__menu_footer_menu(&$variables) {
-  return '<ul class="menu nav navbar-nav navbar-emh-separator navbar-right">' . $variables['tree'] . '</ul>';
+  return '<ul class="menu nav navbar-nav">' . $variables['tree'] . '</ul>';
 }
 function emindhub_menu_tree__menu_networks(&$variables) {
-  return '<ul class="menu nav navbar-nav navbar-emh-separator navbar-right">' . $variables['tree'] . '</ul>';
+  return '<ul class="menu nav navbar-nav navbar-right">' . $variables['tree'] . '</ul>';
 }

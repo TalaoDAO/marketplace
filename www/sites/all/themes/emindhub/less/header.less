@@ -1,10 +1,7 @@
 @media (min-width: @screen-md-min) {
 	body {
 		&.not-logged-in {
-			padding-top: 110px;
-			&.front {
-				padding-top: 100px;
-			}
+			padding-top: 81px;
 		}
 		&.logged-in {
 			padding-top: 56px;
@@ -13,9 +10,9 @@
 
 	header#navbar {
 		.navbar-fixed-top;
-    .col-md-4 {
-      padding-left: 0;
-    }
+    // .col-md-4 {
+    //   padding-left: 0;
+    // }
 	}
 }
 
@@ -29,11 +26,11 @@
 	}
 }
 
-.region-topmenu {
-	> * {
-		padding: 0 !important;
-	}
-}
+// .region-topmenu {
+// 	> * {
+// 		padding: 0 !important;
+// 	}
+// }
 
 /* HEADER
  * Light version
@@ -76,22 +73,11 @@
 	}
 }
 
-@media (min-width: @screen-md-min) {
-	.region-navigation > * {
-		padding: 0 !important;
-	}
-}
-
-
-/* HEADER
- * Burgermenu
- */
-.burger-menu-btn-container {
-	position: absolute;
-	margin-left: -50px;
-	margin-top: 8px;
-}
-
+// @media (min-width: @screen-md-min) {
+// 	.region-navigation > * {
+// 		padding: 0 !important;
+// 	}
+// }
 
 /* HEADER
  * Logo
@@ -105,105 +91,18 @@
 		.img-responsive;
 	}
 }
-@media (min-width: @screen-md-min) {
-	body.not-logged-in {
-		.logo {
-			.text-left;
-			img {
-				max-height: 78px;
-				margin-top: 10px;
-				margin-bottom: 10px;
-			}
-		}
-	}
-}
-
-
-/* HEADER
- * Login
- */
-#block-user-login .nav > li {
-	display: inline-block;
-}
-@media (max-width: @screen-md-min) {
-	.not-logged-in {
-		#block-user-login {
-			.nav {
-				width: 100%;
-				padding: 0;
-				.text-center;
-				> li {
-					float: none;
-				}
-			}
-		}
-	}
-}
-.popover {
-	&.signUp {
-		h4 {
-			.text-uppercase;
-			font-weight: 700;
-			span {
-				display: block;
-			}
-		}
-		.btn {
-			display: block;
-			margin-bottom: 15px;
-			&:last-child {
-				margin-bottom: 0;
-			}
-		}
-	}
-
-	ul {
-		margin: 10px 0 0;
-		padding: 0;
-		list-style: none;
-		a {
-			font-style: italic;
-			color: #FFF;
-		}
-	}
-
-	.hybridauth-widget-wrapper {
-		clear: both;
-		h3 {
-			.text-hide;
-			margin: 0;
-		}
-		ul {
-			border-top: 1px solid @darkerBlue;
-			a {
-				padding: 10px 0;
-				border-bottom: 1px solid @darkerBlue;
-				display: block;
-				&[data-hybridauth-provider="LinkedIn"] {
-					&:after {
-						content: "Log in with LinkedIn";
-						margin-left: 10px;
-					}
-				}
-			}
-		}
-	}
-}
-body.lang-fr {
-	.popover {
-		.hybridauth-widget-wrapper {
-			ul {
-				a {
-					&[data-hybridauth-provider="LinkedIn"] {
-						&:after {
-							content: "Connectez-vous avec LinkedIn";
-						}
-					}
-				}
-			}
-		}
-	}
-}
+// @media (min-width: @screen-md-min) {
+// 	body.not-logged-in {
+// 		.logo {
+// 			.text-left;
+// 			img {
+// 				max-height: 78px;
+// 				margin-top: 10px;
+// 				margin-bottom: 10px;
+// 			}
+// 		}
+// 	}
+// }
 
 /* HEADER
  * User menu
@@ -220,6 +119,11 @@ body.lang-fr {
 header nav.navbar {
 	margin-bottom: 0;
 	border: 0;
+
+	.emh-module;
+	// font-size: 13px;
+	font-weight: 600;
+
 	.navbar-collapse.in {
 	  overflow: hidden !important;
 	}
@@ -233,16 +137,18 @@ header nav.navbar {
 		}
 	}
 
-	.nav > li > a,
-	.nav > li > span.dropdown-toggle {
-		text-align: left;
-		font-size: 1.1em;
+	.navbar-nav > li > a {
+    // padding-top: 10px;
+    // padding-bottom: 10px;
 	}
+
 	.nav > li > a,
 	.nav > li > span.dropdown-toggle {
+		.text-left;
 		cursor: pointer;
-		padding-left: 20px;
-		padding-right: 20px;
+		// padding-left: 20px;
+		// padding-right: 20px;
+		padding: 15px;
 	}
 	.nav {
 		.open,
@@ -281,4 +187,42 @@ header nav.navbar {
  */
 header#page-header {
 	background-color: #FFF;
+}
+
+
+#block-user-login {
+	.make-md-column(4);
+}
+#block-menu-menu-top-anonymous {
+	.make-md-column(8);
+
+	.nav > li > a,
+	.nav > li > span.dropdown-toggle {
+		.text-uppercase;
+	}
+}
+#block-bootstrap-languages-language {
+	.make-xs-column(12);
+	.make-md-column(1);
+	.nav {
+		float: right;
+	}
+}
+body.not-logged-in {
+	#block-bootstrap-languages-language {
+		.make-md-column-offset(11);
+	}
+}
+body.logged-in {
+	#block-bootstrap-languages-language {
+		.make-md-column-push(11);
+	}
+	#block-menu-menu-top {
+		.make-sm-column(6);
+		.make-md-column-pull(1);
+	}
+	#block-system-user-menu {
+		.make-sm-column(6);
+		.make-md-column-pull(1);
+	}
 }
