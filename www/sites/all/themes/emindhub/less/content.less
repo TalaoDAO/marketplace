@@ -118,6 +118,30 @@ ul.links.list-inline {
 
 .title-left {
   .make-md-column(8);
+
+  .title {
+    .make-row();
+
+    .request-type-infos {
+      .make-md-column(1);
+      > * {
+        display: block;
+        margin: 0 auto;
+        .text-center;
+      }
+      @media (min-width: @screen-md-min) {
+        min-width: 80px;
+      }
+    }
+
+    .page-header {
+      .make-md-column(11);
+      padding-left: 0;
+      @media (min-width: @screen-md-min) {
+        width: auto;
+      }
+    }
+  }
 }
 .region-title-right,
 .title-right {

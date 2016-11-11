@@ -26,7 +26,6 @@ features[views_view][] = entreprise_list
 features[views_view][] = my_drafts
 features[views_view][] = news_thread
 features[views_view][] = organisation_admin_
-features[views_view][] = query_list
 features[views_view][] = sponsors
 features[views_view][] = testimony
 features[views_view][] = user_circle_list

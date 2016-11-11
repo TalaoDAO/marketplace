@@ -61,5 +61,13 @@ function emh_request_views_data() {
     ),
   );
 
+  $data['node']['request_type'] = array(
+    'group' => t('Node'),
+    'title' => 'Request type',
+    'field' => array(
+      'handler' => 'views_handler_field_emh_request_type',
+    ),
+  );
+
   return $data;
 }
