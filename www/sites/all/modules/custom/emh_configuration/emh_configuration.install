@@ -626,7 +626,7 @@ function emh_configuration_update_7039() {
     'ft_request' => array('fe_block_settings'),
     'ft_views' => array('views_view'),
     'ft_field_base' => array('field_base'),
-    'ft_faq' => array('field_base', 'field_instance'),
+    'ft_faq' => array('field_base', 'field_instance', 'fe_block_settings', 'views_view'),
   ));
 
   module_enable(array('ft_front', 'ft_blog'));
