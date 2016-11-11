@@ -17,7 +17,7 @@ h2, .h2 {
 }
 h3, .h3 {
 	font-size: 18px;
-	color: @darkerBlue;
+	color: @cello;
 }
 h4, .h4 {
 	font-size: 16px;
@@ -44,7 +44,7 @@ h4, .h4 {
 }
 .nav > li > a,
 .nav > li > span.dropdown-toggle {
-	padding: 15px 20px;
+	// padding: 15px 20px;
 }
 .nav-tabs > li > a {
 	padding: 10px 15px;
@@ -106,7 +106,7 @@ ul.ui-autocomplete {
 .autocomplete-deluxe-container {
 	.form-control;
 	display: inline-block; // Tip for regular input height
-	max-width: 352px;
+	max-width: 260px;
 	height: auto;
 }
 .autocomplete-deluxe-item {
@@ -152,40 +152,9 @@ input#autocomplete-deluxe-input {
 	font-size: @font-size-base;
 }
 
-
 // Badges
 .badge.help-tip {
 	margin-top: -3px;
-}
-
-
-// Popover
-.popover {
-	color: #fff;
-
-	h4 {
-		font-size: 16px;
-		margin-bottom: 15px;
-	}
-
-	.popover-content {
-		padding: 15px;
-	}
-
-}
-
-
-// Buttons
-.btn {
-	margin-right: 5px;
-	&:last-child {
-		margin-right: 0;
-	}
-}
-.btn.disabled,
-.btn[disabled],
-fieldset[disabled] .btn {
-	.btn-default;
 }
 
 
@@ -195,7 +164,7 @@ span.form-required {
 }
 .form-control:not(textarea),
 .input-group:not(.file-widget) {
-	max-width: 352px;
+	max-width: 260px;
 }
 
 // Textarea
@@ -236,7 +205,7 @@ body.page-node-edit {
 			.make-md-column(3);
 			@media (min-width: @screen-md-min) {
 		    width: 20%;
-		  }	
+		  }
 			padding: 0 15px; // views.css
 			.form-group {
 				margin-bottom: 0;

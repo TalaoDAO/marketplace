@@ -542,3 +542,51 @@ function emindhub_show_request_type($node = null) {
 	$request_type = field_get_items('node', $node, 'field_request_type');
 	if ($request_type) print '<div class="request-type-infos">' . emh_request_get_request_type_image($node, 25) . emh_request_get_request_type_name($node) . '</div>';
 }
+
+/**
+ * Implements template_preprocess_views_view_unformatted.
+ */
+function emindhub_preprocess_views_view_unformatted(&$vars) {
+	$view     = $vars['view'];
+  $rows     = $vars['rows'];
+
+	if ($view->name == 'news_thread' && $view->current_display == 'publications_block_live') {
+		// $vars['classes_array'] = array();
+		// $classes_array = $vars['classes_array'];
+    // foreach($classes_array as $key => $classes) {
+    //   $vars['classes_array'][$key] = $classes . ' my-class';
+    // }
+		// $id = 1;
+	  foreach ($rows as $id => $row) {
+			// $id + 1;
+			// print $id;
+	    $row_classes = array();
+	    $row_classes[] = 'emhlive-item';
+	    $row_classes[] = 'emhlive-item-' . ($id);
+	    if ($id % 4 == 0) {
+	      $row_classes[] = 'emhlive-style-default';
+	    }
+	    elseif ($id % 4 == 2) {
+	      $row_classes[] = 'emhlive-style-alpha';
+	    }
+	    else {
+	      $row_classes[] = 'emhlive-style-beta';
+	    }
+			// else {
+			// 	if ($id % 4) {
+			// 		$row_classes[] = 'emhlive-style-default';
+			// 	}
+		  //   else {
+			// 		$row_classes[] = ($id % 2 ? 'emhlive-style-alpha' : 'emhlive-style-beta');
+			// 	}
+			// }
+	    // if ($id == count($rows) -1) {
+	    //   $row_classes[] = 'emhlive-item-last';
+	    // }
+	    // Flatten the classes to a string for each row for the template file.
+	    $vars['classes_array'][$id] .= implode(' ', $row_classes);
+
+			// $i++;
+	  }
+	}
+}
