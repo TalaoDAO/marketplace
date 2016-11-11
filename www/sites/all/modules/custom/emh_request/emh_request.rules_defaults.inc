@@ -21,17 +21,7 @@ function emh_request_default_rules_configuration() {
       "REQUIRES" : [ "rules", "mimemail", "emh_request" ],
       "ON" : { "emh_request_notify_new_request" : [] },
       "IF" : [
-        { "node_is_of_type" : {
-            "node" : [ "node" ],
-            "type" : { "value" : {
-                "challenge" : "challenge",
-                "question1" : "question1",
-                "webform" : "webform",
-                "request" : "request"
-              }
-            }
-          }
-        }
+        { "node_is_of_type" : { "node" : [ "node" ], "type" : { "value" : { "request" : "request" } } } }
       ],
       "DO" : [
         { "mimemail" : {
