@@ -29,7 +29,7 @@ function ft_blog_default_fe_block_settings() {
         'region' => 'top',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -41,
+        'weight' => -42,
       ),
       'seven' => array(
         'region' => '',
