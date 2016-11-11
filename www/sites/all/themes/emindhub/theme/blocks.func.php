@@ -42,20 +42,8 @@ function emindhub_preprocess_block(&$variables) {
 
   switch ($block_id) {
 
-    case 'menu-menu-top-anonymous':
-      $classes[] = 'col-sm-11 col-md-11';
-      break;
-
     case 'menu-menu-top':
       $classes[] = 'col-sm-6 col-md-6';
-      break;
-
-    case 'menu-menu-footer-menu':
-      $classes[] = 'col-sm-9 col-md-9';
-      break;
-
-    case 'menu-menu-networks':
-      $classes[] = 'col-sm-3 col-md-3';
       break;
 
     case 'search-form':
@@ -64,11 +52,6 @@ function emindhub_preprocess_block(&$variables) {
 
     case 'system-user-menu':
       $classes[] = 'col-sm-6 col-md-6';
-      break;
-
-    // User Login block
-    case 'user-login':
-      $classes[] = 'col-md-4 col-md-offset-8';
       break;
 
     // HP - Create a request
