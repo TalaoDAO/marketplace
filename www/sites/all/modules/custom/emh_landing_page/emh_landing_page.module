@@ -109,9 +109,13 @@ function emh_landing_page_block_view($delta = '') {
   $block = array();
 
   switch ($delta) {
-  case 'landing_page_register':
-    $block['subject'] = t('Landing page register form');
-    $block['content'] = amh_landing_page_block_register_callback();
+    case 'landing_page_register':
+      $block['subject'] = t('Landing page register form');
+      $block['content'] = emh_landing_page_block_register_callback();
+      break;
+
+    default:
+      break;
   }
 
   return $block;

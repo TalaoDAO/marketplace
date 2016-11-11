@@ -984,8 +984,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'challenge: comment on any challenge content',
     'roles' => array(
       'administrator' => 'administrator',
-      'expert' => 'expert',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'comment_perm',
   );
@@ -995,8 +993,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'challenge: comment without approval on any challenge content',
     'roles' => array(
       'administrator' => 'administrator',
-      'expert' => 'expert',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'comment_perm',
   );
@@ -1006,7 +1002,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'challenge: comment without approval on own challenge content',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'comment_perm',
   );
@@ -1016,8 +1011,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'challenge: edit own comments on challenge content',
     'roles' => array(
       'administrator' => 'administrator',
-      'expert' => 'expert',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'comment_perm',
   );
@@ -1057,8 +1050,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'create challenge content',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'node',
   );
@@ -1108,8 +1099,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'create question1 content',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'node',
   );
@@ -1138,8 +1127,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'create webform content',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'node',
   );
@@ -1189,7 +1176,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete any challenge content',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'node',
   );
@@ -1229,7 +1215,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete any question1 content',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'node',
   );
@@ -1239,7 +1224,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete any webform content',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'node',
   );
@@ -1279,7 +1263,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete own challenge content',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'node',
   );
@@ -1319,7 +1302,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete own question1 content',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'node',
   );
@@ -1329,7 +1311,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete own webform content',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'node',
   );
@@ -1459,8 +1440,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit any challenge content',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'node',
   );
@@ -1500,8 +1479,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit any question1 content',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'node',
   );
@@ -1511,8 +1488,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit any webform content',
     'roles' => array(
       'administrator' => 'administrator',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'node',
   );
@@ -1575,9 +1550,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit own challenge content',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'node',
   );
@@ -1639,9 +1611,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit own question1 content',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'node',
   );
@@ -1651,9 +1620,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit own webform content',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'node',
   );
@@ -2347,24 +2313,11 @@ function ft_permissions_user_default_permissions() {
     'module' => 'comment',
   );
 
-  // Exported permission: 'privatecomments challenge view all'.
-  $permissions['privatecomments challenge view all'] = array(
-    'name' => 'privatecomments challenge view all',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'privatecomments',
-  );
-
   // Exported permission: 'question1: comment on any question1 content'.
   $permissions['question1: comment on any question1 content'] = array(
     'name' => 'question1: comment on any question1 content',
     'roles' => array(
       'administrator' => 'administrator',
-      'expert' => 'expert',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'comment_perm',
   );
@@ -2374,8 +2327,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'question1: comment without approval on any question1 content',
     'roles' => array(
       'administrator' => 'administrator',
-      'expert' => 'expert',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'comment_perm',
   );
@@ -2385,7 +2336,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'question1: comment without approval on own question1 content',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'comment_perm',
   );
@@ -2395,8 +2345,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'question1: edit own comments on question1 content',
     'roles' => array(
       'administrator' => 'administrator',
-      'expert' => 'expert',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'comment_perm',
   );

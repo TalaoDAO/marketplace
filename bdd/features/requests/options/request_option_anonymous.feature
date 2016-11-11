@@ -47,12 +47,13 @@ Feature: Request and submissions
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "primary tabs" region
+      And I select "770" from "field_request_type[und]"
       And I check "Anonymous"
       And I check "Hide my name"
       And I press "Continue"
     # Validation page
       Then I should see "My name will be hidden"
-      
+
     When I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been published."
 
@@ -67,6 +68,7 @@ Feature: Request and submissions
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "primary tabs" region
+      And I select "770" from "field_request_type[und]"
       And I check "Anonymous"
       And I check "Hide my organisation"
       And I press "Continue"
@@ -86,6 +88,7 @@ Feature: Request and submissions
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "primary tabs" region
+      And I select "770" from "field_request_type[und]"
       And I check "Anonymous"
       And I check "Hide my name"
       And I check "Hide my organisation"

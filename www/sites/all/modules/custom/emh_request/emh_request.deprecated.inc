@@ -5,30 +5,6 @@
  */
 
 /**
- * Implements hook_node_access().
- */
-//function emh_request_node_access($node, $op, $account) {
-//  if ($op == 'update') {
-//    switch ($node->type) {
-//      case 'question1':
-//      case 'webform':
-//      case 'challenge':
-//        /*
-//        $count = emh_request_count_answers($node->nid);
-//        if ($count > 0) {
-//          return NODE_ACCESS_DENY;
-//        }
-//         */
-//        break;
-//      default:
-//        break;
-//    }
-//  }
-//  return NODE_ACCESS_IGNORE;
-//}
-
-
-/**
  * Implements hook_block_info().
  */
 function emh_request_block_info() {
@@ -124,7 +100,6 @@ function emh_request_block_save($delta = '', $edit = array()) {
   }
 }
 
-
 /**
  * Implements hook_views_api().
  */
@@ -134,7 +109,6 @@ function emh_request_views_api() {
     'path' => drupal_get_path('module', 'emh_request') . '/views',
   );
 }
-
 
 /**
  * Helper function to retrieve an answer, depending on the status.
@@ -261,7 +235,6 @@ function emh_request_has_points($nid) {
   return (!empty($node) && !empty($node->emh_points));
 }
 
-
 /**
  * Helper function to notify people.
  */
@@ -307,18 +280,20 @@ function emh_request_try_to_notify($node) {
       )
       && !empty($user->field_notification_frequency[LANGUAGE_NONE]) && $user->field_notification_frequency[LANGUAGE_NONE][0]['tid'] == 48
     ) {
+      $queue = DrupalQueue::get('emh_request_request_email_notification');
+      $item = array('nid' => $node->nid, 'uid' => $user->uid);
       // Check multidomains option
       // drush vset --yes emh_request_send_notification_email_all_domains FALSE
       $multidomains_option = variable_get('emh_request_send_notification_email_all_domains', 0);
       if ($multidomains_option == TRUE) {
         // Notify every expert within the Organic Group
-        rules_invoke_event('emh_request_notify_new_request', $node, $user);
+        $queue->createItem($item);
         continue;
       } else {
         foreach($user->field_domaine[LANGUAGE_NONE] as $delta => $term) {
           // If right domain && notification authorized.
           if (in_array($term['tid'], $domains)) {
-            rules_invoke_event('emh_request_notify_new_request', $node, $user);
+            $queue->createItem($item);
             continue;
           }
         }
@@ -327,4 +302,24 @@ function emh_request_try_to_notify($node) {
   }
   // Webmaster copy
   // rules_invoke_event('emh_request_notify_webmaster_new_request', $node);
+}
+
+/**
+ * Implements hook_cron_queue_info()
+ */
+function emh_request_cron_queue_info() {
+  $queues['emh_request_request_email_notification'] = array(
+    'worker callback' => 'emh_request_queue_process',
+    'time' => 30,
+  );
+  return $queues;
+}
+
+/**
+ * Worker callback defined in hook_cron_queue_info()
+ */
+function emh_request_queue_process($item) {
+  $node = node_load($item['nid']);
+  $user = user_load($item['uid']);
+  rules_invoke_event('emh_request_notify_new_request', $node, $user);
 }
