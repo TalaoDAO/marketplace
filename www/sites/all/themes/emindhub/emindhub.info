@@ -23,7 +23,8 @@ regions[sidebar_first]  = 'Primary'
 regions[sidebar_second] = 'Secondary'
 regions[bottom]         = 'Page bottom'
 ;regions[bottom_right]  = 'Page bottom - Right'
-regions[footer]         = 'Footer'
+regions[footer_top]     = 'Footer - Top'
+regions[footer_bottom]  = 'Footer - Bottom'
 regions[burgermenu]     = 'Burger Menu'
 
 ;;;;;;;;;;;;;;;;;;;;;
