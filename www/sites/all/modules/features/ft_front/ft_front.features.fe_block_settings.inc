@@ -176,7 +176,7 @@ function ft_front_default_fe_block_settings() {
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'footer',
+        'region' => 'footer_bottom',
         'status' => 1,
         'theme' => 'emindhub',
         'weight' => 0,
