@@ -23,14 +23,15 @@
         <?php print t('Products'); ?>
       </div>
       <ul class="subdomains">
-        <li><?php print t('CHANGEME Air traffic Management'); ?></li>
-        <li><?php print t('CHANGEME Big Data'); ?></li>
-        <li><?php print t('CHANGEME Connectivité'); ?></li>
-        <li><?php print t('CHANGEME Cybersécurité'); ?></li>
-        <li><?php print t('CHANGEME Fabrication additive'); ?></li>
-        <li><?php print t('CHANGEME Usine du futur'); ?></li>
+        <li><?php print t('Airports'); ?></li>
+        <li><?php print t('Aircraft'); ?></li>
+        <li><?php print t('Drones'); ?></li>
+        <li><?php print t('Equipments'); ?></li>
+        <li><?php print t('Helicopters'); ?></li>
+        <li><?php print t('Launchers'); ?></li>
+        <li><?php print t('Satellites'); ?></li>
       </ul>
-      <a class="emh-button" href="#"><?php print t('CHANGEME Expertises Products'); ?></a>
+      <a class="emh-button" href="<?php print url('fields-of-expertise'); ?>"><?php print t('Learn more'); ?></a>
     </div>
 
     <div class="expertise-slider-item">
@@ -53,14 +54,19 @@
         <?php print t('Discipline'); ?>
       </div>
       <ul class="subdomains">
-        <li><?php print t('CHANGEME Air traffic Management'); ?></li>
-        <li><?php print t('CHANGEME Big Data'); ?></li>
-        <li><?php print t('CHANGEME Connectivité'); ?></li>
-        <li><?php print t('CHANGEME Cybersécurité'); ?></li>
-        <li><?php print t('CHANGEME Fabrication additive'); ?></li>
-        <li><?php print t('CHANGEME Usine du futur'); ?></li>
+        <li><?php print t('Certification & Regulation'); ?></li>
+        <li><?php print t('Energy'); ?></li>
+        <li><?php print t('Human factors'); ?></li>
+        <li><?php print t('Maintenance'); ?></li>
+        <li><?php print t('Engines & propulsion'); ?></li>
+        <li><?php print t('Navigation, Telecom & Observation'); ?></li>
+        <li><?php print t('Airline operations'); ?></li>
+        <li><?php print t('Structures & Materials'); ?></li>
+        <li><?php print t('Supply chain'); ?></li>
+        <li><?php print t('Safety & Security'); ?></li>
+        <li><?php print t('Embedded Systems'); ?></li>
       </ul>
-      <a class="emh-button" href="#"><?php print t('CHANGEME Expertises Discipline'); ?></a>
+      <a class="emh-button" href="<?php print url('fields-of-expertise'); ?>"><?php print t('Learn more'); ?></a>
     </div>
 
     <div class="expertise-slider-item">
@@ -79,14 +85,15 @@
         <?php print t('Technology'); ?>
       </div>
       <ul class="subdomains">
-        <li><?php print t('CHANGEME Air traffic Management'); ?></li>
-        <li><?php print t('CHANGEME Big Data'); ?></li>
-        <li><?php print t('CHANGEME Connectivité'); ?></li>
-        <li><?php print t('CHANGEME Cybersécurité'); ?></li>
-        <li><?php print t('CHANGEME Fabrication additive'); ?></li>
-        <li><?php print t('CHANGEME Usine du futur'); ?></li>
+        <li><?php print t('Air Traffic Management'); ?></li>
+        <li><?php print t('Big Data'); ?></li>
+        <li><?php print t('Connectivity'); ?></li>
+        <li><?php print t('Cybersecurity'); ?></li>
+        <li><?php print t('Additive layer manufacturing'); ?></li>
+        <li><?php print t('A/C modifications'); ?></li>
+        <li><?php print t('Factory of the Future'); ?></li>
       </ul>
-      <a class="emh-button" href="#"><?php print t('CHANGEME Expertises Technology'); ?></a>
+      <a class="emh-button" href="<?php print url('fields-of-expertise'); ?>"><?php print t('Learn more'); ?></a>
     </div>
 
     <div class="expertise-slider-item">
@@ -103,14 +110,16 @@
         <?php print t('Cross discipline'); ?>
       </div>
       <ul class="subdomains">
-        <li><?php print t('CHANGEME Air traffic Management'); ?></li>
-        <li><?php print t('CHANGEME Big Data'); ?></li>
-        <li><?php print t('CHANGEME Connectivité'); ?></li>
-        <li><?php print t('CHANGEME Cybersécurité'); ?></li>
-        <li><?php print t('CHANGEME Fabrication additive'); ?></li>
-        <li><?php print t('CHANGEME Usine du futur'); ?></li>
+        <li><?php print t('Finance & Legal'); ?></li>
+        <li><?php print t('Knowledge transfer & Training'); ?></li>
+        <li><?php print t('Configuration management'); ?></li>
+        <li><?php print t('PLM'); ?></li>
+        <li><?php print t('Project management'); ?></li>
+        <li><?php print t('Quality & Methods'); ?></li>
+        <li><?php print t('Strategy & Development'); ?></li>
+        <li><?php print t('IT systems'); ?></li>
       </ul>
-      <a class="emh-button" href="#"><?php print t('CHANGEME Expertises Cross discipline'); ?></a>
+      <a class="emh-button" href="<?php print url('fields-of-expertise'); ?>"><?php print t('Learn more'); ?></a>
     </div>
 
   </div>
