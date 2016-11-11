@@ -1,0 +1,140 @@
+#block-user-login {
+  .nav > li > a,
+  .nav > li > span.dropdown-toggle {
+    color: @brand-primary;
+  }
+  @media (min-width: @screen-md-min) {
+    .nav {
+      float: right;
+    }
+  }
+}
+
+.popover {
+  .emh-module;
+  .text-center;
+
+  h4 {
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 16px;
+  }
+
+  ul {
+      margin: 10px 0 0;
+      padding: 0;
+      list-style: none;
+      a {
+        font-style: italic;
+      }
+  }
+
+  .btn-group {
+    float: none !important;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  &.signUp {
+    span {
+      display: block;
+
+      &.separator {
+        margin: 10px 0;
+      }
+    }
+    a,
+    button {
+      .btn;
+      min-width: 170px;
+    }
+    a {
+      &.signin-client {
+        .btn-client;
+      }
+      &.signin-expert {
+        .btn-expert;
+      }
+    }
+  }
+  &.signIn {
+    button {
+      .btn;
+      min-width: 170px;
+    }
+  }
+}
+// #block-user-login .nav > li {
+//   display: inline-block;
+// }
+// @media (max-width: @screen-md-min) {
+//   .not-logged-in {
+//     #block-user-login {
+//       .nav {
+//         width: 100%;
+//         padding: 0;
+//         .text-center;
+//         > li {
+//           float: none;
+//         }
+//       }
+//     }
+//   }
+// }
+// .popover {
+//   &.signUp {
+//     h4 {
+//       .text-uppercase;
+//       font-weight: 700;
+//       span {
+//         display: block;
+//       }
+//     }
+//     .btn {
+//       display: block;
+//       margin-bottom: 15px;
+//       &:last-child {
+//         margin-bottom: 0;
+//       }
+//     }
+//   }
+//
+//   .hybridauth-widget-wrapper {
+//     clear: both;
+//     h3 {
+//       .text-hide;
+//       margin: 0;
+//     }
+//     ul {
+//       border-top: 1px solid @darkerBlue;
+//       a {
+//         padding: 10px 0;
+//         border-bottom: 1px solid @darkerBlue;
+//         display: block;
+//         &[data-hybridauth-provider="LinkedIn"] {
+//           &:after {
+//             content: "Log in with LinkedIn";
+//             margin-left: 10px;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+// body.lang-fr {
+//   .popover {
+//     .hybridauth-widget-wrapper {
+//       ul {
+//         a {
+//           &[data-hybridauth-provider="LinkedIn"] {
+//             &:after {
+//               content: "Connectez-vous avec LinkedIn";
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
