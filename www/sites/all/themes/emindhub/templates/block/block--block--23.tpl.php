@@ -5,19 +5,19 @@
   <?php print render($title_prefix); ?>
   <?php if ($title): ?>
     <div class="title">
-      <?php print t('CHANGEME Profitez des avantages des communautés privées'); ?>
+      <?php print t('Take advantage of private communities of experts'); ?>
     </div>
     <!-- <h2<?php print $title_attributes; ?>><span><?php print $title; ?></span></h2> -->
   <?php endif;?>
   <?php print render($title_suffix); ?>
 
   <div class="subtitle">
-    <?php print t('CHANGEME Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'); ?>
+    <?php print t('If you are part of an industry association or in the alumni of your former college, university or company, take a look at the list of private communities and request to be part of the group.'); ?>
   </div>
 
   <div class="emh-actions">
     <div class="emh-action">
-      <a class="emh-button solid-alt" href="#"><?php print t('CHANGEME Rejoignez votre communauté'); ?></a>
+      <a class="emh-button solid-alt" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Join a private community'); ?></a>
     </div>
   </div>
 
