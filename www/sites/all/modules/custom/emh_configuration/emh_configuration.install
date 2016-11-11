@@ -592,13 +592,6 @@ function emh_configuration_update_7037() {
 }
 
 /**
- * ADD: Public request content type.
- */
-function emh_configuration_update_7038() {
-  module_enable(array('ft_public_request'));
-}
-
-/**
  * ADD: New Front.
  */
 function emh_configuration_update_7039() {
@@ -626,7 +619,7 @@ function emh_configuration_update_7039() {
     'ft_views' => array('views_view'),
     'ft_field_base' => array('field_base'),
   ));
-  module_enable(array('ft_public_request', 'ft_front', 'ft_blog'));
+  module_enable(array('ft_front', 'ft_blog'));
 
   // Publish nodes & translations
   $nids = array('267', '268', '303');
