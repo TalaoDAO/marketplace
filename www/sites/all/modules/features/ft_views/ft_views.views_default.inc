@@ -128,7 +128,7 @@ function ft_views_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Fields of expertise';
+  $handler->display->display_options['title'] = 'Expert domains';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'none';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -206,8 +206,8 @@ function ft_views_views_default_views() {
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
 
-  /* Display: (P) Domain list */
-  $handler = $view->new_display('page', '(P) Domain list', 'page_1');
+  /* Display: (P) Expert domains */
+  $handler = $view->new_display('page', '(P) Expert domains', 'page_1');
   $handler->display->display_options['defaults']['header'] = FALSE;
   /* Header: Global: Text area */
   $handler->display->display_options['header']['area']['id'] = 'area';
@@ -218,8 +218,8 @@ function ft_views_views_default_views() {
   $handler->display->display_options['header']['area']['format'] = 'full_html';
   $handler->display->display_options['path'] = 'fields-of-expertise';
   $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'Fields of expertise';
-  $handler->display->display_options['menu']['weight'] = '2';
+  $handler->display->display_options['menu']['title'] = 'Expert domains';
+  $handler->display->display_options['menu']['weight'] = '-48';
   $handler->display->display_options['menu']['name'] = 'menu-top-anonymous';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
@@ -651,6 +651,12 @@ function ft_views_views_default_views() {
     'trim_length' => '300',
   );
   $handler->display->display_options['path'] = 'news';
+  $handler->display->display_options['menu']['type'] = 'normal';
+  $handler->display->display_options['menu']['title'] = 'Publications';
+  $handler->display->display_options['menu']['weight'] = '-47';
+  $handler->display->display_options['menu']['name'] = 'menu-top-anonymous';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
 
   /* Display: (B) Publications */
   $handler = $view->new_display('block', '(B) Publications', 'publications_block');
