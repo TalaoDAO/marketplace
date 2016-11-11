@@ -25,30 +25,28 @@ body.admin-menu {
 }
 
 .footer {
-  margin-top: 0;
-  nav {
-    a {
-      font-weight: bold;
-      color: #4C6172;
-    }
+  .emh-module;
+  background-color: @brand-primary;
+  color: #fff;
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  a,
+  .nav > li > a {
+    color: #fff;
   }
-}
 
-.region-footer {
-  #block-menu-menu-footer-menu,
-  #block-menu-menu-networks {
-    .nav {
-      > li {
-        a {
-          font-weight: 700;
-          font-size: 14px;
+  hr {
+    border-color: @sky-blue;
+  }
 
-          &#link-LinkedIn {
-            padding-left: 35px;
-            background: transparent url("../images/linkedinMini.png") no-repeat center left;
-          }
-        }
-      }
-    }
+  .footer-logo {
+    font-size: 10px;
+    font-weight: 600;
+    .text-uppercase;
+  }
+  .footer-credits {
+    .text-center;
+    color: @cloud;
   }
 }
