@@ -648,7 +648,7 @@ function emh_configuration_update_7039() {
   db_update('menu_links')
     ->fields(array(
       'menu_name' => 'menu-footer-menu',
-      'weight' => '-48',
+      'weight' => '-47',
     ))
     ->condition('mlid', '4964')
     ->execute();
