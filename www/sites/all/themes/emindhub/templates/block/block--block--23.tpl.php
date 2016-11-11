@@ -22,9 +22,7 @@
   </div>
 
   <ul class="sponsors">
-      <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/enac.png" alt="ENAC" /></li>
-      <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/thalesaleniaspace.png" alt="Thales Alenia Space" /></li>
-      <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/snecma.png" alt="Snecma" /></li>
+      <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/emindhub_community_Enac-Alumni.png" alt="ENAC Alumni" /></li>
   </ul>
 
 </section> <!-- /.block -->
