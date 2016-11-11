@@ -295,7 +295,7 @@ global $base_url;
         </a>
       </div>
       <div class="footer-nav col-md-4">
-        <?php print render($page['footer']); ?>
+        <?php print render($page['footer_top']); ?>
       </div>
       <div class="footer-contact col-md-3">
         <h3><?php print t('Contact us'); ?></h3>
@@ -309,3 +309,5 @@ global $base_url;
     <p class="footer-credits"><?php print date('Y'); ?> <?php print $site_name; ?> | <?php print t('All rights reserved'); ?></p>
   </div>
 </footer>
+
+<?php print render($page['footer_bottom']); ?>
