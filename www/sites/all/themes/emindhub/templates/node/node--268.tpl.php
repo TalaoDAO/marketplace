@@ -19,7 +19,7 @@
       // We hide the comments and links now so that we can render them later.
       hide($content['comments']);
       hide($content['links']);
-      print render($content);
+      // print render($content);
       include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/customer-emh-expert.tpl.php');
       include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/how-it-works.tpl.php');
     ?>
