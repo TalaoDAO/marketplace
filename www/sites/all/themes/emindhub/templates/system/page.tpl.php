@@ -97,9 +97,9 @@ global $base_url;
         <?php if ($logo): ?>
         <a class="logo navbar-btn" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
           <?php if ( $logged_in ): ?>
-          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/eMindHub_picto.png" alt="<?php print $site_name; ?>" />
+          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/circles.svg" alt="<?php print $site_name; ?>" />
           <?php else : ?>
-          <img src="<?php print $logo; ?>" alt="<?php print $site_name; ?>" />
+          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/logo-h.svg" alt="<?php print $site_name; ?>" />
           <?php endif; ?>
         </a>
         <?php endif; ?>
@@ -208,16 +208,18 @@ global $base_url;
 
     </header>
 
+    <?php if (!empty($page['top'])): ?>
+      <div class="container-fluid">
+        <?php print render($page['top']); ?>
+      </div>
+    <?php endif; ?>
+
     <div class="container">
 
       <?php if (!empty($page['highlighted'])): ?>
       <div class="highlighted jumbotron">
           <?php print render($page['highlighted']); ?>
       </div>
-      <?php endif; ?>
-
-      <?php if (!empty($page['top'])): ?>
-      <?php print render($page['top']); ?>
       <?php endif; ?>
 
       <div class="row">
@@ -285,6 +287,27 @@ global $base_url;
 
 <footer class="footer">
   <div class="container">
-    <?php print render($page['footer']); ?>
+    <div class="row">
+      <div class="footer-logo col-md-3">
+        <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
+          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/logo-h-white.svg" alt="<?php print $site_name; ?>" />
+          <span><?php print $site_slogan; ?></span>
+        </a>
+      </div>
+      <div class="footer-nav col-md-4">
+        <?php print render($page['footer_top']); ?>
+      </div>
+      <div class="footer-contact col-md-3">
+        <h3><?php print t('Contact us'); ?></h3>
+        <p><a href="<?php print url('contact'); ?>">contact@emindhub.com</a></p>
+      </div>
+      <div class="footer-social col-md-2">
+        Social
+      </div>
+    </div>
+    <hr />
+    <p class="footer-credits"><?php print date('Y'); ?> <?php print $site_name; ?> | <?php print t('All rights reserved'); ?></p>
   </div>
 </footer>
+
+<?php print render($page['footer_bottom']); ?>
