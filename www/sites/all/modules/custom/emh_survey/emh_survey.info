@@ -1,8 +1,0 @@
-name = EMH Survey
-description = Deprecated.
-package = EMH
-dependencies[] = webform
-dependencies[] = emh_access
-core = 7.x
-
-files[] = views/emh_survey_handler_field_submission_count.inc

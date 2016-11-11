@@ -45,7 +45,7 @@ function emindhub_preprocess_node(&$variables, $hook) {
           foreach ($variables['submissions'] as $submission) {
             if ($submission->uid == $user->uid) {
               $variables['user_submission'] = $submission;
-              $variables['submission_status'] = emh_answer_get_status($submission);
+              $variables['submission_status'] = emh_request_submission_get_status($submission);
               break;
             }
           }

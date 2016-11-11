@@ -25,7 +25,6 @@ Feature: Request
     Given I give "client1" 10000 emh credits
 
     Given I am logged in as a user with the "administrator" role
-    Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
       And I click "Group"
       And I click "People"
@@ -42,6 +41,7 @@ Feature: Request
 
     When I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "primary tabs" region
+      And I select "770" from "field_request_type[und]"
       And I check the box "Duration"
     Then I should see "Duration of the mission"
       And I should see "Desired starting date"
@@ -63,6 +63,7 @@ Feature: Request
   Scenario: An author can add an option in request creation
     Given I am logged in as "client1"
     When I go to "node/add/request"
+      And I select "770" from "field_request_type[und]"
       And I fill in "Request title or question" with "How to defeat a superhero?"
       And I select "Energy" from "Fields of expertise"
       And I select "Avengers" from "Circles"

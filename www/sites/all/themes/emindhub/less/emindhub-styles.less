@@ -61,8 +61,6 @@ img {
     text-decoration: none;
     color: #009FE3;
     background-color: #FFF;
-    // border: 1px solid #DDD;
-    // margin-left: -1px;
 
 		display: block;
 		float: none;
@@ -455,6 +453,7 @@ img {
 	font-size: 24px;
 	border: 0;
 	padding: 0;
+	display: inline-block;
 	line-height: 1.5;
 	background-image: url("../images/page-title_border.png");
 	background-repeat: no-repeat;
@@ -784,4 +783,35 @@ header#title {
 }
 .progress-bar-inactive {
   .progress-bar-variant(@gray-light);
+}
+
+
+.emh-form-h2 {
+	border: 0;
+	text-transform: none;
+	font-size: 1.3em;
+	font-weight: bold;
+	padding: 0;
+	margin: 0;
+	line-height: 25px;
+	&:before {
+		content: "";
+		display: inline-block;
+		margin-right: 15px;
+		width: 25px;
+		height: 25px;
+		border: 3px solid @brand-primary;
+		border-radius: 50%;
+		color: @brand-primary;
+		font-size: 12px;
+		.text-center;
+		line-height: 18px;
+
+		position: absolute;
+		left: -40px;
+		@media (max-width: @screen-lg-min) {
+			position: relative;
+			left: auto;
+		}
+	}
 }

@@ -314,7 +314,6 @@ features[user_permission][] = override email address
 features[user_permission][] = override flood control
 features[user_permission][] = perform backup
 features[user_permission][] = post comments
-features[user_permission][] = privatecomments challenge view all
 features[user_permission][] = question1: comment on any question1 content
 features[user_permission][] = question1: comment without approval on any question1 content
 features[user_permission][] = question1: comment without approval on own question1 content
