@@ -119,9 +119,9 @@ function ft_views_views_default_views() {
   $view = new view();
   $view->name = 'domainlist';
   $view->description = '';
-  $view->tag = 'emh, experimental';
+  $view->tag = 'EMH, domains,';
   $view->base_table = 'taxonomy_term_data';
-  $view->human_name = 'Domain List';
+  $view->human_name = 'Domains';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -130,7 +130,7 @@ function ft_views_views_default_views() {
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Expert domains';
   $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'none';
+  $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -147,6 +147,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['style_options']['default_row_class'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['default_field_elements'] = FALSE;
+  /* Header: Global: Text area */
+  $handler->display->display_options['header']['area']['id'] = 'area';
+  $handler->display->display_options['header']['area']['table'] = 'views';
+  $handler->display->display_options['header']['area']['field'] = 'area';
+  $handler->display->display_options['header']['area']['content'] = 'Explore the expert domains';
+  $handler->display->display_options['header']['area']['format'] = 'full_html';
   /* Relationship: Taxonomy term: Parent term */
   $handler->display->display_options['relationships']['parent']['id'] = 'parent';
   $handler->display->display_options['relationships']['parent']['table'] = 'taxonomy_term_hierarchy';
@@ -203,19 +209,12 @@ function ft_views_views_default_views() {
     'domaine' => 'domaine',
   );
 
-  /* Display: Block */
-  $handler = $view->new_display('block', 'Block', 'block');
+  /* Display: (B) Expert domains */
+  $handler = $view->new_display('block', '(B) Expert domains', 'domains_block');
+  $handler->display->display_options['enabled'] = FALSE;
 
   /* Display: (P) Expert domains */
-  $handler = $view->new_display('page', '(P) Expert domains', 'page_1');
-  $handler->display->display_options['defaults']['header'] = FALSE;
-  /* Header: Global: Text area */
-  $handler->display->display_options['header']['area']['id'] = 'area';
-  $handler->display->display_options['header']['area']['table'] = 'views';
-  $handler->display->display_options['header']['area']['field'] = 'area';
-  $handler->display->display_options['header']['area']['content'] = '<p>Every domain is regulated by, at least, one lead expert whose main mission is to encourage the experts to respond to the demands, to monitor the quality of the exchanges and to guarantee the strict compliance with the Charter.<br />All the lead experts form the emindhub scientific college.</p>
-<p class="legend"><span class="statut state-Active"><span class="legend">In service</span></span><span class="statut state-Inactive"><span class="legend">Soon available</span></span></p>';
-  $handler->display->display_options['header']['area']['format'] = 'full_html';
+  $handler = $view->new_display('page', '(P) Expert domains', 'domains_page');
   $handler->display->display_options['path'] = 'fields-of-expertise';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Expert domains';
