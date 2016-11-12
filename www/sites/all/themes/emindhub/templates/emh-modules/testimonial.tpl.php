@@ -77,28 +77,4 @@
         </li>
     </ul>
 
-    <script type="text/javascript">
-      /**
-       * https://github.com/kenwheeler/slick/
-       */
-      jQuery('.testimonial-slider').slick({
-        infinite: false,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: false,
-        dots: false,
-        vertical: true
-      });
-
-      window.addEventListener('resize', debounce(function () {
-          jQuery('.testimonial-slider.slick-initialized').slick('refresh');
-      }, 300));
-
-      jQuery('.testimonial-tabs').on('click', 'li', function (e) {
-          var $this = jQuery(this);
-          jQuery('.testimonial-slider').slick('slickGoTo', $this.index());
-          $this.addClass('active').siblings().removeClass('active');
-      });
-
-    </script>
 </section>
