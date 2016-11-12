@@ -28,19 +28,4 @@
 
   <?php include_once(drupal_get_path('theme','emindhub').'/templates/emh-modules/how-it-works/how-it-works_expert.tpl.php'); ?>
 
-  <script type="text/javascript">
-    Drupal.behaviors.offCanvasMenu = {
-      attach: function (context, settings) {
-        jQuery('.hiw-tabs', context).once().on('click', 'button', function (e) {
-          var $this = jQuery(this);
-          jQuery('.' + $this.data('tab')).removeClass('hiw-hidden').siblings('.hiw-tab-content').addClass('hiw-hidden');
-          jQuery('.hiw-tabs .active').removeClass('active');
-          $this.addClass('active');
-        });
-
-        jQuery('.hiw-tabs', context).find('button').first().trigger('click');
-      }
-    };
-  </script>
-
 </section>
