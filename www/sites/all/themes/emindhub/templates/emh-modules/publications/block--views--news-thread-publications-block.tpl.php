@@ -25,47 +25,6 @@
       </div>
     </div>
 
-    <script type="text/javascript">
-    /**
-     * https://github.com/kenwheeler/slick/
-     */
-    jQuery('.publications-slider:not(.slick-initialized)').slick({
-      arrows: false,
-      dots: true,
-      slidesToShow: 5,
-      slidesToScroll: 1,
-      infinite: false,
-      appendDots: '.publications .emh-dots',
-      responsive: [
-        {
-          breakpoint: 992,
-          settings: {
-            slidesToShow: 4
-          }
-      }, {
-          breakpoint: 768,
-          settings: {
-            slidesToShow: 3
-          }
-      }, {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 2
-          }
-      }, {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 1
-          }
-        }
-      ]
-    });
-
-    /**
-     * @TODO
-     * Externaliser ce script dans un fichier externe
-     */
-    </script>
   <?php endif;?>
 
 </section> <!-- /.block -->
