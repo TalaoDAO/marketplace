@@ -1,4 +1,4 @@
-Drupal.behaviors.expertise = {
+Drupal.behaviors.emhlive = {
     attach: function (context, settings) {
         jQuery('.emhlive-slider', context).once().each(function () {
             var $slider = jQuery(this);
