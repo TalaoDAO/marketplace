@@ -48,36 +48,4 @@
 
   <div class="emh-dots emh-dots-alt below"></div>
 
-  <script type="text/javascript">
-    /**
-     * https://github.com/kenwheeler/slick/
-     */
-    jQuery('.emhlive-slider').slick({
-      infinite: true,
-      slidesToShow: 3,
-      slidesToScroll: 1,
-      appendArrows: '.emhlive-arrows',
-      dots: true,
-      appendDots: '.emhlive .emh-dots.above',
-      responsive: [{
-        breakpoint: 992,
-        settings: {
-          slidesToShow: 2
-          // appendDots: '.emhlive-dots.below',
-        }
-      }, {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          appendDots: '.emhlive .emh-dots.below'
-        }
-      }]
-    });
-
-    /**
-     * @TODO
-     * Externaliser ce script dans un fichier externe
-     */
-  </script>
-
 </section><!-- /.emhlive -->
