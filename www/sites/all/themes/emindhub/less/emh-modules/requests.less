@@ -1,9 +1,11 @@
 .requests-slider {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 .requests-item-wrapper {
 	outline: none;
+  .make-sm-column(6);
+  .make-md-column(4);
 }
 
 .request-item-head {
@@ -13,11 +15,11 @@
 }
 
 .requests-item {
-    overflow: hidden;
-    margin-top: 20px;
+  overflow: hidden;
+  margin-top: 20px;
 	padding: 20px 35px 15px 35px;
-	// height: 255px;
 	border: 1px solid @color-primary-alt;
+  min-height: 265px;
 
 	&:hover {
 		border-color: @color-primary;
@@ -29,10 +31,13 @@
 
 		background-image: url("../images/lock.svg");
 		background-repeat: no-repeat;
-		background-position: 50% 65%;
+		background-position: 25% 70%;
 		background-size: 60px;
-		.text,
-		.read-more,
+    .text {
+      .text-center;
+      line-height: 170px;
+    }
+		.emh-read-more,
 		.social-links {
 			display: none;
 		}
@@ -40,7 +45,7 @@
 
 	.request-item-icon {
 		margin-right: 10px;
-		width: 40px;
+		width: 47px;
 		height: 45px;
 		padding-top: 31px;
 		text-align: center;
@@ -65,7 +70,7 @@
 	&.request-type-cv .request-item-icon:after { background-image: url("../images/ico-cv-simple.svg"); }
 	&.request-type-doc .request-item-icon:after { background-image: url("../images/ico-doc-simple.svg"); }
 	&.request-type-faq .request-item-icon:after { background-image: url("../images/ico-faq-simple.svg"); }
-	&.request-type-missions .request-item-icon:after { background-image: url("../images/ico-missions-simple.svg"); }
+	&.request-type-mission .request-item-icon:after { background-image: url("../images/ico-mission-simple.svg"); }
 	&.request-type-qa .request-item-icon:after { background-image: url("../images/ico-qa-simple.svg"); }
 	&.request-type-survey .request-item-icon:after { background-image: url("../images/ico-survey-simple.svg"); }
 
@@ -77,12 +82,21 @@
 	.metas {
 		font-size: 13px;
 		margin-top: 13px;
+    line-height: 1;
 	}
 
 	.date,
 	.category {
 		font-weight: bold;
+    line-height: 1;
 	}
+  .date {
+    display: inline-block;
+    max-width: 170px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
 	.text {
 		margin-top: 10px;
@@ -92,7 +106,7 @@
 		color: @color-tertiary-alt;
 	}
 
-	.read-more {
+	.emh-read-more {
 		display: block;
 		text-overflow: ellipsis;
 		line-height: 1.385;

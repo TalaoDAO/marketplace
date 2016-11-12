@@ -20,7 +20,8 @@ function ft_front_default_fe_block_settings() {
     'machine_name' => 'emh_hp_community',
     'module' => 'block',
     'node_types' => array(),
-    'pages' => '<front>',
+    'pages' => '<front>
+open-requests',
     'roles' => array(
       'anonymous user' => 1,
     ),
@@ -59,7 +60,7 @@ function ft_front_default_fe_block_settings() {
         'region' => 'top',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -39,
+        'weight' => -40,
       ),
       'seven' => array(
         'region' => '',
@@ -89,7 +90,7 @@ function ft_front_default_fe_block_settings() {
         'region' => 'top',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -40,
+        'weight' => -41,
       ),
       'seven' => array(
         'region' => '',
@@ -119,7 +120,7 @@ function ft_front_default_fe_block_settings() {
         'region' => 'top',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -42,
+        'weight' => -44,
       ),
       'seven' => array(
         'region' => '',
