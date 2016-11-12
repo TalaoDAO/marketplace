@@ -180,7 +180,7 @@ open-requests',
         'region' => 'footer_bottom',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => 0,
+        'weight' => -44,
       ),
       'seven' => array(
         'region' => '',
@@ -190,6 +190,36 @@ open-requests',
       ),
     ),
     'title' => '<none>',
+    'visibility' => 0,
+  );
+
+  $export['block-emh_partners'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'machine_name' => 'emh_partners',
+    'module' => 'block',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(
+      'anonymous user' => 1,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'footer_bottom',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => -45,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => 'Our partners',
     'visibility' => 0,
   );
 
