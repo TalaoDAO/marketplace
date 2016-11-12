@@ -81,9 +81,9 @@ global $base_url;
     <div class="row">
 
       <?php if ( $logged_in ): ?>
-      <div class="col-md-1">
+      <div class="emh-brand col-md-1">
       <?php else : ?>
-      <div class="col-md-3">
+      <div class="emh-brand col-md-3">
       <?php endif; ?>
 
         <?php if (!empty($page['burgermenu'])): ?>
@@ -104,7 +104,7 @@ global $base_url;
         </a>
         <?php endif; ?>
 
-      </div> <!-- END .col -->
+      </div>
 
       <?php if ( $logged_in ): ?>
       <div class="col-md-11">
@@ -134,11 +134,11 @@ global $base_url;
 
         </nav>
 
-      </div> <!-- END .col -->
+      </div>
 
-    </div> <!-- END .row -->
+    </div>
 
-  </div> <!-- END .container -->
+  </div>
 
 </header>
 
@@ -151,7 +151,7 @@ global $base_url;
     </div>
 
   </div>
-</header> <!-- /#page-header -->
+</header>
 <?php endif; ?>
 
 <div class="main-container container-fluid">
@@ -231,7 +231,7 @@ global $base_url;
         <aside id="sidebar-first" class="col-md-2" role="complementary">
         <?php endif; ?>
           <?php print render($page['sidebar_first']); ?>
-        </aside>  <!-- /#sidebar-first -->
+        </aside>
         <?php endif; ?>
 
         <section id="maincol"<?php print $content_column_class; ?>>
@@ -254,7 +254,7 @@ global $base_url;
             <?php print render($page['help']); ?>
           <?php endif; ?>
           <?php print render($page['sidebar_second']); ?>
-        </aside>  <!-- /#sidebar-second -->
+        </aside>
         <?php endif; ?>
 
       </div>
