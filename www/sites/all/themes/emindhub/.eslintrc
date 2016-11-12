@@ -8,7 +8,8 @@
   "globals": {
     "_": true,
     "fetch": true,
-    "ga": true
+    "ga": true,
+    "Drupal": true
   },
 
   "parserOptions": {
