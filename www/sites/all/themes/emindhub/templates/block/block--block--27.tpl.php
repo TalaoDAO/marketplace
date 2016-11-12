@@ -26,41 +26,6 @@
 
   <div class="emh-dots emh-dots-alt"></div>
 
-  <script type="text/javascript">
-  /**
-   * https://github.com/kenwheeler/slick/
-   */
-  jQuery('.references-list:not(.slick-initialized)').slick({
-    arrows: false,
-    dots: true,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    infinite: false,
-    appendDots: '.references .emh-dots',
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1
-        }
-    },
-      {
-        breakpoint: 480,
-        settings: {
-          infinite: true,
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
-  });
-
-  /**
-   * @TODO
-   * Externaliser ce script dans un fichier externe
-   */
-  </script>
 </section>
 
 <?php
