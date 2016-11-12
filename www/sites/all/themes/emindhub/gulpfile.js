@@ -71,7 +71,7 @@ gulp.task('cssmin', ['less'], () => {
 
 gulp.task('concat', () => {
     return gulp.src([
-        'js/theme/*.js'
+        'js/theme/**/*.js'
     ])
     .pipe(concat('script.min.js'))
     .pipe(gulp.dest('dist'))
