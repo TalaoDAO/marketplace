@@ -662,12 +662,28 @@ function emh_configuration_update_7039() {
     ->condition('mlid', '4966')
     ->execute();
 
+  // Delete old menus
+  $menus = array(
+    'menu-findexpert',
+    'menu-networks',
+    'menu-using-answers',
+    'menu-burger-menu',
+  );
+  foreach ($menus as $menu) {
+    $menu = menu_load($menu);
+    menu_delete($menu);
+  }
   // Delete old links
-  db_delete('menu_links')
-    ->condition('mlid', '3786')
-    ->condition('mlid', '7189')
-    ->condition('mlid', '7710')
-    ->condition('mlid', '10223')
-    ->execute();
+  $links = array(
+    '3786',
+    '7189',
+    '7710',
+    '10223',
+  );
+  foreach ($links as $link) {
+    db_delete('menu_links')
+      ->condition('mlid', $link)
+      ->execute();
+  }
   variable_set('menu_rebuild_needed', TRUE);
 }
