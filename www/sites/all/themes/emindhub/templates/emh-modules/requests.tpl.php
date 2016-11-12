@@ -25,11 +25,10 @@
       $fakeItems = 6;
     ?>
 
-
     <div class="row">
       <?php while($fakeItems--): ?>
         <div class="requests-item-wrapper col-xs-12 col-sm-6 col-md-4">
-          <article class="requests-item <?php print $itemClass[(6 - $fakeItems) % 3]; ?>  <?php print $itemCaterory[(6 - $fakeItems) % 5]; ?>">
+          <article class="requests-item <?php print $itemClass[(6 - $fakeItems) % 3]; ?> <?php print $itemCaterory[(6 - $fakeItems) % 5]; ?>">
 
             <div class="request-item-head">
 
@@ -61,9 +60,6 @@
                 Lorem ipsum dolor
               </a>
             </div>
-
-
-
 
           </article>
         </div>

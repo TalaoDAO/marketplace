@@ -34,7 +34,7 @@
         <div class="legend"><?php print t('Put out a survey to a community of experts'); ?></div>
       </li>
       <li class="hiw-service">
-        <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/ico-missions.svg" alt="<?php print('Mission'); ?>" />
+        <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/ico-mission.svg" alt="<?php print('Mission'); ?>" />
         <div class="label"><?php print('Mission'); ?></div>
         <div class="legend"><?php print t('Search for an expert for a mission or project'); ?></div>
       </li>
