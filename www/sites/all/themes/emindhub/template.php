@@ -550,7 +550,7 @@ function emindhub_preprocess_views_view_unformatted(&$vars) {
 	$view     = $vars['view'];
   $rows     = $vars['rows'];
 
-	if ($view->name == 'news_thread' && $view->current_display == 'publications_block_live') {
+	if (($view->name == 'news_thread' && $view->current_display == 'publications_block_live') || ($view->name == 'open_requests' && $view->current_display == 'public_requests_block_live')) {
 		// $vars['classes_array'] = array();
 		// $classes_array = $vars['classes_array'];
     // foreach($classes_array as $key => $classes) {
@@ -587,6 +587,21 @@ function emindhub_preprocess_views_view_unformatted(&$vars) {
 	    $vars['classes_array'][$id] .= implode(' ', $row_classes);
 
 			// $i++;
+	  }
+	}
+	if ($view->name == 'open_requests') {
+	  foreach ($rows as $id => $row) {
+			$locked = $vars['view']->result[$id]->field_field_prequest_confidential['0']['raw']['value'];
+			$type = $vars['view']->result[$id]->field_field_request_type['0']['raw']['taxonomy_term']->name;
+			$type = preg_replace('/[^A-Za-z0-9\-]/', '', strtolower($type));
+
+	    $row_classes = array();
+	    $row_classes[] = ' requests-item';
+	    $row_classes[] = !empty($locked) ? ' locked' : '';
+	    $row_classes[] = !empty($type) ? ' request-type-' . ($type) : '';
+
+	    // Flatten the classes to a string for each row for the template file.
+	    $vars['classes_array'][$id] .= implode(' ', $row_classes);
 	  }
 	}
 }
