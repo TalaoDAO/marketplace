@@ -652,7 +652,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['path'] = 'news';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Publications';
-  $handler->display->display_options['menu']['weight'] = '-47';
+  $handler->display->display_options['menu']['weight'] = '-46';
   $handler->display->display_options['menu']['name'] = 'menu-top-anonymous';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
@@ -770,10 +770,10 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['nothing']['element_default_classes'] = FALSE;
   $handler->display->display_options['block_description'] = 'Publications';
 
-  /* Display: (B) Live Publications */
-  $handler = $view->new_display('block', '(B) Live Publications', 'publications_block_live');
+  /* Display: (B) EMH Live */
+  $handler = $view->new_display('block', '(B) EMH Live', 'publications_block_live');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'EMH live';
+  $handler->display->display_options['title'] = 'EMH Live';
   $handler->display->display_options['enabled'] = FALSE;
   $handler->display->display_options['defaults']['use_more'] = FALSE;
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
@@ -894,7 +894,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['filters']['promote']['table'] = 'node';
   $handler->display->display_options['filters']['promote']['field'] = 'promote';
   $handler->display->display_options['filters']['promote']['value'] = '1';
-  $handler->display->display_options['block_description'] = 'EMH live (Publications)';
+  $handler->display->display_options['block_description'] = 'EMH Live (Publications)';
   $export['news_thread'] = $view;
 
   $view = new view();
