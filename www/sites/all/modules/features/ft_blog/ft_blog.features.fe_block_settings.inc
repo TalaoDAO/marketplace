@@ -26,8 +26,8 @@ function ft_blog_default_fe_block_settings() {
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'top',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
         'weight' => -42,
       ),
