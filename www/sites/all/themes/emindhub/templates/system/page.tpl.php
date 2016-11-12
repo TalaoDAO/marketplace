@@ -81,9 +81,9 @@ global $base_url;
     <div class="row">
 
       <?php if ( $logged_in ): ?>
-      <div class="emh-brand col-md-1">
+      <div class="emh-brand col-sm-1">
       <?php else : ?>
-      <div class="emh-brand col-md-3">
+      <div class="emh-brand col-xs-6 col-sm-3">
       <?php endif; ?>
 
         <?php if (!empty($page['burgermenu'])): ?>
@@ -288,21 +288,24 @@ global $base_url;
 <footer class="footer">
   <div class="container">
     <div class="row">
-      <div class="footer-logo col-md-3">
+      <div class="footer-logo">
         <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
           <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/logo-h-white.svg" alt="<?php print $site_name; ?>" />
           <span><?php print $site_slogan; ?></span>
         </a>
       </div>
-      <div class="footer-nav col-md-4">
+      <div class="footer-nav">
         <?php print render($page['footer_top']); ?>
       </div>
-      <div class="footer-contact col-md-3">
-        <h3><?php print t('Contact us'); ?></h3>
+      <div class="footer-contact">
+        <h4><?php print t('Contact us'); ?></h4>
         <p><a href="<?php print url('contact'); ?>">contact@emindhub.com</a></p>
       </div>
-      <div class="footer-social col-md-2">
-        Social
+      <div class="footer-social">
+        <div class="social-links">
+          <a class="social-network" href="https://twitter.com/emindhub"><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/twitter.svg" alt="Twitter" /></a>
+          <a class="social-network" href="https://www.linkedin.com/company/emindhub"><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/linkedin.svg" alt="Linkedin" /></a>
+        </div>
       </div>
     </div>
     <hr />
