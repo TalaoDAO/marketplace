@@ -10,7 +10,7 @@
 function emh_contactform_form_contact_site_form_alter(&$form, &$form_state, $form_id) {
 
 	$form['emh_baseline'] = array(
-    '#markup' => '<p class="emh-title-baseline">' . t('Want to learn more?') . '<br /><strong>' . t('Leave us a message, we will get back at you within 24h!') . '</strong></p>',
+    '#markup' => '<p class="emh-title-baseline">' . t('Want to learn more?') . '<br />' . t('Leave us a message, we will get back at you within 24h!') . '</p>',
     '#weight' => '-1000', // First !
   );
 
@@ -29,13 +29,11 @@ function emh_contactform_form_contact_site_form_alter(&$form, &$form_state, $for
 	$form['entreprise'] = array(
 		'#title' => t('Your organisation / company'),
 		'#type' => 'textfield',
-		//'#required' => TRUE,
 	);
 
 	$form['phone'] = array(
 		'#title' => t('Your phone'),
 		'#type' => 'textfield',
-		// '#required' => TRUE,
 	);
 
 	$form['mail'] = array(
@@ -48,6 +46,7 @@ function emh_contactform_form_contact_site_form_alter(&$form, &$form_state, $for
 		'#title' => t('Your message'),
 		'#type' => 'textarea',
 		'#required' => TRUE,
+		'#rows' => 15,
 	);
 
 	$form['name']['#required'] = FALSE;

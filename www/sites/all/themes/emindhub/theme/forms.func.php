@@ -683,3 +683,13 @@ function emindhub_form_request_node_form_field_options_help(array $types, $form)
 		}
 	}
 }
+
+/**
+ * Implements hook_form_alter().
+ */
+function emindhub_form_contact_site_form_alter(&$form, &$form_state) {
+	$form['firstname']['#prefix'] = '<div class="contact-left">';
+	$form['mail']['#suffix'] = '</div>';
+	$form['message']['#prefix'] = '<div class="contact-right">';
+	$form['message']['#suffix'] = '</div>';
+}
