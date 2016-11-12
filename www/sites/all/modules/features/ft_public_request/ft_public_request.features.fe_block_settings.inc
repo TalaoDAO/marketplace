@@ -1,21 +1,21 @@
 <?php
 /**
  * @file
- * ft_blog.features.fe_block_settings.inc
+ * ft_public_request.features.fe_block_settings.inc
  */
 
 /**
  * Implements hook_default_fe_block_settings().
  */
-function ft_blog_default_fe_block_settings() {
+function ft_public_request_default_fe_block_settings() {
   $export = array();
 
   $export['version'] = '2.0';
 
-  $export['views-58462e19e23ccfccdcc6b91a103ef1cd'] = array(
+  $export['views-6ab7fcd12a377687c35b7d6396f1daee'] = array(
     'cache' => -1,
     'custom' => 0,
-    'delta' => '58462e19e23ccfccdcc6b91a103ef1cd',
+    'delta' => '6ab7fcd12a377687c35b7d6396f1daee',
     'i18n_block_language' => array(),
     'i18n_mode' => 0,
     'module' => 'views',
@@ -26,10 +26,10 @@ function ft_blog_default_fe_block_settings() {
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => '',
-        'status' => 0,
+        'region' => 'top',
+        'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -42,
+        'weight' => -43,
       ),
       'seven' => array(
         'region' => '',
@@ -42,22 +42,24 @@ function ft_blog_default_fe_block_settings() {
     'visibility' => 1,
   );
 
-  $export['views-news_thread-publications_block'] = array(
+  $export['views-e55ab575e8f94eb37181542a5c863be7'] = array(
     'cache' => -1,
     'custom' => 0,
-    'delta' => 'news_thread-publications_block',
+    'delta' => 'e55ab575e8f94eb37181542a5c863be7',
     'i18n_block_language' => array(),
-    'i18n_mode' => 1,
+    'i18n_mode' => 0,
     'module' => 'views',
     'node_types' => array(),
     'pages' => '<front>',
-    'roles' => array(),
+    'roles' => array(
+      'anonymous user' => 1,
+    ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'bottom',
+        'region' => 'top',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -41,
+        'weight' => -39,
       ),
       'seven' => array(
         'region' => '',

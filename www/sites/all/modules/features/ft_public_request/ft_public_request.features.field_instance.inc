@@ -121,7 +121,7 @@ function ft_public_request_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_prequest_circles',
-    'label' => 'Circles',
+    'label' => 'Circle',
     'required' => 1,
     'settings' => array(
       'behaviors' => array(
@@ -333,7 +333,7 @@ function ft_public_request_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Choose a public request type');
-  t('Circles');
+  t('Circle');
   t('Confidential');
   t('Describe your request');
   t('Domains');
