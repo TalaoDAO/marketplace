@@ -90,7 +90,7 @@
       <div class="emh-actions">
 
         <div class="emh-action">
-          <?php print t('CHANGEME Vous avez besoin d\'un expert ? Inscrivez-vous et postez une demande'); ?> <a class="emh-button solid" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('CHANGEME Poster une demande'); ?></a>
+          <?php print t('CHANGEME Vous avez besoin d\'un expert ? Inscrivez-vous et postez une demande'); ?> <a class="emh-button solid" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Post a request'); ?></a>
         </div>
 
       </div>
