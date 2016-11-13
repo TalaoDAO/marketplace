@@ -85,7 +85,7 @@ function ft_faq_views_default_views() {
   );
 
   /* Display: (P) FAQ */
-  $handler = $view->new_display('page', '(P) FAQ', 'page');
+  $handler = $view->new_display('page', '(P) FAQ', 'faq_page');
   $handler->display->display_options['enabled'] = FALSE;
   $handler->display->display_options['path'] = 'faq';
   $handler->display->display_options['menu']['title'] = 'FAQ';
@@ -95,7 +95,7 @@ function ft_faq_views_default_views() {
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
   /* Display: (P) FAQ Client */
-  $handler = $view->new_display('page', '(P) FAQ Client', 'page_faq_client');
+  $handler = $view->new_display('page', '(P) FAQ Client', 'faq_client_page');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'FAQ Client';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
@@ -136,7 +136,7 @@ function ft_faq_views_default_views() {
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
   /* Display: (P) FAQ Expert */
-  $handler = $view->new_display('page', '(P) FAQ Expert', 'page_faq_expert');
+  $handler = $view->new_display('page', '(P) FAQ Expert', 'faq_expert_page');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'FAQ Expert';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
@@ -177,7 +177,7 @@ function ft_faq_views_default_views() {
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
   /* Display: (B) FAQ Client */
-  $handler = $view->new_display('block', '(B) FAQ Client', 'block_faq_client');
+  $handler = $view->new_display('block', '(B) FAQ Client', 'faq_client_block');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Frequently Asked Questions';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
@@ -212,7 +212,7 @@ function ft_faq_views_default_views() {
   $handler->display->display_options['block_description'] = 'FAQ Client';
 
   /* Display: (B) FAQ Expert */
-  $handler = $view->new_display('block', '(B) FAQ Expert', 'block_faq_expert');
+  $handler = $view->new_display('block', '(B) FAQ Expert', 'faq_expert_block');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Frequently Asked Questions';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
