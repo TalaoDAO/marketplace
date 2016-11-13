@@ -28,13 +28,13 @@
     font-size: 16px;
   }
 
-  ul {
-      margin: 10px 0 0;
-      padding: 0;
-      list-style: none;
-      a {
-        font-style: italic;
-      }
+  ul.login-links {
+    margin: 10px 0 0;
+    padding: 0;
+    list-style: none;
+    a {
+      font-style: italic;
+    }
   }
 
   .btn-group {
@@ -47,6 +47,7 @@
 
   .form-control {
     margin: 0 auto;
+    max-width: 100%;
   }
 }
 
@@ -77,8 +78,13 @@
 }
 .signIn,
 .signInContent {
+  .btn-group {
+    padding: 0 !important;
+  }
   button {
     .btn;
-    min-width: 170px;
+    padding: @padding-base-vertical @padding-base-horizontal !important;
+    margin-top: 0 !important;
+    width: 100%;
   }
 }
