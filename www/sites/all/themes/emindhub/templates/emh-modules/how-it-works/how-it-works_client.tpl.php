@@ -83,7 +83,7 @@
 
       <div class="emh-subtitle"><?php echo t('Frequently Asked Questions') ?></div>
       <?php
-      $FAQ_client_block = module_invoke('views', 'block_view', 'faq-block_faq_client');
+      $FAQ_client_block = module_invoke('views', 'block_view', 'faq-faq_client_block');
       print render($FAQ_client_block['content']);
       ?>
 
