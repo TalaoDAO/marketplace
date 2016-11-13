@@ -21,6 +21,7 @@ function emindhub_css_alter(&$css) {
     'misc/ui/jquery.ui.dialog.css',
     'misc/ui/jquery.ui.menu.css',
     'misc/ui/jquery.ui.autocomplete.css',
+    'sites/all/modules/contrib/hybridauth/plugins/icon_pack/hybridauth_32/hybridauth_32.css',
   );
 
   // Remove drupal default css files.
