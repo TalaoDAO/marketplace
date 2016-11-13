@@ -76,7 +76,7 @@
   <?php endif; ?>
 
   <?php if (!$block_html_id) : ?>
-  <section class="emh-module faq container">
+  <section class="emh-module faq hiw-faq container">
 
       <div class="emh-subtitle"><?php echo t('Frequently asked questions') ?></div>
       <?php
@@ -87,7 +87,7 @@
       <div class="emh-actions">
 
         <div class="emh-action">
-          <?php print t('CHANGEME Vous êtes expert en aéronautique ? Répondez aux demandes et gagnez des crédits'); ?> <a class="emh-button solid-alt" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('CHANGEME Proposer une expertise'); ?></a>
+          <?php print t('CHANGEME Vous êtes expert en aéronautique ? Répondez aux demandes et gagnez des crédits'); ?> <a class="emh-button solid-alt" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Propose your expertise'); ?></a>
         </div>
 
       </div>
