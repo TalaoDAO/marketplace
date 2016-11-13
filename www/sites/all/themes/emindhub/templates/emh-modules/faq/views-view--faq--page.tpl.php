@@ -1,4 +1,4 @@
-<div class="emh-module faq<?php print $classes; ?>">
+<div class="emh-module faq <?php print $classes; ?>">
   <?php print render($title_prefix); ?>
   <?php if ($title): ?>
     <?php print $title; ?>
