@@ -428,7 +428,7 @@ function ft_views_views_default_views() {
   $view = new view();
   $view->name = 'news_thread';
   $view->description = '';
-  $view->tag = 'EMH, blog';
+  $view->tag = 'EMH, publications,';
   $view->base_table = 'node';
   $view->human_name = 'Publications';
   $view->core = 7;
@@ -448,6 +448,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'full';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['row_class'] = 'publications-item';
   $handler->display->display_options['style_options']['default_row_class'] = FALSE;
   $handler->display->display_options['style_options']['row_class_special'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';
@@ -543,7 +544,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['use_more_text'] = 'More news';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '9';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
@@ -563,7 +564,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['path']['table'] = 'node';
   $handler->display->display_options['fields']['path']['field'] = 'path';
   $handler->display->display_options['fields']['path']['label'] = '';
-  $handler->display->display_options['fields']['path']['exclude'] = TRUE;
   $handler->display->display_options['fields']['path']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['path']['absolute'] = TRUE;
   /* Field: Content: Image */
@@ -579,7 +579,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_image']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_image']['click_sort_column'] = 'fid';
   $handler->display->display_options['fields']['field_image']['settings'] = array(
-    'image_style' => 'news_block',
+    'image_style' => 'publication_small',
     'image_link' => 'content',
   );
   /* Field: Entity translation: Title: translated */
@@ -587,8 +587,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title_field_et']['table'] = 'field_data_title_field';
   $handler->display->display_options['fields']['title_field_et']['field'] = 'title_field_et';
   $handler->display->display_options['fields']['title_field_et']['label'] = '';
-  $handler->display->display_options['fields']['title_field_et']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['title_field_et']['alter']['path'] = '[path]';
   $handler->display->display_options['fields']['title_field_et']['element_type'] = '0';
   $handler->display->display_options['fields']['title_field_et']['element_label_type'] = '0';
   $handler->display->display_options['fields']['title_field_et']['element_label_colon'] = FALSE;
@@ -615,27 +613,12 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['created']['date_format'] = 'custom';
   $handler->display->display_options['fields']['created']['custom_date_format'] = 'd M';
   $handler->display->display_options['fields']['created']['second_date_format'] = 'privatemsg_current_day';
-  /* Field: Field: Domain(s) */
-  $handler->display->display_options['fields']['field_domaine']['id'] = 'field_domaine';
-  $handler->display->display_options['fields']['field_domaine']['table'] = 'field_data_field_domaine';
-  $handler->display->display_options['fields']['field_domaine']['field'] = 'field_domaine';
-  $handler->display->display_options['fields']['field_domaine']['label'] = '';
-  $handler->display->display_options['fields']['field_domaine']['element_type'] = '0';
-  $handler->display->display_options['fields']['field_domaine']['element_label_type'] = '0';
-  $handler->display->display_options['fields']['field_domaine']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_domaine']['element_wrapper_type'] = 'span';
-  $handler->display->display_options['fields']['field_domaine']['element_wrapper_class'] = 'meta category';
-  $handler->display->display_options['fields']['field_domaine']['element_default_classes'] = FALSE;
-  $handler->display->display_options['fields']['field_domaine']['delta_offset'] = '0';
   /* Field: Content: Body */
   $handler->display->display_options['fields']['body']['id'] = 'body';
   $handler->display->display_options['fields']['body']['table'] = 'field_data_body';
   $handler->display->display_options['fields']['body']['field'] = 'body';
   $handler->display->display_options['fields']['body']['label'] = '';
-  $handler->display->display_options['fields']['body']['alter']['max_length'] = '300';
-  $handler->display->display_options['fields']['body']['alter']['more_link'] = TRUE;
-  $handler->display->display_options['fields']['body']['alter']['more_link_text'] = 'Read more';
-  $handler->display->display_options['fields']['body']['alter']['more_link_path'] = '[path]';
+  $handler->display->display_options['fields']['body']['alter']['max_length'] = '125';
   $handler->display->display_options['fields']['body']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['body']['alter']['trim'] = TRUE;
   $handler->display->display_options['fields']['body']['element_type'] = '0';
@@ -648,7 +631,16 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['body']['settings'] = array(
     'trim_length' => '300',
   );
-  $handler->display->display_options['path'] = 'news';
+  /* Field: Content: Tags */
+  $handler->display->display_options['fields']['field_blog_tags']['id'] = 'field_blog_tags';
+  $handler->display->display_options['fields']['field_blog_tags']['table'] = 'field_data_field_blog_tags';
+  $handler->display->display_options['fields']['field_blog_tags']['field'] = 'field_blog_tags';
+  $handler->display->display_options['fields']['field_blog_tags']['label'] = '';
+  $handler->display->display_options['fields']['field_blog_tags']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_blog_tags']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_blog_tags']['delta_offset'] = '0';
+  $handler->display->display_options['views_navigation_cycle'] = FALSE;
+  $handler->display->display_options['path'] = 'publications';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Publications';
   $handler->display->display_options['menu']['weight'] = '-46';
@@ -698,7 +690,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['path']['table'] = 'node';
   $handler->display->display_options['fields']['path']['field'] = 'path';
   $handler->display->display_options['fields']['path']['label'] = '';
-  $handler->display->display_options['fields']['path']['exclude'] = TRUE;
   $handler->display->display_options['fields']['path']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['path']['absolute'] = TRUE;
   /* Field: Content: Image */
@@ -710,7 +701,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_image']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_image']['click_sort_column'] = 'fid';
   $handler->display->display_options['fields']['field_image']['settings'] = array(
-    'image_style' => 'news_block',
+    'image_style' => 'publication_small',
     'image_link' => 'content',
   );
   /* Field: Entity translation: Title: translated */
@@ -718,14 +709,10 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['title_field_et']['table'] = 'field_data_title_field';
   $handler->display->display_options['fields']['title_field_et']['field'] = 'title_field_et';
   $handler->display->display_options['fields']['title_field_et']['label'] = '';
-  $handler->display->display_options['fields']['title_field_et']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['title_field_et']['alter']['path'] = '[path]';
   $handler->display->display_options['fields']['title_field_et']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['title_field_et']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['title_field_et']['settings'] = array(
-    'title_style' => 'h3',
-    'title_link' => 'content',
-    'title_class' => '',
+    'trim_length' => '600',
   );
   /* Field: Content: Post date */
   $handler->display->display_options['fields']['created']['id'] = 'created';
@@ -737,14 +724,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['created']['date_format'] = 'custom';
   $handler->display->display_options['fields']['created']['custom_date_format'] = 'd M';
   $handler->display->display_options['fields']['created']['second_date_format'] = 'privatemsg_current_day';
-  /* Field: Field: Domain(s) */
-  $handler->display->display_options['fields']['field_domaine']['id'] = 'field_domaine';
-  $handler->display->display_options['fields']['field_domaine']['table'] = 'field_data_field_domaine';
-  $handler->display->display_options['fields']['field_domaine']['field'] = 'field_domaine';
-  $handler->display->display_options['fields']['field_domaine']['label'] = '';
-  $handler->display->display_options['fields']['field_domaine']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_domaine']['element_default_classes'] = FALSE;
-  $handler->display->display_options['fields']['field_domaine']['delta_offset'] = '0';
   /* Field: Content: Body */
   $handler->display->display_options['fields']['body']['id'] = 'body';
   $handler->display->display_options['fields']['body']['table'] = 'field_data_body';
@@ -759,14 +738,15 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['body']['settings'] = array(
     'trim_length' => '300',
   );
-  /* Field: Global: Custom text */
-  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['label'] = '';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '[path]';
-  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['nothing']['element_default_classes'] = FALSE;
+  /* Field: Content: Tags */
+  $handler->display->display_options['fields']['field_blog_tags']['id'] = 'field_blog_tags';
+  $handler->display->display_options['fields']['field_blog_tags']['table'] = 'field_data_field_blog_tags';
+  $handler->display->display_options['fields']['field_blog_tags']['field'] = 'field_blog_tags';
+  $handler->display->display_options['fields']['field_blog_tags']['label'] = '';
+  $handler->display->display_options['fields']['field_blog_tags']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_blog_tags']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_blog_tags']['delta_offset'] = '0';
+  $handler->display->display_options['views_navigation_cycle'] = FALSE;
   $handler->display->display_options['block_description'] = 'Publications';
 
   /* Display: (B) EMH Live */
@@ -812,7 +792,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['path']['table'] = 'node';
   $handler->display->display_options['fields']['path']['field'] = 'path';
   $handler->display->display_options['fields']['path']['label'] = '';
-  $handler->display->display_options['fields']['path']['exclude'] = TRUE;
   $handler->display->display_options['fields']['path']['element_label_colon'] = FALSE;
   /* Field: Entity translation: Title: translated */
   $handler->display->display_options['fields']['title_field_et']['id'] = 'title_field_et';
@@ -838,14 +817,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['created']['date_format'] = 'custom';
   $handler->display->display_options['fields']['created']['custom_date_format'] = 'd M. Y';
   $handler->display->display_options['fields']['created']['second_date_format'] = 'long';
-  /* Field: Field: Domain(s) */
-  $handler->display->display_options['fields']['field_domaine']['id'] = 'field_domaine';
-  $handler->display->display_options['fields']['field_domaine']['table'] = 'field_data_field_domaine';
-  $handler->display->display_options['fields']['field_domaine']['field'] = 'field_domaine';
-  $handler->display->display_options['fields']['field_domaine']['label'] = '';
-  $handler->display->display_options['fields']['field_domaine']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_domaine']['element_default_classes'] = FALSE;
-  $handler->display->display_options['fields']['field_domaine']['delta_offset'] = '0';
   /* Field: Content: Body */
   $handler->display->display_options['fields']['body']['id'] = 'body';
   $handler->display->display_options['fields']['body']['table'] = 'field_data_body';
@@ -863,6 +834,14 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['body']['settings'] = array(
     'trim_length' => '300',
   );
+  /* Field: Content: Tags */
+  $handler->display->display_options['fields']['field_blog_tags']['id'] = 'field_blog_tags';
+  $handler->display->display_options['fields']['field_blog_tags']['table'] = 'field_data_field_blog_tags';
+  $handler->display->display_options['fields']['field_blog_tags']['field'] = 'field_blog_tags';
+  $handler->display->display_options['fields']['field_blog_tags']['label'] = '';
+  $handler->display->display_options['fields']['field_blog_tags']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_blog_tags']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_blog_tags']['delta_offset'] = '0';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
@@ -1864,7 +1843,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
   $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
   $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
-  /* Field: Field: Organisation */
+  /* Field: Field: Organisation / company */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';

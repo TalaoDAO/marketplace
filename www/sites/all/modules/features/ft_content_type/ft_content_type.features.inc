@@ -22,22 +22,6 @@ function ft_content_type_ctools_plugin_api($module = NULL, $api = NULL) {
 function ft_content_type_image_default_styles() {
   $styles = array();
 
-  // Exported image style: news_block.
-  $styles['news_block'] = array(
-    'label' => 'news block (265x105)',
-    'effects' => array(
-      2 => array(
-        'name' => 'image_scale',
-        'data' => array(
-          'width' => 300,
-          'height' => 250,
-          'upscale' => 0,
-        ),
-        'weight' => 1,
-      ),
-    ),
-  );
-
   // Exported image style: profile_picture.
   $styles['profile_picture'] = array(
     'label' => 'profile picture',

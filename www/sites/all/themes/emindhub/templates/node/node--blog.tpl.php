@@ -12,15 +12,14 @@
         <?php endif; ?>
         <?php print render($title_suffix); ?>
 
-        <?php if (!empty($content['field_domaine']) || !empty($elements['#node']->created)) : ?>
         <div class="publication-meta">
-            <?php print render($content['field_domaine']); ?>
-            <?php if (!empty($elements['#node']->created)) : ?>
-  						<span><?php print format_date($elements['#node']->created, 'custom', 'j F Y'); ?></span>
-  					<?php endif; ?>
+            <span><?php print format_date($elements['#node']->created, 'custom', 'j F Y'); ?></span>
+            <?php if (!empty($elements['#node']->created) && !empty($content['field_blog_tags'])) : ?>
+              -
+            <?php endif; ?>
+            <?php print render($content['field_blog_tags']); ?>
             <?php //print render($content['links']); ?>
         </div>
-        <?php endif; ?>
 
         <?php if (!empty($content['field_image'])) : ?>
         <div class="publication-picture mobile">
@@ -34,11 +33,11 @@
         </div>
         <?php endif; ?>
 
-        <ul class="publication-navigation">
+        <!-- <ul class="publication-navigation">
             <li class="previous"><a href="#"><?php print t('Previous') ?></a></li>
             <li class="back-to-list"><a href="#"><?php print t('Back to list') ?></a></li>
             <li class="next"><a href="#"><?php print t('Next') ?></a></li>
-        </ul>
+        </ul> -->
 
     </article>
 
