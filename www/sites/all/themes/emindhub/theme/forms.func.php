@@ -23,7 +23,6 @@ function emindhub_process_format($element) {
  * Implements hook_form_alter().
  */
 function emindhub_form_alter(&$form, &$form_state, $form_id) {
-
   // echo '<pre>' . print_r($form_id, TRUE) . '</pre>';
   // echo '<pre>' . print_r($form, TRUE) . '</pre>';
   // echo '<pre>' . print_r(element_children($form), TRUE) . '</pre>';
@@ -73,9 +72,8 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
   	$form['actions']['#suffix'] = '
   		<div class="form-mandatory">
   			<span class="form-required">*</span>&nbsp;' . t('Required fields') . '
-  		</div> <!-- END .form-mandatory -->';
+  		</div>';
   }
-
 
   // Hide "Show row weights" for regular users
   global $user;
@@ -128,14 +126,44 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 
 	}
 
+	switch ($form_id) {
+
+		case 'user_login':
+		case 'user_login_block':
+			$form['name']['#title_display'] = 'invisible';
+			$form['name']['#attributes']['placeholder'] = t('Email');
+
+			$form['pass']['#title_display'] = 'invisible';
+			$form['pass']['#attributes']['placeholder'] = $form['pass']['#title'];
+
+			$markup = l(t('Forgot your password?'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
+			$markup = '<div class="login-links">' . $markup . '</div>';
+			$form['links']['#markup'] = $markup;
+			$form['links']['#weight'] = 8;
+
+			$form['actions']['#weight'] = 9;
+
+			$form['hybridauth']['#weight'] = 10;
+			break;
+
+		default:
+			break;
+
+	}
 }
 
+/**
+ * Implements hook_form_alter().
+ */
+function emindhub_form_user_pass_alter(&$form, &$form_state) {
+	$form['name']['#title_display'] = 'invisible';
+	$form['name']['#attributes']['placeholder'] = t('Email');
+}
 
 /**
  * Implements hook_form_alter().
  */
 function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
-
   $element_info = element_info('password_confirm');
   $process = $element_info['#process'];
   $process[] = 'emindhub_form_process_password_confirm';
@@ -206,17 +234,13 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   // FIXME : fait buguer la prévisualisation des portraits
   // $form['field_photo'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
   $form['field_cv'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
-
 }
 
 
 function emindhub_form_process_password_confirm($element) {
-
-  // echo '<pre>' . print_r($element, TRUE) . '</pre>';
   $element['pass1']['#title'] = t('New password');
   $element['pass2']['#title'] = t('Confirm new password');
   return $element;
-
 }
 
 
@@ -224,14 +248,12 @@ function emindhub_form_process_password_confirm($element) {
  * Implements hook_form_alter().
  */
 function emindhub_form_emh_profile_complete_request_form_alter(&$form, &$form_state, $form_id) {
-
 	$form['field_entreprise']['#weight'] = '1';
 	$form['field_working_status']['#weight'] = '2';
 	$form['field_domaine']['#weight'] = '3';
 
 	$form['actions']['#weight'] = '100';
 	$form['actions']['#suffix'] = '';
-
 }
 
 
@@ -239,41 +261,14 @@ function emindhub_form_emh_profile_complete_request_form_alter(&$form, &$form_st
  * Implements hook_form_alter().
  */
 function emindhub_form_lang_dropdown_form_alter(&$form, &$form_state, $form_id) {
-
   $form['#attributes']['class'][] = 'navbar-form';
   $form['#attributes']['class'][] = 'navbar-right';
-
 }
 
-
-function emindhub_form_user_login_block_alter(&$form, &$form_state, $form_id) {
-
-  // echo '<pre>' . print_r($form, TRUE) . '</pre>';
-
-  $form['name']['#size'] = 30;
-  $form['name']['#title_display'] = 'invisible';
-  $form['name']['#attributes']['placeholder'] = t('Email');
-
-  $form['pass']['#size'] = 30;
-  $form['pass']['#title_display'] = 'invisible';
-  $form['pass']['#attributes']['placeholder'] = $form['pass']['#title'];
-
-  $form['actions']['#weight'] = 8;
-
-  // $form['linkedin_auth_links']['#weight'] = 9;
-  $form['hybridauth']['#weight'] = 10;
-
-  $markup = l(t('Forgot your password?'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
-  $markup = '<ul class="login-links">' . $markup . '</ul>';
-  $form['links']['#markup'] = $markup;
-  $form['links']['#weight'] = 9;
-
-}
 
 // Check if form and fields are required
 // https://www.drupal.org/node/72197#comment-6000064
 function emindhub_form_has_required($form, $form_id) {
-
 	if ($form_id != 'user_login_block') {
 		if (!empty($form['#required'])) {
 		  return TRUE;
@@ -284,7 +279,6 @@ function emindhub_form_has_required($form, $form_id) {
 	  	}
 	  }
 	}
-
 }
 
 
