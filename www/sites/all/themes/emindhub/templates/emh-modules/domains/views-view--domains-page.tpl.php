@@ -149,7 +149,7 @@
 
   <section class="emh-module person-list-wrapper container">
 
-      <h3 class="emh-subtitle"><?php print t('CHANGEME Ils ont eu la réponse'); ?></h3>
+      <h3 class="emh-subtitle"><?php print t('They got rapid and relevant answers'); ?></h3>
 
       <ul class="person-list row">
 
@@ -217,7 +217,7 @@
   <div class="emh-actions">
 
     <div class="emh-action">
-      <?php print t('CHANGEME Vous avez besoin d\'un expert ? Inscrivez-vous et postez une demande'); ?> <a class="emh-button solid" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Post a request'); ?></a>
+      <?php print t('Do you need expertise? Register now and post a request'); ?> <a class="emh-button solid" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Post a request'); ?></a>
     </div>
 
   </div>
