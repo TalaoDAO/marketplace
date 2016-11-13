@@ -22,7 +22,7 @@ function ft_blog_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 1,
+        'weight' => 2,
       ),
       'teaser' => array(
         'label' => 'hidden',
@@ -55,8 +55,8 @@ function ft_blog_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-blog-field_domaine'.
-  $field_instances['node-blog-field_domaine'] = array(
+  // Exported field_instance: 'node-blog-field_blog_tags'.
+  $field_instances['node-blog-field_blog_tags'] = array(
     'bundle' => 'blog',
     'default_value' => NULL,
     'deleted' => 0,
@@ -67,7 +67,7 @@ function ft_blog_field_default_field_instances() {
         'module' => 'i18n_taxonomy',
         'settings' => array(),
         'type' => 'i18n_taxonomy_term_reference_link',
-        'weight' => 2,
+        'weight' => 1,
       ),
       'teaser' => array(
         'label' => 'hidden',
@@ -75,6 +75,50 @@ function ft_blog_field_default_field_instances() {
         'settings' => array(),
         'type' => 'i18n_taxonomy_term_reference_link',
         'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_blog_tags',
+    'label' => 'Tags',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'autocomplete_deluxe',
+      'settings' => array(
+        'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
+        'delimiter' => ',',
+        'limit' => 10,
+        'min_length' => 0,
+        'not_found_message' => 'The term \'@term\' will be added.',
+        'size' => 60,
+      ),
+      'type' => 'autocomplete_deluxe_taxonomy',
+      'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance: 'node-blog-field_domaine'.
+  $field_instances['node-blog-field_domaine'] = array(
+    'bundle' => 'blog',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 3,
+      ),
+      'teaser' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 3,
       ),
     ),
     'entity_type' => 'node',
@@ -92,7 +136,7 @@ function ft_blog_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 3,
+      'weight' => 4,
     ),
   );
 
@@ -117,7 +161,7 @@ function ft_blog_field_default_field_instances() {
         'module' => 'image',
         'settings' => array(
           'image_link' => 'content',
-          'image_style' => 'news_block',
+          'image_style' => 'publication_small',
         ),
         'type' => 'image',
         'weight' => 0,
@@ -185,13 +229,13 @@ function ft_blog_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 3,
+        'weight' => 4,
       ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 4,
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'node',
@@ -249,13 +293,13 @@ function ft_blog_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 4,
+        'weight' => 5,
       ),
       'teaser' => array(
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 3,
+        'weight' => 4,
       ),
     ),
     'entity_type' => 'node',
@@ -289,6 +333,7 @@ function ft_blog_field_default_field_instances() {
   t('Format minimum : 790px (largeur) x 500px (hauteur)');
   t('Groups audience');
   t('Image');
+  t('Tags');
   t('Title');
 
   return $field_instances;

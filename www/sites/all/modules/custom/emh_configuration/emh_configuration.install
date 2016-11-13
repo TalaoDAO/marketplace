@@ -630,6 +630,8 @@ function emh_configuration_update_7039() {
   ));
 
   module_enable(array('ft_front', 'ft_blog'));
+  module_disable(array('forward'));
+  drupal_uninstall_modules(array('forward'));
 
   // Publish nodes & translations
   $nids = array('267', '268', '303');
