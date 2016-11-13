@@ -324,7 +324,7 @@ function emindhub_form_user_register_form_client_alter(&$form, &$form_state, $fo
   // );
   // Add class before & after fields
 	if ($form['field_first_name'] && $form['field_last_name']) {
-	  $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_first_name']['#prefix'] = '<div class="row">';
 	  $form['field_last_name']['#suffix'] = '</div>';
 	}
 	// Reduce email description for better Bootstrap display (tooltip)
@@ -345,7 +345,7 @@ function emindhub_form_user_register_form_expert_alter(&$form, &$form_state, $fo
 	);
   // Add class before & after fields
 	if ($form['field_first_name'] && $form['field_last_name']) {
-	  $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
+	  $form['field_first_name']['#prefix'] = '<div class="row">';
 	  $form['field_last_name']['#suffix'] = '</div>';
 	}
 	// Reduce email description for better Bootstrap display (tooltip)
@@ -366,7 +366,7 @@ function emindhub_element_info_alter(&$type) {
  */
 function emindhub_process_password_confirm($element) {
 	if ($element['#array_parents'][0] == 'account') {
-		$element['pass1']['#prefix'] = '<div class="form-group-2col row">';
+		$element['pass1']['#prefix'] = '<div class="row">';
 		$element['pass2']['#suffix'] = '</div>';
 	}
 	return $element;

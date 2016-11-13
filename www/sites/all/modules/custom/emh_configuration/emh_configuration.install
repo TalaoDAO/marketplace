@@ -686,4 +686,7 @@ function emh_configuration_update_7039() {
       ->execute();
   }
   variable_set('menu_rebuild_needed', TRUE);
+
+  // HybridAuth
+  variable_set('hybridauth_widget_title', 'or');
 }
