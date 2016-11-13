@@ -1,6 +1,6 @@
 <div class="emh-subtitle"><?php echo t('Sharing my eMindHub experience') ?></div>
 
-<section class="emh-module testimonial container">
+<section class="emh-module testimonial hiw-testimonial container">
 
     <ul class="testimonial-tabs">
         <li class="active"><?php print t('Managers'); ?></li>
@@ -17,11 +17,11 @@
                     <img src="https://dummyimage.com/200x100/000/fff.jpg" alt="" />
                 </div>
 
-                <div class="person"><!-- identique à ceux du module person-list -->
+                <div class="person">
                     <div class="picture"><img src="https://dummyimage.com/100/000/fff.jpg" alt="" /></div>
                     <div class="content">
                         <div class="name">Hervé PIERRET</div>
-                        <div class="position">DG AIR CORSICA</div>
+                        <div class="position"><?php print t('CEO AIR CORSICA'); ?></div>
                     </div>
                 </div>
 
@@ -40,11 +40,11 @@
                     <img src="https://dummyimage.com/200x100/000/fff.jpg" alt="" />
                 </div>
 
-                <div class="person"><!-- identique à ceux du module person-list -->
+                <div class="person">
                     <div class="picture"><img src="https://dummyimage.com/100/000/fff.jpg" alt="" /></div>
                     <div class="content">
                         <div class="name">Patrick LANGLADE</div>
-                        <div class="position">Partner THEANO ADVISORS</div>
+                        <div class="position"><?php print t('Partner THEANO ADVISORS'); ?></div>
                     </div>
                 </div>
 
@@ -63,11 +63,11 @@
                     <img src="https://dummyimage.com/200x100/000/fff.jpg" alt="" />
                 </div>
 
-                <div class="person"><!-- identique à ceux du module person-list -->
+                <div class="person">
                     <div class="picture"><img src="https://dummyimage.com/100/000/fff.jpg" alt="" /></div>
                     <div class="content">
                         <div class="name">Jérôme AILLET</div>
-                        <div class="position">Ingénieur d'affaires AKKA TECHNOLOGIES</div>
+                        <div class="position"><?php print t('Sales engineer AKKA TECHNOLOGIES'); ?></div>
                     </div>
                 </div>
 
@@ -86,11 +86,11 @@
                     <img src="https://dummyimage.com/200x100/000/fff.jpg" alt="" />
                 </div>
 
-                <div class="person"><!-- identique à ceux du module person-list -->
+                <div class="person">
                     <div class="picture"><img src="https://dummyimage.com/100/000/fff.jpg" alt="" /></div>
                     <div class="content">
                         <div class="name">Thierry PORRO</div>
-                        <div class="position">Consultant freelance en asset management</div>
+                        <div class="position"><?php print t(' Freelancer in asset management'); ?></div>
                     </div>
                 </div>
 
