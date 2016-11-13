@@ -14,10 +14,10 @@
         <?php if (!empty($fields['field_domaine']->content)) : ?>
         <span class="meta date"><?php print $fields['field_domaine']->content; ?></span>
         <?php endif; ?>
-        <?php if ($fields['sticky']->content === 'Urgent' && !empty($fields['field_domaine']->content)) : ?>
+        <?php if (!empty($fields['sticky']->content) && $fields['sticky']->content === 'Urgent' && !empty($fields['field_domaine']->content)) : ?>
           |
         <?php endif; ?>
-        <?php if ($fields['sticky']->content === 'Urgent') : ?>
+        <?php if (!empty($fields['sticky']->content) && $fields['sticky']->content === 'Urgent') : ?>
         <span class="meta category"><?php print $fields['sticky']->content; ?></span>
         <?php endif; ?>
     </div>
@@ -27,7 +27,7 @@
 </div>
 
 <div class="text">
-  <?php if ($fields['field_prequest_confidential']->content === 'Confidential') : ?>
+  <?php if (!empty($fields['field_prequest_confidential']->content) && $fields['field_prequest_confidential']->content === 'Confidential') : ?>
     <?php print $fields['field_prequest_confidential']->content; ?>
   <?php else : ?>
   <?php print $fields['body']->content; ?>
