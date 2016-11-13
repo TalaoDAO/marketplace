@@ -80,7 +80,7 @@
 
       <div class="emh-subtitle"><?php echo t('Frequently asked questions') ?></div>
       <?php
-      $FAQ_expert_block = module_invoke('views', 'block_view', 'faq-block_faq_expert');
+      $FAQ_expert_block = module_invoke('views', 'block_view', 'faq-faq_expert_block');
       print render($FAQ_expert_block['content']);
       ?>
 
