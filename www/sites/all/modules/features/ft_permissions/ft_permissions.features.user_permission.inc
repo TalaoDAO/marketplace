@@ -207,25 +207,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'environment_indicator',
   );
 
-  // Exported permission: 'access epostcard'.
-  $permissions['access epostcard'] = array(
-    'name' => 'access epostcard',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'forward',
-  );
-
-  // Exported permission: 'access forward'.
-  $permissions['access forward'] = array(
-    'name' => 'access forward',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'forward',
-  );
-
   // Exported permission: 'access own webform results'.
   $permissions['access own webform results'] = array(
     'name' => 'access own webform results',
@@ -562,15 +543,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'formtips',
-  );
-
-  // Exported permission: 'administer forward'.
-  $permissions['administer forward'] = array(
-    'name' => 'administer forward',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'forward',
   );
 
   // Exported permission: 'administer group'.
@@ -2220,26 +2192,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'term_merge',
-  );
-
-  // Exported permission: 'override email address'.
-  $permissions['override email address'] = array(
-    'name' => 'override email address',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'forward',
-  );
-
-  // Exported permission: 'override flood control'.
-  $permissions['override flood control'] = array(
-    'name' => 'override flood control',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'forward',
   );
 
   // Exported permission: 'perform backup'.
