@@ -160,7 +160,6 @@ function emindhub_beautiful_user_profile_link( $author = TRUE ) {
  * Implements hook_preprocess_field()
  * http://atendesigngroup.com/blog/adding-css-classes-fields-drupal
  */
-
 function emindhub_preprocess_field(&$variables) {
 
   // echo '<pre>' . print_r($variables, TRUE) . '</pre>';
