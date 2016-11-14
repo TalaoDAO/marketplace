@@ -17,8 +17,6 @@
 
     <?php print $content; ?>
 
-    <div class="emh-dots emh-dots-alt"></div>
-
     <div class="emh-actions">
       <div class="emh-action">
         <a class="emh-button" href="<?php print url('publications'); ?>"><?php print t('All publications'); ?></a>
