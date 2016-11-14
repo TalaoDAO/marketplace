@@ -4,12 +4,11 @@ Drupal.behaviors.references = {
             var $slider = jQuery(this);
 
             $slider.slick({
-                arrows: false,
-                dots: true,
+                arrows: true,
+                dots: false,
                 slidesToShow: 5,
                 slidesToScroll: 1,
                 infinite: false,
-                appendDots: $slider.siblings('emh-dots'),
                 responsive: [{
                     breakpoint: 768,
                     settings: {

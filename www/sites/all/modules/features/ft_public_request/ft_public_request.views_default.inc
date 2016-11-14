@@ -53,7 +53,7 @@ function ft_public_request_views_default_views() {
   $handler->display->display_options['fields']['field_prequest_reference']['settings'] = array(
     'link' => 0,
   );
-  /* Field: Content: Choose a public request type */
+  /* Field: Content: Choose a request type */
   $handler->display->display_options['fields']['field_request_type']['id'] = 'field_request_type';
   $handler->display->display_options['fields']['field_request_type']['table'] = 'field_data_field_request_type';
   $handler->display->display_options['fields']['field_request_type']['field'] = 'field_request_type';
@@ -122,6 +122,13 @@ function ft_public_request_views_default_views() {
     'link' => 0,
   );
   $handler->display->display_options['fields']['field_prequest_circles']['delta_offset'] = '0';
+  /* Field: Content: Service links */
+  $handler->display->display_options['fields']['service_links']['id'] = 'service_links';
+  $handler->display->display_options['fields']['service_links']['table'] = 'node';
+  $handler->display->display_options['fields']['service_links']['field'] = 'service_links';
+  $handler->display->display_options['fields']['service_links']['label'] = '';
+  $handler->display->display_options['fields']['service_links']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['service_links']['element_default_classes'] = FALSE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';

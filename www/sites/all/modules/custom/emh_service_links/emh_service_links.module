@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * Implements hook_service_links_alter().
+ */
+function emh_service_links_service_links_alter(&$links) {
+  global $base_url;
+  if (isset($links['facebook'])) {
+    $links['facebook']['icon'] = $base_url . '/' . drupal_get_path('module', 'emh_service_links') . '/images/facebook.svg';
+  }
+  if (isset($links['linkedin'])) {
+    $links['linkedin']['icon'] = $base_url . '/' . drupal_get_path('module', 'emh_service_links') . '/images/linkedin.svg';
+  }
+  if (isset($links['twitter'])) {
+    $links['twitter']['icon'] = $base_url . '/' . drupal_get_path('module', 'emh_service_links') . '/images/twitter.svg';
+  }
+}
