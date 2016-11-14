@@ -5,7 +5,7 @@
     <?php if ($title): ?>
     <div class="select-persona-title">
       <!-- <h2<?php print $title_attributes; ?>><span><?php print $title; ?></span></h2> -->
-      <?php print t('The best experts in aerospace responding to your requests.'); ?>
+      <?php print t('The best experts in aerospace <br />responding to your requests.'); ?>
     </div>
     <?php endif;?>
 
