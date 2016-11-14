@@ -54,10 +54,10 @@ function ft_blog_default_fe_block_settings() {
     'roles' => array(),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'bottom',
+        'region' => 'content',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -41,
+        'weight' => -32,
       ),
       'seven' => array(
         'region' => '',
