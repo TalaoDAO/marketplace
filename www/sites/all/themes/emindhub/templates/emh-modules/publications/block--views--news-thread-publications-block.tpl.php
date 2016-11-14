@@ -21,7 +21,7 @@
 
     <div class="emh-actions">
       <div class="emh-action">
-        <a class="emh-button" href="<?php print url('news'); ?>"><?php print t('All publications'); ?></a>
+        <a class="emh-button" href="<?php print url('publications'); ?>"><?php print t('All publications'); ?></a>
       </div>
     </div>
 

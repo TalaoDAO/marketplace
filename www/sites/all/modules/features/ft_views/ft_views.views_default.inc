@@ -209,19 +209,19 @@ function ft_views_views_default_views() {
     'domaine' => 'domaine',
   );
 
-  /* Display: (B) Expert domains */
-  $handler = $view->new_display('block', '(B) Expert domains', 'domains_block');
-  $handler->display->display_options['enabled'] = FALSE;
-
   /* Display: (P) Expert domains */
   $handler = $view->new_display('page', '(P) Expert domains', 'domains_page');
-  $handler->display->display_options['path'] = 'fields-of-expertise';
+  $handler->display->display_options['path'] = 'domains';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Expert domains';
   $handler->display->display_options['menu']['weight'] = '-48';
   $handler->display->display_options['menu']['name'] = 'menu-top-anonymous';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
+
+  /* Display: (B) Expert domains */
+  $handler = $view->new_display('block', '(B) Expert domains', 'domains_block');
+  $handler->display->display_options['enabled'] = FALSE;
   $export['domainlist'] = $view;
 
   $view = new view();
@@ -651,12 +651,11 @@ function ft_views_views_default_views() {
   /* Display: (B) Publications */
   $handler = $view->new_display('block', '(B) Publications', 'publications_block');
   $handler->display->display_options['defaults']['use_more'] = FALSE;
-  $handler->display->display_options['use_more'] = TRUE;
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
-  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['use_more_always'] = TRUE;
   $handler->display->display_options['defaults']['use_more_text'] = FALSE;
-  $handler->display->display_options['use_more_text'] = 'Toutes les publications';
+  $handler->display->display_options['use_more_text'] = '';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
@@ -1843,7 +1842,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
   $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
   $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
-  /* Field: Field: Organisation / company */
+  /* Field: Field: Organisation */
   $handler->display->display_options['fields']['field_entreprise']['id'] = 'field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['table'] = 'field_data_field_entreprise';
   $handler->display->display_options['fields']['field_entreprise']['field'] = 'field_entreprise';

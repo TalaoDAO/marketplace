@@ -18,6 +18,7 @@
               -
             <?php endif; ?>
             <?php print render($content['field_blog_tags']); ?>
+            <?php print render($content['service_links']); ?>
             <?php //print render($content['links']); ?>
         </div>
 
@@ -33,26 +34,14 @@
         </div>
         <?php endif; ?>
 
-        <!-- <ul class="publication-navigation">
-            <li class="previous"><a href="#"><?php print t('Previous') ?></a></li>
-            <li class="back-to-list"><a href="#"><?php print t('Back to list') ?></a></li>
-            <li class="next"><a href="#"><?php print t('Next') ?></a></li>
-        </ul> -->
-
     </article>
 
     <?php if (!empty($content['field_image'])) : ?>
-    <aside class="publication-aside"><!-- hide full <aside> if empty -->
+    <aside class="publication-aside">
         <div class="publication-picture desktop">
           <?php print render($content['field_image']); ?>
         </div>
-        <!--
-            Author bio
-        -->
-        <?php //print $user_picture; ?>
     </aside>
     <?php endif; ?>
-
-    <?php //print render($content['comments']); ?>
 
 </section>
