@@ -3,7 +3,9 @@
     font-family: 'Open Sans', @font-family-sans-serif;
 }
 .emh {
-    &-module + &-module {
+    &-module + &-module,
+    &-module &-module,
+    &-module.node-blog {
         margin-top: 50px;
     }
 }
@@ -27,6 +29,9 @@
     @media (max-width: @screen-sm-max) {
         font-size: 2=15px;
     }
+}
+.emh-module > .emh-subtitle {
+  margin-bottom: 30px;
 }
 
 .emh-button {
@@ -63,8 +68,6 @@
       color: white;
   }
 }
-
-
 
 .emh-dots {
 	color: white;
@@ -116,10 +119,9 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 40px;
+    margin-top: 35px;
 
     .emh-action {
-        margin: 15px;
         font-size: 20px;
 
         .emh-button {
