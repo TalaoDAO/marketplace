@@ -81,7 +81,7 @@ global $base_url;
     <div class="row">
 
       <?php if ( $logged_in ): ?>
-      <div class="emh-brand col-sm-1">
+      <div class="emh-brand">
       <?php else : ?>
       <div class="emh-brand col-xs-6 col-sm-3">
       <?php endif; ?>
@@ -95,13 +95,15 @@ global $base_url;
         <?php endif; ?>
 
         <?php if ($logo): ?>
-        <a class="logo navbar-btn" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
           <?php if ( $logged_in ): ?>
-          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/circles.svg" alt="<?php print $site_name; ?>" />
+            <a class="navbar-brand" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
+              <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/circles.svg" alt="<?php print $site_name; ?>" width="30" height="30" />
+            </a>
           <?php else : ?>
-          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/logo-h.svg" alt="<?php print $site_name; ?>" />
+            <a class="logo navbar-btn" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
+              <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/logo-h.svg" alt="<?php print $site_name; ?>" />
+            </a>
           <?php endif; ?>
-        </a>
         <?php endif; ?>
 
       </div>
