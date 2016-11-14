@@ -327,51 +327,6 @@
 	}
 }
 
-// Roleswitcher
-#block-roleswitcher-switcher {
-	.make-md-column(3);
-	.text-right;
-	a {
-		.btn;
-		margin-bottom: 15px;
-	}
-}
-@media (min-width: @screen-sm-min) {
-	#block-roleswitcher-switcher {
-		a {
-			margin-top: 10px;
-			margin-bottom: 0;
-		}
-	}
-}
-body.role-expert {
-	#block-roleswitcher-switcher {
-		a {
-			.btn-client;
-		}
-	}
-}
-body.role-business {
-	#block-roleswitcher-switcher {
-		a {
-			.btn-expert;
-		}
-	}
-}
-body.role-roleswitcher {
-	#block-menu-menu-top {
-		.make-md-column(5);
-	}
-	#block-system-user-menu {
-		.make-md-column(4);
-	}
-}
-body.admin-menu {
-	#block-system-user-menu {
-		.make-md-column(5);
-	}
-}
-
 // Request save flag
 #block-emh-request-flag-save-flag-save {
 	line-height: 36px;
@@ -381,21 +336,4 @@ body.admin-menu {
 #block-emh-request-submission-submission-count {
 	.make-md-column(4);
 	.text-right;
-}
-
-#block-menu-menu-footer-menu,
-#block-menu-menu-networks {
-	.nav {
-		> li {
-			a {
-				// font-weight: 700;
-				// font-size: 14px;
-
-				&#link-LinkedIn {
-					padding-left: 35px;
-					background: transparent url("../images/linkedinMini.png") no-repeat center left;
-				}
-			}
-		}
-	}
 }
