@@ -53,7 +53,7 @@ function ft_public_request_views_default_views() {
   $handler->display->display_options['fields']['field_prequest_reference']['settings'] = array(
     'link' => 0,
   );
-  /* Field: Content: Choose a public request type */
+  /* Field: Content: Choose a request type */
   $handler->display->display_options['fields']['field_request_type']['id'] = 'field_request_type';
   $handler->display->display_options['fields']['field_request_type']['table'] = 'field_data_field_request_type';
   $handler->display->display_options['fields']['field_request_type']['field'] = 'field_request_type';
