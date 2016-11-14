@@ -35,6 +35,7 @@ dependencies[] = views_bootstrap
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[fe_block_boxes][] = hp_challenge
+features[fe_block_settings][] = block-hp_challenge
 features[fe_block_settings][] = emh_request-request_help_challenge
 features[fe_block_settings][] = emh_request-request_help_question1
 features[fe_block_settings][] = emh_request-request_help_request
