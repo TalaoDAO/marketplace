@@ -13,6 +13,8 @@
     <?php print t('Join the companies benefiting from the expertise of eMindHub'); ?>
   </div>
 
+  <!-- <div class="emh-arrows"></div> -->
+
   <ul class="references-list">
       <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/emindhub_reference_Air-Corsica.png" alt="Air Corsica" /></li>
       <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/emindhub_reference_Akka-Technologies.png" alt="Akka Technologies" /></li>
@@ -23,7 +25,5 @@
       <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/emindhub_reference_Thales.png" alt="Thales" /></li>
       <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/emindhub_reference_Theano-Advisor.png" alt="Théano Advisor" /></li>
   </ul>
-
-  <div class="emh-dots emh-dots-alt"></div>
 
 </section>

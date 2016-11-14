@@ -87,7 +87,7 @@
       <div class="emh-actions">
 
         <div class="emh-action">
-          <?php print t('CHANGEME Vous êtes expert en aéronautique ? Répondez aux demandes et gagnez des crédits'); ?> <a class="emh-button solid-alt" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Propose your expertise'); ?></a>
+          <?php print t('Do you have expertise in aerospace? Respond to requests and earn credits'); ?> <a class="emh-button solid-alt" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Propose your expertise'); ?></a>
         </div>
 
       </div>
