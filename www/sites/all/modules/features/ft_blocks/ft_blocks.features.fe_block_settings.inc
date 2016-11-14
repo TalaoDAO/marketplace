@@ -52,16 +52,14 @@ function ft_blocks_default_fe_block_settings() {
     'node_types' => array(),
     'pages' => '',
     'roles' => array(
-      'administrator' => 3,
       'anonymous user' => 1,
-      'webmaster' => 6,
     ),
     'themes' => array(
       'emindhub' => array(
         'region' => 'navigation',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -44,
+        'weight' => -42,
       ),
       'seven' => array(
         'region' => '',
@@ -119,7 +117,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => 'navigation',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -41,
+        'weight' => -39,
       ),
       'seven' => array(
         'region' => '',
@@ -149,7 +147,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => 'navigation',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -43,
+        'weight' => -41,
       ),
       'seven' => array(
         'region' => '',
@@ -216,6 +214,36 @@ function ft_blocks_default_fe_block_settings() {
         'status' => 0,
         'theme' => 'seven',
         'weight' => 0,
+      ),
+    ),
+    'title' => '<none>',
+    'visibility' => 0,
+  );
+
+  $export['roleswitcher-switcher'] = array(
+    'cache' => 1,
+    'custom' => 0,
+    'delta' => 'switcher',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'module' => 'roleswitcher',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(
+      'roleswitcher' => 10,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'navigation',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => -37,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => -45,
       ),
     ),
     'title' => '<none>',
@@ -296,7 +324,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => 'content',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -42,
+        'weight' => -41,
       ),
       'seven' => array(
         'region' => 'content',
@@ -354,7 +382,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => 'navigation',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -40,
+        'weight' => -38,
       ),
       'seven' => array(
         'region' => '',
@@ -384,7 +412,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => 'navigation',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -42,
+        'weight' => -40,
       ),
       'seven' => array(
         'region' => 'content',
