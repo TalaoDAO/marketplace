@@ -1,4 +1,5 @@
-<?php global $base_url; ?>
+<?php global $base_url;
+$title = truncate_utf8($fields['title']->content, '50', FALSE, TRUE); ?>
 <div class="request-item-head">
 
   <?php if (!empty($fields['field_request_type']->content)) : ?>
@@ -7,8 +8,8 @@
   </div>
   <?php endif; ?>
 
-  <div class="title">
-    <?php print $fields['title']->content; ?>
+  <div class="title" title="<?php print $fields['title']->content; ?>">
+    <span class="request-title"><?php print $title; ?></span>
 
     <div class="metas">
         <?php if (!empty($fields['field_domaine']->content)) : ?>
@@ -35,10 +36,8 @@
 </div>
 <a href="#login-connexion" data-toggle="modal" data-target="#login-connexion" class="emh-read-more"><?php print t('Read more'); ?></a>
 
-<div class="social-links">
-  <a class="social-network" href="#"><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/facebook.svg" alt="" /></a>
-  <a class="social-network" href="#"><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/twitter.svg" alt="" /></a>
-  <a class="social-network" href="#"><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/linkedin.svg" alt="" /></a>
+<div class="service-links">
+  <?php print $fields['service_links']->content; ?>
   <?php if (!empty($fields['field_prequest_circles']->content)) : ?>
     <a class="author-link"    href="#login-connexion" data-toggle="modal" data-target="#login-connexion">
       <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/community.svg" class="author-icon" alt="" />

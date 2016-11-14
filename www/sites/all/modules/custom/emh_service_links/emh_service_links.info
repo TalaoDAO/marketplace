@@ -1,0 +1,6 @@
+name = EMH Service Links
+description = Functions for social sharing.
+package = EMH
+core = 7.x
+
+dependencies[] = service_links

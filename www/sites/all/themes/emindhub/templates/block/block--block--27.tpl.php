@@ -24,6 +24,4 @@
       <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/emindhub_reference_Theano-Advisor.png" alt="Théano Advisor" /></li>
   </ul>
 
-  <div class="emh-dots emh-dots-alt"></div>
-
 </section>
