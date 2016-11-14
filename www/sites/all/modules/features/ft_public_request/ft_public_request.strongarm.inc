@@ -105,22 +105,12 @@ function ft_public_request_strongarm() {
       'display' => array(
         'language' => array(
           'default' => array(
-            'weight' => '4',
+            'weight' => '3',
             'visible' => FALSE,
           ),
           'teaser' => array(
-            'weight' => '8',
+            'weight' => '7',
             'visible' => FALSE,
-          ),
-        ),
-        'rrssb' => array(
-          'default' => array(
-            'weight' => '0',
-            'visible' => FALSE,
-          ),
-          'teaser' => array(
-            'weight' => '6',
-            'visible' => TRUE,
           ),
         ),
       ),
