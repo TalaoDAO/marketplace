@@ -122,6 +122,13 @@ function ft_public_request_views_default_views() {
     'link' => 0,
   );
   $handler->display->display_options['fields']['field_prequest_circles']['delta_offset'] = '0';
+  /* Field: Content: Service links */
+  $handler->display->display_options['fields']['service_links']['id'] = 'service_links';
+  $handler->display->display_options['fields']['service_links']['table'] = 'node';
+  $handler->display->display_options['fields']['service_links']['field'] = 'service_links';
+  $handler->display->display_options['fields']['service_links']['label'] = '';
+  $handler->display->display_options['fields']['service_links']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['service_links']['element_default_classes'] = FALSE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';

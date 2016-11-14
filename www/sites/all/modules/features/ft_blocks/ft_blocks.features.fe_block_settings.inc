@@ -74,66 +74,10 @@ function ft_blocks_default_fe_block_settings() {
     'visibility' => 0,
   );
 
-  $export['menu-menu-burger-menu'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'delta' => 'menu-burger-menu',
-    'i18n_block_language' => array(),
-    'i18n_mode' => 0,
-    'module' => 'menu',
-    'node_types' => array(),
-    'pages' => '',
-    'roles' => array(),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'emindhub',
-        'weight' => -42,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => 'Shortcuts',
-    'visibility' => 0,
-  );
-
   $export['menu-menu-footer-menu'] = array(
     'cache' => -1,
     'custom' => 0,
     'delta' => 'menu-footer-menu',
-    'i18n_block_language' => array(),
-    'i18n_mode' => 1,
-    'module' => 'menu',
-    'node_types' => array(),
-    'pages' => '',
-    'roles' => array(),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => 'footer_top',
-        'status' => 1,
-        'theme' => 'emindhub',
-        'weight' => -42,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '<none>',
-    'visibility' => 0,
-  );
-
-  $export['menu-menu-networks'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'delta' => 'menu-networks',
     'i18n_block_language' => array(),
     'i18n_mode' => 1,
     'module' => 'menu',
