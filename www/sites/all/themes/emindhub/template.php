@@ -326,56 +326,6 @@ function emindhub_beautiful_author_picture( $node, $class ) {
 
 }
 
-
-function emindhub_beautiful_comment_list_text( $node ) {
-
-  $comment_add_text = t('Comments');
-
-  switch ($node->type) {
-
-    case 'question1':
-    case 'challenge':
-      $comment_add_text = t('Answers');
-      break;
-
-  }
-
-  return $comment_add_text;
-
-}
-
-
-function emindhub_beautiful_comment_add_text( $node ) {
-
-  $comment_add_text = t('Add new comment');
-
-  switch ($node->type) {
-
-    case 'question1':
-      $comment_add_text = t('Answer the question');
-      break;
-
-    case 'challenge':
-      $comment_add_text = t('Answer the challenge');
-      break;
-
-  }
-
-  return $comment_add_text;
-
-}
-
-/**
- * Implements hook_preprocess_comment().
- */
-function emindhub_preprocess_comment(&$variables) {
-  unset($variables['content']['links']['comment']['#links']['comment-reply']);
-  if ($variables['elements']['#node']->comment == COMMENT_NODE_CLOSED) {
-    unset($variables['content']['links']['comment']['#links']);
-  }
-}
-
-
 function emindhub_beautiful_baseline() {
   $baseline = '';
   $type = '';
@@ -399,15 +349,6 @@ function emindhub_beautiful_baseline() {
   if ($show_help) {
     switch ($type) {
 
-      case 'question1':
-        $baseline = t('Ask a question online and get multiple answers from experts');
-        break;
-      case 'webform':
-        $baseline = t('Post a mission statement and identify best experts profiles through a questionnaire');
-        break;
-      case 'challenge':
-        $baseline = t('Request for service proposals to innovate or solve a problem');
-        break;
 			case 'group-subscribe':
 				$baseline = t('Your membership request will be reviewed by the manager of the circle. Please put forward your request.');
 				break;
@@ -423,7 +364,6 @@ function emindhub_beautiful_baseline() {
 
 
 function emindhub_beautiful_form_actions(&$form, $actions, $label = 'primary') {
-
 	$first = FALSE;
 	foreach( $actions as $action => $value ) {
     $actions[$action] = array(
@@ -452,13 +392,12 @@ function emindhub_beautiful_form_actions(&$form, $actions, $label = 'primary') {
     if ( $actions[$action]['loaded'] == TRUE && !$last ) {
       $last = TRUE;
       $actions[$action]['last'] = TRUE;
-			$form['actions'][$action]['#suffix'] = '</div> <!-- END .btn-group -->';
+			$form['actions'][$action]['#suffix'] = '</div>';
     }
 	}
 	$actions = array_reverse($actions);
 
 	if (!empty($actions)) return $form['actions'];
-
 }
 
 
