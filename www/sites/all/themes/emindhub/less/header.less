@@ -4,9 +4,10 @@
 			padding-top: 81px;
 
 			.emh-brand {
-				min-height: 80px;
-				display: inline-block;
-				vertical-align: middle;
+				margin-top: 35px;
+				.navbar-btn {
+					padding: 0;
+				}
 			}
 		}
 		&.logged-in {
@@ -88,7 +89,7 @@
  */
 .navbar .logo {
 	img {
-		.img-responsive;
+		max-width: 250px;
 	}
 }
 
@@ -166,11 +167,18 @@ header#page-header {
 	background-color: #FFF;
 }
 
-#block-user-login {
-	.make-md-column(4);
+// Reset paddings
+#navbar > .container > .row > div,
+.region-navigation > section {
+	padding-left: 0;
+	padding-right: 0;
+}
 
-	.navbar-text {
-		color: @pattens-blue;
+#block-bootstrap-languages-language {
+	.make-md-column(1);
+	.make-md-column-offset(11);
+	.nav {
+		float: right;
 	}
 }
 #block-menu-menu-top-anonymous {
@@ -181,16 +189,11 @@ header#page-header {
 		.text-uppercase;
 	}
 }
-#block-bootstrap-languages-language {
-	.make-xs-column(12);
-	.make-md-column(1);
-	.nav {
-		float: right;
-	}
-}
-body.not-logged-in {
-	#block-bootstrap-languages-language {
-		.make-md-column-offset(11);
+#block-user-login {
+	.make-md-column(4);
+
+	.navbar-text {
+		color: @pattens-blue;
 	}
 }
 body.logged-in {
