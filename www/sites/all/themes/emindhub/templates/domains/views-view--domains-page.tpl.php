@@ -179,7 +179,7 @@
                 <div class="picture"><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/emindhub_testimonial_Thierry-Porro.jpg" alt="Thierry PORRO" /></div>
                 <div class="content">
                     <div class="name">Thierry PORRO</div>
-                    <div class="position"><?php print t(' Freelancer in asset management'); ?></div>
+                    <div class="position"><?php print t('Freelancer in asset management'); ?></div>
                 </div>
               </div>
           </li>
