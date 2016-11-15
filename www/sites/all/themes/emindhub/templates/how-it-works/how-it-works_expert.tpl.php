@@ -33,7 +33,7 @@
       <dl class="hiw-step-title">
         <dt><strong>1</strong> - <?php print t('I develop my reputation'); ?></dt>
         <dt><strong>2</strong> - <?php print t('I pick up new missions'); ?></dt>
-        <dt><strong>2</strong> - <?php print t('I earn credit when :'); ?></dt>
+        <dt><strong>3</strong> - <?php print t('I earn credit when :'); ?></dt>
         <dd><?php print t('my profile is accessed'); ?></dd>
         <dd><?php print t('my referrals are accepted'); ?></dd>
       </dl>

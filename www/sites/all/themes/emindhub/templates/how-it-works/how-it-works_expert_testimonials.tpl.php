@@ -13,7 +13,7 @@
             <div class="content">
 
               <div class="logo">
-                  <img src="https://dummyimage.com/200x100/000/fff.jpg" alt="" />
+                  <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/circles-gray.svg" alt="" />
               </div>
 
                 <div class="person">
@@ -36,7 +36,7 @@
             <div class="content">
 
               <div class="logo">
-                  <img src="https://dummyimage.com/200x100/000/fff.jpg" alt="" />
+                  <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/circles-gray.svg" alt="" />
               </div>
 
                 <div class="person">
@@ -59,7 +59,7 @@
             <div class="content">
 
               <div class="logo">
-                  <img src="https://dummyimage.com/200x100/000/fff.jpg" alt="" />
+                  <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/circles-gray.svg" alt="" />
               </div>
 
                 <div class="person">
@@ -71,7 +71,7 @@
                 </div>
 
                 <blockquote>
-                    <?php print t('Thanks to EMindHub I can respond online to questions from businesses in my area of expertise, which allows me to continue to using and sharing my skills'); ?>
+                    <?php print t('Thanks to EMindHub I can respond online to questions from businesses in my area of expertise, which allows me to continue to using and sharing my skills.'); ?>
                 </blockquote>
 
             </div>
