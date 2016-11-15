@@ -1,0 +1,56 @@
+#block-user-login {
+  .nav > li > a,
+  .nav > li > span.dropdown-toggle {
+    color: @brand-primary;
+  }
+  @media (min-width: @screen-md-min) {
+    .nav {
+      float: right;
+    }
+  }
+}
+
+.popover,
+.signUpContent,
+.signInContent {
+  .emh-module;
+  .text-center;
+
+  h3 {
+    padding: 30px 30px 15px;
+    font-size: 23px;
+    margin: 0;
+  }
+
+  h4 {
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 16px;
+  }
+}
+
+.signUp,
+.signUpContent {
+  span {
+    display: block;
+
+    &.separator {
+      margin: 10px 0;
+    }
+  }
+  a,
+  button {
+    .btn;
+    .emh-new-button;
+    padding: 17px 5px;
+    min-width: 170px;
+  }
+  a {
+    &.signin-client {
+      .btn-client;
+    }
+    &.signin-expert {
+      .btn-expert;
+    }
+  }
+}

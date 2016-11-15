@@ -772,7 +772,7 @@ function ft_request_field_default_field_instances() {
       'module' => 'autocomplete_deluxe',
       'settings' => array(
         'autocomplete_deluxe_path' => 'autocomplete_deluxe/taxonomy',
-        'delimiter' => ' ',
+        'delimiter' => ' ,',
         'limit' => 10,
         'min_length' => 0,
         'not_found_message' => 'The term \'@term\' will be added.',
