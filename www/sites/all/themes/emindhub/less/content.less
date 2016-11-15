@@ -1,7 +1,3 @@
-body {
-  background-color: @lightGrey;
-}
-
 // Header
 .region-title-left,
 .title-left,
@@ -14,20 +10,59 @@ body {
   margin-bottom: 15px;
 }
 
-h1.page-header {
-  .emh-title-main;
-}
-
 .main-container {
   background-color: #FFF;
   padding: 0;
-
-  > header {
-    background-color: @asphalt-base;
-    color: #FFF;
-  }
-
 }
+
+body.not-logged-in {
+  h1.page-header {
+    .emh-title;
+    padding-bottom: 0;
+    margin: 0;
+    border-bottom: 0;
+  }
+}
+body.logged-in {
+  h1.page-header {
+    .emh-title-main;
+  }
+  .main-container {
+
+    > header {
+      background-color: @asphalt-base;
+      color: #FFF;
+    }
+  }
+  .title-left {
+    .make-md-column(10);
+
+    .title {
+      .make-row();
+
+      .request-type-infos {
+        .make-md-column(1);
+
+        > * {
+          display: block;
+          margin: 0 auto;
+          .text-center;
+        }
+      }
+
+      .page-header {
+        .make-md-column(11);
+      }
+    }
+  }
+  .region-title-right,
+  .title-right {
+    .make-md-column(2);
+    margin-bottom: 15px;
+    .text-right;
+  }
+}
+
 
 aside {
 	margin-bottom: 15px;
@@ -47,11 +82,6 @@ aside {
 
 }
 
-aside,
-#maincol {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
 aside#sidebar-second {
   ul, ol {
     padding-left: 20px;
@@ -61,6 +91,14 @@ aside#sidebar-second {
   }
 }
 
+#maincol {
+  padding-bottom: 50px;
+}
+body.logged-in {
+  #maincol {
+    padding-top: 50px;
+  }
+}
 .one-sidebar.sidebar-first,
 .two-sidebars {
   #maincol {
@@ -116,39 +154,6 @@ ul.links.list-inline {
   }
 }
 
-.title-left {
-  .make-md-column(8);
-
-  .title {
-    .make-row();
-
-    .request-type-infos {
-      .make-md-column(1);
-      > * {
-        display: block;
-        margin: 0 auto;
-        .text-center;
-      }
-      @media (min-width: @screen-md-min) {
-        min-width: 80px;
-      }
-    }
-
-    .page-header {
-      .make-md-column(11);
-      padding-left: 0;
-      @media (min-width: @screen-md-min) {
-        width: auto;
-      }
-    }
-  }
-}
-.region-title-right,
-.title-right {
-  .make-md-column(4);
-  margin-bottom: 15px;
-  .text-right;
-}
 
 .section {
 
@@ -187,12 +192,30 @@ ul.links.list-inline {
 
 }
 
-.view-header {
-	p {
-    margin-bottom: 15px;
-    &:first-child {
-      .introduction;
+body.not-logged-in {
+  .block {
+    .block-title {
+      .emh-title;
     }
+  }
+}
+
+.view-header {
+  .emh-module;
+  .emh-subtitle;
+  margin-bottom: 30px;
+  p {
+    margin: 0;
+  }
+}
+
+.more-link {
+  .emh-module;
+  .text-center;
+  margin-bottom: 50px;
+
+  a {
+    .emh-button;
   }
 }
 
