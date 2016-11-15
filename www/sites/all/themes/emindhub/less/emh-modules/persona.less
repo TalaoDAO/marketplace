@@ -3,10 +3,27 @@
  */
 .select-persona-wrapper {
 	#gradient > .horizontal(@start-color: darken(@color-primary, 15%); @end-color: darken(@color-secondary, 15%); 50%; 50%);
-	background-image: url("../images/content/block/emindhub_persona.jpg");
-	background-repeat: no-repeat;
-	background-position: center center;
-	background-size: cover;
+	position: relative;
+
+	.background-div {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		background-repeat: no-repeat;
+		background-size: cover;
+		&-left {
+			left: 0;
+			right: 50%;
+			background-position: 30% 50%;
+			background-image: url("../images/content/block/emindhub_persona-client.jpg");
+		}
+		&-right {
+			right: 0;
+			left: 50%;
+			background-position: 57% 50%;
+			background-image: url("../images/content/block/emindhub_persona-expert.jpg");
+		}
+	}
 }
 
 @emhlive-overlap: 160px;
