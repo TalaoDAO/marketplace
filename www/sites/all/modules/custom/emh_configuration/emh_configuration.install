@@ -597,3 +597,179 @@ function emh_configuration_update_7037() {
 function emh_configuration_update_7038() {
   module_enable(array('ft_public_request'));
 }
+
+/**
+ * ADD: New Front.
+ */
+function emh_configuration_update_7039() {
+  features_revert(array(
+    'ft_blocks' => array('fe_block_settings', 'fe_block_boxes'),
+    'ft_content_type' => array('field_instance'),
+    'ft_permissions' => array('user_permission'),
+    'ft_request' => array('fe_block_settings'),
+    'ft_views' => array('views_view'),
+    'ft_field_base' => array('field_base'),
+    'ft_faq' => array('field_base', 'field_instance', 'fe_block_settings', 'views_view'),
+  ));
+
+  module_enable(array('ft_front', 'ft_blog'));
+  module_disable(array('forward'));
+  drupal_uninstall_modules(array('forward'));
+
+  // Delete old blocks
+  $module = 'block';
+  $deltas = array('2', '5', '6', '7', '9', '10', '11', '12', '13', '15', '18', '19', '20', '21', '22');
+  foreach ($deltas as $delta) {
+    db_delete('block')
+      ->condition('module', $module)
+      ->condition('delta', $delta)
+      ->execute();
+    db_delete('block_custom')
+      ->condition('bid', $delta)
+      ->execute();
+    db_delete('block_role')
+      ->condition('module', $module)
+      ->condition('delta', $delta)
+      ->execute();
+  }
+
+  // Publish nodes & translations
+  $nids = array('267', '268');
+  $nodes = node_load_multiple($nids);
+  foreach ($nodes as $node) {
+    $node->status = 1;
+    $node->translations->data['en']['status'] = $node->status;
+    $node->translations->data['en']['language'] = 'en';
+    $node->translations->data['fr']['status'] = $node->status;
+    $node->translations->data['fr']['language'] = 'fr';
+    node_save($node);
+  }
+
+  // Update menus
+  // Contact us
+  db_update('menu_links')
+    ->fields(array(
+      'menu_name' => 'menu-footer-menu',
+      'weight' => '-47',
+    ))
+    ->condition('mlid', '4964')
+    ->execute();
+
+  // How it works?
+  db_update('menu_links')
+    ->fields(array(
+      'link_title' => 'How it works?',
+    ))
+    ->condition('mlid', '4965')
+    ->execute();
+
+  // About us
+  db_update('menu_links')
+    ->fields(array(
+      'menu_name' => 'menu-footer-menu',
+      'weight' => '-50',
+    ))
+    ->condition('mlid', '4966')
+    ->execute();
+
+  // Delete old menus
+  $menus = array(
+    'menu-findexpert',
+    'menu-networks',
+    'menu-using-answers',
+    'menu-burger-menu',
+  );
+  foreach ($menus as $menu) {
+    $menu = menu_load($menu);
+    menu_delete($menu);
+  }
+  // Delete old links
+  $links = array(
+    '3786',
+    '7189',
+    '7710',
+    '10223',
+  );
+  foreach ($links as $link) {
+    db_delete('menu_links')
+      ->condition('mlid', $link)
+      ->execute();
+  }
+  variable_set('menu_rebuild_needed', TRUE);
+
+  // HybridAuth
+  variable_set('hybridauth_widget_title', 'or');
+
+  // Service links
+  module_enable(array('emh_service_links'));
+  $types = array(
+    'blog' => 'blog',
+    'public_request' => 'public_request',
+    'article' => '0',
+    'page' => '0',
+    'challenge' => '0',
+    'circle' => '0',
+    'faq' => '0',
+    'landing_page' => '0',
+    'webform' => '0',
+    'corporate' => '0',
+    'question1' => '0',
+    'request' => '0',
+  );
+  variable_set('service_links_node_types', $types);
+  $view_modes = array(
+    'full' => '0',
+    'teaser' => '0',
+    'rss' => 0,
+    'search_index' => 0,
+    'search_result' => 0,
+    'token' => 0,
+    'revision' => 0,
+    'summary' => 0,
+  );
+  variable_set('service_links_link_view_modes', $view_modes);
+  $node_view_modes = array(
+    'full' => 'full',
+    'teaser' => 'teaser',
+    'rss' => 0,
+    'search_index' => 0,
+    'search_result' => 0,
+    'token' => 0,
+    'revision' => 0,
+    'summary' => 0,
+  );
+  variable_set('service_links_link_node_view_modes', $node_view_modes);
+  variable_set('service_links_style', '2');
+  variable_set('service_links_label_in_node', '');
+  $show = array(
+    'delicious' => 0,
+    'digg' => 0,
+    'stumbleupon' => 0,
+    'twitter' => 1,
+    'pingthis' => 0,
+    'reddit' => 0,
+    'slashdot' => 0,
+    'newsvine' => 0,
+    'furl' => 0,
+    'facebook' => 1,
+    'myspace' => 0,
+    'google' => 0,
+    'google_plus' => 0,
+    'yahoo' => 0,
+    'linkedin' => 1,
+    'technorati' => 0,
+    'technorati_favorite' => 0,
+    'icerocket' => 0,
+    'misterwong' => 0,
+    'mixx' => 0,
+    'box' => 0,
+    'blinklist' => 0,
+    'identica' => 0,
+    'newskicks' => 0,
+    'diigo' => 0,
+    'viadeo' => 0,
+  );
+  variable_set('service_links_show', $show);
+  user_role_grant_permissions(1, array('access service links'));
+  user_role_grant_permissions(2, array('access service links'));
+}

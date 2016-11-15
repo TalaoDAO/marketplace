@@ -1,86 +1,68 @@
-/* FORMS
- * Register
- */
-#user-register-form-client,
-#user-register-form-expert,
-#user-register-form {
-  // .group-organisation {
-  //   margin-bottom: 0;
-  //   clear: both;
-  // }
-  .form-item-legal-terms-of-use {
-    padding: 15px;
-    margin-bottom: 0;
-  }
-  #edit-submit {
-    .btn-primary !important;
-  }
-  .hybridauth-widget-wrapper {
-    .make-row();
-    margin: 0 !important;
+.page-client-register,
+.page-expert-register {
+  #block-system-main {
+    > .content {
+      .make-row();
 
-    background-color: @gray-lighter;
-    > * {
-      padding-top: 15px;
-      padding-bottom: 15px;
+      > form {
+        .make-sm-column(10);
+        .make-sm-column-offset(1);
+        .make-md-column(6);
+        .make-md-column-offset(3);
+      }
     }
-    h3 {
-      .make-md-column(3);
-      margin: 0;
-    }
-    .hybridauth-widget {
-      .make-md-column(9);
+  }
+  #block-hybridauth-hybridauth {
+    > .content {
+      .make-row();
+
+      > * {
+        .make-sm-column(10);
+        .make-sm-column-offset(1);
+        .make-md-column(6);
+        .make-md-column-offset(3);
+      }
     }
   }
 }
 
-.form-type-password-confirm {
-  .help-tip {
-    .text-hide;
-    .hidden();
+#user-register-form-client,
+#user-register-form-expert,
+#user-register-form {
+  .row {
+    > div {
+      .make-sm-column(6);
+    }
+
+    .form-group .form-group {
+      margin-bottom: 0;
+    }
+  }
+
+  .group-account {
+    margin-top: 30px;
+  }
+
+  .form-item-legal-terms-of-use {
+    .text-center;
+  }
+}
+
+#user-register-form-client {
+  button.form-submit {
+    .btn-client;
+  }
+}
+
+#user-register-form-expert {
+  button.form-submit {
+    .btn-expert;
   }
 }
 
 @media (max-width: @screen-md-min) {
-  .form-type-password-confirm {
-    margin: 0;
-  }
   input.password-confirm,
   input.password-field {
     width: 100%;
   }
 }
-@media (min-width: @screen-md-min) {
-  .form-type-password-confirm .row {
-    > .form-group {
-      &.password-parent {
-        padding-right: 7.5px;
-      }
-      &.confirm-parent {
-        padding-left: 7.5px;
-      }
-    }
-  }
-  .confirm-parent,
-  .password-parent {
-    width: auto;
-  }
-  input.password-confirm,
-  input.password-field {
-    width: 350px;
-    max-width: 100%;
-  }
-}
-
-// body.lang-fr {
-//   #user-register-form {
-//     .hybridauth-widget-wrapper {
-//       h3 {
-//         .text-hide;
-//         :before {
-//           content: "Ou connectez-vous avec LinkedIn...";
-//         }
-//       }
-//     }
-//   }
-// }

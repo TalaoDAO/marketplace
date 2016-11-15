@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="Responses" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="-57.2 243.4 230 173" style="enable-background:new -57.2 243.4 230 173;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#009FE3;}
+	.st1{fill:url(#SVGID_1_);}
+</style>
+<path class="st0" d="M-18.7,243.9v50h153v-50H-18.7z M8.2,278.1L6.1,276l0,0L-1,269l2.1-2.1l7.1,7.1l14.1-14.1l2.1,2.1L8.2,278.1z
+	 M104.3,270.9h-60v-3h60V270.9z"/>
+<path class="st0" d="M-18.7,303.9v50h153v-50H-18.7z M8.2,338.1L6.1,336l0,0L-1,329l2.1-2.1l7.1,7.1l14.1-14.1l2.1,2.1L8.2,338.1z
+	 M104.3,330.9h-60v-3h60V330.9z"/>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="57.7624" y1="363.9156" x2="57.7624" y2="413.9156">
+	<stop  offset="0" style="stop-color:#009FE3"/>
+	<stop  offset="0.2401" style="stop-color:#4EBCEC"/>
+	<stop  offset="0.7537" style="stop-color:#FFFFFF"/>
+</linearGradient>
+<path class="st1" d="M-18.7,363.9v50h153v-50H-18.7z M8.2,398.1L6.1,396l0,0L-1,389l2.1-2.1l7.1,7.1l14.1-14.1l2.1,2.1L8.2,398.1z
+	 M104.3,390.9h-60v-3h60V390.9z"/>
+</svg>

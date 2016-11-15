@@ -1,0 +1,137 @@
+.expertise-list {
+    margin-top: 50px;
+    font-size: 15px;
+    color: @color-tertiary;
+
+    @media (max-width: @screen-xs-max) {
+        font-size: 11px;
+    }
+}
+
+.expertise-list-item {
+    display: flex;
+    align-items: center;
+    border: 1px solid white;
+
+    @media (min-width: @screen-sm) {
+        + .expertise-list-item {
+            border-top: none;
+        }
+    }
+
+    @media (max-width: @screen-xs-max) {
+        border-color: @color-secondary;
+        flex-wrap: wrap;
+        margin-top: 40px;
+    }
+
+    .domain {
+        background-color: @color-secondary;
+        color: white;
+        text-transform: uppercase;
+        font-size: 25px;
+        text-align: center;
+        padding: 10px;
+
+        align-self: stretch;
+        flex: 1 1 25%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+
+        img {
+            display: block;
+            margin: 0 auto;
+            max-width: 90%;
+        }
+
+        @media (max-width: @screen-xs-max) {
+            font-size: 15px;
+            padding: 5px;
+        }
+    }
+
+    .domain-name {
+        &:before {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 10px;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: contain;
+            @media (max-width: @screen-xs-max) {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    }
+
+    .subdomains {
+        color: @color-secondary;
+        font-weight: 600;
+        text-align: center;
+        list-style-type: none;
+        margin: 0;
+        padding: 20px 10px;
+        flex: 1 1 30%;
+        align-self: stretch;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        li + li {
+            margin-top: 15px;
+        }
+
+        @media (max-width: @screen-xs-max) {
+            background-color: @color-secondary;
+            color: white;
+            padding: 10px;
+            li + li {
+                margin-top: 7px;
+            }
+        }
+    }
+
+    .description {
+        flex: 1 1 45%;
+        text-align: justify;
+        padding: 10px 0 10px 20px;
+
+        @media (max-width: @screen-xs-max) {
+            padding: 20px;
+            line-height: 1.4;
+        }
+
+        .links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            @media (min-width: @screen-sm) {
+                font-size: 13px;
+            }
+            a {
+                text-decoration: underline;
+                margin: 0 10px;
+            }
+        }
+        .request {
+            color: @color-primary;
+        }
+        .expertise {
+            color: @color-secondary;
+        }
+    }
+}
+
+.expertise-produits .domain-name:before { background-image: url("../images/produits-white.svg"); }
+.expertise-transverse .domain-name:before { background-image: url("../images/transverse-white.svg"); }
+.expertise-technologies .domain-name:before { background-image: url("../images/technologies-white.svg"); }
+.expertise-disciplines .domain-name:before { background-image: url("../images/disciplines-white.svg"); }
