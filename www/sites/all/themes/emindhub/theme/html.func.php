@@ -1,7 +1,13 @@
 <?php
 
 function emindhub_preprocess_html(&$variables) {
-	drupal_add_css('https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' , array('type' => 'external'));
+	drupal_add_css('https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i' , array('type' => 'external'));
+
+  drupal_add_css('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' , array('type' => 'external'));
+  drupal_add_css('https://fonts.googleapis.com/css?family=Open+Sans:300i,400i,600,600i,700i' , array('type' => 'external'));
+
+  drupal_add_js('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js', 'external');
+  drupal_add_css('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css', 'external');
 
   global $user;
   foreach ( $user->roles as $role_id => $role ) {

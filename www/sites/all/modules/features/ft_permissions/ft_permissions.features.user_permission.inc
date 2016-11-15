@@ -207,25 +207,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'environment_indicator',
   );
 
-  // Exported permission: 'access epostcard'.
-  $permissions['access epostcard'] = array(
-    'name' => 'access epostcard',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'forward',
-  );
-
-  // Exported permission: 'access forward'.
-  $permissions['access forward'] = array(
-    'name' => 'access forward',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'forward',
-  );
-
   // Exported permission: 'access own webform results'.
   $permissions['access own webform results'] = array(
     'name' => 'access own webform results',
@@ -562,15 +543,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'formtips',
-  );
-
-  // Exported permission: 'administer forward'.
-  $permissions['administer forward'] = array(
-    'name' => 'administer forward',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'forward',
   );
 
   // Exported permission: 'administer group'.
@@ -1035,16 +1007,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'create blog content'.
-  $permissions['create blog content'] = array(
-    'name' => 'create blog content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: 'create challenge content'.
   $permissions['create challenge content'] = array(
     'name' => 'create challenge content',
@@ -1161,16 +1123,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'delete any blog content'.
-  $permissions['delete any blog content'] = array(
-    'name' => 'delete any blog content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: 'delete any challenge content'.
   $permissions['delete any challenge content'] = array(
     'name' => 'delete any challenge content',
@@ -1241,16 +1193,6 @@ function ft_permissions_user_default_permissions() {
   // Exported permission: 'delete own article content'.
   $permissions['delete own article content'] = array(
     'name' => 'delete own article content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'delete own blog content'.
-  $permissions['delete own blog content'] = array(
-    'name' => 'delete own blog content',
     'roles' => array(
       'administrator' => 'administrator',
       'webmaster' => 'webmaster',
@@ -1425,16 +1367,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'edit any blog content'.
-  $permissions['edit any blog content'] = array(
-    'name' => 'edit any blog content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: 'edit any challenge content'.
   $permissions['edit any challenge content'] = array(
     'name' => 'edit any challenge content',
@@ -1528,16 +1460,6 @@ function ft_permissions_user_default_permissions() {
   // Exported permission: 'edit own article content'.
   $permissions['edit own article content'] = array(
     'name' => 'edit own article content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'edit own blog content'.
-  $permissions['edit own blog content'] = array(
-    'name' => 'edit own blog content',
     'roles' => array(
       'administrator' => 'administrator',
       'webmaster' => 'webmaster',
@@ -2270,26 +2192,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'term_merge',
-  );
-
-  // Exported permission: 'override email address'.
-  $permissions['override email address'] = array(
-    'name' => 'override email address',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'forward',
-  );
-
-  // Exported permission: 'override flood control'.
-  $permissions['override flood control'] = array(
-    'name' => 'override flood control',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'forward',
   );
 
   // Exported permission: 'perform backup'.

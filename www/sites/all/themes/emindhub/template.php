@@ -160,7 +160,6 @@ function emindhub_beautiful_user_profile_link( $author = TRUE ) {
  * Implements hook_preprocess_field()
  * http://atendesigngroup.com/blog/adding-css-classes-fields-drupal
  */
-
 function emindhub_preprocess_field(&$variables) {
 
   // echo '<pre>' . print_r($variables, TRUE) . '</pre>';
@@ -327,56 +326,6 @@ function emindhub_beautiful_author_picture( $node, $class ) {
 
 }
 
-
-function emindhub_beautiful_comment_list_text( $node ) {
-
-  $comment_add_text = t('Comments');
-
-  switch ($node->type) {
-
-    case 'question1':
-    case 'challenge':
-      $comment_add_text = t('Answers');
-      break;
-
-  }
-
-  return $comment_add_text;
-
-}
-
-
-function emindhub_beautiful_comment_add_text( $node ) {
-
-  $comment_add_text = t('Add new comment');
-
-  switch ($node->type) {
-
-    case 'question1':
-      $comment_add_text = t('Answer the question');
-      break;
-
-    case 'challenge':
-      $comment_add_text = t('Answer the challenge');
-      break;
-
-  }
-
-  return $comment_add_text;
-
-}
-
-/**
- * Implements hook_preprocess_comment().
- */
-function emindhub_preprocess_comment(&$variables) {
-  unset($variables['content']['links']['comment']['#links']['comment-reply']);
-  if ($variables['elements']['#node']->comment == COMMENT_NODE_CLOSED) {
-    unset($variables['content']['links']['comment']['#links']);
-  }
-}
-
-
 function emindhub_beautiful_baseline() {
   $baseline = '';
   $type = '';
@@ -400,15 +349,6 @@ function emindhub_beautiful_baseline() {
   if ($show_help) {
     switch ($type) {
 
-      case 'question1':
-        $baseline = t('Ask a question online and get multiple answers from experts');
-        break;
-      case 'webform':
-        $baseline = t('Post a mission statement and identify best experts profiles through a questionnaire');
-        break;
-      case 'challenge':
-        $baseline = t('Request for service proposals to innovate or solve a problem');
-        break;
 			case 'group-subscribe':
 				$baseline = t('Your membership request will be reviewed by the manager of the circle. Please put forward your request.');
 				break;
@@ -424,7 +364,6 @@ function emindhub_beautiful_baseline() {
 
 
 function emindhub_beautiful_form_actions(&$form, $actions, $label = 'primary') {
-
 	$first = FALSE;
 	foreach( $actions as $action => $value ) {
     $actions[$action] = array(
@@ -453,13 +392,12 @@ function emindhub_beautiful_form_actions(&$form, $actions, $label = 'primary') {
     if ( $actions[$action]['loaded'] == TRUE && !$last ) {
       $last = TRUE;
       $actions[$action]['last'] = TRUE;
-			$form['actions'][$action]['#suffix'] = '</div> <!-- END .btn-group -->';
+			$form['actions'][$action]['#suffix'] = '</div>';
     }
 	}
 	$actions = array_reverse($actions);
 
 	if (!empty($actions)) return $form['actions'];
-
 }
 
 
@@ -541,4 +479,67 @@ function emindhub_show_request_type($node = null) {
 
 	$request_type = field_get_items('node', $node, 'field_request_type');
 	if ($request_type) print '<div class="request-type-infos">' . emh_request_get_request_type_image($node, 25) . emh_request_get_request_type_name($node) . '</div>';
+}
+
+/**
+ * Implements template_preprocess_views_view_unformatted.
+ */
+function emindhub_preprocess_views_view_unformatted(&$vars) {
+	$view     = $vars['view'];
+  $rows     = $vars['rows'];
+
+	if (($view->name == 'news_thread' && $view->current_display == 'publications_block_live') || ($view->name == 'open_requests' && $view->current_display == 'public_requests_block_live')) {
+		// $vars['classes_array'] = array();
+		// $classes_array = $vars['classes_array'];
+    // foreach($classes_array as $key => $classes) {
+    //   $vars['classes_array'][$key] = $classes . ' my-class';
+    // }
+		// $id = 1;
+	  foreach ($rows as $id => $row) {
+			// $id + 1;
+			// print $id;
+	    $row_classes = array();
+	    $row_classes[] = 'emhlive-item';
+	    $row_classes[] = 'emhlive-item-' . ($id);
+	    if ($id % 4 == 0) {
+	      $row_classes[] = 'emhlive-style-default';
+	    }
+	    elseif ($id % 4 == 2) {
+	      $row_classes[] = 'emhlive-style-alpha';
+	    }
+	    else {
+	      $row_classes[] = 'emhlive-style-beta';
+	    }
+			// else {
+			// 	if ($id % 4) {
+			// 		$row_classes[] = 'emhlive-style-default';
+			// 	}
+		  //   else {
+			// 		$row_classes[] = ($id % 2 ? 'emhlive-style-alpha' : 'emhlive-style-beta');
+			// 	}
+			// }
+	    // if ($id == count($rows) -1) {
+	    //   $row_classes[] = 'emhlive-item-last';
+	    // }
+	    // Flatten the classes to a string for each row for the template file.
+	    $vars['classes_array'][$id] .= implode(' ', $row_classes);
+
+			// $i++;
+	  }
+	}
+	if ($view->name == 'open_requests') {
+	  foreach ($rows as $id => $row) {
+			$locked = $vars['view']->result[$id]->field_field_prequest_confidential['0']['raw']['value'];
+			$type = $vars['view']->result[$id]->field_field_request_type['0']['raw']['taxonomy_term']->name;
+			$type = preg_replace('/[^A-Za-z0-9\-]/', '', strtolower($type));
+
+	    $row_classes = array();
+	    $row_classes[] = ' requests-item';
+	    $row_classes[] = !empty($locked) ? ' locked' : '';
+	    $row_classes[] = !empty($type) ? ' request-type-' . ($type) : '';
+
+	    // Flatten the classes to a string for each row for the template file.
+	    $vars['classes_array'][$id] .= implode(' ', $row_classes);
+	  }
+	}
 }

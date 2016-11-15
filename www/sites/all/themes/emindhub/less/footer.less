@@ -23,32 +23,82 @@ body.admin-menu {
     padding-top: 15px + 29px;
   }
 }
-
-.footer {
-  margin-top: 0;
-  nav {
-    a {
-      font-weight: bold;
-      color: #4C6172;
-    }
-  }
+.burger-menu-btn-container {
+	position: absolute;
+	margin-left: -50px;
+	margin-top: 8px;
 }
 
-.region-footer {
-  #block-menu-menu-footer-menu,
-  #block-menu-menu-networks {
-    .nav {
-      > li {
-        a {
-          font-weight: 700;
-          font-size: 14px;
+.footer {
+  .emh-module;
+  background-color: @brand-primary;
+  color: #fff;
+  padding-top: 30px;
+  padding-bottom: 30px;
 
-          &#link-LinkedIn {
-            padding-left: 35px;
-            background: transparent url("../images/linkedinMini.png") no-repeat center left;
-          }
-        }
-      }
+  a,
+  .nav > li > a {
+    color: #fff;
+  }
+
+  .nav {
+    .make-row();
+
+    li {
+      .make-xs-column(6);
     }
+  }
+  .nav > li > a {
+    padding: @padding-xs-vertical @padding-xs-horizontal;
+  }
+
+  h4 {
+    color: inherit;
+    margin-top: 0;
+    font-weight: 600;
+  }
+
+  hr {
+    border-color: @sky-blue;
+  }
+
+  .footer-logo {
+    .make-xs-column(12);
+    .make-sm-column(3);
+    font-size: 13px;
+    font-weight: 600;
+    .text-uppercase;
+
+    img {
+      max-width: 250px;
+    }
+    span {
+      display: block;
+    }
+  }
+  .footer-nav {
+    .make-xs-column(12);
+    .make-sm-column(4);
+  }
+  .footer-contact {
+    .make-xs-column(6);
+    .make-sm-column(3);
+    .make-md-column(2);
+  }
+  .footer-social {
+    .make-xs-column(6);
+    .make-sm-column(2);
+
+    .social-network {
+  		width: 35px;
+  		height: 35px;
+      > img {
+        border: 1px solid @sky-blue;
+      }
+  	}
+  }
+  .footer-credits {
+    .text-center;
+    color: @cloud;
   }
 }
