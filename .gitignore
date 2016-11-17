@@ -17,6 +17,8 @@ www/sites/*/private
 
 
 # Ignore NPM files
+www/sites/all/themes/emindhub/node_modules/
+www/sites/all/themes/emindhub/*.css
 /**/node_modules/
 /**/vendor/
 *.map
