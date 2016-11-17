@@ -8,6 +8,8 @@ include_once 'emh_request.deprecated.inc';
 include_once 'emh_request.fields.inc';
 include_once 'emh_request.conditional_fields.inc';
 include_once 'emh_request.admin.inc';
+include_once 'emh_request.mail.inc';
+
 
 /**
  * Implements hook_hook_info().
