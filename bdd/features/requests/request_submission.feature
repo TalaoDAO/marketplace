@@ -61,7 +61,7 @@ Feature: Request and submissions
     # Published submission
     When I press "Publish"
     Then I should see the message "Your submission has been published."
-    Then the email to "emindhub.test+client1@gmail.com" should contain "Dear Captain AMERICA,"
+    Then the last email should contain "Dear Captain,"
       And the email should contain "You received a new answer to the request"
 
     # Another expert responds to the request (draft).

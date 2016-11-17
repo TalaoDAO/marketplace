@@ -318,7 +318,7 @@ class FeatureContext extends DrupalContext {
     // Store the original system to restore after the scenario.
     $this->originalMailSystem = variable_get('mail_system', array('default-system' => 'DefaultMailSystem'));
     // Set the test system.
-    variable_set('mail_system', array('default-system' => 'TestingMailSystem'));
+    variable_set('mail_system', array('default-system' => 'EMHMailSystem'));
     // Flush the email buffer, allowing us to reuse this step definition to clear existing mail.
     variable_set('drupal_test_email_collector', array());
   }
@@ -343,6 +343,22 @@ class FeatureContext extends DrupalContext {
     }
     throw new \Exception(sprintf('Did not find expected message to %s', $to));
   }
+
+  /**
+   * @Then /^the last email should contain "([^"]*)"$/
+   */
+  public function theLastEmailToShouldContain($contents) {
+    $variables = array_map('unserialize', db_query("SELECT name, value FROM {variable} WHERE name = 'drupal_test_email_collector'")->fetchAllKeyed());
+    $this->activeEmail = FALSE;
+    $message = end($variables['drupal_test_email_collector']);
+    $this->activeEmail = $message;
+    if (strpos($message['body'], $contents) !== FALSE ||
+      strpos($message['subject'], $contents) !== FALSE) {
+      return TRUE;
+    }
+    throw new \Exception('Did not find expected content in message body or subject.');
+  }
+
 
   /**
    * @Given /^the email should contain "([^"]*)"$/
