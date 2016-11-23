@@ -1,4 +1,6 @@
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> emh-module select-persona-wrapper clearfix"<?php print $attributes; ?>>
+  <div class="background-div background-div-left"></div>
+  <div class="background-div background-div-right"></div>
 
   <div class="select-persona container">
 
