@@ -59,15 +59,19 @@ section.publication {
 }
 
 .publication-main {
-    flex: 0 1 50%;
+    @media (min-width: @screen-md-min) {
+        flex: 0 1 50%;
+    }
 }
 
 .publication-aside {
     &.publication-aside.publication-aside {
         margin: 0;
     }
-    flex: 0 1 50%;
-    padding: 0 0 0 40px;
+    @media (min-width: @screen-md-min) {
+      flex: 0 1 50%;
+      padding: 0 0 0 40px;
+    }
 }
 
 .publication-text {
