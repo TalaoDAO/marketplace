@@ -7,16 +7,30 @@
     padding: 0;
     margin: 0;
 
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    align-items: baseline;
+    .make-row();
 
-    margin: 0 -10px;
+    @media (min-width: @screen-lg-min) {
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        align-items: baseline;
+
+        margin: 0 -10px;
+    }
 
     > .partner {
-        flex: 0 0 auto;
-        margin: 0 10px;
+        @media (max-width: @screen-md-max) {
+          .make-xs-column(2);
+          width: 20%;
+
+          &.partner-title {
+              .make-xs-column(12);
+          }
+        }
+        @media (min-width: @screen-lg-min) {
+            flex: 0 0 auto;
+            margin: 0 10px;
+        }
 
         a {
             display: block;
