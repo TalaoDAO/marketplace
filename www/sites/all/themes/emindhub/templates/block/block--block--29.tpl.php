@@ -1,7 +1,7 @@
 <?php global $base_url; ?>
 <section id="<?php print $block_html_id; ?>" class="emh-module partners-wrapper container <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
   <ul class="partners-list">
-      <li class="partner">
+      <li class="partner partner-title">
         <?php print render($title_prefix); ?>
         <?php if ($title): ?>
           <h3><span><?php print $title; ?></span></h3>
