@@ -59,15 +59,3 @@
   <?php endif; ?>
 
 </div><?php /* class view */ ?>
-
-<div class="emh-actions">
-
-  <div class="emh-action">
-    <a class="emh-button solid" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Post a request'); ?></a>
-  </div>
-
-  <div class="emh-action">
-    <a class="emh-button solid-alt" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Propose your expertise'); ?></a>
-  </div>
-
-</div>
