@@ -305,7 +305,7 @@ function emh_request_try_to_notify($node) {
 }
 
 /**
- * Implements hook_cron_queue_info()
+ * Implements hook_cron_queue_info().
  */
 function emh_request_cron_queue_info() {
   $queues['emh_request_request_email_notification'] = array(
