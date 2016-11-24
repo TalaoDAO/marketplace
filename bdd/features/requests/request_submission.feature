@@ -27,6 +27,8 @@ Feature: Request and submissions
     | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
     | How to become a superhero?  | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    | 1       |
 
+    Given the test email system is enabled
+
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
       And I click "Group"
@@ -59,6 +61,8 @@ Feature: Request and submissions
     # Published submission
     When I press "Publish"
     Then I should see the message "Your submission has been published."
+    Then the last email should contain "Dear Captain,"
+      And the email should contain "You received a new answer to the request"
 
     # Another expert responds to the request (draft).
     Given I am logged in as "expert2"
