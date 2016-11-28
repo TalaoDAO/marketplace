@@ -332,6 +332,7 @@ class FeatureContext extends DrupalContext {
     // Flush the email buffer, allowing us to reuse this step definition to clear existing mail.
     variable_set('drupal_test_email_collector', array());
     file_put_contents("/tmp/emh-mails.log", "Recording email session - ".date('Y/m/d H:i:s')."\n");
+    db_query("DELETE FROM queue WHERE name='emh_request_request_email_notification'"); //delete queue from other test, can be overloaded if All Experts used
   }
 
   /**
