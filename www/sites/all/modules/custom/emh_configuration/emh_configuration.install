@@ -781,8 +781,8 @@ function emh_configuration_update_7040() {
   module_enable(array('googleanalytics'));
   variable_set('googleanalytics_account', 'UA-85111821-1');
   $googleanalytics_pages = "admin
-  admin/*
-  batch";
+admin/*
+batch";
   variable_set('googleanalytics_pages', $googleanalytics_pages);
 
   $rules = array(
