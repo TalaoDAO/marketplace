@@ -50,7 +50,9 @@ Feature: Request
     Then I should see "The membership has been updated."
 
   Scenario: Experts are notified by email for new request publication
-    Given the email to "emindhub.test+expert1@gmail.com" should contain "A new request for expertise has been published on eMindHub"
+    #Given the email to "emindhub.test+expert1@gmail.com" should contain "A new request for expertise has been published on eMindHub"
+    Then the last email should contain "Dear Iron,"
+      And the email should contain "A new request for expertise has been published on eMindHub"
 
   Scenario: An author can see its own request
     Given I am logged in as "client1"
