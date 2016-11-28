@@ -18,8 +18,6 @@ Feature: Request
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country |
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | All experts  | emindhub.test+expert1@gmail.com | Marvel Studios     | Employee             | Energy          | US                    |
 
-    Given the test email system is enabled
-
     Given "request" content:
     | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
     | How to become a superhero?  | Energy        | All experts     | client1 | 2017-02-08 17:45:00    | 1       |
@@ -48,11 +46,6 @@ Feature: Request
       And I select "Active" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
-
-  Scenario: Experts are notified by email for new request publication
-    #Given the email to "emindhub.test+expert1@gmail.com" should contain "A new request for expertise has been published on eMindHub"
-    Then the last email should contain "Dear Iron,"
-      And the email should contain "A new request for expertise has been published on eMindHub"
 
   Scenario: An author can see its own request
     Given I am logged in as "client1"
