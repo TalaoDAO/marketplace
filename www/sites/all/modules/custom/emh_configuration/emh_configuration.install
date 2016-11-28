@@ -773,3 +773,20 @@ function emh_configuration_update_7039() {
   user_role_grant_permissions(1, array('access service links'));
   user_role_grant_permissions(2, array('access service links'));
 }
+
+/**
+ * ADD: GA tracking to email links.
+ */
+function emh_configuration_update_7040() {
+  $rules = array(
+    'rules_emh_circles_send_email_member_subscribe_pending',
+    'rules_emh_circles_send_email_membership_accepted',
+    'rules_emh_circles_circles_send_email_membership_refused',
+    'rules_emh_request_send_notification_email',
+  );
+  foreach ($rules as $rule) {
+    if ($rules_config = rules_config_load($rule)) {
+      $rules_config->delete();
+    }
+  }
+}
