@@ -775,9 +775,16 @@ function emh_configuration_update_7039() {
 }
 
 /**
- * ADD: GA tracking to email links.
+ * ADD: Enable Google Analytics & add GA tracking to email links.
  */
 function emh_configuration_update_7040() {
+  module_enable(array('googleanalytics'));
+  variable_set('googleanalytics_account', 'UA-85111821-1');
+  $googleanalytics_pages = "admin
+  admin/*
+  batch";
+  variable_set('googleanalytics_pages', $googleanalytics_pages);
+
   $rules = array(
     'rules_emh_circles_send_email_member_subscribe_pending',
     'rules_emh_circles_send_email_membership_accepted',
