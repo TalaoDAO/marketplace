@@ -23,7 +23,7 @@ Feature: Request
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | field_notification_frequency |
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670                  | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy          | US                  | Real-time                    |
 
-
+    Given the test email system is enabled
     # Make client1 as a Creator member of All experts circle
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
@@ -54,7 +54,6 @@ Feature: Request
     Given "request" content:
     | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
     | How to become a superhero?  | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    | 1       |
-    #Then I break
 
   Scenario: Experts are notified by email for new request publication
     #Given the email to "emindhub.test+expert1@gmail.com" should contain "A new request for expertise has been published on eMindHub"
@@ -62,7 +61,6 @@ Feature: Request
     Then the last email to "emindhub.test+expert1@gmail.com" should contain "Dear Iron,"
       And the email should contain "A new request for expertise has been published on eMindHub"
     Then the last email to "emindhub.test+client1@gmail.com" should contain "Dear Captain,"
-      And the email should contain "A new request for expertise has been published on eMindHub"
 
   @exclude
   Scenario: An author can see its own request
