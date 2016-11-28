@@ -331,6 +331,7 @@ class FeatureContext extends DrupalContext {
     variable_set('mail_system', array('default-system' => 'EMHMailSystem'));
     // Flush the email buffer, allowing us to reuse this step definition to clear existing mail.
     variable_set('drupal_test_email_collector', array());
+    file_put_contents("/tmp/emh-mails.log", "Recording email session - ".date('Y/m/d H:i:s')."\n");
   }
 
   /**
@@ -357,7 +358,7 @@ class FeatureContext extends DrupalContext {
   /**
    * @Then /^the last email should contain "([^"]*)"$/
    */
-  public function theLastEmailToShouldContain($contents) {
+  public function theLastEmailShouldContain($contents) {
     $variables = array_map('unserialize', db_query("SELECT name, value FROM {variable} WHERE name = 'drupal_test_email_collector'")->fetchAllKeyed());
     $this->activeEmail = FALSE;
     $message = end($variables['drupal_test_email_collector']);
@@ -369,6 +370,24 @@ class FeatureContext extends DrupalContext {
     throw new \Exception('Did not find expected content in message body or subject.');
   }
 
+  /**
+   * @Then /^the last email to "([^"]*)" should contain "([^"]*)"$/
+   */
+  public function theLastEmailToShouldContain($to, $contents) {
+    $variables = array_map('unserialize', db_query("SELECT name, value FROM {variable} WHERE name = 'drupal_test_email_collector'")->fetchAllKeyed());
+    $this->activeEmail = FALSE;
+    foreach ( array_reverse($variables['drupal_test_email_collector']) as $message) {
+      if ($message['to'] == $to) {
+        $this->activeEmail = $message;
+        if (strpos($message['body'], $contents) !== FALSE ||
+          strpos($message['subject'], $contents) !== FALSE) {
+          return TRUE;
+        }
+        throw new \Exception('Did not find expected content in message body or subject.');
+      }
+    }
+    throw new \Exception(sprintf('Did not find expected message to %s', $to));
+  }
 
   /**
    * @Given /^the email should contain "([^"]*)"$/
