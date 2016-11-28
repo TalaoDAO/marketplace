@@ -274,7 +274,7 @@ function emh_request_try_to_notify($node) {
     error_log("Email should be sent to ".$user->name." ".$node->type." \n", 3, "/tmp/emh-mails.log");
 
     if (($node->type == 'request' )
-      //&& !empty($user->field_notification_frequency[LANGUAGE_NONE]) && $user->field_notification_frequency[LANGUAGE_NONE][0]['tid'] == 48
+        && !empty($user->field_notification_frequency[LANGUAGE_NONE]) && $user->field_notification_frequency[LANGUAGE_NONE][0]['tid'] == 48
        )
     {
       $queue = DrupalQueue::get('emh_request_request_email_notification');
