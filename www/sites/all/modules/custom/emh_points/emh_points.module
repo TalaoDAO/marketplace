@@ -751,7 +751,7 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
  */
 function emh_points_notify_rewarded_answer_author($node, $user, $points) {
   $module = 'emh_points';
-  $key = 'rewarded_answer_author';
+  $key = 'notify_rewarded_answer_author';
   $mail = $user->mail;
   $language = language_default();
   $piwik_tracking = 'pk_campaign=' . $key . '_' . $node->nid;
@@ -813,7 +813,7 @@ function emh_points_get_points_closed_status($nid) {
  */
 function emh_points_notify_unrewarded_answer_author($node, $user) {
   $module = 'emh_points';
-  $key = 'unrewarded_answer_author';
+  $key = 'notify_unrewarded_answer_author';
   $mail = $user->mail;
   $language = language_default();
   $piwik_tracking = 'pk_campaign=' . $key . '_' . $node->nid;
@@ -884,7 +884,7 @@ function emh_points_get_unrewarded_answers($nid) {
  */
 function emh_points_mail($key, &$message, $params) {
   switch($key) {
-    case 'rewarded_answer_author':
+    case 'notify_rewarded_answer_author':
       $message['subject'] = t('You have been rewarded!', $params);
       $message['body'] = array();
       $message['body'][] = t('Dear @answer_author,', $params);
@@ -914,7 +914,7 @@ function emh_points_mail($key, &$message, $params) {
         </tbody>
       </table>';
       break;
-    case 'unrewarded_answer_author':
+    case 'notify_unrewarded_answer_author':
       $message['subject'] = t('Request @title is now closed', $params);
       $message['body'] = array();
       $message['body'][] = t('Dear @answer_author,', $params);
