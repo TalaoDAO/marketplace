@@ -20,6 +20,8 @@
  */
 $site_name = variable_get('site_name');
 global $base_url;
+$piwik_tracking = 'pk_campaign=' . $key;
+$ga_tracking = 'utm_medium=email&utm_source=' . $key . '&utm_campaign=' . $key;
 ?>
 	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 	<html xmlns="http://www.w3.org/1999/xhtml">
@@ -71,7 +73,7 @@ global $base_url;
 																		<table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:100%;">
 																			<tr>
 																				<td align="center" style="padding:9px 18px;text-align:center!important;">
-																					<a href="<?php print $base_url; ?>/?pk_campaign=website&amp;pk_kwd=logo" target="_blank" style="display:inline-block;">
+																					<a href="<?php print $base_url; ?>/?<?php print $piwik_tracking . '&amp;' . $ga_tracking; ?>&amp;pk_kwd=logo&amp;utm_content=logo" target="_blank" style="display:inline-block;">
 																						<img alt="<?php print $site_name; ?>" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/eMindHub_logo_baseline.png" style="width:200px;height:78px;margin:0px;" height="78" width="200" align="center">
 																					</a>
 																				</td>
@@ -163,12 +165,12 @@ global $base_url;
                                                                   <tbody><tr>
 
                                                                           <td valign="middle" width="24" align="center">
-                                                                              <a href="<?php print $base_url; ?>/?pk_campaign=website&amp;pk_kwd=picto" target="_blank"><img alt="<?php print $site_name; ?>" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/picto/picto_emindhub_small.png" style="display:block;" height="24" width="24"></a>
+                                                                              <a href="<?php print $base_url; ?>/?<?php print $piwik_tracking . '&amp;' . $ga_tracking; ?>&amp;pk_kwd=picto&amp;utm_content=picto" target="_blank"><img alt="<?php print $site_name; ?>" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/picto/picto_emindhub_small.png" style="display:block;" height="24" width="24"></a>
                                                                           </td>
 
 
                                                                           <td style="padding-left:5px;" valign="middle" align="left">
-                                                                              <a href="<?php print $base_url; ?>/?pk_campaign=website&amp;pk_kwd=picto" target="" style="font-family:Helvetica;font-size:12px;text-decoration:none;color:rgb(101, 101, 101);">Website</a>
+                                                                              <a href="<?php print $base_url; ?>/?<?php print $piwik_tracking . '&amp;' . $ga_tracking; ?>&amp;pk_kwd=picto&amp;utm_content=picto" target="" style="font-family:Helvetica;font-size:12px;text-decoration:none;color:rgb(101, 101, 101);">Website</a>
                                                                           </td>
 
                                                                   </tr>
