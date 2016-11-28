@@ -210,7 +210,7 @@ function emh_user_profile_purchase($account) {
  */
 function emh_user_profile_purchase_notify_user_profile_purchased($user, $credits) {
   $module = 'emh_user_profile_purchase';
-  $key = 'user_profile_purchased';
+  $key = 'notify_user';
   $mail = $user->mail;
   $language = language_default();
 	$piwik_tracking = 'pk_campaign=' . $key . '_' . $user->uid;
@@ -229,7 +229,7 @@ function emh_user_profile_purchase_notify_user_profile_purchased($user, $credits
  */
 function emh_user_profile_purchase_mail($key, &$message, $params) {
   switch($key) {
-    case 'user_profile_purchased':
+    case 'notify_user':
       $message['subject'] = t('Your profile has been selected!', $params);
       $message['body'] = array();
       $message['body'][] = t('Dear @user_firstname,', $params);
