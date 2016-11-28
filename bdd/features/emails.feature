@@ -53,8 +53,9 @@ Feature: Emails
     | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
     | How to become a superhero?  | Energy        | Avengers        | client1 | 2017-02-08 17:45:00    | 1       |
 
-  @exclude
   Scenario: Experts are notified by email for new request publication
-    Given I run cron
-    Then the last email should contain "Dear Iron,"
+    Then I run cron
+    Then the last email to "emindhub.test+expert1@gmail.com" should contain "Dear Iron,"
       And the email should contain "A new request for expertise has been published on eMindHub"
+    Then the last email to "emindhub.test+client1@gmail.com" should contain "Dear Captain,"
+
