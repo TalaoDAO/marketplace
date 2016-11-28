@@ -6,7 +6,6 @@ Feature: Request
 
   Background: Create request
 
-    Given the test email system is enabled
     Given "corporate" content:
     | title                 | author  |
     | Marvel Studios        | admin   |
@@ -17,11 +16,11 @@ Feature: Request
 
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | field_notification_frequency |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678                  | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance   | US                    | Real-time                    |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678                  | Chef de groupe     | All experts  | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance   | US                    | Real-time                    |
 
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | field_notification_frequency |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670                  | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy          | US                  | Real-time                    |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670                  | Chieur génial      | All experts  | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy          | US                  | Real-time                    |
 
     Given the test email system is enabled
     Given "request" content:
@@ -30,7 +29,7 @@ Feature: Request
 
     # Make client1 as a Creator member of All experts circle
     Given I am logged in as a user with the "administrator" role
-    When I go to "content/avengers"
+    When I go to "content/all-experts"
       And I click "Group"
       And I click "People"
       And I click "Member since"
@@ -42,7 +41,7 @@ Feature: Request
       And I check the box "Creator member"
       And I press "Update membership"
       # Again...
-      And I go to "content/avengers"
+      And I go to "content/all-experts"
       And I click "Group"
       And I click "People"
       And I click "Member since"
@@ -57,29 +56,19 @@ Feature: Request
 
     Given "request" content:
     | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
-    | How to become a superhero?  | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    | 1       |
+    | How to become a superhero?  | Energy        | All experts     | client1 | 2017-02-08 17:45:00    | 1       |
 
-  Scenario: Experts are notified by email for new request publication
-    #Given the email to "emindhub.test+expert1@gmail.com" should contain "A new request for expertise has been published on eMindHub"
-    Then I run cron
-    Then the last email to "emindhub.test+expert1@gmail.com" should contain "Dear Iron,"
-      And the email should contain "A new request for expertise has been published on eMindHub"
-    Then the last email to "emindhub.test+client1@gmail.com" should contain "Dear Captain,"
-
-  @exclude
   Scenario: An author can see its own request
     Given I am logged in as "client1"
     When I go to homepage
     Then I should see "All experts" in the "How to become a superhero?" row
 
-  @exclude
   Scenario: An author can see its own request in My requests
     Given I am logged in as "client1"
     When I go to "requests/manage"
     Then I should see "How to become a superhero?"
       And I should see "All experts" in the "How to become a superhero?" row
 
-  @exclude
   Scenario: An author can edit its own request
     Given I am logged in as "client1"
     When I go to homepage
@@ -92,7 +81,6 @@ Feature: Request
       And I press "Save"
     Then I should see the success message "Request How to become a superhero? has been updated."
 
-  @exclude
   Scenario: An author cannot delete its own request
     Given I am logged in as "client1"
     When I go to homepage
@@ -100,7 +88,6 @@ Feature: Request
       And I click "Edit" in the "primary tabs" region
     Then I should not see "Delete" in the "actions" region
 
-  @exclude
   Scenario: A user can see some infos on a request without option
     Given I am logged in as "expert1"
     When I go to homepage
