@@ -271,6 +271,16 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
+   * @Then I go to stripped URL
+   */
+  public function then_i_go_to_stripped_url() {
+    $url = $this->getSession()->getCurrentUrl();
+    $url = preg_replace("/\?.*/","",$url);
+    print ("go to $url");
+    $this->getSession()->visit($url);
+  }
+
+  /**
    * This works for the Goutte driver and I assume other HTML-only ones.
    *
    * @Then /^show me the HTML page$/
