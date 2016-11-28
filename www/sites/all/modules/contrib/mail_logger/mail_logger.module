@@ -85,11 +85,7 @@ function mail_logger_theme() {
  * Purpose of this function is to log all outgoing mail
  */
 function mail_logger_mail_alter(&$message) {
-echo 'mail logger';
-if ($message['id'] == 'mimemail_emh_circle_membership_accepted') die;
   if (!empty($message['send'])) {
-    print ("Mail logger '".$message['id']."' sent to '".$message['to']."' logged. ");
-    watchdog('debug', "Mail logger '".$message['id']."' sent to '".$message['to']."' logged. ");
     $system = drupal_mail_system($message['module'], $message['key']);
     $logger = $system->format($message);
     $logger['date_sent'] = REQUEST_TIME;
