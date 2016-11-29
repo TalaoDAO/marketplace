@@ -23,9 +23,6 @@ Feature: Request
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670                  | Chieur génial      | All experts  | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy          | US                  | Real-time                    |
 
     Given the test email system is enabled
-    Given "request" content:
-    | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
-    | How to become a superhero?  | Energy        | All experts     | client1 | 2017-02-08 17:45:00    | 1       |
 
     # Make client1 as a Creator member of All experts circle
     Given I am logged in as a user with the "administrator" role
