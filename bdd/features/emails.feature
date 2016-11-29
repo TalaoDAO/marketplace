@@ -54,8 +54,9 @@ Feature: Emails
     | How to become a superhero?  | Energy        | Avengers        | client1 | 2017-02-08 17:45:00    | 1       |
 
   Scenario: Experts are notified by email for new request publication
-    Then I run cron
+    Given I run cron
     Then the last email to "emindhub.test+expert1@gmail.com" should contain "Dear Iron,"
       And the email should contain "A new request for expertise has been published on eMindHub"
     Then the last email to "emindhub.test+client1@gmail.com" should contain "Dear Captain,"
+      And the email should contain "A new request for expertise has been published on eMindHub"
 
