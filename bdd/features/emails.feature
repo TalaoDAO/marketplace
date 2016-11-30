@@ -26,11 +26,9 @@ Feature: Emails
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | 
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron           | MAN               | 0712345670                  | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy        | US                    |
 
-    #And user "expert2" has the "expert" role
-
     # Make client1 as a Creator member of Avengers circle
     Given I am logged in as a user with the "administrator" role
-    Given I go to "content/avengers"
+    When I go to "content/avengers"
       And I click "Group"
       And I click "People"
       And I click "Member since"
@@ -46,19 +44,19 @@ Feature: Emails
       And I press "Update membership"
       #Then I break   #to see the error go to watchdog
       # Again...
-    Given I go to "content/avengers"
+    When I go to "content/avengers"
       And I click "Group"
       And I click "People"
       And I click "Member since"
       # Twice for correct order
       And I click "Member since"
     Then I should see "Creator member" in the "Captain AMERICA" row
-    Given I click "edit" in the "Iron MAN" row
+    When I click "edit" in the "Iron MAN" row
       And I go to stripped URL
       And I select "Active" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
-    Given I go to "content/avengers"
+    When I go to "content/avengers"
       And I click "Group"
       And I click "People"
       And I click "Member since"
@@ -77,7 +75,7 @@ Feature: Emails
     | How to become a superhero?  | Energy        | Avengers        | client1 | 2017-02-08 17:45:00    | 1       |
 
   Scenario: Experts are notified by email for new request publication
-    Given I run cron
+    When I run cron
     Then the last email to "emindhub.test+expert1@gmail.com" should contain "Dear Iron,"
       And the email should contain "A new request for expertise has been published on eMindHub"
     Then the last email to "emindhub.test+expert2@gmail.com" should contain "Dear Black,"
