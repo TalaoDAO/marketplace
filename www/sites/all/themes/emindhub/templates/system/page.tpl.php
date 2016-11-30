@@ -218,7 +218,7 @@
       <div class="footer-logo">
         <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
           <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/logo-h-white.svg" alt="<?php print $site_name; ?>" />
-          <span><?php print t('The first professional network <br />in aerospace'); ?></span>
+          <span><?php print t('The smart professional network <br />in aerospace'); ?></span>
         </a>
       </div>
       <div class="footer-nav">

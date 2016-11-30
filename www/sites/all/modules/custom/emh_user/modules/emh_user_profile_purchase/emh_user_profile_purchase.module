@@ -46,10 +46,13 @@ function emh_user_profile_purchase_form($form, &$form_state, $account) {
 
   $form['confirmation'] = array(
     '#type' => 'item',
-    '#markup' => t("Access !user's profile for !amount credits?", array(
+    '#markup' => '<p>' . t("Access !user's profile for !amount credits?", array(
       '!user' => format_username($account),
       '!amount' => $amount,
-    )),
+    )) . '</p>'
+		. '<p class="emh-credits-buy">' . t('Do you need more credits? Please contact us at <a href="mailto:credits@emindhub.com?Subject=Credits%20needed%20by%20!current_user&Body=Your%20company%3A%0AYour%20position%3A%0APhone%20number%3A%0AAmount%20of%20credits%20needed%3A">credits@emindhub.com</a>', array(
+					'!current_user' => format_username($user),
+		)) . '</p>',
   );
 
   $form['actions'] = array(
@@ -186,7 +189,7 @@ function emh_user_profile_purchase($account) {
 		emh_user_profile_purchase_increment_counter($account);
 
 		// Notify user its profile has been purchased
-		emh_user_profile_purchase_notify_user($account, $amount);
+		emh_user_profile_purchase_notify_user_profile_purchased($account, $amount);
 
     unset($transaction);
   }
@@ -208,13 +211,15 @@ function emh_user_profile_purchase($account) {
 /**
  * Send email to user's profile purchased.
  */
-function emh_user_profile_purchase_notify_user($user, $credits) {
+function emh_user_profile_purchase_notify_user_profile_purchased($user, $credits) {
   $module = 'emh_user_profile_purchase';
   $key = 'notify_user';
   $mail = $user->mail;
   $language = language_default();
+	$piwik_tracking = 'pk_campaign=' . $key . '_' . $user->uid;
+	$ga_tracking = 'utm_medium=email&utm_source=' . $key . '&utm_campaign=' . $key . '_' . $user->uid;
   $params = array(
-    '@url' => url('credits?pk_campaign=profile_purchased_' . $user->uid),
+    '@url' => url('credits?' . $piwik_tracking . '&' . $ga_tracking, array('absolute' => TRUE)),
     '@user_firstname' => $user->field_first_name[LANGUAGE_NONE][0]['value'],
     '@credits' => $credits,
     '@threshold' => variable_get('emh_points_monetization_threshold', '1500'),
@@ -242,7 +247,7 @@ function emh_user_profile_purchase_mail($key, &$message, $params) {
                 <tbody>
                   <tr>
                     <td style="font-family:Arial;font-size:16px;padding:15px;color:rgb(255, 255, 255);" valign="middle" align="center">
-                      <a href="' . t('@url', $params) . '&amp;pk_kwd=calltoaction" title="' .  t('Log in to eMindHub') . '" target="_blank" style="font-weight:bold!important;letter-spacing:normal;line-height:100%;text-align:center;text-decoration:none;color:#FFFFFF!important;">' . t('Log in to eMindHub') . ' </a>
+                      <a href="' . t('@url', $params) . '&amp;pk_kwd=calltoaction&amp;utm_content=cta" title="' .  t('Log in to eMindHub') . '" target="_blank" style="font-weight:bold!important;letter-spacing:normal;line-height:100%;text-align:center;text-decoration:none;color:#FFFFFF!important;">' . t('Log in to eMindHub') . ' </a>
                     </td>
                   </tr>
                 </tbody>
