@@ -1,0 +1,83 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function emh_register_menu() {
+	$items = array();
+
+	$items['client/register'] = array(
+		'title' => t('Register as a client'),
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('user_register_form_client'),
+		'access arguments' => array('access content'),
+	);
+	$items['expert/register'] = array(
+		'title' => t('Register as an expert'),
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('user_register_form_expert'),
+		'access arguments' => array('access content'),
+	);
+
+  return $items;
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function emh_register_menu_alter(&$items) {
+  unset($items['user/register']);
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function emh_register_form_alter(&$form, &$form_state, $form_id) {
+  switch ($form_id) {
+    case 'user_register_form_client':
+    case 'user_register_form_expert':
+      return $form;
+      break;
+    default:
+      break;
+  }
+}
+
+/**
+ * Implements hook_forms().
+ */
+function emh_register_forms($form_id, $args) {
+  $forms = array();
+  switch ($form_id) {
+    case 'user_register_form_client':
+      $forms['user_register_form_client'] = array (
+        'callback' => 'user_register_form',
+      );
+      break;
+    case 'user_register_form_expert':
+      $forms['user_register_form_expert'] = array (
+        'callback' => 'user_register_form',
+      );
+      break;
+    default:
+      break;
+  }
+  return $forms;
+}
+
+/**
+ * Implements hook_user_presave().
+ */
+function emh_register_user_presave(&$edit, $account, $category) {
+  if (isset($account->is_new) && !empty($account->is_new)) {
+		$roleswitcher_role = user_role_load_by_name('roleswitcher');
+		if (arg(0) == 'client' && arg(1) == 'register') {
+			$role = user_role_load_by_name('business');
+	    $edit['roles'] = array($role->rid => 1, $roleswitcher_role->rid => 1);
+		}
+		if (arg(0) == 'expert' && arg(1) == 'register') {
+			$role = user_role_load_by_name('expert');
+	    $edit['roles'] = array($role->rid => 1, $roleswitcher_role->rid => 1);
+		}
+  }
+}
