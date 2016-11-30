@@ -69,15 +69,15 @@ function emh_register_forms($form_id, $args) {
  * Implements hook_user_presave().
  */
 function emh_register_user_presave(&$edit, $account, $category) {
-  if (isset($account->is_new) && !empty($account->is_new)) {
+	if (isset($account->is_new) && !empty($account->is_new)) {
 		$roleswitcher_role = user_role_load_by_name('roleswitcher');
 		if (arg(0) == 'client' && arg(1) == 'register') {
 			$role = user_role_load_by_name('business');
-	    $edit['roles'] = array($role->rid => 1, $roleswitcher_role->rid => 1);
+			$edit['roles'] = array($role->rid => 1, $roleswitcher_role->rid => 1);
 		}
 		if (arg(0) == 'expert' && arg(1) == 'register') {
 			$role = user_role_load_by_name('expert');
-	    $edit['roles'] = array($role->rid => 1, $roleswitcher_role->rid => 1);
+			$edit['roles'] = array($role->rid => 1, $roleswitcher_role->rid => 1);
 		}
-  }
+	}
 }
