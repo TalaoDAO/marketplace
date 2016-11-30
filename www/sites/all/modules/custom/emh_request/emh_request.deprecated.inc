@@ -269,11 +269,12 @@ function emh_request_try_to_notify($node) {
   // Load users.
   $users = user_load_multiple($users);
   // For each user of each group, check domain.
+  drupal_static_reset('user_access'); // nasty bug, at least under behat
   foreach($users as $user) {
     // If user has the right role(s) and wants to be notified.
     error_log("Email should be sent to ".$user->name." ".$node->type." \n", 3, "/tmp/emh-mails.log");
-
-    if (($node->type == 'request' )
+    if (
+        ($node->type == 'request' && user_access('edit own webform submissions', $user)) 
         && !empty($user->field_notification_frequency[LANGUAGE_NONE]) && $user->field_notification_frequency[LANGUAGE_NONE][0]['tid'] == 48
        )
     {

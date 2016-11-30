@@ -391,6 +391,25 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
+   * @Then /^the last email to "([^"]*)" should not contain "([^"]*)"$/
+   */
+  public function theLastEmailToShouldNotContain($to, $contents) {
+    $variables = array_map('unserialize', db_query("SELECT name, value FROM {variable} WHERE name = 'drupal_test_email_collector'")->fetchAllKeyed());
+    $this->activeEmail = FALSE;
+    foreach ( array_reverse($variables['drupal_test_email_collector']) as $message) {
+      if ($message['to'] == $to) {
+        $this->activeEmail = $message;
+        if (strpos($message['body'], $contents) == FALSE ||
+          strpos($message['subject'], $contents) == FALSE) {
+          return TRUE;
+        }
+        throw new \Exception('Found expected content in message body or subject.');
+      }
+    }
+    // dont care if not found any email at all
+  }
+
+  /**
    * @Given /^the email should contain "([^"]*)"$/
    */
   public function theEmailShouldContain($contents) {

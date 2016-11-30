@@ -15,16 +15,22 @@ Feature: Emails
     | Marvel Studios        | admin   |
 
     Given users:
+    | name    | mail                            | roles  | field_first_name | field_last_name | og_user_node |
+    | expert2 | emindhub.test+expert2@gmail.com | expert | Black            | WIDOW           | Avengers     |
+
+    Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | field_notification_frequency  |
     | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678                  | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance   | US                    | Real-time                     |
 
     Given users:
-    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | field_notification_frequency  |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670                  | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy        | US                    | Real-time                     |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | 
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron           | MAN               | 0712345670                  | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy        | US                    |
+
+    #And user "expert2" has the "expert" role
 
     # Make client1 as a Creator member of Avengers circle
     Given I am logged in as a user with the "administrator" role
-    When I go to "content/avengers"
+    Given I go to "content/avengers"
       And I click "Group"
       And I click "People"
       And I click "Member since"
@@ -40,7 +46,7 @@ Feature: Emails
       And I press "Update membership"
       #Then I break   #to see the error go to watchdog
       # Again...
-      And I go to "content/avengers"
+    Given I go to "content/avengers"
       And I click "Group"
       And I click "People"
       And I click "Member since"
@@ -48,7 +54,18 @@ Feature: Emails
       And I click "Member since"
     Then I should see "Creator member" in the "Captain AMERICA" row
     Given I click "edit" in the "Iron MAN" row
-      Then I go to stripped URL
+      And I go to stripped URL
+      And I select "Active" from "Status"
+      And I press "Update membership"
+    Then I should see "The membership has been updated."
+    Given I go to "content/avengers"
+      And I click "Group"
+      And I click "People"
+      And I click "Member since"
+      # Twice for correct order
+      And I click "Member since"
+      And I click "edit" in the "Black WIDOW" row
+      And I go to stripped URL
       And I select "Active" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
@@ -63,6 +80,7 @@ Feature: Emails
     Given I run cron
     Then the last email to "emindhub.test+expert1@gmail.com" should contain "Dear Iron,"
       And the email should contain "A new request for expertise has been published on eMindHub"
-    Then the last email to "emindhub.test+client1@gmail.com" should contain "Dear Captain,"
+    Then the last email to "emindhub.test+expert2@gmail.com" should contain "Dear Black,"
       And the email should contain "A new request for expertise has been published on eMindHub"
+    Then the last email to "emindhub.test+client1@gmail.com" should not contain "published"
 
