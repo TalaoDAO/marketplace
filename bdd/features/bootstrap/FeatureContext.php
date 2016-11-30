@@ -426,11 +426,15 @@ class FeatureContext extends DrupalContext {
 
 
   /**
-   * @Then /^I flush static permissions$/
+   * Clear user access static caches.
+   * Solves : https://github.com/jhedstrom/drupalextension/issues/328
+   * fix : #992
+   *
+   * @AfterUserCreate
    */
-  public function IFlushStaticPerm() {
-    drupal_static_reset('user_access'); // nasty bug, at least under behat
-  }
+  function clearUserAccessCache() {
+    drupal_static_reset('user_access');
+  }  
 
   /**
    * @Then the user :name has :perm permission

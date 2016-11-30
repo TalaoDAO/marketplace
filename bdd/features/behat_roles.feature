@@ -10,8 +10,6 @@ Feature: Behat roles
     | title                 | author  |
     | Marvel Studios        | admin   |
 
-#    | name    | mail                            | roles    | field_first_name | field_last_name | field_entreprise     |
-#    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | Marvel Studios       |
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_position  | og_user_node | field_entreprise     | field_working_status | field_needs_for_expertise | field_address:country |
     | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | Chef de projet  | Avengers     | Marvel Studios       | Freelancer           | Maintenance               | US                    |
@@ -28,12 +26,10 @@ Feature: Behat roles
       Then I should not see "Create Request"
       And I should see "403_authenticated"
 
-    #TODO Nasty bug : this line should not be necessary !!!!
-    #When I flush static permissions
+    #DONE Nasty bug : this line should not be necessary !!!!
     Then the user client1 don't have "edit own webform submissions" permission
       And the user client1 has "create request content" permission
 
-    #When I flush static permissions
     Then the user expert1 has "edit own webform submissions" permission
       And the user expert1 don't have "create request content" permission
 
