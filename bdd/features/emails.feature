@@ -31,9 +31,14 @@ Feature: Emails
       # Twice for correct order
       And I click "Member since"
       And I click "edit" in the "Captain AMERICA" row
+      # TODO: nasty bug, on "Update membership" there is a redirection with an encoded "?redirect=xxx"
+      # that provoques an error visible on watchdog ONLY with a "Then I break"
+      # 2nd bug : It is not displayed by @wathdog at the end of the test
+      And I go to stripped URL
       And I select "Active" from "Status"
       And I check the box "Creator member"
       And I press "Update membership"
+      #Then I break   #to see the error go to watchdog
       # Again...
       And I go to "content/avengers"
       And I click "Group"
@@ -43,6 +48,7 @@ Feature: Emails
       And I click "Member since"
     Then I should see "Creator member" in the "Captain AMERICA" row
     Given I click "edit" in the "Iron MAN" row
+      Then I go to stripped URL
       And I select "Active" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
