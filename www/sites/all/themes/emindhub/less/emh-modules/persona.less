@@ -20,8 +20,17 @@
 		&-right {
 			right: 0;
 			left: 50%;
-			background-position: 57% 50%;
+			background-position: 60% 80%;
 			background-image: url("../images/content/block/emindhub_persona-expert.jpg");
+		}
+	}
+}
+@media (min-width: @screen-lg-min) {
+	.select-persona-wrapper {
+		.background-div {
+			&-right {
+				background-position: 40% 50%;
+			}
 		}
 	}
 }
@@ -70,6 +79,7 @@
 
 @media (max-width: @screen-xs-max) {
 	.select-persona {
+		padding-top: calc(@emhlive-mobile-overlap + 35px);
 		padding-bottom: calc(@emhlive-mobile-overlap + 35px);
 		&-title {
 			font-size: 25px;

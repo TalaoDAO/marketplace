@@ -1,4 +1,4 @@
-<div class="requests-slider <?php print $classes; ?>">
+<div class="requests-page <?php print $classes; ?>">
   <?php print render($title_prefix); ?>
   <?php if ($title) : ?>
     <?php print $title; ?>
