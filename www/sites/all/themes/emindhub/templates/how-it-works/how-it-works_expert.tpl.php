@@ -67,7 +67,7 @@
       $video_url = 'https://www.youtube.com/embed/VAXPojC8KLU';
     }
     ?>
-    <section class="emh-module hiw-video container">
+    <section class="emh-module hiw-video">
       <div class="emh-subtitle"><?php print t('Learn about eMindHub on video'); ?></div>
       <div class="embed-responsive embed-responsive-16by9">
         <iframe class="embed-responsive-item" src="<?php print $video_url; ?>"></iframe>
@@ -76,7 +76,7 @@
   <?php endif; ?>
 
   <?php if (!$block_html_id) : ?>
-  <section class="emh-module faq hiw-faq container">
+  <section class="emh-module faq hiw-faq">
 
       <div class="emh-subtitle"><?php echo t('Frequently Asked Questions') ?></div>
       <?php
