@@ -173,11 +173,15 @@
             <ul class="action-links"><?php print render($action_links); ?></ul>
           <?php endif; ?>
 
-          <?php
-          $elements = drupal_get_form("user_login");
-          $form = drupal_render($elements);
-          echo $form;
-          ?>
+          <?php if ($logged_in): ?>
+            <?php print render($page['content']); ?>
+          <?php else: ?>
+            <?php
+            $elements = drupal_get_form("user_login");
+            $form = drupal_render($elements);
+            echo $form;
+            ?>
+          <?php endif; ?>
 
         </section>
 
