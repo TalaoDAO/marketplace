@@ -33,7 +33,7 @@
     </div>
   <?php endif;*/ ?>
 
-  <section class="emh-module container expertise-full">
+  <section class="emh-module expertise-full">
 
     <div class="expertise-list">
 
@@ -148,7 +148,7 @@
 
   </section>
 
-  <section class="emh-module person-list-wrapper container">
+  <section class="emh-module person-list-wrapper">
 
       <h3 class="emh-subtitle"><?php print t('They got rapid and relevant answers'); ?></h3>
 
