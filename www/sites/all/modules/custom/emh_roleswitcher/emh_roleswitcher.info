@@ -1,0 +1,6 @@
+name = EMH Roleswitcher
+description = Custom roleswitcher features.
+package = EMH
+core = 7.x
+
+dependencies[] = roleswitcher

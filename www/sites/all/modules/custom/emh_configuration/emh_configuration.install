@@ -797,3 +797,19 @@ batch";
     }
   }
 }
+
+/**
+ * Install module : EMH Roleswitcher & EMH Register + Delete old rules.
+ */
+function emh_configuration_update_7041() {
+  module_enable(array('emh_roleswitcher', 'emh_register'));
+  $rules = array(
+    'rules_emh_user_client_registration_add_role',
+    'rules_emh_user_expert_registration_add_role',
+  );
+  foreach ($rules as $rule) {
+    if ($rules_config = rules_config_load($rule)) {
+      $rules_config->delete();
+    }
+  }
+}

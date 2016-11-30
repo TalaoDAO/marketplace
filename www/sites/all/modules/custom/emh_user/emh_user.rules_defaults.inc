@@ -118,49 +118,5 @@ function emh_user_default_rules_configuration() {
   }
   ');
 
-  $rules['rules_emh_user_client_registration_add_role'] = entity_import('rules_config', '
-    { "rules_emh_user_client_registration_add_role" : {
-    "LABEL" : "Registration - Add role to client",
-    "PLUGIN" : "reaction rule",
-    "OWNER" : "rules",
-    "TAGS" : [ "client", "EMH", "user" ],
-    "REQUIRES" : [ "rules" ],
-    "ON" : { "user_insert" : [] },
-    "IF" : [
-      { "data_is" : { "data" : [ "site:current-page:url" ], "value" : "client\/register" } }
-    ],
-    "DO" : [
-      { "user_add_role" : {
-          "account" : [ "account" ],
-          "roles" : { "value" : { "5" : "5", "10" : "10" } }
-        }
-      }
-    ]
-  }
-  }
-  ');
-
-  $rules['rules_emh_user_expert_registration_add_role'] = entity_import('rules_config', '
-    { "rules_emh_user_expert_registration_add_role" : {
-    "LABEL" : "Registration - Add role to expert",
-    "PLUGIN" : "reaction rule",
-    "OWNER" : "rules",
-    "TAGS" : [ "EMH", "expert", "user" ],
-    "REQUIRES" : [ "rules" ],
-    "ON" : { "user_insert" : [] },
-    "IF" : [
-      { "data_is" : { "data" : [ "site:current-page:url" ], "value" : "expert\/register" } }
-    ],
-    "DO" : [
-      { "user_add_role" : {
-          "account" : [ "account" ],
-          "roles" : { "value" : { "4" : "4", "10" : "10" } }
-        }
-      }
-    ]
-  }
-  }
-  ');
-
   return $rules;
 }
