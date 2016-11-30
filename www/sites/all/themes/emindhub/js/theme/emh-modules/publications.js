@@ -5,10 +5,11 @@ Drupal.behaviors.publications = {
 
             $slider.slick({
                 arrows: false,
-                dots: false,
+                dots: true,
                 slidesToShow: 5,
                 slidesToScroll: 1,
                 infinite: false,
+                appendDots: $slider.siblings('.emh-dots'),
                 responsive: [
                     {
                         breakpoint: 992,
