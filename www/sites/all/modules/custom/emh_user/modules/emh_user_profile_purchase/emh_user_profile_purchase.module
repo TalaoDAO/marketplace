@@ -50,10 +50,7 @@ function emh_user_profile_purchase_form($form, &$form_state, $account) {
       '!user' => format_username($account),
       '!amount' => $amount,
     )) . '</p>'
-		. '<p>' . t('Do you need more credits? Please contact us at <a href="mailto:credits@emindhub.com?subject=Credits needed by !current_userser&body=Your company:
-			Your position:
-			Phone number:
-			Amount of credits needed:">credits@emindhub.com</a>', array(
+		. '<p class="emh-credits-buy">' . t('Do you need more credits? Please contact us at <a href="mailto:credits@emindhub.com?Subject=Credits%20needed%20by%20!current_user&Body=Your%20company%3A%0AYour%20position%3A%0APhone%20number%3A%0AAmount%20of%20credits%20needed%3A">credits@emindhub.com</a>', array(
 					'!current_user' => format_username($user),
 		)) . '</p>',
   );
