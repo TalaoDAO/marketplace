@@ -17,6 +17,8 @@ Feature: Emails
     Given users:
     | name    | mail                            | roles  | field_first_name | field_last_name | og_user_node |
     | expert2 | emindhub.test+expert2@gmail.com | expert | Black            | WIDOW           | Avengers     |
+      When I flush static permissions
+      Then the user expert2 has "edit own webform submissions" permission
 
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | field_notification_frequency  |
@@ -25,6 +27,8 @@ Feature: Emails
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | 
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron           | MAN               | 0712345670                  | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy        | US                    |
+      And I flush static permissions
+      And the user expert1 has "edit own webform submissions" permission
 
     # Make client1 as a Creator member of Avengers circle
     Given I am logged in as a user with the "administrator" role
@@ -69,6 +73,8 @@ Feature: Emails
     Then I should see "The membership has been updated."
 
     Given the test email system is enabled
+      #TODO : second nasty bug ... static permissions missing expert/business perms
+      Then I flush static permissions
 
     Given "request" content:
     | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
