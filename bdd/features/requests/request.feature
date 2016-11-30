@@ -33,7 +33,6 @@ Feature: Request
       # Twice for correct order
       And I click "Member since"
       And I click "edit" in the "Captain AMERICA" row
-      #Then I go to stripped URL
       And I select "Active" from "Status"
       And I check the box "Creator member"
       And I press "Update membership"
@@ -46,7 +45,6 @@ Feature: Request
       And I click "Member since"
     Then I should see "Creator member" in the "Captain AMERICA" row
       And I click "edit" in the "Iron MAN" row
-      #Then I go to stripped URL
       And I select "Active" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
