@@ -5,8 +5,8 @@
  */
 function emh_service_links_update_7001() {
   $view_modes = array(
-    'full' => '0',
-    'teaser' => '0',
+    'full' => 0,
+    'teaser' => 0,
     'rss' => 0,
     'search_index' => 0,
     'search_result' => 0,
