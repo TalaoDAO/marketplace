@@ -79,7 +79,7 @@
   <?php endif; ?>
 
   <?php if (!$block_html_id) : ?>
-  <section class="emh-module faq hiw-faq container">
+  <section class="emh-module faq hiw-faq">
 
       <div class="emh-subtitle"><?php echo t('Frequently Asked Questions') ?></div>
       <?php

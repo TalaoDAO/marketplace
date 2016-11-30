@@ -1,6 +1,6 @@
 <div class="emh-subtitle testimonial-subtitle"><?php echo t('Sharing my eMindHub experience') ?></div>
 
-<section class="emh-module testimonial hiw-testimonial container">
+<section class="emh-module testimonial hiw-testimonial">
 
     <ul class="testimonial-tabs">
         <li class="active"><?php print t('Managers'); ?></li>
