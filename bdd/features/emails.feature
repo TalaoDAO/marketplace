@@ -17,8 +17,6 @@ Feature: Emails
     Given users:
     | name    | mail                            | roles  | field_first_name | field_last_name | og_user_node |
     | expert2 | emindhub.test+expert2@gmail.com | expert | Black            | WIDOW           | Avengers     |
-      When I flush static permissions
-      Then the user expert2 has "edit own webform submissions" permission
 
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | field_notification_frequency  |
@@ -27,8 +25,6 @@ Feature: Emails
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | 
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron           | MAN               | 0712345670                  | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy        | US                    |
-      And I flush static permissions
-      And the user expert1 has "edit own webform submissions" permission
 
     # Make client1 as a Creator member of Avengers circle
     Given I am logged in as a user with the "administrator" role
@@ -39,7 +35,7 @@ Feature: Emails
       # Twice for correct order
       And I click "Member since"
       And I click "edit" in the "Captain AMERICA" row
-      # TODO: nasty bug, on "Update membership" there is a redirection with an encoded "?redirect=xxx"
+      # TODO nasty bug, on "Update membership" there is a redirection with an encoded "?redirect=xxx"
       # that provoques an error visible on watchdog ONLY with a "Then I break"
       # 2nd bug : It is not displayed by @wathdog at the end of the test
       And I go to stripped URL
@@ -71,20 +67,16 @@ Feature: Emails
       And I select "Active" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
-
     Given the test email system is enabled
-      #TODO : second nasty bug ... static permissions missing expert/business perms
-      Then I flush static permissions
 
+  Scenario: Experts are notified by email for new request publication
     Given "request" content:
     | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
     | How to become a superhero?  | Energy        | Avengers        | client1 | 2017-02-08 17:45:00    | 1       |
-
-  Scenario: Experts are notified by email for new request publication
     When I run cron
-    Then the last email to "emindhub.test+expert1@gmail.com" should contain "Dear Iron,"
+    #DONT FORGET : drush @dev rules-enable rules_emh_request_send_notification_email 
+    Then  the last email to "emindhub.test+expert1@gmail.com" should contain "Dear Iron,"
       And the email should contain "A new request for expertise has been published on eMindHub"
-    Then the last email to "emindhub.test+expert2@gmail.com" should contain "Dear Black,"
+      And the last email to "emindhub.test+expert2@gmail.com" should contain "Dear Black,"
       And the email should contain "A new request for expertise has been published on eMindHub"
-    Then the last email to "emindhub.test+client1@gmail.com" should not contain "published"
-
+      And the last email to "emindhub.test+client1@gmail.com" should not contain "published"
