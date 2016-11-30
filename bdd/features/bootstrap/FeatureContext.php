@@ -331,7 +331,7 @@ class FeatureContext extends DrupalContext {
     variable_set('mail_system', array('default-system' => 'EMHMailSystem'));
     // Flush the email buffer, allowing us to reuse this step definition to clear existing mail.
     variable_set('drupal_test_email_collector', array());
-    file_put_contents("/tmp/emh-mails.log", "Recording email session - ".date('Y/m/d H:i:s')."\n");
+    //file_put_contents("/tmp/emh-mails.log", "Recording email session - ".date('Y/m/d H:i:s')."\n");
     db_query("DELETE FROM queue WHERE name='emh_request_request_email_notification'"); //delete queue from other test, can be overloaded if All Experts used
   }
 
@@ -424,4 +424,37 @@ class FeatureContext extends DrupalContext {
     throw new \Exception('Did not find expected content in message body or subject.');
   }
 
+
+  /**
+   * @Then /^I flush static permissions$/
+   */
+  public function IFlushStaticPerm() {
+    drupal_static_reset('user_access'); // nasty bug, at least under behat
+  }
+
+  /**
+   * @Then the user :name has :perm permission
+   */
+  public function theUserHasPermission($name, $perm) {
+    if (!isset($this->users[$name])) {
+      throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
+    }
+    $user = user_load($this->users[$name]->uid);
+    if (! user_access($perm, $user))
+      throw new \Exception('User does not have the required permission');
+  }
+
+  /**
+   * @Then the user :name don't have :perm permission
+   */
+  public function theUserDontHavePermission($name, $perm) {
+    if (!isset($this->users[$name])) {
+      throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
+    }
+    $user = user_load($this->users[$name]->uid);
+    if (user_access($perm, $user))
+      throw new \Exception('User should not have the required permission');
+  }
+
+  
 }
