@@ -727,7 +727,7 @@ function emh_configuration_update_7039() {
     'revision' => 0,
     'summary' => 0,
   );
-  variable_set('service_links_link_view_modes', $view_modes);
+  variable_set('service_links_view_modes', $view_modes);
   $node_view_modes = array(
     'full' => 'full',
     'teaser' => 'teaser',
@@ -738,7 +738,7 @@ function emh_configuration_update_7039() {
     'revision' => 0,
     'summary' => 0,
   );
-  variable_set('service_links_link_node_view_modes', $node_view_modes);
+  variable_set('service_links_node_view_modes', $node_view_modes);
   variable_set('service_links_style', '2');
   variable_set('service_links_label_in_node', '');
   $show = array(
