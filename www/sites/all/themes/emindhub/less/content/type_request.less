@@ -157,16 +157,22 @@ body.node-type-request.page-node-edit {
         }
 
         input {
-          // margin-top: 10px;
           display: none;
         }
 
         label {
           .make-row();
+          margin: 0;
+          padding: 0;
           width: 100%;
-          // padding-left: 40px;
-          // .text-left;
           .text-center;
+
+          > a {
+            .make-row();
+            margin: 0;
+            display: block;
+            color: inherit;
+          }
 
           .term-image {
             .make-md-column(12);
