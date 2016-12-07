@@ -18,7 +18,7 @@
     <div class="row select-persona-buttons">
 
       <div class="persona-customer col-xs-6">
-        <a class="button" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('You\'re a client'); ?></a>
+        <a class="button" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('You need expertise'); ?></a>
         <p><?php print t('Get quick access to the best experts'); ?></p>
       </div>
 
