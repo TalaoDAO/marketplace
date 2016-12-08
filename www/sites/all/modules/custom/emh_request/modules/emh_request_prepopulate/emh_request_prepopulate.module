@@ -8,61 +8,130 @@ function emh_request_prepopulate_form_alter(&$form, &$form_state, $form_id) {
     return;
   }
 
-  // TODO
-  // Request being created or already created & unpublished
-  // if (empty($form['#node']->nid) || $form['#node']->status == NODE_NOT_PUBLISHED) {
-  //   $form['actions']['switch'] = array(
-  //     '#type' => 'submit',
-  //     '#value' => t('Activate these options'),
-  //     '#submit' => array('emh_request_prepopulate_form_node_switch'),
-  //   );
-  // }
+  $form['field_request_type']['#suffix'] .= emh_request_prepopulate_form_field_request_type_switch($form['field_request_type'][LANGUAGE_NONE]['#options'], $form);
+	$form['field_options']['#prefix'] .= emh_request_prepopulate_form_field_options_help($form['field_request_type'][LANGUAGE_NONE]['#options'], $form);
 
   if (isset($_REQUEST['edit'])) {
-    // URL example:
-    // edit[field_options][und][questionnaire][enabled]=&edit[field_options][und][private][enabled]=&edit[field_options][und][questionnaire][enabled]=&edit[field_request_questions][und][%270%27][value]=How%20to%20become%20a%20superhero%3F
     $form['#after_build'][] = 'emh_request_prepopulate_form_after_build';
-    _emh_request_prepopulate_create_field_multiple_value($form, $form_state, $form_id, 'field_request_questions', 3);
+    _emh_request_prepopulate_create_field_multiple_value($form, $form_state, $form_id, 'field_request_questions', 7);
   }
 }
 
 /**
- * Submit callback for the switch button of the request edition form.
- *
- * Redirects the user to the creation page with prepopulated fields.
+ * Implements hook_form_alter().
  */
-// function emh_request_prepopulate_form_node_switch($form, &$form_state) {
-//   // Only if the user clicked the "Switch" button
-//   if ($form_state['triggering_element']['#value'] == $form['actions']['switch']['#value']) {
-//     try {
-//
-//
-//       node_save($form['#node']);
-//
-//       $msg_args = array(
-//         '@type' => node_type_get_name($form['#node']),
-//         '%title' => $form['#node']->title,
-//       );
-//
-//       // Redirects to the request edit view
-//       // $term = taxonomy_term_load($tid);
-//       // $term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
-//       // $term_name = $term_wrapper->language($language->language)->name_field->value();
-//       // $term_safe_name = preg_replace('/[^A-Za-z0-9\-]/', '', strtolower($term_name));
-//       // $term_prepopulate = $term_wrapper->language($language->language)->field_prepopulate_help->value();
-//       // $term_path = $base_url . '/node/add/request?' . $term_wrapper->language($language->language)->field_prepopulate->value() . '&edit[field_request_type][und][' . $term->tid . '][' . $term->tid . ']=' . $term->tid;
-//
-//       $node_wrapper = entity_metadata_wrapper('node', $node);
-//       $node_wrapper->field_request_type->set('sepp@example.com');
-//
-//       $form_state['redirect'] = 'node/' . $form['#node']->nid . '/edit' . $form['actions']['switch']['#path'];
-//       drupal_set_message(t('@type %title has been updated.', $msg_args));
-//     }
-//     catch (Exception $e) {
-//       drupal_set_message(t('The request could not be saved.'), 'error');
-//     }
-//   }
-// }
+function emh_request_prepopulate_form_request_node_form_alter(&$form, &$form_state, $form_id) {
+  if ($form['field_request_type']) {
+    $form['field_request_type'][LANGUAGE_NONE]['#after_build'][] = 'emh_request_prepopulate_form_field_request_type_after_build';
+  }
+}
+
+/**
+ * After build callback for field_request_type on request creation forms.
+ *
+ * Inspired by http://e9p.net/altering-individual-radio-or-checkbox-items-drupal-7-fapi
+ */
+function emh_request_prepopulate_form_field_request_type_after_build($element, &$form_state) {
+  global $language;
+
+  // Each renderable radio element.
+  foreach (element_children($element) as $tid) {
+    // Pull the original form item.
+    $field_request_type_item = $element[$tid];
+
+    // Load the term.
+    $term = taxonomy_term_load($tid);
+
+    $term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
+    $term_name = $term_wrapper->language($language->language)->name_field->value();
+    $term_safe_name = preg_replace('/[^A-Za-z0-9\-]/', '', strtolower($term_name));
+    $term_description = $term_wrapper->language($language->language)->description_field->value->value(array('sanitize' => TRUE));
+
+    // Update the radio item so the button shows then the rendered term.
+    $element[$tid] = array(
+      // Wrap the new item for styling.
+      '#prefix' => '<div class="request-type type-' . $term_safe_name . '">',
+      '#suffix' => '</div>',
+      // Make sure to use the initial key so FAPI saves the values correctly.
+      $tid => $field_request_type_item,
+    );
+
+    $element[$tid][$tid]['#title'] = emh_request_get_type_image($term, 50) ? '<span class="term-image">' . emh_request_get_type_image($term, 50) . '</span>' : '';
+    $element[$tid][$tid]['#title'] .= '<span class="term-name">' . $term_name . '</span>';
+    $element[$tid][$tid]['#title'] .= $term_description ? '<span class="term-description">' . $term_description . '</span>' : '';
+
+    $element[$tid][$tid]['#title'] = l(
+                                      $element[$tid][$tid]['#title'],
+                                      '',
+                                      array(
+                                        'attributes' => array(
+                                          'data-toggle' => 'modal',
+                                          'data-target' => '#modal-request-type-' . $term_safe_name,
+                                        ),
+                                        'html' => TRUE,
+                                        'fragment' => 'modal-request-type-' . $term_safe_name,
+                                      )
+                                    );
+  }
+
+  // Always return the element to render in after_build callbacks.
+  return $element;
+}
+
+function emh_request_prepopulate_form_field_request_type_switch(array $types, $form) {
+  global $base_url, $language;
+  foreach ($types as $tid => $value) {
+    $term = taxonomy_term_load($tid);
+    $term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
+    $term_name = $term_wrapper->language($language->language)->name_field->value();
+    $term_safe_name = preg_replace('/[^A-Za-z0-9\-]/', '', strtolower($term_name));
+    $term_path = $base_url . '/node/add/request?' . $term_wrapper->language($language->language)->field_prepopulate->value() . '&edit[field_request_type][und][' . $term->tid . '][' . $term->tid . ']=' . $term->tid;
+
+    $output .= '<div class="modal fade" id="modal-request-type-' . $term_safe_name . '" tabindex="-1" role="dialog" aria-labelledby="modal-request-type-' . $term_safe_name . 'Label">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modal-request-type-' . $term_safe_name . 'Label">' . t('Confirm request type change') . '</h4>
+                  </div>
+                  <div class="modal-body">
+                    ' . t('Are you sure you want to change your request type? If you choose to continue, the data of your request will be lost.') . '
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">' . t('Cancel') . '</button>
+                    <a href="' . $term_path . '" class="btn btn-primary">' . t('Switch to ') . $term_name . '</a>
+                  </div>
+                </div>
+              </div>
+            </div>';
+  }
+
+  return $output;
+}
+
+function emh_request_prepopulate_form_field_options_help(array $types, $form) {
+  global $language;
+  foreach ($types as $tid => $term_name) {
+    $term = taxonomy_term_load($tid);
+    $term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
+    $term_prepopulate = $term_wrapper->language($language->language)->field_prepopulate->value();
+    $term_safe_name = preg_replace('/[^A-Za-z0-9\-]/', '', strtolower($term_name));
+
+    if (!empty($term_prepopulate)) {
+      $output .= '<div class="collapse request-type-' . $term_safe_name . '">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                  <div class="type-infos">
+                      <p>' . t('To get the most from your @type request, we recommend you to use the options bellow', array('type' => $term_name)) . '</p>
+                    </div>
+                  </div>
+                </div>
+              </div>';
+    }
+  }
+
+  return $output;
+}
 
 /**
  * An #after_build function to set the values prepopulated in the request.
@@ -80,7 +149,7 @@ function _emh_request_prepopulate_create_field_multiple_value(&$form, $form_stat
   $form_theme = $form[$field_name][LANGUAGE_NONE]['#theme'];
   $after_build = $form[$field_name][LANGUAGE_NONE]['#after_build'];
   $items = &$form_state['field'][$field_name][LANGUAGE_NONE];
-  // Generate required number of fields collection
+  // Generate required number of fields
   if ($items_count > 1 and $items['items_count'] !== $items_count) {
     $items['items_count'] = $items_count;
     $form[$field_name][LANGUAGE_NONE] = field_multiple_value_form($items['field'], $items['instance'], LANGUAGE_NONE, array(), $form, $form_state);
@@ -112,12 +181,12 @@ function _emh_request_prepopulate_prepopulate_walk(&$form, &$request_slice, &$fo
     'password_confirm',
     'text_format',
     'markup',
-    );
+  );
 
   if (is_array($request_slice)) {
     foreach (array_keys($request_slice) as $request_variable) {
       $next_slice =  $request_slice[$request_variable];
-      // YBA: to bypass a behat bug that strips "[0]" from slice, must be replaced by ['0']
+      // YBA: to bypass a Behat bug that strips "[0]" from slice, must be replaced by ['0']
       $request_variable = str_replace("'", "", $request_variable);
       if (element_child($request_variable) && !empty($form[$request_variable]) &&
        (!isset($form[$request_variable]['#type']) || !in_array($form[$request_variable]['#type'], $limited_types)) ) {

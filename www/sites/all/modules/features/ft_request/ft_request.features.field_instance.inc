@@ -1033,47 +1033,6 @@ function ft_request_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance:
-  // 'taxonomy_term-request_type-field_prepopulate_help'.
-  $field_instances['taxonomy_term-request_type-field_prepopulate_help'] = array(
-    'bundle' => 'request_type',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 2,
-      ),
-      'request_creation' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'taxonomy_term',
-    'field_name' => 'field_prepopulate_help',
-    'label' => 'To get the best of your request, we recommend you to activate these options:',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'text_processing' => 1,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 5,
-      ),
-      'type' => 'text_textarea',
-      'weight' => 2,
-    ),
-  );
-
   // Exported field_instance: 'taxonomy_term-request_type-name_field'.
   $field_instances['taxonomy_term-request_type-name_field'] = array(
     'bundle' => 'request_type',
@@ -1140,7 +1099,6 @@ function ft_request_field_default_field_instances() {
   t('Questions');
   t('Request title or question');
   t('Tags');
-  t('To get the best of your request, we recommend you to activate these options:');
   t('We suggest you give at least some information about your activity');
 
   return $field_instances;
