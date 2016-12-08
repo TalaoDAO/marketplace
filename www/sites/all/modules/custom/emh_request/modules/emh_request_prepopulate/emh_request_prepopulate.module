@@ -12,10 +12,8 @@ function emh_request_prepopulate_form_alter(&$form, &$form_state, $form_id) {
 	$form['field_options']['#prefix'] .= emh_request_prepopulate_form_field_options_help($form['field_request_type'][LANGUAGE_NONE]['#options'], $form);
 
   if (isset($_REQUEST['edit'])) {
-    // URL example:
-    // edit[field_options][und][questionnaire][enabled]=&edit[field_options][und][private][enabled]=&edit[field_request_questions][und][%270%27][value]=How%20to%20become%20a%20superhero%3F
     $form['#after_build'][] = 'emh_request_prepopulate_form_after_build';
-    _emh_request_prepopulate_create_field_multiple_value($form, $form_state, $form_id, 'field_request_questions', 3);
+    _emh_request_prepopulate_create_field_multiple_value($form, $form_state, $form_id, 'field_request_questions', 7);
   }
 }
 
@@ -97,7 +95,7 @@ function emh_request_prepopulate_form_field_request_type_switch(array $types, $f
       $term_safe_name = preg_replace('/[^A-Za-z0-9\-]/', '', strtolower($term_name));
       $term_path = $base_url . '/node/add/request?' . $term_wrapper->language($language->language)->field_prepopulate->value() . '&edit[field_request_type][und][' . $term->tid . '][' . $term->tid . ']=' . $term->tid;
 
-      return '<div class="modal fade" id="modal-request-type-' . $term_safe_name . '" tabindex="-1" role="dialog" aria-labelledby="modal-request-type-' . $term_safe_name . 'Label">
+      print '<div class="modal fade" id="modal-request-type-' . $term_safe_name . '" tabindex="-1" role="dialog" aria-labelledby="modal-request-type-' . $term_safe_name . 'Label">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -160,7 +158,7 @@ function _emh_request_prepopulate_create_field_multiple_value(&$form, $form_stat
   $form_theme = $form[$field_name][LANGUAGE_NONE]['#theme'];
   $after_build = $form[$field_name][LANGUAGE_NONE]['#after_build'];
   $items = &$form_state['field'][$field_name][LANGUAGE_NONE];
-  // Generate required number of fields collection
+  // Generate required number of fields
   if ($items_count > 1 and $items['items_count'] !== $items_count) {
     $items['items_count'] = $items_count;
     $form[$field_name][LANGUAGE_NONE] = field_multiple_value_form($items['field'], $items['instance'], LANGUAGE_NONE, array(), $form, $form_state);
@@ -192,12 +190,12 @@ function _emh_request_prepopulate_prepopulate_walk(&$form, &$request_slice, &$fo
     'password_confirm',
     'text_format',
     'markup',
-    );
+  );
 
   if (is_array($request_slice)) {
     foreach (array_keys($request_slice) as $request_variable) {
       $next_slice =  $request_slice[$request_variable];
-      // YBA: to bypass a behat bug that strips "[0]" from slice, must be replaced by ['0']
+      // YBA: to bypass a Behat bug that strips "[0]" from slice, must be replaced by ['0']
       $request_variable = str_replace("'", "", $request_variable);
       if (element_child($request_variable) && !empty($form[$request_variable]) &&
        (!isset($form[$request_variable]['#type']) || !in_array($form[$request_variable]['#type'], $limited_types)) ) {
