@@ -78,7 +78,8 @@ Feature: Request Prepopulation
   Scenario: An author can create a prepopulated request (popin version)
     Given I am logged in as "client1"
     When I go to "node/add/request"
-      And I click "Search for a super-hero for a mission or project" in the "request_type" region
+      Then the "Request title or question" field should be disabled
+    When I click "Search for a super-hero for a mission or project" in the "request_type" region
       And I wait for AJAX to finish
     Then I should see "To get the most from your Super-Hero mission request, we recommend you to use the options below:"
       And the "Private submissions" checkbox should be checked
