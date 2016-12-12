@@ -727,7 +727,7 @@ function emh_configuration_update_7039() {
     'revision' => 0,
     'summary' => 0,
   );
-  variable_set('service_links_link_view_modes', $view_modes);
+  variable_set('service_links_view_modes', $view_modes);
   $node_view_modes = array(
     'full' => 'full',
     'teaser' => 'teaser',
@@ -738,7 +738,7 @@ function emh_configuration_update_7039() {
     'revision' => 0,
     'summary' => 0,
   );
-  variable_set('service_links_link_node_view_modes', $node_view_modes);
+  variable_set('service_links_node_view_modes', $node_view_modes);
   variable_set('service_links_style', '2');
   variable_set('service_links_label_in_node', '');
   $show = array(
@@ -790,6 +790,22 @@ batch";
     'rules_emh_circles_send_email_membership_accepted',
     'rules_emh_circles_circles_send_email_membership_refused',
     'rules_emh_request_send_notification_email',
+  );
+  foreach ($rules as $rule) {
+    if ($rules_config = rules_config_load($rule)) {
+      $rules_config->delete();
+    }
+  }
+}
+
+/**
+ * Install module : EMH Roleswitcher & EMH Register + Delete old rules.
+ */
+function emh_configuration_update_7041() {
+  module_enable(array('emh_roleswitcher', 'emh_register'));
+  $rules = array(
+    'rules_emh_user_client_registration_add_role',
+    'rules_emh_user_expert_registration_add_role',
   );
   foreach ($rules as $rule) {
     if ($rules_config = rules_config_load($rule)) {
