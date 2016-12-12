@@ -81,8 +81,26 @@ body.node-type-request.page-node-edit {
       }
     }
     .step5 {
-      .emh-prepopulate-type-help {
-        .well;
+      .panel {
+        clear: both;
+        background-color: @gray-lighter;
+
+        .panel-body {
+          .make-row();
+          margin: 0;
+
+          .type-infos {
+            .make-md-column(9);
+          }
+          .type-switch {
+            .make-md-column(3);
+            .text-center;
+          }
+        }
+
+        a {
+          .btn; .btn-primary;
+        }
       }
     }
     #edit-field-options {
