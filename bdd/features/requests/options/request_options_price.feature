@@ -30,6 +30,7 @@ Feature: Request Option Price
 
     When I go to "admin/emindhub/credits"
     Then I fill in "Duration" with "200"
+      And I fill in "Questionnaire" with "300"
       And I press "Save configuration"
 
     # Set price for options

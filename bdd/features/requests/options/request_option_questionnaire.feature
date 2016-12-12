@@ -31,6 +31,11 @@ Feature: Request Option Questionnaire
     | How to become a superhero?  | Energy        |              | client1 | 2017-02-08 17:45:00    | 0       |
 
     Given I am logged in as a user with the "administrator" role
+
+    When I go to "admin/emindhub/credits"
+    Then I fill in "Questionnaire" with "300"
+      And I press "Save configuration"
+
     When I go to "content/avengers"
       And I click "Group"
       And I click "People"
