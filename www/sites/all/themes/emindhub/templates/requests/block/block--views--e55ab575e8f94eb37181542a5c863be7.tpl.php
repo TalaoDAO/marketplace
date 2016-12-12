@@ -7,7 +7,7 @@
   <?php print render($title_suffix); ?>
 
   <div class="emh-subtitle">
-    <?php print t('Access the latest client requests'); ?>
+    <?php print t('Access the latest requests'); ?>
   </div>
 
   <?php if ($content) : ?>
