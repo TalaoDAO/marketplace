@@ -18,6 +18,8 @@ function emh_request_prepopulate_form_request_node_form_alter(&$form, &$form_sta
     $count = isset($_REQUEST['num_questions']) ? $_REQUEST['questions'] : 3;
     _emh_request_prepopulate_create_field_multiple_value($form, $form_state, $form_id, 'field_request_questions', $count);
   }
+
+  // echo '<pre>' . print_r($form['field_options'], true) . '</pre>'; die;
 }
 
 /**
@@ -135,9 +137,7 @@ function emh_request_prepopulate_form_field_options_help(array $types, $form) {
       $output .= '<div id="#help-request-type-' . $term_safe_name . '" class="collapse">
                     <div class="panel panel-default">
                       <div class="panel-body">
-                        <div class="type-infos">
-                          <p>' . t('To get the most from your @type request, we recommend you to use the options below:', array('@type' => $term_name)) . '</p>
-                        </div>
+                        <p>' . t('To get the most from your @type request, we recommend you to use the options below:', array('@type' => $term_name)) . '</p>
                       </div>
                     </div>
                   </div>';
