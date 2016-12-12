@@ -4,7 +4,6 @@
  * Code for eMindHub Profiles feature.
  */
 
-
 /**
  * Implements hook_views_api().
  */
@@ -16,32 +15,9 @@ function emh_user_views_api() {
 }
 
 /**
- * Implements hook_menu().
- */
-function emh_user_menu() {
-	$items = array();
-
-	$items['client/register'] = array(
-		'title' => 'Register as a client',
-		'page callback' => 'drupal_get_form',
-		'page arguments' => array('user_register_form_client'),
-		'access arguments' => array('access content'),
-	);
-	$items['expert/register'] = array(
-		'title' => 'Register as an expert',
-		'page callback' => 'drupal_get_form',
-		'page arguments' => array('user_register_form_expert'),
-		'access arguments' => array('access content'),
-	);
-
-  return $items;
-}
-
-/**
  * Implements hook_menu_alter().
  */
 function emh_user_menu_alter(&$items) {
-  unset($items['user/register']);
   $items['user/%user']['access callback'] = 'emh_user_view_access';
   $items['user/%user']['access arguments'] = array(1);
   $items['user/%user/hybridauth']['access callback'] = FALSE;
@@ -80,7 +56,6 @@ function emh_user_view_access($account) {
  * Implements hook_field_access.
  */
 function emh_user_field_access($op, $field, $entity_type, $entity, $account) {
-
   if ($op == 'view') {
     if (empty($entity)) {
       return TRUE;
@@ -117,12 +92,29 @@ function emh_user_field_access($op, $field, $entity_type, $entity, $account) {
   return TRUE;
 }
 
+/**
+ * Implements hook_form_alter().
+ */
+function emh_user_form_alter(&$form, &$form_state, $form_id) {
+  switch ($form_id) {
+    case 'user_login':
+    case 'user_login_block':
+      unset($form['#action']);
+      $form['#submit'][] = 'emh_user_form_submit';
+      break;
+    default:
+      break;
+  }
+}
+
+function emh_user_form_submit($form, &$form_state) {
+  $form_state['redirect'] = url('<front>', array('absolute'=> true, 'language' =>  (object)array('language' =>  FALSE)));
+}
 
 /**
  * Implements hook_form_alter().
  */
 function emh_user_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
-
   $form['account']['name']['#access'] = FALSE;
 
   $form['field_address'][LANGUAGE_NONE][0]['street_block']['thoroughfare']['#required'] = FALSE;
@@ -143,7 +135,6 @@ function emh_user_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   unset($form['account']['current_pass_required_values']);
   $form['#validate'] = array_diff($form['#validate'], array('user_validate_current_pass'));
   $form['#submit'][] = 'emh_user_form_user_profile_submit';
-
 }
 
 function emh_user_form_user_profile_submit(&$form, &$form_state) {
@@ -153,7 +144,6 @@ function emh_user_form_user_profile_submit(&$form, &$form_state) {
   }
   $form_state['redirect'] = $path;
 }
-
 
 /**
  * Implements hook_form_alter().
@@ -191,110 +181,17 @@ function emh_user_preprocess_status_messages(&$variables) {
   }
 }
 
-
-/**
- * Implements hook_form_alter().
- */
-function emh_user_form_alter(&$form, &$form_state, $form_id) {
-  switch ($form_id) {
-    case 'user_login':
-    case 'user_login_block':
-      unset($form['#action']);
-      $form['#submit'][] = 'emh_user_redirect_submit';
-      break;
-    case 'user_register_form_client':
-    case 'user_register_form_expert':
-      return $form;
-      break;
-    default:
-      break;
-  }
-}
-
-/**
- * Implements hook_block_view_MODULE_DELTA_alter().
- */
-function emh_user_block_view_roleswitcher_switcher_alter(&$data, $block) {
-  $data['content']['#theme'] = 'emh_user_roleswitcher_list';
-  $roles = emh_user_roleswitcher_roles();
-  $data['content']['#roles'] = $roles;
-}
-
-/**
- * Implements hook_theme().
- */
-function emh_user_theme() {
-  return array(
-    'emh_user_roleswitcher_list' => array(
-      'variables' => array('roles' => array(), 'attributes' => array()),
-    )
-  );
-}
-
-/**
- * Theme function for roles list.
- */
-function theme_emh_user_roleswitcher_list($variables) {
-  $output = '';
-  $variables['attributes']['query']['destination'] = '<front>';
-  $variables['attributes']['html'] = TRUE;
-  foreach ($variables['roles'] as $rid => $name) {
-    if ($name != 'roleswitcher') {
-      if ($name == 'expert') {
-        $output .= l('<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>&nbsp;&nbsp;' . t('Answer requests'), "roleswitcher/$rid", $variables['attributes']);
-      }
-      else if ($name == 'business') {
-        $output .= l('<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>&nbsp;&nbsp;' . t('Submit requests'), "roleswitcher/$rid", $variables['attributes']);
-      } else {
-        $output .= l($name, "roleswitcher/$rid", $variables['attributes']);
-      }
-    }
-  }
-  return $output;
-}
-
-/**
- * Implements hook_forms().
- */
-function emh_user_forms($form_id, $args) {
-  $forms = array();
-  switch ($form_id) {
-    case 'user_register_form_client':
-      $forms['user_register_form_client'] = array (
-        'callback' => 'user_register_form',
-      );
-      break;
-    case 'user_register_form_expert':
-      $forms['user_register_form_expert'] = array (
-        'callback' => 'user_register_form',
-      );
-      break;
-    default:
-      break;
-  }
-  return $forms;
-}
-
 /**
  * Implements hook_username_alter().
  */
 function emh_user_username_alter(&$name, $account) {
-
   $name = emh_user_get_beautiful_realname($account);
-
-}
-
-
-// HELPERS
-function emh_user_redirect_submit($form, &$form_state) {
-  $form_state['redirect'] = url('<front>', array('absolute'=> true, 'language' =>  (object)array('language' =>  FALSE)));
 }
 
 /**
  * Helper function to get user realname instead of username.
  */
 function emh_user_get_beautiful_realname($account) {
-
   global $user;
   $user1 = user_load($user->uid);
   $user2 = user_load($account->uid);
@@ -312,7 +209,6 @@ function emh_user_get_beautiful_realname($account) {
   $name .= !empty($lastname) ? ' ' . strtoupper($lastname) : '';
 
   return $name;
-
 }
 
 /**
@@ -367,33 +263,8 @@ function emh_user_get_beautiful_profile_link($uid) {
   }
 }
 
-function emh_user_roleswitcher_roles() {
-  $roles = array(
-    'expert',
-    'business',
-  );
-  $allowed_roles = array();
-  foreach ($roles as $role) {
-    $rid = user_role_load_by_name($role)->rid;
-    $name = user_role_load_by_name($role)->name;
-    $allowed_roles[$rid] = $name;
-  }
-  global $user;
-  if (variable_get('roleswitcher_store_mode') == 'session' && !empty($_SESSION['roleswitcher_roles'])) {
-    $user->roles = $_SESSION['roleswitcher_roles'];
-  }
-  $user_roles = $user->roles;
-  // We unset current roles matching with allowed ones in order to propose only the other ones
-  foreach ($user_roles as $user_role) {
-    $rid = user_role_load_by_name($user_role)->rid;
-    unset($allowed_roles[$rid]);
-  }
-  return $allowed_roles;
-}
-
 // TODO: add context, as 'author', etc.'
 function emh_user_cartouche_view($uid, $context = NULL) {
-
   global $user;
   $uid1 = $user->uid;
   $uid2 = $uid;
@@ -485,5 +356,4 @@ function emh_user_cartouche_view($uid, $context = NULL) {
   }
 
   return $cartouche;
-
 }
