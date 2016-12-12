@@ -389,13 +389,6 @@ class FeatureContext extends DrupalContext {
    */
   public function assertDisabledField($field) {
     $element = $this->assertSession()->fieldExists($field);
-    //var_dump($element, TRUE);
-    var_dump($element->getXpath());
-    var_dump($element->getTagName());
-    var_dump($element->getAttribute('class'));
-    var_dump($element->getHtml());
-    var_dump($element->getOuterHtml());
-    var_dump($element->getText());
     if (!$element->hasAttribute('disabled')) {
       throw new ExpectationException("Expected '{$field}' field to be disabled.", $this->getSession()->getDriver());
     }
