@@ -505,7 +505,7 @@ function emindhub_form_request_node_form_alter(&$form, &$form_state, $form_id) {
   $form['og_group_ref']['#prefix'] = '<div class="section step4"><h2>' . t('Select circle(s) of experts you want to address your request') . '</h2>';
   $form['og_group_ref']['#suffix'] = '</div>';
 
-  $options_prefix = $form['field_options']['#prefix'];
+  $options_prefix = $form['field_options']['#prefix'] ? $form['field_options']['#prefix'] : '';
   $form['field_options']['#prefix'] = '<div class="section step5"><h2>' . t('Add options and get the most from your request!') . '</h2>';
   $form['field_options']['#prefix'] .= '<p class="emh-credits-buy">' . t('Do you need more credits? Please contact us at <a href="mailto:credits@emindhub.com?Subject=Credits%20needed%20by%20!current_user&Body=Your%20company%3A%0AYour%20position%3A%0APhone%20number%3A%0AAmount%20of%20credits%20needed%3A">credits@emindhub.com</a>', array(
         '!current_user' => format_username($user),
