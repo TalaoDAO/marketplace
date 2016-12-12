@@ -78,6 +78,7 @@ Feature: Request Prepopulation
   Scenario: An author can create a prepopulated request (popin version)
     Given I am logged in as "client1"
     When I go to "node/add/request"
+      And I wait for AJAX to finish
       Then the "Request title or question" field should be disabled
     When I click "Search for a super-hero for a mission or project" in the "request_type" region
       And I wait for AJAX to finish
