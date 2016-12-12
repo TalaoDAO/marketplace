@@ -14,6 +14,7 @@ function emh_request_prepopulate_form_request_node_form_alter(&$form, &$form_sta
   }
 
   if (isset($_REQUEST['edit'])) {
+    $form['#after_build'][] = 'emh_request_prepopulate_form_after_build';
     $count = isset($_REQUEST['num_questions']) ? $_REQUEST['questions'] : 3;
     _emh_request_prepopulate_create_field_multiple_value($form, $form_state, $form_id, 'field_request_questions', $count);
   }
