@@ -27,6 +27,12 @@ Feature: Request Prepopulation
 
     # Make client1 as a Creator member of All experts circle
     Given I am logged in as a user with the "administrator" role
+
+    When I go to "admin/emindhub/credits"
+      And I fill in "Duration" with "200"
+      And I fill in "Questionnaire" with "300"
+      And I press "Save configuration"
+
     When I go to "content/avengers"
       And I click "Group"
       And I click "People"
@@ -69,7 +75,7 @@ Feature: Request Prepopulation
       And I press "Publish"
     Then I should see "How to defeat a superhero? has been published"
       And I should see "How do you know this super-hero? "
-      And I should have 9900 credits on "client1" user
+      And I should have 9600 credits on "client1" user
 
   @exclude
   Scenario: An author can create a prepopulated request (popin version)
