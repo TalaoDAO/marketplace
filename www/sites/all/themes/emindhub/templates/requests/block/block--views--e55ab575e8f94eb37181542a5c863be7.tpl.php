@@ -7,7 +7,7 @@
   <?php print render($title_suffix); ?>
 
   <div class="emh-subtitle">
-    <?php print t('Access the latest client requests'); ?>
+    <?php print t('Access the latest requests'); ?>
   </div>
 
   <?php if ($content) : ?>
@@ -22,7 +22,7 @@
       </div>
 
       <div class="emh-action">
-        <a class="emh-button solid-alt" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Propose your expertise'); ?></a>
+        <a class="emh-button solid-alt" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Answer a request'); ?></a>
       </div>
 
     </div>
