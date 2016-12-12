@@ -3,27 +3,19 @@
 /**
  * Implements hook_form_alter().
  */
-function emh_request_prepopulate_form_alter(&$form, &$form_state, $form_id) {
-  if (!isset($form['#node']) || $form['#node']->type !== 'request') {
-    return;
-  }
-
-  $form['field_request_type']['#suffix'] .= emh_request_prepopulate_form_field_request_type_switch($form['field_request_type'][LANGUAGE_NONE]['#options'], $form);
-	$form['field_options']['#prefix'] .= emh_request_prepopulate_form_field_options_help($form['field_request_type'][LANGUAGE_NONE]['#options'], $form);
-
-  if (isset($_REQUEST['edit'])) {
-    $form['#after_build'][] = 'emh_request_prepopulate_form_after_build';
-    $count = isset($_REQUEST['num_questions']) ? $_REQUEST['questions'] : 3;
-    _emh_request_prepopulate_create_field_multiple_value($form, $form_state, $form_id, 'field_request_questions', $count);
-  }
-}
-
-/**
- * Implements hook_form_alter().
- */
 function emh_request_prepopulate_form_request_node_form_alter(&$form, &$form_state, $form_id) {
   if ($form['field_request_type']) {
     $form['field_request_type'][LANGUAGE_NONE]['#after_build'][] = 'emh_request_prepopulate_form_field_request_type_after_build';
+    $form['field_request_type']['#suffix'] .= emh_request_prepopulate_form_field_request_type_switch($form['field_request_type'][LANGUAGE_NONE]['#options'], $form);
+  }
+
+  if ($form['field_options']) {
+    $form['field_options']['#prefix'] .= emh_request_prepopulate_form_field_options_help($form['field_request_type'][LANGUAGE_NONE]['#options'], $form);
+  }
+
+  if (isset($_REQUEST['edit'])) {
+    $count = isset($_REQUEST['num_questions']) ? $_REQUEST['questions'] : 3;
+    _emh_request_prepopulate_create_field_multiple_value($form, $form_state, $form_id, 'field_request_questions', $count);
   }
 }
 
@@ -33,7 +25,7 @@ function emh_request_prepopulate_form_request_node_form_alter(&$form, &$form_sta
  * Inspired by http://e9p.net/altering-individual-radio-or-checkbox-items-drupal-7-fapi
  */
 function emh_request_prepopulate_form_field_request_type_after_build($element, &$form_state) {
-  global $language;
+  global $base_url, $language;
 
   // Each renderable radio element.
   foreach (element_children($element) as $tid) {
@@ -47,6 +39,7 @@ function emh_request_prepopulate_form_field_request_type_after_build($element, &
     $term_name = $term_wrapper->language($language->language)->name_field->value();
     $term_safe_name = preg_replace('/[^A-Za-z0-9\-]/', '', strtolower($term_name));
     $term_description = $term_wrapper->language($language->language)->description_field->value->value(array('sanitize' => TRUE));
+    $term_path = $term_wrapper->language($language->language)->field_prepopulate->value() ? $base_url . '/node/add/request?edit[field_request_type][und][' . $term->tid . '][' . $term->tid . ']=' . $term->tid . '&' . $term_wrapper->language($language->language)->field_prepopulate->value() : $base_url . '/node/add/request?edit[field_request_type][und][' . $term->tid . '][' . $term->tid . ']=' . $term->tid;
 
     // Update the radio item so the button shows then the rendered term.
     $element[$tid] = array(
@@ -61,18 +54,30 @@ function emh_request_prepopulate_form_field_request_type_after_build($element, &
     $element[$tid][$tid]['#title'] .= '<span class="term-name">' . $term_name . '</span>';
     $element[$tid][$tid]['#title'] .= $term_description ? '<span class="term-description">' . $term_description . '</span>' : '';
 
-    $element[$tid][$tid]['#title'] = l(
-                                      $element[$tid][$tid]['#title'],
-                                      '',
-                                      array(
-                                        'attributes' => array(
-                                          'data-toggle' => 'modal',
-                                          'data-target' => '#modal-request-type-' . $term_safe_name,
-                                        ),
-                                        'html' => TRUE,
-                                        'fragment' => 'modal-request-type-' . $term_safe_name,
-                                      )
-                                    );
+    if (isset($_REQUEST['edit'])) {
+      $element[$tid][$tid]['#title'] = l(
+                                        $element[$tid][$tid]['#title'],
+                                        '',
+                                        array(
+                                          'attributes' => array(
+                                            'data-toggle' => 'modal',
+                                            'data-target' => '#modal-request-type-' . $term_safe_name,
+                                          ),
+                                          'html' => TRUE,
+                                          'fragment' => 'modal-request-type-' . $term_safe_name,
+                                        )
+                                      );
+    }
+    else {
+      $element[$tid][$tid]['#title'] = l(
+                                        $element[$tid][$tid]['#title'],
+                                        $term_path,
+                                        array(
+                                          'html' => TRUE,
+                                        )
+                                      );
+    }
+
   }
 
   // Always return the element to render in after_build callbacks.
