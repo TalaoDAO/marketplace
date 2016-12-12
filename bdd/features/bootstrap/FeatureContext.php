@@ -12,6 +12,7 @@ use Behat\Behat\Hook\Scope\BeforeScenarioScope,
     Behat\Behat\Hook\Scope\AfterStepScope;
 use Behat\Gherkin\Node\PyStringNode,
     Behat\Gherkin\Node\TableNode;
+use Behat\Mink\Exception\ExpectationException;
 
 /**
  * Defines application features from the specific context.
@@ -373,6 +374,31 @@ class FeatureContext extends DrupalContext {
       return TRUE;
     }
     throw new \Exception('Did not find expected content in message body or subject.');
+  }
+
+  /**
+   * Asserts that a given field has the disabled attribute.
+   *
+   * @param string $field
+   *   The label, placeholder, ID or name of the field to check.
+   *
+   * @Then the :field field should be disabled
+   *
+   * @throws ExpectationException
+   *   If the field does not have the disabled attribute.
+   */
+  public function assertDisabledField($field) {
+    $element = $this->assertSession()->fieldExists($field);
+    //var_dump($element, TRUE);
+    var_dump($element->getXpath());
+    var_dump($element->getTagName());
+    var_dump($element->getAttribute('class'));
+    var_dump($element->getHtml());
+    var_dump($element->getOuterHtml());
+    var_dump($element->getText());
+    if (!$element->hasAttribute('disabled')) {
+      throw new ExpectationException("Expected '{$field}' field to be disabled.", $this->getSession()->getDriver());
+    }
   }
 
 }
