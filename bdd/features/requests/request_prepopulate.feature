@@ -29,7 +29,7 @@ Feature: Request Prepopulation
     Given I am logged in as a user with the "administrator" role
 
     When I go to "admin/emindhub/credits"
-    Then I fill in "Duration" with "200"
+      And I fill in "Duration" with "200"
       And I fill in "Questionnaire" with "300"
       And I press "Save configuration"
 
