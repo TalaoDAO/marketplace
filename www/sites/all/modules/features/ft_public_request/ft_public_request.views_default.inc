@@ -53,7 +53,7 @@ function ft_public_request_views_default_views() {
   $handler->display->display_options['fields']['field_prequest_reference']['settings'] = array(
     'link' => 0,
   );
-  /* Field: Content: Choose a request type */
+  /* Field: Content: Choose a public request type */
   $handler->display->display_options['fields']['field_request_type']['id'] = 'field_request_type';
   $handler->display->display_options['fields']['field_request_type']['table'] = 'field_data_field_request_type';
   $handler->display->display_options['fields']['field_request_type']['field'] = 'field_request_type';
@@ -157,6 +157,13 @@ function ft_public_request_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  /* Header: Global: Text area */
+  $handler->display->display_options['header']['area']['id'] = 'area';
+  $handler->display->display_options['header']['area']['table'] = 'views';
+  $handler->display->display_options['header']['area']['field'] = 'area';
+  $handler->display->display_options['header']['area']['content'] = 'Access the latest requests';
+  $handler->display->display_options['header']['area']['format'] = 'filtered_html';
   $handler->display->display_options['path'] = 'open-requests';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Open requests';
