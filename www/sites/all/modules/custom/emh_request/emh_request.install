@@ -423,10 +423,15 @@ function emh_request_update_7127() {
 
   // Remove old field_prepopulate_help field
   features_revert(array('ft_request' => array('field_base', 'field_instance')));
-  if ($instance = field_info_instance('node', 'field_prepopulate_help', 'request')) {
-    field_delete_instance($instance);
-  }
-  if (field_info_field('field_prepopulate_help')) {
-    field_delete_field('field_prepopulate_help');
-  }
+  emh_request_delete_field('field_prepopulate_help', 'request');
+}
+
+function emh_request_delete_field($field_name, $bundle_name) {
+  $entity_type = 'node';
+
+  $field_instance = field_info_instance($entity_type, $field_name, $bundle_name);
+  field_delete_instance($field_instance);
+
+  $batch_size = 20000;
+  field_purge_batch($batch_size);
 }
