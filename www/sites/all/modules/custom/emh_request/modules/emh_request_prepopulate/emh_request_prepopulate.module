@@ -6,11 +6,15 @@
 function emh_request_prepopulate_form_request_node_form_alter(&$form, &$form_state, $form_id) {
   if ($form['field_request_type']) {
     $form['field_request_type'][LANGUAGE_NONE]['#after_build'][] = 'emh_request_prepopulate_form_field_request_type_after_build';
-    $form['field_request_type']['#suffix'] = emh_request_prepopulate_form_field_request_type_switch($form['field_request_type'][LANGUAGE_NONE]['#options'], $form);
+    $form['field_request_type']['#suffix'] = _emh_request_prepopulate_form_field_request_type_switch($form['field_request_type'][LANGUAGE_NONE]['#options'], $form);
   }
 
-  if ($form['field_options'] && isset($_REQUEST['edit'])) {
-    $form['field_options']['#prefix'] = emh_request_prepopulate_form_field_options_help($form['field_request_type'][LANGUAGE_NONE]['#options'], $form);
+  if ($form['field_options'] && isset($_REQUEST['edit']['field_request_type'])) {
+    foreach ($_REQUEST['edit']['field_request_type'] as $field_request_type ) {
+      foreach (array_keys($field_request_type) as $tid) {
+        $form['field_options']['#prefix'] = _emh_request_prepopulate_form_field_options_help($tid, $form);
+      }
+    }
   }
 
   if (isset($_REQUEST['edit'])) {
@@ -18,8 +22,6 @@ function emh_request_prepopulate_form_request_node_form_alter(&$form, &$form_sta
     $count = isset($_REQUEST['num_questions']) ? $_REQUEST['questions'] : 3;
     _emh_request_prepopulate_create_field_multiple_value($form, $form_state, $form_id, 'field_request_questions', $count);
   }
-
-  // echo '<pre>' . print_r($form['field_options'], true) . '</pre>'; die;
 }
 
 /**
@@ -80,16 +82,13 @@ function emh_request_prepopulate_form_field_request_type_after_build($element, &
                                         )
                                       );
     }
-
-    $element[$tid][$tid]['#attributes']['data-toggle'] = 'collapse';
-    $element[$tid][$tid]['#attributes']['data-target'] = '#help-request-type-' . $term_safe_name;
   }
 
   // Always return the element to render in after_build callbacks.
   return $element;
 }
 
-function emh_request_prepopulate_form_field_request_type_switch(array $types, $form) {
+function _emh_request_prepopulate_form_field_request_type_switch(array $types, $form) {
   global $base_url, $language;
   $output = '';
 
@@ -122,26 +121,20 @@ function emh_request_prepopulate_form_field_request_type_switch(array $types, $f
   return $output;
 }
 
-function emh_request_prepopulate_form_field_options_help(array $types, $form) {
+function _emh_request_prepopulate_form_field_options_help($tid) {
   global $language;
 
   $output = '';
 
-  foreach ($types as $tid => $term_name) {
-    $term = taxonomy_term_load($tid);
-    $term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
-    $term_prepopulate = $term_wrapper->language($language->language)->field_prepopulate->value();
-    $term_safe_name = preg_replace('/[^A-Za-z0-9\-]/', '', strtolower($term_name));
+  $term = taxonomy_term_load($tid);
+  $term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
+  $term_name = $term_wrapper->language($language->language)->name_field->value();
+  $term_prepopulate = $term_wrapper->language($language->language)->field_prepopulate->value();
 
-    if (!empty($term_prepopulate)) {
-      $output .= '<div id="#help-request-type-' . $term_safe_name . '" class="collapse">
-                    <div class="panel panel-default">
-                      <div class="panel-body">
-                        <p>' . t('To get the most from your @type request, we recommend you to use the options below:', array('@type' => $term_name)) . '</p>
-                      </div>
-                    </div>
-                  </div>';
-    }
+  if (!empty($term_prepopulate)) {
+    $output .= '<p class="emh-prepopulate-type-help">
+                  ' . t('To get the most from your @type request, we recommend you to use the options below:', array('@type' => $term_name)) . '
+                </p>';
   }
 
   return $output;
