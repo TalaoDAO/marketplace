@@ -1,0 +1,4 @@
+name = EMH User Register
+description = User registering features.
+package = EMH
+core = 7.x
