@@ -12,6 +12,7 @@ use Behat\Behat\Hook\Scope\BeforeScenarioScope,
     Behat\Behat\Hook\Scope\AfterStepScope;
 use Behat\Gherkin\Node\PyStringNode,
     Behat\Gherkin\Node\TableNode;
+use Behat\Mink\Exception\ExpectationException;
 
 /**
  * Defines application features from the specific context.
@@ -271,6 +272,16 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
+   * @Then I go to stripped URL
+   */
+  public function then_i_go_to_stripped_url() {
+    $url = $this->getSession()->getCurrentUrl();
+    $url = preg_replace("/\?.*/","",$url);
+    print ("go to $url");
+    $this->getSession()->visit($url);
+  }
+
+  /**
    * This works for the Goutte driver and I assume other HTML-only ones.
    *
    * @Then /^show me the HTML page$/
@@ -321,6 +332,7 @@ class FeatureContext extends DrupalContext {
     variable_set('mail_system', array('default-system' => 'EMHMailSystem'));
     // Flush the email buffer, allowing us to reuse this step definition to clear existing mail.
     variable_set('drupal_test_email_collector', array());
+    db_query("DELETE FROM queue WHERE name='emh_request_request_email_notification'"); //delete queue from other test, can be overloaded if All Experts used
   }
 
   /**
@@ -345,20 +357,42 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-   * @Then /^the last email should contain "([^"]*)"$/
+   * @Then /^the last email to "([^"]*)" should contain "([^"]*)"$/
    */
-  public function theLastEmailToShouldContain($contents) {
+  public function theLastEmailToShouldContain($to, $contents) {
     $variables = array_map('unserialize', db_query("SELECT name, value FROM {variable} WHERE name = 'drupal_test_email_collector'")->fetchAllKeyed());
     $this->activeEmail = FALSE;
-    $message = end($variables['drupal_test_email_collector']);
-    $this->activeEmail = $message;
-    if (strpos($message['body'], $contents) !== FALSE ||
-      strpos($message['subject'], $contents) !== FALSE) {
-      return TRUE;
+    foreach ( array_reverse($variables['drupal_test_email_collector']) as $message) {
+      if ($message['to'] == $to) {
+        $this->activeEmail = $message;
+        if (strpos($message['body'], $contents) !== FALSE ||
+          strpos($message['subject'], $contents) !== FALSE) {
+          return TRUE;
+        }
+        throw new \Exception('Did not find expected content in message body or subject.');
+      }
     }
-    throw new \Exception('Did not find expected content in message body or subject.');
+    throw new \Exception(sprintf('Did not find expected message to %s', $to));
   }
 
+  /**
+   * @Then /^the last email to "([^"]*)" should not contain "([^"]*)"$/
+   */
+  public function theLastEmailToShouldNotContain($to, $contents) {
+    $variables = array_map('unserialize', db_query("SELECT name, value FROM {variable} WHERE name = 'drupal_test_email_collector'")->fetchAllKeyed());
+    $this->activeEmail = FALSE;
+    foreach ( array_reverse($variables['drupal_test_email_collector']) as $message) {
+      if ($message['to'] == $to) {
+        $this->activeEmail = $message;
+        if (strpos($message['body'], $contents) == FALSE ||
+          strpos($message['subject'], $contents) == FALSE) {
+          return TRUE;
+        }
+        throw new \Exception('Found expected content in message body or subject.');
+      }
+    }
+    // dont care if not found any email at all
+  }
 
   /**
    * @Given /^the email should contain "([^"]*)"$/
@@ -375,4 +409,56 @@ class FeatureContext extends DrupalContext {
     throw new \Exception('Did not find expected content in message body or subject.');
   }
 
+  /**
+   * Clear user access static caches.
+   * Solves : https://github.com/jhedstrom/drupalextension/issues/328
+   * fix : #992
+   *
+   * @AfterUserCreate
+   */
+  function clearUserAccessCache() {
+    drupal_static_reset('user_access');
+  }
+
+  /**
+   * @Then the user :name has :perm permission
+   */
+  public function theUserHasPermission($name, $perm) {
+    if (!isset($this->users[$name])) {
+      throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
+    }
+    $user = user_load($this->users[$name]->uid);
+    if (! user_access($perm, $user))
+      throw new \Exception('User does not have the required permission');
+  }
+
+  /**
+   * @Then the user :name don't have :perm permission
+   */
+  public function theUserDontHavePermission($name, $perm) {
+    if (!isset($this->users[$name])) {
+      throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
+    }
+    $user = user_load($this->users[$name]->uid);
+    if (user_access($perm, $user))
+      throw new \Exception('User should not have the required permission');
+  }
+
+  /**
+   * Asserts that a given field has the disabled attribute.
+   *
+   * @param string $field
+   *   The label, placeholder, ID or name of the field to check.
+   *
+   * @Then the :field field should be disabled
+   *
+   * @throws ExpectationException
+   *   If the field does not have the disabled attribute.
+   */
+  public function assertDisabledField($field) {
+    $element = $this->assertSession()->fieldExists($field);
+    if (!$element->hasAttribute('disabled')) {
+      throw new ExpectationException("Expected '{$field}' field to be disabled.", $this->getSession()->getDriver());
+    }
+  }
 }
