@@ -1,7 +1,7 @@
 @api @watchdog
-Feature: Create permissions for Clients
+Feature: Create permissions for Experts
   In order to protect node creation
-  As a Client
+  As a Expert
   I want to test CRUD
 
   Background: Create nodes and users
@@ -16,25 +16,25 @@ Feature: Create permissions for Clients
 
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | field_notification_frequency |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678                  | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance   | US                    | Real-time                    |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670                  | Chieur génial      | Avengers  | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy          | US                  | Real-time                    |
 
-    # Make client1 as a Creator member of Avengers circle
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
       And I click "Group"
       And I click "People"
-      And I click "edit" in the "Captain AMERICA" row
+      And I click "Member since"
+      # Twice for correct order
+      And I click "Member since"
+      And I click "edit" in the "Iron MAN" row
       And I select "Active" from "Status"
-      And I check the box "Creator member"
       And I press "Update membership"
+    Then I should see "The membership has been updated."
 
-  Scenario: Clients cannot create requests in circles they're not members
-    Given I am logged in as "client1"
+  Scenario: Experts cannot create requests in circles they're not members
+    Given I am logged in as "expert1"
     When I go to "node/add/request"
-    Then I should see "Create Request"
-      And I should see "Avengers"
-      And I should not see "X-Men"
+    Then I should get a "403" HTTP response
 
     #DONE Nasty bug : this line should not be necessary !!!!
-      And the user client1 don't have "edit own webform submissions" permission
-      And the user client1 has "create request content" permission
+      And the user expert1 has "edit own webform submissions" permission
+      And the user expert1 don't have "create request content" permission
