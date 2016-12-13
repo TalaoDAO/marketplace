@@ -12,6 +12,7 @@ use Behat\Behat\Hook\Scope\BeforeScenarioScope,
     Behat\Behat\Hook\Scope\AfterStepScope;
 use Behat\Gherkin\Node\PyStringNode,
     Behat\Gherkin\Node\TableNode;
+use Behat\Mink\Exception\ExpectationException;
 
 /**
  * Defines application features from the specific context.
@@ -408,7 +409,6 @@ class FeatureContext extends DrupalContext {
     throw new \Exception('Did not find expected content in message body or subject.');
   }
 
-
   /**
    * Clear user access static caches.
    * Solves : https://github.com/jhedstrom/drupalextension/issues/328
@@ -418,7 +418,7 @@ class FeatureContext extends DrupalContext {
    */
   function clearUserAccessCache() {
     drupal_static_reset('user_access');
-  }  
+  }
 
   /**
    * @Then the user :name has :perm permission
@@ -444,5 +444,21 @@ class FeatureContext extends DrupalContext {
       throw new \Exception('User should not have the required permission');
   }
 
-  
+  /**
+   * Asserts that a given field has the disabled attribute.
+   *
+   * @param string $field
+   *   The label, placeholder, ID or name of the field to check.
+   *
+   * @Then the :field field should be disabled
+   *
+   * @throws ExpectationException
+   *   If the field does not have the disabled attribute.
+   */
+  public function assertDisabledField($field) {
+    $element = $this->assertSession()->fieldExists($field);
+    if (!$element->hasAttribute('disabled')) {
+      throw new ExpectationException("Expected '{$field}' field to be disabled.", $this->getSession()->getDriver());
+    }
+  }
 }

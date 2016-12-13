@@ -94,10 +94,10 @@ function ft_faq_views_default_views() {
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
-  /* Display: (P) FAQ Client */
-  $handler = $view->new_display('page', '(P) FAQ Client', 'faq_client_page');
+  /* Display: (P) FAQ Requester */
+  $handler = $view->new_display('page', '(P) FAQ Requester', 'faq_client_page');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'FAQ Client';
+  $handler->display->display_options['title'] = 'FAQ Requester';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
@@ -129,7 +129,7 @@ function ft_faq_views_default_views() {
   $handler->display->display_options['filters']['field_faq_role_rid']['value']['value'] = '5';
   $handler->display->display_options['path'] = 'faq-client';
   $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'FAQ Client';
+  $handler->display->display_options['menu']['title'] = 'FAQ Requester';
   $handler->display->display_options['menu']['weight'] = '-49';
   $handler->display->display_options['menu']['name'] = 'menu-footer-menu';
   $handler->display->display_options['menu']['context'] = 0;
@@ -176,8 +176,8 @@ function ft_faq_views_default_views() {
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
-  /* Display: (B) FAQ Client */
-  $handler = $view->new_display('block', '(B) FAQ Client', 'faq_client_block');
+  /* Display: (B) FAQ Requester */
+  $handler = $view->new_display('block', '(B) FAQ Requester', 'faq_client_block');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Frequently Asked Questions';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
@@ -209,7 +209,7 @@ function ft_faq_views_default_views() {
   $handler->display->display_options['filters']['field_faq_role_rid']['table'] = 'field_data_field_faq_role';
   $handler->display->display_options['filters']['field_faq_role_rid']['field'] = 'field_faq_role_rid';
   $handler->display->display_options['filters']['field_faq_role_rid']['value']['value'] = '5';
-  $handler->display->display_options['block_description'] = 'FAQ Client';
+  $handler->display->display_options['block_description'] = 'FAQ Requester';
 
   /* Display: (B) FAQ Expert */
   $handler = $view->new_display('block', '(B) FAQ Expert', 'faq_expert_block');
