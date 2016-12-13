@@ -23,7 +23,7 @@
       </div>
 
       <div class="persona-expert col-xs-6">
-        <a class="button" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('You\'re an expert'); ?></a>
+        <a class="button" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('You have expertise'); ?></a>
         <p><?php print t('Respond to requests matching your expertise'); ?></p>
       </div>
 
