@@ -271,7 +271,6 @@ function emh_request_try_to_notify($node) {
   // For each user of each group, check domain.
   foreach($users as $user) {
     // If user has the right role(s) and wants to be notified.
-    // error_log("Email should be sent to ".$user->name." ".$node->type." \n", 3, "/tmp/emh-mails.log");
     if (
         ($node->type == 'request' && user_access('edit own webform submissions', $user)) 
         && !empty($user->field_notification_frequency[LANGUAGE_NONE]) && $user->field_notification_frequency[LANGUAGE_NONE][0]['tid'] == 48
