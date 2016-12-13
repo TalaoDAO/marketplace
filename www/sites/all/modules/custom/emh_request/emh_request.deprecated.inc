@@ -272,14 +272,10 @@ function emh_request_try_to_notify($node) {
   foreach($users as $user) {
     // If user has the right role(s) and wants to be notified.
     if (
-      (
-        ($node->type == 'question1' && user_access('question1: comment on any question1 content', $user))
-          || ($node->type == 'webform' && user_access('edit own webform submissions', $user))
-          || ($node->type == 'request' && user_access('edit own webform submissions', $user))
-          || ($node->type == 'challenge' && user_access('challenge: comment on any challenge content', $user))
-      )
-      && !empty($user->field_notification_frequency[LANGUAGE_NONE]) && $user->field_notification_frequency[LANGUAGE_NONE][0]['tid'] == 48
-    ) {
+        ($node->type == 'request' && user_access('edit own webform submissions', $user)) 
+        && !empty($user->field_notification_frequency[LANGUAGE_NONE]) && $user->field_notification_frequency[LANGUAGE_NONE][0]['tid'] == 48
+       )
+    {
       $queue = DrupalQueue::get('emh_request_request_email_notification');
       $item = array('nid' => $node->nid, 'uid' => $user->uid);
       // Check multidomains option
