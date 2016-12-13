@@ -51,6 +51,11 @@ Feature: Request Prepopulation
       # Twice for correct order
       And I click "Member since"
 
+    When I go to "taxonomy/term/768/edit?destination=admin/structure/taxonomy/request_type"
+      And I fill in "Prepopulate request URL" with "node/add/request?edit[field_request_type][und][768][768]=768&edit[field_options][und][questionnaire][enabled]=&edit[field_options][und][private][enabled]=&edit[field_request_questions][und][0][value]=If you want to 'co-opt', or recommend someone in your network, please specify: surname / name / current positions, and add the link to their LinkedIn profile&edit[field_request_questions][und][1][value]=How do you know this super-hero?&edit[field_request_questions][und][2][value]=Have you personally worked with this super-hero? If yes, when, and onwhat types of activity?&edit[field_request_questions][und][3][value]=Why would you recommend this super-hero?&edit[field_request_questions][und][4][value]=Have you informed the super-hero of your recommendation?&edit[field_request_questions][und][5][value]=Does the applicant agree to have their resume sent to the client requestor? If yes, please send to cv@emindhub.com with the reference of the client request.&edit[field_request_questions][und][6][value]=Can the client requestor quote your name when contacting the super-hero?"
+      And I press "Save"
+      Then I should see "Updated term Call"
+
   #@exclude
   Scenario: An author can create a prepopulated request
     Given I am logged in as "client1"
