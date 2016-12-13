@@ -414,3 +414,19 @@ function emh_request_update_7126() {
   emh_request_disable_strings();
   emh_request_enable_strings();
 }
+
+/**
+ * ADD: Enable EMH Request prepopulate submodule.
+ */
+function emh_request_update_7127() {
+  module_enable(['emh_request_prepopulate']);
+
+  // Remove old field_prepopulate_help field
+  features_revert(array('ft_request' => array('field_base', 'field_instance')));
+  if ($instance = field_info_instance('node', 'field_prepopulate_help', 'request')) {
+    field_delete_instance($instance);
+  }
+  if (field_info_field('field_prepopulate_help')) {
+    field_delete_field('field_prepopulate_help');
+  }
+}

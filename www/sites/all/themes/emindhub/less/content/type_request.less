@@ -81,26 +81,8 @@ body.node-type-request.page-node-edit {
       }
     }
     .step5 {
-      .panel {
-        clear: both;
-        background-color: @gray-lighter;
-
-        .panel-body {
-          .make-row();
-          margin: 0;
-
-          .type-infos {
-            .make-md-column(9);
-          }
-          .type-switch {
-            .make-md-column(3);
-            .text-center;
-          }
-        }
-
-        a {
-          .btn; .btn-primary;
-        }
+      .emh-prepopulate-type-help {
+        .well;
       }
     }
     #edit-field-options {
@@ -157,16 +139,22 @@ body.node-type-request.page-node-edit {
         }
 
         input {
-          // margin-top: 10px;
           display: none;
         }
 
         label {
           .make-row();
+          margin: 0;
+          padding: 0;
           width: 100%;
-          // padding-left: 40px;
-          // .text-left;
           .text-center;
+
+          > a {
+            .make-row();
+            margin: 0;
+            display: block;
+            color: inherit;
+          }
 
           .term-image {
             .make-md-column(12);

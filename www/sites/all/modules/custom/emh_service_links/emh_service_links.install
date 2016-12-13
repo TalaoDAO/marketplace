@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * FIX: Service links view modes.
+ */
+function emh_service_links_update_7001() {
+  $view_modes = array(
+    'full' => 0,
+    'teaser' => 0,
+    'rss' => 0,
+    'search_index' => 0,
+    'search_result' => 0,
+    'token' => 0,
+    'revision' => 0,
+    'summary' => 0,
+  );
+  variable_set('service_links_view_modes', $view_modes);
+  $node_view_modes = array(
+    'full' => 'full',
+    'teaser' => 'teaser',
+    'rss' => 0,
+    'search_index' => 0,
+    'search_result' => 0,
+    'token' => 0,
+    'revision' => 0,
+    'summary' => 0,
+  );
+  variable_set('service_links_node_view_modes', $node_view_modes);
+}

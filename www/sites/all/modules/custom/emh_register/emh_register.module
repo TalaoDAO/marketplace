@@ -7,7 +7,7 @@ function emh_register_menu() {
 	$items = array();
 
 	$items['client/register'] = array(
-		'title' => t('Register as a client'),
+		'title' => t('Register as a requester'),
 		'page callback' => 'drupal_get_form',
 		'page arguments' => array('user_register_form_client'),
 		'access arguments' => array('access content'),

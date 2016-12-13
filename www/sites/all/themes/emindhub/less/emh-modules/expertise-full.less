@@ -3,27 +3,13 @@
     font-size: 15px;
     color: @color-tertiary;
 
-    @media (max-width: @screen-xs-max) {
+    @media (max-width: @screen-sm-max) {
         font-size: 11px;
     }
 }
 
 .expertise-list-item {
-    display: flex;
-    align-items: center;
     border: 1px solid white;
-
-    @media (min-width: @screen-sm) {
-        + .expertise-list-item {
-            border-top: none;
-        }
-    }
-
-    @media (max-width: @screen-xs-max) {
-        border-color: @color-secondary;
-        flex-wrap: wrap;
-        margin-top: 40px;
-    }
 
     .domain {
         background-color: @color-secondary;
@@ -33,21 +19,13 @@
         text-align: center;
         padding: 10px;
 
-        align-self: stretch;
-        flex: 1 1 25%;
-
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: center;
-
         img {
             display: block;
             margin: 0 auto;
             max-width: 90%;
         }
 
-        @media (max-width: @screen-xs-max) {
+        @media (max-width: @screen-sm-max) {
             font-size: 15px;
             padding: 5px;
         }
@@ -63,7 +41,7 @@
             background-repeat: no-repeat;
             background-position: center center;
             background-size: contain;
-            @media (max-width: @screen-xs-max) {
+            @media (max-width: @screen-sm-max) {
                 width: 60px;
                 height: 60px;
             }
@@ -77,19 +55,12 @@
         list-style-type: none;
         margin: 0;
         padding: 20px 10px;
-        flex: 1 1 30%;
-        align-self: stretch;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
 
         li + li {
             margin-top: 15px;
         }
 
-        @media (max-width: @screen-xs-max) {
+        @media (max-width: @screen-sm-max) {
             background-color: @color-secondary;
             color: white;
             padding: 10px;
@@ -100,21 +71,18 @@
     }
 
     .description {
-        flex: 1 1 45%;
         text-align: justify;
         padding: 10px 0 10px 20px;
 
-        @media (max-width: @screen-xs-max) {
+        @media (max-width: @screen-sm-max) {
             padding: 20px;
             line-height: 1.4;
         }
 
         .links {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
             margin-top: 20px;
-            @media (min-width: @screen-sm) {
+            .text-center;
+            @media (min-width: @screen-md) {
                 font-size: 13px;
             }
             a {
@@ -127,6 +95,69 @@
         }
         .expertise {
             color: @color-secondary;
+        }
+    }
+
+    @media (max-width: @screen-sm-max) {
+        background-color: @color-secondary;
+        border-color: @color-secondary;
+        .make-row();
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 40px;
+        display: inline-block;
+        width: 100%;
+
+        .domain {
+          .make-xs-column(4);
+        }
+
+        .subdomains {
+          .make-xs-column(8);
+        }
+
+        .description {
+          .make-xs-column(12);
+          background-color: #fff;
+        }
+    }
+
+    @media (min-width: @screen-md) {
+        display: flex;
+        align-items: center;
+
+        + .expertise-list-item {
+            border-top: none;
+        }
+
+        .domain {
+            align-self: stretch;
+            flex: 1 1 25%;
+
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: center;
+        }
+
+        .subdomains {
+            flex: 1 1 30%;
+            align-self: stretch;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .description {
+            flex: 1 1 45%;
+
+            .links {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
         }
     }
 }
