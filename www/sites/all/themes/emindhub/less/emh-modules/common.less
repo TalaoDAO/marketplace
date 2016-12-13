@@ -122,7 +122,19 @@
 
     .emh-action {
         font-size: 20px;
+        .text-center;
 
+        @media (min-width: @screen-md) {
+          .text-left;
+        }
+
+        .emh-action-text {
+          display: block;
+
+          @media (min-width: @screen-md) {
+            display: inline-block;
+          }
+        }
         .emh-button {
           margin: 15px;
         }
