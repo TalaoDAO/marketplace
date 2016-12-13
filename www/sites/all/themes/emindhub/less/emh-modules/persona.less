@@ -10,18 +10,32 @@
 		top: 0;
 		bottom: 0;
 		background-repeat: no-repeat;
-		background-size: cover;
+    background-size: cover;
 		&-left {
 			left: 0;
 			right: 50%;
-			background-position: 30% 50%;
-			background-image: url("../images/content/block/emindhub_persona-client.jpg");
+			// background-position: 43% 50%;
+			background-image: url("../images/content/block/emindhub_persona-client_sm.jpg");
 		}
 		&-right {
 			right: 0;
 			left: 50%;
-			background-position: 60% 80%;
-			background-image: url("../images/content/block/emindhub_persona-expert.jpg");
+			// background-position: 70% 80%;
+			background-image: url("../images/content/block/emindhub_persona-expert_sm.jpg");
+		}
+	}
+}
+@media (min-width: @screen-sm-min) {
+	.select-persona-wrapper {
+		.background-div {
+      &-left {
+  			background-position: 43% 50%;
+  			background-image: url("../images/content/block/emindhub_persona-client.jpg");
+  		}
+  		&-right {
+  			background-position: 70% 80%;
+  			background-image: url("../images/content/block/emindhub_persona-expert.jpg");
+  		}
 		}
 	}
 }

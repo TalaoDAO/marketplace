@@ -44,7 +44,7 @@
   <div class="emh-actions">
 
     <div class="emh-action">
-      <a class="emh-button solid-alt" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Propose your expertise'); ?></a>
+      <a class="emh-button solid-alt" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Answer a request'); ?></a>
     </div>
 
   </div>
@@ -67,7 +67,7 @@
       $video_url = 'https://www.youtube.com/embed/VAXPojC8KLU';
     }
     ?>
-    <section class="emh-module hiw-video container">
+    <section class="emh-module hiw-video">
       <div class="emh-subtitle"><?php print t('Learn about eMindHub on video'); ?></div>
       <div class="embed-responsive embed-responsive-16by9">
         <iframe class="embed-responsive-item" src="<?php print $video_url; ?>"></iframe>
@@ -76,7 +76,7 @@
   <?php endif; ?>
 
   <?php if (!$block_html_id) : ?>
-  <section class="emh-module faq hiw-faq container">
+  <section class="emh-module faq hiw-faq">
 
       <div class="emh-subtitle"><?php echo t('Frequently Asked Questions') ?></div>
       <?php
@@ -87,7 +87,7 @@
       <div class="emh-actions">
 
         <div class="emh-action">
-          <?php print t('Do you have expertise in aerospace? Respond to requests and earn credits'); ?> <a class="emh-button solid-alt" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Propose your expertise'); ?></a>
+          <?php print t('Do you have expertise in aerospace? Respond to requests and earn credits'); ?> <a class="emh-button solid-alt" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Answer a request'); ?></a>
         </div>
 
       </div>
