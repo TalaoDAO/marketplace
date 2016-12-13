@@ -7,23 +7,23 @@
     <?php if ($title): ?>
     <div class="select-persona-title">
       <!-- <h2<?php print $title_attributes; ?>><span><?php print $title; ?></span></h2> -->
-      <?php print t('The best experts in aerospace <br />responding to your requests.'); ?>
+      <?php print t('The best experts in aerospace <br />responding to your requests'); ?>
     </div>
     <?php endif;?>
 
     <div class="select-persona-subtitle">
-      <?php print t('The 1st Smart Professional Network in aerospace.'); ?>
+      <?php print t('The 1st Smart Professional Network in aerospace'); ?>
     </div>
 
     <div class="row select-persona-buttons">
 
       <div class="persona-customer col-xs-6">
-        <a class="button" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('You\'re a client'); ?></a>
+        <a class="button" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('You need expertise'); ?></a>
         <p><?php print t('Get quick access to the best experts'); ?></p>
       </div>
 
       <div class="persona-expert col-xs-6">
-        <a class="button" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('You\'re an expert'); ?></a>
+        <a class="button" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('You have expertise'); ?></a>
         <p><?php print t('Respond to requests matching your expertise'); ?></p>
       </div>
 

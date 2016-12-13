@@ -83,7 +83,7 @@
           <li><?php print t('Embedded Systems'); ?></li>
         </ul>
         <div class="description">
-          <?php print t('EMindHub experts cover the entire lifecycle of products: R & D, design, production and operation.'); ?>
+          <?php print t('EMindHub experts cover the entire lifecycle of products: R&D, design, production and operation.'); ?>
 
           <div class="links">
             <a class="request" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Post a request'); ?></a>
@@ -191,7 +191,7 @@
   <div class="emh-actions">
 
     <div class="emh-action">
-      <?php print t('Do you need expertise? Register now and post a request'); ?> <a class="emh-button solid" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Post a request'); ?></a>
+      <span class="emh-action-text"><?php print t('Do you need expertise? Register now and post a request'); ?></span> <a class="emh-button solid" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Post a request'); ?></a>
     </div>
 
   </div>
