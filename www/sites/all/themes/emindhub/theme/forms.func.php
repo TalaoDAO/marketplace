@@ -484,7 +484,7 @@ function emindhub_form_question1_node_form_alter(&$form, &$form_state, $form_id)
  * node/%/edit
  */
 function emindhub_form_request_node_form_alter(&$form, &$form_state, $form_id) {
-  global $user;
+  global $base_url, $user;
 
   if ($form['field_request_type']) {
     $form['field_request_type']['#prefix'] = '<div class="section step1"><h2>' . t('What do you want to do?') . '</h2>';
@@ -493,6 +493,9 @@ function emindhub_form_request_node_form_alter(&$form, &$form_state, $form_id) {
 
   if ($form['title_field'] && $form['body']) {
     $form['title_field']['#prefix'] = '<div class="section step2"><h2>' . t('What is your request about?') . '</h2>';
+    if (isset($_REQUEST['edit']['field_request_type'][LANGUAGE_NONE]['771']['771'])) {
+      $form['title_field']['#prefix'] .= '<div class="emh-prepopulate-type-help" role="alert">' . t('Please specify the co-option reward in the title and/or description of your request. The reward must not be less than 500 euros. See <a href="' . $base_url . '/' . drupal_get_path_alias('faq-client') . '">FAQ</a> for more information.') . '</div>';
+    }
     $form['body']['#suffix'] = '</div>';
   }
 
