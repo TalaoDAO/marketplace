@@ -53,7 +53,7 @@ $purchased_count = emh_user_profile_purchase_get_count($account);
     <?php endif; ?>
     <div class="cartouche-activity">
       <span class="user-submission-count" title="<?php print $submission_count . ' ' . t('published submission(s)'); ?>"><?php print $submission_count; ?></span>
-      <span class="user-purchased-count" title="<?php print t('Profile purchased !count times', array('!count' => $purchased_count)); ?>"><?php print render($purchased_count); ?></span>
+      <span class="user-purchased-count" title="<?php print t('Profile purchased !count times', array('!count' => $purchased_count)); ?>"><?php print $purchased_count; ?></span>
     </div>
   </div>
 
