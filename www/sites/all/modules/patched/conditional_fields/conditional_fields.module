@@ -501,13 +501,13 @@ function conditional_fields_form_after_build($form, &$form_state) {
         $values = array();
 
         if ($options['values_set'] == CONDITIONAL_FIELDS_DEPENDENCY_VALUES_WIDGET) {
-          $values[$options['condition']] = $options['value_form'];
+          $values[$options['condition']] = (is_array($options['value_form'])) ? $options['value_form'] : (string) $options['value_form'];
         }
         elseif ($options['values_set'] == CONDITIONAL_FIELDS_DEPENDENCY_VALUES_REGEX) {
           $values[$options['condition']] = $options['value'];
         }
         elseif ($options['values_set'] == CONDITIONAL_FIELDS_DEPENDENCY_VALUES_AND) {
-          $values[$options['condition']] = count($options['values']) == 1 ? $options['values'][0] : $options['values'];
+          $values[$options['condition']] = count($options['values']) == 1 ? (string) $options['values'][0] : array_map('strval', $options['values']);
         }
         else {
           if ($options['values_set'] == CONDITIONAL_FIELDS_DEPENDENCY_VALUES_XOR) {
@@ -521,7 +521,7 @@ function conditional_fields_form_after_build($form, &$form_state) {
 
           // OR, NOT and XOR conditions are obtained with a nested array.
           foreach ($options['values'] as $value) {
-            $values[] = array($options['condition'] => $value);
+            $values[] = array($options['condition'] => (string) $value);
           }
         }
 
