@@ -565,8 +565,12 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       // FIXME: la surcharge empêche l'affichage du multiupload
       // $form['field_request_documents'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
       $form['field_image'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
-
-      if ( !$form['field_options'] || !isset($_REQUEST['edit']['field_request_type'])) {
+      if ( !$form['field_options'] 
+           || !isset($_REQUEST['edit']['field_request_type']) 
+           &&!( isset($form['field_request_type'][LANGUAGE_NONE]['#default_value'])
+           || isset ($form['#node']->field_request_type)
+           || !empty($form['#node']->nid))
+         ) {
         $form['body']['#disabled'] = true;
         $form['language']['#disabled'] = true;
         $form['field_domaine']['#disabled'] = true;
