@@ -279,10 +279,10 @@ function emh_user_profile_purchase_increment_counter($account) {
  */
 function emh_user_profile_purchase_get_count($account) {
   $field_profile_purchased = field_get_items('user', $account, 'field_profile_purchased');
-  echo '<pre>' . print_r($field_profile_purchased, true) . '</pre>';
-  $purchased_count = field_view_value('user', $account, 'field_profile_purchased', $field_profile_purchased[0]);
+  //echo '<pre>' . print_r($field_profile_purchased, true) . '</pre>';
+  //$purchased_count = field_view_value('user', $account, 'field_profile_purchased', $field_profile_purchased[0]);
   // $purchased_count = field_view_field('user', $account, 'field_profile_purchased', array('label'=>'hidden'));
-  echo '<pre>' . print_r($purchased_count, true) . '</pre>';
-  $purchased_count = $purchased_count['value'] ? $purchased_count['value'] : '0';
+  //echo '<pre>' . print_r($purchased_count, true) . '</pre>';
+  $purchased_count = $field_profile_purchased[0]['value'] ? $field_profile_purchased[0]['value'] : '0';
   return $purchased_count;
 }
