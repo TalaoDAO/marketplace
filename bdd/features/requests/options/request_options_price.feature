@@ -88,8 +88,8 @@ Feature: Request Option Price
 
   Scenario: An author can create a request with a questionnaire and duration with changing prices
     Given "request" content:
-    | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
-    | How to become a superhero?  | Energy        |              | client1 | 2017-02-08 17:45:00    | 0       |
+    | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  | field_request_type |
+    | How to become a superhero?  | Energy        |              | client1 | 2017-02-08 17:45:00    | 0       | Mission            |
 
     Given I am logged in as "client1"
     When I go to homepage
@@ -99,7 +99,6 @@ Feature: Request Option Price
       And I should see "200 credits" in the "#edit-field-options-und-duration" element
 
     When I select "Avengers" from "Circles"
-      And I select "770" from "field_request_type[und]"
       And I press "Save draft"
       And I click "Edit" in the "primary tabs" region
     Then I should see "1000 credits" in the "#edit-field-options-und-questionnaire" element
