@@ -20,7 +20,7 @@ Feature: Request Prepopulation
 
     Given "request_type" terms:
       | name               | description                                      | format        | language | field_prepopulate |
-      | Super-Hero mission | Search for a super-hero for a mission or project | filtered_html | en       | edit[field_options][und][questionnaire][enabled]=&edit[field_options][und][private][enabled]=&edit[field_options][und][duration][enabled]=&edit[field_request_questions][und][0][value]=How to become a superhero? |
+      | Super-Hero mission | Search for a super-hero for a mission or project | filtered_html | en       | edit[field_options][und][questionnaire][enabled]=&edit[field_options][und][private][enabled]=&edit[field_request_questions][und][0][value]=How to become a superhero? |
       | Super-Hero CV | Canvass a community of super-heros to find CVs with rare profiles | filtered_html | en       | edit[field_options][und][questionnaire][enabled]=&edit[field_options][und][private][enabled]=&edit[field_request_questions][und][0][value]=If you want to co-opt please specify: surname / name / current positions&edit[field_request_questions][und][1][value]=How do you know this super-hero?&edit[field_request_questions][und][2][value]=Have you personally worked with this super-hero?&edit[field_request_questions][und][3][value]=Why would you recommend this super-hero?&edit[field_request_questions][und][4][value]=Have you informed the super-hero of your recommendation?&edit[field_request_questions][und][5][value]=Does the applicant agree to have their resume sent to the client requestor?&edit[field_request_questions][und][6][value]=Can the client requestor quote your name when contacting the super-hero? |
 
     Given I give "client1" 10000 emh credits
@@ -29,7 +29,6 @@ Feature: Request Prepopulation
     Given I am logged in as a user with the "administrator" role
 
     When I go to "admin/emindhub/credits"
-      And I fill in "Duration" with "200"
       And I fill in "Questionnaire" with "300"
       And I press "Save configuration"
 
@@ -64,7 +63,6 @@ Feature: Request Prepopulation
       And I press "Save"
       Then I should see "Updated term Call"
 
-  @exclude
   Scenario: An author can create a prepopulated request
     Given I am logged in as "client1"
     When I go to "node/add/request?edit[field_request_type][und][768][768]=768&edit[field_options][und][questionnaire][enabled]=&edit[field_options][und][private][enabled]=&edit[field_request_questions][und][0][value]=If you want to 'co-opt', or recommend someone in your network, please specify: surname / name / current positions, and add the link to their LinkedIn profile&edit[field_request_questions][und][1][value]=How do you know this super-hero?&edit[field_request_questions][und][2][value]=Have you personally worked with this super-hero? If yes, when, and onwhat types of activity?&edit[field_request_questions][und][3][value]=Why would you recommend this super-hero?&edit[field_request_questions][und][4][value]=Have you informed the super-hero of your recommendation?&edit[field_request_questions][und][5][value]=Does the applicant agree to have their resume sent to the client requestor? If yes, please send to cv@emindhub.com with the reference of the client request.&edit[field_request_questions][und][6][value]=Can the client requestor quote your name when contacting the super-hero?"
@@ -101,7 +99,6 @@ Feature: Request Prepopulation
     Then I should see "To get the most from your Super-Hero mission request, we recommend you to use the options below:"
       And the "Private submissions" checkbox should be checked
       And the "Questionnaire" checkbox should be checked
-      And the "Duration" checkbox should be checked
       And the "field_request_questions[und][0][value]" field should contain "How to become a superhero?"
       And the "Request title or question" field is not disabled
       #And I should see "400 credits" in the "request_options_total" region
@@ -119,7 +116,6 @@ Feature: Request Prepopulation
       And the "Request title or question" field is not disabled
       And the "Private submissions" checkbox should be checked
       And the "Questionnaire" checkbox should be checked
-      And the "Duration" checkbox should not be checked
       And the "field_request_questions[und][0][value]" field should contain "If you want to co-opt please specify: surname / name / current positions"
       And the "field_request_questions[und][1][value]" field should contain "How do you know this super-hero?"
       And the "field_request_questions[und][2][value]" field should contain "Have you personally worked with this super-hero?"
@@ -132,9 +128,8 @@ Feature: Request Prepopulation
     When I select "Avengers" from "Circles"
       And I fill in "Request title or question" with "How to defeat a superhero?"
       And I select "Energy" from "Fields of expertise"
-      And I fill in "Duration" with "Lifetime"
       And I press "Continue"
       And I press "Publish"
     Then I should see "How to defeat a superhero? has been published"
-      And I should see "How to become a superhero?"
+      And I should see "How do you know this super-hero? "
       And I should have 9600 credits on "client1" user
