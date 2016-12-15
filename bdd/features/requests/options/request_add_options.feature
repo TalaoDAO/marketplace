@@ -63,7 +63,6 @@ Feature: Request
   Scenario: An author can add an option in request creation
     Given I am logged in as "client1"
     When I go to "node/add/request"
-      #And I select "770" from "field_request_type[und]"
       And I click "Mission" in the "request_type" region
       And I fill in "Request title or question" with "How to defeat a superhero?"
       And I select "Energy" from "Fields of expertise"
