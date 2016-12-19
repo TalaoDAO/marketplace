@@ -272,6 +272,7 @@ function _emh_circles_check_user_is_referentmember_of_groups($uid, $gids) {
 function _emh_circles_check_user_is_adminmember_of_groups($uid, $gids) {
   $roleID = db_select('og_role', 'og')
             ->condition('name', 'administrator member', '=')
+            ->condition('group_bundle', 'circle', '=')
             ->distinct()
             ->fields('og', array('rid'))
             ->execute();
@@ -287,11 +288,11 @@ function _emh_circles_check_user_is_adminmember_of_groups($uid, $gids) {
                 ->fields('og', array('rid'))
                 ->execute();
       $isAdminMember = $isAdminMember->fetchAssoc();
-      if (!empty($isAdminMember)) {
-        return TRUE;
+      if (!empty($isAdminMember)) { 
+        return TRUE; 
       }
     }
-  }
+  } 
   return FALSE;
 }
 
