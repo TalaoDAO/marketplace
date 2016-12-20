@@ -603,7 +603,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
         if (!user_access('modify requests')) {
           // Prevents to delete the request
           $form['actions']['delete']['#access'] = false;
-         // Prevents to update some fields
+          // Prevents to update some fields
           $form['field_domaine']['#disabled'] = true;
           $form['og_group_ref']['#disabled'] = true;
           $form['field_options']['#disabled'] = true;
