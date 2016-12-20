@@ -36,7 +36,7 @@ Feature: Circles workflow for Expert
       And I check the box "administrator member"
       And I press "Update membership"
     Then I should see "The membership has been updated."
-
+    
     When I go to "content/avengers"
       And I click "Group" in the "primary tabs" region
       And I click "People"
@@ -88,7 +88,7 @@ Feature: Circles workflow for Expert
     When I go to "content/guardians-galaxy"
       And I click "Group" in the "primary tabs" region
       And I click "People"
-    Then I should see "Pending" in the "Iron" row
+    Then I should see "Pending" in the "Iron MAN" row
 
     When I click "edit" in the "Iron" row
       And I select "Active" from "Status"
