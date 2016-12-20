@@ -75,6 +75,7 @@ Feature: Request Prepopulation
       And the "Private submissions" checkbox should be checked
       And the "Questionnaire" checkbox should be checked
       And the "field_request_questions[und][0][value]" field should contain "How to become a superhero?"
+      And show me the URL
       And the "Request title or question" field is not disabled
       #And I should see "400 credits" in the "request_options_total" region
 
