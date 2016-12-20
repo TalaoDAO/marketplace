@@ -159,7 +159,7 @@ function emh_request_get_types() {
 
 /**
  * Helper function to retrieve the status of a request.
- * draft / open / selection / closed
+ * draft / open / expired / closed
  */
 function emh_request_get_status($node = null) {
   if ($node === null) {
@@ -186,7 +186,7 @@ function emh_request_get_status($node = null) {
       if ($today < $deadline) {
         $workflow = array( 'status' => 'open', 'label' => t('Open') );
       } else {
-        $workflow = array( 'status' => 'selection', 'label' => t('Selection') );
+        $workflow = array( 'status' => 'expired', 'label' => t('Expired') );
       }
     }
     else {
