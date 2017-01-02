@@ -53,6 +53,7 @@ function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, 
   $options  = emh_request_get_options();
   $items    = emh_request_restructure_option_selector_items($items);
   $weight   = 0;
+  if (!isset ($form['#entity'])) return;
   // Is the selection of options enabled?
   $enabled  = empty($form['#entity']->nid) || ($form['#entity']->status == NODE_NOT_PUBLISHED);
 
