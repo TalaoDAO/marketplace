@@ -1,0 +1,14 @@
+name = StatsD
+description = Logs and records system events to Graphite via StatsD
+core = 7.x
+php = 5.3
+configure = admin/config/development/statsd
+
+files[] = includes/statsd.inc
+
+; Information added by Drupal.org packaging script on 2016-04-25
+version = "7.x-1.1"
+core = "7.x"
+project = "statsd"
+datestamp = "1461556440"
+
