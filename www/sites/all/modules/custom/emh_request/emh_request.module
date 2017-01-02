@@ -569,12 +569,17 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       // FIXME: la surcharge empêche l'affichage du multiupload
       // $form['field_request_documents'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
       $form['field_image'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
-      if ( !$form['field_options'] 
-           || !isset($_REQUEST['edit']['field_request_type']) 
-           &&!( isset($form['field_request_type'][LANGUAGE_NONE]['#default_value'])
-           || isset ($form['#node']->field_request_type)
-           || !empty($form['#node']->nid))
-         ) {
+      //if ( !$form['field_options'] 
+      //     || !isset($_REQUEST['edit']['field_request_type']) 
+      //     &&!( isset($form['field_request_type'][LANGUAGE_NONE]['#default_value'])
+      //     || isset ($form['#node']->field_request_type)
+      //     || !empty($form['#node']->nid))
+      //   ) {
+
+      //if node is empty, and no field_request_type : we are in the first edition step of a new request : 
+      //disable everything to force click on Request Type
+      if ( empty($form['nid']['#value']) && ! ( isset($form['field_request_type'][LANGUAGE_NONE]['#default_value']) || isset ($form['#node']->field_request_type)) )
+      {
         $form['body']['#disabled'] = true;
         $form['language']['#disabled'] = true;
         $form['field_domaine']['#disabled'] = true;
@@ -608,8 +613,11 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
           $form['og_group_ref']['#disabled'] = true;
           $form['field_options']['#disabled'] = true;
           $form['title_field']['#disabled'] = true;
-          if (emh_request_count_answers($form['nid']['#value']) != 0)
+          $form['field_request_type']['#disabled'] = true;
+          if (emh_request_count_answers($form['nid']['#value']) != 0) {
+            $form['body']['#disabled'] = true;
             $form['field_request_questions']['#disabled'] = true;
+          }
         }
       }
     }
@@ -617,12 +625,16 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
     else { 
       // If node is published and there are some answers,
       // only some updates are possible (#575, #576)
-      if ($form['#node']->status == NODE_PUBLISHED && emh_request_count_answers($form['nid']['#value'])) {
+      if ($form['#node']->status == NODE_PUBLISHED && emh_request_count_answers($form['nid']['#value'] != 0)) {
         if (!user_access('modify requests')) {
           // Prevents domains & circles update
           $form['field_domaine']['#disabled'] = true;
           $form['og_group_ref']['#disabled'] = true;
+          $form['field_options']['#disabled'] = true;
+          $form['body']['#disabled'] = true;
           $form['field_request_circle']['#disabled'] = true;
+          $form['title_field']['#disabled'] = true;
+          $form['field_request_type']['#disabled'] = true;
         } 
       }
     }
