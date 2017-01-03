@@ -578,7 +578,6 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
 
       //if node is empty, and no field_request_type : we are in the first edition step of a new request : 
       //disable everything to force click on Request Type
-      //if ( empty($form['nid']['#value']) && ! ( isset($form['field_request_type'][LANGUAGE_NONE]['#default_value']) || isset ($form['#node']->field_request_type)) )
       {
         $form['body']['#disabled'] = true;
         $form['language']['#disabled'] = true;
