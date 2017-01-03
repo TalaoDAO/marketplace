@@ -1883,6 +1883,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit own webform submissions',
     'roles' => array(
       'administrator' => 'administrator',
+      'business' => 'business',
       'expert' => 'expert',
       'webmaster' => 'webmaster',
     ),
@@ -1998,6 +1999,7 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
+      'expert' => 'expert',
       'webmaster' => 'webmaster',
     ),
     'module' => 'webform',
@@ -2068,6 +2070,7 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
+      'expert' => 'expert',
       'webmaster' => 'webmaster',
     ),
     'module' => 'actions_permissions',
@@ -2079,6 +2082,7 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
+      'expert' => 'expert',
       'référent' => 'référent',
       'webmaster' => 'webmaster',
     ),
@@ -2091,6 +2095,7 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
+      'expert' => 'expert',
       'webmaster' => 'webmaster',
     ),
     'module' => 'actions_permissions',
@@ -2122,6 +2127,7 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'business' => 'business',
+      'expert' => 'expert',
       'webmaster' => 'webmaster',
     ),
     'module' => 'actions_permissions',
@@ -2769,6 +2775,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'post comments',
     'roles' => array(
       'administrator' => 'administrator',
+      'business' => 'business',
       'expert' => 'expert',
       'webmaster' => 'webmaster',
     ),
