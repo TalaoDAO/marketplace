@@ -54,7 +54,7 @@ Feature: Request re-editions
     Then the "Request title or question" field should not be disabled
     And the "field_request_type[und]" field should be disabled
     And the "Describe your request" field should not be disabled
-    #And the "edit-field-options" field should not be disabled
+    #TODO: And the "edit-field-options" field should not be disabled
     And the "edit-field-options-und-private-enabled" field should be disabled
     And the "edit-field-request-questions" field should not be disabled
 
@@ -68,17 +68,19 @@ Feature: Request re-editions
     When I press "Publish"
     Then I should see the message "Your submission has been published."
 
+    #When request has response, some field become disabled
     Given I am logged in as "client1"
     When I go to homepage
     And I click "How to become a superhero?" in the "How to become a superhero?" row
     And I click "Edit"
     Then the "Request title or question" field should be disabled
     And the "field_request_type[und]" field should be disabled
-    And the "Describe your request" field should be disabled
-    #And the "edit-field-options" field should be disabled
+    And the "Describe your request" field should not be disabled
+    #TODO: And the "edit-field-options" field should be disabled
     And the "edit-field-options-und-private-enabled" field should be disabled
     And the "edit-field-request-questions-und-0-value" field should be disabled
 
+    #but admin can still modify everything
     Given I am logged in as a user with the "administrator" role 
     When I go to homepage
     And I click "How to become a superhero?" in the "How to become a superhero?" row
