@@ -465,10 +465,8 @@ class FeatureContext extends DrupalContext {
    *   If the field does not have the disabled attribute.
    */
   public function assertDisabledField($field) {
-    //$element = $this->assertSession()->elementExists("css", $field);
-    //$element = $this->getSession()->getPage()->find('named', array('id_or_name', $this->getSelectorsHandler()->xpathLiteral($field)));
     $element = $this->getSession()->getPage()->findById($field);
-    if ($element === null) //throw new ExpectationException("'{$field}' field not found.", $this->getSession()->getDriver()); 
+    if ($element === null)  
       $element = $this->assertSession()->fieldExists($field);
     if (!$element->hasAttribute('disabled')) {
       throw new ExpectationException("Expected '{$field}' field to be disabled.", $this->getSession()->getDriver());
@@ -488,7 +486,7 @@ class FeatureContext extends DrupalContext {
    */
   public function assertNotDisabledField($field) {
     $element = $this->getSession()->getPage()->findById($field);
-    if ($element === null) //throw new ExpectationException("'{$field}' field not found.", $this->getSession()->getDriver()); 
+    if ($element === null)  
       $element = $this->assertSession()->fieldExists($field);
     if ($element->hasAttribute('disabled')) {
       throw new ExpectationException("Expected '{$field}' field not to be disabled.", $this->getSession()->getDriver());
