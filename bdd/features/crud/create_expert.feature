@@ -37,4 +37,4 @@ Feature: Create permissions for Experts
 
     #DONE Nasty bug : this line should not be necessary !!!!
       And the user expert1 has "edit own webform submissions" permission
-      And the user expert1 don't have "create request content" permission
+      And the user expert1 has "create request content" permission
