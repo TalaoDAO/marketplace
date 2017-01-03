@@ -41,7 +41,6 @@ Feature: Request
 
     When I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "primary tabs" region
-      #And I select "770" from "field_request_type[und]"
       And I check the box "Duration"
     Then I should see "Duration of the mission"
       And I should see "Desired starting date"
