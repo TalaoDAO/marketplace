@@ -48,15 +48,16 @@ Feature: Request re-editions
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
-  Scenario: The author can change it's options if no expert responded 
+  Scenario: The author can change some content if no expert responded 
     Given I am logged in as "client1"
     When I go to homepage
     And I click "How to become a superhero?" in the "How to become a superhero?" row
     And I click "Edit"
-    Then the "Request title or question" field should be disabled
+    Then the "Request title or question" field should not be disabled
     And the "field_request_type[und]" field should be disabled
     And the "Describe your request" field should not be disabled
-    And the "edit-field-options" field should not be disabled
+    #And the "edit-field-options" field should not be disabled
+    And the "edit-field-options-und-private-enabled" field should be disabled
     And the "edit-field-request-questions" field should not be disabled
 
     # An expert responds to the request.
