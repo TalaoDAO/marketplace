@@ -36,5 +36,5 @@ Feature: Create permissions for Clients
       And I should not see "X-Men"
 
     #DONE Nasty bug : this line should not be necessary !!!!
-      And the user client1 don't have "edit own webform submissions" permission
+      And the user client1 has "edit own webform submissions" permission
       And the user client1 has "create request content" permission
