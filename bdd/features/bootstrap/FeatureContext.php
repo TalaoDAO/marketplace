@@ -465,7 +465,9 @@ class FeatureContext extends DrupalContext {
    *   If the field does not have the disabled attribute.
    */
   public function assertDisabledField($field) {
-    $element = $this->assertSession()->fieldExists($field);
+    $element = $this->getSession()->getPage()->findById($field);
+    if ($element === null)  
+      $element = $this->assertSession()->fieldExists($field);
     if (!$element->hasAttribute('disabled')) {
       throw new ExpectationException("Expected '{$field}' field to be disabled.", $this->getSession()->getDriver());
     }
@@ -477,13 +479,15 @@ class FeatureContext extends DrupalContext {
    * @param string $field
    *   The label, placeholder, ID or name of the field to check.
    *
-   * @Then the :field field is not disabled
+   * @Then the :field field should not be disabled
    *
    * @throws ExpectationException
    *   If the field  have the disabled attribute.
    */
   public function assertNotDisabledField($field) {
-    $element = $this->assertSession()->fieldExists($field);
+    $element = $this->getSession()->getPage()->findById($field);
+    if ($element === null)  
+      $element = $this->assertSession()->fieldExists($field);
     if ($element->hasAttribute('disabled')) {
       throw new ExpectationException("Expected '{$field}' field not to be disabled.", $this->getSession()->getDriver());
     }
