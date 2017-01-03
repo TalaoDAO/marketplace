@@ -81,7 +81,7 @@ function emh_access_user_can_see_full_user($uid = FALSE, $uid2) {
   $u2_account = user_load($uid2);
   $u1_circlesIDs = og_get_groups_by_user($u1_account, 'node');
   $u2_circlesIDs = og_get_entity_groups('user', $u2_account, array(OG_STATE_ACTIVE, OG_STATE_PENDING));
-  $u2_circlesIDs = !empty($u2_circlesIDs)?$u2_circlesIDs['node']:$u2_circlesIDs;
+  $u2_circlesIDs = !empty($u2_circlesIDs) ? $u2_circlesIDs['node'] : $u2_circlesIDs;
 
   // This is my own profile
   if ($uid == $uid2) return TRUE;
