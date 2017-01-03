@@ -66,6 +66,7 @@ Feature: Emails
     Then I should see "The membership has been updated."
     Given the test email system is enabled
 
+  @email
   Scenario: Experts are notified by email for new request publication
     Given "request" content:
     | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
