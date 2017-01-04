@@ -813,3 +813,10 @@ function emh_configuration_update_7041() {
     }
   }
 }
+
+/**
+ * Install module : EMH Honeypot.
+ */
+function emh_configuration_update_7042() {
+  module_enable(array('emh_honeypot'));
+}
