@@ -6,9 +6,15 @@
         <a tabindex="0" id="signUp" class="user-menu sign-up" data-placement="bottom" data-html="true" title="<?php print t('Registration'); ?>" data-template='<div class="popover signUp" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content signUpContent"></div></div>'><?php print t('Registration'); ?></a>
         <div id="signUpContent" class="signUpContent" style="display: none;">
           <h4><?php print sprintf(t('%sSign-in in 1 minute%s and start%s'), '<span>', '</span><span>', '</span>'); ?></h4>
-          <span><a class="signin-client" href="<?php print url('client/register'); ?>"><?php print t('You need expertise'); ?></a></span>
-          <span class="separator"><?php print t('or'); ?></span>
-          <span><a class="signin-expert" href="<?php print url('expert/register'); ?>"><?php print t('You\'re an expert'); ?></a></span>
+          <span class="block"><a class="signin-client" href="<?php print url('client/register'); ?>"><?php print t('You need expertise'); ?></a></span>
+          <span class="separator"></span>
+          <span class="block"><a class="signin-expert" href="<?php print url('expert/register'); ?>"><?php print t('You\'re an expert'); ?></a></span>
+          <?php
+          if (module_exists('hybridauth')) {
+            $element['#type'] = 'hybridauth_widget';
+            print drupal_render($element);
+          }
+          ?>
         </div>
       </li>
       <li><span class="navbar-text">|</span></li>
