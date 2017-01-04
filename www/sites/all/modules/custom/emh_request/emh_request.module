@@ -15,7 +15,7 @@ function emh_request_permission() {
     'modify requests' => array(
       'title' => t('Allow to modify requests after been published'),
     )
-  );  
+  );
 }
 
 /**
@@ -569,14 +569,14 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       // FIXME: la surcharge empêche l'affichage du multiupload
       // $form['field_request_documents'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
       $form['field_image'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
-      if ( !$form['field_options'] 
-           || !isset($_REQUEST['edit']['field_request_type']) 
+      if ( !$form['field_options']
+           || !isset($_REQUEST['edit']['field_request_type'])
            &&!( isset($form['field_request_type'][LANGUAGE_NONE]['#default_value'])
            || isset ($form['#node']->field_request_type)
            || !empty($form['#node']->nid))
-         ) 
+         )
 
-      //if node is empty, and no field_request_type : we are in the first edition step of a new request : 
+      //if node is empty, and no field_request_type : we are in the first edition step of a new request :
       //disable everything to force click on Request Type
       {
         $form['body']['#disabled'] = true;
@@ -603,7 +603,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
         $form['actions']['submit']['#submit'][] = 'emh_request_form_node_publish';
       }
       // Request created & published
-      else { 
+      else {
         if (!user_access('modify requests')) {
           // Prevents to delete the request
           $form['actions']['delete']['#access'] = false;
@@ -620,7 +620,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       }
     }
     // Treatments for others
-    else { 
+    else {
       // If node is published and there are some answers,
       // only some updates are possible (#575, #576)
       if ($form['#node']->status == NODE_PUBLISHED && emh_request_count_answers($form['nid']['#value'] != 0)) {
@@ -632,7 +632,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
           $form['field_request_circle']['#disabled'] = true;
           $form['title_field']['#disabled'] = true;
           $form['field_request_type']['#disabled'] = true;
-        } 
+        }
       }
     }
 
@@ -952,12 +952,12 @@ function emh_request_render_submission($submission) {
 
   return strip_tags(views_trim_text(
     array(
-      'max_length' => 300,
+      'max_length' => 480,
       'word_boundary' => TRUE,
       'ellipsis' => TRUE,
       'html' => TRUE,
     ),
-    $output
+    truncate_utf8($output, 480, FALSE, TRUE)
   ));
 }
 
