@@ -8,7 +8,6 @@
 */
 
 function emh_contactform_form_contact_site_form_alter(&$form, &$form_state, $form_id) {
-
 	$form['emh_baseline'] = array(
     '#markup' => '<p class="emh-title-baseline">' . t('Want to learn more?') . '<br />' . t('Leave us a message, we will get back at you within 24h!') . '</p>',
     '#weight' => '-1000', // First !
@@ -68,9 +67,7 @@ function emh_contactform_form_contact_site_form_alter(&$form, &$form_state, $for
 	foreach ($order as $key => $field) {
 		$form[$field]['#weight'] = $key;
 	}
-
-	// echo '<pre>' . print_r($form, TRUE) . '</pre>';
-
+  $form['actions']['#weight'] = 100;
 }
 
 function emh_contactform_mail_alter(&$message) {
