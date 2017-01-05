@@ -820,3 +820,12 @@ function emh_configuration_update_7041() {
 function emh_configuration_update_7042() {
   module_enable(array('emh_honeypot'));
 }
+
+/**
+ * Disable module : Honeypot.
+ */
+function emh_configuration_update_7043() {
+  module_disable(array('honeypot'));
+  drupal_uninstall_modules(array('honeypot'));
+  module_enable(array('emh_captcha'));
+}
