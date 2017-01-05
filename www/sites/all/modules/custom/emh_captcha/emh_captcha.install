@@ -1,0 +1,46 @@
+<?php
+/**
+ * @file
+ * Installation hooks for the emh_captcha module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function emh_captcha_install() {
+  variable_set('captcha_log_wrong_responses', TRUE);
+  variable_set('captcha_default_challenge', 'recaptcha/reCAPTCHA');
+  variable_set('captcha_add_captcha_description', FALSE);
+  variable_set('captcha_default_challenge_on_nonlisted_forms', TRUE);
+  variable_set('recaptcha_site_key', '6LeaeAgTAAAAAA7Lg4s5CTK-MwJIJCAaQKCBeWbN');
+  variable_set('recaptcha_secret_key', '6LeaeAgTAAAAAHzN_I7GVftXmHhsjN4jDnRntrwq');
+  variable_set('recaptcha_noscript', TRUE);
+
+  $form_ids = array('user_login', 'user_login_block');
+  foreach ($form_ids as $form_id) {
+    db_insert('captcha_points')
+      ->fields(array('form_id', 'module', 'captcha_type'))
+      ->values(array('form_id' => $form_id, 'module' => NULL, 'captcha_type' => NULL))
+      ->execute();
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function emh_captcha_uninstall() {
+  variable_del('captcha_log_wrong_responses');
+  variable_del('captcha_default_challenge');
+  variable_del('captcha_add_captcha_description');
+  variable_del('captcha_default_challenge_on_nonlisted_forms');
+  variable_del('recaptcha_site_key');
+  variable_del('recaptcha_secret_key');
+  variable_del('recaptcha_noscript');
+
+  $form_ids = array('user_login', 'user_login_block');
+  foreach ($form_ids as $form_id) {
+    db_delete('captcha_points')
+      ->condition('form_id', $form_id)
+      ->execute();
+  }
+}
