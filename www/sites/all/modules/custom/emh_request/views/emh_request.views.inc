@@ -2,7 +2,7 @@
 
 /**
  * @file
- * EMH Request Views integration.
+ * Views hooks implemented for the EMH Request module.
  */
 
 /**
@@ -34,15 +34,21 @@ function emh_request_views_data() {
     ),
   );
 
-  // $data['webform_submissions']['emh_answer'] = array(
-  //   'group' => t('Webform submissions'),
-  //   'real field' => 'sid',
-  //   'help' => 'Answer',
-  //   'title' => 'Answer',
-  //   'field' => array(
-  //     'handler' => 'views_handler_field_emh_webform_answer',
-  //   ),
-  // );
+  // Is draft.
+  $data['webform_submissions']['status'] = array(
+    'title' => t('Submission - Status'),
+    'help' => t('Whether or not the submission is a draft.'),
+    'field' => array(
+      'handler' => 'emh_request_webform_handler_field_is_draft',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'emh_request_webform_handler_filter_is_draft',
+    ),
+    'sort' => array(
+       'handler' => 'views_handler_sort',
+    ),
+  );
 
   // Pseudo-field on request submissions answers count.
   $data['node']['total_answers'] = array(
