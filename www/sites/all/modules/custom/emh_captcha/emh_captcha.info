@@ -1,0 +1,7 @@
+name = EMH Captcha
+description = Add reCaptcha protection to EMH forms.
+package = EMH
+core = 7.x
+
+dependencies[] = captcha
+dependencies[] = recaptcha
