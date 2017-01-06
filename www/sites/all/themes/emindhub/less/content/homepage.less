@@ -1,8 +1,15 @@
 body.front {
 
   // Hide page title
-  header#title {
-    .hidden();
+  &.not-logged-in {
+    header#title .row {
+      .hidden();
+    }
+  }
+  &.logged-in {
+    header#title .row .title {
+      .hidden();
+    }
   }
 
   &.not-logged-in {
