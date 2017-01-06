@@ -22,8 +22,8 @@ function ft_request_conditional_fields_default_fields() {
       'effect' => FALSE,
       'effect_options' => array(),
       'element_view' => array(
-        1 => 1,
-        2 => 2,
+        1 => 0,
+        2 => 0,
         5 => 0,
         3 => 0,
         4 => 0,
@@ -88,7 +88,7 @@ function ft_request_conditional_fields_default_fields() {
         ),
       ),
       'element_edit' => array(
-        1 => 1,
+        1 => 0,
         3 => 0,
       ),
       'element_edit_per_role' => 0,
@@ -154,8 +154,8 @@ function ft_request_conditional_fields_default_fields() {
       'effect' => FALSE,
       'effect_options' => array(),
       'element_view' => array(
-        1 => 1,
-        2 => 2,
+        1 => 0,
+        2 => 0,
         5 => 0,
         3 => 0,
         4 => 0,
@@ -220,7 +220,7 @@ function ft_request_conditional_fields_default_fields() {
         ),
       ),
       'element_edit' => array(
-        1 => 1,
+        1 => 0,
         3 => 0,
       ),
       'element_edit_per_role' => 0,
@@ -286,8 +286,8 @@ function ft_request_conditional_fields_default_fields() {
       'effect' => FALSE,
       'effect_options' => array(),
       'element_view' => array(
-        1 => 1,
-        2 => 2,
+        1 => 0,
+        2 => 0,
         5 => 0,
         3 => 0,
         4 => 0,
@@ -352,7 +352,7 @@ function ft_request_conditional_fields_default_fields() {
         ),
       ),
       'element_edit' => array(
-        1 => 1,
+        1 => 0,
         3 => 0,
       ),
       'element_edit_per_role' => 0,
@@ -418,8 +418,8 @@ function ft_request_conditional_fields_default_fields() {
       'effect' => FALSE,
       'effect_options' => array(),
       'element_view' => array(
-        1 => 1,
-        2 => 2,
+        1 => 0,
+        2 => 0,
         5 => 0,
         3 => 0,
         4 => 0,
@@ -484,7 +484,7 @@ function ft_request_conditional_fields_default_fields() {
         ),
       ),
       'element_edit' => array(
-        1 => 1,
+        1 => 0,
         3 => 0,
       ),
       'element_edit_per_role' => 0,
@@ -550,8 +550,8 @@ function ft_request_conditional_fields_default_fields() {
       'effect' => FALSE,
       'effect_options' => array(),
       'element_view' => array(
-        1 => 1,
-        2 => 2,
+        1 => 0,
+        2 => 0,
         5 => 0,
         3 => 0,
         4 => 0,
@@ -616,7 +616,7 @@ function ft_request_conditional_fields_default_fields() {
         ),
       ),
       'element_edit' => array(
-        1 => 1,
+        1 => 0,
         3 => 0,
       ),
       'element_edit_per_role' => 0,
@@ -682,8 +682,8 @@ function ft_request_conditional_fields_default_fields() {
       'effect' => FALSE,
       'effect_options' => array(),
       'element_view' => array(
-        1 => 1,
-        2 => 2,
+        1 => 0,
+        2 => 0,
         5 => 0,
         3 => 0,
         4 => 0,
@@ -748,7 +748,7 @@ function ft_request_conditional_fields_default_fields() {
         ),
       ),
       'element_edit' => array(
-        1 => 1,
+        1 => 0,
         3 => 0,
       ),
       'element_edit_per_role' => 0,
@@ -814,8 +814,8 @@ function ft_request_conditional_fields_default_fields() {
       'effect' => FALSE,
       'effect_options' => array(),
       'element_view' => array(
-        1 => 1,
-        2 => 2,
+        1 => 0,
+        2 => 0,
         5 => 0,
         3 => 0,
         4 => 0,
@@ -880,7 +880,7 @@ function ft_request_conditional_fields_default_fields() {
         ),
       ),
       'element_edit' => array(
-        1 => 1,
+        1 => 0,
         3 => 0,
       ),
       'element_edit_per_role' => 0,
@@ -946,8 +946,8 @@ function ft_request_conditional_fields_default_fields() {
       'effect' => FALSE,
       'effect_options' => array(),
       'element_view' => array(
-        1 => 1,
-        2 => 2,
+        1 => 0,
+        2 => 0,
         5 => 0,
         3 => 0,
         4 => 0,
@@ -1012,7 +1012,7 @@ function ft_request_conditional_fields_default_fields() {
         ),
       ),
       'element_edit' => array(
-        1 => 1,
+        1 => 0,
         3 => 0,
       ),
       'element_edit_per_role' => 0,
