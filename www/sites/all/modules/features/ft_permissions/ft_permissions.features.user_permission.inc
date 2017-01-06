@@ -179,6 +179,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access environment indicator',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'environment_indicator',
   );
@@ -186,7 +187,10 @@ function ft_permissions_user_default_permissions() {
   // Exported permission: 'access environment indicator clone'.
   $permissions['access environment indicator clone'] = array(
     'name' => 'access environment indicator clone',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
     'module' => 'environment_indicator',
   );
 
@@ -195,6 +199,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access environment indicator demo',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'environment_indicator',
   );
@@ -204,6 +209,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access environment indicator dev',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'environment_indicator',
   );
@@ -213,6 +219,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access environment indicator overwritten_environment',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'environment_indicator',
   );
@@ -222,6 +229,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access environment indicator preprod',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'environment_indicator',
   );
@@ -231,6 +239,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access environment indicator prod',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'environment_indicator',
   );
@@ -240,6 +249,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access environment indicator test',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'environment_indicator',
   );
@@ -408,14 +418,18 @@ function ft_permissions_user_default_permissions() {
   // Exported permission: 'act as Creator member in og node:circle'.
   $permissions['act as Creator member in og node:circle'] = array(
     'name' => 'act as Creator member in og node:circle',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'og_role_override',
   );
 
   // Exported permission: 'act as Referent member in og node:circle'.
   $permissions['act as Referent member in og node:circle'] = array(
     'name' => 'act as Referent member in og node:circle',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'og_role_override',
   );
 
@@ -640,6 +654,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'administer environment indicator settings',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'environment_indicator',
   );
@@ -1104,7 +1119,9 @@ function ft_permissions_user_default_permissions() {
   // Exported permission: 'attachments with views_send'.
   $permissions['attachments with views_send'] = array(
     'name' => 'attachments with views_send',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'views_send',
   );
 
@@ -1296,7 +1313,9 @@ function ft_permissions_user_default_permissions() {
   // Exported permission: 'create field_request_circle'.
   $permissions['create field_request_circle'] = array(
     'name' => 'create field_request_circle',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'field_permissions',
   );
 
@@ -1584,14 +1603,18 @@ function ft_permissions_user_default_permissions() {
   // Exported permission: 'delete terms in publications'.
   $permissions['delete terms in publications'] = array(
     'name' => 'delete terms in publications',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'taxonomy',
   );
 
   // Exported permission: 'delete terms in request_type'.
   $permissions['delete terms in request_type'] = array(
     'name' => 'delete terms in request_type',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'taxonomy',
   );
 
@@ -1735,7 +1758,9 @@ function ft_permissions_user_default_permissions() {
   // Exported permission: 'edit field_request_circle'.
   $permissions['edit field_request_circle'] = array(
     'name' => 'edit field_request_circle',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'field_permissions',
   );
 
@@ -1846,7 +1871,9 @@ function ft_permissions_user_default_permissions() {
   // Exported permission: 'edit own field_request_circle'.
   $permissions['edit own field_request_circle'] = array(
     'name' => 'edit own field_request_circle',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'field_permissions',
   );
 
@@ -1948,14 +1975,18 @@ function ft_permissions_user_default_permissions() {
   // Exported permission: 'edit terms in publications'.
   $permissions['edit terms in publications'] = array(
     'name' => 'edit terms in publications',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'taxonomy',
   );
 
   // Exported permission: 'edit terms in request_type'.
   $permissions['edit terms in request_type'] = array(
     'name' => 'edit terms in request_type',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'taxonomy',
   );
 
@@ -2136,7 +2167,9 @@ function ft_permissions_user_default_permissions() {
   // Exported permission: 'execute emh_user_profile_purchase_action'.
   $permissions['execute emh_user_profile_purchase_action'] = array(
     'name' => 'execute emh_user_profile_purchase_action',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'actions_permissions',
   );
 
@@ -2202,7 +2235,9 @@ function ft_permissions_user_default_permissions() {
   // Exported permission: 'execute node_export_drupal_action'.
   $permissions['execute node_export_drupal_action'] = array(
     'name' => 'execute node_export_drupal_action',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'actions_permissions',
   );
 
@@ -2536,6 +2571,7 @@ function ft_permissions_user_default_permissions() {
   $permissions['flag my_contacts'] = array(
     'name' => 'flag my_contacts',
     'roles' => array(
+      'administrator' => 'administrator',
       'webmaster' => 'webmaster',
     ),
     'module' => 'flag',
@@ -2672,14 +2708,18 @@ function ft_permissions_user_default_permissions() {
   // Exported permission: 'merge publications terms'.
   $permissions['merge publications terms'] = array(
     'name' => 'merge publications terms',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'term_merge',
   );
 
   // Exported permission: 'merge request_type terms'.
   $permissions['merge request_type terms'] = array(
     'name' => 'merge request_type terms',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'term_merge',
   );
 
@@ -3045,6 +3085,7 @@ function ft_permissions_user_default_permissions() {
   $permissions['unflag my_contacts'] = array(
     'name' => 'unflag my_contacts',
     'roles' => array(
+      'administrator' => 'administrator',
       'webmaster' => 'webmaster',
     ),
     'module' => 'flag',
@@ -3205,7 +3246,9 @@ function ft_permissions_user_default_permissions() {
   // Exported permission: 'view field_request_circle'.
   $permissions['view field_request_circle'] = array(
     'name' => 'view field_request_circle',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'field_permissions',
   );
 
@@ -3276,7 +3319,9 @@ function ft_permissions_user_default_permissions() {
   // Exported permission: 'view own field_request_circle'.
   $permissions['view own field_request_circle'] = array(
     'name' => 'view own field_request_circle',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
     'module' => 'field_permissions',
   );
 
