@@ -105,14 +105,16 @@ function emh_request_node_presave($node) {
   if ($node->type !== 'request') {
     return;
   }
-  if (
-    ($node->status == NODE_PUBLISHED) &&
-    ($node->is_new || $node->original->status == NODE_NOT_PUBLISHED)
-  ) {
+  {
     if (emh_request_has_option($node, 'questionnaire')) {
       // We create the components on the basis of the field_request_questions values.
       if ($questions = field_get_items('node', $node, 'field_request_questions')) {
         module_load_include('inc', 'webform', 'includes/webform.components');
+
+        if (!empty($node->nid) && emh_request_count_answers($node->nid) != 0) {
+          drupal_set_message(t("You cannot change questions that already have answers."), 'error');
+          return;
+        }
 
         $components = array();
 
@@ -592,7 +594,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       }
 
       // Request being created or already created & unpublished
-      if (empty($form['#node']->nid) || $form['#node']->status == NODE_NOT_PUBLISHED) {
+      elseif (empty($form['#node']->nid) || $form['#node']->status == NODE_NOT_PUBLISHED) {
         // Removes the save_draft validation callback
         foreach ($form['#validate'] as $index => $callback) {
           if ($callback == 'save_draft_validate') {
@@ -611,9 +613,9 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
           $form['field_domaine']['#disabled'] = true;
           $form['og_group_ref']['#disabled'] = true;
           $form['field_options']['#disabled'] = true;
-          $form['field_request_type']['#disabled'] = true;
-          if (emh_request_count_answers($form['nid']['#value']) != 0) {
-            $form['title_field']['#disabled'] = true;
+          $form['field_request_type']['#disabled'] = true; 
+          $form['title_field']['#disabled'] = true;
+          if (emh_request_count_answers($form['nid']['#value']) != 0) { 
             $form['field_request_questions']['#disabled'] = true;
           }
         }
