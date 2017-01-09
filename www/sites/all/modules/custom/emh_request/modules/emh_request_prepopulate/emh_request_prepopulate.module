@@ -108,6 +108,7 @@ function emh_request_prepopulate_form_field_request_type_after_build($element, &
                                             'html' => TRUE,
                                           )
                                         );
+      }
     }
 
   }
