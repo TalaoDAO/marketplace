@@ -86,6 +86,7 @@ function emh_request_prepopulate_form_field_request_type_after_build($element, &
                                         );
       }
     } else {
+      if (isset($_REQUEST['edit'])) {
         $element[$tid][$tid]['#title'] = l(
                                           $element[$tid][$tid]['#title'],
                                           '',
