@@ -51,7 +51,7 @@ Feature: Request re-editions
     When I go to homepage
     And I click "How to become a superhero?" in the "How to become a superhero?" row
     And I click "Edit"
-    Then the "Request title or question" field should not be disabled
+    Then the "Request title or question" field should be disabled
     And the "field_request_type[und]" field should be disabled
     And the "Describe your request" field should not be disabled
     #TODO: And the "edit-field-options" field should not be disabled
@@ -74,6 +74,7 @@ Feature: Request re-editions
     And I click "How to become a superhero?" in the "How to become a superhero?" row
     And I click "Edit"
     Then the "Request title or question" field should be disabled
+    And show me the HTML page
     And the "field_request_type[und]" field should be disabled
     And the "Describe your request" field should not be disabled
     #TODO: And the "edit-field-options" field should be disabled
