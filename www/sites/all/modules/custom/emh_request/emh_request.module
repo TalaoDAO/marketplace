@@ -613,7 +613,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
           $form['field_domaine']['#disabled'] = true;
           $form['og_group_ref']['#disabled'] = true;
           $form['field_options']['#disabled'] = true;
-          $form['field_request_type']['#disabled'] = true; 
+          $form['field_request_type']['#disabled'] = true;
           $form['title_field']['#disabled'] = true;
           if (emh_request_count_answers($form['nid']['#value']) != 0) { 
             $form['field_request_questions']['#disabled'] = true;
