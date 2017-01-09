@@ -833,7 +833,7 @@ function emh_configuration_update_7043() {
 /**
  * Install module : advuser.
  */
-function emh_configuration_update_70424() {
+function emh_configuration_update_7044() {
   module_enable(array('advuser'));
 }
 
