@@ -70,6 +70,15 @@ function ft_permissions_user_default_permissions() {
     'module' => 'system',
   );
 
+  // Exported permission: 'access advuser'.
+  $permissions['access advuser'] = array(
+    'name' => 'access advuser',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'advuser',
+  );
+
   // Exported permission: 'access all views'.
   $permissions['access all views'] = array(
     'name' => 'access all views',
@@ -518,6 +527,15 @@ function ft_permissions_user_default_permissions() {
     'module' => 'ds_ui',
   );
 
+  // Exported permission: 'administer CAPTCHA settings'.
+  $permissions['administer CAPTCHA settings'] = array(
+    'name' => 'administer CAPTCHA settings',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'captcha',
+  );
+
   // Exported permission: 'administer actions'.
   $permissions['administer actions'] = array(
     'name' => 'administer actions',
@@ -525,6 +543,15 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'system',
+  );
+
+  // Exported permission: 'administer advuser'.
+  $permissions['administer advuser'] = array(
+    'name' => 'administer advuser',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'advuser',
   );
 
   // Exported permission: 'administer audit files'.
@@ -922,6 +949,16 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'privatecomments',
+  );
+
+  // Exported permission: 'administer recaptcha'.
+  $permissions['administer recaptcha'] = array(
+    'name' => 'administer recaptcha',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'recaptcha',
   );
 
   // Exported permission: 'administer rules'.
@@ -1329,11 +1366,33 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'create public_request content'.
+  $permissions['create public_request content'] = array(
+    'name' => 'create public_request content',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'create question1 content'.
   $permissions['create question1 content'] = array(
     'name' => 'create question1 content',
     'roles' => array(
       'administrator' => 'administrator',
+    ),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'create request content'.
+  $permissions['create request content'] = array(
+    'name' => 'create request content',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'business' => 'business',
+      'expert' => 'expert',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'node',
   );
@@ -1435,11 +1494,31 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'delete any public_request content'.
+  $permissions['delete any public_request content'] = array(
+    'name' => 'delete any public_request content',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'delete any question1 content'.
   $permissions['delete any question1 content'] = array(
     'name' => 'delete any question1 content',
     'roles' => array(
       'administrator' => 'administrator',
+    ),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'delete any request content'.
+  $permissions['delete any request content'] = array(
+    'name' => 'delete any request content',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'node',
   );
@@ -1512,11 +1591,31 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'delete own public_request content'.
+  $permissions['delete own public_request content'] = array(
+    'name' => 'delete own public_request content',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'delete own question1 content'.
   $permissions['delete own question1 content'] = array(
     'name' => 'delete own question1 content',
     'roles' => array(
       'administrator' => 'administrator',
+    ),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'delete own request content'.
+  $permissions['delete own request content'] = array(
+    'name' => 'delete own request content',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'node',
   );
@@ -1717,11 +1816,32 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'edit any public_request content'.
+  $permissions['edit any public_request content'] = array(
+    'name' => 'edit any public_request content',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'edit any question1 content'.
   $permissions['edit any question1 content'] = array(
     'name' => 'edit any question1 content',
     'roles' => array(
       'administrator' => 'administrator',
+    ),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'edit any request content'.
+  $permissions['edit any request content'] = array(
+    'name' => 'edit any request content',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'référent' => 'référent',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'node',
   );
@@ -1887,11 +2007,34 @@ function ft_permissions_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'edit own public_request content'.
+  $permissions['edit own public_request content'] = array(
+    'name' => 'edit own public_request content',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'edit own question1 content'.
   $permissions['edit own question1 content'] = array(
     'name' => 'edit own question1 content',
     'roles' => array(
       'administrator' => 'administrator',
+    ),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'edit own request content'.
+  $permissions['edit own request content'] = array(
+    'name' => 'edit own request content',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'business' => 'business',
+      'expert' => 'expert',
+      'référent' => 'référent',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'node',
   );
@@ -2577,6 +2720,15 @@ function ft_permissions_user_default_permissions() {
     'module' => 'flag',
   );
 
+  // Exported permission: 'flag my_selection'.
+  $permissions['flag my_selection'] = array(
+    'name' => 'flag my_selection',
+    'roles' => array(
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'flag',
+  );
+
   // Exported permission: 'flush caches'.
   $permissions['flush caches'] = array(
     'name' => 'flush caches',
@@ -2879,6 +3031,15 @@ function ft_permissions_user_default_permissions() {
     'module' => 'fivestar',
   );
 
+  // Exported permission: 'receive email advuser'.
+  $permissions['receive email advuser'] = array(
+    'name' => 'receive email advuser',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'advuser',
+  );
+
   // Exported permission: 'rename features'.
   $permissions['rename features'] = array(
     'name' => 'rename features',
@@ -2966,6 +3127,25 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'mimemail',
+  );
+
+  // Exported permission: 'send email advuser'.
+  $permissions['send email advuser'] = array(
+    'name' => 'send email advuser',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'advuser',
+  );
+
+  // Exported permission: 'skip CAPTCHA'.
+  $permissions['skip CAPTCHA'] = array(
+    'name' => 'skip CAPTCHA',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'captcha',
   );
 
   // Exported permission: 'skip comment approval'.
@@ -3087,6 +3267,15 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'webmaster' => 'webmaster',
+    ),
+    'module' => 'flag',
+  );
+
+  // Exported permission: 'unflag my_selection'.
+  $permissions['unflag my_selection'] = array(
+    'name' => 'unflag my_selection',
+    'roles' => array(
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'flag',
   );
