@@ -68,6 +68,7 @@ function emh_request_prepopulate_form_field_request_type_after_build($element, &
                                               'data-toggle' => 'modal',
                                               'data-target' => '#modal-request-type-' . $term_safe_name,
                                               'disabled' => 'disabled',
+                                              'class' => 'disabled',
                                             ),
                                             'html' => TRUE,
                                             'fragment' => 'modal-request-type-' . $term_safe_name,
@@ -82,6 +83,7 @@ function emh_request_prepopulate_form_field_request_type_after_build($element, &
                                             'html' => TRUE,
                                             'attributes' => array(
                                               'disabled' => 'disabled',
+                                              'class' => 'disabled',
                                             )
                                           )
                                         );
