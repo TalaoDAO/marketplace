@@ -6,18 +6,76 @@
  */
 class EMHMailSystem extends DefaultMailSystem implements MailSystemInterface {
   /**
-   * Accept an e-mail message and store it in a variable.
+   * Save an e-mail message to a file, using Drupal variables and default settings.
+   *
+   * @see http://php.net/manual/en/function.mail.php
+   * @see drupal_mail()
    *
    * @param $message
-   *   An e-mail message.
+   *   A message array, as described in hook_mail_alter().
+   * @return
+   *   TRUE if the mail was successfully accepted, otherwise FALSE.
    */
   public function mail(array $message) {
+    $output = $this->composeMessage($message);
+    $output_file = $this->getFileName($message);
+
+
     unset($message['params']['context']['state']);
     unset($message['params']['context']['action']);
     $captured_emails = variable_get('drupal_test_email_collector', array());
     $captured_emails[] = $message;
+    //keep it in cas it's useful for debug
+    //echo "email to: ".$message['to'];
+    //echo ", email subject: ".$message['params']['context']['subject'];
+    //echo "\n";
     variable_set('drupal_test_email_collector', $captured_emails);
-    return TRUE;
+    return file_put_contents($output_file, $output);
   }
+
+  public function composeMessage($message) {
+    $mimeheaders = array();
+    $message['headers']['To'] = $message['to'];
+    foreach ($message['headers'] as $name => $value) {
+      $mimeheaders[] = $name . ': ' . mime_header_encode($value);
+    }
+
+    $line_endings = variable_get('mail_line_endings', MAIL_LINE_ENDINGS);
+    $output = join($line_endings, $mimeheaders) . $line_endings;
+    // 'Subject:' is a mail header and should not be translated.
+    $output .= 'Subject: ' . $message['subject'] . $line_endings;
+    // Blank line to separate headers from body.
+    $output .= $line_endings;
+    $output .= preg_replace('@\r?\n@', $line_endings, $message['body']);
+    return $output;
+  }
+
+  public function getFileName($message) {
+    $output_directory = $this->getOutputDirectory();
+    $this->makeOutputDirectory($output_directory);
+
+    $output_file_format = variable_get('devel_debug_mail_file_format', '%to-%subject-%datetime.mail.txt');
+    $tokens = array(
+      '%to' => $message['to'],
+      '%subject' => $message['subject'],
+      '%datetime' => date('y-m-d_his'),
+    );
+    return $output_directory . '/' . $this->dirify(str_replace(array_keys($tokens), array_values($tokens), $output_file_format));
+  }
+
+  private function dirify($string) {
+    return preg_replace('/[^a-zA-Z0-9_\-\.@]/', '_', $string);
+  }
+
+  protected function makeOutputDirectory($output_directory) {
+    if (!file_prepare_directory($output_directory, FILE_CREATE_DIRECTORY)) {
+      throw new Exception("Unable to continue sending mail, $output_directory is not writable");
+    }
+  }
+
+  public function getOutputDirectory() {
+    return variable_get('devel_debug_mail_directory', 'temporary://devel-mails');
+  }
+
 }
 
