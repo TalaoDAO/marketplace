@@ -362,6 +362,8 @@ class FeatureContext extends DrupalContext {
         throw new \Exception('Did not find expected content in message body or subject.');
       }
     }
+    $directory = variable_get('devel_debug_mail_directory', 'temporary://devel-mails');
+    file_put_contents($directory.'/debug-email-collector.txt', var_export($variables, true));
     throw new \Exception(sprintf('Did not find expected message to %s', $to));
   }
 
@@ -381,6 +383,8 @@ class FeatureContext extends DrupalContext {
         throw new \Exception('Did not find expected content in message body or subject.');
       }
     }
+    $directory = variable_get('devel_debug_mail_directory', 'temporary://devel-mails');
+    file_put_contents($directory.'/debug-email-collector.txt', var_export($variables, true));
     throw new \Exception(sprintf('Did not find expected message to %s', $to));
   }
 
