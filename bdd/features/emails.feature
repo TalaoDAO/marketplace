@@ -64,10 +64,10 @@ Feature: Emails
       And I select "Active" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
-    Given the test email system is enabled
 
   @email
   Scenario: Experts are notified by email for new request publication
+    Given the test email system is enabled
     Given "request" content:
     | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
     | How to become a superhero?  | Energy        | Avengers        | client1 | 2017-02-08 17:45:00    | 1       |
