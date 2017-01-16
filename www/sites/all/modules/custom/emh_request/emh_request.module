@@ -566,6 +566,19 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       // $form['field_request_documents'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
       $form['field_image'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
 
+      if ( !$form['field_options'] || !isset($_REQUEST['edit']['field_request_type'])) {
+        $form['body']['#disabled'] = true;
+        $form['language']['#disabled'] = true;
+        $form['field_domaine']['#disabled'] = true;
+        $form['field_expiration_date']['#disabled'] = true;
+        $form['field_image']['#disabled'] = true;
+        $form['field_tags']['#disabled'] = true;
+        $form['title_field']['#disabled'] = true;
+        $form['og_group_ref']['#disabled'] = true;
+        $form['field_options']['#disabled'] = true;
+        $form['field_request_questions']['#disabled'] = true;
+      }
+
       // Request being created or already created & unpublished
       if (empty($form['#node']->nid) || $form['#node']->status == NODE_NOT_PUBLISHED) {
         // Removes the save_draft validation callback
