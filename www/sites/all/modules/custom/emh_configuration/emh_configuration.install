@@ -837,3 +837,10 @@ function emh_configuration_update_7044() {
   module_enable(array('advuser'));
 }
 
+/**
+ * CHG: Answer wording.
+ */
+function emh_configuration_update_7046() {
+  emh_request_disable_strings();
+  emh_request_enable_strings();
+}
