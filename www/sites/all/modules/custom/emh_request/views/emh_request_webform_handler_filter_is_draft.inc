@@ -8,11 +8,11 @@
 /**
  * Filter by submission status
  */
-class emh_request_webform_handler_filter_is_draft extends views_handler_filter_in_operator {
+class emh_request_webform_handler_filter_is_draft extends webform_handler_filter_is_draft {
   function get_value_options() {
     if (!isset($this->value_options)) {
       $this->value_title = t('Status');
-      $options = array('0' => t('Completed'), '1' => t('Draft'));
+      $options = array('0' => t('Published'), '1' => t('Draft'));
       $this->value_options = $options;
     }
   }
