@@ -105,7 +105,6 @@ function emh_request_node_presave($node) {
   if ($node->type !== 'request') {
     return;
   }
-  {
     if (emh_request_has_option($node, 'questionnaire')) {
       // We create the components on the basis of the field_request_questions values.
       if ($questions = field_get_items('node', $node, 'field_request_questions')) {
@@ -167,7 +166,6 @@ function emh_request_node_presave($node) {
 
       $node->webform['components'] = array('request' => $component);
     }
-  }
 }
 
 /**
