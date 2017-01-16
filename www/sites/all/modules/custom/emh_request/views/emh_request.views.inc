@@ -34,22 +34,6 @@ function emh_request_views_data() {
     ),
   );
 
-  // Is draft.
-  $data['webform_submissions']['status'] = array(
-    'title' => t('Submission - Status'),
-    'help' => t('Whether or not the submission is a draft.'),
-    'field' => array(
-      'handler' => 'emh_request_webform_handler_field_is_draft',
-      'click sortable' => TRUE,
-    ),
-    'filter' => array(
-      'handler' => 'emh_request_webform_handler_filter_is_draft',
-    ),
-    'sort' => array(
-       'handler' => 'views_handler_sort',
-    ),
-  );
-
   // Pseudo-field on request submissions answers count.
   $data['node']['total_answers'] = array(
     'group' => t('Node'),
@@ -76,4 +60,9 @@ function emh_request_views_data() {
   );
 
   return $data;
+}
+
+function emh_request_views_data_alter(&$data) {
+  $data['webform_submissions']['is_draft']['field']['handler'] = 'emh_request_webform_handler_field_is_draft';
+  $data['webform_submissions']['is_draft']['filter']['handler'] = 'emh_request_webform_handler_filter_is_draft';
 }
