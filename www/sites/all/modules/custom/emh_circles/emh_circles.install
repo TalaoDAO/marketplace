@@ -48,7 +48,7 @@ function _emh_circles_string_overrides() {
     "Member's groups" => "Member's circles",
     "Subscribe to group" => "Subscribe",
     "Unsubscribe from group" => "Leave circle",
-    "Request group membership" => "Request membership",
+    "Request group membership" => "Join circle",
     "Are you sure you want to join the group %title?" => "Join %title circle",
     "Are you sure you want to unsubscribe from the group %title?" => "Leave %title circle",
   );
