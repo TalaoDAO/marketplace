@@ -282,6 +282,15 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
+   * @Then show me the URL
+   */
+  public function then_show_me_the_url() {
+    $url = $this->getSession()->getCurrentUrl();
+    print ("Current url : $url");
+  }
+
+
+  /**
    * This works for the Goutte driver and I assume other HTML-only ones.
    *
    * @Then /^show me the HTML page$/
@@ -461,4 +470,41 @@ class FeatureContext extends DrupalContext {
       throw new ExpectationException("Expected '{$field}' field to be disabled.", $this->getSession()->getDriver());
     }
   }
+
+  /**
+   * Asserts that a given field has NOT the disabled attribute.
+   *
+   * @param string $field
+   *   The label, placeholder, ID or name of the field to check.
+   *
+   * @Then the :field field is not disabled
+   *
+   * @throws ExpectationException
+   *   If the field  have the disabled attribute.
+   */
+  public function assertNotDisabledField($field) {
+    $element = $this->assertSession()->fieldExists($field);
+    if (!$element->hasAttribute('disabled')) {
+      throw new ExpectationException("Expected '{$field}' field to be disabled.", $this->getSession()->getDriver());
+    }
+  }
+
+
+
+  /**
+   * @BeforeScenario @javascript
+   */
+  public function prepareForJS(BeforeScenarioScope $scope)
+  {
+    module_disable(array('chosen'));
+  }
+
+  /**
+   * @AfterScenario @javascript
+   */
+  public function cleanupForJS(Behat\Behat\Hook\Scope\AfterScenarioScope $scope)
+  {
+    module_enable(array('chosen'));
+  }
+
 }
