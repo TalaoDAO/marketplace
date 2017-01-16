@@ -837,3 +837,10 @@ function emh_configuration_update_7044() {
   module_enable(array('advuser'));
 }
 
+/**
+ * CHG: Circles wording.
+ */
+function emh_configuration_update_7044() {
+  emh_circles_disable_strings();
+  emh_circles_enable_strings();
+}
