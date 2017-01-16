@@ -25,10 +25,6 @@ class EMHMailSystem extends DefaultMailSystem implements MailSystemInterface {
     unset($message['params']['context']['action']);
     $captured_emails = variable_get('drupal_test_email_collector', array());
     $captured_emails[] = $message;
-    //keep it in cas it's useful for debug
-    //echo "email to: ".$message['to'];
-    //echo ", email subject: ".$message['params']['context']['subject'];
-    //echo "\n";
     variable_set('drupal_test_email_collector', $captured_emails);
     return file_put_contents($output_file, $output);
   }
