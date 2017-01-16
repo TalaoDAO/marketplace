@@ -484,8 +484,8 @@ class FeatureContext extends DrupalContext {
    */
   public function assertNotDisabledField($field) {
     $element = $this->assertSession()->fieldExists($field);
-    if (!$element->hasAttribute('disabled')) {
-      throw new ExpectationException("Expected '{$field}' field to be disabled.", $this->getSession()->getDriver());
+    if ($element->hasAttribute('disabled')) {
+      throw new ExpectationException("Expected '{$field}' field not to be disabled.", $this->getSession()->getDriver());
     }
   }
 
@@ -493,6 +493,7 @@ class FeatureContext extends DrupalContext {
 
   /**
    * @BeforeScenario @javascript
+   * prevent bad interaction between phantomjs and chosen module
    */
   public function prepareForJS(BeforeScenarioScope $scope)
   {
