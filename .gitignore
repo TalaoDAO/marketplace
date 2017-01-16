@@ -1,5 +1,6 @@
 www/sites/all/modules/debug
 www/adminer.php
+www/bdd
 
 #behat
 bdd/bin
