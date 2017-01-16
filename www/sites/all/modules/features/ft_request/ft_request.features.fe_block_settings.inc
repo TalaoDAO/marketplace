@@ -328,8 +328,11 @@ node/*/edit',
     'node_types' => array(),
     'pages' => 'node/300',
     'roles' => array(
+      'administrator' => 3,
+      'business' => 5,
       'expert' => 4,
       'référent' => 7,
+      'webmaster' => 6,
     ),
     'themes' => array(
       'emindhub' => array(
