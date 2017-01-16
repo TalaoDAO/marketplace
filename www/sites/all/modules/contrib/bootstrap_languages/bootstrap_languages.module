@@ -3,26 +3,24 @@
 /**
  * @file
  * Provides a Bootstrap dropdown button to switch between available languages.
- * Original sandbox module : https://www.drupal.org/sandbox/pascalanimateur/2493639
- * EMH edit : remove flag library support
  */
 
 /**
  * Implements hook_libraries_info().
  */
-// function bootstrap_languages_libraries_info() {
-//   $libraries['bootstrap-languages'] = array(
-//     'name' => 'Languages for Bootstrap 3',
-//     'vendor url' => 'http://usrz.github.io/bootstrap-languages/',
-//     'download url' => 'https://github.com/usrz/bootstrap-languages/archive/master.zip',
-//     'version' => '2.0',
-//     'files' => array(
-//       'css' => array('languages.min.css'),
-//     ),
-//   );
-//
-//   return $libraries;
-// }
+function bootstrap_languages_libraries_info() {
+  $libraries['bootstrap-languages'] = array(
+    'name' => 'Languages for Bootstrap 3',
+    'vendor url' => 'http://usrz.github.io/bootstrap-languages/',
+    'download url' => 'https://github.com/usrz/bootstrap-languages/archive/master.zip',
+    'version' => '2.0',
+    'files' => array(
+      'css' => array('languages.min.css'),
+    ),
+  );
+
+  return $libraries;
+}
 
 /**
  * Implements hook_block_info().
@@ -48,10 +46,10 @@ function bootstrap_languages_block_configure($delta = '') {
   $form = array();
 
   // Check if the Languages for Bootstrap 3 library is present.
-  // $library = libraries_load('bootstrap-languages');
-  // if ($library['loaded'] == FALSE) {
-  //   drupal_set_message($library['error message'], 'error');
-  // }
+  $library = libraries_load('bootstrap-languages');
+  if ($library['loaded'] == FALSE) {
+    drupal_set_message($library['error message'], 'error');
+  }
 
   $form['bootstrap_languages'] = array(
     '#type' => 'fieldset',
@@ -66,6 +64,16 @@ function bootstrap_languages_block_configure($delta = '') {
     '#description' => t('Show all languages in the switcher no matter if there is a translation for the node or not. For languages without translation the switcher will redirect to homepage.'),
     '#default_value' => $settings['showall'],
   );
+  $form['bootstrap_languages']['btntype'] = array(
+    '#type' => 'select',
+    '#title' => t('Bootstrap button type'),
+    '#options' => array(
+      'btn-default' => 'Default',
+      'btn-primary' => 'Primary',
+      'btn-info' => 'Info',
+    ),
+    '#default_value' => isset($settings['btntype']) ? $settings['btntype'] : 'btn-default',
+  );
   return $form;
 }
 
@@ -75,6 +83,7 @@ function bootstrap_languages_block_configure($delta = '') {
 function bootstrap_languages_block_save($delta = '', $edit = array()) {
   $bootstrap_languages_settings = array(
     'showall' => $edit['showall'],
+    'btntype' => $edit['btntype'],
   );
   variable_set('bootstrap_languages', $bootstrap_languages_settings);
 }
@@ -91,11 +100,11 @@ function bootstrap_languages_block_view($type = 'language') {
     $languages = language_negotiation_get_switch_links($type, $path);
 
     // Load the Languages for Bootstrap 3 library.
-    // $library = libraries_load('bootstrap-languages');
-    // if (!$library['loaded']) {
-    //   watchdog('Bootstrap Languages', $library['error message'], NULL, WATCHDOG_ERROR);
-    //   return;
-    // }
+    $library = libraries_load('bootstrap-languages');
+    if (!$library['loaded']) {
+      watchdog('Bootstrap Languages', $library['error message'], NULL, WATCHDOG_ERROR);
+      return;
+    }
 
     // Check if we should support Domain access
     if ($domain_locale_exists = module_exists('domain_locale')) {
@@ -132,25 +141,21 @@ function bootstrap_languages_block_view($type = 'language') {
     }
 
     // Position language switcher to the right of the navbar.
-    // drupal_add_css($library['library path'] . '/languages.min.css');
-    // drupal_add_css('.navbar #block-bootstrap-languages-language
-    // { float: right; margin: 8px 0px 8px 5px; }
-    // .btn.btn-sm > .lang-sm { top: 2px !important; }', array('type' => 'inline'));
+    drupal_add_css($library['library path'] . '/languages.min.css');
+    drupal_add_css($module_path . '/bootstrap_languages.css');
 
     // Build markup for the Bootstrap languages switcher.
     $default_option = isset($selected_option) ? $selected_option : $options[0];
-    $markup = '<ul class="menu nav navbar-nav navbar-emh-blue">';
-    $markup .= '<li class="dropdown">';
-    $markup .= '  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">' . $default_option . ' <span class="caret"></span></a>';
-    // $markup .= '  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">';
-    // $markup .= '    <span class="lang-sm" lang="' . $default_option . '"></span>' . $default_option . ' <span class="caret"></span>';
-    // $markup .= '  </button>';
+    $markup = '<div class="btn-group">';
+    $markup .= '  <button class="btn ' . $settings['btntype'] . ' btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">';
+    $markup .= '    <span class="lang-sm" lang="' . $default_option . '"></span> <span class="caret"></span>';
+    $markup .= '  </button>';
     $markup .= '  <ul class="dropdown-menu" role="menu">';
     foreach ($options as $lang_code => $lang_link) {
-      $markup .= '    <li><a href="' . $lang_link . '"><span class="lang-sm lang-lbl" lang="' . $lang_code . '">' . $lang_code . '</span></a></li>';
+      $markup .= '    <li><a href="' . $lang_link . '"><span class="lang-sm lang-lbl" lang="' . $lang_code . '"></span></a></li>';
     }
     $markup .= '  </ul>';
-    $markup .= '</ul>';
+    $markup .= '</div>';
 
     // Set the block subject and content
     if (isset($languages->links)) {
