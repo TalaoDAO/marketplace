@@ -598,7 +598,8 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
         $form['title_field']['#disabled'] = true;
         $form['og_group_ref']['#disabled'] = true;
         $form['field_options']['#disabled'] = true;
-        $form['field_request_questions']['#disabled'] = true;
+	if (!(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))   /* AJAX check  */
+          $form['field_request_questions']['#disabled'] = true;
       }
 
       // Request being created or already created & unpublished
