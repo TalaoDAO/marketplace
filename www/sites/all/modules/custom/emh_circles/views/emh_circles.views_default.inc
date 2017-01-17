@@ -478,7 +478,8 @@ function emh_circles_views_default_views() {
   $handler->display->display_options['access']['role'] = array(
     3 => '3',
     5 => '5',
-    9 => '9',
+    4 => '4',
+    7 => '7',
     6 => '6',
   );
   $handler->display->display_options['cache']['type'] = 'none';
@@ -584,15 +585,6 @@ function emh_circles_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'circle' => 'circle',
   );
-  /* Filter criterion: Content: Group visibility (group_access) */
-  $handler->display->display_options['filters']['group_access_value']['id'] = 'group_access_value';
-  $handler->display->display_options['filters']['group_access_value']['table'] = 'field_data_group_access';
-  $handler->display->display_options['filters']['group_access_value']['field'] = 'group_access_value';
-  $handler->display->display_options['filters']['group_access_value']['relationship'] = 'og_membership_related_node_group';
-  $handler->display->display_options['filters']['group_access_value']['operator'] = 'not';
-  $handler->display->display_options['filters']['group_access_value']['value'] = array(
-    0 => '0',
-  );
   /* Filter criterion: Content: Promoted to front page */
   $handler->display->display_options['filters']['promote']['id'] = 'promote';
   $handler->display->display_options['filters']['promote']['table'] = 'node';
@@ -602,7 +594,18 @@ function emh_circles_views_default_views() {
 
   /* Display: (P) My circles */
   $handler = $view->new_display('page', '(P) My circles', 'page_1');
+  $handler->display->display_options['enabled'] = FALSE;
   $handler->display->display_options['path'] = 'circles/manage';
+  $handler->display->display_options['menu']['type'] = 'normal';
+  $handler->display->display_options['menu']['title'] = 'My circles';
+  $handler->display->display_options['menu']['weight'] = '-49';
+  $handler->display->display_options['menu']['name'] = 'menu-top';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
+
+  /* Display: (P) My circles 2 */
+  $handler = $view->new_display('page', '(P) My circles 2', 'page_2');
+  $handler->display->display_options['path'] = 'circles/my';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'My circles';
   $handler->display->display_options['menu']['weight'] = '-49';
