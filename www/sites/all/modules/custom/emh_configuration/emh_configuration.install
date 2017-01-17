@@ -15,6 +15,7 @@ function emh_configuration_enable() {
   emh_configuration_update_7004();
   emh_configuration_update_7005();
   emh_configuration_update_7006();
+  emh_configuration_update_7045();
 
   variable_set('date_format_short_date', 'Y/m/d');
 }
@@ -835,6 +836,51 @@ function emh_configuration_update_7043() {
  */
 function emh_configuration_update_7044() {
   module_enable(array('advuser'));
+}
+
+/**
+ * Change top nav links.
+ */
+function emh_configuration_update_7045() {
+  // Change existing links
+
+  // My circles
+  db_update('menu_links')
+    ->fields(array(
+      'plid' => '7577',
+      'weight' => '-40',
+    ))
+    ->condition('mlid', '13954')
+    ->execute();
+
+  // Answers
+  db_update('menu_links')
+    ->fields(array(
+      'link_path' => '<nolink>',
+      'router_path' => '<nolink>',
+      'expanded' => '1',
+    ))
+    ->condition('mlid', '5523')
+    ->execute();
+
+  // Answers > My answers
+  db_update('menu_links')
+    ->fields(array(
+      'plid' => '5523',
+    ))
+    ->condition('mlid', '13955')
+    ->execute();
+
+  // Answers > Answers to my requests
+  db_update('menu_links')
+    ->fields(array(
+      'plid' => '5523',
+      'weight' => '10',
+    ))
+    ->condition('mlid', '13956')
+    ->execute();
+
+  variable_set('menu_rebuild_needed', TRUE);
 }
 
 /**
