@@ -829,3 +829,11 @@ function emh_configuration_update_7043() {
   drupal_uninstall_modules(array('honeypot'));
   module_enable(array('emh_captcha'));
 }
+
+/**
+ * Install module : advuser.
+ */
+function emh_configuration_update_7044() {
+  module_enable(array('advuser'));
+}
+
