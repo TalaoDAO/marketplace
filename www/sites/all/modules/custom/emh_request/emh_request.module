@@ -568,8 +568,6 @@ function emh_request_form_alter(&$form, &$form_state, $form_id) {
  */
 function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
 
-  if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')  return;  /* AJAX check  */
-
   if (in_array($form['#node']->type, emh_request_get_types())) {
 
     // Sets action buttons labels
