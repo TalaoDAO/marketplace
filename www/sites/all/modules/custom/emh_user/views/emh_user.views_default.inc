@@ -15,16 +15,16 @@ function emh_user_views_default_views() {
   $view = new view();
   $view->name = 'my_relationships';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'EMH, flag';
   $view->base_table = 'users';
-  $view->human_name = 'My relationships';
+  $view->human_name = 'My experts';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'My relationships';
+  $handler->display->display_options['title'] = 'My experts';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'access user profiles';
@@ -69,12 +69,12 @@ function emh_user_views_default_views() {
   $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
 
-  /* Display: (p] My relationships */
-  $handler = $view->new_display('page', '(p] My relationships', 'page');
+  /* Display: (P) My experts */
+  $handler = $view->new_display('page', '(P) My experts', 'page');
   $handler->display->display_options['path'] = 'circles/relationships';
   $handler->display->display_options['menu']['type'] = 'normal';
-  $handler->display->display_options['menu']['title'] = 'My relationships';
-  $handler->display->display_options['menu']['weight'] = '-48';
+  $handler->display->display_options['menu']['title'] = 'My experts';
+  $handler->display->display_options['menu']['weight'] = '-46';
   $handler->display->display_options['menu']['name'] = 'menu-top';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;

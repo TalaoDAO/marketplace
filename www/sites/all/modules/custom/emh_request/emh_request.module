@@ -10,6 +10,13 @@ include_once 'emh_request.conditional_fields.inc';
 include_once 'emh_request.admin.inc';
 include_once 'emh_request.mail.inc';
 
+function emh_request_permission() {
+  return array(
+    'modify requests' => array(
+      'title' => t('Allow to modify requests after been published'),
+    )
+  );
+}
 
 /**
  * Implements hook_hook_info().
@@ -98,15 +105,25 @@ function emh_request_node_presave($node) {
   if ($node->type !== 'request') {
     return;
   }
-
-  if (
-    ($node->status == NODE_PUBLISHED) &&
-    ($node->is_new || $node->original->status == NODE_NOT_PUBLISHED)
-  ) {
     if (emh_request_has_option($node, 'questionnaire')) {
       // We create the components on the basis of the field_request_questions values.
       if ($questions = field_get_items('node', $node, 'field_request_questions')) {
         module_load_include('inc', 'webform', 'includes/webform.components');
+
+        if (!empty($node->nid) && emh_request_count_answers($node->nid) != 0) {
+          // We have answers : we are not allowed to change questions, but we can change node
+          // so we have to ckeck manually if question have been modified in the "original"
+          // TRICKY comparison of old values because original have more information, like safe_value
+          // so we have to check ONLY value !
+          $original_questions = field_get_items('node', $node->original, 'field_request_questions');
+          $same = true;
+          foreach ($questions as $key => $value) { 
+             if ( $original_questions[$key]['value'] != $questions[$key]['value'] ) $same = false;
+          }
+          if (!$same)
+            drupal_set_message(t("You cannot change questions that already have answers."), 'error');
+          return;
+        }
 
         $components = array();
 
@@ -149,7 +166,6 @@ function emh_request_node_presave($node) {
 
       $node->webform['components'] = array('request' => $component);
     }
-  }
 }
 
 /**
@@ -187,7 +203,6 @@ function emh_request_node_validate($node, $form, &$form_state) {
   if ($node->type !== 'request') {
     return;
   }
-
   $values = $form_state['values'];
 
   // Ensures if the anonymity option is selected that there's at least one of
@@ -479,7 +494,6 @@ function emh_request_publication_form_validate($form, &$form_state) {
 function emh_request_publication_form_submit($form, &$form_state) {
   $request = $form_state['request'];
   $values = $form_state['values'];
-
   try {
     if (isset($values['costs'])) {
       $field_lang = field_language('node', $request, 'field_options');
@@ -565,9 +579,33 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       // FIXME: la surcharge empêche l'affichage du multiupload
       // $form['field_request_documents'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
       $form['field_image'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
+      if ( !$form['field_options']
+           || !isset($_REQUEST['edit']['field_request_type'])
+           &&!( isset($form['field_request_type'][LANGUAGE_NONE]['#default_value'])
+           || isset ($form['#node']->field_request_type)
+           || !empty($form['#node']->nid))
+         )
+
+      //if node is empty, and no field_request_type : we are in the first edition step of a new request :
+      //disable everything to force click on Request Type
+      {
+	if (!(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))   /* AJAX check  */
+        { 
+          $form['body']['#disabled'] = true;
+          $form['language']['#disabled'] = true;
+          $form['field_domaine']['#disabled'] = true;
+          $form['field_expiration_date']['#disabled'] = true;
+          $form['field_image']['#disabled'] = true;
+          $form['field_tags']['#disabled'] = true;
+          $form['title_field']['#disabled'] = true;
+          $form['og_group_ref']['#disabled'] = true;
+          $form['field_options']['#disabled'] = true;
+          $form['field_request_questions']['#disabled'] = true;
+        }
+      }
 
       // Request being created or already created & unpublished
-      if (empty($form['#node']->nid) || $form['#node']->status == NODE_NOT_PUBLISHED) {
+      elseif (empty($form['#node']->nid) || $form['#node']->status == NODE_NOT_PUBLISHED) {
         // Removes the save_draft validation callback
         foreach ($form['#validate'] as $index => $callback) {
           if ($callback == 'save_draft_validate') {
@@ -579,24 +617,35 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       }
       // Request created & published
       else {
-        // Prevents to delete the request
-        $form['actions']['delete']['#access'] = false;
-        // Prevents to update some fields
-        $form['field_domaine']['#disabled'] = true;
-        $form['og_group_ref']['#disabled'] = true;
-        $form['field_options']['#disabled'] = true;
-        $form['field_request_questions']['#disabled'] = true;
+        if (!user_access('modify requests')) {
+          // Prevents to delete the request
+          $form['actions']['delete']['#access'] = false;
+          // Prevents to update some fields
+          $form['field_domaine']['#disabled'] = true;
+          $form['og_group_ref']['#disabled'] = true;
+          $form['field_options']['#disabled'] = true;
+          $form['field_request_type']['#disabled'] = true;
+          $form['title_field']['#disabled'] = true;
+          if (emh_request_count_answers($form['nid']['#value']) != 0) { 
+            $form['field_request_questions']['#disabled'] = true;
+          }
+        }
       }
     }
     // Treatments for others
     else {
       // If node is published and there are some answers,
       // only some updates are possible (#575, #576)
-      if ($form['#node']->status == NODE_PUBLISHED && emh_request_count_answers($form['nid']['#value'])) {
-        // Prevents domains & circles update
-        $form['field_domaine']['#disabled'] = true;
-        $form['og_group_ref']['#disabled'] = true;
-        $form['field_request_circle']['#disabled'] = true;
+      if ($form['#node']->status == NODE_PUBLISHED && emh_request_count_answers($form['nid']['#value'] != 0)) {
+        if (!user_access('modify requests')) {
+          // Prevents domains & circles update
+          $form['field_domaine']['#disabled'] = true;
+          $form['og_group_ref']['#disabled'] = true;
+          $form['field_options']['#disabled'] = true;
+          $form['field_request_circle']['#disabled'] = true;
+          $form['title_field']['#disabled'] = true;
+          $form['field_request_type']['#disabled'] = true;
+        }
       }
     }
 
@@ -604,7 +653,6 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
     if (!empty($form['nid']['#value']) && $form['#node']->status == NODE_PUBLISHED) {
       $form['actions']['draft']['#access'] = false;
       $form['actions']['submit']['#value'] = t('Save');
-
       // If node is published on a free circle, we can close the request.
       $nid = $form['nid']['#value'];
       $status = emh_points_get_points_closed_status($nid);
@@ -917,12 +965,12 @@ function emh_request_render_submission($submission) {
 
   return strip_tags(views_trim_text(
     array(
-      'max_length' => 300,
+      'max_length' => 480,
       'word_boundary' => TRUE,
       'ellipsis' => TRUE,
       'html' => TRUE,
     ),
-    $output
+    truncate_utf8($output, 480, FALSE, TRUE)
   ));
 }
 
