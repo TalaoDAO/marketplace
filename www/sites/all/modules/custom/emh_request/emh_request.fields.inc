@@ -53,6 +53,7 @@ function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, 
   $options  = emh_request_get_options();
   $items    = emh_request_restructure_option_selector_items($items);
   $weight   = 0;
+  if (!isset ($form['#entity'])) return;
   // Is the selection of options enabled?
   $enabled  = empty($form['#entity']->nid) || ($form['#entity']->status == NODE_NOT_PUBLISHED);
 
@@ -225,7 +226,7 @@ function emh_request_field_presave($entity_type, $entity, $field, $instance, $la
       return;
     }
 
-    if (empty($entity->nid) || $entity->original->status == NODE_NOT_PUBLISHED) {
+    if (empty($entity->nid) || $entity->original->status == NODE_NOT_PUBLISHED || user_access('modify requests')) {
       $costs = emh_request_get_options_costs($entity);
 
       foreach ($items as $delta => $item) {
@@ -233,8 +234,7 @@ function emh_request_field_presave($entity_type, $entity, $field, $instance, $la
           $items[$delta]['cost'] = $costs[$item['option']];
         }
       }
-    }
-    else {
+    } else {
       // Adds a "flag" to the request to avoid options update.
       // See emh_request_field_storage_pre_update().
       $entity->skip_options_update = true;

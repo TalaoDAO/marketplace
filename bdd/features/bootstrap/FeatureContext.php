@@ -282,6 +282,15 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
+   * @Then show me the URL
+   */
+  public function then_show_me_the_url() {
+    $url = $this->getSession()->getCurrentUrl();
+    print ("Current url : $url");
+  }
+
+
+  /**
    * This works for the Goutte driver and I assume other HTML-only ones.
    *
    * @Then /^show me the HTML page$/
@@ -353,6 +362,8 @@ class FeatureContext extends DrupalContext {
         throw new \Exception('Did not find expected content in message body or subject.');
       }
     }
+    $directory = variable_get('devel_debug_mail_directory', 'temporary://devel-mails');
+    file_put_contents($directory.'/debug-email-collector.txt', var_export($variables, true));
     throw new \Exception(sprintf('Did not find expected message to %s', $to));
   }
 
@@ -372,6 +383,8 @@ class FeatureContext extends DrupalContext {
         throw new \Exception('Did not find expected content in message body or subject.');
       }
     }
+    $directory = variable_get('devel_debug_mail_directory', 'temporary://devel-mails');
+    file_put_contents($directory.'/debug-email-collector.txt', var_export($variables, true));
     throw new \Exception(sprintf('Did not find expected message to %s', $to));
   }
 
@@ -456,9 +469,51 @@ class FeatureContext extends DrupalContext {
    *   If the field does not have the disabled attribute.
    */
   public function assertDisabledField($field) {
-    $element = $this->assertSession()->fieldExists($field);
+    $element = $this->getSession()->getPage()->findById($field);
+    if ($element === null)  
+      $element = $this->assertSession()->fieldExists($field);
     if (!$element->hasAttribute('disabled')) {
       throw new ExpectationException("Expected '{$field}' field to be disabled.", $this->getSession()->getDriver());
     }
   }
+
+  /**
+   * Asserts that a given field has NOT the disabled attribute.
+   *
+   * @param string $field
+   *   The label, placeholder, ID or name of the field to check.
+   *
+   * @Then the :field field should not be disabled
+   *
+   * @throws ExpectationException
+   *   If the field  have the disabled attribute.
+   */
+  public function assertNotDisabledField($field) {
+    $element = $this->getSession()->getPage()->findById($field);
+    if ($element === null)  
+      $element = $this->assertSession()->fieldExists($field);
+    if ($element->hasAttribute('disabled')) {
+      throw new ExpectationException("Expected '{$field}' field not to be disabled.", $this->getSession()->getDriver());
+    }
+  }
+
+
+
+  /**
+   * @BeforeScenario @javascript
+   * prevent bad interaction between phantomjs and chosen module
+   */
+  public function prepareForJS(BeforeScenarioScope $scope)
+  {
+    module_disable(array('chosen'));
+  }
+
+  /**
+   * @AfterScenario @javascript
+   */
+  public function cleanupForJS(Behat\Behat\Hook\Scope\AfterScenarioScope $scope)
+  {
+    module_enable(array('chosen'));
+  }
+
 }
