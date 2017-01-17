@@ -589,17 +589,19 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       //if node is empty, and no field_request_type : we are in the first edition step of a new request :
       //disable everything to force click on Request Type
       {
-        $form['body']['#disabled'] = true;
-        $form['language']['#disabled'] = true;
-        $form['field_domaine']['#disabled'] = true;
-        $form['field_expiration_date']['#disabled'] = true;
-        $form['field_image']['#disabled'] = true;
-        $form['field_tags']['#disabled'] = true;
-        $form['title_field']['#disabled'] = true;
-        $form['og_group_ref']['#disabled'] = true;
-        $form['field_options']['#disabled'] = true;
 	if (!(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))   /* AJAX check  */
+        { 
+          $form['body']['#disabled'] = true;
+          $form['language']['#disabled'] = true;
+          $form['field_domaine']['#disabled'] = true;
+          $form['field_expiration_date']['#disabled'] = true;
+          $form['field_image']['#disabled'] = true;
+          $form['field_tags']['#disabled'] = true;
+          $form['title_field']['#disabled'] = true;
+          $form['og_group_ref']['#disabled'] = true;
+          $form['field_options']['#disabled'] = true;
           $form['field_request_questions']['#disabled'] = true;
+        }
       }
 
       // Request being created or already created & unpublished
