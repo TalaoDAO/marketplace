@@ -46,7 +46,7 @@ Feature: Request re-editions
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
-  Scenario: The author can change some content if no expert responded 
+  Scenario: The author can change some content if no expert responded
     Given I am logged in as "client1"
     When I go to homepage
     And I click "How to become a superhero?" in the "How to become a superhero?" row
@@ -64,9 +64,9 @@ Feature: Request re-editions
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
       And I press "Save Draft"
-    Then I should see the message "Your submission has been saved as draft."
+    Then I should see the message "Your answer has been saved as draft."
     When I press "Publish"
-    Then I should see the message "Your submission has been published."
+    Then I should see the message "Your answer has been published."
 
     #When request has response, some field become disabled
     Given I am logged in as "client1"
@@ -81,7 +81,7 @@ Feature: Request re-editions
     And the "edit-field-request-questions-und-0-value" field should be disabled
 
     #but admin can still modify everything
-    Given I am logged in as a user with the "administrator" role 
+    Given I am logged in as a user with the "administrator" role
     When I go to homepage
     And I click "How to become a superhero?" in the "How to become a superhero?" row
     And I click "Edit"
@@ -91,4 +91,3 @@ Feature: Request re-editions
     And the "edit-field-options" field should not be disabled
     And the "edit-field-options-und-private-enabled" field should not be disabled
     And the "edit-field-request-questions-und-0-value" field should not be disabled
-
