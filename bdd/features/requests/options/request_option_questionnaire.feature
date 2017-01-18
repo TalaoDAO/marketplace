@@ -51,7 +51,7 @@ Feature: Request Option Questionnaire
 
   Scenario: An author can create a request with a questionnaire
     Given I am logged in as "client1"
-    When I go to homepage
+    When I go to "requests/manage"
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     When I click "Edit" in the "primary tabs" region
     Then I should see "300 credits" in the "#edit-field-options-und-questionnaire" element
