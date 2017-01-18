@@ -263,7 +263,16 @@ function emh_user_get_beautiful_profile_link($uid) {
   }
 }
 
-// TODO: add context, as 'author', etc.'
+/**
+ * Helper function to get user cartouche.
+ *
+ * @param stdClass|integer $account
+ *  A user account object or an uid
+ * @param stdClass|boolean $context
+ *  A context, such as 'author'
+ * @return string
+ *  The user's cartouche
+ */
 function emh_user_cartouche_view($account, $context = NULL) {
   global $user;
   $uid1 = $user->uid;
@@ -271,7 +280,7 @@ function emh_user_cartouche_view($account, $context = NULL) {
   $uid2 = is_object($account) ? $account->uid : (int) $account;
   $u2_account = is_object($account) ? $account : user_load($uid2);
 
-	$node = !empty(menu_get_object()) ? menu_get_object() : node_load(arg(1));
+  $node = !empty(menu_get_object()) ? menu_get_object() : node_load(arg(1));
 
   $cartouche = ''; $cartouche_identity = ''; $cartouche_activity = ''; $photo_uri = ''; $identity = ''; $organisation = ''; $activity = '';
 
