@@ -36,7 +36,7 @@ Feature: Circles workflow for Expert
       And I check the box "administrator member"
       And I press "Update membership"
     Then I should see "The membership has been updated."
-    
+
     When I go to "content/avengers"
       And I click "Group" in the "primary tabs" region
       And I click "People"
@@ -72,14 +72,14 @@ Feature: Circles workflow for Expert
     Then I should see "Guardians of the Galaxy"
 
     When I go to "content/guardians-galaxy"
-    Then I should see "Request membership"
+    Then I should see "Join circle"
 
-  Scenario: Experts can request membership to public circles and be activated by the circle manager
+  Scenario: Experts can join circle to public circles and be activated by the circle manager
     Given I am logged in as "expert1"
     When I go to "content/guardians-galaxy"
-    Then I should see "Request membership"
+    Then I should see "Join circle"
 
-    When I click "Request membership"
+    When I click "Join circle"
       And I fill in "Request message" with "I really want to join your band"
       And I press "Ask to join"
     Then I should see "Your request is pending."
@@ -99,12 +99,12 @@ Feature: Circles workflow for Expert
     When I go to "content/guardians-galaxy"
     Then I should not see "Your request is pending."
 
-  Scenario: Experts can request membership to public circles and be refused by the circle manager
+  Scenario: Experts can join circle to public circles and be refused by the circle manager
     Given I am logged in as "expert4"
     When I go to "content/guardians-galaxy"
-    Then I should see "Request membership"
+    Then I should see "Join circle"
 
-    When I click "Request membership"
+    When I click "Join circle"
       And I fill in "Request message" with "Hey guys, please accept my request!"
       And I press "Ask to join"
     Then I should see "Your request is pending."
@@ -121,4 +121,4 @@ Feature: Circles workflow for Expert
 
     Given I am logged in as "expert4"
     When I go to "content/guardians-galaxy"
-    Then I should see "Request membership"
+    Then I should see "Join circle"

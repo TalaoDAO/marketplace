@@ -320,3 +320,11 @@ function emh_circles_update_7013() {
   features_revert(array('ft_field_base' => array('field_base')));
   features_revert(array('ft_content_type' => array('field_instance', 'variable')));
 }
+
+/**
+ * CHG: Circles wording.
+ */
+function emh_circles_update_7014() {
+  emh_circles_disable_strings();
+  emh_circles_enable_strings();
+}
