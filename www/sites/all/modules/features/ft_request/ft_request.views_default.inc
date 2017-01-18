@@ -2420,7 +2420,6 @@ function ft_request_views_default_views() {
   $handler = $view->new_display('block', '(B) My requests submissions', 'block_my_requests_submissions');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'My requests submissions';
->>>>>>> Vues menu-top
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'views_bootstrap_table_plugin_style';
   $handler->display->display_options['style_options']['columns'] = array(
