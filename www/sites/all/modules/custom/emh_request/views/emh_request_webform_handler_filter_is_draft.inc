@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Views handler to filter submissions by draft state.
+ */
+
+/**
+ * Filter by submission status
+ */
+class emh_request_webform_handler_filter_is_draft extends webform_handler_filter_is_draft {
+  function get_value_options() {
+    if (!isset($this->value_options)) {
+      $this->value_title = t('Status');
+      $options = array('0' => t('Published'), '1' => t('Draft'));
+      $this->value_options = $options;
+    }
+  }
+
+  // '0' won't work as a key for checkboxes.
+  function value_form(&$form, &$form_state) {
+    parent::value_form($form, $form_state);
+    $form['value']['#type'] = 'select';
+  }
+}

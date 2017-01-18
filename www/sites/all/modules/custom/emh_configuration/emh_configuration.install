@@ -836,3 +836,25 @@ function emh_configuration_update_7043() {
 function emh_configuration_update_7044() {
   module_enable(array('advuser'));
 }
+
+/**
+ * CHG: Answer wording.
+ */
+function emh_configuration_update_7046() {
+  emh_request_disable_strings();
+  emh_request_enable_strings();
+  features_revert(array(
+    'ft_request' => array(
+      'fe_block_settings',
+      'views_view',
+    )
+  ));
+}
+
+/**
+ * CHG: Delete delete_all module.
+ */
+function emh_configuration_update_7047() {
+  module_disable(array('delete_all'));
+  drupal_uninstall_modules(array('delete_all'));
+}
