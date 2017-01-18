@@ -267,7 +267,7 @@ function emh_request_try_to_notify($node) {
     $domains[] = $term['tid'];
   }
   // Get french countries
-  $french_countries = variable_get('emh_french_countries', array('FR', 'BE')); 
+  $french_countries = variable_get('emh_request_send_notification_email_french_countries', array('FR', 'BE')); 
   // Load users.
   $users = user_load_multiple($users);
   // For each user of each group, check domain.
