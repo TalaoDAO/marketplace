@@ -45,8 +45,8 @@ function emh_request_emh_request_option_info() {
       ),
     ),
     'private' => array(
-      'label' => t("Private submissions"),
-      'description' => t("Submissions to your request are only visible by you"),
+      'label' => t("Private answers"),
+      'description' => t("Answers to your request are only visible by you"),
       'cost' => 300,
     ),
 //    'bounty' => array(

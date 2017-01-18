@@ -4,7 +4,7 @@ Feature: Requests visibility for Expert
   As an Expert
   I want to check if I see the right datas
 
-  Background: og visibility : Create requests and submissions
+  Background: og visibility : Create requests and answers
 
     Given "circle" content:
     | title    | author  |

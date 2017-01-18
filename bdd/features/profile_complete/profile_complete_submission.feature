@@ -1,6 +1,6 @@
 @api @watchdog
 Feature: Fill Expert profile fields
-  In order to save Submission
+  In order to save Answer
   As an Expert
   I want to fill my required profile fields
 
@@ -23,7 +23,7 @@ Feature: Fill Expert profile fields
     | How to become a superhero?  | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    | 1       |
 
   @exclude
-  Scenario: An expert without certain profile fields filled can submit a submission by filling a form
+  Scenario: An expert without certain profile fields filled can submit a answer by filling a form
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios     | Employee             | Energy        |
@@ -44,18 +44,18 @@ Feature: Fill Expert profile fields
       # FIXME: manage field with autocomplete
       #And I fill in "Position" with "C.E.O."
 
-    # Draft submission
+    # Draft answer
       And I press "Save Draft"
-    Then I should see the message "Your submission has been saved as draft."
+    Then I should see the message "Your answer has been saved as draft."
 
     When I click "View my profile"
     Then I should see "C.E.O."
 
-    # Published submission
+    # Published answer
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I press "Publish"
-    Then I should see the message "Your submission has been published."
+    Then I should see the message "Your answer has been published."
 
     When I click "View my profile"
     Then I should see "C.E.O."
@@ -82,7 +82,7 @@ Feature: Fill Expert profile fields
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
       And I press "Publish"
-    Then I should see the message "Your submission has been published."
+    Then I should see the message "Your answer has been published."
 
     When I click "View my profile"
     Then I should see "C.E.O."
