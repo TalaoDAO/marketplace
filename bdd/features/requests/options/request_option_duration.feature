@@ -1,5 +1,5 @@
 @api @watchdog
-Feature: Request and submissions
+Feature: Request and answers
   In order to test Request with Duration option
   As a Client and an Expert
   I want to create a request, and watch Duration informations

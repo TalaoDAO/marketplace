@@ -2,7 +2,7 @@
 Feature: Request
   In order to test Request creation
   As a Client and an Expert
-  I want to create a Request, and watch submissions
+  I want to create a Request, and watch answers
 
   Background: Create request
 
