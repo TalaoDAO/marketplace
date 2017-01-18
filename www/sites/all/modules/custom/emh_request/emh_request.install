@@ -10,6 +10,7 @@
  */
 function emh_request_install() {
   variable_set('emh_request_send_notification_email_all_domains', 1);
+  variable_set('emh_request_send_notification_email_french_countries', array('FR', 'BE'));
   variable_set('webform_node_request', true);
 }
 
@@ -38,6 +39,7 @@ function emh_request_disable() {
  */
 function emh_request_uninstall() {
   variable_del('emh_request_send_notification_email_all_domains');
+  variable_del('emh_request_send_notification_email_french_countries');
   variable_del('webform_node_request');
 }
 
