@@ -31,10 +31,10 @@
   </div>
   <div class="col-sm-9">
     <div class="section">
-      <?php print $submission_information; ?>
+      <?php print $submission_content; ?>
     </div>
     <div class="section">
-      <?php print $submission_content; ?>
+      <?php print $submission_information; ?>
     </div>
   </div>
 </div>
