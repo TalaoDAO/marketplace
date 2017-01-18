@@ -2300,14 +2300,14 @@ function ft_request_views_default_views() {
   $view->description = '';
   $view->tag = 'undefined';
   $view->base_table = 'webform_submissions';
-  $view->human_name = 'Request submissions';
+  $view->human_name = 'Request answers';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Submissions';
+  $handler->display->display_options['title'] = 'Answers';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'none';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -2404,13 +2404,13 @@ function ft_request_views_default_views() {
   /* Display: (B) Request submissions */
   $handler = $view->new_display('block', '(B) Request submissions', 'block_request_submissions');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Submission(s)';
-  $handler->display->display_options['block_description'] = 'Submission(s)';
+  $handler->display->display_options['title'] = 'Answer(s)';
+  $handler->display->display_options['block_description'] = 'Answer(s)';
 
-  /* Display: (B) Submissions to my requests */
-  $handler = $view->new_display('block', '(B) Submissions to my requests', 'block_my_requests_submissions');
+  /* Display: (B) Answers to my requests */
+  $handler = $view->new_display('block', '(B) Answers to my requests', 'block_my_requests_submissions');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Submissions to my requests';
+  $handler->display->display_options['title'] = 'Answers to my requests';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'views_bootstrap_table_plugin_style';
   $handler->display->display_options['style_options']['columns'] = array(
@@ -2531,9 +2531,9 @@ function ft_request_views_default_views() {
   $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
 
   /* Display: (B) My submissions */
-  $handler = $view->new_display('block', '(B) My submissions', 'block_my_submissions');
+  $handler = $view->new_display('block', '(B) My answers', 'block_my_submissions');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'My submissions';
+  $handler->display->display_options['title'] = 'My answers';
   $handler->display->display_options['defaults']['use_ajax'] = FALSE;
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['defaults']['exposed_form'] = FALSE;

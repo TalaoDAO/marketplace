@@ -282,7 +282,7 @@ node/*/edit',
         'weight' => 0,
       ),
     ),
-    'title' => 'Submission(s)',
+    'title' => 'Answer(s)',
     'visibility' => 0,
   );
 

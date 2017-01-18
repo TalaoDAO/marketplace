@@ -17,6 +17,7 @@ function emh_request_prepopulate_form_request_node_form_alter(&$form, &$form_sta
     }
   }
 
+
   if (isset($_REQUEST['edit'])) {
     $form['#after_build'][] = 'emh_request_prepopulate_form_after_build';
     $count = isset($_REQUEST['edit']['field_request_questions']) ? count($_REQUEST['edit']['field_request_questions'][LANGUAGE_NONE]) : 3;
@@ -179,12 +180,14 @@ function _emh_request_prepopulate_form_field_options_help($tid) {
  * @see prepopulate module
  */
 function emh_request_prepopulate_form_after_build($form, &$form_state) {
-  $request = (array) $_REQUEST['edit'];
-  _emh_request_prepopulate_prepopulate_walk($form, $request, $form_state, $form_state['field']);
+  if (isset($_REQUEST['edit'])) {
+    $request = (array) $_REQUEST['edit'];
+    _emh_request_prepopulate_prepopulate_walk($form, $request, $form_state, $form_state['field']);
+  }
   return $form;
 }
 
-function _emh_request_prepopulate_create_field_multiple_value(&$form, $form_state, $form_id, $field_name, $items_count) {
+function _emh_request_prepopulate_create_field_multiple_value(&$form, &$form_state, $form_id, $field_name, $items_count) {
   $form_theme = $form[$field_name][LANGUAGE_NONE]['#theme'];
   $after_build = $form[$field_name][LANGUAGE_NONE]['#after_build'];
   $items = &$form_state['field'][$field_name][LANGUAGE_NONE];
