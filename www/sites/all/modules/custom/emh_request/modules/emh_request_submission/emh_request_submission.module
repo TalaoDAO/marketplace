@@ -7,7 +7,7 @@ function emh_request_submission_block_info() {
   $blocks = array();
 
   $blocks['submission_count'] = array(
-    'info' => t("Request - Submission count"),
+    'info' => t("Request - Answer count"),
     'cache' => DRUPAL_CACHE_PER_ROLE,
     'weight' => 1,
     'status' => 1,
@@ -35,10 +35,10 @@ function emh_request_submission_block_view($delta = '') {
         $submissions_count = emh_request_count_answers($node->nid);
         $value = '<a href="#request-submissions" class="btn btn-submission">';
         if ($submissions_count == 0) {
-          $value .= t('No submission');
+          $value .= t('No answer');
         }
         else {
-          $value .= format_plural($submissions_count, '1 submission', '@count submissions');
+          $value .= format_plural($submissions_count, '1 answer', '@count answers');
         }
         $value .= '</a>';
       }
@@ -130,7 +130,7 @@ function _emh_request_submission_form_submit($form, &$form_state) {
   $is_draft = (int) !empty($form_state['save_draft']);
   if (!$is_draft) {
     emh_request_submission_send_mail($node);
-    drupal_set_message(t('Your submission has been published.'));
+    drupal_set_message(t('Your answer has been published.'));
   }
 
   $form_state['redirect'] = 'node/' . $node->nid;
