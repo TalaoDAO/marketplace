@@ -850,3 +850,11 @@ function emh_configuration_update_7046() {
     )
   ));
 }
+
+/**
+ * CHG: Delete delete_all module.
+ */
+function emh_configuration_update_7047() {
+  module_disable(array('delete_all'));
+  drupal_uninstall_modules(array('delete_all'));
+}
