@@ -65,7 +65,7 @@ Feature: Buy profile access
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
       And I press "Publish"
-    Then I should see the message "Your submission has been published."
+    Then I should see the message "Your answer has been published."
 
   Scenario: An author can buy a profile
     Given I am logged in as "client1"
