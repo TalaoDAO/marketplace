@@ -2736,26 +2736,6 @@ function ft_request_views_default_views() {
   $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Webform submissions: Draft */
-  $handler->display->display_options['filters']['is_draft']['id'] = 'is_draft';
-  $handler->display->display_options['filters']['is_draft']['table'] = 'webform_submissions';
-  $handler->display->display_options['filters']['is_draft']['field'] = 'is_draft';
-  $handler->display->display_options['filters']['is_draft']['group'] = 1;
-  $handler->display->display_options['filters']['is_draft']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['is_draft']['expose']['operator_id'] = 'is_draft_op';
-  $handler->display->display_options['filters']['is_draft']['expose']['label'] = 'Status';
-  $handler->display->display_options['filters']['is_draft']['expose']['operator'] = 'is_draft_op';
-  $handler->display->display_options['filters']['is_draft']['expose']['identifier'] = 'is_draft';
-  $handler->display->display_options['filters']['is_draft']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    4 => 0,
-    5 => 0,
-    6 => 0,
-    7 => 0,
-    10 => 0,
-  );
 
   /* Display: (P) My answers */
   $handler = $view->new_display('page', '(P) My answers', 'page_1');
@@ -3197,6 +3177,11 @@ function ft_request_views_default_views() {
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Webform submissions: Node */
+  $handler->display->display_options['relationships']['nid']['id'] = 'nid';
+  $handler->display->display_options['relationships']['nid']['table'] = 'webform_submissions';
+  $handler->display->display_options['relationships']['nid']['field'] = 'nid';
+  $handler->display->display_options['relationships']['nid']['required'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
@@ -3226,11 +3211,17 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['view_submission']['field'] = 'view_submission';
   $handler->display->display_options['fields']['view_submission']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['view_submission']['access_check'] = 1;
+  /* Field: Webform submissions: EMH Author */
+  $handler->display->display_options['fields']['emh_author']['id'] = 'emh_author';
+  $handler->display->display_options['fields']['emh_author']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['emh_author']['field'] = 'emh_author';
+  $handler->display->display_options['fields']['emh_author']['label'] = 'Author';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: Author uid */
   $handler->display->display_options['arguments']['uid']['id'] = 'uid';
   $handler->display->display_options['arguments']['uid']['table'] = 'node';
   $handler->display->display_options['arguments']['uid']['field'] = 'uid';
+  $handler->display->display_options['arguments']['uid']['relationship'] = 'nid';
   $handler->display->display_options['arguments']['uid']['default_action'] = 'default';
   $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'current_user';
   $handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
