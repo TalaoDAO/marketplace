@@ -85,8 +85,8 @@ Feature: Emails
   Scenario: Only experts in french countries are notified by email for new request publication in french
     Given the test email system is enabled
     Given "request" content:
-    | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |  | language|
-    | Comment devenir un super-heros?  | Energy        | Avengers        | client1 | 2017-02-08 17:45:00    | 1       |  | fr      |
+    | title                            | field_domaine | og_group_ref    | author  | field_expiration_date  | status  | language |
+    | Comment devenir un super-heros?  | Energy        | Avengers        | client1 | 2017-02-08 17:45:00    | 1       | fr       |
     When I run cron
     #DONT FORGET : drush @dev rules-enable rules_emh_request_send_notification_email
     Then  the last email to "emindhub.test+expert1@gmail.com" should not contain "Dear Iron,"
