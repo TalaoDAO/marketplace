@@ -328,8 +328,11 @@ node/*/edit',
     'node_types' => array(),
     'pages' => 'node/300',
     'roles' => array(
+      'administrator' => 3,
+      'business' => 5,
       'expert' => 4,
       'référent' => 7,
+      'webmaster' => 6,
     ),
     'themes' => array(
       'emindhub' => array(
@@ -366,6 +369,7 @@ fr/node
 fr/node/323',
     'roles' => array(
       'administrator' => 3,
+      'business' => 5,
       'expert' => 4,
       'référent' => 7,
       'webmaster' => 6,
@@ -396,20 +400,12 @@ fr/node/323',
     'i18n_mode' => 0,
     'module' => 'views',
     'node_types' => array(),
-    'pages' => 'homepage
-node
-node/323
-fr
-fr/homepage
-fr/node
-fr/node/323',
-    'roles' => array(
-      'business' => 5,
-    ),
+    'pages' => '',
+    'roles' => array(),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'content',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
         'weight' => -39,
       ),
