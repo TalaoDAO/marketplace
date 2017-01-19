@@ -838,6 +838,51 @@ function emh_configuration_update_7044() {
 }
 
 /**
+ * Change top nav links.
+ */
+function emh_configuration_update_7045() {
+  // Change existing links
+
+  // My circles
+  db_update('menu_links')
+    ->fields(array(
+      'plid' => '7577',
+      'weight' => '-40',
+    ))
+    ->condition('mlid', '13954')
+    ->execute();
+
+  // Answers
+  db_update('menu_links')
+    ->fields(array(
+      'link_path' => '<nolink>',
+      'router_path' => '<nolink>',
+      'expanded' => '1',
+    ))
+    ->condition('mlid', '5523')
+    ->execute();
+
+  // Answers > My answers
+  db_update('menu_links')
+    ->fields(array(
+      'plid' => '5523',
+    ))
+    ->condition('mlid', '13955')
+    ->execute();
+
+  // Answers > Answers to my requests
+  db_update('menu_links')
+    ->fields(array(
+      'plid' => '5523',
+      'weight' => '10',
+    ))
+    ->condition('mlid', '13956')
+    ->execute();
+
+  variable_set('menu_rebuild_needed', TRUE);
+}
+
+/**
  * CHG: Answer wording.
  */
 function emh_configuration_update_7046() {
