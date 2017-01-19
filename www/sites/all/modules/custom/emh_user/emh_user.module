@@ -263,14 +263,24 @@ function emh_user_get_beautiful_profile_link($uid) {
   }
 }
 
-// TODO: add context, as 'author', etc.'
-function emh_user_cartouche_view($uid, $context = NULL) {
+/**
+ * Helper function to get user cartouche.
+ *
+ * @param stdClass|integer $account
+ *  A user account object or an uid
+ * @param stdClass|boolean $context
+ *  A context, such as 'author'
+ * @return string
+ *  The user's cartouche
+ */
+function emh_user_cartouche_view($account, $context = NULL) {
   global $user;
   $uid1 = $user->uid;
-  $uid2 = $uid;
-  $u2_account = user_load($uid2);
 
-	$node = menu_get_object();
+  $uid2 = is_object($account) ? $account->uid : (int) $account;
+  $u2_account = is_object($account) ? $account : user_load($uid2);
+
+  $node = !empty(menu_get_object()) ? menu_get_object() : node_load(arg(1));
 
   $cartouche = ''; $cartouche_identity = ''; $cartouche_activity = ''; $photo_uri = ''; $identity = ''; $organisation = ''; $activity = '';
 
@@ -338,7 +348,7 @@ function emh_user_cartouche_view($uid, $context = NULL) {
 
   // Submissions count
   if (module_exists('emh_request_submission') && $context !== 'author') {
-    $submission_count = emh_request_submission_get_user_submission_count($uid);
+    $submission_count = emh_request_submission_get_user_submission_count($uid2);
     $cartouche_activity .= '<span class="user-submission-count" title="' . t('!count published answer(s)', array('!count' => $submission_count)) . '">' . $submission_count . '</span>';
   }
 
