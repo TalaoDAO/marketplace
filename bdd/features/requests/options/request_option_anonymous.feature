@@ -44,7 +44,7 @@ Feature: Request and answers
 
   Scenario: The author choose to hide its name
     Given I am logged in as "client1"
-    When I go to homepage
+    When I go to "requests/manage"
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "primary tabs" region
       And I check "Anonymous"
@@ -64,7 +64,7 @@ Feature: Request and answers
 
   Scenario: The author choose to hide its organisation
     Given I am logged in as "client1"
-    When I go to homepage
+    When I go to "requests/manage"
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "primary tabs" region
       And I check "Anonymous"
@@ -83,7 +83,7 @@ Feature: Request and answers
 
   Scenario: The author choose to hide its name & organisation and show its activity
     Given I am logged in as "client1"
-    When I go to homepage
+    When I go to "requests/manage"
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "primary tabs" region
       And I check "Anonymous"
