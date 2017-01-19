@@ -6,6 +6,7 @@ xhgui
 #behat
 bdd/bin
 bdd/tmp
+www/tmp
 
 # Ignore configuration files that may contain sensitive information.
 www/sites/*/settings*.php
