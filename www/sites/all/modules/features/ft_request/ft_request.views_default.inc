@@ -2534,7 +2534,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
 
-  /* Display: (B) My submissions */
+  /* Display: (B) My answers */
   $handler = $view->new_display('block', '(B) My answers', 'block_my_submissions');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'My answers';
@@ -2737,7 +2737,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['defaults']['filters'] = FALSE;
 
   /* Display: (P) My answers */
-  $handler = $view->new_display('page', '(P) My answers', 'page_1');
+  $handler = $view->new_display('page', '(P) My answers', 'page_my_answers');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'My answers';
   $handler->display->display_options['defaults']['access'] = FALSE;
@@ -2965,149 +2965,8 @@ function ft_request_views_default_views() {
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
-  /* Display: TMP (P) Answers to my requests */
-  $handler = $view->new_display('page', 'TMP (P) Answers to my requests', 'page_2');
-  $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Answers to my requests';
-  $handler->display->display_options['display_description'] = 'à creuser, pb de l\'argument par défaut faisable en block pas en page';
-  $handler->display->display_options['defaults']['access'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'none';
-  $handler->display->display_options['defaults']['exposed_form'] = FALSE;
-  $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'views_bootstrap_table_plugin_style';
-  $handler->display->display_options['style_options']['columns'] = array(
-    'title_field' => 'title_field',
-    'completed' => 'completed',
-    'emh_answer' => 'emh_answer',
-    'is_draft' => 'is_draft',
-    'view_submission' => 'view_submission',
-  );
-  $handler->display->display_options['style_options']['default'] = 'completed';
-  $handler->display->display_options['style_options']['info'] = array(
-    'title_field' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'completed' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'emh_answer' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'is_draft' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'view_submission' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-  );
-  $handler->display->display_options['style_options']['bootstrap_styles'] = array(
-    'striped' => 0,
-    'bordered' => 0,
-    'hover' => 0,
-    'condensed' => 0,
-  );
-  $handler->display->display_options['defaults']['style_options'] = FALSE;
-  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['defaults']['row_options'] = FALSE;
-  $handler->display->display_options['defaults']['relationships'] = FALSE;
-  /* Relationship: Webform submissions: Node */
-  $handler->display->display_options['relationships']['nid']['id'] = 'nid';
-  $handler->display->display_options['relationships']['nid']['table'] = 'webform_submissions';
-  $handler->display->display_options['relationships']['nid']['field'] = 'nid';
-  $handler->display->display_options['relationships']['nid']['required'] = TRUE;
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['relationship'] = 'nid';
-  $handler->display->display_options['fields']['title']['label'] = 'Request';
-  /* Field: Webform submissions: Completed */
-  $handler->display->display_options['fields']['completed']['id'] = 'completed';
-  $handler->display->display_options['fields']['completed']['table'] = 'webform_submissions';
-  $handler->display->display_options['fields']['completed']['field'] = 'completed';
-  $handler->display->display_options['fields']['completed']['label'] = '';
-  $handler->display->display_options['fields']['completed']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['completed']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['completed']['date_format'] = 'time ago';
-  $handler->display->display_options['fields']['completed']['second_date_format'] = 'long';
-  /* Field: Webform submissions: Answer */
-  $handler->display->display_options['fields']['emh_answer']['id'] = 'emh_answer';
-  $handler->display->display_options['fields']['emh_answer']['table'] = 'webform_submissions';
-  $handler->display->display_options['fields']['emh_answer']['field'] = 'emh_answer';
-  $handler->display->display_options['fields']['emh_answer']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['emh_answer']['alter']['text'] = '<span class="submission-date">[completed]&nbsp;–&nbsp;</span>[emh_answer]';
-  $handler->display->display_options['fields']['emh_answer']['element_label_colon'] = FALSE;
-  /* Field: Webform submissions: View link */
-  $handler->display->display_options['fields']['view_submission']['id'] = 'view_submission';
-  $handler->display->display_options['fields']['view_submission']['table'] = 'webform_submissions';
-  $handler->display->display_options['fields']['view_submission']['field'] = 'view_submission';
-  $handler->display->display_options['fields']['view_submission']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['view_submission']['access_check'] = 1;
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Content: Author uid */
-  $handler->display->display_options['arguments']['uid']['id'] = 'uid';
-  $handler->display->display_options['arguments']['uid']['table'] = 'node';
-  $handler->display->display_options['arguments']['uid']['field'] = 'uid';
-  $handler->display->display_options['arguments']['uid']['relationship'] = 'nid';
-  $handler->display->display_options['arguments']['uid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'current_user';
-  $handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Webform submissions: Draft */
-  $handler->display->display_options['filters']['is_draft']['id'] = 'is_draft';
-  $handler->display->display_options['filters']['is_draft']['table'] = 'webform_submissions';
-  $handler->display->display_options['filters']['is_draft']['field'] = 'is_draft';
-  $handler->display->display_options['filters']['is_draft']['value'] = array(
-    0 => '0',
-  );
-  $handler->display->display_options['filters']['is_draft']['group'] = 1;
-  $handler->display->display_options['filters']['is_draft']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['is_draft']['expose']['operator_id'] = 'is_draft_op';
-  $handler->display->display_options['filters']['is_draft']['expose']['label'] = 'Status';
-  $handler->display->display_options['filters']['is_draft']['expose']['operator'] = 'is_draft_op';
-  $handler->display->display_options['filters']['is_draft']['expose']['identifier'] = 'is_draft';
-  $handler->display->display_options['filters']['is_draft']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    4 => 0,
-    5 => 0,
-    6 => 0,
-    7 => 0,
-    10 => 0,
-  );
-  $handler->display->display_options['path'] = 'answers/to-me/test';
-  $handler->display->display_options['menu']['title'] = 'Answers to my requests';
-  $handler->display->display_options['menu']['weight'] = '0';
-  $handler->display->display_options['menu']['name'] = 'menu-top';
-  $handler->display->display_options['menu']['context'] = 0;
-  $handler->display->display_options['menu']['context_only_inline'] = 0;
-
   /* Display: (P) Answers to my requests */
-  $handler = $view->new_display('page', '(P) Answers to my requests', 'page_3');
+  $handler = $view->new_display('page', '(P) Answers to my requests', 'page_answers_to_me');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Answers to my requests';
   $handler->display->display_options['defaults']['access'] = FALSE;
@@ -3210,11 +3069,6 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['view_submission']['field'] = 'view_submission';
   $handler->display->display_options['fields']['view_submission']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['view_submission']['access_check'] = 1;
-  /* Field: Webform submissions: EMH Author */
-  $handler->display->display_options['fields']['emh_author']['id'] = 'emh_author';
-  $handler->display->display_options['fields']['emh_author']['table'] = 'webform_submissions';
-  $handler->display->display_options['fields']['emh_author']['field'] = 'emh_author';
-  $handler->display->display_options['fields']['emh_author']['label'] = 'Author';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: Author uid */
   $handler->display->display_options['arguments']['uid']['id'] = 'uid';
