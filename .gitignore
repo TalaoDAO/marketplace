@@ -1,6 +1,7 @@
 www/sites/all/modules/debug
 www/adminer.php
 www/bdd
+xhgui
 
 #behat
 bdd/bin
