@@ -14,17 +14,28 @@
  * - $submission_information: The next submission ID.
  */
 ?>
+<div class="row section">
+  <div class="col-sm-12">
+    <h2><?php print t('Request: !form', array('!form' => l($node->title, 'node/' . $node->nid))); ?></h2>
+  </div>
+</div>
 
 <?php if ($mode == 'display' || $mode == 'form'): ?>
   <?php print $submission_actions; ?>
   <?php print $submission_navigation; ?>
 <?php endif; ?>
 
-<?php print $submission_information; ?>
-
-<div class="row section webform-submission">
-    <div class="col-sm-12">
-    <?php print render($submission_content); ?>
+<div class="row section">
+  <div class="col-sm-3">
+    <?php print emh_user_cartouche_view($submission->uid); ?>
+  </div>
+  <div class="col-sm-9">
+    <div class="section">
+      <?php print $submission_content; ?>
+    </div>
+    <div class="section">
+      <?php print $submission_information; ?>
+    </div>
   </div>
 </div>
 
