@@ -82,7 +82,7 @@ Feature: Request and answers
 
   Scenario: The author can see the published answers
     Given I am logged in as "client1"
-    When I go to "my-responses"
+    When I go to "answers/to-me"
     Then I should see "Iron MAN"
 
     When I go to homepage

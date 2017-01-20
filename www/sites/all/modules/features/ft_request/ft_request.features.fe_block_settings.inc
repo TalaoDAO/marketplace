@@ -286,72 +286,6 @@ node/*/edit',
     'visibility' => 0,
   );
 
-  $export['views-4cc2e6c5a5324cf60e8def980ae0c739'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'delta' => '4cc2e6c5a5324cf60e8def980ae0c739',
-    'i18n_block_language' => array(),
-    'i18n_mode' => 0,
-    'module' => 'views',
-    'node_types' => array(),
-    'pages' => 'node/300',
-    'roles' => array(
-      'administrator' => 3,
-      'business' => 5,
-      'webmaster' => 6,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => 'content',
-        'status' => 1,
-        'theme' => 'emindhub',
-        'weight' => -35,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '<none>',
-    'visibility' => 1,
-  );
-
-  $export['views-a7fd93ee91d8d011bb602135eb9b0ab1'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'delta' => 'a7fd93ee91d8d011bb602135eb9b0ab1',
-    'i18n_block_language' => array(),
-    'i18n_mode' => 0,
-    'module' => 'views',
-    'node_types' => array(),
-    'pages' => 'node/300',
-    'roles' => array(
-      'administrator' => 3,
-      'business' => 5,
-      'expert' => 4,
-      'référent' => 7,
-      'webmaster' => 6,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => 'content',
-        'status' => 1,
-        'theme' => 'emindhub',
-        'weight' => -36,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '<none>',
-    'visibility' => 1,
-  );
-
   $export['views-query_list-block_last_requests'] = array(
     'cache' => -1,
     'custom' => 0,
@@ -380,34 +314,6 @@ fr/node/323',
         'status' => 1,
         'theme' => 'emindhub',
         'weight' => -40,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '',
-    'visibility' => 1,
-  );
-
-  $export['views-query_list-block_my_requests'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'delta' => 'query_list-block_my_requests',
-    'i18n_block_language' => array(),
-    'i18n_mode' => 0,
-    'module' => 'views',
-    'node_types' => array(),
-    'pages' => '',
-    'roles' => array(),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'emindhub',
-        'weight' => -39,
       ),
       'seven' => array(
         'region' => '',
