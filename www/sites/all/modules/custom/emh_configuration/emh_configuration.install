@@ -906,10 +906,3 @@ function emh_configuration_update_7047() {
   module_disable(array('delete_all'));
   drupal_uninstall_modules(array('delete_all'));
 }
-
-/**
- * Delete the 'my-responses' node.
- */
-function emh_configuration_update_7048() {
-  node_delete('300');
-}
