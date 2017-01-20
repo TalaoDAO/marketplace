@@ -96,7 +96,7 @@ Feature: Test credits
       And I should see "30" in the "You should definitely trust me." row
 
     Given I am logged in as "expert1"
-    When I go to "answers/to-me"
+    When I go to "answers/my"
     Then I should see "70" in the "How to become a superhero?" row
 
     Given I am logged in as a user with the "administrator" role
