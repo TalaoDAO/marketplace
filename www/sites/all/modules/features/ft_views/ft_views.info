@@ -26,6 +26,7 @@ features[views_view][] = circles
 features[views_view][] = domainlist
 features[views_view][] = entreprise_list
 features[views_view][] = my_circles
+features[views_view][] = my_circles_list
 features[views_view][] = my_drafts
 features[views_view][] = news_thread
 features[views_view][] = organisation_admin_
