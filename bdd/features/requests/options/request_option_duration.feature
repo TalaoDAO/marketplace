@@ -57,7 +57,7 @@ Feature: Request and answers
 
   Scenario: The author can see Duration option infos
     Given I am logged in as "client1"
-    When I go to "/requests/manage"
+    When I go to "requests/manage"
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "6 months"
       And I should see "2017/07/06"
