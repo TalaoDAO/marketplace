@@ -280,12 +280,15 @@ function emh_user_cartouche_view($account, $context = NULL) {
   $uid2 = is_object($account) ? $account->uid : (int) $account;
   $u2_account = is_object($account) ? $account : user_load($uid2);
 
-  $node = !empty(menu_get_object()) ? menu_get_object() : node_load(arg(1));
+  $node = '';
+  if (arg(0) === 'node') {
+    $node = !empty(menu_get_object()) ? menu_get_object() : node_load(arg(1));
+  }
 
   $cartouche = ''; $cartouche_identity = ''; $cartouche_activity = ''; $photo_uri = ''; $identity = ''; $organisation = ''; $activity = '';
 
 	// Identity
-  if ($context == 'author' && emh_request_has_option($node, 'anonymous') && $node->field_hide_name[LANGUAGE_NONE][0]['value'] == true) {
+  if (!empty($node) && $context == 'author' && emh_request_has_option($node, 'anonymous') && $node->field_hide_name[LANGUAGE_NONE][0]['value'] == true) {
     $identity = t('Anonymous');
   }
   else {
@@ -315,7 +318,7 @@ function emh_user_cartouche_view($account, $context = NULL) {
   }
 
   // Profile link
-  if (emh_access_user_can_see_full_user($uid1, $uid2) && !(emh_request_has_option($node, 'anonymous') && $node->field_hide_name[LANGUAGE_NONE][0]['value'] == true)) {
+  if ((emh_access_user_can_see_full_user($uid1, $uid2) && !(!empty($node) && emh_request_has_option($node, 'anonymous') && $node->field_hide_name[LANGUAGE_NONE][0]['value'] == true)) || (emh_access_user_can_see_full_user($uid1, $uid2) && !empty($node))) {
     $identity = '<a href="' . url('user/' . $uid2) . '">' . $identity . '</a>';
   }
   $cartouche_identity .= '<span class="user-identity">' . $identity . '</span>';
@@ -334,16 +337,23 @@ function emh_user_cartouche_view($account, $context = NULL) {
   }
 
   // Activity
-	$activity = field_get_items('node', $node, 'field_activity');
-	if (($context == 'author') && emh_request_has_option($node, 'anonymous') && !empty($activity)) {
-    $activity = field_view_field('node', $node, 'field_activity', array('label'=>'hidden'));
-		$cartouche_identity .= '<span class="user-activity">' . render($activity) . '</span>';
-	}
+  if (!empty($node)) {
+    $activity = field_get_items('node', $node, 'field_activity');
+    if (($context == 'author') && emh_request_has_option($node, 'anonymous') && !empty($activity)) {
+      $activity = field_view_field('node', $node, 'field_activity', array('label'=>'hidden'));
+      $cartouche_identity .= '<span class="user-activity">' . render($activity) . '</span>';
+    }
+  }
 
 	// Buy profile access
 	if (module_exists('emh_user_profile_purchase') && !emh_access_user_can_see_full_user($uid1, $uid2) && !($context == 'author')) {
     $amount = (int) variable_get('emh_user_profile_purchase_amount', 100);
-		$cartouche_identity .= '<a href="' . url("user/$uid2/purchase") . '?destination=node/' . $node->nid . '" class="user-buy-access">' . t('Access profile for ' . $amount . ' credits') . '</a>';
+    if (!empty($node)) {
+      $cartouche_identity .= '<a href="' . url("user/$uid2/purchase") . '?destination=node/' . $node->nid . '" class="user-buy-access">' . t('Access profile for ' . $amount . ' credits') . '</a>';
+    }
+    else {
+      $cartouche_identity .= '<a href="' . url("user/$uid2/purchase") . '" class="user-buy-access">' . t('Access profile for ' . $amount . ' credits') . '</a>';
+    }
 	}
 
   // Submissions count

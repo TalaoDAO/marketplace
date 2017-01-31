@@ -36,7 +36,7 @@ Feature: Request
 
   Scenario: An author can add an option on a draft request and come back to test it's readonly after publish
     Given I am logged in as "client1"
-    When I go to homepage
+    When I go to "requests/manage"
     Then I should see "Avengers" in the "How to become a superhero?" row
 
     When I click "How to become a superhero?" in the "How to become a superhero?" row
