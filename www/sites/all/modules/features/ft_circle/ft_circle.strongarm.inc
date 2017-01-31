@@ -89,6 +89,9 @@ function ft_circle_strongarm() {
       'revision' => array(
         'custom_settings' => FALSE,
       ),
+      'summary' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -99,10 +102,10 @@ function ft_circle_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '9',
+          'weight' => '10',
         ),
         'metatags' => array(
-          'weight' => '7',
+          'weight' => '8',
         ),
       ),
       'display' => array(
