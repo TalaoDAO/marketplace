@@ -49,7 +49,7 @@ Feature: Request and answers
 
     # Activate option
     Given I am logged in as "client1"
-    When I go to homepage
+    When I go to "requests/manage"
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "primary tabs" region
     Given I check "Private"
@@ -82,7 +82,7 @@ Feature: Request and answers
 
   Scenario: The author can see the published answers
     Given I am logged in as "client1"
-    When I go to "my-responses"
+    When I go to "answers/to-me"
     Then I should see "Iron MAN"
 
     When I go to homepage
