@@ -95,7 +95,7 @@ Feature: Request and answers
 
   Scenario: The author can see the published answers but not the draft ones
     Given I am logged in as "client1"
-    When I go to "my-responses"
+    When I go to "answers/to-me"
     Then I should see "Iron MAN"
       And I should not see "Klark KENT"
 
