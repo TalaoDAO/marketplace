@@ -838,19 +838,19 @@ function emh_configuration_update_7044() {
 }
 
 /**
- * Change top nav links.
+ * CHG: Top nav links.
  */
 function emh_configuration_update_7045() {
-  // Change existing links
+  features_revert(array('ft_request' => array('views_view')));
 
   // My circles
-  db_update('menu_links')
-    ->fields(array(
-      'plid' => '7577',
-      'weight' => '-40',
-    ))
-    ->condition('mlid', '13954')
-    ->execute();
+  // db_update('menu_links')
+  //   ->fields(array(
+  //     'plid' => '7577',
+  //     'weight' => '-40',
+  //   ))
+  //   ->condition('mlid', '13954')
+  //   ->execute();
 
   // Answers
   db_update('menu_links')
@@ -867,21 +867,19 @@ function emh_configuration_update_7045() {
     ->fields(array(
       'plid' => '5523',
     ))
-    ->condition('mlid', '13955')
+    ->condition('link_title', 'My answers')
     ->execute();
 
   // Answers > Answers to my requests
   db_update('menu_links')
     ->fields(array(
       'plid' => '5523',
-      'weight' => '10',
     ))
-    ->condition('mlid', '13956')
+    ->condition('link_title', 'Answers to my requests')
     ->execute();
 
-  // Delete non-necessary node placeholder.
+  // Delete non-necessary node.
   node_delete('300');
-
   variable_set('menu_rebuild_needed', TRUE);
 }
 
