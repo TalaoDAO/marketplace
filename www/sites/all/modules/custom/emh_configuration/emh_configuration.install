@@ -844,13 +844,13 @@ function emh_configuration_update_7045() {
   features_revert(array('ft_request' => array('views_view')));
 
   // My circles
-  // db_update('menu_links')
-  //   ->fields(array(
-  //     'plid' => '7577',
-  //     'weight' => '-40',
-  //   ))
-  //   ->condition('mlid', '13954')
-  //   ->execute();
+  db_update('menu_links')
+    ->fields(array(
+      'plid' => '7577',
+      'weight' => '-49',
+    ))
+    ->condition('link_title', 'My circles')
+    ->execute();
 
   // Answers
   db_update('menu_links')
