@@ -23,6 +23,7 @@ dependencies[] = ft_field_base
 dependencies[] = i18n_taxonomy
 dependencies[] = image
 dependencies[] = list
+dependencies[] = og_context
 dependencies[] = og_ui
 dependencies[] = options
 dependencies[] = strongarm
