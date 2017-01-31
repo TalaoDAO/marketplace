@@ -875,6 +875,7 @@ function ft_request_views_default_views() {
 
   /* Display: B - Last requests */
   $handler = $view->new_display('block', 'B - Last requests', 'block_last_requests');
+  $handler->display->display_options['enabled'] = FALSE;
   $handler->display->display_options['defaults']['use_more'] = FALSE;
   $handler->display->display_options['use_more'] = TRUE;
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
