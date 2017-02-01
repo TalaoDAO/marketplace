@@ -1,13 +1,12 @@
 www/sites/all/modules/debug
 www/adminer.php
 www/bdd
+xhgui
 
 #behat
 bdd/bin
-bdd/vendor
-bdd/composer.phar
-bdd/composer.lock
 bdd/tmp
+www/tmp
 
 # Ignore configuration files that may contain sensitive information.
 www/sites/*/settings*.php
