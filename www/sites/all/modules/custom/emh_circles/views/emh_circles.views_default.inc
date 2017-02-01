@@ -400,6 +400,7 @@ function emh_circles_views_default_views() {
   $handler->display->display_options['access']['role'] = array(
     3 => '3',
     4 => '4',
+    5 => '5',
     6 => '6',
   );
   $handler->display->display_options['cache']['type'] = 'none';
@@ -477,6 +478,7 @@ function emh_circles_views_default_views() {
   $handler->display->display_options['access']['type'] = 'role';
   $handler->display->display_options['access']['role'] = array(
     3 => '3',
+    4 => '4',
     5 => '5',
     9 => '9',
     6 => '6',
@@ -602,7 +604,7 @@ function emh_circles_views_default_views() {
 
   /* Display: (P) My circles */
   $handler = $view->new_display('page', '(P) My circles', 'page_1');
-  $handler->display->display_options['path'] = 'circles/manage';
+  $handler->display->display_options['path'] = 'circles/my';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'My circles';
   $handler->display->display_options['menu']['weight'] = '-49';

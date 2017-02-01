@@ -12,12 +12,5 @@
  * - $account: The user that submitted the form.
  */
 ?>
-<div class="row section">
-  <div class="col-sm-12">
-    <div><?php print t('Request: !form', array('!form' => l($node->title, 'node/' . $node->nid))); ?></div>
-    <div>
-    <?php print t('Submitted by !name', array('!name' => theme('username', array('account' => $account)))); ?>
-    </div>
-    <div><?php print check_plain(format_date($submission->submitted, webform_variable_get('webform_date_type'))); ?></div>
-  </div>
-</div>
+
+<span class="date"><?php print t('Submitted: !date', array('!date' => check_plain(format_date($submission->submitted, webform_variable_get('webform_date_type'))))); ?></span>

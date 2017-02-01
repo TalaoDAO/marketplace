@@ -92,7 +92,7 @@ Feature: Request Option Price
     | How to become a superhero?  | Energy        |              | client1 | 2017-02-08 17:45:00    | 0       | Mission            |
 
     Given I am logged in as "client1"
-    When I go to homepage
+    When I go to "/requests/manage"
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     When I click "Edit" in the "primary tabs" region
     Then I should see "300 credits" in the "#edit-field-options-und-questionnaire" element

@@ -1,8 +1,8 @@
 @api @watchdog
-Feature: Request and submissions
-  In order to test Request submissions
+Feature: Request and answers
+  In order to test Request answers
   As a Client and an Expert
-  I want to create submissions, and watch submissions
+  I want to create answers, and watch answers
 
   Background: Create request
 
@@ -55,13 +55,13 @@ Feature: Request and submissions
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
 
-    # Draft submission
+    # Draft answer
       And I press "Save Draft"
-    Then I should see the message "Your submission has been saved as draft."
+    Then I should see the message "Your answer has been saved as draft."
 
-    # Published submission
+    # Published answer
     When I press "Publish"
-    Then I should see the message "Your submission has been published."
+    Then I should see the message "Your answer has been published."
     Then the last email to "emindhub.test+client1@gmail.com" should contain "Dear Captain,"
       And the email should contain "You received a new answer to the request"
 
@@ -70,18 +70,18 @@ Feature: Request and submissions
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I fill in "How to become a superhero?" with "You have to read DC comics of course!"
-    # Draft submission
+    # Draft answer
       And I press "Save Draft"
-    Then I should see the message "Your submission has been saved as draft."
+    Then I should see the message "Your answer has been saved as draft."
 
-  Scenario: An expert can see its own submission
+  Scenario: An expert can see its own answer
     Given I am logged in as "expert2"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "You have to read DC comics of course!" in the "user_submission" region
       And I should see "1" in the "user_submission_count" region
 
-  Scenario: An expert of the same circle can see the published submission
+  Scenario: An expert of the same circle can see the published answer
     Given I am logged in as "expert1"
     When I go to homepage
     Then I should see "1" in the "How to become a superhero?" row
@@ -93,9 +93,9 @@ Feature: Request and submissions
     When I click "view" in the "submissions" region
     Then I should see "Everybody can be, trust me, I'm the best we known."
 
-  Scenario: The author can see the published submissions but not the draft ones
+  Scenario: The author can see the published answers but not the draft ones
     Given I am logged in as "client1"
-    When I go to "my-responses"
+    When I go to "answers/to-me"
     Then I should see "Iron MAN"
       And I should not see "Klark KENT"
 
@@ -119,24 +119,24 @@ Feature: Request and submissions
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     #Then I should not see "Publish" in the "user_submission_form" region
 
-  Scenario: The expert can edit its own submission
+  Scenario: The expert can edit its own answer
     Given I am logged in as "expert1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "user_submission" region
       And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we know."
       And I press "Save"
-    Then I should see the success message "Your submission has been updated."
+    Then I should see the success message "Your answer has been updated."
 
   @exclude
-  Scenario: The author cannot edit an submission
+  Scenario: The author cannot edit an answer
     Given I am logged in as "client1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should not see the link "edit" in the "submissions" region
 
   @exclude
-  Scenario: The expert cannot delete its own submission
+  Scenario: The expert cannot delete its own answer
     Given I am logged in as "expert2"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
@@ -144,7 +144,7 @@ Feature: Request and submissions
       And I should not see the link "delete" in the "submissions" region
 
   @exclude
-  Scenario: The author cannot delete an submission
+  Scenario: The author cannot delete an answer
     Given I am logged in as "client1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
