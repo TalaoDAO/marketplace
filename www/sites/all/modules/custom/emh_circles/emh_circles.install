@@ -328,3 +328,27 @@ function emh_circles_update_7014() {
   emh_circles_disable_strings();
   emh_circles_enable_strings();
 }
+
+/**
+* CHG: update Member & Creator member permissions in Circles + CHG: disable old rules + CHG: update expert permission.
+*/
+function emh_circles_update_7015() {
+  $group = 'node';
+  $bundle = 'circle';
+
+  // Change permissions
+  $og_roles = array_flip(og_roles($group, $bundle)); // group, bundle
+
+  // Member role
+  $permissions = array(
+    'create request content' => 1,
+    'update own request content' => 1,
+  );
+  og_role_change_permissions($og_roles[OG_AUTHENTICATED_ROLE], $permissions);
+
+  if ($rules_config = rules_config_load('rules_emh_circles_set_clients_as_creator_in_circles')) {
+    $rules_config->delete();
+  }
+
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('access ckeditor link'));
+}
