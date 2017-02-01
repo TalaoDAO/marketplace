@@ -34,6 +34,7 @@ function emh_circles_default_rules_configuration() {
     { "rules_emh_circles_set_clients_as_creator_in_circles" : {
     "LABEL" : "Circles - Set Client as Creator member",
     "PLUGIN" : "reaction rule",
+    "ACTIVE" : false,
     "WEIGHT" : "1",
     "OWNER" : "rules",
     "TAGS" : [ "Circles", "client", "EMH" ],
