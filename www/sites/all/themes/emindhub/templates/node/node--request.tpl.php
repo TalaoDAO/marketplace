@@ -77,7 +77,7 @@
 					<div class="col-sm-8 <?php if (!empty($submission_status)) print $submission_status['status']; ?>">
 						<div class="row user-submission-title">
 							<div class="col-sm-8">
-								<h3><span><?php print t('Your submission'); ?></span></h3>
+								<h3><span><?php print t('Your answer'); ?></span></h3>
 							</div>
 							<?php if (!empty($submission_status)): ?>
 								<div class="col-sm-4">

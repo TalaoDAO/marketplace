@@ -837,3 +837,70 @@ function emh_configuration_update_7044() {
   module_enable(array('advuser'));
 }
 
+/**
+ * CHG: Top nav links.
+ */
+function emh_configuration_update_7045() {
+  features_revert(array('ft_request' => array('views_view')));
+
+  // My circles
+  db_update('menu_links')
+    ->fields(array(
+      'plid' => '7577',
+      'weight' => '-49',
+    ))
+    ->condition('link_title', 'My circles')
+    ->execute();
+
+  // Answers
+  db_update('menu_links')
+    ->fields(array(
+      'link_path' => '<nolink>',
+      'router_path' => '<nolink>',
+      'expanded' => '1',
+    ))
+    ->condition('mlid', '5523')
+    ->execute();
+
+  // Answers > My answers
+  db_update('menu_links')
+    ->fields(array(
+      'plid' => '5523',
+    ))
+    ->condition('link_title', 'My answers')
+    ->execute();
+
+  // Answers > Answers to my requests
+  db_update('menu_links')
+    ->fields(array(
+      'plid' => '5523',
+    ))
+    ->condition('link_title', 'Answers to my requests')
+    ->execute();
+
+  // Delete non-necessary node.
+  node_delete('300');
+  variable_set('menu_rebuild_needed', TRUE);
+}
+
+/**
+ * CHG: Answer wording.
+ */
+function emh_configuration_update_7046() {
+  emh_request_disable_strings();
+  emh_request_enable_strings();
+  features_revert(array(
+    'ft_request' => array(
+      'fe_block_settings',
+      'views_view',
+    )
+  ));
+}
+
+/**
+ * CHG: Delete delete_all module.
+ */
+function emh_configuration_update_7047() {
+  module_disable(array('delete_all'));
+  drupal_uninstall_modules(array('delete_all'));
+}

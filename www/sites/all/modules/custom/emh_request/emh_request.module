@@ -117,7 +117,7 @@ function emh_request_node_presave($node) {
           // so we have to check ONLY value !
           $original_questions = field_get_items('node', $node->original, 'field_request_questions');
           $same = true;
-          foreach ($questions as $key => $value) { 
+          foreach ($questions as $key => $value) {
              if ( $original_questions[$key]['value'] != $questions[$key]['value'] ) $same = false;
           }
           if (!$same)
@@ -558,7 +558,7 @@ function emh_request_form_alter(&$form, &$form_state, $form_id) {
 
     // Show specific message for Private option
     if (emh_request_has_option($form['#node'], 'private') && !empty($form['submitted'])) {
-      $form['actions']['#prefix'] = '<div class="user-submission-option-private-info">' . t('Your submission will only be visible by the request\'s author.') . '</div>';
+      $form['actions']['#prefix'] = '<div class="user-submission-option-private-info">' . t('Your answer will only be visible by the request\'s author.') . '</div>';
     }
   }
 }
@@ -626,7 +626,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
           $form['field_options']['#disabled'] = true;
           $form['field_request_type']['#disabled'] = true;
           $form['title_field']['#disabled'] = true;
-          if (emh_request_count_answers($form['nid']['#value']) != 0) { 
+          if (emh_request_count_answers($form['nid']['#value']) != 0) {
             $form['field_request_questions']['#disabled'] = true;
           }
         }

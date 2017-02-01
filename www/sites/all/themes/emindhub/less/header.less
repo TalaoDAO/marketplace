@@ -4,7 +4,7 @@
 			padding-top: 81px;
 
 			.emh-brand {
-				margin-top: 35px;
+				margin-top: 35px + @padding-small-vertical;
 				.navbar-btn {
 					padding: 0;
 				}
@@ -177,11 +177,32 @@ header#page-header {
 #block-bootstrap-languages-language {
 	.make-md-column(1);
 	.make-md-column-offset(11);
+  margin-top: @padding-small-vertical;
+
 	.nav {
 		float: right;
 	}
+
+  .btn-group {
+    padding: 0;
+
+    .btn {
+      margin: 0;
+    }
+
+    a {
+      .text-left;
+    }
+  }
+
+  .btn,
+  .dropdown-menu > li > a {
+    padding: @padding-small-vertical @padding-small-horizontal;
+    background-color: transparent;
+  }
 }
 #block-menu-menu-top-anonymous {
+  clear: both;
 	.make-md-column(8);
 
 	.nav > li > a,

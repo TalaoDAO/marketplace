@@ -1,8 +1,8 @@
 @api @watchdog
-Feature: Request and submissions
+Feature: Request and answers
   In order to test Request with Private option
   As a Client and an Expert
-  I want to create a request, and watch submissions
+  I want to create a request, and watch answers
 
   Background: Create request
 
@@ -49,7 +49,7 @@ Feature: Request and submissions
 
     # Activate option
     Given I am logged in as "client1"
-    When I go to homepage
+    When I go to "requests/manage"
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "primary tabs" region
     Given I check "Private"
@@ -62,33 +62,33 @@ Feature: Request and submissions
     Given I am logged in as "expert1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should see "Your submission will only be visible by the request's author."
+    Then I should see "Your answer will only be visible by the request's author."
 
     Given I enter "Everybody can be, trust me, I'm the best we known." for "How to become a superhero?"
     When I press "Publish"
-    Then I should see "Your submission has been published."
+    Then I should see "Your answer has been published."
 
-  Scenario: An expert can see its own submission
+  Scenario: An expert can see its own answer
     Given I am logged in as "expert1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "Everybody can be, trust me, I'm the best we known." in the "user_submission" region
 
-  Scenario: An expert cannot see other published submissions
+  Scenario: An expert cannot see other published answers
     Given I am logged in as "expert2"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should not see "Everybody can be, trust me, I'm the best we known."
 
-  Scenario: The author can see the published submissions
+  Scenario: The author can see the published answers
     Given I am logged in as "client1"
-    When I go to "my-responses"
+    When I go to "answers/to-me"
     Then I should see "Iron MAN"
 
     When I go to homepage
     Then I should see "2" in the "How to become a superhero?" row
 
     When I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should see "Submissions to your request are only visible by you."
+    Then I should see "Answers to your request are only visible by you."
       And I should see "Iron MAN"
       And I should see "Everybody can be, trust me, I'm the best we known."
