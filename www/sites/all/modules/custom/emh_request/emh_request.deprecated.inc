@@ -266,6 +266,8 @@ function emh_request_try_to_notify($node) {
   foreach($node->field_domaine[LANGUAGE_NONE] as $delta => $term) {
     $domains[] = $term['tid'];
   }
+  // Get french countries
+  $french_countries = variable_get('emh_request_send_notification_email_french_countries', array('FR', 'BE')); 
   // Load users.
   $users = user_load_multiple($users);
   // For each user of each group, check domain.
@@ -282,15 +284,31 @@ function emh_request_try_to_notify($node) {
       // drush vset --yes emh_request_send_notification_email_all_domains FALSE
       $multidomains_option = variable_get('emh_request_send_notification_email_all_domains', 0);
       if ($multidomains_option == TRUE) {
-        // Notify every expert within the Organic Group
-        $queue->createItem($item);
-        continue;
+        // If node is in french, only notify users in France and Belgium
+        if ($node->language == 'fr') {
+          if (!empty($user->field_address[LANGUAGE_NONE]) && in_array($user->field_address[LANGUAGE_NONE][0]['country'], $french_countries)) {
+            $queue->createItem($item);
+            continue;
+          }
+        } else {
+          // Notify every expert within the Organic Group
+          $queue->createItem($item);
+          continue;
+        }
       } else {
         foreach($user->field_domaine[LANGUAGE_NONE] as $delta => $term) {
           // If right domain && notification authorized.
           if (in_array($term['tid'], $domains)) {
-            $queue->createItem($item);
-            continue;
+            // If node is in french, only notify users in France and Belgium
+            if ($node->language == 'fr') {
+              if (!empty($user->field_address[LANGUAGE_NONE]) && in_array($user->field_address[LANGUAGE_NONE][0]['country'], $french_countries)) {
+                $queue->createItem($item);
+                continue;
+              }
+            } else {
+              $queue->createItem($item);
+              continue;
+            }
           }
         }
       }
