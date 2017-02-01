@@ -1,5 +1,5 @@
 @api @watchdog
-Feature: Request and submissions
+Feature: Request and answers
   In order to test Request with Duration option
   As a Client and an Expert
   I want to create a request, and watch Duration informations
@@ -44,7 +44,7 @@ Feature: Request and submissions
 
     # Activate option
     Given I am logged in as "client1"
-    When I go to homepage
+    When I go to "requests/manage"
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "primary tabs" region
     Given I check "Duration"
@@ -57,7 +57,7 @@ Feature: Request and submissions
 
   Scenario: The author can see Duration option infos
     Given I am logged in as "client1"
-    When I go to homepage
+    When I go to "requests/manage"
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "6 months"
       And I should see "2017/07/06"

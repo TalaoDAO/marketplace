@@ -81,7 +81,7 @@ Feature: Test credits
     When I go to homepage
     Then I should see "2" in the "How to become a superhero?" row
 
-    When I go to "my-responses"
+    When I go to "answers/to-me"
     Then I should see "Iron Man"
       And I should see "Klark Kent"
 
@@ -91,12 +91,12 @@ Feature: Test credits
       And I should have 70 credits on "expert1" user
       And I should have 30 credits on "expert2" user
 
-    When I go to "my-responses"
+    When I go to "answers/to-me"
     Then I should see "70" in the "I'm the best superhero in da world." row
       And I should see "30" in the "You should definitely trust me." row
 
     Given I am logged in as "expert1"
-    When I go to "my-responses"
+    When I go to "answers/my"
     Then I should see "70" in the "How to become a superhero?" row
 
     Given I am logged in as a user with the "administrator" role
@@ -111,7 +111,7 @@ Feature: Test credits
     Then I should have 0 credits on "How to become a superhero?" node
 
     Given I am logged in as "client1"
-    When I go to "my-responses"
+    When I go to "answers/to-me"
     Then I should see "Iron Man"
       And I should see "Klark Kent"
 
@@ -119,7 +119,7 @@ Feature: Test credits
     Then I should not see the link "Iron Man"
       And I should not see the link "Klark Kent"
 
-    # And from My relathionships too
+    # And from My relationships too
     When I go to "circles/relationships"
     Then I should not see the link "Iron Man"
       And I should not see the link "Klark Kent"
@@ -149,7 +149,7 @@ Feature: Test credits
       And I should see the link "Iron MAN"
       And I should see the link "Klark KENT"
 
-    # And from My relathionships too
+    # And from My relationships too
     When I go to "circles/relationships"
     Then I should see the link "Iron Man"
       And I should see the link "Klark Kent"

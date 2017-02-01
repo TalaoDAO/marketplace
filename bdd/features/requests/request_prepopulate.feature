@@ -38,7 +38,7 @@ Feature: Request Prepopulation
       And I click "Member since"
       # Twice for correct order
       And I click "Member since"
-     
+
       #And I check the box "views_bulk_operations[1]"
       #And I select "Modify membership status" from "operation"
       #And I press "Execute"
@@ -72,7 +72,7 @@ Feature: Request Prepopulation
     When I click "Search for a super-hero for a mission or project" in the "request_type" region
       And I wait for AJAX to finish
     Then I should see "To get the most from your Super-Hero mission request, we recommend you to use the options below:"
-      And the "Private submissions" checkbox should be checked
+      And the "Private answers" checkbox should be checked
       And the "Questionnaire" checkbox should be checked
       And the "field_request_questions[und][0][value]" field should contain "How to become a superhero?"
       And show me the URL
@@ -90,7 +90,7 @@ Feature: Request Prepopulation
       Then show me the URL
     Then I should see "To get the most from your Super-Hero CV request, we recommend you to use the options below:"
       And the "Request title or question" field should not be disabled
-      And the "Private submissions" checkbox should be checked
+      And the "Private answers" checkbox should be checked
       And the "Questionnaire" checkbox should be checked
       And the "field_request_questions[und][0][value]" field should contain "If you want to co-opt please specify: surname / name / current positions"
       And the "field_request_questions[und][1][value]" field should contain "How do you know this super-hero?"
@@ -110,12 +110,12 @@ Feature: Request Prepopulation
       And I should see "How do you know this super-hero? "
       And I should have 9600 credits on "client1" user
 
-  #Test what can be tested WITHOUT js 
+  #Test what can be tested WITHOUT js
   Scenario: An author can create a prepopulated request
     Given I am logged in as "client1"
     When I go to "node/add/request?edit[field_request_type][und][768][768]=768&edit[field_options][und][questionnaire][enabled]=&edit[field_options][und][private][enabled]=&edit[field_request_questions][und][0][value]=If you want to 'co-opt', or recommend someone in your network, please specify: surname / name / current positions, and add the link to their LinkedIn profile&edit[field_request_questions][und][1][value]=How do you know this super-hero?&edit[field_request_questions][und][2][value]=Have you personally worked with this super-hero? If yes, when, and onwhat types of activity?&edit[field_request_questions][und][3][value]=Why would you recommend this super-hero?&edit[field_request_questions][und][4][value]=Have you informed the super-hero of your recommendation?&edit[field_request_questions][und][5][value]=Does the applicant agree to have their resume sent to the client requestor? If yes, please send to cv@emindhub.com with the reference of the client request.&edit[field_request_questions][und][6][value]=Can the client requestor quote your name when contacting the super-hero?"
     Then I should see "To get the most from your Call request, we recommend you to use the options below:"
-      And the "Private submissions" checkbox should be checked
+      And the "Private answers" checkbox should be checked
       And the "Questionnaire" checkbox should be checked
       And the "field_request_questions[und][0][value]" field should contain "If you want to 'co-opt', or recommend someone in your network, please specify: surname / name / current positions, and add the link to their LinkedIn profile"
       And the "field_request_questions[und][1][value]" field should contain "How do you know this super-hero?"
@@ -133,4 +133,3 @@ Feature: Request Prepopulation
     Then I should see "How to defeat a superhero? has been published"
       And I should see "How do you know this super-hero? "
       And I should have 9600 credits on "client1" user
-
