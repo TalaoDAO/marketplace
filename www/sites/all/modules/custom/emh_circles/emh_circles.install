@@ -330,7 +330,7 @@ function emh_circles_update_7014() {
 }
 
 /**
-* CHG: update Member & Creator member permissions in Circles + CHG: disable old rules + CHG: update expert permission.
+* CHG: update Member permissions in Circles + CHG: disable old rule + CHG: update authentificated permission.
 */
 function emh_circles_update_7015() {
   $group = 'node';
