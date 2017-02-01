@@ -22,6 +22,8 @@ Feature: Emails
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | field_notification_frequency  |
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron           | MAN               | 0712345670                  | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy        | US                    | Real-time                     |
     | expert2 | emindhub.test+expert2@gmail.com | expert   | Klark            | KENT            | 0712345671                  | Modèle             | Avengers     | emindhub.test+expert2@gmail.com | Marvel Studios       | Employee             | Other         | US                    | Real-time                     |
+    | expert3 | emindhub.test+expert3@gmail.com | expert   | Super            | DUPONT          | 0712345672                  | Modèle             | Avengers     | emindhub.test+expert3@gmail.com | Fluide Glacial       | Employee             | Energy         | FR                    | Real-time                     |
+
 
     # Make client1 as a Creator member of Avengers circle
     Given I am logged in as a user with the "administrator" role
@@ -76,5 +78,23 @@ Feature: Emails
     Then  the last email to "emindhub.test+expert1@gmail.com" should contain "Dear Iron,"
       And the email should contain "A new request for expertise has been published on eMindHub"
       And the last email to "emindhub.test+expert2@gmail.com" should contain "Dear Klark,"
+      And the email should contain "A new request for expertise has been published on eMindHub"
+      And the last email to "emindhub.test+client1@gmail.com" should not contain "published"
+
+  @email
+  Scenario: Only experts in french countries are notified by email for new request publication in french
+    Given the test email system is enabled
+    Given "request" content:
+    | title                            | field_domaine | og_group_ref    | author  | field_expiration_date  | status  | language |
+    | Comment devenir un super-heros?  | Energy        | Avengers        | client1 | 2017-02-08 17:45:00    | 1       | fr       |
+    When I run cron
+    #DONT FORGET : drush @dev rules-enable rules_emh_request_send_notification_email
+    Then  the last email to "emindhub.test+expert1@gmail.com" should not contain "Dear Iron,"
+      #Uncomment to see that Behat checks if the email exists and returns No active email (Exception)
+      #And the email should contain "A new request for expertise has been published on eMindHub"
+      And the last email to "emindhub.test+expert2@gmail.com" should not contain "Dear Klark,"
+      #Uncomment to see that Behat checks if the email exists and returns No active email (Exception)
+      #And the email should contain "A new request for expertise has been published on eMindHub"
+      And the last email to "emindhub.test+expert3@gmail.com" should contain "Dear Super,"
       And the email should contain "A new request for expertise has been published on eMindHub"
       And the last email to "emindhub.test+client1@gmail.com" should not contain "published"
