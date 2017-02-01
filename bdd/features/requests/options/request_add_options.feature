@@ -30,9 +30,8 @@ Feature: Request
       And I click "People"
       And I click "edit" in the "Captain AMERICA" row
       And I select "Active" from "Status"
-      And I check the box "Creator member"
       And I press "Update membership"
-    Then I should see "Creator member" in the "Captain AMERICA" row
+    Then I should see "Active" in the "Captain AMERICA" row
 
   Scenario: An author can add an option on a draft request and come back to test it's readonly after publish
     Given I am logged in as "client1"
