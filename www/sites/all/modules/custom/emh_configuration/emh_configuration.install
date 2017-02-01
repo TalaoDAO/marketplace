@@ -906,7 +906,7 @@ function emh_configuration_update_7047() {
 }
 
 /**
- * CHG: Delete WYSIWYG Features.
+ * CHG: Delete useless WYSIWYG Features.
  */
 function emh_configuration_update_7048() {
   module_disable(array('ft_wysiwyg'));
