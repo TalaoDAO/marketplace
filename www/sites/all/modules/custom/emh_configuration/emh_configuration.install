@@ -904,3 +904,11 @@ function emh_configuration_update_7047() {
   module_disable(array('delete_all'));
   drupal_uninstall_modules(array('delete_all'));
 }
+
+/**
+ * CHG: Delete WYSIWYG Features.
+ */
+function emh_configuration_update_7048() {
+  module_disable(array('ft_wysiwyg'));
+  drupal_uninstall_modules(array('ft_wysiwyg'));
+}
