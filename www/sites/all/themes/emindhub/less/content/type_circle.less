@@ -2,6 +2,11 @@
   border: 1px solid @pattens-blue;
   background-color: white;
   padding:  ceil((@grid-gutter-width / 2));
+  margin-bottom: ceil((@grid-gutter-width / 2));
+
+  h2 {
+    margin-top: 0;
+  }
 }
 
 // All circles
@@ -64,6 +69,16 @@ body.node-type-circle {
 
   .circle-count {
     .make-md-column(10);
+  }
+
+  .content {
+    .block {
+      .circle-section;
+    }
+
+    h3 {
+      margin-top: 0;
+    }
   }
 }
 
