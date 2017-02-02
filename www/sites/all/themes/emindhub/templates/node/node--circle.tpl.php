@@ -47,9 +47,15 @@
           <?php endif; ?>
 
           <?php
-          $circle_requests_block = module_invoke('views', 'block_view', 'views-ebd3d59bc59a77db1ff1c0c9be295d26');
-          if (!empty($circle_requests_block)) print render($circle_requests_block['content']);
-          ?>
+          $circle_requests_block = module_invoke('views', 'block_view', 'ebd3d59bc59a77db1ff1c0c9be295d26');
+          if (!empty($circle_requests_block)) : ?>
+            <section id="block-views-ebd3d59bc59a77db1ff1c0c9be295d26" class="block clearfix">
+              <h2><span><?php print t('Latest requests'); ?></span></h2>
+              <div class="content">
+                <?php print render($circle_requests_block['content']); ?>
+              </div>
+            </section> <!-- /.block -->
+          <?php endif; ?>
         </div>
 
         <div class="col-sm-4">
