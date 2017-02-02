@@ -122,3 +122,35 @@ Feature: Circles workflow for Expert
     Given I am logged in as "expert4"
     When I go to "content/guardians-galaxy"
     Then I should see "Join circle"
+
+  Scenario: Circle member can access to requests
+    Given users:
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance   | US                    |
+
+    Given "request" content:
+    | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
+    | How to become a superhero?  | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    | 1       |
+
+    Given I am logged in as a user with the "administrator" role
+    When I go to "content/avengers"
+      And I click "Group" in the "primary tabs" region
+      And I click "People"
+      And I click "edit" in the "Captain AMERICA" row
+      And I select "Active" from "Status"
+      And I press "Update membership"
+    Then I should see "The membership has been updated."
+
+    # Client
+    Given I am logged in as "client1"
+    When I go to "content/avengers"
+    Then I should see "How to become a superhero?"
+    When I click "Requests" in the "primary tabs" region
+    Then I should see "How to become a superhero?"
+
+    # And expert too!
+    Given I am logged in as "expert1"
+    When I go to "content/avengers"
+    Then I should see "How to become a superhero?"
+    When I click "Requests" in the "primary tabs" region
+    Then I should see "How to become a superhero?"
