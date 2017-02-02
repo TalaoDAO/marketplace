@@ -300,10 +300,10 @@ node/*/edit',
     'roles' => array(),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'content',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
-        'weight' => -38,
+        'weight' => 0,
       ),
       'seven' => array(
         'region' => '',
