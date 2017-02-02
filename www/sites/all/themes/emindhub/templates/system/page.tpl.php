@@ -97,7 +97,13 @@
             <?php if (!empty($title)): ?>
               <div class="title">
                 <?php emindhub_show_request_type(); ?>
+                <?php if (!empty(emh_circles_get_circle_logo())) : ?>
+                  <div class="circle-logo"><?php print emh_circles_get_circle_logo(); ?></div>
+                <?php endif; ?>
                 <h1 class="page-header"><?php print $title; ?></h1>
+                <?php if (!empty($subscriber_count)) : ?>
+                  <div class="circle-count"><?php print $subscriber_count; ?></div>
+                <?php endif; ?>
               </div>
             <?php endif; ?>
             <?php print render($title_suffix); ?>

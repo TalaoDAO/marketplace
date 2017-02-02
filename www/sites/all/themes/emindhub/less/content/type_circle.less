@@ -1,65 +1,106 @@
+.circle-section {
+  border: 1px solid @pattens-blue;
+  background-color: white;
+  padding:  ceil((@grid-gutter-width / 2));
+}
+
+body.page-circles,
+body.node-type-circle {
+  .main-container {
+    // background-color: @white-smoke;
+
+    > header {
+      // background-color: #196a96;
+
+      // background: -webkit-linear-gradient(45deg, @middleBlue, @cloud 100%);
+      // background: linear-gradient(45deg, @middleBlue, @cloud 100%);
+    }
+  }
+}
+
+// All circles
+// My circles
+body.page-circles {
+  .main-container {
+    .section {
+      .circle-section;
+    }
+  }
+
+  .view {
+    .circle-logo,
+    .views-field-field-circle-logo {
+      .make-sm-column(1);
+    }
+
+    .circle-title,
+    .views-field-title {
+      .make-sm-column(11);
+
+      h2 {
+        margin-top: 10px;
+        margin-bottom: 5px;
+      }
+    }
+
+    .circle-body,
+    .views-field-body {
+      .make-sm-column(12);
+      margin-top: 15px;
+    }
+
+    > * > * > .row {
+      margin-bottom: 15px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+
+// Circle
+body.node-type-circle {
+  &.logged-in {
+    .circle-logo {
+      .make-sm-column(2);
+    }
+
+    .title-left .title .page-header {
+      .make-md-column(10);
+    }
+  }
+
+  .page-header {
+    margin-bottom: 0;
+  }
+
+  .circle-count {
+    .make-md-column(10);
+  }
+}
+
+.circle-membership-infos {
+  .pull-right;
+}
+
+.field-name-field-circle-message {
+  .circle-section;
+}
+
 .circle-logo {
-  .make-sm-column(1);
+  .emh-title-image;
+  img {
+    border-radius: @btn-border-radius-base;
+    background-color: @cloud;
+  }
 }
 
-.circle-title {
-  .make-sm-column(11);
+.circle-membership-state {
+  font-style: italic;
 }
 
-.circle-body {
-  .make-sm-column(12);
-  padding: 0;
-  font-size: 1.1em;
-}
-
-.circle-subscribe {
-  .make-sm-column(12);
+.circle-membership-links {
   .text-right;
-  a {
-    .btn;
-    &.subscribe {
-      .btn-primary;
-    }
-    &.unsubscribe {
-      .btn-default;
-    }
-  }
-}
-
-.circle-count {
-  .make-sm-column(7);
-}
-
-// .circle-managers {
-//   .make-sm-column(8);
-//   .circle-manager {
-//     .make-sm-column(6);
-//   }
-// }
-
-// Node
-.node-circle {
-  .circle-subscribe {
-    .make-sm-column(4);
-  }
-  .circle-body {
-    // .make-sm-column(4);
-  }
-}
-
-// Views
-.view-circles {
-  h2 {
-    margin-top: 10px;
-    margin-bottom: 5px;
-  }
-  .circle-body {
-    margin-top: 15px;
-  }
-  > * > * > .row {
-    margin-bottom: 15px;
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
 }
