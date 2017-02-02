@@ -105,7 +105,7 @@ function emh_access_user_can_see_full_user($uid = FALSE, $uid2) {
     if (!( (array) $u1_circlesIDs !== $u1_circlesIDs ) && !( (array) $u2_circlesIDs !== $u2_circlesIDs ) && array_intersect($u1_circlesIDs, $u2_circlesIDs)) return TRUE;
   }
 
-  // Flags
+  // Flag
   if (module_exists('flag')) {
     $flag = flag_get_flag('my_contacts');
     if ($flag && $flag->is_flagged($uid2, $uid)) return TRUE;
