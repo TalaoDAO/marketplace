@@ -4,9 +4,26 @@
 * Code for eMindHub circles feature.
 */
 
-
+include_once 'emh_circles.block.inc';
 include_once 'emh_circles.fields.inc';
+include_once 'emh_circles.theme.inc';
+include_once 'emh_circles.views.inc';
 
+/**
+ * Implements hook_theme().
+ */
+function emh_circles_theme() {
+  return array(
+    'emh_circles_membership_infos__block' => array(
+      'template' => 'emh-circles-membership-infos--block',
+      'path' => drupal_get_path('module', 'emh_circles') . '/theme',
+      'variables' => array(
+        'state' => NULL,
+        'subscribe_link' => NULL,
+      ),
+    ),
+  );
+}
 
 /**
  * Implements hook_views_api().
@@ -18,16 +35,38 @@ function emh_circles_views_api() {
   );
 }
 
-function emh_circles_reset_views() {
-  module_load_include('inc', 'emh_circles', 'views/emh_circles.views_default');
-  $default_views = emh_circles_views_default_views();
-  foreach($default_views as $name => $view) {
-    views_revert_view($view);
+/**
+ * Implements hook_preprocess_page().
+ */
+function emh_circles_preprocess_page(&$variables) {
+
+  if (isset($variables['node']->type)) {
+
+		switch ($variables['node']->type) {
+			case 'circle':
+        $group = og_context();
+
+        $variables['gid'] = NULL;
+        $variables['subscriber_count'] = NULL;
+
+        if (empty($group)) {
+          return NULL;
+        }
+
+        $variables['gid'] = $group['gid'];
+        $variables['subscriber_count'] = og_extras_subscriber_count($variables['gid']);
+        $variables['subscriber_count'] = format_plural($variables['subscriber_count'], '@count member', '@count members');
+
+        break;
+
+      default:
+        break;
+    }
   }
 }
 
 /**
- * Implement hook_preprocess_HOOK().
+ * Implements hook_preprocess_node().
  */
 function emh_circles_preprocess_node(&$variables) {
 
@@ -99,14 +138,14 @@ function emh_circles_node_access($node, $op, $account) {
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
 function emh_circles_form_og_ui_confirm_subscribe_alter(&$form, &$form_state) {
   $form['actions']['submit']['#value'] = t('Ask to join');
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
 function emh_circles_form_og_ui_confirm_unsubscribe_alter(&$form, &$form_state) {
   $form['actions']['submit']['#value'] = t('Yes');
@@ -164,8 +203,16 @@ function emh_circles_form_request_node_form_alter(&$form, &$form_state, $form_id
   }
 }
 
+function emh_circles_get_membership_state($group = NULL, $account = NULL, $node = NULL) {
+  if ($group === NULL) {
+		$group = og_context();
 
-function emh_circles_get_membership_state($group, $account = NULL) {
+    if ($group === FALSE && !empty($node)) {
+      $group = og_context('node', $node);
+    }
+	}
+
+  if (empty($group)) return;
 
   if (empty($account)) {
     global $user;
@@ -178,27 +225,12 @@ function emh_circles_get_membership_state($group, $account = NULL) {
     OG_STATE_BLOCKED
   );
 
-  $state = '';
   foreach ($og_states as $og_state) {
-    if (og_is_member('node', $group->nid, 'user', $user, array($og_state))) $state = $og_state;
-  }
-  if (!empty($state)) {
-    switch ($state) {
-      // Active
-      case '1':
-        break;
-      // Pending
-      case '2':
-        return t('Your request is pending.');
-        break;
-      // Blocked
-      case '3':
-        break;
-      default:
-        break;
+    $state = (og_is_member($group['group_type'], $group['gid'], 'user', $user, array($og_state))) ? $og_state : '';
+    if (!empty($state)) {
+      return $state;
     }
   }
-
 }
 
 /**
@@ -288,11 +320,11 @@ function _emh_circles_check_user_is_adminmember_of_groups($uid, $gids) {
                 ->fields('og', array('rid'))
                 ->execute();
       $isAdminMember = $isAdminMember->fetchAssoc();
-      if (!empty($isAdminMember)) { 
-        return TRUE; 
+      if (!empty($isAdminMember)) {
+        return TRUE;
       }
     }
-  } 
+  }
   return FALSE;
 }
 
