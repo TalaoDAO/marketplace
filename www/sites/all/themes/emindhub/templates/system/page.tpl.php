@@ -34,7 +34,7 @@
       </div>
 
       <?php if ( $logged_in ): ?>
-      <div class="col-md-11">
+      <div class="col-md-12">
       <?php else : ?>
       <div class="col-md-10">
       <?php endif; ?>
