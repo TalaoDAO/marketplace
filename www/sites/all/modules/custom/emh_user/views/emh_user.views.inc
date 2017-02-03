@@ -22,6 +22,7 @@ function emh_user_views_data() {
       'handler' => 'views_handler_field_emh_comment_author',
     ),
   );
+
   // Pseudo-field on webform submissions.
   $data['webform_submissions']['emh_author'] = array(
     'group' => t('Webform submissions'),
@@ -30,6 +31,17 @@ function emh_user_views_data() {
     'title' => 'EMH Author',
     'field' => array(
       'handler' => 'views_handler_field_emh_webform_author',
+    ),
+  );
+
+  // Custom user cartouche.
+  $data['users']['emh_user_cartouche'] = array(
+    'group' => t('User'),
+    'real field' => 'uid',
+    'help' => 'EMH User cartouche',
+    'title' => 'EMH User cartouche',
+    'field' => array(
+      'handler' => 'views_handler_field_emh_user_cartouche',
     ),
   );
 
