@@ -33,9 +33,8 @@ Feature: Request re-editions
       And I click "People"
       And I click "edit" in the "Captain AMERICA" row
       And I select "Active" from "Status"
-      And I check the box "Creator member"
       And I press "Update membership"
-    Then I should see "Creator member" in the "Captain AMERICA" row
+    Then I should see "Active" in the "Captain AMERICA" row
     Then I should see "The membership has been updated."
       And I click "edit" in the "Iron MAN" row
       And I select "Active" from "Status"

@@ -28,7 +28,7 @@ Feature: Create permissions for Référents
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
-  Scenario: A référent cannot create a request
+  Scenario: A référent cann create a request
     Given I am logged in as "référent1"
     When I go to "node/add"
-    Then I should not see "Request" in the "content" region
+    Then I should see "Request" in the "content" region
