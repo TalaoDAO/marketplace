@@ -37,7 +37,6 @@ Feature: Emails
       # 2nd bug : It is not displayed by @wathdog at the end of the test
       And I go to stripped URL
       And I select "Active" from "Status"
-      And I check the box "Creator member"
       And I press "Update membership"
       #Then I break   #to see the error go to watchdog
       # Again...
@@ -47,7 +46,7 @@ Feature: Emails
       And I click "Member since"
       # Twice for correct order
       And I click "Member since"
-    Then I should see "Creator member" in the "Captain AMERICA" row
+    Then I should see "Active" in the "Captain AMERICA" row
     When I click "edit" in the "Iron MAN" row
       And I go to stripped URL
       And I select "Active" from "Status"
