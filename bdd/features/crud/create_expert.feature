@@ -33,7 +33,9 @@ Feature: Create permissions for Experts
   Scenario: Experts cannot create requests in circles they're not members
     Given I am logged in as "expert1"
     When I go to "node/add/request"
-    Then I should get a "403" HTTP response
+    Then I should see "Create Request"
+      And I should see "Avengers"
+      And I should not see "X-Men"
 
     #DONE Nasty bug : this line should not be necessary !!!!
       And the user expert1 has "edit own webform submissions" permission
