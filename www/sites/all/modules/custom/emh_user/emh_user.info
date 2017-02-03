@@ -13,6 +13,7 @@ dependencies[] = rules
 dependencies[] = user_registrationpassword
 dependencies[] = views
 
+files[] = views/views_handler_field_emh_user_badge.inc
 files[] = views/views_handler_field_emh_user_cartouche.inc
 files[] = views/views_handler_field_emh_comment_author.inc
 files[] = views/views_handler_field_emh_webform_author.inc

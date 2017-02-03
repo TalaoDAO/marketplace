@@ -1,17 +1,17 @@
 <?php if ($user_profile_link) : ?>
-<a href="<?php print $user_profile_link; ?>">
-  <?php print $identity; ?>
-</a>
+  <a href="<?php print $user_profile_link; ?>">
+    <?php print $photo; ?>
+  </a>
 <?php else : ?>
-  <?php print $identity; ?>
+  <?php print $photo; ?>
 <?php endif; ?>
 
 <?php if ($user_profile_link) : ?>
-<a href="<?php print $user_profile_link; ?>">
-  <?php print $photo; ?>
-</a>
+  <a href="<?php print $user_profile_link; ?>">
+    <?php print $identity; ?>
+  </a>
 <?php else : ?>
-  <?php print $photo; ?>
+  <?php print $identity; ?>
 <?php endif; ?>
 
 <?php if ($organisation) : ?>

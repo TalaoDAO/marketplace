@@ -28,6 +28,15 @@ function emh_user_theme() {
         'purchased_count' => NULL,
       ),
     ),
+    'emh_user_badge' => array(
+      'template' => 'emh-user-badge',
+      'path' => drupal_get_path('module', 'emh_user') . '/theme',
+      'variables' => array(
+        'user_profile_link' => NULL,
+        'identity' => NULL,
+        'photo' => NULL,
+      ),
+    ),
   );
 }
 
