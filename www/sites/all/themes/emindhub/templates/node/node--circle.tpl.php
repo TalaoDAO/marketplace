@@ -1,5 +1,7 @@
 <?php if ($teaser) : ?>
-  <div class="row section">
+  <?php $alias = str_replace('content/', '', drupal_get_path_alias('node/' . $node->nid)); ?>
+
+  <div id="<?php print $alias; ?>" class="row section">
 
     <div class="circle-logo">
       <?php if (!empty($content['field_circle_logo'])) : ?>
@@ -8,7 +10,11 @@
     </div>
 
     <div class="circle-title">
-      <h2<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h2>
+      <?php if (og_is_member('node', $node->nid, 'user', user_load($user->uid))) : ?>
+        <h2<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h2>
+      <?php else : ?>
+        <h2<?php print $title_attributes; ?>><?php print $title; ?></h2>
+      <?php endif; ?>
       <div class="circle-count">
         <?php print format_plural(og_extras_subscriber_count($node->nid), '@count member', '@count members'); ?>
       </div>
@@ -21,11 +27,11 @@
     <?php endif; ?>
 
     <div class="circle-membership-infos">
-      <?php if (!empty(emh_circles_show_membership_state_info(NULL, NULL, $node))) : ?>
+      <?php if (!empty(emh_circles_show_membership_state_info($node, $user))) : ?>
       <span class="circle-membership-state">
-        <?php print emh_circles_show_membership_state_info(NULL, NULL, $node); ?>
+        <?php print emh_circles_show_membership_state_info($node, $user); ?>
       </span>
-      <?php endif; ?>
+    <?php endif; ?>
 
       <?php if (!empty(og_extras_subscribe('node', $node))) : ?>
       <span class="circle-membership-links">

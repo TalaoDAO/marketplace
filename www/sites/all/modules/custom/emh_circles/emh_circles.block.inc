@@ -39,11 +39,12 @@ function emh_circles_block_view($delta = '') {
  * Return content for 'membership-infos' block.
  */
 function emh_circles_block_membership_infos() {
-  $group = og_context();
+  global $user;
 
+  $group = og_context();
   $group_node = node_load($group['gid']);
 
-  $state = (!empty($group['gid'])) ? emh_circles_show_membership_state_info($group) : '';
+  $state = (!empty($group['gid'])) ? emh_circles_show_membership_state_info($group_node, $user) : '';
   $subscribe_link = (!empty($group['gid'])) ? og_extras_subscribe($group['group_type'], $group_node) : '';
 
   return theme('emh_circles_membership_infos__block', array(
