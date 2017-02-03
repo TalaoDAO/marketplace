@@ -922,3 +922,11 @@ function emh_configuration_update_7049() {
     variable_set('customerror_403_authenticated', 'Insufficient permissions to access this page.');
   }
 }
+
+/**
+ * CHG: Delete Display Suite module.
+ */
+function emh_configuration_update_7049() {
+  module_disable(array('ds'));
+  drupal_uninstall_modules(array('ds'));
+}
