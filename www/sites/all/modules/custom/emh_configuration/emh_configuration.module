@@ -1,1 +1,36 @@
 <?php
+
+/**
+ * Revert to default, then disable a given list of views.
+ *
+ * @param $view_name array Array of machine names of the views to revert
+ * @see http://dropbucket.org/node/8315
+ */
+function emh_configuration_revert_and_disable_views($view_names) {
+  $changed = FALSE;
+  $views_status = variable_get('views_defaults', array());
+
+  foreach ($view_names as $view_name) {
+    // Revert the view
+    $view = views_get_view($view_name);
+    if ($view->type == t('Overridden')) {
+      // Revert the view.
+      $view->delete();
+      // Clear its cache.
+      ctools_include('object-cache');
+      ctools_object_cache_clear('view', $view->name);
+    }
+
+    // Disable the view
+    if ($views_status[$view_name] !== TRUE) {
+      $views_status[$view_name] = TRUE;
+      $changed = TRUE;
+    }
+  }
+
+  // If we made changes to views status, save them and clear caches
+  if ($changed) {
+    variable_set('views_defaults', $views_status);
+    views_invalidate_cache();
+  }
+}
