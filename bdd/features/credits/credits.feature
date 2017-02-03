@@ -35,7 +35,6 @@ Feature: Test credits
       And I click "Group"
       And I click "People"
       And I click "edit" in the "Captain AMERICA" row
-      And I check the box "Creator member"
       And I press "Update membership"
 
     Given I am logged in as "expert1"
