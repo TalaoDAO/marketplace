@@ -29,7 +29,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => 'title',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -41,
+        'weight' => -39,
       ),
       'seven' => array(
         'region' => '',
@@ -59,7 +59,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => 'navigation',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -41,
+        'weight' => -39,
       ),
       'seven' => array(
         'region' => '',
@@ -87,7 +87,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => 'footer_top',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -41,
+        'weight' => -39,
       ),
       'seven' => array(
         'region' => '',
@@ -147,7 +147,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => 'navigation',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -41,
+        'weight' => -39,
       ),
       'seven' => array(
         'region' => '',
@@ -175,7 +175,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => '',
         'status' => 0,
         'theme' => 'emindhub',
-        'weight' => -41,
+        'weight' => -39,
       ),
       'seven' => array(
         'region' => '',
@@ -207,7 +207,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => '',
         'status' => 0,
         'theme' => 'emindhub',
-        'weight' => -41,
+        'weight' => -39,
       ),
       'seven' => array(
         'region' => '',
@@ -296,7 +296,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => 'help',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -41,
+        'weight' => -39,
       ),
       'seven' => array(
         'region' => 'help',
@@ -412,7 +412,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => 'navigation',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -40,
+        'weight' => -39,
       ),
       'seven' => array(
         'region' => 'content',
@@ -468,7 +468,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => '',
         'status' => 0,
         'theme' => 'emindhub',
-        'weight' => -41,
+        'weight' => -39,
       ),
       'seven' => array(
         'region' => '',
@@ -496,7 +496,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => '',
         'status' => 0,
         'theme' => 'emindhub',
-        'weight' => -41,
+        'weight' => -39,
       ),
       'seven' => array(
         'region' => '',
@@ -524,7 +524,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => '',
         'status' => 0,
         'theme' => 'emindhub',
-        'weight' => -41,
+        'weight' => -39,
       ),
       'seven' => array(
         'region' => '',
