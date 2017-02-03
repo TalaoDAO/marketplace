@@ -128,7 +128,7 @@ function emh_circles_node_access($node, $op, $account) {
   if ($op == 'view') {
     switch ($node->type) {
       case 'circle':
-        if (user_is_anonymous()) return NODE_ACCESS_DENY;
+        return (og_is_member('node', $node->nid, 'user', $account)) ? NODE_ACCESS_IGNORE : NODE_ACCESS_DENY;
         break;
       default:
         break;
@@ -142,6 +142,14 @@ function emh_circles_node_access($node, $op, $account) {
  */
 function emh_circles_form_og_ui_confirm_subscribe_alter(&$form, &$form_state) {
   $form['actions']['submit']['#value'] = t('Ask to join');
+  $form['#submit'][] = 'emh_circles_form_og_ui_confirm_subscribe_submit';
+}
+
+/**
+ * Submit handler; Confirm OG membership.
+ */
+function emh_circles_form_og_ui_confirm_subscribe_submit($form, &$form_state) {
+  $form_state['redirect'] = 'circles';
 }
 
 /**
@@ -200,36 +208,6 @@ function emh_circles_form_request_node_form_alter(&$form, &$form_state, $form_id
       // Attaches settings
       array('data' => array('circlesOptionsCosts' => $settings), 'type' => 'setting'),
     );
-  }
-}
-
-function emh_circles_get_membership_state($group = NULL, $account = NULL, $node = NULL) {
-  if ($group === NULL) {
-		$group = og_context();
-
-    if ($group === FALSE && !empty($node)) {
-      $group = og_context('node', $node);
-    }
-	}
-
-  if (empty($group)) return;
-
-  if (empty($account)) {
-    global $user;
-    $account = $user;
-  }
-
-  $og_states = array(
-    OG_STATE_ACTIVE,
-    OG_STATE_PENDING,
-    OG_STATE_BLOCKED
-  );
-
-  foreach ($og_states as $og_state) {
-    $state = (og_is_member($group['group_type'], $group['gid'], 'user', $user, array($og_state))) ? $og_state : '';
-    if (!empty($state)) {
-      return $state;
-    }
   }
 }
 
