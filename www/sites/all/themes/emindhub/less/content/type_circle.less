@@ -1,12 +1,8 @@
 .circle-section {
-  .emh-block-blue-title;
-
-  .content {
-    border: 1px solid @pattens-blue;
-    background-color: white;
-    padding:  ceil((@grid-gutter-width / 2));
-    margin-bottom: ceil((@grid-gutter-width / 2));
-  }
+  border: 1px solid @pattens-blue;
+  background-color: white;
+  padding:  ceil((@grid-gutter-width / 2));
+  margin-bottom: ceil((@grid-gutter-width / 2));
 
   h2 {
     margin-top: 0;
@@ -77,12 +73,20 @@ body.node-type-circle {
 
   .content {
     .block {
+      // .circle-section;
+      .emh-block-blue-title;
+    }
+    .view-content {
       .circle-section;
     }
 
     h3 {
       margin-top: 0;
     }
+  }
+
+  #block-views-660850ab895e687382503f50ef075b77 {
+    margin-top: 40px;
   }
 }
 

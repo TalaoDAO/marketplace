@@ -1,11 +1,9 @@
-.user-badge {
+.user-photo {
   img {
     .center-block;
     .img-circle;
-    background: #FFF;
+    background: @gray-lighter;
     .text-center;
-    height: 50px;
-    width: 50px;
   }
 }
 
@@ -47,6 +45,7 @@
   .text-center;
   background-color: #fff;
   border: 1px solid #e1e4e7;
+  margin-bottom: 15px;
 
   a {
     color: @blue-base;
@@ -76,6 +75,13 @@
 		font-weight: bold;
 	}
 
+  .user-photo {
+    img {
+      height: 100px;
+      width: 100px;
+    }
+  }
+
 	.user-organisation,
 	.user-activity {
 		font-style: italic;
@@ -86,5 +92,14 @@
     .btn-xs;
     .btn-flash;
     text-decoration: none;
+  }
+}
+
+.user-badge {
+  .user-photo {
+    img {
+      height: 36px;
+      width: auto;
+    }
   }
 }
