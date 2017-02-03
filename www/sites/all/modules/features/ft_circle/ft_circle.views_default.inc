@@ -95,6 +95,11 @@ function ft_circle_views_default_views() {
   $handler->display->display_options['filters']['state']['value'] = array(
     1 => '1',
   );
+  /* Filter criterion: User: Current */
+  $handler->display->display_options['filters']['uid_current']['id'] = 'uid_current';
+  $handler->display->display_options['filters']['uid_current']['table'] = 'users';
+  $handler->display->display_options['filters']['uid_current']['field'] = 'uid_current';
+  $handler->display->display_options['filters']['uid_current']['value'] = '0';
 
   /* Display: (B) Circle members */
   $handler = $view->new_display('block', '(B) Circle members', 'block_circle_members');
@@ -106,12 +111,21 @@ function ft_circle_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '6';
   $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'views_bootstrap_grid_plugin_style';
+  $handler->display->display_options['style_options']['columns'] = '6';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['default_field_elements'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: User: Name */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'users';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['label'] = '';
+  /* Field: User: EMH User badge */
+  $handler->display->display_options['fields']['emh_user_badge']['id'] = 'emh_user_badge';
+  $handler->display->display_options['fields']['emh_user_badge']['table'] = 'users';
+  $handler->display->display_options['fields']['emh_user_badge']['field'] = 'emh_user_badge';
+  $handler->display->display_options['fields']['emh_user_badge']['label'] = '';
+  $handler->display->display_options['fields']['emh_user_badge']['element_label_colon'] = FALSE;
   $handler->display->display_options['block_description'] = 'New members';
 
   /* Display: (P) Circle members */
@@ -214,6 +228,11 @@ function ft_circle_views_default_views() {
   );
   $handler->display->display_options['filters']['field_domaine_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_domaine_tid']['vocabulary'] = 'domaine';
+  /* Filter criterion: User: Current */
+  $handler->display->display_options['filters']['uid_current']['id'] = 'uid_current';
+  $handler->display->display_options['filters']['uid_current']['table'] = 'users';
+  $handler->display->display_options['filters']['uid_current']['field'] = 'uid_current';
+  $handler->display->display_options['filters']['uid_current']['value'] = '0';
   $handler->display->display_options['path'] = 'node/%/members';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Members';

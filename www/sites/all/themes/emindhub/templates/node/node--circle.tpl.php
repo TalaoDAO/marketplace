@@ -85,14 +85,10 @@
             <?php endif; ?>
           <?php endif; ?>
 
-          <?php if (!empty($content['body']) || !empty($content['field_circle_website']) || !empty($managers)) : ?>
-            <hr />
-          <?php endif; ?>
-
           <?php
           $circle_members_block = module_invoke('views', 'block_view', '660850ab895e687382503f50ef075b77');
           if (!empty($circle_members_block)) : ?>
-            <section id="block-views-ebd3d59bc59a77db1ff1c0c9be295d26" class="block clearfix">
+            <section id="block-views-660850ab895e687382503f50ef075b77" class="block clearfix">
               <h2 class="block-title"><span><?php print t('New members'); ?></span></h2>
               <div class="content">
                 <?php print render($circle_members_block['content']); ?>

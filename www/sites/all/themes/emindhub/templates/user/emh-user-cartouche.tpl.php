@@ -1,5 +1,15 @@
 <div class="user-cartouche">
   <div class="cartouche-identity">
+    <span class="user-photo">
+      <?php if ($user_profile_link) : ?>
+      <a href="<?php print $user_profile_link; ?>">
+        <?php print $photo; ?>
+      </a>
+      <?php else : ?>
+        <?php print $photo; ?>
+      <?php endif; ?>
+    </span>
+
     <span class="user-identity">
       <?php if ($user_profile_link) : ?>
       <a href="<?php print $user_profile_link; ?>">
@@ -7,16 +17,6 @@
       </a>
       <?php else : ?>
         <?php print $identity; ?>
-      <?php endif; ?>
-    </span>
-
-    <span class="user-badge">
-      <?php if ($user_profile_link) : ?>
-      <a href="<?php print $user_profile_link; ?>">
-        <?php print $photo; ?>
-      </a>
-      <?php else : ?>
-        <?php print $photo; ?>
       <?php endif; ?>
     </span>
 
