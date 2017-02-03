@@ -62,6 +62,50 @@ function ft_circle_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-circle-field_anonymous'.
+  $field_instances['node-circle-field_anonymous'] = array(
+    'bundle' => 'circle',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 4,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 3,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_anonymous',
+    'label' => 'Author visibility',
+    'required' => FALSE,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 5,
+    ),
+  );
+
   // Exported field_instance: 'node-circle-field_circle_logo'.
   $field_instances['node-circle-field_circle_logo'] = array(
     'bundle' => 'circle',
@@ -491,6 +535,7 @@ function ft_circle_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Author visibility');
   t('Body');
   t('Circle logo');
   t('Community website');
