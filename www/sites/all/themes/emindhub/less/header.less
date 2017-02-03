@@ -54,22 +54,29 @@ body.not-logged-in {
 	header#title {
 		padding-top: 15px;
 	}
+
 	.logo {
 		img {
-			max-height: 51px;
+			max-height: @navbar-height;
 		}
 	}
-	@media (min-width: @screen-md-min) {
 
+	@media (min-width: @screen-md-min) {
 		header#navbar {
 			.row {
 				> div:nth-child(1) {
 					padding-right: 0;
 				}
+
 				> div:nth-child(2) {
-					padding-left: 0;
+					padding-left: @navbar-height;
 				}
 			}
+
+      .emh-brand {
+        position: absolute;
+      }
+
 			#block-system-user-menu .nav > li > span span.caret {
 		    top: 22px;
 			}
@@ -215,6 +222,7 @@ header#page-header {
     border-color: transparent;
   }
 }
+
 #block-menu-menu-top-anonymous {
   clear: both;
 	.make-md-column(8);
@@ -231,6 +239,7 @@ header#page-header {
 		color: @pattens-blue;
 	}
 }
+
 body.logged-in {
 	#block-bootstrap-languages-language {
 		.hidden();
@@ -242,7 +251,7 @@ body.logged-in {
 		.make-sm-column(4);
 	}
 	#block-roleswitcher-switcher {
-		.make-md-column(3);
+		.make-md-column(2);
 		.text-right;
 		a {
 			.btn;
@@ -267,6 +276,6 @@ body.role-roleswitcher {
 		.make-sm-column(6);
 	}
 	#block-system-user-menu {
-		.make-sm-column(3);
+		.make-sm-column(4);
 	}
 }
