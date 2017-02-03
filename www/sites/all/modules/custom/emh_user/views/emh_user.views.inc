@@ -34,6 +34,17 @@ function emh_user_views_data() {
     ),
   );
 
+  // Custom user badge.
+  $data['users']['emh_user_badge'] = array(
+    'group' => t('User'),
+    'real field' => 'uid',
+    'help' => 'EMH User badge',
+    'title' => 'EMH User badge',
+    'field' => array(
+      'handler' => 'views_handler_field_emh_user_badge',
+    ),
+  );
+
   // Custom user cartouche.
   $data['users']['emh_user_cartouche'] = array(
     'group' => t('User'),
