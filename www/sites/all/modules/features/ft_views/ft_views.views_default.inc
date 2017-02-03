@@ -877,9 +877,9 @@ function ft_views_views_default_views() {
   $view = new view();
   $view->name = 'organisation_admin_';
   $view->description = '';
-  $view->tag = 'emh, utils';
+  $view->tag = 'EMH, utils, administration';
   $view->base_table = 'node';
-  $view->human_name = 'Organisation (admin)';
+  $view->human_name = '[ADMIN] Organisation';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -888,7 +888,11 @@ function ft_views_views_default_views() {
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Organisation (admin)';
   $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['access']['type'] = 'role';
+  $handler->display->display_options['access']['role'] = array(
+    3 => '3',
+    6 => '6',
+  );
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -1481,9 +1485,9 @@ function ft_views_views_default_views() {
   $view = new view();
   $view->name = 'user_export_';
   $view->description = '';
-  $view->tag = 'emh, utils';
+  $view->tag = 'emh, utils, administration';
   $view->base_table = 'users';
-  $view->human_name = 'User (admin)';
+  $view->human_name = '[ADMIN] Users';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -2568,9 +2572,9 @@ function ft_views_views_default_views() {
   $view = new view();
   $view->name = 'users_list_from_request';
   $view->description = '';
-  $view->tag = 'default';
+  $view->tag = 'EMH, administration';
   $view->base_table = 'users';
-  $view->human_name = 'Users list from request (admin)';
+  $view->human_name = '[ADMIN] Users list from request';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -2579,8 +2583,11 @@ function ft_views_views_default_views() {
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Users list from request';
   $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['access']['perm'] = 'access user profiles';
+  $handler->display->display_options['access']['type'] = 'role';
+  $handler->display->display_options['access']['role'] = array(
+    3 => '3',
+    6 => '6',
+  );
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
