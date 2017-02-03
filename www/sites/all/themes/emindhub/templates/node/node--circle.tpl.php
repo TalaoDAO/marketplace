@@ -27,17 +27,18 @@
     <?php endif; ?>
 
     <div class="circle-membership-infos">
-      <?php if (!empty(emh_circles_show_membership_state_info($node, $user))) : ?>
+      <?php if (module_exists('emh_circles') && !empty(emh_circles_show_membership_state_info($node, $user))) : ?>
       <span class="circle-membership-state">
         <?php print emh_circles_show_membership_state_info($node, $user); ?>
       </span>
-    <?php endif; ?>
+      <?php endif; ?>
 
       <?php if (!empty(og_extras_subscribe('node', $node))) : ?>
       <span class="circle-membership-links">
         <?php print og_extras_subscribe('node', $node); ?>
       </span>
       <?php endif; ?>
+
     </div>
 
   </div>
