@@ -62,7 +62,6 @@ Feature: Requests visibility for Client
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
-  @exclude
   Scenario: Clients can see the requests
     Given I am logged in as "client1"
     When I go to homepage
@@ -76,7 +75,7 @@ Feature: Requests visibility for Client
     Then I should see "Fight Magneto"
       And I should not see "Fight Ultron"
       And I should not see "Fight Hydra"
-      And I should not see "Fight Thanos"
+      And I should see "Fight Thanos"
 
   Scenario: A client can see experts' full profiles from its circles
     Given I am logged in as "client1"
