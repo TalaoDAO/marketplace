@@ -65,8 +65,7 @@ function emh_user_cartouche_view($account = NULL, $context = NULL) {
 
   // Organisation
   $organisation = '';
-	$organisation = field_get_items('user', $u2_account, 'field_entreprise');
-  if (!empty($organisation)) {
+  if (!empty(field_get_items('user', $u2_account, 'field_entreprise'))) {
     if (
           ($context == 'author' && !(emh_request_has_option($node, 'anonymous')))
       ||  ($context == 'author' && (emh_request_has_option($node, 'anonymous') && ($node->field_hide_organisation[LANGUAGE_NONE][0]['value'] == false)))
