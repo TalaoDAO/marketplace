@@ -926,7 +926,7 @@ function emh_configuration_update_7049() {
 /**
  * CHG: Delete Display Suite module.
  */
-function emh_configuration_update_7049() {
+function emh_configuration_update_7050() {
   module_disable(array('ds'));
   drupal_uninstall_modules(array('ds'));
 }
