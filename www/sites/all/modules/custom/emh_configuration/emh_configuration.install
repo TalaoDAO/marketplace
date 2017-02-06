@@ -912,32 +912,3 @@ function emh_configuration_update_7048() {
   module_disable(array('ft_wysiwyg'));
   drupal_uninstall_modules(array('ft_wysiwyg'));
 }
-
-/*
- * CHG: 403 errors infos.
- */
-function emh_configuration_update_7049() {
-  if (module_exists('customerror')) {
-    variable_set('customerror_403_authenticated_title', 'Access denied');
-    variable_set('customerror_403_authenticated', 'Insufficient permissions to access this page.');
-  }
-}
-
-/**
- * CHG: Delete Display Suite module.
- */
-function emh_configuration_update_7050() {
-  module_disable(array('ds'));
-  drupal_uninstall_modules(array('ds'));
-}
-
-/**
- * CHG: Disable original OG Extras group members + FIX: Credits transaction log path.
- */
-function emh_configuration_update_7051() {
-  $views_name = array(
-    'og_extras_members',
-    'transaction_log',
-  );
-  emh_configuration_revert_and_disable_views($views_name);
-}
