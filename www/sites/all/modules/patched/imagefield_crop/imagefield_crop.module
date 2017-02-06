@@ -148,9 +148,9 @@ function imagefield_crop_field_load($entity_type, $entities, $field, $instances,
 function imagefield_crop_field_prepare_view($entity_type, $entities, $field, $instances, $langcode, &$items) {
   // Before render of image, we should set actual width and height values to pass to image attributes.
   foreach ($items as &$item) {
-    if ((!isset($item[0]['width']) || !isset($item[0]['height'])) && (isset($item[0]['cropbox_width']) && isset($item[0]['cropbox_height']))) {
-      $item[0]['width'] = $item[0]['cropbox_width'];
-      $item[0]['height'] = $item[0]['cropbox_height'];
+    if ((!isset($item[0]['width']) || !isset($item[0]['height'])) && (isset($item[0]['image_dimensions']) && isset($item[0]['image_dimensions']['width']) && isset($item[0]['image_dimensions']['height']))) {
+      $item[0]['width'] = $item[0]['image_dimensions']['width'];
+      $item[0]['height'] = $item[0]['image_dimensions']['height'];
     }
   }
   image_field_prepare_view($entity_type, $entities, $field, $instances, $langcode, $items);
