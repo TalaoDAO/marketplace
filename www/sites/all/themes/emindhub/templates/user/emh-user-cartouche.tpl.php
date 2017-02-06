@@ -51,6 +51,7 @@
     <?php endif; ?>
   </div>
 
+  <?php if ($context !== 'author') : ?>
   <div class="cartouche-activity">
     <span class="user-submission-count" title="<?php print t('!count published answer(s)', array('!count' => $submission_count)); ?>">
       <?php print $submission_count; ?>
@@ -60,4 +61,5 @@
       <?php print $purchased_count; ?>
     </span>
   </div>
+  <?php endif; ?>
 </div>
