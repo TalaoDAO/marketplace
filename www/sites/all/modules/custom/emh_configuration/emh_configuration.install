@@ -912,8 +912,6 @@ function emh_configuration_update_7048() {
   module_disable(array('ft_wysiwyg'));
   drupal_uninstall_modules(array('ft_wysiwyg'));
 }
-<<<<<<< Updated upstream
-=======
 
 /*
  * CHG: 403 errors infos.
@@ -943,4 +941,3 @@ function emh_configuration_update_7051() {
   );
   emh_configuration_revert_and_disable_views($views_name);
 }
->>>>>>> Stashed changes
