@@ -1894,7 +1894,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['field_language'] = 'und';
   $handler->display->display_options['defaults']['access'] = FALSE;
   $handler->display->display_options['access']['type'] = 'og_context';
-  $handler->display->display_options['access']['perm'] = 'unsubscribe';
+  $handler->display->display_options['access']['perm'] = 'create request content';
   $handler->display->display_options['access']['group_id_arg'] = '1';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
@@ -2227,7 +2227,8 @@ function ft_request_views_default_views() {
   $handler->display->display_options['defaults']['link_display'] = FALSE;
   $handler->display->display_options['link_display'] = 'page_circle_requests';
   $handler->display->display_options['defaults']['access'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'none';
+  $handler->display->display_options['access']['type'] = 'og_context';
+  $handler->display->display_options['access']['perm'] = 'create request content';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '5';
