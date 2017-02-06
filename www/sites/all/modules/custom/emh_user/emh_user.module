@@ -15,6 +15,7 @@ function emh_user_theme() {
       'template' => 'emh-user-cartouche',
       'path' => drupal_get_path('module', 'emh_user') . '/theme',
       'variables' => array(
+        'context' => NULL,
         'user_profile_link' => NULL,
         'identity' => NULL,
         'photo' => NULL,
