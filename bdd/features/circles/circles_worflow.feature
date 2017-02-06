@@ -58,18 +58,20 @@ Feature: Circles workflow for Expert
     When I go to "circles"
       And I click "Avengers"
     Then I should see "Leave circle"
-  @exclude
+
   Scenario: Experts cannot access to private circles
     Given I am logged in as "expert4"
     When I go to "circles"
     Then I should not see "Avengers"
-  @exclude
+
   Scenario: Experts cannot access to public circles if they're not active members
     Given I am logged in as "expert1"
     When I go to "circles"
-      And I click "Guardians of the Galaxy"
+    Then I should not see the link "Guardians of the Galaxy"
+
+    When I go to "content/guardians-galaxy"
     Then I should get a "403" HTTP response
-  @exclude
+
   Scenario: Experts can join circle to public circles and be activated by the circle manager
     Given I am logged in as "expert1"
     When I go to "circles"
@@ -92,7 +94,7 @@ Feature: Circles workflow for Expert
     Given I am logged in as "expert1"
     When I go to "circles"
     Then I should not see "Your request is pending." in the "guardians_galaxy_teaser" region
-  @exclude
+
   Scenario: Experts can join circle to public circles and be refused by the circle manager
     Given I am logged in as "expert4"
     When I go to "circles"
@@ -114,7 +116,7 @@ Feature: Circles workflow for Expert
     Given I am logged in as "expert4"
     When I go to "circles"
     Then I should see "Join circle" in the "guardians_galaxy_teaser" region
-  @exclude
+
   Scenario: Circle member can access to requests
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country |
