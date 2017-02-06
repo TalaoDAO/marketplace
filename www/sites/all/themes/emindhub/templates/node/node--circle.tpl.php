@@ -57,7 +57,7 @@
           $circle_requests_block = module_invoke('views', 'block_view', 'ebd3d59bc59a77db1ff1c0c9be295d26');
           if (!empty($circle_requests_block)) : ?>
             <section id="block-views-ebd3d59bc59a77db1ff1c0c9be295d26" class="block clearfix">
-              <h2><span><?php print t('Latest requests'); ?></span></h2>
+              <h2 class="block-title"><span><?php print t('Latest requests'); ?></span></h2>
               <div class="content">
                 <?php print render($circle_requests_block['content']); ?>
               </div>
@@ -66,7 +66,7 @@
         </div>
 
         <div class="col-sm-4">
-          <?php if (!empty($content['body']) || !empty($content['field_circle_website'])) : ?>
+          <?php if (!empty($content['body']) || !empty($content['field_circle_website']) || !empty($managers)) : ?>
             <h3><?php print t('About this circle'); ?></h3>
 
             <?php print render($content['body']); ?>
@@ -75,16 +75,25 @@
               <?php print render($content['field_circle_website']); ?>
             <?php endif; ?>
 
-            <hr />
+            <?php if (!empty($managers)) : ?>
+            <div class="circle-managers">
+              <?php print format_plural(count($manager_uids), 'Manager:', 'Managers:'); ?>
+              <?php foreach ($managers as $manager): ?>
+                <?php print $manager; ?>&nbsp;
+              <?php endforeach; ?>
+            </div>
+            <?php endif; ?>
           <?php endif; ?>
 
-          <?php if (!empty($managers)) : ?>
-          <div class="circle-managers">
-            <?php print format_plural(count($manager_uids), 'Manager:', 'Managers:'); ?>
-            <?php foreach ($managers as $manager): ?>
-              <?php print $manager; ?>&nbsp;
-            <?php endforeach; ?>
-          </div>
+          <?php
+          $circle_members_block = module_invoke('views', 'block_view', '660850ab895e687382503f50ef075b77');
+          if (!empty($circle_members_block)) : ?>
+            <section id="block-views-660850ab895e687382503f50ef075b77" class="block clearfix">
+              <h2 class="block-title"><span><?php print t('New members'); ?></span></h2>
+              <div class="content">
+                <?php print render($circle_members_block['content']); ?>
+              </div>
+            </section> <!-- /.block -->
           <?php endif; ?>
 
         </div>
