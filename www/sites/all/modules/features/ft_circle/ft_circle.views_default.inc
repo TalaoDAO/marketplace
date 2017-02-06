@@ -26,7 +26,7 @@ function ft_circle_views_default_views() {
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['use_more_text'] = 'more members';
   $handler->display->display_options['access']['type'] = 'og_context';
-  $handler->display->display_options['access']['perm'] = 'unsubscribe';
+  $handler->display->display_options['access']['perm'] = 'create request content';
   $handler->display->display_options['access']['group_id_arg'] = '1';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
