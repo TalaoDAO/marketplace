@@ -1894,7 +1894,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['field_language'] = 'und';
   $handler->display->display_options['defaults']['access'] = FALSE;
   $handler->display->display_options['access']['type'] = 'og_context';
-  $handler->display->display_options['access']['perm'] = 'unsubscribe';
+  $handler->display->display_options['access']['perm'] = 'create request content';
   $handler->display->display_options['access']['group_id_arg'] = '1';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
@@ -2037,7 +2037,9 @@ function ft_request_views_default_views() {
   $handler->display->display_options['arguments']['gid']['field'] = 'gid';
   $handler->display->display_options['arguments']['gid']['relationship'] = 'og_membership_rel';
   $handler->display->display_options['arguments']['gid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['gid']['default_argument_type'] = 'node';
+  $handler->display->display_options['arguments']['gid']['title_enable'] = TRUE;
+  $handler->display->display_options['arguments']['gid']['title'] = '%1 requests';
+  $handler->display->display_options['arguments']['gid']['default_argument_type'] = 'og_context';
   $handler->display->display_options['arguments']['gid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['gid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['gid']['summary_options']['items_per_page'] = '25';
@@ -2225,7 +2227,8 @@ function ft_request_views_default_views() {
   $handler->display->display_options['defaults']['link_display'] = FALSE;
   $handler->display->display_options['link_display'] = 'page_circle_requests';
   $handler->display->display_options['defaults']['access'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'none';
+  $handler->display->display_options['access']['type'] = 'og_context';
+  $handler->display->display_options['access']['perm'] = 'create request content';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '5';
