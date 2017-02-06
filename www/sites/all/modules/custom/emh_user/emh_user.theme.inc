@@ -125,6 +125,7 @@ function emh_user_cartouche_view($account = NULL, $context = NULL) {
 	}
 
   return theme('emh_user_cartouche', array(
+    'context' => $context,
     'user_profile_link' => $user_profile_link,
     'identity' => $identity,
     'photo' => $photo,
