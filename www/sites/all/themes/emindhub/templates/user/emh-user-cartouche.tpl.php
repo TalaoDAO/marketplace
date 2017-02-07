@@ -20,15 +20,9 @@
       <?php endif; ?>
     </span>
 
-    <?php if ($organisation) : ?>
-    <span class="user-organisation">
-      <?php print render($organisation); ?>
-    </span>
-    <?php endif; ?>
-
-    <?php if ($activity) : ?>
-    <span class="user-activity">
-      <?php print render($activity); ?>
+    <?php if ($mail) : ?>
+    <span class="user-mail">
+      <?php print render($mail); ?>
     </span>
     <?php endif; ?>
 
@@ -38,9 +32,21 @@
     </span>
     <?php endif; ?>
 
-    <?php if ($mail) : ?>
-    <span class="user-mail">
-      <?php print render($mail); ?>
+    <?php if ($link_to_my_blog) : ?>
+    <span class="user-link-to-my-blog">
+      <?php print render($link_to_my_blog); ?>
+    </span>
+    <?php endif; ?>
+
+    <?php if ($organisation) : ?>
+    <span class="user-organisation">
+      <?php print render($organisation); ?>
+    </span>
+    <?php endif; ?>
+
+    <?php if ($activity) : ?>
+    <span class="user-activity">
+      <?php print render($activity); ?>
     </span>
     <?php endif; ?>
 
