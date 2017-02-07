@@ -101,6 +101,11 @@ function emh_user_cartouche_view($account = NULL, $context = NULL) {
     $link_to_my_blog = field_view_field('user', $u2_account, 'field_link_to_my_blog', array('label'=>'hidden'));
   }
 
+  // LinkedIn profile
+  if (empty($node)) {
+    $user_linkedin = field_view_field('user', $u2_account, 'field_user_linkedin', array('label'=>'hidden'));
+  }
+
 	// Buy profile access
   $user_purchase_link = ''; $amount ='';
 	if (module_exists('emh_user_profile_purchase') && !emh_access_user_can_see_full_user($uid1, $uid2) && !($context == 'author')) {
@@ -135,6 +140,7 @@ function emh_user_cartouche_view($account = NULL, $context = NULL) {
     'address' => $address,
     'mail' => $mail,
     'link_to_my_blog' => $link_to_my_blog,
+    'user_linkedin' => $user_linkedin,
     'user_purchase_link' => $user_purchase_link,
     'amount' => $amount,
     'submission_count' => $submission_count,
