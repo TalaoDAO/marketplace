@@ -40,7 +40,21 @@ $purchased_count = emh_user_profile_purchase_get_count($account);
 ?>
 <div class="profile"<?php print $attributes; ?>>
 
-  <?php print emh_user_cartouche_view(); ?>
+  <div class="user-cartouche">
+    <?php if (!empty($user_profile['field_photo']) || !empty($user_profile['field_titre_metier']) || !empty($user_profile['field_entreprise']) || !empty($user_profile['field_address']) || !empty($user_profile['field_mail'])) : ?>
+    <div class="cartouche-identity">
+      <?php print render($user_profile['field_photo']); ?>
+      <?php print render($user_profile['field_titre_metier']); ?>
+      <?php print render($user_profile['field_entreprise']); ?>
+      <?php print render($user_profile['field_address']); ?>
+      <?php print render($user_profile['field_mail']); ?>
+    </div>
+    <?php endif; ?>
+    <div class="cartouche-activity">
+      <span class="user-submission-count" title="<?php print $submission_count . ' ' . t('published answer(s)'); ?>"><?php print $submission_count; ?></span>
+      <span class="user-purchased-count" title="<?php print t('Profile purchased !count times', array('!count' => $purchased_count)); ?>"><?php print $purchased_count; ?></span>
+    </div>
+  </div>
 
   <?php if (
         !empty($user_profile['field_entreprise'])
