@@ -38,9 +38,9 @@
     </span>
     <?php endif; ?>
 
-    <?php if ($user_linkedin) : ?>
+    <?php if ($linkedin) : ?>
     <span class="user-linkedin">
-      <?php print render($user_linkedin); ?>
+      <?php print render($linkedin); ?>
     </span>
     <?php endif; ?>
 
