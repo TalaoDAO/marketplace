@@ -44,6 +44,12 @@
     </span>
     <?php endif; ?>
 
+    <?php if ($twitter) : ?>
+    <span class="user-twitter">
+      <?php print render($twitter); ?>
+    </span>
+    <?php endif; ?>
+
     <?php if ($organisation) : ?>
     <span class="user-organisation">
       <?php print render($organisation); ?>
