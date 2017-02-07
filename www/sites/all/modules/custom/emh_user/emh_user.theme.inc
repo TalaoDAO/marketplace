@@ -103,7 +103,7 @@ function emh_user_cartouche_view($account = NULL, $context = NULL) {
 
   // LinkedIn profile
   if (empty($node)) {
-    $user_linkedin = field_view_field('user', $u2_account, 'field_user_linkedin', array('label'=>'hidden'));
+    $linkedin = field_view_field('user', $u2_account, 'field_linkedin', array('label'=>'hidden'));
   }
 
 	// Buy profile access
@@ -140,7 +140,7 @@ function emh_user_cartouche_view($account = NULL, $context = NULL) {
     'address' => $address,
     'mail' => $mail,
     'link_to_my_blog' => $link_to_my_blog,
-    'user_linkedin' => $user_linkedin,
+    'linkedin' => $linkedin,
     'user_purchase_link' => $user_purchase_link,
     'amount' => $amount,
     'submission_count' => $submission_count,

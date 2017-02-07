@@ -33,8 +33,8 @@ function ft_content_type_field_group_info() {
       7 => 'field_entreprise_description',
       8 => 'field_photo',
       9 => 'field_position',
-      10 => 'account',
-      11 => 'field_user_linkedin',
+      10 => 'field_linkedin',
+      11 => 'account',
     ),
     'format_type' => 'div',
     'format_settings' => array(
