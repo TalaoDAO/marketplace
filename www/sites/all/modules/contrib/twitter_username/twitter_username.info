@@ -1,0 +1,11 @@
+name = Twitter Username
+description = Defines simple field for handling twitter username (ex: user profile field)
+core = 7.x
+package = Fields
+
+; Information added by Drupal.org packaging script on 2016-02-04
+version = "7.x-1.5"
+core = "7.x"
+project = "twitter_username"
+datestamp = "1454600940"
+
