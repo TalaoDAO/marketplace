@@ -3379,7 +3379,7 @@ function ft_content_type_field_default_field_instances() {
           'use_widget_handlers' => 0,
         ),
         'type' => 'addressfield_default',
-        'weight' => 9,
+        'weight' => 2,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -3442,7 +3442,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_default',
-        'weight' => 15,
+        'weight' => 12,
       ),
     ),
     'entity_type' => 'user',
@@ -3502,7 +3502,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 10,
+        'weight' => 8,
       ),
       'full' => array(
         'label' => 'above',
@@ -3536,14 +3536,14 @@ function ft_content_type_field_default_field_instances() {
     'bundle' => 'user',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Degrees, companies, etc.',
+    'description' => 'Decribe your work experience : degrees, companies, etc.',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
+        'label' => 'above',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 14,
+        'weight' => 11,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -3555,7 +3555,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'user',
     'field_name' => 'field_employment_history',
-    'label' => 'Describe your work experience',
+    'label' => 'Work experience',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -3588,7 +3588,7 @@ function ft_content_type_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 4,
+        'weight' => 3,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -3649,7 +3649,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 5,
+        'weight' => 4,
       ),
       'full' => array(
         'label' => 'above',
@@ -3734,7 +3734,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 23,
+        'weight' => 26,
       ),
     ),
     'entity_type' => 'user',
@@ -3839,9 +3839,10 @@ function ft_content_type_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
+        'module' => 'taxonomy',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 26,
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 16,
       ),
       'full' => array(
         'label' => 'above',
@@ -3880,7 +3881,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 27,
+        'weight' => 28,
       ),
       'full' => array(
         'label' => 'above',
@@ -4020,7 +4021,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_plain',
-        'weight' => 11,
+        'weight' => 1,
       ),
     ),
     'entity_type' => 'user',
@@ -4055,7 +4056,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 1,
+        'weight' => 13,
       ),
     ),
     'entity_type' => 'user',
@@ -4090,9 +4091,10 @@ function ft_content_type_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
+        'module' => 'taxonomy',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 25,
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 15,
       ),
       'full' => array(
         'label' => 'above',
@@ -4132,7 +4134,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 0,
+        'weight' => 17,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4173,7 +4175,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 22,
+        'weight' => 25,
       ),
     ),
     'entity_type' => 'user',
@@ -4210,7 +4212,7 @@ function ft_content_type_field_default_field_instances() {
           'image_style' => 'profile_picture',
         ),
         'type' => 'image',
-        'weight' => 3,
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'user',
@@ -4285,7 +4287,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 6,
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'user',
@@ -4322,7 +4324,7 @@ function ft_content_type_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 13,
+        'weight' => 10,
       ),
     ),
     'entity_type' => 'user',
@@ -4359,7 +4361,7 @@ function ft_content_type_field_default_field_instances() {
           'thousand_separator' => ' ',
         ),
         'type' => 'number_integer',
-        'weight' => 16,
+        'weight' => 18,
       ),
     ),
     'entity_type' => 'user',
@@ -4397,7 +4399,7 @@ function ft_content_type_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 12,
+        'weight' => 9,
       ),
       'full' => array(
         'label' => 'above',
@@ -4442,7 +4444,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 2,
+        'weight' => 14,
       ),
       'full' => array(
         'label' => 'above',
@@ -4531,7 +4533,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 20,
+        'weight' => 23,
       ),
     ),
     'entity_type' => 'user',
@@ -4569,7 +4571,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 24,
+        'weight' => 27,
       ),
       'full' => array(
         'label' => 'above',
@@ -4608,7 +4610,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 19,
+        'weight' => 22,
       ),
       'full' => array(
         'label' => 'above',
@@ -4650,7 +4652,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 21,
+        'weight' => 24,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4694,7 +4696,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_plain',
-        'weight' => 7,
+        'weight' => 6,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4736,7 +4738,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'i18n_field',
         'settings' => array(),
         'type' => 'i18n_list_default',
-        'weight' => 8,
+        'weight' => 7,
       ),
       'full' => array(
         'label' => 'above',
@@ -4837,8 +4839,7 @@ function ft_content_type_field_default_field_instances() {
   t('Comment');
   t('Context and objectives of the mission');
   t('Deadline');
-  t('Degrees, companies, etc.');
-  t('Describe your work experience');
+  t('Decribe your work experience : degrees, companies, etc.');
   t('Description');
   t('Description of the activity of organisation / company');
   t('Desired starting date');
@@ -4896,6 +4897,7 @@ function ft_content_type_field_default_field_instances() {
   t('Titre');
   t('Why did I choose to become a partner?');
   t('Why did I choose to become a sponsor?');
+  t('Work experience');
   t('Working status');
   t('Years of experience');
   t('Your activity');
