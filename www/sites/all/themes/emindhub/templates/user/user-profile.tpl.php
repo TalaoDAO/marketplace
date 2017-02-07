@@ -43,10 +43,16 @@ $purchased_count = emh_user_profile_purchase_get_count($account);
 
   <?php print emh_user_cartouche_view(); ?>
 
-  <?php if (!empty($user_profile['field_position']) || !empty($user_profile['field_working_status'])) : ?>
+  <?php if (
+        !empty($user_profile['field_entreprise'])
+    ||  !empty($user_profile['field_position'])
+    ||  !empty($user_profile['field_working_status'])) : ?>
   <div class="group-organisation profile-section">
     <h2><span><?php print t('Organisation'); ?></span></h2>
+    <?php print render($user_profile['field_entreprise']); ?>
+    <?php print render($user_profile['field_entreprise_description']); ?>
     <?php print render($user_profile['field_position']); ?>
+    <?php print render($user_profile['field_titre_metier']); ?>
     <?php print render($user_profile['field_working_status']); ?>
   </div>
   <?php endif; ?>
