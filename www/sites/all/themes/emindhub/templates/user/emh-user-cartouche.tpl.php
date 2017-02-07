@@ -38,6 +38,12 @@
     </span>
     <?php endif; ?>
 
+    <?php if ($user_linkedin) : ?>
+    <span class="user-linkedin">
+      <?php print render($user_linkedin); ?>
+    </span>
+    <?php endif; ?>
+
     <?php if ($organisation) : ?>
     <span class="user-organisation">
       <?php print render($organisation); ?>
