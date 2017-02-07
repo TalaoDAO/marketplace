@@ -61,6 +61,7 @@ $purchased_count = emh_user_profile_purchase_get_count($account);
         !empty($user_profile['field_domaine'])
     ||  !empty($user_profile['field_skills_set'])
     ||  !empty($user_profile['field_position_list'])
+    ||  !empty($user_profile['field_education'])
     ||  !empty($user_profile['field_employment_history'])
     ||  !empty($user_profile['field_cv'])) : ?>
   <div class="group-expertise profile-section">
@@ -68,6 +69,7 @@ $purchased_count = emh_user_profile_purchase_get_count($account);
     <?php print render($user_profile['field_domaine']); ?>
     <?php print render($user_profile['field_skills_set']); ?>
     <?php print render($user_profile['field_position_list']); ?>
+    <?php print render($user_profile['field_education']); ?>
     <?php print render($user_profile['field_employment_history']); ?>
     <?php print render($user_profile['field_cv']); ?>
   </div>

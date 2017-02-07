@@ -1719,6 +1719,7 @@ function ft_content_type_field_group_info() {
       2 => 'field_employment_history',
       3 => 'field_cv',
       4 => 'field_position_list',
+      5 => 'field_education',
     ),
     'format_type' => 'div',
     'format_settings' => array(
