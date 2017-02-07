@@ -3431,6 +3431,41 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_availability'.
+  $field_instances['user-user-field_availability'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Please indicate when you are available to answer to requests',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_plain',
+        'weight' => 16,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_availability',
+    'label' => 'Availability',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 20,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_cv'.
   $field_instances['user-user-field_cv'] = array(
     'bundle' => 'user',
@@ -3724,7 +3759,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 37,
+        'weight' => 38,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -3769,7 +3804,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 29,
+        'weight' => 30,
       ),
     ),
     'entity_type' => 'user',
@@ -3806,7 +3841,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 36,
+        'weight' => 37,
       ),
     ),
     'entity_type' => 'user',
@@ -3843,7 +3878,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 35,
+        'weight' => 36,
       ),
     ),
     'entity_type' => 'user',
@@ -3877,7 +3912,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 19,
+        'weight' => 20,
       ),
       'full' => array(
         'label' => 'above',
@@ -3916,7 +3951,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 31,
+        'weight' => 32,
       ),
       'full' => array(
         'label' => 'above',
@@ -3956,7 +3991,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 33,
+        'weight' => 34,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4144,7 +4179,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 16,
+        'weight' => 17,
       ),
     ),
     'entity_type' => 'user',
@@ -4182,7 +4217,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 18,
+        'weight' => 19,
       ),
       'full' => array(
         'label' => 'above',
@@ -4222,7 +4257,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 20,
+        'weight' => 21,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4263,7 +4298,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 28,
+        'weight' => 29,
       ),
     ),
     'entity_type' => 'user',
@@ -4449,7 +4484,7 @@ function ft_content_type_field_default_field_instances() {
           'thousand_separator' => ' ',
         ),
         'type' => 'number_integer',
-        'weight' => 21,
+        'weight' => 22,
       ),
     ),
     'entity_type' => 'user',
@@ -4532,7 +4567,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 17,
+        'weight' => 18,
       ),
       'full' => array(
         'label' => 'above',
@@ -4577,7 +4612,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 32,
+        'weight' => 33,
       ),
       'full' => array(
         'label' => 'above',
@@ -4621,7 +4656,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 26,
+        'weight' => 27,
       ),
     ),
     'entity_type' => 'user',
@@ -4659,7 +4694,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 30,
+        'weight' => 31,
       ),
       'full' => array(
         'label' => 'above',
@@ -4698,7 +4733,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 25,
+        'weight' => 26,
       ),
       'full' => array(
         'label' => 'above',
@@ -4740,7 +4775,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 27,
+        'weight' => 28,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4865,7 +4900,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 34,
+        'weight' => 35,
       ),
       'full' => array(
         'label' => 'above',
@@ -4921,6 +4956,7 @@ function ft_content_type_field_default_field_instances() {
   t('Answer visibility');
   t('Any other areas of interest that might help to know you better');
   t('AutoRef');
+  t('Availability');
   t('Body');
   t('CV');
   t('Choose circle of experts');
@@ -4966,6 +5002,7 @@ function ft_content_type_field_default_field_instances() {
   t('Other, please specify');
   t('Phone');
   t('Photo');
+  t('Please indicate when you are available to answer to requests');
   t('Position');
   t('Private answer');
   t('Profile purchased');
