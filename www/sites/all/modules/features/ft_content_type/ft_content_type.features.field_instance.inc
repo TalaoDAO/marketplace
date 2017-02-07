@@ -3638,7 +3638,7 @@ function ft_content_type_field_default_field_instances() {
     'bundle' => 'user',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Decribe your work experience : degrees, companies, etc.',
+    'description' => 'Describe your work experience : degrees, companies, etc.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -5028,7 +5028,7 @@ function ft_content_type_field_default_field_instances() {
   t('Comment');
   t('Context and objectives of the mission');
   t('Deadline');
-  t('Decribe your work experience : degrees, companies, etc.');
+  t('Describe your work experience : degrees, companies, etc.');
   t('Description');
   t('Description of the activity of organisation / company');
   t('Desired starting date');
