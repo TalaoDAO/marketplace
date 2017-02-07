@@ -940,3 +940,10 @@ function emh_configuration_update_7051() {
   );
   emh_configuration_revert_and_disable_views($views_name);
 }
+
+/**
+ * Install module : Twitter username
+ */
+function emh_configuration_update_7052() {
+  module_enable(array('twitter_username'));
+}
