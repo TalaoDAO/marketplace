@@ -3486,7 +3486,7 @@ function ft_content_type_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 18,
+      'weight' => 19,
     ),
   );
 
@@ -3569,7 +3569,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 17,
+      'weight' => 18,
     ),
   );
 
@@ -4007,6 +4007,58 @@ function ft_content_type_field_default_field_instances() {
       'settings' => array(),
       'type' => 'link_field',
       'weight' => 20,
+    ),
+  );
+
+  // Exported field_instance: 'user-user-field_linkedin'.
+  $field_instances['user-user-field_linkedin'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'URL of your LinkedIn profile',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'link',
+        'settings' => array(),
+        'type' => 'link_default',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_linkedin',
+    'label' => 'LinkedIn profile',
+    'required' => 0,
+    'settings' => array(
+      'absolute_url' => 1,
+      'attributes' => array(
+        'class' => '',
+        'configurable_class' => 0,
+        'configurable_title' => 0,
+        'rel' => '',
+        'target' => '_blank',
+        'title' => '',
+      ),
+      'display' => array(
+        'url_cutoff' => 80,
+      ),
+      'enable_tokens' => 0,
+      'entity_translation_sync' => FALSE,
+      'rel_remove' => 'default',
+      'title' => 'none',
+      'title_label_use_field_label' => 0,
+      'title_maxlength' => 128,
+      'title_value' => '',
+      'url' => 0,
+      'user_register_form' => 0,
+      'validate_url' => 1,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'link',
+      'settings' => array(),
+      'type' => 'link_field',
+      'weight' => 21,
     ),
   );
 
@@ -4866,6 +4918,7 @@ function ft_content_type_field_default_field_instances() {
   t('Last position(s)');
   t('Lead experts');
   t('Link to my website or my blog');
+  t('LinkedIn profile');
   t('Logo');
   t('Mail');
   t('More about <a href=\'/content/sponsorship\'>sponsorship</a>');
@@ -4896,6 +4949,7 @@ function ft_content_type_field_default_field_instances() {
   t('Testimony');
   t('This is the text a user may send to the group administrators.');
   t('Titre');
+  t('URL of your LinkedIn profile');
   t('Why did I choose to become a partner?');
   t('Why did I choose to become a sponsor?');
   t('Work experience');
