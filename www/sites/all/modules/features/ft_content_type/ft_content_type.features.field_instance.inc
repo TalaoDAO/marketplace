@@ -3462,7 +3462,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 20,
+      'weight' => 31,
     ),
   );
 
@@ -3521,7 +3521,7 @@ function ft_content_type_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 19,
+      'weight' => 30,
     ),
   );
 
@@ -3562,7 +3562,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 14,
+      'weight' => 25,
     ),
   );
 
@@ -3597,7 +3597,39 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 17,
+      'weight' => 28,
+    ),
+  );
+
+  // Exported field_instance: 'user-user-field_emh_usage'.
+  $field_instances['user-user-field_emh_usage'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 17,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_emh_usage',
+    'label' => 'eMindHub usage',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 24,
     ),
   );
 
@@ -3639,7 +3671,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 18,
+      'weight' => 29,
     ),
   );
 
@@ -3759,7 +3791,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 38,
+        'weight' => 39,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -3804,7 +3836,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 30,
+        'weight' => 31,
       ),
     ),
     'entity_type' => 'user',
@@ -3841,7 +3873,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 37,
+        'weight' => 38,
       ),
     ),
     'entity_type' => 'user',
@@ -3878,7 +3910,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 36,
+        'weight' => 37,
       ),
     ),
     'entity_type' => 'user',
@@ -3912,7 +3944,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 20,
+        'weight' => 21,
       ),
       'full' => array(
         'label' => 'above',
@@ -3951,7 +3983,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 32,
+        'weight' => 33,
       ),
       'full' => array(
         'label' => 'above',
@@ -3991,7 +4023,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 34,
+        'weight' => 35,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4179,7 +4211,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 17,
+        'weight' => 18,
       ),
     ),
     'entity_type' => 'user',
@@ -4197,7 +4229,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 12,
+      'weight' => 25,
     ),
   );
 
@@ -4217,7 +4249,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 19,
+        'weight' => 20,
       ),
       'full' => array(
         'label' => 'above',
@@ -4257,7 +4289,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 21,
+        'weight' => 22,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4298,7 +4330,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 29,
+        'weight' => 30,
       ),
     ),
     'entity_type' => 'user',
@@ -4429,7 +4461,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 24,
+      'weight' => 25,
     ),
   );
 
@@ -4463,7 +4495,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 16,
+      'weight' => 27,
     ),
   );
 
@@ -4484,7 +4516,7 @@ function ft_content_type_field_default_field_instances() {
           'thousand_separator' => ' ',
         ),
         'type' => 'number_integer',
-        'weight' => 22,
+        'weight' => 23,
       ),
     ),
     'entity_type' => 'user',
@@ -4551,7 +4583,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 15,
+      'weight' => 26,
     ),
   );
 
@@ -4567,7 +4599,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 18,
+        'weight' => 19,
       ),
       'full' => array(
         'label' => 'above',
@@ -4596,7 +4628,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'autocomplete_deluxe_taxonomy',
-      'weight' => 14,
+      'weight' => 26,
     ),
   );
 
@@ -4612,7 +4644,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 33,
+        'weight' => 34,
       ),
       'full' => array(
         'label' => 'above',
@@ -4656,7 +4688,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 27,
+        'weight' => 28,
       ),
     ),
     'entity_type' => 'user',
@@ -4694,7 +4726,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 31,
+        'weight' => 32,
       ),
       'full' => array(
         'label' => 'above',
@@ -4733,7 +4765,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 26,
+        'weight' => 27,
       ),
       'full' => array(
         'label' => 'above',
@@ -4775,7 +4807,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 28,
+        'weight' => 29,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4845,7 +4877,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 50,
       ),
       'type' => 'text_textfield',
-      'weight' => 25,
+      'weight' => 26,
     ),
   );
 
@@ -4885,7 +4917,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 26,
+      'weight' => 27,
     ),
   );
 
@@ -4900,7 +4932,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 35,
+        'weight' => 36,
       ),
       'full' => array(
         'label' => 'above',
@@ -5031,6 +5063,7 @@ function ft_content_type_field_default_field_instances() {
   t('Your activity');
   t('Your name');
   t('Your organisation');
+  t('eMindHub usage');
 
   return $field_instances;
 }
