@@ -97,16 +97,19 @@ function emh_user_cartouche_view($account = NULL, $context = NULL) {
   }
 
   // Link to my blog
+  $link_to_my_blog = '';
   if (empty($node)) {
     $link_to_my_blog = field_view_field('user', $u2_account, 'field_link_to_my_blog', array('label'=>'hidden'));
   }
 
   // LinkedIn profile
+  $linkedin = '';
   if (empty($node)) {
     $linkedin = field_view_field('user', $u2_account, 'field_linkedin', array('label'=>'hidden'));
   }
 
   // Twitter account
+  $twitter = '';
   if (empty($node)) {
     $twitter = field_view_field('user', $u2_account, 'field_twitter', array('label'=>'hidden', 'type'=>'twitter_username_link'));
   }
