@@ -352,3 +352,17 @@ function emh_circles_update_7015() {
 
   user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('access ckeditor link'));
 }
+
+/*
+ * CHG: Circles wording.
+ */
+function emh_circles_update_7016() {
+  module_enable(array('ft_circle'));
+}
+
+/**
+* ADD: Modify membership status to authentificated users.
+*/
+function emh_circles_update_7017() {
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('execute og_set_state_action'));
+}

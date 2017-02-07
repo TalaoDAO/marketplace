@@ -35,22 +35,20 @@
 }
 
 .emh-button {
+  .btn;
+
   color: @color-primary;
   background-color: transparent;
   border: 1px solid currentColor;
   border-radius: 5px;
   display: inline-block;
   font-size: 13px;
-  font-weight: 600;
-  padding: 17px 20px;
-  min-width: 210px;
   .text-center;
-  @media (max-width: @screen-sm-max) {
-      padding: 12px 10px;
-  }
+
   @media (max-width: @screen-xs-max) {
       font-weight: normal;
   }
+
   text-decoration: none;
   &:hover {
       text-decoration: none;
@@ -61,10 +59,27 @@
       background-color: @color-primary;
       color: white;
   }
+
   &.solid-alt {
       border: none;
       background-color: @color-secondary;
       color: white;
+  }
+
+  &.active {
+    box-shadow: none;
+  }
+}
+
+body.not-logged-in {
+  .emh-button {
+    padding: 17px 20px;
+    min-width: 210px;
+    font-weight: 600;
+
+    @media (max-width: @screen-sm-max) {
+        padding: 12px 10px;
+    }
   }
 }
 
