@@ -57,17 +57,14 @@ $purchased_count = emh_user_profile_purchase_get_count($account);
   </div>
   <?php endif; ?>
 
-  <?php if (!empty($user_profile['field_needs_for_expertise']) || !empty($user_profile['field_specific_skills3'])) : ?>
-  <div class="group-needs profile-section">
-    <h2><span><?php print t('Needs'); ?></span></h2>
-    <?php print render($user_profile['field_needs_for_expertise']); ?>
-    <?php print render($user_profile['field_specific_skills3']); ?>
-  </div>
-  <?php endif; ?>
-
-  <?php if (!empty($user_profile['field_domaine']) || !empty($user_profile['field_skills_set']) || !empty($user_profile['field_position_list']) || !empty($user_profile['field_employment_history']) || !empty($user_profile['field_cv'])) : ?>
-  <div class="group-skills profile-section">
-    <h2><span><?php print t('Skills & background'); ?></span></h2>
+  <?php if (
+        !empty($user_profile['field_domaine'])
+    ||  !empty($user_profile['field_skills_set'])
+    ||  !empty($user_profile['field_position_list'])
+    ||  !empty($user_profile['field_employment_history'])
+    ||  !empty($user_profile['field_cv'])) : ?>
+  <div class="group-expertise profile-section">
+    <h2><span><?php print t('Expertise'); ?></span></h2>
     <?php print render($user_profile['field_domaine']); ?>
     <?php print render($user_profile['field_skills_set']); ?>
     <?php print render($user_profile['field_position_list']); ?>
@@ -76,9 +73,24 @@ $purchased_count = emh_user_profile_purchase_get_count($account);
   </div>
   <?php endif; ?>
 
-  <?php if (!empty($user_profile['field_other_areas'])) : ?>
-  <div class="group-interests profile-section">
-    <h2><span><?php print t('Interests'); ?></span></h2>
+  <?php if (
+        !empty($user_profile['field_specific_skills3'])
+    ||  !empty($user_profile['field_needs_for_expertise'])) : ?>
+  <div class="group-needs profile-section">
+    <h2><span><?php print t('Needs'); ?></span></h2>
+    <?php print render($user_profile['field_needs_for_expertise']); ?>
+    <?php print render($user_profile['field_specific_skills3']); ?>
+  </div>
+  <?php endif; ?>
+
+  <?php if (
+        !empty($user_profile['field_notification_frequency'])
+    ||  !empty($user_profile['field_known_how'])
+    ||  !empty($user_profile['field_other_areas'])) : ?>
+  <div class="group-other profile-section">
+    <h2><span><?php print t('Other'); ?></span></h2>
+    <?php print render($user_profile['field_notification_frequency']); ?>
+    <?php print render($user_profile['field_known_how']); ?>
     <?php print render($user_profile['field_other_areas']); ?>
   </div>
   <?php endif; ?>
