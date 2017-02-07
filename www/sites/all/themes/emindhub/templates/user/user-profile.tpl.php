@@ -78,10 +78,12 @@ $purchased_count = emh_user_profile_purchase_get_count($account);
   <?php endif; ?>
 
   <?php if (
-        !empty($user_profile['field_needs_for_expertise'])
+        !empty($user_profile['field_emh_usage'])
+    ||  !empty($user_profile['field_needs_for_expertise'])
     ||  !empty($user_profile['field_specific_skills3'])) : ?>
   <div class="group-needs profile-section">
     <h2><span><?php print t('Needs'); ?></span></h2>
+    <?php print render($user_profile['field_emh_usage']); ?>
     <?php print render($user_profile['field_needs_for_expertise']); ?>
     <?php print render($user_profile['field_specific_skills3']); ?>
   </div>

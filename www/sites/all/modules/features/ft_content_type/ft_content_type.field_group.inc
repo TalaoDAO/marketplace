@@ -1136,6 +1136,7 @@ function ft_content_type_field_group_info() {
     'children' => array(
       0 => 'field_specific_skills3',
       1 => 'field_needs_for_expertise',
+      2 => 'field_emh_usage',
     ),
     'format_type' => 'div',
     'format_settings' => array(
