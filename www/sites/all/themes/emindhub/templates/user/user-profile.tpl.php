@@ -39,7 +39,6 @@ $submission_count = emh_request_submission_get_user_submission_count($uid);
 $purchased_count = emh_user_profile_purchase_get_count($account);
 ?>
 <div class="profile"<?php print $attributes; ?>>
-  <?php //print render($user_profile); ?>
 
   <?php print emh_user_cartouche_view(); ?>
 
@@ -74,30 +73,6 @@ $purchased_count = emh_user_profile_purchase_get_count($account);
     <?php print render($user_profile['field_employment_history']); ?>
     <?php print render($user_profile['field_cv']); ?>
     <?php print render($user_profile['field_availability']); ?>
-  </div>
-  <?php endif; ?>
-
-  <?php if (
-        !empty($user_profile['field_emh_usage'])
-    ||  !empty($user_profile['field_needs_for_expertise'])
-    ||  !empty($user_profile['field_specific_skills3'])) : ?>
-  <div class="group-needs profile-section">
-    <h2><span><?php print t('Needs'); ?></span></h2>
-    <?php print render($user_profile['field_emh_usage']); ?>
-    <?php print render($user_profile['field_needs_for_expertise']); ?>
-    <?php print render($user_profile['field_specific_skills3']); ?>
-  </div>
-  <?php endif; ?>
-
-  <?php if (
-        !empty($user_profile['field_notification_frequency'])
-    ||  !empty($user_profile['field_known_how'])
-    ||  !empty($user_profile['field_other_areas'])) : ?>
-  <div class="group-other profile-section">
-    <h2><span><?php print t('Other'); ?></span></h2>
-    <?php print render($user_profile['field_notification_frequency']); ?>
-    <?php print render($user_profile['field_known_how']); ?>
-    <?php print render($user_profile['field_other_areas']); ?>
   </div>
   <?php endif; ?>
 
