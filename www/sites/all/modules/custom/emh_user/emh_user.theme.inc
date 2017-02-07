@@ -68,7 +68,7 @@ function emh_user_cartouche_view($account = NULL, $context = NULL) {
   if (
         ($context == 'author' && !(emh_request_has_option($node, 'anonymous')))
     ||  ($context == 'author' && (emh_request_has_option($node, 'anonymous') && ($node->field_hide_organisation[LANGUAGE_NONE][0]['value'] == false)))
-    ||  ($context != 'author' && (emh_access_user_can_see_full_user($uid1, $uid2)))
+    ||  ($context != 'author' && !empty($node) && (emh_access_user_can_see_full_user($uid1, $uid2)))
   ) {
     $organisation = field_view_field('user', $u2_account, 'field_entreprise', array('label'=>'hidden'));
   }
