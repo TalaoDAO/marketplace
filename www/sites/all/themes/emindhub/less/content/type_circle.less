@@ -1,65 +1,115 @@
-.circle-logo {
-  .make-sm-column(1);
-}
+.circle-section {
+  border: 1px solid @pattens-blue;
+  background-color: white;
+  padding:  ceil((@grid-gutter-width / 2));
+  margin-bottom: ceil((@grid-gutter-width / 2));
 
-.circle-title {
-  .make-sm-column(11);
-}
-
-.circle-body {
-  .make-sm-column(12);
-  padding: 0;
-  font-size: 1.1em;
-}
-
-.circle-subscribe {
-  .make-sm-column(12);
-  .text-right;
-  a {
-    .btn;
-    &.subscribe {
-      .btn-primary;
-    }
-    &.unsubscribe {
-      .btn-default;
-    }
-  }
-}
-
-.circle-count {
-  .make-sm-column(7);
-}
-
-.circle-managers {
-  .make-sm-column(8);
-  .circle-manager {
-    .make-sm-column(6);
-  }
-}
-
-// Node
-.node-circle {
-  .circle-subscribe {
-    .make-sm-column(4);
-  }
-  .circle-body {
-    .make-sm-column(4);
-  }
-}
-
-// Views
-.view-circles {
   h2 {
-    margin-top: 10px;
-    margin-bottom: 5px;
+    margin-top: 0;
   }
-  .circle-body {
-    margin-top: 15px;
-  }
-  > * > * > .row {
-    margin-bottom: 15px;
-    &:last-child {
-      margin-bottom: 0;
+}
+
+// All circles
+// My circles
+body.page-circles {
+  .main-container {
+    .section {
+      .circle-section;
     }
   }
+
+  .view {
+    .circle-logo,
+    .views-field-field-circle-logo {
+      .make-sm-column(1);
+    }
+
+    .circle-title,
+    .views-field-title {
+      .make-sm-column(11);
+
+      h2 {
+        margin-top: 10px;
+        margin-bottom: 5px;
+      }
+    }
+
+    .circle-body,
+    .views-field-body {
+      .make-sm-column(12);
+      margin-top: 15px;
+    }
+
+    > * > * > .row {
+      margin-bottom: 15px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+
+// Circle
+body.node-type-circle {
+  &.logged-in {
+    .circle-logo {
+      .make-sm-column(2);
+    }
+
+    .title-left .title .page-header {
+      .make-md-column(10);
+    }
+  }
+
+  .page-header {
+    margin-bottom: 0;
+  }
+
+  .circle-count {
+    .make-md-column(10);
+  }
+
+  .content {
+    .block {
+      // .circle-section;
+      .emh-block-blue-title;
+    }
+    .view-content {
+      .circle-section;
+    }
+
+    h3 {
+      margin-top: 0;
+    }
+  }
+
+  #block-views-660850ab895e687382503f50ef075b77 {
+    margin-top: 40px;
+  }
+}
+
+.circle-membership-infos {
+  .pull-right;
+}
+
+.field-name-field-circle-message {
+  .circle-section;
+}
+
+.circle-logo {
+  .emh-title-image;
+  img {
+    border-radius: @btn-border-radius-base;
+    background-color: @cloud;
+  }
+}
+
+.circle-membership-state {
+  font-style: italic;
+}
+
+.circle-membership-links {
+  .text-right;
 }
