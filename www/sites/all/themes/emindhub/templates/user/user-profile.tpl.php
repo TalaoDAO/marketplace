@@ -37,45 +37,107 @@ $uid = arg(1);
 $account = user_load($uid);
 $submission_count = emh_request_submission_get_user_submission_count($uid);
 $purchased_count = emh_user_profile_purchase_get_count($account);
+$social_networks = (
+   field_get_items('user', $account, 'field_link_to_my_blog')
+|| field_get_items('user', $account, 'field_linkedin')
+|| field_get_items('user', $account, 'field_twitter'));
+$column3 = (
+     !empty($account->field_address['und']['0']['phone_number'])
+  || !empty($account->field_address['und']['0']['mobile_number'])
+  || $social_networks);
+$column_class = $column3 ? 'col-xs-3' : 'col-xs-4';
+$countries = country_get_list();
+$country_code = $account->field_address['und']['0']['country'];
+$country = $countries[$country_code];
 ?>
 <div class="profile"<?php print $attributes; ?>>
-
-  <div class="user-cartouche">
-    <div class="cartouche-identity">
-
-      <span class="user-photo">
-        <?php print render(field_view_field('user', $account, 'field_photo', array('label'=>'hidden'))); ?>
-      </span>
-
-      <span class="user-identity">
-        <?php print format_username($account); ?>
-      </span>
-
-      <span class="user-mail">
-        <?php print render(field_view_field('user', $account, 'field_mail', array('label'=>'hidden'))); ?>
-      </span>
-
-      <span class="user-address">
-        <?php print render(field_view_field('user', $account, 'field_address', array('label'=>'hidden'))); ?>
-      </span>
-
-      <span class="user-link-to-my-blog">
-        <?php print render(field_view_field('user', $account, 'field_link_to_my_blog', array('label'=>'inline'))); ?>
-      </span>
-
-      <span class="user-linkedin">
-        <?php print render(field_view_field('user', $account, 'field_linkedin', array('label'=>'inline'))); ?>
-      </span>
-
-      <span class="user-twitter">
-        <?php print render(field_view_field('user', $account, 'field_twitter', array('label'=>'inline', 'type'=>'twitter_username_link'))); ?>
-      </span>
-
-      <?php //print render($user_profile['field_mail']); ?>
+  <div class="user-cartouche container-fluid">
+    <div class="cartouche-identity row">
+      <div class="<?php print $column_class; ?>">
+        <span class="user-photo">
+          <?php print render($user_profile['field_photo']); ?>
+        </span>
+      </div>
+      <div class="<?php print $column_class; ?>">
+        <span class="user-identity">
+          <?php print format_username($account); ?>
+        </span>
+        <span class="user-mail">
+          <?php print render($user_profile['field_mail']); ?>
+        </span>
+        <span class="user-country">
+          <?php print $country; ?>
+        </span>
+      </div>
+      <?php if ($column3) : ?>
+      <div class="<?php print $column_class; ?>">
+        <?php if (!empty($account->field_address['und']['0']['phone_number'])): ?>
+        <div class="user-phone-number">
+          <?php print '<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>&nbsp;'. $account->field_address['und']['0']['phone_number']; ?>
+        </div>
+        <?php endif; ?>
+        <?php if (!empty($account->field_address['und']['0']['mobile_number'])): ?>
+        <div class="user-mobile-number">
+          <?php print '<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>&nbsp;'. $account->field_address['und']['0']['mobile_number']; ?>
+        </div>
+        <?php endif; ?>
+        <?php if ($social_networks): ?>
+        <div class="user-social-networks">
+          <?php
+          if (field_get_items('user', $account, 'field_link_to_my_blog')) {
+            print l(
+              '<span class="glyphicon glyphicon-globe" aria-hidden="true"></span>',
+              $account->field_link_to_my_blog['und']['0']['url'],
+              array(
+                'attributes' => array(
+                  'class' => array('user-website social-network'),
+                  'target'=>'_blank'
+                ),
+                'html' => TRUE
+              )
+            );
+          }
+          if (field_get_items('user', $account, 'field_linkedin')) {
+            print l(
+              '<img src="http://emh.box.local/sites/all/modules/custom/emh_service_links/images/linkedin.svg" alt="Linkedin">',
+              $account->field_linkedin['und']['0']['url'],
+              array(
+                'attributes' => array(
+                  'class' => array('user-website social-network'),
+                  'target'=>'_blank'
+                ),
+                'html' => TRUE
+              )
+            );
+          }
+          if (field_get_items('user', $account, 'field_twitter')) {
+            print l(
+              '<img src="http://emh.box.local/sites/all/modules/custom/emh_service_links/images/twitter.svg" alt="Twitter">',
+              'https://twitter.com/'. $account->field_twitter['und']['0']['twitter_username'],
+              array(
+                'attributes' => array(
+                  'class' => array('user-website social-network'),
+                  'target'=>'_blank'
+                ),
+                'html' => TRUE
+              )
+            );
+          } ?>
+        </div>
+        <?php endif; ?>
+      </div>
+      <?php endif; ?>
+      <div class="<?php print $column_class; ?>">
+        <span class="user-address">
+          <?php print render($user_profile['field_address']); ?>
+        </span>
+      </div>
     </div>
-    <div class="cartouche-activity">
-      <span class="user-submission-count" title="<?php print $submission_count . ' ' . t('published answer(s)'); ?>"><?php print $submission_count; ?></span>
-      <span class="user-purchased-count" title="<?php print t('Profile purchased !count times', array('!count' => $purchased_count)); ?>"><?php print $purchased_count; ?></span>
+    <div class="cartouche-activity row">
+      <div class="col-xs-12">
+        <span class="user-submission-count" title="<?php print $submission_count . ' ' . t('published answer(s)'); ?>"><?php print $submission_count; ?></span>
+        <span class="user-purchased-count" title="<?php print t('Profile purchased !count times', array('!count' => $purchased_count)); ?>"><?php print $purchased_count; ?></span>
+      </div>
     </div>
   </div>
 
