@@ -3762,7 +3762,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'text_processing' => 1,
+      'text_processing' => 0,
       'user_register_form' => 0,
     ),
     'widget' => array(
