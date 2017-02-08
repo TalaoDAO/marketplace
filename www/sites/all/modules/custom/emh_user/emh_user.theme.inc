@@ -84,36 +84,6 @@ function emh_user_cartouche_view($account = NULL, $context = NULL) {
     $activity = field_view_field($entity_type, $entity, $field_name, array('label'=>'hidden'));
   }
 
-  // Address
-  $address = '';
-  if (empty($node)) {
-    $address = field_view_field('user', $u2_account, 'field_address', array('label'=>'hidden'));
-  }
-
-  // Mail
-  $mail = '';
-  if (empty($node)) {
-    $mail = field_view_field('user', $u2_account, 'field_mail', array('label'=>'hidden'));
-  }
-
-  // Link to my blog
-  $link_to_my_blog = '';
-  if (empty($node)) {
-    $link_to_my_blog = field_view_field('user', $u2_account, 'field_link_to_my_blog', array('label'=>'hidden'));
-  }
-
-  // LinkedIn profile
-  $linkedin = '';
-  if (empty($node)) {
-    $linkedin = field_view_field('user', $u2_account, 'field_linkedin', array('label'=>'hidden'));
-  }
-
-  // Twitter account
-  $twitter = '';
-  if (empty($node)) {
-    $twitter = field_view_field('user', $u2_account, 'field_twitter', array('label'=>'hidden', 'type'=>'twitter_username_link'));
-  }
-
 	// Buy profile access
   $user_purchase_link = ''; $amount ='';
 	if (module_exists('emh_user_profile_purchase') && !emh_access_user_can_see_full_user($uid1, $uid2) && !($context == 'author')) {
@@ -145,11 +115,6 @@ function emh_user_cartouche_view($account = NULL, $context = NULL) {
     'photo' => $photo,
     'organisation' => $organisation,
     'activity' => $activity,
-    'address' => $address,
-    'mail' => $mail,
-    'link_to_my_blog' => $link_to_my_blog,
-    'linkedin' => $linkedin,
-    'twitter' => $twitter,
     'user_purchase_link' => $user_purchase_link,
     'amount' => $amount,
     'submission_count' => $submission_count,
