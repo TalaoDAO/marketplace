@@ -48,7 +48,7 @@ $column3 = (
 $column_class = $column3 ? 'col-xs-3' : 'col-xs-4';
 $countries = country_get_list();
 $country_code = $account->field_address['und']['0']['country'];
-$country = $countries[$country_code];
+$country = isset($countries[$country_code]) ? $countries[$country_code] : '';
 ?>
 <div class="profile"<?php print $attributes; ?>>
   <div class="user-cartouche container-fluid">
