@@ -41,15 +41,38 @@ $purchased_count = emh_user_profile_purchase_get_count($account);
 <div class="profile"<?php print $attributes; ?>>
 
   <div class="user-cartouche">
-    <?php if (!empty($user_profile['field_photo']) || !empty($user_profile['field_titre_metier']) || !empty($user_profile['field_entreprise']) || !empty($user_profile['field_address']) || !empty($user_profile['field_mail'])) : ?>
     <div class="cartouche-identity">
-      <?php print render($user_profile['field_photo']); ?>
-      <?php print render($user_profile['field_titre_metier']); ?>
-      <?php print render($user_profile['field_entreprise']); ?>
-      <?php print render($user_profile['field_address']); ?>
-      <?php print render($user_profile['field_mail']); ?>
+
+      <span class="user-photo">
+        <?php print render(field_view_field('user', $account, 'field_photo', array('label'=>'hidden'))); ?>
+      </span>
+
+      <span class="user-identity">
+        <?php print format_username($account); ?>
+      </span>
+
+      <span class="user-mail">
+        <?php print render(field_view_field('user', $account, 'field_mail', array('label'=>'hidden'))); ?>
+      </span>
+
+      <span class="user-address">
+        <?php print render(field_view_field('user', $account, 'field_address', array('label'=>'hidden'))); ?>
+      </span>
+
+      <span class="user-link-to-my-blog">
+        <?php print render(field_view_field('user', $account, 'field_link_to_my_blog', array('label'=>'inline'))); ?>
+      </span>
+
+      <span class="user-linkedin">
+        <?php print render(field_view_field('user', $account, 'field_linkedin', array('label'=>'inline'))); ?>
+      </span>
+
+      <span class="user-twitter">
+        <?php print render(field_view_field('user', $account, 'field_twitter', array('label'=>'inline', 'type'=>'twitter_username_link'))); ?>
+      </span>
+
+      <?php //print render($user_profile['field_mail']); ?>
     </div>
-    <?php endif; ?>
     <div class="cartouche-activity">
       <span class="user-submission-count" title="<?php print $submission_count . ' ' . t('published answer(s)'); ?>"><?php print $submission_count; ?></span>
       <span class="user-purchased-count" title="<?php print t('Profile purchased !count times', array('!count' => $purchased_count)); ?>"><?php print $purchased_count; ?></span>
