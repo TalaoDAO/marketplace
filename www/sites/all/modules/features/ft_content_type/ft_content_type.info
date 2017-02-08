@@ -37,6 +37,7 @@ dependencies[] = serial
 dependencies[] = strongarm
 dependencies[] = taxonomy
 dependencies[] = text
+dependencies[] = title
 dependencies[] = twitter_username
 features[conditional_fields][] = comment:comment_node_question1
 features[conditional_fields][] = node:challenge
