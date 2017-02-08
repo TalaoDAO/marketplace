@@ -20,36 +20,6 @@
       <?php endif; ?>
     </span>
 
-    <?php if ($mail) : ?>
-    <span class="user-mail">
-      <?php print render($mail); ?>
-    </span>
-    <?php endif; ?>
-
-    <?php if ($address) : ?>
-    <span class="user-address">
-      <?php print render($address); ?>
-    </span>
-    <?php endif; ?>
-
-    <?php if ($link_to_my_blog) : ?>
-    <span class="user-link-to-my-blog">
-      <?php print render($link_to_my_blog); ?>
-    </span>
-    <?php endif; ?>
-
-    <?php if ($linkedin) : ?>
-    <span class="user-linkedin">
-      <?php print render($linkedin); ?>
-    </span>
-    <?php endif; ?>
-
-    <?php if ($twitter) : ?>
-    <span class="user-twitter">
-      <?php print render($twitter); ?>
-    </span>
-    <?php endif; ?>
-
     <?php if ($organisation) : ?>
     <span class="user-organisation">
       <?php print render($organisation); ?>

@@ -3370,7 +3370,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 2,
+        'weight' => 15,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -3434,7 +3434,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_plain',
-        'weight' => 17,
+        'weight' => 11,
       ),
     ),
     'entity_type' => 'user',
@@ -3468,7 +3468,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_default',
-        'weight' => 16,
+        'weight' => 10,
       ),
     ),
     'entity_type' => 'user',
@@ -3528,7 +3528,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 11,
+        'weight' => 5,
       ),
       'full' => array(
         'label' => 'above',
@@ -3569,7 +3569,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 14,
+        'weight' => 8,
       ),
     ),
     'entity_type' => 'user',
@@ -3603,7 +3603,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 18,
+        'weight' => 21,
       ),
     ),
     'entity_type' => 'user',
@@ -3635,7 +3635,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 15,
+        'weight' => 9,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -3680,7 +3680,7 @@ function ft_content_type_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 6,
+        'weight' => 0,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -3741,7 +3741,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 7,
+        'weight' => 1,
       ),
       'full' => array(
         'label' => 'above',
@@ -3933,7 +3933,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 22,
+        'weight' => 25,
       ),
       'full' => array(
         'label' => 'above',
@@ -4047,13 +4047,13 @@ function ft_content_type_field_default_field_instances() {
     'bundle' => 'user',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Link to my website or my blog',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
+        'label' => 'inline',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 3,
+        'weight' => 16,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4065,7 +4065,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'user',
     'field_name' => 'field_link_to_my_blog',
-    'label' => 'Link to my website or my blog',
+    'label' => 'Website',
     'required' => 0,
     'settings' => array(
       'absolute_url' => 1,
@@ -4108,10 +4108,10 @@ function ft_content_type_field_default_field_instances() {
     'description' => 'URL of your LinkedIn profile',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
+        'label' => 'inline',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 4,
+        'weight' => 17,
       ),
     ),
     'entity_type' => 'user',
@@ -4162,7 +4162,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 1,
+        'weight' => 14,
       ),
     ),
     'entity_type' => 'user',
@@ -4196,7 +4196,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 19,
+        'weight' => 22,
       ),
     ),
     'entity_type' => 'user',
@@ -4233,7 +4233,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 21,
+        'weight' => 24,
       ),
       'full' => array(
         'label' => 'above',
@@ -4272,7 +4272,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 23,
+        'weight' => 26,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4346,7 +4346,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 13,
       ),
     ),
     'entity_type' => 'user',
@@ -4421,7 +4421,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 8,
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'user',
@@ -4458,7 +4458,7 @@ function ft_content_type_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 13,
+        'weight' => 7,
       ),
     ),
     'entity_type' => 'user',
@@ -4489,7 +4489,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 24,
+        'weight' => 27,
       ),
     ),
     'entity_type' => 'user',
@@ -4527,7 +4527,7 @@ function ft_content_type_field_default_field_instances() {
           'view_mode' => 'full',
         ),
         'type' => 'field_collection_fields',
-        'weight' => 12,
+        'weight' => 6,
       ),
       'full' => array(
         'label' => 'above',
@@ -4571,7 +4571,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 20,
+        'weight' => 23,
       ),
       'full' => array(
         'label' => 'above',
@@ -4823,7 +4823,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_plain',
-        'weight' => 9,
+        'weight' => 3,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4861,10 +4861,10 @@ function ft_content_type_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
+        'label' => 'inline',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 5,
+        'weight' => 18,
       ),
     ),
     'entity_type' => 'user',
@@ -4897,7 +4897,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'i18n_field',
         'settings' => array(),
         'type' => 'i18n_list_default',
-        'weight' => 10,
+        'weight' => 4,
       ),
       'full' => array(
         'label' => 'above',
@@ -5060,6 +5060,7 @@ function ft_content_type_field_default_field_instances() {
   t('Titre');
   t('Twitter account');
   t('URL of your LinkedIn profile');
+  t('Website');
   t('Why did I choose to become a partner?');
   t('Why did I choose to become a sponsor?');
   t('Work experience');
