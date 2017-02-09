@@ -3614,7 +3614,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'user',
     'field_name' => 'field_emh_usage',
-    'label' => 'eMindHub usage',
+    'label' => 'Specify your needs',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -4224,8 +4224,8 @@ function ft_content_type_field_default_field_instances() {
       'settings' => array(
         'apply_chosen' => '',
       ),
-      'type' => 'options_select',
-      'weight' => 25,
+      'type' => 'options_buttons',
+      'weight' => 26,
     ),
   );
 
@@ -4597,7 +4597,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'user',
     'field_name' => 'field_specific_skills3',
-    'label' => 'Specify your needs',
+    'label' => 'In which fields',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -4615,7 +4615,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'autocomplete_deluxe_taxonomy',
-      'weight' => 26,
+      'weight' => 25,
     ),
   );
 
@@ -5034,6 +5034,7 @@ function ft_content_type_field_default_field_instances() {
   t('How did you hear about us?');
   t('If you belong to a group such as a company, association, club, training center, research center, etc., specify it here.');
   t('Image');
+  t('In which fields');
   t('Is partner');
   t('Is promoted');
   t('Is sponsor');
@@ -5084,7 +5085,6 @@ function ft_content_type_field_default_field_instances() {
   t('Your activity');
   t('Your name');
   t('Your organisation');
-  t('eMindHub usage');
 
   return $field_instances;
 }
