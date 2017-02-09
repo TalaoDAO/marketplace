@@ -445,6 +445,8 @@ function emh_request_update_7128() {
  * Delete old notification rule and add variable for the delay between moderation and notification.
  */
 function emh_request_update_7129() {
-  rules_config_delete(array('158'));
+  if ($rules_config = rules_config_load('rules_emh_request_send_notification_email')) {
+    $rules_config->delete();
+  }
   variable_set('emh_request_notification_notify_delay', 30);
 }
