@@ -1132,7 +1132,7 @@ function ft_content_type_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Needs',
+    'label' => 'You need expertise',
     'weight' => '2',
     'children' => array(
       0 => 'field_specific_skills3',
@@ -1141,7 +1141,7 @@ function ft_content_type_field_group_info() {
     ),
     'format_type' => 'div',
     'format_settings' => array(
-      'label' => 'Needs',
+      'label' => 'You need expertise',
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
@@ -1713,7 +1713,7 @@ function ft_content_type_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Expertise',
+    'label' => 'You have expertise to offer',
     'weight' => '1',
     'children' => array(
       0 => 'field_domaine',
@@ -1721,12 +1721,12 @@ function ft_content_type_field_group_info() {
       2 => 'field_employment_history',
       3 => 'field_cv',
       4 => 'field_position_list',
-      5 => 'field_education',
-      6 => 'field_availability',
+      5 => 'field_availability',
+      6 => 'field_education',
     ),
     'format_type' => 'div',
     'format_settings' => array(
-      'label' => 'Expertise',
+      'label' => 'You have expertise to offer',
       'instance_settings' => array(
         'required_fields' => 1,
         'id' => '',
@@ -2403,7 +2403,6 @@ function ft_content_type_field_group_info() {
   t('Contact');
   t('Container background');
   t('Expert');
-  t('Expertise');
   t('Hidden');
   t('How did you hear about us?');
   t('How often do you want to receive emindhub\'s notifications?');
@@ -2434,6 +2433,8 @@ function ft_content_type_field_group_info() {
   t('What');
   t('Who');
   t('Years of experiences wrapper');
+  t('You have expertise to offer');
+  t('You need expertise');
   t('Your activity');
   t('Your activity *');
   t('Your name');
