@@ -236,14 +236,32 @@ function emh_request_has_points($nid) {
 }
 
 /**
- * Helper function to notify people.
+ * Helper function to moderate and schedule a request notification.
  */
-function emh_request_try_to_notify($node) {
-  // Validate pre-requisites.
-  if (empty($node->field_domaine) || empty($node->og_group_ref)) {
-    return;
-  }
-  // Get all user from groups.
+ function _emh_request_notification($node) {
+   // Validate pre-requisites.
+   if (empty($node->field_domaine) || empty($node->og_group_ref)) {
+     return;
+   }
+   //TODO:Immediatly send a moderation email to Webmasters and Administrators.
+
+   // Schedule a request notification.
+   rules_action(
+     'schedule',
+     array('component' => 'rules_emh_request_notification_notify_schedule')
+   )->executeByArgs(array(
+     'date' => time() + variable_get('emh_request_notification_notify_delay', 30) * 60,
+     'identifier' => 'request_notification_'. $node->nid,
+     'param_node' => $node,
+   ));
+
+}
+
+/**
+ * Helper function to build the notification queue.
+ */
+function _emh_request_notification_notify_build_queue($node) {
+  // Get all users from groups.
   $users = array();
   $domains = array();
   $mails = array();
@@ -267,18 +285,18 @@ function emh_request_try_to_notify($node) {
     $domains[] = $term['tid'];
   }
   // Get french countries
-  $french_countries = variable_get('emh_request_send_notification_email_french_countries', array('FR', 'BE')); 
+  $french_countries = variable_get('emh_request_send_notification_email_french_countries', array('FR', 'BE'));
   // Load users.
   $users = user_load_multiple($users);
   // For each user of each group, check domain.
   foreach($users as $user) {
     // If user has the right role(s) and wants to be notified.
     if (
-        ($node->type == 'request' && user_access('edit own webform submissions', $user)) 
+        ($node->type == 'request' && user_access('edit own webform submissions', $user))
         && !empty($user->field_notification_frequency[LANGUAGE_NONE]) && $user->field_notification_frequency[LANGUAGE_NONE][0]['tid'] == 48
        )
     {
-      $queue = DrupalQueue::get('emh_request_request_email_notification');
+      $queue = DrupalQueue::get('emh_request_notification_notify_queue');
       $item = array('nid' => $node->nid, 'uid' => $user->uid);
       // Check multidomains option
       // drush vset --yes emh_request_send_notification_email_all_domains FALSE
@@ -314,16 +332,14 @@ function emh_request_try_to_notify($node) {
       }
     }
   }
-  // Webmaster copy
-  // rules_invoke_event('emh_request_notify_webmaster_new_request', $node);
 }
 
 /**
  * Implements hook_cron_queue_info().
  */
 function emh_request_cron_queue_info() {
-  $queues['emh_request_request_email_notification'] = array(
-    'worker callback' => 'emh_request_queue_process',
+  $queues['emh_request_notification_notify_queue'] = array(
+    'worker callback' => '_emh_request_notification_notify_queue_worker',
     'time' => 30,
   );
   return $queues;
@@ -332,8 +348,8 @@ function emh_request_cron_queue_info() {
 /**
  * Worker callback defined in hook_cron_queue_info()
  */
-function emh_request_queue_process($item) {
+function _emh_request_notification_notify_queue_worker($item) {
   $node = node_load($item['nid']);
   $user = user_load($item['uid']);
-  rules_invoke_event('emh_request_notify_new_request', $node, $user);
+  rules_invoke_event('emh_request_notification_notify_trigger', $node, $user);
 }
