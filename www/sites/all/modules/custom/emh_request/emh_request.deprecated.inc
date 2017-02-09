@@ -243,9 +243,30 @@ function emh_request_has_points($nid) {
    if (empty($node->field_domaine) || empty($node->og_group_ref)) {
      return;
    }
-   //TODO:Immediatly send a moderation email to Webmasters and Administrators.
+   // Immediatly send a moderation email to Webmasters and Administrators.
+   $role_ids = array(3, 6);
+   foreach($role_ids as $role_id) {
+     $query = new EntityFieldQuery();
+     $query->entityCondition('entity_type', 'user');
+     $role_query = db_select('users_roles', 'ur');
+     $role_query->fields('ur', array('uid'));
+     $role_query->condition('rid', $role_id);
+     $query->propertyCondition('uid', $role_query, 'IN');
+     $result = $query->execute();
+     if (!empty($result['user'])) {
+       $users = user_load_multiple(array_keys($result['user']));
+       foreach ($users as $user) {
+         $moderators_uids[] = $user->uid;
+       }
+     }
+   }
+   $moderators = user_load_multiple($moderators_uids);
+   foreach($moderators as $moderator) {
+     // Note: should use a queue if there are too many moderators
+     rules_invoke_event('emh_request_notification_moderate_trigger', $node, $moderator);
+   }
 
-   // Schedule a request notification.
+   // Schedule a notification.
    rules_action(
      'schedule',
      array('component' => 'rules_emh_request_notification_notify_schedule')
