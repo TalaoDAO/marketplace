@@ -32,18 +32,6 @@
     </span>
     <?php endif; ?>
 
-    <?php if ($address) : ?>
-    <span class="user-address">
-      <?php print render($address); ?>
-    </span>
-    <?php endif; ?>
-
-    <?php if ($mail) : ?>
-    <span class="user-mail">
-      <?php print render($mail); ?>
-    </span>
-    <?php endif; ?>
-
     <?php if ($user_purchase_link) : ?>
     <a href="<?php print $user_purchase_link; ?>" class="user-buy-access">
       <?php print t('Access profile for !amount credits', array('!amount' => $amount)); ?>

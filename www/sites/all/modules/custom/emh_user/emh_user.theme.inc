@@ -65,14 +65,12 @@ function emh_user_cartouche_view($account = NULL, $context = NULL) {
 
   // Organisation
   $organisation = '';
-  if (!empty(field_get_items('user', $u2_account, 'field_entreprise'))) {
-    if (
-          ($context == 'author' && !(emh_request_has_option($node, 'anonymous')))
-      ||  ($context == 'author' && (emh_request_has_option($node, 'anonymous') && ($node->field_hide_organisation[LANGUAGE_NONE][0]['value'] == false)))
-      ||  ($context != 'author' && (emh_access_user_can_see_full_user($uid1, $uid2)))
-    ) {
-      $organisation = field_view_field('user', $u2_account, 'field_entreprise', array('label'=>'hidden'));
-    }
+  if (
+        ($context == 'author' && !(emh_request_has_option($node, 'anonymous')))
+    ||  ($context == 'author' && (emh_request_has_option($node, 'anonymous') && ($node->field_hide_organisation[LANGUAGE_NONE][0]['value'] == false)))
+    ||  ($context != 'author' && !empty($node) && (emh_access_user_can_see_full_user($uid1, $uid2)))
+  ) {
+    $organisation = field_view_field('user', $u2_account, 'field_entreprise', array('label'=>'hidden'));
   }
 
   // Activity
@@ -82,21 +80,8 @@ function emh_user_cartouche_view($account = NULL, $context = NULL) {
   } else {
     $entity_type = 'user'; $entity = $u2_account; $field_name = 'field_titre_metier';
   }
-  $activity = field_get_items($entity_type, $entity, $field_name);
-  if (($context == 'author') && emh_request_has_option($node, 'anonymous') && !empty($activity)) {
+  if (($context == 'author') && emh_request_has_option($node, 'anonymous') && !empty(field_get_items($entity_type, $entity, $field_name))) {
     $activity = field_view_field($entity_type, $entity, $field_name, array('label'=>'hidden'));
-  }
-
-  // Address
-  $address = '';
-  if (empty($node)) {
-    $address = field_view_field('user', $u2_account, 'field_address', array('label'=>'hidden'));
-  }
-
-  // Mail
-  $mail = '';
-  if (empty($node)) {
-    $mail = field_view_field('user', $u2_account, 'field_mail', array('label'=>'hidden'));
   }
 
 	// Buy profile access
@@ -130,8 +115,6 @@ function emh_user_cartouche_view($account = NULL, $context = NULL) {
     'photo' => $photo,
     'organisation' => $organisation,
     'activity' => $activity,
-    'address' => $address,
-    'mail' => $mail,
     'user_purchase_link' => $user_purchase_link,
     'amount' => $amount,
     'submission_count' => $submission_count,
