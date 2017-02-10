@@ -159,6 +159,51 @@ function emh_circles_preprocess_node(&$variables) {
 }
 
 /**
+ * Implements hook_permission().
+ */
+function emh_circles_permission() {
+  return array(
+    'modify EMH circles' => array('title' => t('Circle: Edit all EMH Circles')),
+  );
+}
+
+/**
+ * Implements hook_field_access().
+ */
+function emh_circles_field_access($op, $field, $entity_type, $entity, $account) {
+  if ($op == 'edit') {
+    if (empty($entity)) {
+      return TRUE;
+    }
+
+    if (empty($account)) {
+      global $user;
+      $account = $user;
+    }
+
+    if ($entity_type == 'node') {
+      switch ($entity->type) {
+        case 'circle':
+          switch($field['field_name']) {
+            // We can always access few fields.
+            case 'field_circle_logo':
+            case 'body':
+            case 'field_circle_message':
+            case 'field_circle_website':
+            case 'field_circle_instructions':
+            case 'field_circle_qa':
+              return TRUE;
+            default:
+              return (user_access('access EMH circles')) ? TRUE : FALSE;
+          }
+      }
+    }
+  }
+
+  return TRUE;
+}
+
+/**
  * Implements hook_node_access().
  */
 function emh_circles_node_access($node, $op, $account) {

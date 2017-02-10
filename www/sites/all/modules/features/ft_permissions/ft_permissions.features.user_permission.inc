@@ -17,7 +17,7 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
       'webmaster' => 'webmaster',
     ),
-    'module' => 'emh_access',
+    'module' => 'emh_answer',
   );
 
   // Exported permission: 'access EMH profiles'.
@@ -27,7 +27,7 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
       'webmaster' => 'webmaster',
     ),
-    'module' => 'emh_access',
+    'module' => 'emh_user',
   );
 
   // Exported permission: 'access EMH requests'.
@@ -37,7 +37,7 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
       'webmaster' => 'webmaster',
     ),
-    'module' => 'emh_access',
+    'module' => 'emh_request',
   );
 
   // Exported permission: 'access admin theme'.
