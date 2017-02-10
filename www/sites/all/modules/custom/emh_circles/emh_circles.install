@@ -330,8 +330,8 @@ function emh_circles_update_7014() {
 }
 
 /**
-* CHG: update Member permissions in Circles + CHG: disable old rule + CHG: update authentificated permission.
-*/
+ * CHG: update Member permissions in Circles + CHG: disable old rule + CHG: update authentificated permission.
+ * /
 function emh_circles_update_7015() {
   $group = 'node';
   $bundle = 'circle';
@@ -361,18 +361,26 @@ function emh_circles_update_7016() {
 }
 
 /**
-* ADD: Modify membership status to authentificated users.
-*/
+ * ADD: Modify membership status to authentificated users.
+ */
 function emh_circles_update_7017() {
   user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('execute og_set_state_action'));
 
   emh_configuration_revert_views(array('og_members_admin'));
 }
 
-/**
-* CHG: OG permissions for admin members.
-*/
+/*
+ * ADD: Permissions modify EMH circles for admin and webmaster roles.
+ */
 function emh_circles_update_7018() {
+  user_role_grant_permissions(3, array('modify EMH circles')); // administrator
+  user_role_grant_permissions(6, array('modify EMH circles')); // webmaster
+}
+
+/**
+ * CHG: OG permissions for admin members.
+ */
+function emh_circles_update_7019() {
   $group = 'node';
   $bundle = 'circle';
   $og_roles = array_flip(og_roles($group, $bundle)); // group, bundle
