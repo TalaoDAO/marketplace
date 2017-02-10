@@ -369,8 +369,8 @@ function emh_circles_update_7017() {
   emh_configuration_revert_views(array('og_members_admin'));
 }
 
-/*
- * ADD: Permissions modify EMH circles for admin and webmaster roles.
+/**
+ * ADD: Permission to modify EMH circles for admin and webmaster roles.
  */
 function emh_circles_update_7018() {
   user_role_grant_permissions(3, array('modify EMH circles')); // administrator
