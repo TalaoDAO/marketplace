@@ -5,6 +5,7 @@
 */
 
 include_once 'emh_circles.inc';
+include_once 'emh_circles.admin.inc';
 include_once 'emh_circles.block.inc';
 include_once 'emh_circles.fields.inc';
 include_once 'emh_circles.pages.inc';
@@ -51,6 +52,16 @@ function emh_circles_menu() {
   );
 
   return $items;
+}
+
+/**
+ * Implements hook_og_ui_get_group_admin_alter().
+ */
+function emh_circles_og_ui_get_group_admin_alter(&$data, $context) {
+  global $user;
+  if (module_exists('og_manager_change') && !og_user_access_entity('administer group', $context['entity_type'], $context['etid'], $user)) {
+    unset($data['manager']);
+  }
 }
 
 /**
