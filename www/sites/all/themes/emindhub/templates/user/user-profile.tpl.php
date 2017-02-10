@@ -99,7 +99,7 @@ $country = isset($countries[$country_code]) ? $countries[$country_code] : '';
           }
           if (field_get_items('user', $account, 'field_linkedin')) {
             print l(
-              '<img src="'. $base_url . '/' . drupal_get_path('theme', 'emindhub') .'/images/vendor/linkedin.svg" alt="LinkedIn">',
+              '<img src="'. $base_url . '/' . drupal_get_path('theme', 'emindhub') .'/images/social-networks/linkedin.svg" alt="LinkedIn">',
               $account->field_linkedin[LANGUAGE_NONE]['0']['url'],
               array(
                 'attributes' => array(
@@ -112,7 +112,7 @@ $country = isset($countries[$country_code]) ? $countries[$country_code] : '';
           }
           if (field_get_items('user', $account, 'field_twitter')) {
             print l(
-              '<img src="'. $base_url . '/' . drupal_get_path('theme', 'emindhub') .'/images/vendor/twitter.svg" alt="Twitter">',
+              '<img src="'. $base_url . '/' . drupal_get_path('theme', 'emindhub') .'/images/social-networks/twitter.svg" alt="Twitter">',
               'https://twitter.com/'. $account->field_twitter[LANGUAGE_NONE]['0']['twitter_username'],
               array(
                 'attributes' => array(
