@@ -28,6 +28,7 @@ dependencies[] = emh_access
 dependencies[] = emh_answer
 dependencies[] = emh_points
 dependencies[] = emh_request
+dependencies[] = emh_user
 dependencies[] = emh_virality
 dependencies[] = entity_legal
 dependencies[] = entity_translation
