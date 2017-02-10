@@ -111,6 +111,7 @@ function emh_user_field_access($op, $field, $entity_type, $entity, $account) {
       case 'user':
         switch($field['field_name']) {
           // We can always access few fields.
+          case 'field_first_name':
           case 'field_entreprise':
             return TRUE;
           default:
