@@ -47,7 +47,7 @@ $column3 = (
   || $social_networks);
 $column_class = $column3 ? 'col-xs-3' : 'col-xs-4';
 $countries = country_get_list();
-$country_code = $account->field_address[LANGUAGE_NONE]['0']['country'];dpm($country_code);
+$country_code = $account->field_address[LANGUAGE_NONE]['0']['country'];
 $country = isset($countries[$country_code]) ? $countries[$country_code] : '';
 ?>
 <div class="profile"<?php print $attributes; ?>>
