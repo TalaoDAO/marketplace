@@ -23,6 +23,7 @@ function emindhub_css_alter(&$css) {
     'misc/ui/jquery.ui.autocomplete.css',
     'sites/all/modules/contrib/hybridauth/plugins/icon_pack/hybridauth_32/hybridauth_32.css',
     'sites/all/modules/contrib/bootstrap_languages/bootstrap_languages.css',
+    'sites/all/modules/patched/field_collection/field_collection.theme.css',
   );
 
   // Remove drupal default css files.
