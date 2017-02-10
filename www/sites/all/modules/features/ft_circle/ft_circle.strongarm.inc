@@ -102,10 +102,10 @@ function ft_circle_strongarm() {
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '10',
+          'weight' => '12',
         ),
         'metatags' => array(
-          'weight' => '8',
+          'weight' => '10',
         ),
       ),
       'display' => array(
