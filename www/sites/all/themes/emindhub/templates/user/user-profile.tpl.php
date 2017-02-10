@@ -99,7 +99,7 @@ $country = isset($countries[$country_code]) ? $countries[$country_code] : '';
           }
           if (field_get_items('user', $account, 'field_linkedin')) {
             print l(
-              '<img src="http://emh.box.local/sites/all/modules/custom/emh_service_links/images/linkedin.svg" alt="Linkedin">',
+              '<img src="'. $base_url . '/' . drupal_get_path('module', 'emh_service_links') .'/images/linkedin.svg" alt="LinkedIn">',
               $account->field_linkedin['und']['0']['url'],
               array(
                 'attributes' => array(
@@ -112,7 +112,7 @@ $country = isset($countries[$country_code]) ? $countries[$country_code] : '';
           }
           if (field_get_items('user', $account, 'field_twitter')) {
             print l(
-              '<img src="http://emh.box.local/sites/all/modules/custom/emh_service_links/images/twitter.svg" alt="Twitter">',
+              '<img src="'. $base_url . '/' . drupal_get_path('module', 'emh_service_links') .'/images/twitter.svg" alt="Twitter">',
               'https://twitter.com/'. $account->field_twitter['und']['0']['twitter_username'],
               array(
                 'attributes' => array(
