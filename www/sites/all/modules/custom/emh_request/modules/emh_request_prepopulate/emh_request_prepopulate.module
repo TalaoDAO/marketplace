@@ -31,15 +31,30 @@ function emh_request_prepopulate_form_request_node_form_alter(&$form, &$form_sta
  * Inspired by http://e9p.net/altering-individual-radio-or-checkbox-items-drupal-7-fapi
  */
 function emh_request_prepopulate_form_field_request_type_after_build($element, &$form_state) {
-  global $base_url, $language;
+  global $base_url, $language, $user;
   // Each renderable radio element.
   foreach (element_children($element) as $tid) {
+
     // Pull the original form item.
     $field_request_type_item = $element[$tid];
 
     // Load the term.
     $term = taxonomy_term_load($tid);
     if ($term == null) continue;
+
+    // Check if the request type is restricted to a Circle.
+    if (field_get_items('taxonomy_term', $term, 'og_group_ref')) {
+
+      // Get Circle ID
+      $circle_id = $term->og_group_ref[LANGUAGE_NONE][0]['target_id'];
+
+      // If the user doesn't belong to the Circle, skip this request type.
+      if (!og_is_member('node', $circle_id, 'user', $user)) {
+        unset($element[$tid]);
+        continue;
+      }
+
+    }
 
     $term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
     $term_name = $term_wrapper->language($language->language)->name_field->value();
@@ -59,7 +74,7 @@ function emh_request_prepopulate_form_field_request_type_after_build($element, &
     $element[$tid][$tid]['#title'] .= '<span class="term-name">' . $term_name . '</span>';
     $element[$tid][$tid]['#title'] .= $term_description ? '<span class="term-description">' . $term_description . '</span>' : '';
 
-    if (isset($element['#disabled'])) { 
+    if (isset($element['#disabled'])) {
       if (isset($_REQUEST['edit'])) {
         $element[$tid][$tid]['#title'] = l(
                                           $element[$tid][$tid]['#title'],
@@ -114,6 +129,9 @@ function emh_request_prepopulate_form_field_request_type_after_build($element, &
                                         );
       }
     }
+
+
+
 
   }
 
