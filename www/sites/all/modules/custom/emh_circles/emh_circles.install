@@ -42,7 +42,6 @@ function emh_circles_disable_strings() {
  * Provides string overrides.
  */
 function _emh_circles_string_overrides() {
-
   return array(
     "%1's groups" => "My circles",
     "Member's groups" => "Member's circles",
@@ -51,8 +50,16 @@ function _emh_circles_string_overrides() {
     "Request group membership" => "Join circle",
     "Are you sure you want to join the group %title?" => "Join %title circle",
     "Are you sure you want to unsubscribe from the group %title?" => "Leave %title circle",
+    "Group" => "Circle",
+    "Active" => "Member",
+    "Manage the group members." => "Manage the circle members.",
+    "Group overview" => "Circle overview",
+    "People in group @group" => "People in circle @group",
+    "Group manager" => "Circle manager",
+    "Edit membership in group @group" => "Edit membership in circle @group",
+    "Edit a group membership in %group" => "Edit a circle membership in %group",
+    "This is the text a user may send to the group administrators." => "This is the text a user may send to the circle administrators.",
   );
-
 }
 
 
@@ -280,7 +287,6 @@ function emh_circles_update_7011() {
  * CHG: OG permissions for new Request content type.
  */
 function emh_circles_update_7012() {
-
   // Change permissions
   $group = 'node';
   $bundle = 'circle';
@@ -308,7 +314,6 @@ function emh_circles_update_7012() {
     'update any request content' => 1,
   );
   og_role_change_permissions($og_roles['Referent member'], $permissions);
-
 }
 
 /**
@@ -392,4 +397,17 @@ function emh_circles_update_7019() {
   og_role_change_permissions($og_roles[OG_ADMINISTRATOR_ROLE], $permissions);
 
   variable_set('og_group_manager_full_access', FALSE);
+}
+
+/**
+ * CHG: Revert OG Member admin + update strings.
+ */
+function emh_circles_update_7020() {
+  $views_name = array(
+    'og_members_admin',
+  );
+  emh_configuration_revert_views($view_names);
+
+  emh_circles_disable_strings();
+  emh_circles_enable_strings();
 }
