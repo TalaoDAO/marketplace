@@ -50,6 +50,7 @@ features[field_instance][] = node-circle-field_free_circle
 features[field_instance][] = node-circle-field_options_costs
 features[field_instance][] = node-circle-group_access
 features[field_instance][] = node-circle-group_group
+features[field_instance][] = node-circle-title_field
 features[node][] = circle
 features[variable][] = comment_anonymous_circle
 features[variable][] = comment_circle
