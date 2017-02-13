@@ -729,6 +729,7 @@ function emh_circles_views_default_views_alter(&$views) {
     $handler->display->display_options['fields']['state']['table'] = 'og_membership';
     $handler->display->display_options['fields']['state']['field'] = 'state';
     $handler->display->display_options['fields']['state']['relationship'] = 'og_membership_rel';
+    $handler->display->display_options['fields']['state']['label'] = 'Status';
     /* Field: OG membership: OG user roles in group */
     $handler->display->display_options['fields']['og_roles']['id'] = 'og_roles';
     $handler->display->display_options['fields']['og_roles']['table'] = 'og_membership';
@@ -808,7 +809,7 @@ function emh_circles_views_default_views_alter(&$views) {
     $handler->display->display_options['filters']['state']['relationship'] = 'og_membership_rel';
     $handler->display->display_options['filters']['state']['exposed'] = TRUE;
     $handler->display->display_options['filters']['state']['expose']['operator_id'] = 'state_op';
-    $handler->display->display_options['filters']['state']['expose']['label'] = 'State';
+    $handler->display->display_options['filters']['state']['expose']['label'] = 'Status';
     $handler->display->display_options['filters']['state']['expose']['operator'] = 'state_op';
     $handler->display->display_options['filters']['state']['expose']['identifier'] = 'state';
     /* Filter criterion: User: Name */
