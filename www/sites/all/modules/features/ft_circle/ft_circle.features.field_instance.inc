@@ -254,7 +254,7 @@ function ft_circle_field_default_field_instances() {
         'label' => 'hidden',
         'module' => 'image',
         'settings' => array(
-          'image_link' => 'content',
+          'image_link' => '',
           'image_style' => 'thumbnail',
         ),
         'type' => 'image',
