@@ -79,7 +79,8 @@ For each, it adds an item in the notification queue
 ### 3.4) at each Cron run, for each remaining item,
 
 For each remaining item (individual notification of an user) of this queue,
- if there is time, the item is processed, or it's delayed for the next Cron.
+ if there is time, the item is processed. If Cron has spent more than 
+ 30 seconds on this job, the remaining items are delayed for the next Cron.
   When the item is processed, the worker
    **\_emh\_request\_notification\_queue\_worker**
     *(in emh\_request\_notification.module)* evokes an event.
