@@ -192,8 +192,8 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
 
   // Needs
   if ($form['field_needs_for_expertise'] && $form['field_specific_skills3']) {
-    $form['field_needs_for_expertise']['#prefix'] = '<div class="form-group-2col row">';
-    $form['field_specific_skills3']['#suffix'] = '</div>';
+    /*$form['field_needs_for_expertise']['#prefix'] = '<div class="form-group-2col row">';
+    $form['field_specific_skills3']['#suffix'] = '</div>';*/
   }
   $form['field_needs_for_expertise'][LANGUAGE_NONE]['#title'] = $form['field_needs_for_expertise'][LANGUAGE_NONE]['#title'] . ' ' . t('(choose one or several fields)');
   $form['field_specific_skills3'][LANGUAGE_NONE]['#title'] = $form['field_specific_skills3'][LANGUAGE_NONE]['#title'] . ' ' . t('(using keywords or tags)');
