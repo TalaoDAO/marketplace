@@ -4212,7 +4212,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'user',
     'field_name' => 'field_needs_for_expertise',
-    'label' => 'Needs for expertise',
+    'label' => 'In which fields',
     'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -4224,7 +4224,7 @@ function ft_content_type_field_default_field_instances() {
       'settings' => array(
         'apply_chosen' => '',
       ),
-      'type' => 'options_buttons',
+      'type' => 'options_select',
       'weight' => 26,
     ),
   );
@@ -4615,7 +4615,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'autocomplete_deluxe_taxonomy',
-      'weight' => 25,
+      'weight' => 2,
     ),
   );
 
@@ -5047,7 +5047,6 @@ function ft_content_type_field_default_field_instances() {
   t('Mail');
   t('More about <a href=\'/content/sponsorship\'>sponsorship</a>');
   t('Name of my sponsor');
-  t('Needs for expertise');
   t('Nom');
   t('Organisation');
   t('Organisation / company');
