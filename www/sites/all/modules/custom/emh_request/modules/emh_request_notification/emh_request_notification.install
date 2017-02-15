@@ -5,11 +5,19 @@
  */
 
 /**
- * Delete old notification rule and add variable for the delay between moderation and notification.
+ * Implements hook_install().
  */
-function emh_request_notification_update_7001() {
-  if ($rules_config = rules_config_load('rules_emh_request_send_notification_email')) {
-    $rules_config->delete();
-  }
+function emh_request_notification_install() {
+  variable_set('emh_request_notification_all_domains', 1);
   variable_set('emh_request_notification_delay', 30);
+  variable_set('emh_request_notification_french_countries', array('FR', 'BE'));
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function emh_request_notification_uninstall() {
+  variable_del('emh_request_notification_all_domains');
+  variable_del('emh_request_notification_delay');
+  variable_del('emh_request_notification_french_countries');
 }
