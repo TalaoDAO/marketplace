@@ -5,7 +5,11 @@
 
     <div class="circle-logo">
       <?php if (!empty($content['field_circle_logo'])) : ?>
-        <?php print render($content['field_circle_logo']); ?>
+        <?php if (og_is_member('node', $node->nid, 'user', user_load($user->uid))) : ?>
+          <a href="<?php print $node_url; ?>"><?php print render($content['field_circle_logo']); ?></a>
+        <?php else : ?>
+          <?php print render($content['field_circle_logo']); ?>
+        <?php endif; ?>
       <?php endif; ?>
     </div>
 
