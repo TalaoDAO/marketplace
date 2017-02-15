@@ -3433,7 +3433,7 @@ function ft_content_type_field_default_field_instances() {
     'bundle' => 'user',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please indicate when you are available to answer to requests',
+    'description' => 'Please indicate when you are available for missions in the next 6 months',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -5053,7 +5053,7 @@ function ft_content_type_field_default_field_instances() {
   t('Other, please specify');
   t('Phone');
   t('Photo');
-  t('Please indicate when you are available to answer to requests');
+  t('Please indicate when you are available for missions in the next 6 months');
   t('Position');
   t('Private answer');
   t('Profile purchased');
