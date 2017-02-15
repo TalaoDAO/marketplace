@@ -7,6 +7,8 @@
 
 /**
  * Implements hook_cron_queue_info().
+ *
+ * At each Cron run, we spend 30 seconds max sending notification emails.
  */
 function emh_request_notification_cron_queue_info() {
   $queues['_emh_request_notification_queue'] = array(
