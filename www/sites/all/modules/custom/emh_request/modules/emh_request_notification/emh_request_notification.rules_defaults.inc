@@ -1,18 +1,19 @@
 <?php
+
 /**
  * @file
  * Declares the default rules associated to notifications.
  */
 
-
 /**
  * Implements hook_default_rules_configuration().
+ *
  * @ingroup rules
  */
 function emh_request_notification_default_rules_configuration() {
   $rules = array();
 
-  // Step 2.3) : We send an individual moderation email
+  // Step 2.3) : We send an individual moderation email.
   $rules['_emh_request_notification_moderate_mail'] = entity_import('rules_config', '
     { "_emh_request_notification_moderate_mail" : {
     "LABEL" : "Requests - Send moderation email to Webmasters and Administrators.",
@@ -50,7 +51,7 @@ function emh_request_notification_default_rules_configuration() {
   }
   ');
 
-  // Step 3.2) : After the delay, we trigger the building of the notification queue.
+  // Step 3.2) : After the delay, we build the notification queue.
   $rules['_emh_request_notification_schedule'] = entity_import('rules_config', '
     { "_emh_request_notification_schedule" : {
         "LABEL" : "Requests - Component to be scheduled for execution : triggers the building of the notification queue.",

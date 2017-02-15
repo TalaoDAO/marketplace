@@ -1,7 +1,13 @@
 <?php
 
 /**
+ * @file
+ * Includes any rules integration provided by the module.
+ */
+
+/**
  * Implements hook_rules_event_info().
+ *
  * @ingroup rules
  */
 function emh_request_notification_rules_event_info() {
@@ -28,7 +34,9 @@ function emh_request_notification_rules_event_info() {
 }
 
 /**
- * Implement hook_rules_action_info().
+ * Implements hook_rules_action_info().
+ *
+ * @ingroup rules
  */
 function emh_request_notification_rules_action_info() {
   return array(
