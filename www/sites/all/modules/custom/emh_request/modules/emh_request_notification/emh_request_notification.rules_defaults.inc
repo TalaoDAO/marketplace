@@ -57,7 +57,7 @@ function emh_request_notification_default_rules_configuration() {
     "OWNER" : "rules",
     "TAGS" : [ "Request" ],
     "REQUIRES" : [ "rules", "mimemail", "emh_request" ],
-    "ON" : { "emh_request_notification_moderate_trigger" : [] },
+    "ON" : { "emh_request_notification_moderate" : [] },
     "IF" : [
       { "node_is_of_type" : {
           "node" : [ "node" ],
