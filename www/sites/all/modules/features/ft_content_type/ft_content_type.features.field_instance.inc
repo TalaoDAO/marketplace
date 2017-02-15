@@ -3433,7 +3433,7 @@ function ft_content_type_field_default_field_instances() {
     'bundle' => 'user',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Please indicate when you are available to answer to requests',
+    'description' => 'Please indicate when you are available for missions in the next 6 months',
     'display' => array(
       'default' => array(
         'label' => 'inline',
@@ -3850,7 +3850,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 15,
+      'weight' => 16,
     ),
   );
 
@@ -3887,7 +3887,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 16,
+      'weight' => 17,
     ),
   );
 
@@ -3924,7 +3924,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 12,
+      'weight' => 15,
     ),
   );
 
@@ -4192,7 +4192,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 10,
+      'weight' => 3,
     ),
   );
 
@@ -4212,7 +4212,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'user',
     'field_name' => 'field_needs_for_expertise',
-    'label' => 'Needs for expertise',
+    'label' => 'In which fields',
     'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -4224,7 +4224,7 @@ function ft_content_type_field_default_field_instances() {
       'settings' => array(
         'apply_chosen' => '',
       ),
-      'type' => 'options_buttons',
+      'type' => 'options_select',
       'weight' => 26,
     ),
   );
@@ -4343,7 +4343,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 9,
+      'weight' => 8,
     ),
   );
 
@@ -4524,7 +4524,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 17,
+      'weight' => 18,
     ),
   );
 
@@ -4615,7 +4615,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'autocomplete_deluxe_taxonomy',
-      'weight' => 25,
+      'weight' => 5,
     ),
   );
 
@@ -4694,7 +4694,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 10,
+      'weight' => 9,
     ),
   );
 
@@ -4779,7 +4779,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'phone',
       'settings' => array(),
       'type' => 'phone_textfield',
-      'weight' => 1,
+      'weight' => 4,
     ),
   );
 
@@ -4995,7 +4995,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'og',
       'settings' => array(),
       'type' => 'og_complex',
-      'weight' => 11,
+      'weight' => 13,
     ),
   );
 
@@ -5047,14 +5047,13 @@ function ft_content_type_field_default_field_instances() {
   t('Mail');
   t('More about <a href=\'/content/sponsorship\'>sponsorship</a>');
   t('Name of my sponsor');
-  t('Needs for expertise');
   t('Nom');
   t('Organisation');
   t('Organisation / company');
   t('Other, please specify');
   t('Phone');
   t('Photo');
-  t('Please indicate when you are available to answer to requests');
+  t('Please indicate when you are available for missions in the next 6 months');
   t('Position');
   t('Private answer');
   t('Profile purchased');

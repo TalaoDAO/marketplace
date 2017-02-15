@@ -42,12 +42,12 @@ $social_networks = (
 || field_get_items('user', $account, 'field_linkedin')
 || field_get_items('user', $account, 'field_twitter'));
 $column3 = (
-     !empty($account->field_address['und']['0']['phone_number'])
-  || !empty($account->field_address['und']['0']['mobile_number'])
+     !empty($account->field_address[LANGUAGE_NONE]['0']['phone_number'])
+  || !empty($account->field_address[LANGUAGE_NONE]['0']['mobile_number'])
   || $social_networks);
 $column_class = $column3 ? 'col-xs-3' : 'col-xs-4';
 $countries = country_get_list();
-$country_code = $account->field_address['und']['0']['country'];
+$country_code = $account->field_address[LANGUAGE_NONE]['0']['country'];
 $country = isset($countries[$country_code]) ? $countries[$country_code] : '';
 ?>
 <div class="profile"<?php print $attributes; ?>>
@@ -71,14 +71,14 @@ $country = isset($countries[$country_code]) ? $countries[$country_code] : '';
       </div>
       <?php if ($column3) : ?>
       <div class="<?php print $column_class; ?>">
-        <?php if (!empty($account->field_address['und']['0']['phone_number'])): ?>
+        <?php if (!empty($account->field_address[LANGUAGE_NONE]['0']['phone_number'])): ?>
         <div class="user-phone-number">
-          <?php print '<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>&nbsp;'. $account->field_address['und']['0']['phone_number']; ?>
+          <?php print '<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>&nbsp;'. $account->field_address[LANGUAGE_NONE]['0']['phone_number']; ?>
         </div>
         <?php endif; ?>
-        <?php if (!empty($account->field_address['und']['0']['mobile_number'])): ?>
+        <?php if (!empty($account->field_address[LANGUAGE_NONE]['0']['mobile_number'])): ?>
         <div class="user-mobile-number">
-          <?php print '<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>&nbsp;'. $account->field_address['und']['0']['mobile_number']; ?>
+          <?php print '<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>&nbsp;'. $account->field_address[LANGUAGE_NONE]['0']['mobile_number']; ?>
         </div>
         <?php endif; ?>
         <?php if ($social_networks): ?>
@@ -87,7 +87,7 @@ $country = isset($countries[$country_code]) ? $countries[$country_code] : '';
           if (field_get_items('user', $account, 'field_link_to_my_blog')) {
             print l(
               '<span class="glyphicon glyphicon-globe" aria-hidden="true"></span>',
-              $account->field_link_to_my_blog['und']['0']['url'],
+              $account->field_link_to_my_blog[LANGUAGE_NONE]['0']['url'],
               array(
                 'attributes' => array(
                   'class' => array('user-website social-network'),
@@ -99,8 +99,8 @@ $country = isset($countries[$country_code]) ? $countries[$country_code] : '';
           }
           if (field_get_items('user', $account, 'field_linkedin')) {
             print l(
-              '<img src="'. $base_url . '/' . drupal_get_path('module', 'emh_service_links') .'/images/linkedin.svg" alt="LinkedIn">',
-              $account->field_linkedin['und']['0']['url'],
+              '<img src="'. $base_url . '/' . drupal_get_path('theme', 'emindhub') .'/images/social-networks/linkedin.svg" alt="LinkedIn">',
+              $account->field_linkedin[LANGUAGE_NONE]['0']['url'],
               array(
                 'attributes' => array(
                   'class' => array('user-website social-network'),
@@ -112,8 +112,8 @@ $country = isset($countries[$country_code]) ? $countries[$country_code] : '';
           }
           if (field_get_items('user', $account, 'field_twitter')) {
             print l(
-              '<img src="'. $base_url . '/' . drupal_get_path('module', 'emh_service_links') .'/images/twitter.svg" alt="Twitter">',
-              'https://twitter.com/'. $account->field_twitter['und']['0']['twitter_username'],
+              '<img src="'. $base_url . '/' . drupal_get_path('theme', 'emindhub') .'/images/social-networks/twitter.svg" alt="Twitter">',
+              'https://twitter.com/'. $account->field_twitter[LANGUAGE_NONE]['0']['twitter_username'],
               array(
                 'attributes' => array(
                   'class' => array('user-website social-network'),
