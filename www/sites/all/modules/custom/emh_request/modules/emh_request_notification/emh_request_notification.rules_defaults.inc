@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Declares the default rules associated to virality.
+ * Declares the default rules associated to notifications.
  */
 
 
@@ -9,7 +9,7 @@
  * Implements hook_default_rules_configuration().
  * @ingroup rules
  */
-function emh_request_default_rules_configuration() {
+function emh_request_notification_default_rules_configuration() {
   $rules = array();
 
   $rules['rules_emh_request_notification_notify_schedule'] = entity_import('rules_config', '

@@ -4,7 +4,7 @@
  * Implements hook_rules_event_info().
  * @ingroup rules
  */
-function emh_request_rules_event_info() {
+function emh_request_notification_rules_event_info() {
   $events = array();
   $events['emh_request_notification_notify_trigger'] = array(
     'label' => t('Trigger the scheduling of the request notification.'),
@@ -30,7 +30,7 @@ function emh_request_rules_event_info() {
 /**
  * Implement hook_rules_action_info().
  */
-function emh_request_rules_action_info() {
+function emh_request_notification_rules_action_info() {
   return array(
     '_emh_request_notification_notify_build_queue' => array(
       'label' => t('Build the email queue for the content notification.'),
