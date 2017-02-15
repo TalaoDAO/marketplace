@@ -8,16 +8,16 @@ function emh_request_notification_rules_event_info() {
   $events = array();
   $events['emh_request_notification_notify_trigger'] = array(
     'label' => t('Trigger the scheduling of the request notification.'),
-    'module' => 'emh_request',
+    'module' => 'emh_request_notification',
     'group' => t('Request'),
     'variables' => array(
       'node' => array('type' => 'node', 'label' => t('The created content')),
       'user' => array('type' => 'user', 'label' => t('The user to notify')),
     ),
   );
-  $events['emh_request_notification_moderate_trigger'] = array(
+  $events['emh_request_notification_moderate'] = array(
     'label' => t('Trigger the moderation email sending action.'),
-    'module' => 'emh_request',
+    'module' => 'emh_request_notification',
     'group' => t('Request'),
     'variables' => array(
       'node' => array('type' => 'node', 'label' => t('The created content')),

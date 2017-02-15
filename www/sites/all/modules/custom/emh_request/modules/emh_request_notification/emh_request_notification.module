@@ -16,14 +16,17 @@
  }
 
  /**
-  * Helper function to moderate and schedule a request notification.
+  * Function called when a new request is published, to moderate it and schedule an email notification.
   */
-  function _emh_request_notification($node) {
+  function _emh_request_notification_published($node) {
     // Validate pre-requisites.
     if (empty($node->field_domaine) || empty($node->og_group_ref)) {
       return;
     }
-    // Immediatly send a moderation email to Webmasters and Administrators.
+
+    // Immediatly send an email to Webmasters and Administrators.
+
+    // Look for Administrators and Webmasters.
     $role_ids = array(3, 6);
     foreach($role_ids as $role_id) {
       $query = new EntityFieldQuery();
@@ -41,12 +44,15 @@
       }
     }
     $moderators = user_load_multiple($moderators_uids);
+    // We invoke an event which triggers the execution of a rule which sends the moderation emails.
     foreach($moderators as $moderator) {
       // Note: should use a queue if there are too many moderators
-      rules_invoke_event('emh_request_notification_moderate_trigger', $node, $moderator);
+      rules_invoke_event('emh_request_notification_moderate', $node, $moderator);
     }
 
-    // Schedule a notification.
+    // Send the actual email notification to concerned users 30 minutes later.
+    // We schedule the execution of a rule component 30 minutes later.
+    // This rule component will deal with the notification.
     rules_action(
       'schedule',
       array('component' => 'rules_emh_request_notification_notify_schedule')
