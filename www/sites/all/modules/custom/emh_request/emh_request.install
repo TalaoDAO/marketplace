@@ -430,18 +430,10 @@ function emh_request_update_7127() {
 }
 
 /**
- * ADD:French countries variable for the email notifications.
- */
-function emh_request_update_7128() {
-  variable_set('emh_request_send_notification_email_french_countries', array('FR', 'BE'));
-}
-
-/**
  * Clean-up and enable Notification submodule.
  */
-function emh_request_update_7129() {
+function emh_request_update_7128() {
   variable_del('emh_request_send_notification_email_all_domains');
-  variable_del('emh_request_send_notification_email_french_countries');
   if ($rules_config = rules_config_load('rules_emh_request_send_notification_email')) {
     $rules_config->delete();
   }
