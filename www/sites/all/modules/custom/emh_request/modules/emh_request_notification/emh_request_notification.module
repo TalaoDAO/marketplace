@@ -1,8 +1,19 @@
 <?php
 /**
  * @file
- * Code of the eMindHub request notification.
+ * Code of the eMindHub request notification feature.
  */
+
+ /**
+  * Implements hook_cron_queue_info().
+  */
+ function emh_request_notification_cron_queue_info() {
+   $queues['emh_request_notification_notify_queue'] = array(
+     'worker callback' => '_emh_request_notification_notify_queue_worker',
+     'time' => 30,
+   );
+   return $queues;
+ }
 
  /**
   * Helper function to moderate and schedule a request notification.
@@ -122,17 +133,6 @@
        }
      }
    }
- }
-
- /**
-  * Implements hook_cron_queue_info().
-  */
- function emh_request_cron_queue_info() {
-   $queues['emh_request_notification_notify_queue'] = array(
-     'worker callback' => '_emh_request_notification_notify_queue_worker',
-     'time' => 30,
-   );
-   return $queues;
  }
 
  /**
