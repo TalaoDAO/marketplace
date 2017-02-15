@@ -66,7 +66,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Contact',
-    'weight' => '11',
+    'weight' => '7',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -303,7 +303,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Complement',
-    'weight' => '14',
+    'weight' => '11',
     'children' => array(
       0 => 'field_known_specific',
     ),
@@ -512,7 +512,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Expert',
-    'weight' => '15',
+    'weight' => '12',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1230,7 +1230,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Organisation',
-    'weight' => '12',
+    'weight' => '8',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1753,7 +1753,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Sponsorship',
-    'weight' => '13',
+    'weight' => '9',
     'children' => array(
       0 => 'field_sponsorship',
       1 => 'field_sponsor1',
@@ -1927,7 +1927,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Share your experience',
-    'weight' => '5',
+    'weight' => '2',
     'children' => array(
       0 => 'field_testimony',
       1 => 'field_partner_why',
