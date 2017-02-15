@@ -20,7 +20,7 @@ function emh_request_notification_default_rules_configuration() {
     "PLUGIN" : "reaction rule",
     "ACTIVE" : true,
     "OWNER" : "rules",
-    "TAGS" : [ "Request" ],
+    "TAGS" : [ "email", "EMH", "Request" ],
     "REQUIRES" : [ "rules", "mimemail", "emh_request" ],
     "ON" : { "_emh_request_notification_moderate" : [] },
     "IF" : [
@@ -57,6 +57,7 @@ function emh_request_notification_default_rules_configuration() {
         "LABEL" : "Requests - Component to be scheduled for execution : triggers the building of the notification queue.",
         "PLUGIN" : "action set",
         "OWNER" : "rules",
+        "TAGS" : [ "email", "EMH", "Request" ],
         "REQUIRES" : [ "emh_request" ],
         "USES VARIABLES" : { "node" : { "label" : "Node", "type" : "node" } },
         "ACTION SET" : [ { "_emh_request_notification_build_queue" : { "node" : [ "node" ] } } ]
@@ -69,7 +70,7 @@ function emh_request_notification_default_rules_configuration() {
       "LABEL" : "Requests - Send a mail now to inform a user of the new request.",
       "PLUGIN" : "reaction rule",
       "OWNER" : "rules",
-      "TAGS" : [ "EMH, Request, Email" ],
+      "TAGS" : [ "email", "EMH", "Request" ],
       "REQUIRES" : [ "rules", "mimemail", "emh_request" ],
       "ON" : { "_emh_request_notification_notify" : [] },
       "IF" : [
