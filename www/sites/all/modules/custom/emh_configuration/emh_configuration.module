@@ -1,15 +1,11 @@
 <?php
 
 /**
- * Revert to default, then disable a given list of views.
+ * Revert to default views.
  *
  * @param $view_name array Array of machine names of the views to revert
- * @see http://dropbucket.org/node/8315
  */
-function emh_configuration_revert_and_disable_views($view_names) {
-  $changed = FALSE;
-  $views_status = variable_get('views_defaults', array());
-
+function emh_configuration_revert_views($view_names) {
   foreach ($view_names as $view_name) {
     // Revert the view
     $view = views_get_view($view_name);
@@ -20,7 +16,22 @@ function emh_configuration_revert_and_disable_views($view_names) {
       ctools_include('object-cache');
       ctools_object_cache_clear('view', $view->name);
     }
+  }
+}
 
+/**
+ * Revert to default, then disable a given list of views.
+ *
+ * @param $view_name array Array of machine names of the views to revert
+ * @see http://dropbucket.org/node/8315
+ */
+function emh_configuration_revert_and_disable_views($view_names) {
+  $changed = FALSE;
+  $views_status = variable_get('views_defaults', array());
+
+  emh_configuration_revert_views($view_names);
+
+  foreach ($view_names as $view_name) {
     // Disable the view
     if ($views_status[$view_name] !== TRUE) {
       $views_status[$view_name] = TRUE;
