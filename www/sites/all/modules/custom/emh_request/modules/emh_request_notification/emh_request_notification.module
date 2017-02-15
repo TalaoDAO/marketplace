@@ -8,8 +8,8 @@
   * Implements hook_cron_queue_info().
   */
  function emh_request_notification_cron_queue_info() {
-   $queues['emh_request_notification_notify_queue'] = array(
-     'worker callback' => '_emh_request_notification_notify_queue_worker',
+   $queues['_emh_request_notification_queue'] = array(
+     'worker callback' => '_emh_request_notification_queue_worker',
      'time' => 30,
    );
    return $queues;
@@ -18,15 +18,17 @@
  /**
   * Function called when a new request is published, to moderate it and schedule an email notification.
   */
-  function _emh_request_notification_published($node) {
+  function _emh_request_notification_publish($node) {
+    // Step 1) : a new request is published
+
     // Validate pre-requisites.
     if (empty($node->field_domaine) || empty($node->og_group_ref)) {
       return;
     }
 
-    // Immediatly send an email to Webmasters and Administrators.
+    // Step 2) : Immediatly send an email to Webmasters and Administrators.
 
-    // Look for Administrators and Webmasters.
+    // Step 2.1) : Look for Administrators and Webmasters.
     $role_ids = array(3, 6);
     foreach($role_ids as $role_id) {
       $query = new EntityFieldQuery();
@@ -44,21 +46,22 @@
       }
     }
     $moderators = user_load_multiple($moderators_uids);
-    // We invoke an event which triggers the execution of a rule which sends the moderation emails.
+    // Step 2.2) : We invoke an event which triggers the execution of a rule which sends the moderation emails.
     foreach($moderators as $moderator) {
       // Note: should use a queue if there are too many moderators
-      rules_invoke_event('emh_request_notification_moderate', $node, $moderator);
+      rules_invoke_event('_emh_request_notification_moderate', $node, $moderator);
     }
 
-    // Send the actual email notification to concerned users 30 minutes later.
-    // We schedule the execution of a rule component 30 minutes later.
+    // Step 3) : We send the actual email notification to concerned users 30 minutes later.
+
+    // Step 3.1) : We schedule the execution of a rule component 30 minutes later.
     // This rule component will deal with the notification.
     rules_action(
       'schedule',
-      array('component' => 'rules_emh_request_notification_notify_schedule')
+      array('component' => '_emh_request_notification_schedule')
     )->executeByArgs(array(
-      'date' => time() + variable_get('emh_request_notification_notify_delay', 30) * 60,
-      'identifier' => 'request_notification_'. $node->nid,
+      'date' => time() + variable_get('emh_request_notification_delay', 30) * 60,
+      'identifier' => 'emh_request_notification_'. $node->nid,
       'param_node' => $node,
     ));
 
@@ -67,7 +70,9 @@
  /**
   * Helper function to build the notification queue.
   */
- function _emh_request_notification_notify_build_queue($node) {
+ function _emh_request_notification_build_queue($node) {
+   // Step 3.3) : we build the notification queue.
+
    // Get all users from groups.
    $users = array();
    $domains = array();
@@ -103,7 +108,7 @@
          && !empty($user->field_notification_frequency[LANGUAGE_NONE]) && $user->field_notification_frequency[LANGUAGE_NONE][0]['tid'] == 48
         )
      {
-       $queue = DrupalQueue::get('emh_request_notification_notify_queue');
+       $queue = DrupalQueue::get('_emh_request_notification_queue');
        $item = array('nid' => $node->nid, 'uid' => $user->uid);
        // Check multidomains option
        // drush vset --yes emh_request_send_notification_email_all_domains FALSE
@@ -144,8 +149,11 @@
  /**
   * Worker callback defined in hook_cron_queue_info()
   */
- function _emh_request_notification_notify_queue_worker($item) {
+ function _emh_request_notification_queue_worker($item) {
+   // Step 3.4) : For each individual notation item in the queue, we invoke a event.
+   // This event will trigger the actual email notification.
+
    $node = node_load($item['nid']);
    $user = user_load($item['uid']);
-   rules_invoke_event('emh_request_notification_notify_trigger', $node, $user);
+   rules_invoke_event('_emh_request_notification_notify', $node, $user);
  }
