@@ -822,6 +822,6 @@ function emh_circles_views_default_views_alter(&$views) {
     $handler->display->display_options['filters']['uid']['expose']['operator'] = 'uid_op';
     $handler->display->display_options['filters']['uid']['expose']['identifier'] = 'uid';
 
-    $views['webform_results'] = $view;
+    $views['og_members_admin'] = $view;
   }
 }
