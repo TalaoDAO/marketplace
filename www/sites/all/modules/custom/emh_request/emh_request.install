@@ -9,8 +9,6 @@
  * Implements hook_install().
  */
 function emh_request_install() {
-  variable_set('emh_request_send_notification_email_all_domains', 1);
-  variable_set('emh_request_send_notification_email_french_countries', array('FR', 'BE'));
   variable_set('webform_node_request', true);
 }
 
@@ -38,10 +36,7 @@ function emh_request_disable() {
  * Implements hook_uninstall().
  */
 function emh_request_uninstall() {
-  variable_del('emh_request_send_notification_email_all_domains');
-  variable_del('emh_request_send_notification_email_french_countries');
   variable_del('webform_node_request');
-  variable_del('emh_request_notification_notify_delay');
 }
 
 
@@ -435,15 +430,20 @@ function emh_request_update_7127() {
 }
 
 /**
- * ADD: French countries variable for the email notifications.
+ * ADD:French countries variable for the email notifications.
  */
 function emh_request_update_7128() {
   variable_set('emh_request_send_notification_email_french_countries', array('FR', 'BE'));
 }
 
 /**
- * ADD: Enable Notification submodule.
+ * Clean-up and enable Notification submodule.
  */
 function emh_request_update_7129() {
+  variable_del('emh_request_send_notification_email_all_domains');
+  variable_del('emh_request_send_notification_email_french_countries');
+  if ($rules_config = rules_config_load('rules_emh_request_send_notification_email')) {
+    $rules_config->delete();
+  }
   module_enable(['emh_request_notification']);
 }

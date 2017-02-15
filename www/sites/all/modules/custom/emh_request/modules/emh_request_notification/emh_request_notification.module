@@ -97,7 +97,7 @@
      $domains[] = $term['tid'];
    }
    // Get french countries
-   $french_countries = variable_get('emh_request_send_notification_email_french_countries', array('FR', 'BE'));
+   $french_countries = variable_get('emh_request_notification_french_countries', array('FR', 'BE'));
    // Load users.
    $users = user_load_multiple($users);
    // For each user of each group, check domain.
@@ -112,7 +112,7 @@
        $item = array('nid' => $node->nid, 'uid' => $user->uid);
        // Check multidomains option
        // drush vset --yes emh_request_send_notification_email_all_domains FALSE
-       $multidomains_option = variable_get('emh_request_send_notification_email_all_domains', 0);
+       $multidomains_option = variable_get('emh_request_notification_all_domains', 0);
        if ($multidomains_option == TRUE) {
          // If node is in french, only notify users in France and Belgium
          if ($node->language == 'fr') {
