@@ -365,12 +365,14 @@ function emh_circles_update_7016() {
 */
 function emh_circles_update_7017() {
   user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('execute og_set_state_action'));
+
+  emh_configuration_revert_views(array('og_members_admin'));
 }
 
 /**
 * CHG: OG permissions for admin members.
 */
-function emh_circles_update_7019() {
+function emh_circles_update_7018() {
   $group = 'node';
   $bundle = 'circle';
   $og_roles = array_flip(og_roles($group, $bundle)); // group, bundle
