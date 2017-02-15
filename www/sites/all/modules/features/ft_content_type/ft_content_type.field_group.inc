@@ -66,7 +66,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Contact',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -303,7 +303,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Complement',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(
       0 => 'field_known_specific',
     ),
@@ -512,7 +512,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Expert',
-    'weight' => '6',
+    'weight' => '7',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -610,22 +610,23 @@ function ft_content_type_field_group_info() {
     'children' => array(
       0 => 'og_user_node',
       1 => 'field_telephone',
-      2 => 'field_is_sponsor',
-      3 => 'field_is_promoted',
-      4 => 'field_is_partner',
-      5 => 'field_mail',
-      6 => 'field_profile_purchased',
-      7 => 'ckeditor',
-      8 => 'mimemail',
-      9 => 'timezone',
-      10 => 'contact',
-      11 => 'locale',
-      12 => 'group_address',
-      13 => 'group_complement',
-      14 => 'group_expert',
-      15 => 'group_organisation',
-      16 => 'group_sponsorship',
-      17 => 'group_testimony',
+      2 => 'field_specific_skills3',
+      3 => 'field_is_sponsor',
+      4 => 'field_is_promoted',
+      5 => 'field_is_partner',
+      6 => 'field_mail',
+      7 => 'field_profile_purchased',
+      8 => 'ckeditor',
+      9 => 'mimemail',
+      10 => 'timezone',
+      11 => 'contact',
+      12 => 'locale',
+      13 => 'group_address',
+      14 => 'group_complement',
+      15 => 'group_expert',
+      16 => 'group_organisation',
+      17 => 'group_sponsorship',
+      18 => 'group_testimony',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1135,9 +1136,8 @@ function ft_content_type_field_group_info() {
     'label' => 'You need expertise',
     'weight' => '2',
     'children' => array(
-      0 => 'field_specific_skills3',
-      1 => 'field_needs_for_expertise',
-      2 => 'field_emh_usage',
+      0 => 'field_needs_for_expertise',
+      1 => 'field_emh_usage',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1230,7 +1230,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Organisation',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1753,7 +1753,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Sponsorship',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
       0 => 'field_sponsorship',
       1 => 'field_sponsor1',
@@ -1927,7 +1927,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Share your experience',
-    'weight' => '7',
+    'weight' => '8',
     'children' => array(
       0 => 'field_testimony',
       1 => 'field_partner_why',
