@@ -7,6 +7,15 @@
 include_once 'emh_user.theme.inc';
 
 /**
+ * Implements hook_permission().
+ */
+function emh_user_permission() {
+  return array(
+    'access EMH profiles' => array('title' => t('Profile: View full users profiles')),
+  );
+}
+
+/**
  * Implements hook_theme().
  */
 function emh_user_theme() {
