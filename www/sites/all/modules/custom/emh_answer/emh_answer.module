@@ -13,5 +13,8 @@ function emh_answer_permission() {
       'title' => t('Save comment as draft'),
       'description' => t('Allows a user to save a draft of their comment.'),
     ),
+    'access EMH answers' => array(
+      'title' => t('Answer: View all published EMH answers'),
+    ),
   );
 }
