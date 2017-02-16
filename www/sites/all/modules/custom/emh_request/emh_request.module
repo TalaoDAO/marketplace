@@ -12,9 +12,8 @@ include_once 'emh_request.mail.inc';
 
 function emh_request_permission() {
   return array(
-    'modify requests' => array(
-      'title' => t('Allow to modify requests after been published'),
-    )
+    'modify requests' => array('title' => t('Request: Modify EMH requests after been published')),
+    'access EMH requests' => array('title' => t('Request: View all published EMH requests')),
   );
 }
 
@@ -590,7 +589,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       //disable everything to force click on Request Type
       {
 	if (!(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))   /* AJAX check  */
-        { 
+        {
           $form['body']['#disabled'] = true;
           $form['language']['#disabled'] = true;
           $form['field_domaine']['#disabled'] = true;

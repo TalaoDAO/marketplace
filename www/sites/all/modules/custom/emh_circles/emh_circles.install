@@ -170,8 +170,8 @@ function emh_circles_update_7004() {
 }
 
 /**
-* Revert circle rules.
-*/
+ * Revert circle rules.
+ */
 function emh_circles_update_7005() {
   if ($rules_config = rules_config_load('rules_emh_circles_set_clients_as_creator_in_circles')) {
     $rules_config->delete();
@@ -179,10 +179,9 @@ function emh_circles_update_7005() {
 }
 
 /**
-* CHG: Circles views, Menu links, OG permissions for subscribing.
-*/
+ * CHG: Circles views, Menu links, OG permissions for subscribing.
+ */
 function emh_circles_update_7006() {
-
   // Revert views & rules
   features_revert(array('ft_views' => array('views_view')));
   features_revert(array('ft_rules' => array('rules_config')));
@@ -220,12 +219,11 @@ function emh_circles_update_7006() {
     'subscribe without approval' => 0,
   );
   og_role_change_permissions($og_roles[OG_AUTHENTICATED_ROLE], $permissions);
-
 }
 
 /**
-* CHG: Menu links & circle logo field.
-*/
+ * CHG: Menu links & circle logo field.
+ */
 function emh_circles_update_7007() {
   // My circles
   db_update('menu_links')
@@ -241,15 +239,15 @@ function emh_circles_update_7007() {
 }
 
 /**
-* CHG: Remove Reset button in Views.
-*/
+ * CHG: Remove Reset button in Views.
+ */
 function emh_circles_update_7008() {
   emh_circles_reset_views();
 }
 
 /**
-* CHG: Revert circle rules.
-*/
+ * CHG: Revert circle rules.
+ */
 function emh_circles_update_7009() {
   if ($rules_config = rules_config_load('rules_emh_circles_send_email_membership_pending')) {
     $rules_config->delete();
@@ -263,15 +261,15 @@ function emh_circles_update_7009() {
 }
 
 /**
-* CHG: Remove All experts from /circles.
-*/
+ * CHG: Remove All experts from /circles.
+ */
 function emh_circles_update_7010() {
   emh_circles_reset_views();
 }
 
 /**
-* CHG: Revert circle creator member rules.
-*/
+ * CHG: Revert circle creator member rules.
+ */
 function emh_circles_update_7011() {
   if ($rules_config = rules_config_load('rules_emh_circles_set_clients_as_creator_in_circles')) {
     $rules_config->delete();
@@ -279,8 +277,8 @@ function emh_circles_update_7011() {
 }
 
 /**
-* CHG: OG permissions for new Request content type.
-*/
+ * CHG: OG permissions for new Request content type.
+ */
 function emh_circles_update_7012() {
 
   // Change permissions
@@ -330,8 +328,8 @@ function emh_circles_update_7014() {
 }
 
 /**
-* CHG: update Member permissions in Circles + CHG: disable old rule + CHG: update authentificated permission.
-*/
+ * CHG: update Member permissions in Circles + CHG: disable old rule + CHG: update authentificated permission.
+ */
 function emh_circles_update_7015() {
   $group = 'node';
   $bundle = 'circle';
@@ -353,7 +351,7 @@ function emh_circles_update_7015() {
   user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('access ckeditor link'));
 }
 
-/*
+/**
  * CHG: Circles wording.
  */
 function emh_circles_update_7016() {
@@ -361,8 +359,8 @@ function emh_circles_update_7016() {
 }
 
 /**
-* ADD: Modify membership status to authentificated users.
-*/
+ * ADD: Modify membership status to authentificated users.
+ */
 function emh_circles_update_7017() {
   user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('execute og_set_state_action'));
 
@@ -370,9 +368,17 @@ function emh_circles_update_7017() {
 }
 
 /**
-* CHG: OG permissions for admin members.
-*/
+ * ADD: Permission to modify EMH circles for admin and webmaster roles.
+ */
 function emh_circles_update_7018() {
+  user_role_grant_permissions(3, array('modify EMH circles')); // administrator
+  user_role_grant_permissions(6, array('modify EMH circles')); // webmaster
+}
+
+/**
+ * CHG: OG permissions for admin members.
+ */
+function emh_circles_update_7019() {
   $group = 'node';
   $bundle = 'circle';
   $og_roles = array_flip(og_roles($group, $bundle)); // group, bundle
