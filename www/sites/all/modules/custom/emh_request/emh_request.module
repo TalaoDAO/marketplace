@@ -616,10 +616,13 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
           $tid = key($_REQUEST['edit']['field_request_type'][LANGUAGE_NONE]);
           $term = taxonomy_term_load($tid);
           if (isset($term->og_group_ref)) {
-            // Prevent to change the circle.
-            $form['og_group_ref']['#disabled'] = TRUE;
             // Pre-select the circle.
-            //TODO: I'm stuck here tonight, I might use some help :)
+            $nid = $term->og_group_ref[LANGUAGE_NONE][0]['target_id'];
+            $title = node_load($nid)->title;
+            $form['og_group_ref'][LANGUAGE_NONE]['#default_value'] = array($nid => $title);
+            dpm($form);
+            // Prevent to change the circle.
+            //$form['og_group_ref']['#disabled'] = TRUE;
           }
         }
 
