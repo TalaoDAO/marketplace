@@ -19,50 +19,6 @@ function emh_circles_disable() {
   emh_circles_disable_strings();
 }
 
-function emh_circles_enable_strings() {
-  global $language;
-  $lang = $language->language;
-  $strings = variable_get("locale_custom_strings_$lang", array());
-  foreach (_emh_circles_string_overrides() as $string => $override) {
-    $strings[''][$string] = $override;
-  }
-  variable_set("locale_custom_strings_$lang", $strings);
-}
-
-function emh_circles_disable_strings() {
-  global $language;
-  $lang = $language->language;
-  $strings = variable_get("locale_custom_strings_$lang", array());
-  foreach (_emh_circles_string_overrides() as $string => $override) {
-    unset($strings[''][$string]);
-  }
-  variable_set("locale_custom_strings_$lang", $strings);
-}
-
-/**
- * Provides string overrides.
- */
-function _emh_circles_string_overrides() {
-  return array(
-    "%1's groups" => "My circles",
-    "Member's groups" => "Member's circles",
-    "Subscribe to group" => "Subscribe",
-    "Unsubscribe from group" => "Leave circle",
-    "Request group membership" => "Join circle",
-    "Are you sure you want to join the group %title?" => "Join %title circle",
-    "Are you sure you want to unsubscribe from the group %title?" => "Leave %title circle",
-    "Group" => "Circle",
-    "Active" => "Member",
-    "Manage the group members." => "Manage the circle members.",
-    "Group overview" => "Circle overview",
-    "People in group @group" => "People in circle @group",
-    "Group manager" => "Circle manager",
-    "Edit membership in group @group" => "Edit membership in circle @group",
-    "Edit a group membership in %group" => "Edit a circle membership in %group",
-    "This is the text a user may send to the group administrators." => "This is the text a user may send to the circle administrators.",
-  );
-}
-
 /**
  * Implements hook_field_schema().
  */
