@@ -48,7 +48,7 @@ function _emh_request_notification_publish($node) {
   }
   $moderators = user_load_multiple($moderators_uids);
   // Step 2.2) : We invoke an event which triggers the execution
-  // of a rule which sends the moderation emails.
+  // of a rule that sends the moderation emails.
   foreach ($moderators as $moderator) {
     // Note: should use a queue if there are too many moderators.
     rules_invoke_event('_emh_request_notification_moderate', $node, $moderator);
