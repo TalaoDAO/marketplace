@@ -78,9 +78,12 @@ Feature: Emails
 
     # DON'T FORGET: drush @dev rules-enable _emh_request_notification_moderate_mail
     Then  the last email to "emindhub.test+webmaster1@gmail.com" should contain "Moderate this new request"
-      And the last email to "emindhub.test+webmaster1@gmail.com" should contain "Moderate this new request"
+      And the last email to "emindhub.test+administrator1@gmail.com" should contain "Moderate this new request"
 
     # DON'T FORGET: drush @dev rules-enable _emh_request_notification_notify_mail
+      # Uncomment to see that Behat checks if the email exists and returns 'Did not find expected message'
+      # And the last email to "emindhub.test+expert1@gmail.com" should contain "Dear Iron,"
+
     # 1st Cron run to execute the scheduled notification action
     When I run cron
     # 2nd Cron run to process the notification queue
@@ -93,15 +96,11 @@ Feature: Emails
       And the last email to "emindhub.test+client1@gmail.com" should not contain "published"
 
   @email
-  Scenario: After moderation, only experts in french countries are notified by email for new request publication in french
+  Scenario: Only experts in french countries are notified by email for new request publication in french
     Given the test email system is enabled
     Given "request" content:
     | title                             | field_domaine | og_group_ref    | author  | field_expiration_date  | status  | language |
     | Comment devenir un super-heros ?  | Energy        | Avengers        | client1 | 2017-02-08 17:45:00    | 1       | fr       |
-
-    # DON'T FORGET: drush @dev rules-enable _emh_request_notification_moderate_mail
-    Then  the last email to "emindhub.test+webmaster1@gmail.com" should contain "Moderate this new request"
-      And the last email to "emindhub.test+webmaster1@gmail.com" should contain "Moderate this new request"
 
     # DON'T FORGET: drush @dev rules-enable _emh_request_notification_notify_mail
     # 1st Cron run to execute the scheduled notification action
