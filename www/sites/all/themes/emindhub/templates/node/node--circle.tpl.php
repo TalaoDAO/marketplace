@@ -52,7 +52,7 @@
     <div class="content"<?php print $content_attributes; ?>>
 
       <div class="row">
-        <div class="col-sm-8">
+        <div class="circle-main-content">
           <?php if (!empty($content['field_circle_message'])) : ?>
             <?php print render($content['field_circle_message']); ?>
           <?php endif; ?>
@@ -69,7 +69,7 @@
           <?php endif; ?>
         </div>
 
-        <div class="col-sm-4">
+        <div class="circle-infos">
           <?php if (!empty($content['body']) || !empty($content['field_circle_website']) || !empty($managers)) : ?>
             <h3><?php print t('About this circle'); ?></h3>
 
