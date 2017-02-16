@@ -92,8 +92,6 @@ Feature: Emails
       And the email should contain "A new request for expertise has been published on eMindHub"
       And the last email to "emindhub.test+expert2@gmail.com" should contain "Dear Klark,"
       And the email should contain "A new request for expertise has been published on eMindHub"
-      # TODO: Check if we keep sending a notification to the request author too
-      #And there should be no email to "emindhub.test+client1@gmail.com" containing "published"
 
   @email
   Scenario: Only experts in french countries are notified by email for new request publication in french
