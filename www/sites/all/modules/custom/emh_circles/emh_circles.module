@@ -1,8 +1,9 @@
 <?php
+
 /**
-* @file
-* Code for eMindHub circles feature.
-*/
+ * @file
+ * Code for eMindHub circles feature.
+ */
 
 include_once 'emh_circles.inc';
 include_once 'emh_circles.admin.inc';
@@ -43,7 +44,7 @@ function emh_circles_menu() {
   $items = array();
 
   $items['node/%/instructions'] = array(
-    'title' => t('How it works?'),
+    'title' => 'How it works?',
     'page callback' => 'emh_circles_instructions_page',
     'page arguments' => array(1),
     'access callback' => 'emh_circles_instructions_page_access',
@@ -80,8 +81,8 @@ function emh_circles_views_api() {
 function emh_circles_preprocess_page(&$variables) {
   if (isset($variables['node']->type)) {
 
-		switch ($variables['node']->type) {
-			case 'circle':
+    switch ($variables['node']->type) {
+      case 'circle':
         $group = og_context();
 
         $variables['gid'] = NULL;
@@ -109,8 +110,8 @@ function emh_circles_preprocess_page(&$variables) {
 function emh_circles_preprocess_node(&$variables) {
   if (isset($variables['node']->type)) {
 
-		switch ($variables['node']->type) {
-			case 'circle':
+    switch ($variables['node']->type) {
+      case 'circle':
         $group = og_context();
 
         $variables['group_node_links'] = array();
@@ -139,7 +140,6 @@ function emh_circles_preprocess_node(&$variables) {
 
         $variables['subscriber_count'] = og_extras_subscriber_count($variables['gid']);
         $variables['subscriber_count'] = format_plural($variables['subscriber_count'], '@count member', '@count members');
-        // $variables['subscriber_link'] = l(format_plural($variables['subscriber_count'], '@count member', '@count members'), 'node/' . $variables['gid'] . '/members');
 
         $variables['manager_uids'] = _emh_circles_get_managers_from_group($group);
         $variables['manager_uids'] = $variables['manager_uids']['group_managers'];
@@ -159,6 +159,51 @@ function emh_circles_preprocess_node(&$variables) {
 }
 
 /**
+ * Implements hook_permission().
+ */
+function emh_circles_permission() {
+  return array(
+    'modify EMH circles' => array('title' => t('Circle: Edit all EMH Circles')),
+  );
+}
+
+/**
+ * Implements hook_field_access().
+ */
+function emh_circles_field_access($op, $field, $entity_type, $entity, $account) {
+  if ($op == 'edit') {
+    if (empty($entity)) {
+      return TRUE;
+    }
+
+    if (empty($account)) {
+      global $user;
+      $account = $user;
+    }
+
+    if ($entity_type == 'node') {
+      switch ($entity->type) {
+        case 'circle':
+          switch ($field['field_name']) {
+            case 'field_circle_logo':
+            case 'body':
+            case 'field_circle_message':
+            case 'field_circle_website':
+            case 'field_circle_instructions':
+            case 'field_circle_qa':
+              return TRUE;
+
+            default:
+              return user_access('modify EMH circles');
+          }
+      }
+    }
+  }
+
+  return TRUE;
+}
+
+/**
  * Implements hook_node_access().
  */
 function emh_circles_node_access($node, $op, $account) {
@@ -166,9 +211,6 @@ function emh_circles_node_access($node, $op, $account) {
     switch ($node->type) {
       case 'circle':
         return (og_is_member('node', $node->nid, 'user', $account)) ? NODE_ACCESS_IGNORE : NODE_ACCESS_DENY;
-        break;
-      default:
-        break;
     }
   }
   return NODE_ACCESS_IGNORE;
@@ -197,7 +239,6 @@ function emh_circles_form_og_ui_confirm_unsubscribe_alter(&$form, &$form_state) 
   $form['description']['#markup'] = '<p>' . t('Do you really want to leave this circle?') . '</p>';
 }
 
-
 /**
  * Implements hook_form_FORM_ID_alter().
  */
@@ -208,7 +249,7 @@ function emh_circles_form_request_node_form_alter(&$form, &$form_state, $form_id
   ) {
     global $user;
 
-    // Prepares data for Javascript
+    // Prepares data for Javascript.
     $settings = array(
       'default' => array(),
       'circles' => array(),
@@ -234,15 +275,15 @@ function emh_circles_form_request_node_form_alter(&$form, &$form_state, $form_id
       }
     }
 
-    // Attaches script and data to the form
+    // Attaches script and data to the form.
     if (empty($form['#attached']['js'])) {
       $form['#attached']['js'] = array();
     }
 
     $form['#attached']['js'] += array(
-      // Attaches JS script for the dynamic update of options costs
+      // Attaches JS script for the dynamic update of options costs.
       drupal_get_path('module', 'emh_circles') . '/js/options-costs.js' => array('type' => 'file'),
-      // Attaches settings
+      // Attaches settings.
       array('data' => array('circlesOptionsCosts' => $settings), 'type' => 'setting'),
     );
   }
