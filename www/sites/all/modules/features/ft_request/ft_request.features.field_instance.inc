@@ -1029,7 +1029,7 @@ function ft_request_field_default_field_instances() {
         'size' => 2048,
       ),
       'type' => 'text_textfield',
-      'weight' => 3,
+      'weight' => 2,
     ),
   );
 
@@ -1077,9 +1077,52 @@ function ft_request_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'taxonomy_term-request_type-og_group_ref'.
+  $field_instances['taxonomy_term-request_type-og_group_ref'] = array(
+    'bundle' => 'request_type',
+    'default_value' => NULL,
+    'default_value_function' => '',
+    'deleted' => 0,
+    'description' => 'If you choose a circle, this request type will be available only for this circle.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'og_group_ref',
+    'label' => 'Circle restriction',
+    'required' => 0,
+    'settings' => array(
+      'behaviors' => array(
+        'prepopulate' => array(
+          'status' => 0,
+        ),
+      ),
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 3,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('Choose a request type');
+  t('Circle restriction');
   t('Circles');
   t('Deadline');
   t('Describe your request');
@@ -1092,6 +1135,7 @@ function ft_request_field_default_field_instances() {
   t('Group content visibility');
   t('Hide my name');
   t('Hide my organisation');
+  t('If you choose a circle, this request type will be available only for this circle.');
   t('Image');
   t('Name');
   t('Options');
