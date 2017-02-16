@@ -76,6 +76,7 @@ features[field_instance][] = node-request-title_field
 features[field_instance][] = taxonomy_term-request_type-description_field
 features[field_instance][] = taxonomy_term-request_type-field_prepopulate
 features[field_instance][] = taxonomy_term-request_type-name_field
+features[field_instance][] = taxonomy_term-request_type-og_group_ref
 features[flag][] = my_selection
 features[node][] = request
 features[taxonomy][] = request_type
