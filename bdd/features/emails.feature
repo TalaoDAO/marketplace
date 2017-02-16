@@ -39,7 +39,7 @@ Feature: Emails
       And I click "Member since"
       And I click "edit" in the "Captain AMERICA" row
       # TODO nasty bug, on "Update membership" there is a redirection with an encoded "?redirect=xxx"
-      # that provoques an error visible on watchdog ONLY with a "Then I break"
+      # that provokes an error visible on watchdog ONLY with a "Then I break"
       # 2nd bug : It is not displayed by @wathdog at the end of the test
       And I go to stripped URL
       And I select "Active" from "Status"
@@ -81,8 +81,7 @@ Feature: Emails
       And the last email to "emindhub.test+administrator1@gmail.com" should contain "Moderate this new request"
 
     # DON'T FORGET: drush @dev rules-enable _emh_request_notification_notify_mail
-      # Uncomment to see that Behat checks if the email exists and returns 'Did not find expected message'
-      # And the last email to "emindhub.test+expert1@gmail.com" should contain "Dear Iron,"
+      And there should be no email to "emindhub.test+expert1@gmail.com" containing "Dear Iron,"
 
     # 1st Cron run to execute the scheduled notification action
     When I run cron
@@ -93,7 +92,8 @@ Feature: Emails
       And the email should contain "A new request for expertise has been published on eMindHub"
       And the last email to "emindhub.test+expert2@gmail.com" should contain "Dear Klark,"
       And the email should contain "A new request for expertise has been published on eMindHub"
-      And the last email to "emindhub.test+client1@gmail.com" should not contain "published"
+      # TODO: Check if we keep sending a notification to the request author too
+      #And there should be no email to "emindhub.test+client1@gmail.com" containing "published"
 
   @email
   Scenario: Only experts in french countries are notified by email for new request publication in french
@@ -107,12 +107,7 @@ Feature: Emails
     When I run cron
     # 2nd Cron run to process the notification queue
     When I run cron
-    Then  the last email to "emindhub.test+expert1@gmail.com" should not contain "Dear Iron,"
-      # Uncomment to see that Behat checks if the email exists and returns No active email (Exception)
-      # And the email should contain "A new request for expertise has been published on eMindHub"
-      And the last email to "emindhub.test+expert2@gmail.com" should not contain "Dear Klark,"
-      # Uncomment to see that Behat checks if the email exists and returns No active email (Exception)
-      # And the email should contain "A new request for expertise has been published on eMindHub"
+    Then there should be no email to "emindhub.test+expert1@gmail.com" containing "Dear Iron,"
+      And there should be no email to "emindhub.test+expert2@gmail.com" containing "Dear Klark,"
       And the last email to "emindhub.test+expert3@gmail.com" should contain "Dear Super,"
       And the email should contain "A new request for expertise has been published on eMindHub"
-      And the last email to "emindhub.test+client1@gmail.com" should not contain "published"
