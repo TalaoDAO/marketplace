@@ -687,7 +687,7 @@ function emh_circles_views_default_views_alter(&$views) {
     $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
     /* Field: Bulk operations: OG membership */
     $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
-    $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'og_membership';
+    $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'views_entity_og_membership';
     $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
     $handler->display->display_options['fields']['views_bulk_operations']['relationship'] = 'og_membership_rel';
     $handler->display->display_options['fields']['views_bulk_operations']['hide_alter_empty'] = FALSE;
@@ -730,13 +730,6 @@ function emh_circles_views_default_views_alter(&$views) {
     $handler->display->display_options['fields']['state']['field'] = 'state';
     $handler->display->display_options['fields']['state']['relationship'] = 'og_membership_rel';
     $handler->display->display_options['fields']['state']['label'] = 'Status';
-    /* Field: OG membership: OG user roles in group */
-    $handler->display->display_options['fields']['og_roles']['id'] = 'og_roles';
-    $handler->display->display_options['fields']['og_roles']['table'] = 'og_membership';
-    $handler->display->display_options['fields']['og_roles']['field'] = 'og_roles';
-    $handler->display->display_options['fields']['og_roles']['relationship'] = 'og_membership_rel';
-    $handler->display->display_options['fields']['og_roles']['label'] = 'Roles';
-    $handler->display->display_options['fields']['og_roles']['type'] = 'ul';
     /* Field: OG membership: Created */
     $handler->display->display_options['fields']['created']['id'] = 'created';
     $handler->display->display_options['fields']['created']['table'] = 'og_membership';
