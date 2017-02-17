@@ -27,24 +27,24 @@ Feature: Request
     # Make client1 as a Creator member of All experts circle
     Given I am logged in as a user with the "administrator" role
     When I go to "content/all-experts"
-      And I click "Group"
+      And I click "Circle"
       And I click "People"
       And I click "Member since"
       # Twice for correct order
       And I click "Member since"
       And I click "edit" in the "Captain AMERICA" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
       # Again...
       And I go to "content/all-experts"
-      And I click "Group"
+      And I click "Circle"
       And I click "People"
       And I click "Member since"
       # Twice for correct order
       And I click "Member since"
-    Then I should see "Active" in the "Captain AMERICA" row
+    Then I should see "Member" in the "Captain AMERICA" row
       And I click "edit" in the "Iron MAN" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
