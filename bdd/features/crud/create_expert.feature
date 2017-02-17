@@ -20,13 +20,13 @@ Feature: Create permissions for Experts
 
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
-      And I click "Group"
+      And I click "Circle"
       And I click "People"
       And I click "Member since"
       # Twice for correct order
       And I click "Member since"
       And I click "edit" in the "Iron MAN" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
