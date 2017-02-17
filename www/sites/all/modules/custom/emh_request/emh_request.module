@@ -611,18 +611,12 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
           }
         }
         // If the request type is restricted to a circle :
-        // TODO: on a non-published request too.
         if (isset($_REQUEST['edit']['field_request_type'])) {
           $tid = key($_REQUEST['edit']['field_request_type'][LANGUAGE_NONE]);
           $term = taxonomy_term_load($tid);
           if (isset($term->og_group_ref)) {
-            // Pre-select the circle.
-            $nid = $term->og_group_ref[LANGUAGE_NONE][0]['target_id'];
-            $title = node_load($nid)->title;
-            $form['og_group_ref'][LANGUAGE_NONE]['#default_value'] = array($nid => $title);
-            dpm($form);
             // Prevent to change the circle.
-            //$form['og_group_ref']['#disabled'] = TRUE;
+            $form['og_group_ref']['#disabled'] = TRUE;
           }
         }
 
