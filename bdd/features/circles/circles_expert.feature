@@ -40,32 +40,32 @@ Feature: Requests visibility for Expert
     Given I am logged in as a user with the "administrator" role
 
     When I go to "content/avengers"
-      And I click "Group" in the "primary tabs" region
+      And I click "Circle" in the "primary tabs" region
       And I click "People"
       And I click "edit" in the "Captain AMERICA" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I check the box "administrator member"
       And I press "Update membership"
     Then I should see "The membership has been updated."
       And I click "edit" in the "Iron MAN" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
     When I go to "content/x-men"
-      And I click "Group" in the "primary tabs" region
+      And I click "Circle" in the "primary tabs" region
       And I click "People"
       And I click "edit" in the "Charle XAVIER" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I check the box "administrator member"
       And I press "Update membership"
     Then I should see "The membership has been updated."
       And I click "edit" in the "Scott SUMMERS" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
       And I click "edit" in the "Jean GREY" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 

@@ -48,38 +48,38 @@ Feature: Request Option Price
 
     # Make client1 as a Creator member of circles
     When I go to "content/avengers"
-      And I click "Group"
+      And I click "Circle"
       And I click "People"
       And I click "edit" in the "Captain AMERICA" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
-    Then I should see "Active" in the "Captain AMERICA" row
+    Then I should see "Member" in the "Captain AMERICA" row
       And I click "edit" in the "Iron MAN" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
     When I go to "content/league-justice"
-      And I click "Group"
+      And I click "Circle"
       And I click "People"
       And I click "edit" in the "Captain AMERICA" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
-    Then I should see "Active" in the "Captain AMERICA" row
+    Then I should see "Member" in the "Captain AMERICA" row
       And I click "edit" in the "Iron MAN" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
     When I go to "content/guardians-galaxy"
-      And I click "Group"
+      And I click "Circle"
       And I click "People"
       And I click "edit" in the "Captain AMERICA" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
-    Then I should see "Active" in the "Captain AMERICA" row
+    Then I should see "Member" in the "Captain AMERICA" row
       And I click "edit" in the "Iron MAN" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
