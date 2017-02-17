@@ -33,7 +33,7 @@ Feature: Request Prepopulation
       And I press "Save configuration"
 
     When I go to "content/avengers"
-      And I click "Group"
+      And I click "Circle"
       And I click "People"
       And I click "Member since"
       # Twice for correct order
@@ -42,16 +42,16 @@ Feature: Request Prepopulation
       #And I check the box "views_bulk_operations[1]"
       #And I select "Modify membership status" from "operation"
       #And I press "Execute"
-      #And I select "Active" from "State"
+      #And I select "Member" from "State"
       #And I press "Next"
       #And I press "Confirm"
 
       And I click "edit" in the "Captain AMERICA" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
       # Again...
       And I go to "content/avengers"
-      And I click "Group"
+      And I click "Circle"
       And I click "People"
       And I click "Member since"
       # Twice for correct order

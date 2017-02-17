@@ -39,7 +39,7 @@ Feature: Test credits dispatch in OG
     When I click "Avengers"
     #Then I should see "You are the group manager"
 
-    When I click "Group"
+    When I click "Circle"
       And I click "Add people"
       And I fill in "User name" with "client2"
       And I press "Add users"
