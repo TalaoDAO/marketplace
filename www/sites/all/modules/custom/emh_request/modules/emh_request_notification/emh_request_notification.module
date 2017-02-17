@@ -5,6 +5,18 @@
  * Code of the eMindHub request notification feature.
  */
 
+ /**
+  * Implements hook_permission().
+  */
+function emh_request_notification_permission() {
+  return array(
+    'moderate requests' => array(
+      'title' => t('Moderate requests'),
+      'description' => t('Get an email as soon as a new request is published, to moderate it before the notification emails are sent to users.'),
+    ),
+  );
+}
+
 /**
  * Implements hook_cron_queue_info().
  *
@@ -30,23 +42,23 @@ function _emh_request_notification_publish($node) {
 
   // Step 2) : Immediatly send an email to Webmasters and Administrators.
   // Step 2.1) : Look for Administrators and Webmasters.
-  $role_ids = array(3, 6);
-  foreach ($role_ids as $role_id) {
+  $moderators_roles = user_roles(TRUE, 'moderate requests');
+  foreach ($moderators_roles as $moderator_role_id => $moderator_role_name) {
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', 'user');
     $role_query = db_select('users_roles', 'ur');
     $role_query->fields('ur', array('uid'));
-    $role_query->condition('rid', $role_id);
+    $role_query->condition('rid', $moderator_role_id);
     $query->propertyCondition('uid', $role_query, 'IN');
     $result = $query->execute();
     if (!empty($result['user'])) {
-      $users = user_load_multiple(array_keys($result['user']));
-      foreach ($users as $user) {
-        $moderators_uids[] = $user->uid;
+      $moderators = user_load_multiple(array_keys($result['user']));
+      foreach ($moderators as $moderator) {
+        $moderators_uid[] = $moderator->uid;
       }
     }
   }
-  $moderators = user_load_multiple($moderators_uids);
+  $moderators = user_load_multiple($moderators_uid);
   // Step 2.2) : We invoke an event which triggers the execution
   // of a rule that sends the moderation emails.
   foreach ($moderators as $moderator) {
