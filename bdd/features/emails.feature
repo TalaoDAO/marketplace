@@ -32,7 +32,7 @@ Feature: Emails
     # Make client1 as a Creator member of Avengers circle
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
-      And I click "Group"
+      And I click "Circle"
       And I click "People"
       And I click "Member since"
       # Twice for correct order
@@ -42,30 +42,30 @@ Feature: Emails
       # that provokes an error visible on watchdog ONLY with a "Then I break"
       # 2nd bug : It is not displayed by @wathdog at the end of the test
       And I go to stripped URL
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
       # Again...
     When I go to "content/avengers"
-      And I click "Group"
+      And I click "Circle"
       And I click "People"
       And I click "Member since"
       # Twice for correct order
       And I click "Member since"
-    Then I should see "Active" in the "Captain AMERICA" row
+    Then I should see "Member" in the "Captain AMERICA" row
     When I click "edit" in the "Iron MAN" row
       And I go to stripped URL
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
     When I go to "content/avengers"
-      And I click "Group"
+      And I click "Circle"
       And I click "People"
       And I click "Member since"
       # Twice for correct order
       And I click "Member since"
       And I click "edit" in the "Klark KENT" row
       And I go to stripped URL
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 

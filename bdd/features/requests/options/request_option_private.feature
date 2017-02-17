@@ -31,18 +31,18 @@ Feature: Request and answers
 
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
-      And I click "Group"
+      And I click "Circle"
       And I click "People"
       And I click "edit" in the "Captain AMERICA" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
-    Then I should see "Active" in the "Captain AMERICA" row
+    Then I should see "Member" in the "Captain AMERICA" row
       And I click "edit" in the "Iron MAN" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
       And I click "edit" in the "Klark KENT" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
