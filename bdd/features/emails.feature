@@ -1,7 +1,7 @@
 @api @watchdog
 Feature: Emails
-  In order to test Emails notifications
-  As a Client and an Expert
+  In order to test Emails moderations and notifications
+  As a Webmaster, an Administrator, a Client and an Expert
   I want to create a Request, and receive email
 
   Background: Create request
@@ -13,6 +13,11 @@ Feature: Emails
     Given "corporate" content:
     | title                 | author  |
     | Marvel Studios        | admin   |
+
+    Given users:
+    | name           | mail                                   | roles         |
+    | webmaster1     | emindhub.test+webmaster1@gmail.com     | webmaster     |
+    | administrator1 | emindhub.test+administrator1@gmail.com | administrator |
 
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | field_notification_frequency  |
@@ -34,7 +39,7 @@ Feature: Emails
       And I click "Member since"
       And I click "edit" in the "Captain AMERICA" row
       # TODO nasty bug, on "Update membership" there is a redirection with an encoded "?redirect=xxx"
-      # that provoques an error visible on watchdog ONLY with a "Then I break"
+      # that provokes an error visible on watchdog ONLY with a "Then I break"
       # 2nd bug : It is not displayed by @wathdog at the end of the test
       And I go to stripped URL
       And I select "Active" from "Status"
@@ -65,19 +70,28 @@ Feature: Emails
     Then I should see "The membership has been updated."
 
   @email
-  Scenario: Experts are notified by email for new request publication
+  Scenario: Webmasters and Administrators are immediately notified, and after the delay, Experts are notified
     Given the test email system is enabled
     Given "request" content:
     | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
     | How to become a superhero?  | Energy        | Avengers        | client1 | 2017-02-08 17:45:00    | 1       |
 
+    # DON'T FORGET: drush @dev rules-enable _emh_request_notification_moderate_mail
+    Then  the last email to "emindhub.test+webmaster1@gmail.com" should contain "Moderate this new request"
+      And the last email to "emindhub.test+administrator1@gmail.com" should contain "Moderate this new request"
+
+    # DON'T FORGET: drush @dev rules-enable _emh_request_notification_notify_mail
+      And there should be no email to "emindhub.test+expert1@gmail.com" containing "Dear Iron,"
+
+    # 1st Cron run to execute the scheduled notification action
     When I run cron
-    #DONT FORGET : drush @dev rules-enable rules_emh_request_send_notification_email
+    # 2nd Cron run to process the notification queue
+    When I run cron
+
     Then  the last email to "emindhub.test+expert1@gmail.com" should contain "Dear Iron,"
       And the email should contain "A new request for expertise has been published on eMindHub"
       And the last email to "emindhub.test+expert2@gmail.com" should contain "Dear Klark,"
       And the email should contain "A new request for expertise has been published on eMindHub"
-      And the last email to "emindhub.test+client1@gmail.com" should not contain "published"
 
   @email
   Scenario: Only experts in french countries are notified by email for new request publication in french
@@ -86,14 +100,12 @@ Feature: Emails
     | title                             | field_domaine | og_group_ref    | author  | field_expiration_date  | status  | language |
     | Comment devenir un super-heros ?  | Energy        | Avengers        | client1 | 2017-02-08 17:45:00    | 1       | fr       |
 
+    # DON'T FORGET: drush @dev rules-enable _emh_request_notification_notify_mail
+    # 1st Cron run to execute the scheduled notification action
     When I run cron
-    # DON'T FORGET: drush @dev rules-enable rules_emh_request_send_notification_email
-    Then  the last email to "emindhub.test+expert1@gmail.com" should not contain "Dear Iron,"
-      # Uncomment to see that Behat checks if the email exists and returns No active email (Exception)
-      # And the email should contain "A new request for expertise has been published on eMindHub"
-      And the last email to "emindhub.test+expert2@gmail.com" should not contain "Dear Klark,"
-      # Uncomment to see that Behat checks if the email exists and returns No active email (Exception)
-      # And the email should contain "A new request for expertise has been published on eMindHub"
+    # 2nd Cron run to process the notification queue
+    When I run cron
+    Then there should be no email to "emindhub.test+expert1@gmail.com" containing "Dear Iron,"
+      And there should be no email to "emindhub.test+expert2@gmail.com" containing "Dear Klark,"
       And the last email to "emindhub.test+expert3@gmail.com" should contain "Dear Super,"
       And the email should contain "A new request for expertise has been published on eMindHub"
-      And the last email to "emindhub.test+client1@gmail.com" should not contain "published"
