@@ -18,6 +18,32 @@ function emh_request_notification_permission() {
 }
 
 /**
+ * Implements hook_node_insert().
+ */
+function emh_request_notification_node_insert($node) {
+  if ($node->type !== 'request') {
+    return;
+  }
+
+  if ($node->status == NODE_PUBLISHED) {
+    _emh_request_notification_publish($node);
+  }
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function emh_request_notification_node_update($node) {
+  if ($node->type !== 'request') {
+    return;
+  }
+
+  if ($node->status == NODE_PUBLISHED && $node->original->status == NODE_NOT_PUBLISHED) {
+    _emh_request_notification_publish($node);
+  }
+}
+
+/**
  * Implements hook_cron_queue_info().
  *
  * At each Cron run, we spend 30 seconds max sending notification emails.
