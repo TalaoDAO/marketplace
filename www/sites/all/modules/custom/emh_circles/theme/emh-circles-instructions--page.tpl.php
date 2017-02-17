@@ -1,2 +1,2 @@
-<?php print render($how); ?>
+<?php print render($instructions); ?>
 <?php print render($qa); ?>
