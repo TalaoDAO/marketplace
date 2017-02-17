@@ -942,7 +942,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['name']['relationship'] = 'reverse_field_entreprise_user';
   /* Field: Bulk operations: Content */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
-  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'node';
+  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'views_entity_node';
   $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '1';
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
@@ -1065,7 +1065,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
-  /* Field: User: Describe your work experience */
+  /* Field: User: Work experience */
   $handler->display->display_options['fields']['field_employment_history']['id'] = 'field_employment_history';
   $handler->display->display_options['fields']['field_employment_history']['table'] = 'field_data_field_employment_history';
   $handler->display->display_options['fields']['field_employment_history']['field'] = 'field_employment_history';
@@ -1153,7 +1153,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_titre_metier']['element_wrapper_type'] = '0';
   $handler->display->display_options['fields']['field_titre_metier']['element_default_classes'] = FALSE;
-  /* Field: User: Describe your work experience */
+  /* Field: User: Work experience */
   $handler->display->display_options['fields']['field_employment_history']['id'] = 'field_employment_history';
   $handler->display->display_options['fields']['field_employment_history']['table'] = 'field_data_field_employment_history';
   $handler->display->display_options['fields']['field_employment_history']['field'] = 'field_employment_history';
@@ -1203,7 +1203,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['field'] = 'field_titre_metier';
   $handler->display->display_options['fields']['field_titre_metier']['label'] = '';
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
-  /* Field: User: Describe your work experience */
+  /* Field: User: Work experience */
   $handler->display->display_options['fields']['field_employment_history']['id'] = 'field_employment_history';
   $handler->display->display_options['fields']['field_employment_history']['table'] = 'field_data_field_employment_history';
   $handler->display->display_options['fields']['field_employment_history']['field'] = 'field_employment_history';
@@ -1552,7 +1552,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['mail']['field'] = 'mail';
   /* Field: Bulk operations: User */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
-  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'users';
+  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'views_entity_user';
   $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '0';
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
@@ -1903,7 +1903,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['mail']['field'] = 'mail';
   /* Field: Bulk operations: User */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
-  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'users';
+  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'views_entity_user';
   $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '1';
   $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
@@ -2100,7 +2100,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['field_titre_metier']['element_label_colon'] = FALSE;
   /* Field: Bulk operations: User */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
-  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'users';
+  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'views_entity_user';
   $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
   /* Sort criterion: User: Created date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
@@ -2365,7 +2365,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Bulk operations: User */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
-  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'users';
+  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'views_entity_user';
   $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['label'] = '';
   $handler->display->display_options['fields']['views_bulk_operations']['element_label_colon'] = FALSE;
