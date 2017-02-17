@@ -1083,7 +1083,7 @@ function ft_request_field_default_field_instances() {
     'default_value' => NULL,
     'default_value_function' => '',
     'deleted' => 0,
-    'description' => 'If you choose a circle, this request type will be available only for this circle.',
+    'description' => 'If you choose a circle, this request type will be available only for this circle. On the request type term, enter in "Prepopulate request URL" : edit[og_group_ref][und]=NID where NID is the circle NID.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -1135,7 +1135,7 @@ function ft_request_field_default_field_instances() {
   t('Group content visibility');
   t('Hide my name');
   t('Hide my organisation');
-  t('If you choose a circle, this request type will be available only for this circle.');
+  t('If you choose a circle, this request type will be available only for this circle. On the request type term, enter in "Prepopulate request URL" : edit[og_group_ref][und]=NID where NID is the circle NID.');
   t('Image');
   t('Name');
   t('Options');
