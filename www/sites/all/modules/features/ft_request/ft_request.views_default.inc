@@ -2315,7 +2315,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
   /* Field: Bulk operations: Webform submissions */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
-  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'views_entity_webform_submission';
   $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
   $handler->display->display_options['fields']['views_bulk_operations']['label'] = '';
   $handler->display->display_options['fields']['views_bulk_operations']['element_label_colon'] = FALSE;
