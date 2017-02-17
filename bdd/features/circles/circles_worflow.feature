@@ -29,27 +29,27 @@ Feature: Circles workflow for Expert
     # Make client4 as a manager of Guardians of the Galaxy circle
     Given I am logged in as a user with the "administrator" role
     When I go to "content/guardians-galaxy"
-      And I click "Group" in the "primary tabs" region
+      And I click "Circle" in the "primary tabs" region
       And I click "People"
       And I click "edit" in the "Star LORD" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I check the box "administrator member"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
     When I go to "content/avengers"
-      And I click "Group" in the "primary tabs" region
+      And I click "Circle" in the "primary tabs" region
       And I click "People"
       And I click "edit" in the "Iron MAN" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
     When I go to "content/x-men"
-      And I click "Group" in the "primary tabs" region
+      And I click "Circle" in the "primary tabs" region
       And I click "People"
       And I click "edit" in the "Scott SUMMERS" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
@@ -82,12 +82,12 @@ Feature: Circles workflow for Expert
 
     Given I am logged in as "client4"
     When I go to "content/guardians-galaxy"
-      And I click "Group" in the "primary tabs" region
+      And I click "Circle" in the "primary tabs" region
       And I click "People"
     Then I should see "Pending" in the "Iron MAN" row
 
     When I click "edit" in the "Iron" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
@@ -105,7 +105,7 @@ Feature: Circles workflow for Expert
 
     Given I am logged in as "client4"
     When I go to "content/guardians-galaxy"
-      And I click "Group" in the "primary tabs" region
+      And I click "Circle" in the "primary tabs" region
       And I click "People"
     Then I should see "Pending" in the "Scott" row
 
@@ -128,10 +128,10 @@ Feature: Circles workflow for Expert
 
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
-      And I click "Group" in the "primary tabs" region
+      And I click "Circle" in the "primary tabs" region
       And I click "People"
       And I click "edit" in the "Captain AMERICA" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
