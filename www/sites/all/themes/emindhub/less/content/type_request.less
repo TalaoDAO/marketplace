@@ -39,6 +39,10 @@
   }
 }
 
+.request-type-infos {
+  .emh-title-image;
+}
+
 // node/add/request
 // node/%/edit
 body.page-node-add-request,
@@ -53,6 +57,7 @@ body.node-type-request.page-node-edit {
       background-color: transparent;
       padding: 0;
       margin-bottom: 50px;
+
       &:last-child {
         margin-bottom: 0;
       }
@@ -73,19 +78,23 @@ body.node-type-request.page-node-edit {
         content: "5";
       }
     }
+
     .step2 {
       .emh-prepopulate-type-help {
         .alert; .alert-info;
         clear: both;
       }
     }
+
     .form-group {
       clear: both;
       margin-bottom: 20px;
+
       &:last-child {
         margin-bottom: 0;
       }
     }
+
     #edit-field-options {
       > .form-group {
         .make-row();
@@ -136,9 +145,7 @@ body.node-type-request.page-node-edit {
           padding: 15px;
           min-height: 60px;
           .text-left;
-        }
 
-        > .form-type-radio {
           &.active {
             border-color: @brand-primary;
           }
@@ -283,15 +290,22 @@ body.node-type-request:not(.page-node-edit) {
   #maincol {
     padding-top: 0;
   }
+  .nav-tabs {
+    > li {
+      &.active > a {
+        &,
+        &:hover,
+        &:focus {
+          background-color: @body-bg-inverse;
+        }
+      }
+    }
+  }
 
   // Global
   .section.request,
   .section.user-submission {
     background-color: #FFF;
-  }
-
-  .request-type-infos {
-    .emh-title-image;
   }
 
   // Request
