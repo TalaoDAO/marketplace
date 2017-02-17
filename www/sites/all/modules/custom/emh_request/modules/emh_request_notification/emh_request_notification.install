@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Installation hooks for the EMH Notification module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function emh_request_notification_install() {
+  variable_set('emh_request_notification_all_domains', 1);
+  variable_set('emh_request_notification_delay', 30);
+  variable_set('emh_request_notification_french_countries', array('FR', 'BE'));
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function emh_request_notification_uninstall() {
+  variable_del('emh_request_notification_all_domains');
+  variable_del('emh_request_notification_delay');
+  variable_del('emh_request_notification_french_countries');
+}
