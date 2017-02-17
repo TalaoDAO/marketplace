@@ -50,9 +50,112 @@ function emh_circles_menu() {
     'access callback' => 'emh_circles_instructions_page_access',
     'access arguments' => array(1),
     'type' => MENU_LOCAL_TASK,
+    'weight' => 3,
   );
 
   return $items;
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function emh_circles_menu_alter(&$items) {
+  unset($items['node/%node/view']['title']);
+  $items['node/%node/view']['title callback'] = 'emh_circles_node_view_title';
+  $items['node/%node/view']['title arguments'] = array(1);
+
+  unset($items['node/%node/edit']['type']);
+  unset($items['node/%node/edit']['title']);
+  $items['node/%node/edit']['title callback'] = 'emh_circles_node_edit_title';
+  $items['node/%node/edit']['title arguments'] = array(1);
+
+  unset($items['node/%/group']['title']);
+  $items['node/%/group']['title callback'] = 'emh_circles_node_group_title';
+  $items['node/%/group']['title arguments'] = array(1);
+  $items['node/%/group']['weight'] = 6;
+
+  foreach (og_get_all_group_entity() as $entity_type => $value) {
+    if ($entity_type == 'taxonomy_term') {
+      $path = 'taxonomy/term/%/group';
+      $argument = 2;
+    }
+    else {
+      $path = "$entity_type/%/group";
+      $argument = 1;
+    }
+
+    $items[$path]['page callback'] = 'emh_circles_og_ui_group_admin_overview';
+    $items[$path]['page arguments'] = array($entity_type, $argument);
+  }
+
+  $items['node/%node/node_export']['weight'] = 6;
+}
+
+/**
+ * Provide an overview of the administrator menu items.
+ *
+ * @param $entity_type
+ *   The entity type.
+ * @param $etid
+ *   The entity ID.
+ */
+function emh_circles_og_ui_group_admin_overview($entity_type, $etid) {
+  og_set_breadcrumb($entity_type, $etid);
+
+  $items = og_ui_get_group_admin($entity_type, $etid);
+
+  foreach ($items as &$item) {
+    // Re-format the URL.
+    $item['href'] = "group/$entity_type/$etid/" . $item['href'];
+    // Imitate the menu_get_item() content, so we can pass it to
+    // theme_admin_block_content(), so we add the localized_options key.
+    $item['localized_options'] = array();
+  }
+
+  $custom_items['circle_edit'] = array(
+    'title' => t('Circle infos'),
+    'description' => t('Manage the circle informations.'),
+    'href' => "node/$etid/edit",
+    // Imitate the menu_get_item() content, so we can pass it to
+    // theme_admin_block_content(), so we add the localized_options key.
+    'localized_options' => array(),
+  );
+
+  $items = array_merge($custom_items, $items);
+
+  $form['admin_block_content'] = array('#theme' => 'admin_block_content', '#content' => $items);
+  return $form;
+}
+
+/**
+ * Menu title callback for Circle default tab.
+ */
+function emh_circles_node_view_title($node) {
+  if ($node->type == 'circle') {
+    return t('Home');
+  }
+  return t('View');
+}
+
+/**
+ * Menu title callback for Circle edit tab.
+ */
+function emh_circles_node_edit_title($node) {
+  if ($node->type == 'circle') {
+    return t('Administrate Circle');
+  }
+  return t('Edit');
+}
+
+/**
+ * Menu title callback for Circle edit tab.
+ */
+function emh_circles_node_group_title($nid) {
+  $node = node_load($nid);
+  if ($node->type == 'circle') {
+    return t('Administrate');
+  }
+  return t('Group');
 }
 
 /**
@@ -60,6 +163,7 @@ function emh_circles_menu() {
  */
 function emh_circles_og_ui_get_group_admin_alter(&$data, $context) {
   global $user;
+
   if (module_exists('og_manager_change') && !og_user_access_entity('administer group', $context['entity_type'], $context['etid'], $user)) {
     unset($data['manager']);
   }
