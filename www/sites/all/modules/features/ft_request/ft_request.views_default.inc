@@ -2313,26 +2313,6 @@ function ft_request_views_default_views() {
   $handler->display->display_options['relationships']['uid']['table'] = 'webform_submissions';
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
-  /* Field: Bulk operations: Webform submissions */
-  $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
-  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'views_entity_webform_submission';
-  $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
-  $handler->display->display_options['fields']['views_bulk_operations']['label'] = '';
-  $handler->display->display_options['fields']['views_bulk_operations']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['views_bulk_operations']['hide_empty'] = TRUE;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '0';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['row_clickable'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
-  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
-    'action::emh_user_profile_purchase_action' => array(
-      'selected' => 1,
-      'skip_confirmation' => 0,
-      'override_label' => 0,
-      'label' => '',
-    ),
-  );
   /* Field: Webform submissions: EMH Author */
   $handler->display->display_options['fields']['emh_author']['id'] = 'emh_author';
   $handler->display->display_options['fields']['emh_author']['table'] = 'webform_submissions';
@@ -2402,6 +2382,58 @@ function ft_request_views_default_views() {
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
   $handler->display->display_options['empty']['area']['content'] = 'No answer yet.';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Bulk operations: User */
+  $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
+  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'views_entity_user';
+  $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
+  $handler->display->display_options['fields']['views_bulk_operations']['relationship'] = 'uid';
+  $handler->display->display_options['fields']['views_bulk_operations']['label'] = '';
+  $handler->display->display_options['fields']['views_bulk_operations']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['views_bulk_operations']['hide_empty'] = TRUE;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '0';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['row_clickable'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
+    'action::emh_user_profile_purchase_action' => array(
+      'selected' => 1,
+      'skip_confirmation' => 0,
+      'skip_permission_check' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+  );
+  /* Field: Webform submissions: EMH Author */
+  $handler->display->display_options['fields']['emh_author']['id'] = 'emh_author';
+  $handler->display->display_options['fields']['emh_author']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['emh_author']['field'] = 'emh_author';
+  $handler->display->display_options['fields']['emh_author']['label'] = '';
+  $handler->display->display_options['fields']['emh_author']['element_label_colon'] = FALSE;
+  /* Field: Webform submissions: Completed */
+  $handler->display->display_options['fields']['completed']['id'] = 'completed';
+  $handler->display->display_options['fields']['completed']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['completed']['field'] = 'completed';
+  $handler->display->display_options['fields']['completed']['label'] = '';
+  $handler->display->display_options['fields']['completed']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['completed']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['completed']['date_format'] = 'time ago';
+  $handler->display->display_options['fields']['completed']['second_date_format'] = 'long';
+  /* Field: Webform submissions: Answer */
+  $handler->display->display_options['fields']['emh_answer']['id'] = 'emh_answer';
+  $handler->display->display_options['fields']['emh_answer']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['emh_answer']['field'] = 'emh_answer';
+  $handler->display->display_options['fields']['emh_answer']['label'] = '';
+  $handler->display->display_options['fields']['emh_answer']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['emh_answer']['alter']['text'] = '<span class="submission-date">[completed]&nbsp;–&nbsp;</span>[emh_answer]';
+  $handler->display->display_options['fields']['emh_answer']['element_label_colon'] = FALSE;
+  /* Field: Webform submissions: View link */
+  $handler->display->display_options['fields']['view_submission']['id'] = 'view_submission';
+  $handler->display->display_options['fields']['view_submission']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['view_submission']['field'] = 'view_submission';
+  $handler->display->display_options['fields']['view_submission']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['view_submission']['access_check'] = 1;
   $handler->display->display_options['block_description'] = 'Answer(s)';
 
   /* Display: (P) My answers */
