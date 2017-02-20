@@ -97,8 +97,8 @@ function emindhub_form_element(&$variables) {
       $suffix .= '</div>';
     }
     else {
-      $prefix .= isset($element['#field_prefix']) ? $element['#field_prefix'] : '';
-      $suffix .= isset($element['#field_suffix']) ? $element['#field_suffix'] : '';
+      $prefix .= isset($element['#field_prefix']) ? '<span class="field-prefix">' . $element['#field_prefix'] . '&nbsp;</span>' : '';
+      $suffix .= isset($element['#field_suffix']) ? '<span class="field-suffix">&nbsp;' . $element['#field_suffix'] . '</span>' : '';
     }
   }
 

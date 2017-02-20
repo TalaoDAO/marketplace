@@ -69,16 +69,26 @@ form {
 	.field-type-image,
 	.image-widget-data,
 	.field-widget-imagefield-crop-widget {
+    .imagefield-crop-widget {
+      display: table;
+      > * {
+        display: table-cell;
+      }
+    }
+
 		.file-return,
 		.file-upload span {
-			display: none;
+			.hidden();
 		}
+
 		input.form-file {
 			height: auto;
 		}
+
 		span.file {
 			word-wrap: break-word;
 		}
+
 		span.input-group-btn,
 		.form-submit {
 			display: inline-block;
@@ -89,20 +99,30 @@ form {
 			.make-row();
 			width: 100%;
 			margin: 0;
-			.file-upload {
-				.make-md-column(8);
-				padding: 0;
-			}
+
 			span.input-group-btn,
 			.form-submit {
 				margin: 0 0 0 5px;
 			}
+
 			span.file {
 				.make-md-column(10);
 				padding: 0;
 			}
 		}
 	}
+
+  .file-widget,
+	.field-type-image,
+	.image-widget-data {
+    .form-managed-file {
+      .file-upload {
+        .form-control:not(textarea) {
+          max-width: 66.66666667%;
+        }
+      }
+    }
+  }
 
 	// Image crop field
 	.imagefield-crop-widget {
