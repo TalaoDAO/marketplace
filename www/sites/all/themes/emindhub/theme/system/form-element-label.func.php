@@ -24,7 +24,7 @@ function emindhub_form_element_label(&$variables) {
   // If the element is required, a required marker is appended to the label.
   $required = !empty($element['#required']) ? theme('form_required_marker', array('element' => $element)) : '';
 
-  // LTH : Convert some descriptions to tooltips.
+  // EMH : Convert some descriptions to tooltips.
   $tooltip = FALSE;
   $description = '';
   if (!empty($element['#description'])) {
@@ -64,7 +64,7 @@ function emindhub_form_element_label(&$variables) {
   }
 
   // Append label.
-  // LTH : add description
+  // EMH : add description
   $output .= $t('!title !required !description', array('!title' => $title, '!required' => $required, '!description' => $description));
 
   // The leading whitespace helps visually separate fields from inline labels.
