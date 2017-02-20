@@ -1,21 +1,28 @@
 <?php
+
 /**
  * @file
- * Installation hooks for the emh_user_profile_purchase module.
+ * Installation hooks for EMH User profile purchase module.
  */
-
 
 /**
  * Implements hook_install().
  */
 function emh_user_profile_purchase_enable() {
   variable_set('emh_user_profile_purchase_amount', 100);
+  emh_user_profile_purchase_update_7101();
 }
 
 /**
  * ADD: VBO Purchase profile permissions.
  */
 function emh_user_profile_purchase_update_7101() {
-  // Authentificated user
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('execute emh_user_profile_purchase_action'));
+}
+
+/**
+ * FIX: VBO Purchase profile permissions.
+ */
+function emh_user_profile_purchase_update_7102() {
   user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('execute emh_user_profile_purchase_action'));
 }
