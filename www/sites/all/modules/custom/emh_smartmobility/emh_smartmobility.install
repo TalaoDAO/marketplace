@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Code for EMH Smart Mobility module installation.
+ */
+
+/**
+ * Implements hook_enable().
+ */
+function emh_smartmobility_enable() {
+  theme_enable(array('smartmobility'));
+}
+
+/**
+ * Implements hook_disable().
+ */
+function emh_smartmobility_disable() {
+  theme_disable(array('smartmobility'));
+}
