@@ -31,11 +31,12 @@ function ft_content_type_field_group_info() {
       5 => 'field_titre_metier',
       6 => 'field_working_status',
       7 => 'field_entreprise_description',
-      8 => 'field_photo',
-      9 => 'field_position',
-      10 => 'field_linkedin',
-      11 => 'field_twitter',
-      12 => 'account',
+      8 => 'field_other_areas',
+      9 => 'field_photo',
+      10 => 'field_position',
+      11 => 'field_linkedin',
+      12 => 'field_twitter',
+      13 => 'account',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -46,7 +47,7 @@ function ft_content_type_field_group_info() {
         'classes' => 'group-account field-group-div',
         'description' => '',
         'show_label' => '1',
-        'label_element' => 'h3',
+        'label_element' => 'h2',
         'effect' => 'none',
         'speed' => 'fast',
       ),
@@ -66,7 +67,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Contact',
-    'weight' => '7',
+    'weight' => '6',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -303,10 +304,8 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Complement',
-    'weight' => '11',
-    'children' => array(
-      0 => 'field_known_specific',
-    ),
+    'weight' => '10',
+    'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
       'label' => 'Complement',
@@ -512,7 +511,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Expert',
-    'weight' => '12',
+    'weight' => '11',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1035,7 +1034,7 @@ function ft_content_type_field_group_info() {
     'children' => array(
       0 => 'field_notification_frequency',
       1 => 'field_known_how',
-      2 => 'field_other_areas',
+      2 => 'field_known_specific',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1046,7 +1045,7 @@ function ft_content_type_field_group_info() {
         'classes' => 'group-misc field-group-div',
         'description' => '',
         'show_label' => '1',
-        'label_element' => 'h3',
+        'label_element' => 'h2',
         'effect' => 'none',
         'speed' => 'fast',
       ),
@@ -1148,7 +1147,7 @@ function ft_content_type_field_group_info() {
         'classes' => 'group-needs field-group-div',
         'description' => '',
         'show_label' => '1',
-        'label_element' => 'h3',
+        'label_element' => 'h2',
         'effect' => 'none',
         'speed' => 'fast',
       ),
@@ -1230,7 +1229,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Organisation',
-    'weight' => '8',
+    'weight' => '7',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1733,7 +1732,7 @@ function ft_content_type_field_group_info() {
         'classes' => 'group-skills field-group-div',
         'description' => '',
         'show_label' => '1',
-        'label_element' => 'h3',
+        'label_element' => 'h2',
         'effect' => 'none',
         'speed' => 'fast',
       ),
@@ -1753,7 +1752,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Sponsorship',
-    'weight' => '9',
+    'weight' => '8',
     'children' => array(
       0 => 'field_sponsorship',
       1 => 'field_sponsor1',
@@ -1927,7 +1926,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Share your experience',
-    'weight' => '2',
+    'weight' => '1',
     'children' => array(
       0 => 'field_testimony',
       1 => 'field_partner_why',
