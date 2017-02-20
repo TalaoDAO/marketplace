@@ -33,8 +33,8 @@ Feature: Request Prepopulation
       And I press "Save configuration"
 
     When I go to "content/avengers"
-      And I click "Circle"
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "Member since"
       # Twice for correct order
       And I click "Member since"
@@ -51,8 +51,8 @@ Feature: Request Prepopulation
       And I press "Update membership"
       # Again...
       And I go to "content/avengers"
-      And I click "Circle"
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "Member since"
       # Twice for correct order
       And I click "Member since"
