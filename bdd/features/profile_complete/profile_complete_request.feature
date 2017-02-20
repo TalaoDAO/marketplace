@@ -20,7 +20,7 @@ Feature: Fill Expert profile fields
 
     Given "request" content:
     | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
-    | How to become a superhero?  | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    | 1       |
+    | How to become a superhero?  | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       |
 
   Scenario: An expert without certain profile fields filled can access request by filling a form
     Given users:
@@ -29,8 +29,8 @@ Feature: Fill Expert profile fields
 
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
-      And I click "Circle"
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "edit" in the "Iron MAN" row
       And I select "Member" from "Status"
       And I press "Update membership"
@@ -58,8 +58,8 @@ Feature: Fill Expert profile fields
 
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
-      And I click "Circle"
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "edit" in the "Klark KENT" row
       And I select "Member" from "Status"
       And I press "Update membership"
