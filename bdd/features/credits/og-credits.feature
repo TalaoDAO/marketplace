@@ -37,13 +37,10 @@ Feature: Test credits dispatch in OG
     Then I should see "Avengers"
 
     When I click "Avengers"
-    #Then I should see "You are the group manager"
-
-    When I click "Circle"
-      And I click "Add people"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "Add people" in the "content" region
       And I fill in "User name" with "client2"
       And I press "Add users"
-    #Then I should see the success message containing "has been added to the group"
       And I fill in "User name" with "client3"
       And I press "Add users"
 
@@ -52,7 +49,6 @@ Feature: Test credits dispatch in OG
       And I click "Members"
     Then I should see "Charle XAVIER"
       And I should see "Tony STARK"
-    #Then I should see the success message containing "has been added to the group"
 
     When I go to "groups"
       And I click "Avengers"

@@ -20,8 +20,8 @@ Feature: Create permissions for Experts
 
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
-      And I click "Circle"
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "Member since"
       # Twice for correct order
       And I click "Member since"

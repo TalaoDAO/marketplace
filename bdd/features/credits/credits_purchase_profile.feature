@@ -20,7 +20,7 @@ Feature: Buy profile access
 
     Given "request" content:
     | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
-    | How to become a superhero?  | Energy        | All experts     | client1 | 2017-02-08 17:45:00    | 1       |
+    | How to become a superhero?  | Energy        | All experts     | client1 | 2020-02-08 17:45:00    | 1       |
 
     Given I give "client1" 1000 emh credits
     Given I give "expert1" 1000 emh credits
@@ -28,8 +28,8 @@ Feature: Buy profile access
     # Make client1 as a Creator member of All experts circle
     Given I am logged in as a user with the "administrator" role
     When I go to "content/all-experts"
-      And I click "Circle"
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "Member since"
       # Twice for correct order
       And I click "Member since"
@@ -37,8 +37,8 @@ Feature: Buy profile access
       And I select "Member" from "Status"
       And I press "Update membership"
     When I go to "content/all-experts"
-      And I click "Circle"
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "Member since"
       And I click "Member since"
       And I click "edit" in the "Iron MAN" row
@@ -46,8 +46,8 @@ Feature: Buy profile access
       And I press "Update membership"
       # Again...
       And I go to "content/all-experts"
-      And I click "Circle"
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "Member since"
       # Twice for correct order
       And I click "Member since"
