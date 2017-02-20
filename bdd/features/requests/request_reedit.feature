@@ -25,12 +25,12 @@ Feature: Request re-editions
 
     Given "request" content:
     | title                                 | field_domaine | og_group_ref | author  | field_expiration_date  | status  | field_request_type |
-    | How to become a superhero?            | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    | 1       | Mission            |
+    | How to become a superhero?            | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       | Mission            |
 
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
-      And I click "Circle"
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "edit" in the "Captain AMERICA" row
       And I select "Member" from "Status"
       And I press "Update membership"
@@ -48,14 +48,13 @@ Feature: Request re-editions
   Scenario: The author can change some content if no expert responded
     Given I am logged in as "client1"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
-    And I click "Edit"
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "Edit" in the "primary tabs" region
     Then the "Request title or question" field should be disabled
-    And the "field_request_type[und]" field should be disabled
-    And the "Describe your request" field should not be disabled
-    #TODO: And the "edit-field-options" field should not be disabled
-    And the "edit-field-options-und-private-enabled" field should be disabled
-    And the "edit-field-request-questions" field should not be disabled
+      And the "field_request_type[und]" field should be disabled
+      And the "Describe your request" field should not be disabled
+      And the "edit-field-options-und-private-enabled" field should be disabled
+      And the "edit-field-request-questions" field should not be disabled
 
     # An expert responds to the request.
     Given I am logged in as "expert1"
@@ -67,26 +66,25 @@ Feature: Request re-editions
     When I press "Publish"
     Then I should see the message "Your answer has been published."
 
-    #When request has response, some field become disabled
+    # When request has response, some field become disabled
     Given I am logged in as "client1"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
-    And I click "Edit"
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "Edit" in the "primary tabs" region
     Then the "Request title or question" field should be disabled
-    And the "field_request_type[und]" field should be disabled
-    And the "Describe your request" field should not be disabled
-    #TODO: And the "edit-field-options" field should be disabled
-    And the "edit-field-options-und-private-enabled" field should be disabled
-    And the "edit-field-request-questions-und-0-value" field should be disabled
+      And the "field_request_type[und]" field should be disabled
+      And the "Describe your request" field should not be disabled
+      And the "edit-field-options-und-private-enabled" field should be disabled
+      And the "edit-field-request-questions-und-0-value" field should be disabled
 
-    #but admin can still modify everything
+    # But admin can still modify everything
     Given I am logged in as a user with the "administrator" role
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
-    And I click "Edit"
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "Edit" in the "primary tabs" region
     Then the "Request title or question" field should not be disabled
-    And the "field_request_type[und]" field should not be disabled
-    And the "Describe your request" field should not be disabled
-    And the "edit-field-options" field should not be disabled
-    And the "edit-field-options-und-private-enabled" field should not be disabled
-    And the "edit-field-request-questions-und-0-value" field should not be disabled
+      And the "field_request_type[und]" field should not be disabled
+      And the "Describe your request" field should not be disabled
+      And the "edit-field-options" field should not be disabled
+      And the "edit-field-options-und-private-enabled" field should not be disabled
+      And the "edit-field-request-questions-und-0-value" field should not be disabled

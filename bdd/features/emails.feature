@@ -32,8 +32,8 @@ Feature: Emails
     # Make client1 as a Creator member of Avengers circle
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
-      And I click "Circle"
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "Member since"
       # Twice for correct order
       And I click "Member since"
@@ -46,8 +46,8 @@ Feature: Emails
       And I press "Update membership"
       # Again...
     When I go to "content/avengers"
-      And I click "Circle"
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "Member since"
       # Twice for correct order
       And I click "Member since"
@@ -58,8 +58,8 @@ Feature: Emails
       And I press "Update membership"
     Then I should see "The membership has been updated."
     When I go to "content/avengers"
-      And I click "Circle"
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "Member since"
       # Twice for correct order
       And I click "Member since"
@@ -74,7 +74,7 @@ Feature: Emails
     Given the test email system is enabled
     Given "request" content:
     | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
-    | How to become a superhero?  | Energy        | Avengers        | client1 | 2017-02-08 17:45:00    | 1       |
+    | How to become a superhero?  | Energy        | Avengers        | client1 | 2020-02-08 17:45:00    | 1       |
 
     # DON'T FORGET: drush @dev rules-enable _emh_request_notification_moderate_mail
     Then  the last email to "emindhub.test+webmaster1@gmail.com" should contain "Moderate this new request"
@@ -98,7 +98,7 @@ Feature: Emails
     Given the test email system is enabled
     Given "request" content:
     | title                             | field_domaine | og_group_ref    | author  | field_expiration_date  | status  | language |
-    | Comment devenir un super-heros ?  | Energy        | Avengers        | client1 | 2017-02-08 17:45:00    | 1       | fr       |
+    | Comment devenir un super-heros ?  | Energy        | Avengers        | client1 | 2020-02-08 17:45:00    | 1       | fr       |
 
     # DON'T FORGET: drush @dev rules-enable _emh_request_notification_notify_mail
     # 1st Cron run to execute the scheduled notification action
