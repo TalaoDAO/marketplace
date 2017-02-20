@@ -186,7 +186,7 @@
           </aside>
           <?php endif; ?>
 
-          <section id="maincol"<?php print $content_column_class; ?>>
+          <section id="maincol">
 
             <?php if (!empty($action_links)): ?>
               <ul class="action-links"><?php print render($action_links); ?></ul>
@@ -266,6 +266,5 @@
   </footer>
 
   <?php print render($page['footer_bottom']); ?>
-  <?php print $page_bottom; ?>
 </body>
 </html>
