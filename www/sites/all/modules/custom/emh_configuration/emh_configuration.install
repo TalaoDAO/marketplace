@@ -962,3 +962,10 @@ function emh_configuration_update_7053() {
   user_role_grant_permissions(3, array('moderate requests'));
   user_role_grant_permissions(6, array('moderate requests'));
 }
+
+/**
+ * ADD: Smart Mobility feature.
+ */
+function emh_configuration_update_7054() {
+  module_enable(['emh_smartmobility']);
+}
