@@ -28,7 +28,7 @@ Feature: Request Option Questionnaire
 
     Given "request" content:
     | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  | field_request_type |
-    | How to become a superhero?  | Energy        |              | client1 | 2017-02-08 17:45:00    | 0       | Mission            |
+    | How to become a superhero?  | Energy        |              | client1 | 2020-02-08 17:45:00    | 0       | Mission            |
 
     Given I am logged in as a user with the "administrator" role
 
@@ -37,8 +37,8 @@ Feature: Request Option Questionnaire
       And I press "Save configuration"
 
     When I go to "content/avengers"
-      And I click "Circle"
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "edit" in the "Captain AMERICA" row
       And I select "Member" from "Status"
       And I press "Update membership"
