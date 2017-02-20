@@ -28,17 +28,17 @@ Feature: Requests visibility for Client
 
     Given "request" content:
     | title         | field_domaine  | og_group_ref    | author  | field_expiration_date  | status  |
-    | Fight Magneto | Energy         | X-Men           | client2 | 2017-02-08 17:45:00    | 1       |
-    | Fight Ultron  | Energy, Drones | Avengers        | client1 | 2017-02-08 17:45:00    | 1       |
-    | Fight Hydra   | Drones         | Avengers        | client1 | 2017-02-08 17:45:00    | 1       |
-    | Fight Thanos  | Drones         | Avengers, X-Men | client1 | 2017-02-08 17:45:00    | 1       |
+    | Fight Magneto | Energy         | X-Men           | client2 | 2020-02-08 17:45:00    | 1       |
+    | Fight Ultron  | Energy, Drones | Avengers        | client1 | 2020-02-08 17:45:00    | 1       |
+    | Fight Hydra   | Drones         | Avengers        | client1 | 2020-02-08 17:45:00    | 1       |
+    | Fight Thanos  | Drones         | Avengers, X-Men | client1 | 2020-02-08 17:45:00    | 1       |
 
     # Make client4 as a manager of Guardians of the Galaxy circle
     Given I am logged in as a user with the "administrator" role
 
     When I go to "content/avengers"
-      And I click "Circle" in the "primary tabs" region
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "edit" in the "Captain AMERICA" row
       And I select "Member" from "Status"
       And I check the box "administrator member"
@@ -50,8 +50,8 @@ Feature: Requests visibility for Client
     Then I should see "The membership has been updated."
 
     When I go to "content/x-men"
-      And I click "Circle" in the "primary tabs" region
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "edit" in the "Charle XAVIER" row
       And I select "Member" from "Status"
       And I check the box "administrator member"
