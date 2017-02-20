@@ -2,7 +2,7 @@
 <svg version="1.1" id="Calque_8" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 276 131" style="enable-background:new 0 0 276 131;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#009FE3;}
+	.st0{fill:#0085ad;}
 	.st1{fill:url(#SVGID_1_);}
 </style>
 <path class="st0" d="M0,61h86V0H0V61z M1,1h84v59H1V1z M28,15.9h48v-3H28V15.9z M28,22.3h48v-3H28V22.3z M28,47.9h48v-3H28V47.9z
@@ -14,10 +14,10 @@
 	 M266,38.5h-48v3h48V38.5z M190,0v61h86V0H190z M275,60h-84V1h84V60z M266,12.9h-48v3h48V12.9z M266,19.3h-48v3h48V19.3z M266,32.1
 	h-48v3h48V32.1z M266,25.7h-48v3h48V25.7z"/>
 <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="138" y1="70" x2="138" y2="131">
-	<stop  offset="0" style="stop-color:#009FE3"/>
-	<stop  offset="0.2104" style="stop-color:#4ABBEB"/>
-	<stop  offset="0.4998" style="stop-color:#ABDFF6"/>
-	<stop  offset="0.7022" style="stop-color:#E7F6FC"/>
+	<stop  offset="0" style="stop-color:#0085ad"/>
+	<stop  offset="0.2104" style="stop-color:#3fa3c1"/>
+	<stop  offset="0.4998" style="stop-color:#7fc1d5"/>
+	<stop  offset="0.7022" style="stop-color:#bfe0ea"/>
 	<stop  offset="0.798" style="stop-color:#FFFFFF"/>
 </linearGradient>
 <path class="st1" d="M28,117.9h48v-3H28V117.9z M14.6,79.8c-2.7,0-4.9,2.2-4.9,4.9c0,2.7,2.2,4.9,4.9,4.9s4.9-2.2,4.9-4.9
