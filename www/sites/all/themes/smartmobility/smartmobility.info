@@ -1,0 +1,25 @@
+name = Smart Mobility
+description = Smart Mobility subtheme.
+core = 7.x
+base theme = emindhub
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Regions
+;;;;;;;;;;;;;;;;;;;;;
+
+regions[topmenu]        = 'Top menu'
+regions[navigation]     = 'Navigation'
+regions[title]          = 'Title'
+regions[top]            = 'Page top'
+regions[help]           = 'Help'
+regions[content]        = 'Content'
+regions[sidebar_first]  = 'Primary'
+regions[sidebar_second] = 'Secondary'
+regions[footer_top]     = 'Footer - Top'
+regions[footer_bottom]  = 'Footer - Bottom'
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Stylesheets
+;;;;;;;;;;;;;;;;;;;;;
+
+stylesheets[all][] = dist/style.min.css
