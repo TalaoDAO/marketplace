@@ -5,10 +5,12 @@
  */
 
 include_once 'emh_request.deprecated.inc';
-include_once 'emh_request.fields.inc';
-include_once 'emh_request.conditional_fields.inc';
+
 include_once 'emh_request.admin.inc';
+include_once 'emh_request.conditional_fields.inc';
+include_once 'emh_request.fields.inc';
 include_once 'emh_request.mail.inc';
+include_once 'emh_request.notification.inc';
 
 function emh_request_permission() {
   return array(
@@ -177,6 +179,8 @@ function emh_request_node_insert($node) {
 
   if ($node->status == NODE_PUBLISHED) {
     emh_request_purchase_options($node);
+    // @TODO: remove this!
+    emh_request_try_to_notify($node);
   }
 }
 
@@ -190,6 +194,8 @@ function emh_request_node_update($node) {
 
   if ($node->status == NODE_PUBLISHED && $node->original->status == NODE_NOT_PUBLISHED) {
     emh_request_purchase_options($node);
+    // @TODO: remove this!
+    emh_request_try_to_notify($node);
   }
 }
 
