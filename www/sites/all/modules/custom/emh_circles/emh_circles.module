@@ -64,7 +64,9 @@ function emh_circles_menu_alter(&$items) {
   $items['node/%node/view']['title callback'] = 'emh_circles_node_view_title';
   $items['node/%node/view']['title arguments'] = array(1);
 
-  unset($items['node/%node/edit']['type']);
+  if (arg(0) == 'node' && is_numeric(arg(1)) && node_load(arg(1))->type == 'circle') {
+    unset($items['node/%node/edit']['type']);
+  }
   unset($items['node/%node/edit']['title']);
   $items['node/%node/edit']['title callback'] = 'emh_circles_node_edit_title';
   $items['node/%node/edit']['title arguments'] = array(1);
@@ -88,7 +90,9 @@ function emh_circles_menu_alter(&$items) {
     $items[$path]['page arguments'] = array($entity_type, $argument);
   }
 
-  $items['node/%node/node_export']['weight'] = 6;
+  if (module_exists('node_export')) {
+    $items['node/%node/node_export']['weight'] = 6;
+  }
 }
 
 /**
