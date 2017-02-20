@@ -3459,7 +3459,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 31,
+      'weight' => 15,
     ),
   );
 
@@ -3518,7 +3518,7 @@ function ft_content_type_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 30,
+      'weight' => 14,
     ),
   );
 
@@ -3559,7 +3559,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 25,
+      'weight' => 9,
     ),
   );
 
@@ -3568,7 +3568,7 @@ function ft_content_type_field_default_field_instances() {
     'bundle' => 'user',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Indicate the college or university you gratuated from.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -3594,7 +3594,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 28,
+      'weight' => 12,
     ),
   );
 
@@ -3667,7 +3667,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 29,
+      'weight' => 13,
     ),
   );
 
@@ -3680,7 +3680,7 @@ function ft_content_type_field_default_field_instances() {
     'description' => 'If you belong to a group such as a company, association, club, training center, research center, etc., specify it here.',
     'display' => array(
       'default' => array(
-        'label' => 'inline',
+        'label' => 'hidden',
         'module' => 'entityreference',
         'settings' => array(
           'link' => FALSE,
@@ -3924,7 +3924,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 15,
+      'weight' => 14,
     ),
   );
 
@@ -4003,7 +4003,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 9,
+      'weight' => 8,
     ),
   );
 
@@ -4192,7 +4192,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 3,
+      'weight' => 2,
     ),
   );
 
@@ -4213,10 +4213,10 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'user',
     'field_name' => 'field_needs_for_expertise',
     'label' => 'In which fields',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'user_register_form' => 1,
+      'user_register_form' => 0,
     ),
     'widget' => array(
       'active' => 1,
@@ -4309,7 +4309,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 8,
+      'weight' => 28,
     ),
   );
 
@@ -4489,7 +4489,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 27,
+      'weight' => 11,
     ),
   );
 
@@ -4571,7 +4571,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 26,
+      'weight' => 10,
     ),
   );
 
@@ -4779,7 +4779,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'phone',
       'settings' => array(),
       'type' => 'phone_textfield',
-      'weight' => 4,
+      'weight' => 3,
     ),
   );
 
@@ -4995,7 +4995,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'og',
       'settings' => array(),
       'type' => 'og_complex',
-      'weight' => 13,
+      'weight' => 12,
     ),
   );
 
@@ -5035,6 +5035,7 @@ function ft_content_type_field_default_field_instances() {
   t('If you belong to a group such as a company, association, club, training center, research center, etc., specify it here.');
   t('Image');
   t('In which fields');
+  t('Indicate the college or university you gratuated from.');
   t('Is partner');
   t('Is promoted');
   t('Is sponsor');
