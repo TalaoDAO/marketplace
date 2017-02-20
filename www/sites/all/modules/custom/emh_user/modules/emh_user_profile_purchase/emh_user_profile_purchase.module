@@ -1,23 +1,21 @@
 <?php
 
-
 include_once 'emh_user_profile_purchase.admin.inc';
-
 
 /**
  * Implements hook_menu().
  */
 function emh_user_profile_purchase_menu() {
-	$items = array();
+  $items = array();
 
   $items['user/%user/purchase'] = array(
-		'title' => 'Buy profile access',
-		'page callback' => 'drupal_get_form',
+    'title' => 'Buy profile access',
+    'page callback' => 'drupal_get_form',
     'page arguments' => array('emh_user_profile_purchase_form', 1),
     'access callback' => 'user_view_access',
     'access arguments' => array(1),
     'type' => MENU_CALLBACK,
-	);
+  );
 
   return $items;
 }
@@ -38,7 +36,8 @@ function emh_user_profile_purchase_form($form, &$form_state, $account) {
 
   if (isset($_GET['destination'])) {
     $options = drupal_parse_url(urldecode($_GET['destination']));
-  } else {
+  }
+  else {
     $options = array('path' => '<front>');
   }
 
@@ -57,7 +56,7 @@ function emh_user_profile_purchase_form($form, &$form_state, $account) {
 
   $form['actions'] = array(
     '#type' => 'actions',
-    '#tree' => false,
+    '#tree' => FALSE,
     'cancel' => array(
       '#type' => 'link',
       '#title' => t("Cancel"),
@@ -72,7 +71,6 @@ function emh_user_profile_purchase_form($form, &$form_state, $account) {
 
   return $form;
 }
-
 
 /**
  * Submit callback for the profile purchase form.
@@ -98,7 +96,6 @@ function emh_user_profile_purchase_form_submit($form, &$form_state) {
   }
 }
 
-
 /**
  * Validation callback for the profile purchase form.
  */
@@ -114,7 +111,6 @@ function emh_user_profile_purchase_form_validate($form, &$form_state) {
   }
 }
 
-
 /**
  * Implements hook_action_info().
  */
@@ -124,19 +120,18 @@ function emh_user_profile_purchase_action_info() {
   $actions['emh_user_profile_purchase_action'] = array(
     'type' => 'entity',
     'label' => t('Access profiles'),
-    'configurable' => false,
+    'configurable' => FALSE,
     'triggers' => array(),
     'permissions' => array('access user profiles'),
-    'aggregate' => true,
+    'aggregate' => TRUE,
     'behavior' => array('emh'),
   );
 
   return $actions;
 }
 
-
 /**
- * Action to purchase a profil.
+ * Action to purchase a profile.
  */
 function emh_user_profile_purchase_action($entities, $context) {
   global $user;
@@ -160,12 +155,11 @@ function emh_user_profile_purchase_action($entities, $context) {
   }
 }
 
-
 /**
  * Purchases an user profile for the current user.
  *
- * @param stdClass|integer $account
- *  Either an user object or a uid
+ * @param object|int $account
+ *   Either an user object or a uid.
  */
 function emh_user_profile_purchase($account) {
   try {
@@ -177,19 +171,19 @@ function emh_user_profile_purchase($account) {
       $account = user_load($account);
     }
 
-    // Spends user's credits
+    // Spends user's credits.
     $amount = (int) variable_get('emh_user_profile_purchase_amount', 100);
     emh_points_move_points($user, $account, $amount);
 
-    // Flags the account to add it in the user's relationships
+    // Flags the account to add it in the user's relationships.
     $flag = flag_get_flag('my_contacts');
-    $flag->flag('flag', $account->uid, $user, true);
+    $flag->flag('flag', $account->uid, $user, TRUE);
 
-		// Increment profile counter
-		emh_user_profile_purchase_increment_counter($account);
+    // Increment profile counter.
+    emh_user_profile_purchase_increment_counter($account);
 
-		// Notify user its profile has been purchased
-		emh_user_profile_purchase_notify_user_profile_purchased($account, $amount);
+    // Notify user its profile has been purchased.
+    emh_user_profile_purchase_notify_user_profile_purchased($account, $amount);
 
     unset($transaction);
   }
@@ -216,8 +210,8 @@ function emh_user_profile_purchase_notify_user_profile_purchased($user, $credits
   $key = 'notify_user';
   $mail = $user->mail;
   $language = language_default();
-	$piwik_tracking = 'pk_campaign=' . $key . '_' . $user->uid;
-	$ga_tracking = 'utm_medium=email&utm_source=' . $key . '&utm_campaign=' . $key . '_' . $user->uid;
+  $piwik_tracking = 'pk_campaign=' . $key . '_' . $user->uid;
+  $ga_tracking = 'utm_medium=email&utm_source=' . $key . '&utm_campaign=' . $key . '_' . $user->uid;
   $params = array(
     '@url' => url('credits?' . $piwik_tracking . '&' . $ga_tracking, array('absolute' => TRUE)),
     '@user_firstname' => $user->field_first_name[LANGUAGE_NONE][0]['value'],
@@ -231,7 +225,7 @@ function emh_user_profile_purchase_notify_user_profile_purchased($user, $credits
  * Implements hook_mail().
  */
 function emh_user_profile_purchase_mail($key, &$message, $params) {
-  switch($key) {
+  switch ($key) {
     case 'notify_user':
       $message['subject'] = t('Your profile has been selected!', $params);
       $message['body'] = array();
@@ -247,7 +241,7 @@ function emh_user_profile_purchase_mail($key, &$message, $params) {
                 <tbody>
                   <tr>
                     <td style="font-family:Arial;font-size:16px;padding:15px;color:rgb(255, 255, 255);" valign="middle" align="center">
-                      <a href="' . t('@url', $params) . '&amp;pk_kwd=calltoaction&amp;utm_content=cta" title="' .  t('Log in to eMindHub') . '" target="_blank" style="font-weight:bold!important;letter-spacing:normal;line-height:100%;text-align:center;text-decoration:none;color:#FFFFFF!important;">' . t('Log in to eMindHub') . ' </a>
+                      <a href="' . t('@url', $params) . '&amp;pk_kwd=calltoaction&amp;utm_content=cta" title="' . t('Log in to eMindHub') . '" target="_blank" style="font-weight:bold!important;letter-spacing:normal;line-height:100%;text-align:center;text-decoration:none;color:#FFFFFF!important;">' . t('Log in to eMindHub') . ' </a>
                     </td>
                   </tr>
                 </tbody>
@@ -257,6 +251,7 @@ function emh_user_profile_purchase_mail($key, &$message, $params) {
         </tbody>
       </table>';
       break;
+
     default:
       break;
   }
@@ -266,7 +261,7 @@ function emh_user_profile_purchase_mail($key, &$message, $params) {
  * Increment custom field of user's profile purchased.
  */
 function emh_user_profile_purchase_increment_counter($account) {
-	$user_wrapper = entity_metadata_wrapper('user', $account);
+  $user_wrapper = entity_metadata_wrapper('user', $account);
   $var = $user_wrapper->field_profile_purchased->value() + 1;
   $user_wrapper->field_profile_purchased->set($var);
   $user_wrapper->save();
@@ -274,11 +269,14 @@ function emh_user_profile_purchase_increment_counter($account) {
 
 /**
  * Get user purchase count.
- * @param $account
+ *
+ * @param object $account
+ *
  * @return int
  */
 function emh_user_profile_purchase_get_count($account) {
   $field_profile_purchased = field_get_items('user', $account, 'field_profile_purchased');
   $purchased_count = $field_profile_purchased[0]['value'] ? $field_profile_purchased[0]['value'] : '0';
+
   return $purchased_count;
 }
