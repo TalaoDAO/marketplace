@@ -28,9 +28,53 @@
 }
 
 form#user-profile-form {
+  .field-group-div {
+    .make-row();
+    margin: 0;
 
-  .link-field-subrow {
-    .form-group-2col;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+		background-color: @body-bg-inverse;
+		.emh-fieldgroup-blue-title;
+
+		> .form-group {
+			.make-sm-column(12);
+		}
+  }
+
+  .user-social {
+    border-top: 15px solid @body-bg;
+    border-bottom: 15px solid @body-bg;
+    padding-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  #edit-field-address {
+    .form-group-2col > :nth-child(1) {
+      padding-left: 0;
+    }
+    .form-group-2col > :nth-child(2) {
+      padding-right: 0;
+    }
+  }
+
+  #edit-field-twitter {
+    .field-prefix {
+      float: left;
+      line-height: @line-height-base;
+      height: 34px;
+      padding: 6px 0;
+    }
+  }
+
+  #edit-field-domaine {
+    .form-control:not(textarea) {
+      max-width: 520px;
+    }
+  }
+
+  #edit-field-cv {
+    .make-sm-column(6);
   }
 
   .imagefield-crop-widget {
@@ -90,5 +134,4 @@ form#user-profile-form {
 			max-width: 50px;
 		}
 	}
-
 }
