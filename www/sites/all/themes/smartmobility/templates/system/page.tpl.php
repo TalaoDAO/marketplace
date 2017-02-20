@@ -149,19 +149,19 @@
             <div class="col-md-4">
               <p><strong>Relations publiques</strong><br />
               Jean-François Pilliard<br />
-              <a href="mailto:">jean-francois.pilliard@alixio.fr</a><br />
+              <a href="mailto:jean-francois.pilliard@alixio.fr">jean-francois.pilliard@alixio.fr</a><br />
               <i>+33.6.07.18.13.96</i></p>
             </div>
             <div class="col-md-4">
               <p><strong>Responsable technique de la plateforme</strong><br />
               Nicolas Muller<br />
-              <a href="mailto:">nicolas.muller@emindhub.com</a><br />
+              <a href="mailto:nicolas.muller@emindhub.com">nicolas.muller@emindhub.com</a><br />
               <i>+33.6.51.22.55.10</i></p>
             </div>
             <div class="col-md-4">
               <p><strong>Responsable de la Mobilité</strong><br />
               Magali Ollivier<br />
-              <a href="mailto:">magali.ollivier@alixiomobilite.fr</a><br />
+              <a href="mailto:magali.ollivier@alixiomobilite.fr">magali.ollivier@alixiomobilite.fr</a><br />
               <i>+33.6.03.00.57.37</i></p>
             </div>
           </div>
