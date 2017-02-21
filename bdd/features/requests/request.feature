@@ -14,6 +14,10 @@ Feature: Request
     | title    | author  |
     | Avengers | admin   |
 
+    Given "request_type" terms:
+     | name            | og_group_ref |
+     | Call for heroes | Avengers     |
+
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | field_notification_frequency |
     | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678                  | Chef de groupe     | All experts  | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance   | US                    | Real-time                    |
@@ -89,3 +93,11 @@ Feature: Request
     Then I should see "Captain" in the "request_right" region
       And I should not see "Captain AMERICA" in the "request_right" region
       And I should see "Marvel Studios" in the "request_right" region
+
+  Scenario: Only users belonging to a circle can add a request type restricted to this circle
+    Given I am logged in as "client1"
+    When I go to "add/request"
+    Then I should see "Call for heroes"
+    Given I am logged in as "expert1"
+    When I go to "add/request"
+    Then I should not see "Call for heroes"
