@@ -3,7 +3,6 @@ const clean = require('gulp-clean');
 const concat = require('gulp-concat');
 const cssmin = require('gulp-cssmin');
 const eslint = require('gulp-eslint');
-// const imagemin = require('gulp-imagemin');
 const less = require('gulp-less');
 const livereload = require('gulp-livereload');
 const rename = require('gulp-rename');
@@ -20,29 +19,6 @@ gulp.task('clean-scripts', function () {
     return gulp.src('dist/*.js', {read: false})
         .pipe(clean());
 });
-// gulp.task('clean-fonts', function () {
-//     return gulp.src('dist/fonts', {read: false})
-//         .pipe(clean());
-// });
-// gulp.task('clean-images', function () {
-//     return gulp.src('dist/images', {read: false})
-//         .pipe(clean());
-// });
-
-// Images optimization
-// TODO
-// gulp.task('imagemin', ['clean-images'], () =>
-//     gulp.src('./images/**')
-//         .pipe(imagemin())
-//         .pipe(gulp.dest('dist/images'))
-// );
-
-// Copy
-// gulp.task('copy', ['clean-fonts'], () => {
-//     return gulp.src([
-//         './vendor/bootstrap/fonts/**'
-//     ]).pipe(gulp.dest('dist/fonts'));
-// });
 
 // CSS
 gulp.task('less', ['clean-styles'], () => {

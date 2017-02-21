@@ -1,0 +1,58 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the twitter_username module.
+ */
+
+/**
+ * Implements hook_field_schema().
+ */
+function twitter_username_field_schema($field) {
+  return array(
+    'columns' => array(
+      'twitter_username' => array(
+        'type' => 'varchar',
+        'length' => TWITTER_USERNAME_MAX_LENGTH,
+        'not null' => FALSE,
+        'sortable' => TRUE
+      ),
+    ),
+  );
+}
+
+
+/**
+ * Update formatter machine_name to avoid conflict
+ */
+function twitter_username_update_7001() {
+  // Get twitter_username fields
+  $twitter_username_fields = array();
+  foreach (field_info_fields() as $field_name => $field) {
+    if ($field['type'] == 'twitter_username') {
+      $twitter_username_fields[$field_name] = $field;
+    }
+  }
+
+  // Loop throught instances / bundles / fields
+  foreach (field_info_instances() as $entity_type => $bundles) {
+    foreach ($bundles as $bundle_name => $fields) {
+      foreach($fields as $field_name => $field_instance) {
+        // If the field type is twitter_username
+        if (isset($twitter_username_fields[$field_name])) {
+          // Loop through view_mode
+          $need_update = FALSE;
+          foreach($field_instance['display'] as $view_mode => $display) {
+            // If formatter is defined by twitter_username, update instance
+            if ($display['type'] == 'default' || $display['type'] == 'link') {
+              $need_update = TRUE;
+              $field_instance['display'][$view_mode]['type'] = 'twitter_username_' . $display['type'];
+            }
+          }
+          if ($need_update) {
+            field_update_instance($field_instance);
+          }
+        }
+      }
+    }
+  }
+}

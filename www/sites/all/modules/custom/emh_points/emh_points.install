@@ -411,3 +411,10 @@ function emh_points_update_7112() {
     $rules_config->delete();
   }
 }
+
+/**
+ * CHG: OG points repartition tab weight.
+ */
+function emh_points_update_7113() {
+  emh_configuration_revert_views(array('og_points_repartition'));
+}

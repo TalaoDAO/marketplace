@@ -1,12 +1,177 @@
 <?php
+
 /**
-* @file
-* Code for eMindHub circles feature.
-*/
+ * @file
+ * Code for eMindHub circles feature.
+ */
 
-
+include_once 'emh_circles.inc';
+include_once 'emh_circles.admin.inc';
+include_once 'emh_circles.block.inc';
 include_once 'emh_circles.fields.inc';
+include_once 'emh_circles.pages.inc';
+include_once 'emh_circles.theme.inc';
+include_once 'emh_circles.views.inc';
 
+/**
+ * Implements hook_theme().
+ */
+function emh_circles_theme() {
+  return array(
+    'emh_circles_membership_infos__block' => array(
+      'template' => 'emh-circles-membership-infos--block',
+      'path' => drupal_get_path('module', 'emh_circles') . '/theme',
+      'variables' => array(
+        'state' => NULL,
+        'subscribe_link' => NULL,
+      ),
+    ),
+    'emh_circles_instructions_page' => array(
+      'template' => 'emh-circles-instructions--page',
+      'path' => drupal_get_path('module', 'emh_circles') . '/theme',
+      'variables' => array(
+        'instructions' => NULL,
+        'qa' => NULL,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function emh_circles_menu() {
+  $items = array();
+
+  $items['node/%/instructions'] = array(
+    'title' => 'How it works?',
+    'page callback' => 'emh_circles_instructions_page',
+    'page arguments' => array(1),
+    'access callback' => 'emh_circles_instructions_page_access',
+    'access arguments' => array(1),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 3,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function emh_circles_menu_alter(&$items) {
+  unset($items['node/%node/view']['title']);
+  $items['node/%node/view']['title callback'] = 'emh_circles_node_view_title';
+  $items['node/%node/view']['title arguments'] = array(1);
+
+  if (arg(0) == 'node' && is_numeric(arg(1)) && node_load(arg(1))->type == 'circle') {
+    unset($items['node/%node/edit']['type']);
+  }
+  unset($items['node/%node/edit']['title']);
+  $items['node/%node/edit']['title callback'] = 'emh_circles_node_edit_title';
+  $items['node/%node/edit']['title arguments'] = array(1);
+
+  unset($items['node/%/group']['title']);
+  $items['node/%/group']['title callback'] = 'emh_circles_node_group_title';
+  $items['node/%/group']['title arguments'] = array(1);
+  $items['node/%/group']['weight'] = 6;
+
+  foreach (og_get_all_group_entity() as $entity_type => $value) {
+    if ($entity_type == 'taxonomy_term') {
+      $path = 'taxonomy/term/%/group';
+      $argument = 2;
+    }
+    else {
+      $path = "$entity_type/%/group";
+      $argument = 1;
+    }
+
+    $items[$path]['page callback'] = 'emh_circles_og_ui_group_admin_overview';
+    $items[$path]['page arguments'] = array($entity_type, $argument);
+  }
+
+  if (module_exists('node_export')) {
+    $items['node/%node/node_export']['weight'] = 6;
+  }
+}
+
+/**
+ * Provide an overview of the administrator menu items.
+ *
+ * @param $entity_type
+ *   The entity type.
+ * @param $etid
+ *   The entity ID.
+ */
+function emh_circles_og_ui_group_admin_overview($entity_type, $etid) {
+  og_set_breadcrumb($entity_type, $etid);
+
+  $items = og_ui_get_group_admin($entity_type, $etid);
+
+  foreach ($items as &$item) {
+    // Re-format the URL.
+    $item['href'] = "group/$entity_type/$etid/" . $item['href'];
+    // Imitate the menu_get_item() content, so we can pass it to
+    // theme_admin_block_content(), so we add the localized_options key.
+    $item['localized_options'] = array();
+  }
+
+  $custom_items['circle_edit'] = array(
+    'title' => t('Circle infos'),
+    'description' => t('Manage the circle informations.'),
+    'href' => "node/$etid/edit",
+    // Imitate the menu_get_item() content, so we can pass it to
+    // theme_admin_block_content(), so we add the localized_options key.
+    'localized_options' => array(),
+  );
+
+  $items = array_merge($custom_items, $items);
+
+  $form['admin_block_content'] = array('#theme' => 'admin_block_content', '#content' => $items);
+  return $form;
+}
+
+/**
+ * Menu title callback for Circle default tab.
+ */
+function emh_circles_node_view_title($node) {
+  if ($node->type == 'circle') {
+    return t('Home');
+  }
+  return t('View');
+}
+
+/**
+ * Menu title callback for Circle edit tab.
+ */
+function emh_circles_node_edit_title($node) {
+  if ($node->type == 'circle') {
+    return t('Administrate Circle');
+  }
+  return t('Edit');
+}
+
+/**
+ * Menu title callback for Circle edit tab.
+ */
+function emh_circles_node_group_title($nid) {
+  $node = node_load($nid);
+  if ($node->type == 'circle') {
+    return t('Administrate');
+  }
+  return t('Group');
+}
+
+/**
+ * Implements hook_og_ui_get_group_admin_alter().
+ */
+function emh_circles_og_ui_get_group_admin_alter(&$data, $context) {
+  global $user;
+
+  if (module_exists('og_manager_change') && !og_user_access_entity('administer group', $context['entity_type'], $context['etid'], $user)) {
+    unset($data['manager']);
+  }
+}
 
 /**
  * Implements hook_views_api().
@@ -18,23 +183,43 @@ function emh_circles_views_api() {
   );
 }
 
-function emh_circles_reset_views() {
-  module_load_include('inc', 'emh_circles', 'views/emh_circles.views_default');
-  $default_views = emh_circles_views_default_views();
-  foreach($default_views as $name => $view) {
-    views_revert_view($view);
+/**
+ * Implements hook_preprocess_page().
+ */
+function emh_circles_preprocess_page(&$variables) {
+  if (isset($variables['node']->type)) {
+
+    switch ($variables['node']->type) {
+      case 'circle':
+        $group = og_context();
+
+        $variables['gid'] = NULL;
+        $variables['subscriber_count'] = NULL;
+
+        if (empty($group)) {
+          return NULL;
+        }
+
+        $variables['gid'] = $group['gid'];
+        $variables['subscriber_count'] = og_extras_subscriber_count($variables['gid']);
+        $variables['subscriber_count'] = format_plural($variables['subscriber_count'], '@count member', '@count members');
+
+        break;
+
+      default:
+        break;
+    }
   }
 }
 
 /**
- * Implement hook_preprocess_HOOK().
+ * Implements hook_preprocess_node().
  */
 function emh_circles_preprocess_node(&$variables) {
-
   if (isset($variables['node']->type)) {
 
-		switch ($variables['node']->type) {
-			case 'circle':
+    switch ($variables['node']->type) {
+      case 'circle':
         $group = og_context();
 
         $variables['group_node_links'] = array();
@@ -63,7 +248,6 @@ function emh_circles_preprocess_node(&$variables) {
 
         $variables['subscriber_count'] = og_extras_subscriber_count($variables['gid']);
         $variables['subscriber_count'] = format_plural($variables['subscriber_count'], '@count member', '@count members');
-        // $variables['subscriber_link'] = l(format_plural($variables['subscriber_count'], '@count member', '@count members'), 'node/' . $variables['gid'] . '/members');
 
         $variables['manager_uids'] = _emh_circles_get_managers_from_group($group);
         $variables['manager_uids'] = $variables['manager_uids']['group_managers'];
@@ -83,36 +267,85 @@ function emh_circles_preprocess_node(&$variables) {
 }
 
 /**
+ * Implements hook_permission().
+ */
+function emh_circles_permission() {
+  return array(
+    'modify EMH circles' => array('title' => t('Circle: Edit all EMH Circles')),
+  );
+}
+
+/**
+ * Implements hook_field_access().
+ */
+function emh_circles_field_access($op, $field, $entity_type, $entity, $account) {
+  if ($op == 'edit') {
+    if (empty($entity)) {
+      return TRUE;
+    }
+
+    if (empty($account)) {
+      global $user;
+      $account = $user;
+    }
+
+    if ($entity_type == 'node') {
+      switch ($entity->type) {
+        case 'circle':
+          switch ($field['field_name']) {
+            case 'field_circle_logo':
+            case 'body':
+            case 'field_circle_message':
+            case 'field_circle_website':
+            case 'field_circle_instructions':
+            case 'field_circle_qa':
+              return TRUE;
+
+            default:
+              return user_access('modify EMH circles');
+          }
+      }
+    }
+  }
+
+  return TRUE;
+}
+
+/**
  * Implements hook_node_access().
  */
 function emh_circles_node_access($node, $op, $account) {
   if ($op == 'view') {
     switch ($node->type) {
       case 'circle':
-        if (user_is_anonymous()) return NODE_ACCESS_DENY;
-        break;
-      default:
-        break;
+        return (og_is_member('node', $node->nid, 'user', $account)) ? NODE_ACCESS_IGNORE : NODE_ACCESS_DENY;
     }
   }
   return NODE_ACCESS_IGNORE;
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
 function emh_circles_form_og_ui_confirm_subscribe_alter(&$form, &$form_state) {
   $form['actions']['submit']['#value'] = t('Ask to join');
+  $form['#submit'][] = 'emh_circles_form_og_ui_confirm_subscribe_submit';
 }
 
 /**
- * Implements hook_form_alter().
+ * Submit handler; Confirm OG membership.
+ */
+function emh_circles_form_og_ui_confirm_subscribe_submit($form, &$form_state) {
+  $form_state['redirect'] = 'circles';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
  */
 function emh_circles_form_og_ui_confirm_unsubscribe_alter(&$form, &$form_state) {
   $form['actions']['submit']['#value'] = t('Yes');
   $form['description']['#markup'] = '<p>' . t('Do you really want to leave this circle?') . '</p>';
 }
-
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -124,7 +357,7 @@ function emh_circles_form_request_node_form_alter(&$form, &$form_state, $form_id
   ) {
     global $user;
 
-    // Prepares data for Javascript
+    // Prepares data for Javascript.
     $settings = array(
       'default' => array(),
       'circles' => array(),
@@ -150,163 +383,16 @@ function emh_circles_form_request_node_form_alter(&$form, &$form_state, $form_id
       }
     }
 
-    // Attaches script and data to the form
+    // Attaches script and data to the form.
     if (empty($form['#attached']['js'])) {
       $form['#attached']['js'] = array();
     }
 
     $form['#attached']['js'] += array(
-      // Attaches JS script for the dynamic update of options costs
+      // Attaches JS script for the dynamic update of options costs.
       drupal_get_path('module', 'emh_circles') . '/js/options-costs.js' => array('type' => 'file'),
-      // Attaches settings
+      // Attaches settings.
       array('data' => array('circlesOptionsCosts' => $settings), 'type' => 'setting'),
     );
   }
-}
-
-
-function emh_circles_get_membership_state($group, $account = NULL) {
-
-  if (empty($account)) {
-    global $user;
-    $account = $user;
-  }
-
-  $og_states = array(
-    OG_STATE_ACTIVE,
-    OG_STATE_PENDING,
-    OG_STATE_BLOCKED
-  );
-
-  $state = '';
-  foreach ($og_states as $og_state) {
-    if (og_is_member('node', $group->nid, 'user', $user, array($og_state))) $state = $og_state;
-  }
-  if (!empty($state)) {
-    switch ($state) {
-      // Active
-      case '1':
-        break;
-      // Pending
-      case '2':
-        return t('Your request is pending.');
-        break;
-      // Blocked
-      case '3':
-        break;
-      default:
-        break;
-    }
-  }
-
-}
-
-/**
- * Get group managers from a group.
- */
-function _emh_circles_get_managers_from_group($group) {
-  $group = entity_metadata_wrapper($group['group_type'], $group['gid']);
-
-  $entity_type = $group->type();
-  $entity_id = $group->getIdentifier();
-
-  // Not a group.
-  if (!og_is_group($entity_type, $group)) {
-    return;
-  }
-
-  // Get the group roles.
-  $roles = og_roles($entity_type, $group->getBundle(), $entity_id);
-  $admin_rid = array_search(OG_ADMINISTRATOR_ROLE, $roles);
-
-  // Bail out if we can't figure out the admin role id.
-  if (!$admin_rid) {
-    return;
-  }
-
-  $admins = array();
-
-  // Get the group admins for the group.
-  $members = db_select('og_users_roles', 'our')
-    ->fields('our', array('uid'))
-    ->condition('our.gid', $entity_id)
-    ->condition('our.group_type', $entity_type)
-    ->condition('our.rid', $admin_rid)
-    ->execute()
-    ->fetchCol();
-
-  $admins = array_merge($admins, $members);
-
-  // Remove duplicate items.
-  $admins = array_keys(array_flip($admins));
-
-  return array('group_managers' => $admins);
-}
-
-function _emh_circles_check_user_is_referentmember_of_groups($uid, $gids) {
-  $roleID = db_select('og_role', 'og')
-            ->condition('name', 'Referent member', '=')
-            ->distinct()
-            ->fields('og', array('rid'))
-            ->execute();
-  $roleID = $roleID->fetchAssoc();
-
-  if (!empty($roleID)) {
-    foreach ($gids as $gid) {
-      $isReferentMember = db_select('og_users_roles', 'og')
-                ->condition('gid', $gid, '=')
-                ->condition('uid', $uid, '=')
-                ->condition('rid', $roleID['rid'], '=')
-                ->distinct()
-                ->fields('og', array('rid'))
-                ->execute();
-      $isReferentMember = $isReferentMember->fetchAssoc();
-      if (!empty($isReferentMember)) {
-        return TRUE;
-      }
-    }
-  }
-  return FALSE;
-}
-
-function _emh_circles_check_user_is_adminmember_of_groups($uid, $gids) {
-  $roleID = db_select('og_role', 'og')
-            ->condition('name', 'administrator member', '=')
-            ->condition('group_bundle', 'circle', '=')
-            ->distinct()
-            ->fields('og', array('rid'))
-            ->execute();
-  $roleID = $roleID->fetchAssoc();
-
-  if (!empty($roleID)) {
-    foreach ($gids as $gid) {
-      $isAdminMember = db_select('og_users_roles', 'og')
-                ->condition('gid', $gid, '=')
-                ->condition('uid', $uid, '=')
-                ->condition('rid', $roleID['rid'], '=')
-                ->distinct()
-                ->fields('og', array('rid'))
-                ->execute();
-      $isAdminMember = $isAdminMember->fetchAssoc();
-      if (!empty($isAdminMember)) { 
-        return TRUE; 
-      }
-    }
-  } 
-  return FALSE;
-}
-
-function _emh_circles_check_user_is_admin_of_groups($uid, $gids) {
-  foreach ($gids as $gid) {
-    $result = db_select('node', 'n')
-              ->condition('nid', $gid, '=')
-              ->distinct()
-              ->fields('n', array('uid'))
-              ->execute();
-    $node_uid = $result->fetchAssoc();
-    if ($node_uid['uid'] == $uid) {
-      return TRUE;
-    }
-  }
-  return FALSE;
 }

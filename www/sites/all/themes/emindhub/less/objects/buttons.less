@@ -1,8 +1,8 @@
 .emh-new-button {
-		padding: 17px 30px;
-		font-size: 13px;
-		font-weight: 600;
-		.text-uppercase;
+	padding: 17px 30px;
+	font-size: 13px;
+	font-weight: 600;
+	.text-uppercase;
 }
 body.not-logged-in {
 	.btn {
@@ -49,7 +49,7 @@ fieldset[disabled] .btn {
 
 // New button style : .btn-asphalt
 .btn-asphalt {
-	.button-variant(#FFF; @asphalt-base; @asphalt-dark);
+	.button-variant(#FFF; @blue-base; @blue-dark);
 }
 
 // New button style : .btn-flash
@@ -71,12 +71,12 @@ fieldset[disabled] .btn {
 
 // New button style: btn-gray
 .btn-gray {
-	.button-variant(@darkerBlue; @gray-lighter; @gray-light2);
+	.button-variant(@blue-darker; @gray-lighter; @gray-light2);
 }
 
 // New button style: btn-gray
 .btn-flag {
-	.button-variant(@asphalt-dark; @asphalt-light; @asphalt-base);
+	.button-variant(@blue-dark; @blue-light; @blue-base);
 }
 
 .btn-submission {
@@ -88,4 +88,26 @@ fieldset[disabled] .btn {
 .emh-button-linkedin {
 	.button-variant(#FFF;  #50759b;  #50759b);
 	padding: 0;
+}
+
+
+a {
+  &.subscribe,
+  &.flag-action,
+  &.unsubscribe,
+  &.unflag-action {
+    .emh-button;
+  }
+
+  &.subscribe,
+  &.flag-action {
+    .btn-primary;
+  }
+
+  &.unsubscribe,
+  &.unflag-action {
+    color: @brand-primary;
+    border-color: @brand-primary;
+    background: transparent;
+  }
 }

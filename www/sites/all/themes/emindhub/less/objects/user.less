@@ -1,11 +1,9 @@
-.user-badge {
+.user-photo {
   img {
     .center-block;
     .img-circle;
-    background: #FFF;
-    text-align: center;
-    height: 50px;
-    width: 50px;
+    background: #d3d8dc;
+    .text-center;
   }
 }
 
@@ -13,7 +11,7 @@
 .cartouche-identity,
 .cartouche-activity {
   padding: 5px;
-  color: #4e6374;
+  color: @blue-dark;
 }
 
 .cartouche-activity {
@@ -42,13 +40,15 @@
     background-image: url("../images/icons/icon_view.png");
   }
 }
+
 .user-cartouche {
   .text-center;
   background-color: #fff;
   border: 1px solid #e1e4e7;
+  margin-bottom: 15px;
 
   a {
-    color: @deepBlue;
+    color: @blue-base;
   }
 
 	> span {
@@ -75,6 +75,13 @@
 		font-weight: bold;
 	}
 
+  .user-photo {
+    img {
+      height: 50px;
+      width: 50px;
+    }
+  }
+
 	.user-organisation,
 	.user-activity {
 		font-style: italic;
@@ -85,5 +92,14 @@
     .btn-xs;
     .btn-flash;
     text-decoration: none;
+  }
+}
+
+.user-badge {
+  .user-photo {
+    img {
+      width: 36px;
+      height: auto;
+    }
   }
 }

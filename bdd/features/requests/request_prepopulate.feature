@@ -15,7 +15,7 @@ Feature: Request Prepopulation
     | Marvel Studios        | admin   |
 
     Given users:
-    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
     | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance |
 
     Given "request_type" terms:
@@ -33,8 +33,8 @@ Feature: Request Prepopulation
       And I press "Save configuration"
 
     When I go to "content/avengers"
-      And I click "Group"
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "Member since"
       # Twice for correct order
       And I click "Member since"
@@ -42,17 +42,17 @@ Feature: Request Prepopulation
       #And I check the box "views_bulk_operations[1]"
       #And I select "Modify membership status" from "operation"
       #And I press "Execute"
-      #And I select "Active" from "State"
+      #And I select "Member" from "State"
       #And I press "Next"
       #And I press "Confirm"
 
       And I click "edit" in the "Captain AMERICA" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
       # Again...
       And I go to "content/avengers"
-      And I click "Group"
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "Member since"
       # Twice for correct order
       And I click "Member since"

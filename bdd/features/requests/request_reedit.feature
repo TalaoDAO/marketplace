@@ -15,47 +15,46 @@ Feature: Request re-editions
     | Marvel Studios        | admin   |
 
     Given users:
-    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
     | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance |
 
     Given users:
-    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_position          |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_position          |
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy        | Avionic Design Engineer |
     | expert2 | emindhub.test+expert2@gmail.com | expert   | Klark            | KENT            | 0712345671      | Modèle             | Avengers     | emindhub.test+expert2@gmail.com | Marvel Studios       | Employee             | Other         | C.E.O.                  |
 
     Given "request" content:
     | title                                 | field_domaine | og_group_ref | author  | field_expiration_date  | status  | field_request_type |
-    | How to become a superhero?            | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    | 1       | Mission            |
+    | How to become a superhero?            | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       | Mission            |
 
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
-      And I click "Group"
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "edit" in the "Captain AMERICA" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
-    Then I should see "Active" in the "Captain AMERICA" row
+    Then I should see "Member" in the "Captain AMERICA" row
     Then I should see "The membership has been updated."
       And I click "edit" in the "Iron MAN" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
       And I click "edit" in the "Klark KENT" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
   Scenario: The author can change some content if no expert responded
     Given I am logged in as "client1"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
-    And I click "Edit"
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "Edit" in the "primary tabs" region
     Then the "Request title or question" field should be disabled
-    And the "field_request_type[und]" field should be disabled
-    And the "Describe your request" field should not be disabled
-    #TODO: And the "edit-field-options" field should not be disabled
-    And the "edit-field-options-und-private-enabled" field should be disabled
-    And the "edit-field-request-questions" field should not be disabled
+      And the "field_request_type[und]" field should be disabled
+      And the "Describe your request" field should not be disabled
+      And the "edit-field-options-und-private-enabled" field should be disabled
+      And the "edit-field-request-questions" field should not be disabled
 
     # An expert responds to the request.
     Given I am logged in as "expert1"
@@ -67,26 +66,25 @@ Feature: Request re-editions
     When I press "Publish"
     Then I should see the message "Your answer has been published."
 
-    #When request has response, some field become disabled
+    # When request has response, some field become disabled
     Given I am logged in as "client1"
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
-    And I click "Edit"
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "Edit" in the "primary tabs" region
     Then the "Request title or question" field should be disabled
-    And the "field_request_type[und]" field should be disabled
-    And the "Describe your request" field should not be disabled
-    #TODO: And the "edit-field-options" field should be disabled
-    And the "edit-field-options-und-private-enabled" field should be disabled
-    And the "edit-field-request-questions-und-0-value" field should be disabled
+      And the "field_request_type[und]" field should be disabled
+      And the "Describe your request" field should not be disabled
+      And the "edit-field-options-und-private-enabled" field should be disabled
+      And the "edit-field-request-questions-und-0-value" field should be disabled
 
-    #but admin can still modify everything
+    # But admin can still modify everything
     Given I am logged in as a user with the "administrator" role
     When I go to homepage
-    And I click "How to become a superhero?" in the "How to become a superhero?" row
-    And I click "Edit"
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "Edit" in the "primary tabs" region
     Then the "Request title or question" field should not be disabled
-    And the "field_request_type[und]" field should not be disabled
-    And the "Describe your request" field should not be disabled
-    And the "edit-field-options" field should not be disabled
-    And the "edit-field-options-und-private-enabled" field should not be disabled
-    And the "edit-field-request-questions-und-0-value" field should not be disabled
+      And the "field_request_type[und]" field should not be disabled
+      And the "Describe your request" field should not be disabled
+      And the "edit-field-options" field should not be disabled
+      And the "edit-field-options-und-private-enabled" field should not be disabled
+      And the "edit-field-request-questions-und-0-value" field should not be disabled

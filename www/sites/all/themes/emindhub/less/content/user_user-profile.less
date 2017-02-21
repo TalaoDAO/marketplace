@@ -1,34 +1,40 @@
 .page-user {
 
 	.user-cartouche {
+    .text-left;
 
 		.cartouche-identity,
 		.cartouche-activity {
 			padding: 15px;
 		}
 
-		.user-identity,
-		.user-organisation,
-		.user-activity {
+		.user-social-networks {
 			padding-top: 10px;
 		}
 
-		.user-badge img {
+		.user-photo img {
 			width: 100px;
 			height: 100px;
 		}
+
+		.country,
+		.user-country {
+			text-transform: uppercase;
+		}
+
 	}
 
 	.profile-section {
 
 		.make-row();
+    margin: 0;
 
 		> .field {
 			.make-sm-column(12);
 		}
 
 		margin-bottom: 15px;
-		background-color: #F6F7F8;
+		background-color: @body-bg-inverse;
 		.emh-fieldgroup-blue-title;
 
 		.form-group {
@@ -49,13 +55,6 @@
 			}
 		}
 
-		// &.group-profile {
-		// 	padding-top: 15px;
-		// 	.h3, .h4 {
-		// 		margin: 0;
-		// 	}
-		// }
-
 		.field-name-field-photo {
 			.make-sm-column(2);
 			img {
@@ -64,15 +63,6 @@
 				max-width: 100px !important; // jquery.Jcrop.js
 				max-height: 100px !important; // jquery.Jcrop.js
 			}
-		}
-
-		.field-name-field-first-name,
-		.field-name-field-last-name,
-		.field-name-field-titre-metier,
-		.field-name-field-entreprise,
-		.field-name-field-address,
-		.field-name-field-mail {
-			.make-sm-column(10);
 		}
 
 		.field-name-field-address {
@@ -99,6 +89,15 @@
 			background-color: #EFF1F3;
 			padding: 15px;
 		}
+
+    &.group-organisation {
+      .field-name-field-entreprise {
+        .field-item {
+          .h3;
+          font-weight: bold;
+        }
+      }
+    }
 
 		.field-name-field-domaine,
 		.field-name-field-specific-skills3 {

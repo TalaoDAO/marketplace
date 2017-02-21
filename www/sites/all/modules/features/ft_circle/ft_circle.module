@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the FT Circle feature.
+ */
+
+include_once 'ft_circle.features.inc';

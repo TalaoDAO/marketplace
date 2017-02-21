@@ -7,13 +7,8 @@ h5, .h5,
 h6, .h6 {
 	white-space: normal;
 }
-h1, h2,
-.h1, .h2 {
-	// font-weight: 700;
-}
 h2, .h2 {
-	font-size: 22px;
-	color: @darkerBlue;
+	color: @blue-darker;
 }
 h3, .h3 {
 	font-size: 18px;
@@ -58,7 +53,7 @@ h4, .h4 {
 .icon-next {
 	&:before {
 		border-radius: 100%;
-		background-color: @darkBlue;
+		background-color: @blue-dark;
 		width: 20px;
 		height: 20px;
 		display: block;
@@ -168,21 +163,6 @@ span.form-required {
 	max-width: 260px;
 }
 
-// Textarea
-body.page-user-edit {
-	.form-textarea-wrapper.resizable-textarea {
-		// max-width: 500px;
-	}
-}
-
-// Checkbox / Radio
-.radio input[type="radio"],
-.radio-inline input[type="radio"],
-.checkbox input[type="checkbox"],
-.checkbox-inline input[type="checkbox"] {
-  margin-left: 0;
-}
-
 // Node edit case
 body.page-node-edit {
 	.form-textarea-wrapper.resizable-textarea {
@@ -190,12 +170,11 @@ body.page-node-edit {
 	}
 }
 
-
 .view-filters {
 	margin-bottom: 15px;
 }
 .views-exposed-form {
-	background-color: @lightGrey;
+	background-color: @body-bg-inverse;
 	padding: 15px;
 	border-radius: @border-radius-base;
 	.views-exposed-widgets {
@@ -240,7 +219,7 @@ table.views-table {
 }
 .table-striped {
 	> tbody > tr:nth-of-type(even) {
-		background-color: @gray-very-lighter;
+		background-color: @body-bg-inverse;
 	}
 }
 
@@ -363,12 +342,12 @@ table.views-table {
 	z-index: 99999;
 }
 .sliding-popup-bottom {
-	background: @darkBlue;
+	background: @blue-dark;
 	position: fixed;
 }
 
 .sliding-popup-top {
-	background-color: @darkBlue;
+	background-color: @blue-dark;
 	position: relative;
 }
 

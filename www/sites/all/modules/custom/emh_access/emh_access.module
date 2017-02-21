@@ -5,17 +5,6 @@
 */
 
 /**
- * Implements hook_permission().
- */
-function emh_access_permission() {
-  return array(
-    'access EMH requests' => array('title' => t('Request: View all published EMH requests')),
-    'access EMH answers' => array('title' => t('Answer: View all published EMH answers')),
-    'access EMH profiles' => array('title' => t('Profile: View full users profiles')),
-  );
-}
-
-/**
  * Implements hook_user_presave().
  */
 function emh_access_user_presave(&$edit, $account, $category) {
@@ -29,10 +18,9 @@ function emh_access_user_presave(&$edit, $account, $category) {
 }
 
 /**
- * Implements hook_field_access.
+ * Implements hook_field_access().
  */
 function emh_access_field_access($op, $field, $entity_type, $entity, $account) {
-
   if ($op == 'view') {
 
     if (empty($entity)) return TRUE;
@@ -66,7 +54,6 @@ function emh_access_field_access($op, $field, $entity_type, $entity, $account) {
   }
 
   return TRUE;
-
 }
 
 /**
@@ -90,10 +77,12 @@ function emh_access_user_can_see_full_user($uid = FALSE, $uid2) {
 
   // Organic Groups / EMH Circles
   // User1 is admin/referent of one of User2 circles
-  if (!empty($u2_circlesIDs)) {
-    if (_emh_circles_check_user_is_adminmember_of_groups($uid, $u2_circlesIDs)) { return TRUE;}
-    if (_emh_circles_check_user_is_admin_of_groups($uid, $u2_circlesIDs)) return TRUE;
-    if (_emh_circles_check_user_is_referentmember_of_groups($uid, $u2_circlesIDs)) return TRUE;
+  if (module_exists('emh_circles')) {
+    if (!empty($u2_circlesIDs)) {
+      if (_emh_circles_check_user_is_adminmember_of_groups($uid, $u2_circlesIDs)) return TRUE;
+      if (_emh_circles_check_user_is_admin_of_groups($uid, $u2_circlesIDs)) return TRUE;
+      if (_emh_circles_check_user_is_referentmember_of_groups($uid, $u2_circlesIDs)) return TRUE;
+    }
   }
 
   // Organic Groups
@@ -105,7 +94,7 @@ function emh_access_user_can_see_full_user($uid = FALSE, $uid2) {
     if (!( (array) $u1_circlesIDs !== $u1_circlesIDs ) && !( (array) $u2_circlesIDs !== $u2_circlesIDs ) && array_intersect($u1_circlesIDs, $u2_circlesIDs)) return TRUE;
   }
 
-  // Flags
+  // Flag
   if (module_exists('flag')) {
     $flag = flag_get_flag('my_contacts');
     if ($flag && $flag->is_flagged($uid2, $uid)) return TRUE;
@@ -178,30 +167,31 @@ function emh_access_user_can_see_full_answer($nid, $sid = NULL, $account = NULL)
     // Organic Groups / EMH Circles
     // User1 is admin/referent of node's circle
     // TODO: add custom permissions for OG and Comments
-    if (isset($node->og_group_ref) && ($circle_items = field_get_items('node', $node, 'og_group_ref'))) {
-      $circles = array();
+    if (module_exists('emh_circles')) {
+      if (isset($node->og_group_ref) && ($circle_items = field_get_items('node', $node, 'og_group_ref'))) {
+        $circles = array();
 
-      foreach ($circle_items as $delta => $item) {
-        $circles[] = $item['target_id'];
-      }
+        foreach ($circle_items as $delta => $item) {
+          $circles[] = $item['target_id'];
+        }
 
-      if (!empty($circles)) {
-        if (_emh_circles_check_user_is_adminmember_of_groups($account->uid, $circles)) {
-          return TRUE;
-        }
-        if (_emh_circles_check_user_is_admin_of_groups($account->uid, $circles)) {
-          return TRUE;
-        }
-        if (_emh_circles_check_user_is_referentmember_of_groups($account->uid, $circles)) {
-          return TRUE;
-        }
-        foreach ($circles as $gid) {
-          if (og_user_access('node', $gid, 'access all webform results')) {
+        if (!empty($circles)) {
+          if (_emh_circles_check_user_is_adminmember_of_groups($account->uid, $circles)) {
             return TRUE;
+          }
+          if (_emh_circles_check_user_is_admin_of_groups($account->uid, $circles)) {
+            return TRUE;
+          }
+          if (_emh_circles_check_user_is_referentmember_of_groups($account->uid, $circles)) {
+            return TRUE;
+          }
+          foreach ($circles as $gid) {
+            if (og_user_access('node', $gid, 'access all webform results')) {
+              return TRUE;
+            }
           }
         }
       }
-
     }
 
     return FALSE;

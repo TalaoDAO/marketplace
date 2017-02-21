@@ -15,25 +15,25 @@ Feature: Fill Expert profile fields
     | Marvel Studios        | admin   |
 
     Given users:
-    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
     | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance |
 
     Given "request" content:
     | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
-    | How to become a superhero?  | Energy        | Avengers     | client1 | 2017-02-08 17:45:00    | 1       |
+    | How to become a superhero?  | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       |
 
   @exclude
   Scenario: An expert without certain profile fields filled can submit a answer by filling a form
     Given users:
-    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios     | Employee             | Energy        |
 
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
-      And I click "Group"
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "edit" in the "Iron MAN" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
@@ -62,15 +62,15 @@ Feature: Fill Expert profile fields
 
   Scenario: An expert with some profile fields filled should not be asked to fill it twice
     Given users:
-    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_position  |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_position  |
     | expert2 | emindhub.test+expert2@gmail.com | expert   | Klark            | KENT            | 0712345671      | Modèle             | Avengers     | emindhub.test+expert2@gmail.com | Marvel Studios     | Employee             | Other         | C.E.O.            |
 
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
-      And I click "Group"
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "edit" in the "Klark KENT" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 

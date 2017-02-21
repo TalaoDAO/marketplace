@@ -17,11 +17,11 @@ Feature: Request Option Price
     | Marvel Studios        | admin   |
 
     Given users:
-    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
     | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers, League Of Justice, Guardians Of The Galaxy     | emindhub.test+client1@gmail.com | Marvel Studios     | Freelancer | Maintenance |
 
     Given users:
-    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers, League Of Justice, Guardians Of The Galaxy     | emindhub.test+expert1@gmail.com | Marvel Studios     | Employee             | Energy        |
 
     Given I give "client1" 10000 emh credits
@@ -35,58 +35,60 @@ Feature: Request Option Price
 
     # Set price for options
     When I go to "content/avengers"
-      And I click "Edit"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "Circle" in the "content" region
       And I fill in "Questionnaire" with "1000"
       And I fill in "Duration" with "1000"
       And I press "Save"
 
     When I go to "content/league-justice"
-      And I click "Edit"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "Circle" in the "content" region
       And I fill in "Questionnaire" with "700"
       And I fill in "Duration" with "1300"
       And I press "Save"
 
     # Make client1 as a Creator member of circles
     When I go to "content/avengers"
-      And I click "Group"
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "edit" in the "Captain AMERICA" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
-    Then I should see "Active" in the "Captain AMERICA" row
+    Then I should see "Member" in the "Captain AMERICA" row
       And I click "edit" in the "Iron MAN" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
     When I go to "content/league-justice"
-      And I click "Group"
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "edit" in the "Captain AMERICA" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
-    Then I should see "Active" in the "Captain AMERICA" row
+    Then I should see "Member" in the "Captain AMERICA" row
       And I click "edit" in the "Iron MAN" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
     When I go to "content/guardians-galaxy"
-      And I click "Group"
-      And I click "People"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
       And I click "edit" in the "Captain AMERICA" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
-    Then I should see "Active" in the "Captain AMERICA" row
+    Then I should see "Member" in the "Captain AMERICA" row
       And I click "edit" in the "Iron MAN" row
-      And I select "Active" from "Status"
+      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
   Scenario: An author can create a request with a questionnaire and duration with changing prices
     Given "request" content:
     | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  | field_request_type |
-    | How to become a superhero?  | Energy        |              | client1 | 2017-02-08 17:45:00    | 0       | Mission            |
+    | How to become a superhero?  | Energy        |              | client1 | 2020-02-08 17:45:00    | 0       | Mission            |
 
     Given I am logged in as "client1"
     When I go to "/requests/manage"
