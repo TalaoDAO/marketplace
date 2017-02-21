@@ -10,7 +10,6 @@ include_once 'emh_request.admin.inc';
 include_once 'emh_request.conditional_fields.inc';
 include_once 'emh_request.fields.inc';
 include_once 'emh_request.mail.inc';
-include_once 'emh_request.notification.inc';
 
 function emh_request_permission() {
   return array(
