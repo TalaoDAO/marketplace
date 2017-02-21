@@ -1,0 +1,10 @@
+name = EMH Request Notification
+description = Moderate new published requests then notify concerned users.
+package = EMH
+core = 7.x
+
+dependencies[] = emh_request
+dependencies[] = mailsystem
+dependencies[] = mimemail
+dependencies[] = rules
+dependencies[] = rules_scheduler

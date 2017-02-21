@@ -9,31 +9,16 @@
 @gray-lighter:           lighten(@gray-base, 95%);    // #F2F2F2
 @gray-very-lighter:      lighten(@gray-base, 98%);    // #FAFAFA
 
-@lightGrey:              @gray-lighter;
-@softGrey:               @gray-lighter;
-@hrLightGrey:            @gray-lighter;
-@smoothGrey:             @gray-lighter;
-@middleGrey:             @gray-lighter;
-@btnBackBackground:      @gray-lighter;
-@btnCancelBackground:    @gray-lighter;
-@copyrightTextColor:     @gray-lighter;
-@burgerMenuGrey:         @gray-lighter;
-@darkGrey:               @gray;
-
 @brand-primary:          #009fe3;
+@brand-success:          #53d899;
 @brand-info:             #01bdeb;
 
-@circleLightBlue:        #bfe7f8;
-@darkBlue:               #445766;
-@cyan:                   #80d9ff;
+@blue-base:              #196a96;
+@blue-darker:            darken(@blue-base, 20%);
+@blue-dark:              darken(@blue-base, 13.5%);
+@blue-light:             lighten(@blue-base, 46.7%);
+@blue-lighter:           lighten(@blue-base, 93.5%);
 
-@lightYellow:            @golden-light;
-@mediumYellow:           @golden-dark;
-@expertYellow:           @golden-base;
-
-// @golden-base:            #c89234;
-// @golden-base:            #e39000;
-// @golden-base:            #d59019;
 @golden-base:            @orange;
 @golden-darker:          darken(@golden-base, 20%);
 @golden-dark:            darken(@golden-base, 13.5%);
@@ -46,12 +31,6 @@
 @emerald-dark:           darken(@emerald-base, 13.5%);
 @emerald-light:          lighten(@emerald-base, 46.7%);
 @emerald-lighter:        lighten(@emerald-base, 93.5%);
-
-@deepBlue:               #104476;
-@middleBlue:             #15538c;
-@totalBlue:              #114577;
-
-@darkerBlue:             #4C6172;
 
 @asphalt:                @asphalt-base;
 @asphalt-base:           #33374a;
@@ -79,16 +58,17 @@
 @color-tertiary:         @cello;
 @color-tertiary-alt:     @mischka;
 
-@publication-bg:        @white-smoke;
-
 
 //== Scaffolding
+@body-bg:               @white-smoke;
+@body-bg-inverse:       #fff;
 @text-color:            @cello;
 
 
 //== Typography
 @font-family-sans-serif:  "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
 // @font-size-base:          15px;
+@font-size-h2:            @font-size-h3;
 
 
 //== Iconography
@@ -154,6 +134,9 @@
 @navbar-padding-vertical:          ((@navbar-height - @line-height-computed) / 3);
 @navbar-default-border:            @gray-lighter;
 
+//== Navs
+@nav-tabs-active-link-hover-bg:    @body-bg;
+
 
 //== Jumbotron
 @jumbotron-color:                #FFF;
@@ -165,7 +148,7 @@
 
 //== Tooltips
 @tooltip-color:               inherit;
-@tooltip-bg:                  @softGrey;
+@tooltip-bg:                  @gray-lighter;
 @tooltip-opacity:             .95;
 
 

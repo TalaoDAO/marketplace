@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * Code for EMH Smart Mobility feature.
+ */
+
+include_once 'emh_smartmobility.block.inc';
+include_once 'emh_smartmobility.pages.inc';
+
+/**
+ * Implements hook_theme().
+ */
+function emh_smartmobility_theme() {
+  return array(
+    'emh_smartmobility_page' => array(
+      'template' => 'emh-smartmobility--page',
+      'path' => drupal_get_path('module', 'emh_smartmobility') . '/theme',
+    ),
+  );
+}
+
+/**
+ * Implements hook_custom_theme().
+ */
+function emh_smartmobility_custom_theme() {
+  if (arg(0) == 'smart-mobility' && !arg(1)) {
+    return 'smartmobility';
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function emh_smartmobility_menu() {
+  $items = array();
+
+  $items['smart-mobility'] = array(
+    'title' => 'Smart Mobility',
+    'page callback' => 'emh_smartmobility_page',
+    'access callback' => 'user_is_anonymous',
+  );
+
+  return $items;
+}

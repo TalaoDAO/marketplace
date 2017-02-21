@@ -1,18 +1,18 @@
 <?php
+
 /**
  * @file
  * Installation hooks for the emh_request module.
  */
 
-
 /**
  * Implements hook_install().
  */
 function emh_request_install() {
+  // @TODO: remove this!
   variable_set('emh_request_send_notification_email_all_domains', 1);
-  variable_set('webform_node_request', true);
+  variable_set('webform_node_request', TRUE);
 }
-
 
 /**
  * Implements hook_enable().
@@ -24,7 +24,6 @@ function emh_request_enable() {
   emh_request_enable_strings();
 }
 
-
 /**
  * Implements hook_disable().
  */
@@ -32,15 +31,14 @@ function emh_request_disable() {
   emh_request_disable_strings();
 }
 
-
 /**
  * Implements hook_uninstall().
  */
 function emh_request_uninstall() {
+  // @TODO: remove this!
   variable_del('emh_request_send_notification_email_all_domains');
   variable_del('webform_node_request');
 }
-
 
 function emh_request_enable_strings() {
   global $language;
@@ -52,7 +50,6 @@ function emh_request_enable_strings() {
   variable_set("locale_custom_strings_$lang", $strings);
 }
 
-
 function emh_request_disable_strings() {
   global $language;
   $lang = $language->language;
@@ -63,13 +60,11 @@ function emh_request_disable_strings() {
   variable_set("locale_custom_strings_$lang", $strings);
 }
 
-
 /**
  * Provides string overrides.
  */
 function _emh_request_string_overrides() {
   return array(
-    // Webform
     'No Components, add a component below.' => 'No questions, add a question below.',
     'New component name' => 'New question',
     'This will immediately delete the %name component from the %webform webform. This cannot be undone.' => 'This will immediately delete the %name question from the %webform request. This cannot be undone.',
@@ -84,11 +79,9 @@ function _emh_request_string_overrides() {
   );
 }
 
-
 //----------------------------------------------------------------------
 //-- SCHEMAS
 //----------------------------------------------------------------------
-
 
 /**
  * Implements hook_field_schema().
@@ -101,32 +94,30 @@ function emh_request_field_schema($field) {
           'description' => 'Machine name (ID) of the option',
           'type' => 'varchar',
           'length' => 64,
-          'not null' => true,
+          'not null' => TRUE,
         ),
         'cost' => array(
           'description' => 'Cost of the option (number of credits)',
           'type' => 'int',
-          'not null' => true,
+          'not null' => TRUE,
           'default' => 0,
         ),
         'settings' => array(
           'description' => 'Settings of the option (serialized PHP array)',
           'type' => 'text',
-          'not null' => false,
+          'not null' => FALSE,
         ),
       ),
     );
   }
 }
 
-
 //----------------------------------------------------------------------
 //-- UPDATES
 //----------------------------------------------------------------------
 
-
 /**
- * Force module weight for hook_form_alter execution
+ * Force module weight for hook_form_alter execution.
  */
 function emh_request_update_7001() {
   db_update('system')
@@ -135,7 +126,6 @@ function emh_request_update_7001() {
     ->condition('name', 'emh_request')
     ->execute();
 }
-
 
 /**
  * Aliases survey creation path.
@@ -148,14 +138,12 @@ function emh_request_update_7002() {
   path_save($path);
 }
 
-
 /**
- * Add setting for request notification by domain
+ * Add setting for request notification by domain.
  */
 function emh_request_update_7103() {
   variable_set('emh_request_send_notification_email_all_domains', 1);
 }
-
 
 /**
  * Revert request notification rules.
@@ -169,14 +157,12 @@ function emh_request_update_7104() {
   }
 }
 
-
 /**
  * Revert Views features.
  */
 function emh_request_update_7105() {
   features_revert(array('ft_views' => array('views_view')));
 }
-
 
 /**
  * Revert request notification rules.
@@ -190,7 +176,6 @@ function emh_request_update_7106() {
   }
 }
 
-
 /**
  * Revert strings.
  */
@@ -198,7 +183,6 @@ function emh_request_update_7107() {
   emh_request_disable_strings();
   emh_request_enable_strings();
 }
-
 
 /**
  * Revert Views features.
@@ -214,14 +198,12 @@ function emh_request_update_7109() {
   features_revert(array('ft_views' => array('views_view')));
 }
 
-
 /**
  * Adds webform features on the request content type.
  */
 function emh_request_update_7110() {
-  variable_set('webform_node_request', true);
+  variable_set('webform_node_request', TRUE);
 }
-
 
 /**
  * Enables the ft_request feature.
@@ -229,7 +211,6 @@ function emh_request_update_7110() {
 function emh_request_update_7111() {
   module_enable(['ft_request']);
 }
-
 
 /**
  * Recreates the field_options field.
@@ -255,7 +236,7 @@ function emh_request_update_7113() {
     'edit own request content',
     'edit any request content',
     'delete own request content',
-    'delete any request content'
+    'delete any request content',
   ));
   // Webmaster
   user_role_grant_permissions(6, array(
@@ -263,17 +244,17 @@ function emh_request_update_7113() {
     'edit own request content',
     'edit any request content',
     'delete own request content',
-    'delete any request content'
+    'delete any request content',
   ));
   // Référent
   user_role_grant_permissions(7, array(
     'edit own request content',
-    'edit any request content'
+    'edit any request content',
   ));
   // Business
   user_role_grant_permissions(5, array(
     'create request content',
-    'edit own request content'
+    'edit own request content',
   ));
 }
 
@@ -364,14 +345,12 @@ function emh_request_update_7120() {
   emh_request_enable();
 }
 
-
 /**
  * CHG: Set some fields as required.
  */
 function emh_request_update_7121() {
   features_revert(array('ft_request' => array('field_instance')));
 }
-
 
 /**
  * CHG: Update fields display configuration for the new view mode (summary).
@@ -391,8 +370,8 @@ function emh_request_update_7123() {
  * CHG: Request strings.
  */
 function emh_request_update_7124() {
-  emh_request_disable();
-  emh_request_enable();
+  emh_request_disable_strings();
+  emh_request_enable_strings();
 }
 
 /**
@@ -421,7 +400,7 @@ function emh_request_update_7126() {
 function emh_request_update_7127() {
   module_enable(['emh_request_prepopulate']);
 
-  // Remove old field_prepopulate_help field
+  // Remove old field_prepopulate_help field.
   features_revert(array('ft_request' => array('field_base', 'field_instance')));
   if ($instance = field_info_instance('node', 'field_prepopulate_help', 'request')) {
     field_delete_instance($instance);

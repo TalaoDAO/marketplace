@@ -17,7 +17,7 @@ Feature: Test credits dispatch in OG
 
     #client1 is webmaster to gain access to tabs until links are added
     Given users:
-    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_other_areas  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
     | client1 | emindhub.test+client1@gmail.com | business, webmaster | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance |
     | client2 | emindhub.test+client2@gmail.com | business | Charle           | XAVIER          |                 |                    | X-Men        | emindhub.test+client2@gmail.com | Marvel Entertainment | Freelancer           | Engines     |
     | client3 | emindhub.test+client3@gmail.com | business | Tony             | STARK           |                 |                    | X-Men        | emindhub.test+client3@gmail.com | Marvel Entertainment | Freelancer | Drones      |
@@ -37,13 +37,10 @@ Feature: Test credits dispatch in OG
     Then I should see "Avengers"
 
     When I click "Avengers"
-    #Then I should see "You are the group manager"
-
-    When I click "Group"
-      And I click "Add people"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "Add people" in the "content" region
       And I fill in "User name" with "client2"
       And I press "Add users"
-    #Then I should see the success message containing "has been added to the group"
       And I fill in "User name" with "client3"
       And I press "Add users"
 
@@ -52,7 +49,6 @@ Feature: Test credits dispatch in OG
       And I click "Members"
     Then I should see "Charle XAVIER"
       And I should see "Tony STARK"
-    #Then I should see the success message containing "has been added to the group"
 
     When I go to "groups"
       And I click "Avengers"
