@@ -64,9 +64,6 @@ function emh_circles_menu_alter(&$items) {
   $items['node/%node/view']['title callback'] = 'emh_circles_node_view_title';
   $items['node/%node/view']['title arguments'] = array(1);
 
-  if (arg(0) == 'node' && is_numeric(arg(1)) && node_load(arg(1))->type == 'circle') {
-    unset($items['node/%node/edit']['type']);
-  }
   unset($items['node/%node/edit']['title']);
   $items['node/%node/edit']['title callback'] = 'emh_circles_node_edit_title';
   $items['node/%node/edit']['title arguments'] = array(1);
@@ -96,12 +93,42 @@ function emh_circles_menu_alter(&$items) {
 }
 
 /**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function emh_circles_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  // Hide Edit tab in circle node type.
+  // @see https://www.drupal.org/node/2367395#comment-11883487
+  $type = NULL;
+  foreach ($router_item['map'] as $map) {
+    if (!isset($map->type)) {
+      continue;
+    }
+    if ($map->type == 'circle') {
+      $type = $map->type;
+      break;
+    }
+  }
+
+  if ($type == NULL) {
+    return;
+  }
+
+  foreach ($data['tabs'][0]['output'] as $key => $value) {
+    if ($value['#link']['path'] == 'node/%/edit') {
+      unset($data['tabs'][0]['output'][$key]);
+    }
+  }
+}
+
+/**
  * Provide an overview of the administrator menu items.
  *
- * @param $entity_type
+ * @param string $entity_type
  *   The entity type.
- * @param $etid
+ * @param string $etid
  *   The entity ID.
+ *
+ * @see og_ui_group_admin_overview()
  */
 function emh_circles_og_ui_group_admin_overview($entity_type, $etid) {
   og_set_breadcrumb($entity_type, $etid);
