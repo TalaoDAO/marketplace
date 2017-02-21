@@ -408,6 +408,29 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
+   * @Then /^there should be no email to "([^"]*)" containing "([^"]*)"$/
+   */
+  public function thereIsNoEmailToContaining($to, $contents) {
+    $recipient = FALSE;
+    $not_contains = FALSE;
+    $variables = array_map('unserialize', db_query("SELECT name, value FROM {variable} WHERE name = 'drupal_test_email_collector'")->fetchAllKeyed());
+    foreach ( $variables['drupal_test_email_collector'] as $message) {
+      if ($message['to'] == $to) {
+        $recipient = TRUE;
+        if (strpos($message['body'], $contents) == FALSE && strpos($message['subject'], $contents) == FALSE) {
+          $not_contains = TRUE;
+        }
+      }
+    }
+    if (($recipient == TRUE && $not_contains == TRUE) || $recipient == FALSE) {
+      return TRUE;
+    }
+    else {
+      throw new \Exception('Found email and expected content in message body or subject.');
+    }
+  }
+
+  /**
    * @Given /^the email should contain "([^"]*)"$/
    */
   public function theEmailShouldContain($contents) {
@@ -470,7 +493,7 @@ class FeatureContext extends DrupalContext {
    */
   public function assertDisabledField($field) {
     $element = $this->getSession()->getPage()->findById($field);
-    if ($element === null)  
+    if ($element === null)
       $element = $this->assertSession()->fieldExists($field);
     if (!$element->hasAttribute('disabled')) {
       throw new ExpectationException("Expected '{$field}' field to be disabled.", $this->getSession()->getDriver());
@@ -490,7 +513,7 @@ class FeatureContext extends DrupalContext {
    */
   public function assertNotDisabledField($field) {
     $element = $this->getSession()->getPage()->findById($field);
-    if ($element === null)  
+    if ($element === null)
       $element = $this->assertSession()->fieldExists($field);
     if ($element->hasAttribute('disabled')) {
       throw new ExpectationException("Expected '{$field}' field not to be disabled.", $this->getSession()->getDriver());

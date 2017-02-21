@@ -354,7 +354,7 @@ function emh_points_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'admin/emindhub/points/transaction-log';
+  $handler->display->display_options['path'] = 'admin/emindhub/credits/transaction-log';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Transaction Log';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -620,7 +620,7 @@ function emh_points_views_default_views() {
   $handler->display->display_options['path'] = 'node/%/credits-repartition';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Distribute credits';
-  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['weight'] = '4';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 

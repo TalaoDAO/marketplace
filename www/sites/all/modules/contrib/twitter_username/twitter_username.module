@@ -1,0 +1,348 @@
+<?php
+
+/**
+ * Maximum username length.
+ */
+define('TWITTER_USERNAME_MAX_LENGTH', 16);
+
+/**
+ * Implements hook_element_info().
+ * Define 'twitter_username' field type.
+ */
+function twitter_username_element_info() {
+  $elements = array();
+  $elements['twitter_username'] =  array(
+    '#input' => TRUE,
+    '#process' => array('twitter_username_field_process'),
+    '#theme_wrappers' => array('form_element'),
+  );
+  return $elements;
+}
+
+function twitter_username_field_process($element, $form_state, $complete_form) {
+  $element['twitter_username'] = array(
+    '#type' => 'textfield',
+    '#default_value' => isset($element['#value']['twitter_username']) ? check_plain($element['#value']['twitter_username']) : NULL,
+    '#required' => $element['#required'],
+    '#maxlength' => TWITTER_USERNAME_MAX_LENGTH,
+    '#size' => TWITTER_USERNAME_MAX_LENGTH,
+    '#weight' => isset($element['#weight']) ? $element['#weight'] : 0,
+    '#delta' => $element['#delta'],
+    '#field_prefix' => "@",
+  );
+  return $element;
+}
+
+/**
+ * Implements hook_field_info().
+ */
+function twitter_username_field_info() {
+  return array(
+    'twitter_username' => array(
+      'label' => t("Twitter username"),
+      'description' => t("Store a twitter username, and provide formatters, prefixed by @"),
+      'settings' => array('max_length' => TWITTER_USERNAME_MAX_LENGTH),
+      'instance_settings' => array('text_processing' => 0),
+      'default_widget' => 'twitter_username',
+      'default_formatter' => 'twitter_username_default',
+      'instance_settings' => array(
+        'validate_existance' => FALSE,
+      ),
+      'property_type' => 'twitter_username',
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_is_empty().
+ */
+function twitter_username_field_is_empty($item, $field) {
+  return empty($item['twitter_username']);
+}
+
+/**
+ * Implements hook_field_validate().
+ */
+function twitter_username_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
+  foreach ($items as $delta => $item) {
+    if (!empty($item['twitter_username'])) {
+      // Ensure the username contains only valid characters.
+      if (!preg_match('/^[A-Za-z0-9_]+$/', $item['twitter_username'])) { // '/^\w+$/'
+        $errors[$field['field_name']][$langcode][$delta][] = array(
+          'error' => "twitter_username_invalid",
+          'message' => t("Invalid twitter username (alphanumerics only)"),
+        );
+      }
+      // Ensure the username is actually registered.
+      elseif ($instance['settings']['validate_existance']) {
+        // Query the Twitter User page.
+        // Since v1.1, we could not request the API with OAuth token.
+        $url = url(
+          'https://twitter.com/' .$item['twitter_username'],
+          array('external' => TRUE)
+        );
+        $response = drupal_http_request($url, array('method'=>'HEAD'));
+
+        // HTTP status code 404 means the username doesn't exist.
+        if ($response->code == 404) {
+          $errors[$field['field_name']][$langcode][$delta][] = array(
+            'error' => 'twitter_username_not_found',
+            'message' => t("The twitter username doesn't exist."),
+          );
+        }
+        // Log and display an  error if we get an unexpected status code.
+        elseif ($response->code != 200) {
+          $vars = array(
+            '%code' => $response->code,
+            '%username' => $item['twitter_username'],
+          );
+          drupal_set_message(t("The Twitter API returned the unexpected status code %code. That means it's not guaranteed the username %username actually exists.", $vars), 'warning');
+          watchdog('twitter_username', "The Twitter API returned the unexpected status code %code. That means it's not guaranteed the username %username actually exists.", $vars, WATCHDOG_WARNING, $url);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function twitter_username_field_widget_info() {
+  return array(
+    'twitter_username' => array(
+      'label' => t("Twitter username"),
+      'field types' => array('twitter_username'),
+      'multiple values' => FIELD_BEHAVIOR_DEFAULT,
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_form().
+ */
+function twitter_username_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  $element += array(
+    '#type' => $instance['widget']['type'],
+    '#default_value' => isset($items[$delta]) ? $items[$delta] : '',
+  );
+  return $element;
+}
+
+/**
+ * Implements hook_field_widget_error().
+ */
+function twitter_username_field_widget_error($element, $error, $form, &$form_state) {
+  form_error($element, $error['message']);
+}
+
+/**
+ * Implements hook_field_instance_settings_form().
+ */
+function twitter_username_field_instance_settings_form($field, $instance) {
+  $form['validate_existance'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Ensure the twitter username exists'),
+    '#description' => t('Use the Twitter API to ensure the username actually exists. Note that this is an expensive network call. To avoid timeouts only use this when you have a limited amount of field values. If the Twitter API is not reachable a watchdog error will be logged and the name accepted.'),
+    '#default_value' => $instance['settings']['validate_existance'],
+  );
+
+  return $form;
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ * Defines 2 types of formatters, plain text and link.
+ */
+function twitter_username_field_formatter_info() {
+  return array(
+    'twitter_username_default' => array(
+      'label' => t("Twitter username, as plain text"),
+      'field types' => array('twitter_username'),
+    ),
+    'twitter_username_link' => array(
+      'label' => t("Twitter username, as link"),
+      'field types' => array('twitter_username'),
+    ),
+    'twitter_username_follow_button' => array(
+      'label' => t("Twitter username, as Follow Button"),
+      'field types' => array('twitter_username'),
+      'settings' => array(
+        'data_show_count' => "false",
+        'data_show_screen_name' => 'true',
+        'data_dnt' => 'false',
+        'data_width' => '',
+        'data_align' => 'left',
+        'data_size' => '',
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary().
+ */
+function twitter_username_field_formatter_settings_summary($field, $instance, $view_mode) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+
+  if ($display['type'] == 'twitter_username_follow_button') {
+    $summary = t('Show Followers Count: @show_count', array('@show_count' => $settings['data_show_count']));
+    $summary .= '<br />' . t('Show Screen Name: @show_screen_name', array('@show_screen_name' => $settings['data_show_screen_name']));
+    $summary .= '<br />' . t('Opt-out of tailoring Twitter: @dnt', array('@dnt' => $settings['data_dnt']));
+    $summary .= '<br />' . t('Width & Alignment: @width, @align', array('@width' => $settings['data_width'], '@align' => $settings['data_align']));
+    $summary .= '<br />' . t('Size: @size', array('@size' => $settings['data_size']));
+    return $summary;
+  }
+}
+
+/**
+ * Implements hook_field_formatter_settings_form().
+ */
+function twitter_username_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+
+  if ($display['type'] == 'twitter_username_follow_button') {
+    $element = array(
+      'data_width' => array(
+        '#title' => t('Width'),
+        '#description' => t('You can specify the width of the Follow Button by setting a value here (in <em>pixels</em> "100px" or <em>percentage</em> "75%").'),
+        '#type' => 'textfield',
+        '#default_value' => $settings['data_width'],
+        '#empty_option' => '',
+        '#size' => 25,
+      ),
+      'data_show_count' => array(
+        '#title' => 'Followers count display',
+        '#description' => t('By default, the User\'s followers count is not displayed with the Follow Button. You can enable this feature here by changing this to <em>Yes</em>.'),
+        '#type' => 'select',
+        '#options' => array(
+          'false' => t('No'),
+          'true' => t('Yes'),
+        ),
+        '#default_value' => $settings['data_show_count'],
+      ),
+      'data_align' => array(
+        '#title' => 'Alignment',
+        '#description' => t('You can specify the alignment of the Follow Button setting this to <em>left</em> or <em>right</em>.'),
+        '#type' => 'select',
+        '#options' => array(
+          'left' => t('Left'),
+          'right' => t('Right'),
+        ),
+        '#default_value' => $settings['data_align'],
+      ),
+      'data_show_screen_name' => array(
+        '#title' => 'Show Screen Name',
+        '#description' => t('The user\'s screen name shows up by default, but you can opt not to show the screen name in the button. You can hide the screen name by changing this to <em>No</em>'),
+        '#type' => 'select',
+        '#options' => array(
+          'false' => t('No'),
+          'true' => t('Yes'),
+        ),
+        '#default_value' => $settings['data_show_screen_name'],
+      ),
+      'data_size' => array(
+        '#title' => 'Button Size',
+        '#description' => t('The size of the button can render in either <em>medium</em>, which is the default size, or in <em>large</em>.'),
+        '#type' => 'select',
+        '#options' => array(
+          'medium' => t('Medium'),
+          'large' => t('Large'),
+        ),
+        '#default_value' => $settings['data_size'],
+      ),
+      'data_dnt' => array(
+        '#title' => 'Opt-out of tailoring Twitter',
+        '#description' => t('Twitter buttons on your site can help us tailor content and suggestions for Twitter users. If you want to opt-out of this feature, set the optional data-dnt parameter to be true. <a href="https://support.twitter.com/articles/20169421">Learn more about tailoring Twitter</a>.'),
+        '#type' => 'select',
+        '#options' => array(
+          'false' => t('No'),
+          'true' => t('Yes'),
+        ),
+        '#default_value' => $settings['data_dnt'],
+      ),
+    );
+    return $element;
+  }
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function twitter_username_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  foreach ($items as $delta => $item) {
+    $element[$delta] = array(
+      '#theme' => 'twitter_username_formatter_' . $display['type'],
+      '#element' => $item,
+      '#settings' => $display['settings']
+    );
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_theme().
+ * Defines a theme function by formatter, to allow overrides.
+ */
+function twitter_username_theme() {
+  return array(
+    'twitter_username_formatter_twitter_username_default' => array(
+      'variables' => array('element' => NULL, 'settings' => array()),
+    ),
+    'twitter_username_formatter_twitter_username_link' => array(
+      'variables' => array('element' => NULL, 'settings' => array()),
+    ),
+    'twitter_username_formatter_twitter_username_follow_button' => array(
+      'variables' => array('element' => NULL, 'settings' => array()),
+    ),
+  );
+}
+
+function theme_twitter_username_formatter_twitter_username_default($vars) {
+  $twitter_username = check_plain($vars['element']['twitter_username']);
+  return "@" . $twitter_username;
+}
+
+function theme_twitter_username_formatter_twitter_username_link($vars) {
+  $twitter_username = check_plain($vars['element']['twitter_username']);
+  return l("@" . $twitter_username, 'http://twitter.com/' . $twitter_username);
+}
+
+function theme_twitter_username_formatter_twitter_username_follow_button($vars) {
+  global $language;
+  $twitter_username = check_plain($vars['element']['twitter_username']);
+
+  $follow_button_js = '!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");';
+  $follow_button = array(
+    '#theme' => 'link',
+    '#text' => "@" . $twitter_username,
+    '#path' => 'https://twitter.com/' . $twitter_username,
+    '#options' => array(
+      'attributes' => array(
+        'class' => array('twitter-follow-button'),
+        'data-lang' => $language->language,
+        'data-show-count' => $vars['settings']['data_show_count'],
+        'data-show-screen-name' => $vars['settings']['data_show_screen_name'],
+        'data-dnt' => $vars['settings']['data_dnt'],
+        'data-width' => $vars['settings']['data_width'],
+        'data-align' => $vars['settings']['data_align'],
+        'data-size' => $vars['settings']['data_size'],
+      ),
+      'html' => FALSE,
+    ),
+    '#attached' => array(
+      'js' => array(
+        $follow_button_js => array(
+          'type' => 'inline',
+          'scope' => 'footer',
+        ),
+      ),
+    ),
+  );
+
+  return render($follow_button);
+}

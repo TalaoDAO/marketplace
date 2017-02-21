@@ -146,7 +146,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
 function emindhub_form_user_pass_alter(&$form, &$form_state) {
   $form['name']['#title_display'] = 'invisible';
@@ -154,7 +154,7 @@ function emindhub_form_user_pass_alter(&$form, &$form_state) {
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
 function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $element_info = element_info('password_confirm');
@@ -162,7 +162,6 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $process[] = 'emindhub_form_process_password_confirm';
   $form['account']['pass']['#process'] = $process;
 
-  // Profile
   if ($form['field_first_name'] && $form['field_last_name']) {
     $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
     $form['field_last_name']['#suffix'] = '</div>';
@@ -171,7 +170,7 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   // Reduce email description for better Bootstrap display (tooltip)
   $form['account']['mail']['#description'] = t('All e-mails from the system will be sent to this address. The e-mail address will only be used if you wish to receive a new password or certain news or notifications by e-mail.');
 
-  // Contact
+  // Contact.
   $form['field_address'][LANGUAGE_NONE][0]['#type'] = 'div';
 
   if ($form['field_address'][LANGUAGE_NONE][0]['street_block']['thoroughfare'] && $form['field_address'][LANGUAGE_NONE][0]['street_block']['premise']) {
@@ -184,33 +183,28 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
     $form['field_address'][LANGUAGE_NONE][0]['phone_block']['mobile_number']['#suffix'] = '</div>';
   }
 
-  // Organisation
-  if ($form['field_position'] && $form['field_working_status']) {
-    $form['field_position']['#prefix'] = '<div class="form-group-2col row">';
+  if ($form['field_link_to_my_blog'] && $form['field_linkedin'] && $form['field_twitter']) {
+    $form['field_link_to_my_blog']['#prefix'] = '<div class="user-social form-group-3col row">';
+    $form['field_twitter']['#suffix'] = '</div>';
+  }
+
+  if ($form['field_position'] && $form['field_titre_metier'] && $form['field_working_status']) {
+    $form['field_position']['#prefix'] = '<div class="form-group-3col row">';
     $form['field_working_status']['#suffix'] = '</div>';
   }
 
-  // Needs
-  if ($form['field_needs_for_expertise'] && $form['field_specific_skills3']) {
-    $form['field_needs_for_expertise']['#prefix'] = '<div class="form-group-2col row">';
-    $form['field_specific_skills3']['#suffix'] = '</div>';
+  if ($form['field_emh_usage'] && $form['field_needs_for_expertise']) {
+    $form['field_emh_usage']['#prefix'] = '<div class="form-group-2col row">';
+    $form['field_needs_for_expertise']['#suffix'] = '</div>';
   }
   $form['field_needs_for_expertise'][LANGUAGE_NONE]['#title'] = $form['field_needs_for_expertise'][LANGUAGE_NONE]['#title'] . ' ' . t('(choose one or several fields)');
   $form['field_specific_skills3'][LANGUAGE_NONE]['#title'] = $form['field_specific_skills3'][LANGUAGE_NONE]['#title'] . ' ' . t('(using keywords or tags)');
 
-  // Skills & background
-  if ($form['field_titre_metier'] && $form['field_domaine']) {
-    $form['field_titre_metier']['#prefix'] = '<div class="form-group-2col row">';
-    $form['field_domaine']['#suffix'] = '</div>';
-  }
-
-  // Sponsorship
   if ($form['field_sponsorship'] && $form['field_sponsor1']) {
     $form['field_sponsorship']['#prefix'] = '<div class="form-group-2col row">';
     $form['field_sponsor1']['#suffix'] = '</div>';
   }
 
-  // Complement
   if ($form['field_notification_frequency'] && $form['field_known_specific']) {
     $form['field_notification_frequency']['#prefix'] = '<div class="form-group-3col row">';
     $form['field_known_specific']['#suffix'] = '</div>';
@@ -236,7 +230,7 @@ function emindhub_form_process_password_confirm($element) {
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
 function emindhub_form_emh_profile_complete_request_form_alter(&$form, &$form_state, $form_id) {
   $form['field_entreprise']['#weight'] = '1';
@@ -248,7 +242,7 @@ function emindhub_form_emh_profile_complete_request_form_alter(&$form, &$form_st
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
 function emindhub_form_lang_dropdown_form_alter(&$form, &$form_state, $form_id) {
   $form['#attributes']['class'][] = 'navbar-form';
@@ -271,7 +265,7 @@ function emindhub_form_has_required($form, $form_id) {
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
 function emindhub_form_search_block_form_alter(&$form, &$form_state, $form_id) {
   $form['search_block_form']['#title'] = t('Search'); // Change the text on the label element
@@ -292,7 +286,7 @@ function emindhub_form_search_block_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
 function emindhub_form_user_register_form_client_alter(&$form, &$form_state, $form_id) {
   $form['emh_baseline'] = array(
@@ -311,7 +305,7 @@ function emindhub_form_user_register_form_client_alter(&$form, &$form_state, $fo
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
 function emindhub_form_user_register_form_expert_alter(&$form, &$form_state, $form_id) {
   $form['emh_baseline'] = array(
@@ -353,7 +347,7 @@ function emindhub_process_password_confirm($element) {
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
 function emindhub_form_comment_form_alter(&$form, &$form_state, $form_id) {
   $form['author']['#access'] = 0;
@@ -364,7 +358,7 @@ function emindhub_form_comment_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
 function emindhub_views_bulk_operations_form_alter(&$form, $form_state, $vbo_handler) {
   // Only when we want it.
@@ -375,14 +369,14 @@ function emindhub_views_bulk_operations_form_alter(&$form, $form_state, $vbo_han
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
 function emindhub_form_emh_points_arrange_form_alter(&$form, &$form_state, $type_source) {
   $form['submit']['#attributes']['class'][] = 'btn-submit';
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
 function emindhub_form_change_pwd_page_form_alter(&$form, &$form_state, $form_id) {
   $form['account']['pass']['#title'] = t('Enter your new password');
@@ -394,7 +388,7 @@ function emindhub_form_change_pwd_page_form_alter(&$form, &$form_state, $form_id
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  * node/add/webform
  * node/%/edit
  */
@@ -428,7 +422,7 @@ function emindhub_form_webform_node_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  * node/add/challenge
  * node/%/edit
  */
@@ -456,7 +450,7 @@ function emindhub_form_challenge_node_form_alter(&$form, &$form_state, $form_id)
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  * node/add/question1
  * node/%/edit
  */
@@ -479,7 +473,7 @@ function emindhub_form_question1_node_form_alter(&$form, &$form_state, $form_id)
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  * node/add/request
  * node/%/edit
  */
@@ -540,7 +534,7 @@ function emindhub_form_request_node_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
 function emindhub_form_contact_site_form_alter(&$form, &$form_state) {
   $form['firstname']['#prefix'] = '<div class="contact-left">';

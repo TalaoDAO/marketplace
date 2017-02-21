@@ -912,3 +912,60 @@ function emh_configuration_update_7048() {
   module_disable(array('ft_wysiwyg'));
   drupal_uninstall_modules(array('ft_wysiwyg'));
 }
+
+/*
+ * CHG: 403 errors infos.
+ */
+function emh_configuration_update_7049() {
+  if (module_exists('customerror')) {
+    variable_set('customerror_403_authenticated_title', 'Access denied');
+    variable_set('customerror_403_authenticated', 'Insufficient permissions to access this page.');
+  }
+}
+
+/**
+ * CHG: Delete Display Suite module.
+ */
+function emh_configuration_update_7050() {
+  module_disable(array('ds'));
+  drupal_uninstall_modules(array('ds'));
+}
+
+/**
+ * CHG: Disable original OG Extras group members.
+ */
+function emh_configuration_update_7051() {
+  $views_name = array(
+    'og_extras_members',
+  );
+  emh_configuration_revert_and_disable_views($views_name);
+}
+
+/**
+ * Install module : Twitter username
+ */
+function emh_configuration_update_7052() {
+  module_enable(array('twitter_username'));
+}
+
+/**
+ * ADD: Smart Mobility feature.
+ */
+function emh_configuration_update_7053() {
+  module_enable(['emh_smartmobility']);
+}
+
+/**
+ * Set moderate permissions.
+ */
+// function emh_configuration_update_7054() {
+//   variable_del('emh_request_send_notification_email_all_domains');
+//
+//   if ($rules_config = rules_config_load('rules_emh_request_send_notification_email')) {
+//     $rules_config->delete();
+//   }
+//
+//   module_enable(['emh_request_notification']);
+//   user_role_grant_permissions(3, array('moderate requests'));
+//   user_role_grant_permissions(6, array('moderate requests'));
+// }
