@@ -172,40 +172,6 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'comment-comment_node_circle-comment_body'.
-  $field_instances['comment-comment_node_circle-comment_body'] = array(
-    'bundle' => 'comment_node_circle',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'comment',
-    'field_name' => 'comment_body',
-    'label' => 'Comment',
-    'required' => TRUE,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'text_processing' => 1,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 5,
-      ),
-      'type' => 'text_textarea',
-      'weight' => 0,
-    ),
-  );
-
   // Exported field_instance: 'comment-comment_node_corporate-comment_body'.
   $field_instances['comment-comment_node_corporate-comment_body'] = array(
     'bundle' => 'comment_node_corporate',
@@ -1582,415 +1548,6 @@ function ft_content_type_field_default_field_instances() {
       ),
       'type' => 'options_select',
       'weight' => 14,
-    ),
-  );
-
-  // Exported field_instance: 'node-circle-body'.
-  $field_instances['node-circle-body'] = array(
-    'bundle' => 'circle',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 0,
-      ),
-      'full' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(
-          'trim_length' => 600,
-        ),
-        'type' => 'text_summary_or_trimmed',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'body',
-    'label' => 'Body',
-    'required' => FALSE,
-    'settings' => array(
-      'display_summary' => TRUE,
-      'entity_translation_sync' => FALSE,
-      'text_processing' => 1,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 20,
-        'summary_rows' => 5,
-      ),
-      'type' => 'text_textarea_with_summary',
-      'weight' => 3,
-    ),
-  );
-
-  // Exported field_instance: 'node-circle-field_anonymous'.
-  $field_instances['node-circle-field_anonymous'] = array(
-    'bundle' => 'circle',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 4,
-      ),
-      'full' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 3,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 3,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_anonymous',
-    'label' => 'Author visibility',
-    'required' => FALSE,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'module' => 'options',
-      'settings' => array(
-        'apply_chosen' => '',
-      ),
-      'type' => 'options_select',
-      'weight' => 5,
-    ),
-  );
-
-  // Exported field_instance: 'node-circle-field_circle_logo'.
-  $field_instances['node-circle-field_circle_logo'] = array(
-    'bundle' => 'circle',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'image',
-        'settings' => array(
-          'image_link' => '',
-          'image_style' => '',
-        ),
-        'type' => 'image',
-        'weight' => 2,
-      ),
-      'full' => array(
-        'label' => 'hidden',
-        'module' => 'image',
-        'settings' => array(
-          'image_link' => '',
-          'image_style' => '',
-        ),
-        'type' => 'image',
-        'weight' => 2,
-      ),
-      'teaser' => array(
-        'label' => 'hidden',
-        'module' => 'image',
-        'settings' => array(
-          'image_link' => 'content',
-          'image_style' => '',
-        ),
-        'type' => 'image',
-        'weight' => 2,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_circle_logo',
-    'label' => 'Circle logo',
-    'required' => 0,
-    'settings' => array(
-      'alt_field' => 0,
-      'default_image' => 0,
-      'entity_translation_sync' => FALSE,
-      'file_directory' => '',
-      'file_extensions' => 'png gif jpg jpeg',
-      'filefield_paths' => array(
-        'active_updating' => 0,
-        'file_name' => array(
-          'options' => array(
-            'pathauto' => 0,
-            'slashes' => 0,
-            'transliterate' => 0,
-          ),
-          'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
-        ),
-        'file_path' => array(
-          'options' => array(
-            'pathauto' => 0,
-            'slashes' => 0,
-            'transliterate' => 0,
-          ),
-          'value' => 'circles',
-        ),
-        'redirect' => FALSE,
-        'retroactive_update' => 0,
-      ),
-      'filefield_paths_enabled' => 1,
-      'max_filesize' => '',
-      'max_resolution' => '',
-      'min_resolution' => '100x100',
-      'title_field' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'imagefield_crop',
-      'settings' => array(
-        'collapsible' => 2,
-        'croparea' => '100x100',
-        'custom_ratio' => '',
-        'enforce_minimum' => 1,
-        'enforce_ratio' => 1,
-        'gif_processing' => 'convert',
-        'preview_image_style' => 'thumbnail',
-        'preview_image_width' => 100,
-        'progress_indicator' => 'throbber',
-        'resolution' => '100x100',
-        'select_maximum_area' => 1,
-        'validate_resolution' => 0,
-      ),
-      'type' => 'imagefield_crop_widget',
-      'weight' => 4,
-    ),
-  );
-
-  // Exported field_instance: 'node-circle-field_free_circle'.
-  $field_instances['node-circle-field_free_circle'] = array(
-    'bundle' => 'circle',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 3,
-      ),
-      'full' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_free_circle',
-    'label' => 'Free circle',
-    'required' => 1,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_buttons',
-      'weight' => 2,
-    ),
-  );
-
-  // Exported field_instance: 'node-circle-field_options_costs'.
-  $field_instances['node-circle-field_options_costs'] = array(
-    'bundle' => 'circle',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => NULL,
-        'settings' => array(),
-        'type' => 'emh_option_cost_modifier_default',
-        'weight' => 6,
-      ),
-      'full' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_options_costs',
-    'label' => 'Surcharge des coûts d\'option',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'emh_circles',
-      'settings' => array(),
-      'type' => 'emh_option_cost_modifier_default',
-      'weight' => 6,
-    ),
-  );
-
-  // Exported field_instance: 'node-circle-group_access'.
-  $field_instances['node-circle-group_access'] = array(
-    'bundle' => 'circle',
-    'default_value' => array(
-      0 => array(
-        'value' => 1,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 5,
-      ),
-      'full' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 4,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 4,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'group_access',
-    'label' => 'Group visibility',
-    'required' => 1,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'view modes' => array(
-      'full' => array(
-        'label' => 'above',
-        'type' => 'options_onoff',
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'type' => 'options_onoff',
-      ),
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_buttons',
-      'weight' => 1,
-    ),
-    'widget_type' => 'options_select',
-  );
-
-  // Exported field_instance: 'node-circle-group_group'.
-  $field_instances['node-circle-group_group'] = array(
-    'bundle' => 'circle',
-    'default_value' => array(
-      0 => array(
-        'value' => 1,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => 'Determine if this is an OG group.',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'og_ui',
-        'settings' => array(
-          'field_name' => FALSE,
-        ),
-        'type' => 'og_group_subscribe',
-        'weight' => 1,
-      ),
-      'full' => array(
-        'label' => 'hidden',
-        'module' => 'i18n_field',
-        'settings' => array(),
-        'type' => 'i18n_list_default',
-        'weight' => 1,
-      ),
-      'teaser' => array(
-        'label' => 'hidden',
-        'module' => 'i18n_field',
-        'settings' => array(),
-        'type' => 'i18n_list_default',
-        'weight' => 1,
-      ),
-    ),
-    'display_label' => 1,
-    'entity_type' => 'node',
-    'field_name' => 'group_group',
-    'label' => 'Group',
-    'required' => FALSE,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'view modes' => array(
-      'full' => array(
-        'custom settings' => FALSE,
-        'label' => 'Full',
-        'type' => 'og_group_subscribe',
-      ),
-      'teaser' => array(
-        'custom settings' => FALSE,
-        'label' => 'Teaser',
-        'type' => 'og_group_subscribe',
-      ),
-    ),
-    'widget' => array(
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 0,
-        'og_hide' => TRUE,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 8,
     ),
   );
 
@@ -3815,14 +3372,11 @@ function ft_content_type_field_default_field_instances() {
         'settings' => array(
           'format_handlers' => array(
             'address' => 'address',
-            'phone' => 'phone',
-            'address-hide-postal-code' => 'address-hide-postal-code',
-            'address-hide-street' => 'address-hide-street',
           ),
           'use_widget_handlers' => 0,
         ),
         'type' => 'addressfield_default',
-        'weight' => 119,
+        'weight' => 2,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -3870,7 +3424,42 @@ function ft_content_type_field_default_field_instances() {
         ),
       ),
       'type' => 'addressfield_standard',
-      'weight' => 12,
+      'weight' => 19,
+    ),
+  );
+
+  // Exported field_instance: 'user-user-field_availability'.
+  $field_instances['user-user-field_availability'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Please indicate when you are available for missions in the next 6 months',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_plain',
+        'weight' => 14,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_availability',
+    'label' => 'Availability',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 15,
     ),
   );
 
@@ -3885,7 +3474,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_default',
-        'weight' => 125,
+        'weight' => 13,
       ),
     ),
     'entity_type' => 'user',
@@ -3929,7 +3518,7 @@ function ft_content_type_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 19,
+      'weight' => 14,
     ),
   );
 
@@ -3945,7 +3534,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_plain',
-        'weight' => 121,
+        'weight' => 8,
       ),
       'full' => array(
         'label' => 'above',
@@ -3970,35 +3559,28 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 15,
+      'weight' => 9,
     ),
   );
 
-  // Exported field_instance: 'user-user-field_employment_history'.
-  $field_instances['user-user-field_employment_history'] = array(
+  // Exported field_instance: 'user-user-field_education'.
+  $field_instances['user-user-field_education'] = array(
     'bundle' => 'user',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Degrees, companies, etc.',
+    'description' => 'Indicate the college or university you gratuated from.',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
+        'label' => 'above',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 124,
-      ),
-      'full' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 15,
+        'weight' => 11,
       ),
     ),
     'entity_type' => 'user',
-    'field_name' => 'field_employment_history',
-    'label' => 'Describe your work experience',
+    'field_name' => 'field_education',
+    'label' => 'Education',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -4012,7 +3594,80 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 18,
+      'weight' => 12,
+    ),
+  );
+
+  // Exported field_instance: 'user-user-field_emh_usage'.
+  $field_instances['user-user-field_emh_usage'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 21,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_emh_usage',
+    'label' => 'Specify your needs',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 24,
+    ),
+  );
+
+  // Exported field_instance: 'user-user-field_employment_history'.
+  $field_instances['user-user-field_employment_history'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Describe your work experience : degrees, companies, etc.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 12,
+      ),
+      'full' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 15,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_employment_history',
+    'label' => 'Work experience',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 13,
     ),
   );
 
@@ -4031,7 +3686,7 @@ function ft_content_type_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 118,
+        'weight' => 3,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4076,7 +3731,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 17,
+      'weight' => 23,
     ),
   );
 
@@ -4088,10 +3743,11 @@ function ft_content_type_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
+        'module' => 'text',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 18,
+        'type' => 'text_default',
+        'weight' => 4,
       ),
       'full' => array(
         'label' => 'above',
@@ -4106,7 +3762,7 @@ function ft_content_type_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'text_processing' => 1,
+      'text_processing' => 0,
       'user_register_form' => 0,
     ),
     'widget' => array(
@@ -4116,7 +3772,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 18,
+      'weight' => 24,
     ),
   );
 
@@ -4131,7 +3787,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 116,
+        'weight' => 40,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4176,7 +3832,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 13,
+        'weight' => 32,
       ),
     ),
     'entity_type' => 'user',
@@ -4194,7 +3850,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 11,
+      'weight' => 16,
     ),
   );
 
@@ -4213,7 +3869,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 25,
+        'weight' => 39,
       ),
     ),
     'entity_type' => 'user',
@@ -4231,7 +3887,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 12,
+      'weight' => 17,
     ),
   );
 
@@ -4250,7 +3906,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 24,
+        'weight' => 38,
       ),
     ),
     'entity_type' => 'user',
@@ -4268,7 +3924,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 10,
+      'weight' => 14,
     ),
   );
 
@@ -4280,10 +3936,10 @@ function ft_content_type_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 16,
+        'weight' => 25,
       ),
       'full' => array(
         'label' => 'above',
@@ -4322,7 +3978,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 17,
+        'weight' => 34,
       ),
       'full' => array(
         'label' => 'above',
@@ -4347,7 +4003,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 10,
+      'weight' => 8,
     ),
   );
 
@@ -4362,7 +4018,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 21,
+        'weight' => 36,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4397,13 +4053,13 @@ function ft_content_type_field_default_field_instances() {
     'bundle' => 'user',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Link to my website or my blog',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
+        'label' => 'inline',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 22,
+        'weight' => 17,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4415,7 +4071,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'user',
     'field_name' => 'field_link_to_my_blog',
-    'label' => 'Link to my website or my blog',
+    'label' => 'Website',
     'required' => 0,
     'settings' => array(
       'absolute_url' => 1,
@@ -4446,7 +4102,58 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 14,
+      'weight' => 20,
+    ),
+  );
+
+  // Exported field_instance: 'user-user-field_linkedin'.
+  $field_instances['user-user-field_linkedin'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'URL of your LinkedIn profile',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 18,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_linkedin',
+    'label' => 'LinkedIn profile',
+    'required' => 0,
+    'settings' => array(
+      'absolute_url' => 1,
+      'attributes' => array(
+        'class' => '',
+        'configurable_class' => 0,
+        'configurable_title' => 0,
+        'rel' => '',
+        'target' => '_blank',
+        'title' => '',
+      ),
+      'display' => array(
+        'url_cutoff' => 80,
+      ),
+      'enable_tokens' => 0,
+      'entity_translation_sync' => FALSE,
+      'rel_remove' => 'default',
+      'title' => 'none',
+      'title_label_use_field_label' => 0,
+      'title_maxlength' => 128,
+      'title_value' => '',
+      'url' => 0,
+      'user_register_form' => 0,
+      'validate_url' => 1,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'link',
+      'settings' => array(),
+      'type' => 'link_field',
+      'weight' => 21,
     ),
   );
 
@@ -4459,10 +4166,14 @@ function ft_content_type_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_plain',
-        'weight' => 121,
+        'module' => 'title',
+        'settings' => array(
+          'title_class' => '',
+          'title_link' => '',
+          'title_style' => '',
+        ),
+        'type' => 'title_linked',
+        'weight' => 16,
       ),
     ),
     'entity_type' => 'user',
@@ -4481,7 +4192,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 5,
+      'weight' => 2,
     ),
   );
 
@@ -4494,19 +4205,18 @@ function ft_content_type_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'taxonomy',
         'settings' => array(),
-        'type' => 'taxonomy_term_reference_plain',
-        'weight' => 15,
+        'type' => 'hidden',
+        'weight' => 22,
       ),
     ),
     'entity_type' => 'user',
     'field_name' => 'field_needs_for_expertise',
-    'label' => 'Needs for expertise',
-    'required' => 1,
+    'label' => 'In which fields',
+    'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'user_register_form' => 1,
+      'user_register_form' => 0,
     ),
     'widget' => array(
       'active' => 1,
@@ -4515,7 +4225,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 32,
+      'weight' => 26,
     ),
   );
 
@@ -4531,10 +4241,10 @@ function ft_content_type_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 15,
+        'weight' => 24,
       ),
       'full' => array(
         'label' => 'above',
@@ -4571,10 +4281,9 @@ function ft_content_type_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'text',
         'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 8,
+        'type' => 'hidden',
+        'weight' => 26,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -4600,7 +4309,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 5,
+      'weight' => 28,
     ),
   );
 
@@ -4615,7 +4324,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 12,
+        'weight' => 31,
       ),
     ),
     'entity_type' => 'user',
@@ -4652,7 +4361,7 @@ function ft_content_type_field_default_field_instances() {
           'image_style' => 'profile_picture',
         ),
         'type' => 'image',
-        'weight' => 115,
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'user',
@@ -4746,7 +4455,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 20,
+      'weight' => 25,
     ),
   );
 
@@ -4761,14 +4470,10 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'module' => 'field_collection',
         'settings' => array(
-          'add' => '',
-          'delete' => '',
-          'description' => 1,
-          'edit' => '',
           'view_mode' => 'full',
         ),
-        'type' => 'field_collection_view',
-        'weight' => 123,
+        'type' => 'field_collection_fields',
+        'weight' => 10,
       ),
     ),
     'entity_type' => 'user',
@@ -4784,7 +4489,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 17,
+      'weight' => 11,
     ),
   );
 
@@ -4797,15 +4502,9 @@ function ft_content_type_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'number',
-        'settings' => array(
-          'decimal_separator' => '.',
-          'prefix_suffix' => 0,
-          'scale' => 0,
-          'thousand_separator' => ' ',
-        ),
-        'type' => 'number_integer',
-        'weight' => 126,
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 27,
       ),
     ),
     'entity_type' => 'user',
@@ -4825,7 +4524,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 13,
+      'weight' => 18,
     ),
   );
 
@@ -4840,14 +4539,10 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'module' => 'field_collection',
         'settings' => array(
-          'add' => '',
-          'delete' => '',
-          'description' => 1,
-          'edit' => '',
           'view_mode' => 'full',
         ),
-        'type' => 'field_collection_view',
-        'weight' => 122,
+        'type' => 'field_collection_fields',
+        'weight' => 9,
       ),
       'full' => array(
         'label' => 'above',
@@ -4876,7 +4571,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 16,
+      'weight' => 10,
     ),
   );
 
@@ -4889,10 +4584,9 @@ function ft_content_type_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'taxonomy',
         'settings' => array(),
-        'type' => 'taxonomy_term_reference_plain',
-        'weight' => 16,
+        'type' => 'hidden',
+        'weight' => 23,
       ),
       'full' => array(
         'label' => 'above',
@@ -4903,7 +4597,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'user',
     'field_name' => 'field_specific_skills3',
-    'label' => 'Specify your needs',
+    'label' => 'In which fields',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -4921,7 +4615,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'autocomplete_deluxe_taxonomy',
-      'weight' => 33,
+      'weight' => 5,
     ),
   );
 
@@ -4937,7 +4631,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 19,
+        'weight' => 35,
       ),
       'full' => array(
         'label' => 'above',
@@ -4966,7 +4660,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 15,
+      'weight' => 10,
     ),
   );
 
@@ -4981,7 +4675,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 11,
+        'weight' => 29,
       ),
     ),
     'entity_type' => 'user',
@@ -5019,7 +4713,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 14,
+        'weight' => 33,
       ),
       'full' => array(
         'label' => 'above',
@@ -5043,7 +4737,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 14,
+      'weight' => 9,
     ),
   );
 
@@ -5058,7 +4752,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 6,
+        'weight' => 28,
       ),
       'full' => array(
         'label' => 'above',
@@ -5085,7 +4779,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'phone',
       'settings' => array(),
       'type' => 'phone_textfield',
-      'weight' => 2,
+      'weight' => 3,
     ),
   );
 
@@ -5100,7 +4794,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 11,
+        'weight' => 30,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -5140,11 +4834,11 @@ function ft_content_type_field_default_field_instances() {
     'description' => 'For example : Expert in electromechanical systems.',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
+        'label' => 'inline',
         'module' => 'text',
         'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 117,
+        'type' => 'text_plain',
+        'weight' => 6,
       ),
       'full' => array(
         'label' => 'hidden',
@@ -5170,7 +4864,39 @@ function ft_content_type_field_default_field_instances() {
         'size' => 50,
       ),
       'type' => 'text_textfield',
-      'weight' => 14,
+      'weight' => 26,
+    ),
+  );
+
+  // Exported field_instance: 'user-user-field_twitter'.
+  $field_instances['user-user-field_twitter'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 20,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_twitter',
+    'label' => 'Twitter account',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => 0,
+      'validate_existance' => 1,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'twitter_username',
+      'settings' => array(),
+      'type' => 'twitter_username',
+      'weight' => 22,
     ),
   );
 
@@ -5186,7 +4912,7 @@ function ft_content_type_field_default_field_instances() {
         'module' => 'i18n_field',
         'settings' => array(),
         'type' => 'i18n_list_default',
-        'weight' => 6,
+        'weight' => 7,
       ),
       'full' => array(
         'label' => 'above',
@@ -5210,7 +4936,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 21,
+      'weight' => 27,
     ),
   );
 
@@ -5225,7 +4951,7 @@ function ft_content_type_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 23,
+        'weight' => 37,
       ),
       'full' => array(
         'label' => 'above',
@@ -5269,7 +4995,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'og',
       'settings' => array(),
       'type' => 'og_complex',
-      'weight' => 8,
+      'weight' => 12,
     ),
   );
 
@@ -5280,39 +5006,36 @@ function ft_content_type_field_default_field_instances() {
   t('Answer');
   t('Answer visibility');
   t('Any other areas of interest that might help to know you better');
-  t('Author visibility');
   t('AutoRef');
+  t('Availability');
   t('Body');
   t('CV');
   t('Choose circle of experts');
-  t('Circle logo');
   t('Comment');
   t('Context and objectives of the mission');
   t('Deadline');
-  t('Degrees, companies, etc.');
-  t('Describe your work experience');
+  t('Describe your work experience : degrees, companies, etc.');
   t('Description');
   t('Description of the activity of organisation / company');
   t('Desired starting date');
-  t('Determine if this is an OG group.');
   t('Document');
   t('Document text');
   t('Domain(s)');
   t('Duration of the mission');
+  t('Education');
   t('Entreprise type');
   t('Field(s) of expertise');
   t('First Name');
   t('For example : Expert in electromechanical systems.');
   t('Force public answer');
-  t('Free circle');
   t('Frequency of notifications');
-  t('Group');
   t('Group content visibility');
   t('Group membership');
-  t('Group visibility');
   t('How did you hear about us?');
   t('If you belong to a group such as a company, association, club, training center, research center, etc., specify it here.');
   t('Image');
+  t('In which fields');
+  t('Indicate the college or university you gratuated from.');
   t('Is partner');
   t('Is promoted');
   t('Is sponsor');
@@ -5320,17 +5043,18 @@ function ft_content_type_field_default_field_instances() {
   t('Last position(s)');
   t('Lead experts');
   t('Link to my website or my blog');
+  t('LinkedIn profile');
   t('Logo');
   t('Mail');
   t('More about <a href=\'/content/sponsorship\'>sponsorship</a>');
   t('Name of my sponsor');
-  t('Needs for expertise');
   t('Nom');
   t('Organisation');
   t('Organisation / company');
   t('Other, please specify');
   t('Phone');
   t('Photo');
+  t('Please indicate when you are available for missions in the next 6 months');
   t('Position');
   t('Private answer');
   t('Profile purchased');
@@ -5345,14 +5069,17 @@ function ft_content_type_field_default_field_instances() {
   t('Specify your needs');
   t('Sponsorship');
   t('State');
-  t('Surcharge des coûts d\'option');
   t('Tag(s)');
   t('Tags');
   t('Testimony');
   t('This is the text a user may send to the group administrators.');
   t('Titre');
+  t('Twitter account');
+  t('URL of your LinkedIn profile');
+  t('Website');
   t('Why did I choose to become a partner?');
   t('Why did I choose to become a sponsor?');
+  t('Work experience');
   t('Working status');
   t('Years of experience');
   t('Your activity');

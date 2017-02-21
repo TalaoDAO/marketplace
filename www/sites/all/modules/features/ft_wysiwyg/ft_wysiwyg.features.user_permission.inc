@@ -58,13 +58,6 @@ function ft_wysiwyg_user_default_permissions() {
     'module' => 'ckeditor',
   );
 
-  // Exported permission: 'use text format ds_code'.
-  $permissions['use text format ds_code'] = array(
-    'name' => 'use text format ds_code',
-    'roles' => array(),
-    'module' => 'filter',
-  );
-
   // Exported permission: 'use text format filtered_html'.
   $permissions['use text format filtered_html'] = array(
     'name' => 'use text format filtered_html',

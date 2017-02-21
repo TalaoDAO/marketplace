@@ -11,7 +11,7 @@ img {
 .nav {
 	> li > a,
 	> li > span.dropdown-toggle {
-		color: @darkBlue;
+		color: @blue-darker;
 
 		&:hover,
 		&:focus {
@@ -63,7 +63,7 @@ body.logged-in {
     line-height: 1.42857;
     text-decoration: none;
     color: #009FE3;
-    background-color: #FFF;
+    background-color: @body-bg;
 
 		display: block;
 		float: none;
@@ -91,11 +91,11 @@ body.logged-in {
 	border: 0;
 
 	.navbar-toggle {
-		background-color: @lightGrey;
-		border-color: @lightGrey;
+		background-color: @gray-lighter;
+		border-color: @gray-lighter;
 
 		.icon-bar {
-			background-color: @darkGrey;
+			background-color: @gray;
 		}
 	}
 }
@@ -168,7 +168,7 @@ body.logged-in {
 	.content {
 		border: 0 !important;
 		color: #fff;
-		background-color: @darkBlue;
+		background-color: @blue-darker;
 		padding: 15px;
 	}
 }
@@ -183,14 +183,14 @@ body.logged-in {
 		padding: 0 0 15px !important;
 		font-size: 20px !important;
 		font-weight: 700;
-		color: @darkerBlue;
+		color: @blue-darker;
 	}
 	@media (min-width: @screen-md-min) {
 		.block-title {
 			span {
 				margin-left: auto;
 				margin-right: auto;
-				background-color: #FFF;
+				background-color: @body-bg;
 				padding: 0 15px;
 				display: inline-block;
 				z-index: 1;
@@ -199,7 +199,7 @@ body.logged-in {
 				height: 1px;
 				content: "";
 				margin-top: -0.55em;
-				background-color: @darkerBlue;
+				background-color: @blue-darker;
 				display: block;
 				width: 100%;
 				z-index: 0;
@@ -223,7 +223,7 @@ body.logged-in {
 	@media (min-width: @screen-md-min) {
 		.block-title {
 			span {
-				background-color: #FFF;
+				background-color: @body-bg;
 				display: inline-block;
 				padding-right: 15px;
 				z-index: 1;
@@ -247,13 +247,13 @@ body.logged-in {
 		margin: 0 0 15px;
 
 		color: @brand-primary;
-		background-color: #fff;
+		background-color: @body-bg;
 		background-image: none;
 	}
 	@media (min-width: @screen-md-min) {
 		h2 {
 			span {
-				background-color: #FFF;
+				background-color: @body-bg;
 				display: inline-block;
 				padding-right: 15px;
 				z-index: 1;
@@ -311,7 +311,7 @@ body.logged-in {
 .emh-block-gold {
 
 	color: #fff;
-	background-color: @expertYellow;
+	background-color: @golden-base;
 
 	a {
 		color: inherit;
@@ -363,13 +363,9 @@ body.logged-in {
 	padding: 0;
 	display: inline-block;
 	line-height: 1.5;
-	// background-image: url("../images/page-title_border.png");
-	// background-repeat: no-repeat;
-	// background-position: bottom left;
 
 	@media (min-width: @screen-md-min) {
 		padding-right: 15px;
-		// background-position: left 100%;
 	}
 
 	span {
@@ -380,11 +376,6 @@ body.logged-in {
 }
 
 .emh-title-baseline {
-	// color: @brand-primary;
-	// margin-bottom: 0;
-	// font-size: 18px;
-	// font-style: italic;
-	// margin-bottom: 20px;
 	.emh-module;
 	.emh-subtitle;
 	margin-bottom: 30px;
@@ -401,6 +392,7 @@ header#title {
  */
 .form-group-col {
 	.make-row();
+  clear: both;
 
 	> * .form-group {
 		margin-bottom: 0;
@@ -426,11 +418,11 @@ header#title {
 
 	@media (min-width: @screen-md-min) {
 		> *:nth-child(1) {
-			padding-left: 0;
+			// padding-left: 0;
 			padding-right: 7.5px;
 		}
 		> *:nth-child(2) {
-			padding-right: 0;
+			// padding-right: 0;
 			padding-left: 7.5px;
 		}
 	}
@@ -450,7 +442,6 @@ header#title {
 		}
 	@media (min-width: @screen-md-min) {
 		> *:nth-child(1) {
-			padding-left: 0;
 			padding-right: 7.5px;
 		}
 		> *:nth-child(2) {
@@ -458,7 +449,6 @@ header#title {
 			padding-left: 0;
 		}
 		> *:nth-child(3) {
-			padding-right: 0;
 			padding-left: 7.5px;
 		}
 	}
@@ -472,7 +462,6 @@ header#title {
 	@media (min-width: @screen-md-min) {
 		> *:nth-child(1) {
 			padding-right: 7.5px;
-			padding-left: 0;
 		}
 		> *:nth-child(2) {
 			padding-right: 7.5px;
@@ -483,7 +472,6 @@ header#title {
 			padding-left: 7.5px;
 		}
 		> *:nth-child(4) {
-			padding-right: 0;
 			padding-left: 7.5px;
 		}
 	}
@@ -574,7 +562,7 @@ header#title {
 .emh-badge-term {
 	display: inline-block;
 	margin-right: 10px;
-	background-color: #fff;
+	background-color: @body-bg;
 	font-style: italic;
 	padding: 7px 15px;
 	.text-left;
@@ -608,7 +596,7 @@ header#title {
 		height: 30px;
 		line-height: 1;
 		text-align: center;
-		background-color: #fff;
+		background-color: @body-bg;
 		color: @brand-primary;
 		border: 4px solid @brand-primary;
 		border-radius: 100%;
@@ -617,7 +605,7 @@ header#title {
 
 .panel.panel-default {
 	> .panel-heading {
-    color: @darkBlue;
+    color: @blue-darker;
 		a {
 			text-decoration: none;
 		}
@@ -631,13 +619,13 @@ header#title {
 	&.views-row-even {
 		> .panel-heading,
 		> .panel-collapse {
-	    background-color: #FFF;
+	    background-color: @body-bg;
 		}
 	}
 }
 
 .introduction {
-  background-color: @darkerBlue;
+  background-color: @blue-darker;
   color: #fff;
   padding: 15px;
 }
@@ -646,12 +634,11 @@ header#title {
 .emh-group {
 	padding: 15px;
 	margin-bottom: 15px;
-	background-color: @lightGrey;
+	background-color: @gray-lighter;
 }
 
 
 .emh-form-legend {
-	.h4;
 	padding: 0 0 5px;
 	margin-bottom: 15px !important; // .overrides.css
 	float: left;
@@ -674,13 +661,13 @@ header#title {
 	color: #FFF;
 
 	&.draft {
-		background-color: @btn-warning-border;
+		background-color: @progress-bar-danger-bg;
 	}
 	&.open {
-		background-color: #53d899;
+		background-color: @progress-bar-success-bg;
 	}
 	&.expired {
-		background-color: #01a7e5;
+		background-color: @gray-light2;
 	}
 	&.closed {
 		background-color: #A1ACB5;
@@ -689,7 +676,7 @@ header#title {
 
 // Progress-bar
 .progress-bar-asphalt {
-  .progress-bar-variant(@asphalt-base);
+  .progress-bar-variant(@blue-base);
 }
 .progress-bar-inactive {
   .progress-bar-variant(@gray-light);
@@ -724,4 +711,15 @@ header#title {
 			left: auto;
 		}
 	}
+}
+
+
+.emh-title-image {
+  .make-md-column(1);
+
+  > * {
+    display: block;
+    margin: 0 auto;
+    .text-center;
+  }
 }

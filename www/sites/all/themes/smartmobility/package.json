@@ -1,0 +1,37 @@
+{
+  "name": "smartmobility",
+  "description": "eMindHub Smart Mobility subtheme",
+  "version": "1.0.0",
+  "keywords": [],
+  "homepage": "https://www.emindhub.com",
+  "author": "eMindHub",
+  "devDependencies": {
+    "eslint": "^2.11.0",
+    "eslint-config-standard": "^5.3.1",
+    "eslint-plugin-promise": "^1.3.1",
+    "eslint-plugin-standard": "^1.3.2",
+    "gulp": "^3.9.1",
+    "gulp-clean": "~0.3.2",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-less": "^3.1.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-util": "^3.0.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://gitemindhub/yoann.babel/emindhub.git"
+  },
+  "scripts": {
+    "build": "gulp",
+    "watch": "gulp watch"
+  },
+  "licenses": [
+    {
+      "type": "GPL-2",
+      "url": "http://www.gnu.org/licenses/gpl-2.0.html"
+    }
+  ],
+  "private": true
+}
