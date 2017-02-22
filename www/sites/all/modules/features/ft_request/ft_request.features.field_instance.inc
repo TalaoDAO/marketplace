@@ -993,6 +993,49 @@ function ft_request_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance:
+  // 'taxonomy_term-request_type-field_circle_restriction'.
+  $field_instances['taxonomy_term-request_type-field_circle_restriction'] = array(
+    'bundle' => 'request_type',
+    'default_value' => NULL,
+    'default_value_function' => '',
+    'deleted' => 0,
+    'description' => 'If you choose a circle, this request type will be available only for this circle. On the request type term, enter in "Prepopulate request URL" : edit[og_group_ref][und]=NID where NID is the circle NID.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_circle_restriction',
+    'label' => 'Circle restriction',
+    'required' => 0,
+    'settings' => array(
+      'behaviors' => array(
+        'prepopulate' => array(
+          'status' => 0,
+        ),
+      ),
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 2,
+    ),
+  );
+
   // Exported field_instance: 'taxonomy_term-request_type-field_prepopulate'.
   $field_instances['taxonomy_term-request_type-field_prepopulate'] = array(
     'bundle' => 'request_type',
@@ -1029,7 +1072,7 @@ function ft_request_field_default_field_instances() {
         'size' => 2048,
       ),
       'type' => 'text_textfield',
-      'weight' => 2,
+      'weight' => 3,
     ),
   );
 
@@ -1074,48 +1117,6 @@ function ft_request_field_default_field_instances() {
       ),
       'type' => 'text_textfield',
       'weight' => 0,
-    ),
-  );
-
-  // Exported field_instance: 'taxonomy_term-request_type-og_group_ref'.
-  $field_instances['taxonomy_term-request_type-og_group_ref'] = array(
-    'bundle' => 'request_type',
-    'default_value' => NULL,
-    'default_value_function' => '',
-    'deleted' => 0,
-    'description' => 'If you choose a circle, this request type will be available only for this circle. On the request type term, enter in "Prepopulate request URL" : edit[og_group_ref][und]=NID where NID is the circle NID.',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 4,
-      ),
-    ),
-    'entity_type' => 'taxonomy_term',
-    'field_name' => 'og_group_ref',
-    'label' => 'Circle restriction',
-    'required' => 0,
-    'settings' => array(
-      'behaviors' => array(
-        'prepopulate' => array(
-          'status' => 0,
-        ),
-      ),
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'apply_chosen' => '',
-      ),
-      'type' => 'options_select',
-      'weight' => 3,
     ),
   );
 
