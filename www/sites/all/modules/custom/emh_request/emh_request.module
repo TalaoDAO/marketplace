@@ -614,7 +614,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
         if (isset($_REQUEST['edit']['field_request_type'])) {
           $tid = key($_REQUEST['edit']['field_request_type'][LANGUAGE_NONE]);
           $term = taxonomy_term_load($tid);
-          if (isset($term->og_group_ref)) {
+          if (isset($term->field_circle_restriction)) {
             // Prevent to change the circle.
             $form['og_group_ref']['#disabled'] = TRUE;
           }
