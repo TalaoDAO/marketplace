@@ -9,7 +9,26 @@
  * Implements hook_form_alter().
  */
 function emh_request_prepopulate_form_request_node_form_alter(&$form, &$form_state, $form_id) {
+  global $user;
   if ($form['field_request_type']) {
+    foreach ($form['field_request_type'][LANGUAGE_NONE]['#options'] as $tid => $term_name) {
+      $term = taxonomy_term_load($tid);
+      if ($term == NULL) {
+        continue;
+      }
+      else {
+        // Check if the request type is restricted to a Circle.
+        if (field_get_items('taxonomy_term', $term, 'field_circle_restriction')) {
+          // Get Circle ID.
+          $circle_id = $term->field_circle_restriction[LANGUAGE_NONE][0]['target_id'];
+          // If the user doesn't belong to the Circle, skip this request type option.
+          if (!og_is_member('node', $circle_id, 'user', $user)) {
+            unset($form['field_request_type'][LANGUAGE_NONE]['#options'][$tid]);
+            continue;
+          }
+        }
+      }
+    }
     $form['field_request_type'][LANGUAGE_NONE]['#after_build'][] = 'emh_request_prepopulate_form_field_request_type_after_build';
     $form['field_request_type']['#suffix'] = _emh_request_prepopulate_form_field_request_type_switch($form['field_request_type'][LANGUAGE_NONE]['#options'], $form);
   }
@@ -35,7 +54,7 @@ function emh_request_prepopulate_form_request_node_form_alter(&$form, &$form_sta
  * @see http://e9p.net/altering-individual-radio-or-checkbox-items-drupal-7-fapi
  */
 function emh_request_prepopulate_form_field_request_type_after_build($element, &$form_state) {
-  global $base_url, $language, $user;
+  global $base_url, $language;
   // Each renderable radio element.
   foreach (element_children($element) as $tid) {
 
@@ -46,20 +65,6 @@ function emh_request_prepopulate_form_field_request_type_after_build($element, &
     $term = taxonomy_term_load($tid);
     if ($term == NULL) {
       continue;
-    }
-
-    // Check if the request type is restricted to a Circle.
-    if (field_get_items('taxonomy_term', $term, 'og_group_ref')) {
-
-      // Get Circle ID.
-      $circle_id = $term->og_group_ref[LANGUAGE_NONE][0]['target_id'];
-
-      // If the user doesn't belong to the Circle, skip this request type.
-      if (!og_is_member('node', $circle_id, 'user', $user)) {
-        unset($element[$tid]);
-        continue;
-      }
-
     }
 
     $term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
@@ -110,6 +115,7 @@ function emh_request_prepopulate_form_field_request_type_after_build($element, &
                                           )
                                         );
       }
+
     }
     else {
       if (isset($_REQUEST['edit'])) {
@@ -136,7 +142,6 @@ function emh_request_prepopulate_form_field_request_type_after_build($element, &
                                         );
       }
     }
-
   }
 
   // Always return the element to render in after_build callbacks.
