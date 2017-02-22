@@ -956,7 +956,7 @@ function emh_configuration_update_7053() {
 }
 
 /**
- * Set moderate permissions.
+ * ADD: moderate permissions.
  */
 function emh_configuration_update_7054() {
   variable_del('emh_request_send_notification_email_all_domains');
@@ -965,7 +965,18 @@ function emh_configuration_update_7054() {
     $rules_config->delete();
   }
 
+  if ($rules_config = rules_config_load('rules_emh_request_send_webmaster_notification_email')) {
+    $rules_config->delete();
+  }
+
   module_enable(['emh_request_notification']);
   user_role_grant_permissions(3, array('moderate requests'));
   user_role_grant_permissions(6, array('moderate requests'));
+}
+
+/**
+ * ADD: Bootstrap Tour feature.
+ */
+function emh_configuration_update_7055() {
+  module_enable(['bootstrap_tour']);
 }
