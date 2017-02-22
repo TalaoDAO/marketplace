@@ -9,8 +9,6 @@
  * Implements hook_install().
  */
 function emh_request_install() {
-  // @TODO: remove this!
-  variable_set('emh_request_send_notification_email_all_domains', 1);
   variable_set('webform_node_request', TRUE);
 }
 
@@ -35,8 +33,6 @@ function emh_request_disable() {
  * Implements hook_uninstall().
  */
 function emh_request_uninstall() {
-  // @TODO: remove this!
-  variable_del('emh_request_send_notification_email_all_domains');
   variable_del('webform_node_request');
 }
 
