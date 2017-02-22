@@ -245,6 +245,10 @@ function _emh_request_prepopulate_prepopulate_walk(&$form, &$request_slice, &$fo
     if ($form['#type'] == 'markup' || empty($form['#type'])) {
       $form['#value'] = check_plain($request_slice);
     }
+    elseif ($form['#type'] == 'checkboxes' || $form['#type'] == 'checkbox') {
+      $form['#checked'] = TRUE;
+      $form['#default_value'] = TRUE;
+    }
     else {
       if ($form['#type'] == 'select') {
         // Try to match taxonomy terms to ease URL expression
@@ -254,11 +258,6 @@ function _emh_request_prepopulate_prepopulate_walk(&$form, &$request_slice, &$fo
       }
       $form['#value'] = $request_slice;
       $form['#default_value'] = $request_slice;
-    }
-    if ($form['#type'] == 'checkboxes' || $form['#type'] == 'checkbox') {
-      $form['#checked'] = TRUE;
-      $form['#default_value'] = TRUE;
-      $form['#value'] = TRUE;
     }
   }
 }
