@@ -7,7 +7,7 @@
 
         <div class="emh-brand col-md-2">
           <a class="logo navbar-btn" href="<?php print url('smart-mobility'); ?>" title="<?php print t('Smart Mobility'); ?>">
-            <?php print t('Smart Mobility'); ?>
+            <span class="smartmobility-title"><?php print t('Smart Mobility'); ?></span>
           </a>
         </div>
 
@@ -168,7 +168,7 @@
         </div>
       </div>
       <hr />
-      <p class="footer-credits"><?php print date('Y'); ?> <?php print t('Smart Mobility'); ?> | <?php print t('Tous droits réservés'); ?></p>
+      <p class="footer-credits"><?php print date('Y'); ?> <span class="smartmobility-title"><?php print t('Smart Mobility'); ?></span> | <?php print t('Tous droits réservés'); ?></p>
     </div>
   </footer>
 
