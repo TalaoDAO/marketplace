@@ -14,9 +14,9 @@
 ?>
 
 <span class="date"><?php print t('Submitted: !date', array('!date' => check_plain(format_date($submission->submitted, webform_variable_get('webform_date_type'))))); ?></span>
-
 <?php if (!empty(flag_create_link('interesting_answer', $submission->sid))) : ?>
 <p id="submission-flags">
   <?php print flag_create_link('interesting_answer', $submission->sid); ?>
 </p>
 <?php endif; ?>
+<?php print flag_create_link('comment_answer', $submission->sid); ?></p>
