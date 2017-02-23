@@ -2838,3 +2838,4 @@ function ft_request_views_default_views() {
 
   return $export;
 }
+//
