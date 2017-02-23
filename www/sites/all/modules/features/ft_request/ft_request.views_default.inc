@@ -2563,8 +2563,70 @@ function ft_request_views_default_views() {
   $handler->display->display_options['exposed_form']['options']['input_required'] = 0;
   $handler->display->display_options['exposed_form']['options']['text_input_required_format'] = 'filtered_html';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'views_bootstrap_grid_plugin_style';
-  $handler->display->display_options['style_options']['columns'] = '1';
+  $handler->display->display_options['style_plugin'] = 'views_bootstrap_table_plugin_style';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'title_field' => 'title_field',
+    'completed' => 'completed',
+    'emh_answer' => 'emh_answer',
+    'is_draft' => 'is_draft',
+    'flagged' => 'flagged',
+    'field_comment_answer' => 'flagged',
+    'view_submission' => 'view_submission',
+  );
+  $handler->display->display_options['style_options']['default'] = 'completed';
+  $handler->display->display_options['style_options']['info'] = array(
+    'title_field' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'completed' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'emh_answer' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'is_draft' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'flagged' => array(
+      'align' => '',
+      'separator' => '<br>',
+      'empty_column' => 0,
+    ),
+    'field_comment_answer' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'view_submission' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  $handler->display->display_options['style_options']['bootstrap_styles'] = array(
+    'striped' => 0,
+    'bordered' => 0,
+    'hover' => 0,
+    'condensed' => 0,
+  );
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';
@@ -2588,6 +2650,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['relationships']['flag_content_rel']['id'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['flag_content_rel']['table'] = 'webform_submissions';
   $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
+  $handler->display->display_options['relationships']['flag_content_rel']['label'] = 'flag-interesting-answer';
   $handler->display->display_options['relationships']['flag_content_rel']['required'] = 0;
   $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'interesting_answer';
   $handler->display->display_options['relationships']['flag_content_rel']['user_scope'] = 'any';
@@ -2642,17 +2705,21 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['flagged']['table'] = 'flagging';
   $handler->display->display_options['fields']['flagged']['field'] = 'flagged';
   $handler->display->display_options['fields']['flagged']['relationship'] = 'flag_content_rel';
-  $handler->display->display_options['fields']['flagged']['label'] = 'Helpful?';
+  $handler->display->display_options['fields']['flagged']['label'] = 'Requester feedback';
   $handler->display->display_options['fields']['flagged']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['flagged']['element_wrapper_type'] = 'div';
+  $handler->display->display_options['fields']['flagged']['element_wrapper_class'] = 'interesting-answer';
   $handler->display->display_options['fields']['flagged']['type'] = 'custom';
-  $handler->display->display_options['fields']['flagged']['type_custom_true'] = '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
+  $handler->display->display_options['fields']['flagged']['type_custom_true'] = 'Useful answer <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
   $handler->display->display_options['fields']['flagged']['not'] = 0;
   /* Field: Flagging: Your comment */
   $handler->display->display_options['fields']['field_comment_answer']['id'] = 'field_comment_answer';
   $handler->display->display_options['fields']['field_comment_answer']['table'] = 'field_data_field_comment_answer';
   $handler->display->display_options['fields']['field_comment_answer']['field'] = 'field_comment_answer';
   $handler->display->display_options['fields']['field_comment_answer']['relationship'] = 'flag_content_rel_1';
-  $handler->display->display_options['fields']['field_comment_answer']['label'] = 'Feedback';
+  $handler->display->display_options['fields']['field_comment_answer']['label'] = 'Comment';
+  $handler->display->display_options['fields']['field_comment_answer']['element_wrapper_type'] = 'div';
+  $handler->display->display_options['fields']['field_comment_answer']['element_wrapper_class'] = 'comment-answer';
   /* Field: Webform submissions: View link */
   $handler->display->display_options['fields']['view_submission']['id'] = 'view_submission';
   $handler->display->display_options['fields']['view_submission']['table'] = 'webform_submissions';
