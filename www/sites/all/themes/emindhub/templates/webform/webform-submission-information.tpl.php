@@ -10,6 +10,7 @@
  *          modules, such as "print" or "pdf".
  * - $submission: The contents of the webform submission.
  * - $account: The user that submitted the form.
+ * TODO: merge with comment_answer
  */
 ?>
 
