@@ -19,4 +19,11 @@
   <?php print flag_create_link('interesting_answer', $submission->sid); ?>
 </p>
 <?php endif; ?>
-<?php print flag_create_link('comment_answer', $submission->sid); ?></p>
+<?php
+//TODO: how to get this entity_id ?
+$entity_id = 163; // or else for you
+$flagging = flagging_load($entity_id);
+$comment_answer = $flagging->field_comment_answer[LANGUAGE_NONE][0]['value'];
+?>
+<h3>Your feedback comment</h3>
+<blockquote><?php print $comment_answer; ?></blockquote>
