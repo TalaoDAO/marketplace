@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Code of the eMindHub request feature.
@@ -6,11 +7,17 @@
 
 include_once 'emh_request.deprecated.inc';
 
+include_once 'emh_request.inc';
 include_once 'emh_request.admin.inc';
 include_once 'emh_request.conditional_fields.inc';
 include_once 'emh_request.fields.inc';
+include_once 'emh_request.flags.inc';
 include_once 'emh_request.mail.inc';
+include_once 'emh_request.pages.inc';
 
+/**
+ * Implements hook_permission().
+ */
 function emh_request_permission() {
   return array(
     'modify requests' => array('title' => t('Request: Modify EMH requests after been published')),
@@ -32,11 +39,6 @@ function emh_request_hook_info() {
   return array_fill_keys($hooks, array('group' => 'options'));
 }
 
-
-//----------------------------------------------------------------------
-//-- MENU
-//----------------------------------------------------------------------
-
 /**
  * Implements hook_menu().
  */
@@ -45,7 +47,7 @@ function emh_request_menu() {
 
   // Publication page (confirmation)
   $items['node/%webform_menu/publish'] = array(
-    'title' => t('Validation before publication'),
+    'title' => 'Validation before publication',
     'page callback' => 'emh_request_publication_page',
     'page arguments' => array(1),
     'access callback' => 'emh_request_publication_access',
@@ -60,7 +62,7 @@ function emh_request_menu() {
  * Implements hook_menu_alter().
  */
 function emh_request_menu_alter(&$items) {
-  // Disables some webform accesses
+  // Disables some webform accesses.
   $items['node/%webform_menu/webform']['access callback'] = '_emh_access_full_access';
   $items['node/%webform_menu/webform']['access arguments'] = array(1);
   $items['node/%webform_menu/webform/components']['access callback'] = '_emh_access_full_access';
@@ -83,18 +85,13 @@ function emh_request_menu_alter(&$items) {
   $items['node/%webform_menu/webform-results/download']['access arguments'] = array(1);
 }
 
-
-//----------------------------------------------------------------------
-//-- NODE
-//----------------------------------------------------------------------
-
 /**
  * Implements hook_entity_info_alter().
  */
 function emh_request_entity_info_alter(&$entity_info) {
   $entity_info['node']['view modes']['summary'] = array(
     'label' => t("Summary"),
-    'custom settings' => false,
+    'custom settings' => FALSE,
   );
 }
 
@@ -105,67 +102,68 @@ function emh_request_node_presave($node) {
   if ($node->type !== 'request') {
     return;
   }
-    if (emh_request_has_option($node, 'questionnaire')) {
-      // We create the components on the basis of the field_request_questions values.
-      if ($questions = field_get_items('node', $node, 'field_request_questions')) {
-        module_load_include('inc', 'webform', 'includes/webform.components');
 
-        if (!empty($node->nid) && emh_request_count_answers($node->nid) != 0) {
-          // We have answers : we are not allowed to change questions, but we can change node
-          // so we have to ckeck manually if question have been modified in the "original"
-          // TRICKY comparison of old values because original have more information, like safe_value
-          // so we have to check ONLY value !
-          $original_questions = field_get_items('node', $node->original, 'field_request_questions');
-          $same = true;
-          foreach ($questions as $key => $value) {
-             if ( $original_questions[$key]['value'] != $questions[$key]['value'] ) $same = false;
-          }
-          if (!$same)
-            drupal_set_message(t("You cannot change questions that already have answers."), 'error');
-          return;
-        }
-
-        $components = array();
-
-        foreach ($questions as $delta => $question) {
-          $form_key = 'question' . ($delta + 1);
-
-          $components[$form_key] = array(
-            'type' => 'textarea',
-            'name' => $question['value'],
-            'form_key' => $form_key,
-            //'required' => true,
-            'weight' => $delta,
-          );
-
-          webform_component_defaults($components[$form_key]);
-        }
-
-        $node->webform['components'] = $components;
-      }
-      else {
-        // Avoids to publish a questionnaire without any question
-        $node->status = NODE_NOT_PUBLISHED;
-        drupal_set_message(t("You choosed the questionnaire option then you can't publish your request without any question."), 'error');
-      }
-    }
-    else {
-      // All requests are webforms, then we have to automatically create the
-      // only component in the case of a non questionnaire request.
+  if (emh_request_has_option($node, 'questionnaire')) {
+    // We create the components on the basis of the field_request_questions values.
+    if ($questions = field_get_items('node', $node, 'field_request_questions')) {
       module_load_include('inc', 'webform', 'includes/webform.components');
 
-      // Creates the component by default
-      $component = array(
-        'type' => 'textarea',
-        'name' => $node->title,
-        'form_key' => 'request',
-        'required' => true,
-      );
+      if (!empty($node->nid) && emh_request_count_answers($node->nid) != 0) {
+        // We have answers : we are not allowed to change questions, but we can change node
+        // so we have to ckeck manually if question have been modified in the "original"
+        // TRICKY comparison of old values because original have more information, like safe_value
+        // so we have to check ONLY value !
+        $original_questions = field_get_items('node', $node->original, 'field_request_questions');
+        $same = TRUE;
+        foreach ($questions as $key => $value) {
+          if ($original_questions[$key]['value'] != $questions[$key]['value']) $same = FALSE;
+        }
+        if (!$same) {
+          drupal_set_message(t("You cannot change questions that already have answers."), 'error');
+          return;
+        }
+      }
 
-      webform_component_defaults($component);
+      $components = array();
 
-      $node->webform['components'] = array('request' => $component);
+      foreach ($questions as $delta => $question) {
+        $form_key = 'question' . ($delta + 1);
+
+        $components[$form_key] = array(
+          'type' => 'textarea',
+          'name' => $question['value'],
+          'form_key' => $form_key,
+          'weight' => $delta,
+        );
+
+        webform_component_defaults($components[$form_key]);
+      }
+
+      $node->webform['components'] = $components;
     }
+    else {
+      // Avoids to publish a questionnaire without any question.
+      $node->status = NODE_NOT_PUBLISHED;
+      drupal_set_message(t("You choosed the questionnaire option then you can't publish your request without any question."), 'error');
+    }
+  }
+  else {
+    // All requests are webforms, then we have to automatically create the
+    // only component in the case of a non questionnaire request.
+    module_load_include('inc', 'webform', 'includes/webform.components');
+
+    // Creates the component by default.
+    $component = array(
+      'type' => 'textarea',
+      'name' => $node->title,
+      'form_key' => 'request',
+      'required' => TRUE,
+    );
+
+    webform_component_defaults($component);
+
+    $node->webform['components'] = array('request' => $component);
+  }
 }
 
 /**
@@ -201,18 +199,19 @@ function emh_request_node_validate($node, $form, &$form_state) {
   if ($node->type !== 'request') {
     return;
   }
+
   $values = $form_state['values'];
 
   // Ensures if the anonymity option is selected that there's at least one of
-  // the two possibilities which is checked
+  // the two possibilities which is checked.
   if (emh_request_has_option($node, 'anonymous')) {
     $fields = array('field_hide_name', 'field_hide_organisation');
-    $error  = true;
+    $error  = TRUE;
 
     foreach ($fields as $field) {
       $value = drupal_array_get_nested_value($values, array($field, $form[$field]['#language'], 0, 'value'));
       if (!empty($value)) {
-        $error = false;
+        $error = FALSE;
         break;
       }
     }
@@ -226,7 +225,7 @@ function emh_request_node_validate($node, $form, &$form_state) {
     }
   }
 
-  // Loads the original node
+  // Loads the original node.
   if (!empty($node->nid) && !isset($node->original)) {
     $node->original = entity_load_unchanged('node', $node->nid);
   }
@@ -255,11 +254,6 @@ function emh_request_node_validate($node, $form, &$form_state) {
   }
 }
 
-
-//----------------------------------------------------------------------
-//-- AFTER BUILD CALLBACKS
-//----------------------------------------------------------------------
-
 /**
  * After build callback which sets up options behaviors
  * using conditional_fields features.
@@ -284,11 +278,12 @@ function emh_request_setup_options_behaviors($form, &$form_state) {
       }
     }
 
-    // Calls potential after build callbacks provided with the option
+    // Calls potential after build callbacks provided with the option.
     if (isset($option['after_build'])) {
       if (!is_array($option['after_build'])) {
         call_user_func_array($option['after_build'], array(&$form, &$form_state));
-      } else {
+      }
+      else {
         foreach ($option['after_build'] as $after_build) {
           call_user_func_array($after_build, array(&$form, &$form_state));
         }
@@ -302,11 +297,6 @@ function emh_request_setup_options_behaviors($form, &$form_state) {
 
   return $form;
 }
-
-
-//----------------------------------------------------------------------
-//-- ACCESS RIGHTS
-//----------------------------------------------------------------------
 
 /**
  * Implements hook_webform_results_access().
@@ -328,90 +318,18 @@ function emh_request_webform_submission_access($node, $submission, $op = 'view',
 /**
  * Access callback for the publication page.
  */
-function emh_request_publication_access($request, $account = null) {
-  if ($account === null) {
+function emh_request_publication_access($request, $account = NULL) {
+  if ($account === NULL) {
     global $user;
     $account = $user;
   }
 
   if ($request->type == 'request' && node_access('update', $request, $account)) {
-    return true;
+    return TRUE;
   }
 
-  return false;
+  return FALSE;
 }
-
-
-//----------------------------------------------------------------------
-//-- PAGES
-//----------------------------------------------------------------------
-
-
-function emh_request_publication_page($request) {
-  // Redirects if the request is already published.
-  if ($request->status == NODE_PUBLISHED) {
-    drupal_set_message(t("This request is already published."), 'warning');
-    drupal_goto('node/' . $request->nid);
-  }
-
-  $page = array();
-
-  $page['message'] = array(
-    '#theme' => 'html_tag',
-    '#tag' => 'p',
-    '#value' => t("You're about to publish your request, please check the information below:"),
-    '#attributes' => array(
-      'class' => 'alert alert-block alert-warning',
-    ),
-  );
-
-  $page['node'] = node_view($request, 'summary');
-
-  if ($options = field_get_items('node', $request, 'field_options')) {
-    $page['notice_options'] = array(
-      '#theme' => 'html_tag',
-      '#tag' => 'p',
-      '#value' => t("Please check chosen options and validate your request:"),
-      '#attributes' => array(
-        'class' => 'alert alert-block alert-warning',
-      ),
-    );
-
-    $rows = array();
-    $total = 0;
-
-    $info = emh_request_get_options();
-    $costs = emh_request_get_options_costs($request);
-
-    foreach ($options as $option) {
-      $id = $option['option'];
-      $rows[] = array($info[$id]['label'], emh_request_format_cost($costs[$id]));
-      $total += (int) $costs[$id];
-    }
-
-    $page['options'] = array(
-      '#theme' => 'table',
-      '#header' => array(t("Option(s)"), t("Cost")),
-      '#rows' => $rows,
-    );
-
-    $page['total'] = array(
-      '#markup' => '<span class="total-label">' . t("Total:") . '</span> '
-        . '<span class="total">' . emh_request_format_cost($total) . '</span>',
-      '#prefix' => '<div class="total-wrapper">',
-      '#suffix' => '</div>',
-    );
-  }
-
-  $page['form'] = drupal_get_form('emh_request_publication_form', $request);
-
-  return $page;
-}
-
-
-//----------------------------------------------------------------------
-//-- FORMS
-//----------------------------------------------------------------------
 
 /**
  * Builds the form to confirm the request publication.
@@ -437,16 +355,17 @@ function emh_request_publication_form($form, &$form_state, $request) {
     );
   }
 
-  // Prepares cancel link
+  // Prepares cancel link.
   if (isset($_GET['destination'])) {
     $options = drupal_parse_url(urldecode($_GET['destination']));
-  } else {
+  }
+  else {
     $options = array('path' => 'node/' . $request->nid . '/edit');
   }
 
   $form['actions'] = array(
     '#type' => 'actions',
-    '#tree' => false,
+    '#tree' => FALSE,
     'cancel' => array(
       '#type' => 'link',
       '#title' => t("Previous"),
@@ -502,7 +421,7 @@ function emh_request_publication_form_submit($form, &$form_state) {
       }
     }
 
-    $request->skip_costs_calculation = true;
+    $request->skip_costs_calculation = TRUE;
     $request->status = NODE_PUBLISHED;
     node_save($request);
 
@@ -530,22 +449,22 @@ function emh_request_form_alter(&$form, &$form_state, $form_id) {
   }
 
   if (isset($form['#node']->nid) && ($form_id == 'webform_client_form_' . $form['#node']->nid)) {
-    // Changes the submit button label for "Publish my answer"
+    // Changes the submit button label for "Publish my answer".
     if (!empty($form['#is_draft']) || empty($form['#submission'])) {
       $form['actions']['submit']['#value'] = t('Publish');
     }
 
-    // Disables the form components if the user is not allowed to answer
+    // Disables the form components if the user is not allowed to answer.
     if (!emh_access_user_can_post_answer($form['#node']->nid) && !empty($form['submitted'])) {
       foreach ($form['submitted'] as $key => $element) {
         if (is_array($element) && !empty($element['#type']) && $element['#type'] == 'textarea') {
-          $form['submitted'][$key]['#disabled'] = true;
+          $form['submitted'][$key]['#disabled'] = TRUE;
         }
       }
-      $form['actions']['#access'] = false;
+      $form['actions']['#access'] = FALSE;
     }
 
-    // Hides the uniq field label in the request if not a questionnaire
+    // Hides the uniq field label in the request if not a questionnaire.
     if (!emh_request_has_option($form['#node'], 'questionnaire') && !empty($form['submitted'])) {
       foreach ($form['submitted'] as $key => $element) {
         if (is_array($element) && !empty($element['#type']) && $element['#type'] == 'textarea') {
@@ -554,9 +473,9 @@ function emh_request_form_alter(&$form, &$form_state, $form_id) {
       }
     }
 
-    // Show specific message for Private option
+    // Show specific message for Private option.
     if (emh_request_has_option($form['#node'], 'private') && !empty($form['submitted'])) {
-      $form['actions']['#prefix'] = '<div class="user-submission-option-private-info">' . t('Your answer will only be visible by the request\'s author.') . '</div>';
+      $form['actions']['#prefix'] = '<div class="user-submission-option-private-info">' . t("Your answer will only be visible by the request's author.") . '</div>';
     }
   }
 }
@@ -565,46 +484,45 @@ function emh_request_form_alter(&$form, &$form_state, $form_id) {
  * Implements hook_form_alter().
  */
 function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
-
   if (in_array($form['#node']->type, emh_request_get_types())) {
 
-    // Sets action buttons labels
+    // Sets action buttons labels.
     $form['actions']['draft']['#value'] = t('Save draft');
     $form['actions']['submit']['#value'] = t('Continue');
 
-    // Treatments for generic requests
+    // Treatments for generic requests.
     if ($form['#node']->type == 'request') {
       // FIXME: la surcharge empêche l'affichage du multiupload
       // $form['field_request_documents'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
       $form['field_image'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
-      if ( !$form['field_options']
+      if (!$form['field_options']
            || !isset($_REQUEST['edit']['field_request_type'])
-           &&!( isset($form['field_request_type'][LANGUAGE_NONE]['#default_value'])
-           || isset ($form['#node']->field_request_type)
+           && !(isset($form['field_request_type'][LANGUAGE_NONE]['#default_value'])
+           || isset($form['#node']->field_request_type)
            || !empty($form['#node']->nid))
-         )
-
-      //if node is empty, and no field_request_type : we are in the first edition step of a new request :
-      //disable everything to force click on Request Type
+      )
+      // If node is empty, and no field_request_type,
+      // we are in the first edition step of a new request :
+      // disable everything to force click on Request Type.
       {
-	if (!(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))   /* AJAX check  */
-        {
-          $form['body']['#disabled'] = true;
-          $form['language']['#disabled'] = true;
-          $form['field_domaine']['#disabled'] = true;
-          $form['field_expiration_date']['#disabled'] = true;
-          $form['field_image']['#disabled'] = true;
-          $form['field_tags']['#disabled'] = true;
-          $form['title_field']['#disabled'] = true;
-          $form['og_group_ref']['#disabled'] = true;
-          $form['field_options']['#disabled'] = true;
-          $form['field_request_questions']['#disabled'] = true;
+        /* AJAX check  */
+        if (!(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')) {
+          $form['body']['#disabled'] = TRUE;
+          $form['language']['#disabled'] = TRUE;
+          $form['field_domaine']['#disabled'] = TRUE;
+          $form['field_expiration_date']['#disabled'] = TRUE;
+          $form['field_image']['#disabled'] = TRUE;
+          $form['field_tags']['#disabled'] = TRUE;
+          $form['title_field']['#disabled'] = TRUE;
+          $form['og_group_ref']['#disabled'] = TRUE;
+          $form['field_options']['#disabled'] = TRUE;
+          $form['field_request_questions']['#disabled'] = TRUE;
         }
       }
 
-      // Request being created or already created & unpublished
+      // Request being created or already created & unpublished.
       elseif (empty($form['#node']->nid) || $form['#node']->status == NODE_NOT_PUBLISHED) {
-        // Removes the save_draft validation callback
+        // Removes the save_draft validation callback.
         foreach ($form['#validate'] as $index => $callback) {
           if ($callback == 'save_draft_validate') {
             unset($form['#validate'][$index]);
@@ -620,58 +538,59 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
           }
         }
 
-        // Adds a submit callback to redirect on the publication page
+        // Adds a submit callback to redirect on the publication page.
         $form['actions']['submit']['#submit'][] = 'emh_request_form_node_publish';
       }
-      // Request created & published
+      // Request created & published.
       else {
         if (!user_access('modify requests')) {
-          // Prevents to delete the request
-          $form['actions']['delete']['#access'] = false;
-          // Prevents to update some fields
-          $form['field_domaine']['#disabled'] = true;
-          $form['og_group_ref']['#disabled'] = true;
-          $form['field_options']['#disabled'] = true;
-          $form['field_request_type']['#disabled'] = true;
-          $form['title_field']['#disabled'] = true;
+          // Prevents to delete the request.
+          $form['actions']['delete']['#access'] = FALSE;
+          // Prevents to update some fields.
+          $form['field_domaine']['#disabled'] = TRUE;
+          $form['og_group_ref']['#disabled'] = TRUE;
+          $form['field_options']['#disabled'] = TRUE;
+          $form['field_request_type']['#disabled'] = TRUE;
+          $form['title_field']['#disabled'] = TRUE;
           if (emh_request_count_answers($form['nid']['#value']) != 0) {
-            $form['field_request_questions']['#disabled'] = true;
+            $form['field_request_questions']['#disabled'] = TRUE;
           }
         }
       }
     }
-    // Treatments for others
+    // Treatments for others.
     else {
       // If node is published and there are some answers,
       // only some updates are possible (#575, #576)
       if ($form['#node']->status == NODE_PUBLISHED && emh_request_count_answers($form['nid']['#value'] != 0)) {
         if (!user_access('modify requests')) {
-          // Prevents domains & circles update
-          $form['field_domaine']['#disabled'] = true;
-          $form['og_group_ref']['#disabled'] = true;
-          $form['field_options']['#disabled'] = true;
-          $form['field_request_circle']['#disabled'] = true;
-          $form['title_field']['#disabled'] = true;
-          $form['field_request_type']['#disabled'] = true;
+          // Prevents domains & circles update.
+          $form['field_domaine']['#disabled'] = TRUE;
+          $form['og_group_ref']['#disabled'] = TRUE;
+          $form['field_options']['#disabled'] = TRUE;
+          $form['field_request_circle']['#disabled'] = TRUE;
+          $form['title_field']['#disabled'] = TRUE;
+          $form['field_request_type']['#disabled'] = TRUE;
         }
       }
     }
 
-    // If nid not empty, we're in the edit page
+    // If nid not empty, we're in the edit page.
     if (!empty($form['nid']['#value']) && $form['#node']->status == NODE_PUBLISHED) {
-      $form['actions']['draft']['#access'] = false;
+      $form['actions']['draft']['#access'] = FALSE;
       $form['actions']['submit']['#value'] = t('Save');
       // If node is published on a free circle, we can close the request.
       $nid = $form['nid']['#value'];
       $status = emh_points_get_points_closed_status($nid);
       $circles = $form['#node']->og_group_ref[LANGUAGE_NONE];
-      $free = true;
+      $free = TRUE;
 
-      foreach($circles as $delta => $circle) {
-        $loaded_circle = node_load($circle['target_id']); // TODO : PERF ISSUE : use node_load_all instead
+      foreach ($circles as $delta => $circle) {
+        // @TODO : PERF ISSUE : use node_load_all instead.
+        $loaded_circle = node_load($circle['target_id']);
         if ($loaded_circle->field_free_circle[LANGUAGE_NONE]['0']['value'] === '0') {
-          // Paying circle
-          $free = false;
+          // Paying circle.
+          $free = FALSE;
           break;
         }
       }
@@ -685,10 +604,10 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       }
     }
 
-    // Hide node access
+    // Hide node access.
     $form['group_content_access']['#access'] = FALSE;
 
-    // Load only circles which user is member of
+    // Load only circles which user is member of.
     global $user;
     $groups = og_get_groups_by_user($user, 'node');
     $user_groups = array();
@@ -718,17 +637,13 @@ function emh_request_node_form_close($form, &$form_state) {
   if ($form_state['node']->type == 'request') {
     $form_state['node']->webform['status'] = 0;
     node_save($form_state['node']);
-  } else {
+  }
+  else {
     emh_points_close_node($form_state['node']->nid);
   }
 
   $form_state['redirect'] = 'node/' . $form_state['node']->nid;
 }
-
-
-//----------------------------------------------------------------------
-//-- WEBFORM
-//----------------------------------------------------------------------
 
 /**
  * Implements hook_webform_node_defaults_alter().
@@ -742,7 +657,6 @@ function emh_request_webform_node_defaults_alter(&$defaults) {
   $defaults['submit_notice'] = 0;
 }
 
-
 //----------------------------------------------------------------------
 //-- API
 //----------------------------------------------------------------------
@@ -755,7 +669,7 @@ function emh_request_webform_node_defaults_alter(&$defaults) {
 function emh_request_get_options() {
   $options = &drupal_static(__FUNCTION__);
 
-  if ($options === null) {
+  if ($options === NULL) {
     $options = module_invoke_all('emh_request_option_info');
     drupal_alter('emh_request_option_info', $options);
 
@@ -782,7 +696,8 @@ function emh_request_get_options() {
 /**
  * Provides the option properties by default.
  *
- * @return array Option properties by default
+ * @return array
+ *    Option properties by default
  */
 function emh_request_default_option_info() {
   return array(
@@ -796,9 +711,11 @@ function emh_request_default_option_info() {
  * Provides the properties of the options behavior by default.
  *
  * @param string $option_id
- *  The identifier (machine name) of the option for which you want the default
- *  properties
- * @return array Behavior properties by default
+ *    The identifier (machine name) of the option for which you want the default
+ *    properties.
+ *
+ * @return array
+ *    Behavior properties by default
  */
 function emh_request_default_option_behavior($option_id) {
   return array(
@@ -813,10 +730,11 @@ function emh_request_default_option_behavior($option_id) {
 /**
  * Informs if the given request has the specified option.
  *
- * @param stdClass $request
- *  The request node
+ * @param object $request
+ *    The request node.
  * @param string $option_id
- *  The identifier (machine name) of the option to check
+ *    The identifier (machine name) of the option to check.
+ *
  * @return boolean
  */
 function emh_request_has_option($request, $option_id) {
@@ -825,12 +743,12 @@ function emh_request_has_option($request, $option_id) {
   if ($request_options) {
     foreach ($request_options as $option) {
       if ($option['option'] === $option_id) {
-        return true;
+        return TRUE;
       }
     }
   }
 
-  return false;
+  return FALSE;
 }
 
 /**
@@ -839,12 +757,13 @@ function emh_request_has_option($request, $option_id) {
  * We assume that the options values has already been restructured by
  * emh_request_restructure_option_selector_items().
  *
- * @param stdClass $values
- *  Form submitted values ($form_state['values'])
+ * @param object $values
+ *    Form submitted values ($form_state['values']).
  * @param string $option_id
- *  The identifier (machine name) of the option to check
- * @param string field_lang
- *  The options field language (LANGUAGE_NONE by default)
+ *    The identifier (machine name) of the option to check.
+ * @param string $field_lang
+ *    The options field language (LANGUAGE_NONE by default).
+ *
  * @return boolean
  */
 function emh_request_form_values_has_option($values, $option_id, $field_lang = LANGUAGE_NONE) {
@@ -853,19 +772,19 @@ function emh_request_form_values_has_option($values, $option_id, $field_lang = L
   if ($form_options) {
     foreach ($form_options as $option) {
       if ($option['option'] === $option_id) {
-        return true;
+        return TRUE;
       }
     }
   }
 
-  return false;
+  return FALSE;
 }
 
 /**
  * Provides the default options costs.
  *
  * @return array
- *  Costs keyed by option identifier
+ *    Costs keyed by option identifier
  */
 function emh_request_get_default_options_costs() {
   $costs = array();
@@ -881,24 +800,26 @@ function emh_request_get_default_options_costs() {
  * Provides the options costs related to a specific request
  * and potentially altered by other modules.
  *
- * @param stdClass $request
- *  The request node
+ * @param object $request
+ *    The request node.
+ *
  * @return array
- *  Costs keyed by option identifier
+ *    Costs keyed by option identifier
  */
 function emh_request_get_options_costs($request) {
   // Stores calculated costs in a static cache to avoid to calculate them
   // each time the function is called.
   $static_costs = &drupal_static(__FUNCTION__, array());
-  $nid = empty($request->nid) ? false : $request->nid;
+  $nid = empty($request->nid) ? FALSE : $request->nid;
 
-  if ($nid === false || !isset($static_costs[$nid])) {
+  if ($nid === FALSE || !isset($static_costs[$nid])) {
     $costs = emh_request_get_default_options_costs();
     drupal_alter('emh_request_options_costs', $costs, $request);
 
-    if ($nid === false) {
+    if ($nid === FALSE) {
       return $costs;
-    } else {
+    }
+    else {
       $static_costs[$nid] = $costs;
     }
   }
@@ -909,9 +830,12 @@ function emh_request_get_options_costs($request) {
 /**
  * Searches an element in a form structure and returns it if found.
  *
- * @param array $form The form (or just a piece of form)
- * @param string $element_name The name of the element to search
- * @return array|null
+ * @param array $form
+ *    The form (or just a piece of form).
+ * @param string $element_name
+ *    The name of the element to search.
+ *
+ * @return array|NULL
  */
 function emh_request_get_form_element($form, $element_name) {
   if (isset($form[$element_name])) {
@@ -929,6 +853,7 @@ function emh_request_get_form_element($form, $element_name) {
  * Formats an option cost as a friendly localized text.
  *
  * @param integer $cost
+ *
  * @return string
  */
 function emh_request_format_cost($cost) {
@@ -942,8 +867,8 @@ function emh_request_format_cost($cost) {
  * Spends the current user's credits for the purchase
  * of the given request's options.
  *
- * @param stdClass $request
- *  The request node
+ * @param object $request
+ *    The request node.
  */
 function emh_request_purchase_options($request) {
   $total = 0;
@@ -959,74 +884,4 @@ function emh_request_purchase_options($request) {
     $emindhub = user_load(1);
     emh_points_move_points($user, $emindhub, $total);
   }
-}
-
-/**
- * Helper function to render a submission.
- */
-function emh_request_render_submission($submission) {
-  $output = '';
-
-  foreach ($submission->data as $submission) {
-    $output .= $submission[0] . '&nbsp;';
-  }
-
-  return strip_tags(views_trim_text(
-    array(
-      'max_length' => 480,
-      'word_boundary' => TRUE,
-      'ellipsis' => TRUE,
-      'html' => TRUE,
-    ),
-    truncate_utf8($output, 480, FALSE, TRUE)
-  ));
-}
-
-/**
- * Helper function to retrieve the type of a request.
- */
-function emh_request_get_request_type($node = null) {
-  if ($node === null) {
-    $node = menu_get_object();
-  }
-  elseif (is_numeric($node)) {
-    $node = node_load($node);
-  }
-
-  if (empty($node)) return;
-
-  $node_wrapper = entity_metadata_wrapper('node', $node);
-  $term = $node_wrapper->field_request_type->value();
-
-  if (empty($term)) return;
-
-	return $term;
-}
-
-function emh_request_get_type_image($term, $size = 25, $style = null) {
-	global $base_url, $language;
-
-	$term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
-	$term_name = $term_wrapper->language($language->language)->name_field->value();
-	$term_safe_name = preg_replace('/[^A-Za-z0-9\-]/', '', strtolower($term_name));
-	$style = isset($style) ? '-' . $style : '';
-  return '<img src="' . $base_url . '/' . drupal_get_path('module', 'emh_request') . '/images/ico-' . $term_safe_name . $style . '.svg" width="' . $size . '" height="' . $size . '" alt="' . $term_name . '">';
-}
-
-function emh_request_get_request_type_image($node = null, $size = 25, $style = null) {
-	$term = emh_request_get_request_type($node);
-  if (empty($term)) return;
-
-  return emh_request_get_type_image($term, $size, $style);
-}
-
-function emh_request_get_request_type_name($node = null) {
-	global $base_url, $language;
-
-	$term = emh_request_get_request_type($node);
-  if (empty($term)) return;
-
-	$term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
-	$term_name = $term_wrapper->language($language->language)->name_field->value();
-	return '<span class="request-type-name">' . $term_name . '</span>';
 }
