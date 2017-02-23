@@ -50,11 +50,22 @@ function emh_smartmobility_block_view($delta = '') {
 
     case 'partners':
       $block = array(
-        'subject' => 'Une initiative réalisée en partenariat entre',
+        'subject' => 'Une initiative réalisée en partenariat avec',
         'content' => 'content',
       );
       break;
   }
 
   return $block;
+}
+
+/**
+ * Implements hook_block_info_alter().
+ */
+function emh_smartmobility_block_info_alter(&$blocks, $theme, $code_blocks) {
+  if ($theme === 'smartmobility') {
+    $blocks['menu']['menu-top-anonymous']['status'] = FALSE;
+    $blocks['block']['29']['status'] = FALSE;
+    $blocks['bootstrap_languages']['language']['status'] = FALSE;
+  }
 }
