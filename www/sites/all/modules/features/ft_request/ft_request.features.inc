@@ -47,11 +47,11 @@ function ft_request_flag_default_flags() {
     'show_on_form' => FALSE,
     'access_author' => '',
     'show_contextual_link' => 0,
+    'api_version' => 3,
     'module' => 'ft_request',
     'locked' => array(
       0 => 'name',
     ),
-    'api_version' => 3,
   );
   // Exported flag: "Save request".
   $flags['my_selection'] = array(
