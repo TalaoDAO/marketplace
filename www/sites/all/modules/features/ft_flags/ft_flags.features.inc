@@ -17,10 +17,10 @@ function ft_flags_flag_default_flags() {
     'types' => array(
       0 => 'webform_submission',
     ),
-    'flag_short' => '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>',
-    'flag_long' => 'Click to mark this answer as interesting.',
+    'flag_short' => 'Was this answer helpful?',
+    'flag_long' => 'Click to mark this answer as helpful.',
     'flag_message' => 'You marked this answer as interesting.',
-    'unflag_short' => '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>',
+    'unflag_short' => 'This answer was helpful <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>',
     'unflag_long' => 'Click to unmark this answer as interesting.',
     'unflag_message' => 'You unmarked this answer as interesting.',
     'unflag_denied_text' => '',
@@ -31,11 +31,11 @@ function ft_flags_flag_default_flags() {
     'show_on_form' => FALSE,
     'access_author' => '',
     'show_contextual_link' => 0,
-    'api_version' => 3,
     'module' => 'ft_flags',
     'locked' => array(
       0 => 'name',
     ),
+    'api_version' => 3,
   );
   return $flags;
 
