@@ -2648,6 +2648,14 @@ function ft_request_views_default_views() {
   $handler->display->display_options['relationships']['flag_content_rel']['required'] = 0;
   $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'interesting_answer';
   $handler->display->display_options['relationships']['flag_content_rel']['user_scope'] = 'any';
+  /* Relationship: Flags: comment_answer */
+  $handler->display->display_options['relationships']['flag_content_rel_1']['id'] = 'flag_content_rel_1';
+  $handler->display->display_options['relationships']['flag_content_rel_1']['table'] = 'webform_submissions';
+  $handler->display->display_options['relationships']['flag_content_rel_1']['field'] = 'flag_content_rel';
+  $handler->display->display_options['relationships']['flag_content_rel_1']['label'] = 'flag-comment-answer';
+  $handler->display->display_options['relationships']['flag_content_rel_1']['required'] = 0;
+  $handler->display->display_options['relationships']['flag_content_rel_1']['flag'] = 'comment_answer';
+  $handler->display->display_options['relationships']['flag_content_rel_1']['user_scope'] = 'any';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title_field']['id'] = 'title_field';
@@ -2687,6 +2695,12 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['flagged']['type'] = 'custom';
   $handler->display->display_options['fields']['flagged']['type_custom_true'] = '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
   $handler->display->display_options['fields']['flagged']['not'] = 0;
+  /* Field: Flagging: Your comment */
+  $handler->display->display_options['fields']['field_comment_answer']['id'] = 'field_comment_answer';
+  $handler->display->display_options['fields']['field_comment_answer']['table'] = 'field_data_field_comment_answer';
+  $handler->display->display_options['fields']['field_comment_answer']['field'] = 'field_comment_answer';
+  $handler->display->display_options['fields']['field_comment_answer']['relationship'] = 'flag_content_rel_1';
+  $handler->display->display_options['fields']['field_comment_answer']['label'] = 'Feedback';
   /* Field: Webform submissions: View link */
   $handler->display->display_options['fields']['view_submission']['id'] = 'view_submission';
   $handler->display->display_options['fields']['view_submission']['table'] = 'webform_submissions';
