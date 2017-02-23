@@ -1,22 +1,45 @@
 <?php
 
 /**
+ * @file
+ * Prepopulate the requests.
+ */
+
+/**
  * Implements hook_form_alter().
  */
 function emh_request_prepopulate_form_request_node_form_alter(&$form, &$form_state, $form_id) {
+  global $user;
   if ($form['field_request_type']) {
+    foreach ($form['field_request_type'][LANGUAGE_NONE]['#options'] as $tid => $term_name) {
+      $term = taxonomy_term_load($tid);
+      if ($term == NULL) {
+        continue;
+      }
+      else {
+        // Check if the request type is restricted to a Circle.
+        if (field_get_items('taxonomy_term', $term, 'field_circle_restriction')) {
+          // Get Circle ID.
+          $circle_id = $term->field_circle_restriction[LANGUAGE_NONE][0]['target_id'];
+          // If the user doesn't belong to the Circle, skip this request type option.
+          if (!og_is_member('node', $circle_id, 'user', $user)) {
+            unset($form['field_request_type'][LANGUAGE_NONE]['#options'][$tid]);
+            continue;
+          }
+        }
+      }
+    }
     $form['field_request_type'][LANGUAGE_NONE]['#after_build'][] = 'emh_request_prepopulate_form_field_request_type_after_build';
     $form['field_request_type']['#suffix'] = _emh_request_prepopulate_form_field_request_type_switch($form['field_request_type'][LANGUAGE_NONE]['#options'], $form);
   }
 
   if ($form['field_options'] && isset($_REQUEST['edit']['field_request_type'])) {
-    foreach ($_REQUEST['edit']['field_request_type'] as $field_request_type ) {
+    foreach ($_REQUEST['edit']['field_request_type'] as $field_request_type) {
       foreach (array_keys($field_request_type) as $tid) {
         $form['field_options']['#prefix'] = _emh_request_prepopulate_form_field_options_help($tid, $form);
       }
     }
   }
-
 
   if (isset($_REQUEST['edit'])) {
     $form['#after_build'][] = 'emh_request_prepopulate_form_after_build';
@@ -28,18 +51,21 @@ function emh_request_prepopulate_form_request_node_form_alter(&$form, &$form_sta
 /**
  * After build callback for field_request_type on request creation forms.
  *
- * Inspired by http://e9p.net/altering-individual-radio-or-checkbox-items-drupal-7-fapi
+ * @see http://e9p.net/altering-individual-radio-or-checkbox-items-drupal-7-fapi
  */
 function emh_request_prepopulate_form_field_request_type_after_build($element, &$form_state) {
   global $base_url, $language;
   // Each renderable radio element.
   foreach (element_children($element) as $tid) {
+
     // Pull the original form item.
     $field_request_type_item = $element[$tid];
 
     // Load the term.
     $term = taxonomy_term_load($tid);
-    if ($term == null) continue;
+    if ($term == NULL) {
+      continue;
+    }
 
     $term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
     $term_name = $term_wrapper->language($language->language)->name_field->value();
@@ -59,7 +85,7 @@ function emh_request_prepopulate_form_field_request_type_after_build($element, &
     $element[$tid][$tid]['#title'] .= '<span class="term-name">' . $term_name . '</span>';
     $element[$tid][$tid]['#title'] .= $term_description ? '<span class="term-description">' . $term_description . '</span>' : '';
 
-    if (isset($element['#disabled'])) { 
+    if (isset($element['#disabled'])) {
       if (isset($_REQUEST['edit'])) {
         $element[$tid][$tid]['#title'] = l(
                                           $element[$tid][$tid]['#title'],
@@ -85,11 +111,13 @@ function emh_request_prepopulate_form_field_request_type_after_build($element, &
                                             'attributes' => array(
                                               'disabled' => 'disabled',
                                               'class' => 'disabled',
-                                            )
+                                            ),
                                           )
                                         );
       }
-    } else {
+
+    }
+    else {
       if (isset($_REQUEST['edit'])) {
         $element[$tid][$tid]['#title'] = l(
                                           $element[$tid][$tid]['#title'],
@@ -114,15 +142,18 @@ function emh_request_prepopulate_form_field_request_type_after_build($element, &
                                         );
       }
     }
-
   }
 
   // Always return the element to render in after_build callbacks.
   return $element;
 }
 
+/**
+ * Helper to create a modal box when switching request type.
+ */
 function _emh_request_prepopulate_form_field_request_type_switch(array $types, $form) {
   global $base_url, $language;
+
   $output = '';
 
   foreach ($types as $tid => $value) {
@@ -144,7 +175,7 @@ function _emh_request_prepopulate_form_field_request_type_switch(array $types, $
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">' . t('Cancel') . '</button>
-                    <a href="' . $term_path . '" class="btn btn-primary">' . t('Switch to ') . $term_name . '</a>
+                    <a href="' . $term_path . '" class="btn btn-primary">' . t('Switch to&nbsp;') . $term_name . '</a>
                   </div>
                 </div>
               </div>
@@ -154,6 +185,9 @@ function _emh_request_prepopulate_form_field_request_type_switch(array $types, $
   return $output;
 }
 
+/**
+ * Helper to display a text in the request options.
+ */
 function _emh_request_prepopulate_form_field_options_help($tid) {
   global $language;
 
@@ -175,9 +209,10 @@ function _emh_request_prepopulate_form_field_options_help($tid) {
 
 /**
  * An #after_build function to set the values prepopulated in the request.
+ *
  * Fill form elements with data from GET or POST values.
  *
- * @see prepopulate module
+ * @see https://www.drupal.org/project/prepopulate
  */
 function emh_request_prepopulate_form_after_build($form, &$form_state) {
   if (isset($_REQUEST['edit'])) {
@@ -187,15 +222,18 @@ function emh_request_prepopulate_form_after_build($form, &$form_state) {
   return $form;
 }
 
+/**
+ * Helper to prepopulate multiple values fields.
+ */
 function _emh_request_prepopulate_create_field_multiple_value(&$form, &$form_state, $form_id, $field_name, $items_count) {
   $form_theme = $form[$field_name][LANGUAGE_NONE]['#theme'];
   $after_build = $form[$field_name][LANGUAGE_NONE]['#after_build'];
   $items = &$form_state['field'][$field_name][LANGUAGE_NONE];
-  // Generate required number of fields
+  // Generate required number of fields.
   if ($items_count > 1 and $items['items_count'] !== $items_count) {
     $items['items_count'] = $items_count;
     $form[$field_name][LANGUAGE_NONE] = field_multiple_value_form($items['field'], $items['instance'], LANGUAGE_NONE, array(), $form, $form_state);
-    // Reset theme function, as field_multiple_value_form hijacks it
+    // Reset theme function, as field_multiple_value_form hijacks it.
     $form[$field_name][LANGUAGE_NONE]['#theme'] = $form_theme;
     $form[$field_name][LANGUAGE_NONE]['#after_build'] = $after_build;
     $form[$field_name][LANGUAGE_NONE]['#language'] = 'LANGUAGE_NONE';
@@ -227,11 +265,12 @@ function _emh_request_prepopulate_prepopulate_walk(&$form, &$request_slice, &$fo
 
   if (is_array($request_slice)) {
     foreach (array_keys($request_slice) as $request_variable) {
-      $next_slice =  $request_slice[$request_variable];
-      // YBA: to bypass a Behat bug that strips "[0]" from slice, must be replaced by ['0']
+      $next_slice = $request_slice[$request_variable];
+      // YBA: to bypass a Behat bug that strips "[0]" from slice,
+      // must be replaced by ['0'].
       $request_variable = str_replace("'", "", $request_variable);
       if (element_child($request_variable) && !empty($form[$request_variable]) &&
-       (!isset($form[$request_variable]['#type']) || !in_array($form[$request_variable]['#type'], $limited_types)) ) {
+       (!isset($form[$request_variable]['#type']) || !in_array($form[$request_variable]['#type'], $limited_types))) {
         if (!isset($form[$request_variable]['#access']) || $form[$request_variable]['#access'] != FALSE) {
           _emh_request_prepopulate_prepopulate_walk($form[$request_variable], $next_slice, $form_state, $instance[$request_variable]);
         }
@@ -251,10 +290,11 @@ function _emh_request_prepopulate_prepopulate_walk(&$form, &$request_slice, &$fo
     }
     else {
       if ($form['#type'] == 'select') {
-        // Try to match taxonomy terms to ease URL expression
+        // Try to match taxonomy terms to ease URL expression.
         $term = taxonomy_get_term_by_name($request_slice);
-        if (count($term) === '1')
+        if (count($term) === '1') {
           $request_slice = (string) key($term);
+        }
       }
       $form['#value'] = $request_slice;
       $form['#default_value'] = $request_slice;
