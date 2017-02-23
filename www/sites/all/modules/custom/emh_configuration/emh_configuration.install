@@ -980,10 +980,3 @@ function emh_configuration_update_7054() {
 function emh_configuration_update_7055() {
   module_enable(['bootstrap_tour']);
 }
-
-/**
- * ADD: FT Flags Feature.
- */
-function emh_configuration_update_7056() {
-  module_enable(['ft_flags']);
-}
