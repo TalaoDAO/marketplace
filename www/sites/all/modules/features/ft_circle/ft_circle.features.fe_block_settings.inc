@@ -23,7 +23,9 @@ function ft_circle_default_fe_block_settings() {
       0 => 'circle',
     ),
     'pages' => '',
-    'roles' => array(),
+    'roles' => array(
+      'authenticated user' => 2,
+    ),
     'themes' => array(
       'emindhub' => array(
         'region' => 'title_right',
@@ -35,6 +37,12 @@ function ft_circle_default_fe_block_settings() {
         'region' => '',
         'status' => 0,
         'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'smartmobility' => array(
+        'region' => 'topmenu',
+        'status' => 1,
+        'theme' => 'smartmobility',
         'weight' => 0,
       ),
     ),
