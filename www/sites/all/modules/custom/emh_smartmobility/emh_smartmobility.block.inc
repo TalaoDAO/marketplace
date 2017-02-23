@@ -43,20 +43,42 @@ function emh_smartmobility_block_view($delta = '') {
   switch ($delta) {
     case 'persona':
       $block = array(
-        'subject' => 'Smart Mobility',
-        'content' => 'content',
+        'subject' => t('Smart Mobility'),
+        'content' => emh_smartmobility_persona_block_content(),
       );
       break;
 
     case 'partners':
       $block = array(
-        'subject' => 'Une initiative réalisée en partenariat avec',
-        'content' => 'content',
+        'subject' => t('Une initiative réalisée en partenariat avec'),
+        'content' => emh_smartmobility_partners_block_content(),
       );
       break;
   }
 
   return $block;
+}
+
+/**
+ * Callback implemented by hook_block_view().
+ */
+function emh_smartmobility_persona_block_content() {
+  return theme('emh_smartmobility_block_persona', array(
+    'title' => t('Smart Mobility'),
+    'content' => '',
+  )
+  );
+}
+
+/**
+ * Callback implemented by hook_block_view().
+ */
+function emh_smartmobility_partners_block_content() {
+  return theme('emh_smartmobility_block_partners', array(
+    'title' => t('Une initiative réalisée en partenariat avec'),
+    'content' => '',
+  )
+  );
 }
 
 /**
