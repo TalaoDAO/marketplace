@@ -2390,6 +2390,14 @@ function ft_request_views_default_views() {
   $handler->display->display_options['relationships']['flag_content_rel']['table'] = 'webform_submissions';
   $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'interesting_answer';
+  $handler->display->display_options['relationships']['flag_content_rel']['user_scope'] = 'any';
+  /* Relationship: Flags: comment_answer */
+  $handler->display->display_options['relationships']['flag_content_rel_1']['id'] = 'flag_content_rel_1';
+  $handler->display->display_options['relationships']['flag_content_rel_1']['table'] = 'webform_submissions';
+  $handler->display->display_options['relationships']['flag_content_rel_1']['field'] = 'flag_content_rel';
+  $handler->display->display_options['relationships']['flag_content_rel_1']['required'] = 0;
+  $handler->display->display_options['relationships']['flag_content_rel_1']['flag'] = 'comment_answer';
+  $handler->display->display_options['relationships']['flag_content_rel_1']['user_scope'] = 'any';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Bulk operations: User */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
@@ -2436,26 +2444,39 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['emh_answer']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['emh_answer']['alter']['text'] = '<span class="submission-date">[completed]&nbsp;–&nbsp;</span>[emh_answer]';
   $handler->display->display_options['fields']['emh_answer']['element_label_colon'] = FALSE;
-  /* Field: Webform submissions: EMH Submission actions */
-  $handler->display->display_options['fields']['emh_submission_actions']['id'] = 'emh_submission_actions';
-  $handler->display->display_options['fields']['emh_submission_actions']['table'] = 'webform_submissions';
-  $handler->display->display_options['fields']['emh_submission_actions']['field'] = 'emh_submission_actions';
-  $handler->display->display_options['fields']['emh_submission_actions']['label'] = '';
-  $handler->display->display_options['fields']['emh_submission_actions']['element_label_colon'] = FALSE;
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Webform submissions: Draft */
-  $handler->display->display_options['filters']['is_draft']['id'] = 'is_draft';
-  $handler->display->display_options['filters']['is_draft']['table'] = 'webform_submissions';
-  $handler->display->display_options['filters']['is_draft']['field'] = 'is_draft';
-  $handler->display->display_options['filters']['is_draft']['value'] = array(
-    0 => '0',
-  );
-  $handler->display->display_options['filters']['is_draft']['group'] = 1;
-  $handler->display->display_options['filters']['is_draft']['expose']['operator_id'] = 'is_draft_op';
-  $handler->display->display_options['filters']['is_draft']['expose']['label'] = 'Draft';
-  $handler->display->display_options['filters']['is_draft']['expose']['operator'] = 'is_draft_op';
-  $handler->display->display_options['filters']['is_draft']['expose']['identifier'] = 'is_draft';
+  /* Field: Webform submissions: View link */
+  $handler->display->display_options['fields']['view_submission']['id'] = 'view_submission';
+  $handler->display->display_options['fields']['view_submission']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['view_submission']['field'] = 'view_submission';
+  $handler->display->display_options['fields']['view_submission']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['view_submission']['access_check'] = 1;
+  /* Field: Flags: Flag link */
+  $handler->display->display_options['fields']['ops']['id'] = 'ops';
+  $handler->display->display_options['fields']['ops']['table'] = 'flagging';
+  $handler->display->display_options['fields']['ops']['field'] = 'ops';
+  $handler->display->display_options['fields']['ops']['relationship'] = 'flag_content_rel';
+  $handler->display->display_options['fields']['ops']['label'] = '';
+  $handler->display->display_options['fields']['ops']['element_type'] = 'p';
+  $handler->display->display_options['fields']['ops']['element_class'] = 'text-center';
+  $handler->display->display_options['fields']['ops']['element_label_colon'] = FALSE;
+  /* Field: Flags: Flag link */
+  $handler->display->display_options['fields']['ops_1']['id'] = 'ops_1';
+  $handler->display->display_options['fields']['ops_1']['table'] = 'flagging';
+  $handler->display->display_options['fields']['ops_1']['field'] = 'ops';
+  $handler->display->display_options['fields']['ops_1']['relationship'] = 'flag_content_rel_1';
+  $handler->display->display_options['fields']['ops_1']['label'] = '';
+  $handler->display->display_options['fields']['ops_1']['element_type'] = 'p';
+  $handler->display->display_options['fields']['ops_1']['element_class'] = 'text-center';
+  $handler->display->display_options['fields']['ops_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['ops_1']['link_type'] = 'confirm';
+  /* Field: Flagging: Your comment */
+  $handler->display->display_options['fields']['field_comment_answer']['id'] = 'field_comment_answer';
+  $handler->display->display_options['fields']['field_comment_answer']['table'] = 'field_data_field_comment_answer';
+  $handler->display->display_options['fields']['field_comment_answer']['field'] = 'field_comment_answer';
+  $handler->display->display_options['fields']['field_comment_answer']['relationship'] = 'flag_content_rel_1';
+  $handler->display->display_options['fields']['field_comment_answer']['label'] = 'Your feedback comment';
+  $handler->display->display_options['fields']['field_comment_answer']['element_wrapper_type'] = 'div';
+  $handler->display->display_options['fields']['field_comment_answer']['element_wrapper_class'] = 'comment-answer';
   $handler->display->display_options['block_description'] = 'Answer(s)';
 
   /* Display: (P) My answers */
