@@ -2395,6 +2395,13 @@ function ft_request_views_default_views() {
   $handler->display->display_options['relationships']['flag_content_rel']['required'] = 0;
   $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'interesting_answer';
   $handler->display->display_options['relationships']['flag_content_rel']['user_scope'] = 'any';
+  /* Relationship: Flags: comment_answer */
+  $handler->display->display_options['relationships']['flag_content_rel_1']['id'] = 'flag_content_rel_1';
+  $handler->display->display_options['relationships']['flag_content_rel_1']['table'] = 'webform_submissions';
+  $handler->display->display_options['relationships']['flag_content_rel_1']['field'] = 'flag_content_rel';
+  $handler->display->display_options['relationships']['flag_content_rel_1']['required'] = 0;
+  $handler->display->display_options['relationships']['flag_content_rel_1']['flag'] = 'comment_answer';
+  $handler->display->display_options['relationships']['flag_content_rel_1']['user_scope'] = 'any';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Bulk operations: User */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
@@ -2456,6 +2463,24 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['ops']['element_type'] = 'p';
   $handler->display->display_options['fields']['ops']['element_class'] = 'text-center';
   $handler->display->display_options['fields']['ops']['element_label_colon'] = FALSE;
+  /* Field: Flags: Flag link */
+  $handler->display->display_options['fields']['ops_1']['id'] = 'ops_1';
+  $handler->display->display_options['fields']['ops_1']['table'] = 'flagging';
+  $handler->display->display_options['fields']['ops_1']['field'] = 'ops';
+  $handler->display->display_options['fields']['ops_1']['relationship'] = 'flag_content_rel_1';
+  $handler->display->display_options['fields']['ops_1']['label'] = '';
+  $handler->display->display_options['fields']['ops_1']['element_type'] = 'p';
+  $handler->display->display_options['fields']['ops_1']['element_class'] = 'text-center';
+  $handler->display->display_options['fields']['ops_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['ops_1']['link_type'] = 'confirm';
+  /* Field: Flagging: Your comment */
+  $handler->display->display_options['fields']['field_comment_answer']['id'] = 'field_comment_answer';
+  $handler->display->display_options['fields']['field_comment_answer']['table'] = 'field_data_field_comment_answer';
+  $handler->display->display_options['fields']['field_comment_answer']['field'] = 'field_comment_answer';
+  $handler->display->display_options['fields']['field_comment_answer']['relationship'] = 'flag_content_rel_1';
+  $handler->display->display_options['fields']['field_comment_answer']['label'] = 'Your feedback comment';
+  $handler->display->display_options['fields']['field_comment_answer']['element_wrapper_type'] = 'div';
+  $handler->display->display_options['fields']['field_comment_answer']['element_wrapper_class'] = 'comment-answer';
   $handler->display->display_options['block_description'] = 'Answer(s)';
 
   /* Display: (P) My answers */
