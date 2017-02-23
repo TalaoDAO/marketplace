@@ -25,6 +25,36 @@ function ft_request_views_api($module = NULL, $api = NULL) {
  */
 function ft_request_flag_default_flags() {
   $flags = array();
+  // Exported flag: "Comment answer".
+  $flags['comment_answer'] = array(
+    'entity_type' => 'webform_submission',
+    'title' => 'Comment answer',
+    'global' => 1,
+    'types' => array(
+      0 => 'webform_submission',
+    ),
+    'flag_short' => 'Leave a feedback for the expert',
+    'flag_long' => 'Click to leave a feedback for the expert',
+    'flag_message' => 'Thank you for leaving a feedback for the expert !',
+    'unflag_short' => 'The expert has your feedback comment on his answer <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>',
+    'unflag_long' => 'Click to delete this feedback comment for the expert',
+    'unflag_message' => 'You deleted this feedback.',
+    'unflag_denied_text' => 'You left a feedback comment for the expert <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>',
+    'link_type' => 'confirm',
+    'weight' => 0,
+    'show_in_links' => array(),
+    'show_as_field' => FALSE,
+    'show_on_form' => FALSE,
+    'access_author' => '',
+    'show_contextual_link' => 0,
+    'flag_confirmation' => 'Please write down your feedback comment on the expert answer',
+    'unflag_confirmation' => 'Do you want to delete this feedback comment ?',
+    'api_version' => 3,
+    'module' => 'ft_request',
+    'locked' => array(
+      0 => 'name',
+    ),
+  );
   // Exported flag: "Interesting answer".
   $flags['interesting_answer'] = array(
     'entity_type' => 'webform_submission',
