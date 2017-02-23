@@ -355,7 +355,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['flag_content_rel']['required'] = 0;
   $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'my_selection';
-  /* Field: Content: Choose a public request type */
+  /* Field: Content: Choose a request type */
   $handler->display->display_options['fields']['field_request_type']['id'] = 'field_request_type';
   $handler->display->display_options['fields']['field_request_type']['table'] = 'field_data_field_request_type';
   $handler->display->display_options['fields']['field_request_type']['field'] = 'field_request_type';
@@ -747,7 +747,7 @@ function ft_request_views_default_views() {
     10 => 0,
   );
   $handler->display->display_options['filters']['type']['expose']['reduce'] = TRUE;
-  /* Filter criterion: Content: Choose a public request type (field_request_type) (translated) */
+  /* Filter criterion: Content: Choose a request type (field_request_type) (translated) */
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['id'] = 'field_request_type_tid_i18n';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['table'] = 'field_data_field_request_type';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['field'] = 'field_request_type_tid_i18n';
@@ -969,7 +969,7 @@ function ft_request_views_default_views() {
     10 => 0,
   );
   $handler->display->display_options['filters']['type']['expose']['reduce'] = TRUE;
-  /* Filter criterion: Content: Choose a public request type (field_request_type) (translated) */
+  /* Filter criterion: Content: Choose a request type (field_request_type) (translated) */
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['id'] = 'field_request_type_tid_i18n';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['table'] = 'field_data_field_request_type';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['field'] = 'field_request_type_tid_i18n';
@@ -1455,7 +1455,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['flagged']['relationship'] = 'flag_content_rel';
   $handler->display->display_options['filters']['flagged']['value'] = '1';
   $handler->display->display_options['filters']['flagged']['group'] = 1;
-  /* Filter criterion: Content: Choose a public request type (field_request_type) (translated) */
+  /* Filter criterion: Content: Choose a request type (field_request_type) (translated) */
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['id'] = 'field_request_type_tid_i18n';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['table'] = 'field_data_field_request_type';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['field'] = 'field_request_type_tid_i18n';
@@ -1782,7 +1782,7 @@ function ft_request_views_default_views() {
     8 => 0,
     9 => 0,
   );
-  /* Filter criterion: Content: Choose a public request type (field_request_type) (translated) */
+  /* Filter criterion: Content: Choose a request type (field_request_type) (translated) */
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['id'] = 'field_request_type_tid_i18n';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['table'] = 'field_data_field_request_type';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['field'] = 'field_request_type_tid_i18n';
@@ -2079,7 +2079,7 @@ function ft_request_views_default_views() {
     10 => 0,
   );
   $handler->display->display_options['filters']['type']['expose']['reduce'] = TRUE;
-  /* Filter criterion: Content: Choose a public request type (field_request_type) (translated) */
+  /* Filter criterion: Content: Choose a request type (field_request_type) (translated) */
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['id'] = 'field_request_type_tid_i18n';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['table'] = 'field_data_field_request_type';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['field'] = 'field_request_type_tid_i18n';
@@ -2382,6 +2382,19 @@ function ft_request_views_default_views() {
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
   $handler->display->display_options['empty']['area']['content'] = 'No answer yet.';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Webform submissions: User */
+  $handler->display->display_options['relationships']['uid']['id'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['table'] = 'webform_submissions';
+  $handler->display->display_options['relationships']['uid']['field'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['required'] = TRUE;
+  /* Relationship: Flags: interesting_answer */
+  $handler->display->display_options['relationships']['flag_content_rel']['id'] = 'flag_content_rel';
+  $handler->display->display_options['relationships']['flag_content_rel']['table'] = 'webform_submissions';
+  $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
+  $handler->display->display_options['relationships']['flag_content_rel']['required'] = 0;
+  $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'interesting_answer';
+  $handler->display->display_options['relationships']['flag_content_rel']['user_scope'] = 'any';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Bulk operations: User */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
@@ -2434,6 +2447,16 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['view_submission']['field'] = 'view_submission';
   $handler->display->display_options['fields']['view_submission']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['view_submission']['access_check'] = 1;
+  /* Field: Flags: Flagged */
+  $handler->display->display_options['fields']['flagged']['id'] = 'flagged';
+  $handler->display->display_options['fields']['flagged']['table'] = 'flagging';
+  $handler->display->display_options['fields']['flagged']['field'] = 'flagged';
+  $handler->display->display_options['fields']['flagged']['relationship'] = 'flag_content_rel';
+  $handler->display->display_options['fields']['flagged']['label'] = '';
+  $handler->display->display_options['fields']['flagged']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['flagged']['type'] = 'custom';
+  $handler->display->display_options['fields']['flagged']['type_custom_true'] = '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
+  $handler->display->display_options['fields']['flagged']['not'] = 0;
   $handler->display->display_options['block_description'] = 'Answer(s)';
 
   /* Display: (P) My answers */
