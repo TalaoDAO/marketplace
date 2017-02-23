@@ -78,6 +78,7 @@ features[field_instance][] = taxonomy_term-request_type-description_field
 features[field_instance][] = taxonomy_term-request_type-field_circle_restriction
 features[field_instance][] = taxonomy_term-request_type-field_prepopulate
 features[field_instance][] = taxonomy_term-request_type-name_field
+features[field_instance][] = taxonomy_term-request_type-og_group_ref
 features[flag][] = interesting_answer
 features[flag][] = my_selection
 features[node][] = request
