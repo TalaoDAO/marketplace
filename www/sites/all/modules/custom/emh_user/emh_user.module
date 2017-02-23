@@ -143,7 +143,7 @@ function emh_user_form_alter(&$form, &$form_state, $form_id) {
       $form['#action'] = url('<front>', array(
           'base_url' => $base_url,
           'absolute' => TRUE,
-          'language' => (object)array('language' =>  FALSE)
+          'language' => (object)array('language' => FALSE)
       ));
       $form['#submit'][] = 'emh_user_form_submit';
       break;
