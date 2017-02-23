@@ -6,7 +6,7 @@ global $base_url, $language;
 <section class="emh-module how-it-works hiw">
 
   <ul class="hiw-tabs">
-    <li><button type="button" name="button" data-tab="hiw-customer" class="hiw-tab emh-button customer"><?php print t('vous recherchez des talents'); ?></button></li>
+    <li><button type="button" name="button" data-tab="hiw-customer" class="hiw-tab emh-button customer"><?php print t('Vous recherchez des talents'); ?></button></li>
     <li><button type="button" name="button" data-tab="hiw-expert" class="hiw-tab emh-button expert"><?php print t('Vous êtes salarié Airbus'); ?></button></li>
   </ul>
 
@@ -51,6 +51,10 @@ global $base_url, $language;
         </div>
       </div>
     </section>
+
+    <div class="emh-action">
+      <a class="emh-button solid" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Je m\'inscris'); ?></a>
+    </div>
 
     <section class="emh-module faq hiw-faq">
 
@@ -137,6 +141,10 @@ global $base_url, $language;
         </div>
       </div>
     </section>
+
+    <div class="emh-action">
+      <a class="emh-button solid-alt" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Je m\'inscris'); ?></a>
+    </div>
 
     <section class="emh-module faq hiw-faq">
 

@@ -6,7 +6,7 @@
         <a tabindex="0" id="signUp" class="user-menu sign-up" data-placement="bottom" data-html="true" title="<?php print t('Inscription'); ?>" data-template='<div class="popover signUp" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content signUpContent"></div></div>'><?php print t('Inscription'); ?></a>
         <div id="signUpContent" class="signUpContent" style="display: none;">
           <h4><?php print sprintf(t('%sSign-in in 1 minute%s and start%s'), '<span>', '</span><span>', '</span>'); ?></h4>
-          <span class="block"><a class="signin-client" href="<?php print url('client/register'); ?>"><?php print t('vous recherchez des talents'); ?></a></span>
+          <span class="block"><a class="signin-client" href="<?php print url('client/register'); ?>"><?php print t('Vous recherchez des talents'); ?></a></span>
           <span class="separator"></span>
           <span class="block"><a class="signin-expert" href="<?php print url('expert/register'); ?>"><?php print t('Vous êtes un employé'); ?></a></span>
           <?php
