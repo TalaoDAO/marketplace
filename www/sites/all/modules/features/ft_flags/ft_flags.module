@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the FT Flags feature.
- */
-
-include_once 'ft_flags.features.inc';
