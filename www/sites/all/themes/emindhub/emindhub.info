@@ -72,7 +72,7 @@ scripts[] = 'libraries/bootstrap/js/tab.js'
 scripts[] = 'libraries/bootstrap/js/transition.js'
 
 ; Disable BootstrapCDN if using Bootstrap source files in your sub-theme.
-; settings[bootstrap_cdn] = ''
+settings[bootstrap_cdn] = ''
 
 
 ;-------------------------

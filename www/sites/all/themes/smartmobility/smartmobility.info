@@ -23,3 +23,10 @@ regions[footer_bottom]  = 'Footer - Bottom'
 ;;;;;;;;;;;;;;;;;;;;;
 
 stylesheets[all][] = dist/style.min.css
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Scripts
+;;;;;;;;;;;;;;;;;;;;;
+
+; Disable BootstrapCDN if using Bootstrap source files in your sub-theme.
+settings[bootstrap_cdn] = ''
