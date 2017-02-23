@@ -109,6 +109,24 @@ Feature: Request and answers
     When I click "view" in the "submissions" region
     Then I should see "Everybody can be, trust me, I'm the best we known."
 
+  Scenario: The author can see mark published answers as helpful
+    Given I am logged in as "client1"
+    When I go to homepage
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+    Then I should see "Was this answer helpful?" in the "submissions" region
+
+    When I click "view" in the "submissions" region
+    Then I should see "Was this answer helpful?" in the "block_system_main" region
+
+  Scenario: An expert of the same circle cannot mark the published answer as helpful
+    Given I am logged in as "expert1"
+    When I go to homepage
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+    Then I should not see "Was this answer helpful?" in the "submissions" region
+
+    When I click "view" in the "submissions" region
+    Then I should not see "Was this answer helpful?" in the "block_system_main" region
+
   @exclude
   Scenario: The expert cannot respond twice to the same request
     Given I am logged in as "expert1"
