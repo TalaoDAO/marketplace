@@ -39,12 +39,6 @@ function ft_circle_default_fe_block_settings() {
         'theme' => 'seven',
         'weight' => 0,
       ),
-      'smartmobility' => array(
-        'region' => 'topmenu',
-        'status' => 1,
-        'theme' => 'smartmobility',
-        'weight' => 0,
-      ),
     ),
     'title' => '',
     'visibility' => 0,
