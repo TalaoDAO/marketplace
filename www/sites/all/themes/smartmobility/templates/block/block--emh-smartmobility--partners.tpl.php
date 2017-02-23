@@ -9,8 +9,8 @@
   <?php endif;?>
 
   <ul class="references-list">
-      <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'smartmobility'); ?>/images/alixio_logo.png" alt="Alixio" /></li>
-      <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'smartmobility'); ?>/images/emindhub_logo.svg" alt="EmindHub" /></li>
+    <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'smartmobility'); ?>/images/alixio_logo.png" alt="Alixio" /></li>
+    <li><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'smartmobility'); ?>/images/emindhub_logo.svg" alt="EmindHub" /></li>
   </ul>
 
 </section>
