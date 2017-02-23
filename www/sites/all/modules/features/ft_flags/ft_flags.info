@@ -1,0 +1,8 @@
+name = FT Flags
+description = All site flags.
+core = 7.x
+package = Features
+dependencies[] = flag
+features[features_api][] = api:2
+features[flag][] = interesting_answer
+project path = sites/all/modules/features
