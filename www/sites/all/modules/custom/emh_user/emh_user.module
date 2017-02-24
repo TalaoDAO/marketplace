@@ -140,6 +140,11 @@ function emh_user_form_alter(&$form, &$form_state, $form_id) {
     case 'user_login':
     case 'user_login_block':
       unset($form['#action']);
+      $form['#action'] = url('<front>', array(
+          'base_url' => $base_url,
+          'absolute' => TRUE,
+          'language' => (object)array('language' => FALSE)
+      ));
       $form['#submit'][] = 'emh_user_form_submit';
       break;
     default:
