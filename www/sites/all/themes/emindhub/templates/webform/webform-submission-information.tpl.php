@@ -19,27 +19,8 @@
   <?php print flag_create_link('interesting_answer', $submission->sid); ?>
 </p>
 <?php endif; ?>
-<h3>Your feedback comment</h3>
-<blockquote>
-  <?php print _emh_request_submission_get_comment($submission->sid); ?>
-</blockquote>
-
-<?php
-
-/**
- * Helper function to get a submission comment.
- */
-function _emh_request_submission_get_comment($sid) {
-  $query = db_select('flagging', 'f');
-  $query->join('field_data_field_comment_answer', 'c', 'f.flagging_id = c.entity_id');
-  $query
-    ->condition('f.entity_type', 'webform_submission')
-    ->condition('f.fid', 16)
-    ->condition('f.entity_id', $sid)
-    ->fields('c', array('field_comment_answer_value'));
-  $result = $query->execute();
-  $row = $result->fetch();
-
-  return ($row->field_comment_answer_value);
-}
-?>
+<?php print flag_create_link('comment_answer', $submission->sid); ?></p>
+<?php if (isset($comment_answer)) : ?>
+  <h3>Your feedback comment</h3>
+  <blockquote><?php print $comment_answer; ?></blockquote>
+<?php endif; ?>
