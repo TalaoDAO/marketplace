@@ -491,15 +491,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'queue_ui',
   );
 
-  // Exported permission: 'administer CAPTCHA settings'.
-  $permissions['administer CAPTCHA settings'] = array(
-    'name' => 'administer CAPTCHA settings',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'captcha',
-  );
-
   // Exported permission: 'administer actions'.
   $permissions['administer actions'] = array(
     'name' => 'administer actions',
@@ -913,16 +904,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'privatecomments',
-  );
-
-  // Exported permission: 'administer recaptcha'.
-  $permissions['administer recaptcha'] = array(
-    'name' => 'administer recaptcha',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'recaptcha',
   );
 
   // Exported permission: 'administer rules'.
@@ -2596,16 +2577,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'advuser',
-  );
-
-  // Exported permission: 'skip CAPTCHA'.
-  $permissions['skip CAPTCHA'] = array(
-    'name' => 'skip CAPTCHA',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
-    ),
-    'module' => 'captcha',
   );
 
   // Exported permission: 'skip comment approval'.
