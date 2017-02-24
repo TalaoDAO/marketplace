@@ -1,6 +1,15 @@
 <?php
 
 /**
+ * Implements hook_preprocess_html().
+ */
+function smartmobility_preprocess_html(&$variables) {
+  if (arg(0) == EMH_SMARTMOBILITY_BASE_URL && !arg(1)) {
+    $variables['classes_array'][] = 'homepage';
+  }
+}
+
+/**
  * Implements hook_form_alter().
  */
 function smartmobility_form_alter(&$form, &$form_state, $form_id) {
