@@ -18,9 +18,9 @@
             <div class="signUpContent">
               <h3><?php print t('Registration'); ?></h3>
               <h4><?php print sprintf(t('%sSign-in in 1 minute%s and start%s'), '<span>', '</span><span>', '</span>'); ?></h4>
-              <span class="block"><a class="signin-client" href="<?php print url('client/register'); ?>"><?php print t('Vous recherchez des talents'); ?></a></span>
+              <span class="block"><a class="signin-client" href="<?php print url(EMH_SMARTMOBILITY_REGISTER_CLIENT); ?>"><?php print t('Vous recherchez des talents'); ?></a></span>
               <span class="separator"></span>
-              <span class="block"><a class="signin-expert" href="<?php print url('expert/register'); ?>"><?php print t('Vous êtes salarié Airbus'); ?></a></span>
+              <span class="block"><a class="signin-expert" href="<?php print url(EMH_SMARTMOBILITY_REGISTER_EXPERT); ?>"><?php print t('Vous êtes salarié Airbus'); ?></a></span>
               <?php
               if (module_exists('hybridauth')) {
                 $element['#type'] = 'hybridauth_widget';
