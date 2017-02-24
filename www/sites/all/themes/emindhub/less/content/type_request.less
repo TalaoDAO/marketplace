@@ -43,6 +43,57 @@
   .emh-title-image;
 }
 
+.view-request-submissions {
+  .views-bootstrap-grid-plugin-style {
+    .row {
+      margin: 0 0 15px;
+    }
+    .col {
+      .make-row();
+      margin: 0;
+
+      background-color: #FFF;
+      border: 1px solid #d9d9d9;
+      padding: 15px;
+      color: @text-color;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      h3 {
+        margin-top: 0;
+      }
+
+      .views-field-emh-author {
+        .make-md-column(3);
+        padding-left: 0;
+
+        .user-cartouche {
+          margin-bottom: 0;
+        }
+      }
+
+      .views-field-emh-answer,
+      .views-field-emh-submission-actions {
+        .make-md-column(9);
+        line-height: @line-height-base * @line-height-base;
+        padding-right: 0;
+      }
+
+      .views-field-emh-submission-actions {
+        .text-right;
+      }
+
+      .submission-date {
+        font-size: .9em;
+        color: #445766;
+      }
+    }
+  }
+}
+
+
 // node/add/request
 // node/%/edit
 body.page-node-add-request,
@@ -434,47 +485,14 @@ body.node-type-request:not(.page-node-edit) {
         .btn-primary;
       }
     }
-    .row {
-      margin: 0 0 15px;
+
+    .views-field-views-bulk-operations {
+      position: absolute;
+      z-index: 100;
     }
-    .col {
-      .make-row();
-      margin: 0;
 
-      background-color: #FFF;
-      border: 1px solid #d9d9d9;
-      padding: 15px;
-      color: @text-color;
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-
-      .views-field-views-bulk-operations {
-        position: absolute;
-        z-index: 100;
-      }
-
-      .views-field-emh-author {
-        .make-md-column(3);
-
-        padding-left: 30px;
-      }
-
-      .views-field-emh-answer,
-      .views-field-view-submission {
-        .make-md-column(9);
-        line-height: @line-height-base * @line-height-base;
-      }
-
-      .views-field-view-submission {
-        .text-right;
-      }
-
-      .submission-date {
-        font-size: .9em;
-        color: #445766;
-      }
+    .views-field-emh-author {
+      padding-left: 30px;
     }
 
     // VBO confirmation form
