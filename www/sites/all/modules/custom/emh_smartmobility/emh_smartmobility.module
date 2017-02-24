@@ -9,6 +9,25 @@ include_once 'emh_smartmobility.block.inc';
 include_once 'emh_smartmobility.pages.inc';
 
 /**
+ * Implements hook_form_alter().
+ */
+function emh_smartmobility_form_alter(&$form, &$form_state, $form_id) {
+  global $base_url;
+  switch ($form_id) {
+    case 'user_login':
+    case 'user_login_block':
+      unset($form['#action']);
+      $form['#action'] = url('<front>', array(
+          'base_url' => $base_url,
+          'absolute' => TRUE,
+          'language' => (object)array('language' => FALSE)
+      ));
+      break;
+  }
+}
+
+
+/**
  * Implements hook_theme().
  */
 function emh_smartmobility_theme() {
