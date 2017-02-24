@@ -1,5 +1,4 @@
-.page-client-register,
-.page-expert-register {
+body[class*="-register"] {
   #block-system-main {
     > .content {
       .make-row();
@@ -12,6 +11,7 @@
       }
     }
   }
+
   #block-hybridauth-hybridauth {
     > .content {
       .make-row();
@@ -26,9 +26,7 @@
   }
 }
 
-#user-register-form-client,
-#user-register-form-expert,
-#user-register-form {
+form[id^="user-register-form"] {
   .row {
     > div {
       .make-sm-column(6);
