@@ -139,7 +139,9 @@ function emh_user_form_alter(&$form, &$form_state, $form_id) {
   switch ($form_id) {
     case 'user_login':
     case 'user_login_block':
-      unset($form['#action']);
+      // if (!module_exists('emh_smartmobility')) {
+        unset($form['#action']);
+      // }
       $form['#submit'][] = 'emh_user_form_submit';
       break;
     default:
@@ -148,7 +150,7 @@ function emh_user_form_alter(&$form, &$form_state, $form_id) {
 }
 
 function emh_user_form_submit($form, &$form_state) {
-  $form_state['redirect'] = url('<front>', array('absolute'=> true, 'language' =>  (object)array('language' =>  FALSE)));
+  $form_state['redirect'] = url('<front>', array('absolute' => TRUE, 'language' => (object) array('language' => FALSE)));
 }
 
 /**
