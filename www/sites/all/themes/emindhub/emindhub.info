@@ -31,7 +31,7 @@ regions[burgermenu]     = 'Burger Menu'
 ;; Stylesheets
 ;;;;;;;;;;;;;;;;;;;;;
 
-stylesheets[all][] = dist/style.min.css
+stylesheets[all][] = 'dist/style.min.css'
 ; exclude module styles
 exclude[css][] = 'modules/field/theme/field.css'
 exclude[css][] = 'sites/all/modules/contrib/autocomplete_deluxe/autocomplete_deluxe.css'
@@ -57,7 +57,7 @@ exclude[css][] = 'sites/all/modules/contrib/field_collection/field_collection.th
 ;; Scripts
 ;;;;;;;;;;;;;;;;;;;;;
 
-scripts[] = dist/script.min.js
+scripts[] = 'dist/script.min.js'
 scripts[] = 'libraries/bootstrap/js/affix.js'
 scripts[] = 'libraries/bootstrap/js/alert.js'
 scripts[] = 'libraries/bootstrap/js/button.js'
