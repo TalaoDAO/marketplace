@@ -14,6 +14,8 @@ function emh_request_flag_access($flag, $entity_id, $action, $account) {
       module_load_include('inc', 'webform', 'includes/webform.submissions');
       $submission = webform_get_submissions(array('sid' => $entity_id));
       $node = node_load($submission[$entity_id]->nid);
+      $submissions = webform_get_submissions(array('sid' => $entity_id));
+      $node = node_load($submissions[$entity_id]->nid);
       return $account->uid != $node->uid ? FALSE : NULL;
   }
 }
