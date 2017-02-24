@@ -5,6 +5,11 @@
  * Code for EMH Smart Mobility feature.
  */
 
+define('EMH_SMARTMOBILITY_CIRCLE_GID', 2520);
+define('EMH_SMARTMOBILITY_BASE_URL', 'smart-mobility');
+define('EMH_SMARTMOBILITY_REGISTER_CLIENT', 'smart-mobility/client/register');
+define('EMH_SMARTMOBILITY_REGISTER_EXPERT', 'smart-mobility/expert/register');
+
 include_once 'emh_smartmobility.block.inc';
 include_once 'emh_smartmobility.pages.inc';
 
@@ -23,7 +28,7 @@ function emh_smartmobility_theme() {
       'variables' => array(
         'title' => NULL,
         'content' => NULL,
-       ),
+      ),
     ),
     'emh_smartmobility_block_partners' => array(
       'template' => 'block--emh-smartmobility--partners',
@@ -31,7 +36,7 @@ function emh_smartmobility_theme() {
       'variables' => array(
         'title' => NULL,
         'content' => NULL,
-       ),
+      ),
     ),
   );
 }
@@ -40,7 +45,7 @@ function emh_smartmobility_theme() {
  * Implements hook_custom_theme().
  */
 function emh_smartmobility_custom_theme() {
-  if (arg(0) == 'smart-mobility' && !arg(1)) {
+  if (arg(0) == 'smart-mobility') {
     return 'smartmobility';
   }
 }
@@ -51,11 +56,94 @@ function emh_smartmobility_custom_theme() {
 function emh_smartmobility_menu() {
   $items = array();
 
-  $items['smart-mobility'] = array(
+  $items[EMH_SMARTMOBILITY_BASE_URL] = array(
     'title' => 'Smart Mobility',
     'page callback' => 'emh_smartmobility_page',
     'access callback' => 'user_is_anonymous',
   );
+  $items[EMH_SMARTMOBILITY_REGISTER_CLIENT] = array(
+    'title' => 'Inscrivez-vous pour rechercher des talents',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('user_register_form_smartmobility_client'),
+    'access arguments' => array('access content'),
+  );
+  $items[EMH_SMARTMOBILITY_REGISTER_EXPERT] = array(
+    'title' => 'Inscrivez-vous en tant que salarié Airbus',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('user_register_form_smartmobility_expert'),
+    'access arguments' => array('access content'),
+  );
 
   return $items;
+}
+
+/**
+ * Implements hook_forms().
+ */
+function emh_smartmobility_forms($form_id, $args) {
+  $forms = array();
+  switch ($form_id) {
+    case 'user_register_form_smartmobility_client':
+      $forms['user_register_form_smartmobility_client'] = array(
+        'callback' => 'user_register_form',
+      );
+      break;
+
+    case 'user_register_form_smartmobility_expert':
+      $forms['user_register_form_smartmobility_expert'] = array(
+        'callback' => 'user_register_form',
+      );
+      break;
+  }
+  return $forms;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function emh_smartmobility_form_alter(&$form, &$form_state, $form_id) {
+  switch ($form_id) {
+    case 'user_register_form_smartmobility_client':
+    case 'user_register_form_smartmobility_expert':
+      $form['#submit'][] = 'emh_smartmobility_register_form_submit';
+      return $form;
+  }
+}
+
+/**
+ * Submit callback for the publication form.
+ */
+function emh_smartmobility_register_form_submit($form, &$form_state) {
+  $form_state['redirect'] = EMH_SMARTMOBILITY_BASE_URL;
+}
+
+/**
+ * Implements hook_user_presave().
+ */
+function emh_smartmobility_user_presave(&$edit, $account, $category) {
+  if (isset($account->is_new) && !empty($account->is_new)) {
+    // Automatically assign user to particular roles.
+    $roleswitcher_role = user_role_load_by_name('roleswitcher');
+    if (arg(0) == EMH_SMARTMOBILITY_BASE_URL && arg(1) == 'client' && arg(2) == 'register') {
+      $role = user_role_load_by_name('business');
+      $edit['roles'] = array($role->rid => 1, $roleswitcher_role->rid => 1);
+    }
+    if (arg(0) == EMH_SMARTMOBILITY_BASE_URL && arg(1) == 'expert' && arg(2) == 'register') {
+      $role = user_role_load_by_name('expert');
+      $edit['roles'] = array($role->rid => 1, $roleswitcher_role->rid => 1);
+    }
+  }
+}
+
+/**
+ * Implements hook_user_insert().
+ */
+function emh_smartmobility_user_insert(&$edit, $account, $category) {
+  // Automatically assign user to a particular group.
+  $values = array(
+    'entity_type' => 'user',
+    'entity' => $account,
+    'state' => OG_STATE_ACTIVE,
+  );
+  og_group('node', EMH_SMARTMOBILITY_CIRCLE_GID, $values);
 }

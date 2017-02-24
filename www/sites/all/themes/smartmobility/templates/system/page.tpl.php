@@ -6,7 +6,7 @@
       <div class="row">
 
         <div class="emh-brand col-md-2">
-          <a class="logo navbar-btn" href="<?php print url('smart-mobility'); ?>" title="<?php print t('Smart Mobility'); ?>">
+          <a class="logo navbar-btn" href="<?php print url(EMH_SMARTMOBILITY_BASE_URL); ?>" title="<?php print t('Smart Mobility'); ?>">
             <span class="smartmobility-title"><?php print t('Smart Mobility'); ?></span>
           </a>
         </div>
@@ -61,6 +61,34 @@
 
           <a id="main-content"></a>
 
+          <div class="row">
+
+            <div class="title-left">
+
+              <?php print render($title_prefix); ?>
+              <?php if (!empty($title)): ?>
+                <div class="title">
+                  <h1 class="page-header"><?php print $title; ?></h1>
+                </div>
+              <?php endif; ?>
+              <?php print render($title_suffix); ?>
+
+              <?php if (!empty($page['title'])): ?>
+                <?php print render($page['title']); ?>
+              <?php endif; ?>
+
+              <?php if (!empty($baseline)) : ?>
+                <p class="emh-title-baseline"><?php print $baseline; ?></p>
+              <?php endif; ?>
+
+            </div>
+
+            <?php if (!empty($page['title_right'])): ?>
+              <?php print render($page['title_right']); ?>
+            <?php endif; ?>
+
+          </div>
+
           <?php print $messages; ?>
 
           <?php $primary_tabs = emh_submenu_menu_tabs_primary($tabs);
@@ -80,7 +108,7 @@
         </div>
       <?php endif; ?>
 
-      <div class="container-fluid">
+      <div class="container">
 
         <div class="row">
 
@@ -139,7 +167,7 @@
     <div class="container">
       <div class="row">
         <div class="footer-logo">
-          <a href="<?php print url('smart-mobility'); ?>" title="<?php print t('Smart Mobility'); ?>">
+          <a href="<?php print url(EMH_SMARTMOBILITY_BASE_URL); ?>" title="<?php print t('Smart Mobility'); ?>">
             <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'smartmobility'); ?>/images/logo/AIRBUS_WHITE.png" alt="<?php print t('Airbus'); ?>" />
           </a>
         </div>
