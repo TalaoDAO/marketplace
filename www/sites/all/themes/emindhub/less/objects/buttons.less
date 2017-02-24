@@ -90,6 +90,17 @@ fieldset[disabled] .btn {
 	padding: 0;
 }
 
+.emh-button-alt {
+	.button-variant(@color-secondary;  transparent;  @color-secondary);
+}
+
+.emh-button-default {
+	.button-variant(@gray, @gray-lighter, @gray-lighter);
+}
+
+.emh-button-default-active {
+	.button-variant(@color-secondary, @gray-lighter, @gray-lighter);
+}
 
 a {
   &.subscribe,
@@ -110,4 +121,18 @@ a {
     border-color: @brand-primary;
     background: transparent;
   }
+}
+
+.flag-interesting-answer {
+  .flag {
+    .emh-button-default;
+
+    &.unflag-action {
+      .emh-button-default-active
+    }
+  }
+}
+
+a.submission-link {
+  .emh-button;
 }

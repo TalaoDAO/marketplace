@@ -25,20 +25,20 @@ function ft_request_views_api($module = NULL, $api = NULL) {
  */
 function ft_request_flag_default_flags() {
   $flags = array();
-  // Exported flag: "Interesting answer".
+  // Exported flag: "Helpful answer".
   $flags['interesting_answer'] = array(
     'entity_type' => 'webform_submission',
-    'title' => 'Interesting answer',
+    'title' => 'Helpful answer',
     'global' => 1,
     'types' => array(
       0 => 'webform_submission',
     ),
     'flag_short' => 'Was this answer helpful?',
     'flag_long' => 'Click to mark this answer as helpful.',
-    'flag_message' => 'You marked this answer as interesting.',
+    'flag_message' => 'You marked this answer as helpful.',
     'unflag_short' => 'This answer was helpful <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>',
-    'unflag_long' => 'Click to unmark this answer as interesting.',
-    'unflag_message' => 'You unmarked this answer as interesting.',
+    'unflag_long' => 'Click to unmark this answer as helpful.',
+    'unflag_message' => 'You unmarked this answer as helpful.',
     'unflag_denied_text' => '',
     'link_type' => 'toggle',
     'weight' => 0,
