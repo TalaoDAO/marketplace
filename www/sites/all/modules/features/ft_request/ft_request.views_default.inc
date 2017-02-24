@@ -2473,7 +2473,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['ops_1']['element_class'] = 'text-center';
   $handler->display->display_options['fields']['ops_1']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['ops_1']['link_type'] = 'confirm';
-  /* Field: Flagging: Your comment */
+  /* Field: Flagging: Comment answer */
   $handler->display->display_options['fields']['field_comment_answer']['id'] = 'field_comment_answer';
   $handler->display->display_options['fields']['field_comment_answer']['table'] = 'field_data_field_comment_answer';
   $handler->display->display_options['fields']['field_comment_answer']['field'] = 'field_comment_answer';
@@ -2712,7 +2712,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['flagged']['type'] = 'custom';
   $handler->display->display_options['fields']['flagged']['type_custom_true'] = 'Useful answer <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
   $handler->display->display_options['fields']['flagged']['not'] = 0;
-  /* Field: Flagging: Your comment */
+  /* Field: Flagging: Comment answer */
   $handler->display->display_options['fields']['field_comment_answer']['id'] = 'field_comment_answer';
   $handler->display->display_options['fields']['field_comment_answer']['table'] = 'field_data_field_comment_answer';
   $handler->display->display_options['fields']['field_comment_answer']['field'] = 'field_comment_answer';
