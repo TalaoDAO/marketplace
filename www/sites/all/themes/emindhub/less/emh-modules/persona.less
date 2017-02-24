@@ -81,11 +81,15 @@
 		display: inline-block;
 		text-transform: uppercase;
 		color: #fff;
-		min-width: 210px;
+		min-width: @emh-cta-width-min;
 		width: auto;
 		border-radius: 5px;
-		padding: 17px 5px;
+		padding: 17px 20px;
 		text-decoration: none;
+
+    @media (max-width: @screen-sm-max) {
+      padding: 12px 10px;
+    }
 	}
 }
 
