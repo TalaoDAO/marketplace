@@ -10,6 +10,41 @@
 function ft_request_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'flagging-comment_answer-field_comment_answer'.
+  $field_instances['flagging-comment_answer-field_comment_answer'] = array(
+    'bundle' => 'comment_answer',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'flagging',
+    'field_name' => 'field_comment_answer',
+    'label' => 'Comment answer',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 1,
+    ),
+  );
+
   // Exported field_instance: 'node-request-body'.
   $field_instances['node-request-body'] = array(
     'bundle' => 'request',
@@ -1125,6 +1160,7 @@ function ft_request_field_default_field_instances() {
   t('Choose a request type');
   t('Circle restriction');
   t('Circles');
+  t('Comment answer');
   t('Deadline');
   t('Describe your request');
   t('Description');
