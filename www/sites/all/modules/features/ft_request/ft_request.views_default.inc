@@ -2443,7 +2443,10 @@ function ft_request_views_default_views() {
   $handler->display->display_options['defaults']['access'] = FALSE;
   $handler->display->display_options['access']['type'] = 'role';
   $handler->display->display_options['access']['role'] = array(
-    2 => '2',
+    3 => '3',
+    5 => '5',
+    4 => '4',
+    6 => '6',
   );
   $handler->display->display_options['defaults']['exposed_form'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
@@ -2526,7 +2529,6 @@ function ft_request_views_default_views() {
     'completed' => 'completed',
     'emh_answer' => 'emh_answer',
     'is_draft' => 'is_draft',
-    'flagged' => 'flagged',
     'view_submission' => 'view_submission',
   );
   $handler->display->display_options['style_options']['default'] = 'completed';
@@ -2556,11 +2558,6 @@ function ft_request_views_default_views() {
       'align' => '',
       'separator' => '',
       'empty_column' => 0,
-    ),
-    'flagged' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 1,
     ),
     'view_submission' => array(
       'sortable' => 0,
@@ -2683,7 +2680,11 @@ function ft_request_views_default_views() {
   $handler->display->display_options['defaults']['access'] = FALSE;
   $handler->display->display_options['access']['type'] = 'role';
   $handler->display->display_options['access']['role'] = array(
-    2 => '2',
+    3 => '3',
+    5 => '5',
+    4 => '4',
+    7 => '7',
+    6 => '6',
   );
   $handler->display->display_options['defaults']['exposed_form'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
