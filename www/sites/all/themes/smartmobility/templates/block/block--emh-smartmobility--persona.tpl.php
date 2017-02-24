@@ -11,7 +11,7 @@
     <?php endif;?>
 
     <div class="select-persona-subtitle">
-      <?php print t('Une initiative dédiée au redéploiement des salariés d’Airbus dans le secteur de l’aéronautique'); ?>
+      <?php print t('Une initiative dédiée au redéploiement des salariés d’Airbus <br />dans le secteur de l’aéronautique'); ?>
     </div>
 
     <div class="row select-persona-buttons">
