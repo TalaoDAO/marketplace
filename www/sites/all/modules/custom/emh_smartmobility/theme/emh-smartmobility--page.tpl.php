@@ -61,38 +61,36 @@ global $base_url, $language;
         <div class="emh-subtitle"><?php echo t('Questions les plus fréquentes') ?></div>
 
         <div>
-          <h3 class="question">
-          Comment suis-je informé des nouvelles demandes me concernant ?</h3>
+          <h3 class="question">Qui peut voir les réponses à mes annonces ?</h3>
 
           <div class="answer">
-            <p>Pour chaque nouvelle demande vous recevez un email de notification, avec le titre de la demande. Cela vous permet de décider très rapidement si vous pouvez être intéressé par cette demande, soit à titre personnel, soit pour un expert de votre réseau que vous pourriez recommander.</p>
-            <p>Vous pouvez également choisir de ne recevoir des notifications que pour les demandes correspondant au domaine de compétence que vous avez renseigné dans votre profil (champs «&nbsp;domains&nbsp;»).</p>
+            <p>Vous seul pouvez consulter les réponses à votre annonce en choisissant l'option «&nbsp;private answer&nbsp;».</p>
           </div>
         </div>
         <div>
-          <h3 class="question">
-          A quoi je m'engage en m'inscrivant sur eMindHub ?</h3>
+          <h3 class="question">Comment garantissez-vous la confidentialité des informations ?</h3>
 
           <div class="answer">
-            <p>L'inscription sur eMindHub est libre et gratuite. Vous vous engagez uniquement à utiliser le service conformément aux Conditions Générales d'Utilisation. Il n'y a pas de clause d'exclusivité et vous n'êtes pas tenu d'avoir une activité minimale.</p>
+            <p>Lorsque vous publiez une annonce, vous pouvez choisir d'être anonyme et de cacher votre nom et/ou celui de votre entreprise, en choisissant l'option «&nbsp;anonymous". Il est toutefois recommandé de mettre un bref descriptif de votre activité pour accroitre la pertinence des réponses des candidats.</p>
           </div>
         </div>
         <div>
-          <h3 class="question">
-          Qui peut voir mon profil quand je m'inscris sur eMindHub ?</h3>
+          <h3 class="question">Qui a accès à mes annonces ?</h3>
 
           <div class="answer">
-            <p>De façon générale, les profils des experts eMindHub ne sont pas publics. Seul un client qui a sélectionné votre réponse à une de ses demandes pourra avoir accès à votre profil. Ainsi, tant que vous n'êtes pas actif, vous resterez anonyme.</p>
-            <p>Lorsque vous faites parti d'un cercle privé (association, ancien d'une école ou d'une entreprise), l'ensemble des membres de ce cercle peut accéder à votre profil.</p>
+            <p>Lorsque vous publiez une annonce de recrutement, vous devez choisir le cercle «&nbsp;Smart Mobility&nbsp;» pour que seuls les salariés Airbus puissent y accéder de façon exclusive.</p>
           </div>
         </div>
         <div>
-          <h3 class="question">
-          Pourquoi renseigner mon profil ?</h3>
+          <h3 class="question"> Pourquoi associer un questionnaire à mon annonce ?</h3>
 
           <div class="answer">
-            <p>Lorsqu'un utilisateur choisit une de vos réponses, il accède à votre profil, avec vos coordonnées et l'ensemble des informations sur vos compétences. En renseignant votre profil de façon précise et exhaustive vous renforcez vos chances d'être contacté par un demandeur et de vous voir confié une mission.</p>
-            <p>Un profil bien renseigné améliorera aussi la pertinence des notifications vous informant de nouvelles demandes.</p>
+            <p>Le questionnaire permet de pré-qualifier les candidats sur la base de leurs réponses. Nous vous recommandons de ne pas poser plus de 7 à 8 questions. Lorsque vous choisissez le type «&nbsp;Recruitment Smart Mobility&nbsp;» à la création de votre annonce, nous vous proposons quelques questions type :</p>
+            <ul>
+              <li>Quelles sont vos motivations pour ce poste / cette mission ?</li>
+              <li>Quelles sont vos réalisations pertinentes en relation avec ce poste / cette mission ?</li>
+              <li>etc.</li>
+            </ul>
           </div>
         </div>
 
@@ -151,54 +149,38 @@ global $base_url, $language;
         <div class="emh-subtitle"><?php echo t('Questions les plus fréquentes') ?></div>
 
         <div>
-          <h3 class="question question-alt">
-            Qui peut voir les réponses à mes demandes ?</h3>
+          <h3 class="question question-alt">Comment suis-je informé des nouvelles annonces publiées sur Smart Mobility ?</h3>
 
           <div class="answer">
-            <p>Vous êtes le seul à pouvoir lire les réponses à votre demande en choisissant l'option «&nbsp;réponse privée&nbsp;».</p>
+            <p>Pour chaque nouvelle demande, vous recevez un email de notification avec le titre de l'annonce. Cela vous permet de décider très rapidement si vous pouvez être intéressé par cette demande. En cliquant sur le lien, vous accédez à la demande.</p>
           </div>
         </div>
         <div>
-          <h3 class="question question-alt">
-        Comment puis-je solliciter la communauté des experts eMindHub ?</h3>
+          <h3 class="question question-alt">Qui a accès aux annonces publiées sur Smart Mobility ?</h3>
 
           <div class="answer">
-            <p>Vous pouvez solliciter la communauté des experts de trois façons différentes&nbsp;:</p>
-            <ul>
-              <li>En posant une question pour avoir des avis, des retours d'expériences, des idées.</li>
-              <li>En publiant une annonce pour une mission d'expertise ponctuelle via un questionnaire qui vous permet de pré-qualifier les experts les plus pertinents.</li>
-              <li>En publiant un appel d'offre ou un challenge d'innovation pour obtenir directement des propositions de services.</li>
-            </ul>
+            <p>Seules les personnes inscrites dans le cercle «&nbsp;Smart Mobility&nbsp;» peuvent accéder aux annonces, donc les annonceurs et les salariés d'Airbus.</p>
           </div>
         </div>
         <div>
-          <h3 class="question question-alt">
-        Comment garantissez-vous la confidentialité des informations ?</h3>
+          <h3 class="question question-alt">Qui peut consulter mon profil ?</h3>
 
           <div class="answer">
-            <p>Lorsque vous faites une demande, vous pouvez choisir d'être anonyme et de cacher votre nom et/ou celui de votre entreprise. Il est toutefois recommandé de mettre un bref descriptif de votre activité pour accroitre la pertinence des réponses des experts.</p>
-            <p>Nous préparons également une option qui permettra de faire signer un NDA en ligne aux experts qui souhaiteraient assister à votre demande.</p>
+            <p>Seules les personnes inscrites dans le cercle «&nbsp;Smart Mobility&nbsp;» peuvent accéder au profil des salariés d'Airbus, donc les annonceurs et les autres salariés d'Airbus.</p>
           </div>
         </div>
         <div>
-          <h3 class="question question-alt">
-        Combien ça coûte de poster des demandes ?</h3>
+          <h3 class="question question-alt">Pourquoi renseigner mon profil ?</h3>
 
           <div class="answer">
-            <p>Vous pouvez poster vos demandes et lire les réponses des experts gratuitement. En revanche pour accéder aux profils des experts il vous faudra acheter des crédits. Ces crédits vous serviront également à personnaliser vos demandes via les options.</p>
+            <p>Il est recommandé de renseigner son profil le plus précisément possible. Les annonceurs peuvent en effet pré-sélectionner les candidats sur la base des réponses au questionnaire associé à chaque offre, mais aussi du profil détaillé du candidat.</p>
           </div>
         </div>
         <div>
-          <h3 class="question question-alt">
-        Qui a accès à ma demande ?</h3>
+          <h3 class="question question-alt">Comment répondre à une annonce ?</h3>
 
           <div class="answer">
-            <p>Lors de la publication de votre demande, vous devez choisir le cercle d'experts pouvant y accéder (par défaut&nbsp;: all experts).</p>
-            <p>Vous pouvez également choisir un de vos cercles privés&nbsp;:</p>
-            <ul>
-              <li>Soit un cercle correspondant à une de vos associations (alumni par exemple), clusters ou groupements d'entreprises qui utilisent eMindHub pour gérer les échanges entre leurs membres.</li>
-              <li>Soit un cercle que nous pouvons vous créer sur mesure, composé d'experts de votre connaissance (anciens de votre entreprise, partenaires dans le cadre de votre entreprise étendue, etc.)</li>
-            </ul>
+            <p>Pour répondre à une annonce, il suffit de répondre aux questions associées aux offres qui vous intéressent. Les annonceurs sont automatiquement informés de vos réponses.</p>
           </div>
         </div>
 
