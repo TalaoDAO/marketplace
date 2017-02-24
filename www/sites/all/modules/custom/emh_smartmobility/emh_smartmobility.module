@@ -7,8 +7,8 @@
 
 define('EMH_SMARTMOBILITY_CIRCLE_GID', 2520);
 define('EMH_SMARTMOBILITY_BASE_URL', 'smart-mobility');
-define('EMH_SMARTMOBILITY_REGISTER_CLIENT', 'smart-mobility/client/register');
-define('EMH_SMARTMOBILITY_REGISTER_EXPERT', 'smart-mobility/expert/register');
+define('EMH_SMARTMOBILITY_REGISTER_CLIENT', EMH_SMARTMOBILITY_BASE_URL . '/client/register');
+define('EMH_SMARTMOBILITY_REGISTER_EXPERT', EMH_SMARTMOBILITY_BASE_URL . '/expert/register');
 
 include_once 'emh_smartmobility.block.inc';
 include_once 'emh_smartmobility.pages.inc';
@@ -45,7 +45,7 @@ function emh_smartmobility_theme() {
  * Implements hook_custom_theme().
  */
 function emh_smartmobility_custom_theme() {
-  if (arg(0) == 'smart-mobility') {
+  if (arg(0) == EMH_SMARTMOBILITY_BASE_URL) {
     return 'smartmobility';
   }
 }
