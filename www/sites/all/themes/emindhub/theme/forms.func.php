@@ -140,7 +140,20 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
       $form['hybridauth']['#weight'] = 10;
       break;
 
-    default:
+    case 'user_register_form_client':
+    case 'user_register_form_expert':
+      $form['#groups']['group_account']->label = '';
+      $form['emh_baseline'] = array(
+        '#markup' => '<p class="emh-title-baseline">' . sprintf(t('Create your account %sfor free in no time%s'), '<strong>', '</strong>') . '</p>',
+        '#weight' => '-1000',
+      );
+      // Add class before & after fields.
+      if ($form['field_first_name'] && $form['field_last_name']) {
+        $form['field_first_name']['#prefix'] = '<div class="row">';
+        $form['field_last_name']['#suffix'] = '</div>';
+      }
+      // Reduce email description for better Bootstrap display (tooltip)
+      $form['account']['mail']['#description'] = t('All e-mails from the system will be sent to this address. The e-mail address will only be used if you wish to receive a new password or certain news or notifications by e-mail.');
       break;
   }
 }
@@ -288,41 +301,11 @@ function emindhub_form_search_block_form_alter(&$form, &$form_state, $form_id) {
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function emindhub_form_user_register_form_client_alter(&$form, &$form_state, $form_id) {
-  $form['emh_baseline'] = array(
-    '#markup' => '<p class="emh-title-baseline">' . sprintf(t('Create your account %sfor free in no time%s'), '<strong>', '</strong>') . '</p>',
-    '#weight' => '-1000', // First !
-  );
-
-  // Add class before & after fields
-  if ($form['field_first_name'] && $form['field_last_name']) {
-    $form['field_first_name']['#prefix'] = '<div class="row">';
-    $form['field_last_name']['#suffix'] = '</div>';
-  }
-
-  // Reduce email description for better Bootstrap display (tooltip)
-  $form['account']['mail']['#description'] = t('All e-mails from the system will be sent to this address. The e-mail address will only be used if you wish to receive a new password or certain news or notifications by e-mail.');
-}
-
-/**
- * Implements hook_form_FORM_ID_alter().
- */
 function emindhub_form_user_register_form_expert_alter(&$form, &$form_state, $form_id) {
-  $form['emh_baseline'] = array(
-    '#markup' => '<p class="emh-title-baseline">' . sprintf(t('Create your account %sfor free in no time%s'), '<strong>', '</strong>') . '</p>',
-    '#weight' => '-1000', // First !
-  );
   $form['emh_content'] = array(
     '#markup' => '<p class="emh-title-baseline">' . t('You can directly login with your LinkedIn account or complete the form below to create your account.') . '</p>',
     '#weight' => '-999',
   );
-  // Add class before & after fields
-  if ($form['field_first_name'] && $form['field_last_name']) {
-    $form['field_first_name']['#prefix'] = '<div class="row">';
-    $form['field_last_name']['#suffix'] = '</div>';
-  }
-  // Reduce email description for better Bootstrap display (tooltip)
-  $form['account']['mail']['#description'] = t('All e-mails from the system will be sent to this address. The e-mail address will only be used if you wish to receive a new password or certain news or notifications by e-mail.');
 }
 
 /**
