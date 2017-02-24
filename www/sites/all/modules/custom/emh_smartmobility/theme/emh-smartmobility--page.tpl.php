@@ -82,7 +82,7 @@ global $base_url, $language;
           </div>
         </div>
         <div>
-          <h3 class="question"> Pourquoi associer un questionnaire à mon annonce ?</h3>
+          <h3 class="question">Pourquoi associer un questionnaire à mon annonce ?</h3>
 
           <div class="answer">
             <p>Le questionnaire permet de pré-qualifier les candidats sur la base de leurs réponses. Nous vous recommandons de ne pas poser plus de 7 à 8 questions. Lorsque vous choisissez le type «&nbsp;Recruitment Smart Mobility&nbsp;» à la création de votre annonce, nous vous proposons quelques questions type :</p>
