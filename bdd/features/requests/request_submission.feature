@@ -124,7 +124,7 @@ Feature: Request and answers
 
     When I click "view" in the "submissions" region
       And I click "Was this answer helpful?" in the "block_system_main" region
-    Then I should see "Was this answer helpful?" in the "block_system_main" region
+    Then I should see "This answer was helpful" in the "block_system_main" region
 
   Scenario: An expert of the same circle cannot mark the published answer as helpful
     Given I am logged in as "expert1"
