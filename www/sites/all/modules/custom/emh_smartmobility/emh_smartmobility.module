@@ -107,6 +107,19 @@ function emh_smartmobility_form_alter(&$form, &$form_state, $form_id) {
     case 'user_register_form_smartmobility_expert':
       $form['#submit'][] = 'emh_smartmobility_register_form_submit';
       return $form;
+
+    // case 'user_login':
+    // case 'user_login_block':
+    //   if (arg(0) == EMH_SMARTMOBILITY_BASE_URL) {
+    //     global $base_url;
+    //     unset($form['#action']);
+    //     $form['#action'] = url('<front>', array(
+    //       'base_url' => $base_url,
+    //       'absolute' => TRUE,
+    //       'language' => (object) array('language' => FALSE),
+    //     ));
+    //   }
+    //   break;
   }
 }
 
