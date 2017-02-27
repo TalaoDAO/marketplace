@@ -14,5 +14,5 @@
 function emh_smartmobility_context() {
   global $base_url;
 
-  return ($base_url == variable_get('emh_smartmobility_base_url', 'http://smartmob.box.local') || arg(0) == EMH_SMARTMOBILITY_HOMEPAGE_URL);
+  return ($base_url == variable_get('emh_smartmobility_base_url', 'http://smartmob.box.local') || arg(0) == EMH_SMARTMOBILITY_HOMEPAGE_ALIAS);
 }
