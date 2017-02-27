@@ -50,7 +50,7 @@ function emh_smartmobility_block_view($delta = '') {
 
     case 'partners':
       $block = array(
-        'subject' => t('Une initiative réalisée en partenariat avec'),
+        'subject' => t('An initiative in partnership with'),
         'content' => emh_smartmobility_partners_block_content(),
       );
       break;
@@ -75,7 +75,7 @@ function emh_smartmobility_persona_block_content() {
  */
 function emh_smartmobility_partners_block_content() {
   return theme('emh_smartmobility_block_partners', array(
-    'title' => t('Une initiative réalisée en partenariat avec'),
+    'title' => t('An initiative in partnership with'),
     'content' => '',
   )
   );
