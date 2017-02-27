@@ -59,8 +59,6 @@ function emh_smartmobility_theme() {
  * Implements hook_custom_theme().
  */
 function emh_smartmobility_custom_theme() {
-  global $base_url;
-
   if (emh_smartmobility_context()) {
     return 'smartmobility';
   }
@@ -123,11 +121,6 @@ function emh_smartmobility_form_alter(&$form, &$form_state, $form_id) {
     case 'user_register_form_smartmobility_expert':
       $form['#submit'][] = 'emh_smartmobility_register_form_submit';
       return $form;
-
-    case 'user_login':
-    case 'user_login_block':
-      $form['hybridauth']['#type'] = '';
-      break;
   }
 }
 
@@ -167,6 +160,6 @@ function emh_smartmobility_user_insert(&$edit, $account, $category) {
       'entity' => $account,
       'state' => OG_STATE_ACTIVE,
     );
-    og_group('node', variable_get('emh_smartmobility_circle_gid', 1813), $values);
+    og_group('node', variable_get('emh_smartmobility_circle_gid', 2520), $values);
   }
 }
