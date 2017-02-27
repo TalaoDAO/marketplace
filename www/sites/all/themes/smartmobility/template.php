@@ -4,7 +4,7 @@
  * Implements hook_preprocess_html().
  */
 function smartmobility_preprocess_html(&$variables) {
-  if (arg(0) == EMH_SMARTMOBILITY_BASE_URL && !arg(1)) {
+  if (emh_smartmobility_context() && !arg(1)) {
     $variables['classes_array'][] = 'homepage';
   }
 }
@@ -29,15 +29,10 @@ function smartmobility_form_alter(&$form, &$form_state, $form_id) {
       // Reduce email description for better Bootstrap display (tooltip)
       $form['account']['mail']['#description'] = t('All e-mails from the system will be sent to this address. The e-mail address will only be used if you wish to receive a new password or certain news or notifications by e-mail.');
       break;
-  }
-}
 
-/**
- * Implements hook_form_FORM_ID_alter().
- */
-function smartmobility_form_user_register_form_smartmobility_expert_alter(&$form, &$form_state, $form_id) {
-  $form['emh_content'] = array(
-    '#markup' => '<p class="emh-title-baseline">' . t('You can directly login with your LinkedIn account or complete the form below to create your account.') . '</p>',
-    '#weight' => '-999',
-  );
+    case 'user_login':
+    case 'user_login_block':
+      $form['hybridauth']['#type'] = '';
+      break;
+  }
 }

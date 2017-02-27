@@ -1,4 +1,4 @@
-  <?php global $base_url; ?>
+<?php global $base_url; ?>
   <header id="navbar" role="banner" class="navbar navbar-emh">
 
     <div class="container">
@@ -6,7 +6,7 @@
       <div class="row">
 
         <div class="emh-brand col-md-2">
-          <a class="logo navbar-btn" href="<?php print url(EMH_SMARTMOBILITY_BASE_URL); ?>" title="<?php print t('Smart Mobility'); ?>">
+          <a class="logo navbar-btn" href="<?php print url($base_url . '/' . EMH_SMARTMOBILITY_HOMEPAGE_ALIAS); ?>" title="<?php print t('Smart Mobility'); ?>">
             <span class="smartmobility-title"><?php print t('Smart Mobility'); ?></span>
           </a>
         </div>
@@ -167,7 +167,7 @@
     <div class="container">
       <div class="row">
         <div class="footer-logo">
-          <a href="<?php print url(EMH_SMARTMOBILITY_BASE_URL); ?>" title="<?php print t('Smart Mobility'); ?>">
+          <a href="<?php print url($base_url . '/' . EMH_SMARTMOBILITY_HOMEPAGE_ALIAS); ?>" title="<?php print t('Smart Mobility'); ?>">
             <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'smartmobility'); ?>/images/logo/AIRBUS_WHITE.png" alt="<?php print t('Airbus'); ?>" />
           </a>
         </div>

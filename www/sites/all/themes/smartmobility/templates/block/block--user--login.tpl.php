@@ -1,3 +1,5 @@
+<?php global $base_url; ?>
+
 <section id="<?php print $block_html_id; ?>" class="emh-module <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
   <div class="content">
@@ -6,15 +8,9 @@
         <a tabindex="0" id="signUp" class="user-menu sign-up" data-placement="bottom" data-html="true" title="<?php print t('Inscription'); ?>" data-template='<div class="popover signUp" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content signUpContent"></div></div>'><?php print t('Inscription'); ?></a>
         <div id="signUpContent" class="signUpContent" style="display: none;">
           <h4><?php print sprintf(t('%sSign-in in 1 minute%s and start%s'), '<span>', '</span><span>', '</span>'); ?></h4>
-          <span class="block"><a class="signin-client" href="<?php print url(EMH_SMARTMOBILITY_REGISTER_CLIENT); ?>"><?php print t('Vous recherchez des talents'); ?></a></span>
+          <span class="block"><a class="signin-client" href="<?php print url($base_url . '/' . EMH_SMARTMOBILITY_REGISTER_CLIENT); ?>"><?php print t('Vous recherchez des talents'); ?></a></span>
           <span class="separator"></span>
-          <span class="block"><a class="signin-expert" href="<?php print url(EMH_SMARTMOBILITY_REGISTER_EXPERT); ?>"><?php print t('Vous êtes salarié Airbus'); ?></a></span>
-          <?php
-          if (module_exists('hybridauth')) {
-            $element['#type'] = 'hybridauth_widget';
-            print drupal_render($element);
-          }
-          ?>
+          <span class="block"><a class="signin-expert" href="<?php print url($base_url . '/' . EMH_SMARTMOBILITY_REGISTER_EXPERT); ?>"><?php print t('Vous êtes salarié Airbus'); ?></a></span>
         </div>
       </li>
       <li><span class="navbar-text">|</span></li>
