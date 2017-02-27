@@ -18,7 +18,7 @@ function emh_smartmobility_block_info() {
     'status' => 1,
     'region' => 'top',
     'visibility' => BLOCK_VISIBILITY_LISTED,
-    'pages' => 'smart-mobility',
+    'pages' => EMH_SMARTMOBILITY_HOMEPAGE_URL,
   );
 
   $blocks['partners'] = array(
@@ -28,7 +28,7 @@ function emh_smartmobility_block_info() {
     'status' => 1,
     'region' => 'content',
     'visibility' => BLOCK_VISIBILITY_LISTED,
-    'pages' => 'smart-mobility',
+    'pages' => EMH_SMARTMOBILITY_HOMEPAGE_URL,
   );
 
   return $blocks;

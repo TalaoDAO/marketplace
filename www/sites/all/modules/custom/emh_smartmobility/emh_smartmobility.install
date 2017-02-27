@@ -10,6 +10,8 @@
  */
 function emh_smartmobility_enable() {
   theme_enable(array('smartmobility'));
+  variable_set('emh_smartmobility_base_url', 'http://smartmob.box.local');
+  variable_set('emh_smartmobility_circle_gid', 1813);
 }
 
 /**
@@ -17,4 +19,6 @@ function emh_smartmobility_enable() {
  */
 function emh_smartmobility_disable() {
   theme_disable(array('smartmobility'));
+  variable_del('emh_smartmobility_base_url');
+  variable_del('emh_smartmobility_circle_gid');
 }
