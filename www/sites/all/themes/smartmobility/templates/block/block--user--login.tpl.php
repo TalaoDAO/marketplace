@@ -5,12 +5,12 @@
   <div class="content">
     <ul class="nav navbar-nav">
       <li>
-        <a tabindex="0" id="signUp" class="user-menu sign-up" data-placement="bottom" data-html="true" title="<?php print t('Inscription'); ?>" data-template='<div class="popover signUp" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content signUpContent"></div></div>'><?php print t('Inscription'); ?></a>
+        <a tabindex="0" id="signUp" class="user-menu sign-up" data-placement="bottom" data-html="true" title="<?php print t('Register'); ?>" data-template='<div class="popover signUp" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content signUpContent"></div></div>'><?php print t('Registration'); ?></a>
         <div id="signUpContent" class="signUpContent" style="display: none;">
           <h4><?php print sprintf(t('%sSign-in in 1 minute%s and start%s'), '<span>', '</span><span>', '</span>'); ?></h4>
-          <span class="block"><a class="signin-client" href="<?php print url($base_url . '/' . EMH_SMARTMOBILITY_REGISTER_CLIENT); ?>"><?php print t('Vous recherchez des talents'); ?></a></span>
+          <span class="block"><a class="signin-client" href="<?php print url($base_url . '/' . EMH_SMARTMOBILITY_REGISTER_CLIENT); ?>"><?php print t('Looking for talent'); ?></a></span>
           <span class="separator"></span>
-          <span class="block"><a class="signin-expert" href="<?php print url($base_url . '/' . EMH_SMARTMOBILITY_REGISTER_EXPERT); ?>"><?php print t('Vous êtes salarié Airbus'); ?></a></span>
+          <span class="block"><a class="signin-expert" href="<?php print url($base_url . '/' . EMH_SMARTMOBILITY_REGISTER_EXPERT); ?>"><?php print t('I am an employee of Airbus'); ?></a></span>
         </div>
       </li>
       <li><span class="navbar-text">|</span></li>
