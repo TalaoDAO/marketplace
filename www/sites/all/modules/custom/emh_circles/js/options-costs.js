@@ -50,6 +50,8 @@
             // http://stackoverflow.com/questions/3179385/val-doesnt-trigger-change-in-jquery
           }
         });
+
+        $circlesField.find('select').trigger("change"); //force change in case field has default value
       }
     };
 
