@@ -120,32 +120,35 @@ function emh_smartmobility_form_alter(&$form, &$form_state, $form_id) {
   switch ($form_id) {
     case 'user_register_form_smartmobility_client':
     case 'user_register_form_smartmobility_expert':
+      unset($form['#action']);
       $form['#submit'][] = 'emh_smartmobility_register_form_submit';
-      return $form;
   }
 }
 
 /**
- * Submit callback for the publication form.
+ * Submit callback for the user register form.
  */
 function emh_smartmobility_register_form_submit($form, &$form_state) {
-  $form_state['redirect'] = EMH_SMARTMOBILITY_BASE_URL;
+  global $base_url;
+  $form_state['redirect'] = url(EMH_SMARTMOBILITY_BASE_URL, array('base_url' => $base_url, 'absolute' => TRUE, 'language' => (object) array('language' => FALSE)));
 }
 
 /**
  * Implements hook_user_presave().
  */
 function emh_smartmobility_user_presave(&$edit, $account, $category) {
-  if (isset($account->is_new) && !empty($account->is_new)) {
-    // Automatically assign user to particular roles.
-    $roleswitcher_role = user_role_load_by_name('roleswitcher');
-    if ((emh_smartmobility_context()) && current_path() == EMH_SMARTMOBILITY_REGISTER_CLIENT) {
-      $role = user_role_load_by_name('business');
-      $edit['roles'] = array($role->rid => 1, $roleswitcher_role->rid => 1);
-    }
-    if ((emh_smartmobility_context()) && current_path() == EMH_SMARTMOBILITY_REGISTER_EXPERT) {
-      $role = user_role_load_by_name('expert');
-      $edit['roles'] = array($role->rid => 1, $roleswitcher_role->rid => 1);
+  if (emh_smartmobility_context()) {
+    if (isset($account->is_new) && !empty($account->is_new)) {
+      // Automatically assign user to particular roles.
+      $roleswitcher_role = user_role_load_by_name('roleswitcher');
+      if (current_path() == EMH_SMARTMOBILITY_REGISTER_CLIENT) {
+        $role = user_role_load_by_name('business');
+        $edit['roles'] = array($role->rid => 1, $roleswitcher_role->rid => 1);
+      }
+      if (current_path() == EMH_SMARTMOBILITY_REGISTER_EXPERT) {
+        $role = user_role_load_by_name('expert');
+        $edit['roles'] = array($role->rid => 1, $roleswitcher_role->rid => 1);
+      }
     }
   }
 }
