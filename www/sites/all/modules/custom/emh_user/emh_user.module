@@ -139,17 +139,18 @@ function emh_user_form_alter(&$form, &$form_state, $form_id) {
   switch ($form_id) {
     case 'user_login':
     case 'user_login_block':
-      global $base_url;
       unset($form['#action']);
-      $form['#action'] = url('<front>', array(
-        'base_url' => $base_url,
-        'absolute' => TRUE,
-        'language' => (object) array('language' => FALSE),
-      ));
-      break;
-    default:
+      $form['#submit'][] = 'emh_user_login_form_submit';
       break;
   }
+}
+
+/**
+ * Submit callback for the user login form.
+ */
+function emh_user_login_form_submit($form, &$form_state) {
+  global $base_url;
+  $form_state['redirect'] = url('<front>', array('base_url' => $base_url, 'absolute' => TRUE, 'language' => (object) array('language' => FALSE)));
 }
 
 /**
