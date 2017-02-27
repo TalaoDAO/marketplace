@@ -196,7 +196,7 @@
         </div>
       </div>
       <hr />
-      <p class="footer-credits"><?php print date('Y'); ?> <span class="smartmobility-title"><?php print t('Smart Mobility'); ?></span> | <?php print t('Tous droits réservés'); ?></p>
+      <p class="footer-credits"><?php print date('Y'); ?> <span class="smartmobility-title"><?php print t('Smart Mobility'); ?></span> | <?php print t('All rights reserved'); ?></p>
     </div>
   </footer>
 

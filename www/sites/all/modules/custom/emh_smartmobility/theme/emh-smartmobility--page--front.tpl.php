@@ -6,15 +6,15 @@ global $base_url, $language;
 <section class="emh-module how-it-works hiw">
 
   <ul class="hiw-tabs">
-    <li><button type="button" name="button" data-tab="hiw-customer" class="hiw-tab emh-button customer"><?php print t('Vous recherchez des talents'); ?></button></li>
-    <li><button type="button" name="button" data-tab="hiw-expert" class="hiw-tab emh-button expert"><?php print t('Vous êtes salarié Airbus'); ?></button></li>
+    <li><button type="button" name="button" data-tab="hiw-customer" class="hiw-tab emh-button customer"><?php print t('Looking for talent'); ?></button></li>
+    <li><button type="button" name="button" data-tab="hiw-expert" class="hiw-tab emh-button expert"><?php print t('I am an employee of Airbus'); ?></button></li>
   </ul>
 
   <!-- PARTNER -->
   <div class="hiw-tab-content hiw-customer emh-module">
 
     <div class="emh-subtitle">
-      <?php echo sprintf(t('Pourquoi %sSmart Mobility%s ?'), '<span class="smartmobility-title">', '</span>'); ?>
+      <?php echo sprintf(t('Why %sSmart Mobility%s ?'), '<span class="smartmobility-title">', '</span>'); ?>
     </div>
 
     <section class="emh-module smartmobility-why">
@@ -22,11 +22,11 @@ global $base_url, $language;
       <div class="row">
         <div class="col-md-4 col-md-offset-2">
           <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'smartmobility'); ?>/images/community.svg" alt="" width="150" />
-          <p>Communiquer sur vos offres auprès de candidats qualifiés dans le secteur de l'aéronautique</p>
+          <p><?php print t('Announce your job offers to qualified candidates in the aerospace sector'); ?></p>
         </div>
         <div class="col-md-4">
           <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'smartmobility'); ?>/images/responses.svg" alt="" width="150" />
-          <p>Choisir les profils avec lesquels vous souhaitez échanger à partir de questionnaires spécifiques, des profils de compétences et des CV</p>
+          <p><?php print t('Choose the profiles which you want to share specific questionnaires, competency profiles and CVs with'); ?></p>
         </div>
       </div>
 
@@ -34,62 +34,62 @@ global $base_url, $language;
 
     <section class="emh-module smartmobility-how">
 
-      <div class="emh-subtitle"><?php echo t('Comment ça marche ?') ?></div>
+      <div class="emh-subtitle"><?php echo t('How does it work?') ?></div>
 
       <div class="row container">
         <div class="col-md-3">
-          <p><span>1.</span> Vous publiez vos annonces : recrutements ou missions</p>
+          <p><span>1.</span> <?php print t('Publish your offer: recruitment or mission'); ?></p>
         </div>
         <div class="col-md-3">
-          <p><span>2.</span> Des candidats vous répondent via un questionnaire en complément de leur profil et CV</p>
+          <p><span>2.</span> <?php print t('Candidates respond via a questionnaire and provide their profile and CV'); ?></p>
         </div>
         <div class="col-md-3">
-          <p><span>3.</span> Vous analysez les candidatures</p>
+          <p><span>3.</span> <?php print t('Analyze candidate responses'); ?></p>
         </div>
         <div class="col-md-3">
-          <p><span>4.</span> Vous sélectionnez les profils que vous souhaitez rencontrer</p>
+          <p><span>4.</span> <?php print t('Select the profiles you\'d like to meet'); ?></p>
         </div>
       </div>
     </section>
 
     <div class="emh-action">
-      <a class="emh-button solid" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Je m\'inscris'); ?></a>
+      <a class="emh-button solid" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Register'); ?></a>
     </div>
 
     <section class="emh-module faq hiw-faq">
 
-        <div class="emh-subtitle"><?php echo t('Questions les plus fréquentes') ?></div>
+        <div class="emh-subtitle"><?php echo t('Frequently Asked Questions') ?></div>
 
         <div>
-          <h3 class="question">Qui peut voir les réponses à mes annonces ?</h3>
+          <h3 class="question"><?php print t('Who can see the responses to my offers?'); ?></h3>
 
           <div class="answer">
-            <p>Vous seul pouvez consulter les réponses à votre annonce en choisissant l'option «&nbsp;private answer&nbsp;».</p>
+            <p><?php print t('Only you can see the responses to your job offer by choosing the option «&nbsp;private answer&nbsp;».'); ?></p>
           </div>
         </div>
         <div>
-          <h3 class="question">Comment garantissez-vous la confidentialité des informations ?</h3>
+          <h3 class="question"><?php print t('How can you guarantee the confidentiality of the information submitted?'); ?></h3>
 
           <div class="answer">
-            <p>Lorsque vous publiez une annonce, vous pouvez choisir d'être anonyme et de cacher votre nom et/ou celui de votre entreprise, en choisissant l'option «&nbsp;anonymous". Il est toutefois recommandé de mettre un bref descriptif de votre activité pour accroitre la pertinence des réponses des candidats.</p>
+            <p><?php print t('When you place an offer, you can choose to be anonymous and hide your name and/or that of your company, by choosing the option «&nbsp;anonymous". It is recommended that you include a brief description of your activity in order to increase the relevance of the candidate responses.'); ?></p>
           </div>
         </div>
         <div>
-          <h3 class="question">Qui a accès à mes annonces ?</h3>
+          <h3 class="question"><?php print t('Who can access my offers?'); ?></h3>
 
           <div class="answer">
-            <p>Lorsque vous publiez une annonce de recrutement, vous devez choisir le cercle «&nbsp;Smart Mobility&nbsp;» pour que seuls les salariés Airbus puissent y accéder de façon exclusive.</p>
+            <p><?php print t('When you publish a job offer, you must choose the «&nbsp;Smart Mobility&nbsp;» circle to ensure only Airbus employees have exclusive access.'); ?></p>
           </div>
         </div>
         <div>
-          <h3 class="question">Pourquoi associer un questionnaire à mon annonce ?</h3>
+          <h3 class="question"><?php print t('Why include a questionnaire with my job offer?'); ?></h3>
 
           <div class="answer">
-            <p>Le questionnaire permet de pré-qualifier les candidats sur la base de leurs réponses. Nous vous recommandons de ne pas poser plus de 7 à 8 questions. Lorsque vous choisissez le type «&nbsp;Recruitment Smart Mobility&nbsp;» à la création de votre annonce, nous vous proposons quelques questions type :</p>
+            <p><?php print t('The questionnaire allows you to pre-qualify candidates on the basis of their answers. We recommend that you have no more than 8 questions. When you choose the option «&nbsp;Recruitment Smart Mobility&nbsp;» in the creation of your offer, we offer some standard questions. As an example:'); ?></p>
             <ul>
-              <li>Quelles sont vos motivations pour ce poste / cette mission ?</li>
-              <li>Quelles sont vos réalisations pertinentes en relation avec ce poste / cette mission ?</li>
-              <li>etc.</li>
+              <li><?php print t('What are your motivations for this job / mission?'); ?></li>
+              <li><?php print t('What are your relevant achievements in relation to this job / mission?'); ?></li>
+              <li><?php print t('etc'); ?>.</li>
             </ul>
           </div>
         </div>
@@ -102,7 +102,7 @@ global $base_url, $language;
   <div class="hiw-tab-content hiw-expert emh-module">
 
     <div class="emh-subtitle">
-      <?php echo sprintf(t('Pourquoi %sSmart Mobility%s ?'), '<span class="smartmobility-title">', '</span>'); ?>
+      <?php echo sprintf(t('Why %sSmart Mobility%s ?'), '<span class="smartmobility-title">', '</span>'); ?>
     </div>
 
     <section class="emh-module smartmobility-why">
@@ -110,11 +110,11 @@ global $base_url, $language;
       <div class="row">
         <div class="col-md-4 col-md-offset-2">
           <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'smartmobility'); ?>/images/community-alt.svg" alt="" width="150" />
-          <p>Identifier des opportunités dans le secteur aéronautique, principalement en région parisienne</p>
+          <p><?php print t('Identify opportunities in the aerospace industry, primarily within the Paris region'); ?></p>
         </div>
         <div class="col-md-4">
           <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'smartmobility'); ?>/images/responses-alt.svg" alt="" width="150" />
-          <p>Valoriser vos compétences en renseignant votre profil et en répondant aux questionnaires spécifiques à chaque besoin</p>
+          <p><?php print t('Demonstrate your competences by completing your profile and responding to specific offers via the related questionnaires'); ?></p>
         </div>
       </div>
 
@@ -122,65 +122,65 @@ global $base_url, $language;
 
     <section class="emh-module smartmobility-how smartmobility-how-alt">
 
-      <div class="emh-subtitle"><?php echo t('Comment ça marche ?') ?></div>
+      <div class="emh-subtitle"><?php echo t('How does it work?') ?></div>
 
       <div class="row container">
         <div class="col-md-3">
-          <p><span>1.</span> Vous vous inscrivez et vous renseignez votre profil</p>
+          <p><span>1.</span> <?php print t('Register and complete your profile'); ?></p>
         </div>
         <div class="col-md-3">
-          <p><span>2.</span> Vous êtes informé par email dès qu'une nouvelle offre est publiée</p>
+          <p><span>2.</span> <?php print t('You receive an email once a new offer is published'); ?></p>
         </div>
         <div class="col-md-3">
-          <p><span>3.</span> Vous postulez en répondant au questionnaire spécifique à chaque offre</p>
+          <p><span>3.</span> <?php print t('Apply by responding to the questionnaire relating to the job offer'); ?></p>
         </div>
         <div class="col-md-3">
-          <p><span>4.</span> Vous êtes contacté directement par les demandeurs qui auront sélectionné votre profil</p>
+          <p><span>4.</span> <?php print t('You will be contacted directly by requestors who have selected your profile'); ?></p>
         </div>
       </div>
     </section>
 
     <div class="emh-action">
-      <a class="emh-button solid-alt" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Je m\'inscris'); ?></a>
+      <a class="emh-button solid-alt" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Register'); ?></a>
     </div>
 
     <section class="emh-module faq hiw-faq">
 
-        <div class="emh-subtitle"><?php echo t('Questions les plus fréquentes') ?></div>
+        <div class="emh-subtitle"><?php echo t('Frequently Asked Questions') ?></div>
 
         <div>
-          <h3 class="question question-alt">Comment suis-je informé des nouvelles annonces publiées sur Smart Mobility ?</h3>
+          <h3 class="question question-alt"><?php print t('How will I be informed of new offers on Smart Mobility?'); ?></h3>
 
           <div class="answer">
-            <p>Pour chaque nouvelle demande, vous recevez un email de notification avec le titre de l'annonce. Cela vous permet de décider très rapidement si vous pouvez être intéressé par cette demande. En cliquant sur le lien, vous accédez à la demande.</p>
+            <p><?php print t('For each new request, you will receive an email notification with the title of the offer. By clicking on the link in the email, you can access the full detail of the offer.'); ?></p>
           </div>
         </div>
         <div>
-          <h3 class="question question-alt">Qui a accès aux annonces publiées sur Smart Mobility ?</h3>
+          <h3 class="question question-alt"><?php print t('Who can access the offers published on Smart Mobility?'); ?></h3>
 
           <div class="answer">
-            <p>Seules les personnes inscrites dans le cercle «&nbsp;Smart Mobility&nbsp;» peuvent accéder aux annonces, donc les annonceurs et les salariés d'Airbus.</p>
+            <p><?php print t('Only those who are registered in the «&nbsp;Smart Mobility&nbsp;» circle can access offers, this includes requestors and employees of Airbus.'); ?></p>
           </div>
         </div>
         <div>
-          <h3 class="question question-alt">Qui peut consulter mon profil ?</h3>
+          <h3 class="question question-alt"><?php print t('Who can access my profile?'); ?></h3>
 
           <div class="answer">
-            <p>Seules les personnes inscrites dans le cercle «&nbsp;Smart Mobility&nbsp;» peuvent accéder au profil des salariés d'Airbus, donc les annonceurs et les autres salariés d'Airbus.</p>
+            <p><?php print t('Only those who are registered in the "Smart Mobility" circle can access the profiles of employees of Airbus.'); ?></p>
           </div>
         </div>
         <div>
-          <h3 class="question question-alt">Pourquoi renseigner mon profil ?</h3>
+          <h3 class="question question-alt"><?php print t('Why include my profile?'); ?></h3>
 
           <div class="answer">
-            <p>Il est recommandé de renseigner son profil le plus précisément possible. Les annonceurs peuvent en effet pré-sélectionner les candidats sur la base des réponses au questionnaire associé à chaque offre, mais aussi du profil détaillé du candidat.</p>
+            <p><?php print t('It is recommended that you complete your profile as precisely as possible. Job requestors can pre-select candidates on the basis of responses to the questionnaire associated with the offer, as well as the detail provided in the candidate profile.'); ?></p>
           </div>
         </div>
         <div>
-          <h3 class="question question-alt">Comment répondre à une annonce ?</h3>
+          <h3 class="question question-alt"><?php print t('How do I respond to an offer?'); ?></h3>
 
           <div class="answer">
-            <p>Pour répondre à une annonce, il suffit de répondre aux questions associées aux offres qui vous intéressent. Les annonceurs sont automatiquement informés de vos réponses.</p>
+            <p><?php print t('To respond to an offer, simply answer the questions associated with the request. The requestor will automatically be informed of your response.'); ?></p>
           </div>
         </div>
 
