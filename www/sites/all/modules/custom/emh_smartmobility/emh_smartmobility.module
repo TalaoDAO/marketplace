@@ -77,13 +77,13 @@ function emh_smartmobility_menu() {
     'access callback' => 'user_is_anonymous',
   );
   $items[EMH_SMARTMOBILITY_REGISTER_CLIENT] = array(
-    'title' => 'Inscrivez-vous pour rechercher des talents',
+    'title' => 'Register and look for talents',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('user_register_form_smartmobility_client'),
     'access arguments' => array('access content'),
   );
   $items[EMH_SMARTMOBILITY_REGISTER_EXPERT] = array(
-    'title' => 'Inscrivez-vous en tant que salarié Airbus',
+    'title' => 'Register as an employee of Airbus',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('user_register_form_smartmobility_expert'),
     'access arguments' => array('access content'),
