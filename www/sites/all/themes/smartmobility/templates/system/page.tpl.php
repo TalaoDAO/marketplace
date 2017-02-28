@@ -1,4 +1,4 @@
-<?php global $base_url; ?>
+<?php global $base_url, $language; ?>
   <header id="navbar" role="banner" class="navbar navbar-emh">
 
     <div class="container">
@@ -6,9 +6,7 @@
       <div class="row">
 
         <div class="emh-brand col-md-2">
-          <a class="logo navbar-btn" href="<?php print url($base_url . '/' . EMH_SMARTMOBILITY_HOMEPAGE_ALIAS); ?>" title="<?php print t('Smart Mobility'); ?>">
-            <span class="smartmobility-title"><?php print t('Smart Mobility'); ?></span>
-          </a>
+          <?php print l('<span class="smartmobility-title">' . t('Smart Mobility') . '</span>', EMH_SMARTMOBILITY_HOMEPAGE_ALIAS, array('language' => $language, 'html' => TRUE, 'attributes' => array('title' => t('Smart Mobility'), 'class' => array('logo', 'navbar-btn')))); ?>
         </div>
 
         <div class="col-md-10">
@@ -167,27 +165,25 @@
     <div class="container">
       <div class="row">
         <div class="footer-logo">
-          <a href="<?php print url($base_url . '/' . EMH_SMARTMOBILITY_HOMEPAGE_ALIAS); ?>" title="<?php print t('Smart Mobility'); ?>">
-            <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'smartmobility'); ?>/images/logo/AIRBUS_WHITE.png" alt="<?php print t('Airbus'); ?>" />
-          </a>
+          <?php print l('<img src="' . $base_url . '/' . drupal_get_path('theme', 'smartmobility') . '/images/logo/AIRBUS_WHITE.png" alt="' . t('Airbus') . '" />', EMH_SMARTMOBILITY_HOMEPAGE_ALIAS, array('language' => $language, 'html' => TRUE, 'attributes' => array('title' => t('Smart Mobility')))); ?>
         </div>
         <div class="footer-contact">
           <h4><?php print t('Contacts'); ?></h4>
           <div class="row">
             <div class="col-md-4">
-              <p><strong>Relations publiques</strong><br />
+              <p><strong><?php print t('Public relations'); ?></strong><br />
               Jean-François Pilliard<br />
               <a href="mailto:jean-francois.pilliard@alixio.fr">jean-francois.pilliard@alixio.fr</a><br />
               <i>+33.6.07.18.13.96</i></p>
             </div>
             <div class="col-md-4">
-              <p><strong>Responsable technique de la plateforme</strong><br />
+              <p><strong><?php print t('User support'); ?></strong><br />
               Nicolas Muller<br />
               <a href="mailto:nicolas.muller@emindhub.com">nicolas.muller@emindhub.com</a><br />
               <i>+33.6.51.22.55.10</i></p>
             </div>
             <div class="col-md-4">
-              <p><strong>Responsable de la Mobilité</strong><br />
+              <p><strong><?php print t('Mobility manager'); ?></strong><br />
               Magali Ollivier<br />
               <a href="mailto:magali.ollivier@alixiomobilite.fr">magali.ollivier@alixiomobilite.fr</a><br />
               <i>+33.6.03.00.57.37</i></p>

@@ -88,6 +88,5 @@ function emh_smartmobility_block_info_alter(&$blocks, $theme, $code_blocks) {
   if ($theme === 'smartmobility') {
     $blocks['menu']['menu-top-anonymous']['status'] = FALSE;
     $blocks['block']['29']['status'] = FALSE;
-    $blocks['bootstrap_languages']['language']['status'] = FALSE;
   }
 }
