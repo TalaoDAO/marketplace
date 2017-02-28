@@ -980,3 +980,33 @@ function emh_configuration_update_7054() {
 function emh_configuration_update_7055() {
   module_enable(['bootstrap_tour']);
 }
+
+/**
+ * CHG: Legal doc in signup form.
+ */
+function emh_configuration_update_7056() {
+  $data = array(
+    'new_users' => array(
+      'require' => 1,
+      'require_method' => 'form_inline',
+    ),
+    'existing_users' => array(
+      'require' => 1,
+      'require_method' => 'message',
+    ),
+    'settings__active_tab' => 'edit-settings-new-users',
+  );
+  db_update('entity_legal_document')
+    ->fields(array(
+      'settings' => serialize($data),
+    ))
+    ->condition('name', 'terms_of_use')
+    ->execute();
+
+  db_update('entity_legal_document_version')
+    ->fields(array(
+      'acceptance_label' => 'I agree to the Terms of use document',
+    ))
+    ->condition('name', 'terms_of_use_1479725866')
+    ->execute();
+}
