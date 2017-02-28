@@ -34,7 +34,7 @@ global $base_url, $language;
 
     <section class="emh-module smartmobility-how">
 
-      <div class="emh-subtitle"><?php echo t('How does it work?') ?></div>
+      <div class="emh-subtitle"><?php print t('How does it work?') ?></div>
 
       <div class="row container">
         <div class="col-md-3">
@@ -58,7 +58,7 @@ global $base_url, $language;
 
     <section class="emh-module faq hiw-faq">
 
-        <div class="emh-subtitle"><?php echo t('Frequently Asked Questions') ?></div>
+        <div class="emh-subtitle"><?php print t('Frequently Asked Questions') ?></div>
 
         <div>
           <h3 class="question"><?php print t('Who can see the responses to my offers?'); ?></h3>
@@ -122,7 +122,7 @@ global $base_url, $language;
 
     <section class="emh-module smartmobility-how smartmobility-how-alt">
 
-      <div class="emh-subtitle"><?php echo t('How does it work?') ?></div>
+      <div class="emh-subtitle"><?php print t('How does it work?') ?></div>
 
       <div class="row container">
         <div class="col-md-3">
@@ -146,7 +146,7 @@ global $base_url, $language;
 
     <section class="emh-module faq hiw-faq">
 
-        <div class="emh-subtitle"><?php echo t('Frequently Asked Questions') ?></div>
+        <div class="emh-subtitle"><?php print t('Frequently Asked Questions') ?></div>
 
         <div>
           <h3 class="question question-alt"><?php print t('How will I be informed of new offers on Smart Mobility?'); ?></h3>
