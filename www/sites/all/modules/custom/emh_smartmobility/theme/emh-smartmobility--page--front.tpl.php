@@ -14,7 +14,7 @@ global $base_url, $language;
   <div class="hiw-tab-content hiw-customer emh-module">
 
     <div class="emh-subtitle">
-      <?php echo sprintf(t('Why %sSmart Mobility%s ?'), '<span class="smartmobility-title">', '</span>'); ?>
+      <?php echo sprintf(t('Why %sSmart Mobility%s?'), '<span class="smartmobility-title">', '</span>'); ?>
     </div>
 
     <section class="emh-module smartmobility-why">
@@ -102,7 +102,7 @@ global $base_url, $language;
   <div class="hiw-tab-content hiw-expert emh-module">
 
     <div class="emh-subtitle">
-      <?php echo sprintf(t('Why %sSmart Mobility%s ?'), '<span class="smartmobility-title">', '</span>'); ?>
+      <?php echo sprintf(t('Why %sSmart Mobility%s?'), '<span class="smartmobility-title">', '</span>'); ?>
     </div>
 
     <section class="emh-module smartmobility-why">
@@ -135,7 +135,7 @@ global $base_url, $language;
           <p><span>3.</span> <?php print t('Apply by responding to the questionnaire relating to the job offer'); ?></p>
         </div>
         <div class="col-md-3">
-          <p><span>4.</span> <?php print t('You will be contacted directly by requestors who have selected your profile'); ?></p>
+          <p><span>4.</span> <?php print t('You will be contacted directly by requesters who have selected your profile'); ?></p>
         </div>
       </div>
     </section>
@@ -159,28 +159,28 @@ global $base_url, $language;
           <h3 class="question question-alt"><?php print t('Who can access the offers published on Smart Mobility?'); ?></h3>
 
           <div class="answer">
-            <p><?php print t('Only those who are registered in the «&nbsp;Smart Mobility&nbsp;» circle can access offers, this includes requestors and employees of Airbus.'); ?></p>
+            <p><?php print t('Only those who are registered in the «&nbsp;Smart Mobility&nbsp;» circle can access offers, this includes requesters and employees of Airbus.'); ?></p>
           </div>
         </div>
         <div>
           <h3 class="question question-alt"><?php print t('Who can access my profile?'); ?></h3>
 
           <div class="answer">
-            <p><?php print t('Only those who are registered in the "Smart Mobility" circle can access the profiles of employees of Airbus.'); ?></p>
+            <p><?php print t('Only those who are registered in the «&nbsp;Smart Mobility&nbsp;» circle can access the profiles of employees of Airbus.'); ?></p>
           </div>
         </div>
         <div>
-          <h3 class="question question-alt"><?php print t('Why include my profile?'); ?></h3>
+          <h3 class="question question-alt"><?php print t('Why fill up my profile?'); ?></h3>
 
           <div class="answer">
-            <p><?php print t('It is recommended that you complete your profile as precisely as possible. Job requestors can pre-select candidates on the basis of responses to the questionnaire associated with the offer, as well as the detail provided in the candidate profile.'); ?></p>
+            <p><?php print t('It is recommended that you complete your profile as precisely as possible. Job requesters can pre-select candidates on the basis of responses to the questionnaire associated with the offer, as well as the detail provided in the candidate profile.'); ?></p>
           </div>
         </div>
         <div>
           <h3 class="question question-alt"><?php print t('How do I respond to an offer?'); ?></h3>
 
           <div class="answer">
-            <p><?php print t('To respond to an offer, simply answer the questions associated with the request. The requestor will automatically be informed of your response.'); ?></p>
+            <p><?php print t('To respond to an offer, simply answer the questions associated with the request. The requester will automatically be informed of your response.'); ?></p>
           </div>
         </div>
 

@@ -11,7 +11,7 @@
     <?php endif;?>
 
     <div class="select-persona-subtitle">
-      <?php print t('An initiative dedicated to the redeployment of Airbus employees in the aerospace sector'); ?>
+      <?php echo sprintf(t('An initiative dedicated to the redeployment of Airbus employees %sin the aerospace sector'), '<br />'); ?>
     </div>
 
     <div class="row select-persona-buttons">
