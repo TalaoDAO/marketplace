@@ -71,7 +71,7 @@ global $base_url, $language;
           <h3 class="question"><?php print t('How can you guarantee the confidentiality of the information submitted?'); ?></h3>
 
           <div class="answer">
-            <p><?php print t('When you place an offer, you can choose to be anonymous and hide your name and/or that of your company, by choosing the option «&nbsp;anonymous". It is recommended that you include a brief description of your activity in order to increase the relevance of the candidate responses.'); ?></p>
+            <p><?php print t('When you place an offer, you can choose to be anonymous and hide your name and/or that of your company, by choosing the option «&nbsp;anonymous&nbsp;». It is recommended that you include a brief description of your activity in order to increase the relevance of the candidate responses.'); ?></p>
           </div>
         </div>
         <div>
