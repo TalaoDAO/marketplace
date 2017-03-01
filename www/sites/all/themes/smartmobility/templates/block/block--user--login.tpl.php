@@ -9,11 +9,11 @@
         <div id="signUpContent" class="signUpContent" style="display: none;">
           <h4><?php print sprintf(t('%sSign-in in 1 minute%s and start%s'), '<span>', '</span><span>', '</span>'); ?></h4>
           <span class="block">
-            <?php print l(t('Looking for talent'), EMH_SMARTMOBILITY_REGISTER_CLIENT, array('language' => $language, 'attributes' => array('class' => array('signin-client')))); ?>
+            <?php print l(t('Looking for talent'), $base_url . '/' . EMH_SMARTMOBILITY_REGISTER_CLIENT, array('language' => $language, 'attributes' => array('class' => array('signin-client')))); ?>
           </span>
           <span class="separator"></span>
           <span class="block">
-            <?php print l(t('I am an employee of Airbus'), EMH_SMARTMOBILITY_REGISTER_EXPERT, array('language' => $language, 'attributes' => array('class' => array('signin-expert')))); ?>
+            <?php print l(t('I am an employee of Airbus'), $base_url . '/' . EMH_SMARTMOBILITY_REGISTER_EXPERT, array('language' => $language, 'attributes' => array('class' => array('signin-expert')))); ?>
           </span>
         </div>
       </li>
