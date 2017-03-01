@@ -6,7 +6,11 @@
       <div class="row">
 
         <div class="emh-brand col-md-2">
-          <?php print l('<span class="smartmobility-title">' . t('Smart Mobility') . '</span>', EMH_SMARTMOBILITY_HOMEPAGE_ALIAS, array('language' => $language, 'html' => TRUE, 'attributes' => array('title' => t('Smart Mobility'), 'class' => array('logo', 'navbar-btn')))); ?>
+          <?php if ($language->language == 'en') : ?>
+            <?php print l('<span class="smartmobility-title">' . t('Smart Mobility') . '</span>', variable_get('emh_smartmobility_base_url', 'http://smartmob.box.local'), array('language' => $language, 'html' => TRUE, 'attributes' => array('title' => t('Smart Mobility'), 'class' => array('logo', 'navbar-btn')))); ?>
+          <?php else : ?>
+            <?php print l('<span class="smartmobility-title">' . t('Smart Mobility') . '</span>', EMH_SMARTMOBILITY_HOMEPAGE, array('language' => $language, 'html' => TRUE, 'attributes' => array('title' => t('Smart Mobility'), 'class' => array('logo', 'navbar-btn')))); ?>
+          <?php endif; ?>
         </div>
 
         <div class="col-md-10">
@@ -165,7 +169,11 @@
     <div class="container">
       <div class="row">
         <div class="footer-logo">
-          <?php print l('<img src="' . $base_url . '/' . drupal_get_path('theme', 'smartmobility') . '/images/logo/AIRBUS_WHITE.png" alt="' . t('Airbus') . '" />', EMH_SMARTMOBILITY_HOMEPAGE_ALIAS, array('language' => $language, 'html' => TRUE, 'attributes' => array('title' => t('Smart Mobility')))); ?>
+          <?php if ($language->language == 'en') : ?>
+            <?php print l('<img src="' . $base_url . '/' . drupal_get_path('theme', 'smartmobility') . '/images/logo/AIRBUS_WHITE.png" alt="' . t('Airbus') . '" />', variable_get('emh_smartmobility_base_url', 'http://smartmob.box.local'), array('language' => $language, 'html' => TRUE, 'attributes' => array('title' => t('Smart Mobility')))); ?>
+          <?php else : ?>
+            <?php print l('<img src="' . $base_url . '/' . drupal_get_path('theme', 'smartmobility') . '/images/logo/AIRBUS_WHITE.png" alt="' . t('Airbus') . '" />', EMH_SMARTMOBILITY_HOMEPAGE, array('language' => $language, 'html' => TRUE, 'attributes' => array('title' => t('Smart Mobility')))); ?>
+          <?php endif; ?>
         </div>
         <div class="footer-contact">
           <h4><?php print t('Contacts'); ?></h4>
