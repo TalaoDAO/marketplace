@@ -108,7 +108,18 @@ function emh_smartmobility_form_alter(&$form, &$form_state, $form_id) {
       unset($form['#action']);
       $form['#submit'][] = 'emh_smartmobility_register_form_submit';
       break;
-  }
+       // Smart Mobility trick
+
+    case 'user_login':
+    case 'user_login_block':
+      global $base_url;
+      $form['#action'] = url('<front>', array(
+        'base_url' => $base_url,
+        'absolute' => TRUE,
+        'language' => (object) array('language' => FALSE),
+      ));
+      break;
+ }
 }
 
 /**
