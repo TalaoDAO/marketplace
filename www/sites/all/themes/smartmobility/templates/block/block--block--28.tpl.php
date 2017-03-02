@@ -19,11 +19,19 @@
               <h3><?php print t('Registration'); ?></h3>
               <h4><?php print sprintf(t('%sSign-in in 1 minute%s and start%s'), '<span>', '</span><span>', '</span>'); ?></h4>
               <span class="block">
-                <?php print l(t('Looking for talent'), $base_url . '/' . EMH_SMARTMOBILITY_REGISTER_CLIENT, array('language' => $language, 'attributes' => array('class' => array('signin-client')))); ?>
+                <?php if ($language->language == 'en') : ?>
+                  <?php print l(t('Looking for talent'), $base_url . '/' . EMH_SMARTMOBILITY_REGISTER_CLIENT, array('language' => $language, 'attributes' => array('class' => array('signin-client')))); ?>
+                <?php else : ?>
+                  <?php print l(t('Looking for talent'), $base_url . '/' . $language->language . '/' . EMH_SMARTMOBILITY_REGISTER_CLIENT, array('language' => $language, 'attributes' => array('class' => array('signin-client')))); ?>
+                <?php endif; ?>
               </span>
               <span class="separator"></span>
               <span class="block">
-                <?php print l(t('I am an employee of Airbus'), $base_url . '/' . EMH_SMARTMOBILITY_REGISTER_EXPERT, array('language' => $language, 'attributes' => array('class' => array('signin-expert')))); ?>
+                <?php if ($language->language == 'en') : ?>
+                  <?php print l(t('I am an employee of Airbus'), $base_url . '/' . EMH_SMARTMOBILITY_REGISTER_EXPERT, array('language' => $language, 'attributes' => array('class' => array('signin-expert')))); ?>
+                <?php else : ?>
+                  <?php print l(t('I am an employee of Airbus'), $base_url . '/' . $language->language . '/' . EMH_SMARTMOBILITY_REGISTER_EXPERT, array('language' => $language, 'attributes' => array('class' => array('signin-expert')))); ?>
+                <?php endif; ?>
               </span>
             </div>
           </div>
