@@ -1,4 +1,4 @@
-  <?php global $base_url; ?>
+<?php global $base_url, $language; ?>
   <header id="navbar" role="banner" class="navbar navbar-emh">
 
     <div class="container">
@@ -6,9 +6,11 @@
       <div class="row">
 
         <div class="emh-brand col-md-2">
-          <a class="logo navbar-btn" href="<?php print url('smart-mobility'); ?>" title="<?php print t('Smart Mobility'); ?>">
-            <?php print t('Smart Mobility'); ?>
-          </a>
+          <?php if ($language->language == 'en') : ?>
+            <?php print l('<span class="smartmobility-title">' . t('Smart Mobility') . '</span>', variable_get('emh_smartmobility_base_url', 'http://smartmob.box.local'), array('language' => $language, 'html' => TRUE, 'attributes' => array('title' => t('Smart Mobility'), 'class' => array('logo', 'navbar-btn')))); ?>
+          <?php else : ?>
+            <?php print l('<span class="smartmobility-title">' . t('Smart Mobility') . '</span>', EMH_SMARTMOBILITY_HOMEPAGE, array('language' => $language, 'html' => TRUE, 'attributes' => array('title' => t('Smart Mobility'), 'class' => array('logo', 'navbar-btn')))); ?>
+          <?php endif; ?>
         </div>
 
         <div class="col-md-10">
@@ -61,6 +63,34 @@
 
           <a id="main-content"></a>
 
+          <div class="row">
+
+            <div class="title-left">
+
+              <?php print render($title_prefix); ?>
+              <?php if (!empty($title)): ?>
+                <div class="title">
+                  <h1 class="page-header"><?php print $title; ?></h1>
+                </div>
+              <?php endif; ?>
+              <?php print render($title_suffix); ?>
+
+              <?php if (!empty($page['title'])): ?>
+                <?php print render($page['title']); ?>
+              <?php endif; ?>
+
+              <?php if (!empty($baseline)) : ?>
+                <p class="emh-title-baseline"><?php print $baseline; ?></p>
+              <?php endif; ?>
+
+            </div>
+
+            <?php if (!empty($page['title_right'])): ?>
+              <?php print render($page['title_right']); ?>
+            <?php endif; ?>
+
+          </div>
+
           <?php print $messages; ?>
 
           <?php $primary_tabs = emh_submenu_menu_tabs_primary($tabs);
@@ -80,7 +110,7 @@
         </div>
       <?php endif; ?>
 
-      <div class="container-fluid">
+      <div class="container">
 
         <div class="row">
 
@@ -139,27 +169,29 @@
     <div class="container">
       <div class="row">
         <div class="footer-logo">
-          <a href="<?php print url('smart-mobility'); ?>" title="<?php print t('Smart Mobility'); ?>">
-            <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'smartmobility'); ?>/images/logo/AIRBUS_WHITE.png" alt="<?php print t('Airbus'); ?>" />
-          </a>
+          <?php if ($language->language == 'en') : ?>
+            <?php print l('<img src="' . $base_url . '/' . drupal_get_path('theme', 'smartmobility') . '/images/logo/AIRBUS_WHITE.png" alt="' . t('Airbus') . '" />', variable_get('emh_smartmobility_base_url', 'http://smartmob.box.local'), array('language' => $language, 'html' => TRUE, 'attributes' => array('title' => t('Smart Mobility')))); ?>
+          <?php else : ?>
+            <?php print l('<img src="' . $base_url . '/' . drupal_get_path('theme', 'smartmobility') . '/images/logo/AIRBUS_WHITE.png" alt="' . t('Airbus') . '" />', EMH_SMARTMOBILITY_HOMEPAGE, array('language' => $language, 'html' => TRUE, 'attributes' => array('title' => t('Smart Mobility')))); ?>
+          <?php endif; ?>
         </div>
         <div class="footer-contact">
           <h4><?php print t('Contacts'); ?></h4>
           <div class="row">
             <div class="col-md-4">
-              <p><strong>Relations publiques</strong><br />
+              <p><strong><?php print t('Public relations'); ?></strong><br />
               Jean-François Pilliard<br />
               <a href="mailto:jean-francois.pilliard@alixio.fr">jean-francois.pilliard@alixio.fr</a><br />
               <i>+33.6.07.18.13.96</i></p>
             </div>
             <div class="col-md-4">
-              <p><strong>Responsable technique de la plateforme</strong><br />
+              <p><strong><?php print t('User support'); ?></strong><br />
               Nicolas Muller<br />
               <a href="mailto:nicolas.muller@emindhub.com">nicolas.muller@emindhub.com</a><br />
               <i>+33.6.51.22.55.10</i></p>
             </div>
             <div class="col-md-4">
-              <p><strong>Responsable de la Mobilité</strong><br />
+              <p><strong><?php print t('Mobility manager'); ?></strong><br />
               Magali Ollivier<br />
               <a href="mailto:magali.ollivier@alixiomobilite.fr">magali.ollivier@alixiomobilite.fr</a><br />
               <i>+33.6.03.00.57.37</i></p>
@@ -168,7 +200,7 @@
         </div>
       </div>
       <hr />
-      <p class="footer-credits"><?php print date('Y'); ?> <?php print t('Smart Mobility'); ?> | <?php print t('Tous droits réservés'); ?></p>
+      <p class="footer-credits"><?php print date('Y'); ?> <span class="smartmobility-title"><?php print t('Smart Mobility'); ?></span> | <?php print t('All rights reserved'); ?></p>
     </div>
   </footer>
 
