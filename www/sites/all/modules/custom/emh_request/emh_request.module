@@ -10,7 +10,6 @@ include_once 'emh_request.admin.inc';
 include_once 'emh_request.conditional_fields.inc';
 include_once 'emh_request.fields.inc';
 include_once 'emh_request.mail.inc';
-include_once 'emh_request.notification.inc';
 
 function emh_request_permission() {
   return array(
@@ -179,8 +178,6 @@ function emh_request_node_insert($node) {
 
   if ($node->status == NODE_PUBLISHED) {
     emh_request_purchase_options($node);
-    // @TODO: remove this!
-    emh_request_try_to_notify($node);
   }
 }
 
@@ -194,8 +191,6 @@ function emh_request_node_update($node) {
 
   if ($node->status == NODE_PUBLISHED && $node->original->status == NODE_NOT_PUBLISHED) {
     emh_request_purchase_options($node);
-    // @TODO: remove this!
-    emh_request_try_to_notify($node);
   }
 }
 
@@ -615,6 +610,16 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
             unset($form['#validate'][$index]);
           }
         }
+        // If the request type is restricted to a circle :
+        if (isset($_REQUEST['edit']['field_request_type'])) {
+          $tid = key($_REQUEST['edit']['field_request_type'][LANGUAGE_NONE]);
+          $term = taxonomy_term_load($tid);
+          if (isset($term->field_circle_restriction[LANGUAGE_NONE])) {
+            // Prevent to change the circle.
+            $form['og_group_ref']['#disabled'] = TRUE;
+          }
+        }
+
         // Adds a submit callback to redirect on the publication page
         $form['actions']['submit']['#submit'][] = 'emh_request_form_node_publish';
       }

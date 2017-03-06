@@ -29,5 +29,4 @@ function emindhub_preprocess_html(&$variables) {
   if (isset($headers['status']) && $headers['status'] == '404 Not Found') {
     $variables['classes_array'][] = 'page-404';
   }
-
 }
