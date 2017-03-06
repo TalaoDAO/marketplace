@@ -18,7 +18,7 @@ function emh_smartmobility_block_info() {
     'status' => 1,
     'region' => 'top',
     'visibility' => BLOCK_VISIBILITY_LISTED,
-    'pages' => 'smart-mobility',
+    'pages' => EMH_SMARTMOBILITY_HOMEPAGE,
   );
 
   $blocks['partners'] = array(
@@ -28,7 +28,7 @@ function emh_smartmobility_block_info() {
     'status' => 1,
     'region' => 'content',
     'visibility' => BLOCK_VISIBILITY_LISTED,
-    'pages' => 'smart-mobility',
+    'pages' => EMH_SMARTMOBILITY_HOMEPAGE,
   );
 
   return $blocks;
@@ -43,18 +43,50 @@ function emh_smartmobility_block_view($delta = '') {
   switch ($delta) {
     case 'persona':
       $block = array(
-        'subject' => 'Smart Mobility',
-        'content' => 'content',
+        'subject' => t('Smart Mobility'),
+        'content' => emh_smartmobility_persona_block_content(),
       );
       break;
 
     case 'partners':
       $block = array(
-        'subject' => 'Une initiative réalisée en partenariat entre',
-        'content' => 'content',
+        'subject' => t('An initiative in partnership with'),
+        'content' => emh_smartmobility_partners_block_content(),
       );
       break;
   }
 
   return $block;
+}
+
+/**
+ * Callback implemented by hook_block_view().
+ */
+function emh_smartmobility_persona_block_content() {
+  return theme('emh_smartmobility_block_persona', array(
+    'title' => t('Smart Mobility'),
+    'content' => '',
+  )
+  );
+}
+
+/**
+ * Callback implemented by hook_block_view().
+ */
+function emh_smartmobility_partners_block_content() {
+  return theme('emh_smartmobility_block_partners', array(
+    'title' => t('An initiative in partnership with'),
+    'content' => '',
+  )
+  );
+}
+
+/**
+ * Implements hook_block_info_alter().
+ */
+function emh_smartmobility_block_info_alter(&$blocks, $theme, $code_blocks) {
+  if ($theme === 'smartmobility') {
+    $blocks['menu']['menu-top-anonymous']['status'] = FALSE;
+    $blocks['block']['29']['status'] = FALSE;
+  }
 }

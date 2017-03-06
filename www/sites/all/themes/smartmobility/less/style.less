@@ -1,24 +1,21 @@
 @import "../../emindhub/less/style.less";
 
 @import 'variables';
+@import 'smartmobility-styles';
+
+@import 'content/form_user-register-form';
+@import 'content/homepage';
+
+@import 'block/block-emh-smartmobility-partners';
+@import 'block/block-emh-smartmobility-persona';
+@import 'block/block-user-login';
 
 
 .emh-module {
   font-family: @font-family-sans-serif;
 }
-
-#block-user-login {
-  .make-md-column-offset(8);
-}
-
-.footer .footer-contact {
-  .make-md-column(9);
-}
-
-.select-persona-wrapper {
-	.background-div {
-		opacity: .35;
-	}
+.emh-title, .emh-subtitle {
+  color: @text-color;
 }
 
 #maincol {
@@ -32,17 +29,41 @@
   .container;
 }
 
-.smartmobility-how {
-  background-color: #6399ae;
-  color: white;
-  padding: 50px;
+.smartmobility-why.emh-module,
+.smartmobility-how.emh-module {
+  font-size: @font-size-base;
+}
+.hiw-tabs {
+  margin-bottom: 50px;
+}
+.hiw-tab-content.emh-module {
+  margin-top: 0;
+}
 
-  .emh-subtitle {
-    color: white;
-  }
+.smartmobility-how {
+  padding: 50px;
 
   .row {
     margin-left: auto;
     margin-right: auto;
+
+    .text-left;
   }
+
+  span {
+    background-color: @brand-primary;
+    color: white;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+  &.smartmobility-how-alt {
+    span {
+      background-color: @color-primary-alt;
+    }
+  }
+}
+
+.footer .footer-contact {
+  .make-md-column(9);
 }
