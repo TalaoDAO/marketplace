@@ -1,5 +1,4 @@
-.page-client-register,
-.page-expert-register {
+body[class*="-register"] {
   #block-system-main {
     > .content {
       .make-row();
@@ -9,9 +8,14 @@
         .make-sm-column-offset(1);
         .make-md-column(6);
         .make-md-column-offset(3);
+
+        h2 {
+          .hidden();
+        }
       }
     }
   }
+
   #block-hybridauth-hybridauth {
     > .content {
       .make-row();
@@ -26,9 +30,7 @@
   }
 }
 
-#user-register-form-client,
-#user-register-form-expert,
-#user-register-form {
+form[id^="user-register-form"] {
   .row {
     > div {
       .make-sm-column(6);
@@ -43,6 +45,13 @@
     margin-top: 30px;
   }
 
+  .entity-legal-document-version-terms-of-use {
+    height: 200px;
+    overflow: auto;
+    padding: 15px;
+    background-color: @gray-lighter;
+  }
+  
   .form-item-legal-terms-of-use {
     .text-center;
   }
