@@ -1,13 +1,13 @@
 <?php
+
 /**
  * @file
  * Installation hooks for the EMH configuration module.
  */
 
-
 /**
-* Implements hook_enable().
-*/
+ * Implements hook_enable().
+ */
 function emh_configuration_enable() {
   emh_configuration_update_7001();
   emh_configuration_update_7002();
@@ -20,7 +20,7 @@ function emh_configuration_enable() {
 }
 
 /**
- * Uninstall modules : EMH blocks, forum, poll
+ * Uninstall modules : EMH blocks, forum, poll.
  */
 function emh_configuration_update_7001() {
   module_disable(array('emh_blocks', 'forum', 'poll'));
@@ -28,7 +28,7 @@ function emh_configuration_update_7001() {
 }
 
 /**
- * Delete roles : expert preview, business preview
+ * Delete roles : expert preview, business preview.
  */
 function emh_configuration_update_7002() {
   user_role_delete('expert preview');
@@ -36,14 +36,14 @@ function emh_configuration_update_7002() {
 }
 
 /**
- * Install modules : Autologout, PCP
+ * Install modules : Autologout, PCP.
  */
 function emh_configuration_update_7003() {
   module_enable(array('autologout', 'pcp'));
 }
 
 /**
- * Populate PCP fields parameters
+ * Populate PCP fields parameters.
  */
 function emh_configuration_update_7004() {
   $value = array(
@@ -81,8 +81,8 @@ function emh_configuration_update_7005() {
 }
 
 /**
-* Delete old blocks and revert block features.
-*/
+ * Delete old blocks and revert block features.
+ */
 function emh_configuration_update_7006() {
   $module = 'block';
   $deltas = array('24', '25');
@@ -118,24 +118,26 @@ function emh_configuration_update_7008() {
   user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, array('access language en'));
   user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('access language en'));
   user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, array('access language fr'));
-  user_role_grant_permissions(3, array('access language fr')); // Administrator
-  user_role_grant_permissions(6, array('access language fr')); // Webmaster
+  // Administrator.
+  user_role_grant_permissions(3, array('access language fr'));
+  // Webmaster.
+  user_role_grant_permissions(6, array('access language fr'));
 }
 
 /**
-* Delete Forum + Poll nodes and content types.
-*/
+ * Delete Forum + Poll nodes and content types.
+ */
 function emh_configuration_update_7009() {
   $types = array(
     'forum',
     'poll',
   );
-  foreach($types as $type) {
-    // First, delete nodes
+  foreach ($types as $type) {
+    // First, delete nodes.
     $results = db_select('node', 'n')
-                ->fields('n', array('nid'))
-                ->condition('type', $type)
-                ->execute();
+      ->fields('n', array('nid'))
+      ->condition('type', $type)
+      ->execute();
     foreach ($results as $result) {
       $nids[] = $result->nid;
     }
@@ -143,7 +145,7 @@ function emh_configuration_update_7009() {
       node_delete_multiple($nids);
       drupal_set_message(t('%count nodes has been deleted.', array('%count' => count($nids))));
     }
-    // Then, delete content type
+    // Then, delete content type.
     if (node_type_load($type)) {
       node_type_delete($type);
       variable_del('node_preview_' . $type);
@@ -155,8 +157,8 @@ function emh_configuration_update_7009() {
 }
 
 /**
-* Delete old rules.
-*/
+ * Delete old rules.
+ */
 function emh_configuration_update_7010() {
   if ($rules_config = rules_config_load('rules_schedule_inscription_clotures')) {
     $rules_config->delete();
@@ -187,10 +189,14 @@ function emh_configuration_update_7011() {
  */
 function emh_configuration_update_7012() {
   user_role_revoke_permissions(DRUPAL_AUTHENTICATED_RID, array('display EU Cookie Compliance popup'));
-  user_role_revoke_permissions(3, array('display EU Cookie Compliance popup')); // Administrator
-  user_role_grant_permissions(4, array('display EU Cookie Compliance popup')); // Expert
-  user_role_grant_permissions(5, array('display EU Cookie Compliance popup')); // Business
-  user_role_grant_permissions(7, array('display EU Cookie Compliance popup')); // Referent
+  // Administrator.
+  user_role_revoke_permissions(3, array('display EU Cookie Compliance popup'));
+  // Expert.
+  user_role_grant_permissions(4, array('display EU Cookie Compliance popup'));
+  // Business.
+  user_role_grant_permissions(5, array('display EU Cookie Compliance popup'));
+  // Referent.
+  user_role_grant_permissions(7, array('display EU Cookie Compliance popup'));
 }
 
 /**
@@ -220,7 +226,7 @@ function emh_configuration_update_7014() {
  * Change top nav links.
  */
 function emh_configuration_update_7015() {
-  // Change existing links
+  // Change existing links.
   db_update('menu_links')
     ->fields(array(
       'link_path' => '<front>',
@@ -266,11 +272,11 @@ function emh_configuration_update_7015() {
  * Uninstall module : emh_freetrial + Register alias for former /freetrial URL.
  */
 function emh_configuration_update_7016() {
-  // Uninstall modules
+  // Uninstall modules.
   module_disable(array('emh_freetrial'));
   drupal_uninstall_modules(array('emh_freetrial'));
 
-  // Change block path view settings
+  // Change block path view settings.
   features_revert(array('ft_blocks' => array('fe_block_boxes')));
 }
 
@@ -282,8 +288,8 @@ function emh_configuration_update_7017() {
 }
 
 /**
-* Update HybridAuth block.
-*/
+ * Update HybridAuth block.
+ */
 function emh_configuration_update_7019() {
   db_update('block')
     ->fields(array(
@@ -300,29 +306,29 @@ function emh_configuration_update_7019() {
 }
 
 /**
-* Revert views.
-*/
+ * Revert views.
+ */
 function emh_configuration_update_7020() {
   features_revert(array('ft_views' => array('views_view')));
 }
 
 /**
-* FIX Uninstall autoassignrole + FIX Activate ft_permissions + CHG permissions : Service links + CHG Service links parameters, Add to my selection flag.
-*/
+ * FIX Uninstall autoassignrole + FIX Activate ft_permissions + CHG permissions : Service links + CHG Service links parameters, Add to my selection flag.
+ */
 function emh_configuration_update_7021() {
-  // Uninstall module
+  // Uninstall module.
   module_enable(array('ft_permissions'));
   features_revert(array('ft_permissions' => array('user_permission')));
   module_disable(array('autoassignrole'));
   drupal_uninstall_modules(array('autoassignrole'));
 
-  // Change permissions
+  // Change permissions.
   user_role_grant_permissions(3, array('access service links'));
   user_role_grant_permissions(4, array('access service links'));
   user_role_grant_permissions(5, array('access service links'));
   user_role_grant_permissions(6, array('access service links'));
 
-  // Change parameters
+  // Change parameters.
   $value = array(
     'blog' => 'blog',
     'article' => '0',
@@ -340,16 +346,16 @@ function emh_configuration_update_7021() {
   features_revert(array('ft_field_base' => array('flag')));
   features_revert(array('ft_views' => array('views_view')));
 
-  // Change My selection
+  // Change My selection.
   db_delete('menu_links')
-   ->condition('mlid', '9260')
-   ->execute();
+    ->condition('mlid', '9260')
+    ->execute();
   db_update('menu_links')
-   ->fields(array(
-     'plid' => '4970',
-   ))
-   ->condition('mlid', '9385')
-   ->execute();
+    ->fields(array(
+      'plid' => '4970',
+    ))
+    ->condition('mlid', '9385')
+    ->execute();
 
   variable_set('menu_rebuild_needed', TRUE);
 }
@@ -373,12 +379,12 @@ function emh_configuration_update_7022() {
     'user_alert',
     'working_group',
   );
-  foreach($types as $type) {
-    // First, delete nodes
+  foreach ($types as $type) {
+    // First, delete nodes.
     $results = db_select('node', 'n')
-                ->fields('n', array('nid'))
-                ->condition('type', $type)
-                ->execute();
+      ->fields('n', array('nid'))
+      ->condition('type', $type)
+      ->execute();
     foreach ($results as $result) {
       $nids[] = $result->nid;
     }
@@ -386,7 +392,7 @@ function emh_configuration_update_7022() {
       node_delete_multiple($nids);
       drupal_set_message(t('%count nodes has been deleted.', array('%count' => count($nids))));
     }
-    // Then, delete content type
+    // Then, delete content type.
     if (node_type_load($type)) {
       node_type_delete($type);
       variable_del('node_preview_' . $type);
@@ -411,7 +417,7 @@ function emh_configuration_update_7024() {
   features_revert(array('ft_views' => array('views_view')));
 }
 
-/*
+/**
  * ADD: video in Homepage.
  */
 function emh_configuration_update_7025() {
@@ -455,8 +461,8 @@ function emh_configuration_update_7030() {
 }
 
 /**
-* CHG: Delete old question/challenge blocks.
-*/
+ * CHG: Delete old question/challenge blocks.
+ */
 function emh_configuration_update_7031() {
   $module = 'block';
   $deltas = array('14', '16');
@@ -475,28 +481,30 @@ function emh_configuration_update_7031() {
   }
 }
 
-/*
+/**
  * CHG: Update short date format.
  */
 function emh_configuration_update_7032() {
- db_update('date_formats')
+  db_update('date_formats')
     ->fields(array(
       'format' => 'Y/m/d',
-   ))
-  ->condition('dfid', '60')
-  ->execute();
+    ))
+    ->condition('dfid', '60')
+    ->execute();
 }
 
 /**
  * CHG: Renaming 'point' with 'credit' everywhere.
  */
 function emh_configuration_update_7033() {
-  // Permissions
+  // Permissions.
   user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('use credits'));
-  user_role_grant_permissions(3, array('administer credits', 'view others credits history')); // Administrator role
-  user_role_grant_permissions(6, array('administer credits', 'view others credits history')); // Webmaster role
+  // Administrator role.
+  user_role_grant_permissions(3, array('administer credits', 'view others credits history'));
+  // Webmaster role.
+  user_role_grant_permissions(6, array('administer credits', 'view others credits history'));
 
-  // Rules
+  // Rules.
   if ($rules_config = rules_config_load('rules_contact_impossible')) {
     $rules_config->delete();
   }
@@ -522,7 +530,7 @@ function emh_configuration_update_7033() {
     $rules_config->delete();
   }
 
-  // Features
+  // Features.
   features_revert(array('ft_content_type' => array('field_instance')));
 }
 
@@ -535,7 +543,7 @@ function emh_configuration_update_7034() {
   module_enable(array('emh_profile_complete', 'emh_profile_complete_request', 'emh_profile_complete_submission'));
   features_revert(array(
     'ft_content_type' => array('field_instance'),
-    'ft_field_base' => array('field_base')
+    'ft_field_base' => array('field_base'),
   ));
 }
 
@@ -553,12 +561,12 @@ function emh_configuration_update_7035() {
       'field_instance',
       'variable',
       'views_view',
-    )
+    ),
   ));
 }
 
 /**
- * Activate queue_ui module
+ * Activate queue_ui module.
  */
 function emh_configuration_update_7036() {
   module_enable(['queue_ui']);
@@ -568,16 +576,16 @@ function emh_configuration_update_7036() {
  * CHG: remove for good old request types!
  */
 function emh_configuration_update_7037() {
-  // Uninstall old custom modules
+  // Uninstall old custom modules.
   module_disable(array('emh_question', 'emh_challenge', 'emh_mission'));
   drupal_uninstall_modules(array('emh_question', 'emh_challenge', 'emh_mission'));
   features_revert(array('ft_permissions' => array('user_permission')));
 
-  // Reload EMH Request strings
+  // Reload EMH Request strings.
   emh_request_disable_strings();
   emh_request_enable_strings();
 
-  // Desactivate old rules
+  // Desactivate old rules.
   $rules = array(
     'rules_transfert_points_for_content',
     'emh_points_transfert_points_for_published_content',
@@ -616,7 +624,7 @@ function emh_configuration_update_7039() {
   module_disable(array('forward'));
   drupal_uninstall_modules(array('forward'));
 
-  // Delete old blocks
+  // Delete old blocks.
   $module = 'block';
   $deltas = array('2', '5', '6', '7', '9', '10', '11', '12', '13', '15', '18', '19', '20', '21', '22');
   foreach ($deltas as $delta) {
@@ -633,7 +641,7 @@ function emh_configuration_update_7039() {
       ->execute();
   }
 
-  // Publish nodes & translations
+  // Publish nodes & translations.
   $nids = array('267', '268');
   $nodes = node_load_multiple($nids);
   foreach ($nodes as $node) {
@@ -646,7 +654,7 @@ function emh_configuration_update_7039() {
   }
 
   // Update menus
-  // Contact us
+  // Contact us.
   db_update('menu_links')
     ->fields(array(
       'menu_name' => 'menu-footer-menu',
@@ -663,7 +671,7 @@ function emh_configuration_update_7039() {
     ->condition('mlid', '4965')
     ->execute();
 
-  // About us
+  // About us.
   db_update('menu_links')
     ->fields(array(
       'menu_name' => 'menu-footer-menu',
@@ -672,7 +680,7 @@ function emh_configuration_update_7039() {
     ->condition('mlid', '4966')
     ->execute();
 
-  // Delete old menus
+  // Delete old menus.
   $menus = array(
     'menu-findexpert',
     'menu-networks',
@@ -683,7 +691,7 @@ function emh_configuration_update_7039() {
     $menu = menu_load($menu);
     menu_delete($menu);
   }
-  // Delete old links
+  // Delete old links.
   $links = array(
     '3786',
     '7189',
@@ -697,10 +705,10 @@ function emh_configuration_update_7039() {
   }
   variable_set('menu_rebuild_needed', TRUE);
 
-  // HybridAuth
+  // HybridAuth.
   variable_set('hybridauth_widget_title', 'or');
 
-  // Service links
+  // Service links.
   module_enable(array('emh_service_links'));
   $types = array(
     'blog' => 'blog',
@@ -843,7 +851,7 @@ function emh_configuration_update_7044() {
 function emh_configuration_update_7045() {
   features_revert(array('ft_request' => array('views_view')));
 
-  // My circles
+  // My circles.
   db_update('menu_links')
     ->fields(array(
       'plid' => '7577',
@@ -852,7 +860,7 @@ function emh_configuration_update_7045() {
     ->condition('link_title', 'My circles')
     ->execute();
 
-  // Answers
+  // Answers.
   db_update('menu_links')
     ->fields(array(
       'link_path' => '<nolink>',
@@ -862,7 +870,7 @@ function emh_configuration_update_7045() {
     ->condition('mlid', '5523')
     ->execute();
 
-  // Answers > My answers
+  // Answers > My answers.
   db_update('menu_links')
     ->fields(array(
       'plid' => '5523',
@@ -870,7 +878,7 @@ function emh_configuration_update_7045() {
     ->condition('link_title', 'My answers')
     ->execute();
 
-  // Answers > Answers to my requests
+  // Answers > Answers to my requests.
   db_update('menu_links')
     ->fields(array(
       'plid' => '5523',
@@ -893,7 +901,7 @@ function emh_configuration_update_7046() {
     'ft_request' => array(
       'fe_block_settings',
       'views_view',
-    )
+    ),
   ));
 }
 
@@ -913,7 +921,7 @@ function emh_configuration_update_7048() {
   drupal_uninstall_modules(array('ft_wysiwyg'));
 }
 
-/*
+/**
  * CHG: 403 errors infos.
  */
 function emh_configuration_update_7049() {
@@ -942,7 +950,7 @@ function emh_configuration_update_7051() {
 }
 
 /**
- * Install module : Twitter username
+ * Install module : Twitter username.
  */
 function emh_configuration_update_7052() {
   module_enable(array('twitter_username'));
@@ -1012,7 +1020,7 @@ function emh_configuration_update_7056() {
 }
 
 /**
- * ADD: olark module
+ * ADD: olark module.
  */
 function emh_configuration_update_7057() {
   variable_set('olark_code', "<!-- begin olark code -->\r\n<script type=\"text/javascript\" async> ;(function(o,l,a,r,k,y){if(o.olark)return; r=\"script\";y=l.createElement(r);r=l.getElementsByTagName(r)[0]; y.async=1;y.src=\"//\"+a;r.parentNode.insertBefore(y,r); y=o.olark=function(){k.s.push(arguments);k.t.push(+new Date)}; y.extend=function(i,j){y(\"extend\",i,j)}; y.identify=function(i){y(\"identify\",k.i=i)}; y.configure=function(i,j){y(\"configure\",i,j);k.c[i]=j}; k=y._={s:[],t:[+new Date],c:{},l:a}; })(window,document,\"static.olark.com/jsclient/loader.js\");\r\n/* custom configuration goes here (www.olark.com/documentation) */\r\nolark.identify('2802-759-10-6757');</script>\r\n<!-- end olark code -->");
