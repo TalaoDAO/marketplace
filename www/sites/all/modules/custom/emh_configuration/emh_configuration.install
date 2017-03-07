@@ -1023,6 +1023,7 @@ function emh_configuration_update_7056() {
  * ADD: olark module.
  */
 function emh_configuration_update_7057() {
+  module_enable(['olark']);
   variable_set('olark_code', "<!-- begin olark code -->\r\n<script type=\"text/javascript\" async> ;(function(o,l,a,r,k,y){if(o.olark)return; r=\"script\";y=l.createElement(r);r=l.getElementsByTagName(r)[0]; y.async=1;y.src=\"//\"+a;r.parentNode.insertBefore(y,r); y=o.olark=function(){k.s.push(arguments);k.t.push(+new Date)}; y.extend=function(i,j){y(\"extend\",i,j)}; y.identify=function(i){y(\"identify\",k.i=i)}; y.configure=function(i,j){y(\"configure\",i,j);k.c[i]=j}; k=y._={s:[],t:[+new Date],c:{},l:a}; })(window,document,\"static.olark.com/jsclient/loader.js\");\r\n/* custom configuration goes here (www.olark.com/documentation) */\r\nolark.identify('2802-759-10-6757');</script>\r\n<!-- end olark code -->");
   variable_set('olark_enable_admin', '0');
   variable_set('olark_ignore_user_roles', array(
