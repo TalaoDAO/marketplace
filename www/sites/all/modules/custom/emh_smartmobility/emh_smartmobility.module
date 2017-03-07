@@ -113,11 +113,11 @@ function emh_smartmobility_form_alter(&$form, &$form_state, $form_id) {
     case 'user_login':
     case 'user_login_block':
       global $base_url;
-      $form['#action'] = url('<front>', array(
-        'base_url' => $base_url,
-        'absolute' => TRUE,
-        'language' => (object) array('language' => FALSE),
-      ));
+      $url = url('<front>', array(
+              'base_url' => $base_url,
+              'absolute' => TRUE,
+              'language' => (object) array('language' => FALSE))).arg(0);
+      $form['#action'] = $url;
       break;
  }
 }
@@ -129,6 +129,13 @@ function emh_smartmobility_register_form_submit($form, &$form_state) {
   global $language;
 
   $form_state['redirect'] = url(EMH_SMARTMOBILITY_HOMEPAGE, array('language' => (object) array('language' => $language->language)));
+}
+
+function emh_smartmobility_user_login(&$edit, $account) {
+  $gid = variable_get('emh_smartmobility_circle_gid', 1813);
+  if (og_is_member('node', $gid, 'user', $account)) {
+    drupal_goto('node/'.$gid);
+  }
 }
 
 /**
