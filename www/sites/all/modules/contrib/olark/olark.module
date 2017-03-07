@@ -1,0 +1,207 @@
+<?php
+/**
+ * @file
+ * Integrates Olark Chat in a Drupal site.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function olark_menu() {
+  $items['admin/config/services/olark'] = array(
+    'title' => 'Olark settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('olark_settings'),
+    'access arguments' => array('administer site configuration'),
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_page_alter().
+ */
+function olark_page_alter(&$page) {
+  // Note that the 'olark_enable' variable can be (un)set in the $conf array in
+  // settings.php, or by another module to enable/disable however, there is not
+  // a user interface for this variable. If the display olark chat AND the
+  // variable for olark enable is true, then display Olark Chat.
+  if (!variable_get('olark_enable', 1) || !olark_check_role_access()) {
+    return;
+  }
+
+  // Return early if olark is not enabled for admin and we are on an admin path.
+  if (!variable_get('olark_enable_admin', FALSE) && path_is_admin(current_path())) {
+    return;
+  }
+
+  // If the context plugin exists and the result is false return early.
+  if (variable_get('olark_context', 0) && module_exists('context')) {
+    $plugin = context_get_plugin('reaction', 'olark_add');
+    if ($plugin && !$plugin->execute()) {
+      return;
+    }
+  }
+
+  global $user;
+  $setting = array('olark' => array());
+
+  // If the user is logged in, let's get some pertinent information and
+  // pass it along as well.
+  if ($user->uid) {
+    $setting['olark']['uid'] = $user->uid;
+    $setting['olark']['name'] = $user->name;
+    $setting['olark']['mail'] = $user->mail;
+    $setting['olark']['roles'] = t('roles @roles', array('@roles' => implode(', ', $user->roles)));
+    $setting['olark']['userpage'] = url('user/' . $user->uid, array('absolute' => TRUE));
+    $setting['olark']['loggedinas'] = t('logged in as !link', array(
+      '!link' => l($user->name, 'user/' . $user->uid, array('absolute' => TRUE)),
+    ));
+  }
+
+  $setting['olark']['disable_ios'] = variable_get('olark_ios', '');
+  $setting['olark']['enabled'] = variable_get('olark_enable', 1);
+
+  // Add the JavaScript to page.
+  $olark_code = variable_get('olark_code', '');
+  $page['page_bottom']['tns'] = array(
+    '#markup' => $olark_code,
+    '#access' => !empty($olark_code),
+    '#attached' => array(
+      'js' => array(
+        array(
+          'type' => 'file',
+          'scope' => 'footer',
+          'data'  => drupal_get_path('module', 'olark') . '/js/olark.js',
+        ),
+        array(
+          'type' => 'setting',
+          'data' => $setting,
+        ),
+      ),
+    ),
+  );
+}
+
+/**
+ * Checks whether or not current user contains a role which would
+ * restrict display of Olark Chat.
+ *
+ * @return bool
+ *   Whether or not the user is prevented from seeing Olark Chat.
+ */
+function olark_check_role_access() {
+  // Check to see if current user has access to view Olark Chat.
+  global $user;
+  // Create a bool with value set to TRUE for if statement down below on whether
+  // to display Olark Chat.
+  $display_olark_chat = TRUE;
+  // Obtain the list from the settings page, and call array_unique to remove
+  // duplicate 0's, and obtain only the array_values.
+  $olark_ignore_user_roles = array_unique(variable_get('olark_ignore_user_roles', array()));
+  if (count($olark_ignore_user_roles) > 0) {
+    $olark_ignore_user_roles = array_flip($olark_ignore_user_roles);
+    // Check to see if key 0 is set, which is not a rid, but a result of
+    // array_unique.
+    if (isset($olark_ignore_user_roles[0])) {
+      // Unset the key to reduce load on foreach.
+      unset($olark_ignore_user_roles[0]);
+    }
+    // Check to make sure that there is at least one rid that should be ignored
+    // to save resources. Access all of the user roles to see if one of their
+    // roles in is in the disallowed list.
+    foreach ($user->roles as $rid => $role) {
+      if (in_array($rid, $olark_ignore_user_roles)) {
+        // An rid that should ignore Olark Chat has been found. Setting bool to
+        // FALSE and breaking out.
+        $display_olark_chat = FALSE;
+        break;
+      }
+    }
+  }
+
+  return $display_olark_chat;
+}
+
+/**
+ * Implements hook_context_registry().
+ */
+function olark_context_registry() {
+  return array(
+    'reactions' => array(
+      'olark_add' => array(
+        'title' => t('Olark'),
+        'plugin' => 'olark_context_reaction_add',
+        'description' => t('Add Olark chat code to the page'),
+      ),
+    ),
+  );
+}
+
+/**
+ * Notify CTools that we'll be using the plugin API with Context module.
+ */
+function olark_ctools_plugin_api($module, $api) {
+  if ($module == 'context' && $api == 'plugins') {
+    return array('version' => 3);
+  }
+}
+
+/**
+ * CTools plugin API hook for Context.
+ */
+function olark_context_plugins() {
+  $plugins = array();
+  $plugins['olark_context_reaction_add'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'olark') . '/plugins',
+      'file' => 'olark_context_reaction_add.inc',
+      'class' => 'olark_context_reaction_add',
+      'parent' => 'context_reaction',
+    ),
+  );
+
+  return $plugins;
+}
+
+/**
+ * Settings form.
+ */
+function olark_settings($form, &$form_state) {
+  $form = array();
+  $form['olark_code'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Olark code'),
+    '#description' => t('Paste the Javascript code block from <a href="http://olark.com/install">Olark.com</a>'),
+    '#default_value' => variable_get('olark_code', ''),
+  );
+  $form['olark_ios'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Disable in iOS devices'),
+    '#description' => t('Hides it on iPhone, iPad and iPod since it has issues in this platforms.'),
+    '#default_value' => variable_get('olark_ios', ''),
+  );
+  $form['olark_enable_admin'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable on admin pages.'),
+    '#description' => t('Embeds the olark code on admin pages.'),
+    '#default_value' => variable_get('olark_enable_admin', FALSE),
+  );
+  if (module_exists('context')) {
+    $form['olark_context'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Use Context to choose when Olark is added to the page.'),
+      '#description' => t('The Olark code will be included on all pages of your site by default. You can use <a href="!context_url">Context module</a> to fine tune when and where it will be displayed.', array('!context_url' => url('admin/structure/context'))),
+      '#default_value' => variable_get('olark_context', 0),
+    );
+  }
+  $form['olark_ignore_user_roles'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('User roles that will not display Olark Chat'),
+    '#description' => t('Certain roles may exist, such as the administrator role, that you do not wish Olark Chat to display. Use these checkboxes to select possible roles that will prevent Olark Chat from loading'),
+    '#default_value' => variable_get('olark_ignore_user_roles', array()),
+    '#options' => user_roles(),
+  );
+
+  return system_settings_form($form);
+}
