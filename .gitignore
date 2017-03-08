@@ -3,7 +3,7 @@ www/adminer.php
 www/bdd
 xhgui
 
-# Ignore on soyousart prod server only
+# Ignore on soyoustart prod server only
 var
 
 #behat
