@@ -1010,3 +1010,11 @@ function emh_configuration_update_7056() {
     ->condition('name', 'terms_of_use_1479725866')
     ->execute();
 }
+
+/**
+ * ADD: Autodialog module.
+ */
+function emh_configuration_update_7057() {
+  module_enable(['autodialog']);
+  variable_set('autodialog_source', 'region');
+}
