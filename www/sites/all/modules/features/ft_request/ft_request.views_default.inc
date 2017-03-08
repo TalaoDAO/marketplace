@@ -2638,6 +2638,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['emh_answer']['id'] = 'emh_answer';
   $handler->display->display_options['fields']['emh_answer']['table'] = 'webform_submissions';
   $handler->display->display_options['fields']['emh_answer']['field'] = 'emh_answer';
+  $handler->display->display_options['fields']['emh_answer']['label'] = 'My answer';
   $handler->display->display_options['fields']['emh_answer']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['emh_answer']['alter']['text'] = '<span class="submission-date">[completed]&nbsp;–&nbsp;</span>[emh_answer]';
   $handler->display->display_options['fields']['emh_answer']['element_label_colon'] = FALSE;
@@ -2651,7 +2652,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['flagged']['table'] = 'flagging';
   $handler->display->display_options['fields']['flagged']['field'] = 'flagged';
   $handler->display->display_options['fields']['flagged']['relationship'] = 'flag_content_rel';
-  $handler->display->display_options['fields']['flagged']['label'] = 'Helpful ?';
+  $handler->display->display_options['fields']['flagged']['label'] = 'Marked as helpful by the requester ?';
   $handler->display->display_options['fields']['flagged']['type'] = 'custom';
   $handler->display->display_options['fields']['flagged']['type_custom_true'] = '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
   $handler->display->display_options['fields']['flagged']['not'] = 0;
