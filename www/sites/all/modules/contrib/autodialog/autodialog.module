@@ -1,0 +1,279 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function autodialog_menu() {
+  $items = array();
+
+  $items['admin/config/system/autodialog'] = array(
+    'title' => 'Autodialog',
+    'description' => 'Autodialog settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('autodialog_settings_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'autodialog.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_page_delivery_callback_alter().
+ */
+function autodialog_page_delivery_callback_alter(&$callback) {
+  if (_autodialog_check_request() && $callback == 'drupal_deliver_html_page') {
+    $callback = 'autodialog_deliver';
+  }
+}
+
+/**
+ * Autodialog delivery callback.
+ */
+function autodialog_deliver($page_callback_result) {
+  $dialog_options = isset($_POST['autodialog_options']) ? $_POST['autodialog_options'] : array();
+  if ($default_dialog_options = variable_get('autodialog_default_options')) {
+    $dialog_options += drupal_json_decode($default_dialog_options);
+  }
+
+  $content = '';
+  if (is_int($page_callback_result)) {
+    switch ($page_callback_result) {
+      case MENU_NOT_FOUND:
+        $content = t('The requested page could not be found.');
+        break;
+
+      case MENU_ACCESS_DENIED:
+        $content = t('You are not authorized to access this page.');
+        break;
+
+      case MENU_SITE_OFFLINE:
+        $content = filter_xss_admin(variable_get(
+          'maintenance_mode_message',
+          t('@site is currently under maintenance. We should be back shortly. Thank you for your patience.', array(
+            '@site' => variable_get('site_name', 'Drupal')
+          ))
+        ));
+        break;
+    }
+  }
+  else {
+    $content = drupal_render_page($page_callback_result);
+  }
+
+  $commands = array(
+    array(
+      'command' => 'autodialog',
+      'title' => drupal_get_title(),
+      'content' => $content,
+      'options' => $dialog_options,
+      'dialog_id' => check_plain($_POST['autodialog_link_id']) . '-dialog',
+    ),
+  );
+
+  drupal_alter('autodialog_commands', $commands);
+
+  ajax_deliver(array(
+    '#type' => 'ajax',
+    '#commands' => $commands,
+  ));
+}
+
+/**
+ * Implements hook_custom_theme().
+ */
+function autodialog_custom_theme() {
+  if (_autodialog_check_request() && ($theme = ajax_base_page_theme())) {
+    return $theme;
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function autodialog_form_alter(&$form, &$form_state, $form_id) {
+  static $asaf_module_enabled;
+  if ($asaf_module_enabled === NULL) {
+    $asaf_module_enabled = module_exists('asaf');
+  }
+  if (!$asaf_module_enabled) {
+    return;
+  }
+
+  if (
+    // First form load
+    (_autodialog_check_request() && !empty($_POST['autodialog_options']['ajax'])) ||
+    // Non-first form load
+    !empty($form_state['complete form']['#autodialog'])
+  ) {
+    $form['#autodialog'] = TRUE;
+    $form['#autodialog_options'] = isset($_POST['autodialog_options'])
+      ? $_POST['autodialog_options']
+      : $form_state['complete form']['#autodialog_options'];
+    asaf_prepare_form($form, $form_state);
+
+    // Support Webforms
+    if (
+      strpos($form_id, 'webform_client_form_') === 0 &&
+      isset($form['actions']['submit']['#pre_render']) &&
+      ($key = array_search('webform_pre_render_remove_id', $form['actions']['submit']['#pre_render'])) !== FALSE
+    ) {
+      unset($form['actions']['submit']['#pre_render'][$key]);
+    }
+  }
+}
+
+/**
+ * Implements hook_asaf_form_ajax_commands_alter().
+ */
+function autodialog_asaf_form_ajax_commands_alter(&$commands, $form, $form_state, $form_id) {
+  // Disable redirect and reload
+  if (!empty($form['#autodialog_options']['ajaxDisableRedirect'])) {
+    $disabled = FALSE;
+    foreach ($commands as $key => $command) {
+      if ($command['command'] == 'asafRedirect' || $command['command'] == 'asafReload') {
+        unset($commands[$key]);
+        $disabled = TRUE;
+        break;
+      }
+    }
+
+    if ($disabled) {
+      foreach ($commands as $key => $command) {
+        // Search command adds status messages
+        if ($command['command'] == 'insert' && $command['method'] == 'prepend' && !$command['selector']) {
+          $commands[$key]['method'] = 'html';
+          if ($commands[$key]['data'] == '') {
+            $commands[$key]['data'] = t('Form submitted.');
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function autodialog_theme() {
+  return array(
+    'html__autodialog' =>  array(
+      'template' => 'templates/html--autodialog',
+      'render element' => 'page',
+    ),
+    'page__autodialog' =>  array(
+      'template' => 'templates/page--autodialog',
+      'render element' => 'page',
+    ),
+    'region__autodialog' =>  array(
+      'template' => 'templates/region--autodialog',
+      'render element' => 'elements',
+    ),
+    'block__autodialog' =>  array(
+      'template' => 'templates/block--autodialog',
+      'render element' => 'elements',
+    ),
+  );
+}
+
+/**
+ * Preprocess variables for html.tpl.php.
+ */
+function autodialog_preprocess_html(&$variables) {
+  if (_autodialog_check_request()) {
+    $variables['theme_hook_suggestions'][] = 'html__autodialog';
+  }
+}
+
+/**
+ * Preprocess variables for html.tpl.php.
+ */
+function autodialog_preprocess_page(&$variables) {
+  if (_autodialog_check_request()) {
+    $variables['theme_hook_suggestions'][] = 'page__autodialog';
+  }
+}
+
+/**
+ * Preprocess variables for region.tpl.php.
+ */
+function autodialog_preprocess_region(&$variables) {
+  if (_autodialog_check_request()) {
+    $variables['theme_hook_suggestions'][] = 'region__autodialog';
+  }
+}
+
+/**
+ * Preprocess variables for block.tpl.php.
+ */
+function autodialog_preprocess_block(&$variables) {
+  if (_autodialog_check_request() && variable_get('autodialog_source', 'block') == 'block') {
+    $variables['theme_hook_suggestions'][] = 'block__autodialog';
+  }
+}
+
+/**
+ * Implements hook_page_alter().
+ */
+function autodialog_page_alter(&$page) {
+  $paths = variable_get('autodialog_paths');
+  if (!$paths || drupal_match_path(current_path(), $paths) || drupal_match_path(request_path(), $paths)) {
+    $module_path = drupal_get_path('module', 'autodialog');
+    drupal_add_library('system', 'drupal.ajax');
+    drupal_add_library('system', 'ui.dialog');
+    drupal_add_js($module_path . '/autodialog.js');
+
+    if (variable_get('autodialog_scrollfix')) {
+      drupal_add_js($module_path . '/jquery.ui.dialog.scrollfix/jquery.ui.dialog.scrollfix.js');
+      drupal_add_css($module_path . '/jquery.ui.dialog.scrollfix/jquery.ui.dialog.scrollfix.css');
+    }
+  }
+
+  if (isset($page['page_top']['toolbar']) && _autodialog_check_request()) {
+    $page['page_top']['toolbar']['#access'] = FALSE;
+  }
+}
+
+/**
+ * Implements hook_block_list_alter().
+ */
+function autodialog_block_list_alter(&$blocks) {
+  global $language, $theme_key;
+
+  if (!_autodialog_check_request() || variable_get('autodialog_source', 'block') != 'block') {
+    return;
+  }
+
+  foreach ($blocks as $key => $block) {
+    // Any module using this alter should inspect the data before changing it,
+    // to ensure it is what they expect.
+    if (!isset($block->theme) || !isset($block->status) || $block->theme != $theme_key || $block->status != 1) {
+      // This block was added by a contrib module, leave it in the list.
+      continue;
+    }
+
+    if ($block->module != 'system' && $block->delta != 'main') {
+      unset($blocks[$key]);
+    }
+  }
+}
+
+/**
+ * Return TRUE if if content should be shown in dialog.
+ */
+function _autodialog_check_request() {
+  static $flag;
+
+  if ($flag === NULL) {
+    $flag = isset($_SERVER['HTTP_X_REQUESTED_WITH'])
+      && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'
+      && !empty($_POST['autodialog_link_id']);
+
+    // Decode options
+    if ($flag && !empty($_POST['autodialog_options'])) {
+      $_POST['autodialog_options'] = json_decode($_POST['autodialog_options'], TRUE);
+    }
+  }
+
+  return $flag;
+}
