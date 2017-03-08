@@ -3,6 +3,9 @@ www/adminer.php
 www/bdd
 xhgui
 
+# Ignore on soyousart prod server only
+var
+
 #behat
 bdd/bin
 bdd/tmp
