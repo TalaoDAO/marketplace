@@ -227,5 +227,5 @@ function _emh_request_submission_get_comment($sid) {
   $result = $query->execute();
   $row = $result->fetch();
 
-  return ($row->field_comment_answer_value);
+  if (isset($row->field_comment_answer_value)) return ($row->field_comment_answer_value); else return 0;
 }
