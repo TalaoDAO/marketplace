@@ -113,10 +113,10 @@ function emh_smartmobility_form_alter(&$form, &$form_state, $form_id) {
     case 'user_login':
     case 'user_login_block':
       global $base_url;
-      $url = url('<front>', array(
+      $url = url(current_path(), array(
               'base_url' => $base_url,
               'absolute' => TRUE,
-              'language' => (object) array('language' => FALSE))).arg(0);
+              'language' => (object) array('language' => FALSE)));
       $form['#action'] = $url;
       break;
  }
