@@ -71,21 +71,28 @@ Feature: Request and answers
       And I press "Save Draft"
     Then I should see the message "Your answer has been saved as draft."
 
-  Scenario: An expert can see its own answer
+  Scenario: An expert can see its own published answer
+    Given I am logged in as "expert1"
+    When I go to homepage
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+    Then I should see "Everybody can be, trust me, I'm the best we known." in the "submissions" region
+      And I should see "1 answer" in the "user_submission_count" region
+
+  Scenario: An expert can see its own draft answer
     Given I am logged in as "expert2"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "You have to read DC comics of course!" in the "user_submission" region
-      And I should see "1" in the "user_submission_count" region
+      And I should see "1 answer" in the "user_submission_count" region
 
   Scenario: An expert of the same circle can see the published answer
-    Given I am logged in as "expert1"
+    Given I am logged in as "expert2"
     When I go to homepage
     Then I should see "1" in the "How to become a superhero?" row
 
     When I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "Everybody can be, trust me, I'm the best we known." in the "submissions" region
-      And I should see "1" in the "user_submission_count" region
+      And I should see "1 answer" in the "user_submission_count" region
 
     When I click "view" in the "submissions" region
     Then I should see "Everybody can be, trust me, I'm the best we known."
@@ -102,12 +109,31 @@ Feature: Request and answers
     When I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "Iron MAN" in the "submissions" region
       And I should see "Everybody can be, trust me, I'm the best we known." in the "submissions" region
-      And I should see "1" in the "user_submission_count" region
+      And I should see "1 answer" in the "user_submission_count" region
       And I should not see "Klark KENT" in the "submissions" region
       And I should not see "You have to read DC comics of course!" in the "submissions" region
 
     When I click "view" in the "submissions" region
     Then I should see "Everybody can be, trust me, I'm the best we known."
+
+  Scenario: The author can see mark published answers as helpful
+    Given I am logged in as "client1"
+    When I go to homepage
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+    Then I should see "Was this answer helpful?" in the "submissions" region
+
+    When I click "view" in the "submissions" region
+      And I click "Was this answer helpful?" in the "block_system_main" region
+    Then I should see "This answer was helpful" in the "block_system_main" region
+
+  Scenario: An expert of the same circle cannot mark the published answer as helpful
+    Given I am logged in as "expert1"
+    When I go to homepage
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+    Then I should not see "Was this answer helpful?" in the "submissions" region
+
+    When I click "view" in the "submissions" region
+    Then I should not see "Was this answer helpful?" in the "block_system_main" region
 
   @exclude
   Scenario: The expert cannot respond twice to the same request
