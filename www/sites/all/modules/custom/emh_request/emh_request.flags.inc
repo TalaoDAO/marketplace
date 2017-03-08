@@ -11,6 +11,7 @@
 function emh_request_flag_access($flag, $entity_id, $action, $account) {
   switch ($flag->name) {
     case 'interesting_answer':
+    case 'comment_answer':
       module_load_include('inc', 'webform', 'includes/webform.submissions');
       $submissions = webform_get_submissions(array('sid' => $entity_id));
       $node = node_load($submissions[$entity_id]->nid);
@@ -24,13 +25,15 @@ function emh_request_flag_access($flag, $entity_id, $action, $account) {
 function emh_request_flag_access_multiple($flag, $entity_ids, $account) {
   $access = array();
 
-  if ($flag->name == 'interesting_answer') {
-    module_load_include('inc', 'webform', 'includes/webform.submissions');
-    foreach ($entity_ids as $entity_id => $action) {
-      $submissions = webform_get_submissions(array('sid' => $entity_id));
-      $node = node_load($submissions[$entity_id]->nid);
-      $access[$entity_id] = $node->uid != $account->uid ? FALSE : NULL;
-    }
+  switch ($flag->name) {
+    case 'interesting_answer':
+    case 'comment_answer':
+      module_load_include('inc', 'webform', 'includes/webform.submissions');
+      foreach ($entity_ids as $entity_id => $action) {
+        $submissions = webform_get_submissions(array('sid' => $entity_id));
+        $node = node_load($submissions[$entity_id]->nid);
+        $access[$entity_id] = $node->uid != $account->uid ? FALSE : NULL;
+      }
   }
 
   return $access;
