@@ -37,7 +37,6 @@ class views_handler_field_emh_webform_answer extends views_handler_field {
     }
 
     module_load_include('inc', 'webform', 'includes/webform.submissions');
-    $submissions = webform_get_submissions(array('sid' => $sid));
     $submission = webform_get_submission($nid, $sid);
     return emh_request_render_submission($submission);
   }
