@@ -25,20 +25,50 @@ function ft_request_views_api($module = NULL, $api = NULL) {
  */
 function ft_request_flag_default_flags() {
   $flags = array();
-  // Exported flag: "Helpful answer".
+  // Exported flag: "Comment answer".
+  $flags['comment_answer'] = array(
+    'entity_type' => 'webform_submission',
+    'title' => 'Comment answer',
+    'global' => 1,
+    'types' => array(
+      0 => 'webform_submission',
+    ),
+    'flag_short' => 'Leave a comment for the expert',
+    'flag_long' => 'Click to leave a comment for the expert',
+    'flag_message' => 'Thank you for leaving a comment for the expert !',
+    'unflag_short' => 'Yes, delete',
+    'unflag_long' => 'Click to delete this comment',
+    'unflag_message' => 'You deleted this feedback.',
+    'unflag_denied_text' => 'You left a feedback comment for the expert <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>',
+    'link_type' => 'confirm',
+    'weight' => 0,
+    'show_in_links' => array(),
+    'show_as_field' => FALSE,
+    'show_on_form' => FALSE,
+    'access_author' => '',
+    'show_contextual_link' => 0,
+    'flag_confirmation' => 'Please write down your feedback comment on the expert answer',
+    'unflag_confirmation' => 'Do you want to delete this comment ?',
+    'module' => 'ft_request',
+    'locked' => array(
+      0 => 'name',
+    ),
+    'api_version' => 3,
+  );
+  // Exported flag: "Interesting answer".
   $flags['interesting_answer'] = array(
     'entity_type' => 'webform_submission',
-    'title' => 'Helpful answer',
+    'title' => 'Interesting answer',
     'global' => 1,
     'types' => array(
       0 => 'webform_submission',
     ),
     'flag_short' => 'Was this answer helpful?',
     'flag_long' => 'Click to mark this answer as helpful.',
-    'flag_message' => 'You marked this answer as helpful.',
+    'flag_message' => 'You marked this answer as interesting.',
     'unflag_short' => 'This answer was helpful <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>',
-    'unflag_long' => 'Click to unmark this answer as helpful.',
-    'unflag_message' => 'You unmarked this answer as helpful.',
+    'unflag_long' => 'Click to unmark this answer as interesting.',
+    'unflag_message' => 'You unmarked this answer as interesting.',
     'unflag_denied_text' => '',
     'link_type' => 'toggle',
     'weight' => 0,
