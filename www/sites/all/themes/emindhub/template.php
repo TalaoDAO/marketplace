@@ -543,3 +543,12 @@ function emindhub_preprocess_views_view_unformatted(&$vars) {
 	  }
 	}
 }
+
+/**
+ * Expose submission comment in template.
+ */
+function emindhub_preprocess_webform_submission_information(&$vars) {
+	if (module_exists('emh_request_submission') && isset($vars['submission']->sid)) {
+    $vars['comment_answer'] = _emh_request_submission_get_comment($vars['submission']->sid);
+	}
+}
