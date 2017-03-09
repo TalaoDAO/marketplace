@@ -1,0 +1,21 @@
+<?php
+  
+/**
+ * Implements hook_install().
+ */
+function autodialog_install() {
+  db_update('system')
+    ->fields(array('weight' => 1))
+    ->condition('name', 'autodialog')
+    ->execute();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function autodialog_uninstall() {
+  $vars = array('autodialog_paths');
+  foreach ($vars as $var) {
+    variable_del($var);
+  }
+}
