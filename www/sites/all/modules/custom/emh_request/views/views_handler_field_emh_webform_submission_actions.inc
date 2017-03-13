@@ -40,26 +40,28 @@ class views_handler_field_emh_webform_submission_actions extends views_handler_f
     $submission = webform_get_submission($nid, $sid);
     $node = node_load($nid);
 
-    $view = ''; $edit = ''; $delete = ''; $flag = '';
+    $view = ''; $edit = ''; $delete = ''; $flags = ''; $comment = '';
     if (webform_submission_access($node, $submission, 'view')) {
-      $text = !empty($text) ? $text : t('view');
       $view = l(t('view'), "node/$nid/submission/$sid", array('attributes' => array('class' => array('submission-link', 'view'))));
     }
     if (webform_submission_access($node, $submission, 'edit')) {
-      $text = !empty($text) ? $text : t('edit');
-      $edit = l($text, "node/$nid/submission/$sid/edit", array('attributes' => array('class' => array('submission-link', 'edit'))));
+      $edit = l(t('edit'), "node/$nid/submission/$sid/edit", array('attributes' => array('class' => array('submission-link', 'edit'))));
     }
     if (webform_submission_access($node, $submission, 'delete')) {
-      $text = !empty($text) ? $text : t('delete');
       $path = drupal_get_path_alias($_GET['q']);
-      $delete = l($text, "node/$nid/submission/$sid/delete", array('attributes' => array('class' => array('submission-link', 'delete')), 'query' => array('destination' => $path)));
-    }
-    if (!empty(flag_create_link('interesting_answer', $sid))) {
-      $flag = flag_create_link('interesting_answer', $sid);
+      $delete = l(t('delete'), "node/$nid/submission/$sid/delete", array('attributes' => array('class' => array('submission-link', 'delete')), 'query' => array('destination' => $path)));
     }
 
-    if (!empty($view) || !empty($edit) || !empty($delete) || !empty($flag)) {
-      return '<p>' . $view . $edit . $delete . $flag . '</p>';
+    if (!empty(flag_create_link('interesting_answer', $sid))) {
+      $flags .= flag_create_link('interesting_answer', $sid);
+    }
+
+    if (!empty(flag_create_link('comment_answer', $sid))) {
+      $flags .= flag_create_link('comment_answer', $sid);
+    }
+
+    if (!empty($view) || !empty($edit) || !empty($delete) || !empty($flags)) {
+      return '<div>' . $view . $edit . $delete . $flags . '</div>';
     }
   }
 
