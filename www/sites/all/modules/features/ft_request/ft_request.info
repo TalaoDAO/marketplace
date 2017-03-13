@@ -8,7 +8,6 @@ dependencies[] = autocomplete_deluxe
 dependencies[] = better_exposed_filters
 dependencies[] = ctools
 dependencies[] = date
-dependencies[] = emh_profile_complete_request
 dependencies[] = emh_request
 dependencies[] = emh_request_flag_save
 dependencies[] = emh_request_submission
