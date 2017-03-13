@@ -1,12 +1,13 @@
 <?php
+
 /**
  * @file
  * Code for eMindHub Profile Complete feature for Requests.
  */
 
 /**
-* Implements hook_block_info().
-*/
+ * Implements hook_block_info().
+ */
 function emh_profile_complete_request_block_info() {
   $blocks['emh_profile_complete_request'] = array(
     'info' => t('EMH Profile Complete - Request'),
@@ -14,15 +15,15 @@ function emh_profile_complete_request_block_info() {
     'status' => 1,
     'region' => 'highlighted',
     'visibility' => BLOCK_VISIBILITY_LISTED,
-    'pages' => "<front>\nmy-responses\nrequests/selection\nrequests\nnode/*",
+    'pages' => "<front>\nanswers/my\nrequests/selection\nrequests\nnode/*",
   );
 
   return $blocks;
 }
 
 /**
-* Implements hook_block_view().
-*/
+ * Implements hook_block_view().
+ */
 function emh_profile_complete_request_block_view($delta = '') {
   global $user;
   $block = array();
@@ -44,7 +45,7 @@ function emh_profile_complete_request_block_view($delta = '') {
       else {
         $block['subject'] = t('Please complete the following information to access client requests');
         $block['content'] = array(
-          '#markup' =>  _emh_profile_complete_request_block_content(),
+          '#markup' => _emh_profile_complete_request_block_content(),
         );
       }
 
@@ -66,15 +67,11 @@ function emh_profile_complete_request_set_fields() {
     'field_entreprise',
     'field_working_status',
     'field_domaine',
-    // 'field_address' => array(
-    //   'country',
-    // ),
   );
   return $fields;
 }
 
 function emh_profile_complete_request_form($form, &$form_state, $fields) {
-
   global $user;
   $account = user_load($user->uid);
   $attach_form = array();
@@ -82,12 +79,9 @@ function emh_profile_complete_request_form($form, &$form_state, $fields) {
   $fields = _emh_profile_complete_get_empty_fields('user', 'user', $user, $fields);
 
   foreach ($fields as $field) {
-
     if (field_access('edit', field_info_field($field), 'user')) {
-
       field_attach_form('user', $account, $attach_form, $form_state, NULL, array('field_name' => $field));
       $form[$field] = $attach_form[$field];
-
     }
   }
 
@@ -98,11 +92,9 @@ function emh_profile_complete_request_form($form, &$form_state, $fields) {
   );
 
   return $form;
-
 }
 
 function emh_profile_complete_request_form_submit($form, &$form_state) {
-
   global $user;
   $account = user_load($user->uid);
   $edit = array();
@@ -115,13 +107,12 @@ function emh_profile_complete_request_form_submit($form, &$form_state) {
     $edit[$field_name] = $form_state['values'][$field_name];
   }
 
-  $edit = array_merge( $edit, array(
+  $edit = array_merge($edit, array(
     'status' => 1,
     'access' => REQUEST_TIME,
-  ) );
+  ));
 
   user_save($account, $edit);
 
   drupal_set_message(t('Your profile has been updated. You have now access to client requests.'));
-
 }
