@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * Implements hook_uninstall().
+ */
+function olark_uninstall() {
+  // Delete created variables.
+  variable_del('olark_code');
+  variable_del('olark_ios');
+  variable_del('olark_enable_admin');
+  variable_del('olark_context');
+}
