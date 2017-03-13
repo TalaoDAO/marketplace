@@ -135,33 +135,41 @@ Feature: Request and answers
     When I click "view" in the "submissions" region
     Then I should not see "Was this answer helpful?" in the "block_system_main" region
 
-  Scenario: The author can add a comment to published answers and the expert who answered can see the comment on his answers page
+  Scenario: The author can add a comment to published answers and only the expert who answered can see the comment
     Given I am logged in as "client1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "Leave a comment for the expert" in the "submissions" region
 
     When I click "view" in the "submissions" region
-      Then I should see "Leave a comment for the expert" in the "block_system_main" region
-
-    When I click "Leave a comment for the expert" in the "block_system_main" region
-      And I fill in "Awesome answer !" for "field_comment_answer[und][0][value]"
+      And I click "Leave a comment for the expert" in the "block_system_main" region
+      And I fill in "Awesome answer!" for "field_comment_answer[und][0][value]"
       And I press the "Leave a comment for the expert" button
     Then I should see "You left a feedback" in the "block_system_main" region
-      And I should see "Awesome answer !" in the "block_system_main" region
+      And I should see "Awesome answer!" in the "block_system_main" region
 
     Given I am logged in as "expert1"
+    When I go to homepage
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+    Then I should see "Awesome answer!" in the "submissions" region
+
     When I go to "answers/my"
-    Then I should see "Awesome answer !" in the "block_system_main" region
+    Then I should see "Awesome answer!" in the "block_system_main" region
 
-    Scenario: The expert who answered cannot add a comment for the published answer
-      Given I am logged in as "expert1"
-      When I go to homepage
-        And I click "How to become a superhero?" in the "How to become a superhero?" row
-      Then I should not see "Leave a comment for the expert" in the "submissions" region
+    # TODO
+    Given I am logged in as "expert2"
+    When I go to homepage
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+    Then I should not see "Awesome answer!" in the "submissions" region
 
-      When I click "view" in the "submissions" region
-      Then I should not see "Leave a comment for the expert" in the "block_system_main" region
+  Scenario: The expert who answered cannot add a comment for the published answer
+    Given I am logged in as "expert1"
+    When I go to homepage
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+    Then I should not see "Leave a comment for the expert" in the "submissions" region
+
+    When I click "view" in the "submissions" region
+    Then I should not see "Leave a comment for the expert" in the "block_system_main" region
 
   @exclude
   Scenario: The expert cannot respond twice to the same request
