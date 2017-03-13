@@ -1017,7 +1017,6 @@ function emh_configuration_update_7056() {
     ))
     ->condition('name', 'terms_of_use_1479725866')
     ->execute();
-  module_enable(['ft_flags']);
 }
 
 /**
