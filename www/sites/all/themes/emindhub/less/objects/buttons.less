@@ -95,11 +95,17 @@ fieldset[disabled] .btn {
 }
 
 .emh-button-default {
-	.button-variant(@gray, @gray-lighter, @gray-lighter);
+	.button-variant(@color-secondary, @gray-lighter, @gray-lighter);
+}
+.emh-button-default-active {
+	.button-variant(#FFF, @color-secondary, @color-secondary);
 }
 
-.emh-button-default-active {
-	.button-variant(@color-secondary, @gray-lighter, @gray-lighter);
+.emh-button-helpful {
+	.button-variant(@brand-success, @gray-lighter, @gray-lighter);
+}
+.emh-button-helpful-active {
+	.button-variant(#FFF, @brand-success, @brand-success);
 }
 
 a {
@@ -123,13 +129,22 @@ a {
   }
 }
 
-.flag-interesting-answer,
+.flag-interesting-answer {
+  .flag {
+    .emh-button-helpful;
+
+    &.unflag-action {
+      .emh-button-helpful-active;
+    }
+  }
+}
+
 .flag-comment-answer {
   .flag {
     .emh-button-default;
 
     &.unflag-action {
-      .emh-button-default-active
+      .emh-button-default-active;
     }
   }
 }

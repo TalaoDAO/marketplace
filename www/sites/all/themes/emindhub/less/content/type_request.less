@@ -14,16 +14,19 @@
     }
   }
 }
+
 .field-list-border {
   padding-bottom: 15px;
   margin-bottom: 15px;
   border-bottom: 1px dotted #CECECE;
+
   &:last-child {
     padding-bottom: inherit;
     margin-bottom: inherit;
     border: 0;
   }
 }
+
 .total-wrapper {
   .make-row();
   padding-top: 15px;
@@ -43,19 +46,35 @@
   .emh-title-image;
 }
 
+.emh-submission-row {
+  background-color: #FFF;
+  border: 1px solid #d9d9d9;
+  padding: 15px;
+  color: @text-color;
+}
+
+.emh-submission-date {
+  font-size: .9em;
+  color: #445766;
+}
+
+.emh-submission-actions {
+  padding-top: 15px;
+  border-top: 1px dotted #CECECE;
+  line-height: @line-height-base * @line-height-base;
+}
+
 .view-request-submissions {
   .views-bootstrap-grid-plugin-style {
     .row {
       margin: 0 0 15px;
     }
+
     .col {
       .make-row();
       margin: 0;
 
-      background-color: #FFF;
-      border: 1px solid #d9d9d9;
-      padding: 15px;
-      color: @text-color;
+      .emh-submission-row;
 
       &:last-child {
         margin-bottom: 0;
@@ -75,19 +94,22 @@
       }
 
       .views-field-emh-answer,
+      .views-field-field-comment-answer,
       .views-field-emh-submission-actions {
         .make-md-column(9);
-        line-height: @line-height-base * @line-height-base;
         padding-right: 0;
       }
 
+      .views-field-emh-answer {
+        line-height: @line-height-base * @line-height-base;
+      }
+
       .views-field-emh-submission-actions {
-        .text-right;
+        .emh-submission-actions;
       }
 
       .submission-date {
-        font-size: .9em;
-        color: #445766;
+        .emh-submission-date;
       }
     }
   }
@@ -153,6 +175,7 @@ body.node-type-request.page-node-edit {
         padding-top: 15px;
         padding-bottom: 15px;
         border-bottom: 1px dotted #CECECE;
+
         > .form-item {
           .make-sm-column(3);
           label {
@@ -295,9 +318,11 @@ body.node-type-request:not(.page-node-edit) {
     .make-md-column(4);
   }
 
-  .field {
-    padding: 0 0 15px;
-    .field-list-border;
+  .section.request {
+    .field {
+      padding: 0 0 15px;
+      .field-list-border;
+    }
   }
 
   .field-name-body {

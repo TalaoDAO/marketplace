@@ -12,14 +12,13 @@
  * - $account: The user that submitted the form.
  * - $commment_answer: The requester feedback comment on the submission.
  */
+
+$comment = emh_request_get_comment_answer_flag($submission, $node);
 ?>
 
-<span class="date"><?php print t('Submitted: !date', array('!date' => check_plain(format_date($submission->submitted, webform_variable_get('webform_date_type'))))); ?></span>
+<?php print render($comment); ?>
 
-<div id="submission-flags">
+<div class="submission-actions">
   <?php print flag_create_link('interesting_answer', $submission->sid); ?>
   <?php print flag_create_link('comment_answer', $submission->sid); ?>
-  <?php if (isset($comment_answer)) : ?>
-  <p><em><?php print $comment_answer; ?></em></p>
-  <?php endif; ?>
 </div>
