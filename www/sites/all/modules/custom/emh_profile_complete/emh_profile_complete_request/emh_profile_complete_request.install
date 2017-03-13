@@ -1,13 +1,13 @@
 <?php
+
 /**
  * @file
- * Installation hooks for the EMH Profile Complete Expert module.
+ * Installation hooks for eMindHub Profile Complete feature for Requests.
  */
 
-
 /**
-* Implements hook_enable().
-*/
+ * Implements hook_enable().
+ */
 function emh_profile_complete_request_enable() {
   emh_profile_complete_request_update_7001();
 }
@@ -18,7 +18,28 @@ function emh_profile_complete_request_enable() {
 function emh_profile_complete_request_update_7001() {
   $role = user_role_load_by_name('expert');
   $query = db_insert('block_role')
-          ->fields(array('rid', 'module', 'delta'))
-          ->values(array('rid' => $role->rid, 'module' => 'emh_profile_complete_request', 'delta' => 'emh_profile_complete_request'))
-          ->execute();
+    ->fields(array('rid', 'module', 'delta'))
+    ->values(array('rid' => $role->rid, 'module' => 'emh_profile_complete_request', 'delta' => 'emh_profile_complete_request'))
+    ->execute();
+}
+
+/**
+ * ADD: Parameters for EMH Profile Complete Expert block.
+ */
+function emh_profile_complete_request_update_7002() {
+  $module = 'emh_profile_complete_request';
+  $delta = 'emh_profile_complete_request';
+
+  db_update('block_role')
+    ->fields(array(
+      'rid' => DRUPAL_AUTHENTICATED_RID,
+    ))
+    ->condition('module', $module)
+    ->condition('delta', $delta)
+    ->execute();
+
+  $query = db_insert('block_node_type')
+    ->fields(array('module', 'delta', 'type'))
+    ->values(array('module' => $module, 'delta' => $delta, 'type' => 'request'))
+    ->execute();
 }
