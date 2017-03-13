@@ -1298,3 +1298,10 @@ function emh_configuration_update_7060() {
   user_role_grant_permissions($role->rid, $permissions);
   cache_clear_all('*', 'cache_menu', TRUE);
 }
+
+/**
+ * CHG: Revert missing views changes.
+ */
+function emh_configuration_update_7061() {
+  emh_configuration_revert_views(array('my_circles', 'my_relationships'));
+}
