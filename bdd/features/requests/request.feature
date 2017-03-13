@@ -105,12 +105,30 @@ Feature: Request
       And I should see "Marvel Studios" in the "request_right" region
 
   Scenario: Only users belonging to a circle can add a request type restricted to this circle
+    #HINT: this should work on "X-MEN" for field_circle_restriction, but, we use "Cercle de test"
+    # to bypass a cleanup bug: nodes are cleaned BEFORE terms; when "Call for heroes" is cleaned
+    # up, "X-Men" circle as already been deleted, and it cause a bug
     Given "request_type" terms:
-    | name            | description    | format        | language | field_circle_restriction | field_prepopulate           |
-    | Call for heroes | Request heroes | filtered_html | en       | X-Men                    | edit[og_group_ref][und]=NID |
+    | name            | description    | format        | language | field_circle_restriction | field_prepopulate            |
+    | Call for heroes | Request heroes | filtered_html | en       | Cercle de test           | edit[og_group_ref][und]=1813 |
+    Given users:
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node   | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | field_notification_frequency |
+    | client3 | emindhub.test+client4@gmail.com | business | Hank             | MCKOY           | 0607080901                  | Xavier Institute | Cercle de test | emindhub.test+client2@gmail.com | Marvel Studios i     | Freelancer           | Engines       | US                    | Real-time                    |
+
+    Given I am logged in as a user with the "administrator" role
+    When I go to "content/cercle-de-test"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
+      And I click "Member since"
+      And I click "Member since"
+      And I click "edit" in the "Hank MCKOY" row
+      And I select "Member" from "Status"
+      And I press "Update membership"
+
     Given I am logged in as "client1"
     When I go to "node/add/request"
     Then I should not see "Call for heroes"
-    Given I am logged in as "client2"
+    Given I am logged in as "client3"
     When I go to "node/add/request"
     Then I should see "Call for heroes"
+
