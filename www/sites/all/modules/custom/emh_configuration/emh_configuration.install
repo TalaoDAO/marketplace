@@ -1046,3 +1046,12 @@ function emh_configuration_update_7058() {
   module_enable(['autodialog']);
   variable_set('autodialog_source', 'region');
 }
+
+/**
+ * CHG: EMH Profile Complete Request block parameters.
+ */
+function emh_configuration_update_7059() {
+  module_disable(['emh_profile_complete_request']);
+  drupal_uninstall_modules(['emh_profile_complete_request']);
+  module_enable(['emh_profile_complete_request']);
+}
