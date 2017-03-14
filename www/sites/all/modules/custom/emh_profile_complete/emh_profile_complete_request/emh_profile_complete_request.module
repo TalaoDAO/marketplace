@@ -35,10 +35,10 @@ function emh_profile_complete_request_block_view($delta = '') {
 
   switch ($delta) {
     case 'emh_profile_complete_request':
-
       $fields = emh_profile_complete_request_set_fields();
       $out = emh_profile_complete_get_complete_percentage_data('user', 'user', $user, $fields);
-      if ($out['incomplete'] == 0 || empty($out)) {
+      $node = (arg(0) == 'node') ? node_load(arg(1)) : '';
+      if ($out['incomplete'] == 0 || empty($out) || (!empty($node) && $node->type == 'circle')) {
         $block['subject'] = '';
         $block['content'] = '';
       }
