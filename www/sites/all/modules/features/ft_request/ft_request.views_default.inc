@@ -2449,14 +2449,27 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['completed']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['completed']['date_format'] = 'time ago';
   $handler->display->display_options['fields']['completed']['second_date_format'] = 'long';
+  /* Field: Webform submissions: View link */
+  $handler->display->display_options['fields']['view_submission']['id'] = 'view_submission';
+  $handler->display->display_options['fields']['view_submission']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['view_submission']['field'] = 'view_submission';
+  $handler->display->display_options['fields']['view_submission']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['view_submission']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['view_submission']['access_check'] = 1;
   /* Field: Webform submissions: EMH Answer */
   $handler->display->display_options['fields']['emh_answer']['id'] = 'emh_answer';
   $handler->display->display_options['fields']['emh_answer']['table'] = 'webform_submissions';
   $handler->display->display_options['fields']['emh_answer']['field'] = 'emh_answer';
   $handler->display->display_options['fields']['emh_answer']['label'] = '';
   $handler->display->display_options['fields']['emh_answer']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['emh_answer']['alter']['text'] = '<span class="submission-date">[completed]&nbsp;–&nbsp;</span>[emh_answer]';
+  $handler->display->display_options['fields']['emh_answer']['alter']['text'] = '<span class="submission-date">[completed]&nbsp;–&nbsp;</span>[emh_answer] [view_submission]';
   $handler->display->display_options['fields']['emh_answer']['element_label_colon'] = FALSE;
+  /* Field: Webform submissions: EMH Submission flags */
+  $handler->display->display_options['fields']['emh_submission_flags']['id'] = 'emh_submission_flags';
+  $handler->display->display_options['fields']['emh_submission_flags']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['emh_submission_flags']['field'] = 'emh_submission_flags';
+  $handler->display->display_options['fields']['emh_submission_flags']['label'] = '';
+  $handler->display->display_options['fields']['emh_submission_flags']['element_label_colon'] = FALSE;
   /* Field: Flagging: Comment answer */
   $handler->display->display_options['fields']['field_comment_answer']['id'] = 'field_comment_answer';
   $handler->display->display_options['fields']['field_comment_answer']['table'] = 'field_data_field_comment_answer';
@@ -2464,12 +2477,6 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['field_comment_answer']['relationship'] = 'flag_content_rel_1';
   $handler->display->display_options['fields']['field_comment_answer']['label'] = '';
   $handler->display->display_options['fields']['field_comment_answer']['element_label_colon'] = FALSE;
-  /* Field: Webform submissions: EMH Submission actions */
-  $handler->display->display_options['fields']['emh_submission_actions']['id'] = 'emh_submission_actions';
-  $handler->display->display_options['fields']['emh_submission_actions']['table'] = 'webform_submissions';
-  $handler->display->display_options['fields']['emh_submission_actions']['field'] = 'emh_submission_actions';
-  $handler->display->display_options['fields']['emh_submission_actions']['label'] = '';
-  $handler->display->display_options['fields']['emh_submission_actions']['element_label_colon'] = FALSE;
   $handler->display->display_options['block_description'] = 'Answer(s)';
 
   /* Display: (P) My answers */
