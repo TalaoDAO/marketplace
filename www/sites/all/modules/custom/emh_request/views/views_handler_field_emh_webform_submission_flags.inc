@@ -1,6 +1,6 @@
 <?php
 
-class views_handler_field_emh_webform_submission_actions extends views_handler_field {
+class views_handler_field_emh_webform_submission_flags extends views_handler_field {
 
   /**
    * Add additional fields.
@@ -38,23 +38,19 @@ class views_handler_field_emh_webform_submission_actions extends views_handler_f
 
     module_load_include('inc', 'webform', 'includes/webform.submissions');
     $submission = webform_get_submission($nid, $sid);
-    $node = node_load($nid);
 
-    $view = ''; $edit = ''; $delete = '';
+    $flags = '';
 
-    if (webform_submission_access($node, $submission, 'view')) {
-      $view = l(t('view'), "node/$nid/submission/$sid", array('attributes' => array('class' => array('submission-link', 'view'))));
-    }
-    if (webform_submission_access($node, $submission, 'edit')) {
-      $edit = l(t('edit'), "node/$nid/submission/$sid/edit", array('attributes' => array('class' => array('submission-link', 'edit'))));
-    }
-    if (webform_submission_access($node, $submission, 'delete')) {
-      $path = drupal_get_path_alias($_GET['q']);
-      $delete = l(t('delete'), "node/$nid/submission/$sid/delete", array('attributes' => array('class' => array('submission-link', 'delete')), 'query' => array('destination' => $path)));
+    if (!empty(flag_create_link('interesting_answer', $sid))) {
+      $flags .= flag_create_link('interesting_answer', $sid);
     }
 
-    if (!empty($view) || !empty($edit) || !empty($delete)) {
-      return '<div>' . $view . $edit . $delete . '</div>';
+    if (!empty(flag_create_link('comment_answer', $sid))) {
+      $flags .= flag_create_link('comment_answer', $sid);
+    }
+
+    if (!empty($flags)) {
+      return '<div>' . $flags . '</div>';
     }
   }
 
