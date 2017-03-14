@@ -95,14 +95,14 @@ fieldset[disabled] .btn {
 }
 
 .emh-button-default {
-	.button-variant(@color-secondary, @gray-lighter, @gray-lighter);
+	.button-variant(@color-secondary, @gray-lighter, @color-secondary);
 }
 .emh-button-default-active {
 	.button-variant(#FFF, @color-secondary, @color-secondary);
 }
 
 .emh-button-helpful {
-	.button-variant(@brand-success, @gray-lighter, @gray-lighter);
+	.button-variant(@brand-success, @gray-lighter, @brand-success);
 }
 .emh-button-helpful-active {
 	.button-variant(#FFF, @brand-success, @brand-success);
@@ -131,7 +131,7 @@ a {
 
 .flag-interesting-answer {
   .flag {
-    .emh-button-helpful;
+    .emh-button-helpful; .btn-sm;
 
     &.unflag-action {
       .emh-button-helpful-active;
@@ -141,7 +141,7 @@ a {
 
 .flag-comment-answer {
   .flag {
-    .emh-button-default;
+    .emh-button-default; .btn-sm;
 
     &.unflag-action {
       .emh-button-default-active;
