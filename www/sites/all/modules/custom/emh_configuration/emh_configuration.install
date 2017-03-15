@@ -1101,6 +1101,7 @@ function emh_configuration_update_7060() {
     'administer entity translation',
     'administer environment indicator settings',
     'administer formtips',
+    'administer group',
     'administer languages',
     'administer mail templates',
     'administer media',
