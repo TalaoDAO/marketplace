@@ -1078,7 +1078,7 @@ function _permissions_export_validate($data) {
 /**
  * CHG: Update webmaster permissions.
  */
-function emh_configuration_update_7061() {
+function emh_configuration_update_7060() {
   db_query("delete from {role_permission} using {role_permission}, {role} where {role_permission}.rid = {role}.rid and {role}.name='webmaster'");
   $permissions = array(
     'access administration menu',
