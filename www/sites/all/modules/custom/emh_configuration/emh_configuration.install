@@ -1057,25 +1057,6 @@ function emh_configuration_update_7059() {
 }
 
 /**
- * Use to validate the permissions.
- *
- * @param array $data
- * @return array
- *   an array of role permissions.
- */
-function _permissions_export_validate($data) {
-  $permissions = array();
-  // Get the all the permissions having module name.
-  $modules = user_permission_get_modules();
-  foreach ($data as $permission_name) {
-    if (array_key_exists($permission_name, $modules)) {
-      $permissions[] = $permission_name;
-    }
-  }
-  return $permissions;
-}
-
-/**
  * CHG: Update webmaster permissions.
  */
 function emh_configuration_update_7060() {
@@ -1312,7 +1293,7 @@ function emh_configuration_update_7060() {
     'view the administration theme',
   );
   $role = user_role_load_by_name('webmaster');
-  $permissions = _permissions_export_validate($permissions);
+  $permissions = _emh_configuration_permissions_validate($permissions);
   user_role_grant_permissions($role->rid, $permissions);
   cache_clear_all('*', 'cache_menu', TRUE);
 }

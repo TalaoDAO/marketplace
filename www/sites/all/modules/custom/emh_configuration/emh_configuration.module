@@ -45,3 +45,23 @@ function emh_configuration_revert_and_disable_views($view_names) {
     views_invalidate_cache();
   }
 }
+/**
+ * Use to validate the permissions.
+ *
+ * @param array $data
+ * @return array
+ *   an array of role permissions.
+ */
+function _emh_configuration_permissions_validate($data) {
+  $permissions = array();
+  // Get the all the permissions having module name.
+  $modules = user_permission_get_modules();
+  foreach ($data as $permission_name) {
+    if (array_key_exists($permission_name, $modules)) {
+      $permissions[] = $permission_name;
+    }
+  }
+  return $permissions;
+}
+
+
