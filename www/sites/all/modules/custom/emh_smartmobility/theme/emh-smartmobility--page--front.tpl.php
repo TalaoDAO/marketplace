@@ -36,7 +36,7 @@ global $base_url, $language;
 
       <div class="emh-subtitle"><?php print t('How does it work?') ?></div>
 
-      <div class="row container">
+      <div class="row">
         <div class="col-md-3">
           <p><span>1.</span> <?php print t('Publish your offer: recruitment or mission'); ?></p>
         </div>
@@ -124,7 +124,7 @@ global $base_url, $language;
 
       <div class="emh-subtitle"><?php print t('How does it work?') ?></div>
 
-      <div class="row container">
+      <div class="row">
         <div class="col-md-3">
           <p><span>1.</span> <?php print t('Register and complete your profile'); ?></p>
         </div>
