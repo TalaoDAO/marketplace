@@ -38,8 +38,11 @@ class views_handler_field_emh_webform_submission_flags extends views_handler_fie
 
     module_load_include('inc', 'webform', 'includes/webform.submissions');
     $submission = webform_get_submission($nid, $sid);
+    $node = node_load($nid);
 
-    $flags = '';
+    $comment = ''; $flags = '';
+
+    $comment = emh_request_get_comment_answer_flag($submission, $node);
 
     if (!empty(flag_create_link('interesting_answer', $sid))) {
       $flags .= flag_create_link('interesting_answer', $sid);
@@ -49,9 +52,7 @@ class views_handler_field_emh_webform_submission_flags extends views_handler_fie
       $flags .= flag_create_link('comment_answer', $sid);
     }
 
-    if (!empty($flags)) {
-      return '<div>' . $flags . '</div>';
-    }
+    return (!empty($comment)) ? render($comment) . $flags : $flags;
   }
 
   /**

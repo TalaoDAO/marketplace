@@ -1,36 +1,119 @@
+// Cartouche structure
+
+@cartouche-inner-padding: 5px;
+
+.cartouche-identity {
+  .make-row();
+  margin: 0;
+  padding-left: @cartouche-inner-padding;
+
+  .user-photo {
+    .make-md-column(3);
+    padding-top: @cartouche-inner-padding;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .user-identity,
+  .user-organisation,
+  .user-access {
+    .make-md-column(9);
+    padding-left: @cartouche-inner-padding;
+    padding-right: @cartouche-inner-padding;
+  }
+}
+
 .user-photo {
   img {
     .center-block;
     .img-circle;
-    background: #d3d8dc;
     .text-center;
   }
 }
 
-// User cartouche
 .cartouche-identity,
 .cartouche-activity {
-  padding: 5px;
+  padding-top: @cartouche-inner-padding;
+  padding-bottom: @cartouche-inner-padding;
+}
+
+.cartouche-activity {
+  padding-left: 10px;
+  padding-right: 10px;
+
+  span {
+    display: inline-block;
+    height: 16px;
+    line-height: 16px;
+    padding-left: 21px;
+  }
+
+  span + span {
+    margin-right: 10px;
+  }
+}
+
+.user-cartouche {
+  margin-bottom: 15px;
+
+	> span {
+		display: block;
+	}
+  > span + span {
+    margin-bottom: 10px;
+  }
+
+	.user-identity,
+  .user-organisation,
+	.user-activity {
+    display: block;
+		padding-top: @cartouche-inner-padding;
+
+    .field {
+      margin: 0;
+      padding: 0 !important;
+    }
+	}
+
+  .user-photo {
+    img {
+      height: 50px;
+      width: 50px;
+    }
+  }
+}
+
+.user-badge {
+  .user-photo {
+    img {
+      width: 36px;
+      height: auto;
+    }
+  }
+}
+
+
+// Cartouche style
+.user-photo {
+  img {
+    background: #d3d8dc;
+  }
+}
+
+.cartouche-identity,
+.cartouche-activity {
   color: @blue-dark;
 }
 
 .cartouche-activity {
   background-color: #f6f7f8;
   border-top: 1px solid #e1e4e7;
+  font-size: @font-size-small;
 
   span {
-    margin-right: 10px;
-    display: inline-block;
-    height: 16px;
-    line-height: 16px;
-    padding-left: 21px;
     background-position: left center;
     background-repeat: no-repeat;
     background-color: transparent;
-
-    &:last-child {
-      margin-right: 0;
-    }
   }
 
   .user-submission-count {
@@ -42,49 +125,21 @@
 }
 
 .user-cartouche {
-  .text-center;
   background-color: #fff;
   border: 1px solid #e1e4e7;
-  margin-bottom: 15px;
 
   a {
     color: @blue-base;
   }
 
-	> span {
-		display: block;
-		margin-bottom: 10px;
-		&:last-child {
-			margin-bottom: 0;
-		}
-	}
-
-	.user-identity,
-  .user-organisation,
-	.user-activity {
-    display: block;
-		padding-top: 5px;
-
-    .field {
-      margin: 0;
-      padding: 0 !important;
-    }
-	}
-
 	.user-identity {
 		font-weight: bold;
 	}
 
-  .user-photo {
-    img {
-      height: 50px;
-      width: 50px;
-    }
-  }
-
 	.user-organisation,
 	.user-activity {
 		font-style: italic;
+    font-size: @font-size-small;
 	}
 
   .user-buy-access {
@@ -95,11 +150,11 @@
   }
 }
 
-.user-badge {
-  .user-photo {
-    img {
-      width: 36px;
-      height: auto;
-    }
+.cartouche-inverse {
+  background-color: transparent;
+  border: 0;
+
+  .cartouche-activity {
+    background-color: transparent;
   }
 }

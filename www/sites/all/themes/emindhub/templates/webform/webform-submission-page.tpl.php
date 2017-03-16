@@ -30,13 +30,13 @@
     <?php print emh_user_cartouche_view($submission->uid); ?>
     <span class="date"><?php print t('Submitted: !date', array('!date' => check_plain(format_date($submission->submitted, webform_variable_get('webform_date_type'))))); ?></span>
   </div>
-  <div class="col-sm-9">
-    <div class="section">
-      <?php print render($submission_content); ?>
-    </div>
-    <div class="section">
+  <div class="section col-sm-9 submission-answer">
+    <?php print render($submission_content); ?>
+  </div>
+  <div class="section col-sm-9 submission-flags">
+    <span>
       <?php print $submission_information; ?>
-    </div>
+    </span>
   </div>
 </div>
 
