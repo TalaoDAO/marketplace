@@ -1,0 +1,9 @@
+name = EMH Request Submission Flags
+description = Flags feature for request submissions.
+package = EMH
+core = 7.x
+
+dependencies[] = emh_request
+dependencies[] = flag
+
+files[] = views/views_handler_field_emh_webform_submission_flags.inc
