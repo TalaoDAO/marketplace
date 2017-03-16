@@ -1058,6 +1058,7 @@ function emh_configuration_update_7059() {
 /**
  * CHG: Update webmaster permissions.
  */
+<<<<<<< HEAD
 function emh_configuration_update_7060() {
   db_query("delete from {role_permission} using {role_permission}, {role} where {role_permission}.rid = {role}.rid and {role}.name='webmaster'");
   $permissions = array(
@@ -1302,5 +1303,6 @@ function emh_configuration_update_7060() {
  * CHG: Revert missing views changes.
  */
 function emh_configuration_update_7061() {
+  module_enable(['emh_request_submission_flags']);
   emh_configuration_revert_views(array('my_circles', 'my_relationships'));
 }
