@@ -18,7 +18,7 @@ function ft_request_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
+        'label' => 'inline',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
@@ -27,7 +27,7 @@ function ft_request_field_default_field_instances() {
     ),
     'entity_type' => 'flagging',
     'field_name' => 'field_comment_answer',
-    'label' => 'Comment answer',
+    'label' => 'Feedback',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -1160,7 +1160,6 @@ function ft_request_field_default_field_instances() {
   t('Choose a request type');
   t('Circle restriction');
   t('Circles');
-  t('Comment answer');
   t('Deadline');
   t('Describe your request');
   t('Description');
@@ -1169,6 +1168,7 @@ function ft_request_field_default_field_instances() {
   t('Domains');
   t('Duration of the mission');
   t('Example: edit[field_options][und][questionnaire][enabled]=&edit[field_options][und][private][enabled]=&edit[field_options][und][questionnaire][enabled]=&edit[field_request_questions][und][\'0\'][value]=How to become a superhero%3F');
+  t('Feedback');
   t('Group content visibility');
   t('Hide my name');
   t('Hide my organisation');
