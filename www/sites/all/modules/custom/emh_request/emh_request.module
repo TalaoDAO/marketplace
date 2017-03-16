@@ -11,9 +11,18 @@ include_once 'emh_request.inc';
 include_once 'emh_request.admin.inc';
 include_once 'emh_request.conditional_fields.inc';
 include_once 'emh_request.fields.inc';
-include_once 'emh_request.flags.inc';
 include_once 'emh_request.mail.inc';
 include_once 'emh_request.pages.inc';
+
+/**
+ * Implements hook_views_api().
+ */
+function emh_request_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'emh_request') . '/views',
+  );
+}
 
 /**
  * Implements hook_permission().
