@@ -34,17 +34,6 @@ function emh_request_views_data() {
     ),
   );
 
-  // Pseudo-field on webform submissions.
-  $data['webform_submissions']['emh_submission_flags'] = array(
-    'group' => t('Webform submissions'),
-    'real field' => 'sid',
-    'help' => 'Submission flags',
-    'title' => 'EMH Submission flags',
-    'field' => array(
-      'handler' => 'views_handler_field_emh_webform_submission_flags',
-    ),
-  );
-
   // Pseudo-field on request submissions answers count.
   $data['node']['total_answers'] = array(
     'group' => t('Node'),
