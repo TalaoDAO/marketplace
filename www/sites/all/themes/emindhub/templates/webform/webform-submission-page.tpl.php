@@ -33,11 +33,7 @@
   <div class="section col-sm-9 submission-answer">
     <?php print render($submission_content); ?>
   </div>
-  <div class="section col-sm-9 submission-flags">
-    <span>
-      <?php print $submission_information; ?>
-    </span>
-  </div>
+  <?php print $submission_information; ?>
 </div>
 
 <?php if ($mode == 'display' || $mode == 'form'): ?>

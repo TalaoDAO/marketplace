@@ -82,17 +82,17 @@
       .views-field-emh-submission-flags {
         .make-md-column(9);
       }
+    }
+  }
+}
 
-      .views-field-emh-answer {
-        .emh-submission-answer;
-      }
-
+.view-request-submissions.view-display-id-page_my_answers {
+  .views-bootstrap-grid-plugin-style {
+    .col {
+      .views-field-emh-answer,
+      .views-field-field-comment-answer,
       .views-field-emh-submission-flags {
-        .emh-submission-flags;
-      }
-
-      .submission-date {
-        .emh-submission-date;
+        .make-md-column(12);
       }
     }
   }
@@ -401,10 +401,10 @@ body.node-type-request:not(.page-node-edit) {
     > div {
       padding: 15px;
     }
-    .draft {
+    .submission-draft {
       background-color: #fff2cc;
     }
-    .published {
+    .submission-published {
       background-color: #dcffcc;
     }
 
@@ -415,17 +415,6 @@ body.node-type-request:not(.page-node-edit) {
       .h4;
       margin: 0;
       font-weight: bold;
-    }
-
-    .user-submission-status {
-      .label;
-      .pull-right;
-      &.draft {
-        .label-warning;
-      }
-      &.published {
-        .label-success;
-      }
     }
   }
 
