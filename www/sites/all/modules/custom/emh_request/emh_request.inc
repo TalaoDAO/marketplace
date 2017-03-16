@@ -100,7 +100,7 @@ function emh_request_get_comment_answer_flag($submission, $node) {
   $flaggings = flag_get_user_flags('webform_submission', $submission->sid, $node->uid);
   if (isset($flaggings['comment_answer'])) {
     $flagging = flagging_load($flaggings['comment_answer']->flagging_id);
-    $comment = field_view_field('flagging', $flagging, 'field_comment_answer', array('label' => 'hidden'));
+    $comment = field_view_field('flagging', $flagging, 'field_comment_answer', array('label' => 'inline'));
   }
 
   return $comment;

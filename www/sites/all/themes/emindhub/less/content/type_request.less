@@ -46,26 +46,6 @@
   .emh-title-image;
 }
 
-.emh-submission-row {
-  background-color: #FFF;
-  border: 1px solid #d9d9d9;
-  padding: 15px;
-  color: @text-color;
-}
-
-.emh-submission-date {
-  font-size: .9em;
-  color: #445766;
-}
-
-// .emh-submission-actions {
-//   line-height: @line-height-base * @line-height-base;
-//
-//   a {
-//     .btn-xs;
-//   }
-// }
-
 .view-request-submissions {
   .views-bootstrap-grid-plugin-style {
     .row {
@@ -92,6 +72,8 @@
 
         .user-cartouche {
           margin-bottom: 0;
+
+          .cartouche-inverse;
         }
       }
 
@@ -99,22 +81,14 @@
       .views-field-field-comment-answer,
       .views-field-emh-submission-flags {
         .make-md-column(9);
-        padding-right: 0;
       }
 
       .views-field-emh-answer {
-        line-height: @line-height-base * @line-height-base;
+        .emh-submission-answer;
       }
 
-      .views-field-emh-answer + .views-field-field-comment-answer,
-      .views-field-emh-answer + .views-field-emh-submission-flags {
-        margin-top: 15px;
-        padding-top: 15px;
-        border-top: 1px dotted #CECECE;
-      }
-
-      .views-field-field-comment-answer + .views-field-emh-submission-flags {
-        margin-top: 15px;
+      .views-field-emh-submission-flags {
+        .emh-submission-flags;
       }
 
       .submission-date {
@@ -123,7 +97,6 @@
     }
   }
 }
-
 
 // node/add/request
 // node/%/edit
@@ -395,25 +368,8 @@ body.node-type-request:not(.page-node-edit) {
 
   // Request
   .section.request {
-    // User cartouche
     .user-cartouche {
       clear: both;
-
-      .cartouche-identity,
-      .cartouche-activity {
-        padding: 15px;
-      }
-
-      .user-identity,
-      .user-organisation,
-    	.user-activity {
-    		padding-top: 10px;
-    	}
-
-      .user-photo img {
-        width: 100px;
-        height: 100px;
-      }
     }
   }
 
@@ -475,11 +431,8 @@ body.node-type-request:not(.page-node-edit) {
 
   // Submissions
   .submissions {
-    color: #FFF;
-    background-color: @blue-base;
-
-    .user-cartouche {
-      .text-center;
+    .vbo-select-all-markup {
+      color: #FFF;
     }
 
     .submissions-title {

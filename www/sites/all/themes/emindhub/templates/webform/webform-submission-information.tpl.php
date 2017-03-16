@@ -17,8 +17,5 @@ $comment = emh_request_get_comment_answer_flag($submission, $node);
 ?>
 
 <?php print render($comment); ?>
-
-<div class="submission-actions">
-  <?php print flag_create_link('interesting_answer', $submission->sid); ?>
-  <?php print flag_create_link('comment_answer', $submission->sid); ?>
-</div>
+<?php print flag_create_link('interesting_answer', $submission->sid); ?>
+<?php print flag_create_link('comment_answer', $submission->sid); ?>

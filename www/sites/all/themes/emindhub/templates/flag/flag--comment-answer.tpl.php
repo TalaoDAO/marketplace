@@ -49,7 +49,7 @@
  */
 
 if ($status == 'flagged') {
-  $link_text = 'You left a feedback <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
+  $link_text = '<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>';
 }
 ?>
 
