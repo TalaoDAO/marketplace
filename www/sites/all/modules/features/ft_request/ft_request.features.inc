@@ -25,21 +25,21 @@ function ft_request_views_api($module = NULL, $api = NULL) {
  */
 function ft_request_flag_default_flags() {
   $flags = array();
-  // Exported flag: "Comment answer".
+  // Exported flag: "Feedback answer".
   $flags['comment_answer'] = array(
     'entity_type' => 'webform_submission',
-    'title' => 'Comment answer',
+    'title' => 'Feedback answer',
     'global' => 1,
     'types' => array(
       0 => 'webform_submission',
     ),
-    'flag_short' => 'Leave a comment for the expert',
-    'flag_long' => 'Click to leave a comment for the expert',
-    'flag_message' => 'Thank you for leaving a comment for the expert!',
+    'flag_short' => '<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>',
+    'flag_long' => 'Leave a feedback for the expert',
+    'flag_message' => 'Thank you for leaving a feedback to the expert!',
     'unflag_short' => 'Yes, delete',
-    'unflag_long' => 'Click to delete this comment',
-    'unflag_message' => 'You deleted this feedback.',
-    'unflag_denied_text' => 'You left a feedback <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>',
+    'unflag_long' => 'Delete your feedback',
+    'unflag_message' => 'Feedback deleted.',
+    'unflag_denied_text' => '',
     'link_type' => 'confirm',
     'weight' => 0,
     'show_in_links' => array(),
@@ -47,8 +47,8 @@ function ft_request_flag_default_flags() {
     'show_on_form' => FALSE,
     'access_author' => '',
     'show_contextual_link' => 0,
-    'flag_confirmation' => 'Please write down your feedback comment on the expert answer',
-    'unflag_confirmation' => 'Do you want to delete this comment?',
+    'flag_confirmation' => 'Please write down your feedback on the expert answer',
+    'unflag_confirmation' => 'Do you want to delete your feedback?',
     'module' => 'ft_request',
     'locked' => array(
       0 => 'name',
@@ -63,11 +63,11 @@ function ft_request_flag_default_flags() {
     'types' => array(
       0 => 'webform_submission',
     ),
-    'flag_short' => 'Was this answer helpful?',
-    'flag_long' => 'Click to mark this answer as helpful.',
+    'flag_short' => '<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>',
+    'flag_long' => 'This answer was interesting',
     'flag_message' => 'You marked this answer as interesting.',
-    'unflag_short' => 'This answer was helpful <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>',
-    'unflag_long' => 'Click to unmark this answer as interesting.',
+    'unflag_short' => '<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>',
+    'unflag_long' => 'This answer wasn\'t interesting',
     'unflag_message' => 'You unmarked this answer as interesting.',
     'unflag_denied_text' => '',
     'link_type' => 'toggle',

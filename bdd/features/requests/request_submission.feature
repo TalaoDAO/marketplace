@@ -116,60 +116,65 @@ Feature: Request and answers
     When I click "view" in the "submissions" region
     Then I should see "Everybody can be, trust me, I'm the best we known."
 
-  Scenario: The request author can mark published answers as helpful
+  Scenario: The request author can mark published answers as interesting and only the expert who answered can see the flag
     Given I am logged in as "client1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should see "Was this answer helpful?" in the "submissions" region
+    Then I should see a "This answer was interesting" flag link
 
     When I click "view" in the "submissions" region
-      And I click "Was this answer helpful?" in the "block_system_main" region
-    Then I should see "This answer was helpful" in the "block_system_main" region
+      And I click flag link "This answer was interesting"
+    Then I should see "You marked this answer as interesting."
 
-  Scenario: The expert who answered cannot mark his published answer as helpful
     Given I am logged in as "expert1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should not see "Was this answer helpful?" in the "submissions" region
+    Then I should not see a "This answer was interesting" flag link
 
     When I click "view" in the "submissions" region
-    Then I should not see "Was this answer helpful?" in the "block_system_main" region
+    Then I should not see a "This answer was interesting" flag link
 
-  Scenario: The author can add a comment to published answers and only the expert who answered can see the comment
+    Given I am logged in as "expert2"
+    When I go to homepage
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+    Then I should not see a "This answer was interesting" flag link
+
+    When I click "view" in the "submissions" region
+    Then I should not see a "This answer was interesting" flag link
+
+  Scenario: The author can add a feedback to published answers and only the expert who answered can see the feedback
     Given I am logged in as "client1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should see "Leave a comment for the expert" in the "submissions" region
+    Then I should see a "Leave a feedback for the expert" flag link
 
     When I click "view" in the "submissions" region
-      And I click "Leave a comment for the expert" in the "block_system_main" region
+      And I click flag link "Leave a feedback for the expert"
       And I fill in "Awesome answer!" for "field_comment_answer[und][0][value]"
-      And I press the "Leave a comment for the expert" button
-    Then I should see "You left a feedback" in the "block_system_main" region
+      And I press the "Confirm" button
+    Then I should see "Thank you for leaving a feedback to the expert!"
       And I should see "Awesome answer!" in the "block_system_main" region
 
     Given I am logged in as "expert1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "Awesome answer!" in the "submissions" region
+      And I should not see a "Leave a feedback for the expert" flag link
+
+    When I click "view" in the "submissions" region
+    Then I should not see a "Leave a feedback for the expert" flag link
 
     When I go to "answers/my"
     Then I should see "Awesome answer!" in the "block_system_main" region
 
-    # TODO
     Given I am logged in as "expert2"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should not see "Awesome answer!" in the "submissions" region
-
-  Scenario: The expert who answered cannot add a comment for the published answer
-    Given I am logged in as "expert1"
-    When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should not see "Leave a comment for the expert" in the "submissions" region
+    #Then I should not see "Awesome answer!" in the "submissions" region
+      And I should not see a "Leave a feedback for the expert" flag link
 
     When I click "view" in the "submissions" region
-    Then I should not see "Leave a comment for the expert" in the "block_system_main" region
+    Then I should not see a "Leave a feedback for the expert" flag link
 
   @exclude
   Scenario: The expert cannot respond twice to the same request
