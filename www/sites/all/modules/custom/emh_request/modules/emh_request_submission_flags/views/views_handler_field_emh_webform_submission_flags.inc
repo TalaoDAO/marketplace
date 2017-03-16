@@ -53,7 +53,7 @@ class views_handler_field_emh_webform_submission_flags extends views_handler_fie
       $flags .= flag_create_link('comment_answer', $sid);
     }
 
-    return (!empty($comment)) ? render($comment) . $flag . $flags : $flags . $flag;
+    return (!empty($comment)) ? render($comment) . $flags . $flag : $flags . $flag;
   }
 
   /**
