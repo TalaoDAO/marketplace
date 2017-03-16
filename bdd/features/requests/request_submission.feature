@@ -129,18 +129,22 @@ Feature: Request and answers
     Given I am logged in as "expert1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should not see a "This answer was interesting" flag link
+    Then I should see "This answer was interesting" in the "submissions" region
+      And I should not see a "This answer was interesting" flag link
 
     When I click "view" in the "submissions" region
-    Then I should not see a "This answer was interesting" flag link
+    Then I should see "This answer was interesting" in the "block_system_main" region
+      And I should not see a "This answer was interesting" flag link
 
     Given I am logged in as "expert2"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should not see a "This answer was interesting" flag link
+    Then I should not see "This answer was interesting" in the "submissions" region
+      And I should not see a "This answer was interesting" flag link
 
     When I click "view" in the "submissions" region
-    Then I should not see a "This answer was interesting" flag link
+    Then I should not see "This answer was interesting" in the "block_system_main" region
+      And I should not see a "This answer was interesting" flag link
 
   Scenario: The author can add a feedback to published answers and only the expert who answered can see the feedback
     Given I am logged in as "client1"
@@ -162,19 +166,22 @@ Feature: Request and answers
       And I should not see a "Leave a feedback for the expert" flag link
 
     When I click "view" in the "submissions" region
-    Then I should not see a "Leave a feedback for the expert" flag link
+    Then I should see "Awesome answer!" in the "block_system_main" region
+      And I should not see a "Leave a feedback for the expert" flag link
 
     When I go to "answers/my"
     Then I should see "Awesome answer!" in the "block_system_main" region
+      And I should not see a "Leave a feedback for the expert" flag link
 
     Given I am logged in as "expert2"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
-    #Then I should not see "Awesome answer!" in the "submissions" region
+    Then I should not see "Awesome answer!" in the "submissions" region
       And I should not see a "Leave a feedback for the expert" flag link
 
     When I click "view" in the "submissions" region
-    Then I should not see a "Leave a feedback for the expert" flag link
+    Then I should not see "Awesome answer!" in the "block_system_main" region
+      And I should not see a "Leave a feedback for the expert" flag link
 
   @exclude
   Scenario: The expert cannot respond twice to the same request
