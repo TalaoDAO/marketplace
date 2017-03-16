@@ -1299,7 +1299,7 @@ function emh_configuration_update_7060() {
 }
 
 /**
- * CHG: Revert missing views changes.
+ * ADD: new Submission Flags module + CHG: Revert missing views changes.
  */
 function emh_configuration_update_7061() {
   module_enable(['emh_request_submission_flags']);
