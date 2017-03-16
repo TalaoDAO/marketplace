@@ -84,7 +84,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access all views',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'views',
   );
@@ -113,7 +112,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access backup and migrate',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'backup_migrate',
   );
@@ -409,6 +407,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access user contact forms',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'contact',
   );
@@ -429,6 +428,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'act as Creator member in og node:circle',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'og_role_override',
   );
@@ -438,6 +438,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'act as Referent member in og node:circle',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'og_role_override',
   );
@@ -541,7 +542,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'administer blocks',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'block',
   );
@@ -616,7 +616,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'administer entity legal',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'entity_legal',
   );
@@ -691,7 +690,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'administer fields',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'field',
   );
@@ -720,7 +718,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'administer group',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'og',
   );
@@ -778,7 +775,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'administer menu',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'menu',
   );
@@ -880,7 +876,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'administer pcp',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'pcp',
   );
@@ -891,7 +886,6 @@ function ft_permissions_user_default_permissions() {
     'roles' => array(
       'administrator' => 'administrator',
       'roleswitcher' => 'roleswitcher',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'user',
   );
@@ -901,7 +895,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'administer privatecomments forms',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'privatecomments',
   );
@@ -948,7 +941,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'administer search',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'search',
   );
@@ -978,7 +970,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'administer site configuration',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'system',
   );
@@ -1006,7 +997,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'administer taxonomy',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'taxonomy',
   );
@@ -1016,7 +1006,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'administer themes',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'system',
   );
@@ -1036,7 +1025,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'administer user field roles',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'user_role_field',
   );
@@ -1065,7 +1053,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'administer views',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'views',
   );
@@ -1084,7 +1071,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'administer views_send',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'views_send',
   );
@@ -1103,6 +1089,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'attachments with views_send',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'views_send',
   );
@@ -1649,6 +1636,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete terms in publications',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'taxonomy',
   );
@@ -1658,6 +1646,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'delete terms in request_type',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'taxonomy',
   );
@@ -2065,6 +2054,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit terms in publications',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'taxonomy',
   );
@@ -2074,6 +2064,7 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit terms in request_type',
     'roles' => array(
       'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'taxonomy',
   );
@@ -2236,7 +2227,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'manage features',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'features',
   );
@@ -2771,7 +2761,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'use bootstrap optimizer',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'bootstrap_optimizer',
   );
@@ -2781,7 +2770,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'use bulk exporter',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'bulk_export',
   );
@@ -2838,7 +2826,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'use page manager',
     'roles' => array(
       'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'page_manager',
   );
