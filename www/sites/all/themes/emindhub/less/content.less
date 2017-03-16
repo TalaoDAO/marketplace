@@ -161,13 +161,14 @@ ul.links.list-inline {
   }
 }
 
-.section + .section {
-  margin-bottom: 15px;
-}
-
 .section {
   padding-top: 15px;
   padding-bottom: 15px;
+  margin: 0;
+
+  + .section {
+    margin-bottom: 15px;
+  }
 
   &.emh-fieldgroup-blue-title {
     padding-top: 0;
