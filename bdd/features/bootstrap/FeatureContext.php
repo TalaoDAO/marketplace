@@ -90,7 +90,7 @@ class FeatureContext extends DrupalContext {
    * @param int $points
    *   Amount of points.
    *
-   * @Given /^(?:|I )give :name :points emh credits
+   * @Given I give :name :points emh credits
    */
   public function assertGiveUserPoints($name, $points) {
     if (!isset($this->users[$name])) {
@@ -107,7 +107,7 @@ class FeatureContext extends DrupalContext {
    * @param int $points
    *   Amount of points.
    *
-   * @Given /^(?:|I )remove :name :points emh credits
+   * @Given I remove :name :points emh credits
    */
   public function assertRemoveUserPoints($name, $points) {
     if (!isset($this->users[$name])) {
@@ -124,7 +124,7 @@ class FeatureContext extends DrupalContext {
    * @param string $name
    *   User name.
    *
-   * @Then /^(?:|I )should have :points credits on :name user
+   * @Then I should have :points credits on :name user
    */
   public function assertUserPoints($points, $name) {
     if (!isset($this->users[$name])) {
@@ -137,7 +137,7 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-   * @Then /^(?:|I )should have :points credits on :title node
+   * @Then I should have :points credits on :title node
    */
   public function assertNodePoints($points, $title) {
     $fnode = NULL;
@@ -290,9 +290,9 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-   * @Then /^(?:|I )go to stripped URL
+   * @Then /^(?:|I )go to stripped URL$/
    */
-  public function thenIgoToStrippedUrl() {
+  public function goToStrippedUrl() {
     $url = $this->getSession()->getCurrentUrl();
     $url = preg_replace("/\?.*/", "", $url);
     print ("go to $url");
@@ -302,7 +302,7 @@ class FeatureContext extends DrupalContext {
   /**
    * @Then show me the URL
    */
-  public function thenShowMeTheUrl() {
+  public function showMeTheUrl() {
     $url = $this->getSession()->getCurrentUrl();
     print ("Current url : $url");
   }
@@ -317,33 +317,6 @@ class FeatureContext extends DrupalContext {
     $html_data = $this->getSession()->getDriver()->getContent();
     file_put_contents(DRUPAL_ROOT . $this->tempPath . $this->htmlPagePath, $html_data);
     echo 'Screenshot at : ' . $base_url . $this->tempPath . $this->htmlPagePath;
-  }
-
-  /**
-   * Take screen-shot when step fails.
-   *
-   * @AfterStep
-   * @param AfterStepScope $scope
-   *
-   * @see https://github.com/Behat/Behat/issues/649
-   * @see https://gist.github.com/fbrnc/4550079
-   */
-  public function takeScreenshotAfterFailedStep(AfterStepScope $scope) {
-    global $base_url;
-
-    if (99 === $scope->getTestResult()->getResultCode()) {
-      if (!is_dir($base_url . $this->tempPath . $this->screenshotPath)) {
-        mkdir($base_url . $this->tempPath . $this->screenshotPath, 0777, TRUE);
-      }
-      $step = $scope->getStep();
-      $id = /*$step->getParent()->getTitle() . '.' .*/ $step->getType() . ' ' . $step->getText();
-      $id = $scope->getFeature()->getTitle() . ' ' . $step->getLine() . '-' . $step->getType() . ' ' . $step->getText();
-      $filename = 'Fail.' . preg_replace('/[^a-zA-Z0-9-_\.]/', '_', $id) . '.html';
-
-      $html_data = $this->getSession()->getDriver()->getContent();
-      file_put_contents(DRUPAL_ROOT . $this->tempPath . $this->screenshotPath . '/' . $filename, $html_data);
-      echo 'Screenshot error at : ' . $base_url . $this->tempPath . $this->screenshotPath . '/' . $filename;
-    }
   }
 
   /**
@@ -585,10 +558,36 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
+   * Take screen-shot when step fails.
+   *
+   * @AfterStep
+   * @param AfterStepScope $scope
+   *
+   * @see https://github.com/Behat/Behat/issues/649
+   * @see https://gist.github.com/fbrnc/4550079
+   */
+  public function takeScreenshotAfterFailedStep(AfterStepScope $scope) {
+    global $base_url;
+
+    if (99 === $scope->getTestResult()->getResultCode()) {
+      if (!is_dir($base_url . $this->tempPath . $this->screenshotPath)) {
+        mkdir($base_url . $this->tempPath . $this->screenshotPath, 0777, TRUE);
+      }
+      $step = $scope->getStep();
+      $id = $scope->getFeature()->getTitle() . ' ' . $step->getLine() . '-' . $step->getType() . ' ' . $step->getText();
+      $filename = 'Fail.' . preg_replace('/[^a-zA-Z0-9-_\.]/', '_', $id) . '.html';
+
+      $html_data = $this->getSession()->getDriver()->getContent();
+      file_put_contents(DRUPAL_ROOT . $this->tempPath . $this->screenshotPath . '/' . $filename, $html_data);
+      echo 'Screenshot error at : ' . $base_url . $this->tempPath . $this->screenshotPath . '/' . $filename;
+    }
+  }
+
+  /**
    * Clear user access static caches.
    *
-   * Solves : https://github.com/jhedstrom/drupalextension/issues/328
-   * Fix : #992.
+   * @see https://github.com/jhedstrom/drupalextension/issues/328
+   *    Fix: #992.
    *
    * @AfterUserCreate
    */
@@ -597,8 +596,9 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
+   * Prevent bad interaction between PhantomJS and Chosen module.
+   *
    * @BeforeScenario @javascript
-   * prevent bad interaction between phantomjs and chosen module
    */
   public function prepareForJs(BeforeScenarioScope $scope) {
     module_disable(array('chosen'));
@@ -610,5 +610,4 @@ class FeatureContext extends DrupalContext {
   public function cleanupForJs(Behat\Behat\Hook\Scope\AfterScenarioScope $scope) {
     module_enable(array('chosen'));
   }
-
 }
