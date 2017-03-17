@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Code of the eMindHub request submission flags feature.
+ */
+
+include_once 'emh_request_submission_flags.inc';
+include_once 'emh_request_submission_flags.flags.inc';
+
+/**
+ * Implements hook_theme().
+ */
+function emh_request_submission_flags_theme() {
+  return array(
+    'flag_description' => array(
+      'template' => 'flag-description',
+      'path' => drupal_get_path('module', 'emh_request_submission_flags') . '/theme',
+      'variables' => array(
+        'short' => NULL,
+        'long' => NULL,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function emh_request_submission_flags_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'emh_request_submission_flags') . '/views',
+  );
+}

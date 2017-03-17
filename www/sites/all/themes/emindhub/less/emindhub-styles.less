@@ -679,7 +679,7 @@ header#title {
   .progress-bar-variant(@blue-base);
 }
 .progress-bar-inactive {
-  .progress-bar-variant(@gray-light);
+  .progress-bar-variant(@gray-light2);
 }
 
 
@@ -713,7 +713,6 @@ header#title {
 	}
 }
 
-
 .emh-title-image {
   .make-md-column(1);
 
@@ -722,4 +721,71 @@ header#title {
     margin: 0 auto;
     .text-center;
   }
+}
+
+.emh-submission-row {
+  background-color: @body-bg;
+  padding: 15px;
+}
+
+.emh-submission-status {
+  .label;
+  .pull-right;
+
+  &.draft {
+    .label-warning;
+  }
+  &.published {
+    .label-success;
+  }
+}
+
+.emh-submission-answer {
+  line-height: @line-height-base * @line-height-base;
+  padding-top: 5px + 5px + 1px;
+  padding-bottom: 5px + 5px + 1px;
+  background-color: #FFF;
+}
+
+.emh-submission-answer-conversation {
+  position: relative;
+
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 5px;
+    left: 0;
+    transform: translateY(50%) translateX(-50%) rotate(135deg) ;
+    background-color: white;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.emh-submission-comment-answer {
+  font-style: italic;
+  line-height: @line-height-base * @line-height-base;
+}
+
+.emh-submission-flags {
+  background-color: #FFF;
+  line-height: @line-height-base * @line-height-base;
+
+  > span {
+    display: block;
+    border: 1px solid @gray-lighter;
+    border-left-color: @orange;
+    border-left-width: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+}
+
+.emh-submission-flag-description {
+  .emh-button-helpful-active; .btn-sm;
+}
+
+.emh-submission-date {
+  color: @gray-light;
 }

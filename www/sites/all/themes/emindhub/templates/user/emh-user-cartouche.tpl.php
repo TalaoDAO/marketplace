@@ -33,9 +33,11 @@
     <?php endif; ?>
 
     <?php if ($user_purchase_link) : ?>
-    <a href="<?php print $user_purchase_link; ?>" class="user-buy-access">
-      <?php print t('Access profile for !amount credits', array('!amount' => $amount)); ?>
-    </a>
+    <span class="user-access">
+      <a href="<?php print $user_purchase_link; ?>" class="user-buy-access">
+        <?php print t('Access profile for !amount credits', array('!amount' => $amount)); ?>
+      </a>
+    </span>
     <?php endif; ?>
   </div>
 
