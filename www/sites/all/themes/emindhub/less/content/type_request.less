@@ -14,16 +14,19 @@
     }
   }
 }
+
 .field-list-border {
   padding-bottom: 15px;
   margin-bottom: 15px;
   border-bottom: 1px dotted #CECECE;
+
   &:last-child {
     padding-bottom: inherit;
     margin-bottom: inherit;
     border: 0;
   }
 }
+
 .total-wrapper {
   .make-row();
   padding-top: 15px;
@@ -48,14 +51,12 @@
     .row {
       margin: 0 0 15px;
     }
+
     .col {
       .make-row();
       margin: 0;
 
-      background-color: #FFF;
-      border: 1px solid #d9d9d9;
-      padding: 15px;
-      color: @text-color;
+      .emh-submission-row;
 
       &:last-child {
         margin-bottom: 0;
@@ -71,28 +72,31 @@
 
         .user-cartouche {
           margin-bottom: 0;
+
+          .cartouche-inverse;
         }
       }
 
       .views-field-emh-answer,
-      .views-field-emh-submission-actions {
+      .views-field-field-comment-answer,
+      .views-field-emh-submission-flags {
         .make-md-column(9);
-        line-height: @line-height-base * @line-height-base;
-        padding-right: 0;
-      }
-
-      .views-field-emh-submission-actions {
-        .text-right;
-      }
-
-      .submission-date {
-        font-size: .9em;
-        color: #445766;
       }
     }
   }
 }
 
+.view-request-submissions.view-display-id-page_my_answers {
+  .views-bootstrap-grid-plugin-style {
+    .col {
+      .views-field-emh-answer,
+      .views-field-field-comment-answer,
+      .views-field-emh-submission-flags {
+        .make-md-column(12);
+      }
+    }
+  }
+}
 
 // node/add/request
 // node/%/edit
@@ -153,6 +157,7 @@ body.node-type-request.page-node-edit {
         padding-top: 15px;
         padding-bottom: 15px;
         border-bottom: 1px dotted #CECECE;
+
         > .form-item {
           .make-sm-column(3);
           label {
@@ -295,9 +300,11 @@ body.node-type-request:not(.page-node-edit) {
     .make-md-column(4);
   }
 
-  .field {
-    padding: 0 0 15px;
-    .field-list-border;
+  .section.request {
+    .field {
+      padding: 0 0 15px;
+      .field-list-border;
+    }
   }
 
   .field-name-body {
@@ -361,25 +368,8 @@ body.node-type-request:not(.page-node-edit) {
 
   // Request
   .section.request {
-    // User cartouche
     .user-cartouche {
       clear: both;
-
-      .cartouche-identity,
-      .cartouche-activity {
-        padding: 15px;
-      }
-
-      .user-identity,
-      .user-organisation,
-    	.user-activity {
-    		padding-top: 10px;
-    	}
-
-      .user-photo img {
-        width: 100px;
-        height: 100px;
-      }
     }
   }
 
@@ -411,10 +401,10 @@ body.node-type-request:not(.page-node-edit) {
     > div {
       padding: 15px;
     }
-    .draft {
+    .submission-draft {
       background-color: #fff2cc;
     }
-    .published {
+    .submission-published {
       background-color: #dcffcc;
     }
 
@@ -426,26 +416,12 @@ body.node-type-request:not(.page-node-edit) {
       margin: 0;
       font-weight: bold;
     }
-
-    .user-submission-status {
-      .label;
-      .pull-right;
-      &.draft {
-        .label-warning;
-      }
-      &.published {
-        .label-success;
-      }
-    }
   }
 
   // Submissions
   .submissions {
-    color: #FFF;
-    background-color: @blue-base;
-
-    .user-cartouche {
-      .text-center;
+    .vbo-select-all-markup {
+      color: #FFF;
     }
 
     .submissions-title {
