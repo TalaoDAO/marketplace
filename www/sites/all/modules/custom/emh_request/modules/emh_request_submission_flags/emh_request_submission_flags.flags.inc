@@ -8,7 +8,7 @@
 /**
  * Implements hook_flag_access().
  */
-function emh_request_flag_access($flag, $entity_id, $action, $account) {
+function emh_request_submission_flags_flag_access($flag, $entity_id, $action, $account) {
   switch ($flag->name) {
     case 'interesting_answer':
     case 'comment_answer':
@@ -22,7 +22,7 @@ function emh_request_flag_access($flag, $entity_id, $action, $account) {
 /**
  * Implements hook_flag_access_multiple().
  */
-function emh_request_flag_access_multiple($flag, $entity_ids, $account) {
+function emh_request_submission_flags_flag_access_multiple($flag, $entity_ids, $account) {
   $access = array();
 
   switch ($flag->name) {

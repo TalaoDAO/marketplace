@@ -1017,7 +1017,6 @@ function emh_configuration_update_7056() {
     ))
     ->condition('name', 'terms_of_use_1479725866')
     ->execute();
-  module_enable(['ft_flags']);
 }
 
 /**
@@ -1297,4 +1296,12 @@ function emh_configuration_update_7060() {
   $permissions = _emh_configuration_permissions_validate($permissions);
   user_role_grant_permissions($role->rid, $permissions);
   cache_clear_all('*', 'cache_menu', TRUE);
+}
+
+/**
+ * ADD: new Submission Flags module + CHG: Revert missing views changes.
+ */
+function emh_configuration_update_7061() {
+  module_enable(['emh_request_submission_flags']);
+  emh_configuration_revert_views(array('my_circles', 'my_relationships'));
 }

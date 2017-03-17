@@ -47,11 +47,9 @@
  * NOTE: This template spaces out the <span> tags for clarity only. When doing
  * some advanced theming you may have to remove all the whitespace.
  */
-?>
 
-<?php
-if($status == 'flagged') {
-  $link_text = 'You left a feedback <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
+if ($status == 'flagged') {
+  $link_text = '<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>';
 }
 ?>
 
