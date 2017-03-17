@@ -9,11 +9,8 @@ body.not-logged-in {
 		.emh-new-button;
 	}
 }
-.btn {
+.btn + .btn {
 	margin-right: 5px;
-	&:last-child {
-		margin-right: 0;
-	}
 }
 
 .btn.disabled,
@@ -95,11 +92,17 @@ fieldset[disabled] .btn {
 }
 
 .emh-button-default {
-	.button-variant(@gray, @gray-lighter, @gray-lighter);
+	.button-variant(@color-secondary, @gray-lighter, @color-secondary);
+}
+.emh-button-default-active {
+	.button-variant(#FFF, @color-secondary, @color-secondary);
 }
 
-.emh-button-default-active {
-	.button-variant(@color-secondary, @gray-lighter, @gray-lighter);
+.emh-button-helpful {
+	.button-variant(@brand-success, @gray-lighter, @brand-success);
+}
+.emh-button-helpful-active {
+	.button-variant(#FFF, @brand-success, @brand-success);
 }
 
 a {
@@ -123,13 +126,22 @@ a {
   }
 }
 
-.flag-interesting-answer,
-.flag-comment-answer {
+.flag-interesting-answer {
   .flag {
-    .emh-button-default;
+    .emh-button-helpful; .btn-sm;
 
     &.unflag-action {
-      .emh-button-default-active
+      .emh-button-helpful-active; .btn-sm;
+    }
+  }
+}
+
+.flag-comment-answer {
+  .flag {
+    .emh-button-default; .btn-sm;
+
+    &.unflag-action {
+      .emh-button-default-active; .btn-sm;
     }
   }
 }
