@@ -25,7 +25,7 @@ function emh_request_timeline_block_info() {
   $blocks['timeline'] = array(
     'info' => t("Request - Timeline"),
     'cache' => DRUPAL_CACHE_PER_ROLE,
-    'weight' => 1,
+    'weight' => 0,
     'status' => 1,
     'region' => 'title',
     'visibility' => BLOCK_VISIBILITY_LISTED,
