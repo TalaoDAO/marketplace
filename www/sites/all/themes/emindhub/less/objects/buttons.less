@@ -9,11 +9,8 @@ body.not-logged-in {
 		.emh-new-button;
 	}
 }
-.btn {
+.btn + .btn {
 	margin-right: 5px;
-	&:last-child {
-		margin-right: 0;
-	}
 }
 
 .btn.disabled,
@@ -90,6 +87,23 @@ fieldset[disabled] .btn {
 	padding: 0;
 }
 
+.emh-button-alt {
+	.button-variant(@color-secondary;  transparent;  @color-secondary);
+}
+
+.emh-button-default {
+	.button-variant(@color-secondary, @gray-lighter, @color-secondary);
+}
+.emh-button-default-active {
+	.button-variant(#FFF, @color-secondary, @color-secondary);
+}
+
+.emh-button-helpful {
+	.button-variant(@brand-success, @gray-lighter, @brand-success);
+}
+.emh-button-helpful-active {
+	.button-variant(#FFF, @brand-success, @brand-success);
+}
 
 a {
   &.subscribe,
@@ -110,4 +124,28 @@ a {
     border-color: @brand-primary;
     background: transparent;
   }
+}
+
+.flag-interesting-answer {
+  .flag {
+    .emh-button-helpful; .btn-sm;
+
+    &.unflag-action {
+      .emh-button-helpful-active; .btn-sm;
+    }
+  }
+}
+
+.flag-comment-answer {
+  .flag {
+    .emh-button-default; .btn-sm;
+
+    &.unflag-action {
+      .emh-button-default-active; .btn-sm;
+    }
+  }
+}
+
+a.submission-link {
+  .emh-button;
 }

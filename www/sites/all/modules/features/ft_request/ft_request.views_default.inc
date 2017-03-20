@@ -392,12 +392,12 @@ function ft_request_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Node: Total Answers */
+  /* Field: Node: EMH Total Answers */
   $handler->display->display_options['fields']['total_answers']['id'] = 'total_answers';
   $handler->display->display_options['fields']['total_answers']['table'] = 'node';
   $handler->display->display_options['fields']['total_answers']['field'] = 'total_answers';
   $handler->display->display_options['fields']['total_answers']['label'] = 'Answers';
-  /* Field: Node: Request status */
+  /* Field: Node: EMH Request status */
   $handler->display->display_options['fields']['request_status']['id'] = 'request_status';
   $handler->display->display_options['fields']['request_status']['table'] = 'node';
   $handler->display->display_options['fields']['request_status']['field'] = 'request_status';
@@ -668,7 +668,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Node: Request type */
+  /* Field: Node: EMH Request type */
   $handler->display->display_options['fields']['request_type']['id'] = 'request_type';
   $handler->display->display_options['fields']['request_type']['table'] = 'node';
   $handler->display->display_options['fields']['request_type']['field'] = 'request_type';
@@ -704,12 +704,12 @@ function ft_request_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Node: Total Answers */
+  /* Field: Node: EMH Total Answers */
   $handler->display->display_options['fields']['total_answers']['id'] = 'total_answers';
   $handler->display->display_options['fields']['total_answers']['table'] = 'node';
   $handler->display->display_options['fields']['total_answers']['field'] = 'total_answers';
   $handler->display->display_options['fields']['total_answers']['label'] = 'Answers';
-  /* Field: Node: Request status */
+  /* Field: Node: EMH Request status */
   $handler->display->display_options['fields']['request_status']['id'] = 'request_status';
   $handler->display->display_options['fields']['request_status']['table'] = 'node';
   $handler->display->display_options['fields']['request_status']['field'] = 'request_status';
@@ -890,7 +890,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Node: Request type */
+  /* Field: Node: EMH Request type */
   $handler->display->display_options['fields']['request_type']['id'] = 'request_type';
   $handler->display->display_options['fields']['request_type']['table'] = 'node';
   $handler->display->display_options['fields']['request_type']['field'] = 'request_type';
@@ -926,12 +926,12 @@ function ft_request_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Node: Total Answers */
+  /* Field: Node: EMH Total Answers */
   $handler->display->display_options['fields']['total_answers']['id'] = 'total_answers';
   $handler->display->display_options['fields']['total_answers']['table'] = 'node';
   $handler->display->display_options['fields']['total_answers']['field'] = 'total_answers';
   $handler->display->display_options['fields']['total_answers']['label'] = 'Answers';
-  /* Field: Node: Request status */
+  /* Field: Node: EMH Request status */
   $handler->display->display_options['fields']['request_status']['id'] = 'request_status';
   $handler->display->display_options['fields']['request_status']['table'] = 'node';
   $handler->display->display_options['fields']['request_status']['field'] = 'request_status';
@@ -1369,7 +1369,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['relationships']['flag_content_rel']['required'] = 0;
   $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'my_selection';
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Node: Request type */
+  /* Field: Node: EMH Request type */
   $handler->display->display_options['fields']['request_type']['id'] = 'request_type';
   $handler->display->display_options['fields']['request_type']['table'] = 'node';
   $handler->display->display_options['fields']['request_type']['field'] = 'request_type';
@@ -1405,12 +1405,12 @@ function ft_request_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Node: Total Answers */
+  /* Field: Node: EMH Total Answers */
   $handler->display->display_options['fields']['total_answers']['id'] = 'total_answers';
   $handler->display->display_options['fields']['total_answers']['table'] = 'node';
   $handler->display->display_options['fields']['total_answers']['field'] = 'total_answers';
   $handler->display->display_options['fields']['total_answers']['label'] = 'Answers';
-  /* Field: Node: Request status */
+  /* Field: Node: EMH Request status */
   $handler->display->display_options['fields']['request_status']['id'] = 'request_status';
   $handler->display->display_options['fields']['request_status']['table'] = 'node';
   $handler->display->display_options['fields']['request_status']['field'] = 'request_status';
@@ -1682,7 +1682,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Node: Request type */
+  /* Field: Node: EMH Request type */
   $handler->display->display_options['fields']['request_type']['id'] = 'request_type';
   $handler->display->display_options['fields']['request_type']['table'] = 'node';
   $handler->display->display_options['fields']['request_type']['field'] = 'request_type';
@@ -1718,12 +1718,12 @@ function ft_request_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Node: Total Answers */
+  /* Field: Node: EMH Total Answers */
   $handler->display->display_options['fields']['total_answers']['id'] = 'total_answers';
   $handler->display->display_options['fields']['total_answers']['table'] = 'node';
   $handler->display->display_options['fields']['total_answers']['field'] = 'total_answers';
   $handler->display->display_options['fields']['total_answers']['label'] = 'Answers';
-  /* Field: Node: Request status */
+  /* Field: Node: EMH Request status */
   $handler->display->display_options['fields']['request_status']['id'] = 'request_status';
   $handler->display->display_options['fields']['request_status']['table'] = 'node';
   $handler->display->display_options['fields']['request_status']['field'] = 'request_status';
@@ -1984,7 +1984,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Node: Request type */
+  /* Field: Node: EMH Request type */
   $handler->display->display_options['fields']['request_type']['id'] = 'request_type';
   $handler->display->display_options['fields']['request_type']['table'] = 'node';
   $handler->display->display_options['fields']['request_type']['field'] = 'request_type';
@@ -2020,12 +2020,12 @@ function ft_request_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
-  /* Field: Node: Total Answers */
+  /* Field: Node: EMH Total Answers */
   $handler->display->display_options['fields']['total_answers']['id'] = 'total_answers';
   $handler->display->display_options['fields']['total_answers']['table'] = 'node';
   $handler->display->display_options['fields']['total_answers']['field'] = 'total_answers';
   $handler->display->display_options['fields']['total_answers']['label'] = 'Answers';
-  /* Field: Node: Request status */
+  /* Field: Node: EMH Request status */
   $handler->display->display_options['fields']['request_status']['id'] = 'request_status';
   $handler->display->display_options['fields']['request_status']['table'] = 'node';
   $handler->display->display_options['fields']['request_status']['field'] = 'request_status';
@@ -2313,6 +2313,14 @@ function ft_request_views_default_views() {
   $handler->display->display_options['relationships']['uid']['table'] = 'webform_submissions';
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
+  /* Relationship: Flags: interesting_answer */
+  $handler->display->display_options['relationships']['flag_content_rel']['id'] = 'flag_content_rel';
+  $handler->display->display_options['relationships']['flag_content_rel']['table'] = 'webform_submissions';
+  $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
+  $handler->display->display_options['relationships']['flag_content_rel']['label'] = 'flag-helpful-answer';
+  $handler->display->display_options['relationships']['flag_content_rel']['required'] = 0;
+  $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'interesting_answer';
+  $handler->display->display_options['relationships']['flag_content_rel']['user_scope'] = 'any';
   /* Field: Webform submissions: EMH Author */
   $handler->display->display_options['fields']['emh_author']['id'] = 'emh_author';
   $handler->display->display_options['fields']['emh_author']['table'] = 'webform_submissions';
@@ -2328,7 +2336,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['completed']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['completed']['date_format'] = 'time ago';
   $handler->display->display_options['fields']['completed']['second_date_format'] = 'long';
-  /* Field: Webform submissions: Answer */
+  /* Field: Webform submissions: EMH Answer */
   $handler->display->display_options['fields']['emh_answer']['id'] = 'emh_answer';
   $handler->display->display_options['fields']['emh_answer']['table'] = 'webform_submissions';
   $handler->display->display_options['fields']['emh_answer']['field'] = 'emh_answer';
@@ -2364,7 +2372,6 @@ function ft_request_views_default_views() {
     0 => '0',
   );
   $handler->display->display_options['filters']['is_draft']['group'] = 1;
-  $handler->display->display_options['filters']['is_draft']['exposed'] = TRUE;
   $handler->display->display_options['filters']['is_draft']['expose']['operator_id'] = 'is_draft_op';
   $handler->display->display_options['filters']['is_draft']['expose']['label'] = 'Draft';
   $handler->display->display_options['filters']['is_draft']['expose']['operator'] = 'is_draft_op';
@@ -2382,6 +2389,12 @@ function ft_request_views_default_views() {
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
   $handler->display->display_options['empty']['area']['content'] = 'No answer yet.';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Webform submissions: User */
+  $handler->display->display_options['relationships']['uid']['id'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['table'] = 'webform_submissions';
+  $handler->display->display_options['relationships']['uid']['field'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['required'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Bulk operations: User */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
@@ -2420,20 +2433,27 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['completed']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['completed']['date_format'] = 'time ago';
   $handler->display->display_options['fields']['completed']['second_date_format'] = 'long';
-  /* Field: Webform submissions: Answer */
+  /* Field: Webform submissions: View link */
+  $handler->display->display_options['fields']['view_submission']['id'] = 'view_submission';
+  $handler->display->display_options['fields']['view_submission']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['view_submission']['field'] = 'view_submission';
+  $handler->display->display_options['fields']['view_submission']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['view_submission']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['view_submission']['access_check'] = 1;
+  /* Field: Webform submissions: EMH Answer */
   $handler->display->display_options['fields']['emh_answer']['id'] = 'emh_answer';
   $handler->display->display_options['fields']['emh_answer']['table'] = 'webform_submissions';
   $handler->display->display_options['fields']['emh_answer']['field'] = 'emh_answer';
   $handler->display->display_options['fields']['emh_answer']['label'] = '';
   $handler->display->display_options['fields']['emh_answer']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['emh_answer']['alter']['text'] = '<span class="submission-date">[completed]&nbsp;–&nbsp;</span>[emh_answer]';
+  $handler->display->display_options['fields']['emh_answer']['alter']['text'] = '<span class="submission-date">[completed]&nbsp;–&nbsp;</span>[emh_answer] [view_submission]';
   $handler->display->display_options['fields']['emh_answer']['element_label_colon'] = FALSE;
-  /* Field: Webform submissions: View link */
-  $handler->display->display_options['fields']['view_submission']['id'] = 'view_submission';
-  $handler->display->display_options['fields']['view_submission']['table'] = 'webform_submissions';
-  $handler->display->display_options['fields']['view_submission']['field'] = 'view_submission';
-  $handler->display->display_options['fields']['view_submission']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['view_submission']['access_check'] = 1;
+  /* Field: Webform submissions: EMH Submission flags */
+  $handler->display->display_options['fields']['emh_submission_flags']['id'] = 'emh_submission_flags';
+  $handler->display->display_options['fields']['emh_submission_flags']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['emh_submission_flags']['field'] = 'emh_submission_flags';
+  $handler->display->display_options['fields']['emh_submission_flags']['label'] = '';
+  $handler->display->display_options['fields']['emh_submission_flags']['element_label_colon'] = FALSE;
   $handler->display->display_options['block_description'] = 'Answer(s)';
 
   /* Display: (P) My answers */
@@ -2443,10 +2463,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['defaults']['access'] = FALSE;
   $handler->display->display_options['access']['type'] = 'role';
   $handler->display->display_options['access']['role'] = array(
-    3 => '3',
-    5 => '5',
-    4 => '4',
-    6 => '6',
+    2 => '2',
   );
   $handler->display->display_options['defaults']['exposed_form'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
@@ -2523,58 +2540,12 @@ function ft_request_views_default_views() {
   $handler->display->display_options['exposed_form']['options']['input_required'] = 0;
   $handler->display->display_options['exposed_form']['options']['text_input_required_format'] = 'filtered_html';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'views_bootstrap_table_plugin_style';
-  $handler->display->display_options['style_options']['columns'] = array(
-    'title_field' => 'title_field',
-    'completed' => 'completed',
-    'emh_answer' => 'emh_answer',
-    'is_draft' => 'is_draft',
-    'view_submission' => 'view_submission',
-  );
-  $handler->display->display_options['style_options']['default'] = 'completed';
-  $handler->display->display_options['style_options']['info'] = array(
-    'title_field' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'completed' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'emh_answer' => array(
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'is_draft' => array(
-      'sortable' => 1,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-    'view_submission' => array(
-      'sortable' => 0,
-      'default_sort_order' => 'asc',
-      'align' => '',
-      'separator' => '',
-      'empty_column' => 0,
-    ),
-  );
-  $handler->display->display_options['style_options']['bootstrap_styles'] = array(
-    'striped' => 0,
-    'bordered' => 0,
-    'hover' => 0,
-    'condensed' => 0,
-  );
+  $handler->display->display_options['style_plugin'] = 'views_bootstrap_grid_plugin_style';
+  $handler->display->display_options['style_options']['columns'] = '1';
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['hide_empty'] = TRUE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['empty'] = FALSE;
   /* No results behavior: Global: Text area */
@@ -2600,8 +2571,17 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['title_field']['table'] = 'field_data_title_field';
   $handler->display->display_options['fields']['title_field']['field'] = 'title_field';
   $handler->display->display_options['fields']['title_field']['relationship'] = 'nid';
-  $handler->display->display_options['fields']['title_field']['label'] = 'Request';
+  $handler->display->display_options['fields']['title_field']['label'] = '';
+  $handler->display->display_options['fields']['title_field']['element_type'] = 'h3';
+  $handler->display->display_options['fields']['title_field']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['title_field']['link_to_entity'] = 1;
+  /* Field: Webform submissions: Draft */
+  $handler->display->display_options['fields']['is_draft']['id'] = 'is_draft';
+  $handler->display->display_options['fields']['is_draft']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['is_draft']['field'] = 'is_draft';
+  $handler->display->display_options['fields']['is_draft']['label'] = '';
+  $handler->display->display_options['fields']['is_draft']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['is_draft']['element_label_colon'] = FALSE;
   /* Field: Webform submissions: Completed */
   $handler->display->display_options['fields']['completed']['id'] = 'completed';
   $handler->display->display_options['fields']['completed']['table'] = 'webform_submissions';
@@ -2611,24 +2591,28 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['completed']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['completed']['date_format'] = 'time ago';
   $handler->display->display_options['fields']['completed']['second_date_format'] = 'long';
-  /* Field: Webform submissions: Answer */
-  $handler->display->display_options['fields']['emh_answer']['id'] = 'emh_answer';
-  $handler->display->display_options['fields']['emh_answer']['table'] = 'webform_submissions';
-  $handler->display->display_options['fields']['emh_answer']['field'] = 'emh_answer';
-  $handler->display->display_options['fields']['emh_answer']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['emh_answer']['alter']['text'] = '<span class="submission-date">[completed]&nbsp;–&nbsp;</span>[emh_answer]';
-  $handler->display->display_options['fields']['emh_answer']['element_label_colon'] = FALSE;
-  /* Field: Webform submissions: Draft */
-  $handler->display->display_options['fields']['is_draft']['id'] = 'is_draft';
-  $handler->display->display_options['fields']['is_draft']['table'] = 'webform_submissions';
-  $handler->display->display_options['fields']['is_draft']['field'] = 'is_draft';
-  $handler->display->display_options['fields']['is_draft']['label'] = 'Status';
   /* Field: Webform submissions: View link */
   $handler->display->display_options['fields']['view_submission']['id'] = 'view_submission';
   $handler->display->display_options['fields']['view_submission']['table'] = 'webform_submissions';
   $handler->display->display_options['fields']['view_submission']['field'] = 'view_submission';
+  $handler->display->display_options['fields']['view_submission']['exclude'] = TRUE;
   $handler->display->display_options['fields']['view_submission']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['view_submission']['access_check'] = 1;
+  /* Field: Webform submissions: EMH Answer */
+  $handler->display->display_options['fields']['emh_answer']['id'] = 'emh_answer';
+  $handler->display->display_options['fields']['emh_answer']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['emh_answer']['field'] = 'emh_answer';
+  $handler->display->display_options['fields']['emh_answer']['label'] = '';
+  $handler->display->display_options['fields']['emh_answer']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['emh_answer']['alter']['text'] = '<span class="user-submission-status [is_draft]">[is_draft]</span><span class="submission-date">[completed]&nbsp;–&nbsp;</span>[emh_answer] [view_submission]';
+  $handler->display->display_options['fields']['emh_answer']['element_label_colon'] = FALSE;
+  /* Field: Webform submissions: EMH Submission flags */
+  $handler->display->display_options['fields']['emh_submission_flags']['id'] = 'emh_submission_flags';
+  $handler->display->display_options['fields']['emh_submission_flags']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['emh_submission_flags']['field'] = 'emh_submission_flags';
+  $handler->display->display_options['fields']['emh_submission_flags']['label'] = '';
+  $handler->display->display_options['fields']['emh_submission_flags']['alter']['text'] = '[flagged][emh_submission_flags]';
+  $handler->display->display_options['fields']['emh_submission_flags']['element_label_colon'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: User: Uid */
   $handler->display->display_options['arguments']['uid']['id'] = 'uid';
@@ -2680,11 +2664,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['defaults']['access'] = FALSE;
   $handler->display->display_options['access']['type'] = 'role';
   $handler->display->display_options['access']['role'] = array(
-    3 => '3',
-    5 => '5',
-    4 => '4',
-    7 => '7',
-    6 => '6',
+    2 => '2',
   );
   $handler->display->display_options['defaults']['exposed_form'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -2767,7 +2747,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['emh_author']['id'] = 'emh_author';
   $handler->display->display_options['fields']['emh_author']['table'] = 'webform_submissions';
   $handler->display->display_options['fields']['emh_author']['field'] = 'emh_author';
-  $handler->display->display_options['fields']['emh_author']['label'] = 'Author';
+  $handler->display->display_options['fields']['emh_author']['label'] = 'Expert';
   $handler->display->display_options['fields']['emh_author']['element_label_colon'] = FALSE;
   /* Field: Webform submissions: Completed */
   $handler->display->display_options['fields']['completed']['id'] = 'completed';
@@ -2778,19 +2758,21 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['completed']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['completed']['date_format'] = 'time ago';
   $handler->display->display_options['fields']['completed']['second_date_format'] = 'long';
-  /* Field: Webform submissions: Answer */
-  $handler->display->display_options['fields']['emh_answer']['id'] = 'emh_answer';
-  $handler->display->display_options['fields']['emh_answer']['table'] = 'webform_submissions';
-  $handler->display->display_options['fields']['emh_answer']['field'] = 'emh_answer';
-  $handler->display->display_options['fields']['emh_answer']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['emh_answer']['alter']['text'] = '<span class="submission-date">[completed]&nbsp;–&nbsp;</span>[emh_answer]';
-  $handler->display->display_options['fields']['emh_answer']['element_label_colon'] = FALSE;
   /* Field: Webform submissions: View link */
   $handler->display->display_options['fields']['view_submission']['id'] = 'view_submission';
   $handler->display->display_options['fields']['view_submission']['table'] = 'webform_submissions';
   $handler->display->display_options['fields']['view_submission']['field'] = 'view_submission';
+  $handler->display->display_options['fields']['view_submission']['exclude'] = TRUE;
   $handler->display->display_options['fields']['view_submission']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['view_submission']['access_check'] = 1;
+  /* Field: Webform submissions: EMH Answer */
+  $handler->display->display_options['fields']['emh_answer']['id'] = 'emh_answer';
+  $handler->display->display_options['fields']['emh_answer']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['emh_answer']['field'] = 'emh_answer';
+  $handler->display->display_options['fields']['emh_answer']['label'] = 'Answer';
+  $handler->display->display_options['fields']['emh_answer']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['emh_answer']['alter']['text'] = '<span class="submission-date">[completed]&nbsp;–&nbsp;</span>[emh_answer] [view_submission]';
+  $handler->display->display_options['fields']['emh_answer']['element_label_colon'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: Author uid */
   $handler->display->display_options['arguments']['uid']['id'] = 'uid';
@@ -2802,31 +2784,6 @@ function ft_request_views_default_views() {
   $handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Webform submissions: Draft */
-  $handler->display->display_options['filters']['is_draft']['id'] = 'is_draft';
-  $handler->display->display_options['filters']['is_draft']['table'] = 'webform_submissions';
-  $handler->display->display_options['filters']['is_draft']['field'] = 'is_draft';
-  $handler->display->display_options['filters']['is_draft']['value'] = array(
-    0 => '0',
-  );
-  $handler->display->display_options['filters']['is_draft']['group'] = 1;
-  $handler->display->display_options['filters']['is_draft']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['is_draft']['expose']['operator_id'] = 'is_draft_op';
-  $handler->display->display_options['filters']['is_draft']['expose']['label'] = 'Status';
-  $handler->display->display_options['filters']['is_draft']['expose']['operator'] = 'is_draft_op';
-  $handler->display->display_options['filters']['is_draft']['expose']['identifier'] = 'is_draft';
-  $handler->display->display_options['filters']['is_draft']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    3 => 0,
-    4 => 0,
-    5 => 0,
-    6 => 0,
-    7 => 0,
-    10 => 0,
-  );
   $handler->display->display_options['path'] = 'answers/to-me';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Answers to my requests';

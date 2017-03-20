@@ -1,3 +1,7 @@
+* {
+  word-break: break-all;
+}
+
 // Header
 .region-title-left,
 .title-left,
@@ -161,15 +165,13 @@ ul.links.list-inline {
   }
 }
 
-
 .section {
-
   padding-top: 15px;
   padding-bottom: 15px;
-	margin: 0 0 15px;
+  margin: 0;
 
-  &:last-child {
-    margin-bottom: 0;
+  + .section {
+    margin-bottom: 15px;
   }
 
   &.emh-fieldgroup-blue-title {

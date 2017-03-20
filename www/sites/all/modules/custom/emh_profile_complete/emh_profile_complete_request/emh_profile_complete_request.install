@@ -1,14 +1,14 @@
 <?php
+
 /**
  * @file
- * Installation hooks for the EMH Profile Complete Expert module.
+ * Installation hooks for eMindHub Profile Complete feature for Requests.
  */
 
-
 /**
-* Implements hook_enable().
-*/
-function emh_profile_complete_request_enable() {
+ * Implements hook_install().
+ */
+function emh_profile_complete_request_install() {
   emh_profile_complete_request_update_7001();
 }
 
@@ -16,9 +16,10 @@ function emh_profile_complete_request_enable() {
  * ADD: Parameters for EMH Profile Complete Expert block.
  */
 function emh_profile_complete_request_update_7001() {
-  $role = user_role_load_by_name('expert');
+  $module = 'emh_profile_complete_request';
+  $delta = 'emh_profile_complete_request';
   $query = db_insert('block_role')
-          ->fields(array('rid', 'module', 'delta'))
-          ->values(array('rid' => $role->rid, 'module' => 'emh_profile_complete_request', 'delta' => 'emh_profile_complete_request'))
-          ->execute();
+    ->fields(array('rid', 'module', 'delta'))
+    ->values(array('rid' => DRUPAL_AUTHENTICATED_RID, 'module' => $module, 'delta' => $delta))
+    ->execute();
 }

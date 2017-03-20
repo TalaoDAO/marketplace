@@ -1,0 +1,13 @@
+.ui-widget-overlay.ui-widget-overlay-scrollfix {
+  opacity: 1;
+  background: rgba(0, 0, 0, .6);
+}
+.ui-widget-overlay-scrollfix {
+  overflow-y: auto;
+}
+.ui-helper-disable-scrolling {
+  overflow: hidden;
+}
+.ui-helper-vertical-scroll {
+  overflow-y: scroll;
+}

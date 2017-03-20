@@ -1,0 +1,11 @@
+name = Auto-Dialog
+description = Easy way to open content in through AJAX and jQuery UI Dialog
+core = 7.x
+configure = admin/config/system/autodialog
+
+; Information added by Drupal.org packaging script on 2016-05-30
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "autodialog"
+datestamp = "1464602058"
+
