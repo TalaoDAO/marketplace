@@ -120,31 +120,31 @@ Feature: Request and answers
     Given I am logged in as "client1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should see a "This answer was interesting" flag link
+    Then I should see a "Select the answer" flag link
 
     When I click "view" in the "submissions" region
-      And I click flag link "This answer was interesting"
-    Then I should see "You marked this answer as interesting."
+      And I click flag link "Select the answer"
+    Then I should see "Answer selected"
 
     Given I am logged in as "expert1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should see "This answer was interesting" in the "submissions" region
-      And I should not see a "This answer was interesting" flag link
+    Then I should see "Answer selected" in the "submissions" region
+      And I should not see a "Select the answer" flag link
 
     When I click "view" in the "submissions" region
-    Then I should see "This answer was interesting" in the "block_system_main" region
-      And I should not see a "This answer was interesting" flag link
+    Then I should see "Answer selected" in the "block_system_main" region
+      And I should not see a "Select the answer" flag link
 
     Given I am logged in as "expert2"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should not see "This answer was interesting" in the "submissions" region
-      And I should not see a "This answer was interesting" flag link
+    Then I should not see "Select the answer" in the "submissions" region
+      And I should not see a "Select the answer" flag link
 
     When I click "view" in the "submissions" region
-    Then I should not see "This answer was interesting" in the "block_system_main" region
-      And I should not see a "This answer was interesting" flag link
+    Then I should not see "Select the answer" in the "block_system_main" region
+      And I should not see a "Select the answer" flag link
 
   Scenario: The author can add a feedback to published answers and only the expert who answered can see the feedback
     Given I am logged in as "client1"

@@ -1,5 +1,5 @@
-<?php if (!empty($short) || !empty($long)) : ?>
+<?php if (!empty($short) || !empty($message)) : ?>
   <span class="submission-flag-description">
-    <?php print $short; ?><?php if (!empty($short) && !empty($long)) : ?>&nbsp;<?php endif; ?><?php print $long; ?>
+    <?php print $short; ?><?php if (!empty($short) && !empty($message)) : ?>&nbsp;<?php endif; ?><?php print $message; ?>
   </span>
 <?php endif; ?>
