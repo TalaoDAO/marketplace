@@ -596,6 +596,34 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
+   * Go to next page after batch, work without @javascript
+   * Adapted from https://gist.github.com/eliza411/67d2aa93cfa9a31b65ad
+   *
+   * @Given /^I follow meta refresh$/
+   */
+  public function iFollowMetaRefresh() {
+    while ($refresh = $this->getSession()->getPage()->find('css', 'meta[http-equiv="Refresh"]')) {
+      $content = $refresh->getAttribute('content');
+      $url = str_replace('0; URL=', '', $content);
+      $this->getSession()->visit($url);
+    }
+  }
+
+  /**
+   * Wait for the Batch API to finish.
+   *
+   * Wait until the id="updateprogress" element is gone,
+   * or timeout after 3 minutes (180,000 ms).
+   * work only with @javascript
+   * from https://swsblog.stanford.edu/blog/behat-custom-step-definition-wait-batch-api-finish
+   *
+   * @Given /^I wait for the batch job to finish$/
+   */
+  public function iWaitForTheBatchJobToFinish() {
+    $this->getSession()->wait(180000, 'jQuery("#updateprogress").length === 0');
+  }
+
+  /**
    * Take screen-shot when step fails.
    *
    * @AfterStep
@@ -650,29 +678,46 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-   * Go to next page after batch, work without @javascript
-   * Adapted from https://gist.github.com/eliza411/67d2aa93cfa9a31b65ad
-   * @Given /^I follow meta refresh$/
+   * @BeforeSuite
    */
-  public function iFollowMetaRefresh() {
-    while ($refresh = $this->getSession()->getPage()->find('css', 'meta[http-equiv="Refresh"]')) {
-      $content = $refresh->getAttribute('content');
-      $url = str_replace('0; URL=', '', $content);
-      $this->getSession()->visit($url);
-    }
+  public static function disableModules(\Behat\Testwork\Hook\Scope\BeforeSuiteScope $scope) {
+    module_disable(array('emh_smartmobility'));
   }
 
   /**
-   * Wait for the Batch API to finish.
-   *
-   * Wait until the id="updateprogress" element is gone,
-   * or timeout after 3 minutes (180,000 ms).
-   * work only with @javascript
-   * from https://swsblog.stanford.edu/blog/behat-custom-step-definition-wait-batch-api-finish
-   *
-   * @Given /^I wait for the batch job to finish$/
+   * @AfterSuite
    */
-  public function iWaitForTheBatchJobToFinish() {
-    $this->getSession()->wait(180000, 'jQuery("#updateprogress").length === 0');
+  public static function enableModules(\Behat\Testwork\Hook\Scope\AfterSuiteScope $scope) {
+    module_enable(array('smartmobility'));
+  }
+
+  /**
+   * @BeforeScenario @smartmobility
+   */
+  public function prepareForSmartMobility(BeforeScenarioScope $scope) {
+    module_enable(array('emh_smartmobility'));
+  }
+
+  /**
+   * @AfterScenario @smartmobility
+   */
+  public function cleanupForSmartMobility(Behat\Behat\Hook\Scope\AfterScenarioScope $scope) {
+    module_disable(array('smartmobility'));
+  }
+
+  /**
+   * @BeforeScenario @email
+   */
+  public function prepareForEmail(BeforeScenarioScope $scope) {
+    emh_configuration_enable_rule('_emh_request_notification_moderate_mail');
+    emh_configuration_enable_rule('_emh_request_notification_notify_mail');
+  }
+
+  /**
+   * @AfterScenario @email
+   */
+  public function cleanupForEmail(Behat\Behat\Hook\Scope\AfterScenarioScope $scope) {
+    emh_configuration_disable_rule('_emh_request_notification_moderate_mail');
+    emh_configuration_disable_rule('_emh_request_notification_notify_mail');
   }
 }

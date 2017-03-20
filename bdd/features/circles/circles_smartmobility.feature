@@ -14,6 +14,7 @@ Feature: SmartMobility circle test
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country |
     | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Smart Mobility     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance   | US                    |
 
+  @smartmobility
   Scenario: Test if basic login still works
     When I visit 'user/login'
     And I fill in "admin" for "name"
@@ -21,6 +22,7 @@ Feature: SmartMobility circle test
     And I press the "Log in" button
     Then I should see the text "Log out"
 
+  @smartmobility
   Scenario: Clients can see the requests
     Given I am logged in as a user with the "administrator" role
 
