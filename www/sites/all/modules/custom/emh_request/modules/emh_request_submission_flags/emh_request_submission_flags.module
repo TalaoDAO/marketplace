@@ -33,3 +33,15 @@ function emh_request_submission_flags_views_api() {
     'path' => drupal_get_path('module', 'emh_request_submission_flags') . '/views',
   );
 }
+
+/**
+ * Implements hook_flag_javascript_info_alter().
+ */
+function emh_request_submission_flags_flag_javascript_info_alter(&$info, $flag) {
+  if ($flag->name === 'interesting_answer') {
+    $info['newLink'] = $flag->theme($flag->is_flagged($info['contentId']) ? 'unflag' : 'flag', $info['contentId'], array(
+      'after_flagging' => FALSE,
+      'errors' => $flag->get_errors(),
+    ));
+  }
+}
