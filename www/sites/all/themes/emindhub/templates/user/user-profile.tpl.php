@@ -49,13 +49,11 @@ $country_code = $account->field_address[LANGUAGE_NONE]['0']['country'];
 $country = isset($countries[$country_code]) ? $countries[$country_code] : '';
 ?>
 <div class="profile"<?php print $attributes; ?>>
-  <div class="user-cartouche container-fluid">
+  <div class="user-cartouche">
     <div class="cartouche-identity row">
-      <div class="col-md-2">
         <span class="user-photo">
           <?php print render($user_profile['field_photo']); ?>
         </span>
-      </div>
       <div class="col-md-4">
         <span class="user-identity">
           <?php print format_username($account); ?>
@@ -70,21 +68,22 @@ $country = isset($countries[$country_code]) ? $countries[$country_code] : '';
         <?php endif; ?>
       </div>
 
-      <?php if (!empty($account->field_address[LANGUAGE_NONE]['0']['phone_number']) || !empty($account->field_address[LANGUAGE_NONE]['0']['mobile_number']) || !empty($account->field_address[LANGUAGE_NONE]['0']['mobile_number'])) : ?>
+      <?php if (!empty($account->field_address[LANGUAGE_NONE]['0']['phone_number']) || !empty($account->field_address[LANGUAGE_NONE]['0']['mobile_number']) || ($social_networks)) : ?>
       <div class="col-md-3">
         <?php if (!empty($account->field_address[LANGUAGE_NONE]['0']['phone_number'])): ?>
-        <div class="user-phone-number">
+        <span class="user-phone-number">
           <?php print '<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>&nbsp;' . $account->field_address[LANGUAGE_NONE]['0']['phone_number']; ?>
-        </div>
+        </span>
         <?php endif; ?>
+
         <?php if (!empty($account->field_address[LANGUAGE_NONE]['0']['mobile_number'])): ?>
-        <div class="user-mobile-number">
+        <span class="user-mobile-number">
           <?php print '<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>&nbsp;' . $account->field_address[LANGUAGE_NONE]['0']['mobile_number']; ?>
-        </div>
+        </span>
         <?php endif; ?>
 
         <?php if ($social_networks): ?>
-        <div class="user-social-networks">
+        <span class="user-social-networks">
           <?php if (field_get_items('user', $account, 'field_link_to_my_blog')) : ?>
           <?php print l(
               '<span class="glyphicon glyphicon-globe" aria-hidden="true"></span>',
@@ -125,7 +124,7 @@ $country = isset($countries[$country_code]) ? $countries[$country_code] : '';
               )
             ); ?>
           <?php endif; ?>
-        </div>
+        </span>
         <?php endif; ?>
       </div>
       <?php endif; ?>
