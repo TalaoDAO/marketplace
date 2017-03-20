@@ -12,11 +12,6 @@
  * - $account: The user that submitted the form.
  * - $commment_answer: The requester feedback comment on the submission.
  */
-
-$flag = (module_exists('emh_request_submission_flags')) ? emh_request_submission_flags_get_flag_description('interesting_answer', $submission, $node) : '';
-$comment = (module_exists('emh_request_submission_flags')) ? emh_request_submission_flags_get_flag_field_value('comment_answer', 'field_comment_answer', $submission, $node) : '';
-$interesting_answer = flag_create_link('interesting_answer', $submission->sid);
-$comment_answer = flag_create_link('comment_answer', $submission->sid);
 ?>
 
 <?php if (!empty($flag) || !empty($comment) || !empty($interesting_answer) || !empty($comment_answer)) : ?>
