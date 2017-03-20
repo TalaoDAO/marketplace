@@ -240,7 +240,7 @@ node/*/edit',
         'region' => 'title_bottom',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -42,
+        'weight' => -41,
       ),
       'seven' => array(
         'region' => '',
