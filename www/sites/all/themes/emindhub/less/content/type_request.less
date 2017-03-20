@@ -102,7 +102,6 @@
 // node/%/edit
 body.page-node-add-request,
 body.node-type-request.page-node-edit {
-
   form#request-node-form {
     h2 {
       .emh-form-h2;
@@ -187,6 +186,12 @@ body.node-type-request.page-node-edit {
         .make-row();
         > div {
           .make-sm-column(4);
+
+          &:last-child {
+            @media (min-width: @screen-sm-min) {
+              margin-left: 33.33%;
+            }
+          }
         }
       }
       .request-type {
