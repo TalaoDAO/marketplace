@@ -545,10 +545,15 @@ function emindhub_preprocess_views_view_unformatted(&$vars) {
 }
 
 /**
- * Expose submission comment in template.
+ * Implements hook_preprocess_webform_submission_information().
  */
 function emindhub_preprocess_webform_submission_information(&$vars) {
-	if (module_exists('emh_request_submission') && isset($vars['submission']->sid)) {
-    $vars['comment_answer'] = _emh_request_submission_get_comment($vars['submission']->sid);
-	}
+  if (module_exists('emh_request_submission_flags') && isset($vars['submission']->sid)) {
+    $vars['flag'] = emh_request_submission_flags_get_flag_description('interesting_answer', $vars['submission'], $vars['node']);
+    $vars['interesting_answer'] = flag_create_link('interesting_answer', $vars['submission']->sid);
+
+    // $vars['comment_answer'] = _emh_request_submission_flags_get_comment($vars['submission']->sid);
+    $vars['comment_answer'] = flag_create_link('comment_answer', $vars['submission']->sid);
+    $vars['comment'] = emh_request_submission_flags_get_flag_field_value('comment_answer', 'field_comment_answer', $vars['submission'], $vars['node']);
+  }
 }
