@@ -564,7 +564,7 @@ header#title {
 	margin-right: 10px;
 	background-color: @body-bg;
 	font-style: italic;
-	padding: 7px 15px;
+	padding: 7px 0;
 	.text-left;
 }
 
@@ -746,6 +746,14 @@ header#title {
   padding-bottom: 5px + 5px + 1px;
   background-color: #FFF;
 }
+.emh-submission-answer,
+.emh-submission-answer * {
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  -o-hyphens: auto;
+  hyphens: auto;
+}
 
 .emh-submission-answer-conversation {
   position: relative;
@@ -766,6 +774,11 @@ header#title {
 .emh-submission-comment-answer {
   font-style: italic;
   line-height: @line-height-base * @line-height-base;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  -o-hyphens: auto;
+  hyphens: auto;
 }
 
 .emh-submission-flags {
