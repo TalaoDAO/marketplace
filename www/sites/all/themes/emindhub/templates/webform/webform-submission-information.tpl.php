@@ -10,7 +10,17 @@
  *          modules, such as "print" or "pdf".
  * - $submission: The contents of the webform submission.
  * - $account: The user that submitted the form.
+ * - $commment_answer: The requester feedback comment on the submission.
  */
 ?>
 
-<span class="date"><?php print t('Submitted: !date', array('!date' => check_plain(format_date($submission->submitted, webform_variable_get('webform_date_type'))))); ?></span>
+<?php if (!empty($flag) || !empty($comment) || !empty($interesting_answer) || !empty($comment_answer)) : ?>
+  <div class="section col-sm-9 submission-flags">
+    <span>
+      <?php print render($comment); ?>
+      <?php print $flag; ?>
+      <?php print $interesting_answer; ?>
+      <?php print $comment_answer; ?>
+    </span>
+  </div>
+<?php endif; ?>

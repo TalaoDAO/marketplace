@@ -9,11 +9,6 @@
 
     <ul class="hiw-services">
       <li class="hiw-service">
-        <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/ico-faq.svg" alt="<?php print t('FAQ'); ?>" />
-        <div class="label"><?php print t('FAQ'); ?></div>
-        <div class="legend"><?php print t('Consult a list of questions and answers to recurring and common themes'); ?></div>
-      </li>
-      <li class="hiw-service">
         <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/ico-doc.svg" alt="<?php print t('Doc'); ?>" />
         <div class="label"><?php print t('Doc'); ?></div>
         <div class="legend"><?php print t('Request a community of experts to find a specific document'); ?></div>
@@ -39,8 +34,8 @@
         <div class="legend"><?php print t('Search for an expert for a mission or project'); ?></div>
       </li>
       <li class="hiw-service">
-        <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/ico-cv.svg" alt="<?php print t('CV'); ?>" />
-        <div class="label"><?php print t('CV'); ?></div>
+        <img class="hiw-step-picture" src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/ico-co-option.svg" alt="<?php print t('Co-option'); ?>" />
+        <div class="label"><?php print t('Co-option'); ?></div>
         <div class="legend"><?php print t('Call on a community of experts to find qualified candidates for recruitment'); ?></div>
       </li>
     </ul>

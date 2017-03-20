@@ -77,7 +77,7 @@ Feature: Emails
     | How to become a superhero?  | Energy        | Avengers        | client1 | 2020-02-08 17:45:00    | 1       |
 
     # DON'T FORGET: drush @dev rules-enable _emh_request_notification_moderate_mail
-    Then  the last email to "emindhub.test+webmaster1@gmail.com" should contain "Moderate this new request"
+    Then the last email to "emindhub.test+webmaster1@gmail.com" should contain "Moderate this new request"
       And the last email to "emindhub.test+administrator1@gmail.com" should contain "Moderate this new request"
 
     # DON'T FORGET: drush @dev rules-enable _emh_request_notification_notify_mail
@@ -88,7 +88,7 @@ Feature: Emails
     # 2nd Cron run to process the notification queue
     When I run cron
 
-    Then  the last email to "emindhub.test+expert1@gmail.com" should contain "Dear Iron,"
+    Then the last email to "emindhub.test+expert1@gmail.com" should contain "Dear Iron,"
       And the email should contain "A new request for expertise has been published on eMindHub"
       And the last email to "emindhub.test+expert2@gmail.com" should contain "Dear Klark,"
       And the email should contain "A new request for expertise has been published on eMindHub"
