@@ -65,7 +65,7 @@ function ft_request_flag_default_flags() {
     ),
     'flag_short' => '<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>',
     'flag_long' => 'Select the answer',
-    'flag_message' => 'You selected this answer.',
+    'flag_message' => 'Answer selected',
     'unflag_short' => '<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>',
     'unflag_long' => 'Unselect the answer',
     'unflag_message' => 'You unselected this answer.',
