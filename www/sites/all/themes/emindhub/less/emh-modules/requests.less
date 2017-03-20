@@ -22,13 +22,12 @@ a.disabled {
 .requests-item {
   overflow: hidden;
   margin-top: 20px;
-	padding: 20px 35px 15px 35px;
+  padding: @emh-live-item-padding @emh-live-item-padding @emh-live-item-padding-bottom;
 	border: 1px solid @color-primary-alt;
   min-height: 265px;
 
 	&:hover {
 		border-color: @color-primary;
-
 	}
 
 	&.locked {
@@ -38,10 +37,12 @@ a.disabled {
 		background-repeat: no-repeat;
 		background-position: 25% 70%;
 		background-size: 60px;
+
     .text {
       .text-center;
       line-height: 170px;
     }
+
 		.emh-read-more,
 		.service-links {
 			display: none;
@@ -50,9 +51,9 @@ a.disabled {
 
 	.request-item-icon {
 		margin-right: 10px;
-		width: 47px;
+		width: @emh-request-picto-width;
 		height: 45px;
-		padding-top: 31px;
+		padding-top: @emh-request-picto-padding-top;
 		text-align: center;
 		position: relative;
 		color: @color-tertiary-alt;
@@ -61,7 +62,7 @@ a.disabled {
 			display: block;
 			position: absolute;
 			left: 50%;
-			top: 15px;
+			top: @emh-live-item-padding ;
 			width: 50px;
 			height: 50px;
 			transform: translate(-50% , -50%);
@@ -84,14 +85,14 @@ a.disabled {
 
     .request-title {
       display: inline-block;
-      height: 40px;
+      height: @emh-request-title-height;
     }
 	}
 
 	.metas {
 		font-size: 13px;
-		margin-top: 13px;
-    line-height: 1;
+		margin-top: @emh-request-meta-height;
+    line-height: @emh-request-meta-height;
 	}
 
 	.date,
@@ -108,9 +109,9 @@ a.disabled {
   }
 
 	.text {
-		margin-top: 10px;
-		line-height: 18px;
-		height: calc(5 * 18px);
+		margin-top: @emh-request-margin-top;
+		line-height: @emh-request-line-height;
+		height: @emh-request-height;
 		overflow: hidden;
 		color: @color-tertiary-alt;
 	}
@@ -118,14 +119,14 @@ a.disabled {
 	.emh-read-more {
 		display: block;
 		text-overflow: ellipsis;
-		line-height: 1.385;
-		height: calc(1 * 18px);
+		line-height: @emh-request-line-height;
+		height: @emh-request-line-height;
 		white-space: nowrap;
 		text-decoration: underline;
 	}
 
 	.service-links {
-		margin-top: 20px;
+		margin-top: @emh-request-service-margin-top;
 	}
 
 	.author-link {
