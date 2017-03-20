@@ -1,31 +1,60 @@
 .page-user {
-
 	.user-cartouche {
     .text-left;
 
 		.cartouche-identity,
 		.cartouche-activity {
-			padding: 15px;
+			padding-top: 15px;
+			padding-bottom: 15px;
+		}
+		.cartouche-activity {
+			margin-left: 0;
+      margin-right: 0;
 		}
 
-		.user-social-networks {
-			padding-top: 10px;
-		}
+    .user-photo {
+      .make-md-column(2);
+      padding-top: 0;
 
-		.user-photo img {
-			width: 100px;
-			height: 100px;
-		}
+      img {
+        width: 100px;
+        height: 100px;
+      }
+    }
 
 		.country,
 		.user-country {
 			text-transform: uppercase;
 		}
 
+    .user-identity,
+    .user-mail,
+    .user-country,
+    .user-phone-number,
+    .user-mobile-number,
+    .user-social-networks,
+    .user-address {
+      padding: 0;
+      margin: 0;
+      float: none;
+      display: block;
+      line-height: @line-height-base * @line-height-base;
+
+      * {
+        padding: 0;
+        margin: 0;
+      }
+    }
+
+    .col-md-3,
+    .col-md-4 {
+      > span:first-child {
+        margin-top: 15px;
+      }
+    }
 	}
 
 	.profile-section {
-
 		.make-row();
     margin: 0;
 
@@ -199,7 +228,5 @@
 				}
 			}
 		}
-
 	}
-
 }
