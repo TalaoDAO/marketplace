@@ -76,11 +76,8 @@ Feature: Emails
     | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
     | How to become a superhero?  | Energy        | Avengers        | client1 | 2020-02-08 17:45:00    | 1       |
 
-    # DON'T FORGET: drush @dev rules-enable _emh_request_notification_moderate_mail
     Then the last email to "emindhub.test+webmaster1@gmail.com" should contain "Moderate this new request"
       And the last email to "emindhub.test+administrator1@gmail.com" should contain "Moderate this new request"
-
-    # DON'T FORGET: drush @dev rules-enable _emh_request_notification_notify_mail
       And there should be no email to "emindhub.test+expert1@gmail.com" containing "Dear Iron,"
 
     # 1st Cron run to execute the scheduled notification action
@@ -100,7 +97,6 @@ Feature: Emails
     | title                             | field_domaine | og_group_ref    | author  | field_expiration_date  | status  | language |
     | Comment devenir un super-heros ?  | Energy        | Avengers        | client1 | 2020-02-08 17:45:00    | 1       | fr       |
 
-    # DON'T FORGET: drush @dev rules-enable _emh_request_notification_notify_mail
     # 1st Cron run to execute the scheduled notification action
     When I run cron
     # 2nd Cron run to process the notification queue
