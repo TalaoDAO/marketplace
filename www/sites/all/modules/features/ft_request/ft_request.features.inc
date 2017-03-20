@@ -55,20 +55,20 @@ function ft_request_flag_default_flags() {
     ),
     'api_version' => 3,
   );
-  // Exported flag: "Interesting answer".
+  // Exported flag: "Answer selected".
   $flags['interesting_answer'] = array(
     'entity_type' => 'webform_submission',
-    'title' => 'Interesting answer',
+    'title' => 'Answer selected',
     'global' => 1,
     'types' => array(
       0 => 'webform_submission',
     ),
     'flag_short' => '<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>',
-    'flag_long' => 'This answer was interesting',
-    'flag_message' => 'You marked this answer as interesting.',
+    'flag_long' => 'Select the answer',
+    'flag_message' => 'You selected this answer.',
     'unflag_short' => '<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>',
-    'unflag_long' => 'This answer wasn\'t interesting',
-    'unflag_message' => 'You unmarked this answer as interesting.',
+    'unflag_long' => 'Unselect the answer',
+    'unflag_message' => 'You unselected this answer.',
     'unflag_denied_text' => '',
     'link_type' => 'toggle',
     'weight' => 0,
