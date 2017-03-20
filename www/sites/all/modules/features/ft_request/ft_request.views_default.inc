@@ -2747,7 +2747,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['emh_author']['id'] = 'emh_author';
   $handler->display->display_options['fields']['emh_author']['table'] = 'webform_submissions';
   $handler->display->display_options['fields']['emh_author']['field'] = 'emh_author';
-  $handler->display->display_options['fields']['emh_author']['label'] = 'Author';
+  $handler->display->display_options['fields']['emh_author']['label'] = 'Expert';
   $handler->display->display_options['fields']['emh_author']['element_label_colon'] = FALSE;
   /* Field: Webform submissions: Completed */
   $handler->display->display_options['fields']['completed']['id'] = 'completed';
@@ -2758,20 +2758,21 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['completed']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['completed']['date_format'] = 'time ago';
   $handler->display->display_options['fields']['completed']['second_date_format'] = 'long';
+  /* Field: Webform submissions: View link */
+  $handler->display->display_options['fields']['view_submission']['id'] = 'view_submission';
+  $handler->display->display_options['fields']['view_submission']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['view_submission']['field'] = 'view_submission';
+  $handler->display->display_options['fields']['view_submission']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['view_submission']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['view_submission']['access_check'] = 1;
   /* Field: Webform submissions: EMH Answer */
   $handler->display->display_options['fields']['emh_answer']['id'] = 'emh_answer';
   $handler->display->display_options['fields']['emh_answer']['table'] = 'webform_submissions';
   $handler->display->display_options['fields']['emh_answer']['field'] = 'emh_answer';
   $handler->display->display_options['fields']['emh_answer']['label'] = 'Answer';
   $handler->display->display_options['fields']['emh_answer']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['emh_answer']['alter']['text'] = '<span class="submission-date">[completed]&nbsp;–&nbsp;</span>[emh_answer]';
+  $handler->display->display_options['fields']['emh_answer']['alter']['text'] = '<span class="submission-date">[completed]&nbsp;–&nbsp;</span>[emh_answer] [view_submission]';
   $handler->display->display_options['fields']['emh_answer']['element_label_colon'] = FALSE;
-  /* Field: Webform submissions: View link */
-  $handler->display->display_options['fields']['view_submission']['id'] = 'view_submission';
-  $handler->display->display_options['fields']['view_submission']['table'] = 'webform_submissions';
-  $handler->display->display_options['fields']['view_submission']['field'] = 'view_submission';
-  $handler->display->display_options['fields']['view_submission']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['view_submission']['access_check'] = 1;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: Author uid */
   $handler->display->display_options['arguments']['uid']['id'] = 'uid';
