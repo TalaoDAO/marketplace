@@ -423,12 +423,3 @@ function emh_circles_form_request_node_form_alter(&$form, &$form_state, $form_id
     );
   }
 }
-
-/**
- * Implements hook_og_membership_insert().
- */
-function emh_circles_og_membership_insert($og_membership) {
-  if ($og_membership->entity_type == 'user') {
-    // rules_invoke_event('og_user_insert', $og_membership, entity_metadata_wrapper('user', $og_membership->etid));
-  }
-}
