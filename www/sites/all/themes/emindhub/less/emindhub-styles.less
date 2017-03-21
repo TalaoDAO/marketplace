@@ -558,16 +558,19 @@ header#title {
 	}
 }
 
-
 .emh-badge-term {
-	display: inline-block;
-	margin-right: 10px;
-	background-color: @body-bg;
-	font-style: italic;
-	padding: 7px 0;
-	.text-left;
+  display: inline-block;
+  margin-right: 10px;
+  padding: 7px 0;
+  line-height: @emh-five-stars-width;
+  .text-left;
 }
 
+.emh-badge-term-inactive {
+  font-style: italic;
+  border: 1px solid @body-bg;
+  border-radius: @btn-border-radius-small;
+}
 
 .emh-block-slider {
 	.content {
@@ -802,4 +805,12 @@ header#title {
 
 .emh-submission-date {
   color: @gray-light;
+}
+
+.emh-year-of-experiences {
+  .field-item {
+    .emh-badge-term;
+    width: 50px;
+    .text-right;
+  }
 }
