@@ -595,7 +595,7 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_skill2',
     'label' => 'Specific skill',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'behaviors' => array(
         'prepopulate' => array(
@@ -650,7 +650,7 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_skill_autoeval',
     'label' => 'Self-appraisal',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'allow_clear' => 0,
       'allow_ownvote' => 1,
@@ -697,7 +697,7 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'field_collection_item',
     'field_name' => 'field_year_of_experiences',
     'label' => 'Years of experience',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'max' => 50,
