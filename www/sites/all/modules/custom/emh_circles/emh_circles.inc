@@ -160,3 +160,57 @@ function _emh_circles_check_user_is_admin_of_groups($uid, $gids) {
   }
   return FALSE;
 }
+
+/**
+ * Helper function to build the notification queue.
+ *
+ * Step 3.3) : we build the notification queue.
+ */
+function _emh_circles_notification_build_queue($node) {
+  $users = array();
+
+  // Get the group roles.
+  $roles = og_roles($entity_type, $group->getBundle(), $entity_id);
+  $admin_rid = array_search(OG_ADMINISTRATOR_ROLE, $roles);
+
+  // Bail out if we can't figure out the admin role id.
+  if (!$admin_rid) {
+    return;
+  }
+
+  foreach ($node->og_group_ref[LANGUAGE_NONE] as $group) {
+    $query = new EntityFieldQuery();
+    $query
+      ->entityCondition('entity_type', 'og_membership')
+      ->propertyCondition('group_type', 'node', '=')
+      ->propertyCondition('gid', $group['target_id'], '=')
+      ->propertyCondition('rid', $admin_rid, '=')
+      ->propertyCondition('entity_type', 'user', '=');
+    $result = $query->execute();
+    if (!empty($result['og_membership'])) {
+      $og_memberships = og_membership_load_multiple(array_keys($result['og_membership']));
+      foreach ($og_memberships as $og_membership) {
+        $users[] = $og_membership->etid;
+      }
+    }
+  }
+  $users = user_load_multiple($users);
+  foreach ($users as $user) {
+    $queue = DrupalQueue::get('_emh_circles_notification_queue');
+    $item = array('nid' => $node->nid, 'uid' => $user->uid);
+    $queue->createItem($item);
+    continue;
+  }
+}
+
+/**
+ * Worker callback defined in hook_cron_queue_info().
+ *
+ * Step 3.4) : For each individual item in the queue, we invoke a event.
+ * This event will trigger the actual email notification.
+ */
+function _emh_circles_notification_queue_worker($item) {
+  $node = node_load($item['nid']);
+  $user = user_load($item['uid']);
+  rules_invoke_event('_emh_circles_notification_notify', $node, $user);
+}
