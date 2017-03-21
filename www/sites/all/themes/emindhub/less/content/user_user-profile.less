@@ -71,16 +71,17 @@
 		}
 
 		> .field,
-		> .field-collection-container {
+		> .field-type-field-collection {
 			padding-bottom: 15px;
+
 			.field-label {
 				margin-bottom: 5px;
 			}
 		}
 
-		.field-collection-container {
-			> .field > .field-items > .field-item {
-				margin-bottom: 5px;
+		.field-type-field-collection {
+			> .field-items > .field-item + .field-item {
+				margin-top: 5px;
 			}
 		}
 
@@ -133,39 +134,41 @@
 			.field-items {
 				> .field-item {
 					.emh-badge-term;
+          .emh-badge-term-inactive;
 				}
 			}
 		}
 
 		.field-name-field-skills-set {
-			.field-name-field-skill-autoeval {
-				.fivestar-summary {
-					.hide-text;
-				}
-			}
+      .field-name-field-skill2 {
+        .emh-badge-term;
+        .emh-badge-term-inactive;
+      }
+
+      .field-name-field-skill-autoeval {
+        .emh-badge-term;
+
+        .fivestar-summary {
+          .hide-text;
+        }
+      }
+
 			.field-name-field-year-of-experiences {
-				.field-item {
-					.emh-badge-term;
-					width: 50px;
-					.text-center;
-				}
+				.emh-year-of-experiences;
 			}
 		}
 
 		.field-name-field-position-list {
 			.field-item .content {
 				.field-name-field-year-of-experiences {
-					.field-item {
-						.emh-badge-term;
-						width: 50px;
-						.text-center;
-					}
+					.emh-year-of-experiences;
 				}
 			}
-		}
 
-		.field-name-field-skill2 {
-			.emh-badge-term;
+      .field-name-field-position,
+      .field-name-field-entreprise {
+        .emh-badge-term;
+      }
 		}
 
 		@media (min-width: @screen-sm-min) {
@@ -196,12 +199,11 @@
 					.field-name-field-skill2 {
 						.make-sm-column(4);
 					}
+
 					.field-name-field-skill-autoeval {
 						.make-sm-column(3);
-						.fivestar-default .fivestar-widget-static {
-							.text-center;
-						}
 					}
+
 					.field-name-field-year-of-experiences {
 						.make-sm-column(4);
 						.form-item-inline-6-6;
@@ -219,7 +221,6 @@
 					}
 					.field-name-field-entreprise {
 						.make-sm-column(3);
-						.text-center;
 					}
 					.field-name-field-year-of-experiences {
 						.make-sm-column(4);
