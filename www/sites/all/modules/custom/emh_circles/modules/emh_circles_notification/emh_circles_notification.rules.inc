@@ -12,43 +12,15 @@
  */
 function emh_circles_notification_rules_event_info() {
   $events = array();
-  $events['_emh_circles_notification_circle_admins'] = array(
-    'label' => t('Trigger the moderation email sending action.'),
+  $events['_emh_circles_notification_membership_requested'] = array(
+    'label' => t('Trigger the membership request email sending action.'),
     'module' => 'emh_circles_notification',
     'group' => t('Circle'),
     'variables' => array(
       'node' => array('type' => 'node', 'label' => t('The created content')),
-      'user' => array('type' => 'user', 'label' => t('The user to notify')),
+      'account' => array('type' => 'user', 'label' => t('The user to notify')),
+      'user' => array('type' => 'user', 'label' => t('The user requesting membership')),
     ),
   );
-  // $events['_emh_circles_notification_notify'] = array(
-  //   'label' => t('Trigger the scheduling of the circle notification.'),
-  //   'module' => 'emh_circles_notification',
-  //   'group' => t('Circle'),
-  //   'variables' => array(
-  //     'node' => array('type' => 'node', 'label' => t('The created content')),
-  //     'user' => array('type' => 'user', 'label' => t('The user to notify')),
-  //   ),
-  // );
   return $events;
-}
-
-/**
- * Implements hook_rules_action_info().
- *
- * @ingroup rules
- */
-function emh_circles_notification_rules_action_info() {
-  // return array(
-  //   '_emh_circles_notification_build_queue' => array(
-  //     'label' => t('Build the email queue for the content notification.'),
-  //     'group' => t('Circle'),
-  //     'parameter' => array(
-  //       'node' => array(
-  //         'type' => 'node',
-  //         'label' => t('The content to notificate'),
-  //       ),
-  //     ),
-  //   ),
-  // );
 }

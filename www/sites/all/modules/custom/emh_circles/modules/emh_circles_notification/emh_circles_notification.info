@@ -1,5 +1,5 @@
 name = EMH Circles Notification
-description = Moderate new published requests then notify concerned users.
+description = EMH Circles global notification feature.
 package = EMH
 core = 7.x
 
@@ -7,4 +7,3 @@ dependencies[] = emh_circles
 dependencies[] = mailsystem
 dependencies[] = mimemail
 dependencies[] = rules
-dependencies[] = rules_scheduler
