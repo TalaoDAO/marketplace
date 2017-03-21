@@ -195,7 +195,7 @@ function emh_circles_node_group_title($nid) {
 function emh_circles_og_ui_get_group_admin_alter(&$data, $context) {
   global $user;
 
-  if (module_exists('og_manager_change') && !og_user_access_entity('administer group', $context['entity_type'], $context['etid'], $user)) {
+  if (module_exists('og_admin_change') && !og_user_access_entity('administer group', $context['entity_type'], $context['etid'], $user)) {
     unset($data['manager']);
   }
 }
@@ -257,8 +257,8 @@ function emh_circles_preprocess_node(&$variables) {
         $variables['subscribe_link'] = NULL;
         $variables['subscriber_count'] = NULL;
         $variables['subscriber_link'] = NULL;
-        $variables['manager_uids'] = array();
-        $variables['managers'] = array();
+        $variables['admin_uids'] = array();
+        $variables['admins'] = array();
 
         if (empty($group)) {
           return NULL;
@@ -276,13 +276,12 @@ function emh_circles_preprocess_node(&$variables) {
         $variables['subscriber_count'] = og_extras_subscriber_count($variables['gid']);
         $variables['subscriber_count'] = format_plural($variables['subscriber_count'], '@count member', '@count members');
 
-        $variables['manager_uids'] = _emh_circles_get_managers_from_group($group);
-        $variables['manager_uids'] = $variables['manager_uids']['group_managers'];
-        foreach ($variables['manager_uids'] as $i => $manager_id) {
-          $variables['managers'][$i] = '';
-          $account = user_load($manager_id);
-          $variables['managers'][$i] .= theme('user_picture', array('account' => $account));
-          $variables['managers'][$i] .= theme('username', array('account' => $account));
+        $variables['admin_uids'] = _emh_circles_get_group_admins($group);
+        foreach ($variables['admin_uids'] as $i => $admin_id) {
+          $variables['admins'][$i] = '';
+          $account = user_load($admin_id);
+          $variables['admins'][$i] .= theme('user_picture', array('account' => $account));
+          $variables['admins'][$i] .= theme('username', array('account' => $account));
         }
 
         break;
