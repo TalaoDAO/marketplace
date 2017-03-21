@@ -195,7 +195,7 @@ function emh_circles_node_group_title($nid) {
 function emh_circles_og_ui_get_group_admin_alter(&$data, $context) {
   global $user;
 
-  if (module_exists('og_admin_change') && !og_user_access_entity('administer group', $context['entity_type'], $context['etid'], $user)) {
+  if (module_exists('og_manager_change') && !og_user_access_entity('administer group', $context['entity_type'], $context['etid'], $user)) {
     unset($data['manager']);
   }
 }
