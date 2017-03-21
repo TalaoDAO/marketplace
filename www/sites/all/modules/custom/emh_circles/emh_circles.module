@@ -276,7 +276,7 @@ function emh_circles_preprocess_node(&$variables) {
         $variables['subscriber_count'] = og_extras_subscriber_count($variables['gid']);
         $variables['subscriber_count'] = format_plural($variables['subscriber_count'], '@count member', '@count members');
 
-        $variables['admin_uids'] = _emh_circles_get_group_admins($group);
+        $variables['admin_uids'] = _emh_circles_get_group_admins();
         foreach ($variables['admin_uids'] as $i => $admin_id) {
           $variables['admins'][$i] = '';
           $account = user_load($admin_id);
