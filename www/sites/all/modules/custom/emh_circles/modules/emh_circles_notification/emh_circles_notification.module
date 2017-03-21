@@ -1,0 +1,209 @@
+<?php
+
+/**
+ * @file
+ * Code of the eMindHub request notification feature.
+ */
+
+ /**
+  * Implements hook_permission().
+  */
+// function emh_circles_notification_permission() {
+//   return array(
+//     'moderate requests' => array(
+//       'title' => t('Moderate requests'),
+//       'description' => t('Get an email as soon as a new request is published, to moderate it before the notification emails are sent to users.'),
+//     ),
+//   );
+// }
+
+/**
+ * Implements hook_node_insert().
+ */
+// function emh_circles_notification_node_insert($node) {
+//   if ($node->type !== 'request') {
+//     return;
+//   }
+//
+//   if ($node->status == NODE_PUBLISHED) {
+//     _emh_circles_notification_circle_admins($node);
+//   }
+// }
+
+/**
+ * Implements hook_node_update().
+ */
+// function emh_circles_notification_node_update($node) {
+//   if ($node->type !== 'request') {
+//     return;
+//   }
+//
+//   if ($node->status == NODE_PUBLISHED && $node->original->status == NODE_NOT_PUBLISHED) {
+//     _emh_circles_notification_circle_admins($node);
+//   }
+// }
+
+/**
+ * Implements hook_og_membership_insert().
+ */
+function emh_circles_notification_og_membership_insert($og_membership) {
+  if ($og_membership->entity_type == 'node') {
+    // rules_invoke_event('og_user_insert', $og_membership, entity_metadata_wrapper('user', $og_membership->etid));
+    _emh_circles_notification_circle_admins($node);
+  }
+}
+
+/**
+ * Implements hook_cron_queue_info().
+ *
+ * At each Cron run, we spend 30 seconds max sending notification emails.
+ */
+// function emh_circles_notification_cron_queue_info() {
+//   $queues['_emh_circles_notification_queue'] = array(
+//     'worker callback' => '_emh_circles_notification_queue_worker',
+//     'time' => 30,
+//   );
+//   return $queues;
+// }
+
+/**
+ * When a request is published, moderate and schedule an email notification.
+ */
+function _emh_circles_notification_circle_admins($node) {
+  // Step 1) : a new request is published
+  // Validate pre-requisites.
+  if (empty($node->field_domaine) || empty($node->og_group_ref)) {
+    return;
+  }
+
+  // Step 2) : Immediatly send an email to Webmasters and Administrators.
+  // Step 2.1) : Look for Administrators and Webmasters.
+  $moderators_roles = user_roles(TRUE, 'moderate requests');
+  foreach ($moderators_roles as $moderator_role_id => $moderator_role_name) {
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'user');
+    $role_query = db_select('users_roles', 'ur');
+    $role_query->fields('ur', array('uid'));
+    $role_query->condition('rid', $moderator_role_id);
+    $query->propertyCondition('uid', $role_query, 'IN');
+    $result = $query->execute();
+    if (!empty($result['user'])) {
+      $moderators = user_load_multiple(array_keys($result['user']));
+      foreach ($moderators as $moderator) {
+        $moderators_uid[] = $moderator->uid;
+      }
+    }
+  }
+  $moderators = user_load_multiple($moderators_uid);
+  // Step 2.2) : We invoke an event which triggers the execution
+  // of a rule that sends the moderation emails.
+  foreach ($moderators as $moderator) {
+    // Note: should use a queue if there are too many moderators.
+    rules_invoke_event('_emh_circles_notification_circle_admins', $node, $moderator);
+  }
+
+  // Step 3) : We send the email notification to users 30 minutes later.
+  // Step 3.1) : We schedule the execution of a rule component 30 minutes later.
+  // This rule component will deal with the notification.
+  // rules_action(
+  //   'schedule',
+  //   array('component' => '_emh_circles_notification_schedule')
+  // )->executeByArgs(array(
+  //   'date' => time() + variable_get('emh_circles_notification_delay', 30) * 60,
+  //   'identifier' => 'emh_circles_notification_' . $node->nid,
+  //   'param_node' => $node,
+  // ));
+}
+
+/**
+ * Helper function to build the notification queue.
+ *
+ * Step 3.3) : we build the notification queue.
+ */
+// function _emh_circles_notification_build_queue($node) {
+//   // Get all users from groups.
+//   $users = array();
+//   $domains = array();
+//   foreach ($node->og_group_ref[LANGUAGE_NONE] as $group) {
+//     $query = new EntityFieldQuery();
+//     $query
+//       ->entityCondition('entity_type', 'og_membership')
+//       ->propertyCondition('group_type', 'node', '=')
+//       ->propertyCondition('gid', $group['target_id'], '=')
+//       ->propertyCondition('entity_type', 'user', '=');
+//     $result = $query->execute();
+//     if (!empty($result['og_membership'])) {
+//       $og_memberships = og_membership_load_multiple(array_keys($result['og_membership']));
+//       foreach ($og_memberships as $og_membership) {
+//         $users[] = $og_membership->etid;
+//       }
+//     }
+//   }
+//   // Get all domains from node.
+//   foreach ($node->field_domaine[LANGUAGE_NONE] as $term) {
+//     $domains[] = $term['tid'];
+//   }
+//   // Get french countries.
+//   $french_countries = variable_get('emh_circles_notification_french_countries', array('FR', 'BE'));
+//   // Load users.
+//   $users = user_load_multiple($users);
+//   // For each user of each group, check domain.
+//   foreach ($users as $user) {
+//     // If user has the right role(s) and wants to be notified.
+//     if (
+//           ($node->type == 'request' && user_access('edit own webform submissions', $user))
+//        && !empty($user->field_notification_frequency[LANGUAGE_NONE])
+//        && $user->field_notification_frequency[LANGUAGE_NONE][0]['tid'] == 48
+//        ) {
+//       $queue = DrupalQueue::get('_emh_circles_notification_queue');
+//       $item = array('nid' => $node->nid, 'uid' => $user->uid);
+//       // Check multidomains option.
+//       // drush vset --yes emh_circles_notification_all_domains FALSE.
+//       $multidomains_option = variable_get('emh_circles_notification_all_domains', 0);
+//       if ($multidomains_option == TRUE) {
+//         // If node is in french, only notify users in France and Belgium.
+//         if ($node->language == 'fr') {
+//           if (!empty($user->field_address[LANGUAGE_NONE]) && in_array($user->field_address[LANGUAGE_NONE][0]['country'], $french_countries)) {
+//             $queue->createItem($item);
+//             continue;
+//           }
+//         }
+//         else {
+//           // Notify every expert within the Organic Group.
+//           $queue->createItem($item);
+//           continue;
+//         }
+//       }
+//       else {
+//         foreach ($user->field_domaine[LANGUAGE_NONE] as $term) {
+//           // If right domain && notification authorized.
+//           if (in_array($term['tid'], $domains)) {
+//             // If node is in french, only notify users in France and Belgium.
+//             if ($node->language == 'fr') {
+//               if (!empty($user->field_address[LANGUAGE_NONE]) && in_array($user->field_address[LANGUAGE_NONE][0]['country'], $french_countries)) {
+//                 $queue->createItem($item);
+//                 continue;
+//               }
+//             }
+//             else {
+//               $queue->createItem($item);
+//               continue;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+/**
+ * Worker callback defined in hook_cron_queue_info().
+ *
+ * Step 3.4) : For each individual item in the queue, we invoke a event.
+ * This event will trigger the actual email notification.
+ */
+// function _emh_circles_notification_queue_worker($item) {
+//   $node = node_load($item['nid']);
+//   $user = user_load($item['uid']);
+//   rules_invoke_event('_emh_circles_notification_notify', $node, $user);
+// }
