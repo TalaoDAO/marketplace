@@ -45,7 +45,6 @@ Feature: Request re-editions
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
-  @exclude
   Scenario: The author can change some content if no expert responded
     Given I am logged in as "client1"
     When I go to homepage
@@ -57,7 +56,6 @@ Feature: Request re-editions
       And the "edit-field-options-und-private-enabled" field should be disabled
       And the "edit-field-request-questions" field should not be disabled
 
-  @exclude
   Scenario: An expert responds to the request, then some field become disabled for the author
     Given I am logged in as "expert1"
     When I go to homepage
@@ -76,7 +74,6 @@ Feature: Request re-editions
       And the "edit-field-options-und-private-enabled" field should be disabled
       And the "edit-field-request-questions-und-0-value" field should be disabled
 
-  @exclude
   Scenario: An expert responds to the request, but admin can still modify everything
     Given I am logged in as "expert1"
     When I go to homepage
@@ -96,7 +93,6 @@ Feature: Request re-editions
       And the "edit-field-options-und-private-enabled" field should not be disabled
       And the "edit-field-request-questions-und-0-value" field should not be disabled
 
-  #@javascript
   Scenario: Submissions should be there even if the author edit its own request!
     Given I am logged in as "expert1"
     When I go to homepage
