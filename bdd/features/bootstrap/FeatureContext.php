@@ -332,6 +332,7 @@ class FeatureContext extends DrupalContext {
     variable_set('drupal_test_email_collector', array());
     // Delete queue from other test, can be overloaded if All Experts used.
     db_query("DELETE FROM queue WHERE name='emh_request_request_email_notification'");
+    db_query('TRUNCATE TABLE {mail_logger}');
   }
 
   /**
