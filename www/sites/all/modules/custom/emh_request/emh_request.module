@@ -157,6 +157,7 @@ function emh_request_node_presave($node) {
     }
   }
   else {
+    if (!empty($node->nid) && emh_request_count_answers($node->nid) != 0) return;
     // All requests are webforms, then we have to automatically create the
     // only component in the case of a non questionnaire request.
     module_load_include('inc', 'webform', 'includes/webform.components');

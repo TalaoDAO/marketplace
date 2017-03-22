@@ -1,4 +1,4 @@
-@api @watchdog
+@api @watchdog 
 Feature: Request re-editions
   In order to test Request re-editions
   As a Client and an Expert and an Webmaster
@@ -45,6 +45,7 @@ Feature: Request re-editions
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
+  @exclude
   Scenario: The author can change some content if no expert responded
     Given I am logged in as "client1"
     When I go to homepage
@@ -56,17 +57,15 @@ Feature: Request re-editions
       And the "edit-field-options-und-private-enabled" field should be disabled
       And the "edit-field-request-questions" field should not be disabled
 
-    # An expert responds to the request.
+  @exclude
+  Scenario: An expert responds to the request, then some field become disabled for the author
     Given I am logged in as "expert1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
-      And I press "Save Draft"
-    Then I should see the message "Your answer has been saved as draft."
-    When I press "Publish"
+      And I press "Publish"
     Then I should see the message "Your answer has been published."
 
-    # When request has response, some field become disabled
     Given I am logged in as "client1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
@@ -77,7 +76,15 @@ Feature: Request re-editions
       And the "edit-field-options-und-private-enabled" field should be disabled
       And the "edit-field-request-questions-und-0-value" field should be disabled
 
-    # But admin can still modify everything
+  @exclude
+  Scenario: An expert responds to the request, but admin can still modify everything
+    Given I am logged in as "expert1"
+    When I go to homepage
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
+      And I press "Publish"
+    Then I should see the message "Your answer has been published."
+
     Given I am logged in as a user with the "administrator" role
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
@@ -88,3 +95,20 @@ Feature: Request re-editions
       And the "edit-field-options" field should not be disabled
       And the "edit-field-options-und-private-enabled" field should not be disabled
       And the "edit-field-request-questions-und-0-value" field should not be disabled
+
+  #@javascript
+  Scenario: Submissions should be there even if the author edit its own request!
+    Given I am logged in as "expert1"
+    When I go to homepage
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
+      And I press "Publish"
+    Then I should see the message "Your answer has been published."
+
+    Given I am logged in as "client1"
+    When I go to homepage
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "Edit" in the "primary tabs" region
+      And I press "Save"
+      And I break
+    Then I should see "Everybody can be, trust me, I'm the best we known."
