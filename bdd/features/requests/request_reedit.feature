@@ -93,7 +93,7 @@ Feature: Request re-editions
       And the "edit-field-options-und-private-enabled" field should not be disabled
       And the "edit-field-request-questions-und-0-value" field should not be disabled
 
-  Scenario: Submissions should be there even if the author edit its own request!
+  Scenario: Submissions should be there even if the author edits its own request!
     Given I am logged in as "expert1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
