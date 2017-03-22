@@ -109,7 +109,7 @@ Feature: Request re-editions
       And I press "Save"
     Then I should see "Everybody can be, trust me, I'm the best we known."
 
-  Scenario: An author can rededit a request with a questionnaire without loosing responses
+  Scenario: An author can reedit a request with a questionnaire without loosing responses
     Given I give "client1" 10000 emh credits
 
     Given I am logged in as "client1"
@@ -118,17 +118,14 @@ Feature: Request re-editions
     When I click "Edit" in the "primary tabs" region
       And I select "Avengers" from "Circles"
       And I check the box "Questionnaire"
-    Then I should see "Questions"
       And I fill in "edit-field-request-questions-und-0-value" with "My little questionnaire"
       And I press "Continue"
-    Then I should see "Request How to behave like a superhero? has been updated."
       And I press "Publish"
 
     # An expert responds to the request.
     Given I am logged in as "expert1"
     When I go to homepage
       And I click "How to behave like a superhero?" in the "How to behave like a superhero?" row
-      And I should see "My little questionnaire"
       And I fill in "My little questionnaire" with "My little response"
       And I press "Publish"
     Then I should see the message "Your answer has been published."
