@@ -26,6 +26,7 @@ Feature: Request re-editions
     Given "request" content:
     | title                                 | field_domaine | og_group_ref | author  | field_expiration_date  | status  | field_request_type |
     | How to become a superhero?            | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       | Mission            |
+    | How to behave like a superhero?       | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 0       | Mission            |
 
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
@@ -106,5 +107,36 @@ Feature: Request re-editions
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "primary tabs" region
       And I press "Save"
-      And I break
     Then I should see "Everybody can be, trust me, I'm the best we known."
+
+  Scenario: An author can rededit a request with a questionnaire without loosing responses
+    Given I give "client1" 10000 emh credits
+
+    Given I am logged in as "client1"
+    When I go to "requests/manage"
+      And I click "How to behave like a superhero?" in the "How to behave like a superhero?" row
+    When I click "Edit" in the "primary tabs" region
+      And I select "Avengers" from "Circles"
+      And I check the box "Questionnaire"
+    Then I should see "Questions"
+      And I fill in "edit-field-request-questions-und-0-value" with "My little questionnaire"
+      And I press "Continue"
+    Then I should see "Request How to behave like a superhero? has been updated."
+      And I press "Publish"
+
+    # An expert responds to the request.
+    Given I am logged in as "expert1"
+    When I go to homepage
+      And I click "How to behave like a superhero?" in the "How to behave like a superhero?" row
+      And I should see "My little questionnaire"
+      And I fill in "My little questionnaire" with "My little response"
+      And I press "Publish"
+    Then I should see the message "Your answer has been published."
+
+    Given I am logged in as "client1"
+    When I go to homepage
+      And I click "How to behave like a superhero?" in the "How to behave like a superhero?" row
+      And I click "Edit" in the "primary tabs" region
+      And I press "Save"
+    Then I should see "My little response"
+
