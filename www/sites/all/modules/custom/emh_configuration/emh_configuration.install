@@ -1305,3 +1305,21 @@ function emh_configuration_update_7061() {
   module_enable(['emh_request_submission_flags']);
   emh_configuration_revert_views(array('my_circles', 'my_relationships'));
 }
+
+/**
+ * CHG: delete old rules + ADD: new Circles Notification module.
+ */
+function emh_configuration_update_7062() {
+  $rules = array(
+    'rules_emh_circles_send_email_member_subscribe_pending',
+    'rules_emh_circles_send_email_membership_accepted',
+    'rules_emh_circles_circles_send_email_membership_refused',
+  );
+  foreach ($rules as $rule) {
+    if ($rules_config = rules_config_load($rule)) {
+      $rules_config->delete();
+    }
+  }
+
+  module_enable(['emh_circles_notification']);
+}

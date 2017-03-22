@@ -70,7 +70,7 @@
         </div>
 
         <div class="circle-infos">
-          <?php if (!empty($content['body']) || !empty($content['field_circle_website']) || !empty($managers)) : ?>
+          <?php if (!empty($content['body']) || !empty($content['field_circle_website']) || !empty($admins)) : ?>
             <h3><?php print t('About this circle'); ?></h3>
 
             <?php print render($content['body']); ?>
@@ -79,11 +79,11 @@
               <?php print render($content['field_circle_website']); ?>
             <?php endif; ?>
 
-            <?php if (!empty($managers)) : ?>
-            <div class="circle-managers">
-              <?php print format_plural(count($manager_uids), 'Manager:', 'Managers:'); ?>
-              <?php foreach ($managers as $manager): ?>
-                <?php print $manager; ?>&nbsp;
+            <?php if (!empty($admins)) : ?>
+            <div class="circle-admins">
+              <?php print format_plural(count($admin_uids), 'Admin:', 'Admins:'); ?>
+              <?php foreach ($admins as $admin): ?>
+                <?php print $admin; ?>&nbsp;
               <?php endforeach; ?>
             </div>
             <?php endif; ?>
