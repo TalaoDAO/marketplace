@@ -87,7 +87,7 @@ Feature: Emails
     When I run cron
     # 2nd Cron run to process the notification queue
     When I run cron
-
+    # DON'T FORGET: drush @dev vset emh_request_notification_delay 0
     Then the last email to "emindhub.test+expert1@gmail.com" should contain "Dear Iron,"
       And the email should contain "A new request for expertise has been published on eMindHub"
       And the last email to "emindhub.test+expert2@gmail.com" should contain "Dear Klark,"
