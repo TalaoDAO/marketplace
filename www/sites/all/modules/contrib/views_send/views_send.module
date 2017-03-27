@@ -33,21 +33,20 @@ define('VIEWS_SEND_TOKEN_PREFIX', '[');
 define('VIEWS_SEND_TOKEN_POSTFIX', ']');
 
 /**
- * Detect if there is MIME support (thorough modules like Mime Mail or Mandrill).
+ * Detect if there is MIME support (through modules like Mime Mail or Mandrill).
  */
-define('VIEWS_SEND_MIMEMAIL', module_exists('mimemail') || module_exists('mandrill'));
+switch (true) {
+  case (module_exists('htmlmail') && module_exists('mailmime')):
+  case module_exists('mailgun'):
+  case module_exists('mandrill'):
+  case module_exists('mimemail'):
+  case module_exists('sendgrid_integration'):
+  case module_exists('swiftmailer'):
+    define('VIEWS_SEND_MIMEMAIL', TRUE);
+    break;
 
-/**
- * Sets the mailsystem for Views Send (if not already set).
- */
-function _views_send_mailsystem_set($key) {
-  $mailsystem = mailsystem_get();
-  $mailsystem_key = "views_send_$key";
-  if (empty($mailsystem[$mailsystem_key])) {
-    mailsystem_set(array(
-      $mailsystem_key => $mailsystem['default-system']
-    ));
-  }
+  default:
+    define('VIEWS_SEND_MIMEMAIL', FALSE);
 }
 
 /**
@@ -497,7 +496,7 @@ function views_send_confirm_form($form, &$form_state, $view, $output) {
     '#type' => 'item',
     '#title' => t('From'),
     '#markup' => '<div class="views-send-preview-value">' .
-      (empty($from_name) ? $from_mail : $from_name . check_plain(' <' . $from_mail . '>')) .
+        check_plain(_views_send_format_address($from_mail, $from_name, FALSE)) .
       '</div>',
   );
 
@@ -517,7 +516,7 @@ function views_send_confirm_form($form, &$form_state, $view, $output) {
     }
     $mail_addresses = _views_send_get_field_value_from_views_row($view, $row_id, $to_mail_field, 'mail');
     foreach ($mail_addresses as $mail_address) {
-      $recipients[] = check_plain(empty($to_name) ? $mail_address : trim($to_name) . ' <' .  $mail_address . '>');
+      $recipients[] = check_plain(_views_send_format_address($mail_address, $to_name, FALSE));
     }
   }
 
@@ -529,7 +528,7 @@ function views_send_confirm_form($form, &$form_state, $view, $output) {
   $form['subject'] = array(
     '#type' => 'item',
     '#title' => t('Subject'),
-    '#markup' => '<div class="views-send-preview-value">' . $configuration['views_send_subject'] . '</div>',
+    '#markup' => '<div class="views-send-preview-value">' . check_plain($configuration['views_send_subject']) . '</div>',
   );
   $form['message'] = array(
     '#type' => 'item',
@@ -539,7 +538,7 @@ function views_send_confirm_form($form, &$form_state, $view, $output) {
 
   $headers = array();
   foreach (_views_send_headers($configuration['views_send_receipt'], $configuration['views_send_priority'], $configuration['views_send_from_mail'], $configuration['views_send_headers']) as $key => $value) {
-    $headers[] = $key . ': ' . $value;
+    $headers[] = check_plain($key . ': ' . $value);
   }
 
   $form['headers'] = array(
@@ -549,7 +548,7 @@ function views_send_confirm_form($form, &$form_state, $view, $output) {
   );
   if (VIEWS_SEND_MIMEMAIL && !empty($configuration['views_send_attachments']) && user_access('attachments with views_send')) {
     foreach ($configuration['views_send_attachments'] as $attachment) {
-      $attachments[] = $attachment['filename'];
+      $attachments[] = check_plain($attachment['filename']);
     }
     $form['attachments'] = array(
       '#type' => 'item',
@@ -609,6 +608,7 @@ function views_send_form_submit($form, &$form_state) {
         }
       }
       $form_state['configuration'] = $form_state['values'];
+      $form_state['configuration']['views_send_attachments'] = array();
 
       // If a file was uploaded, process it.
       if (VIEWS_SEND_MIMEMAIL && user_access('attachments with views_send') && isset($_FILES['files']) && is_uploaded_file($_FILES['files']['tmp_name']['views_send_attachments'])) {
@@ -665,6 +665,8 @@ function views_send_form_back_submit($form, &$form_state) {
 /**
  * Assembles the email and queues it for sending.
  *
+ * Also email sent directly using the Batch API is handled here.
+ *
  * @param $params
  *   Data entered in the "config" step of the form.
  * @param $selected_rows
@@ -684,8 +686,6 @@ function views_send_queue_mail($params, $selected_rows, $view) {
     return;
   }
 
-  $formats = filter_formats();
-
   // From: parts.
   $from_mail = trim($params['views_send_from_mail']);
   $from_name = $params['views_send_from_name'];
@@ -699,24 +699,42 @@ function views_send_queue_mail($params, $selected_rows, $view) {
     $to_name_key = false;
     $to_name = '';
   }
+
+  $subject = $params['views_send_subject'];
+  $body = $params['views_send_message']['value'];
+  $headers = _views_send_headers($params['views_send_receipt'], $params['views_send_priority'], $from_mail, $params['views_send_headers']);
+  $format = $params['views_send_message']['format'];
+  $attachments = $params['views_send_attachments'];
+
+  $formats = filter_formats();
+  if (!filter_access($formats[$format])) {
+    drupal_set_message(t('No mails sent since an illegale format is selected for the message.'));
+    return;
+  }
+  else {
+    $body = check_markup($body, $format);
+  }
+
+  if ($format == 'plain_text') {
+    $plain_format = TRUE;
+  }
+  else {
+    $plain_format = FALSE;
+  }
+
+  $message_base = array(
+    'uid' => $user->uid,
+    'from_name' => trim($from_name),
+    'from_mail' => trim($from_mail),
+    'headers' => $headers,
+  );
+
   foreach ($selected_rows as $selected_rows_key => $row_id) {
     // To: parts.
     $to_mail = implode(',', _views_send_get_field_value_from_views_row($view, $row_id, $to_mail_key, 'mail'));
     if ($to_name_key) {
       $to_name = _views_send_get_field_value_from_views_row($view, $row_id, $to_name_key, 'plain_text');
     }
-
-    $subject = $params['views_send_subject'];
-    $body = $params['views_send_message']['value'];
-    $params['format'] = $params['views_send_message']['format'];
-
-    // This shouldn't happen, but better be 100% sure.
-    if (!filter_access($formats[$params['format']])) {
-      drupal_set_message(t('No mails sent since an illegale format is selected for the message.'));
-      return;
-    }
-
-    $body = check_markup($body, $params['format']);
 
     // Populate row/context tokens.
     $token_keys = $token_values = array();
@@ -726,8 +744,8 @@ function views_send_queue_mail($params, $selected_rows, $view) {
     }
 
     // Views Send specific token replacements
-    $subject = str_replace($token_keys, $token_values, $subject);
-    $body = str_replace($token_keys, $token_values, $body);
+    $subject_expanded = str_replace($token_keys, $token_values, $subject);
+    $body_expanded = str_replace($token_keys, $token_values, $body);
 
     // Global token replacement, and node/user token replacements
     // if a nid/uid is found in the views result row.
@@ -745,29 +763,12 @@ function views_send_queue_mail($params, $selected_rows, $view) {
       $body = drupal_html_to_text($body);
     }
 
-    if ($params['format'] == 'plain_text') {
-      $plain_format = TRUE;
-    }
-    else {
-      $plain_format = FALSE;
-    }
-
-    // We transform receipt, priority in headers,
-    // merging them to the user defined headers.
-    $headers = _views_send_headers($params['views_send_receipt'], $params['views_send_priority'], $from_mail, $params['views_send_headers']);
-
-    $attachments = isset($params['views_send_attachments']) ?  $params['views_send_attachments'] : array();
-
-    $message = array(
-      'uid' => $user->uid,
+    $message = $message_base + array(
       'timestamp' => time(),
-      'from_name' => trim($from_name),
-      'from_mail' => trim($from_mail),
       'to_name' => trim($to_name),
       'to_mail' => trim($to_mail),
-      'subject' => strip_tags($subject),
-      'body' => $body,
-      'headers' => $headers,
+      'subject' => strip_tags($subject_expanded),
+      'body' => $body_expanded,
     );
 
     // Enable other modules to alter the actual message before queueing it
@@ -782,6 +783,10 @@ function views_send_queue_mail($params, $selected_rows, $view) {
       // Only queue the message if it hasn't been cancelled by another module.
       if ($message['send']) {
         unset($message['send']);
+        // Removing stuff add to work around Swifth Mailer issue 2841663
+        if (module_exists('swiftmailer')) {
+          unset($message['params']);
+        }
 
         db_insert('views_send_spool')->fields($message)->execute();
         if (module_exists('rules')) {
@@ -1086,7 +1091,6 @@ function _views_send_prepare_mail(&$message, $plain_format=TRUE, $attachments=ar
   $params['headers'] = $headers;
 
   if (VIEWS_SEND_MIMEMAIL) {
-    _views_send_mailsystem_set($key);
     $params['attachments'] = $attachments;
     if ($plain_format) {
       $params['plain'] = TRUE;
@@ -1109,6 +1113,10 @@ function _views_send_prepare_mail(&$message, $plain_format=TRUE, $attachments=ar
   $message['body'] = $mail['body'];
   $message['send'] = $mail['send'];
   $message['headers'] = serialize($mail['headers']);
+  // Working around a Swifth Mailer issue - see https://www.drupal.org/node/2841663
+  if (module_exists('swiftmailer')) {
+    $message['params'] = array('attachments' => $params['attachments']);
+  }
 }
 
 /**
@@ -1134,11 +1142,8 @@ function views_send_deliver($message) {
     'subject' => $message->subject,
     'body' => $message->body,
     'headers' => $headers,
+    'params' => $message->params, // Because of Swifth Mailer issue 2841663
   );
-
-  if (VIEWS_SEND_MIMEMAIL) {
-    _views_send_mailsystem_set($key);
-  }
 
   // Mime encode the subject before passing to the mail function 
   // to work around a bug in Drupal's mime_header_encode.
@@ -1215,47 +1220,6 @@ function theme_views_send_token_help($fields) {
   }
   $output = theme('table', array('header' => $header, 'rows' => $rows));
   return $output;
-}
-
-if (module_exists('token')) {
-  /**
-   * Implements hook_token_info().
-   *
-   * These token are used by Rules and not in the Views form.
-   */
-  function views_send_token_info() {
-    $data = array();
-    foreach (_views_send_email_message_property_info() as $key => $info) {
-      $data[$key] = array(
-        'name' => $info['label'],
-        'description' => ''
-      );
-    }
-    $type = array(
-      'name' => t('Views Send e-mail message'),
-      'description' => t('Tokens for Views Send e-mail message.'),
-      'needs-data' => 'views_send_email_message',
-    );
-    return array(
-      'types' => array('views_send_email_message' => $type),
-      'tokens' => array('views_send_email_message' => $data),
-    );
-  }
-
-  /**
-   * Implementation hook_tokens().
-   *
-   * These token replacements are used by Rules and not in the Views form.
-   */
-  function views_send_tokens($type, $tokens, array $data = array(), array $options = array()) {
-    $replacements = array();
-    if ($type == 'views_send_email_message' && !empty($data['views_send_email_message'])) {
-      foreach ($tokens as $name => $original) {
-        $replacements[$original] = $data['views_send_email_message']->{$name};
-      }
-    }
-    return $replacements;
-  }
 }
 
 /**
