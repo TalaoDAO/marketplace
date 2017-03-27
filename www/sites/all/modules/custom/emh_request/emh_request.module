@@ -132,6 +132,7 @@ function emh_request_node_presave($node) {
           'name' => $question['value'],
           'form_key' => $form_key,
           'weight' => $delta,
+          'required' => TRUE,
         );
 
         webform_component_defaults($components[$form_key]);
