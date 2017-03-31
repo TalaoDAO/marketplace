@@ -149,7 +149,7 @@ function emh_request_submission_send_mail($node) {
   $language = language_default();
   $piwik_tracking = 'pk_campaign=' . $key . '_' . $node->nid;
   $ga_tracking = 'utm_medium=email&utm_source=' . $key . '&utm_campaign=' . $key . '_' . $node->nid;
-  $url = url('node/' . $node->nid . '/results?' . $piwik_tracking . '&' . $ga_tracking, array('absolute' => TRUE));
+  $url = url('node/' . $node->nid . '/webform-results?' . $piwik_tracking . '&' . $ga_tracking, array('absolute' => TRUE));
   $params = array(
     '@url' => $url,
     '@title' => $node->title,
