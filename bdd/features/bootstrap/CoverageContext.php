@@ -22,7 +22,11 @@ class CoverageContext implements Context
     {
         $filter = new PHP_CodeCoverage_Filter();
         $filter->addDirectoryToBlacklist(__DIR__ . "/../../vendor");
-        $filter->addDirectoryToWhitelist(__DIR__ . "/../../src");
+        $filter->addDirectoryToBlacklist(__DIR__ . "/../../../www");
+        //$filter->addDirectoryToWhitelist(__DIR__ . "/../../src");
+        $filter->addDirectoryToWhitelist(__DIR__ . "/../../../www/sites/all/modules/custom");
+        $filter->addDirectoryToWhitelist(__DIR__ . "/../../../www/sites/all/modules/custom", ".module");
+        $filter->addDirectoryToWhitelist(__DIR__ . "/../../../www/sites/all/modules/custom", ".inc");
         self::$coverage = new PHP_CodeCoverage(null, $filter);
     }
 
@@ -30,7 +34,7 @@ class CoverageContext implements Context
     public static function tearDown()
     {
         $writer = new PHP_CodeCoverage_Report_HTML();
-        $writer->process(self::$coverage, __DIR__ . "/../../tmp/coverage");
+        $writer->process(self::$coverage, __DIR__ . "/../../../www/tmp/coverage");
     }
 
     private function getCoverageKeyFromScope(BeforeScenarioScope $scope)
