@@ -4,9 +4,7 @@ Feature: Registration test
   As an anonymous user
   I want to check if I can register as a new user
 
-  #@javascript
   Scenario: Test if basic registering still works
-    #Given I run drush vset "user_email_verification false"
     When I visit 'client/register'
     And I fill in "Spider" for "First Name"
     And I fill in "MAN" for "Last Name"
@@ -15,9 +13,8 @@ Feature: Registration test
     And I fill in "test" for "pass[pass2]"
     And I check the box "I agree to the Terms of use document" 
     And I press the "Create new account" button
-    #Then I should see the text "A confirmation message with further instructions has been sent to your e-mail address."
+    Then I should see the text "A confirmation message with further instructions has been sent to your e-mail address."
 
-    #Given I am logged in as a user with the "administrator" role
     Given I am logged in as the admin
     When I go to "admin/people"
     Then I should see "Spider MAN"
@@ -38,7 +35,7 @@ Feature: Registration test
     And I fill in "emindhub.test+spiderman@gmail.com" for "name"
     And I fill in "test" for "pass"
     And I press the "Log in" button
-    #Then I should see the text "Log out"
+    Then I should see the text "Log out"
 
     Given I am logged in as a user with the "administrator" role
     When I go to "admin/people"
@@ -54,6 +51,4 @@ Feature: Registration test
     And I press "Cancel account"
     Given I wait 5 seconds
     And I follow meta refresh
-    #Given I wait for AJAX to finish
     Then I should see the text "has been deleted."
-    #Given I run drush vset "user_email_verification true"
