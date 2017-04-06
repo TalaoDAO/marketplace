@@ -6,6 +6,7 @@ Feature: Registration test
 
   #@javascript
   Scenario: Test if basic registering still works
+    #Given I run drush vset "user_email_verification false"
     When I visit 'client/register'
     And I fill in "Spider" for "First Name"
     And I fill in "MAN" for "Last Name"
@@ -19,7 +20,7 @@ Feature: Registration test
     #Given I am logged in as a user with the "administrator" role
     Given I am logged in as the admin
     When I go to "admin/people"
-    Then I should see "Spider Man"
+    Then I should see "Spider MAN"
     When I click "edit" in the "Spider MAN" row
     And I select the radio button "Member"
     And I select "France" from "Country"
@@ -29,7 +30,8 @@ Feature: Registration test
     And I select "Freelancer" from "Working status"
     And I fill in "278" for "Field(s) of expertise"
     And I press "Save"
-    #Then I should see "The changes have been saved."
+    And I press "Save"
+    Then I should see "The changes have been saved."
 
     Then I go to "user/logout"
     When I visit 'user/login'
@@ -41,7 +43,17 @@ Feature: Registration test
     Given I am logged in as a user with the "administrator" role
     When I go to "admin/people"
     When I click "edit" in the "Spider MAN" row
+
+    And I select "France" from "Country"
+    And I fill in "Airbus" for "field_entreprise[und][0][target_id]"
+    And I fill in "academics" for "field_position[und]"
+    And I select "Freelancer" from "Working status"
+    And I fill in "278" for "Field(s) of expertise"
+
     Then I press "Cancel account"
     And I press "Cancel account"
+    Given I wait 5 seconds
+    And I follow meta refresh
     #Given I wait for AJAX to finish
-    #Then I should see the text "has been deleted."
+    Then I should see the text "has been deleted."
+    #Given I run drush vset "user_email_verification true"
