@@ -1,0 +1,12 @@
+name = Hotjar
+description = Allows your site to be tracked by Hotjar by adding a Javascript tracking code to every page.
+core = 7.x
+package = Statistics
+configure = admin/config/system/hotjar
+
+; Information added by Drupal.org packaging script on 2017-02-14
+version = "7.x-1.2"
+core = "7.x"
+project = "hotjar"
+datestamp = "1487092687"
+
