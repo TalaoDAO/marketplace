@@ -1,0 +1,7 @@
+.view-administration-users .views-exposed-form .form-item-items-per-page {
+  padding: 0;
+}
+
+.view-administration-users .views-exposed-form .form-item-items-per-page .form-select {
+  margin: 8px 0;
+}
