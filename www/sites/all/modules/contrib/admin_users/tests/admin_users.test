@@ -1,0 +1,180 @@
+<?php
+
+/**
+ * @file
+ * Tests for the Administration Users module.
+ */
+
+/**
+ * Base class for all Administration Users web test cases.
+ */
+class AdminUsersWebTestCase extends DrupalWebTestCase {
+  protected $profile = 'testing';
+  public $admin_user = NULL;
+  public $users = array();
+  public $node_type = NULL;
+
+  protected $permissionMap = array(
+    'user' => array('administer users', 'administer permissions'),
+    'node' => array('access content overview'),
+    'comment' => array('administer comments'),
+  );
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Views System display plugin',
+      'description' => 'Tests Views System display plugin functionality.',
+      'group' => 'Administration users',
+    );
+  }
+
+  public function setUp() {
+    // Setup site and modules.
+    $modules = func_get_args();
+    $modules = isset($modules[0]) && is_array($modules[0]) ? $modules[0] : $modules;
+    $modules[] = 'admin_users';
+    parent::setUp($modules);
+
+    // Fix testing environment.
+    theme_enable(array('stark'));
+    variable_set('theme_default', 'stark');
+
+    // Setup permissions.
+    $permissions = array(
+      'access administration pages',
+    );
+    foreach ($this->permissionMap as $module => $module_permissions) {
+      if (module_exists($module)) {
+        $permissions = array_merge($permissions, $module_permissions);
+      }
+    }
+    $this->admin_user = $this->drupalCreateUser($permissions);
+
+    // Create users;
+    $i = 0;
+    while ($i <= 50) {
+      $this->users[] = $this->drupalCreateUser();
+      $i++;
+    }
+
+    // Setup default configuration.
+    if (in_array('node', $modules)) {
+      $this->node_type = $this->drupalCreateContentType(array(
+        'type' => 'article',
+        'name' => 'Article',
+        'comment' => COMMENT_NODE_OPEN,
+      ));
+    }
+    if (in_array('comment', $modules)) {
+      variable_set('comment_preview_article', DRUPAL_OPTIONAL);
+    }
+  }
+
+  /**
+   * Tests proper inheritance of router item properties.
+   */
+  public function testUsersAccess() {
+    // Check access for anonymous user.
+    $path = 'admin/people/list';
+    $this->drupalGet($path);
+
+    // Check access for authenticated user.
+    $index = rand(0, 51);
+    $this->drupalLogin($this->users[$index]);
+    $path = 'admin/people/list';
+    $this->drupalGet($path);
+    $this->drupalLogout();
+
+    // Check access for admin user.
+    $this->drupalLogin($this->admin_user);
+    $path = 'admin/people/list';
+    $out = $this->drupalGet($path);
+
+    // Verify that local tasks and actions exist and can be accessed.
+    foreach (array(t('List'), t('Administration users'), t('Permissions'), t('next ›')) as $link) {
+      $this->drupalSetContent($out);
+      $this->assertLink($link);
+      $this->clickLink($link);
+      $this->assertResponse(200);
+    }
+  }
+
+  /**
+   * Tests table sort of built-in views.
+   */
+  public function testTableSort() {
+    // Login as admin user.
+    $this->drupalLogin($this->admin_user);
+    $path = 'admin/people/list';
+    $out = $this->drupalGet($path);
+
+    $links = array(
+      t('Username'),
+      t('Status'),
+      t('Member for'),
+      t('Last access'),
+      t('Node count'),
+      t('Comment count'),
+    );
+
+    foreach ($links as $link) {
+      $this->drupalSetContent($out);
+
+      // Sorting ascending.
+      $this->assertLink($link);
+      $this->clickLink($link);
+      $this->assertResponse(200);
+
+      // Sorting descending.
+      $this->assertLink($link);
+      $this->clickLink($link);
+      $this->assertResponse(200);
+    }
+  }
+
+  /**
+   * Tests exposed filters of built-in views.
+   */
+  public function testExposedFilters() {
+    // Login as admin user.
+    $this->drupalLogin($this->admin_user);
+    $path = 'admin/people/list';
+    $this->drupalGet($path);
+
+    // Verify that a view with its exposed filters appears.
+    $this->assertFieldByName('rid_op');
+    $this->assertFieldByName('rid');
+    $this->assertFieldByName('status');
+    $this->assertFieldByName('created');
+    $this->assertFieldByName('nid');
+    $this->assertFieldByName('cid');
+    $this->assertFieldByName('items_per_page');
+
+    // Role op exposed filter options.
+    $this->assertFieldByXPath('//select[@name="rid_op"]/option', 'or', 'role: "or" option found.');
+    $this->assertFieldByXPath('//select[@name="rid_op"]/option', 'and', 'role: "and" option found.');
+    $this->assertFieldByXPath('//select[@name="rid_op"]/option', 'not', 'role: "not" option found.');
+    $this->assertFieldByXPath('//select[@name="rid_op"]/option', 'empty', 'role: "empty" option found.');
+    $this->assertFieldByXPath('//select[@name="rid_op"]/option', 'not empty', 'role: "not empty" option found.');
+
+    // Rid exposed filter options.
+    $this->assertFieldByXPath('//select[@name="rid"]/option', 'All', 'rid: "All" option found.');
+    $this->assertFieldByXPath('//select[@name="rid"]/option', '3', 'rid: "3" option found.');
+
+    // User status exposed filter options.
+    $this->assertFieldByXPath('//select[@name="status"]/option', 'All', 'active: "All" option found.');
+    $this->assertFieldByXPath('//select[@name="status"]/option', '1', 'active: "1" option found.');
+    $this->assertFieldByXPath('//select[@name="status"]/option', '0', 'active: "0" option found.');
+
+    // Items per page exposed filter options.
+    $this->assertFieldByXPath('//select[@name="items_per_page"]/option', 'All', 'Items per page: "All" option found.');
+    $this->assertFieldByXPath('//select[@name="items_per_page"]/option', '10', 'Items per page: "10" option found.');
+    $this->assertFieldByXPath('//select[@name="items_per_page"]/option', '50', 'Items per page: "50" option found.');
+    $this->assertFieldByXPath('//select[@name="items_per_page"]/option', '100', 'Items per page: "100" option found.');
+    $this->assertFieldByXPath('//select[@name="items_per_page"]/option', '1000', 'Items per page: "1000" option found.');
+
+    // Filter and Reset buttons.
+    $this->assertFieldByXPath('//input[@type="submit"]', t('Filter'), 'Filter button found.');
+    $this->assertFieldByXPath('//input[@type="submit"]', t('Reset'), 'Reset button found.');
+  }
+}
