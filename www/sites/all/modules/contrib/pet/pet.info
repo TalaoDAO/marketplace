@@ -1,0 +1,15 @@
+name = Previewable Email Templates
+description = Create previewable email templates with token and rules support.
+dependencies[] = entity_token
+dependencies[] = entity
+core = 7.x
+version = 7.x-1.x-dev
+package = Mail
+stylesheets[all][] = pet.css
+
+; Information added by Drupal.org packaging script on 2014-07-15
+version = "7.x-1.0-rc1"
+core = "7.x"
+project = "pet"
+datestamp = "1405411428"
+
