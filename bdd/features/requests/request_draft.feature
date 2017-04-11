@@ -50,15 +50,18 @@ Feature: Request as draft
       And I click "Edit" in the "primary tabs" region
       And I enter "Please join pictures." for "Describe your request"
       And I press "Save draft"
-    Then I should see "Please join pictures."
+      And I go to "requests/manage"
+    Then I should see "Draft" in the "How to become a superhero?" row
 
-    When I go to "requests/manage"
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+    When I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "primary tabs" region
       And I press "Continue"
       And I press "Publish"
       And I click "Edit" in the "primary tabs" region
     Then I should not see "Save draft"
+
+    When I go to "requests/manage"
+    Then I should see "Open" in the "How to become a superhero?" row
 
   Scenario: The Circle Admin can unpublish Request if no Expert answered yet.
     Given "request" content:
