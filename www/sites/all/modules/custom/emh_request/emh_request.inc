@@ -83,9 +83,88 @@ function emh_request_get_request_type_name($node = NULL) {
   global $base_url, $language;
 
   $term = emh_request_get_request_type($node);
-  if (empty($term)) return;
+  if (empty($term)) {
+    return;
+  }
 
   $term_wrapper = entity_metadata_wrapper('taxonomy_term', $term);
   $term_name = $term_wrapper->language($language->language)->name_field->value();
   return '<span class="request-type-name">' . $term_name . '</span>';
+}
+
+/**
+ * Helper function to retrieve answers count.
+ */
+function emh_request_count_answers($node) {
+  if (is_numeric($node)) {
+    $node = node_load($node);
+  }
+
+  $count = 0;
+
+  if (!empty($node)) {
+    switch ($node->type) {
+      case 'request':
+      case 'webform':
+        include_once drupal_get_path('module', 'webform') . '/includes/webform.submissions.inc';
+        $count = webform_get_submission_count($node->nid);
+        break;
+
+      case 'question1':
+      case 'challenge':
+        if (isset($node->comment_count)) {
+          $count = $node->comment_count;
+        }
+        break;
+    }
+  }
+
+  return $count;
+}
+
+/**
+ * Save draft access callback.
+ *
+ * @param int $nid
+ *   Request nid.
+ * @param object $account
+ *   User account.
+ *
+ * @return bool
+ *   TRUE or FALSE
+ */
+function emh_request_save_draft_access_callback($nid, $account = NULL) {
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+
+  $node = node_load($nid);
+
+  // If request has one and more answer, no frackin' way to save it as draft!
+  if (emh_request_count_answers($nid) != 0) {
+    return FALSE;
+  }
+
+  // Is current user is the circle admin, grant him/her the right to save it as draft.
+  if (module_exists('emh_circles')) {
+    if (isset($node->og_group_ref) && ($circle_items = field_get_items('node', $node, 'og_group_ref'))) {
+      $circles = array();
+
+      foreach ($circle_items as $delta => $item) {
+        $circles[] = $item['target_id'];
+      }
+
+      if (_emh_circles_user_is_groups_admin($account->uid, $circles)) {
+        return TRUE;
+      }
+    }
+  }
+
+  // If request is already published, avoid author to save it as draft again.
+  if (!empty($node->nid) && $node->status == NODE_PUBLISHED) {
+    return FALSE;
+  }
+
+  return TRUE;
 }
