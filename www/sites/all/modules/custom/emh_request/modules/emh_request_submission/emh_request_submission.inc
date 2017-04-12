@@ -64,3 +64,51 @@ function emh_request_submission_get_status($submission) {
 
   return $workflow;
 }
+
+/**
+ * Access callback: Does a user can edit another user answer?
+ */
+function emh_request_submission_edit_access_callback($node, $submission, $account = NULL) {
+  if (user_is_anonymous()) {
+    return;
+  }
+
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+
+  if (user_access('access EMH answers')) {
+    return TRUE;
+  }
+
+  foreach ($node->og_group_ref['und'] as $group) {
+    if (og_user_access('node', $group['target_id'], 'edit all webform submissions', $account) || (og_user_access('node', $group['target_id'], 'edit own webform submissions', $account) && $submission->uid == $account->uid)) {
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}
+
+/**
+ * Access callback: Does a user can unpublish another user answer?
+ */
+function emh_request_submission_unpublish_access_callback($node, $submission, $account = NULL) {
+  if (user_is_anonymous()) {
+    return;
+  }
+
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+
+  foreach ($node->og_group_ref['und'] as $group) {
+    if (og_user_access('node', $group['target_id'], 'edit all webform submissions', $account)) {
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}
