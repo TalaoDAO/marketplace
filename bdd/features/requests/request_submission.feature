@@ -35,15 +35,16 @@ Feature: Request and answers
       And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "Member" in the "Captain AMERICA" row
-    Then I should see "The membership has been updated."
-      And I click "edit" in the "Iron MAN" row
+      And I should see "The membership has been updated."
+    When I click "edit" in the "Iron MAN" row
       And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
-      And I click "edit" in the "Klark KENT" row
+    When I click "edit" in the "Klark KENT" row
       And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
+    
     Given the test email system is enabled
 
     # An expert responds to the request.
