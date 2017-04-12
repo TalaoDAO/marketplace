@@ -53,20 +53,24 @@ function emh_request_submission_form_alter(&$form, &$form_state, $form_id) {
     }
 
     // Add the Unpublish button.
-    $node = node_load($form['#submission']->nid);
-    $submission = webform_get_submission($form['#submission']->nid, $form['#submission']->sid);
-    if (empty($form['#is_draft']) && !empty($form['#submission']) && $node->webform['allow_draft'] && emh_request_submission_unpublish_access_callback($node, $submission)) {
-      $form['actions']['draft'] = array(
-        '#type' => 'submit',
-        '#value' => t('Unpublish'),
-        '#weight' => -2,
-        '#validate' => array('webform_client_form_prevalidate'),
-        '#attributes' => array(
-          'formnovalidate' => 'formnovalidate',
-          'class' => array('webform-draft'),
-        ),
-        '#pre_render' => $buttons_pre_render,
-      );
+    if (empty($form['#is_draft']) && !empty($form['#submission'])) {
+      $node = node_load($form['#node']->nid);
+      $submission = webform_get_submission($form['#submission']->nid, $form['#submission']->sid);
+      if ($node->webform['allow_draft'] && emh_request_submission_unpublish_access_callback($node, $submission)) {
+        $buttons_pre_render = array_merge(element_info_property('submit', '#pre_render', array()), array('webform_pre_render_remove_id'));
+
+        $form['actions']['draft'] = array(
+          '#type' => 'submit',
+          '#value' => t('Unpublish'),
+          '#weight' => -2,
+          '#validate' => array('webform_client_form_prevalidate'),
+          '#attributes' => array(
+            'formnovalidate' => 'formnovalidate',
+            'class' => array('webform-draft'),
+          ),
+          '#pre_render' => $buttons_pre_render,
+        );
+      }
     }
   }
 }
