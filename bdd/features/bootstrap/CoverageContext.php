@@ -27,6 +27,8 @@ class CoverageContext implements Context
         $filter->addDirectoryToWhitelist(__DIR__ . "/../../../www/sites/all/modules/custom");
         $filter->addDirectoryToWhitelist(__DIR__ . "/../../../www/sites/all/modules/custom", ".module");
         $filter->addDirectoryToWhitelist(__DIR__ . "/../../../www/sites/all/modules/custom", ".inc");
+        $filter->addDirectoryToWhitelist(__DIR__ . "/../../../www/sites/all/themes/emindhub");
+        $filter->addDirectoryToWhitelist(__DIR__ . "/../../../www/sites/all/themes/emindhub", ".inc");
         self::$coverage = new PHP_CodeCoverage(null, $filter);
     }
 
