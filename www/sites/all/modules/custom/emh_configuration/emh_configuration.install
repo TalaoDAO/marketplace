@@ -1323,3 +1323,11 @@ function emh_configuration_update_7062() {
 
   module_enable(['emh_circles_notification']);
 }
+
+/**
+ *  ADD: new module hotjar
+ */
+function emh_configuration_update_7063() {
+  module_enable(['hotjar']);
+}
+
