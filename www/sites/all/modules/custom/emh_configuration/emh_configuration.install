@@ -1335,8 +1335,9 @@ function emh_configuration_update_7063() {
  *  REPLACE: replace module advuser with admin_users
  */
 function emh_configuration_update_7064() {
-    module_enable(['admin_users']);
-    module_disable(['advuser']);
+  module_enable(['admin_users']);
+  module_disable(['advuser']);
+  drupal_uninstall_modules(['advuser']);
 }
 
 
