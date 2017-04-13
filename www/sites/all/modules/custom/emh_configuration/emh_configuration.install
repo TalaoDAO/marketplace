@@ -1331,3 +1331,12 @@ function emh_configuration_update_7063() {
   module_enable(['hotjar']);
 }
 
+/**
+ *  REPLACE: replace module advuser with admin_users
+ */
+function emh_configuration_update_7064() {
+    module_enable(['admin_users']);
+    module_disable(['advuser']);
+}
+
+
