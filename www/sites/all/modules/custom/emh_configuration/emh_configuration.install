@@ -1345,6 +1345,7 @@ function emh_configuration_update_7064() {
  */
 function emh_configuration_update_7065() {
   module_enable(['pet']);
+  variable_set('pet_logging', 1); //log errors only
 }
 
 
