@@ -1340,4 +1340,12 @@ function emh_configuration_update_7064() {
   drupal_uninstall_modules(['advuser']);
 }
 
+/**
+ *  ADD: new module module pet :"previewable email templates"
+ */
+function emh_configuration_update_7065() {
+  module_enable(['pet']);
+  variable_set('pet_logging', 1); //log errors only
+}
+
 
