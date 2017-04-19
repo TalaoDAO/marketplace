@@ -1325,14 +1325,14 @@ function emh_configuration_update_7062() {
 }
 
 /**
- *  ADD: new module hotjar
+ * ADD: new module hotjar.
  */
 function emh_configuration_update_7063() {
   module_enable(['hotjar']);
 }
 
 /**
- *  REPLACE: replace module advuser with admin_users
+ * CHG: replace module advuser with admin_users.
  */
 function emh_configuration_update_7064() {
   module_enable(['admin_users']);
@@ -1341,11 +1341,40 @@ function emh_configuration_update_7064() {
 }
 
 /**
- *  ADD: new module module pet :"previewable email templates"
+ * ADD: new module module pet :"previewable email templates".
  */
 function emh_configuration_update_7065() {
   module_enable(['pet']);
-  variable_set('pet_logging', 1); //log errors only
+  // Log errors only.
+  variable_set('pet_logging', 1);
 }
 
+/**
+ * ADD: 'Create a request' link in topmenu.
+ */
+function emh_configuration_update_7066() {
+  $options = array(
+    'alter' => true,
+    'attributes' => array(
+      'title' => 'Content type to address question(s) to the experts.',
+    ),
+    'item_attributes' => array(
+      'id' => 'create-request',
+      'class' => '',
+      'style' => '',
+    ),
+  );
+  db_update('menu_links')
+    ->fields(array(
+      'weight' => '-44',
+      'plid' => '0',
+      'depth' => '1',
+      'menu_name' => 'menu-top',
+      'link_title' => 'Create a request',
+      'options' => serialize($options),
+    ))
+    ->condition('mlid', '10579')
+    ->execute();
 
+  variable_set('menu_rebuild_needed', TRUE);
+}
