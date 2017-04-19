@@ -50,6 +50,13 @@ function emh_request_submission_get_user_submission_count($uid = NULL, $is_draft
   return $counts[$uid];
 }
 
+/**
+ * Get submission status.
+ *
+ * @param object $submission
+ *
+ * @return array
+ */
 function emh_request_submission_get_status($submission) {
   $workflow = array();
 
