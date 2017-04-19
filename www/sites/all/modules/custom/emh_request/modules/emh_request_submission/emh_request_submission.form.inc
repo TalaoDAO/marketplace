@@ -57,6 +57,7 @@ function emh_request_submission_form_alter(&$form, &$form_state, $form_id) {
       $node = node_load($form['#node']->nid);
       $submission = webform_get_submission($form['#submission']->nid, $form['#submission']->sid);
       if ($node->webform['allow_draft'] && emh_request_submission_unpublish_access_callback($node, $submission)) {
+        // echo '<pre>' . print_r($form, true) . '</pre>';
         $buttons_pre_render = array_merge(element_info_property('submit', '#pre_render', array()), array('webform_pre_render_remove_id'));
 
         $form['actions']['draft'] = array(
@@ -69,10 +70,30 @@ function emh_request_submission_form_alter(&$form, &$form_state, $form_id) {
             'class' => array('webform-draft'),
           ),
           '#pre_render' => $buttons_pre_render,
+          '#submit' => array('_emh_request_submission_form_unpublish'),
         );
+
+        // echo '<pre>' . print_r($form, true) . '</pre>';
       }
     }
+
+    // echo '<pre>' . print_r($form, true) . '</pre>';
   }
+}
+
+function emh_request_submission_webform_submission_presave($node, &$submission) {
+  // Update some component's value before it is saved.
+  // $component_id = 4;
+  // $submission->data[$component_id][0] = 'foo';
+
+  // $submission->is_draft = TRUE;
+  // $submission->completed = '';
+  // $submission->modified = REQUEST_TIME;
+  // echo '<pre>' . print_r($submission, true) . '</pre>'; die;
+}
+
+function emh_request_submission_webform_submission_update($node, $submission) {
+  // echo '<pre>' . print_r($submission, true) . '</pre>'; die;
 }
 
 /**
@@ -97,4 +118,14 @@ function _emh_request_submission_form_submit($form, &$form_state) {
 function _emh_request_submission_form_submit_again($form, &$form_state) {
   $node = $form['#node'];
   $form_state['redirect'] = 'node/' . $node->nid;
+}
+
+/**
+ * Submit handler: Unpublish.
+ */
+function _emh_request_submission_form_unpublish($form, &$form_state) {
+  $node = $form['#node'];
+  drupal_set_message(t('The answer has been unpublished.'));
+  $form_state['redirect'] = 'node/' . $node->nid;
+  // $form_state['redirect'] = "node/{$node->nid}/submission/$submission->sid";
 }
