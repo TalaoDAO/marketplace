@@ -30,6 +30,7 @@ Feature: Create permissions for Clients
   Scenario: Clients cannot create requests in circles they're not members
     Given I am logged in as "client1"
     When I go to "node/add/request"
+    Then I break
     Then I should see "Create Request"
       And I should see "Avengers"
       And I should not see "X-Men"
