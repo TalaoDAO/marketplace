@@ -82,7 +82,7 @@ function emh_points_custom_views_bulk_operations_form_alter(&$form, $form_state,
     $form['select']['#type'] = 'menu';
     $form['select']['#weight'] = 100;
 
-    $has_points = emh_request_has_points($nid);
+    $has_points = emh_points_custom_request_has_credits($nid);
     $closed = emh_points_get_points_closed_status($nid);
 
     if ($has_points) {
@@ -271,4 +271,18 @@ function emh_points_custom_display_comment_form_access(&$form) {
   if (!empty($already) && empty($form['cid']['#value'])) {
     $form['#access'] = FALSE;
   }
+}
+
+/**
+ * Helper function to check if request has credits.
+ *
+ * @param int $nid
+ *   Request nid.
+ *
+ * @return bool
+ *   TRUE or FALSE
+ */
+function emh_points_custom_request_has_credits($nid) {
+  $node = node_load($nid);
+  return (!empty($node) && !empty($node->emh_points));
 }
