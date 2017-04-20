@@ -57,7 +57,7 @@ Feature: Request as draft
     When I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "primary tabs" region
       And I enter "Please join pictures." for "Describe your request"
-      And I press "Save draft"
+      And I press "Save as draft"
       And I go to "requests/manage"
     Then I should see "Draft" in the "How to become a superhero?" row
 
@@ -66,12 +66,12 @@ Feature: Request as draft
       And I press "Continue"
       And I press "Publish"
       And I click "Edit" in the "primary tabs" region
-    Then I should not see "Save draft"
+    Then I should not see "Save as draft"
 
     When I go to "requests/manage"
     Then I should see "Open" in the "How to become a superhero?" row
 
-  Scenario: The Circle Admin can unpublish Request if no Expert answered yet.
+  Scenario: The Circle Admin can unpublish Request if no Expert answered publicly yet.
     Given "request" content:
     | title                                 | field_domaine | og_group_ref | author  | field_expiration_date  | status  | field_request_type |
     | How to become a superhero?            | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       | Mission            |
@@ -80,9 +80,8 @@ Feature: Request as draft
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "primary tabs" region
-      And I press "Save draft"
-      And I go to homepage
-    Then I should not see "How to become a superhero?"
+      And I press "Unpublish"
+    Then I should not see "How to become a superhero?" in the "content" region
 
     Given I am logged in as "client1"
     When I go to "requests/manage"
@@ -104,4 +103,4 @@ Feature: Request as draft
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "primary tabs" region
-    Then I should not see "Save draft"
+    Then the "Unpublish" link or button should be disabled
