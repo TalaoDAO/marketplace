@@ -121,10 +121,10 @@ Feature: Request and answers
     Given I am logged in as "client1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should see a "Select the answer" link or button
+    Then I should see "Select the answer" link or button
 
     When I click "view" in the "submissions" region
-      And I click link or button "Select the answer"
+      And I click link "Select the answer"
     Then I should see "Answer selected"
 
     Given I am logged in as "expert1"
@@ -151,10 +151,10 @@ Feature: Request and answers
     Given I am logged in as "client1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should see a "Leave a feedback for the expert" link or button
+    Then I should see "Leave a feedback for the expert" link or button
 
     When I click "view" in the "submissions" region
-      And I click link or button "Leave a feedback for the expert"
+      And I click link "Leave a feedback for the expert"
       And I fill in "Awesome answer!" for "field_comment_answer[und][0][value]"
       And I press the "Confirm" button
     Then I should see "Thank you for leaving a feedback to the expert!"
