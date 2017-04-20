@@ -104,3 +104,32 @@ Feature: Request as draft
       And I click "How to become a superhero?" in the "How to become a superhero?" row
       And I click "Edit" in the "primary tabs" region
     Then the "Unpublish" link or button should be disabled
+
+  Scenario: The Circle Admin cannot unpublish Request if credits are allocated.
+    Given I give "client1" 1000 emh credits
+
+    Given I am logged in as a user with the "administrator" role
+    When I go to "content/avengers"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "Circle" in the "content" region
+      And I fill in "Duration" with "1000"
+      And I press "Save"
+
+    Given "request" content:
+    | title                                 | field_domaine | og_group_ref | author  | field_expiration_date  | status  | field_request_type |
+    | How to become a superhero?            | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 0       | Mission            |
+
+    Given I am logged in as "client1"
+    When I go to "requests/manage"
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "Edit" in the "primary tabs" region
+      And I check the box "Duration"
+      And I fill in "Duration of the mission" with "1 month"
+      And I press "Continue"
+      And I press "Publish"
+
+    Given I am logged in as "expert2"
+    When I go to homepage
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "Edit" in the "primary tabs" region
+    Then the "Unpublish" link or button should be disabled

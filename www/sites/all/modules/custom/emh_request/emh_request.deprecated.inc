@@ -186,11 +186,3 @@ function emh_request_get_status($node = null) {
 
 	return $workflow;
 }
-
-/**
- * Helper function to check if node has credits.
- */
-function emh_request_has_points($nid) {
-  $node = node_load($nid);
-  return (!empty($node) && !empty($node->emh_points));
-}
