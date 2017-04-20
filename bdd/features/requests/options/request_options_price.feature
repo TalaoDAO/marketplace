@@ -98,13 +98,13 @@ Feature: Request Option Price
       And I should see "200 credits" in the "#edit-field-options-und-duration" element
 
     When I select "Avengers" from "Circles"
-      And I press "Save draft"
+      And I press "Save as draft"
       And I click "Edit" in the "primary tabs" region
     Then I should see "1000 credits" in the "#edit-field-options-und-questionnaire" element
       And I should see "1000 credits" in the "#edit-field-options-und-duration" element
 
     When I additionally select "League Of Justice" from "Circles"
-      And I press "Save draft"
+      And I press "Save as draft"
       And I click "Edit" in the "primary tabs" region
     Then I should see "1000 credits" in the "#edit-field-options-und-questionnaire" element
       And I should see "1300 credits" in the "#edit-field-options-und-duration" element

@@ -232,7 +232,7 @@ function emh_request_save_draft_attributes_callback($nid, $account = NULL) {
     $attributes = array(
       'data-toggle' => 'tooltip',
       'data-placement' => 'top',
-      'title' => t('Your cannot unpublish this request:') . ' ',
+      'title' => t('You cannot unpublish this request:') . ' ',
     );
 
     $answers_title = t('there is one or more published answer');
@@ -262,7 +262,7 @@ function emh_request_save_draft_submit_callback($form, &$form_state) {
 
   $node = node_load($form_state['node']->nid);
 
-  // If current user is the circle admin, redirect her/him.
+  // If current user is the circle admin, redirect on frontpage.
   if (module_exists('emh_circles')) {
     if (isset($node->og_group_ref) && ($circle_items = field_get_items('node', $node, 'og_group_ref'))) {
       $circles = array();
