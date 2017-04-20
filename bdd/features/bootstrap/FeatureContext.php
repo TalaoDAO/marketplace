@@ -505,55 +505,92 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-   * @Given /^(?:|I )click flag link "(?P<text>[^"]*)"$/
+   * @Given /^(?:|I )click link "(?P<text>[^"]*)"$/
    */
-  public function iClickFlagLinkWithText($text) {
+  public function iClickLinkWithText($text) {
     $session = $this->getSession();
     $page = $session->getPage();
-    $flag = $page->find('named', array('link', $text));
+    $element = $page->find('named', array('link', $text));
 
-    if (empty($flag)) {
-      throw new ExpectationException(t('No such flag with @text', array(
+    if (empty($element)) {
+      throw new ExpectationException(t('No such element with @text', array(
         '@text' => $text,
       )), $session);
     }
 
-    $flag->click();
+    $element->click();
   }
 
   /**
-   * Checks, that flag link with the given text, title, id or alt attribute is visible on page.
+   * Checks, that link or button with the given text, title, id or alt attribute is visible on page.
    *
-   * @Then /^(?:|I )should see a "(?P<text>[^"]*)" flag link$/
+   * @Then /^(?:|I )should see "(?P<text>[^"]*)" link or button$/
    */
-  public function assertFlagLinkOnPage($text) {
+  public function assertLinkOrButtonVisibleOnPage($text) {
     $element = $this->getSession()->getPage();
-    $flags = $element->findAll('named', array('link', $text));
-    foreach ($flags as $flag) {
-      if ($flag->getText() === $text) {
-        if ($flag->isVisible()) {
+    $elements = $element->findAll('named', array('link_or_button', $text));
+    foreach ($elements as $element) {
+      if ($element->getText() === $text) {
+        if ($element->isVisible()) {
           return;
         }
         else {
-          throw new \Exception("Flag link with text \"$text\" not visible.");
+          throw new \Exception("Link or button with text \"$text\" not visible.");
         }
       }
     }
   }
 
   /**
-   * Checks, that flag link with the given text, title, id or alt attribute is not visible on page.
+   * Checks, that link or button with the given text, title, id or alt attribute is not visible on page.
    *
-   * @Then /^(?:|I )should not see a "(?P<text>[^"]*)" flag link$/
+   * @Then /^(?:|I )should not see "(?P<text>[^"]*)" link or button$/
    */
-  public function assertFlagLinkNotOnPage($text) {
+  public function assertLinkOrButtonNotVisibleOnPage($text) {
     $element = $this->getSession()->getPage();
-    $flags = $element->findAll('named', array('link', $text));
-    foreach ($flags as $flag) {
+    $elements = $element->findAll('named', array('link_or_button', $text));
+    foreach ($elements as $element) {
       // Note: getText() will return an empty string when using Selenium2D. This
       // is ok since it will cause a failed step.
-      if ($flag->getText() === $text && $flag->isVisible()) {
-        throw new \Exception("Flag link with text \"$text\" visible.");
+      if ($element->getText() === $text && $element->isVisible()) {
+        throw new \Exception("Link or button with text \"$text\" visible.");
+      }
+    }
+  }
+
+  /**
+   * Checks, that link or button with the given text, title, id or alt attribute is disabled on page.
+   *
+   * @Then the :text link or button should be disabled
+   */
+  public function assertLinkOrButtonDisabledOnPage($text) {
+    $element = $this->getSession()->getPage();
+    $elements = $element->findAll('named', array('link_or_button', $text));
+    foreach ($elements as $element) {
+      if ($element->getText() === $text) {
+        if ($element->hasAttribute('disabled')) {
+          return;
+        }
+        else {
+          throw new \Exception("Link or button with text \"$text\" not disabled.");
+        }
+      }
+    }
+  }
+
+  /**
+   * Checks, that link or button with the given text, title, id or alt attribute is not disabled on page.
+   *
+   * @Then the :text link or button should not be disabled
+   */
+  public function assertLinkOrButtonNotDisabledOnPage($text) {
+    $element = $this->getSession()->getPage();
+    $elements = $element->findAll('named', array('link_or_button', $text));
+    foreach ($elements as $element) {
+      // Note: getText() will return an empty string when using Selenium2D. This
+      // is ok since it will cause a failed step.
+      if (!$element->hasAttribute('disabled')) {
+        throw new \Exception("Link or button with text \"$text\" disabled.");
       }
     }
   }
