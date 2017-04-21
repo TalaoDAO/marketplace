@@ -193,7 +193,7 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['name_i18n_1']['field'] = 'name_i18n';
   $handler->display->display_options['fields']['name_i18n_1']['label'] = '';
   $handler->display->display_options['fields']['name_i18n_1']['element_label_colon'] = FALSE;
-  /* Field: Entity translation: Nom: translated */
+  /* Field: Entity translation: Name: translated */
   $handler->display->display_options['fields']['name_field_et']['id'] = 'name_field_et';
   $handler->display->display_options['fields']['name_field_et']['table'] = 'field_data_name_field';
   $handler->display->display_options['fields']['name_field_et']['field'] = 'name_field_et';
@@ -1618,6 +1618,83 @@ function ft_views_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'views_data_export_csv';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: User: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'users';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['label'] = '';
+  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+  /* Field: User: First Name */
+  $handler->display->display_options['fields']['field_first_name']['id'] = 'field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['table'] = 'field_data_field_first_name';
+  $handler->display->display_options['fields']['field_first_name']['field'] = 'field_first_name';
+  /* Field: User: Last Name */
+  $handler->display->display_options['fields']['field_last_name']['id'] = 'field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['table'] = 'field_data_field_last_name';
+  $handler->display->display_options['fields']['field_last_name']['field'] = 'field_last_name';
+  /* Field: User: E-mail */
+  $handler->display->display_options['fields']['mail']['id'] = 'mail';
+  $handler->display->display_options['fields']['mail']['table'] = 'users';
+  $handler->display->display_options['fields']['mail']['field'] = 'mail';
+  /* Field: Bulk operations: User */
+  $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
+  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'views_entity_user';
+  $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '0';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
+    'action::views_bulk_operations_user_cancel_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+  );
+  /* Field: User: Photo */
+  $handler->display->display_options['fields']['field_photo']['id'] = 'field_photo';
+  $handler->display->display_options['fields']['field_photo']['table'] = 'field_data_field_photo';
+  $handler->display->display_options['fields']['field_photo']['field'] = 'field_photo';
+  $handler->display->display_options['fields']['field_photo']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_photo']['settings'] = array(
+    'image_style' => 'thumbnail',
+    'image_link' => '',
+  );
+  /* Field: User: Photo */
+  $handler->display->display_options['fields']['field_photo_1']['id'] = 'field_photo_1';
+  $handler->display->display_options['fields']['field_photo_1']['table'] = 'field_data_field_photo';
+  $handler->display->display_options['fields']['field_photo_1']['field'] = 'field_photo';
+  $handler->display->display_options['fields']['field_photo_1']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_photo_1']['type'] = 'file_rendered';
+  $handler->display->display_options['fields']['field_photo_1']['settings'] = array(
+    'file_view_mode' => 'default',
+  );
+  /* Field: User: Uid */
+  $handler->display->display_options['fields']['uid']['id'] = 'uid';
+  $handler->display->display_options['fields']['uid']['table'] = 'users';
+  $handler->display->display_options['fields']['uid']['field'] = 'uid';
+  $handler->display->display_options['fields']['uid']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['uid']['alter']['path'] = 'user/[uid]/edit';
+  $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
+  /* Field: User: Active */
+  $handler->display->display_options['fields']['status']['id'] = 'status';
+  $handler->display->display_options['fields']['status']['table'] = 'users';
+  $handler->display->display_options['fields']['status']['field'] = 'status';
+  $handler->display->display_options['fields']['status']['not'] = 0;
+  /* Field: User: Created date */
+  $handler->display->display_options['fields']['created']['id'] = 'created';
+  $handler->display->display_options['fields']['created']['table'] = 'users';
+  $handler->display->display_options['fields']['created']['field'] = 'created';
+  $handler->display->display_options['fields']['created']['date_format'] = 'short_date';
+  $handler->display->display_options['fields']['created']['second_date_format'] = 'long';
+  /* Field: User: Webform submission count */
+  $handler->display->display_options['fields']['webform_submission_count_user']['id'] = 'webform_submission_count_user';
+  $handler->display->display_options['fields']['webform_submission_count_user']['table'] = 'users';
+  $handler->display->display_options['fields']['webform_submission_count_user']['field'] = 'webform_submission_count_user';
   $handler->display->display_options['path'] = 'user_export.csv';
 
   /* Display: Photo check */
