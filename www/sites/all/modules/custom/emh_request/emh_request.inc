@@ -184,7 +184,7 @@ function emh_request_save_draft_disabled_callback($nid) {
   $node = node_load($nid);
 
   // If request has one and more answer OR has credits.
-  return ((emh_request_count_answers($nid) != 0) || (emh_request_count_cost($node) != 0));
+  return ((emh_request_count_answers($nid) != 0) || (emh_points_custom_request_count_options_cost($node) != 0));
 }
 
 /**
@@ -204,7 +204,7 @@ function emh_request_save_draft_attributes_callback($nid, $account = NULL) {
 
   // If request has one and more answer OR has credits, no frackin' way to save
   // it as draft!
-  if (emh_request_count_answers($nid) != 0 || emh_request_count_cost($node) != 0) {
+  if (emh_request_count_answers($nid) != 0 || emh_points_custom_request_count_options_cost($node) != 0) {
     $attributes = array(
       'data-toggle' => 'tooltip',
       'data-placement' => 'top',
@@ -214,13 +214,13 @@ function emh_request_save_draft_attributes_callback($nid, $account = NULL) {
     $answers_title = t('there is one or more published answer');
     $credits_title = t('credits have been allocated');
 
-    if (emh_request_count_answers($nid) != 0 && emh_request_count_cost($node) != 0) {
+    if (emh_request_count_answers($nid) != 0 && emh_points_custom_request_count_options_cost($node) != 0) {
       $attributes['title'] .= $answers_title . ', ' . $credits_title;
     }
     if (emh_request_count_answers($nid) != 0) {
       $attributes['title'] .= $answers_title;
     }
-    if (emh_request_count_cost($node) != 0) {
+    if (emh_points_custom_request_count_options_cost($node) != 0) {
       $attributes['title'] .= $credits_title;
     }
     $attributes['title'] .= '.';
@@ -252,28 +252,4 @@ function emh_request_save_draft_submit_callback($form, &$form_state) {
       }
     }
   }
-}
-
-/**
- * Handler to count request credits cost.
- *
- * @param object $node
- *   Request object.
- *
- * @return int
- *   Request total credit cost.
- */
-function emh_request_count_cost($node) {
-  $options = field_get_items('node', $node, 'field_options');
-  $total = 0;
-
-  if ($options) {
-    $costs = emh_request_get_options_costs($node);
-
-    foreach ($options as $option) {
-      $total += (int) $costs[$option['option']];
-    }
-  }
-
-  return $total;
 }

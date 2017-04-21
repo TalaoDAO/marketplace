@@ -237,7 +237,7 @@ function emh_request_node_validate($node, $form, &$form_state) {
   ) {
     global $user;
 
-    $total = emh_request_count_cost($node);
+    $total = emh_points_custom_request_count_options_cost($node);
 
     if (!isset($user->emh_points)) {
       emh_points_entity_load_single($user, 'user');
