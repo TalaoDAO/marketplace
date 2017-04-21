@@ -286,3 +286,28 @@ function emh_points_custom_request_has_credits($nid) {
   $node = node_load($nid);
   return (!empty($node) && !empty($node->emh_points));
 }
+
+
+/**
+ * Handler to count request credits cost.
+ *
+ * @param object $node
+ *   Request object.
+ *
+ * @return int
+ *   Request total credit cost.
+ */
+function emh_points_custom_request_count_options_cost($node) {
+  $options = field_get_items('node', $node, 'field_options');
+  $total = 0;
+
+  if ($options) {
+    $costs = emh_request_get_options_costs($node);
+
+    foreach ($options as $option) {
+      $total += (int) $costs[$option['option']];
+    }
+  }
+
+  return $total;
+}
