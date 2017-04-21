@@ -44,7 +44,7 @@ Feature: Request and answers
       And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
-    
+
     Given the test email system is enabled
 
     # An expert responds to the request.
@@ -121,40 +121,40 @@ Feature: Request and answers
     Given I am logged in as "client1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should see a "Select the answer" flag link
+    Then I should see "Select the answer" link or button
 
     When I click "view" in the "submissions" region
-      And I click flag link "Select the answer"
+      And I click link "Select the answer"
     Then I should see "Answer selected"
 
     Given I am logged in as "expert1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "Answer selected" in the "submissions" region
-      And I should not see a "Select the answer" flag link
+      And I should not see "Select the answer" link or button
 
     When I click "view" in the "submissions" region
     Then I should see "Answer selected" in the "block_system_main" region
-      And I should not see a "Select the answer" flag link
+      And I should not see "Select the answer" link or button
 
     Given I am logged in as "expert2"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should not see "Select the answer" in the "submissions" region
-      And I should not see a "Select the answer" flag link
+      And I should not see "Select the answer" link or button
 
     When I click "view" in the "submissions" region
     Then I should not see "Select the answer" in the "block_system_main" region
-      And I should not see a "Select the answer" flag link
+      And I should not see "Select the answer" link or button
 
   Scenario: The author can add a feedback to published answers and only the expert who answered can see the feedback
     Given I am logged in as "client1"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I should see a "Leave a feedback for the expert" flag link
+    Then I should see "Leave a feedback for the expert" link or button
 
     When I click "view" in the "submissions" region
-      And I click flag link "Leave a feedback for the expert"
+      And I click link "Leave a feedback for the expert"
       And I fill in "Awesome answer!" for "field_comment_answer[und][0][value]"
       And I press the "Confirm" button
     Then I should see "Thank you for leaving a feedback to the expert!"
@@ -164,25 +164,25 @@ Feature: Request and answers
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should see "Awesome answer!" in the "submissions" region
-      And I should not see a "Leave a feedback for the expert" flag link
+      And I should not see "Leave a feedback for the expert" link or button
 
     When I click "view" in the "submissions" region
     Then I should see "Awesome answer!" in the "block_system_main" region
-      And I should not see a "Leave a feedback for the expert" flag link
+      And I should not see "Leave a feedback for the expert" link or button
 
     When I go to "answers/my"
     Then I should see "Awesome answer!" in the "block_system_main" region
-      And I should not see a "Leave a feedback for the expert" flag link
+      And I should not see "Leave a feedback for the expert" link or button
 
     Given I am logged in as "expert2"
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should not see "Awesome answer!" in the "submissions" region
-      And I should not see a "Leave a feedback for the expert" flag link
+      And I should not see "Leave a feedback for the expert" link or button
 
     When I click "view" in the "submissions" region
     Then I should not see "Awesome answer!" in the "block_system_main" region
-      And I should not see a "Leave a feedback for the expert" flag link
+      And I should not see "Leave a feedback for the expert" link or button
 
   @exclude
   Scenario: The expert cannot respond twice to the same request
