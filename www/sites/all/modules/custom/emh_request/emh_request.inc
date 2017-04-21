@@ -94,6 +94,12 @@ function emh_request_get_request_type_name($node = NULL) {
 
 /**
  * Helper function to retrieve answers count.
+ *
+ * @param object $node
+ *   The request.
+ *
+ * @return int
+ *   Request answer count.
  */
 function emh_request_count_answers($node) {
   if (is_numeric($node)) {
@@ -123,7 +129,7 @@ function emh_request_count_answers($node) {
 }
 
 /**
- * Save draft access callback.
+ * Save as draft access callback.
  *
  * @param int $nid
  *   Request nid.
@@ -141,12 +147,8 @@ function emh_request_save_draft_access_callback($nid, $account = NULL) {
 
   $node = node_load($nid);
 
-  // If request has one and more answer, no frackin' way to save it as draft!
-  if (emh_request_count_answers($nid) != 0) {
-    return FALSE;
-  }
-
-  // Is current user is the circle admin, grant him/her the right to save it as draft.
+  // If current user is the circle admin, grant him/her the right to save it
+  // as draft.
   if (module_exists('emh_circles')) {
     if (isset($node->og_group_ref) && ($circle_items = field_get_items('node', $node, 'og_group_ref'))) {
       $circles = array();
@@ -162,9 +164,92 @@ function emh_request_save_draft_access_callback($nid, $account = NULL) {
   }
 
   // If request is already published, avoid author to save it as draft again.
-  if (!empty($node->nid) && $node->status == NODE_PUBLISHED) {
+  if (!empty($nid) && $node->status == NODE_PUBLISHED) {
     return FALSE;
   }
 
   return TRUE;
+}
+
+/**
+ * Save as draft disabled callback.
+ *
+ * @param int $nid
+ *   Request nid.
+ *
+ * @return bool
+ *   TRUE or FALSE
+ */
+function emh_request_save_draft_disabled_callback($nid) {
+  $node = node_load($nid);
+
+  // If request has one and more answer OR has credits.
+  return ((emh_request_count_answers($nid) != 0) || (emh_points_custom_request_count_options_cost($node) != 0));
+}
+
+/**
+ * Save as draft attributes callback.
+ *
+ * @param int $nid
+ *   Request nid.
+ * @param object $account
+ *   User account.
+ *
+ * @return array
+ *   Attributes.
+ */
+function emh_request_save_draft_attributes_callback($nid, $account = NULL) {
+  $node = node_load($nid);
+  $attributes = array();
+
+  // If request has one and more answer OR has credits, no frackin' way to save
+  // it as draft!
+  if (emh_request_count_answers($nid) != 0 || emh_points_custom_request_count_options_cost($node) != 0) {
+    $attributes = array(
+      'data-toggle' => 'tooltip',
+      'data-placement' => 'top',
+      'title' => t('You cannot unpublish this request:') . ' ',
+    );
+
+    $answers_title = t('there is one or more published answer');
+    $credits_title = t('credits have been allocated');
+
+    if (emh_request_count_answers($nid) != 0 && emh_points_custom_request_count_options_cost($node) != 0) {
+      $attributes['title'] .= $answers_title . ', ' . $credits_title;
+    }
+    if (emh_request_count_answers($nid) != 0) {
+      $attributes['title'] .= $answers_title;
+    }
+    if (emh_points_custom_request_count_options_cost($node) != 0) {
+      $attributes['title'] .= $credits_title;
+    }
+    $attributes['title'] .= '.';
+  }
+
+  return $attributes;
+}
+
+/**
+ * Save as draft submit callback.
+ */
+function emh_request_save_draft_submit_callback($form, &$form_state) {
+  global $user;
+  $account = $user;
+
+  $node = node_load($form_state['node']->nid);
+
+  // If current user is the circle admin, redirect on frontpage.
+  if (module_exists('emh_circles')) {
+    if (isset($node->og_group_ref) && ($circle_items = field_get_items('node', $node, 'og_group_ref'))) {
+      $circles = array();
+
+      foreach ($circle_items as $delta => $item) {
+        $circles[] = $item['target_id'];
+      }
+
+      if (_emh_circles_user_is_groups_admin($account->uid, $circles)) {
+        $form_state['redirect'] = '<front>';
+      }
+    }
+  }
 }
