@@ -188,30 +188,6 @@ function emh_request_save_draft_disabled_callback($nid) {
 }
 
 /**
- * Handler to count request credits cost.
- *
- * @param object $node
- *   Request object.
- *
- * @return int
- *   Request total credit cost.
- */
-function emh_request_count_cost($node) {
-  $options = field_get_items('node', $node, 'field_options');
-  $total = 0;
-
-  if ($options) {
-    $costs = emh_request_get_options_costs($node);
-
-    foreach ($options as $option) {
-      $total += (int) $costs[$option['option']];
-    }
-  }
-
-  return $total;
-}
-
-/**
  * Save as draft attributes callback.
  *
  * @param int $nid
@@ -276,4 +252,28 @@ function emh_request_save_draft_submit_callback($form, &$form_state) {
       }
     }
   }
+}
+
+/**
+ * Handler to count request credits cost.
+ *
+ * @param object $node
+ *   Request object.
+ *
+ * @return int
+ *   Request total credit cost.
+ */
+function emh_request_count_cost($node) {
+  $options = field_get_items('node', $node, 'field_options');
+  $total = 0;
+
+  if ($options) {
+    $costs = emh_request_get_options_costs($node);
+
+    foreach ($options as $option) {
+      $total += (int) $costs[$option['option']];
+    }
+  }
+
+  return $total;
 }
