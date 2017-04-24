@@ -11,6 +11,33 @@ include_once 'emh_request_submission.form.inc';
 include_once 'emh_request_submission.mail.inc';
 
 /**
+ * Implements hook_perm().
+ */
+function emh_request_submission_permission() {
+  return array(
+    'unpublish all webform submissions' => array(
+      'title' => t('Unpublish all webform submissions'),
+      'description' => t('Allows unpublishing of any webform submission by any user. Generally an administrative permission.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_og_permission().
+ */
+function emh_request_submission_og_permission() {
+  $items = array();
+
+  $items['unpublish all webform submissions'] = array(
+    'title' => t('Unpublish all webform submissions in group'),
+    'description' => t('Allows unpublishing of any webform submission by any user in this group. Generally a group admin permission.'),
+    'roles' => array(OG_AUTHENTICATED_ROLE, OG_ADMINISTRATOR_ROLE),
+  );
+
+  return $items;
+}
+
+/**
  * Implements hook_webform_submission_access().
  */
 function emh_request_submission_webform_submission_access($node, $submission, $op = 'view', $account = NULL) {
