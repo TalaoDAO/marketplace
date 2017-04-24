@@ -14,19 +14,29 @@ function emh_request_submission_form_alter(&$form, &$form_state, $form_id) {
   }
 
   if (isset($form['#node']->nid) && ($form_id == 'webform_client_form_' . $form['#node']->nid)) {
+    $node = node_load($form['#node']->nid);
+    $submission = !empty($form['#submission']) ? webform_get_submission($form['#submission']->nid, $form['#submission']->sid) : '';
+
     // Changes the submit button label for "Publish".
     if (!empty($form['#is_draft']) || empty($form['#submission'])) {
       $form['actions']['submit']['#value'] = t('Publish');
     }
 
-    // Disables the form components if the user is not allowed to answer.
+    // Disable the form components if the user is not allowed to answer.
     if (!emh_access_user_can_post_answer($form['#node']->nid) && !empty($form['submitted'])) {
-      foreach ($form['submitted'] as $key => $element) {
-        if (is_array($element) && !empty($element['#type']) && $element['#type'] == 'textarea') {
-          $form['submitted'][$key]['#disabled'] = TRUE;
-        }
-      }
+      $form['submitted'] = emh_request_submission_disabled_elements($form['submitted']);
       $form['actions']['#access'] = FALSE;
+    }
+
+    // If current user cannot edit submission values, disable elements.
+    if (!emh_request_submission_edit_values_access_callback($node, $submission) && !empty($form['submitted']) && !empty($form['#submission'])) {
+      $form['submitted'] = emh_request_submission_disabled_elements($form['submitted']);
+      $form['actions']['submit']['#attributes'] = array(
+        'disabled' => TRUE,
+        'data-toggle' => 'tooltip',
+        'data-placement' => 'top',
+        'title' => t('You cannot save this submission.'),
+      );
     }
 
     // Hides the uniq field label in the request if not a questionnaire.
@@ -43,7 +53,7 @@ function emh_request_submission_form_alter(&$form, &$form_state, $form_id) {
       $form['actions']['#prefix'] = '<div class="user-submission-option-private-info">' . t("Your answer will only be visible by the request's author.") . '</div>';
     }
 
-    // Draft to published...
+    // Draft to Published.
     if (!empty($form['#is_draft']) || empty($form['#submission'])) {
       $form['#submit'][] = '_emh_request_submission_form_submit';
     }
@@ -53,10 +63,8 @@ function emh_request_submission_form_alter(&$form, &$form_state, $form_id) {
       $form['#submit'][] = '_emh_request_submission_form_submit_again';
     }
 
-    // Add the unpublish button.
+    // Unpublish.
     if (empty($form['#is_draft']) && !empty($form['#submission'])) {
-      $node = node_load($form['#node']->nid);
-      $submission = webform_get_submission($form['#submission']->nid, $form['#submission']->sid);
       if ($node->webform['allow_draft'] && emh_request_submission_unpublish_access_callback($node, $submission)) {
         $buttons_pre_render = array_merge(element_info_property('submit', '#pre_render', array()), array('webform_pre_render_remove_id'));
 
@@ -78,7 +86,25 @@ function emh_request_submission_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
- * Submit handler: Status Draft to Published.
+ * Recursively disable form elements.
+ *
+ * @param array $submitted
+ *   Form $form_submitted.
+ *
+ * @return array
+ */
+function emh_request_submission_disabled_elements($submitted) {
+  foreach ($submitted as $key => $element) {
+    if (is_array($element) && !empty($element['#type']) && $element['#type'] == 'textarea') {
+      $submitted[$key]['#attributes']['disabled'] = TRUE;
+    }
+  }
+
+  return $submitted;
+}
+
+/**
+ * Submit handler: Draft to Published.
  */
 function _emh_request_submission_form_submit($form, &$form_state) {
   $node = $form['#node'];
