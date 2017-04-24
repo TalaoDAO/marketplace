@@ -1,0 +1,517 @@
+<?php
+
+/**
+ * @file
+ * Previewable Email Template module.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function pet_menu() {
+  $path = drupal_get_path('module', 'pet') . '/includes';
+  $items['pet/%pet'] = array(
+    'title callback' => 'pet_page_title',
+    'title arguments' => array(1),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('pet_user_form', 1),
+    'access callback' => 'user_access',
+    'access arguments' => array('use previewable email templates'),
+    'file' => 'pet.admin.inc',
+    'file path' => $path,
+    'type' => MENU_CALLBACK,
+  );
+  $items['admin/config/system/pet'] = array(
+    'title' => 'Previewable Email Templates',
+    'access arguments' => array('administer previewable email templates'),
+    'page callback' => 'system_admin_menu_block_page',
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+  $items['admin/config/system/pet/settings'] = array(
+    'title' => 'PET settings',
+    'access arguments' => array('administer previewable email templates'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('pet_settings'),
+    'file' => 'pet.admin.inc',
+    'file path' => $path,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_entity_info().
+ */
+function pet_entity_info() {
+  $return = array(
+    'pet' => array(
+      'label' => t('Previewable Email Template'),
+      'plural label' => t('Previewable Email Templates'),
+      'description' => t('Create email templates with token and rules support and optionally preview them before sending.'),
+      'entity class' => 'PET',
+      'controller class' => 'EntityAPIControllerExportable',
+      'base table' => 'pets',
+      'fieldable' => FALSE,
+      'exportable' => TRUE,
+      'entity keys' => array(
+        'name' => 'name',
+        'id' => 'pid',
+        'label' => 'title',
+        'status' => 'status',
+      ),
+      'load hook' => 'pet_load',
+      'uri callback' => 'pet_uri',
+      'module' => 'pet',
+      'access callback' => 'pet_access',
+      'admin ui' => array(
+        'path' => 'admin/structure/pets',
+        'file' => 'pet.admin.inc',
+        'file path' => drupal_get_path('module', 'pet') . '/includes',
+        'controller class' => 'PETUIController',
+      ),
+    ),
+  );
+
+  return $return;
+}
+
+/**
+ * Access callback for the entity API.
+ */
+function pet_access($op, $type = NULL, $account = NULL) {
+  return user_access('administer previewable email templates', $account);
+}
+
+/**
+ * Implements hook_permission().
+ */
+function pet_permission() {
+  $permissions = array(
+    'administer previewable email templates' => array(
+      'title' => t('Administer previewable email templates'),
+      'description' => t('Create, edit and delete previewable email templates.'),
+    ),
+    'use previewable email templates' => array(
+      'title' => t('Use previewable email templates'),
+      'description' => t('Use previewable email templates.'),
+    ),
+  );
+  return $permissions;
+}
+
+/**
+ * The class used for PET entities.
+ */
+class PET extends Entity {
+
+  public $pid;
+  public $name;
+  public $title;
+  public $subject;
+  public $mail_body;
+  public $mail_body_plain;
+  public $send_plain;
+  public $from_override;
+  public $cc_default;
+  public $bcc_default;
+  public $recipient_callback;
+
+  public function __construct($values = array()) {
+    parent::__construct($values, 'pet');
+  }
+
+}
+
+/**
+ * PET UI controller.
+ */
+class PETUIController extends EntityDefaultUIController {
+
+  /**
+   * Overrides hook_menu() defaults.
+   */
+  public function hook_menu() {
+    $items = parent::hook_menu();
+    $items[$this->path]['description'] = 'Create previewable email templates with token and rules support.';
+    return $items;
+  }
+
+  /**
+   * Defaults a larger pagerLimit for ease of administration.
+   *
+   * @see EntityDefaultUIController::__construct()
+   */
+  public function __construct($entity_type, $entity_info) {
+    $this->overviewPagerLimit = 100;
+    return parent::__construct($entity_type, $entity_info);
+  }
+
+  /**
+   * Copy of EntityDefaultUIController::overviewTable()  sorts.
+   *
+   * @see EntityDefaultUIController::overviewTable();
+   */
+  public function overviewTable($conditions = array()) {
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', $this->entityType);
+
+    // PET: Adding table sorts.
+    $tableSort = array(
+      'name' => array(
+        'data' => 'Label',
+        'type' => 'property',
+        'specifier' => 'name',
+      ),
+      'status' => array(
+        'data' => 'Status',
+        'type' => 'property',
+        'specifier' => 'status',
+      ),
+    );
+
+    $query->tableSort($tableSort);
+
+    // Add all conditions to query.
+    foreach ($conditions as $key => $value) {
+      $query->propertyCondition($key, $value);
+    }
+
+    if ($this->overviewPagerLimit) {
+      $query->pager($this->overviewPagerLimit);
+    }
+
+    $results = $query->execute();
+
+    $ids = isset($results[$this->entityType]) ? array_keys($results[$this->entityType]) : array();
+    $entities = $ids ? entity_load($this->entityType, $ids) : array();
+
+    // PET: This removes harcoded sort (only change in this func)
+    //ksort($entities);
+
+    $rows = array();
+    foreach ($entities as $entity) {
+      $rows[] = $this->overviewTableRow($conditions, entity_id($this->entityType, $entity), $entity);
+    }
+
+    $render = array(
+      '#theme' => 'table',
+      '#header' => $this->overviewTableHeaders($conditions, $rows),
+      '#rows' => $rows,
+      '#empty' => t('None.'),
+    );
+    return $render;
+  }
+
+  /**
+   * Generates the table headers for the overview table.
+   *
+   * Pretty much a clone of EntityDefaultUIController but adds sorts.
+   *
+   * @see EntityDefaultUIController::overviewTableHeaders()
+   */
+  protected function overviewTableHeaders($conditions, $rows = array(), $additional_header = array()) {
+    $header = $additional_header;
+    // Add a different sort.
+    array_unshift($header, array('data' => t('Label'), 'field' => 'name', 'sort' => 'asc'));
+    if (!empty($this->entityInfo['exportable'])) {
+      $header[] = array('data' => t('Status'), 'field' => 'status', 'sort' => 'desc');
+    }
+    // Add operations with the right colspan.
+    $header[] = array('data' => t('Operations'), 'colspan' => $this->operationCount());
+    return $header;
+  }
+
+}
+
+/**
+ * Loads a PET by ID.
+ */
+function pet_load($pid) {
+  $pets = pet_load_multiple(array($pid), array());
+  return $pets ? reset($pets) : FALSE;
+}
+
+/**
+ * Loads multiple PETs by ID or based on a set of conditions.
+ *
+ * @see entity_load()
+ *
+ * @param $pids
+ *   An array of PET IDs.
+ * @param $conditions
+ *   An array of conditions on the {pets} table in the form
+ *     'field' => $value.
+ * @param $reset
+ *   Whether to reset the internal PET loading cache.
+ *
+ * @return
+ *   An array of PET objects indexed by pid.
+ */
+function pet_load_multiple($pids = array(), $conditions = array(), $reset = FALSE) {
+  return entity_load('pet', $pids, $conditions, $reset);
+}
+
+/**
+ * Entity uri callback.
+ */
+function pet_uri($pet) {
+  return array(
+    'path' => 'pet/' . $pet->name,
+  );
+}
+
+/**
+ * Title callback for form template page.
+ */
+function pet_page_title($pet) {
+  return $pet->title;
+}
+
+/**
+ * Helper function to parse emails into an array.
+ */
+function pet_parse_mails($mail_text) {
+  return preg_split('/[\n\r, ]/', $mail_text, -1, PREG_SPLIT_NO_EMPTY);
+}
+
+/**
+ * Helper function to look up a uid from mail.
+ */
+function pet_lookup_uid($mail) {
+  $uid = db_query_range('SELECT uid FROM {users} WHERE mail = :mail', 0, 1, array(':mail' => $mail))->fetchField();
+  return $uid;
+}
+
+/**
+ * Send tokenized email to a list of recipients.
+ *
+ * Given a list of recipients, and an optional node id, perform token 
+ * substitution and send an email to each. The node substitutions, if any,
+ * are the same in each email sent.  The user tokens, if any are custom based
+ * on the account (if any) associated with each email.  
+ *
+ * @param $name
+ *   The unique name of the PET template.
+ * @param $recipients
+ *   An array of at least one recipient in one of two formats:
+ *      1. a simple email address, in which case the uid is looked up
+ *      2. an array('mail' => <email address>, 'uid' => <uid>) in which case 
+ *         the uid is already available (more efficient)
+ * @param $options
+ *   An array of options as follows:
+ *      nid - An optional node id for token substitutions.
+ *      subject - An optional subject which if provided will override the 
+ *        subject in the PET.
+ *      body - An optional body which if provided which will override the body
+ *        in the PET.
+ *      body_plain - An optional plain text body which if provided which will 
+ *        override the plain text body in the PET.
+ *      from - An optional from email which if provided which will override the
+ *        from in the PET (which in turn overrides the site default).
+ *      reply_to - Optional
+ *      cc - Optional cc emails which if provided which will override the cc's
+ *        in the PET.
+ *      bcc - Optional bcc emails which if provided which will override the
+ *        bcc's in the PET.
+ */
+function pet_send_mail($name, $recipients, $options) {
+  $pet = pet_load($name);
+  if (!$pet) {
+    watchdog('pet', 'Unable to load PET %name.', array('%name' => $name), WATCHDOG_ERROR);
+    return;
+  }
+  if (!is_array($recipients) || count($recipients) < 1) {
+    watchdog('pet', 'At least one recipient must be provided for PET %name.', array('%name' => $name), WATCHDOG_NOTICE);
+    return;
+  }
+
+  // Override subject and body if necessary
+  $pet->subject = isset($options['subject']) ? $options['subject'] : $pet->subject;
+  $pet->mail_body = isset($options['body']) ? $options['body'] : $pet->mail_body;
+  $pet->mail_body_plain = isset($options['body_plain']) ? $options['body_plain'] : $pet->mail_body_plain;
+
+  // Resolve from address
+  if (pet_isset_or($options['from'])) {
+    $from = $options['from'];
+  }
+  elseif ($pet->from_override) {
+    $from = $pet->from_override;
+  }
+  else {
+    $from = variable_get('site_mail', ini_get('sendmail_from'));
+  }
+
+  // Store data in params in case a module wants to act on them somehow
+  $params = array(
+    'pet_from' => $from,
+    'pet_recipients' => $recipients,
+    'pet_nid' => pet_isset_or($options['nid']),
+    'pet_cc' => pet_parse_mails(pet_isset_or($options['cc'])),
+    'pet_bcc' => pet_parse_mails(pet_isset_or($options['bcc'])),
+    'pet_reply_to' => pet_isset_or($options['reply_to']),
+    'pet_options' => $options,
+  );
+  // array to hold status of messages send
+  $message_status = array();
+  foreach ($recipients as $recipient) {
+    if (is_array($recipient)) {
+      $params['pet_to'] = $recipient['mail'];
+      $params['pet_uid'] = $recipient['uid'];
+    }
+    else {
+      // Strip leading uid for backward compatability
+      $mail = preg_replace('/^[0-9]*\|/', '', $recipient);
+      $params['pet_to'] = $mail;
+      $params['pet_uid'] = pet_lookup_uid($mail);
+    }
+    $message_status[$params['pet_to']] = pet_send_one_mail($pet, $params);
+  }
+  // return message status
+  return $message_status;
+}
+
+/**
+ * Send one email, with token substitution.
+ *
+ * This may be called directly from other modules.
+ *
+ * @param $pet
+ *   The loaded PET object to use for the email
+ *     @see pet_load()
+ * @param $params
+ *   Array of parameters used when constructing the email.
+ *      pet_from (required) - a valid sender email address
+ *      pet_to (required) - a valid recipient email address
+ *      pet_recipients (optional) - if called from pet_send_mail() will contain
+ *        the full recipient list
+ *      pet_uid (optional) - if provided, a valid user id for 'user' type token
+ *        substitution
+ *      pet_nid (optional) - if provided, a valid node id for 'node' type token
+ *        substitution
+ *      pet_reply_to (optional)
+ *   The $params array may also contain data passed in by other modules. One
+ *    use of this is for token substitution.
+ *
+ * @see hook_pet_substitutions_alter() 
+ */
+function pet_send_one_mail($pet, $params) {
+  $pet_logging = variable_get('pet_logging', 0);
+
+  if (!pet_is_valid($pet)) {
+    if ($pet_logging < 2) {
+      watchdog('pet', 'Invalid PET object in pet_send_one_mail().', array(), WATCHDOG_ERROR);
+    }
+    else {
+      drupal_set_message(t('Invalid PET object in pet_send_one_mail().'), 'error');
+    }
+    return;
+  }
+
+  if (empty($params['pet_from'])) {
+    if ($pet_logging < 2) {
+      watchdog('pet', 'Missing sender email address in pet_send_one_mail() for PET \'%name\'.', array('%name' => $pet->name), WATCHDOG_ERROR);
+    }
+    else {
+      drupal_set_message(t('Missing sender email address in pet_send_one_mail() for PET \'%name\'.', array('%name' => $pet->name)), 'error');
+    }
+    return;
+  }
+
+  if (empty($params['pet_to'])) {
+    if ($pet_logging < 2) {
+      watchdog('pet', 'Missing recipient email address in pet_send_one_mail() for PET \'%name\'.', array('%name' => $pet->name), WATCHDOG_ERROR);
+    }
+    else {
+      drupal_set_message(t('Missing recipient email address in pet_send_one_mail() for PET \'%name\'.', array('%name' => $pet->name)), 'error');
+    }
+    return;
+  }
+  if (isset($params['pet_reply_to'])) {
+    $message['headers']['Reply-To'] = $params['pet_reply_to'];
+  }
+
+  $params['pet'] = $pet;
+  $substitutions = pet_substitutions($pet, $params);
+  $params['subject'] = token_replace($pet->subject, $substitutions, array('clear' => TRUE));
+  $params['body'] = token_replace($pet->mail_body, $substitutions, array('clear' => TRUE));
+
+  // Provided for Mime Mail module; alternate text-only form for multipart MIME
+  $mail_body_plain = trim($pet->mail_body_plain);
+  if (!empty($mail_body_plain)) {
+    $params['plaintext'] = token_replace($pet->mail_body_plain, $substitutions, array('clear' => TRUE));
+  }
+
+  // Provided for Mime Mail module; send ONLY plain text
+  $params['plain'] = $pet->send_plain;
+
+  $message = drupal_mail('pet', $pet->name, $params['pet_to'], language_default(), $params, $params['pet_from']);
+  if ($message['send'] && $pet_logging == 0) {
+    watchdog('pet', 'Successfully sent email to %recipient', array('%recipient' => $params['pet_to']));
+  }
+  // return message, useful for show custom message, based email send status
+  return $message;
+}
+
+/**
+ * Load the token objects for a PET template in preparation for token substitution.
+ */
+function pet_substitutions($pet, $params) {
+  $uid = pet_isset_or($params['pet_uid']);
+  $nid = pet_isset_or($params['pet_nid']);
+
+  // Standard substitutions
+  $substitutions['global'] = NULL;
+  if (!empty($uid)) {
+    $user = user_load($uid);
+    $substitutions['user'] = $user;
+  }
+  if (!empty($nid)) {
+    $node = node_load($nid);
+    $substitutions['node'] = $node;
+  }
+
+  // Give modules the opportunity to add their own token types/objects
+  drupal_alter('pet_substitutions', $substitutions, $params);
+  return $substitutions;
+}
+
+/**
+ * Implementation of hook_mail()
+ *
+ * To customize, e.g. to change the content type to text/html etc, you can use hook_mail_alter()
+ * in one of your modules.
+ */
+function pet_mail($key, &$message, $params) {
+  $message['subject'] = $params['subject'];
+  $message['body'][] = $params['body'];
+
+  if (isset($params['pet_cc']) && is_array($params['pet_cc']) && count($params['pet_cc']) > 0) {
+    $message['headers']['Cc'] = implode(',', $params['pet_cc']);
+  }
+  if (isset($params['pet_bcc']) && is_array($params['pet_bcc']) && count($params['pet_bcc']) > 0) {
+    $message['headers']['Bcc'] = implode(',', $params['pet_bcc']);
+  }
+}
+
+/**
+ * Check the validity of a loaded PET.
+ *
+ * Don't want this to be too expensive, but don't want to send bogus emails either.
+ */
+function pet_is_valid($pet) {
+  return is_object($pet) && !empty($pet->name) && is_numeric($pet->pid);
+}
+
+/**
+ * Check presence of mimemail.
+ */
+function pet_has_mimemail() {
+  return module_exists('mimemail');
+}
+
+/**
+ * Check if a variable is set and return it if so, otherwise the alternative.
+ */
+function pet_isset_or(&$val, $alternate = NULL) {
+  return isset($val) ? $val : $alternate;
+}

@@ -48,14 +48,42 @@ function _emh_circles_string_overrides() {
     "Edit membership in group @group" => "Edit membership in circle @group",
     "Edit a group membership in %group" => "Edit a circle membership in %group",
     "This is the text a user may send to the group administrators." => "This is the text a user may send to the circle administrators.",
+    "You already have a pending membership for the group @group." => "You already have a pending membership for the circle @group.",
+    "@user already has a pending membership for the  the group @group." => "@user already has a pending membership for the  the circle @group.",
   );
 }
 
 /**
- * Get group managers from a group.
+ * Get circle manager.
  */
-function _emh_circles_get_managers_from_group($group) {
-  $group = entity_metadata_wrapper($group['group_type'], $group['gid']);
+function _emh_circles_get_group_manager($group = NULL) {
+  if (empty($group)) {
+    $group = og_context();
+    $group = entity_metadata_wrapper($group['group_type'], $group['gid']);
+  }
+
+  $entity_type = $group->type();
+  $entity_id = $group->getIdentifier();
+
+  // Not a group.
+  if (!og_is_group($entity_type, $group)) {
+    return;
+  }
+
+  $node = node_load($entity_id);
+  $manager_uid = $node->uid;
+
+  return $manager_uid;
+}
+
+/**
+ * Get circle admins.
+ */
+function _emh_circles_get_group_admins($group = NULL) {
+  if (empty($group)) {
+    $group = og_context();
+    $group = entity_metadata_wrapper($group['group_type'], $group['gid']);
+  }
 
   $entity_type = $group->type();
   $entity_id = $group->getIdentifier();
@@ -74,10 +102,10 @@ function _emh_circles_get_managers_from_group($group) {
     return;
   }
 
-  $admins = array();
+  $admins_uid = array();
 
   // Get the group admins for the group.
-  $members = db_select('og_users_roles', 'our')
+  $members_uid = db_select('og_users_roles', 'our')
     ->fields('our', array('uid'))
     ->condition('our.gid', $entity_id)
     ->condition('our.group_type', $entity_type)
@@ -85,15 +113,15 @@ function _emh_circles_get_managers_from_group($group) {
     ->execute()
     ->fetchCol();
 
-  $admins = array_merge($admins, $members);
+  $admins_uid = array_merge($admins_uid, $members_uid);
 
   // Remove duplicate items.
-  $admins = array_keys(array_flip($admins));
+  $admins_uid = array_keys(array_flip($admins_uid));
 
-  return array('group_managers' => $admins);
+  return $admins_uid;
 }
 
-function _emh_circles_check_user_is_referentmember_of_groups($uid, $gids) {
+function _emh_circles_user_is_groups_referent($uid, $gids) {
   $roleID = db_select('og_role', 'og')
     ->condition('name', 'Referent member', '=')
     ->distinct()
@@ -119,7 +147,7 @@ function _emh_circles_check_user_is_referentmember_of_groups($uid, $gids) {
   return FALSE;
 }
 
-function _emh_circles_check_user_is_adminmember_of_groups($uid, $gids) {
+function _emh_circles_user_is_groups_admin($uid, $gids) {
   $roleID = db_select('og_role', 'og')
     ->condition('name', 'administrator member', '=')
     ->condition('group_bundle', 'circle', '=')
@@ -146,7 +174,7 @@ function _emh_circles_check_user_is_adminmember_of_groups($uid, $gids) {
   return FALSE;
 }
 
-function _emh_circles_check_user_is_admin_of_groups($uid, $gids) {
+function _emh_circles_user_is_groups_manager($uid, $gids) {
   foreach ($gids as $gid) {
     $result = db_select('node', 'n')
       ->condition('nid', $gid, '=')
