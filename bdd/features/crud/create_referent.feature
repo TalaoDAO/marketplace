@@ -30,5 +30,5 @@ Feature: Create permissions for Référents
 
   Scenario: A référent cann create a request
     Given I am logged in as "référent1"
-    When I go to "node/add"
-    Then I should see "Request" in the "content" region
+    When I go to "node/add/request"
+    Then I should see "Create Request"

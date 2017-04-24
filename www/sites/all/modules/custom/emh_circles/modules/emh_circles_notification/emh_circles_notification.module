@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Code of the eMindHub circle notification feature.
+ */
+
+include_once 'emh_circles_notification.inc';
+
+/**
+ * Implements hook_og_membership_insert().
+ */
+function emh_circles_notification_og_membership_insert($og_membership) {
+  if ($og_membership->entity_type == 'user' && $og_membership->gid !== '314') {
+    $group = entity_metadata_wrapper($og_membership->group_type, $og_membership->gid);
+    $user = user_load($og_membership->etid);
+    $node = node_load($og_membership->gid);
+    _emh_circles_notification_membership_requested($group, $user, $node);
+  }
+}

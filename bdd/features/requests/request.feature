@@ -105,7 +105,7 @@ Feature: Request
       And I should see "Marvel Studios" in the "request_right" region
 
   Scenario: Only users belonging to a circle can add a request type restricted to this circle
-    #HINT: this should work on "X-MEN" for field_circle_restriction, but, we use "Cercle de test"
+    # HINT: this should work on "X-MEN" for field_circle_restriction, but, we use "Cercle de test"
     # to bypass a cleanup bug: nodes are cleaned BEFORE terms; when "Call for heroes" is cleaned
     # up, "X-Men" circle as already been deleted, and it cause a bug
     Given "request_type" terms:
@@ -131,4 +131,3 @@ Feature: Request
     Given I am logged in as "client5"
     When I go to "node/add/request"
     Then I should see "Call for heroes"
-
