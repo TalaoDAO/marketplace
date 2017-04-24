@@ -29,7 +29,7 @@ function emh_request_submission_form_alter(&$form, &$form_state, $form_id) {
     }
 
     // If current user cannot edit submission values, disable elements.
-    if (!emh_request_submission_edit_values_access_callback($node, $submission) && !empty($form['submitted']) && !empty($form['#submission'])) {
+    if (!emh_request_submission_edit_values_access_callback($submission) && !empty($form['submitted']) && !empty($form['#submission'])) {
       $form['submitted'] = emh_request_submission_disabled_elements($form['submitted']);
       $form['actions']['submit']['#attributes'] = array(
         'disabled' => TRUE,
