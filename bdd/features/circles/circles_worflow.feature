@@ -26,7 +26,7 @@ Feature: Circles workflow for Expert
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios     | Employee             | Energy        | US                  |
     | expert4 | emindhub.test+expert4@gmail.com | expert   | Scott            | SUMMERS         | 0712345673      | Bucheron           | X-Men        | emindhub.test+expert4@gmail.com | Marvel Entertainment | Employee  | Helicopters   | US                 |
 
-    # Make client4 as a manager of Guardians of the Galaxy circle
+    # Make client4 as admin of Guardians of the Galaxy circle
     Given I am logged in as a user with the "administrator" role
     When I go to "content/guardians-galaxy"
       And I click "Administrate" in the "primary tabs" region
@@ -72,13 +72,19 @@ Feature: Circles workflow for Expert
     When I go to "content/guardians-galaxy"
     Then I should get a "403" HTTP response
 
-  Scenario: Experts can join circle to public circles and be activated by the circle manager
+  @email
+  Scenario: Experts can join public circles and be activated by the circle admin
+    Given the test email system is enabled
+
     Given I am logged in as "expert1"
     When I go to "circles"
       And I click "Join circle" in the "guardians_galaxy_teaser" region
       And I fill in "Request message" with "I really want to join your band"
       And I press "Ask to join"
     Then I should see "Your request is pending." in the "guardians_galaxy_teaser" region
+      And the last email to "emindhub.test+client4@gmail.com" should contain "Iron MAN membership request for 'Guardians of the Galaxy'"
+      And the last email to "emindhub.test+1@gmail.com" should contain "Iron MAN membership request for 'Guardians of the Galaxy'"
+      And the last email to "emindhub.test+expert1@gmail.com" should contain "Your membership request for 'Guardians of the Galaxy'"
 
     Given I am logged in as "client4"
     When I go to "content/guardians-galaxy"
@@ -95,7 +101,7 @@ Feature: Circles workflow for Expert
     When I go to "circles"
     Then I should not see "Your request is pending." in the "guardians_galaxy_teaser" region
 
-  Scenario: Experts can join circle to public circles and be refused by the circle manager
+  Scenario: Experts can join public circles and be refused by the circle admin
     Given I am logged in as "expert4"
     When I go to "circles"
       And I click "Join circle" in the "guardians_galaxy_teaser" region
