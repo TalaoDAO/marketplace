@@ -91,20 +91,20 @@ Feature: Request Option Price
     | How to become a superhero?  | Energy        |              | client1 | 2020-02-08 17:45:00    | 0       | Mission            |
 
     Given I am logged in as "client1"
-    When I go to "/requests/manage"
+    When I go to "requests/manage"
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     When I click "Edit" in the "primary tabs" region
     Then I should see "300 credits" in the "#edit-field-options-und-questionnaire" element
       And I should see "200 credits" in the "#edit-field-options-und-duration" element
 
     When I select "Avengers" from "Circles"
-      And I press "Save draft"
+      And I press "Save as draft"
       And I click "Edit" in the "primary tabs" region
     Then I should see "1000 credits" in the "#edit-field-options-und-questionnaire" element
       And I should see "1000 credits" in the "#edit-field-options-und-duration" element
 
     When I additionally select "League Of Justice" from "Circles"
-      And I press "Save draft"
+      And I press "Save as draft"
       And I click "Edit" in the "primary tabs" region
     Then I should see "1000 credits" in the "#edit-field-options-und-questionnaire" element
       And I should see "1300 credits" in the "#edit-field-options-und-duration" element
