@@ -132,6 +132,7 @@ function emh_request_node_presave($node) {
           'name' => $question['value'],
           'form_key' => $form_key,
           'weight' => $delta,
+          'required' => TRUE,
         );
 
         webform_component_defaults($components[$form_key]);
@@ -236,12 +237,7 @@ function emh_request_node_validate($node, $form, &$form_state) {
   ) {
     global $user;
 
-    $total = 0;
-    $costs = emh_request_get_options_costs($node);
-
-    foreach ($options as $option) {
-      $total += (int) $costs[$option['option']];
-    }
+    $total = emh_points_custom_request_count_options_cost($node);
 
     if (!isset($user->emh_points)) {
       emh_points_entity_load_single($user, 'user');
@@ -311,6 +307,7 @@ function emh_request_webform_submission_access($node, $submission, $op = 'view',
   switch ($op) {
     case 'view':
       return emh_access_user_can_see_full_answer($node->nid, $submission->sid);
+
     case 'flag':
       return emh_access_user_can_see_full_answer($node->nid, $submission->sid);
   }
@@ -488,7 +485,17 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
   if (in_array($form['#node']->type, emh_request_get_types())) {
 
     // Sets action buttons labels.
-    $form['actions']['draft']['#value'] = t('Save draft');
+    if (module_exists('save_draft')) {
+      if (isset($form['nid']['#value'])) {
+        if ($form['#node']->status != 1) {
+          $form['actions']['draft']['#value'] = t('Save as draft');
+        }
+        $form['actions']['draft']['#access'] = emh_request_save_draft_access_callback($form['nid']['#value']);
+        $form['actions']['draft']['#disabled'] = emh_request_save_draft_disabled_callback($form['nid']['#value']);
+        $form['actions']['draft']['#attributes'] = emh_request_save_draft_attributes_callback($form['nid']['#value']);
+        $form['actions']['draft']['#submit'][] = 'emh_request_save_draft_submit_callback';
+      }
+    }
     $form['actions']['submit']['#value'] = t('Continue');
 
     // Treatments for generic requests.
@@ -529,7 +536,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
             unset($form['#validate'][$index]);
           }
         }
-        // If the request type is restricted to a circle :
+        // If the request type is restricted to a circle:
         if (isset($_REQUEST['edit']['field_request_type'])) {
           $tid = key($_REQUEST['edit']['field_request_type'][LANGUAGE_NONE]);
           $term = taxonomy_term_load($tid);
@@ -578,7 +585,6 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
 
     // If nid not empty, we're in the edit page.
     if (!empty($form['nid']['#value']) && $form['#node']->status == NODE_PUBLISHED) {
-      $form['actions']['draft']['#access'] = FALSE;
       $form['actions']['submit']['#value'] = t('Save');
       // If node is published on a free circle, we can close the request.
       $nid = $form['nid']['#value'];
