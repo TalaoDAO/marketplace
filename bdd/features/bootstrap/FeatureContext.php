@@ -332,6 +332,7 @@ class FeatureContext extends DrupalContext {
     variable_set('drupal_test_email_collector', array());
     // Delete queue from other test, can be overloaded if All Experts used.
     db_query("DELETE FROM queue WHERE name='emh_request_request_email_notification'");
+    db_query('TRUNCATE TABLE {mail_logger}');
   }
 
   /**
@@ -504,55 +505,92 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
-   * @Given /^(?:|I )click flag link "(?P<text>[^"]*)"$/
+   * @Given /^(?:|I )click link "(?P<text>[^"]*)"$/
    */
-  public function iClickFlagLinkWithText($text) {
+  public function iClickLinkWithText($text) {
     $session = $this->getSession();
     $page = $session->getPage();
-    $flag = $page->find('named', array('link', $text));
+    $element = $page->find('named', array('link', $text));
 
-    if (empty($flag)) {
-      throw new ExpectationException(t('No such flag with @text', array(
+    if (empty($element)) {
+      throw new ExpectationException(t('No such element with @text', array(
         '@text' => $text,
       )), $session);
     }
 
-    $flag->click();
+    $element->click();
   }
 
   /**
-   * Checks, that flag link with the given text, title, id or alt attribute is visible on page.
+   * Checks, that link or button with the given text, title, id or alt attribute is visible on page.
    *
-   * @Then /^(?:|I )should see a "(?P<text>[^"]*)" flag link$/
+   * @Then /^(?:|I )should see "(?P<text>[^"]*)" link or button$/
    */
-  public function assertFlagLinkOnPage($text) {
+  public function assertLinkOrButtonVisibleOnPage($text) {
     $element = $this->getSession()->getPage();
-    $flags = $element->findAll('named', array('link', $text));
-    foreach ($flags as $flag) {
-      if ($flag->getText() === $text) {
-        if ($flag->isVisible()) {
+    $elements = $element->findAll('named', array('link_or_button', $text));
+    foreach ($elements as $element) {
+      if ($element->getText() === $text) {
+        if ($element->isVisible()) {
           return;
         }
         else {
-          throw new \Exception("Flag link with text \"$text\" not visible.");
+          throw new \Exception("Link or button with text \"$text\" not visible.");
         }
       }
     }
   }
 
   /**
-   * Checks, that flag link with the given text, title, id or alt attribute is not visible on page.
+   * Checks, that link or button with the given text, title, id or alt attribute is not visible on page.
    *
-   * @Then /^(?:|I )should not see a "(?P<text>[^"]*)" flag link$/
+   * @Then /^(?:|I )should not see "(?P<text>[^"]*)" link or button$/
    */
-  public function assertFlagLinkNotOnPage($text) {
+  public function assertLinkOrButtonNotVisibleOnPage($text) {
     $element = $this->getSession()->getPage();
-    $flags = $element->findAll('named', array('link', $text));
-    foreach ($flags as $flag) {
+    $elements = $element->findAll('named', array('link_or_button', $text));
+    foreach ($elements as $element) {
       // Note: getText() will return an empty string when using Selenium2D. This
       // is ok since it will cause a failed step.
-      if ($flag->getText() === $text && $flag->isVisible()) {
-        throw new \Exception("Flag link with text \"$text\" visible.");
+      if ($element->getText() === $text && $element->isVisible()) {
+        throw new \Exception("Link or button with text \"$text\" visible.");
+      }
+    }
+  }
+
+  /**
+   * Checks, that link or button with the given text, title, id or alt attribute is disabled on page.
+   *
+   * @Then the :text link or button should be disabled
+   */
+  public function assertLinkOrButtonDisabledOnPage($text) {
+    $element = $this->getSession()->getPage();
+    $elements = $element->findAll('named', array('link_or_button', $text));
+    foreach ($elements as $element) {
+      if ($element->getText() === $text) {
+        if ($element->hasAttribute('disabled')) {
+          return;
+        }
+        else {
+          throw new \Exception("Link or button with text \"$text\" not disabled.");
+        }
+      }
+    }
+  }
+
+  /**
+   * Checks, that link or button with the given text, title, id or alt attribute is not disabled on page.
+   *
+   * @Then the :text link or button should not be disabled
+   */
+  public function assertLinkOrButtonNotDisabledOnPage($text) {
+    $element = $this->getSession()->getPage();
+    $elements = $element->findAll('named', array('link_or_button', $text));
+    foreach ($elements as $element) {
+      // Note: getText() will return an empty string when using Selenium2D. This
+      // is ok since it will cause a failed step.
+      if (!$element->hasAttribute('disabled')) {
+        throw new \Exception("Link or button with text \"$text\" disabled.");
       }
     }
   }
@@ -609,5 +647,32 @@ class FeatureContext extends DrupalContext {
    */
   public function cleanupForJs(Behat\Behat\Hook\Scope\AfterScenarioScope $scope) {
     module_enable(array('chosen'));
+  }
+
+  /**
+   * Go to next page after batch, work without @javascript
+   * Adapted from https://gist.github.com/eliza411/67d2aa93cfa9a31b65ad
+   * @Given /^I follow meta refresh$/
+   */
+  public function iFollowMetaRefresh() {
+    while ($refresh = $this->getSession()->getPage()->find('css', 'meta[http-equiv="Refresh"]')) {
+      $content = $refresh->getAttribute('content');
+      $url = str_replace('0; URL=', '', $content);
+      $this->getSession()->visit($url);
+    }
+  }
+
+  /**
+   * Wait for the Batch API to finish.
+   *
+   * Wait until the id="updateprogress" element is gone,
+   * or timeout after 3 minutes (180,000 ms).
+   * work only with @javascript
+   * from https://swsblog.stanford.edu/blog/behat-custom-step-definition-wait-batch-api-finish
+   *
+   * @Given /^I wait for the batch job to finish$/
+   */
+  public function iWaitForTheBatchJobToFinish() {
+    $this->getSession()->wait(180000, 'jQuery("#updateprogress").length === 0');
   }
 }

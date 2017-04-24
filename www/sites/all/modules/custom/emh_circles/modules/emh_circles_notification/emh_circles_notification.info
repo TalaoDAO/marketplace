@@ -1,0 +1,9 @@
+name = EMH Circles Notification
+description = EMH Circles global notification feature.
+package = EMH
+core = 7.x
+
+dependencies[] = emh_circles
+dependencies[] = mailsystem
+dependencies[] = mimemail
+dependencies[] = rules
