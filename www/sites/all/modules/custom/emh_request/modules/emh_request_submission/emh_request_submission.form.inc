@@ -43,21 +43,21 @@ function emh_request_submission_form_alter(&$form, &$form_state, $form_id) {
       $form['actions']['#prefix'] = '<div class="user-submission-option-private-info">' . t("Your answer will only be visible by the request's author.") . '</div>';
     }
 
-    // Draft to ...
+    // Draft to published...
     if (!empty($form['#is_draft']) || empty($form['#submission'])) {
       $form['#submit'][] = '_emh_request_submission_form_submit';
     }
+
     // Published again.
     if (empty($form['#is_draft']) || !empty($form['#submission'])) {
       $form['#submit'][] = '_emh_request_submission_form_submit_again';
     }
 
-    // Add the Unpublish button.
+    // Add the unpublish button.
     if (empty($form['#is_draft']) && !empty($form['#submission'])) {
       $node = node_load($form['#node']->nid);
       $submission = webform_get_submission($form['#submission']->nid, $form['#submission']->sid);
       if ($node->webform['allow_draft'] && emh_request_submission_unpublish_access_callback($node, $submission)) {
-        // echo '<pre>' . print_r($form, true) . '</pre>';
         $buttons_pre_render = array_merge(element_info_property('submit', '#pre_render', array()), array('webform_pre_render_remove_id'));
 
         $form['actions']['draft'] = array(
@@ -72,28 +72,9 @@ function emh_request_submission_form_alter(&$form, &$form_state, $form_id) {
           '#pre_render' => $buttons_pre_render,
           '#submit' => array('_emh_request_submission_form_unpublish'),
         );
-
-        // echo '<pre>' . print_r($form, true) . '</pre>';
       }
     }
-
-    // echo '<pre>' . print_r($form, true) . '</pre>';
   }
-}
-
-function emh_request_submission_webform_submission_presave($node, &$submission) {
-  // Update some component's value before it is saved.
-  // $component_id = 4;
-  // $submission->data[$component_id][0] = 'foo';
-
-  // $submission->is_draft = TRUE;
-  // $submission->completed = '';
-  // $submission->modified = REQUEST_TIME;
-  // echo '<pre>' . print_r($submission, true) . '</pre>'; die;
-}
-
-function emh_request_submission_webform_submission_update($node, $submission) {
-  // echo '<pre>' . print_r($submission, true) . '</pre>'; die;
 }
 
 /**
@@ -125,7 +106,10 @@ function _emh_request_submission_form_submit_again($form, &$form_state) {
  */
 function _emh_request_submission_form_unpublish($form, &$form_state) {
   $node = $form['#node'];
+  $sid = $form_state['values']['details']['sid'] ? (int) $form_state['values']['details']['sid'] : NULL;
+  $submission = webform_get_submission($node->webform['nid'], $sid);
+  $submission->is_unpublished = TRUE;
+  webform_submission_update($node, $submission);
+  $form_state['values']['details']['is_new'] = FALSE;
   drupal_set_message(t('The answer has been unpublished.'));
-  $form_state['redirect'] = 'node/' . $node->nid;
-  // $form_state['redirect'] = "node/{$node->nid}/submission/$submission->sid";
 }

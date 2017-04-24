@@ -25,3 +25,13 @@ function emh_request_submission_webform_submission_access($node, $submission, $o
       return emh_access_user_can_see_full_answer($node->nid, $submission->sid);
   }
 }
+
+/**
+ * Implements hook_webform_submission_presave().
+ */
+function emh_request_submission_webform_submission_presave($node, &$submission) {
+  if (isset($submission->is_unpublished) && $submission->is_unpublished) {
+    $submission->is_draft = TRUE;
+    $submission->completed = '';
+  }
+}
