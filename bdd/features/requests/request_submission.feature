@@ -224,7 +224,7 @@ Feature: Request and answers
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should not see the link "delete" in the "submissions" region
-    @include
+
   Scenario: Only the Circle Admin can unpublish an answer (but cannot edit values)
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_position          |
