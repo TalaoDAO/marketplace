@@ -112,9 +112,29 @@ function emh_request_submission_unpublish_access_callback($node, $submission, $a
   }
 
   foreach ($node->og_group_ref['und'] as $group) {
-    if (og_user_access('node', $group['target_id'], 'edit all webform submissions', $account)) {
+    if (og_user_access('node', $group['target_id'], 'unpublish all webform submissions', $account)) {
       return TRUE;
     }
+  }
+
+  return FALSE;
+}
+
+/**
+ * Access callback: Does a user can edit another user answer values?
+ */
+function emh_request_submission_edit_values_access_callback($node, $submission, $account = NULL) {
+  if (user_is_anonymous()) {
+    return;
+  }
+
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+
+  if (!empty($submission->sid) && ($submission->uid === $account->uid)) {
+    return TRUE;
   }
 
   return FALSE;
