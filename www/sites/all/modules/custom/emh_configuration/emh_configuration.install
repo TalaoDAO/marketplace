@@ -1305,3 +1305,76 @@ function emh_configuration_update_7061() {
   module_enable(['emh_request_submission_flags']);
   emh_configuration_revert_views(array('my_circles', 'my_relationships'));
 }
+
+/**
+ * CHG: delete old rules + ADD: new Circles Notification module.
+ */
+function emh_configuration_update_7062() {
+  $rules = array(
+    'rules_emh_circles_send_email_member_subscribe_pending',
+    'rules_emh_circles_send_email_membership_accepted',
+    'rules_emh_circles_circles_send_email_membership_refused',
+  );
+  foreach ($rules as $rule) {
+    if ($rules_config = rules_config_load($rule)) {
+      $rules_config->delete();
+    }
+  }
+
+  module_enable(['emh_circles_notification']);
+}
+
+/**
+ * ADD: new module hotjar.
+ */
+function emh_configuration_update_7063() {
+  module_enable(['hotjar']);
+}
+
+/**
+ * CHG: replace module advuser with admin_users.
+ */
+function emh_configuration_update_7064() {
+  module_enable(['admin_users']);
+  module_disable(['advuser']);
+  drupal_uninstall_modules(['advuser']);
+}
+
+/**
+ * ADD: new module module pet :"previewable email templates".
+ */
+function emh_configuration_update_7065() {
+  module_enable(['pet']);
+  // Log errors only.
+  variable_set('pet_logging', 1);
+}
+
+/**
+ * ADD: 'Create a request' link in topmenu.
+ */
+function emh_configuration_update_7066() {
+  $options = array(
+    'alter' => true,
+    'attributes' => array(
+      'title' => 'Content type to address question(s) to the experts.',
+    ),
+    'item_attributes' => array(
+      'id' => 'create-request',
+      'class' => '',
+      'style' => '',
+    ),
+  );
+  db_update('menu_links')
+    ->fields(array(
+      'weight' => '-44',
+      'plid' => '0',
+      'depth' => '1',
+      'menu_name' => 'menu-top',
+      'link_title' => 'Create a request',
+      'options' => serialize($options),
+    ))
+    ->condition('mlid', '10579')
+    ->execute();
+
+  variable_set('menu_rebuild_needed', TRUE);
+}

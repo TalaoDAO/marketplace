@@ -108,9 +108,10 @@ body.not-logged-in {
  * User menu
  */
 #block-system-user-menu {
-	.badge {
-		font-size: .85em;
-	}
+  .badge {
+    font-size: .85em;
+    background-color: @color-secondary;
+  }
 }
 
 /* HEADER
@@ -178,6 +179,18 @@ header nav.navbar {
 			}
 		}
 	}
+
+  .nav > li {
+    &#create-request {
+      > a {
+        .btn;
+        .button-variant(@blue-darker; transparent; @blue-darker);
+        margin-top: 5px;
+        margin-left: 10px;
+        font-weight: bold;
+      }
+    }
+  }
 }
 
 /* HEADER
