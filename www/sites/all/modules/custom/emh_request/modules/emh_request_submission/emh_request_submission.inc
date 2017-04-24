@@ -73,7 +73,14 @@ function emh_request_submission_get_status($submission) {
 }
 
 /**
- * Access callback: Does a user can edit another user answer?
+ * Does a user can edit another user answer?
+ *
+ * @param object $node
+ * @param object $submission
+ * @param object $account
+ *   Optional; NULL for current user. The user to filter the permission by.
+ *
+ * @return bool
  */
 function emh_request_submission_edit_access_callback($node, $submission, $account = NULL) {
   if (user_is_anonymous()) {
@@ -99,7 +106,14 @@ function emh_request_submission_edit_access_callback($node, $submission, $accoun
 }
 
 /**
- * Access callback: Does a user can unpublish another user answer?
+ * Does a user can unpublish another user answer?
+ *
+ * @param object $node
+ * @param object $submission
+ * @param object $account
+ *   Optional; NULL for current user. The user to filter the permission by.
+ *
+ * @return bool
  */
 function emh_request_submission_unpublish_access_callback($node, $submission, $account = NULL) {
   if (user_is_anonymous()) {
@@ -121,9 +135,15 @@ function emh_request_submission_unpublish_access_callback($node, $submission, $a
 }
 
 /**
- * Access callback: Does a user can edit another user answer values?
+ * Does a user can edit another user answer values?
+ *
+ * @param object $submission
+ * @param object $account
+ *   Optional; NULL for current user. The user to filter the permission by.
+ *
+ * @return bool
  */
-function emh_request_submission_edit_values_access_callback($node, $submission, $account = NULL) {
+function emh_request_submission_edit_values_access_callback($submission, $account = NULL) {
   if (user_is_anonymous()) {
     return;
   }

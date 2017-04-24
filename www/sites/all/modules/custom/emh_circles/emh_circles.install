@@ -356,7 +356,7 @@ function emh_circles_update_7020() {
 }
 
 /**
- * CHG: Revert OG Member admin + update strings.
+ * ADD: New OG admin permission for unpublishing submission.
  */
 function emh_circles_update_7021() {
   // Change permissions.
