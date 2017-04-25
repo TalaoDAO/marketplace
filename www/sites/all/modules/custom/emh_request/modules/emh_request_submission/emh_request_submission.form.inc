@@ -24,13 +24,13 @@ function emh_request_submission_form_alter(&$form, &$form_state, $form_id) {
 
     // Disable the form components if the user is not allowed to answer.
     if (!emh_access_user_can_post_answer($form['#node']->nid) && !empty($form['submitted'])) {
-      $form['submitted'] = emh_request_submission_disabled_elements($form['submitted']);
+      $form['submitted'] = emh_request_submission_disable_textarea($form['submitted']);
       $form['actions']['#access'] = FALSE;
     }
 
     // If current user cannot edit submission values, disable elements.
     if (!emh_request_submission_edit_values_access_callback($submission) && !empty($form['submitted']) && !empty($form['#submission'])) {
-      $form['submitted'] = emh_request_submission_disabled_elements($form['submitted']);
+      $form['submitted'] = emh_request_submission_disable_textarea($form['submitted']);
       $form['actions']['submit']['#attributes'] = array(
         'disabled' => TRUE,
         'data-toggle' => 'tooltip',
@@ -86,14 +86,14 @@ function emh_request_submission_form_alter(&$form, &$form_state, $form_id) {
 }
 
 /**
- * Recursively disable form elements.
+ * Recursively disable form textarea.
  *
  * @param array $submitted
  *   Form $form_submitted.
  *
  * @return array
  */
-function emh_request_submission_disabled_elements($submitted) {
+function emh_request_submission_disable_textarea($submitted) {
   foreach ($submitted as $key => $element) {
     if (is_array($element) && !empty($element['#type']) && $element['#type'] == 'textarea') {
       $submitted[$key]['#attributes']['disabled'] = TRUE;
