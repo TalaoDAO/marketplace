@@ -28,6 +28,7 @@ Feature: Request and answers
     | How to become a superhero?  | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       |
 
     Given I am logged in as a user with the "administrator" role
+
     When I go to "content/avengers"
       And I click "Administrate" in the "primary tabs" region
       And I click "People" in the "content" region
@@ -36,10 +37,12 @@ Feature: Request and answers
       And I press "Update membership"
     Then I should see "Member" in the "Captain AMERICA" row
       And I should see "The membership has been updated."
+
     When I click "edit" in the "Iron MAN" row
       And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
+
     When I click "edit" in the "Klark KENT" row
       And I select "Member" from "Status"
       And I press "Update membership"
@@ -60,7 +63,7 @@ Feature: Request and answers
     # Published answer
     When I press "Publish"
     Then I should see the message "Your answer has been published."
-    Then the last email to "emindhub.test+client1@gmail.com" should contain "Dear Captain,"
+      And the last email to "emindhub.test+client1@gmail.com" should contain "Dear Captain,"
       And the email should contain "You received a new answer to the request"
 
     # Another expert responds to the request (draft).
@@ -221,3 +224,51 @@ Feature: Request and answers
     When I go to homepage
       And I click "How to become a superhero?" in the "How to become a superhero?" row
     Then I should not see the link "delete" in the "submissions" region
+
+  Scenario: Only the Circle Admin can unpublish an answer (but cannot edit values)
+    Given users:
+    | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_position          |
+    | expert3 | emindhub.test+expert3@gmail.com | expert   | Super            | DUPONT          | 0712345672                  | Modèle           | Avengers     | emindhub.test+expert3@gmail.com | Fluide Glacial       | Employee             | Energy        | Avionic Design Engineer |
+
+    Given I am logged in as a user with the "administrator" role
+
+    When I go to "content/avengers"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
+      And I click "edit" in the "Super DUPONT" row
+      And I select "Member" from "Status"
+      And I check the box "administrator member"
+      And I press "Update membership"
+    Then I should see "The membership has been updated."
+
+    Given I am logged in as "expert3"
+    When I go to homepage
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "view" in the "submissions" region
+      And I click "Edit" in the "primary tabs" region
+    Then the "How to become a superhero?" field should be disabled
+
+    When I press "Unpublish"
+    Then I should see "The answer has been unpublished."
+
+    When I go to homepage
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+    Then I should not see "Everybody can be, trust me, I'm the best we known." in the "submissions" region
+      And I should see "No answer" in the "user_submission_count" region
+
+    Given I am logged in as "client1"
+    When I go to homepage
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+    Then I should not see "Everybody can be, trust me, I'm the best we known." in the "submissions" region
+      And I should see "No answer" in the "user_submission_count" region
+
+    When I go to "requests/manage"
+    Then I should not see "Everybody can be, trust me, I'm the best we known."
+
+    Given I am logged in as "expert1"
+    When I go to "answers/my"
+    Then I should see "draft" in the "content" region
+
+    When I go to homepage
+      And I click "How to become a superhero?" in the "How to become a superhero?" row
+    Then I should see "Draft" in the "user_submission" region

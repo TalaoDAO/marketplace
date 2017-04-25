@@ -107,7 +107,7 @@ Feature: Request
   Scenario: Only users belonging to a circle can add a request type restricted to this circle
     # HINT: this should work on "X-MEN" for field_circle_restriction, but, we use "Cercle de test"
     # to bypass a cleanup bug: nodes are cleaned BEFORE terms; when "Call for heroes" is cleaned
-    # up, "X-Men" circle as already been deleted, and it cause a bug
+    # up, "X-Men" circle as already been deleted, and it causes a bug
     Given "request_type" terms:
     | name            | description    | format        | language | field_circle_restriction | field_prepopulate            |
     | Call for heroes | Request heroes | filtered_html | en       | Cercle de test           | edit[og_group_ref][und]=1813 |
