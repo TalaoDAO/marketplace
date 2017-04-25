@@ -747,7 +747,8 @@ header#title {
   line-height: @line-height-base * @line-height-base;
   padding-top: 5px + 5px + 1px;
   padding-bottom: 5px + 5px + 1px;
-  background-color: #FFF;
+  background-color: white;
+  border: 1px solid white;
 }
 .emh-submission-answer,
 .emh-submission-answer * {
@@ -760,6 +761,7 @@ header#title {
 
 .emh-submission-answer-conversation {
   position: relative;
+  background-color: white;
 
   &:after {
     content: '';
@@ -769,8 +771,27 @@ header#title {
     left: 0;
     transform: translateY(50%) translateX(-50%) rotate(135deg) ;
     background-color: white;
-    width: 20px;
-    height: 20px;
+    width: 19px;
+    height: 19px;
+    border: 1px solid white;
+  }
+}
+
+.submission-draft {
+  border-color: @brand-warning !important;
+
+  &:after {
+    border-bottom-color: @brand-warning !important;
+    border-right-color: @brand-warning !important;
+  }
+}
+
+.submission-published {
+  border-color: @brand-success !important;
+
+  &:after {
+    border-bottom-color: @brand-success !important;
+    border-right-color: @brand-success !important;
   }
 }
 
