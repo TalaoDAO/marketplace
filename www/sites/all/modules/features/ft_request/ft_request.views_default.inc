@@ -2624,9 +2624,6 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['is_draft']['id'] = 'is_draft';
   $handler->display->display_options['filters']['is_draft']['table'] = 'webform_submissions';
   $handler->display->display_options['filters']['is_draft']['field'] = 'is_draft';
-  $handler->display->display_options['filters']['is_draft']['value'] = array(
-    0 => '0',
-  );
   $handler->display->display_options['filters']['is_draft']['group'] = 1;
   $handler->display->display_options['filters']['is_draft']['exposed'] = TRUE;
   $handler->display->display_options['filters']['is_draft']['expose']['operator_id'] = 'is_draft_op';
