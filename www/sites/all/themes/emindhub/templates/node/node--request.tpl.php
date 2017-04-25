@@ -74,7 +74,7 @@
 
 			<?php if ($node->uid !== $user->uid) : ?>
 				<div class="section user-submission">
-					<div class="col-sm-8<?php if (!empty($submission_status)) print ' submission-' . $submission_status['status']; ?>">
+					<div class="col-sm-8 submission-answer<?php if (!empty($submission_status)) print ' submission-' . $submission_status['status']; ?>">
 						<div class="row user-submission-title">
 							<div class="col-sm-8">
 								<h3><span><?php print t('Your answer'); ?></span></h3>
