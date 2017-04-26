@@ -5,3 +5,4 @@ core = 7.x
 
 ; Dependencies
 dependencies[] = emh_request
+dependencies[] = views_conditional
