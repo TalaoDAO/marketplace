@@ -901,15 +901,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'rules_forms',
   );
 
-  // Exported permission: 'administer scheduler'.
-  $permissions['administer scheduler'] = array(
-    'name' => 'administer scheduler',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'scheduler',
-  );
-
   // Exported permission: 'administer search'.
   $permissions['administer search'] = array(
     'name' => 'administer search',
@@ -2487,16 +2478,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'save_draft',
   );
 
-  // Exported permission: 'schedule publishing of nodes'.
-  $permissions['schedule publishing of nodes'] = array(
-    'name' => 'schedule publishing of nodes',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'scheduler',
-  );
-
   // Exported permission: 'search content'.
   $permissions['search content'] = array(
     'name' => 'search content',
@@ -2909,16 +2890,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: 'view scheduled content'.
-  $permissions['view scheduled content'] = array(
-    'name' => 'view scheduled content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'scheduler',
   );
 
   // Exported permission: 'view the administration theme'.
