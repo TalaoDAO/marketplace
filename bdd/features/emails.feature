@@ -29,9 +29,9 @@ Feature: Emails
     | expert2 | emindhub.test+expert2@gmail.com | expert   | Klark            | KENT            | 0712345671                  | Modèle           | Avengers     | emindhub.test+expert2@gmail.com | Marvel Studios       | Employee             | Other         | C.E.O.                  | US                    | Real-time                     |
     | expert3 | emindhub.test+expert3@gmail.com | expert   | Super            | DUPONT          | 0712345672                  | Modèle           | Avengers     | emindhub.test+expert3@gmail.com | Fluide Glacial       | Employee             | Energy        | C.E.O.                  | FR                    | Real-time                     |
 
-    # Make client1 as a Creator member of Avengers circle
     Given I am logged in as a user with the "administrator" role
 
+    # Make client1 member of Avengers circle
     When I go to "content/avengers"
       And I click "Administrate" in the "primary tabs" region
       And I click "People" in the "content" region
