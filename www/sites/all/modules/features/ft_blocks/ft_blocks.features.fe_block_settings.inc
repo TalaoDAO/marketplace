@@ -298,43 +298,6 @@ function ft_blocks_default_fe_block_settings() {
     'visibility' => 0,
   );
 
-  $export['search-form'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'delta' => 'form',
-    'i18n_block_language' => array(),
-    'i18n_mode' => 1,
-    'module' => 'search',
-    'node_types' => array(),
-    'pages' => '',
-    'roles' => array(
-      'administrator' => 3,
-      'webmaster' => 6,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'emindhub',
-        'weight' => -12,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => -10,
-      ),
-      'smartmobility' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'smartmobility',
-        'weight' => -12,
-      ),
-    ),
-    'title' => '',
-    'visibility' => 0,
-  );
-
   $export['system-help'] = array(
     'cache' => -1,
     'custom' => 0,
