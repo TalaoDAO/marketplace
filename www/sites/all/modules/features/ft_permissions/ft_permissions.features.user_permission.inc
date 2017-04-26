@@ -975,15 +975,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'views',
   );
 
-  // Exported permission: 'administer views calc'.
-  $permissions['administer views calc'] = array(
-    'name' => 'administer views calc',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'views_calc',
-  );
-
   // Exported permission: 'administer views_send'.
   $permissions['administer views_send'] = array(
     'name' => 'administer views_send',
@@ -1255,15 +1246,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'path',
-  );
-
-  // Exported permission: 'create views calc'.
-  $permissions['create views calc'] = array(
-    'name' => 'create views calc',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'views_calc',
   );
 
   // Exported permission: 'create webform content'.
