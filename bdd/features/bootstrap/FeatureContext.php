@@ -681,14 +681,14 @@ class FeatureContext extends DrupalContext {
    * @BeforeSuite
    */
   public static function disableModules(\Behat\Testwork\Hook\Scope\BeforeSuiteScope $scope) {
-    module_disable(array('emh_smartmobility'));
+    module_disable(array('emh_smartmobility', 'recaptcha'));
   }
 
   /**
    * @AfterSuite
    */
   public static function enableModules(\Behat\Testwork\Hook\Scope\AfterSuiteScope $scope) {
-    module_enable(array('emh_smartmobility'));
+    module_enable(array('emh_smartmobility', 'recaptcha'));
   }
 
   /**
@@ -696,6 +696,7 @@ class FeatureContext extends DrupalContext {
    */
   public function prepareForSmartMobility(BeforeScenarioScope $scope) {
     module_enable(array('emh_smartmobility'));
+    variable_set('emh_smartmobility_circle_gid', 2520);
   }
 
   /**
@@ -703,6 +704,7 @@ class FeatureContext extends DrupalContext {
    */
   public function cleanupForSmartMobility(Behat\Behat\Hook\Scope\AfterScenarioScope $scope) {
     module_disable(array('emh_smartmobility'));
+    variable_set('emh_smartmobility_circle_gid', 1813);
   }
 
   /**
