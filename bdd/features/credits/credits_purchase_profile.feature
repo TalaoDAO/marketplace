@@ -25,8 +25,9 @@ Feature: Buy profile access
     Given I give "client1" 1000 emh credits
     Given I give "expert1" 1000 emh credits
 
-    # Make client1 as a Creator member of All experts circle
     Given I am logged in as a user with the "administrator" role
+
+    # Make client1 member of All experts circle
     When I go to "content/all-experts"
       And I click "Administrate" in the "primary tabs" region
       And I click "People" in the "content" region
