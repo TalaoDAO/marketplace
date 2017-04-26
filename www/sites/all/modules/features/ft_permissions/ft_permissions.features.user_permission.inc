@@ -2031,24 +2031,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'devel',
   );
 
-  // Exported permission: 'export nodes'.
-  $permissions['export nodes'] = array(
-    'name' => 'export nodes',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'node_export',
-  );
-
-  // Exported permission: 'export own nodes'.
-  $permissions['export own nodes'] = array(
-    'name' => 'export own nodes',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'node_export',
-  );
-
   // Exported permission: 'flag my_contacts'.
   $permissions['flag my_contacts'] = array(
     'name' => 'flag my_contacts',
@@ -2575,15 +2557,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'php',
-  );
-
-  // Exported permission: 'use PHP to import nodes'.
-  $permissions['use PHP to import nodes'] = array(
-    'name' => 'use PHP to import nodes',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'node_export',
   );
 
   // Exported permission: 'use advanced search'.
