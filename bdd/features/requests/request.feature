@@ -23,8 +23,9 @@ Feature: Request
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | field_notification_frequency |
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670                  | Chieur génial      | All experts  | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy          | US                  | Real-time                    |
 
-    # Make client1 as a Creator member of All experts circle
     Given I am logged in as a user with the "administrator" role
+
+    # Make client1 member of All experts circle
     When I go to "content/all-experts"
       And I click "Administrate" in the "primary tabs" region
       And I click "People" in the "content" region
