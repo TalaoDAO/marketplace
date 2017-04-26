@@ -15,7 +15,7 @@ Feature: SmartMobility circle test
     | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Smart Mobility     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance   | US                    |
 
   @smartmobility
-  Scenario: Test if basic login still works
+  Scenario: Basic login
     When I visit 'user/login'
     And I fill in "admin" for "name"
     And I fill in "admin" for "pass"
@@ -23,7 +23,7 @@ Feature: SmartMobility circle test
     Then I should see the text "Log out"
 
   @smartmobility
-  Scenario: Clients can see the requests
+  Scenario: A Smart Mobility member should be redirected to /content/smart-mobility on login
     Given I am logged in as a user with the "administrator" role
 
     When I go to "content/smart-mobility"
