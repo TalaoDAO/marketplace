@@ -706,6 +706,22 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
+   * @BeforeSuite
+   */
+  public static function disableRules(\Behat\Testwork\Hook\Scope\BeforeSuiteScope $scope) {
+    emh_configuration_disable_rule('_emh_request_notification_moderate_mail');
+    emh_configuration_disable_rule('_emh_request_notification_notify_mail');
+  }
+
+  /**
+   * @AfterSuite
+   */
+  public static function enableRules(\Behat\Testwork\Hook\Scope\AfterSuiteScope $scope) {
+    emh_configuration_enable_rule('_emh_request_notification_moderate_mail');
+    emh_configuration_enable_rule('_emh_request_notification_notify_mail');
+  }
+
+  /**
    * @BeforeScenario @email
    */
   public function prepareForEmail(BeforeScenarioScope $scope) {
@@ -719,5 +735,19 @@ class FeatureContext extends DrupalContext {
   public function cleanupForEmail(Behat\Behat\Hook\Scope\AfterScenarioScope $scope) {
     emh_configuration_disable_rule('_emh_request_notification_moderate_mail');
     emh_configuration_disable_rule('_emh_request_notification_notify_mail');
+  }
+
+  /**
+   * @BeforeScenario @nodelay
+   */
+  public function prepareForNoDelay(BeforeScenarioScope $scope) {
+    variable_set('emh_request_notification_delay', '0');
+  }
+
+  /**
+   * @AfterScenario @nodelay
+   */
+  public function cleanupForNoDelay(Behat\Behat\Hook\Scope\AfterScenarioScope $scope) {
+    variable_set('emh_request_notification_delay', '1');
   }
 }
