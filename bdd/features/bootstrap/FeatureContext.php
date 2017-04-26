@@ -688,7 +688,7 @@ class FeatureContext extends DrupalContext {
    * @AfterSuite
    */
   public static function enableModules(\Behat\Testwork\Hook\Scope\AfterSuiteScope $scope) {
-    module_enable(array('smartmobility'));
+    module_enable(array('emh_smartmobility'));
   }
 
   /**
@@ -702,7 +702,7 @@ class FeatureContext extends DrupalContext {
    * @AfterScenario @smartmobility
    */
   public function cleanupForSmartMobility(Behat\Behat\Hook\Scope\AfterScenarioScope $scope) {
-    module_disable(array('smartmobility'));
+    module_disable(array('emh_smartmobility'));
   }
 
   /**
