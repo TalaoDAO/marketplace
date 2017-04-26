@@ -944,15 +944,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'views',
   );
 
-  // Exported permission: 'administer views_send'.
-  $permissions['administer views_send'] = array(
-    'name' => 'administer views_send',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'views_send',
-  );
-
   // Exported permission: 'administer voting api'.
   $permissions['administer voting api'] = array(
     'name' => 'administer voting api',
@@ -960,16 +951,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'votingapi',
-  );
-
-  // Exported permission: 'attachments with views_send'.
-  $permissions['attachments with views_send'] = array(
-    'name' => 'attachments with views_send',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'views_send',
   );
 
   // Exported permission: 'block IP addresses'.
@@ -1980,16 +1961,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'features',
-  );
-
-  // Exported permission: 'mass mailing with views_send'.
-  $permissions['mass mailing with views_send'] = array(
-    'name' => 'mass mailing with views_send',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'views_send',
   );
 
   // Exported permission: 'merge domaine terms'.
