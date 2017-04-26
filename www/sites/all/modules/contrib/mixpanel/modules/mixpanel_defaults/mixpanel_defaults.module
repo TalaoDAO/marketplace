@@ -1,0 +1,41 @@
+<?php
+/**
+ * @file
+ * Sensible defaults for mixpanel.
+ */
+
+include_once 'includes/mixpanel_defaults.node.inc';
+include_once 'includes/mixpanel_defaults.user.inc';
+include_once 'includes/mixpanel_defaults.comment.inc';
+include_once 'includes/mixpanel_defaults.og.inc';
+
+/**
+ * Implements hook_mixpanel_defaults_alter().
+ */
+function mixpanel_defaults_mixpanel_defaults_alter(&$properties, $account) {
+  if ($account->uid != 0) {
+    // Legacy properties set in older versions of the Mixpanel module.
+    $properties['cohort'] = format_date($account->created, 'custom', "M-Y");
+    $properties['user_created'] = $account->created;
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function mixpanel_defaults_form_alter(&$form, &$form_state, $form_id) {
+  switch ($form_id) {
+    case 'contact_personal_form':
+      $form['#submit'][] = "mixpanel_defaults_contact_personal_form_submit";
+      break;
+
+    case 'user_profile_form':
+      $form['#submit'][] = "mixpanel_defaults_user_profile_form_submit";
+      break;
+
+    case 'search_form':
+    case 'search_block_form':
+      $form['#submit'][] = "mixpanel_defaults_search_form_submit";
+      break;
+  }
+}
