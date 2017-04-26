@@ -11,14 +11,13 @@ Feature: Registration test
       And I fill in "emindhub.test+spiderman@gmail.com" for "mail"
       And I fill in "test" for "pass[pass1]"
       And I fill in "test" for "pass[pass2]"
-      And I check the box "I agree to the Terms of use document" 
+      And I check the box "I agree to the Terms of use document"
       And I press the "Create new account" button
     Then I should see the text "A confirmation message with further instructions has been sent to your e-mail address."
 
     Given I am logged in as the admin
     When I go to "admin/people"
-    Then I should see "Spider MAN"
-    When I click "edit" in the "Spider MAN" row
+      And I click "edit" in the "Spider MAN" row
       And I select the radio button "Member"
       And I select "France" from "Country"
       And I fill in "Airbus" for "field_entreprise[und][0][target_id]"
