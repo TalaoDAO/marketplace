@@ -48,7 +48,7 @@ Feature: Request Option Price
       And I fill in "Duration" with "1300"
       And I press "Save"
 
-    # Make client1 as a Creator member of circles
+    # Make client1 & expert1 members of Avengers, League of justice & Guardians of the Galaxy circles
     When I go to "content/avengers"
       And I click "Administrate" in the "primary tabs" region
       And I click "People" in the "content" region

@@ -48,8 +48,6 @@ Feature: Request and answers
       And I press "Update membership"
     Then I should see "The membership has been updated."
 
-    Given the test email system is enabled
-
     # An expert responds to the request.
     Given I am logged in as "expert1"
     When I go to homepage
@@ -63,8 +61,6 @@ Feature: Request and answers
     # Published answer
     When I press "Publish"
     Then I should see the message "Your answer has been published."
-      And the last email to "emindhub.test+client1@gmail.com" should contain "Dear Captain,"
-      And the email should contain "You received a new answer to the request"
 
     # Another expert responds to the request (draft).
     Given I am logged in as "expert2"
