@@ -510,15 +510,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'backup_migrate',
   );
 
-  // Exported permission: 'administer block groups'.
-  $permissions['administer block groups'] = array(
-    'name' => 'administer block groups',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'blockgroup',
-  );
-
   // Exported permission: 'administer blocks'.
   $permissions['administer blocks'] = array(
     'name' => 'administer blocks',
