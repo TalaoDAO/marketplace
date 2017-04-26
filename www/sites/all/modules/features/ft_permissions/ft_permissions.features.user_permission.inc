@@ -910,16 +910,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'search',
   );
 
-  // Exported permission: 'administer shortcuts'.
-  $permissions['administer shortcuts'] = array(
-    'name' => 'administer shortcuts',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'shortcut',
-  );
-
   // Exported permission: 'administer simplify'.
   $permissions['administer simplify'] = array(
     'name' => 'administer simplify',
@@ -1320,16 +1310,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: 'customize shortcut links'.
-  $permissions['customize shortcut links'] = array(
-    'name' => 'customize shortcut links',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'shortcut',
   );
 
   // Exported permission: 'delete all webform submissions'.
@@ -2517,16 +2497,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'comment',
-  );
-
-  // Exported permission: 'switch shortcut sets'.
-  $permissions['switch shortcut sets'] = array(
-    'name' => 'switch shortcut sets',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'shortcut',
   );
 
   // Exported permission: 'switch users'.
