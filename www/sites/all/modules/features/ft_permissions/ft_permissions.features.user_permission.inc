@@ -2402,15 +2402,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'ctools',
   );
 
-  // Exported permission: 'use dbtng migrator'.
-  $permissions['use dbtng migrator'] = array(
-    'name' => 'use dbtng migrator',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'dbtng_migrator',
-  );
-
   // Exported permission: 'use flag import'.
   $permissions['use flag import'] = array(
     'name' => 'use flag import',
