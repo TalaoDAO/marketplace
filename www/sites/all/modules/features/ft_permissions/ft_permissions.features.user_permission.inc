@@ -70,15 +70,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'system',
   );
 
-  // Exported permission: 'access advuser'.
-  $permissions['access advuser'] = array(
-    'name' => 'access advuser',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'advuser',
-  );
-
   // Exported permission: 'access all views'.
   $permissions['access all views'] = array(
     'name' => 'access all views',
@@ -499,15 +490,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'system',
-  );
-
-  // Exported permission: 'administer advuser'.
-  $permissions['administer advuser'] = array(
-    'name' => 'administer advuser',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'advuser',
   );
 
   // Exported permission: 'administer audit files'.
@@ -2463,15 +2445,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'fivestar',
   );
 
-  // Exported permission: 'receive email advuser'.
-  $permissions['receive email advuser'] = array(
-    'name' => 'receive email advuser',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'advuser',
-  );
-
   // Exported permission: 'rename features'.
   $permissions['rename features'] = array(
     'name' => 'rename features',
@@ -2559,15 +2532,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'mimemail',
-  );
-
-  // Exported permission: 'send email advuser'.
-  $permissions['send email advuser'] = array(
-    'name' => 'send email advuser',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'advuser',
   );
 
   // Exported permission: 'skip comment approval'.

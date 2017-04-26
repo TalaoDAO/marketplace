@@ -1378,3 +1378,14 @@ function emh_configuration_update_7066() {
 
   variable_set('menu_rebuild_needed', TRUE);
 }
+
+/**
+ * CHG: Uninstall disabled modules.
+ */
+function emh_configuration_update_7067() {
+  drupal_uninstall_modules(array('advuser', 'ajax_comments', 'blockexport', 'diff', 'ds_extras', 'ds_devel', 'ds_format', 'ds_forms', 'ds_search', 'ds_ui', 'emh_honeypot', 'languageicons', 'linkedin_auth', 'mediaelement', 'onecomment', 'openid', 'privatemsg_roles', 'privatemsg_rules', 'reroute_email', 'stickynote', 'views_fieldsets', 'views_tree', 'node_reference'));
+  drupal_uninstall_modules(array('ds', 'honeypot', 'linkedin', 'privatemsg_filter'));
+  drupal_uninstall_modules(array('privatemsg'));
+  drupal_uninstall_modules(array('eva', 'hacked', 'security_review', 'translation_helpers', 'variablecheck'));
+  module_enable(array('ft_permissions'));
+}
