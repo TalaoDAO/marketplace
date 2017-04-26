@@ -89,15 +89,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'webform',
   );
 
-  // Exported permission: 'access audit files reports'.
-  $permissions['access audit files reports'] = array(
-    'name' => 'access audit files reports',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'auditfiles',
-  );
-
   // Exported permission: 'access comments'.
   $permissions['access comments'] = array(
     'name' => 'access comments',
@@ -471,15 +462,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'system',
-  );
-
-  // Exported permission: 'administer audit files'.
-  $permissions['administer audit files'] = array(
-    'name' => 'administer audit files',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'auditfiles',
   );
 
   // Exported permission: 'administer blocks'.
