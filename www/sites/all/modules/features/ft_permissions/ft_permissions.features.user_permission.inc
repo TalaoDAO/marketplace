@@ -94,10 +94,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access comments',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
-      'expert' => 'expert',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'comment',
   );
@@ -818,15 +814,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'user',
   );
 
-  // Exported permission: 'administer privatecomments forms'.
-  $permissions['administer privatecomments forms'] = array(
-    'name' => 'administer privatecomments forms',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'privatecomments',
-  );
-
   // Exported permission: 'administer rules'.
   $permissions['administer rules'] = array(
     'name' => 'administer rules',
@@ -995,46 +982,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'system',
   );
 
-  // Exported permission: 'blog: comment on any blog content'.
-  $permissions['blog: comment on any blog content'] = array(
-    'name' => 'blog: comment on any blog content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'comment_perm',
-  );
-
-  // Exported permission: 'blog: comment without approval on any blog content'.
-  $permissions['blog: comment without approval on any blog content'] = array(
-    'name' => 'blog: comment without approval on any blog content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'comment_perm',
-  );
-
-  // Exported permission: 'blog: comment without approval on own blog content'.
-  $permissions['blog: comment without approval on own blog content'] = array(
-    'name' => 'blog: comment without approval on own blog content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'comment_perm',
-  );
-
-  // Exported permission: 'blog: edit own comments on blog content'.
-  $permissions['blog: edit own comments on blog content'] = array(
-    'name' => 'blog: edit own comments on blog content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'comment_perm',
-  );
-
   // Exported permission: 'bypass node access'.
   $permissions['bypass node access'] = array(
     'name' => 'bypass node access',
@@ -1063,42 +1010,6 @@ function ft_permissions_user_default_permissions() {
       'authenticated user' => 'authenticated user',
     ),
     'module' => 'user',
-  );
-
-  // Exported permission: 'challenge: comment on any challenge content'.
-  $permissions['challenge: comment on any challenge content'] = array(
-    'name' => 'challenge: comment on any challenge content',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'comment_perm',
-  );
-
-  // Exported permission: 'challenge: comment without approval on any challenge content'.
-  $permissions['challenge: comment without approval on any challenge content'] = array(
-    'name' => 'challenge: comment without approval on any challenge content',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'comment_perm',
-  );
-
-  // Exported permission: 'challenge: comment without approval on own challenge content'.
-  $permissions['challenge: comment without approval on own challenge content'] = array(
-    'name' => 'challenge: comment without approval on own challenge content',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'comment_perm',
-  );
-
-  // Exported permission: 'challenge: edit own comments on challenge content'.
-  $permissions['challenge: edit own comments on challenge content'] = array(
-    'name' => 'challenge: edit own comments on challenge content',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'comment_perm',
   );
 
   // Exported permission: 'change own username'.
@@ -1747,10 +1658,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit own comments',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
-      'expert' => 'expert',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'comment',
   );
@@ -2232,58 +2139,8 @@ function ft_permissions_user_default_permissions() {
     'name' => 'post comments',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
-      'expert' => 'expert',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'comment',
-  );
-
-  // Exported permission: 'privatecomments challenge view all'.
-  $permissions['privatecomments challenge view all'] = array(
-    'name' => 'privatecomments challenge view all',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'privatecomments',
-  );
-
-  // Exported permission: 'question1: comment on any question1 content'.
-  $permissions['question1: comment on any question1 content'] = array(
-    'name' => 'question1: comment on any question1 content',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'comment_perm',
-  );
-
-  // Exported permission: 'question1: comment without approval on any question1 content'.
-  $permissions['question1: comment without approval on any question1 content'] = array(
-    'name' => 'question1: comment without approval on any question1 content',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'comment_perm',
-  );
-
-  // Exported permission: 'question1: comment without approval on own question1 content'.
-  $permissions['question1: comment without approval on own question1 content'] = array(
-    'name' => 'question1: comment without approval on own question1 content',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'comment_perm',
-  );
-
-  // Exported permission: 'question1: edit own comments on question1 content'.
-  $permissions['question1: edit own comments on question1 content'] = array(
-    'name' => 'question1: edit own comments on question1 content',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'comment_perm',
   );
 
   // Exported permission: 'rate content'.
@@ -2360,10 +2217,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'skip comment approval',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
-      'expert' => 'expert',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'comment',
   );
