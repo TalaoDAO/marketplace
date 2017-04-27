@@ -89,43 +89,11 @@ function ft_permissions_user_default_permissions() {
     'module' => 'webform',
   );
 
-  // Exported permission: 'access audit files reports'.
-  $permissions['access audit files reports'] = array(
-    'name' => 'access audit files reports',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'auditfiles',
-  );
-
-  // Exported permission: 'access backup and migrate'.
-  $permissions['access backup and migrate'] = array(
-    'name' => 'access backup and migrate',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'backup_migrate',
-  );
-
-  // Exported permission: 'access backup files'.
-  $permissions['access backup files'] = array(
-    'name' => 'access backup files',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'backup_migrate',
-  );
-
   // Exported permission: 'access comments'.
   $permissions['access comments'] = array(
     'name' => 'access comments',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
-      'expert' => 'expert',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'comment',
   );
@@ -492,33 +460,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'system',
   );
 
-  // Exported permission: 'administer audit files'.
-  $permissions['administer audit files'] = array(
-    'name' => 'administer audit files',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'auditfiles',
-  );
-
-  // Exported permission: 'administer backup and migrate'.
-  $permissions['administer backup and migrate'] = array(
-    'name' => 'administer backup and migrate',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'backup_migrate',
-  );
-
-  // Exported permission: 'administer block groups'.
-  $permissions['administer block groups'] = array(
-    'name' => 'administer block groups',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'blockgroup',
-  );
-
   // Exported permission: 'administer blocks'.
   $permissions['administer blocks'] = array(
     'name' => 'administer blocks',
@@ -799,15 +740,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'module_filter',
   );
 
-  // Exported permission: 'administer module missing message fixer'.
-  $permissions['administer module missing message fixer'] = array(
-    'name' => 'administer module missing message fixer',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'module_missing_message_fixer',
-  );
-
   // Exported permission: 'administer modules'.
   $permissions['administer modules'] = array(
     'name' => 'administer modules',
@@ -873,15 +805,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'user',
   );
 
-  // Exported permission: 'administer privatecomments forms'.
-  $permissions['administer privatecomments forms'] = array(
-    'name' => 'administer privatecomments forms',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'privatecomments',
-  );
-
   // Exported permission: 'administer rules'.
   $permissions['administer rules'] = array(
     'name' => 'administer rules',
@@ -908,34 +831,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'rules_forms',
-  );
-
-  // Exported permission: 'administer scheduler'.
-  $permissions['administer scheduler'] = array(
-    'name' => 'administer scheduler',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'scheduler',
-  );
-
-  // Exported permission: 'administer search'.
-  $permissions['administer search'] = array(
-    'name' => 'administer search',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'search',
-  );
-
-  // Exported permission: 'administer shortcuts'.
-  $permissions['administer shortcuts'] = array(
-    'name' => 'administer shortcuts',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'shortcut',
   );
 
   // Exported permission: 'administer simplify'.
@@ -1040,24 +935,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'views',
   );
 
-  // Exported permission: 'administer views calc'.
-  $permissions['administer views calc'] = array(
-    'name' => 'administer views calc',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'views_calc',
-  );
-
-  // Exported permission: 'administer views_send'.
-  $permissions['administer views_send'] = array(
-    'name' => 'administer views_send',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'views_send',
-  );
-
   // Exported permission: 'administer voting api'.
   $permissions['administer voting api'] = array(
     'name' => 'administer voting api',
@@ -1065,16 +942,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'votingapi',
-  );
-
-  // Exported permission: 'attachments with views_send'.
-  $permissions['attachments with views_send'] = array(
-    'name' => 'attachments with views_send',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'views_send',
   );
 
   // Exported permission: 'block IP addresses'.
@@ -1085,46 +952,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'system',
-  );
-
-  // Exported permission: 'blog: comment on any blog content'.
-  $permissions['blog: comment on any blog content'] = array(
-    'name' => 'blog: comment on any blog content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'comment_perm',
-  );
-
-  // Exported permission: 'blog: comment without approval on any blog content'.
-  $permissions['blog: comment without approval on any blog content'] = array(
-    'name' => 'blog: comment without approval on any blog content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'comment_perm',
-  );
-
-  // Exported permission: 'blog: comment without approval on own blog content'.
-  $permissions['blog: comment without approval on own blog content'] = array(
-    'name' => 'blog: comment without approval on own blog content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'comment_perm',
-  );
-
-  // Exported permission: 'blog: edit own comments on blog content'.
-  $permissions['blog: edit own comments on blog content'] = array(
-    'name' => 'blog: edit own comments on blog content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'comment_perm',
   );
 
   // Exported permission: 'bypass node access'.
@@ -1155,42 +982,6 @@ function ft_permissions_user_default_permissions() {
       'authenticated user' => 'authenticated user',
     ),
     'module' => 'user',
-  );
-
-  // Exported permission: 'challenge: comment on any challenge content'.
-  $permissions['challenge: comment on any challenge content'] = array(
-    'name' => 'challenge: comment on any challenge content',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'comment_perm',
-  );
-
-  // Exported permission: 'challenge: comment without approval on any challenge content'.
-  $permissions['challenge: comment without approval on any challenge content'] = array(
-    'name' => 'challenge: comment without approval on any challenge content',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'comment_perm',
-  );
-
-  // Exported permission: 'challenge: comment without approval on own challenge content'.
-  $permissions['challenge: comment without approval on own challenge content'] = array(
-    'name' => 'challenge: comment without approval on own challenge content',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'comment_perm',
-  );
-
-  // Exported permission: 'challenge: edit own comments on challenge content'.
-  $permissions['challenge: edit own comments on challenge content'] = array(
-    'name' => 'challenge: edit own comments on challenge content',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'comment_perm',
   );
 
   // Exported permission: 'change own username'.
@@ -1322,15 +1113,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'path',
   );
 
-  // Exported permission: 'create views calc'.
-  $permissions['create views calc'] = array(
-    'name' => 'create views calc',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'views_calc',
-  );
-
   // Exported permission: 'create webform content'.
   $permissions['create webform content'] = array(
     'name' => 'create webform content',
@@ -1338,16 +1120,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: 'customize shortcut links'.
-  $permissions['customize shortcut links'] = array(
-    'name' => 'customize shortcut links',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'shortcut',
   );
 
   // Exported permission: 'delete all webform submissions'.
@@ -1445,16 +1217,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: 'delete backup files'.
-  $permissions['delete backup files'] = array(
-    'name' => 'delete backup files',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'backup_migrate',
   );
 
   // Exported permission: 'delete own article content'.
@@ -1868,10 +1630,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit own comments',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
-      'expert' => 'expert',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'comment',
   );
@@ -2107,24 +1865,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'devel',
   );
 
-  // Exported permission: 'export nodes'.
-  $permissions['export nodes'] = array(
-    'name' => 'export nodes',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'node_export',
-  );
-
-  // Exported permission: 'export own nodes'.
-  $permissions['export own nodes'] = array(
-    'name' => 'export own nodes',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'node_export',
-  );
-
   // Exported permission: 'flag my_contacts'.
   $permissions['flag my_contacts'] = array(
     'name' => 'flag my_contacts',
@@ -2212,16 +1952,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'features',
-  );
-
-  // Exported permission: 'mass mailing with views_send'.
-  $permissions['mass mailing with views_send'] = array(
-    'name' => 'mass mailing with views_send',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'views_send',
   );
 
   // Exported permission: 'merge domaine terms'.
@@ -2366,73 +2096,13 @@ function ft_permissions_user_default_permissions() {
     'module' => 'oauth_common',
   );
 
-  // Exported permission: 'perform backup'.
-  $permissions['perform backup'] = array(
-    'name' => 'perform backup',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'backup_migrate',
-  );
-
   // Exported permission: 'post comments'.
   $permissions['post comments'] = array(
     'name' => 'post comments',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
-      'expert' => 'expert',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'comment',
-  );
-
-  // Exported permission: 'privatecomments challenge view all'.
-  $permissions['privatecomments challenge view all'] = array(
-    'name' => 'privatecomments challenge view all',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'privatecomments',
-  );
-
-  // Exported permission: 'question1: comment on any question1 content'.
-  $permissions['question1: comment on any question1 content'] = array(
-    'name' => 'question1: comment on any question1 content',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'comment_perm',
-  );
-
-  // Exported permission: 'question1: comment without approval on any question1 content'.
-  $permissions['question1: comment without approval on any question1 content'] = array(
-    'name' => 'question1: comment without approval on any question1 content',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'comment_perm',
-  );
-
-  // Exported permission: 'question1: comment without approval on own question1 content'.
-  $permissions['question1: comment without approval on own question1 content'] = array(
-    'name' => 'question1: comment without approval on own question1 content',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'comment_perm',
-  );
-
-  // Exported permission: 'question1: edit own comments on question1 content'.
-  $permissions['question1: edit own comments on question1 content'] = array(
-    'name' => 'question1: edit own comments on question1 content',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'comment_perm',
   );
 
   // Exported permission: 'rate content'.
@@ -2452,16 +2122,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'features',
-  );
-
-  // Exported permission: 'restore from backup'.
-  $permissions['restore from backup'] = array(
-    'name' => 'restore from backup',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'backup_migrate',
   );
 
   // Exported permission: 'revert revisions'.
@@ -2496,26 +2156,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'save_draft',
   );
 
-  // Exported permission: 'schedule publishing of nodes'.
-  $permissions['schedule publishing of nodes'] = array(
-    'name' => 'schedule publishing of nodes',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'scheduler',
-  );
-
-  // Exported permission: 'search content'.
-  $permissions['search content'] = array(
-    'name' => 'search content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'search',
-  );
-
   // Exported permission: 'select account cancellation method'.
   $permissions['select account cancellation method'] = array(
     'name' => 'select account cancellation method',
@@ -2539,22 +2179,8 @@ function ft_permissions_user_default_permissions() {
     'name' => 'skip comment approval',
     'roles' => array(
       'administrator' => 'administrator',
-      'business' => 'business',
-      'expert' => 'expert',
-      'référent' => 'référent',
-      'webmaster' => 'webmaster',
     ),
     'module' => 'comment',
-  );
-
-  // Exported permission: 'switch shortcut sets'.
-  $permissions['switch shortcut sets'] = array(
-    'name' => 'switch shortcut sets',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'shortcut',
   );
 
   // Exported permission: 'switch users'.
@@ -2693,25 +2319,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'php',
   );
 
-  // Exported permission: 'use PHP to import nodes'.
-  $permissions['use PHP to import nodes'] = array(
-    'name' => 'use PHP to import nodes',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'node_export',
-  );
-
-  // Exported permission: 'use advanced search'.
-  $permissions['use advanced search'] = array(
-    'name' => 'use advanced search',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'search',
-  );
-
   // Exported permission: 'use advancedform'.
   $permissions['use advancedform'] = array(
     'name' => 'use advancedform',
@@ -2755,15 +2362,6 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'ctools',
-  );
-
-  // Exported permission: 'use dbtng migrator'.
-  $permissions['use dbtng migrator'] = array(
-    'name' => 'use dbtng migrator',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'dbtng_migrator',
   );
 
   // Exported permission: 'use flag import'.
@@ -2918,16 +2516,6 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'node',
-  );
-
-  // Exported permission: 'view scheduled content'.
-  $permissions['view scheduled content'] = array(
-    'name' => 'view scheduled content',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'webmaster' => 'webmaster',
-    ),
-    'module' => 'scheduler',
   );
 
   // Exported permission: 'view the administration theme'.
