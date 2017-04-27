@@ -740,15 +740,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'module_filter',
   );
 
-  // Exported permission: 'administer module missing message fixer'.
-  $permissions['administer module missing message fixer'] = array(
-    'name' => 'administer module missing message fixer',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'module_missing_message_fixer',
-  );
-
   // Exported permission: 'administer modules'.
   $permissions['administer modules'] = array(
     'name' => 'administer modules',
