@@ -1,0 +1,19 @@
+<?php
+/**
+ * @file
+ * The Mixpanel Rules module file.
+ */
+
+define('MIXPANEL_RULES_PROPERTIES_MAX', 10);
+
+/**
+ * Implements hook_theme().
+ */
+function mixpanel_rules_theme() {
+  return array(
+    'mixpanel_rules_track_parameter_form' => array(
+      'render element' => 'element',
+      'file' => 'mixpanel_rules.theme.inc',
+    ),
+  );
+}
