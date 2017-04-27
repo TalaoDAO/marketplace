@@ -1341,7 +1341,7 @@ function emh_configuration_update_7064() {
 }
 
 /**
- * ADD: new module module pet :"previewable email templates".
+ * ADD: new module pet :"previewable email templates".
  */
 function emh_configuration_update_7065() {
   module_enable(['pet']);
@@ -1390,3 +1390,12 @@ function emh_configuration_update_7067() {
   drupal_uninstall_modules(array('privatemsg'));
   drupal_uninstall_modules(array('eva', 'hacked', 'security_review', 'translation_helpers', 'variablecheck'));
 }
+
+/**
+ * ADD: new module mix pannel 
+ */
+function emh_configuration_update_7068() {
+  module_enable(['mixpanel', 'mixpanel_defaults', 'mixpanel_rules']);
+  variable_set('mixpanel_token', 'e9ccbdc087716f3288bfbf190fd30042');
+}
+
