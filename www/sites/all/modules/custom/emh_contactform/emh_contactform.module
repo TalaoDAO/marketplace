@@ -1,81 +1,88 @@
 <?php
-/**
-* @file
-* A module that would allow users to add fields
-* Created by: Andrei Ghenoiu
-* Date: 8/24/12
-* Resources from: http://www.pensamientosdivergentes.net/blog/modifying-contact-form-drupal-how-add-field, 			http://www.metaltoad.com/blog/how-add-field-drupal-contact-form
-*/
 
+/**
+ * @file
+ * A module that would allow users to add fields.
+ * @see http://www.pensamientosdivergentes.net/blog/modifying-contact-form-drupal-how-add-field
+ * @see http://www.metaltoad.com/blog/how-add-field-drupal-contact-form
+ */
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
 function emh_contactform_form_contact_site_form_alter(&$form, &$form_state, $form_id) {
-	$form['emh_baseline'] = array(
+  $form['emh_baseline'] = array(
     '#markup' => '<p class="emh-title-baseline">' . t('Want to learn more?') . '<br />' . t('Leave us a message, we will get back at you within 24h!') . '</p>',
-    '#weight' => '-1000', // First !
+    '#weight' => '-1000',
   );
 
-	$form['firstname'] = array(
-		'#title' => t('Your first name'),
-		'#type' => 'textfield',
-		'#required' => TRUE,
-	);
+  $form['firstname'] = array(
+    '#title' => t('Your first name'),
+    '#type' => 'textfield',
+    '#required' => TRUE,
+  );
 
-	$form['lastname'] = array(
-		'#title' => t('Your last name'),
-		'#type' => 'textfield',
-		'#required' => TRUE,
-	);
+  $form['lastname'] = array(
+    '#title' => t('Your last name'),
+    '#type' => 'textfield',
+    '#required' => TRUE,
+  );
 
-	$form['entreprise'] = array(
-		'#title' => t('Your organisation / company'),
-		'#type' => 'textfield',
-	);
+  $form['entreprise'] = array(
+    '#title' => t('Your organisation / company'),
+    '#type' => 'textfield',
+  );
 
-	$form['phone'] = array(
-		'#title' => t('Your phone'),
-		'#type' => 'textfield',
-	);
+  $form['phone'] = array(
+    '#title' => t('Your phone'),
+    '#type' => 'textfield',
+  );
 
-	$form['mail'] = array(
-		'#title' => t('Your email'),
-		'#type' => 'textfield',
-		'#required' => TRUE,
-	);
+  $form['mail'] = array(
+    '#title' => t('Your email'),
+    '#type' => 'textfield',
+    '#required' => TRUE,
+  );
 
-	$form['message'] = array(
-		'#title' => t('Your message'),
-		'#type' => 'textarea',
-		'#required' => TRUE,
-		'#rows' => 15,
-	);
+  $form['message'] = array(
+    '#title' => t('Your message'),
+    '#type' => 'textarea',
+    '#required' => TRUE,
+    '#rows' => 15,
+  );
 
-	$form['name']['#required'] = FALSE;
-	$form['name']['#type'] = 'hidden';
+  $form['name']['#required'] = FALSE;
+  $form['name']['#type'] = 'hidden';
 
-	$form['cid']['#type'] = 'hidden';
+  $form['cid']['#type'] = 'hidden';
 
-	$form['subject']['#required'] = FALSE;
-	$form['subject']['#type'] = 'hidden';
+  $form['subject']['#required'] = FALSE;
+  $form['subject']['#type'] = 'hidden';
 
-	$form['copy']['#type'] = 'hidden';
+  $form['copy']['#type'] = 'hidden';
 
-	$form['actions']['submit']['#value'] = t('Send');
+  $form['actions']['submit']['#value'] = t('Send');
 
-	$form['#token'] = NULL;
+  $form['#token'] = NULL;
 
-	$order = array('name', 'mail', 'subject','location', 'cid', 'message', 'copy', 'actions');
+  $order = array('name', 'mail', 'subject','location', 'cid', 'message', 'copy', 'actions');
 
-	foreach ($order as $key => $field) {
-		$form[$field]['#weight'] = $key;
-	}
+  foreach ($order as $key => $field) {
+    $form[$field]['#weight'] = $key;
+  }
   $form['actions']['#weight'] = 100;
 }
 
+/**
+ * Implements hook_mail_alter().
+ */
 function emh_contactform_mail_alter(&$message) {
-	if ($message['id'] == 'contact_page_mail') {
-		$message['id'] = 'custom_contact_mail'; // Important, otherwise suject will be overriden
-	 	$message['subject'] = $message['subject'].' '. t('From').' '.$message['from'];
-	 	$message['body'][] = t('From - ').' '.$message['params']['firstname'].' '.$message['params']['lastname'];
-		$message['body'][] = t('Telephone').': '.$message['params']['phone'];
-		$message['body'][] = t('entreprise').': '.$message['params']['entreprise'];
-	}
+  if ($message['id'] == 'contact_page_mail') {
+    // Important, otherwise suject will be overriden.
+    $message['id'] = 'custom_contact_mail';
+    $message['subject'] = $message['subject'] . ' ' . t('From') . ' ' . $message['from'];
+    $message['body'][] = t('From -') . ' ' . $message['params']['firstname'] . ' ' . $message['params']['lastname'];
+    $message['body'][] = t('Telephone') . ': ' . $message['params']['phone'];
+    $message['body'][] = t('entreprise') . ': ' . $message['params']['entreprise'];
+  }
 }
