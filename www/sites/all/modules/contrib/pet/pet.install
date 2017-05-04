@@ -97,11 +97,15 @@ function pet_schema() {
         'size' => 'medium',
         'description' => 'Optional bcc emails.',
       ),
+      'language' => array(
+        'description' => 'The template language.',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+      ),
     ),
     'primary key' => array('pid'),
-    'unique keys' => array(
-      'name' => array('name'),
-    ),
   );
 
   return $schema;
@@ -111,5 +115,24 @@ function pet_schema() {
  * Implementation of hook_uninstall().
  */
 function pet_uninstall() {
+}
+
+
+/**
+ * Add column language.
+ */
+function pet_update_7002() {
+  $language = language_default();
+
+  db_add_field('pets', 'language', array(
+    'description' => 'The template language.',
+    'type' => 'varchar',
+    'length' => 32,
+    'not null' => TRUE,
+    'default' => '',
+    'initial' => $language->language,
+  ));
+
+  db_drop_unique_key('pets', 'name');
 }
 
