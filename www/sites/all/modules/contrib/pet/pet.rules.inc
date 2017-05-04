@@ -60,7 +60,7 @@ function pet_rules_action_info() {
  */
 function pet_action_send_pet($pet_name, $to_text, $to_account, $account_subs, $node_subs, $settings) {
   $pet = pet_load($pet_name);
-  
+
   // Resolve the recipient
   if (isset($to_account)) {
     $pet_to = $to_account->mail;
@@ -72,12 +72,14 @@ function pet_action_send_pet($pet_name, $to_text, $to_account, $account_subs, $n
     watchdog('pet', 'Mail send using %name PET failed. No recipient provided.', array('%name' => $pet_name), WATCHDOG_ERROR);
     return;
   }
-  
+
   $params = array(
     'pet_from' => variable_get('site_mail', ini_get('sendmail_from')),
     'pet_to' => $pet_to,
     'pet_uid' => isset($account_subs) ? $account_subs->uid : NULL,
     'pet_nid' => isset($node_subs) ? $node_subs->nid : NULL,
+    'pet_cc' => empty($pet->cc_default) ? NULL : pet_parse_mails($pet->cc_default),
+    'pet_bcc' => empty($pet->bcc_default) ? NULL : pet_parse_mails($pet->bcc_default),
   );
   pet_send_one_mail($pet, $params);
 }
