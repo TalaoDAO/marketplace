@@ -23,6 +23,7 @@ function pet_menu() {
   );
   $items['admin/config/system/pet'] = array(
     'title' => 'Previewable Email Templates',
+    'description' => t('Manage previewable email templates settings.'),
     'access arguments' => array('administer previewable email templates'),
     'page callback' => 'system_admin_menu_block_page',
     'file' => 'system.admin.inc',
