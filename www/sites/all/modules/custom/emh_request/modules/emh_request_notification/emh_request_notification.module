@@ -198,6 +198,5 @@ function _emh_request_notification_queue_worker($item) {
   $params = array(
     'nid' => $node->nid,
   );
-  pet_send_mail('emh_request_notification', array(array('mail' => $user->mail, 'uid' => $user->uid)), $params);
-
+  pet_send_mail('emh_request_notification', array(array('mail' => $user->mail, 'uid' => $user->uid)), $params, $node->language);
 }
