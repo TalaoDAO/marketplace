@@ -170,44 +170,19 @@ body.page-node-edit {
 	}
 }
 
-.view-filters {
-	margin-bottom: 15px;
-}
 .views-exposed-form {
-	background-color: @body-bg-inverse;
-	padding: 15px;
-	border-radius: @border-radius-base;
 	.views-exposed-widgets {
-		margin-bottom: 0; // views.css
-		.make-row();
-
-		> * {
-			.make-md-column(3);
-			@media (min-width: @screen-md-min) {
-		    width: 20%;
-		  }
-			padding: 0 15px; // views.css
-			.form-group {
-				margin-bottom: 0;
-			}
-		}
-		// > #edit-type-wrapper,
-    // > #edit-type-1-wrapper {
-		// 	.make-md-column(4);
-		// 	.bef-select-as-checkboxes .bef-checkboxes {
-		//     width: 100%;
-		// 	}
-		// }
 		> .views-submit-button,
 		> .views-reset-button {
-			.make-md-column(1);
-			@media screen and (min-width: @screen-md-min) {
-				margin-top: 25px;
-			}
+      float: left;
 		}
-	}
-	.views-exposed-widget {
-		padding-top: 0; // views.css
+		> .views-reset-button {
+      margin-left: 15px;
+		}
+
+    @media (max-width: @screen-md-min) {
+      margin-bottom: 15px;
+    }
 	}
 }
 

@@ -83,7 +83,7 @@
 	margin-top: 20px;
 
 	.content {
-		padding: 15px;
+		padding: 0 15px 15px;
 		.text-center;
 		background-color: @body-bg-inverse;
 		border: 1px solid @pattens-blue;
@@ -94,6 +94,8 @@
 			-o-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, .2);
 			box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, .2);
 			filter:progid:DXImageTransform.Microsoft.Shadow(color=rgba(0, 0, 0, .2), Direction=NaN, Strength=5);
+
+      margin-top: 15px;
 		}
 	}
 }
@@ -205,7 +207,7 @@
 // Last requests
 #block-views-query-list-block-last-requests,
 #block-views-query-list-block-my-requests {
-	.emh-block-blue-title;
+	// .emh-block-blue-title;
 }
 .view-query-list {
 	table > thead > tr > th,
@@ -217,7 +219,7 @@
 // Timeline
 #block-emh-request-timeline-timeline {
 	.make-md-column(8);
-	// margin-top: 15px;
+
 	.content {
 		.make-row();
 		> * {
