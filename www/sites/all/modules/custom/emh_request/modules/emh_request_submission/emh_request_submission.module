@@ -11,6 +11,21 @@ include_once 'emh_request_submission.form.inc';
 include_once 'emh_request_submission.mail.inc';
 
 /**
+ * Implements hook_theme().
+ */
+function emh_request_submission_theme() {
+  return array(
+    'submission_count' => array(
+      'template' => 'submission_count',
+      'path' => drupal_get_path('module', 'emh_request_submission') . '/theme',
+      'variables' => array(
+        'submission_count' => NULL,
+      ),
+    ),
+  );
+}
+
+/**
  * Implements hook_perm().
  */
 function emh_request_submission_permission() {
