@@ -5,6 +5,9 @@
  * Code of the eMindHub request submission email features.
  */
 
+/**
+ * Implements hook_send_mail().
+ */
 function emh_request_submission_send_mail($node) {
   $author = user_load($node->uid);
   $mail = $author->mail;
@@ -18,15 +21,15 @@ function emh_request_submission_send_mail($node) {
  * Implements hook_token_info().
  */
 function emh_request_submission_token_info() {
-    $node_trim['tracking_url'] =  array(
-      'name' => t("Node tracking URL"),
-      'description' => t("Node URL with tracking info."),
-    );
-    return array(
-      'tokens' => array(
-        'node' => $node_trim,
-      ),
-    );
+  $node_trim['tracking_url'] = array(
+    'name' => t("Node tracking URL"),
+    'description' => t("Node URL with tracking info."),
+  );
+  return array(
+    'tokens' => array(
+      'node' => $node_trim,
+    ),
+  );
 }
 
 /**
@@ -34,7 +37,7 @@ function emh_request_submission_token_info() {
  */
 function emh_request_submission_tokens($type, $tokens, array $data = array(), array $options = array()) {
   $replacements = array();
-  if($type == 'node'){
+  if ($type == 'node') {
     foreach ($tokens as $name => $original) {
       switch ($name) {
         case 'tracking_url':
@@ -50,4 +53,3 @@ function emh_request_submission_tokens($type, $tokens, array $data = array(), ar
   }
   return $replacements;
 }
-
