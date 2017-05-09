@@ -5,6 +5,16 @@
  * Installation hooks for the EMH configuration module.
  */
 
+/** 
+ * Implements hook_update_dependencies().
+ */
+function emh_configuration_update_dependencies() {
+  $dependencies['emh_configuration'][7070] = array(
+    'pet' => 7001,
+  );
+  return $dependencies;
+}
+
 /**
  * Implements hook_enable().
  */
@@ -1405,3 +1415,14 @@ function emh_configuration_update_7068() {
 //   drupal_uninstall_modules(array('privatemsg'));
 //   drupal_uninstall_modules(array('eva', 'hacked', 'security_review', 'translation_helpers', 'variablecheck'));
 // }
+
+/**
+ * ADD: import default PET emails templates
+ */
+function emh_configuration_update_7070() {
+  module_enable(['pet']);
+  exec("drush  ec pet --json $(drush dd)/../deploy/pet-1.json");
+  exec("drush  ec pet --json $(drush dd)/../deploy/pet-2.json");
+  exec("drush  ec pet --json $(drush dd)/../deploy/pet-1-fr.json");
+  exec("drush  ec pet --json $(drush dd)/../deploy/pet-2-fr.json");
+}

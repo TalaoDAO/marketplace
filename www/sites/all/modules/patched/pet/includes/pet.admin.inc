@@ -9,10 +9,70 @@
  * Generate the PET editing form.
  */
 function pet_form($form, &$form_state, $pet, $op = 'edit') {
+  global $language;
+
+  if ($op == 'add') {
+    $pet->language = $language->language;
+  }
+
   if ($op == 'clone') {
     $pet->name .= '_cloned';
     $pet->title .= ' (cloned)';
   }
+
+  $languages = language_list('language');
+
+  if ($languages > 1 && $op != 'add') {
+    $current_query = $_GET;
+    unset($current_query['q']);
+
+    if (isset($current_query['language'])) {
+      $current_language = $current_query['language'];
+    }
+    else {
+      $current_language = $language->language;
+    }
+
+    if ($pet->language != $current_language) {
+      if ($current_pet = pet_load($pet->name, $current_language)) {
+        $pet = $current_pet;
+      }
+      else {
+        $pet->is_new = TRUE;
+        $pet->language = $current_language;
+        $pet->pid = '';
+      }
+    }
+
+    $items = array();
+    foreach ($languages as $langcode => $lang) {
+      $query = array('language' => $langcode);
+      $link = l($lang->name, $_GET['q'], array('query' => $query + $current_query));
+      $items[] = ($current_language == $langcode) ? '<strong>' . $link . '</strong>' : $link;
+    }
+
+    $form['language'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('There are multilingual variables in this form'),
+      '#weight' => -100,
+      '#description' => t('Check you are editing the variables for the right Language value or select the desired Language.'),
+    );
+
+    $form['language']['select_key'] = array(
+      '#type' => 'item',
+      '#markup' => implode(' | ', $items),
+    );
+  } else {
+    $form['language'] = array(
+      '#type' => 'hidden',
+      '#value' => $pet->language,
+    );
+  }
+
+  $form['pid'] = array(
+    '#type' => 'hidden',
+    '#value' => $pet->pid,
+  );
 
   $form['title'] = array(
     '#type' => 'textfield',
