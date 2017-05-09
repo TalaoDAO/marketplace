@@ -1417,6 +1417,7 @@ function emh_configuration_update_7068() {
  * ADD: import default PET emails templates
  */
 function emh_configuration_update_7070() {
+  module_enable(['pet']);
   exec("drush  ec pet --json $(drush dd)/../deploy/pet-1.json");
   exec("drush  ec pet --json $(drush dd)/../deploy/pet-2.json");
   exec("drush  ec pet --json $(drush dd)/../deploy/pet-1-fr.json");

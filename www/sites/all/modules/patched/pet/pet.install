@@ -127,6 +127,8 @@ function pet_update_7001() {
       'initial' => $language->language,
     ));
 
+    db_drop_unique_key('pets', 'name');
+
     // Force drupal's schema to be rebuilt.
     drupal_get_schema('pets', TRUE);
   }
