@@ -1,0 +1,12 @@
+name = Bootstrap Languages
+package = Multilingual
+description = Provides a Bootstrap dropdown button to switch between available languages.
+dependencies[] = locale
+dependencies[] = libraries (>=7.x-2.0)
+configure = 'admin/structure/block'
+core = 7.x
+
+; Information added by drush on 2015-07-30
+version = "7.x-1.x-dev"
+project = "bootstrap_languages"
+datestamp = "1438263924"
