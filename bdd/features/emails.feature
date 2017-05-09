@@ -90,9 +90,9 @@ Feature: Emails
   @email
   Scenario: After publishing an answer, the Request Author should be notified by email
     Given "request" content:
-    | title                           | field_domaine | og_group_ref | author  | field_expiration_date  | status  | language |
-    | How to become a superhero?      | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       | en       |
-    | Comment devenir un super-héro?  | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       | fr       |
+    | title                            | field_domaine | og_group_ref | author  | field_expiration_date  | status  | language |
+    | How to become a superhero?       | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       | en       |
+    | Comment devenir un super-héros?  | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       | fr       |
 
     Given the test email system is enabled
 
@@ -105,8 +105,8 @@ Feature: Emails
     Then the last email to "emindhub.test+client1@gmail.com" should contain "Dear Captain,"
       And the email should contain "You received a new answer to the request"
     When I go to homepage
-      And I click "Comment devenir un super-héro?" in the "Comment devenir un superhero?" row
-      And I fill in "Comment devenir un super-héro?" with "Tout le monde il peut me faire confiance, garanti sur facture."
+      And I click "Comment devenir un super-héros?" in the "Comment devenir un superhero?" row
+      And I fill in "Comment devenir un super-héros?" with "Tout le monde il peut me faire confiance, garanti sur facture."
       And I press "Publish"
     Then the last email to "emindhub.test+client1@gmail.com" should contain "Cher Captain,"
       And the email should contain "Vous avez reçus une réponse à la requête"
