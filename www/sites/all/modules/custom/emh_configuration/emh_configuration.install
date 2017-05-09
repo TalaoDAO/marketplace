@@ -1405,3 +1405,13 @@ function emh_configuration_update_7068() {
 //   drupal_uninstall_modules(array('privatemsg'));
 //   drupal_uninstall_modules(array('eva', 'hacked', 'security_review', 'translation_helpers', 'variablecheck'));
 // }
+
+/**
+ * ADD: import default PET emails templates
+ */
+function emh_configuration_update_7070() {
+  exec("drush  ec pet --json $(drush dd)/../deploy/pet-1.json");
+  exec("drush  ec pet --json $(drush dd)/../deploy/pet-2.json");
+  exec("drush  ec pet --json $(drush dd)/../deploy/pet-1-fr.json");
+  exec("drush  ec pet --json $(drush dd)/../deploy/pet-2-fr.json");
+}
