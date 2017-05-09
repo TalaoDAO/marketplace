@@ -1,0 +1,8 @@
+#block-bootstrap-languages-language {
+  float: right;
+  margin: 8px 0px 8px 5px;
+}
+
+#block-bootstrap-languages-language .lang-sm {
+  top: 2px !important;
+}
