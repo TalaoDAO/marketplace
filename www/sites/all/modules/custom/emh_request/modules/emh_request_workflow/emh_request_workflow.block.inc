@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Code of the eMindHub Request Timeline blocks feature.
+ * Code of the eMindHub Request Workflow blocks feature.
  */
 
 /**
