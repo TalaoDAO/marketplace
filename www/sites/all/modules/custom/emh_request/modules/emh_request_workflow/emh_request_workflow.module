@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @file
+ * Code of the eMindHub Request Timeline feature.
+ */
+
+include_once 'emh_request_workflow.inc';
+include_once 'emh_request_workflow.block.inc';
+
+/**
+ * Implements hook_views_api().
+ */
+function emh_request_workflow_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'emh_request_workflow') . '/views',
+  );
+}
+
+/**
+ * Implements hook_theme().
+ */
+function emh_request_workflow_theme() {
+  return array(
+    'timeline' => array(
+      'template' => 'timeline',
+      'variables' => array(
+        'class' => NULL,
+        'created' => NULL,
+        'deadline' => NULL,
+        'progression' => NULL,
+        'left' => NULL,
+      ),
+    ),
+  );
+}
