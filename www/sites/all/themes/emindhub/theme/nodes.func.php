@@ -32,7 +32,9 @@ function emindhub_preprocess_node(&$variables, $hook) {
 				}
 
 				// Request status
-        $variables['request_status'] = emh_request_get_status($node->nid);
+				if (module_exists('emh_request_workflow')) {
+          $variables['request_status'] = emh_request_workflow_get_status($node->nid);
+        }
 
         // Submission status
         module_load_include('inc', 'webform', 'includes/webform.submissions');
