@@ -5,9 +5,12 @@
  * Installation hooks for the EMH configuration module.
  */
 
+/** 
+ * Implements hook_update_dependencies().
+ */
 function emh_configuration_update_dependencies() {
-  $dependencies['emh_configuration'][7069] = array(
-    'pet' => 7002,
+  $dependencies['emh_configuration'][7070] = array(
+    'pet' => 7001,
   );
   return $dependencies;
 }
