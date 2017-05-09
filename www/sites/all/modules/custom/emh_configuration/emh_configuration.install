@@ -5,6 +5,13 @@
  * Installation hooks for the EMH configuration module.
  */
 
+function emh_configuration_update_dependencies() {
+  $dependencies['emh_configuration'][7069] = array(
+    'pet' => 7002,
+  );
+  return $dependencies;
+}
+
 /**
  * Implements hook_enable().
  */
@@ -1402,7 +1409,7 @@ function emh_configuration_update_7068() {
 /**
  * ADD: import default PET emails templates
  */
-function emh_configuration_update_7069() {
+function emh_configuration_update_7070() {
   exec("drush  ec pet --json $(drush dd)/../deploy/pet-1.json");
   exec("drush  ec pet --json $(drush dd)/../deploy/pet-2.json");
   exec("drush  ec pet --json $(drush dd)/../deploy/pet-1-fr.json");
