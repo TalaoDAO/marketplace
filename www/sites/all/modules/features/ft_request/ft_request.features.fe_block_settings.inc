@@ -263,13 +263,13 @@ node/*/edit',
     'visibility' => 0,
   );
 
-  $export['emh_request_timeline-timeline'] = array(
+  $export['emh_request_workflow-timeline'] = array(
     'cache' => 1,
     'custom' => 0,
     'delta' => 'timeline',
     'i18n_block_language' => array(),
     'i18n_mode' => 0,
-    'module' => 'emh_request_timeline',
+    'module' => 'emh_request_workflow',
     'node_types' => array(
       0 => 'request',
     ),
@@ -294,49 +294,10 @@ node/*/edit',
         'region' => 'topmenu',
         'status' => 1,
         'theme' => 'smartmobility',
-        'weight' => -42,
+        'weight' => 0,
       ),
     ),
     'title' => '<none>',
-    'visibility' => 0,
-  );
-
-  $export['views-1af75971ad2e240a760d76804eef15fe'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'delta' => '1af75971ad2e240a760d76804eef15fe',
-    'i18n_block_language' => array(),
-    'i18n_mode' => 0,
-    'module' => 'views',
-    'node_types' => array(
-      0 => 'request',
-    ),
-    'pages' => 'node/add/request
-node/*/edit',
-    'roles' => array(
-      'authenticated user' => 2,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => 'content',
-        'status' => 1,
-        'theme' => 'emindhub',
-        'weight' => -36,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-      'smartmobility' => array(
-        'region' => 'content',
-        'status' => 1,
-        'theme' => 'smartmobility',
-        'weight' => -37,
-      ),
-    ),
-    'title' => 'Answer(s)',
     'visibility' => 0,
   );
 
