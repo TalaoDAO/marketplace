@@ -112,7 +112,7 @@ function pet_schema() {
 }
 
 /**
- * Implements hook_update().
+ * ADD: multilingual support
  */
 function pet_update_7001() {
   if (!db_field_exists('pets', 'language')) {
