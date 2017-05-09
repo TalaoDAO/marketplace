@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Code of the eMindHub Request Timeline feature.
+ * Code of the eMindHub Request Workflow feature.
  */
 
 include_once 'emh_request_workflow.inc';
@@ -25,12 +25,21 @@ function emh_request_workflow_theme() {
   return array(
     'timeline' => array(
       'template' => 'timeline',
+      'path' => drupal_get_path('module', 'emh_request_workflow') . '/theme',
       'variables' => array(
         'class' => NULL,
         'created' => NULL,
         'deadline' => NULL,
         'progression' => NULL,
         'left' => NULL,
+      ),
+    ),
+    'request_status' => array(
+      'template' => 'request_status',
+      'path' => drupal_get_path('module', 'emh_request_workflow') . '/theme',
+      'variables' => array(
+        'status' => NULL,
+        'label' => NULL,
       ),
     ),
   );

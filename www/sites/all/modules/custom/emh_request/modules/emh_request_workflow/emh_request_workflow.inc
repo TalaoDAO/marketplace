@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Code of the eMindHub Request Timeline custom features.
+ * Code of the eMindHub Request Workflow custom features.
  */
 
 /**
@@ -22,11 +22,11 @@ function emh_request_workflow_get_status($node = NULL) {
     $node = node_load($node);
   }
 
-  $workflow = array();
+  $status = array();
   $today = $deadline = '';
 
   if ($node->status == 0) {
-    $workflow = array(
+    $status = array(
       'status' => 'draft',
       'label' => t('Draft'),
     );
@@ -39,31 +39,31 @@ function emh_request_workflow_get_status($node = NULL) {
       $deadline = date('Y-m-d H:i:s', strtotime("$deadline +1 day"));
 
       if ($today < $deadline) {
-        $workflow = array(
+        $status = array(
           'status' => 'open',
           'label' => t('Open'),
         );
       }
       else {
-        $workflow = array(
+        $status = array(
           'status' => 'expired',
           'label' => t('Expired'),
         );
       }
     }
     else {
-      $workflow = array(
+      $status = array(
         'status' => 'closed',
         'label' => t('Closed'),
       );
     }
   }
 
-  return $workflow;
+  return $status;
 }
 
 /**
- * Get Submission status & timeline.
+ * Get Request status & timeline.
  *
  * @param object $request
  *   The request node.

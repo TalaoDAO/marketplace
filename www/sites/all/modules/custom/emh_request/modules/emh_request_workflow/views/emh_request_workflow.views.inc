@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Views hooks implemented for the EMH Request Timeline module.
+ * Views hooks implemented for the EMH Request Workflow module.
  */
 
 /**

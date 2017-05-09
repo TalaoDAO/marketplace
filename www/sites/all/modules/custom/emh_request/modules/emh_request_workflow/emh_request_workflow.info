@@ -1,5 +1,5 @@
-name = EMH Request Timeline
-description = Provides a timeline for Request content type.
+name = EMH Request Workflow
+description = Provides workflow features for Request content type.
 package = EMH
 core = 7.x
 
