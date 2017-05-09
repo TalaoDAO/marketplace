@@ -6,7 +6,7 @@
  */
 
 /**
- * Implementation of hook_schema().
+ * Implements hook_schema().
  */
 function pet_schema() {
   $schema = array();
@@ -126,10 +126,8 @@ function pet_update_7001() {
       'default' => '',
       'initial' => $language->language,
     ));
-
-    db_drop_unique_key('pets', 'name');
-
-    // Force drupal's schema to be rebuilt.
-    drupal_get_schema('pets', TRUE);
   }
+  db_drop_unique_key('pets', 'name');
+  // Force drupal's schema to be rebuilt.
+  drupal_get_schema('pets', TRUE);
 }
