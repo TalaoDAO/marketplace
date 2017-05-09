@@ -1399,3 +1399,12 @@ function emh_configuration_update_7068() {
   variable_set('mixpanel_token', 'e9ccbdc087716f3288bfbf190fd30042');
 }
 
+/**
+ * ADD: import default PET emails templates
+ */
+function emh_configuration_update_7069() {
+  exec("drush  ec pet --json $(drush dd)/../deploy/pet-1.json");
+  exec("drush  ec pet --json $(drush dd)/../deploy/pet-2.json");
+  exec("drush  ec pet --json $(drush dd)/../deploy/pet-1-fr.json");
+  exec("drush  ec pet --json $(drush dd)/../deploy/pet-2-fr.json");
+}
