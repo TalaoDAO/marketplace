@@ -43,14 +43,6 @@ function emh_request_views_data() {
     ),
   );
 
-  $data['node']['request_status'] = array(
-    'group' => t('Node'),
-    'title' => 'EMH Request status',
-    'field' => array(
-      'handler' => 'views_handler_field_emh_request_status',
-    ),
-  );
-
   $data['node']['request_type'] = array(
     'group' => t('Node'),
     'title' => 'EMH Request type',
