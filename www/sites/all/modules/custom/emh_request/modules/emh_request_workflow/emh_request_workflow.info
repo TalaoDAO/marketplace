@@ -1,0 +1,8 @@
+name = EMH Request Timeline
+description = Provides a timeline for Request content type.
+package = EMH
+core = 7.x
+
+dependencies[] = emh_request
+
+files[] = views/views_handler_field_emh_request_workflow_status.inc
