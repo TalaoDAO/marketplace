@@ -1439,3 +1439,10 @@ function emh_configuration_update_7071() {
   drupal_uninstall_modules(['emh_request_timeline']);
   module_enable(['emh_request_workflow']);
 }
+
+/**
+ * ADD modules : webform_rules.
+ */
+function emh_configuration_update_7072() {
+  module_enable(array('webform_rules'));
+}
