@@ -668,7 +668,6 @@ class FeatureContext extends DrupalContext {
     if (!isset($node)) {
       throw new \Exception(sprintf('No node with %s title is found.', $group));
     }
-    //$gid = og_get_group("node", $node->nid); 
     $gid = $node->nid; 
     $values = array(
       'entity_type' => 'user',
@@ -785,7 +784,13 @@ class FeatureContext extends DrupalContext {
 }
 
 /**
- * Helper function; Load node by title
+ * Helper function: Load node by title
+ * 
+ * @param string $title
+ *   The title of the node to be returned
+ *
+ * @return object
+ *   The node found
  */
 function node_load_by_title($title) {
   $nodes = node_load_multiple(array(), array('title' => $title), FALSE);
