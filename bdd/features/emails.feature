@@ -75,16 +75,18 @@ Feature: Emails
   Scenario: Only experts in french countries are notified by email for new request publication in french
     Given the test email system is enabled
     Given "request" content:
-    | title                             | field_domaine | og_group_ref    | author  | field_expiration_date  | status  | language |
-    | Comment devenir un super-heros ?  | Energy        | Avengers        | client1 | 2020-02-08 17:45:00    | 1       | fr       |
+    | title                            | field_domaine | og_group_ref    | author  | field_expiration_date  | status  | language |
+    | Comment devenir un super-heros ? | Energy        | Avengers        | client1 | 2020-02-08 17:45:00    | 1       | fr       |
 
     # 1st Cron run to execute the scheduled notification action
     When I run cron
     # 2nd Cron run to process the notification queue
     When I run cron
     Then there should be no email to "emindhub.test+expert1@gmail.com" containing "Dear Iron,"
+      And there should be no email to "emindhub.test+expert1@gmail.com" containing "Cher Iron,"
       And there should be no email to "emindhub.test+expert2@gmail.com" containing "Dear Klark,"
-      And the last email to "emindhub.test+expert3@gmail.com" should contain "Dear Super,"
+      And there should be no email to "emindhub.test+expert2@gmail.com" containing "Cher Klark,"
+      And the last email to "emindhub.test+expert3@gmail.com" should contain "Cher Super,"
       And the email should contain "A new request for expertise has been published on eMindHub"
 
   @email
@@ -92,7 +94,7 @@ Feature: Emails
     Given "request" content:
     | title                            | field_domaine | og_group_ref | author  | field_expiration_date  | status  | language |
     | How to become a superhero?       | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       | en       |
-    | Comment devenir un super-héros?  | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       | fr       |
+    | Comment devenir un super-héros ? | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       | fr       |
 
     Given the test email system is enabled
 
@@ -105,8 +107,8 @@ Feature: Emails
     Then the last email to "emindhub.test+client1@gmail.com" should contain "Dear Captain,"
       And the email should contain "You received a new answer to the request"
     When I go to homepage
-      And I click "Comment devenir un super-héros?" in the "Comment devenir un superhero?" row
-      And I fill in "Comment devenir un super-héros?" with "Tout le monde il peut me faire confiance, garanti sur facture."
+      And I click "Comment devenir un super-héros ?" in the "Comment devenir un super-héros ?" row
+      And I fill in "Comment devenir un super-héros ?" with "Tout le monde il peut me faire confiance, garanti sur facture."
       And I press "Publish"
     Then the last email to "emindhub.test+client1@gmail.com" should contain "Cher Captain,"
       And the email should contain "Vous avez reçus une réponse à la requête"
