@@ -44,7 +44,7 @@ Feature: Request and answers
     # Activate option
     Given I am logged in as "client1"
     When I go to "requests/manage"
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I click "Edit" in the "primary tabs" region
     Given I check "Duration"
       And I enter "6 months" for "Duration of the mission"
@@ -57,13 +57,13 @@ Feature: Request and answers
   Scenario: The author can see Duration option infos
     Given I am logged in as "client1"
     When I go to "requests/manage"
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     Then I should see "6 months"
       And I should see "2017/07/06"
 
   Scenario: An expert can see Duration option infos
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     Then I should see "6 months"
       And I should see "2017/07/06"

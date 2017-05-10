@@ -1,4 +1,4 @@
-@api @watchdog 
+@api @watchdog
 Feature: Request re-editions
   In order to test Request re-editions
   As a Client and an Expert and an Webmaster
@@ -49,7 +49,7 @@ Feature: Request re-editions
   Scenario: The author can change some content if no expert responded
     Given I am logged in as "client1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I click "Edit" in the "primary tabs" region
     Then the "Request title or question" field should be disabled
       And the "field_request_type[und]" field should be disabled
@@ -60,14 +60,14 @@ Feature: Request re-editions
   Scenario: An expert responds to the request, then some field become disabled for the author
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
       And I press "Publish"
     Then I should see the message "Your answer has been published."
 
     Given I am logged in as "client1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I click "Edit" in the "primary tabs" region
     Then the "Request title or question" field should be disabled
       And the "field_request_type[und]" field should be disabled
@@ -78,14 +78,14 @@ Feature: Request re-editions
   Scenario: An expert responds to the request, but admin can still modify everything
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
       And I press "Publish"
     Then I should see the message "Your answer has been published."
 
     Given I am logged in as a user with the "administrator" role
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I click "Edit" in the "primary tabs" region
     Then the "Request title or question" field should not be disabled
       And the "field_request_type[und]" field should not be disabled
@@ -97,14 +97,14 @@ Feature: Request re-editions
   Scenario: Submissions should be there even if the author edits its own request!
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
       And I press "Publish"
     Then I should see the message "Your answer has been published."
 
     Given I am logged in as "client1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I click "Edit" in the "primary tabs" region
       And I press "Save"
     Then I should see "Everybody can be, trust me, I'm the best we known."
@@ -114,7 +114,7 @@ Feature: Request re-editions
 
     Given I am logged in as "client1"
     When I go to "requests/manage"
-      And I click "How to behave like a superhero?" in the "How to behave like a superhero?" row
+      And I click "How to behave like a superhero?" in the "content" region
     When I click "Edit" in the "primary tabs" region
       And I select "Avengers" from "Circles"
       And I check the box "Questionnaire"
@@ -125,15 +125,14 @@ Feature: Request re-editions
     # An expert responds to the request.
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to behave like a superhero?" in the "How to behave like a superhero?" row
+      And I click "How to behave like a superhero?" in the "content" region
       And I fill in "My little questionnaire" with "My little response"
       And I press "Publish"
     Then I should see the message "Your answer has been published."
 
     Given I am logged in as "client1"
     When I go to homepage
-      And I click "How to behave like a superhero?" in the "How to behave like a superhero?" row
+      And I click "How to behave like a superhero?" in the "content" region
       And I click "Edit" in the "primary tabs" region
       And I press "Save"
     Then I should see "My little response"
-

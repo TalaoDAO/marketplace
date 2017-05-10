@@ -68,18 +68,18 @@ Feature: Request
   Scenario: An author can see its own request
     Given I am logged in as "client1"
     When I go to homepage
-    Then I should see "All experts" in the "How to become a superhero?" row
+    Then I should see "All experts" in the "content" region
 
   Scenario: An author can see its own request in My requests
     Given I am logged in as "client1"
     When I go to "requests/manage"
-    Then I should see "How to become a superhero?"
-      And I should see "All experts" in the "How to become a superhero?" row
+    Then I should see "How to become a superhero?" in the "content" region
+      And I should see "All experts" in the "content" region
 
   Scenario: An author can edit its own request
     Given I am logged in as "client1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I click "Edit" in the "primary tabs" region
       And I select "770" from "field_request_type[und]"
     Then I should see "Edit Request How to become a superhero?" in the "title" region
@@ -91,14 +91,14 @@ Feature: Request
   Scenario: An author cannot delete its own request
     Given I am logged in as "client1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I click "Edit" in the "primary tabs" region
     Then I should not see "Delete" in the "actions" region
 
   Scenario: A user can see some infos on a request without option
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     Then I should see "Captain" in the "request_right" region
       And I should not see "Captain AMERICA" in the "request_right" region
       And I should see "Marvel Studios" in the "request_right" region
