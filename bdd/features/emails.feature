@@ -30,26 +30,9 @@ Feature: Emails
     | expert3 | emindhub.test+expert3@gmail.com | expert   | Super            | DUPONT          | 0712345672                  | Modèle           | Avengers     | emindhub.test+expert3@gmail.com | Fluide Glacial       | Employee             | Energy        | C.E.O.                  | FR                    | Real-time                     |
 
     Given I am logged in as a user with the "administrator" role
-
-    # Make client1 member of Avengers circle
-    When I go to "content/avengers"
-      And I click "Administrate" in the "primary tabs" region
-      And I click "People" in the "content" region
-      And I click "edit" in the "Captain AMERICA" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "Member" in the "Captain AMERICA" row
-      And I should see "The membership has been updated."
-
-    When I click "edit" in the "Iron MAN" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
-
-    When I click "edit" in the "Klark KENT" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
+      And the user "client1" is a member of the group "Avengers"
+      And the user "expert1" is a member of the group "Avengers"
+      And the user "expert2" is a member of the group "Avengers"
 
   @email @nodelay
   Scenario: Webmasters and Administrators are immediately notified, and after the delay, Experts are notified
