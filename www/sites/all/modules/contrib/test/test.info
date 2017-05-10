@@ -1,0 +1,6 @@
+; $Id:
+name = Test
+description = Module de test pour afficher des requetes.
+core = 7.x
+package = Test Drupal Premium
+files[] = test.module
