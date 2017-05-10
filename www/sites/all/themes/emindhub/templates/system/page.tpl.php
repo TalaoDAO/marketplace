@@ -1,73 +1,58 @@
   <?php global $base_url; ?>
-  <header id="navbar" role="banner" class="navbar navbar-emh">
-
+  <!-- <nav class="navbar navbar-emh navbar-fixed-top"> -->
+  <nav class="navbar navbar-emh">
     <div class="container">
-
-      <div class="row">
-
-        <?php if ( $logged_in ): ?>
-        <div class="emh-brand">
-        <?php else : ?>
-        <div class="emh-brand col-md-2">
-        <?php endif; ?>
-
-          <?php if (!empty($page['burgermenu'])): ?>
-          <div class="burger-menu-btn-container" onclick="onClickBurgerMenuBtn();">
-            <button type="button" class="btn btn-default emh-blue">
-              <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
-            </button>
-          </div>
-          <?php endif; ?>
-
-          <?php if ($logo): ?>
-            <?php if ( $logged_in ): ?>
-              <a class="navbar-brand" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
-                <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/circles.svg" alt="<?php print $site_name; ?>" width="30" height="30" />
-              </a>
-            <?php else : ?>
-              <a class="logo navbar-btn" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
-                <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/logo-h.svg" alt="<?php print $site_name; ?>" />
-              </a>
-            <?php endif; ?>
-          <?php endif; ?>
-
-        </div>
-
-        <?php if ( $logged_in ): ?>
-        <div class="col-md-12">
-        <?php else : ?>
-        <div class="col-md-10">
-        <?php endif; ?>
-
-          <nav class="navbar">
-
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              </button>
-            </div>
-
-            <?php if (!empty($page['topmenu']) || !empty($page['navigation'])): ?>
-
-            <div class="collapse navbar-collapse">
-              <?php print render($page['topmenu']); ?>
-              <?php print render($page['navigation']); ?>
-            </div>
-
-            <?php endif; ?>
-
-          </nav>
-
-        </div>
-
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only"><?php print t('Toggle navigation'); ?></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/circles.svg" alt="<?php print $site_name; ?>" width="30" height="30" />
+        </a>
       </div>
 
-    </div>
+        <?php if (!empty($page['burgermenu'])): ?>
+        <!-- <div class="burger-menu-btn-container" onclick="onClickBurgerMenuBtn();"> -->
+          <button type="button" class="btn btn-default emh-blue">
+            <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+          </button>
+        <!-- </div> -->
+        <?php endif; ?>
 
-  </header>
+        <?php if (!empty($page['topmenu']) || !empty($page['navigation'])): ?>
+          <div id="navbar" class="navbar-collapse collapse">
+            <!-- <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li class="dropdown-header">Nav header</li>
+                  <li><a href="#">Separated link</a></li>
+                  <li><a href="#">One more separated link</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="../navbar/">Default</a></li>
+              <li><a href="../navbar-static-top/">Static top</a></li>
+              <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
+            </ul> -->
+            <?php print render($page['topmenu']); ?>
+            <?php print render($page['navigation']); ?>
+          </div>
+        <?php endif; ?>
+
+    </div>
+  </nav>
 
   <?php if (!empty($page['header'])): ?>
   <header role="banner" id="page-header">
@@ -205,7 +190,7 @@
           </div>
           <?php endif; ?>
 
-          <?php if ( (!empty($page['bottom']) && empty($page['bottom_right'])) || (empty($page['bottom']) && !empty($page['bottom_right'])) ): ?>
+          <?php if ((!empty($page['bottom']) && empty($page['bottom_right'])) || (empty($page['bottom']) && !empty($page['bottom_right']))): ?>
             <?php print render($page['bottom']); ?>
             <?php print render($page['bottom_right']); ?>
           <?php endif; ?>
