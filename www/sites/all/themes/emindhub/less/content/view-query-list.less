@@ -1,0 +1,106 @@
+.view-display-id-page_all_requests,
+.view-display-id-block_last_requests,
+.view-display-id-page_my_requests,
+.view-display-id-page_selected_requests {
+  .make-row();
+
+  > .view-filters {
+    .make-md-column(3);
+  }
+  > .view-content {
+    .make-md-column(9);
+  }
+  > .more-link,
+  > div.text-center {
+    .make-md-column(9);
+    .make-md-column-offset(3);
+  }
+}
+
+.view-query-list {
+  .view-content {
+    > div + div {
+      margin-top: 20px;
+    }
+
+    > div {
+      .requests-item;
+      background-color: white;
+      min-height: auto;
+      padding: 15px 0;
+      margin-top: 0;
+
+      .request-item {
+        .make-row();
+
+        .request-icon {
+          .make-xs-column(2);
+        }
+        .request-infos {
+          .make-xs-column(10);
+          .make-md-column(8);
+
+          @media (min-width: @screen-md-min) {
+            padding: 0;
+          }
+        }
+        .request-circles {
+          .make-xs-column(10);
+          .make-xs-column-offset(2);
+          .make-md-column(2);
+          .make-md-column-offset(0);
+        }
+      }
+
+      h3 {
+        margin-top: 0;
+        margin-bottom: 5px;
+      }
+
+      .request-icon {
+        .text-center;
+
+        span {
+          display: block;
+        }
+      }
+
+      .request-domains {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      .request-status,
+      .request-language,
+      .request-submission-count {
+        display: inline-block;
+        margin-right: 10px;
+      }
+
+      .request-status {
+        .emh-status {
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+      }
+
+      .request-submission-count {
+        span {
+          background-position: left center;
+          background-repeat: no-repeat;
+          background-color: transparent;
+
+          display: inline-block;
+          height: @line-height-base * @line-height-base;
+          line-height: @line-height-base * @line-height-base;
+          padding-left: 21px;
+        }
+
+        .submission-count {
+          background-image: url("../images/icons/icon_submission.png");
+        }
+      }
+    }
+  }
+}

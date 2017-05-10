@@ -321,7 +321,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['field_domaine']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_domaine']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_domaine']['delta_offset'] = '0';
-  /* Field: Broken/missing handler */
+  /* Field: Node: EMH Request status */
   $handler->display->display_options['fields']['request_status']['id'] = 'request_status';
   $handler->display->display_options['fields']['request_status']['table'] = 'node';
   $handler->display->display_options['fields']['request_status']['field'] = 'request_status';
@@ -539,7 +539,7 @@ function ft_request_views_default_views() {
   );
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
-  $handler->display->display_options['pager']['options']['items_per_page'] = '20';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '15';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
