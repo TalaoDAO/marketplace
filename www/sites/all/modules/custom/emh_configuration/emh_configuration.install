@@ -1407,14 +1407,18 @@ function emh_configuration_update_7068() {
 /**
  * CHG: Uninstall disabled modules.
  */
-// function emh_configuration_update_7069() {
-//   drupal_uninstall_modules(array('advuser', 'ajax_comments', 'blockexport', 'diff', 'ds_extras', 'ds_format', 'ds_forms', 'ds_ui', 'emh_honeypot', 'languageicons', 'linkedin_auth', 'mediaelement', 'onecomment', 'openid', 'privatemsg_roles', 'privatemsg_rules', 'reroute_email', 'stickynote', 'views_fieldsets', 'views_tree', 'node_reference'));
-//   module_disable(array('module_missing_message_fixer', 'views_send', 'views_fieldset', 'views_field_view', 'dbtng_migrator', 'privatecomments', 'comment_perm', 'colorbox', 'auditfiles', 'views_php', 'views_calc', 'search', 'calendar', 'node_export', 'backup_migrate', 'shortcut', 'scheduler', 'color', 'collapsiblock', 'blockgroup'));
-//   drupal_uninstall_modules(array('module_missing_message_fixer', 'views_send', 'views_fieldset', 'views_field_view', 'dbtng_migrator', 'privatecomments', 'comment_perm', 'colorbox', 'auditfiles', 'views_php', 'views_calc', 'search', 'calendar', 'node_export', 'backup_migrate', 'shortcut', 'scheduler', 'color', 'collapsiblock', 'blockgroup'));
-//   drupal_uninstall_modules(array('ds', 'honeypot', 'linkedin', 'privatemsg_filter'));
-//   drupal_uninstall_modules(array('privatemsg'));
-//   drupal_uninstall_modules(array('eva', 'hacked', 'security_review', 'translation_helpers', 'variablecheck'));
-// }
+function emh_configuration_update_7069() {
+  drupal_uninstall_modules(array('advuser', 'ajax_comments', 'blockexport', 'diff', 'ds_extras', 'ds_format', 'ds_forms', 'ds_ui', 'emh_honeypot', 'languageicons',
+  'linkedin_auth', 'mediaelement', 'onecomment', 'openid', 'privatemsg_roles', 'privatemsg_rules',
+  //'colorbox', 'reroute_email',  // TODO : check why it makes the language block disapear
+  'stickynote', 'views_fieldsets', 'views_tree', 'node_reference'));
+  module_disable(array('module_missing_message_fixer', 'views_send', 'views_fieldset', 'views_field_view', 'dbtng_migrator', 'privatecomments', 'comment_perm', 'colorbox', 'auditfiles', 'views_php', 'views_calc', 'search', 'calendar', 'node_export', 'backup_migrate', 'shortcut', 'scheduler', 'color', 'collapsiblock', 'blockgroup'));
+  drupal_uninstall_modules(array('module_missing_message_fixer', 'views_send', 'views_fieldset', 'views_field_view', 'dbtng_migrator', 'privatecomments', 'comment_perm', 
+  'auditfiles', 'views_php', 'views_calc', 'search', 'calendar', 'node_export', 'backup_migrate', 'shortcut', 'scheduler', 'color', 'collapsiblock', 'blockgroup'));
+  drupal_uninstall_modules(array('ds', 'honeypot', 'linkedin', 'privatemsg_filter'));
+  drupal_uninstall_modules(array('privatemsg'));
+  drupal_uninstall_modules(array('eva', 'hacked', 'security_review', 'translation_helpers', 'variablecheck'));
+}
 
 /**
  * ADD: import default PET emails templates
