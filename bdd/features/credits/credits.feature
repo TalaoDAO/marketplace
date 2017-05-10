@@ -43,15 +43,15 @@ Feature: Test credits
 
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
+      And I click "How to become a superhero?" in the "content" region
+      And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
       And I press "Publish"
 
     # Another expert responds to the request (draft).
     Given I am logged in as "expert2"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I fill in "How to become a superhero?" with "You have to read DC comics of course!"
+      And I click "How to become a superhero?" in the "content" region
+      And I fill in "How to become a superhero?" with "You have to read DC comics of course!"
       And I press "Publish"
 
   @exclude
@@ -61,7 +61,7 @@ Feature: Test credits
 
     Given I am logged in as "client1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I click "Edit" in the "primary tabs" region
     Then I should see "Reward"
       And the "Reward" field should contain "100"
@@ -128,7 +128,7 @@ Feature: Test credits
       And I should not see the link "Klark Kent"
 
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I click "Answers" in the "primary tabs" region
       And I check the box "edit-views-bulk-operations-0"
       And I check the box "edit-views-bulk-operations-1"
