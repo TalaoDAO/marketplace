@@ -52,16 +52,16 @@ Feature: Request as draft
 
     Given I am logged in as "client1"
     When I go to "requests/manage"
-    Then I should see "Draft" in the "How to become a superhero?" row
+    Then I should see "Draft" in the "content" region
 
-    When I click "How to become a superhero?" in the "How to become a superhero?" row
+    When I click "How to become a superhero?" in the "content" region
       And I click "Edit" in the "primary tabs" region
       And I enter "Please join pictures." for "Describe your request"
       And I press "Save as draft"
       And I go to "requests/manage"
-    Then I should see "Draft" in the "How to become a superhero?" row
+    Then I should see "Draft" in the "content" region
 
-    When I click "How to become a superhero?" in the "How to become a superhero?" row
+    When I click "How to become a superhero?" in the "content" region
       And I click "Edit" in the "primary tabs" region
       And I press "Continue"
       And I press "Publish"
@@ -69,7 +69,7 @@ Feature: Request as draft
     Then I should not see "Save as draft"
 
     When I go to "requests/manage"
-    Then I should see "Open" in the "How to become a superhero?" row
+    Then I should see "Open" in the "content" region
 
   Scenario: The Circle Admin can unpublish Request if no Expert answered publicly yet.
     Given "request" content:
@@ -78,16 +78,16 @@ Feature: Request as draft
 
     Given I am logged in as "expert2"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I click "Edit" in the "primary tabs" region
       And I press "Unpublish"
     Then I should not see "How to become a superhero?" in the "content" region
 
     Given I am logged in as "client1"
     When I go to "requests/manage"
-    Then I should see "Draft" in the "How to become a superhero?" row
+    Then I should see "Draft" in the "content" region
 
-    When I click "How to become a superhero?" in the "How to become a superhero?" row
+    When I click "How to become a superhero?" in the "content" region
       And I click "Edit" in the "primary tabs" region
       And I press "Continue"
       And I press "Publish"
@@ -95,13 +95,13 @@ Feature: Request as draft
     # An expert responds to the request.
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
       And I press "Publish"
 
     Given I am logged in as "expert2"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I click "Edit" in the "primary tabs" region
     Then the "Unpublish" link or button should be disabled
 
@@ -121,7 +121,7 @@ Feature: Request as draft
 
     Given I am logged in as "client1"
     When I go to "requests/manage"
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I click "Edit" in the "primary tabs" region
       And I check the box "Duration"
       And I fill in "Duration of the mission" with "1 month"
@@ -130,6 +130,6 @@ Feature: Request as draft
 
     Given I am logged in as "expert2"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I click "Edit" in the "primary tabs" region
     Then the "Unpublish" link or button should be disabled
