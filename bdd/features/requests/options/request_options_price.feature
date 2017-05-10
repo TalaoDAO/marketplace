@@ -53,8 +53,8 @@ Feature: Request Option Price
       And the user "expert1" is a member of the group "Avengers"
       And the user "client1" is a member of the group "League Of justice"
       And the user "expert1" is a member of the group "League Of justice"
-      And the user "client1" is a member of the group "Guardian Of The Galaxy"
-      And the user "expert1" is a member of the group "Guardian Of The Galaxy"
+      And the user "client1" is a member of the group "Guardians Of The Galaxy"
+      And the user "expert1" is a member of the group "Guardians Of The Galaxy"
 
   Scenario: An author can create a request with a questionnaire and duration with changing prices
     Given "request" content:
