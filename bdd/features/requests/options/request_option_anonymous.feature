@@ -29,17 +29,8 @@ Feature: Request and answers
     Given I give "client1" 10000 emh credits
 
     Given I am logged in as a user with the "administrator" role
-    When I go to "content/avengers"
-      And I click "Administrate" in the "primary tabs" region
-      And I click "People" in the "content" region
-      And I click "edit" in the "Captain AMERICA" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "Member" in the "Captain AMERICA" row
-      And I click "edit" in the "Iron MAN" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
+      And the user "client1" is a member of the group "Avengers"
+      And the user "expert1" is a member of the group "Avengers"
 
   Scenario: The author choose to hide its name
     Given I am logged in as "client1"
