@@ -26,57 +26,6 @@
 	}
 }
 
-// Navigation principale - Connecté
-#menu-menu-top {
-	border-bottom: 1px solid @gray-lighter;
-}
-@media (min-width: @screen-sm-min) {
-	#menu-menu-top {
-		border-right: 1px solid @gray-lighter;
-		border-bottom: 0;
-	}
-}
-
-/* HEADER
- * User menu
- */
-#system-user-menu {
-	.nav {
-		text-transform: none;
-		> li > a,
-		> li > span {
-			color: @blue-base;
-			cursor: pointer;
-		}
-		> li.open > span,
-		> li.open > span * {
-			color: #FFF;
-		}
-	}
-	@media (min-width: @screen-md-min) {
-		.nav {
-			float: right;
-		}
-	}
-}
-#system-user-menu {
-	.nav > li.last.leaf > a {
-		padding-right: 0 !important;
-		padding-left: 5px !important;
-	}
-	@media (min-width: @screen-md-min) {
-		.nav {
-			> li > span {
-				// overflow: hidden;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-				max-width: 250px;
-			}
-		}
-	}
-}
-
-
 // Homepage connecté: Create a request
 #block-block-8 {
 	margin-top: 20px;
