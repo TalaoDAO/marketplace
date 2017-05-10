@@ -1,6 +1,5 @@
   <?php global $base_url; ?>
-  <!-- <nav class="navbar navbar-emh navbar-fixed-top"> -->
-  <nav class="navbar navbar-emh">
+  <nav id="main-nav" class="navbar navbar-emh">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -9,43 +8,30 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">
-          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/circles.svg" alt="<?php print $site_name; ?>" width="30" height="30" />
+
+        <a class="navbar-brand" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
+        <?php if ($logo): ?>
+          <?php if ( $logged_in ): ?>
+            <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/circles.svg" alt="<?php print $site_name; ?>" width="30" height="30" />
+          <?php else : ?>
+            <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/logo-h.svg" alt="<?php print $site_name; ?>" width="195" height="30" />
+          <?php endif; ?>
+        <?php else : ?>
+          <?php print $site_name; ?>
+        <?php endif; ?>
         </a>
       </div>
 
         <?php if (!empty($page['burgermenu'])): ?>
-        <!-- <div class="burger-menu-btn-container" onclick="onClickBurgerMenuBtn();"> -->
+        <div class="burger-menu-btn-container" onclick="onClickBurgerMenuBtn();">
           <button type="button" class="btn btn-default emh-blue">
             <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
           </button>
-        <!-- </div> -->
+        </div>
         <?php endif; ?>
 
         <?php if (!empty($page['topmenu']) || !empty($page['navigation'])): ?>
           <div id="navbar" class="navbar-collapse collapse">
-            <!-- <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">One more separated link</a></li>
-                </ul>
-              </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="../navbar/">Default</a></li>
-              <li><a href="../navbar-static-top/">Static top</a></li>
-              <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
-            </ul> -->
             <?php print render($page['topmenu']); ?>
             <?php print render($page['navigation']); ?>
           </div>
