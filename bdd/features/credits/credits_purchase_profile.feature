@@ -62,7 +62,7 @@ Feature: Buy profile access
     # An expert responds to the request.
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
       And I press "Publish"
     Then I should see the message "Your answer has been published."

@@ -1,6 +1,6 @@
 <?php
 
-class views_handler_field_emh_request_status extends views_handler_field {
+class views_handler_field_emh_request_workflow_status extends views_handler_field {
 
   /**
    * Add additional fields.
@@ -29,8 +29,11 @@ class views_handler_field_emh_request_status extends views_handler_field {
       return 0;
     }
 
-    $status = emh_request_get_status($nid);
-    return '<span class="emh-status ' . $status['status'] . '">' . $status['label'] . '</span>';
+    $status = emh_request_workflow_get_status($nid);
+    return theme('request_status', array(
+      'status' => $status['status'],
+      'label' => $status['label'],
+    ));
   }
 
   /**

@@ -40,7 +40,7 @@ Feature: Fill Expert profile fields
     When I go to homepage
     Then I should see "Please complete the following information to access client requests"
 
-    When I click "How to become a superhero?" in the "How to become a superhero?" row
+    When I click "How to become a superhero?" in the "content" region
     Then I should see "Please complete the following information to access client requests"
       And I should not see "Publication date"
     When I fill in "Organisation / company" with "Marvel Studios"

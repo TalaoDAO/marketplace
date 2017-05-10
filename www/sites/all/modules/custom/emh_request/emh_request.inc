@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Code of the eMindHub request custom features.
+ * Code of the eMindHub Request custom features.
  */
 
 /**

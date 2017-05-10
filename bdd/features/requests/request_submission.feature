@@ -51,7 +51,7 @@ Feature: Request and answers
     # An expert responds to the request.
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
 
     # Draft answer
@@ -65,7 +65,7 @@ Feature: Request and answers
     # Another expert responds to the request (draft).
     Given I am logged in as "expert2"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I fill in "How to become a superhero?" with "You have to read DC comics of course!"
     # Draft answer
       And I press "Save Draft"
@@ -74,23 +74,23 @@ Feature: Request and answers
   Scenario: An expert can see its own published answer
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     Then I should see "Everybody can be, trust me, I'm the best we known." in the "submissions" region
       And I should see "1 answer" in the "user_submission_count" region
 
   Scenario: An expert can see its own draft answer
     Given I am logged in as "expert2"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     Then I should see "You have to read DC comics of course!" in the "user_submission" region
       And I should see "1 answer" in the "user_submission_count" region
 
   Scenario: An expert of the same circle can see the published answer
     Given I am logged in as "expert2"
     When I go to homepage
-    Then I should see "1" in the "How to become a superhero?" row
+    Then I should see "1" in the "content" region
 
-    When I click "How to become a superhero?" in the "How to become a superhero?" row
+    When I click "How to become a superhero?" in the "content" region
     Then I should see "Everybody can be, trust me, I'm the best we known." in the "submissions" region
       And I should see "1 answer" in the "user_submission_count" region
 
@@ -104,9 +104,9 @@ Feature: Request and answers
       And I should not see "Klark KENT"
 
     When I go to homepage
-    Then I should see "1" in the "How to become a superhero?" row
+    Then I should see "1" in the "content" region
 
-    When I click "How to become a superhero?" in the "How to become a superhero?" row
+    When I click "How to become a superhero?" in the "content" region
     Then I should see "Iron MAN" in the "submissions" region
       And I should see "Everybody can be, trust me, I'm the best we known." in the "submissions" region
       And I should see "1 answer" in the "user_submission_count" region
@@ -119,7 +119,7 @@ Feature: Request and answers
   Scenario: The request author can mark published answers as interesting and only the expert who answered can see the flag
     Given I am logged in as "client1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     Then I should see "Select the answer" link or button
 
     When I click "view" in the "submissions" region
@@ -128,7 +128,7 @@ Feature: Request and answers
 
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     Then I should see "Answer selected" in the "submissions" region
       And I should not see "Select the answer" link or button
 
@@ -138,7 +138,7 @@ Feature: Request and answers
 
     Given I am logged in as "expert2"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     Then I should not see "Select the answer" in the "submissions" region
       And I should not see "Select the answer" link or button
 
@@ -149,7 +149,7 @@ Feature: Request and answers
   Scenario: The author can add a feedback to published answers and only the expert who answered can see the feedback
     Given I am logged in as "client1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     Then I should see "Leave a feedback for the expert" link or button
 
     When I click "view" in the "submissions" region
@@ -161,7 +161,7 @@ Feature: Request and answers
 
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     Then I should see "Awesome answer!" in the "submissions" region
       And I should not see "Leave a feedback for the expert" link or button
 
@@ -175,7 +175,7 @@ Feature: Request and answers
 
     Given I am logged in as "expert2"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     Then I should not see "Awesome answer!" in the "submissions" region
       And I should not see "Leave a feedback for the expert" link or button
 
@@ -187,13 +187,13 @@ Feature: Request and answers
   Scenario: The expert cannot respond twice to the same request
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     #Then I should not see "Publish" in the "user_submission_form" region
 
   Scenario: The expert can edit its own answer
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I click "Edit" in the "user_submission" region
       And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we know."
       And I press "Save"
@@ -203,14 +203,14 @@ Feature: Request and answers
   Scenario: The author cannot edit an answer
     Given I am logged in as "client1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     Then I should not see the link "edit" in the "submissions" region
 
   @exclude
   Scenario: The expert cannot delete its own answer
     Given I am logged in as "expert2"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     Then I should not see the link "delete" in the "user_submission" region
       And I should not see the link "delete" in the "submissions" region
 
@@ -218,7 +218,7 @@ Feature: Request and answers
   Scenario: The author cannot delete an answer
     Given I am logged in as "client1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     Then I should not see the link "delete" in the "submissions" region
 
   Scenario: Only the Circle Admin can unpublish an answer (but cannot edit values)
@@ -239,7 +239,7 @@ Feature: Request and answers
 
     Given I am logged in as "expert3"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I click "view" in the "submissions" region
       And I click "Edit" in the "primary tabs" region
     Then the "How to become a superhero?" field should be disabled
@@ -248,13 +248,13 @@ Feature: Request and answers
     Then I should see "The answer has been unpublished."
 
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     Then I should not see "Everybody can be, trust me, I'm the best we known." in the "submissions" region
       And I should see "No answer" in the "user_submission_count" region
 
     Given I am logged in as "client1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     Then I should not see "Everybody can be, trust me, I'm the best we known." in the "submissions" region
       And I should see "No answer" in the "user_submission_count" region
 
@@ -266,5 +266,5 @@ Feature: Request and answers
     Then I should see "draft" in the "content" region
 
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     Then I should see "Draft" in the "user_submission" region
