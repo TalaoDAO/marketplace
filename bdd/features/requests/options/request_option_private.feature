@@ -49,7 +49,7 @@ Feature: Request and answers
     # Activate option
     Given I am logged in as "client1"
     When I go to "requests/manage"
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I click "Edit" in the "primary tabs" region
     Given I check "Private"
       And I press "Continue"
@@ -60,7 +60,7 @@ Feature: Request and answers
     # An expert responds to the request.
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     Then I should see "Your answer will only be visible by the request's author."
 
     Given I enter "Everybody can be, trust me, I'm the best we known." for "How to become a superhero?"
@@ -70,13 +70,13 @@ Feature: Request and answers
   Scenario: An expert can see its own answer
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     Then I should see "Everybody can be, trust me, I'm the best we known." in the "user_submission" region
 
   Scenario: An expert cannot see other published answers
     Given I am logged in as "expert2"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     Then I should not see "Everybody can be, trust me, I'm the best we known."
 
   Scenario: The author can see the published answers
@@ -85,9 +85,9 @@ Feature: Request and answers
     Then I should see "Iron MAN"
 
     When I go to homepage
-    Then I should see "2" in the "How to become a superhero?" row
+    Then I should see "2" in the "content" region
 
-    When I click "How to become a superhero?" in the "How to become a superhero?" row
+    When I click "How to become a superhero?" in the "content" region
     Then I should see "Answers to your request are only visible by you."
       And I should see "Iron MAN"
       And I should see "Everybody can be, trust me, I'm the best we known."
