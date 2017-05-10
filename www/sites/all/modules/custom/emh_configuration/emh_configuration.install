@@ -5,7 +5,7 @@
  * Installation hooks for the EMH configuration module.
  */
 
-/** 
+/**
  * Implements hook_update_dependencies().
  */
 function emh_configuration_update_dependencies() {
@@ -1421,7 +1421,7 @@ function emh_configuration_update_7069() {
 }
 
 /**
- * ADD: import default PET emails templates
+ * ADD: import default PET emails templates.
  */
 function emh_configuration_update_7070() {
   module_enable(['pet']);
@@ -1429,4 +1429,13 @@ function emh_configuration_update_7070() {
   exec("drush  ec pet --json $(drush dd)/../deploy/pet-2.json");
   exec("drush  ec pet --json $(drush dd)/../deploy/pet-1-fr.json");
   exec("drush  ec pet --json $(drush dd)/../deploy/pet-2-fr.json");
+}
+
+/**
+ * CHG: Rename old custom module.
+ */
+function emh_configuration_update_7071() {
+  module_disable(['emh_request_timeline']);
+  drupal_uninstall_modules(['emh_request_timeline']);
+  module_enable(['emh_request_workflow']);
 }

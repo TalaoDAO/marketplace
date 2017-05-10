@@ -101,13 +101,13 @@ Feature: Emails
     # An expert responds to the request.
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
       And I press "Publish"
     Then the last email to "emindhub.test+client1@gmail.com" should contain "Dear Captain,"
       And the email should contain "You received a new answer to the request"
     When I go to homepage
-      And I click "Comment devenir un super-héros ?" in the "Comment devenir un super-héros ?" row
+      And I click "Comment devenir un super-héros ?" in the "content" region
       And I fill in "Comment devenir un super-héros ?" with "Tout le monde il peut me faire confiance, garanti sur facture."
       And I press "Publish"
     Then the last email to "emindhub.test+client1@gmail.com" should contain "Cher Captain,"

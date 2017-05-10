@@ -263,13 +263,13 @@ node/*/edit',
     'visibility' => 0,
   );
 
-  $export['emh_request_timeline-timeline'] = array(
+  $export['emh_request_workflow-timeline'] = array(
     'cache' => 1,
     'custom' => 0,
     'delta' => 'timeline',
     'i18n_block_language' => array(),
     'i18n_mode' => 0,
-    'module' => 'emh_request_timeline',
+    'module' => 'emh_request_workflow',
     'node_types' => array(
       0 => 'request',
     ),
@@ -294,7 +294,7 @@ node/*/edit',
         'region' => 'topmenu',
         'status' => 1,
         'theme' => 'smartmobility',
-        'weight' => -42,
+        'weight' => 0,
       ),
     ),
     'title' => '<none>',

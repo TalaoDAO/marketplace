@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Code of the eMindHub request feature.
+ * Code of the eMindHub Request feature.
  */
 
 include_once 'emh_request.deprecated.inc';
