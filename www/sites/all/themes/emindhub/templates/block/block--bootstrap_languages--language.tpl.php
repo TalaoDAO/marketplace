@@ -45,4 +45,8 @@
  * @ingroup themeable
  */
 ?>
-<?php print $content; ?>
+<ul id="bootstrap-languages-language" class="menu nav navbar-nav navbar-right">
+  <li class="leaf">
+    <?php print $content; ?>
+  </li>
+</ul>
