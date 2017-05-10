@@ -36,9 +36,9 @@ Feature: Request
   Scenario: An author can add an option on a draft request and come back to test it's readonly after publish
     Given I am logged in as "client1"
     When I go to "requests/manage"
-    Then I should see "Avengers" in the "How to become a superhero?" row
+    Then I should see "Avengers" in the "content" region
 
-    When I click "How to become a superhero?" in the "How to become a superhero?" row
+    When I click "How to become a superhero?" in the "content" region
       And I click "Edit" in the "primary tabs" region
       And I check the box "Duration"
     Then I should see "Duration of the mission"
