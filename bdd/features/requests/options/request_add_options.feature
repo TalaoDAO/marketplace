@@ -25,13 +25,7 @@ Feature: Request
     Given I give "client1" 10000 emh credits
 
     Given I am logged in as a user with the "administrator" role
-    When I go to "content/avengers"
-      And I click "Administrate" in the "primary tabs" region
-      And I click "People" in the "content" region
-      And I click "edit" in the "Captain AMERICA" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "Member" in the "Captain AMERICA" row
+      And the user "client1" is a member of the group "Avengers"
 
   Scenario: An author can add an option on a draft request and come back to test it's readonly after publish
     Given I am logged in as "client1"
