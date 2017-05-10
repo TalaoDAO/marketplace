@@ -24,42 +24,9 @@ Feature: Request
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670                  | Chieur génial      | All experts  | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy          | US                  | Real-time                    |
 
     Given I am logged in as a user with the "administrator" role
-
-    # Make client1 member of All experts circle
-    When I go to "content/all-experts"
-      And I click "Administrate" in the "primary tabs" region
-      And I click "People" in the "content" region
-      And I click "Member since"
-      # Twice for correct order
-      And I click "Member since"
-      And I click "edit" in the "Captain AMERICA" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-      # Again...
-      And I go to "content/all-experts"
-      And I click "Administrate" in the "primary tabs" region
-      And I click "People" in the "content" region
-      And I click "Member since"
-      # Twice for correct order
-      And I click "Member since"
-    Then I should see "Member" in the "Captain AMERICA" row
-      And I click "edit" in the "Iron MAN" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
-
-    # Validate membership of client2 in X-Men circle
-    Given I am logged in as a user with the "administrator" role
-    When I go to "content/x-men"
-      And I click "Administrate" in the "primary tabs" region
-      And I click "People" in the "content" region
-      And I click "Member since"
-      # Twice for correct order
-      And I click "Member since"
-      And I click "edit" in the "Charles XAVIER" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
+    Given the user "client1" is a member of the group "All experts"
+    Given the user "expert1" is a member of the group "All experts"
+    Given the user "client2" is a member of the group "X-Men"
 
     Given "request" content:
     | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
