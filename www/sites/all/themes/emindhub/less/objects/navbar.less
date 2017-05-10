@@ -1,10 +1,15 @@
 .navbar-nav {
-	@media (min-width: @grid-float-breakpoint) {
-    > li {
-			> span.dropdown-toggle {
-        padding-top:    @navbar-padding-vertical;
-        padding-bottom: @navbar-padding-vertical;
-      }
+  > li {
+		> span.dropdown-toggle {
+      padding-top:    @navbar-padding-vertical;
+      padding-bottom: @navbar-padding-vertical;
     }
   }
+}
+
+// Brand/project name
+
+.navbar-brand {
+  padding-top: @navbar-height / 4;
+  padding-bottom: @navbar-height / 4;
 }
