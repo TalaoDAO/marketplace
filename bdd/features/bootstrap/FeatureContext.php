@@ -654,19 +654,19 @@ class FeatureContext extends DrupalContext {
   /**
    * @param string $name
    *   User name.
-   * @param string $group
+   * @param string $title
    *   Organic group.
    *
-   * @Given the user :name is a member of the group :group 
+   * @Given the user :name is a member of the group :title
    */
-  public function makeUserMemberOfGroup($name, $group) {
+  public function makeUserMemberOfGroup($name, $title) {
     if (!isset($this->users[$name])) {
       throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
     }
     $user = user_load($this->users[$name]->uid);
-    $node = node_load_by_title($group);
+    $node = node_load_by_title($title);
     if (!isset($node)) {
-      throw new \Exception(sprintf('No node with %s title is found.', $group));
+      throw new \Exception(sprintf('No node with %s title is found.', $title));
     }
     $gid = $node->nid; 
     $values = array(
