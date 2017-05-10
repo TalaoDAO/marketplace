@@ -49,41 +49,12 @@ Feature: Request Option Price
       And I press "Save"
 
     # Make client1 & expert1 members of Avengers, League of justice & Guardians of the Galaxy circles
-    When I go to "content/avengers"
-      And I click "Administrate" in the "primary tabs" region
-      And I click "People" in the "content" region
-      And I click "edit" in the "Captain AMERICA" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "Member" in the "Captain AMERICA" row
-      And I click "edit" in the "Iron MAN" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
-
-    When I go to "content/league-justice"
-      And I click "Administrate" in the "primary tabs" region
-      And I click "People" in the "content" region
-      And I click "edit" in the "Captain AMERICA" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "Member" in the "Captain AMERICA" row
-      And I click "edit" in the "Iron MAN" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
-
-    When I go to "content/guardians-galaxy"
-      And I click "Administrate" in the "primary tabs" region
-      And I click "People" in the "content" region
-      And I click "edit" in the "Captain AMERICA" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "Member" in the "Captain AMERICA" row
-      And I click "edit" in the "Iron MAN" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
+      And the user "client1" is a member of the group "Avengers"
+      And the user "expert1" is a member of the group "Avengers"
+      And the user "client1" is a member of the group "League Of justice"
+      And the user "expert1" is a member of the group "League Of justice"
+      And the user "client1" is a member of the group "Guardian Of The Galaxy"
+      And the user "expert1" is a member of the group "Guardian Of The Galaxy"
 
   Scenario: An author can create a request with a questionnaire and duration with changing prices
     Given "request" content:

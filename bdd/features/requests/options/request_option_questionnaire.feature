@@ -31,22 +31,12 @@ Feature: Request Option Questionnaire
     | How to become a superhero?  | Energy        |              | client1 | 2020-02-08 17:45:00    | 0       | Mission            |
 
     Given I am logged in as a user with the "administrator" role
+      And the user "client1" is a member of the group "Avengers"
+      And the user "expert1" is a member of the group "Avengers"
 
     When I go to "admin/emindhub/credits"
     Then I fill in "Questionnaire" with "300"
       And I press "Save configuration"
-
-    When I go to "content/avengers"
-      And I click "Administrate" in the "primary tabs" region
-      And I click "People" in the "content" region
-      And I click "edit" in the "Captain AMERICA" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "Member" in the "Captain AMERICA" row
-      And I click "edit" in the "Iron MAN" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
 
   Scenario: An author can create a request with a questionnaire
     Given I am logged in as "client1"
