@@ -649,6 +649,36 @@ class FeatureContext extends DrupalContext {
     }
   }
 
+
+
+  /**
+   * @param string $name
+   *   User name.
+   * @param string $group
+   *   Organic group.
+   *
+   * @Given the user :name is a member of the group :group 
+   */
+  public function makeUserMemberOfGroup($name, $group) {
+    if (!isset($this->users[$name])) {
+      throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
+    }
+    $user = user_load($this->users[$name]->uid);
+    $node = node_load_by_title($group);
+    if (!isset($node)) {
+      throw new \Exception(sprintf('No node with %s title is found.', $group));
+    }
+    //$gid = og_get_group("node", $node->nid); 
+    $gid = $node->nid; 
+    $values = array(
+      'entity_type' => 'user',
+      'entity' => $user,
+      'state' => OG_STATE_ACTIVE,
+      'membership_type' => OG_MEMBERSHIP_TYPE_DEFAULT
+    );
+    og_group('node', $gid, $values);
+  }
+
   /**
    * Clear user access static caches.
    *
@@ -752,4 +782,13 @@ class FeatureContext extends DrupalContext {
   public function cleanupForNoDelay(Behat\Behat\Hook\Scope\AfterScenarioScope $scope) {
     variable_set('emh_request_notification_delay', '1');
   }
+}
+
+/**
+ * Helper function; Load node by title
+ */
+function node_load_by_title($title) {
+  $nodes = node_load_multiple(array(), array('title' => $title), FALSE);
+  $returned_node = reset($nodes);
+  return $returned_node;
 }
