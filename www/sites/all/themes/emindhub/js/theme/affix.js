@@ -1,4 +1,4 @@
-(function ($) {
+/*(function ($) {
     $(document).ready(function () {
         if ($('.js-affix').length) {
           $('.js-affix').affix({
@@ -10,3 +10,4 @@
         }
     });
 })(jQuery);
+*/

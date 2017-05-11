@@ -529,9 +529,9 @@ function emindhub_form_contact_site_form_alter(&$form, &$form_state) {
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function emindhub_form_views_exposed_form_alter(&$form, &$form_state) {
+/*function emindhub_form_views_exposed_form_alter(&$form, &$form_state) {
   if (in_array('views_exposed_form__query_list', $form['#theme'])) {
     $form['#attributes']['class'][] = 'js-affix';
     $form['#attributes']['data-spy'] = 'affix';
   }
-}
+}*/
