@@ -67,19 +67,19 @@ Feature: Request and answers
     When I press "Publish"
     Then I should see "Your answer has been published."
 
-  Scenario: An expert can see its own answer
+  Scenario: An expert can see its own private answer
     Given I am logged in as "expert1"
     When I go to homepage
       And I click "How to become a superhero?" in the "content" region
     Then I should see "Everybody can be, trust me, I'm the best we known." in the "user_submission" region
 
-  Scenario: An expert cannot see other published answers
+  Scenario: An expert cannot see other private published answers
     Given I am logged in as "expert2"
     When I go to homepage
       And I click "How to become a superhero?" in the "content" region
     Then I should not see "Everybody can be, trust me, I'm the best we known."
 
-  Scenario: The author can see the published answers
+  Scenario: The author can see private published answers
     Given I am logged in as "client1"
     When I go to "answers/to-me"
     Then I should see "Iron MAN"
@@ -91,3 +91,18 @@ Feature: Request and answers
     Then I should see "Answers to your request are only visible by you."
       And I should see "Iron MAN"
       And I should see "Everybody can be, trust me, I'm the best we known."
+
+  Scenario: The circle admin can see private published answers
+    Given I am logged in as a user with the "administrator" role
+    When I go to "content/avengers"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
+      And I click "edit" in the "Klark KENT" row
+      And I check the box "administrator member"
+      And I press "Update membership"
+    Then I should see "The membership has been updated."
+
+    Given I am logged in as "expert2"
+    When I go to homepage
+      And I click "How to become a superhero?" in the "content" region
+    Then I should see "Everybody can be, trust me, I'm the best we known."
