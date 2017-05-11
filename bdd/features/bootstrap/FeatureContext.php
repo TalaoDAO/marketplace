@@ -679,6 +679,21 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
+   * @param string $name
+   *   User name.
+   * @param string $title
+   *   Organic group.
+   *
+   * @Given the user :name is an admin of the group :title
+   */
+  public function makeUserAdminOfGroup($name, $title) {
+    $this->makeUserMemberOfGroup($name,$title);
+    $user = user_load($this->users[$name]->uid);
+    $node = node_load_by_title($title);
+    $gid = $node->nid;
+    og_user_roles_role_add($gid, $user->uid, OG_ADMINISTRATOR_ROLE);
+  }
+  /**
    * Clear user access static caches.
    *
    * @see https://github.com/jhedstrom/drupalextension/issues/328
@@ -796,4 +811,20 @@ function node_load_by_title($title) {
   $nodes = node_load_multiple(array(), array('title' => $title), FALSE);
   $returned_node = reset($nodes);
   return $returned_node;
+}
+
+/**
+ * Grant a role for a user in a group.
+ *
+ * @param $gid
+ *   The group ID.
+ * @param $uid
+ *   The user ID.
+ * @param $role
+ *   The role name to grant.
+ */
+function og_user_roles_role_add($gid, $uid, $role) {
+  $roles = og_roles('node', NULL, $gid);
+  $rid = array_search($role, $roles);
+  og_role_grant('node', $gid, $uid, $rid); 
 }
