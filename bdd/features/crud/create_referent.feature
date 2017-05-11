@@ -20,7 +20,13 @@ Feature: Create permissions for Référents
 
     # Make référent1 as a Referent member of Avengers circle
     Given I am logged in as a user with the "administrator" role
-      And the user "référent1" is a member of the group "Avengers"
+    When I go to "content/avengers"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
+      And I click "edit" in the "Nick FURY" row
+      And I check the box "Referent member"
+      And I press "Update membership"
+    Then I should see "The membership has been updated."
 
   Scenario: A référent cann create a request
     Given I am logged in as "référent1"
