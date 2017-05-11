@@ -26,7 +26,7 @@ Feature: Request as draft
     Given I am logged in as a user with the "administrator" role
       And the user "client1" is a member of the group "Avengers"
       And the user "expert1" is a member of the group "Avengers"
-      And the user "expert2" is a member of the group "Avengers"
+      And the user "expert2" is an admin of the group "Avengers"
 
   Scenario: The Author can work on its own draft Request until its publication.
     Given "request" content:
