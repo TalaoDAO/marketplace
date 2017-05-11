@@ -1,7 +1,3 @@
-body.not-logged-in {
-  background-color: @body-bg-inverse;
-}
-
 @media (min-width: @screen-md-min) {
   nav#main-nav {
 		.navbar-fixed-top;
@@ -9,16 +5,8 @@ body.not-logged-in {
 	}
 
 	body {
-		&.not-logged-in {
-			padding-top: @navbar-height + 1px;
-
-      nav#main-nav {
-        border-color: transparent;
-    	}
-		}
-		&.logged-in {
-			padding-top: @navbar-height + 1px;
-		}
+		padding-top: @navbar-height + 1px;
+    
 		&.logged-in.admin-menu {
       nav#main-nav {
         top: 29px;
@@ -173,13 +161,8 @@ header#page-header {
   }
 }
 
-#menu-menu-top {
-	border-bottom: 1px solid @gray-lighter;
-
-  @media (min-width: @screen-sm-min) {
-		border-right: 1px solid @gray-lighter;
-		border-bottom: 0;
-	}
+#system-user-menu {
+	border-left: 1px solid @gray-lighter;
 }
 
 #menu-menu-top-anonymous {

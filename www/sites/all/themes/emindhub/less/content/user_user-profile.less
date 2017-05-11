@@ -63,8 +63,22 @@
 		}
 
 		margin-bottom: 15px;
-		background-color: @body-bg-inverse;
+		background-color: @body-bg;
 		.emh-fieldgroup-blue-title;
+
+    border-bottom: 1px solid @body-bg-inverse;
+    > h2 {
+      border-bottom: 1px solid @body-bg-inverse;
+      margin-bottom: 0;
+    }
+    > .field {
+      border-left: 1px solid @body-bg-inverse;
+      border-right: 1px solid @body-bg-inverse;
+
+      &:first-of-type {
+        padding-top: 15px;
+      }
+    }
 
 		.form-group {
 			margin-bottom: 0;
@@ -124,6 +138,7 @@
       .field-name-field-entreprise {
         .field-item {
           .h3;
+          margin-top: 0;
           font-weight: bold;
         }
       }
