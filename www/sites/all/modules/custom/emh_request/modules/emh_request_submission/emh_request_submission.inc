@@ -106,7 +106,7 @@ function emh_request_submission_edit_access_callback($node, $submission, $accoun
 }
 
 /**
- * Does a user can list request answer?
+ * Does a user can list request answers?
  *
  * @param object $node
  * @param object $account
