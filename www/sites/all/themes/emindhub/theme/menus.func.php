@@ -10,17 +10,7 @@ function emindhub_preprocess_menu_link(&$vars) {
     case '7702':
       global $user;
       $account = user_load($user->uid);
-      $firstName = '';
-      if (!empty($account->field_first_name[LANGUAGE_NONE])) {
-        $firstName = check_plain($account->field_first_name[LANGUAGE_NONE][0]['value']);
-      }
-      $lastName = '';
-      if (!empty($account->field_last_name[LANGUAGE_NONE])) {
-        $lastName = check_plain($account->field_last_name[LANGUAGE_NONE][0]['value']);
-      }
-      $name = $firstName . '&nbsp;<span class="emh-blue bold text-uppercase">' . $lastName . '</span>';
-      $element['#title'] = $name;
-      $element['#localized_options']['html'] = 1;
+      $element['#title'] = format_username($account);
       break;
   }
 }
