@@ -1,47 +1,30 @@
 <?php global $base_url, $language; ?>
-  <header id="navbar" role="banner" class="navbar navbar-emh">
-
+  <nav id="main-nav" class="navbar navbar-emh">
     <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only"><?php print t('Toggle navigation'); ?></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
 
-      <div class="row">
-
-        <div class="emh-brand col-md-2">
-          <?php if ($language->language == 'en') : ?>
-            <?php print l('<span class="smartmobility-title">' . t('Smart Mobility') . '</span>', variable_get('emh_smartmobility_base_url', 'http://smartmob.box.local'), array('language' => $language, 'html' => TRUE, 'attributes' => array('title' => t('Smart Mobility'), 'class' => array('logo', 'navbar-btn')))); ?>
-          <?php else : ?>
-            <?php print l('<span class="smartmobility-title">' . t('Smart Mobility') . '</span>', EMH_SMARTMOBILITY_HOMEPAGE, array('language' => $language, 'html' => TRUE, 'attributes' => array('title' => t('Smart Mobility'), 'class' => array('logo', 'navbar-btn')))); ?>
-          <?php endif; ?>
-        </div>
-
-        <div class="col-md-10">
-
-          <nav class="navbar">
-
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              </button>
-            </div>
-
-            <?php if (!empty($page['topmenu']) || !empty($page['navigation'])): ?>
-            <div class="collapse navbar-collapse">
-              <?php print render($page['topmenu']); ?>
-              <?php print render($page['navigation']); ?>
-            </div>
-            <?php endif; ?>
-
-          </nav>
-
-        </div>
-
+        <?php if ($language->language == 'en') : ?>
+          <?php print l(t('Smart Mobility'), variable_get('emh_smartmobility_base_url', 'http://smartmob.box.local'), array('language' => $language, 'attributes' => array('title' => t('Smart Mobility'), 'class' => array('navbar-brand')))); ?>
+        <?php else : ?>
+          <?php print l(t('Smart Mobility'), EMH_SMARTMOBILITY_HOMEPAGE, array('language' => $language, 'attributes' => array('title' => t('Smart Mobility'), 'class' => array('navbar-brand')))); ?>
+        <?php endif; ?>
       </div>
 
-    </div>
+      <?php if (!empty($page['topmenu']) || !empty($page['navigation'])): ?>
+        <div id="navbar" class="navbar-collapse collapse">
+          <?php print render($page['topmenu']); ?>
+          <?php print render($page['navigation']); ?>
+        </div>
+      <?php endif; ?>
 
-  </header>
+    </div>
+  </nav>
 
   <?php if (!empty($page['header'])): ?>
   <header role="banner" id="page-header">
