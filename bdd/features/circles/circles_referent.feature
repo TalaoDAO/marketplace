@@ -43,6 +43,14 @@ Feature: Requests visibility for Référent
       And the user "expert1" is a member of the group "Avengers"
       And the user "client2" is an admin of the group "X-Men"
       And the user "expert4" is a member of the group "X-Men"
+    When I go to "content/avengers"
+      And I click "Administrate" in the "primary tabs" region
+      And I click "People" in the "content" region
+      And I click "edit" in the "Nick FURY" row
+      And I select "Member" from "Status"
+      And I check the box "Referent member"
+      And I press "Update membership"
+    Then I should see "The membership has been updated."
 
   Scenario: A référent can see the requests from its circles
     Given I am logged in as "référent1"
