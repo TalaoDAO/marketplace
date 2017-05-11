@@ -206,7 +206,57 @@ function emh_linkedin_user_login(&$edit, $account) {
 				}
 			}
 		}
+		
+		if(isset($linkedin_profile['photoURL'])) {
+			//on télécharge maintenant l'image du profile linkdedin
+			$nom_img = $account->name . ".jpg";
+			$dir_name = "sites/default/files/linkedin_profile_image";
+			$path = $dir_name . "/" . $nom_img;
+			//var_dump(file_build_uri($path));
+			$drupal_uri = "public://linkedin_profile_image/" . $nom_img;
+			
+			//si le dossier n'existe pas, on le crée
+			if(!is_dir($dir_name)) {
+				mkdir($dir_name);
+			}
+			
+			if(!file_exists($path)) {
+				$url= $linkedin_profile['photoURL'];
+				$fp = fopen($path, 'w');
+				
+				$ch = curl_init($url);
+				curl_setopt($ch, CURLOPT_FILE, $fp);
+				$data = curl_exec($ch);
+				$curl_errno = curl_errno($ch);
+				$curl_error = curl_error($ch);
+				curl_close($ch);
+				fclose($fp);
+				
+				
+				if ($curl_errno > 0) {
+					unlink($path);
+					watchdog('emh_linkedin', "cURL Error ($curl_errno): $curl_error\n");
+					
+				} else {
+					
+					if(file_exists($path)) {
+						$handle = fopen($path, 'r');
+						$file = file_save_data($handle, $drupal_uri);
+						fclose($handle);
+					}
+					
+					
+				}
+				
+				
+				//user_save($account);
+			}
+			
+			
+		}
 	}
+	
+	
 }
 
 
