@@ -17,13 +17,21 @@
     .make-md-column-offset(3);
   }
 
-  .affix {
-    top: 80px;
+  @media (max-width: @screen-sm-max) {
+    .affix {
+      position: static;
+    }
+  }
+  @media (min-width: @screen-md-min) {
+    .affix {
+      top: 80px;
+      position: fixed;
+    }
+    .affix-bottom {
+      position: absolute;
+    }
   }
 
-  .affix-bottom {
-    position: absolute;
-  }
 }
 
 .view-query-list {
