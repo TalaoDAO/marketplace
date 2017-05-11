@@ -51,7 +51,7 @@ function FileUpload () {
 }
 
 (function ($) {
-  // http://stackoverflow.com/a/13203876
+  // @see http://stackoverflow.com/a/13203876
   $(document).ready(function () {
     $('#signIn').popover({
       content: function () {
