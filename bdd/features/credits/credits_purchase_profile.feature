@@ -26,7 +26,7 @@ Feature: Buy profile access
     Given I give "expert1" 1000 emh credits
 
     Given I am logged in as a user with the "administrator" role
-      And the user "client1" is an admin of the group "All experts"
+      And the user "client1" is a member of the group "All experts"
       And the user "expert1" is a member of the group "All experts"
 
     When I go to "admin/emindhub/credits"
