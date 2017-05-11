@@ -1,6 +1,6 @@
 .circle-section {
   border: 1px solid @pattens-blue;
-  background-color: white;
+  background-color: @body-bg;
   padding:  ceil((@grid-gutter-width / 2));
   margin-bottom: ceil((@grid-gutter-width / 2));
 }
@@ -71,9 +71,6 @@ body.node-type-circle {
     .block {
       .emh-block-blue-title;
     }
-    .view-content {
-      .circle-section;
-    }
   }
 
   .circle-main-content {
@@ -97,6 +94,10 @@ body.node-type-circle {
     // New members
     #block-views-660850ab895e687382503f50ef075b77 {
       margin-top: 40px;
+
+      .view-content {
+        .circle-section;
+      }
     }
   }
 }
