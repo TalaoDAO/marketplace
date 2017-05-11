@@ -1,6 +1,8 @@
 <?php
 
 function emh_circles_get_circle_logo($node = null) {
+  global $base_url;
+
   if ($node === null) {
 		$node = menu_get_object();
 	}
@@ -12,7 +14,7 @@ function emh_circles_get_circle_logo($node = null) {
 
   $circle_logo = field_get_items('node', $node, 'field_circle_logo');
   $circle_logo_file = empty($circle_logo) ? '' : file_load($circle_logo['0']['fid']);
-  $circle_logo_file_uri = empty($circle_logo) ? drupal_get_path('module', 'emh_circles') . '/images/community.svg' : file_create_url($circle_logo_file->uri);
+  $circle_logo_file_uri = empty($circle_logo) ? $base_url . '/' . drupal_get_path('module', 'emh_circles') . '/images/community.svg' : file_create_url($circle_logo_file->uri);
   $circle_logo_width = empty($circle_logo) ? '100' : $circle_logo['0']['image_dimensions']['width'];
   $circle_logo_height = empty($circle_logo) ? '100' : $circle_logo['0']['image_dimensions']['height'];
 
