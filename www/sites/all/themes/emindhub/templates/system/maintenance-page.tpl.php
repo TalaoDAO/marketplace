@@ -107,6 +107,10 @@
                 <p class="emh-title-baseline"><?php print $baseline; ?></p>
               <?php endif; ?>
 
+              <?php if (!empty($page['title_bottom'])): ?>
+                <?php print render($page['title_bottom']); ?>
+              <?php endif; ?>
+
             </div>
 
             <?php if (!empty($page['title_right'])): ?>
@@ -114,10 +118,6 @@
             <?php endif; ?>
 
           </div>
-
-          <?php if (!empty($page['title_bottom'])): ?>
-            <?php print render($page['title_bottom']); ?>
-          <?php endif; ?>
 
           <?php print $messages; ?>
 
