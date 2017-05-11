@@ -44,12 +44,18 @@
   display: inline-block;
   font-size: 13px;
   .text-center;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-decoration: none;
 
   @media (max-width: @screen-xs-max) {
       font-weight: normal;
   }
 
-  text-decoration: none;
+  @media (max-width: @screen-sm-max) {
+      padding: 12px 10px;
+  }
+
   &:hover {
       text-decoration: none;
   }
@@ -68,18 +74,6 @@
 
   &.active {
     box-shadow: none;
-  }
-}
-
-body.not-logged-in {
-  .emh-button {
-    padding: 17px 20px;
-    min-width: @emh-cta-width-min;
-    font-weight: 600;
-
-    @media (max-width: @screen-sm-max) {
-        padding: 12px 10px;
-    }
   }
 }
 
