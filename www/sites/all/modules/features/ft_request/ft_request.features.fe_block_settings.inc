@@ -206,7 +206,7 @@ node/*/edit',
         'region' => 'title_right',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -41,
+        'weight' => -43,
       ),
       'seven' => array(
         'region' => '',
@@ -241,10 +241,10 @@ node/*/edit',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'title_bottom',
+        'region' => 'title_right',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => 1,
+        'weight' => -42,
       ),
       'seven' => array(
         'region' => '',
