@@ -46,15 +46,28 @@ body.page-circles {
   }
 }
 
-
 // Circle
 body.node-type-circle {
+  .title-left {
+    .make-xs-column(9);
+  }
+  .region-title-right {
+    .make-xs-column(3);
+    .text-right;
+
+    > .block {
+      .make-xs-column(12);
+    }
+  }
+
   &.logged-in {
     .circle-logo {
-      .make-sm-column(2);
+      .make-xs-column(3);
+      .make-md-column(2);
     }
 
     .title-left .title .page-header {
+      .make-xs-column(9);
       .make-md-column(10);
     }
   }
@@ -64,6 +77,7 @@ body.node-type-circle {
   }
 
   .circle-count {
+    .make-xs-column(9);
     .make-md-column(10);
   }
 
@@ -87,14 +101,12 @@ body.node-type-circle {
   .circle-infos {
     .make-sm-column(4);
 
-    > h3 {
+    h3 {
       margin-top: 0;
     }
 
     // New members
     #block-views-660850ab895e687382503f50ef075b77 {
-      margin-top: 40px;
-
       .view-content {
         .circle-section;
       }
