@@ -28,28 +28,31 @@
       .requests-item;
       background-color: white;
       min-height: auto;
-      padding: 15px 0;
+      padding: 15px;
       margin-top: 0;
 
       .request-item {
         .make-row();
 
         .request-icon {
-          .make-xs-column(2);
+          .make-xs-column(3);
+          .make-md-column(2);
         }
-        .request-infos {
-          .make-xs-column(10);
-          .make-md-column(8);
 
-          @media (min-width: @screen-md-min) {
-            padding: 0;
-          }
+        .request-infos {
+          .make-xs-column(9);
+          .make-md-column(8);
+          
+          padding-left: 0;
         }
+
         .request-circles {
-          .make-xs-column(10);
-          .make-xs-column-offset(2);
+          .make-xs-column(9);
+          .make-xs-column-offset(3);
           .make-md-column(2);
           .make-md-column-offset(0);
+
+          padding-left: 0;
         }
       }
 
