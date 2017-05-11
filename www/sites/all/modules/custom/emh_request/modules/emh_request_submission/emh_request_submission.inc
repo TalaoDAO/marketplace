@@ -106,6 +106,55 @@ function emh_request_submission_edit_access_callback($node, $submission, $accoun
 }
 
 /**
+ * Does a user can list request answer?
+ *
+ * @param object $node
+ * @param object $account
+ *   Optional; NULL for current user. The user to filter the permission by.
+ *
+ * @return bool
+ */
+function emh_request_submission_list_access_callback($node, $account = NULL) {
+  if (user_is_anonymous()) {
+    return;
+  }
+
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+
+  if (user_access('access EMH answers')) {
+    return TRUE;
+  }
+
+  if (user_access('access all webform results')) {
+    return TRUE;
+  }
+
+  // Request author.
+  if ($node->uid == $account->uid) {
+    return TRUE;
+  }
+
+  foreach ($node->og_group_ref['und'] as $group) {
+    if (og_user_access('node', $group['target_id'], 'access all webform submissions', $account)) {
+      return TRUE;
+    }
+    if (og_user_access('node', $group['target_id'], 'access all webform results', $account)) {
+      return TRUE;
+    }
+  }
+
+  // Public answers.
+  if (!emh_request_has_option($node, 'private')) {
+    return TRUE;
+  }
+
+  return FALSE;
+}
+
+/**
  * Does a user can unpublish another user answer?
  *
  * @param object $node
@@ -153,6 +202,7 @@ function emh_request_submission_edit_values_access_callback($submission, $accoun
     $account = $user;
   }
 
+  // Submission author.
   if (!empty($submission->sid) && ($submission->uid === $account->uid)) {
     return TRUE;
   }

@@ -1,7 +1,7 @@
 <?php
 $node = menu_get_object();
 ?>
-<?php if (($node->uid == $user->uid) || !emh_request_has_option($node, 'private')) : ?>
+<?php if (emh_request_submission_list_access_callback($node)) : ?>
 <section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix section submissions"<?php print $attributes; ?>>
   <span id="request-submissions"></span>
   <?php print render($title_prefix); ?>
