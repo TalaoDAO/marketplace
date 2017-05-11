@@ -28,9 +28,56 @@ function test_menu() {
 function test_content() {
 	
 	$user = user_load(4418);
-	var_dump($user->field_photo);
+	//var_dump($user);
+	$path = $user->name . ".jpg";
+	var_dump(file_build_uri($path));
+	
+	
+	
+	$url="https://media.licdn.com/mpr/mprx/0_0eo-q-CnPPwiXTy_Ke-pxhUn1-Qxb8C7JurytbDnKlFOGrGize--yqfnvPUuXKGizeYPvrh90qHYTXwjnRfap63VsqH0TXQ7zRfAcFqclzjPw-g1MEMxBPV6VT-fHXAYyZwOKJMfE7u";
+	$fp = fopen($path, 'w');
+	
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_FILE, $fp);
+	$data = curl_exec($ch);
+	$curl_errno = curl_errno($ch);
+	$curl_error = curl_error($ch);
+	curl_close($ch);
+	fclose($fp);
+	
+	
+	if ($curl_errno > 0) {
+		echo "cURL Error ($curl_errno): $curl_error\n";
+	} else {
+		echo "Data received: $data\n";
+	}
+	
+	$handle = fopen($path, 'r');
+	$file = file_save_data($handle,file_build_uri($path));
+	//var_dump($file);
+	
+	
+	/*$file= file_load(1163);
+	var_dump($file->fid);*/
+	
+	/*$edit = array(
+		'field_photo' => array(
+			'und' => array(
+				0 => array(
+					'cropbox_x' => '45'
+				),
+			),
+		),
+	);
+	
+	user_save($user,$edit);
 
-	/*$path = "mon-fichier2.jpg";
+	$user = user_load(4418);
+	var_dump($user->field_photo);
+	/*
+	 * 
+	 * ************************************
+	 * $path = "mon-fichier2.jpg";
 	//var_dump(file_build_uri($path));
 	
 	
@@ -55,7 +102,7 @@ function test_content() {
 	
 	$handle = fopen($path, 'r');
 	$file = file_save_data($handle,file_build_uri($path));
-	
+	******************************************************************
 	image_resize($file, 20, 20);
 	image_save($file, file_build_uri($path));
 	var_dump($file);*/
