@@ -151,34 +151,6 @@
 	}
 }
 
-// Timeline
-#block-emh-request-workflow-timeline {
-	.make-md-column(8);
-
-	.content {
-		.make-row();
-		> * {
-
-		}
-		.created {
-			.make-md-column(2);
-			.text-right;
-			line-height: 39px;
-		}
-		.progress {
-			.make-md-column(8);
-			padding: 0;
-			margin-top: 10px;
-			margin-bottom: 0;
-		}
-		.deadline {
-			.make-md-column(2);
-			line-height: 39px;
-		}
-	}
-}
-
-
 // Sponsors / Partners list
 #block-views-sponsors-partners-block,
 #block-views-sponsors-sponsors-block {
@@ -269,6 +241,7 @@
 
 // Submissions count
 #block-emh-request-submission-submission-count {
-	.make-md-column(4);
-	.text-right;
+  @media (max-width: @screen-sm-max) {
+    .text-right;
+  }
 }
