@@ -25,7 +25,7 @@ Feature: SmartMobility circle test
   @smartmobility
   Scenario: A Smart Mobility member should be redirected to /content/smart-mobility on login
     Given I am logged in as a user with the "administrator" role
-      And the user "client1" is an admin of the group "Avengers"
+      And the user "client1" is an admin of the group "Smart Mobility"
 
     Given I am logged in as "client1"
     Then I should see "Smart mobility"
