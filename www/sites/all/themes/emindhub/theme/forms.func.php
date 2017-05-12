@@ -525,11 +525,3 @@ function emindhub_form_contact_site_form_alter(&$form, &$form_state) {
   $form['message']['#prefix'] = '<div class="contact-right">';
   $form['message']['#suffix'] = '</div>';
 }
-
-/**
- * Implements hook_form_FORM_ID_alter().
- */
-function emindhub_form_views_exposed_form_alter(&$form, &$form_state) {
-  $form['#attributes']['class'][] = 'js-affix';
-  $form['#attributes']['data-spy'] = 'affix';
-}

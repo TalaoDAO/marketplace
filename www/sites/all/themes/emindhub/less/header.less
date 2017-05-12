@@ -6,7 +6,7 @@
 
 	body {
 		padding-top: @navbar-height + 1px;
-    
+
 		&.logged-in.admin-menu {
       nav#main-nav {
         top: 29px;
@@ -43,6 +43,8 @@
   }
 
 	@media (min-width: @screen-md-min) {
+    border-left: 1px solid @gray-lighter;
+    
 		.nav {
 			float: right;
 
@@ -159,10 +161,6 @@ header#page-header {
   .dropdown-menu > li > a:hover {
     color: @text-color;
   }
-}
-
-#system-user-menu {
-	border-left: 1px solid @gray-lighter;
 }
 
 #menu-menu-top-anonymous {
