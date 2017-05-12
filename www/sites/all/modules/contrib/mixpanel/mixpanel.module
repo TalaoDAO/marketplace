@@ -1,0 +1,530 @@
+<?php
+
+/**
+ * @file
+ * The mixpanel module file.
+ */
+
+/**
+ * Top-level URL to the Mixpanel API.
+ *
+ * @ingroup mixpanel
+ */
+define('MIXPANEL_API_URL', 'http://api.mixpanel.com/');
+
+/**
+ * Implements hook_init().
+ */
+function mixpanel_init() {
+  global $user;
+
+  $token = variable_get('mixpanel_token', '');
+  $track_anonymous = variable_get('mixpanel_track_anonymous', TRUE);
+
+  if (!empty($token)) {
+    $library_version = variable_get('mixpanel_library_version', '2.0');
+
+    if ($user->uid != 0 || $track_anonymous) {
+      $defaults_wrapped = array(
+        'defaults' => mixpanel_get_defaults(),
+        'people' => mixpanel_get_people_defaults(),
+        'library_version' => $library_version,
+      );
+      drupal_add_js(array('mixpanel' => $defaults_wrapped), array('type' => 'setting', 'scope' => JS_DEFAULT));
+      drupal_add_js(drupal_get_path('module', 'mixpanel') . '/mixpanel.js');
+    }
+
+    // Convert the token string to JavaScript to prevent an XSS attack.
+    $token = drupal_json_encode($token);
+
+    // Any extra config to pass to the Javascript library.
+    $config = drupal_json_encode(array(
+      'cross_subdomain_cookie' => (bool) variable_get('mixpanel_cross_subdomain_cookie', TRUE),
+    ));
+
+    // Add the Mixpanel tracking code to HTML Head.
+    if ($library_version === '1.0') {
+      $mixpanel_init_code = <<<code
+var mpq = [];
+mpq.push(["init", $token]);
+(function() {
+var mp = document.createElement("script"); mp.type = "text/javascript"; mp.async = true;
+mp.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + "//api.mixpanel.com/site_media/js/api/mixpanel.js";
+var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(mp, s);
+})();
+code;
+    }
+    else {
+      $mixpanel_init_code = <<<code
+(function(c,a){window.mixpanel=a;var b,d,h,e;b=c.createElement("script");b.type="text/javascript";b.async=!0;b.src=("https:"===c.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.1.min.js';d=c.getElementsByTagName("script")[0];d.parentNode.insertBefore(b,d);a._i=[];a.init=function(b,c,f){function d(a,b){var c=b.split(".");2==c.length&&(a=a[c[0]],b=c[1]);a[b]=function(){a.push([b].concat(Array.prototype.slice.call(arguments,0)))}}var g=a;"undefined"!==typeof f?
+g=a[f]=[]:f="mixpanel";g.people=g.people||[];h="disable track track_pageview track_links track_forms register register_once unregister identify name_tag set_config people.identify people.set people.increment".split(" ");for(e=0;e<h.length;e++)d(g,h[e]);a._i.push([b,c,f])};a.__SV=1.1})(document,window.mixpanel||[]);
+mixpanel.init($token, $config);
+code;
+    }
+
+    drupal_add_js($mixpanel_init_code, array('type' => 'inline', 'group' => JS_LIBRARY-1));
+  }
+}
+
+/**
+ * Implements hook_permission().
+ */
+function mixpanel_permission() {
+  return array(
+    'administer mixpanel' => array(
+      'title' => t('Administer Mixpanel'),
+      'description' => t('Set Mixpanel token and change other internal settings for Mixpanel integration.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_help().
+ */
+function mixpanel_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#mixpanel':
+      return '<p>' . t('Provides integration with the Mixpanel real-time analytics service. <strong>For more information, see the <a href="!docs_url" target="_blank">full documentation</a> online.</strong>', array('!docs_url' => 'https://drupal.org/node/2096053', '!config_url' => url('admin/config/services/mixpanel'))) . '</p>';
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function mixpanel_menu() {
+  // Administration.
+  $items['admin/config/services/mixpanel'] = array(
+    'title' => 'Mixpanel settings',
+    'description' => 'Set Mixpanel token and change other internal settings for Mixpanel integration.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('mixpanel_admin_settings'),
+    'access arguments' => array('administer mixpanel'),
+    'file' => 'mixpanel.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_cron_queue_info().
+ */
+function mixpanel_cron_queue_info() {
+  return array(
+    'mixpanel_track' => array(
+      'worker callback' => '_mixpanel_track_queue_callback',
+    ),
+  );
+}
+
+/**
+ * Returns a string representing the browser making the request.
+ *
+ * It's compatible with the Mixpanel Javascript library's $browser
+ * property.
+ */
+function _mixpanel_get_browser() {
+  if (!isset($_SERVER['HTTP_USER_AGENT'])) {
+    return '';
+  }
+  $ua = $_SERVER['HTTP_USER_AGENT'];
+
+  // NOTE: This wasn't a direct port of the Mixpanel Javascript code, because it
+  // uses the navigator.vendor and window.opera properties, that we don't have
+  // access to. Luckily, the 'vendor' comes from the user agent, so can use that
+  // with hopefully the same effect!
+  if (preg_match('/Opera/', $ua)) {
+    if (preg_match('/Mini/', $ua)) {
+      return 'Opera Mini';
+    }
+    return 'Opera';
+  }
+  elseif (preg_match('/(BlackBerry|PlayBook|BB10)/i', $ua)) {
+    return 'BlackBerry';
+  }
+  elseif (preg_match('/Chrome/', $ua)) {
+    return 'Chrome';
+  }
+  elseif (preg_match('/Apple/', $ua)) {
+    if (preg_match('/Mobile/', $ua)) {
+      return 'Mobile Safari';
+    }
+    return 'Safari';
+  }
+  elseif (preg_match('/Android/', $ua)) {
+    return 'Android Mobile';
+  }
+  elseif (preg_match('/Konqueror/', $ua)) {
+    return 'Konqueror';
+  }
+  elseif (preg_match('/Firefox/', $ua)) {
+    return 'Firefox';
+  }
+  elseif (preg_match('/MSIE/', $ua)) {
+    return 'Internet Explorer';
+  }
+  elseif (preg_match('/Gecko/', $ua)) {
+    return 'Mozilla';
+  }
+
+  return '';
+}
+
+/**
+ * Returns a string representing the OS making the request.
+ *
+ * It's compatible with the Mixpanel Javascript library's $os
+ * property.
+ */
+function _mixpanel_get_os() {
+  if (!isset($_SERVER['HTTP_USER_AGENT'])) {
+    return '';
+  }
+  $ua = $_SERVER['HTTP_USER_AGENT'];
+
+  if (preg_match('/Windows/i', $ua)) {
+    if (preg_match('/Phone/', $ua)) {
+      return 'Windows Mobile';
+    }
+    return 'Windows';
+  }
+  elseif (preg_match('/(iPhone|iPad|iPod)/', $ua)) {
+    return 'iOS';
+  }
+  elseif (preg_match('/Android/', $ua)) {
+    return 'Android';
+  }
+  elseif (preg_match('/(BlackBerry|PlayBook|BB10)/i', $ua)) {
+    return 'BlackBerry';
+  }
+  elseif (preg_match('/Mac/i', $ua)) {
+    return 'Mac OS X';
+  }
+  elseif (preg_match('/Linux/', $ua)) {
+    return 'Linux';
+  }
+
+  return '';
+}
+
+/**
+ * Returns a string representing the device making the request.
+ *
+ * It's compatible with the Mixpanel Javascript library's $device
+ * property.
+ */
+function _mixpanel_get_device() {
+  if (!isset($_SERVER['HTTP_USER_AGENT'])) {
+    return '';
+  }
+  $ua = $_SERVER['HTTP_USER_AGENT'];
+
+  if (preg_match('/iPhone/', $ua)) {
+    return 'iPhone';
+  }
+  elseif (preg_match('/iPad/', $ua)) {
+    return 'iPad';
+  }
+  elseif (preg_match('/iPod/', $ua)) {
+    return 'iPod Touch';
+  }
+  elseif (preg_match('/(BlackBerry|PlayBook|BB10)/i', $ua)) {
+    return 'BlackBerry';
+  }
+  elseif (preg_match('/Windows Phone/i', $ua)) {
+    return 'Windows Phone';
+  }
+  elseif (preg_match('/Android/', $ua)) {
+    return 'Android';
+  }
+
+  return '';
+}
+
+/**
+ * Returns default properties sent with every event for a user.
+ *
+ * During a single request, it will cache the default properties for
+ * a given user account.
+ *
+ * @param object $account
+ *   (optional) The user these defaults are for. If not given, the currently
+ *   logged in user will be used.
+ * @param bool $reset
+ *   (optional) If set to TRUE, the cache will be cleared and fresh data will be
+ *   returned.
+ *
+ * @return array
+ *   Array of the default mixpanel variables.
+ *
+ * @see hook_mixpanel_default_alter()
+ * @see mixpanel_track()
+ *
+ * @ingroup mixpanel
+ */
+function mixpanel_get_defaults($account = NULL, $reset = FALSE) {
+  global $user;
+
+  $defaults =& drupal_static(__FUNCTION__, array());
+
+  // If user object is passed in, favor that, otherwise, set $account to the
+  // current object.
+  if (is_null($account)) {
+    $account = $user;
+  }
+
+  if (!isset($defaults[$account->uid]) || $reset) {
+    $properties = array(
+      'ip' => ip_address(),
+      '$browser' => _mixpanel_get_browser(),
+      '$os' => _mixpanel_get_os(),
+      '$device' => _mixpanel_get_device(),
+      '$referrer' => $_SERVER['HTTP_REFERER'],
+      '$referring_domain' => parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST),
+    );
+
+    // For authenticated users.
+    if ($account->uid != 0) {
+      $properties = array_merge($properties, array(
+        'uid' => $account->uid,
+        'mp_name_tag' => $account->name,
+        'distinct_id' => $account->uid,
+      ));
+    }
+
+    // Let other modules alter the defaults.
+    drupal_alter('mixpanel_defaults', $properties, $account);
+
+    $defaults[$account->uid] = $properties;
+  }
+
+  return $defaults[$account->uid];
+}
+
+/**
+ * Formats a timestamp into a date/time as expected by Mixpanel.
+ *
+ * This is useful if you want to pass timestamps to Mixpanel with
+ * your events or as part of the 'people defaults' for a user.
+ *
+ * @param int $timestamp
+ *   A UNIX timestamp to format.
+ *
+ * @return string
+ *   A date string in the format expected by Mixpanel.
+ *
+ * @ingroup mixpanel
+ */
+function mixpanel_format_date($timestamp) {
+  return format_date($timestamp, 'custom', 'Y-m-d H:i:s', 'UTC');
+}
+
+/**
+ * Returns the default 'People data' for a given user account.
+ *
+ * Since 'People data' doesn't make sense for anonymous users, it will
+ * simply return an empty array if the $account is anonymous.
+ *
+ * @param object $account
+ *   (optional) The user account to generate people data for. If not given,
+ *   the currently logged in user will be used.
+ *
+ * @return array
+ *   Array of values to pass to Mixpanel.people.set() on every page.
+ *
+ * @see hook_mixpanel_people_defaults_alter()
+ *
+ * @ingroup mixpanel
+ */
+function mixpanel_get_people_defaults($account = NULL) {
+  global $user;
+
+  if (is_null($account)) {
+    $account = $user;
+  }
+
+  // People data doesn't make sense for anonymous users.
+  if ($account->uid == 0) {
+    return array();
+  }
+
+  $data = array(
+    '$name' => $account->name,
+    '$email' => $account->mail,
+    '$created' => mixpanel_format_date($account->created),
+    '$last_login' => mixpanel_format_date($account->login),
+  );
+
+  drupal_alter('mixpanel_people_defaults', $data, $account);
+
+  return $data;
+}
+
+/**
+ * Send an event to Mixpanel.
+ *
+ * This function will do nothing if the Mixpanel token isn't set OR if tracking
+ * anonymous user's is disabled and $account is an anonymous user.
+ *
+ * If Mixpanel is configured to 'Queue and send events during cron' (which is
+ * the default) then nothing will actually happen when ths function returns -
+ * the event won't be sent until the next cron run.
+ *
+ * @param string $event
+ *   The name of the event.
+ * @param array $custom_properties
+ *   (optional) Additional properties to send with this event. Properties
+ *   given as an argument here will overwrite default properties of the same
+ *   name.
+ * @param object $account
+ *   (optional) The user triggering the event. If not given, the currently
+ *   logged in user will be used.
+ *
+ * @see mixpanel_get_defaults()
+ * @see hook_mixpanel_event_alter()
+ *
+ * @ingroup mixpanel
+ */
+function mixpanel_track($event, $custom_properties = array(), $account = NULL) {
+  global $user;
+
+  $token = variable_get('mixpanel_token', '');
+  if (empty($token)) {
+    return;
+  }
+
+  if (is_null($account)) {
+    $account = $user;
+  }
+
+  // Only track anonymous users if enabled.
+  $track_anonymous = variable_get('mixpanel_track_anonymous', TRUE);
+  if ($account->uid == 0 && !$track_anonymous) {
+    return;
+  }
+
+  // Setup default properties.
+  $properties = mixpanel_get_defaults($account);
+
+  // Merge default properties with any passed-in properties. Any passed-in
+  // properties will overwrite the defaults.
+  if (!empty($custom_properties)) {
+    $properties = array_merge($properties, $custom_properties);
+  }
+
+  // Let other modules alter the properties.
+  drupal_alter('mixpanel_event', $properties, $event, $account);
+
+  // These properties can't be overridden.
+  $properties['token'] = $token;
+  $properties['time'] = REQUEST_TIME;
+
+  if (variable_get('mixpanel_queue', TRUE)) {
+    // If possible, we queue up the API call to actually be made on cron.
+    $queue = DrupalQueue::get('mixpanel_track');
+    $queue->createItem(array('event' => $event, 'properties' => $properties));
+  }
+  else {
+    // Actually send the request NOW.
+    _mixpanel_track($event, $properties);
+  }
+}
+
+/**
+ * Send mixpanel event to API.
+ *
+ * @param string $event
+ *   The event to track.
+ * @param array $properties
+ *   The event properties.
+ *
+ * @return bool
+ *   Whether it worked.
+ */
+function _mixpanel_track($event, $properties) {
+  $params = array(
+    'event' => $event,
+    'properties' => $properties,
+  );
+  $url = MIXPANEL_API_URL . 'track/?data=' . base64_encode(drupal_json_encode($params));
+
+  $result = drupal_http_request($url);
+
+  if ($result->code != 200) {
+    watchdog('mixpanel', 'Unable send event %event to Mixpanel with properties: %properties', array(
+      '%event' => $event,
+      '%properties' => drupal_json_encode($properties), WATCHDOG_ERROR)
+    );
+    return FALSE;
+  }
+
+  return TRUE;
+}
+
+/**
+ * Private function to track callback queue.
+ */
+function _mixpanel_track_queue_callback($item) {
+  // Actually send the request to the Mixpanel API.
+  $success = _mixpanel_track($item['event'], $item['properties']);
+
+  // If it was unsuccessful, we re-queue the item.
+  if (!$success) {
+    $queue = DrupalQueue::get('mixpanel_track');
+    $queue->createItem($item);
+  }
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function mixpanel_block_info() {
+  return array(
+    'mixpanel_badge_dark' => array(
+      'info' => t('Mixpanel badge (dark)'),
+      'cache' => DRUPAL_CACHE_GLOBAL,
+    ),
+    'mixpanel_badge_light' => array(
+      'info' => t('Mixpanel badge (light)'),
+      'cache' => DRUPAL_CACHE_GLOBAL,
+    ),
+  );
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function mixpanel_block_view($delta) {
+  $img = 'badge_' . ($delta == 'mixpanel_badge_dark' ? 'blue' : 'light') . '.png';
+
+  // TODO: convert to render array?
+  return array(
+    'subject' => NULL,
+    'content' => '<a href="http://mixpanel.com/f/partner"><img src="http://mixpanel.com/site_media/images/partner/' . $img . '" alt="Real Time Web Analytics" /></a>',
+  );
+}
+
+/**
+ * Implements hook_user_logout().
+ */
+function mixpanel_user_logout($account) {
+  $token = variable_get('mixpanel_token', '');
+  if ($token && variable_get('mixpanel_library_version', '2.0') === '2.0') {
+    $twodaysago = strtotime('-2 days');
+
+    $domain = '';
+    if (variable_get('mixpanel_cross_subdomain_cookie', TRUE)) {
+      if (preg_match('/[a-z0-9][a-z0-9\-]+\.[a-z\.]{2,6}$/i', $_SERVER['HTTP_HOST'], $matches)) {
+        $domain = $matches[0];
+      }
+    }
+
+    // Without clearing this cookie, events from this browser will continue to
+    // be associated with this user even though they are now anonymous.
+    setcookie('mp_' . $token . '_mixpanel', '', $twodaysago, '/', $domain);
+
+    // Without clearing this cookie, properties set via Javascript using
+    // mixpanel.register_once() will continue to be used for anonymous users on
+    // this browser.
+    setcookie('mp_super_properties', '', $twodaysago, '/', $domain);
+  }
+}

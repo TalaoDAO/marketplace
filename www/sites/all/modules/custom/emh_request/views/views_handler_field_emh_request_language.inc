@@ -1,6 +1,6 @@
 <?php
 
-class views_handler_field_emh_request_status extends views_handler_field {
+class views_handler_field_emh_request_language extends views_handler_field {
 
   /**
    * Add additional fields.
@@ -19,7 +19,7 @@ class views_handler_field_emh_request_status extends views_handler_field {
   }
 
   /**
-   * Renders our field, displays the request status.
+   * Renders our field, displays the request type.
    */
   function render($values) {
     if (isset($values->{$this->aliases['nid']})) {
@@ -29,8 +29,16 @@ class views_handler_field_emh_request_status extends views_handler_field {
       return 0;
     }
 
-    $status = emh_request_get_status($nid);
-    return '<span class="emh-status ' . $status['status'] . '">' . $status['label'] . '</span>';
+    $node = node_load($nid);
+    $languages = language_list();
+
+    // Load Bootstrap languages styles.
+    if (module_exists('bootstrap_languages')) {
+      $library = libraries_load('bootstrap-languages');
+      drupal_add_css($library['library path'] . '/languages.min.css');
+    }
+
+    return (module_exists('bootstrap_languages')) ? '<span class="lang-sm" lang="' . $node->language . '"></span>' : $languages[$node->language]->name;
   }
 
   /**

@@ -25,8 +25,9 @@ Feature: Buy profile access
     Given I give "client1" 1000 emh credits
     Given I give "expert1" 1000 emh credits
 
-    # Make client1 as a Creator member of All experts circle
     Given I am logged in as a user with the "administrator" role
+
+    # Make client1 member of All experts circle
     When I go to "content/all-experts"
       And I click "Administrate" in the "primary tabs" region
       And I click "People" in the "content" region
@@ -61,7 +62,7 @@ Feature: Buy profile access
     # An expert responds to the request.
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
       And I press "Publish"
     Then I should see the message "Your answer has been published."

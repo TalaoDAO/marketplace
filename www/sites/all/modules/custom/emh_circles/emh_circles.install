@@ -238,7 +238,7 @@ function emh_circles_update_7012() {
   $bundle = 'circle';
   $og_roles = array_flip(og_roles($group, $bundle));
 
-  // Member role.
+  // Administrator role.
   $permissions = array(
     'create request content' => 1,
     'update own request content' => 1,
@@ -353,4 +353,28 @@ function emh_circles_update_7020() {
 
   emh_circles_disable_strings();
   emh_circles_enable_strings();
+}
+
+/**
+ * ADD: New OG admin permission for unpublishing submission.
+ */
+function emh_circles_update_7021() {
+  // Change permissions.
+  $group = 'node';
+  $bundle = 'circle';
+  $og_roles = array_flip(og_roles($group, $bundle));
+
+  $permissions = array(
+    'unpublish all webform submissions' => 1,
+  );
+  og_role_change_permissions($og_roles[OG_ADMINISTRATOR_ROLE], $permissions);
+}
+
+/**
+ * CHG: Update Recruitement Smart Mobility term name.
+ */
+function emh_circles_update_7022() {
+  $term = taxonomy_term_load(1266);
+  $term->name = 'Smart Mobility';
+  taxonomy_term_save($term);
 }
