@@ -48,7 +48,7 @@ Feature: Request Option Price
       And I fill in "Duration" with "1300"
       And I press "Save"
 
-    # Make client1 as a Creator member of circles
+    # Make client1 & expert1 members of Avengers, League of justice & Guardians of the Galaxy circles
     When I go to "content/avengers"
       And I click "Administrate" in the "primary tabs" region
       And I click "People" in the "content" region
@@ -92,7 +92,7 @@ Feature: Request Option Price
 
     Given I am logged in as "client1"
     When I go to "requests/manage"
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     When I click "Edit" in the "primary tabs" region
     Then I should see "300 credits" in the "#edit-field-options-und-questionnaire" element
       And I should see "200 credits" in the "#edit-field-options-und-duration" element
@@ -129,5 +129,5 @@ Feature: Request Option Price
     # An expert responds to the request.
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I should see "My little questionnaire"

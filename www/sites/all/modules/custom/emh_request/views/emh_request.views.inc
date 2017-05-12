@@ -43,19 +43,19 @@ function emh_request_views_data() {
     ),
   );
 
-  $data['node']['request_status'] = array(
-    'group' => t('Node'),
-    'title' => 'EMH Request status',
-    'field' => array(
-      'handler' => 'views_handler_field_emh_request_status',
-    ),
-  );
-
   $data['node']['request_type'] = array(
     'group' => t('Node'),
     'title' => 'EMH Request type',
     'field' => array(
       'handler' => 'views_handler_field_emh_request_type',
+    ),
+  );
+
+  $data['node']['request_language'] = array(
+    'group' => t('Node'),
+    'title' => 'EMH Request language',
+    'field' => array(
+      'handler' => 'views_handler_field_emh_request_language',
     ),
   );
 

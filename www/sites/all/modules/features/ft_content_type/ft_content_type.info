@@ -6,7 +6,6 @@ version = 7.x-3.0
 project = ft_content_type
 dependencies[] = addressfield
 dependencies[] = autocomplete_deluxe
-dependencies[] = colorbox
 dependencies[] = conditional_fields
 dependencies[] = ctools
 dependencies[] = date

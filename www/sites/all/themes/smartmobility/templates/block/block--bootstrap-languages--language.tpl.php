@@ -46,17 +46,9 @@
  */
 global $base_url, $language;
 ?>
-<section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
-
-  <?php print render($title_prefix); ?>
-  <?php if ($title): ?>
-    <h2<?php print $title_attributes; ?>><span><?php print $title; ?></span></h2>
-  <?php endif;?>
-  <?php print render($title_suffix); ?>
-
+<ul id="bootstrap-languages-language" class="menu nav navbar-nav navbar-right">
+  <li class="leaf">
   <?php if ($content): ?>
-    <div class="content">
-      <?php //print $content; ?>
       <div class="btn-group">
         <?php if ($language->language == 'en') : ?>
           <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true"> <span class="lang-sm" lang="en"></span> <span class="caret"></span> </button>
@@ -72,7 +64,6 @@ global $base_url, $language;
           </ul>
         <?php endif; ?>
       </div>
-    </div>
   <?php endif;?>
-
-</section> <!-- /.block -->
+  </li>
+</ul>

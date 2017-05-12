@@ -6,6 +6,16 @@
  */
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function emh_configuration_update_dependencies() {
+  $dependencies['emh_configuration'][7070] = array(
+    'pet' => 7001,
+  );
+  return $dependencies;
+}
+
+/**
  * Implements hook_enable().
  */
 function emh_configuration_enable() {
@@ -1341,7 +1351,7 @@ function emh_configuration_update_7064() {
 }
 
 /**
- * ADD: new module module pet :"previewable email templates".
+ * ADD: new module pet :"previewable email templates".
  */
 function emh_configuration_update_7065() {
   module_enable(['pet']);
@@ -1377,4 +1387,55 @@ function emh_configuration_update_7066() {
     ->execute();
 
   variable_set('menu_rebuild_needed', TRUE);
+}
+
+/**
+ * FIX: Activate FT permissions.
+ */
+function emh_configuration_update_7067() {
+  module_enable(array('ft_permissions'));
+}
+
+/**
+ * ADD: Module mixpanel.
+ */
+function emh_configuration_update_7068() {
+  module_enable(['mixpanel', 'mixpanel_defaults', 'mixpanel_rules']);
+  variable_set('mixpanel_token', 'e9ccbdc087716f3288bfbf190fd30042');
+}
+
+/**
+ * CHG: Uninstall disabled modules.
+ */
+function emh_configuration_update_7069() {
+  drupal_uninstall_modules(array('advuser', 'ajax_comments', 'blockexport', 'diff', 'ds_extras', 'ds_format', 'ds_forms', 'ds_ui', 'emh_honeypot', 'languageicons',
+  'linkedin_auth', 'mediaelement', 'onecomment', 'openid', 'privatemsg_roles', 'privatemsg_rules',
+  //'colorbox', 'reroute_email',  // TODO : check why it makes the language block disapear
+  'stickynote', 'views_fieldsets', 'views_tree', 'node_reference'));
+  module_disable(array('module_missing_message_fixer', 'views_send', 'views_fieldset', 'views_field_view', 'dbtng_migrator', 'privatecomments', 'comment_perm', 'colorbox', 'auditfiles', 'views_php', 'views_calc', 'search', 'calendar', 'node_export', 'backup_migrate', 'shortcut', 'scheduler', 'color', 'collapsiblock', 'blockgroup'));
+  drupal_uninstall_modules(array('module_missing_message_fixer', 'views_send', 'views_fieldset', 'views_field_view', 'dbtng_migrator', 'privatecomments', 'comment_perm', 
+  'auditfiles', 'views_php', 'views_calc', 'search', 'calendar', 'node_export', 'backup_migrate', 'shortcut', 'scheduler', 'color', 'collapsiblock', 'blockgroup'));
+  drupal_uninstall_modules(array('ds', 'honeypot', 'linkedin', 'privatemsg_filter'));
+  drupal_uninstall_modules(array('privatemsg'));
+  drupal_uninstall_modules(array('eva', 'hacked', 'security_review', 'translation_helpers', 'variablecheck'));
+}
+
+/**
+ * ADD: import default PET emails templates.
+ */
+function emh_configuration_update_7070() {
+  module_enable(['pet']);
+  exec("drush  ec pet --json $(drush dd)/../deploy/pet-1.json");
+  exec("drush  ec pet --json $(drush dd)/../deploy/pet-2.json");
+  exec("drush  ec pet --json $(drush dd)/../deploy/pet-1-fr.json");
+  exec("drush  ec pet --json $(drush dd)/../deploy/pet-2-fr.json");
+}
+
+/**
+ * CHG: Rename old custom module.
+ */
+function emh_configuration_update_7071() {
+  module_disable(['emh_request_timeline']);
+  drupal_uninstall_modules(['emh_request_timeline']);
+  module_enable(['emh_request_workflow']);
 }
