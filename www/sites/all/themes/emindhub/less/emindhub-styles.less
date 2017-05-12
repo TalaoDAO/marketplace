@@ -218,24 +218,21 @@ body.logged-in {
 		font-weight: 700;
 		font-size: 16px;
 		background-image: none;
-	}
-	@media (min-width: @screen-md-min) {
-		.block-title {
-			span {
-				background-color: @body-bg;
-				display: inline-block;
-				padding-right: 15px;
-				z-index: 1;
-			}
-			&:after {
-				height: 1px;
-				content: "";
-				background: @brand-primary;
-				display: block;
-				margin-top: -0.55em;
-				width: 100%;
-				z-index: 0;
-			}
+    
+		span {
+			background-color: @body-bg;
+			display: inline-block;
+			padding-right: 15px;
+			z-index: 1;
+		}
+		&:after {
+			height: 1px;
+			content: "";
+			background: @brand-primary;
+			display: block;
+			margin-top: -0.55em;
+			width: 100%;
+			z-index: 0;
 		}
 	}
 }
