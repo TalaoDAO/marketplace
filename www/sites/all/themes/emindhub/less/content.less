@@ -14,6 +14,17 @@
   padding: 0;
 }
 
+section#maincol {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.one-sidebar.sidebar-first,
+.two-sidebars {
+  #maincol {
+    border-left: 1px solid #DDD;
+  }
+}
+
 body.not-logged-in {
   h1.page-header {
     .emh-title;
@@ -99,21 +110,6 @@ aside#sidebar-second {
   }
   @media (min-width: @screen-md-min) {
     padding-left: 0;
-  }
-}
-
-#maincol {
-  padding-bottom: 50px;
-}
-body.logged-in {
-  #maincol {
-    padding-top: 50px;
-  }
-}
-.one-sidebar.sidebar-first,
-.two-sidebars {
-  #maincol {
-    border-left: 1px solid #DDD;
   }
 }
 
