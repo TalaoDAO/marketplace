@@ -16,6 +16,22 @@
     .make-md-column(9);
     .make-md-column-offset(3);
   }
+
+  @media (max-width: @screen-sm-max) {
+    .affix {
+      position: static;
+    }
+  }
+  @media (min-width: @screen-md-min) {
+    .affix {
+      top: 80px;
+      position: fixed;
+    }
+    .affix-bottom {
+      position: absolute;
+    }
+  }
+
 }
 
 .view-query-list {
