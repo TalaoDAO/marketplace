@@ -28,19 +28,11 @@ class views_handler_field_emh_request_language extends views_handler_field {
     else {
       return 0;
     }
+
     $node = node_load($nid);
+    $languages = language_list();
 
-    // $languages = locale_language_list(empty($this->options['native_language']) ? 'name' : 'native');
-    // $value = $this->get_value($values);
-
-    // echo '<pre>' . print_r($node, true) . '</pre>';
-    // return $node->language;
-    // echo $node->language;
-
-    return isset($node->language) ? '<span class="lang-sm" lang="' . $node->language . '">' . $node->language . '</span>' : '';
-    // return isset($languages[$value]) ? $languages[$value] : '';
-
-    // return emh_request_get_request_type_image($nid, 25) . emh_request_get_request_type_name($nid);
+    return (module_exists('bootstrap_languages')) ? '<span class="lang-sm" lang="' . $node->language . '"></span>' : $languages[$node->language]->name;
   }
 
   /**
