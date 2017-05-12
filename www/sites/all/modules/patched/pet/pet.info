@@ -5,11 +5,12 @@ dependencies[] = entity
 core = 7.x
 version = 7.x-1.x-dev
 package = Mail
+configure = admin/config/system/pet/settings
 stylesheets[all][] = pet.css
 
-; Information added by Drupal.org packaging script on 2014-07-15
-version = "7.x-1.0-rc1"
+; Information added by Drupal.org packaging script on 2017-03-27
+version = "7.x-1.0-rc+2-dev"
 core = "7.x"
 project = "pet"
-datestamp = "1405411428"
+datestamp = "1490627285"
 

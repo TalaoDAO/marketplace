@@ -1,6 +1,6 @@
 .circle-section {
   border: 1px solid @pattens-blue;
-  background-color: white;
+  background-color: @body-bg;
   padding:  ceil((@grid-gutter-width / 2));
   margin-bottom: ceil((@grid-gutter-width / 2));
 }
@@ -46,15 +46,28 @@ body.page-circles {
   }
 }
 
-
 // Circle
 body.node-type-circle {
+  .title-left {
+    .make-xs-column(8);
+  }
+  .region-title-right {
+    .make-xs-column(4);
+    .text-right;
+
+    > .block {
+      .make-xs-column(12);
+    }
+  }
+
   &.logged-in {
     .circle-logo {
-      .make-sm-column(2);
+      .make-xs-column(3);
+      .make-md-column(2);
     }
 
     .title-left .title .page-header {
+      .make-xs-column(9);
       .make-md-column(10);
     }
   }
@@ -64,39 +77,36 @@ body.node-type-circle {
   }
 
   .circle-count {
+    .make-xs-column(9);
     .make-md-column(10);
   }
 
   .content {
     .block {
       .emh-block-blue-title;
-    }
-    .view-content {
-      .circle-section;
-    }
-  }
 
-  .circle-main-content {
-    .make-sm-column(8);
-
-    // Latest requests
-    #block-views-ebd3d59bc59a77db1ff1c0c9be295d26 {
       .block-title {
         margin-top: 0;
       }
     }
   }
 
+  .circle-main-content {
+    .make-sm-column(8);
+
+    @media (max-width: @screen-xs-max) {
+      margin-bottom: ceil((@grid-gutter-width / 2));
+    }
+  }
+
   .circle-infos {
     .make-sm-column(4);
 
-    > h3 {
-      margin-top: 0;
-    }
-
     // New members
     #block-views-660850ab895e687382503f50ef075b77 {
-      margin-top: 40px;
+      .view-content {
+        .circle-section;
+      }
     }
   }
 }

@@ -29,7 +29,10 @@ class views_handler_field_emh_request_answer_count extends views_handler_field {
       return 0;
     }
 
-    return emh_request_count_answers($nid);
+    $submission_count = emh_request_count_answers($nid);
+    return theme('submission_count', array(
+      'submission_count' => $submission_count,
+    ));
   }
 
   /**

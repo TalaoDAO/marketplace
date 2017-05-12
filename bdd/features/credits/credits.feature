@@ -29,25 +29,29 @@ Feature: Test credits
     | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
     | How to become a superhero?  | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       |
 
-    # Make client1 as a Creator member of Avengers circle
     Given I am logged in as a user with the "administrator" role
+
+    # Make client1 member of Avengers circle
     When I go to "content/avengers"
       And I click "Administrate" in the "primary tabs" region
       And I click "People" in the "content" region
       And I click "edit" in the "Captain AMERICA" row
+      And I select "Member" from "Status"
       And I press "Update membership"
+    Then I should see "Member" in the "Captain AMERICA" row
+      And I should see "The membership has been updated."
 
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
+      And I click "How to become a superhero?" in the "content" region
+      And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
       And I press "Publish"
 
     # Another expert responds to the request (draft).
     Given I am logged in as "expert2"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
-    Then I fill in "How to become a superhero?" with "You have to read DC comics of course!"
+      And I click "How to become a superhero?" in the "content" region
+      And I fill in "How to become a superhero?" with "You have to read DC comics of course!"
       And I press "Publish"
 
   @exclude
@@ -57,7 +61,7 @@ Feature: Test credits
 
     Given I am logged in as "client1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I click "Edit" in the "primary tabs" region
     Then I should see "Reward"
       And the "Reward" field should contain "100"
@@ -124,7 +128,7 @@ Feature: Test credits
       And I should not see the link "Klark Kent"
 
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I click "Answers" in the "primary tabs" region
       And I check the box "edit-views-bulk-operations-0"
       And I check the box "edit-views-bulk-operations-1"

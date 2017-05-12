@@ -65,3 +65,26 @@ function _emh_configuration_permissions_validate(array $data) {
   }
   return $permissions;
 }
+
+/**
+ * Given a Rule's machine name, this will enable the Rule.
+ */
+function emh_configuration_enable_rule($rule_machine_name) {
+  _emh_configuration_rules_set_active($rule_machine_name, TRUE);
+}
+
+/**
+ * Given a Rule's machine name, this will disable the Rule.
+ */
+function emh_configuration_disable_rule($rule_machine_name) {
+  _emh_configuration_rules_set_active($rule_machine_name, FALSE);
+}
+
+/**
+ * Given a Rule machine name, and an boolean will set its active or not.
+ */
+function _emh_configuration_rules_set_active($rule_machine_name, $active) {
+  $rules_config = rules_config_load($rule_machine_name);
+  $rules_config->active = $active;
+  $rules_config->save();
+}

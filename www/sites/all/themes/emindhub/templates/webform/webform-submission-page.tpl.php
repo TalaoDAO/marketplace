@@ -13,6 +13,7 @@
  * - $submission_navigation: The previous submission ID.
  * - $submission_information: The next submission ID.
  */
+$submission_status = emh_request_submission_get_status($submission);
 ?>
 <div class="row section">
   <div class="col-sm-12">
@@ -30,7 +31,19 @@
     <?php print emh_user_cartouche_view($submission->uid); ?>
     <span class="date"><?php print t('Submitted: !date', array('!date' => check_plain(format_date($submission->submitted, webform_variable_get('webform_date_type'))))); ?></span>
   </div>
-  <div class="section col-sm-9 submission-answer">
+  <div class="section col-sm-9 submission-answer<?php if (!empty($submission_status)) print ' submission-' . $submission_status['status']; ?>">
+    <div class="row user-submission-title">
+      <div class="col-sm-8">
+        <h3><span><?php print t('Your answer'); ?></span></h3>
+      </div>
+      <?php if (!empty($submission_status)): ?>
+        <div class="col-sm-4">
+          <span class="user-submission-status <?php print $submission_status['status']; ?>">
+            <?php print $submission_status['label']; ?>
+          </span>
+        </div>
+      <?php endif; ?>
+    </div>
     <?php print render($submission_content); ?>
   </div>
   <?php print $submission_information; ?>
