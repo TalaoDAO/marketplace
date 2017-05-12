@@ -533,5 +533,11 @@ function emindhub_form_views_exposed_form_alter(&$form, &$form_state) {
   if (in_array('views_exposed_form__query_list', $form['#theme'])) {
     $form['#attributes']['class'][] = 'js-affix';
     $form['#attributes']['data-spy'] = 'affix';
+
+    // Load Bootstrap languages styles.
+    if (module_exists('bootstrap_languages')) {
+      $library = libraries_load('bootstrap-languages');
+      drupal_add_css($library['library path'] . '/languages.min.css');
+    }
   }
 }
