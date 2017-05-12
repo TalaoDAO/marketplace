@@ -724,7 +724,7 @@ header#title {
 }
 
 .emh-submission-row {
-  background-color: @body-bg;
+  background-color: @body-bg-inverse;
   padding: 15px;
 }
 
@@ -758,7 +758,7 @@ header#title {
 
 .emh-submission-answer-conversation {
   position: relative;
-  background-color: white;
+  background-color: @body-bg;
 
   &:after {
     content: '';
@@ -767,10 +767,10 @@ header#title {
     top: 5px;
     left: 0;
     transform: translateY(50%) translateX(-50%) rotate(135deg) ;
-    background-color: white;
+    background-color: @body-bg;
     width: 19px;
     height: 19px;
-    border: 1px solid white;
+    border: 1px solid @body-bg;
   }
 }
 
