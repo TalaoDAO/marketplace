@@ -88,11 +88,10 @@ body.logged-in {
 
 .navbar-emh {
 	background-color: #fff;
-	border: 0;
 
 	.navbar-toggle {
 		background-color: @gray-lighter;
-		border-color: @gray-lighter;
+		border-color: @navbar-default-border;
 
 		.icon-bar {
 			background-color: @gray;
@@ -209,7 +208,7 @@ body.logged-in {
 }
 
 .emh-block-blue-title {
-	h1, .h1, h2, .h2, h3, .h3 {
+	> h1, > .h1, > h2, > .h2, > h3, > .h3 {
 		margin-bottom: 15px;
 		line-height: inherit;
 		.block-title; // for possible use outside of block format
@@ -219,24 +218,21 @@ body.logged-in {
 		font-weight: 700;
 		font-size: 16px;
 		background-image: none;
-	}
-	@media (min-width: @screen-md-min) {
-		.block-title {
-			span {
-				background-color: @body-bg;
-				display: inline-block;
-				padding-right: 15px;
-				z-index: 1;
-			}
-			&:after {
-				height: 1px;
-				content: "";
-				background: @brand-primary;
-				display: block;
-				margin-top: -0.55em;
-				width: 100%;
-				z-index: 0;
-			}
+    
+		span {
+			background-color: @body-bg;
+			display: inline-block;
+			padding-right: 15px;
+			z-index: 1;
+		}
+		&:after {
+			height: 1px;
+			content: "";
+			background: @brand-primary;
+			display: block;
+			margin-top: -0.55em;
+			width: 100%;
+			z-index: 0;
 		}
 	}
 }
@@ -717,17 +713,15 @@ header#title {
 }
 
 .emh-title-image {
-  .make-md-column(1);
+  .make-md-column(12);
 
-  > * {
-    display: block;
-    margin: 0 auto;
-    .text-center;
+  > span {
+    margin-left: 10px;
   }
 }
 
 .emh-submission-row {
-  background-color: @body-bg;
+  background-color: @body-bg-inverse;
   padding: 15px;
 }
 
@@ -747,7 +741,8 @@ header#title {
   line-height: @line-height-base * @line-height-base;
   padding-top: 5px + 5px + 1px;
   padding-bottom: 5px + 5px + 1px;
-  background-color: #FFF;
+  background-color: white;
+  border: 1px solid white;
 }
 .emh-submission-answer,
 .emh-submission-answer * {
@@ -760,6 +755,7 @@ header#title {
 
 .emh-submission-answer-conversation {
   position: relative;
+  background-color: @body-bg;
 
   &:after {
     content: '';
@@ -768,9 +764,28 @@ header#title {
     top: 5px;
     left: 0;
     transform: translateY(50%) translateX(-50%) rotate(135deg) ;
-    background-color: white;
-    width: 20px;
-    height: 20px;
+    background-color: @body-bg;
+    width: 19px;
+    height: 19px;
+    border: 1px solid @body-bg;
+  }
+}
+
+.submission-draft {
+  border-color: @brand-warning !important;
+
+  &:after {
+    border-bottom-color: @brand-warning !important;
+    border-right-color: @brand-warning !important;
+  }
+}
+
+.submission-published {
+  border-color: @brand-success !important;
+
+  &:after {
+    border-bottom-color: @brand-success !important;
+    border-right-color: @brand-success !important;
   }
 }
 

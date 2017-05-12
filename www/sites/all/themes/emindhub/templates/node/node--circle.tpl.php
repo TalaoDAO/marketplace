@@ -4,12 +4,10 @@
   <div id="<?php print $alias; ?>" class="row section">
 
     <div class="circle-logo">
-      <?php if (!empty($content['field_circle_logo'])) : ?>
-        <?php if (og_is_member('node', $node->nid, 'user', user_load($user->uid))) : ?>
-          <a href="<?php print $node_url; ?>"><?php print render($content['field_circle_logo']); ?></a>
-        <?php else : ?>
-          <?php print render($content['field_circle_logo']); ?>
-        <?php endif; ?>
+      <?php if (og_is_member('node', $node->nid, 'user', user_load($user->uid))) : ?>
+        <a href="<?php print $node_url; ?>"><?php print emh_circles_get_circle_logo($node); ?></a>
+      <?php else : ?>
+        <?php print emh_circles_get_circle_logo($node); ?>
       <?php endif; ?>
     </div>
 
@@ -69,24 +67,26 @@
           <?php endif; ?>
         </div>
 
-        <div class="circle-infos">
+        <div class="circle-infos block">
+          <h3 class="block-title"><span><?php print t('About this circle'); ?></span></h3>
+
           <?php if (!empty($content['body']) || !empty($content['field_circle_website']) || !empty($admins)) : ?>
-            <h3><?php print t('About this circle'); ?></h3>
+            <div class="circle-section">
+              <?php print render($content['body']); ?>
 
-            <?php print render($content['body']); ?>
+              <?php if (!empty($content['field_circle_website'])) : ?>
+                <?php print render($content['field_circle_website']); ?>
+              <?php endif; ?>
 
-            <?php if (!empty($content['field_circle_website'])) : ?>
-              <?php print render($content['field_circle_website']); ?>
-            <?php endif; ?>
-
-            <?php if (!empty($admins)) : ?>
-            <div class="circle-admins">
-              <?php print format_plural(count($admin_uids), 'Admin:', 'Admins:'); ?>
-              <?php foreach ($admins as $admin): ?>
-                <?php print $admin; ?>&nbsp;
-              <?php endforeach; ?>
+              <?php if (!empty($admins)) : ?>
+              <div class="circle-admins">
+                <?php print format_plural(count($admin_uids), 'Admin:', 'Admins:'); ?>
+                <?php foreach ($admins as $admin): ?>
+                  <?php print $admin; ?>&nbsp;
+                <?php endforeach; ?>
+              </div>
+              <?php endif; ?>
             </div>
-            <?php endif; ?>
           <?php endif; ?>
 
           <?php

@@ -25,37 +25,21 @@ Feature: Request Prepopulation
 
     Given I give "client1" 10000 emh credits
 
-    # Make client1 as a Creator member of All experts circle
     Given I am logged in as a user with the "administrator" role
 
     When I go to "admin/emindhub/credits"
       And I fill in "Questionnaire" with "300"
       And I press "Save configuration"
 
+    # Make client1 member of Avengers circle
     When I go to "content/avengers"
       And I click "Administrate" in the "primary tabs" region
       And I click "People" in the "content" region
-      And I click "Member since"
-      # Twice for correct order
-      And I click "Member since"
-
-      #And I check the box "views_bulk_operations[1]"
-      #And I select "Modify membership status" from "operation"
-      #And I press "Execute"
-      #And I select "Member" from "State"
-      #And I press "Next"
-      #And I press "Confirm"
-
       And I click "edit" in the "Captain AMERICA" row
       And I select "Member" from "Status"
       And I press "Update membership"
-      # Again...
-      And I go to "content/avengers"
-      And I click "Administrate" in the "primary tabs" region
-      And I click "People" in the "content" region
-      And I click "Member since"
-      # Twice for correct order
-      And I click "Member since"
+    Then I should see "Member" in the "Captain AMERICA" row
+      And I should see "The membership has been updated."
 
     When I go to "taxonomy/term/768/edit?destination=admin/structure/taxonomy/request_type"
       And I fill in "Prepopulate request URL" with "node/add/request?edit[field_request_type][und][768][768]=768&edit[field_options][und][questionnaire][enabled]=&edit[field_options][und][private][enabled]=&edit[field_request_questions][und][0][value]=If you want to 'co-opt', or recommend someone in your network, please specify: surname / name / current positions, and add the link to their LinkedIn profile&edit[field_request_questions][und][1][value]=How do you know this super-hero?&edit[field_request_questions][und][2][value]=Have you personally worked with this super-hero? If yes, when, and onwhat types of activity?&edit[field_request_questions][und][3][value]=Why would you recommend this super-hero?&edit[field_request_questions][und][4][value]=Have you informed the super-hero of your recommendation?&edit[field_request_questions][und][5][value]=Does the applicant agree to have their resume sent to the client requestor? If yes, please send to cv@emindhub.com with the reference of the client request.&edit[field_request_questions][und][6][value]=Can the client requestor quote your name when contacting the super-hero?"

@@ -1,209 +1,79 @@
 <?php
 
 /**
- * Implements hook_block_info().
+ * @file
+ * Code of the eMindHub request submission feature.
  */
-function emh_request_submission_block_info() {
-  $blocks = array();
 
-  $blocks['submission_count'] = array(
-    'info' => t("Request - Answer count"),
-    'cache' => DRUPAL_CACHE_PER_ROLE,
-    'weight' => 1,
-    'status' => 1,
-    'region' => 'title_right',
-    'visibility' => BLOCK_VISIBILITY_LISTED,
-    'pages' => 'node/*',
-    'node_types' => array(
-      0 => 'request',
+include_once 'emh_request_submission.inc';
+include_once 'emh_request_submission.block.inc';
+include_once 'emh_request_submission.form.inc';
+include_once 'emh_request_submission.mail.inc';
+
+/**
+ * Implements hook_theme().
+ */
+function emh_request_submission_theme() {
+  return array(
+    'submission_count' => array(
+      'template' => 'submission_count',
+      'path' => drupal_get_path('module', 'emh_request_submission') . '/theme',
+      'variables' => array(
+        'submission_count' => NULL,
+      ),
     ),
   );
-
-  return $blocks;
 }
 
 /**
- * Implements hook_block_view().
+ * Implements hook_perm().
  */
-function emh_request_submission_block_view($delta = '') {
-  $block = array();
-
-  switch ($delta) {
-    case 'submission_count':
-      $node = menu_get_object();
-      if ($node && $node->status == NODE_PUBLISHED) {
-        $submissions_count = emh_request_count_answers($node->nid);
-        $value = '<a href="#request-submissions" class="btn btn-submission">';
-        if ($submissions_count == 0) {
-          $value .= t('No answer');
-        }
-        else {
-          $value .= format_plural($submissions_count, '1 answer', '@count answers');
-        }
-        $value .= '</a>';
-      }
-      else {
-        $value = '';
-      }
-
-      $block = array(
-        'subject' => '<none>',
-        'content' => $value,
-      );
-      break;
-  }
-
-  return $block;
+function emh_request_submission_permission() {
+  return array(
+    'unpublish all webform submissions' => array(
+      'title' => t('Unpublish all webform submissions'),
+      'description' => t('Allows unpublishing of any webform submission by any user. Generally an administrative permission.'),
+    ),
+  );
 }
 
 /**
- * Return a count of the total number of submissions for a user.
- *
- * @param $uid
- *   Optional; NULL for current user. The user ID to filter the submissions by.
- * @param $is_draft
- *   Optional; NULL for all, truthy for drafts only, falsy for completed only.
- *   The default is completed submissions only.
- * @return
- *   An integer value of the number of submissions.
+ * Implements hook_og_permission().
  */
-function emh_request_submission_get_user_submission_count($uid = NULL, $is_draft = 0) {
-  if (!isset($uid)) {
-    global $user;
-    $uid = $user->uid;
-  }
+function emh_request_submission_og_permission() {
+  $items = array();
 
-  $counts = &drupal_static(__FUNCTION__);
-
-  if (!isset($counts[$uid])) {
-    $query = db_select('webform_submissions', 'ws')
-      ->addTag('emh_request_submission_get_user_submission_count')
-      ->condition('ws.uid', $uid);
-    if ($uid === 0) {
-      $submissions = isset($_SESSION['webform_submission']) ? $_SESSION['webform_submission'] : NULL;
-      if ($submissions) {
-        $query->condition('ws.sid', $submissions, 'IN');
-      }
-      else {
-        // Intentionally never match anything if the anonymous user has no
-        // submissions.
-        $query->condition('ws.sid', 0);
-      }
-    }
-    if (isset($is_draft)) {
-      $query->condition('ws.is_draft', $is_draft);
-    }
-
-    $counts[$uid] = $query->countQuery()->execute()->fetchField();
-  }
-  return $counts[$uid];
-}
-
-/**
- * Implements hook_form_alter().
- */
-function emh_request_submission_form_alter(&$form, &$form_state, $form_id) {
-  if (isset($form['#node']->nid)) {
-    $request_ID = $form['#node']->nid;
-    switch ($form_id) {
-      case "webform_client_form_$request_ID":
-
-        // Draft to ...
-        if (!empty($form['#is_draft']) || empty($form['#submission'])) {
-          $form['#submit'][] = '_emh_request_submission_form_submit';
-        }
-        // Published again
-        if (empty($form['#is_draft']) || !empty($form['#submission'])) {
-          $form['#submit'][] = '_emh_request_submission_form_submit_again';
-        }
-        break;
-      default:
-        break;
-    }
-  }
-}
-
-function _emh_request_submission_form_submit($form, &$form_state) {
-  $node = $form['#node'];
-
-  // Check if this form is sending an email.
-  $is_draft = (int) !empty($form_state['save_draft']);
-  if (!$is_draft) {
-    emh_request_submission_send_mail($node);
-    drupal_set_message(t('Your answer has been published.'));
-  }
-
-  $form_state['redirect'] = 'node/' . $node->nid;
-}
-
-function _emh_request_submission_form_submit_again($form, &$form_state) {
-  $node = $form['#node'];
-  $form_state['redirect'] = 'node/' . $node->nid;
-}
-
-function emh_request_submission_send_mail($node) {
-  $author = user_load($node->uid);
-  $module = 'emh_request_submission';
-  $key = 'notify_request_author_new_answer';
-  $mail = $author->mail;
-  $language = language_default();
-  $piwik_tracking = 'pk_campaign=' . $key . '_' . $node->nid;
-  $ga_tracking = 'utm_medium=email&utm_source=' . $key . '&utm_campaign=' . $key . '_' . $node->nid;
-  $url = url('node/' . $node->nid . '/webform-results?' . $piwik_tracking . '&' . $ga_tracking, array('absolute' => TRUE));
-  $params = array(
-    '@url' => $url,
-    '@title' => $node->title,
-    '@author' => $author->field_first_name[LANGUAGE_NONE][0]['value'],
+  $items['unpublish all webform submissions'] = array(
+    'title' => t('Unpublish all webform submissions in group'),
+    'description' => t('Allows unpublishing of any webform submission by any user in this group. Generally a group admin permission.'),
+    'roles' => array(OG_AUTHENTICATED_ROLE, OG_ADMINISTRATOR_ROLE),
   );
 
-  drupal_mail($module, $key, $mail, $language, $params);
+  return $items;
 }
 
 /**
- * Implements hook_mail().
+ * Implements hook_webform_submission_access().
  */
-function emh_request_submission_mail($key, &$message, $params) {
-  switch($key) {
-    case 'notify_request_author_new_answer':
-      $message['subject'] = t('New answer to the request @title', $params);
-      $message['body'] = array();
-      $message['body'][] = t('Dear @author,', $params);
-      $message['body'][] = t('You received a new answer to the request') . ' <strong><a href="' . t('@url', $params) . '&amp;pk_kwd=link&amp;utm_content=link" title="' .  t('@title', $params) . '" target="_blank" style="font-weight:bold!important;">' . t('@title', $params) . '</a></strong>.';
-      $message['body'][] = t('Just log into the platform to see this answer.');
-      $message['body'][] = '<table style="min-width:100%;" width="100%" border="0" cellpadding="0" cellspacing="0" class="emailButton">
-        <tbody>
-          <tr>
-            <td style="padding-top:0;padding-right:18px;padding-bottom:18px;padding-left:18px;" valign="top" align="center">
-              <table style="border-collapse:separate!important;border-radius:0px;background-color:rgb(0,159,227);" border="0" cellpadding="0" cellspacing="0">
-                <tbody>
-                  <tr>
-                    <td style="font-family:Arial;font-size:16px;padding:15px;color:rgb(255, 255, 255);" valign="middle" align="center">
-                      <a href="' . t('@url', $params) . '&amp;pk_kwd=calltoaction&amp;utm_content=cta" title="' .  t('Log in to eMindHub') . '" target="_blank" style="font-weight:bold!important;letter-spacing:normal;line-height:100%;text-align:center;text-decoration:none;color:#FFFFFF!important;">' . t('Log in to eMindHub') . ' </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-        </tbody>
-      </table>';
-      break;
-    default:
-      break;
+function emh_request_submission_webform_submission_access($node, $submission, $op = 'view', $account = NULL) {
+  switch ($op) {
+    case 'view':
+      return emh_access_user_can_see_full_answer($node->nid, $submission->sid);
+
+    case 'edit':
+      return emh_request_submission_edit_access_callback($node, $submission);
+
+    case 'flag':
+      return emh_access_user_can_see_full_answer($node->nid, $submission->sid);
   }
 }
 
-function emh_request_submission_get_status($submission) {
-  $workflow = array();
-
-  if (!empty($submission)) {
-    if (!empty($submission->is_draft)) {
-      $workflow = array( 'status' => 'draft', 'label' => t('Draft') );
-    }
-    else {
-      $workflow = array( 'status' => 'published', 'label' => t('Published') );
-    }
+/**
+ * Implements hook_webform_submission_presave().
+ */
+function emh_request_submission_webform_submission_presave($node, &$submission) {
+  if (isset($submission->is_unpublished) && $submission->is_unpublished) {
+    $submission->is_draft = TRUE;
+    $submission->completed = '';
   }
-
-	return $workflow;
 }

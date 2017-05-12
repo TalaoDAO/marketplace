@@ -23,10 +23,9 @@ Feature: Request
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | field_notification_frequency |
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670                  | Chieur génial      | All experts  | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy          | US                  | Real-time                    |
 
-    Given the test email system is enabled
-
-    # Make client1 as a Creator member of All experts circle
     Given I am logged in as a user with the "administrator" role
+
+    # Make client1 member of All experts circle
     When I go to "content/all-experts"
       And I click "Administrate" in the "primary tabs" region
       And I click "People" in the "content" region
@@ -69,18 +68,18 @@ Feature: Request
   Scenario: An author can see its own request
     Given I am logged in as "client1"
     When I go to homepage
-    Then I should see "All experts" in the "How to become a superhero?" row
+    Then I should see "All experts" in the "content" region
 
   Scenario: An author can see its own request in My requests
     Given I am logged in as "client1"
     When I go to "requests/manage"
-    Then I should see "How to become a superhero?"
-      And I should see "All experts" in the "How to become a superhero?" row
+    Then I should see "How to become a superhero?" in the "content" region
+      And I should see "All experts" in the "content" region
 
   Scenario: An author can edit its own request
     Given I am logged in as "client1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I click "Edit" in the "primary tabs" region
       And I select "770" from "field_request_type[und]"
     Then I should see "Edit Request How to become a superhero?" in the "title" region
@@ -92,14 +91,14 @@ Feature: Request
   Scenario: An author cannot delete its own request
     Given I am logged in as "client1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
       And I click "Edit" in the "primary tabs" region
     Then I should not see "Delete" in the "actions" region
 
   Scenario: A user can see some infos on a request without option
     Given I am logged in as "expert1"
     When I go to homepage
-      And I click "How to become a superhero?" in the "How to become a superhero?" row
+      And I click "How to become a superhero?" in the "content" region
     Then I should see "Captain" in the "request_right" region
       And I should not see "Captain AMERICA" in the "request_right" region
       And I should see "Marvel Studios" in the "request_right" region
@@ -107,7 +106,7 @@ Feature: Request
   Scenario: Only users belonging to a circle can add a request type restricted to this circle
     # HINT: this should work on "X-MEN" for field_circle_restriction, but, we use "Cercle de test"
     # to bypass a cleanup bug: nodes are cleaned BEFORE terms; when "Call for heroes" is cleaned
-    # up, "X-Men" circle as already been deleted, and it cause a bug
+    # up, "X-Men" circle as already been deleted, and it causes a bug
     Given "request_type" terms:
     | name            | description    | format        | language | field_circle_restriction | field_prepopulate            |
     | Call for heroes | Request heroes | filtered_html | en       | Cercle de test           | edit[og_group_ref][und]=1813 |
@@ -128,6 +127,7 @@ Feature: Request
     Given I am logged in as "client1"
     When I go to "node/add/request"
     Then I should not see "Call for heroes"
+
     Given I am logged in as "client5"
     When I go to "node/add/request"
     Then I should see "Call for heroes"
