@@ -249,15 +249,17 @@ body.node-type-request.page-node-edit {
             .make-xs-column(10);
             .make-md-column(12);
             .h3;
-            margin-top: 10px;
+            margin-top: 0;
             margin-bottom: 5px;
+
+            @media (min-width: @screen-sm-min) {
+              margin-top: 10px;
+            }
           }
 
           .term-description {
             .make-xs-column(10);
-            .make-xs-column-offset(2);
             .make-md-column(12);
-            .make-md-column-offset(0);
 
             p {
               margin: 0;
@@ -367,7 +369,7 @@ body.node-type-request:not(.page-node-edit) {
   .main-container > header {
     background-image: none;
   }
-  
+
   #maincol {
     padding-top: 0;
   }
