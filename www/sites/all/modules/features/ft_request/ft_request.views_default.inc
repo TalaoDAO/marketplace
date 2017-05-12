@@ -333,12 +333,12 @@ function ft_request_views_default_views() {
   $handler->display->display_options['fields']['total_answers']['field'] = 'total_answers';
   $handler->display->display_options['fields']['total_answers']['label'] = '';
   $handler->display->display_options['fields']['total_answers']['element_label_colon'] = FALSE;
-  /* Field: Content: Language */
-  $handler->display->display_options['fields']['language']['id'] = 'language';
-  $handler->display->display_options['fields']['language']['table'] = 'node';
-  $handler->display->display_options['fields']['language']['field'] = 'language';
-  $handler->display->display_options['fields']['language']['label'] = '';
-  $handler->display->display_options['fields']['language']['element_label_colon'] = FALSE;
+  /* Field: Node: EMH Request language */
+  $handler->display->display_options['fields']['request_language']['id'] = 'request_language';
+  $handler->display->display_options['fields']['request_language']['table'] = 'node';
+  $handler->display->display_options['fields']['request_language']['field'] = 'request_language';
+  $handler->display->display_options['fields']['request_language']['label'] = '';
+  $handler->display->display_options['fields']['request_language']['element_label_colon'] = FALSE;
   /* Field: Content: Choose circle of experts */
   $handler->display->display_options['fields']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['fields']['og_group_ref']['table'] = 'og_membership';
