@@ -32,6 +32,12 @@ class views_handler_field_emh_request_language extends views_handler_field {
     $node = node_load($nid);
     $languages = language_list();
 
+    // Load Bootstrap languages styles.
+    if (module_exists('bootstrap_languages')) {
+      $library = libraries_load('bootstrap-languages');
+      drupal_add_css($library['library path'] . '/languages.min.css');
+    }
+
     return (module_exists('bootstrap_languages')) ? '<span class="lang-sm" lang="' . $node->language . '"></span>' : $languages[$node->language]->name;
   }
 
