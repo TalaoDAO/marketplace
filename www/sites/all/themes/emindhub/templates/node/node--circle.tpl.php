@@ -67,11 +67,11 @@
           <?php endif; ?>
         </div>
 
-        <div class="circle-infos">
-          <?php if (!empty($content['body']) || !empty($content['field_circle_website']) || !empty($admins)) : ?>
+        <div class="circle-infos block">
+          <h3 class="block-title"><span><?php print t('About this circle'); ?></span></h3>
 
+          <?php if (!empty($content['body']) || !empty($content['field_circle_website']) || !empty($admins)) : ?>
             <div class="circle-section">
-              <h3><?php print t('About this circle'); ?></h3>
               <?php print render($content['body']); ?>
 
               <?php if (!empty($content['field_circle_website'])) : ?>
@@ -87,7 +87,6 @@
               </div>
               <?php endif; ?>
             </div>
-
           <?php endif; ?>
 
           <?php
