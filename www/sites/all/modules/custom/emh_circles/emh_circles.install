@@ -369,3 +369,12 @@ function emh_circles_update_7021() {
   );
   og_role_change_permissions($og_roles[OG_ADMINISTRATOR_ROLE], $permissions);
 }
+
+/**
+ * CHG: Update Recruitement Smart Mobility term name.
+ */
+function emh_circles_update_7022() {
+  $term = taxonomy_term_load(1266);
+  $term->name = 'Smart Mobility';
+  taxonomy_term_save($term);
+}
