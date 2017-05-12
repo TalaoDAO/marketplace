@@ -51,6 +51,14 @@ function emh_request_views_data() {
     ),
   );
 
+  $data['node']['request_language'] = array(
+    'group' => t('Node'),
+    'title' => 'EMH Request language',
+    'field' => array(
+      'handler' => 'views_handler_field_emh_request_language',
+    ),
+  );
+
   return $data;
 }
 

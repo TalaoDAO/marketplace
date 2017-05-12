@@ -29,8 +29,8 @@
     <span class="request-submission-count"><?php print $fields['total_answers']->content; ?></span>
     <?php endif; ?>
 
-    <?php if (!empty($fields['language']->content)) : ?>
-    <span class="request-language"><?php print $fields['language']->content; ?></span>
+    <?php if (!empty($fields['request_language']->content)) : ?>
+    <span class="request-language"><?php print $fields['request_language']->content; ?></span>
     <?php endif; ?>
   </div>
 
