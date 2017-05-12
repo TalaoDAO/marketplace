@@ -49,10 +49,10 @@ body.page-circles {
 // Circle
 body.node-type-circle {
   .title-left {
-    .make-xs-column(9);
+    .make-xs-column(8);
   }
   .region-title-right {
-    .make-xs-column(3);
+    .make-xs-column(4);
     .text-right;
 
     > .block {
@@ -84,26 +84,23 @@ body.node-type-circle {
   .content {
     .block {
       .emh-block-blue-title;
-    }
-  }
 
-  .circle-main-content {
-    .make-sm-column(8);
-
-    // Latest requests
-    #block-views-ebd3d59bc59a77db1ff1c0c9be295d26 {
       .block-title {
         margin-top: 0;
       }
     }
   }
 
+  .circle-main-content {
+    .make-sm-column(8);
+
+    @media (max-width: @screen-xs-max) {
+      margin-bottom: ceil((@grid-gutter-width / 2));
+    }
+  }
+
   .circle-infos {
     .make-sm-column(4);
-
-    h3 {
-      margin-top: 0;
-    }
 
     // New members
     #block-views-660850ab895e687382503f50ef075b77 {
