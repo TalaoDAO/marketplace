@@ -29,8 +29,7 @@ Feature: Test credits
     | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
     | How to become a superhero?  | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       |
 
-    Given I am logged in as a user with the "administrator" role
-      And the user "client1" is a member of the group "Avengers"
+    Given the user "client1" is a member of the group "Avengers"
 
     Given I am logged in as "expert1"
     When I go to homepage
