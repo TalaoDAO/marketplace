@@ -18,8 +18,7 @@ Feature: Create permissions for Clients
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | field_notification_frequency |
     | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678                  | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance   | US                    | Real-time                    |
 
-    Given I am logged in as a user with the "administrator" role
-      And the user "client1" is a member of the group "Avengers"
+    Given the user "client1" is a member of the group "Avengers"
 
   Scenario: Clients cannot create requests in circles they're not members
     Given I am logged in as "client1"

@@ -23,9 +23,7 @@ Feature: Request
     | How to become a superhero?  | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 0       | Mission            |
 
     Given I give "client1" 10000 emh credits
-
-    Given I am logged in as a user with the "administrator" role
-      And the user "client1" is a member of the group "Avengers"
+    Given the user "client1" is a member of the group "Avengers"
 
   Scenario: An author can add an option on a draft request and come back to test it's readonly after publish
     Given I am logged in as "client1"
