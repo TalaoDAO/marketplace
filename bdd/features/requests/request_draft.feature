@@ -24,26 +24,9 @@ Feature: Request as draft
     | expert2 | emindhub.test+expert2@gmail.com | expert   | Klark            | KENT            | 0712345671      | Modèle             | Avengers     | emindhub.test+expert2@gmail.com | Marvel Studios       | Employee             | Other         | C.E.O.                  |
 
     Given I am logged in as a user with the "administrator" role
-
-    When I go to "content/avengers"
-      And I click "Administrate" in the "primary tabs" region
-      And I click "People" in the "content" region
-      And I click "edit" in the "Captain AMERICA" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "Member" in the "Captain AMERICA" row
-      And I should see "The membership has been updated."
-
-    When I click "edit" in the "Iron MAN" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
-
-    When I click "edit" in the "Klark KENT" row
-      And I select "Member" from "Status"
-      And I check the box "administrator member"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
+      And the user "client1" is a member of the group "Avengers"
+      And the user "expert1" is a member of the group "Avengers"
+      And the user "expert2" is an admin of the group "Avengers"
 
   Scenario: The Author can work on its own draft Request until its publication.
     Given "request" content:
