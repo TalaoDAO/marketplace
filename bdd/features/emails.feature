@@ -29,10 +29,9 @@ Feature: Emails
     | expert2 | emindhub.test+expert2@gmail.com | expert   | Klark            | KENT            | 0712345671                  | Modèle           | Avengers     | emindhub.test+expert2@gmail.com | Marvel Studios       | Employee             | Other         | C.E.O.                  | US                    | Real-time                     |
     | expert3 | emindhub.test+expert3@gmail.com | expert   | Super            | DUPONT          | 0712345672                  | Modèle           | Avengers     | emindhub.test+expert3@gmail.com | Fluide Glacial       | Employee             | Energy        | C.E.O.                  | FR                    | Real-time                     |
 
-    Given I am logged in as a user with the "administrator" role
-      And the user "client1" is a member of the group "Avengers"
-      And the user "expert1" is a member of the group "Avengers"
-      And the user "expert2" is a member of the group "Avengers"
+    Given the user "client1" is a member of the group "Avengers"
+    Given the user "expert1" is a member of the group "Avengers"
+    Given the user "expert2" is a member of the group "Avengers"
 
   @email @nodelay
   Scenario: Webmasters and Administrators are immediately notified, and after the delay, Experts are notified
