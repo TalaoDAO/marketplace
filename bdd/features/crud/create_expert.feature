@@ -19,16 +19,7 @@ Feature: Create permissions for Experts
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670                  | Chieur génial      | Avengers  | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy          | US                  | Real-time                    |
 
     Given I am logged in as a user with the "administrator" role
-    When I go to "content/avengers"
-      And I click "Administrate" in the "primary tabs" region
-      And I click "People" in the "content" region
-      And I click "Member since"
-      # Twice for correct order
-      And I click "Member since"
-      And I click "edit" in the "Iron MAN" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
+      And the user "expert1" is a member of the group "Avengers"
 
   Scenario: Experts cannot create requests in circles they're not members
     Given I am logged in as "expert1"
