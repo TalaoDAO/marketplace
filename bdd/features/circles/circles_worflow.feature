@@ -26,10 +26,9 @@ Feature: Circles workflow for Expert
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios     | Employee             | Energy        | US                  |
     | expert4 | emindhub.test+expert4@gmail.com | expert   | Scott            | SUMMERS         | 0712345673      | Bucheron           | X-Men        | emindhub.test+expert4@gmail.com | Marvel Entertainment | Employee  | Helicopters   | US                 |
 
-    Given I am logged in as a user with the "administrator" role
-      And the user "client4" is an admin of the group "Guardians of the Galaxy"
-      And the user "expert1" is a member of the group "Avengers"
-      And the user "expert4" is a member of the group "X-Men"
+    Given the user "client4" is an admin of the group "Guardians of the Galaxy"
+    Given the user "expert1" is a member of the group "Avengers"
+    Given the user "expert4" is a member of the group "X-Men"
 
   Scenario: Experts can access to its own circles
     Given I am logged in as "expert1"
@@ -111,7 +110,7 @@ Feature: Circles workflow for Expert
     | How to become a superhero?  | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       |
 
     Given I am logged in as a user with the "administrator" role
-      And the user "client1" is a member of the group "Avengers"
+    Given the user "client1" is a member of the group "Avengers"
 
     # Client
     Given I am logged in as "client1"
