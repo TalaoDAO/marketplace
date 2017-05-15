@@ -27,10 +27,8 @@ Feature: Request and answers
     | How to become a superhero?  | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 0       | Mission            |
 
     Given I give "client1" 10000 emh credits
-
-    Given I am logged in as a user with the "administrator" role
-      And the user "client1" is a member of the group "Avengers"
-      And the user "expert1" is a member of the group "Avengers"
+    Given the user "client1" is a member of the group "Avengers"
+    Given the user "expert1" is a member of the group "Avengers"
 
     # Activate option
     Given I am logged in as "client1"
