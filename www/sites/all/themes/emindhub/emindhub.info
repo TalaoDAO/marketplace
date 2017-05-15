@@ -68,7 +68,7 @@ scripts[] = 'libraries/bootstrap/js/modal.js'
 scripts[] = 'libraries/bootstrap/js/tooltip.js'
 scripts[] = 'libraries/bootstrap/js/popover.js'
 ;scripts[] = 'libraries/bootstrap/js/scrollspy.js'
-;scripts[] = 'libraries/bootstrap/js/tab.js'
+scripts[] = 'libraries/bootstrap/js/tab.js'
 scripts[] = 'libraries/bootstrap/js/transition.js'
 
 ; Disable BootstrapCDN if using Bootstrap source files in your sub-theme.
