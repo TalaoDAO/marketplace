@@ -24,14 +24,12 @@ Feature: Request Prepopulation
       | Super-Hero CV | Canvass a community of super-heros to find CVs with rare profiles | filtered_html | en       | edit[field_options][und][questionnaire][enabled]=&edit[field_options][und][private][enabled]=&edit[field_request_questions][und][0][value]=If you want to co-opt please specify: surname / name / current positions&edit[field_request_questions][und][1][value]=How do you know this super-hero?&edit[field_request_questions][und][2][value]=Have you personally worked with this super-hero?&edit[field_request_questions][und][3][value]=Why would you recommend this super-hero?&edit[field_request_questions][und][4][value]=Have you informed the super-hero of your recommendation?&edit[field_request_questions][und][5][value]=Does the applicant agree to have their resume sent to the client requestor?&edit[field_request_questions][und][6][value]=Can the client requestor quote your name when contacting the super-hero? |
 
     Given I give "client1" 10000 emh credits
+    Given the user "client1" is a member of the group "Avengers"
 
     Given I am logged in as a user with the "administrator" role
-      And the user "client1" is a member of the group "Avengers"
-
     When I go to "admin/emindhub/credits"
       And I fill in "Questionnaire" with "300"
       And I press "Save configuration"
-
 
     When I go to "taxonomy/term/768/edit?destination=admin/structure/taxonomy/request_type"
       And I fill in "Prepopulate request URL" with "node/add/request?edit[field_request_type][und][768][768]=768&edit[field_options][und][questionnaire][enabled]=&edit[field_options][und][private][enabled]=&edit[field_request_questions][und][0][value]=If you want to 'co-opt', or recommend someone in your network, please specify: surname / name / current positions, and add the link to their LinkedIn profile&edit[field_request_questions][und][1][value]=How do you know this super-hero?&edit[field_request_questions][und][2][value]=Have you personally worked with this super-hero? If yes, when, and onwhat types of activity?&edit[field_request_questions][und][3][value]=Why would you recommend this super-hero?&edit[field_request_questions][und][4][value]=Have you informed the super-hero of your recommendation?&edit[field_request_questions][und][5][value]=Does the applicant agree to have their resume sent to the client requestor? If yes, please send to cv@emindhub.com with the reference of the client request.&edit[field_request_questions][und][6][value]=Can the client requestor quote your name when contacting the super-hero?"

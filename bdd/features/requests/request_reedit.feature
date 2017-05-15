@@ -28,10 +28,9 @@ Feature: Request re-editions
     | How to become a superhero?            | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       | Mission            |
     | How to behave like a superhero?       | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 0       | Mission            |
 
-    Given I am logged in as a user with the "administrator" role
-      And the user "client1" is a member of the group "Avengers"
-      And the user "expert1" is a member of the group "Avengers"
-      And the user "expert2" is a member of the group "Avengers"
+    Given the user "client1" is a member of the group "Avengers"
+    Given the user "expert1" is a member of the group "Avengers"
+    Given the user "expert2" is a member of the group "Avengers"
 
   Scenario: The author can change some content if no expert responded
     Given I am logged in as "client1"
