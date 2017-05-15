@@ -1,6 +1,0 @@
-name = EMH Request Timeline
-description = Provides a timeline for Request content type.
-package = EMH
-core = 7.x
-
-dependencies[] = emh_request
