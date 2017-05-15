@@ -326,10 +326,18 @@ function emindhub_beautiful_author_picture( $node, $class ) {
 
 }
 
+/**
+ * Show a baseline under page title.
+ *
+ * @return string
+ *   Baseline text.
+ */
 function emindhub_beautiful_baseline() {
-  $baseline = '';
-  $type = '';
+  global $user;
+  $account = user_load($user->uid);
+  $baseline = $type = '';
   $show_help = FALSE;
+
   if (arg(1) == 'add') {
     $type = arg(2);
     $show_help = TRUE;
@@ -338,30 +346,19 @@ function emindhub_beautiful_baseline() {
     $type = arg(0) . '-' . arg(3);
     $show_help = TRUE;
   }
-  // else if (arg(2) == 'edit') {
-  //   $type = node_load(arg(1))->type;
-  //   $show_help = TRUE;
-  // }
-	// else if ($args[0] == 'my-relationships') {
-	// 	$show_help = TRUE;
-	// }
 
   if ($show_help) {
     switch ($type) {
-
-			case 'group-subscribe':
-				$baseline = t('Your membership request will be reviewed by the manager of the circle. Please put forward your request.');
-				break;
-      default:
-        $baseline = '';
+      case 'group-subscribe':
+        if (og_user_access('node', arg(2), 'subscribe', $account)) {
+          $baseline = t('Your membership request will be reviewed by the manager of the circle. Please put forward your request.');
+        }
         break;
-
     }
   }
 
   return $baseline;
 }
-
 
 function emindhub_beautiful_form_actions(&$form, $actions, $label = 'primary') {
 	$first = FALSE;
