@@ -25,10 +25,10 @@ Feature: Buy profile access
     Given I give "client1" 1000 emh credits
     Given I give "expert1" 1000 emh credits
 
-    Given I am logged in as a user with the "administrator" role
-      And the user "client1" is a member of the group "All experts"
-      And the user "expert1" is a member of the group "All experts"
+    Given the user "client1" is a member of the group "All experts"
+    Given the user "expert1" is a member of the group "All experts"
 
+    Given I am logged in as a user with the "administrator" role
     When I go to "admin/emindhub/credits"
     Then I fill in "Cost of profile purchase" with "50"
       And I press "Save configuration"

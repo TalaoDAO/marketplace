@@ -27,8 +27,7 @@ Feature: Fill Expert profile fields
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      |
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670                  | Chieur génial     | Avengers     | emindhub.test+expert1@gmail.com |
 
-    Given I am logged in as a user with the "administrator" role
-      And the user "expert1" is a member of the group "Avengers"
+    Given the user "expert1" is a member of the group "Avengers"
 
     Given I am logged in as "expert1"
     When I go to homepage
@@ -50,8 +49,7 @@ Feature: Fill Expert profile fields
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     |
     | expert2 | emindhub.test+expert2@gmail.com | expert   | Klark            | KENT            | 0712345671                  | Modèle            | Avengers     | emindhub.test+expert2@gmail.com | Marvel Studios       |
 
-    Given I am logged in as a user with the "administrator" role
-      And the user "expert2" is a member of the group "Avengers"
+    Given the user "expert2" is a member of the group "Avengers"
 
     Given I am logged in as "expert2"
     When I click "View my profile"
