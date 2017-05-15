@@ -1,8 +1,0 @@
-name = EMH Honeypot
-description = Add honeypot protection to EMH forms.
-package = EMH
-core = 7.x
-
-dependencies[] = honeypot
-dependencies[] = user
-dependencies[] = emh_register
