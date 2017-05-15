@@ -374,6 +374,33 @@ function emh_circles_form_og_ui_confirm_subscribe_submit($form, &$form_state) {
 }
 
 /**
+ * Implements hook_og_membership_presave().
+ */
+function emh_circles_og_membership_presave($og_membership) {
+  if ($og_membership->entity_type == 'user') {
+    $account = user_load($og_membership->etid);
+    // New membership without approval.
+    if (og_user_access('node', $og_membership->gid, 'subscribe without approval', $account) && !isset($og_membership->original)) {
+      $og_membership->state = OG_STATE_ACTIVE;
+    }
+  }
+}
+
+/**
+ * Implements hook_og_membership_insert().
+ */
+function emh_circles_og_membership_insert($og_membership) {
+  if ($og_membership->entity_type == 'user') {
+    $account = user_load($og_membership->etid);
+    // New membership without approval.
+    if (og_user_access('node', $og_membership->gid, 'subscribe without approval', $account) && !isset($og_membership->original)) {
+      drupal_set_message(t('You are now a member of this circle.'));
+      drupal_goto(url('node/' . $og_membership->gid));
+    }
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function emh_circles_form_og_ui_confirm_unsubscribe_alter(&$form, &$form_state) {
