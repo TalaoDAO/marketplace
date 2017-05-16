@@ -40,10 +40,10 @@ function ft_circle_default_fe_block_settings() {
         'weight' => 0,
       ),
       'smartmobility' => array(
-        'region' => 'topmenu',
+        'region' => 'title_right',
         'status' => 1,
         'theme' => 'smartmobility',
-        'weight' => 0,
+        'weight' => -38,
       ),
     ),
     'title' => '',
