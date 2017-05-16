@@ -9,12 +9,27 @@
           <span class="icon-bar"></span>
         </button>
 
-        <?php if ($language->language == 'en') : ?>
+        <?php if ($language->language == 'en' && !$logged_in) : ?>
           <?php print l(t('Smart Mobility'), variable_get('emh_smartmobility_base_url', 'http://smartmob.box.local'), array('language' => $language, 'attributes' => array('title' => t('Smart Mobility'), 'class' => array('navbar-brand')))); ?>
         <?php else : ?>
-          <?php print l(t('Smart Mobility'), EMH_SMARTMOBILITY_HOMEPAGE, array('language' => $language, 'attributes' => array('title' => t('Smart Mobility'), 'class' => array('navbar-brand')))); ?>
+          <a class="navbar-brand" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
+          <?php if ($logged_in): ?>
+            <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/circles.svg" alt="<?php print $site_name; ?>" width="30" height="30" />
+          <?php else : ?>
+            <?php print l(t('Smart Mobility'), EMH_SMARTMOBILITY_HOMEPAGE, array('language' => $language, 'attributes' => array('title' => t('Smart Mobility'), 'class' => array('navbar-brand')))); ?>
+          <?php endif; ?>
+          </a>
         <?php endif; ?>
+
       </div>
+
+      <?php if (!empty($page['burgermenu'])): ?>
+        <div class="burger-menu-btn-container" onclick="onClickBurgerMenuBtn();">
+          <button type="button" class="btn btn-default emh-blue">
+            <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+          </button>
+        </div>
+      <?php endif; ?>
 
       <?php if (!empty($page['topmenu']) || !empty($page['navigation'])): ?>
         <div id="navbar" class="navbar-collapse collapse">

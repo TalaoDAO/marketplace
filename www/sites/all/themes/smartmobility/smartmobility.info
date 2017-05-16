@@ -9,14 +9,22 @@ base theme = emindhub
 
 regions[topmenu]        = 'Top menu'
 regions[navigation]     = 'Navigation'
+regions[header]         = 'Top content'
+;regions[header_right]  = 'Top content - Right'
 regions[title]          = 'Title'
+regions[title_right]    = 'Title - Right'
+regions[title_bottom]   = 'Title - Bottom'
 regions[top]            = 'Page top'
+regions[highlighted]    = 'Highlighted'
 regions[help]           = 'Help'
 regions[content]        = 'Content'
 regions[sidebar_first]  = 'Primary'
 regions[sidebar_second] = 'Secondary'
+regions[bottom]         = 'Page bottom'
+;regions[bottom_right]  = 'Page bottom - Right'
 regions[footer_top]     = 'Footer - Top'
 regions[footer_bottom]  = 'Footer - Bottom'
+regions[burgermenu]     = 'Burger Menu'
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Stylesheets

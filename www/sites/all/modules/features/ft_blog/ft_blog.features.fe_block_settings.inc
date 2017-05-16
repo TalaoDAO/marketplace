@@ -41,7 +41,7 @@ function ft_blog_default_fe_block_settings() {
         'region' => '',
         'status' => 0,
         'theme' => 'smartmobility',
-        'weight' => -41,
+        'weight' => -40,
       ),
     ),
     'title' => '',
