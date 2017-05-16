@@ -8,6 +8,7 @@
 define('EMH_SMARTMOBILITY_HOMEPAGE', 'smart-mobility');
 define('EMH_SMARTMOBILITY_REGISTER_CLIENT', EMH_SMARTMOBILITY_HOMEPAGE . '/client/register');
 define('EMH_SMARTMOBILITY_REGISTER_EXPERT', EMH_SMARTMOBILITY_HOMEPAGE . '/expert/register');
+define('EMH_SMARTMOBILITY_THEME', 'smartmobility');
 
 include_once 'emh_smartmobility.inc';
 include_once 'emh_smartmobility.block.inc';
@@ -46,7 +47,7 @@ function emh_smartmobility_theme() {
  */
 function emh_smartmobility_custom_theme() {
   if (emh_smartmobility_context()) {
-    return 'smartmobility';
+    return EMH_SMARTMOBILITY_THEME;
   }
 }
 
