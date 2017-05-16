@@ -378,3 +378,11 @@ function emh_circles_update_7022() {
   $term->name = 'Smart Mobility';
   taxonomy_term_save($term);
 }
+
+/**
+ * CHG: Circles wording.
+ */
+function emh_circles_update_7023() {
+  emh_circles_disable_strings();
+  emh_circles_enable_strings();
+}
