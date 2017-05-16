@@ -10,32 +10,28 @@
         </button>
 
         <a class="navbar-brand" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
-        <?php if ($logo): ?>
-          <?php if ( $logged_in ): ?>
+          <?php if ($logged_in): ?>
             <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/circles.svg" alt="<?php print $site_name; ?>" width="30" height="30" />
           <?php else : ?>
             <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/logo-h.svg" alt="<?php print $site_name; ?>" width="195" height="30" />
           <?php endif; ?>
-        <?php else : ?>
-          <?php print $site_name; ?>
-        <?php endif; ?>
         </a>
       </div>
 
-        <?php if (!empty($page['burgermenu'])): ?>
+      <?php if (!empty($page['burgermenu'])): ?>
         <div class="burger-menu-btn-container" onclick="onClickBurgerMenuBtn();">
           <button type="button" class="btn btn-default emh-blue">
             <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
           </button>
         </div>
-        <?php endif; ?>
+      <?php endif; ?>
 
-        <?php if (!empty($page['topmenu']) || !empty($page['navigation'])): ?>
-          <div id="navbar" class="navbar-collapse collapse">
-            <?php print render($page['topmenu']); ?>
-            <?php print render($page['navigation']); ?>
-          </div>
-        <?php endif; ?>
+      <?php if (!empty($page['topmenu']) || !empty($page['navigation'])): ?>
+        <div id="navbar" class="navbar-collapse collapse">
+          <?php print render($page['topmenu']); ?>
+          <?php print render($page['navigation']); ?>
+        </div>
+      <?php endif; ?>
 
     </div>
   </nav>
