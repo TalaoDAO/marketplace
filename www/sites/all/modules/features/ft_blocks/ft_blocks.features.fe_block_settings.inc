@@ -84,6 +84,83 @@ function ft_blocks_default_fe_block_settings() {
     'visibility' => 0,
   );
 
+  $export['devel-switch_user'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => 'switch_user',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'module' => 'devel',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(
+      'administrator' => 3,
+      'webmaster' => 6,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'burgermenu',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'smartmobility' => array(
+        'region' => 'burgermenu',
+        'status' => 1,
+        'theme' => 'smartmobility',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['emh_profile_complete_request-emh_profile_complete_request'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => 'emh_profile_complete_request',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'module' => 'emh_profile_complete_request',
+    'node_types' => array(),
+    'pages' => '<front>
+answers/my
+requests/selection
+requests
+node/*',
+    'roles' => array(
+      'authenticated user' => 2,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'highlighted',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'smartmobility' => array(
+        'region' => 'highlighted',
+        'status' => 1,
+        'theme' => 'smartmobility',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 1,
+  );
+
   $export['menu-menu-footer-menu'] = array(
     'cache' => -1,
     'custom' => 0,
