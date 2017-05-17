@@ -202,6 +202,10 @@ function emh_request_submission_edit_values_access_callback($submission, $accoun
     $account = $user;
   }
 
+  if (user_access('access EMH answers')) {
+    return TRUE;
+  }
+
   // Submission author.
   if (!empty($submission->sid) && ($submission->uid === $account->uid)) {
     return TRUE;
