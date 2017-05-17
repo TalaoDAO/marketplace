@@ -1,40 +1,9 @@
-.region-burgermenu {
-  display: none;
-  background-color: #2E3243;
-  .box-shadow(0 0 5px 5px rgba(50,50,50,.075));
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  color: #2E3243;
-  overflow-y: auto;
-  z-index: 1105;
-  padding: 15px;
-
-  .global-filter {
-    color: #AFB4CD;
-    .form-group {
-      margin-bottom: 5px;
-    }
-  }
-}
-body.admin-menu {
-  .region-burgermenu {
-    padding-top: 15px + 29px;
-  }
-}
-.burger-menu-btn-container {
-	position: absolute;
-	margin-left: -50px;
-	margin-top: @navbar-padding-vertical - @padding-base-vertical - 1px;
-}
-
 .footer {
   .emh-module;
   background-color: @brand-primary;
   color: #fff;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: @grid-gutter-width;
+  padding-bottom: @grid-gutter-width;
 
   a,
   .nav > li > a {
@@ -114,7 +83,7 @@ body.admin-menu {
     .footer-nav,
     .footer-contact,
     .footer-social {
-        margin-bottom: 30px;
+        margin-bottom: @grid-gutter-width;
     }
   }
 }
