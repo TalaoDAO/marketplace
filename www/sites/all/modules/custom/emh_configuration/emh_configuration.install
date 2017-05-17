@@ -1446,5 +1446,4 @@ function emh_configuration_update_7071() {
 function emh_configuration_update_7072() {
   module_enable(['views_dependent_filters']);
 }
-                                                                                                                                                                                           1441,1        Bot
 
