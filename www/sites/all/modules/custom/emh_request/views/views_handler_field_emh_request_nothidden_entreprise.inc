@@ -39,12 +39,12 @@ class views_handler_field_emh_request_nothidden_entreprise extends views_handler
     if (
           ($context == 'author' && !(emh_request_has_option($node, 'anonymous')))
       ||  ($context == 'author' && (emh_request_has_option($node, 'anonymous') && ($node->field_hide_organisation[LANGUAGE_NONE][0]['value'] == FALSE)))
-      ||  ($context != 'author' && !empty($node) && (emh_access_user_can_see_full_usœer($uid1, $uid2)))
+      ||  ($context != 'author' && !empty($node) && (emh_access_user_can_see_full_user($uid1, $uid2)))
     ) {
       $organisation = field_view_field('user', $u2_account, 'field_entreprise', array('label' => 'hidden'));
     }
 
-    return (module_exists('bootstrap_languages')) ? '<span class="lang-sm" lang="' . $node->language . '"></span>' : $languages[$node->language]->name;
+    return $organisation;
   }
 
   /**
