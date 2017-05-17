@@ -1439,3 +1439,12 @@ function emh_configuration_update_7071() {
   drupal_uninstall_modules(['emh_request_timeline']);
   module_enable(['emh_request_workflow']);
 }
+
+/**
+ * ADD: views_dependant_filter.
+ */
+function emh_configuration_update_7072() {
+  module_enable(['views_dependent_filters']);
+}
+                                                                                                                                                                                           1441,1        Bot
+
