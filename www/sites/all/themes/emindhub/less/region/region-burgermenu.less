@@ -1,0 +1,36 @@
+.region-burgermenu {
+  display: none;
+
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  overflow-y: auto;
+  z-index: 1105;
+
+  background-color: @asphalt-base;
+  .box-shadow(0 0 5px 5px rgba(50, 50, 50, .075));
+  color: white;
+  padding: (@grid-gutter-width / 2);
+
+  h2, .h2 {
+    color: white;
+  }
+
+  .btn-default {
+    color: white;
+  }
+
+  .global-filter {
+    color: #AFB4CD;
+    .form-group {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+body.admin-menu {
+  .region-burgermenu {
+    margin-top: @emh-admin-menu-height;
+  }
+}
