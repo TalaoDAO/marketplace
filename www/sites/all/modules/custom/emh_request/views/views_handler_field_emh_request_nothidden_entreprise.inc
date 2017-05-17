@@ -39,7 +39,7 @@ class views_handler_field_emh_request_nothidden_entreprise extends views_handler
     if (
           (!(emh_request_has_option($node, 'anonymous')))
       ||  ((emh_request_has_option($node, 'anonymous') && ($node->field_hide_organisation[LANGUAGE_NONE][0]['value'] == FALSE)))
-      /*||  (!empty($node) && (emh_access_user_can_see_full_user($uid1, $uid2))*/)
+      /*||  (!empty($node) && (emh_access_user_can_see_full_user($uid1, $uid2)))*/
     ) {
       $organisation = field_view_field('user', $u2_account, 'field_entreprise', array('label' => 'hidden'));
     }
