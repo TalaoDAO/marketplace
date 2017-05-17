@@ -68,7 +68,14 @@
               <?php print render($title_prefix); ?>
               <?php if (!empty($title)): ?>
                 <div class="title">
+                  <?php emindhub_show_request_type(); ?>
+                  <?php if (!empty(emh_circles_get_circle_logo())) : ?>
+                    <div class="circle-logo"><?php print emh_circles_get_circle_logo(); ?></div>
+                  <?php endif; ?>
                   <h1 class="page-header"><?php print $title; ?></h1>
+                  <?php if (!empty($subscriber_count)) : ?>
+                    <div class="circle-count"><?php print $subscriber_count; ?></div>
+                  <?php endif; ?>
                 </div>
               <?php endif; ?>
               <?php print render($title_suffix); ?>
@@ -79,6 +86,10 @@
 
               <?php if (!empty($baseline)) : ?>
                 <p class="emh-title-baseline"><?php print $baseline; ?></p>
+              <?php endif; ?>
+
+              <?php if (!empty($page['title_bottom'])): ?>
+                <?php print render($page['title_bottom']); ?>
               <?php endif; ?>
 
             </div>
@@ -110,10 +121,20 @@
 
       <div class="container">
 
+        <?php if (!empty($page['highlighted'])): ?>
+        <div class="highlighted jumbotron">
+            <?php print render($page['highlighted']); ?>
+        </div>
+        <?php endif; ?>
+
         <div class="row">
 
           <?php if (!empty($page['sidebar_first'])) : ?>
+          <?php if ($is_front) : ?>
+          <aside id="sidebar-first" class="col-md-5 col-md-offset-1" role="complementary">
+          <?php else : ?>
           <aside id="sidebar-first" class="col-md-2" role="complementary">
+          <?php endif; ?>
             <?php print render($page['sidebar_first']); ?>
           </aside>
           <?php endif; ?>
@@ -129,7 +150,11 @@
           </section>
 
           <?php if (!empty($page['sidebar_second']) || !empty($page['help'])): ?>
+          <?php if ($is_front) : ?>
+          <aside id="sidebar-second" class="col-md-5" role="complementary">
+          <?php else : ?>
           <aside id="sidebar-second" class="col-md-3" role="complementary">
+          <?php endif; ?>
             <?php if (!empty($page['help'])): ?>
               <?php print render($page['help']); ?>
             <?php endif; ?>
@@ -162,6 +187,8 @@
       <?php endif; ?>
 
   </div>
+
+  <?php print render($page['burgermenu']); ?>
 
   <footer class="footer">
     <div class="container">

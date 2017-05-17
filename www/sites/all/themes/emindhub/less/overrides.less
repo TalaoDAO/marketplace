@@ -41,9 +41,9 @@ body {
     padding-bottom: 64px !important;
   }
   &.toolbar {
-    padding-top: 30px !important;
+    padding-top: @grid-gutter-width !important;
     .navbar-fixed-top {
-      top: 30px;
+      top: @grid-gutter-width;
     }
     &.navbar-is-fixed-top {
       padding-top: 94px !important;
@@ -61,7 +61,7 @@ body {
   // Admin_menu toolbar.
   &.admin-menu {
     .navbar-fixed-top {
-      top: 29px;
+      top: @emh-admin-menu-height;
     }
     &.navbar-is-fixed-top {
       padding-top: 93px !important;
@@ -89,13 +89,13 @@ body {
 // Default navbar.
 .navbar.container {
   @media @tablet {
-    max-width: ((@container-sm - 30px));
+    max-width: ((@container-sm - @grid-gutter-width));
   }
   @media @normal {
-    max-width: ((@container-md - 30px));
+    max-width: ((@container-md - @grid-gutter-width));
   }
   @media @wide {
-    max-width: ((@container-lg - 30px));
+    max-width: ((@container-lg - @grid-gutter-width));
   }
   margin-top: 20px;
   > .container {
@@ -135,9 +135,9 @@ body {
 
 // Branding.
 .navbar .logo {
-  margin-right: -15px;
-  padding-left: 15px;
-  padding-right: 15px;
+  margin-right: -(@grid-gutter-width / 2);
+  padding-left: (@grid-gutter-width / 2);
+  padding-right: (@grid-gutter-width / 2);
   @media @tablet {
     // margin-right: 0;
     // padding-left: 0;
@@ -230,8 +230,8 @@ fieldset .panel-body {
 fieldset .panel-heading a.panel-title {
   color: inherit;
   display: block;
-  margin: -10px -15px;
-  padding: 10px 15px;
+  margin: -10px -(@grid-gutter-width / 2);
+  padding: 10px (@grid-gutter-width / 2);
   &:hover {
     text-decoration: none;
   }
@@ -544,7 +544,7 @@ a .glyphicon-spin {
     .box-shadow(0 1px 1px rgba(0,0,0,.05));
     border: 1px solid @nav-tabs-border-color;
     overflow: hidden;
-    padding: 10px 15px;
+    padding: 10px (@grid-gutter-width / 2);
   }
 }
 
