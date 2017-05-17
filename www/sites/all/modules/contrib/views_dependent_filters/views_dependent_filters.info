@@ -1,0 +1,14 @@
+name = Views dependent filters
+description = Allows values in one Views exposed filter to control the presence of others.
+dependencies[] = views
+core = 7.x
+files[] = views_dependent_filters.module
+files[] = views_dependent_filters.views.inc
+files[] = views_dependent_filters_handler_filter_dependent.inc
+
+; Information added by drupal.org packaging script on 2012-07-13
+version = "7.x-1.1"
+core = "7.x"
+project = "views_dependent_filters"
+datestamp = "1342186377"
+
