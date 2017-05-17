@@ -3,11 +3,11 @@
 .title-left,
 .region-title-right,
 .title-right {
-  margin: 15px 0;
+  margin: (@grid-gutter-width / 2) 0;
 }
 .region-title-bottom {
 	.make-row();
-  margin-bottom: 15px;
+  margin-bottom: (@grid-gutter-width / 2);
 }
 
 .main-container {
@@ -62,7 +62,7 @@ body.logged-in {
   .title-right {
     .make-md-column(3);
 
-    margin-bottom: 15px;
+    margin-bottom: (@grid-gutter-width / 2);
 
     @media (min-width: @screen-md-min) {
       .text-right;
@@ -87,7 +87,7 @@ body.logged-in {
 
 
 aside {
-	margin-bottom: 15px;
+	margin-bottom: (@grid-gutter-width / 2);
 
 	.block {
 		.emh-block-normal;
@@ -95,7 +95,7 @@ aside {
 
   @media (max-width: @screen-md-min) {
   	.block {
-  		margin-bottom: 15px;
+  		margin-bottom: (@grid-gutter-width / 2);
   		&:last-child {
   			margin-bottom: 0;
   		}
@@ -128,9 +128,9 @@ ul.links.list-inline {
 }
 // #request-nav {
 //   .make-row();
-//   padding-top: 15px;
-//   padding-bottom: 15px;
-//   margin-bottom: 15px;
+//   padding-top: (@grid-gutter-width / 2);
+//   padding-bottom: (@grid-gutter-width / 2);
+//   margin-bottom: (@grid-gutter-width / 2);
 // }
 // #nav-back,
 // #nav-previous,
@@ -162,12 +162,12 @@ ul.links.list-inline {
 }
 
 .section {
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: (@grid-gutter-width / 2);
+  padding-bottom: (@grid-gutter-width / 2);
   margin: 0;
 
   + .section {
-    margin-bottom: 15px;
+    margin-bottom: (@grid-gutter-width / 2);
   }
 
   &.emh-fieldgroup-blue-title {
@@ -182,7 +182,7 @@ ul.links.list-inline {
 
 	> .field,
 	> .field-collection-container {
-		padding-bottom: 15px;
+		padding-bottom: (@grid-gutter-width / 2);
 		.field-label {
 			margin-bottom: 5px;
 		}
@@ -207,7 +207,8 @@ body.not-logged-in {
 .view-header {
   .emh-module;
   .emh-subtitle;
-  margin-bottom: 30px;
+  margin-bottom: @grid-gutter-width;
+  
   p {
     margin: 0;
   }
@@ -245,10 +246,10 @@ body.logged-in {
 // Commentaires / Réponses
 // #comments {
 //   .comment .content > div {
-//     padding: 15px 0;
+//     padding: (@grid-gutter-width / 2) 0;
 //   }
 // 	> .comment {
-// 		padding: 15px;
+// 		padding: (@grid-gutter-width / 2);
 //     margin: 0;
 // 		border-top: 1px solid #DDD;
 //
