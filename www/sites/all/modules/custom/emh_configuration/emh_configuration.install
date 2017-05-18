@@ -1450,6 +1450,6 @@ function emh_configuration_update_7072() {
 /**
  * ADD: module views_dependant_filter.
  */
-function emh_configuration_update_7072() {
+function emh_configuration_update_7073() {
   module_enable(['views_dependent_filters']);
 }
