@@ -1441,7 +1441,6 @@ function emh_configuration_update_7071() {
 }
 
 /**
-<<<<<<< HEAD
  * ADD : module webform_rules.
  */
 function emh_configuration_update_7072() {
