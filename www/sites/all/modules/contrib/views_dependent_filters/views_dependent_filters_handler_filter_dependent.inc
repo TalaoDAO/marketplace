@@ -65,10 +65,6 @@ class views_dependent_filters_handler_filter_dependent extends views_handler_fil
     $seen = FALSE;
     // Build up the options from all the fields up to this one but no further.
     foreach ($filters as $filter_id => $handler) {
-      // Skip non-exposed filters.
-      if (!$handler->is_exposed()) {
-        continue;
-      }
       // Required filters can't be dependent.
       if ($type == 'dependent' && $handler->options['expose']['required']) {
         continue;
@@ -88,6 +84,10 @@ class views_dependent_filters_handler_filter_dependent extends views_handler_fil
       // All filters may be controllers, but to simplify things we just allow
       // the ones that come before us.
       if (!$seen) {
+        // Skip non-exposed filters.
+        if (!$handler->is_exposed()) {
+          continue;
+        }
         $filters_controller[$filter_id] = $label;
       }
       // Only filters that follow us in the order may be dependent.
