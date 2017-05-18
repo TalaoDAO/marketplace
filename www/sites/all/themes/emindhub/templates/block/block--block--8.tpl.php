@@ -12,11 +12,11 @@
     <?php if (og_is_member('node', '2520', 'user') || og_is_member('node', '2564', 'user')) : ?>
       <div class="col-md-3 highlight-circles">
         <?php if (og_is_member('node', '2520', 'user')) : ?>
-          <a href="<?php print $base_url . '/ ' . url('node/2520'); ?>"><?php print emh_circles_get_circle_logo(node_load('2520')); ?></a>
+          <a href="<?php print $base_url . url('node/2520'); ?>"><?php print emh_circles_get_circle_logo(node_load('2520')); ?></a>
         <?php endif; ?>
 
         <?php if (og_is_member('node', '2564', 'user')) : ?>
-          <a href="<?php print $base_url . '/ ' . url('node/2564'); ?>"><?php print emh_circles_get_circle_logo(node_load('2564')); ?></a>
+          <a href="<?php print $base_url . url('node/2564'); ?>"><?php print emh_circles_get_circle_logo(node_load('2564')); ?></a>
         <?php endif; ?>
       </div>
     <?php endif; ?>
