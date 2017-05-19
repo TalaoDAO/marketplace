@@ -27,8 +27,8 @@ function emh_linkedin_admin($form, &$form_state) {
 			'#collapsed' => TRUE,
 	);
 
-	$form['linkedin']['linkedin_liboauth_path'] = array(
-			'#default_value' => variable_get('linkedin_liboauth_path', ''),
+	$form['linkedin']['emh_linkedin_liboauth_path'] = array(
+			'#default_value' => variable_get('emh_linkedin_liboauth_path', ''),
 			'#title' => t('OAuth library full path (including filename)'),
 			'#type' => 'textfield',
 			'#description' => t('Linkedin module needs the OAuth php library from http://code.google.com/p/oauth/. You can either download OAuth.php from there and specify the full path here or install the OAuth module from http://drupal.org/project/oauth (both 6.x-2 and 6.x-3 versions are supported)'),

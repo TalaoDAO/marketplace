@@ -19,9 +19,9 @@ function emh_linkedin_init() {
     drupal_add_css(drupal_get_path('module', 'emh_linkedin') . '/emh_linkedin.css');
   }
   
-  if (!@include_once(variable_get('linkedin_liboauth_path', ''))) {
+  if (!@include_once(variable_get('emh_linkedin_liboauth_path', ''))) {
   	if (file_exists(drupal_get_path('module', 'oauth_common') . '/lib/OAuth.php')) {
-  		variable_set('linkedin_liboauth_path', drupal_get_path('module', 'oauth_common') . '/lib/OAuth.php');
+  		variable_set('emh_linkedin_liboauth_path', drupal_get_path('module', 'oauth_common') . '/lib/OAuth.php');
   	}
   	else {
   		drupal_set_message(t('Unable to find the OAuth library. Please check your settings for the Linkedin module.'), 'warning');
@@ -131,15 +131,17 @@ function emh_linkedin_module_implements_alter(&$implementations, $hook) {
 
 function emh_linkedin_user_login(&$edit, $account) {
 	
+	
+	$user = user_load($account->uid);
+	
 	//on récupère s'il existe l'url du compte linkedin de la personne loggé
 	//via la bd hybridauth_identity
 	$identity = db_select('hybridauth_identity', 'ha_id')
 				->fields('ha_id')
-				->condition('uid', $account->uid, '=')
+				->condition('uid', $user->uid, '=')
 				->execute()
 				->fetchAssoc();
-	//$authname = $identity['provider_identity'];
-	//$identity = _hybridauth_identity_load_by_uid(4413);
+	
 	
 	if(isset($identity['data'])) {
 		$linkedin_profile = $identity['data'];
@@ -149,60 +151,26 @@ function emh_linkedin_user_login(&$edit, $account) {
 			$profileURL = $linkedin_profile['profileURL'];
 			
 			
-			//test si l'utilisateur à déja un compte linkedin à son compte
-			$select = db_select('field_data_field_linkedin', 'f');
-			$field_linkedin = $select->fields('f')
-				->condition('entity_id',$account->uid, '=')
-				->execute()
-				->fetchAssoc();
-			
-			if(empty($field_linkedin)) {
-				//on ajoute dans le profile utilisateur le lien du profile linkedin
-				$insert = db_insert('field_data_field_linkedin');
-				$insert->fields(array(
-						'entity_type' => 'user',
-						'bundle' => 'user',
-						'deleted' => 0,
-						'entity_id' => $account->uid,
-						'revision_id' => $account->uid,
-						'language' => 'und',
-						'delta' => 0,
-						'field_linkedin_url' => $profileURL,
-						'field_linkedin_attributes' => 'a:0:{}'
-				));
-				$insert->execute();
-				
-				$insert2 = db_insert('field_revision_field_linkedin');
-				$insert2->fields(array(
-						'entity_type' => 'user',
-						'bundle' => 'user',
-						'deleted' => 0,
-						'entity_id' => $account->uid,
-						'revision_id' => $account->uid,
-						'language' => 'und',
-						'delta' => 0,
-						'field_linkedin_url' => $profileURL,
-						'field_linkedin_attributes' => 'a:0:{}'
-				));
-				$insert2->execute();
-				
-			}
-			else {
+			if(empty($user->field_linkedin['und'][0]['url'])) {				
+				$user->field_linkedin['und'][0]['url'] = $profileURL;				
+			} else {
 				//maj de l'adresse
-				if(strcmp($field_linkedin['field_linkedin_url'], $profileURL) != 0) {
-					$update = db_update('field_data_field_linkedin');
-					$update->fields(array(
-							'field_linkedin_url' => $profileURL
-					))
-					->condition('entity_id', $account->uid)
-					->execute();
-					
-					$update = db_update('field_revision_field_linkedin');
-					$update->fields(array(
-							'field_linkedin_url' => $profileURL
-					))
-					->condition('entity_id', $account->uid)
-					->execute();
+				if(strcmp($user->field_linkedin['und'][0]['url'], $profileURL) != 0) {					
+					$user->field_linkedin['und'][0]['url'] = $profileURL;
+				}
+			}
+		}
+		
+		if(isset($linkedin_profile['description'])) {
+			$description = $linkedin_profile['description'];
+			
+			
+			if(empty($user->field_linkedin_description['und'][0]['value'])) {
+				$user->field_linkedin_description['und'][0]['value'] = $description;
+			} else {
+				//maj
+				if(strcmp($user->field_linkedin_description['und'][0]['value'], $description) != 0) {
+					$user->field_linkedin_description['und'][0]['value'] = $description;
 				}
 			}
 		}
@@ -220,7 +188,9 @@ function emh_linkedin_user_login(&$edit, $account) {
 				mkdir($dir_name);
 			}
 			
+			
 			if(!file_exists($path)) {
+				
 				$url= $linkedin_profile['photoURL'];
 				$fp = fopen($path, 'w');
 				
@@ -240,20 +210,21 @@ function emh_linkedin_user_login(&$edit, $account) {
 				} else {
 					
 					if(file_exists($path)) {
+						
 						$handle = fopen($path, 'r');
 						$file = file_save_data($handle, $drupal_uri);
+						$user->field_linkedin_image['und'][0]['fid'] = $file->fid;
 						fclose($handle);
 					}
 					
 					
 				}
 				
-				
-				//user_save($account);
 			}
 			
 			
 		}
+		user_save($user);
 	}
 	
 	
@@ -265,31 +236,16 @@ function emh_linkedin_user_login(&$edit, $account) {
  * Implements hook_user_load().
  */
 function emh_linkedin_user_load($users) {
-	foreach ($users as $account) {
-		//error_log("coucou : ".var_export($account));
-		break;
-		
-	}
-	//$query = db_select('users', 'u');
+
 	
-	//select name from users
-	//$query->fields('u', array('name'));
-	
-	//$result = $query->execute();
-	
-	//$output = '<h2>Requete monotable</h2>';
-	
-	/*while ($row = $result->fetchAssoc()) {
-		$output .= $row ["name"].'<br/>';
-	}*/
-	
-	/*
   if (variable_get('emh_linkedin_user_page_enabled', 0) > 0) {
     foreach ($users as $account) {
       module_load_include('inc', 'emh_linkedin', 'emh_linkedin');
       $fields = _emh_linkedin_vget_user_page_linkedin_fields();
       $profile = emh_linkedin_get_profile_fields($account->uid, $fields);
 
+    // watchdog('emh_link_pro', print_r($profile,true));
+      
       if (!isset($profile['error-code'])) {
         //Let themers hook into items
         $multiples = array(
@@ -330,7 +286,7 @@ function emh_linkedin_user_load($users) {
         }
       }
     }
-  }*/
+  }
 }
 
 /**
