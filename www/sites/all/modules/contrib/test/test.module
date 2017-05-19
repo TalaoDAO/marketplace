@@ -1,4 +1,6 @@
 <?php
+
+
 /*
  * @file
  * Module de test pour afficher des requetes.
@@ -22,15 +24,91 @@ function test_menu() {
 			'page callback' => 'test_myform'
 	);
 	
+	$items['test/token'] = array(
+			'title' => 'Test Drupal',
+			'access arguments' => array(true),
+			'type' => MENU_CALLBACK,
+			'page callback' => 'test_content_2'
+	);	
+	
 	return $items;
 }
 
+function test_content_2() {
+	
+	$session = _hybridauth_session_load_by_uid(4413);
+	$data = unserialize($session['data']);
+	var_dump($data);
+	
+	$session = _hybridauth_identity_load_by_uid(4413);
+	$data = unserialize($session['data']);
+	var_dump($session);
+	
+	
+	/*$hybridauth = hybridauth_get_instance();
+	$hybridauth->isConnectedWith('LinkedIn');
+	//var_dump(unserialize($hybridauth->getProviders()));
+	$adapter = $hybridauth->getAdapter('LinkedIn');
+	var_dump($adapter->adapter->getUserProfile());*/
+	include("sites/all/libraries/hybridauth/hybridauth/Hybrid/thirdparty/LinkedIn/LinkedIn.php");
+	include("sites/all/libraries/hybridauth/hybridauth/Hybrid/Auth.php");
+	$linkedin = new LinkedIn(array(
+			'appKey' => '77eu0gofm5rb9c',
+			'appSecret' => 'e6jUCeac4I9Kj3XG',
+			'callbackUrl' => null
+	));
+	
+	
+	
+	$tokens = $linkedin->retrieveTokenRequest();
+	
+	$token = $tokens['linkedin']['oauth_token'];
+	$secret = $tokens['linkedin']['oauth_token_secret'];
+	$verifier = '9558';
+	
+	
+	var_dump($linkedin->retrieveTokenAccess($token, $secret, $verifier));
+	var_dump($linkedin->getTokenAccess());
+	var_dump($linkedin->profile());
+	
+	//include('sites/all/libraries/hybridauth/hybridauth/Hybrid/Providers/LinkedIn.php');
+	
+	//include('sites/all/libraries/hybridauth/hybridauth/Hybrid/Provider_Model.php');
+	
+	//$linkedin = Hybrid_Providers_LinkedIn::initialize();
+	
+	//$profile = $linkedin->profile('~:(num-connections,picture-url)');
+	//var_dump($profile);
+	
+	/*$user = user_load(4413);
+	
+	
+	var_dump($user->field_linkedin_description);
+
+	
+	
+	
+	/*if(file_exists($path)) {
+		$handle = fopen($url, 'r');
+		$file = file_save_data($handle, $drupal_uri);
+		$user->field_linkedin_image['und'][0]['fid'] = $file->fid;
+		fclose($handle);
+	}*/
+	
+	
+	
+	
+}
+
+
+
 function test_content() {
 	
-	$user = user_load(4418);
+	$time_start = microtime(true);
+	$user = user_load(4413);
 	//var_dump($user);
-	$path = $user->name . ".jpg";
-	var_dump(file_build_uri($path));
+	$path = $user->name . "_1234.jpg";
+	//var_dump(file_build_uri($path));
 	
 	
 	
@@ -54,7 +132,28 @@ function test_content() {
 	
 	$handle = fopen($path, 'r');
 	$file = file_save_data($handle,file_build_uri($path));
-	//var_dump($file);
+	fclose($handle);
+	var_dump($file);
+	
+	$time_end = microtime(true);
+	
+	$time = $time_end - $time_start;
+	
+	echo 'exec image : ' . $time;
+	
+	
+	$time_start = microtime(true);
+	$user = user_load(4413);
+	$drupal_uri = "public://linkedin_profile_image/test.jpg";
+	$handle2 = fopen('https://upload.wikimedia.org/wikipedia/en/1/17/Batman-BenAffleck.jpg', 'r');
+	$file = file_save_data($handle2, $drupal_uri);
+	var_dump($file);
+	
+	$time_end = microtime(true);
+	
+	$time = $time_end - $time_start;
+	
+	echo 'exec image 2 : ' . $time;
 	
 	
 	/*$file= file_load(1163);
@@ -238,3 +337,5 @@ function test_add_user_form_submit($form, &$form_state) {
 	 $insert->execute();
 	
 }
+
+

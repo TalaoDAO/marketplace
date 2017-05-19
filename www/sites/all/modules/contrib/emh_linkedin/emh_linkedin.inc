@@ -26,11 +26,13 @@ function _emh_linkedin_get_profile_fields($uid, $fields = array()) {
 	$session = _hybridauth_session_load_by_uid($uid);
 	$data = unserialize($session['data']);
 	
+	
 	$row = array(
-			'token_key' => unserialize($data['hauth_session.linkedin.token.oauth_token']),
-			'token_secret' => unserialize($data['hauth_session.linkedin.token.oauth_token_secret'])
+			'token_key' => unserialize($data['hauth_session.linkedin.token.access_token']),
+			'token_secret' => unserialize($data['hauth_session.linkedin.token.access_token_secret'])
 	);
 	
+	//echo 'row : ';
 	//var_dump($row);
 	
 	if (!$row || empty($row)) {
@@ -41,7 +43,7 @@ function _emh_linkedin_get_profile_fields($uid, $fields = array()) {
 				'message' => 'No LinkedIn account is associated with this user',
 		);
 		if (variable_get('linkedin_debug_mode', 0) == 1) {
-			drupal_set_message(t('Linkedin debug : @status : @message', array('@status' => $response['status'], '@message' => $response['message'])));
+			drupal_set_message(t('Linkedin debug 1 : @status : @message', array('@status' => $response['status'], '@message' => $response['message'])));
 		}
 		return $response;
 	}
@@ -55,12 +57,12 @@ function _emh_linkedin_get_profile_fields($uid, $fields = array()) {
 	}
 	else {
 		//$tokens = db_query("SELECT * FROM {linkedin_token} WHERE uid = :uid AND type = :type", array(':uid' => $user->uid, ':type' => 'access'))->fetchAssoc();
-		$session = _hybridauth_session_load_by_uid($uid);
+		$session = _hybridauth_session_load_by_uid($user->uid);
 		$data = unserialize($session['data']);
 	
 		$tokens = array(
-				'token_key' => unserialize($data['hauth_session.linkedin.token.oauth_token']),
-				'token_secret' => unserialize($data['hauth_session.linkedin.token.oauth_token_secret'])
+				'token_key' => unserialize($data['hauth_session.linkedin.token.access_token']),
+				'token_secret' => unserialize($data['hauth_session.linkedin.token.access_token_secret'])
 		);
 		
 		
@@ -76,22 +78,24 @@ function _emh_linkedin_get_profile_fields($uid, $fields = array()) {
 			//$authname = db_query("SELECT authname FROM {authmap} WHERE uid = :uid AND module = :module", array(':uid' => $uid, ':module' => 'linkedin'))->fetchField();
 			$identity = db_select('hybridauth_identity', 'ha_id')
 				->fields('ha_id')
-				->condition('uid', 4413, '=')
+				->condition('uid', $uid, '=')
 				->execute()
 				->fetchAssoc();
-			$authname = $identity['provider_identity'];
+			$authname = $identity['provider_identifier'];
 			
 			$append = 'id=' . $authname;
 			$type = 'auth';
 		}
 	}
-	$tokens = (array) $tokens;
-	$append .= _emh_linkedin_build_fields_request($fields, $type);
-	$url = $base_url . $append;
+	
+	$tokens = (array) $tokens;	
+	$append .= _emh_linkedin_build_fields_request($fields, $type);		
+	$url = $base_url . $append;	
 	$response = emh_linkedin_get_fields($url, $tokens);
 
 	if (isset($response['error']['status']) && ($response['error']['status'] == 401 || $response['error']['status'] == 403)) {
 		// No relationships between users, switch back to public profile and retry
+		//echo 'test 1<br/>';
 		$tokens = (array) $row;
 		$append = '~:public';
 		$append .= _emh_linkedin_build_fields_request($fields, 'public');
@@ -101,20 +105,14 @@ function _emh_linkedin_get_profile_fields($uid, $fields = array()) {
 	if (isset($response['person'])) {
 		$response = $response['person'];
 	}
-	else {
+	else {//echo 'test 3<br/>';
 		$response = $response['error'];
 	}
 	if (variable_get('linkedin_debug_mode', 0) == 1) {
-		if (isset($response['error-code'])) {
-			drupal_set_message(t('Linkedin debug : LinkedIn.com answered "@status : @message', array('@status' => $response['status'], '@message' => $response['message'])));
+	if (isset($response['error-code'])) {
+			drupal_set_message(t('Linkedin debug 2 : LinkedIn.com answered "@status : @message', array('@status' => $response['status'], '@message' => $response['message'])));
 		}
-	}
-	
-	$file = 'people.txt';
-	// Une nouvelle personne à ajouter
-	$person = "Jean Dupond\n";
-	
-	file_put_contents($file, $person, FILE_APPEND | LOCK_EX);
+	}	
 	return $response;
 }
 
@@ -199,17 +197,17 @@ function _emh_linkedin_get_fields($url, $tokens) {
 	$signature = new OAuthSignatureMethod_HMAC_SHA1();
 	//on recupère la key et key secret du module hybridauth pour l'api linkedin
 	$consumer_key = variable_get('hybridauth_provider_LinkedIn_keys_key', '');
-	$consumer_secret = variable_get('	hybridauth_provider_LinkedIn_keys_secret', '');
-	$consumer = new OAuthConsumer($consumer_key, $consumer_secret, NULL);
-	$token = new OAuthConsumer($tokens['token_key'], $tokens['token_secret'], 1);
-	$request = OAuthRequest::from_consumer_and_token($consumer, $token, "GET", $url);
+	$consumer_secret = variable_get('hybridauth_provider_LinkedIn_keys_secret', '');	
+	$consumer = new OAuthConsumer($consumer_key, $consumer_secret, NULL);	
+	$token = new OAuthConsumer($tokens['token_key'], $tokens['token_secret'], 1);	
+	$request = OAuthRequest::from_consumer_and_token($consumer, $token, "GET", $url);	
 	$request->sign_request($signature, $consumer, $token);
-	$header = $request->to_header("https://api.linkedin.com");
+	$header = $request->to_header("https://api.linkedin.com");	
 	$response = _emh_linkedin_http_request($url, $header);
 	parse_str($response);
 	$response = _emh_linkedin_parse_fields($response);
 	if (isset($response['error-code'])) {
-		$message = t('Linkedin debug : LinkedIn.com answered "@status : @message', array('@status' => $response['status'], '@message' => $response['message']));
+		$message = t('Linkedin debug 3 : LinkedIn.com answered "@status : @message', array('@status' => $response['status'], '@message' => $response['message']));
 		if (variable_get('linkedin_debug_mode', 0) == 1) {
 			drupal_set_message($message, 'warning');
 		}
@@ -225,6 +223,7 @@ function _emh_linkedin_get_fields($url, $tokens) {
 
 function _emh_linkedin_http_request($url, $header, $body = NULL) {
 
+	
 	$ch = curl_init();
 
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
