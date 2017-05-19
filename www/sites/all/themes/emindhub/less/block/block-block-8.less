@@ -1,9 +1,15 @@
-// Homepage connecté: Actions rapides
+// Homepage connecté : Actions rapides
 #block-block-8 {
 	.content {
-		padding: 0 (@grid-gutter-width / 2) (@grid-gutter-width / 2);
-		.text-center;
+    .make-row();
+    margin: 0;
+    padding: 0 (@grid-gutter-width / 2) (@grid-gutter-width / 2);
 		border: 1px solid @pattens-blue;
+
+    a {
+      display: inline-block;
+      margin-top: (@grid-gutter-width / 2);
+    }
 
 		.btn {
 			-moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, .2);
@@ -11,8 +17,23 @@
 			-o-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, .2);
 			box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, .2);
 			filter:progid:DXImageTransform.Microsoft.Shadow(color=rgba(0, 0, 0, .2), Direction=NaN, Strength=5);
-
-      margin-top: (@grid-gutter-width / 2);
 		}
+
+    .highlight-circles {
+      img {
+        max-height: 50px;
+        width: auto;
+        border-radius: 5px;
+      }
+
+      a {
+        border: 1px solid @brand-primary;
+        border-radius: 5px;
+      }
+
+      a + a {
+        margin-left: 5px;
+      }
+    }
 	}
 }
