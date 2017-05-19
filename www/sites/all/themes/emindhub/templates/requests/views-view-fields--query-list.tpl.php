@@ -32,6 +32,11 @@
     <?php if (!empty($fields['request_language']->content)) : ?>
     <span class="request-language"><?php print $fields['request_language']->content; ?></span>
     <?php endif; ?>
+
+    <?php if (!empty($fields['request_nothidden_entreprise']->content)) : ?>
+    <span class="request-nothidden_entreprise"><?php print $fields['request_nothidden_entreprise']->content; ?></span>
+    <?php endif; ?>
+
   </div>
 
   <?php if (!empty($fields['og_group_ref']->content)) : ?>

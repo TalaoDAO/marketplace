@@ -1441,8 +1441,15 @@ function emh_configuration_update_7071() {
 }
 
 /**
- * ADD : modules webform_rules.
+ * ADD : module webform_rules.
  */
 function emh_configuration_update_7072() {
   module_enable(array('webform_rules'));
+}
+
+/**
+ * ADD: module views_dependant_filter.
+ */
+function emh_configuration_update_7073() {
+  module_enable(['views_dependent_filters']);
 }
