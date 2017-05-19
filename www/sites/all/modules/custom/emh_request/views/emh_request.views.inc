@@ -59,6 +59,14 @@ function emh_request_views_data() {
     ),
   );
 
+  $data['node']['request_nothidden_entreprise'] = array(
+    'group' => t('Node'),
+    'title' => 'EMH Request organisation name - if not hidden by user',
+    'field' => array(
+      'handler' => 'views_handler_field_emh_request_nothidden_entreprise',
+    ),
+  );
+
   return $data;
 }
 

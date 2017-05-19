@@ -1,0 +1,85 @@
+<?php
+/**
+ * @file views_dependent_filters.module
+ * Provides a Views exposed filter which makes other filters depend on values
+ * in yet further filters for their visiblity and processing.
+ * For example: if the 'node type' filter is set to 'article', show a filter for
+ * a field that is only present on articles.
+ */
+
+/**
+ * Implements hook_views_api().
+ */
+function views_dependent_filters_views_api() {
+  return array(
+    'api' => '3.0-alpha1',
+    'path' => drupal_get_path('module', 'views_dependent_filters'),
+  );
+}
+
+/**
+ * After build form processor for the views exposed form.
+ *
+ * This is added by the exposed filter handler so that we can add a CTools
+ * visiblity dependency.
+ * We don't use Drupal core #states because as far as I can tell they don't
+ * work here.
+ * See also merlinofchaos's comment here: http://drupal.org/node/1406470
+ */
+function views_dependent_filters_exposed_form_after_build($form, $form_state) {
+  // We may have multiple dependency info arrays from more than one copies
+  // of the views_dependent_filters_handler_filter_dependent handler.
+  foreach ($form_state['dependent_exposed_filters'] as $dependency_info) {
+    // Build up the CTools #dependency item to put onto each dependent element.
+    $form_dependency = array();
+    foreach ($dependency_info['controllers'] as $filter_id => $controller_values) {
+      $identifier = $dependency_info['identifiers'][$filter_id];
+      // Regular form.
+      $filter_html_id = views_dependent_filters_recreate_html_id($identifier);
+      $form_dependency['edit-' . $filter_html_id] = $controller_values;
+      // better_exposed_filters form.
+      foreach ($controller_values as $value) {
+        $value = views_dependent_filters_recreate_html_id($value);
+        $key = 'edit-' . $filter_html_id . '-' . $value;
+        $form_dependency[$key] = array(TRUE);
+      }
+    }
+
+    // Set the dependency on each form element as required.
+    foreach ($dependency_info['dependents'] as $dependent_filter_id) {
+      $identifier = $dependency_info['identifiers'][$dependent_filter_id];
+      $form[$identifier]['#process'][] = 'ctools_dependent_process';
+      if (!isset($form[$identifier]['#dependency'])) {
+        $form[$identifier]['#dependency'] = array();
+      }
+      $form[$identifier]['#dependency'] += $form_dependency;
+    }
+  }
+
+  return $form;
+}
+
+/**
+ * Convert a string to an HTML id matching one made with drupal_html_id().
+ *
+ * We can't simply call drupal_html_id() because that only returns unique
+ * ids; this is intended for when the ID already exists and we want to recreate
+ * it from the original input.
+ */
+function views_dependent_filters_recreate_html_id($id) {
+  $id = strtr(drupal_strtolower($id), array(' ' => '-', '_' => '-', '[' => '-', ']' => ''));
+
+  // As defined in http://www.w3.org/TR/html4/types.html#type-name, HTML IDs can
+  // only contain letters, digits ([0-9]), hyphens ("-"), underscores ("_"),
+  // colons (":"), and periods ("."). We strip out any character not in that
+  // list. Note that the CSS spec doesn't allow colons or periods in identifiers
+  // (http://www.w3.org/TR/CSS21/syndata.html#characters), so we strip those two
+  // characters as well.
+  $id = preg_replace('/[^A-Za-z0-9\-_]/', '', $id);
+
+  // Removing multiple consecutive hyphens.
+  $id = preg_replace('/\-+/', '-', $id);
+
+  return $id;
+}
+
