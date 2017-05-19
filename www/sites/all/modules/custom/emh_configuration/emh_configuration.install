@@ -1441,7 +1441,7 @@ function emh_configuration_update_7071() {
 }
 
 /**
- * ADD modules : webform_rules.
+ * ADD : modules webform_rules.
  */
 function emh_configuration_update_7072() {
   module_enable(array('webform_rules'));
