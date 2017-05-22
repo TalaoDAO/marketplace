@@ -24,9 +24,9 @@ function test_menu() {
 			'page callback' => 'test_myform'
 	);
 	
-	$items['test/token'] = array(
+	$items['test2'] = array(
 			'title' => 'Test Drupal',
-			'access arguments' => array(true),
+			'access callback' => TRUE,
 			'type' => MENU_CALLBACK,
 			'page callback' => 'test_content_2'
 	);	
@@ -35,14 +35,40 @@ function test_menu() {
 }
 
 function test_content_2() {
+	$user = user_load(arg(1)/*4426*/, TRUE);
 	
-	$session = _hybridauth_session_load_by_uid(4413);
+	
+	//echo "user : $user->uid <br>";
+	//var_dump($user);
+	//module_load_include('inc', 'emh_linkedin', 'emh_linkedin');
+	$fields = _emh_linkedin_fields_build_profile();
+	$profile = emh_linkedin_get_profile_fields($user->uid, $fields);
+	
+	
+	//var_dump($user);
+	var_dump($profile);
+	foreach ($profile as $key => $value) {
+		$item = array(
+				'name' => $key,
+				'value' => $value,
+		);
+		$user = _emh_linkedin_fields_to_user_fields($item,$user);
+		//var_dump($item);
+		
+		
+	}
+	kpr($user);
+	
+	
+	//_emh_linkedin_fields_to_user_fields($profile);
+	
+	/*$session = _hybridauth_session_load_by_uid(4413);
 	$data = unserialize($session['data']);
 	var_dump($data);
 	
 	$session = _hybridauth_identity_load_by_uid(4413);
 	$data = unserialize($session['data']);
-	var_dump($session);
+	var_dump($session);*/
 	
 	
 	/*$hybridauth = hybridauth_get_instance();
@@ -50,7 +76,7 @@ function test_content_2() {
 	//var_dump(unserialize($hybridauth->getProviders()));
 	$adapter = $hybridauth->getAdapter('LinkedIn');
 	var_dump($adapter->adapter->getUserProfile());*/
-	include("sites/all/libraries/hybridauth/hybridauth/Hybrid/thirdparty/LinkedIn/LinkedIn.php");
+	/*include("sites/all/libraries/hybridauth/hybridauth/Hybrid/thirdparty/LinkedIn/LinkedIn.php");
 	include("sites/all/libraries/hybridauth/hybridauth/Hybrid/Auth.php");
 	$linkedin = new LinkedIn(array(
 			'appKey' => '77eu0gofm5rb9c',
@@ -69,7 +95,7 @@ function test_content_2() {
 	
 	var_dump($linkedin->retrieveTokenAccess($token, $secret, $verifier));
 	var_dump($linkedin->getTokenAccess());
-	var_dump($linkedin->profile());
+	var_dump($linkedin->profile());*/
 	
 	//include('sites/all/libraries/hybridauth/hybridauth/Hybrid/Providers/LinkedIn.php');
 	
