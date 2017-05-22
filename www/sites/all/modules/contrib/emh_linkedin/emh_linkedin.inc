@@ -24,6 +24,7 @@ function _emh_linkedin_get_profile_fields($uid, $fields = array()) {
 
 	//$row = db_query("SELECT * FROM {linkedin_token} WHERE uid = :uid AND type = :type", array(':uid' => $uid, ':type' => 'access'))->fetchAssoc();
 	$session = _hybridauth_session_load_by_uid($uid);
+	$data_session = hybridauth_get_instance()->getSessionData();
 	$data = unserialize($session['data']);
 	
 	
@@ -31,9 +32,7 @@ function _emh_linkedin_get_profile_fields($uid, $fields = array()) {
 			'token_key' => unserialize($data['hauth_session.linkedin.token.access_token']),
 			'token_secret' => unserialize($data['hauth_session.linkedin.token.access_token_secret'])
 	);
-	
-	//echo 'row : ';
-	//var_dump($row);
+
 	
 	if (!$row || empty($row)) {
 		// This account does not have any LinkedIn account associated with.
@@ -48,16 +47,9 @@ function _emh_linkedin_get_profile_fields($uid, $fields = array()) {
 		return $response;
 	}
 
-	global $user;
-	if ($user->uid == $uid) {
-		//User is requesting his own profile.
-		$tokens = $row;
-		$append = '~';
-		$type = 'auth';
-	}
-	else {
+	
 		//$tokens = db_query("SELECT * FROM {linkedin_token} WHERE uid = :uid AND type = :type", array(':uid' => $user->uid, ':type' => 'access'))->fetchAssoc();
-		$session = _hybridauth_session_load_by_uid($user->uid);
+		$session = _hybridauth_session_load_by_uid($uid);
 		$data = unserialize($session['data']);
 	
 		$tokens = array(
@@ -86,7 +78,7 @@ function _emh_linkedin_get_profile_fields($uid, $fields = array()) {
 			$append = 'id=' . $authname;
 			$type = 'auth';
 		}
-	}
+	
 	
 	$tokens = (array) $tokens;	
 	$append .= _emh_linkedin_build_fields_request($fields, $type);		
@@ -95,7 +87,7 @@ function _emh_linkedin_get_profile_fields($uid, $fields = array()) {
 
 	if (isset($response['error']['status']) && ($response['error']['status'] == 401 || $response['error']['status'] == 403)) {
 		// No relationships between users, switch back to public profile and retry
-		//echo 'test 1<br/>';
+		
 		$tokens = (array) $row;
 		$append = '~:public';
 		$append .= _emh_linkedin_build_fields_request($fields, 'public');
@@ -105,7 +97,7 @@ function _emh_linkedin_get_profile_fields($uid, $fields = array()) {
 	if (isset($response['person'])) {
 		$response = $response['person'];
 	}
-	else {//echo 'test 3<br/>';
+	else {
 		$response = $response['error'];
 	}
 	if (variable_get('linkedin_debug_mode', 0) == 1) {
@@ -114,6 +106,176 @@ function _emh_linkedin_get_profile_fields($uid, $fields = array()) {
 		}
 	}	
 	return $response;
+}
+
+/**
+ * List of LinkedIn fields to complet user profile
+ * @return string[]
+ */
+function _emh_linkedin_fields_build_profile() {
+	//Basic Profile LinkedIn Fields
+	$fields = array(
+			'first-name',
+			'last-name',
+			'location',
+			'num-connections',
+			'summary',
+			'positions',
+			'picture-url',
+			'email-address',
+			'public-profile-url',
+			'headline'
+	);
+	
+	return $fields;
+}
+
+function _emh_linkedin_fields_to_user_fields($field, $user) {
+	
+	if(isset($field['value'])) {
+		$item = $field['value'];
+		
+		
+		switch ($field['name']) {
+			
+			case 'location' :
+				
+				
+				if(empty($user->field_address)) {
+					$user->field_address['und'][0]['thoroughfare'] = $item['name'];
+					
+					$user->field_address['und'][0]['country'] = $item['country']['code'];
+				} else {
+					//maj
+					if(strcmp($user->field_address['und'][0]['thoroughfare'], $item['name']) != 0) {
+						$user->field_address['und'][0]['thoroughfare'] = $item['name'];
+					}
+					if(strcmp($user->field_address['und'][0]['country'], $item['country']['code']) != 0) {
+						$user->field_address['und'][0]['country']=  strtoupper($item['country']['code']);
+					}
+				}			
+				break;
+			
+			case 'num-connections' :
+				
+				if(empty($user->field_nb_contacts_linkedin)) {
+					$user->field_nb_contacts_linkedin['und'][0]['value'] = $item;
+					
+				} else {
+					//maj
+					if(strcmp($user->field_nb_contacts_linkedin['und'][0]['value'], $item) != 0) {
+						$user->field_nb_contacts_linkedin['und'][0]['value'] = $item;
+					}
+				}
+				break;
+				
+			
+			case 'summary' :
+				if(empty($user->field_employment_history)) {
+					$user->field_employment_history['und'][0]['value'] = $item;
+					
+				} else {
+					//maj
+					if(strcmp($user->field_employment_history['und'][0]['value'], $item) != 0) {
+						$user->field_employment_history['und'][0]['value'] = $item;
+					}
+				}
+				break;
+				
+			case 'positions' :
+			
+				//TODO modifier field_position et field_entreprise
+			
+				if(empty($user->field_description_activities)) {					
+					if(isset($item['position']['summary'])) {
+						$user->field_description_activities['und'][0]['value'] = $item['position']['summary'];
+					}					
+				} else {
+					//maj
+					if(strcmp($user->field_description_activities['und'][0]['value'], $item['position']['summary']) != 0) {
+						if(isset($item['position']['summary'])) {
+							$user->field_description_activities['und'][0]['value'] = $item['position']['summary'];
+						}
+					}
+				}
+				break;
+			
+			case 'picture-url' :				
+				
+				//on télécharge maintenant l'image du profile linkdedin
+				$nom_img = $user->name . ".jpg";
+				$dir_name = "sites/default/files/linkedin_profile_image";
+				$path = $dir_name . "/" . $nom_img;
+					
+				$drupal_uri = "public://linkedin_profile_image/" . $nom_img;
+					
+				//si le dossier n'existe pas, on le crée
+				if(!is_dir($dir_name)) {
+					mkdir($dir_name);
+				}
+					
+					
+				if(!file_exists($path)) {
+						
+					$url= $item;
+					$fp = fopen($path, 'w');
+						
+					$ch = curl_init($url);
+					curl_setopt($ch, CURLOPT_FILE, $fp);
+					$data = curl_exec($ch);
+					$curl_errno = curl_errno($ch);
+					$curl_error = curl_error($ch);
+					curl_close($ch);
+					fclose($fp);
+						
+						
+					if ($curl_errno > 0) {
+						unlink($path);
+						watchdog('emh_linkedin', "cURL Error ($curl_errno): $curl_error\n");
+							
+					} else {
+							
+						if(file_exists($path)) {
+								
+							$handle = fopen($path, 'r');
+							$file = file_save_data($handle, $drupal_uri);
+							$user->field_linkedin_image['und'][0]['fid'] = $file->fid;
+							fclose($handle);
+						}											
+					}						
+				}
+				break;	
+				
+			case 'public-profile-url' :
+				$profileURL = $item;				
+				
+				if(empty($user->field_linkedin['und'][0]['url'])) {
+					$user->field_linkedin['und'][0]['url'] = $profileURL;
+				} else {
+					//maj
+					if(strcmp($user->field_linkedin['und'][0]['url'], $profileURL) != 0) {
+						$user->field_linkedin['und'][0]['url'] = $profileURL;
+					}
+				}
+				break;
+				
+			case 'headline' :				
+				
+				if(empty($user->field_titre_metier['und'][0]['value'])) {
+					$user->field_titre_metier['und'][0]['value'] = $item;
+				} else {
+					//maj
+					if(strcmp($user->field_titre_metier['und'][0]['value'], $item) != 0) {
+						$user->field_titre_metier['und'][0]['value'] = $item;
+					}
+				}
+				break;
+		}
+	}
+	
+	
+	return $user;
+	
 }
 
 
@@ -139,6 +301,7 @@ function _emh_linkedin_list_fields($type = 'auth') {
 			'public-profile-url',
 			'positions',
 			'educations',
+			'current-share',
 			//          @TODO //          'site-standard-profile-request', //          'api-standard-profile-request', //          'api-public-profile-request', Deprecated ? //          'site-public-profile-request', Deprecated ? //          'member-url', // Deprecated ?
 	);
 	if ($type == 'auth') {
