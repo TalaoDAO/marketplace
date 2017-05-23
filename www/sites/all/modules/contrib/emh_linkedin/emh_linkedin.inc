@@ -140,18 +140,31 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
 			
 			case 'location' :
 				
+				$country_code = strtoupper($item['country']['code']);				
+				$country = country_get_list()[$country_code];
+				
+				$city = $item['name'];
+				
+				$city= substr($city, 0,strrpos($city, ','));			
+				$city= substr($city, 0,strrpos($city, ' '));
 				
 				if(empty($user->field_address)) {
-					$user->field_address['und'][0]['thoroughfare'] = $item['name'];
 					
-					$user->field_address['und'][0]['country'] = $item['country']['code'];
+					if(strcmp($country,  $item['name']) != 0) {
+						$user->field_address['und'][0]['locality'] = $city;
+					}					
+					
+					
+					$user->field_address['und'][0]['country'] = $country_code;
 				} else {
 					//maj
-					if(strcmp($user->field_address['und'][0]['thoroughfare'], $item['name']) != 0) {
-						$user->field_address['und'][0]['thoroughfare'] = $item['name'];
+					if(strcmp($user->field_address['und'][0]['locality'], $item['name']) != 0) {
+						if(strcmp($country,  $item['name']) != 0) {
+							$user->field_address['und'][0]['locality'] = $city;
+						}
 					}
-					if(strcmp($user->field_address['und'][0]['country'], $item['country']['code']) != 0) {
-						$user->field_address['und'][0]['country']=  strtoupper($item['country']['code']);
+					if(strcmp($user->field_address['und'][0]['country'], $country_code) != 0) {
+						$user->field_address['und'][0]['country']=  $country_code;
 					}
 				}			
 				break;
@@ -184,8 +197,44 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
 				
 			case 'positions' :
 			
-				//TODO modifier field_position et field_entreprise
-			
+				//TODO modifier field_entreprise
+				
+				$title = $item['position']['title'];
+				kpr($title);
+				
+				if(!empty($title)) {
+					
+					$vocab = taxonomy_vocabulary_machine_name_load('position');
+					
+					if(empty($term = taxonomy_get_term_by_name($title,$vocab->machine_name))){
+						//add a new term
+						$new_term = (object) array(
+								'name' => $title,
+								'description' => $title,
+								'vid' => $vocab->vid
+						);
+						
+						taxonomy_term_save($new_term);
+						$term = taxonomy_get_term_by_name($title,$vocab->machine_name);
+					}
+					//maj
+					
+					foreach ($term as $t) {
+						$term = $t;
+						break;
+					}
+					
+					if(empty($user->field_position)) {						
+						$user->field_position['und'][0]['tid'] = $term->tid;						
+					} else {
+						//maj
+						if(strcmp($user->field_position['und'][0]['tid'], $term->tid) != 0) {
+							$user->field_position['und'][0]['tid'] = $term->tid;							
+						}
+					}
+				}
+				
+				
 				if(empty($user->field_description_activities)) {					
 					if(isset($item['position']['summary'])) {
 						$user->field_description_activities['und'][0]['value'] = $item['position']['summary'];
