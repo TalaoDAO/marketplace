@@ -37,16 +37,26 @@ function test_menu() {
 function test_content_2() {
 	$user = user_load(arg(1)/*4426*/, TRUE);
 	
+	/*$vocab = taxonomy_vocabulary_machine_name_load('position');
+	kpr($vocab);
+	kpr($user);
 	
+	if(empty($term = taxonomy_get_term_by_name('A',$vocab->machine_name))){
+		echo 'cest vide';
+	} else {
+		var_dump($term);
+	}*/
 	//echo "user : $user->uid <br>";
 	//var_dump($user);
-	//module_load_include('inc', 'emh_linkedin', 'emh_linkedin');
+	
+	
+	module_load_include('inc', 'emh_linkedin', 'emh_linkedin');
 	$fields = _emh_linkedin_fields_build_profile();
 	$profile = emh_linkedin_get_profile_fields($user->uid, $fields);
 	
 	
 	//var_dump($user);
-	var_dump($profile);
+	kpr($profile);
 	foreach ($profile as $key => $value) {
 		$item = array(
 				'name' => $key,
