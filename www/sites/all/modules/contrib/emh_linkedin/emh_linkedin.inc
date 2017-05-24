@@ -197,100 +197,36 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
 				
 			case 'positions' :
 			
-				//TODO modifier field_entreprise
 				
-				//field_position
-				$title = $item['position']['title'];				
-				
-				if(!empty($title)) {
 					
-					$vocab = taxonomy_vocabulary_machine_name_load('position');
-					
-					if(empty($term = taxonomy_get_term_by_name($title,$vocab->machine_name))){
-						//add a new term
-						$new_term = (object) array(
-								'name' => $title,
-								'description' => $title,
-								'vid' => $vocab->vid
-						);
-						
-						taxonomy_term_save($new_term);
-						$term = taxonomy_get_term_by_name($title,$vocab->machine_name);
-					}
-					//maj
-					$term_tmp = $term;					
-					$term = array_shift($term_tmp);
-					
-					if(empty($user->field_position)) {						
-						$user->field_position['und'][0]['tid'] = $term->tid;						
-					} else {
-						//maj
-						if(strcmp($user->field_position['und'][0]['tid'], $term->tid) != 0) {
-							$user->field_position['und'][0]['tid'] = $term->tid;							
-						}
-					}
-				}
-				
-				//field_entreprise
-				$company_name = $item['position']['company']['name'];
-				$node_name = 'corporate';
-				
-				if(!empty($company_name)) {
-					
-					$company_name = emh_suppr_accents($company_name, 'ISO-8859-1');
-					
-					$query = new EntityFieldQuery();
-					$query->entityCondition('entity_type', 'node')
-					->entityCondition('bundle', $node_name)
-					->propertyCondition('title', $company_name, 'like');
-					$result = $query->execute();
-					
-					if (isset($result['node'])) {						
-						$company = array_shift($result['node']);						
-						
-					} else {
-						//add a new company
-						$company= new stdClass();
-						$company->title = "Les Exploits T";
-						$company->type = "corporate";
-						node_object_prepare($company); // Sets some defaults. Invokes hook_prepare() and hook_node_prepare().
-						$company->language = 'und'; // Or e.g. 'en' if locale is enabled
-						$company->uid = $user->uid;
-						$company->status = 1; //(1 or 0): published or not
-						$company->promote = 1; //(1 or 0): promoted to front page
-						$company->comment = 0; // 0 = comments disabled, 1 = read only, 2 = read/write
-						
-						
-						$company= node_submit($company); // Prepare node for saving
-						node_save($company);
-						
-					}
-					
-					if(empty($user->field_entreprise)) {
-						$user->field_entreprise['und'][0]['target_id'] = $company->nid;
-					} else {
-						//maj
-						if(strcmp($user->field_entreprise['und'][0]['target_id'], $company->nid) != 0) {
-							$user->field_entreprise['und'][0]['target_id'] = $company->nid;
-						}
-					}
-				}
-				
-				
-				
-				//field_description_actiities
-				if(empty($user->field_description_activities)) {					
-					if(isset($item['position']['summary'])) {
-						$user->field_description_activities['und'][0]['value'] = $item['position']['summary'];
-					}					
+				$multiple = false;
+				//pour savoir si l'utilisateur a plusieurs "position"
+				if(array_key_exists(0,$item['position'])) {				
+					$taille = count($item['position']);		
+					$multiple= true;
 				} else {
-					//maj
-					if(strcmp($user->field_description_activities['und'][0]['value'], $item['position']['summary']) != 0) {
-						if(isset($item['position']['summary'])) {
-							$user->field_description_activities['und'][0]['value'] = $item['position']['summary'];
-						}
-					}
+					$taille = 1;
 				}
+				
+				/*for($i = 0 ; $i < $taille ; $i++) {
+					if($multiple) {
+						$position = $item['position'][$i];
+					} else {
+						$position = $item['position'];
+					}
+					
+					_emh_maj_position($user, $position,$i);
+				}*/
+				if($multiple) {
+					$position = $item['position'][0];
+				} else {
+					$position = $item['position'];
+				}
+				
+				$user = _emh_maj_position($user, $position,0);
+				
+				
+				
 				break;
 			
 			case 'picture-url' :				
@@ -370,6 +306,104 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
 	return $user;
 	
 }
+
+function _emh_maj_position($user, $position, $i){
+	
+	//field_position
+	$title = $position['title'];
+	
+	if(!empty($title)) {
+		
+		$vocab = taxonomy_vocabulary_machine_name_load('position');
+		
+		if(empty($term = taxonomy_get_term_by_name($title,$vocab->machine_name))){
+			//add a new term
+			$new_term = (object) array(
+					'name' => $title,
+					'description' => $title,
+					'vid' => $vocab->vid
+			);
+			
+			taxonomy_term_save($new_term);
+			$term = taxonomy_get_term_by_name($title,$vocab->machine_name);
+		}
+		//maj
+		$term_tmp = $term;
+		$term = array_shift($term_tmp);
+		
+		if(empty($user->field_position)) {
+			$user->field_position['und'][$i]['tid'] = $term->tid;
+		} else {
+			//maj
+			if(strcmp($user->field_position['und'][$i]['tid'], $term->tid) != 0) {
+				$user->field_position['und'][$i]['tid'] = $term->tid;
+			}
+		}
+	}
+	
+	//field_entreprise
+	$company_name = $position['company']['name'];
+	$node_name = 'corporate';
+	
+	if(!empty($company_name)) {
+		
+		$company_name = emh_suppr_accents($company_name, 'ISO-8859-1');
+		
+		$query = new EntityFieldQuery();
+		$query->entityCondition('entity_type', 'node')
+		->entityCondition('bundle', $node_name)
+		->propertyCondition('title', $company_name, 'like');
+		$result = $query->execute();
+		
+		if (isset($result['node'])) {
+			$company = array_shift($result['node']);
+			
+		} else {
+			//add a new company
+			$company= new stdClass();
+			$company->title = $position['company']['name'];
+			$company->type = "corporate";
+			node_object_prepare($company); // Sets some defaults. Invokes hook_prepare() and hook_node_prepare().
+			$company->language = 'und'; // Or e.g. 'en' if locale is enabled
+			$company->uid = $user->uid;
+			$company->status = 1; //(1 or 0): published or not
+			$company->promote = 1; //(1 or 0): promoted to front page
+			$company->comment = 0; // 0 = comments disabled, 1 = read only, 2 = read/write
+			
+			
+			$company= node_submit($company); // Prepare node for saving
+			node_save($company);
+			
+		}
+		
+		if(empty($user->field_entreprise)) {
+			$user->field_entreprise['und'][$i]['target_id'] = $company->nid;
+		} else {
+			//maj
+			if(strcmp($user->field_entreprise['und'][$i]['target_id'], $company->nid) != 0) {
+				$user->field_entreprise['und'][$i]['target_id'] = $company->nid;
+			}
+		}
+	}
+	
+	
+	
+	//field_description_actiities
+	if(empty($user->field_description_activities)) {
+		if(isset($position['summary'])) {
+			$user->field_description_activities['und'][$i]['value'] = $position['summary'];
+		}
+	} else {
+		//maj
+		if(strcmp($user->field_description_activities['und'][$i]['value'], $position['summary']) != 0) {
+			if(isset($position['summary'])) {
+				$user->field_description_activities['und'][$i]['value'] = $position['summary'];
+			}
+		}
+	}
+	return $user;
+}
+
 
 
 /*
