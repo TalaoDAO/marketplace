@@ -38,7 +38,7 @@ function test_menu() {
 
 function test_content_2() {
 	$user = user_load(arg(1)/*4426*/, TRUE);
-	
+	kpr($user);
 	/*
 	$query = new EntityFieldQuery();
 	$query->entityCondition('entity_type', 'node')
@@ -95,6 +95,33 @@ function test_content_2() {
 		
 	}
 	kpr($user);
+	/*echo 'field_address';
+	kpr($user->field_address);
+	
+	echo 'field_nb_contacts_linkedin';
+	kpr($user->field_nb_contacts_linkedin);
+	
+	echo 'field_employment_history';
+	kpr($user->field_employment_history);
+		
+	echo 'field_position';
+	kpr($user->field_position);
+	
+	echo 'field_entreprise';
+	kpr($user->field_entreprise);
+	
+	echo 'field_description_activities';
+	kpr($user->field_description_activities);
+	
+	echo 'field_linkedin_image';
+	kpr($user->field_linkedin_image);
+	
+	echo 'field_linkedin';
+	kpr($user->field_linkedin);
+	
+	echo 'field_titre_metier';
+	kpr($user->field_titre_metier);*/
+	
 	
 	
 }
