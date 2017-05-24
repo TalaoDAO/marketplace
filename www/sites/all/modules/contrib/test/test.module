@@ -34,20 +34,47 @@ function test_menu() {
 	return $items;
 }
 
+
+
 function test_content_2() {
 	$user = user_load(arg(1)/*4426*/, TRUE);
 	
-	/*$vocab = taxonomy_vocabulary_machine_name_load('position');
-	kpr($vocab);
-	kpr($user);
+	/*
+	$query = new EntityFieldQuery();
+	$query->entityCondition('entity_type', 'node')
+	->entityCondition('bundle', 'corporate')
+	->propertyCondition('title', '1112 carambolage' , 'like');
 	
-	if(empty($term = taxonomy_get_term_by_name('A',$vocab->machine_name))){
-		echo 'cest vide';
-	} else {
-		var_dump($term);
-	}*/
+	$result = $query->execute();
+	$company = array_shift($result['node']);
+	kpr($company);
+	if (isset($result['node'])) {
+		$news_items_nids = array_keys($result['node']);
+		$news_items = entity_load('node', $news_items_nids);
+		kpr($news_items);
+	} */
+	
+	
+	
+	/*$node = new stdClass();
+	$node->title = "Les Exploits T";
+	$node->type = "corporate";
+	node_object_prepare($node); // Sets some defaults. Invokes hook_prepare() and hook_node_prepare().
+	$node->language = 'und'; // Or e.g. 'en' if locale is enabled
+	$node->uid = $user->uid;
+	$node->status = 1; //(1 or 0): published or not
+	$node->promote = 1; //(1 or 0): promoted to front page
+	$node->comment = 0; // 0 = comments disabled, 1 = read only, 2 = read/write	
+	
+	
+	$node = node_submit($node); // Prepare node for saving
+	node_save($node);
+	
+	kpr($node);*/
+	
+	//kpr(entity_get_info());
 	//echo "user : $user->uid <br>";
-	//var_dump($user);
+	//kpr($user);
 	
 	
 	module_load_include('inc', 'emh_linkedin', 'emh_linkedin');
@@ -68,70 +95,6 @@ function test_content_2() {
 		
 	}
 	kpr($user);
-	
-	
-	//_emh_linkedin_fields_to_user_fields($profile);
-	
-	/*$session = _hybridauth_session_load_by_uid(4413);
-	$data = unserialize($session['data']);
-	var_dump($data);
-	
-	$session = _hybridauth_identity_load_by_uid(4413);
-	$data = unserialize($session['data']);
-	var_dump($session);*/
-	
-	
-	/*$hybridauth = hybridauth_get_instance();
-	$hybridauth->isConnectedWith('LinkedIn');
-	//var_dump(unserialize($hybridauth->getProviders()));
-	$adapter = $hybridauth->getAdapter('LinkedIn');
-	var_dump($adapter->adapter->getUserProfile());*/
-	/*include("sites/all/libraries/hybridauth/hybridauth/Hybrid/thirdparty/LinkedIn/LinkedIn.php");
-	include("sites/all/libraries/hybridauth/hybridauth/Hybrid/Auth.php");
-	$linkedin = new LinkedIn(array(
-			'appKey' => '77eu0gofm5rb9c',
-			'appSecret' => 'e6jUCeac4I9Kj3XG',
-			'callbackUrl' => null
-	));
-	
-	
-	
-	$tokens = $linkedin->retrieveTokenRequest();
-	
-	$token = $tokens['linkedin']['oauth_token'];
-	$secret = $tokens['linkedin']['oauth_token_secret'];
-	$verifier = '9558';
-	
-	
-	var_dump($linkedin->retrieveTokenAccess($token, $secret, $verifier));
-	var_dump($linkedin->getTokenAccess());
-	var_dump($linkedin->profile());*/
-	
-	//include('sites/all/libraries/hybridauth/hybridauth/Hybrid/Providers/LinkedIn.php');
-	
-	//include('sites/all/libraries/hybridauth/hybridauth/Hybrid/Provider_Model.php');
-	
-	//$linkedin = Hybrid_Providers_LinkedIn::initialize();
-	
-	//$profile = $linkedin->profile('~:(num-connections,picture-url)');
-	//var_dump($profile);
-	
-	/*$user = user_load(4413);
-	
-	
-	var_dump($user->field_linkedin_description);
-
-	
-	
-	
-	/*if(file_exists($path)) {
-		$handle = fopen($url, 'r');
-		$file = file_save_data($handle, $drupal_uri);
-		$user->field_linkedin_image['und'][0]['fid'] = $file->fid;
-		fclose($handle);
-	}*/
-	
-	
 	
 	
 }
