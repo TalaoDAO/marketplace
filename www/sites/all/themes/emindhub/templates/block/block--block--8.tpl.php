@@ -27,7 +27,7 @@
     <div class="col-md-12 text-center">
     <?php endif; ?>
       <?php if ($logged_in) : ?>
-        <a class="btn btn-flash icon-community" href="<?php print drupal_get_path_alias('circles'); ?>"><?php print t('Join circles'); ?></a>
+        <a class="btn btn-flash icon-community" href="<?php print $base_url . '/' . drupal_get_path_alias('circles'); ?>"><?php print t('Join circles'); ?></a>
       <?php endif; ?>
 
       <?php if (user_access('create request content')) : ?>
