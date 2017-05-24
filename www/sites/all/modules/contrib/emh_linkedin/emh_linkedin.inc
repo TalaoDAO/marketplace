@@ -199,8 +199,8 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
 			
 				//TODO modifier field_entreprise
 				
-				$title = $item['position']['title'];
-				kpr($title);
+				//field_position
+				$title = $item['position']['title'];				
 				
 				if(!empty($title)) {
 					
@@ -218,11 +218,8 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
 						$term = taxonomy_get_term_by_name($title,$vocab->machine_name);
 					}
 					//maj
-					
-					foreach ($term as $t) {
-						$term = $t;
-						break;
-					}
+					$term_tmp = $term;					
+					$term = array_shift($term_tmp);
 					
 					if(empty($user->field_position)) {						
 						$user->field_position['und'][0]['tid'] = $term->tid;						
@@ -234,7 +231,54 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
 					}
 				}
 				
+				//field_entreprise
+				$company_name = $item['position']['company']['name'];
+				$node_name = 'corporate';
 				
+				if(!empty($company_name)) {
+					
+					$company_name = emh_suppr_accents($company_name, 'ISO-8859-1');
+					
+					$query = new EntityFieldQuery();
+					$query->entityCondition('entity_type', 'node')
+					->entityCondition('bundle', $node_name)
+					->propertyCondition('title', $company_name, 'like');
+					$result = $query->execute();
+					
+					if (isset($result['node'])) {						
+						$company = array_shift($result['node']);						
+						
+					} else {
+						//add a new company
+						$company= new stdClass();
+						$company->title = "Les Exploits T";
+						$company->type = "corporate";
+						node_object_prepare($company); // Sets some defaults. Invokes hook_prepare() and hook_node_prepare().
+						$company->language = 'und'; // Or e.g. 'en' if locale is enabled
+						$company->uid = $user->uid;
+						$company->status = 1; //(1 or 0): published or not
+						$company->promote = 1; //(1 or 0): promoted to front page
+						$company->comment = 0; // 0 = comments disabled, 1 = read only, 2 = read/write
+						
+						
+						$company= node_submit($company); // Prepare node for saving
+						node_save($company);
+						
+					}
+					
+					if(empty($user->field_entreprise)) {
+						$user->field_entreprise['und'][0]['target_id'] = $company->nid;
+					} else {
+						//maj
+						if(strcmp($user->field_entreprise['und'][0]['target_id'], $company->nid) != 0) {
+							$user->field_entreprise['und'][0]['target_id'] = $company->nid;
+						}
+					}
+				}
+				
+				
+				
+				//field_description_actiities
 				if(empty($user->field_description_activities)) {					
 					if(isset($item['position']['summary'])) {
 						$user->field_description_activities['und'][0]['value'] = $item['position']['summary'];
