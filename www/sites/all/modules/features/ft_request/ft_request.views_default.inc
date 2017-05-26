@@ -29,43 +29,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['access']['role'] = array(
     2 => '2',
   );
-  $handler->display->display_options['cache']['type'] = 'views_content_cache';
-  $handler->display->display_options['cache']['results_min_lifespan'] = '-1';
-  $handler->display->display_options['cache']['results_max_lifespan'] = '21600';
-  $handler->display->display_options['cache']['output_min_lifespan'] = '-1';
-  $handler->display->display_options['cache']['output_max_lifespan'] = '21600';
-  $handler->display->display_options['cache']['keys'] = array(
-    'comment' => array(
-      'changed' => 'changed',
-    ),
-    'node' => array(
-      'circle' => 'circle',
-      'corporate' => 'corporate',
-      'request' => 'request',
-      'article' => 0,
-      'page' => 0,
-      'blog' => 0,
-      'challenge' => 0,
-      'faq' => 0,
-      'landing_page' => 0,
-      'webform' => 0,
-      'public_request' => 0,
-      'question1' => 0,
-    ),
-    'node_only' => array(
-      'node_changed' => 0,
-    ),
-    'og' => array(
-      'current' => 0,
-      'user' => 0,
-    ),
-    'votingapi' => array(
-      'tag:vote' => 0,
-      'function:count' => 0,
-      'function:average' => 0,
-      'function:sum' => 0,
-    ),
-  );
+  $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['distinct'] = TRUE;
   $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
