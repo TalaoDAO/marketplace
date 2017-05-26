@@ -90,7 +90,6 @@ function emh_user_default_rules_configuration() {
     "REQUIRES" : [ "rules", "user_registrationpassword", "hybridauth" ],
     "ON" : {
       "user_registrationpassword_activated" : [],
-      "user_login" : [],
       "hybridauth_user_login" : [],
       "hybridauth_user_insert" : []
     },
