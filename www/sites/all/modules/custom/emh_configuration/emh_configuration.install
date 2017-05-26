@@ -1453,3 +1453,11 @@ function emh_configuration_update_7072() {
 function emh_configuration_update_7073() {
   module_enable(['views_dependent_filters']);
 }
+
+/**
+ * ADD: module entityreference_filter.
+ */
+function emh_configuration_update_7074() {
+    module_enable(['entityreference_filter']);
+}
+
