@@ -784,7 +784,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['views_dependent_filter']['table'] = 'views';
   $handler->display->display_options['filters']['views_dependent_filter']['field'] = 'views_dependent_filter';
   $handler->display->display_options['filters']['views_dependent_filter']['group'] = 1;
-  $handler->display->display_options['filters']['views_dependent_filter']['controller_filter'] = 'title_2';
+  $handler->display->display_options['filters']['views_dependent_filter']['controller_filter'] = 'field_entreprise_target_id_entityreference_filter';
   $handler->display->display_options['filters']['views_dependent_filter']['controller_values'] = '';
   $handler->display->display_options['filters']['views_dependent_filter']['dependent_filters'] = array(
     'field_hide_organisation_value' => 'field_hide_organisation_value',
@@ -1051,7 +1051,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['views_dependent_filter']['table'] = 'views';
   $handler->display->display_options['filters']['views_dependent_filter']['field'] = 'views_dependent_filter';
   $handler->display->display_options['filters']['views_dependent_filter']['group'] = 1;
-  $handler->display->display_options['filters']['views_dependent_filter']['controller_filter'] = 'title_2';
+  $handler->display->display_options['filters']['views_dependent_filter']['controller_filter'] = 'field_entreprise_target_id_entityreference_filter';
   $handler->display->display_options['filters']['views_dependent_filter']['controller_values'] = '';
   $handler->display->display_options['filters']['views_dependent_filter']['dependent_filters'] = array(
     'field_hide_organisation_value' => 'field_hide_organisation_value',
@@ -1520,7 +1520,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['views_dependent_filter']['table'] = 'views';
   $handler->display->display_options['filters']['views_dependent_filter']['field'] = 'views_dependent_filter';
   $handler->display->display_options['filters']['views_dependent_filter']['group'] = 1;
-  $handler->display->display_options['filters']['views_dependent_filter']['controller_filter'] = 'title_2';
+  $handler->display->display_options['filters']['views_dependent_filter']['controller_filter'] = 'field_entreprise_target_id_entityreference_filter';
   $handler->display->display_options['filters']['views_dependent_filter']['controller_values'] = '';
   $handler->display->display_options['filters']['views_dependent_filter']['dependent_filters'] = array(
     'field_hide_organisation_value' => 'field_hide_organisation_value',
