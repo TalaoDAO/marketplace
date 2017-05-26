@@ -594,19 +594,19 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['status']['value'] = 1;
   $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Title */
-  $handler->display->display_options['filters']['title_2']['id'] = 'title_2';
-  $handler->display->display_options['filters']['title_2']['table'] = 'node';
-  $handler->display->display_options['filters']['title_2']['field'] = 'title';
-  $handler->display->display_options['filters']['title_2']['relationship'] = 'field_entreprise_target_id';
-  $handler->display->display_options['filters']['title_2']['operator'] = 'word';
-  $handler->display->display_options['filters']['title_2']['group'] = 1;
-  $handler->display->display_options['filters']['title_2']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['title_2']['expose']['operator_id'] = 'title_2_op';
-  $handler->display->display_options['filters']['title_2']['expose']['label'] = 'Company';
-  $handler->display->display_options['filters']['title_2']['expose']['operator'] = 'title_2_op';
-  $handler->display->display_options['filters']['title_2']['expose']['identifier'] = 'title_2';
-  $handler->display->display_options['filters']['title_2']['expose']['remember_roles'] = array(
+  /* Filter criterion: Field: Organisation (field_entreprise) (reference filter) */
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['id'] = 'field_entreprise_target_id_entityreference_filter';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['table'] = 'field_data_field_entreprise';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['field'] = 'field_entreprise_target_id_entityreference_filter';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['relationship'] = 'uid';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['group'] = 1;
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['expose']['operator_id'] = 'field_entreprise_target_id_entityreference_filter_op';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['expose']['label'] = 'Entreprise';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['expose']['operator'] = 'field_entreprise_target_id_entityreference_filter_op';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['expose']['identifier'] = 'field_entreprise_target_id_entityreference_filter';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     3 => 0,
@@ -616,6 +616,7 @@ function ft_request_views_default_views() {
     7 => 0,
     10 => 0,
   );
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['reference_display'] = 'entreprise_list:entityreference_entreprise';
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'node';
@@ -861,19 +862,19 @@ function ft_request_views_default_views() {
     7 => 0,
     10 => 0,
   );
-  /* Filter criterion: Content: Title */
-  $handler->display->display_options['filters']['title_2']['id'] = 'title_2';
-  $handler->display->display_options['filters']['title_2']['table'] = 'node';
-  $handler->display->display_options['filters']['title_2']['field'] = 'title';
-  $handler->display->display_options['filters']['title_2']['relationship'] = 'field_entreprise_target_id';
-  $handler->display->display_options['filters']['title_2']['operator'] = 'word';
-  $handler->display->display_options['filters']['title_2']['group'] = 1;
-  $handler->display->display_options['filters']['title_2']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['title_2']['expose']['operator_id'] = 'title_2_op';
-  $handler->display->display_options['filters']['title_2']['expose']['label'] = 'Company';
-  $handler->display->display_options['filters']['title_2']['expose']['operator'] = 'title_2_op';
-  $handler->display->display_options['filters']['title_2']['expose']['identifier'] = 'title_2';
-  $handler->display->display_options['filters']['title_2']['expose']['remember_roles'] = array(
+  /* Filter criterion: Field: Organisation (field_entreprise) (reference filter) */
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['id'] = 'field_entreprise_target_id_entityreference_filter';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['table'] = 'field_data_field_entreprise';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['field'] = 'field_entreprise_target_id_entityreference_filter';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['relationship'] = 'uid';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['group'] = 1;
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['expose']['operator_id'] = 'field_entreprise_target_id_entityreference_filter_op';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['expose']['label'] = 'Entreprise';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['expose']['operator'] = 'field_entreprise_target_id_entityreference_filter_op';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['expose']['identifier'] = 'field_entreprise_target_id_entityreference_filter';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     3 => 0,
@@ -883,6 +884,7 @@ function ft_request_views_default_views() {
     7 => 0,
     10 => 0,
   );
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['reference_display'] = 'entreprise_list:entityreference_entreprise';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -1330,19 +1332,19 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['status']['value'] = 1;
   $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Title */
-  $handler->display->display_options['filters']['title_2']['id'] = 'title_2';
-  $handler->display->display_options['filters']['title_2']['table'] = 'node';
-  $handler->display->display_options['filters']['title_2']['field'] = 'title';
-  $handler->display->display_options['filters']['title_2']['relationship'] = 'field_entreprise_target_id';
-  $handler->display->display_options['filters']['title_2']['operator'] = 'word';
-  $handler->display->display_options['filters']['title_2']['group'] = 1;
-  $handler->display->display_options['filters']['title_2']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['title_2']['expose']['operator_id'] = 'title_2_op';
-  $handler->display->display_options['filters']['title_2']['expose']['label'] = 'Company';
-  $handler->display->display_options['filters']['title_2']['expose']['operator'] = 'title_2_op';
-  $handler->display->display_options['filters']['title_2']['expose']['identifier'] = 'title_2';
-  $handler->display->display_options['filters']['title_2']['expose']['remember_roles'] = array(
+  /* Filter criterion: Field: Organisation (field_entreprise) (reference filter) */
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['id'] = 'field_entreprise_target_id_entityreference_filter';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['table'] = 'field_data_field_entreprise';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['field'] = 'field_entreprise_target_id_entityreference_filter';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['relationship'] = 'uid';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['group'] = 1;
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['expose']['operator_id'] = 'field_entreprise_target_id_entityreference_filter_op';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['expose']['label'] = 'Entreprise';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['expose']['operator'] = 'field_entreprise_target_id_entityreference_filter_op';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['expose']['identifier'] = 'field_entreprise_target_id_entityreference_filter';
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     3 => 0,
@@ -1352,6 +1354,7 @@ function ft_request_views_default_views() {
     7 => 0,
     10 => 0,
   );
+  $handler->display->display_options['filters']['field_entreprise_target_id_entityreference_filter']['reference_display'] = 'entreprise_list:entityreference_entreprise';
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
   $handler->display->display_options['filters']['type_1']['table'] = 'node';
