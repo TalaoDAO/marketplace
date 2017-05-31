@@ -76,13 +76,12 @@ function test_content_2() {
 	//echo "user : $user->uid <br>";
 	//kpr($user);
 	
-	
+	/*
 	module_load_include('inc', 'emh_linkedin', 'emh_linkedin');
 	$fields = _emh_linkedin_fields_build_profile();
 	$profile = emh_linkedin_get_profile_fields($user->uid, $fields);
 	
 	
-	//var_dump($user);
 	kpr($profile);
 	foreach ($profile as $key => $value) {
 		$item = array(
@@ -94,7 +93,7 @@ function test_content_2() {
 		
 		
 	}
-	kpr($user);
+	kpr($user);*/
 	/*echo 'field_address';
 	kpr($user->field_address);
 	
@@ -130,7 +129,7 @@ function test_content_2() {
 
 function test_content() {
 	
-	$time_start = microtime(true);
+	/*$time_start = microtime(true);
 	$user = user_load(4413);
 	//var_dump($user);
 	$path = $user->name . "_1234.jpg";
