@@ -112,7 +112,7 @@ function emh_linkedin_linkedin_user_edit_perms() {
 
 /*
  * Implementation of hook_module_implements_alter
- */
+ *//*
 function emh_linkedin_module_implements_alter(&$implementations, $hook) {
 
 	switch ($hook) {
@@ -127,41 +127,56 @@ function emh_linkedin_module_implements_alter(&$implementations, $hook) {
 			}
 			break;
 	}
-}
+}*/
 
-function emh_linkedin_user_login(&$edit, $account) {
-	
-	
-	// Try to get HybridAuth instance.
-	if ($hybridauth = hybridauth_get_instance()) {
-		if (is_object($hybridauth)) {
-			// Call Hybrid_Auth::getSessionData() to get stored data.
-			if ($hybridauth_session_data = $hybridauth->getSessionData()) {
-				_hybridauth_session_save($hybridauth_session_data, $account->uid);
-			}
-		}
-	}
+/*
+ * Implementation of hook_hybridauth_user_login
+ */
+function emh_linkedin_hybridauth_user_login($account, $data) {
+	module_load_include('inc', 'emh_linkedin', 'emh_linkedin');
 	
 	$user = user_load($account->uid, TRUE);
 	
-	module_load_include('inc', 'emh_linkedin', 'emh_linkedin');
-	$fields = _emh_linkedin_fields_build_profile();
-	$profile = emh_linkedin_get_profile_fields($user->uid, $fields);
-	
-	
-	foreach ($profile as $key => $value) {
-		$item = array(
-				'name' => $key,
-				'value' => $value,
-		);
-		$user = _emh_linkedin_fields_to_user_fields($item,$user);
+	if(_emh_linkedin_update_user($user)) {
 		
-	}	
-	user_save($user);
-	
+		// Try to get HybridAuth instance.
+		if ($hybridauth = hybridauth_get_instance()) {
+			if (is_object($hybridauth)) {
+				// Call Hybrid_Auth::getSessionData() to get stored data.
+				if ($hybridauth_session_data = $hybridauth->getSessionData()) {
+					_hybridauth_session_save($hybridauth_session_data, $account->uid);
+				}
+			}
+		}
+		
+		
+		$fields = _emh_linkedin_fields_build_profile();
+		$profile = emh_linkedin_get_profile_fields($user->uid, $fields);
+		
+		
+		foreach ($profile as $key => $value) {
+			$item = array(
+					'name' => $key,
+					'value' => $value,
+			);
+			$user = _emh_linkedin_fields_to_user_fields($item,$user);
+			
+		}
+		$user->data['emh_linkedin_update'] = FALSE;
+		user_save($user);
+	} 
 	
 	
 }
+
+
+/*
+ * Implementation of hook_hybridauth_userinfo_alter
+ */
+function emh_linkedin_hybridauth_userinfo_alter(&$userinfo, $data) {	
+	$userinfo['data']['emh_linkedin_update'] = true;	
+}
+
 
 /**
  * Supprimer les accents
@@ -406,7 +421,7 @@ function _emh_linkedin_vget_user_page_linkedin_fields() {
  * @see http://drupal.org/node/1354
  */
 function emh_linkedin_get_profile_fields($uid, $fields = array()) {
-	module_load_include('inc', 'linkedin');
+	module_load_include('inc', 'emh_linkedin');
 	return _emh_linkedin_get_profile_fields($uid, $fields);
 }
 
