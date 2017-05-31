@@ -130,6 +130,19 @@ function _emh_linkedin_fields_build_profile() {
 	return $fields;
 }
 
+/**
+ * Return boolean if user can to update profile to linkedin.
+ * @param unknown $user
+ * @return unknown|boolean
+ */
+function _emh_linkedin_update_user($user) {
+	if(isset($user->data['emh_linkedin_update'])) {
+		return $user->data['emh_linkedin_update'];
+	}
+	return FALSE;
+}
+
+
 function _emh_linkedin_fields_to_user_fields($field, $user) {
 	
 	if(isset($field['value'])) {
@@ -538,6 +551,7 @@ function _emh_linkedin_http_request($url, $header, $body = NULL) {
 	curl_close($ch);
 	return $output;
 }
+
 
 /*
  * Parser function. Based on xml2array() by Binny V A :  http://www.bin-co.com/php/scripts/xml2array/
