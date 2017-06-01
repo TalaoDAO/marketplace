@@ -662,7 +662,7 @@ function ft_request_views_default_views() {
     7 => 0,
     10 => 0,
   );
-  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['reference_display'] = 'circles:entityreference_1';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['reference_display'] = 'user_circle_list:entityreference_1';
   /* Filter criterion: Content: Choose a public request type (field_request_type) (translated) */
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['id'] = 'field_request_type_tid_i18n';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['table'] = 'field_data_field_request_type';
@@ -2000,7 +2000,7 @@ function ft_request_views_default_views() {
     7 => 0,
     10 => 0,
   );
-  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['reference_display'] = 'circles:entityreference_1';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['reference_display'] = 'user_circle_list:entityreference_1';
   /* Filter criterion: Content: Choose a public request type (field_request_type) (translated) */
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['id'] = 'field_request_type_tid_i18n';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['table'] = 'field_data_field_request_type';
@@ -3526,7 +3526,7 @@ function ft_request_views_default_views() {
     7 => 0,
     10 => 0,
   );
-  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['reference_display'] = 'circles:entityreference_1';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['reference_display'] = 'user_circle_list:entityreference_1';
   /* Filter criterion: Flags: Flagged */
   $handler->display->display_options['filters']['flagged']['id'] = 'flagged';
   $handler->display->display_options['filters']['flagged']['table'] = 'flagging';
@@ -4845,7 +4845,7 @@ function ft_request_views_default_views() {
     7 => 0,
     10 => 0,
   );
-  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['reference_display'] = 'circles:entityreference_1';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['reference_display'] = 'user_circle_list:entityreference_1';
   /* Filter criterion: User: Current */
   $handler->display->display_options['filters']['uid_current']['id'] = 'uid_current';
   $handler->display->display_options['filters']['uid_current']['table'] = 'users';
