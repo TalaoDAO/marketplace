@@ -17,7 +17,9 @@ class views_dependent_filters_handler_filter_dependent extends views_handler_fil
     // This hacks subsequent handlers' options so they are no longer exposed.
     // Incoming values from these on submit will be simply ignored.
     foreach ($this->filters_kill as $filter_id) {
-      $this->view->filter[$filter_id]->options['exposed'] = FALSE;
+      //$this->view->filter[$filter_id]->options['exposed'] = FALSE;
+      //YBA: do not just hide the filter but disable it completely
+      unset($this->view->filter[$filter_id]);
     }
   }
 
@@ -269,14 +271,16 @@ class views_dependent_filters_handler_filter_dependent extends views_handler_fil
       if (!$this->view->filter[$filter_id]->options['expose']['multiple']) {
         $input = array($input);
       }
+      //dsm($controller_values);
       $intersection = array_intersect($input, $controller_values);
       if (!count($intersection)) {
         $this->filters_kill = $dependency_info['dependents'];
       }
+      if (count($input)) $this->filters_kill = array();
     }
 
     // We can kill the dependent filters now.
-    // $this->filters_disable();
+    $this->filters_disable();
 
     // ...alternatively, leave them there so their form is shown, but prevent
     // them from collecting input.
