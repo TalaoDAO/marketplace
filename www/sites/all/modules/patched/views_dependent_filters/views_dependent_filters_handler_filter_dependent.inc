@@ -271,7 +271,6 @@ class views_dependent_filters_handler_filter_dependent extends views_handler_fil
       if (!$this->view->filter[$filter_id]->options['expose']['multiple']) {
         $input = array($input);
       }
-      //dsm($controller_values);
       $intersection = array_intersect($input, $controller_values);
       if (!count($intersection)) {
         $this->filters_kill = $dependency_info['dependents'];
