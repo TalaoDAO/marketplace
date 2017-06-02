@@ -10,6 +10,9 @@
  * Alters options costs in function of circles.
  */
 function emh_circles_emh_request_options_costs_alter(&$costs, $node) {
+  $AJAX = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
+  if ($AJAX) { return;  }
+
   $circle_items = field_get_items('node', $node, 'og_group_ref');
 
   if ($circle_items) {
