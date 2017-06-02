@@ -30,10 +30,10 @@ Feature: Request Option Questionnaire
     | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  | field_request_type |
     | How to become a superhero?  | Energy        |              | client1 | 2020-02-08 17:45:00    | 0       | Mission            |
 
-    Given I am logged in as a user with the "administrator" role
-      And the user "client1" is a member of the group "Avengers"
-      And the user "expert1" is a member of the group "Avengers"
+    Given the user "client1" is a member of the group "Avengers"
+    Given the user "expert1" is a member of the group "Avengers"
 
+    Given I am logged in as a user with the "administrator" role
     When I go to "admin/emindhub/credits"
     Then I fill in "Questionnaire" with "300"
       And I press "Save configuration"
