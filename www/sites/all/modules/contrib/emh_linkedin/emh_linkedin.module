@@ -58,6 +58,17 @@ function emh_linkedin_menu() {
   		'file' => 'emh_linkedin.pages.inc',
   );
   
+  // User settings form : used by submodules.
+  $items['user/%user/edit/emh_linkedin'] = array(
+  		'title' => 'Linkedin',
+  		'type' => MENU_LOCAL_TASK,
+  		'page callback' => 'emh_linkedin_user_settings',
+  		'file' => 'emh_linkedin.pages.inc',
+  		'page arguments' => array(1),
+  		'access callback' => 'emh_linkedin_user_access', //access arguments don't support multiple arguments, so create our access handler
+  		'access arguments' => array(1),
+  );
+  
   
   
   return $items;
@@ -174,7 +185,28 @@ function emh_linkedin_hybridauth_user_login($account, $data) {
  * Implementation of hook_hybridauth_userinfo_alter
  */
 function emh_linkedin_hybridauth_userinfo_alter(&$userinfo, $data) {	
+	
+	module_load_include('inc', 'emh_linkedin', 'emh_linkedin');
+	$user_fields = _emh_linkedin_fields_user_update();
+	$fields = array();
+	foreach ($user_fields as $value) {
+		$fields[$value] = TRUE;
+	}
+	$userinfo['data']['emh_linkedin_fields'] = $fields;	
+	
 	$userinfo['data']['emh_linkedin_update'] = true;	
+}
+
+/*
+ * Implementation of hook_hybridauth_user_insert
+ */
+function emh_linkedin_hybridauth_user_insert($account, $data) {
+	$user_fields = _emh_linkedin_fields_user_update();
+	$fields = array();
+	foreach ($user_fields as $value) {
+		$fields[$value] = $value;
+	}
+	variable_set('emh_linkedin_user_page_linkedin_fields_' . $account->uid, $fields);
 }
 
 
@@ -356,7 +388,7 @@ function emh_linkedin_theme($existing, $type, $theme, $path) {
  * Implements of hook_user_delete()
  */
 function emh_linkedin_user_delete($account) {
-	$nom_img = $account->name . ".jpg";
+	/*$nom_img = $account->name . ".jpg";
 	$dir_name = "sites/default/files/linkedin_profile_image";
 	$path = $dir_name . "/" . $nom_img;
 	
@@ -364,7 +396,8 @@ function emh_linkedin_user_delete($account) {
 		watchdog('emh_linkedin', 'Linkedin profile picture has been deleted');
 	} else {
 		watchdog('emh_linkedin', 'Error to delete a LinkedIn profile pricture => ' . $path);
-	}
+	}*/
+	variable_del('emh_linkedin_user_page_linkedin_fields_'.$account->uid);
 	
 	
 }
@@ -408,6 +441,24 @@ function _emh_linkedin_vget_user_page_linkedin_fields() {
 }
 
 
+function _emh_linkedin_fields_user($uid) {
+
+	$user = user_load($uid);
+	$fields = array();
+	$var_fields = (array) $user->data['emh_linkedin_fields'];
+	//watchdog('emh_save_user_fields3', print_r($user->data['emh_linkedin_fields'],true));
+	if(isset($var_fields)) {
+		foreach ($var_fields as $key => $field) {
+			if ($field) {
+				$fields[] = $key;				
+			}
+		}
+	}
+	
+	return $fields;
+}
+
+
 /*
  * Let us retrieve profile fields.
  * Returns an array contening the fields requested.
@@ -440,4 +491,49 @@ function emh_linkedin_get_profile_fields($uid, $fields = array()) {
 function emh_linkedin_get_fields($url, $tokens) {
 	module_load_include('inc', 'emh_linkedin');
 	return _emh_linkedin_get_fields($url, $tokens);
+}
+
+
+
+/*
+ * Custom access callback for user/%user/edit/linkedin
+ */
+
+/**
+ * @todo Please document this function.
+ * @see http://drupal.org/node/1354
+ */
+function emh_linkedin_user_access($account) {
+	global $user;
+	if ($user->uid == $account->uid) {
+		// Check if some perms have been defined by submodules.
+		$perms = module_invoke_all('emh_linkedin_user_edit_perms');
+		foreach ($perms as $perm) {
+			if (user_access($perm)) {
+				return TRUE;
+			}
+		}
+		if (module_exists('hybridauth')) {
+			return TRUE;
+		}
+	}
+	if (variable_get('linkedin_debug_mode', 0) == 1) {
+		if ($user->uid != $account->uid) {
+			drupal_set_message(t('LinkedIn debug : Access denied to /emh_linkedin/token/@requested.<br />
+      Requesting user (uid @requesting) is different from the requested account (uid @requested)', array('@requested' => $account->uid, '@requesting' => $user->uid)));
+			return FALSE;
+		}
+		if (empty($perms)) {
+			drupal_set_message(t('LinkedIn debug : Access denied to /emh_linkedin/token/@requested.<br />
+      No module is implementing hook_linkedin_user_edit_perms. Enable at least one submodule and check permissions'));
+			return FALSE;
+		}
+		foreach ($perms as $perm) {
+			$permissions .= $perm . ', ';
+		}
+		drupal_set_message(t('LinkedIn debug : Access denied to /linkedin/token/@requested.<br />
+      User must have at least one of these permissions : @permissions', array('@permissions' => $permissions)));
+	}
+	
+	return FALSE;
 }
