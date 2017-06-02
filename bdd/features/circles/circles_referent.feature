@@ -37,12 +37,13 @@ Feature: Requests visibility for Référent
     | Fight Hydra   | Drones         | Avengers        | client1 | 2020-02-08 17:45:00    | 1       |
     | Fight Thanos  | Drones         | Avengers, X-Men | client1 | 2020-02-08 17:45:00    | 1       |
 
+    Given the user "client1" is an admin of the group "Avengers"
+    Given the user "expert1" is a member of the group "Avengers"
+    Given the user "client2" is an admin of the group "X-Men"
+    Given the user "expert4" is a member of the group "X-Men"
+
     # Make référent1 as a Referent member of Avengers circle
     Given I am logged in as a user with the "administrator" role
-      And the user "client1" is an admin of the group "Avengers"
-      And the user "expert1" is a member of the group "Avengers"
-      And the user "client2" is an admin of the group "X-Men"
-      And the user "expert4" is a member of the group "X-Men"
     When I go to "content/avengers"
       And I click "Administrate" in the "primary tabs" region
       And I click "People" in the "content" region
