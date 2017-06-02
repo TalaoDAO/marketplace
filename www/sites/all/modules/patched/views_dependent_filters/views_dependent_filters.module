@@ -33,6 +33,7 @@ function views_dependent_filters_exposed_form_after_build($form, $form_state) {
     // Build up the CTools #dependency item to put onto each dependent element.
     $form_dependency = array();
     foreach ($dependency_info['controllers'] as $filter_id => $controller_values) {
+      if (!isset($dependency_info['identifiers'][$filter_id])) continue;
       $identifier = $dependency_info['identifiers'][$filter_id];
       // Regular form.
       $filter_html_id = views_dependent_filters_recreate_html_id($identifier);
