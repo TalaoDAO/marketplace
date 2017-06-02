@@ -1,4 +1,4 @@
-(function ($) {
+/*(function ($) {
     $(document).ready(function () {
       /* Check if we are in safari */
         var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -15,4 +15,4 @@
             });
         }
     });
-})(jQuery);
+})(jQuery);*/
