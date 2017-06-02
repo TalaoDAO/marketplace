@@ -130,6 +130,43 @@ function _emh_linkedin_fields_build_profile() {
 	return $fields;
 }
 
+
+function _emh_linkedin_fields_user_update() {
+	//Basic Profile LinkedIn Fields
+	$fields = array(						
+			'location',			
+			'summary',
+			'positions',
+			'picture-url',
+			'email-address',
+			'public-profile-url',
+			'headline'
+	);
+	
+	return $fields;
+}
+
+function _emh_linkedin_get_user_fields($user) {
+	$user_fields = array_keys($user->data['emh_linkedin_fields']);
+	$fields = array();
+	foreach ($user_fields as $value) {
+		$fields[] = $value;
+	}
+	
+	return $fields;
+}
+
+function _emh_linkedin_fields_default_user_update() {
+	//Basic Profile LinkedIn Fields
+	$fields = array(
+			'first-name',
+			'last-name',			
+			'num-connections'
+	);
+	
+	return $fields;
+}
+
 /**
  * Return boolean if user can to update profile to linkedin.
  * @param unknown $user
@@ -660,3 +697,129 @@ function _emh_linkedin_parse_fields($contents) {
 
 	return ($xml_array);
 }
+
+/*
+function emh_linkedin_access_token($account) {
+	//Get sure library is loaded before doing anything.
+	emh_linkedin_init();
+	
+	if ($account->uid < 1) {
+		$anon = TRUE;
+		$back = 'login';
+	}
+	else {
+		$anon = FALSE;
+		$back = 'token';
+	}
+	//setting up variables
+	$base_url = "https://api.linkedin.com/uas/oauth";
+	$signature = new OAuthSignatureMethod_HMAC_SHA1();
+	$consumer_key = variable_get('hybridauth_provider_LinkedIn_keys_key', '');
+	$consumer_secret = variable_get('hybridauth_provider_LinkedIn_keys_secret', '');
+	$consumer = new OAuthConsumer($consumer_key, $consumer_secret, NULL);
+	$random = md5(rand());
+	$callback = url('linkedin/' . $back . '/' . $account->uid, array('absolute' => TRUE, 'query' => array('action' => $random))); // random will be used to discard direct call to the path and for anonymous
+	// First or renewal request
+	if (!isset($_GET['action']) || $_GET['action'] != $_SESSION['random']) {
+		$_SESSION['random'] = $random;
+		$url = $base_url . "/requestToken";
+		$request = OAuthRequest::from_consumer_and_token($consumer, NULL, 'POST', $url);
+		$request->set_parameter("oauth_callback", $callback);
+		$request->sign_request($signature, $consumer, NULL);
+		$header = $request->to_header();
+		$response = _linkedin_http_request($url, $header, 'token_request');
+		parse_str($response, $oauth);
+		if (isset($oauth['oauth_problem'])) {
+			if (variable_get('linkedin_debug_mode', 0) == 1) {
+				drupal_set_message(t('LinkedIn debug : received error response : @error'), array('@error' => $oauth['oauth_problem']), 'warning');
+			}
+			else {
+				drupal_set_message(t('There was a problem with the configuration of LinkedIn on this website. Please try again later.'), 'error');
+			}
+			watchdog('linkedin', t('Linkedin reported the following response : @error'), array('@error' => $oauth['oauth_problem']), WATCHDOG_ERROR);
+			drupal_goto();
+		}
+		if ($oauth['oauth_token']) {
+			
+			if (!$anon) { // Logged in user : store request token for next step in db instead of $_SESSION for security
+				db_delete('linkedin_token')
+				->condition('uid', $account->uid)
+				->execute();
+				$sql = array(
+						'uid' => $account->uid,
+						'token_key' => $oauth['oauth_token'],
+						'token_secret' => $oauth['oauth_token_secret'],
+						'type' => 'request',
+				);
+				drupal_write_record('linkedin_token', $sql);
+				//Redirect the user to the authentication/authorisation page. This will authorise the token in LinkedIn
+				drupal_goto($base_url . '/authorize?oauth_token=' . $oauth['oauth_token']);
+			}
+			else { // Anonymous user. We can't use db storage, but $_SESSION can not lead to identity forgery for anonymous
+				$_SESSION['oauth_token_secret'] = $oauth['oauth_token_secret'];
+				//Redirect the user to the authentication/authorisation page. This will authorise the token in LinkedIn
+				drupal_goto($base_url . '/authenticate?oauth_token=' . $oauth['oauth_token']);
+			}
+		}
+		else {
+			if (variable_get('linkedin_debug_mode', 0) == 1) {
+				drupal_set_message(t('LinkedIn debug : received no answer from linkedin.com. Check your API credential at admin/settings/linkedin'));
+			}
+			else {
+				drupal_set_message(t('There was a problem with the configuration of LinkedIn on this website. Please try again later.'), 'error');
+			}
+			watchdog('linkedin', t('The website could not communicate with LinkedIn. It is likely your API credentials are misconfigured.'), array(), WATCHDOG_ERROR);
+			drupal_goto();
+		}
+	}
+	else {
+		//this is called when the OAuth callback is invoked. User has authorised the token.
+		//Now retrieve the stored request token and ask for an access token
+		
+		$url = $base_url . '/accessToken';
+		if (!$anon) {
+			$result = db_query("SELECT token_secret FROM {linkedin_token} WHERE uid = :uid AND type = :type", array(':uid' => $account->uid, ':type' => 'request'))->fetchField();
+		}
+		else {
+			$result = $_SESSION['oauth_token_secret'];
+		}
+		$token = new OAuthConsumer($_REQUEST['oauth_token'], $result, 1);
+		$request = OAuthRequest::from_consumer_and_token($consumer, $token, "POST", $url);
+		$request->set_parameter("oauth_verifier", $_REQUEST['oauth_verifier']);
+		$request->sign_request($signature, $consumer, $token);
+		$header = $request->to_header();
+		$response = _linkedin_http_request($url, $header, 'token_request');
+		parse_str($response, $oauth);
+		if (!$anon) {
+			//Check if the same LinkedIn account is not already tied to another user
+			$result = db_query("SELECT uid FROM {linkedin_token} WHERE token_key = :token_key AND token_secret = :token_secret AND type = :type ", array(':token_key' => $oauth['oauth_token'], ':token_secret' => $oauth['oauth_token_secret'], ':type' => 'access'))->fetchField();
+			if ($result) {
+				$registered = user_load($result);
+				drupal_set_message(t('Sorry, this LinkedIn account is already associated with user !registered', array('!registered' => l($registered->name, 'user/' . $result))), 'warning');
+				drupal_goto('user/' . $account->uid . '/edit/linkedin');
+			}
+			//save acces token for future requests
+			$sql = array(
+					'uid' => $account->uid,
+					'token_key' => $oauth['oauth_token'],
+					'token_secret' => $oauth['oauth_token_secret'],
+					'type' => 'access',
+			);
+			drupal_write_record('linkedin_token', $sql, array('uid'));
+			//associate LinkedIn ID with uid for future use
+			$id = linkedin_get_profile_fields($account->uid, array('id'), TRUE);
+			user_set_authmaps($account, array('authmap_linkedin' => $id['id']));
+			drupal_goto("user/$account->uid/edit/linkedin");
+		}
+		else {
+			$uid = db_query("SELECT uid FROM {linkedin_token} WHERE token_key = :token_key AND token_secret = :token_secret AND type = :type ", array(':token_key' => $oauth['oauth_token'], ':token_secret' => $oauth['oauth_token_secret'], ':type' => 'access'))->fetchField();
+			
+			if ($uid > 0) {
+				module_invoke_all('linkedin_external_login', $uid);
+			}
+			else {
+				module_invoke_all('linkedin_tie_external_login', $uid, $oauth['oauth_token'], $oauth['oauth_token_secret']);
+			}
+		}
+	}
+}*/
