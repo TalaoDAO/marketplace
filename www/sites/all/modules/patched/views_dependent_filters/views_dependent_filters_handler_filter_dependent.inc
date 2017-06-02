@@ -267,6 +267,7 @@ class views_dependent_filters_handler_filter_dependent extends views_handler_fil
       $identifier = $filters[$filter_id]->options['expose']['identifier'];
       // Get the input for this filter.
       $input = $form_state['input'][$identifier];
+      if (!empty($input)) continue;
       // Convert values for non-multiple filters to an array.
       if (!$this->view->filter[$filter_id]->options['expose']['multiple']) {
         $input = array($input);
@@ -275,7 +276,7 @@ class views_dependent_filters_handler_filter_dependent extends views_handler_fil
       if (!count($intersection)) {
         $this->filters_kill = $dependency_info['dependents'];
       }
-      if (count($input)) $this->filters_kill = array();
+      else $this->filters_kill = array();
     }
 
     // We can kill the dependent filters now.
