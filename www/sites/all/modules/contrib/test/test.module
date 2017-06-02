@@ -38,6 +38,8 @@ function test_menu() {
 
 function test_content_2() {
 	$user = user_load(arg(1)/*4426*/, TRUE);
+	
+
 	kpr($user);
 	/*
 	$query = new EntityFieldQuery();
