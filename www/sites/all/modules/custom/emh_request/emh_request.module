@@ -372,7 +372,6 @@ function emh_request_publication_form($form, &$form_state, $request) {
  */
 function emh_request_publication_form_validate($form, &$form_state) {
   $values = $form_state['values'];
-
   if (isset($values['costs'])) {
     global $user;
 
@@ -432,7 +431,6 @@ function emh_request_publication_form_submit($form, &$form_state) {
 function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
   if (in_array($form['#node']->type, emh_request_get_types())) {
     $AJAX = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
-    if ($AJAX) { return; }
 
     // Sets action buttons labels.
     if (module_exists('save_draft')) {
@@ -451,6 +449,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
     // Treatments for generic requests.
     if ($form['#node']->type == 'request') {
 
+
       // FIXME & TODO: la surcharge empêche l'affichage du multiupload
       // $form['field_request_documents'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
       // $form['field_image'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
@@ -465,16 +464,18 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       // we are in the first edition step of a new request :
       // disable everything to force click on Request Type.
       {
-          $form['body']['#disabled'] = TRUE;
-          $form['language']['#disabled'] = TRUE;
-          $form['field_domaine']['#disabled'] = TRUE;
-          $form['field_expiration_date']['#disabled'] = TRUE;
-          $form['field_image']['#disabled'] = TRUE;
-          $form['field_tags']['#disabled'] = TRUE;
-          $form['title_field']['#disabled'] = TRUE;
-          $form['og_group_ref']['#disabled'] = TRUE;
-          $form['field_options']['#disabled'] = TRUE;
-          $form['field_request_questions']['#disabled'] = TRUE;
+          if (!$AJAX) {
+            $form['body']['#disabled'] = TRUE;
+            $form['language']['#disabled'] = TRUE;
+            $form['field_domaine']['#disabled'] = TRUE; //NEED AJAX CHECK
+            $form['field_expiration_date']['#disabled'] = TRUE;
+            $form['field_image']['#disabled'] = TRUE;
+            $form['field_tags']['#disabled'] = TRUE;
+            $form['title_field']['#disabled'] = TRUE;
+            $form['og_group_ref']['#disabled'] = TRUE;
+            $form['field_options']['#disabled'] = TRUE;
+            $form['field_request_questions']['#disabled'] = TRUE; //NEED AJAX CHECK
+          }
       }
 
       // Request being created or already created & unpublished.
@@ -491,7 +492,14 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
           $term = taxonomy_term_load($tid);
           if (isset($term->field_circle_restriction[LANGUAGE_NONE])) {
             // Prevent to change the circle.
-            $form['og_group_ref']['#disabled'] = TRUE;
+            // BUG AVOIDING: AJAX works poorly with disabled :
+            // https://drupal.stackexchange.com/questions/46399/submitting-disabled-fields-on-content-entry-forms
+            // make chosen readonly, but chosen bugged so ...
+            $form['og_group_ref']['#after_build'][]='_build_element_readonly';
+            // ... remove all other groups since there is only one possible
+            $gid = $term->field_circle_restriction[LANGUAGE_NONE][0]['target_id'];
+            $group = node_load($gid);
+            $form['og_group_ref']['und']['#options'] = array($gid => $group->title);
           }
         }
 
@@ -504,13 +512,15 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
           // Prevents to delete the request.
           $form['actions']['delete']['#access'] = FALSE;
           // Prevents to update some fields.
-          $form['field_domaine']['#disabled'] = TRUE;
-          $form['og_group_ref']['#disabled'] = TRUE;
-          $form['field_options']['#disabled'] = TRUE;
-          $form['field_request_type']['#disabled'] = TRUE;
-          $form['title_field']['#disabled'] = TRUE;
+          if (!$AJAX) {
+            $form['field_domaine']['#disabled'] = TRUE;
+            $form['og_group_ref']['#disabled'] = TRUE;
+            $form['field_options']['#disabled'] = TRUE;
+            $form['field_request_type']['#disabled'] = TRUE;
+            $form['title_field']['#disabled'] = TRUE;
+          }
           if (emh_request_count_answers($form['nid']['#value']) != 0) {
-            $form['field_request_questions']['#disabled'] = TRUE;
+            if (!$AJAX) $form['field_request_questions']['#disabled'] = TRUE;
           }
         }
       }
@@ -522,12 +532,14 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       if ($form['#node']->status == NODE_PUBLISHED && emh_request_count_answers($form['nid']['#value'] != 0)) {
         if (!user_access('modify requests')) {
           // Prevents domains & circles update.
-          $form['field_domaine']['#disabled'] = TRUE;
-          $form['og_group_ref']['#disabled'] = TRUE;
-          $form['field_options']['#disabled'] = TRUE;
-          $form['field_request_circle']['#disabled'] = TRUE;
-          $form['title_field']['#disabled'] = TRUE;
-          $form['field_request_type']['#disabled'] = TRUE;
+          if (!$AJAX) {
+            $form['field_domaine']['#disabled'] = TRUE;
+            $form['og_group_ref']['#disabled'] = TRUE;
+            $form['field_options']['#disabled'] = TRUE;
+            $form['field_request_circle']['#disabled'] = TRUE;
+            $form['title_field']['#disabled'] = TRUE;
+            $form['field_request_type']['#disabled'] = TRUE;
+          }
         }
       }
     }
@@ -563,16 +575,25 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
     // Hide node access.
     $form['group_content_access']['#access'] = FALSE;
 
-    // Load only circles which user is member of.
-    global $user;
-    $groups = og_get_groups_by_user($user, 'node');
-    $user_groups = array();
-    foreach ($groups as $group) {
-      $node = node_load($group);
-      $user_groups[$group] = $node->title;
+    // In case the circles are restricted, do not rebuild them.
+    if (!isset($form['og_group_ref']['und']['#options'] )) {
+      // Load only circles which user is member of.
+      global $user;
+      $groups = og_get_groups_by_user($user, 'node');
+      $user_groups = array();
+      foreach ($groups as $group) {
+        $node = node_load($group);
+        $user_groups[$group] = $node->title;
+      }
+      $form['og_group_ref'][LANGUAGE_NONE]['#options'] = $user_groups;
     }
-    $form['og_group_ref'][LANGUAGE_NONE]['#options'] = $user_groups;
   }
+}
+
+// cosmetic only since readonoly is not respected by chosen
+function _build_element_readonly($element, &$form_state) {
+  $element['#attributes']['class'][] = 'chosen-disabled'; 
+  return $element;
 }
 
 /**
