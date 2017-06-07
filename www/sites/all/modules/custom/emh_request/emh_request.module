@@ -535,6 +535,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
           $form['field_request_circle']['#disabled'] = TRUE;
           $form['title_field']['#disabled'] = TRUE;
           $form['field_request_type']['#disabled'] = TRUE;
+          $form['og_group_ref']['#disabled'] = TRUE;
         }
       }
     }
