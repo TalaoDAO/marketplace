@@ -93,34 +93,6 @@ function emh_circles_menu_alter(&$items) {
 }
 
 /**
- * Implements hook_menu_local_tasks_alter().
- */
-function emh_circles_menu_local_tasks_alter(&$data, $router_item, $root_path) {
-  // Hide Edit tab in circle node type.
-  // @see https://www.drupal.org/node/2367395#comment-11883487
-  $type = NULL;
-  foreach ($router_item['map'] as $map) {
-    if (!isset($map->type)) {
-      continue;
-    }
-    if ($map->type == 'circle') {
-      $type = $map->type;
-      break;
-    }
-  }
-
-  if ($type == NULL) {
-    return;
-  }
-
-  foreach ($data['tabs'][0]['output'] as $key => $value) {
-    if ($value['#link']['path'] == 'node/%/edit') {
-      unset($data['tabs'][0]['output'][$key]);
-    }
-  }
-}
-
-/**
  * Provide an overview of the administrator menu items.
  *
  * @param string $entity_type
@@ -197,6 +169,47 @@ function emh_circles_og_ui_get_group_admin_alter(&$data, $context) {
 
   if (module_exists('og_manager_change') && !og_user_access_entity('administer group', $context['entity_type'], $context['etid'], $user)) {
     unset($data['manager']);
+  }
+}
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function emh_circles_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  // Hide Edit tab in circle node type.
+  // @see https://www.drupal.org/node/2367395#comment-11883487
+  $type = NULL;
+  foreach ($router_item['map'] as $map) {
+    if (!isset($map->type)) {
+      continue;
+    }
+    if ($map->type == 'circle') {
+      $type = $map->type;
+      break;
+    }
+  }
+
+  if ($type == NULL) {
+    return;
+  }
+
+  foreach ($data['tabs'][0]['output'] as $key => $value) {
+    if ($value['#link']['path'] == 'node/%/edit') {
+      unset($data['tabs'][0]['output'][$key]);
+    }
+  }
+}
+
+/**
+ * Implements hook_translated_menu_link_alter().
+ */
+function emh_circles_translated_menu_link_alter(&$item, $map) {
+  if (!empty($item['link_path']) && $item['router_path'] == 'node/%') {
+    $alias = $item['link_path'];
+    $node = menu_get_object('node', 1, $alias);
+
+    $item['access'] = (!empty($node) && $node->type == 'circle') ? TRUE : FALSE;
+    $item['hidden'] = (!empty($node) && $node->type == 'circle') ? FALSE : TRUE;
   }
 }
 
