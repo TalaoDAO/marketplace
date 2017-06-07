@@ -512,15 +512,13 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
           // Prevents to delete the request.
           $form['actions']['delete']['#access'] = FALSE;
           // Prevents to update some fields.
-          if (!$AJAX) {
-            $form['field_domaine']['#disabled'] = TRUE;
-            $form['og_group_ref']['#disabled'] = TRUE;
-            $form['field_options']['#disabled'] = TRUE;
-            $form['field_request_type']['#disabled'] = TRUE;
-            $form['title_field']['#disabled'] = TRUE;
-          }
+          $form['field_domaine']['#disabled'] = TRUE;
+          $form['field_options']['#disabled'] = TRUE;
+          $form['field_request_type']['#disabled'] = TRUE;
+          $form['og_group_ref']['#disabled'] = TRUE;
+          $form['title_field']['#disabled'] = TRUE;
           if (emh_request_count_answers($form['nid']['#value']) != 0) {
-            if (!$AJAX) $form['field_request_questions']['#disabled'] = TRUE;
+            $form['field_request_questions']['#disabled'] = TRUE;
           }
         }
       }
@@ -532,14 +530,11 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
       if ($form['#node']->status == NODE_PUBLISHED && emh_request_count_answers($form['nid']['#value'] != 0)) {
         if (!user_access('modify requests')) {
           // Prevents domains & circles update.
-          if (!$AJAX) {
-            $form['field_domaine']['#disabled'] = TRUE;
-            $form['og_group_ref']['#disabled'] = TRUE;
-            $form['field_options']['#disabled'] = TRUE;
-            $form['field_request_circle']['#disabled'] = TRUE;
-            $form['title_field']['#disabled'] = TRUE;
-            $form['field_request_type']['#disabled'] = TRUE;
-          }
+          $form['field_domaine']['#disabled'] = TRUE;
+          $form['field_options']['#disabled'] = TRUE;
+          $form['field_request_circle']['#disabled'] = TRUE;
+          $form['title_field']['#disabled'] = TRUE;
+          $form['field_request_type']['#disabled'] = TRUE;
         }
       }
     }
