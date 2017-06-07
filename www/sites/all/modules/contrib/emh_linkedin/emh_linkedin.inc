@@ -147,10 +147,12 @@ function _emh_linkedin_fields_user_update() {
 }
 
 function _emh_linkedin_get_user_fields($user) {
-	$user_fields = array_keys($user->data['emh_linkedin_fields']);
+	$user_fields = $user->data['emh_linkedin_fields'];
+	ddl($user_fields,'user fields !!');
 	$fields = array();
-	foreach ($user_fields as $value) {
-		$fields[] = $value;
+	foreach ($user_fields as $key => $value) {
+		if($value)
+		$fields[] = $key;
 	}
 	
 	return $fields;
