@@ -459,7 +459,7 @@ function emh_circles_views_default_views() {
   $handler->display->display_options['path'] = 'circles';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Join circles';
-  $handler->display->display_options['menu']['weight'] = '-50';
+  $handler->display->display_options['menu']['weight'] = '999';
   $handler->display->display_options['menu']['name'] = 'menu-top';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
