@@ -340,7 +340,6 @@ function emh_linkedin_user_delete($account) {
 	}*/
 	variable_del('emh_linkedin_user_page_linkedin_fields_'.$account->uid);
 	
-	
 }
 
 
