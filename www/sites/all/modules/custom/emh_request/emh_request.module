@@ -586,7 +586,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 
-// cosmetic only since readonoly is not respected by chosen
+// Cosmetic only since readonly is not respected by chosen.
 function _build_element_readonly($element, &$form_state) {
   $element['#attributes']['class'][] = 'chosen-disabled'; 
   return $element;
