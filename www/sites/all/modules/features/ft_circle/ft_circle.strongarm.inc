@@ -150,7 +150,7 @@ function ft_circle_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'menu_options_circle';
   $strongarm->value = array(
-    0 => 'main-menu',
+    0 => 'menu-top',
   );
   $export['menu_options_circle'] = $strongarm;
 
@@ -158,7 +158,7 @@ function ft_circle_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'menu_parent_circle';
-  $strongarm->value = 'main-menu:0';
+  $strongarm->value = 'menu-top:7577';
   $export['menu_parent_circle'] = $strongarm;
 
   $strongarm = new stdClass();
