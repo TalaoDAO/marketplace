@@ -148,45 +148,48 @@ function emh_linkedin_admin_submit(&$form_state) {
  * @see http://drupal.org/node/1354
  */
 function emh_linkedin_user_update_submit(&$form_state) {
-	global $user;	
+	global $user;
+	$user_update = user_load($user->uid);
 	module_load_include('inc', 'emh_linkedin', 'emh_linkedin');
-	$user_fields = _emh_linkedin_get_user_fields($user);
+	$user_fields = _emh_linkedin_get_user_fields($user_update);
 	$fields = array_merge($user_fields,_emh_linkedin_fields_default_user_update());
 	$profile = emh_linkedin_get_profile_fields($user->uid, $fields);	
 	
-	watchdog('emh_link_user 1',print_r($profile,true));
 	foreach ($profile as $key => $value) {
 		$item = array(
 				'name' => $key,
 				'value' => $value,
 		);
-		$user = _emh_linkedin_fields_to_user_fields($item,$user);
-		
+		$user_update= _emh_linkedin_fields_to_user_fields($item,$user_update);
 	}
-	user_save($user);
+	user_save($user_update);
 	
 	if(!isset($profile['error'])) {
 		drupal_set_message(t('Successful update'));
 	}
-	
-	menu_rebuild();
+	//$form_state['redirect'] = 'user/' . $user_update->uid;
+	//menu_rebuild();
 }
 
 
 function emh_linkedin_user_submit(&$form_state) {
+	
 	global $user;
+	$user_settings = user_load($user->uid);
+	
 	$user_fields = variable_get('emh_linkedin_user_page_linkedin_fields_' . $user->uid);
 	foreach ($user_fields as $key => $field) {
 		if ($field !== 0) {
-			if(isset($user->data['emh_linkedin_fields'])) {
-				$user->data['emh_linkedin_fields'][$key] = true;
+			if(isset($user_settings->data['emh_linkedin_fields'])) {
+				$user_settings->data['emh_linkedin_fields'][$key] = true;
 			}
 		} else {
-			$user->data['emh_linkedin_fields'][$key] = false;
+			$user_settings->data['emh_linkedin_fields'][$key] = false;
 		}
 	}
-	user_save($user);
-	menu_rebuild();
+	
+	user_save($user_settings);
+	//menu_rebuild();
 }
 
 /*
@@ -233,8 +236,7 @@ function emh_linkedin_display($account) {
 function emh_linkedin_user_settings($account) {
 	$output = '';
 	$check = emh_linkedin_get_profile_fields($account->uid, array('first-name', 'last-name', 'public-profile-url'), TRUE);
-	//$form = drupal_get_form('emh_linkedin_user_settings_fields',$account);
-	//$output .= drupal_render($form);
+
 	if (isset($check['error-code'])) {
 		$output .= t('You must first authorize LinkedIn integration to use related features.');
 		$form = drupal_get_form('emh_linkedin_user_enable_form', $account->uid);
@@ -262,15 +264,17 @@ function emh_linkedin_user_settings($account) {
  */
 function emh_linkedin_user_update_form($form, $form_state, $uid) {
 	
-	$form = array();
+	
+    $form = array();
 	$form['#user'] = $uid;
-	$form['#action'] = url('user/' . $uid);
+	
 	$form['submit'] = array(
 			'#type' => 'submit',
 			'#value' => t('Update'),
-			'#submit' => 'emh_linkedin_user_update_submit',
 	);
-	
+	//$form['redirect'] = 'user/' . $uid;
+	$form['#submit'][] = 'emh_linkedin_user_update_submit';
+	//$form['#action'] = url('user/' . $uid);
 	
 	return $form;
 }
@@ -286,14 +290,17 @@ function emh_linkedin_user_update_form($form, $form_state, $uid) {
  * @see http://drupal.org/node/1354
  */
 function emh_linkedin_user_enable_form($form, $form_state, $uid) {
+	
 	$form = array();
 	$form['#user'] = $uid;
 	$form['#action'] = url('/hybridauth/window/LinkedIn?destination=node/323&destination_error=node/323&width=800&height=500&iframe=true');
+	
 	$form['submit'] = array(
 			'#type' => 'submit',
 			'#value' => t('Go to LinkedIn'),
 			'#suffix' => '<p class="description">' . t('You will be taken to the LinkedIn website in order to complete the process.') . '</p>',
 	);
+	
 	return $form;
 }
 
