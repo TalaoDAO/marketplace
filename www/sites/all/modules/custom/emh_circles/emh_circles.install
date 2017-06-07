@@ -386,3 +386,42 @@ function emh_circles_update_7023() {
   emh_circles_disable_strings();
   emh_circles_enable_strings();
 }
+
+/**
+ * CHG: Circles menu.
+ */
+function emh_circles_update_7024() {
+  // All circles.
+  db_update('menu_links')
+    ->fields(array(
+      'link_title' => 'Join circles',
+      'weight' => '999',
+    ))
+    ->condition('mlid', '9138')
+    ->execute();
+  menu_cache_clear_all();
+
+  // Create each circle link.
+  features_revert(array('ft_circle' => array('ctools')));
+  $nodes = node_load_multiple(array(), array('type' => 'circle'));
+  unset($nodes['314']);
+  foreach ($nodes as $node) {
+    $item = array(
+      'link_path' => "node/$node->nid",
+      'link_title' => $node->title,
+      'menu_name' => 'menu-top',
+      'plid' => '7577',
+    );
+    menu_link_save($item);
+  }
+
+  $item = array(
+    'link_path' => '<separator>',
+    'link_title' => 'Circles separator',
+    'menu_name' => 'menu-top',
+    'weight' => 998,
+    'plid' => '7577',
+  );
+  menu_link_save($item);
+  menu_cache_clear_all();
+}
