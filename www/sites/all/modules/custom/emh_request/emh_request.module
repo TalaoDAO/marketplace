@@ -572,7 +572,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
     $form['group_content_access']['#access'] = FALSE;
 
     // In case the circles are restricted, do not rebuild them.
-    if (!isset($form['og_group_ref']['und']['#options'] )) {
+    if (isset($_REQUEST['edit']['field_request_type'])) {
       // Load only circles which user is member of.
       global $user;
       $groups = og_get_groups_by_user($user, 'node');
