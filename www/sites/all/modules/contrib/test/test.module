@@ -39,8 +39,9 @@ function test_menu() {
 function test_content_2() {
 	$user = user_load(arg(1)/*4426*/, TRUE);
 	
-
-	kpr($user);
+	//user_save($user);
+	//ddl($user);
+	//kpr($user);
 	/*
 	$query = new EntityFieldQuery();
 	$query->entityCondition('entity_type', 'node')
@@ -78,7 +79,7 @@ function test_content_2() {
 	//echo "user : $user->uid <br>";
 	//kpr($user);
 	
-	/*
+	
 	module_load_include('inc', 'emh_linkedin', 'emh_linkedin');
 	$fields = _emh_linkedin_fields_build_profile();
 	$profile = emh_linkedin_get_profile_fields($user->uid, $fields);
@@ -95,7 +96,7 @@ function test_content_2() {
 		
 		
 	}
-	kpr($user);*/
+	kpr($user);
 	/*echo 'field_address';
 	kpr($user->field_address);
 	

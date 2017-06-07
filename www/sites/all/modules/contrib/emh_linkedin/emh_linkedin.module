@@ -236,65 +236,6 @@ function emh_suppr_accents($str, $encoding='utf-8')
 
 
 /**
- * Implements hook_user_load().
- *//*
-function emh_linkedin_user_load($users) {
-	
-  if (variable_get('emh_linkedin_user_page_enabled', 0) > 0) {
-  	
-    foreach ($users as $account) {
-    	
-    	
-      module_load_include('inc', 'emh_linkedin', 'emh_linkedin');
-      $fields = _emh_linkedin_vget_user_page_linkedin_fields();
-      $profile = emh_linkedin_get_profile_fields($account->uid, $fields);
-
-     watchdog('emh_link_pro', print_r($profile,true));
-      
-      if (!isset($profile['error-code'])) {
-        //Let themers hook into items
-        $multiples = array(
-          'positions' => 'position',
-          'educations' => 'education',
-        );
-        foreach ($profile as $key => $value) {
-          $item = array(
-            'name' => $key,
-            'value' => $value,
-          );
-          //deal with multi-values structured fields
-          if (array_key_exists($key, $multiples)) {
-            $items = array();
-            $items_val = $profile[$key][$multiples[$key]];
-            if (is_array($items_val)) {
-              if ($items_val['id']) {
-                $variables[$multiples[$key]] = $items_val;
-                $items[] = theme('emh_linkedin_user_page_' . $multiples[$key] . '_item', $variables);
-              }
-              else {
-                foreach ($items_val as $item_val) {
-                  $variables[$multiples[$key]] = $item_val;
-                  $items[] = theme('emh_linkedin_user_page_' . $multiples[$key] . '_item', $variables);
-                }
-              }
-              $variables[$key] = $items;
-              $item['value'] = theme('emh_linkedin_user_page_' . $key, $variables);
-            }
-            else {
-              unset($item['value']);
-            }
-          }
-          //Simpler fields go directly through generic theme function
-          if (!empty($item['value'])) {
-            $account->linkedin[$key] = theme('emh_linkedin_user_page_item', array('item' => $item));
-          }
-        }
-      }
-    }
-  }
-}*/
-
-/**
  * Implements hook_user_view().
  */
 function emh_linkedin_user_view($account, $view_mode) {
@@ -446,7 +387,7 @@ function _emh_linkedin_fields_user($uid) {
 	$user = user_load($uid);
 	$fields = array();
 	$var_fields = (array) $user->data['emh_linkedin_fields'];
-	//watchdog('emh_save_user_fields3', print_r($user->data['emh_linkedin_fields'],true));
+	
 	if(isset($var_fields)) {
 		foreach ($var_fields as $key => $field) {
 			if ($field) {
