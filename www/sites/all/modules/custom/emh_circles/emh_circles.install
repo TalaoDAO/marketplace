@@ -386,3 +386,16 @@ function emh_circles_update_7023() {
   emh_circles_disable_strings();
   emh_circles_enable_strings();
 }
+
+/**
+ * CHG: All circles link title.
+ */
+function emh_circles_update_7024() {
+  // All circles.
+  db_update('menu_links')
+    ->fields(array(
+      'link_title' => 'Join circles',
+    ))
+    ->condition('mlid', '9138')
+    ->execute();
+}
