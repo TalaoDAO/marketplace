@@ -58,7 +58,7 @@ exclude[css][] = 'sites/all/modules/contrib/field_collection/field_collection.th
 ;;;;;;;;;;;;;;;;;;;;;
 
 scripts[] = 'dist/script.min.js'
-scripts[] = 'libraries/bootstrap/js/affix.js'
+;scripts[] = 'libraries/bootstrap/js/affix.js'
 scripts[] = 'libraries/bootstrap/js/alert.js'
 ;scripts[] = 'libraries/bootstrap/js/button.js'
 ;scripts[] = 'libraries/bootstrap/js/carousel.js'
