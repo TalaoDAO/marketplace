@@ -1,60 +1,60 @@
 @media (min-width: @screen-md-min) {
   nav#main-nav {
-		.navbar-fixed-top;
+    .navbar-fixed-top;
     border-bottom: 1px solid @navbar-default-border;
-	}
+  }
 
-	body {
-		padding-top: @navbar-height + 1px;
+  body {
+    padding-top: @navbar-height + 1px;
 
-		&.logged-in.admin-menu {
+    &.logged-in.admin-menu {
       nav#main-nav {
         top: @emh-admin-menu-height;
       }
-		}
-	}
+    }
+  }
 }
 
 /* HEADER
  * User menu
  */
 #system-user-menu {
-	.nav {
-		text-transform: none;
-		> li > a,
-		> li > span {
-			color: @blue-base;
-			cursor: pointer;
-		}
-		> li.open > span,
-		> li.open > span * {
-			color: #FFF;
-		}
-	}
+  .nav {
+    text-transform: none;
+    > li > a,
+    > li > span {
+      color: @blue-base;
+      cursor: pointer;
+    }
+    > li.open > span,
+    > li.open > span * {
+      color: #FFF;
+    }
+  }
 
   .nav > li.last.leaf > a {
-		padding-right: 0 !important;
-		padding-left: 5px !important;
-	}
+    padding-right: 0 !important;
+    padding-left: 5px !important;
+  }
 
   .badge {
     font-size: .85em;
     background-color: @orange;
   }
 
-	@media (min-width: @screen-md-min) {
+  @media (min-width: @screen-md-min) {
     border-left: 1px solid @gray-lighter;
 
-		.nav {
-			float: right;
+    .nav {
+      float: right;
 
       > li > span {
-				text-overflow: ellipsis;
-				white-space: nowrap;
-				max-width: 250px;
-			}
-		}
-	}
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 250px;
+      }
+    }
+  }
 }
 
 /* HEADER
@@ -62,55 +62,64 @@
  */
 body.not-logged-in {
   nav#main-nav {
-  	.emh-module;
+    .emh-module;
   }
 }
 
 nav#main-nav {
-	margin-bottom: 0;
-	font-weight: 600;
+  margin-bottom: 0;
+  font-weight: 600;
 
-	// Active
-	.nav > li.active,
-	.nav > li.active-trail {
-		> a,
-		> span.dropdown-toggle {
-			color: @brand-primary;
-		}
-	}
+  // Active
+  .nav > li.active,
+  .nav > li.active-trail {
+    > a,
+    > span.dropdown-toggle {
+      color: @brand-primary;
+    }
+  }
 
-	.nav > li > a,
-	.nav > li > span.dropdown-toggle {
-		.text-left;
-		cursor: pointer;
-	}
+  .nav > li > a,
+  .nav > li > span.dropdown-toggle {
+    .text-left;
+    cursor: pointer;
+  }
 
-	.nav {
-		.open,
-		.open.active,
-		.open.active-trail {
-			> a,
-			> a:hover,
-			> a:focus,
-			> span.dropdown-toggle,
-			> span.dropdown-toggle:hover,
-			> span.dropdown-toggle:focus {
-		    background-color: @brand-primary;
-		    color: #FFF;
-			}
-		}
-	}
+  .nav {
+    .open,
+    .open.active,
+    .open.active-trail {
+      > a,
+      > a:hover,
+      > a:focus,
+      > span.dropdown-toggle,
+      > span.dropdown-toggle:hover,
+      > span.dropdown-toggle:focus {
+        background-color: @brand-primary;
+        color: #FFF;
+      }
+    }
+  }
 
-	.dropdown-menu {
-		border: 0;
-		background-color: @brand-primary;
-		padding: 0;
-		box-shadow: none;
-		> li > a {
-			color: #FFF;
-			padding: 5px 20px;
-		}
-	}
+  .dropdown-menu {
+    border: 0;
+    background-color: @brand-primary;
+    padding: 0;
+    box-shadow: none;
+
+    > li > a {
+      color: #FFF;
+      padding: 5px 20px;
+    }
+
+    span.separator {
+      hr {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        border-color: lighten(@brand-primary, 5%);
+      }
+    }
+  }
 
   .nav > li {
     &#create-request {
@@ -127,9 +136,9 @@ nav#main-nav {
   }
 
   .burger-menu-btn-container {
-  	position: absolute;
-  	margin-left: -50px;
-  	margin-top: @navbar-padding-vertical - @padding-base-vertical - 1px;
+    position: absolute;
+    margin-left: -50px;
+    margin-top: @navbar-padding-vertical - @padding-base-vertical - 1px;
   }
 }
 
@@ -137,7 +146,7 @@ nav#main-nav {
  * Banner
  */
 header#page-header {
-	background-color: #FFF;
+  background-color: #FFF;
 }
 
 #bootstrap-languages-language {
@@ -170,14 +179,14 @@ header#page-header {
 }
 
 #menu-menu-top-anonymous {
-	&.nav > li > a,
-	&.nav > li > span.dropdown-toggle {
-		.text-uppercase;
-	}
+  &.nav > li > a,
+  &.nav > li > span.dropdown-toggle {
+    .text-uppercase;
+  }
 }
 
 #menu-user-login {
-	.navbar-text {
-		color: @pattens-blue;
-	}
+  .navbar-text {
+    color: @pattens-blue;
+  }
 }
