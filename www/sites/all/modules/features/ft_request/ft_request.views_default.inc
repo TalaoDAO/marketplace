@@ -349,6 +349,11 @@ function ft_request_views_default_views() {
     'link' => 0,
   );
   $handler->display->display_options['fields']['og_group_ref']['delta_offset'] = '0';
+  /* Field: Node: EMH Request organisation name - if not hidden by user */
+  $handler->display->display_options['fields']['request_nothidden_entreprise']['id'] = 'request_nothidden_entreprise';
+  $handler->display->display_options['fields']['request_nothidden_entreprise']['table'] = 'node';
+  $handler->display->display_options['fields']['request_nothidden_entreprise']['field'] = 'request_nothidden_entreprise';
+  $handler->display->display_options['fields']['request_nothidden_entreprise']['label'] = 'Organisation';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -544,6 +549,21 @@ function ft_request_views_default_views() {
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['og_group_ref_target_id']['id'] = 'og_group_ref_target_id';
+  $handler->display->display_options['relationships']['og_group_ref_target_id']['table'] = 'og_membership';
+  $handler->display->display_options['relationships']['og_group_ref_target_id']['field'] = 'og_group_ref_target_id';
+  /* Relationship: Content: Author */
+  $handler->display->display_options['relationships']['uid']['id'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['table'] = 'node';
+  $handler->display->display_options['relationships']['uid']['field'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['required'] = TRUE;
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['id'] = 'field_entreprise_target_id';
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['table'] = 'field_data_field_entreprise';
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['field'] = 'field_entreprise_target_id';
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['relationship'] = 'uid';
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['required'] = TRUE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Title */
@@ -574,6 +594,28 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['status']['value'] = 1;
   $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Title */
+  $handler->display->display_options['filters']['title_1']['id'] = 'title_1';
+  $handler->display->display_options['filters']['title_1']['table'] = 'node';
+  $handler->display->display_options['filters']['title_1']['field'] = 'title';
+  $handler->display->display_options['filters']['title_1']['relationship'] = 'field_entreprise_target_id';
+  $handler->display->display_options['filters']['title_1']['operator'] = 'word';
+  $handler->display->display_options['filters']['title_1']['group'] = 1;
+  $handler->display->display_options['filters']['title_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['title_1']['expose']['operator_id'] = 'title_1_op';
+  $handler->display->display_options['filters']['title_1']['expose']['label'] = 'Entreprise';
+  $handler->display->display_options['filters']['title_1']['expose']['operator'] = 'title_1_op';
+  $handler->display->display_options['filters']['title_1']['expose']['identifier'] = 'title_1';
+  $handler->display->display_options['filters']['title_1']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    10 => 0,
+  );
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'node';
@@ -598,6 +640,28 @@ function ft_request_views_default_views() {
     10 => 0,
   );
   $handler->display->display_options['filters']['type']['expose']['reduce'] = TRUE;
+  /* Filter criterion: Content: Choose circle of experts (og_group_ref) (reference filter) */
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['id'] = 'og_group_ref_target_id_entityreference_filter';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['table'] = 'og_membership';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['field'] = 'og_group_ref_target_id_entityreference_filter';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['group'] = 1;
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['operator_id'] = 'og_group_ref_target_id_entityreference_filter_op';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['label'] = 'Circle';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['operator'] = 'og_group_ref_target_id_entityreference_filter_op';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['identifier'] = 'og_group_ref_target_id_entityreference_filter';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    10 => 0,
+  );
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['reference_display'] = 'user_circle_list:entityreference_1';
   /* Filter criterion: Content: Choose a public request type (field_request_type) (translated) */
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['id'] = 'field_request_type_tid_i18n';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['table'] = 'field_data_field_request_type';
@@ -714,6 +778,25 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['field_tags_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['vocabulary'] = 'tags';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['error_message'] = FALSE;
+  /* Filter criterion: Global: Dependent filter */
+  $handler->display->display_options['filters']['views_dependent_filter']['id'] = 'views_dependent_filter';
+  $handler->display->display_options['filters']['views_dependent_filter']['table'] = 'views';
+  $handler->display->display_options['filters']['views_dependent_filter']['field'] = 'views_dependent_filter';
+  $handler->display->display_options['filters']['views_dependent_filter']['group'] = 1;
+  $handler->display->display_options['filters']['views_dependent_filter']['controller_filter'] = 'title_1';
+  $handler->display->display_options['filters']['views_dependent_filter']['controller_values'] = '';
+  $handler->display->display_options['filters']['views_dependent_filter']['dependent_filters'] = array(
+    'field_hide_organisation_value' => 'field_hide_organisation_value',
+  );
+  /* Filter criterion: Content: Hide my organisation (field_hide_organisation) */
+  $handler->display->display_options['filters']['field_hide_organisation_value']['id'] = 'field_hide_organisation_value';
+  $handler->display->display_options['filters']['field_hide_organisation_value']['table'] = 'field_data_field_hide_organisation';
+  $handler->display->display_options['filters']['field_hide_organisation_value']['field'] = 'field_hide_organisation_value';
+  $handler->display->display_options['filters']['field_hide_organisation_value']['operator'] = 'not';
+  $handler->display->display_options['filters']['field_hide_organisation_value']['value'] = array(
+    1 => '1',
+  );
+  $handler->display->display_options['filters']['field_hide_organisation_value']['group'] = 1;
   $handler->display->display_options['views_navigation'] = TRUE;
   $handler->display->display_options['views_navigation_cycle'] = FALSE;
   $handler->display->display_options['path'] = 'requests';
@@ -740,6 +823,21 @@ function ft_request_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '20';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['og_group_ref_target_id']['id'] = 'og_group_ref_target_id';
+  $handler->display->display_options['relationships']['og_group_ref_target_id']['table'] = 'og_membership';
+  $handler->display->display_options['relationships']['og_group_ref_target_id']['field'] = 'og_group_ref_target_id';
+  /* Relationship: Content: Author */
+  $handler->display->display_options['relationships']['uid']['id'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['table'] = 'node';
+  $handler->display->display_options['relationships']['uid']['field'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['required'] = TRUE;
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['id'] = 'field_entreprise_target_id';
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['table'] = 'field_data_field_entreprise';
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['field'] = 'field_entreprise_target_id';
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['relationship'] = 'uid';
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['required'] = TRUE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Title */
@@ -754,6 +852,28 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['title']['expose']['operator'] = 'title_op';
   $handler->display->display_options['filters']['title']['expose']['identifier'] = 'title';
   $handler->display->display_options['filters']['title']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    10 => 0,
+  );
+  /* Filter criterion: Content: Title */
+  $handler->display->display_options['filters']['title_1']['id'] = 'title_1';
+  $handler->display->display_options['filters']['title_1']['table'] = 'node';
+  $handler->display->display_options['filters']['title_1']['field'] = 'title';
+  $handler->display->display_options['filters']['title_1']['relationship'] = 'field_entreprise_target_id';
+  $handler->display->display_options['filters']['title_1']['operator'] = 'word';
+  $handler->display->display_options['filters']['title_1']['group'] = 1;
+  $handler->display->display_options['filters']['title_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['title_1']['expose']['operator_id'] = 'title_1_op';
+  $handler->display->display_options['filters']['title_1']['expose']['label'] = 'Entreprise';
+  $handler->display->display_options['filters']['title_1']['expose']['operator'] = 'title_1_op';
+  $handler->display->display_options['filters']['title_1']['expose']['identifier'] = 'title_1';
+  $handler->display->display_options['filters']['title_1']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
     3 => 0,
@@ -794,6 +914,28 @@ function ft_request_views_default_views() {
     10 => 0,
   );
   $handler->display->display_options['filters']['type']['expose']['reduce'] = TRUE;
+  /* Filter criterion: Content: Choose circle of experts (og_group_ref) (reference filter) */
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['id'] = 'og_group_ref_target_id_entityreference_filter';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['table'] = 'og_membership';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['field'] = 'og_group_ref_target_id_entityreference_filter';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['group'] = 1;
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['operator_id'] = 'og_group_ref_target_id_entityreference_filter_op';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['label'] = 'Circle';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['operator'] = 'og_group_ref_target_id_entityreference_filter_op';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['identifier'] = 'og_group_ref_target_id_entityreference_filter';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    10 => 0,
+  );
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['reference_display'] = 'user_circle_list:entityreference_1';
   /* Filter criterion: Content: Choose a public request type (field_request_type) (translated) */
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['id'] = 'field_request_type_tid_i18n';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['table'] = 'field_data_field_request_type';
@@ -902,6 +1044,25 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['field_tags_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['vocabulary'] = 'tags';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['error_message'] = FALSE;
+  /* Filter criterion: Global: Dependent filter */
+  $handler->display->display_options['filters']['views_dependent_filter_1']['id'] = 'views_dependent_filter_1';
+  $handler->display->display_options['filters']['views_dependent_filter_1']['table'] = 'views';
+  $handler->display->display_options['filters']['views_dependent_filter_1']['field'] = 'views_dependent_filter';
+  $handler->display->display_options['filters']['views_dependent_filter_1']['group'] = 1;
+  $handler->display->display_options['filters']['views_dependent_filter_1']['controller_filter'] = 'title_1';
+  $handler->display->display_options['filters']['views_dependent_filter_1']['controller_values'] = '';
+  $handler->display->display_options['filters']['views_dependent_filter_1']['dependent_filters'] = array(
+    'field_hide_organisation_value' => 'field_hide_organisation_value',
+  );
+  /* Filter criterion: Content: Hide my organisation (field_hide_organisation) */
+  $handler->display->display_options['filters']['field_hide_organisation_value']['id'] = 'field_hide_organisation_value';
+  $handler->display->display_options['filters']['field_hide_organisation_value']['table'] = 'field_data_field_hide_organisation';
+  $handler->display->display_options['filters']['field_hide_organisation_value']['field'] = 'field_hide_organisation_value';
+  $handler->display->display_options['filters']['field_hide_organisation_value']['operator'] = 'not';
+  $handler->display->display_options['filters']['field_hide_organisation_value']['value'] = array(
+    1 => '1',
+  );
+  $handler->display->display_options['filters']['field_hide_organisation_value']['group'] = 1;
   $handler->display->display_options['views_navigation'] = TRUE;
   $handler->display->display_options['views_navigation_cycle'] = FALSE;
   $handler->display->display_options['views_navigation_title'] = TRUE;
@@ -1124,6 +1285,21 @@ function ft_request_views_default_views() {
   $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['flag_content_rel']['required'] = 0;
   $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'my_selection';
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['og_group_ref_target_id']['id'] = 'og_group_ref_target_id';
+  $handler->display->display_options['relationships']['og_group_ref_target_id']['table'] = 'og_membership';
+  $handler->display->display_options['relationships']['og_group_ref_target_id']['field'] = 'og_group_ref_target_id';
+  /* Relationship: Content: Author */
+  $handler->display->display_options['relationships']['uid']['id'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['table'] = 'node';
+  $handler->display->display_options['relationships']['uid']['field'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['required'] = TRUE;
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['id'] = 'field_entreprise_target_id';
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['table'] = 'field_data_field_entreprise';
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['field'] = 'field_entreprise_target_id';
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['relationship'] = 'uid';
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['required'] = TRUE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Title */
@@ -1154,6 +1330,28 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['status']['value'] = 1;
   $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Title */
+  $handler->display->display_options['filters']['title_1']['id'] = 'title_1';
+  $handler->display->display_options['filters']['title_1']['table'] = 'node';
+  $handler->display->display_options['filters']['title_1']['field'] = 'title';
+  $handler->display->display_options['filters']['title_1']['relationship'] = 'field_entreprise_target_id';
+  $handler->display->display_options['filters']['title_1']['operator'] = 'word';
+  $handler->display->display_options['filters']['title_1']['group'] = 1;
+  $handler->display->display_options['filters']['title_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['title_1']['expose']['operator_id'] = 'title_1_op';
+  $handler->display->display_options['filters']['title_1']['expose']['label'] = 'Entreprise';
+  $handler->display->display_options['filters']['title_1']['expose']['operator'] = 'title_1_op';
+  $handler->display->display_options['filters']['title_1']['expose']['identifier'] = 'title_1';
+  $handler->display->display_options['filters']['title_1']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    10 => 0,
+  );
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type_1']['id'] = 'type_1';
   $handler->display->display_options['filters']['type_1']['table'] = 'node';
@@ -1178,6 +1376,28 @@ function ft_request_views_default_views() {
     10 => 0,
   );
   $handler->display->display_options['filters']['type_1']['expose']['reduce'] = TRUE;
+  /* Filter criterion: Content: Choose circle of experts (og_group_ref) (reference filter) */
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['id'] = 'og_group_ref_target_id_entityreference_filter';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['table'] = 'og_membership';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['field'] = 'og_group_ref_target_id_entityreference_filter';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['group'] = 1;
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['operator_id'] = 'og_group_ref_target_id_entityreference_filter_op';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['label'] = 'Circle';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['operator'] = 'og_group_ref_target_id_entityreference_filter_op';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['identifier'] = 'og_group_ref_target_id_entityreference_filter';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    10 => 0,
+  );
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['reference_display'] = 'user_circle_list:entityreference_1';
   /* Filter criterion: Flags: Flagged */
   $handler->display->display_options['filters']['flagged']['id'] = 'flagged';
   $handler->display->display_options['filters']['flagged']['table'] = 'flagging';
@@ -1292,6 +1512,25 @@ function ft_request_views_default_views() {
   );
   $handler->display->display_options['filters']['field_tags_tid_i18n']['type'] = 'select';
   $handler->display->display_options['filters']['field_tags_tid_i18n']['vocabulary'] = 'tags';
+  /* Filter criterion: Global: Dependent filter */
+  $handler->display->display_options['filters']['views_dependent_filter']['id'] = 'views_dependent_filter';
+  $handler->display->display_options['filters']['views_dependent_filter']['table'] = 'views';
+  $handler->display->display_options['filters']['views_dependent_filter']['field'] = 'views_dependent_filter';
+  $handler->display->display_options['filters']['views_dependent_filter']['group'] = 1;
+  $handler->display->display_options['filters']['views_dependent_filter']['controller_filter'] = 'title_1';
+  $handler->display->display_options['filters']['views_dependent_filter']['controller_values'] = '';
+  $handler->display->display_options['filters']['views_dependent_filter']['dependent_filters'] = array(
+    'field_hide_organisation_value' => 'field_hide_organisation_value',
+  );
+  /* Filter criterion: Content: Hide my organisation (field_hide_organisation) */
+  $handler->display->display_options['filters']['field_hide_organisation_value']['id'] = 'field_hide_organisation_value';
+  $handler->display->display_options['filters']['field_hide_organisation_value']['table'] = 'field_data_field_hide_organisation';
+  $handler->display->display_options['filters']['field_hide_organisation_value']['field'] = 'field_hide_organisation_value';
+  $handler->display->display_options['filters']['field_hide_organisation_value']['operator'] = 'not';
+  $handler->display->display_options['filters']['field_hide_organisation_value']['value'] = array(
+    1 => '1',
+  );
+  $handler->display->display_options['filters']['field_hide_organisation_value']['group'] = 1;
   $handler->display->display_options['views_navigation'] = TRUE;
   $handler->display->display_options['views_navigation_cycle'] = FALSE;
   $handler->display->display_options['path'] = 'requests/selection';
@@ -1336,6 +1575,10 @@ function ft_request_views_default_views() {
   $handler->display->display_options['relationships']['uid']['table'] = 'node';
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['required'] = TRUE;
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['og_group_ref_target_id']['id'] = 'og_group_ref_target_id';
+  $handler->display->display_options['relationships']['og_group_ref_target_id']['table'] = 'og_membership';
+  $handler->display->display_options['relationships']['og_group_ref_target_id']['field'] = 'og_group_ref_target_id';
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
@@ -1389,6 +1632,28 @@ function ft_request_views_default_views() {
     10 => 0,
   );
   $handler->display->display_options['filters']['type']['expose']['reduce'] = TRUE;
+  /* Filter criterion: Content: Choose circle of experts (og_group_ref) (reference filter) */
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['id'] = 'og_group_ref_target_id_entityreference_filter';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['table'] = 'og_membership';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['field'] = 'og_group_ref_target_id_entityreference_filter';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['group'] = 1;
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['operator_id'] = 'og_group_ref_target_id_entityreference_filter_op';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['label'] = 'Circle';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['operator'] = 'og_group_ref_target_id_entityreference_filter_op';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['identifier'] = 'og_group_ref_target_id_entityreference_filter';
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    10 => 0,
+  );
+  $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['reference_display'] = 'user_circle_list:entityreference_1';
   /* Filter criterion: User: Current */
   $handler->display->display_options['filters']['uid_current']['id'] = 'uid_current';
   $handler->display->display_options['filters']['uid_current']['table'] = 'users';

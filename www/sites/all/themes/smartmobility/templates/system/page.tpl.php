@@ -9,12 +9,27 @@
           <span class="icon-bar"></span>
         </button>
 
-        <?php if ($language->language == 'en') : ?>
+        <?php if ($language->language == 'en' && !$logged_in) : ?>
           <?php print l(t('Smart Mobility'), variable_get('emh_smartmobility_base_url', 'http://smartmob.box.local'), array('language' => $language, 'attributes' => array('title' => t('Smart Mobility'), 'class' => array('navbar-brand')))); ?>
         <?php else : ?>
-          <?php print l(t('Smart Mobility'), EMH_SMARTMOBILITY_HOMEPAGE, array('language' => $language, 'attributes' => array('title' => t('Smart Mobility'), 'class' => array('navbar-brand')))); ?>
+          <a class="navbar-brand" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
+          <?php if ($logged_in): ?>
+            <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/circles.svg" alt="<?php print $site_name; ?>" width="30" height="30" />
+          <?php else : ?>
+            <?php print l(t('Smart Mobility'), EMH_SMARTMOBILITY_HOMEPAGE, array('language' => $language, 'attributes' => array('title' => t('Smart Mobility'), 'class' => array('navbar-brand')))); ?>
+          <?php endif; ?>
+          </a>
         <?php endif; ?>
+
       </div>
+
+      <?php if (!empty($page['burgermenu'])): ?>
+        <div class="burger-menu-btn-container" onclick="onClickBurgerMenuBtn();">
+          <button type="button" class="btn btn-default emh-blue">
+            <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+          </button>
+        </div>
+      <?php endif; ?>
 
       <?php if (!empty($page['topmenu']) || !empty($page['navigation'])): ?>
         <div id="navbar" class="navbar-collapse collapse">
@@ -53,7 +68,14 @@
               <?php print render($title_prefix); ?>
               <?php if (!empty($title)): ?>
                 <div class="title">
+                  <?php emindhub_show_request_type(); ?>
+                  <?php if (!empty(emh_circles_get_circle_logo())) : ?>
+                    <div class="circle-logo"><?php print emh_circles_get_circle_logo(); ?></div>
+                  <?php endif; ?>
                   <h1 class="page-header"><?php print $title; ?></h1>
+                  <?php if (!empty($subscriber_count)) : ?>
+                    <div class="circle-count"><?php print $subscriber_count; ?></div>
+                  <?php endif; ?>
                 </div>
               <?php endif; ?>
               <?php print render($title_suffix); ?>
@@ -64,6 +86,10 @@
 
               <?php if (!empty($baseline)) : ?>
                 <p class="emh-title-baseline"><?php print $baseline; ?></p>
+              <?php endif; ?>
+
+              <?php if (!empty($page['title_bottom'])): ?>
+                <?php print render($page['title_bottom']); ?>
               <?php endif; ?>
 
             </div>
@@ -95,10 +121,20 @@
 
       <div class="container">
 
+        <?php if (!empty($page['highlighted'])): ?>
+        <div class="highlighted jumbotron">
+            <?php print render($page['highlighted']); ?>
+        </div>
+        <?php endif; ?>
+
         <div class="row">
 
           <?php if (!empty($page['sidebar_first'])) : ?>
+          <?php if ($is_front) : ?>
+          <aside id="sidebar-first" class="col-md-5 col-md-offset-1" role="complementary">
+          <?php else : ?>
           <aside id="sidebar-first" class="col-md-2" role="complementary">
+          <?php endif; ?>
             <?php print render($page['sidebar_first']); ?>
           </aside>
           <?php endif; ?>
@@ -114,7 +150,11 @@
           </section>
 
           <?php if (!empty($page['sidebar_second']) || !empty($page['help'])): ?>
+          <?php if ($is_front) : ?>
+          <aside id="sidebar-second" class="col-md-5" role="complementary">
+          <?php else : ?>
           <aside id="sidebar-second" class="col-md-3" role="complementary">
+          <?php endif; ?>
             <?php if (!empty($page['help'])): ?>
               <?php print render($page['help']); ?>
             <?php endif; ?>
@@ -147,6 +187,8 @@
       <?php endif; ?>
 
   </div>
+
+  <?php print render($page['burgermenu']); ?>
 
   <footer class="footer">
     <div class="container">

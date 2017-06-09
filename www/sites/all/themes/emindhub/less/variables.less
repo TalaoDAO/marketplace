@@ -3,6 +3,7 @@
 // --------------------------------------------------
 
 @emh-cta-width-min:      210px;
+@emh-admin-menu-height:  29px;
 
 //== Colors
 @gray:                   lighten(@gray-base, 33.5%);  // #555
@@ -20,7 +21,7 @@
 @blue-light:             lighten(@blue-base, 46.7%);
 @blue-lighter:           lighten(@blue-base, 93.5%);
 
-@golden-base:            @orange;
+@golden-base:            @color-secondary;
 @golden-darker:          darken(@golden-base, 20%);
 @golden-dark:            darken(@golden-base, 13.5%);
 @golden-light:           lighten(@golden-base, 46.7%);
@@ -68,7 +69,6 @@
 
 //== Typography
 @font-family-sans-serif:  "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-// @font-size-base:          15px;
 @font-size-h2:            @font-size-h3;
 
 
@@ -160,8 +160,8 @@
 
 
 //== Modals
-@modal-inner-padding:         30px;
-@modal-title-padding:         30px;
+@modal-inner-padding:         @grid-gutter-width;
+@modal-title-padding:         @grid-gutter-width;
 @modal-content-border-color:                   @modal-content-bg;
 @modal-content-fallback-border-color:          @modal-content-border-color;
 @modal-backdrop-opacity:      .55;

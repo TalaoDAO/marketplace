@@ -25,34 +25,8 @@ Feature: Buy profile access
     Given I give "client1" 1000 emh credits
     Given I give "expert1" 1000 emh credits
 
-    Given I am logged in as a user with the "administrator" role
-
-    # Make client1 member of All experts circle
-    When I go to "content/all-experts"
-      And I click "Administrate" in the "primary tabs" region
-      And I click "People" in the "content" region
-      And I click "Member since"
-      # Twice for correct order
-      And I click "Member since"
-      And I click "edit" in the "Captain AMERICA" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    When I go to "content/all-experts"
-      And I click "Administrate" in the "primary tabs" region
-      And I click "People" in the "content" region
-      And I click "Member since"
-      And I click "Member since"
-      And I click "edit" in the "Iron MAN" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-      # Again...
-      And I go to "content/all-experts"
-      And I click "Administrate" in the "primary tabs" region
-      And I click "People" in the "content" region
-      And I click "Member since"
-      # Twice for correct order
-      And I click "Member since"
-    Then I should see "Member" in the "Captain AMERICA" row
+    Given the user "client1" is a member of the group "All experts"
+    Given the user "expert1" is a member of the group "All experts"
 
     Given I am logged in as a user with the "administrator" role
     When I go to "admin/emindhub/credits"

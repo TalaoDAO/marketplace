@@ -37,6 +37,11 @@ Feature: Requests visibility for Référent
     | Fight Hydra   | Drones         | Avengers        | client1 | 2020-02-08 17:45:00    | 1       |
     | Fight Thanos  | Drones         | Avengers, X-Men | client1 | 2020-02-08 17:45:00    | 1       |
 
+    Given the user "client1" is an admin of the group "Avengers"
+    Given the user "expert1" is a member of the group "Avengers"
+    Given the user "client2" is an admin of the group "X-Men"
+    Given the user "expert4" is a member of the group "X-Men"
+
     # Make référent1 as a Referent member of Avengers circle
     Given I am logged in as a user with the "administrator" role
     When I go to "content/avengers"
@@ -45,28 +50,6 @@ Feature: Requests visibility for Référent
       And I click "edit" in the "Nick FURY" row
       And I select "Member" from "Status"
       And I check the box "Referent member"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
-      And I click "edit" in the "Captain AMERICA" row
-      And I select "Member" from "Status"
-      And I check the box "administrator member"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
-      And I click "edit" in the "Iron MAN" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
-
-    When I go to "content/x-men"
-      And I click "Administrate" in the "primary tabs" region
-      And I click "People" in the "content" region
-      And I click "edit" in the "Charle XAVIER" row
-      And I select "Member" from "Status"
-      And I check the box "administrator member"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
-      And I click "edit" in the "Scott SUMMERS" row
-      And I select "Member" from "Status"
       And I press "Update membership"
     Then I should see "The membership has been updated."
 

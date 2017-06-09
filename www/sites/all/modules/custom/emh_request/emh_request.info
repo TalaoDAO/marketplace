@@ -11,6 +11,7 @@ dependencies[] = webform
 files[] = views/views_handler_field_emh_comment_answer.inc
 files[] = views/views_handler_field_emh_webform_answer.inc
 files[] = views/views_handler_field_emh_request_language.inc
+files[] = views/views_handler_field_emh_request_nothidden_entreprise.inc
 files[] = views/views_handler_field_emh_request_type.inc
 files[] = views/views_handler_field_emh_request_answer_count.inc
 files[] = views/emh_request_webform_handler_field_is_draft.inc
