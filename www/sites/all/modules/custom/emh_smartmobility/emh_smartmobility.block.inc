@@ -80,13 +80,3 @@ function emh_smartmobility_partners_block_content() {
   )
   );
 }
-
-/**
- * Implements hook_block_info_alter().
- */
-function emh_smartmobility_block_info_alter(&$blocks, $theme, $code_blocks) {
-  if ($theme === 'smartmobility') {
-    $blocks['menu']['menu-top-anonymous']['status'] = FALSE;
-    $blocks['block']['29']['status'] = FALSE;
-  }
-}

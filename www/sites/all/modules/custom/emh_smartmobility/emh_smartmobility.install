@@ -9,7 +9,7 @@
  * Implements hook_enable().
  */
 function emh_smartmobility_enable() {
-  theme_enable(array('smartmobility'));
+  theme_enable(array(EMH_SMARTMOBILITY_THEME));
   variable_set('emh_smartmobility_base_url', 'http://smartmob.box.local');
   variable_set('emh_smartmobility_circle_gid', 1813);
 }
@@ -18,7 +18,7 @@ function emh_smartmobility_enable() {
  * Implements hook_disable().
  */
 function emh_smartmobility_disable() {
-  theme_disable(array('smartmobility'));
+  theme_disable(array(EMH_SMARTMOBILITY_THEME));
   variable_del('emh_smartmobility_base_url');
   variable_del('emh_smartmobility_circle_gid');
 }

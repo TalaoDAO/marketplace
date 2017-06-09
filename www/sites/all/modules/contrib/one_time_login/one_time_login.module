@@ -1,0 +1,135 @@
+<?php
+
+/**
+ * @file
+ * Generate a CSV of one-time login links.
+ */
+
+/**
+ * Implements hook_user_operations().
+ */
+function one_time_login_user_operations() {
+  $operations = array(
+    'one_time_login_send_register_admin_created' => array(
+      'label' => t('Send welcome (new user created by administrator) e-mail to the selected users'),
+      'callback' => 'one_time_login_send',
+      'callback arguments' => array('register_admin_created'),
+    ),
+    'one_time_login_send_register_no_approval_required' => array(
+      'label' => t('Send welcome (no approval required) e-mail to the selected users'),
+      'callback' => 'one_time_login_send',
+      'callback arguments' => array('register_no_approval_required'),
+    ),
+    'one_time_login_send_password_reset' => array(
+      'label' => t('Send password recovery e-mail to the selected users'),
+      'callback' => 'one_time_login_send',
+      'callback arguments' => array('password_reset'),
+    ),
+    'one_time_login_send_status_activated' => array(
+      'label' => t('Send account activation e-mail to the selected users'),
+      'callback' => 'one_time_login_send',
+      'callback arguments' => array('status_activated'),
+    ),
+    'one_time_login_csv' => array(
+      'label' => t('Download a CSV of one-time login URLs for the selected users'),
+      'callback' => 'one_time_login_csv',
+    ),
+  );
+  return $operations;
+}
+
+/**
+ * Sends one-time login links.
+ */
+function one_time_login_send($accounts, $op) {
+  $accounts = user_load_multiple($accounts);
+  foreach ($accounts as $account) {
+    _user_mail_notify($op, $account);
+  }
+}
+
+/**
+ * Outputs a CSV of one-time login URLs.
+ */
+function one_time_login_csv($accounts) {
+  drupal_add_http_header('Content-Type', 'text/csv; charset=utf-8');
+  drupal_add_http_header('Content-Disposition', 'inline; filename="one_time_login.csv"');
+  echo t('UID'), ',', t('Name'), ',', t('Mail'), ',', t('URL'), ',', t('Expiry'), ',', t('Status'), "\r\n";
+  $date = format_date(REQUEST_TIME + variable_get('user_password_reset_timeout', 86400), 'custom', DateTime::RFC2822);
+  $accounts = user_load_multiple($accounts);
+  foreach ($accounts as $account) {
+    echo $account->uid, ',"', $account->name, '","', $account->mail, '","', user_pass_reset_url($account), '","', ($account->login ? $date : ''), '",', $account->status, "\r\n";
+  }
+  drupal_exit();
+}
+
+/**
+ * Implements hook_action_info().
+ */
+function one_time_login_action_info() {
+  return array(
+    'one_time_login_send_register_admin_created' => array(
+      'type' => 'user',
+      'label' => t('Send welcome (new user created by administrator) e-mail to user'),
+      'configurable' => FALSE,
+      'triggers' => array('any'),
+    ),
+    'one_time_login_send_register_no_approval_required' => array(
+      'type' => 'user',
+      'label' => t('Send welcome (no approval required) e-mail to user'),
+      'configurable' => FALSE,
+      'triggers' => array('any'),
+    ),
+    'one_time_login_send_password_reset' => array(
+      'type' => 'user',
+      'label' => t('Send password recovery e-mail to user'),
+      'configurable' => FALSE,
+      'triggers' => array('any'),
+    ),
+    'one_time_login_send_status_activated' => array(
+      'type' => 'user',
+      'label' => t('Send account activation e-mail to user'),
+      'configurable' => FALSE,
+      'triggers' => array('any'),
+    ),
+  );
+}
+
+/**
+ * Sends welcome (new user created by administrator) e-mail to a user.
+ */
+function one_time_login_send_register_admin_created($entity, $context = array()) {
+  _user_mail_notify('register_admin_created', $entity);
+  watchdog('one_time_login', 'Sent welcome (new user created by administrator) e-mail to user %name.', array('%name' => $entity->name));
+}
+
+/**
+ * Sends welcome (no approval required) e-mail to a user.
+ */
+function one_time_login_send_register_no_approval_required($entity, $context = array()) {
+  _user_mail_notify('register_no_approval_required', $entity);
+  watchdog('one_time_login', 'Sent welcome (no approval required) e-mail to user %name.', array('%name' => $entity->name));
+}
+
+/**
+ * Sends password recovery e-mail to a user.
+ */
+function one_time_login_send_password_reset($entity, $context = array()) {
+  _user_mail_notify('password_reset', $entity);
+  watchdog('one_time_login', 'Sent password recovery e-mail to user %name.', array('%name' => $entity->name));
+}
+
+/**
+ * Sends account activation e-mail to a user.
+ */
+function one_time_login_send_status_activated($entity, $context = array()) {
+  _user_mail_notify('status_activated', $entity);
+  watchdog('one_time_login', 'Sent account activation e-mail to user %name.', array('%name' => $entity->name));
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function one_time_login_views_api() {
+  return array('api' => 3);
+}

@@ -27,26 +27,9 @@ Feature: Request and answers
     | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
     | How to become a superhero?  | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       |
 
-    Given I am logged in as a user with the "administrator" role
-
-    When I go to "content/avengers"
-      And I click "Administrate" in the "primary tabs" region
-      And I click "People" in the "content" region
-      And I click "edit" in the "Captain AMERICA" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "Member" in the "Captain AMERICA" row
-      And I should see "The membership has been updated."
-
-    When I click "edit" in the "Iron MAN" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
-
-    When I click "edit" in the "Klark KENT" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
+    Given the user "client1" is a member of the group "Avengers"
+    Given the user "expert1" is a member of the group "Avengers"
+    Given the user "expert2" is a member of the group "Avengers"
 
     # An expert responds to the request.
     Given I am logged in as "expert1"

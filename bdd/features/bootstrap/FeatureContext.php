@@ -649,6 +649,50 @@ class FeatureContext extends DrupalContext {
     }
   }
 
+
+
+  /**
+   * @param string $name
+   *   User name.
+   * @param string $title
+   *   Organic group.
+   *
+   * @Given the user :name is a member of the group :title
+   */
+  public function makeUserMemberOfGroup($name, $title) {
+    if (!isset($this->users[$name])) {
+      throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
+    }
+    $user = user_load($this->users[$name]->uid);
+    $node = node_load_by_title($title);
+    if (!isset($node)) {
+      throw new \Exception(sprintf('No node with %s title is found.', $title));
+    }
+    $gid = $node->nid; 
+    $values = array(
+      'entity_type' => 'user',
+      'entity' => $user,
+      'state' => OG_STATE_ACTIVE,
+      'membership_type' => OG_MEMBERSHIP_TYPE_DEFAULT
+    );
+    og_group('node', $gid, $values);
+  }
+
+  /**
+   * @param string $name
+   *   User name.
+   * @param string $title
+   *   Organic group.
+   *
+   * @Given the user :name is an admin of the group :title
+   */
+  public function makeUserAdminOfGroup($name, $title) {
+    $this->makeUserMemberOfGroup($name,$title);
+    $user = user_load($this->users[$name]->uid);
+    $node = node_load_by_title($title);
+    $gid = $node->nid;
+    og_user_roles_role_add($gid, $user->uid, OG_ADMINISTRATOR_ROLE);
+  }
   /**
    * Clear user access static caches.
    *
@@ -752,4 +796,35 @@ class FeatureContext extends DrupalContext {
   public function cleanupForNoDelay(Behat\Behat\Hook\Scope\AfterScenarioScope $scope) {
     variable_set('emh_request_notification_delay', '1');
   }
+}
+
+/**
+ * Helper function: Load node by title
+ * 
+ * @param string $title
+ *   The title of the node to be returned
+ *
+ * @return object
+ *   The node found
+ */
+function node_load_by_title($title) {
+  $nodes = node_load_multiple(array(), array('title' => $title), FALSE);
+  $returned_node = reset($nodes);
+  return $returned_node;
+}
+
+/**
+ * Grant a role for a user in a group.
+ *
+ * @param $gid
+ *   The group ID.
+ * @param $uid
+ *   The user ID.
+ * @param $role
+ *   The role name to grant.
+ */
+function og_user_roles_role_add($gid, $uid, $role) {
+  $roles = og_roles('node', NULL, $gid);
+  $rid = array_search($role, $roles);
+  og_role_grant('node', $gid, $uid, $rid); 
 }
