@@ -32,6 +32,7 @@ dependencies[] = text
 dependencies[] = title
 dependencies[] = views
 dependencies[] = views_bootstrap
+dependencies[] = views_content_cache
 features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[fe_block_boxes][] = hp_challenge

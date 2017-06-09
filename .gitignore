@@ -1,24 +1,11 @@
 www/sites/all/modules/debug
 www/adminer.php
 www/bdd
+www/emh.sql
 xhgui
 
 # Ignore on soyoustart prod server only
 var
-
-#behat
-bdd/bin
-bdd/tmp
-www/tmp
-
-# Ignore configuration files that may contain sensitive information.
-www/sites/*/settings*.php
-www/sites/*/local.settings*.php
-
-# Ignore paths that contain user-generated content.
-www/sites/*/files
-www/sites/*/private
-
 
 # Ignore NPM files
 /**/node_modules/

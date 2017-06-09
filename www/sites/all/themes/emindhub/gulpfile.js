@@ -67,6 +67,7 @@ gulp.task('uglify', ['clean-scripts', 'concat'], () => {
                 ascii_only: true
             }
         }))
+        .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
         .pipe(gulp.dest('dist'));
 });
 
