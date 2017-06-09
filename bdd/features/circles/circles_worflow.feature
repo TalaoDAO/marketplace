@@ -26,32 +26,9 @@ Feature: Circles workflow for Expert
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios     | Employee             | Energy        | US                  |
     | expert4 | emindhub.test+expert4@gmail.com | expert   | Scott            | SUMMERS         | 0712345673      | Bucheron           | X-Men        | emindhub.test+expert4@gmail.com | Marvel Entertainment | Employee  | Helicopters   | US                 |
 
-    # Make client4 as admin of Guardians of the Galaxy circle
-    Given I am logged in as a user with the "administrator" role
-    When I go to "content/guardians-galaxy"
-      And I click "Administrate" in the "primary tabs" region
-      And I click "People" in the "content" region
-      And I click "edit" in the "Star LORD" row
-      And I select "Member" from "Status"
-      And I check the box "administrator member"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
-
-    When I go to "content/avengers"
-      And I click "Administrate" in the "primary tabs" region
-      And I click "People" in the "content" region
-      And I click "edit" in the "Iron MAN" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
-
-    When I go to "content/x-men"
-      And I click "Administrate" in the "primary tabs" region
-      And I click "People" in the "content" region
-      And I click "edit" in the "Scott SUMMERS" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
+    Given the user "client4" is an admin of the group "Guardians of the Galaxy"
+    Given the user "expert1" is a member of the group "Avengers"
+    Given the user "expert4" is a member of the group "X-Men"
 
   Scenario: Experts can access to its own circles
     Given I am logged in as "expert1"
@@ -133,13 +110,7 @@ Feature: Circles workflow for Expert
     | How to become a superhero?  | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       |
 
     Given I am logged in as a user with the "administrator" role
-    When I go to "content/avengers"
-      And I click "Administrate" in the "primary tabs" region
-      And I click "People" in the "content" region
-      And I click "edit" in the "Captain AMERICA" row
-      And I select "Member" from "Status"
-      And I press "Update membership"
-    Then I should see "The membership has been updated."
+    Given the user "client1" is a member of the group "Avengers"
 
     # Client
     Given I am logged in as "client1"

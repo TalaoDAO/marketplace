@@ -1,8 +1,0 @@
-div .collapsiblock a{
-  background: url(expanded.png) no-repeat left;
-  display: block;
-}
-
-div .collapsiblockCollapsed a{
-  background: url(collapsed-rtl.png) no-repeat left;
-}

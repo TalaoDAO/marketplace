@@ -1439,3 +1439,25 @@ function emh_configuration_update_7071() {
   drupal_uninstall_modules(['emh_request_timeline']);
   module_enable(['emh_request_workflow']);
 }
+
+/**
+ * ADD : module webform_rules.
+ */
+function emh_configuration_update_7072() {
+  module_enable(array('webform_rules'));
+}
+
+/**
+ * ADD: module views_dependant_filter.
+ */
+function emh_configuration_update_7073() {
+  module_enable(['views_dependent_filters']);
+}
+
+/**
+ * ADD: module entityreference_filter.
+ */
+function emh_configuration_update_7074() {
+    module_enable(['entityreference_filter']);
+}
+

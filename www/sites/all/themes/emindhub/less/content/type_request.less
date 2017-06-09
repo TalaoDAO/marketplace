@@ -16,8 +16,8 @@
 }
 
 .field-list-border {
-  padding-bottom: 15px;
-  margin-bottom: 15px;
+  padding-bottom: (@grid-gutter-width / 2);
+  margin-bottom: (@grid-gutter-width / 2);
   border-bottom: 1px dotted #CECECE;
 
   &:last-child {
@@ -29,8 +29,8 @@
 
 .total-wrapper {
   .make-row();
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: (@grid-gutter-width / 2);
+  padding-bottom: (@grid-gutter-width / 2);
   .text-right;
   font-weight: bold;
   .total-label {
@@ -49,7 +49,7 @@
 .view-request-submissions {
   .views-bootstrap-grid-plugin-style {
     .row {
-      margin: 0 0 15px;
+      margin: 0 0 (@grid-gutter-width / 2);
     }
 
     .col {
@@ -153,8 +153,8 @@ body.node-type-request.page-node-edit {
       > .form-group {
         .make-row();
         margin-bottom: 0;
-        padding-top: 15px;
-        padding-bottom: 15px;
+        padding-top: (@grid-gutter-width / 2);
+        padding-bottom: (@grid-gutter-width / 2);
         border-bottom: 1px dotted #CECECE;
 
         > .form-item {
@@ -199,7 +199,7 @@ body.node-type-request.page-node-edit {
         }
       }
       .request-type {
-        margin-bottom: 15px;
+        margin-bottom: (@grid-gutter-width / 2);
 
         > .form-type-radio {
           .btn; .btn-default;
@@ -207,7 +207,7 @@ body.node-type-request.page-node-edit {
           white-space: normal;
           margin: 0;
 
-          padding: 15px;
+          padding: (@grid-gutter-width / 2);
           .text-left;
 
           @media (min-width: @screen-sm-min) {
@@ -295,7 +295,7 @@ body.page-node-publish {
     margin-bottom: 50px;
   }
   .node-request.node-unpublished {
-    margin-bottom: 15px;
+    margin-bottom: (@grid-gutter-width / 2);
   }
 
   table thead tr th,
@@ -306,7 +306,7 @@ body.page-node-publish {
   }
 
   form#emh-request-publication-form {
-    margin-top: 15px;
+    margin-top: (@grid-gutter-width / 2);
   }
 }
 
@@ -325,7 +325,7 @@ body.node-type-request:not(.page-node-edit) {
 
   .section.request {
     .field {
-      padding: 0 0 15px;
+      padding: 0 0 (@grid-gutter-width / 2);
       .field-list-border;
     }
   }
@@ -404,7 +404,7 @@ body.node-type-request:not(.page-node-edit) {
       list-style: none;
       padding: 0;
       li {
-        padding: 10px 15px;
+        padding: 10px (@grid-gutter-width / 2);
         background-color: @gray-lighter;
         margin-bottom: 10px;
         span {
@@ -418,9 +418,9 @@ body.node-type-request:not(.page-node-edit) {
 
   // User submission
   .user-submission {
-    padding: 15px;
+    padding: (@grid-gutter-width / 2);
     > div {
-      padding: 15px;
+      padding: (@grid-gutter-width / 2);
     }
 
     .submission-answer {
@@ -445,7 +445,7 @@ body.node-type-request:not(.page-node-edit) {
 
     .submissions-title {
       background-color: @blue-dark;
-      padding: 15px;
+      padding: (@grid-gutter-width / 2);
       margin: 0 0 20px;
     }
 
@@ -489,7 +489,7 @@ body.node-type-request:not(.page-node-edit) {
     }
 
     .views-field-emh-author {
-      padding-left: 30px;
+      padding-left: @grid-gutter-width;
     }
 
     // VBO confirmation form
@@ -497,7 +497,7 @@ body.node-type-request:not(.page-node-edit) {
       > div {
         background: #FFF;
         color: #333;
-        padding: 15px;
+        padding: (@grid-gutter-width / 2);
       }
     }
   }

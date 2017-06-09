@@ -77,11 +77,88 @@ function ft_blocks_default_fe_block_settings() {
         'region' => 'navigation',
         'status' => 1,
         'theme' => 'smartmobility',
-        'weight' => -39,
+        'weight' => -40,
       ),
     ),
     'title' => '<none>',
     'visibility' => 0,
+  );
+
+  $export['devel-switch_user'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => 'switch_user',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'module' => 'devel',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(
+      'administrator' => 3,
+      'webmaster' => 6,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'burgermenu',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'smartmobility' => array(
+        'region' => 'burgermenu',
+        'status' => 1,
+        'theme' => 'smartmobility',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['emh_profile_complete_request-emh_profile_complete_request'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => 'emh_profile_complete_request',
+    'i18n_block_language' => array(),
+    'i18n_mode' => 0,
+    'module' => 'emh_profile_complete_request',
+    'node_types' => array(),
+    'pages' => '<front>
+answers/my
+requests/selection
+requests
+node/*',
+    'roles' => array(
+      'authenticated user' => 2,
+    ),
+    'themes' => array(
+      'emindhub' => array(
+        'region' => 'highlighted',
+        'status' => 1,
+        'theme' => 'emindhub',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'smartmobility' => array(
+        'region' => 'highlighted',
+        'status' => 1,
+        'theme' => 'smartmobility',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 1,
   );
 
   $export['menu-menu-footer-menu'] = array(
@@ -183,7 +260,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => '',
         'status' => 0,
         'theme' => 'smartmobility',
-        'weight' => -39,
+        'weight' => -38,
       ),
     ),
     'title' => '<none>',
@@ -288,10 +365,10 @@ function ft_blocks_default_fe_block_settings() {
         'weight' => -45,
       ),
       'smartmobility' => array(
-        'region' => 'navigation',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'smartmobility',
-        'weight' => -37,
+        'weight' => -35,
       ),
     ),
     'title' => '<none>',
@@ -359,7 +436,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => 'content',
         'status' => 1,
         'theme' => 'smartmobility',
-        'weight' => -39,
+        'weight' => -38,
       ),
     ),
     'title' => '',
@@ -429,7 +506,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => 'navigation',
         'status' => 1,
         'theme' => 'smartmobility',
-        'weight' => -38,
+        'weight' => -36,
       ),
     ),
     'title' => '<none>',
@@ -465,7 +542,7 @@ function ft_blocks_default_fe_block_settings() {
         'region' => 'navigation',
         'status' => 1,
         'theme' => 'smartmobility',
-        'weight' => -39,
+        'weight' => -37,
       ),
     ),
     'title' => '<none>',

@@ -9,10 +9,17 @@
 @import 'block/block-emh-smartmobility-partners';
 @import 'block/block-emh-smartmobility-persona';
 
+body {
+  &.not-logged-in {
+    font-size: @smartmobility-font-size-base;
+    font-family: @smartmobility-font-family-sans-serif;
 
-.emh-module {
-  font-family: @font-family-sans-serif;
+    .emh-module {
+      font-family: @smartmobility-font-family-sans-serif;
+    }
+  }
 }
+
 .emh-title, .emh-subtitle {
   color: @text-color;
 }
@@ -50,7 +57,7 @@
 
   &.smartmobility-how-alt {
     span {
-      background-color: @color-primary-alt;
+      background-color: @color-secondary;
     }
   }
 }
@@ -67,4 +74,41 @@
 
 .footer .footer-contact {
   .make-md-column(9);
+}
+
+/* HEADER
+ * Navigation
+ */
+nav#main-nav {
+	// Active
+	.nav > li.active,
+	.nav > li.active-trail {
+		> a,
+		> span.dropdown-toggle {
+			color: @color-secondary;
+		}
+	}
+
+	.nav {
+		.open,
+		.open.active,
+		.open.active-trail {
+			> a,
+			> a:hover,
+			> a:focus,
+			> span.dropdown-toggle,
+			> span.dropdown-toggle:hover,
+			> span.dropdown-toggle:focus {
+		    background-color: @color-secondary;
+			}
+		}
+	}
+
+	.dropdown-menu {
+		background-color: @color-secondary;
+	}
+
+  .navbar-brand {
+    color: @brand-primary;
+  }
 }
