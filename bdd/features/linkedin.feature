@@ -6,7 +6,7 @@ Feature: Update LinkdeIn data test
 
 
   @javascript
-  Scenario: An expert without certain profile fields filled can access request by filling a form
+  Scenario: An authenticated user try to update her profile with linkedin data
     
     When I visit '/hybridauth/window/LinkedIn?destination=node/323&destination_error=node/323&width=800&height=500&iframe=true'
       And I fill in "be.gagnaire@gmail.com" for "mail"      
