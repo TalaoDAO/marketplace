@@ -371,6 +371,19 @@ function emh_points_views_data() {
       'handler' => 'views_handler_filter_string',
     ),
   );
+  $data['emh_points_txn']['context'] = array(
+    'title' => t('Context'),
+    'help' => t('The context of the credits transaction.'),
+    'field' => array(
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+  );
   $data['emh_points_total']['total_points'] = array(
     'title' => 'Total Credits',
     'field' => array(
