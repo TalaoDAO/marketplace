@@ -5,7 +5,7 @@
  * Administration screens for EMH Credit management module.
  */
 
-define('EMH_POINTS_TXN_CONTEXT_ADMIN_USER_MANAGE_CREDITS', 'admin manage user credits');
+define('EMH_POINTS_TXN_CONTEXT_ADMIN_MANAGE_USER_CREDITS', 'Managed manually by an admin.');
 
 /**
  * Admin form for EMH Credit management settings.
@@ -127,7 +127,7 @@ function emh_points_manage_users_form_submit($form, $form_state) {
         'dest_type' => $entity->type,
         'dest_id' => $entity->id,
         'operation' => POINTS_REMOVAL,
-        'context' => EMH_POINTS_TXN_CONTEXT_ADMIN_USER_MANAGE_CREDITS,
+        'context' => EMH_POINTS_TXN_CONTEXT_ADMIN_MANAGE_USER_CREDITS,
       ))
       ->execute();
     break;
@@ -146,7 +146,7 @@ function emh_points_manage_users_form_submit($form, $form_state) {
         'dest_type' => $entity->type,
         'dest_id' => $entity->id,
         'operation' => POINTS_ADDITION,
-        'context' => EMH_POINTS_TXN_CONTEXT_ADMIN_USER_MANAGE_CREDITS,
+        'context' => EMH_POINTS_TXN_CONTEXT_ADMIN_MANAGE_USER_CREDITS,
       ))
       ->execute();
     break;
