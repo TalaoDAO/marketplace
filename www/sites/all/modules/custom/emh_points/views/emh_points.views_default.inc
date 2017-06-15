@@ -193,6 +193,7 @@ function emh_points_views_default_views() {
     'txn_id' => 'txn_id',
     'time_stamp' => 'time_stamp',
     'operation' => 'operation',
+    'context' => 'context',
     'source_type' => 'source_type',
     'source_id' => 'source_id',
     'dest_type' => 'dest_type',
@@ -217,6 +218,13 @@ function emh_points_views_default_views() {
       'empty_column' => 0,
     ),
     'operation' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'context' => array(
       'sortable' => 0,
       'default_sort_order' => 'asc',
       'align' => '',
@@ -278,6 +286,10 @@ function emh_points_views_default_views() {
   $handler->display->display_options['fields']['operation']['id'] = 'operation';
   $handler->display->display_options['fields']['operation']['table'] = 'emh_points_txn';
   $handler->display->display_options['fields']['operation']['field'] = 'operation';
+  /* Field: Credits Transaction: Context */
+  $handler->display->display_options['fields']['context']['id'] = 'operation';
+  $handler->display->display_options['fields']['context']['table'] = 'emh_points_txn';
+  $handler->display->display_options['fields']['context']['field'] = 'context';
   /* Field: Credits Transaction: Source type */
   $handler->display->display_options['fields']['source_type']['id'] = 'source_type';
   $handler->display->display_options['fields']['source_type']['table'] = 'emh_points_txn';
