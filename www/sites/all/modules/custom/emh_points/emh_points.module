@@ -491,7 +491,7 @@ function emh_points_format_entity($entity) {
 /**
  * Main moving credits action.
  */
-function emh_points_move_points($source, $destination, $points) {
+function emh_points_move_points($source, $destination, $points, $txn_context) {
   $emh_source = emh_points_build_entity_for_points($source);
   $emh_destination = emh_points_build_entity_for_points($destination);
   // Remove credits from source.
@@ -513,6 +513,7 @@ function emh_points_move_points($source, $destination, $points) {
     'dest_type' => $emh_destination->type,
     'dest_id' => $emh_destination->id,
     'operation' => POINTS_TRANSFERT,
+    'context' => $txn_context,
   );
 
   db_insert('emh_points_txn')->fields($txn)->execute();
@@ -741,7 +742,7 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
           }
           break;
       }
-      emh_points_move_points($source, $dest, $value);
+      emh_points_move_points($source, $dest, $value, 'TODO: emh_points_arrange() context');
     }
   }
   switch ($form_state['values']['type_source']) {
@@ -1127,7 +1128,7 @@ function emh_points_remove_points(&$entity, $context) {
 function emh_points_transfert_points(&$entity, $context) {
   global $user;
   $points = $context['points'];
-  emh_points_move_points($user, $entity, $points);
+  emh_points_move_points($user, $entity, $points, 'TODO: emh_points_transfert_points()');
 }
 
 /**
