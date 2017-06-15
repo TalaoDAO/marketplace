@@ -9,7 +9,8 @@ define('POINTS_ADDITION', 'addition');
 define('POINTS_REMOVAL', 'removal');
 define('POINTS_EXPIRATION', 'expiration');
 define('POINTS_TRANSFERT', 'transfert');
-define('EMH_POINTS_TXN_CONTEXT_CRON', 'cron');
+define('EMH_POINTS_TXN_CONTEXT_CRON', 'Removed automatically because they expired.');
+define('EMH_POINTS_TXN_CONTEXT_ADMIN_MANAGE_USER_CREDITS_BULK', 'Manually added by an admin.');
 
 
 /**
@@ -1016,7 +1017,12 @@ function emh_points_action_info() {
 function emh_points_give_points(&$entity, $context) {
   $emh_entity = emh_points_build_entity_for_points($entity);
   $points = $context['points'];
-  $txn_context = isset($context['view_info']['name']) ? $context['view_info']['name'] : $context['txn_context'];
+  if (isset($context['view_info']['name']) && $context['view_info']['name'] == 'give_user_points') {
+    $txn_context = EMH_POINTS_TXN_CONTEXT_ADMIN_MANAGE_USER_CREDITS_BULK;
+  }
+  elseif (isset($context['txn_context'])) {
+    $txn_context = $context['txn_context'];
+  }
   $log = $context['log'];
   emh_points_add_points($emh_entity, $points);
   // Create transaction.
