@@ -1331,7 +1331,7 @@ function emh_points_show_user_history($account = NULL) {
   $rows = array();
   foreach ($transactions as $transaction) {
     // Prepares credits amount display
-    $points = ($transaction->source_type == 'user' && $transaction->source_id == $account->uid) ? '- ' : '+ ';
+    $points = (($transaction->source_type == 'user' && $transaction->source_id == $account->uid) || $transaction->operation == 'removal') ? '- ' : '+ ';
     $points .= $transaction->points;
 
     $rows[] = array(
