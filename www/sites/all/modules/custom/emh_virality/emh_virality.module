@@ -12,7 +12,7 @@ define('VIRAL_INVITATIONS_MAX', 10);
 /**
  * String for the transaction context field in the DB logs.
  */
-define('EMH_VIRALITY_POINTS_TXN_CONTEXT', 'virality_give_user_points');
+define('EMH_VIRALITY_POINTS_TXN_CONTEXT', 'Reward for sponsoring a user.');
 
 
 //----------------------------------------------------------------------
