@@ -588,7 +588,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
 
 // Cosmetic only since readonly is not respected by chosen.
 function _build_element_readonly($element, &$form_state) {
-  $element['#attributes']['class'][] = 'chosen-disabled'; 
+  $element['#attributes']['class'][] = 'chosen-disabled';
   return $element;
 }
 
@@ -855,6 +855,6 @@ function emh_request_purchase_options($request) {
   if ($total > 0) {
     global $user;
     $emindhub = user_load(1);
-    emh_points_move_points($user, $emindhub, $total);
+    emh_points_move_points($user, $emindhub, $total, 'TODO: emh_request_purchase_options()');
   }
 }
