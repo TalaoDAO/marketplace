@@ -1,9 +1,9 @@
 <?php
+
 /**
  * @file
  * Credits managements for EMH website.
  */
-
 
 define('POINTS_ADDITION', 'addition');
 define('POINTS_REMOVAL', 'removal');
@@ -11,7 +11,6 @@ define('POINTS_EXPIRATION', 'expiration');
 define('POINTS_TRANSFERT', 'transfert');
 define('EMH_POINTS_TXN_CONTEXT_CRON', 'Removed automatically because they expired.');
 define('EMH_POINTS_TXN_CONTEXT_ADMIN_MANAGE_USER_CREDITS_BULK', 'Manually added by an admin.');
-
 
 /**
  * Implements hook_permission().
@@ -23,7 +22,6 @@ function emh_points_permission() {
     'view others credits history' => array('title' => t('View others credits history')),
   );
 }
-
 
 /**
  * Implements hook_menu().
@@ -59,7 +57,7 @@ function emh_points_menu() {
     'access arguments' => array('use credits'),
   );
 
-  // Route for the credits history of the current user
+  // Route for the credits history of the current user.
   $items['credits'] = array(
     'title' => 'Credits',
     'page callback' => 'emh_points_show_user_history',
@@ -68,7 +66,7 @@ function emh_points_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
 
-  // Route for the credits history of a specific user
+  // Route for the credits history of a specific user.
   $items['user/%user/credits'] = array(
     'title' => 'Credits',
     'page callback' => 'emh_points_show_user_history',
@@ -139,7 +137,7 @@ function emh_points_user_history_access($account = NULL) {
       return TRUE;
     }
   }
-  // If the user tries to access the credits history of a specific user (/user/%/credits)
+  // User tries to access credits history of a specific user (/user/%/credits).
   else {
     if ($account->uid == $user->uid) {
       return TRUE;
@@ -151,7 +149,6 @@ function emh_points_user_history_access($account = NULL) {
 
   return FALSE;
 }
-
 
 /**
  * Implements hook_views_api().
@@ -165,6 +162,7 @@ function emh_points_views_api() {
 
 /**
  * Implements hook_cron().
+ *
  * Credits expiration & expiration warning.
  */
 function emh_points_cron() {
@@ -175,7 +173,7 @@ function emh_points_cron() {
     ->condition('p.expiration_date', REQUEST_TIME, '<')
     ->orderBy('p.expiration_date', 'ASC')
     ->execute();
-  foreach($query as $row) {
+  foreach ($query as $row) {
     // Expire credits.
     db_merge('emh_points')
       ->key(array('pid' => $row->pid))
@@ -188,7 +186,7 @@ function emh_points_cron() {
     db_insert('emh_points_txn')
       ->fields(array(
         'uid' => 1,
-        'points'=> (int)$row->points,
+        'points' => (int) $row->points,
         'time_stamp' => REQUEST_TIME,
         'description' => t('Credits expiration'),
         'source_type' => 'user',
@@ -250,7 +248,7 @@ function emh_points_entity_points_delete($id, $type) {
  */
 function emh_points_add_points($entity, $points) {
   // To add credit, there are almost no functional checks.
-  if (!is_numeric($points) || (int)$points < 0) {
+  if (!is_numeric($points) || (int) $points < 0) {
     drupal_set_message(t('You should only add a positive number of credits.'));
     return;
   }
@@ -262,7 +260,7 @@ function emh_points_add_points($entity, $points) {
   db_insert('emh_points')
     ->fields(array(
       'entity_id' => $entity->id,
-      'entity_type'=> $entity->type,
+      'entity_type' => $entity->type,
       'bundle' => $entity->bundle,
       'points' => $points,
       // At the creation, max credits = credits.
@@ -272,7 +270,7 @@ function emh_points_add_points($entity, $points) {
     ))
     ->execute();
   // Update total.
-  // Is there a total already
+  // Is there a total already ?
   $total = db_select('emh_points_total', 't')
     ->fields('t', array('total_points'))
     ->condition('entity_id', $entity->id)
@@ -283,12 +281,13 @@ function emh_points_add_points($entity, $points) {
       ->fields(array(
         'entity_id' => $entity->id,
         'entity_type' => $entity->type,
-        'total_points' => $points
+        'total_points' => $points,
       ))
       ->execute();
-  } else {
+  }
+  else {
     db_merge('emh_points_total')
-      ->key(array('entity_id' => $entity->id,'entity_type' => $entity->type))
+      ->key(array('entity_id' => $entity->id, 'entity_type' => $entity->type))
       ->expression('total_points', 'total_points + :amount', array(':amount' => $points))
       ->execute();
   }
@@ -306,7 +305,7 @@ function emh_points_add_points($entity, $points) {
  */
 function emh_points_delete_points($entity, $points) {
   // Functional validation.
-  if (!is_numeric($points) || (int)$points < 0) {
+  if (!is_numeric($points) || (int) $points < 0) {
     drupal_set_message(t('You should only remove a positive number of credits.'));
     return;
   }
@@ -317,11 +316,11 @@ function emh_points_delete_points($entity, $points) {
     ->condition('p.entity_id', $entity->id);
   $query->addExpression('SUM(p.points)');
   $current_points = $query->execute()->fetchField();
-  if ($current_points < (int)$points) {
-    drupal_set_message(t('It\'s impossible to remove those many credits (only @points left).', array('@points' => $current_points)));
+  if ($current_points < (int) $points) {
+    drupal_set_message(t("It's impossible to remove those many credits (only @points left).", array('@points' => $current_points)));
   }
   // Functional algorithm, remove credits that will expire first.
-  $to_be_removed = (int)$points;
+  $to_be_removed = (int) $points;
   $query = db_select('emh_points', 'p')
     ->fields('p', array('pid', 'points'))
     ->condition('p.entity_type', $entity->type)
@@ -329,7 +328,7 @@ function emh_points_delete_points($entity, $points) {
     ->condition('p.points', 0, '>')
     ->orderBy('p.expiration_date', 'ASC')
     ->execute();
-  while($to_be_removed > 0) {
+  while ($to_be_removed > 0) {
     $record = $query->fetchAssoc();
     if ($record['points'] >= $to_be_removed) {
       db_merge('emh_points')
@@ -340,7 +339,8 @@ function emh_points_delete_points($entity, $points) {
         ))
         ->execute();
       $to_be_removed = 0;
-    } else {
+    }
+    else {
       db_merge('emh_points')
         ->key(array('pid' => $record['pid']))
         ->fields(array(
@@ -365,7 +365,7 @@ function emh_points_delete_points($entity, $points) {
  */
 function emh_points_entity_load($entities, $type) {
   // Eventually add total credits for this entity.
-  foreach($entities as $entity) {
+  foreach ($entities as $entity) {
     emh_points_entity_load_single($entity, $type);
   }
 }
@@ -374,15 +374,13 @@ function emh_points_entity_load($entities, $type) {
  * Helper callback to load credits on a single entity.
  */
 function emh_points_entity_load_single($entity, $type) {
-  switch($type) {
+  switch ($type) {
     case 'node': $wrapper = entity_metadata_wrapper('node', $entity);
-    break;
+      break;
+
     case 'user': $wrapper = entity_metadata_wrapper('user', $entity);
-    break;
-  /*
-    default: $wrapper = $entity->wrapper();
-    break;
-   */
+      break;
+
   }
   if (empty($wrapper)) {
     // taxonomy_vocabulary, taxonomy_term, field_collection_item
@@ -396,7 +394,8 @@ function emh_points_entity_load_single($entity, $type) {
   $points = $query->execute()->fetchField();
   if (!empty($points)) {
     $entity->emh_points = (int) $points;
-  } else {
+  }
+  else {
     $entity->emh_points = 0;
   }
 }
@@ -410,13 +409,16 @@ function emh_points_build_entity_for_points($entity) {
     $test_entity = clone $entity;
     if ('user' == $test_entity->getBundle()) {
       $type = 'user';
-    } else {
+    }
+    else {
       $type = 'node';
     }
-  } else if (!empty($entity->type)) {
+  }
+  elseif (!empty($entity->type)) {
     $test_entity = entity_metadata_wrapper('node', $entity);
     $type = 'node';
-  } else {
+  }
+  else {
     $test_entity = entity_metadata_wrapper('user', $entity);
     $type = 'user';
   }
@@ -435,39 +437,48 @@ function emh_points_format_entity($entity) {
     $test_entity = clone $entity;
     if ('user' == $test_entity->getBundle()) {
       $type = 'user';
-    } else {
+    }
+    else {
       $type = 'node';
     }
-  } else if (!empty($entity->type)) {
+  }
+  elseif (!empty($entity->type)) {
     $test_entity = entity_metadata_wrapper('node', $entity);
     $type = 'node';
-  } else if (!empty($entity->cid)) {
+  }
+  elseif (!empty($entity->cid)) {
     $type = 'comment';
-  } else if (!empty($entity->sid)) {
+  }
+  elseif (!empty($entity->sid)) {
     $type = 'webform_submission';
-  } else {
+  }
+  else {
     $test_entity = entity_metadata_wrapper('user', $entity);
     $type = 'user';
   }
   $output = '';
-  switch($type) {
+  switch ($type) {
     case 'user':
       if ($test_entity->getIdentifier() == 1) {
         $output = 'eMindHub';
-      } else {
+      }
+      else {
         $output = $test_entity->field_first_name->value() . ' ' . $test_entity->field_last_name->value();
       }
       break;
+
     case 'node':
       $output = $test_entity->getBundle();
       $output .= ' ';
       $output .= $test_entity->label();
       break;
+
     case 'comment':
       $user = user_load($entity->uid);
       $test_user = entity_metadata_wrapper('user', $user);
       $output = $test_user->field_first_name->value() . ' ' . $test_user->field_last_name->value();
       break;
+
     case 'webform_submission':
       $user = user_load($entity->uid);
       $test_user = entity_metadata_wrapper('user', $user);
@@ -494,7 +505,7 @@ function emh_points_move_points($source, $destination, $points) {
 
   $txn = array(
     'uid' => $user->uid,
-    'points'=> (int)$points,
+    'points' => (int) $points,
     'time_stamp' => REQUEST_TIME,
     'description' => $log,
     'source_type' => $emh_source->type,
@@ -515,7 +526,7 @@ function emh_points_move_points($source, $destination, $points) {
 function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id_source, $type_dest, $dests) {
   // Access control.
   global $user;
-  switch($type_source) {
+  switch ($type_source) {
     case 'user':
       if ($user->uid != $id_source) {
         drupal_access_denied();
@@ -523,6 +534,7 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
       }
       drupal_set_title(emh_points_format_entity($user));
       break;
+
     case 'node':
       $node = node_load($id_source);
       if (!user_access('execute emh_points_arrange_node_points')) {
@@ -533,7 +545,7 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
         drupal_access_denied();
         drupal_exit();
       }
-      // Free circle without credits
+      // Free circle without credits.
       if ($points == 0) {
         // Just close the node and return it.
         emh_points_close_node($id_source);
@@ -541,6 +553,7 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
       }
       drupal_set_title($node->title);
       break;
+
     default:
       drupal_access_denied();
       drupal_exit();
@@ -566,24 +579,28 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
     '#type' => 'value',
     '#default_value' => $type_dest,
   );
-  foreach($dests as $dest) {
+  foreach ($dests as $dest) {
     if (empty($dest)) {
       continue;
     }
-    switch($type_dest) {
-    case 'node':
-      $entity = node_load($dest);
-      break;
-    case 'user':
-      $entity = user_load($dest);
-      break;
-    case 'comment':
-      $entity = comment_load($dest);
-      break;
-    case 'webform_submission':
-      module_load_include('inc', 'webform', 'includes/webform.submissions');
-      $entity = webform_get_submission($id_source, $dest);
-      break;
+    switch ($type_dest) {
+      case 'node':
+        $entity = node_load($dest);
+        break;
+
+      case 'user':
+        $entity = user_load($dest);
+        break;
+
+      case 'comment':
+        $entity = comment_load($dest);
+        break;
+
+      case 'webform_submission':
+        module_load_include('inc', 'webform', 'includes/webform.submissions');
+        $entity = webform_get_submission($id_source, $dest);
+        break;
+
     }
     $form[$dest] = array(
       '#type' => 'fieldset',
@@ -596,12 +613,7 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
       '#suffix' => '</div>',
     );
     if (in_array($type_dest, array('comment', 'webform_submission'))) {
-      $markup = '';
-      switch($type_dest) {
-        default:
-        $markup = emh_request_get_answer($entity, $type_dest);
-        break;
-      }
+      $markup = emh_request_get_answer($entity, $type_dest);
       $form[$dest]['answer'] = array(
         '#type' => 'markup',
         '#markup' => $markup,
@@ -609,16 +621,17 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
         '#suffix' => '</div>',
       );
     }
-    if ($dest === end($dests)) $default_points = $points - ($default_points * (count($dests)-1));
+    if ($dest === end($dests)) {
+      $default_points = $points - ($default_points * (count($dests) - 1));
+    }
     $form[$dest]['dest_' . $dest] = array(
       '#type' => 'textfield',
       '#title' => t('Credits for @dest', array('@dest' => emh_points_format_entity($entity))),
       '#default_value' => $default_points,
       '#element_validate' => array('element_validate_integer_positive'),
     );
-    // Free circle without credits
+    // Free circle without credits.
     if ($points == 0) {
-      // $form[$dest]['dest_' . $dest]['#access'] = FALSE;
       $form[$dest]['dest_' . $dest]['#type'] = 'value';
     }
   }
@@ -626,11 +639,16 @@ function emh_points_arrange_form($form, &$form_state, $points, $type_source, $id
     '#type' => 'submit',
     '#value' => t('Validate distribution'),
   );
-  if ($type_source == 'node' && in_array($node->type, array('challenge', 'question1', 'webform'))) {
-    // Free circle without credits
+  if ($type_source == 'node' && in_array($node->type, array(
+    'challenge',
+    'question1',
+    'webform',
+  ))) {
+    // Free circle without credits.
     if ($points == 0) {
       $form['submit']['#value'] = t('Close the request');
-    } else {
+    }
+    else {
       $form['submit']['#value'] = t('Validate distribution and close the request');
       $form['baseline'] = array(
         '#markup' => '<p class="emh-title-baseline">' . t('Distribute <strong>@count credits</strong> to best experts', array('@count' => $points)) . '</p>',
@@ -648,7 +666,7 @@ function emh_points_arrange_form_validate(&$form, &$form_state) {
   $points = $form_state['values']['points'];
   $total = 0;
   $elements = array();
-  foreach($form_state['values'] as $key => $value) {
+  foreach ($form_state['values'] as $key => $value) {
     if (substr($key, 0, 5) == 'dest_') {
       $elements[] = $key;
       $total += $value;
@@ -666,62 +684,71 @@ function emh_points_arrange_form_validate(&$form, &$form_state) {
  * Submit callback for the form above.
  */
 function emh_points_arrange_form_submit(&$form, &$form_state) {
-  switch($form_state['values']['type_source']) {
-  case 'node':
-    $source = node_load($form_state['values']['id_source']);
-    break;
-  case 'user':
-    $source = user_load($form_state['values']['id_source']);
-    break;
+  switch ($form_state['values']['type_source']) {
+    case 'node':
+      $source = node_load($form_state['values']['id_source']);
+      break;
+
+    case 'user':
+      $source = user_load($form_state['values']['id_source']);
+      break;
+
   }
-  foreach($form_state['values'] as $key => $value) {
+  foreach ($form_state['values'] as $key => $value) {
     if (substr($key, 0, 5) == 'dest_') {
       $id = substr($key, 5);
-      switch($form_state['values']['type_dest']) {
-      case 'node':
-        $dest = node_load($id);
-        break;
-      case 'user':
-        $dest = user_load($id);
-        break;
-      case 'comment':
-        $comment = comment_load($id);
-        $dest = user_load($comment->uid);
-        // Historise comment credits.
-        db_insert('emh_points_answers')
-          ->fields(array(
-            'nid' => $comment->nid,
-            'uid' => $comment->uid,
-            'answer_id' => $id,
-            'points' => $value,
-          ))
-          ->execute();
-          if ($form_state['values']['type_source'] == 'node') emh_points_notify_rewarded_answer_author($source, $dest, $value);
-        break;
-      case 'webform_submission':
-        module_load_include('inc', 'webform', 'includes/webform.submissions');
-        $entity = webform_get_submission($form_state['values']['id_source'], $id);
-        $dest = user_load($entity->uid);
-        // Historise submission credits.
-        db_insert('emh_points_answers')
-          ->fields(array(
-            'nid' => $entity->nid,
-            'uid' => $entity->uid,
-            'answer_id' => $id,
-            'points' => $value,
-          ))
-          ->execute();
-        if ($form_state['values']['type_source'] == 'node') emh_points_notify_rewarded_answer_author($source, $dest, $value);
-        break;
+      switch ($form_state['values']['type_dest']) {
+        case 'node':
+          $dest = node_load($id);
+          break;
+
+        case 'user':
+          $dest = user_load($id);
+          break;
+
+        case 'comment':
+          $comment = comment_load($id);
+          $dest = user_load($comment->uid);
+          // Historise comment credits.
+          db_insert('emh_points_answers')
+            ->fields(array(
+              'nid' => $comment->nid,
+              'uid' => $comment->uid,
+              'answer_id' => $id,
+              'points' => $value,
+            ))
+            ->execute();
+          if ($form_state['values']['type_source'] == 'node') {
+            emh_points_notify_rewarded_answer_author($source, $dest, $value);
+          }
+          break;
+
+        case 'webform_submission':
+          module_load_include('inc', 'webform', 'includes/webform.submissions');
+          $entity = webform_get_submission($form_state['values']['id_source'], $id);
+          $dest = user_load($entity->uid);
+          // Historise submission credits.
+          db_insert('emh_points_answers')
+            ->fields(array(
+              'nid' => $entity->nid,
+              'uid' => $entity->uid,
+              'answer_id' => $id,
+              'points' => $value,
+            ))
+            ->execute();
+          if ($form_state['values']['type_source'] == 'node') {
+            emh_points_notify_rewarded_answer_author($source, $dest, $value);
+          }
+          break;
       }
       emh_points_move_points($source, $dest, $value);
     }
   }
-  switch($form_state['values']['type_source']) {
+  switch ($form_state['values']['type_source']) {
     case 'node':
       // Credits have been distributed, we should close the request.
       emh_points_close_node($form_state['values']['id_source']);
-      // And notify unrewarded answers
+      // And notify unrewarded answers.
       $unrewarded_answers = emh_points_get_unrewarded_answers($form_state['values']['id_source']);
       $node = node_load($form_state['values']['id_source']);
       foreach ($unrewarded_answers as $unrewarded_answer => $uid) {
@@ -730,6 +757,7 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
       }
       $form_state['redirect'] = 'node/' . $form_state['values']['id_source'];
       break;
+
     case 'user':
     default:
       $form_state['redirect'] = '<front>';
@@ -738,13 +766,15 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
   if ($form_state['values']['type_source'] == 'node') {
     $node = node_load($form_state['values']['id_source']);
     $points = $form_state['values']['points'];
-    // Free circle without credits
+    // Free circle without credits.
     if ($points == 0) {
       drupal_set_message(t('Request @title has been closed.', array('@title' => $node->title)));
-    } else {
+    }
+    else {
       drupal_set_message(t('Request @title has been closed. All the credits have been distributed.', array('@title' => $node->title)));
     }
-  } else {
+  }
+  else {
     drupal_set_message(t('All the credits have been distributed.'));
   }
 }
@@ -775,19 +805,22 @@ function emh_points_notify_rewarded_answer_author($node, $user, $points) {
 function emh_points_close_node($nid) {
   $node = node_load($nid);
   if (!empty($node)) {
-    switch($node->type) {
+    switch ($node->type) {
       case 'webform':
         $node->webform['status'] = 0;
         node_save($node);
         break;
+
       case 'question1':
         $node->comment = COMMENT_NODE_CLOSED;
         node_save($node);
         break;
+
       case 'challenge':
         $node->comment = COMMENT_NODE_CLOSED;
         node_save($node);
         break;
+
       default:
         // Nothing to do.
         break;
@@ -795,15 +828,20 @@ function emh_points_close_node($nid) {
   }
 }
 
+/**
+ * TODO: needs com.
+ */
 function emh_points_get_points_closed_status($nid) {
   $node = node_load($nid);
   if (!empty($node)) {
-    switch($node->type) {
+    switch ($node->type) {
       case 'webform':
         return ($node->webform['status'] == 0);
+
       case 'question1':
       case 'challenge':
         return ($node->comment == COMMENT_NODE_CLOSED);
+
       default:
         // Nothing to do.
         break;
@@ -829,13 +867,16 @@ function emh_points_notify_unrewarded_answer_author($node, $user) {
   drupal_mail($module, $key, $mail, $language, $params);
 }
 
+/**
+ * TODO: needs com.
+ */
 function emh_points_get_answers($nid) {
   $answers = array();
   $node = node_load($nid);
   if (!empty($node)) {
-    switch($node->type) {
+    switch ($node->type) {
       case 'webform':
-        include_once drupal_get_path('module','webform') . '/includes/webform.submissions.inc';
+        include_once drupal_get_path('module', 'webform') . '/includes/webform.submissions.inc';
         $submissions = webform_get_submissions($nid);
         if (!empty($submissions)) {
           foreach ($submissions as $submission) {
@@ -843,6 +884,7 @@ function emh_points_get_answers($nid) {
           }
         }
         break;
+
       case 'question1':
       case 'challenge':
         $answers = db_select('comment', 'c')
@@ -851,8 +893,9 @@ function emh_points_get_answers($nid) {
                     ->fields('c', array('uid'))
                     ->orderBy('cid', 'ASC')
                     ->execute()
-                    ->fetchAllKeyed(0,1);
+                    ->fetchAllKeyed(0, 1);
         break;
+
       default:
         // Nothing to do.
         break;
@@ -861,6 +904,9 @@ function emh_points_get_answers($nid) {
   return $answers;
 }
 
+/**
+ * TODO: needs com.
+ */
 function emh_points_get_rewarded_answers($nid) {
   $answers = db_select('emh_points_answers', 'a')
                         ->condition('nid', $nid)
@@ -868,10 +914,13 @@ function emh_points_get_rewarded_answers($nid) {
                         ->fields('a', array('uid'))
                         ->orderBy('answer_id', 'ASC')
                         ->execute()
-                        ->fetchAllKeyed(0,1);
+                        ->fetchAllKeyed(0, 1);
   return $answers;
 }
 
+/**
+ * TODO: needs com.
+ */
 function emh_points_get_unrewarded_answers($nid) {
   $unrewarded_answers = array();
   $all_answers = emh_points_get_answers($nid);
@@ -886,7 +935,7 @@ function emh_points_get_unrewarded_answers($nid) {
  * Implements hook_mail().
  */
 function emh_points_mail($key, &$message, $params) {
-  switch($key) {
+  switch ($key) {
     case 'notify_rewarded_answer_author':
       $message['subject'] = t('You have been rewarded!', $params);
       $message['body'] = array();
@@ -894,7 +943,8 @@ function emh_points_mail($key, &$message, $params) {
       $message['body'][] = t('Thank you for responding to the request') . ' <strong><a href="' . t('@url', $params) . '&amp;pk_kwd=link&amp;utm_content=link" title="' .  t('@title', $params) . '" target="_blank" style="font-weight:bold!important;">' . t('@title', $params) . ' </a></strong>.';
       if ($params['@points'] == 0) {
         $message['body'][] = t('Your answer has been selected by the client ! The client may now get in touch with you for further support.', $params);
-      } else {
+      }
+      else {
         $message['body'][] = t('Your answer has been selected by the client and you earned @points credits! The client may now get in touch with you for further support.', $params);
         $message['body'][] = t('We remind you that you can monetize your credits once you have reached a threshold of @threshold credits.', $params);
       }
@@ -917,6 +967,7 @@ function emh_points_mail($key, &$message, $params) {
         </tbody>
       </table>';
       break;
+
     case 'notify_unrewarded_answer_author':
       $message['subject'] = t('Request @title is now closed', $params);
       $message['body'] = array();
@@ -942,6 +993,7 @@ function emh_points_mail($key, &$message, $params) {
         </tbody>
       </table>';
       break;
+
     default:
       break;
   }
@@ -949,6 +1001,7 @@ function emh_points_mail($key, &$message, $params) {
 
 /**
  * Implements hook_action_info().
+ *
  * Essentially for VBO integration.
  */
 function emh_points_action_info() {
@@ -1007,9 +1060,9 @@ function emh_points_action_info() {
   return $actions;
 }
 
-//
-// Actions for VBO integration.
-//
+/**
+ * Actions for VBO integration.
+ */
 
 /**
  * Give credits to an entity.
@@ -1030,7 +1083,7 @@ function emh_points_give_points(&$entity, $context) {
   db_insert('emh_points_txn')
     ->fields(array(
       'uid' => $user->uid,
-      'points'=> (int)$points,
+      'points' => (int) $points,
       'time_stamp' => REQUEST_TIME,
       'description' => $log,
       'source_type' => 'user',
@@ -1056,7 +1109,7 @@ function emh_points_remove_points(&$entity, $context) {
   db_insert('emh_points_txn')
     ->fields(array(
       'uid' => $user->uid,
-      'points'=> (int)$points,
+      'points' => (int) $points,
       'time_stamp' => REQUEST_TIME,
       'description' => $log,
       'source_type' => 'user',
@@ -1084,7 +1137,7 @@ function emh_points_arrange_points(&$entities, $context) {
   $points = $context['points'];
   $output = '';
   $type = 'user';
-  foreach($entities as $id => $entity) {
+  foreach ($entities as $id => $entity) {
     if (!empty($entity->type)) {
       $type = 'node';
     }
@@ -1099,7 +1152,7 @@ function emh_points_arrange_points(&$entities, $context) {
   }
   $output = substr($output, 0, -1);
   global $user;
-  drupal_goto('arrange/' . $points . '/user/' . $user->uid . '/' . $type  . '/' . $output);
+  drupal_goto('arrange/' . $points . '/user/' . $user->uid . '/' . $type . '/' . $output);
 }
 
 /**
@@ -1110,12 +1163,12 @@ function emh_points_arrange_group_points(&$entities, $context) {
   $group = arg(1);
   $output = '';
   $type = 'user';
-  foreach($entities as $id => $entity) {
+  foreach ($entities as $id => $entity) {
     $output .= $id;
     $output .= ',';
   }
   $output = substr($output, 0, -1);
-  drupal_goto('arrange/' . $points . '/node/' . $group . '/' . $type  . '/' . $output);
+  drupal_goto('arrange/' . $points . '/node/' . $group . '/' . $type . '/' . $output);
 }
 
 /**
@@ -1126,7 +1179,7 @@ function emh_points_arrange_node_points(&$entities, $context) {
   $node = node_load($node);
   $output = '';
   $type = 'user';
-  foreach($entities as $id => $entity) {
+  foreach ($entities as $id => $entity) {
     $output .= $id;
     $output .= ',';
     if (!empty($entity->cid)) {
@@ -1137,12 +1190,12 @@ function emh_points_arrange_node_points(&$entities, $context) {
     }
   }
   $output = substr($output, 0, -1);
-  drupal_goto('arrange/' . $node->emh_points . '/node/' . $node->nid . '/' . $type  . '/' . $output);
+  drupal_goto('arrange/' . $node->emh_points . '/node/' . $node->nid . '/' . $type . '/' . $output);
 }
 
-//
-// Configuration forms for VBO integration.
-//
+/**
+ * Configuration forms for VBO integration.
+ */
 
 /**
  * Configuration form for giving credits.
@@ -1276,8 +1329,8 @@ function emh_points_validate_group_points($element, &$form_state, $form) {
   $points = $element['#value'];
   $group = arg(1);
   $group = node_load($group);
-  if ((int)$points > (int)$group->emh_points) {
-    form_error($element, t('You don\'t have enough credits (@points).', array('@points' => $group->emh_points)));
+  if ((int) $points > (int) $group->emh_points) {
+    form_error($element, t("You don't have enough credits (@points).", array('@points' => $group->emh_points)));
   }
 }
 
@@ -1290,11 +1343,14 @@ function emh_points_arrange_group_points_submit($form, &$form_state) {
   return $return;
 }
 
-
 /**
  * Show user credits history.
- * @param stdClass $account An user object: the current user is considered if no one is provided
- * @return array Page render array
+ *
+ * @param object $account
+ *   An user object: the current user is considered if no one is provided.
+ *
+ * @return array
+ *   Page render array
  *
  * @todo Display a message if we try to view the credits history of an user which doesn't use credits
  */
@@ -1330,7 +1386,7 @@ function emh_points_show_user_history($account = NULL) {
 
   $rows = array();
   foreach ($transactions as $transaction) {
-    // Prepares credits amount display
+    // Prepares credits amount display.
     $points = (($transaction->source_type == 'user' && $transaction->source_id == $account->uid) || $transaction->operation == 'removal') ? '- ' : '+ ';
     $points .= $transaction->points;
 
