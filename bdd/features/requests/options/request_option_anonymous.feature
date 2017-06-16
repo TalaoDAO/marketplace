@@ -43,6 +43,8 @@ Feature: Request and answers
 
     When I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been published."
+    When I go to "credits"
+    Then I should see "request_anonymous"
 
     Given I am logged in as "expert1"
     When I go to homepage
@@ -63,6 +65,8 @@ Feature: Request and answers
 
     When I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been published."
+    When I go to "credits"
+    Then I should see "request_anonymous"
 
     Given I am logged in as "expert1"
     When I go to homepage
@@ -82,6 +86,8 @@ Feature: Request and answers
     # Validation page
       And I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been published."
+    When I go to "credits"
+    Then I should see "request_anonymous"
 
     Given I am logged in as "expert1"
     When I go to homepage
