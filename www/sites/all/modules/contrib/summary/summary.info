@@ -1,6 +1,0 @@
-; $Id:
-name = Summary
-description = Display a Summary of your Drupal Installation.
-core = 7.x
-package = Atelier Drupal
-files[] = summary.module

@@ -84,7 +84,7 @@ function hybridauth_window_start($provider_id) {
     return _hybridauth_window_auth($hybridauth, $provider_id);
   }
   else {
-    drupal_set_message(t('There was an error processing your request 2.'), 'error');
+    drupal_set_message(t('There was an error processing your request.'), 'error');
     _hybridauth_window_close(FALSE);
   }
 }
@@ -202,7 +202,7 @@ function _hybridauth_window_auth($hybridauth, $provider_id) {
       default:
         // Report the error - this message is not shown to anonymous users as
         // we destroy the session - see below.
-        drupal_set_message(t('There was an error processing your request 1.'), 'error');
+        drupal_set_message(t('There was an error processing your request.'), 'error');
     }
 
     _hybridauth_window_close(FALSE);

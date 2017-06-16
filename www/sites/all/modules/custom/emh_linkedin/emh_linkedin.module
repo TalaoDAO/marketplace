@@ -1,7 +1,6 @@
 <?php
-
 /**
- * @file Main hooks implementation for LinkedIn Profile module
+ * @file Main hooks implementation for emh LinkedIn module.
  */
 module_load_include('pages.inc', 'emh_linkedin');
 
@@ -131,27 +130,6 @@ function emh_linkedin_linkedin_user_edit_perms() {
 }
 
 /*
- * Implementation of hook_module_implements_alter
- */
-/*
- * function emh_linkedin_module_implements_alter(&$implementations, $hook) {
- *
- * switch ($hook) {
- * case 'user_login':
- * if (array_key_exists('emh_linkedin', $implementations)) {
- * // On veut que le hook_form_alter my_module soit le dernier ex�cut�
- * // On le remet � la fin du tableau
- * $my_module = $implementations['emh_linkedin'];
- * unset($implementations['emh_linkedin']);
- * $implementations['emh_linkedin'] = $my_module;
- *
- * }
- * break;
- * }
- * }
- */
-
-/*
  * Implementation of hook_hybridauth_user_login
  */
 function emh_linkedin_hybridauth_user_login($account, $data) {
@@ -213,26 +191,31 @@ function emh_linkedin_hybridauth_user_insert($account, $data) {
   variable_set('emh_linkedin_user_page_linkedin_fields_' . $account->uid, $fields);
 }
 
+/*
+ * Implementation of hook_file_delete
+ */
+function emh_linkedin_file_delete($file) {
+  $path = 'sites/default/files/linkedin_profile_image/' . $file->origname;
+  if (file_exists($path))
+    unlink($path);
+}
+
 /**
- * Supprimer les accents
+ * Delete accents
  *
  * @param string $str
- *          cha�ne de caract�res avec caract�res accentu�s
+ *          string with accented characters
+ *          
  * @param string $encoding
- *          encodage du texte (exemple : utf-8, ISO-8859-1 ...)
+ *          (example : utf-8, ISO-8859-1 ...)
  */
 function emh_suppr_accents($str, $encoding = 'utf-8') {
-  // transformer les caract�res accentu�s en entit�s HTML
   $str = htmlentities($str, ENT_NOQUOTES, $encoding);
   
-  // remplacer les entit�s HTML pour avoir juste le premier caract�res non accentu�s
-  // Exemple : "&ecute;" => "e", "&Ecute;" => "E", "� " => "a" ...
   $str = preg_replace('#&([A-za-z])(?:acute|grave|cedil|circ|orn|ring|slash|th|tilde|uml);#', '\1', $str);
   
-  // Remplacer les ligatures tel que : �, � ...
-  // Exemple "œ" => "oe"
   $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str);
-  // Supprimer tout le reste
+  
   $str = preg_replace('#&[^;]+;#', '', $str);
   
   return $str;
@@ -342,17 +325,6 @@ function emh_linkedin_theme($existing, $type, $theme, $path) {
  * Implements of hook_user_delete()
  */
 function emh_linkedin_user_delete($account) {
-  /*
-   * $nom_img = $account->name . ".jpg";
-   * $dir_name = "sites/default/files/linkedin_profile_image";
-   * $path = $dir_name . "/" . $nom_img;
-   *
-   * if(unlink($path)){
-   * watchdog('emh_linkedin', 'Linkedin profile picture has been deleted');
-   * } else {
-   * watchdog('emh_linkedin', 'Error to delete a LinkedIn profile pricture => ' . $path);
-   * }
-   */
   variable_del('emh_linkedin_user_page_linkedin_fields_' . $account->uid);
 }
 
@@ -440,7 +412,7 @@ function emh_linkedin_get_fields($url, $tokens) {
 }
 
 /*
- * Custom access callback for user/%user/edit/linkedin
+ * Custom access callback for user/%user/edit/emh_linkedin
  */
 
 /**
