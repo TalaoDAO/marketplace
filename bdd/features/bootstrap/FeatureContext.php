@@ -97,7 +97,11 @@ class FeatureContext extends DrupalContext {
       throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
     }
     $user = user_load($this->users[$name]->uid);
-    $context = array('points' => $points, 'log' => 'Behat add credits to user');
+    $context = array(
+      'points' => $points,
+      'log' => 'Behat add credits to user',
+      'txn_context' => 'behat',
+    );
     emh_points_give_points($user, $context);
   }
 
@@ -668,7 +672,7 @@ class FeatureContext extends DrupalContext {
     if (!isset($node)) {
       throw new \Exception(sprintf('No node with %s title is found.', $title));
     }
-    $gid = $node->nid; 
+    $gid = $node->nid;
     $values = array(
       'entity_type' => 'user',
       'entity' => $user,
@@ -800,7 +804,7 @@ class FeatureContext extends DrupalContext {
 
 /**
  * Helper function: Load node by title
- * 
+ *
  * @param string $title
  *   The title of the node to be returned
  *
@@ -826,5 +830,5 @@ function node_load_by_title($title) {
 function og_user_roles_role_add($gid, $uid, $role) {
   $roles = og_roles('node', NULL, $gid);
   $rid = array_search($role, $roles);
-  og_role_grant('node', $gid, $uid, $rid); 
+  og_role_grant('node', $gid, $uid, $rid);
 }
