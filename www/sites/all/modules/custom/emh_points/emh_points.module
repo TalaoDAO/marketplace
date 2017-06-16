@@ -743,7 +743,7 @@ function emh_points_arrange_form_submit(&$form, &$form_state) {
           }
           break;
       }
-      emh_points_move_points($source, $dest, $value, 'TODO: emh_points_arrange() context');
+      emh_points_move_points($source, $dest, $value, EMH_POINTS_TXN_CONTEXT_DEPRECATED);
     }
   }
   switch ($form_state['values']['type_source']) {
