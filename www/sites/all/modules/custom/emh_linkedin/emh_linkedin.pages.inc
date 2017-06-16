@@ -222,10 +222,6 @@ function emh_linkedin_user_settings($account) {
   
   if (isset($check ['error-code'])) {
     $output .= t('You must first authorize LinkedIn integration to use related features.');
-    /*
-     * $form = drupal_get_form('emh_linkedin_user_enable_form', $account->uid);
-     * $output .= drupal_render($form);
-     */
   }
   else {
     $output .= t('Your account is associated with @name !public_profile.', array(
