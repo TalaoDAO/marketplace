@@ -9,6 +9,7 @@ define('POINTS_ADDITION', 'addition');
 define('POINTS_REMOVAL', 'removal');
 define('POINTS_EXPIRATION', 'expiration');
 define('POINTS_TRANSFERT', 'transfert');
+const EMH_POINTS_TXN_CONTEXT_DEPRECATED = 'deprecated';
 const EMH_POINTS_TXN_CONTEXT_CRON = 'cron';
 const EMH_POINTS_TXN_CONTEXT_ADMIN_MANAGE_USER_BULK = 'admin_manage_user_bulk';
 
@@ -1128,7 +1129,7 @@ function emh_points_remove_points(&$entity, $context) {
 function emh_points_transfert_points(&$entity, $context) {
   global $user;
   $points = $context['points'];
-  emh_points_move_points($user, $entity, $points, 'TODO: emh_points_transfert_points()');
+  emh_points_move_points($user, $entity, $points, EMH_POINTS_TXN_CONTEXT_DEPRECATED);
 }
 
 /**
