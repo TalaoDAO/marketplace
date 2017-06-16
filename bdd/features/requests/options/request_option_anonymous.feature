@@ -43,7 +43,9 @@ Feature: Request and answers
 
     When I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been published."
-    When I go to "credits"
+
+    Given I am logged in as a user with the "administrator" role
+    When I go to "admin/emindhub/credits/transaction-log"
     Then I should see "request_anonymous"
 
     Given I am logged in as "expert1"
@@ -65,7 +67,9 @@ Feature: Request and answers
 
     When I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been published."
-    When I go to "credits"
+
+    Given I am logged in as a user with the "administrator" role
+    When I go to "admin/emindhub/credits/transaction-log"
     Then I should see "request_anonymous"
 
     Given I am logged in as "expert1"
@@ -86,7 +90,9 @@ Feature: Request and answers
     # Validation page
       And I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been published."
-    When I go to "credits"
+
+    Given I am logged in as a user with the "administrator" role
+    When I go to "admin/emindhub/credits/transaction-log"
     Then I should see "request_anonymous"
 
     Given I am logged in as "expert1"
