@@ -42,6 +42,8 @@ Feature: Request and answers
     # Validation page
       And I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been published."
+    When I go to "credits"
+    Then I should see "request_private"
 
     # An expert responds to the request.
     Given I am logged in as "expert1"
