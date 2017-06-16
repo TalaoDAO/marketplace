@@ -96,10 +96,10 @@ class Hybrid_Providers_LinkedIn extends Hybrid_Provider_Model {
 		} catch (LinkedInException $e) {
 			throw new Exception("User profile request failed! {$this->providerId} returned an error: $e", 6);
 		}
-
 		
 		if (isset($response['success']) && $response['success'] === true) {
 			$data = @ new SimpleXMLElement($response['linkedin']);
+			
 			if (!is_object($data)) {
 				throw new Exception("User profile request failed! {$this->providerId} returned an invalid xml data.", 6);
 			}

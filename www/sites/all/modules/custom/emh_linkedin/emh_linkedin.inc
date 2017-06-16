@@ -46,7 +46,7 @@ function _emh_linkedin_get_profile_fields($uid, $fields = array()) {
       )));
     }
     return $response;
-  }  
+  }
   
   $session = _hybridauth_session_load_by_uid($uid);
   $data = unserialize($session ['data']);
@@ -270,47 +270,41 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
         break;
       
       case 'picture-url' :
-        
+        $url = $item;
         // on t�l�charge maintenant l'image du profile linkdedin
         $nom_img = $user->name . ".jpg";
         $dir_name = "sites/default/files/linkedin_profile_image";
         $path = $dir_name . "/" . $nom_img;
         
-        $drupal_uri = "public://linkedin_profile_image/" . $nom_img;
+        $drupal_uri = file_build_uri("linkedin_profile_image/" . $nom_img);
         
         // si le dossier n'existe pas, on le cr�e
         if (! is_dir($dir_name)) {
           mkdir($dir_name);
         }
         
-        if (! file_exists($path)) {
+        // test if user have changed him linkedin picture
+        if (isset($user->field_linkedin_image ['und'] [0] ['fid'])) {
+          $old = $user->field_linkedin_image ['und'] [0] ['fid'];
           
-          $url = $item;
-          $fp = fopen($path, 'w');
-          
-          $ch = curl_init($url);
-          curl_setopt($ch, CURLOPT_FILE, $fp);
-          $data = curl_exec($ch);
-          $curl_errno = curl_errno($ch);
-          $curl_error = curl_error($ch);
-          curl_close($ch);
-          fclose($fp);
-          
-          if ($curl_errno > 0) {
-            unlink($path);
-            watchdog('emh_linkedin', "cURL Error ($curl_errno): $curl_error\n");
+          $md5image1 = md5(file_get_contents($url)); // linkedin
+          $md5image2 = md5(file_get_contents($path)); // local
+          if ($md5image1 != $md5image2) {
+            // delete old image
+            $file_old = file_load($old);
+            file_delete($file_old, TRUE);
           }
           else {
             
-            if (file_exists($path)) {
-              
-              $handle = fopen($path, 'r');
-              $file = file_save_data($handle, $drupal_uri);
-              $user->field_linkedin_image ['und'] [0] ['fid'] = $file->fid;
-              fclose($handle);
-            }
+            break;
           }
         }
+        
+        $handle = fopen($url, 'r');
+        $file = file_save_data($handle, $drupal_uri);
+        $user->field_linkedin_image ['und'] [0] ['fid'] = $file->fid;
+        fclose($handle);
+        
         break;
       
       case 'public-profile-url' :
@@ -610,8 +604,8 @@ function _emh_linkedin_parse_fields($contents) {
   $repeated_tag_index = array(); // Multiple tags with same name will be turned into an array
   foreach ( $xml_values as $data ) {
     unset($attributes, $value); // Remove existing values, or there will be trouble
-                                   // This command will extract these variables into the foreach scope
-                                   // tag(string), type(string), level(int), attributes(array).
+                                // This command will extract these variables into the foreach scope
+                                // tag(string), type(string), level(int), attributes(array).
     extract($data); // We could use the array by itself, but this cooler.
     
     $result = array();
@@ -654,7 +648,7 @@ function _emh_linkedin_parse_fields($contents) {
       }
     }
     elseif ($type == "complete") { // Tags that ends in 1 line '<tag />'
-                                     // See if the key is already taken.
+                                   // See if the key is already taken.
       if (! isset($current [$tag])) { // New Key
         $current [$tag] = $result;
         $repeated_tag_index [$tag . '_' . $level] = 1;
@@ -664,7 +658,7 @@ function _emh_linkedin_parse_fields($contents) {
       }
       else { // If taken, put all things inside a list(array)
         if (isset($current [$tag] [0]) && is_array($current [$tag])) { // If it is already an array...
-                                                                             // ...push the new element into that array.
+                                                                       // ...push the new element into that array.
           $current [$tag] [$repeated_tag_index [$tag . '_' . $level]] = $result;
           
           $repeated_tag_index [$tag . '_' . $level] ++;
