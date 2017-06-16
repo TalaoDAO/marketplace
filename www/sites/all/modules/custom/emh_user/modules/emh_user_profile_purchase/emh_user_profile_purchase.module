@@ -1,9 +1,11 @@
 <?php
 
 /**
- * Strings for the credits transactions.
+ * @file
+ * TODO: description.
  */
-define('EMH_USER_PROFILE_PURCHASE_POINTS_TXN_CONTEXT', 'Profile purchase.');
+
+const EMH_USER_PROFILE_PURCHASE_TXN_CONTEXT = 'profile_buy';
 
 include_once 'emh_user_profile_purchase.admin.inc';
 
@@ -178,7 +180,7 @@ function emh_user_profile_purchase($account) {
 
     // Spends user's credits.
     $amount = (int) variable_get('emh_user_profile_purchase_amount', 100);
-    emh_points_move_points($user, $account, $amount, EMH_USER_PROFILE_PURCHASE_POINTS_TXN_CONTEXT);
+    emh_points_move_points($user, $account, $amount, EMH_USER_PROFILE_PURCHASE_TXN_CONTEXT);
 
     // Flags the account to add it in the user's relationships.
     $flag = flag_get_flag('my_contacts');
