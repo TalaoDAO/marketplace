@@ -845,16 +845,20 @@ function emh_request_format_cost($cost) {
  */
 function emh_request_purchase_options($request) {
   $total = 0;
+  $txn_context = 'request';
 
   if ($options = field_get_items('node', $request, 'field_options')) {
     foreach ($options as $option) {
       $total += (int) $option['cost'];
+      if ($option['cost'] > 0) {
+        $txn_context .= '_' . $option['option'];
+      }
     }
   }
 
   if ($total > 0) {
     global $user;
     $emindhub = user_load(1);
-    emh_points_move_points($user, $emindhub, $total, 'TODO: emh_request_purchase_options()');
+    emh_points_move_points($user, $emindhub, $total, $txn_context);
   }
 }
