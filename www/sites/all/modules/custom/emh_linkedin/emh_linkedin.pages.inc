@@ -5,10 +5,6 @@
  */
 
 /*
- * @file : Pages callbacks and form builder functions for linkedin module
- */
-
-/*
  * Callback for admin settings at admin/settings/linkedin
  */
 
@@ -167,7 +163,7 @@ function emh_linkedin_user_submit(&$form_state) {
     }
   }
   
-  user_save($user_settings);  
+  user_save($user_settings);
 }
 
 /*
@@ -226,8 +222,10 @@ function emh_linkedin_user_settings($account) {
   
   if (isset($check ['error-code'])) {
     $output .= t('You must first authorize LinkedIn integration to use related features.');
-    /*$form = drupal_get_form('emh_linkedin_user_enable_form', $account->uid);
-    $output .= drupal_render($form);*/
+    /*
+     * $form = drupal_get_form('emh_linkedin_user_enable_form', $account->uid);
+     * $output .= drupal_render($form);
+     */
   }
   else {
     $output .= t('Your account is associated with @name !public_profile.', array(
@@ -262,7 +260,6 @@ function emh_linkedin_user_update_form($form, $form_state, $uid) {
   );
   
   $form ['#submit'] [] = 'emh_linkedin_user_update_submit';
-  
   
   return $form;
 }

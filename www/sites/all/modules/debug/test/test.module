@@ -38,10 +38,25 @@ function test_menu() {
 
 function test_content_2() {
 	$user = user_load(arg(1)/*4426*/, TRUE);
+	var_dump($user->field_linkedin_image);
+	//$image1 = "https://media.licdn.com/mpr/mprx/0_1DoasTnn0njCb3Mjxyyiq9ZBxkTiGhoDKdy8pqsng1oCGrNr1dY8tPZn4toiGT6AnR-aZ-B911hGTX_uJYf-tvnVn1h_TXrj0YfDMN_cg-zfw-ITPfM_JhS69QVPHXb2njwGOQBKRNV";
+	//$image2 = "https://media.licdn.com/mpr/mprx/0_r7IZBBfXoGXSouRpKuHIBqgbeC_jEERp-e0FBzDZBXBDva2yyWRNJvMnQ7iGdSVrAudQZt16rBlZ";
+	
+/*$md5image1 = md5(file_get_contents($image1));
+$md5image2 = md5(file_get_contents($image2));
+if ($md5image1 == $md5image2) {
+  echo "c'est la mÃªme";
+} else {
+  echo "pas la mÃªme";
+}*//*
+	$handle = fopen($image1, 'r');     
+	$drupal_uri = "public://linkedin_profile_image/test.jpg";
+  $file = file_save_data($handle, $drupal_uri);
+  fclose($hanle);
 	
 	//user_save($user);
 	//ddl($user);
-	//kpr($user);
+	kpr($user);*/
 	/*
 	$query = new EntityFieldQuery();
 	$query->entityCondition('entity_type', 'node')
@@ -86,7 +101,7 @@ function test_content_2() {
 	
 	
 	kpr($profile);
-	foreach ($profile as $key => $value) {
+	/*foreach ($profile as $key => $value) {
 		$item = array(
 				'name' => $key,
 				'value' => $value,
@@ -95,8 +110,8 @@ function test_content_2() {
 		//var_dump($item);
 		
 		
-	}
-	kpr($user);
+	}*/
+	//kpr($user);
 	/*echo 'field_address';
 	kpr($user->field_address);
 	
@@ -263,7 +278,7 @@ function test_content() {
 	echo '<br/>isset : ' . print_r(isset($identity['data']),true);
 	echo '<br/>empty : ' . empty($identity['data']) . '<br/>';
 	
-	//on regarde si l'utilisateur à déjà utilisé la connection via linkedin (module hybridauth)
+	//on regarde si l'utilisateur ï¿½ dï¿½jï¿½ utilisï¿½ la connection via linkedin (module hybridauth)
 	if(isset($identity['data'])) {
 		$linkedin_profile = $identity['data'];
 		$linkedin_profile = unserialize($linkedin_profile);
@@ -273,7 +288,7 @@ function test_content() {
 				
 			//echo $profileURL . '</br>';
 				
-			//test si l'utilisateur à déja le lien de son compte linkedin dans son profile
+			//test si l'utilisateur ï¿½ dï¿½ja le lien de son compte linkedin dans son profile
 			$select = db_select('field_data_field_linkedin', 'f');
 			$field_linkedin = $select->fields('f')
 				->condition('entity_id',$uid, '=')
@@ -323,46 +338,6 @@ function test_content() {
 	*/
 	
 	return $output;
-	
-}
-
-function test_myform() {
-	$content = drupal_get_form('test_add_user_form');
-	return $content;
-}
-
-function test_add_user_form () {
-	$form['name'] = array(
-			'#title' => 'Nom utilisateur',
-			'#type' => 'textfield'
-	);
-	
-	$form['mail'] = array(
-			'#title' => 'Mail',
-			'#type' => 'textfield'
-	);
-	
-	$form['valider'] = array(
-		'#type' => 'submit',
-		'#value' => t('Soumettre')
-	);
-	
-	return $form;
-}
-
-//permet de traiter après envoie formulaire
-function test_add_user_form_submit($form, &$form_state) {
-	/* insertion d'un utilisateur */
-	//on s'occupe d'abord de la table users
-	
-	 $insert = db_insert('users');
-	 $insert->fields(array(
-	 'uid' => '15',
-	 'name' => $form_state['values']['name'],
-	 'mail' => $form_state['values']['mail'],
-	 'status' => '1'
-	 ));
-	 $insert->execute();
 	
 }
 

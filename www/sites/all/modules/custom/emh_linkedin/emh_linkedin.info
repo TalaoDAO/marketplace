@@ -1,6 +1,6 @@
 ; $Id:
 name = eMindHub - Linkedin
-description = Récupération des données LinkedIn des utilisateurs.
+description = Retrieving LinkedIn users data
 core = 7.x
 package = eMindHub
 dependencies[] = hybridauth
