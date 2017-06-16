@@ -1394,7 +1394,6 @@ function emh_points_show_user_history($account = NULL) {
 
     $rows[] = array(
       $transaction->operation,
-      $transaction->context,
       $transaction->description,
       format_date($transaction->time_stamp, 'short_date'),
       $points,
@@ -1413,7 +1412,6 @@ function emh_points_show_user_history($account = NULL) {
     '#theme' => 'table',
     '#header' => array(
       t('Type'),
-      t('Context'),
       t('Details'),
       t('Date'),
       t('Credits'),

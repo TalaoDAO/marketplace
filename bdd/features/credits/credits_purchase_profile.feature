@@ -68,13 +68,6 @@ Feature: Buy profile access
       And I should see "0712345670"
       And I should see "emindhub.test+expert1@gmail.com"
 
-    When I go to "credits"
-    Then I should see "profile_buy"
-
-    Given I am logged in as "client1"
-    When I go to "credits"
-    Then I should see "profile_buy"
-
     Given I am logged in as a user with the "administrator" role
     When I go to "admin/emindhub/credits/transaction-log"
     Then I should see "profile_buy"
