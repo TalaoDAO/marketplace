@@ -1,21 +1,15 @@
 <?php
 
-/*
+/**
  * @file : LinkedIn API requests related functions
  */
 
-/*
+/**
  * Let us retrieve profile fields.
  * Returns an array contening the fields requested.
- * @params
- * $uid : the uid of the user we want to access infos
- * $fields : the fields we want to retrieve, as an array (see http://developer.linkedin.com/docs/DOC-1061 for complete list).
- */
-
-/**
- *
- * @todo Please document this function.
- * @see http://drupal.org/node/1354
+ * @param unknown $uid : the uid of the user we want to access infos
+ * @param array $fields : : the fields we want to retrieve, as an array (see http://developer.linkedin.com/docs/DOC-1061 for complete list).
+ * @return string[]|unknown
  */
 function _emh_linkedin_get_profile_fields($uid, $fields = array()) {
   // Get sure library is loaded before doing anything.
@@ -65,7 +59,6 @@ function _emh_linkedin_get_profile_fields($uid, $fields = array()) {
   }
   else {
     // Fetch profile. Fields returned will depend on the relationships between viewing/viewed users
-    // $authname = db_query("SELECT authname FROM {authmap} WHERE uid = :uid AND module = :module", array(':uid' => $uid, ':module' => 'linkedin'))->fetchField();
     $identity = db_select('hybridauth_identity', 'ha_id')->fields('ha_id')->condition('uid', $uid, '=')->execute()->fetchAssoc();
     $authname = $identity ['provider_identifier'];
     
@@ -121,7 +114,7 @@ function _emh_linkedin_fields_build_profile() {
       'picture-url',
       'email-address',
       'public-profile-url',
-      'headline' 
+      'headline', 
   );
   
   return $fields;
@@ -135,7 +128,7 @@ function _emh_linkedin_fields_user_update() {
       'picture-url',
       'email-address',
       'public-profile-url',
-      'headline' 
+      'headline',
   );
   
   return $fields;
@@ -155,7 +148,7 @@ function _emh_linkedin_fields_default_user_update() {
   $fields = array(
       'first-name',
       'last-name',
-      'num-connections' 
+      'num-connections', 
   );
   
   return $fields;
@@ -198,7 +191,7 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
           $user->field_address ['und'] [0] ['country'] = $country_code;
         }
         else {
-          // maj
+          // update
           if (strcmp($user->field_address ['und'] [0] ['locality'], $item ['name']) != 0) {
             if (strcmp($country, $item ['name']) != 0) {
               $user->field_address ['und'] [0] ['locality'] = $city;
@@ -216,7 +209,7 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
           $user->field_nb_contacts_linkedin ['und'] [0] ['value'] = $item;
         }
         else {
-          // maj
+          // update
           if (strcmp($user->field_nb_contacts_linkedin ['und'] [0] ['value'], $item) != 0) {
             $user->field_nb_contacts_linkedin ['und'] [0] ['value'] = $item;
           }
@@ -228,7 +221,7 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
           $user->field_employment_history ['und'] [0] ['value'] = $item;
         }
         else {
-          // maj
+          // update
           if (strcmp($user->field_employment_history ['und'] [0] ['value'], $item) != 0) {
             $user->field_employment_history ['und'] [0] ['value'] = $item;
           }
@@ -238,7 +231,7 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
       case 'positions' :
         
         $multiple = FALSE;
-        // pour savoir si l'utilisateur a plusieurs "position"
+        
         if (array_key_exists(0, $item ['position'])) {
           $taille = count($item ['position']);
           $multiple = TRUE;
@@ -271,14 +264,13 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
       
       case 'picture-url' :
         $url = $item;
-        // on t�l�charge maintenant l'image du profile linkdedin
+        // download profile image LinkedIn
         $nom_img = $user->name . ".jpg";
         $dir_name = "sites/default/files/linkedin_profile_image";
         $path = $dir_name . "/" . $nom_img;
         
         $drupal_uri = file_build_uri("linkedin_profile_image/" . $nom_img);
         
-        // si le dossier n'existe pas, on le cr�e
         if (! is_dir($dir_name)) {
           mkdir($dir_name);
         }
@@ -294,8 +286,7 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
             $file_old = file_load($old);
             file_delete($file_old, TRUE);
           }
-          else {
-            
+          else {            
             break;
           }
         }
@@ -314,7 +305,7 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
           $user->field_linkedin ['und'] [0] ['url'] = $profile_URL;
         }
         else {
-          // maj
+          // update
           if (strcmp($user->field_linkedin ['und'] [0] ['url'], $profile_URL) != 0) {
             $user->field_linkedin ['und'] [0] ['url'] = $profile_URL;
           }
@@ -327,7 +318,7 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
           $user->field_titre_metier ['und'] [0] ['value'] = $item;
         }
         else {
-          // maj
+          // update
           if (strcmp($user->field_titre_metier ['und'] [0] ['value'], $item) != 0) {
             $user->field_titre_metier ['und'] [0] ['value'] = $item;
           }
@@ -358,7 +349,7 @@ function _emh_maj_position($user, $position, $i) {
       taxonomy_term_save($new_term);
       $term = taxonomy_get_term_by_name($title, $vocab->machine_name);
     }
-    // maj
+    // update
     $term_tmp = $term;
     $term = array_shift($term_tmp);
     
@@ -366,7 +357,7 @@ function _emh_maj_position($user, $position, $i) {
       $user->field_position ['und'] [$i] ['tid'] = $term->tid;
     }
     else {
-      // maj
+      // update
       if (strcmp($user->field_position ['und'] [$i] ['tid'], $term->tid) != 0) {
         $user->field_position ['und'] [$i] ['tid'] = $term->tid;
       }
@@ -408,7 +399,7 @@ function _emh_maj_position($user, $position, $i) {
       $user->field_entreprise ['und'] [$i] ['target_id'] = $company->nid;
     }
     else {
-      // maj
+      // update
       if (strcmp($user->field_entreprise ['und'] [$i] ['target_id'], $company->nid) != 0) {
         $user->field_entreprise ['und'] [$i] ['target_id'] = $company->nid;
       }
@@ -422,7 +413,7 @@ function _emh_maj_position($user, $position, $i) {
     }
   }
   else {
-    // maj
+    // update
     if (strcmp($user->field_description_activities ['und'] [$i] ['value'], $position ['summary']) != 0) {
       if (isset($position ['summary'])) {
         $user->field_description_activities ['und'] [$i] ['value'] = $position ['summary'];
@@ -454,7 +445,7 @@ function _emh_linkedin_list_fields($type = 'auth') {
       'public-profile-url',
       'positions',
       'educations',
-      'current-share' 
+      'current-share', 
     // @TODO // 'site-standard-profile-request', // 'api-standard-profile-request', // 'api-public-profile-request', Deprecated ? // 'site-public-profile-request', Deprecated ? // 'member-url', // Deprecated ?
   );
   if ($type == 'auth') {
@@ -469,7 +460,7 @@ function _emh_linkedin_list_fields($type = 'auth') {
         'im-accounts',
         'twitter-accounts',
         'date-of-birth',
-        'main-address' 
+        'main-address', 
       // @TODO // 'relation-to-viewer', // 'proposal-comments', // 'recommendations-received',
     );
     $fields = array_merge($fields, $standard_fields);
@@ -477,8 +468,11 @@ function _emh_linkedin_list_fields($type = 'auth') {
   return $fields;
 }
 
-/*
+/**
  * Filter the requested fields to match the type of profile (public or auth)
+ * @param unknown $fields
+ * @param string $type
+ * @return string
  */
 function _emh_linkedin_build_fields_request($fields, $type = 'auth') {
   if (! empty($fields) || is_array($fields)) {
@@ -494,24 +488,18 @@ function _emh_linkedin_build_fields_request($fields, $type = 'auth') {
   return $request;
 }
 
-/*
+/**
  * Returns an array contening the fields requested.
  * @params
  * $url : full request url to a linkedin API ressource (see API doc for syntax)
  * $tokens : the user tokens, as an array containing keys 'token_key' and 'token_secret' with their value
- */
-
-/**
- *
- * @todo Please document this function.
- * @see http://drupal.org/node/1354
  */
 function _emh_linkedin_get_fields($url, $tokens) {
   // Get sure library is loaded before doing anything.
   emh_linkedin_init();
   
   $signature = new OAuthSignatureMethod_HMAC_SHA1();
-  // on recup�re la key et key secret du module hybridauth pour l'api linkedin
+  //LinkedIn key and key secret from Hybridauth module
   $consumer_key = variable_get('hybridauth_provider_LinkedIn_keys_key', '');
   $consumer_secret = variable_get('hybridauth_provider_LinkedIn_keys_secret', '');
   $consumer = new OAuthConsumer($consumer_key, $consumer_secret, NULL);
@@ -523,7 +511,7 @@ function _emh_linkedin_get_fields($url, $tokens) {
   parse_str($response);
   $response = _emh_linkedin_parse_fields($response);
   if (isset($response ['error-code'])) {
-    $message = t('Linkedin debug 3 : LinkedIn.com answered "@status : @message', array(
+    $message = t('Linkedin : LinkedIn.com answered "@status : @message', array(
         '@status' => $response ['status'],
         '@message' => $response ['message'] 
     ));
@@ -535,7 +523,7 @@ function _emh_linkedin_get_fields($url, $tokens) {
   return $response;
 }
 
-/*
+/**
  * Some internal helper functions...
  */
 function _emh_linkedin_http_request($url, $header, $body = NULL) {
@@ -569,7 +557,7 @@ function _emh_linkedin_http_request($url, $header, $body = NULL) {
   return $output;
 }
 
-/*
+/**
  * Parser function. Based on xml2array() by Binny V A : http://www.bin-co.com/php/scripts/xml2array/
  */
 function _emh_linkedin_parse_fields($contents) {
@@ -679,129 +667,3 @@ function _emh_linkedin_parse_fields($contents) {
   
   return ($xml_array);
 }
-
-/*
-function emh_linkedin_access_token($account) {
-	//Get sure library is loaded before doing anything.
-	emh_linkedin_init();
-	
-	if ($account->uid < 1) {
-		$anon = TRUE;
-		$back = 'login';
-	}
-	else {
-		$anon = FALSE;
-		$back = 'token';
-	}
-	//setting up variables
-	$base_url = "https://api.linkedin.com/uas/oauth";
-	$signature = new OAuthSignatureMethod_HMAC_SHA1();
-	$consumer_key = variable_get('hybridauth_provider_LinkedIn_keys_key', '');
-	$consumer_secret = variable_get('hybridauth_provider_LinkedIn_keys_secret', '');
-	$consumer = new OAuthConsumer($consumer_key, $consumer_secret, NULL);
-	$random = md5(rand());
-	$callback = url('linkedin/' . $back . '/' . $account->uid, array('absolute' => TRUE, 'query' => array('action' => $random))); // random will be used to discard direct call to the path and for anonymous
-	// First or renewal request
-	if (!isset($_GET['action']) || $_GET['action'] != $_SESSION['random']) {
-		$_SESSION['random'] = $random;
-		$url = $base_url . "/requestToken";
-		$request = OAuthRequest::from_consumer_and_token($consumer, NULL, 'POST', $url);
-		$request->set_parameter("oauth_callback", $callback);
-		$request->sign_request($signature, $consumer, NULL);
-		$header = $request->to_header();
-		$response = _linkedin_http_request($url, $header, 'token_request');
-		parse_str($response, $oauth);
-		if (isset($oauth['oauth_problem'])) {
-			if (variable_get('linkedin_debug_mode', 0) == 1) {
-				drupal_set_message(t('LinkedIn debug : received error response : @error'), array('@error' => $oauth['oauth_problem']), 'warning');
-			}
-			else {
-				drupal_set_message(t('There was a problem with the configuration of LinkedIn on this website. Please try again later.'), 'error');
-			}
-			watchdog('linkedin', t('Linkedin reported the following response : @error'), array('@error' => $oauth['oauth_problem']), WATCHDOG_ERROR);
-			drupal_goto();
-		}
-		if ($oauth['oauth_token']) {
-			
-			if (!$anon) { // Logged in user : store request token for next step in db instead of $_SESSION for security
-				db_delete('linkedin_token')
-				->condition('uid', $account->uid)
-				->execute();
-				$sql = array(
-						'uid' => $account->uid,
-						'token_key' => $oauth['oauth_token'],
-						'token_secret' => $oauth['oauth_token_secret'],
-						'type' => 'request',
-				);
-				drupal_write_record('linkedin_token', $sql);
-				//Redirect the user to the authentication/authorisation page. This will authorise the token in LinkedIn
-				drupal_goto($base_url . '/authorize?oauth_token=' . $oauth['oauth_token']);
-			}
-			else { // Anonymous user. We can't use db storage, but $_SESSION can not lead to identity forgery for anonymous
-				$_SESSION['oauth_token_secret'] = $oauth['oauth_token_secret'];
-				//Redirect the user to the authentication/authorisation page. This will authorise the token in LinkedIn
-				drupal_goto($base_url . '/authenticate?oauth_token=' . $oauth['oauth_token']);
-			}
-		}
-		else {
-			if (variable_get('linkedin_debug_mode', 0) == 1) {
-				drupal_set_message(t('LinkedIn debug : received no answer from linkedin.com. Check your API credential at admin/settings/linkedin'));
-			}
-			else {
-				drupal_set_message(t('There was a problem with the configuration of LinkedIn on this website. Please try again later.'), 'error');
-			}
-			watchdog('linkedin', t('The website could not communicate with LinkedIn. It is likely your API credentials are misconfigured.'), array(), WATCHDOG_ERROR);
-			drupal_goto();
-		}
-	}
-	else {
-		//this is called when the OAuth callback is invoked. User has authorised the token.
-		//Now retrieve the stored request token and ask for an access token
-		
-		$url = $base_url . '/accessToken';
-		if (!$anon) {
-			$result = db_query("SELECT token_secret FROM {linkedin_token} WHERE uid = :uid AND type = :type", array(':uid' => $account->uid, ':type' => 'request'))->fetchField();
-		}
-		else {
-			$result = $_SESSION['oauth_token_secret'];
-		}
-		$token = new OAuthConsumer($_REQUEST['oauth_token'], $result, 1);
-		$request = OAuthRequest::from_consumer_and_token($consumer, $token, "POST", $url);
-		$request->set_parameter("oauth_verifier", $_REQUEST['oauth_verifier']);
-		$request->sign_request($signature, $consumer, $token);
-		$header = $request->to_header();
-		$response = _linkedin_http_request($url, $header, 'token_request');
-		parse_str($response, $oauth);
-		if (!$anon) {
-			//Check if the same LinkedIn account is not already tied to another user
-			$result = db_query("SELECT uid FROM {linkedin_token} WHERE token_key = :token_key AND token_secret = :token_secret AND type = :type ", array(':token_key' => $oauth['oauth_token'], ':token_secret' => $oauth['oauth_token_secret'], ':type' => 'access'))->fetchField();
-			if ($result) {
-				$registered = user_load($result);
-				drupal_set_message(t('Sorry, this LinkedIn account is already associated with user !registered', array('!registered' => l($registered->name, 'user/' . $result))), 'warning');
-				drupal_goto('user/' . $account->uid . '/edit/linkedin');
-			}
-			//save acces token for future requests
-			$sql = array(
-					'uid' => $account->uid,
-					'token_key' => $oauth['oauth_token'],
-					'token_secret' => $oauth['oauth_token_secret'],
-					'type' => 'access',
-			);
-			drupal_write_record('linkedin_token', $sql, array('uid'));
-			//associate LinkedIn ID with uid for future use
-			$id = linkedin_get_profile_fields($account->uid, array('id'), TRUE);
-			user_set_authmaps($account, array('authmap_linkedin' => $id['id']));
-			drupal_goto("user/$account->uid/edit/linkedin");
-		}
-		else {
-			$uid = db_query("SELECT uid FROM {linkedin_token} WHERE token_key = :token_key AND token_secret = :token_secret AND type = :type ", array(':token_key' => $oauth['oauth_token'], ':token_secret' => $oauth['oauth_token_secret'], ':type' => 'access'))->fetchField();
-			
-			if ($uid > 0) {
-				module_invoke_all('linkedin_external_login', $uid);
-			}
-			else {
-				module_invoke_all('linkedin_tie_external_login', $uid, $oauth['oauth_token'], $oauth['oauth_token_secret']);
-			}
-		}
-	}
-}*/
