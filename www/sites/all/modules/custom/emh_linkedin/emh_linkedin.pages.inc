@@ -4,14 +4,8 @@
  * @file Pages callbacks and form builder functions for Linkedin Profile module.
  */
 
-/*
- * Callback for admin settings at admin/settings/linkedin
- */
-
 /**
- *
- * @todo Please document this function.
- * @see http://drupal.org/node/1354
+ * Callback for admin settings at admin/settings/linkedin
  */
 function emh_linkedin_admin($form, &$form_state) {
   // LinkedIn API credentials
@@ -102,29 +96,17 @@ function emh_linkedin_admin($form, &$form_state) {
   return system_settings_form($form);
 }
 
-/*
+/**
  * Additionnal submit for Linkedin admin page.
  * Rebuild menu router to avoid problems when switching display from/to tab
- */
-
-/**
- *
- * @todo Please document this function.
- * @see http://drupal.org/node/1354
  */
 function emh_linkedin_admin_submit(&$form_state) {
   menu_rebuild();
 }
 
-/*
+/**
  * Additionnal submit for Linkedin admin page.
  * Rebuild menu router to avoid problems when switching display from/to tab
- */
-
-/**
- *
- * @todo Please document this function.
- * @see http://drupal.org/node/1354
  */
 function emh_linkedin_user_update_submit(&$form_state) {
   global $user;
@@ -166,15 +148,9 @@ function emh_linkedin_user_submit(&$form_state) {
   user_save($user_settings);
 }
 
-/*
+/**
  * Implementation of hook_linkedin_user_settings_page
  * Add our settings to user/%user/edit/emh_linkedin
- */
-
-/**
- *
- * @todo Please document this function.
- * @see http://drupal.org/node/1354
  */
 function emh_linkedin_linkedin_user_settings_page($account) {
   $elems = array();
@@ -189,14 +165,8 @@ function emh_linkedin_linkedin_user_settings_page($account) {
   return;
 }
 
-/*
- * Page callback for user profile linkedin tab
- */
-
 /**
- *
- * @todo Please document this function.
- * @see http://drupal.org/node/1354
+ * Page callback for user profile linkedin tab
  */
 function emh_linkedin_display($account) {
   $profile = $account->linkedin;
@@ -207,11 +177,7 @@ function emh_linkedin_display($account) {
   }
 }
 
-/**
- *
- * @todo Please document this function.
- * @see http://drupal.org/node/1354
- */
+
 function emh_linkedin_user_settings($account) {
   $output = '';
   $check = emh_linkedin_get_profile_fields($account->uid, array(
@@ -237,14 +203,8 @@ function emh_linkedin_user_settings($account) {
   return $output;
 }
 
-/*
- * Form to update user linkedin data
- */
-
 /**
- *
- * @todo Please document this function.
- * @see http://drupal.org/node/1354
+ * Form to update user linkedin data
  */
 function emh_linkedin_user_update_form($form, $form_state, $uid) {
   $form = array();
@@ -260,14 +220,8 @@ function emh_linkedin_user_update_form($form, $form_state, $uid) {
   return $form;
 }
 
-/*
- * Take users to linkedin auth page
- */
-
 /**
- *
- * @todo Please document this function.
- * @see http://drupal.org/node/1354
+ * Take users to linkedin auth page
  */
 function emh_linkedin_user_enable_form($form, $form_state, $uid) {
   $form = array();

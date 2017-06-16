@@ -4,7 +4,7 @@
  */
 module_load_include('pages.inc', 'emh_linkedin');
 
-/*
+/**
  * Implementation of hook_init()
  */
 function emh_linkedin_init() {
@@ -27,7 +27,7 @@ function emh_linkedin_init() {
   }
 }
 
-/*
+/**
  * Implementation of hook_menu
  */
 function emh_linkedin_menu() {
@@ -81,7 +81,7 @@ function emh_linkedin_menu() {
   return $items;
 }
 
-/*
+/**
  * Custom access callback for user/%user/emh_linkedin
  */
 function emh_linkedin_display_access($account) {
@@ -107,7 +107,7 @@ function emh_linkedin_display_access($account) {
   return TRUE;
 }
 
-/*
+/**
  * Implementation of hook_permission()
  */
 function emh_linkedin_permission() {
@@ -119,7 +119,7 @@ function emh_linkedin_permission() {
   );
 }
 
-/*
+/**
  * Implementation of hook_linkedin_user_edit_perms :
  * Let Linkedin module know what permissions are available at user/%user/edit/emh_linkedin
  */
@@ -129,7 +129,7 @@ function emh_linkedin_linkedin_user_edit_perms() {
   );
 }
 
-/*
+/**
  * Implementation of hook_hybridauth_user_login
  */
 function emh_linkedin_hybridauth_user_login($account, $data) {
@@ -164,7 +164,7 @@ function emh_linkedin_hybridauth_user_login($account, $data) {
   }
 }
 
-/*
+/**
  * Implementation of hook_hybridauth_userinfo_alter
  */
 function emh_linkedin_hybridauth_userinfo_alter(&$userinfo, $data) {
@@ -179,7 +179,7 @@ function emh_linkedin_hybridauth_userinfo_alter(&$userinfo, $data) {
   $userinfo ['data'] ['emh_linkedin_update'] = TRUE;
 }
 
-/*
+/**
  * Implementation of hook_hybridauth_user_insert
  */
 function emh_linkedin_hybridauth_user_insert($account, $data) {
@@ -191,7 +191,7 @@ function emh_linkedin_hybridauth_user_insert($account, $data) {
   variable_set('emh_linkedin_user_page_linkedin_fields_' . $account->uid, $fields);
 }
 
-/*
+/**
  * Implementation of hook_file_delete
  */
 function emh_linkedin_file_delete($file) {
@@ -237,7 +237,7 @@ function emh_linkedin_user_view($account, $view_mode) {
   }
 }
 
-/*
+/**
  * Implements hook_block_info().
  */
 function emh_linkedin_block_info() {
@@ -251,7 +251,7 @@ function emh_linkedin_block_info() {
   return $blocks;
 }
 
-/*
+/**
  * Implements hook_block_view().
  */
 function emh_linkedin_block_view($delta = '') {
@@ -268,58 +268,6 @@ function emh_linkedin_block_view($delta = '') {
   return;
 }
 
-/*
- * Implementation of hook_theme()
- */
-
-/**
- *
- * @todo Please document this function.
- * @see http://drupal.org/node/1354
- */
-function emh_linkedin_theme($existing, $type, $theme, $path) {
-  $return = array();
-  
-  // Define the main template file for users profile
-  $return ['emh_linkedin_user_page'] = array(
-      'variables' => array(
-          'profile' => NULL 
-      ),
-      'template' => 'emh-linkedin-user-page' 
-  );
-  
-  // Deal with multi-structured fields
-  $multiples = array(
-      'positions' => 'position',
-      'educations' => 'education' 
-  );
-  foreach ( $multiples as $key => $val ) {
-    // Template files for multi-values structured fields
-    $return ['emh_linkedin_user_page_' . $key] = array(
-        'variables' => array(
-            $key => NULL 
-        ),
-        'template' => 'emh-linkedin-user-page-' . $key 
-    );
-    // Template file for multi-values structured fields items
-    $return ['emh_linkedin_user_page_' . $val . '_item'] = array(
-        'variables' => array(
-            $val => NULL 
-        ),
-        'template' => 'emh-linkedin-user-page-' . $val . '-item' 
-    );
-  }
-  
-  // Let themers hook into other profile items
-  $return ['emh_linkedin_user_page_item'] = array(
-      'variables' => array(
-          'item' => NULL 
-      ),
-      'file' => 'emh_linkedin.theme.inc' 
-  );
-  
-  return $return;
-}
 
 /**
  * Implements of hook_user_delete()
@@ -328,7 +276,7 @@ function emh_linkedin_user_delete($account) {
   variable_del('emh_linkedin_user_page_linkedin_fields_' . $account->uid);
 }
 
-/*
+/**
  * Helper function : defines default values
  */
 function _emh_linkedin_list_default_fields() {
@@ -347,7 +295,7 @@ function _emh_linkedin_list_default_fields() {
   return $default_fields;
 }
 
-/*
+/**
  * Helper function : wraps around variable_get
  */
 function _emh_linkedin_vget_user_page_linkedin_fields() {
@@ -360,6 +308,12 @@ function _emh_linkedin_vget_user_page_linkedin_fields() {
   }
   return $fields;
 }
+
+/**
+ * Return an array containing all linkedin field which user want to update them
+ * @param unknown $uid
+ * @return unknown[]
+ */
 function _emh_linkedin_fields_user($uid) {
   $user = user_load($uid);
   $fields = array();
@@ -376,49 +330,31 @@ function _emh_linkedin_fields_user($uid) {
   return $fields;
 }
 
-/*
+/**
  * Let us retrieve profile fields.
  * Returns an array contening the fields requested.
  * @params
  * $uid : the uid of the user we want to access infos
  * $fields : the fields we want to retrieve, as an array (see http://developer.linkedin.com/docs/DOC-1061 for complete list).
  */
-
-/**
- *
- * @todo Please document this function.
- * @see http://drupal.org/node/1354
- */
 function emh_linkedin_get_profile_fields($uid, $fields = array()) {
   module_load_include('inc', 'emh_linkedin');
   return _emh_linkedin_get_profile_fields($uid, $fields);
 }
 
-/*
+/**
  * Returns an array contening the fields requested.
  * @params
  * $url : full request url to a linkedin API ressource (see API doc for syntax)
  * $tokens : the user tokens, as an array containing keys 'token_key' and 'token_secret' with their value
- */
-
-/**
- *
- * @todo Please document this function.
- * @see http://drupal.org/node/1354
  */
 function emh_linkedin_get_fields($url, $tokens) {
   module_load_include('inc', 'emh_linkedin');
   return _emh_linkedin_get_fields($url, $tokens);
 }
 
-/*
- * Custom access callback for user/%user/edit/emh_linkedin
- */
-
 /**
- *
- * @todo Please document this function.
- * @see http://drupal.org/node/1354
+ * Custom access callback for user/%user/edit/emh_linkedin
  */
 function emh_linkedin_user_access($account) {
   global $user;
