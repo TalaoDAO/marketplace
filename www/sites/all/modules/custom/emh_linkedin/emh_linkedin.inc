@@ -7,7 +7,7 @@
 /**
  * Let us retrieve profile fields.
  * Returns an array contening the fields requested.
- * @param unknown $uid : the uid of the user we want to access infos
+ * @param unknown $uid : the uid of the user we want to access infos.
  * @param array $fields : : the fields we want to retrieve, as an array (see http://developer.linkedin.com/docs/DOC-1061 for complete list).
  * @return string[]|unknown
  */
@@ -98,7 +98,7 @@ function _emh_linkedin_get_profile_fields($uid, $fields = array()) {
 }
 
 /**
- * List of LinkedIn fields to complet user profile
+ * List of LinkedIn fields to complet user profile.
  *
  * @return string[]
  */
@@ -119,6 +119,11 @@ function _emh_linkedin_fields_build_profile() {
   
   return $fields;
 }
+
+/**
+ * List of LinkedIn fields for user settings.
+ * @return string[]
+ */
 function _emh_linkedin_fields_user_update() {
   // Basic Profile LinkedIn Fields
   $fields = array(
@@ -133,6 +138,10 @@ function _emh_linkedin_fields_user_update() {
   
   return $fields;
 }
+
+/**
+ * Retrieve the list of a user's linkedin fields
+ */
 function _emh_linkedin_get_user_fields($user) {
   $user_fields = $user->data ['emh_linkedin_fields'];
   $fields = array();
@@ -143,6 +152,11 @@ function _emh_linkedin_get_user_fields($user) {
   
   return $fields;
 }
+
+/**
+ * List obligatory of LinkedIn fields for user settings.
+ * @return string[]
+ */
 function _emh_linkedin_fields_default_user_update() {
   // Basic Profile LinkedIn Fields
   $fields = array(
@@ -329,6 +343,10 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
   
   return $user;
 }
+
+/**
+ * Update user data for multiple position fields.
+ */
 function _emh_maj_position($user, $position, $i) {
   
   // field_position
@@ -423,9 +441,9 @@ function _emh_maj_position($user, $position, $i) {
   return $user;
 }
 
-/*
- * Provides a list of available LinkedIn fields
- * $type : 'public' or 'auth'. Wether we need 'public' or 'standard' fields
+/**
+ * Provides a list of available LinkedIn fields.
+ * $type : 'public' or 'auth'. Wether we need 'public' or 'standard' fields.
  */
 function _emh_linkedin_list_fields($type = 'auth') {
   $fields = array(
@@ -433,7 +451,9 @@ function _emh_linkedin_list_fields($type = 'auth') {
       'first-name',
       'last-name',
       'headline',
-      'location',
+      'location',      
+      'email-address',      
+      'headline',
       'industry',
       'summary',
       'specialties',
@@ -445,9 +465,8 @@ function _emh_linkedin_list_fields($type = 'auth') {
       'public-profile-url',
       'positions',
       'educations',
-      'current-share', 
-    // @TODO // 'site-standard-profile-request', // 'api-standard-profile-request', // 'api-public-profile-request', Deprecated ? // 'site-public-profile-request', Deprecated ? // 'member-url', // Deprecated ?
-  );
+      'current-share',
+      );
   if ($type == 'auth') {
     $standard_fields = array(
         'distance',
@@ -461,15 +480,14 @@ function _emh_linkedin_list_fields($type = 'auth') {
         'twitter-accounts',
         'date-of-birth',
         'main-address', 
-      // @TODO // 'relation-to-viewer', // 'proposal-comments', // 'recommendations-received',
-    );
+          );
     $fields = array_merge($fields, $standard_fields);
   }
   return $fields;
 }
 
 /**
- * Filter the requested fields to match the type of profile (public or auth)
+ * Filter the requested fields to match the type of profile (public or auth).
  * @param unknown $fields
  * @param string $type
  * @return string
