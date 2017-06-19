@@ -30,44 +30,7 @@ function emh_linkedin_admin($form, &$form_state) {
       '#type' => 'checkbox' 
   );
   
-  // User profile settings
-  $form ['emh_linkedin'] = array(
-      '#description' => t('Let users display information from their LinkedIn profile.'),
-      '#title' => t('User profile integration'),
-      '#type' => 'fieldset',
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE 
-  );
-  $form ['emh_linkedin'] ['user_page'] = array(
-      '#description' => t('Enable users to display their LinkedIn profile page on their local user page.'),
-      '#title' => t('User page'),
-      '#type' => 'fieldset',
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE 
-  );
-  $form ['emh_linkedin'] ['user_page'] ['emh_linkedin_user_page_enabled'] = array(
-      '#type' => 'select',
-      '#title' => 'Profile display',
-      '#options' => array(
-          0 => t('Disabled'),
-          1 => t('Tab'),
-          2 => t('User page'),
-          3 => t('Block'),
-          4 => t('Hidden') 
-      ),
-      '#default_value' => variable_get('emh_linkedin_user_page_enabled', 0),
-      '#description' => '<ul><li>' . t("Tab : will create a new tab containing the profile on the user's page") . '</li><li>' . t("User page : will display the profile amongst other elements on the user's page") . '</li><li>' . t("Block : will create a block containing the profile. Note you still have to activate it on the Blocks' admin page") . '</li><li>' . t('Hidden : Will not output anything, but make the data available as an array under $user->linkedin for theming') . '</li></ul>' 
-  );
-  
-  $form ['emh_linkedin'] ['user_page'] ['emh_linkedin_user_page_weight'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Profile item weight'),
-      '#maxlength' => 4,
-      '#size' => 2,
-      '#description' => t('"User Page" display only. Changing this value will make the profile display move below or after other elements on the user page. E.g. setting this to 100 will make it the very last element.'),
-      '#default_value' => variable_get('emh_linkedin_user_page_weight', 2) 
-  );
-  
+  // User profile settings when user registration 
   $form ['emh_linkedin'] ['user_page'] ['emh_linkedin_user_page_fields'] = array(
       '#type' => 'fieldset',
       '#title' => t('LinkedIn fields'),
@@ -98,15 +61,14 @@ function emh_linkedin_admin($form, &$form_state) {
 
 /**
  * Additionnal submit for Linkedin admin page.
- * Rebuild menu router to avoid problems when switching display from/to tab
+ * Rebuild menu router to avoid problems when switching display from/to tab.
  */
 function emh_linkedin_admin_submit(&$form_state) {
   menu_rebuild();
 }
 
 /**
- * Additionnal submit for Linkedin admin page.
- * Rebuild menu router to avoid problems when switching display from/to tab
+ * Update user data with user settings.
  */
 function emh_linkedin_user_update_submit(&$form_state) {
   global $user;
@@ -126,7 +88,7 @@ function emh_linkedin_user_update_submit(&$form_state) {
   user_save($user_update);
   
   if (! isset($profile ['error'])) {
-    drupal_set_message(t('Successful update'));
+    drupal_set_message(t('Successful Update.'));
   }
 }
 function emh_linkedin_user_submit(&$form_state) {
@@ -149,8 +111,8 @@ function emh_linkedin_user_submit(&$form_state) {
 }
 
 /**
- * Implementation of hook_linkedin_user_settings_page
- * Add our settings to user/%user/edit/emh_linkedin
+ * Implementation of hook_linkedin_user_settings_page.
+ * Add our settings to user/%user/edit/emh_linkedin.
  */
 function emh_linkedin_linkedin_user_settings_page($account) {
   $elems = array();
@@ -166,7 +128,7 @@ function emh_linkedin_linkedin_user_settings_page($account) {
 }
 
 /**
- * Page callback for user profile linkedin tab
+ * Page callback for user profile linkedin tab.
  */
 function emh_linkedin_display($account) {
   $profile = $account->linkedin;
@@ -177,7 +139,9 @@ function emh_linkedin_display($account) {
   }
 }
 
-
+/**
+ * Build form for user settings.
+ */
 function emh_linkedin_user_settings($account) {
   $output = '';
   $check = emh_linkedin_get_profile_fields($account->uid, array(
@@ -204,7 +168,7 @@ function emh_linkedin_user_settings($account) {
 }
 
 /**
- * Form to update user linkedin data
+ * Form to update user linkedin data.
  */
 function emh_linkedin_user_update_form($form, $form_state, $uid) {
   $form = array();
@@ -221,7 +185,7 @@ function emh_linkedin_user_update_form($form, $form_state, $uid) {
 }
 
 /**
- * Take users to linkedin auth page
+ * Take users to linkedin auth page.
  */
 function emh_linkedin_user_enable_form($form, $form_state, $uid) {
   $form = array();
@@ -236,6 +200,10 @@ function emh_linkedin_user_enable_form($form, $form_state, $uid) {
   
   return $form;
 }
+
+/**
+ * Form to save user settings about LinkedIn fields.
+ */
 function emh_linkedin_user_settings_form($form, &$form_state, $account) {
   $form = array();
   $form ['emh_linkedin'] ['user_page'] ['emh_linkedin_user_page_fields'] = array(
