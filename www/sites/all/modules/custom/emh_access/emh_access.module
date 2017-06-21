@@ -349,7 +349,7 @@ function _emh_access_full_access($nid, $account = NULL) {
 }
 
 /**
- * Implements hook_node_access()
+ * Implements hook_node_access().
  */
 function emh_access_node_access($node, $op, $account) {
 
