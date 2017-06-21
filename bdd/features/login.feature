@@ -4,7 +4,8 @@ Feature: Login test
   As an anonymous user
   I want to check if I can log in
 
-  Scenario: Login with custom parameters in query
+  Background: Create Users & Request
+
     Given "circle" content:
     | title    | author  |
     | Avengers | admin   |
@@ -47,18 +48,45 @@ Feature: Login test
       And I press "Submit"
     Then I should see "Your password has been changed."
 
-    # Case 1: I can access to this Request.
-    When I go to "user/logout"
-      And I visit "user/login?destination=content/how-become-superhero?pk_campaign=emh_request_notify_new_request_users_3585&utm_medium=email&utm_source=emh_request_notify_new_request_users&utm_campaign=emh_request_notify_new_request_users_3585&pk_kwd=link&utm_content=link"
+  Scenario: Login with custom parameters in query: I can access to this Request
+    Given I go to "user/logout"
+    When I go to "user/login?destination=content/how-become-superhero?pk_campaign=emh_request_notify_new_request_users_3585&utm_medium=email&utm_source=emh_request_notify_new_request_users&utm_campaign=emh_request_notify_new_request_users_3585&pk_kwd=link&utm_content=link"
       And I fill in "expert1" for "name"
       And I fill in "test" for "pass"
       And I press the "Log in" button
     Then I should see "How to become a superhero?"
 
-    # Case 2: I cannot access to this Request.
-    When I go to "user/logout"
-      And I visit "user/login?destination=content/how-become-superhero?pk_campaign=emh_request_notify_new_request_users_3585&utm_medium=email&utm_source=emh_request_notify_new_request_users&utm_campaign=emh_request_notify_new_request_users_3585&pk_kwd=link&utm_content=link"
+  Scenario: Login with custom parameters in query: I cannot access to this Request
+    Given I go to "user/logout"
+    When I go to "user/login?destination=content/how-become-superhero?pk_campaign=emh_request_notify_new_request_users_3585&utm_medium=email&utm_source=emh_request_notify_new_request_users&utm_campaign=emh_request_notify_new_request_users_3585&pk_kwd=link&utm_content=link"
       And I fill in "expert4" for "name"
       And I fill in "test" for "pass"
       And I press the "Log in" button
     Then I should see "Access denied"
+
+  Scenario: Attempt to access to an authentificated url by the anonymous way: I should be redirected!
+    # Request
+    Given I go to "user/logout"
+    When I go to "content/how-become-superhero"
+      And I fill in "expert1" for "name"
+      And I fill in "test" for "pass"
+      And I press the "Log in" button
+    Then I should see "How to become a superhero?"
+
+    # Circle
+    Given I go to "user/logout"
+    When I go to "content/avengers"
+      And I fill in "expert1" for "name"
+      And I fill in "test" for "pass"
+      And I press the "Log in" button
+    Then I should see "Avengers"
+
+    # Profile
+    Given I go to "user/logout"
+    When I go to "users/iron-man"
+      And I fill in "expert1" for "name"
+      And I fill in "test" for "pass"
+      And I press the "Log in" button
+    Then I should see "Iron MAN"
+      And I should see "emindhub.test+expert1@gmail.com"
+      And I should see "0712345670 "
