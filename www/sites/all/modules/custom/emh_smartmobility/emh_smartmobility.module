@@ -8,6 +8,7 @@
 define('EMH_SMARTMOBILITY_HOMEPAGE', 'smart-mobility');
 define('EMH_SMARTMOBILITY_REGISTER_CLIENT', EMH_SMARTMOBILITY_HOMEPAGE . '/client/register');
 define('EMH_SMARTMOBILITY_REGISTER_EXPERT', EMH_SMARTMOBILITY_HOMEPAGE . '/expert/register');
+define('EMH_SMARTMOBILITY_FORGOT_PWD', EMH_SMARTMOBILITY_HOMEPAGE . '/user/password');
 define('EMH_SMARTMOBILITY_THEME', 'smartmobility');
 
 include_once 'emh_smartmobility.inc';
@@ -75,8 +76,40 @@ function emh_smartmobility_menu() {
     'page arguments' => array('user_register_form_smartmobility_expert'),
     'access arguments' => array('access content'),
   );
+  
+  $items[EMH_SMARTMOBILITY_FORGOT_PWD] = array(
+    'title' => 'Forgot my Password',
+    'page callback' => 'emh_smartmobility_user_pass_form',
+    //'page arguments' => array('user_register_form_smartmobility_expert'),
+    'access arguments' => array('access content'),
+      //'type' => MENU_CALLBACK,
+    
+  );
 
   return $items;
+}
+
+function emh_smartmobility_user_pass_form() {
+ 
+  module_load_include('inc', 'user', 'user.pages');
+  $output = '';
+  $form = drupal_get_form('user_pass');
+  $output .= drupal_render($form);
+  return $output;
+} 
+
+function user_pass_form_alter($form, &$form_state) {
+  
+  $form = array();
+  module_load_include('inc', 'user', 'user.pages');
+  $form = user_pass();
+  $form ['#submit'] [] = 'emg_smartmobility_user_pass_submit'; 
+}
+
+function emg_smartmobility_user_pass_submit($form, &$form_state) {
+  
+  unset($form['#action']);
+  $form_state['redirect'] = url('user/test');
 }
 
 /**
@@ -112,15 +145,34 @@ function emh_smartmobility_form_alter(&$form, &$form_state, $form_id) {
       break;
 
     // Smart Mobility trick.
-    case 'user_login':
-    case 'user_login_block':
+    case 'user_pass': 
+      
       global $base_url;
+      //global $language;
+      //unset($form['#action']);
+      //$form_state['redirect'] = url($base_url, array('language' => (object) array('language' => $language->language)));
+       
       $url = url(request_uri(), array( // do not use current_path because it interfere with customerror module
         'base_url' => $base_url,
         'absolute' => TRUE,
         'language' => (object) array('language' => FALSE),
       ));
       $form['#action'] = $url;
+      //$form_state['redirect'] = $url;
+      ddl($url, 'test 5');
+      break;
+      
+    case 'user_login':
+    case 'user_login_block':
+      global $base_url;
+       
+      $url = url(request_uri(), array( // do not use current_path because it interfere with customerror module
+        'base_url' => $base_url,
+        'absolute' => TRUE,
+        'language' => (object) array('language' => FALSE),
+      ));
+      $form['#action'] = $url;
+      
       break;
   }
 }
