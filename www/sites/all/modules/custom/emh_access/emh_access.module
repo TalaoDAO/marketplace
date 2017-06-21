@@ -347,3 +347,26 @@ function _emh_access_full_access($nid, $account = NULL) {
 
   return FALSE;
 }
+
+/**
+ * Implements hook_node_access()
+ */
+function emh_access_node_access($node, $op, $account) {
+
+  // Default checks
+  if (!is_object($node)) {
+    return NODE_ACCESS_IGNORE;
+  }
+
+  $type = is_string($node) ? $node : $node->type;
+
+  if($op == 'view' && arg(0) == 'node' && arg(1) === $node->nid) {
+
+    // Restrict access to All-epoert for everybody except webmaster (6) and adminstrator (3) roles 
+    if ($type == 'circle' && $node->nid == '314' && !user_has_role(3, $account) && !user_has_role(6, $account)) {
+      return NODE_ACCESS_DENY;
+    }
+  }
+  // Default
+  return NODE_ACCESS_IGNORE;
+}
