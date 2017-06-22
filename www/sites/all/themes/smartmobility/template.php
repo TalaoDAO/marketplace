@@ -29,7 +29,7 @@ function smartmobility_form_alter(&$form, &$form_state, $form_id) {
       // Reduce email description for better Bootstrap display (tooltip)
       $form['account']['mail']['#description'] = t('All e-mails from the system will be sent to this address. The e-mail address will only be used if you wish to receive a new password or certain news or notifications by e-mail.');
       break;
-    
+
     case 'user_login':
     case 'user_login_block':       
       if (emh_smartmobility_context()) { 
@@ -37,8 +37,8 @@ function smartmobility_form_alter(&$form, &$form_state, $form_id) {
         $markup = l(t('Forgot your password?'), $base_url . '/user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
         $markup = '<div class="login-links">' . $markup . '</div>';
         $form['links']['#markup'] = $markup;
-      }      
-            
+      }
+      
       $form['hybridauth']['#type'] = '';
       break;
   }
