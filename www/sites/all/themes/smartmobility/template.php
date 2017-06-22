@@ -32,6 +32,17 @@ function smartmobility_form_alter(&$form, &$form_state, $form_id) {
     
     case 'user_login':
     case 'user_login_block':
+      global $base_url;    
+      $user_pass = '';
+       
+      if (emh_smartmobility_context()) {      
+        $user_pass .= $base_url . '/';
+        
+        $markup = l(t('Forgot your password?'), $user_pass . 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
+        $markup = '<div class="login-links">' . $markup . '</div>';
+        $form['links']['#markup'] = $markup;
+      }      
+            
       $form['hybridauth']['#type'] = '';
       break;
   }
