@@ -851,7 +851,7 @@ function emh_request_purchase_options($request) {
     foreach ($options as $option) {
       $total += (int) $option['cost'];
       if ($option['cost'] > 0) {
-        $txn_context .= '_' . $option['option'];
+        $txn_context .= '+' . $option['option'];
       }
     }
   }
