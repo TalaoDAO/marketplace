@@ -14,7 +14,7 @@ function emh_tracking_menu() {
 
   $items = array();
 
-  // Route for inviting a new user.
+  // Route for a tracked link.
   $items['link/%/%'] = array(
     'page callback' => '_emh_tracking_link',
     'page arguments' => array(1, 2),
@@ -49,12 +49,16 @@ function _emh_tracking_link($type, $referrer_id) {
     // If there is no link cookie:
     if (!isset($_COOKIE['Drupal_visitor_emh_tracking_link'])) {
 
+      // TODO: necessary to sanitize $_SERVER['HTTP_REFERER'] ?
+      $http_referer = $_SERVER['HTTP_REFERER'] ? $_SERVER['HTTP_REFERER'] : '';
+
       // Store our info in a string.
       $emh_tracking_link = serialize(
         array(
           't' => $type,
           'r' => $referrer_id,
           'd' => $destination,
+          'o' => $http_referer,
         )
       );
 
