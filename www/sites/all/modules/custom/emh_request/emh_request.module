@@ -14,6 +14,8 @@ include_once 'emh_request.fields.inc';
 include_once 'emh_request.mail.inc';
 include_once 'emh_request.pages.inc';
 
+const EMH_REQUEST_TXN_CONTEXT_REQUEST = 'request';
+
 /**
  * Implements hook_views_api().
  */
@@ -845,7 +847,7 @@ function emh_request_format_cost($cost) {
  */
 function emh_request_purchase_options($request) {
   $total = 0;
-  $txn_context = 'request';
+  $txn_context = EMH_REQUEST_TXN_CONTEXT_REQUEST;
 
   if ($options = field_get_items('node', $request, 'field_options')) {
     foreach ($options as $option) {
