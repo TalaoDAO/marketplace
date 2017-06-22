@@ -73,7 +73,7 @@ function _emh_linkedin_get_profile_fields($uid, $fields = array()) {
   $tokens = (array) $tokens;
   $append .= _emh_linkedin_build_fields_request($fields, $type);
   $url = $base_url . $append;
-  $response = emh_linkedin_get_fields($url, $tokens);
+  $response = emh_linkedin_get_request_fields($url, $tokens);
   
   if (isset($response['error']['status']) && ($response['error']['status'] == 401 || $response['error']['status'] == 403)) {
     // No relationships between users, switch back to public profile and retry
@@ -82,7 +82,7 @@ function _emh_linkedin_get_profile_fields($uid, $fields = array()) {
     $append = '~:public';
     $append .= _emh_linkedin_build_fields_request($fields, 'public');
     $url = $base_url . $append;
-    $response = emh_linkedin_get_fields($url, $tokens);
+    $response = emh_linkedin_get_request_fields($url, $tokens);
   }
   if (isset($response['person'])) {
     $response = $response['person'];
@@ -519,7 +519,7 @@ function _emh_linkedin_build_fields_request($fields, $type = 'auth') {
  * $url : full request url to a linkedin API ressource (see API doc for syntax)
  * $tokens : the user tokens, as an array containing keys 'token_key' and 'token_secret' with their value
  */
-function _emh_linkedin_get_fields($url, $tokens) {
+function _emh_linkedin_get_request_fields($url, $tokens) {
   // Get sure library is loaded before doing anything.
   emh_linkedin_init();
   
