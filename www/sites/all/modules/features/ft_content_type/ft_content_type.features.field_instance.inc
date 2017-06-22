@@ -4294,8 +4294,6 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-<<<<<<< HEAD
-<<<<<<< HEAD
       'weight' => 32,
     ),
   );
@@ -5311,6 +5309,7 @@ function ft_content_type_field_default_field_instances() {
   t('Testimony');
   t('This is the text a user may send to the group administrators.');
   t('Titre');
+  t('Tracking');
   t('Twitter account');
   t('URL of your LinkedIn profile');
   t('Website');
