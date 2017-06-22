@@ -100,7 +100,7 @@ class FeatureContext extends DrupalContext {
     $context = array(
       'points' => $points,
       'log' => 'Behat add credits to user',
-      'txn_context' => 'behat',
+      'txn_context' => 'behat_add',
     );
     emh_points_give_points($user, $context);
   }
