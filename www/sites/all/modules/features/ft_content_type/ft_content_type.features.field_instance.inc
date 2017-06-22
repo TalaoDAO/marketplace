@@ -4294,6 +4294,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
+<<<<<<< HEAD
       'weight' => 32,
     ),
   );
@@ -5015,6 +5016,41 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_tracking'.
+  $field_instances['user-user-field_tracking'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 41,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_tracking',
+    'label' => 'Tracking',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 1,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_twitter'.
   $field_instances['user-user-field_twitter'] = array(
     'bundle' => 'user',
@@ -5224,6 +5260,7 @@ function ft_content_type_field_default_field_instances() {
   t('Testimony');
   t('This is the text a user may send to the group administrators.');
   t('Titre');
+  t('Tracking');
   t('Twitter account');
   t('URL of your LinkedIn profile');
   t('Website');

@@ -93,6 +93,7 @@ features[field_base][] = field_tags
 features[field_base][] = field_telephone
 features[field_base][] = field_testimony
 features[field_base][] = field_titre_metier
+features[field_base][] = field_tracking
 features[field_base][] = field_type_entreprise
 features[field_base][] = field_use_my_entreprise
 features[field_base][] = field_working_status
