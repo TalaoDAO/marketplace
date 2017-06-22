@@ -88,3 +88,58 @@ function _emh_configuration_rules_set_active($rule_machine_name, $active) {
   $rules_config->active = $active;
   $rules_config->save();
 }
+
+/**
+ * Delete accents
+ *
+ * @param string $str
+ *          string with accented characters
+ *          
+ * @param string $encoding
+ *          (example : utf-8, ISO-8859-1 ...)
+ */
+function emh_suppr_accents($str, $encoding = 'utf-8') {
+  $str = htmlentities($str, ENT_NOQUOTES, $encoding);
+  
+  $str = preg_replace('#&([A-za-z])(?:acute|grave|cedil|circ|orn|ring|slash|th|tilde|uml);#', '\1', $str);
+  
+  $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str);
+  
+  $str = preg_replace('#&[^;]+;#', '', $str);
+  
+  return $str;
+}
+
+/**
+ * Some internal helper functions...
+ */
+function _emh_linkedin_http_request($url, $header, $body = NULL) {
+  $ch = curl_init();
+  
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
+  curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+      $header 
+  ));
+  curl_setopt($ch, CURLOPT_URL, $url);
+  
+  if ($body) {
+    curl_setopt($ch, CURLOPT_POST, 1);
+    if ($body == 'token_request') {
+      curl_setopt($ch, CURLOPT_POSTFIELDS, '');
+    }
+    else {
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+      curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+          $header,
+          'Content-Type: text/xml;charset=utf-8' 
+      ));
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+    }
+  }
+  
+  $output = curl_exec($ch);
+  curl_close($ch);
+  return $output;
+}

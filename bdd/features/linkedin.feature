@@ -1,12 +1,12 @@
 @api @watchdog
-Feature: Update LinkdeIn data test
-  In order to test the update user profiles with the linkedin account information
+Feature: Update LinkedIn data test
+  In order to test the update user profiles' update with LinkedIn account informations
   As an authenticated user
   I want to update my profile with LinkedIn
 
 
   @javascript
-  Scenario: An authenticated user try to update her profile with linkedin data
+  Scenario: An authenticated user try to update his profile with linkedin data
     
     When I visit '/hybridauth/window/LinkedIn?destination=node/323&destination_error=node/323&width=800&height=500&iframe=true'
       And I fill in "be.gagnaire@gmail.com" for "mail"      
@@ -32,7 +32,6 @@ Feature: Update LinkdeIn data test
     Then I should see "TOULOUSE"
     
     When I visit "/user/logout"
-      #And I click "Log out"
     Then I should not see "Log out"
  
     
