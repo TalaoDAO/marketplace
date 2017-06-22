@@ -16,7 +16,7 @@ Feature: SmartMobility circle test
 
   @smartmobility
   Scenario: Basic login
-    When I visit 'user/login'
+    When I visit "user/login"
     And I fill in "admin" for "name"
     And I fill in "admin" for "pass"
     And I press the "Log in" button
@@ -26,6 +26,19 @@ Feature: SmartMobility circle test
   Scenario: A Smart Mobility member should be redirected to /content/smart-mobility on login
     Given the user "client1" is an admin of the group "Smart Mobility"
 
-    Given I am logged in as "client1"
-    Then I should see "Smart mobility"
-      And I should see "How it works"
+    Given I am logged in as the admin
+    When I go to "admin/people"
+      And I click "edit" in the "Captain AMERICA" row
+      And I click "Change password"
+      And I fill in "test" for "pass[pass1]"
+      And I fill in "test" for "pass[pass2]"
+      And I press "Submit"
+    Then I should see "Your password has been changed."
+
+    When I go to "user/logout"
+      And I visit "smart-mobility"
+      And I fill in "client1" for "name"
+      And I fill in "test" for "pass"
+      And I press the "Log in" button
+    Then I should see "Smart Mobility"
+      And I should see "Welcome to Smart Mobility"
