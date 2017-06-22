@@ -2178,6 +2178,42 @@ function ft_field_base_field_default_field_bases() {
     'type' => 'text',
   );
 
+  // Exported field_base: 'field_tracking'.
+  $field_bases['field_tracking'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_tracking',
+    'field_permissions' => array(
+      'owner_field' => 'Comment',
+      'type' => 2,
+    ),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'max_length' => 255,
+      'user_role_field' => array(
+        1 => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 0,
+        6 => 0,
+        7 => 0,
+        10 => 0,
+      ),
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
   // Exported field_base: 'field_type_entreprise'.
   $field_bases['field_type_entreprise'] = array(
     'active' => 1,
