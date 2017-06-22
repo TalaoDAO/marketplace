@@ -76,6 +76,7 @@ function emh_smartmobility_menu() {
     'access arguments' => array('access content'),
   );
 
+
   return $items;
 }
 
@@ -115,12 +116,14 @@ function emh_smartmobility_form_alter(&$form, &$form_state, $form_id) {
     case 'user_login':
     case 'user_login_block':
       global $base_url;
+
       $url = url(request_uri(), array( // do not use current_path because it interfere with customerror module
         'base_url' => $base_url,
         'absolute' => TRUE,
         'language' => (object) array('language' => FALSE),
       ));
       $form['#action'] = $url;
+
       break;
   }
 }
