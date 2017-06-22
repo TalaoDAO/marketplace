@@ -77,7 +77,6 @@ function emh_smartmobility_menu() {
     'access arguments' => array('access content'),
   );
 
-
   return $items;
 }
 
