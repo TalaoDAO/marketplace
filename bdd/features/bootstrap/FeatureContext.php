@@ -179,7 +179,7 @@ class FeatureContext extends DrupalContext {
       throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
     }
     $user = user_load($this->users[$name]->uid);
-    emh_points_move_points($user, $node, (int) $points);
+    emh_points_move_points($user, $node, (int) $points, 'behat_transfer_user_node');
   }
 
   /**
@@ -201,7 +201,7 @@ class FeatureContext extends DrupalContext {
       throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
     }
     $user = user_load($this->users[$name]->uid);
-    emh_points_move_points($node, $user, (int) $points);
+    emh_points_move_points($node, $user, (int) $points, 'behat_transfer_node_user');
   }
 
   /**
