@@ -668,7 +668,7 @@ class FeatureContext extends DrupalContext {
     if (!isset($node)) {
       throw new \Exception(sprintf('No node with %s title is found.', $title));
     }
-    $gid = $node->nid; 
+    $gid = $node->nid;
     $values = array(
       'entity_type' => 'user',
       'entity' => $user,
@@ -725,14 +725,14 @@ class FeatureContext extends DrupalContext {
    * @BeforeSuite
    */
   public static function disableModules(\Behat\Testwork\Hook\Scope\BeforeSuiteScope $scope) {
-    module_disable(array('emh_smartmobility', 'recaptcha'));
+    module_disable(array('recaptcha'));
   }
 
   /**
    * @AfterSuite
    */
   public static function enableModules(\Behat\Testwork\Hook\Scope\AfterSuiteScope $scope) {
-    module_enable(array('emh_smartmobility', 'recaptcha'));
+    module_enable(array('recaptcha'));
   }
 
   /**
@@ -747,7 +747,6 @@ class FeatureContext extends DrupalContext {
    * @AfterScenario @smartmobility
    */
   public function cleanupForSmartMobility(Behat\Behat\Hook\Scope\AfterScenarioScope $scope) {
-    module_disable(array('emh_smartmobility'));
     variable_set('emh_smartmobility_circle_gid', 1813);
   }
 
@@ -800,7 +799,7 @@ class FeatureContext extends DrupalContext {
 
 /**
  * Helper function: Load node by title
- * 
+ *
  * @param string $title
  *   The title of the node to be returned
  *
@@ -826,5 +825,5 @@ function node_load_by_title($title) {
 function og_user_roles_role_add($gid, $uid, $role) {
   $roles = og_roles('node', NULL, $gid);
   $rid = array_search($role, $roles);
-  og_role_grant('node', $gid, $uid, $rid); 
+  og_role_grant('node', $gid, $uid, $rid);
 }
