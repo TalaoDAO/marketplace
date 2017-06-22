@@ -130,13 +130,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
       $form['pass']['#title_display'] = 'invisible';
       $form['pass']['#attributes']['placeholder'] = $form['pass']['#title'];
 
-      global $base_url;      
-      $user_pass = '';
-      if(strcmp(request_uri(),'/smart-mobility/') == 0) {
-        $user_pass .= $base_url . '/';
-      }
-      
-      $markup = l(t('Forgot your password?'), $user_pass . 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
+      $markup = l(t('Forgot your password?'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
       $markup = '<div class="login-links">' . $markup . '</div>';
       $form['links']['#markup'] = $markup;
       $form['links']['#weight'] = 8;
