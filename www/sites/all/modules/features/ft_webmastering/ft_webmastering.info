@@ -1,0 +1,12 @@
+name = FT Webmastering
+description = Views, rules and antyhing that helps webmaster (not regular users)
+core = 7.x
+package = EMH
+version = 7.x-1.0
+dependencies[] = views
+dependencies[] = views_data_export
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[views_view][] = export_users
+features[views_view][] = responses_stats
+features_exclude[dependencies][ctools] = ctools
