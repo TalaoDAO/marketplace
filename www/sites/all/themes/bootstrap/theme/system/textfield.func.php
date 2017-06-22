@@ -24,7 +24,7 @@ function bootstrap_textfield($variables) {
   $extra = '';
   if ($element['#autocomplete_path'] && drupal_valid_path($element['#autocomplete_path'])) {
     drupal_add_library('system', 'drupal.autocomplete');
-    $element['#attributes']['class'][] = 'form-autocomplete';
+    $element['#attributes']['class'] = 'form-autocomplete';
 
     $attributes = array();
     $attributes['type'] = 'hidden';
