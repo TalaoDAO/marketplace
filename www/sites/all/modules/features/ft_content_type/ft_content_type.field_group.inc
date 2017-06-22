@@ -304,7 +304,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Complement',
-    'weight' => '10',
+    'weight' => '9',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -615,17 +615,18 @@ function ft_content_type_field_group_info() {
       5 => 'field_is_partner',
       6 => 'field_mail',
       7 => 'field_profile_purchased',
-      8 => 'ckeditor',
-      9 => 'mimemail',
-      10 => 'timezone',
-      11 => 'contact',
-      12 => 'locale',
-      13 => 'group_address',
-      14 => 'group_complement',
-      15 => 'group_expert',
-      16 => 'group_organisation',
-      17 => 'group_sponsorship',
-      18 => 'group_testimony',
+      8 => 'field_tracking',
+      9 => 'ckeditor',
+      10 => 'mimemail',
+      11 => 'timezone',
+      12 => 'contact',
+      13 => 'locale',
+      14 => 'group_address',
+      15 => 'group_complement',
+      16 => 'group_expert',
+      17 => 'group_organisation',
+      18 => 'group_sponsorship',
+      19 => 'group_testimony',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -1926,7 +1927,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Share your experience',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
       0 => 'field_testimony',
       1 => 'field_partner_why',
