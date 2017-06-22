@@ -29,7 +29,7 @@ function smartmobility_form_alter(&$form, &$form_state, $form_id) {
       // Reduce email description for better Bootstrap display (tooltip)
       $form['account']['mail']['#description'] = t('All e-mails from the system will be sent to this address. The e-mail address will only be used if you wish to receive a new password or certain news or notifications by e-mail.');
       break;
-
+    
     case 'user_login':
     case 'user_login_block':
       $form['hybridauth']['#type'] = '';
