@@ -9,7 +9,6 @@
  */
 function emh_linkedin_admin($form, &$form_state) {
   // LinkedIn API credentials
-  global $base_url;
   $form ['linkedin'] = array(
       '#title' => t('Base settings'),
       '#type' => 'fieldset',
@@ -24,8 +23,8 @@ function emh_linkedin_admin($form, &$form_state) {
       '#description' => t('Linkedin module needs the OAuth php library from http://code.google.com/p/oauth/. You can either download OAuth.php from there and specify the full path here or install the OAuth module from http://drupal.org/project/oauth (both 6.x-2 and 6.x-3 versions are supported)') 
   );
   
-  $form ['linkedin'] ['linkedin_debug_mode'] = array(
-      '#default_value' => variable_get('linkedin_debug_mode', 0),
+  $form ['linkedin'] ['emh_linkedin_debug_mode'] = array(
+      '#default_value' => variable_get('emh_linkedin_debug_mode', 0),
       '#title' => t('Turn on debug mode'),
       '#type' => 'checkbox' 
   );
@@ -91,6 +90,7 @@ function emh_linkedin_user_update_submit(&$form_state) {
     drupal_set_message(t('Successful Update.'));
   }
 }
+
 function emh_linkedin_user_submit(&$form_state) {
   global $user;
   $user_settings = user_load($user->uid);
@@ -125,18 +125,6 @@ function emh_linkedin_linkedin_user_settings_page($account) {
     return $elems;
   }
   return;
-}
-
-/**
- * Page callback for user profile linkedin tab.
- */
-function emh_linkedin_display($account) {
-  $profile = $account->linkedin;
-  if (! isset($profile ['error-code'])) {
-    return theme('emh_linkedin_user_page', array(
-        'profile' => $account->linkedin 
-    ));
-  }
 }
 
 /**
@@ -236,5 +224,22 @@ function emh_linkedin_user_settings_form($form, &$form_state, $account) {
   return $form;
 }
 
-
+function emh_linkedin_user_submit(&$form_state) {
+  global $user;
+  $user_settings = user_load($user->uid);
+  
+  $user_fields = variable_get('emh_linkedin_user_page_linkedin_fields_' . $user->uid);
+  foreach ( $user_fields as $key => $field ) {
+    if ($field !== 0) {
+      if (isset($user_settings->data ['emh_linkedin_fields'])) {
+        $user_settings->data ['emh_linkedin_fields'] [$key] = TRUE;
+      }
+    }
+    else {
+      $user_settings->data ['emh_linkedin_fields'] [$key] = FALSE;
+    }
+  }
+  
+  user_save($user_settings);
+}
 
