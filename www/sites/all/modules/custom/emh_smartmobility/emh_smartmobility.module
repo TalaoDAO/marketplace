@@ -60,8 +60,9 @@ function emh_smartmobility_menu() {
   $items[EMH_SMARTMOBILITY_HOMEPAGE] = array(
     'title' => 'Smart Mobility',
     'page callback' => 'emh_smartmobility_page',
+    // @TODO temporary patch
     //'access callback' => 'user_is_anonymous',
-    'access arguments' => array('access content'), //TODO temporary patch
+    'access arguments' => array('access content'),
   );
   $items[EMH_SMARTMOBILITY_REGISTER_CLIENT] = array(
     'title' => 'Register and look for talents',
@@ -115,15 +116,16 @@ function emh_smartmobility_form_alter(&$form, &$form_state, $form_id) {
     // Smart Mobility trick.
     case 'user_login':
     case 'user_login_block':
-      global $base_url;
-
-      $url = url(request_uri(), array( // do not use current_path because it interfere with customerror module
-        'base_url' => $base_url,
-        'absolute' => TRUE,
-        'language' => (object) array('language' => FALSE),
-      ));
-      $form['#action'] = $url;
-
+      if (emh_smartmobility_context()) {
+        global $base_url;
+        // Don't use current_path() because it interferes with customerror module.
+        $url = url(request_uri(), array(
+          'base_url' => $base_url,
+          'absolute' => TRUE,
+          'language' => (object) array('language' => FALSE),
+        ));
+        $form['#action'] = $url;
+      }
       break;
   }
 }
@@ -142,8 +144,10 @@ function emh_smartmobility_register_form_submit($form, &$form_state) {
  */
 function emh_smartmobility_user_login(&$edit, $account) {
   $gid = variable_get('emh_smartmobility_circle_gid', 1813);
-  if ( (!isset($_GET['destination'])) && (arg(0)!="") && (og_is_member('node', $gid, 'user', $account)) ) {
-    $_GET['destination'] = 'node/' . $gid;
+  if ((!isset($_GET['destination'])) && (arg(0) != '') && (og_is_member('node', $gid, 'user', $account))) {
+    if (arg(1) != 'reset') {
+      $_GET['destination'] = 'node/' . $gid;
+    }
   }
 }
 
