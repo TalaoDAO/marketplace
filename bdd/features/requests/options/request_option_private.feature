@@ -45,7 +45,7 @@ Feature: Request and answers
 
     Given I am logged in as a user with the "administrator" role
     When I go to "admin/emindhub/credits/transaction-log"
-    Then I should see "request_private"
+    Then I should see "request+private"
 
     # An expert responds to the request.
     Given I am logged in as "expert1"
