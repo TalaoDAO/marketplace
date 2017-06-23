@@ -5309,7 +5309,6 @@ function ft_content_type_field_default_field_instances() {
   t('Testimony');
   t('This is the text a user may send to the group administrators.');
   t('Titre');
-  t('Tracking');
   t('Twitter account');
   t('URL of your LinkedIn profile');
   t('Website');
