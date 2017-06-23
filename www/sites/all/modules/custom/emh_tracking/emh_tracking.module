@@ -3,8 +3,6 @@
 /**
  * @file
  * Tracking features for EMH website.
- *
- * TODO: Different actions by $type, $referrer_id check...
  */
 
 const EMH_TRACKING_COOKIE_DURATION = 60 * 60 * 24 * 365;
@@ -21,8 +19,8 @@ function emh_tracking_boot() {
     // If it's alphanumeric and if there is no EMH cookie:
     if (ctype_alnum($r) && !isset($_COOKIE['emh'])) {
 
-      // Normally don't have to sanitize but we never know.
-      $http_referer = $_SERVER['HTTP_REFERER'] ? filter_input(INPUT_SERVER, 'HTTP_REFERER', FILTER_SANITIZE_STRING) : '';
+      // Normally don't have to sanitize.
+      $http_referer = $_SERVER['HTTP_REFERER'] ? $_SERVER['HTTP_REFERER'] : '';
 
       // Store our tracking info.
       $tracking_info = json_encode(
@@ -43,13 +41,22 @@ function emh_tracking_boot() {
  */
 function emh_tracking_user_presave(&$edit, $account, $category) {
 
-  // If there is a tracking cookie:
-  if (isset($_COOKIE['emh'])) {
+  if ($account->is_new) {
 
-    // Sanitize the content of the cookie first.
-    $tracking_info = filter_input(INPUT_COOKIE, 'emh', FILTER_SANITIZE_STRING);
+    // If there is a tracking cookie:
+    if (isset($_COOKIE['emh'])) {
 
-    // Then add the tracking info in the user profile.
-    $edit['field_tracking'][LANGUAGE_NONE][0]['value'] = $tracking_info;
+      $tracking_info = json_decode($_COOKIE['emh'], TRUE);
+
+      // Validate and record the tracking key.
+      if (isset($tracking_info['r']) && ctype_alnum($tracking_info['r'])) {
+        $edit['field_tracking_key'][LANGUAGE_NONE][0]['value'] = $tracking_info['r'];
+      }
+      // Record the referer URL.
+      $http_referer = check_url(stripslashes($tracking_info['h']));
+      if (isset($tracking_info['h']) && valid_url($http_referer, TRUE)) {
+        $edit['field_tracking_referer'][LANGUAGE_NONE][0]['url'] = $http_referer;
+      }
+    }
   }
 }
