@@ -90,24 +90,6 @@ function emh_linkedin_user_update_submit(&$form_state) {
     drupal_set_message(t('Successful Update.'));
   }
 }
-function emh_linkedin_user_submit(&$form_state) {
-  global $user;
-  $user_settings = user_load($user->uid);
-  
-  $user_fields = variable_get('emh_linkedin_user_page_linkedin_fields_' . $user->uid);
-  foreach ($user_fields as $key => $field) {
-    if ($field !== 0) {
-      if (isset($user_settings->data['emh_linkedin_fields'])) {
-        $user_settings->data['emh_linkedin_fields'][$key] = TRUE;
-      }
-    }
-    else {
-      $user_settings->data['emh_linkedin_fields'][$key] = FALSE;
-    }
-  }
-  
-  user_save($user_settings);
-}
 
 /**
  * Implementation of hook_linkedin_user_settings_page.
@@ -210,7 +192,7 @@ function emh_linkedin_user_settings_form($form, &$form_state, $account) {
   foreach ($fields as $field) {
     $options[$field] = $field;
   }
-  $form['emh_linkedin']['user_page']['emh_linkedin_user_page_fields']['emh_linkedin_user_page_linkedin_fields_' . $account->uid] = array(
+  $form['emh_linkedin']['user_page']['emh_linkedin_user_page_fields']['emh_linkedin_user_page_linkedin_fields'] = array(
       '#type' => 'checkboxes',
       '#default_value' => _emh_linkedin_fields_user($account->uid),
       '#options' => $options 
@@ -218,15 +200,16 @@ function emh_linkedin_user_settings_form($form, &$form_state, $account) {
   
   $form = system_settings_form($form);
   
+  
   $form['#submit'][] = 'emh_linkedin_user_submit';
   
   return $form;
 }
-function emh_linkedin_user_submit(&$form_state) {
+
+function emh_linkedin_user_submit($form, &$form_state) {
   global $user;
   $user_settings = user_load($user->uid);
-  
-  $user_fields = variable_get('emh_linkedin_user_page_linkedin_fields_' . $user->uid);
+  $user_fields = $form_state['values']['emh_linkedin_user_page_linkedin_fields'];
   foreach ($user_fields as $key => $field) {
     if ($field !== 0) {
       if (isset($user_settings->data['emh_linkedin_fields'])) {
