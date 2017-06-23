@@ -432,8 +432,9 @@ function emh_points_update_7114() {
       );
       db_add_field('emh_points_txn', 'context', $field);
       db_add_index('emh_points_txn', 'context', array('context'));
-      // Update the existing txn.
-      exec("drush sql-query --file=$(drush dd)/../deploy/875_txn_context.sql");
+
+      // Add context to the already existing transactions (they don't have any).
+      exec("drush sql-query --file=$(drush dd)/../scripts/865_txn_context.sql");
     }
   }
 }
