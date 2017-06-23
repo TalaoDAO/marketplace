@@ -10,68 +10,32 @@
 const EMH_TRACKING_COOKIE_DURATION = 60 * 60 * 24 * 365;
 
 /**
- * Implements hook_menu().
- */
-function emh_tracking_menu() {
-
-  $items = array();
-
-  // Route for a tracked link.
-  $items['link/%/%'] = array(
-    'page callback' => '_emh_tracking_link',
-    'page arguments' => array(1, 2),
-    'access callback' => TRUE,
-    'type' => MENU_CALLBACK,
-  );
-
-  return $items;
-}
-
-/**
- * Helper to create a cookie when an anonymous visitor visits the link.
+ * Implements hook_boot().
  *
- * @string $type type of link action to perform.
- * @int referrer_id ID of the referrer (user, ...).
+ * We have to, because URLs with query params are cached.
  */
-function _emh_tracking_link($type, $referrer_id) {
+function emh_tracking_boot() {
 
-  $params = drupal_get_query_parameters();
+  if ($r = filter_input(INPUT_GET, 'r', FILTER_SANITIZE_STRING)) {
 
-  // Only for valid internal URLs.
-  if (isset($params['p']) && drupal_valid_path(drupal_lookup_path('source', $params['p']))) {
-    $destination = $params['p'];
-  }
-  // Otherwise go to homepage.
-  else {
-    $destination = '';
-  }
-
-  // Only for anonymous users.
-  if (user_is_anonymous()) {
-
-    // If there is no link cookie:
-    if (!isset($_COOKIE['emh_tracking_link'])) {
+    // If it's alphanumeric and if there is no EMH cookie:
+    if (ctype_alnum($r) && !isset($_COOKIE['emh'])) {
 
       // Normally don't have to sanitize but we never know.
       $http_referer = $_SERVER['HTTP_REFERER'] ? filter_input(INPUT_SERVER, 'HTTP_REFERER', FILTER_SANITIZE_STRING) : '';
 
-      // Store our info.
-      $emh_tracking_link = json_encode(
+      // Store our tracking info.
+      $tracking_info = json_encode(
         array(
-          't' => $type,
-          'r' => $referrer_id,
-          'p' => $destination,
-          'o' => $http_referer,
+          'r' => $r,
+          'h' => $http_referer,
         )
       );
 
       // Create and save the cookie.
-      setcookie('emh_tracking_link', $emh_tracking_link, time() + EMH_TRACKING_COOKIE_DURATION, '/');
+      setcookie('emh', $tracking_info, time() + EMH_TRACKING_COOKIE_DURATION, '/');
     }
   }
-
-  // Redirect to destination.
-  drupal_goto($destination);
 }
 
 /**
@@ -80,12 +44,12 @@ function _emh_tracking_link($type, $referrer_id) {
 function emh_tracking_user_presave(&$edit, $account, $category) {
 
   // If there is a tracking cookie:
-  if (isset($_COOKIE['emh_tracking_link'])) {
+  if (isset($_COOKIE['emh'])) {
 
-    // Sanitize the cookie first.
-    $emh_tracking_link = filter_input(INPUT_COOKIE, 'emh_tracking_link', FILTER_SANITIZE_STRING);
+    // Sanitize the content of the cookie first.
+    $tracking_info = filter_input(INPUT_COOKIE, 'emh', FILTER_SANITIZE_STRING);
 
     // Then add the tracking info in the user profile.
-    $edit['field_tracking'][LANGUAGE_NONE][0]['value'] = $emh_tracking_link;
+    $edit['field_tracking'][LANGUAGE_NONE][0]['value'] = $tracking_info;
   }
 }
