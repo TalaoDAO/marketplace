@@ -279,7 +279,7 @@ function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
     if ($userPercent['current_percent'] == '100') return TRUE;
   }
 
-  return FALSE;
+  return TRUE;
 }
 
 function emh_access_author_name($node) {
