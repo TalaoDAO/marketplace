@@ -7,6 +7,8 @@
  * TODO: Different actions by $type, $referrer_id check...
  */
 
+const EMH_TRACKING_COOKIE_DURATION = 60 * 60 * 24 * 365;
+
 /**
  * Implements hook_menu().
  */
@@ -39,6 +41,7 @@ function _emh_tracking_link($type, $referrer_id) {
   if (isset($params['p']) && drupal_valid_path(drupal_lookup_path('source', $params['p']))) {
     $destination = $params['p'];
   }
+  // Otherwise go to homepage.
   else {
     $destination = '';
   }
@@ -47,13 +50,13 @@ function _emh_tracking_link($type, $referrer_id) {
   if (user_is_anonymous()) {
 
     // If there is no link cookie:
-    if (!isset($_COOKIE['Drupal_visitor_emh_tracking_link'])) {
+    if (!isset($_COOKIE['emh_tracking_link'])) {
 
-      // TODO: necessary to sanitize $_SERVER['HTTP_REFERER'] ?
-      $http_referer = $_SERVER['HTTP_REFERER'] ? $_SERVER['HTTP_REFERER'] : '';
+      // Normally don't have to sanitize but we never know.
+      $http_referer = $_SERVER['HTTP_REFERER'] ? filter_input(INPUT_SERVER, 'HTTP_REFERER', FILTER_SANITIZE_STRING) : '';
 
-      // Store our info in a string.
-      $emh_tracking_link = serialize(
+      // Store our info.
+      $emh_tracking_link = json_encode(
         array(
           't' => $type,
           'r' => $referrer_id,
@@ -63,10 +66,7 @@ function _emh_tracking_link($type, $referrer_id) {
       );
 
       // Create and save the cookie.
-      $cookie = array(
-        'emh_tracking_link' => $emh_tracking_link,
-      );
-      user_cookie_save($cookie);
+      setcookie('emh_tracking_link', $emh_tracking_link, time() + EMH_TRACKING_COOKIE_DURATION, '/');
     }
   }
 
@@ -75,8 +75,17 @@ function _emh_tracking_link($type, $referrer_id) {
 }
 
 /**
- * Implements hook_user_insert().
+ * Implements hook_user_presave().
  */
-function emh_tracking_user_insert(&$edit, $account, $category) {
-  // TODO.
+function emh_tracking_user_presave(&$edit, $account, $category) {
+
+  // If there is a tracking cookie:
+  if (isset($_COOKIE['emh_tracking_link'])) {
+
+    // Sanitize the cookie first.
+    $emh_tracking_link = filter_input(INPUT_COOKIE, 'emh_tracking_link', FILTER_SANITIZE_STRING);
+
+    // Then add the tracking info in the user profile.
+    $edit['field_tracking'][LANGUAGE_NONE][0]['value'] = $emh_tracking_link;
+  }
 }
