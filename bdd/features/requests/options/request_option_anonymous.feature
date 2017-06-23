@@ -46,7 +46,7 @@ Feature: Request and answers
 
     Given I am logged in as a user with the "administrator" role
     When I go to "admin/emindhub/credits/transaction-log"
-    Then I should see "request_anonymous"
+    Then I should see "request+anonymous"
 
     Given I am logged in as "expert1"
     When I go to homepage
@@ -70,7 +70,7 @@ Feature: Request and answers
 
     Given I am logged in as a user with the "administrator" role
     When I go to "admin/emindhub/credits/transaction-log"
-    Then I should see "request_anonymous"
+    Then I should see "request+anonymous"
 
     Given I am logged in as "expert1"
     When I go to homepage
@@ -93,7 +93,7 @@ Feature: Request and answers
 
     Given I am logged in as a user with the "administrator" role
     When I go to "admin/emindhub/credits/transaction-log"
-    Then I should see "request_anonymous"
+    Then I should see "request+anonymous"
 
     Given I am logged in as "expert1"
     When I go to homepage
