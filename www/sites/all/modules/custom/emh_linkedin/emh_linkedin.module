@@ -214,19 +214,6 @@ function emh_linkedin_hybridauth_userinfo_alter(&$userinfo, $data) {
 }
 
 /**
- * Implements hook_hybridauth_user_insert.
- *//*
-function emh_linkedin_hybridauth_user_insert($account, $data) {
-  $user_fields = _emh_linkedin_fields_user_update();
-  $fields = array();
-  foreach ($user_fields as $value) {
-    $fields[$value] = $value;
-  }
-  ddl($account, 'account');
-  variable_set('emh_linkedin_user_page_linkedin_fields_' . $account->uid, $fields);
-}
-*/
-/**
  * Implements hook_file_delete.
  */
 function emh_linkedin_file_delete($file) {

@@ -430,7 +430,7 @@ function _emh_update_position($user, $position, $i) {
     }
   }
   
-  // field_description_actiities
+  // field_description_activities
   if (empty($user->field_description_activities)) {
     if (isset($position['summary'])) {
       $user->field_description_activities['und'][$i]['value'] = $position['summary'];
