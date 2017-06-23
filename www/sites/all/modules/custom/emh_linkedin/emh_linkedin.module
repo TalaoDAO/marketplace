@@ -135,6 +135,7 @@ function emh_linkedin_hybridauth_user_login($account, $data) {
   
   $user = user_load($account->uid, TRUE);
   
+  //new user is created
   if (_emh_linkedin_update_user($user)) {
     
     // Try to get HybridAuth instance.
@@ -163,6 +164,41 @@ function emh_linkedin_hybridauth_user_login($account, $data) {
 }
 
 /**
+ * Implements hook_hybridauth_identity_added()
+ * First use of hybridauth for an user.
+ * For this module, this function is used when a user has already 
+ * created and using hybridauth for the first time.
+ */
+function emh_linkedin_hybridauth_identity_added($account, $data) {
+  module_load_include('inc', 'emh_linkedin', 'emh_linkedin');
+  
+  if(!_emh_linkedin_update_user($account)) {
+    // Try to get HybridAuth instance.
+    if ($hybridauth = hybridauth_get_instance()) {
+      if (is_object($hybridauth)) {
+        // Call Hybrid_Auth::getSessionData() to get stored data.
+        if ($hybridauth_session_data = $hybridauth->getSessionData()) {
+          _hybridauth_session_save($hybridauth_session_data, $account->uid);
+        }
+      }
+    }
+    
+    //$user = user_load($account->uid);
+    $user_fields = _emh_linkedin_fields_user_update();
+    $fields = array();
+    foreach ($user_fields as $value) {
+      $fields[$value] = FALSE;
+    }
+    $account->data['emh_linkedin_fields'] = $fields;
+    
+    $account->data['emh_linkedin_update'] = FALSE;
+    
+    user_save($account);
+  }
+}
+
+
+/**
  * Implements hook_hybridauth_userinfo_alter.
  */
 function emh_linkedin_hybridauth_userinfo_alter(&$userinfo, $data) {
@@ -179,16 +215,17 @@ function emh_linkedin_hybridauth_userinfo_alter(&$userinfo, $data) {
 
 /**
  * Implements hook_hybridauth_user_insert.
- */
+ *//*
 function emh_linkedin_hybridauth_user_insert($account, $data) {
   $user_fields = _emh_linkedin_fields_user_update();
   $fields = array();
   foreach ($user_fields as $value) {
     $fields[$value] = $value;
   }
+  ddl($account, 'account');
   variable_set('emh_linkedin_user_page_linkedin_fields_' . $account->uid, $fields);
 }
-
+*/
 /**
  * Implements hook_file_delete.
  */
