@@ -60,7 +60,7 @@ function _emh_tracking_link($type, $referrer_id) {
         array(
           't' => $type,
           'r' => $referrer_id,
-          'd' => $destination,
+          'p' => $destination,
           'o' => $http_referer,
         )
       );
