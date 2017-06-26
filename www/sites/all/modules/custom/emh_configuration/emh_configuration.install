@@ -1461,3 +1461,10 @@ function emh_configuration_update_7074() {
     module_enable(['entityreference_filter']);
 }
 
+/**
+ * ADD: module contact_reply_to.
+ */
+function emh_configuration_update_7075() {
+      module_enable(['contact_reply_to']);
+}
+
