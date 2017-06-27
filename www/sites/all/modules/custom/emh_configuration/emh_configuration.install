@@ -1458,13 +1458,13 @@ function emh_configuration_update_7073() {
  * ADD: module entityreference_filter.
  */
 function emh_configuration_update_7074() {
-    module_enable(['entityreference_filter']);
+  module_enable(['entityreference_filter']);
 }
 
 /**
- * ADD: module contact_reply_to.
+ * ADD: module contact_reply_to, ft_webmastering.
  */
 function emh_configuration_update_7075() {
-      module_enable(['contact_reply_to']);
+  module_enable(['contact_reply_to', 'ft_webmastering']);
 }
 
