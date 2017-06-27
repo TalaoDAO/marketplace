@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the contact_reply_to module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function contact_reply_to_uninstall() {
+  variable_del('contact_reply_to_body_explanation');
+  variable_del('contact_reply_to_add_to_subject');
+}
+
+/**
+ * Replace string placeholders converting from @ to !
+ */
+function contact_reply_to_update_7100() {
+  // See https://www.drupal.org/node/2849772.
+  $text = variable_get('contact_reply_to_body_explanation');
+  if (!is_null($text)) {
+    $old = ['@site_name', '@contact_name', '@contact_email'];
+    $new = ['!site_name', '!contact_name', '!contact_email'];
+    $text = str_replace($old, $new, $text);
+    variable_set('contact_reply_to_body_explanation', $text);
+  }
+}
