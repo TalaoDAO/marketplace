@@ -662,7 +662,7 @@ function ft_request_views_default_views() {
     10 => 0,
   );
   $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['reference_display'] = 'user_circle_list:entityreference_1';
-  /* Filter criterion: Content: Choose a public request type (field_request_type) (translated) */
+  /* Filter criterion: Content: Choose a request type (field_request_type) (translated) */
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['id'] = 'field_request_type_tid_i18n';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['table'] = 'field_data_field_request_type';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['field'] = 'field_request_type_tid_i18n';
@@ -936,7 +936,7 @@ function ft_request_views_default_views() {
     10 => 0,
   );
   $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['reference_display'] = 'user_circle_list:entityreference_1';
-  /* Filter criterion: Content: Choose a public request type (field_request_type) (translated) */
+  /* Filter criterion: Content: Choose a request type (field_request_type) (translated) */
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['id'] = 'field_request_type_tid_i18n';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['table'] = 'field_data_field_request_type';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['field'] = 'field_request_type_tid_i18n';
@@ -1405,7 +1405,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['flagged']['relationship'] = 'flag_content_rel';
   $handler->display->display_options['filters']['flagged']['value'] = '1';
   $handler->display->display_options['filters']['flagged']['group'] = 1;
-  /* Filter criterion: Content: Choose a public request type (field_request_type) (translated) */
+  /* Filter criterion: Content: Choose a request type (field_request_type) (translated) */
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['id'] = 'field_request_type_tid_i18n';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['table'] = 'field_data_field_request_type';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['field'] = 'field_request_type_tid_i18n';
@@ -1676,7 +1676,7 @@ function ft_request_views_default_views() {
     8 => 0,
     9 => 0,
   );
-  /* Filter criterion: Content: Choose a public request type (field_request_type) (translated) */
+  /* Filter criterion: Content: Choose a request type (field_request_type) (translated) */
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['id'] = 'field_request_type_tid_i18n';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['table'] = 'field_data_field_request_type';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['field'] = 'field_request_type_tid_i18n';
@@ -1811,6 +1811,17 @@ function ft_request_views_default_views() {
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
+  /* Relationship: Content: Author */
+  $handler->display->display_options['relationships']['uid']['id'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['table'] = 'node';
+  $handler->display->display_options['relationships']['uid']['field'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['required'] = TRUE;
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['id'] = 'field_entreprise_target_id';
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['table'] = 'field_data_field_entreprise';
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['field'] = 'field_entreprise_target_id';
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['relationship'] = 'uid';
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['required'] = TRUE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: OG membership: Group ID */
   $handler->display->display_options['arguments']['gid']['id'] = 'gid';
@@ -1857,6 +1868,28 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['status']['value'] = 1;
   $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Title */
+  $handler->display->display_options['filters']['title_1']['id'] = 'title_1';
+  $handler->display->display_options['filters']['title_1']['table'] = 'node';
+  $handler->display->display_options['filters']['title_1']['field'] = 'title';
+  $handler->display->display_options['filters']['title_1']['relationship'] = 'field_entreprise_target_id';
+  $handler->display->display_options['filters']['title_1']['operator'] = 'word';
+  $handler->display->display_options['filters']['title_1']['group'] = 1;
+  $handler->display->display_options['filters']['title_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['title_1']['expose']['operator_id'] = 'title_1_op';
+  $handler->display->display_options['filters']['title_1']['expose']['label'] = 'Entreprise';
+  $handler->display->display_options['filters']['title_1']['expose']['operator'] = 'title_1_op';
+  $handler->display->display_options['filters']['title_1']['expose']['identifier'] = 'title_1';
+  $handler->display->display_options['filters']['title_1']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    10 => 0,
+  );
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'node';
@@ -1881,7 +1914,7 @@ function ft_request_views_default_views() {
     10 => 0,
   );
   $handler->display->display_options['filters']['type']['expose']['reduce'] = TRUE;
-  /* Filter criterion: Content: Choose a public request type (field_request_type) (translated) */
+  /* Filter criterion: Content: Choose a request type (field_request_type) (translated) */
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['id'] = 'field_request_type_tid_i18n';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['table'] = 'field_data_field_request_type';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['field'] = 'field_request_type_tid_i18n';
@@ -2006,6 +2039,25 @@ function ft_request_views_default_views() {
     'node' => 'node',
   );
   $handler->display->display_options['filters']['group_type']['group'] = 1;
+  /* Filter criterion: Global: Dependent filter */
+  $handler->display->display_options['filters']['views_dependent_filter']['id'] = 'views_dependent_filter';
+  $handler->display->display_options['filters']['views_dependent_filter']['table'] = 'views';
+  $handler->display->display_options['filters']['views_dependent_filter']['field'] = 'views_dependent_filter';
+  $handler->display->display_options['filters']['views_dependent_filter']['group'] = 1;
+  $handler->display->display_options['filters']['views_dependent_filter']['controller_filter'] = 'title_1';
+  $handler->display->display_options['filters']['views_dependent_filter']['controller_values'] = '';
+  $handler->display->display_options['filters']['views_dependent_filter']['dependent_filters'] = array(
+    'field_hide_organisation_value' => 'field_hide_organisation_value',
+  );
+  /* Filter criterion: Content: Hide my organisation (field_hide_organisation) */
+  $handler->display->display_options['filters']['field_hide_organisation_value']['id'] = 'field_hide_organisation_value';
+  $handler->display->display_options['filters']['field_hide_organisation_value']['table'] = 'field_data_field_hide_organisation';
+  $handler->display->display_options['filters']['field_hide_organisation_value']['field'] = 'field_hide_organisation_value';
+  $handler->display->display_options['filters']['field_hide_organisation_value']['operator'] = 'not';
+  $handler->display->display_options['filters']['field_hide_organisation_value']['value'] = array(
+    1 => '1',
+  );
+  $handler->display->display_options['filters']['field_hide_organisation_value']['group'] = 1;
   $handler->display->display_options['views_navigation'] = TRUE;
   $handler->display->display_options['views_navigation_cycle'] = FALSE;
   $handler->display->display_options['path'] = 'node/%/requests';
