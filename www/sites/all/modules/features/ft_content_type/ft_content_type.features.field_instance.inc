@@ -3522,6 +3522,41 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_description_activities'.
+  $field_instances['user-user-field_description_activities'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 43,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_description_activities',
+    'label' => 'Description of activities',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 50,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_domaine'.
   $field_instances['user-user-field_domaine'] = array(
     'bundle' => 'user',
@@ -3850,7 +3885,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 16,
+      'weight' => 45,
     ),
   );
 
@@ -3887,7 +3922,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 17,
+      'weight' => 46,
     ),
   );
 
@@ -3924,7 +3959,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 14,
+      'weight' => 42,
     ),
   );
 
@@ -4157,6 +4192,73 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_linkedin_image'.
+  $field_instances['user-user-field_linkedin_image'] = array(
+    'bundle' => 'user',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 42,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_linkedin_image',
+    'label' => 'Linkedin Image',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'entity_translation_sync' => FALSE,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'filefield_paths' => array(
+        'active_updating' => 0,
+        'file_name' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+        ),
+        'file_path' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => '',
+        ),
+        'redirect' => FALSE,
+        'retroactive_update' => 0,
+      ),
+      'filefield_paths_enabled' => 1,
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 49,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_mail'.
   $field_instances['user-user-field_mail'] = array(
     'bundle' => 'user',
@@ -4192,7 +4294,52 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 2,
+      'weight' => 32,
+    ),
+  );
+
+  // Exported field_instance: 'user-user-field_nb_contacts_linkedin'.
+  $field_instances['user-user-field_nb_contacts_linkedin'] = array(
+    'bundle' => 'user',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_integer',
+        'weight' => 41,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_nb_contacts_linkedin',
+    'label' => 'Number contacts Linkedin',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 29,
     ),
   );
 
@@ -4524,7 +4671,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 18,
+      'weight' => 47,
     ),
   );
 
@@ -4615,7 +4762,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'autocomplete_deluxe_taxonomy',
-      'weight' => 5,
+      'weight' => 34,
     ),
   );
 
@@ -4779,7 +4926,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'phone',
       'settings' => array(),
       'type' => 'phone_textfield',
-      'weight' => 3,
+      'weight' => 33,
     ),
   );
 
@@ -4995,7 +5142,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'og',
       'settings' => array(),
       'type' => 'og_complex',
-      'weight' => 12,
+      'weight' => 41,
     ),
   );
 
@@ -5016,6 +5163,7 @@ function ft_content_type_field_default_field_instances() {
   t('Deadline');
   t('Describe your work experience : degrees, companies, etc.');
   t('Description');
+  t('Description of activities');
   t('Description of the activity of organisation / company');
   t('Desired starting date');
   t('Document');
@@ -5044,11 +5192,13 @@ function ft_content_type_field_default_field_instances() {
   t('Lead experts');
   t('Link to my website or my blog');
   t('LinkedIn profile');
+  t('Linkedin Image');
   t('Logo');
   t('Mail');
   t('More about <a href=\'/content/sponsorship\'>sponsorship</a>');
   t('Name of my sponsor');
   t('Nom');
+  t('Number contacts Linkedin');
   t('Organisation');
   t('Organisation / company');
   t('Other, please specify');
