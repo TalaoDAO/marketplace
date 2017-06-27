@@ -194,5 +194,125 @@ function ft_webmastering_views_default_views() {
   $handler->display->display_options['path'] = 'user_export_imported.csv';
   $export['export_users'] = $view;
 
+  $view = new view();
+  $view->name = 'responses_stats';
+  $view->description = 'How many responses by month';
+  $view->tag = 'webform';
+  $view->base_table = 'webform_submissions';
+  $view->human_name = '[ADMIN] Responses stats';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['group_by'] = TRUE;
+  $handler->display->display_options['access']['type'] = 'none';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '50';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_options'] = '10, 50, 100, 200, 500, 1000';
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = TRUE;
+  $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all_label'] = 'All';
+  $handler->display->display_options['style_plugin'] = 'table';
+  $handler->display->display_options['style_options']['columns'] = array(
+    'views_bulk_operations' => 'views_bulk_operations',
+    'submitted' => 'submitted',
+    'field_first_name' => 'field_first_name',
+    'field_last_name' => 'field_last_name',
+    'view_user' => 'view_user',
+    'emh_answer' => 'emh_answer',
+  );
+  $handler->display->display_options['style_options']['default'] = '-1';
+  $handler->display->display_options['style_options']['info'] = array(
+    'views_bulk_operations' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'submitted' => array(
+      'sortable' => 1,
+      'default_sort_order' => 'desc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_first_name' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'field_last_name' => array(
+      'sortable' => 0,
+      'default_sort_order' => 'asc',
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'view_user' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+    'emh_answer' => array(
+      'align' => '',
+      'separator' => '',
+      'empty_column' => 0,
+    ),
+  );
+  $handler->display->display_options['style_options']['sticky'] = TRUE;
+  $handler->display->display_options['style_options']['empty_table'] = TRUE;
+  /* No results behavior: Global: Unfiltered text */
+  $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
+  $handler->display->display_options['empty']['area_text_custom']['content'] = 'There are no answers for this mission.';
+  $handler->display->display_options['empty']['area_text_custom']['tokenize'] = TRUE;
+  /* Relationship: Webform submissions: User */
+  $handler->display->display_options['relationships']['uid']['id'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['table'] = 'webform_submissions';
+  $handler->display->display_options['relationships']['uid']['field'] = 'uid';
+  /* Field: Webform submissions: Submitted */
+  $handler->display->display_options['fields']['submitted']['id'] = 'submitted';
+  $handler->display->display_options['fields']['submitted']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['submitted']['field'] = 'submitted';
+  $handler->display->display_options['fields']['submitted']['label'] = 'Answer date';
+  $handler->display->display_options['fields']['submitted']['date_format'] = 'custom';
+  $handler->display->display_options['fields']['submitted']['custom_date_format'] = 'y-m';
+  $handler->display->display_options['fields']['submitted']['second_date_format'] = 'long';
+  $handler->display->display_options['fields']['submitted']['format_date_sql'] = 1;
+  /* Field: COUNT(Webform submissions: EMH Answer) */
+  $handler->display->display_options['fields']['emh_answer']['id'] = 'emh_answer';
+  $handler->display->display_options['fields']['emh_answer']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['emh_answer']['field'] = 'emh_answer';
+  $handler->display->display_options['fields']['emh_answer']['group_type'] = 'count';
+  /* Filter criterion: Webform submissions: Draft */
+  $handler->display->display_options['filters']['is_draft']['id'] = 'is_draft';
+  $handler->display->display_options['filters']['is_draft']['table'] = 'webform_submissions';
+  $handler->display->display_options['filters']['is_draft']['field'] = 'is_draft';
+  $handler->display->display_options['filters']['is_draft']['value'] = array(
+    0 => '0',
+  );
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler->display->display_options['path'] = 'responses-stats';
+  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['menu']['title'] = 'Answers';
+  $handler->display->display_options['menu']['weight'] = '10';
+  $handler->display->display_options['menu']['name'] = 'main-menu';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $export['responses_stats'] = $view;
+
   return $export;
 }
