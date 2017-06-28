@@ -1,319 +1,90 @@
 <?php
 /**
-* @file
-* Code for eMindHub Answer feature.
-*/
+ * @file
+ * Code for eMindHub Answer feature.
+ */
 
 /**
  * Implements hook_permission().
  */
 function emh_answer_permission() {
   return array(
-    'save comment draft' => array(
-      'title' => t('Save comment as draft'),
-      'description' => t('Allows a user to save a draft of their comment.'),
-    ),
-    'access EMH answers' => array(
-      'title' => t('Answer: View all published EMH answers'),
-    ),
+      'save comment draft' => array(
+          'title' => t('Save comment as draft'),
+          'description' => t('Allows a user to save a draft of their comment.') 
+      ),
+      'access EMH answers' => array(
+          'title' => t('Answer: View all published EMH answers') 
+      ) 
   );
 }
 
 /**
- * Implements hook_webform_submission_insert().
- *
- * @param $node
- *   The webform node.
- * @param $submission
- *   The webform submission.
+ * Implements hook_token_info_alter().
  */
-function emh_answer_webform_submission_insert($node, $submission) {
-  // Invoke event.
-  emh_answer_rules_invoke_event($submission, $node, 'insert');
-}
-
-/**
- * Implements hook_webform_submission_update().
- *
- * @param $node
- *   The webform node.
- * @param $submission
- *   The webform submission.
- */
-function emh_answer_webform_submission_update($node, $submission) {
-  // Invoke event.
-  emh_answer_rules_invoke_event($submission, $node, 'update');
-}
-
-/**
- * Implements hook_webform_submission_delete().
- *
- * @param $node
- *   The webform node.
- * @param $submission
- *   The webform submission.
- */
-function emh_answer_webform_submission_delete($node, $submission) {
-  // Invoke event.
-  emh_answer_rules_invoke_event($submission, $node, 'delete');
-}
-
-/**
- * Implements of hook_form_alter().
- */
-function emh_answer_form_alter(&$form, $form_state, $form_id) {
-  ddl($form, 'form 1');
-  ddl($form_state, 'form state 1');
-  ddl($form_id, 'form id 1');
-  if (strpos($form_id, 'webform_client_form_') !== FALSE) {
-    // Add custom submit handler to webform form.
-    $form['#submit'][] = 'emh_answer_client_form_submit';
-  }
-}
-
-/**
- * Custom submit handler for webform submissions.
- *
- * This is needed to catch submissions of saved webform drafts as
- * hook_webform_submission_insert() only fires once and its not possible in
- * hook_webform_submission_update() to check if the data has been submitted
- * before (e.g. saved as draft).
- */
-function emh_answer_client_form_submit($form, &$form_state) {
-  // If the webform is NOT completed, don't run the submit handler!
-  // This is relevant for multistep forms.
-  ddl($form, 'form 2');
-  ddl($form_state, 'form state 2');
- 
-  if (!$form_state['webform_completed']) {
-    return;
-  }
-
-  // If we've got to this point, then we are not mid-way through a form submission.
-  $values = $form_state['values'];
-  // Check if user is submitting as a draft.
-  if ($values['op'] == t('Save Draft')) {
-    // Saving the webform as draft is handled by hook_webform_submission_insert().
-    return;
-  }
-  if ($form['#is_draft'] && isset($form_state['values']['details']['sid'])) {
-    $submission = $form['#submission'];
-    // Map submitted data to submission data.
-    foreach ($form_state['values']['submitted'] as $cid => $value) {
-      if (isset($submission->data[$cid])) {
-        if (isset($value['value'])) {
-          $submission->data[$cid]['value'] = $value;
-        }
-        else {
-          $submission->data[$cid] = $value;
-        }
-      }
-    }
-    // Invoke event.
-    emh_answer_rules_invoke_event($submission, $form['#node'], 'submit');
-  }
-}
-
-/**
- * Invoke rules event with submitted data.
- *
- * @param $submission_data
- *   Data from webform prepared by webform_submission_data().
- * @param $node
- *   The submitted webform node.
- * @param $op
- *   Type of submission: 'insert', 'update', 'delete', 'submit.
- */
-function emh_answer_rules_invoke_event($submission, $node, $op = 'insert') {
-  global $user;
-  ddl($submission, 'submission');
-  ddl($node, 'node');
-  ddl($op, 'op');
-  if (!is_array($submission->data) || count($submission->data) == 0) {
-    return;
-  }
-  $is_draft = (isset($submission->is_draft) && $submission->is_draft);
-  $webform = $node->webform;
-  $data = array(
-    'op' => $op,
-    'sid' => $submission->sid,
-    'components' => array(),
+function emh_answer_token_info_alter(&$data) {
+  $data['tokens']['webform']['date-answer'] = array(
+      'name' => t('Date Answer'),
+      'description' => t('Date of the answer\'s request') 
   );
-  $form_id = 'webform-client-form-' . $webform['nid'];
-  // Map values to field names.
-  foreach ($submission->data as $cid => $value) {
-    $component = $webform['components'][$cid];
-    $data['components'][$component['form_key']]['value'] = isset($value['value']) ? $value['value'] : $value;
-    if (!is_array($data['components'][$component['form_key']]['value'])) {
-      // Convert the value to an array to equalize the data with saved
-      // submissions.
-      $data['components'][$component['form_key']]['value'] = array($data['components'][$component['form_key']]['value']);
-    }
-    $data['components'][$component['form_key']]['component'] = $component;
-  }
-  // Invoke the rules event.
-  switch ($op) {
-    case 'insert':
-      if ($is_draft) {
-        rules_invoke_event('emh_answer_submit_as_draft', $user, $node, $data, $form_id);
-      }
-      else {
-        rules_invoke_event('emh_answer_submit', $user, $node, $data, $form_id);
-      }
-      break;
-    case 'submit':
-      rules_invoke_event('emh_answer_insert', $user, $node, $data, $form_id);
-      break;
-    case 'update':
-      rules_invoke_event('emh_answer_update', $user, $node, $data, $form_id);
-      break;
-    case 'delete':
-      rules_invoke_event('emh_answer_delete', $user, $node, $data, $form_id);
-      break;
-  }
-}
-
-
-
-
-/**
- * Implements hook_token_info().
- */
-function emh_answer_token_info() {
-   
-  $types['answer'] = array(
-    'name' => t('Answer\'s data about a request'),
-    'description' => t('Tokens related to an Answer.'),
+  $data['tokens']['webform']['statut'] = array(
+      'name' => t('Statut'),
+      'description' => t('Answer\'s statut') 
   );
-
-  $answer['sid'] = array(
-    'name' => t('Submission Id'),
-    'description' => t('The unique identifier of the submission.'),
+  $data['tokens']['webform']['url-answer'] = array(
+      'name' => t('Url Answer'),
+      'description' => t('Url Answer') 
   );
-  $answer['date-answer'] = array(
-    'name' => t('Date Answer'),
-    'description' => t('Date of the answer\'s request'),
-  );
-  $answer['statut'] = array(
-    'name' => t('Statut'),
-    'description' => t('Answer\'s statut'),
-  );
-  $answer['url-answer'] = array(
-    'name' => t('Url Answer'),
-    'description' => t('Url Answer'),
-  );
-  $answer['test'] = array(
-    'name' => t('test'),
-    'description' => t('Test'),
-  );
-  
-
-  return array(
-    'types' => $types,
-    'tokens' => array(
-      'answer' => $answer,
-    ),
+  $data['tokens']['webform']['url-edit-answer'] = array(
+      'name' => t('Url Edit Answer'),
+      'description' => t('Url to edit an answer') 
   );
 }
 
-
-
 /**
- * Implements hook_tokens().
+ * Implements hook_tokens_alter().
  */
-function emh_answer_tokens($type, $tokens, array $data = array(), array $options = array()) {
-  /*ddl($type, 'type');
-  ddl($tokens, 'tokens');
-  ddl($data, 'data');*/
-  $replacements = array();
-  if ($type == 'answer') {
-    $component_names = array_keys($data[$type]['components']);
+function emh_answer_tokens_alter(array &$replacements, array $context) {
+  if ($context['type'] == 'webform') {
+    $webform = $context['data']['webform'];
+    $tokens = $context['tokens'];
+    
+    $query = db_select('webform_submissions', 'ws')->fields('ws')->condition('sid', $webform['sid'], '=')->execute()->fetchAssoc();
+    
+    // Alter the [node:title] token, and replace it with the rendered content
+    // of a field (field_title).
     foreach ($tokens as $name => $original) {
       
-      $query = db_select('webform_submissions', 'ws')
-      	->fields('ws')
-       	->condition('sid', $data[$type]['sid'], '=')
-       	->execute()
-       	->fetchAssoc();
-        
       switch ($name) {
-        case 'date-answer' : 
+        case 'date-answer' :
           $date = new DateTime();
           $date->setTimestamp($query['submitted']);
           $date_answer = $date->format('D, Y/m/d - H:i');
           $replacements[$original] = $date_answer;
+          // $replacements[$context['tokens']['date-answer']] = print_r($context, TRUE);
           break;
-            
+        
         case 'statut' :
-          if($query['is_draft'])
+          if ($query['is_draft'])
             $statut = 'Draft';
-          else 
+          else
             $statut = 'Published';
           
           $replacements[$original] = $statut;
           break;
-            
+        
+       case 'url-edit-answer' :
+          $edit = '/edit';           
+          
         case 'url-answer' :
           global $base_url;
-          $url = $base_url . '/node/' . $query['nid'] . '/submission/' . $data[$type]['sid'];
+          if(!isset($edit)){
+            $edit = '';
+          }          
+          $url = $base_url . '/node/' . $query['nid'] . '/submission/' . $webform['sid'] . $edit;
           $replacements[$original] = $url;
           break;
-          
-        case 'test' :
-           global $node;
-          $replacements[$original] = print_r($data,TRUE) .
-            print_r($tokens,TRUE) .
-            print_r($type,TRUE) .
-            print_r($node,TRUE);
-          break;
-          
-      
-        }
-               
+      }
     }
   }
-  
-  return $replacements;
-}
-
-
-
-
-/**
- * Get a list of all webforms.
- */
-function emh_answer_get_webforms() {
-  // Get a list of all webform-enabled content types.
-  $webform_types = webform_variable_get('webform_node_types');
-  // Get a list of all nodes that are configured to use a webform.
-  $query = db_select('node', 'n')
-    ->fields('n', array('nid', 'title'))
-    ->condition('n.type', $webform_types, 'IN');
-  // Join to limit result list to nodes that really have a webform.
-  $query->join('webform', 'w', 'n.nid = w.nid');
-  // Join {webform_component} to prevent listing unconfigured webforms.
-  $query->join('webform_component', 'c', 'n.nid = c.nid');
-  // Get the result list.
-  $results = $query->execute();
-
-  $webforms = array();
-  foreach ($results as $record) {
-    $webforms[$record->nid] = $record->title;
-  }
-  return $webforms;
-}
-
-/**
- * Get an option list of all webforms.
- */
-function emh_answer_get_webforms_as_options() {
-  ddl('coucou 1');
-  // Get the list of all webforms.
-  $webforms = emh_answer_get_webforms();
-
-  $options = array();
-  foreach ($webforms as $nid => $webform) {
-    $options["webform-client-form-{$nid}"] = $webform;
-  }
-  return $options;
 }
