@@ -2,7 +2,6 @@ name = EMH Answer
 description = Global functions for all comments.
 package = EMH
 files[] = emh_answer.module
-files[] = emh_answer.rules.inc
 dependencies[] = comment
 dependencies[] = webform (>=7.x-3.x)
 dependencies[] = rules
