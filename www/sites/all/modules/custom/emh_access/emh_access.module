@@ -4,6 +4,8 @@
 * Code for eMindHub access feature.
 */
 
+define("ALL_EXPERT_CIRCLE", 314);
+
 /**
  * Implements hook_user_presave().
  */
@@ -88,8 +90,8 @@ function emh_access_user_can_see_full_user($uid = FALSE, $uid2) {
   // Organic Groups
   // User1 & User2 belong to the same circle (except 'All experts')
   if (module_exists('og')) {
-    unset( $u1_circlesIDs[ '314' ] ); // TODO: manage this differently!
-    unset( $u2_circlesIDs[ '314' ] );
+    unset( $u1_circlesIDs[ ALL_EXPERT_CIRCLE ] ); // TODO: manage this differently!
+    unset( $u2_circlesIDs[ ALL_EXPERT_CIRCLE ] );
     // Check if it's real arrays
     if (!( (array) $u1_circlesIDs !== $u1_circlesIDs ) && !( (array) $u2_circlesIDs !== $u2_circlesIDs ) && array_intersect($u1_circlesIDs, $u2_circlesIDs)) return TRUE;
   }
@@ -362,8 +364,8 @@ function emh_access_node_access($node, $op, $account) {
 
   if($op == 'view' && arg(0) == 'node' && arg(1) === $node->nid) {
 
-    // Restrict access to All-epoert for everybody except webmaster (6) and adminstrator (3) roles 
-    if ($type == 'circle' && $node->nid == '314' && !user_has_role(3, $account) && !user_has_role(6, $account)) {
+    // Restrict access to All experts for everybody except for webmaster (6) and administrator (3) roles
+    if ($type == 'circle' && $node->nid == ALL_EXPERT_CIRCLE && !user_has_role(3, $account) && !user_has_role(6, $account)) {
       return NODE_ACCESS_DENY;
     }
   }
