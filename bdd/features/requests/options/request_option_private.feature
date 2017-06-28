@@ -43,6 +43,10 @@ Feature: Request and answers
       And I press "Publish"
     Then I should see the success message "Request How to become a superhero? has been published."
 
+    Given I am logged in as a user with the "administrator" role
+    When I go to "admin/emindhub/credits/transaction-log"
+    Then I should see "request+private"
+
     # An expert responds to the request.
     Given I am logged in as "expert1"
     When I go to homepage

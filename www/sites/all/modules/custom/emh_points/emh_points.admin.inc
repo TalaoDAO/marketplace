@@ -1,8 +1,11 @@
 <?php
 
 /**
+ * @file
  * Administration screens for EMH Credit management module.
  */
+
+const EMH_POINTS_TXN_CONTEXT_ADMIN_MANAGE_USER = 'admin_manage_user';
 
 /**
  * Admin form for EMH Credit management settings.
@@ -124,6 +127,7 @@ function emh_points_manage_users_form_submit($form, $form_state) {
         'dest_type' => $entity->type,
         'dest_id' => $entity->id,
         'operation' => POINTS_REMOVAL,
+        'context' => EMH_POINTS_TXN_CONTEXT_ADMIN_MANAGE_USER,
       ))
       ->execute();
     break;
@@ -142,6 +146,7 @@ function emh_points_manage_users_form_submit($form, $form_state) {
         'dest_type' => $entity->type,
         'dest_id' => $entity->id,
         'operation' => POINTS_ADDITION,
+        'context' => EMH_POINTS_TXN_CONTEXT_ADMIN_MANAGE_USER,
       ))
       ->execute();
     break;
