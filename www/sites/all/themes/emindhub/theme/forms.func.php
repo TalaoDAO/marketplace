@@ -116,9 +116,11 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
     }
     $fields = array_reverse($fields);
 
-    $form['field_position']['#weight'] = '16';
-    $form['field_skills_set']['#weight'] = '19';
-    $form['field_cv']['#weight'] = '20';
+    $form['field_position']['#weight'] = '24';
+    $form['field_working_status']['#weight'] = '25';
+    $form['field_domaine']['#weight'] = '26';
+    $form['field_address']['#weight'] = '27';
+    $form['field_cv']['#weight'] = '28';
   }
 
   switch ($form_id) {
