@@ -61,6 +61,5 @@ Scenario:  An authentificated user try to access to a public and private circle
       And I should not see the text "Avengers"
       And I should see the text "Justice League"
       And I should not see the text "Suicide Squad"
-      And I should not see "Aerospace Valley"
-      
+      And I should not see "Aerospace Valley"  
     
