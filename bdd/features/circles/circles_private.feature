@@ -7,15 +7,15 @@ Feature: Private Circle
   Background: Create Users & Request
 
     Given "circle" content:
-    | title             | author  | 
-    | Avengers          | admin   | 
-    | Justice League    | admin   | 
+    | title             | author  | group_access | 
+    | Avengers          | admin   | Private      |
+    | Justice League    | admin   | Private      |
+    | Suicide Squad     | admin   | Public       |
 
     Given "corporate" content:
     | title                   | author  |
     | Wayne Entreprise        | admin   |
     | Marvel Studios          | admin   |
-    | Marvel Entertainment    | admin   |
     | DC Comics               | admin   |
 
     Given users:
@@ -32,6 +32,7 @@ Feature: Private Circle
     | title                       | field_domaine | og_group_ref   | author  | field_expiration_date  | status  |
     | How to become a superhero?  | Energy        | Avengers       | client2 | 2020-02-08 17:45:00    | 1       |
     | How to stop the Joker?      | Energy        | Justice League | client1 | 2020-02-08 17:45:00    | 1       |
+    | How to kill the Batman?     | Energy        | Suicide Squad  | client1 | 2020-02-08 17:45:00    | 1       |
 
     Given the user "expert1" is a member of the group "Avengers"
     Given the user "expert4" is a member of the group "Justice League"
@@ -41,9 +42,9 @@ Scenario:  An authentificated user try to access to a public and private circle
     When I go to "/circles"
     Then I should not see the text "Avengers"
       And I should see the text "Justice League"
-      And I should not see the text "Cercle de test"
+      And I should see the text "Suicide Squad"
       
-    When I go to "content/cercle-de-test"
+    When I go to "content/suicide-squad"
     Then I should see the text "Access denied"
     
     When I go to "content/justice-league"
@@ -55,5 +56,6 @@ Scenario:  An authentificated user try to access to a public and private circle
     When I go to homepage
     Then I should see the text "How to stop the Joker?"
       And I should not see the text "How to become a superhero?"
+      And I should not see the text "How to kill the Batman?"
       
     
