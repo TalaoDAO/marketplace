@@ -1062,6 +1062,26 @@ function ft_permissions_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'create field_tracking_key'.
+  $permissions['create field_tracking_key'] = array(
+    'name' => 'create field_tracking_key',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'create field_tracking_referer'.
+  $permissions['create field_tracking_referer'] = array(
+    'name' => 'create field_tracking_referer',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'create page content'.
   $permissions['create page content'] = array(
     'name' => 'create page content',
@@ -1563,6 +1583,26 @@ function ft_permissions_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'edit field_tracking_key'.
+  $permissions['edit field_tracking_key'] = array(
+    'name' => 'edit field_tracking_key',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit field_tracking_referer'.
+  $permissions['edit field_tracking_referer'] = array(
+    'name' => 'edit field_tracking_referer',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'edit media'.
   $permissions['edit media'] = array(
     'name' => 'edit media',
@@ -1668,6 +1708,26 @@ function ft_permissions_user_default_permissions() {
     'name' => 'edit own field_request_circle',
     'roles' => array(
       'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit own field_tracking_key'.
+  $permissions['edit own field_tracking_key'] = array(
+    'name' => 'edit own field_tracking_key',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'edit own field_tracking_referer'.
+  $permissions['edit own field_tracking_referer'] = array(
+    'name' => 'edit own field_tracking_referer',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'field_permissions',
   );
@@ -2422,6 +2482,16 @@ function ft_permissions_user_default_permissions() {
     'module' => 'field_permissions',
   );
 
+  // Exported permission: 'view field_tracking_key'.
+  $permissions['view field_tracking_key'] = array(
+    'name' => 'view field_tracking_key',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'field_permissions',
+  );
+
   // Exported permission: 'view hidden fields'.
   $permissions['view hidden fields'] = array(
     'name' => 'view hidden fields',
@@ -2491,6 +2561,26 @@ function ft_permissions_user_default_permissions() {
     'name' => 'view own field_request_circle',
     'roles' => array(
       'administrator' => 'administrator',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view own field_tracking_key'.
+  $permissions['view own field_tracking_key'] = array(
+    'name' => 'view own field_tracking_key',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'field_permissions',
+  );
+
+  // Exported permission: 'view own field_tracking_referer'.
+  $permissions['view own field_tracking_referer'] = array(
+    'name' => 'view own field_tracking_referer',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
     ),
     'module' => 'field_permissions',
   );
