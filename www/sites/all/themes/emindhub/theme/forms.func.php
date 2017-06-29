@@ -116,11 +116,15 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
     }
     $fields = array_reverse($fields);
 
+    // Set the fields weights > 1st field in order to be in fieldset.
     $form['field_position']['#weight'] = '24';
     $form['field_working_status']['#weight'] = '25';
     $form['field_domaine']['#weight'] = '26';
     $form['field_address']['#weight'] = '27';
     $form['field_cv']['#weight'] = '28';
+
+    // Address.
+    $form['field_address'][LANGUAGE_NONE][0]['#type'] = 'div';
   }
 
   switch ($form_id) {
