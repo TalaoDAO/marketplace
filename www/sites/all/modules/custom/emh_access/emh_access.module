@@ -249,7 +249,7 @@ function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
   if ($node->uid == $account->uid) return TRUE;
 
   // Organic Groups / EMH Circles
-  // User1 is manager/admin/referent of node's circle
+  // User1 is manager/admin/referent/member of node's circle
   if (module_exists('og') && module_exists('emh_circles')) {
     if (isset($node->og_group_ref) && ($circle_items = field_get_items('node', $node, 'og_group_ref'))) {
       $circles = array();
@@ -268,6 +268,9 @@ function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
         if (_emh_circles_user_is_groups_referent($account->uid, $circles)) {
           return TRUE;
         }
+        if (_emh_circles_user_is_groups_member($account->uid, $circles)) {
+          return TRUE;
+        }
       }
     }
   }
@@ -279,7 +282,7 @@ function emh_access_user_can_see_full_request($node = NULL, $account = NULL)  {
     if ($userPercent['current_percent'] == '100') return TRUE;
   }
 
-  return TRUE;
+  return FALSE;
 }
 
 function emh_access_author_name($node) {
