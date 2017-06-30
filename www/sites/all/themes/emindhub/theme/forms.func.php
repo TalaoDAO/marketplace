@@ -92,7 +92,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
     $fields = emh_profile_complete_submission_set_fields();
     $fields = _emh_profile_complete_get_empty_fields('user', 'user', $user, $fields);
 
-    $first = FALSE; $last = FALSE;
+    $first = FALSE; $last = FALSE; $i = 0;
     foreach($fields as $field => $value) {
       $fields[$field] = array(
         'first' => FALSE,
@@ -105,6 +105,18 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
         $form[$field]['#prefix'] .= '<legend>' . t('Complete your profile') . '</legend>';
         $form[$field]['#prefix'] .= '<p>' . t('Please fill in the information below to publish your request. This information is required only once and will enable the requester to access your profile.') . '</p>';
       }
+      if ($i % 2 == 0) {
+        if (isset($form[$field]['#prefix'])) {
+          $form[$field]['#prefix'] .= '<div class="form-group-2col row">';
+        }
+        else {
+          $form[$field]['#prefix'] = '<div class="form-group-2col row">';
+        }
+      }
+      else {
+        $form[$field]['#suffix'] = '</div>';
+      }
+      $i++;
     }
     $fields = array_reverse($fields);
     foreach($fields as $field => $value) {
@@ -116,9 +128,15 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
     }
     $fields = array_reverse($fields);
 
-    $form['field_position']['#weight'] = '16';
-    $form['field_skills_set']['#weight'] = '19';
-    $form['field_cv']['#weight'] = '20';
+    // Set the fields weights > 1st field in order to be in fieldset.
+    $form['field_position']['#weight'] = '24';
+    $form['field_working_status']['#weight'] = '25';
+    $form['field_domaine']['#weight'] = '26';
+    $form['field_address']['#weight'] = '27';
+    $form['field_cv']['#weight'] = '28';
+
+    // Address.
+    $form['field_address'][LANGUAGE_NONE][0]['#type'] = 'div';
   }
 
   switch ($form_id) {
