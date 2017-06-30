@@ -69,3 +69,7 @@ Feature: Test credits dispatch in OG
       And I should have 100 credits on "Avengers" node
       And I should have "60" credits on "client2" user
       And I should have "40" credits on "client3" user
+
+    Given I am logged in as a user with the "administrator" role
+    When I go to "admin/emindhub/credits/transaction-log"
+    Then I should see "behat_transfer_user_node"
