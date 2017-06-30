@@ -106,10 +106,15 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
         $form[$field]['#prefix'] .= '<p>' . t('Please fill in the information below to publish your request. This information is required only once and will enable the requester to access your profile.') . '</p>';
       }
       if ($i % 2 == 0) {
-        $form[$field]['#prefix'] .= '<div class="form-group-2col row">';
+        if (isset($form[$field]['#prefix'])) {
+          $form[$field]['#prefix'] .= '<div class="form-group-2col row">';
+        }
+        else {
+          $form[$field]['#prefix'] = '<div class="form-group-2col row">';
+        }
       }
       else {
-        $form[$field]['#suffix'] .= '</div>';
+        $form[$field]['#suffix'] = '</div>';
       }
       $i++;
     }
