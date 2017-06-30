@@ -5,7 +5,6 @@ package = EMH
 version = 7.x-3.0
 dependencies[] = bootstrap_languages
 dependencies[] = devel
-dependencies[] = emh_profile_complete_request
 dependencies[] = emh_request
 dependencies[] = fe_block
 dependencies[] = menu
