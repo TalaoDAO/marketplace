@@ -1413,7 +1413,7 @@ function emh_configuration_update_7069() {
   //'colorbox', 'reroute_email',  // TODO : check why it makes the language block disapear
   'stickynote', 'views_fieldsets', 'views_tree', 'node_reference'));
   module_disable(array('module_missing_message_fixer', 'views_send', 'views_fieldset', 'views_field_view', 'dbtng_migrator', 'privatecomments', 'comment_perm', 'colorbox', 'auditfiles', 'views_php', 'views_calc', 'search', 'calendar', 'node_export', 'backup_migrate', 'shortcut', 'scheduler', 'color', 'collapsiblock', 'blockgroup'));
-  drupal_uninstall_modules(array('module_missing_message_fixer', 'views_send', 'views_fieldset', 'views_field_view', 'dbtng_migrator', 'privatecomments', 'comment_perm', 
+  drupal_uninstall_modules(array('module_missing_message_fixer', 'views_send', 'views_fieldset', 'views_field_view', 'dbtng_migrator', 'privatecomments', 'comment_perm',
   'auditfiles', 'views_php', 'views_calc', 'search', 'calendar', 'node_export', 'backup_migrate', 'shortcut', 'scheduler', 'color', 'collapsiblock', 'blockgroup'));
   drupal_uninstall_modules(array('ds', 'honeypot', 'linkedin', 'privatemsg_filter'));
   drupal_uninstall_modules(array('privatemsg'));
@@ -1468,3 +1468,10 @@ function emh_configuration_update_7075() {
   module_enable(['contact_reply_to', 'ft_webmastering']);
 }
 
+/**
+ * CHG: uninstall module emh_profile_complete_request.
+ */
+function emh_configuration_update_7077() {
+  module_disable(array('emh_profile_complete_request'));
+  drupal_uninstall_modules(array('emh_profile_complete_request'));
+}
