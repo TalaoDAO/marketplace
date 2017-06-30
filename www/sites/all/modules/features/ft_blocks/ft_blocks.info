@@ -17,7 +17,6 @@ features[fe_block_boxes][] = hp_welcome
 features[fe_block_settings][] = block-hp_welcome
 features[fe_block_settings][] = bootstrap_languages-language
 features[fe_block_settings][] = devel-switch_user
-features[fe_block_settings][] = emh_profile_complete_request-emh_profile_complete_request
 features[fe_block_settings][] = menu-menu-footer-menu
 features[fe_block_settings][] = menu-menu-top
 features[fe_block_settings][] = menu-menu-top-anonymous
