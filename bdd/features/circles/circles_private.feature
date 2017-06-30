@@ -43,6 +43,7 @@ Scenario:  An authentificated user try to access to a public and private circle
     Then I should not see the text "Avengers"
       And I should see the text "Justice League"
       And I should see the text "Suicide Squad"
+      And I should not see the text "Aerospace Valley"
       
     When I go to "content/suicide-squad"
     Then I should see the text "Access denied"
@@ -56,6 +57,9 @@ Scenario:  An authentificated user try to access to a public and private circle
     When I go to homepage
     Then I should see the text "How to stop the Joker?"
       And I should not see the text "How to become a superhero?"
-      And I should not see the text "How to kill the Batman?"
-      
+      And I should not see the text "How to kill the Batman?"      
+      And I should not see the text "Avengers"
+      And I should see the text "Justice League"
+      And I should not see the text "Suicide Squad"
+      And I should not see "Aerospace Valley"  
     
