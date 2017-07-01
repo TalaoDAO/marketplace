@@ -30,6 +30,7 @@ function emh_tracking_init() {
     // 2. If it's alphanumeric:
     if (ctype_alnum($r)) {
 
+      // Get the HTTP_REFERER.
       // Normally we don't have to sanitize this.
       $http_referer = $_SERVER['HTTP_REFERER'] ? $_SERVER['HTTP_REFERER'] : '';
 
@@ -43,13 +44,9 @@ function emh_tracking_init() {
 
       // Prepare JS.
       // It will check if the cookie 'emh' exists and if not, will create it.
-      $cookie = "jQuery(document).ready(function () {
-        if (jQuery.cookie('emh') == undefined) {
-          jQuery.cookie('emh', '" . $tracking_info . "', { expires: " . EMH_TRACKING_COOKIE_DURATION . ", path: '/' });
-        }
-      });";
+      $cookie = "jQuery(document).ready(function () { if (jQuery.cookie('emh') == undefined) { jQuery.cookie('emh', '" . $tracking_info . "', { expires: " . EMH_TRACKING_COOKIE_DURATION . ", path: '/' }); } });";
 
-      // Add the JS.
+      // Add the JS. Inline is mandatory, in the footer is better.
       drupal_add_js(
         $cookie, array(
           'type' => 'inline',
@@ -65,6 +62,7 @@ function emh_tracking_init() {
  */
 function emh_tracking_user_presave(&$edit, $account, $category) {
 
+  // On user registration only.
   if ($account->is_new) {
 
     // If there is a tracking cookie:
@@ -76,7 +74,8 @@ function emh_tracking_user_presave(&$edit, $account, $category) {
       if (isset($tracking_info['r']) && ctype_alnum($tracking_info['r'])) {
         $edit['field_tracking_key'][LANGUAGE_NONE][0]['value'] = $tracking_info['r'];
       }
-      // Record the referer URL.
+
+      // Validate and record the referer URL.
       $http_referer = check_url(stripslashes($tracking_info['h']));
       if (isset($tracking_info['h']) && valid_url($http_referer, TRUE)) {
         $edit['field_tracking_referer'][LANGUAGE_NONE][0]['url'] = $http_referer;
