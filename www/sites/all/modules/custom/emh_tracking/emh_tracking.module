@@ -5,24 +5,35 @@
  * Tracking features for EMH website.
  */
 
-const EMH_TRACKING_COOKIE_DURATION = 60 * 60 * 24 * 365;
+// Days before the cookie expires.
+const EMH_TRACKING_COOKIE_DURATION = 365;
 
 /**
- * Implements hook_boot().
- *
- * We have to, because URLs with query params are cached.
+ * Implements hook_init().
  */
-function emh_tracking_boot() {
+function emh_tracking_init() {
 
+  // Using hook_boot() eats 10% of site performance,
+  // so we are setting a cookie with JS in hook_init() only.
+  // We need the jQuery.cookie library for anonymous users.
+  // Normally, Drupal loads it for authentificated users only,
+  // so we have to add it manually.
+  // We add the library on every page to allow JS aggregation.
+  // It's 961 bytes, @see /misc/jquery.cookie.js.
+  drupal_add_library('system', 'jquery.cookie', TRUE);
+
+  // 1. If there is a "r" query parameter:
+  // (note that every URL with ?r=TRACKING_KEY is considered as a different page
+  // than the original one, so the cache size will increase.
   if ($r = filter_input(INPUT_GET, 'r', FILTER_SANITIZE_STRING)) {
 
-    // If it's alphanumeric and if there is no EMH cookie:
-    if (ctype_alnum($r) && !isset($_COOKIE['emh'])) {
+    // 2. If it's alphanumeric:
+    if (ctype_alnum($r)) {
 
-      // Normally don't have to sanitize.
+      // Normally we don't have to sanitize this.
       $http_referer = $_SERVER['HTTP_REFERER'] ? $_SERVER['HTTP_REFERER'] : '';
 
-      // Store our tracking info.
+      // Prepare our tracking info.
       $tracking_info = json_encode(
         array(
           'r' => $r,
@@ -30,8 +41,21 @@ function emh_tracking_boot() {
         )
       );
 
-      // Create and save the cookie.
-      setcookie('emh', $tracking_info, time() + EMH_TRACKING_COOKIE_DURATION, '/');
+      // Prepare JS.
+      // It will check if the cookie 'emh' exists and if not, will create it.
+      $cookie = "jQuery(document).ready(function () {
+        if (jQuery.cookie('emh') == undefined) {
+          jQuery.cookie('emh', '" . $tracking_info . "', { expires: " . EMH_TRACKING_COOKIE_DURATION . ", path: '/' });
+        }
+      });";
+
+      // Add the JS.
+      drupal_add_js(
+        $cookie, array(
+          'type' => 'inline',
+          'scope' => 'footer',
+        )
+      );
     }
   }
 }
