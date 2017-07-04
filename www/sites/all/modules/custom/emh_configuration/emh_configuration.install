@@ -1462,10 +1462,10 @@ function emh_configuration_update_7074() {
 }
 
 /**
- * ADD: module contact_reply_to, ft_webmastering.
+ * ADD: module contact_reply_to, ft_webmastering, token_filter.
  */
 function emh_configuration_update_7075() {
-  module_enable(['contact_reply_to', 'ft_webmastering']);
+  module_enable(['contact_reply_to', 'ft_webmastering', 'token_filter']);
 }
 
 /**
