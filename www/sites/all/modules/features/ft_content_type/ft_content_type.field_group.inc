@@ -627,6 +627,8 @@ function ft_content_type_field_group_info() {
       17 => 'group_organisation',
       18 => 'group_sponsorship',
       19 => 'group_testimony',
+      20 => 'field_tracking_key',
+      21 => 'field_tracking_referer',
     ),
     'format_type' => 'div',
     'format_settings' => array(
