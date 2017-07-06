@@ -1,0 +1,4 @@
+name = EMH Tracking
+description = Tracking features for EMH website.
+package = EMH
+core = 7.x
