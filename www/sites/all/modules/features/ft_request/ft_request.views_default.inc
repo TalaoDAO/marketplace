@@ -536,6 +536,7 @@ function ft_request_views_default_views() {
   $handler = $view->new_display('page', 'P - All requests', 'page_all_requests');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'All requests';
+  $handler->display->display_options['defaults']['use_ajax'] = FALSE;
   $handler->display->display_options['field_language'] = 'und';
   $handler->display->display_options['defaults']['access'] = FALSE;
   $handler->display->display_options['access']['type'] = 'role';
@@ -662,7 +663,7 @@ function ft_request_views_default_views() {
     10 => 0,
   );
   $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['reference_display'] = 'user_circle_list:entityreference_1';
-  /* Filter criterion: Content: Choose a request type (field_request_type) (translated) */
+  /* Filter criterion: Content: Choose a public request type (field_request_type) (translated) */
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['id'] = 'field_request_type_tid_i18n';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['table'] = 'field_data_field_request_type';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['field'] = 'field_request_type_tid_i18n';
@@ -809,6 +810,8 @@ function ft_request_views_default_views() {
 
   /* Display: B - Last requests */
   $handler = $view->new_display('block', 'B - Last requests', 'block_last_requests');
+  $handler->display->display_options['defaults']['use_ajax'] = FALSE;
+  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['defaults']['use_more'] = FALSE;
   $handler->display->display_options['use_more'] = TRUE;
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
@@ -936,7 +939,7 @@ function ft_request_views_default_views() {
     10 => 0,
   );
   $handler->display->display_options['filters']['og_group_ref_target_id_entityreference_filter']['reference_display'] = 'user_circle_list:entityreference_1';
-  /* Filter criterion: Content: Choose a request type (field_request_type) (translated) */
+  /* Filter criterion: Content: Choose a public request type (field_request_type) (translated) */
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['id'] = 'field_request_type_tid_i18n';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['table'] = 'field_data_field_request_type';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['field'] = 'field_request_type_tid_i18n';
@@ -1071,6 +1074,7 @@ function ft_request_views_default_views() {
   $handler = $view->new_display('page', 'P - My selection', 'page_selected_requests');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Saved requests';
+  $handler->display->display_options['defaults']['use_ajax'] = FALSE;
   $handler->display->display_options['defaults']['access'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'flag my_selection';
@@ -1405,7 +1409,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['flagged']['relationship'] = 'flag_content_rel';
   $handler->display->display_options['filters']['flagged']['value'] = '1';
   $handler->display->display_options['filters']['flagged']['group'] = 1;
-  /* Filter criterion: Content: Choose a request type (field_request_type) (translated) */
+  /* Filter criterion: Content: Choose a public request type (field_request_type) (translated) */
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['id'] = 'field_request_type_tid_i18n';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['table'] = 'field_data_field_request_type';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['field'] = 'field_request_type_tid_i18n';
@@ -1545,6 +1549,7 @@ function ft_request_views_default_views() {
   $handler = $view->new_display('page', 'P - My requests', 'page_my_requests');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'My requests';
+  $handler->display->display_options['defaults']['use_ajax'] = FALSE;
   $handler->display->display_options['defaults']['use_more'] = FALSE;
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
@@ -1676,7 +1681,7 @@ function ft_request_views_default_views() {
     8 => 0,
     9 => 0,
   );
-  /* Filter criterion: Content: Choose a request type (field_request_type) (translated) */
+  /* Filter criterion: Content: Choose a public request type (field_request_type) (translated) */
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['id'] = 'field_request_type_tid_i18n';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['table'] = 'field_data_field_request_type';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['field'] = 'field_request_type_tid_i18n';
@@ -1914,7 +1919,7 @@ function ft_request_views_default_views() {
     10 => 0,
   );
   $handler->display->display_options['filters']['type']['expose']['reduce'] = TRUE;
-  /* Filter criterion: Content: Choose a request type (field_request_type) (translated) */
+  /* Filter criterion: Content: Choose a public request type (field_request_type) (translated) */
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['id'] = 'field_request_type_tid_i18n';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['table'] = 'field_data_field_request_type';
   $handler->display->display_options['filters']['field_request_type_tid_i18n']['field'] = 'field_request_type_tid_i18n';
