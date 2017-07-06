@@ -17,16 +17,25 @@ function smartmobility_form_system_theme_settings_alter(&$form, &$form_state, $f
 
   $settings_theme = $form_state['build_info']['args'][0];
 
-  // Customers and Experts tutorial videos.
-  $form['videos']['customers'] = array(
-    '#type'          => 'text',
-    '#title'         => t('URL of the Customers video'),
-    '#default_value' => theme_get_setting('smartmobility_videos_customers'),
-  );
-  $form['videos']['experts'] = array(
-    '#type'          => 'text',
-    '#title'         => t('URL of the Experts video'),
-    '#default_value' => theme_get_setting('smartmobility_videos_experts'),
+  $form['sm'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Smart Mobility settings'),
+    '#collapsible' => FALSE,
+    '#collapsed' => FALSE,
+    '#weight' => -50,
   );
 
+  // Customers and Experts tutorial videos.
+  $form['sm']['video_customers'] = array(
+    '#type' => 'textfield',
+    '#title' => t('URL of the Customers video'),
+    '#default_value' => theme_get_setting('sm_video_customers'),
+    '#description' => t('Specify pages by using their paths. Enter one path per line.'),
+  );
+  $form['sm']['video_experts'] = array(
+    '#type' => 'textfield',
+    '#title' => t('URL of the Experts video'),
+    '#default_value' => theme_get_setting('sm_video_experts'),
+    '#description' => t('Specify pages by using their paths. Enter one path per line.'),
+  );
 }
