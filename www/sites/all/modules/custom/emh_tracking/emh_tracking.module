@@ -1,0 +1,86 @@
+<?php
+
+/**
+ * @file
+ * Tracking features for EMH website.
+ */
+
+// Days before the cookie expires.
+const EMH_TRACKING_COOKIE_DURATION = 7;
+
+/**
+ * Implements hook_init().
+ */
+function emh_tracking_init() {
+
+  // Using hook_boot() eats 10% of site performance,
+  // so we are setting a cookie with JS in hook_init() only.
+  // We need the jQuery.cookie library for anonymous users.
+  // Normally, Drupal loads it for authentificated users only,
+  // so we have to add it manually.
+  // We add the library on every page to allow JS aggregation.
+  // It's 961 bytes, @see /misc/jquery.cookie.js.
+  drupal_add_library('system', 'jquery.cookie', TRUE);
+
+  // 1. If there is a "r" query parameter:
+  // (note that every URL with ?r=TRACKING_KEY is considered as a different page
+  // than the original one, so the cache size will increase.
+  if ($r = filter_input(INPUT_GET, 'r', FILTER_SANITIZE_STRING)) {
+
+    // 2. If it's alphanumeric:
+    if (ctype_alnum($r)) {
+
+      // Prepare the JS.
+      // Check if the cookie 'emh_k' and 'emh_r' exist and creates them.
+      // @see emh_tracking_user_presave() for their content.
+      $set_cookies = "jQuery(document).ready(function () { if (jQuery.cookie('emh_k') == undefined) { jQuery.cookie('emh_k', '" . $r . "', { expires: " . EMH_TRACKING_COOKIE_DURATION . ", path: '/' }); } if (jQuery.cookie('emh_r') == undefined) { jQuery.cookie('emh_r', document.referrer, { expires: " . EMH_TRACKING_COOKIE_DURATION . ", path: '/' }); } });";
+
+      // Add the JS. Inline is mandatory, in the footer is better.
+      drupal_add_js(
+        $set_cookies, array(
+          'type' => 'inline',
+          'scope' => 'footer',
+        )
+      );
+    }
+  }
+}
+
+/**
+ * Implements hook_user_presave().
+ */
+function emh_tracking_user_presave(&$edit, $account, $category) {
+
+  // On user registration only.
+  if ($account->is_new) {
+
+    // If there is a emh_k cookie:
+    // This cookie stores the tracking key, e.g. twitter12345.
+    if (isset($_COOKIE['emh_k'])) {
+
+      // Sanitize.
+      $r = filter_input(INPUT_COOKIE, 'emh_k', FILTER_SANITIZE_STRING);
+
+      // Validate and record the tracking key.
+      if (ctype_alnum($r)) {
+        $edit['field_tracking_key'][LANGUAGE_NONE][0]['value'] = $r;
+      }
+    }
+
+    // If there is a emh_r cookie:
+    // This cookie stores the $http_referer, when there is one.
+    // So we know on which website the tracked link was posted.
+    if (isset($_COOKIE['emh_r'])) {
+
+      // Sanitize dangerous URLs.
+      $http_referer = check_url(stripslashes($_COOKIE['emh_r']));
+
+      // Validate URL.
+      if (valid_url($http_referer, TRUE)) {
+
+        // Record the tracking http_referer.
+        $edit['field_tracking_referer'][LANGUAGE_NONE][0]['url'] = $http_referer;
+      }
+    }
+  }
+}
