@@ -52,11 +52,13 @@ global $base_url, $language;
       </div>
     </section>
 
-    <section class="emh-module hiw-video">
-      <div class="embed-responsive embed-responsive-16by9">
-        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/VAXPojC8KLU"></iframe>
-      </div>
-    </section>
+    <?php if ($video_customers): ?>
+      <section class="emh-module hiw-video">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" src="<?php print $video_customers; ?>"></iframe>
+        </div>
+      </section>
+    <?php endif; ?>
 
     <div class="emh-actions">
       <div class="emh-action">
@@ -148,11 +150,13 @@ global $base_url, $language;
       </div>
     </section>
 
-    <section class="emh-module hiw-video">
-      <div class="embed-responsive embed-responsive-16by9">
-        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Vi2bkPyqyCs"></iframe>
-      </div>
-    </section>
+    <?php if ($video_experts): ?>
+      <section class="emh-module hiw-video">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" src="<?php print $video_experts; ?>"></iframe>
+        </div>
+      </section>
+    <?php endif; ?>
 
     <div class="emh-actions">
       <div class="emh-action">
