@@ -22,6 +22,10 @@ function emh_smartmobility_theme() {
     'emh_smartmobility_page' => array(
       'template' => 'emh-smartmobility--page--front',
       'path' => drupal_get_path('module', 'emh_smartmobility') . '/theme',
+      'variables' => array(
+        'video_customers' => theme_get_setting('video_customers', EMH_SMARTMOBILITY_THEME),
+        'video_experts' => theme_get_setting('video_experts', EMH_SMARTMOBILITY_THEME),
+      ),
     ),
     'emh_smartmobility_block_persona' => array(
       'template' => 'block--emh-smartmobility--persona',
