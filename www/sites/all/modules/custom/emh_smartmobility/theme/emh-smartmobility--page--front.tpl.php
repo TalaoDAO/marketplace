@@ -52,6 +52,13 @@ global $base_url, $language;
       </div>
     </section>
 
+    <section class="emh-module hiw-video">
+      <div class="emh-subtitle"><?php print t('Learn about eMindHub on video'); ?></div>
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/VAXPojC8KLU"></iframe>
+      </div>
+    </section>
+
     <div class="emh-action">
       <a class="emh-button solid" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Register'); ?></a>
     </div>
@@ -137,6 +144,13 @@ global $base_url, $language;
         <div class="col-md-3">
           <p><span>4.</span> <?php print t('You will be contacted directly by requesters who have selected your profile'); ?></p>
         </div>
+      </div>
+    </section>
+
+    <section class="emh-module hiw-video">
+      <div class="emh-subtitle"><?php print t('Learn about eMindHub on video'); ?></div>
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Vi2bkPyqyCs"></iframe>
       </div>
     </section>
 
