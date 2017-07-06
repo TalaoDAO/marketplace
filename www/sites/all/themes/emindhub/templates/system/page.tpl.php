@@ -49,7 +49,7 @@
   <?php endif; ?>
 
   <div class="main-container container-fluid">
-
+      <div class="cover"></div>
       <header id="title">
 
         <div class="container">
