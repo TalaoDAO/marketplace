@@ -59,8 +59,10 @@ global $base_url, $language;
       </div>
     </section>
 
-    <div class="emh-action">
-      <a class="emh-button solid" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Register'); ?></a>
+    <div class="emh-actions">
+      <div class="emh-action">
+        <a class="emh-button solid" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Register'); ?></a>
+      </div>
     </div>
 
     <section class="emh-module faq hiw-faq">
