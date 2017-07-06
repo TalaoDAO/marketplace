@@ -149,7 +149,6 @@ global $base_url, $language;
     </section>
 
     <section class="emh-module hiw-video">
-      <div class="emh-subtitle"><?php print t('Learn about eMindHub on video'); ?></div>
       <div class="embed-responsive embed-responsive-16by9">
         <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Vi2bkPyqyCs"></iframe>
       </div>
