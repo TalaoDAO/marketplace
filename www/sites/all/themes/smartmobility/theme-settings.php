@@ -15,8 +15,6 @@ function smartmobility_form_system_theme_settings_alter(&$form, &$form_state, $f
     return;
   }
 
-  //$settings_theme = $form_state['build_info']['args'][0];
-
   $form['sm'] = array(
     '#type' => 'fieldset',
     '#title' => t('Smart Mobility settings'),
