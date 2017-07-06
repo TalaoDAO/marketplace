@@ -6,7 +6,7 @@
  */
 
 // Days before the cookie expires.
-const EMH_TRACKING_COOKIE_DURATION = 365;
+const EMH_TRACKING_COOKIE_DURATION = 7;
 
 /**
  * Implements hook_init().
@@ -32,6 +32,7 @@ function emh_tracking_init() {
 
       // Prepare the JS.
       // Check if the cookie 'emh_k' and 'emh_r' exist and creates them.
+      // @see emh_tracking_user_presave() for their content.
       $set_cookies = "jQuery(document).ready(function () { if (jQuery.cookie('emh_k') == undefined) { jQuery.cookie('emh_k', '" . $r . "', { expires: " . EMH_TRACKING_COOKIE_DURATION . ", path: '/' }); } if (jQuery.cookie('emh_r') == undefined) { jQuery.cookie('emh_r', document.referrer, { expires: " . EMH_TRACKING_COOKIE_DURATION . ", path: '/' }); } });";
 
       // Add the JS. Inline is mandatory, in the footer is better.
@@ -54,6 +55,7 @@ function emh_tracking_user_presave(&$edit, $account, $category) {
   if ($account->is_new) {
 
     // If there is a emh_k cookie:
+    // This cookie stores the tracking key, e.g. twitter12345.
     if (isset($_COOKIE['emh_k'])) {
 
       // Sanitize.
@@ -66,6 +68,8 @@ function emh_tracking_user_presave(&$edit, $account, $category) {
     }
 
     // If there is a emh_r cookie:
+    // This cookie stores the $http_referer, when there is one.
+    // So we know on which website the tracked link was posted.
     if (isset($_COOKIE['emh_r'])) {
 
       // Sanitize dangerous URLs.
