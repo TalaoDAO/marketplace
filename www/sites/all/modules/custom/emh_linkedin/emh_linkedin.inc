@@ -3,7 +3,7 @@
 /**
  * @file : LinkedIn API requests related functions
  */
-define('EMH_LINKEDIN_DIR_IMAGE', 'sites/default/files/linkedin_profile_image');
+define('EMH_LINKEDIN_DIR_IMAGE', 'sites/default/files/picture');
 
 /**
  * Let us retrieve profile fields.
@@ -296,8 +296,8 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
         }
         
         // test if user have changed him linkedin picture
-        if (isset($user->field_linkedin_image['und'][0]['fid'])) {
-          $old = $user->field_linkedin_image['und'][0]['fid'];
+        if (isset($user->field_photo['und'][0]['fid'])) {
+          $old = $user->field_photo['und'][0]['fid'];
           
           $md5image1 = md5(file_get_contents($url)); // linkedin
           $md5image2 = md5(file_get_contents($path)); // local
@@ -313,7 +313,7 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
         
         $handle = fopen($url, 'r');
         $file = file_save_data($handle, $drupal_uri);
-        $user->field_linkedin_image['und'][0]['fid'] = $file->fid;
+        $user->field_photo['und'][0]['fid'] = $file->fid;
         fclose($handle);
         
         break;
