@@ -1472,7 +1472,7 @@ function emh_configuration_update_7075() {
  * ADD: module emh_tracking.
  */
 function emh_configuration_update_7076() {
-  module_enable(['emh_tracking']);
+  module_enable(['emh_tracking', 'emh_linkedin']);
 }
 
 /**
