@@ -52,8 +52,18 @@ global $base_url, $language;
       </div>
     </section>
 
-    <div class="emh-action">
-      <a class="emh-button solid" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Register'); ?></a>
+    <?php if ($video_customers): ?>
+      <section class="emh-module hiw-video">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" src="<?php print $video_customers; ?>"></iframe>
+        </div>
+      </section>
+    <?php endif; ?>
+
+    <div class="emh-actions">
+      <div class="emh-action">
+        <a class="emh-button solid" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Register'); ?></a>
+      </div>
     </div>
 
     <section class="emh-module faq hiw-faq">
@@ -140,8 +150,18 @@ global $base_url, $language;
       </div>
     </section>
 
-    <div class="emh-action">
-      <a class="emh-button solid-alt" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Register'); ?></a>
+    <?php if ($video_experts): ?>
+      <section class="emh-module hiw-video">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" src="<?php print $video_experts; ?>"></iframe>
+        </div>
+      </section>
+    <?php endif; ?>
+
+    <div class="emh-actions">
+      <div class="emh-action">
+        <a class="emh-button solid-alt" href="#login-connexion" data-toggle="modal" data-target="#login-connexion"><?php print t('Register'); ?></a>
+      </div>
     </div>
 
     <section class="emh-module faq hiw-faq">
