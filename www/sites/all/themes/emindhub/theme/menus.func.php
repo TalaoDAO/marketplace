@@ -30,7 +30,7 @@ function emindhub_menu_link__user_menu(&$vars) {
         $user = user_load($user->uid);
       }
 
-      $element['#title'] = '<span class="badge">' . t('@amount credits', array('@amount' => $user->emh_points)) . '</span>';
+      $element['#title'] = '<span class="credits">' . $user->emh_points . '</span>';
       $element['#localized_options']['html'] = TRUE;
     }
   }
