@@ -1,7 +1,7 @@
 @media (min-width: @screen-md-min) {
   nav#main-nav {
     .navbar-fixed-top;
-    border-bottom: 1px solid @navbar-default-border;
+    //border-bottom: 1px solid @navbar-default-border;
   }
 
   body {
@@ -69,6 +69,8 @@ body.not-logged-in {
 nav#main-nav {
   margin-bottom: 0;
   font-weight: 600;
+  font-family: 'Open Sans', @font-family-sans-serif;
+  box-shadow: 0 -1px 7px 0 rgba(0, 0, 0, 0.3);
 
   // Active
   .nav > li.active,
@@ -95,27 +97,25 @@ nav#main-nav {
       > span.dropdown-toggle,
       > span.dropdown-toggle:hover,
       > span.dropdown-toggle:focus {
-        background-color: @brand-primary;
-        color: #FFF;
+        color: @brand-primary;
       }
     }
   }
 
   .dropdown-menu {
     border: 0;
-    background-color: @brand-primary;
+    background-color: #fff;
     padding: 0;
-    box-shadow: none;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.07);
+    min-width: 139px;
 
     > li > a {
-      color: #FFF;
-      padding: 5px 20px;
+      padding: 4px 7px;
     }
 
     span.separator {
       hr {
-        margin-top: 5px;
-        margin-bottom: 5px;
+        margin: 0;
         border-color: lighten(@brand-primary, 5%);
       }
     }
@@ -125,12 +125,25 @@ nav#main-nav {
     &#create-request {
       > a {
         .btn;
-        .button-variant(@blue-darker; transparent; @blue-darker);
+        .button-variant(#fff; transparent; transparent);
         margin-top: @navbar-padding-vertical - @padding-base-vertical - 1px;
         margin-bottom: @navbar-padding-vertical - @padding-base-vertical - 1px;
         margin-left: @navbar-padding-vertical;
         margin-right: @navbar-padding-vertical;
-        font-weight: bold;
+        font-weight: 600;
+        box-shadow: 0 3px 7px 0 rgba(25, 135, 152, 0.4);
+        width: 112px;
+        height: 35px;
+        background-image: linear-gradient(126deg, #485666, #009fe3);
+        //.button-size()
+        border-radius: 100px;
+        border: none;
+
+        &.active,
+        &:active {
+          background-image: linear-gradient(126deg, #485666, #009fe3);
+          box-shadow: 0 3px 7px 0 rgba(25, 135, 152, 0.4);
+        }
       }
     }
   }
