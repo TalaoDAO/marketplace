@@ -289,11 +289,7 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
         $dir_name = EMH_LINKEDIN_DIR_IMAGE;
         $path = $dir_name . "/" . $nom_img;
         
-        $drupal_uri = file_build_uri("linkedin_profile_image/" . $nom_img);
-        
-        if (! is_dir($dir_name)) {
-          mkdir($dir_name);
-        }
+        $drupal_uri = file_build_uri("picture/" . $nom_img);
         
         // test if user have changed him linkedin picture
         if (isset($user->field_photo['und'][0]['fid'])) {
@@ -312,8 +308,13 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
         }
         
         $handle = fopen($url, 'r');
-        $file = file_save_data($handle, $drupal_uri);
+        $file = file_save_data($handle, $drupal_uri, FILE_EXISTS_REPLACE);
         $user->field_photo['und'][0]['fid'] = $file->fid;
+        $user->field_photo['und'][0]['cropbox_x'] = 0;
+        $user->field_photo['und'][0]['cropbox_y'] = 0;
+        $user->field_photo['und'][0]['cropbox_height'] = 110;
+        $user->field_photo['und'][0]['cropbox_width'] = 110;
+
         fclose($handle);
         
         break;
