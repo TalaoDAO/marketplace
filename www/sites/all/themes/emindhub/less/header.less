@@ -12,6 +12,28 @@
         border-right: 10px solid transparent;
         border-top: 8px solid white;
     }
+    #buy-credits,
+    #tour-profile,
+    #credits-badge {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      margin-left: 15px;
+      span.dropdown-toggle {
+        padding: 0;
+      }
+    }
+    #buy-credits {
+      border-left: 1px solid @gray-lighter;
+      padding-left: 15px;
+    }
+    #credits-badge {
+      border-right: 1px solid @gray-lighter;
+      padding-right: 15px;
+    }
+    #tour-profile {
+      padding-bottom: 12px;
+      margin-bottom: 0;
+    }
   }
 
   body {
@@ -48,11 +70,9 @@
   }
 
   @media (min-width: @screen-md-min) {
-    border-left: 1px solid @gray-lighter;
 
     .nav {
       float: right;
-
       > li > span {
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -159,18 +179,24 @@ nav#main-nav {
         }
       }
     }
-    &#buy-credits {
+    &#buy-credits,
+    &#tour-profile {
       padding-left: 15px;
       > a {
         border-bottom: 3px solid;
-        padding: 17px 0 5px 0;
-        margin-bottom: 15px;
+      }
+    }
+    &#buy-credits {
+      > a {
+        padding: 8px 0 5px 0;
+      }
+      > a:before {
+        padding-left: 15px;
       }
     }
     &#credits-badge {
       > a {
-        padding-top: 16px;
-        padding-bottom: 16px;
+        padding: 4px 0;
       }
       .credits {
         font-size: 16px;
@@ -180,6 +206,15 @@ nav#main-nav {
         line-height: 28px;
         padding: 3px 0 3px 33px;
         text-align: center;
+      }
+    }
+    &#tour-profile {
+      span.dropdown-toggle {
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+      > a {
+        padding: 8px 0 5px 0;
       }
     }
   }
