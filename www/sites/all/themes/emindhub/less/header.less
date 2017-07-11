@@ -1,11 +1,21 @@
 @media (min-width: @screen-md-min) {
   nav#main-nav {
     .navbar-fixed-top;
-    //border-bottom: 1px solid @navbar-default-border;
+    .dropdown-menu:before {
+        content: "";
+        position: absolute;
+        left: 29px;
+        top: 0px;
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 8px solid white;
+    }
   }
 
   body {
-    padding-top: @navbar-height + 1px;
+    padding-top: @navbar-height;
 
     &.logged-in.admin-menu {
       nav#main-nav {
@@ -128,7 +138,7 @@ nav#main-nav {
         font-weight: 600;
         box-shadow: 0 3px 7px 0 rgba(25, 135, 152, 0.4);
         width: 112px;
-        height: 35px;
+        height: 34px;
         background-image: linear-gradient(126deg, #485666, #009fe3);
         //.button-size()
         border-radius: 100px;
