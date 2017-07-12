@@ -1482,3 +1482,25 @@ function emh_configuration_update_7077() {
   module_disable(array('emh_profile_complete_request'));
   drupal_uninstall_modules(array('emh_profile_complete_request'));
 }
+
+/**
+ * CHG: Update dashboard and user-menu links.
+ */
+function emh_configuration_update_7078() {
+
+  // Delete Home link.
+  db_delete('menu_links')
+    ->condition('mlid', 7708)
+    ->execute();
+
+  // "Create a request" => "Add request".
+  db_update('menu_links')
+    ->fields(array(
+      'link_title' => 'Add request',
+    ))
+    ->condition('mlid', '10579')
+    ->execute();
+
+  // Rebuild menus.
+  variable_set('menu_rebuild_needed', TRUE);
+}
