@@ -1529,7 +1529,8 @@ function emh_configuration_update_7078() {
   );
   $item = array(
     'link_title' => 'Buy credits',
-    'link_path' => 'buy-credits',
+    'link_path' => 'node/3621',
+    'router_path' => 'node/%',
     'menu_name' => 'user-menu',
     'weight' => '-45',
     'options' => $options,
