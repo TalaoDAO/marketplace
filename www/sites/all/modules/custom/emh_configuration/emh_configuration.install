@@ -1490,7 +1490,7 @@ function emh_configuration_update_7078() {
 
   // Del: Dashboard > Home.
   db_delete('menu_links')
-    ->condition('mlid', 7708)
+    ->condition('mlid', '7708')
     ->execute();
 
   // Chg: Dashboard > Create a request => Add request.
@@ -1514,7 +1514,7 @@ function emh_configuration_update_7078() {
     'link_path' => '<separator>',
     'router_path' => '<separator>',
     'menu_name' => 'user-menu',
-    'weight' => -50,
+    'weight' => '-50',
     'options' => $options,
   );
   menu_link_save($item);
@@ -1531,7 +1531,7 @@ function emh_configuration_update_7078() {
     'link_title' => 'Buy credits',
     'link_path' => 'buy-credits',
     'menu_name' => 'menu-top',
-    'weight' => -45,
+    'weight' => '-45',
     'options' => $options,
   );
   menu_link_save($item);
@@ -1547,7 +1547,7 @@ function emh_configuration_update_7078() {
   );
   db_update('menu_links')
     ->fields(array(
-      'weight' => -40,
+      'weight' => '-40',
       'options' => serialize($options),
     ))
     ->condition('mlid', '10937')
@@ -1567,7 +1567,7 @@ function emh_configuration_update_7078() {
     'link_path' => '<separator>',
     'router_path' => '<separator>',
     'menu_name' => 'user-menu',
-    'weight' => -20,
+    'weight' => '-20',
     'options' => $options,
   );
   menu_link_save($item);
@@ -1575,7 +1575,7 @@ function emh_configuration_update_7078() {
   // Chg: User menu > My account.
   db_update('menu_links')
     ->fields(array(
-      'weight' => -15,
+      'weight' => '-15',
     ))
     ->condition('mlid', '7702')
     ->execute();
