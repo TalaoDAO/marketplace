@@ -5,9 +5,10 @@
  *   a Wordpress site. The original script was written by Henrique Vicente.
  *
  * @see https://github.com/henvic/phantom-casper-simple-talk/blob/master/wordpress.js
+ * @see https://gist.github.com/rupl/8b669087a7a212616cf2
  */
 var config = {
-  'host': 'http://gitemindhub/dev-eminhub',
+  'host': 'http://emh.box.local/',
   'form': {
     'name': 'admin',
     'pass': 'admin'
@@ -15,14 +16,20 @@ var config = {
 };
  
 var nodeContents = {
-  'title': 'Hello, World!',
+  'title_field[und][0][value]': 'Hello, World!',
+  'body[und][0][format]': 'Plain text',
   'body[und][0][value]': 'This content was added by CasperJS!'
 };
+
+// Load plugins
+var fs = require( 'fs' );
+    phantomcss = require( fs.absolute( fs.workingDirectory + '/node_modules/phantomcss/phantomcss.js' ) );
+
  
-casper.test.begin('Testing Drupal demo site', 8, function suite(test) {
+casper.test.begin('Testing Drupal demo site', function suite(test) {
  
   casper.start(config.host, function() {
- 
+    this.viewport(1280,1024);
     casper.fill('form#user-login-form', config.form, true);
     test.comment('Logging in...');
   });
@@ -30,13 +37,12 @@ casper.test.begin('Testing Drupal demo site', 8, function suite(test) {
   casper.then(function() {
     test.assertHttpStatus(200, "Authentication successful");
     test.assertExists('body.logged-in', 'Drupal class for logged-in users was found.');
-    //this.click('a[href="admin/content"]');
-    //test.comment('Clicking the Content admin link...');
-    phantomcss.screenshot('#content', 'a screenshot of my dialog');
+    phantomcss.screenshot('body', 'a screenshot of my content admin page');
   });
 
   casper.thenOpen(config.host + 'admin/help').waitForText('Help',
     function then() {
+      phantomcss.screenshot('body', 'a screenshot of my help');
       this.test.assertTextExists('Help topics', 'Help topics');
       this.test.assertDoesntExist('#user-login', 'Login form not present on handbook page');
     },
@@ -52,10 +58,16 @@ casper.test.begin('Testing Drupal demo site', 8, function suite(test) {
       casper.fill('form#page-node-form', nodeContents, true);
       test.comment('Saving new node...');
   });
+
+  casper.waitForText('has been created');
  
   casper.then(function() {
     test.assertTitleMatch(new RegExp(nodeContents.title), 'Our custom title was found on the published page.');
- 
+    phantomcss.screenshot('body', 'a screenshot of my added page'); 
+    var text = casper.evaluate(function() {
+      return jQuery('p').text();
+    });
+    test.comment('jquery: ' + text);
     test.assertEvalEquals(function () {
       return jQuery('.node-page .content p').text();
     }, nodeContents['body[und][0][value]'], 'Our custom text was found on the published page.');

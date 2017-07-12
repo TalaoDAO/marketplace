@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the FT Webmastering feature.
+ */
+
+include_once 'ft_webmastering.features.inc';

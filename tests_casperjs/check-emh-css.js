@@ -1,8 +1,6 @@
 /**
  * @file
- *   Testing a demo of Drupal. The script will log in and check for various
- *   features in Drupal core. This demo was inspired by a similar script for
- *   a Wordpress site. The original script was written by Henrique Vicente.
+ *   Testing visual regressions in emindhub site with phantomcss
  *
  * @see https://github.com/henvic/phantom-casper-simple-talk/blob/master/wordpress.js
  */
@@ -10,8 +8,7 @@
 
 // Config & environment
 var config = {
-  //'host': 'http://localhost/emindhub.com/www/',
-  'host': 'http://gitemindhub/dev-emindhub/',
+  'host': 'http://emh.box.local/',
 };
 
 
@@ -24,7 +21,7 @@ var fs = require( 'fs' );
 var screenshotNow = new Date(),
     screenshotDateTime = screenshotNow.getFullYear() + pad(screenshotNow.getMonth() + 1) + pad(screenshotNow.getDate()) + '-' + pad(screenshotNow.getHours()) + pad(screenshotNow.getMinutes()) + pad(screenshotNow.getSeconds()),
     viewports = [
-      {
+      /*{
         'name': 'smartphone-portrait',
         'viewport': { width: 320, height: 480 }
       },
@@ -39,7 +36,7 @@ var screenshotNow = new Date(),
       {
         'name': 'tablet-landscape',
         'viewport': { width: 1024, height: 768 }
-      },
+      },*/
       {
         'name': 'desktop-standard',
         'viewport': { width: 1280, height: 1024 }
@@ -49,35 +46,35 @@ var screenshotNow = new Date(),
 // Anonymous
 var anonymousURLs = [
   config.host,                        // Homepage
-  config.host + 'our-services',       // Our services
-  config.host + 'fields-of-expertise',// Field of expertise
+  config.host + 'open-requests',       // Our services
+  config.host + 'domains',// Field of expertise
   config.host + 'about-us',           // About us
   config.host + 'expert/register',    // Expert registration
-  config.host + 'business/register',  // Business registration
+  config.host + 'client/register',  // Business registration
 ];
 
 var profiles = [
-  {
+  /*{
     'name': 'Anonymous',
     'urls': [
       config.host,                        // Homepage
-      config.host + 'our-services',       // Our services
+      config.host + 'open-requests',       // Our services
+      config.host + 'domains',       // Our services
       config.host + 'about-us',           // About us
       config.host + 'expert/register',    // Expert registration
-      config.host + 'business/register',  // Business registration
+      config.host + 'client/register',  // Business registration
     ],
-  },
+  },*/
   {
     'name': 'Expert',
-    'login': { 'name': 'expert1', 'pass': 'expert1' },
+    'login': { 'name': 'ybabel', 'pass': 'ybabel' },
     'urls': [
       config.host,                            // Homepage
-      config.host + 'user/2/drafts',          // My drafts
-      config.host + 'my-responses',           // My responses
+      config.host + 'answers/my',                // My responses
       config.host + 'user',                   // My public profile
-      config.host + 'user/2/edit',            // My account
-      config.host + 'messages',               // Messages
-      config.host + 'my-selections',          // My selections
+      config.host + 'user/3/edit',            // My account
+      config.host + 'circles',               // Join circles
+      config.host + 'requests/selection',          // My selections
     ],
   },
   {
@@ -85,15 +82,12 @@ var profiles = [
     'login': { 'name': 'business1', 'pass': 'business1' },
     'urls': [
       config.host,                            // Homepage
-      config.host + 'user/4/drafts',          // My drafts
-      config.host + 'my-responses',           // My responses
+      config.host + 'answers/my',           // My responses
       config.host + 'user',                   // My public profile
       config.host + 'user/4/edit',            // My account
-      config.host + 'messages',               // Messages
-      config.host + 'my-circles',             // My circles
-      config.host + 'node/add/question1',
-      config.host + 'node/add/challenge',
-      config.host + 'node/add/webform',
+      config.host + 'requests/manage',               // My requests
+      config.host + 'circles',             // My circles
+      config.host + 'node/add/request',       // Create new request
     ],
   }
 ];
@@ -145,23 +139,28 @@ casper.test.begin('Testing roles environnement', function suite(test) {
 
         } else {
 
-          // Login
+          casper.thenOpen(config.host + 'user');
+          casper.waitForText('Log in');
+          phantomcss.screenshot( 'body', 'debug1' );
           casper.then(function() {
             casper.fill('form#user-login-form', profile.login, true);
             casper.test.comment( 'Logging in...' );
           });
-
+          phantomcss.screenshot( 'body', 'debug2' );
           // Confirm authentification
           casper.then(function() {
             casper.test.assertHttpStatus(200, "Authentication successful");
             casper.test.assertExists('body.logged-in', 'Drupal class for logged-in users was found.');
           });
+          casper.thenOpen(config.host);
+          casper.waitForText('Welcome');
+          phantomcss.screenshot( 'body', 'debug3' );
 
         }
 
       }); // END enter user profile
 
-      // BEGIN Burger menu
+      /* BEGIN Burger menu : deprecated, burger menu exist only for admin users
       if ( !( profile.name === 'Anonymous' ) ) {
 
         casper.then(function() {
@@ -209,8 +208,9 @@ casper.test.begin('Testing roles environnement', function suite(test) {
 
         });
 
-      } // END Burger menu
-      
+      } // END Burger menu*/
+
+
       // Regular screenshots
       casper.then(function() {
 
