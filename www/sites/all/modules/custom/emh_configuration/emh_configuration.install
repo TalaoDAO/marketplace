@@ -1488,17 +1488,96 @@ function emh_configuration_update_7077() {
  */
 function emh_configuration_update_7078() {
 
-  // Delete Home link.
+  // Del: Dashboard > Home.
   db_delete('menu_links')
     ->condition('mlid', 7708)
     ->execute();
 
-  // "Create a request" => "Add request".
+  // Chg: Dashboard > Create a request => Add request.
   db_update('menu_links')
     ->fields(array(
       'link_title' => 'Add request',
     ))
     ->condition('mlid', '10579')
+    ->execute();
+
+  // Add: User menu > Credits separator.
+  $options = array(
+    'item_attributes' => array(
+      'id' => '',
+      'class' => 'separator',
+      'style' => '',
+    ),
+  );
+  $item = array(
+    'link_title' => 'Credits separator',
+    'link_path' => '<separator>',
+    'router_path' => '<separator>',
+    'menu_name' => 'user-menu',
+    'weight' => -50,
+    'options' => $options,
+  );
+  menu_link_save($item);
+
+  // Add: User menu > Buy credits.
+  $options = array(
+    'item_attributes' => array(
+      'id' => 'buy-credits',
+      'class' => '',
+      'style' => '',
+    ),
+  );
+  $item = array(
+    'link_title' => 'Buy credits',
+    'link_path' => 'buy-credits',
+    'menu_name' => 'menu-top',
+    'weight' => -45,
+    'options' => $options,
+  );
+  menu_link_save($item);
+
+  // Chg: User menu > Credits total.
+  $options = array(
+    'alter' => TRUE,
+    'item_attributes' => array(
+      'id' => 'credits-badge',
+      'class' => '',
+      'style' => '',
+    ),
+  );
+  db_update('menu_links')
+    ->fields(array(
+      'weight' => -40,
+      'options' => serialize($options),
+    ))
+    ->condition('mlid', '10937')
+    ->execute();
+
+  // Add: User menu > User badge separator.
+  // Weight begins at -20 because we will have 3 items for upcoming Earnings.
+  $options = array(
+    'item_attributes' => array(
+      'id' => '',
+      'class' => 'separator',
+      'style' => '',
+    ),
+  );
+  $item = array(
+    'link_title' => 'User badge separator',
+    'link_path' => '<separator>',
+    'router_path' => '<separator>',
+    'menu_name' => 'user-menu',
+    'weight' => -20,
+    'options' => $options,
+  );
+  menu_link_save($item);
+
+  // Chg: User menu > My account.
+  db_update('menu_links')
+    ->fields(array(
+      'weight' => -15,
+    ))
+    ->condition('mlid', '7702')
     ->execute();
 
   // Rebuild menus.
