@@ -10,7 +10,12 @@ function emindhub_preprocess_menu_link(&$vars) {
     case '7702':
       global $user;
       $account = user_load($user->uid);
-      $element['#title'] = format_username($account);
+      $username = format_username($account);
+      $expr = '/(?<=\s|^)[a-z]/i';
+      preg_match_all($expr, $username, $matches);
+      $result = implode('', $matches[0]);
+      $result = strtoupper($result);
+      $element['#title'] = $result;
       break;
   }
 }

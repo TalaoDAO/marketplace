@@ -1530,7 +1530,7 @@ function emh_configuration_update_7078() {
   $item = array(
     'link_title' => 'Buy credits',
     'link_path' => 'buy-credits',
-    'menu_name' => 'menu-top',
+    'menu_name' => 'user-menu',
     'weight' => '-45',
     'options' => $options,
   );
@@ -1538,7 +1538,10 @@ function emh_configuration_update_7078() {
 
   // Chg: User menu > Credits total.
   $options = array(
-    'alter' => TRUE,
+    'alter' => true,
+    'attributes' => array(
+      'title' => 'Credits transactions summary.',
+    ),
     'item_attributes' => array(
       'id' => 'credits-badge',
       'class' => '',
@@ -1548,6 +1551,7 @@ function emh_configuration_update_7078() {
   db_update('menu_links')
     ->fields(array(
       'weight' => '-40',
+      'customized' => '1',
       'options' => serialize($options),
     ))
     ->condition('mlid', '10937')
