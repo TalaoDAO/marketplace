@@ -69,11 +69,11 @@
 
   </div>
 
-  <?php if (!$block_html_id) : ?>
+  <?php if (!isset($block_html_id)) : ?>
   <?php include_once(drupal_get_path('theme','emindhub').'/templates/how-it-works/how-it-works_client_testimonials.tpl.php'); ?>
   <?php endif; ?>
 
-  <?php if (!$block_html_id) : ?>
+  <?php if (!isset($block_html_id)) : ?>
   <section class="emh-module faq hiw-faq">
 
       <div class="emh-subtitle"><?php echo t('Frequently Asked Questions') ?></div>

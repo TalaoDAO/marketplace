@@ -1,20 +1,90 @@
 <?php
 /**
-* @file
-* Code for eMindHub Answer feature.
-*/
+ * @file
+ * Code for eMindHub Answer feature.
+ */
 
 /**
  * Implements hook_permission().
  */
 function emh_answer_permission() {
   return array(
-    'save comment draft' => array(
-      'title' => t('Save comment as draft'),
-      'description' => t('Allows a user to save a draft of their comment.'),
-    ),
-    'access EMH answers' => array(
-      'title' => t('Answer: View all published EMH answers'),
-    ),
+      'save comment draft' => array(
+          'title' => t('Save comment as draft'),
+          'description' => t('Allows a user to save a draft of their comment.') 
+      ),
+      'access EMH answers' => array(
+          'title' => t('Answer: View all published EMH answers') 
+      ) 
   );
+}
+
+/**
+ * Implements hook_token_info_alter().
+ */
+function emh_answer_token_info_alter(&$data) {
+  $data['tokens']['webform']['date-answer'] = array(
+      'name' => t('Date Answer'),
+      'description' => t('Date of the answer\'s request') 
+  );
+  $data['tokens']['webform']['statut'] = array(
+      'name' => t('Statut'),
+      'description' => t('Answer\'s statut') 
+  );
+  $data['tokens']['webform']['url-answer'] = array(
+      'name' => t('Url Answer'),
+      'description' => t('Url Answer') 
+  );
+  $data['tokens']['webform']['url-edit-answer'] = array(
+      'name' => t('Url Edit Answer'),
+      'description' => t('Url to edit an answer') 
+  );
+}
+
+/**
+ * Implements hook_tokens_alter().
+ */
+function emh_answer_tokens_alter(array &$replacements, array $context) {
+  if ($context['type'] == 'webform') {
+    $webform = $context['data']['webform'];
+    $tokens = $context['tokens'];
+    
+    $query = db_select('webform_submissions', 'ws')->fields('ws')->condition('sid', $webform['sid'], '=')->execute()->fetchAssoc();
+    
+    // Alter the [node:title] token, and replace it with the rendered content
+    // of a field (field_title).
+    foreach ($tokens as $name => $original) {
+      
+      switch ($name) {
+        case 'date-answer' :
+          $date = new DateTime();
+          $date->setTimestamp($query['submitted']);
+          $date_answer = $date->format('D, Y/m/d - H:i');
+          $replacements[$original] = $date_answer;
+          // $replacements[$context['tokens']['date-answer']] = print_r($context, TRUE);
+          break;
+        
+        case 'statut' :
+          if ($query['is_draft'])
+            $statut = 'Draft';
+          else
+            $statut = 'Published';
+          
+          $replacements[$original] = $statut;
+          break;
+        
+       case 'url-edit-answer' :
+          $edit = '/edit';           
+          
+        case 'url-answer' :
+          global $base_url;
+          if(!isset($edit)){
+            $edit = '';
+          }          
+          $url = $base_url . '/node/' . $query['nid'] . '/submission/' . $webform['sid'] . $edit;
+          $replacements[$original] = $url;
+          break;
+      }
+    }
+  }
 }

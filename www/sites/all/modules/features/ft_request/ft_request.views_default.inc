@@ -536,6 +536,7 @@ function ft_request_views_default_views() {
   $handler = $view->new_display('page', 'P - All requests', 'page_all_requests');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'All requests';
+  $handler->display->display_options['defaults']['use_ajax'] = FALSE;
   $handler->display->display_options['field_language'] = 'und';
   $handler->display->display_options['defaults']['access'] = FALSE;
   $handler->display->display_options['access']['type'] = 'role';
@@ -603,7 +604,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['title_1']['group'] = 1;
   $handler->display->display_options['filters']['title_1']['exposed'] = TRUE;
   $handler->display->display_options['filters']['title_1']['expose']['operator_id'] = 'title_1_op';
-  $handler->display->display_options['filters']['title_1']['expose']['label'] = 'Entreprise';
+  $handler->display->display_options['filters']['title_1']['expose']['label'] = 'Organisation';
   $handler->display->display_options['filters']['title_1']['expose']['operator'] = 'title_1_op';
   $handler->display->display_options['filters']['title_1']['expose']['identifier'] = 'title_1';
   $handler->display->display_options['filters']['title_1']['expose']['remember_roles'] = array(
@@ -809,6 +810,8 @@ function ft_request_views_default_views() {
 
   /* Display: B - Last requests */
   $handler = $view->new_display('block', 'B - Last requests', 'block_last_requests');
+  $handler->display->display_options['defaults']['use_ajax'] = FALSE;
+  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['defaults']['use_more'] = FALSE;
   $handler->display->display_options['use_more'] = TRUE;
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
@@ -870,7 +873,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['title_1']['group'] = 1;
   $handler->display->display_options['filters']['title_1']['exposed'] = TRUE;
   $handler->display->display_options['filters']['title_1']['expose']['operator_id'] = 'title_1_op';
-  $handler->display->display_options['filters']['title_1']['expose']['label'] = 'Entreprise';
+  $handler->display->display_options['filters']['title_1']['expose']['label'] = 'Organisation';
   $handler->display->display_options['filters']['title_1']['expose']['operator'] = 'title_1_op';
   $handler->display->display_options['filters']['title_1']['expose']['identifier'] = 'title_1';
   $handler->display->display_options['filters']['title_1']['expose']['remember_roles'] = array(
@@ -1071,6 +1074,7 @@ function ft_request_views_default_views() {
   $handler = $view->new_display('page', 'P - My selection', 'page_selected_requests');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Saved requests';
+  $handler->display->display_options['defaults']['use_ajax'] = FALSE;
   $handler->display->display_options['defaults']['access'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'flag my_selection';
@@ -1339,7 +1343,7 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['title_1']['group'] = 1;
   $handler->display->display_options['filters']['title_1']['exposed'] = TRUE;
   $handler->display->display_options['filters']['title_1']['expose']['operator_id'] = 'title_1_op';
-  $handler->display->display_options['filters']['title_1']['expose']['label'] = 'Entreprise';
+  $handler->display->display_options['filters']['title_1']['expose']['label'] = 'Organisation';
   $handler->display->display_options['filters']['title_1']['expose']['operator'] = 'title_1_op';
   $handler->display->display_options['filters']['title_1']['expose']['identifier'] = 'title_1';
   $handler->display->display_options['filters']['title_1']['expose']['remember_roles'] = array(
@@ -1545,6 +1549,7 @@ function ft_request_views_default_views() {
   $handler = $view->new_display('page', 'P - My requests', 'page_my_requests');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'My requests';
+  $handler->display->display_options['defaults']['use_ajax'] = FALSE;
   $handler->display->display_options['defaults']['use_more'] = FALSE;
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
   $handler->display->display_options['defaults']['use_more_always'] = FALSE;
@@ -1811,6 +1816,17 @@ function ft_request_views_default_views() {
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
+  /* Relationship: Content: Author */
+  $handler->display->display_options['relationships']['uid']['id'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['table'] = 'node';
+  $handler->display->display_options['relationships']['uid']['field'] = 'uid';
+  $handler->display->display_options['relationships']['uid']['required'] = TRUE;
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['id'] = 'field_entreprise_target_id';
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['table'] = 'field_data_field_entreprise';
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['field'] = 'field_entreprise_target_id';
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['relationship'] = 'uid';
+  $handler->display->display_options['relationships']['field_entreprise_target_id']['required'] = TRUE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: OG membership: Group ID */
   $handler->display->display_options['arguments']['gid']['id'] = 'gid';
@@ -1857,6 +1873,28 @@ function ft_request_views_default_views() {
   $handler->display->display_options['filters']['status']['value'] = 1;
   $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Title */
+  $handler->display->display_options['filters']['title_1']['id'] = 'title_1';
+  $handler->display->display_options['filters']['title_1']['table'] = 'node';
+  $handler->display->display_options['filters']['title_1']['field'] = 'title';
+  $handler->display->display_options['filters']['title_1']['relationship'] = 'field_entreprise_target_id';
+  $handler->display->display_options['filters']['title_1']['operator'] = 'word';
+  $handler->display->display_options['filters']['title_1']['group'] = 1;
+  $handler->display->display_options['filters']['title_1']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['title_1']['expose']['operator_id'] = 'title_1_op';
+  $handler->display->display_options['filters']['title_1']['expose']['label'] = 'Organisation';
+  $handler->display->display_options['filters']['title_1']['expose']['operator'] = 'title_1_op';
+  $handler->display->display_options['filters']['title_1']['expose']['identifier'] = 'title_1';
+  $handler->display->display_options['filters']['title_1']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    3 => 0,
+    4 => 0,
+    5 => 0,
+    6 => 0,
+    7 => 0,
+    10 => 0,
+  );
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
   $handler->display->display_options['filters']['type']['table'] = 'node';
@@ -2006,6 +2044,25 @@ function ft_request_views_default_views() {
     'node' => 'node',
   );
   $handler->display->display_options['filters']['group_type']['group'] = 1;
+  /* Filter criterion: Global: Dependent filter */
+  $handler->display->display_options['filters']['views_dependent_filter']['id'] = 'views_dependent_filter';
+  $handler->display->display_options['filters']['views_dependent_filter']['table'] = 'views';
+  $handler->display->display_options['filters']['views_dependent_filter']['field'] = 'views_dependent_filter';
+  $handler->display->display_options['filters']['views_dependent_filter']['group'] = 1;
+  $handler->display->display_options['filters']['views_dependent_filter']['controller_filter'] = 'title_1';
+  $handler->display->display_options['filters']['views_dependent_filter']['controller_values'] = '';
+  $handler->display->display_options['filters']['views_dependent_filter']['dependent_filters'] = array(
+    'field_hide_organisation_value' => 'field_hide_organisation_value',
+  );
+  /* Filter criterion: Content: Hide my organisation (field_hide_organisation) */
+  $handler->display->display_options['filters']['field_hide_organisation_value']['id'] = 'field_hide_organisation_value';
+  $handler->display->display_options['filters']['field_hide_organisation_value']['table'] = 'field_data_field_hide_organisation';
+  $handler->display->display_options['filters']['field_hide_organisation_value']['field'] = 'field_hide_organisation_value';
+  $handler->display->display_options['filters']['field_hide_organisation_value']['operator'] = 'not';
+  $handler->display->display_options['filters']['field_hide_organisation_value']['value'] = array(
+    1 => '1',
+  );
+  $handler->display->display_options['filters']['field_hide_organisation_value']['group'] = 1;
   $handler->display->display_options['views_navigation'] = TRUE;
   $handler->display->display_options['views_navigation_cycle'] = FALSE;
   $handler->display->display_options['path'] = 'node/%/requests';

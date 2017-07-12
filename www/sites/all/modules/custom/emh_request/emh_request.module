@@ -14,6 +14,8 @@ include_once 'emh_request.fields.inc';
 include_once 'emh_request.mail.inc';
 include_once 'emh_request.pages.inc';
 
+const EMH_REQUEST_TXN_CONTEXT_REQUEST = 'request';
+
 /**
  * Implements hook_views_api().
  */
@@ -588,7 +590,7 @@ function emh_request_form_node_form_alter(&$form, &$form_state, $form_id) {
 
 // Cosmetic only since readonly is not respected by chosen.
 function _build_element_readonly($element, &$form_state) {
-  $element['#attributes']['class'][] = 'chosen-disabled'; 
+  $element['#attributes']['class'][] = 'chosen-disabled';
   return $element;
 }
 
@@ -845,16 +847,20 @@ function emh_request_format_cost($cost) {
  */
 function emh_request_purchase_options($request) {
   $total = 0;
+  $txn_context = EMH_REQUEST_TXN_CONTEXT_REQUEST;
 
   if ($options = field_get_items('node', $request, 'field_options')) {
     foreach ($options as $option) {
       $total += (int) $option['cost'];
+      if ($option['cost'] > 0) {
+        $txn_context .= '+' . $option['option'];
+      }
     }
   }
 
   if ($total > 0) {
     global $user;
     $emindhub = user_load(1);
-    emh_points_move_points($user, $emindhub, $total);
+    emh_points_move_points($user, $emindhub, $total, $txn_context);
   }
 }
