@@ -1,6 +1,28 @@
+@media (max-width: @screen-md-min) {
+  nav#main-nav {
+    #navbar {
+      .dropdown-menu {
+        margin-left: 56px;
+      }
+      #create-request {
+        text-align: center;
+      }
+      #buy-credits {
+        float: left;
+        margin-right: 45px;
+      }
+    }
+    #system-user-menu {
+      border-top: solid 1px #ececec;
+    }
+  }
+}
 @media (min-width: @screen-md-min) {
   nav#main-nav {
     .navbar-fixed-top;
+    .dropdown-menu {
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.07);
+    }
     .dropdown-menu:before {
         content: "";
         position: absolute;
@@ -21,14 +43,6 @@
       span.dropdown-toggle {
         padding: 0;
       }
-    }
-    #buy-credits {
-      border-left: 1px solid @gray-lighter;
-      padding-left: 15px;
-    }
-    #credits-badge {
-      border-right: 1px solid @gray-lighter;
-      padding-right: 15px;
     }
     #tour-profile {
       padding-bottom: 12px;
@@ -70,13 +84,23 @@
   }
 
   @media (min-width: @screen-md-min) {
-
     .nav {
       float: right;
       > li > span {
         text-overflow: ellipsis;
         white-space: nowrap;
         max-width: 250px;
+      }
+    }
+    li.separator {
+      margin: 10px 15px;
+      margin-top: 10px;
+      padding-left: 15px;
+      border-left: 1px solid @gray-lighter;
+      hr {
+        border: none;
+        height: 40px;
+        margin: 0;
       }
     }
   }
@@ -139,7 +163,6 @@ nav#main-nav {
     border: 0;
     background-color: #fff;
     padding: 0;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.07);
     min-width: 139px;
 
     > li > a {
