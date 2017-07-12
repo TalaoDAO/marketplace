@@ -20,6 +20,7 @@
 @blue-dark:              darken(@blue-base, 13.5%);
 @blue-light:             lighten(@blue-base, 46.7%);
 @blue-lighter:           lighten(@blue-base, 93.5%);
+@blue-badge:             #197997; // no corresponding color in Zeplin screen?
 
 @golden-base:            @color-secondary;
 @golden-darker:          darken(@golden-base, 20%);
@@ -121,9 +122,9 @@
 
 
 //== Dropdowns
+//@dropdown-bg:                    #fff;
 @dropdown-link-color:            darken(@gray-dark, 5%);
-@dropdown-link-hover-color:      #fff;
-@dropdown-link-hover-bg:         @brand-info;
+@dropdown-link-hover-bg:         fade(@brand-primary, 20%);
 
 //== Grid system
 @grid-float-breakpoint:     @screen-md-min;
