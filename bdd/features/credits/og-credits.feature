@@ -30,7 +30,7 @@ Feature: Test credits dispatch in OG
     Given I give "client1" 300 emh credits
     Given user "client1" transfers 200 credits on "Avengers" node
     Given I am logged in as "client1"
-    Then I should see "100 credits"
+    Then I should see "100"
       And I should have "100" credits on "client1" user
 
     When I go to "groups"
