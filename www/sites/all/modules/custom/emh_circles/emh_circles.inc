@@ -188,3 +188,20 @@ function _emh_circles_user_is_groups_manager($uid, $gids) {
   }
   return FALSE;
 }
+
+/**
+ * Check if a user is a member of given groups.
+ *
+ * @int $uid
+ * @array $gids
+ */
+function _emh_circles_user_is_groups_member($uid, $gids) {
+  if ($user = user_load($uid)) {
+    foreach ($gids as $gid) {
+      if (og_is_member('node', $gid, 'user', $user)) {
+        return TRUE;
+      }
+    }
+  }
+  return FALSE;
+}
