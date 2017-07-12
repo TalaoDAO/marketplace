@@ -11,9 +11,9 @@
 
         <a class="navbar-brand" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
           <?php if ($logged_in): ?>
-            <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/circles.svg" alt="<?php print $site_name; ?>" width="30" height="30" />
+            <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/circles.svg" alt="<?php print $site_name; ?>" width="35" height="25" />
           <?php else : ?>
-            <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/logo-h.svg" alt="<?php print $site_name; ?>" width="195" height="30" />
+            <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/logo-h-blue.svg" alt="<?php print $site_name; ?>" width="158" height="22" />
           <?php endif; ?>
         </a>
       </div>
