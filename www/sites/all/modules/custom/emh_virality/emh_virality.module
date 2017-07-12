@@ -9,6 +9,7 @@
  */
 define('VIRAL_INVITATIONS_MAX', 10);
 
+const EMH_VIRALITY_TXN_CONTEXT_USER_SPONSOR = 'user_sponsor';
 
 //----------------------------------------------------------------------
 //-- MENU & PERMISSIONS
@@ -250,6 +251,7 @@ function emh_virality_move_points_after($transaction, $source, $destination) {
         emh_points_give_points($referrer, array(
           'points' => _emh_virality_get_invitation_reward($referrer),
           'log' => t('eMindHub rewards @referrer for a validated invitation', $log_vars),
+          'txn_context' => EMH_VIRALITY_TXN_CONTEXT_USER_SPONSOR,
         ));
       }
       catch (Exception $e) {

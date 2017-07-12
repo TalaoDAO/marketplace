@@ -418,3 +418,23 @@ function emh_points_update_7112() {
 function emh_points_update_7113() {
   emh_configuration_revert_views(array('og_points_repartition'));
 }
+
+/**
+ * Add new context field to emh_points_txn table.
+ */
+function emh_points_update_7114() {
+  if (db_table_exists('emh_points_txn')) {
+    if (!db_field_exists('emh_points_txn', 'context')) {
+      $field = array(
+        'type' => 'varchar',
+        'description' => "Context of the Credit Transaction",
+        'length' => 48,
+      );
+      db_add_field('emh_points_txn', 'context', $field);
+      db_add_index('emh_points_txn', 'context', array('context'));
+
+      // Add context to the already existing transactions (they don't have any).
+      exec("drush sql-query --file=$(drush dd)/../deploy/scripts/865_txn_context.sql");
+    }
+  }
+}
