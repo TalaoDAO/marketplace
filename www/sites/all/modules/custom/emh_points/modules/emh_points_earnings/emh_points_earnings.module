@@ -33,3 +33,76 @@ function emh_points_earnings_menu() {
 
   return $items;
 }
+
+/**
+ * Implements hook_move_points_after().
+ *
+ * @int $txn_id ID of the transaction.
+ * @array $txn
+ * @stdClass $source
+ * @stdClass $destination
+ *
+ * @see emh_points_move_points()
+ */
+function emh_points_earnings_move_points_after($txn_id, $txn, $source, $destination) {
+  // We will need the transaction ID for its children transactions.
+  $txn['txn_id'] = $txn_id;
+  // We will need to apply commissions and monetization on the destination user.
+  // So he/she becomes the source for the children transactions.
+  $new_source = $destination;
+  // Callback.
+  _emh_points_earnings_commission_and_monetize($txn, $new_source);
+}
+
+/**
+ * Implements hook_give_points_after().
+ *
+ * @array $txn Transaction.
+ * @stdClass $destination
+ *
+ * @see emh_points_give_points()
+ */
+function emh_points_earnings_give_points_after($txn, $destination) {
+  // We will need to apply commissions and monetization on the destination user.
+  // So he/she becomes the source for the children transactions.
+  $new_source = $destination;
+  // Callback.
+  _emh_points_earnings_commission_and_monetize($txn, $new_source);
+}
+
+/**
+ * Helper function for commissions and monetizations.
+ *
+ * @array $parent_txn Parent transaction.
+ * @stdClass $source Source for those children transactions.
+ */
+function _emh_points_earnings_commission_and_monetize($parent_txn, $source) {
+  $parent_context = $parent_txn['context'];
+
+  // If the transaction context implies monetization:
+  if (in_array($parent_context, EMH_POINTS_EARNINGS_CONTEXTS)) {
+
+    // Get EMH commission rates.
+    $commissions = unserialize(
+      variable_get('emh_points_earnings_commissions')
+    );
+    // Before commission, the total amount of credits are monetizable:
+    $monetize_amount = $total_amount = $parent_txn['points'];
+    // What is EMH's commission?
+    $commission = floatval($commissions[$parent_context]);
+
+    // If there is a valid commission rate:
+    if ($commission > 0 && $commission < 1) {
+      // Compute EMH's commission.
+      $commission_amount = $total_amount * $commission;
+
+      // TODO: commission.
+
+      // Ajust monetizable amount of credits.
+      $monetize_amount = $total_amount - $commission_amount;
+    }
+
+    // Monetize the credits.
+    // TODO: monetize.
+  }
+}
