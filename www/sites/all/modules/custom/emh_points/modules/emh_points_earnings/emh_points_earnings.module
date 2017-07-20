@@ -12,7 +12,8 @@ const EMH_POINTS_EARNINGS_RATE = 1;
 // Transaction contexts that trigger monetization.
 const EMH_POINTS_EARNINGS_CONTEXTS = array(
   'profile_buy',
-)
+  'user_sponsor',
+);
 // Default EMH commission on credits before monetization, when applicable.
 const EMH_POINTS_EARNINGS_COMMISSION = 0.7;
 
