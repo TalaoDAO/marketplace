@@ -518,9 +518,9 @@ function emh_points_move_points($source, $destination, $points, $txn_context) {
     'context' => $txn_context,
   );
 
-  db_insert('emh_points_txn')->fields($txn)->execute();
+  $txn_id = db_insert('emh_points_txn')->fields($txn)->execute();
 
-  module_invoke_all('move_points_after', $txn, $source, $destination);
+  module_invoke_all('move_points_after', $txn_id, $txn, $source, $destination);
 }
 
 /**
@@ -737,7 +737,7 @@ function emh_points_give_points(&$entity, $context) {
   emh_points_add_points($emh_entity, $points);
   // Create transaction.
   global $user;
-  db_insert('emh_points_txn')
+  $txn_id = db_insert('emh_points_txn')
     ->fields(array(
       'uid' => $user->uid,
       'points' => (int) $points,
@@ -751,6 +751,8 @@ function emh_points_give_points(&$entity, $context) {
       'context' => $txn_context,
     ))
     ->execute();
+
+  module_invoke_all('give_points_after', $txn, $destination);
 }
 
 /**
