@@ -22,6 +22,7 @@ const EMH_POINTS_EARNINGS_COMMISSION = 0.7;
  */
 function emh_points_earnings_menu() {
   $items = array();
+
   $items['admin/emindhub/credits/earnings'] = array(
     'title' => 'Earnings',
     'page callback' => 'drupal_get_form',
@@ -29,4 +30,6 @@ function emh_points_earnings_menu() {
     'access arguments' => array('administer credits'),
     'file' => 'emh_points_earnings.admin.inc',
   );
+
+  return $items;
 }

@@ -28,7 +28,7 @@ function emh_points_earnings_admin_form() {
 
     $form['emh_points_earnings_commission'][$context] = array(
       '#type' => 'textfield',
-      '#title' => t('Context: %i', array('%i' => $i)),
+      '#title' => t('Context: %c', array('%c' => $context)),
       '#default_value' => isset($commission_rates[$context]) ? $commission_rates[$context] : EMH_POINTS_EARNINGS_COMMISSION,
     );
   }
