@@ -19,17 +19,15 @@ function emh_points_earnings_admin_form() {
   );
 
   // Get the commission rates.
-  $commission_rates = unserialize(
-    variable_get('emh_points_earnings_commissions')
-  );
+  $commissions = variable_get('emh_points_earnings_commissions');
 
   // Input field for each context.
   foreach (EMH_POINTS_EARNINGS_CONTEXTS as $context) {
 
-    $form['emh_points_earnings_commission'][$context] = array(
+    $form['emh_points_earnings_commissions'][$context] = array(
       '#type' => 'textfield',
       '#title' => t('Context: %c', array('%c' => $context)),
-      '#default_value' => isset($commission_rates[$context]) ? $commission_rates[$context] : EMH_POINTS_EARNINGS_COMMISSION,
+      '#default_value' => isset($commissions[$context]) ? $commissions[$context] : EMH_POINTS_EARNINGS_COMMISSION,
     );
   }
 
