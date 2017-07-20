@@ -212,13 +212,15 @@ function emh_virality_block_view($delta = '') {
 
 /**
  * Implements hook_move_points_after().
+ *
+ * @int $txn_id ID of the transaction
  * @param array $transaction
  * @param stdClass $source
  * @param stdClass $destination
  *
  * @see emh_points_move_points()
  */
-function emh_virality_move_points_after($transaction, $source, $destination) {
+function emh_virality_move_points_after($txn_id, $transaction, $source, $destination) {
   // If some credits moved from node to user
   if ($transaction['source_type'] == 'node' && $transaction['dest_type'] == 'user') {
     $query = db_select('emh_invitation', 'i')
