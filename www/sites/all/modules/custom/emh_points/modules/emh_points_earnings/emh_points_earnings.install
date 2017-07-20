@@ -64,12 +64,18 @@ function emh_points_earnings_schema() {
  * Implements hook_install().
  */
 function emh_points_earnings_install() {
-  variable_set('emh_points_earnings_commission', 0.7);
+  // Init the commissions.
+  $emh_points_earnings_commissions = array();
+  foreach (EMH_POINTS_EARNINGS_CONTEXTS as $context) {
+    $emh_points_earnings_commissions[$context] = EMH_POINTS_EARNINGS_COMMISSION;
+  }
+  $emh_points_earnings_commissions = serialize($emh_points_earnings_commissions);
+  variable_set('emh_points_earnings_commissions', $emh_points_earnings_commissions);
 }
 
 /**
  * Implements hook_uninstall().
  */
 function emh_points_earnings_uninstall() {
-  variable_del('emh_points_earnings_commission');
+  variable_del('emh_points_earnings_commissions');
 }
