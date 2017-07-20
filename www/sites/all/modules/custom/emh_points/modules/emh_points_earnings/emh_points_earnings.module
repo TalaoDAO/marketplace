@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @file
+ * EMH Earnings features.
+ *
+ * EMH Credits are monetized into Earnings for certain Credits transactions.
+ */
+
+// Conversion rate from Credits to Earnings. Never change this!
+const EMH_POINTS_EARNINGS_RATE = 1;
+// Transaction contexts that trigger monetization.
+const EMH_POINTS_EARNINGS_CONTEXTS = array(
+  'profile_buy',
+)
+// Default EMH commission on credits before monetization, when applicable.
+const EMH_POINTS_EARNINGS_COMMISSION = 0.7;
+
+/**
+ * Implements hook_menu().
+ */
+function emh_points_earnings_menu() {
+  $items = array();
+  $items['admin/emindhub/credits/earnings'] = array(
+    'title' => 'Earnings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('emh_points_earnings_admin_form'),
+    'access arguments' => array('administer credits'),
+    'file' => 'emh_points_earnings.admin.inc',
+  );
+}
