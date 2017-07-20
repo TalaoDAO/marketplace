@@ -438,3 +438,26 @@ function emh_points_update_7114() {
     }
   }
 }
+
+/**
+ * ADD: Credits commissions and monetization into Earnings.
+ */
+function emh_points_update_7115() {
+  // We want to keep track of some parent transactions,
+  // for sub-transactions like commissions and monetization.
+  if (db_table_exists('emh_points_txn')) {
+    if (!db_field_exists('emh_points_txn', 'parent_txn_id')) {
+      $field = array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'description' => "Parent transaction ID (optional)",
+      );
+      db_add_field('emh_points_txn', 'parent_txn_id', $field);
+
+      // TODO: Retroactive commissions and monetizations transactions.
+      //exec("drush sql-query --file=$(drush dd)/../deploy/scripts/1192_txn_earnings.sql");
+    }
+  }
+  // Enable the earnings submodule.
+  module_enable(['emh_points_earnings']);
+}
