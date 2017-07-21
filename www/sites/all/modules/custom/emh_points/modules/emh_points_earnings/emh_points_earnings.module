@@ -32,11 +32,12 @@ function emh_points_earnings_menu() {
   $items = array();
 
   $items['admin/emindhub/credits/earnings/settings'] = array(
-    'title' => 'Settings',
+    'title' => 'Earnings settings',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('emh_points_earnings_admin_form'),
     'access arguments' => array('administer credits'),
     'file' => 'emh_points_earnings.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
   );
 
   return $items;
