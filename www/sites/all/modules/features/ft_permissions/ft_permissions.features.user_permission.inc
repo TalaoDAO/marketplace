@@ -534,6 +534,16 @@ function ft_permissions_user_default_permissions() {
     'module' => 'conditional_fields',
   );
 
+  // Exported permission: 'administer earnings'.
+  $permissions['administer earnings'] = array(
+    'name' => 'administer earnings',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'emh_points_earnings',
+  );
+
   // Exported permission: 'administer entity legal'.
   $permissions['administer entity legal'] = array(
     'name' => 'administer entity legal',
@@ -982,6 +992,13 @@ function ft_permissions_user_default_permissions() {
       'authenticated user' => 'authenticated user',
     ),
     'module' => 'user',
+  );
+
+  // Exported permission: 'cashout earnings'.
+  $permissions['cashout earnings'] = array(
+    'name' => 'cashout earnings',
+    'roles' => array(),
+    'module' => 'emh_points_earnings',
   );
 
   // Exported permission: 'change own username'.
@@ -2534,6 +2551,15 @@ function ft_permissions_user_default_permissions() {
       'webmaster' => 'webmaster',
     ),
     'module' => 'emh_virality',
+  );
+
+  // Exported permission: 'view own earnings'.
+  $permissions['view own earnings'] = array(
+    'name' => 'view own earnings',
+    'roles' => array(
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'emh_points_earnings',
   );
 
   // Exported permission: 'view own field_force_public_answer'.

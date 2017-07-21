@@ -31,8 +31,8 @@ const EMH_POINTS_EARNINGS_MONETIZATION_CONTEXT = 'monetization';
 function emh_points_earnings_menu() {
   $items = array();
 
-  $items['admin/emindhub/credits/earnings'] = array(
-    'title' => 'Earnings',
+  $items['admin/emindhub/credits/earnings/settings'] = array(
+    'title' => 'Settings',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('emh_points_earnings_admin_form'),
     'access arguments' => array('administer credits'),
