@@ -93,9 +93,7 @@ function _emh_points_earnings_commission_and_monetize($parent_txn, $source) {
     // Load EMH account:
     $emindhub = user_load(1);
     // Get EMH commission rates.
-    $commissions = unserialize(
-      variable_get('emh_points_earnings_commissions')
-    );
+    $commissions = variable_get('emh_points_earnings_commissions');
     // Before commission, the total amount of credits are monetizable:
     $monetize_amount = $total_amount = $parent_txn['points'];
     // What is EMH's commission?
@@ -106,6 +104,7 @@ function _emh_points_earnings_commission_and_monetize($parent_txn, $source) {
       // Compute EMH's commission.
       $commission_amount = $total_amount * $commission;
       // Move commission credits from user to EMH:
+      // TODO: add parent transaction.
       emh_points_move_points($source, $emindhub, $commission_amount, EMH_POINTS_EARNINGS_COMMISSION_CONTEXT);
       // Ajust monetizable amount of credits.
       $monetize_amount = $total_amount - $commission_amount;
@@ -114,6 +113,7 @@ function _emh_points_earnings_commission_and_monetize($parent_txn, $source) {
     // Monetize the credits.
     // TODO: Validate in the specs that we are moving the credits back to EMH.
     // Another solution would be to destroy the credits when creating earnings.
+    // TODO: add parent transaction.
     emh_points_move_points($source, $emindhub, $monetize_amount, EMH_POINTS_EARNINGS_MONETIZATION_CONTEXT);
     _emh_points_earnings_add_earnings($source, $monetize_amount);
   }
