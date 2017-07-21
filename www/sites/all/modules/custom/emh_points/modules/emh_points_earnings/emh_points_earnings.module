@@ -99,24 +99,31 @@ function _emh_points_earnings_commission_and_monetize($parent_txn, $source) {
     // What is EMH's commission?
     $commission = floatval($commissions[$parent_context]);
 
+    /*
+     * Commission.
+     */
+
     // If there is a valid commission rate:
     if ($commission > 0 && $commission < 1) {
 
       // Compute EMH's commission.
       $commission_credits = $total_credits * $commission;
       // Move commission credits from user to EMH:
-      // TODO: add parent transaction.
-      emh_points_move_points($source, $emindhub, $commission_credits, EMH_POINTS_EARNINGS_COMMISSION_CONTEXT);
+      $parent_txn_id = $parent_txn['txn_id'];
+      emh_points_move_points($source, $emindhub, $commission_credits, EMH_POINTS_EARNINGS_COMMISSION_CONTEXT, $parent_txn_id);
       // Ajust monetizable amount of credits.
       $monetizable_credits = $total_credits - $commission_credits;
     }
 
-    // Monetize the credits.
+    /*
+     * Monetization.
+     */
+
     // 1) Move the credits back to EMH.
     // TODO: Validate in the specs that we are moving the credits back to EMH.
     // Another solution would be to destroy the credits when creating earnings.
-    // TODO: add parent transaction.
-    emh_points_move_points($source, $emindhub, $monetizable_credits, EMH_POINTS_EARNINGS_MONETIZATION_CONTEXT);
+    $parent_txn_id = $parent_txn['txn_id'];
+    emh_points_move_points($source, $emindhub, $monetizable_credits, EMH_POINTS_EARNINGS_MONETIZATION_CONTEXT, $parent_txn_id);
 
     // 2) Add the earnings to the user.
     // Wrapp user into an entity.
