@@ -742,22 +742,23 @@ function emh_points_give_points(&$entity, $context) {
   emh_points_add_points($emh_entity, $points);
   // Create transaction.
   global $user;
-  $txn_id = db_insert('emh_points_txn')
-    ->fields(array(
-      'uid' => $user->uid,
-      'points' => (int) $points,
-      'time_stamp' => REQUEST_TIME,
-      'description' => $log,
-      'source_type' => 'user',
-      'source_id' => 1,
-      'dest_type' => $emh_entity->type,
-      'dest_id' => $emh_entity->id,
-      'operation' => POINTS_ADDITION,
-      'context' => $txn_context,
-    ))
-    ->execute();
 
-  module_invoke_all('give_points_after', $txn_id, $destination);
+  $txn = array(
+    'uid' => $user->uid,
+    'points' => (int) $points,
+    'time_stamp' => REQUEST_TIME,
+    'description' => $log,
+    'source_type' => 'user',
+    'source_id' => 1,
+    'dest_type' => $emh_entity->type,
+    'dest_id' => $emh_entity->id,
+    'operation' => POINTS_ADDITION,
+    'context' => $txn_context,
+  );
+
+  $txn_id = db_insert('emh_points_txn')->fields($txn)->execute();
+
+  module_invoke_all('give_points_after', $txn, $destination);
 }
 
 /**
