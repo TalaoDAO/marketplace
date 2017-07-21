@@ -95,27 +95,36 @@ function _emh_points_earnings_commission_and_monetize($parent_txn, $source) {
     // Get EMH commission rates.
     $commissions = variable_get('emh_points_earnings_commissions');
     // Before commission, the total amount of credits are monetizable:
-    $monetize_amount = $total_amount = $parent_txn['points'];
+    $monetizable_credits = $total_credits = $parent_txn['points'];
     // What is EMH's commission?
     $commission = floatval($commissions[$parent_context]);
 
     // If there is a valid commission rate:
     if ($commission > 0 && $commission < 1) {
+
       // Compute EMH's commission.
-      $commission_amount = $total_amount * $commission;
+      $commission_credits = $total_credits * $commission;
       // Move commission credits from user to EMH:
       // TODO: add parent transaction.
-      emh_points_move_points($source, $emindhub, $commission_amount, EMH_POINTS_EARNINGS_COMMISSION_CONTEXT);
+      emh_points_move_points($source, $emindhub, $commission_credits, EMH_POINTS_EARNINGS_COMMISSION_CONTEXT);
       // Ajust monetizable amount of credits.
-      $monetize_amount = $total_amount - $commission_amount;
+      $monetizable_credits = $total_credits - $commission_credits;
     }
 
     // Monetize the credits.
+    // 1) Move the credits back to EMH.
     // TODO: Validate in the specs that we are moving the credits back to EMH.
     // Another solution would be to destroy the credits when creating earnings.
     // TODO: add parent transaction.
-    emh_points_move_points($source, $emindhub, $monetize_amount, EMH_POINTS_EARNINGS_MONETIZATION_CONTEXT);
-    _emh_points_earnings_add_earnings($source, $monetize_amount);
+    emh_points_move_points($source, $emindhub, $monetizable_credits, EMH_POINTS_EARNINGS_MONETIZATION_CONTEXT);
+
+    // 2) Add the earnings to the user.
+    // Wrapp user into an entity.
+    $source_entity = emh_points_build_entity_for_points($source);
+    // Currency conversion: credits => earnings.
+    $earnings = $monetizable_credits * EMH_POINTS_EARNINGS_RATE;
+    // Add earnings.
+    _emh_points_earnings_add_earnings($source_entity, $earnings);
   }
 }
 
@@ -123,6 +132,7 @@ function _emh_points_earnings_commission_and_monetize($parent_txn, $source) {
  * Add earnings to an entity.
  */
 function _emh_points_earnings_add_earnings($entity, $earnings) {
+
   // To add earning, there are almost no functional checks.
   if (!is_numeric($earnings) || (int) $earnings < 0) {
     watchdog('emh_points_earnings', 'Amount of earnings has to be a positive integer');
