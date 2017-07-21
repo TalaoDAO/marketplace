@@ -757,7 +757,7 @@ function emh_points_give_points(&$entity, $context) {
     ))
     ->execute();
 
-  module_invoke_all('give_points_after', $txn, $destination);
+  module_invoke_all('give_points_after', $txn_id, $destination);
 }
 
 /**
