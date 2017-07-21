@@ -98,9 +98,9 @@ function ft_webmastering_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'admin/emindhub/credits/earnings/overview';
+  $handler->display->display_options['path'] = 'admin/emindhub/credits/earnings';
   $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Earnings overview';
+  $handler->display->display_options['menu']['title'] = 'Earnings';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
