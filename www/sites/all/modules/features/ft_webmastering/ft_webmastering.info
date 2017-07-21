@@ -7,6 +7,7 @@ dependencies[] = views
 dependencies[] = views_data_export
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
+features[views_view][] = admin_earnings
 features[views_view][] = export_users
 features[views_view][] = organisation_admin_
 features[views_view][] = responses_stats
