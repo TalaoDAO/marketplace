@@ -758,7 +758,7 @@ function emh_points_give_points(&$entity, $context) {
 
   $txn_id = db_insert('emh_points_txn')->fields($txn)->execute();
 
-  module_invoke_all('give_points_after', $txn, $destination);
+  module_invoke_all('give_points_after', $txn, $entity);
 }
 
 /**
