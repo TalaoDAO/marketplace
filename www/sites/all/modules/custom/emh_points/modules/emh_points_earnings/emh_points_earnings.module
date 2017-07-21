@@ -206,3 +206,13 @@ function _emh_points_earnings_entity_load_single($entity, $type) {
     $entity->emh_earnings = 0;
   }
 }
+
+/**
+ * Implements hook_views_api().
+ */
+function emh_points_earnings_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'emh_points_earnings'),
+  );
+}
