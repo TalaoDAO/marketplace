@@ -5,6 +5,10 @@
  * EMH Earnings features.
  *
  * EMH Credits are monetized into Earnings for certain Credits transactions.
+ *
+ * TODO: Earnings integrity: total of earnings should equal total of credits
+ * moved back to EMH in the 'monetize' context.
+ * This check will be done globally and for each user.
  */
 
 // Conversion rate from Credits to Earnings. Never change this!
@@ -16,6 +20,10 @@ const EMH_POINTS_EARNINGS_CONTEXTS = array(
 );
 // Default EMH commission on credits before monetization, when applicable.
 const EMH_POINTS_EARNINGS_COMMISSION = 0.7;
+// Context for commissions in the transactions logs:
+const EMH_POINTS_EARNINGS_COMMISSION_CONTEXT = 'commission';
+// Context for monetization in the transactions logs:
+const EMH_POINTS_EARNINGS_MONETIZATION_CONTEXT = 'monetization';
 
 /**
  * Implements hook_menu().
@@ -82,6 +90,8 @@ function _emh_points_earnings_commission_and_monetize($parent_txn, $source) {
   // If the transaction context implies monetization:
   if (in_array($parent_context, EMH_POINTS_EARNINGS_CONTEXTS)) {
 
+    // Load EMH account:
+    $emindhub = user_load(1);
     // Get EMH commission rates.
     $commissions = unserialize(
       variable_get('emh_points_earnings_commissions')
@@ -95,14 +105,59 @@ function _emh_points_earnings_commission_and_monetize($parent_txn, $source) {
     if ($commission > 0 && $commission < 1) {
       // Compute EMH's commission.
       $commission_amount = $total_amount * $commission;
-
-      // TODO: commission.
-
+      // Move commission credits from user to EMH:
+      emh_points_move_points($source, $emindhub, $commission_amount, EMH_POINTS_EARNINGS_COMMISSION_CONTEXT);
       // Ajust monetizable amount of credits.
       $monetize_amount = $total_amount - $commission_amount;
     }
 
     // Monetize the credits.
-    // TODO: monetize.
+    // TODO: Validate in the specs that we are moving the credits back to EMH.
+    // Another solution would be to destroy the credits when creating earnings.
+    emh_points_move_points($source, $emindhub, $monetize_amount, EMH_POINTS_EARNINGS_MONETIZATION_CONTEXT);
+    _emh_points_earnings_add_earnings($source, $monetize_amount);
   }
+}
+
+/**
+ * Add earnings to an entity.
+ */
+function _emh_points_earnings_add_earnings($entity, $earnings) {
+  // To add earning, there are almost no functional checks.
+  if (!is_numeric($earnings) || (int) $earnings < 0) {
+    watchdog('emh_points_earnings', 'Amount of earnings has to be a positive integer');
+    return;
+  }
+  if (empty($entity)) {
+    watchdog('emh_points_earnings', 'You should only add earnings to a valid entity');
+    return;
+  }
+  // Add earnings.
+  db_insert('emh_points_earnings')
+    ->fields(array(
+      'entity_id' => $entity->id,
+      'entity_type' => $entity->type,
+      'bundle' => $entity->bundle,
+      'earnings' => $earnings,
+      'last_update' => REQUEST_TIME,
+    ))
+    ->execute();
+  // Raise Rules event.
+  if ($entity->type == 'user') {
+    $account = user_load($entity->id);
+    rules_invoke_event('emh_points_earnings_new_earnings', $earnings, $account);
+  }
+  // Empty cache to reload the emh_points_earnings.
+  entity_get_controller($entity->type)->resetCache(array($entity->id));
+}
+
+/**
+ * Implements hook_permission().
+ */
+function emh_points_earnings_permission() {
+  return array(
+    'administer earnings' => array('title' => t('Administer Earnings')),
+    'cashout earnings' => array('title' => t('Cashout earnings')),
+    'view own earnings' => array('title' => t('View own earnings')),
+  );
 }
