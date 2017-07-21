@@ -3,6 +3,7 @@ description = Views, rules and antyhing that helps webmaster (not regular users)
 core = 7.x
 package = EMH
 version = 7.x-1.0
+dependencies[] = emh_points
 dependencies[] = views
 dependencies[] = views_data_export
 features[ctools][] = views:views_default:3.0
