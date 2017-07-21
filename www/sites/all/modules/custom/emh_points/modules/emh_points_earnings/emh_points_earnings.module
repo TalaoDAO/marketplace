@@ -233,3 +233,24 @@ function emh_points_earnings_views_api() {
     'path' => drupal_get_path('module', 'emh_points_earnings'),
   );
 }
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function emh_points_earnings_views_query_alter(&$view, &$query) {
+  // Filtering by source ID seems to be broken for now
+  // in the Views implementation of emh_points.
+  if ($view->name == 'earnings_history') {
+    global $user;
+
+    $filter = array(
+      'field' => 'emh_points_txn.source_id',
+      'value' => $user->uid,
+      'operator' => 'LIKE',
+    );
+    $query->where[1]['conditions'][] = $filter;
+    $test = $query->where[1]['conditions'][0];
+    $test2 = $query->where[1]['conditions'][1];
+    $test3 = '';
+  }
+}
