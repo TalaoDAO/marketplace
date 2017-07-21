@@ -186,8 +186,8 @@ function emh_points_earnings_permission() {
  */
 function emh_points_earnings_user_delete($user) {
   db_delete('emh_points_earnings')
-    ->condition('entity_id', $id)
-    ->condition('entity_type', $type)
+    ->condition('entity_id', $user->uid)
+    ->condition('entity_type', 'user')
     ->execute();
   // Deleting the emh_points_txn rows is already taken care of in emh_point.
 }
