@@ -19,6 +19,7 @@ features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[views_view][] = blog
 features[views_view][] = domainlist
+features[views_view][] = earnings_history
 features[views_view][] = entreprise_list
 features[views_view][] = my_drafts
 features[views_view][] = news_thread
