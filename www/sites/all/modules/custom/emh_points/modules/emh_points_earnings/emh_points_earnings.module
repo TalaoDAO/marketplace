@@ -161,3 +161,16 @@ function emh_points_earnings_permission() {
     'view own earnings' => array('title' => t('View own earnings')),
   );
 }
+
+/**
+ * Implements hook_user_delete().
+ *
+ * TODO: Validate in the specs what to do with earnings when a user is deleted.
+ */
+function emh_points_earnings_user_delete($user) {
+  db_delete('emh_points_earnings')
+    ->condition('entity_id', $id)
+    ->condition('entity_type', $type)
+    ->execute();
+  // Deleting the emh_points_txn rows is already taken care of in emh_point.
+}
