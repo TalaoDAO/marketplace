@@ -174,3 +174,35 @@ function emh_points_earnings_user_delete($user) {
     ->execute();
   // Deleting the emh_points_txn rows is already taken care of in emh_point.
 }
+
+/**
+ * Implements hook_entity_load().
+ */
+function emh_points_earnings_entity_load($entities, $type) {
+  foreach ($entities as $entity) {
+    _emh_points_earnings_entity_load_single($entity, $type);
+  }
+}
+
+/**
+ * Helper callback to load earnings on a single entity.
+ */
+function _emh_points_earnings_entity_load_single($entity, $type) {
+
+  $wrapper = entity_metadata_wrapper('user', $entity);
+  if (empty($wrapper)) {
+    return;
+  }
+
+  $query = db_select('emh_points_earnings', 'e')
+    ->condition('e.entity_type', $type)
+    ->condition('e.entity_id', $wrapper->getIdentifier());
+  $query->addExpression('SUM(e.earnings)');
+  $earnings = $query->execute()->fetchField();
+  if (!empty($earnings)) {
+    $entity->emh_points_earnings = (int) $earnings;
+  }
+  else {
+    $entity->emh_points_earnings = 0;
+  }
+}
