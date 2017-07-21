@@ -19,7 +19,7 @@ const EMH_POINTS_EARNINGS_CONTEXTS = array(
   'user_sponsor',
 );
 // Default EMH commission on credits before monetization, when applicable.
-const EMH_POINTS_EARNINGS_COMMISSION = 0.7;
+const EMH_POINTS_EARNINGS_COMMISSION = '0.7';
 // Context for commissions in the transactions logs:
 const EMH_POINTS_EARNINGS_COMMISSION_CONTEXT = 'commission';
 // Context for monetization in the transactions logs:
