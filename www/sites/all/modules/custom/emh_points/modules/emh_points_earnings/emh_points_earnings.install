@@ -69,7 +69,7 @@ function emh_points_earnings_install() {
   foreach (EMH_POINTS_EARNINGS_CONTEXTS as $context) {
     $emh_points_earnings_commissions[$context] = EMH_POINTS_EARNINGS_COMMISSION;
   }
-  $emh_points_earnings_commissions = serialize($emh_points_earnings_commissions);
+  $emh_points_earnings_commissions = $emh_points_earnings_commissions;
   variable_set('emh_points_earnings_commissions', $emh_points_earnings_commissions);
 }
 
