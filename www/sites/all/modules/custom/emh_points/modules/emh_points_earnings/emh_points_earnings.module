@@ -200,9 +200,9 @@ function _emh_points_earnings_entity_load_single($entity, $type) {
   $query->addExpression('SUM(e.earnings)');
   $earnings = $query->execute()->fetchField();
   if (!empty($earnings)) {
-    $entity->emh_points_earnings = (int) $earnings;
+    $entity->emh_earnings = (int) $earnings;
   }
   else {
-    $entity->emh_points_earnings = 0;
+    $entity->emh_earnings = 0;
   }
 }
