@@ -1,1 +1,6 @@
 backstop_data
+
+# Ignore CasperJS tests
+tests_casperjs/screenshots/
+tests_casperjs/failures/
+tests_casperjs/results/
