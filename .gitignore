@@ -27,11 +27,5 @@ atlassian-ide-plugin.xml
 *~
 .htaccess
 
-
-# Ignore CasperJS tests
-tests_casperjs/screenshots/
-tests_casperjs/failures/
-tests_casperjs/results/
-
 # this file is copied from deploy/ versions
 www/robots.txt
