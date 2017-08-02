@@ -59,7 +59,7 @@ for (var k = 0; k < paths.length; k++) {
     "readyEvent": null,
     "delay": 500,
     "misMatchThreshold" : 0.1,
-    "onBeforeScript": "onBefore.js",
+    "onBeforeScript": arguments.nologin ? "": "onBefore.js",
     "onReadyScript": "onReady.js"
   });
 }
