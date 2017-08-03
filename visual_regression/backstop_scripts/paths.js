@@ -5,7 +5,7 @@ pathConfig.array = ['/',
 '/node/add/request',
 '/my/circles']
 
-module.exports = pathConfig;
+module.exports.paths = pathConfig;
 
 var anon_pathConfig = {};
 
@@ -17,5 +17,5 @@ anon_pathConfig.array = ['/',
 '/how-it-works',
 'about-us']
 
-module.exports = anon_pathConfig;
+module.exports.anon_paths = anon_pathConfig;
 
