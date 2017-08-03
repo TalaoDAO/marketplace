@@ -88,11 +88,23 @@ for (var k = 0; k < paths.length; k++) {
   });
 }
 
-// Configuration
-module.exports =
-{
-  "id": "prod_test",
-  "viewports": [
+
+var viewports = []; 
+if (arguments.restricted) {
+  viewports = [
+    {
+      "name": "mediumish",
+      "width": 568,
+      "height": 760
+    },
+    {
+      "name": "large",
+      "width": 1024,
+      "height": 768
+    },
+  ];
+} else {
+  viewports = [
     {
       "name": "small",
       "width": 320,
@@ -118,10 +130,15 @@ module.exports =
       "width": 1440,
       "height": 900
     }
-  ],
-  "scenarios":
-    scenarios
-  ,
+  ]
+}
+
+// Configuration
+module.exports =
+{
+  "id": "prod_test",
+  "viewports": viewports,
+  "scenarios": scenarios,
   "paths": {
     "bitmaps_reference": "backstop_data/bitmaps_reference",
     "bitmaps_test":      "backstop_data/bitmaps_test",
