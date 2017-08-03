@@ -42,8 +42,8 @@ if (arguments.paths) {
   var paths = pathString.split(',');
 } else if (arguments.pathfile) {
   var pathConfig = require('./'+arguments.pathfile+'.js');
-  var paths = pathConfig.array;
-  var anon_paths = anon_pathConfig.array;
+  var paths = pathConfig.paths.array;
+  var anon_paths = pathConfig.anon_paths.array;
 } else {
   var paths = defaultPaths; // keep with the default of just the homepage
 }
@@ -70,9 +70,9 @@ for (var k = 0; k < paths.length; k++) {
 
 for (var k = 0; k < anon_paths.length; k++) {
   scenarios.push({
-    "label": paths[k],
-    //"referenceUrl": arguments.refhost+paths[k],
-    "url": arguments.testhost+paths[k],
+    "label": anon_paths[k],
+    //"referenceUrl": arguments.refhost+anon_paths[k],
+    "url": arguments.testhost+anon_paths[k],
     "hideSelectors": [],
     "removeSelectors": [],
     "selectors": [
