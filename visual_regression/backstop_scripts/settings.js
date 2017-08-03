@@ -70,7 +70,7 @@ for (var k = 0; k < paths.length; k++) {
 
 for (var k = 0; k < anon_paths.length; k++) {
   scenarios.push({
-    "label": anon_paths[k],
+    "label": "anonymous_"+anon_paths[k],
     //"referenceUrl": arguments.refhost+anon_paths[k],
     "url": arguments.testhost+anon_paths[k],
     "hideSelectors": [],
