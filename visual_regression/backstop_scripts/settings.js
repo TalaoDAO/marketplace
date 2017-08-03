@@ -57,12 +57,13 @@ for (var k = 0; k < anon_paths.length; k++) {
     "removeSelectors": [],
     "selectors": [
       ".main-container",
-      ".navbar"
+      ".navbar",
+      ".footer"
     ],
     "readyEvent": null,
     "delay": 1500,
     "misMatchThreshold" : 0.1,
-    "onBeforeScript": "",
+    "onBeforeScript": "onBeforeLogout.js",
     "onReadyScript": "onReady.js"
   });
 }
@@ -76,12 +77,13 @@ for (var k = 0; k < paths.length; k++) {
     "removeSelectors": [],
     "selectors": [
       ".main-container",
-      ".navbar"
+      ".navbar",
+      ".footer"
     ],
     "readyEvent": null,
     "delay": 1500,
     "misMatchThreshold" : 0.1,
-    "onBeforeScript": arguments.nologin ? "": "onBefore.js",
+    "onBeforeScript": arguments.nologin ? "onBeforeLogout.hs": "onBeforeLogin.js",
     "onReadyScript": "onReady.js"
   });
 }
