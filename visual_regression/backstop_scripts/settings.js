@@ -48,26 +48,6 @@ if (arguments.paths) {
   var paths = defaultPaths; // keep with the default of just the homepage
 }
 
-
-for (var k = 0; k < paths.length; k++) {
-  scenarios.push({
-    "label": paths[k],
-    //"referenceUrl": arguments.refhost+paths[k],
-    "url": arguments.testhost+paths[k],
-    "hideSelectors": [],
-    "removeSelectors": [],
-    "selectors": [
-      ".main-container",
-      ".navbar"
-    ],
-    "readyEvent": null,
-    "delay": 1500,
-    "misMatchThreshold" : 0.1,
-    "onBeforeScript": arguments.nologin ? "": "onBefore.js",
-    "onReadyScript": "onReady.js"
-  });
-}
-
 for (var k = 0; k < anon_paths.length; k++) {
   scenarios.push({
     "label": "anonymous_"+anon_paths[k],
@@ -87,6 +67,24 @@ for (var k = 0; k < anon_paths.length; k++) {
   });
 }
 
+for (var k = 0; k < paths.length; k++) {
+  scenarios.push({
+    "label": paths[k],
+    //"referenceUrl": arguments.refhost+paths[k],
+    "url": arguments.testhost+paths[k],
+    "hideSelectors": [],
+    "removeSelectors": [],
+    "selectors": [
+      ".main-container",
+      ".navbar"
+    ],
+    "readyEvent": null,
+    "delay": 1500,
+    "misMatchThreshold" : 0.1,
+    "onBeforeScript": arguments.nologin ? "": "onBefore.js",
+    "onReadyScript": "onReady.js"
+  });
+}
 
 // Configuration
 module.exports =
