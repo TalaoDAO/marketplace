@@ -6,7 +6,5 @@ module.exports = function (casper, scenario, vp) {
 // EXAMPLE: LOGIN BEFORE RUNNING TESTS
 module.exports = function(casper, scenario, vp) {
   casper.thenOpen(scenario.url+'/user/logout', function(){
-       }, true);
-     }
   });
 };
