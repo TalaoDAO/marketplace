@@ -1,4 +1,4 @@
-@api @watchdog
+@api @watchdog @login
 Feature: Registration test
   In order to test the registration process
   As an anonymous user
