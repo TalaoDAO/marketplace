@@ -1,4 +1,4 @@
-@api @watchdog
+@api @watchdog @login
 Feature: Login test
   In order to test the login process
   As an anonymous user
