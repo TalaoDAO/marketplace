@@ -2,6 +2,7 @@ www/sites/all/modules/debug
 www/adminer.php
 www/bdd
 www/emh.sql
+www/sites/default/local.settings.php
 xhgui
 
 # Ignore on soyoustart prod server only
