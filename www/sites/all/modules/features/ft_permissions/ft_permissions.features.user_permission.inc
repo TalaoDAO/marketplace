@@ -64,7 +64,6 @@ function ft_permissions_user_default_permissions() {
     'name' => 'access administration pages',
     'roles' => array(
       'administrator' => 'administrator',
-      'authenticated user' => 'authenticated user',
       'webmaster' => 'webmaster',
     ),
     'module' => 'system',
