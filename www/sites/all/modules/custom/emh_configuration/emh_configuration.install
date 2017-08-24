@@ -1425,10 +1425,10 @@ function emh_configuration_update_7069() {
  */
 function emh_configuration_update_7070() {
   module_enable(['pet']);
-  exec("drush  ec pet --json $(drush dd)/../deploy/pet-1.json");
-  exec("drush  ec pet --json $(drush dd)/../deploy/pet-2.json");
-  exec("drush  ec pet --json $(drush dd)/../deploy/pet-1-fr.json");
-  exec("drush  ec pet --json $(drush dd)/../deploy/pet-2-fr.json");
+  exec("drush  ec pet --json $(drush dd)/../deploy/data/pet-1.json");
+  exec("drush  ec pet --json $(drush dd)/../deploy/data/pet-2.json");
+  exec("drush  ec pet --json $(drush dd)/../deploy/data/pet-1-fr.json");
+  exec("drush  ec pet --json $(drush dd)/../deploy/data/pet-2-fr.json");
 }
 
 /**
