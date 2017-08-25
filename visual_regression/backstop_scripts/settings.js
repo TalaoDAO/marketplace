@@ -83,7 +83,7 @@ for (var k = 0; k < paths.length; k++) {
     "readyEvent": null,
     "delay": 1500,
     "misMatchThreshold" : 0.1,
-    "onBeforeScript": arguments.nologin ? "onBeforeLogout.hs": "onBeforeLogin.js",
+    "onBeforeScript": arguments.nologin ? "onBeforeLogout.js": "onBeforeLogin.js",
     "onReadyScript": "onReady.js"
   });
 }
