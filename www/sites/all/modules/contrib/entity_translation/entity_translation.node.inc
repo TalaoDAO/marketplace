@@ -43,14 +43,15 @@ function entity_translation_node_menu_alter(&$items, $backup) {
     $callback['file'] = $item['file'];
     $callback['module'] = $item['module'];
     $access_arguments = array_merge(array(1, $item['access callback']), $item['access arguments']);
+    $page_arguments = array_merge(array('node', 1, $callback), $item['page arguments']);
   }
   else {
-    $callback = FALSE;
     $access_arguments = array(1);
+    $page_arguments = array('node', 1);
   }
 
   $items['node/%node/translate']['page callback'] = 'entity_translation_overview';
-  $items['node/%node/translate']['page arguments'] = array('node', 1, $callback);
+  $items['node/%node/translate']['page arguments'] = $page_arguments;
   $items['node/%node/translate']['access arguments'] = $access_arguments;
   $items['node/%node/translate']['access callback'] = 'entity_translation_node_tab_access';
   $items['node/%node/translate']['file'] = 'entity_translation.admin.inc';
