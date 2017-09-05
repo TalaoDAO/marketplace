@@ -34,8 +34,8 @@ function entity_translation_upgrade_start($types) {
  */
 function entity_translation_upgrade_end($success, $results, $operations, $elapsed) {
   if (!empty($results)) {
-    $message = format_plural($results, '1 node translation successfully upgraded.', '@count node translations successfully upgraded.');
-    watchdog('entity translation upgrade', '@count node translations successfully upgraded.', array('@count' => $results), WATCHDOG_INFO);
+    $message = format_plural($results['total'], '1 node translation successfully upgraded.', '@count node translations successfully upgraded.');
+    watchdog('entity translation upgrade', '@count node translations successfully upgraded.', array('@count' => $results['total']), WATCHDOG_INFO);
   }
   else {
     $message = t('No node translation available for the upgrade.');
@@ -91,6 +91,10 @@ function entity_translation_upgrade_do($types, &$context) {
       $node = $nodes[$nid];
       $original = $nodes[$node->tnid];
       $handler = entity_translation_get_handler('node', $original);
+      // Instantiate the data and original properties of the translations.
+      if (empty($handler->getTranslations()->data)) {
+        $handler->initTranslations();
+      }
 
       if (!isset($instances[$node->type])) {
         $instances[$node->type] = field_info_instances('node', $node->type);
@@ -185,7 +189,7 @@ function entity_translation_upgrade_do($types, &$context) {
     $context['finished'] = $context['sandbox']['count'] / $context['sandbox']['total'];
 
     if ($context['finished'] >= 1) {
-      $context['results'] = $context['sandbox']['total'];
+      $context['results']['total'] = $context['sandbox']['total'];
     }
   }
 }
