@@ -356,7 +356,11 @@ function entity_translation_update_7006() {
     'not null' => FALSE,
     'description' => 'The entity revision id this translation relates to',
   );
-  db_add_field('entity_translation', 'revision_id', $spec);
+
+  // Create revision id column if it doesn't exist already.
+  if (!db_field_exists('entity_translation', 'revision_id')) {
+    db_add_field('entity_translation', 'revision_id', $spec);
+  }
 
   // Create the entity translation revision schema.
   $table = array(
@@ -429,7 +433,11 @@ function entity_translation_update_7006() {
     'primary key' => array('entity_type', 'revision_id', 'language'),
     'indexes'=> array('revision_id' => array('revision_id')),
   );
-  db_create_table('entity_translation_revision', $table);
+
+  // Create entity translation revision table if it doesn't exist already.
+  if (!db_table_exists('entity_translation_revision')) {
+    db_create_table('entity_translation_revision', $table);
+  }
 }
 
 /**
@@ -445,4 +453,45 @@ function entity_translation_update_7007() {
   // where data has not been manually migrated may cause translation metadata to
   // be permanently lost or corrupted. See https://www.drupal.org/node/2396103.
   variable_set('entity_translation_revision_enabled', FALSE);
+}
+
+/**
+ * Enable Entity Translation for taxonomy vocabularies having terms translated
+ * through it.
+ */
+function entity_translation_update_7008() {
+  if (!module_exists('taxonomy')) {
+    return;
+  }
+  // According to EXPLAIN joining {taxonomy_vocabulary} here makes the query
+  // perform way worse, so we just split into two quick ones.
+  $query = "SELECT t.vid
+    FROM {entity_translation} et
+    JOIN {taxonomy_term_data} t ON et.entity_type = 'taxonomy_term' AND et.entity_id = t.tid AND et.source != ''
+    GROUP BY t.vid";
+  $vids = db_query($query)->fetchCol();
+
+  if ($vids) {
+    $query = "SELECT v.machine_name FROM {taxonomy_vocabulary} v WHERE v.vid IN (:vids)";
+    $names = db_query($query, array(':vids' => $vids))->fetchCol();
+
+    $info = variable_get('entity_translation_taxonomy', array());
+    foreach ($names as $name) {
+      $info[$name] = TRUE;
+    }
+    variable_set('entity_translation_taxonomy', $info);
+  }
+}
+
+/**
+ * Make sure "i18n_mode" is correctly set for vocabularies having entity
+ * translation enabled.
+ */
+function entity_translation_update_7009() {
+  $info = array_filter(variable_get('entity_translation_taxonomy', array()));
+  if ($info && module_exists('i18n_taxonomy')) {
+    $query = "UPDATE {taxonomy_vocabulary} SET i18n_mode = :et_mode WHERE machine_name IN (:names)";
+    $names = array_keys(array_filter($info));
+    db_query($query, array(':et_mode' => 32768, ':names' => $names));
+  }
 }
