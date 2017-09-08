@@ -1,6 +1,6 @@
 module.exports = function (casper, scenario, vp) {
-  casper.evaluate(function () {
-    // Your web-app is now loaded. Edit here to simulate user interacions or other state changes.
-  });
-  console.log('onReady.js has run for: ', vp.name);
+  if ( !(casper.exists('.footer-credits') || casper.exists('#main-nav') || casper.exists('#admin-menu-wrapper')) ) 
+    console.log('******* WARNING : signature not found on page');
+  //casper.evaluate(function () {  });
+  //console.log('onReady.js has run for: ', vp.name);
 };
