@@ -3,8 +3,6 @@ module.exports = function (casper, scenario, vp) {
   console.log('onBefore.js has run for ' + vp.name + '.');
 };
 
-// EXAMPLE: LOGIN BEFORE RUNNING TESTS
 module.exports = function(casper, scenario, vp) {
-  casper.thenOpen(scenario.url+'/user/logout', function(){
-  });
+  casper.thenOpen(scenario.url+'/user/logout', function(){  });
 };
