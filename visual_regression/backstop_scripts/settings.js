@@ -42,48 +42,81 @@ if (arguments.paths) {
   var paths = pathString.split(',');
 } else if (arguments.pathfile) {
   var pathConfig = require('./'+arguments.pathfile+'.js');
-  var paths = pathConfig.paths.array;
+  var admin_paths = pathConfig.admin_paths.array;
   var anon_paths = pathConfig.anon_paths.array;
+  var ybabel_paths = pathConfig.ybabel_paths.array;
 } else {
-  var paths = defaultPaths; // keep with the default of just the homepage
+  var admin_paths = defaultPaths; // keep with the default of just the homepage
+  var anon_paths = defaultPaths; // keep with the default of just the homepage
+  var ybabel_paths = defaultPaths; // keep with the default of just the homepage
 }
 
 for (var k = 0; k < anon_paths.length; k++) {
   scenarios.push({
-    "label": "anonymous_"+anon_paths[k],
+    "label": "anonymous_"+anon_paths[k].replace("////g","_"),
     //"referenceUrl": arguments.refhost+anon_paths[k],
     "url": arguments.testhost+anon_paths[k],
+    "base_url": arguments.testhost,
     "hideSelectors": [],
     "removeSelectors": [],
     "selectors": [
+      //"document",
       ".main-container",
       ".navbar",
       ".footer"
     ],
-    "readyEvent": null,
-    "delay": 1500,
+    //"readyEvent": null,
+    "readySelector":"#main-nav", 
+    "delay": 5000,
     "misMatchThreshold" : 0.1,
-    "onBeforeScript": "onBeforeLogout.js",
     "onReadyScript": "onReady.js"
   });
 }
 
-for (var k = 0; k < paths.length; k++) {
+for (var k = 0; k < admin_paths.length; k++) {
   scenarios.push({
-    "label": paths[k],
+    "label": "admin_"+admin_paths[k].replace("////g","_"),
     //"referenceUrl": arguments.refhost+paths[k],
-    "url": arguments.testhost+paths[k],
+    "url": arguments.testhost+admin_paths[k],
+    "base_url": arguments.testhost,
     "hideSelectors": [],
     "removeSelectors": [],
     "selectors": [
+      //"document",
       ".main-container",
       ".navbar",
       ".footer"
     ],
-    "readyEvent": null,
-    "delay": 1500,
+    //"readyEvent": "logged",
+    "readySelector":"#admin-menu-wrapper", 
+    //"delay": 5000,
     "misMatchThreshold" : 0.1,
-    "onBeforeScript": arguments.nologin ? "onBeforeLogout.js": "onBeforeLogin.js",
+    //"onBeforeScript": arguments.nologin ? "onBeforeLogout.js": "onBeforeLoginAdmin.js",
+    "onBeforeScript": "onBeforeLoginAdmin.js",
+    "onReadyScript": "onReady.js"
+  });
+}
+
+for (var k = 0; k < ybabel_paths.length; k++) {
+  scenarios.push({
+    "label": "ybabel_"+ybabel_paths[k].replace("////g","_"),
+    //"referenceUrl": arguments.refhost+paths[k],
+    "url": arguments.testhost+ybabel_paths[k],
+    "base_url": arguments.testhost,
+    "hideSelectors": [],
+    "removeSelectors": [],
+    "selectors": [
+      //"document",
+      ".main-container",
+      ".navbar",
+      ".footer"
+    ],
+    //"readyEvent": "logged",
+    "readySelector":"#system-user-menu", 
+    //"delay": 5000,
+    "misMatchThreshold" : 0.1,
+    //"onBeforeScript": arguments.nologin ? "onBeforeLogout.js": "onBeforeLoginYbabel.js",
+    "onBeforeScript": "onBeforeLoginYbabel.js",
     "onReadyScript": "onReady.js"
   });
 }
@@ -93,15 +126,15 @@ var viewports = [];
 if (arguments.restricted) {
   viewports = [
     {
-      "name": "mediumish",
-      "width": 568,
-      "height": 760
+      "name": "medium",
+      "width": 768,
+      "height": 1024
     },
-    {
-      "name": "large",
-      "width": 1024,
-      "height": 768
-    },
+    /*{
+      "name": "xlarge",
+      "width": 1440,
+      "height": 900
+    }*/
   ];
 } else {
   viewports = [
@@ -136,7 +169,7 @@ if (arguments.restricted) {
 // Configuration
 module.exports =
 {
-  "id": "prod_test",
+  "id": "emh_box",
   "viewports": viewports,
   "scenarios": scenarios,
   "paths": {
@@ -149,5 +182,7 @@ module.exports =
   "casperFlags": [],
   "engine": "phantomjs",
   "report": ["browser"],
-  "debug": false
+  "debug": false,
+  "asyncCaptureLimit": 1,
+  "asyncCompareLimit": 1,
 };
