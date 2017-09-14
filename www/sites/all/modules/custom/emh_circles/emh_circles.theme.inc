@@ -15,10 +15,8 @@ function emh_circles_get_circle_logo($node = null) {
   $circle_logo = field_get_items('node', $node, 'field_circle_logo');
   $circle_logo_file = empty($circle_logo) ? '' : file_load($circle_logo['0']['fid']);
   $circle_logo_file_uri = empty($circle_logo) ? $base_url . '/' . drupal_get_path('module', 'emh_circles') . '/images/community.svg' : file_create_url($circle_logo_file->uri);
-  $circle_logo_width = empty($circle_logo) ? '100' : $circle_logo['0']['image_dimensions']['width'];
-  $circle_logo_height = empty($circle_logo) ? '100' : $circle_logo['0']['image_dimensions']['height'];
-
-  return '<img src="' . $circle_logo_file_uri . '" width="' . $circle_logo_width . '" height="' . $circle_logo_height . '" alt="' . $node->title . '" title="' . $node->title . '" />';
+  // TODO: $circle_logo['0']['image_dimensions'] do not exists anymore in media-2.x
+  return '<img src="' . $circle_logo_file_uri . '" alt="' . $node->title . '" title="' . $node->title . '" />';
 }
 
 function emh_circles_show_membership_state_info($node, $account = NULL) {
