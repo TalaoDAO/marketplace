@@ -164,7 +164,7 @@ function entity_translation_i18n_menu_form(&$form, &$form_state) {
       $default = isset($source_menu['language']) && $source_menu['language'] != LANGUAGE_NONE;
       $languages = language_list();
       $handler = entity_translation_entity_form_get_handler($form, $form_state);
-      $langcode = $handler->getFormLanguage();
+      $langcode = $handler->getActiveLanguage();
       $language_name = isset($languages[$langcode]) ? t($languages[$langcode]->name) : t('current');
 
       $form['menu']['#multilingual'] = TRUE;
