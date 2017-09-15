@@ -12,7 +12,6 @@ function emh_user_get_beautiful_realname($account) {
   global $user;
   $user1 = user_load($user->uid);
   $user2 = user_load($account->uid);
-
   $name = ''; $items = ''; $firstname = ''; $lastname = '';
   $items = field_get_items('user', $user2, 'field_first_name');
   $firstname = isset($items[0]['value']) ? check_plain(ucwords($items[0]['value'])) : '';
@@ -38,7 +37,7 @@ function emh_user_get_beautiful_author($node) {
     $node = node_load(arg(1));
   }
 
-  return (emh_access_author_name($node)) ? emh_user_get_beautiful_realname($node->uid) : '<span class="author anonymous">' . t('Anonymous') . '</span>';
+  return (emh_access_author_name($node)) ? emh_user_get_beautiful_realname(user_load($node->uid)) : '<span class="author anonymous">' . t('Anonymous') . '</span>';
 }
 
 /**
