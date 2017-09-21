@@ -280,7 +280,7 @@ function _emh_points_earnings_integrity() {
       $user['commissions'],
       $user['expired'],
       $user['points'],
-      $user['check'] ? 'OK' : 'Bad',
+      $user['check'] ? 'OK' : 'Bad checksum',
       $uid,
     );
   }
