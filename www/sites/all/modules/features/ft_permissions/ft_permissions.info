@@ -58,7 +58,6 @@ dependencies[] = oauth_common
 dependencies[] = og
 dependencies[] = og_role_override
 dependencies[] = og_ui
-dependencies[] = og_webform
 dependencies[] = page_manager
 dependencies[] = path
 dependencies[] = pathauto
