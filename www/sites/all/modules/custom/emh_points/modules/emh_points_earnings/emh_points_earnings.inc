@@ -121,6 +121,50 @@ function _emh_points_earnings_entity_load_single($entity, $type) {
 /**
  * Check integrity of earnings and credits.
  */
+function _emh_points_earnings_integrity_log($uid) {
+
+  $header = array(
+    t('UID'),
+    t('Source ID'),
+    t('Dest ID'),
+    t('Points'),
+    t('Operation'),
+    t('Context'),
+    t('Description'),
+    t('Timestamp'),
+  );
+
+  $rows = array();
+
+  $results = db_select('emh_points_txn', 't')
+    ->fields('t', array('uid', 'txn_id', 'description', 'source_id', 'dest_id', 'operation', 'context', 'points', 'time_stamp'))
+    ->condition(db_or()
+      ->condition('t.source_id', $uid, '=')
+      ->condition('t.dest_id', $uid, '=')
+      ->condition('t.uid', $uid, '='))
+    ->execute()
+    ->fetchAll();
+
+  foreach ($results as $txn) {
+    $rows[] = array(
+      $txn->uid,
+      $txn->source_id,
+      $txn->dest_id,
+      $txn->points,
+      $txn->operation,
+      $txn->context,
+      $txn->description,
+      format_date($txn->time_stamp),
+    );
+  }
+
+  return theme('table', array('header' => $header, 'rows' => $rows));
+}
+
+
+/**
+ * Check integrity of earnings and credits.
+ */
 function _emh_points_earnings_integrity() {
 
   $header = array(
@@ -142,7 +186,7 @@ function _emh_points_earnings_integrity() {
     ->fields('u', array('uid', 'name'))
     ->condition('u.uid', 0, '<>')
     ->condition('u.uid', 1, '<>')
-    ->range(0, (int) arg(5))
+    //->range(0, (int) arg(5))
     ->execute()
     ->fetchAllAssoc('uid', PDO::FETCH_ASSOC);
 
@@ -271,8 +315,9 @@ function _emh_points_earnings_integrity() {
     $user['check'] = ($user['points'] == $user['bought'] + $user['received'] - $user['spent'] - $user['monetized'] - $user['commissions'] - $user['expired']) ? TRUE : FALSE;
 
     // Prepare the row.
+    if (!$user['check'])
     $rows[] = array(
-      $user['name'],
+      l($user['name'], 'admin/emindhub/credits/earnings/integrity/log/'.$uid),
       $user['bought'],
       $user['received'],
       $user['spent'],
