@@ -6,7 +6,6 @@
     "jorgegc/behat-drupal-extension": "*"
   },
   "require-dev": {
-    "behat/behat": "3.3.1",
     "ciaranmcnulty/behat-stepthroughextension" : "dev-master"
   },
   "config": {
