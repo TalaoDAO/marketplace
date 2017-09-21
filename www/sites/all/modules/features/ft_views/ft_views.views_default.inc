@@ -225,6 +225,56 @@ function ft_views_views_default_views() {
   $export['domainlist'] = $view;
 
   $view = new view();
+  $view->name = 'earnings_history';
+  $view->description = 'Filtered in emh_points_earnings_views_query_alter';
+  $view->tag = 'default';
+  $view->base_table = 'emh_points_txn';
+  $view->human_name = 'Earnings history';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Earnings history';
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['access']['perm'] = 'view own earnings';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['style_plugin'] = 'views_bootstrap_table_plugin_style';
+  /* Field: Credits Transaction: Timestamp */
+  $handler->display->display_options['fields']['time_stamp']['id'] = 'time_stamp';
+  $handler->display->display_options['fields']['time_stamp']['table'] = 'emh_points_txn';
+  $handler->display->display_options['fields']['time_stamp']['field'] = 'time_stamp';
+  $handler->display->display_options['fields']['time_stamp']['label'] = 'Date';
+  $handler->display->display_options['fields']['time_stamp']['date_format'] = 'short_date';
+  $handler->display->display_options['fields']['time_stamp']['second_date_format'] = 'long';
+  /* Field: Credits Transaction: Credits */
+  $handler->display->display_options['fields']['points']['id'] = 'points';
+  $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn';
+  $handler->display->display_options['fields']['points']['field'] = 'points';
+  $handler->display->display_options['fields']['points']['label'] = 'Earnings';
+  /* Filter criterion: Credits Transaction: Context */
+  $handler->display->display_options['filters']['context']['id'] = 'context';
+  $handler->display->display_options['filters']['context']['table'] = 'emh_points_txn';
+  $handler->display->display_options['filters']['context']['field'] = 'context';
+  $handler->display->display_options['filters']['context']['value'] = 'monetization';
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['path'] = 'earnings';
+  $handler->display->display_options['menu']['title'] = 'Earnings';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['name'] = 'user-menu';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
+  $export['earnings_history'] = $view;
+
+  $view = new view();
   $view->name = 'entreprise_list';
   $view->description = 'They use us';
   $view->tag = 'emh';
