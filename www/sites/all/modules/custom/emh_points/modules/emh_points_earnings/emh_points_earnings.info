@@ -3,5 +3,8 @@ description = Earnings for EMH website
 package = EMH
 core = 7.x
 
+; Files
+files[] = emh_points_earnings.inc
+
 ; Dependencies
 dependencies[] = emh_points
