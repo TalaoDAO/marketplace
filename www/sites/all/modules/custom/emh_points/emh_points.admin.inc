@@ -5,8 +5,6 @@
  * Administration screens for EMH Credit management module.
  */
 
-const EMH_POINTS_TXN_CONTEXT_ADMIN_MANAGE_USER = 'admin_manage_user';
-
 /**
  * Admin form for EMH Credit management settings.
  */
