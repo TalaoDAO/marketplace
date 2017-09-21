@@ -4,7 +4,10 @@
     "phpunit/php-code-coverage": "^2.2",
     "phpunit/phpcov": "*",
     "jorgegc/behat-drupal-extension": "*"
-},
+  },
+  "require-dev": {
+    "ciaranmcnulty/behat-stepthroughextension" : "dev-master"
+  },
   "config": {
     "bin-dir": "bin/"
   }
