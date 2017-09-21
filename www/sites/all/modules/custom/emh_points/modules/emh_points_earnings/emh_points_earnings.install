@@ -79,3 +79,10 @@ function emh_points_earnings_install() {
 function emh_points_earnings_uninstall() {
   variable_del('emh_points_earnings_commissions');
 }
+
+/**
+ * Retroactive commissions and monetizations.
+ */
+function emh_points_earnings_update_7101() {
+  _emh_points_earnings_retroactive();
+}
