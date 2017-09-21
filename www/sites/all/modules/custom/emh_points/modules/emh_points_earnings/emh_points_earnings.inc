@@ -127,6 +127,7 @@ function _emh_points_earnings_integrity() {
     t('User'),
     t('+ Bought credits'),
     t('+ Received credits'),
+    t('- Spent credits'),
     t('- Monetized credits'),
     t('- Monetization commissions'),
     t('- Expired credits'),
@@ -154,7 +155,7 @@ function _emh_points_earnings_integrity() {
       ->fetchField();
 
     // Init the other values.
-    $user['bought'] = $user['received'] = $user['expired'] = $user['monetized'] = $user['commissions'] = 0;
+    $user['bought'] = $user['received'] = $user['spent'] = $user['expired'] = $user['monetized'] = $user['commissions'] = 0;
 
     // Get the user transactions.
     $transactions = db_select('emh_points_txn', 't')
@@ -193,11 +194,16 @@ function _emh_points_earnings_integrity() {
           }
           break;
 
-        // Received because the profile was bought.
+        // Profile buy: received or spent.
         case 'profile_buy':
           // Double-check.
-          if ($transaction->operation == POINTS_TRANSFERT && $transaction->dest_id == $uid) {
-            $user['received'] += $transaction->points;
+          if ($transaction->operation == POINTS_TRANSFERT) {
+            if ($transaction->dest_id == $uid) {
+              $user['received'] += $transaction->points;
+            }
+            elseif ($transaction->source_id == $uid) {
+              $user['spent'] += $transaction->points;
+            }
           }
           break;
 
@@ -206,6 +212,17 @@ function _emh_points_earnings_integrity() {
           // Double-check.
           if ($transaction->operation == POINTS_ADDITION && $transaction->source_id == 1 && $transaction->dest_id == $uid) {
             $user['received'] += $transaction->points;
+          }
+          break;
+
+        // Requests.
+        case 'request':
+        case 'request+anonymous':
+        case 'request+private':
+        case 'request+private+anonymous':
+          // Double-check.
+          if ($transaction->operation == POINTS_TRANSFERT && $transaction->uid == $uid && $transaction->source_id == $uid && $transaction->dest_id == 1) {
+            $user['spent'] += $transaction->points;
           }
           break;
 
@@ -239,13 +256,14 @@ function _emh_points_earnings_integrity() {
     }
 
     // Checksum.
-    $user['check'] = ($user['points'] == $user['bought'] + $user['received'] - $user['monetized'] - $user['commissions'] - $user['expired']) ? TRUE : FALSE;
+    $user['check'] = ($user['points'] == $user['bought'] + $user['received'] - $user['spent'] - $user['monetized'] - $user['commissions'] - $user['expired']) ? TRUE : FALSE;
 
     // Prepare the row.
     $rows[] = array(
       $user['name'],
       $user['bought'],
       $user['received'],
+      $user['spent'],
       $user['monetized'],
       $user['commissions'],
       $user['expired'],
