@@ -1651,3 +1651,10 @@ function emh_configuration_update_7079() {
   // Rebuild menus.
   variable_set('menu_rebuild_needed', TRUE);
 }
+
+/**
+ * CHG: disable unused og_webform module.
+ */
+function emh_configuration_update_7080() {
+  module_disable(array('og_webform'));
+}
