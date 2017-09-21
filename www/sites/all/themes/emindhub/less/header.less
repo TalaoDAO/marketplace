@@ -12,12 +12,14 @@
           padding: 0;
         }
       }
-      #buy-credits {
+      #buy-credits,
+      #earnings {
         float: left;
         margin-right: 45px;
         margin-left: 15px;
       }
-      #credits-badge {
+      #credits-badge,
+      #earnings-badge {
         margin-left: 140px;
       }
     }
@@ -58,7 +60,8 @@
         padding: 0;
       }
     }
-    #credits-badge {
+    #credits-badge,
+    #earnings-badge {
       margin-left: 15px;
     }
     #tour-profile {
@@ -242,6 +245,23 @@ nav#main-nav {
         line-height: 28px;
         padding: 3px 0 3px 33px;
         text-align: center;
+      }
+    }
+    &#earnings {
+      padding: 20px 0;
+      > span {
+        line-height: 20px;
+      }
+    }
+    &#earnings-badge {
+      padding: 12px 0;
+      > a {
+        font-size: 16px;
+        font-weight: 800;
+        color: @brand-primary;
+        background: url('../images/earnings.svg') no-repeat left center;
+        line-height: 36px;
+        padding: 0 0 0 33px;
       }
     }
     &#tour-profile {
