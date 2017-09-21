@@ -5,6 +5,7 @@ core = 7.x
 
 ; Files
 files[] = emh_points_earnings.inc
+files[] = emh_points_earnings.deprecated.inc
 
 ; Dependencies
 dependencies[] = emh_points
