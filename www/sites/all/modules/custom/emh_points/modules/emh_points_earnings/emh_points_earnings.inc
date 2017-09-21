@@ -34,7 +34,7 @@ function _emh_points_earnings_commission_and_monetize($parent_txn, $source) {
     if ($commission > 0 && $commission < 1) {
 
       // Compute EMH's commission.
-      $commission_credits = $total_credits * $commission;
+      $commission_credits = round($total_credits * $commission);
       // Move commission credits from user to EMH:
       $parent_txn_id = $parent_txn['txn_id'];
       emh_points_move_points($source, $emindhub, $commission_credits, EMH_POINTS_EARNINGS_COMMISSION_CONTEXT, $parent_txn_id);
