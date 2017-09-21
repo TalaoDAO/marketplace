@@ -133,6 +133,7 @@ function _emh_points_earnings_integrity() {
     t('- Expired credits'),
     t('= TOTAL CREDITS'),
     t('Checksum'),
+    t('UID'),
   );
 
   $rows = array();
@@ -159,12 +160,10 @@ function _emh_points_earnings_integrity() {
 
     // Get the user transactions.
     $transactions = db_select('emh_points_txn', 't')
-      ->fields('t', array('uid', 'points', 'source_id', 'dest_id', 'operation', 'context'))
+      ->fields('t')
       ->condition(
         db_or()
-          ->condition('source_type', 'user', '=')
           ->condition('source_id', $uid, '=')
-          ->condition('dest_type', 'user', '=')
           ->condition('dest_id', $uid, '=')
       )
       ->execute()
@@ -179,7 +178,7 @@ function _emh_points_earnings_integrity() {
         // Bought credits:
         case 'admin_manage_user':
           // Double-check.
-          if ($transaction->source_id == 1 && $transaction->dest_id == $uid) {
+          if ($transaction->source_id == 1 && $transaction->dest_id == $uid && $transaction->source_type == 'user' && $transaction->dest_type == 'user') {
             // Bought = Given by admin - taken by admin.
             $user['bought'] = ($transaction->operation == POINTS_ADDITION) ? $user['bought'] + $transaction->points : $user['bought'] - $transaction->points;
           }
@@ -188,7 +187,7 @@ function _emh_points_earnings_integrity() {
         // Received credits by admin bulk.
         case 'admin_manage_user_bulk':
           // Double-check.
-          if ($transaction->uid == 1 && $transaction->source_id == 1 && $transaction->dest_id == $uid) {
+          if ($transaction->uid == 1 && $transaction->source_id == 1 && $transaction->dest_id == $uid && $transaction->source_type == 'user' && $transaction->dest_type == 'user') {
             // Received by admin bulk = Given - Taken.
             $user['received'] = ($transaction->operation == POINTS_ADDITION) ? $user['received'] + $transaction->points : $user['received'] - $transaction->points;
           }
@@ -197,7 +196,7 @@ function _emh_points_earnings_integrity() {
         // Profile buy: received or spent.
         case 'profile_buy':
           // Double-check.
-          if ($transaction->operation == POINTS_TRANSFERT) {
+          if ($transaction->operation == POINTS_TRANSFERT && $transaction->source_type == 'user' && $transaction->dest_type == 'user') {
             if ($transaction->dest_id == $uid) {
               $user['received'] += $transaction->points;
             }
@@ -210,7 +209,7 @@ function _emh_points_earnings_integrity() {
         // Received for a user sponsor.
         case 'user_sponsor':
           // Double-check.
-          if ($transaction->operation == POINTS_ADDITION && $transaction->source_id == 1 && $transaction->dest_id == $uid) {
+          if ($transaction->operation == POINTS_ADDITION && $transaction->source_id == 1 && $transaction->dest_id == $uid && $transaction->source_type == 'user' && $transaction->dest_type == 'user') {
             $user['received'] += $transaction->points;
           }
           break;
@@ -221,7 +220,7 @@ function _emh_points_earnings_integrity() {
         case 'request+private':
         case 'request+private+anonymous':
           // Double-check.
-          if ($transaction->operation == POINTS_TRANSFERT && $transaction->uid == $uid && $transaction->source_id == $uid && $transaction->dest_id == 1) {
+          if ($transaction->operation == POINTS_TRANSFERT && $transaction->uid == $uid && $transaction->source_id == $uid && $transaction->dest_id == 1 && $transaction->source_type == 'user' && $transaction->dest_type == 'user') {
             $user['spent'] += $transaction->points;
           }
           break;
@@ -229,7 +228,7 @@ function _emh_points_earnings_integrity() {
         // Expiration.
         case 'cron':
           // Double-check.
-          if ($transaction->operation == POINTS_ADDITION && $transaction->uid == 1 && $transaction->source_id == 1 && $transaction->dest_id == $uid) {
+          if ($transaction->operation == POINTS_EXPIRATION && $transaction->uid == 1 && $transaction->source_id == 1 && $transaction->dest_id == $uid && $transaction->source_type == 'user' && $transaction->dest_type == 'user') {
             $user['expired'] += $transaction->points;
           }
           break;
@@ -237,7 +236,7 @@ function _emh_points_earnings_integrity() {
         // Commission.
         case 'commission':
           // Double-check.
-          if ($transaction->operation == POINTS_TRANSFERT && $transaction->uid == 0 && $transaction->source_id == $uid && $transaction->dest_id == 1) {
+          if ($transaction->operation == POINTS_TRANSFERT && $transaction->uid == 0 && $transaction->source_id == $uid && $transaction->dest_id == 1 && $transaction->source_type == 'user' && $transaction->dest_type == 'user') {
             $user['commissions'] += $transaction->points;
           }
           break;
@@ -245,8 +244,21 @@ function _emh_points_earnings_integrity() {
         // Monetization.
         case 'monetization':
           // Double-check.
-          if ($transaction->operation == POINTS_TRANSFERT && $transaction->uid == 0 && $transaction->source_id == $uid && $transaction->dest_id == 1) {
+          if ($transaction->operation == POINTS_TRANSFERT && $transaction->uid == 0 && $transaction->source_id == $uid && $transaction->dest_id == 1 && $transaction->source_type == 'user' && $transaction->dest_type == 'user') {
             $user['monetized'] += $transaction->points;
+          }
+          break;
+
+        // Deprecated.
+        case 'deprecated':
+          // Double-check.
+          if ($transaction->operation == POINTS_TRANSFERT) {
+            if ($transaction->uid == $uid && $transaction->source_id == $uid && $transaction->source_type == 'user' && $transaction->dest_type == 'node') {
+              $user['spent'] += $transaction->points;
+            }
+            elseif ($transaction->dest_id == $uid && $transaction->source_type == 'node' && $transaction->dest_type == 'user') {
+              $user['received'] += $transaction->points;
+            }
           }
           break;
 
@@ -269,6 +281,7 @@ function _emh_points_earnings_integrity() {
       $user['expired'],
       $user['points'],
       $user['check'] ? 'OK' : 'Bad',
+      $uid,
     );
   }
 
