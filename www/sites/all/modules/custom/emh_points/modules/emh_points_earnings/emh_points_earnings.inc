@@ -117,3 +117,136 @@ function _emh_points_earnings_entity_load_single($entity, $type) {
     $entity->emh_earnings = 0;
   }
 }
+
+/**
+ * Check integrity of earnings and credits.
+ */
+function _emh_points_earnings_integrity() {
+
+  $header = array(
+    t('User'),
+    t('+ Bought credits'),
+    t('+ Received credits'),
+    t('- Monetized credits'),
+    t('- Monetization commissions'),
+    t('- Expired credits'),
+    t('= TOTAL CREDITS'),
+  );
+
+  $rows = array();
+
+  $results = db_select('users', 'u')
+    ->fields('u', array('uid', 'name'))
+    ->condition('u.uid', 0, '<>')
+    ->condition('u.uid', 1, '<>')
+    ->execute()
+    ->fetchAllAssoc('uid', PDO::FETCH_ASSOC);
+
+  foreach ($results as $uid => $user) {
+
+    // Total credits of the user.
+    $user['points'] = db_select('emh_points_total', 't')
+      ->fields('t', array('total_points'))
+      ->condition('t.entity_id', $uid, '=')
+      ->execute()
+      ->fetchField();
+
+    // Init the other values.
+    $user['bought'] = $user['received'] = $user['expired'] = $user['monetized'] = $user['commissions'] = 0;
+
+    // Get the user transactions.
+    $transactions = db_select('emh_points_txn', 't')
+      ->fields('t', array('uid', 'points', 'operation', 'context'))
+      ->condition(
+        db_or()
+          ->condition('source_type', 'user', '=')
+          ->condition('source_id', $uid, '=')
+          ->condition('dest_type', 'user', '=')
+          ->condition('dest_id', $uid, '=')
+      )
+      ->execute()
+      ->fetchAll();
+
+    // For each transaction:
+    foreach ($transactions as $transaction) {
+
+      // Depending on the context:
+      switch ($transaction->context) {
+
+        // Bought credits:
+        case EMH_POINTS_TXN_CONTEXT_ADMIN_MANAGE_USER:
+          // Double-check.
+          if ($transaction->source_id == 1 && $transaction->dest_id == $uid) {
+            // Bought = Given by admin - taken by admin.
+            $user['bought'] = ($transaction->operation == POINTS_ADDITION) ? $user['bought'] + $transaction->points : $user['bought'] - $transaction->points;
+          }
+          break;
+
+        // Received credits by admin bulk.
+        case EMH_POINTS_TXN_CONTEXT_ADMIN_MANAGE_USER:
+          // Double-check.
+          if ($transaction->uid == 1 && $transaction->source_id == 1 && $transaction->dest_id == $uid) {
+            // Received by admin bulk = Given - Taken.
+            $user['received'] = ($transaction->operation == POINTS_ADDITION) ? $user['received'] + $transaction->points : $user['received'] - $transaction->points;
+          }
+          break;
+
+        // Received because the profile was bought.
+        case EMH_USER_PROFILE_PURCHASE_TXN_CONTEXT:
+          // Double-check.
+          if ($transaction->operation == POINTS_TRANSFERT && $transaction->dest_id == $uid) {
+            $user['received'] .= $transaction->points;
+          }
+          break;
+
+        // Received for a user sponsor.
+        case EMH_VIRALITY_TXN_CONTEXT_USER_SPONSOR:
+          // Double-check.
+          if ($transaction->operation == POINTS_ADDITION && $transaction->source_id == 1 && $transaction->dest_id == $uid) {
+            $user['received'] .= $transaction->points;
+          }
+          break;
+
+        // Expiration.
+        case EMH_POINTS_TXN_CONTEXT_CRON:
+          // Double-check.
+          if ($transaction->operation == POINTS_ADDITION && $transaction->uid == 1 && $transaction->source_id == 1 && $transaction->dest_id == $uid) {
+            $user['expired'] .= $transaction->points;
+          }
+          break;
+
+        // Commission.
+        case EMH_POINTS_EARNINGS_COMMISSION_CONTEXT:
+          // Double-check.
+          if ($transaction->operation == POINTS_TRANSFERT && $transaction->uid == 0 && $transaction->source_id == $uid && $transaction->dest_id == 1) {
+            $user['commissions'] .= $transaction->points;
+          }
+          break;
+
+        // Monetization.
+        case EMH_POINTS_EARNINGS_COMMISSION_CONTEXT:
+          // Double-check.
+          if ($transaction->operation == POINTS_TRANSFERT && $transaction->uid == 0 && $transaction->source_id == $uid && $transaction->dest_id == 1) {
+            $user['monetized'] .= $transaction->points;
+          }
+          break;
+
+        default:
+          break;
+      }
+    }
+
+    // Prepare the row.
+    $rows[] = array(
+      $user['name'],
+      $user['points'],
+      $user['bought'],
+      $user['received'],
+      $user['expired'],
+      $user['monetized'],
+      $user['commissions'],
+    );
+  }
+
+  return theme('table', array('header' => $header, 'rows' => $rows));
+}
