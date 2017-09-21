@@ -42,6 +42,14 @@ function emh_points_earnings_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
 
+  $items['admin/emindhub/credits/earnings/integrity/log'] = array(
+    'title' => 'Earnings integrity',
+    'page callback' => '_emh_points_earnings_integrity_log',
+    'access arguments' => array('administer credits'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  
+
   $items['admin/emindhub/credits/earnings/settings'] = array(
     'title' => 'Earnings settings',
     'page callback' => 'drupal_get_form',
