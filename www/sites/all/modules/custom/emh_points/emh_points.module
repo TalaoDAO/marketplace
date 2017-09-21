@@ -12,6 +12,7 @@ define('POINTS_REMOVAL', 'removal');
 define('POINTS_EXPIRATION', 'expiration');
 define('POINTS_TRANSFERT', 'transfert');
 const EMH_POINTS_TXN_CONTEXT_CRON = 'cron';
+const EMH_POINTS_TXN_CONTEXT_ADMIN_MANAGE_USER = 'admin_manage_user';
 const EMH_POINTS_TXN_CONTEXT_ADMIN_MANAGE_USER_BULK = 'admin_manage_user_bulk';
 
 /**
