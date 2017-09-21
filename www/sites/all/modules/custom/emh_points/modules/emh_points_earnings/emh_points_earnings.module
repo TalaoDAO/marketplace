@@ -12,7 +12,7 @@
  */
 
 module_load_include('inc', 'emh_points_earnings');
-module_load_include('inc', 'emh_points_earnings.deprecated');
+module_load_include('inc', 'emh_points_earnings', 'emh_points_earnings.deprecated');
 
 // Conversion rate from Credits to Earnings. Never change this!
 const EMH_POINTS_EARNINGS_RATE = 1;
