@@ -125,40 +125,49 @@ function _emh_points_earnings_integrity_log($uid) {
 
   $header = array(
     t('UID'),
+    t('Source type'),
     t('Source ID'),
+    t('Dest type'),
     t('Dest ID'),
     t('Points'),
     t('Operation'),
     t('Context'),
     t('Description'),
     t('Timestamp'),
+    t('TXID'),
   );
 
   $rows = array();
 
   $results = db_select('emh_points_txn', 't')
-    ->fields('t', array('uid', 'txn_id', 'description', 'source_id', 'dest_id', 'operation', 'context', 'points', 'time_stamp'))
+    ->fields('t', array('uid', 'txn_id', 'description', 'source_id', 'dest_id', 'operation', 'context', 'points', 'time_stamp', 'source_type', 'dest_type'))
     ->condition(db_or()
       ->condition('t.source_id', $uid, '=')
       ->condition('t.dest_id', $uid, '=')
       ->condition('t.uid', $uid, '='))
+    ->orderBy('time_stamp')
     ->execute()
     ->fetchAll();
 
   foreach ($results as $txn) {
     $rows[] = array(
       $txn->uid,
+      $txn->source_type,
       $txn->source_id,
+      $txn->dest_type,
       $txn->dest_id,
       $txn->points,
       $txn->operation,
       $txn->context,
       $txn->description,
       format_date($txn->time_stamp),
+      l($txn->txn_id,'http://emh.box.local/adminer.php?username=root&db=emh&select=emh_points_txn&where%5B0%5D%5Bcol%5D=txn_id&where%5B0%5D%5Bop%5D=%3D&where%5B0%5D%5Bval%5D='.$txn->txn_id),
     );
   }
-
-  return theme('table', array('header' => $header, 'rows' => $rows));
+  $result = l('User', '/user/'.$uid.'/credits');
+  $result .= '<br>';
+  $result .= theme('table', array('header' => $header, 'rows' => $rows));
+  return $result;
 }
 
 
@@ -194,6 +203,7 @@ function _emh_points_earnings_integrity() {
     // Total credits of the user.
     $user['points'] = db_select('emh_points_total', 't')
       ->fields('t', array('total_points'))
+      ->condition('t.entity_type', 'user', '=')
       ->condition('t.entity_id', $uid, '=')
       ->execute()
       ->fetchField();
@@ -273,7 +283,7 @@ function _emh_points_earnings_integrity() {
           // Double-check.
           if ($transaction->operation == POINTS_EXPIRATION && $transaction->uid == 1 && $transaction->source_id == 1 && $transaction->dest_id == $uid && $transaction->source_type == 'user' && $transaction->dest_type == 'user') {
             $user['expired'] += $transaction->points;
-          }
+          } 
           break;
 
         // Commission.
@@ -296,12 +306,15 @@ function _emh_points_earnings_integrity() {
         case EMH_POINTS_TXN_CONTEXT_DEPRECATED:
           // Double-check.
           if ($transaction->operation == POINTS_TRANSFERT) {
-            if ($transaction->uid == $uid && $transaction->source_id == $uid && $transaction->source_type == 'user' && $transaction->dest_type == 'node') {
+            //if ($transaction->uid == $uid && $transaction->source_id == $uid && $transaction->source_type == 'user' && $transaction->dest_type == 'node') {
+            if (/*$transaction->uid == $uid &&*/ $transaction->source_id == $uid && $transaction->source_type == 'user' && $transaction->dest_type == 'node') {
               $user['spent'] += $transaction->points;
             }
             elseif ($transaction->dest_id == $uid && $transaction->source_type == 'node' && $transaction->dest_type == 'user') {
               $user['received'] += $transaction->points;
-            }
+            } /* else {
+              drupal_set_message(l('Unsuported transaction '.$transaction->txn_id.' for user '.$uid, 'http://emh.box.local/adminer.php?username=root&db=emh&select=emh_points_txn&where%5B0%5D%5Bcol%5D=txn_id&where%5B0%5D%5Bop%5D=%3D&where%5B0%5D%5Bval%5D='.$transaction->txn_id));
+            }*/
           }
           break;
 
@@ -310,8 +323,9 @@ function _emh_points_earnings_integrity() {
       }
     }
 
+    $diff = $user['bought'] + $user['received'] - $user['spent'] - $user['monetized'] - $user['commissions'] - $user['expired'];
     // Checksum.
-    $user['check'] = ($user['points'] == $user['bought'] + $user['received'] - $user['spent'] - $user['monetized'] - $user['commissions'] - $user['expired']) ? TRUE : FALSE;
+    $user['check'] = $user['points'] == $diff ? TRUE : FALSE;
 
     // Prepare the row.
     if (!$user['check'])
@@ -324,10 +338,15 @@ function _emh_points_earnings_integrity() {
       $user['commissions'],
       $user['expired'],
       $user['points'],
-      $user['check'] ? 'OK' : 'Bad checksum',
+      $user['check'] ? 'OK' : l('Bad checksum ('.$diff.')', 'http://emh.box.local/adminer.php?username=root&db=emh&select=emh_points_total&where%5B0%5D%5Bcol%5D=entity_id&where%5B0%5D%5Bop%5D=%3D&where%5B0%5D%5Bval%5D='.$uid),
       $uid,
     );
   }
 
-  return theme('table', array('header' => $header, 'rows' => $rows));
+  if (count($rows) > 0)
+    return theme('table', array('header' => $header, 'rows' => $rows));
+  else {
+    drupal_set_message('Everything OK ! Good job.');
+    return '';
+  }
 }
