@@ -18,6 +18,7 @@ function ft_content_type_taxonomy_default_vocabularies() {
       'weight' => 0,
       'language' => 'und',
       'i18n_mode' => 1,
+      'emh_earnings' => 0,
     ),
     'known_how' => array(
       'name' => 'How have you heard of us',
@@ -28,6 +29,7 @@ function ft_content_type_taxonomy_default_vocabularies() {
       'weight' => 0,
       'language' => 'und',
       'i18n_mode' => 1,
+      'emh_earnings' => 0,
     ),
     'notification_frequencies' => array(
       'name' => 'Notification frequencies',
@@ -38,6 +40,7 @@ function ft_content_type_taxonomy_default_vocabularies() {
       'weight' => 0,
       'language' => 'und',
       'i18n_mode' => 1,
+      'emh_earnings' => 0,
     ),
     'position' => array(
       'name' => 'Position',
@@ -48,6 +51,7 @@ function ft_content_type_taxonomy_default_vocabularies() {
       'weight' => 0,
       'language' => 'und',
       'i18n_mode' => 1,
+      'emh_earnings' => 0,
     ),
     'skill' => array(
       'name' => 'Skills',
@@ -58,6 +62,7 @@ function ft_content_type_taxonomy_default_vocabularies() {
       'weight' => 0,
       'language' => 'und',
       'i18n_mode' => 1,
+      'emh_earnings' => 0,
     ),
     'tags' => array(
       'name' => 'Tags',
@@ -68,6 +73,7 @@ function ft_content_type_taxonomy_default_vocabularies() {
       'weight' => 0,
       'language' => 'und',
       'i18n_mode' => 1,
+      'emh_earnings' => 0,
     ),
   );
 }
