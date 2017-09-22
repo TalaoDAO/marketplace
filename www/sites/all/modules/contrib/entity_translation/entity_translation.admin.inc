@@ -13,9 +13,16 @@ function entity_translation_admin_form($form, $form_state) {
 
   $form['locale_field_language_fallback'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Enable language fallback'),
-    '#description' => t('When language fallback is enabled, if a translation is not available for the requested language an existing one will be displayed.'),
+    '#title' => t('Allow language fallback'),
+    '#description' => t('When language fallback is allowed, an alternative translation will be displayed if the requested language is not available. Other modules, such as <a href="https://www.drupal.org/project/language_hierarchy" target="_blank">Language Hierarchy</a>, are needed to manage which languages are used as fallbacks. Otherwise, existing translations will be chosen based on their <a href="!url">language weight</a>.', array('!url' => url('admin/config/regional/language'))),
     '#default_value' => variable_get('locale_field_language_fallback', TRUE),
+  );
+
+  $form['entity_translation_languages_enabled'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Use only enabled languages'),
+    '#description' => t('If checked, disabled languages will not show up as available languages. This setting does not apply to content types that are configured to use the Multilingual content (i18n_node) module as this module provides its own configuration.'),
+    '#default_value' => variable_get('entity_translation_languages_enabled', FALSE),
   );
 
   $form['entity_translation_show_fallback_on_overview_pages'] = array(
@@ -45,7 +52,7 @@ function entity_translation_admin_form($form, $form_state) {
   );
 
   $_null = NULL;
-  list($items, ) = menu_router_build();
+  list($items,) = menu_router_build();
   _entity_translation_validate_path_schemes($_null, FALSE, $items);
 
   foreach (entity_get_info() as $entity_type => $info) {
@@ -211,8 +218,9 @@ function entity_translation_settings_init($entity_type, $settings = array()) {
  */
 function entity_translation_overview($entity_type, $entity, $callback = NULL) {
   // Entity translation and node translation share the same system path.
-  if ($callback && entity_translation_node($entity_type, $entity)) {
-    return entity_translation_overview_callback($callback, $entity);
+  if ($callback && !entity_translation_enabled($entity_type, $entity)) {
+    $args = array_slice(func_get_args(), 3);
+    return entity_translation_overview_callback($callback, $args);
   }
 
   $handler = entity_translation_get_handler($entity_type, $entity);
@@ -356,13 +364,13 @@ function entity_translation_overview($entity_type, $entity, $callback = NULL) {
 /**
  * Calls the appropriate translation overview callback.
  */
-function entity_translation_overview_callback($callback, $entity) {
+function entity_translation_overview_callback($callback, $args) {
   if (module_exists($callback['module'])) {
     if (isset($callback['file'])) {
       $path = isset($callback['file path']) ? $callback['file path'] : drupal_get_path('module', $callback['module']);
       require_once DRUPAL_ROOT . '/' . $path . '/' . $callback['file'];
     }
-    return $callback['page callback']($entity);
+    return call_user_func_array($callback['page callback'], $args);
   }
 }
 
@@ -388,7 +396,7 @@ function _entity_translation_label($entity_type, $entity, $langcode = NULL) {
 /**
  * Theme wrapper for the entity translation language page.
  */
-function theme_entity_translation_overview($variables){
+function theme_entity_translation_overview($variables) {
   $rows = $variables['rows'];
   return theme('table', array(
     'rows' => $rows,
@@ -399,7 +407,7 @@ function theme_entity_translation_overview($variables){
 /**
  * Theme wrapper for the entity translation language outdated translation.
  */
-function theme_entity_translation_overview_outdated($variables){
+function theme_entity_translation_overview_outdated($variables) {
   $message = $variables['message'];
   return ' - <span class="marker">' . $message . '</span>';
 }
@@ -409,7 +417,8 @@ function theme_entity_translation_overview_outdated($variables){
  */
 function entity_translation_delete_confirm($form, $form_state, $entity_type, $entity, $langcode) {
   $handler = entity_translation_get_handler($entity_type, $entity);
-  $handler->setFormLanguage($langcode);
+  $handler->setActiveLanguage($langcode);
+  $handler->initPathScheme();
   $languages = language_list();
 
   $form = array(
@@ -450,7 +459,7 @@ function entity_translation_delete_confirm_submit($form, &$form_state) {
   $form_state['redirect'] = $handler->getTranslatePath();
 }
 
-/*
+/**
  * Confirm form for changing field translatability.
  */
 function entity_translation_translatable_form($form, &$form_state, $field_name) {
@@ -545,7 +554,7 @@ function entity_translation_translatable_form_submit($form, $form_state) {
   batch_set($batch);
 }
 
-/*
+/**
  * Toggle translatability of the given field.
  *
  * This is called from a batch operation, but should only run once per field.
@@ -576,6 +585,7 @@ function entity_translation_translatable_batch($translatable, $field_name, $copy
     $query = new EntityFieldQuery();
     $count = $query
       ->fieldCondition($field_name)
+      ->age(FIELD_LOAD_REVISION)
       ->count()
       ->execute();
 
@@ -595,11 +605,32 @@ function entity_translation_translatable_batch($translatable, $field_name, $copy
   $result = $query
     ->fieldCondition($field_name)
     ->entityOrderBy('entity_id')
+    ->age(FIELD_LOAD_REVISION)
     ->range($offset, $limit)
     ->execute();
 
-  foreach ($result as $entity_type => $entities) {
-    foreach (entity_load($entity_type, array_keys($entities)) as $entity) {
+  foreach ($result as $entity_type => $partial_entities) {
+
+    // Load all revisionable entities' revisions.
+    if (EntityTranslationDefaultHandler::isEntityTypeRevisionable($entity_type)) {
+      $entities = array();
+      // Extract the revision identifier from the entity's definition.
+      $entity_info = entity_get_info($entity_type);
+      $revision_id_key = $entity_info['entity keys']['revision'];
+      // Load each revisionable entity's revision using $conditions, which
+      // should include the revision id information.
+      foreach ($partial_entities as $partial_entity) {
+        $conditions = (array) $partial_entity;
+        $revision_condition = array_intersect_key($conditions, array($revision_id_key => $revision_id_key));
+        $entity_revisions = entity_load($entity_type, FALSE, $revision_condition);
+        $entities[] = reset($entity_revisions);
+      }
+    }
+    else {
+      $entities = entity_load($entity_type, array_keys($partial_entities));
+    }
+
+    foreach ($entities as $entity) {
       $context['sandbox']['progress']++;
       $handler = entity_translation_get_handler($entity_type, $entity);
       $langcode = $handler->getLanguage();
@@ -618,9 +649,10 @@ function entity_translation_translatable_batch($translatable, $field_name, $copy
       if ($translatable && isset($entity->{$field_name}[LANGUAGE_NONE])) {
         // If the field is being switched to translatable and has data for
         // LANGUAGE_NONE then we need to move the data to the right language.
-
+        // In case the 'Copy translations' option was selected, move the
+        // available LANGUAGE_NONE field data into all existing translation
+        // languages, otherwise only into the entity's language.
         $translations = $handler->getTranslations();
-
         if ($copy_all_languages && !empty($translations->data)) {
           foreach ($translations->data as $translation) {
             $entity->{$field_name}[$translation['language']] = $entity->{$field_name}[LANGUAGE_NONE];
