@@ -3,6 +3,71 @@ Entity Translation 7.x-1.x, xxxx-xx-xx
 --------------------------------------
 
 
+
+Entity Translation 7.x-1.0-beta7, 2017-08-21
+--------------------------------------------
+#2903195 by stefanos.petrakis, BAHbKA, plach: Enabling translation for not
+  empty taxonomy vocabulary.
+#2425825 by jamesrward: Update from before beta4 fails.
+#2900094 by joseph.olstad: code sniffer drupal.org recommended code syntax
+  fixes.
+#2883805 by mikran: entity_translation_update_7008 is broken when taxonomy
+  module is not enabled.
+#2877074 by plach, stefanos.petrakis, joseph.olstad: Refactor the
+  entity_translation_language() callback to make it bundle-specific.
+#2743685 by stefanos.petrakis, bwaindwain: Pathauto update for all translations
+  for a single node.
+#2899658 by joseph.olstad, stefanos.petrakis: entity_translation_upgrade_do
+  needs to automatically create the entity_translation row for the source
+  language in entity_translation.
+#1800158 by meichr: Entity Translation Upgrade, drush extension.
+#2885858 by StephaneQ: Can't delete taxonomy term translation since beta6
+  update.
+#2572203 by mattew: Wrong query generated when several Translations
+  relationships are used.
+#2824255 by ccarrascal, plach: Notice: Undefined index for language in
+  setTranslation().
+#2750179 by wadmiraal: Allowed default translation handler to be completely
+  overridden.
+#2307937 by meichr, joseph.olstad: Batch API needs $context['results'] handled
+  as an array, not a value.
+#1175170 by hgoto, Pisco, alberto56: Optionally enable disabled languages for
+  entity translation.
+#2870524 by stefanos.petrakis, joseph.olstad: Field copy fails with content
+  translation for fields with entity translation enabled.
+
+
+Entity Translation 7.x-1.0-beta6, 2017-03-03
+--------------------------------------------
+#2849464 by plach, czigor, stefanos.petrakis: Added an API to set the active
+  language.
+#2438615 by David_Rothstein, matthiasm11: New nodes are always created using
+  LANGUAGE_NONE (only changed to the correct language during form submission).
+#2820454 by Dylan Donkersgoed: PHP notice when attaching single field
+  with field_attach_form.
+#2826297 by Thomas Cys, dwebpoint, stefanos.petrakis: 'clone' is a reserved
+  keyword introduced in PHP version 5.0 and cannot be invoked as a function.
+#2189567 by stefanos.petrakis, jmuzz: Fixed problems enabling and disabling
+  translation on a field with revisions enabled.
+#2798721 by gnucifer: Path scheme not initialized on delete translation
+  confirmation form.
+#2215771 by colan, stefanos.petrakis: Fixed "Undefined index: translate in
+  EntityTranslationDefaultHandler->entityForm()".
+#1829636 by bforchhammer, stefanos.petrakis: Fixed "All languages" suffix not
+  working nicely with multi-value fields.
+#2746045 by fengtan: Converted dsm calls to watchdog calls for path scheme
+  definition warnings.
+#2757601 by ctrnz, aks22: Fixed entity_translation_update_7009() assumes
+  i18n_taxonomy is enabled.
+#1172104 by james.williams, daro.pl: Improved description of the language
+  fallback option.
+#2734373 by plach, consulio: "entity_translation_update_7008" is broken when no
+  term is translated.
+#2734301 by plach, sinasalek: Fixed Numeric value out of range: 1264 Out of
+  range value for column 'i18n_mode'.
+#1661348 by plach, badrange, colan, candelas: Added "I18n Taxonomy" integration.
+
+
 Entity Translation 7.x-1.0-beta5, 2016-05-08
 --------------------------------------------
 #929402 by das-peter, bastnic, kristiaanvandeneynde, brockfanning, greenjuls,
@@ -14,8 +79,8 @@ Entity Translation 7.x-1.0-beta5, 2016-05-08
   to a member function getFormLanguage() on a non-object.
 #S156840 by HelenaEksler, plach: Fixed XSS vulnerability in the translation
   form page title.
-#2444203 by Leksat, badrange, attiks: Show fallback information on the translation
-  overview.
+#2444203 by Leksat, badrange, attiks: Show fallback information on the
+  translation overview.
 #2458393 by catch, plach, douggreen: Fixed unindexed query in
   EntityTranslationDefaultHandler::loadMultiple().
 #2462909 by GeduR: Misspelling translation exists help in views handler
@@ -310,7 +375,7 @@ Entity Translation 7.x-1.0-alpha1, 2011-09-07
   editing workflow.
 #1031370 by joostvdl | rfay: Fixed Translation publishing status is hidden under
   collapsed 'publishing options' fieldset (and is hidden by default).
-#1003876 by plach, good_man: (follow-up) Fixed original label translation. 
+#1003876 by plach, good_man: (follow-up) Fixed original label translation.
 #1003876 by good_man, plach: Introduced support for translated entity labels.
 #936646 by good_man, fietserwin, plach, klonos: Fixed Undefined index access
   callback/arguments in entity_translation_menu().

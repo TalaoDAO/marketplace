@@ -57,7 +57,8 @@ Feature: Buy profile access
     Then I should see "Iron MAN" in the "submissions" region
       And I should see "1" in the "user_purchased_count" region
       And I should have "950" credits on "client1" user
-      And I should have "1050" credits on "expert1" user
+      And I should have "1000" credits on "expert1" user
+      # The 50 credits have already been monetized
 
     When I go to "circles/relationships"
     Then I should see "Iron MAN"
@@ -68,9 +69,20 @@ Feature: Buy profile access
       And I should see "0712345670"
       And I should see "emindhub.test+expert1@gmail.com"
 
+    Given I am logged in as "expert1"
+    When I go to "earnings"
+    Then I should see "15" in the "content" region
+    # 50 * (1 - 0.7) = 15
+
     Given I am logged in as a user with the "administrator" role
     When I go to "admin/emindhub/credits/transaction-log"
     Then I should see "profile_buy"
+      And I should see "commission"
+      And I should see "35"
+      # 50 * 0.7 = 35
+      And I should see "monetization"
+      And I should see "15"
+      # 50 * (1 - 0.7) = 15
 
   @exclude
   Scenario: An expert can buy an author profile
@@ -85,7 +97,7 @@ Feature: Buy profile access
 
     When I press "Access profile"
     Then I should see ""
-      And I should have "1050" credits on "client1" user
+      And I should have "1000" credits on "client1" user
       And I should have "950" credits on "expert1" user
 
     When I go to "content/how-become-superhero"
