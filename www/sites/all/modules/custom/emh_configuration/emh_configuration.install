@@ -1425,10 +1425,10 @@ function emh_configuration_update_7069() {
  */
 function emh_configuration_update_7070() {
   module_enable(['pet']);
-  exec("drush  ec pet --json $(drush dd)/../deploy/pet-1.json");
-  exec("drush  ec pet --json $(drush dd)/../deploy/pet-2.json");
-  exec("drush  ec pet --json $(drush dd)/../deploy/pet-1-fr.json");
-  exec("drush  ec pet --json $(drush dd)/../deploy/pet-2-fr.json");
+  exec("drush  ec pet --json $(drush dd)/../deploy/data/pet-1.json");
+  exec("drush  ec pet --json $(drush dd)/../deploy/data/pet-2.json");
+  exec("drush  ec pet --json $(drush dd)/../deploy/data/pet-1-fr.json");
+  exec("drush  ec pet --json $(drush dd)/../deploy/data/pet-2-fr.json");
 }
 
 /**
@@ -1587,4 +1587,74 @@ function emh_configuration_update_7078() {
 
   // Rebuild menus.
   variable_set('menu_rebuild_needed', TRUE);
+}
+
+/**
+ * ADD: Earnings links in dashboard.
+ */
+function emh_configuration_update_7079() {
+
+  // Add: User menu > Earnings separator.
+  $options = array(
+    'item_attributes' => array(
+      'id' => '',
+      'class' => 'separator',
+      'style' => '',
+    ),
+  );
+  $item = array(
+    'link_title' => 'Earnings separator',
+    'link_path' => '<separator>',
+    'router_path' => '<separator>',
+    'menu_name' => 'user-menu',
+    'weight' => '-35',
+    'options' => $options,
+  );
+  menu_link_save($item);
+
+  // Add: User menu > Earnings.
+  $options = array(
+    'item_attributes' => array(
+      'id' => 'earnings',
+      'class' => '',
+      'style' => '',
+    ),
+  );
+  $item = array(
+    'link_title' => 'Earnings',
+    'link_path' => '<nolink>',
+    'router_path' => '<nolink>',
+    'menu_name' => 'user-menu',
+    'weight' => '-30',
+    'options' => $options,
+  );
+  menu_link_save($item);
+
+  // Add: User menu > Earnings badge.
+  $options = array(
+    'item_attributes' => array(
+      'id' => 'earnings-badge',
+      'class' => '',
+      'style' => '',
+    ),
+  );
+  $item = array(
+    'link_title' => 'Earnings history',
+    'link_path' => 'earnings',
+    'router_path' => 'earnings',
+    'menu_name' => 'user-menu',
+    'weight' => '-25',
+    'options' => $options,
+  );
+  menu_link_save($item);
+
+  // Rebuild menus.
+  variable_set('menu_rebuild_needed', TRUE);
+}
+
+/**
+ * CHG: disable unused og_webform module.
+ */
+function emh_configuration_update_7080() {
+  module_disable(array('og_webform'));
 }
