@@ -38,6 +38,20 @@ function emindhub_menu_link__user_menu(&$vars) {
       $element['#title'] = '<span class="credits">' . $user->emh_points . '</span>';
       $element['#localized_options']['html'] = TRUE;
     }
+
+    if (module_exists('emh_points_earnings')) {
+      if ($element['#href'] == 'earnings') {
+        global $user;
+
+        // Loads the whole user data.
+        if (!isset($user->emh_earnings)) {
+          $user = user_load($user->uid);
+        }
+
+        $element['#title'] = $user->emh_earnings;
+        $element['#localized_options']['html'] = TRUE;
+      }
+    }
   }
 
   return bootstrap_menu_link($vars);

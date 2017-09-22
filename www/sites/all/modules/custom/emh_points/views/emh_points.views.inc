@@ -384,6 +384,19 @@ function emh_points_views_data() {
       'handler' => 'views_handler_filter_string',
     ),
   );
+  $data['emh_points_txn']['parent_txn_id'] = array(
+    'title' => t('Parent transaction ID'),
+    'help' => t('The parent transaction ID, when applicable.'),
+    'field' => array(
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+  );
   $data['emh_points_total']['total_points'] = array(
     'title' => 'Total Credits',
     'field' => array(
