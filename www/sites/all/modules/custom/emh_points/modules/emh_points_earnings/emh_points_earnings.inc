@@ -187,6 +187,8 @@ function _emh_points_earnings_integrity() {
     t('= TOTAL CREDITS'),
     t('Checksum'),
     t('UID'),
+    t('Earnings'),
+    t('Validity'),
   );
 
   $rows = array();
@@ -207,6 +209,16 @@ function _emh_points_earnings_integrity() {
       ->condition('t.entity_id', $uid, '=')
       ->execute()
       ->fetchField();
+
+    // Earnings of the user.
+    $user['earnings'] = db_select('emh_points_earnings', 'e')
+      ->fields('e', array('earnings'))
+      ->condition('e.entity_type', 'user', '=')
+      ->condition('e.entity_id', $uid, '=')
+      ->execute()
+      ->fetchField();
+    if (empty($user['earnings'])) $user['earnings']=0;
+
 
     // Init the other values.
     $user['bought'] = $user['received'] = $user['spent'] = $user['expired'] = $user['monetized'] = $user['commissions'] = 0;
@@ -325,10 +337,10 @@ function _emh_points_earnings_integrity() {
 
     $diff = $user['bought'] + $user['received'] - $user['spent'] - $user['monetized'] - $user['commissions'] - $user['expired'];
     // Checksum.
-    $user['check'] = $user['points'] == $diff ? TRUE : FALSE;
+    $user['check'] = $user['points'] == $diff && $user['monetized'] == $user['earnings'] ? TRUE : FALSE;
 
     // Prepare the row.
-    if (!$user['check'])
+    if (!$user['check'] || arg(5)=='all')
     $rows[] = array(
       l($user['name'], 'admin/emindhub/credits/earnings/integrity/log/'.$uid),
       $user['bought'],
@@ -338,8 +350,10 @@ function _emh_points_earnings_integrity() {
       $user['commissions'],
       $user['expired'],
       $user['points'],
-      $user['check'] ? 'OK' : l('Bad checksum ('.$diff.')', 'http://emh.box.local/adminer.php?username=root&db=emh&select=emh_points_total&where%5B0%5D%5Bcol%5D=entity_id&where%5B0%5D%5Bop%5D=%3D&where%5B0%5D%5Bval%5D='.$uid),
+      $user['points'] == $diff ? 'OK' : l('Bad checksum ('.$diff.')', 'http://emh.box.local/adminer.php?username=root&db=emh&select=emh_points_total&where%5B0%5D%5Bcol%5D=entity_id&where%5B0%5D%5Bop%5D=%3D&where%5B0%5D%5Bval%5D='.$uid),
       $uid,
+      $user['earnings'],
+      $user['monetized'] == $user['earnings'] ? 'OK' : l('Bad checksum('.($user['earnings'] - $user['monetized']).')', 'http://emh.box.local/adminer.php?username=root&db=emh&select=emh_points_earnings&where%5B0%5D%5Bop%5D=%3D&where%5B0%5D%5Bval%5D=user&where%5B1%5D%5Bcol%5D=entity_id&where%5B1%5D%5Bop%5D=%3D&where%5B1%5D%5Bval%5D='.$uid)
     );
   }
 

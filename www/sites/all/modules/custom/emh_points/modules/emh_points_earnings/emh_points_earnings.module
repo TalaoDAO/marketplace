@@ -42,11 +42,19 @@ function emh_points_earnings_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
 
-  $items['admin/emindhub/credits/earnings/integrity/log'] = array(
+  $items['admin/emindhub/credits/earnings/integrity/all'] = array(
     'title' => 'Earnings integrity',
-    'page callback' => '_emh_points_earnings_integrity_log',
+    'page callback' => '_emh_points_earnings_integrity',
     'access arguments' => array('administer credits'),
     'type' => MENU_NORMAL_ITEM,
+  );
+
+
+  $items['admin/emindhub/credits/earnings/integrity/log'] = array(
+    'title' => 'Log',
+    'page callback' => '_emh_points_earnings_integrity_log',
+    'access arguments' => array('administer credits'),
+    'type' => MENU_CALLBACK,
   );
   
 
