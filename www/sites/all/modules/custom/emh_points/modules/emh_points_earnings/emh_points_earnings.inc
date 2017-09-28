@@ -301,7 +301,8 @@ function _emh_points_earnings_integrity() {
         // Commission.
         case EMH_POINTS_EARNINGS_COMMISSION_CONTEXT:
           // Double-check.
-          if ($transaction->operation == POINTS_TRANSFERT && $transaction->uid == 0 && $transaction->source_id == $uid && $transaction->dest_id == 1 && $transaction->source_type == 'user' && $transaction->dest_type == 'user') {
+          // TODO : check with guillame uid==0
+          if ($transaction->operation == POINTS_TRANSFERT /*&& $transaction->uid == 0*/ && $transaction->source_id == $uid && $transaction->dest_id == 1 && $transaction->source_type == 'user' && $transaction->dest_type == 'user') {
             $user['commissions'] += $transaction->points;
           }
           break;
@@ -309,7 +310,8 @@ function _emh_points_earnings_integrity() {
         // Monetization.
         case EMH_POINTS_EARNINGS_MONETIZATION_CONTEXT:
           // Double-check.
-          if ($transaction->operation == POINTS_TRANSFERT && $transaction->uid == 0 && $transaction->source_id == $uid && $transaction->dest_id == 1 && $transaction->source_type == 'user' && $transaction->dest_type == 'user') {
+          // TODO : check with guillame uid==0
+          if ($transaction->operation == POINTS_TRANSFERT /*&& ($transaction->uid == 0 || $transaction->uid == $uid)*/ && $transaction->source_id == $uid && $transaction->dest_id == 1 && $transaction->source_type == 'user' && $transaction->dest_type == 'user') {
             $user['monetized'] += $transaction->points;
           }
           break;
