@@ -200,6 +200,8 @@ function _emh_points_earnings_integrity() {
     ->execute()
     ->fetchAllAssoc('uid', PDO::FETCH_ASSOC);
 
+  $tc = 0;
+  $txs = [];
   foreach ($results as $uid => $user) {
 
     // Total credits of the user.
@@ -233,7 +235,6 @@ function _emh_points_earnings_integrity() {
       )
       ->execute()
       ->fetchAll();
-
     // For each transaction:
     foreach ($transactions as $transaction) {
 
@@ -246,6 +247,7 @@ function _emh_points_earnings_integrity() {
           if ($transaction->source_id == 1 && $transaction->dest_id == $uid && $transaction->source_type == 'user' && $transaction->dest_type == 'user') {
             // Bought = Given by admin - taken by admin.
             $user['bought'] = ($transaction->operation == POINTS_ADDITION) ? $user['bought'] + $transaction->points : $user['bought'] - $transaction->points;
+            $tc++; $txs[] = $transaction->txn_id;
           }
           break;
 
@@ -255,6 +257,7 @@ function _emh_points_earnings_integrity() {
           if ($transaction->uid == 1 && $transaction->source_id == 1 && $transaction->dest_id == $uid && $transaction->source_type == 'user' && $transaction->dest_type == 'user') {
             // Received by admin bulk = Given - Taken.
             $user['received'] = ($transaction->operation == POINTS_ADDITION) ? $user['received'] + $transaction->points : $user['received'] - $transaction->points;
+            $tc++; $txs[] = $transaction->txn_id;
           }
           break;
 
@@ -264,9 +267,11 @@ function _emh_points_earnings_integrity() {
           if ($transaction->operation == POINTS_TRANSFERT && $transaction->source_type == 'user' && $transaction->dest_type == 'user') {
             if ($transaction->dest_id == $uid) {
               $user['received'] += $transaction->points;
+              $tc++; $txs[] = $transaction->txn_id;
             }
             elseif ($transaction->source_id == $uid) {
               $user['spent'] += $transaction->points;
+              $tc++; $txs[] = $transaction->txn_id;
             }
           }
           break;
@@ -276,6 +281,7 @@ function _emh_points_earnings_integrity() {
           // Double-check.
           if ($transaction->operation == POINTS_ADDITION && $transaction->source_id == 1 && $transaction->dest_id == $uid && $transaction->source_type == 'user' && $transaction->dest_type == 'user') {
             $user['received'] += $transaction->points;
+            $tc++; $txs[] = $transaction->txn_id;
           }
           break;
 
@@ -287,6 +293,7 @@ function _emh_points_earnings_integrity() {
           // Double-check.
           if ($transaction->operation == POINTS_TRANSFERT && $transaction->uid == $uid && $transaction->source_id == $uid && $transaction->dest_id == 1 && $transaction->source_type == 'user' && $transaction->dest_type == 'user') {
             $user['spent'] += $transaction->points;
+            $tc++; $txs[] = $transaction->txn_id;
           }
           break;
 
@@ -295,6 +302,7 @@ function _emh_points_earnings_integrity() {
           // Double-check.
           if ($transaction->operation == POINTS_EXPIRATION && $transaction->uid == 1 && $transaction->source_id == 1 && $transaction->dest_id == $uid && $transaction->source_type == 'user' && $transaction->dest_type == 'user') {
             $user['expired'] += $transaction->points;
+            $tc++; $txs[] = $transaction->txn_id;
           } 
           break;
 
@@ -304,6 +312,7 @@ function _emh_points_earnings_integrity() {
           // TODO : check with guillame uid==0
           if ($transaction->operation == POINTS_TRANSFERT /*&& $transaction->uid == 0*/ && $transaction->source_id == $uid && $transaction->dest_id == 1 && $transaction->source_type == 'user' && $transaction->dest_type == 'user') {
             $user['commissions'] += $transaction->points;
+            $tc++; $txs[] = $transaction->txn_id;
           }
           break;
 
@@ -313,6 +322,7 @@ function _emh_points_earnings_integrity() {
           // TODO : check with guillame uid==0
           if ($transaction->operation == POINTS_TRANSFERT /*&& ($transaction->uid == 0 || $transaction->uid == $uid)*/ && $transaction->source_id == $uid && $transaction->dest_id == 1 && $transaction->source_type == 'user' && $transaction->dest_type == 'user') {
             $user['monetized'] += $transaction->points;
+            $tc++; $txs[] = $transaction->txn_id;
           }
           break;
 
@@ -323,9 +333,11 @@ function _emh_points_earnings_integrity() {
             //if ($transaction->uid == $uid && $transaction->source_id == $uid && $transaction->source_type == 'user' && $transaction->dest_type == 'node') {
             if (/*$transaction->uid == $uid &&*/ $transaction->source_id == $uid && $transaction->source_type == 'user' && $transaction->dest_type == 'node') {
               $user['spent'] += $transaction->points;
+              $tc++; $txs[] = $transaction->txn_id;
             }
             elseif ($transaction->dest_id == $uid && $transaction->source_type == 'node' && $transaction->dest_type == 'user') {
               $user['received'] += $transaction->points;
+              $tc++; $txs[] = $transaction->txn_id;
             } /* else {
               drupal_set_message(l('Unsuported transaction '.$transaction->txn_id.' for user '.$uid, 'http://emh.box.local/adminer.php?username=root&db=emh&select=emh_points_txn&where%5B0%5D%5Bcol%5D=txn_id&where%5B0%5D%5Bop%5D=%3D&where%5B0%5D%5Bval%5D='.$transaction->txn_id));
             }*/
@@ -359,11 +371,33 @@ function _emh_points_earnings_integrity() {
       );
     }
   }
+  $output = "";
+  $tcount = db_select('emh_points_txn')->fields(NULL, array('field'))->countQuery()->execute()->fetchField();
+  if ($tcount <> $tc) {
+    $dups = array_intersect($txs, array_unique(array_diff_key($txs, array_unique($txs))));
+    $dc = count($dups) / 2;
+    if ($dc > 0) {
+      drupal_set_message('Duplicates (should all be profile_buy) : '.$dc);
+      $output .= l('Duplicates transactions', 'http://emh.box.local/adminer.php?username=root&db=emh&select=emh_points_txn&where%5B0%5D%5Bcol%5D=txn_id&where%5B0%5D%5Bop%5D=IN&where%5B0%5D%5Bval%5D='.implode('%2C+', $dups));
+      $output .= '<br>';
+    }
 
+    $tx_list = db_select('emh_points_txn', 'e')->fields('e', array('txn_id'))->execute()->fetchAllAssoc('txn_id', PDO::FETCH_ASSOC);
+    $txl = [];
+    foreach ($tx_list as $tx)
+      $txl[] = $tx['txn_id'];
+    sort($txl); sort($txs);
+    $diff = array_diff($txl, $txs);
+    $missing = implode('%2C+', $diff);
+    $output .= l('Missing transactions', 'http://emh.box.local/adminer.php?username=root&db=emh&select=emh_points_txn&where%5B0%5D%5Bcol%5D=txn_id&where%5B0%5D%5Bop%5D=IN&where%5B0%5D%5Bval%5D='.$missing);
+    $output .= '<br>';
+    drupal_set_message("Missing transactions (should all be either on user 1, either node expiration) $tcount - $tc + $dc =" . ($tcount + $dc - $tc));
+  }
+  else drupal_set_message('All transactions checked');
   if (count($rows) > 0)
-    return theme('table', array('header' => $header, 'rows' => $rows));
+    $output .= theme('table', array('header' => $header, 'rows' => $rows));
   else {
     drupal_set_message('Everything OK ! Good job.');
-    return '';
   }
+  return $output;
 }
