@@ -1658,3 +1658,10 @@ function emh_configuration_update_7079() {
 function emh_configuration_update_7080() {
   module_disable(array('og_webform'));
 }
+
+/**
+ * CHG: enable translation_helpers module.
+ */
+function emh_configuration_update_7081() {
+  module_enable(array('translation_helpers'));
+}
