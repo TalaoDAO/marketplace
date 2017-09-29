@@ -43,7 +43,7 @@ function emh_points_earnings_menu() {
   );
 
   $items['admin/emindhub/credits/earnings/integrity/all'] = array(
-    'title' => 'Earnings integrity',
+    'title' => 'All',
     'page callback' => '_emh_points_earnings_integrity',
     'access arguments' => array('administer credits'),
     'type' => MENU_NORMAL_ITEM,
