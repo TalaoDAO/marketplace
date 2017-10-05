@@ -50,7 +50,7 @@ function ft_request_field_default_field_instances() {
     'bundle' => 'request',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Describe your request',
     'display' => array(
       'default' => array(
         'label' => 'hidden',
@@ -78,7 +78,7 @@ function ft_request_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'body',
-    'label' => 'Describe your request',
+    'label' => 'Description',
     'required' => 0,
     'settings' => array(
       'display_summary' => 0,
@@ -103,7 +103,7 @@ function ft_request_field_default_field_instances() {
     'bundle' => 'request',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'We suggest you give at least some information about your activity',
     'display' => array(
       'default' => array(
         'label' => 'hidden',
@@ -131,7 +131,7 @@ function ft_request_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_activity',
-    'label' => 'We suggest you give at least some information about your activity',
+    'label' => 'Activity',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -1160,6 +1160,7 @@ function ft_request_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Activity');
   t('Choose a request type');
   t('Circle restriction');
   t('Circles');
