@@ -263,13 +263,6 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['description']['table'] = 'emh_points_txn';
   $handler->display->display_options['fields']['description']['field'] = 'description';
   $handler->display->display_options['fields']['description']['label'] = 'Description';
-  /* Field: Credits Transaction: Timestamp */
-  $handler->display->display_options['fields']['time_stamp_1']['id'] = 'time_stamp_1';
-  $handler->display->display_options['fields']['time_stamp_1']['table'] = 'emh_points_txn';
-  $handler->display->display_options['fields']['time_stamp_1']['field'] = 'time_stamp';
-  $handler->display->display_options['fields']['time_stamp_1']['label'] = 'Date';
-  $handler->display->display_options['fields']['time_stamp_1']['date_format'] = 'short_date';
-  $handler->display->display_options['fields']['time_stamp_1']['second_date_format'] = 'long';
   /* Filter criterion: Credits Transaction: Context */
   $handler->display->display_options['filters']['context']['id'] = 'context';
   $handler->display->display_options['filters']['context']['table'] = 'emh_points_txn';
