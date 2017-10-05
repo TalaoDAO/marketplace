@@ -918,7 +918,7 @@ function emh_points_show_user_history($account = NULL) {
   );
 
   $build['header'] = array(
-    '#markup' => t('Points you have bought.'),
+    '#markup' => t('Credits bought or offered by eMindHub.'),
   );
 
   $build['table'] = array(
