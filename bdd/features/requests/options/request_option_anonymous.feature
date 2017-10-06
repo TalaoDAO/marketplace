@@ -85,7 +85,7 @@ Feature: Request and answers
       And I check "Anonymous"
       And I check "Hide my name"
       And I check "Hide my organisation"
-      And I enter "ALMIGHTY GOD" for "We suggest you give at least some information about your activity"
+      And I enter "ALMIGHTY GOD" for "Activity"
       And I press "Continue"
     # Validation page
       And I press "Publish"
