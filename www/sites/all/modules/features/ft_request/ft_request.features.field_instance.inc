@@ -50,7 +50,7 @@ function ft_request_field_default_field_instances() {
     'bundle' => 'request',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'Describe your request',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'hidden',
@@ -78,7 +78,7 @@ function ft_request_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'body',
-    'label' => 'Description',
+    'label' => 'Describe your request',
     'required' => 0,
     'settings' => array(
       'display_summary' => 0,
