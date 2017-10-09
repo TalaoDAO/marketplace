@@ -75,8 +75,13 @@ function node_authored_select_form_node_form_alter(&$form, &$form_state, $form_i
 function _node_authored_select_get_users_by_role($rid) {
   $query = db_select('users_roles', 'ur');
   $query->leftJoin("users", "u", "u.uid=ur.uid");
-  $query->fields('u', array('name', 'name'));
-  $query->condition('ur.rid', $rid, 'IN');
+  $query->fields('u', array('name', 'uid'));
+  $query->condition('ur.rid', $rid, 'IN');  
   drupal_alter("node_authored_select_query", $query, $rid);
-  return $query->execute()->fetchAllKeyed();
+  $users = $query->execute()->fetchAllKeyed();
+  foreach ($users as $key => $value) {
+    $id = user_load($value);
+    $users[$key] = $id->field_last_name['und'][0]['value'] . ' ' . $id->field_first_name['und'][0]['value'];  
+  }  
+  return $users;
 }
