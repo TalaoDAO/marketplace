@@ -1,0 +1,82 @@
+<?php
+/**
+ * @file
+ * Node Authored by select functionality
+ */
+
+
+/**
+ * Implements hook_menu().
+ */
+function node_authored_select_menu() {
+  $items['admin/config/node_authored_select'] = array(
+    'title' => 'Node "Authored by" select',
+    'position' => 'right',
+    'weight' => -5,
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('administer access control'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+  $items['admin/config/node_authored_select/settings'] = array(
+    'title' => 'Node "Authored by" select settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('node_authored_select_admin_settings'),
+    'access arguments' => array('administer access control'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'node_authored_select.admin.inc',
+  );
+
+  return $items;
+}
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function node_authored_select_form_node_form_alter(&$form, &$form_state, $form_id) {
+  $node_types = variable_get('node_authored_select_node_type', array());
+  foreach ($node_types as $key => $value) {
+    if (empty($value)) {
+      unset($node_types[$key]);
+    }
+  }
+
+  if (isset($form['type']['#value']) && in_array($form['type']['#value'], $node_types)) {
+    $user_role = variable_get('node_authored_select_role', 3);
+    foreach ($user_role as $key => $value) {
+      if (empty($value)) {
+        unset($user_role[$key]);
+      }
+    }
+    $users = (!empty($user_role)) ? _node_authored_select_get_users_by_role($user_role) : array();
+
+    $form['author']['name'] = array(
+      '#type' => 'select',
+      '#title' => $form['author']['name']['#title'],
+      '#options' => $users,
+      '#default_value' => array($form['author']['name']['#default_value']),
+      '#weight' => $form['author']['name']['#weight'],
+      '#description' => t('Select user which will be author.'),
+    );
+  }
+}
+
+
+/**
+ * Get uids by role.
+ *
+ * @param int $rid
+ *   Role id
+ *
+ * @return array
+ *   User names
+ */
+function _node_authored_select_get_users_by_role($rid) {
+  $query = db_select('users_roles', 'ur');
+  $query->leftJoin("users", "u", "u.uid=ur.uid");
+  $query->fields('u', array('name', 'name'));
+  $query->condition('ur.rid', $rid, 'IN');
+  drupal_alter("node_authored_select_query", $query, $rid);
+  return $query->execute()->fetchAllKeyed();
+}
