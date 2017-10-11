@@ -28,6 +28,7 @@ class ProfileContext implements Context {
         echo "\n\033[36m| ";
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         echo 'Scenario time: ' . $this->formatTime($this->stopwatchEvent->getDuration());
 =======
         echo 'Step time: ' . $this->formatTime($this->stopwatchEvent->getDuration());
@@ -35,6 +36,9 @@ class ProfileContext implements Context {
 =======
         echo 'Scenario time: ' . $this->formatTime($this->stopwatchEvent->getDuration());
 >>>>>>> Fix typo
+=======
+        echo 'Scenario time: ' . $this->formatTime($this->stopwatchEvent->getDuration());
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
         echo "\033[0m\n\n";
     }
 
